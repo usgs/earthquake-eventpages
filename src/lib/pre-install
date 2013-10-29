@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+pushd `dirname $0` > /dev/null 2>&1;
+
+configFile='../conf/config.ini';
+httpdFile='../conf/httpd.conf';
+
+if [ ! -f $configFile ]; then
+	# TODO :: Prompt for installation configuration stuff
+	cp ${configFile}.orig $configFile;
+fi
+
+source $configFile;
+
+cat << EOF > $httpdFile
+Alias $MOUNT_PATH $MOUNT_DIR
+
+EOF
+
+popd > /dev/null 2>&1;
+
+exit 0;

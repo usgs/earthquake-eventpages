@@ -1,0 +1,10 @@
+@import 'compass/css3';
+
+* {
+	@include box-sizing(border-box);
+}
+
+h1 {
+	text-align:center;
+	color:#222;
+}
