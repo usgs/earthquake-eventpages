@@ -1,0 +1,68 @@
+.downloads {
+	.tabular {
+		dt {
+			display:block;
+			float:left;
+			clear:left;
+			font-weight:bold;
+			color:#333;
+		
+			&.header {
+				display:none;
+			}
+		}
+		dd {
+			display:block;
+			float:left;
+			margin:0 0 0 8px;
+		}
+		.download-type {
+			margin-top:8px;
+		}
+	}
+}
+
+@media screen and (min-width: 768px) {
+	.nojs .downloads .tabular {
+		dd, dt, dt.header {
+			width:33%;
+		}
+	}
+
+	.downloads {
+		.tabular {
+			dd, dt.header {
+				display:block;
+				float:left;
+				margin:0;
+				padding:4px;
+				width:25%;
+				white-space:nowrap;
+				overflow:hidden;
+				text-overflow:ellipsis;
+				border:1px solid #fff;
+				background-color:#eee;
+			}
+			dt {
+				display: none;
+				clear:none;
+
+				&.header {
+					background-color:#ccc;
+					color:#333;
+					font-weight:bold;
+				}
+			}
+			.download-type {
+				margin-top:0;
+				clear:left;
+			}
+
+			&:after {
+				display:block;
+				clear:left;
+				content:' ';
+			}
+		}
+	}
+}

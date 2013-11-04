@@ -1,10 +1,17 @@
 @import 'compass/css3';
 
+@import 'event-layout.css';
+@import 'event-header.css';
+
+@import 'downloads.css';
+
 * {
 	@include box-sizing(border-box);
 }
 
-h1 {
-	text-align:center;
-	color:#222;
+// To be used in :after :before to maintain layout flow
+@mixin clearfloat {
+	display:block;
+	clear:both;
+	content:' ';
 }
