@@ -1,73 +1,66 @@
 <?php
+if (!isset($TEMPLATE)) {
+	// Defines the $CONFIG hash of configuration variables
+	include_once '../conf/config.inc.php';
 
-// TODO :: Remove once wrapped in template
-if (!function_exists('param')) {
-	function param ($key, $default = null) {
-		if (isset($_GET[$key])) {
-			return $_GET[$key];
-		} else if (isset($_POST[$key])) {
-			return $_POST[$key];
-		} else {
-			return $default;
+	$eventid = param('eventid');
+	$format = param('format', 'html');
+	$output_format = $CONFIG['LIB_DIR'] . '/formats/' . $format . '.inc.php';
+
+	if ($eventid == null) {
+		// TODO :: HTTP headers?
+		trigger_error('Missing required parameter "eventid".');
+		exit(-1);
+	}
+
+	$event = json_decode(
+		file_get_contents(sprintf($CONFIG['SERVICE_STUB'], $eventid)),
+		true // Parse to an associative array rather than an object
+	);
+
+	//<!-- TODO :: Remove from dist code. This is for live reload (dev) only -->
+	//<script src="http://localhost:35729/livereload.js?snipver=1" type="text/javascript"></script>
+
+	$ROMANS = array('I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX',
+			'X', 'XI', 'XII');
+
+	// TODO :: Move to a functions file ?
+	function format_coord ($value, $pos, $neg) {
+		if ($value >= 0.0) {
+			return number_format(round($value * 1000) / 1000, 3) . '&deg;' . $pos;
+		} else {	
+			return number_format(round($value * -1000) / 1000, 3) . '&deg;' . $neg;
 		}
 	}
-}
-
-// TODO :: Make this configurable. FeedApp on realtime server must respond to
-//         event detail queries.
-$stub = 'http://earthquake.usgs.gov/earthquakes/eventpage/';
-// TODO :: Move to a configuration file ?
-date_default_timezone_set('UTC');
-$ROMANS = array('I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX',
-		'X', 'XI', 'XII');
-
-// TODO :: Move to a functions file ?
-function format_coord ($value, $pos, $neg) {
-	if ($value >= 0.0) {
-		return number_format(round($value * 1000) / 1000, 3) . '&deg;' . $pos;
-	} else {	
-		return number_format(round($value * -1000) / 1000, 3) . '&deg;' . $neg;
+	function prettySize ($size) {
+		$s = intval($size);
+		$sizes = array('B', 'KB', 'MB', 'GB');
+		for ($i = 0; $i < count($sizes); $i++) {
+			if ($s < pow(1024, $i+1)) {
+				return intval($s / pow(1024, $i)) . $sizes[$i];
+			} 
+		}
 	}
-}
-function prettySize ($size) {
-	$s = intval($size);
-	$sizes = array('B', 'KB', 'MB', 'GB');
-	for ($i = 0; $i < count($sizes); $i++) {
-		if ($s < pow(1024, $i+1)) {
-			return intval($s / pow(1024, $i)) . $sizes[$i];
-		} 
+	function prettyDate ($stamp) {
+		$s = intval(substr($stamp, 0, -3));
+		return date('Y-m-d H:i:s', $s) . ' UTC';
 	}
+
+	$eventid = param('eventid');
+
+
+	$feed = file_get_contents($stub . $eventid . '.geojson');
+	$event = json_decode($feed, true);
+	$props = $event['properties'];
+	$geom = $event['geometry'];
+
+	$time = intval(substr($props['time'], 0, -3));
+	$utctime = date('Y-m-d H:i:s', $time);
+
+
+	include_once 'template.inc.php';
 }
-function prettyDate ($stamp) {
-	$s = intval(substr($stamp, 0, -3));
-	return date('Y-m-d H:i:s', $s) . ' UTC';
-}
-
-$eventid = param('eventid');
-
-
-$feed = file_get_contents($stub . $eventid . '.geojson');
-$event = json_decode($feed, true);
-$props = $event['properties'];
-$geom = $event['geometry'];
-
-$time = intval(substr($props['time'], 0, -3));
-$utctime = date('Y-m-d H:i:s', $time);
-
 ?>
-<!-- TODO :: Modify once wrapped in template -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title><?php print $props['title']; ?></title>
-	<meta charset="UTF-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-	<link rel="stylesheet" href="css/index.css"/>
-</head>
-<body class="nojs">
-<h1><?php echo $props['title']; ?></h1>
-
 <section class="event-page">
 	<header class="event-header clearfix">
 		<div>
@@ -167,16 +160,3 @@ $utctime = date('Y-m-d H:i:s', $time);
 		<!-- TODO :: ??? -->
 	</footer>
 </section>
-
-
-
-<!-- TODO :: Move this to $FOOT once wrapped in template -->
-<script>var FEED = <?php echo $feed; ?>;</script>
-<script src="requirejs/require.js" data-main="js/index.js"></script>
-
-<!-- TODO :: Remove from dist code. This is for live reload (dev) only -->
-<script src="http://localhost:35729/livereload.js?snipver=1" type="text/javascript"></script>
-
-<!-- TODO :: Remove once wrapped in template -->
-</body>
-</html>
