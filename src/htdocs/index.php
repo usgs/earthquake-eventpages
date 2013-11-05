@@ -53,7 +53,6 @@ $geom = $event['geometry'];
 
 $time = intval(substr($props['time'], 0, -3));
 $utctime = date('Y-m-d H:i:s', $time);
-$epicentertime = date('Y-m-d H:i:s', $time + (60*$props['tz']));
 
 ?>
 <!-- TODO :: Modify once wrapped in template -->
@@ -71,26 +70,19 @@ $epicentertime = date('Y-m-d H:i:s', $time + (60*$props['tz']));
 
 <section class="event-page">
 	<header class="event-header">
-		<dl>
-			<dt>Location</dt>
-			<dd>
+		<div>
+			<span class="utc"><?php print $utctime; ?> UTC</span>
+			<span class="location">
 				<?php print format_coord($geom['coordinates'][1], 'N', 'S'); ?>
 				<?php print format_coord($geom['coordinates'][0], 'E', 'W'); ?>
-			</dd>
-
-			<dt>Time</dt>
-			<dd class="utc"><?php print $utctime; ?> UTC</dd>
-			<dd class="epicenter"><?php print $epicentertime; ?> at epicenter</dd>
-			<dd class="local"></dd>
-
-			<dt>Depth</dt>
-			<dd>
+				<br/>
 				<?php print number_format(round(floatval(
-						$geom['coordinates'][2]) * 10) / 10, 1); ?> km
-			</dd>
-		</dl>
+						$geom['coordinates'][2]) * 10) / 10, 1); ?> km depth
+			</span>
+		</div>
 
-	<?php
+		<div class="impact-bubbles">
+		<?php
 		if ($props['tsunami'] == '1') {
 			echo '<a href="http://www.tsunami.gov/" title="Tsunami Warning Center" ' .
 					'class="tsunami"><img src="images/logos/tsunami-wave-warning.jpg" ' .
@@ -117,7 +109,8 @@ $epicentertime = date('Y-m-d H:i:s', $time + (60*$props['tz']));
 					$romanCDI . '">DYFI? - <strong class="roman">' . $romanCDI .
 					'</strong></a>';
 		}
-	?>
+		?>
+		</div>
 	</header>
 
 	<section class="event-content downloads">

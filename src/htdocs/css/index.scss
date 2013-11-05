@@ -9,9 +9,6 @@
 	@include box-sizing(border-box);
 }
 
-// To be used in :after :before to maintain layout flow
-@mixin clearfloat {
-	display:block;
-	clear:both;
-	content:' ';
+h1 {
+	margin:8px 0;
 }
