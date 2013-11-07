@@ -1,9 +1,11 @@
 {
-	"name": "earthquake-eventpages",
-	"version": "0.0.0",
-	"dependencies": {
-		"html5shiv-dist": "~3.6.2",
-		"requirejs": "~2.1.6"
-	},
-	"devDependencies": {}
+  "name": "earthquake-eventpages",
+  "version": "0.0.0",
+  "dependencies": {
+    "html5shiv-dist": "~3.6.2",
+    "requirejs": "~2.1.6"
+  },
+  "devDependencies": {
+    "hazdev-webutils": "~0.0.1"
+  }
 }
