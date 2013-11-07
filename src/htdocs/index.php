@@ -90,20 +90,20 @@ $utctime = date('Y-m-d H:i:s', $time);
 		if ($props['tsunami'] == '1') {
 			echo '<a href="http://www.tsunami.gov/" title="Tsunami Warning Center" ' .
 					'class="tsunami"><img src="images/logos/tsunami-wave-warning.jpg" ' .
-					'alt="Tsunami Warning Center"/></a>';
+					'alt="Tsunami Warning Center"/></a> ';
 		}
 
 		if ($props['alert'] != null) {
 			echo '<a href="#pager" title="PAGER estimated impact alert level" ' .
 					'class="alertlevel pager-alertlevel-' . strtolower($props['alert']) .
-					'">PAGER - <strong>' . strtoupper($props['alert']) . '</strong></a>';
+					'">PAGER - <strong>' . strtoupper($props['alert']) . '</strong></a> ';
 		}
 
 		if ($props['mmi'] != null) {
 			$romanMMI = $ROMANS[round(floatval($props['mmi']))];
 			echo '<a href="#shakemap" title="ShakeMap maximum estimated intensity" ' .
 					'class="maxmmi mmi' . $romanMMI . '">ShakeMap - <strong ' .
-					'class="roman">' . $romanMMI . '</strong></a>';
+					'class="roman">' . $romanMMI . '</strong></a> ';
 		}
 
 		if ($props['cdi'] != null) {
@@ -120,13 +120,8 @@ $utctime = date('Y-m-d H:i:s', $time);
 
 	<section class="event-content downloads">
 		<h2>Downloads</h2>
-		<dl class="tabular">
+		<dl>
 			<?php
-
-				print
-					'<dt class="header download-type row-start">Product</dt>' .
-					'<dt class="header download-link row-start">Link</dt>' .
-					'<dt class="header download-id row-start">ID</dt>';
 
 				foreach ($props['products'] as $productType) {
 					if (count($productType) === 0) { continue; }
@@ -136,30 +131,33 @@ $utctime = date('Y-m-d H:i:s', $time);
 					// TODO :: Do we want to do this?
 					if (!isset($contents['contents.xml'])) { continue; }
 
+					// Skip if product does not specify links (other than contents.xml)
+					if (count($contents) == 0) { continue; }
+
+					print
+						'<dt>' .
+							$product['type'] . ' (' . strtoupper($product['source']) . ') ' .
+							$product['properties']['eventsource'] .
+							$product['properties']['eventsourcecode'] .
+						'</dt>' .
+						'<dd><ul>'
+						;
+
 					foreach ($contents as $file) {
 						if (strpos($file['url'], 'contents.xml') !== false) { continue; }
 
 						print
-							'<dt class="download-type row-start">Product</dt>' .
-							'<dd class="download-type">' .
-								$product['type'] . ' (' . strtoupper($product['source']) . ')' .
-							'</dd>' .
-
-							'<dt class="download-link">Link</dt>' .
-							'<dd class="download-link">' .
+							'<li>' .
 								'<a href="' . $file['url'] . '" title="Size: ' .
 										prettySize($file['length']) . '  Last Modified: ' .
 										prettyDate($file['lastModified']) . '">' .
 									basename($file['url']) . ' (' . prettySize($file['length']) .
 								')</a>' .
-							'</dd>' .
-
-							'<dt class="download-id">ID</dt>' .
-							'<dd class="download-id">' .
-								$product['properties']['eventsource'] .
-								$product['properties']['eventsourcecode'] .
-							'</dd>';
+							'</li>'
+							;
 					}
+
+					print '</ul></dd>';
 				}
 			?>
 		</dl>
