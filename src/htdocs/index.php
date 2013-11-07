@@ -6,8 +6,6 @@ if (!isset($TEMPLATE)) {
 	include_once '../conf/config.inc.php';
 
 	$eventid = param('eventid');
-	$format = param('format', 'html');
-	$output_format = $CONFIG['LIB_DIR'] . '/formats/' . $format . '.inc.php';
 
 	if ($eventid == null) {
 		header('HTTP/1.0 400 Bad Request');
