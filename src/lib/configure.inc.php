@@ -71,8 +71,14 @@ $prompts = array(
 	),
 
 	'SERVICE_STUB' => array(
-		'prompt' => 'URL stub for event detail web service',
+		'prompt' => 'URL stub for event detail GEOJSON web service',
 		'default' => '/earthquakes/eventpage/%s.geojson',
+		'secure' => false
+	),
+
+	'ATOM_STUB' => array(
+		'prompt' => 'URL stub for event detail ATOM web service',
+		'default' => '/earthquakes/eventpage/%s.xml',
 		'secure' => false
 	)
 );
