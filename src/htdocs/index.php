@@ -27,7 +27,7 @@ if (!isset($TEMPLATE)) {
 	$HEAD = '
 		<link rel="alternate" type="application/atom+xml" href="' .
 				sprintf($CONFIG['ATOM_STUB'], $eventid) . '"/>
-		<link rel="stylesheet" href=""
+		<link rel="stylesheet" href="css/index.css"/>
 	';
 	$FOOT = '
 		<script src="requirejs/require.js"></script>

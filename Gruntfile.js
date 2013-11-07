@@ -61,6 +61,7 @@ module.exports = function (grunt) {
 					livereload: LIVE_RELOAD_PORT
 				},
 				files: [
+					'<%= app.src %>/htdocs/**/*.php',
 					'<%= app.src %>/htdocs/**/*.html',
 					'<%= app.src %>/htdocs/css/**/*.css',
 					'<%= app.src %>/htdocs/img/**/*.{png,jpg,jpeg,gif}',
