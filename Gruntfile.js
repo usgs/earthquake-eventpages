@@ -65,7 +65,8 @@ module.exports = function (grunt) {
 					'<%= app.src %>/htdocs/**/*.html',
 					'<%= app.src %>/htdocs/css/**/*.css',
 					'<%= app.src %>/htdocs/img/**/*.{png,jpg,jpeg,gif}',
-					'.tmp/css/**/*.css'
+					'.tmp/css/**/*.css',
+					'<%= app.lib %>/inc/**/*.php'
 				]
 			},
 			gruntfile: {
