@@ -1,6 +1,6 @@
 .downloads {
-	.tabular {
-		dt {
+	> .tabular {
+		> dt {
 			display:block;
 			float:left;
 			clear:left;
@@ -11,27 +11,27 @@
 				display:none;
 			}
 		}
-		dd {
+		> dd {
 			display:block;
 			float:left;
 			margin:0 0 0 8px;
 		}
-		.download-type {
+		> .download-type {
 			margin-top:8px;
 		}
 	}
 }
 
 @media screen and (min-width: 768px) {
-	.nojs .downloads .tabular {
-		dd, dt, dt.header {
+	.nojs .downloads > .tabular {
+		> dd, > dt, > dt.header {
 			width:33%;
 		}
 	}
 
 	.downloads {
-		.tabular {
-			dd, dt.header {
+		> .tabular {
+			> dd, > dt.header {
 				display:block;
 				float:left;
 				margin:0;
@@ -43,7 +43,7 @@
 				border:1px solid #fff;
 				background-color:#eee;
 			}
-			dt {
+			> dt {
 				display: none;
 				clear:none;
 
@@ -53,7 +53,7 @@
 					font-weight:bold;
 				}
 			}
-			.download-type {
+			> .download-type {
 				margin-top:0;
 				clear:left;
 			}
