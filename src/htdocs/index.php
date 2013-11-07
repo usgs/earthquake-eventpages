@@ -69,7 +69,7 @@ $utctime = date('Y-m-d H:i:s', $time);
 <h1><?php echo $props['title']; ?></h1>
 
 <section class="event-page">
-	<header class="event-header">
+	<header class="event-header clearfix">
 		<div>
 			<span class="utc"><?php print $utctime; ?> UTC</span>
 			<span class="location">
@@ -85,7 +85,7 @@ $utctime = date('Y-m-d H:i:s', $time);
 			if ($props['tsunami'] == '1' || $props['alert'] != null ||
 					$props['mmi'] != null || $props['cdi'] != null) {
 		?>
-		<div class="impact-bubbles">
+		<div class="impact-bubbles clearfix">
 		<?php
 		if ($props['tsunami'] == '1') {
 			echo '<a href="http://www.tsunami.gov/" title="Tsunami Warning Center" ' .
@@ -95,21 +95,21 @@ $utctime = date('Y-m-d H:i:s', $time);
 
 		if ($props['alert'] != null) {
 			echo '<a href="#pager" title="PAGER estimated impact alert level" ' .
-					'class="alertlevel pager-alertlevel-' . strtolower($props['alert']) .
+					'class="pager-alertlevel-' . strtolower($props['alert']) .
 					'">PAGER - <strong>' . strtoupper($props['alert']) . '</strong></a> ';
 		}
 
 		if ($props['mmi'] != null) {
 			$romanMMI = $ROMANS[round(floatval($props['mmi']))];
 			echo '<a href="#shakemap" title="ShakeMap maximum estimated intensity" ' .
-					'class="maxmmi mmi' . $romanMMI . '">ShakeMap - <strong ' .
+					'class="mmi' . $romanMMI . '">ShakeMap - <strong ' .
 					'class="roman">' . $romanMMI . '</strong></a> ';
 		}
 
 		if ($props['cdi'] != null) {
 			$romanCDI = $ROMANS[round(floatval($props['cdi']))];
 			echo '<a href="#dyfi" title="Did You Feel It? maximum reported intensity ' .
-					'(' . intval($props['felt']) . 'reports)" class="feltreports mmi' .
+					'(' . intval($props['felt']) . 'reports)" class="mmi' .
 					$romanCDI . '">DYFI? - <strong class="roman">' . $romanCDI .
 					'</strong></a>';
 		}

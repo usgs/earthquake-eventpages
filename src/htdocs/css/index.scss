@@ -12,3 +12,9 @@
 h1 {
 	margin:8px 0;
 }
+
+.clearfix:after {
+	display:block;
+	content:' ';
+	clear:both;
+}
