@@ -3,7 +3,10 @@ require.config({
 	paths: {
 		mocha: 'mocha/mocha',
 		chai: 'chai/chai',
-		sinon: 'sinon/pkg/sinon'
+		sinon: 'sinon/pkg/sinon',
+
+		mvc: '/hazdev-webutils/src/mvc',
+		util: '/hazdev-webutils/src/util'
 	},
 	shim: {
 		mocha: {
