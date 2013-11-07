@@ -103,12 +103,12 @@ module.exports = function (grunt) {
 					middleware: function (connect, options) {
 						return [
 							lrSnippet,
+							rewriteRulesSnippet,
 							mountFolder(connect, '.tmp'),
 							mountFolder(connect, options.components),
 							mountPHP(options.base),
 							mountFolder(connect, options.base),
-							mountFolder(connect, 'node_modules'),
-							rewriteRulesSnippet
+							mountFolder(connect, 'node_modules')
 						];
 					}
 				}
