@@ -1,5 +1,7 @@
 <?php
 if (!isset($TEMPLATE)) {
+	include_once 'functions.inc.php';
+
 	// Defines the $CONFIG hash of configuration variables
 	include_once '../conf/config.inc.php';
 
@@ -8,18 +10,33 @@ if (!isset($TEMPLATE)) {
 	$output_format = $CONFIG['LIB_DIR'] . '/formats/' . $format . '.inc.php';
 
 	if ($eventid == null) {
-		// TODO :: HTTP headers?
+		header('HTTP/1.0 400 Bad Request');
 		trigger_error('Missing required parameter "eventid".');
 		exit(-1);
 	}
 
-	$event = json_decode(
-		file_get_contents(sprintf($CONFIG['SERVICE_STUB'], $eventid)),
-		true // Parse to an associative array rather than an object
-	);
+	$EVENT_FEED = file_get_contents(sprintf($CONFIG['SERVICE_STUB'], $eventid));
+	$EVENT = json_decode($EVENT_FEED, true);
 
-	//<!-- TODO :: Remove from dist code. This is for live reload (dev) only -->
-	//<script src="http://localhost:35729/livereload.js?snipver=1" type="text/javascript"></script>
+	$PROPERTIES = $EVENT['properties'];
+	$GEOMETRY = $EVENT['geometry'];
+
+	$TITLE = $PROPERTIES['title'];
+	$NAVIGATION = navItem('#', 'Event Summary');
+
+	$HEAD = '
+		<link rel="alternate" type="application/atom+xml" href="' .
+				sprintf($CONFIG['ATOM_STUB'], $eventid) . '"/>
+		<link rel="stylesheet" href=""
+	';
+	$FOOT = '
+		<script src="requirejs/require.js"></script>
+		<script src="http://localhost:35729/livereload.js?snipver=1"></script>
+	';
+
+	ob_start();
+	include_once 'js/index.js.php';
+	$FOOT .= ob_get_clean();
 
 	$ROMANS = array('I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX',
 			'X', 'XI', 'XII');
@@ -46,17 +63,7 @@ if (!isset($TEMPLATE)) {
 		return date('Y-m-d H:i:s', $s) . ' UTC';
 	}
 
-	$eventid = param('eventid');
-
-
-	$feed = file_get_contents($stub . $eventid . '.geojson');
-	$event = json_decode($feed, true);
-	$props = $event['properties'];
-	$geom = $event['geometry'];
-
-	$time = intval(substr($props['time'], 0, -3));
-	$utctime = date('Y-m-d H:i:s', $time);
-
+	$utctime = date('Y-m-d H:i:s', intval(substr($PROPERTIES['time'], 0, -3)));
 
 	include_once 'template.inc.php';
 }
@@ -66,43 +73,43 @@ if (!isset($TEMPLATE)) {
 		<div>
 			<span class="utc"><?php print $utctime; ?> UTC</span>
 			<span class="location">
-				<?php print format_coord($geom['coordinates'][1], 'N', 'S'); ?>
-				<?php print format_coord($geom['coordinates'][0], 'E', 'W'); ?>
+				<?php print format_coord($GEOMETRY['coordinates'][1], 'N', 'S'); ?>
+				<?php print format_coord($GEOMETRY['coordinates'][0], 'E', 'W'); ?>
 				<br/>
 				<?php print number_format(round(floatval(
-						$geom['coordinates'][2]) * 10) / 10, 1); ?> km depth
+						$GEOMETRY['coordinates'][2]) * 10) / 10, 1); ?> km depth
 			</span>
 		</div>
 
 		<?php
-			if ($props['tsunami'] == '1' || $props['alert'] != null ||
-					$props['mmi'] != null || $props['cdi'] != null) {
+			if ($PROPERTIES['tsunami'] == '1' || $PROPERTIES['alert'] != null ||
+					$PROPERTIES['mmi'] != null || $PROPERTIES['cdi'] != null) {
 		?>
 		<div class="impact-bubbles clearfix">
 		<?php
-		if ($props['tsunami'] == '1') {
+		if ($PROPERTIES['tsunami'] == '1') {
 			echo '<a href="http://www.tsunami.gov/" title="Tsunami Warning Center" ' .
 					'class="tsunami"><img src="images/logos/tsunami-wave-warning.jpg" ' .
 					'alt="Tsunami Warning Center"/></a> ';
 		}
 
-		if ($props['alert'] != null) {
+		if ($PROPERTIES['alert'] != null) {
 			echo '<a href="#pager" title="PAGER estimated impact alert level" ' .
-					'class="pager-alertlevel-' . strtolower($props['alert']) .
-					'">PAGER - <strong>' . strtoupper($props['alert']) . '</strong></a> ';
+					'class="pager-alertlevel-' . strtolower($PROPERTIES['alert']) .
+					'">PAGER - <strong>' . strtoupper($PROPERTIES['alert']) . '</strong></a> ';
 		}
 
-		if ($props['mmi'] != null) {
-			$romanMMI = $ROMANS[round(floatval($props['mmi']))];
+		if ($PROPERTIES['mmi'] != null) {
+			$romanMMI = $ROMANS[round(floatval($PROPERTIES['mmi']))];
 			echo '<a href="#shakemap" title="ShakeMap maximum estimated intensity" ' .
 					'class="mmi' . $romanMMI . '">ShakeMap - <strong ' .
 					'class="roman">' . $romanMMI . '</strong></a> ';
 		}
 
-		if ($props['cdi'] != null) {
-			$romanCDI = $ROMANS[round(floatval($props['cdi']))];
+		if ($PROPERTIES['cdi'] != null) {
+			$romanCDI = $ROMANS[round(floatval($PROPERTIES['cdi']))];
 			echo '<a href="#dyfi" title="Did You Feel It? maximum reported intensity ' .
-					'(' . intval($props['felt']) . 'reports)" class="mmi' .
+					'(' . intval($PROPERTIES['felt']) . 'reports)" class="mmi' .
 					$romanCDI . '">DYFI? - <strong class="roman">' . $romanCDI .
 					'</strong></a>';
 		}
@@ -116,7 +123,7 @@ if (!isset($TEMPLATE)) {
 		<dl>
 			<?php
 
-				foreach ($props['products'] as $productType) {
+				foreach ($PROPERTIES['products'] as $productType) {
 					if (count($productType) === 0) { continue; }
 					$product = $productType[0];
 					$contents = $product['contents'];
