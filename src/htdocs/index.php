@@ -81,6 +81,10 @@ $utctime = date('Y-m-d H:i:s', $time);
 			</span>
 		</div>
 
+		<?php
+			if ($props['tsunami'] == '1' || $props['alert'] != null ||
+					$props['mmi'] != null || $props['cdi'] != null) {
+		?>
 		<div class="impact-bubbles">
 		<?php
 		if ($props['tsunami'] == '1') {
@@ -111,6 +115,7 @@ $utctime = date('Y-m-d H:i:s', $time);
 		}
 		?>
 		</div>
+		<?php } /* endif (impact bubbles) */ ?>
 	</header>
 
 	<section class="event-content downloads">
