@@ -2,6 +2,7 @@
 
 var LIVE_RELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({port: LIVE_RELOAD_PORT});
+var rewriteRulesSnippet = require('grunt-connect-rewrite/lib/utils').rewriteRequest;
 var gateway = require('gateway');
 
 var mountFolder = function (connect, dir) {
@@ -9,6 +10,12 @@ var mountFolder = function (connect, dir) {
 };
 
 var mountPHP = function (dir, options) {
+	options = options || {
+		'.php': 'php-cgi',
+		'env': {
+			'PHPRC': process.cwd() + '/node_modules/hazdev-template/src/conf/php.ini'
+		}
+	};
 	return gateway(require('path').resolve(dir), options);
 };
 
@@ -85,6 +92,9 @@ module.exports = function (grunt) {
 			options: {
 				hostname: 'localhost'
 			},
+			rules: {
+				'^/template/(.*)$': '/hazdev-template/src/htdocs/$1'
+			},
 			dev: {
 				options: {
 					base: '<%= app.src %>/htdocs',
@@ -96,7 +106,9 @@ module.exports = function (grunt) {
 							mountFolder(connect, '.tmp'),
 							mountFolder(connect, options.components),
 							mountPHP(options.base),
-							mountFolder(connect, options.base)
+							mountFolder(connect, options.base),
+							mountFolder(connect, 'node_modules'),
+							rewriteRulesSnippet
 						];
 					}
 				}
@@ -125,7 +137,7 @@ module.exports = function (grunt) {
 							mountFolder(connect, 'bower_components'),
 							mountFolder(connect, 'node_modules'),
 							mountFolder(connect, options.base),
-							mountFolder(connect, appConfig.src + '/htdocs/js')
+							mountFolder(connect, appConfig.src + '/htdocs/modules')
 						];
 					}
 				}
@@ -301,6 +313,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('default', [
 		'clean:dist',
 		'compass:dev',
+		'configureRewriteRules',
 		'connect:test',
 		'connect:dev',
 		'open:test',
