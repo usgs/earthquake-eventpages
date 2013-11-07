@@ -1,0 +1,24 @@
+.downloads {
+	> dl {
+		> dt {
+			display:block;
+			font-weight:bold;
+			color:#333;
+		}
+		> dd {
+			display:block;
+			margin-bottom:8px;
+
+			> ul {
+				margin:0;
+				padding:0;
+				list-style:none;
+
+				> li {
+					display:block;
+					margin:0 0 4px;
+				}
+			}
+		}
+	}
+}
