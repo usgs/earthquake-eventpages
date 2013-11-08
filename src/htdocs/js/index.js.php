@@ -17,16 +17,53 @@ require.config({
 });
 
 require([
-	'base/0-0-1/EventPage'
+	'base/0-0-1/EventPage',
+	'base/0-0-1/EventModule'
 ], function (
-	EventPage
+	EventPage,
+	EventModule
 ) {
 	'use strict';
 
 	new EventPage({
-		content: document.querySelector('.event-content'),
+		container: document.querySelector('.event-content'),
 		navigation: document.querySelector('.site-sectionnav'),
-		eventDetails: <?php print json_encode($EVENT); ?>
+		eventDetails: <?php print json_encode($EVENT); ?>,
+		modules: {
+			'shakemap': new EventModule({
+				displayText: 'ShakeMap',
+				pages: [
+					{
+						classname: 'base/0-0-1/EventModulePage',
+						options: {
+							href: 'intensity',
+							displayText: 'Intensity Maps'
+						}
+					},
+					{
+						classname: 'base/0-0-1/EventModulePage',
+						options: {
+							href: 'stations',
+							displayText: 'Station Maps'
+						}
+					},
+					{
+						classname: 'base/0-0-1/EventModulePage',
+						options: {
+							href: 'pga',
+							displayText: 'PGA Maps'
+						}
+					},
+					{
+						classname: 'base/0-0-1/EventModulePage',
+						options: {
+							href: 'pgv',
+							displayText: 'PGV Maps'
+						}
+					}
+				]
+			})
+		}
 	});
 });
 </script>
