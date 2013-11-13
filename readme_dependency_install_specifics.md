@@ -48,7 +48,7 @@ Readme dependencies
 
 1. Close and re-open your terminal so that your new PATH is loaded.  
    Make sure to navigate back to your `geomag-baseline-calculator` project directory.
-   ```git config --global url."https://".insteadOf git://```  
+   `git config --global url."https://".insteadOf git://`  
 
 [Git Bash]: http://git-scm.com/download/win
 [Cygwin]: http://cygwin.com/install.html
@@ -59,29 +59,29 @@ Readme dependencies
 ### Mac ###
 
 1. install xcode  
-   ```https://developer.apple.com/xcode/```  
+   `https://developer.apple.com/xcode/`
 
 2. install homebrew  
-   ```http://mxcl.github.io/homebrew/```  
+   `http://mxcl.github.io/homebrew/`
 
 3. Use homebrew to install node, git, ruby, and php  
-   ```brew install node```  
-   ```brew install git```  
-   ```brew install ruby```  
-   ```brew tap josegonzalez/php```  
-   ```brew install php54```  
+   `brew install node` 
+   `brew install git` 
+   `brew install ruby` 
+   `brew tap josegonzalez/php` 
+   `brew install php54` 
 
 3. Use npm to install grunt and bower.
-   ```npm install -g grunt-cli```  
-   ```npm install -g bower```  
+   `npm install -g grunt-cli`  
+   `npm install -g bower`  
 
 4. Update paths as needed in your `~/.bash_profile`:  
-   ```# brew installed binaries```  
-   ```export PATH=$PATH:/usr/local/bin```  
-   ```# npm installed binaries```  
-   ```export PATH=$PATH:/usr/local/share/npm/bin```
-   ```# gem installed binaries```  
-   ```export PATH=$PATH:/usr/local/opt/ruby/bin```  
+   `# brew installed binaries`  
+   `export PATH=$PATH:/usr/local/bin`  
+   `# npm installed binaries`  
+   `export PATH=$PATH:/usr/local/share/npm/bin` 
+   `# gem installed binaries`  
+   `export PATH=$PATH:/usr/local/opt/ruby/bin`  
 
 5. Close and re-open your terminal so that your new PATH is loaded.  
    Make sure to navigate back to your `geomag-baseline-calculator` project directory.
