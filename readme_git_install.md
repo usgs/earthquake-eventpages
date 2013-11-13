@@ -14,7 +14,7 @@ GIT INSTALL
    Navigate to the _HOME_ directory that you want to use for projects.
    Replace `[your username]` with your GitHub username.
    ```git clone git@github.com:[your username]/earthquake-eventpages.git 
-   earthquake-eventpages```
+   earthquake-eventpages```  
    ```cd earthquake-eventpages```
 
 1. Add upstream remote for primary (use terminal)

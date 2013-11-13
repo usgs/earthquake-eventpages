@@ -4,29 +4,28 @@ You will need to have the following tools installed in order to run this project
 1. Node
   1. Bower
   1. Grunt
-  1. PHP
+  1. PHP-CGI 5.4+
 1. Ruby
   1. Sass
   1. Compass
-1. PHP-CGI 5.4+
 
 ### Secondary Dependencies ###
 Make sure you are in your `earthquake-eventpages` project directory.
 Install these packages from your terminal.
 
-1. Use Node to install bower
+1. Use Node to install bower  
    ```npm install -g bower```
    ```bower install```
 
-1. Use Node to install grunt-cli and PHP
-   ```npm install -g grunt-cli```
-   ```npm install php```
+1. Use Node to install grunt-cli and PHP  
+   ```npm install -g grunt-cli```  
+   ```npm install php```  
 
-2. Use Ruby to install sass and compass
-   ```gem install sass```
-   ```gem install compass```
+2. Use Ruby to install sass and compass  
+   ```gem install sass```  
+   ```gem install compass```  
 
-3. Use Node to get any missing dependencies
+3. Use Node to get any missing dependencies  
    ```npm install```
 
    [Dependency install details for Windows and Mac](readme_dependency_install_specifics.md)
