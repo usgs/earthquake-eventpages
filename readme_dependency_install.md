@@ -13,13 +13,10 @@ You will need to have the following tools installed in order to run this project
 Make sure you are in your `earthquake-eventpages` project directory.
 Install these packages from your terminal.
 
-1. Use Node to install bower  
+1. Install local bower modules  
    ```bower install```
 
-1. Use Node to install grunt-cli  
-   ```npm install -g grunt-cli```  
-
-3. Use Node to get any missing dependencies  
+2. Install local npm modules  
    ```npm install```
 
    [Dependency install details for Windows and Mac](readme_dependency_install_specifics.md)
