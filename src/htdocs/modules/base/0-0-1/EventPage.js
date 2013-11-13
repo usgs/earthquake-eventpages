@@ -24,12 +24,18 @@ define([
 	 *
 	 * @param options {Object} eventpage attributes.
 	 * 
-	 * @param options.container {Object}		the element for the event module.
-	 * @param options.navigation {Object}			the element for the navigation.
-	 * @param options.eventDetails {Object}						contains event Details.
-	 * @param options.modules {Object}				contains ALL the event modules.
-	 * @param options.cacheLength: {number}			of rendered modules to cache.
-	 * @param options.defaultModule {Object}				the first module to show.
+	 * @param options.container {Object}
+	 *      the element for the event module.
+	 * @param options.navigation {Object}
+	 *      the element for the navigation.
+	 * @param options.eventDetails {Object}
+	 *      contains event Details.
+	 * @param options.modules {Object}
+	 *      contains ALL the event modules.
+	 * @param options.cacheLength: {number}
+	 *      of rendered modules to cache.
+	 * @param options.defaultModule {Object}
+	 *      the first module to show.
 	 */
 	var EventPage = function (options) {
 

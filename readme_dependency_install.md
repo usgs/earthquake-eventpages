@@ -14,16 +14,10 @@ Make sure you are in your `earthquake-eventpages` project directory.
 Install these packages from your terminal.
 
 1. Use Node to install bower  
-   ```npm install -g bower```  
    ```bower install```
 
-1. Use Node to install grunt-cli and PHP  
+1. Use Node to install grunt-cli  
    ```npm install -g grunt-cli```  
-   ```npm install php```  
-
-2. Use Ruby to install sass and compass  
-   ```gem install sass```  
-   ```gem install compass```  
 
 3. Use Node to get any missing dependencies  
    ```npm install```

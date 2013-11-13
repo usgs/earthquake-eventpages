@@ -64,10 +64,16 @@ Readme dependencies
 2. install homebrew  
    ```http://mxcl.github.io/homebrew/```  
 
-3. Use homebrew to install node, git and ruby  
+3. Use homebrew to install node, git, ruby, and php  
    ```brew install node```  
    ```brew install git```  
    ```brew install ruby```  
+   ```brew tap josegonzalez/php```  
+   ```brew install php54```  
+
+3. Use npm to install grunt and bower.
+   ```npm install -g grunt-cli```  
+   ``npm install -g bower```  
 
 4. Update paths as needed in your `~/.bash_profile`:  
    ```# brew installed binaries```  
