@@ -14,7 +14,7 @@ Make sure you are in your `earthquake-eventpages` project directory.
 Install these packages from your terminal.
 
 1. Use Node to install bower  
-   ```npm install -g bower```
+   ```npm install -g bower```  
    ```bower install```
 
 1. Use Node to install grunt-cli and PHP  
