@@ -65,11 +65,11 @@ Readme dependencies
    `http://mxcl.github.io/homebrew/`
 
 3. Use homebrew to install node, git, ruby, and php  
-   `brew install node` 
-   `brew install git` 
-   `brew install ruby` 
-   `brew tap josegonzalez/php` 
-   `brew install php54` 
+   `brew install node`  
+   `brew install git`  
+   `brew install ruby`  
+   `brew tap josegonzalez/php`  
+   `brew install php54`  
 
 3. Use npm to install grunt and bower.
    `npm install -g grunt-cli`  
@@ -79,7 +79,7 @@ Readme dependencies
    `# brew installed binaries`  
    `export PATH=$PATH:/usr/local/bin`  
    `# npm installed binaries`  
-   `export PATH=$PATH:/usr/local/share/npm/bin` 
+   `export PATH=$PATH:/usr/local/share/npm/bin`  
    `# gem installed binaries`  
    `export PATH=$PATH:/usr/local/opt/ruby/bin`  
 
