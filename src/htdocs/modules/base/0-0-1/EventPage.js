@@ -14,10 +14,23 @@ define([
 ) {
 	'use strict';
 
+
 	var DEFAULTS = {
-		cacheLength: 2
+		cacheLength: 10
 	};
 
+	/**
+	 *Constructor.
+	 *
+	 * @param options {Object} eventpage attributes.
+	 * 
+	 * @param options.container {Object}		the element for the event module.
+	 * @param options.navigation {Object}			the element for the navigation.
+	 * @param options.eventDetails {Object}						contains event Details.
+	 * @param options.modules {Object}				contains ALL the event modules.
+	 * @param options.cacheLength: {number}			of rendered modules to cache.
+	 * @param options.defaultModule {Object}				the first module to show.
+	 */
 	var EventPage = function (options) {
 
 		options = options || {};
@@ -124,8 +137,7 @@ define([
 
 	EventPage.prototype._findModule = function (hash) {
 		var parts = hash.split('_'),
-		    modulePart = parts.splice(0, 1),
-		    pagePart = parts.join('_');
+		    modulePart = parts.splice(0, 1);
 
 		if (modulePart in this._modules) {
 			return this._modules[modulePart];
