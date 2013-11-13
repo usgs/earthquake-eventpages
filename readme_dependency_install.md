@@ -8,9 +8,10 @@ You will need to have the following tools installed in order to run this project
 1. Ruby
   1. Sass
   1. Compass
+1. PHP-CGI 5.4+
 
 ### Secondary Dependencies ###
-Make sure you are in your `earthquake-eventpages project directory.
+Make sure you are in your `earthquake-eventpages` project directory.
 Install these packages from your terminal.
 
 1. Use Node to install bower
