@@ -124,7 +124,7 @@ define([
 		this._updateNavigation();
 
 		// Start listening for hash changes
-		Events.prototype.on.call(Events, 'hashchange', this.render, this);
+		Events.on('hashchange', this.render, this);
 
 		// Load an initial page for viewing, prefer hash, fall back to default
 		this.render();
