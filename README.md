@@ -20,7 +20,7 @@ Getting Started
 
 ### Testing. ###
 1. Run grunt from the install directory.
-1. Change localhost:8080 to localhost:8080/?eventid=EVENTID
+1. In the browser URL Change localhost:8080 to localhost:8080/?eventid=EVENTID
    where EVENTID is the id of a specific event. Examples can be found by
    going to earthquake.usgs.gov and clicking on any earthquake under significant
    earthquakes, then pulling the id from the URL.

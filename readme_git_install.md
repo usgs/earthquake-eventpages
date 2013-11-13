@@ -4,7 +4,7 @@ GIT INSTALL
 
 1. Fork the project into your GitHub user account.
   1. Sign in to GitHub.
-  2. Go to `https://github.com/usgs/geomag-baseline-calculator`.
+  2. Go to `https://github.com/usgs/earthquake-eventpages`.
   2. Click the **Fork** button near the top right of the page.
 
 1. Make sure you Add an SSH Key to GitHub for the computer you're 
