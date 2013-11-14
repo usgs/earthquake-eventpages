@@ -4,7 +4,7 @@ define([
 	'util/Util',
 	'util/Events',
 
-	'base/0-0-1/EventModule'
+	'base/EventModule'
 ], function (
 	View,
 	Util,
@@ -45,9 +45,8 @@ define([
 		this._navigation = options.navigation || document.createElement('nav');
 
 		this._event = options.eventDetails || {};
-		this._modules = options.modules || {};
+		this._modules = options.modules || [];
 		this._maxCacheLength = options.cacheLength || DEFAULTS.cacheLength;
-		this._defaultModule = options.defaultModule || new DefaultModule();
 		this._renderCache = [];
 
 		// Initialize the event page
@@ -55,14 +54,14 @@ define([
 	};
 
 
-	EventPage.prototype.render = function () {
-		 var hash = window.location.hash.substring(1),
-		     hashParts = hash.split('_'),
-		     modulePart = hashParts.shift(),
-		     pagePart = hashParts.join('_'),
-		     module = this._modules[modulePart] || this._defaultModule,
-		     navItems = null, navItem = null, i = 0,
-		     item = null, cacheIndex = this._getCacheIndex(hash);
+	EventPage.prototype.render = function (hashChangeEvent) {
+		var hash = hashChangeEvent.newURL.split('#').slice(1).join('#'),
+		    hashParts = hash.split('_'),
+		    modulePart = hashParts.shift(),
+		    pagePart = hashParts.join('_'),
+		    module = this._findModule(modulePart) || new DefaultModule(),
+		    navItems = null, navItem = null, i = 0,
+		    item = null, cacheIndex = this._getCacheIndex(hash);
 
 
 		// Try to highlight the current section in navigation
@@ -98,7 +97,9 @@ define([
 
 		this._container.innerHTML = '';
 
-		this._container.appendChild(page._el);
+		this._container.appendChild(module.getHeader());
+		this._container.appendChild(page.getContent());
+		this._container.appendChild(module.getFooter());
 
 		// Add this rendering result to the render cache
 		this._renderCache.unshift({
@@ -111,6 +112,7 @@ define([
 		for (i = this._renderCache.length - 1; i >= this._maxCacheLength; i--) {
 			item = this._renderCache[i];
 
+			// Give sub-modules and sub-pages a chance to clean up
 			item.module.destroy(page._el);
 			item.page.destroy();
 		}
@@ -120,6 +122,11 @@ define([
 	};
 
 	EventPage.prototype._initialize = function () {
+
+		if (!Util.hasClass(this._container, 'event-content')) {
+			Util.addClass(this._container, 'event-content');
+		}
+
 		// Update navigation
 		this._updateNavigation();
 
@@ -127,7 +134,11 @@ define([
 		Events.on('hashchange', this.render, this);
 
 		// Load an initial page for viewing, prefer hash, fall back to default
-		this.render();
+		this.render({newURL: String(window.location)});
+	};
+
+	EventPage.prototype.destroy = function () {
+		Events.off('hashchange', this.render, this);
 	};
 
 	EventPage.prototype._updateNavigation = function () {
@@ -141,13 +152,17 @@ define([
 		this._navigation.innerHTML = markup.join('');
 	};
 
-	EventPage.prototype._findModule = function (hash) {
-		var parts = hash.split('_'),
-		    modulePart = parts.splice(0, 1);
+	EventPage.prototype._findModule = function (moduleStub) {
+		var i = 0, numModules = this._modules.length, module = null;
 
-		if (modulePart in this._modules) {
-			return this._modules[modulePart];
+		for (i = 0; i < numModules; i++) {
+			module = this._modules[i];
+			if (module.getStub() === moduleStub) {
+				return module;
+			}
 		}
+
+		return null;
 	};
 
 	EventPage.prototype._getCacheIndex = function (hash) {
