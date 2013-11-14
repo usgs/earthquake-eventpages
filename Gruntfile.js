@@ -138,8 +138,8 @@ module.exports = function (grunt) {
 						return [
 							mountFolder(connect, '.tmp'),
 							mountFolder(connect, 'bower_components'),
-							mountFolder(connect, 'node_modules'),
 							mountFolder(connect, options.base),
+							mountFolder(connect, 'node_modules'),
 							mountFolder(connect, appConfig.src + '/htdocs/modules')
 						];
 					}
