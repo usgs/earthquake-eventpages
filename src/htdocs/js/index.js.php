@@ -10,15 +10,17 @@ require.config({
 	baseUrl: 'modules',
 	paths: {
 		mvc: '/hazdev-webutils/src/mvc',
-		util: '/hazdev-webutils/src/util'
+		util: '/hazdev-webutils/src/util',
+
+		base: 'base/0-0-1/js'
 	},
 	shim: {
 	}
 });
 
 require([
-	'base/0-0-1/EventPage',
-	'base/0-0-1/EventModule'
+	'base/EventPage',
+	'base/EventModule'
 ], function (
 	EventPage,
 	EventModule
@@ -29,33 +31,34 @@ require([
 		container: document.querySelector('.event-content'),
 		navigation: document.querySelector('.site-sectionnav'),
 		eventDetails: <?php print json_encode($EVENT); ?>,
-		modules: {
-			'shakemap': new EventModule({
+		modules: [
+			new EventModule({
+				stub: 'shakemap',
 				displayText: 'ShakeMap',
 				pages: [
 					{
-						classname: 'base/0-0-1/EventModulePage',
+						classname: 'base/EventModulePage',
 						options: {
 							href: 'intensity',
 							displayText: 'Intensity Maps'
 						}
 					},
 					{
-						classname: 'base/0-0-1/EventModulePage',
+						classname: 'base/EventModulePage',
 						options: {
 							href: 'stations',
 							displayText: 'Station Maps'
 						}
 					},
 					{
-						classname: 'base/0-0-1/EventModulePage',
+						classname: 'base/EventModulePage',
 						options: {
 							href: 'pga',
 							displayText: 'PGA Maps'
 						}
 					},
 					{
-						classname: 'base/0-0-1/EventModulePage',
+						classname: 'base/EventModulePage',
 						options: {
 							href: 'pgv',
 							displayText: 'PGV Maps'
@@ -63,7 +66,7 @@ require([
 					}
 				]
 			})
-		}
+		]
 	});
 });
 </script>
