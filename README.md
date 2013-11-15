@@ -27,17 +27,10 @@ Getting Started
    earthquakes, then pulling the id from the URL.  
    EXAMPLE: localhost:8080/?eventid=usb000kw1x
 
-### Notes. ###
+### Notes ###
 1. This application uses the earthquake responsive template found at  
    https://github.com/usgs/hazdev-template.git
 
+### Implementing Modules and Module Pages
 
-
-
-
-
-
-
-
-
-
+[Read more about creating modules and pages](MODULE.md)
