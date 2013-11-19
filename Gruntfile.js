@@ -42,7 +42,7 @@ module.exports = function (grunt) {
 		bower: bowerConfig,
 		watch: {
 			scripts: {
-				files: ['<%= app.src %>/htdocs/js/**/*.js'],
+				files: ['<%= app.src %>/htdocs/**/*.js'],
 				tasks: ['concurrent:scripts'],
 				options: {
 					livereload: LIVE_RELOAD_PORT
@@ -63,8 +63,6 @@ module.exports = function (grunt) {
 				files: [
 					'<%= app.src %>/htdocs/**/*.php',
 					'<%= app.src %>/htdocs/**/*.html',
-					'<%= app.src %>/htdocs/css/**/*.css',
-					'<%= app.src %>/htdocs/**/*.js',
 					'<%= app.src %>/htdocs/img/**/*.{png,jpg,jpeg,gif}',
 					'.tmp/css/**/*.css',
 					'<%= app.lib %>/inc/**/*.php'
@@ -151,7 +149,10 @@ module.exports = function (grunt) {
 				jshintrc: '.jshintrc'
 			},
 			gruntfile: ['Gruntfile.js'],
-			scripts: ['<%= app.src %>/htdocs/js/**/*.js'],
+			scripts: [
+				'<%= app.src %>/htdocs/js/**/*.js',
+				'<%= app.src %>/htdocs/modules/**/*.js'
+			],
 			tests: ['<%= app.test %>/**/*.js']
 		},
 		compass: {
