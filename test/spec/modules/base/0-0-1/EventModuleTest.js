@@ -11,12 +11,6 @@ define([
 	'use strict';
 	var expect = chai.expect;
 
-	var LightWeightPage = function (opts) {
-		this._href = opts.href || 'lightweightpage';
-		this._displayText = opts.displayText || 'LightWeightPage';
-		this.render = function () {};
-	};
-
 	describe('EventModule test suite.', function () {
 		describe('Constructor', function () {
 			it('Can be defined.', function () {
@@ -47,63 +41,16 @@ define([
 		describe('getHeader()', function () {
 			it('has such a method', function () {
 				/* jshint -W030 */
-				expect((new EventModule()).getHeader).to.not.be.undefined;
+				expect((new EventModule()).getHeaderMarkup).to.not.be.undefined;
 				/* jshint +W030 */
-			});
-
-			it('returns the header element', function () {
-				var header = document.createElement('div'),
-				    module = new EventModule({header: header});
-
-				expect(module.getHeader()).to.equal(header);
 			});
 		});
 
-		describe('getFooter()', function () {
+		describe('getFooterMarkup()', function () {
 			it('has such a method', function () {
 				/* jshint -W030 */
-				expect((new EventModule()).getFooter).to.not.be.undefined;
+				expect((new EventModule()).getFooterMarkup).to.not.be.undefined;
 				/* jshint +W030 */
-			});
-
-			it('returns the footer element', function () {
-				var footer = document.createElement('div'),
-				    module = new EventModule({footer: footer});
-
-				expect(module.getFooter()).to.equal(footer);
-			});
-		});
-
-		describe('render()', function () {
-			it('has such a method', function () {
-				/* jshint -W030 */
-				expect((new EventModule()).render).to.not.be.undefined;
-				/* jshint +W030 */
-			});
-
-			it('finds the correct page for which to render', function (done) {
-				var hash = 'somepage';
-				var goodPageOpts = {href: hash, displayText: 'good page'};
-				var badPageOpts = {href: 'anotherpage', displayText: 'bad page'};
-				var goodPage = new LightWeightPage(goodPageOpts);
-				var badPage = new LightWeightPage(badPageOpts);
-				var module = new EventModule({
-					pages: [
-						{
-							classname: goodPage,
-							options: goodPageOpts
-						},
-						{
-							classname: badPage,
-							options: badPageOpts
-						}
-					]
-				});
-
-				module.render(hash, function (module, page) {
-					expect(page).to.deep.equal(goodPage);
-					done();
-				});
 			});
 		});
 

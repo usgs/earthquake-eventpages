@@ -33,18 +33,9 @@ define([
 			});
 
 			it('returns the content', function () {
-				var content = document.createElement('div'),
-				    page = new EventModulePage({content: content});
+				var page = new EventModulePage();
 
-				expect(page.getContent()).to.deep.equal(content);
-			});
-		});
-
-		describe('render()', function () {
-			it('has such a method', function () {
-				/* jshint -W030 */
-				expect((new EventModulePage()).render).to.not.be.undefined;
-				/* jshint +W030 */
+				expect(page.getContent()).to.be.an.instanceOf(Object);
 			});
 		});
 

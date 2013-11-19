@@ -32,40 +32,43 @@ require([
 		navigation: document.querySelector('.site-sectionnav'),
 		eventDetails: <?php print json_encode($EVENT); ?>,
 		modules: [
-			new EventModule({
-				stub: 'shakemap',
-				displayText: 'ShakeMap',
-				pages: [
-					{
-						classname: 'base/EventModulePage',
-						options: {
-							href: 'intensity',
-							displayText: 'Intensity Maps'
+			{
+				className: 'base/EventModule',
+				options: {
+					stub: 'shakemap',
+					title: 'ShakeMap',
+					pages: [
+						{
+							className: 'base/EventModulePage',
+							options: {
+								stub: 'intensity',
+								title: 'Intensity Maps'
+							}
+						},
+						{
+							className: 'base/EventModulePage',
+							options: {
+								stub: 'stations',
+								title: 'Station Maps'
+							}
+						},
+						{
+							className: 'base/EventModulePage',
+							options: {
+								stub: 'pga',
+								title: 'PGA Maps'
+							}
+						},
+						{
+							className: 'base/EventModulePage',
+							options: {
+								stub: 'pgv',
+								title: 'PGV Maps'
+							}
 						}
-					},
-					{
-						classname: 'base/EventModulePage',
-						options: {
-							href: 'stations',
-							displayText: 'Station Maps'
-						}
-					},
-					{
-						classname: 'base/EventModulePage',
-						options: {
-							href: 'pga',
-							displayText: 'PGA Maps'
-						}
-					},
-					{
-						classname: 'base/EventModulePage',
-						options: {
-							href: 'pgv',
-							displayText: 'PGV Maps'
-						}
-					}
-				]
-			})
+					]
+				}
+			}
 		]
 	});
 });

@@ -1,180 +1,238 @@
 /* global define */
 define([
-	'mvc/View',
 	'util/Util',
-	'util/Events',
-
-	'base/EventModule'
+	'util/Events'
 ], function (
-	View,
 	Util,
-	Events,
-
-	DefaultModule
+	Events
 ) {
 	'use strict';
 
-
 	var DEFAULTS = {
-		cacheLength: 10
+		maxCacheLength: 3
+
+		// Configured list of modules (and sub-pages). Must be specified when
+		// event page is constructed.
+		//
+		// modules: [
+		// 	{
+		// 		className: 'base/EventModule',
+		// 		options: {
+		// 			title: 'Default Module',
+		// 			stub: 'module',
+		// 			pages: [
+		// 				{
+		// 					className: 'base/EventModulePage',
+		// 					options: {
+		// 						title: 'Default Page',
+		// 						stub: 'page'
+		// 					}
+		// 				}
+		// 			]
+		// 		}
+		// 	}
+		// ]
 	};
 
-	/**
-	 *Constructor.
-	 *
-	 * @param options {Object} eventpage attributes.
-	 * 
-	 * @param options.container {Object}
-	 *      the element for the event module.
-	 * @param options.navigation {Object}
-	 *      the element for the navigation.
-	 * @param options.eventDetails {Object}
-	 *      contains event Details.
-	 * @param options.modules {Object}
-	 *      contains ALL the event modules.
-	 * @param options.cacheLength: {number}
-	 *      of rendered modules to cache.
-	 * @param options.defaultModule {Object}
-	 *      the first module to show.
-	 */
-	var EventPage = function (options) {
+	var __get_hash = function (evt) {
+		var hash;
 
+		if (evt) {
+			hash = evt.newURL;
+		}
+
+		if (hash === null || typeof hash === 'undefined') {
+			hash = window.location.hash || '';
+		}
+
+		return hash.split('#').slice(1).join('#');
+	};
+
+	var EventPage = function (options) {
 		options = options || {};
 
-		this._container = options.container || document.createElement('div');
+		this._container = options.container || document.createElement('section');
 		this._navigation = options.navigation || document.createElement('nav');
-
-		this._event = options.eventDetails || {};
 		this._modules = options.modules || [];
-		this._maxCacheLength = options.cacheLength || DEFAULTS.cacheLength;
-		this._renderCache = [];
+		this._event = options.eventDetails || {};
 
-		// Initialize the event page
+		this._maxCacheLength = options.maxCacheLength || DEFAULTS.maxCacheLength;
+		this._cachedModules = [];
+
 		this._initialize();
-	};
-
-
-	EventPage.prototype.render = function (hashChangeEvent) {
-		var hash = hashChangeEvent.newURL.split('#').slice(1).join('#'),
-		    hashParts = hash.split('_'),
-		    modulePart = hashParts.shift(),
-		    pagePart = hashParts.join('_'),
-		    module = this._findModule(modulePart) || new DefaultModule(),
-		    navItems = null, navItem = null, i = 0,
-		    item = null, cacheIndex = this._getCacheIndex(hash);
-
-
-		// Try to highlight the current section in navigation
-		navItems = this._navigation.querySelectorAll('.current-page');
-		if (navItems) {
-			for (i = 0; i < navItems.length; i++) {
-				Util.removeClass(navItems[i], 'current-page');
-			}
-		}
-
-		navItem = this._navigation.querySelector('[href="#' + hash + '"]');
-		if (navItem) {
-			Util.addClass(navItem, 'current-page');
-		}
-
-		// Check cache before rendering a new page
-		if (cacheIndex !== -1) {
-			item = this._renderCache.splice(cacheIndex, 1)[0];
-			this._render(item.module, item.page, hash);
-			return;
-		}
-
-		// No cached version, use module to render new version
-		module.render(pagePart, (function (scope) {
-			return function (module, page) {
-				scope._render(module, page, hash);
-			};
-		})(this));
-	};
-
-	EventPage.prototype._render = function (module, page, hash) {
-		var item = null, i = 0;
-
-		this._container.innerHTML = '';
-
-		this._container.appendChild(module.getHeader());
-		this._container.appendChild(page.getContent());
-		this._container.appendChild(module.getFooter());
-
-		// Add this rendering result to the render cache
-		this._renderCache.unshift({
-			hash: hash,
-			module: module,
-			page: page
-		});
-
-		// Keep cache from growing too large
-		for (i = this._renderCache.length - 1; i >= this._maxCacheLength; i--) {
-			item = this._renderCache[i];
-
-			// Give sub-modules and sub-pages a chance to clean up
-			item.module.destroy(page._el);
-			item.page.destroy();
-		}
-
-		this._renderCache.splice(this._maxCacheLength,
-				this._renderCache.length - this._maxCacheLength);
-	};
-
-	EventPage.prototype._initialize = function () {
-
-		if (!Util.hasClass(this._container, 'event-content')) {
-			Util.addClass(this._container, 'event-content');
-		}
-
-		// Update navigation
-		this._updateNavigation();
-
-		// Start listening for hash changes
-		Events.on('hashchange', this.render, this);
-
-		// Load an initial page for viewing, prefer hash, fall back to default
-		this.render({newURL: String(window.location)});
+		this._onHashChange(); // 
 	};
 
 	EventPage.prototype.destroy = function () {
-		Events.off('hashchange', this.render, this);
+		// TODO :: Clean up
+		Events.off('hashchange', this._onHashChange, this);
+	};
+
+	EventPage.prototype.render = function (evt) {
+		var hash = __get_hash(evt),
+		    _this = this;
+
+		try {
+			this.getModule(hash, function (module) {
+				module.getPage(hash, function (page) {
+					_this._render(module, page);
+				});
+			});
+		} catch (e) {
+			// TODO :: Handle this differently?
+			console.log('Error: ' + e);
+		}
+	};
+
+	EventPage.prototype.updateNavSelection = function (evt) {
+		var i = null,
+		    selectedItems = null,
+		    numSelected = null,
+		    selectedItem = null,
+		    hash = __get_hash(evt);
+
+		// Deselect all nav items
+		selectedItems = this._navigation.querySelectorAll('.current-page');
+		for (i = 0, numSelected = selectedItems.length; i < numSelected; i++) {
+			Util.removeClass(selectedItems.item(i), 'current-page');
+		}
+
+		// Select the item specified by the event (or window location)
+		selectedItem = this._navigation.querySelector('[href="#'+hash+'"]');
+		if (selectedItem) {
+			Util.addClass(selectedItem, 'current-page');
+		}
+	};
+
+	EventPage.prototype.getModule = function (hash, callback) {
+		var i = null,
+		    _this = this,
+		    module = null,
+		    moduleInfo = null,
+		    moduleFound = false,
+		    numModules = this._modules.length,
+		    numCached = this._cachedModules.length,
+		    hashStub = hash.split('_').slice(0, 1).join('_');
+
+		// Check the cache
+		for (i = 0; i < numCached; i++) {
+			module = this._cachedModules[i];
+			if (module.getStub() === hashStub) {
+				callback(module);
+				return;
+			}
+		}
+
+		// Not in the cache, try the registered modules
+		for (i = 0; i < numModules; i++) {
+			moduleInfo = this._modules[i];
+			if (moduleInfo.options.stub === hashStub) {
+				moduleFound = true;
+				break;
+			}
+		}
+
+		if (moduleFound) {
+			require([moduleInfo.className], function (Module) {
+				module = new Module(Util.extend(
+						{}, moduleInfo.options, {eventDetails: _this._event}));
+				_this.primeCache(module);
+				callback(module);
+			});
+			return;
+		}
+
+		throw 'No module found for request: "' + hash + '"';
+	};
+
+	EventPage.prototype.primeCache = function (module) {
+		var i = null,
+		    cachedModule = null,
+		    numCached = this._cachedModules.length;
+
+		// Check if this module is already in the cache
+		for (i = 0; i < numCached; i++) {
+			cachedModule = this._cachedModules[i];
+			if (module.getStub() === this._cachedModules[i].getStub()) {
+				cachedModule.destroy();
+				this._cachedModules.splice(i, 1);
+				break; // Should only be in cache once, so quit looking
+			}
+		}
+
+		// Add the module to the front of the cache
+		this._cachedModules.unshift(module);
+
+		// Trim the cache if it has grown too large
+		while (this._cachedModules.length > this._maxCacheLength) {
+			cachedModule = this._cachedModules.pop();
+			cachedModule.destroy();
+		}
+	};
+
+
+	EventPage.prototype._initialize = function () {
+		this._updateNavigation();
+		Events.on('hashchange', this._onHashChange, this);
+	};
+
+	EventPage.prototype._render = function (module, page) {
+		if (this._current) {
+			this._current.page.destroy();
+			delete this._current.page;
+
+			this._current.module.destroy();
+			delete this._current.module;
+
+			this._current = null;
+		}
+
+		this._container.innerHTML = '';
+		this._container.appendChild(page.getHeader());
+		this._container.appendChild(page.getContent());
+		this._container.appendChild(page.getFooter());
+
+		if (module && page) {
+			this._current = {
+				module: module,
+				page: page
+			};
+		}
+	};
+
+	EventPage.prototype._onHashChange = function (evt) {
+		this.updateNavSelection(evt);
+		this.render(evt);
 	};
 
 	EventPage.prototype._updateNavigation = function () {
-		var markup = [],
-		    hash = null;
+		var i = null,
+		    j = null,
+		    module = null,
+		    pages = null,
+		    numPages = null,
+		    page = null,
+		    markup = [],
+		    numModules = this._modules.length;
 
-		for (hash in this._modules) {
-			markup.push(this._modules[hash].getNavigationMarkup(hash));
+		for (i = 0; i < numModules; i++) {
+			module = this._modules[i].options;
+			pages = module.pages;
+			numPages = pages.length;
+
+			markup.push('<section><header>' + module.title + '</header>');
+
+			for (j = 0; j < numPages; j++) {
+				page = pages[j].options;
+				markup.push('<a href="#' + module.stub + '_' + page.stub + '">' +
+						page.title + '</a>');
+			}
+
+			markup.push('</section>');
 		}
 
 		this._navigation.innerHTML = markup.join('');
-	};
-
-	EventPage.prototype._findModule = function (moduleStub) {
-		var i = 0, numModules = this._modules.length, module = null;
-
-		for (i = 0; i < numModules; i++) {
-			module = this._modules[i];
-			if (module.getStub() === moduleStub) {
-				return module;
-			}
-		}
-
-		return null;
-	};
-
-	EventPage.prototype._getCacheIndex = function (hash) {
-		var i = 0, numCaches = this._renderCache.length;
-
-		for (i = 0; i < numCaches; i++) {
-			if (this._renderCache[i].hash === hash) {
-				return i;
-			}
-		}
-
-		return -1;
+		this.updateNavSelection();
 	};
 
 	return EventPage;

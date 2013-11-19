@@ -19,26 +19,6 @@ define([
 	'use strict';
 	var expect = chai.expect;
 
-	// Lightweight classes that stub the API for modules and pages. Just used
-	// for testing.
-
-	var LightWeightPage = function () {
-		this.getContent = function () { return document.createElement('div'); };
-		this.destroy = function () {};
-	};
-	var LightWeightModule = function (stub) {
-		var _stub = stub || 'stub_' + (new Date()).getTime();
-
-		this.getStub = function () { return _stub; };
-		this.getHeader = function () { return document.createElement('div'); };
-		this.getFooter = function () { return document.createElement('div'); };
-		this.render = function (hash, callback) {
-			callback(this, new LightWeightPage());
-		};
-		this.getNavigationMarkup = function () {};
-		this.destroy = function () {};
-	};
-
 	describe('EventPage test suite.', function () {
 		describe('Constructor', function () {
 			it('Can be defined.', function () {
@@ -54,10 +34,8 @@ define([
 				/* jshint -W030 */
 				expect(c._container).to.not.be.undefined;
 				expect(c._navigation).to.not.be.undefined;
-				expect(c._event).to.not.be.undefined;
 				expect(c._modules).to.not.be.undefined;
-				expect(c._maxCacheLength).to.not.be.undefined;
-				expect(c._renderCache).to.not.be.undefined;
+				expect(c._event).to.not.be.undefined;
 				/* jshint +W030 */
 
 				c.destroy();
@@ -121,60 +99,125 @@ define([
 				eventPage.destroy();
 			});
 
-			it('hits the cache when appropriate', function () {
-				var module1 = new LightWeightModule('module'),
-				    module2 = new LightWeightModule('another'),
-				    spy1 = sinon.spy(module1, 'render'),
-				    spy2 = sinon.spy(module2, 'render');
-
+			it('hits the cache when appropriate', function (done) {
 				var eventPage = new EventPage({
-					cacheLength: 2,
-					modules: [module1, module2]
+					modules: [
+						{
+							className: 'base/EventModule',
+							options: {
+								stub: 'module',
+								title: 'Module',
+								pages: [
+									{
+										className: 'base/EventModulePage',
+										options: {
+											stub: 'page',
+											title: 'Page'
+										}
+									}
+								]
+							}
+						},
+						{
+							className: 'base/EventModule',
+							options: {
+								stub: 'something',
+								title: 'Something',
+								pages: [
+									{
+										className: 'base/EventModulePage',
+										options: {
+											stub: 'else',
+											title: 'Else'
+										}
+									}
+								]
+							}
+						}
+					]
 				});
 
-				Events.trigger('hashchange', hashChangeEvent); // Prime the cache
-				expect(spy1.callCount).to.equal(1);
-				expect(spy2.callCount).to.equal(0);
+				var stub = sinon.stub(eventPage, '_render', function () {
+					var callCount = stub.callCount;
 
-				Events.trigger('hashchange', {newURL: '#another_section'});
-				expect(spy1.callCount).to.equal(1);
-				expect(spy2.callCount).to.equal(1);
+					if (callCount === 1) {
+						expect(eventPage._cachedModules.length).to.equal(1);
+						Events.trigger('hashchange', {newURL: '#something_else'});
+					} else if (callCount === 2) {
+						expect(eventPage._cachedModules.length).to.equal(2);
+						Events.trigger('hashchange', hashChangeEvent);
+					} else {
+						expect(eventPage._cachedModules.length).to.equal(2);
 
-				// It should not call render on the module1 again since it should be
-				// cached already from previous rendering
+						eventPage._render.restore();
+						eventPage.destroy();
+
+						done();
+					}
+				});
+
 				Events.trigger('hashchange', hashChangeEvent);
-				expect(spy1.callCount).to.equal(1);
-				expect(spy2.callCount).to.equal(1);
-
-				eventPage.destroy();
 			});
 
-			it('honors cache size limits', function () {
-				var module1 = new LightWeightModule('module'),
-				    module2 = new LightWeightModule('another'),
-				    spy1 = sinon.spy(module1, 'render'),
-				    spy2 = sinon.spy(module2, 'render');
-
+			it('honors cache size limits', function (done) {
 				var eventPage = new EventPage({
-					cacheLength: 1,
-					modules: [module1, module2]
+					maxCacheLength: 1,
+					modules: [
+						{
+							className: 'base/EventModule',
+							options: {
+								stub: 'module',
+								title: 'Module',
+								pages: [
+									{
+										className: 'base/EventModulePage',
+										options: {
+											stub: 'page',
+											title: 'Page'
+										}
+									}
+								]
+							}
+						},
+						{
+							className: 'base/EventModule',
+							options: {
+								stub: 'something',
+								title: 'Something',
+								pages: [
+									{
+										className: 'base/EventModulePage',
+										options: {
+											stub: 'else',
+											title: 'Else'
+										}
+									}
+								]
+							}
+						}
+					]
 				});
 
-				Events.trigger('hashchange', hashChangeEvent); // Prime the cache
-				expect(spy1.callCount).to.equal(1);
-				expect(spy2.callCount).to.equal(0);
+				var stub = sinon.stub(eventPage, '_render', function () {
+					var callCount = stub.callCount;
 
-				Events.trigger('hashchange', {newURL: '#another_section'});
-				expect(spy1.callCount).to.equal(1);
-				expect(spy2.callCount).to.equal(1);
+					if (callCount === 1) {
+						expect(eventPage._cachedModules.length).to.equal(1);
+						Events.trigger('hashchange', {newURL: '#something_else'});
+					} else if (callCount === 2) {
+						expect(eventPage._cachedModules.length).to.equal(1);
+						Events.trigger('hashchange', hashChangeEvent);
+					} else {
+						expect(eventPage._cachedModules.length).to.equal(1);
 
-				// It should call render on the module1 again since the cache is so
-				// small and module1's result should have been purged.
+						eventPage._render.restore();
+						eventPage.destroy();
+
+						done();
+					}
+				});
+
 				Events.trigger('hashchange', hashChangeEvent);
-				expect(spy1.callCount).to.equal(2);
-				expect(spy2.callCount).to.equal(1);
-
-				eventPage.destroy();
 			});
 		});
 
