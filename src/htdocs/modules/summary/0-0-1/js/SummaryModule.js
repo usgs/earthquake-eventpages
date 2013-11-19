@@ -7,8 +7,7 @@ define([
 	'use strict';
 
 	var SummaryModule = function (options) {
-		EventModule.apply(this, arguments);
-
+		EventModule.call(this, options);
 	};
 	SummaryModule.prototype = Object.create(EventModule.prototype);
 
