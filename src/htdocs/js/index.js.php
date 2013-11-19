@@ -28,6 +28,7 @@ require([
 	'use strict';
 
 	new EventPage({
+		defaultPage: 'shakemap_intensity',
 		container: document.querySelector('.event-content'),
 		navigation: document.querySelector('.site-sectionnav'),
 		eventDetails: <?php print json_encode($EVENT); ?>,
