@@ -55,29 +55,27 @@ define([
 	};
 
 	EventModulePage.prototype._initialize = function () {
-		this._createHeader();
-		this._createContent();
-		this._createFooter();
-	};
-
-	EventModulePage.prototype._createHeader = function () {
 		this._header = document.createElement('header');
 		Util.addClass(this._header, 'event-module-header');
-
-		this._header.innerHTML = this._module.getHeaderMarkup(this);
-	};
-
-	EventModulePage.prototype._createContent = function () {
 		this._content = document.createElement('section');
 		Util.addClass(this._content, 'event-module-content');
-
-		this._content.innerHTML = 'Rendered: ' + (new Date()).toUTCString();
-	};
-
-	EventModulePage.prototype._createFooter = function () {
 		this._footer = document.createElement('footer');
 		Util.addClass(this._footer, 'event-module-footer');
 
+		this._setHeaderMarkup();
+		this._setContentMarkup();
+		this._setFooterMarkup();
+	};
+
+	EventModulePage.prototype._setHeaderMarkup = function () {
+		this._header.innerHTML = this._module.getHeaderMarkup(this);
+	};
+
+	EventModulePage.prototype._setContentMarkup = function () {
+		this._content.innerHTML = 'Rendered: ' + (new Date()).toUTCString();
+	};
+
+	EventModulePage.prototype._setFooterMarkup = function () {
 		this._footer.innerHTML = this._module.getFooterMarkup(this);
 	};
 

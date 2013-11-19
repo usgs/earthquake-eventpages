@@ -9,7 +9,11 @@ define([
 	'use strict';
 
 	var DEFAULTS = {
-		maxCacheLength: 3
+		// Maximum number of modules to cache
+		maxCacheLength: 3,
+
+		// Default page to render if no hash is specified
+		defaultPage: null
 
 		// Configured list of modules (and sub-pages). Must be specified when
 		// event page is constructed.
@@ -56,15 +60,14 @@ define([
 		this._modules = options.modules || [];
 		this._event = options.eventDetails || {};
 
+		this._defaultPage = options.defaultPage || DEFAULTS.defaultPage;
 		this._maxCacheLength = options.maxCacheLength || DEFAULTS.maxCacheLength;
 		this._cachedModules = [];
 
 		this._initialize();
-		this._onHashChange(); // 
 	};
 
 	EventPage.prototype.destroy = function () {
-		// TODO :: Clean up
 		Events.off('hashchange', this._onHashChange, this);
 	};
 
@@ -81,6 +84,10 @@ define([
 		} catch (e) {
 			// TODO :: Handle this differently?
 			console.log('Error: ' + e);
+
+			if (this._defaultPage !== null) {
+				this._showDefaultPage();
+			}
 		}
 	};
 
@@ -172,8 +179,34 @@ define([
 
 
 	EventPage.prototype._initialize = function () {
+		var hash = __get_hash();
+
 		this._updateNavigation();
+
 		Events.on('hashchange', this._onHashChange, this);
+
+		if (hash === '') {
+			// No hash on page URL, use default page
+			this._showDefaultPage();
+		} else {
+			// There is a hash already, make sure we show the page from the hash
+			this._onHashChange();
+		}
+	};
+
+	EventPage.prototype._showDefaultPage = function () {
+		var newLocation;
+
+		if (this._defaultPage !== null) {
+			if (window.location.replace) {
+				newLocation = window.location.origin +
+						window.location.pathname + window.location.search + '#' +
+						this._defaultPage;
+				window.location.replace(newLocation);
+			} else {
+				window.location.hash = '#' + this._defaultPage;
+			}
+		}
 	};
 
 	EventPage.prototype._render = function (module, page) {

@@ -19,6 +19,45 @@ define([
 	'use strict';
 	var expect = chai.expect;
 
+	var createEventPage = function (options) {
+		return new EventPage(Util.extend({}, {
+			modules: [
+				{
+					className: 'base/EventModule',
+					options: {
+						stub: 'module',
+						title: 'Module',
+						pages: [
+							{
+								className: 'base/EventModulePage',
+								options: {
+									stub: 'page',
+									title: 'Page'
+								}
+							}
+						]
+					}
+				},
+				{
+					className: 'base/EventModule',
+					options: {
+						stub: 'something',
+						title: 'Something',
+						pages: [
+							{
+								className: 'base/EventModulePage',
+								options: {
+									stub: 'else',
+									title: 'Else'
+								}
+							}
+						]
+					}
+				}
+			]
+		}, options || {}));
+	};
+
 	describe('EventPage test suite.', function () {
 		describe('Constructor', function () {
 			it('Can be defined.', function () {
@@ -46,8 +85,8 @@ define([
 			var spy = null;
 			var hashChangeEvent = {
 				type: 'hashchange',
-				newURL: '/eventid#module_page',
-				oldURL: '/eventid'
+				newURL: '/?eventid=some_event#module_page',
+				oldURL: '/?eventid=some_event'
 			};
 
 			beforeEach(function () {
@@ -57,85 +96,19 @@ define([
 				EventPage.prototype.render.restore();
 			});
 
-			it('is called during construction', function () {
-				var eventPage = new EventPage();
-				expect(spy.callCount).to.equal(1);
-				eventPage.destroy();
-			});
-
-			it('is called on hashchange', function () {
-				var eventPage = new EventPage();
-				Events.trigger('hashchange', hashChangeEvent);
-				expect(spy.callCount).to.equal(2);
-				/* jshint -W030 */
-				expect(spy.getCall(1).calledWithExactly(hashChangeEvent)).to.be.true;
-				/* jshint +W030 */
-
-				eventPage.destroy();
-			});
-
 			it('selects the correct nav item during rendering', function () {
-				var eventPage = new EventPage();
-				var link1 = eventPage._navigation.appendChild(
-						document.createElement('a'));
-				var link2 = eventPage._navigation.appendChild(
-						document.createElement('a'));
-
-				link1.href = '#module_page';
-				link2.href = '/';
-
-				/* jshint -W030 */
-				expect(Util.hasClass(link1, 'current-page')).to.be.false;
-				expect(Util.hasClass(link2, 'current-page')).to.be.false;
-				/* jshing +W030 */
+				var eventPage = createEventPage();
 
 				Events.trigger('hashchange', hashChangeEvent);
 
-				/* jshint -W030 */
-				expect(Util.hasClass(link1, 'current-page')).to.be.true;
-				expect(Util.hasClass(link2, 'current-page')).to.be.false;
-				/* jshing +W030 */
+				expect(eventPage._navigation.querySelector('.current-page')
+						.getAttribute('href')).to.equal('#module_page');
 
 				eventPage.destroy();
 			});
 
 			it('hits the cache when appropriate', function (done) {
-				var eventPage = new EventPage({
-					modules: [
-						{
-							className: 'base/EventModule',
-							options: {
-								stub: 'module',
-								title: 'Module',
-								pages: [
-									{
-										className: 'base/EventModulePage',
-										options: {
-											stub: 'page',
-											title: 'Page'
-										}
-									}
-								]
-							}
-						},
-						{
-							className: 'base/EventModule',
-							options: {
-								stub: 'something',
-								title: 'Something',
-								pages: [
-									{
-										className: 'base/EventModulePage',
-										options: {
-											stub: 'else',
-											title: 'Else'
-										}
-									}
-								]
-							}
-						}
-					]
-				});
+				var eventPage = createEventPage();
 
 				var stub = sinon.stub(eventPage, '_render', function () {
 					var callCount = stub.callCount;
@@ -160,43 +133,7 @@ define([
 			});
 
 			it('honors cache size limits', function (done) {
-				var eventPage = new EventPage({
-					maxCacheLength: 1,
-					modules: [
-						{
-							className: 'base/EventModule',
-							options: {
-								stub: 'module',
-								title: 'Module',
-								pages: [
-									{
-										className: 'base/EventModulePage',
-										options: {
-											stub: 'page',
-											title: 'Page'
-										}
-									}
-								]
-							}
-						},
-						{
-							className: 'base/EventModule',
-							options: {
-								stub: 'something',
-								title: 'Something',
-								pages: [
-									{
-										className: 'base/EventModulePage',
-										options: {
-											stub: 'else',
-											title: 'Else'
-										}
-									}
-								]
-							}
-						}
-					]
-				});
+				var eventPage = createEventPage({maxCacheLength: 1});
 
 				var stub = sinon.stub(eventPage, '_render', function () {
 					var callCount = stub.callCount;
