@@ -1,10 +1,12 @@
 /* global define */
 define([
 	'summary/Attribution',
-	'base/EventModulePage'
+	'base/EventModulePage',
+	'util/Xhr'
 ], function (
 	Attribution,
-	EventModulePage
+	EventModulePage,
+	Xhr
 ) {
 	'use strict';
 
@@ -14,7 +16,12 @@ define([
 	SummaryPage.prototype = Object.create(EventModulePage.prototype);
 
 	SummaryPage.prototype._setContentMarkup = function () {
-		var markup = [];
+		var markup = [],
+		    generalHeader,
+		    nearbyCities,
+		    tectonicSummary,
+		    generalText,
+		    impactText;
 
 		// DEBUG
 		console.log(this._event);
@@ -33,8 +40,53 @@ define([
 
 		this._content.innerHTML = markup.join('');
 
+		// Store references to containing elements for faster access
+		generalHeader = this._content.querySelector('.summary-general-header');
+		nearbyCities = this._content.querySelector('.summary-nearby-cities');
+		tectonicSummary = this._content.querySelector('.summary-tectonic-summary');
+		generalText = this._content.querySelector('.summary-general-text');
+		impactText = this._content.querySelector('.summary-impact-text');
+
 		// Fetch AJAX content and load it into the containers
-		// TODO ...
+		Xhr.ajax({
+				url: this._event.properties.products.geoserve[0]
+						.contents['geoserve.json'].url,
+				success: function (geoserve) {
+					var i,
+					    city,
+					    cities,
+					    len;
+
+					if (nearbyCities !== null) {
+						cities = ['<ul>'];
+						for (i = 0, len = geoserve.cities.length; i < len; i++) {
+							city = geoserve.cities[i];
+							cities.push('<li>' + city.distance +
+									'km ' + city.direction +
+									' of ' + city.name +
+									'</li>');
+						}
+						cities.push('</ul>');
+						nearbyCities.innerHTML = '<h3>Nearby Cities</h3>' + cities.join('');
+					}
+
+					if (tectonicSummary !== null) {
+						tectonicSummary.innerHTML = '<h3>Tectionic Summary</h3>' +
+								geoserve.tectonicSummary.text;
+					}
+				},
+				error: function () {
+					nearbyCities.parentNode.removeChild(nearbyCities);
+					tectonicSummary.parentNode.removeChild(tectonicSummary);
+					nearbyCities = null;
+					tectonicSummary = null;
+				}
+			});
+
+		this._loadTextualContent(generalHeader, 'general-header', null);
+		this._loadTextualContent(impactText, 'impact-text', 'Impact Text');
+		this._loadTextualContent(generalText, 'general-text',
+				'Additional Commentary');
 
 		// Bind event listeners as needed
 		// TODO ...
@@ -119,11 +171,48 @@ define([
 				'Location contributed by: ' +
 				Attribution.getMainContributerHeader(locationId) + '<br/>' +
 				'Magnitude contributed by: ' +
-				Attribution.getMainContributerHeader(locationId) +
+				Attribution.getMainContributerHeader(magnitudeId) +
 			'</div>';
 		}
 
 		return ''; // TODO
+	};
+
+	/**
+	 * Handles loading text-type products into the container. This works for
+	 * products with in-line (byte) content.
+	 *
+	 * @param container {DOMElement}
+	 *      The container into which the textual content should be loaded
+	 * @param type {String}
+	 *      The product type (a text-type product type)
+	 */
+	SummaryPage.prototype._loadTextualContent = function (container, type,
+			title) {
+
+		var i = null,
+		    len = null,
+		    products = null,
+		    markup = [];
+
+		if (title !== null && typeof title !== 'undefined') {
+			title = '<h3>' + title + '</h3>';
+		} else {
+			title = null;
+		}
+
+		if (container === null ||
+				!this._event.properties.products.hasOwnProperty(type)) {
+			return;
+		}
+
+		products = this._event.properties.products[type];
+
+		for (i = 0, len = products.length; i < len; i++) {
+			markup.push('<div>' + products[0].contents[''].bytes + '<div>');
+		}
+
+		container.innerHTML = title + markup.join('');
 	};
 
 	return SummaryPage;
