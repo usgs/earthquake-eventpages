@@ -2,11 +2,15 @@
 define([
 	'summary/Attribution',
 	'base/EventModulePage',
-	'util/Xhr'
+
+	'util/Xhr',
+	'util/Util'
 ], function (
 	Attribution,
 	EventModulePage,
-	Xhr
+
+	Xhr,
+	Util
 ) {
 	'use strict';
 
@@ -16,8 +20,10 @@ define([
 	SummaryPage.prototype = Object.create(EventModulePage.prototype);
 
 	SummaryPage.prototype._setContentMarkup = function () {
-		var markup = [],
+		var _this = this,
+		    markup = [],
 		    generalHeader,
+		    mapContainer,
 		    nearbyCities,
 		    tectonicSummary,
 		    generalText,
@@ -42,6 +48,7 @@ define([
 
 		// Store references to containing elements for faster access
 		generalHeader = this._content.querySelector('.summary-general-header');
+		mapContainer = this._content.querySelector('.summary-map');
 		nearbyCities = this._content.querySelector('.summary-nearby-cities');
 		tectonicSummary = this._content.querySelector('.summary-tectonic-summary');
 		generalText = this._content.querySelector('.summary-general-text');
@@ -57,8 +64,13 @@ define([
 					    cities,
 					    len;
 
+					if (mapContainer) {
+						_this._loadStaticMapContent(mapContainer, geoserve.cities);
+					}
+
 					if (nearbyCities !== null) {
-						cities = ['<ul>'];
+
+						cities = ['<ol class="staticmap">'];
 						for (i = 0, len = geoserve.cities.length; i < len; i++) {
 							city = geoserve.cities[i];
 							cities.push('<li>' + city.distance +
@@ -66,7 +78,7 @@ define([
 									' of ' + city.name +
 									'</li>');
 						}
-						cities.push('</ul>');
+						cities.push('</ol>');
 						nearbyCities.innerHTML = '<h3>Nearby Cities</h3>' + cities.join('');
 					}
 
@@ -89,7 +101,15 @@ define([
 				'Additional Commentary');
 
 		// Bind event listeners as needed
-		// TODO ...
+
+		Util.addEvent(mapContainer, 'click', (function (_this) {
+			var callback = function callback () {
+				_this._enhanceMap();
+				Util.removeClass(nearbyCities.querySelector('ol'), 'staticmap');
+				Util.removeEvent(mapContainer, 'click', callback);
+			};
+			return callback;
+		})(this));
 	};
 
 	SummaryPage.prototype._getTextContentMarkup = function (type) {
@@ -100,23 +120,38 @@ define([
 	};
 
 	SummaryPage.prototype._getMapMarkup = function () {
-		var latitude = this._event.geometry.coordinates[1],
-		    longitude = this._event.geometry.coordinates[0];
+		return '<div class="summary-map"></div>';
+	};
 
-		return '<div class="summary-map">' +
-				'<img src="http://www.mapquestapi.com/staticmap/v4/getmap?' +
-					'key=' +
-					'center=' + latitude + ',' + longitude + '&' +
-					'zoom=5&' +
+	SummaryPage.prototype._loadStaticMapContent = function (container, cities) {
+		var i = null,
+		    len = null,
+		    city = null,
+		    latitude = this._event.geometry.coordinates[1],
+		    longitude = this._event.geometry.coordinates[0],
+		    points = [],
+		    markup = null;
+
+		markup = [
+			'<img alt="Map" src="http://www.mapquestapi.com/staticmap/v4/getmap?' +
+					'key=Fmjtd%7Cluub2h0rnh%2Cb2%3Do5-9ut0g6&' +
 					'size=500,500&' +
 					'type=map&' +
 					'imagetype=jpeg&' +
-					'pois=red_1,' + latitude + ',' + longitude +
-						'|orange_1,' + (latitude+1.5) + ',' + (longitude+1.5) +
-						'|orange_1,' + (latitude-1.5) + ',' + (longitude-1.5) +
-						'|orange_1,' + (latitude+1.5) + ',' + (longitude-1.5) +
-						'|orange_1,' + (latitude-1.5) + ',' + (longitude+1.5) +
-					'" alt="Map"/></div>';
+					'pois='
+		];
+
+		for (i = 0, len = cities.length; i < len; i++) {
+			city = cities[i];
+			points.push('orange_1-' + i + ',' + city.latitude + ',' + city.longitude);
+		}
+
+		points.push('red_1,' + latitude + ',' + longitude);
+
+		markup.push(points.join('|'));
+		markup.push('"/>');
+
+		container.innerHTML = markup.join('');
 	};
 
 	SummaryPage.prototype._getRelatedLinksMarkup = function () {
@@ -174,8 +209,7 @@ define([
 				Attribution.getMainContributerHeader(magnitudeId) +
 			'</div>';
 		}
-
-		return ''; // TODO
+		return '';
 	};
 
 	/**
@@ -195,7 +229,7 @@ define([
 		    products = null,
 		    markup = [];
 
-		if (title !== null && typeof title !== 'undefined') {
+		if (title !== null && typeof title !== 'undefined' && title !== '') {
 			title = '<h3>' + title + '</h3>';
 		} else {
 			title = null;
@@ -213,6 +247,18 @@ define([
 		}
 
 		container.innerHTML = title + markup.join('');
+	};
+
+	SummaryPage.prototype._enhanceMap = function () {
+		var _this = this;
+
+		require(['summary/InteractiveMap'], function (InteractiveMap) {
+			_this._interactiveMap = new InteractiveMap({
+				el: _this._content.querySelector('.summary-map'),
+				cities: _this._content.querySelector('.summary-nearby-cities'),
+				eventDetails: _this._event
+			});
+		});
 	};
 
 	return SummaryPage;
