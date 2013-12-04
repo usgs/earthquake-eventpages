@@ -175,6 +175,13 @@ module.exports = function (grunt) {
 					cssDir: '<%= app.tmp %>',
 					environment: 'development'
 				}
+			},
+			devmodules: {
+				options: {
+					sassDir: '<%= app.src %>/htdocs/modules',
+					cssDir: '<%= app.tmp %>/modules',
+					environment: 'development'
+				}
 			}
 		},
 		mocha_phantomjs: {
