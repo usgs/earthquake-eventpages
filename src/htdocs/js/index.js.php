@@ -7,28 +7,31 @@
 ?>
 <script>
 require.config({
-	baseUrl: 'modules',
+	baseUrl: '.',
 	paths: {
-		mvc: '/hazdev-webutils/src/mvc',
-		util: '/hazdev-webutils/src/util',
+		mvc: 'hazdev-webutils/src/mvc',
+		util: 'hazdev-webutils/src/util',
 
+<<<<<<< HEAD
 		base: 'base/0-0-1/js',
 		dyfi: 'dyfi/0-0-1/js'
+=======
+		base: 'modules/base/0-0-1/js'
+>>>>>>> Updated configuration to be more in EventPage and EventModule. Changed baseUrl so we do not have to use as many relative paths.
 	},
 	shim: {
 	}
 });
 
 require([
-	'base/EventPage',
-	'base/EventModule'
+	'base/EventPage'
 ], function (
-	EventPage,
-	EventModule
+	EventPage
 ) {
 	'use strict';
 
 	new EventPage({
+<<<<<<< HEAD
 		defaultPage: 'shakemap_intensity',
 		container: document.querySelector('.event-content'),
 		navigation: document.querySelector('.site-sectionnav'),
@@ -102,6 +105,9 @@ require([
 				}
 			}
 		]
+=======
+		eventDetails: <?php print json_encode($EVENT); ?>
+>>>>>>> Updated configuration to be more in EventPage and EventModule. Changed baseUrl so we do not have to use as many relative paths.
 	});
 });
 </script>
