@@ -11,6 +11,7 @@ define([
 	var DEFAULTS = {
 		title: 'Did You Feel It?',
 		hash: 'dyfi',
+		cssUrl: require.toUrl('dyfi/../css/index.css'),
 		dependencyLoader: null,
 		pages: [
 			{

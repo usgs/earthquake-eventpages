@@ -9,6 +9,7 @@ define([
 	var DEFAULTS = {
 		title: 'Event Module',
 		hash: 'module',
+		cssUrl: require.toUrl('base/../css/index.css'),
 		dependencyLoader: 'base/EventModulePages',
 		pages: [
 			{
@@ -36,6 +37,7 @@ define([
 		this._hash = options.hash;
 		this._dependencyLoader = options.dependencyLoader;
 		this._pages = options.pages;
+		this._cssUrl = options.cssUrl;
 
 		this._cssLoaded = false;
 	};
@@ -144,23 +146,25 @@ define([
 	};
 
 	EventModule.prototype._loadCSS = function () {
-		// TODO :: Load the css for this module. This method should be called
-		// once when the first page in the module is requested.
-		var link = document.createElement('link'),
-		    container = document.querySelectory('head');
+		var link, container;
 
-		if (!container) {
-			container = document.querySelector('body');
+		if (this._cssUrl) {
+			link = document.createElement('link');
+			container = document.querySelector('head');
+
+			if (!container) {
+				container = document.querySelector('body');
+			}
+
+			if (!container) {
+				return;
+			}
+
+			link.setAttribute('rel', 'stylesheet');
+			link.setAttribute('href', this._cssUrl);
+
+			container.appendChild(link);
 		}
-
-		if (!container) {
-			return;
-		}
-
-		link.setAttribute('rel', 'stylesheet');
-		link.setAttribute('href', require.toUrl('./index.css'));
-
-		container.appendChild(link);
 
 		// Maybe should do this in some "onLoad" event when CSS actually loads, but
 		// this is good enough for now. We gave it a chance to work at least.
