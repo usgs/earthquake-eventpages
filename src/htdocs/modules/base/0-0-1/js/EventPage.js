@@ -3,12 +3,14 @@ define([
 	'util/Util',
 	'util/Events',
 
-	'base/EventModule'
+	'base/EventModule',
+	'dyfi/DYFIModule'
 ], function (
 	Util,
 	Events,
 
-	EventModule
+	EventModule,
+	DYFIModule
 ) {
 	'use strict';
 
@@ -53,7 +55,8 @@ define([
 		this._cache = [];
 
 		this._modules = options.modules || [
-			new EventModule()
+			new EventModule(),
+			new DYFIModule()
 		];
 
 		this._initialize();
