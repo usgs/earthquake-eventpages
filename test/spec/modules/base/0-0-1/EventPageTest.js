@@ -30,16 +30,18 @@ define([
 					hash: 'mod1',
 					pages: [
 						{
-							title: 'Page 1',
-							hash: 'page1',
 							className: 'base/EventModulePage',
-							options: {}
+							options: {
+								title: 'Page 1',
+								hash: 'page1',
+							}
 						},
 						{
-							title: 'Page 2',
-							hash: 'page2',
 							className: 'base/EventModulePage',
-							options: {}
+							options: {
+								title: 'Page 1',
+								hash: 'page1',
+							}
 						}
 					]
 				}),
@@ -48,16 +50,18 @@ define([
 					hash: 'mod2',
 					pages: [
 						{
-							title: 'Page 1',
-							hash: 'page1',
 							className: 'base/EventModulePage',
-							options: {}
+							options: {
+								title: 'Page 1',
+								hash: 'page1',
+							}
 						},
 						{
-							title: 'Page 2',
-							hash: 'page2',
 							className: 'base/EventModulePage',
-							options: {}
+							options: {
+								title: 'Page 1',
+								hash: 'page1',
+							}
 						}
 					]
 				})
