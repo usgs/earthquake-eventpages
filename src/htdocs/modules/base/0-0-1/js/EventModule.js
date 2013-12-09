@@ -12,17 +12,17 @@ define([
 		dependencyLoader: 'base/EventModulePages',
 		pages: [
 			{
-				title: 'Page 1',
-				hash: 'page1',
 				className: 'base/EventModulePage',
 				options: {
+					title: 'Page 1',
+					hash: 'page1',
 				}
 			},
 			{
-				title: 'Page 2',
-				hash: 'page2',
 				className: 'base/EventModulePage',
 				options: {
+					title: 'Page 2',
+					hash: 'page2',
 				}
 			}
 		],
@@ -67,11 +67,12 @@ define([
 		    i = null, page = null;
 
 		for (i = 0; i < numPages; i++) {
-			page = this._pages[i];
+			page = this._pages[i].options;
 			fullHash = this._hash + '_' + page.hash;
 
 			if (fullHash === hash) {
-				markup.push('<strong class="current-page">' + page.title + '</strong>');
+				markup.push('<strong class="current-page">' + page.title +
+						'</strong>');
 			} else {
 				markup.push('<a href="#' + this._hash + '_' + page.hash + '">' +
 						page.title + '</a>');
@@ -81,8 +82,8 @@ define([
 		return markup.join('');
 	};
 
-	EventModule.prototype.getHeaderMarkup = function (/* page */) {
-		return '<h2>' + this._title + '</h2>';
+	EventModule.prototype.getHeaderMarkup = function (page) {
+		return '<h2>' + this._title + ' - ' + page.getTitle() + '</h2>';
 	};
 
 	EventModule.prototype.getFooterMarkup = function (/* page */) {
@@ -109,17 +110,28 @@ define([
 		var pageInfo = this._getPageInfo(hash.replace(this._hash + '_', ''));
 		var pageOptions = Util.extend({}, pageInfo.options,
 				{eventDetails: this._eventDetails, module: module});
+		var classLoader = null;
 
-		require([this._dependencyLoader], function (pages) {
+		if (this._dependencyLoader !== null) {
+			// Use configured dependency loader to load all pages at once
+			classLoader = this._dependencyLoader;
+		} else {
+			// No dependency loader, load classes individually based on class name
+			classLoader = pageInfo.className;
+		}
+
+		require([this._dependencyLoader], function (PageConstructor) {
 			var page = null;
 
 			try {
-				if (pages.hasOwnProperty(pageInfo.className)) {
-					page = new pages[pageInfo.className](pageOptions);
+				if (typeof pages === 'function') {
+					page = new PageConstructor(pageOptions);
+				} else {
+					page = new PageConstructor[pageInfo.className](pageOptions);
+				}
 
-					if (!module._cssLoaded) {
-						module._loadCSS();
-					}
+				if (!module._cssLoaded) {
+					module._loadCSS();
 				}
 			} catch (e) {
 				// TODO :: Hmm... ?
@@ -168,7 +180,7 @@ define([
 
 		for (i = 0; i < numPages; i++) {
 			pageInfo = this._pages[i];
-			if (pageInfo.hash === pageHash) {
+			if (pageInfo.options.hash === pageHash) {
 				return pageInfo;
 			}
 		}

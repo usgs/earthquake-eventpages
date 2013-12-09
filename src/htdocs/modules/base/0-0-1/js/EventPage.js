@@ -90,18 +90,14 @@ define([
 		    cacheIndex = this._getCacheIndex(hash);
 
 		if (cacheIndex !== null) {
-			this._renderPage(this._cache[cacheIndex].page);
-			this.cachePage(hash, this._cache[cacheIndex].page);
-			this.trigger('render', {hash: hash, page: this._cache[cacheIndex].page});
+			this._renderPage(hash, this._cache[cacheIndex].page);
 			return;
 		}
 
 		try {
 			this.getModule(hash).getPage(hash, function (page) {
 				if (page !== null) {
-					_this._renderPage(page);
-					_this.cachePage(hash, page);
-					_this.trigger('render', {hash: hash, page: page});
+					_this._renderPage(hash, page);
 				} else {
 					// No page? No render. Error.
 					throw 'No page found for request: "' + hash + '"';
@@ -210,12 +206,18 @@ define([
 		return null;
 	};
 
-	EventPage.prototype._renderPage = function (page) {
+	EventPage.prototype._renderPage = function (hash, page) {
 		// Update the page rendering
 		this._container.innerHTML = '';
 		this._container.appendChild(page.getHeader());
 		this._container.appendChild(page.getContent());
 		this._container.appendChild(page.getFooter());
+
+		// Update cache
+		this.cachePage(hash, page);
+
+		// Notify listeners
+		this.trigger('render', {hash: hash, page: page});
 	};
 
 	EventPage.prototype._showDefaultPage = function () {
