@@ -6,6 +6,9 @@ define([
 ) {
 	'use strict';
 
+	var CSS_MAP = {},
+	    CSS_CONTAINER = document.querySelector('head');
+
 	var DEFAULTS = {
 		title: 'Event Module',
 		hash: 'module',
@@ -146,24 +149,8 @@ define([
 	};
 
 	EventModule.prototype._loadCSS = function () {
-		var link, container;
-
 		if (this._cssUrl) {
-			link = document.createElement('link');
-			container = document.querySelector('head');
-
-			if (!container) {
-				container = document.querySelector('body');
-			}
-
-			if (!container) {
-				return;
-			}
-
-			link.setAttribute('rel', 'stylesheet');
-			link.setAttribute('href', this._cssUrl);
-
-			container.appendChild(link);
+			EventModule.loadCSS(this._cssUrl);
 		}
 
 		// Maybe should do this in some "onLoad" event when CSS actually loads, but
@@ -193,6 +180,42 @@ define([
 
 		return null;
 	};
+
+	// ------------------------------------------------------------
+	// Static methods
+	// ------------------------------------------------------------
+
+	/**
+	 * Static method to load a css file given a url. This method tracks each url
+	 * that is loaded to prevent duplicate attempts to load the same file.
+	 *
+	 * @param url {String}
+	 *      The URL for the file to load.
+	 */
+	EventModule.loadCSS = function (url) {
+		var link;
+
+		if (CSS_MAP.hasOwnProperty(url)) {
+			return;
+		}
+
+		link = CSS_CONTAINER.appendChild(document.createElement('link'));
+		link.setAttribute('rel', 'stylesheet');
+		link.setAttribute('href', url);
+
+		CSS_MAP[url] = true;
+	};
+
+	try {
+		// Pre-load the CSS map with all prior loaded CSS files
+		// (this is a "best guess")
+		var links = document.querySelectorAll('link[rel="stylesheet"]');
+		for (var i = 0; i < links.length; i++) {
+			CSS_MAP[links.item(i).href] = true;
+		}
+	} catch (e) {
+		// TODO :: Hmm ... ?
+	}
 
 	return EventModule;
 });
