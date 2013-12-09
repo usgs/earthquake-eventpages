@@ -5,7 +5,7 @@ define([
 	EventModule
 ) {
 	'use strict';
-	
+
 	var DYFIModule = function (options) {
 		EventModule.call(this, options);
 	};

@@ -5,7 +5,7 @@ define([
 	EventModulePage
 ) {
 	'use strict';
-	
+
 	var DYFIMapPage = function (options) {
 		EventModulePage.call(this, options);
 	};
