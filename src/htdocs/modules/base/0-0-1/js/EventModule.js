@@ -79,6 +79,8 @@ define([
 			}
 		}
 
+		markup.push('</section>');
+
 		return markup.join('');
 	};
 
@@ -120,11 +122,11 @@ define([
 			classLoader = pageInfo.className;
 		}
 
-		require([this._dependencyLoader], function (PageConstructor) {
+		require([classLoader], function (PageConstructor) {
 			var page = null;
 
 			try {
-				if (typeof pages === 'function') {
+				if (typeof PageConstructor === 'function') {
 					page = new PageConstructor(pageOptions);
 				} else {
 					page = new PageConstructor[pageInfo.className](pageOptions);

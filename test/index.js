@@ -8,7 +8,8 @@ require.config({
 		mvc: 'hazdev-webutils/src/mvc',
 		util: 'hazdev-webutils/src/util',
 
-		base: 'base/0-0-1/js'
+		base: 'base/0-0-1/js',
+		dyfi: 'dyfi/0-0-1/js'
 	},
 	shim: {
 		mocha: {

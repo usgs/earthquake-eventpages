@@ -11,12 +11,13 @@ define([
 	var DEFAULTS = {
 		title: 'Did You Feel It?',
 		hash: 'dyfi',
+		dependencyLoader: null,
 		pages: [
 			{
 				className: 'dyfi/DYFIMapPage',
 				options: {
 					title: 'Maps',
-					hash: 'maps,
+					hash: 'maps'
 				}
 			},
 			{

@@ -1,4 +1,4 @@
-/* global define, require */
+/* global require */
 require.config({
 	baseUrl: '.',
 	paths: {
