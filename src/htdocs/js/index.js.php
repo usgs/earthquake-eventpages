@@ -12,7 +12,8 @@ require.config({
 		mvc: '/hazdev-webutils/src/mvc',
 		util: '/hazdev-webutils/src/util',
 
-		base: 'base/0-0-1/js'
+		base: 'base/0-0-1/js',
+		dyfi: 'dyfi/0-0-1/js'
 	},
 	shim: {
 	}
@@ -65,6 +66,36 @@ require([
 							options: {
 								stub: 'pgv',
 								title: 'PGV Maps'
+							}
+						}
+					]
+				}
+			},
+			{
+				className: 'dyfi/DYFIModule',
+				options: {
+					stub: 'dyfi',
+					title: 'DYFI',
+					pages: [
+						{
+							className: 'dyfi/DYFIMapPage',
+							options: {
+								stub: 'maps',
+								title: 'Maps'
+							}
+						},
+						{
+							className: 'dyfi/DYFIGraphPage',
+							options: {
+								stub: 'graphs',
+								title: 'Graphs'
+							}
+						},
+						{
+							className: 'dyfi/DYFIResponsesPage',
+							options: {
+								stub: 'responses',
+								title: 'Responses'
 							}
 						}
 					]
