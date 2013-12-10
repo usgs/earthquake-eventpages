@@ -4,6 +4,7 @@ define([
 	'sinon',
 
 	'base/EventPage',
+	'base/EventModule',
 
 	'util/Events',
 	'util/Util'
@@ -12,6 +13,7 @@ define([
 	sinon,
 
 	EventPage,
+	EventModule,
 
 	Events,
 	Util
@@ -21,39 +23,48 @@ define([
 
 	var createEventPage = function (options) {
 		return new EventPage(Util.extend({}, {
+			defaultPage: 'mod1_page1',
 			modules: [
-				{
-					className: 'base/EventModule',
-					options: {
-						stub: 'module',
-						title: 'Module',
-						pages: [
-							{
-								className: 'base/EventModulePage',
-								options: {
-									stub: 'page',
-									title: 'Page'
-								}
+				new EventModule({
+					title: 'Module One',
+					hash: 'mod1',
+					pages: [
+						{
+							className: 'base/EventModulePage',
+							options: {
+								title: 'Page 1',
+								hash: 'page1',
 							}
-						]
-					}
-				},
-				{
-					className: 'base/EventModule',
-					options: {
-						stub: 'something',
-						title: 'Something',
-						pages: [
-							{
-								className: 'base/EventModulePage',
-								options: {
-									stub: 'else',
-									title: 'Else'
-								}
+						},
+						{
+							className: 'base/EventModulePage',
+							options: {
+								title: 'Page 1',
+								hash: 'page1',
 							}
-						]
-					}
-				}
+						}
+					]
+				}),
+				new EventModule({
+					title: 'Module Two',
+					hash: 'mod2',
+					pages: [
+						{
+							className: 'base/EventModulePage',
+							options: {
+								title: 'Page 1',
+								hash: 'page1',
+							}
+						},
+						{
+							className: 'base/EventModulePage',
+							options: {
+								title: 'Page 1',
+								hash: 'page1',
+							}
+						}
+					]
+				})
 			]
 		}, options || {}));
 	};
@@ -74,7 +85,7 @@ define([
 				expect(c._container).to.not.be.undefined;
 				expect(c._navigation).to.not.be.undefined;
 				expect(c._modules).to.not.be.undefined;
-				expect(c._event).to.not.be.undefined;
+				expect(c._eventDetails).to.not.be.undefined;
 				/* jshint +W030 */
 
 				c.destroy();
@@ -82,79 +93,102 @@ define([
 		});
 
 		describe('render(hashChangeEvent)', function () {
-			var spy = null;
-			var hashChangeEvent = {
+			var eventPage = null;
+
+			var hashChangeEvent1 = {
 				type: 'hashchange',
-				newURL: '/?eventid=some_event#module_page',
-				oldURL: '/?eventid=some_event'
+				newURL: '/?eventid=some_event#mod2_page1',
+				oldURL: '/?eventid=some_event#mod1_page1'
+			};
+
+			var hashChangeEvent2 = {
+				type: 'hashchange',
+				newURL: '/?eventid=some_event#mod1_page1',
+				oldURL: '/?eventid=some_event#mod2_page1'
 			};
 
 			beforeEach(function () {
-				spy = sinon.spy(EventPage.prototype, 'render');
+				// It is important the current window hash is always empty when we start
+				window.location.hash = '';
 			});
+
 			afterEach(function () {
-				EventPage.prototype.render.restore();
+				// Destroy the eventPage after each test if it was used
+				if (eventPage && eventPage.destroy) {
+					eventPage.destroy();
+				}
 			});
 
-			it('selects the correct nav item during rendering', function () {
-				var eventPage = createEventPage();
+			it('selects the correct nav item during rendering', function (done) {
+				// defaultPage = null so we don't try to render during initialization
+				eventPage = createEventPage({defaultPage: null});
 
-				Events.trigger('hashchange', hashChangeEvent);
+				Events.trigger('hashchange', hashChangeEvent1);
 
 				expect(eventPage._navigation.querySelector('.current-page')
-						.getAttribute('href')).to.equal('#module_page');
+						.tagName).to.equal('STRONG');
+				expect(eventPage._navigation.querySelector('.current-page')
+						.innerHTML).to.equal('Page 1');
 
-				eventPage.destroy();
+				eventPage.on('render', function () { done(); });
 			});
 
 			it('hits the cache when appropriate', function (done) {
-				var eventPage = createEventPage();
+				// defaultPage = null so we don't try to render during initialization
+				eventPage = createEventPage({defaultPage: null});
 
-				var stub = sinon.stub(eventPage, '_render', function () {
-					var callCount = stub.callCount;
+				var spy = sinon.spy(eventPage, 'getModule'),
+				    listener = null, changeCount = 0, hashChange = null;
 
-					if (callCount === 1) {
-						expect(eventPage._cachedModules.length).to.equal(1);
-						Events.trigger('hashchange', {newURL: '#something_else'});
-					} else if (callCount === 2) {
-						expect(eventPage._cachedModules.length).to.equal(2);
-						Events.trigger('hashchange', hashChangeEvent);
+				listener = function () {
+					changeCount += 1;
+
+					expect(spy.callCount).to.equal(Math.min(changeCount, 2));
+
+					if (changeCount % 2 === 0) {
+						hashChange = hashChangeEvent1;
 					} else {
-						expect(eventPage._cachedModules.length).to.equal(2);
+						hashChange = hashChangeEvent2;
+					}
 
-						eventPage._render.restore();
-						eventPage.destroy();
-
+					if (changeCount < 5) {
+						Events.trigger('hashchange', hashChange);
+					} else {
+						spy.restore();
 						done();
 					}
-				});
+				};
 
-				Events.trigger('hashchange', hashChangeEvent);
+				eventPage.on('render', listener);
+				hashChange = hashChangeEvent1;
+				Events.trigger('hashchange', hashChange);
 			});
 
 			it('honors cache size limits', function (done) {
-				var eventPage = createEventPage({maxCacheLength: 1});
+				eventPage = createEventPage({defaultPage: null, maxCacheLength: 1});
+				var listener = null, changeCount = 0, hashChange = null;
 
-				var stub = sinon.stub(eventPage, '_render', function () {
-					var callCount = stub.callCount;
+				listener = function () {
+					changeCount += 1;
 
-					if (callCount === 1) {
-						expect(eventPage._cachedModules.length).to.equal(1);
-						Events.trigger('hashchange', {newURL: '#something_else'});
-					} else if (callCount === 2) {
-						expect(eventPage._cachedModules.length).to.equal(1);
-						Events.trigger('hashchange', hashChangeEvent);
+					expect(eventPage._cache.length).to.equal(1);
+
+					if (changeCount % 2 === 0) {
+						hashChange = hashChangeEvent1;
 					} else {
-						expect(eventPage._cachedModules.length).to.equal(1);
+						hashChange = hashChangeEvent2;
+					}
 
-						eventPage._render.restore();
-						eventPage.destroy();
-
+					if (changeCount < 5) {
+						Events.trigger('hashchange', hashChange);
+					} else {
 						done();
 					}
-				});
+				};
 
-				Events.trigger('hashchange', hashChangeEvent);
+				eventPage.on('render', listener);
+				hashChange = hashChangeEvent1;
+				Events.trigger('hashchange', hashChange);
 			});
 		});
 

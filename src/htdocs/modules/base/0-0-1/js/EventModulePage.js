@@ -12,7 +12,7 @@ define([
 
 	var DEFAULTS = {
 		// URL hash fragment identifying this page; unique within the parent module.
-		stub: 'page',
+		hash: 'page',
 
 		// Title of this specific module page
 		title: 'Page'
@@ -23,7 +23,7 @@ define([
 		options = options || {};
 
 		this._module = options.module || new EventModule();
-		this._stub = options.stub || DEFAULTS.stub;
+		this._hash = options.hash || DEFAULTS.hash;
 		this._title = options.title || DEFAULTS.title;
 		this._event = options.eventDetails || {};
 
@@ -46,8 +46,8 @@ define([
 		return this._footer;
 	};
 
-	EventModulePage.prototype.getStub = function () {
-		return this._stub;
+	EventModulePage.prototype.getHash = function () {
+		return this._hash;
 	};
 
 	EventModulePage.prototype.getTitle = function () {
@@ -72,7 +72,9 @@ define([
 	};
 
 	EventModulePage.prototype._setContentMarkup = function () {
-		this._content.innerHTML = 'Rendered: ' + (new Date()).toUTCString();
+		this._content.innerHTML = '<p>' +
+			'Rendered: ' + (new Date()).toUTCString() +
+		'</p>';
 	};
 
 	EventModulePage.prototype._setFooterMarkup = function () {

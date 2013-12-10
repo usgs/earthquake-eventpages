@@ -25,20 +25,15 @@ define([
 			});
 		});
 
-		describe('getStub()', function () {
+		describe('getNavigationMarkup()', function () {
 			it('has such a method', function () {
 				/* jshint -W030 */
-				expect((new EventModule()).getStub).to.not.be.undefined;
+				expect((new EventModule()).getNavigationMarkup).to.not.be.undefined;
 				/* jshint +W030 */
-			});
-
-			it('returns the module stub', function () {
-				var stub = 'foo', m = new EventModule({stub: stub});
-				expect(m.getStub()).to.equal(stub);
 			});
 		});
 
-		describe('getHeader()', function () {
+		describe('getHeaderMarkup()', function () {
 			it('has such a method', function () {
 				/* jshint -W030 */
 				expect((new EventModule()).getHeaderMarkup).to.not.be.undefined;
@@ -50,6 +45,14 @@ define([
 			it('has such a method', function () {
 				/* jshint -W030 */
 				expect((new EventModule()).getFooterMarkup).to.not.be.undefined;
+				/* jshint +W030 */
+			});
+		});
+
+		describe('getPage()', function () {
+			it('has such a method', function () {
+				/* jshint -W030 */
+				expect((new EventModule()).getPage).to.not.be.undefined;
 				/* jshint +W030 */
 			});
 		});

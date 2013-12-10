@@ -49,7 +49,7 @@ module.exports = function (grunt) {
 				}
 			},
 			scss: {
-				files: ['<%= app.src %>/htdocs/css/**/*.scss'],
+				files: ['<%= app.src %>/htdocs/**/*.scss'],
 				tasks: ['compass:dev']
 			},
 			tests: {
@@ -158,8 +158,8 @@ module.exports = function (grunt) {
 		compass: {
 			dev: {
 				options: {
-					sassDir: '<%= app.src %>/htdocs/css',
-					cssDir: '<%= app.tmp %>/css',
+					sassDir: '<%= app.src %>/htdocs',
+					cssDir: '<%= app.tmp %>',
 					environment: 'development'
 				}
 			}
