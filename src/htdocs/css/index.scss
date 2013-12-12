@@ -4,6 +4,7 @@
 @import 'event-header.css';
 
 @import 'downloads.css';
+@import '../../../node_modules/hazdev-tablist/src/tablist/TabList.scss';
 
 * {
 	@include box-sizing(border-box);

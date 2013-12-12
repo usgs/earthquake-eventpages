@@ -41,6 +41,7 @@ define([
 		this._dependencyLoader = options.dependencyLoader;
 		this._pages = options.pages;
 		this._cssUrl = options.cssUrl;
+		this._eventDetails = options.eventDetails;
 
 		this._cssLoaded = false;
 	};
@@ -130,7 +131,7 @@ define([
 		require([classLoader], function (PageConstructor) {
 			var page = null;
 
-			try {
+			//try {
 				if (typeof PageConstructor === 'function') {
 					page = new PageConstructor(pageOptions);
 				} else {
@@ -140,9 +141,9 @@ define([
 				if (!module._cssLoaded) {
 					module._loadCSS();
 				}
-			} catch (e) {
+			//} catch (e) {
 				// TODO :: Hmm... ?
-			}
+			//}
 
 			callback(page);
 		});

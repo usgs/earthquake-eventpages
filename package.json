@@ -12,7 +12,9 @@
   "scripts": {
     "test": "grunt test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "hazdev-tablist": "0.0.1"
+  },
   "devDependencies": {
     "chai": "~1.7.0",
     "connect-livereload": "~0.2.0",
@@ -36,7 +38,8 @@
     "mocha": "~1.9.0",
     "sinon": "~1.7.3",
     "hazdev-template": "git+https://github.com/usgs/hazdev-template.git",
-    "grunt-connect-rewrite": "~0.1.1"
+    "grunt-connect-rewrite": "~0.1.1",
+    "grunt-connect-proxy": "~0.1.6"
   },
   "engines": {
     "node": ">=0.8.0"

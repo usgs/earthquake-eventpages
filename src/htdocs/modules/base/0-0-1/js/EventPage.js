@@ -55,8 +55,8 @@ define([
 		this._cache = [];
 
 		this._modules = options.modules || [
-			new EventModule(),
-			new DYFIModule()
+			new EventModule({'eventDetails':this._eventDetails}),
+			new DYFIModule({'eventDetails':this._eventDetails})
 		];
 
 		this._initialize();
