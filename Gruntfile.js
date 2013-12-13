@@ -4,6 +4,7 @@ var LIVE_RELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({port: LIVE_RELOAD_PORT});
 var rewriteRulesSnippet = require('grunt-connect-rewrite/lib/utils').rewriteRequest;
 var gateway = require('gateway');
+var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
 var mountFolder = function (connect, dir) {
 	return connect.static(require('path').resolve(dir));
@@ -93,6 +94,14 @@ module.exports = function (grunt) {
 			options: {
 				hostname: 'localhost'
 			},
+			proxies: [{
+				context: '/product',
+				host: 'earthquake.usgs.gov',
+				port: 80,
+				https: false,
+				changeOrigin: true,
+				xforward: false
+			}],
 			rules: {
 				'^/template/(.*)$': '/hazdev-template/src/htdocs/$1'
 			},
@@ -105,6 +114,7 @@ module.exports = function (grunt) {
 						return [
 							lrSnippet,
 							rewriteRulesSnippet,
+							proxySnippet,
 							mountFolder(connect, '.tmp'),
 							mountFolder(connect, options.components),
 							mountPHP(options.base),
@@ -318,6 +328,7 @@ module.exports = function (grunt) {
 		'clean:dist',
 		'compass:dev',
 		'configureRewriteRules',
+		'configureProxies',
 		'connect:test',
 		'connect:dev',
 		'open:test',

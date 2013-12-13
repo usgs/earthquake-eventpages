@@ -1,7 +1,7 @@
 /* global define */
 define([
 	'util/Util',
-	'base/EventModule',
+	'base/EventModule'
 ], function (
 	Util,
 	EventModule
@@ -40,6 +40,7 @@ define([
 
 	var DYFIModule = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
+		
 		EventModule.call(this, options);
 	};
 	DYFIModule.prototype = Object.create(EventModule.prototype);

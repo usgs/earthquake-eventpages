@@ -4,6 +4,7 @@ require.config({
 	paths: {
 		mvc: 'hazdev-webutils/src/mvc',
 		util: 'hazdev-webutils/src/util',
+		tablist: 'hazdev-tablist/src/tablist',
 
 		base: 'modules/base/0-0-1/js',
 		dyfi: 'modules/dyfi/0-0-1/js'
