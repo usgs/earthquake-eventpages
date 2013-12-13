@@ -70,7 +70,8 @@ define([
 				tablist[j++] = {
 					title: ciimArray[i].title,
 					image: contents[ciimImage].url,
-					attributes: {usemap: ciimArray[i].usemap}
+					alt: ciimArray[i].title,
+					attributes: {useMap: '#' + ciimArray[i].usemap}
 				};
 			}
 		}
