@@ -19,6 +19,34 @@ define([
 		hash: 'maps'
 	};
 
+	var MAPIMAGES = [
+		{
+			title:'Intensity Map',
+			suffix:'_ciim.jpg',
+			usemap:'imap_base',
+			mapSuffix:'_ciim_imap.html'
+		},
+		{
+			title:'Geocoded Map',
+			suffix:'_ciim_geo.jpg',
+			usemap:'imap_geo',
+			mapSuffix:'_ciim_geo_imap.html'
+		},
+		{
+			title:'Zoom Map',
+			suffix:'_ciim_zoom.jpg',
+			usemap:'imap_zoom',
+			mapSuffix:'_ciim_zoom_imap.html'
+		},
+		{
+			title:'Zoom Out Map',
+			suffix:'_ciim_zoomout.jpg',
+			usemap:'imap_zoomout',
+			mapSuffix:'_ciim_zoomout_imap.html'
+		}
+	];
+
+
 	var DYFIMapPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
 		EventModulePage.call(this, options);
@@ -27,75 +55,55 @@ define([
 	DYFIMapPage.prototype = Object.create(EventModulePage.prototype);
 
 	DYFIMapPage.prototype._setContentMarkup = function () {
-		var dyfi_div;
-
-		// DEBUG
-		//console.log(this._event);
-
-		dyfi_div = document.createElement('div');
-		dyfi_div.id = 'dyfi-maps';
-		this._content.appendChild(dyfi_div);
+		var products = this._event.properties.products;
+		if (!products.dyfi) {
+			return;
+		}
 
 		new ImageList({
-			el: this._content.querySelector('#dyfi-maps'),
+			el: this._content.appendChild(document.createElement('div')),
 			tabPosition: 'right',
-			tabs: this._getTabList()
+			tabs: this._getTabList(products.dyfi[0])
 		});
-
-		this._createUseMaps();
 
 	};
 
 	/**
 	 * Creates a tablist for use by the ImageList class.
 	 **/
-	DYFIMapPage.prototype._getTabList = function () {
-		var dyfi = this._event.properties.products.dyfi[0];
-		var contents = dyfi.contents;
-		var eventId = dyfi.code;
-		var tablist = [];
-		var ciimArray = new Array(
-			{ciimExt:'_ciim.jpg',title:'Intensity Map',usemap:'imap_base'},
-			{ciimExt:'_ciim_geo.jpg',title:'Geocoded Map',usemap:'imap_geo'},
-			{ciimExt:'_ciim_zoom.jpg',title:'Zoom Map',usemap:'imap_zoom'},
-			{ciimExt:'_ciim_zoomout.jpg',title:'Zoom Out Map',usemap:'imap_zoomout'});
-		var i,
-		    j = 0,
+	DYFIMapPage.prototype._getTabList = function (dyfi) {
+		var contents = dyfi.contents,
+		    eventId = dyfi.code,
+		    tablist = [],
+		    attributes,
+		    i,
 		    len,
-		    ciimImage;
+		    imageName,
+		    mapName;
 
-		for (i = 0, len = ciimArray.length; i < len; i++) {
-			ciimImage = eventId + ciimArray[i].ciimExt;
-			if (contents.hasOwnProperty(ciimImage)) {
-				tablist[j++] = {
-					title: ciimArray[i].title,
-					image: contents[ciimImage].url,
-					alt: ciimArray[i].title,
-					attributes: {useMap: '#' + ciimArray[i].usemap}
-				};
+		for (i = 0, len = MAPIMAGES.length; i < len; i++) {
+			var image = MAPIMAGES[i];
+
+			imageName = eventId + image.suffix;
+			if (contents.hasOwnProperty(imageName)) {
+				attributes = null;
+				mapName = eventId + image.mapSuffix;
+				if (contents.hasOwnProperty(mapName)) {
+					this._getUseMap(contents[mapName]);
+					attributes = {
+						useMap: '#' + image.usemap
+					};
+				}
+
+				tablist.push({
+					title: image.title,
+					image: contents[imageName].url,
+					attributes: attributes
+				});
 			}
 		}
 
 		return tablist;
-	};
-
-	DYFIMapPage.prototype._createUseMaps = function() {
-		var eventId = this._event.properties.products.dyfi[0].code;
-		var contents = this._event.properties.products.dyfi[0].contents;
-		var htmlExt = new Array('_ciim_imap.html', '_ciim_zoom_imap.html',
-			'_ciim_zoomout_imap.html', '_ciim_geo_imap.html');
-		var filename,
-		    content,
-		    i,
-		    len = htmlExt.length;
-
-		for (i = 0; i < len; i++) {
-			filename = eventId + htmlExt[i];
-			content = contents[filename];
-			if (content !== undefined) {
-				this._getUseMap(content);
-			}
-		}
 	};
 
 	/**
@@ -106,12 +114,12 @@ define([
 	 * @param content.url {String}
 	 *        the url used to retrieve the usemap
 	 **/
-	DYFIMapPage.prototype._getUseMap = function(content) {
+	DYFIMapPage.prototype._getUseMap = function (content) {
+		var _this = this;
 		Xhr.ajax({
-		url: content.url,
-		success: function(html) {
-			var div = document.getElementById('dyfi-maps');
-			div.insertAdjacentHTML('beforeend', html);
+			url: content.url,
+			success: function (html) {
+				_this._content.insertAdjacentHTML('beforeend', html);
 			}
 		});
 	};
