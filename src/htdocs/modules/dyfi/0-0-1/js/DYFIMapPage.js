@@ -66,7 +66,7 @@ define([
 
 		for (i = 0, len = ciimArray.length; i < len; i++) {
 			ciimImage = eventId + ciimArray[i].ciimExt;
-			if( contents.hasOwnProperty(ciimImage)) {
+			if (contents.hasOwnProperty(ciimImage)) {
 				tablist[j++] = {
 					title: ciimArray[i].title,
 					image: contents[ciimImage].url,
@@ -89,10 +89,10 @@ define([
 		    i,
 		    len = htmlExt.length;
 
-		for(i = 0; i < len; i++) {
+		for (i = 0; i < len; i++) {
 			filename = eventId + htmlExt[i];
 			content = contents[filename];
-			if( content !== undefined ) {
+			if (content !== undefined) {
 				this._getUseMap(content);
 			}
 		}
