@@ -13,7 +13,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "hazdev-tablist": "0.0.1"
+    "hazdev-tablist": "0.0.2"
   },
   "devDependencies": {
     "chai": "~1.7.0",
