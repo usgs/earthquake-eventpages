@@ -103,7 +103,7 @@ module.exports = function (grunt) {
 				xforward: false
 			}],
 			rules: {
-				'^/template/(.*)$': '/hazdev-template/src/htdocs/$1'
+				'^/theme/(.*)$': '/hazdev-template/src/htdocs/$1'
 			},
 			dev: {
 				options: {
@@ -144,11 +144,14 @@ module.exports = function (grunt) {
 					port: 8000,
 					middleware: function (connect, options) {
 						return [
+							rewriteRulesSnippet,
 							mountFolder(connect, '.tmp'),
 							mountFolder(connect, 'bower_components'),
 							mountFolder(connect, options.base),
 							mountFolder(connect, 'node_modules'),
-							mountFolder(connect, appConfig.src + '/htdocs/modules')
+							mountFolder(connect, appConfig.src + '/htdocs/modules'),
+							// module css is relative to module root which is at '/' above
+							mountFolder(connect, '.tmp/modules')
 						];
 					}
 				}
