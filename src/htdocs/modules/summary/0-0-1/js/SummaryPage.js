@@ -143,7 +143,8 @@ define([
 
 		for (i = 0, len = cities.length; i < len; i++) {
 			city = cities[i];
-			points.push('orange_1-' + i + ',' + city.latitude + ',' + city.longitude);
+			points.push('orange_1-' + (i+1) + ',' + city.latitude + ',' +
+					city.longitude);
 		}
 
 		points.push('red_1,' + latitude + ',' + longitude);
