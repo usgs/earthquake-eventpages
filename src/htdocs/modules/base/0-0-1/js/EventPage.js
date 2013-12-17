@@ -23,7 +23,7 @@ define([
 		maxCacheLength: 3,
 
 		// Default page to render if no hash is specified
-		defaultPage: null
+		defaultPage: 'event_summary'
 	};
 
 	var __get_hash = function (evt) {
@@ -53,7 +53,8 @@ define([
 				document.createElement('nav');
 		this._eventDetails = options.eventDetails || {};
 
-		this._defaultPage = options.defaultPage || DEFAULTS.defaultPage;
+		this._defaultPage = options.hasOwnProperty('defaultPage') ?
+				options.defaultPage : DEFAULTS.defaultPage;
 
 		this._maxCacheLength = options.maxCacheLength || DEFAULTS.maxCacheLength;
 		this._cache = [];
