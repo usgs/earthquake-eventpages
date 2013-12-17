@@ -96,7 +96,7 @@ module.exports = function (grunt) {
 			},
 			proxies: [{
 				context: '/product',
-				host: 'earthquake.usgs.gov',
+				host: 'comcat.cr.usgs.gov',
 				port: 80,
 				https: false,
 				changeOrigin: true,
