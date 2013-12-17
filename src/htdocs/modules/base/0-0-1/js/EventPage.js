@@ -4,15 +4,17 @@ define([
 	'util/Events',
 
 	'base/EventModule',
-	'dyfi/DYFIModule',
 	'scientific/ScientificModule'
+	'summary/SummaryModule',
+	'dyfi/DYFIModule'
 ], function (
 	Util,
 	Events,
 
 	EventModule,
-	DYFIModule,
 	ScientificModule
+	SummaryModule,
+	DYFIModule
 ) {
 	'use strict';
 
@@ -58,8 +60,9 @@ define([
 
 		this._modules = options.modules || [
 			new EventModule({'eventDetails':this._eventDetails}),
-			new DYFIModule({'eventDetails':this._eventDetails}),
 			new ScientificModule({'eventDetails':this._eventDetails})
+			new SummaryModule({'eventDetails':this._eventDetails}),
+			new DYFIModule({'eventDetails':this._eventDetails})
 		];
 
 		this._initialize();
