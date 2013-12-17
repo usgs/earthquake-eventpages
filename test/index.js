@@ -5,6 +5,8 @@ require.config({
 		chai: 'chai/chai',
 		sinon: 'sinon/pkg/sinon',
 
+		leaflet: 'leaflet/dist/leaflet-src',
+
 		mvc: 'hazdev-webutils/src/mvc',
 		util: 'hazdev-webutils/src/util',
 		tablist: 'hazdev-tablist/src/tablist',
@@ -24,6 +26,9 @@ require.config({
 		},
 		sinon: {
 			exports: 'sinon'
+		},
+		leaflet: {
+			exports: 'L'
 		}
 	}
 });
