@@ -7,7 +7,8 @@ require.config({
 		tablist: 'hazdev-tablist/src/tablist',
 
 		base: 'modules/base/0-0-1/js',
-		dyfi: 'modules/dyfi/0-0-1/js'
+		dyfi: 'modules/dyfi/0-0-1/js',
+		scientific: 'modules/scientific/0-0-1/js'
 	},
 	shim: {
 	}

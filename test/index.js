@@ -9,7 +9,8 @@ require.config({
 		util: 'hazdev-webutils/src/util',
 
 		base: 'base/0-0-1/js',
-		dyfi: 'dyfi/0-0-1/js'
+		dyfi: 'dyfi/0-0-1/js',
+		scientific: 'scientific/0-0-1/js'
 	},
 	shim: {
 		mocha: {
