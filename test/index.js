@@ -14,7 +14,8 @@ require.config({
 		base: 'base/0-0-1/js',
 		scientific: 'scientific/0-0-1/js'
 		summary: 'summary/0-0-1/js',
-		dyfi: 'dyfi/0-0-1/js'
+		dyfi: 'dyfi/0-0-1/js',
+		scientific: 'scientific/0-0-1/js'
 	},
 	shim: {
 		mocha: {
