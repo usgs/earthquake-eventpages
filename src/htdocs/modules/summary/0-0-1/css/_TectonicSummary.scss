@@ -11,7 +11,7 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 		margin:0 0 16px 0;
 	}
 
-	> a.aleutian {
+	&.popup > a.aleutian {
 		background-image:url('#{$baseImageUrl}/aleutian_tsum304.jpg');
 		height:204px;
 	}
@@ -65,7 +65,7 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 		height:294px;
 	}
 
-	> a.southamerica {
+	&.popup > a.southamerica {
 		background-image:url('#{$baseImageUrl}/southamerica_tsum304.jpg');
 		height:350px;
 	}

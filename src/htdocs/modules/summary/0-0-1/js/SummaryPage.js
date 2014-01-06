@@ -228,7 +228,8 @@ define([
 		var i = null,
 		    len = null,
 		    products = null,
-		    markup = [];
+		    markup = [],
+		    summaryImage = null;
 
 		if (title !== null && typeof title !== 'undefined' && title !== '') {
 			title = '<h3>' + title + '</h3>';
@@ -248,6 +249,12 @@ define([
 		}
 
 		container.innerHTML = title + markup.join('');
+
+
+		summaryImage = container.querySelector('a.tectonic');
+		if (summaryImage) {
+			summaryImage.innerHTML = 'Tectonic Summary Map Area';
+		}
 	};
 
 	SummaryPage.prototype._enhanceMap = function () {
