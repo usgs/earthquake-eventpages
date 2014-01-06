@@ -39,7 +39,8 @@ require([
 	require([
 		'spec/modules/base/0-0-1/EventPageTest',
 		'spec/modules/base/0-0-1/EventModuleTest',
-		'spec/modules/base/0-0-1/EventModulePageTest'
+		'spec/modules/base/0-0-1/EventModulePageTest',
+		'spec/modules/dyfi/0-0-1/DYFIModuleTest'
 	], function () {
 		if (window.mochaPhantomJS) {
 			window.mochaPhantomJS.run();
