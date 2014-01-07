@@ -1,0 +1,28 @@
+/* This file should import partials for the scientific module/modulepages. */
+
+
+.origin-detail {
+
+	> dt {
+		font-weight:bold;
+	}
+
+	@media screen and (min-width: 768px) {
+		&:after {
+			display:block;
+			content:' ';
+			clear:both;
+		}
+
+		> dt {
+			float:left;
+			clear:left;
+			width:11em;
+		}
+
+		> dd {
+			float:left;
+		}
+	}
+
+}
