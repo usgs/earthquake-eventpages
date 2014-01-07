@@ -7,6 +7,7 @@ require.config({
 
 		mvc: 'hazdev-webutils/src/mvc',
 		util: 'hazdev-webutils/src/util',
+		tablist: 'hazdev-tablist/src/tablist',
 
 		base: 'base/0-0-1/js',
 		dyfi: 'dyfi/0-0-1/js',
@@ -40,7 +41,9 @@ require([
 		'spec/modules/base/0-0-1/EventPageTest',
 		'spec/modules/base/0-0-1/EventModuleTest',
 		'spec/modules/base/0-0-1/EventModulePageTest',
-		'spec/modules/dyfi/0-0-1/DYFIModuleTest'
+		'spec/modules/dyfi/0-0-1/DYFIModuleTest',
+		'spec/modules/dyfi/0-0-1/DYFIMapPageTest',
+		'spec/modules/dyfi/0-0-1/DYFIGraphPageTest'
 	], function () {
 		if (window.mochaPhantomJS) {
 			window.mochaPhantomJS.run();
