@@ -13,9 +13,13 @@ define([
 	Util
 ) {
 	'use strict';
-
+	var DEFAULTS = {
+		snippetLength: 100
+	};
 	var SummaryPage = function (options) {
+		options = Util.extend({}, DEFAULTS, options || {});
 		EventModulePage.call(this, options);
+		this._snippetLength = options.snippetLength;
 	};
 	SummaryPage.prototype = Object.create(EventModulePage.prototype);
 
@@ -81,10 +85,23 @@ define([
 						cities.push('</ol>');
 						nearbyCities.innerHTML = '<h3>Nearby Cities</h3>' + cities.join('');
 					}
-
+					// Shorten tectonic summary if the window is less than 768px
+					// Read More is clickable to expand text to full size.
 					if (tectonicSummary !== null) {
-						tectonicSummary.innerHTML = '<h3>Tectionic Summary</h3>' +
-								geoserve.tectonicSummary.text;
+						tectonicSummary.innerHTML =
+							'<a name="Summary"><h3>Tectonic Summary</h3></a>' +
+							'<div class="summaryWrapper">' +
+							geoserve.tectonicSummary.text +
+							'<a class="move" href="#Summary">Read More</a>' +
+							'</div>';
+						var summaryWrapper = tectonicSummary.querySelector('.summaryWrapper');
+						Util.addEvent(tectonicSummary.querySelector('.move'),'click',function(){
+							if (Util.hasClass(summaryWrapper, 'expanded')) {
+								Util.removeClass(summaryWrapper, 'expanded');
+							} else {
+								Util.addClass(summaryWrapper, 'expanded');
+							}
+						});
 					}
 				},
 				error: function () {
