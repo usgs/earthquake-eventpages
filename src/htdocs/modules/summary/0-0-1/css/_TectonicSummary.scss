@@ -2,14 +2,37 @@
 $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 
 .summary-tectonic-summary {
-	> a.tectonic {
+	a.tectonic {
 		display:block;
 		width:304px;
 		background-repeat: no-repeat;
 		background-position:0 0;
 		background-size:contain;
 		margin:0 0 16px 0;
+		&:before{content:'Tectonic Summary Image'; display:block;}
 	}
+	> .summaryWrapper {
+		max-height: 10em;
+		overflow: hidden;
+		position: relative;
+
+		.move {
+			position:absolute;
+			right: 0;
+			bottom: 0;
+			background-color: #fff;
+			padding-left: 1em;
+		}
+	}
+	> .expanded {
+		max-height: none;
+		.move{
+			display: none;
+
+		}
+	}
+
+
 
 	&.popup > a.aleutian {
 		background-image:url('#{$baseImageUrl}/aleutian_tsum304.jpg');
@@ -86,83 +109,92 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 	}
 }
 
-@media (min-width:640px) {
+@media (min-width:768px) {
 
 	.summary-tectonic-summary {
-		> a.tectonic {
-			float:right;
-			width:464px;
-			margin:0 16px 16px 0;
-		}
+		> .summaryWrapper {
+			max-height:none;
 
-		> a.aleutian {
-			background-image:url('#{$baseImageUrl}/aleutian_tsum464.jpg');
-			height:300px;
-		}
+			.move {
+				display:none;
+			}
 
-		> a.caribbean {
-			background-image:url('#{$baseImageUrl}/caribbean_tsum464.jpg');
-			height:312px;
-		}
+			> a.tectonic {
+				float:right;
+				width:464px;
+				margin:0 16px 16px 0;
+				&:before{content: none;}
+			}
 
-		> a.emaustralia {
-			background-image:url('#{$baseImageUrl}/emaustralia_tsum464.jpg');
-			height:648px;
-		}
+			> a.aleutian {
+				background-image:url('#{$baseImageUrl}/aleutian_tsum464.jpg');
+				height:300px;
+			}
 
-		> a.himalaya {
-			background-image:url('#{$baseImageUrl}/himalaya_tsum464.jpg');
-			height:312px;
-		}
+			> a.caribbean {
+				background-image:url('#{$baseImageUrl}/caribbean_tsum464.jpg');
+				height:312px;
+			}
 
-		> a.japan {
-			background-image:url('#{$baseImageUrl}/japan_tsum464.jpg');
-			height:448px;
-		}
+			> a.emaustralia {
+				background-image:url('#{$baseImageUrl}/emaustralia_tsum464.jpg');
+				height:648px;
+			}
 
-		> a.java {
-			background-image:url('#{$baseImageUrl}/java_tsum464.jpg');
-			height:300px;
-		}
+			> a.himalaya {
+				background-image:url('#{$baseImageUrl}/himalaya_tsum464.jpg');
+				height:312px;
+			}
 
-		> a.kuril {
-			background-image:url('#{$baseImageUrl}/kuril_tsum464.jpg');
-			height:532px;
-		}
+			> a.japan {
+				background-image:url('#{$baseImageUrl}/japan_tsum464.jpg');
+				height:448px;
+			}
 
-		> a.middleeast {
-			background-image:url('#{$baseImageUrl}/middleeast_tsum464.jpg');
-			height:312px;
-		}
+			> a.java {
+				background-image:url('#{$baseImageUrl}/java_tsum464.jpg');
+				height:300px;
+			}
 
-		> a.newguinea {
-			background-image:url('#{$baseImageUrl}/newguinea_tsum464.jpg');
-			height:252px;
-		}
+			> a.kuril {
+				background-image:url('#{$baseImageUrl}/kuril_tsum464.jpg');
+				height:532px;
+			}
 
-		> a.philippinesea {
-			background-image:url('#{$baseImageUrl}/philippinesea_tsum464.jpg');
-			height:434px;
-		}
+			> a.middleeast {
+				background-image:url('#{$baseImageUrl}/middleeast_tsum464.jpg');
+				height:312px;
+			}
 
-		> a.southamerica {
-			background-image:url('#{$baseImageUrl}/southamerica_tsum464.jpg');
-			height:532px;
-		}
+			> a.newguinea {
+				background-image:url('#{$baseImageUrl}/newguinea_tsum464.jpg');
+				height:252px;
+			}
 
-		> a.sumatra {
-			background-image:url('#{$baseImageUrl}/sumatra_tsum464.jpg');
-			height:658px;
-		}
+			> a.philippinesea {
+				background-image:url('#{$baseImageUrl}/philippinesea_tsum464.jpg');
+				height:434px;
+			}
 
-		> a.mexico {
-			background-image:url('#{$baseImageUrl}/mexico_tsum464.jpg');
-			height:300px;
-		}
+			> a.southamerica {
+				background-image:url('#{$baseImageUrl}/southamerica_tsum464.jpg');
+				height:532px;
+			}
 
-		> a.mediterranean {
-			background-image:url('#{$baseImageUrl}/mediterranean_tsum464.jpg');
-			height:312px;
+			> a.sumatra {
+				background-image:url('#{$baseImageUrl}/sumatra_tsum464.jpg');
+				height:658px;
+			}
+
+			> a.mexico {
+				background-image:url('#{$baseImageUrl}/mexico_tsum464.jpg');
+				height:300px;
+			}
+
+			> a.mediterranean {
+				background-image:url('#{$baseImageUrl}/mediterranean_tsum464.jpg');
+				height:312px;
+			}
 		}
 	}
 }
