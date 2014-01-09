@@ -12,15 +12,15 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 		&:before{content:'Tectonic Summary Image'; display:block;}
 	}
 	> .summaryWrapper {
-		max-height: 11em;
-		overflow: hidden;
-		position: relative;
+		max-height:11em;
+		overflow:hidden;
+		position:relative;
 
 		.move {
 			position:absolute;
-			right: 0;
-			bottom: 0;
-			background-color: #C9D8E9;
+			right:0;
+			bottom:0;
+			background-color:#C9D8E9;
 			width:100%;
 			text-align:left;
 		}
