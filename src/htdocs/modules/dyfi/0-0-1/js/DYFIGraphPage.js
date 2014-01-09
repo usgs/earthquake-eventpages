@@ -4,13 +4,13 @@ define([
 	'base/EventModulePage',
 	'tablist/Tablist',
 	'tablist/ImageList',
-	'./CreateTabListData'
+	'./TabListUtil'
 ], function (
 	Util,
 	EventModulePage,
 	TabList,
 	ImageList,
-	CreateTabListData
+	TabListUtil
 ) {
 	'use strict';
 
@@ -47,7 +47,7 @@ define([
 		new ImageList({
 			el: this._content.appendChild(document.createElement('div')),
 			tabPosition: 'right',
-			tabs: new CreateTabListData(
+			tabs: TabListUtil.CreateTabListData(
 				{contents:dyfi.contents,
 				 eventId:dyfi.code,
 				 dataObject:GRAPHIMAGES

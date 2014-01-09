@@ -10,12 +10,12 @@ define([
 
 	DYFIGraphPage,
 	DYFIModule,
-	Usb000ldeh
+	usb000ldeh
 ) {
 	'use strict';
 	var expect = chai.expect;
 
-	var event = new Usb000ldeh();
+	var event = usb000ldeh;
 	var module = new DYFIModule();
 	var module_info = {hash:'graph', title:'Graphs', eventDetails:event, module:module};
 
