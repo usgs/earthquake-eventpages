@@ -73,14 +73,13 @@ define([
 					}
 
 					if (nearbyCities !== null) {
-
 						cities = ['<ol class="staticmap">'];
 						for (i = 0, len = geoserve.cities.length; i < len; i++) {
 							city = geoserve.cities[i];
 							cities.push('<li>' + city.distance +
-									'km ' + city.direction +
-									' of ' + city.name +
-									'</li>');
+								'km ' + city.direction +
+								' of ' + city.name +
+								'</li>');
 						}
 						cities.push('</ol>');
 						nearbyCities.innerHTML = '<h3>Nearby Cities</h3>' + cities.join('');
@@ -92,7 +91,7 @@ define([
 							'<a name="Summary"><h3>Tectonic Summary</h3></a>' +
 							'<div class="summaryWrapper">' +
 							geoserve.tectonicSummary.text +
-							'<a class="move" href="#Summary">Read More</a>' +
+							'<a class="move" href="#Summary">&hellip; Read More</a>' +
 							'</div>';
 						var summaryWrapper = tectonicSummary.querySelector('.summaryWrapper');
 						Util.addEvent(tectonicSummary.querySelector('.move'),'click',function(){
@@ -151,11 +150,11 @@ define([
 
 		markup = [
 			'<img alt="Map" src="http://www.mapquestapi.com/staticmap/v4/getmap?' +
-					'key=Fmjtd%7Cluub2h0rnh%2Cb2%3Do5-9ut0g6&' +
-					'size=500,500&' +
-					'type=map&' +
-					'imagetype=jpeg&' +
-					'pois='
+				'key=Fmjtd%7Cluub2h0rnh%2Cb2%3Do5-9ut0g6&' +
+				'size=500,500&' +
+				'type=map&' +
+				'imagetype=jpeg&' +
+				'pois='
 		];
 
 		for (i = 0, len = cities.length; i < len; i++) {
