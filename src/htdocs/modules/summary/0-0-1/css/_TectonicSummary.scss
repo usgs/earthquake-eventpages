@@ -12,7 +12,7 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 		&:before{content:'Tectonic Summary Image'; display:block;}
 	}
 	> .summaryWrapper {
-		max-height: 10em;
+		max-height: 11em;
 		overflow: hidden;
 		position: relative;
 
@@ -20,8 +20,9 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 			position:absolute;
 			right: 0;
 			bottom: 0;
-			background-color: #fff;
-			padding-left: 1em;
+			background-color: #C9D8E9;
+			width:100%;
+			text-align:left;
 		}
 	}
 	> .expanded {
@@ -31,8 +32,6 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 
 		}
 	}
-
-
 
 	&.popup > a.aleutian {
 		background-image:url('#{$baseImageUrl}/aleutian_tsum304.jpg');
