@@ -21,7 +21,7 @@ define([
 
 	var GRAPHIMAGES = [
 		{
-			title:'Intensity vs. Distance',
+			title:'Distance Vs. Intensity',
 			suffix:'_plot_atten.jpg'
 		},
 		{
@@ -49,9 +49,10 @@ define([
 			el: this._content.appendChild(document.createElement('div')),
 			tabPosition: 'right',
 			tabs: TabListUtil.CreateTabListData(
-				{contents:dyfi.contents,
-				 eventId:dyfi.code,
-				 dataObject:GRAPHIMAGES
+				{
+					contents: dyfi.contents,
+					eventId: dyfi.code,
+					dataObject: GRAPHIMAGES
 				})
 		});
 

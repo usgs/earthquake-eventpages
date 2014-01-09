@@ -17,7 +17,11 @@ define([
 
 	var event = usb000ldeh;
 	var module = new DYFIModule();
-	var module_info = {hash:'graph', title:'Graphs', eventDetails:event, module:module};
+	var module_info = {
+		hash:'graph',
+		title:'Graphs',
+		eventDetails:event, module:module
+	};
 
 	describe('DYFIGraphPage test suite.', function () {
 		describe('Constructor', function () {
@@ -37,7 +41,8 @@ define([
 		describe('_setContentMarkup', function () {
 			it('has such a method', function() {
 				/* jshint -W030 */
-				expect((new DYFIGraphPage(module_info))._setContentMarkup).to.not.be.undefined;
+				expect((new DYFIGraphPage(module_info))._setContentMarkup)
+						.to.not.be.undefined;
 				/* jshint +W030 */
 			});
 		});
@@ -46,7 +51,8 @@ define([
 		describe('_initialize', function () {
 			it('has such a method', function() {
 				/* jshint -W030 */
-				expect((new DYFIGraphPage(module_info))._initialize).to.not.be.undefined;
+				expect((new DYFIGraphPage(module_info))._initialize)
+						.to.not.be.undefined;
 				/* jshint +W030 */
 			});
 		});
@@ -55,7 +61,8 @@ define([
 		describe('destroy()', function () {
 			it('has such a method', function () {
 				/* jshint -W030 */
-				expect((new DYFIGraphPage(module_info)).destroy).to.not.be.undefined;
+				expect((new DYFIGraphPage(module_info)).destroy)
+						.to.not.be.undefined;
 				/* jshint +W030 */
 			});
 		});

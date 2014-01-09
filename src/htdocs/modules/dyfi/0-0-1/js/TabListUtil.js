@@ -31,7 +31,7 @@ define([],
 				if (contents.hasOwnProperty(imageName)) {
 					attributes = null;
 
-					if( image.hasOwnProperty('mapSuffix')) {
+					if (image.hasOwnProperty('mapSuffix')) {
 						mapName = eventId + image.mapSuffix;
 						if (contents.hasOwnProperty(mapName)) {
 							callback(contents[mapName], callingObject);
