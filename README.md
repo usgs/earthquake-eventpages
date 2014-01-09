@@ -15,7 +15,7 @@ Getting Started
 1. run ./src/lib/pre-install to setup config.ini
    1. URL Path for application: leave as default for now.
    1. URL stub for event detail GEOJSON web service:
-      enter http://earthquake.usgs.gov/earthquakes/eventpage/%s.geojson
+      enter http://comcat.cr.usgs.gov/earthquakes/eventpage/%s.geojson
    1. URL stub for event detail ATOM web service: leave as default for now.
 
 ### Example Usage ###

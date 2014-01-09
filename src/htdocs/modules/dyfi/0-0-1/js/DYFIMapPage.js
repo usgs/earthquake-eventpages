@@ -4,13 +4,15 @@ define([
 	'base/EventModulePage',
 	'tablist/Tablist',
 	'tablist/ImageList',
-	'util/Xhr'
+	'util/Xhr',
+	'./TabListUtil'
 ], function (
 	Util,
 	EventModulePage,
 	TabList,
 	ImageList,
-	Xhr
+	Xhr,
+	TabListUtil
 ) {
 	'use strict';
 
@@ -55,55 +57,25 @@ define([
 	DYFIMapPage.prototype = Object.create(EventModulePage.prototype);
 
 	DYFIMapPage.prototype._setContentMarkup = function () {
-		var products = this._event.properties.products;
+		var products = this._event.properties.products,
+		    dyfi;
 		if (!products.dyfi) {
 			return;
 		}
 
+		dyfi = products.dyfi[0];
 		new ImageList({
 			el: this._content.appendChild(document.createElement('div')),
 			tabPosition: 'right',
-			tabs: this._getTabList(products.dyfi[0])
+			tabs: TabListUtil.CreateTabListData(
+				{contents:dyfi.contents,
+				 eventId:dyfi.code,
+				 dataObject:MAPIMAGES,
+				 callback:this._getUseMap,
+				 object:this
+				})
 		});
 
-	};
-
-	/**
-	 * Creates a tablist for use by the ImageList class.
-	 **/
-	DYFIMapPage.prototype._getTabList = function (dyfi) {
-		var contents = dyfi.contents,
-		    eventId = dyfi.code,
-		    tablist = [],
-		    attributes,
-		    i,
-		    len,
-		    imageName,
-		    mapName;
-
-		for (i = 0, len = MAPIMAGES.length; i < len; i++) {
-			var image = MAPIMAGES[i];
-
-			imageName = eventId + image.suffix;
-			if (contents.hasOwnProperty(imageName)) {
-				attributes = null;
-				mapName = eventId + image.mapSuffix;
-				if (contents.hasOwnProperty(mapName)) {
-					this._getUseMap(contents[mapName]);
-					attributes = {
-						useMap: '#' + image.usemap
-					};
-				}
-
-				tablist.push({
-					title: image.title,
-					image: contents[imageName].url,
-					attributes: attributes
-				});
-			}
-		}
-
-		return tablist;
 	};
 
 	/**
@@ -114,8 +86,7 @@ define([
 	 * @param content.url {String}
 	 *        the url used to retrieve the usemap
 	 **/
-	DYFIMapPage.prototype._getUseMap = function (content) {
-		var _this = this;
+	DYFIMapPage.prototype._getUseMap = function (content, _this) {
 		Xhr.ajax({
 			url: content.url,
 			success: function (html) {
