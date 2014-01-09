@@ -39,6 +39,7 @@ define([
 	DYFIGraphPage.prototype._setContentMarkup = function () {
 		var products = this._event.properties.products,
 		    dyfi;
+
 		if (!products.dyfi) {
 			return;
 		}
