@@ -26,9 +26,9 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 		}
 	}
 	> .expanded {
-		max-height: none;
+		max-height:none;
 		.move{
-			display: none;
+			display:none;
 
 		}
 	}
@@ -122,7 +122,7 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 				float:right;
 				width:464px;
 				margin:0 16px 16px 0;
-				&:before{content: none;}
+				&:before{content:none;}
 			}
 
 			> a.aleutian {
