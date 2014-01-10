@@ -50,66 +50,45 @@ define([
 
 	DYFIResponsesPage.prototype._buildResponsesArray = function (xmlDoc) {
 
-		var locations = xmlDoc.getElementsByTagName('location'),
+		var data = xmlDoc.getElementsByTagName('location'),
 				responsesArray = [];
 
-		for (var x=0;x<locations.length;x++) {
+		for (var x=0;x<data.length;x++) {
 
-			var locationName = locations[x].getAttribute('name');
-			var location = locations[x].childNodes,
-					name = '',
-					state = '',
-					cdi = '',
-					nresp = '',
-					dist = '',
-					country = '',
-					zip = '';
+			var locationName = data[x].getAttribute('name'),
+					locations = data[x].childNodes,
+					location = {};
 
-			for (var i=0;i<location.length;i++) {
+			for (var i=0;i<locations.length;i++) {
 
-				if (location[i].nodeName === 'name') {
-					name =location[i].childNodes[0].nodeValue;
-				}
-				
-				if (location[i].nodeName === 'state') {
-					state =location[i].childNodes[0].nodeValue;
-				}
+				var node = locations[i],
+						nodeName = node.nodeName,
+						nodeValue = node.textContent;
 
-				if (location[i].nodeName === 'cdi') {
-					cdi =location[i].childNodes[0].nodeValue;
-				}
-
-				if (location[i].nodeName === 'nresp') {
-					nresp =location[i].childNodes[0].nodeValue;
-				}
-
-				if (location[i].nodeName === 'dist') {
-					dist =location[i].childNodes[0].nodeValue;
+				if (nodeName === 'name' ||
+						nodeName === 'state' ||
+						nodeName === 'country' ||
+						nodeName === 'zip' ) {
+					location[nodeName] = nodeValue;
+				} else if (nodeName === 'cdi' ||
+						nodeName === 'dist' ||
+						nodeName === 'lat' ||
+						nodeName === 'lon' ||
+						nodeName === 'nresp' ) {
+					location[nodeName] = parseInt(nodeValue, 10);
 				}
 			}
 
 			// determine country/ add zip code to name
 			if (locationName.length === 5) {
-				name = name;
-				country = 'United States of America';
-				zip = locationName;
+				location.country = 'United States of America';
+				location.zip = locationName;
 			} else {
-				state = locationName.split('::')[1];
-				country = locationName.split('::')[2];
+				location.state = locationName.split('::')[1];
+				location.country = locationName.split('::')[2];
 			}
 
-			var record = {
-				'name': name,
-				'state': state,
-				'country': country,
-				'cdi': parseInt(cdi, 10),
-				'nresp': parseInt(nresp, 10),
-				'dist': parseInt(dist, 10),
-				'zip': zip
-			};
-
-			responsesArray.push(record);
-
+			responsesArray.push(location);
 		}
 
 		return responsesArray;
@@ -134,6 +113,7 @@ define([
 			];
 
 			var responsesTable = document.createElement('table');
+			responsesTable.className = 'responsive dyfi';
 			var expandListLink = document.createElement('span');
 			expandListLink.setAttribute('role', 'button');
 			expandListLink.innerHTML = 'See All Responses';
@@ -160,7 +140,7 @@ define([
 					'</td>',
 					'<td class="mmi"><span class="mmi' + romanNumeral + '">' + romanNumeral + '</span></td>',
 					'<td>',record.nresp,'</td>',
-					'<td>',record.dist,'</td>'
+					'<td>',record.dist,' km</td>'
 				);
 
 				tableMarkup.push('</tr>');
