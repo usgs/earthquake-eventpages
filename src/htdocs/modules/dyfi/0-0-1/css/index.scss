@@ -4,7 +4,7 @@ $td_padding: 10px;
 $th_padding: $td_padding * 2;
 
 /* responsive table */
-@import '_responsiveTable.scss';
+@import '../../../../css/_responsiveTable.scss';
 
 .hidden {
 	display:none;
@@ -63,6 +63,14 @@ $th_padding: $td_padding * 2;
 
 	.mmi span {
 		max-width: 50%;
+	}
+
+	.dyfi {
+		/*** Label the data ***/
+		td:nth-of-type(1):before { content: "Location"; }
+		td:nth-of-type(2):before { content: "MMI"; }
+		td:nth-of-type(3):before { content: "Responses"; }
+		td:nth-of-type(4):before { content: "Distance"; }
 	}
 
 }
