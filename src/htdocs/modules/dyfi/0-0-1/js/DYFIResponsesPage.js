@@ -138,7 +138,7 @@ define([
 			expandListLink.className = 'button';
 
 
-			for (var i=0;i<records.length;i++) {
+			for (var i = 0; i < records.length; i++) {
 
 				var record = records[i];
 
