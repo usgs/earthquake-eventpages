@@ -20,7 +20,6 @@ define([
 	};
 
 	var _translateMmi = function (mmi) {
-
 		var mmiArray = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
 				'IX', 'X', 'XI', 'XII'];
 		mmi = Math.round(mmi);
@@ -28,14 +27,15 @@ define([
 		return mmiArray[mmi] || '';
 	};
 
-
 	var DYFIResponsesPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
 		EventModulePage.call(this, options);
 	};
+
 	DYFIResponsesPage.prototype = Object.create(EventModulePage.prototype);
 
 	DYFIResponsesPage.prototype._setContentMarkup = function() {
+
 		var products = this._event.properties.products;
 
 		if (!products.dyfi ||
@@ -46,17 +46,17 @@ define([
 		this._getDYFIResponses(products.dyfi[0].contents['cdi_zip.xml']);
 	};
 
-
 	DYFIResponsesPage.prototype._getDYFIResponses = function(file) {
+
 		var _this = this;
 		Xhr.ajax({
-			url: file.url,
+			//url: file.url,
 			success: function (data, xhr) {
 				_this._buildResponsesTable(_this._buildResponsesArray(xhr.responseXML));
 			},
 			error: function () {
 				var output = document.createElement('p');
-				output.className = 'error';
+				output.className = 'dyfi-error';
 				output.innerHTML = 'Error: Unable to retreive DYFI responses.';
 				_this._content.appendChild(output);
 			}
@@ -181,13 +181,14 @@ define([
 		} else {
 			// There are no records
 			var div = document.createElement('div');
-			div.className = 'info';
+			div.className = 'dyfi-info';
 			div.innerHTML = 'No data available.';
 			this._content.appendChild(div);
 		}
 	};
 
 	DYFIResponsesPage.prototype._bindEvent = function (linkDom, table) {
+
 		var allRecords;
 		var elementList = table.querySelectorAll('tr.hidden');
 

@@ -34,25 +34,24 @@ $th_padding: $td_padding * 2;
 	background-image: linear-gradient(to top, rgba(0,0,0,0.1) 0% ,rgba(0,0,0,0) 100%);
 }
 
-.error,
-.info {
+.dyfi-error,
+.dyfi-info {
 	display: inline-block;
 	padding:10px;
 }
 
-.error {
+.dyfi-error {
 	background: #fcc;
 }
 
-.info {
+.dyfi-info {
 	background: #eee;
 }
 
-
 @media screen and (max-width: 767px) {
 
-	.error,
-	.info {
+	.dyfi-error,
+	.dyfi-info {
 		display:block;
 	}
 
@@ -72,6 +71,5 @@ $th_padding: $td_padding * 2;
 		td:nth-of-type(3):before { content: "Responses"; }
 		td:nth-of-type(4):before { content: "Distance"; }
 	}
-
 
 }
