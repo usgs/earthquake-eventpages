@@ -49,7 +49,7 @@ $th_padding: $td_padding * 2;
 }
 
 
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
 
 	.error,
 	.info {
@@ -72,5 +72,6 @@ $th_padding: $td_padding * 2;
 		td:nth-of-type(3):before { content: "Responses"; }
 		td:nth-of-type(4):before { content: "Distance"; }
 	}
+
 
 }
