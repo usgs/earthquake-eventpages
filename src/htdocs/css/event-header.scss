@@ -10,13 +10,18 @@
 	> .impact-bubbles {
 
 		> a {
-			display:block;
-			background:#fff;
-			padding: 3px 5px 2px;
-			margin-top:8px;
-			text-align:center;
-			text-decoration:none;
-			border:1px solid #ccc;
+			display: block;
+			background: #fff;
+			padding: 8px 15px;
+			margin-top: 8px;
+			text-align: center;
+			text-decoration: none;
+			border-radius: 3px;
+			text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+		}
+
+		> a:hover {
+			background-image: linear-gradient(to top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
 		}
 
 		.tsunami {
@@ -33,7 +38,7 @@
 }
 .pager-alertlevel-green {
 	background-color:#00b04f !important;
-	color:#fff !important;
+	color:#000 !important;
 }
 .pager-alertlevel-yellow {
 	background-color:#ff0 !important;
@@ -45,7 +50,7 @@
 }
 .pager-alertlevel-red {
 	background-color:#f00 !important;
-	color:#fff !important;
+	color:#000 !important;
 }
 
 .roman {font-family: Tahoma, Verdana, Segoe, sans-serif;}
@@ -57,10 +62,10 @@
 .mmiVI{color:#000000 !important; background-color:#F9F518 !important;}
 .mmiVII{color:#000000 !important; background-color:#FAC611 !important;}
 .mmiVIII{color:#000000 !important; background-color:#FA8A11 !important;}
-.mmiIX{color:#FFFFFF !important; background-color:#F7100C !important;}
-.mmiX{color:#FFFFFF !important; background-color:#C80F0A !important;}
-.mmiXI{color:#FFFFFF !important; background-color:#C80F0A !important;}
-.mmiXII{color:#FFFFFF !important; background-color:#C80F0A !important;}
+.mmiIX{color:#000000 !important; background-color:#F7100C !important;}
+.mmiX{color:#000000 !important; background-color:#C80F0A !important;}
+.mmiXI{color:#000000 !important; background-color:#C80F0A !important;}
+.mmiXII{color:#000000 !important; background-color:#C80F0A !important;}
 
 @media screen and (min-width: 768px) {
 	.event-header {
