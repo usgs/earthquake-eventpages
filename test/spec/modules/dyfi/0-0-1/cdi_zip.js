@@ -1,3 +1,4 @@
+/* global define */
 define({xml: '<cdidata>' +
   '<cdi type="zip">' +
     '<location name="90034">' +
