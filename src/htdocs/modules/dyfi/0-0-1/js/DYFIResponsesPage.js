@@ -15,6 +15,20 @@ define([
 		hash: 'responses'
 	};
 
+	var _sortByDistance = function (a, b) {
+		return a.dist - b.dist;
+	};
+
+	var _translateMmi = function (mmi) {
+
+		var mmiArray = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
+				'IX', 'X', 'XI', 'XII'];
+		mmi = Math.round(mmi);
+
+		return mmiArray[mmi] || '';
+	};
+
+
 	var DYFIResponsesPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
 		EventModulePage.call(this, options);
@@ -24,7 +38,8 @@ define([
 	DYFIResponsesPage.prototype._setContentMarkup = function() {
 		var products = this._event.properties.products;
 
-		if (!products.dyfi || !products.dyfi[0].contents.hasOwnProperty('cdi_zip.xml')) {
+		if (!products.dyfi ||
+				!products.dyfi[0].contents.hasOwnProperty('cdi_zip.xml')) {
 			return;
 		}
 
@@ -51,30 +66,32 @@ define([
 	DYFIResponsesPage.prototype._buildResponsesArray = function (xmlDoc) {
 
 		var data = xmlDoc.getElementsByTagName('location'),
-				responsesArray = [];
+		    responsesArray = [];
 
-		for (var x=0;x<data.length;x++) {
+		for (var x = 0; x < data.length; x++) {
 
 			var locationName = data[x].getAttribute('name'),
-					locations = data[x].childNodes,
-					location = {};
+			    locations = data[x].childNodes,
+			    location = {};
 
-			for (var i=0;i<locations.length;i++) {
+			for (var i = 0; i < locations.length; i++) {
 
 				var node = locations[i],
-						nodeName = node.nodeName,
-						nodeValue = node.textContent;
+				    nodeName = node.nodeName,
+				    nodeValue = node.textContent;
 
 				if (nodeName === 'name' ||
 						nodeName === 'state' ||
 						nodeName === 'country' ||
-						nodeName === 'zip' ) {
+						nodeName === 'zip') {
 					location[nodeName] = nodeValue;
-				} else if (nodeName === 'cdi' ||
+				} else if (
+						nodeName === 'cdi' ||
 						nodeName === 'dist' ||
 						nodeName === 'lat' ||
-						nodeName === 'lon' ||
-						nodeName === 'nresp' ) {
+						nodeName === 'lon') {
+					location[nodeName] = parseFloat(nodeValue);
+				} else if (nodeName === 'nresp') {
 					location[nodeName] = parseInt(nodeValue, 10);
 				}
 			}
@@ -98,7 +115,7 @@ define([
 
 		if (records.length !== 0) {
 
-			records.sort(this._sortByDistance);
+			records.sort(_sortByDistance);
 
 			var tableMarkup = [
 				'<thead>',
@@ -131,19 +148,21 @@ define([
 					tableMarkup.push('<tr>');
 				}
 
-				var romanNumeral = this._translateMmi(record.cdi);
+				var romanNumeral = _translateMmi(record.cdi);
 
 				tableMarkup.push(
-					'<td>',
-						record.name, ', ' ,record.state, ' ', record.zip,
-						'<small>', record.country,'</small>',
-					'</td>',
-					'<td class="mmi"><span class="mmi' + romanNumeral + '">' + romanNumeral + '</span></td>',
-					'<td>',record.nresp,'</td>',
-					'<td>',record.dist,' km</td>'
+						'<td>',
+							record.name, ', ' ,record.state, ' ', record.zip,
+							'<small>', record.country,'</small>',
+						'</td>',
+						'<td class="mmi">',
+							'<span class="mmi', romanNumeral, '">', romanNumeral, '</span>',
+						'</td>',
+						'<td>',record.nresp,'</td>',
+						'<td>',record.dist,' km</td>',
+					'</tr>'
 				);
 
-				tableMarkup.push('</tr>');
 			}
 
 			tableMarkup.push(
@@ -189,61 +208,8 @@ define([
 		}
 	};
 
-	DYFIResponsesPage.prototype._sortByDistance = function (a, b) {
-		if (a.dist < b.dist) {
-			return -1;
-		}
-		if (a.dist > b.dist) {
-			return 1;
-		}
-			return 0;
-	};
 
-	DYFIResponsesPage.prototype._translateMmi = function (mmi) {
 
-		var romanNumeral = '';
-		mmi = parseInt(mmi, 10);
-
-		switch (mmi) {
-			case 1:
-				romanNumeral = 'I';
-				break;
-			case 2:
-				romanNumeral = 'II';
-				break;
-			case 3:
-				romanNumeral = 'III';
-				break;
-			case 4:
-				romanNumeral = 'IV';
-				break;
-			case 5:
-				romanNumeral = 'V';
-				break;
-			case 6:
-				romanNumeral = 'VI';
-				break;
-			case 7:
-				romanNumeral = 'VII';
-				break;
-			case 8:
-				romanNumeral = 'VIII';
-				break;
-			case 9:
-				romanNumeral = 'IX';
-				break;
-			case 10:
-				romanNumeral = 'X';
-				break;
-			case 11:
-				romanNumeral = 'XI';
-				break;
-			case 12:
-				romanNumeral = 'XII';
-				break;
-		}
-		return romanNumeral;
-	};
 
 	return DYFIResponsesPage;
 });
