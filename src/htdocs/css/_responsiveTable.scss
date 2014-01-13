@@ -1,0 +1,118 @@
+$td_padding: 10px !default; 
+$td_background_color: rgb(248,248,248) !default;
+
+$th_padding: $td_padding !default; 
+$th_background_color: rgb(237,237,237) !default;
+
+$tr_striping: yes !default;
+$tr_striping_color: rgb(251,251,251) !default;
+
+@mixin first_cell($padding_left) {
+	text-align: left;
+	padding-left: $padding_left;
+}
+
+table.responsive {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom:15px;
+	background: $td_background_color;
+	color:#666;
+	text-shadow: 1px 1px 0px #fff;
+	border:1px solid #ccc;
+	text-align: center;
+
+	> thead > tr {
+
+			> th {
+				background: $th_background_color;
+				color:#000;
+				font-weight:bold;
+				padding:21px 25px 22px 25px;
+				padding:$th_padding;
+				border-bottom:1px solid #ccc;
+				border-top:1px solid #ccc;
+			}
+
+			> th:first-child {
+				@include first-cell($td_padding * 2);
+			}
+	}
+
+	> tbody {
+
+		/* Zebra striping */
+		@if $tr_striping == yes {
+			tr:nth-of-type(odd) {
+				background:$tr_striping_color;
+			}
+		}
+
+		> tr {
+
+			> td {
+				padding: $td_padding;
+				border-bottom:1px solid #e0e0e0;
+				border-left:1px solid #e0e0e0;
+			}
+
+			> td:first-child {
+				@include first-cell($td_padding * 2);
+			}
+
+			>td > small {
+				display:block;
+			}
+		}
+	}
+
+}
+
+@media screen and (max-width: 767px) {
+
+	/* Force table to not be like tables anymore */
+	thead, tbody, th, td, tr {
+		display: block;
+	}
+
+	table.responsive {
+		background: $th_background_color;
+		display:block;
+		text-align: left;
+		color:#666;
+
+		/* Hide table headers (but not display: none;, for accessibility) */
+		> thead > tr {
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+
+		> tbody > tr {
+
+			>td {
+				border-left: none;
+				position: relative;
+				padding: $td_padding + 5px $td_padding;
+				padding-left: 36%;
+			}
+
+			> td:first-child {
+				padding-left:36%;
+			}
+
+			> td:before {
+				position: absolute;
+				box-sizing: border-box;
+				top: 0;
+				left: 0;
+				width: 36%;
+				padding: $td_padding + 5px $td_padding;
+				white-space: nowrap;
+				font-weight: bold;
+				text-align: left;
+			}
+		}
+	}
+
+}

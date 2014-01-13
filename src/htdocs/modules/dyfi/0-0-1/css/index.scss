@@ -1,2 +1,75 @@
 /* This file should import partials for the dyfi module/modulepages. */
 
+$td_padding: 10px;
+$th_padding: $td_padding * 2;
+
+/* responsive table */
+@import '../../../../css/_responsiveTable.scss';
+
+.hidden {
+	display:none;
+}
+
+.mmi span {
+	display: block;
+	padding: 10px 0;
+	text-align: center;
+	border-radius: 2px;
+	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* span with role="button" */
+.button {
+	display: inline-block;
+	color: #fff;
+	background: #4e7ab9;
+	border-radius: 3px;
+	padding: 8px 15px;
+	text-align: center;
+	text-decoration: none;
+}
+
+.button:hover {
+	cursor:pointer;
+	background-image: linear-gradient(to top, rgba(0,0,0,0.1) 0% ,rgba(0,0,0,0) 100%);
+}
+
+.dyfi-error,
+.dyfi-info {
+	display: inline-block;
+	padding:10px;
+}
+
+.dyfi-error {
+	background: #fcc;
+}
+
+.dyfi-info {
+	background: #eee;
+}
+
+@media screen and (max-width: 767px) {
+
+	.dyfi-error,
+	.dyfi-info {
+		display:block;
+	}
+
+	.button {
+		display:block;
+		width:100%;
+	}
+
+	.mmi span {
+		max-width: 50%;
+	}
+
+	.dyfi {
+		/*** Label the data ***/
+		td:nth-of-type(1):before { content: "Location"; }
+		td:nth-of-type(2):before { content: "MMI"; }
+		td:nth-of-type(3):before { content: "Responses"; }
+		td:nth-of-type(4):before { content: "Distance"; }
+	}
+
+}
