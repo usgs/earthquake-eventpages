@@ -20,38 +20,22 @@ define([
 	'use strict';
 
 	var expect = chai.expect,
-			stub, content, tbody, rows, hiddenRows, page,
+			stub, content, tbody, rows, hiddenRows,
 			options = {
 					hash: 'responses',
 					title: 'Responses',
 					eventDetails: eventData,
 					module: new DYFIModule()
-			};
+			},
+			page = new DYFIResponsesPage(options);
+
+	var getClickEvent = function () {
+		var clickEvent = document.createEvent('MouseEvents');
+		clickEvent.initMouseEvent('click', true, true, window, 1, 0, 0);
+		return clickEvent;
+	};
 
 	describe('DYFIResponsesPage test suite.', function () {
-
-		beforeEach(function() {
-			page = new DYFIResponsesPage(options);
-			stub = sinon.stub(Xhr, 'ajax', function () {
-				var xmlDoc;
-				if (window.DOMParser) {
-					var parser=new DOMParser();
-					xmlDoc=parser.parseFromString(cdi_zip.xml,'text/xml');
-				}
-				page._buildResponsesTable(page._buildResponsesArray(xmlDoc));
-			});
-
-			page._setContentMarkup();
-
-			content = page.getContent();
-			tbody = content.querySelector('tbody');
-			rows  = tbody.querySelectorAll('tr');
-			hiddenRows = tbody.querySelectorAll('.hidden');
-		});
-
-		afterEach(function() {
-			stub.restore();
-		});
 
 		describe('Constructor', function () {
 			it('Can be defined.', function () {
@@ -65,27 +49,42 @@ define([
 			});
 		});
 
-		describe('_setContentMarkup', function () {
-
-			it('can set content.', function () {
-				var content = page.getContent();
-				expect(content).not.to.be.undefined;
-			});
-		});
-
 		describe('getContent', function () {
 
+			beforeEach(function() {
+				page = new DYFIResponsesPage(options);
+				stub = sinon.stub(Xhr, 'ajax', function () {
+					var xmlDoc;
+					if (window.DOMParser) {
+						var parser=new DOMParser();
+						xmlDoc=parser.parseFromString(cdi_zip.xml,'text/xml');
+					}
+					page._buildResponsesTable(page._buildResponsesArray(xmlDoc));
+				});
+
+				page._setContentMarkup();
+
+				content = page.getContent();
+				tbody = content.querySelector('tbody');
+				rows  = tbody.querySelectorAll('tr');
+				hiddenRows = tbody.querySelectorAll('.hidden');
+			});
+
+			afterEach(function() {
+				stub.restore();
+			});
+
 			it('can get content.', function () {
-				var content = page.getContent();
-				// should equal 2, the table and button should exist
-				expect(content.childNodes.length).not.to.equal(0);
+				// should equal 104
+				expect(rows.length).not.to.equal(0);
 			});
 
 			it('will only display 10 rows by default', function () {
 				expect(rows.length - hiddenRows.length).to.equal(10);
 			});
 
-			it('has all 104 locations from event "nc72119970" in the DOM', function () {
+			it('has all 104 locations from event "nc72119970" in the DOM',
+					function () {
 				expect(rows.length).to.equal(104);
 			});
 
@@ -93,10 +92,8 @@ define([
 
 				var button = content.querySelector('#showResponses');
 
-				button.click();
+				button.dispatchEvent(getClickEvent());
 
-				content = page.getContent();
-				tbody = content.querySelector('tbody');
 				rows  = tbody.querySelectorAll('tr');
 				hiddenRows = tbody.querySelectorAll('.hidden');
 
