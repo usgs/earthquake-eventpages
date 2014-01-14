@@ -29,6 +29,13 @@ define([
 					title: 'Moment Tensor',
 					hash: 'tensor'
 				}
+			},
+			{
+				className: 'scientific/FocalMechanismPage',
+				options: {
+					title: 'Focal Mechanism',
+					hash: 'mechanism'
+				}
 			}
 		]
 	};
