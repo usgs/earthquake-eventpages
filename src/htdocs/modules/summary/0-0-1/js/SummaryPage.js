@@ -108,9 +108,7 @@ define([
 
 		Util.addEvent(mapContainer, 'click', (function (_this) {
 			var callback = function callback () {
-				_this._enhanceMap();
-				Util.removeClass(nearbyCities.querySelector('ol'), 'staticmap');
-				Util.removeEvent(mapContainer, 'click', callback);
+				_this._showInteractiveMap();
 			};
 			return callback;
 		})(this));
@@ -266,15 +264,16 @@ define([
 		});
 	};
 
-		SummaryPage.prototype._enhanceMap = function () {
+		SummaryPage.prototype._showInteractiveMap = function () {
 		var _this = this;
 
 		require(['summary/InteractiveMap'], function (InteractiveMap) {
-			_this._interactiveMap = new InteractiveMap({
-				el: _this._content.querySelector('.summary-map'),
-				cities: _this._content.querySelector('.summary-nearby-cities'),
-				eventDetails: _this._event
-			});
+			if (!_this._interactiveMap) {
+				_this._interactiveMap = new InteractiveMap({
+						eventDetails: _this._event});
+			}
+
+			_this._interactiveMap.show(document.body);
 		});
 	};
 

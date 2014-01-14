@@ -1,9 +1,21 @@
 @import '../../../../../leaflet/dist/leaflet.css';
 
+.summary-interactive-map-wrapper {
+	position:fixed;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	padding:8px;
+	z-index:9999;
+
+	background-color:rgba(0, 0, 0, 0.75);
+}
+
 .summary-interactive-map {
 	display:block;
 	width:100%;
-	height:320px;
+	height:100%;
 }
 
 .summary-nearby-cities {

@@ -23,11 +23,40 @@ define([
 	var InteractiveMap = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
 
-		this._el = options.el || document.createElement('div');
+		this._wrapper = document.createElement('div');
+		this._el = document.createElement('div');
 		this._citiesEl = options.cities || document.createElement('div');
 		this._event = options.eventDetails || null;
 
+		this._wrapper.appendChild(this._el);
+
 		this._initialize();
+	};
+
+	InteractiveMap.prototype.show = function (container) {
+		var lat, latmin, latmax,
+		    lng, lngmin, lngmax;
+
+		container = container || document.body;
+
+		if (container) {
+			container.appendChild(this._wrapper);
+			this._map.invalidateSize();
+
+			if (this._event) {
+				// Show a 10deg map centered on earthquake epicenter)
+				lat = this._event.geometry.coordinates[1];
+				lng = this._event.geometry.coordinates[0];
+
+				latmin = Math.max(lat - 10.0, -90.0);
+				latmax = Math.min(lat + 10.0, 90.0);
+
+				lngmin = lng - 10.0;
+				lngmax = lng + 10.0;
+
+				this._map.fitBounds([[latmax, lngmin], [latmin, lngmax]]);
+			}
+		}
 	};
 
 	InteractiveMap.prototype._initialize = function () {
@@ -39,8 +68,10 @@ define([
 		    latitude = null,
 		    longitude = null;
 
+		Util.addClass(this._wrapper, 'summary-interactive-map-wrapper');
 		Util.addClass(this._el, 'summary-interactive-map');
 		this._el.innerHTML = '';
+
 		this._map = new L.Map(this._el, {
 			center: [0.0, 0.0],
 			zoom: 2,
@@ -84,9 +115,6 @@ define([
 				iconSize: [32, 32],
 				iconAnchor: [16, 16]
 			}));
-
-			// Recenter map on earthquake center (must use reset: true)
-			this._map.setView([latitude, longitude], 6);
 
 			if (this._event.properties.products.geoserve) {
 				Xhr.ajax({
