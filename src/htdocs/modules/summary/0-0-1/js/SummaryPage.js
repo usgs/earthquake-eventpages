@@ -266,5 +266,17 @@ define([
 		});
 	};
 
+		SummaryPage.prototype._enhanceMap = function () {
+		var _this = this;
+
+		require(['summary/InteractiveMap'], function (InteractiveMap) {
+			_this._interactiveMap = new InteractiveMap({
+				el: _this._content.querySelector('.summary-map'),
+				cities: _this._content.querySelector('.summary-nearby-cities'),
+				eventDetails: _this._event
+			});
+		});
+	};
+
 	return SummaryPage;
 });
