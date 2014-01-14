@@ -87,9 +87,8 @@ define([
 					// Shorten tectonic summary if the window is less than 768px
 					// Read More is clickable to expand text to full size.
 					if (tectonicSummary !== null) {
-						tectonicSummary.innerHTML = '<h3>Tectonic Summary</h3>';
-							tectonicSummary.appendChild(_this._createToggleContent(
-								geoserve.tectonicSummary.text));
+						_this._setTextContent(tectonicSummary, 'Tectonic Summary',
+								geoserve.tectonicSummary.text);
 					}
 				},
 				error: function () {
@@ -218,50 +217,6 @@ define([
 		return '';
 	};
 
-	/**
-	 * Handles loading text-type products into the container. This works for
-	 * products with in-line (byte) content.
-	 *
-	 * @param container {DOMElement}
-	 *      The container into which the textual content should be loaded
-	 * @param type {String}
-	 *      The product type (a text-type product type)
-	 */
-	/*SummaryPage.prototype._loadTextualContent = function (container, type,
-			title) {
-
-		var i = null,
-		    len = null,
-		    products = null,
-		    markup = [],
-		    summaryImage = null;
-
-		if (title !== null && typeof title !== 'undefined' && title !== '') {
-			title = '<h3>' + title + '</h3>';
-		} else {
-			title = null;
-		}
-
-		if (container === null ||
-				!this._event.properties.products.hasOwnProperty(type)) {
-			return;
-		}
-
-		products = this._event.properties.products[type];
-
-		for (i = 0, len = products.length; i < len; i++) {
-			markup.push('<div>' + products[0].contents[''].bytes + '<div>');
-		}
-
-		container.innerHTML = title + markup.join('');
-
-		summaryImage = container.querySelector('a.tectonic');
-		if (summaryImage) {
-			summaryImage.innerHTML = 'Tectonic Summary Map Area';
-		}
-	};
-	*/
-// New ------------------------------------------------------------------------
 	SummaryPage.prototype._loadTextualContent = function (container, type, title) {
 
 		var i = null,
@@ -269,12 +224,6 @@ define([
 		    products = null,
 		    markup = [];
 
-		if (title !== null && typeof title !== 'undefined' && title !== '') {
-			title = '<h3>' + title + '</h3>';
-		} else {
-			title = null;
-		}
-
 		if (container === null ||
 				!this._event.properties.products.hasOwnProperty(type)) {
 			return;
@@ -286,42 +235,36 @@ define([
 			markup.push('<div>' + products[0].contents[''].bytes + '<div>');
 		}
 
-		container.innerHTML = title;
-		container.appendChild(this._createToggleContent(markup.join('')));
+		this._setTextContent(container, title, markup.join(''));
 	};
-	/**
-	 * @param markup {String}
-	 *      markup for which to create toggleable content region
-	 *      can be plain text or html markup
-	 *
-	 * @return {DOMElement}
-	 *      The DOMElement which is toggleable, containing the given markup
-	 */
-	SummaryPage.prototype._createToggleContent = function (markup) {
-		var container = document.createElement('div');
-		var readMore = document.createElement('a');
-		readMore.innerHTML = '&hellip;Read More';
-		container.innerHTML = markup;
-		container.appendChild(readMore);
-		container.className = 'collapsable collapsed';
-		readMore.className = 'readMore';
 
-		Util.addEvent(readMore, 'click', function() {
-			if (Util.hasClass(container, 'collapsed')) {
-				Util.removeClass(container, 'collapsed');
-				readMore.innerHTML = '&hellip;Collapse';
+
+	SummaryPage.prototype._setTextContent = function (container, title, markup) {
+		var wrapper = document.createElement('div'),
+		    header = document.createElement('h3');
+
+		Util.addClass(container, 'accordion');
+		Util.addClass(container, 'accordion-collapsed');
+
+		if (title !== null && typeof title !== 'undefined' && title !== '') {
+			header.innerHTML = title;
+		} else {
+			header.innerHTML = 'Section Header'; // TODO :: Hmm ... ?
+		}
+
+		wrapper.innerHTML = markup;
+
+		container.appendChild(header);
+		container.appendChild(wrapper);
+
+		Util.addEvent(header, 'click', function () {
+			if (Util.hasClass(container, 'accordion-collapsed')) {
+				Util.removeClass(container, 'accordion-collapsed');
 			} else {
-				Util.addClass(container, 'collapsed');
-				readMore.innerHTML = '&hellip;Read More';
+				Util.addClass(container, 'accordion-collapsed');
 			}
 		});
-
-
-
-		return container;
 	};
 
-
-// End New --------------------------------------------------------------------
 	return SummaryPage;
 });
