@@ -1,0 +1,54 @@
+
+
+.contentsxml {
+	clear: both;
+	margin: 1em 0;
+}
+
+
+.contentsxml-content {
+	margin: 1em 0;
+
+	// header for content
+	> header > h1 {
+		margin: 1em 0 0;
+		font-size: 1em;
+		font-weight: bold;
+		position: relative;
+		clear:both;
+	}
+
+	// list of available formats
+	> ul.downloads {
+		&:before {
+			float:left;
+			content: 'Available Formats: ';
+		}
+
+		float:left;
+		list-style:none;
+		padding: 0;
+		margin: 0 0 1em 0;
+
+		> li {
+			float: left;
+			list-style: none;
+			display: block;
+			display: inline-block;
+			padding: 0;
+			margin: 0 0 0 1em;
+		}
+	}
+
+	// image content
+	> figure {
+		clear: both;
+		margin: 1em 40px;
+
+		> img {
+			margin: 1em 0;
+			max-width: 100%;
+		}
+	}
+
+}
