@@ -36,6 +36,13 @@ define([
 					title: 'Focal Mechanism',
 					hash: 'mechanism'
 				}
+			},
+			{
+				className: 'scientific/FiniteFaultPage',
+				options: {
+					title: 'Finite Fault',
+					hash: 'finitefault'
+				}
 			}
 		]
 	};
