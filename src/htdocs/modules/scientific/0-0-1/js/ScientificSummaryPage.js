@@ -2,11 +2,13 @@
 define([
 	'util/Util',
 	'base/EventModulePage',
+	'base/Formatter',
 	'./tensor/Tensor',
 	'./tensor/BeachBall'
 ], function (
 	Util,
 	EventModulePage,
+	Formatter,
 	Tensor,
 	BeachBall
 ) {
@@ -16,7 +18,8 @@ define([
 	// default options
 	var DEFAULTS = {
 		title: 'Summary',
-		hash: 'summary'
+		hash: 'summary',
+		formatter: new Formatter()
 	};
 
 
@@ -26,8 +29,8 @@ define([
 	 *        module options.
 	 */
 	var ScientificSummaryPage = function (options) {
-		options = Util.extend({}, DEFAULTS, options || {});
-		EventModulePage.call(this, options);
+		this._options = Util.extend({}, DEFAULTS, options);
+		EventModulePage.call(this, this._options);
 	};
 
 	// extend EventModulePage
@@ -276,6 +279,7 @@ define([
 	 */
 	ScientificSummaryPage.prototype.getOriginDetail = function (product) {
 		var buf = [],
+		    formatter = this._options.formatter,
 		    p = product.properties,
 		    // required attributes for origins
 		    latitude = p.latitude,
@@ -304,25 +308,16 @@ define([
 
 
 		buf.push('<tr><th>Magnitude</th><td>',
-				magnitude, ' ', magnitudeType,
-				(magnitudeError === null ? '' :
-						' <span class="uncertainty">&plusmn; ' + magnitudeError + '</span>'),
+				formatter.magnitude(magnitude, magnitudeType, magnitudeError),
 				'</td></tr>');
 
 		buf.push('<tr><th>Location</th><td>',
-				Math.abs(latitude), '&deg;', (latitude > 0 ? 'N' : 'S'),
-				' ',
-				Math.abs(longitude), '&deg;', (longitude > 0 ? 'E' : 'W'),
-				(horizontalError === null ? '' :
-						' <span class="uncertainty">&plusmn; ' + horizontalError + 'km</span>'),
+				formatter.location(latitude, longitude),
+				formatter.uncertainty(horizontalError, 1, '', 'km'),
 				'</td></tr>');
 
 		buf.push('<tr><th>Depth</th><td>',
-				(depth === null ? '-' :
-						depth +
-						(depthError === null ? '' :
-								' <span class="uncertainty">&plusmn; ' + depthError + '</span>') +
-						' km'),
+				formatter.depth(depth, 'km', depthError),
 				'</td></tr>');
 
 		buf.push('<tr><th>Origin Time</th><td>',
