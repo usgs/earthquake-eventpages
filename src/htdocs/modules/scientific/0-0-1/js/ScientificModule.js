@@ -24,6 +24,13 @@ define([
 				}
 			},
 			{
+				className: 'scientific/ScientificDetailPage',
+				options: {
+					title: 'Detail',
+					hash: 'detail'
+				}
+			},
+			{
 				className: 'scientific/MomentTensorPage',
 				options: {
 					title: 'Moment Tensor',
