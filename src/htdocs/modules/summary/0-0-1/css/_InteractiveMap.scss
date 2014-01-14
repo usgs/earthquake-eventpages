@@ -10,6 +10,23 @@
 	z-index:9999;
 
 	background-color:rgba(0, 0, 0, 0.75);
+
+	> .summary-interactive-map-close {
+		display:block;
+		position:absolute;
+		bottom:8px;
+		right:8px;
+		left:8px;
+		line-height:1em;
+		text-align:center;
+		color:#333;
+		background-color:#c9d8e9;
+		border-top:1px dotted #333;
+		cursor:pointer;
+		z-index:9999;
+		padding:8px 0;
+		text-shadow:1px 1px #fff;
+	}
 }
 
 .summary-interactive-map {

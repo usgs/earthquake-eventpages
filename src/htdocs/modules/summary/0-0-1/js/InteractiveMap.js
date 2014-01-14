@@ -25,9 +25,11 @@ define([
 
 		this._wrapper = document.createElement('div');
 		this._el = document.createElement('div');
+		this._closeBtn = document.createElement('div');
 		this._citiesEl = options.cities || document.createElement('div');
 		this._event = options.eventDetails || null;
 
+		this._wrapper.appendChild(this._closeBtn);
 		this._wrapper.appendChild(this._el);
 
 		this._initialize();
@@ -70,7 +72,13 @@ define([
 
 		Util.addClass(this._wrapper, 'summary-interactive-map-wrapper');
 		Util.addClass(this._el, 'summary-interactive-map');
+		Util.addClass(this._closeBtn, 'summary-interactive-map-close');
+
+		this._closeBtn.innerHTML = 'Hide Interactive Map';
 		this._el.innerHTML = '';
+
+		this._closeBtn.setAttribute('title', 'Close');
+		this._bindCloseEvent();
 
 		this._map = new L.Map(this._el, {
 			center: [0.0, 0.0],
@@ -152,6 +160,14 @@ define([
 		}
 
 		this._map.addControl(layerControl);
+	};
+
+	InteractiveMap.prototype._bindCloseEvent = function () {
+		var _this = this;
+
+		Util.addEvent(this._closeBtn, 'click', function () {
+			_this._wrapper.parentNode.removeChild(_this._wrapper);
+		});
 	};
 
 	InteractiveMap.prototype._bindCityEvents = function (marker, element) {
