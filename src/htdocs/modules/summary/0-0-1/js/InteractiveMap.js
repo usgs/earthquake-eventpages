@@ -93,7 +93,7 @@ define([
 		baseLayer = new L.TileLayer(
 				'http://earthquake.usgs.gov/basemap/tiles/natgeo_hires/{z}/{y}/{x}.jpg');
 		this._map.addLayer(baseLayer);
-		layerControl.addBaseLayer(baseLayer, 'Grey Scale');
+		layerControl.addBaseLayer(baseLayer, 'USGS Topography');
 
 		// Plates
 		platesLayer = new L.TileLayer(
@@ -127,10 +127,9 @@ define([
 			});
 			epicenterMarker.bindPopup([
 				'Epicenter',
-				'<span class="map-epicenter">',
-					'M', this._event.properties.mag, ', ',
-					'at a depth of ', this._event.geometry.coordinates[2], 'km',
-				'</span>'
+				' ',
+				'M',
+				this._event.properties.mag
 			].join(''));
 			console.log(this._event);
 			this._map.addLayer(epicenterMarker);
@@ -143,7 +142,7 @@ define([
 						    numCities = cities.length,
 						    i = null,
 						    city = null,
-						    cityMarker = null
+						    cityMarker = null;
 
 						for (i = 0; i < numCities; i++) {
 							city = cities[i];
