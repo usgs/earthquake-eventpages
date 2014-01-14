@@ -87,20 +87,9 @@ define([
 					// Shorten tectonic summary if the window is less than 768px
 					// Read More is clickable to expand text to full size.
 					if (tectonicSummary !== null) {
-						tectonicSummary.innerHTML =
-							'<a name="Summary"><h3>Tectonic Summary</h3></a>' +
-							'<div class="summaryWrapper">' +
-							geoserve.tectonicSummary.text +
-							'<a class="move" href="#Summary">&hellip; Read More</a>' +
-							'</div>';
-						var summaryWrapper = tectonicSummary.querySelector('.summaryWrapper');
-						Util.addEvent(tectonicSummary.querySelector('.move'),'click',function(){
-							if (Util.hasClass(summaryWrapper, 'expanded')) {
-								Util.removeClass(summaryWrapper, 'expanded');
-							} else {
-								Util.addClass(summaryWrapper, 'expanded');
-							}
-						});
+						tectonicSummary.innerHTML = '<h3>Tectonic Summary</h3>';
+							tectonicSummary.appendChild(_this._createToggleContent(
+								geoserve.tectonicSummary.text));
 					}
 				},
 				error: function () {
@@ -238,7 +227,7 @@ define([
 	 * @param type {String}
 	 *      The product type (a text-type product type)
 	 */
-	SummaryPage.prototype._loadTextualContent = function (container, type,
+	/*SummaryPage.prototype._loadTextualContent = function (container, type,
 			title) {
 
 		var i = null,
@@ -266,24 +255,73 @@ define([
 
 		container.innerHTML = title + markup.join('');
 
-
 		summaryImage = container.querySelector('a.tectonic');
 		if (summaryImage) {
 			summaryImage.innerHTML = 'Tectonic Summary Map Area';
 		}
 	};
+	*/
+// New ------------------------------------------------------------------------
+	SummaryPage.prototype._loadTextualContent = function (container, type, title) {
 
-	SummaryPage.prototype._enhanceMap = function () {
-		var _this = this;
+		var i = null,
+		    len = null,
+		    products = null,
+		    markup = [];
 
-		require(['summary/InteractiveMap'], function (InteractiveMap) {
-			_this._interactiveMap = new InteractiveMap({
-				el: _this._content.querySelector('.summary-map'),
-				cities: _this._content.querySelector('.summary-nearby-cities'),
-				eventDetails: _this._event
-			});
+		if (title !== null && typeof title !== 'undefined' && title !== '') {
+			title = '<h3>' + title + '</h3>';
+		} else {
+			title = null;
+		}
+
+		if (container === null ||
+				!this._event.properties.products.hasOwnProperty(type)) {
+			return;
+		}
+
+		products = this._event.properties.products[type];
+
+		for (i = 0, len = products.length; i < len; i++) {
+			markup.push('<div>' + products[0].contents[''].bytes + '<div>');
+		}
+
+		container.innerHTML = title;
+		container.appendChild(this._createToggleContent(markup.join('')));
+	};
+	/**
+	 * @param markup {String}
+	 *      markup for which to create toggleable content region
+	 *      can be plain text or html markup
+	 *
+	 * @return {DOMElement}
+	 *      The DOMElement which is toggleable, containing the given markup
+	 */
+	SummaryPage.prototype._createToggleContent = function (markup) {
+		var container = document.createElement('div');
+		var readMore = document.createElement('a');
+		readMore.innerHTML = '&hellip;Read More';
+		container.innerHTML = markup;
+		container.appendChild(readMore);
+		container.className = 'collapsable collapsed';
+		readMore.className = 'readMore';
+
+		Util.addEvent(readMore, 'click', function() {
+			if (Util.hasClass(container, 'collapsed')) {
+				Util.removeClass(container, 'collapsed');
+				readMore.innerHTML = '&hellip;Collapse';
+			} else {
+				Util.addClass(container, 'collapsed');
+				readMore.innerHTML = '&hellip;Read More';
+			}
 		});
+
+
+
+		return container;
 	};
 
+
+// End New --------------------------------------------------------------------
 	return SummaryPage;
 });
