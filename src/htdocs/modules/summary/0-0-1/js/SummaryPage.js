@@ -84,8 +84,7 @@ define([
 						cities.push('</ol>');
 						nearbyCities.innerHTML = '<h3>Nearby Cities</h3>' + cities.join('');
 					}
-					// Shorten tectonic summary if the window is less than 768px
-					// Read More is clickable to expand text to full size.
+
 					if (tectonicSummary !== null) {
 						_this._setTextContent(tectonicSummary, 'Tectonic Summary',
 								geoserve.tectonicSummary.text);
@@ -103,15 +102,6 @@ define([
 		this._loadTextualContent(impactText, 'impact-text', 'Impact Text');
 		this._loadTextualContent(generalText, 'general-text',
 				'Additional Commentary');
-
-		// Bind event listeners as needed
-
-		Util.addEvent(mapContainer, 'click', (function (_this) {
-			var callback = function callback () {
-				_this._showInteractiveMap();
-			};
-			return callback;
-		})(this));
 	};
 
 	SummaryPage.prototype._getTextContentMarkup = function (type) {
@@ -132,10 +122,11 @@ define([
 		    latitude = this._event.geometry.coordinates[1],
 		    longitude = this._event.geometry.coordinates[0],
 		    points = [],
-		    markup = null;
+		    img = document.createElement('img'),
+		    imgSrc = null;
 
-		markup = [
-			'<img alt="Map" src="http://www.mapquestapi.com/staticmap/v4/getmap?' +
+		img.setAttribute('alt', 'Map');
+		imgSrc = ['http://www.mapquestapi.com/staticmap/v4/getmap?' +
 				'key=Fmjtd%7Cluub2h0rnh%2Cb2%3Do5-9ut0g6&' +
 				'size=500,500&' +
 				'type=map&' +
@@ -151,10 +142,17 @@ define([
 
 		points.push('red_1,' + latitude + ',' + longitude);
 
-		markup.push(points.join('|'));
-		markup.push('"/>');
+		imgSrc.push(points.join('|'));
+		img.setAttribute('src', imgSrc.join(''));
 
-		container.innerHTML = markup.join('');
+		container.appendChild(img);
+
+		Util.addEvent(img, 'click', (function (_this) {
+			var callback = function callback () {
+				_this._showInteractiveMap();
+			};
+			return callback;
+		})(this));
 	};
 
 	SummaryPage.prototype._getRelatedLinksMarkup = function () {

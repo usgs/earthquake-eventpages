@@ -26,7 +26,6 @@ define([
 		this._wrapper = document.createElement('div');
 		this._el = document.createElement('div');
 		this._closeBtn = document.createElement('div');
-		this._citiesEl = options.cities || document.createElement('div');
 		this._event = options.eventDetails || null;
 
 		this._wrapper.appendChild(this._closeBtn);
@@ -46,15 +45,15 @@ define([
 			this._map.invalidateSize();
 
 			if (this._event) {
-				// Show a 10deg map centered on earthquake epicenter)
+				// Show a 2deg map centered on earthquake epicenter)
 				lat = this._event.geometry.coordinates[1];
 				lng = this._event.geometry.coordinates[0];
 
-				latmin = Math.max(lat - 10.0, -90.0);
-				latmax = Math.min(lat + 10.0, 90.0);
+				latmin = Math.max(lat - 2.0, -90.0);
+				latmax = Math.min(lat + 2.0, 90.0);
 
-				lngmin = lng - 10.0;
-				lngmax = lng + 10.0;
+				lngmin = lng - 2.0;
+				lngmax = lng + 2.0;
 
 				this._map.fitBounds([[latmax, lngmin], [latmin, lngmax]]);
 			}
@@ -68,7 +67,8 @@ define([
 		    platesLayer = null,
 		    faultsLayer = null,
 		    latitude = null,
-		    longitude = null;
+		    longitude = null,
+		    epicenterMarker;
 
 		Util.addClass(this._wrapper, 'summary-interactive-map-wrapper');
 		Util.addClass(this._el, 'summary-interactive-map');
@@ -91,7 +91,7 @@ define([
 
 		// Basic greyscale map
 		baseLayer = new L.TileLayer(
-				'http://earthquake.usgs.gov/basemap/tiles/grayscale/{z}/{y}/{x}.jpg');
+				'http://earthquake.usgs.gov/basemap/tiles/natgeo_hires/{z}/{y}/{x}.jpg');
 		this._map.addLayer(baseLayer);
 		layerControl.addBaseLayer(baseLayer, 'Grey Scale');
 
@@ -118,11 +118,22 @@ define([
 			}
 
 			// Place a marker at the earthquake location
-			this._map.addLayer(new L.Marker([latitude, longitude], {
-				icon: new L.Icon({iconUrl: 'images/star.png'}),
-				iconSize: [32, 32],
-				iconAnchor: [16, 16]
-			}));
+			epicenterMarker = new L.Marker([latitude, longitude], {
+				icon: new L.Icon({
+					iconUrl: 'images/star.png',
+					iconSize: [32, 32],
+					iconAnchor: [16, 16]
+				})
+			});
+			epicenterMarker.bindPopup([
+				'Epicenter',
+				'<span class="map-epicenter">',
+					'M', this._event.properties.mag, ', ',
+					'at a depth of ', this._event.geometry.coordinates[2], 'km',
+				'</span>'
+			].join(''));
+			console.log(this._event);
+			this._map.addLayer(epicenterMarker);
 
 			if (this._event.properties.products.geoserve) {
 				Xhr.ajax({
@@ -132,8 +143,7 @@ define([
 						    numCities = cities.length,
 						    i = null,
 						    city = null,
-						    cityMarker = null,
-						    cityDom = null;
+						    cityMarker = null
 
 						for (i = 0; i < numCities; i++) {
 							city = cities[i];
@@ -148,10 +158,12 @@ define([
 								radius: 5
 							});
 
-							cityDom = _this._citiesEl.querySelector(
-									'li:nth-child(' + (i+1) + ') ' );
-							cityMarker.bindPopup(city.name);
-							_this._bindCityEvents(cityMarker, cityDom);
+							cityMarker.bindPopup([
+								city.name, ' ',
+								'<span class="city-distance">',
+									city.distance, 'km from epicenter',
+								'</span>'
+							].join(''));
 							_this._map.addLayer(cityMarker);
 						}
 					}
@@ -168,32 +180,6 @@ define([
 		Util.addEvent(this._closeBtn, 'click', function () {
 			_this._wrapper.parentNode.removeChild(_this._wrapper);
 		});
-	};
-
-	InteractiveMap.prototype._bindCityEvents = function (marker, element) {
-
-		var citiesEl = this._citiesEl,
-		    updateSelected;
-
-		updateSelected = function updateSelected () {
-			var elements = citiesEl.querySelectorAll('.selected'),
-			    numElements = elements.length,
-			    i = null;
-
-			for (i = 0; i < numElements; i++) {
-				Util.removeClass(elements.item(i), 'selected');
-			}
-
-			Util.addClass(element, 'selected');
-		};
-
-		if (element) {
-			Util.addEvent(element, 'click', function () {
-				updateSelected();
-				marker.openPopup();
-			});
-			marker.on('click', updateSelected);
-		}
 	};
 
 	return InteractiveMap;

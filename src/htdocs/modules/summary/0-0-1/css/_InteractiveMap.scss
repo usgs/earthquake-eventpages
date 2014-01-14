@@ -14,18 +14,25 @@
 	> .summary-interactive-map-close {
 		display:block;
 		position:absolute;
-		bottom:8px;
-		right:8px;
-		left:8px;
+		bottom:12px;
+		right:12px;
+		left:12px;
 		line-height:1em;
 		text-align:center;
-		color:#333;
-		background-color:#c9d8e9;
-		border-top:1px dotted #333;
+		color:#000;
+		background-color:#fff;
 		cursor:pointer;
 		z-index:9999;
 		padding:8px 0;
-		text-shadow:1px 1px #fff;
+		box-shadow:0 1px 5px rgba(0,0,0,0.65);
+		border-radius:4px;
+	}
+
+	.city-distance, .map-epicenter {
+		display:block;
+		font-size:.9em;
+		color:#333;
+		font-style:italic;
 	}
 }
 
