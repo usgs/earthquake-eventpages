@@ -1,32 +1,32 @@
 /* This file should import partials for the scientific module/modulepages. */
 
 
-.origin-detail {
+// TODO: move this to a different style sheet
+table.striped {
+	background-color:#fefefe;
+	border: 1px solid #eee;
+	border-collapse: collapse;
+	color:#333;
 
-	> dt {
-		font-weight:bold;
+	> thead > tr {
+		background-color:#ddd;
 	}
 
-	@media screen and (min-width: 768px) {
-		&:after {
-			display:block;
-			content:' ';
-			clear:both;
-		}
-
-		> dt {
-			float:left;
-			clear:left;
-			width:11em;
-		}
-
-		> dd {
-			float:left;
-		}
+	> tbody > tr:nth-child(2n + 1) {
+		background-color:#eee;
 	}
 
+	th, td {
+		padding:5px;
+	}
+}
+
+// TODO: move this to a different style sheet
+canvas {
+	max-width: 100%;
 }
 
 
+@import "ScientificSummaryPage";
 @import "MomentTensorPage";
 

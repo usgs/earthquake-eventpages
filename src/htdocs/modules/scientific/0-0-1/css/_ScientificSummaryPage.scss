@@ -1,0 +1,37 @@
+
+.origin-detail {
+	width: 100%;
+
+	th, td {
+		text-align: left;
+
+		> .uncertainty {
+			color: #666;
+			float: right;
+			white-space: nowrap;
+		}
+	}
+}
+
+
+.scitech-links {
+
+	> ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		> li {
+			list-style: none;
+			display: block;
+			margin: 0;
+			padding: 8px;
+			border-bottom: 1px solid #ddd;
+
+			&:last-child {
+				border-bottom: 0;
+			}
+		}
+	}
+
+}
