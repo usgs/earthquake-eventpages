@@ -22,6 +22,13 @@ define([
 					title: 'Summary',
 					hash: 'summary'
 				}
+			},
+			{
+				className: 'scientific/MomentTensorPage',
+				options: {
+					title: 'Moment Tensor',
+					hash: 'tensor'
+				}
 			}
 		]
 	};
