@@ -138,8 +138,10 @@ define([
 
 		return [
 				'<strong>', type, '</strong>',
-				'<br/><abbr title="Magnitude">M</abbr> = ', magnitude,
-				'<br/><abbr title="Depth">D</abbr> = ', depth
+				'<small>',
+					'<br/><abbr title="Magnitude">M</abbr> = ', magnitude,
+					'<br/><abbr title="Depth">D</abbr> = ', depth,
+				'</small>'
 		].join('');
 	};
 
