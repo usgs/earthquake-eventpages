@@ -1,122 +1,140 @@
 /*** Tectonic Summary Images ***/
 $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
-
-.summary-tectonic-summary {
-	a.tectonic {
-		display:block;
-		width:304px;
-		background-repeat: no-repeat;
-		background-position:0 0;
-		background-size:contain;
-		margin:0 0 16px 0;
-		&:before{content:'Tectonic Summary Image'; display:block;}
-	}
-	> .summaryWrapper {
-		max-height:11em;
-		overflow:hidden;
+.summary-tectonic-summary,
+.summary-general-text {
+	> .collapsable {
 		position:relative;
 
-		.move {
-			position:absolute;
-			right:0;
-			bottom:0;
-			background-color:#C9D8E9;
-			width:100%;
+		> .readMore {
+			display:block;
+			background-color:#fff;
 			text-align:left;
+			padding-top:0em;
+			color:blue;
+			cursor:pointer;
+		}
+
+		&.collapsed {
+			max-height:11em;
+			overflow:hidden;
+
+			> .readMore {
+				position:absolute;
+				bottom:0;
+				left:0;
+				right:0;
+			}
 		}
 	}
-	> .expanded {
-		max-height:none;
-		.move{
-			display:none;
+}
 
+.summary-tectonic-summary {
+	> .collapsable {
+
+		a.tectonic {
+			display:block;
+			width:304px;
+			background-repeat: no-repeat;
+			background-position:0 0;
+			background-size:contain;
+			margin:0 0 16px 0;
+			&:before{content:'Tectonic Summary Image'; display:block;}
 		}
-	}
 
-	&.popup > a.aleutian {
-		background-image:url('#{$baseImageUrl}/aleutian_tsum304.jpg');
-		height:204px;
-	}
-
-
-	> a.caribbean {
-		background-image:url('#{$baseImageUrl}/caribbean_tsum304.jpg');
-		height:204px;
-	}
+		&.popup > a.aleutian {
+			background-image:url('#{$baseImageUrl}/aleutian_tsum304.jpg');
+			height:204px;
+		}
 
 
-	> a.emaustralia {
-		background-image:url('#{$baseImageUrl}/emaustralia_tsum304.jpg');
-		height:432px;
-	}
+		> a.caribbean {
+			background-image:url('#{$baseImageUrl}/caribbean_tsum304.jpg');
+			height:204px;
+		}
 
 
-	> a.himalaya {
-		background-image:url('#{$baseImageUrl}/himalaya_tsum304.jpg');
-		height:204px;
-	}
+		> a.emaustralia {
+			background-image:url('#{$baseImageUrl}/emaustralia_tsum304.jpg');
+			height:432px;
+		}
 
 
-	> a.japan {
-		background-image:url('#{$baseImageUrl}/japan_tsum304.jpg');
-		height:294px;
-	}
+		> a.himalaya {
+			background-image:url('#{$baseImageUrl}/himalaya_tsum304.jpg');
+			height:204px;
+		}
 
-	> a.java {
-		background-image:url('#{$baseImageUrl}/java_tsum304.jpg');
-		height:192px;
-	}
 
-	> a.kuril {
-		background-image:url('#{$baseImageUrl}/kuril_tsum304.jpg');
-		height:350px;
-	}
+		> a.japan {
+			background-image:url('#{$baseImageUrl}/japan_tsum304.jpg');
+			height:294px;
+		}
 
-	> a.middleeast {
-		background-image:url('#{$baseImageUrl}/middleeast_tsum304.jpg');
-		height:204px;
-	}
+		> a.java {
+			background-image:url('#{$baseImageUrl}/java_tsum304.jpg');
+			height:192px;
+		}
 
-	> a.newguinea {
-		background-image:url('#{$baseImageUrl}/newguinea_tsum304.jpg');
-		height:168px;
-	}
+		> a.kuril {
+			background-image:url('#{$baseImageUrl}/kuril_tsum304.jpg');
+			height:350px;
+		}
 
-	> a.philippinesea {
-		background-image:url('#{$baseImageUrl}/philippinesea_tsum304.jpg');
-		height:294px;
-	}
+		> a.middleeast {
+			background-image:url('#{$baseImageUrl}/middleeast_tsum304.jpg');
+			height:204px;
+		}
 
-	&.popup > a.southamerica {
-		background-image:url('#{$baseImageUrl}/southamerica_tsum304.jpg');
-		height:350px;
-	}
+		> a.newguinea {
+			background-image:url('#{$baseImageUrl}/newguinea_tsum304.jpg');
+			height:168px;
+		}
 
-	> a.sumatra {
-		background-image:url('#{$baseImageUrl}/sumatra_tsum304.jpg');
-		height:434px;
-	}
+		> a.philippinesea {
+			background-image:url('#{$baseImageUrl}/philippinesea_tsum304.jpg');
+			height:294px;
+		}
 
-	> a.mexico {
-		background-image:url('#{$baseImageUrl}/mexico_tsum304.jpg');
-		height:192px;
-	}
+		&.popup > a.southamerica {
+			background-image:url('#{$baseImageUrl}/southamerica_tsum304.jpg');
+			height:350px;
+		}
 
-	> a.mediterranean {
-		background-image:url('#{$baseImageUrl}/mediterranean_tsum304.jpg');
-		height:204px;
+		> a.sumatra {
+			background-image:url('#{$baseImageUrl}/sumatra_tsum304.jpg');
+			height:434px;
+		}
+
+		> a.mexico {
+			background-image:url('#{$baseImageUrl}/mexico_tsum304.jpg');
+			height:192px;
+		}
+
+		> a.mediterranean {
+			background-image:url('#{$baseImageUrl}/mediterranean_tsum304.jpg');
+			height:204px;
+		}
 	}
 }
 
 @media (min-width:768px) {
+	.summary-tectonic-summary,
+	.summary-general-text {
+		> .collapsable {
 
-	.summary-tectonic-summary {
-		> .summaryWrapper {
-			max-height:none;
-
-			.move {
+			.readMore {
 				display:none;
 			}
+
+			&.collapsed {
+				max-height:none;
+			}
+		}
+	}
+	.summary-tectonic-summary {
+
+		> .collapasable {
+
 
 			> a.tectonic {
 				float:right;
