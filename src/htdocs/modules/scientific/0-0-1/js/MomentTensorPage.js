@@ -103,7 +103,7 @@ define([
 				'</div>',
 				'<div class="column one-of-two beachball"></div>',
 			'</div>',
-			'<div class="row clearfix downloads"><h4>Downloads</h4></div>'
+			'<div class="row clearfix downloads"></div>'
 		].join('');
 
 		// add beachball

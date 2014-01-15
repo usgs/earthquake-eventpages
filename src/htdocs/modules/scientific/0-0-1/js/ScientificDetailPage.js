@@ -136,7 +136,7 @@ define([
 			'<div class="info"></div>',
 			'<div class="phases"></div>',
 			'<div class="magnitudes"></div>',
-			'<div class="downloads"><h4>Downloads</h4></div>'
+			'<div class="downloads"></div>',
 		].join('');
 
 		el.querySelector('.info').innerHTML = ScientificSummaryPage.prototype.
