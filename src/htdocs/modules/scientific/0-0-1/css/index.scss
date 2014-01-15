@@ -26,6 +26,12 @@ canvas {
 	max-width: 100%;
 }
 
+// TODO: move this to a different style sheet
+@media screen and (max-width:767px) {
+	.tablist-panel {
+		border-top: 1px solid #ccc;
+	}
+}
 
 @import "ScientificSummaryPage";
 @import "ScientificDetailPage";
