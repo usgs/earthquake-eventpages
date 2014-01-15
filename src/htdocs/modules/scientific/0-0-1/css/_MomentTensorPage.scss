@@ -41,15 +41,7 @@
 		}
 	}
 
-
 	> .downloads {
-		margin:1em 0 2em;
-
-		&:before {
-			display:block;
-			content: 'Downloads';
-			font-size: larger;
-			font-weight:bold;
-		}
+		margin:2em 0;
 	}
 }
