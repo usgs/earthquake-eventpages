@@ -128,7 +128,7 @@ define([
 		    source = product.source.toUpperCase(),
 		    phases,
 		    magnitudes;
-		el.className = 'scientific-detail clearfix';
+		el.className = 'scientific-hypocenter clearfix';
 		el.innerHTML = [
 			'<h3>', source, '</h3>',
 			'<div class="info"></div>',
