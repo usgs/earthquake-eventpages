@@ -237,9 +237,7 @@ define([
 						' href="', url, '"',
 						' title="', title, '"',
 						'>',
-							extension, ' ', this._formatter.fileSize(size),
-							'<br/><small>', href, '</small> ',
-
+							href, ' ', this._formatter.fileSize(size),
 						'</a></li>');
 		}
 		buf.push('</ul>');
