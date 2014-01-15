@@ -46,6 +46,18 @@ define([
 	};
 
 	/**
+	 * Title for detail section.
+	 *
+	 * @param tensor {Tensor}
+	 *        the focal-mechanism product.
+	 * @return {String} title content.
+	 */
+	FocalMechanismPage.prototype._getTitle = function (tensor) {
+		return this._getSummaryContent(tensor);
+	};
+
+
+	/**
 	 * Mechanism info.
 	 *
 	 * @param tensor {Tensor}
