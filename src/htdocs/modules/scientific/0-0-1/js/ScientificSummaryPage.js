@@ -97,7 +97,7 @@ define([
 			originEl = document.createElement('div');
 			originEl.className = 'location';
 			originEl.innerHTML = [
-				'<a href="#scientific_detail"><h3>Location</h3></a>',
+				'<a href="#scientific_detail"><h3>Hypocenter</h3></a>',
 				this.getOriginDetail(origins[0]),
 				'<p><a href="#scientific_detail">',
 					'View all locations, magnitudes, phases, and arrivals.',
