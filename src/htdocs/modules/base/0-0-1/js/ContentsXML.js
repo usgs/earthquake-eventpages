@@ -243,7 +243,7 @@ define([
 		buf.push('</ul>');
 
 		// inline image content
-		if (image !== null && (this._options.showImages !== false)) {
+		if (image !== null && this._options.showImages) {
 			buf.push('<figure>');
 			if (caption !== null) {
 				buf.push('<figcaption>', caption, '</figcaption>');
