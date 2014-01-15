@@ -169,92 +169,100 @@ define([
 	 *
 	 *  ...[additional file elements]
 	 */
-	ContentsXML.prototype.toHtml = function() {
+	ContentsXML.prototype.toHtml = function () {
 		var buf = [],
 		    contents = this.getContents(),
 		    content,
+		    title,
 		    i,
-		    len;
+		    ilen,
+		    formats,
+		    format,
+		    f,
+		    flen;
 
 		if (contents === null) {
 			throw new Error('No contents to format');
 		}
 
 		buf.push('<section class="contentsxml">');
-		for (i = 0, len = contents.length; i < len; i++) {
-			content = this.formatContent(contents[i]);
-			buf.push(content);
+		for (i = 0, ilen = contents.length; i < ilen; i++) {
+			content = contents[i];
+			title = content.title;
+			formats = content.formats;
+			for (f = 0, flen = formats.length; f < flen; f++) {
+				format = formats[f];
+				if (format.type.indexOf('image/') === 0) {
+					buf.push(
+							'<section class="contentsxml-content">',
+								'<header>',
+									'<h1>', title, '</h1>',
+								'</header>',
+								'<figure>',
+									'<img src="', format.url, '" alt="', title, ' image"/>',
+									'<figcaption>', content.caption, '</figcaption>',
+								'</figure>',
+							'</section>');
+					// only include first image type format for each content
+					break;
+				}
+			}
 		}
-		buf.push('</section>');
+		buf.push(
+				'<section class="contentsxml-content">',
+					'<header><h1>Downloads</h1></header>',
+					this.formatDownloads(),
+				'</section>');
 
+		buf.push('</section>');
 		return buf.join('');
 	};
 
 	/**
-	 * Format one piece of content from a contentsxml file.
+	 * Generate a list of downloads.
 	 *
-	 * @param content {Object} content to format.
-	 * @return {String} html markup for content.
+	 * @return {String} html markup for downloads.
 	 */
-	ContentsXML.prototype.formatContent = function (content) {
+	ContentsXML.prototype.formatDownloads = function () {
 		var buf = [],
-		    title = content.title,
-		    caption = content.caption,
-		    formats = content.formats,
-		    image = null,
+		    contents = this.getContents(),
+		    content,
 		    i,
-		    len,
+		    ilen,
+		    formats,
 		    format,
-		    href,
-		    type,
-		    url,
-		    size,
-		    extension;
+		    f,
+		    flen;
 
-		buf.push('<section class="contentsxml-content">');
-		// content title
-		buf.push('<header><h1>', title, '</h1></header>');
-
-		// list of available download formats
-		buf.push('<ul class="downloads">');
-		for (i = 0, len = formats.length; i < len; i++) {
-			format = content.formats[i];
-			href = format.href;
-			type = format.type;
-			url = format.url;
-			size = format.length;
-
-			// keep everything after first period
-			extension = href.split('.');
-			extension = extension[extension.length - 1].toUpperCase();
-
-			if (image === null && type.indexOf('image/') === 0) {
-				// display first image inline
-				image = url;
-			}
-
-			buf.push('<li><a',
-						' href="', url, '"',
-						' title="', title, '"',
-						'>',
-							href, ' ', this._formatter.fileSize(size),
-						'</a></li>');
-		}
-		buf.push('</ul>');
-
-		// inline image content
-		if (image !== null && this._options.showImages) {
-			buf.push('<figure>');
-			if (caption !== null) {
-				buf.push('<figcaption>', caption, '</figcaption>');
-			}
-			buf.push('<img src="', image, '" alt="', title, ' image"/>');
-			buf.push('</figure>');
+		if (contents === null) {
+			throw new Error('No contents to format');
 		}
 
-		// class="contentsxml-content"
-		buf.push('</section>');
+		for (i = 0, ilen = contents.length; i < ilen; i++) {
+			content = contents[i];
 
+			buf.push(
+					'<section class="contentsxml-downloads">',
+						'<header>',
+							'<h1>', content.title, '</h1>',
+						'</header>',
+						'<ul>');
+
+			formats = content.formats;
+			for (f = 0, flen = formats.length; f < flen; f++) {
+				format = formats[f];
+
+				buf.push(
+						'<li>',
+							'<a href="', format.url, '">',
+								format.href,
+								' (', this._formatter.fileSize(format.length), ')',
+							'</a>',
+						'</li>');
+			}
+
+			buf.push('</section>');
+		}
 		return buf.join('');
 	};
 
