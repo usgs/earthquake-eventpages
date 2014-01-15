@@ -8,16 +8,14 @@ table.striped {
 	border-collapse: collapse;
 	color:#333;
 
-	> thead > tr {
-		background-color:#ddd;
-	}
-
-	> tbody > tr:nth-child(2n + 1) {
+	th {
 		background-color:#eee;
 	}
 
 	th, td {
 		padding:5px;
+		border-right: 1px solid #ddd;
+		border-bottom:1px solid #ddd;
 	}
 }
 
