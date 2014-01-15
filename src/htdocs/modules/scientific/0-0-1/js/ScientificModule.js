@@ -24,10 +24,10 @@ define([
 				}
 			},
 			{
-				className: 'scientific/ScientificDetailPage',
+				className: 'scientific/HypocenterPage',
 				options: {
-					title: 'Detail',
-					hash: 'detail'
+					title: 'Hypocenter',
+					hash: 'hypocenter'
 				}
 			},
 			{

@@ -4,13 +4,15 @@ define([
 	'base/EventModulePage',
 	'base/Formatter',
 	'./tensor/Tensor',
-	'./tensor/BeachBall'
+	'./tensor/BeachBall',
+	'./HypocenterPage'
 ], function (
 	Util,
 	EventModulePage,
 	Formatter,
 	Tensor,
-	BeachBall
+	BeachBall,
+	HypocenterPage
 ) {
 	'use strict';
 
@@ -97,9 +99,9 @@ define([
 			originEl = document.createElement('div');
 			originEl.className = 'location';
 			originEl.innerHTML = [
-				'<a href="#scientific_detail"><h3>Hypocenter</h3></a>',
-				this.getOriginDetail(origins[0]),
-				'<p><a href="#scientific_detail">',
+				'<a href="#scientific_hypocenter"><h3>Hypocenter</h3></a>',
+				HypocenterPage.prototype.getOriginDetail.call(this, origins[0]),
+				'<p><a href="#scientific_hypocenter">',
 					'View all locations, magnitudes, phases, and arrivals.',
 				'</a></p>'
 			].join('');
@@ -267,100 +269,6 @@ define([
 		}
 
 		return linkEl;
-	};
-
-	/**
-	 * Format an origin product details.
-	 *
-	 * @param  product {Object}
-	 *         the origin-type product to display.
-	 * @return {String}
-	 *         this implementation creates a definition list.
-	 */
-	ScientificSummaryPage.prototype.getOriginDetail = function (product) {
-		var buf = [],
-		    formatter = this._options.formatter,
-		    p = product.properties,
-		    // required attributes for origins
-		    latitude = p.latitude,
-		    longitude = p.longitude,
-		    eventTime = p.eventtime,
-		    eventSource = p.eventsource,
-		    eventSourceCode = p.eventsourcecode,
-		    eventId = eventSource + eventSourceCode,
-		    // optional attributes for origins
-		    magnitude = p.magnitude || null,
-		    magnitudeType = p['magnitude-type'] || null,
-		    magnitudeError = p['magnitude-error'] || null,
-		    horizontalError = p['horizontal-error'] || null,
-		    depth = p.depth || null,
-		    depthError = p['depth-error'] || null,
-		    numStations = p['num-stations-used'] || null,
-		    numPhases = p['num-phases-used'] || null,
-		    minimumDistance = p['minimum-distance'] || null,
-		    standardError = p['standard-error'] || null,
-		    azimuthalGap = p['azimuthal-gap'] || null,
-		    reviewStatus = p['review-status'] || 'automatic',
-		    originSource = p['origin-source'] || eventSource,
-		    magnitudeSource = p['magnitude-source'] || eventSource;
-
-		buf.push('<table class="origin-detail striped"><tbody>');
-
-
-		buf.push('<tr><th>Magnitude</th><td>',
-				formatter.magnitude(magnitude, magnitudeType, magnitudeError),
-				'</td></tr>');
-
-		buf.push('<tr><th>Location</th><td>',
-				formatter.location(latitude, longitude),
-				formatter.uncertainty(horizontalError, 1, '', 'km'),
-				'</td></tr>');
-
-		buf.push('<tr><th>Depth</th><td>',
-				formatter.depth(depth, 'km', depthError),
-				'</td></tr>');
-
-		buf.push('<tr><th>Origin Time</th><td>',
-				'<time datetime="', eventTime, '">',
-						eventTime.replace('T', ' ').replace('Z', ' UTC'),
-				'</time>',
-				'</td></tr>');
-
-		buf.push('<tr><th>Number of Stations</th><td>',
-				(numStations === null ? '-' : numStations),
-				'</td></tr>');
-
-		buf.push('<tr><th>Number of Phases</th><td>',
-				(numPhases === null ? '-' : numPhases),
-				'</td></tr>');
-
-		buf.push('<tr><th>Minimum Distance</th><td>',
-				(minimumDistance === null ? '-' :
-						(minimumDistance * 0.0174532925 * 6378.1).toFixed(1) + ' km' +
-						' (' + parseFloat(minimumDistance).toFixed(1) + '&deg;)'),
-				'</td></tr>');
-
-		buf.push('<tr><th>Travel Time Residual</th><td>',
-				(standardError === null ? '-' : standardError + ' sec'),
-				'</td></tr>');
-
-		buf.push('<tr><th>Azimuthal Gap</th><td>',
-				(azimuthalGap === null ? '-' : azimuthalGap + '&deg;'),
-				'</td></tr>');
-
-		buf.push('<tr><th>Review Status</th><td>',
-				reviewStatus.toUpperCase().replace('REVIEWED', 'MANUAL'),
-				'</td></tr>');
-
-		buf.push(
-				'<tr><th>Event ID</th><td>', eventId, '</td></tr>',
-				'<tr><th>Magnitude Source</th><td>', magnitudeSource, '</td></tr>',
-				'<tr><th>Location Source</th><td>', originSource, '</td></tr>');
-
-
-		buf.push('</tbody></table>');
-
-		return buf.join('');
 	};
 
 

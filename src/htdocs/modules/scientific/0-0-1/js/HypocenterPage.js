@@ -2,22 +2,20 @@
 define([
 	'util/Util',
 	'base/TabbedModulePage',
-	'base/Formatter',
-	'./ScientificSummaryPage'
+	'base/Formatter'
 ], function (
 	Util,
 	TabbedModulePage,
-	Formatter,
-	ScientificSummaryPage
+	Formatter
 ) {
 	'use strict';
 
 
 	// default options
 	var DEFAULTS = {
-		title: 'Detail',
-		hash: 'detail',
-		className: 'scientific-detail',
+		title: 'Hypocenter',
+		hash: 'hypocenter',
+		className: 'scientific-hypocenter',
 		formatter: new Formatter(),
 		tabList: {
 			tabPosition: 'top'
@@ -26,18 +24,18 @@ define([
 
 
 	/**
-	 * Construct a new ScientificDetailPage.
+	 * Construct a new HypocenterPage.
 	 *
 	 * @param options {Object}
 	 *        page options.
 	 */
-	var ScientificDetailPage = function (options) {
+	var HypocenterPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
 		TabbedModulePage.call(this, this._options);
 	};
 
 	// extend TabbedModulePage.
-	ScientificDetailPage.prototype = Object.create(TabbedModulePage.prototype);
+	HypocenterPage.prototype = Object.create(TabbedModulePage.prototype);
 
 
 	/**
@@ -49,7 +47,7 @@ define([
 	 *
 	 * @return {Array<Product>} origin/phase-data products.
 	 */
-	ScientificDetailPage.prototype.getProducts = function () {
+	HypocenterPage.prototype.getProducts = function () {
 		var allProducts = this._event.properties.products,
 		    origins = allProducts.origin,
 		    phases = allProducts['phase-data'],
@@ -98,7 +96,7 @@ define([
 	 *        the product.
 	 * @return {String} summary content for product.
 	 */
-	ScientificDetailPage.prototype.getSummary = function (product) {
+	HypocenterPage.prototype.getSummary = function (product) {
 		var formatter = this._options.formatter,
 		    source = product.source.toUpperCase(),
 		    p = product.properties,
@@ -125,7 +123,7 @@ define([
 	 *        the product.
 	 * @return {DOMElement} detail content for product.
 	 */
-	ScientificDetailPage.prototype.getDetail = function (product) {
+	HypocenterPage.prototype.getDetail = function (product) {
 		var el = document.createElement('div'),
 		    source = product.source.toUpperCase(),
 		    phases,
@@ -139,8 +137,8 @@ define([
 			'<div class="downloads"></div>',
 		].join('');
 
-		el.querySelector('.info').innerHTML = ScientificSummaryPage.prototype.
-				getOriginDetail.call(this, product);
+		el.querySelector('.info').innerHTML =
+				this.getOriginDetail.call(this, product);
 
 		phases = el.querySelector('.phases');
 		magnitudes = el.querySelector('.magnitudes');
@@ -160,7 +158,101 @@ define([
 		return el;
 	};
 
+	/**
+	 * Format an origin product details.
+	 *
+	 * @param  product {Object}
+	 *         the origin-type product to display.
+	 * @return {String}
+	 *         this implementation creates a definition list.
+	 */
+	HypocenterPage.prototype.getOriginDetail = function (product) {
+		var buf = [],
+		    formatter = this._options.formatter || new Formatter(),
+		    p = product.properties,
+		    // required attributes for origins
+		    latitude = p.latitude,
+		    longitude = p.longitude,
+		    eventTime = p.eventtime,
+		    eventSource = p.eventsource,
+		    eventSourceCode = p.eventsourcecode,
+		    eventId = eventSource + eventSourceCode,
+		    // optional attributes for origins
+		    magnitude = p.magnitude || null,
+		    magnitudeType = p['magnitude-type'] || null,
+		    magnitudeError = p['magnitude-error'] || null,
+		    horizontalError = p['horizontal-error'] || null,
+		    depth = p.depth || null,
+		    depthError = p['depth-error'] || null,
+		    numStations = p['num-stations-used'] || null,
+		    numPhases = p['num-phases-used'] || null,
+		    minimumDistance = p['minimum-distance'] || null,
+		    standardError = p['standard-error'] || null,
+		    azimuthalGap = p['azimuthal-gap'] || null,
+		    reviewStatus = p['review-status'] || 'automatic',
+		    originSource = p['origin-source'] || eventSource,
+		    magnitudeSource = p['magnitude-source'] || eventSource;
+
+		buf.push('<table class="origin-detail striped"><tbody>');
+
+
+		buf.push('<tr><th>Magnitude</th><td>',
+				formatter.magnitude(magnitude, magnitudeType, magnitudeError),
+				'</td></tr>');
+
+		buf.push('<tr><th>Location</th><td>',
+				formatter.location(latitude, longitude),
+				formatter.uncertainty(horizontalError, 1, '', 'km'),
+				'</td></tr>');
+
+		buf.push('<tr><th>Depth</th><td>',
+				formatter.depth(depth, 'km', depthError),
+				'</td></tr>');
+
+		buf.push('<tr><th>Origin Time</th><td>',
+				'<time datetime="', eventTime, '">',
+						eventTime.replace('T', ' ').replace('Z', ' UTC'),
+				'</time>',
+				'</td></tr>');
+
+		buf.push('<tr><th>Number of Stations</th><td>',
+				(numStations === null ? '-' : numStations),
+				'</td></tr>');
+
+		buf.push('<tr><th>Number of Phases</th><td>',
+				(numPhases === null ? '-' : numPhases),
+				'</td></tr>');
+
+		buf.push('<tr><th>Minimum Distance</th><td>',
+				(minimumDistance === null ? '-' :
+						(minimumDistance * 0.0174532925 * 6378.1).toFixed(1) + ' km' +
+						' (' + parseFloat(minimumDistance).toFixed(1) + '&deg;)'),
+				'</td></tr>');
+
+		buf.push('<tr><th>Travel Time Residual</th><td>',
+				(standardError === null ? '-' : standardError + ' sec'),
+				'</td></tr>');
+
+		buf.push('<tr><th>Azimuthal Gap</th><td>',
+				(azimuthalGap === null ? '-' : azimuthalGap + '&deg;'),
+				'</td></tr>');
+
+		buf.push('<tr><th>Review Status</th><td>',
+				reviewStatus.toUpperCase().replace('REVIEWED', 'MANUAL'),
+				'</td></tr>');
+
+		buf.push(
+				'<tr><th>Event ID</th><td>', eventId, '</td></tr>',
+				'<tr><th>Magnitude Source</th><td>', magnitudeSource, '</td></tr>',
+				'<tr><th>Location Source</th><td>', originSource, '</td></tr>');
+
+
+		buf.push('</tbody></table>');
+
+		return buf.join('');
+	};
+
 
 	// return constructor
-	return ScientificDetailPage;
+	return HypocenterPage;
 });
