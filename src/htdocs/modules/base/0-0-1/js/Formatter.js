@@ -173,7 +173,7 @@ define([
 			bytes = bytes / 1024;
 			sizeIndex++;
 		}
-		if (sizeIndex > 1) {
+		if (sizeIndex > 0) {
 			bytes = bytes.toFixed(1);
 		} else {
 			bytes = bytes.toFixed(0);
