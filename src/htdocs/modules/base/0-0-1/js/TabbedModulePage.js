@@ -167,14 +167,14 @@ define([
 	 */
 	TabbedModulePage.prototype.getDetail = function (product) {
 		var el = document.createElement('div');
-		el.innerHTML = 'Loading contentsXML...';
+		el.innerHTML = 'Loading contents ...';
 		new ContentsXML({
 				product: product,
 				callback: function (contents) {
 					el.innerHTML = contents.toHtml();
 				},
 				errback: function () {
-					el.innerHTML = 'Error loading contentsXML';
+					el.innerHTML = 'Error loading contents ...';
 				}});
 		return el;
 	};
