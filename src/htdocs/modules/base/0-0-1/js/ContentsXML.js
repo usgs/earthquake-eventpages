@@ -173,97 +173,83 @@ define([
 		var buf = [],
 		    contents = this.getContents(),
 		    content,
-		    title,
 		    i,
-		    ilen,
-		    formats,
-		    format,
-		    f,
-		    flen;
+		    len;
 
 		if (contents === null) {
 			throw new Error('No contents to format');
 		}
 
 		buf.push('<section class="contentsxml">');
-		for (i = 0, ilen = contents.length; i < ilen; i++) {
+		for (i = 0, len = contents.length; i < len; i++) {
 			content = contents[i];
-			title = content.title;
-			formats = content.formats;
-			for (f = 0, flen = formats.length; f < flen; f++) {
-				format = formats[f];
-				if (format.type.indexOf('image/') === 0) {
-					buf.push(
-							'<section class="contentsxml-content">',
-								'<header>',
-									'<h1>', title, '</h1>',
-								'</header>',
-								'<figure>',
-									'<img src="', format.url, '" alt="', title, ' image"/>',
-									'<figcaption>', content.caption, '</figcaption>',
-								'</figure>',
-							'</section>');
-					// only include first image type format for each content
-					break;
-				}
-			}
+			buf.push(this.formatContent(content));
 		}
-		buf.push(
-				'<section class="contentsxml-content">',
-					'<header><h1>Downloads</h1></header>',
-					this.formatDownloads(),
-				'</section>');
-
 		buf.push('</section>');
+
 		return buf.join('');
 	};
 
 	/**
-	 * Generate a list of downloads.
+	 * Format one piece of content.
 	 *
-	 * @return {String} html markup for downloads.
+	 * @param content {Object}
+	 *        content to format.
+	 * @return {String} markup for content.
 	 */
-	ContentsXML.prototype.formatDownloads = function () {
-		var buf = [],
-		    contents = this.getContents(),
-		    content,
-		    i,
-		    ilen,
+	ContentsXML.prototype.formatContent = function (content) {
+		var formatBuf = [],
+		    imageBuf = null,
+		    title,
+		    caption,
 		    formats,
 		    format,
-		    f,
-		    flen;
+		    href,
+		    type,
+		    url,
+		    size,
+		    extension,
+		    i,
+		    len;
 
-		if (contents === null) {
-			throw new Error('No contents to format');
-		}
+		title = content.title;
+		caption = content.caption;
+		formats = content.formats;
+		for (i = 0, len = formats.length; i < len; i++) {
+			format = formats[i];
+			href = format.href;
+			type = format.type;
+			url = format.url;
+			size = format.length;
+			extension = href.split('.').slice(-1).join('').toUpperCase();
 
-		for (i = 0, ilen = contents.length; i < ilen; i++) {
-			content = contents[i];
+			formatBuf.push(['<a',
+					' href="', url, '"',
+					' title="', title,' ', extension, ' (', href, ')"',
+					'>',
+						extension, ' (', this._formatter.fileSize(size), ')',
+					'</a>'].join(''));
 
-			buf.push(
-					'<section class="contentsxml-downloads">',
-						'<header>',
-							'<h1>', content.title, '</h1>',
-						'</header>',
-						'<ul>');
-
-			formats = content.formats;
-			for (f = 0, flen = formats.length; f < flen; f++) {
-				format = formats[f];
-
-				buf.push(
-						'<li>',
-							'<a href="', format.url, '">',
-								format.href,
-								' (', this._formatter.fileSize(format.length), ')',
-							'</a>',
-						'</li>');
+			if (imageBuf === null && type.indexOf('image/') === 0) {
+				imageBuf = [];
+				imageBuf.push('<figure>',
+						'<img src="', url, '" alt="', title, ' image"/>');
+				if (caption) {
+					imageBuf.push('<figcaption>', caption, '</figcaption>');
+				}
+				imageBuf.push('</figure>');
 			}
-
-			buf.push('</section>');
 		}
-		return buf.join('');
+
+		return [
+			'<section class="contentsxml-content">',
+				'<header><h1>', title, '</h1></header>',
+				'<ul class="formats">',
+					'<li>', formatBuf.join('</li><li>'), '</li>',
+				'</ul>',
+				(imageBuf ? imageBuf.join('') : ''),
+			'</section>'
+		].join('');
 	};
 
 
