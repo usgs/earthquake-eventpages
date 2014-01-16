@@ -2,11 +2,13 @@
 define([
 	'util/Util',
 	'base/TabbedModulePage',
+	'base/Formatter',
 	'./tensor/Tensor',
 	'./tensor/BeachBall'
 ], function (
 	Util,
 	TabbedModulePage,
+	Formatter,
 	Tensor,
 	BeachBall
 ) {
@@ -21,7 +23,8 @@ define([
 		className: 'tensor-page',
 		tabList: {
 			tabPosition: 'top'
-		}
+		},
+		formatter: new Formatter()
 	};
 
 
@@ -129,12 +132,13 @@ define([
 	 * @return {String} summary content.
 	 */
 	MomentTensorPage.prototype._getSummaryContent = function (tensor) {
-		var type = tensor.type,
+		var formatter = this._options.formatter,
+		    type = tensor.type,
 		    magnitude = tensor.magnitude,
 		    depth = tensor.depth;
 
-		magnitude = magnitude.toFixed(1);
-		depth = (depth ? depth.toFixed(1) + ' km' : '?');
+		magnitude = formatter.magnitude(magnitude);
+		depth = formatter.depth(depth, 'km');
 
 		return [
 				'<strong>', type, '</strong>',
@@ -178,7 +182,8 @@ define([
 	 * @return {String} markup for information.
 	 */
 	MomentTensorPage.prototype._getInfo = function (tensor) {
-		var moment = tensor.moment,
+		var formatter = this._options.formatter,
+		    moment = tensor.moment,
 		    magnitude = tensor.magnitude,
 		    percentDC = tensor.percentDC,
 		    depth = tensor.depth,
@@ -191,7 +196,7 @@ define([
 				'e+' + tensor.exponent + ' ' + tensor.units;
 		magnitude = magnitude.toFixed(2);
 		percentDC = Math.round(percentDC * 100) + '%';
-		depth = (depth ? depth.toFixed(1) + ' km' : '?');
+		depth = formatter.depth(depth, 'km');
 
 		return [
 			'<table class="info-table tabular"><tbody>',
