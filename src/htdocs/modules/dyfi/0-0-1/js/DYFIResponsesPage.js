@@ -50,7 +50,7 @@ define([
 
 		var _this = this;
 		Xhr.ajax({
-			//url: file.url,
+			url: file.url,
 			success: function (data, xhr) {
 				_this._buildResponsesTable(_this._buildResponsesArray(xhr.responseXML));
 			},
