@@ -29,7 +29,7 @@ define([
 
 
 	/**
-	 * Finite fault products have broken contents.xml, and embed an html file instead.
+	 * Finite fault products have broken contents.xml, embed html instead.
 	 *
 	 * @param product {Object}
 	 *        finite-fault product.

@@ -218,7 +218,7 @@ define([
 	};
 
 	/**
-	 * Get Polygons representing the pressure and tension regions of the beachball.
+	 * Get Polygons representing pressure and tension regions of the beachball.
 	 *
 	 * May swap foreground and background colors.
 	 *

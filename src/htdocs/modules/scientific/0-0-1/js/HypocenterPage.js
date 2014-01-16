@@ -143,7 +143,9 @@ define([
 		magnitudes = el.querySelector('.magnitudes');
 		if (product.type === 'phase-data') {
 			phases.innerHTML = '<p><a href="#">Show associated phases</a></p>';
-			magnitudes.innerHTML = '<p><a href="#">Show associated magnitudes</a></p>';
+			magnitudes.innerHTML = '<p><a href="#">' +
+					'Show associated magnitudes' +
+					'</a></p>';
 			// TODO: make these links do something.
 		} else {
 			phases.innerHTML = '<p><em>No associated phases.</em></p>';
