@@ -10,7 +10,7 @@ define([
 	// default options
 	var DEFAULTS = {
 		// size abbreviations for [bytes, kilobytes, megabytes, gigabytes]
-		fileSizes: [' b', ' Kb', ' Mb', ' Gb'],
+		fileSizes: [' B', ' KB', ' MB', ' GB'],
 		// decimal places for depth
 		depthDecimals: 1,
 		// decimal places for latitude/longitude
