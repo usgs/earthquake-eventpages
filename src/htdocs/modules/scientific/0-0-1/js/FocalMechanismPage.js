@@ -67,13 +67,13 @@ define([
 	FocalMechanismPage.prototype._getInfo = function (tensor) {
 		return [
 			'<table class="info-table tabular"><tbody>',
-			'<tr><th>Author</th>',
+			'<tr><th scope="row">Author</th>',
 				'<td>', tensor.source, '</td></tr>',
-			'<tr><th>Catalog</th>',
+			'<tr><th scope="row">Catalog</th>',
 				'<td>', tensor.product.properties.eventsource, '</td></tr>',
-			'<tr><th>Contributor</th>',
+			'<tr><th scope="row">Contributor</th>',
 				'<td>', tensor.product.source, '</td></tr>',
-			'<tr><th>Code</th>',
+			'<tr><th scope="row">Code</th>',
 				'<td>', tensor.product.code, '</td></tr>',
 			'</tbody></table>'
 		].join('');

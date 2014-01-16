@@ -142,12 +142,12 @@ define([
 		phases = el.querySelector('.phases');
 		magnitudes = el.querySelector('.magnitudes');
 		if (product.type === 'phase-data') {
-			phases.innerHTML = '<p><a href="#">Show associated phase information</a></p>';
-			magnitudes.innerHTML = '<p><a href="#">Show associated magnitudes information</a></p>';
+			phases.innerHTML = '<p><a href="#">Show associated phases</a></p>';
+			magnitudes.innerHTML = '<p><a href="#">Show associated magnitudes</a></p>';
 			// TODO: make these links do something.
 		} else {
-			phases.innerHTML = '<p><em>No associated phase information available.</em></p>';
-			magnitudes.innerHTML = '<p><em>No associate magnitude information available.</em></p>';
+			phases.innerHTML = '<p><em>No associated phases.</em></p>';
+			magnitudes.innerHTML = '<p><em>No associate magnitudes.</em></p>';
 		}
 
 		// add downloads
@@ -195,55 +195,59 @@ define([
 		buf.push('<table class="origin-detail tabular"><tbody>');
 
 
-		buf.push('<tr><th>Magnitude</th><td>',
+		buf.push('<tr><th scope="row">Magnitude</th><td>',
 				formatter.magnitude(magnitude, magnitudeType, magnitudeError),
 				'</td></tr>');
 
-		buf.push('<tr><th>Location</th><td>',
+		buf.push('<tr><th scope="row">Location</th><td>',
 				formatter.location(latitude, longitude),
 				formatter.uncertainty(horizontalError, 1, '', 'km'),
 				'</td></tr>');
 
-		buf.push('<tr><th>Depth</th><td>',
+		buf.push('<tr><th scope="row">Depth</th><td>',
 				formatter.depth(depth, 'km', depthError),
 				'</td></tr>');
 
-		buf.push('<tr><th>Origin Time</th><td>',
+		buf.push('<tr><th scope="row">Origin Time</th><td>',
 				'<time datetime="', eventTime, '">',
 						eventTime.replace('T', ' ').replace('Z', ' UTC'),
 				'</time>',
 				'</td></tr>');
 
-		buf.push('<tr><th>Number of Stations</th><td>',
+		buf.push('<tr><th scope="row">Number of Stations</th><td>',
 				(numStations === null ? '-' : numStations),
 				'</td></tr>');
 
-		buf.push('<tr><th>Number of Phases</th><td>',
+		buf.push('<tr><th scope="row">Number of Phases</th><td>',
 				(numPhases === null ? '-' : numPhases),
 				'</td></tr>');
 
-		buf.push('<tr><th>Minimum Distance</th><td>',
+		buf.push('<tr><th scope="row">Minimum Distance</th><td>',
 				(minimumDistance === null ? '-' :
 						(minimumDistance * 0.0174532925 * 6378.1).toFixed(1) + ' km' +
 						' (' + parseFloat(minimumDistance).toFixed(1) + '&deg;)'),
 				'</td></tr>');
 
-		buf.push('<tr><th>Travel Time Residual</th><td>',
+		buf.push('<tr><th scope="row">Travel Time Residual</th><td>',
 				(standardError === null ? '-' : standardError + ' sec'),
 				'</td></tr>');
 
-		buf.push('<tr><th>Azimuthal Gap</th><td>',
+		buf.push('<tr><th scope="row">Azimuthal Gap</th><td>',
 				(azimuthalGap === null ? '-' : azimuthalGap + '&deg;'),
 				'</td></tr>');
 
-		buf.push('<tr><th>Review Status</th><td>',
+		buf.push('<tr><th scope="row">Review Status</th><td>',
 				reviewStatus.toUpperCase().replace('REVIEWED', 'MANUAL'),
 				'</td></tr>');
 
 		buf.push(
-				'<tr><th>Event ID</th><td>', eventId, '</td></tr>',
-				'<tr><th>Magnitude Source</th><td>', magnitudeSource, '</td></tr>',
-				'<tr><th>Location Source</th><td>', originSource, '</td></tr>');
+				'<tr><th scope="row">Event ID</th><td>', eventId, '</td></tr>',
+				'<tr><th scope="row">Magnitude Source</th><td>',
+						magnitudeSource,
+						'</td></tr>',
+				'<tr><th scope="row">Location Source</th><td>',
+						originSource,
+						'</td></tr>');
 
 
 		buf.push('</tbody></table>');
