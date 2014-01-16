@@ -137,8 +137,7 @@ define([
 			'<div class="downloads"></div>'
 		].join('');
 
-		el.querySelector('.info').innerHTML =
-				this.getOriginDetail.call(this, product);
+		el.querySelector('.info').innerHTML = this.getOriginDetail(product);
 
 		phases = el.querySelector('.phases');
 		magnitudes = el.querySelector('.magnitudes');
