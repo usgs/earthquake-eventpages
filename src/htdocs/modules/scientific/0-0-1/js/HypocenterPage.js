@@ -226,8 +226,8 @@ define([
 
 		buf.push('<tr><th scope="row">Minimum Distance</th><td>',
 				(minimumDistance === null ? '-' :
-						(minimumDistance * 0.0174532925 * 6378.1).toFixed(1) + ' km' +
-						' (' + parseFloat(minimumDistance).toFixed(1) + '&deg;)'),
+						(minimumDistance * 0.0174532925 * 6378.1).toFixed(2) + ' km' +
+						' (' + parseFloat(minimumDistance).toFixed(2) + '&deg;)'),
 				'</td></tr>');
 
 		buf.push('<tr><th scope="row">Travel Time Residual</th><td>',
