@@ -194,7 +194,7 @@ define([
 		depth = (depth ? depth.toFixed(1) + ' km' : '?');
 
 		return [
-			'<table class="info-table striped"><tbody>',
+			'<table class="info-table tabular"><tbody>',
 			'<tr><th>Moment</th>',
 				'<td>', moment, '</td></tr>',
 			'<tr><th>Magnitude</th>',
@@ -258,7 +258,7 @@ define([
 
 		return [
 				'<h4>Principal Axes</h4>',
-				'<table class="principal-axes-table striped">',
+				'<table class="principal-axes-table tabular">',
 				'<thead><tr>',
 					'<th>Axis</th>',
 					'<th>Value</th>',
@@ -303,7 +303,7 @@ define([
 
 		return [
 				'<h4>Nodal Planes</h4>',
-				'<table class="nodal-plane-table striped">',
+				'<table class="nodal-plane-table tabular">',
 				'<thead><tr>',
 					'<th>Plane</th>',
 					'<th>Strike</th>',

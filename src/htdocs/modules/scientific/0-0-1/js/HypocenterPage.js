@@ -192,7 +192,7 @@ define([
 		    originSource = p['origin-source'] || eventSource,
 		    magnitudeSource = p['magnitude-source'] || eventSource;
 
-		buf.push('<table class="origin-detail striped"><tbody>');
+		buf.push('<table class="origin-detail tabular"><tbody>');
 
 
 		buf.push('<tr><th>Magnitude</th><td>',

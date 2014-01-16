@@ -66,7 +66,7 @@ define([
 	 */
 	FocalMechanismPage.prototype._getInfo = function (tensor) {
 		return [
-			'<table class="info-table striped"><tbody>',
+			'<table class="info-table tabular"><tbody>',
 			'<tr><th>Author</th>',
 				'<td>', tensor.source, '</td></tr>',
 			'<tr><th>Catalog</th>',
