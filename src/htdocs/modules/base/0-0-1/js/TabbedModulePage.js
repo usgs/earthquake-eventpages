@@ -57,16 +57,11 @@ define([
 		var products = this.getProducts(),
 		    len = products.length,
 		    contentEl,
+		    className,
 		    content,
 		    tabList,
 		    product,
 		    i;
-
-		// this may not be needed,
-		// keeping this class name from affecting other pages
-		//     that may reuse the same content element
-		contentEl = this.getContent().appendChild(document.createElement('div'));
-		contentEl.className = this._options.className || '';
 
 		if (len === 0) {
 			// no products
@@ -90,6 +85,11 @@ define([
 			}
 		}
 
+		contentEl = this.getContent();
+		className = this._options.className;
+		if (className) {
+			contentEl.classList.add(className);
+		}
 		// add content
 		if (typeof content === 'string') {
 			contentEl.innerHTML = content;
