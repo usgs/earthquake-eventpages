@@ -115,7 +115,7 @@ define([
 
 		// add contentsxml content
 		el.querySelector('.downloads').appendChild(
-				TabbedModulePage.prototype.getDetail(tensor.product));
+				TabbedModulePage.prototype.getDetail.call(this, tensor.product));
 
 		return el;
 	};
