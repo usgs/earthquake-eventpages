@@ -18,6 +18,9 @@ define([
 	};
 	var SummaryPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
+		this.mapContainer = {};
+		this.nearbyCities = {};
+		this.tectonicSummary = {};
 		EventModulePage.call(this, options);
 		this._snippetLength = options.snippetLength;
 	};
@@ -27,14 +30,8 @@ define([
 		var _this = this,
 		    markup = [],
 		    generalHeader,
-		    mapContainer,
-		    nearbyCities,
-		    tectonicSummary,
 		    generalText,
 		    impactText;
-
-		// DEBUG
-		console.log(this._event);
 
 		markup.push(this._getTextContentMarkup('general-header'));
 
@@ -52,9 +49,9 @@ define([
 
 		// Store references to containing elements for faster access
 		generalHeader = this._content.querySelector('.summary-general-header');
-		mapContainer = this._content.querySelector('.summary-map');
-		nearbyCities = this._content.querySelector('.summary-nearby-cities');
-		tectonicSummary = this._content.querySelector('.summary-tectonic-summary');
+		this.mapContainer = this._content.querySelector('.summary-map');
+		this.nearbyCities = this._content.querySelector('.summary-nearby-cities');
+		this.tectonicSummary = this._content.querySelector('.summary-tectonic-summary');
 		generalText = this._content.querySelector('.summary-general-text');
 		impactText = this._content.querySelector('.summary-impact-text');
 
@@ -63,38 +60,17 @@ define([
 				url: this._event.properties.products.geoserve[0]
 						.contents['geoserve.json'].url,
 				success: function (geoserve) {
-					var i,
-					    city,
-					    cities,
-					    len;
-
-					if (mapContainer) {
-						_this._loadStaticMapContent(mapContainer, geoserve.cities);
-					}
-
-					if (nearbyCities !== null) {
-						cities = ['<ol class="staticmap">'];
-						for (i = 0, len = geoserve.cities.length; i < len; i++) {
-							city = geoserve.cities[i];
-							cities.push('<li>' + city.distance +
-								'km ' + city.direction +
-								' of ' + city.name +
-								'</li>');
-						}
-						cities.push('</ol>');
-						nearbyCities.innerHTML = '<h3>Nearby Cities</h3>' + cities.join('');
-					}
-
-					if (tectonicSummary !== null) {
-						_this._setTextContent(tectonicSummary, 'Tectonic Summary',
-								geoserve.tectonicSummary.text);
-					}
+					_this._ajaxSuccess(geoserve);
 				},
 				error: function () {
-					nearbyCities.parentNode.removeChild(nearbyCities);
-					tectonicSummary.parentNode.removeChild(tectonicSummary);
-					nearbyCities = null;
-					tectonicSummary = null;
+					if (_this.nearbyCities) {
+						_this.nearbyCities.parentNode.removeChild(_this.nearbyCities);
+					}
+					if (_this.tectonicSummary) {
+						_this.tectonicSummary.parentNode.removeChild(_this.tectonicSummary);
+					}
+					_this.nearbyCities = null;
+					_this.tectonicSummary = null;
 				}
 			});
 
@@ -102,6 +78,37 @@ define([
 		this._loadTextualContent(impactText, 'impact-text', 'Impact Text');
 		this._loadTextualContent(generalText, 'general-text',
 				'Additional Commentary');
+	};
+
+	SummaryPage.prototype._ajaxSuccess = function (geoserve) {
+
+		var i,
+		    city,
+		    cities,
+		    len;
+
+		if (this.mapContainer) {
+			this._loadStaticMapContent(this.mapContainer, geoserve.cities);
+		}
+
+		if (this.nearbyCities !== null) {
+			cities = ['<ol class="staticmap">'];
+			for (i = 0, len = geoserve.cities.length; i < len; i++) {
+				city = geoserve.cities[i];
+				cities.push('<li>' + city.distance +
+					'km ' + city.direction +
+					' of ' + city.name +
+					'</li>');
+			}
+			cities.push('</ol>');
+			this.nearbyCities.innerHTML = '<h3>Nearby Cities</h3>' + cities.join('');
+		}
+
+		if (this.tectonicSummary !== null) {
+			this._setTextContent(this.tectonicSummary, 'Tectonic Summary',
+					geoserve.tectonicSummary.text);
+		}
+
 	};
 
 	SummaryPage.prototype._getTextContentMarkup = function (type) {
@@ -123,7 +130,8 @@ define([
 		    longitude = this._event.geometry.coordinates[0],
 		    points = [],
 		    img = document.createElement('img'),
-		    imgSrc = null;
+		    imgSrc = null,
+		    imgLink = document.createElement('a');
 
 		img.setAttribute('alt', 'Map');
 		imgSrc = ['http://www.mapquestapi.com/staticmap/v4/getmap?' +
@@ -144,8 +152,10 @@ define([
 
 		imgSrc.push(points.join('|'));
 		img.setAttribute('src', imgSrc.join(''));
+		imgLink.href = '#event_map';
 
-		container.appendChild(img);
+		imgLink.appendChild(img);
+		container.appendChild(imgLink);
 
 		Util.addEvent(img, 'click', (function (_this) {
 			var callback = function callback () {

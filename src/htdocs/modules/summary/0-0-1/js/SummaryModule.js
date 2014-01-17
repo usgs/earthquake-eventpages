@@ -20,6 +20,13 @@ define([
 					title: 'Summary',
 					hash: 'summary'
 				}
+			},
+			{
+				className: 'summary/InteractiveMap',
+				options: {
+					title: 'Map',
+					hash: 'map'
+				}
 			}
 		]
 	};

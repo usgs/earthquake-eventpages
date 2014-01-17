@@ -1,14 +1,14 @@
 /* global define */
 define([
 	'leaflet',
-
+	'base/EventModulePage',
 	'map/MouseOverLayer',
 
 	'util/Util',
 	'util/Xhr'
 ], function (
 	L,
-
+	EventModulePage,
 	MouseOverLayer,
 
 	Util,
@@ -17,52 +17,25 @@ define([
 	'use strict';
 
 	var DEFAULTS = {
-
 	};
 
 	var InteractiveMap = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
-
+		this._map = {};
 		this._wrapper = document.createElement('div');
-		this._el = document.createElement('div');
 		this._closeBtn = document.createElement('div');
-		this._event = options.eventDetails || null;
-
-		this._wrapper.appendChild(this._closeBtn);
-		this._wrapper.appendChild(this._el);
-
-		this._initialize();
+		EventModulePage.call(this, options);
 	};
 
-	InteractiveMap.prototype.show = function (container) {
-		var lat, latmin, latmax,
-		    lng, lngmin, lngmax;
+	InteractiveMap.prototype = Object.create(EventModulePage.prototype);
 
-		container = container || document.body;
+	InteractiveMap.prototype._setContentMarkup = function () {
 
-		if (container) {
-			container.appendChild(this._wrapper);
-			this._map.invalidateSize();
-
-			if (this._event) {
-				// Show a 2deg map centered on earthquake epicenter)
-				lat = this._event.geometry.coordinates[1];
-				lng = this._event.geometry.coordinates[0];
-
-				latmin = Math.max(lat - 2.0, -90.0);
-				latmax = Math.min(lat + 2.0, 90.0);
-
-				lngmin = lng - 2.0;
-				lngmax = lng + 2.0;
-
-				this._map.fitBounds([[latmax, lngmin], [latmin, lngmax]]);
-			}
-		}
-	};
-
-	InteractiveMap.prototype._initialize = function () {
 		var _this = this,
-		    layerControl = null,
+		    lat, latmax, latmin, lng, lngmax, lngmin,
+		    _el = document.createElement('div');
+
+		var layerControl = null,
 		    baseLayer = null,
 		    platesLayer = null,
 		    faultsLayer = null,
@@ -70,17 +43,17 @@ define([
 		    longitude = null,
 		    epicenterMarker;
 
-		Util.addClass(this._wrapper, 'summary-interactive-map-wrapper');
-		Util.addClass(this._el, 'summary-interactive-map');
+		Util.addClass(this._content, 'summary-interactive-map-wrapper');
+		Util.addClass(_el, 'summary-interactive-map');
 		Util.addClass(this._closeBtn, 'summary-interactive-map-close');
 
-		this._closeBtn.innerHTML = 'Hide Interactive Map';
-		this._el.innerHTML = '';
+		this._closeBtn.innerHTML = 'CLOSE';
+		_el.innerHTML = '';
 
 		this._closeBtn.setAttribute('title', 'Close');
 		this._bindCloseEvent();
 
-		this._map = new L.Map(this._el, {
+		this._map = new L.Map(_el, {
 			center: [0.0, 0.0],
 			zoom: 2,
 			zoomAnimation: false,
@@ -164,6 +137,23 @@ define([
 								'</span>'
 							].join(''));
 							_this._map.addLayer(cityMarker);
+
+						}
+
+						_this._map.invalidateSize();
+
+						if (_this._event) {
+							// Show a 2deg map centered on earthquake epicenter)
+							lat = _this._event.geometry.coordinates[1];
+							lng = _this._event.geometry.coordinates[0];
+
+							latmin = Math.max(lat - 2.0, -90.0);
+							latmax = Math.min(lat + 2.0, 90.0);
+
+							lngmin = lng - 2.0;
+							lngmax = lng + 2.0;
+
+							_this._map.fitBounds([[latmax, lngmin], [latmin, lngmax]]);
 						}
 					}
 				});
@@ -171,13 +161,47 @@ define([
 		}
 
 		this._map.addControl(layerControl);
+
+		this._content.appendChild(_el);
+		this._content.appendChild(this._closeBtn);
+
+
 	};
 
+
+	InteractiveMap.prototype.show = function (container) {
+		var lat, latmin, latmax,
+		    lng, lngmin, lngmax;
+
+		container = container || this._content;
+
+		if (container) {
+			container.appendChild(this._wrapper);
+			this._map.invalidateSize();
+
+			if (this._event) {
+				// Show a 2deg map centered on earthquake epicenter)
+				lat = this._event.geometry.coordinates[1];
+				lng = this._event.geometry.coordinates[0];
+
+				latmin = Math.max(lat - 2.0, -90.0);
+				latmax = Math.min(lat + 2.0, 90.0);
+
+				lngmin = lng - 2.0;
+				lngmax = lng + 2.0;
+
+				this._map.fitBounds([[latmax, lngmin], [latmin, lngmax]]);
+			}
+		}
+	};
+
+
 	InteractiveMap.prototype._bindCloseEvent = function () {
-		var _this = this;
+		//var _this = this;
 
 		Util.addEvent(this._closeBtn, 'click', function () {
-			_this._wrapper.parentNode.removeChild(_this._wrapper);
+			//_this._wrapper.parentNode.removeChild(_this._wrapper);
+			window.history.go(-1);
 		});
 	};
 
