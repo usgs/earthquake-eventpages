@@ -4,9 +4,7 @@ define([
 	'util/Events',
 
 	'base/EventModule',
-	'scientific/ScientificModule'
 	'summary/SummaryModule',
-	'base/EventModule',
 	'dyfi/DYFIModule',
 	'scientific/ScientificModule'
 ], function (
@@ -14,9 +12,7 @@ define([
 	Events,
 
 	EventModule,
-	ScientificModule
 	SummaryModule,
-	EventModule,
 	DYFIModule,
 	ScientificModule
 ) {
@@ -64,8 +60,6 @@ define([
 		this._cache = [];
 
 		this._modules = options.modules || [
-			new EventModule({'eventDetails':this._eventDetails}),
-			new ScientificModule({'eventDetails':this._eventDetails})
 			new SummaryModule({'eventDetails':this._eventDetails}),
 			new EventModule({'eventDetails':this._eventDetails}),
 			new DYFIModule({'eventDetails':this._eventDetails}),

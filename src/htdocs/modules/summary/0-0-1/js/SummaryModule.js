@@ -24,7 +24,7 @@ define([
 			{
 				className: 'summary/InteractiveMap',
 				options: {
-					title: 'Map',
+					title: 'Interactive Map',
 					hash: 'map'
 				}
 			}

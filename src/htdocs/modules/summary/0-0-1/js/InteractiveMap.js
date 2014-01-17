@@ -104,7 +104,6 @@ define([
 				'M',
 				this._event.properties.mag
 			].join(''));
-			console.log(this._event);
 			this._map.addLayer(epicenterMarker);
 
 			if (this._event.properties.products.geoserve) {

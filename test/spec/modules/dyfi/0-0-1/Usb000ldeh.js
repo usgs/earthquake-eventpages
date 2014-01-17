@@ -1,9 +1,5 @@
 /* global define */
-define ([], function () {
-	'use strict';
-
-var Usb000ldeh = function () {
-	var geojson = {
+define({
 	'type':'Feature',
 	'properties':{
 		'mag':4.5,

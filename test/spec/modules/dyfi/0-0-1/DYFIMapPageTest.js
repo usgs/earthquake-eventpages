@@ -15,7 +15,7 @@ define([
 	'use strict';
 	var expect = chai.expect;
 
-	var event = new Usb000ldeh();
+	var event = Usb000ldeh;
 	var module = new DYFIModule();
 	var module_info = {hash:'maps', title:'Maps', eventDetails:event, module:module};
 
