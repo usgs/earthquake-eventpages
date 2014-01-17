@@ -51,7 +51,7 @@ require([
 		'spec/modules/dyfi/0-0-1/DYFIModuleTest',
 		'spec/modules/dyfi/0-0-1/DYFIMapPageTest',
 		'spec/modules/dyfi/0-0-1/DYFIGraphPageTest',
-		'spec/modules/dyfi/0-0-1/DYFIResponsesPageTest'
+		'spec/modules/summary/0-0-1/SummaryPageTest'
 	], function () {
 		if (window.mochaPhantomJS) {
 			window.mochaPhantomJS.run();
