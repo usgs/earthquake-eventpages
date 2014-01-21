@@ -1,0 +1,29 @@
+
+.origin-detail {
+	width: 100%;
+	max-width:480px;
+
+	th, td {
+		text-align: left;
+
+		> .uncertainty {
+			color: #666;
+			float: right;
+			white-space: nowrap;
+		}
+	}
+}
+
+
+.scientific-hypocenter {
+
+	> .tablist-top > nav > section {
+		max-width:none;
+		line-height:1;
+	}
+
+	> .downloads {
+		margin:2em 0;
+	}
+
+}

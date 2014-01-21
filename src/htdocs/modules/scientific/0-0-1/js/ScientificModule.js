@@ -22,6 +22,34 @@ define([
 					title: 'Summary',
 					hash: 'summary'
 				}
+			},
+			{
+				className: 'scientific/HypocenterPage',
+				options: {
+					title: 'Hypocenter',
+					hash: 'hypocenter'
+				}
+			},
+			{
+				className: 'scientific/MomentTensorPage',
+				options: {
+					title: 'Moment Tensor',
+					hash: 'tensor'
+				}
+			},
+			{
+				className: 'scientific/FocalMechanismPage',
+				options: {
+					title: 'Focal Mechanism',
+					hash: 'mechanism'
+				}
+			},
+			{
+				className: 'scientific/FiniteFaultPage',
+				options: {
+					title: 'Finite Fault',
+					hash: 'finitefault'
+				}
 			}
 		]
 	};
@@ -33,6 +61,12 @@ define([
 	};
 	ScientificModule.prototype = Object.create(EventModule.prototype);
 
+
+	ScientificModule.prototype.getFooterMarkup = function () {
+		return '<a href="' +
+				'http://earthquake.usgs.gov/earthquakes/eventpage/terms.php' +
+				'">Technical Terms used on Event Pages</a>';
+	};
 
 	return ScientificModule;
 });

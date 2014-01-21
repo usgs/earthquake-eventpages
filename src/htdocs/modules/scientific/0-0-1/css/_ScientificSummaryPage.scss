@@ -1,0 +1,24 @@
+
+
+.scitech-links {
+	margin: 1em 0 2em;
+
+	> ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+
+		> li {
+			list-style: none;
+			display: block;
+			margin: 0;
+			padding: 8px;
+			border-bottom: 1px solid #ddd;
+
+			&:last-child {
+				border-bottom: 0;
+			}
+		}
+	}
+
+}

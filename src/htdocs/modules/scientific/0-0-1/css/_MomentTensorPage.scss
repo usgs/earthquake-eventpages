@@ -1,0 +1,47 @@
+// moment-tensor and focal-mechanism page styles
+
+
+.tensor-page > .tablist-top > nav > .tablist-tab {
+	max-width:none;
+}
+
+
+.tensor-summary {
+	position:relative;
+	padding-left:48px;
+	min-height:40px;
+	line-height:1;
+
+	> canvas {
+		position:absolute;
+		left:0px;
+		top:0px;
+	}
+}
+
+
+.tensor-detail {
+
+	.info-table {
+		width:100%;
+		max-width:480px;
+
+		th, td {
+			text-align: left;
+		}
+	}
+
+	.principal-axes-table,
+	.nodal-plane-table {
+		width:100%;
+		max-width:480px;
+
+		td {
+			text-align: right;
+		}
+	}
+
+	> .downloads {
+		margin:2em 0;
+	}
+}
