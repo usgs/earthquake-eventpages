@@ -10,19 +10,14 @@ define([
 
 	DYFIMapPage,
 	DYFIModule,
-	usb000ldeh
+	Usb000ldeh
 ) {
 	'use strict';
 	var expect = chai.expect;
 
-	var event = usb000ldeh;
+	var event = Usb000ldeh;
 	var module = new DYFIModule();
-	var module_info = {
-		hash:'maps',
-		title:'Maps',
-		eventDetails:event,
-		module:module
-	};
+	var module_info = {hash:'maps', title:'Maps', eventDetails:event, module:module};
 
 	describe('DYFIMapPage test suite.', function () {
 		describe('Constructor', function () {
@@ -42,8 +37,7 @@ define([
 		describe('_setContentMarkup', function () {
 			it('has such a method', function() {
 				/* jshint -W030 */
-				expect((new DYFIMapPage(module_info))._setContentMarkup)
-						.to.not.be.undefined;
+				expect((new DYFIMapPage(module_info))._setContentMarkup).to.not.be.undefined;
 				/* jshint +W030 */
 			});
 		});

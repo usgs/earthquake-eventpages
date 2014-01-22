@@ -1,5 +1,5 @@
 /* global define */
-define ({
+define({
 	'type':'Feature',
 	'properties':{
 		'mag':4.5,

@@ -5,11 +5,14 @@ require.config({
 		chai: 'chai/chai',
 		sinon: 'sinon/pkg/sinon',
 
+		leaflet: 'leaflet/dist/leaflet-src',
+
 		mvc: 'hazdev-webutils/src/mvc',
 		util: 'hazdev-webutils/src/util',
 		tablist: 'hazdev-tablist/src/tablist',
 
 		base: 'base/0-0-1/js',
+		summary: 'summary/0-0-1/js',
 		dyfi: 'dyfi/0-0-1/js',
 		scientific: 'scientific/0-0-1/js'
 	},
@@ -23,6 +26,9 @@ require.config({
 		},
 		sinon: {
 			exports: 'sinon'
+		},
+		leaflet: {
+			exports: 'L'
 		}
 	}
 });
@@ -44,7 +50,7 @@ require([
 		'spec/modules/dyfi/0-0-1/DYFIModuleTest',
 		'spec/modules/dyfi/0-0-1/DYFIMapPageTest',
 		'spec/modules/dyfi/0-0-1/DYFIGraphPageTest',
-		'spec/modules/dyfi/0-0-1/DYFIResponsesPageTest'
+		'spec/modules/summary/0-0-1/SummaryPageTest'
 	], function () {
 		if (window.mochaPhantomJS) {
 			window.mochaPhantomJS.run();

@@ -1,0 +1,88 @@
+@import '../../../../../leaflet/dist/leaflet.css';
+
+.summary-interactive-map-wrapper {
+	position:fixed;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	padding:8px;
+	z-index:9999;
+
+	background-color:rgba(0, 0, 0, 0.75);
+
+	> .summary-interactive-map-close {
+		display:block;
+		position:absolute;
+		bottom:12px;
+		right:12px;
+		left:12px;
+		line-height:1em;
+		text-align:center;
+		color:#000;
+		background-color:#fff;
+		cursor:pointer;
+		z-index:9999;
+		padding:8px 0;
+		box-shadow:0 1px 5px rgba(0,0,0,0.65);
+		border-radius:4px;
+	}
+
+	.city-distance {
+		display:block;
+		font-size:.9em;
+		color:#333;
+		font-style:italic;
+	}
+}
+
+.summary-interactive-map {
+	display:block;
+	width:100%;
+	height:100%;
+}
+
+.summary-nearby-cities {
+	> ol {
+		margin:0;
+
+		> li {
+			margin:2px 0;
+			padding:2px 4px;
+
+			&.selected {
+				background-color: #C3D3F0;
+			}
+		}
+	}
+
+	> ol.staticmap {
+
+		> li {
+			// TODO :: SCSS Loop?
+			&:nth-child(1) {
+				list-style-image:url('http://www.mapquestapi.com/staticmap/geticon?uri=poi-orange-1-only.png');
+			}
+			&:nth-child(2) {
+				list-style-image:url('http://www.mapquestapi.com/staticmap/geticon?uri=poi-orange-2-only.png');
+			}
+			&:nth-child(3) {
+				list-style-image:url('http://www.mapquestapi.com/staticmap/geticon?uri=poi-orange-3-only.png');
+			}
+			&:nth-child(4) {
+				list-style-image:url('http://www.mapquestapi.com/staticmap/geticon?uri=poi-orange-4-only.png');
+			}
+			&:nth-child(5) {
+				list-style-image:url('http://www.mapquestapi.com/staticmap/geticon?uri=poi-orange-5-only.png');
+			}
+		}
+	}
+}
+
+.summary-map a img {
+	border:none;
+}
+
+.summary-map a:hover {
+	cursor:pointer;
+}
