@@ -27,7 +27,7 @@
 	<?php
 	if ($PROPERTIES['tsunami'] == '1') {
 		echo '<a href="http://www.tsunami.gov/" title="Tsunami Warning Center" ' .
-				'class="tsunami"><img src="images/logos/tsunami-wave-warning.jpg" ' .
+				'class="tsunami"><img src="images/logos/tsunami.jpg" ' .
 				'alt="Tsunami Warning Center"/></a> ';
 	}
 

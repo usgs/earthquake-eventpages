@@ -28,6 +28,11 @@
 			border:0;
 			padding:0;
 			text-align:left;
+			display:inline;
+
+			img {
+				border-radius:3px;
+			}
 		}
 	}
 }
@@ -73,7 +78,6 @@
 			> a {
 				float:left;
 				margin-right:16px;
-				margin-top:0;
 			}
 		}
 	}
