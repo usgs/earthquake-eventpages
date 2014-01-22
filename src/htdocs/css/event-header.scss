@@ -29,6 +29,7 @@
 			padding:0;
 			text-align:left;
 			display:inline;
+			font-size:0; /* removes hover effect that spills over */
 
 			img {
 				border-radius:3px;
