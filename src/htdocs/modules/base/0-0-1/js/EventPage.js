@@ -51,6 +51,10 @@ define([
 		this._navigation = options.navigation ||
 				document.querySelector('.site-sectionnav') ||
 				document.createElement('nav');
+		this._footer = options.footer ||
+				document.querySelector('.event-footer') ||
+				document.createElement('footer');
+
 		this._eventDetails = options.eventDetails || {};
 
 		this._defaultPage = options.hasOwnProperty('defaultPage') ?
@@ -136,6 +140,12 @@ define([
 		this._navigation.innerHTML = markup.join('');
 	};
 
+	EventPage.prototype.updateFooter = function () {
+		this._footer.innerHTML = '<a href="' +
+				'http://earthquake.usgs.gov/earthquakes/map/doc_aboutdata.php' +
+				'">About ANSS Comprehensive Catalog</a>';
+	};
+
 	EventPage.prototype.getModule = function (hash) {
 		var i = null,
 		    module = null,
@@ -191,6 +201,7 @@ define([
 
 		Events.on('hashchange', this._onHashChange, this);
 		this.updateNavigation();
+		this.updateFooter();
 
 		if (hash === '') {
 			// No hash on page URL, use default page
