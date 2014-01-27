@@ -1,16 +1,20 @@
 /* global define */
 define([
 	'util/Util',
+	'base/EventModulePage',
 	'base/TabbedModulePage',
 	'base/Formatter',
 	'./tensor/Tensor',
-	'./tensor/BeachBall'
+	'./tensor/BeachBall',
+	'base/ContentsXML'
 ], function (
 	Util,
+	EventModulePage,
 	TabbedModulePage,
 	Formatter,
 	Tensor,
-	BeachBall
+	BeachBall,
+	ContentsXML
 ) {
 	'use strict';
 
@@ -37,12 +41,60 @@ define([
 	 */
 	var MomentTensorPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options);
+		this._source = options.source;
+		this._type = options.type;
 		TabbedModulePage.call(this, options);
 	};
 
 	// extend TabbedModulePage
 	MomentTensorPage.prototype = Object.create(TabbedModulePage.prototype);
 
+	MomentTensorPage.prototype._setContentMarkup = function () {
+		var products = this.getProducts(),
+		    product,
+		    contentEl,
+		    className,
+		    content
+		    ;
+
+		for (var i = 0; i < products.length; i++) {
+			product = products[i];
+
+			if (product.source === this._source && product.type === this._type) {
+				content = this.getDetail(product);
+			}
+		}
+
+		contentEl = this.getContent();
+		className = this._options.className;
+		if (className) {
+			contentEl.classList.add(className);
+		}
+		// add content
+		if (typeof content === 'string') {
+			contentEl.innerHTML = content;
+		} else {
+			contentEl.appendChild(content);
+		}
+	};
+
+	MomentTensorPage.prototype.getDetail = function (product) {
+		var el = document.createElement('div');
+		el.innerHTML = 'Loading contents ...';
+		new ContentsXML({
+				product: product,
+				callback: function (contents) {
+					el.innerHTML = contents.toHtml();
+				},
+				errback: function () {
+					el.innerHTML = 'Error loading contents ...';
+				}});
+		return el;
+	};
+
+	MomentTensorPage.prototype.getEmptyContent = function () {
+		return 'No ' + this._options.productType + ' products for this event';
+	};
 
 	/**
 	 * Override TabbedModulePage.getProducts to return Tensor objects.
@@ -62,27 +114,6 @@ define([
 		return tensors;
 	};
 
-	/**
-	 * Get tab title.
-	 *
-	 * @param tensor {Tensor}
-	 *        tensor to format.
-	 * @return {DOMElement} element with tensor title.
-	 */
-	MomentTensorPage.prototype.getSummary = function (tensor) {
-		var el = document.createElement('div');
-		el.className = 'tensor-summary';
-		// set content
-		el.innerHTML = this._getSummaryContent(tensor);
-		// add beachball
-		el.appendChild(new BeachBall({
-			tensor: tensor,
-			size: 40,
-			plotAxes: false,
-			plotPlanes: true
-		}).getCanvas());
-		return el;
-	};
 
 	/**
 	 * Get tab content.
@@ -125,31 +156,7 @@ define([
 		return el;
 	};
 
-	/**
-	 * Used by getSummary() method,
-	 * so subclasses can override non-beachball content.
-	 *
-	 * @param tensor {Tensor}
-	 *        tensor object.
-	 * @return {String} summary content.
-	 */
-	MomentTensorPage.prototype._getSummaryContent = function (tensor) {
-		var formatter = this._options.formatter,
-		    type = tensor.type,
-		    magnitude = tensor.magnitude,
-		    depth = tensor.depth;
 
-		magnitude = formatter.magnitude(magnitude);
-		depth = formatter.depth(depth, 'km');
-
-		return [
-				'<strong>', type, '</strong>',
-				'<small>',
-					'<br/><abbr title="Magnitude">M</abbr> = ', magnitude,
-					'<br/><abbr title="Depth">D</abbr> = ', depth,
-				'</small>'
-		].join('');
-	};
 
 	/**
 	 * Format tensor title.
