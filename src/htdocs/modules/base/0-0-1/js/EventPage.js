@@ -141,9 +141,10 @@ define([
 	};
 
 	EventPage.prototype.updateFooter = function () {
-		this._footer.innerHTML = '<a href="' +
-				'http://earthquake.usgs.gov/earthquakes/map/doc_aboutdata.php' +
-				'">About ANSS Comprehensive Catalog</a>';
+		this._footer.innerHTML =
+			'<a href="/earthquakes/map/doc_aboutdata.php">' +
+					'About ANSS Comprehensive Catalog' +
+			'</a>';
 	};
 
 	EventPage.prototype.getModule = function (hash) {
