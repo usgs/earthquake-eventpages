@@ -1,59 +1,93 @@
 // moment-tensor and focal-mechanism page styles
-
-
-
 .tensor-page > .tablist-top > nav > .tablist-tab {
 	max-width:none;
 }
 
-
 .tensor-summary {
-	position:relative;
 	display:block;
-	padding-left:187px;
-	min-height:172px;
-	line-height:1;
-	background:rgb(247,247,247);
-	margin:0 0 20px;
-	text-decoration:none;
 	color:#444;
+	width:100%;
+	font-size:14px;
+	margin-bottom: 8px;
+	background:rgb(247,247,247);
+	border: 1px solid #ccc;
+
+	&:hover {
+		background: rgba(0, 108, 255, 0.1);
+	}
 
 	> canvas {
-		position:absolute;
-		padding:10px;
-		left:0px;
-		top:0px;
-		background:rgb(237,237,237);
+		position: relative;
+		float:left;
+		display: block;
+		padding: 10px;
+		width: 40%;
+		top: 0;
+		min-height:100px;
+		min-width:100px;
+		background: rgb(237,237,237);
+		border-right: 1px solid #ccc;
+	}
+
+	.details {
+		position: relative;
+		float:left;
+		display:block;
+		padding:5px 10px;
+		max-width:60%;
 	}
 
 	header.title {
-		font-weight: bold;
-		margin: 0 20px 20px 0;
-		padding: 15px 0 10px;
-		display: block;
-		position: relative;
-		font-size: 30px;
-		border-bottom: 2px solid #444;
+		font-weight:bold;
+		font-size:20px;
+		margin:5px 0 10px 0;
 	}
 
 	dl {
 		color:#666;
+		margin:0;
 	}
 
 	dt {
 		float: left;
-		clear: left;
-		width: 80px;
-		text-align: left;
 		font-weight: bold;
+		width: 80px;
 	}
-	dt:after {
-		content: ":";
-	}
+
 	dd {
-		margin: 0 0 0 100px;
-		padding: 0 0 0.5em 0;
+		margin: 0 0 0 90px;
+		padding: 0 0 3px 0;
 	}
+}
+
+.event-module-content > .row:after,
+.event-module-content > .row > .column > .tensor-summary:after { 
+	content: ".";
+	visibility: hidden;
+	display: block;
+	height: 0;
+	clear: both;
+}
+
+
+@media screen and (min-width:768px) {
+
+	.row > .column:last-child {
+		/* this ensures cleaner stacking on tensor-summary items */
+		padding-right: 8px; 
+	}
+
+	.tensor-summary {
+
+		.details {
+			padding:10px 15px;
+		}
+
+		dd {
+			padding: 0 0 5px 0;
+		}
+	}
+
 }
 
 

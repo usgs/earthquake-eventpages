@@ -69,9 +69,14 @@ define([
 	};
 
 
+/*
+ * Used by ScientificModule.getPage
+ * 
+ * Generate dynamic page info object for moment tensor details page
+ */
 	ScientificModule.prototype._getTensorPageInfo = function (source, type) {
 		var pageInfo = {
-					'className': 'scientific/MomentTensorPage',
+					'className': 'scientific/MomentTensorDetailsPage',
 						'options': {
 							'title': 'Moment Tensor',
 							'hash': 'tensor_' + source + '_' + type,
@@ -84,21 +89,16 @@ define([
 	};
 
 	/**
-	 * @param hash {String}
-	 *      The URL fragment for which page to get. This hash will include both
-	 *      the module stub as well as the page stub (separated by an underscore).
-	 * @param callback {Function}
-	 *      A method called upon completion. If the page is found, the callback
-	 *      method is passed the class constructor function to instantiate the
-	 *      desired page. If the page is not found, the callback method is passed
-	 *      a null argument. The callback function should handle this null
-	 *      instance.
+	 * Override EventModule.getPage to generate dynamic pageInfo object
+	 * for Moment tensor details page.
+	 * 
 	 */
 	ScientificModule.prototype.getPage = function (hash, callback) {
 		var module = this,
 		    pageInfo;
 		var hashArray = hash.split('_');
 
+		// Check for moment tensor details hash request
 		if (hashArray.length === 4 && hashArray[1] === 'tensor') {
 			pageInfo = this._getTensorPageInfo(hashArray[2], hashArray[3]);
 		} else {

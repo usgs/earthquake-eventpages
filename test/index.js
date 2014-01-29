@@ -50,7 +50,8 @@ require([
 		'spec/modules/dyfi/0-0-1/DYFIModuleTest',
 		'spec/modules/dyfi/0-0-1/DYFIMapPageTest',
 		'spec/modules/dyfi/0-0-1/DYFIGraphPageTest',
-		'spec/modules/summary/0-0-1/SummaryPageTest'
+		'spec/modules/summary/0-0-1/SummaryPageTest',
+		'spec/modules/scientific/0-0-1/MomentTensorTest'
 	], function () {
 		if (window.mochaPhantomJS) {
 			window.mochaPhantomJS.run();
