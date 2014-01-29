@@ -120,7 +120,7 @@ define([
 		// add beachball
 		el.appendChild(new BeachBall({
 			tensor: tensor,
-			size: 304,
+			size: 200,
 			plotAxes: false,
 			plotPlanes: true
 		}).getCanvas());
