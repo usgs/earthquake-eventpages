@@ -54,7 +54,8 @@ define([
 		    tensor,
 		    contentEl,
 		    className,
-		    content
+		    content,
+		    _this = this
 		    ;
 
 		for (var i = 0; i < products.length; i++) {
@@ -76,6 +77,14 @@ define([
 		} else {
 			contentEl.appendChild(content);
 		}
+
+
+		Util.addEvent(this.getContent().querySelector('.toggle-button'), 'click', ( function () {
+			var callback = function callback () {
+				_this._toggleInfo();
+			};
+			return callback;
+		})(this));
 	};
 
 	MomentTensorPage.prototype.getEmptyContent = function () {
@@ -118,8 +127,8 @@ define([
 			'<div class="row clearfix">',
 				'<div class="column one-of-two">',
 					this._getInfo(tensor),
-					this._getAxes(tensor),
 					this._getPlanes(tensor),
+					this._getAxes(tensor),
 				'</div>',
 				'<div class="column one-of-two beachball"></div>',
 			'</div>',
@@ -140,6 +149,29 @@ define([
 		return el;
 	};
 
+
+	MomentTensorPage.prototype._toggleInfo = function () {
+		var button = this.getContent().querySelector('.toggle-button'),
+		    rows = this.getContent().querySelectorAll('.toggle'),
+		    row;
+
+		for (var i = 0; i < rows.length; i++) {
+			row = rows[i];
+			if (Util.hasClass(row, 'hidden')) {
+				Util.removeClass(row, 'hidden');
+			} else  {
+				Util.addClass(row, 'hidden');
+			}
+		}
+
+		if (Util.hasClass(button, 'on')) {
+			Util.removeClass(button, 'on');
+			Util.addClass(button, 'off');
+		} else  {
+			Util.removeClass(button, 'off');
+			Util.addClass(button, 'on');
+		}
+	};
 
 
 	/**
@@ -183,7 +215,8 @@ define([
 		    author = tensor.source,
 		    catalog = tensor.product.properties.eventsource,
 		    contributor = tensor.product.source,
-		    code = tensor.product.code;
+		    code = tensor.product.code,
+		    half_duration = tensor.product.properties.duration/2 || '--';
 
 		moment = (moment / tensor.scale).toFixed(3) +
 				'e+' + tensor.exponent + ' ' + tensor.units;
@@ -197,21 +230,24 @@ define([
 				'<td>', moment, '</td></tr>',
 			'<tr><th scope="row">Magnitude</th>',
 				'<td>', magnitude, '</td></tr>',
-			'<tr><th scope="row">Percent <abbr title="Double Couple">DC</abbr></th>',
-				'<td>', percentDC, '</td></tr>',
 			'<tr><th scope="row">Depth</th>',
 				'<td>', depth, '</td></tr>',
+			'<tr><th scope="row">Percent <abbr title="Double Couple">DC</abbr></th>',
+				'<td>', percentDC, '</td></tr>',
+			'<tr><th scope="row">Half Duration</th>',
+				'<td>', half_duration, '</td></tr>',
 			'<tr><th scope="row">Author</th>',
-				'<td>', author, '</td></tr>',
-			'<tr><th scope="row">Catalog</th>',
+				'<td>', author, '<span class="toggle-button off"></span></td></tr>',
+			'<tr class="toggle hidden"><th scope="row">Catalog</th>',
 				'<td>', catalog, '</td></tr>',
-			'<tr><th scope="row">Contributor</th>',
+			'<tr class="toggle hidden"><th scope="row">Contributor</th>',
 				'<td>', contributor, '</td></tr>',
-			'<tr><th scope="row">Code</th>',
+			'<tr class="toggle hidden"><th scope="row">Code</th>',
 				'<td>', code, '</td></tr>',
 			'</tbody></table>'
 		].join('');
 	};
+
 
 	/**
 	 * Format tensor principal axes.

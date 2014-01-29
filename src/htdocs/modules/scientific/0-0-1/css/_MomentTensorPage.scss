@@ -102,6 +102,27 @@
 		}
 	}
 
+	.toggle.hidden {
+		display:none; // hide elements
+	}
+
+	.toggle-button {
+		border: 1px solid #87B4D4;
+		background: #E1E8FF;
+		color: #3B769C;
+		padding:0 5px;
+		float:right;
+		cursor:pointer;
+	}
+
+	.toggle-button.on:before {
+		content: '- less';
+	}
+
+	.toggle-button.off:before {
+		content: '+ more';
+	}
+
 	.principal-axes-table,
 	.nodal-plane-table {
 		width:100%;
