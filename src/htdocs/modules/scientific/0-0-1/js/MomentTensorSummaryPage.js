@@ -143,21 +143,24 @@ define([
 		var formatter = this._options.formatter,
 		    type = tensor.type,
 		    magnitude = tensor.magnitude,
-		    depth = tensor.depth,
-		    author = tensor.source;
+		    depth = Math.round(tensor.depth) + ' km',
+		    author = tensor.source,
+		    percentDC = Math.round(tensor.percentDC * 100);
 
 		magnitude = formatter.magnitude(magnitude);
-		depth = formatter.depth(depth, 'km');
+		//depth = formatter.depth(depth, 'km');
 
 		return [
 					'<header class="title">', type, '</header>',
 					'<dl class="summary">',
 						'<dt>Author:</dt>',
-						'<dd class="author">', author, '</dd>',
+						'<dd>', author, '</dd>',
 						'<dt>Magnitude:</dt>',
-						'<dd class="magnitude">', magnitude, '</dd>',
+						'<dd>', magnitude, '</dd>',
 						'<dt>Depth:</dt>',
-						'<dd class="depth">', depth, '</dd>',
+						'<dd>', depth, '</dd>',
+						'<dt>Percent <abbr title="Double Couple">DC</abbr>:</dt>',
+						'<dd>', percentDC, '%</dd>',
 					'</dl>',
 		].join('');
 	};
