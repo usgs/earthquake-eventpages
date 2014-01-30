@@ -160,6 +160,19 @@ define([
 		return this._contents;
 	};
 
+
+	ContentsXML.prototype.getDownloads = function () {
+		return this.toHtml({
+			format: 'download'
+		});
+	};
+
+	ContentsXML.prototype.getImages = function () {
+		return this.toHtml({
+			format: 'image'
+		});
+	};
+
 	/**
 	 * Format contents xml content as html.
 	 *
@@ -169,12 +182,13 @@ define([
 	 *
 	 *  ...[additional file elements]
 	 */
-	ContentsXML.prototype.toHtml = function () {
+	ContentsXML.prototype.toHtml = function (options) {
 		var buf = [],
 		    contents = this.getContents(),
 		    content,
 		    i,
-		    len;
+		    len,
+		    format = (options === undefined || options.format === undefined ? 'image' : options.format);
 
 		if (contents === null) {
 			throw new Error('No contents to format');
@@ -183,7 +197,11 @@ define([
 		buf.push('<section class="contentsxml">');
 		for (i = 0, len = contents.length; i < len; i++) {
 			content = contents[i];
-			buf.push(this.formatContent(content));
+			if (format === 'image') {
+				buf.push(this._formatImageContent(content));
+			} else if (format === 'download') {
+				buf.push(this._formatDownloadContent(content));
+			}
 		}
 		buf.push('</section>');
 
@@ -197,9 +215,8 @@ define([
 	 *        content to format.
 	 * @return {String} markup for content.
 	 */
-	ContentsXML.prototype.formatContent = function (content) {
+	ContentsXML.prototype._formatDownloadContent = function (content) {
 		var formatBuf = [],
-		    imageBuf = null,
 		    title,
 		    caption,
 		    formats,
@@ -229,6 +246,51 @@ define([
 					'>',
 						extension, ' (', this._formatter.fileSize(size), ')',
 					'</a>'].join(''));
+		}
+
+		return [
+			'<section class="contentsxml-content">',
+				'<header><h1>', title, '</h1></header>',
+				'<ul class="formats">',
+					'<li>', formatBuf.join('</li><li>'), '</li>',
+				'</ul>',
+			'</section>'
+		].join('');
+	};
+
+
+
+	/**
+	 * Format one piece of content.
+	 *
+	 * @param content {Object}
+	 *        content to format.
+	 * @return {String} markup for content.
+	 */
+	ContentsXML.prototype._formatImageContent = function (content) {
+		var imageBuf = null,
+		    title,
+		    caption,
+		    formats,
+		    format,
+		    href,
+		    type,
+		    url,
+		    size,
+		    extension,
+		    i,
+		    len;
+
+		title = content.title;
+		caption = content.caption;
+		formats = content.formats;
+		for (i = 0, len = formats.length; i < len; i++) {
+			format = formats[i];
+			href = format.href;
+			type = format.type;
+			url = format.url;
+			size = format.length;
+			extension = href.split('.').slice(-1).join('').toUpperCase();
 
 			if (imageBuf === null && type.indexOf('image/') === 0) {
 				imageBuf = [];
@@ -238,20 +300,22 @@ define([
 					imageBuf.push('<figcaption>', caption, '</figcaption>');
 				}
 				imageBuf.push('</figure>');
+
 			}
 		}
 
-		return [
+		// Only _formatDownloadContent captures non-image content
+		if (imageBuf === null) {
+			return;
+		}
+
+			return [
 			'<section class="contentsxml-content">',
 				'<header><h1>', title, '</h1></header>',
-				'<ul class="formats">',
-					'<li>', formatBuf.join('</li><li>'), '</li>',
-				'</ul>',
 				(imageBuf ? imageBuf.join('') : ''),
 			'</section>'
 		].join('');
 	};
-
 
 	// return constructor
 	return ContentsXML;

@@ -120,6 +120,9 @@ define([
 		el.querySelector('.downloads').appendChild(
 				TabbedModulePage.prototype.getDetail.call(this, tensor.product));
 
+		el.querySelector('.downloads').appendChild(
+				TabbedModulePage.prototype.getDownloads.call(this, tensor.product));
+
 		return el;
 	};
 

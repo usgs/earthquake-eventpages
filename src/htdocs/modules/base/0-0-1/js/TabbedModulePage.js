@@ -98,6 +98,10 @@ define([
 		}
 	};
 
+	TabbedModulePage.prototype._setFooterMarkup = function (markup) {
+		this._footer.innerHTML = markup;
+	};
+
 	/**
 	 * Find the products (or other information) to display on this page.
 	 *
@@ -171,12 +175,40 @@ define([
 		new ContentsXML({
 				product: product,
 				callback: function (contents) {
-					el.innerHTML = contents.toHtml();
+					// build content
+					el.innerHTML = contents.getImages();
 				},
 				errback: function () {
 					el.innerHTML = 'Error loading contents ...';
 				}});
 		return el;
+	};
+
+		TabbedModulePage.prototype.getDownloads = function (product) {
+		var el = document.createElement('div');
+		el.innerHTML = 'Loading contents ...';
+		new ContentsXML({
+				product: product,
+				callback: function (contents) {
+					// build content
+					el.innerHTML = contents.getDownloads();
+				},
+				errback: function () {
+					el.innerHTML = 'Error loading contents ...';
+				}});
+		return el;
+	};
+
+
+
+	TabbedModulePage.prototype._setFooterMarkup = function () {
+		var footerMarkup = this._module.getFooterMarkup(this);
+
+		if (typeof footerMarkup === 'object') {
+			this._footer.appendChild(footerMarkup);
+		} else {
+			this._footer.innerHTML = footerMarkup;
+		}
 	};
 
 

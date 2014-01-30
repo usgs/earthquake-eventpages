@@ -1,10 +1,12 @@
 /* global define */
 define([
 	'util/Util',
-	'base/EventModule'
+	'base/EventModule',
+	'base/ContentsXML'
 ], function (
 	Util,
-	EventModule
+	EventModule,
+	ContentsXML
 ) {
 	'use strict';
 
@@ -69,10 +71,28 @@ define([
 
 	var DYFIModule = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
-		
+		this._event = options.eventDetails || {};
 		EventModule.call(this, options);
 	};
 	DYFIModule.prototype = Object.create(EventModule.prototype);
+
+	DYFIModule.prototype.getFooterMarkup = function () {
+
+		var product = this._event.properties.products.dyfi[0],
+		    el = document.createElement('div');
+		el.className = 'downloads';
+		el.innerHTML = 'Loading contents ...';
+
+		new ContentsXML({
+				product: product,
+				callback: function (contents) {
+					el.innerHTML = contents.getDownloads();
+				},
+				errback: function () {
+					el.innerHTML = 'Error loading contents ...';
+				}});
+		return el;
+	};
 
 	return DYFIModule;
 });

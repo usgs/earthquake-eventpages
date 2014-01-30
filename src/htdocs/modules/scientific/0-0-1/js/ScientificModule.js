@@ -2,11 +2,13 @@
 define([
 	'util/Util',
 	'base/EventModule',
-	'require'
+	'require',
+	'base/ContentsXML'
 ], function (
 	Util,
 	EventModule,
-	require
+	require,
+	ContentsXML
 ) {
 	'use strict';
 
@@ -70,7 +72,7 @@ define([
 
 	var ScientificModule = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
-
+		this._event = options.event;
 		EventModule.call(this, options);
 	};
 	ScientificModule.prototype = Object.create(EventModule.prototype);

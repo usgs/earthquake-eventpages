@@ -166,7 +166,7 @@ define([
 
 		// add downloads
 		el.querySelector('.downloads').appendChild(
-				TabbedModulePage.prototype.getDetail.call(this, product));
+				TabbedModulePage.prototype.getDownloads.call(this, product));
 
 		return el;
 	};
