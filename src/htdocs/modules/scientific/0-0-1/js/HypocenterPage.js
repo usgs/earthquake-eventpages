@@ -137,8 +137,7 @@ define([
 			'<h3>', source, '</h3>',
 			'<div class="info"></div>',
 			'<div class="phases"></div>',
-			'<div class="magnitudes"></div>',
-			'<div class="downloads"></div>'
+			'<div class="magnitudes"></div>'
 		].join('');
 
 		el.querySelector('.info').innerHTML = this.getOriginDetail(product);
@@ -165,8 +164,9 @@ define([
 		}
 
 		// add downloads
-		el.querySelector('.downloads').appendChild(
-				TabbedModulePage.prototype.getDownloads.call(this, product));
+		// el.querySelector('.downloads').appendChild(
+		// 		TabbedModulePage.prototype.getDownloads.call(this, product));
+		el.appendChild(TabbedModulePage.prototype.getDownloads.call(this, product));
 
 		return el;
 	};

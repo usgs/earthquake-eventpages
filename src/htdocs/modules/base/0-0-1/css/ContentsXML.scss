@@ -6,26 +6,26 @@
 }
 
 
+.downloads > header {
+	font-size: 19px;
+	font-weight: bold;
+	margin:1em 0;
+}
+
 .contentsxml-content {
 	margin: 1em 0;
 	border-top:1px solid #ddd;
 
 	// header
 	> header > h1 {
-		margin: 1em 0 0;
+		margin: 1em 0 0.1em;
 		font-size: 1em;
 		font-weight: bold;
 	}
 
 	// available formats
 	> .formats {
-		&:before {
-			content: 'Available Formats:';
-			float:left;
-		}
-
 		list-style:none;
-		float:left;
 		margin:0 0 1em;
 		padding:0;
 		font-size:smaller;
@@ -34,7 +34,7 @@
 			float:left;
 			display:block;
 			display:inline-block;
-			margin-left:1em;
+			margin-right:1em;
 		}
 
 		&:after {

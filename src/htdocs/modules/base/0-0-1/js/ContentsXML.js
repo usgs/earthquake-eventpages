@@ -162,7 +162,7 @@ define([
 
 
 	ContentsXML.prototype.getDownloads = function () {
-		return this.toHtml({
+		return '<header>Downloads</header>' + this.toHtml({
 			format: 'download'
 		});
 	};

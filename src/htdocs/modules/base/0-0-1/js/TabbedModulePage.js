@@ -98,10 +98,6 @@ define([
 		}
 	};
 
-	TabbedModulePage.prototype._setFooterMarkup = function (markup) {
-		this._footer.innerHTML = markup;
-	};
-
 	/**
 	 * Find the products (or other information) to display on this page.
 	 *
@@ -187,6 +183,8 @@ define([
 		TabbedModulePage.prototype.getDownloads = function (product) {
 		var el = document.createElement('div');
 		el.innerHTML = 'Loading contents ...';
+		el.className = 'downloads';
+
 		new ContentsXML({
 				product: product,
 				callback: function (contents) {
@@ -197,18 +195,6 @@ define([
 					el.innerHTML = 'Error loading contents ...';
 				}});
 		return el;
-	};
-
-
-
-	TabbedModulePage.prototype._setFooterMarkup = function () {
-		var footerMarkup = this._module.getFooterMarkup(this);
-
-		if (typeof footerMarkup === 'object') {
-			this._footer.appendChild(footerMarkup);
-		} else {
-			this._footer.innerHTML = footerMarkup;
-		}
 	};
 
 

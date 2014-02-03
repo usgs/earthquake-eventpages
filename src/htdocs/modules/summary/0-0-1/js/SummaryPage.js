@@ -289,6 +289,8 @@ define([
 		var product = this._event.properties.products.origin[0],
 		    el = document.createElement('div');
 		el.innerHTML = 'Loading contents ...';
+		el.className = 'downloads';
+
 		new ContentsXML({
 				product: product,
 				callback: function (contents) {
