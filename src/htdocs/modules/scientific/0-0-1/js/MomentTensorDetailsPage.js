@@ -1,12 +1,14 @@
 /* global define */
 define([
 	'util/Util',
+	'base/EventModulePage',
 	'base/TabbedModulePage',
 	'base/Formatter',
 	'./tensor/Tensor',
 	'./tensor/BeachBall'
 ], function (
 	Util,
+	EventModulePage,
 	TabbedModulePage,
 	Formatter,
 	Tensor,
@@ -37,12 +39,57 @@ define([
 	 */
 	var MomentTensorPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options);
+		this._source = options.source;
+		this._type = options.type;
 		TabbedModulePage.call(this, options);
 	};
 
 	// extend TabbedModulePage
 	MomentTensorPage.prototype = Object.create(TabbedModulePage.prototype);
 
+
+
+	MomentTensorPage.prototype._setContentMarkup = function () {
+		var products = this.getProducts(),
+		    tensor,
+		    contentEl,
+		    className,
+		    content,
+		    _this = this
+		    ;
+
+		for (var i = 0; i < products.length; i++) {
+			tensor = products[i];
+
+			if (tensor.source === this._source && tensor.type === this._type) {
+				content = this.getDetail(tensor);
+			}
+		}
+
+		contentEl = this.getContent();
+		className = this._options.className;
+		if (className) {
+			contentEl.classList.add(className);
+		}
+		// add content
+		if (typeof content === 'string') {
+			contentEl.innerHTML = content;
+		} else {
+			contentEl.appendChild(content);
+		}
+
+
+		Util.addEvent(this.getContent().querySelector('.toggle-button'), 'click', ( function () {
+			var callback = function callback () {
+				_this._toggleInfo();
+			};
+			return callback;
+		})(this));
+	};
+
+	MomentTensorPage.prototype.getEmptyContent = function () {
+		return 'No ' + this._options.productType + ' products for this event';
+	};
 
 	/**
 	 * Override TabbedModulePage.getProducts to return Tensor objects.
@@ -62,27 +109,6 @@ define([
 		return tensors;
 	};
 
-	/**
-	 * Get tab title.
-	 *
-	 * @param tensor {Tensor}
-	 *        tensor to format.
-	 * @return {DOMElement} element with tensor title.
-	 */
-	MomentTensorPage.prototype.getSummary = function (tensor) {
-		var el = document.createElement('div');
-		el.className = 'tensor-summary';
-		// set content
-		el.innerHTML = this._getSummaryContent(tensor);
-		// add beachball
-		el.appendChild(new BeachBall({
-			tensor: tensor,
-			size: 40,
-			plotAxes: false,
-			plotPlanes: true
-		}).getCanvas());
-		return el;
-	};
 
 	/**
 	 * Get tab content.
@@ -101,8 +127,8 @@ define([
 			'<div class="row clearfix">',
 				'<div class="column one-of-two">',
 					this._getInfo(tensor),
-					this._getAxes(tensor),
 					this._getPlanes(tensor),
+					this._getAxes(tensor),
 				'</div>',
 				'<div class="column one-of-two beachball"></div>',
 			'</div>',
@@ -118,36 +144,35 @@ define([
 
 		// add contentsxml content
 		el.querySelector('.downloads').appendChild(
-				TabbedModulePage.prototype.getDetail.call(this, tensor.product));
+				TabbedModulePage.prototype.getDetail(tensor.product));
 
 		return el;
 	};
 
-	/**
-	 * Used by getSummary() method,
-	 * so subclasses can override non-beachball content.
-	 *
-	 * @param tensor {Tensor}
-	 *        tensor object.
-	 * @return {String} summary content.
-	 */
-	MomentTensorPage.prototype._getSummaryContent = function (tensor) {
-		var formatter = this._options.formatter,
-		    type = tensor.type,
-		    magnitude = tensor.magnitude,
-		    depth = tensor.depth;
 
-		magnitude = formatter.magnitude(magnitude);
-		depth = formatter.depth(depth, 'km');
+	MomentTensorPage.prototype._toggleInfo = function () {
+		var button = this.getContent().querySelector('.toggle-button'),
+		    rows = this.getContent().querySelectorAll('.toggle'),
+		    row;
 
-		return [
-				'<strong>', type, '</strong>',
-				'<small>',
-					'<br/><abbr title="Magnitude">M</abbr> = ', magnitude,
-					'<br/><abbr title="Depth">D</abbr> = ', depth,
-				'</small>'
-		].join('');
+		for (var i = 0; i < rows.length; i++) {
+			row = rows[i];
+			if (Util.hasClass(row, 'hidden')) {
+				Util.removeClass(row, 'hidden');
+			} else  {
+				Util.addClass(row, 'hidden');
+			}
+		}
+
+		if (Util.hasClass(button, 'on')) {
+			Util.removeClass(button, 'on');
+			Util.addClass(button, 'off');
+		} else  {
+			Util.removeClass(button, 'off');
+			Util.addClass(button, 'on');
+		}
 	};
+
 
 	/**
 	 * Format tensor title.
@@ -190,7 +215,8 @@ define([
 		    author = tensor.source,
 		    catalog = tensor.product.properties.eventsource,
 		    contributor = tensor.product.source,
-		    code = tensor.product.code;
+		    code = tensor.product.code,
+		    half_duration = tensor.product.properties.duration/2 || '--';
 
 		moment = (moment / tensor.scale).toFixed(3) +
 				'e+' + tensor.exponent + ' ' + tensor.units;
@@ -204,21 +230,24 @@ define([
 				'<td>', moment, '</td></tr>',
 			'<tr><th scope="row">Magnitude</th>',
 				'<td>', magnitude, '</td></tr>',
-			'<tr><th scope="row">Percent <abbr title="Double Couple">DC</abbr></th>',
-				'<td>', percentDC, '</td></tr>',
 			'<tr><th scope="row">Depth</th>',
 				'<td>', depth, '</td></tr>',
+			'<tr><th scope="row">Percent <abbr title="Double Couple">DC</abbr></th>',
+				'<td>', percentDC, '</td></tr>',
+			'<tr><th scope="row">Half Duration</th>',
+				'<td>', half_duration, '</td></tr>',
 			'<tr><th scope="row">Author</th>',
-				'<td>', author, '</td></tr>',
-			'<tr><th scope="row">Catalog</th>',
+				'<td>', author, '<span class="toggle-button off"></span></td></tr>',
+			'<tr class="toggle hidden"><th scope="row">Catalog</th>',
 				'<td>', catalog, '</td></tr>',
-			'<tr><th scope="row">Contributor</th>',
+			'<tr class="toggle hidden"><th scope="row">Contributor</th>',
 				'<td>', contributor, '</td></tr>',
-			'<tr><th scope="row">Code</th>',
+			'<tr class="toggle hidden"><th scope="row">Code</th>',
 				'<td>', code, '</td></tr>',
 			'</tbody></table>'
 		].join('');
 	};
+
 
 	/**
 	 * Format tensor principal axes.
