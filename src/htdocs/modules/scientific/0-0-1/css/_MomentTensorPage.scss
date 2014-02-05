@@ -1,125 +1,31 @@
-// moment-tensor and focal-mechanism page styles
-.tensor-page > .tablist-top > nav > .tablist-tab {
-	max-width:none;
-}
+.tensors {
 
-.tensor-summary {
-	display:block;
-	color:#444;
-	width:100%;
-	font-size:14px;
-	margin-bottom: 8px;
-	background:rgb(247,247,247);
-	border: 1px solid #ccc;
+	> .summary {
 
-	&:hover {
-		background: rgba(0, 108, 255, 0.1);
-	}
-
-	> canvas {
-		position: relative;
-		float:left;
-		display: block;
-		padding: 10px;
-		top: 0;
-		width:120px;
-		background: rgb(237,237,237);
-		border-right: 1px solid #ccc;
-	}
-
-	> .details {
-		position: relative;
-		float:left;
-		display:block;
-		padding:5px 10px;
-
-		> header.title {
-			font-weight:bold;
-			font-size:18px;
-			margin:5px 0;
-		}
-
-		> dl {
-			color:#666;
-			margin:0;
-
-			> dt {
-				float: left;
-				font-weight: bold;
-				width: 85px;
-			}
-
-			> dd {
-				margin: 0 0 0 95px;
-			}
-		}
-	}
-}
-
-.event-module-content > .row:after,
-.event-module-content > .row > .column > .tensor-summary:after { 
-	content: ".";
-	visibility: hidden;
-	display: block;
-	height: 0;
-	clear: both;
-}
-
-
-@media screen and (min-width:768px) {
-
-	.row > .column:last-child {
-		/* this ensures cleaner stacking on tensor-summary items */
-		padding-right: 8px; 
-	}
-
-	.tensor-summary {
-
-		> canvas {
-			width:40%;
-		}
-
-		.details {
-			width:60%;
-			padding:5px 15px;
-		}
-	}
-
-}
-
-
-@media screen and (min-width:1100px) {
-
-	.tensor-summary {
-
-		> .details {
-			padding:10px 20px;
+		> .info {
+			padding:12px 10px 0 135px;
 
 			> header.title {
 				font-weight:bold;
-				font-size:36px;
-				margin:0 0 10px;
+				font-size:16px;
+				margin:0 0 5px;
 			}
 
 			> dl {
-
-				> dt,
-				> dd {
-					font-size:16px;
-					padding: 0 0 2px 0;
-				}
+				//color:#666;
+				margin:0;
 
 				> dt {
-					width: 95px;
+					float: left;
+					width: 85px;
 				}
 
 				> dd {
-					margin: 0 0 0 105px;
+					margin: 0 0 0 95px;
 				}
 			}
 		}
 	}
-
 }
 
 

@@ -5,14 +5,14 @@ define([
 	'base/Formatter',
 	'./tensor/Tensor',
 	'./tensor/BeachBall',
-	'./HypocenterPage'
+	'./HypocenterDetailsPage'
 ], function (
 	Util,
 	EventModulePage,
 	Formatter,
 	Tensor,
 	BeachBall,
-	HypocenterPage
+	HypocenterDetailsPage
 ) {
 	'use strict';
 
@@ -101,7 +101,7 @@ define([
 
 			originEl.innerHTML = [
 				'<a href="#scientific_hypocenter"><h3>Hypocenter</h3></a>',
-				HypocenterPage.prototype.getOriginDetail.call(this, origins[0]),
+				HypocenterDetailsPage.prototype.getOriginDetail.call(this, origins[0]),
 				'<p><a href="#scientific_hypocenter">',
 					'View all locations, magnitudes, phases, and arrivals.',
 				'</a></p>'

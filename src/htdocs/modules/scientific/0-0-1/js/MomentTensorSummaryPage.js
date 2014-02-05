@@ -1,13 +1,13 @@
 /* global define */
 define([
 	'util/Util',
-	'base/TabbedModulePage',
+	'base/SummaryModulePage',
 	'base/Formatter',
 	'./tensor/Tensor',
 	'./tensor/BeachBall'
 ], function (
 	Util,
-	TabbedModulePage,
+	SummaryModulePage,
 	Formatter,
 	Tensor,
 	BeachBall
@@ -20,63 +20,25 @@ define([
 		title: 'Moment Tensor',
 		hash: 'tensor',
 		productType: 'moment-tensor',
-		className: 'tensor-page',
+		className: 'tensors',
 		formatter: new Formatter()
 	};
 
 
 	/**
-	 * Construct a new MomentTensorPage.
+	 * Construct a new MomentTensorSummaryPage.
 	 *
 	 * @param options {Object}
 	 *        module options
 	 * @see TabbedModulePage.
 	 */
-	var MomentTensorPage = function (options) {
+	var MomentTensorSummaryPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options);
-		TabbedModulePage.call(this, options);
+		SummaryModulePage.call(this, options);
 	};
 
 	// extend TabbedModulePage
-	MomentTensorPage.prototype = Object.create(TabbedModulePage.prototype);
-
-
-	// loop over tensors, build two-up display with beachballs
-	MomentTensorPage.prototype._setContentMarkup = function () {
-
-		var tensors = this.getProducts(),
-		    tensor,
-		    row = document.createElement('div'),
-		    column_one = document.createElement('div'),
-		    column_two = document.createElement('div'),
-		    info = document.createElement('p');
-
-		row.className = 'row';
-		row.appendChild(info);
-		row.appendChild(column_one);
-		row.appendChild(column_two);
-		column_one.className = 'column one-of-two';
-		column_two.className = 'column one-of-two';
-
-		info.innerHTML = 'Click on a moment tensor to view the details page.';
-
-
-		for (var i = 0; i < tensors.length; i++) {
-
-			tensor = tensors[i];
-
-			if (i%2 === 0) {
-				column_one.appendChild(this.getSummary(tensor));
-			} else {
-				column_two.appendChild(this.getSummary(tensor));
-			}
-
-		}
-
-
-		this.getContent().appendChild(row);
-
-	};
+	MomentTensorSummaryPage.prototype = Object.create(SummaryModulePage.prototype);
 
 
 	/**
@@ -84,14 +46,14 @@ define([
 	 *
 	 * @return {Array<Tensor>} array of tensor objects.
 	 */
-	MomentTensorPage.prototype.getProducts = function () {
+	MomentTensorSummaryPage.prototype.getProducts = function () {
 		var tensors = [],
 		    products,
 		    i,
 		    len;
 
 		// convert products to Tensor objects
-		products = TabbedModulePage.prototype.getProducts.call(this);
+		products = SummaryModulePage.prototype.getProducts.call(this);
 		for (i = 0, len = products.length; i < len; i++) {
 			tensors.push(Tensor.fromProduct(products[i]));
 		}
@@ -109,22 +71,27 @@ define([
 	 *        tensor to format.
 	 * @return {DOMElement} element with tensor title.
 	 */
-	MomentTensorPage.prototype.getSummary = function (tensor) {
+	MomentTensorSummaryPage.prototype.getSummary = function (tensor) {
 		var el = document.createElement('a'),
-		    details = document.createElement('div'),
-		    slug = '_' + tensor.source + '_' + tensor.type;
-		el.className = 'tensor-summary';
-		details.className = 'details';
+		    header = document.createElement('div'),
+		    info = document.createElement('div'),
+		    //slug = '_' + tensor.source + '_' + tensor.type;
+		    slug = '_' + tensor.source + '_' + tensor.code;
+		el.className = 'summary';
+		info.className = 'info';
+		header.className = 'header';
+		el.appendChild(header);
+		el.appendChild(info);
 		// set content
-		details.innerHTML = this._getSummaryContent(tensor);
+		info.innerHTML = this._getSummaryContent(tensor);
 		// add beachball
-		el.appendChild(new BeachBall({
+		header.appendChild(new BeachBall({
 			tensor: tensor,
 			size: 200,
 			plotAxes: false,
 			plotPlanes: true
 		}).getCanvas());
-		el.appendChild(details);
+		el.appendChild(info);
 		el.href = '#scientific_' + this._hash + slug;
 
 		return el;
@@ -139,7 +106,7 @@ define([
 	 *        tensor object.
 	 * @return {String} summary content.
 	 */
-	MomentTensorPage.prototype._getSummaryContent = function (tensor) {
+	MomentTensorSummaryPage.prototype._getSummaryContent = function (tensor) {
 		var formatter = this._options.formatter,
 		    type = tensor.type,
 		    magnitude = tensor.magnitude,
@@ -153,21 +120,19 @@ define([
 		return [
 					'<header class="title">', type, '</header>',
 					'<dl class="summary">',
-						'<dt>Author:</dt>',
-						'<dd>', author, '</dd>',
 						'<dt>Magnitude:</dt>',
 						'<dd>', magnitude, '</dd>',
 						'<dt>Depth:</dt>',
 						'<dd>', depth, '</dd>',
 						'<dt>Percent <abbr title="Double Couple">DC</abbr>:</dt>',
 						'<dd>', percentDC, '%</dd>',
+						'<dt>Author:</dt>',
+						'<dd>', author, '</dd>',
 					'</dl>',
 		].join('');
 	};
 
 
-
-
 	// return constructor
-	return MomentTensorPage;
+	return MomentTensorSummaryPage;
 });

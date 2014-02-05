@@ -31,25 +31,24 @@ define([
 
 
 	/**
-	 * Construct a new MomentTensorPage.
+	 * Construct a new MomentTensorDetailsPage.
 	 *
 	 * @param options {Object}
 	 *        module options
 	 * @see TabbedModulePage.
 	 */
-	var MomentTensorPage = function (options) {
+	var MomentTensorDetailsPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options);
-		this._source = options.source;
-		this._type = options.type;
+		this._code = options.code;
 		TabbedModulePage.call(this, options);
 	};
 
 	// extend TabbedModulePage
-	MomentTensorPage.prototype = Object.create(TabbedModulePage.prototype);
+	MomentTensorDetailsPage.prototype = Object.create(TabbedModulePage.prototype);
 
 
 
-	MomentTensorPage.prototype._setContentMarkup = function () {
+	MomentTensorDetailsPage.prototype._setContentMarkup = function () {
 		var products = this.getProducts(),
 		    tensor,
 		    contentEl,
@@ -61,7 +60,7 @@ define([
 		for (var i = 0; i < products.length; i++) {
 			tensor = products[i];
 
-			if (tensor.source === this._source && tensor.type === this._type) {
+			if (tensor.source + '_' + tensor.code === this._code) {
 				content = this.getDetail(tensor);
 			}
 		}
@@ -87,7 +86,7 @@ define([
 		})(this));
 	};
 
-	MomentTensorPage.prototype.getEmptyContent = function () {
+	MomentTensorDetailsPage.prototype.getEmptyContent = function () {
 		return 'No ' + this._options.productType + ' products for this event';
 	};
 
@@ -96,7 +95,7 @@ define([
 	 *
 	 * @return {Array<Tensor>} array of tensor objects.
 	 */
-	MomentTensorPage.prototype.getProducts = function () {
+	MomentTensorDetailsPage.prototype.getProducts = function () {
 		var tensors = [],
 		    products,
 		    i,
@@ -117,7 +116,7 @@ define([
 	 *        tensor to format.
 	 * @return {DOMElement} element with tensor content.
 	 */
-	MomentTensorPage.prototype.getDetail = function (tensor) {
+	MomentTensorDetailsPage.prototype.getDetail = function (tensor) {
 		var el = document.createElement('div');
 		el.className = 'tensor-detail';
 
@@ -150,7 +149,7 @@ define([
 	};
 
 
-	MomentTensorPage.prototype._toggleInfo = function () {
+	MomentTensorDetailsPage.prototype._toggleInfo = function () {
 		var button = this.getContent().querySelector('.toggle-button'),
 		    rows = this.getContent().querySelectorAll('.toggle'),
 		    row;
@@ -181,7 +180,7 @@ define([
 	 *        tensor to format.
 	 * @return {String} title for tensor detail area.
 	 */
-	MomentTensorPage.prototype._getTitle = function (tensor) {
+	MomentTensorDetailsPage.prototype._getTitle = function (tensor) {
 		var type = tensor.type,
 		    title;
 
@@ -206,7 +205,7 @@ define([
 	 *        tensor to format.
 	 * @return {String} markup for information.
 	 */
-	MomentTensorPage.prototype._getInfo = function (tensor) {
+	MomentTensorDetailsPage.prototype._getInfo = function (tensor) {
 		var formatter = this._options.formatter,
 		    moment = tensor.moment,
 		    magnitude = tensor.magnitude,
@@ -256,7 +255,7 @@ define([
 	 *        tensor to format.
 	 * @return {String} markup for principal axes content.
 	 */
-	MomentTensorPage.prototype._getAxes = function (tensor) {
+	MomentTensorDetailsPage.prototype._getAxes = function (tensor) {
 		var scale = tensor.scale,
 		    T,
 		    N,
@@ -330,7 +329,7 @@ define([
 	 *        tensor to format.
 	 * @return {String} markup for nodal planes content.
 	 */
-	MomentTensorPage.prototype._getPlanes = function (tensor) {
+	MomentTensorDetailsPage.prototype._getPlanes = function (tensor) {
 		var np1 = tensor.NP1,
 		    np2 = tensor.NP2,
 		    round = Math.round;
@@ -364,5 +363,5 @@ define([
 
 
 	// return constructor
-	return MomentTensorPage;
+	return MomentTensorDetailsPage;
 });

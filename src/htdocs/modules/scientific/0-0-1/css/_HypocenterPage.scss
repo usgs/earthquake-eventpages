@@ -1,3 +1,45 @@
+.hypocenters {
+
+	> .summary {
+
+		> .header {
+			padding: 30px 0 0;
+			color: #444;
+			width:85px;
+
+			> header {
+				margin:0;
+				font-size: 30px;
+				line-height: 36px;
+				font-weight:bold;
+			}
+
+			> small {
+				font-size:inherit;
+			}
+		}
+
+		> .info {
+			padding:15px 10px 0 100px;
+			font-size:14px;
+
+			> span {
+				display:block;
+				margin:0;
+			}
+
+		}
+	}
+}
+
+@media screen and (min-width:768px) {
+
+	.hypocenters > .summary > .info {
+		padding:30px 10px 0 100px;
+		font-size:14px;
+	}
+
+}
 
 .origin-detail {
 	width: 100%;
@@ -13,7 +55,6 @@
 		}
 	}
 }
-
 
 .scientific-hypocenter {
 

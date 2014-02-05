@@ -1,0 +1,56 @@
+/*** summary section styles ***/
+a.summary {
+	display:block;
+	position:relative; // needed for :after selector
+	border:1px solid #ccc;
+	text-decoration:none;
+	color:#000;
+	margin-bottom: 8px;
+	height:122px;
+	font-size:14px;
+
+	div.header {
+		position:relative;
+		float:left;
+		padding: 10px;
+		height:120px;
+		width:120px;
+		border-right:1px solid #ccc;
+		background:rgb(247,247,247);
+		text-align:center;
+	}
+
+	div.info {
+		position:relative;
+		padding:12px 10px 0 130px;
+	}
+
+}
+
+a.summary:hover {
+	background:rgba(158, 192, 248, 0.2);
+}
+
+a.summary.preferred::after {
+	position: absolute;
+	top: -5px;
+	right: 8px;
+	content: '\2713'; // checkmark
+	font-size: 16px;
+	padding: 5px 8px;
+	background: #49a34b;
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+	border-radius: 1px 2px 2px 2px; // do i like??
+}
+
+a.summary.preferred::before {
+	content: '';
+	position: absolute;
+	top: -4px;
+	right: 36px;
+	width: 0;
+	height: 0;
+	border-left: 5px solid transparent;
+	border-bottom: 4px solid #005100;
+}

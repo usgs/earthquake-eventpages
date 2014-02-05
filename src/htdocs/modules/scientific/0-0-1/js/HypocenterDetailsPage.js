@@ -28,19 +28,49 @@ define([
 
 
 	/**
-	 * Construct a new HypocenterPage.
+	 * Construct a new HypocenterDetailsPage.
 	 *
 	 * @param options {Object}
 	 *        page options.
 	 */
-	var HypocenterPage = function (options) {
+	var HypocenterDetailsPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
+		this._code = options.code;
 		TabbedModulePage.call(this, this._options);
 	};
 
 	// extend TabbedModulePage.
-	HypocenterPage.prototype = Object.create(TabbedModulePage.prototype);
+	HypocenterDetailsPage.prototype = Object.create(TabbedModulePage.prototype);
 
+
+	HypocenterDetailsPage.prototype._setContentMarkup = function () {
+		var products = this.getProducts(),
+		    hypocenter,
+		    contentEl,
+		    className,
+		    content
+		    ;
+
+		for (var i = 0; i < products.length; i++) {
+			hypocenter = products[i];
+
+			if (hypocenter.source + '_' + hypocenter.code === this._code) {
+				content = this.getDetail(hypocenter);
+			}
+		}
+
+		contentEl = this.getContent();
+		className = this._options.className;
+		if (className) {
+			contentEl.classList.add(className);
+		}
+		// add content
+		if (typeof content === 'string') {
+			contentEl.innerHTML = content;
+		} else {
+			contentEl.appendChild(content);
+		}
+	};
 
 	/**
 	 * Get a list of products for display.
@@ -51,7 +81,7 @@ define([
 	 *
 	 * @return {Array<Product>} origin/phase-data products.
 	 */
-	HypocenterPage.prototype.getProducts = function () {
+	HypocenterDetailsPage.prototype.getProducts = function () {
 		var allProducts = this._event.properties.products,
 		    origins = allProducts.origin,
 		    phases = allProducts['phase-data'],
@@ -94,40 +124,13 @@ define([
 	};
 
 	/**
-	 * Get tab title for a product.
-	 *
-	 * @param product {Product}
-	 *        the product.
-	 * @return {String} summary content for product.
-	 */
-	HypocenterPage.prototype.getSummary = function (product) {
-		var formatter = this._options.formatter,
-		    source = product.source.toUpperCase(),
-		    p = product.properties,
-		    magnitude = p.magnitude,
-		    magnitudeType = p['magnitude-type'],
-		    latitude = p.latitude,
-		    longitude = p.longitude,
-		    depth = p.depth;
-
-		return [
-			'<strong>', source, '</strong>',
-			'<small>',
-				'<br/>', formatter.magnitude(magnitude, magnitudeType),
-				'<br/>', formatter.location(latitude, longitude),
-				'<br/>', formatter.depth(depth, 'km'), ' depth',
-			'</small>'
-		].join('');
-	};
-
-	/**
 	 * Get tab content for a product.
 	 *
 	 * @param product {Product}
 	 *        the product.
 	 * @return {DOMElement} detail content for product.
 	 */
-	HypocenterPage.prototype.getDetail = function (product) {
+	HypocenterDetailsPage.prototype.getDetail = function (product) {
 		var el = document.createElement('div'),
 		    source = product.source.toUpperCase(),
 		    phases,
@@ -182,7 +185,7 @@ define([
 	 *        error occurred during the lookup process.
 	 *
 	 */
-	HypocenterPage.prototype.getFeString = function (product, callback) {
+	HypocenterDetailsPage.prototype.getFeString = function (product, callback) {
 		var geoserveProduct = null,
 		    i, len, testProduct,
 		    geoProducts,
@@ -218,7 +221,7 @@ define([
 		}
 	};
 
-	HypocenterPage.prototype.getOriginDetail = function (product) {
+	HypocenterDetailsPage.prototype.getOriginDetail = function (product) {
 		var buf = [],
 		    formatter = this._options.formatter || new Formatter(),
 		    p = product.properties,
@@ -317,5 +320,5 @@ define([
 
 
 	// return constructor
-	return HypocenterPage;
+	return HypocenterDetailsPage;
 });

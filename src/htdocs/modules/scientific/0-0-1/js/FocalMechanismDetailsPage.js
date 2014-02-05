@@ -1,10 +1,10 @@
 /* global define */
 define([
 	'util/Util',
-	'./MomentTensorPage'
+	'./MomentTensorDetailsPage'
 ], function (
 	Util,
-	MomentTensorPage
+	MomentTensorDetailsPage
 ) {
 	'use strict';
 
@@ -17,44 +17,21 @@ define([
 
 
 	/**
-	 * Construct a new FocalMechanismPage.
+	 * Construct a new FocalMechanismDetailsPage.
 	 *
 	 * @param options {Object}
 	 *        module options.
 	 * @see MomentTensorPage.
 	 */
-	var FocalMechanismPage = function (options) {
+	var FocalMechanismDetailsPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options);
-		MomentTensorPage.call(this, options);
+		this._code = options.code;
+		MomentTensorDetailsPage.call(this, options);
 	};
 
 	// extend MomentTensorPage
-	FocalMechanismPage.prototype = Object.create(MomentTensorPage.prototype);
+	FocalMechanismDetailsPage.prototype = Object.create(MomentTensorDetailsPage.prototype);
 
-
-	/**
-	 * Tab content besides beachball.
-	 *
-	 * @param tensor {Tensor}
-	 *        the focal-mechanism product.
-	 * @return {String} tab content.
-	 */
-	FocalMechanismPage.prototype._getSummaryContent = function (tensor) {
-		var source = tensor.source.toUpperCase(),
-		    code = tensor.product.code;
-		return source + ' ' + code;
-	};
-
-	/**
-	 * Title for detail section.
-	 *
-	 * @param tensor {Tensor}
-	 *        the focal-mechanism product.
-	 * @return {String} title content.
-	 */
-	FocalMechanismPage.prototype._getTitle = function (tensor) {
-		return this._getSummaryContent(tensor);
-	};
 
 
 	/**
@@ -64,7 +41,7 @@ define([
 	 *        the focal-mechanism product.
 	 * @return {String} info table.
 	 */
-	FocalMechanismPage.prototype._getInfo = function (tensor) {
+	FocalMechanismDetailsPage.prototype._getInfo = function (tensor) {
 		return [
 			'<table class="info-table tabular"><tbody>',
 			'<tr><th scope="row">Author</th>',
@@ -84,11 +61,11 @@ define([
 	 *
 	 * @return {String} empty string, don't show axes for mechanism.
 	 */
-	FocalMechanismPage.prototype._getAxes = function () {
+	FocalMechanismDetailsPage.prototype._getAxes = function () {
 		return '';
 	};
 
 
 	// return constructor
-	return FocalMechanismPage;
+	return FocalMechanismDetailsPage;
 });
