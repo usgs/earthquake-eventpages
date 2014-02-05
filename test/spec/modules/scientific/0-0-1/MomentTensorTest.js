@@ -22,7 +22,8 @@ define ([
 				eventDetails: nc72119970,
 				module: new ScientificModule(),
 				source: 'nc',
-				type: 'TMTS'
+				type: 'TMTS',
+				code: 'nc_nc72119970_mt1'
 			},
 	    SummaryPage = new MomentTensorSummaryPage(options),
 	    DetailsPage = new MomentTensorDetailsPage(options);
@@ -55,7 +56,7 @@ define ([
 			// _getInfo()
 			it('Can summarize moment tensor data.', function () {
 				var content = SummaryPage.getContent();
-				var tensor_summary = content.querySelectorAll('.tensor-summary');
+				var tensor_summary = content.querySelectorAll('.tensors');
 				/* jshint -W030 */
 				expect(tensor_summary.length).to.not.equal(0);
 				/* jshint +W030 */
