@@ -24,6 +24,14 @@ require.config({
 require([
 	'EventDetails',
 	'base/EventPage',
+// these are listed here to be bundled with index.js
+	'tablist/Tablist',
+	'tablist/ImageList',
+	'base/EventModulePage',
+	'base/EventModulePages',
+	'base/TabbedModulePage',
+	'base/ContentsXML',
+	'base/Formatter',
 	// "theme" is configured by hazdev-template
 	'theme/OffCanvas'
 ], function (

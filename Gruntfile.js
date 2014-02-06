@@ -51,7 +51,7 @@ module.exports = function (grunt) {
 			},
 			scss: {
 				files: ['<%= app.src %>/htdocs/**/*.scss'],
-				tasks: ['compass:dev']
+				tasks: ['copy:leaflet', 'compass:dev']
 			},
 			tests: {
 				files: ['<%= app.test %>/*.html', '<%= app.test %>/**/*.js'],
@@ -80,14 +80,13 @@ module.exports = function (grunt) {
 			predist: [
 				'jshint:scripts',
 				'jshint:tests',
-				'compass'
+				'compass',
+				'copy'
 			],
 			dist: [
-				'requirejs:dist',
 				'cssmin:dist',
 				'htmlmin:dist',
-				'uglify',
-				'copy'
+				'uglify'
 			]
 		},
 		connect: {
@@ -131,8 +130,13 @@ module.exports = function (grunt) {
 					keepalive: true,
 					middleware: function (connect, options) {
 						return [
+							proxySnippet,
 							mountPHP(options.base),
-							mountFolder(connect, options.base)
+							mountFolder(connect, options.base),
+							// add template
+							mountFolder(connect, 'bower_components'),
+							rewriteRulesSnippet,
+							mountFolder(connect, 'node_modules')
 						];
 					}
 				}
@@ -175,13 +179,6 @@ module.exports = function (grunt) {
 					cssDir: '<%= app.tmp %>',
 					environment: 'development'
 				}
-			},
-			devmodules: {
-				options: {
-					sassDir: '<%= app.src %>/htdocs/modules',
-					cssDir: '<%= app.tmp %>/modules',
-					environment: 'development'
-				}
 			}
 		},
 		mocha_phantomjs: {
@@ -196,30 +193,48 @@ module.exports = function (grunt) {
 		requirejs: {
 			dist: {
 				options: {
-					name: 'index',
-					baseUrl: appConfig.src + '/htdocs/js',
-					out: appConfig.dist + '/htdocs/js/index.js',
-					optimize: 'uglify2',
-					mainConfigFile: appConfig.src + '/htdocs/js/index.js',
+					appDir: appConfig.src + '/htdocs',
+					baseUrl: 'js',
+					dir: appConfig.dist + '/htdocs',
 					useStrict: true,
-					wrap: true,
-					uglify2: {
-						report: 'gzip',
-						mangle: true,
-						compress: true,
-						preserveComments: 'some'
-					}
+					wrap: false,
+
+					paths: {
+						leaflet: '../../../bower_components/leaflet/dist/leaflet-src',
+						mvc: '../../../bower_components/hazdev-webutils/src/mvc',
+						util: '../../../bower_components/hazdev-webutils/src/util',
+
+						tablist: '../../../node_modules/hazdev-tablist/src/tablist',
+						map: 'js/map',
+
+						base: '../modules/base/0-0-1/js',
+						summary: '../modules/summary/0-0-1/js',
+						dyfi: '../modules/dyfi/0-0-1/js',
+						scientific: '../modules/scientific/0-0-1/js'
+					},
+
+					shim: {
+						leaflet: {
+							exports: 'L'
+						}
+					},
+
+					modules: [
+						{name: 'index', exclude: ['EventDetails']}
+					]
+
 				}
 			}
 		},
 		cssmin: {
+			options: {
+				report: 'min'
+			},
 			dist: {
-				files: {
-					'<%= app.dist %>/htdocs/css/index.css': [
-						'<%= app.src %>/htdocs/css/**/*.css',
-						'.tmp/css/**/*.css'
-					]
-				}
+				expand: true,
+				cwd: '.tmp',
+				dest: '<%= app.dist %>/htdocs',
+				src: '**/*.css'
 			}
 		},
 		htmlmin: {
@@ -251,19 +266,31 @@ module.exports = function (grunt) {
 			}
 		},
 		copy: {
+			// convert leaflet css into embeddable scss
+			leaflet: {
+				src: 'node_modules/leaflet/dist/leaflet.css',
+				dest: 'node_modules/leaflet/dist/_leaflet.scss'
+			},
+			leaflet_images: {
+				expand: true,
+				cwd: 'node_modules/leaflet/dist/images',
+				dest: '<%= app.dist %>/htdocs/modules/summary/0-0-1/css/images',
+				src: ['*.png']
+			},
 			app: {
 				expand: true,
 				cwd: '<%= app.src %>/htdocs',
 				dest: '<%= app.dist %>/htdocs',
 				src: [
 					'img/**/*.{png,gif,jpg,jpeg}',
-					'**/*.php'
+					'**/*.php',
+					'**/*.js'
 				]
 			},
 			conf: {
 				expand: true,
 				cwd: '<%= app.src %>/conf',
-				dest: '<%= app.dist/conf',
+				dest: '<%= app.dist %>/conf',
 				src: [
 					'**/*',
 					'!**/*.orig'
@@ -287,12 +314,8 @@ module.exports = function (grunt) {
 				overwrite: true,
 				replacements: [
 					{
-						from: 'requirejs/require.js',
-						to: 'lib/requirejs/require.js'
-					},
-					{
-						from: 'html5shiv-dist/html5shiv.js',
-						to: 'lib/html5shiv/html5shiv.js'
+						from: '<script src="http://localhost:35729/livereload.js?snipver=1"></script>',
+						to: ''
 					}
 				]
 			}
@@ -327,15 +350,21 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('build', [
 		'clean:dist',
+		'copy:leaflet',
 		'concurrent:predist',
+		'requirejs:dist',
 		'concurrent:dist',
+		'copy:leaflet_images',
 		'replace',
+		'configureRewriteRules',
+		'configureProxies',
 		'open:dist',
 		'connect:dist'
 	]);
 
 	grunt.registerTask('default', [
 		'clean:dist',
+		'copy:leaflet',
 		'compass:dev',
 		'configureRewriteRules',
 		'configureProxies',
