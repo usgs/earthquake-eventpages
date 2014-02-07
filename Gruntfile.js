@@ -302,7 +302,10 @@ module.exports = function (grunt) {
 				dest: '<%= app.dist %>/lib',
 				src: [
 					'**/*'
-				]
+				],
+				options: {
+					mode: true
+				}
 			}
 		},
 		replace: {
