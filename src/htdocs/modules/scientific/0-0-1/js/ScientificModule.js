@@ -27,7 +27,8 @@ define([
 					'phase-data',
 					'moment-tensor',
 					'focal-mechanism',
-					'finite-fault']
+					'finite-fault'
+				]
 			},
 			{
 				className: 'scientific/HypocenterPage',
@@ -35,7 +36,10 @@ define([
 					title: 'Hypocenter',
 					hash: 'hypocenter'
 				},
-				productTypes: ['origin', 'phase-data']
+				productTypes: [
+					'origin',
+					'phase-data'
+				]
 			},
 			{
 				className: 'scientific/MomentTensorPage',
