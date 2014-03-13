@@ -54,6 +54,32 @@ define([
 	/**
 	 * API Method
 	 *
+	 * Module implementations should return false from this method when they
+	 * have no content to display.
+	 *
+	 * @return {Boolean} whether this module has content and should be included
+	 *         in navigation and on page.
+	 */
+	EventModule.prototype.hasContent = function () {
+		var pages = this._pages,
+		    page,
+		    numPages,
+		    i;
+		// if any pages have content, module has content
+		for (i = 0, numPages = pages.length; i < numPages; i++) {
+			page = pages[i];
+			if (this._pageHasContent(page)) {
+				return true;
+			}
+		}
+		// no page content found
+		return false;
+	};
+
+
+	/**
+	 * API Method
+	 *
 	 * Module implementations should override this method to return markup
 	 * for their navigation. Navigation markup should be formatted as follows:
 	 *
@@ -70,24 +96,90 @@ define([
 	EventModule.prototype.getNavigationMarkup = function (hash) {
 		var markup = ['<section><header>', this._title, '</header>'],
 		    numPages = this._pages.length, fullHash = null,
-		    i = null, page = null;
+		    i = null, page = null, pageOptions = null;
 
 		for (i = 0; i < numPages; i++) {
-			page = this._pages[i].options;
-			fullHash = this._hash + '_' + page.hash;
+			page = this._pages[i];
+
+			if (!this._pageHasContent(page)) {
+				// hide pages without content
+				continue;
+			}
+
+			pageOptions = page.options;
+			fullHash = this._hash + '_' + pageOptions.hash;
 
 			if (fullHash === hash) {
-				markup.push('<strong class="current-page">' + page.title +
+				markup.push('<strong class="current-page">' + pageOptions.title +
 						'</strong>');
 			} else {
-				markup.push('<a href="#' + this._hash + '_' + page.hash + '">' +
-						page.title + '</a>');
+				markup.push('<a href="#' + this._hash + '_' + pageOptions.hash + '">' +
+						pageOptions.title + '</a>');
 			}
 		}
 
 		markup.push('</section>');
 
 		return markup.join('');
+	};
+
+	/**
+	 * Check whether a page has any content.
+	 *
+	 * @param page {Object}
+	 *        a page in the module pages list.
+	 * @return {Boolean}
+	 *        if page.hasContent is a Function,
+	 *            returns page.hasContent(eventDetails).
+	 *        if page.productTypes is an Array,
+	 *            returns true if any product types in the productTypes array
+	 *                exist in the event.
+	 *            returns false if no product types in the productTypes array
+	 *                exist in the event.
+	 *        otherwise, returns true.
+	 */
+	EventModule.prototype._pageHasContent = function (page) {
+		var productTypes,
+		    i,
+		    len;
+
+		// check for custom hasContent method.
+		if (page.hasContent instanceof Function) {
+			return page.hasContent(this._eventDetails);
+		}
+
+		// check for product types array
+		if (page.productTypes instanceof Array) {
+			productTypes = page.productTypes;
+			for (i = 0, len = productTypes.length; i < len; i++) {
+				if (this._eventHasProduct(productTypes[i])) {
+					// found in event
+					return true;
+				}
+			}
+			// not found in event
+			return false;
+		}
+
+		// default to true
+		return true;
+	};
+
+	/**
+	 * Check if the event has a specific type of product.
+	 *
+	 * @param type {String}
+	 *        the product type to check.
+	 * @return {Boolean}
+	 *         true, if a product with that type exists in the event,
+	 *         otherwise false.
+	 */
+	EventModule.prototype._eventHasProduct = function (type) {
+		try {
+			return (this._eventDetails.properties.products[type].length > 0);
+		} catch (e) {
+			return false;
+		}
 	};
 
 	EventModule.prototype.getHeaderMarkup = function (page) {
@@ -175,6 +267,10 @@ define([
 		for (i = 0; i < numPages; i++) {
 			pageInfo = this._pages[i];
 			if (pageInfo.options.hash === pageHash) {
+				if (!this._pageHasContent(pageInfo)) {
+					// hide pages without content
+					return null;
+				}
 				return pageInfo;
 			}
 		}
