@@ -9,22 +9,22 @@ define([
 
 	// globals
 	var sin = Math.sin,
-	    asin = Math.asin,
-	    cos = Math.cos,
-	    acos = Math.acos,
-	    tan = Math.tan,
-	    atan = Math.atan,
-	    atan2 = Math.atan2,
-	    sqrt = Math.sqrt,
-	    abs = Math.abs,
-	    SQRT2 = Math.SQRT2,
-	    PI = Math.PI,
-	    TWO_PI = 2 * PI,
-	    HALF_PI = PI / 2,
-	    QUARTER_PI = PI / 4,
-	    D2R = PI / 180,
-	    EPSILON = -1e-16,
-	    COLORS;
+			asin = Math.asin,
+			cos = Math.cos,
+			acos = Math.acos,
+			tan = Math.tan,
+			atan = Math.atan,
+			atan2 = Math.atan2,
+			sqrt = Math.sqrt,
+			abs = Math.abs,
+			SQRT2 = Math.SQRT2,
+			PI = Math.PI,
+			TWO_PI = 2 * PI,
+			HALF_PI = PI / 2,
+			QUARTER_PI = PI / 4,
+			D2R = PI / 180,
+			EPSILON = -1e-16,
+			COLORS;
 
 	// possible beachball colors
 	COLORS = {
@@ -33,7 +33,8 @@ define([
 		'green': 'rgba(0, 255, 0, 1.0)',
 		'blue': 'rgba(4, 0, 253, 1.0)',
 		'violet': 'rgba(160, 36, 196, 1.0)',
-		'red': 'rgba(252, 0, 0, 1.0)'
+		'red': 'rgba(252, 0, 0, 1.0)',
+		'grey': 'rgba(221, 221, 221, 1.0)'
 	};
 
 	/**
@@ -74,7 +75,7 @@ define([
 	 */
 	var _axisCache = function (axis) {
 		var azimuth = axis.azimuth(),
-		    plunge = axis.plunge();
+				plunge = axis.plunge();
 
 		// make axis plunge downward (negative values are up)
 		if (plunge < 0) {
@@ -103,7 +104,7 @@ define([
 	 */
 	var BeachBall = function (options) {
 		var size = options.size || 200,
-		    radius = parseInt(options.radius || (size - 2) / 2, 10);
+				radius = parseInt(options.radius || (size - 2) / 2, 10);
 
 		this._tensor = options.tensor;
 		this._x0 = options.x0 || radius+1;
@@ -139,19 +140,19 @@ define([
 	 */
 	BeachBall.prototype._plot = function () {
 		var tensor = this._tensor,
-		    x0 = this._x0,
-		    y0 = this._y0,
-		    radius = this._radius,
-		    size = radius * 2,
-		    axisSize = parseInt(radius / 12.5, 10),
-		    canvas = this._canvas,
-		    c = canvas.context,
-		    lineColor = this._lineColor,
-		    lineWidth = this._lineWidth,
-		    lines,
-		    line,
-		    xy,
-		    i;
+				x0 = this._x0,
+				y0 = this._y0,
+				radius = this._radius,
+				size = radius * 2,
+				axisSize = parseInt(radius / 12.5, 10),
+				canvas = this._canvas,
+				c = canvas.context,
+				lineColor = this._lineColor,
+				lineWidth = this._lineWidth,
+				lines,
+				line,
+				xy,
+				i;
 
 		// make y axis go up
 		c.save();
@@ -200,9 +201,9 @@ define([
 	 */
 	BeachBall.prototype._getPoint = function (azimuth, plunge) {
 		var x0 = this._x0,
-		    y0 = this._y0,
-		    radius = this._radius,
-		    r;
+				y0 = this._y0,
+				radius = this._radius,
+				r;
 
 		if (plunge < 0) {
 			plunge *= -1;
@@ -230,44 +231,44 @@ define([
 	 */
 	BeachBall.prototype._getPolygons = function () {
 		var x0 = this._x0,
-		    y0 = this._y0,
-		    radius = this._radius,
-		    tensor = this._tensor,
-		    T = _axisCache(tensor.T),
-		    N = _axisCache(tensor.N),
-		    P = _axisCache(tensor.P),
-		    vi,
-		    f,
-		    iso,
-		    fir,
-		    sfi,
-		    cfi,
-		    s2alphan,
-		    tmp,
-		    takeoff,
-		    alphan,
-		    az,
-		    azp,
-		    xe,
-		    xn,
-		    xz,
-		    c,
-		    s,
-		    azes = [],
-		    lines = [],
-		    line,
-		    i,
-		    nextI,
-		    l1,
-		    l2,
-		    l1x,
-		    l1y,
-		    l2x,
-		    l2y,
-		    x,
-		    y,
-		    az1,
-		    az2;
+				y0 = this._y0,
+				radius = this._radius,
+				tensor = this._tensor,
+				T = _axisCache(tensor.T),
+				N = _axisCache(tensor.N),
+				P = _axisCache(tensor.P),
+				vi,
+				f,
+				iso,
+				fir,
+				sfi,
+				cfi,
+				s2alphan,
+				tmp,
+				takeoff,
+				alphan,
+				az,
+				azp,
+				xe,
+				xn,
+				xz,
+				c,
+				s,
+				azes = [],
+				lines = [],
+				line,
+				i,
+				nextI,
+				l1,
+				l2,
+				l1x,
+				l1y,
+				l2x,
+				l2y,
+				x,
+				y,
+				az1,
+				az2;
 
 		vi = (T.v + N.v + P.v) / 3;
 		T.v -= vi;
@@ -417,17 +418,17 @@ define([
 	 */
 	BeachBall.prototype._getPlaneLine = function (np) {
 		var x0 = this._x0,
-		    y0 = this._y0,
-		    radius = this._radius,
-		    strike = np.strike * D2R,
-		    dip = np.dip * D2R,
-		    vertical = (abs(dip - QUARTER_PI) < EPSILON),
-		    tanDip = tan(dip),
-		    x = [],
-		    y = [],
-		    i,
-		    max,
-		    r;
+				y0 = this._y0,
+				radius = this._radius,
+				strike = np.strike * D2R,
+				dip = np.dip * D2R,
+				vertical = (abs(dip - QUARTER_PI) < EPSILON),
+				tanDip = tan(dip),
+				x = [],
+				y = [],
+				i,
+				max,
+				r;
 
 		for (i = strike, max = strike + PI + EPSILON; i < max; i += D2R) {
 			if (vertical) {
@@ -452,7 +453,8 @@ define([
 	 * @return {String} color.
 	 */
 	BeachBall.getFillColor = function(depth) {
-		if (!depth || depth < 35) {
+		/* Keeping the color changing code for now incase we need to revert */
+		/*if (!depth || depth < 35) {
 			return COLORS.orange;
 		} else if (depth < 70) {
 			return COLORS.yellow;
@@ -466,7 +468,8 @@ define([
 			return COLORS.red;
 		} else {
 			return COLORS.orange;
-		}
+		}*/
+		return COLORS.grey;
 	};
 
 
