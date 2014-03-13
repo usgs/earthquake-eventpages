@@ -139,15 +139,13 @@ define([
 	 *        otherwise, returns true.
 	 */
 	EventModule.prototype._pageHasContent = function (page) {
-		var eventDetails = this._eventDetails,
-		    products,
-		    productTypes,
+		var productTypes,
 		    i,
 		    len;
 
 		// check for custom hasContent method.
 		if (page.hasContent instanceof Function) {
-			return page.hasContent(eventDetails);
+			return page.hasContent(this._eventDetails);
 		}
 
 		// check for product types array
@@ -268,11 +266,11 @@ define([
 
 		for (i = 0; i < numPages; i++) {
 			pageInfo = this._pages[i];
-			if (!this._pageHasContent(pageInfo)) {
-				// hide pages without content
-				return null;
-			}
 			if (pageInfo.options.hash === pageHash) {
+				if (!this._pageHasContent(pageInfo)) {
+					// hide pages without content
+					return null;
+				}
 				return pageInfo;
 			}
 		}
