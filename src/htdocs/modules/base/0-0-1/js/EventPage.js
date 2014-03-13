@@ -131,10 +131,14 @@ define([
 		var markup = [],
 		    i = 0,
 		    numModules = this._modules.length,
+		    module,
 		    hash = __get_hash(evt);
 
 		for (; i < numModules; i++) {
-			markup.push(this._modules[i].getNavigationMarkup(hash));
+			module = this._modules[i];
+			if (module.hasContent()) {
+				markup.push(module.getNavigationMarkup(hash));
+			}
 		}
 
 		this._navigation.innerHTML = markup.join('');
@@ -156,7 +160,12 @@ define([
 		for (i = 0; i < numModules; i++) {
 			module = this._modules[i];
 			if (module.getHash() === hashStub) {
-				return module;
+				// found module, but suppress if it has no content.
+				if (module.hasContent()) {
+					return module;
+				} else {
+					break;
+				}
 			}
 		}
 
