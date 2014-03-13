@@ -70,24 +70,81 @@ define([
 	EventModule.prototype.getNavigationMarkup = function (hash) {
 		var markup = ['<section><header>', this._title, '</header>'],
 		    numPages = this._pages.length, fullHash = null,
-		    i = null, page = null;
+		    i = null, page = null, pageOptions = null;
 
 		for (i = 0; i < numPages; i++) {
-			page = this._pages[i].options;
-			fullHash = this._hash + '_' + page.hash;
+			page = this._pages[i];
+
+			if (!this._pageHasContent(page)) {
+				// hide pages without content
+				continue;
+			}
+
+			pageOptions = page.options;
+			fullHash = this._hash + '_' + pageOptions.hash;
 
 			if (fullHash === hash) {
-				markup.push('<strong class="current-page">' + page.title +
+				markup.push('<strong class="current-page">' + pageOptions.title +
 						'</strong>');
 			} else {
-				markup.push('<a href="#' + this._hash + '_' + page.hash + '">' +
-						page.title + '</a>');
+				markup.push('<a href="#' + this._hash + '_' + pageOptions.hash + '">' +
+						pageOptions.title + '</a>');
 			}
 		}
 
 		markup.push('</section>');
 
 		return markup.join('');
+	};
+
+	/**
+	 * Check whether a page has any content.
+	 *
+	 * @param page {Object}
+	 *        a page in the module pages list.
+	 * @return {Boolean}
+	 *        if page.hasContent is a Function,
+	 *            returns page.hasContent(eventDetails).
+	 *        if page.productTypes is an Array,
+	 *            returns true if any product types in the productTypes array
+	 *                exist in the event.
+	 *            returns false if no product types in the productTypes array
+	 *                exist in the event.
+	 *        otherwise, returns true.
+	 */
+	EventModule.prototype._pageHasContent = function (page) {
+		var eventDetails = this._eventDetails,
+		    products,
+		    productTypes,
+		    i,
+		    len;
+
+		// check for custom hasContent method.
+		if (page.hasContent instanceof Function) {
+			return page.hasContent(eventDetails);
+		}
+
+		// check for product types array
+		if (page.productTypes instanceof Array) {
+			productTypes = page.productTypes;
+			products = {};
+			if (eventDetails.hasOwnProperty('properties') &&
+					eventDetails.properties !== null &&
+					eventDetails.properties.hasOwnProperty('products')) {
+				products = eventDetails.properties.products;
+				for (i = 0, len = productTypes.length; i < len; i++) {
+					if (products.hasOwnProperty(productTypes[i])) {
+						// found in event
+						return true;
+					}
+				}
+			}
+			// not found in event
+			return false;
+		}
+
+		// default to true
+		return true;
 	};
 
 	EventModule.prototype.getHeaderMarkup = function (page) {
@@ -174,6 +231,10 @@ define([
 
 		for (i = 0; i < numPages; i++) {
 			pageInfo = this._pages[i];
+			if (!this._pageHasContent(pageInfo)) {
+				// hide pages without content
+				return null;
+			}
 			if (pageInfo.options.hash === pageHash) {
 				return pageInfo;
 			}
