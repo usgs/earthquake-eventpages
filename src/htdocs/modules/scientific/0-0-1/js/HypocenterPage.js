@@ -1,10 +1,14 @@
 /* global define */
 define([
 	'util/Util',
+	'util/Xhr',
+
 	'base/TabbedModulePage',
 	'base/Formatter'
 ], function (
 	Util,
+	Xhr,
+
 	TabbedModulePage,
 	Formatter
 ) {
@@ -137,7 +141,10 @@ define([
 			'<div class="downloads"></div>'
 		].join('');
 
-		el.querySelector('.info').innerHTML = this.getOriginDetail(product);
+		//el.querySelector('.info').innerHTML = this.getOriginDetail(product);
+		this.getOriginDetail(product, function (markup) {
+			el.querySelector('.info').innerHTML = markup;
+		});
 
 		phases = el.querySelector('.phases');
 		magnitudes = el.querySelector('.magnitudes');
@@ -167,7 +174,34 @@ define([
 	 * @return {String}
 	 *         this implementation creates a definition list.
 	 */
-	HypocenterPage.prototype.getOriginDetail = function (product) {
+	HypocenterPage.prototype.getOriginDetail = function (product, callback) {
+		var _this = this,
+		    geoserveProduct = null;
+
+		try {
+			geoserveProduct = this._event.properties.products.geoserve[0];
+
+			Xhr.ajax({
+				url: geoserveProduct.contents['geoserve.json'].url,
+				success: function (geoserve) {
+					// Must use "call" because ScientificSummaryPage "call"s this method
+					callback(HypocenterPage.prototype._getOriginDetail.call(_this,
+							product, geoserve.fe.longName + ' (' + geoserve.fe.number + ')'));
+				},
+				error: function () {
+					// Must use "call" because ScientificSummaryPage "call"s this method
+					callback(HypocenterPage.prototype._getOriginDetail.call(_this,
+							product, null));
+				}
+			});
+		} catch (e) {
+			// Must use "call" because ScientificSummaryPage "call"s this method
+			callback(HypocenterPage.prototype._getOriginDetail.call(_this,
+					product, null));
+		}
+	};
+
+	HypocenterPage.prototype._getOriginDetail = function (product, feString) {
 		var buf = [],
 		    formatter = this._options.formatter || new Formatter(),
 		    p = product.properties,
@@ -237,6 +271,9 @@ define([
 		buf.push('<tr><th scope="row">Azimuthal Gap</th><td>',
 				(azimuthalGap === null ? '-' : azimuthalGap + '&deg;'),
 				'</td></tr>');
+
+		buf.push('<tr><th scope="row"><abbr title="Flinn Engdahl">FE</abbr></th>',
+				'<td>', (feString === null ? '-' : feString), '</td></tr>');
 
 		buf.push('<tr><th scope="row">Review Status</th><td>',
 				reviewStatus.toUpperCase().replace('REVIEWED', 'MANUAL'),
