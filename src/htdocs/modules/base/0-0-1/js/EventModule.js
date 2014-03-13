@@ -153,16 +153,10 @@ define([
 		// check for product types array
 		if (page.productTypes instanceof Array) {
 			productTypes = page.productTypes;
-			products = {};
-			if (eventDetails.hasOwnProperty('properties') &&
-					eventDetails.properties !== null &&
-					eventDetails.properties.hasOwnProperty('products')) {
-				products = eventDetails.properties.products;
-				for (i = 0, len = productTypes.length; i < len; i++) {
-					if (products.hasOwnProperty(productTypes[i])) {
-						// found in event
-						return true;
-					}
+			for (i = 0, len = productTypes.length; i < len; i++) {
+				if (this._eventHasProduct(productTypes[i])) {
+					// found in event
+					return true;
 				}
 			}
 			// not found in event
@@ -171,6 +165,23 @@ define([
 
 		// default to true
 		return true;
+	};
+
+	/**
+	 * Check if the event has a specific type of product.
+	 *
+	 * @param type {String}
+	 *        the product type to check.
+	 * @return {Boolean}
+	 *         true, if a product with that type exists in the event,
+	 *         otherwise false.
+	 */
+	EventModule.prototype._eventHasProduct = function (type) {
+		try {
+			return (this._eventDetails.properties.products[type].length > 0);
+		} catch (e) {
+			return false;
+		}
 	};
 
 	EventModule.prototype.getHeaderMarkup = function (page) {
