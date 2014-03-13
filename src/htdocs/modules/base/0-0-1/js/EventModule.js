@@ -54,6 +54,32 @@ define([
 	/**
 	 * API Method
 	 *
+	 * Module implementations should return false from this method when they
+	 * have no content to display.
+	 *
+	 * @return {Boolean} whether this module has content and should be included
+	 *         in navigation and on page.
+	 */
+	EventModule.prototype.hasContent = function () {
+		var pages = this._pages,
+		    page,
+		    numPages,
+		    i;
+		// if any pages have content, module has content
+		for (i = 0, numPages = pages.length; i < numPages; i++) {
+			page = pages[i];
+			if (this._pageHasContent(page)) {
+				return true;
+			}
+		}
+		// no page content found
+		return false;
+	};
+
+
+	/**
+	 * API Method
+	 *
 	 * Module implementations should override this method to return markup
 	 * for their navigation. Navigation markup should be formatted as follows:
 	 *
