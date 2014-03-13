@@ -19,13 +19,29 @@ define([
 				options: {
 					title: 'Maps',
 					hash: 'maps'
-				}
+				},
+				productTypes: ['dyfi']
 			},
 			{
 				className: 'dyfi/DYFIGraphPage',
 				options: {
 					title: 'Graphs',
 					hash: 'graphs'
+				},
+				hasContent: function (eventDetails) {
+					var dyfi,
+					    code,
+					    contents;
+					try {
+						dyfi = eventDetails.properties.products.dyfi[0];
+						code = dyfi.code;
+						contents = dyfi.contents;
+						return (
+								contents.hasOwnProperty(code + '_plot_atten.jpg') ||
+								contents.hasOwnProperty(code + '_plot_numresp.jpg'));
+					} catch (e) {
+						return false;
+					}
 				}
 			},
 			{
@@ -33,6 +49,19 @@ define([
 				options: {
 					title: 'Responses',
 					hash: 'responses'
+				},
+				hasContent: function (eventDetails) {
+					var dyfi,
+					    code,
+					    contents;
+					try {
+						dyfi = eventDetails.properties.products.dyfi[0];
+						code = dyfi.code;
+						contents = dyfi.contents;
+						return contents.hasOwnProperty('cdi_zip.xml');
+					} catch (e) {
+						return false;
+					}
 				}
 			}
 		]
