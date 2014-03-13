@@ -2,9 +2,17 @@
 
 }
 .event-content {
-
+	> .event-module-content {
+		margin-top: 0.4em;
+	}
+	> h1, h2, h3 {
+		margin-bottom: 0.1em;
+	}
+	h4 {
+		margin-top: 0.8em;
+		margin-bottom: 0.5em;
+	}
 }
-
 
 .event-module-header {
 
@@ -15,4 +23,13 @@
 }
 
 .event-module-footer {
+}
+
+.summary-attribution {
+	margin-top: 1.0em;
+}
+.summary-tectonic-summary {
+	> div > p {
+		margin-top: 0.7em;
+	}
 }
