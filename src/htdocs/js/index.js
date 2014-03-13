@@ -23,14 +23,25 @@ require.config({
 
 require([
 	'EventDetails',
-	'base/EventPage'
+	'base/EventPage',
+	'theme/OffCanvas'
 ], function (
 	EventDetails,
-	EventPage
+	EventPage,
+	OffCanvas
 ) {
 	'use strict';
 
-	new EventPage({
+	var eventpage,
+	    offcanvas;
+
+	eventpage = new EventPage({
 		eventDetails: EventDetails
 	});
+
+	offcanvas = OffCanvas.getOffCanvas();
+	eventpage.on('render', function () {
+		offcanvas.hide();
+	});
+
 });
