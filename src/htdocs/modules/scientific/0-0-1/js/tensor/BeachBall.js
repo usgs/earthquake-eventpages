@@ -99,8 +99,7 @@ define([
 		this._y0 = options.y0 || radius+1;
 		this._radius = radius;
 		this._bgColor = options.bgColor || '#fff';
-		this._fillColor = options.fillColor ||
-				BeachBall.getFillColor(options.tensor.depth);
+		this._fillColor = 'rgba(221, 221, 221, 1.0)';
 		this._lineColor = options.lineColor || '#000';
 		this._lineWidth = options.lineWidth || 0.25;
 		this._plotAxes = (options.plotAxes !== false);
@@ -432,16 +431,6 @@ define([
 			x: x,
 			y: y
 		};
-	};
-
-
-	/**
-	 * Get a fill color for the beachball based on its depth.
-	 *
-	 * @return {String} color.
-	 */
-	BeachBall.getFillColor = function(depth) {
-		return 'rgba(221, 221, 221, 1.0)';
 	};
 
 
