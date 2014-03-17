@@ -99,7 +99,7 @@ define([
 		this._y0 = options.y0 || radius+1;
 		this._radius = radius;
 		this._bgColor = options.bgColor || '#fff';
-		this._fillColor = 'rgba(221, 221, 221, 1.0)';
+		this._fillColor = options.fillColor || '#ddd';
 		this._lineColor = options.lineColor || '#000';
 		this._lineWidth = options.lineWidth || 0.25;
 		this._plotAxes = (options.plotAxes !== false);
