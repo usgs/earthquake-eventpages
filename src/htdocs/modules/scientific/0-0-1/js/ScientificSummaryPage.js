@@ -98,7 +98,8 @@ define([
 		if (origins) {
 			originEl = document.createElement('div');
 			originEl.className = 'location';
-			HypocenterPage.prototype.getOriginDetail.call(this, origins[0], function (markup) {
+			HypocenterPage.prototype.getOriginDetail.call(this, origins[0],
+					function (markup) {
 				originEl.innerHTML = [
 					'<a href="#scientific_hypocenter"><h3>Hypocenter</h3></a>',
 						markup,

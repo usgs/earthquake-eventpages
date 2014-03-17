@@ -176,10 +176,22 @@ define([
 	 */
 	HypocenterPage.prototype.getOriginDetail = function (product, callback) {
 		var _this = this,
-		    geoserveProduct = null;
+		    geoserveProduct = null,
+		    i, len, testProduct,
+		    geoProducts = this._event.properties.products.geoserve,
+		    prodEventSource = product.properties.eventsource,
+		    prodEventSourceCode = product.properties.eventsourcecode;
 
 		try {
-			geoserveProduct = this._event.properties.products.geoserve[0];
+			// Find geoserve product that corresponds to the given (origin) product
+			for (i = 0, len = geoProducts.length; i < len; i++) {
+				testProduct = geoProducts[i];
+				if (testProduct.properties.eventsource === prodEventSource &&
+						testProduct.properties.eventsourcecode === prodEventSourceCode) {
+					geoserveProduct = testProduct;
+					break;
+				}
+			}
 
 			Xhr.ajax({
 				url: geoserveProduct.contents['geoserve.json'].url,
