@@ -24,6 +24,7 @@ require.config({
 require([
 	'EventDetails',
 	'base/EventPage',
+	// "theme" is configured by hazdev-template
 	'theme/OffCanvas'
 ], function (
 	EventDetails,
