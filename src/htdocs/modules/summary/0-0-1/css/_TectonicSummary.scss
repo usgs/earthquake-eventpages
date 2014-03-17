@@ -11,6 +11,10 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 		}
 	}
 
+	> div > p {
+		margin-top:0.7em;
+	}
+
 	/*
 	a.aleutian {
 		background-image:url('#{$baseImageUrl}/aleutian_tsum304.jpg');
