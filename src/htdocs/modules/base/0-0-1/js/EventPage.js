@@ -65,7 +65,6 @@ define([
 
 		this._modules = options.modules || [
 			new SummaryModule({'eventDetails':this._eventDetails}),
-			new EventModule({'eventDetails':this._eventDetails}),
 			new DYFIModule({'eventDetails':this._eventDetails}),
 			new ScientificModule({'eventDetails':this._eventDetails})
 		];

@@ -30,6 +30,9 @@ Getting Started
 ### Notes ###
 1. This application uses the earthquake responsive template found at  
    https://github.com/usgs/hazdev-template.git
+   The responsive template dependency is not bundled during build, so sites
+   can configure their theme, and must be installed before this application
+   is deployed.
 
 ### Implementing Modules and Module Pages
 
