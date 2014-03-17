@@ -23,18 +23,7 @@ define([
 	    HALF_PI = PI / 2,
 	    QUARTER_PI = PI / 4,
 	    D2R = PI / 180,
-	    EPSILON = -1e-16,
-	    COLORS;
-
-	// possible beachball colors
-	COLORS = {
-		'orange': 'rgba(254, 157, 0, 1.0)',
-		'yellow': 'rgba(251, 255, 3, 1.0)',
-		'green': 'rgba(0, 255, 0, 1.0)',
-		'blue': 'rgba(4, 0, 253, 1.0)',
-		'violet': 'rgba(160, 36, 196, 1.0)',
-		'red': 'rgba(252, 0, 0, 1.0)'
-	};
+	    EPSILON = -1e-16;
 
 	/**
 	 * Normalize a value into a range.
@@ -110,8 +99,7 @@ define([
 		this._y0 = options.y0 || radius+1;
 		this._radius = radius;
 		this._bgColor = options.bgColor || '#fff';
-		this._fillColor = options.fillColor ||
-				BeachBall.getFillColor(options.tensor.depth);
+		this._fillColor = options.fillColor || '#ddd';
 		this._lineColor = options.lineColor || '#000';
 		this._lineWidth = options.lineWidth || 0.25;
 		this._plotAxes = (options.plotAxes !== false);
@@ -443,30 +431,6 @@ define([
 			x: x,
 			y: y
 		};
-	};
-
-
-	/**
-	 * Get a fill color for the beachball based on its depth.
-	 *
-	 * @return {String} color.
-	 */
-	BeachBall.getFillColor = function(depth) {
-		if (!depth || depth < 35) {
-			return COLORS.orange;
-		} else if (depth < 70) {
-			return COLORS.yellow;
-		} else if (depth < 150) {
-			return COLORS.green;
-		} else if (depth < 300) {
-			return COLORS.blue;
-		} else if (depth < 500) {
-			return COLORS.violet;
-		} else if (depth >= 500) {
-			return COLORS.red;
-		} else {
-			return COLORS.orange;
-		}
 	};
 
 
