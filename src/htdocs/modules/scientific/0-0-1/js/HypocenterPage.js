@@ -1,10 +1,14 @@
 /* global define */
 define([
 	'util/Util',
+	'util/Xhr',
+
 	'base/TabbedModulePage',
 	'base/Formatter'
 ], function (
 	Util,
+	Xhr,
+
 	TabbedModulePage,
 	Formatter
 ) {
@@ -139,6 +143,14 @@ define([
 
 		el.querySelector('.info').innerHTML = this.getOriginDetail(product);
 
+		// Update the FE region info
+		this.getFeString(product, function (feString) {
+			var feContainer = el.querySelector('.fe-info');
+			if (feContainer) {
+				feContainer.innerHTML = feString;
+			}
+		});
+
 		phases = el.querySelector('.phases');
 		magnitudes = el.querySelector('.magnitudes');
 		if (product.type === 'phase-data') {
@@ -163,10 +175,49 @@ define([
 	 * Format an origin product details.
 	 *
 	 * @param  product {Object}
-	 *         the origin-type product to display.
-	 * @return {String}
-	 *         this implementation creates a definition list.
+	 *         The origin-type product for which to get the FE string.
+	 * @param callback {Function}
+	 *        Callback method to execute upon completion of FE lookup. Will be
+	 *        called with the FE string, which may be a single hyphen if any
+	 *        error occurred during the lookup process.
+	 *
 	 */
+	HypocenterPage.prototype.getFeString = function (product, callback) {
+		var geoserveProduct = null,
+		    i, len, testProduct,
+		    geoProducts,
+		    prodEventSource,
+		    prodEventSourceCode;
+
+		try {
+			geoProducts = this._event.properties.products.geoserve;
+			prodEventSource = product.properties.eventsource;
+			prodEventSourceCode = product.properties.eventsourcecode;
+
+			// Find geoserve product that corresponds to the given (origin) product
+			for (i = 0, len = geoProducts.length; i < len; i++) {
+				testProduct = geoProducts[i];
+				if (testProduct.properties.eventsource === prodEventSource &&
+						testProduct.properties.eventsourcecode === prodEventSourceCode) {
+					geoserveProduct = testProduct;
+					break;
+				}
+			}
+
+			Xhr.ajax({
+				url: geoserveProduct.contents['geoserve.json'].url,
+				success: function (geoserve) {
+					callback(geoserve.fe.longName + ' (' + geoserve.fe.number + ')');
+				},
+				error: function () {
+					callback('-');
+				}
+			});
+		} catch (e) {
+			callback('-');
+		}
+	};
+
 	HypocenterPage.prototype.getOriginDetail = function (product) {
 		var buf = [],
 		    formatter = this._options.formatter || new Formatter(),
@@ -237,6 +288,10 @@ define([
 		buf.push('<tr><th scope="row">Azimuthal Gap</th><td>',
 				(azimuthalGap === null ? '-' : azimuthalGap + '&deg;'),
 				'</td></tr>');
+
+		// Placeholder, filled in asynchronously
+		buf.push('<tr><th scope="row"><abbr title="Flinn Engdahl">FE</abbr></th>',
+				'<td class="fe-info">-</td></tr>');
 
 		buf.push('<tr><th scope="row">Review Status</th><td>',
 				reviewStatus.toUpperCase().replace('REVIEWED', 'MANUAL'),
