@@ -161,15 +161,35 @@ define([
 	};
 
 
+	/**
+	 * wrapper that returns all downloads from contents.xml
+	 * @return {String} HTML markup
+	 */
 	ContentsXML.prototype.getDownloads = function () {
 		return '<header>Downloads</header>' + this.toHtml({
 			format: 'download'
 		});
 	};
 
+
+	/**
+	 * wrapper that returns all images/captions from contents.xml
+	 * @return {String} HTML markup
+	 */
 	ContentsXML.prototype.getImages = function () {
 		return this.toHtml({
 			format: 'image'
+		});
+	};
+
+
+	/**
+	 * wrapper that returns all images/captions/downloads from contents.xml
+	 * @return {String} HTML markup
+	 */
+	ContentsXML.prototype.getMixed = function () {
+		return this.toHtml({
+			format: 'mixed'
 		});
 	};
 
@@ -198,9 +218,11 @@ define([
 		for (i = 0, len = contents.length; i < len; i++) {
 			content = contents[i];
 			if (format === 'image') {
-				buf.push(this._formatImageContent(content));
+				buf.push(this._formatAllContent(content, {includeDownloads: false}));
 			} else if (format === 'download') {
 				buf.push(this._formatDownloadContent(content));
+			} else if (format === 'mixed') {
+				buf.push(this._formatAllContent(content, {includeDownloads: true}));
 			}
 		}
 		buf.push('</section>');
@@ -218,7 +240,36 @@ define([
 	ContentsXML.prototype._formatDownloadContent = function (content) {
 		var formatBuf = [],
 		    title,
-		    caption,
+		    caption;
+
+		title = content.title;
+		caption = content.caption;
+
+		// get total list of formats
+		formatBuf = this._getDownloadLinks(content);
+
+		return [
+			'<section class="contentsxml-content">',
+				'<header><h1>', title, '</h1></header>',
+				'<ul class="formats">',
+					'<li>', formatBuf.join('</li><li>'), '</li>',
+				'</ul>',
+			'</section>'
+		].join('');
+	};
+
+
+	/**
+	 * For one piece of content, get a link for each available format
+	 *
+	 * @param  content {object}
+	 *         content to format
+	 * @return {Array<String>} array of links to downloadable content.
+	 *
+	 */
+	ContentsXML.prototype._getDownloadLinks = function (content) {
+		var formatBuf = [],
+		    title,
 		    formats,
 		    format,
 		    href,
@@ -229,9 +280,8 @@ define([
 		    i,
 		    len;
 
-		title = content.title;
-		caption = content.caption;
 		formats = content.formats;
+
 		for (i = 0, len = formats.length; i < len; i++) {
 			format = formats[i];
 			href = format.href;
@@ -248,26 +298,21 @@ define([
 					'</a>'].join(''));
 		}
 
-		return [
-			'<section class="contentsxml-content">',
-				'<header><h1>', title, '</h1></header>',
-				'<ul class="formats">',
-					'<li>', formatBuf.join('</li><li>'), '</li>',
-				'</ul>',
-			'</section>'
-		].join('');
+		return formatBuf;
 	};
 
 
-
 	/**
-	 * Format one piece of content.
+	 * Read contents.xml and return the contents.
 	 *
-	 * @param content {Object}
-	 *        content to format.
-	 * @return {String} markup for content.
+	 * @param  content {object}
+	 *         content to format
+	 * @param  options {object}
+	 *         options.includeDownloads, defines whether to include download links
+	 *
+	 * @return {String} HTML markup that defines contents.xml
 	 */
-	ContentsXML.prototype._formatImageContent = function (content) {
+	ContentsXML.prototype._formatAllContent = function (content, options) {
 		var imageBuf = null,
 		    title,
 		    caption,
@@ -279,7 +324,9 @@ define([
 		    size,
 		    extension,
 		    i,
-		    len;
+		    len,
+		    downloads,
+		    includeDownloads = options.includeDownloads || false;
 
 		title = content.title;
 		caption = content.caption;
@@ -294,6 +341,11 @@ define([
 
 			if (imageBuf === null && type.indexOf('image/') === 0) {
 				imageBuf = [];
+				if (includeDownloads) {
+					downloads = this._getDownloadLinks(content);
+					imageBuf.push([
+							'<ul><li>', downloads.join('</li><li>'), '</li></ul>'].join(''));
+				}
 				imageBuf.push('<figure>',
 						'<img src="', url, '" alt="', title, ' image"/>');
 				if (caption) {
@@ -316,6 +368,7 @@ define([
 			'</section>'
 		].join('');
 	};
+
 
 	// return constructor
 	return ContentsXML;
