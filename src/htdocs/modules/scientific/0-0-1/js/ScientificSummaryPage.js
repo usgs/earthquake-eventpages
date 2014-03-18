@@ -99,8 +99,13 @@ define([
 			originEl = document.createElement('div');
 			originEl.className = 'location';
 
-			originEl.innerHTML = HypocenterPage.prototype.getOriginDetail.call(
-					this, origins[0]);
+			originEl.innerHTML = [
+				'<a href="#scientific_hypocenter"><h3>Hypocenter</h3></a>',
+				HypocenterPage.prototype.getOriginDetail.call(this, origins[0]),
+				'<p><a href="#scientific_hypocenter">',
+					'View all locations, magnitudes, phases, and arrivals.',
+				'</a></p>'
+			].join('');
 
 			HypocenterPage.prototype.getFeString.call(this, origins[0],
 					function (feString) {
