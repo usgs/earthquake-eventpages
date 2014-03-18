@@ -166,7 +166,7 @@ define([
 	 * @return {String} HTML markup
 	 */
 	ContentsXML.prototype.getDownloads = function () {
-		return '<header>Downloads</header>' + this.toHtml({
+		return this.toHtml({
 			format: 'download'
 		});
 	};

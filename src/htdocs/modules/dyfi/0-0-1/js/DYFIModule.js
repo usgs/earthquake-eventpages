@@ -86,7 +86,8 @@ define([
 		new ContentsXML({
 				product: product,
 				callback: function (contents) {
-					el.innerHTML = contents.getDownloads();
+					el.innerHTML = '<header><h3>Downloads</h3></header>' +
+							contents.getDownloads();
 				},
 				errback: function () {
 					el.innerHTML = 'Error loading contents ...';
