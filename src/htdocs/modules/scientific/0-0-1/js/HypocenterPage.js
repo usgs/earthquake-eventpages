@@ -141,9 +141,14 @@ define([
 			'<div class="downloads"></div>'
 		].join('');
 
-		//el.querySelector('.info').innerHTML = this.getOriginDetail(product);
-		this.getOriginDetail(product, function (markup) {
-			el.querySelector('.info').innerHTML = markup;
+		el.querySelector('.info').innerHTML = this.getOriginDetail(product);
+
+		// Update the FE region info
+		this.getFeString(product, function (feString) {
+			var feContainer = el.querySelector('.fe-info');
+			if (feContainer) {
+				feContainer.innerHTML = feString;
+			}
 		});
 
 		phases = el.querySelector('.phases');
@@ -170,19 +175,25 @@ define([
 	 * Format an origin product details.
 	 *
 	 * @param  product {Object}
-	 *         the origin-type product to display.
-	 * @return {String}
-	 *         this implementation creates a definition list.
+	 *         The origin-type product for which to get the FE string.
+	 * @param callback {Function}
+	 *        Callback method to execute upon completion of FE lookup. Will be
+	 *        called with the FE string, which may be a single hyphen if any
+	 *        error occurred during the lookup process.
+	 *
 	 */
-	HypocenterPage.prototype.getOriginDetail = function (product, callback) {
-		var _this = this,
-		    geoserveProduct = null,
+	HypocenterPage.prototype.getFeString = function (product, callback) {
+		var geoserveProduct = null,
 		    i, len, testProduct,
-		    geoProducts = this._event.properties.products.geoserve,
-		    prodEventSource = product.properties.eventsource,
-		    prodEventSourceCode = product.properties.eventsourcecode;
+		    geoProducts,
+		    prodEventSource,
+		    prodEventSourceCode;
 
 		try {
+			geoProducts = this._event.properties.products.geoserve;
+			prodEventSource = product.properties.eventsource;
+			prodEventSourceCode = product.properties.eventsourcecode;
+
 			// Find geoserve product that corresponds to the given (origin) product
 			for (i = 0, len = geoProducts.length; i < len; i++) {
 				testProduct = geoProducts[i];
@@ -196,24 +207,18 @@ define([
 			Xhr.ajax({
 				url: geoserveProduct.contents['geoserve.json'].url,
 				success: function (geoserve) {
-					// Must use "call" because ScientificSummaryPage "call"s this method
-					callback(HypocenterPage.prototype._getOriginDetail.call(_this,
-							product, geoserve.fe.longName + ' (' + geoserve.fe.number + ')'));
+					callback(geoserve.fe.longName + ' (' + geoserve.fe.number + ')');
 				},
 				error: function () {
-					// Must use "call" because ScientificSummaryPage "call"s this method
-					callback(HypocenterPage.prototype._getOriginDetail.call(_this,
-							product, null));
+					callback('-');
 				}
 			});
 		} catch (e) {
-			// Must use "call" because ScientificSummaryPage "call"s this method
-			callback(HypocenterPage.prototype._getOriginDetail.call(_this,
-					product, null));
+			callback('-');
 		}
 	};
 
-	HypocenterPage.prototype._getOriginDetail = function (product, feString) {
+	HypocenterPage.prototype.getOriginDetail = function (product) {
 		var buf = [],
 		    formatter = this._options.formatter || new Formatter(),
 		    p = product.properties,
@@ -284,8 +289,9 @@ define([
 				(azimuthalGap === null ? '-' : azimuthalGap + '&deg;'),
 				'</td></tr>');
 
+		// Placeholder, filled in asynchronously
 		buf.push('<tr><th scope="row"><abbr title="Flinn Engdahl">FE</abbr></th>',
-				'<td>', (feString === null ? '-' : feString), '</td></tr>');
+				'<td class="fe-info">-</td></tr>');
 
 		buf.push('<tr><th scope="row">Review Status</th><td>',
 				reviewStatus.toUpperCase().replace('REVIEWED', 'MANUAL'),
