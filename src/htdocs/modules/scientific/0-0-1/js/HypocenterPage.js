@@ -290,7 +290,10 @@ define([
 				'</td></tr>');
 
 		// Placeholder, filled in asynchronously
-		buf.push('<tr><th scope="row"><abbr title="Flinn Engdahl">FE</abbr></th>',
+		buf.push('<tr>',
+				'<th scope="row">',
+					'<abbr title="Flinn Engdahl">FE</abbr> Region',
+				'</th>',
 				'<td class="fe-info">-</td></tr>');
 
 		buf.push('<tr><th scope="row">Review Status</th><td>',
