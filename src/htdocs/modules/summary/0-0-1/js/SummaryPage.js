@@ -2,13 +2,13 @@
 define([
 	'summary/Attribution',
 	'base/EventModulePage',
-
+	'base/ContentsXML',
 	'util/Xhr',
 	'util/Util'
 ], function (
 	Attribution,
 	EventModulePage,
-
+	ContentsXML,
 	Xhr,
 	Util
 ) {
@@ -272,7 +272,7 @@ define([
 		});
 	};
 
-		SummaryPage.prototype._showInteractiveMap = function () {
+	SummaryPage.prototype._showInteractiveMap = function () {
 		var _this = this;
 
 		require(['summary/InteractiveMap'], function (InteractiveMap) {
@@ -283,6 +283,25 @@ define([
 
 			_this._interactiveMap.show(document.body);
 		});
+	};
+
+	SummaryPage.prototype._setFooterMarkup = function () {
+		var product = this._event.properties.products.origin[0],
+		    el = document.createElement('div');
+		el.innerHTML = 'Loading contents ...';
+		el.className = 'downloads';
+
+		new ContentsXML({
+				product: product,
+				callback: function (contents) {
+					// build content
+					el.innerHTML = '<header><h3>Downloads</h3></header>' +
+							contents.getDownloads();
+				},
+				errback: function () {
+					el.innerHTML = 'Error loading contents ...';
+				}});
+		this._footer.appendChild(el);
 	};
 
 	return SummaryPage;

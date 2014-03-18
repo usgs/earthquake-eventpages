@@ -25,7 +25,7 @@ define([
 					hash: 'responses',
 					title: 'Responses',
 					eventDetails: eventData,
-					module: new DYFIModule()
+					module: new DYFIModule({eventDetails: eventData})
 			},
 			page = new DYFIResponsesPage(options);
 

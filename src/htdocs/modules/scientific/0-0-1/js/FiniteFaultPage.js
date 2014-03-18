@@ -60,6 +60,9 @@ define([
 				}
 			});
 		}
+
+		el.appendChild(TabbedModulePage.prototype.getDownloads.call(this, product));
+
 		return el;
 	};
 

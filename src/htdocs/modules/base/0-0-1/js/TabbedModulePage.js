@@ -171,7 +171,26 @@ define([
 		new ContentsXML({
 				product: product,
 				callback: function (contents) {
-					el.innerHTML = contents.toHtml();
+					// build content
+					el.innerHTML = contents.getImages();
+				},
+				errback: function () {
+					el.innerHTML = 'Error loading contents ...';
+				}});
+		return el;
+	};
+
+		TabbedModulePage.prototype.getDownloads = function (product) {
+		var el = document.createElement('div');
+		el.innerHTML = 'Loading contents ...';
+		el.className = 'downloads';
+
+		new ContentsXML({
+				product: product,
+				callback: function (contents) {
+					// build content
+					el.innerHTML = '<header><h3>Downloads</h3></header>' +
+							contents.getDownloads();
 				},
 				errback: function () {
 					el.innerHTML = 'Error loading contents ...';

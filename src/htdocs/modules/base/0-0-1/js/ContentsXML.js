@@ -160,6 +160,39 @@ define([
 		return this._contents;
 	};
 
+
+	/**
+	 * wrapper that returns all downloads from contents.xml
+	 * @return {String} HTML markup
+	 */
+	ContentsXML.prototype.getDownloads = function () {
+		return this._toHtml({
+			format: 'download'
+		});
+	};
+
+
+	/**
+	 * wrapper that returns all images/captions from contents.xml
+	 * @return {String} HTML markup
+	 */
+	ContentsXML.prototype.getImages = function () {
+		return this._toHtml({
+			format: 'image'
+		});
+	};
+
+
+	/**
+	 * wrapper that returns all images/captions/downloads from contents.xml
+	 * @return {String} HTML markup
+	 */
+	ContentsXML.prototype.getMixed = function () {
+		return this._toHtml({
+			format: 'mixed'
+		});
+	};
+
 	/**
 	 * Format contents xml content as html.
 	 *
@@ -169,12 +202,13 @@ define([
 	 *
 	 *  ...[additional file elements]
 	 */
-	ContentsXML.prototype.toHtml = function () {
+	ContentsXML.prototype._toHtml = function (options) {
 		var buf = [],
 		    contents = this.getContents(),
 		    content,
 		    i,
-		    len;
+		    len,
+		    format = (options === undefined || options.format === undefined ? 'image' : options.format);
 
 		if (contents === null) {
 			throw new Error('No contents to format');
@@ -183,7 +217,13 @@ define([
 		buf.push('<section class="contentsxml">');
 		for (i = 0, len = contents.length; i < len; i++) {
 			content = contents[i];
-			buf.push(this.formatContent(content));
+			if (format === 'image') {
+				buf.push(this._formatAllContent(content, {includeDownloads: false}));
+			} else if (format === 'download') {
+				buf.push(this._formatDownloadContent(content));
+			} else if (format === 'mixed') {
+				buf.push(this._formatAllContent(content, {includeDownloads: true}));
+			}
 		}
 		buf.push('</section>');
 
@@ -197,11 +237,39 @@ define([
 	 *        content to format.
 	 * @return {String} markup for content.
 	 */
-	ContentsXML.prototype.formatContent = function (content) {
+	ContentsXML.prototype._formatDownloadContent = function (content) {
 		var formatBuf = [],
-		    imageBuf = null,
 		    title,
-		    caption,
+		    caption;
+
+		title = content.title;
+		caption = content.caption;
+
+		// get total list of formats
+		formatBuf = this._getDownloadLinks(content);
+
+		return [
+			'<section class="contentsxml-content">',
+				'<header><h1>', title, '</h1></header>',
+				'<ul class="formats">',
+					'<li>', formatBuf.join('</li><li>'), '</li>',
+				'</ul>',
+			'</section>'
+		].join('');
+	};
+
+
+	/**
+	 * For one piece of content, get a link for each available format
+	 *
+	 * @param  content {object}
+	 *         content to format
+	 * @return {Array<String>} array of links to downloadable content.
+	 *
+	 */
+	ContentsXML.prototype._getDownloadLinks = function (content) {
+		var formatBuf = [],
+		    title,
 		    formats,
 		    format,
 		    href,
@@ -212,9 +280,8 @@ define([
 		    i,
 		    len;
 
-		title = content.title;
-		caption = content.caption;
 		formats = content.formats;
+
 		for (i = 0, len = formats.length; i < len; i++) {
 			format = formats[i];
 			href = format.href;
@@ -229,24 +296,74 @@ define([
 					'>',
 						extension, ' (', this._formatter.fileSize(size), ')',
 					'</a>'].join(''));
+		}
+
+		return formatBuf;
+	};
+
+
+	/**
+	 * Read contents.xml and return the contents.
+	 *
+	 * @param  content {object}
+	 *         content to format
+	 * @param  options {object}
+	 *         options.includeDownloads, defines whether to include download links
+	 *
+	 * @return {String} HTML markup that defines contents.xml
+	 */
+	ContentsXML.prototype._formatAllContent = function (content, options) {
+		var imageBuf = null,
+		    title,
+		    caption,
+		    formats,
+		    format,
+		    href,
+		    type,
+		    url,
+		    size,
+		    extension,
+		    i,
+		    len,
+		    downloads,
+		    includeDownloads = options.includeDownloads || false;
+
+		title = content.title;
+		caption = content.caption;
+		formats = content.formats;
+		for (i = 0, len = formats.length; i < len; i++) {
+			format = formats[i];
+			href = format.href;
+			type = format.type;
+			url = format.url;
+			size = format.length;
+			extension = href.split('.').slice(-1).join('').toUpperCase();
 
 			if (imageBuf === null && type.indexOf('image/') === 0) {
 				imageBuf = [];
+				if (includeDownloads) {
+					downloads = this._getDownloadLinks(content);
+					imageBuf.push([
+							'<ul><li>', downloads.join('</li><li>'), '</li></ul>'].join(''));
+				}
 				imageBuf.push('<figure>',
 						'<img src="', url, '" alt="', title, ' image"/>');
 				if (caption) {
 					imageBuf.push('<figcaption>', caption, '</figcaption>');
 				}
 				imageBuf.push('</figure>');
+
 			}
 		}
 
-		return [
+		// Only _formatDownloadContent captures non-image content
+		if (imageBuf === null) {
+			return;
+		}
+
+			return [
 			'<section class="contentsxml-content">',
 				'<header><h1>', title, '</h1></header>',
-				'<ul class="formats">',
-					'<li>', formatBuf.join('</li><li>'), '</li>',
-				'</ul>',
 				(imageBuf ? imageBuf.join('') : ''),
 			'</section>'
 		].join('');

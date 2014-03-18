@@ -78,8 +78,15 @@ define([
 	};
 
 	EventModulePage.prototype._setFooterMarkup = function () {
-		this._footer.innerHTML = this._module.getFooterMarkup(this);
+		var footerMarkup = this._module.getFooterMarkup(this);
+
+		if (typeof footerMarkup === 'object') {
+			this._footer.appendChild(footerMarkup);
+		} else {
+			this._footer.innerHTML = footerMarkup;
+		}
 	};
+
 
 	return EventModulePage;
 });

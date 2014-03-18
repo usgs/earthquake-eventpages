@@ -105,8 +105,7 @@ define([
 					this._getPlanes(tensor),
 				'</div>',
 				'<div class="column one-of-two beachball"></div>',
-			'</div>',
-			'<div class="row clearfix downloads"></div>'
+			'</div>'
 		].join('');
 
 		// add beachball
@@ -116,9 +115,11 @@ define([
 					size: 320
 				}).getCanvas());
 
-		// add contentsxml content
-		el.querySelector('.downloads').appendChild(
-				TabbedModulePage.prototype.getDetail.call(this, tensor.product));
+		// add contentsxml content getDetail()
+		el.appendChild(TabbedModulePage.prototype.getDetail.call(this, tensor.product));
+
+		// add downloads section getDownloads()
+		el.appendChild(TabbedModulePage.prototype.getDownloads.call(this, tensor.product));
 
 		return el;
 	};

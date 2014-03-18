@@ -16,7 +16,7 @@ define([
 	var expect = chai.expect;
 
 	var event = Usb000ldeh;
-	var module = new DYFIModule();
+	var module = new DYFIModule({eventDetails: event});
 	var module_info = {hash:'maps', title:'Maps', eventDetails:event, module:module};
 
 	describe('DYFIMapPage test suite.', function () {

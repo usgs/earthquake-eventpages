@@ -70,7 +70,7 @@ define([
 
 	var ScientificModule = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
-
+		this._event = options.event;
 		EventModule.call(this, options);
 	};
 	ScientificModule.prototype = Object.create(EventModule.prototype);
