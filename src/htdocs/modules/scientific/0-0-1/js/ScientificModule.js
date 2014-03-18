@@ -2,13 +2,11 @@
 define([
 	'util/Util',
 	'base/EventModule',
-	'require',
-	'base/ContentsXML'
+	'require'
 ], function (
 	Util,
 	EventModule,
-	require,
-	ContentsXML
+	require
 ) {
 	'use strict';
 
