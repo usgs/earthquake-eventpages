@@ -166,7 +166,7 @@ define([
 	 * @return {String} HTML markup
 	 */
 	ContentsXML.prototype.getDownloads = function () {
-		return this.toHtml({
+		return this._toHtml({
 			format: 'download'
 		});
 	};
@@ -177,7 +177,7 @@ define([
 	 * @return {String} HTML markup
 	 */
 	ContentsXML.prototype.getImages = function () {
-		return this.toHtml({
+		return this._toHtml({
 			format: 'image'
 		});
 	};
@@ -188,7 +188,7 @@ define([
 	 * @return {String} HTML markup
 	 */
 	ContentsXML.prototype.getMixed = function () {
-		return this.toHtml({
+		return this._toHtml({
 			format: 'mixed'
 		});
 	};
@@ -202,7 +202,7 @@ define([
 	 *
 	 *  ...[additional file elements]
 	 */
-	ContentsXML.prototype.toHtml = function (options) {
+	ContentsXML.prototype._toHtml = function (options) {
 		var buf = [],
 		    contents = this.getContents(),
 		    content,
