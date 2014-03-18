@@ -24,7 +24,7 @@ define([
 				hash: 'summary',
 				title: 'Summary',
 				eventDetails: eventData,
-				module: new SummaryModule()
+				module: new SummaryModule({eventDetails: eventData})
 			};
 
 
@@ -34,12 +34,10 @@ define([
 
 		before(function() {
 
-			stub = sinon.stub(Xhr, 'ajax', function (options) {
-				options.success(geoserve);
-			});
+			stub = sinon.stub(Xhr, 'ajax', function () {});
 
 			page = new SummaryPage(options);
-			//page._ajaxSuccess(geoserve);
+			page._ajaxSuccess(geoserve);
 			content = page.getContent();
 		});
 
