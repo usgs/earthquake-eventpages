@@ -414,12 +414,12 @@ define([
 		    x = [],
 		    y = [],
 		    i,
-		    max,
+		    j,
 		    r;
 
-		for (i = strike, max = strike + PI + EPSILON; i < max; i += D2R) {
+		for (i = strike, j = 0; j <= 180; j++, i += D2R) {
 			if (vertical) {
-				r = (abs(strike-i) < EPSILON || abs(i-strike-PI) < EPSILON) ? 1 : 0;
+      	r = (abs(strike-i) < EPSILON || abs(i-strike-PI) < EPSILON) ? 1 : 0;
 			} else {
 				r = SQRT2 * sin(QUARTER_PI - (atan(tanDip * sin(i - strike))) / 2);
 			}
