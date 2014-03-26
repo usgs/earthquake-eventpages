@@ -112,7 +112,8 @@ define([
 		el.querySelector('.beachball').appendChild(
 				new BeachBall({
 					tensor: tensor,
-					size: 320
+					size: 320,
+					lineWidth: 0.50
 				}).getCanvas());
 
 		// add contentsxml content getDetail()
