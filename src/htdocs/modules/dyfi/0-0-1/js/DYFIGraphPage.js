@@ -21,11 +21,11 @@ define([
 
 	var GRAPHIMAGES = [
 		{
-			title:'Distance Vs. Intensity',
+			title:'Intensity Vs. Distance',
 			suffix:'_plot_atten.jpg'
 		},
 		{
-			title:'Response Vs. Time',
+			title:'Responses Vs. Time',
 			suffix:'_plot_numresp.jpg'
 		}
 	];
