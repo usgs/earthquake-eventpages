@@ -91,8 +91,9 @@ foreach ($prompts as $key => $item) {
 		$default = $item['default'];
 	}
 
-	fwrite($FP_CONFIG, $key . ' = ' . configure($item['prompt'],
-			$default, isset($item['secure']) ? $item['secure'] : false) . "\n");
+	fwrite($FP_CONFIG, $key . ' = "' .
+			configure($item['prompt'], $default, isset($item['secure']) ? $item['secure'] : false) .
+			"\"\n");
 }
 
 // Do any custom prompting here
