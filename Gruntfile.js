@@ -205,6 +205,8 @@ module.exports = function (grunt) {
 						util: '../../../bower_components/hazdev-webutils/src/util',
 
 						tablist: '../../../node_modules/hazdev-tablist/src/tablist',
+						theme: '../../../node_modules/hazdev-template/src/htdocs/js',
+
 						map: 'js/map',
 
 						base: '../modules/base/0-0-1/js',
@@ -220,7 +222,15 @@ module.exports = function (grunt) {
 					},
 
 					modules: [
-						{name: 'index', exclude: ['EventDetails']}
+						{
+							name: 'index',
+							exclude: [
+								// provided by event page
+								'EventDetails',
+								// provided by template
+								'theme/OffCanvas'
+							]
+						}
 					]
 
 				}
