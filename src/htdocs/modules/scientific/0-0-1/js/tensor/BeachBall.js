@@ -417,14 +417,20 @@ define([
 		    j,
 		    r;
 
-		for (i = strike, j = 0; j <= 180; j++, i += D2R) {
-			if (vertical) {
-      	r = (abs(strike-i) < EPSILON || abs(i-strike-PI) < EPSILON) ? 1 : 0;
-			} else {
+		if (vertical) {
+			// straight line
+			x.push(
+					x0 + radius * sin(strike),
+					x0 + radius * sin(strike + PI));
+			y.push(
+					y0 + radius * cos(strike),
+					y0 + radius * cos(strike + PI));
+		} else {
+			for (i = strike, j = 0; j <= 180; j++, i += D2R) {
 				r = SQRT2 * sin(QUARTER_PI - (atan(tanDip * sin(i - strike))) / 2);
+				x.push(x0 + radius * r * sin(i));
+				y.push(y0 + radius * r * cos(i));
 			}
-			x.push(x0 + radius * r * sin(i));
-			y.push(y0 + radius * r * cos(i));
 		}
 
 		return {
