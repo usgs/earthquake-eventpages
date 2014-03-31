@@ -28,29 +28,28 @@ a.summary {
 }
 
 a.summary:hover {
-	background:rgba(158, 192, 248, 0.2);
+	background:rgba(158, 192, 248, 0.1);
 }
 
 a.summary.preferred::after {
 	position: absolute;
-	top: -5px;
-	right: 8px;
+	top: 1px;
+	left: 4px;
 	content: '\2713'; // checkmark
 	font-size: 16px;
-	padding: 5px 8px;
-	background: #49a34b;
 	color: #fff;
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
-	border-radius: 1px 2px 2px 2px; // do i like??
+	z-index:3;
 }
 
 a.summary.preferred::before {
 	content: '';
 	position: absolute;
-	top: -4px;
-	right: 36px;
+	top: -1px;
+	left: -1px;
 	width: 0;
 	height: 0;
-	border-left: 5px solid transparent;
-	border-bottom: 4px solid #005100;
+	border-right: 35px solid transparent;
+	border-top: 35px solid #49a34b;
+	z-index:2;
 }
