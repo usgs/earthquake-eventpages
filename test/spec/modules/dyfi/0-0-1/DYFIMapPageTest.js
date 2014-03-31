@@ -42,14 +42,6 @@ define([
 			});
 		});
 
-		describe('_getUseMap', function () {
-			it('has such a method', function() {
-				/* jshint -W030 */
-				expect((new DYFIMapPage(module_info))._getUseMap).to.not.be.undefined;
-				/* jshint +W030 */
-			});
-		});
-
 		// testing inheritance from EventModulePage
 		describe('_initialize', function () {
 			it('has such a method', function() {
