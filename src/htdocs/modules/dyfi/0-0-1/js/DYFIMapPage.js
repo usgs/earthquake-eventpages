@@ -3,14 +3,12 @@ define([
 	'util/Util',
 	'base/EventModulePage',
 	'tablist/Tablist',
-	'tablist/ImageList',
 	'util/Xhr',
 	'./TabListUtil'
 ], function (
 	Util,
 	EventModulePage,
 	TabList,
-	ImageList,
 	Xhr,
 	TabListUtil
 ) {
@@ -64,7 +62,7 @@ define([
 		}
 
 		dyfi = products.dyfi[0];
-		new ImageList({
+		new TabList({
 			el: this._content.appendChild(document.createElement('div')),
 			tabPosition: 'right',
 			tabs: TabListUtil.CreateTabListData(
@@ -76,23 +74,6 @@ define([
 				})
 		});
 
-	};
-
-	/**
-	 * ajax call to get the usemap for a given image.
-	 *
-	 * @param content {Object}
-	 *        a content object aquired from the properties.products.dyfi Object
-	 * @param content.url {String}
-	 *        the url used to retrieve the usemap
-	 **/
-	DYFIMapPage.prototype._getUseMap = function (content, _this) {
-		Xhr.ajax({
-			url: content.url,
-			success: function (html) {
-				_this._content.insertAdjacentHTML('beforeend', html);
-			}
-		});
 	};
 
 	return DYFIMapPage;
