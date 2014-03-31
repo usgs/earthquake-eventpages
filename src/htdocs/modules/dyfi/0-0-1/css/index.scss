@@ -6,6 +6,9 @@ $th_padding: $td_padding * 2;
 /* responsive table */
 @import '../../../../css/_responsiveTable.scss';
 
+/* svg image map */
+@import '../../../../../../node_modules/hazdev-svgimagemap/src/svgimagemap/SvgImageMap.scss';
+
 .hidden {
 	display:none;
 }
