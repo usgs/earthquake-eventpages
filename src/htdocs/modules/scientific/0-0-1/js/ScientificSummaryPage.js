@@ -107,7 +107,7 @@ define([
 				'</a></p>'
 			].join('');
 
-			HypocenterPage.prototype.getFeString.call(this, origins[0],
+			HypocenterDetailsPage.prototype.getFeString.call(this, origins[0],
 					function (feString) {
 				var feContainer = originEl.querySelector('.fe-info');
 				if (feContainer) {
