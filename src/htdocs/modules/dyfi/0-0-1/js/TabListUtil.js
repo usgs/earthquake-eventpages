@@ -46,12 +46,12 @@ define([
 						container.innerHTML = '<img alt="map" src="' +
 								contents[imageKey].url + '"/>';
 					}
+					tablist.push({
+						title: info.title,
+						content: container
+					});
 				}
 
-				tablist.push({
-					title: info.title,
-					content: container
-				});
 			}
 			return tablist;
 		}
