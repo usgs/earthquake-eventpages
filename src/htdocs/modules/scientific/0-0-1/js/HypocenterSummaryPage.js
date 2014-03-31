@@ -55,14 +55,14 @@ function (
 				'<small>' , magnitudeType , '</small>',
 			'</div>',
 			'<div class="info">',
-				'<span class="contributor">',
-					Attribution.getMainContributerHeader(source.toUpperCase()),
-				'</span>',
 				'<span class="location">',
 					formatter.location(latitude, longitude),
 				'</span>',
 				'<span class="depth">',
 					formatter.depth(depth, 'km'), ' depth',
+				'</span>',
+				'<span class="contributor">',
+					Attribution.getMainContributerHeader(source.toUpperCase()),
 				'</span>',
 			'<div>'
 		].join('');
