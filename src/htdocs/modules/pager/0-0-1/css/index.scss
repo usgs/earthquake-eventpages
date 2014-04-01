@@ -1,0 +1,153 @@
+@import 'mmi.scss';
+@import 'alert.scss';
+
+
+.pager {
+
+	.disclaimer, .legend {
+		font-size:.8em;
+		color:#666;
+	}
+	.legend {
+		font-style:italic;
+	}
+	.toggle {
+		color:#00C;
+		text-decoration:underline;
+		cursor:pointer;
+		display:block;
+		font-size:.9em;
+	}
+
+	.mmi {
+		display:inline-block;
+		width:64px;
+		padding:2px 8px;
+		text-align:center;
+		margin-right:8px;
+	}
+
+	.mmiI {
+		border:1px solid #999;
+	}
+
+	.pager-exposures {
+		list-style:none;
+		margin:0;
+		padding:0;
+
+		> li {
+			margin:4px 0;
+			padding:4px 0;
+
+			.mmi {
+				cursor:pointer;
+			}
+
+			> dl {
+				display:none;
+				float:left;
+				clear:left;
+				width:100%;
+				font-size:.9em;
+				margin:0 0 0 0;
+				-webkit-margin-before:0;
+				-webkit-margin-after:0;
+				padding:6px 0 12px 72px;
+				border-bottom:1px solid #999;
+
+				> dt, > dd {
+					display:block;
+					float:left;
+					margin:0;
+					padding:0;
+				}
+				> dt {
+					clear:left;
+					color:#666;
+
+					&:after {
+						content:':';
+					}
+				}
+				> dd {
+					margin-left:8px;
+				}
+			}
+
+			&.expanded > dl {
+				display:block;
+			}
+
+			&:after {
+				display:block;
+				content:' ';
+				clear:left;
+			}
+		}
+	}
+
+	.pager-cities {
+		list-style:none;
+		margin:0;
+		padding:0;
+
+		> li {
+			position:relative;
+			margin:4px 0;
+			padding:4px 72px 2px 0;
+			// border-bottom:1px solid #ccc;
+			white-space:nowrap;
+			overflow:hidden;
+			text-overflow:ellipsis;
+
+			> .population {
+				position:absolute;
+				top:0;
+				bottom:0;
+				background-color:#fff;
+				right:0;
+				width:64px;
+				padding-left:8px;
+				z-index:10;
+				text-align:right;
+				line-height:2.0;
+			}
+		}
+
+		> .city-additional {
+			display:none;
+		}
+
+		&.show-additional > .city-additional {
+			display:block;
+		}
+	}
+}
+
+@media screen and (min-width:768px) {
+	.pager {
+		.alert-wrapper {
+			float:right;
+			width:40%;
+			clear:right;
+		}
+		.map-wrapper {
+			width:60%;
+			padding-right:16px;
+		}
+		.exposure-wrapper {
+			float:left;
+			width:60%;
+			padding-right:16px;
+		}
+		.comment-wrapper {
+			float:left;
+			width:40%;
+		}
+		.city-wrapper {
+			float:left;
+			width:40%;
+		}
+	}
+}
