@@ -18,9 +18,8 @@ define([
 			    i,
 			    len,
 			    imageKey,
-			    mapKey;
-
-			var container,
+			    mapKey,
+			    container,
 			    info;
 
 			if (contents === null || eventId === null || dataObject === null) {
