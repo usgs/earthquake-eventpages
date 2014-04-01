@@ -25,5 +25,25 @@ define([
 				/* jshint +W030 */
 			});
 		});
+
+		describe('CreeateTabListData()', function () {
+			var contents = null,
+			    eventId = null,
+			    dataObject = null;
+
+			it('Undefinded if contents, eventId, or dataObject are null',
+					function () {
+				expect(tablist).to.be.undefined;
+			});
+
+			it('', function () {
+				var contents,
+				    eventId,
+				    dataObject;
+
+				expect(tablist).to.equal();
+			});
+		});
+
 	});
 });
