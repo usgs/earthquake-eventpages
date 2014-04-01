@@ -2,20 +2,16 @@
 define([
 	'chai',
 
-	'dyfi/TabListUtil',
-	'dyfi/DYFIModule'
+	'dyfi/TabListUtil'
 ], function (
 	chai,
 
-	TabListUtil,
-	DYFIModule
+	TabListUtil
 ) {
 	'use strict';
 
 	var expect = chai.expect,
-	    contents,
-	    dataObject,
-	    tablist;
+	    tablist = null;
 
 	describe('TabListUtil test', function () {
 		describe('Constructor', function () {
@@ -31,17 +27,9 @@ define([
 			    eventId = null,
 			    dataObject = null;
 
-			it('Undefinded if contents, eventId, or dataObject are null',
+			it('not shown if contents, eventId, or dataObject are null',
 					function () {
 				expect(tablist).to.be.undefined;
-			});
-
-			it('', function () {
-				var contents,
-				    eventId,
-				    dataObject;
-
-				expect(tablist).to.equal();
 			});
 		});
 
