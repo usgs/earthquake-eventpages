@@ -1,6 +1,6 @@
 /* global define */
 define([
-	'imagemap/SvgImageMap'
+	'svgimagemap/SvgImageMap'
 ], function (
 	SvgImageMap
 ) {

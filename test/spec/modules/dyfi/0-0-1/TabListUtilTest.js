@@ -5,7 +5,7 @@ define([
 
 	'dyfi/TabListUtil',
 	'./Usb000ldeh',
-	'imagemap/SvgImageMap'
+	'svgimagemap/SvgImageMap'
 ], function (
 	chai,
 	sinon,

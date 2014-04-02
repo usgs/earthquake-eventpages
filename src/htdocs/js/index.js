@@ -7,7 +7,7 @@ require.config({
 		mvc: 'hazdev-webutils/src/mvc',
 		util: 'hazdev-webutils/src/util',
 		tablist: 'hazdev-tablist/src/tablist',
-		imagemap: 'hazdev-svgimagemap/src/svgimagemap',
+		svgimagemap: 'hazdev-svgimagemap/src/svgimagemap',
 		map: 'js/map',
 
 		base: 'modules/base/0-0-1/js',
