@@ -3,42 +3,27 @@ define([
 	'util/Util',
 	'util/Xhr',
 
-	'base/EventModulePage'
+	'base/EventModulePage',
+	'pager/PagerXmlParser'
 ], function (
 	Util,
 	Xhr,
 
-	EventModulePage
+	EventModulePage,
+	PagerXmlParser
 ) {
 	'use strict';
 
 	var DEFAULTS = {
 		title: 'Summary',
-		hash: 'summary'
+		hash: 'summary',
+		renderCallback: null // Function to call when async rendering is complete
 	};
 
-	var EXPOSURE_INFO = [
-		{perc:'Not Felt',resist:'none',vuln:'none',label:'I',css:'mmiI'},
-		{perc:'Not Felt',resist:'none',vuln:'none',label:'I',css:'mmiI'},
-		{perc:'Weak',resist:'none',vuln:'none',label:'II-III',css:'mmiII'},
-		{perc:'Light',resist:'none',vuln:'none',label:'IV',css:'mmiIV'},
-		{perc:'Moderate',resist:'Very Light',vuln:'Light',label:'V',css:'mmiV'},
-		{perc:'Strong',resist:'Light',vuln:'Moderate',label:'VI',css:'mmiVI'},
-		{perc:'Very Strong',resist:'Moderate',vuln:'Moderate/Heavy',label:'VII',
-				css:'mmiVII'},
-		{perc:'Severe',resist:'Moderate/Heavy',vuln:'Heavy',label:'VIII',
-				css:'mmiVIII'},
-		{perc:'Violent',resist:'Heavy',vuln:'Very Heavy',label:'IX',css:'mmiIX'},
-		{perc:'Extreme',resist:'Very Heavy',vuln:'Very Heavy',label:'X',
-				css:'mmiX'},
-		{perc:'Extreme',resist:'Very Heavy',vuln:'Very Heavy',label:'XI',
-				css:'mmiX'},
-		{perc:'Extreme',resist:'Very Heavy',vuln:'Very Heavy',label:'XII',
-				css:'mmiX'}
-	];
 
 	var PagerPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
+		this._renderCallback = options.renderCallback;
 		EventModulePage.call(this, options);
 	};
 	PagerPage.prototype = Object.create(EventModulePage.prototype);
@@ -58,22 +43,33 @@ define([
 		}
 	};
 
+	/**
+	 * Set static markup and scaffold structure for remaining content.
+	 *
+	 * @see _renderPage
+	 */
 	PagerPage.prototype._setContentMarkup = function () {
 		var _this = this,
 		    contents = this._event.properties.products.losspager[0].contents;
 
 		this._content.classList.add('pager');
 		this._content.innerHTML = [
-			'<div class="alert-wrapper"></div>',
-			'<div class="map-wrapper">',
-				'<h3>Population Exposure</h3>',
-				'<span class="legend">Population per ~1 sq. km. from LandScan</span>',
-				'<img src="', contents['exposure.png'].url,
-						'" alt="PAGER Population Exposure"/>',
-			'</div>',
-			'<div class="exposure-wrapper"></div>',
-			'<div class="comment-wrapper"></div>',
-			'<div class="city-wrapper"></div>'
+			'<section class="alert-wrapper row"></section>',
+			'<section class="row">',
+				'<h3>Estimated Population Exposure to Earthquake Shaking</h3>',
+				'<span class="legend">',
+					'Population per ~1 sq. km. from LandScan (k = x1,000)',
+				'</span>',
+				'<div class="map-wrapper column one-of-two">',
+					'<img src="', contents['exposure.png'].url,
+							'" alt="Population Exposure Map"/>',
+				'</div>',
+				'<div class="exposure-wrapper column one-of-two"></div>',
+			'</section>',
+			'<section class="row right-to-left">',
+				'<div class="comment-wrapper column one-of-two"></div>',
+				'<div class="city-wrapper column one-of-two"></div>',
+			'</section>'
 		].join('');
 
 		// Store these for later. See _renderPage
@@ -88,7 +84,10 @@ define([
 		Xhr.ajax({
 			url: contents['pager.xml'].url,
 			success: function (responseText, xhr) {
-				_this._renderPage(_this._parsePagerXml(xhr.responseXML));
+				_this._pagerInfo = PagerXmlParser.parse(
+						xhr.reseponseXML || responseText);
+
+				_this._renderPage();
 			},
 			error: function (errorInfo) {
 				_this._renderError(errorInfo);
@@ -96,6 +95,10 @@ define([
 		});
 	};
 
+	/**
+	 * Use disclaimer for footer information.
+	 *
+	 */
 	PagerPage.prototype._setFooterMarkup = function () {
 		this._footer.classList.add('pager');
 		this._footer.innerHTML =
@@ -104,7 +107,7 @@ define([
 				'considers losses due to structural damage</strong>. Limitations of ' +
 				'input data, shaking estimates, and loss models may add uncertainty. ' +
 				'PAGER results are generally available within 30 minutes of the ' +
-				'earthquake&rdquo;s occurrence. However, information on the extent ' +
+				'earthquake&rsquo;s occurrence. However, information on the extent ' +
 				'of shaking will be uncertain in the minutes and hours following an ' +
 				'earthquake and typically improves as additional sensor data and ' +
 				'reported intensities are acquired and incorporated into models of ' +
@@ -122,20 +125,47 @@ define([
 		;
 	};
 
+	/**
+	 * Renders the components of the page that require pager.xml. This includes:
+	 *
+	 *  - alert histograms
+	 *  - exposure table
+	 *  - comments (structure/secondary effects)
+	 *  - nearby cities
+	 *
+	 */
 	PagerPage.prototype._renderPage = function () {
 		this._renderAlerts();
 		this._renderExposures();
 		this._renderComments();
 		this._renderCities();
+
+		if (this._renderCallback && typeof this._renderCallback === 'function') {
+			this._renderCallback();
+		}
 	};
 
-	PagerPage.prototype._renderError = function (/* errorInfo */) {
+	/**
+	 * Renders an error on the page when pager.xml fails to load.
+	 *
+	 */
+	PagerPage.prototype._renderError = function (errorInfo) {
 		this._content.innerHTML = '<p class="error">' +
 				'An error occurred loading this page. Please try again later.</p>';
+
+		if (this._renderCallback && typeof this._renderCallback === 'function') {
+			this._renderCallback(errorInfo);
+		}
 	};
 
+	/**
+	 * Adds alert historgrams and corresponding impact comments to page.
+	 * Historgrams are added based on descending alert level.
+	 *
+	 */
 	PagerPage.prototype._renderAlerts = function () {
 		var alerts = this._pagerInfo.alerts,
+		    comments = this._pagerInfo.comments.impact,
 		    contents = this._event.properties.products.losspager[0].contents,
 		    econMarkup = '', econLevel = -1,
 		    fatMarkup = '', fatLevel = -1;
@@ -154,11 +184,14 @@ define([
 				econLevel = levelValues[econLevel];
 			}
 			econMarkup =
-			'<div class="wrapper">' +
+			'<div class="column one-of-two">' +
 				'<h3>Estimated Economic Losses</h3>' +
 				'<a href="' + contents['alertecon.pdf'].url + '">' +
 					'<img src="' + contents['alertecon.png'].url + '" alt=""/>' +
 				'</a>' +
+				'<p>' +
+					((comments.length === 2) ? comments[1] : comments[0]) +
+				'</p>' +
 			'</div>'
 			;
 		}
@@ -168,14 +201,21 @@ define([
 			if (levelValues.hasOwnProperty(fatLevel)) {
 				fatLevel = levelValues[fatLevel];
 			}
-			fatMarkup =
-			'<div class="wrapper">' +
+			fatMarkup = [
+			'<div class="column one-of-two">' +
 				'<h3>Estimated Fatalities</h3>' +
 				'<a href="' + contents['alertfatal.pdf'].url + '">' +
 					'<img src="' + contents['alertfatal.png'].url + '" alt=""/>' +
-				'</a>' +
-			'</div>'
-			;
+				'</a>'
+			];
+
+			if (comments.length === 2) {
+				fatMarkup.push('<p>' + comments[0] + '</p>');
+			}
+
+			fatMarkup.push('</div>');
+
+			fatMarkup = fatMarkup.join('');
 		}
 
 		if (fatLevel === -1 && econLevel === -1) {
@@ -187,44 +227,33 @@ define([
 		}
 	};
 
-	PagerPage.prototype._onExposureClick = function (evt) {
-		if (evt.target.classList.contains('mmi')) {
-			evt.target.parentNode.classList.toggle('expanded');
-		}
-	};
-
-	PagerPage.prototype._onCityClick = function (evt) {
-		if (evt.target.classList.contains('toggle')) {
-			this.querySelector('.pager-cities').classList.toggle('show-additional');
-		}
-	};
-
+	/**
+	 * Adds exposure table information to page. Clicking on the MMI box for an
+	 * exposure level expands to show meta information about that exposure level.
+	 *
+	 */
 	PagerPage.prototype._renderExposures = function () {
-		var exposureList = document.createElement('ol'),
+		var exposureList = ['<ol class="pager-exposures">'],
 		    exposures = this._pagerInfo.exposures,
 		    i = 0,
 		    len = exposures.length;
 
-		exposureList.classList.add('pager-exposures');
-
 		for (; i < len; i++) {
-			exposureList.appendChild(this._createExposureItem(exposures[i]));
+			exposureList.push(this._createExposureItem(exposures[i]));
 		}
 
 		if (len === 0) {
 			this._exposureEl.parentNode.removeChild(this._exposureEl);
 		} else {
-			this._exposureEl.innerHTML =
-				'<h3>' +
-					'Estimated Population Exposure to Earthquake Shaking' +
-				'</h3>';
-
-			this._exposureEl.appendChild(exposureList);
-
+			this._exposureEl.innerHTML = exposureList.join('');
 			this._exposureEl.addEventListener('click', this._onExposureClick);
 		}
 	};
 
+	/**
+	 * Adds the structure comment and secondary effects comments to the page.
+	 *
+	 */
 	PagerPage.prototype._renderComments = function () {
 		var comments = this._pagerInfo.comments,
 		    markup = [];
@@ -255,39 +284,42 @@ define([
 		}
 	};
 
+	/**
+	 * Adds the nearby cities list to the page. Cities have a very special sorting
+	 * algorithm. The first 11 cities are displayed by default and a control is
+	 * used to show/hide additional cities.
+	 *
+	 */
 	PagerPage.prototype._renderCities = function () {
 		var markup = [],
 		    cities = this._pagerInfo.cities,
 		    i = 0,
 		    len = cities.length,
-		    city,
-		    info,
-		    population,
-		    toggle,
-		    ol;
+		    city;
 
 		markup.push(
 			'<h3>Selected Cities Exposed</h3>' +
 			'<span class="legend">' +
 				'from GeoNames Database of Cities with 1,000 or more residents' +
-			'</span>' +
-			'<ol class="pager-cities">'
+			'</span>'
 		);
+
+		if (len > 11) {
+			markup.push('<a href="javascript:void(null);" class="toggle">' +
+					'Show/Hide Full City List</a>');
+			this._cityEl.addEventListener('click', this._onCityClick);
+		}
+
+		markup.push('<ol class="pager-cities">');
 
 		for (; i < len; i++) {
 			city = cities[i];
-			info = EXPOSURE_INFO[Math.round(city.mmi)];
-			population = this._formatPopulation(city.population);
-
-			if (population === '0k') {
-				population = '&lt;1k';
-			}
 
 			Array.prototype.push.apply(markup, [
-				'<li class="', ((i>9)?'city-additional':''),'">',
-					'<span class="roman mmi ', info.css, '">', info.label, '</span>',
+				'<li class="', ((i>10)?'city-additional':''),'">',
+					'<span class="roman mmi ', city.css, '">', city.roman, '</span>',
 					city.name,
-					'<span class="population">', population, '</span>',
+					'<span class="population">', city.populationDisplay, '</span>',
 				'</li>'
 			]);
 		}
@@ -298,150 +330,62 @@ define([
 		);
 
 		this._cityEl.innerHTML = markup.join('');
-
-		if (len > 10) {
-			// More than 10 cities, add a toggle control to show/hide all cities
-			toggle = document.createElement('a');
-			ol = this._cityEl.querySelector('ol');
-
-			toggle.classList.add('toggle');
-			toggle.innerHTML = 'Show/Hide Full City List';
-
-			this._cityEl.appendChild(toggle);
-			this._cityEl.addEventListener('click', this._onCityClick);
-		}
-	};
-
-	PagerPage.prototype._createExposureItem = function (exposure) {
-		var item = document.createElement('li'),
-		    level = Math.round(exposure.min),
-		    info = EXPOSURE_INFO[level];
-
-		item.innerHTML =
-			'<span class="roman mmi ' + info.css + '">' + info.label + '</span>' +
-			'<span class="pop">Population Exposure: ' +
-				this._formatPopulation(exposure.pop, !exposure.onMap) +
-			'</span>' +
-			'<dl>' +
-				'<dt>Perceived Shaking</dt><dd>' + info.perc + '</dd>' +
-				'<dt>Damage to Resistant Structures</dt><dd>' + info.resist + '</dd>' +
-				'<dt>Damage to Vulnerable Structures</dt><dd>' + info.vuln + '</dd>' +
-			'</dl>'
-		;
-
-		return item;
-	};
-
-	PagerPage.prototype._formatPopulation = function (population, incomplete) {
-		var star = (incomplete?'*':'');
-
-		if (population === 0) {
-			if (incomplete) {
-				population = '--';
-			} else {
-				population = '0k';
-			}
-		} else if (population > 1000) {
-			population = parseInt(population / 1000, 10);
-			// Insert commas for readability
-			population = population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-			population += 'k';
-		} else {
-			population = '&lt;1k';
-		}
-
-		return population + star;
 	};
 
 	/**
-	 * Parses the pager.xml response XML file into a JSON data structure. Attaches
-	 * the parsed structure to this._pagerInfo for subsequent use as needed.
+	 * Event handler for click events on exposure MMI controls. This is bound
+	 * to the container and uses event delegation.
 	 *
-	 * @param pagerInfo {XML}
-	 *        The XML response for pager.xml
+	 * Note: Scope of "this" within this function is the clicked DOM element.
 	 */
-	PagerPage.prototype._parsePagerXml = function (pagerInfo) {
-		var i, len, j, numBins,
-		    alerts, alert, type, bins, bin,
-		    exposures, exposure,
-		    cities, city,
-		    comment;
-
-		var info = {
-			alerts: {},
-			exposures: [],
-			cities: [],
-			comments: {}
-		};
-
-		// var parser = new DOMParser();
-		// pagerInfo = parser.parseFromString(pagerInfo, 'text/xml');
-
-		// Parse alerts/bins
-		alerts = pagerInfo.querySelectorAll('pager > alerts > alert');
-		for (i = 0, len = alerts.length; i < len; i++) {
-			alert = alerts[i];
-			type = alert.getAttribute('type');
-
-			info.alerts[alert.getAttribute('type')] = {
-				level: alert.getAttribute('level'),
-				units: alert.getAttribute('units'),
-				bins: []
-			};
-
-			bins = alert.querySelectorAll('bin');
-			for (j = 0, numBins = bins.length; j < numBins; j++) {
-				bin = bins[i];
-
-				info.alerts[type].bins.push({
-					min: bin.getAttribute('min'),
-					max: bin.getAttribute('max'),
-					prob: bin.getAttribute('probability'),
-					color: bin.getAttribute('color')
-				});
-			}
+	PagerPage.prototype._onExposureClick = function (evt) {
+		if (evt.target.classList.contains('mmi')) {
+			evt.target.parentNode.classList.toggle('expanded');
 		}
+	};
 
-		// Parse exposure levels
-		exposures = pagerInfo.querySelectorAll('pager > exposure');
-		for (i = 0, len = exposures.length; i < len; i++) {
-			exposure = exposures[i];
-
-			info.exposures.push({
-				min: parseFloat(exposure.getAttribute('dmin')),
-				max: parseFloat(exposure.getAttribute('dmax')),
-				pop: parseInt(exposure.getAttribute('exposure'), 10),
-				onMap: (exposure.getAttribute('rangeInsideMap') === '1')
-			});
+	/**
+	 * Event handler for click events on city list toggle control. This is bound
+	 * to the container and uses event delegation.
+	 *
+	 * Note: Scope of "this" within this function is the clicked DOM element.
+	 */
+	PagerPage.prototype._onCityClick = function (evt) {
+		if (evt.target.classList.contains('toggle')) {
+			this.querySelector('.pager-cities').classList.toggle('show-additional');
 		}
+	};
 
-		// Parse cities
-		cities = pagerInfo.querySelectorAll('pager > city');
-		for (i = 0, len = cities.length; i < len; i++) {
-			city = cities[i];
+	/**
+	 * Utility method to create exposure item markup.
+	 *
+	 * @param exposure {Object}
+	 *      The exposure level for which to create an element.
+	 *
+	 * @return {String}
+	 *      The markup.
+	 */
+	PagerPage.prototype._createExposureItem = function (exposure) {
+		var mmi = parseFloat(this._event.properties.products.losspager[0]
+				.properties.maxmmi);
 
-			info.cities.push({
-				name: city.getAttribute('name'),
-				latitude: parseFloat(city.getAttribute('lat')),
-				longitude: parseFloat(city.getAttribute('lon')),
-				population: parseInt(city.getAttribute('population'), 10),
-				mmi: parseFloat(city.getAttribute('mmi')),
-				isCapital: (city.getAttribute('iscapital') === '1')
-			});
-		}
+		var defaultExpanded = (exposure.min <= mmi && mmi <= exposure.max);
 
-		// Parse comments
-		comment = pagerInfo.querySelectorAll('pager > structcomment');
-		if (comment && comment.length) {
-			info.comments.structure = comment[0].innerHTML.trim();
-		}
-
-		comment = pagerInfo.querySelectorAll('pager > secondary_effects');
-		if (comment && comment.length) {
-			info.comments.effects = comment[0].innerHTML.trim();
-		}
-
-		this._pagerInfo = info;
+		return '<li class="' + (defaultExpanded?'expanded':'') + '">' +
+			'<span class="roman mmi ' + exposure.css + '">' +
+				exposure.label +
+			'</span>' +
+			'<span class="population-label">Population Exposure</span>' +
+			'<span class="population-value">' + exposure.populationDisplay + '</span>' +
+			'<dl>' +
+				'<dt>Perceived Shaking</dt>' +
+					'<dd>' + exposure.perc + '</dd>' +
+				'<dt>Damage to Resistant Structures</dt>' +
+					'<dd>' + exposure.resist + '</dd>' +
+				'<dt>Damage to Vulnerable Structures</dt>' +
+					'<dd>' + exposure.vuln + '</dd>' +
+			'</dl>' +
+		'</li>';
 	};
 
 	return PagerPage;
