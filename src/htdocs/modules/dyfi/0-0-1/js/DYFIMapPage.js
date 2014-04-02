@@ -18,7 +18,7 @@ define([
 		title: 'Maps',
 		hash: 'maps'
 	};
-
+	/* sets up titles and images for tabs */
 	var MAPIMAGES = [
 		{
 			title:'Intensity Map',
@@ -46,7 +46,7 @@ define([
 		}
 	];
 
-
+	/* creates map page and sets up the content */
 	var DYFIMapPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
 		EventModulePage.call(this, options);
@@ -62,6 +62,7 @@ define([
 		}
 
 		dyfi = products.dyfi[0];
+		/* creates tab list */
 		new TabList({
 			el: this._content.appendChild(document.createElement('div')),
 			tabPosition: 'right',
