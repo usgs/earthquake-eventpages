@@ -11,9 +11,9 @@ define([
 	TabListUtil = {
 
 		CreateTabListData: function (options) {
-			var contents = options.contents,
-			    eventId = options.eventId,
-			    dataObject = options.dataObject,
+			var contents,
+			    eventId,
+			    dataObject,
 			    tablist = [],
 			    i,
 			    len,
@@ -22,10 +22,20 @@ define([
 			    container,
 			    info;
 
-			if (contents === null || eventId === null || dataObject === null) {
+			options = options || {};
+			contents = options.contents;
+			eventId = options.eventId;
+			dataObject = options.dataObject;
+
+			/* Returns empty tablist if contents, eventId, dataObject are not equal
+			 * to there respective data type
+			 */
+			if (typeof contents !== 'object' || typeof eventId !== 'string' ||
+					typeof dataObject !== 'object') {
 				return tablist;
 			}
 
+			/* Populates tab list and sets up SVG image map */
 			for (i = 0, len = dataObject.length; i < len; i++) {
 				container = document.createElement('div');
 				info = dataObject[i];
@@ -35,6 +45,7 @@ define([
 					if (info.hasOwnProperty('usemap') &&
 							info.hasOwnProperty('mapSuffix')) {
 						mapKey = eventId + info.mapSuffix;
+						/* Sets up SVG image map if one exists */
 						new SvgImageMap({
 							el: container,
 							imageUrl: contents[imageKey].url,
@@ -56,6 +67,5 @@ define([
 		}
 
 	};
-
 	return TabListUtil;
 });
