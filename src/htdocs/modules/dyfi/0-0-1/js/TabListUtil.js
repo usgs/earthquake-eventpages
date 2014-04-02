@@ -1,6 +1,9 @@
 /* global define */
-define([],
-	function () {
+define([
+	'svgimagemap/SvgImageMap'
+], function (
+	SvgImageMap
+) {
 	'use strict';
 
 	var TabListUtil;
@@ -8,51 +11,61 @@ define([],
 	TabListUtil = {
 
 		CreateTabListData: function (options) {
-			var contents = options.contents,
-			    eventId = options.eventId,
-			    dataObject = options.dataObject,
-			    callback = options.callback,
-			    callingObject = options.object,
+			var contents,
+			    eventId,
+			    dataObject,
 			    tablist = [],
 			    i,
 			    len,
-			    imageName,
-			    mapName,
-			    attributes;
+			    imageKey,
+			    mapKey,
+			    container,
+			    info;
 
-			if (contents === null || eventId === null || dataObject === null) {
+			options = options || {};
+			contents = options.contents;
+			eventId = options.eventId;
+			dataObject = options.dataObject;
+
+			/* Returns empty tablist if contents, eventId, dataObject are not equal
+			 * to there respective data type
+			 */
+			if (typeof contents !== 'object' || typeof eventId !== 'string' ||
+					typeof dataObject !== 'object') {
 				return tablist;
 			}
 
+			/* Populates tab list and sets up SVG image map */
 			for (i = 0, len = dataObject.length; i < len; i++) {
-				var image = dataObject[i];
+				container = document.createElement('div');
+				info = dataObject[i];
+				imageKey = eventId + info.suffix;
 
-				imageName = eventId + image.suffix;
-				if (contents.hasOwnProperty(imageName)) {
-					attributes = null;
-
-					if (image.hasOwnProperty('mapSuffix')) {
-						mapName = eventId + image.mapSuffix;
-						if (contents.hasOwnProperty(mapName)) {
-							callback(contents[mapName], callingObject);
-							attributes = {
-								useMap: '#' + image.usemap
-							};
-						}
+				if (contents.hasOwnProperty(imageKey)) {
+					if (info.hasOwnProperty('usemap') &&
+							info.hasOwnProperty('mapSuffix')) {
+						mapKey = eventId + info.mapSuffix;
+						/* Sets up SVG image map if one exists */
+						new SvgImageMap({
+							el: container,
+							imageUrl: contents[imageKey].url,
+							mapUrl: contents[mapKey].url,
+							mapName: info.usemap
+						});
+					} else {
+						container.innerHTML = '<img alt="map" src="' +
+								contents[imageKey].url + '"/>';
 					}
-
 					tablist.push({
-						title: image.title,
-						image: contents[imageName].url,
-						attributes: attributes
+						title: info.title,
+						content: container
 					});
 				}
-			}
 
+			}
 			return tablist;
 		}
 
 	};
-
 	return TabListUtil;
 });

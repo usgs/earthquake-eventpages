@@ -10,6 +10,7 @@ require.config({
 		mvc: 'hazdev-webutils/src/mvc',
 		util: 'hazdev-webutils/src/util',
 		tablist: 'hazdev-tablist/src/tablist',
+		svgimagemap: 'hazdev-svgimagemap/src/svgimagemap',
 
 		base: 'base/0-0-1/js',
 		summary: 'summary/0-0-1/js',
@@ -50,6 +51,7 @@ require([
 		'spec/modules/dyfi/0-0-1/DYFIModuleTest',
 		'spec/modules/dyfi/0-0-1/DYFIMapPageTest',
 		'spec/modules/dyfi/0-0-1/DYFIGraphPageTest',
+		'spec/modules/dyfi/0-0-1/TabListUtilTest',
 		'spec/modules/summary/0-0-1/SummaryPageTest',
 		'spec/modules/scientific/0-0-1/HypocenterPageTest',
 		'spec/modules/dyfi/0-0-1/DYFIResponsesPageTest'

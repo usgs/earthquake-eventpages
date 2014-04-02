@@ -12,8 +12,7 @@
   "scripts": {
     "test": "grunt test"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "chai": "~1.7.0",
     "connect-livereload": "~0.2.0",
@@ -36,11 +35,12 @@
     "matchdep": "~0.1.2",
     "mocha": "~1.9.0",
     "sinon": "~1.7.3",
-    "hazdev-tablist": "~0.0.3",
+    "hazdev-tablist": "0.0.4",
     "hazdev-template": "~0.0.6",
     "grunt-connect-rewrite": "~0.1.1",
     "grunt-connect-proxy": "~0.1.6",
-    "leaflet": "~0.7.0"
+    "leaflet": "~0.7.0",
+    "hazdev-svgimagemap": "0.0.3"
   },
   "engines": {
     "node": ">=0.8.0"
