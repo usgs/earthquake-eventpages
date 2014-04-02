@@ -16,7 +16,7 @@ define([
 		title: 'Graphs',
 		hash: 'graphs'
 	};
-
+	/* Sets up title for tab list */
 	var GRAPHIMAGES = [
 		{
 			title:'Intensity Vs. Distance',
@@ -27,7 +27,7 @@ define([
 			suffix:'_plot_numresp.jpg'
 		}
 	];
-
+	/* Creates graph page and sets up the content */
 	var DYFIGraphPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
 		EventModulePage.call(this, options);
@@ -43,6 +43,7 @@ define([
 		}
 
 		dyfi = products.dyfi[0];
+		/* Creates tab list */
 		new TabList({
 			el: this._content.appendChild(document.createElement('div')),
 			tabPosition: 'right',
