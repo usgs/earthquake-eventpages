@@ -1,8 +1,12 @@
 /* global define */
 define([
+	'require',
+
 	'util/Util',
 	'base/EventModule'
 ], function (
+	require,
+
 	Util,
 	EventModule
 ) {
