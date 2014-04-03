@@ -57,10 +57,15 @@ define([
 	EventModulePage.prototype._initialize = function () {
 		this._header = document.createElement('header');
 		Util.addClass(this._header, 'event-module-header');
+		Util.addClass(this._header, 'clearfix');
+
 		this._content = document.createElement('section');
 		Util.addClass(this._content, 'event-module-content');
+		Util.addClass(this._content, 'clearfix');
+
 		this._footer = document.createElement('footer');
 		Util.addClass(this._footer, 'event-module-footer');
+		Util.addClass(this._footer, 'clearfix');
 
 		this._setHeaderMarkup();
 		this._setContentMarkup();
