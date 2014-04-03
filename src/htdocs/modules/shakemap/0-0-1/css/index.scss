@@ -1,0 +1,178 @@
+
+/* responsive table */
+@import '../../../../css/_responsiveTable.scss';
+
+tr.hidden {
+	display:none;
+}
+
+table > tbody > tr.details {
+
+	> td {
+		padding:20px;
+
+		> table {
+			margin:15px 0 0;
+
+			> thead {
+				background:#999;
+			}
+		}
+	}
+
+}
+
+
+
+table.stations {
+	> tbody {
+		> tr.toggle {
+			cursor:pointer;
+
+			// &:hover {
+			// 	background:#ECF7FF;
+			// }
+		}
+	}
+}
+
+abbr {
+	border-bottom:1px dotted #999;
+}
+
+table.components {
+	font-size:13px;
+
+	> tbody > tr {
+
+		.flag {
+			color:#999;
+		}
+
+	}
+}
+
+table.responsive > tbody tr:nth-of-type(odd) {
+	background:#fdfdfd;
+}
+
+.tablist-panel > div > table {
+	margin-top:15px;
+}
+
+tr.details {
+
+	color:#000;
+
+	> td {
+		padding:20px;
+		box-shadow: 0 3px 0 #ededed inset;
+
+		> table {
+			border:1px solid #ccc;
+			width:100%;
+			text-align:center;
+
+			> thead {
+				background:#999;
+			}
+		}
+	}
+
+	dl {
+		color:#666;
+		font-size:13px;
+
+		> dt {
+			font-weight: bold;
+			float: left;
+			width: 80px;
+		}
+
+		> dd {
+
+			&:after {
+				content: '';
+				display: block;
+				clear: both;
+			}
+		}
+
+	}
+}
+
+
+
+@media screen and (max-width:767px) {
+
+	table.stations > tbody > tr.details > td {
+			padding-left:15px;
+
+			> table.components {
+				border:none;
+				background:none;
+				text-align:left;
+
+				> tbody > tr {
+					text-align:left;
+					background:none;
+
+					> td,
+					> td:before {
+						padding:5px 15px 0;
+					}
+
+					> td {
+						border:none;
+						padding-left:60px;
+					}
+
+					> td:first-child {
+						font-weight:bold;
+						border-bottom:1px solid #ccc;
+						padding-left:0;
+						padding-bottom:5px;
+						margin-top:20px;
+					}
+
+					> td:before {
+						padding-left:0;
+					}
+
+					//> td:nth-of-type(1):before { content: 'name:'; }
+					> td:nth-of-type(2):before { content: 'acc:'; }
+					> td:nth-of-type(3):before { content: 'vel:'; }
+					> td:nth-of-type(4):before { content: 'psa03:'; }
+					> td:nth-of-type(5):before { content: 'psa10:'; }
+					> td:nth-of-type(6):before { content: 'psa30:'; }
+				}
+			}
+	}
+
+	table.stations > tbody > tr.toggle {
+
+		border-bottom:1px solid #ccc;
+		padding: 10px 0;
+
+		> td,
+		> td:before {
+			padding:5px 15px;
+		}
+
+		> td {
+			border:none;
+			padding-left: 36%;
+		}
+
+		> td:before {
+			font-weight:bold;
+		}
+
+		> td:nth-of-type(1):before { content: 'Name:'; }
+		> td:nth-of-type(2):before { content: 'Distance:'; }
+		> td:nth-of-type(3):before { content: 'PGA:'; }
+		> td:nth-of-type(4):before { content: 'PGV:'; }
+		> td:nth-of-type(5):before { content: 'MMI:'; }
+
+	}
+}
