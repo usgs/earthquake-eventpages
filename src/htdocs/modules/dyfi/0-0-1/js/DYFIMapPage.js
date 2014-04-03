@@ -66,13 +66,13 @@ define([
 		new TabList({
 			el: this._content.appendChild(document.createElement('div')),
 			tabPosition: 'right',
-			tabs: TabListUtil.CreateTabListData(
-				{contents:dyfi.contents,
-				 eventId:dyfi.code,
-				 dataObject:MAPIMAGES,
-				 callback:this._getUseMap,
-				 object:this
-				})
+			tabs: TabListUtil.CreateTabListData({
+				contents:dyfi.contents,
+				eventId:dyfi.code,
+				dataObject:MAPIMAGES,
+				callback:this._getUseMap,
+				object:this
+			})
 		});
 
 	};
