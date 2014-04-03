@@ -38,7 +38,7 @@ define([
 			this._exposureEl.removeEventListener('click', this._onExposureClick,
 					false);
 		}
-		if (this._cityEl) {
+		if (this._cityEl && this._cityEl.querySelector('.toggle') !== null) {
 			this._cityEl.removeEventListener('click', this._onCityClick, false);
 		}
 	};
@@ -85,7 +85,7 @@ define([
 			url: contents['pager.xml'].url,
 			success: function (responseText, xhr) {
 				_this._pagerInfo = PagerXmlParser.parse(
-						xhr.reseponseXML || responseText);
+						xhr.responseXML || responseText);
 
 				_this._renderPage();
 			},
@@ -220,6 +220,7 @@ define([
 
 		if (fatLevel === -1 && econLevel === -1) {
 			this._alertEl.parentNode.removeChild(this._alertEl);
+			this._alertEl = null;
 		} else if (fatLevel >= econLevel) {
 			this._alertEl.innerHTML = fatMarkup + econMarkup;
 		} else {
@@ -236,14 +237,23 @@ define([
 		var exposureList = ['<ol class="pager-exposures">'],
 		    exposures = this._pagerInfo.exposures,
 		    i = 0,
-		    len = exposures.length;
+		    len = exposures.length,
+		    exposure,
+		    mmi;
+
+		mmi = parseFloat(this._event.properties.products.losspager[0]
+				.properties.maxmmi);
 
 		for (; i < len; i++) {
-			exposureList.push(this._createExposureItem(exposures[i]));
+			exposure = exposures[i];
+
+			exposureList.push(this._createExposureItem(exposure,
+					(exposure.min <= mmi && mmi <= exposure.max)));
 		}
 
 		if (len === 0) {
 			this._exposureEl.parentNode.removeChild(this._exposureEl);
+			this._exposureEl = null;
 		} else {
 			this._exposureEl.innerHTML = exposureList.join('');
 			this._exposureEl.addEventListener('click', this._onExposureClick);
@@ -260,19 +270,19 @@ define([
 
 		if (comments.hasOwnProperty('structure')) {
 			markup.push(
-			'<div class="wrapper">' +
-				'<h3>Structure Information Summary</h3>' +
-				'<p>' + comments.structure + '</p>' +
-			'</div>'
+				'<div class="wrapper">' +
+					'<h3>Structure Information Summary</h3>' +
+					'<p>' + comments.structure + '</p>' +
+				'</div>'
 			);
 		}
 
 		if (comments.hasOwnProperty('effects')) {
 			markup.push(
-			'<div class="wrapper">' +
-				'<h3>Secondary Effects</h3>' +
-				'<p>' + comments.effects + '</p>' +
-			'</div>'
+				'<div class="wrapper">' +
+					'<h3>Secondary Effects</h3>' +
+					'<p>' + comments.effects + '</p>' +
+				'</div>'
 			);
 		}
 
@@ -281,6 +291,7 @@ define([
 		} else {
 			// If no comments, remove this section
 			this._commentEl.parentNode.removeChild(this._commentEl);
+			this._commentEl = null;
 		}
 	};
 
@@ -329,7 +340,12 @@ define([
 			'<span class="legend">(k = x1,000)</span>'
 		);
 
-		this._cityEl.innerHTML = markup.join('');
+		if (len === 0) {
+			this._cityEl.parentNode.removeChild(this._cityEl);
+			this._cityEl = null;
+		} else {
+			this._cityEl.innerHTML = markup.join('');
+		}
 	};
 
 	/**
@@ -365,13 +381,8 @@ define([
 	 * @return {String}
 	 *      The markup.
 	 */
-	PagerPage.prototype._createExposureItem = function (exposure) {
-		var mmi = parseFloat(this._event.properties.products.losspager[0]
-				.properties.maxmmi);
-
-		var defaultExpanded = (exposure.min <= mmi && mmi <= exposure.max);
-
-		return '<li class="' + (defaultExpanded?'expanded':'') + '">' +
+	PagerPage.prototype._createExposureItem = function (exposure, expanded) {
+		return '<li class="' + (expanded?'expanded':'') + '">' +
 			'<span class="roman mmi ' + exposure.css + '">' +
 				exposure.label +
 			'</span>' +
