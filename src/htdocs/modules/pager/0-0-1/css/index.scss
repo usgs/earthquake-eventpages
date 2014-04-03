@@ -36,8 +36,8 @@
 
 		> li {
 			clear:left;
-			margin:6px 0;
-			padding:4px 0;
+			margin:8px 0;
+			padding:0;
 
 			.mmi {
 				cursor:pointer;
@@ -51,8 +51,9 @@
 			> dl {
 				display:none;
 				float:left;
-				margin:8px 0 8px 72px;
-				padding:0;
+				width:100%;
+				margin:4px 0 8px 0;
+				padding:0 0 0 72px;
 				font-size:.8em;
 				color:#999;
 
@@ -84,8 +85,8 @@
 
 		> li {
 			position:relative;
-			margin:4px 0;
-			padding:4px 72px 2px 0;
+			margin:8px 0;
+			padding:0 72px 0 0;
 			white-space:nowrap;
 			overflow:hidden;
 			text-overflow:ellipsis;
