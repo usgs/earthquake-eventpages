@@ -82,6 +82,7 @@ define([
 		this._options = Util.extend({}, DEFAULTS, options);
 		this._tablist = null;
 		this._shakemap = null;
+		this._code = this._options.code;
 		TabbedModulePage.call(this, this._options);
 	};
 
@@ -96,7 +97,12 @@ define([
 			return;
 		}
 
-		shakemap = this._shakemap = products.shakemap[0];
+		// with multiple contributors get shakemap product based on code
+		if (this._code) {
+			shakemap = this._shakemap = this._getProduct(products.shakemap);
+		} else {
+			shakemap = this._shakemap = products.shakemap[0];
+		}
 
 		// Build TabList with all of the shakemap images
 		this._tablist = new TabList({
@@ -113,6 +119,19 @@ define([
 
 		// Add station list to TabList
 		this._addStationList();
+	};
+
+
+	ShakemapDetailsPage.prototype._getProduct = function (products) {
+		var shakemap;
+
+		for (var i = 0; i < products.length; i++) {
+			if (products[i].code === this._code) {
+				shakemap = products[i];
+			}
+		}
+
+		return shakemap;
 	};
 
 	/**
