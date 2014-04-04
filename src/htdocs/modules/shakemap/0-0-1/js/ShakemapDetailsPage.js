@@ -213,7 +213,7 @@ define([
 					'<ul class="summary">',
 						'<li class="mmi mmi', romanNumeral, '">',
 							'<span>', station.intensity, '</span>',
-							'<abbr title="Modified Mercalli Intensity">MMI</abbr>',
+							'<abbr title="Modified Mercalli Intensity">mmi</abbr>',
 						'</li>',
 						'<li>',
 							'<span>', vel ,'</span>',
