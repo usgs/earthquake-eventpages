@@ -3,14 +3,12 @@ define([
 	'util/Util',
 	'util/Xhr',
 	'base/TabbedModulePage',
-	'tablist/TabList',
-	'./TabListUtil'
+	'tablist/TabList'
 ], function (
 	Util,
 	Xhr,
 	TabbedModulePage,
-	TabList,
-	TabListUtil
+	TabList
 ) {
 	'use strict';
 
@@ -109,7 +107,7 @@ define([
 			el: this._content.appendChild(document.createElement('div')),
 			tabPosition: 'right',
 			header: shakemap.code, // TODO, what should this be?
-			tabs: TabListUtil.CreateTabListData(
+			tabs: this._createTabListData(
 				{
 					contents: shakemap.contents,
 					eventId: shakemap.code,
@@ -119,6 +117,36 @@ define([
 
 		// Add station list to TabList
 		this._addStationList();
+	};
+
+	ShakemapDetailsPage.prototype._createTabListData = function (options) {
+		var contents = options.contents,
+		    eventId = options.eventId,
+		    dataObject = options.dataObject,
+		    tablist = [],
+		    imageName,
+		    image,
+		    content;
+
+		if (contents === null || eventId === null || dataObject === null) {
+			return tablist;
+		}
+
+		for (var i = 0; i < dataObject.length; i++) {
+			image = dataObject[i];
+			imageName = image.suffix;
+
+			if (contents.hasOwnProperty(imageName)) {
+				content = '<img src="' + contents[imageName].url + '" />';
+
+				tablist.push({
+					title: image.title,
+					content: content
+				});
+			}
+		}
+
+		return tablist;
 	};
 
 
