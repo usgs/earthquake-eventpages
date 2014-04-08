@@ -437,48 +437,48 @@ define([
 	 *
 	 * @param  {object} data,
 	 *         component value and component flag
+	 *         {
+	 *           value: 0.123,
+	 *           flag: 'G'
+	 *         }
 	 *
 	 * @return {string}
 	 *         HTML markup
 	 */
 	ShakemapDetailsPage.prototype._buildTableCell = function (data) {
-		var td;
+		var td = [],
+		    flag,
+		    value;
 
-		// Add flag class for all non-zero flags
 		if (data) {
-				td = [
-					(data.flag !== '0') ? '<td class="flag">' : '<td>',
-						parseFloat(data.value, 10).toFixed(3), ' ',
-						this._assignFlag(data.flag),
-					'</td>'
-				].join('');
+			flag = data.flag;
+			value = data.value;
+
+			// Add flag class for all non-zero flags
+			if (flag && flag !== '0') {
+				td.push('<td class="flag">');
+				td.push(parseFloat(value, 10).toFixed(3));
+
+				// display flag with title text
+				if (FLAG_DESCRIPTIONS.hasOwnProperty(flag)) {
+					td.push(' <abbr title="' + FLAG_DESCRIPTIONS[flag] + '">(' +
+							flag + ')</abbr>');
+				} else {
+					td.push(' (' + flag + ')');
+				}
+				td.push('</td>');
+			} else {
+				td.push('<td>');
+				td.push(parseFloat(value, 10).toFixed(3));
+				td.push('</td>');
+			}
 		} else {
-			td = '<td>--</td>';
+			td.push('<td>--</td>');
 		}
 
-		return td;
+		return td.join('');
 	};
 
-	/**
-	 * Generate markup based on component flag value.
-	 *
-	 * @param  {string} flag,
-	 *         flag value that is checked againstFLAG_DESCRIPTIONS
-	 *         static varaibles.
-	 *
-	 * @return {string}
-	 *         HTML markup
-	 */
-	ShakemapDetailsPage.prototype._assignFlag = function (flag) {
-		var markup;
-
-		if (FLAG_DESCRIPTIONS.hasOwnProperty(flag)) {
-			markup = '<abbr title="' + FLAG_DESCRIPTIONS[flag] + '">(' +
-					flag + ')</abbr>';
-		}
-
-		return markup;
-	};
 
 	/**
 	 * Converts XML into JSON
