@@ -306,9 +306,9 @@ define([
 			}
 
 			stations.push([
-				'<div class="toggle" data-id="', i ,'">',
+				'<div class="station-toggle" data-id="', i ,'">',
 					'<h3>', title, '</h3>',
-					'<ul class="summary">',
+					'<ul class="station-summary">',
 						'<li class="mmi mmi', romanNumeral, '">',
 							'<span>', station.intensity, '</span>',
 							'<abbr title="Modified Mercalli Intensity">mmi</abbr>',
@@ -411,7 +411,7 @@ define([
 		}
 
 		return [
-			'<table class="responsive components">',
+			'<table class="responsive station-components">',
 				'<thead>',
 					'<tr>',
 						'<th>name</th>',
@@ -558,14 +558,14 @@ define([
 
 		if (target.nodeName === 'A' && target.classList.contains('expand')) {
 			// after creating the section, toggle the details on click
-			detailSection = container.querySelector('.details');
+			detailSection = container.querySelector('.station-details');
 			if (detailSection) {
 				target.classList.toggle('open');
 				detailSection.classList.toggle('details-hidden');
 				return;
 			}
 
-			className = 'details details-' + target.getAttribute('data-id');
+			className = 'station-details details-' + target.getAttribute('data-id');
 			details = this._buildStationDetails(target.getAttribute('data-id'));
 			newSection = document.createElement('div');
 			newSection.className = className;
