@@ -58,8 +58,8 @@ define([
 
 			it('Can be instantiated', function () {
 				var page = new ShakemapDetailsPage({
-					'eventDetails': eventDetails
-				});
+						'eventDetails': eventDetails
+					});
 
 				expect(page).to.be.an.instanceof(ShakemapDetailsPage);
 			});
@@ -67,10 +67,9 @@ define([
 
 		describe('Tabbed Content', function () {
 			it('contains all images and station list', function () {
-				var page = new ShakemapDetailsPage({
-				'eventDetails': eventDetails
-				}),
-				    tablistPanels = page.getContent().querySelectorAll('.tablist-panel');
+				var page = new ShakemapDetailsPage({ 'eventDetails': eventDetails }),
+				    tablistPanels = page.getContent().
+								querySelectorAll('.tablist-panel');
 
 				expect(tablistPanels.length).to.be.equal(8);
 			});
