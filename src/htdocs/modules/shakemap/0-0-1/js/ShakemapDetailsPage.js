@@ -82,7 +82,7 @@ define([
 		this._options = Util.extend({}, DEFAULTS, options);
 		this._tablist = null;
 		this._shakemap = null;
-		this._code = this._options.code;
+		this._code = this._options.code || null;
 		TabbedModulePage.call(this, this._options);
 	};
 
@@ -165,6 +165,10 @@ define([
 	ShakemapDetailsPage.prototype._getStationData = function (callback) {
 		var file = this._shakemap.contents[STATION_LIST.suffix],
 		    _this = this;
+
+		if (!file) {
+			return '<p>No station list exists.</p>';
+		}
 
 		// get station content and build the station list
 		Xhr.ajax({
