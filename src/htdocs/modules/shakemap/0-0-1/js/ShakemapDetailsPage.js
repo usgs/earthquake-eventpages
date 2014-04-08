@@ -110,8 +110,7 @@ define([
 			tabs: this._createTabListData(
 				{
 					contents: shakemap.contents,
-					eventId: shakemap.code,
-					dataObject: MAP_IMAGES
+					eventId: shakemap.code
 				})
 		});
 
@@ -119,21 +118,27 @@ define([
 		this._addStationList();
 	};
 
+	/**
+	 * Generate array of tab content for tablist
+	 *
+	 * @param  {object} options, 
+	 *         
+	 * @return {[type]}         [description]
+	 */
 	ShakemapDetailsPage.prototype._createTabListData = function (options) {
 		var contents = options.contents,
 		    eventId = options.eventId,
-		    dataObject = options.dataObject,
 		    tablist = [],
 		    imageName,
 		    image,
 		    content;
 
-		if (contents === null || eventId === null || dataObject === null) {
+		if (contents === null || eventId === null) {
 			return tablist;
 		}
 
-		for (var i = 0; i < dataObject.length; i++) {
-			image = dataObject[i];
+		for (var i = 0; i < MAP_IMAGES.length; i++) {
+			image = MAP_IMAGES[i];
 			imageName = image.suffix;
 
 			if (contents.hasOwnProperty(imageName)) {
