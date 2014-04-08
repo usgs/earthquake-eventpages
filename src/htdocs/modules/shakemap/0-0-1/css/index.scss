@@ -1,6 +1,10 @@
 /* responsive table */
 @import '../../../../css/_responsiveTable.scss';
 
+.tablist-panel {
+	min-height:400px;
+}
+
 div.stations {
 
 	> div.toggle {
