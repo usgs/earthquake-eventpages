@@ -120,7 +120,7 @@ define([
 	/**
 	 * Generate array of tab content for tablist
 	 *
-	 * @param  {object} options, 
+	 * @param  {object} options,
 	 *         shakemap downloadable contents.
 	 *
 	 * @return {array}
@@ -331,7 +331,7 @@ define([
 
 	/**
 	 * Generate details markup for station details. This is only called
-	 * when a station details section is expanded. 
+	 * when a station details section is expanded.
 	 *
 	 * @param  {string} index,
 	 *         a data-id value that identifies the station details
@@ -367,7 +367,7 @@ define([
 	 * markup for the station details section.
 	 *
 	 * @param  {array} components,
-	 *         station components for the station list. 
+	 *         station components for the station list.
 	 *
 	 * @return {string}
 	 *         HTML markup
@@ -575,8 +575,8 @@ define([
 	 *         array of objects to parse through for max value.
 	 *
 	 * @param  {string} key,
-	 *         name of attribute to evaluate. 
-	 *         
+	 *         name of attribute to evaluate.
+	 *
 	 * @return {string}
 	 *         max value.
 	 */

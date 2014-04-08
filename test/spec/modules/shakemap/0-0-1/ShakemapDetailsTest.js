@@ -97,7 +97,6 @@ define([
 
 				var parser = new DOMParser();
 				var doc = parser.parseFromString(stationlist.xml, 'application/xml');
-				
 
 				detailsClickSpy = sinon.spy(ShakemapDetailsPage.prototype,
 						'_toggleDetails');
@@ -127,7 +126,7 @@ define([
 				expect(stations.length).to.be.equal(2);
 			});
 
-			// check summary details 
+			// check summary details
 			it('has summary details', function () {
 				var stationDetails = stations[0].querySelectorAll('li');
 				expect(stationDetails.length).to.be.equal(4);
@@ -147,7 +146,7 @@ define([
 				var station = stations[0],
 				    target = station.querySelector('a'),
 				    stationDetails, components, content;
-				
+
 				page._toggleDetails({'target': target});
 
 				content = page.getContent();
