@@ -111,7 +111,7 @@ define([
 				});
 				content = page.getContent();
 				container = content.querySelector('.stations');
-				stations = content.querySelectorAll('.toggle');
+				stations = content.querySelectorAll('.station-toggle');
 			});
 
 			afterEach(function () {
@@ -149,8 +149,8 @@ define([
 				page._toggleDetails({'target': target});
 
 				content = page.getContent();
-				stationDetails = content.querySelector('.details');
-				components = content.querySelector('.components');
+				stationDetails = content.querySelector('.station-details');
+				components = content.querySelector('.station-components');
 
 				expect(stationDetails.querySelector('dd').innerHTML).to.equal('UNK');
 				expect(components.querySelectorAll('tbody>tr').length).to.equal(9);
