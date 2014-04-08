@@ -2,13 +2,15 @@
 define([
 	'util/Util',
 	'util/Xhr',
-	'base/TabbedModulePage',
-	'tablist/TabList'
+	'base/EventModulePage',
+	'tablist/TabList',
+	'base/ContentsXML'
 ], function (
 	Util,
 	Xhr,
-	TabbedModulePage,
-	TabList
+	EventModulePage,
+	TabList,
+	ContentsXML
 ) {
 	'use strict';
 
@@ -81,11 +83,11 @@ define([
 		this._tablist = null;
 		this._shakemap = null;
 		this._code = this._options.code || null;
-		TabbedModulePage.call(this, this._options);
+		EventModulePage.call(this, this._options);
 	};
 
-	// extend TabbedModulePage.
-	ShakemapDetailsPage.prototype = Object.create(TabbedModulePage.prototype);
+	// extend EventModulePage.
+	ShakemapDetailsPage.prototype = Object.create(EventModulePage.prototype);
 
 	ShakemapDetailsPage.prototype._setContentMarkup = function () {
 		var products = this._event.properties.products,
@@ -609,6 +611,26 @@ define([
 		}
 
 		return Math.max.apply(null, values);
+	};
+
+
+	ShakemapDetailsPage.prototype._setFooterMarkup = function () {
+
+		var el = this._footer;
+
+		el.className = 'downloads';
+		el.innerHTML = 'Loading contents ...';
+
+		new ContentsXML({
+				product: this._shakemap,
+				callback: function (contents) {
+					el.innerHTML = '<header><h3>Downloads</h3></header>' +
+							contents.getDownloads();
+				},
+				errback: function () {
+					el.innerHTML = 'Error loading contents ...';
+				}});
+		//return el;
 	};
 
 
