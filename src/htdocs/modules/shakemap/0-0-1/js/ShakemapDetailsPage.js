@@ -73,6 +73,69 @@ define([
 	};
 
 	/**
+	 * Converts XML into JSON
+	 *
+	 * @param  {object} xml,
+	 *         xml object returned by XHR response
+	 *
+	 * @return {object}
+	 *         JSON object returned
+	 */
+	var _xmlToJson = function (xml) {
+		// based on http://davidwalsh.name/convert-xml-json
+		var obj = {},
+				    children = [],
+				    attrs,
+				    attr,
+				    nodes,
+				    node,
+				    nodeName,
+				    nodeValue,
+				    i,
+				    len;
+
+		if (xml.nodeType === 3) {
+			return xml.nodeValue;
+		}
+
+		if (xml.nodeType === 1) {
+			attrs = xml.attributes;
+			for (i = 0, len = attrs.length; i < len; i++) {
+				attr = attrs.item(i);
+				obj[attr.nodeName] = attr.nodeValue;
+			}
+		}
+
+		if (xml.hasChildNodes()) {
+			nodes = xml.childNodes;
+			for(i = 0, len = nodes.length; i < len; i++) {
+				node = nodes.item(i);
+				nodeName = node.nodeName;
+				nodeValue = _xmlToJson(node);
+				children.push(nodeValue);
+				if (typeof(obj[nodeName]) === 'undefined') {
+					obj[nodeName] = nodeValue;
+				} else {
+					if (typeof(obj[nodeName].push) === 'undefined') {
+						obj[nodeName] = [obj[nodeName]];
+					}
+					obj[nodeName].push(nodeValue);
+				}
+			}
+		}
+
+		// clean up '#text' nodes
+		if (children.length === 1 && obj['#text']) {
+			return obj['#text'];
+		} else if (obj['#text']) {
+			delete obj['#text'];
+		}
+
+		return obj;
+	};
+
+
+	/**
 	 * Construct a new ShakemapDetailsPage.
 	 *
 	 * @param options {Object}
@@ -250,7 +313,7 @@ define([
 	 *         array of station objects
 	 */
 	ShakemapDetailsPage.prototype._buildStationArray = function (xml) {
-		var data = this._xmlToJson(xml),
+		var data = _xmlToJson(xml),
 		    shakemapData = data['shakemap-data'][1],
 		    stations = this._stations = shakemapData.stationlist.station;
 
@@ -481,69 +544,6 @@ define([
 
 
 	/**
-	 * Converts XML into JSON
-	 *
-	 * @param  {object} xml,
-	 *         xml object returned by XHR response
-	 *
-	 * @return {object}
-	 *         JSON object returned
-	 */
-	ShakemapDetailsPage.prototype._xmlToJson = function (xml) {
-		// based on http://davidwalsh.name/convert-xml-json
-		var obj = {},
-				    children = [],
-				    attrs,
-				    attr,
-				    nodes,
-				    node,
-				    nodeName,
-				    nodeValue,
-				    i,
-				    len;
-
-		if (xml.nodeType === 3) {
-			return xml.nodeValue;
-		}
-
-		if (xml.nodeType === 1) {
-			attrs = xml.attributes;
-			for (i = 0, len = attrs.length; i < len; i++) {
-				attr = attrs.item(i);
-				obj[attr.nodeName] = attr.nodeValue;
-			}
-		}
-
-		if (xml.hasChildNodes()) {
-			nodes = xml.childNodes;
-			for(i = 0, len = nodes.length; i < len; i++) {
-				node = nodes.item(i);
-				nodeName = node.nodeName;
-				nodeValue = this._xmlToJson(node);
-				children.push(nodeValue);
-				if (typeof(obj[nodeName]) === 'undefined') {
-					obj[nodeName] = nodeValue;
-				} else {
-					if (typeof(obj[nodeName].push) === 'undefined') {
-						obj[nodeName] = [obj[nodeName]];
-					}
-					obj[nodeName].push(nodeValue);
-				}
-			}
-		}
-
-		// clean up '#text' nodes
-		if (children.length === 1 && obj['#text']) {
-			return obj['#text'];
-		} else if (obj['#text']) {
-			delete obj['#text'];
-		}
-
-		return obj;
-	};
-
-
-	/**
 	 * Event delagator for station list section,
 	 * handles expanding and collapsing station details.
 	 *
@@ -619,7 +619,9 @@ define([
 		return Math.max.apply(null, values);
 	};
 
-
+	/**
+	 * Generate downloads markup for event module footer
+	 */
 	ShakemapDetailsPage.prototype._setFooterMarkup = function () {
 
 		var el = this._footer;
@@ -638,7 +640,6 @@ define([
 				}});
 		//return el;
 	};
-
 
 	// return constructor
 	return ShakemapDetailsPage;
