@@ -91,11 +91,14 @@ define([
 
 	ShakemapDetailsPage.prototype._setContentMarkup = function () {
 		var products = this._event.properties.products,
+		    tablistDiv = document.createElement('div'),
 		    shakemap;
 
 		if (!products.shakemap) {
 			return;
 		}
+
+		tablistDiv.className = 'shakemap';
 
 		// with multiple contributors get shakemap product based on code
 		if (this._code) {
@@ -106,7 +109,7 @@ define([
 
 		// Build TabList with all of the shakemap images
 		this._tablist = new TabList({
-			el: this._content.appendChild(document.createElement('div')),
+			el: this._content.appendChild(tablistDiv),
 			tabPosition: 'right',
 			header: shakemap.code, // TODO, what should this be?
 			tabs: this._createTabListData(
