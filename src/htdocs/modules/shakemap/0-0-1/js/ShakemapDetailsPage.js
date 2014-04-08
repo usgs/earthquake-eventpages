@@ -109,8 +109,7 @@ define([
 			header: shakemap.code, // TODO, what should this be?
 			tabs: this._createTabListData(
 				{
-					contents: shakemap.contents,
-					eventId: shakemap.code
+					contents: shakemap.contents
 				})
 		});
 
@@ -122,18 +121,19 @@ define([
 	 * Generate array of tab content for tablist
 	 *
 	 * @param  {object} options, 
-	 *         
-	 * @return {[type]}         [description]
+	 *         shakemap downloadable contents.
+	 *
+	 * @return {array}
+	 *         array of tablist objects including a tab title and content markup.
 	 */
 	ShakemapDetailsPage.prototype._createTabListData = function (options) {
 		var contents = options.contents,
-		    eventId = options.eventId,
 		    tablist = [],
 		    imageName,
 		    image,
 		    content;
 
-		if (contents === null || eventId === null) {
+		if (contents === null) {
 			return tablist;
 		}
 
@@ -154,7 +154,16 @@ define([
 		return tablist;
 	};
 
-
+	/**
+	 * When a product code is specified, return the corresponding
+	 * shakemap product.
+	 *
+	 * @param  {array} products,
+	 *         an array of shakemap products
+	 *
+	 * @return {object}
+	 *         shakemap object that matches the code
+	 */
 	ShakemapDetailsPage.prototype._getProduct = function (products) {
 		var shakemap;
 
@@ -168,7 +177,8 @@ define([
 	};
 
 	/**
-	 * Build a list of stations from stationlist.xml
+	 * Build a list of stations from stationlist.xml, these stations have
+	 * an expandable details section. Add a station list tab to the the tablist.
 	 */
 	ShakemapDetailsPage.prototype._addStationList = function () {
 		var title = 'Station List',
@@ -180,7 +190,8 @@ define([
 			'content': function () {
 				var container = document.createElement('div');
 				container.className = 'stations';
-				container.innerHTML = '<p>Loading station list data from XML, please wait...</p>';
+				container.innerHTML =
+						'<p>Loading station list data from XML,please wait...</p>';
 
 				_this._getStationData(function (content) {
 					// add station list content
@@ -195,6 +206,13 @@ define([
 		});
 	};
 
+	/**
+	 * Download the stationlist.xml
+	 *
+	 * @param  {Function} callback,
+	 *         callback function to display the station list markup
+	 *
+	 */
 	ShakemapDetailsPage.prototype._getStationData = function (callback) {
 		var file = this._shakemap.contents[STATION_LIST.suffix],
 		    _this = this;
@@ -211,11 +229,21 @@ define([
 						xhr.responseXML)));
 			},
 			error: function () {
-				callback('<p class="shakemap-error">Error: Unable to retreive the station list.</p>');
+				callback('<p class="shakemap-error">' +
+						'Error: Unable to retreive the station list.</p>');
 			}
 		});
 	};
 
+	/**
+	 * Build array of station data, sort by distance
+	 *
+	 * @param  {object} xml,
+	 *         XML Dom object from the XHR response
+	 *
+	 * @return {array}
+	 *         array of station objects
+	 */
 	ShakemapDetailsPage.prototype._buildStationArray = function (xml) {
 		var data = this._xmlToJson(xml),
 		    shakemapData = data['shakemap-data'][1],
@@ -227,6 +255,15 @@ define([
 		return stations;
 	};
 
+	/**
+	 * Generate summary markup for station list.
+	 *
+	 * @param  {array} data,
+	 *         list of station objects.
+	 *
+	 * @return {string}
+	 *         HTML markup.
+	 */
 	ShakemapDetailsPage.prototype._buildStationList = function (data) {
 		var stations = [],
 		    station, acc, vel, dist, components, romanNumeral, title;
@@ -292,7 +329,17 @@ define([
 		return stations.join('');
 	};
 
-
+	/**
+	 * Generate details markup for station details. This is only called
+	 * when a station details section is expanded. 
+	 *
+	 * @param  {string} index,
+	 *         a data-id value that identifies the station details
+	 *         section that was expanded on a click event.
+	 *
+	 * @return {string}
+	 *         HTML markup.
+	 */
 	ShakemapDetailsPage.prototype._buildStationDetails = function (index) {
 		var station = this._stations[index],
 		    components = station.comp;
@@ -315,6 +362,16 @@ define([
 			].join('');
 	};
 
+	/**
+	 * Called by _buildStationDetails, this finishes generating
+	 * markup for the station details section.
+	 *
+	 * @param  {array} components,
+	 *         station components for the station list. 
+	 *
+	 * @return {string}
+	 *         HTML markup
+	 */
 	ShakemapDetailsPage.prototype._buildComponentDetails = function (components) {
 		var componentsMarkup = [],
 		    component;
@@ -363,7 +420,63 @@ define([
 		].join('');
 	};
 
+	/**
+	 * Used to generate markup for component details based on the flag value.
+	 *
+	 * @param  {object} data,
+	 *         component value and component flag
+	 *
+	 * @return {string}
+	 *         HTML markup
+	 */
+	ShakemapDetailsPage.prototype._buildTableCell = function (data) {
+		var td;
 
+		// Add flag class for all non-zero flags
+		if (data) {
+				td = [
+					(data.flag !== '0') ? '<td class="flag">' : '<td>',
+						parseFloat(data.value, 10).toFixed(3), ' ',
+						this._assignFlag(data.flag),
+					'</td>'
+				].join('');
+		} else {
+			td = '<td>--</td>';
+		}
+
+		return td;
+	};
+
+	/**
+	 * Generate markup based on component flag value.
+	 *
+	 * @param  {string} flag,
+	 *         flag value that is checked againstFLAG_DESCRIPTIONS
+	 *         static varaibles.
+	 *
+	 * @return {string}
+	 *         HTML markup
+	 */
+	ShakemapDetailsPage.prototype._assignFlag = function (flag) {
+		var markup;
+
+		if (FLAG_DESCRIPTIONS.hasOwnProperty(flag)) {
+			markup = '<abbr title="' + FLAG_DESCRIPTIONS[flag] + '">(' +
+					flag + ')</abbr>';
+		}
+
+		return markup;
+	};
+
+	/**
+	 * Converts XML into JSON
+	 *
+	 * @param  {object} xml,
+	 *         xml object returned by XHR response
+	 *
+	 * @return {object}
+	 *         JSON object returned
+	 */
 	ShakemapDetailsPage.prototype._xmlToJson = function (xml) {
 		// based on http://davidwalsh.name/convert-xml-json
 		var obj = {},
@@ -418,6 +531,14 @@ define([
 	};
 
 
+	/**
+	 * Event delagator for station list section,
+	 * handles expanding and collapsing station details.
+	 *
+	 * @param  {object} e,
+	 *         click event.
+	 *
+	 */
 	ShakemapDetailsPage.prototype._toggleDetails = function (e) {
 		var target = e.target,
 		    container = e.target.parentNode,
@@ -446,19 +567,32 @@ define([
 		}
 	};
 
-	ShakemapDetailsPage.prototype._findMaxValue = function (array, value) {
+	/**
+	 * Find the max value in an array, used to determine max
+	 * values for station summary section.
+	 *
+	 * @param  {array} array,
+	 *         array of objects to parse through for max value.
+	 *
+	 * @param  {string} key,
+	 *         name of attribute to evaluate. 
+	 *         
+	 * @return {string}
+	 *         max value.
+	 */
+	ShakemapDetailsPage.prototype._findMaxValue = function (array, key) {
 		var values = [],
 		    item;
 
 		// Only one value, return value as max
-		if (!array.length && array[value]) {
-			return parseFloat(array[value].value, 10);
+		if (!array.length && array[key]) {
+			return parseFloat(array[key].value, 10);
 		}
 
 		for (var i = 0; i < array.length; i++) {
 
-			if (array[i].hasOwnProperty(value)) {
-				item = array[i][value].value;
+			if (array[i].hasOwnProperty(key)) {
+				item = array[i][key].value;
 			} else {
 				item = null;
 			}
@@ -473,34 +607,6 @@ define([
 		return Math.max.apply(null, values);
 	};
 
-	ShakemapDetailsPage.prototype._buildTableCell = function (data) {
-		var td;
-
-		// Add flag class for all non-zero flags
-		if (data) {
-				td = [
-					(data.flag !== '0') ? '<td class="flag">' : '<td>',
-						parseFloat(data.value, 10).toFixed(3), ' ',
-						this._assignFlag(data.flag),
-					'</td>'
-				].join('');
-		} else {
-			td = '<td>--</td>';
-		}
-
-		return td;
-	};
-
-	ShakemapDetailsPage.prototype._assignFlag = function (flag) {
-		var markup;
-
-		if (FLAG_DESCRIPTIONS.hasOwnProperty(flag)) {
-			markup = '<abbr title="' + FLAG_DESCRIPTIONS[flag] + '">(' +
-					flag + ')</abbr>';
-		}
-
-		return markup;
-	};
 
 	// return constructor
 	return ShakemapDetailsPage;
