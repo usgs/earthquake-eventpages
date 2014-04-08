@@ -350,13 +350,16 @@ define([
 	 *         HTML markup.
 	 */
 	ShakemapDetailsPage.prototype._buildStationDetails = function (index) {
-		var station = this._stations[index],
-		    components = station.comp;
+		var station,
+		    components;
 
 		// check for null index id
 		if (!index) {
 			return;
 		}
+
+		station = this._stations[index];
+		components = station.comp;
 
 		return [
 				'<dl>',
