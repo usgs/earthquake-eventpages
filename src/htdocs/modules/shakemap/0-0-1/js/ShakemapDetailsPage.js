@@ -394,7 +394,7 @@ define([
 		}
 
 		// When one record exists components is an object not an array
-		if(components && !components.length) {
+		if(typeof components === 'object' && !(components instanceof Array)) {
 			components = [components];
 		}
 
