@@ -593,14 +593,15 @@ define([
 	 */
 	ShakemapDetailsPage.prototype._findMaxValue = function (array, key) {
 		var values = [],
-		    item;
+		    item,
+		    i;
 
 		// Only one value, return value as max
 		if (!array.length && array[key]) {
 			return parseFloat(array[key].value, 10);
 		}
 
-		for (var i = 0; i < array.length; i++) {
+		for (i = 0; i < array.length; i++) {
 
 			if (array[i].hasOwnProperty(key)) {
 				item = array[i][key].value;
