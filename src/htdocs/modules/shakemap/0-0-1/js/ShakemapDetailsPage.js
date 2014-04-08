@@ -563,8 +563,7 @@ define([
 			// after creating the section, toggle the details on click
 			detailSection = container.querySelector('.station-details');
 			if (detailSection) {
-				target.classList.toggle('open');
-				detailSection.classList.toggle('details-hidden');
+				container.classList.toggle('show-station-details');
 				return;
 			}
 
@@ -574,7 +573,7 @@ define([
 			newSection.className = className;
 			newSection.innerHTML = details;
 
-			target.classList.toggle('open');
+			container.classList.toggle('show-station-details');
 			container.appendChild(newSection);
 		}
 	};

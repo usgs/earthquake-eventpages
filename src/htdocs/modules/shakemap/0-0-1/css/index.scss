@@ -61,10 +61,20 @@ div.station-toggle {
 		}
 	}
 
-	> a.open:before {
-		display:inline-block;
-		width:10px;
+	> .station-details {
+		display:none;
+	}
+}
+
+// toggle station details
+div.show-station-details {
+
+	> a.expand:before {
 		content: '- ';
+	}
+
+	> .station-details {
+		display:block;
 	}
 }
 
