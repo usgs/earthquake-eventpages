@@ -25,11 +25,7 @@
 	?>
 	<div class="impact-bubbles clearfix">
 	<?php
-	if ($PROPERTIES['tsunami'] == '1') {
-		echo '<a href="http://www.tsunami.gov/" title="Tsunami Warning Center" ' .
-				'class="tsunami"><img src="images/logos/tsunami.jpg" ' .
-				'alt="Tsunami Warning Center"/></a> ';
-	}
+
 	if ($PROPERTIES['cdi'] != null) {
 		$romanCDI = $ROMANS[round(floatval($PROPERTIES['cdi']))];
 		echo '<a href="#dyfi" title="Did You Feel It? maximum reported intensity ' .
@@ -50,6 +46,12 @@
 				'class="pager-alertlevel-' . strtolower($PROPERTIES['alert']) .
 				'">PAGER - <strong>' . strtoupper($PROPERTIES['alert']) .
 				'</strong></a> ';
+	}
+
+	if ($PROPERTIES['tsunami'] == '1') {
+		echo '<a href="http://www.tsunami.gov/" title="Tsunami Warning Center" ' .
+				'class="tsunami"><img src="images/logos/tsunami.jpg" ' .
+				'alt="Tsunami Warning Center"/></a> ';
 	}
 
 	?>
