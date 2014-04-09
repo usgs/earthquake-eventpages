@@ -154,22 +154,11 @@ define([
 	ShakemapDetailsPage.prototype = Object.create(EventModulePage.prototype);
 
 	ShakemapDetailsPage.prototype._setContentMarkup = function () {
-		var products = this._event.properties.products,
-		    tablistDiv = document.createElement('div'),
+		var tablistDiv = document.createElement('div'),
 		    shakemap;
 
-		if (!products.shakemap) {
-			return;
-		}
-
 		tablistDiv.className = 'shakemap';
-
-		// with multiple contributors get shakemap product based on code
-		if (this._code && this._source) {
-			shakemap = this._shakemap = this._getProduct();
-		} else {
-			shakemap = this._shakemap = products.shakemap[0];
-		}
+		shakemap = this._shakemap = this._getProduct();
 
 		// Build TabList with all of the shakemap images
 		this._tablist = new TabList({
@@ -232,16 +221,20 @@ define([
 	 */
 	ShakemapDetailsPage.prototype._getProduct = function () {
 		var products = this._event.properties.products.shakemap,
-		    shakemap;
+		    product;
 
-		for (var i = 0; i < products.length; i++) {
-			if (products[i].code === this._code &&
-					products[i].source === this._source) {
-				shakemap = products[i];
+		if (this._code && this._source) {
+			for (var i = 0; i < products.length; i++) {
+				if (products[i].code === this._code &&
+						products[i].source === this._source) {
+					product = products[i];
+				}
 			}
+		} else {
+			product = products[0];
 		}
 
-		return shakemap;
+		return product;
 	};
 
 	/**
