@@ -16,7 +16,8 @@ require.config({
 		summary: 'summary/0-0-1/js',
 		dyfi: 'dyfi/0-0-1/js',
 		pager: 'pager/0-0-1/js',
-		scientific: 'scientific/0-0-1/js'
+		scientific: 'scientific/0-0-1/js',
+		shakemap: 'shakemap/0-0-1/js'
 	},
 	shim: {
 		mocha: {
@@ -57,7 +58,8 @@ require([
 		'spec/modules/dyfi/0-0-1/TabListUtilTest',
 		'spec/modules/pager/0-0-1/PagerpageTest',
 		'spec/modules/pager/0-0-1/PagerXmlParserTest',
-		'spec/modules/scientific/0-0-1/HypocenterPageTest'
+		'spec/modules/scientific/0-0-1/HypocenterPageTest',
+		'spec/modules/shakemap/0-0-1/ShakemapDetailsTest'
 	], function () {
 		if (window.mochaPhantomJS) {
 			window.mochaPhantomJS.run();
