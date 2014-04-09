@@ -469,11 +469,11 @@ define([
 			componentsMarkup.push([
 				'<tr>',
 					'<td>', component.name ,'</td>',
-					this._buildTableCell(component.acc),
-					this._buildTableCell(component.vel),
-					this._buildTableCell(component.psa03),
-					this._buildTableCell(component.psa10),
-					this._buildTableCell(component.psa30),
+					'<td>', this._formatComponent(component.acc), '</td>',
+					'<td>', this._formatComponent(component.vel), '</td>',
+					'<td>', this._formatComponent(component.psa03), '</td>',
+					'<td>', this._formatComponent(component.psa10), '</td>',
+					'<td>', this._formatComponent(component.psa30), '</td>',
 				'</tr>'
 			].join(''));
 		}
@@ -510,8 +510,8 @@ define([
 	 * @return {string}
 	 *         HTML markup
 	 */
-	ShakemapDetailsPage.prototype._buildTableCell = function (data) {
-		var td = [],
+	ShakemapDetailsPage.prototype._formatComponent = function (data) {
+		var content = [],
 		    flag,
 		    value;
 
@@ -521,27 +521,27 @@ define([
 
 			// Add flag class for all non-zero flags
 			if (flag && flag !== '0') {
-				td.push('<td class="flag">');
-				td.push(parseFloat(value, 10).toFixed(3));
+				content.push('<span class="flag">');
+				content.push(parseFloat(value, 10).toFixed(3));
 
 				// display flag with title text
 				if (FLAG_DESCRIPTIONS.hasOwnProperty(flag)) {
-					td.push(' <abbr title="' + FLAG_DESCRIPTIONS[flag] + '">(' +
+					content.push(' <abbr title="' + FLAG_DESCRIPTIONS[flag] + '">(' +
 							flag + ')</abbr>');
 				} else {
-					td.push(' (' + flag + ')');
+					content.push(' (' + flag + ')');
 				}
-				td.push('</td>');
+				content.push('</span>');
 			} else {
-				td.push('<td>');
-				td.push(parseFloat(value, 10).toFixed(3));
-				td.push('</td>');
+				content.push('<span>');
+				content.push(parseFloat(value, 10).toFixed(3));
+				content.push('</span>');
 			}
 		} else {
-			td.push('<td>--</td>');
+			content.push('<span>--</span>');
 		}
 
-		return td.join('');
+		return content.join('');
 	};
 
 
