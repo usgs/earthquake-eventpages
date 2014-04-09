@@ -86,7 +86,7 @@ define([
 		/* creates tab list */
 		this._tablist = new TabList({
 			el: this._content.appendChild(document.createElement('div')),
-			tabPosition: 'right',
+			tabPosition: 'top',
 			tabs: TabListUtil.CreateTabListData({
 				contents:dyfi.contents,
 				eventId:dyfi.code,
