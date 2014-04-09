@@ -34,10 +34,6 @@ div.station-toggle {
 		border-bottom:1px dotted #999;
 	}
 
-	> div.details-hidden {
-		display:none;
-	}
-
 	> a.expand {
 		display: block;
 		position: absolute;
@@ -153,12 +149,10 @@ table.station-components {
 	> thead {
 		background:#999;
 	}
+}
 
-	> tbody > tr {
-		.flag {
-			color:#999;
-		}
-	}
+.station-flag {
+	color:#999;
 }
 
 

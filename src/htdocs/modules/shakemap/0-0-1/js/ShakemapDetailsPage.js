@@ -521,7 +521,7 @@ define([
 
 			// Add flag class for all non-zero flags
 			if (flag && flag !== '0') {
-				content.push('<span class="flag">');
+				content.push('<span class="station-flag">');
 				content.push(parseFloat(value, 10).toFixed(3));
 
 				// display flag with title text
