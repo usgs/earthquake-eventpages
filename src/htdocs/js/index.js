@@ -15,7 +15,8 @@ require.config({
 		dyfi: 'modules/dyfi/0-0-1/js',
 		pager: 'modules/pager/0-0-1/js',
 		scientific: 'modules/scientific/0-0-1/js',
-		shakemap: 'modules/shakemap/0-0-1/js'
+		shakemap: 'modules/shakemap/0-0-1/js',
+		impact: 'modules/impact/0-0-1/js'
 	},
 	shim: {
 		leaflet: {

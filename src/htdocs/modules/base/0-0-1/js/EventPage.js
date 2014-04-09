@@ -8,7 +8,8 @@ define([
 	'dyfi/DYFIModule',
 	'pager/PagerModule',
 	'scientific/ScientificModule',
-	'shakemap/ShakemapModule'
+	'shakemap/ShakemapModule',
+	'impact/ImpactModule'
 ], function (
 	Util,
 	Events,
@@ -18,7 +19,8 @@ define([
 	DYFIModule,
 	PagerModule,
 	ScientificModule,
-	ShakemapModule
+	ShakemapModule,
+	ImpactModule
 ) {
 	'use strict';
 
@@ -72,7 +74,8 @@ define([
 			new ShakemapModule({'eventDetails':this._eventDetails}),
 			new DYFIModule({'eventDetails':this._eventDetails}),
 			new PagerModule({'eventDetails':this._eventDetails}),
-			new ScientificModule({'eventDetails':this._eventDetails})
+			new ScientificModule({'eventDetails':this._eventDetails}),
+			new ImpactModule({'eventDetails':this._eventDetails})
 		];
 
 		this._initialize();
