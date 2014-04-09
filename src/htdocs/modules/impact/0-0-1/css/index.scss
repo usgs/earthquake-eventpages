@@ -1,0 +1,199 @@
+$td_padding: 10px;
+$th_padding: $td_padding * 2;
+
+/* responsive table */
+@import '../../../../css/_responsiveTable.scss';
+
+/*******************
+    DYFI Styles 
+********************/
+
+.hidden {
+	display:none;
+}
+
+.mmi span {
+	display: block;
+	padding: 10px 0;
+	text-align: center;
+	border-radius: 2px;
+	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* span with role="button" */
+.button {
+	display: inline-block;
+	color: #fff;
+	background: #4e7ab9;
+	border-radius: 3px;
+	padding: 8px 15px;
+	text-align: center;
+	text-decoration: none;
+}
+
+.button:hover {
+	cursor:pointer;
+	background-image: linear-gradient(to top, rgba(0,0,0,0.1) 0% ,rgba(0,0,0,0) 100%);
+}
+
+.dyfi-error,
+.dyfi-info {
+	display: inline-block;
+	padding:10px;
+}
+
+.dyfi-error {
+	background: #fcc;
+}
+
+.dyfi-info {
+	background: #eee;
+}
+
+@media screen and (max-width: 767px) {
+
+	.dyfi-error,
+	.dyfi-info {
+		display:block;
+	}
+
+	.button {
+		display:block;
+		width:100%;
+	}
+
+	.mmi span {
+		max-width: 50%;
+	}
+
+	.dyfi {
+		/*** Label the data ***/
+		td:nth-of-type(1):before { content: "Location"; }
+		td:nth-of-type(2):before { content: "MMI"; }
+		td:nth-of-type(3):before { content: "Responses"; }
+		td:nth-of-type(4):before { content: "Distance"; }
+	}
+}
+
+
+
+/*******************
+    PAGER Styles 
+********************/
+
+
+.pager {
+
+	.disclaimer, .legend {
+		display:block;
+		font-size:.8em;
+		color:#666;
+	}
+	.legend {
+		font-style:italic;
+	}
+	.toggle {
+		color:#00C;
+		text-decoration:underline;
+		cursor:pointer;
+		display:block;
+		font-size:.8em;
+	}
+
+	.mmi {
+		display:inline-block;
+		width:64px;
+		padding:2px 8px;
+		text-align:center;
+		margin-right:8px;
+		text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
+	}
+
+	.mmiI {
+		border:1px solid #999;
+	}
+
+	.pager-exposures {
+		list-style:none;
+		margin:0;
+		padding:0;
+
+		> li {
+			clear:left;
+			margin:8px 0;
+			padding:0;
+
+			.mmi {
+				cursor:pointer;
+			}
+
+			.population-value {
+				float:right;
+				margin:4px 0;
+			}
+
+			> dl {
+				display:none;
+				float:left;
+				width:100%;
+				margin:4px 0 8px 0;
+				padding:0 0 0 72px;
+				font-size:.8em;
+				color:#999;
+
+				> dt, > dd {
+					display:block;
+					float:left;
+					display:inline-block;
+					margin:0 8px 0 0;
+				}
+				> dt {
+					clear:left;
+
+					&:after {
+						content:':';
+					}
+				}
+			}
+			&.expanded > dl {
+				display:block;
+			}
+
+		}
+	}
+
+	.pager-cities {
+		list-style:none;
+		margin:0;
+		padding:0;
+
+		> li {
+			position:relative;
+			margin:8px 0;
+			padding:0 72px 0 0;
+			white-space:nowrap;
+			overflow:hidden;
+			text-overflow:ellipsis;
+
+			> .population {
+				position:absolute;
+				top:7px;
+				bottom:6px;
+				background-color:#fff;
+				right:0;
+				padding-left:8px;
+				z-index:10;
+				text-align:right;
+			}
+		}
+
+		> .city-additional {
+			display:none;
+		}
+
+		&.show-additional > .city-additional {
+			display:block;
+		}
+	}
+}
+
