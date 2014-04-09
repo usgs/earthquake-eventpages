@@ -171,8 +171,6 @@ define([
 				})
 		});
 
-		// Add station list to TabList
-		this._addStationList();
 	};
 
 	/**
@@ -207,6 +205,11 @@ define([
 					content: content
 				});
 			}
+		}
+
+		// if stationlist exists, append to tablist
+		if (this._shakemap.contents[STATION_LIST.suffix]) {
+			tablist.push(this._addStationList());
 		}
 
 		return tablist;
@@ -245,8 +248,8 @@ define([
 		var title = 'Station List',
 		    _this = this;
 
-		// Add tab with station list
-		this._tablist.addTab({
+		// Build tab with station list
+		var content = {
 			'title': title,
 			'content': function () {
 				var container = document.createElement('div');
@@ -254,17 +257,23 @@ define([
 				container.innerHTML =
 						'<p>Loading station list data from XML,please wait...</p>';
 
-				_this._getStationData(function (content) {
-					// add station list content
-					container.innerHTML = content;
-					// add click event to toggle details for stations
-					container.addEventListener('click', _this._toggleDetails.bind(_this));
-				});
-
+				_this._getStationData(
+						function (stations) {
+							// add station list content
+							container.innerHTML = _this._buildStationList(stations);
+							// add click event to toggle details for stations
+							container.addEventListener('click', _this._toggleDetails.bind(_this));
+						},
+						function (errorMessage) {
+							container.innerHTML = '<p class="error">' + errorMessage + '</p>';
+						}
+				);
 				// return panel content
 				return container;
 			}
-		});
+		};
+
+		return content;
 	};
 
 	/**
@@ -274,24 +283,22 @@ define([
 	 *         callback function to display the station list markup
 	 *
 	 */
-	ShakemapDetailsPage.prototype._getStationData = function (callback) {
+	ShakemapDetailsPage.prototype._getStationData = function (callback, errback) {
 		var file = this._shakemap.contents[STATION_LIST.suffix],
 		    _this = this;
 
 		if (!file) {
-			return '<p>No station list exists.</p>';
+			return errback('No station list exists.');
 		}
 
 		// get station content and build the station list
 		Xhr.ajax({
 			url: file.url,
 			success: function (data, xhr) {
-				callback(_this._buildStationList(_this._parseStationList(
-						xhr.responseXML)));
+				callback(_this._parseStationList(xhr.responseXML));
 			},
 			error: function () {
-				callback('<p class="shakemap-error">' +
-						'Error: Unable to retreive the station list.</p>');
+				errback('Error: Unable to retreive the station list.');
 			}
 		});
 	};
@@ -333,6 +340,10 @@ define([
 		var stations = [],
 		    station, acc, vel, dist, components, romanNumeral, title;
 
+		if (data.length === 0) {
+			return '<p>No station data available at this time.</p>';
+		}
+
 		for (var i = 0; i < data.length; i++) {
 			station = data[i];
 			components = station.comp;
@@ -360,7 +371,7 @@ define([
 			}
 
 			stations.push([
-				'<div class="station-toggle" data-id="', i ,'">',
+				'<div class="station-toggle">',
 					'<h3>', title, '</h3>',
 					'<ul class="station-summary">',
 						'<li class="mmi mmi', romanNumeral, '">',
@@ -558,7 +569,7 @@ define([
 				return;
 			}
 
-			className = 'station-details details-' + target.getAttribute('data-id');
+			className = 'station-details';
 			details = this._buildStationDetails(target.getAttribute('data-id'));
 			newSection = document.createElement('div');
 			newSection.className = className;
