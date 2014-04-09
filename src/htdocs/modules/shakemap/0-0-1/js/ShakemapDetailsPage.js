@@ -84,15 +84,15 @@ define([
 	var _xmlToJson = function (xml) {
 		// based on http://davidwalsh.name/convert-xml-json
 		var obj = {},
-				    children = [],
-				    attrs,
-				    attr,
-				    nodes,
-				    node,
-				    nodeName,
-				    nodeValue,
-				    i,
-				    len;
+		    children = [],
+		    attrs,
+		    attr,
+		    nodes,
+		    node,
+		    nodeName,
+		    nodeValue,
+		    i,
+		    len;
 
 		if (xml.nodeType === 3) {
 			return xml.nodeValue;
@@ -208,7 +208,7 @@ define([
 		}
 
 		// if stationlist exists, append to tablist
-		if (this._shakemap.contents[STATION_LIST.suffix]) {
+		if (contents[STATION_LIST.suffix]) {
 			tablist.push(this._addStationList());
 		}
 
