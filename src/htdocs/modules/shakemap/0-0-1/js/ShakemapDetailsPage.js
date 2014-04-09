@@ -146,6 +146,7 @@ define([
 		this._tablist = null;
 		this._shakemap = null;
 		this._code = this._options.code || null;
+		this._source = this._options.source || null;
 		EventModulePage.call(this, this._options);
 	};
 
@@ -164,8 +165,8 @@ define([
 		tablistDiv.className = 'shakemap';
 
 		// with multiple contributors get shakemap product based on code
-		if (this._code) {
-			shakemap = this._shakemap = this._getProduct(products.shakemap);
+		if (this._code && this._source) {
+			shakemap = this._shakemap = this._getProduct();
 		} else {
 			shakemap = this._shakemap = products.shakemap[0];
 		}
@@ -226,17 +227,16 @@ define([
 	 * When a product code is specified, return the corresponding
 	 * shakemap product.
 	 *
-	 * @param  {array} products,
-	 *         an array of shakemap products
-	 *
 	 * @return {object}
 	 *         shakemap object that matches the code
 	 */
-	ShakemapDetailsPage.prototype._getProduct = function (products) {
-		var shakemap;
+	ShakemapDetailsPage.prototype._getProduct = function () {
+		var products = this._event.properties.products.shakemap,
+		    shakemap;
 
 		for (var i = 0; i < products.length; i++) {
-			if (products[i].code === this._code) {
+			if (products[i].code === this._code &&
+					products[i].source === this._source) {
 				shakemap = products[i];
 			}
 		}
