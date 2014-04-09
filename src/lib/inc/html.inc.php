@@ -30,12 +30,12 @@
 				'class="tsunami"><img src="images/logos/tsunami.jpg" ' .
 				'alt="Tsunami Warning Center"/></a> ';
 	}
-
-	if ($PROPERTIES['alert'] != null) {
-		echo '<a href="#pager" title="PAGER estimated impact alert level" ' .
-				'class="pager-alertlevel-' . strtolower($PROPERTIES['alert']) .
-				'">PAGER - <strong>' . strtoupper($PROPERTIES['alert']) .
-				'</strong></a> ';
+	if ($PROPERTIES['cdi'] != null) {
+		$romanCDI = $ROMANS[round(floatval($PROPERTIES['cdi']))];
+		echo '<a href="#dyfi" title="Did You Feel It? maximum reported intensity ' .
+				'(' . intval($PROPERTIES['felt']) . 'reports)" class="mmi' .
+				$romanCDI . '">DYFI? - <strong class="roman">' . $romanCDI .
+				'</strong></a>';
 	}
 
 	if ($PROPERTIES['mmi'] != null) {
@@ -45,13 +45,13 @@
 				'class="roman">' . $romanMMI . '</strong></a> ';
 	}
 
-	if ($PROPERTIES['cdi'] != null) {
-		$romanCDI = $ROMANS[round(floatval($PROPERTIES['cdi']))];
-		echo '<a href="#dyfi" title="Did You Feel It? maximum reported intensity ' .
-				'(' . intval($PROPERTIES['felt']) . 'reports)" class="mmi' .
-				$romanCDI . '">DYFI? - <strong class="roman">' . $romanCDI .
-				'</strong></a>';
+	if ($PROPERTIES['alert'] != null) {
+		echo '<a href="#pager" title="PAGER estimated impact alert level" ' .
+				'class="pager-alertlevel-' . strtolower($PROPERTIES['alert']) .
+				'">PAGER - <strong>' . strtoupper($PROPERTIES['alert']) .
+				'</strong></a> ';
 	}
+
 	?>
 	</div>
 	<?php } /* endif (impact bubbles) */ ?>
