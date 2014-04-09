@@ -44,7 +44,7 @@
 	if ($PROPERTIES['alert'] != null) {
 		echo '<a href="#pager" title="PAGER estimated impact alert level" ' .
 				'class="pager-alertlevel-' . strtolower($PROPERTIES['alert']) .
-				'">PAGER - <strong>' . strtoupper($PROPERTIES['alert']) .
+				'">PAGER - <strong class="roman">' . strtoupper($PROPERTIES['alert']) .
 				'</strong></a> ';
 	}
 
