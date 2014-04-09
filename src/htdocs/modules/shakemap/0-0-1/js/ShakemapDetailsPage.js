@@ -340,15 +340,9 @@ define([
 			acc = this._findMaxValue(components, 'acc');
 			vel = this._findMaxValue(components, 'vel');
 
-			// check for NaN
-			if (typeof vel !== 'string') {
-				vel = vel.toFixed(3);
-			}
 
-			// check for NaN
-			if (typeof acc !== 'string') {
-				acc = acc.toFixed(3);
-			}
+			vel = (vel) ? vel.toFixed(3) : '--';
+			acc = (acc) ? acc.toFixed(3) : '--';
 
 			if (typeof station.dist === 'string') {
 				dist = parseFloat(station.dist, 10);
@@ -590,27 +584,39 @@ define([
 	 */
 	ShakemapDetailsPage.prototype._findMaxValue = function (array, key) {
 		var values = [],
+		    value,
 		    item,
 		    i;
 
-		// Only one value, return value as max
-		if (!array.length && array[key]) {
-			return parseFloat(array[key].value, 10);
+		// Only one value, convert to array
+		if(typeof array === 'object' && !(array instanceof Array)) {
+			array = [array];
 		}
 
 		for (i = 0; i < array.length; i++) {
+			if (array[i].hasOwnProperty(key)){
 
-			if (array[i].hasOwnProperty(key)) {
-				item = array[i][key].value;
-			} else {
-				item = null;
+				value = parseFloat(array[i][key].value, 10);
+
+				if (isNaN(value)) {
+					item = null;
+				} else {
+					item = array[i][key].value;
+				}
+
+				if (typeof item === 'string') {
+					item = parseFloat(item, 10);
+				}
+
+				if (item) {
+					values.push(item);
+				}
 			}
+		}
 
-			if (typeof item === 'string') {
-				item = parseFloat(item, 10);
-			}
-
-			values.push(item);
+		// otherwise infinity is computed as the max
+		if(values.length === 0) {
+			return null;
 		}
 
 		return Math.max.apply(null, values);
