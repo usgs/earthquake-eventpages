@@ -293,7 +293,7 @@ define([
 		Xhr.ajax({
 			url: file.url,
 			success: function (data, xhr) {
-				callback(_this._buildStationList(_this._buildStationArray(
+				callback(_this._buildStationList(_this._parseStationList(
 						xhr.responseXML)));
 			},
 			error: function () {
@@ -312,10 +312,14 @@ define([
 	 * @return {array}
 	 *         array of station objects
 	 */
-	ShakemapDetailsPage.prototype._buildStationArray = function (xml) {
+	ShakemapDetailsPage.prototype._parseStationList = function (xml) {
 		var data = _xmlToJson(xml),
 		    shakemapData = data['shakemap-data'][1],
 		    stations = this._stations = shakemapData.stationlist.station;
+
+		if (!stations) {
+			return [];
+		}
 
 		// sort by distance
 		stations.sort(_sortByDistance);
