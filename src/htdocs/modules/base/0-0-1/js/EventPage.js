@@ -5,10 +5,7 @@ define([
 
 	'base/EventModule',
 	'summary/SummaryModule',
-	'dyfi/DYFIModule',
-	'pager/PagerModule',
 	'scientific/ScientificModule',
-	'shakemap/ShakemapModule',
 	'impact/ImpactModule'
 ], function (
 	Util,
@@ -16,10 +13,7 @@ define([
 
 	EventModule,
 	SummaryModule,
-	DYFIModule,
-	PagerModule,
 	ScientificModule,
-	ShakemapModule,
 	ImpactModule
 ) {
 	'use strict';
@@ -71,10 +65,7 @@ define([
 
 		this._modules = options.modules || [
 			new SummaryModule({'eventDetails':this._eventDetails}),
-			new ShakemapModule({'eventDetails':this._eventDetails}),
 			new ImpactModule({'eventDetails':this._eventDetails}),
-			new DYFIModule({'eventDetails':this._eventDetails}),
-			new PagerModule({'eventDetails':this._eventDetails}),
 			new ScientificModule({'eventDetails':this._eventDetails})
 		];
 

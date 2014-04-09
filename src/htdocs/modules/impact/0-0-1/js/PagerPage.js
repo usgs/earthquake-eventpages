@@ -4,7 +4,7 @@ define([
 	'util/Xhr',
 
 	'base/EventModulePage',
-	'pager/PagerXmlParser'
+	'impact/PagerXmlParser'
 ], function (
 	Util,
 	Xhr,
