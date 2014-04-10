@@ -16,7 +16,7 @@ function () {
 		},
 
 		_sortByDistance: function (a, b) {
-			return parseFloat(a.dist, 10) - parseFloat(b.dist, 10);
+			return parseFloat(a.dist) - parseFloat(b.dist);
 		},
 
 	/**
