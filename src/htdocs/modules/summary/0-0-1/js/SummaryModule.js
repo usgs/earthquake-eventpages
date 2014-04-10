@@ -10,7 +10,7 @@ define([
 
 	var DEFAULTS = {
 		title: 'General',
-		hash: 'event',
+		hash: 'general',
 		cssUrl: require.toUrl('summary/../css/index.css'),
 		dependencyLoader: null,
 		pages: [
