@@ -44,6 +44,7 @@ require.config({
 		tablist: 'hazdev-tablist/src/tablist',
 		svgimagemap: 'hazdev-svgimagemap/src/svgimagemap',
 		quakeml: 'quakeml-parser-js/src/quakeml',
+		questionview: 'hazdev-question-view/src',
 
 		base: 'base/0-0-1/js',
 		summary: 'summary/0-0-1/js',
