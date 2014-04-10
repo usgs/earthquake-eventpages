@@ -21,7 +21,7 @@ define([
 						maxmmi: 7.0
 					},
 					contents: {
-						'pager.xml': {url: '/spec/modules/pager/0-0-1/pager.xml'},
+						'pager.xml': {url: '/spec/modules/impact/0-0-1/pager.xml'},
 						'exposure.png': {url: 'exposure.png'},
 						'alertecon.pdf': {url: 'alertecon.pdf'},
 						'alertecon.png': {url: 'alertecon.png'},
