@@ -3,7 +3,7 @@ define([
 	'chai',
 	'sinon',
 
-	'shakemap/ShakemapDetailsPage',
+	'impact/ShakemapPage',
 	'./stationlist',
 
 	'util/Xhr'

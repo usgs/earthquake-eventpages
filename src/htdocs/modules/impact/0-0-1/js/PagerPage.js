@@ -4,7 +4,7 @@ define([
 	'util/Xhr',
 
 	'base/EventModulePage',
-	'pager/PagerXmlParser'
+	'impact/PagerXmlParser'
 ], function (
 	Util,
 	Xhr,
@@ -15,11 +15,8 @@ define([
 	'use strict';
 
 	var DEFAULTS = {
-		title: 'Summary',
-		hash: 'summary',
 		renderCallback: null // Function to call when async rendering is complete
 	};
-
 
 	var PagerPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});

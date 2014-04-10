@@ -4,13 +4,15 @@ define([
 	'util/Xhr',
 	'base/EventModulePage',
 	'tablist/TabList',
-	'base/ContentsXML'
+	'base/ContentsXML',
+	'./ImpactUtil'
 ], function (
 	Util,
 	Xhr,
 	EventModulePage,
 	TabList,
-	ContentsXML
+	ContentsXML,
+	ImpactUtil
 ) {
 	'use strict';
 
@@ -18,7 +20,7 @@ define([
 
 	var MAP_IMAGES = [
 		{
-			title:'Instrumental Intensity',
+			title:'Intensity',
 			suffix:'download/intensity.jpg'
 		},
 		{
@@ -60,88 +62,13 @@ define([
 		'N': 'Not in list of known stations'
 	};
 
-	var _translateMmi = function (mmi) {
-		var mmiArray = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
-				'IX', 'X', 'XI', 'XII'];
-		mmi = Math.round(mmi);
-
-		return mmiArray[mmi] || '';
-	};
-
-	var _sortByDistance = function (a, b) {
-		return parseFloat(a.dist, 10) - parseFloat(b.dist, 10);
-	};
-
 	/**
-	 * Converts XML into JSON
-	 *
-	 * @param  {object} xml,
-	 *         xml object returned by XHR response
-	 *
-	 * @return {object}
-	 *         JSON object returned
-	 */
-	var _xmlToJson = function (xml) {
-		// based on http://davidwalsh.name/convert-xml-json
-		var obj = {},
-		    children = [],
-		    attrs,
-		    attr,
-		    nodes,
-		    node,
-		    nodeName,
-		    nodeValue,
-		    i,
-		    len;
-
-		if (xml.nodeType === 3) {
-			return xml.nodeValue;
-		}
-
-		if (xml.nodeType === 1) {
-			attrs = xml.attributes;
-			for (i = 0, len = attrs.length; i < len; i++) {
-				attr = attrs.item(i);
-				obj[attr.nodeName] = attr.nodeValue;
-			}
-		}
-
-		if (xml.hasChildNodes()) {
-			nodes = xml.childNodes;
-			for(i = 0, len = nodes.length; i < len; i++) {
-				node = nodes.item(i);
-				nodeName = node.nodeName;
-				nodeValue = _xmlToJson(node);
-				children.push(nodeValue);
-				if (typeof(obj[nodeName]) === 'undefined') {
-					obj[nodeName] = nodeValue;
-				} else {
-					if (typeof(obj[nodeName].push) === 'undefined') {
-						obj[nodeName] = [obj[nodeName]];
-					}
-					obj[nodeName].push(nodeValue);
-				}
-			}
-		}
-
-		// clean up '#text' nodes
-		if (children.length === 1 && obj['#text']) {
-			return obj['#text'];
-		} else if (obj['#text']) {
-			delete obj['#text'];
-		}
-
-		return obj;
-	};
-
-
-	/**
-	 * Construct a new ShakemapDetailsPage.
+	 * Construct a new ShakeMapPage.
 	 *
 	 * @param options {Object}
 	 *        page options.
 	 */
-	var ShakemapDetailsPage = function (options) {
+	var ShakeMapPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
 		this._tablist = null;
 		this._shakemap = null;
@@ -151,9 +78,9 @@ define([
 	};
 
 	// extend EventModulePage.
-	ShakemapDetailsPage.prototype = Object.create(EventModulePage.prototype);
+	ShakeMapPage.prototype = Object.create(EventModulePage.prototype);
 
-	ShakemapDetailsPage.prototype._setContentMarkup = function () {
+	ShakeMapPage.prototype._setContentMarkup = function () {
 		var tablistDiv = document.createElement('div'),
 		    shakemap;
 
@@ -163,14 +90,12 @@ define([
 		// Build TabList with all of the shakemap images
 		this._tablist = new TabList({
 			el: this._content.appendChild(tablistDiv),
-			tabPosition: 'right',
-			header: shakemap.code, // TODO, what should this be?
+			tabPosition: 'top',
 			tabs: this._createTabListData(
 				{
 					contents: shakemap.contents
 				})
 		});
-
 	};
 
 	/**
@@ -182,7 +107,7 @@ define([
 	 * @return {array}
 	 *         array of tablist objects including a tab title and content markup.
 	 */
-	ShakemapDetailsPage.prototype._createTabListData = function (options) {
+	ShakeMapPage.prototype._createTabListData = function (options) {
 		var contents = options.contents,
 		    tablist = [],
 		    imageName,
@@ -222,7 +147,7 @@ define([
 	 * @return {object}
 	 *         shakemap object that matches the code
 	 */
-	ShakemapDetailsPage.prototype._getProduct = function () {
+	ShakeMapPage.prototype._getProduct = function () {
 		var products = this._event.properties.products.shakemap,
 		    product;
 
@@ -244,7 +169,7 @@ define([
 	 * Build a list of stations from stationlist.xml, these stations have
 	 * an expandable details section. Add a station list tab to the the tablist.
 	 */
-	ShakemapDetailsPage.prototype._addStationList = function () {
+	ShakeMapPage.prototype._addStationList = function () {
 		var title = 'Station List',
 		    _this = this;
 
@@ -255,7 +180,7 @@ define([
 				var container = document.createElement('div');
 				container.className = 'stations';
 				container.innerHTML =
-						'<p>Loading station list data from XML,please wait...</p>';
+						'<p>Loading station list data from XML, please wait...</p>';
 
 				_this._getStationData(
 						function (stations) {
@@ -283,7 +208,7 @@ define([
 	 *         callback function to display the station list markup
 	 *
 	 */
-	ShakemapDetailsPage.prototype._getStationData = function (callback, errback) {
+	ShakeMapPage.prototype._getStationData = function (callback, errback) {
 		var file = this._shakemap.contents[STATION_LIST.suffix],
 		    _this = this;
 
@@ -312,8 +237,8 @@ define([
 	 * @return {array}
 	 *         array of station objects
 	 */
-	ShakemapDetailsPage.prototype._parseStationList = function (xml) {
-		var data = _xmlToJson(xml),
+	ShakeMapPage.prototype._parseStationList = function (xml) {
+		var data = ImpactUtil._xmlToJson(xml),
 		    shakemapData = data['shakemap-data'][1],
 		    stations = this._stations = shakemapData.stationlist.station;
 
@@ -322,7 +247,7 @@ define([
 		}
 
 		// sort by distance
-		stations.sort(_sortByDistance);
+		stations.sort(ImpactUtil._sortByDistance);
 
 		return stations;
 	};
@@ -336,7 +261,7 @@ define([
 	 * @return {string}
 	 *         HTML markup.
 	 */
-	ShakemapDetailsPage.prototype._buildStationList = function (data) {
+	ShakeMapPage.prototype._buildStationList = function (data) {
 		var stations = [],
 		    station, acc, vel, dist, components, romanNumeral, title;
 
@@ -361,7 +286,7 @@ define([
 
 			dist = dist.toFixed(1);
 
-			romanNumeral = _translateMmi(station.intensity);
+			romanNumeral = ImpactUtil._translateMmi(station.intensity);
 
 			// Do not repeat the zip code if it's already part of the name
 			if (station.name.indexOf('ZIP Code') === -1) {
@@ -414,7 +339,7 @@ define([
 	 * @return {string}
 	 *         HTML markup.
 	 */
-	ShakemapDetailsPage.prototype._buildStationDetails = function (index) {
+	ShakeMapPage.prototype._buildStationDetails = function (index) {
 		var station,
 		    components;
 
@@ -449,7 +374,7 @@ define([
 	 * @return {string}
 	 *         HTML markup
 	 */
-	ShakemapDetailsPage.prototype._buildComponentDetails = function (components) {
+	ShakeMapPage.prototype._buildComponentDetails = function (components) {
 		var componentsMarkup = [],
 		    component;
 
@@ -510,7 +435,7 @@ define([
 	 * @return {string}
 	 *         HTML markup
 	 */
-	ShakemapDetailsPage.prototype._formatComponent = function (data) {
+	ShakeMapPage.prototype._formatComponent = function (data) {
 		var content = [],
 		    flag,
 		    value;
@@ -553,7 +478,7 @@ define([
 	 *         click event.
 	 *
 	 */
-	ShakemapDetailsPage.prototype._toggleDetails = function (e) {
+	ShakeMapPage.prototype._toggleDetails = function (e) {
 		var target = e.target,
 		    container = e.target.parentNode,
 		    className,
@@ -593,7 +518,7 @@ define([
 	 * @return {string}
 	 *         max value.
 	 */
-	ShakemapDetailsPage.prototype._findMaxValue = function (array, key) {
+	ShakeMapPage.prototype._findMaxValue = function (array, key) {
 		var values = [],
 		    value,
 		    item,
@@ -636,7 +561,7 @@ define([
 	/**
 	 * Generate downloads markup for event module footer
 	 */
-	ShakemapDetailsPage.prototype._setFooterMarkup = function () {
+	ShakeMapPage.prototype._setFooterMarkup = function () {
 
 		var el = this._footer;
 
@@ -656,5 +581,5 @@ define([
 	};
 
 	// return constructor
-	return ShakemapDetailsPage;
+	return ShakeMapPage;
 });

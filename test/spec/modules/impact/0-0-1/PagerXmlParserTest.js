@@ -4,7 +4,7 @@ define([
 
 	'util/Xhr',
 
-	'pager/PagerXmlParser'
+	'impact/PagerXmlParser'
 ], function (
 	chai,
 
@@ -19,7 +19,7 @@ define([
 	describe('PagerXmlParser test suite.', function () {
 		before(function (done) {
 			Xhr.ajax({
-				url: 'spec/modules/pager/0-0-1/pager.xml',
+				url: 'spec/modules/impact/0-0-1/pager.xml',
 				success: function (r, xhr) {
 					pagerInfo = PagerXmlParser.parse(xhr.responseXml || r);
 					done();

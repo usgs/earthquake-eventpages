@@ -2,57 +2,132 @@
 define([
 	'util/Util',
 	'base/EventModulePage',
-	'util/Xhr'
+	'tablist/Tablist',
+	'util/Xhr',
+	'./TabListUtil',
+	'./ImpactUtil'
 ], function (
 	Util,
 	EventModulePage,
-	Xhr
+	TabList,
+	Xhr,
+	TabListUtil,
+	ImpactUtil
 ) {
 	'use strict';
 
-	var DEFAULTS = {
-		title: 'Responses',
-		hash: 'responses'
-	};
+	var DEFAULTS = {};
 
-	var _sortByDistance = function (a, b) {
-		return a.dist - b.dist;
-	};
+	/* sets up titles and images for tabs */
+	var MAP_GRAPH_IMAGES = [
+		{
+			title:'Intensity Map',
+			suffix:'_ciim.jpg',
+			usemap:'imap_base',
+			mapSuffix:'_ciim_imap.html'
+		},
+		{
+			title:'Geocoded Map',
+			suffix:'_ciim_geo.jpg',
+			usemap:'imap_geo',
+			mapSuffix:'_ciim_geo_imap.html'
+		},
+		{
+			title:'Zoom Map',
+			suffix:'_ciim_zoom.jpg',
+			usemap:'imap_zoom',
+			mapSuffix:'_ciim_zoom_imap.html'
+		},
+		{
+			title:'Zoom Out Map',
+			suffix:'_ciim_zoomout.jpg',
+			usemap:'imap_zoomout',
+			mapSuffix:'_ciim_zoomout_imap.html'
+		},
+		{
+			title:'Intensity Vs. Distance',
+			suffix:'_plot_atten.jpg'
+		},
+		{
+			title:'Responses Vs. Time',
+			suffix:'_plot_numresp.jpg'
+		}
+	];
 
-	var _translateMmi = function (mmi) {
-		var mmiArray = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
-				'IX', 'X', 'XI', 'XII'];
-		mmi = Math.round(mmi);
-
-		return mmiArray[mmi] || '';
-	};
-
-	var DYFIResponsesPage = function (options) {
+	/* creates map page and sets up the content */
+	var DYFIPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
 		EventModulePage.call(this, options);
 	};
 
-	DYFIResponsesPage.prototype = Object.create(EventModulePage.prototype);
+	DYFIPage.prototype = Object.create(EventModulePage.prototype);
 
-	DYFIResponsesPage.prototype._setContentMarkup = function() {
-
-		var products = this._event.properties.products;
-
-		if (!products.dyfi ||
-				!products.dyfi[0].contents.hasOwnProperty('cdi_zip.xml')) {
+	DYFIPage.prototype._setContentMarkup = function () {
+		var products = this._event.properties.products,
+		    dyfi, tablistDiv;
+		if (!products.dyfi) {
 			return;
 		}
 
-		this._getDYFIResponses(products.dyfi[0].contents['cdi_zip.xml']);
+		dyfi = this._dyfi = products.dyfi[0];
+		// Tablist element
+		tablistDiv = document.createElement('div');
+		tablistDiv.className = 'dyfi-tablist';
+
+		/* creates tab list */
+		this._tablist = new TabList({
+			el: this._content.appendChild(tablistDiv),
+			tabPosition: 'top',
+			tabs: TabListUtil.CreateTabListData({
+				contents:dyfi.contents,
+				eventId:dyfi.code,
+				dataObject:MAP_GRAPH_IMAGES,
+				callback:this._getUseMap,
+				object:this
+			})
+		});
+
+		if (!dyfi.contents.hasOwnProperty('cdi_zip.xml')) {
+			return;
+		}
+
+		this._addDyfiResponsesTab();
+
 	};
 
-	DYFIResponsesPage.prototype._getDYFIResponses = function(file) {
+
+	DYFIPage.prototype._addDyfiResponsesTab = function () {
+		var title = 'DYFI Responses',
+		    _this = this;
+
+		// Add tab with station list
+		this._tablist.addTab({
+			'title': title,
+			'content': function () {
+				var container = document.createElement('div');
+				container.className = 'dyfi-responses';
+				container.innerHTML =
+						'<p>Loading DYFI Responses data from XML,please wait...</p>';
+
+				_this._getDYFIResponses(function (content) {
+					// add station list content
+					container.innerHTML = '';
+					container.appendChild(content);
+				});
+
+				// return panel content
+				return container;
+			}
+		});
+	};
+
+	DYFIPage.prototype._getDYFIResponses = function(callback) {
 
 		var _this = this;
 		Xhr.ajax({
-			url: file.url,
+			url: this._dyfi.contents['cdi_zip.xml'].url,
 			success: function (data, xhr) {
-				_this._buildResponsesTable(_this._buildResponsesArray(xhr.responseXML));
+				callback(_this._buildResponsesTable(_this._buildResponsesArray(xhr.responseXML)));
 			},
 			error: function () {
 				var output = document.createElement('p');
@@ -63,7 +138,7 @@ define([
 		});
 	};
 
-	DYFIResponsesPage.prototype._buildResponsesArray = function (xmlDoc) {
+	DYFIPage.prototype._buildResponsesArray = function (xmlDoc) {
 
 		var data = xmlDoc.getElementsByTagName('location'),
 		    responsesArray = [];
@@ -111,11 +186,14 @@ define([
 		return responsesArray;
 	};
 
-	DYFIResponsesPage.prototype._buildResponsesTable = function (records) {
+	DYFIPage.prototype._buildResponsesTable = function (records) {
+		var responsesDiv;
 
 		if (records.length !== 0) {
 
-			records.sort(_sortByDistance);
+			responsesDiv = document.createElement('div');
+			responsesDiv.className = 'dyfi-responses';
+			records.sort(ImpactUtil._sortByDistance);
 
 			var tableMarkup = [
 				'<thead>',
@@ -148,7 +226,7 @@ define([
 					tableMarkup.push('<tr>');
 				}
 
-				var romanNumeral = _translateMmi(record.cdi);
+				var romanNumeral = ImpactUtil._translateMmi(record.cdi);
 
 				tableMarkup.push(
 						'<td>',
@@ -170,10 +248,10 @@ define([
 			);
 
 			responsesTable.innerHTML = tableMarkup.join('');
-			this._content.appendChild(responsesTable);
+			responsesDiv.appendChild(responsesTable);
 
 			if (records.length > 10) {
-				this._content.appendChild(expandListLink);
+				responsesDiv.appendChild(expandListLink);
 			}
 
 			this._bindEvent(expandListLink, responsesTable);
@@ -185,9 +263,11 @@ define([
 			div.innerHTML = 'No data available.';
 			this._content.appendChild(div);
 		}
+
+		return responsesDiv;
 	};
 
-	DYFIResponsesPage.prototype._bindEvent = function (linkDom, table) {
+	DYFIPage.prototype._bindEvent = function (linkDom, table) {
 
 		var allRecords;
 		var elementList = table.querySelectorAll('tr.hidden');
@@ -209,8 +289,5 @@ define([
 		}
 	};
 
-
-
-
-	return DYFIResponsesPage;
+	return DYFIPage;
 });

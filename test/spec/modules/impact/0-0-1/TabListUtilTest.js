@@ -3,7 +3,7 @@ define([
 	'chai',
 	'sinon',
 
-	'dyfi/TabListUtil',
+	'impact/TabListUtil',
 	'./Usb000ldeh',
 	'svgimagemap/SvgImageMap'
 ], function (

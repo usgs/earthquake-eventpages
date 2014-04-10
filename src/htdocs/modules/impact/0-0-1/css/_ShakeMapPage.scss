@@ -1,10 +1,3 @@
-/* responsive table */
-@import '../../../../css/_responsiveTable.scss';
-
-.shakemap > .tablist-panel {
-	min-height:400px;
-}
-
 div.station-toggle {
 	position:relative;
 	border:1px solid #ddd;
@@ -148,6 +141,10 @@ table.station-components {
 
 	> thead {
 		background:#999;
+
+		> tr > th {
+			padding:10px;
+		}
 	}
 }
 
@@ -156,11 +153,11 @@ table.station-components {
 }
 
 
-@media screen and (max-width:767px) {
+.shakemap > .tablist-panel {
+	padding:0 10px;
+}
 
-	.shakemap > .tablist-panel {
-		padding:0 10px;
-	}
+@media screen and (max-width:767px) {
 
 	ul.station-summary {
 		font-size:15px;
