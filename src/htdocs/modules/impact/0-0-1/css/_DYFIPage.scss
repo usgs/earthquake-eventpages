@@ -1,29 +1,39 @@
-.hidden {
-	display:none;
+.dyfi-responses {
+
+	/* span with role="button" */
+	> .button {
+		display: inline-block;
+		color: #fff;
+		background: #4e7ab9;
+		border-radius: 3px;
+		padding: 8px 15px;
+		text-align: center;
+		text-decoration: none;
+
+		&:hover {
+			cursor:pointer;
+			background-image: linear-gradient(to top, rgba(0,0,0,0.1) 0% ,rgba(0,0,0,0) 100%);
+		}
+	}
+
+	.dyfi {
+		.hidden {
+			display:none;
+		}
+		.mmi span {
+			display: block;
+			padding: 10px 0;
+			text-align: center;
+			border-radius: 2px;
+			text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+		}
+	}
 }
 
-.mmi span {
-	display: block;
-	padding: 10px 0;
-	text-align: center;
-	border-radius: 2px;
-	text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
-}
-
-/* span with role="button" */
-.button {
-	display: inline-block;
-	color: #fff;
-	background: #4e7ab9;
-	border-radius: 3px;
-	padding: 8px 15px;
-	text-align: center;
-	text-decoration: none;
-}
-
-.button:hover {
-	cursor:pointer;
-	background-image: linear-gradient(to top, rgba(0,0,0,0.1) 0% ,rgba(0,0,0,0) 100%);
+.dyfi-tablist {
+	> .tablist-panel {
+		padding:10px;
+	}
 }
 
 .dyfi-error,
@@ -42,18 +52,28 @@
 
 @media screen and (max-width: 767px) {
 
+	.dyfi-tablist {
+		> .tablist-panel {
+			padding:5px;
+		}
+	}
+
 	.dyfi-error,
 	.dyfi-info {
 		display:block;
 	}
 
-	.button {
-		display:block;
-		width:100%;
+	.dyfi-responses {
+		> .button {
+			display:block;
+			width:100%;
+		}
 	}
 
-	.mmi span {
-		max-width: 50%;
+	.dyfi {
+		.mmi span {
+			max-width: 50%;
+		}
 	}
 
 	.dyfi {

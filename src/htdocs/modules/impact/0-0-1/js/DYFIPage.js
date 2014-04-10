@@ -64,16 +64,19 @@ define([
 
 	DYFIPage.prototype._setContentMarkup = function () {
 		var products = this._event.properties.products,
-		    dyfi;
+		    dyfi, tablistDiv;
 		if (!products.dyfi) {
 			return;
 		}
 
 		dyfi = this._dyfi = products.dyfi[0];
+		// Tablist element
+		tablistDiv = document.createElement('div');
+		tablistDiv.className = 'dyfi-tablist';
 
 		/* creates tab list */
 		this._tablist = new TabList({
-			el: this._content.appendChild(document.createElement('div')),
+			el: this._content.appendChild(tablistDiv),
 			tabPosition: 'top',
 			tabs: TabListUtil.CreateTabListData({
 				contents:dyfi.contents,
