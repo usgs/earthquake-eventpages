@@ -14,10 +14,8 @@ define([
 ) {
 	'use strict';
 
-	var DEFAULTS = {
-		title: 'Maps',
-		hash: 'maps'
-	};
+	var DEFAULTS = {};
+
 	/* sets up titles and images for tabs */
 	var MAP_GRAPH_IMAGES = [
 		{
