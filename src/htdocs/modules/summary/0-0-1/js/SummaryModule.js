@@ -9,7 +9,7 @@ define([
 	'use strict';
 
 	var DEFAULTS = {
-		title: 'Event Summary',
+		title: 'General',
 		hash: 'event',
 		cssUrl: require.toUrl('summary/../css/index.css'),
 		dependencyLoader: null,
@@ -33,9 +33,6 @@ define([
 
 	var SummaryModule = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
-		if (options.eventDetails) {
-			options.title = 'Event: ' + options.eventDetails.id;
-		}
 		EventModule.call(this, Util.extend({}, DEFAULTS, options || {}));
 
 		// Enhance the timestamp in event
