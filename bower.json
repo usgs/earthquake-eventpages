@@ -6,6 +6,6 @@
     "requirejs": "~2.1.6"
   },
   "devDependencies": {
-    "hazdev-webutils": "~0.0.4"
+    "hazdev-webutils": "~0.0.9"
   }
 }
