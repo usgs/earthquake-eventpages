@@ -4,13 +4,15 @@ define([
 	'base/EventModulePage',
 	'tablist/Tablist',
 	'util/Xhr',
-	'./TabListUtil'
+	'./TabListUtil',
+	'./ImpactUtil'
 ], function (
 	Util,
 	EventModulePage,
 	TabList,
 	Xhr,
-	TabListUtil
+	TabListUtil,
+	ImpactUtil
 ) {
 	'use strict';
 
@@ -51,18 +53,6 @@ define([
 			suffix:'_plot_numresp.jpg'
 		}
 	];
-
-	var _sortByDistance = function (a, b) {
-		return a.dist - b.dist;
-	};
-
-	var _translateMmi = function (mmi) {
-		var mmiArray = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
-				'IX', 'X', 'XI', 'XII'];
-		mmi = Math.round(mmi);
-
-		return mmiArray[mmi] || '';
-	};
 
 	/* creates map page and sets up the content */
 	var DYFIPage = function (options) {
@@ -200,7 +190,7 @@ define([
 
 			responsesDiv = document.createElement('div');
 			responsesDiv.className = 'dyfi-responses';
-			records.sort(_sortByDistance);
+			records.sort(ImpactUtil._sortByDistance);
 
 			var tableMarkup = [
 				'<thead>',
@@ -233,7 +223,7 @@ define([
 					tableMarkup.push('<tr>');
 				}
 
-				var romanNumeral = _translateMmi(record.cdi);
+				var romanNumeral = ImpactUtil._translateMmi(record.cdi);
 
 				tableMarkup.push(
 						'<td>',

@@ -4,13 +4,15 @@ define([
 	'util/Xhr',
 	'base/EventModulePage',
 	'tablist/TabList',
-	'base/ContentsXML'
+	'base/ContentsXML',
+	'./ImpactUtil'
 ], function (
 	Util,
 	Xhr,
 	EventModulePage,
 	TabList,
-	ContentsXML
+	ContentsXML,
+	ImpactUtil
 ) {
 	'use strict';
 
@@ -18,7 +20,7 @@ define([
 
 	var MAP_IMAGES = [
 		{
-			title:'Instrumental Intensity',
+			title:'Intensity',
 			suffix:'download/intensity.jpg'
 		},
 		{
@@ -59,81 +61,6 @@ define([
 		'I': 'Incomplete time series',
 		'N': 'Not in list of known stations'
 	};
-
-	var _translateMmi = function (mmi) {
-		var mmiArray = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
-				'IX', 'X', 'XI', 'XII'];
-		mmi = Math.round(mmi);
-
-		return mmiArray[mmi] || '';
-	};
-
-	var _sortByDistance = function (a, b) {
-		return parseFloat(a.dist, 10) - parseFloat(b.dist, 10);
-	};
-
-	/**
-	 * Converts XML into JSON
-	 *
-	 * @param  {object} xml,
-	 *         xml object returned by XHR response
-	 *
-	 * @return {object}
-	 *         JSON object returned
-	 */
-	var _xmlToJson = function (xml) {
-		// based on http://davidwalsh.name/convert-xml-json
-		var obj = {},
-		    children = [],
-		    attrs,
-		    attr,
-		    nodes,
-		    node,
-		    nodeName,
-		    nodeValue,
-		    i,
-		    len;
-
-		if (xml.nodeType === 3) {
-			return xml.nodeValue;
-		}
-
-		if (xml.nodeType === 1) {
-			attrs = xml.attributes;
-			for (i = 0, len = attrs.length; i < len; i++) {
-				attr = attrs.item(i);
-				obj[attr.nodeName] = attr.nodeValue;
-			}
-		}
-
-		if (xml.hasChildNodes()) {
-			nodes = xml.childNodes;
-			for(i = 0, len = nodes.length; i < len; i++) {
-				node = nodes.item(i);
-				nodeName = node.nodeName;
-				nodeValue = _xmlToJson(node);
-				children.push(nodeValue);
-				if (typeof(obj[nodeName]) === 'undefined') {
-					obj[nodeName] = nodeValue;
-				} else {
-					if (typeof(obj[nodeName].push) === 'undefined') {
-						obj[nodeName] = [obj[nodeName]];
-					}
-					obj[nodeName].push(nodeValue);
-				}
-			}
-		}
-
-		// clean up '#text' nodes
-		if (children.length === 1 && obj['#text']) {
-			return obj['#text'];
-		} else if (obj['#text']) {
-			delete obj['#text'];
-		}
-
-		return obj;
-	};
-
 
 	/**
 	 * Construct a new ShakeMapPage.
@@ -255,7 +182,7 @@ define([
 				var container = document.createElement('div');
 				container.className = 'stations';
 				container.innerHTML =
-						'<p>Loading station list data from XML,please wait...</p>';
+						'<p>Loading station list data from XML, please wait...</p>';
 
 				_this._getStationData(
 						function (stations) {
@@ -313,7 +240,7 @@ define([
 	 *         array of station objects
 	 */
 	ShakeMapPage.prototype._parseStationList = function (xml) {
-		var data = _xmlToJson(xml),
+		var data = ImpactUtil._xmlToJson(xml),
 		    shakemapData = data['shakemap-data'][1],
 		    stations = this._stations = shakemapData.stationlist.station;
 
@@ -322,7 +249,7 @@ define([
 		}
 
 		// sort by distance
-		stations.sort(_sortByDistance);
+		stations.sort(ImpactUtil._sortByDistance);
 
 		return stations;
 	};
@@ -361,7 +288,7 @@ define([
 
 			dist = dist.toFixed(1);
 
-			romanNumeral = _translateMmi(station.intensity);
+			romanNumeral = ImpactUtil._translateMmi(station.intensity);
 
 			// Do not repeat the zip code if it's already part of the name
 			if (station.name.indexOf('ZIP Code') === -1) {
