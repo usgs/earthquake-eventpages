@@ -10,7 +10,7 @@ require.config({
 		svgimagemap: 'hazdev-svgimagemap/src/svgimagemap',
 		map: 'js/map',
 		quakeml: 'quakeml-parser-js/src/quakeml',
-		questionview: 'hazdev-questions-view/src',
+		questionview: 'hazdev-question-view/src',
 
 		base: 'modules/base/0-0-1/js',
 		summary: 'modules/summary/0-0-1/js',
