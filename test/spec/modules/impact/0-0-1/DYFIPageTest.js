@@ -2,32 +2,33 @@
 define([
 	'chai',
 	'sinon',
-	'impact/ImpactModule',
+
 	'impact/DYFIPage',
+	'impact/ImpactModule',
+	'util/Xhr',
+
+	'./Usb000ldeh',
 	'./nc72119970',
-	'./cdi_zip',
-	'util/Xhr'
+	'./cdi_zip'
 ], function (
 	chai,
 	sinon,
-	DYFIModule,
-	DYFIResponsesPage,
-	eventData,
-	cdi_zip,
-	Xhr
+
+	DYFIPage,
+	ImpactModule,
+	Xhr,
+
+	Usb000ldeh,
+	nc72119970,
+	cdi_zip
 ) {
-
 	'use strict';
+	var expect = chai.expect;
 
-	var expect = chai.expect,
-			stub, content, tbody, rows, hiddenRows,
-			options = {
-					hash: 'responses',
-					title: 'Responses',
-					eventDetails: eventData,
-					module: new DYFIModule({eventDetails: eventData})
-			},
-			page = new DYFIResponsesPage(options);
+	var event = Usb000ldeh;
+	var module = new ImpactModule({eventDetails: event});
+	var module_info = {hash:'maps', title:'Maps',
+			eventDetails:event, module:module};
 
 	var getClickEvent = function () {
 		var clickEvent = document.createEvent('MouseEvents');
@@ -35,21 +36,56 @@ define([
 		return clickEvent;
 	};
 
-	describe('DYFIResponsesPage test suite.', function () {
-
+	describe('DYFIPage test suite.', function () {
 		describe('Constructor', function () {
 			it('Can be defined.', function () {
 				/* jshint -W030 */
-				expect(DYFIResponsesPage).not.to.be.undefined;
+				expect(DYFIPage).not.to.be.undefined;
 				/* jshint +W030 */
 			});
 
 			it('Can be instantiated', function () {
-				expect(page).to.be.an.instanceof(DYFIResponsesPage);
+
+				var c = new DYFIPage(module_info);
+				expect(c).to.be.an.instanceof(DYFIPage);
 			});
 		});
 
+		describe('_setContentMarkup', function () {
+			it('has such a method', function() {
+				/* jshint -W030 */
+				expect((new DYFIPage(module_info))._setContentMarkup).
+						to.not.be.undefined;
+				/* jshint +W030 */
+			});
+		});
+
+		// testing inheritance from EventModulePage
+		describe('_initialize', function () {
+			it('has such a method', function() {
+				/* jshint -W030 */
+				expect((new DYFIPage(module_info))._initialize).to.not.be.undefined;
+				/* jshint +W030 */
+			});
+		});
+
+		// just testing inheritance from EventModule.js
+		describe('destroy()', function () {
+			it('has such a method', function () {
+				/* jshint -W030 */
+				expect((new DYFIPage(module_info)).destroy).to.not.be.undefined;
+				/* jshint +W030 */
+			});
+		});
+
+
 		describe('getContent', function () {
+
+			var expect = chai.expect,
+			    stub, content, tbody, rows, hiddenRows, page,
+			    module = new ImpactModule({eventDetails: nc72119970}),
+			    module_info = {hash:'dyfi', title:'Did You Feel It?',
+							eventDetails:event, module:module};
 
 			beforeEach(function() {
 
@@ -59,10 +95,11 @@ define([
 						var parser=new DOMParser();
 						xmlDoc=parser.parseFromString(cdi_zip.xml,'text/xml');
 					}
-					content = DYFIResponsesPage.prototype._buildResponsesTable(DYFIResponsesPage.prototype._buildResponsesArray(xmlDoc));
+					content = DYFIPage.prototype._buildResponsesTable(
+							DYFIPage.prototype._buildResponsesArray(xmlDoc));
 				});
 
-				page = new DYFIResponsesPage(options);
+				page = new DYFIPage(module_info);
 				page._setContentMarkup();
 
 				tbody = content.querySelector('tbody');
@@ -102,8 +139,4 @@ define([
 
 		});
 	});
-
-
-
-
 });

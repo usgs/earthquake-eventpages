@@ -52,14 +52,12 @@ require([
 		'spec/modules/base/0-0-1/EventModuleTest',
 		'spec/modules/base/0-0-1/EventModulePageTest',
 		'spec/modules/summary/0-0-1/SummaryPageTest',
-		'spec/modules/impact/0-0-1/DYFIModuleTest',
-		'spec/modules/impact/0-0-1/DYFIMapPageTest',
-		'spec/modules/impact/0-0-1/DYFIGraphPageTest',
-		'spec/modules/impact/0-0-1/DYFIResponsesPageTest',
+		'spec/modules/impact/0-0-1/ImpactModuleTest',
+		'spec/modules/impact/0-0-1/DYFIPageTest',
+		'spec/modules/impact/0-0-1/ShakemapDetailsTest',
 		'spec/modules/impact/0-0-1/TabListUtilTest',
 		'spec/modules/impact/0-0-1/PagerpageTest',
 		'spec/modules/impact/0-0-1/PagerXmlParserTest',
-		'spec/modules/impact/0-0-1/ShakemapDetailsTest',
 		'spec/modules/scientific/0-0-1/HypocenterPageTest'
 	], function () {
 		if (window.mochaPhantomJS) {
