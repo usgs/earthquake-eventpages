@@ -136,12 +136,12 @@ define([
 
 
 	/**
-	 * Construct a new ShakemapPage.
+	 * Construct a new ShakeMapPage.
 	 *
 	 * @param options {Object}
 	 *        page options.
 	 */
-	var ShakemapPage = function (options) {
+	var ShakeMapPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
 		this._tablist = null;
 		this._shakemap = null;
@@ -151,9 +151,9 @@ define([
 	};
 
 	// extend EventModulePage.
-	ShakemapPage.prototype = Object.create(EventModulePage.prototype);
+	ShakeMapPage.prototype = Object.create(EventModulePage.prototype);
 
-	ShakemapPage.prototype._setContentMarkup = function () {
+	ShakeMapPage.prototype._setContentMarkup = function () {
 		var tablistDiv = document.createElement('div'),
 		    shakemap;
 
@@ -182,7 +182,7 @@ define([
 	 * @return {array}
 	 *         array of tablist objects including a tab title and content markup.
 	 */
-	ShakemapPage.prototype._createTabListData = function (options) {
+	ShakeMapPage.prototype._createTabListData = function (options) {
 		var contents = options.contents,
 		    tablist = [],
 		    imageName,
@@ -222,7 +222,7 @@ define([
 	 * @return {object}
 	 *         shakemap object that matches the code
 	 */
-	ShakemapPage.prototype._getProduct = function () {
+	ShakeMapPage.prototype._getProduct = function () {
 		var products = this._event.properties.products.shakemap,
 		    product;
 
@@ -244,7 +244,7 @@ define([
 	 * Build a list of stations from stationlist.xml, these stations have
 	 * an expandable details section. Add a station list tab to the the tablist.
 	 */
-	ShakemapPage.prototype._addStationList = function () {
+	ShakeMapPage.prototype._addStationList = function () {
 		var title = 'Station List',
 		    _this = this;
 
@@ -283,7 +283,7 @@ define([
 	 *         callback function to display the station list markup
 	 *
 	 */
-	ShakemapPage.prototype._getStationData = function (callback, errback) {
+	ShakeMapPage.prototype._getStationData = function (callback, errback) {
 		var file = this._shakemap.contents[STATION_LIST.suffix],
 		    _this = this;
 
@@ -312,7 +312,7 @@ define([
 	 * @return {array}
 	 *         array of station objects
 	 */
-	ShakemapPage.prototype._parseStationList = function (xml) {
+	ShakeMapPage.prototype._parseStationList = function (xml) {
 		var data = _xmlToJson(xml),
 		    shakemapData = data['shakemap-data'][1],
 		    stations = this._stations = shakemapData.stationlist.station;
@@ -336,7 +336,7 @@ define([
 	 * @return {string}
 	 *         HTML markup.
 	 */
-	ShakemapPage.prototype._buildStationList = function (data) {
+	ShakeMapPage.prototype._buildStationList = function (data) {
 		var stations = [],
 		    station, acc, vel, dist, components, romanNumeral, title;
 
@@ -414,7 +414,7 @@ define([
 	 * @return {string}
 	 *         HTML markup.
 	 */
-	ShakemapPage.prototype._buildStationDetails = function (index) {
+	ShakeMapPage.prototype._buildStationDetails = function (index) {
 		var station,
 		    components;
 
@@ -449,7 +449,7 @@ define([
 	 * @return {string}
 	 *         HTML markup
 	 */
-	ShakemapPage.prototype._buildComponentDetails = function (components) {
+	ShakeMapPage.prototype._buildComponentDetails = function (components) {
 		var componentsMarkup = [],
 		    component;
 
@@ -510,7 +510,7 @@ define([
 	 * @return {string}
 	 *         HTML markup
 	 */
-	ShakemapPage.prototype._formatComponent = function (data) {
+	ShakeMapPage.prototype._formatComponent = function (data) {
 		var content = [],
 		    flag,
 		    value;
@@ -553,7 +553,7 @@ define([
 	 *         click event.
 	 *
 	 */
-	ShakemapPage.prototype._toggleDetails = function (e) {
+	ShakeMapPage.prototype._toggleDetails = function (e) {
 		var target = e.target,
 		    container = e.target.parentNode,
 		    className,
@@ -593,7 +593,7 @@ define([
 	 * @return {string}
 	 *         max value.
 	 */
-	ShakemapPage.prototype._findMaxValue = function (array, key) {
+	ShakeMapPage.prototype._findMaxValue = function (array, key) {
 		var values = [],
 		    value,
 		    item,
@@ -636,7 +636,7 @@ define([
 	/**
 	 * Generate downloads markup for event module footer
 	 */
-	ShakemapPage.prototype._setFooterMarkup = function () {
+	ShakeMapPage.prototype._setFooterMarkup = function () {
 
 		var el = this._footer;
 
@@ -656,5 +656,5 @@ define([
 	};
 
 	// return constructor
-	return ShakemapPage;
+	return ShakeMapPage;
 });

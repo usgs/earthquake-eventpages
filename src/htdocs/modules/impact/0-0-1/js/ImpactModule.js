@@ -27,7 +27,7 @@ define([
 				productTypes: ['dyfi']
 			},
 			{
-				className: 'impact/ShakemapPage',
+				className: 'impact/ShakeMapPage',
 				options: {
 					title: 'Shakemap',
 					hash: 'shakemap'
