@@ -1,8 +1,3 @@
-/* responsive table */
-$td_padding: 10px;
-$th_padding: $td_padding * 2;
-@import '../../../../css/_responsiveTable.scss';
-
 @import 'DYFIPage';
 @import 'ShakeMapPage';
 @import 'PagerPage';

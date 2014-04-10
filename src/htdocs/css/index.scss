@@ -11,6 +11,11 @@
 /* svg image map */
 @import '../../../node_modules/hazdev-svgimagemap/src/svgimagemap/SvgImageMap.scss';
 
+/* responsive table */
+$td_padding: 10px;
+$th_padding: $td_padding * 2;
+@import 'responsiveTable';
+
 // --------------------------------------------------
 // Page-Wide Styles
 // --------------------------------------------------
