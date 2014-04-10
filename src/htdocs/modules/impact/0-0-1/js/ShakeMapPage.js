@@ -91,13 +91,11 @@ define([
 		this._tablist = new TabList({
 			el: this._content.appendChild(tablistDiv),
 			tabPosition: 'top',
-			header: shakemap.code, // TODO, what should this be?
 			tabs: this._createTabListData(
 				{
 					contents: shakemap.contents
 				})
 		});
-
 	};
 
 	/**
