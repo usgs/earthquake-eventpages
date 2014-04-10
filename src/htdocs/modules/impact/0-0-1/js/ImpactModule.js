@@ -27,6 +27,13 @@ define([
 				productTypes: ['dyfi']
 			},
 			{
+				className: 'impact/DYFIFormPage',
+				options: {
+					title: 'Tell Us!',
+					hash: 'tellus'
+				}
+			},
+			{
 				className: 'impact/ShakeMapPage',
 				options: {
 					title: 'Shakemap',
