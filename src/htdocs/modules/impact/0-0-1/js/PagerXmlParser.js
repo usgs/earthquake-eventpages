@@ -217,7 +217,10 @@ define([
 
 		comment = xml.querySelectorAll('pager > secondary_effects');
 		if (comment && comment.length) {
-			data.effects = comment[0].textContent.trim();
+			comment = comment[0].textContent.trim();
+			if (comment !== '') {
+				data.effects = comment;
+			}
 		}
 
 		// TODO :: This is a cluster. PAGER team should sort out a better way to
