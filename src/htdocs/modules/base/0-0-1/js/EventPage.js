@@ -23,7 +23,7 @@ define([
 		maxCacheLength: 3,
 
 		// Default page to render if no hash is specified
-		defaultPage: 'event_summary'
+		defaultPage: 'general_summary'
 	};
 
 	var __get_hash = function (evt) {
