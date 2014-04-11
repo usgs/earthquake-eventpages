@@ -14,7 +14,7 @@ define([
 		title: 'Scientific',
 		hash: 'scientific',
 		cssUrl: require.toUrl('scientific/../css/index.css'),
-		dependencyLoader: null,
+		dependencyLoader: 'scientific/ScientificModuleDependencies',
 		pages: [
 			{
 				className: 'scientific/ScientificSummaryPage',

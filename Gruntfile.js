@@ -200,18 +200,18 @@ module.exports = function (grunt) {
 					wrap: false,
 
 					paths: {
-						leaflet: '../../../bower_components/leaflet/dist/leaflet-src',
+						leaflet: '../../../node_modules/leaflet/dist/leaflet-src',
 						mvc: '../../../bower_components/hazdev-webutils/src/mvc',
 						util: '../../../bower_components/hazdev-webutils/src/util',
 
 						tablist: '../../../node_modules/hazdev-tablist/src/tablist',
+						svgimagemap: '../../../node_modules/hazdev-svgimagemap/src/svgimagemap',
 						theme: '../../../node_modules/hazdev-template/src/htdocs/js',
 
-						map: 'js/map',
 
 						base: '../modules/base/0-0-1/js',
 						summary: '../modules/summary/0-0-1/js',
-						dyfi: '../modules/dyfi/0-0-1/js',
+						impact: '../modules/impact/0-0-1/js',
 						scientific: '../modules/scientific/0-0-1/js'
 					},
 
@@ -221,18 +221,50 @@ module.exports = function (grunt) {
 						}
 					},
 
-					modules: [
-						{
-							name: 'index',
-							exclude: [
-								// provided by event page
-								'EventDetails',
-								// provided by template
-								'theme/OffCanvas'
-							]
-						}
-					]
-
+					modules: (function () {
+						var BUNDLED_DEPENDENCIES = [
+							'tablist/Tablist',
+							'base/EventModulePage',
+							'base/EventModulePages',
+							'base/TabbedModulePage',
+							'base/ContentsXML',
+							'base/Formatter',
+							'util/Util',
+							'util/Xhr'
+						];
+						return [
+							{
+								name: 'index',
+								include: BUNDLED_DEPENDENCIES,
+								exclude: [
+									// provided by event page
+									'EventDetails',
+									// provided by template
+									'theme/OffCanvas'
+								]
+							},
+							{
+								name: 'summary/InteractiveMap',
+								exclude: BUNDLED_DEPENDENCIES
+							},
+							{
+								name: 'impact/DYFIPage',
+								exclude: BUNDLED_DEPENDENCIES
+							},
+							{
+								name: 'impact/ShakeMapPage',
+								exclude: BUNDLED_DEPENDENCIES
+							},
+							{
+								name: 'impact/PagerPage',
+								exclude: BUNDLED_DEPENDENCIES
+							},
+							{
+								name: 'scientific/ScientificModuleDependencies',
+								exclude: BUNDLED_DEPENDENCIES
+							}
+						]
+					})()
 				}
 			}
 		},

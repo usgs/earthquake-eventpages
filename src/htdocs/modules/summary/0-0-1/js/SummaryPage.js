@@ -152,7 +152,7 @@ define([
 
 		imgSrc.push(points.join('|'));
 		img.setAttribute('src', imgSrc.join(''));
-		imgLink.href = '#event_map';
+		imgLink.href = '#general_map';
 
 		imgLink.appendChild(img);
 		container.appendChild(imgLink);
