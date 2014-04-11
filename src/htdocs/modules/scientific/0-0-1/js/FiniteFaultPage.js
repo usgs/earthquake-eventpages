@@ -60,8 +60,8 @@ define([
 				}
 			});
 		}
-
-		el.appendChild(TabbedModulePage.prototype.getDownloads.call(this, product));
+		// Finite fault contents xml is currently invalid
+		//el.appendChild(TabbedModulePage.prototype.getDownloads.call(this, product));
 
 		return el;
 	};
