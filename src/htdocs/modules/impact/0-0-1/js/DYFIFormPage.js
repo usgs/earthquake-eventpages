@@ -41,6 +41,10 @@ define([
 	};
 	DYFIFormPage.prototype = Object.create(EventModulePage.prototype);
 
+	DYFIFormPage.prototype._setHeaderMarkup = function () {
+		this._header.innerHTML = '<h2>Did you feel it? Tell Us!';
+	};
+
 	DYFIFormPage.prototype._setContentMarkup = function () {
 		var _this = this;
 
@@ -74,6 +78,12 @@ define([
 		    contactInfo = data.contactInfo,
 		    questions = {};
 
+		baseQuestionsEl.classList.add('dyfi-required-questions');
+		toggleContainer.classList.add('dyfi-toggle-control');
+		moreQuestionsEl.classList.add('dyfi-optional-questions');
+		moreQuestionsEl.classList.add('hidden');
+		submitButton.classList.add('dyfi-submit');
+
 		// Handle location question
 		__create_location_questions(locationInfo, baseQuestionsEl, questions);
 
@@ -93,6 +103,7 @@ define([
 		this._questions = questions;
 
 		// Add a submit button handler
+		submitButton.innerHTML = data.submit.label;
 		submitButton.addEventListener('click', (function (dyfiForm) {
 			return function (ev) {
 				dyfiForm._onSubmit(ev, this);
@@ -109,14 +120,15 @@ define([
 
 
 	var __create_location_questions = function (questionInfo, container,
-			questions, showOptions) {
-		var fragment = document.createDocumentFragment(),
-		    label = fragment.appendChild(document.createElement('p')),
-		    button = fragment.appendChild(document.createElement('button')),
-		    display = fragment.appendChild(document.createElement('span')),
+			questions) {
+		var section = document.createElement('section'),
+		    label = section.appendChild(document.createElement('label')),
+		    display = section.appendChild(document.createElement('div')),
+		    button = section.appendChild(document.createElement('button')),
 		    curLoc = {},
 		    locationView = null;
 
+		section.classList.add('question');
 		label.innerHTML = questionInfo.label;
 		button.innerHTML = questionInfo.button;
 
@@ -128,7 +140,7 @@ define([
 
 				curLoc = locationObject;
 
-				prettyLat = curLoc.lattitude;
+				prettyLat = curLoc.latitude;
 				if (prettyLat < 0.0) {
 					prettyLng = (-1.0*prettyLat).toFixed(curLoc.confidence) + '&deg;S';
 				} else {
@@ -146,14 +158,18 @@ define([
 					markup.push(curLoc.place + '<br/>');
 				}
 
-				display.innerHTML = '' +
-						((curLoc.place) ? (curLoc.place + '<br/>') : '') +
-						prettyLat + ', ' + prettyLng;
+				display.innerHTML = '<strong>' +
+						((curLoc.place) ? (curLoc.place + '</strong>') : '') +
+						prettyLat + ', ' + prettyLng +
+						((curLoc.place) ? '' : '</strong>');
+
+				button.classList.add('as-link');
+				button.innerHTML = questionInfo.buttonUpdate;
 			}
 		});
 
 		button.addEventListener('click', function () {
-			locationView.show(showOptions || {});
+			locationView.show({initialLocation: curLoc});
 		});
 
 		// Add QuestionView-like objects to the list of questions
@@ -174,7 +190,7 @@ define([
 		};
 
 		// Append content to container
-		container.appendChild(fragment);
+		container.appendChild(section);
 	};
 
 	/**
@@ -197,7 +213,8 @@ define([
 		    view = null;
 
 		for (field in questionInfo) {
-			view = new QuestionView(questionInfo[field]);
+			view = new QuestionView(Util.extend(
+					{el: document.createDocumentFragment()}, questionInfo[field]));
 
 			questions[field] = view;
 			container.appendChild(view.el);
@@ -207,15 +224,17 @@ define([
 
 	var __create_toggle_control = function (info, control, target) {
 		var fragment = document.createDocumentFragment(),
-		    button = fragment.appendChild(document.createElement('button')),
-		    description = fragment.appendChild(document.createElement('div'));
+		    description = fragment.appendChild(document.createElement('p')),
+		    button = fragment.appendChild(document.createElement('button'));
 
 		button.innerHTML = info.button;
 		description.innerHTML = info.description;
 
 		button.addEventListener('click', function () {
-			target.classList.toggle('visible');
+			target.classList.toggle('hidden');
 		});
+
+		control.appendChild(fragment);
 	};
 
 	var __create_text_questions = function (questionInfo, container, questions) {
@@ -236,8 +255,12 @@ define([
 		    input = el.appendChild(document.createElement(info.type || 'input')),
 		    id = 'dyfi-text-input-' + (ID_INCREMENT++);
 
+		el.classList.add('dyfi-text-input');
+		el.classList.add('question');
+
 		label.innerHTML = info.label;
-		label.for = id;
+		label.setAttribute('for', id);
+
 		input.id = id;
 
 		// A lightweight object to mimic the minimally required API for a
