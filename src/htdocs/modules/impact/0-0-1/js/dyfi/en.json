@@ -1,16 +1,22 @@
 {
-	"meta": {
-
+	"locationInfo": {
+		"label": "Your location when the earthquake occurred",
+		"button": "Choose Location"
 	},
 
 	"baseQuestions": {
 		"fldSituation_felt": {
 			"label": "Did you feel it?",
 			"answers": [
-				{"value": 1, "label": "Yes"},
-				{"value": 0, "label": "No"}
+				{"value": "1", "label": "Yes"},
+				{"value": "0", "label": "No"}
 			]
 		}
+	},
+
+	"toggleInfo": {
+		"button": "Additional Observations",
+		"description": "&hellip;help make a shaking intensity map by telling us about the shaking at your location"
 	},
 
 	"moreQuestions": {
@@ -180,6 +186,22 @@
 				{"value": "_porch", "label": "Separation of porch, balcony, or other addition from building"},
 				{"value": "_move", "label": "Building permanently shifted over foundation"}
 			]
+		}
+	},
+
+	"contactInfo": {
+		"fldContact_comments": {
+			"label": "Additional comments",
+			"type": "textbox"
+		},
+		"fldContact_name": {
+			"label": "Name"
+		},
+		"fldContact_email": {
+			"label": "Email"
+		},
+		"fldContact_phone": {
+			"label": "Phone"
 		}
 	}
 }
