@@ -65,7 +65,7 @@ module.exports = function (grunt) {
 					'<%= app.src %>/htdocs/**/*.php',
 					'<%= app.src %>/htdocs/**/*.html',
 					'<%= app.src %>/htdocs/img/**/*.{png,jpg,jpeg,gif}',
-					'.tmp/css/**/*.css',
+					'.tmp/**/*.css',
 					'<%= app.lib %>/inc/**/*.php'
 				]
 			},
@@ -264,7 +264,7 @@ module.exports = function (grunt) {
 								name: 'scientific/ScientificModuleDependencies',
 								exclude: BUNDLED_DEPENDENCIES
 							}
-						]
+						];
 					})()
 				}
 			}
