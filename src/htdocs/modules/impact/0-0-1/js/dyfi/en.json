@@ -1,7 +1,8 @@
 {
 	"locationInfo": {
 		"label": "Your location when the earthquake occurred",
-		"button": "Choose Location"
+		"button": "Choose Location",
+		"buttonUpdate": "Change Location"
 	},
 
 	"baseQuestions": {
@@ -16,7 +17,7 @@
 
 	"toggleInfo": {
 		"button": "Additional Observations",
-		"description": "&hellip;help make a shaking intensity map by telling us about the shaking at your location"
+		"description": "Help make a shaking intensity map by telling us about the shaking at your location"
 	},
 
 	"moreQuestions": {
@@ -191,8 +192,8 @@
 
 	"contactInfo": {
 		"fldContact_comments": {
-			"label": "Additional comments",
-			"type": "textbox"
+			"label": "Additional Comments",
+			"type": "textarea"
 		},
 		"fldContact_name": {
 			"label": "Name"
@@ -203,5 +204,9 @@
 		"fldContact_phone": {
 			"label": "Phone"
 		}
+	},
+
+	"submit": {
+		"label": "Submit"
 	}
 }
