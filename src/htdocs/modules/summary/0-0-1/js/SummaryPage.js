@@ -56,28 +56,36 @@ define([
 		impactText = this._content.querySelector('.summary-impact-text');
 
 		// Fetch AJAX content and load it into the containers
-		Xhr.ajax({
-				url: this._event.properties.products.geoserve[0]
-						.contents['geoserve.json'].url,
-				success: function (geoserve) {
-					_this._ajaxSuccess(geoserve);
-				},
-				error: function () {
-					if (_this.nearbyCities) {
-						_this.nearbyCities.parentNode.removeChild(_this.nearbyCities);
+		try {
+			Xhr.ajax({
+					url: this._event.properties.products.geoserve[0]
+							.contents['geoserve.json'].url,
+					success: function (geoserve) {
+						_this._ajaxSuccess(geoserve);
+					},
+					error: function () {
+						_this._ajaxError();
 					}
-					if (_this.tectonicSummary) {
-						_this.tectonicSummary.parentNode.removeChild(_this.tectonicSummary);
-					}
-					_this.nearbyCities = null;
-					_this.tectonicSummary = null;
-				}
-			});
+				});
+		} catch (e) {
+			this._ajaxError();
+		}
 
 		this._loadTextualContent(generalHeader, 'general-header', null);
 		this._loadTextualContent(impactText, 'impact-text', 'Impact Text');
 		this._loadTextualContent(generalText, 'general-text',
 				'Additional Commentary');
+	};
+
+	SummaryPage.prototype._ajaxError = function () {
+		if (this.nearbyCities) {
+			this.nearbyCities.parentNode.removeChild(this.nearbyCities);
+		}
+		if (this.tectonicSummary) {
+			this.tectonicSummary.parentNode.removeChild(this.tectonicSummary);
+		}
+		this.nearbyCities = null;
+		this.tectonicSummary = null;
 	};
 
 	SummaryPage.prototype._ajaxSuccess = function (geoserve) {
