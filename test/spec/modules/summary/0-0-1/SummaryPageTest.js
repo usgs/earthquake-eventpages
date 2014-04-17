@@ -5,6 +5,7 @@ define([
 	'summary/SummaryModule',
 	'summary/SummaryPage',
 	'./usc000lnnb',
+	'./usc000lnnb-nogeoserve',
 	'./geoserve',
 	'util/Xhr'
 ], function (
@@ -13,19 +14,26 @@ define([
 	SummaryModule,
 	SummaryPage,
 	eventData,
+	eventData_nogeoserve,
 	geoserve,
 	Xhr
 ) {
 
 	'use strict';
 
-	var expect = chai.expect,
-	    options = {
-				hash: 'summary',
-				title: 'Summary',
-				eventDetails: eventData,
-				module: new SummaryModule({eventDetails: eventData})
-			};
+	var expect = chai.expect;
+	var options = {
+		hash: 'summary',
+		title: 'Summary',
+		eventDetails: eventData,
+		module: new SummaryModule({eventDetails: eventData})
+	};
+	var options_nogeoserve = {
+		hash: 'summary',
+		title: 'Summary',
+		eventDetails: eventData_nogeoserve,
+		module: new SummaryModule({eventDetails: eventData_nogeoserve})
+	};
 
 
 	describe('SummaryPage test suite.', function () {
@@ -51,6 +59,18 @@ define([
 
 			it('Can be instantiated', function () {
 				expect(page).to.be.an.instanceof(SummaryPage);
+			});
+
+			it('Does not throw exception if no geoserve product', function () {
+				var page_nogeoserve = null;
+
+				try {
+					page_nogeoserve = new SummaryPage(options_nogeoserve);
+				} catch (e) { }
+
+				/* jshint -W030 */
+				expect(page_nogeoserve).to.not.be.null;
+				/* jshint +W030 */
 			});
 
 		});
