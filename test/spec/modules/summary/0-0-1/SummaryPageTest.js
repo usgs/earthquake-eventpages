@@ -71,6 +71,8 @@ define([
 				/* jshint -W030 */
 				expect(page_nogeoserve).to.not.be.null;
 				/* jshint +W030 */
+
+				expect(page_nogeoserve).to.be.an.instanceOf(SummaryPage);
 			});
 
 		});
