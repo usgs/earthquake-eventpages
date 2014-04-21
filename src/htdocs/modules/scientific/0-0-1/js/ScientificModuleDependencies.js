@@ -1,24 +1,33 @@
 /* global define */
 define([
 	'scientific/ScientificSummaryPage',
-	'scientific/HypocenterPage',
-	'scientific/MomentTensorPage',
-	'scientific/FocalMechanismPage',
+	'scientific/HypocenterSummaryPage',
+	'scientific/HypocenterDetailsPage',
+	'scientific/MomentTensorSummaryPage',
+	'scientific/MomentTensorDetailsPage',
+	'scientific/FocalMechanismSummaryPage',
+	'scientific/FocalMechanismDetailsPage',
 	'scientific/FiniteFaultPage'
 ], function (
 	ScientificSummaryPage,
-	HypocenterPage,
-	MomentTensorPage,
-	FocalMechanismPage,
+	HypocenterSummaryPage,
+	HypocenterDetailsPage,
+	MomentTensorSummaryPage,
+	MomentTensorDetailsPage,
+	FocalMechanismSummaryPage,
+	FocalMechanismDetailsPage,
 	FiniteFaultPage
 ) {
 	'use strict';
 
 	return {
 		'scientific/ScientificSummaryPage': ScientificSummaryPage,
-		'scientific/HypocenterPage': HypocenterPage,
-		'scientific/MomentTensorPage': MomentTensorPage,
-		'scientific/FocalMechanismPage': FocalMechanismPage,
+		'scientific/HypocenterSummaryPage': HypocenterSummaryPage,
+		'scientific/HypocenterDetailsPage': HypocenterDetailsPage,
+		'scientific/MomentTensorSummaryPage': MomentTensorSummaryPage,
+		'scientific/MomentTensorDetailsPage': MomentTensorDetailsPage,
+		'scientific/FocalMechanismSummaryPage': FocalMechanismSummaryPage,
+		'scientific/FocalMechanismDetailsPage': FocalMechanismDetailsPage,
 		'scientific/FiniteFaultPage': FiniteFaultPage
 	};
 
