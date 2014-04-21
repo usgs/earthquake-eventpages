@@ -105,6 +105,11 @@ define([
 			    phase,
 			    i,
 			    len;
+
+			if (!phases) {
+				return origin;
+			}
+
 			for (i = 0, len = phases.length; i < len; i++) {
 				phase = phases[i];
 				if (phase.source === source &&
