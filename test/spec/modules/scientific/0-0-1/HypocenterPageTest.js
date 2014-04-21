@@ -6,7 +6,9 @@ define([
 	'util/Xhr',
 	'./usb000kqnc',
 
-	'scientific/HypocenterPage'
+	'scientific/ScientificModule',
+	'scientific/HypocenterDetailsPage',
+	'scientific/HypocenterSummaryPage'
 ], function (
 	chai,
 	sinon,
@@ -14,32 +16,63 @@ define([
 	Xhr,
 	eventDetails,
 
-	HypocenterPage
+	ScientificModule,
+	HypocenterDetailsPage,
+	HypocenterSummaryPage
 ) {
 	'use strict';
-	var expect = chai.expect;
+	var expect = chai.expect,
+	    options = {
+				eventDetails: eventDetails,
+				module: new ScientificModule(),
+				source: 'us',
+				code: 'us_usb000kqnc'
+			},
+	    SummaryPage = new HypocenterSummaryPage(options);
 
-	describe('HypocenterPage test suite.', function () {
+
+	describe('HypocenterSummaryPage test suite.', function () {
 		describe('Constructor', function () {
 			it('Can be defined.', function () {
 				/* jshint -W030 */
-				expect(HypocenterPage).not.to.be.undefined;
+				expect(HypocenterDetailsPage).not.to.be.undefined;
 				/* jshint +W030 */
 			});
 
 			it('Can be instantiated', function () {
-				var c = new HypocenterPage({eventDetails: eventDetails});
-				expect(c).to.be.an.instanceof(HypocenterPage);
+				expect(SummaryPage).to.be.an.instanceof(HypocenterSummaryPage);
 			});
 		});
 
+
+		describe('getContent()', function () {
+
+			it('Can get summary information.', function () {
+				var content = SummaryPage.getContent();
+				expect(content).to.be.a('object');
+			});
+
+			// _getInfo()
+			it('Can summarize hypocenter data.', function () {
+				var content = SummaryPage.getContent();
+				var hypocenter_summary = content.querySelectorAll('.hypocenters');
+				/* jshint -W030 */
+				expect(hypocenter_summary.length).to.not.equal(0);
+				/* jshint +W030 */
+			});
+		});
+
+	}); // close Hypocenter Details test suite
+
+
+	describe('HypocenterDetailsPage test suite.', function () {
 		describe('getFeString', function () {
 			var hp = null,
 			    product = null,
 			    ajaxStub = null;
 
 			beforeEach(function () {
-				hp = new HypocenterPage({eventDetails: eventDetails});
+				hp = new HypocenterDetailsPage(options);
 
 				product = hp.getProducts()[0];
 
@@ -88,6 +121,5 @@ define([
 			});
 
 		});
-
 	});
 });
