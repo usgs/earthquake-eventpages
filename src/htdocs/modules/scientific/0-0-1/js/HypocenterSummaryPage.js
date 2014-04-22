@@ -28,46 +28,33 @@ function (
 
 	HypocenterSummaryPage.prototype = Object.create(SummaryModulePage.prototype);
 
-	/**
-	 * Get tab title for a product.
-	 *
-	 * @param product {Product}
-	 *        the product.
-	 * @return {String} summary content for product.
-	 */
-	HypocenterSummaryPage.prototype.getSummary = function (product) {
-		var source = product.source,
-				formatter = this._options.formatter,
+	HypocenterSummaryPage.prototype._getSummaryHeader = function (product) {
+		var formatter = this._options.formatter,
 		    p = product.properties,
 		    magnitude = p.magnitude,
-		    magnitudeType = p['magnitude-type'],
+		    magnitudeType = p['magnitude-type'];
+
+		return '<header>' + formatter.magnitude(magnitude) + '</header>' +
+				'<small>' + (magnitudeType || 'undefined') + '</small>';
+	};
+
+	HypocenterSummaryPage.prototype._getSummaryInfo = function (product) {
+		var formatter = this._options.formatter,
+		    source = product.source,
+		    p = product.properties,
 		    latitude = p.latitude,
 		    longitude = p.longitude,
-		    depth = p.depth,
-		    el = document.createElement('a');
+		    depth = p.depth;
 
-		el.className = 'summary';
-		el.href = this._getHash(product);
-
-		el.innerHTML = [
-			'<div class="header">',
-				'<header>', formatter.magnitude(magnitude), '</header>',
-				'<small>' , magnitudeType , '</small>',
-			'</div>',
-			'<div class="info">',
-				'<span class="location">',
-					formatter.location(latitude, longitude),
-				'</span>',
-				'<span class="depth">',
-					formatter.depth(depth, 'km'), ' depth',
-				'</span>',
-				'<span class="contributor">',
-					Attribution.getMainContributerHeader(source.toUpperCase()),
-				'</span>',
-			'<div>'
-		].join('');
-
-		return el;
+		return '<span class="location">' +
+					formatter.location(latitude, longitude) +
+				'</span>' +
+				'<span class="depth">' +
+					formatter.depth(depth, 'km') + ' depth' +
+				'</span>' +
+				'<span class="contributor">' +
+					Attribution.getMainContributerHeader(source.toUpperCase()) +
+				'</span>';
 	};
 
 	// return constructor

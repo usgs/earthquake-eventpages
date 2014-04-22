@@ -61,42 +61,15 @@ define([
 		return tensors;
 	};
 
-
-	/**
-	 * Get Summary card:
-	 *  - beachball
-	 *  - details
-	 *
-	 * @param tensor {Tensor}
-	 *        tensor to format.
-	 * @return {DOMElement} element with tensor title.
-	 */
-	MomentTensorSummaryPage.prototype.getSummary = function (tensor) {
-		var el = document.createElement('a'),
-		    header = document.createElement('div'),
-		    info = document.createElement('div'),
-		    //slug = '_' + tensor.source + '_' + tensor.type;
-		    slug = '_' + tensor.source + '_' + tensor.code;
-		el.className = 'summary';
-		info.className = 'info';
-		header.className = 'header';
-		el.appendChild(header);
-		el.appendChild(info);
-		// set content
-		info.innerHTML = this._getSummaryContent(tensor);
+	MomentTensorSummaryPage.prototype._getSummaryHeader = function (tensor) {
 		// add beachball
-		header.appendChild(new BeachBall({
+		return new BeachBall({
 			tensor: tensor,
 			size: 200,
 			plotAxes: false,
 			plotPlanes: true
-		}).getCanvas());
-		el.appendChild(info);
-		el.href = '#scientific_' + this._hash + slug;
-
-		return el;
+		}).getCanvas();
 	};
-
 
 	/**
 	 * Used by getSummary() method,
@@ -106,7 +79,7 @@ define([
 	 *        tensor object.
 	 * @return {String} summary content.
 	 */
-	MomentTensorSummaryPage.prototype._getSummaryContent = function (tensor) {
+	MomentTensorSummaryPage.prototype._getSummaryInfo = function (tensor) {
 		var formatter = this._options.formatter,
 		    type = tensor.type,
 		    magnitude = tensor.magnitude,
@@ -115,7 +88,6 @@ define([
 		    percentDC = Math.round(tensor.percentDC * 100);
 
 		magnitude = formatter.magnitude(magnitude);
-		//depth = formatter.depth(depth, 'km');
 
 		return [
 					'<header class="title">', type, '</header>',

@@ -33,10 +33,6 @@ function (
 
 		info.innerHTML = 'Click on a summary section to view the details.';
 
-		// if (products.length === 1) {
-		// 	window.location = this._getHash(products[0]);
-		// }
-
 		for (var i = 0; i < products.length; i++) {
 			product = products[i];
 			summary = this.getSummary(product);
@@ -79,6 +75,7 @@ function (
 		    product,
 		    i,
 		    len;
+
 		if (allProducts) {
 			if (onlyPreferred) {
 				products.push(allProducts[0]);
@@ -98,6 +95,51 @@ function (
 	};
 
 
+	SummaryModulePage.prototype.getSummary = function (product) {
+		var el,
+		    header, headerMarkup,
+		    info, infoMarkup;
+
+		el = document.createElement('a');
+		el.className = 'summary';
+		el.href = this._getHash(product);
+
+		header = document.createElement('div');
+		header.className = 'header';
+		headerMarkup = this._getSummaryHeader(product);
+		// Add header content
+		if (typeof headerMarkup === 'object') {
+			header.appendChild(headerMarkup);
+		} else {
+			header.innerHTML = headerMarkup;
+		}
+
+		info = document.createElement('div');
+		info.className = 'info';
+		infoMarkup = this._getSummaryInfo(product);
+		// Add description content
+		if (typeof infoMarkup === 'object') {
+			info.appendChild(infoMarkup);
+		} else {
+			info.innerHTML = infoMarkup;
+		}
+
+		el.appendChild(header);
+		el.appendChild(info);
+
+		return el;
+	};
+
+	SummaryModulePage.prototype._getSummaryHeader = function (product) {
+		return 'Summary Header: <p>' + product.source + '<p>';
+	};
+
+	SummaryModulePage.prototype._getSummaryInfo = function (product) {
+		var p = document.createElement('div');
+		p.innerHTML = 'Summary Description: <p>' + product.code + '<p>';
+
+		return p;
+	};
 
 	// return constructor
 	return SummaryModulePage;
