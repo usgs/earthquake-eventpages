@@ -30,7 +30,7 @@ define([
 
 
 	/**
-	 * Construct a new HypocenterDetailsPage.
+	 * Construct a new HypocenterPage.
 	 *
 	 * @param options {Object}
 	 *        page options.

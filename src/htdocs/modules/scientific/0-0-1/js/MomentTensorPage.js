@@ -36,7 +36,7 @@ define([
 
 
 	/**
-	 * Construct a new HypocenterDetailsPage.
+	 * Construct a new MomentTensorPage.
 	 *
 	 * @param options {Object}
 	 *        page options.

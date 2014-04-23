@@ -5,14 +5,14 @@ define([
 	'base/Formatter',
 	'./tensor/Tensor',
 	'./tensor/BeachBall',
-	'./HypocenterDetailsPage'
+	'./HypocenterPage'
 ], function (
 	Util,
 	EventModulePage,
 	Formatter,
 	Tensor,
 	BeachBall,
-	HypocenterDetailsPage
+	HypocenterPage
 ) {
 	'use strict';
 
@@ -101,13 +101,13 @@ define([
 
 			originEl.innerHTML = [
 				'<a href="#scientific_hypocenter"><h3>Hypocenter</h3></a>',
-				HypocenterDetailsPage.prototype.getOriginDetail.call(this, origins[0]),
+				HypocenterPage.prototype.getOriginDetail.call(this, origins[0]),
 				'<p><a href="#scientific_hypocenter">',
 					'View all locations, magnitudes, phases, and arrivals.',
 				'</a></p>'
 			].join('');
 
-			HypocenterDetailsPage.prototype.getFeString.call(this, origins[0],
+			HypocenterPage.prototype.getFeString.call(this, origins[0],
 					function (feString) {
 				var feContainer = originEl.querySelector('.fe-info');
 				if (feContainer) {
