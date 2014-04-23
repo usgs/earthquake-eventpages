@@ -22,18 +22,13 @@ define([
 ) {
 	'use strict';
 
-
 	// default options
 	var DEFAULTS = {
-		title: 'Hypocenter',
-		hash: 'hypocenter',
-		className: 'scientific-hypocenter',
 		formatter: new Formatter(),
 		tabList: {
 			tabPosition: 'top'
 		}
 	};
-
 
 	/**
 	 * Construct a new MomentTensorPage.

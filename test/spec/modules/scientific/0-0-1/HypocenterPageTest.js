@@ -28,7 +28,9 @@ define([
 				productTypes: [
 					'origin',
 					'phase-data'
-				]
+				],
+				title: 'Hypocenter',
+				hash: 'hypocenter'
 			},
 	   SummaryPage = new HypocenterPage(options);
 

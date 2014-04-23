@@ -8,13 +8,8 @@ define([
 ) {
 	'use strict';
 
-	// default options
-	var DEFAULTS = {
-		title: 'Focal Mechanism',
-		hash: 'mechanism',
-		productType: 'focal-mechanism'
-	};
 
+	var DEFAULTS = {};
 
 	/**
 	 * Construct a new FocalMechanismPage.
