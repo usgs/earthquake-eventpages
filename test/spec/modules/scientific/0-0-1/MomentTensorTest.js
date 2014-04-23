@@ -3,16 +3,16 @@ define ([
 	'chai',
 	'sinon',
 	'./nc72119970',
+	'./nc72119971',
 	'scientific/ScientificModule',
-	'scientific/MomentTensorDetailsPage',
-	'scientific/MomentTensorSummaryPage'
+	'scientific/MomentTensorPage'
 ], function (
 	chai,
 	sinon,
 	nc72119970,
+	nc72119971,
 	ScientificModule,
-	MomentTensorDetailsPage,
-	MomentTensorSummaryPage
+	MomentTensorPage
 ) {
 
 'use strict';
@@ -21,12 +21,11 @@ define ([
 			options = {
 				eventDetails: nc72119970,
 				module: new ScientificModule(),
-				source: 'nc',
-				type: 'TMTS',
-				code: 'nc_nc72119970_mt1'
+				productTypes: ['moment-tensor'],
+				title: 'Moment Tensor',
+				hash: 'tensor'
 			},
-	    SummaryPage = new MomentTensorSummaryPage(options),
-	    DetailsPage = new MomentTensorDetailsPage(options);
+	    page = new MomentTensorPage(options);
 
 
 	/**
@@ -37,65 +36,52 @@ define ([
 		describe('Constructor', function () {
 			it('Can be defined.', function () {
 				/* jshint -W030 */
-				expect(MomentTensorSummaryPage).not.to.be.undefined;
+				expect(page).not.to.be.undefined;
 				/* jshint +W030 */
 			});
 
 			it('Can be instantiated', function () {
-				expect(SummaryPage).to.be.an.instanceof(MomentTensorSummaryPage);
+				expect(page).to.be.an.instanceof(MomentTensorPage);
 			});
 		});
 
-		describe('getContent()', function () {
+		describe('getSummaryContent', function () {
 
 			it('Can get summary information.', function () {
-				var content = SummaryPage.getContent();
+				var content = page.getContent();
 				expect(content).to.be.a('object');
 			});
 
 			// _getInfo()
 			it('Can summarize moment tensor data.', function () {
-				var content = SummaryPage.getContent();
-				var tensor_summary = content.querySelectorAll('.tensors');
+				var content = page.getContent();
+				var tensor_summary = content.querySelectorAll('.tensor-summary');
 				/* jshint -W030 */
 				expect(tensor_summary.length).to.not.equal(0);
 				/* jshint +W030 */
 			});
 		});
 
-	}); // close MomentTensorSummary test suite
+		describe('getDetailContent()', function () {
 
-
-
-
-
-	/**
-	 * Test for Moment Tensor Details page
-	 */
-	describe('MomentTensorDetails test suite.', function () {
-
-		describe('Constructor', function () {
-			it('Can be defined.', function () {
-				/* jshint -W030 */
-				expect(MomentTensorDetailsPage).not.to.be.undefined;
-				/* jshint +W030 */
-			});
-
-			it('Can be instantiated', function () {
-				expect(DetailsPage).to.be.an.instanceof(MomentTensorDetailsPage);
-			});
-		});
-
-		describe('getContent()', function () {
+			var expect = chai.expect,
+			options = {
+				eventDetails: nc72119971,
+				module: new ScientificModule(),
+				productTypes: ['moment-tensor'],
+				title: 'Moment Tensor',
+				hash: 'tensor'
+			},
+	    page = new MomentTensorPage(options);
 
 			it('Can get product details.', function () {
-				var content = DetailsPage.getContent();
+				var content = page.getContent();
 				expect(content).to.be.a('object');
 			});
 
 			// _getInfo()
 			it('Can build info table', function () {
-				var content = DetailsPage.getContent();
+				var content = page.getContent();
 				var info_table = content.querySelector('.info-table');
 				/* jshint -W030 */
 				expect(info_table).not.to.be.null;
@@ -104,7 +90,7 @@ define ([
 
 			// _getAxes()
 			it('Can build principal axes table', function () {
-				var content = DetailsPage.getContent();
+				var content = page.getContent();
 				var principal_axes = content.querySelector('.principal-axes-table');
 				/* jshint -W030 */
 				expect(principal_axes).not.to.be.null;
@@ -113,7 +99,7 @@ define ([
 
 			// _getPlanes()
 			it('Can build nodal planes table', function () {
-				var content = DetailsPage.getContent();
+				var content = page.getContent();
 				var nodal_plane = content.querySelector('.nodal-plane-table');
 				/* jshint -W030 */
 				expect(nodal_plane).not.to.be.null;
@@ -122,7 +108,7 @@ define ([
 
 			// getSummary()
 			it('Can build beachball', function () {
-				var content = DetailsPage.getContent();
+				var content = page.getContent();
 				var canvas = content.querySelector('canvas');
 				/* jshint -W030 */
 				expect(canvas).not.to.be.null;
@@ -131,7 +117,7 @@ define ([
 
 			// getDetail()
 			it('Can build downloads section', function () {
-				var content = DetailsPage.getContent();
+				var content = page.getContent();
 				var downloads = content.querySelector('.downloads');
 				/* jshint -W030 */
 				expect(downloads).not.to.be.null;

@@ -7,8 +7,7 @@ define([
 	'./usb000kqnc',
 
 	'scientific/ScientificModule',
-	'scientific/HypocenterDetailsPage',
-	'scientific/HypocenterSummaryPage'
+	'scientific/HypocenterPage'
 ], function (
 	chai,
 	sinon,
@@ -17,8 +16,7 @@ define([
 	eventDetails,
 
 	ScientificModule,
-	HypocenterDetailsPage,
-	HypocenterSummaryPage
+	HypocenterPage
 ) {
 	'use strict';
 	var expect = chai.expect,
@@ -26,21 +24,25 @@ define([
 				eventDetails: eventDetails,
 				module: new ScientificModule(),
 				source: 'us',
-				code: 'us_usb000kqnc'
+				code: 'us_usb000kqnc',
+				productTypes: [
+					'origin',
+					'phase-data'
+				]
 			},
-	    SummaryPage = new HypocenterSummaryPage(options);
+	   SummaryPage = new HypocenterPage(options);
 
 
-	describe('HypocenterSummaryPage test suite.', function () {
+	describe('HypocenterPage test suite.', function () {
 		describe('Constructor', function () {
 			it('Can be defined.', function () {
 				/* jshint -W030 */
-				expect(HypocenterDetailsPage).not.to.be.undefined;
+				expect(HypocenterPage).not.to.be.undefined;
 				/* jshint +W030 */
 			});
 
 			it('Can be instantiated', function () {
-				expect(SummaryPage).to.be.an.instanceof(HypocenterSummaryPage);
+				expect(SummaryPage).to.be.an.instanceof(HypocenterPage);
 			});
 		});
 
@@ -55,24 +57,21 @@ define([
 			// _getInfo()
 			it('Can summarize hypocenter data.', function () {
 				var content = SummaryPage.getContent();
-				var hypocenter_summary = content.querySelectorAll('.hypocenters');
+				var hypocenter_summary =
+						content.querySelectorAll('.hypocenter-summary');
 				/* jshint -W030 */
 				expect(hypocenter_summary.length).to.not.equal(0);
 				/* jshint +W030 */
 			});
 		});
 
-	}); // close Hypocenter Details test suite
-
-
-	describe('HypocenterDetailsPage test suite.', function () {
 		describe('getFeString', function () {
 			var hp = null,
 			    product = null,
 			    ajaxStub = null;
 
 			beforeEach(function () {
-				hp = new HypocenterDetailsPage(options);
+				hp = new HypocenterPage(options);
 
 				product = hp.getProducts()[0];
 
