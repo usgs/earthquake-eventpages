@@ -56,7 +56,6 @@ define([
 
 		// TODO, origin and phase-data
 		for (var key in origins) {
-			console.log(origins[key]);
 
 			if (phases.hasOwnProperty(key) &&
 					phases[key].updateTime >= origins[key].updateTime) {

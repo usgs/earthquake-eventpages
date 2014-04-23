@@ -27,7 +27,6 @@ define([
 		options = Util.extend({}, DEFAULTS, options);
 		this._code = options.code;
 		MomentTensorPage.call(this, options);
-		console.log(options);
 	};
 
 	// extend MomentTensorPage
