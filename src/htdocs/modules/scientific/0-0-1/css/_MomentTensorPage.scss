@@ -1,28 +1,26 @@
-.tensors {
+.tensor-summary,
+.mechanism-summary {
 
-	> .summary {
+	> .info {
+		padding:12px 10px 0 135px;
 
-		> .info {
-			padding:12px 10px 0 135px;
+		> header.title {
+			font-weight:bold;
+			font-size:16px;
+			margin:0 0 5px;
+		}
 
-			> header.title {
-				font-weight:bold;
-				font-size:16px;
-				margin:0 0 5px;
+		> dl {
+			//color:#666;
+			margin:0;
+
+			> dt {
+				float: left;
+				width: 85px;
 			}
 
-			> dl {
-				//color:#666;
-				margin:0;
-
-				> dt {
-					float: left;
-					width: 85px;
-				}
-
-				> dd {
-					margin: 0 0 0 95px;
-				}
+			> dd {
+				margin: 0 0 0 95px;
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 /*** summary section styles ***/
-a.summary {
+.summary {
 	display:block;
 	position:relative; // needed for :after selector
 	border:1px solid #ccc;
@@ -9,7 +9,7 @@ a.summary {
 	height:122px;
 	font-size:14px;
 
-	div.header {
+	.header {
 		position:relative;
 		float:left;
 		padding: 10px;
@@ -20,18 +20,18 @@ a.summary {
 		text-align:center;
 	}
 
-	div.info {
+	.info {
 		position:relative;
 		padding:12px 10px 0 130px;
 	}
 
 }
 
-a.summary:hover {
+.summary:hover {
 	background:rgba(158, 192, 248, 0.1);
 }
 
-a.summary.preferred::after {
+.summary.preferred::after {
 	position: absolute;
 	top: 1px;
 	left: 4px;
@@ -42,7 +42,7 @@ a.summary.preferred::after {
 	z-index:3;
 }
 
-a.summary.preferred::before {
+.summary.preferred::before {
 	content: '';
 	position: absolute;
 	top: -1px;
