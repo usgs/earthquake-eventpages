@@ -28,6 +28,27 @@ define([
 	FocalMechanismPage.prototype = Object.create(MomentTensorPage.prototype);
 
 
+	FocalMechanismPage.prototype._getSummaryInfo = function (tensor) {
+		var formatter = this._options.formatter,
+		    type = tensor.type,
+		    magnitude = tensor.magnitude,
+		    author = tensor.source,
+		    percentDC = Math.round(tensor.percentDC * 100);
+
+		magnitude = formatter.magnitude(magnitude);
+
+		return [
+					'<header class="title">', tensor.title, '</header>',
+					'<dl>',
+						'<dt>Magnitude:</dt>',
+						'<dd>', magnitude, '</dd>',
+						'<dt>Percent <abbr title="Double Couple">DC</abbr>:</dt>',
+						'<dd>', percentDC, '%</dd>',
+						'<dt>Author:</dt>',
+						'<dd>', author, '</dd>',
+					'</dl>',
+		].join('');
+	};
 
 	/**
 	 * Mechanism info.
