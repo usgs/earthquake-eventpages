@@ -41,24 +41,48 @@ define([
 	// extend TabbedModulePage.
 	HypocenterPage.prototype = Object.create(SummaryDetailsPage.prototype);
 
+	/**
+	 * Get all products that match options.productTypes. If a
+	 * source + code combination exists across multiple product types,
+	 * then add the most recent product to the product array.
+	 *
+	 * @return {Array<object> allProducts,
+	 *         an array of products
+	 */
 	HypocenterPage.prototype.getProducts = function () {
-		var allProducts = [],
-		    products,
-		    origins,
-		    phases;
+		var options = this._options,
+		    productTypes = options.productTypes,
+		    products = [],
+		    product,
+		    allProducts = [],
+		    sourceCode = [],
+		    index,
+		    type,
+		    id;
 
-		products = SummaryDetailsPage.prototype.getProducts.call(this);
-		origins = products.origin;
-		phases = products['phase-data'];
+		// loop through different productTypes
+		for (var i = 0; i < productTypes.length; i++) {
+			type = productTypes[i];
+			products = this._event.properties.products[type] || [];
 
-		// TODO, origin and phase-data
-		for (var key in origins) {
+			// loop through products of specific type (origin & phase-data)
+			for (var x = 0; x < products.length; x++) {
+				product = products[x];
+				id = product.source + '_' + product.code;
+				index = sourceCode.indexOf(id);
 
-			if (phases.hasOwnProperty(key) &&
-					phases[key].updateTime >= origins[key].updateTime) {
-				allProducts.push(phases[key]);
-			} else {
-				allProducts.push(origins[key]);
+				// product doesn't exist, add product
+				if (index === -1) {
+					allProducts.push(products[x]);
+					sourceCode.push(id); // keep track of source + code products
+				} else {
+
+					// replace origin with phase-data product if
+					// phase-data updateTime is same age or newer.
+					if (allProducts[index].updateTime <= product.updateTime) {
+						allProducts[index] = products[x];
+					}
+				}
 			}
 		}
 

@@ -51,49 +51,29 @@ define([
 	};
 
 	/**
-	 * Find the products (or other information) to display on this page.
+	 * Find the products to display on this page.
 	 *
-	 * This implementation uses these configurable options:
-	 *     productType {String}, find products of this type. When multiple
-	 *     types are specified an object of multiple product arrays is
-	 *     returned instead of a single array.
+	 * @return {Array<Object>} allProducts,
+	 *         all products that match options.productTypes.
 	 *
-	 *     Single productType:
-	 *     [object, object, object]
-	 * 
-	 *     Multiple productType:
-	 *     {'origin': [object, object, object], 'phase-data': [object]}
-	 *
-	 * @return {Array<Object>} array of "products" to display on this page.
-	 * @return {Object} object of "products" to display on this page.
 	 */
 	SummaryDetailsPage.prototype.getProducts = function () {
 		var options = this._options,
 		    productTypes = options.productTypes,
-		    allProducts = {},
 		    products = [],
-		    product,
-		    productDetails,
+		    allProducts = [],
 		    type;
 
 		// loop through different productTypes
 		for (var i = 0; i < productTypes.length; i++) {
 			type = productTypes[i];
-			products = this._event.properties.products[type];
-			productDetails = {};
+			products = this._event.properties.products[type] || [];
 
-			// loop through different products of a specific type
 			for (var x = 0; x < products.length; x++) {
-				product = products[x];
-				productDetails[product.code] = product; // push onto 'type' keyed array
+				allProducts.push(products[x]);
 			}
-			allProducts[type] = productDetails;
 		}
 
-		// When only one product type exists, return array of products
-		if (productTypes.length === 1) {
-			return products;
-		}
 		return allProducts;
 	};
 
