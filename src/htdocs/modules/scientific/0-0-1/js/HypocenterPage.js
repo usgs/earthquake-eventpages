@@ -50,38 +50,38 @@ define([
 	 *         an array of products
 	 */
 	HypocenterPage.prototype.getProducts = function () {
-		var options = this._options,
-		    productTypes = options.productTypes,
-		    products = [],
-		    product,
+		var origins = this._event.properties.products.origin || [],
+		    origin,
+		    phases = this._event.properties.products['phase-data'] || [],
+		    phase,
 		    allProducts = [],
 		    sourceCode = [],
 		    index,
-		    type,
-		    id;
+		    id,
+		    i;
 
-		// loop through different productTypes
-		for (var i = 0; i < productTypes.length; i++) {
-			type = productTypes[i];
-			products = this._event.properties.products[type] || [];
+		allProducts = origins;
 
-			// loop through products of specific type (origin & phase-data)
-			for (var x = 0; x < products.length; x++) {
-				product = products[x];
-				id = product.source + '_' + product.code;
-				index = sourceCode.indexOf(id);
+		// build array of products that are in the allProducts array
+		for (i = 0; i < origins.length; i++) {
+			origin = origins[i];
+			sourceCode.push(origin.source + '_' + origin.code);
+		}
 
-				// product doesn't exist, add product
-				if (index === -1) {
-					allProducts.push(products[x]);
-					sourceCode.push(id); // keep track of source + code products
-				} else {
+		for (i = 0; i < phases.length; i++) {
+			phase = phases[i];
+			id = phase.source + '_' + phase.code;
+			index = sourceCode.indexOf(id);
 
-					// replace origin with phase-data product if
-					// phase-data updateTime is same age or newer.
-					if (allProducts[index].updateTime <= product.updateTime) {
-						allProducts[index] = products[x];
-					}
+			// product doesn't exist, add product
+			if (index === -1) {
+				allProducts.push(phase);
+				sourceCode.push(id);
+			} else {
+				// replace origin with phase-data product if
+				// phase-data updateTime is same age or newer.
+				if (allProducts[index].updateTime <= phase.updateTime) {
+					allProducts[index] = phase;
 				}
 			}
 		}
