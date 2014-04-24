@@ -21,7 +21,7 @@ define([
 
 	/**
 	 * Determine whether to load the summary or details
-	 * page, and fetch the products for the page. 
+	 * page, and fetch the products for the page.
 	 */
 	SummaryDetailsPage.prototype._setContentMarkup = function () {
 		var products = this._products = this.getProducts(),
@@ -112,8 +112,8 @@ define([
 
 	/**
 	 * Called by getSummaryContent, this method builds the summary
-	 * list markup and requests data for it's two sections. 
-	 * 
+	 * list markup and requests data for it's two sections.
+	 *
 	 * @param  {Object} product, product being summarized
 	 * @return {Object},
 	 *         A single products summarization, in HTML.
