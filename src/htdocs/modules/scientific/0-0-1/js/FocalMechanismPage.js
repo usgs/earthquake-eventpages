@@ -30,7 +30,6 @@ define([
 
 	FocalMechanismPage.prototype._getSummaryInfo = function (tensor) {
 		var formatter = this._options.formatter,
-		    type = tensor.type,
 		    magnitude = tensor.magnitude,
 		    author = tensor.source,
 		    percentDC = Math.round(tensor.percentDC * 100);
