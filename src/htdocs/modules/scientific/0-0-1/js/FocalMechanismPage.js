@@ -8,13 +8,8 @@ define([
 ) {
 	'use strict';
 
-	// default options
-	var DEFAULTS = {
-		title: 'Focal Mechanism',
-		hash: 'mechanism',
-		productType: 'focal-mechanism'
-	};
 
+	var DEFAULTS = {};
 
 	/**
 	 * Construct a new FocalMechanismPage.
@@ -25,6 +20,7 @@ define([
 	 */
 	var FocalMechanismPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options);
+		this._code = options.code;
 		MomentTensorPage.call(this, options);
 	};
 
@@ -32,30 +28,26 @@ define([
 	FocalMechanismPage.prototype = Object.create(MomentTensorPage.prototype);
 
 
-	/**
-	 * Tab content besides beachball.
-	 *
-	 * @param tensor {Tensor}
-	 *        the focal-mechanism product.
-	 * @return {String} tab content.
-	 */
-	FocalMechanismPage.prototype._getSummaryContent = function (tensor) {
-		var source = tensor.source.toUpperCase(),
-		    code = tensor.product.code;
-		return source + ' ' + code;
-	};
+	FocalMechanismPage.prototype._getSummaryInfo = function (tensor) {
+		var formatter = this._options.formatter,
+		    magnitude = tensor.magnitude,
+		    author = tensor.source,
+		    percentDC = Math.round(tensor.percentDC * 100);
 
-	/**
-	 * Title for detail section.
-	 *
-	 * @param tensor {Tensor}
-	 *        the focal-mechanism product.
-	 * @return {String} title content.
-	 */
-	FocalMechanismPage.prototype._getTitle = function (tensor) {
-		return this._getSummaryContent(tensor);
-	};
+		magnitude = formatter.magnitude(magnitude);
 
+		return [
+					'<header class="title">', tensor.title, '</header>',
+					'<dl>',
+						'<dt>Magnitude:</dt>',
+						'<dd>', magnitude, '</dd>',
+						'<dt>Percent <abbr title="Double Couple">DC</abbr>:</dt>',
+						'<dd>', percentDC, '%</dd>',
+						'<dt>Author:</dt>',
+						'<dd>', author, '</dd>',
+					'</dl>',
+		].join('');
+	};
 
 	/**
 	 * Mechanism info.

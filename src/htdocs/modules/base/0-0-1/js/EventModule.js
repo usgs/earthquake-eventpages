@@ -207,8 +207,9 @@ define([
 	 */
 	EventModule.prototype.getPage = function (hash, callback) {
 		var module = this;
-		var pageInfo = this._getPageInfo(hash.replace(this._hash + '_', ''));
+		var pageInfo = this._getPageInfo(hash);
 		var pageOptions = Util.extend({}, pageInfo.options,
+				{productTypes: pageInfo.productTypes},
 				{eventDetails: this._eventDetails, module: module});
 		var classLoader = null;
 
@@ -264,6 +265,8 @@ define([
 		var numPages = this._pages.length,
 		    i = null, pageInfo = null;
 
+		pageHash = this._readHash(pageHash);
+
 		for (i = 0; i < numPages; i++) {
 			pageInfo = this._pages[i];
 			if (pageInfo.options.hash === pageHash) {
@@ -276,6 +279,24 @@ define([
 		}
 
 		return null;
+	};
+
+	/**
+	 * Returns the page to load from the hash.
+	 *
+	 * @param  {String} value, URL hash to parse.
+	 *
+	 * @return {String}
+	 *         page to load that is stripped from the hash.
+	 */
+	EventModule.prototype._readHash = function (value) {
+		value = value.replace(this._hash + '_', '');
+
+		if (value.indexOf(':') !== -1) {
+			value = value.substr(0, value.indexOf(':'));
+		}
+
+		return value;
 	};
 
 	// ------------------------------------------------------------

@@ -80,7 +80,6 @@ define([
 		describe('getContent', function () {
 
 			it('can get contents', function () {
-				//console.log(content);
 				expect(content).to.be.a('object');
 			});
 

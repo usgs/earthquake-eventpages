@@ -3,23 +3,22 @@ define([
 	'util/Util',
 	'util/Xhr',
 
-	'base/TabbedModulePage',
-	'base/Formatter'
+	'base/SummaryDetailsPage',
+	'base/Formatter',
+	'summary/Attribution'
 ], function (
 	Util,
 	Xhr,
 
-	TabbedModulePage,
-	Formatter
+	SummaryDetailsPage,
+	Formatter,
+	Attribution
 ) {
 	'use strict';
 
 
 	// default options
 	var DEFAULTS = {
-		title: 'Hypocenter',
-		hash: 'hypocenter',
-		className: 'scientific-hypocenter',
 		formatter: new Formatter(),
 		tabList: {
 			tabPosition: 'top'
@@ -35,99 +34,69 @@ define([
 	 */
 	var HypocenterPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
-		TabbedModulePage.call(this, this._options);
+		this._code = options.code;
+		SummaryDetailsPage.call(this, this._options);
 	};
 
 	// extend TabbedModulePage.
-	HypocenterPage.prototype = Object.create(TabbedModulePage.prototype);
-
+	HypocenterPage.prototype = Object.create(SummaryDetailsPage.prototype);
 
 	/**
-	 * Get a list of products for display.
+	 * Get all products that match options.productTypes. If a
+	 * source + code combination exists across multiple product types,
+	 * then add the most recent product to the product array.
 	 *
-	 * This method searches origin and phase-data products, and returns
-	 *     phase-data in place of origin when the same source, code,
-	 *     and the updateTime is as new, as the corresponding origin product.
-	 *
-	 * @return {Array<Product>} origin/phase-data products.
+	 * @return {Array<object> allProducts,
+	 *         an array of products
 	 */
 	HypocenterPage.prototype.getProducts = function () {
-		var allProducts = this._event.properties.products,
-		    origins = allProducts.origin,
-		    phases = allProducts['phase-data'],
-		    products = [],
-		    i,
-		    len,
-		    getPhaseProduct;
+		var origins = this._event.properties.products.origin || [],
+		    origin,
+		    phases = this._event.properties.products['phase-data'] || [],
+		    phase,
+		    allProducts = [],
+		    sourceCode = [],
+		    index,
+		    id,
+		    i;
 
-		/**
-		 * Search for a phase-data product that corresponds to an origin product.
-		 *
-		 * @param origin {Object}
-		 *        the origin product.
-		 * @return {Object} the corresponding phase-data product,
-		 *         or origin if no phase-data product found.
-		 */
-		getPhaseProduct = function (origin) {
-			var source = origin.source,
-			    code = origin.code,
-			    updateTime = origin.updateTime,
-			    phase,
-			    i,
-			    len;
-			for (i = 0, len = phases.length; i < len; i++) {
-				phase = phases[i];
-				if (phase.source === source &&
-						phase.code === code &&
-						phase.updateTime >= updateTime) {
-					return phase;
-				}
-			}
-			return origin;
-		};
+		allProducts = origins;
 
-		for (i = 0, len = origins.length; i < len; i++) {
-			products.push(getPhaseProduct(origins[i]));
+		// build array of products that are in the allProducts array
+		for (i = 0; i < origins.length; i++) {
+			origin = origins[i];
+			sourceCode.push(origin.source + '_' + origin.code);
 		}
 
-		return products;
+		for (i = 0; i < phases.length; i++) {
+			phase = phases[i];
+			id = phase.source + '_' + phase.code;
+			index = sourceCode.indexOf(id);
+
+			// product doesn't exist, add product
+			if (index === -1) {
+				allProducts.push(phase);
+				sourceCode.push(id);
+			} else {
+				// replace origin with phase-data product if
+				// phase-data updateTime is same age or newer.
+				if (allProducts[index].updateTime <= phase.updateTime) {
+					allProducts[index] = phase;
+				}
+			}
+		}
+
+		return allProducts;
 	};
 
 	/**
-	 * Get tab title for a product.
-	 *
-	 * @param product {Product}
-	 *        the product.
-	 * @return {String} summary content for product.
+	 * Called by SummaryDetailsPage._setContentMarkup(), handles
+	 * displaying all detailed information for an origin product.
+	 * 
+	 * @param  {object} product, origin product to display
+	 * 
 	 */
-	HypocenterPage.prototype.getSummary = function (product) {
-		var formatter = this._options.formatter,
-		    source = product.source.toUpperCase(),
-		    p = product.properties,
-		    magnitude = p.magnitude,
-		    magnitudeType = p['magnitude-type'],
-		    latitude = p.latitude,
-		    longitude = p.longitude,
-		    depth = p.depth;
-
-		return [
-			'<strong>', source, '</strong>',
-			'<small>',
-				'<br/>', formatter.magnitude(magnitude, magnitudeType),
-				'<br/>', formatter.location(latitude, longitude),
-				'<br/>', formatter.depth(depth, 'km'), ' depth',
-			'</small>'
-		].join('');
-	};
-
-	/**
-	 * Get tab content for a product.
-	 *
-	 * @param product {Product}
-	 *        the product.
-	 * @return {DOMElement} detail content for product.
-	 */
-	HypocenterPage.prototype.getDetail = function (product) {
+	HypocenterPage.prototype.getDetailsContent = function (product) {
 		var el = document.createElement('div'),
 		    source = product.source.toUpperCase(),
 		    phases,
@@ -163,13 +132,9 @@ define([
 			magnitudes.innerHTML = '<p><em>No associate magnitudes.</em></p>';
 		}
 
-		// add downloads
-		// el.querySelector('.downloads').appendChild(
-		// 		TabbedModulePage.prototype.getDownloads.call(this, product));
-		el.appendChild(TabbedModulePage.prototype.getDownloads.call(this, product));
-
-		return el;
+		this._content.appendChild(el);
 	};
+
 
 	/**
 	 * Format an origin product details.
@@ -315,6 +280,34 @@ define([
 		return buf.join('');
 	};
 
+	HypocenterPage.prototype._getSummaryHeader = function (product) {
+		var formatter = this._options.formatter,
+		    p = product.properties,
+		    magnitude = p.magnitude,
+		    magnitudeType = p['magnitude-type'];
+
+		return '<header>' + formatter.magnitude(magnitude) + '</header>' +
+				'<small>' + (magnitudeType || 'undefined') + '</small>';
+	};
+
+	HypocenterPage.prototype._getSummaryInfo = function (product) {
+		var formatter = this._options.formatter,
+		    source = product.source,
+		    p = product.properties,
+		    latitude = p.latitude,
+		    longitude = p.longitude,
+		    depth = p.depth;
+
+		return '<span class="location">' +
+					formatter.location(latitude, longitude) +
+				'</span>' +
+				'<span class="depth">' +
+					formatter.depth(depth, 'km') + ' depth' +
+				'</span>' +
+				'<span class="contributor">' +
+					Attribution.getMainContributerHeader(source.toUpperCase()) +
+				'</span>';
+	};
 
 	// return constructor
 	return HypocenterPage;

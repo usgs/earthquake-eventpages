@@ -53,9 +53,10 @@ require([
 		'spec/modules/impact/0-0-1/DYFIPageTest',
 		'spec/modules/impact/0-0-1/ShakemapDetailsTest',
 		'spec/modules/impact/0-0-1/TabListUtilTest',
-		'spec/modules/impact/0-0-1/PagerpageTest',
+		'spec/modules/impact/0-0-1/PagerPageTest',
 		'spec/modules/impact/0-0-1/PagerXmlParserTest',
-		'spec/modules/scientific/0-0-1/HypocenterPageTest'
+		'spec/modules/scientific/0-0-1/HypocenterPageTest',
+		'spec/modules/scientific/0-0-1/MomentTensorTest'
 	], function () {
 		if (window.mochaPhantomJS) {
 			window.mochaPhantomJS.run();

@@ -1,0 +1,55 @@
+/*** summary section styles ***/
+.summary {
+	display:block;
+	position:relative; // needed for :after selector
+	border:1px solid #ccc;
+	text-decoration:none;
+	color:#000;
+	margin-bottom: 8px;
+	height:122px;
+	font-size:14px;
+
+	.header {
+		position:relative;
+		float:left;
+		padding: 10px;
+		height:120px;
+		width:120px;
+		border-right:1px solid #ccc;
+		background:rgb(247,247,247);
+		text-align:center;
+	}
+
+	.info {
+		position:relative;
+		padding:12px 10px 0 130px;
+	}
+
+}
+
+.summary:hover {
+	background:rgba(158, 192, 248, 0.1);
+}
+
+.summary.preferred::after {
+	position: absolute;
+	top: 1px;
+	left: 4px;
+	content: '\2713'; // checkmark
+	font-size: 16px;
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+	z-index:3;
+}
+
+.summary.preferred::before {
+	content: '';
+	position: absolute;
+	top: -1px;
+	left: -1px;
+	width: 0;
+	height: 0;
+	border-right: 35px solid transparent;
+	border-top: 35px solid #49a34b;
+	z-index:2;
+}

@@ -1,21 +1,28 @@
-// moment-tensor and focal-mechanism page styles
+.tensor-summary,
+.mechanism-summary {
 
+	> .info {
+		padding:12px 10px 0 135px;
 
-.tensor-page > .tablist-top > nav > .tablist-tab {
-	max-width:none;
-}
+		> header.title {
+			font-weight:bold;
+			font-size:16px;
+			margin:0 0 5px;
+		}
 
+		> dl {
+			//color:#666;
+			margin:0;
 
-.tensor-summary {
-	position:relative;
-	padding-left:48px;
-	min-height:40px;
-	line-height:1;
+			> dt {
+				float: left;
+				width: 85px;
+			}
 
-	> canvas {
-		position:absolute;
-		left:0px;
-		top:0px;
+			> dd {
+				margin: 0 0 0 95px;
+			}
+		}
 	}
 }
 
@@ -29,6 +36,27 @@
 		th, td {
 			text-align: left;
 		}
+	}
+
+	.toggle.hidden {
+		display:none; // hide elements
+	}
+
+	.toggle-button {
+		border: 1px solid #87B4D4;
+		background: #E1E8FF;
+		color: #3B769C;
+		padding:0 5px;
+		float:right;
+		cursor:pointer;
+	}
+
+	.toggle-button.on:before {
+		content: '- less';
+	}
+
+	.toggle-button.off:before {
+		content: '+ more';
 	}
 
 	.principal-axes-table,

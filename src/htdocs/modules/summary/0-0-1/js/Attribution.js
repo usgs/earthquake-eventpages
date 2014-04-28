@@ -429,7 +429,7 @@ define([
 			}
 
 			if (url !== null) {
-				header = '<a target="_blank" href="' + url + '">' + title + '</a>';
+				header = '<a target="_blank" href="' + url + '">' + title + ' (' + code + ')</a>';
 			} else {
 				header = title;
 			}

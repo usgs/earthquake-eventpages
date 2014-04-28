@@ -264,7 +264,8 @@ define([
 		    dip,
 		    rake,
 		    moment,
-		    tensor;
+		    tensor,
+		    code;
 
 		if (status.toUpperCase() === 'DELETE') {
 			// deleted
@@ -274,6 +275,7 @@ define([
 		source = (props['beachball-source'] || product.source).toLowerCase();
 		title = source.toUpperCase();
 		type = props['beachball-type'] || props['derived-magnitude-type'] || null;
+		code = product.code;
 
 		if (type !== null) {
 			if (type in BEACHBALL_TYPES) {
@@ -312,6 +314,7 @@ define([
 		tensor.title = title;
 		tensor.type = type;
 		tensor.source = source;
+		tensor.code = code;
 
 		return tensor;
 	};

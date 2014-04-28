@@ -6,6 +6,7 @@ define([
 	'util/Xhr',
 	'./usb000kqnc',
 
+	'scientific/ScientificModule',
 	'scientific/HypocenterPage'
 ], function (
 	chai,
@@ -14,10 +15,25 @@ define([
 	Xhr,
 	eventDetails,
 
+	ScientificModule,
 	HypocenterPage
 ) {
 	'use strict';
-	var expect = chai.expect;
+	var expect = chai.expect,
+	    options = {
+				eventDetails: eventDetails,
+				module: new ScientificModule(),
+				source: 'us',
+				code: 'us_usb000kqnc',
+				productTypes: [
+					'origin',
+					'phase-data'
+				],
+				title: 'Hypocenter',
+				hash: 'hypocenter'
+			},
+	   SummaryPage = new HypocenterPage(options);
+
 
 	describe('HypocenterPage test suite.', function () {
 		describe('Constructor', function () {
@@ -28,8 +44,26 @@ define([
 			});
 
 			it('Can be instantiated', function () {
-				var c = new HypocenterPage({eventDetails: eventDetails});
-				expect(c).to.be.an.instanceof(HypocenterPage);
+				expect(SummaryPage).to.be.an.instanceof(HypocenterPage);
+			});
+		});
+
+
+		describe('getContent()', function () {
+
+			it('Can get summary information.', function () {
+				var content = SummaryPage.getContent();
+				expect(content).to.be.a('object');
+			});
+
+			// _getInfo()
+			it('Can summarize hypocenter data.', function () {
+				var content = SummaryPage.getContent();
+				var hypocenter_summary =
+						content.querySelectorAll('.hypocenter-summary');
+				/* jshint -W030 */
+				expect(hypocenter_summary.length).to.not.equal(0);
+				/* jshint +W030 */
 			});
 		});
 
@@ -39,7 +73,7 @@ define([
 			    ajaxStub = null;
 
 			beforeEach(function () {
-				hp = new HypocenterPage({eventDetails: eventDetails});
+				hp = new HypocenterPage(options);
 
 				product = hp.getProducts()[0];
 
@@ -88,6 +122,5 @@ define([
 			});
 
 		});
-
 	});
 });

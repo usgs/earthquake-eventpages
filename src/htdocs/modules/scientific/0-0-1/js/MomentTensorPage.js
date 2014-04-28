@@ -1,153 +1,166 @@
 /* global define */
 define([
 	'util/Util',
-	'base/TabbedModulePage',
+	'util/Xhr',
+
+	'base/SummaryDetailsPage',
 	'base/Formatter',
+	'base/ContentsXML',
+
 	'./tensor/Tensor',
 	'./tensor/BeachBall'
 ], function (
 	Util,
-	TabbedModulePage,
+	Xhr,
+
+	SummaryDetailsPage,
 	Formatter,
+	ContentsXML,
+
 	Tensor,
 	BeachBall
 ) {
 	'use strict';
 
-
 	// default options
 	var DEFAULTS = {
-		title: 'Moment Tensor',
-		hash: 'tensor',
-		productType: 'moment-tensor',
-		className: 'tensor-page',
+		formatter: new Formatter(),
 		tabList: {
 			tabPosition: 'top'
-		},
-		formatter: new Formatter()
+		}
 	};
-
 
 	/**
 	 * Construct a new MomentTensorPage.
 	 *
 	 * @param options {Object}
-	 *        module options
-	 * @see TabbedModulePage.
+	 *        page options.
 	 */
 	var MomentTensorPage = function (options) {
-		options = Util.extend({}, DEFAULTS, options);
-		TabbedModulePage.call(this, options);
+		this._options = Util.extend({}, DEFAULTS, options);
+		this._code = options.code;
+		SummaryDetailsPage.call(this, this._options);
 	};
 
-	// extend TabbedModulePage
-	MomentTensorPage.prototype = Object.create(TabbedModulePage.prototype);
+	// extend TabbedModulePage.
+	MomentTensorPage.prototype = Object.create(SummaryDetailsPage.prototype);
 
 
 	/**
-	 * Override TabbedModulePage.getProducts to return Tensor objects.
-	 *
-	 * @return {Array<Tensor>} array of tensor objects.
+	 * Called by SummaryDetailsPage._setContentMarkup(), handles
+	 * displaying all detailed information for an origin product.
+	 * 
+	 * @param  {object} product, origin product to display
+	 * 
 	 */
-	MomentTensorPage.prototype.getProducts = function () {
-		var tensors = [],
-		    products,
-		    i,
-		    len;
-		// convert products to Tensor objects
-		products = TabbedModulePage.prototype.getProducts.call(this);
-		for (i = 0, len = products.length; i < len; i++) {
-			tensors.push(Tensor.fromProduct(products[i]));
-		}
-		return tensors;
-	};
-
-	/**
-	 * Get tab title.
-	 *
-	 * @param tensor {Tensor}
-	 *        tensor to format.
-	 * @return {DOMElement} element with tensor title.
-	 */
-	MomentTensorPage.prototype.getSummary = function (tensor) {
-		var el = document.createElement('div');
-		el.className = 'tensor-summary';
-		// set content
-		el.innerHTML = this._getSummaryContent(tensor);
-		// add beachball
-		el.appendChild(new BeachBall({
-			tensor: tensor,
-			size: 40,
-			plotAxes: false,
-			plotPlanes: true
-		}).getCanvas());
-		return el;
-	};
-
-	/**
-	 * Get tab content.
-	 *
-	 * @param tensor {Tensor}
-	 *        tensor to format.
-	 * @return {DOMElement} element with tensor content.
-	 */
-	MomentTensorPage.prototype.getDetail = function (tensor) {
-		var el = document.createElement('div');
-		el.className = 'tensor-detail';
+	MomentTensorPage.prototype.getDetailsContent = function (tensor) {
+		var el = document.createElement('div'),
+		    _this = this;
 
 		// set layout
+		el.className = 'tensor-detail';
 		el.innerHTML = [
 			'<h3>', this._getTitle(tensor), '</h3>',
 			'<div class="row clearfix">',
 				'<div class="column one-of-two">',
 					this._getInfo(tensor),
-					this._getAxes(tensor),
 					this._getPlanes(tensor),
+					this._getAxes(tensor),
 				'</div>',
 				'<div class="column one-of-two beachball"></div>',
-			'</div>'
+			'</div>',
+			'<div class="row clearfix downloads"></div>'
 		].join('');
 
 		// add beachball
 		el.querySelector('.beachball').appendChild(
 				new BeachBall({
 					tensor: tensor,
-					size: 320,
-					lineWidth: 0.50
+					size: 320
 				}).getCanvas());
 
-		// add contentsxml content getDetail()
-		el.appendChild(TabbedModulePage.prototype.getDetail.call(this, tensor.product));
+		this._content.appendChild(el);
 
-		// add downloads section getDownloads()
-		el.appendChild(TabbedModulePage.prototype.getDownloads.call(this, tensor.product));
-
-		return el;
+		Util.addEvent(this.getContent().querySelector('.toggle-button'), 'click', ( function () {
+			var callback = function callback () {
+				_this._toggleInfo();
+			};
+			return callback;
+		})(this));
 	};
 
+
+
+	MomentTensorPage.prototype._toggleInfo = function () {
+		var button = this.getContent().querySelector('.toggle-button'),
+		    rows = this.getContent().querySelectorAll('.toggle'),
+		    row;
+
+		for (var i = 0; i < rows.length; i++) {
+			row = rows[i];
+			if (Util.hasClass(row, 'hidden')) {
+				Util.removeClass(row, 'hidden');
+			} else  {
+				Util.addClass(row, 'hidden');
+			}
+		}
+
+		if (Util.hasClass(button, 'on')) {
+			Util.removeClass(button, 'on');
+			Util.addClass(button, 'off');
+		} else  {
+			Util.removeClass(button, 'off');
+			Util.addClass(button, 'on');
+		}
+	};
+
+
 	/**
-	 * Used by getSummary() method,
-	 * so subclasses can override non-beachball content.
+	 * Format tensor information.
 	 *
 	 * @param tensor {Tensor}
-	 *        tensor object.
-	 * @return {String} summary content.
+	 *        tensor to format.
+	 * @return {String} markup for information.
 	 */
-	MomentTensorPage.prototype._getSummaryContent = function (tensor) {
+	MomentTensorPage.prototype._getInfo = function (tensor) {
 		var formatter = this._options.formatter,
-		    type = tensor.type,
+		    moment = tensor.moment,
 		    magnitude = tensor.magnitude,
-		    depth = tensor.depth;
+		    percentDC = tensor.percentDC,
+		    depth = tensor.depth,
+		    author = tensor.source,
+		    catalog = tensor.product.properties.eventsource,
+		    contributor = tensor.product.source,
+		    code = tensor.product.code,
+		    half_duration = tensor.product.properties.duration/2 || '--';
 
-		magnitude = formatter.magnitude(magnitude);
+		moment = (moment / tensor.scale).toFixed(3) +
+				'e+' + tensor.exponent + ' ' + tensor.units;
+		magnitude = magnitude.toFixed(2);
+		percentDC = Math.round(percentDC * 100) + '%';
 		depth = formatter.depth(depth, 'km');
 
 		return [
-				'<strong>', type, '</strong>',
-				'<small>',
-					'<br/><abbr title="Magnitude">M</abbr> = ', magnitude,
-					'<br/><abbr title="Depth">D</abbr> = ', depth,
-				'</small>'
+			'<table class="info-table tabular"><tbody>',
+			'<tr><th scope="row">Moment</th>',
+				'<td>', moment, '</td></tr>',
+			'<tr><th scope="row">Magnitude</th>',
+				'<td>', magnitude, '</td></tr>',
+			'<tr><th scope="row">Depth</th>',
+				'<td>', depth, '</td></tr>',
+			'<tr><th scope="row">Percent <abbr title="Double Couple">DC</abbr></th>',
+				'<td>', percentDC, '</td></tr>',
+			'<tr><th scope="row">Half Duration</th>',
+				'<td>', half_duration, '</td></tr>',
+			'<tr><th scope="row">Author</th>',
+				'<td>', author, '<span class="toggle-button off"></span></td></tr>',
+			'<tr class="toggle hidden"><th scope="row">Catalog</th>',
+				'<td>', catalog, '</td></tr>',
+			'<tr class="toggle hidden"><th scope="row">Contributor</th>',
+				'<td>', contributor, '</td></tr>',
+			'<tr class="toggle hidden"><th scope="row">Code</th>',
+				'<td>', code, '</td></tr>',
+			'</tbody></table>'
 		].join('');
 	};
 
@@ -176,51 +189,6 @@ define([
 		return title;
 	};
 
-	/**
-	 * Format tensor information.
-	 *
-	 * @param tensor {Tensor}
-	 *        tensor to format.
-	 * @return {String} markup for information.
-	 */
-	MomentTensorPage.prototype._getInfo = function (tensor) {
-		var formatter = this._options.formatter,
-		    moment = tensor.moment,
-		    magnitude = tensor.magnitude,
-		    percentDC = tensor.percentDC,
-		    depth = tensor.depth,
-		    author = tensor.source,
-		    catalog = tensor.product.properties.eventsource,
-		    contributor = tensor.product.source,
-		    code = tensor.product.code;
-
-		moment = (moment / tensor.scale).toFixed(3) +
-				'e+' + tensor.exponent + ' ' + tensor.units;
-		magnitude = magnitude.toFixed(2);
-		percentDC = Math.round(percentDC * 100) + '%';
-		depth = formatter.depth(depth, 'km');
-
-		return [
-			'<table class="info-table tabular"><tbody>',
-			'<tr><th scope="row">Moment</th>',
-				'<td>', moment, '</td></tr>',
-			'<tr><th scope="row">Magnitude</th>',
-				'<td>', magnitude, '</td></tr>',
-			'<tr><th scope="row">Percent <abbr title="Double Couple">DC</abbr></th>',
-				'<td>', percentDC, '</td></tr>',
-			'<tr><th scope="row">Depth</th>',
-				'<td>', depth, '</td></tr>',
-			'<tr><th scope="row">Author</th>',
-				'<td>', author, '</td></tr>',
-			'<tr><th scope="row">Catalog</th>',
-				'<td>', catalog, '</td></tr>',
-			'<tr><th scope="row">Contributor</th>',
-				'<td>', contributor, '</td></tr>',
-			'<tr><th scope="row">Code</th>',
-				'<td>', code, '</td></tr>',
-			'</tbody></table>'
-		].join('');
-	};
 
 	/**
 	 * Format tensor principal axes.
@@ -335,6 +303,85 @@ define([
 		].join('');
 	};
 
+	MomentTensorPage.prototype.getProducts = function () {
+		var tensors = [],
+		    products,
+		    i,
+		    len;
+
+		// convert products to Tensor objects
+		products = SummaryDetailsPage.prototype.getProducts.call(this);
+		for (i = 0, len = products.length; i < len; i++) {
+			tensors.push(Tensor.fromProduct(products[i]));
+		}
+
+		return tensors;
+	};
+
+	MomentTensorPage.prototype._getSummaryHeader = function (tensor) {
+		// add beachball
+		return new BeachBall({
+			tensor: tensor,
+			size: 200,
+			plotAxes: false,
+			plotPlanes: true
+		}).getCanvas();
+	};
+
+	/**
+	 * Used by getSummary() method,
+	 * so subclasses can override non-beachball content.
+	 *
+	 * @param tensor {Tensor}
+	 *        tensor object.
+	 * @return {String} summary content.
+	 */
+	MomentTensorPage.prototype._getSummaryInfo = function (tensor) {
+		var formatter = this._options.formatter,
+		    type = tensor.type,
+		    magnitude = tensor.magnitude,
+		    depth = Math.round(tensor.depth) + ' km',
+		    author = tensor.source,
+		    percentDC = Math.round(tensor.percentDC * 100);
+
+		magnitude = formatter.magnitude(magnitude);
+
+		return [
+					'<header class="title">', type, '</header>',
+					'<dl>',
+						'<dt>Magnitude:</dt>',
+						'<dd>', magnitude, '</dd>',
+						'<dt>Depth:</dt>',
+						'<dd>', depth, '</dd>',
+						'<dt>Percent <abbr title="Double Couple">DC</abbr>:</dt>',
+						'<dd>', percentDC, '%</dd>',
+						'<dt>Author:</dt>',
+						'<dd>', author, '</dd>',
+					'</dl>',
+		].join('');
+	};
+
+
+
+	MomentTensorPage.prototype.getDownloads = function (product) {
+		var el = document.createElement('div');
+
+		el.innerHTML = 'Loading contents ...';
+		el.className = 'downloads';
+
+		new ContentsXML({
+				product: product.product,
+				callback: function (contents) {
+					// build content
+					el.innerHTML = '<header><h3>Downloads</h3></header>' +
+							contents.getDownloads();
+				},
+				errback: function () {
+					el.innerHTML = 'Error loading contents ...';
+				}});
+
+		this._content.appendChild(el);
+	};
 
 	// return constructor
 	return MomentTensorPage;
