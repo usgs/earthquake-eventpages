@@ -99,14 +99,19 @@ define([
 	 * @param  {Array<Object>} products, an array of products to be summarized/
 	 */
 	SummaryDetailsPage.prototype.getSummaryContent = function (products) {
-		var product;
+		var product,
+		    summary;
 
 		this._content.innerHTML =
 				'<p>Click on a summary section to view the details.</p>';
 
 		for (var i = 0; i < products.length; i++) {
 			product = products[i];
-			this._content.appendChild(this.buildSummaryMarkup(product));
+			summary = this.buildSummaryMarkup(product);
+			if (i === 0) {
+				Util.addClass(summary, 'preferred');
+			}
+			this._content.appendChild(summary);
 		}
 	};
 
