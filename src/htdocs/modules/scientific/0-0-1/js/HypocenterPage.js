@@ -102,36 +102,44 @@ define([
 	HypocenterPage.prototype.getDetailsContent = function (product) {
 		var el = document.createElement('div'),
 		    tabListDiv = document.createElement('section'),
-		    tabList = [],
-		    tabContents,
-		    source = product.source.toUpperCase(),
+		    tabListContents = [],
 		    phases,
-		    magnitudes;
+		    magnitudes,
+		    originDetails;
 
-		el.className = 'scientific-hypocenter clearfix';
-		el.innerHTML = [
-			'<h3>', source, '</h3>',
-			'<div class="info"></div>',
-			'<div class="phases"></div>',
-			'<div class="magnitudes"></div>'
+		originDetails = [
+			'<h3>', product.source.toUpperCase(), '</h3>',
+			this.getOriginDetail(product)
 		].join('');
 		tabListContents.push({
-			title: 'phases',
-			content: 'phases content'
+			title: 'Origin Detail',
+			content: originDetails
+		});
+
+		if (product.type === 'phase-data') {
+			phases = '<p><a href="#">Show associated phases</a></p>';
+			magnitudes = '<p><a href="#">' +
+					'Show associated magnitudes' +
+					'</a></p>';
+		} else {
+			phases = '<p><em>No associated phases.</em></p>';
+			magnitudes = '<p><em>No associate magnitudes.</em></p>';
+		}
+		tabListContents.push({
+			title: 'Phases',
+			content: phases
 		});
 		tabListContents.push({
-			title: 'magnitudes',
-			content: 'magnitudes content'
+			title: 'Magnitudes',
+			content: magnitudes
 		});
-		// Build TabList with all of the shakemap images
+
+		// Build TabList
 		this._tabList = new TabList({
-			el: this._content.appendChild(tablistDiv),
+			el: this._content.appendChild(tabListDiv),
 			tabPosition: 'top',
 			tabs: tabListContents
 		});
-
-
-		el.querySelector('.info').innerHTML = this.getOriginDetail(product);
 
 		// Update the FE region info
 		this.getFeString(product, function (feString) {
@@ -141,21 +149,7 @@ define([
 			}
 		});
 
-		phases = el.querySelector('.phases');
-		magnitudes = el.querySelector('.magnitudes');
-		if (product.type === 'phase-data') {
-			phases.innerHTML = '<p><a href="#">Show associated phases</a></p>';
-			magnitudes.innerHTML = '<p><a href="#">' +
-					'Show associated magnitudes' +
-					'</a></p>';
-			// TODO: make these links do something.
-		} else {
-			phases.innerHTML = '<p><em>No associated phases.</em></p>';
-			magnitudes.innerHTML = '<p><em>No associate magnitudes.</em></p>';
-		}
-
-		// this._content.appendChild(el);
-		this._content.appendChild(this._tabList);
+		this._content.appendChild(el);
 	};
 
 
