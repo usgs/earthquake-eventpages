@@ -36,6 +36,7 @@ define([
 	 */
 	var HypocenterPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
+		this._tabList = null;
 		this._code = options.code;
 		SummaryDetailsPage.call(this, this._options);
 	};
@@ -100,9 +101,13 @@ define([
 	 */
 	HypocenterPage.prototype.getDetailsContent = function (product) {
 		var el = document.createElement('div'),
+		    tabListDiv = document.createElement('section'),
+		    tabList = [],
+		    tabContents,
 		    source = product.source.toUpperCase(),
 		    phases,
 		    magnitudes;
+
 		el.className = 'scientific-hypocenter clearfix';
 		el.innerHTML = [
 			'<h3>', source, '</h3>',
@@ -110,6 +115,21 @@ define([
 			'<div class="phases"></div>',
 			'<div class="magnitudes"></div>'
 		].join('');
+		tabListContents.push({
+			title: 'phases',
+			content: 'phases content'
+		});
+		tabListContents.push({
+			title: 'magnitudes',
+			content: 'magnitudes content'
+		});
+		// Build TabList with all of the shakemap images
+		this._tabList = new TabList({
+			el: this._content.appendChild(tablistDiv),
+			tabPosition: 'top',
+			tabs: tabListContents
+		});
+
 
 		el.querySelector('.info').innerHTML = this.getOriginDetail(product);
 
@@ -134,7 +154,8 @@ define([
 			magnitudes.innerHTML = '<p><em>No associate magnitudes.</em></p>';
 		}
 
-		this._content.appendChild(el);
+		// this._content.appendChild(el);
+		this._content.appendChild(this._tabList);
 	};
 
 
