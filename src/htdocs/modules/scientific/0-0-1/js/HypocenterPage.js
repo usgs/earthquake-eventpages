@@ -5,14 +5,16 @@ define([
 
 	'base/SummaryDetailsPage',
 	'base/Formatter',
-	'summary/Attribution'
+	'summary/Attribution',
+	'tablist/TabList'
 ], function (
 	Util,
 	Xhr,
 
 	SummaryDetailsPage,
 	Formatter,
-	Attribution
+	Attribution,
+	TabList
 ) {
 	'use strict';
 
@@ -92,9 +94,9 @@ define([
 	/**
 	 * Called by SummaryDetailsPage._setContentMarkup(), handles
 	 * displaying all detailed information for an origin product.
-	 * 
+	 *
 	 * @param  {object} product, origin product to display
-	 * 
+	 *
 	 */
 	HypocenterPage.prototype.getDetailsContent = function (product) {
 		var el = document.createElement('div'),
