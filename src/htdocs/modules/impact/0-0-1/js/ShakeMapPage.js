@@ -2,17 +2,17 @@
 define([
 	'util/Util',
 	'util/Xhr',
-	'base/EventModulePage',
 	'tablist/TabList',
 	'base/ContentsXML',
-	'./ImpactUtil'
+	'./ImpactUtil',
+	'base/SummaryDetailsPage'
 ], function (
 	Util,
 	Xhr,
-	EventModulePage,
 	TabList,
 	ContentsXML,
-	ImpactUtil
+	ImpactUtil,
+	SummaryDetailsPage
 ) {
 	'use strict';
 
@@ -74,13 +74,14 @@ define([
 		this._shakemap = null;
 		this._code = this._options.code || null;
 		this._source = this._options.source || null;
-		EventModulePage.call(this, this._options);
+		SummaryDetailsPage.call(this, this._options);
 	};
 
-	// extend EventModulePage.
-	ShakeMapPage.prototype = Object.create(EventModulePage.prototype);
+	// extend SummaryDetailsPage.
+	ShakeMapPage.prototype = Object.create(SummaryDetailsPage.prototype);
 
-	ShakeMapPage.prototype._setContentMarkup = function () {
+// this is not needed anymore
+	ShakeMapPage.prototype.getDetailsContent = function () {
 		var tablistDiv = document.createElement('div'),
 		    shakemap;
 
@@ -97,6 +98,7 @@ define([
 				})
 		});
 	};
+	// end
 
 	/**
 	 * Generate array of tab content for tablist
@@ -558,27 +560,6 @@ define([
 		return Math.max.apply(null, values);
 	};
 
-	/**
-	 * Generate downloads markup for event module footer
-	 */
-	ShakeMapPage.prototype._setFooterMarkup = function () {
-
-		var el = this._footer;
-
-		el.className = 'downloads';
-		el.innerHTML = 'Loading contents ...';
-
-		new ContentsXML({
-				product: this._shakemap,
-				callback: function (contents) {
-					el.innerHTML = '<header><h3>Downloads</h3></header>' +
-							contents.getDownloads();
-				},
-				errback: function () {
-					el.innerHTML = 'Error loading contents ...';
-				}});
-		//return el;
-	};
 
 	// return constructor
 	return ShakeMapPage;
