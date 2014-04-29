@@ -81,7 +81,8 @@ define([
 
 		this._content.appendChild(el);
 
-		Util.addEvent(this.getContent().querySelector('.toggle-button'), 'click', ( function () {
+		Util.addEvent(this.getContent().querySelector('.toggle-button'), 'click',
+				( function () {
 			var callback = function callback () {
 				_this._toggleInfo();
 			};
