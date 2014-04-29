@@ -117,10 +117,10 @@ define([
 		});
 
 		if (product.type === 'phase-data') {
-			phases = '<p><a href="#">Show associated phases</a></p>';
-			magnitudes = '<p><a href="#">' +
-					'Show associated magnitudes' +
-					'</a></p>';
+			// TODO build phase table and put it here
+			phases = '<p>Show associated phases</p>';
+			// TODO build magnitude table and put it here
+			magnitudes = '<p>Show associated magnitudes</p>';
 		} else {
 			phases = '<p><em>No associated phases.</em></p>';
 			magnitudes = '<p><em>No associate magnitudes.</em></p>';
