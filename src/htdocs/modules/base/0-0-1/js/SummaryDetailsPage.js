@@ -11,9 +11,9 @@ define([
 	'use strict';
 
 	var SummaryDetailsPage = function (options) {
-		this._options = options;
+		this._options = options || {};
 		this._code = options.code || null;
-		EventModulePage.call(this, options);
+		EventModulePage.call(this, this._options);
 	};
 
 	// extend EventModulePage
