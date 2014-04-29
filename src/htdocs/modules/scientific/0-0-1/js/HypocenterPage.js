@@ -5,14 +5,16 @@ define([
 
 	'base/SummaryDetailsPage',
 	'base/Formatter',
-	'summary/Attribution'
+	'summary/Attribution',
+	'tablist/TabList'
 ], function (
 	Util,
 	Xhr,
 
 	SummaryDetailsPage,
 	Formatter,
-	Attribution
+	Attribution,
+	TabList
 ) {
 	'use strict';
 
@@ -34,6 +36,7 @@ define([
 	 */
 	var HypocenterPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
+		this._tabList = null;
 		this._code = options.code;
 		SummaryDetailsPage.call(this, this._options);
 	};
@@ -92,24 +95,51 @@ define([
 	/**
 	 * Called by SummaryDetailsPage._setContentMarkup(), handles
 	 * displaying all detailed information for an origin product.
-	 * 
+	 *
 	 * @param  {object} product, origin product to display
-	 * 
+	 *
 	 */
 	HypocenterPage.prototype.getDetailsContent = function (product) {
 		var el = document.createElement('div'),
-		    source = product.source.toUpperCase(),
+		    tabListDiv = document.createElement('section'),
+		    tabListContents = [],
 		    phases,
-		    magnitudes;
-		el.className = 'scientific-hypocenter clearfix';
-		el.innerHTML = [
-			'<h3>', source, '</h3>',
-			'<div class="info"></div>',
-			'<div class="phases"></div>',
-			'<div class="magnitudes"></div>'
-		].join('');
+		    magnitudes,
+		    originDetails;
 
-		el.querySelector('.info').innerHTML = this.getOriginDetail(product);
+		originDetails = [
+			'<h3>', product.source.toUpperCase(), '</h3>',
+			this.getOriginDetail(product)
+		].join('');
+		tabListContents.push({
+			title: 'Origin Detail',
+			content: originDetails
+		});
+
+		if (product.type === 'phase-data') {
+			// TODO build phase table and put it here
+			phases = '<p>Show associated phases</p>';
+			// TODO build magnitude table and put it here
+			magnitudes = '<p>Show associated magnitudes</p>';
+		} else {
+			phases = '<p><em>No associated phases.</em></p>';
+			magnitudes = '<p><em>No associate magnitudes.</em></p>';
+		}
+		tabListContents.push({
+			title: 'Phases',
+			content: phases
+		});
+		tabListContents.push({
+			title: 'Magnitudes',
+			content: magnitudes
+		});
+
+		// Build TabList
+		this._tabList = new TabList({
+			el: this._content.appendChild(tabListDiv),
+			tabPosition: 'top',
+			tabs: tabListContents
+		});
 
 		// Update the FE region info
 		this.getFeString(product, function (feString) {
@@ -118,19 +148,6 @@ define([
 				feContainer.innerHTML = feString;
 			}
 		});
-
-		phases = el.querySelector('.phases');
-		magnitudes = el.querySelector('.magnitudes');
-		if (product.type === 'phase-data') {
-			phases.innerHTML = '<p><a href="#">Show associated phases</a></p>';
-			magnitudes.innerHTML = '<p><a href="#">' +
-					'Show associated magnitudes' +
-					'</a></p>';
-			// TODO: make these links do something.
-		} else {
-			phases.innerHTML = '<p><em>No associated phases.</em></p>';
-			magnitudes.innerHTML = '<p><em>No associate magnitudes.</em></p>';
-		}
 
 		this._content.appendChild(el);
 	};

@@ -49,9 +49,9 @@ define([
 	/**
 	 * Called by SummaryDetailsPage._setContentMarkup(), handles
 	 * displaying all detailed information for an origin product.
-	 * 
+	 *
 	 * @param  {object} product, origin product to display
-	 * 
+	 *
 	 */
 	MomentTensorPage.prototype.getDetailsContent = function (tensor) {
 		var el = document.createElement('div'),
