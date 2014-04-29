@@ -181,7 +181,16 @@ define([
 		return bytes + sizes[sizeIndex];
 	};
 
+	/**
+	 * Convert number to roman numerals
+	 * Will only convert numbers 1 to 12
+	 */
+	Formatter.prototype.romanNumerals = function (dec) {
+		var romanNumeral = ['0', 'I', 'II', 'III', 'IV', 'V', 'VI',
+				'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
 
+		return romanNumeral[Math.round(dec)];
+	};
 	// return constructor
 	return Formatter;
 });
