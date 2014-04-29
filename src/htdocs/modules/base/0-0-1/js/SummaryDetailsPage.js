@@ -12,7 +12,7 @@ define([
 
 	var SummaryDetailsPage = function (options) {
 		this._options = options || {};
-		this._code = options.code || null;
+		this._code = this._options.code || null;
 		EventModulePage.call(this, this._options);
 	};
 
@@ -59,7 +59,7 @@ define([
 	 */
 	SummaryDetailsPage.prototype.getProducts = function () {
 		var options = this._options,
-		    productTypes = options.productTypes,
+		    productTypes = options.productTypes || [],
 		    products = [],
 		    allProducts = [],
 		    type;
