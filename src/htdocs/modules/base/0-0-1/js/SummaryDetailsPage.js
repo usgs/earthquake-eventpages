@@ -68,10 +68,7 @@ define([
 		for (var i = 0; i < productTypes.length; i++) {
 			type = productTypes[i];
 			products = this._event.properties.products[type] || [];
-
-			for (var x = 0; x < products.length; x++) {
-				allProducts.push(products[x]);
-			}
+			allProducts = allProducts.concat(products);
 		}
 
 		return allProducts;
