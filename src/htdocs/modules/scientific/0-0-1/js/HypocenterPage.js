@@ -210,7 +210,7 @@ define([
 		    originSource = p['origin-source'] || eventSource,
 		    magnitudeSource = p['magnitude-source'] || eventSource;
 
-		buf.push('<table class="origin-detail tabular"><tbody>');
+		buf.push('<table class="origin-detail responsive-vertical"><tbody>');
 
 
 		buf.push('<tr><th scope="row">Magnitude</th><td>',
