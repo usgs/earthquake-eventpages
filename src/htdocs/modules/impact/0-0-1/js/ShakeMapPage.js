@@ -560,6 +560,30 @@ define([
 		return Math.max.apply(null, values);
 	};
 
+	ShakeMapPage.prototype._getSummaryInfo = function (product) {
+		var formatter = this._options.formatter,
+		    properties = product.properties,
+		    maxmmi = properties.maxmmi,
+		    contributor = product.source,
+		    version = properties.version,
+		    creationTime = properties['process-timestamp'];
+
+		return [
+			'<header class="title">', '</header>',
+			'<dl>',
+				'<dt>MaxMMI:</dt>',
+					'<dd>', maxmmi, '</dd>',
+				'<dt>Contributor:</dt>',
+					'<dd>', contributor, '</dd>',
+				'<dt>Shakemap Version</dt>',
+					'<dd>', version, '</dd>',
+				'<dt>Creation Time:</dt>',
+					'<dt>', creationTime , '</dt>',
+			'</dl>',
+		].join('');
+
+	};
+
 
 	// return constructor
 	return ShakeMapPage;
