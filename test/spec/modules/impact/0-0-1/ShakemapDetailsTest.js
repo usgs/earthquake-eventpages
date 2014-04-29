@@ -58,7 +58,8 @@ define([
 
 			it('Can be instantiated', function () {
 				var page = new ShakemapDetailsPage({
-						'eventDetails': eventDetails
+						'eventDetails': eventDetails,
+						'productTypes': ['shakemap']
 					});
 
 				expect(page).to.be.an.instanceof(ShakemapDetailsPage);
