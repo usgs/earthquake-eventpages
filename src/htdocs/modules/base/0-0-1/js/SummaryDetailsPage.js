@@ -125,9 +125,9 @@ define([
 		    header, headerMarkup,
 		    info, infoMarkup;
 
-		el = document.createElement('a');
+		el = document.createElement('div');
 		el.className = this._options.hash + '-summary summary';
-		el.href = this._buildHash(product);
+		el.setAttribute('data-id', this._buildHash(product));
 
 		header = document.createElement('div');
 		header.className = 'header';
@@ -152,8 +152,14 @@ define([
 		el.appendChild(header);
 		el.appendChild(info);
 
+		// navigate to details page
+		Util.addEvent(el, 'click', function (e) {
+			window.location.hash = e.currentTarget.getAttribute('data-id');
+		});
+
 		return el;
 	};
+
 
 	/**
 	 * The content that goes into the summary card header
