@@ -118,7 +118,8 @@ define([
 
 		if (product.type === 'phase-data') {
 			// TODO build phase table and put it here
-			phases = '<p>Show associated phases</p>';
+			// phases = '<p>Show associated phases</p>';
+			phases = this._getPhaseDetail();
 			// TODO build magnitude table and put it here
 			magnitudes = '<p>Show associated magnitudes</p>';
 		} else {
@@ -150,6 +151,9 @@ define([
 		});
 
 		this._content.appendChild(el);
+	};
+	HypocenterPage.prototype._getPhaseDetail = function () {
+		return '<p>Show associated phases</p>';
 	};
 
 
