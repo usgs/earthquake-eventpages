@@ -210,19 +210,21 @@ define([
 	 * Retrieves downloadable content from contents.xml
 	 */
 	SummaryDetailsPage.prototype.getDownloads = function (product) {
-		var el = document.createElement('div');
-		el.innerHTML = 'Loading contents ...';
+		var el = document.createElement('div'),
+		    title = '<header><h3>Downloads</h3></header>';
+
+		el.innerHTML = title + '<p>Loading contents ...</p>';
 		el.className = 'downloads';
 
 		new ContentsXML({
 				product: product,
 				callback: function (contents) {
 					// build content
-					el.innerHTML = '<header><h3>Downloads</h3></header>' +
-							contents.getDownloads();
+					el.innerHTML = title + contents.getDownloads();
 				},
 				errback: function () {
-					el.innerHTML = 'Error loading contents ...';
+					el.innerHTML = title +
+							'<p class="alert error">Unable to load downloads ...</p>';
 				}});
 
 		this._content.appendChild(el);
