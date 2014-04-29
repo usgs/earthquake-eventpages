@@ -368,7 +368,7 @@ define([
 		var el = document.createElement('div'),
 		    title = '<header><h3>Downloads</h3></header>';
 
-		el.innerHTML = title + '<p>Loading contents ...</p>';
+		el.innerHTML = title + '<p>Loading contents &hellip;</p>';
 		el.className = 'downloads';
 
 		new ContentsXML({
@@ -379,7 +379,7 @@ define([
 				},
 				errback: function () {
 					el.innerHTML = title +
-							'<p class="alert error">Unable to load downloads ...</p>';
+							'<p class="alert error">Unable to load downloads &hellip;</p>';
 				}});
 
 		this._content.appendChild(el);
