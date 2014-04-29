@@ -121,9 +121,9 @@ define([
 		if (product.type === 'phase-data' &&
 			  product.contents['quakeml.xml'] !== null) {
 			// TODO build phase table and put it here
-			phases = this._getPhaseDetail();
+			phases = this._getPhaseDetail(product);
 			// TODO build magnitude table and put it here
-			magnitudes = this._getMagnitudeDetail();
+			magnitudes = this._getMagnitudeDetail(product);
 		} else {
 			phases = '<p><em>No associated phases.</em></p>';
 			magnitudes = '<p><em>No associate magnitudes.</em></p>';
@@ -154,19 +154,28 @@ define([
 
 		this._content.appendChild(el);
 	};
-	HypocenterPage.prototype._getPhaseDetail = function () {
-		this.loadQuakeml();
+	HypocenterPage.prototype._getPhaseDetail = function (product) {
+		this.loadQuakeml(product.contents['quakeml.xml']);
 		return this._phaseEl;
 	};
-	HypocenterPage.prototype._getMagnitudeDetail = function () {
-		this.loadQuakeml();
+	HypocenterPage.prototype._getMagnitudeDetail = function (product) {
+		this.loadQuakeml(product.contents['quakeml.xml']);
 		return this._magnitudeEl;
 	};
-	HypocenterPage.prototype.loadQuakeml = function () {
+	HypocenterPage.prototype.loadQuakeml = function (quakeml) {
 		if (this._phaseEl === null && this._magnitudeEl === null) {
-			this._phaseEl = '<p>Show associated phases</p>';
-			this._magnitudeEl = '<p>Show associated magnitudes</p>';
+			this._phaseEl = document.createElement('p');
+			this._magnitudeEl = document.createElement('p');
+
+			this._phaseEl.innerHTML = this._parseQuakeml(quakeml);
+			this._magnitudeEl.innerHTML = 'Show associated magnitudes';
 		}
+	};
+	HypocenterPage.prototype._parseQuakeml = function (quakeml) {
+		if (quakeml !== null) {
+			console.log(quakeml);
+		}
+		return 'Show associated phases';
 	};
 
 
