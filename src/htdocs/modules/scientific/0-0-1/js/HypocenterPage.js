@@ -36,8 +36,10 @@ define([
 	 */
 	var HypocenterPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
-		this._tabList = null;
 		this._code = options.code;
+		this._tabList = null;
+		this._phaseEl = null;
+		this._magnitudeEl = null;
 		SummaryDetailsPage.call(this, this._options);
 	};
 
@@ -116,12 +118,12 @@ define([
 			content: originDetails
 		});
 
-		if (product.type === 'phase-data') {
+		if (product.type === 'phase-data' &&
+			  product.contents['quakeml.xml'] !== null) {
 			// TODO build phase table and put it here
-			// phases = '<p>Show associated phases</p>';
 			phases = this._getPhaseDetail();
 			// TODO build magnitude table and put it here
-			magnitudes = '<p>Show associated magnitudes</p>';
+			magnitudes = this._getMagnitudeDetail();
 		} else {
 			phases = '<p><em>No associated phases.</em></p>';
 			magnitudes = '<p><em>No associate magnitudes.</em></p>';
@@ -153,7 +155,18 @@ define([
 		this._content.appendChild(el);
 	};
 	HypocenterPage.prototype._getPhaseDetail = function () {
-		return '<p>Show associated phases</p>';
+		this.loadQuakeml();
+		return this._phaseEl;
+	};
+	HypocenterPage.prototype._getMagnitudeDetail = function () {
+		this.loadQuakeml();
+		return this._magnitudeEl;
+	};
+	HypocenterPage.prototype.loadQuakeml = function () {
+		if (this._phaseEl === null && this._magnitudeEl === null) {
+			this._phaseEl = '<p>Show associated phases</p>';
+			this._magnitudeEl = '<p>Show associated magnitudes</p>';
+		}
 	};
 
 
