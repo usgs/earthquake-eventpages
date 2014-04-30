@@ -108,6 +108,7 @@ ul.station-summary {
 	}
 }
 
+
 div.station-details {
 
 	> dl {
@@ -153,11 +154,23 @@ table.station-components {
 }
 
 .shakemap-summary {
-	> .info
+	> .info {
 		>span {
 			display: block;
 			margin: 0;
 		}
+		>.mmi-summary {
+			display: inline-block;
+			padding: 3px 6px;
+			text-align: center;
+			border-radius: 3px;
+		}
+	}
+}
+
+.summary-thumbnail {
+	height: 100px;
+	width: 105px;
 }
 
 .shakemap > .tablist-panel {

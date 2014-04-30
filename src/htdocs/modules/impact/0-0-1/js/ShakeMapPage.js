@@ -73,6 +73,11 @@ define([
 	};
 
 	/**
+	 * Uses the intensity map as the thumbnail
+	 */
+	var SUMMARY_THUMBNAIL = 'download/intensity.jpg';
+
+	/**
 	 * Construct a new ShakeMapPage.
 	 *
 	 * @param options {Object}
@@ -571,6 +576,9 @@ define([
 		return Math.max.apply(null, values);
 	};
 
+	/**
+	 * Sets up summary info for Shakemap events with 2 or more events
+	 */
 	ShakeMapPage.prototype._getSummaryInfo = function (product) {
 		var formatter = this._options.formatter,
 		    properties = product.properties,
@@ -582,19 +590,28 @@ define([
 
 		dec = maxmmi;
 		maxmmi = formatter.romanNumerals(dec);
-		contributor = Attribution.getMainContributerHeader(product.source.toUpperCase());
+		contributor =
+				Attribution.getMainContributerHeader(product.source.toUpperCase());
 		creationTime = creationTime.replace('T', ' ').replace('Z', ' UTC');
 
-		return '<span class="maxmmi-summary">' + 'MMI: ' + maxmmi + '</span>' +
-				'<span class="contributor-summary">' + 'Contributor: ' + contributor +
-				'</span>' + '<span class="time-summary">' + 'Creation Time: ' +
-				creationTime + '</span>' + '<span class="version-summary">' +
-				'Shakemap Version: ' + version + '</span>';
+		return '<span class="mmi-summary roman mmi' + maxmmi + '">' +
+				maxmmi + '</span>' + '<span class="contributor-summary">' +
+				contributor + '</span>' + '<span class="time-summary">' +
+				'Creation Time: ' + creationTime + '</span>' +
+				'<span class="version-summary">' + 'Shakemap Version: ' + version +
+				'</span>';
 	};
 
-	// ShakeMapPage.prototype._getSummaryHeader = function (product) {
-	// 	var
-	// };
+	/**
+	 * Sets up thumbnail images for Smakemap event with 2 or more events
+	 * Currently uses intensity map
+	 */
+	ShakeMapPage.prototype._getSummaryHeader = function (product) {
+		var contents = product.contents;
+
+		return '<img class="summary-thumbnail" src="' +
+				contents[SUMMARY_THUMBNAIL].url + '" />';
+	};
 
 	// return constructor
 	return ShakeMapPage;
