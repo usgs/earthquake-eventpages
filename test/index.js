@@ -51,7 +51,7 @@ require([
 		'spec/modules/summary/0-0-1/SummaryPageTest',
 		'spec/modules/impact/0-0-1/ImpactModuleTest',
 		'spec/modules/impact/0-0-1/DYFIPageTest',
-		'spec/modules/impact/0-0-1/ShakemapDetailsTest',
+		'spec/modules/impact/0-0-1/ShakeMapPageTest',
 		'spec/modules/impact/0-0-1/TabListUtilTest',
 		'spec/modules/impact/0-0-1/PagerPageTest',
 		'spec/modules/impact/0-0-1/PagerXmlParserTest',
