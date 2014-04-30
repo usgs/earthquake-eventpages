@@ -152,6 +152,13 @@ table.station-components {
 	color:#999;
 }
 
+.shakemap-summary {
+	> .info
+		>span {
+			display: block;
+			margin: 0;
+		}
+}
 
 .shakemap > .tablist-panel {
 	padding:0 10px;
