@@ -5,18 +5,28 @@ define([
 	'tablist/TabList',
 	'base/ContentsXML',
 	'./ImpactUtil',
-	'base/SummaryDetailsPage'
+	'base/SummaryDetailsPage',
+	'summary/Attribution',
+	'base/Formatter',
+	'impact/ImpactModule'
 ], function (
 	Util,
 	Xhr,
 	TabList,
 	ContentsXML,
 	ImpactUtil,
-	SummaryDetailsPage
+	SummaryDetailsPage,
+	Attribution,
+	Formatter,
+	ImpactModule
 ) {
 	'use strict';
 
-	var DEFAULTS = {};
+	var DEFAULTS = {
+		formatter: new Formatter(),
+		productTypes: ['shakemap'],
+		hash: 'shakemap'
+	};
 
 	var MAP_IMAGES = [
 		{
@@ -70,6 +80,7 @@ define([
 	 */
 	var ShakeMapPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
+		this._options.module = this._options.moudule || new ImpactModule();
 		this._tablist = null;
 		this._shakemap = null;
 		this._code = this._options.code || null;
@@ -564,26 +575,26 @@ define([
 		var formatter = this._options.formatter,
 		    properties = product.properties,
 		    maxmmi = properties.maxmmi,
-		    contributor = product.source,
+		    contributor,
 		    version = properties.version,
-		    creationTime = properties['process-timestamp'];
+		    creationTime = properties['process-timestamp'],
+		    dec;
 
-		return [
-			'<header class="title">', '</header>',
-			'<dl>',
-				'<dt>MaxMMI:</dt>',
-					'<dd>', maxmmi, '</dd>',
-				'<dt>Contributor:</dt>',
-					'<dd>', contributor, '</dd>',
-				'<dt>Shakemap Version</dt>',
-					'<dd>', version, '</dd>',
-				'<dt>Creation Time:</dt>',
-					'<dt>', creationTime , '</dt>',
-			'</dl>',
-		].join('');
+		dec = maxmmi;
+		maxmmi = formatter.romanNumerals(dec);
+		contributor = Attribution.getMainContributerHeader(product.source.toUpperCase());
+		creationTime = creationTime.replace('T', ' ').replace('Z', ' UTC');
 
+		return '<span class="maxmmi-summary">' + 'MMI: ' + maxmmi + '</span>' +
+				'<span class="contributor-summary">' + 'Contributor: ' + contributor +
+				'</span>' + '<span class="time-summary">' + 'Creation Time: ' +
+				creationTime + '</span>' + '<span class="version-summary">' +
+				'Shakemap Version: ' + version + '</span>';
 	};
 
+	// ShakeMapPage.prototype._getSummaryHeader = function (product) {
+	// 	var
+	// };
 
 	// return constructor
 	return ShakeMapPage;
