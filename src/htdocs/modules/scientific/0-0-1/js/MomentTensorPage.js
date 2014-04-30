@@ -142,7 +142,7 @@ define([
 		depth = formatter.depth(depth, 'km');
 
 		return [
-			'<table class="info-table tabular"><tbody>',
+			'<table class="info-table responsive-vertical"><tbody>',
 			'<tr><th scope="row">Moment</th>',
 				'<td>', moment, '</td></tr>',
 			'<tr><th scope="row">Magnitude</th>',
@@ -234,7 +234,7 @@ define([
 
 		return [
 				'<h4>Principal Axes</h4>',
-				'<table class="principal-axes-table tabular">',
+				'<table class="principal-axes-table responsive-vertical">',
 				'<thead><tr>',
 					'<th>Axis</th>',
 					'<th>Value</th>',
@@ -279,7 +279,7 @@ define([
 
 		return [
 				'<h4>Nodal Planes</h4>',
-				'<table class="nodal-plane-table tabular">',
+				'<table class="nodal-plane-table responsive-vertical">',
 				'<thead><tr>',
 					'<th>Plane</th>',
 					'<th>Strike</th>',

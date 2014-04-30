@@ -30,7 +30,8 @@ table.responsive-vertical {
 	background: $td_background_color;
 	color:#666;
 	text-shadow: 1px 1px 0px #fff;
-	border:1px solid #ccc;
+	//border:1px solid #ccc;
+	border:1px solid #e0e0e0;
 	text-align: center;
 
 	> thead > tr {
@@ -87,6 +88,16 @@ table.responsive {
 table.responsive-vertical {
 
 	font-size:16px;
+
+	> thead > tr {
+
+		> th {
+			padding:10px;
+			border-bottom:1px solid #e0e0e0;
+			border-top:1px solid #e0e0e0;
+			border-left: 1px solid #e0e0e0;
+		}
+	}
 
 	> tbody > tr {
 
