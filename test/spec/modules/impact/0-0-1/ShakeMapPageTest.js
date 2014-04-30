@@ -47,7 +47,7 @@ define([
 		return clickEvent;
 	};
 
-	describe('ShakemapDetailsPage test suite.', function () {
+	describe('ShakeMapPageTest test suite.', function () {
 
 		describe('Constructor', function () {
 			it('Can be defined.', function () {
