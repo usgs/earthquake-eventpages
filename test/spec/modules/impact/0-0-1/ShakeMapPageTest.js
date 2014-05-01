@@ -180,10 +180,6 @@ define([
 					},
 			    page = new ShakeMapPage(options);
 
-			it('Get summary header', function () {
-
-			});
-
 			it('Get summary info', function () {
 				var content = page.getContent(),
 				    shakemap = content.querySelectorAll('.shakemap');
