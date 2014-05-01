@@ -7,7 +7,6 @@ define([
 	'./ImpactUtil',
 	'base/SummaryDetailsPage',
 	'summary/Attribution',
-	'base/Formatter',
 	'impact/ImpactModule'
 ], function (
 	Util,
@@ -17,13 +16,11 @@ define([
 	ImpactUtil,
 	SummaryDetailsPage,
 	Attribution,
-	Formatter,
 	ImpactModule
 ) {
 	'use strict';
 
 	var DEFAULTS = {
-		formatter: new Formatter(),
 		productTypes: ['shakemap'],
 		hash: 'shakemap'
 	};
@@ -580,16 +577,13 @@ define([
 	 * Sets up summary info for Shakemap events with 2 or more events
 	 */
 	ShakeMapPage.prototype._getSummaryInfo = function (product) {
-		var formatter = this._options.formatter,
-		    properties = product.properties,
+		var properties = product.properties,
 		    maxmmi = properties.maxmmi,
 		    contributor,
 		    version = properties.version,
-		    creationTime = properties['process-timestamp'],
-		    dec;
+		    creationTime = properties['process-timestamp'];
 
-		dec = maxmmi;
-		maxmmi = formatter.romanNumerals(dec);
+		maxmmi = ImpactUtil._translateMmi(maxmmi);
 		contributor =
 				Attribution.getMainContributerHeader(product.source.toUpperCase());
 		creationTime = creationTime.replace('T', ' ').replace('Z', ' UTC');
