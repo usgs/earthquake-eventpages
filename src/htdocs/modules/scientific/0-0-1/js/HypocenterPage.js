@@ -154,28 +154,47 @@ define([
 
 		this._content.appendChild(el);
 	};
+
 	HypocenterPage.prototype._getPhaseDetail = function (product) {
 		this.loadQuakeml(product.contents['quakeml.xml']);
 		return this._phaseEl;
 	};
+
 	HypocenterPage.prototype._getMagnitudeDetail = function (product) {
 		this.loadQuakeml(product.contents['quakeml.xml']);
 		return this._magnitudeEl;
 	};
+
 	HypocenterPage.prototype.loadQuakeml = function (quakeml) {
 		if (this._phaseEl === null && this._magnitudeEl === null) {
 			this._phaseEl = document.createElement('p');
 			this._magnitudeEl = document.createElement('p');
 
-			this._phaseEl.innerHTML = this._parseQuakeml(quakeml);
+			// this._phaseEl.innerHTML = this._parseQuakeml(quakeml);
+			this._parseQuakeml(quakeml, function (markup) {
+				this._phaseEl.innerHTML = markup;
+			});
 			this._magnitudeEl.innerHTML = 'Show associated magnitudes';
 		}
 	};
-	HypocenterPage.prototype._parseQuakeml = function (quakeml) {
+
+	HypocenterPage.prototype._parseQuakeml = function (quakeml, callback) {
 		if (quakeml !== null) {
 			console.log(quakeml);
+			Xhr.ajax({
+				url: quakeml.url,
+				success: function (xml) {
+					var markup = [];
+					// 1 - use quakeml parser to make xml into quakeml
+					// 2 - use quakeml to generate structure, populate markup [] w/ content
+					callback(markup.join(''));
+				},
+				error: function () {
+					callback('-');
+				}
+			});
 		}
-		return 'Show associated phases';
+		// return 'Show associated phases';
 	};
 
 

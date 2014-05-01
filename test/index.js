@@ -15,7 +15,8 @@ require.config({
 		base: 'base/0-0-1/js',
 		summary: 'summary/0-0-1/js',
 		scientific: 'scientific/0-0-1/js',
-		impact: 'impact/0-0-1/js'
+		impact: 'impact/0-0-1/js',
+		quakeml: 'quakeml-parser-js/src/quakeml'
 	},
 	shim: {
 		mocha: {
