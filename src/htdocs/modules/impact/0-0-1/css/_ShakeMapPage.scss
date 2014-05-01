@@ -155,11 +155,11 @@ table.station-components {
 
 .shakemap-summary {
 	> .info {
-		>span {
+		> span {
 			display: block;
 			margin: 0;
 		}
-		>.mmi-summary {
+		> .mmi-summary {
 			display: inline-block;
 			padding: 3px 6px;
 			text-align: center;
