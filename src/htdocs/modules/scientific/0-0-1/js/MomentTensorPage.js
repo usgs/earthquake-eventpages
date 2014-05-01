@@ -160,7 +160,7 @@ define([
 			'<tr class="toggle hidden"><th scope="row">Contributor</th>',
 				'<td>', contributor, '</td></tr>',
 			'<tr class="toggle hidden"><th scope="row">Code</th>',
-				'<td>', code, '</td></tr>',
+				'<td><span class="truncate" title="', code ,'">', code, '</span></td></tr>',
 			'</tbody></table>'
 		].join('');
 	};
