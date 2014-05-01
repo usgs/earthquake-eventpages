@@ -195,19 +195,21 @@ define([
 			origin = origins[o];
 			arrivals = origin.arrivals;
 
-			buf.push('<section class="origin">',
-				'<header><h2>', origin.publicID, '</h2></header>');
+			// buf.push('<section class="origin">',
+			// 	'<header><h2>', origin.publicID, '</h2></header>');
+			buf.push('<section class="origin">');
 
 			// output origin properties
 			// buf.push(showObject(origin));
 
 			// output origin arrivals
 			if (arrivals.length === 0) {
-				buf.push('<p>No arrivals contributed for this origin</p>');
+				// We don't want to display the empty origins, or do we?
+				// buf.push('<p>No arrivals contributed for this origin</p>');
 			} else {
 				buf.push(
 						'<h3>Phase Arrival Times</h3>',
-						'<table>',
+						'<table class="responsive">',
 						'<thead><tr>',
 							'<th>',
 								'<abbr title="Network Station Channel Location">NSCL</abbr>',
@@ -237,7 +239,7 @@ define([
 								'<td>', arrival.azimuth, '&deg;</td>',
 								'<td>', arrival.phase, '</td>',
 								'<td>', pick.time.value, '</td>',
-								'<td>', pick.evaluationMode, '</td>',
+								'<td>', pick.evaluationMode.toUpperCase(), '</td>',
 								'<td>', arrival.timeResidual, '</td>',
 								'<td>', arrival.timeWeight, '</td>',
 							'</tr>');
@@ -247,35 +249,8 @@ define([
 			buf.push('</section>');
 		}
 		return buf.join('');
-
-		// var nscl,
-		//     distance,
-		//     azimuth,
-		//     phase,
-		//     arrivalTime,
-		//     status,
-		//     residual,
-		//     weight;
-
-		// console.log(quakeml);
-		// return JSON.stringify(quakeml, null, '  ');
-		// console.log(quakeml.getEvent());
-		// console.log(quakeml._quakeml.eventParameters.event.pick);
-		// var pickList = quakeml._quakeml.eventParameters.event.pick;
-		// // var pickIndex = quakeml.getEvent()._pickIndex;
-		// // console.log(pickIndex);
-		// for (var value in pickList) {
-		// 	// console.log(pickList[value]);
-		// 	var pick = pickList[value];
-		// 	var wfId = pick.waveformId
-		// 	nscl = wfId.networkCode + wfId.staionCode + wfId.channelCode + wfId.locationCode;
-		// 	phase = pick.phseHint;
-		// 	arrivalTime = pick.time.value;
-		// 	status = pick.evaluationMode;
-		// }
-
-		// return '';
 	};
+
 	HypocenterPage.prototype._getMagnitudesMarkup = function (quakeml) {
 		// console.log(quakeml.getMagnitudes());
 		// return JSON.stringify(quakeml.getMagnitudes()[0], null, '  ');
