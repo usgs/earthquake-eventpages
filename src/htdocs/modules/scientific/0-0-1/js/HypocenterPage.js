@@ -2,6 +2,7 @@
 define([
 	'util/Util',
 	'util/Xhr',
+	'quakeml/Quakeml',
 
 	'base/SummaryDetailsPage',
 	'base/Formatter',
@@ -10,6 +11,7 @@ define([
 ], function (
 	Util,
 	Xhr,
+	Quakeml,
 
 	SummaryDetailsPage,
 	Formatter,
@@ -165,36 +167,139 @@ define([
 		return this._magnitudeEl;
 	};
 
-	HypocenterPage.prototype.loadQuakeml = function (quakeml) {
+	HypocenterPage.prototype.loadQuakeml = function (quakemlInfo) {
 		if (this._phaseEl === null && this._magnitudeEl === null) {
-			this._phaseEl = document.createElement('p');
-			this._magnitudeEl = document.createElement('p');
+			this._phaseEl = document.createElement('div');
+			this._magnitudeEl = document.createElement('div');
 
-			// this._phaseEl.innerHTML = this._parseQuakeml(quakeml);
-			this._parseQuakeml(quakeml, function (markup) {
-				this._phaseEl.innerHTML = markup;
-			});
-			this._magnitudeEl.innerHTML = 'Show associated magnitudes';
+			this._parseQuakeml(quakemlInfo, function (quakeml) {
+				this._phaseEl.innerHTML = this._getPhasesMarkup(quakeml);
+				this._magnitudeEl.innerHTML = this._getMagnitudesMarkup(quakeml);
+			}.bind(this));
+			// this._magnitudeEl.innerHTML = 'Show associated magnitudes';
 		}
 	};
 
-	HypocenterPage.prototype._parseQuakeml = function (quakeml, callback) {
-		if (quakeml !== null) {
-			console.log(quakeml);
+	HypocenterPage.prototype._getPhasesMarkup = function (quakeml) {
+		var buf = [],
+		    origins = quakeml.getOrigins(),
+		    origin,
+		    arrivals,
+		    arrival,
+		    pick,
+		    station,
+		    a,
+		    o;
+
+		for (o = 0; o < origins.length; o++) {
+			origin = origins[o];
+			arrivals = origin.arrivals;
+
+			buf.push('<section class="origin">',
+				'<header><h2>', origin.publicID, '</h2></header>');
+
+			// output origin properties
+			// buf.push(showObject(origin));
+
+			// output origin arrivals
+			if (arrivals.length === 0) {
+				buf.push('<p>No arrivals contributed for this origin</p>');
+			} else {
+				buf.push(
+						'<h3>Phase Arrival Times</h3>',
+						'<table>',
+						'<thead><tr>',
+							'<th>',
+								'<abbr title="Network Station Channel Location">NSCL</abbr>',
+							'</th>',
+							'<th>Distance</th>',
+							'<th>Azimuth</th>',
+							'<th>Phase</th>',
+							'<th>Arrival Time</th>',
+							'<th>Status</th>',
+							'<th>Residual</th>',
+							'<th>Weight</th>',
+						'</tr></thead>',
+						'<tbody>');
+				for (a = 0; a < arrivals.length; a++) {
+					arrival = arrivals[a];
+					pick = arrival.pick;
+					station = pick.waveformID;
+					buf.push(
+							'<tr>',
+								'<td>',
+									station.networkCode,
+									' ', station.stationCode,
+									' ', station.channelCode,
+									' ', station.locationCode,
+								'</td>',
+								'<td>', arrival.distance, '&deg;</td>',
+								'<td>', arrival.azimuth, '&deg;</td>',
+								'<td>', arrival.phase, '</td>',
+								'<td>', pick.time.value, '</td>',
+								'<td>', pick.evaluationMode, '</td>',
+								'<td>', arrival.timeResidual, '</td>',
+								'<td>', arrival.timeWeight, '</td>',
+							'</tr>');
+				}
+				buf.push('</tbody></table>');
+			}
+			buf.push('</section>');
+		}
+		return buf.join('');
+
+		// var nscl,
+		//     distance,
+		//     azimuth,
+		//     phase,
+		//     arrivalTime,
+		//     status,
+		//     residual,
+		//     weight;
+
+		// console.log(quakeml);
+		// return JSON.stringify(quakeml, null, '  ');
+		// console.log(quakeml.getEvent());
+		// console.log(quakeml._quakeml.eventParameters.event.pick);
+		// var pickList = quakeml._quakeml.eventParameters.event.pick;
+		// // var pickIndex = quakeml.getEvent()._pickIndex;
+		// // console.log(pickIndex);
+		// for (var value in pickList) {
+		// 	// console.log(pickList[value]);
+		// 	var pick = pickList[value];
+		// 	var wfId = pick.waveformId
+		// 	nscl = wfId.networkCode + wfId.staionCode + wfId.channelCode + wfId.locationCode;
+		// 	phase = pick.phseHint;
+		// 	arrivalTime = pick.time.value;
+		// 	status = pick.evaluationMode;
+		// }
+
+		// return '';
+	};
+	HypocenterPage.prototype._getMagnitudesMarkup = function (quakeml) {
+		// console.log(quakeml.getMagnitudes());
+		// return JSON.stringify(quakeml.getMagnitudes()[0], null, '  ');
+		return '';
+	};
+
+	HypocenterPage.prototype._parseQuakeml = function (quakemlInfo, callback) {
+		if (quakemlInfo !== null) {
+			// console.log(quakeml);
 			Xhr.ajax({
-				url: quakeml.url,
+				url: quakemlInfo.url,
 				success: function (xml) {
 					var markup = [];
-					// 1 - use quakeml parser to make xml into quakeml
+					// use quakeml parser to make xml into quakeml
+					callback(new Quakeml({xml: xml}));
+
 					// 2 - use quakeml to generate structure, populate markup [] w/ content
-					callback(markup.join(''));
+					// callback(markup.join(''));
 				},
 				error: function () {
 					callback('-');
 				}
 			});
 		}
-		// return 'Show associated phases';
 	};
 
 
