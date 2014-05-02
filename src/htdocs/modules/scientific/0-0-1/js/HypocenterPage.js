@@ -122,9 +122,9 @@ define([
 
 		if (product.type === 'phase-data' &&
 			  product.contents['quakeml.xml'] !== null) {
-			// TODO build phase table and put it here
+			// build phase table
 			phases = this._getPhaseDetail(product);
-			// TODO build magnitude table and put it here
+			// build magnitude table
 			magnitudes = this._getMagnitudeDetail(product);
 		} else {
 			phases = '<p><em>No associated phases.</em></p>';
@@ -176,7 +176,6 @@ define([
 				this._phaseEl.innerHTML = this._getPhasesMarkup(quakeml);
 				this._magnitudeEl.innerHTML = this._getMagnitudesMarkup(quakeml);
 			}.bind(this));
-			// this._magnitudeEl.innerHTML = 'Show associated magnitudes';
 		}
 	};
 
@@ -195,18 +194,10 @@ define([
 			origin = origins[o];
 			arrivals = origin.arrivals;
 
-			// buf.push('<section class="origin">',
-			// 	'<header><h2>', origin.publicID, '</h2></header>');
 			buf.push('<section class="origin">');
 
-			// output origin properties
-			// buf.push(showObject(origin));
-
 			// output origin arrivals
-			if (arrivals.length === 0) {
-				// We don't want to display the empty origins, or do we?
-				// buf.push('<p>No arrivals contributed for this origin</p>');
-			} else {
+			if (arrivals.length > 0) {
 				buf.push(
 						'<h3>Phase Arrival Times</h3>',
 						'<table class="responsive">',
@@ -252,23 +243,21 @@ define([
 	};
 
 	HypocenterPage.prototype._getMagnitudesMarkup = function (quakeml) {
-		// console.log(quakeml.getMagnitudes());
+		var magnitudes = quakeml.getMagnitudes();
+
+		console.log(magnitudes);
+
 		// return JSON.stringify(quakeml.getMagnitudes()[0], null, '  ');
 		return '';
 	};
 
 	HypocenterPage.prototype._parseQuakeml = function (quakemlInfo, callback) {
 		if (quakemlInfo !== null) {
-			// console.log(quakeml);
 			Xhr.ajax({
 				url: quakemlInfo.url,
 				success: function (xml) {
-					var markup = [];
 					// use quakeml parser to make xml into quakeml
 					callback(new Quakeml({xml: xml}));
-
-					// 2 - use quakeml to generate structure, populate markup [] w/ content
-					// callback(markup.join(''));
 				},
 				error: function () {
 					callback('-');
