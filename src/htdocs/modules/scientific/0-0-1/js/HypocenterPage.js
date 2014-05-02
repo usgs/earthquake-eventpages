@@ -226,13 +226,13 @@ define([
 									' ', station.channelCode,
 									' ', station.locationCode,
 								'</td>',
-								'<td>', arrival.distance, '&deg;</td>',
-								'<td>', arrival.azimuth, '&deg;</td>',
+								'<td>', parseFloat(arrival.distance).toFixed(2), '&deg;</td>',
+								'<td>', parseFloat(arrival.azimuth).toFixed(2), '&deg;</td>',
 								'<td>', arrival.phase, '</td>',
 								'<td>', pick.time.value, '</td>',
 								'<td>', pick.evaluationMode.toUpperCase(), '</td>',
-								'<td>', arrival.timeResidual, '</td>',
-								'<td>', arrival.timeWeight, '</td>',
+								'<td>', parseFloat(arrival.timeResidual).toFixed(2), '</td>',
+								'<td>', parseFloat(arrival.timeWeight).toFixed(2), '</td>',
 							'</tr>');
 				}
 				buf.push('</tbody></table>');
