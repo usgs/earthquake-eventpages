@@ -70,9 +70,12 @@ define([
 	};
 
 	/**
-	 * Uses the intensity map as the thumbnail
+	 * Uses the intensity map as the thumbnail.
+	 * Sets alt tag for thumbnail image
 	 */
-	var SUMMARY_THUMBNAIL = 'download/intensity.jpg';
+	var SUMMARY_THUMBNAIL = 'download/intensity.jpg',
+	    THUMBNAIL_ALT = 'Shakemap Intensity Map';
+
 
 	/**
 	 * Construct a new ShakeMapPage.
@@ -604,7 +607,7 @@ define([
 		var contents = product.contents;
 
 		return '<img class="summary-thumbnail" src="' +
-				contents[SUMMARY_THUMBNAIL].url + '" />';
+				contents[SUMMARY_THUMBNAIL].url + '" alt=" ' + THUMBNAIL_ALT + ' " />';
 	};
 
 	// return constructor
