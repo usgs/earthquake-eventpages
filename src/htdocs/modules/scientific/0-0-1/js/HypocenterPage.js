@@ -188,7 +188,8 @@ define([
 		    pick,
 		    station,
 		    a,
-		    o;
+		    o,
+		    time;
 
 		for (o = 0; o < origins.length; o++) {
 			origin = origins[o];
@@ -218,6 +219,11 @@ define([
 					arrival = arrivals[a];
 					pick = arrival.pick;
 					station = pick.waveformID;
+
+					time = pick.time.value.split('T')[1].split('Z')[0].split(':');
+					time[2] = parseFloat(time[2]).toFixed(2);
+					time = time.join(':');
+
 					buf.push(
 							'<tr>',
 								'<td>',
@@ -229,7 +235,7 @@ define([
 								'<td>', parseFloat(arrival.distance).toFixed(2), '&deg;</td>',
 								'<td>', parseFloat(arrival.azimuth).toFixed(2), '&deg;</td>',
 								'<td>', arrival.phase, '</td>',
-								'<td>', pick.time.value, '</td>',
+								'<td>', time, '</td>',
 								'<td>', pick.evaluationMode.toUpperCase(), '</td>',
 								'<td>', parseFloat(arrival.timeResidual).toFixed(2), '</td>',
 								'<td>', parseFloat(arrival.timeWeight).toFixed(2), '</td>',
