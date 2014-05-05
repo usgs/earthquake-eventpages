@@ -32,9 +32,10 @@
 	.info-table {
 		width:100%;
 		max-width:480px;
+		table-layout:fixed;
 
 		th {
-			width: 30%;
+			width: 120px;
 		}
 
 		td {
