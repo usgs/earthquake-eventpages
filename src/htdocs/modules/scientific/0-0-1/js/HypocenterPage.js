@@ -159,15 +159,40 @@ define([
 
 	HypocenterPage.prototype._getPhaseDetail = function () {
 		console.log("Phase Detail called");
-		var product = this._product.contents['quakeml.xml'];
-		this.loadQuakeml(product);
+		var xml = this._product.contents['quakeml.xml'];
+		// this.loadQuakeml(product);
+		if (this._phaseEl === null) {
+			this._phaseEl = document.createElement('div');
+		}
+
+		if (!this._quakeml) {
+			this._parseQuakeml(xml, function (quakeml) {
+				this._quakeml = quakeml;
+				this._phaseEl.innerHTML = this._getPhasesMarkup();
+			}.bind(this));
+		} else {
+			this._phaseEl.innerHTML = this._getPhasesMarkup();
+		}
+
 		return this._phaseEl;
 	};
 
 	HypocenterPage.prototype._getMagnitudeDetail = function () {
 		console.log("Magnitude Detail called");
-		var product = this._product.contents['quakeml.xml'];
-		this.loadQuakeml(product);
+		var xml = this._product.contents['quakeml.xml'];
+		if (this._magnitudeEl === null) {
+			this._magnitudeEl = document.createElement('div');
+		}
+
+		if (!this._quakeml) {
+			this._parseQuakeml(xml, function (quakeml) {
+				this._quakeml = quakeml;
+				this._magnitudeEl.innerHTML = this._getMagnitudesMarkup();
+			}.bind(this));
+		} else {
+			this._magnitudeEl.innerHTML = this._getMagnitudesMarkup();
+		}
+
 		return this._magnitudeEl;
 	};
 
@@ -183,9 +208,9 @@ define([
 		}
 	};
 
-	HypocenterPage.prototype._getPhasesMarkup = function (quakeml) {
+	HypocenterPage.prototype._getPhasesMarkup = function () {
 		var buf = [],
-		    origins = quakeml.getOrigins(),
+		    origins = this._quakeml.getOrigins(),
 		    origin,
 		    arrivals,
 		    arrival,
@@ -252,8 +277,8 @@ define([
 		return buf.join('');
 	};
 
-	HypocenterPage.prototype._getMagnitudesMarkup = function (quakeml) {
-		var magnitudes = quakeml.getMagnitudes();
+	HypocenterPage.prototype._getMagnitudesMarkup = function () {
+		var magnitudes = this._quakeml.getMagnitudes();
 
 		console.log(magnitudes);
 
@@ -262,6 +287,7 @@ define([
 	};
 
 	HypocenterPage.prototype._parseQuakeml = function (quakemlInfo, callback) {
+		console.log("Parsing quakeml");
 		if (quakemlInfo !== null) {
 			Xhr.ajax({
 				url: quakemlInfo.url,
