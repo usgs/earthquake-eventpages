@@ -124,20 +124,20 @@ define([
 			  product.contents['quakeml.xml'] !== null) {
 			// build phase table
 			phases = this._getPhaseDetail(product);
+			tabListContents.push({
+				title: 'Phases',
+				content: phases
+			});
 			// build magnitude table
 			magnitudes = this._getMagnitudeDetail(product);
+			tabListContents.push({
+				title: 'Magnitudes',
+				content: magnitudes
+			});
 		} else {
 			phases = '<p><em>No associated phases.</em></p>';
 			magnitudes = '<p><em>No associate magnitudes.</em></p>';
 		}
-		tabListContents.push({
-			title: 'Phases',
-			content: phases
-		});
-		tabListContents.push({
-			title: 'Magnitudes',
-			content: magnitudes
-		});
 
 		// Build TabList
 		this._tabList = new TabList({
