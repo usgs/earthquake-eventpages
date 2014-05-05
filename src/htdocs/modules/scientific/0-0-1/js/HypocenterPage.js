@@ -111,6 +111,8 @@ define([
 		    magnitudes,
 		    originDetails;
 
+		this._product = product;
+
 		originDetails = [
 			'<h3>', product.source.toUpperCase(), '</h3>',
 			this.getOriginDetail(product)
@@ -123,20 +125,18 @@ define([
 		if (product.type === 'phase-data' &&
 			  product.contents['quakeml.xml'] !== null) {
 			// build phase table
-			phases = this._getPhaseDetail(product);
+			// phases = this._getPhaseDetail(product);
+			phases = this._getPhaseDetail.bind(this);
 			tabListContents.push({
 				title: 'Phases',
 				content: phases
 			});
 			// build magnitude table
-			magnitudes = this._getMagnitudeDetail(product);
+			magnitudes = this._getMagnitudeDetail.bind(this);
 			tabListContents.push({
 				title: 'Magnitudes',
 				content: magnitudes
 			});
-		} else {
-			phases = '<p><em>No associated phases.</em></p>';
-			magnitudes = '<p><em>No associate magnitudes.</em></p>';
 		}
 
 		// Build TabList
@@ -157,13 +157,17 @@ define([
 		this._content.appendChild(el);
 	};
 
-	HypocenterPage.prototype._getPhaseDetail = function (product) {
-		this.loadQuakeml(product.contents['quakeml.xml']);
+	HypocenterPage.prototype._getPhaseDetail = function () {
+		console.log("Phase Detail called");
+		var product = this._product.contents['quakeml.xml'];
+		this.loadQuakeml(product);
 		return this._phaseEl;
 	};
 
-	HypocenterPage.prototype._getMagnitudeDetail = function (product) {
-		this.loadQuakeml(product.contents['quakeml.xml']);
+	HypocenterPage.prototype._getMagnitudeDetail = function () {
+		console.log("Magnitude Detail called");
+		var product = this._product.contents['quakeml.xml'];
+		this.loadQuakeml(product);
 		return this._magnitudeEl;
 	};
 
