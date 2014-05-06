@@ -15,6 +15,9 @@ define([
 	 * page. While extending SummaryDetailsPage a page should override:
 	 *
 	 * Details Page,
+	 *
+	 * The details section displays detailed information for a single product.
+	 *
 	 *  - getDetailsContent(),
 	 * 
 	 *    Override this method to build markup for the details page and
@@ -22,6 +25,7 @@ define([
 	 *
 	 * 
 	 * Summary Page,
+	 *
 	 * The summary section displays all products returned by getProducts().
 	 * getSummaryContent() builds the summary page and calls the following
 	 * methods to build each individual "summary card" on the summary page.
@@ -37,7 +41,6 @@ define([
 	 *    for the "summary card".
 	 *
 	 */
-
 
 	var SummaryDetailsPage = function (options) {
 		this._options = options || {};
