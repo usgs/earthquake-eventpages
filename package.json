@@ -40,7 +40,8 @@
     "grunt-connect-rewrite": "~0.1.1",
     "grunt-connect-proxy": "~0.1.6",
     "leaflet": "~0.7.0",
-    "hazdev-svgimagemap": "0.0.3"
+    "hazdev-svgimagemap": "0.0.3",
+    "quakeml-parser-js": "0.0.1"
   },
   "engines": {
     "node": ">=0.8.0"

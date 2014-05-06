@@ -9,6 +9,7 @@ require.config({
 		tablist: 'hazdev-tablist/src/tablist',
 		svgimagemap: 'hazdev-svgimagemap/src/svgimagemap',
 		map: 'js/map',
+		quakeml: 'quakeml-parser-js/src/quakeml',
 
 		base: 'modules/base/0-0-1/js',
 		summary: 'modules/summary/0-0-1/js',
