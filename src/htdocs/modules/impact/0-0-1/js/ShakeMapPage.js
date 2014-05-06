@@ -2,21 +2,28 @@
 define([
 	'util/Util',
 	'util/Xhr',
-	'base/EventModulePage',
 	'tablist/TabList',
 	'base/ContentsXML',
-	'./ImpactUtil'
+	'./ImpactUtil',
+	'base/SummaryDetailsPage',
+	'summary/Attribution',
+	'impact/ImpactModule'
 ], function (
 	Util,
 	Xhr,
-	EventModulePage,
 	TabList,
 	ContentsXML,
-	ImpactUtil
+	ImpactUtil,
+	SummaryDetailsPage,
+	Attribution,
+	ImpactModule
 ) {
 	'use strict';
 
-	var DEFAULTS = {};
+	var DEFAULTS = {
+		productTypes: ['shakemap'],
+		hash: 'shakemap'
+	};
 
 	var MAP_IMAGES = [
 		{
@@ -63,6 +70,14 @@ define([
 	};
 
 	/**
+	 * Uses the intensity map as the thumbnail.
+	 * Sets alt tag for thumbnail image
+	 */
+	var SUMMARY_THUMBNAIL = 'download/intensity.jpg',
+	    THUMBNAIL_ALT = 'Shakemap Intensity Map';
+
+
+	/**
 	 * Construct a new ShakeMapPage.
 	 *
 	 * @param options {Object}
@@ -70,17 +85,19 @@ define([
 	 */
 	var ShakeMapPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
+		this._options.module = this._options.moudule || new ImpactModule();
 		this._tablist = null;
 		this._shakemap = null;
 		this._code = this._options.code || null;
 		this._source = this._options.source || null;
-		EventModulePage.call(this, this._options);
+		SummaryDetailsPage.call(this, this._options);
 	};
 
-	// extend EventModulePage.
-	ShakeMapPage.prototype = Object.create(EventModulePage.prototype);
+	// extend SummaryDetailsPage.
+	ShakeMapPage.prototype = Object.create(SummaryDetailsPage.prototype);
 
-	ShakeMapPage.prototype._setContentMarkup = function () {
+// this is not needed anymore
+	ShakeMapPage.prototype.getDetailsContent = function () {
 		var tablistDiv = document.createElement('div'),
 		    shakemap;
 
@@ -97,6 +114,7 @@ define([
 				})
 		});
 	};
+	// end
 
 	/**
 	 * Generate array of tab content for tablist
@@ -559,25 +577,37 @@ define([
 	};
 
 	/**
-	 * Generate downloads markup for event module footer
+	 * Sets up summary info for Shakemap events with 2 or more events
 	 */
-	ShakeMapPage.prototype._setFooterMarkup = function () {
+	ShakeMapPage.prototype._getSummaryInfo = function (product) {
+		var properties = product.properties,
+		    maxmmi = properties.maxmmi,
+		    contributor,
+		    version = properties.version,
+		    creationTime = properties['process-timestamp'];
 
-		var el = this._footer;
+		maxmmi = ImpactUtil._translateMmi(maxmmi);
+		contributor =
+				Attribution.getMainContributerHeader(product.source.toUpperCase());
+		creationTime = creationTime.replace('T', ' ').replace('Z', ' UTC');
 
-		el.className = 'downloads';
-		el.innerHTML = 'Loading contents ...';
+		return '<span class="mmi-summary roman mmi' + maxmmi + '">' +
+				maxmmi + '</span>' + '<span class="contributor-summary">' +
+				contributor + '</span>' + '<span class="time-summary">' +
+				'Creation Time: ' + creationTime + '</span>' +
+				'<span class="version-summary">' + 'Shakemap Version: ' + version +
+				'</span>';
+	};
 
-		new ContentsXML({
-				product: this._shakemap,
-				callback: function (contents) {
-					el.innerHTML = '<header><h3>Downloads</h3></header>' +
-							contents.getDownloads();
-				},
-				errback: function () {
-					el.innerHTML = 'Error loading contents ...';
-				}});
-		//return el;
+	/**
+	 * Sets up thumbnail images for Smakemap event with 2 or more events
+	 * Currently uses intensity map
+	 */
+	ShakeMapPage.prototype._getSummaryHeader = function (product) {
+		var contents = product.contents;
+
+		return '<img class="summary-thumbnail" src="' +
+				contents[SUMMARY_THUMBNAIL].url + '" alt=" ' + THUMBNAIL_ALT + ' " />';
 	};
 
 	// return constructor

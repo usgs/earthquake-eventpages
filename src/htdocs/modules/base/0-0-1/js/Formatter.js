@@ -181,7 +181,6 @@ define([
 		return bytes + sizes[sizeIndex];
 	};
 
-
 	// return constructor
 	return Formatter;
 });

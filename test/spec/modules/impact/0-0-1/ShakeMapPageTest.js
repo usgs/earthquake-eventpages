@@ -2,16 +2,20 @@
 define([
 	'chai',
 	'sinon',
+	'./nc72119970',
 
-	'impact/ShakemapPage',
+	'impact/ShakeMapPage',
+	'impact/ImpactModule',
 	'./stationlist',
 
 	'util/Xhr'
 ], function (
 	chai,
 	sinon,
+	nc72119970,
 
-	ShakemapDetailsPage,
+	ShakeMapPage,
+	ImpactModule,
 	stationlist,
 
 	Xhr
@@ -47,27 +51,28 @@ define([
 		return clickEvent;
 	};
 
-	describe('ShakemapDetailsPage test suite.', function () {
+	describe('ShakeMapPageTest test suite.', function () {
 
 		describe('Constructor', function () {
 			it('Can be defined.', function () {
 				/* jshint -W030 */
-				expect(ShakemapDetailsPage).not.to.be.undefined;
+				expect(ShakeMapPage).not.to.be.undefined;
 				/* jshint +W030 */
 			});
 
 			it('Can be instantiated', function () {
-				var page = new ShakemapDetailsPage({
-						'eventDetails': eventDetails
+				var page = new ShakeMapPage({
+						'eventDetails': eventDetails,
+						'productTypes': ['shakemap']
 					});
 
-				expect(page).to.be.an.instanceof(ShakemapDetailsPage);
+				expect(page).to.be.an.instanceof(ShakeMapPage);
 			});
 		});
 
 		describe('Tabbed Content', function () {
 			it('contains all images and station list', function () {
-				var page = new ShakemapDetailsPage({ 'eventDetails': eventDetails }),
+				var page = new ShakeMapPage({ 'eventDetails': eventDetails }),
 				    tablistPanels = page.getContent().
 								querySelectorAll('.tablist-panel');
 
@@ -97,7 +102,7 @@ define([
 				var parser = new DOMParser();
 				var doc = parser.parseFromString(stationlist.xml, 'application/xml');
 
-				detailsClickSpy = sinon.spy(ShakemapDetailsPage.prototype,
+				detailsClickSpy = sinon.spy(ShakeMapPage.prototype,
 						'_toggleDetails');
 
 				ajaxStub = sinon.stub(Xhr, 'ajax', function (options) {
@@ -106,7 +111,7 @@ define([
 					}
 				});
 
-				page = new ShakemapDetailsPage({
+				page = new ShakeMapPage({
 					'eventDetails': eventDetails
 				});
 				content = page.getContent();
@@ -164,6 +169,31 @@ define([
 
 		});
 
-	});
+		describe('Summary section details', function () {
+			var expect = chai.expect,
+			    options = {
+						eventDetails: nc72119970,
+						module: new ImpactModule(),
+						productTypes: ['shakemap'],
+						title: 'shakemap',
+						hash: 'shakemap'
+					},
+			    page = new ShakeMapPage(options);
 
+			it('Get summary info', function () {
+				var content = page.getContent(),
+				    shakemap = content.querySelectorAll('.shakemap');
+
+				/* jshint -W030 */
+				expect(shakemap.length).to.not.equal(0);
+				/* jshint +W030 */
+			});
+
+			it('Can get product details', function () {
+				var content = page.getContent();
+
+				expect(content).to.be.a('object');
+			});
+		});
+	});
 });
