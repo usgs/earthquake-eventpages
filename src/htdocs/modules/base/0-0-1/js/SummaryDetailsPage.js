@@ -10,6 +10,35 @@ define([
 ) {
 	'use strict';
 
+	/**
+	 * SummaryDetailsPage should be extended to create a summary/details
+	 * page. While extending SummaryDetailsPage a page should override:
+	 *
+	 * Details Page,
+	 *  - getDetailsContent(),
+	 * 
+	 *    Override this method to build markup for the details page and
+	 *    append the HTML element to this._content.
+	 *
+	 * 
+	 * Summary Page,
+	 * The summary section displays all products returned by getProducts().
+	 * getSummaryContent() builds the summary page and calls the following
+	 * methods to build each individual "summary card" on the summary page.
+	 *
+	 *  - getSummaryHeader(),
+	 *
+	 *    Override this method to return the header content for
+	 *    the "summary card".
+	 * 
+	 *  - getSummaryInfo(),
+	 *
+	 *    Override this method to return the descriptive content
+	 *    for the "summary card".
+	 *
+	 */
+
+
 	var SummaryDetailsPage = function (options) {
 		this._options = options || {};
 		this._code = this._options.code || null;
