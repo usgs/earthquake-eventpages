@@ -266,6 +266,16 @@ define([
 	};
 
 
+		// clean-up resources.
+	SummaryDetailsPage.prototype.destroy = function () {
+		this._content = null;
+		this._products = null;
+		this._options = null;
+
+		EventModulePage.prototype.destroy.call(this);
+	};
+
+
 	// return constructor
 	return SummaryDetailsPage;
 });
