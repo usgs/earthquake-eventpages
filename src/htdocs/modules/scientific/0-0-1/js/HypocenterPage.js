@@ -117,8 +117,6 @@ define([
 		    tabListDiv = document.createElement('section'),
 		    tabListContents = [],
 		    _this = this,
-		    phases,
-		    magnitudes,
 		    originDetails;
 
 		this._product = product;
@@ -229,39 +227,39 @@ define([
 								'<th>Weight</th>',
 							'</tr></thead>',
 							'<tbody class="hypocenter-phase">');
-					for (a = 0; a < arrivals.length; a++) {
-						arrival = arrivals[a];
-						pick = arrival.pick;
-						station = pick.waveformID;
+				for (a = 0; a < arrivals.length; a++) {
+					arrival = arrivals[a];
+					pick = arrival.pick;
+					station = pick.waveformID;
 
-						time = pick.time.value.split('T')[1].split('Z')[0].split(':');
-						time[2] = parseFloat(time[2]).toFixed(2);
-						time = time.join(':');
+					time = pick.time.value.split('T')[1].split('Z')[0].split(':');
+					time[2] = parseFloat(time[2]).toFixed(2);
+					time = time.join(':');
 
-						buf.push(
-							'<tr>',
-								'<td>',
-									station.networkCode,
-									' ', station.stationCode,
-									' ', station.channelCode,
-									' ', station.locationCode,
-								'</td>',
-								'<td class="distance">',
-									parseFloat(arrival.distance).toFixed(2), '&deg;',
-								'</td>',
-								'<td class="arrival">',
-									parseFloat(arrival.azimuth).toFixed(2), '&deg;',
-								'</td>',
-								'<td>', arrival.phase, '</td>',
-								'<td class="time">', time, '</td>',
-								'<td>', pick.evaluationMode.toUpperCase(), '</td>',
-								'<td class="residual">',
-									parseFloat(arrival.timeResidual).toFixed(2),
-								'</td>',
-								'<td class="weight">',
-									parseFloat(arrival.timeWeight).toFixed(2),
-								'</td>',
-							'</tr>');
+					buf.push(
+						'<tr>',
+							'<td>',
+								station.networkCode,
+								' ', station.stationCode,
+								' ', station.channelCode,
+								' ', station.locationCode,
+							'</td>',
+							'<td class="distance">',
+								parseFloat(arrival.distance).toFixed(2), '&deg;',
+							'</td>',
+							'<td class="arrival">',
+								parseFloat(arrival.azimuth).toFixed(2), '&deg;',
+							'</td>',
+							'<td>', arrival.phase, '</td>',
+							'<td class="time">', time, '</td>',
+							'<td>', pick.evaluationMode.toUpperCase(), '</td>',
+							'<td class="residual">',
+								parseFloat(arrival.timeResidual).toFixed(2),
+							'</td>',
+							'<td class="weight">',
+								parseFloat(arrival.timeWeight).toFixed(2),
+							'</td>',
+						'</tr>');
 				}
 				buf.push(
 					    '</tbody>',
@@ -274,7 +272,7 @@ define([
 	};
 
 	HypocenterPage.prototype._getMagnitudesMarkup = function () {
-		var magnitudes = this._quakeml.getMagnitudes();
+		// var magnitudes = this._quakeml.getMagnitudes();
 
 		return '';
 	};
