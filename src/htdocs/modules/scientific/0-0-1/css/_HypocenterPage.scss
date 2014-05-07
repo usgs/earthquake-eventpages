@@ -37,9 +37,18 @@
 		font-size:14px;
 	}
 
-	.origin > table.responsive > tbody > tr > td.number {
-		text-align:right;
-		padding-right:1.5em;
+	.hypocenter-phase {
+		font-size:smaller;
+		> tr {
+			> .distance,
+			> .azimuth,
+			> .arrival,
+			> .residual,
+			> .weight {
+				text-align:right;
+				margin-right:1.5em;
+			}
+		}
 	}
 
 }

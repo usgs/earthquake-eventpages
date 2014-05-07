@@ -221,7 +221,7 @@ define([
 								'<th>Residual</th>',
 								'<th>Weight</th>',
 							'</tr></thead>',
-							'<tbody>');
+							'<tbody class="hypocenter-phase">');
 					for (a = 0; a < arrivals.length; a++) {
 						arrival = arrivals[a];
 						pick = arrival.pick;
@@ -239,19 +239,19 @@ define([
 									' ', station.channelCode,
 									' ', station.locationCode,
 								'</td>',
-								'<td class="number">',
+								'<td class="distance">',
 									parseFloat(arrival.distance).toFixed(2), '&deg;',
 								'</td>',
-								'<td class="number">',
+								'<td class="arrival">',
 									parseFloat(arrival.azimuth).toFixed(2), '&deg;',
 								'</td>',
 								'<td>', arrival.phase, '</td>',
-								'<td class="number">', time, '</td>',
+								'<td class="time">', time, '</td>',
 								'<td>', pick.evaluationMode.toUpperCase(), '</td>',
-								'<td class="number">',
+								'<td class="residual">',
 									parseFloat(arrival.timeResidual).toFixed(2),
 								'</td>',
-								'<td class="number">',
+								'<td class="weight">',
 									parseFloat(arrival.timeWeight).toFixed(2),
 								'</td>',
 							'</tr>');
