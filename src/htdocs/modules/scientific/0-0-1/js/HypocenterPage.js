@@ -47,8 +47,15 @@ define([
 		SummaryDetailsPage.call(this, this._options);
 	};
 
-	// extend TabbedModulePage.
 	HypocenterPage.prototype = Object.create(SummaryDetailsPage.prototype);
+
+	/**
+	 * Clean up event bindings.
+	 *
+	 */
+	HypocenterPage.prototype.destroy = function () {
+
+	};
 
 	/**
 	 * Get all products that match options.productTypes. If a
