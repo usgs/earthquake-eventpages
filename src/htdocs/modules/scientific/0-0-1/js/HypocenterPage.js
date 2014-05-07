@@ -203,55 +203,57 @@ define([
 			origin = origins[o];
 			arrivals = origin.arrivals;
 
-			buf.push('<section class="origin">');
-
 			// output origin arrivals
 			if (arrivals.length > 0) {
 				buf.push(
-					'<h3>Phase Arrival Times</h3>',
-					'<table class="responsive">',
-					'<thead><tr>',
-						'<th>',
-							'<abbr title="Network Station Channel Location">NSCL</abbr>',
-						'</th>',
-						'<th>Distance</th>',
-						'<th>Azimuth</th>',
-						'<th>Phase</th>',
-						'<th>Arrival Time</th>',
-						'<th>Status</th>',
-						'<th>Residual</th>',
-						'<th>Weight</th>',
-					'</tr></thead>',
-					'<tbody>');
-				for (a = 0; a < arrivals.length; a++) {
-					arrival = arrivals[a];
-					pick = arrival.pick;
-					station = pick.waveformID;
+					'<section class="origin">',
+						'<h3>Phase Arrival Times</h3>',
+						'<table class="responsive">',
+							'<thead><tr>',
+								'<th>',
+									'<abbr title="Network Station Channel Location">NSCL</abbr>',
+								'</th>',
+								'<th>Distance</th>',
+								'<th>Azimuth</th>',
+								'<th>Phase</th>',
+								'<th>Arrival Time</th>',
+								'<th>Status</th>',
+								'<th>Residual</th>',
+								'<th>Weight</th>',
+							'</tr></thead>',
+							'<tbody>');
+					for (a = 0; a < arrivals.length; a++) {
+						arrival = arrivals[a];
+						pick = arrival.pick;
+						station = pick.waveformID;
 
-					time = pick.time.value.split('T')[1].split('Z')[0].split(':');
-					time[2] = parseFloat(time[2]).toFixed(2);
-					time = time.join(':');
+						time = pick.time.value.split('T')[1].split('Z')[0].split(':');
+						time[2] = parseFloat(time[2]).toFixed(2);
+						time = time.join(':');
 
-					buf.push(
-						'<tr>',
-							'<td>',
-								station.networkCode,
-								' ', station.stationCode,
-								' ', station.channelCode,
-								' ', station.locationCode,
-							'</td>',
-							'<td>', parseFloat(arrival.distance).toFixed(2), '&deg;</td>',
-							'<td>', parseFloat(arrival.azimuth).toFixed(2), '&deg;</td>',
-							'<td>', arrival.phase, '</td>',
-							'<td>', time, '</td>',
-							'<td>', pick.evaluationMode.toUpperCase(), '</td>',
-							'<td>', parseFloat(arrival.timeResidual).toFixed(2), '</td>',
-							'<td>', parseFloat(arrival.timeWeight).toFixed(2), '</td>',
-						'</tr>');
+						buf.push(
+							'<tr>',
+								'<td>',
+									station.networkCode,
+									' ', station.stationCode,
+									' ', station.channelCode,
+									' ', station.locationCode,
+								'</td>',
+								'<td>', parseFloat(arrival.distance).toFixed(2), '&deg;</td>',
+								'<td>', parseFloat(arrival.azimuth).toFixed(2), '&deg;</td>',
+								'<td>', arrival.phase, '</td>',
+								'<td>', time, '</td>',
+								'<td>', pick.evaluationMode.toUpperCase(), '</td>',
+								'<td>', parseFloat(arrival.timeResidual).toFixed(2), '</td>',
+								'<td>', parseFloat(arrival.timeWeight).toFixed(2), '</td>',
+							'</tr>');
 				}
-				buf.push('</tbody></table>');
+				buf.push(
+					    '</tbody>',
+					  '</table>',
+					'</section>');
 			}
-			buf.push('</section>');
+
 		}
 
 		return buf.join('');
