@@ -81,7 +81,8 @@ define([
 
 		this._content.appendChild(el);
 
-		Util.addEvent(this.getContent().querySelector('.toggle-button'), 'click', ( function () {
+		Util.addEvent(this.getContent().querySelector('.toggle-button'), 'click',
+				( function () {
 			var callback = function callback () {
 				_this._toggleInfo();
 			};
@@ -141,7 +142,7 @@ define([
 		depth = formatter.depth(depth, 'km');
 
 		return [
-			'<table class="info-table tabular"><tbody>',
+			'<table class="info-table responsive-vertical"><tbody>',
 			'<tr><th scope="row">Moment</th>',
 				'<td>', moment, '</td></tr>',
 			'<tr><th scope="row">Magnitude</th>',
@@ -159,7 +160,7 @@ define([
 			'<tr class="toggle hidden"><th scope="row">Contributor</th>',
 				'<td>', contributor, '</td></tr>',
 			'<tr class="toggle hidden"><th scope="row">Code</th>',
-				'<td>', code, '</td></tr>',
+				'<td><span class="truncate" title="', code ,'">', code, '</span></td></tr>',
 			'</tbody></table>'
 		].join('');
 	};
@@ -233,7 +234,7 @@ define([
 
 		return [
 				'<h4>Principal Axes</h4>',
-				'<table class="principal-axes-table tabular">',
+				'<table class="principal-axes-table responsive-vertical">',
 				'<thead><tr>',
 					'<th>Axis</th>',
 					'<th>Value</th>',
@@ -278,7 +279,7 @@ define([
 
 		return [
 				'<h4>Nodal Planes</h4>',
-				'<table class="nodal-plane-table tabular">',
+				'<table class="nodal-plane-table responsive-vertical">',
 				'<thead><tr>',
 					'<th>Plane</th>',
 					'<th>Strike</th>',
@@ -364,20 +365,21 @@ define([
 
 
 	MomentTensorPage.prototype.getDownloads = function (product) {
-		var el = document.createElement('div');
+		var el = document.createElement('div'),
+		    title = '<header><h3>Downloads</h3></header>';
 
-		el.innerHTML = 'Loading contents ...';
+		el.innerHTML = title + '<p>Loading contents &hellip;</p>';
 		el.className = 'downloads';
 
 		new ContentsXML({
 				product: product.product,
 				callback: function (contents) {
 					// build content
-					el.innerHTML = '<header><h3>Downloads</h3></header>' +
-							contents.getDownloads();
+					el.innerHTML = title + contents.getDownloads();
 				},
 				errback: function () {
-					el.innerHTML = 'Error loading contents ...';
+					el.innerHTML = title +
+							'<p class="alert error">Unable to load downloads &hellip;</p>';
 				}});
 
 		this._content.appendChild(el);

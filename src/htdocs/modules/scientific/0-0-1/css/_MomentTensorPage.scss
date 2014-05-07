@@ -32,6 +32,25 @@
 	.info-table {
 		width:100%;
 		max-width:480px;
+		table-layout:fixed;
+
+		th {
+			width: 120px;
+		}
+
+		td {
+			width: 70%;
+
+
+			> span.truncate {
+				width:100%;
+				display:block;
+				max-width:336px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
 
 		th, td {
 			text-align: left;
@@ -65,7 +84,7 @@
 		max-width:480px;
 
 		td {
-			text-align: right;
+			text-align: center;
 		}
 	}
 

@@ -10,10 +10,42 @@ define([
 ) {
 	'use strict';
 
+	/**
+	 * SummaryDetailsPage should be extended to create a summary/details
+	 * page. While extending SummaryDetailsPage a page should override:
+	 *
+	 * Details Page,
+	 *
+	 * The details section displays detailed information for a single product.
+	 *
+	 *  - getDetailsContent(),
+	 * 
+	 *    Override this method to build markup for the details page and
+	 *    append the HTML element to this._content.
+	 *
+	 * 
+	 * Summary Page,
+	 *
+	 * The summary section displays all products returned by getProducts().
+	 * getSummaryContent() builds the summary page and calls the following
+	 * methods to build each individual "summary card" on the summary page.
+	 *
+	 *  - getSummaryHeader(),
+	 *
+	 *    Override this method to return the header content for
+	 *    the "summary card".
+	 * 
+	 *  - getSummaryInfo(),
+	 *
+	 *    Override this method to return the descriptive content
+	 *    for the "summary card".
+	 *
+	 */
+
 	var SummaryDetailsPage = function (options) {
-		this._options = options;
-		this._code = options.code || null;
-		EventModulePage.call(this, options);
+		this._options = options || {};
+		this._code = this._options.code || null;
+		EventModulePage.call(this, this._options);
 	};
 
 	// extend EventModulePage
@@ -59,7 +91,7 @@ define([
 	 */
 	SummaryDetailsPage.prototype.getProducts = function () {
 		var options = this._options,
-		    productTypes = options.productTypes,
+		    productTypes = options.productTypes || [],
 		    products = [],
 		    allProducts = [],
 		    type;
@@ -68,10 +100,7 @@ define([
 		for (var i = 0; i < productTypes.length; i++) {
 			type = productTypes[i];
 			products = this._event.properties.products[type] || [];
-
-			for (var x = 0; x < products.length; x++) {
-				allProducts.push(products[x]);
-			}
+			allProducts = allProducts.concat(products);
 		}
 
 		return allProducts;
@@ -128,9 +157,9 @@ define([
 		    header, headerMarkup,
 		    info, infoMarkup;
 
-		el = document.createElement('a');
+		el = document.createElement('div');
 		el.className = this._options.hash + '-summary summary';
-		el.href = this._buildHash(product);
+		el.setAttribute('data-id', this._buildHash(product));
 
 		header = document.createElement('div');
 		header.className = 'header';
@@ -155,8 +184,14 @@ define([
 		el.appendChild(header);
 		el.appendChild(info);
 
+		// navigate to details page
+		Util.addEvent(el, 'click', function (e) {
+			window.location.hash = e.currentTarget.getAttribute('data-id');
+		});
+
 		return el;
 	};
+
 
 	/**
 	 * The content that goes into the summary card header
@@ -201,7 +236,7 @@ define([
 	 *
 	 * @param  {string} hash
 	 */
-	SummaryDetailsPage.prototype._buildHash = function (product)  {
+	SummaryDetailsPage.prototype._buildHash = function (product) {
 		return '#' + this._options.module._hash + '_' + this._hash + ':'+
 				product.source + '_' + product.code;
 	};
@@ -210,19 +245,21 @@ define([
 	 * Retrieves downloadable content from contents.xml
 	 */
 	SummaryDetailsPage.prototype.getDownloads = function (product) {
-		var el = document.createElement('div');
-		el.innerHTML = 'Loading contents ...';
+		var el = document.createElement('div'),
+		    title = '<header><h3>Downloads</h3></header>';
+
+		el.innerHTML = title + '<p>Loading contents &hellip;</p>';
 		el.className = 'downloads';
 
 		new ContentsXML({
 				product: product,
 				callback: function (contents) {
 					// build content
-					el.innerHTML = '<header><h3>Downloads</h3></header>' +
-							contents.getDownloads();
+					el.innerHTML = title + contents.getDownloads();
 				},
 				errback: function () {
-					el.innerHTML = 'Error loading contents ...';
+					el.innerHTML = title +
+							'<p class="alert error">Unable to load downloads &hellip;</p>';
 				}});
 
 		this._content.appendChild(el);
