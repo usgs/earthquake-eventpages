@@ -239,13 +239,21 @@ define([
 									' ', station.channelCode,
 									' ', station.locationCode,
 								'</td>',
-								'<td>', parseFloat(arrival.distance).toFixed(2), '&deg;</td>',
-								'<td>', parseFloat(arrival.azimuth).toFixed(2), '&deg;</td>',
+								'<td class="number">',
+									parseFloat(arrival.distance).toFixed(2), '&deg;',
+								'</td>',
+								'<td class="number">',
+									parseFloat(arrival.azimuth).toFixed(2), '&deg;',
+								'</td>',
 								'<td>', arrival.phase, '</td>',
-								'<td>', time, '</td>',
+								'<td class="number">', time, '</td>',
 								'<td>', pick.evaluationMode.toUpperCase(), '</td>',
-								'<td>', parseFloat(arrival.timeResidual).toFixed(2), '</td>',
-								'<td>', parseFloat(arrival.timeWeight).toFixed(2), '</td>',
+								'<td class="number">',
+									parseFloat(arrival.timeResidual).toFixed(2),
+								'</td>',
+								'<td class="number">',
+									parseFloat(arrival.timeWeight).toFixed(2),
+								'</td>',
 							'</tr>');
 				}
 				buf.push(
@@ -253,7 +261,6 @@ define([
 					  '</table>',
 					'</section>');
 			}
-
 		}
 
 		return buf.join('');
