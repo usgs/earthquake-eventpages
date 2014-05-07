@@ -20,7 +20,6 @@ define([
 ) {
 	'use strict';
 
-
 	// default options
 	var DEFAULTS = {
 		formatter: new Formatter(),
@@ -28,6 +27,7 @@ define([
 			tabPosition: 'top'
 		}
 	};
+
 	var NOT_SPECIFIED = '<abbr title="Not Specified">-</abbr>';
 
 	/**
@@ -311,25 +311,25 @@ define([
 		numStations = magnitude.stationCount || NOT_SPECIFIED;
 
 		buf.push('<section class="networkmagnitude">',
-				'<h3>', source, '</h3>',
-				'<ul class="networkmagnitude-summary">',
-					'<li>',
-						'<span><strong>', mag, '</strong></span>',
-						'<abbr title="Magnitude">Mag</abbr>',
-					'</li>',
-					'<li>',
-						'<span>', type, '</span>',
-						'<abbr title="Magnitude type">Type</abbr>',
-					'</li>',
-					'<li>',
-						'<span>', magError, '</span>',
-						'<abbr title="Magnitude Error">Error</abbr>',
-					'</li>',
-					'<li>',
-						'<span>', numStations, '</span>',
-						'<abbr title="Number of stations">Stations</abbr>',
-					'</li>',
-				'</ul>',
+			'<h3>', source, '</h3>',
+			'<ul class="networkmagnitude-summary">',
+				'<li>',
+					'<span><strong>', mag, '</strong></span>',
+					'<abbr title="Magnitude">Mag</abbr>',
+				'</li>',
+				'<li>',
+					'<span>', type, '</span>',
+					'<abbr title="Magnitude type">Type</abbr>',
+				'</li>',
+				'<li>',
+					'<span>', magError, '</span>',
+					'<abbr title="Magnitude Error">Error</abbr>',
+				'</li>',
+				'<li>',
+					'<span>', numStations, '</span>',
+					'<abbr title="Number of stations">Stations</abbr>',
+				'</li>',
+			'</ul>',
 			'<a class="expand">Details</a>',
 			'<div class="networkmagnitude-details">'
 		);
