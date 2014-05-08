@@ -209,8 +209,11 @@ define([
 		var module = this;
 		var pageInfo = this._getPageInfo(hash);
 		var pageOptions = Util.extend({}, pageInfo.options,
-				{productTypes: pageInfo.productTypes},
-				{eventDetails: this._eventDetails, module: module});
+				{
+					productTypes: pageInfo.productTypes,
+					eventDetails: this._eventDetails,
+					module: module
+				});
 		var classLoader = null;
 
 		if (this._dependencyLoader !== null) {
