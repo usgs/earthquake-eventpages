@@ -401,7 +401,6 @@ define([
 						'<td>', weight , '</td>',
 					'</tr>');
 			}
-
 			buf.push('</tbody></table>');
 		}
 
