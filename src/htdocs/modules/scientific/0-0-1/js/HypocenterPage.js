@@ -54,7 +54,14 @@ define([
 	 *
 	 */
 	HypocenterPage.prototype.destroy = function () {
+		if (this._magnitudeEl) {
+			this._magnitudeEl.removeEventListener('click',
+					this._toggleMagnitudeDetails, false);
+		}
 
+		if (this._tabList) {
+			this._tabList.destroy();
+		}
 	};
 
 	/**
@@ -160,6 +167,7 @@ define([
 		// Update the FE region info
 		this.getFeString(product, function (feString) {
 			var feContainer = el.querySelector('.fe-info');
+
 			if (feContainer) {
 				feContainer.innerHTML = feString;
 			}
@@ -398,7 +406,6 @@ define([
 		}
 
 		buf.push('</div></section>');
-		console.log(magnitude);
 		return buf.join('');
 	};
 
