@@ -47,8 +47,15 @@ define([
 		SummaryDetailsPage.call(this, this._options);
 	};
 
-	// extend TabbedModulePage.
 	HypocenterPage.prototype = Object.create(SummaryDetailsPage.prototype);
+
+	/**
+	 * Clean up event bindings.
+	 *
+	 */
+	HypocenterPage.prototype.destroy = function () {
+
+	};
 
 	/**
 	 * Get all products that match options.productTypes. If a
@@ -110,8 +117,6 @@ define([
 		    tabListDiv = document.createElement('section'),
 		    tabListContents = [],
 		    _this = this,
-		    phases,
-		    magnitudes,
 		    originDetails;
 
 		this._product = product;
@@ -203,26 +208,25 @@ define([
 			origin = origins[o];
 			arrivals = origin.arrivals;
 
-			buf.push('<section class="origin">');
-
 			// output origin arrivals
 			if (arrivals.length > 0) {
 				buf.push(
-					'<h3>Phase Arrival Times</h3>',
-					'<table class="responsive">',
-					'<thead><tr>',
-						'<th>',
-							'<abbr title="Network Station Channel Location">NSCL</abbr>',
-						'</th>',
-						'<th>Distance</th>',
-						'<th>Azimuth</th>',
-						'<th>Phase</th>',
-						'<th>Arrival Time</th>',
-						'<th>Status</th>',
-						'<th>Residual</th>',
-						'<th>Weight</th>',
-					'</tr></thead>',
-					'<tbody>');
+					'<section class="origin">',
+						'<h3>Phase Arrival Times</h3>',
+						'<table class="responsive">',
+							'<thead><tr>',
+								'<th>',
+									'<abbr title="Network Station Channel Location">NSCL</abbr>',
+								'</th>',
+								'<th>Distance</th>',
+								'<th>Azimuth</th>',
+								'<th>Phase</th>',
+								'<th>Arrival Time</th>',
+								'<th>Status</th>',
+								'<th>Residual</th>',
+								'<th>Weight</th>',
+							'</tr></thead>',
+							'<tbody class="hypocenter-phase">');
 				for (a = 0; a < arrivals.length; a++) {
 					arrival = arrivals[a];
 					pick = arrival.pick;
@@ -240,18 +244,28 @@ define([
 								' ', station.channelCode,
 								' ', station.locationCode,
 							'</td>',
-							'<td>', parseFloat(arrival.distance).toFixed(2), '&deg;</td>',
-							'<td>', parseFloat(arrival.azimuth).toFixed(2), '&deg;</td>',
+							'<td class="distance">',
+								parseFloat(arrival.distance).toFixed(2), '&deg;',
+							'</td>',
+							'<td class="arrival">',
+								parseFloat(arrival.azimuth).toFixed(2), '&deg;',
+							'</td>',
 							'<td>', arrival.phase, '</td>',
-							'<td>', time, '</td>',
+							'<td class="time">', time, '</td>',
 							'<td>', pick.evaluationMode.toUpperCase(), '</td>',
-							'<td>', parseFloat(arrival.timeResidual).toFixed(2), '</td>',
-							'<td>', parseFloat(arrival.timeWeight).toFixed(2), '</td>',
+							'<td class="residual">',
+								parseFloat(arrival.timeResidual).toFixed(2),
+							'</td>',
+							'<td class="weight">',
+								parseFloat(arrival.timeWeight).toFixed(2),
+							'</td>',
 						'</tr>');
 				}
-				buf.push('</tbody></table>');
+				buf.push(
+					    '</tbody>',
+					  '</table>',
+					'</section>');
 			}
-			buf.push('</section>');
 		}
 
 		return buf.join('');
