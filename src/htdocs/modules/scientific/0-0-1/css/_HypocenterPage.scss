@@ -80,6 +80,10 @@
 	}
 }
 
+.origin > table.responsive > tbody > tr > td.number {
+	text-align:right;
+	padding-right:1.5em;
+}
 @media screen and (max-width:767px) {
 	.origin > table.responsive {
 		td:nth-of-type(1):before { content: 'NSCL'; }
