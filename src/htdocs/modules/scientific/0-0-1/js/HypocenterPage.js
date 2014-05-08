@@ -20,7 +20,6 @@ define([
 ) {
 	'use strict';
 
-
 	// default options
 	var DEFAULTS = {
 		formatter: new Formatter(),
@@ -29,6 +28,7 @@ define([
 		}
 	};
 
+	var NOT_SPECIFIED = '<abbr title="Not Specified">-</abbr>';
 
 	/**
 	 * Construct a new HypocenterPage.
@@ -54,7 +54,14 @@ define([
 	 *
 	 */
 	HypocenterPage.prototype.destroy = function () {
+		if (this._magnitudeEl) {
+			this._magnitudeEl.removeEventListener('click',
+					this._toggleMagnitudeDetails, false);
+		}
 
+		if (this._tabList) {
+			this._tabList.destroy();
+		}
 	};
 
 	/**
@@ -160,6 +167,7 @@ define([
 		// Update the FE region info
 		this.getFeString(product, function (feString) {
 			var feContainer = el.querySelector('.fe-info');
+
 			if (feContainer) {
 				feContainer.innerHTML = feString;
 			}
@@ -188,6 +196,8 @@ define([
 			this._parseQuakeml(xml);
 		} else if (!this._magnitudeRendered) {
 			this._magnitudeEl.innerHTML = this._getMagnitudesMarkup();
+			this._magnitudeEl.addEventListener('click',
+					this._toggleMagnitudeDetails.bind(this));
 			this._magnitudeRendered = true;
 		}
 	};
@@ -272,13 +282,144 @@ define([
 	};
 
 	HypocenterPage.prototype._getMagnitudesMarkup = function () {
-		var magnitudes = this._quakeml.getMagnitudes();
+		var buf = [],
+		    magnitudes = this._quakeml.getMagnitudes(),
+		    magnitude,
+		    m;
 
-		return '';
+		for (m = 0; m < magnitudes.length; m++) {
+			magnitude = magnitudes[m];
+			buf.push(this._getMagnitudeMarkup(magnitude));
+		}
+		return buf.join('');
+	};
+
+	HypocenterPage.prototype._getMagnitudeMarkup = function (magnitude) {
+		var buf = [],
+		    contributions = magnitude.contributions,
+		    contribution,
+		    stationMagnitude,
+		    amplitude,
+		    station,
+		    amp,
+		    status,
+		    weight,
+		    period,
+		    a,
+		    source,
+		    type,
+		    mag,
+		    magError,
+		    numStations;
+
+		source = Attribution.getName(magnitude.creationInfo.agencyID);
+		type = magnitude.type;
+		mag = magnitude.mag.value;
+		magError = magnitude.mag.uncertainty || NOT_SPECIFIED;
+		numStations = magnitude.stationCount || NOT_SPECIFIED;
+
+		buf.push('<section class="networkmagnitude">',
+			'<h3>', source, '</h3>',
+			'<ul class="networkmagnitude-summary">',
+				'<li>',
+					'<span><strong>', mag, '</strong></span>',
+					'<abbr title="Magnitude">Mag</abbr>',
+				'</li>',
+				'<li>',
+					'<span>', type, '</span>',
+					'<abbr title="Magnitude type">Type</abbr>',
+				'</li>',
+				'<li>',
+					'<span>', magError, '</span>',
+					'<abbr title="Magnitude Error">Error</abbr>',
+				'</li>',
+				'<li>',
+					'<span>', numStations, '</span>',
+					'<abbr title="Number of stations">Stations</abbr>',
+				'</li>',
+			'</ul>',
+			'<a class="expand">Details</a>',
+			'<div class="networkmagnitude-details">'
+		);
+
+		if (contributions.length === 0) {
+			buf.push('<p>No amplitudes contributed for this magnitude</p>');
+		} else {
+			buf.push(
+				'<table class="responsive networkmagnitude-stations">',
+				'<thead><tr>',
+					'<th>',
+						'<abbr title="Network Station Channel Location">Source</abbr>',
+					'</th>',
+					'<th>Type</th>',
+					'<th>Amplitude</th>',
+					'<th>Period</th>',
+					'<th>Status</th>',
+					'<th>Magnitude</th>',
+					'<th>Weight</th>',
+				'</tr></thead>',
+				'<tbody>'
+			);
+
+			for (a = 0; a < contributions.length; a++) {
+				contribution = contributions[a];
+				stationMagnitude = contribution.stationMagnitude;
+				type = stationMagnitude.type;
+				amplitude = stationMagnitude.amplitude || {};
+				station = stationMagnitude.waveformID || amplitude.waveformID;
+				status = stationMagnitude.status;
+				mag = stationMagnitude.mag.value || '-';
+				period = stationMagnitude.amplitude.period || '-';
+				weight = contribution.weight;
+
+				amp = '-';
+				period = '-';
+				status = '-';
+				if (amplitude) {
+					if (amplitude.genericAmplitude) {
+						amp = amplitude.genericAmplitude.value + amplitude.unit;
+					}
+					if (amplitude.period) {
+						period = amplitude.period.value + 's';
+					}
+					status = amplitude.evaluationMode;
+				}
+
+				buf.push(
+					'<tr>',
+						'<td>',
+							station.networkCode,
+							' ', station.stationCode,
+							' ', station.channelCode,
+							' ', station.locationCode,
+						'</td>',
+						'<td>', type , '</td>',
+						'<td>', amp , '</td>',
+						'<td>', period , '</td>',
+						'<td>', status , '</td>',
+						'<td>', mag , '</td>',
+						'<td>', weight , '</td>',
+					'</tr>');
+			}
+			buf.push('</tbody></table>');
+		}
+
+		buf.push('</div></section>');
+		return buf.join('');
+	};
+
+	HypocenterPage.prototype._toggleMagnitudeDetails = function (e) {
+		var target = e.target,
+		    container = e.target.parentNode;
+
+		if (target.nodeName === 'A' && target.classList.contains('expand')) {
+			container.classList.toggle('show-networkmagnitude-details');
+		}
 	};
 
 	HypocenterPage.prototype._parseQuakeml = function (quakemlInfo) {
 		var that = this;
+
 		if (quakemlInfo !== null) {
 			Xhr.ajax({
 				url: quakemlInfo.url,
@@ -293,7 +434,6 @@ define([
 			});
 		}
 	};
-
 
 	/**
 	 * Format an origin product details.

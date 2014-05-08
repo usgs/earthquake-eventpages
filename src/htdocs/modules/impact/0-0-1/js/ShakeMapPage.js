@@ -318,7 +318,7 @@ define([
 					'<h3>', title, '</h3>',
 					'<ul class="station-summary">',
 						'<li class="mmi mmi', romanNumeral, '">',
-							'<span>', station.intensity, '</span>',
+							'<span class="roman"><strong>', romanNumeral, '</strong></span>',
 							'<abbr title="Modified Mercalli Intensity">mmi</abbr>',
 						'</li>',
 						'<li>',
@@ -377,6 +377,8 @@ define([
 					'<dd>(', station.lat, ', ', station.lon ,')</dd>',
 					'<dt>Source: </dt>',
 					'<dd>', station.source ,'</dd>',
+					'<dt>Intensity: </dt>',
+					'<dd>', station.intensity, '</dd>',
 				'</dl>',
 				this._buildComponentDetails(components),
 			].join('');

@@ -407,11 +407,14 @@ define([
 	};
 
 	var Attribution = {
-		getMainContributerHeader: function (code) {
-			var title = code,
+		getContributor: function (id) {
+			var title = null,
 			    url = null,
 			    src = null,
-			    header = null;
+			    code = null;
+
+			id = id.toUpperCase();
+			code = id;
 
 			if (MULTI_MAP.hasOwnProperty(code)) {
 				code = MULTI_MAP[code];
@@ -427,6 +430,19 @@ define([
 					url = src.url;
 				}
 			}
+			return {
+				id: id,
+				title: title,
+				url: url
+			};
+		},
+
+		getMainContributerHeader: function (id) {
+			var contributor = this.getContributor(id),
+			    url = contributor.url,
+			    title = contributor.title,
+			    code = contributor.id,
+			    header;
 
 			if (url !== null) {
 				header = '<a target="_blank" href="' + url + '">' + title + ' (' + code + ')</a>';
@@ -435,6 +451,20 @@ define([
 			}
 
 			return header;
+		},
+
+		getName: function (id) {
+			var contributor = this.getContributor(id),
+			    title = contributor.title,
+			    code =  contributor.id,
+			    buf = [];
+
+			buf.push('<em>', code, '</em>');
+
+			if ( title !== code) {
+				buf.push(' ', title);
+			}
+			return buf.join('');
 		}
 	};
 

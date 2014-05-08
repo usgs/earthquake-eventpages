@@ -2,38 +2,73 @@
 define([
 	'chai',
 	'sinon',
+	'require',
 
 	'util/Xhr',
+	'util/Util',
 	'./usb000kqnc',
 
 	'scientific/ScientificModule',
-	'scientific/HypocenterPage'
+	'scientific/HypocenterPage',
+	'quakeml/Quakeml',
+	'tablist/TabList'
 ], function (
 	chai,
 	sinon,
+	require,
 
 	Xhr,
+	Util,
 	eventDetails,
 
 	ScientificModule,
-	HypocenterPage
+	HypocenterPage,
+	Quakeml,
+	TabList
 ) {
 	'use strict';
-	var expect = chai.expect,
-	    options = {
-				eventDetails: eventDetails,
-				module: new ScientificModule(),
-				source: 'us',
-				code: 'us_usb000kqnc',
-				productTypes: [
-					'origin',
-					'phase-data'
-				],
-				title: 'Hypocenter',
-				hash: 'hypocenter'
-			},
-	   SummaryPage = new HypocenterPage(options);
 
+	var expect = chai.expect,
+	    summaryOptions,
+	    detailOptions,
+	    SummaryPage,
+	    DetailPage;
+
+	summaryOptions = {
+		eventDetails: eventDetails,
+		module: new ScientificModule(),
+		// source: 'us',
+		productTypes: [
+			'origin',
+			'phase-data'
+		],
+		title: 'Hypocenter',
+		hash: 'hypocenter'
+	};
+	SummaryPage = new HypocenterPage(summaryOptions);
+
+	detailOptions = Util.extend({}, summaryOptions, {code: 'us_usb000kqnc'});
+	DetailPage = new HypocenterPage(detailOptions);
+
+	var getClickEvent = function () {
+		var clickEvent = document.createEvent('MouseEvents');
+		clickEvent.initMouseEvent('click', true, true, window, 1, 0, 0);
+		return clickEvent;
+	};
+
+	before( function (done) {
+		Xhr.ajax({
+			url: require.toUrl('./usc000njrq_phase-data.xml'),
+			success: function (xml) {
+				// use quakeml parser to make xml into quakeml
+				DetailPage._quakeml = new Quakeml({xml: xml});
+				done();
+			},
+			error: function () {
+				done('failed to parse quakeml');
+			}
+		});
+	});
 
 	describe('HypocenterPage test suite.', function () {
 		describe('Constructor', function () {
@@ -48,8 +83,15 @@ define([
 			});
 		});
 
-
 		describe('getContent()', function () {
+			var myTabList,
+			    tabListContents = [],
+			    tabListDiv = document.createElement('section');
+
+			tabListContents.push({
+				title: 'Tab 1',
+				content: 'originDetails or something like that'
+			});
 
 			it('Can get summary information.', function () {
 				var content = SummaryPage.getContent();
@@ -65,6 +107,47 @@ define([
 				expect(hypocenter_summary.length).to.not.equal(0);
 				/* jshint +W030 */
 			});
+
+			it('Loads phases when tab is clicked.', function () {
+				// The phase element should be empty
+				expect(DetailPage._phaseEl.innerHTML).to.equal('');
+				DetailPage._tabList._tabs[1].select();
+				expect(DetailPage._phaseEl.innerHTML).to.not.equal('');
+			});
+
+			it('Loads magnitudes when tab is clicked.', function () {
+				// The magnitude element should be empty
+				expect(DetailPage._magnitudeEl.innerHTML).to.equal('');
+				DetailPage._tabList._tabs[2].select();
+				// The phase element should not be empty anymore
+				expect(DetailPage._magnitudeEl.innerHTML).to.not.equal('');
+			});
+
+			it('Can be awesome.', function () {
+				var content = null;
+				// Just because it can be.
+				content = 'Awesome!';
+				expect(content).to.equal('Awesome!');
+			});
+
+			it('Toggles magnitude details.', function () {
+				var magEl,
+				    linkEl;
+
+				DetailPage._tabList._tabs[2].select();
+				magEl = DetailPage._tabList.el.querySelector('.networkmagnitude');
+				linkEl = magEl.querySelector('.expand');
+
+				expect(magEl.classList.contains('show-networkmagnitude-details')).
+						to.equal(false);
+				DetailPage._toggleMagnitudeDetails({target: linkEl});
+				expect(magEl.classList.contains('show-networkmagnitude-details')).
+						to.equal(true);
+				DetailPage._toggleMagnitudeDetails({target: linkEl});
+				expect(magEl.classList.contains('show-networkmagnitude-details')).
+						to.equal(false);
+			});
+
 		});
 
 		describe('getFeString', function () {
@@ -73,7 +156,7 @@ define([
 			    ajaxStub = null;
 
 			beforeEach(function () {
-				hp = new HypocenterPage(options);
+				hp = new HypocenterPage(summaryOptions);
 
 				product = hp.getProducts()[0];
 
