@@ -383,8 +383,8 @@ define([
 
 	MomentTensorPage.prototype.destroy = function () {
 
-		if (this.getContent()) {
-			Util.removeEvent(this.getContent().querySelector('.toggle-button'), 'click', this._toggle);
+		if (this._toggleButton) {
+			Util.removeEvent(this._toggleButton, 'click', this._toggle);
 		}
 
 		this._toggle = null;
