@@ -60,7 +60,9 @@ define([
 		    product = null;
 
 		// get the product hash (i.e. us_usb000kqnc)
-		this._code = this._getHash();
+		if (this._code === null) {
+			this._code = this._getHash();
+		}
 
 		if (this._code) {
 			for (var i = 0; i < products.length; i++) {
