@@ -7,7 +7,8 @@ define([
 	'./usb000kqnc',
 
 	'scientific/ScientificModule',
-	'scientific/HypocenterPage'
+	'scientific/HypocenterPage',
+	'tablist/TabList'
 ], function (
 	chai,
 	sinon,
@@ -16,14 +17,16 @@ define([
 	eventDetails,
 
 	ScientificModule,
-	HypocenterPage
+	HypocenterPage,
+	TabList
 ) {
 	'use strict';
+	debugger;
 	var expect = chai.expect,
 	    options = {
 				eventDetails: eventDetails,
 				module: new ScientificModule(),
-				source: 'us',
+				// source: 'us',
 				code: 'us_usb000kqnc',
 				productTypes: [
 					'origin',
@@ -34,6 +37,11 @@ define([
 			},
 	   SummaryPage = new HypocenterPage(options);
 
+	var getClickEvent = function () {
+		var clickEvent = document.createEvent('MouseEvents');
+		clickEvent.initMouseEvent('click', true, true, window, 1, 0, 0);
+		return clickEvent;
+	};
 
 	describe('HypocenterPage test suite.', function () {
 		describe('Constructor', function () {
@@ -48,8 +56,15 @@ define([
 			});
 		});
 
-
 		describe('getContent()', function () {
+			var myTabList,
+			    tabListContents = [],
+			    tabListDiv = document.createElement('section');
+
+			tabListContents.push({
+				title: 'Tab 1',
+				content: 'originDetails or something like that'
+			});
 
 			it('Can get summary information.', function () {
 				var content = SummaryPage.getContent();
@@ -65,6 +80,86 @@ define([
 				expect(hypocenter_summary.length).to.not.equal(0);
 				/* jshint +W030 */
 			});
+
+			it('Can show hypocenter phase data.', function () {
+				var product = SummaryPage._products[0],
+				    tabPanel;
+
+				// The phase element should be empty
+				expect(SummaryPage._phaseEl.innerHTML).to.equal('');
+
+				if (product.type === 'phase-data' &&
+					product.contents['quakeml.xml'] !== null) {
+					// build phase table
+					tabListContents.push({
+						title: 'Phases',
+						content: function () {
+							SummaryPage._getPhaseDetail();
+							return SummaryPage._phaseEl;
+						}
+					});
+				}
+				myTabList = new TabList({
+					el: SummaryPage._content.appendChild(tabListDiv),
+					tabPosition: 'top',
+					tabs: tabListContents
+				});
+
+				tabPanel = SummaryPage._content.querySelector('.tablist-tab-2');
+				console.log(SummaryPage)
+				console.log(tabPanel)
+
+				// The phase element should be empty
+				expect(SummaryPage._phaseEl.innerHTML).to.equal('');
+
+				tabPanel.dispatchEvent(getClickEvent());
+
+				// The phase element should not be empty anymore
+				expect(SummaryPage._phaseEl.innerHTML).to.equal('');
+			});
+
+			it('Can show hypocenter magnitude data summaries.', function () {
+				var product = SummaryPage._products[0],
+				    tabPanel;
+
+				// The magnitude element should be empty
+				expect(SummaryPage._magnitudeEl.innerHTML).to.equal('');
+
+				if (product.type === 'phase-data' &&
+					product.contents['quakeml.xml'] !== null) {
+					// build magnitude table
+					tabListContents.push({
+						title: 'Magnitudes',
+						content: function () {
+							SummaryPage._getMagnitudeDetail();
+							return SummaryPage._magnitudeEl;
+						}
+					});
+				}
+				myTabList = new TabList({
+					el: SummaryPage._content.appendChild(tabListDiv),
+					tabPosition: 'top',
+					tabs: tabListContents
+				});
+
+				tabPanel = SummaryPage._content.querySelector('section.tablist-tab-2');
+
+				// The magnitude element should be empty
+				expect(SummaryPage._magnitudeEl.innerHTML).to.equal('');
+
+				tabPanel.dispatchEvent(getClickEvent());
+
+				// The phase element should not be empty anymore
+				expect(SummaryPage._magnitudeEl.innerHTML).to.equal('');
+			});
+
+			it('Can be awesome.', function () {
+				var content = null;
+
+				content = 'Awesome!';
+				expect(content).to.equal('Awesome!');
+			});
+
 		});
 
 		describe('getFeString', function () {
