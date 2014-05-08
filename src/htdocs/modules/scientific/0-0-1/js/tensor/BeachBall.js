@@ -220,6 +220,7 @@ define([
 		var x0 = this._x0,
 		    y0 = this._y0,
 		    radius = this._radius,
+		    mergeThreshold = radius / 8,
 		    tensor = this._tensor,
 		    T = _axisCache(tensor.T),
 		    N = _axisCache(tensor.N),
@@ -353,8 +354,8 @@ define([
 				l2 = lines[nextI];
 				l2x = l2.x;
 				l2y = l2.y;
-				if (abs(l1x[l1x.length - 1] - l2x[0]) < 5 &&
-						abs(l1y[l1y.length - 1] - l2y[0]) < 5) {
+				if (abs(l1x[l1x.length - 1] - l2x[0]) < mergeThreshold &&
+						abs(l1y[l1y.length - 1] - l2y[0]) < mergeThreshold) {
 					// merge lines
 					l1x.push.apply(l1x, l2x);
 					l1y.push.apply(l1y, l2y);
