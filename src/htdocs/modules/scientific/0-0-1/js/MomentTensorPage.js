@@ -39,6 +39,7 @@ define([
 	var MomentTensorPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
 		this._code = options.code;
+		this._toggleButton = null;
 		SummaryDetailsPage.call(this, this._options);
 	};
 
@@ -54,8 +55,7 @@ define([
 	 *
 	 */
 	MomentTensorPage.prototype.getDetailsContent = function (tensor) {
-		var el = document.createElement('div'),
-		    _this = this;
+		var el = document.createElement('div');
 
 		// set layout
 		el.className = 'tensor-detail';
@@ -80,14 +80,10 @@ define([
 				}).getCanvas());
 
 		this._content.appendChild(el);
+		this._toggleButton = el.querySelector('.toggle-button');
+		this._toggleInfo = this._toggleInfo.bind(this);
 
-		Util.addEvent(this.getContent().querySelector('.toggle-button'), 'click',
-				( function () {
-			var callback = function callback () {
-				_this._toggleInfo();
-			};
-			return callback;
-		})(this));
+		Util.addEvent(this._toggleButton, 'click', this._toggleInfo);
 	};
 
 
@@ -383,6 +379,18 @@ define([
 				}});
 
 		this._content.appendChild(el);
+	};
+
+	MomentTensorPage.prototype.destroy = function () {
+
+		if (this._toggleButton) {
+			Util.removeEvent(this._toggleButton, 'click', this._toggle);
+		}
+
+		this._toggle = null;
+		this._toggleButton = null;
+
+		SummaryDetailsPage.prototype.destroy.call(this);
 	};
 
 	// return constructor

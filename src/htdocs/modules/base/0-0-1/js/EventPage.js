@@ -181,7 +181,7 @@ define([
 			cachedPage = this._cache[i];
 			if (hash === cachedPage.hash) {
 				// Already in cache ...
-				if (cachedPage !== page) {
+				if (cachedPage.page !== page) {
 					// ... and different, so delete previous cache, then cache new object
 					cachedPage.page.destroy();
 					this._cache.splice(i, 1);

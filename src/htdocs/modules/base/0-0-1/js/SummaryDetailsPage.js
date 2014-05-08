@@ -185,13 +185,14 @@ define([
 		el.appendChild(info);
 
 		// navigate to details page
-		Util.addEvent(el, 'click', function (e) {
-			window.location.hash = e.currentTarget.getAttribute('data-id');
-		});
+		Util.addEvent(el, 'click', this._updateHashOnSummaryClick);
 
 		return el;
 	};
 
+	SummaryDetailsPage.prototype._updateHashOnSummaryClick = function (e) {
+		window.location.hash = e.currentTarget.getAttribute('data-id');
+	};
 
 	/**
 	 * The content that goes into the summary card header
@@ -263,6 +264,27 @@ define([
 				}});
 
 		this._content.appendChild(el);
+	};
+
+
+		// clean-up resources.
+	SummaryDetailsPage.prototype.destroy = function () {
+		var summaries, summary;
+
+		// unbind click handler ono summary sections
+		if (this._content) {
+			summaries = this._content.querySelectorAll('.summary');
+			for (var i = 0; i < summaries.length; i++) {
+				summary = summaries[i];
+				Util.removeEvent(summary, 'click', this._updateHashOnSummaryClick);
+			}
+		}
+
+		this._content = null;
+		this._products = null;
+		this._options = null;
+
+		EventModulePage.prototype.destroy.call(this);
 	};
 
 
