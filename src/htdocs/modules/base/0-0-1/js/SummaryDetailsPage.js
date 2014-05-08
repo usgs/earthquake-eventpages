@@ -19,11 +19,11 @@ define([
 	 * The details section displays detailed information for a single product.
 	 *
 	 *  - getDetailsContent(),
-	 * 
+	 *
 	 *    Override this method to build markup for the details page and
 	 *    append the HTML element to this._content.
 	 *
-	 * 
+	 *
 	 * Summary Page,
 	 *
 	 * The summary section displays all products returned by getProducts().
@@ -34,7 +34,7 @@ define([
 	 *
 	 *    Override this method to return the header content for
 	 *    the "summary card".
-	 * 
+	 *
 	 *  - getSummaryInfo(),
 	 *
 	 *    Override this method to return the descriptive content
