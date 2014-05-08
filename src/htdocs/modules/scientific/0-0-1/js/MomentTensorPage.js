@@ -81,9 +81,9 @@ define([
 
 		this._content.appendChild(el);
 		this._toggleButton = el.querySelector('.toggle-button');
-		this._toggle = this._toggleInfo.bind(this);
+		this._toggleInfo = this._toggleInfo.bind(this);
 
-		Util.addEvent(this._toggleButton, 'click', this._toggle);
+		Util.addEvent(this._toggleButton, 'click', this._toggleInfo);
 	};
 
 
