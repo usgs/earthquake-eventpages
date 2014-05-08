@@ -272,7 +272,7 @@ define([
 	};
 
 	HypocenterPage.prototype._getMagnitudesMarkup = function () {
-		// var magnitudes = this._quakeml.getMagnitudes();
+		var magnitudes = this._quakeml.getMagnitudes();
 
 		return '';
 	};
