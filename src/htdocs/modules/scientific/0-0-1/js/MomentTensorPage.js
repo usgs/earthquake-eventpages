@@ -39,6 +39,7 @@ define([
 	var MomentTensorPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
 		this._code = options.code;
+		this._toggleButton = null;
 		SummaryDetailsPage.call(this, this._options);
 	};
 
