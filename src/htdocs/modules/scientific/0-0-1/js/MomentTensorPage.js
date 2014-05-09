@@ -7,6 +7,8 @@ define([
 	'base/Formatter',
 	'base/ContentsXML',
 
+	'summary/Attribution',
+
 	'./tensor/Tensor',
 	'./tensor/BeachBall'
 ], function (
@@ -16,6 +18,8 @@ define([
 	SummaryDetailsPage,
 	Formatter,
 	ContentsXML,
+
+	Attribution,
 
 	Tensor,
 	BeachBall
@@ -40,12 +44,12 @@ define([
 		this._options = Util.extend({}, DEFAULTS, options);
 		this._code = options.code;
 		this._toggleButton = null;
+		this._toggleInfo = this._toggleInfo.bind(this);
 		SummaryDetailsPage.call(this, this._options);
 	};
 
 	// extend TabbedModulePage.
 	MomentTensorPage.prototype = Object.create(SummaryDetailsPage.prototype);
-
 
 	/**
 	 * Called by SummaryDetailsPage._setContentMarkup(), handles
@@ -81,7 +85,6 @@ define([
 
 		this._content.appendChild(el);
 		this._toggleButton = el.querySelector('.toggle-button');
-		this._toggleInfo = this._toggleInfo.bind(this);
 
 		Util.addEvent(this._toggleButton, 'click', this._toggleInfo);
 	};
@@ -136,6 +139,9 @@ define([
 		magnitude = magnitude.toFixed(2);
 		percentDC = Math.round(percentDC * 100) + '%';
 		depth = formatter.depth(depth, 'km');
+		author = Attribution.getName(author);
+		catalog = Attribution.getName(catalog);
+		contributor = Attribution.getName(contributor);
 
 		return [
 			'<table class="info-table responsive-vertical"><tbody>',
@@ -342,6 +348,7 @@ define([
 		    percentDC = Math.round(tensor.percentDC * 100);
 
 		magnitude = formatter.magnitude(magnitude);
+		author = Attribution.getName(author);
 
 		return [
 					'<header class="title">', type, '</header>',
@@ -353,7 +360,7 @@ define([
 						'<dt>Percent <abbr title="Double Couple">DC</abbr>:</dt>',
 						'<dd>', percentDC, '%</dd>',
 						'<dt>Author:</dt>',
-						'<dd>', author, '</dd>',
+						'<dd><span class="truncate">', author, '</span></dd>',
 					'</dl>',
 		].join('');
 	};
@@ -382,6 +389,7 @@ define([
 	};
 
 	MomentTensorPage.prototype.destroy = function () {
+		this._options = null;
 
 		if (this._toggleButton) {
 			Util.removeEvent(this._toggleButton, 'click', this._toggle);

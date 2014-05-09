@@ -76,7 +76,6 @@ define([
 	var SUMMARY_THUMBNAIL = 'download/intensity.jpg',
 	    THUMBNAIL_ALT = 'Shakemap Intensity Map';
 
-
 	/**
 	 * Construct a new ShakeMapPage.
 	 *
@@ -85,16 +84,31 @@ define([
 	 */
 	var ShakeMapPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options);
-		this._options.module = this._options.moudule || new ImpactModule();
+		this._options.module = this._options.module || new ImpactModule();
 		this._tablist = null;
 		this._shakemap = null;
 		this._code = this._options.code || null;
 		this._source = this._options.source || null;
+		this._toggleDetails = this._toggleDetails.bind(this);
 		SummaryDetailsPage.call(this, this._options);
 	};
 
 	// extend SummaryDetailsPage.
 	ShakeMapPage.prototype = Object.create(SummaryDetailsPage.prototype);
+
+	/**
+	 * Clean up event bindings.
+	 *
+	 */
+	ShakeMapPage.prototype.destroy = function () {
+		if (this._tabList) {
+			this._tabList.destroy();
+			this._tablist = null;
+		}
+		this._shakemap = null;
+		this._stations = null;
+		SummaryDetailsPage.prototype.destroy.call(this);
+	};
 
 // this is not needed anymore
 	ShakeMapPage.prototype.getDetailsContent = function () {
@@ -189,13 +203,14 @@ define([
 	 */
 	ShakeMapPage.prototype._addStationList = function () {
 		var title = 'Station List',
-		    _this = this;
+		    _this = this,
+		    container = document.createElement('div');
 
 		// Build tab with station list
 		var content = {
 			'title': title,
 			'content': function () {
-				var container = document.createElement('div');
+
 				container.className = 'stations';
 				container.innerHTML =
 						'<p>Loading station list data from XML, please wait...</p>';
@@ -205,7 +220,7 @@ define([
 							// add station list content
 							container.innerHTML = _this._buildStationList(stations);
 							// add click event to toggle details for stations
-							container.addEventListener('click', _this._toggleDetails.bind(_this));
+							container.addEventListener('click', _this._toggleDetails);
 						},
 						function (errorMessage) {
 							container.innerHTML = '<p class="error">' + errorMessage + '</p>';
@@ -213,6 +228,11 @@ define([
 				);
 				// return panel content
 				return container;
+			},
+			onDestroy: function () {
+				container.removeEventListener('click', _this._toggleDetails);
+				container = null;
+				_this = null;
 			}
 		};
 
@@ -584,21 +604,14 @@ define([
 	ShakeMapPage.prototype._getSummaryInfo = function (product) {
 		var properties = product.properties,
 		    maxmmi = properties.maxmmi,
-		    contributor,
-		    version = properties.version,
-		    creationTime = properties['process-timestamp'];
+		    contributor;
 
 		maxmmi = ImpactUtil._translateMmi(maxmmi);
-		contributor =
-				Attribution.getMainContributerHeader(product.source.toUpperCase());
-		creationTime = creationTime.replace('T', ' ').replace('Z', ' UTC');
+		contributor = Attribution.getName(product.source);
 
-		return '<span class="mmi-summary roman mmi' + maxmmi + '">' +
-				maxmmi + '</span>' + '<span class="contributor-summary">' +
-				contributor + '</span>' + '<span class="time-summary">' +
-				'Creation Time: ' + creationTime + '</span>' +
-				'<span class="version-summary">' + 'Shakemap Version: ' + version +
-				'</span>';
+		return '<span class="mmi-summary roman mmi mmi'+ maxmmi + '">' + maxmmi +
+				'</span>' +
+				'<span class="contributor truncate">' + contributor + '</span>';
 	};
 
 	/**
