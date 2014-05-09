@@ -44,6 +44,7 @@ define([
 		this._phaseRendered = false;
 		this._magnitudeEl = document.createElement('div');
 		this._magnitudeRendered = false;
+		this._toggleMagnitudeDetails = this._toggleMagnitudeDetails.bind(this);
 		SummaryDetailsPage.call(this, this._options);
 	};
 
@@ -54,14 +55,21 @@ define([
 	 *
 	 */
 	HypocenterPage.prototype.destroy = function () {
+		this._options = null;
+		this._phaseEl = null;
+		this._quakeml = null;
+
 		if (this._magnitudeEl) {
 			this._magnitudeEl.removeEventListener('click',
-					this._toggleMagnitudeDetails, false);
+					this._toggleMagnitudeDetails);
+			this._magnitudeEl = null;
 		}
 
 		if (this._tabList) {
 			this._tabList.destroy();
+			this._tabList = null;
 		}
+		SummaryDetailsPage.prototype.destroy.call(this);
 	};
 
 	/**
@@ -197,7 +205,7 @@ define([
 		} else if (!this._magnitudeRendered) {
 			this._magnitudeEl.innerHTML = this._getMagnitudesMarkup();
 			this._magnitudeEl.addEventListener('click',
-					this._toggleMagnitudeDetails.bind(this));
+					this._toggleMagnitudeDetails);
 			this._magnitudeRendered = true;
 		}
 	};

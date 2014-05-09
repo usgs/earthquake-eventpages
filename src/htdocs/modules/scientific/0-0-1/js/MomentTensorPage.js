@@ -44,12 +44,12 @@ define([
 		this._options = Util.extend({}, DEFAULTS, options);
 		this._code = options.code;
 		this._toggleButton = null;
+		this._toggleInfo = this._toggleInfo.bind(this);
 		SummaryDetailsPage.call(this, this._options);
 	};
 
 	// extend TabbedModulePage.
 	MomentTensorPage.prototype = Object.create(SummaryDetailsPage.prototype);
-
 
 	/**
 	 * Called by SummaryDetailsPage._setContentMarkup(), handles
@@ -85,7 +85,6 @@ define([
 
 		this._content.appendChild(el);
 		this._toggleButton = el.querySelector('.toggle-button');
-		this._toggleInfo = this._toggleInfo.bind(this);
 
 		Util.addEvent(this._toggleButton, 'click', this._toggleInfo);
 	};
@@ -390,6 +389,7 @@ define([
 	};
 
 	MomentTensorPage.prototype.destroy = function () {
+		this._options = null;
 
 		if (this._toggleButton) {
 			Util.removeEvent(this._toggleButton, 'click', this._toggle);
