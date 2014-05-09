@@ -603,8 +603,8 @@ define([
 				'<span class="depth">' +
 					formatter.depth(depth, 'km') + ' depth' +
 				'</span>' +
-				'<span class="contributor">' +
-					Attribution.getMainContributerHeader(source.toUpperCase()) +
+				'<span class="contributor truncate">' +
+					Attribution.getName(source) +
 				'</span>';
 	};
 
