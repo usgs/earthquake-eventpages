@@ -584,21 +584,14 @@ define([
 	ShakeMapPage.prototype._getSummaryInfo = function (product) {
 		var properties = product.properties,
 		    maxmmi = properties.maxmmi,
-		    contributor,
-		    version = properties.version,
-		    creationTime = properties['process-timestamp'];
+		    contributor;
 
 		maxmmi = ImpactUtil._translateMmi(maxmmi);
-		contributor =
-				Attribution.getMainContributerHeader(product.source.toUpperCase());
-		creationTime = creationTime.replace('T', ' ').replace('Z', ' UTC');
+		contributor = Attribution.getName(product.source);
 
-		return '<span class="mmi-summary roman mmi' + maxmmi + '">' +
-				maxmmi + '</span>' + '<span class="contributor-summary">' +
-				contributor + '</span>' + '<span class="time-summary">' +
-				'Creation Time: ' + creationTime + '</span>' +
-				'<span class="version-summary">' + 'Shakemap Version: ' + version +
-				'</span>';
+		return '<span class="mmi-summary roman mmi mmi'+ maxmmi + '">' + maxmmi +
+				'</span>' +
+				'<span class="contributor truncate">' + contributor + '</span>';
 	};
 
 	/**
