@@ -462,7 +462,7 @@ define([
 			buf.push('<em>', code, '</em>');
 
 			if ( title !== code) {
-				buf.push(' ', title);
+				buf.push(' ', '<small>', title, '</small>');
 			}
 			return buf.join('');
 		}
