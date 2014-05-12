@@ -377,7 +377,6 @@ define([
 				station = stationMagnitude.waveformID || amplitude.waveformID;
 				status = stationMagnitude.status;
 				mag = stationMagnitude.mag.value || '-';
-				period = stationMagnitude.amplitude.period || '-';
 				weight = contribution.weight;
 
 				amp = '-';
