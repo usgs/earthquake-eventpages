@@ -377,19 +377,17 @@ define([
 				station = stationMagnitude.waveformID || amplitude.waveformID;
 				mag = stationMagnitude.mag.value || '-';
 				weight = contribution.weight;
-
 				amp = '-';
 				period = '-';
 
-					if (amplitude.genericAmplitude) {
-						amp = amplitude.genericAmplitude.value + amplitude.unit;
-					}
-					if (amplitude.period) {
-						period = amplitude.period.value + 's';
-					}
-					status = amplitude.evaluationMode || stationMagnitude.status ||
-							'automatic';
-
+				if (amplitude.genericAmplitude) {
+					amp = amplitude.genericAmplitude.value + amplitude.unit;
+				}
+				if (amplitude.period) {
+					period = amplitude.period.value + 's';
+				}
+				status = amplitude.evaluationMode || stationMagnitude.status ||
+						'automatic';
 
 				buf.push(
 					'<tr>',
@@ -409,7 +407,6 @@ define([
 			}
 			buf.push('</tbody></table>');
 		}
-
 		buf.push('</div></section>');
 		return buf.join('');
 	};
