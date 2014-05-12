@@ -1,7 +1,50 @@
+
+table.station-components,
+table.hypocenter-phase,
+table.networkmagnitude-stations {
+	margin:15px 0 0;
+	font-size:13px;
+
+	> thead {
+		background:#999;
+
+		> tr > th {
+			padding:10px;
+		}
+	}
+
+	> tbody {
+		> tr {
+			> .distance,
+			> .azimuth,
+			> .arrival,
+			> .residual,
+			> .weight {
+				text-align:right;
+				margin-right:0.5em;
+			}
+		}
+	}
+}
+
 @media screen and (max-width:767px) {
 
-	.origin > table.responsive {
-		td:nth-of-type(1):before { content: 'NSCL'; }
+	ul.station-summary,
+	ul.networkmagnitude-summary {
+		font-size:15px;
+	}
+
+	// Impact -> Shakemap -> Staion List
+	table.station-components {
+		td:nth-of-type(2):before { content: 'acc:'; }
+		td:nth-of-type(3):before { content: 'vel:'; }
+		td:nth-of-type(4):before { content: 'psa03:'; }
+		td:nth-of-type(5):before { content: 'psa10:'; }
+		td:nth-of-type(6):before { content: 'psa30:'; }
+	}
+
+	// Scientific -> Hypocenter -> Phases
+	table.hypocenter-phase {
 		td:nth-of-type(2):before { content: 'Distance'; }
 		td:nth-of-type(3):before { content: 'Azimuth'; }
 		td:nth-of-type(4):before { content: 'Phase'; }
@@ -9,9 +52,33 @@
 		td:nth-of-type(6):before { content: 'Status'; }
 		td:nth-of-type(7):before { content: 'Residual'; }
 		td:nth-of-type(8):before { content: 'Weight'; }
+		> tbody {
+			> tr {
+				> .distance,
+				> .azimuth,
+				> .arrival,
+				> .residual,
+				> .weight {
+					text-align:left;
+				}
+			}
+		}
 	}
 
-	.networkmagnitude-stations {
+	// Scientific -> Hypocenter -> Magnitudes
+	table.networkmagnitude-stations {
+		td:nth-of-type(2):before { content: 'Type'; }
+		td:nth-of-type(3):before { content: 'Amplitude'; }
+		td:nth-of-type(4):before { content: 'Period'; }
+		td:nth-of-type(5):before { content: 'Status'; }
+		td:nth-of-type(6):before { content: 'Magnitude'; }
+		td:nth-of-type(7):before { content: 'Weight'; }
+	}
+
+	table.station-components,
+	table.hypocenter-phase,
+	table.networkmagnitude-stations {
+		margin:15px 0;
 		border:none;
 		background:none;
 		text-align:left;
@@ -27,7 +94,7 @@
 
 			> td {
 				border:none;
-				padding-left:36%;
+				padding-left:60px;
 			}
 
 			> td:first-child {
@@ -42,12 +109,6 @@
 				padding-left:0;
 			}
 
-			> td:nth-of-type(2):before { content: 'Type'; }
-			> td:nth-of-type(3):before { content: 'Amplitude'; }
-			> td:nth-of-type(4):before { content: 'Period'; }
-			> td:nth-of-type(5):before { content: 'Status'; }
-			> td:nth-of-type(6):before { content: 'Magnitude'; }
-			> td:nth-of-type(7):before { content: 'Weight'; }
 		}
 	}
 

@@ -231,7 +231,7 @@ define([
 				buf.push(
 					'<section class="origin">',
 						'<h3>Phase Arrival Times</h3>',
-						'<table class="responsive">',
+						'<table class="responsive hypocenter-phase">',
 							'<thead><tr>',
 								'<th>',
 									'<abbr title="Network Station Channel Location">NSCL</abbr>',
@@ -244,7 +244,7 @@ define([
 								'<th>Residual</th>',
 								'<th>Weight</th>',
 							'</tr></thead>',
-							'<tbody class="hypocenter-phase">');
+							'<tbody>');
 				for (a = 0; a < arrivals.length; a++) {
 					arrival = arrivals[a];
 					pick = arrival.pick;
@@ -256,27 +256,27 @@ define([
 
 					buf.push(
 						'<tr>',
-							'<td>',
+							'<td><span>',
 								station.networkCode,
 								' ', station.stationCode,
 								' ', station.channelCode,
 								' ', station.locationCode,
-							'</td>',
-							'<td class="distance">',
+							'</span></td>',
+							'<td class="distance"><span>',
 								parseFloat(arrival.distance).toFixed(2), '&deg;',
-							'</td>',
-							'<td class="arrival">',
+							'</span></td>',
+							'<td class="arrival"><span>',
 								parseFloat(arrival.azimuth).toFixed(2), '&deg;',
-							'</td>',
-							'<td>', arrival.phase, '</td>',
-							'<td class="time">', time, '</td>',
+							'</span></td>',
+							'<td><span>', arrival.phase, '</span></td>',
+							'<td class="time"><span>', time, '</span></td>',
 							'<td>', pick.evaluationMode.toUpperCase(), '</td>',
-							'<td class="residual">',
+							'<td class="residual"><span>',
 								parseFloat(arrival.timeResidual).toFixed(2),
-							'</td>',
-							'<td class="weight">',
+							'</span></td>',
+							'<td class="weight"><span>',
 								parseFloat(arrival.timeWeight).toFixed(2),
-							'</td>',
+							'</span></td>',
 						'</tr>');
 				}
 				buf.push(
@@ -326,7 +326,8 @@ define([
 		magError = magnitude.mag.uncertainty || NOT_SPECIFIED;
 		numStations = magnitude.stationCount || NOT_SPECIFIED;
 
-		buf.push('<section class="networkmagnitude">',
+		buf.push(
+			'<section class="networkmagnitude">',
 			'<h3>', source, '</h3>',
 			'<ul class="networkmagnitude-summary">',
 				'<li>',
@@ -391,18 +392,18 @@ define([
 
 				buf.push(
 					'<tr>',
-						'<td>',
+						'<td><span>',
 							station.networkCode,
 							' ', station.stationCode,
 							' ', station.channelCode,
 							' ', station.locationCode,
-						'</td>',
-						'<td>', type , '</td>',
-						'<td>', amp , '</td>',
-						'<td>', period , '</td>',
-						'<td>', status , '</td>',
-						'<td>', mag , '</td>',
-						'<td>', weight , '</td>',
+						'</span></td>',
+						'<td><span>', type , '</span></td>',
+						'<td><span>', amp , '</span></td>',
+						'<td><span>', period , '</span></td>',
+						'<td><span>', status , '</span></td>',
+						'<td><span>', mag , '</span></td>',
+						'<td><span>', weight , '</span></td>',
 					'</tr>');
 			}
 			buf.push('</tbody></table>');
