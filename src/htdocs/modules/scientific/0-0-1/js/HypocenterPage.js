@@ -375,22 +375,21 @@ define([
 				type = stationMagnitude.type;
 				amplitude = stationMagnitude.amplitude || {};
 				station = stationMagnitude.waveformID || amplitude.waveformID;
-				status = stationMagnitude.status;
 				mag = stationMagnitude.mag.value || '-';
 				weight = contribution.weight;
 
 				amp = '-';
 				period = '-';
-				status = '-';
-				if (amplitude) {
+
 					if (amplitude.genericAmplitude) {
 						amp = amplitude.genericAmplitude.value + amplitude.unit;
 					}
 					if (amplitude.period) {
 						period = amplitude.period.value + 's';
 					}
-					status = amplitude.evaluationMode;
-				}
+					status = amplitude.evaluationMode || stationMagnitude.status ||
+							'automatic';
+
 
 				buf.push(
 					'<tr>',
