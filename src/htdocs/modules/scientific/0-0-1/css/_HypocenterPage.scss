@@ -30,29 +30,6 @@
 
 }
 
-@media screen and (min-width:768px) {
-
-	.hypocenters-summary > .info {
-		padding:30px 10px 0 100px;
-		font-size:14px;
-	}
-
-	.hypocenter-phase {
-		font-size:smaller;
-		> tr {
-			> .distance,
-			> .azimuth,
-			> .arrival,
-			> .residual,
-			> .weight {
-				text-align:right;
-				margin-right:0.5em;
-			}
-		}
-	}
-
-}
-
 .origin-detail {
 	width: 100%;
 	max-width:750px;
@@ -161,6 +138,7 @@
 			color:#999;
 		}
 	}
+
 }
 
 // toggle station details
@@ -173,11 +151,14 @@
 	> .networkmagnitude-details {
 		display:block;
 	}
+
 }
-.networkmagnitude-mag{
+
+.networkmagnitude-mag {
 	display: block;
 }
-.networkmagnitude-type .networkmagnitude-mag{
+
+.networkmagnitude-type .networkmagnitude-mag {
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -185,7 +166,7 @@
 	font-size: .8em;
 }
 
-table.networkmagnitude-stations {
+.networkmagnitude-stations {
 	margin:15px 0 0;
 	font-size:13px;
 
@@ -196,6 +177,30 @@ table.networkmagnitude-stations {
 			padding:10px;
 		}
 	}
+
+}
+
+@media screen and (min-width:768px) {
+
+	.hypocenters-summary > .info {
+		padding:30px 10px 0 100px;
+		font-size:14px;
+	}
+
+	.hypocenter-phase {
+		font-size:smaller;
+		> tr {
+			> .distance,
+			> .azimuth,
+			> .arrival,
+			> .residual,
+			> .weight {
+				text-align:right;
+				margin-right:0.5em;
+			}
+		}
+	}
+
 }
 
 @media screen and (max-width:767px) {
@@ -212,7 +217,6 @@ table.networkmagnitude-stations {
 	}
 
 	.networkmagnitude-stations {
-		margin:15px 0;
 		border:none;
 		background:none;
 		text-align:left;
