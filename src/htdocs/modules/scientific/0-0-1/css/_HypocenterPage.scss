@@ -80,19 +80,6 @@
 	}
 }
 
-@media screen and (max-width:767px) {
-	.origin > table.responsive {
-		td:nth-of-type(1):before { content: 'NSCL'; }
-		td:nth-of-type(2):before { content: 'Distance'; }
-		td:nth-of-type(3):before { content: 'Azimuth'; }
-		td:nth-of-type(4):before { content: 'Phase'; }
-		td:nth-of-type(5):before { content: 'Arival Time'; }
-		td:nth-of-type(6):before { content: 'Status'; }
-		td:nth-of-type(7):before { content: 'Residual'; }
-		td:nth-of-type(8):before { content: 'Weight'; }
-	}
-}
-
 .networkmagnitude {
 	position:relative;
 	border:1px solid #ddd;
@@ -212,7 +199,19 @@ table.networkmagnitude-stations {
 }
 
 @media screen and (max-width:767px) {
-	table.networkmagnitude-stations {
+
+	.origin > table.responsive {
+		td:nth-of-type(1):before { content: 'NSCL'; }
+		td:nth-of-type(2):before { content: 'Distance'; }
+		td:nth-of-type(3):before { content: 'Azimuth'; }
+		td:nth-of-type(4):before { content: 'Phase'; }
+		td:nth-of-type(5):before { content: 'Arival Time'; }
+		td:nth-of-type(6):before { content: 'Status'; }
+		td:nth-of-type(7):before { content: 'Residual'; }
+		td:nth-of-type(8):before { content: 'Weight'; }
+	}
+
+	.networkmagnitude-stations {
 		margin:15px 0;
 		border:none;
 		background:none;
@@ -252,4 +251,5 @@ table.networkmagnitude-stations {
 			> td:nth-of-type(7):before { content: 'Weight'; }
 		}
 	}
+
 }
