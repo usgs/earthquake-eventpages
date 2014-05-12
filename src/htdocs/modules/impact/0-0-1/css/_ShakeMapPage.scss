@@ -1,16 +1,4 @@
 
-// toggle station details
-div.show-station-details {
-
-	> a.expand:before {
-		content: '- ';
-	}
-
-	// > .station-details {
-	// 	display:block;
-	// }
-}
-
 .station-flag {
 	color:#999;
 }

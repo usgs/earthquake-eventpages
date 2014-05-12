@@ -1,6 +1,6 @@
 
 .station-toggle,
-.networkmagnitude {
+.networkmagnitude-toggle {
 	position:relative;
 	border:1px solid #ddd;
 	background:#f6f6f6;
@@ -58,12 +58,15 @@
 	}
 }
 
-div.show-station-details {
+// toggle station details
+.show-station-details,
+section.show-networkmagnitude-details {
 	> a.expand:before {
 		content: '- ';
 	}
 
-	> .station-details {
+	> .station-details,
+	> .networkmagnitude-details {
 		display:block;
 	}
 }
@@ -242,6 +245,9 @@ table.networkmagnitude-stations {
 				margin-top:20px;
 			}
 
+			> td {
+				padding-left:80px;
+			}
 			> td:before {
 				padding-left:0;
 			}

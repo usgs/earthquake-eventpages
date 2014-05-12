@@ -327,7 +327,7 @@ define([
 		numStations = magnitude.stationCount || NOT_SPECIFIED;
 
 		buf.push(
-			'<section class="networkmagnitude">',
+			'<section class="networkmagnitude-toggle">',
 			'<h3>', source, '</h3>',
 			'<ul class="networkmagnitude-summary">',
 				'<li>',
