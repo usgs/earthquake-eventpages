@@ -256,12 +256,12 @@ define([
 
 					buf.push(
 						'<tr>',
-							'<td><span>',
+							'<td>',
 								station.networkCode,
 								' ', station.stationCode,
 								' ', station.channelCode,
 								' ', station.locationCode,
-							'</span></td>',
+							'</td>',
 							'<td class="distance"><span>',
 								parseFloat(arrival.distance).toFixed(2), '&deg;',
 							'</span></td>',
@@ -392,12 +392,12 @@ define([
 
 				buf.push(
 					'<tr>',
-						'<td><span>',
+						'<td>',
 							station.networkCode,
 							' ', station.stationCode,
 							' ', station.channelCode,
 							' ', station.locationCode,
-						'</span></td>',
+						'</td>',
 						'<td><span>', type , '</span></td>',
 						'<td><span>', amp , '</span></td>',
 						'<td><span>', period , '</span></td>',
