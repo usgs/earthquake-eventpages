@@ -330,7 +330,7 @@ define([
 			'<section class="networkmagnitude-toggle">',
 			'<h3>', source, '</h3>',
 			'<ul class="networkmagnitude-summary">',
-				'<li>',
+				'<li class="magnitude">',
 					'<span><strong>', mag, '</strong></span>',
 					'<abbr title="Magnitude">Mag</abbr>',
 				'</li>',
