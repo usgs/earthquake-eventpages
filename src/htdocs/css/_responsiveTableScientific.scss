@@ -153,6 +153,7 @@ table.networkmagnitude-stations {
 
 	> thead {
 		background:#999;
+		border:1px solid #CCC;
 
 		> tr > th {
 			padding:10px;
@@ -232,6 +233,8 @@ table.networkmagnitude-stations {
 		> tbody > tr {
 			text-align:left;
 			background:none;
+			border:none;
+			padding:0;
 
 			> td,
 			> td:before {
