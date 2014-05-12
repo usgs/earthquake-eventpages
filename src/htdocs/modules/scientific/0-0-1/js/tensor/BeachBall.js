@@ -220,7 +220,8 @@ define([
 		var x0 = this._x0,
 		    y0 = this._y0,
 		    radius = this._radius,
-		    mergeThreshold = radius / 8,
+		    mergeThreshold = radius / 50, // 1% of diameter
+		    splitTakeoffThreshold = 85 * D2R,
 		    tensor = this._tensor,
 		    T = _axisCache(tensor.T),
 		    N = _axisCache(tensor.N),
@@ -320,11 +321,15 @@ define([
 			az = azes[i];
 			azp = azes[(i === 0) ? azes.length - 1 : i - 1];
 			if (abs(abs(az.az - azp.az) - PI) < 10*D2R) {
-				// end a line
-				if (line !== null) {
-					line.endAz = azp;
-					lines.push(line);
-					line = null;
+				// lines should only end at edge of beachball
+				if (az.takeoff > splitTakeoffThreshold &&
+						azp.takeoff > splitTakeoffThreshold) {
+					// end a line
+					if (line !== null) {
+						line.endAz = azp;
+						lines.push(line);
+						line = null;
+					}
 				}
 			}
 			if (line === null) {
