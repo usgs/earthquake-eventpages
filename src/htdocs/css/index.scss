@@ -17,6 +17,9 @@ $td_padding: 10px;
 $th_padding: $td_padding * 2;
 @import 'responsiveTable';
 
+/* Scientific table extends responsive table */
+@import 'responsiveTableScientific';
+
 // --------------------------------------------------
 // Page-Wide Styles
 // --------------------------------------------------
