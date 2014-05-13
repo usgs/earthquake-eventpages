@@ -127,7 +127,8 @@ define([
 		Xhr.ajax({
 			url: this._dyfi.contents['cdi_zip.xml'].url,
 			success: function (data, xhr) {
-				callback(_this._buildResponsesTable(_this._buildResponsesArray(xhr.responseXML)));
+				callback(_this._buildResponsesTable(_this._buildResponsesArray(
+						xhr.responseXML)));
 			},
 			error: function () {
 				var output = document.createElement('p');
@@ -191,15 +192,16 @@ define([
 
 		if (records.length !== 0) {
 
-			responsesDiv = document.createElement('div');
-			responsesDiv.className = 'dyfi-responses';
+			responsesDiv = document.createDocumentFragment();
 			records.sort(ImpactUtil._sortByDistance);
 
 			var tableMarkup = [
 				'<thead>',
 					'<tr>',
 						'<th>Location</th>',
-						'<th title="Modified Mercalli Intensity">MMI</th>',
+						'<th>',
+							'<abbr title="Modified Mercalli Intensity">MMI</abbr>',
+						'</th>',
 						'<th title="Number of responses">Responses</th>',
 						'<th title="Distance from epicenter">Distance</th>',
 					'</tr>',
