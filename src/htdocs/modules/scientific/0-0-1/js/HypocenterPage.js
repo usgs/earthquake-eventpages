@@ -231,7 +231,7 @@ define([
 				buf.push(
 					'<section class="origin">',
 						'<h3>Phase Arrival Times</h3>',
-						'<table class="responsive">',
+						'<table class="responsive hypocenter-phase">',
 							'<thead><tr>',
 								'<th>',
 									'<abbr title="Network Station Channel Location">NSCL</abbr>',
@@ -244,7 +244,7 @@ define([
 								'<th>Residual</th>',
 								'<th>Weight</th>',
 							'</tr></thead>',
-							'<tbody class="hypocenter-phase">');
+							'<tbody>');
 				for (a = 0; a < arrivals.length; a++) {
 					arrival = arrivals[a];
 					pick = arrival.pick;
@@ -256,21 +256,21 @@ define([
 
 					buf.push(
 						'<tr>',
-							'<td>',
+							'<th scope="row">',
 								station.networkCode,
 								' ', station.stationCode,
 								' ', station.channelCode,
 								' ', station.locationCode,
-							'</td>',
+							'</th>',
 							'<td class="distance">',
 								parseFloat(arrival.distance).toFixed(2), '&deg;',
 							'</td>',
-							'<td class="arrival">',
+							'<td class="azimuth">',
 								parseFloat(arrival.azimuth).toFixed(2), '&deg;',
 							'</td>',
-							'<td>', arrival.phase, '</td>',
+							'<td class="phase">', arrival.phase, '</td>',
 							'<td class="time">', time, '</td>',
-							'<td>', pick.evaluationMode.toUpperCase(), '</td>',
+							'<td class="status">', pick.evaluationMode, '</td>',
 							'<td class="residual">',
 								parseFloat(arrival.timeResidual).toFixed(2),
 							'</td>',
@@ -326,10 +326,11 @@ define([
 		magError = magnitude.mag.uncertainty || NOT_SPECIFIED;
 		numStations = magnitude.stationCount || NOT_SPECIFIED;
 
-		buf.push('<section class="networkmagnitude">',
+		buf.push(
+			'<section class="networkmagnitude-toggle">',
 			'<h3>', source, '</h3>',
 			'<ul class="networkmagnitude-summary">',
-				'<li>',
+				'<li class="magnitude">',
 					'<span><strong>', mag, '</strong></span>',
 					'<abbr title="Magnitude">Mag</abbr>',
 				'</li>',
@@ -355,17 +356,17 @@ define([
 		} else {
 			buf.push(
 				'<table class="responsive networkmagnitude-stations">',
-				'<thead><tr>',
-					'<th>',
-						'<abbr title="Network Station Channel Location">Source</abbr>',
-					'</th>',
-					'<th>Type</th>',
-					'<th>Amplitude</th>',
-					'<th>Period</th>',
-					'<th>Status</th>',
-					'<th>Magnitude</th>',
-					'<th>Weight</th>',
-				'</tr></thead>',
+					'<thead><tr>',
+						'<th>',
+							'<abbr title="Network Station Channel Location">Source</abbr>',
+						'</th>',
+						'<th>Type</th>',
+						'<th>Amplitude</th>',
+						'<th>Period</th>',
+						'<th>Status</th>',
+						'<th>Magnitude</th>',
+						'<th>Weight</th>',
+					'</tr></thead>',
 				'<tbody>'
 			);
 
@@ -391,18 +392,18 @@ define([
 
 				buf.push(
 					'<tr>',
-						'<td>',
+						'<th scope="row">',
 							station.networkCode,
 							' ', station.stationCode,
 							' ', station.channelCode,
 							' ', station.locationCode,
-						'</td>',
-						'<td>', type , '</td>',
-						'<td>', amp , '</td>',
-						'<td>', period , '</td>',
-						'<td>', status , '</td>',
-						'<td>', mag , '</td>',
-						'<td>', weight , '</td>',
+						'</th>',
+						'<td class="type">', type , '</td>',
+						'<td class="amplitude">', amp , '</td>',
+						'<td class="period">', period , '</td>',
+						'<td class="status">', status , '</td>',
+						'<td class="magnitude">', mag , '</td>',
+						'<td class="weight">', weight , '</td>',
 					'</tr>');
 			}
 			buf.push('</tbody></table>');

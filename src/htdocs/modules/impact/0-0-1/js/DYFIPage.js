@@ -127,7 +127,8 @@ define([
 		Xhr.ajax({
 			url: this._dyfi.contents['cdi_zip.xml'].url,
 			success: function (data, xhr) {
-				callback(_this._buildResponsesTable(_this._buildResponsesArray(xhr.responseXML)));
+				callback(_this._buildResponsesTable(_this._buildResponsesArray(
+						xhr.responseXML)));
 			},
 			error: function () {
 				var output = document.createElement('p');
@@ -191,15 +192,16 @@ define([
 
 		if (records.length !== 0) {
 
-			responsesDiv = document.createElement('div');
-			responsesDiv.className = 'dyfi-responses';
+			responsesDiv = document.createDocumentFragment();
 			records.sort(ImpactUtil._sortByDistance);
 
 			var tableMarkup = [
 				'<thead>',
 					'<tr>',
 						'<th>Location</th>',
-						'<th title="Modified Mercalli Intensity">MMI</th>',
+						'<th>',
+							'<abbr title="Modified Mercalli Intensity">MMI</abbr>',
+						'</th>',
 						'<th title="Number of responses">Responses</th>',
 						'<th title="Distance from epicenter">Distance</th>',
 					'</tr>',
@@ -229,10 +231,10 @@ define([
 				var romanNumeral = ImpactUtil._translateMmi(record.cdi);
 
 				tableMarkup.push(
-						'<td>',
+						'<th scope="row">',
 							record.name, ', ' ,record.state, ' ', record.zip,
 							'<small>', record.country,'</small>',
-						'</td>',
+						'</th>',
 						'<td class="mmi">',
 							'<span class="mmi', romanNumeral, '">', romanNumeral, '</span>',
 						'</td>',

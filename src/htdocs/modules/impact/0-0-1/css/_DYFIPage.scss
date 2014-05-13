@@ -2,17 +2,17 @@
 
 	/* span with role="button" */
 	> .button {
-		display: inline-block;
-		color: #fff;
-		background: #4e7ab9;
-		border-radius: 3px;
-		padding: 8px 15px;
-		text-align: center;
-		text-decoration: none;
+		display:inline-block;
+		color:#fff;
+		background:#4e7ab9;
+		border-radius:3px;
+		padding:8px 15px;
+		text-align:center;
+		text-decoration:none;
 
 		&:hover {
 			cursor:pointer;
-			background-image: linear-gradient(to top, rgba(0,0,0,0.1) 0% ,rgba(0,0,0,0) 100%);
+			background-image:linear-gradient(to top, rgba(0,0,0,0.1) 0% ,rgba(0,0,0,0) 100%);
 		}
 	}
 
@@ -21,11 +21,11 @@
 			display:none;
 		}
 		.mmi span {
-			display: block;
-			padding: 10px 0;
-			text-align: center;
-			border-radius: 2px;
-			text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+			display:block;
+			padding:10px 0;
+			text-align:center;
+			border-radius:2px;
+			text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
 		}
 	}
 }
@@ -43,11 +43,11 @@
 }
 
 .dyfi-error {
-	background: #fcc;
+	background:#fcc;
 }
 
 .dyfi-info {
-	background: #eee;
+	background:#eee;
 }
 
 @media screen and (max-width: 767px) {
@@ -70,17 +70,19 @@
 		}
 	}
 
-	.dyfi {
-		.mmi span {
-			max-width: 50%;
+	.dyfi-responses {
+		.dyfi {
+			.mmi span {
+				padding:5px 0;
+				width:50px;
+			}
 		}
 	}
 
 	.dyfi {
 		/*** Label the data ***/
-		td:nth-of-type(1):before { content: "Location"; }
-		td:nth-of-type(2):before { content: "MMI"; }
-		td:nth-of-type(3):before { content: "Responses"; }
-		td:nth-of-type(4):before { content: "Distance"; }
+		td:nth-of-type(1):before { content:"MMI"; }
+		td:nth-of-type(2):before { content:"Responses"; }
+		td:nth-of-type(3):before { content:"Distance"; }
 	}
 }
