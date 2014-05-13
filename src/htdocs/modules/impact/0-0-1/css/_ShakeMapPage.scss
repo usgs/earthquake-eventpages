@@ -26,3 +26,15 @@
 .shakemap > .tablist-panel {
 	padding:0 10px;
 }
+
+@media screen and (max-width:767px) {
+
+	// Impact -> Shakemap -> Staion List
+	table.station-components {
+		td:nth-of-type(1):before { content: 'acc'; }
+		td:nth-of-type(2):before { content: 'vel'; }
+		td:nth-of-type(3):before { content: 'psa03'; }
+		td:nth-of-type(4):before { content: 'psa10'; }
+		td:nth-of-type(5):before { content: 'psa30'; }
+	}
+}
