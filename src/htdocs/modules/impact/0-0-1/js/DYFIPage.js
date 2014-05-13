@@ -229,10 +229,10 @@ define([
 				var romanNumeral = ImpactUtil._translateMmi(record.cdi);
 
 				tableMarkup.push(
-						'<td>',
+						'<th scope="row">',
 							record.name, ', ' ,record.state, ' ', record.zip,
 							'<small>', record.country,'</small>',
-						'</td>',
+						'</th>',
 						'<td class="mmi">',
 							'<span class="mmi', romanNumeral, '">', romanNumeral, '</span>',
 						'</td>',
