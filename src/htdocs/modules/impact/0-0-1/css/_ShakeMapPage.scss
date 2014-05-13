@@ -6,21 +6,21 @@
 .shakemap-summary {
 	> .info {
 		> span {
-			display: block;
-			margin: 0;
+			display:block;
+			margin:0;
 		}
 		> .mmi-summary {
-			display: inline-block;
-			padding: 3px 6px;
-			text-align: center;
-			border-radius: 3px;
+			display:inline-block;
+			padding:3px 6px;
+			text-align:center;
+			border-radius:3px;
 		}
 	}
 }
 
 .summary-thumbnail {
-	height: 100px;
-	width: 105px;
+	height:100px;
+	width:105px;
 }
 
 .shakemap > .tablist-panel {
@@ -30,12 +30,12 @@
 .station-summary {
 	> li {
 		&.mmiI {
-			border: 1px solid #eee;
+			border:1px solid #eee;
 		}
 
 		&.mmi {
 			color:#000;
-			text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+			text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
 			border-radius:2px;
 
 			> abbr {
@@ -52,33 +52,32 @@ div.station-details {
 		margin:15px 0;
 
 		> dt {
-			font-weight: bold;
-			float: left;
-			width: 60px;
+			font-weight:bold;
+			float:left;
+			width:60px;
 		}
 
 		> dd {
 			-webkit-margin-start:0;
 			-moz-margin-start:0;
-			padding-left: 70px;
+			padding-left:70px;
 
 			&:after {
-				content: '';
-				display: block;
-				clear: both;
+				content:'';
+				display:block;
+				clear:both;
 			}
 		}
 	}
 }
 
 @media screen and (max-width:767px) {
-
 	// Impact -> Shakemap -> Staion List
 	table.station-components {
-		td:nth-of-type(1):before { content: 'acc'; }
-		td:nth-of-type(2):before { content: 'vel'; }
-		td:nth-of-type(3):before { content: 'psa03'; }
-		td:nth-of-type(4):before { content: 'psa10'; }
-		td:nth-of-type(5):before { content: 'psa30'; }
+		td:nth-of-type(1):before { content:'acc'; }
+		td:nth-of-type(2):before { content:'vel'; }
+		td:nth-of-type(3):before { content:'psa03'; }
+		td:nth-of-type(4):before { content:'psa10'; }
+		td:nth-of-type(5):before { content:'psa30'; }
 	}
 }

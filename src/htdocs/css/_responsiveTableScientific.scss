@@ -11,15 +11,15 @@
 	> h3 {
 		display: block;
 		margin:0;
-		color: #444;
-		font-weight: normal;
-		padding-right: 70px;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+		color:#444;
+		font-weight:normal;
+		padding-right:70px;
+		overflow:hidden;
+		white-space:nowrap;
+		text-overflow:ellipsis;
 
 		> em {
-			padding-right: 10px;
+			padding-right:10px;
 			font-weight:bold;
 			font-style:normal;
 		}
@@ -32,14 +32,14 @@
 	> a.expand {
 		display: block;
 		position: absolute;
-		top: 3px;
-		right: 15px;
-		margin: 10px 0 0px;
-		padding: 0;
-		color: #00f;
-		cursor: pointer;
-		padding: 2px;
-		font-size: 12px;
+		top:3px;
+		right:15px;
+		margin:10px 0 0px;
+		padding:0;
+		color:#00f;
+		cursor:pointer;
+		padding:2px;
+		font-size:12px;
 
 		&:hover {
 			text-decoration: underline;
@@ -62,7 +62,7 @@
 .show-station-details,
 section.show-networkmagnitude-details {
 	> a.expand:before {
-		content: '- ';
+		content:'- ';
 	}
 
 	> .station-details,
@@ -73,7 +73,6 @@ section.show-networkmagnitude-details {
 
 .station-summary,
 .networkmagnitude-summary {
-	list-style:none;
 	margin:10px 0 0;
 	padding:0;
 
@@ -88,7 +87,7 @@ section.show-networkmagnitude-details {
 		> span {
 			display:block;
 			padding:0; // override styles from dyfi responses
-			max-width: 100%; // override styles from dyfi responses
+			max-width:100%; // override styles from dyfi responses
 		}
 
 		> abbr {
