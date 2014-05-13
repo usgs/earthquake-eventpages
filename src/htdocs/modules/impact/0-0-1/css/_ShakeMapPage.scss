@@ -71,6 +71,20 @@ div.station-details {
 	}
 }
 
+@media screen and (min-width:768px) {
+	table.station-components {
+		> tbody > tr {
+			> .acc,
+			> .vel,
+			> .psa03,
+			> .psa10,
+			> .psa30 {
+				text-align:right;
+			}
+		}
+	}
+}
+
 @media screen and (max-width:767px) {
 	// Impact -> Shakemap -> Staion List
 	table.station-components {

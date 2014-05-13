@@ -12,11 +12,6 @@
 /* svg image map */
 @import '../../../node_modules/hazdev-svgimagemap/src/svgimagemap/SvgImageMap.scss';
 
-/* responsive table */
-$td_padding: 10px;
-$th_padding: $td_padding * 2;
-@import 'responsiveTable';
-
 /* Scientific table begins responsive table then add more specific styles */
 @import 'responsiveTableScientific';
 

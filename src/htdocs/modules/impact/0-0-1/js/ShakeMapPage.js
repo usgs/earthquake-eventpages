@@ -434,11 +434,11 @@ define([
 			componentsMarkup.push([
 				'<tr>',
 					'<th scope="row">', component.name ,'</th>',
-					'<td>', this._formatComponent(component.acc), '</td>',
-					'<td>', this._formatComponent(component.vel), '</td>',
-					'<td>', this._formatComponent(component.psa03), '</td>',
-					'<td>', this._formatComponent(component.psa10), '</td>',
-					'<td>', this._formatComponent(component.psa30), '</td>',
+					'<td class="acc">', this._formatComponent(component.acc), '</td>',
+					'<td class="vel">', this._formatComponent(component.vel), '</td>',
+					'<td class="psa03">', this._formatComponent(component.psa03), '</td>',
+					'<td class="psa10">', this._formatComponent(component.psa10), '</td>',
+					'<td class="psa30">', this._formatComponent(component.psa30), '</td>',
 				'</tr>'
 			].join(''));
 		}

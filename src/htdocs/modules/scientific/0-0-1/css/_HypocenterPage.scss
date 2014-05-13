@@ -70,32 +70,11 @@
 	font-size:.8em;
 }
 
-table.hypocenter-phase {
-	> tbody {
-		> tr {
-			> .distance,
-			> .azimuth,
-			> .arrival,
-			> .residual,
-			> .weight {
-				text-align:right;
-			}
-		}
-	}
-}
-
 .networkmagnitude-summary {
 	.magnitude {
 		color:#000000 !important;
 		background-color:#FFFFFF !important;
 		box-shadow:0 0 1px #666;
-	}
-}
-
-@media screen and (min-width:768px) {
-	.hypocenters-summary > .info {
-		padding:30px 10px 0 100px;
-		font-size:14px;
 	}
 }
 
@@ -110,27 +89,58 @@ table.hypocenter-phase {
 		td:nth-of-type(5):before { content:'Status'; }
 		td:nth-of-type(6):before { content:'Residual'; }
 		td:nth-of-type(7):before { content:'Weight'; }
-		> tbody {
-			> tr {
-				> .distance,
-				> .azimuth,
-				> .arrival,
-				> .residual,
-				> .weight {
-					text-align:left;
-				}
-			}
-		}
 	}
 
 	// Scientific -> Hypocenter -> Magnitudes
 	table.networkmagnitude-stations {
-		td:nth-of-type(2):before { content:'Type'; }
-		td:nth-of-type(3):before { content:'Amplitude'; }
-		td:nth-of-type(4):before { content:'Period'; }
-		td:nth-of-type(5):before { content:'Status'; }
-		td:nth-of-type(6):before { content:'Magnitude'; }
-		td:nth-of-type(7):before { content:'Weight'; }
+		td:nth-of-type(1):before { content:'Type'; }
+		td:nth-of-type(2):before { content:'Amplitude'; }
+		td:nth-of-type(3):before { content:'Period'; }
+		td:nth-of-type(4):before { content:'Status'; }
+		td:nth-of-type(5):before { content:'Magnitude'; }
+		td:nth-of-type(6):before { content:'Weight'; }
+	}
+}
+
+@media screen and (min-width:768px) {
+	.hypocenters-summary > .info {
+		padding:30px 10px 0 100px;
+		font-size:14px;
 	}
 
+	table.hypocenter-phase {
+		> tbody {
+			> tr {
+				> .distance,
+				> .azimuth,
+				> .time,
+				> .residual,
+				> .weight {
+					text-align:right;
+				}
+
+				> .phase,
+				> .status {
+					text-align:center;
+				}
+			}
+		}
+	}
+	table.networkmagnitude-stations {
+		> tbody {
+			> tr {
+				> .amplitude,
+				> .period,
+				> .magnitude,
+				> .weight {
+					text-align:right;
+				}
+
+				> .type,
+				> .status {
+					text-align:center;
+				}
+			}
+		}
+	}
 }
