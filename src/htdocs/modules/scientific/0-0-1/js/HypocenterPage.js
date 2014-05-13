@@ -356,17 +356,17 @@ define([
 		} else {
 			buf.push(
 				'<table class="responsive networkmagnitude-stations">',
-				'<thead><tr>',
-					'<th>',
-						'<abbr title="Network Station Channel Location">Source</abbr>',
-					'</th>',
-					'<th>Type</th>',
-					'<th>Amplitude</th>',
-					'<th>Period</th>',
-					'<th>Status</th>',
-					'<th>Magnitude</th>',
-					'<th>Weight</th>',
-				'</tr></thead>',
+					'<thead><tr>',
+						'<th>',
+							'<abbr title="Network Station Channel Location">Source</abbr>',
+						'</th>',
+						'<th>Type</th>',
+						'<th>Amplitude</th>',
+						'<th>Period</th>',
+						'<th>Status</th>',
+						'<th>Magnitude</th>',
+						'<th>Weight</th>',
+					'</tr></thead>',
 				'<tbody>'
 			);
 
@@ -392,18 +392,18 @@ define([
 
 				buf.push(
 					'<tr>',
-						'<td>',
+						'<th scope="row">',
 							station.networkCode,
 							' ', station.stationCode,
 							' ', station.channelCode,
 							' ', station.locationCode,
-						'</td>',
-						'<td><span>', type , '</span></td>',
-						'<td><span>', amp , '</span></td>',
-						'<td><span>', period , '</span></td>',
-						'<td><span>', status , '</span></td>',
-						'<td><span>', mag , '</span></td>',
-						'<td><span>', weight , '</span></td>',
+						'</th>',
+						'<td>', type , '</td>',
+						'<td>', amp , '</td>',
+						'<td>', period , '</td>',
+						'<td>', status , '</td>',
+						'<td>', mag , '</td>',
+						'<td>', weight , '</td>',
 					'</tr>');
 			}
 			buf.push('</tbody></table>');
