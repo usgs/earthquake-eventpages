@@ -70,6 +70,28 @@
 	font-size: .8em;
 }
 
+table.hypocenter-phase {
+	> tbody {
+		> tr {
+			> .distance,
+			> .azimuth,
+			> .arrival,
+			> .residual,
+			> .weight {
+				text-align:right;
+			}
+		}
+	}
+}
+
+.networkmagnitude-summary {
+	.magnitude {
+		color:#000000 !important;
+		background-color:#FFFFFF !important;
+		box-shadow: 0 0 1px #666;
+	}
+}
+
 @media screen and (min-width:768px) {
 	.hypocenters-summary > .info {
 		padding:30px 10px 0 100px;
