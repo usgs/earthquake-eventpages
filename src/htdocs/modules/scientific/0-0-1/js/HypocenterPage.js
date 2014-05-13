@@ -381,7 +381,7 @@ define([
 				period = '-';
 
 				if (amplitude.genericAmplitude) {
-					amp = amplitude.genericAmplitude.value + amplitude.unit;
+					amp = amplitude.genericAmplitude.value + ( amplitude.unit || '' );
 				}
 				if (amplitude.period) {
 					period = amplitude.period.value + 's';
