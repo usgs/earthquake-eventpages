@@ -433,7 +433,7 @@ define([
 
 			componentsMarkup.push([
 				'<tr>',
-					'<td>', component.name ,'</td>',
+					'<th scope="row">', component.name ,'</th>',
 					'<td>', this._formatComponent(component.acc), '</td>',
 					'<td>', this._formatComponent(component.vel), '</td>',
 					'<td>', this._formatComponent(component.psa03), '</td>',
