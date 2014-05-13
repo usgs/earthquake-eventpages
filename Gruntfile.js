@@ -206,6 +206,7 @@ module.exports = function (grunt) {
 
 						tablist: '../../../node_modules/hazdev-tablist/src/tablist',
 						svgimagemap: '../../../node_modules/hazdev-svgimagemap/src/svgimagemap',
+						quakeml: '../../../node_modules/quakeml-parser-js/src/quakeml',
 						theme: '../../../node_modules/hazdev-template/src/htdocs/js',
 
 
