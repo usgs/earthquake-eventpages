@@ -183,11 +183,11 @@ table.networkmagnitude-stations {
 
 	// Impact -> Shakemap -> Staion List
 	table.station-components {
-		td:nth-of-type(2):before { content: 'acc:'; }
-		td:nth-of-type(3):before { content: 'vel:'; }
-		td:nth-of-type(4):before { content: 'psa03:'; }
-		td:nth-of-type(5):before { content: 'psa10:'; }
-		td:nth-of-type(6):before { content: 'psa30:'; }
+		td:nth-of-type(2):before { content: 'acc'; }
+		td:nth-of-type(3):before { content: 'vel'; }
+		td:nth-of-type(4):before { content: 'psa03'; }
+		td:nth-of-type(5):before { content: 'psa10'; }
+		td:nth-of-type(6):before { content: 'psa30'; }
 	}
 
 	// Scientific -> Hypocenter -> Phases
@@ -256,6 +256,7 @@ table.networkmagnitude-stations {
 
 			> td {
 				padding-left:80px;
+				color:#333;
 			}
 			> td:before {
 				padding-left:0;
