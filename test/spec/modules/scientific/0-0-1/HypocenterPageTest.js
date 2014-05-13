@@ -1,4 +1,4 @@
-/* global define, describe, it, beforeEach, afterEach */
+/* global define, describe, it, beforeEach, afterEach, before */
 define([
 	'chai',
 	'sinon',
@@ -10,8 +10,7 @@ define([
 
 	'scientific/ScientificModule',
 	'scientific/HypocenterPage',
-	'quakeml/Quakeml',
-	'tablist/TabList'
+	'quakeml/Quakeml'
 ], function (
 	chai,
 	sinon,
@@ -23,8 +22,7 @@ define([
 
 	ScientificModule,
 	HypocenterPage,
-	Quakeml,
-	TabList
+	Quakeml
 ) {
 	'use strict';
 
@@ -49,12 +47,6 @@ define([
 
 	detailOptions = Util.extend({}, summaryOptions, {code: 'us_usb000kqnc'});
 	DetailPage = new HypocenterPage(detailOptions);
-
-	var getClickEvent = function () {
-		var clickEvent = document.createEvent('MouseEvents');
-		clickEvent.initMouseEvent('click', true, true, window, 1, 0, 0);
-		return clickEvent;
-	};
 
 	before( function (done) {
 		Xhr.ajax({
@@ -84,15 +76,6 @@ define([
 		});
 
 		describe('getContent()', function () {
-			var myTabList,
-			    tabListContents = [],
-			    tabListDiv = document.createElement('section');
-
-			tabListContents.push({
-				title: 'Tab 1',
-				content: 'originDetails or something like that'
-			});
-
 			it('Can get summary information.', function () {
 				var content = SummaryPage.getContent();
 				expect(content).to.be.a('object');
