@@ -185,7 +185,7 @@ module.exports = function (grunt) {
 			all: {
 				options: {
 					urls: [
-						'http://localhost:<%= connect.test.options.port %>/index.html'
+						'http://<%= connect.options.hostname %>:<%= connect.test.options.port %>/index.html'
 					]
 				}
 			}
@@ -360,7 +360,7 @@ module.exports = function (grunt) {
 				overwrite: true,
 				replacements: [
 					{
-						from: '<script src="http://localhost:35729/livereload.js?snipver=1"></script>',
+						from: '<script src="http://<%= connect.options.hostname %>:35729/livereload.js?snipver=1"></script>',
 						to: ''
 					}
 				]
@@ -368,13 +368,13 @@ module.exports = function (grunt) {
 		},
 		open: {
 			dev: {
-				path: 'http://localhost:<%= connect.dev.options.port %>'
+				path: 'http://<%= connect.options.hostname %>:<%= connect.dev.options.port %>'
 			},
 			test: {
-				path: 'http://localhost:<%= connect.test.options.port %>'
+				path: 'http://<%= connect.options.hostname %>:<%= connect.test.options.port %>'
 			},
 			dist: {
-				path: 'http://localhost:<%= connect.dist.options.port %>'
+				path: 'http://<%= connect.options.hostname %>:<%= connect.dist.options.port %>'
 			}
 		},
 		clean: {
