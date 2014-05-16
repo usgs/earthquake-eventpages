@@ -105,11 +105,6 @@ $dyfi-question-indent: 1.3em;
 		font-size:.8em;
 		color:#333;
 	}
-
-	> button {
-		width:100%;
-		@include clickable();
-	}
 }
 
 .dyfi-text-input {
@@ -126,4 +121,98 @@ $dyfi-question-indent: 1.3em;
 		width:100%;
 		min-height:100px;
 	}
+}
+
+body,html {
+	// TODO :: Programatically add/remove this style when showing/hiding dialog
+	overflow-y:hidden;
+}
+.modal {
+	position:fixed !important;
+	padding:8px 0;
+}
+
+.modal-dialog.dyfi-form {
+	position:fixed;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	margin:10px;
+	max-width:640px;
+	max-height:640px;
+
+	// Overwrite default modal styles
+	width:auto;
+	height:auto;
+
+	> .modal-header {
+		display:none;
+	}
+
+	> .modal-content {
+		height:100%;
+		padding-bottom:50px;
+		-webkit-overflow-scrolling:touch;
+
+		// Overwrite default modal styles
+		max-height:none;
+
+		> .modal-header {
+			background:none;
+			padding:0;
+
+			> h3 {
+				margin-bottom:0;
+			}
+		}
+	}
+
+	> .modal-footer {
+		position:absolute;
+		right:0;
+		bottom:0;
+		left:0;
+		background-color:#FFF;
+		-moz-box-shadow:0 -2px 5px rgba(53,53,53,.5);
+		-webkit-box-shadow:0 -2px 5px rgba(53,53,53,.5);
+		box-shadow:0 -2px 5px rgba(53,53,53,.5);
+		margin:0;
+		padding:8px 12px 8px;
+
+		> button {
+			margin:2px 2px 2px 4px;
+			padding:2px 6px 3px 6px;
+			cursor:pointer;
+
+			&.dyfi-button-cancel {
+				margin-left:8px;
+				background:none;
+				border:none;
+				color:#00C;
+				text-decoration:underline;
+			}
+		}
+	}
+}
+
+// Center modal once it stops getting wider
+@media screen and (min-width:660px) {
+.modal-dialog.dyfi-form {
+	margin:10px auto;
+}
+}
+// Detach modal from top anchor and slide down
+@media screen and (min-height:660px) {
+.modal-dialog.dyfi-form {
+	margin-bottom:1.52%;
+	margin-top:auto;
+}
+}
+// Sufficient space on top to see large USGS logo
+@media screen and (min-height:722px) {
+.modal-dialog.dyfi-form {
+	margin-bottom:auto;
+	margin-top:72px;
+}
 }
