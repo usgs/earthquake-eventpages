@@ -6,6 +6,8 @@ define([
 
 	'util/Util',
 	'util/Xhr',
+	'util/Events',
+	'mvc/ModalView',
 
 	'questionview/QuestionView',
 	'locationview/LocationView'
@@ -16,6 +18,8 @@ define([
 
 	Util,
 	Xhr,
+	Events,
+	ModalView,
 
 	QuestionView,
 	LocationView
@@ -32,6 +36,7 @@ define([
 
 	var DYFIFormPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options || {});
+		this._dialog = null;
 
 		if (SUPPORTED_LANGUAGES.indexOf(this._options.language) === -1) {
 			this._options.language = DEFAULTS.language;
@@ -42,47 +47,128 @@ define([
 	DYFIFormPage.prototype = Object.create(EventModulePage.prototype);
 
 	DYFIFormPage.prototype._setHeaderMarkup = function () {
-		this._header.innerHTML = '<h2>Did you feel it? Tell Us!';
+		this._header.innerHTML = '<h2>Did you feel it? Tell Us!</h2>';
+	};
+
+	/**
+	 * Content is already generated in the _setContentMarkup method. This method
+	 * returns that created markup, however since this is a ModalView form of a
+	 * page, this page must manually show the form again.
+	 *
+	 */
+	DYFIFormPage.prototype.getContent = function () {
+		this._showForm();
+		return EventModulePage.prototype.getContent.apply(this, arguments);
 	};
 
 	DYFIFormPage.prototype._setContentMarkup = function () {
-		var _this = this;
+		// TODO :: Make this better.
+		this._content.innerHTML = 'A dialog should automatically appear&hellip;';
+	};
 
-		// TODO :: Maybe show a loading screen?
+	DYFIFormPage.prototype._showForm = function () {
+		var _this = this,
+		    latAns = null,
+		    lonAns = null,
+		    feltAns = null;
 
-		Xhr.ajax({
-			url: require.toUrl('impact/dyfi/' + this._options.language + '.json'),
-			success: function (data) {
-				_this._renderQuestions(data);
-			},
-			error: function () {
-				// TODO :: Update container with error message
+		if (this._dialog === null) {
+			this._dialog = 'pending';
+			// Fetch form text information (labels etc...) and then...
+			Xhr.ajax({
+				url: require.toUrl('impact/dyfi/' + this._options.language + '.json'),
+				success: function (data) {
+					// ... create the modal dialog
+					_this._createDialog(data);
+					// ... and show it!
+					_this._showForm();
+				},
+				error: function () {
+					// TODO :: Update container with error message
+				}
+			});
+		} else if (this._dialog === 'pending') {
+			// Already fetching labels via XHR from previous call, but not ready yet.
+			// Just wait until ready. XHR will attempt to open when ready.
+		} else {
+			// Show form if ready
+			this._dialog.show();
+			this._updateSubmitEnabled();
+		}
+	};
+
+	DYFIFormPage.prototype._hideForm = function () {
+		this._dialog.hide();
+		window.history.go(-1);
+	};
+
+	DYFIFormPage.prototype._updateSubmitEnabled = function () {
+		var questions = this._questions,
+		    latAns = questions.ciim_mapLat.getAnswers(),
+		    lonAns = questions.ciim_mapLon.getAnswers(),
+		    feltAns = questions.fldSituation_felt.getAnswers();
+
+			// Check current form status. Enable/disable button
+			if (latAns === null || typeof latAns.value === 'undefined' ||
+					lonAns === null || typeof lonAns.value === 'undefined' ||
+					feltAns === null || typeof feltAns.value === 'undefined') {
+				this._dialog._el.querySelector('.dyfi-button-submit').setAttribute(
+						'disabled', 'disabled');
+			} else {
+				this._dialog.el.querySelector('.dyfi-button-submit').removeAttribute('disabled');
 			}
-		});
 	};
 
 	DYFIFormPage.prototype._onSubmit = function (/*event*//*, domElement*/) {
-		// TODO ::
+		// TODO :: Process form and submit to back-end
+
+		this._hideForm();
+	};
+
+	DYFIFormPage.prototype._onCancel = function (/*event*//*, domElement*/) {
+		this._hideForm();
+	};
+
+	DYFIFormPage.prototype._createDialog = function (data) {
+		this._dialog = new ModalView(this._renderQuestions(data), {
+			title: '',
+			classes: ['dyfi-form'],
+			closable: false,
+			buttons: [
+				{
+					text: data.submit.label,
+					classes: ['dyfi-button-submit'],
+					callback: this._onSubmit.bind(this)
+				},
+				{
+					text: 'Cancel',
+					classes: ['dyfi-button-cancel'],
+					callback: this._onCancel.bind(this)
+				}
+			]
+		});
 	};
 
 	DYFIFormPage.prototype._renderQuestions = function (data) {
 		var fragment = document.createDocumentFragment(),
+		    header = fragment.appendChild(document.createElement('header')),
 		    baseQuestionsEl = fragment.appendChild(document.createElement('div')),
 		    toggleContainer = fragment.appendChild(document.createElement('div')),
 		    moreQuestionsEl = fragment.appendChild(document.createElement('div')),
-		    submitButton = fragment.appendChild(document.createElement('button')),
 		    locationInfo = data.locationInfo,
 		    baseQuestions = data.baseQuestions,
 		    toggleInfo = data.toggleInfo,
 		    moreQuestions = data.moreQuestions,
 		    contactInfo = data.contactInfo,
+		    updateSubmitEnabled = this._updateSubmitEnabled.bind(this),
 		    questions = {};
 
 		baseQuestionsEl.classList.add('dyfi-required-questions');
 		toggleContainer.classList.add('dyfi-toggle-control');
 		moreQuestionsEl.classList.add('dyfi-optional-questions');
-		moreQuestionsEl.classList.add('hidden');
-		submitButton.classList.add('dyfi-submit');
+
+		header.classList.add('modal-header');
+		header.innerHTML = '<h3>Felt Report</h3>';
 
 		// Handle location question
 		__create_location_questions(locationInfo, baseQuestionsEl, questions);
@@ -91,7 +177,7 @@ define([
 		__create_questions(baseQuestions, baseQuestionsEl, questions);
 
 		// Visual control to show/hide moreQuestionsEl
-		__create_toggle_control(toggleInfo, toggleContainer, moreQuestionsEl);
+		__create_toggle_control(toggleInfo, toggleContainer);
 
 		// Loop over each additional question and create a QuestionView
 		__create_questions(moreQuestions, moreQuestionsEl, questions);
@@ -102,20 +188,18 @@ define([
 		// Hold on to this for later it is now an object{field: view}
 		this._questions = questions;
 
-		// Add a submit button handler
-		submitButton.innerHTML = data.submit.label;
-		submitButton.addEventListener('click', (function (dyfiForm) {
-			return function (ev) {
-				dyfiForm._onSubmit(ev, this);
-			};
-		})(this));
 
-		// TODO :: More interaction like toggle additional questions section
-		//         and progress meter.
+		// When location or felt response changes update submit button enabled
+		Events.prototype.on.call(this._questions.ciim_mapLat, 'change',
+				updateSubmitEnabled);
+		Events.prototype.on.call(this._questions.ciim_mapLon, 'change',
+				updateSubmitEnabled);
+		this._questions.fldSituation_felt.on('change', updateSubmitEnabled);
 
-		// Put content in place
-		this._content.innerHTML = '';
-		this._content.appendChild(fragment);
+		// TODO :: More interaction like progress meter.
+
+
+		return fragment;
 	};
 
 
@@ -131,6 +215,29 @@ define([
 		section.classList.add('question');
 		label.innerHTML = questionInfo.label;
 		button.innerHTML = questionInfo.button;
+
+		// Add QuestionView-like objects to the list of questions
+		questions.ciim_mapLat = {
+			getAnswers: function () {
+				return {value: curLoc.latitude};
+			}
+		};
+		questions.ciim_mapLat.prototype = Object.create(QuestionView.prototype);
+		Events.apply(questions.ciim_mapLat);
+
+		questions.ciim_mapLon = {
+			getAnswers: function () {
+				return {value: curLoc.longitude};
+			}
+		};
+		questions.ciim_mapLon.prototype = Object.create(QuestionView.prototype);
+		Events.apply(questions.ciim_mapLon);
+
+		questions.ciim_mapConfidence = {
+			getAnswers: function () {
+				return {value: curLoc.confidence};
+			}
+		};
 
 		locationView = new LocationView({
 			callback: function (locationObject) {
@@ -165,29 +272,15 @@ define([
 
 				button.classList.add('as-link');
 				button.innerHTML = questionInfo.buttonUpdate;
+
+				Events.prototype.trigger.call(questions.ciim_mapLat, 'change');
+				Events.prototype.trigger.call(questions.ciim_mapLon, 'change');
 			}
 		});
 
 		button.addEventListener('click', function () {
 			locationView.show({initialLocation: curLoc});
 		});
-
-		// Add QuestionView-like objects to the list of questions
-		questions.ciim_mapLat = {
-			getAnswers: function () {
-				return {value: curLoc.latitude};
-			}
-		};
-		questions.ciim_mapLon = {
-			getAnswers: function () {
-				return {value: curLoc.longitude};
-			}
-		};
-		questions.ciim_mapConfidence = {
-			getAnswers: function () {
-				return {value: curLoc.confidence};
-			}
-		};
 
 		// Append content to container
 		container.appendChild(section);
@@ -222,18 +315,11 @@ define([
 
 	};
 
-	var __create_toggle_control = function (info, control, target) {
+	var __create_toggle_control = function (info, control) {
 		var fragment = document.createDocumentFragment(),
-		    description = fragment.appendChild(document.createElement('p')),
-		    button = fragment.appendChild(document.createElement('button'));
+		    description = fragment.appendChild(document.createElement('p'));
 
-		button.innerHTML = info.button;
 		description.innerHTML = info.description;
-
-		button.addEventListener('click', function () {
-			target.classList.toggle('hidden');
-		});
-
 		control.appendChild(fragment);
 	};
 
