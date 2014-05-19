@@ -20,13 +20,13 @@
 	</div>
 
 	<?php
-		if ($PROPERTIES['tsunami'] == '1' || $PROPERTIES['alert'] != null ||
-				$PROPERTIES['mmi'] != null || $PROPERTIES['cdi'] != null) {
+		if ($PROPERTIES['tsunami'] === 1 || $PROPERTIES['alert'] !== null ||
+				$PROPERTIES['mmi'] !== null || $PROPERTIES['cdi'] !== null) {
 	?>
 	<div class="impact-bubbles clearfix">
 	<?php
 
-	if ($PROPERTIES['cdi'] != null) {
+	if ($PROPERTIES['cdi'] !== null) {
 		$romanCDI = $ROMANS[round(floatval($PROPERTIES['cdi']))];
 		echo '<a href="#impact_dyfi" title="Did You Feel It? maximum reported intensity ' .
 				'(' . intval($PROPERTIES['felt']) . 'reports)" class="mmi' .
@@ -34,21 +34,21 @@
 				'</strong></a>';
 	}
 
-	if ($PROPERTIES['mmi'] != null) {
+	if ($PROPERTIES['mmi'] !== null) {
 		$romanMMI = $ROMANS[round(floatval($PROPERTIES['mmi']))];
 		echo '<a href="#impact_shakemap" title="ShakeMap maximum estimated intensity" ' .
 				'class="mmi' . $romanMMI . '">ShakeMap - <strong ' .
 				'class="roman">' . $romanMMI . '</strong></a> ';
 	}
 
-	if ($PROPERTIES['alert'] != null) {
+	if ($PROPERTIES['alert'] !== null) {
 		echo '<a href="#impact_pager" title="PAGER estimated impact alert level" ' .
 				'class="pager-alertlevel-' . strtolower($PROPERTIES['alert']) .
 				'">PAGER - <strong class="roman">' . strtoupper($PROPERTIES['alert']) .
 				'</strong></a> ';
 	}
 
-	if ($PROPERTIES['tsunami'] == '1') {
+	if ($PROPERTIES['tsunami'] === 1) {
 		echo '<a href="http://www.tsunami.gov/" title="Tsunami Warning Center" ' .
 				'class="tsunami"><img src="images/logos/tsunami.jpg" ' .
 				'alt="Tsunami Warning Center"/></a> ';
@@ -74,7 +74,7 @@
 					if (!isset($contents['contents.xml'])) { continue; }
 
 					// Skip if product does not specify links (other than contents.xml)
-					if (count($contents) == 0) { continue; }
+					if (count($contents) === 0) { continue; }
 
 					print
 						'<dt>' .
