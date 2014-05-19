@@ -64,6 +64,13 @@ define([
 					hash: 'finitefault'
 				},
 				productTypes: ['finite-fault']
+			},
+			{
+				className: 'scientific/IrisProductsPage',
+				options: {
+					title: 'IRIS Products',
+					hash: 'iris'
+				}
 			}
 		]
 	};

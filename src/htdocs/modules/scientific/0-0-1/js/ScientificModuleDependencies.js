@@ -4,13 +4,15 @@ define([
 	'scientific/HypocenterPage',
 	'scientific/MomentTensorPage',
 	'scientific/FocalMechanismPage',
-	'scientific/FiniteFaultPage'
+	'scientific/FiniteFaultPage',
+	'scientific/IrisProductsPage'
 ], function (
 	ScientificSummaryPage,
 	HypocenterPage,
 	MomentTensorPage,
 	FocalMechanismPage,
-	FiniteFaultPage
+	FiniteFaultPage,
+	IrisProductsPage
 ) {
 	'use strict';
 
@@ -19,7 +21,8 @@ define([
 		'scientific/HypocenterPage': HypocenterPage,
 		'scientific/MomentTensorPage': MomentTensorPage,
 		'scientific/FocalMechanismPage': FocalMechanismPage,
-		'scientific/FiniteFaultPage': FiniteFaultPage
+		'scientific/FiniteFaultPage': FiniteFaultPage,
+		'scientific/IrisProductsPage': IrisProductsPage
 	};
 
 });
