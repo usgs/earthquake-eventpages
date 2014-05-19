@@ -85,7 +85,7 @@ define([
 	};
 
 	IrisProductsPage.prototype.getIrisLinks = function (eventid) {
-		return '<dl>' +
+		return '<dl class="iris-products">' +
 				'<dt>' +
 					'<a href="' + IRIS_SPUD_URL + eventid + '">' +
 						'Searchable Product Depository (SPUD) Event Page' +
