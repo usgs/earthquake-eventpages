@@ -19,6 +19,33 @@ $dyfi-question-indent: 1.3em;
 	cursor:pointer;
 }
 
+@mixin button {
+	font-size:12px;
+	padding:8px 12px;
+	border:none;
+	border-radius:2px;
+	color:#FFF;
+	background:#2EA96A;
+	text-shadow:0 0 1px rgba(0,0,0,0.6);
+	cursor:pointer;
+
+	&:hover {
+		background-image:linear-gradient(to bottom, rgba(0,0,0,0) 0%,
+				rgba(0,0,0,0.2) 100%);
+	}
+
+	&.disabled, &[disabled] {
+		background:#e9e9e9;
+		color:#777;
+		text-shadow:none;
+		cursor:text;
+
+		&:hover {
+			background-image:none;
+		}
+	}
+}
+
 @mixin question-question {
 	margin-bottom:5px;
 	font-weight:bold;
@@ -27,6 +54,22 @@ $dyfi-question-indent: 1.3em;
 
 @mixin question-answer {
 	font-size:.9em;
+}
+
+@mixin dyfi-callout {
+	background-color:#EEE;
+	border:1px solid #999;
+	padding:16px;
+}
+
+.dyfi-optional-callout {
+	@include dyfi-callout();
+	color:#333;
+	font-size:.8em;
+
+	> strong {
+		display:block;
+	}
 }
 
 .question {
@@ -74,8 +117,7 @@ $dyfi-question-indent: 1.3em;
 	}
 
 	> button {
-		width:100%;
-		@include clickable();
+		@include button();
 
 		&.as-link {
 			display:inline;
@@ -86,6 +128,7 @@ $dyfi-question-indent: 1.3em;
 			background:none;
 			color:#00C;
 			text-decoration:underline;
+			text-shadow:none;
 		}
 	}
 
@@ -96,14 +139,6 @@ $dyfi-question-indent: 1.3em;
 			display:block;
 			font-size:1.5em;
 		}
-	}
-}
-
-.dyfi-toggle-control {
-	> p {
-		margin:0;
-		font-size:.8em;
-		color:#333;
 	}
 }
 
@@ -120,6 +155,25 @@ $dyfi-question-indent: 1.3em;
 	> textarea {
 		width:100%;
 		min-height:100px;
+	}
+}
+
+.dyfi-contact-questions {
+	@include dyfi-callout();
+	margin-top:20px;
+	padding-bottom:6px;
+
+	> h4 {
+		margin-bottom:0;
+		line-height:1.0;
+
+		> .subheader {
+			display:block;
+			color:#666;
+			font-size:.7em;
+			font-weight:normal;
+			font-style:italic;
+		}
 	}
 }
 
@@ -191,6 +245,10 @@ body,html {
 				border:none;
 				color:#00C;
 				text-decoration:underline;
+			}
+
+			&.dyfi-button-submit {
+				@include button();
 			}
 		}
 	}
