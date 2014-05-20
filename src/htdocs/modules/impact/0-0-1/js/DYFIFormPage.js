@@ -85,19 +85,8 @@ define([
 		var _this = this;
 
 		if (this._dialog === null) {
-			this._dialog = 'pending';
-			// Fetch form text information (labels etc...) and then...
-			Xhr.ajax({
-				url: require.toUrl('impact/dyfi/' + this._options.language + '.json'),
-				success: function (data) {
-					// ... create the modal dialog
-					_this._createDialog(data);
-					// ... and show it!
-					_this._showForm();
-				},
-				error: function () {
-					// TODO :: Update container with error message
-				}
+			this._fetchDialog(function () {
+				_this._showForm();
 			});
 		} else if (this._dialog === 'pending') {
 			// Already fetching labels via XHR from previous call, but not ready yet.
@@ -139,6 +128,29 @@ define([
 
 	DYFIFormPage.prototype._onCancel = function (/*event*//*, domElement*/) {
 		this._hideForm();
+	};
+
+	DYFIFormPage.prototype._fetchDialog = function (callback) {
+		var _this = this;
+
+		this._dialog = 'pending';
+
+		// Fetch form text information (labels etc...) and then...
+		Xhr.ajax({
+			url: require.toUrl('impact/dyfi/' + this._options.language + '.json'),
+			success: function (data) {
+				// ... create the modal dialog
+				_this._createDialog(data);
+
+				// ... and show it!
+				if (callback && typeof callback === 'function') {
+					callback();
+				}
+			},
+			error: function () {
+				// TODO :: Update container with error message
+			}
+		});
 	};
 
 	DYFIFormPage.prototype._createDialog = function (data) {
