@@ -67,10 +67,7 @@ define([
 	};
 
 	DYFIFormPage.prototype._showForm = function () {
-		var _this = this,
-		    latAns = null,
-		    lonAns = null,
-		    feltAns = null;
+		var _this = this;
 
 		if (this._dialog === null) {
 			this._dialog = 'pending';
