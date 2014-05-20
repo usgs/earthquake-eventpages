@@ -152,6 +152,7 @@ define([
 		    baseQuestionsEl = fragment.appendChild(document.createElement('div')),
 		    toggleContainer = fragment.appendChild(document.createElement('div')),
 		    moreQuestionsEl = fragment.appendChild(document.createElement('div')),
+		    contactContainer = document.createElement('div'),
 		    locationInfo = data.locationInfo,
 		    baseQuestions = data.baseQuestions,
 		    toggleInfo = data.toggleInfo,
@@ -161,8 +162,9 @@ define([
 		    questions = {};
 
 		baseQuestionsEl.classList.add('dyfi-required-questions');
-		toggleContainer.classList.add('dyfi-toggle-control');
+		toggleContainer.classList.add('dyfi-optional-callout');
 		moreQuestionsEl.classList.add('dyfi-optional-questions');
+		contactContainer.classList.add('dyfi-contact-questions');
 
 		header.classList.add('modal-header');
 		header.innerHTML = '<h3>Felt Report</h3>';
@@ -179,8 +181,14 @@ define([
 		// Loop over each additional question and create a QuestionView
 		__create_questions(moreQuestions, moreQuestionsEl, questions);
 
-		// Handle additional comments and contact information
-		__create_text_questions(contactInfo, moreQuestionsEl, questions);
+		// Handle additional comments
+		__create_text_questions(data.comments, moreQuestionsEl, questions);
+
+		// Handle contact information
+		contactContainer.innerHTML = '<h4>Contact Information' +
+				'<span class="subheader">Optional</span></h4>';
+		__create_text_questions(contactInfo, contactContainer, questions);
+		moreQuestionsEl.appendChild(contactContainer);
 
 		// Hold on to this for later it is now an object{field: view}
 		this._questions = questions;
@@ -313,11 +321,7 @@ define([
 	};
 
 	var __create_toggle_control = function (info, control) {
-		var fragment = document.createDocumentFragment(),
-		    description = fragment.appendChild(document.createElement('p'));
-
-		description.innerHTML = info.description;
-		control.appendChild(fragment);
+		control.innerHTML = info.description;
 	};
 
 	var __create_text_questions = function (questionInfo, container, questions) {
