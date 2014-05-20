@@ -17,7 +17,7 @@
 
 	"toggleInfo": {
 		"button": "Additional Observations",
-		"description": "Help make a shaking intensity map by telling us about the shaking at your location"
+		"description": "<strong>The remainder of this form is optional.</strong>Help make a shaking intensity map by telling us about the shaking at your location."
 	},
 
 	"moreQuestions": {
@@ -190,11 +190,14 @@
 		}
 	},
 
-	"contactInfo": {
+	"comments": {
 		"fldContact_comments": {
 			"label": "Additional Comments",
 			"type": "textarea"
-		},
+		}
+	},
+
+	"contactInfo": {
 		"fldContact_name": {
 			"label": "Name"
 		},
