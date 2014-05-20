@@ -45,6 +45,7 @@ require.config({
 		svgimagemap: 'hazdev-svgimagemap/src/svgimagemap',
 		quakeml: 'quakeml-parser-js/src/quakeml',
 		questionview: 'hazdev-question-view/src',
+		locationview: 'hazdev-location-view/src',
 
 		base: 'base/0-0-1/js',
 		summary: 'summary/0-0-1/js',
@@ -85,6 +86,7 @@ require([
 		'spec/modules/summary/0-0-1/SummaryPageTest',
 		'spec/modules/impact/0-0-1/ImpactModuleTest',
 		'spec/modules/impact/0-0-1/DYFIPageTest',
+		'spec/modules/impact/0-0-1/DYFIFormPageTest',
 		'spec/modules/impact/0-0-1/ShakeMapPageTest',
 		'spec/modules/impact/0-0-1/TabListUtilTest',
 		'spec/modules/impact/0-0-1/PagerPageTest',
