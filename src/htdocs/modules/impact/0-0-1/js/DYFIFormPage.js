@@ -103,16 +103,16 @@ define([
 		var questions = this._questions,
 		    latAns = questions.ciim_mapLat.getAnswers(),
 		    lonAns = questions.ciim_mapLon.getAnswers(),
-		    feltAns = questions.fldSituation_felt.getAnswers();
+		    feltAns = questions.fldSituation_felt.getAnswers(),
+		    button = this._dialog._el.querySelector('.dyfi-button-submit');
 
 			// Check current form status. Enable/disable button
 			if (latAns === null || typeof latAns.value === 'undefined' ||
 					lonAns === null || typeof lonAns.value === 'undefined' ||
 					feltAns === null || typeof feltAns.value === 'undefined') {
-				this._dialog._el.querySelector('.dyfi-button-submit').setAttribute(
-						'disabled', 'disabled');
+				button.setAttribute('disabled', 'disabled');
 			} else {
-				this._dialog.el.querySelector('.dyfi-button-submit').removeAttribute('disabled');
+				button.removeAttribute('disabled');
 			}
 	};
 
