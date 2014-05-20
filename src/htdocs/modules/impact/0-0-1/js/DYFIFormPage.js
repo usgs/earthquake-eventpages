@@ -42,6 +42,7 @@ define([
 			this._options.language = DEFAULTS.language;
 		}
 
+		this._updateSubmitEnabled = this._updateSubmitEnabled.bind(this);
 		EventModulePage.call(this, this._options);
 	};
 	DYFIFormPage.prototype = Object.create(EventModulePage.prototype);
@@ -94,7 +95,6 @@ define([
 		} else {
 			// Show form if ready
 			this._dialog.show();
-			this._updateSubmitEnabled();
 		}
 	};
 
@@ -171,6 +171,8 @@ define([
 				}
 			]
 		});
+
+		this._updateSubmitEnabled();
 	};
 
 	DYFIFormPage.prototype._renderQuestions = function (data) {
@@ -185,7 +187,6 @@ define([
 		    toggleInfo = data.toggleInfo,
 		    moreQuestions = data.moreQuestions,
 		    contactInfo = data.contactInfo,
-		    updateSubmitEnabled = this._updateSubmitEnabled.bind(this),
 		    questions = {};
 
 		baseQuestionsEl.classList.add('dyfi-required-questions');
@@ -223,10 +224,10 @@ define([
 
 		// When location or felt response changes update submit button enabled
 		Events.prototype.on.call(this._questions.ciim_mapLat, 'change',
-				updateSubmitEnabled);
+				this._updateSubmitEnabled);
 		Events.prototype.on.call(this._questions.ciim_mapLon, 'change',
-				updateSubmitEnabled);
-		this._questions.fldSituation_felt.on('change', updateSubmitEnabled);
+				this._updateSubmitEnabled);
+		this._questions.fldSituation_felt.on('change', this._updateSubmitEnabled);
 
 		// TODO :: More interaction like progress meter.
 
