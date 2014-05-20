@@ -337,7 +337,7 @@ define([
 	};
 
 	var __create_text_question_view = function (info) {
-		var el = document.createElement(info.nodeName || 'div'),
+		var el = document.createElement(info.nodeName || 'section'),
 		    label = el.appendChild(document.createElement('label')),
 		    input = el.appendChild(document.createElement(info.type || 'input')),
 		    id = 'dyfi-text-input-' + (ID_INCREMENT++);
