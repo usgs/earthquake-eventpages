@@ -46,6 +46,21 @@ define([
 	};
 	DYFIFormPage.prototype = Object.create(EventModulePage.prototype);
 
+	DYFIFormPage.prototype.destroy = function () {
+		Events.prototype.off.call(this._questions.ciim_mapLat, 'change',
+				this._updateSubmitEnabled);
+		Events.prototype.off.call(this._questions.ciim_mapLon, 'change',
+				this._updateSubmitEnabled);
+		this._questions.fldSituation_felt.off('change', this._updateSubmitEnabled);
+
+		if (this._dialog && this._dialog.destroy &&
+				typeof this._dialog.destroy === 'function') {
+			this._dialog.destroy();
+		}
+
+		this._dialog = null;
+	};
+
 	DYFIFormPage.prototype._setHeaderMarkup = function () {
 		this._header.innerHTML = '<h2>Did you feel it? Tell Us!</h2>';
 	};
