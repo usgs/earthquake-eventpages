@@ -70,11 +70,11 @@ define([
 				if (eventid !== -1) {
 					el.innerHTML = _this.getIrisLinks(eventid);
 				} else {
-					el.innerHTML = '<p class="error">Error finding IRIS event id</p>';
+					el.innerHTML = '<p class="alert error">Error finding IRIS event id</p>';
 				}
 			},
 			error: function () {
-				el.innerHTML = '<p class="error">Error finding IRIS event id</p>';
+				el.innerHTML = '<p class="alert error">Error finding IRIS event id</p>';
 			}
 		});
 
