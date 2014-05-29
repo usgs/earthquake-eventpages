@@ -37,6 +37,7 @@ define([
 	var DYFIFormPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options || {});
 		this._dialog = null;
+		this._dyfiIframe = null;
 
 		if (SUPPORTED_LANGUAGES.indexOf(this._options.language) === -1) {
 			this._options.language = DEFAULTS.language;
@@ -79,7 +80,9 @@ define([
 
 	DYFIFormPage.prototype._setContentMarkup = function () {
 		// TODO :: Make this better.
-		this._content.innerHTML = 'A dialog should automatically appear&hellip;';
+		this._content.innerHTML = '<div class="dyfiform-content">' +
+				'A dialog should automatically appear&hellip;<div>';
+
 	};
 
 	DYFIFormPage.prototype._showForm = function () {
@@ -94,7 +97,7 @@ define([
 			// Just wait until ready. XHR will attempt to open when ready.
 		} else {
 			// Show form if ready
-			this._dialog.show();
+			_this._dialog.show();
 		}
 	};
 
@@ -121,13 +124,147 @@ define([
 	};
 
 	DYFIFormPage.prototype._onSubmit = function (/*event*//*, domElement*/) {
-		// TODO :: Process form and submit to back-end
+		var eventData;
+		var contentdiv;
 
-		this._hideForm();
+		eventData = _collectAnswers(this);
+
+		//TODO move this to DYFIFormPage
+		contentdiv = document.querySelector('.dyfiform-content');
+		this._dyfiIframe = document.createElement('iFrame');
+		this._dyfiIframe.name = 'resultFrame';
+		this._dyfiIframe.id = 'resultFrame';
+		this._dyfiIframe.className = 'dyfiIframe';
+		/*this._dyfiIframe.width = '100%';
+		this._dyfiIframe.height = '400px';
+		this._dyfiIframe.border = '0';
+		this._dyfiIframe.frameBorder = '0';*/
+
+		contentdiv.innerHTML = '';
+		contentdiv.appendChild(this._dyfiIframe);
+
+		this._dyfiHiddenForm = _createHiddenDYFIForm(eventData);
+		document.body.appendChild(this._dyfiHiddenForm);
+		this._dyfiHiddenForm.submit();
+
+		this._dialog.hide();
 	};
 
 	DYFIFormPage.prototype._onCancel = function (/*event*//*, domElement*/) {
 		this._hideForm();
+	};
+
+		//Collect answers from questionViews into an object.
+	//Make certain properties required by response.php are included.
+	var _collectAnswers = function(_this) {
+		var eventData = {};
+		var cnt;
+		var questions = _this._questions;
+		var question_other;
+		var answers;
+
+		//Use the event properties passed in.
+		if( _this._event.properties.hasOwnProperty('code')) {
+			//if there's a code,  use the time passed in.  Otherwise it's in a question.
+			eventData.timestamp = Math.floor(_this._event.properties.time/1000);
+
+			eventData.code = _this._event.properties.code;
+			eventData.network = _this._event.properties.net;
+			eventData.dyficode = _this._event.properties.products.dyfi[0].code;
+		//or set event properties to unknown.
+		} else {
+			eventData.code = 'unknown';
+			eventData.network = 'unknown';
+			eventData.dyficode = 'unknown';
+		}
+
+		for (var question in questions) {
+			answers = questions[question].getAnswers();
+			if (answers instanceof Array) {
+				eventData[question] = [];
+				for(cnt = 0; cnt < answers.length; cnt++) {
+					eventData[question].push(answers[cnt].value);
+				}
+			}
+			else if (answers instanceof Object && answers.value !== undefined) {
+				eventData[question] = answers.value;
+				if(answers.value ==='other') {
+					question_other = question + '_Other';
+					eventData[question_other] = answers.otherValue;
+				}
+			}
+			else {
+				eventData[question] = '';
+			}
+		}
+
+		//make certain we have required properties for response.php
+		//if fldSituation_felt, ciim_mapLat, & ciim_mapLon are empty
+		//we want response.php to fail.
+		if(!eventData.hasOwnProperty('ciim_zip'))
+			{eventData.ciim_zip ='';}
+		if(!eventData.hasOwnProperty('ciim_city'))
+			{eventData.ciim_city ='';}
+		if(!eventData.hasOwnProperty('ciim_region'))
+			{eventData.ciim_region ='';}
+		if(!eventData.hasOwnProperty('ciim_country'))
+			{eventData.ciim_country ='';}
+		//if d_text isn't an array,  get rid of it.
+		if(eventData.hasOwnProperty('d_text') && !(eventData.d_text instanceof Array)) {
+			delete eventData.d_text;
+		}
+
+		return eventData;
+	};
+
+	var _createInput = function(name, value) {
+		var node = document.createElement('input');
+		node.setAttribute('hidden', 'hidden');
+		node.setAttribute('name', name);
+		node.setAttribute('value', value);
+
+		return node;
+	};
+
+	//Set up Hidden form to submit questions/answers.
+	var _createHiddenDYFIForm = function(eventData) {
+		var dyfiHiddenForm = document.createElement('form');
+		var values;
+		var cnt;
+
+		dyfiHiddenForm.name = 'frmCiim';
+		dyfiHiddenForm.method='post';
+		dyfiHiddenForm.appendChild(_createInput('windowtype', 'enabled'));
+		//TODO set this up to work on dev or production as appropriate.
+		//dyfiHiddenForm.action='https://sslearthquake.usgs.gov/dyfi/response.php';
+		dyfiHiddenForm.action='https://ehpd-sslearthquake.cr.usgs.gov/dyfi/response.php';
+		dyfiHiddenForm.target='resultFrame';
+		dyfiHiddenForm.id='frmCiim';
+		dyfiHiddenForm.style.display = 'none';
+
+		dyfiHiddenForm.appendChild(_createInput('code', eventData.code));
+		dyfiHiddenForm.appendChild(_createInput('network', eventData.network));
+		dyfiHiddenForm.appendChild(_createInput('dyficode', eventData.dyficode));
+		dyfiHiddenForm.appendChild(_createInput('ciim_time', eventData.timestamp));
+		//TODO get language from form if possible.
+		dyfiHiddenForm.appendChild(_createInput('language', 'en'));
+		//TODO get form_version from event if possible.
+		dyfiHiddenForm.appendChild(_createInput('form_version', '1.3'));
+
+		for (var data in eventData) {
+			values = eventData[data];
+			if (values instanceof Array) {
+				for(cnt = 0; cnt < values.length; cnt++) {
+					//there's got to be a better way, but for now I just append []'s.
+					dyfiHiddenForm.appendChild(_createInput(data+'[]', values[cnt]));
+				}
+			}
+			else {
+				dyfiHiddenForm.appendChild(_createInput(data, values));
+			}
+		}
+
+	return dyfiHiddenForm;
 	};
 
 	DYFIFormPage.prototype._fetchDialog = function (callback) {
