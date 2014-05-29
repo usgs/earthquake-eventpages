@@ -9,7 +9,6 @@
 			"folder_exclude_patterns": [
 				".sass-cache",
 				"node_modules",
-				"bower_components",
 				".tmp"
 			]
 		}

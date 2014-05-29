@@ -12,7 +12,9 @@
   "scripts": {
     "test": "grunt test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "requirejs": "2.1.12"
+  },
   "devDependencies": {
     "chai": "~1.7.0",
     "connect-livereload": "~0.2.0",
@@ -43,7 +45,8 @@
     "hazdev-svgimagemap": "0.0.3",
     "quakeml-parser-js": "0.0.1",
     "hazdev-location-view": "0.0.3",
-    "hazdev-question-view": "0.0.1"
+    "hazdev-question-view": "0.0.1",
+    "hazdev-webutils": "~0.0.11"
   },
   "engines": {
     "node": ">=0.8.0"

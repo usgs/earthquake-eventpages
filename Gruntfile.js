@@ -33,14 +33,8 @@ module.exports = function (grunt) {
 		tmp: '.tmp'
 	};
 
-	// TODO :: Read this from .bowerrc
-	var bowerConfig = {
-		directory: 'bower_components'
-	};
-
 	grunt.initConfig({
 		app: appConfig,
-		bower: bowerConfig,
 		watch: {
 			scripts: {
 				files: ['<%= app.src %>/htdocs/**/*.js'],
@@ -108,7 +102,7 @@ module.exports = function (grunt) {
 				options: {
 					base: '<%= app.src %>/htdocs',
 					port: 8080,
-					components: bowerConfig.directory,
+					components: 'node_modules',
 					middleware: function (connect, options) {
 						return [
 							lrSnippet,
@@ -134,7 +128,6 @@ module.exports = function (grunt) {
 							mountPHP(options.base),
 							mountFolder(connect, options.base),
 							// add template
-							mountFolder(connect, 'bower_components'),
 							rewriteRulesSnippet,
 							mountFolder(connect, 'node_modules')
 						];
@@ -144,13 +137,12 @@ module.exports = function (grunt) {
 			test: {
 				options: {
 					base: '<%= app.test %>',
-					components: bowerConfig.directory,
+					components: 'node_modules',
 					port: 8000,
 					middleware: function (connect, options) {
 						return [
 							rewriteRulesSnippet,
 							mountFolder(connect, '.tmp'),
-							mountFolder(connect, 'bower_components'),
 							mountFolder(connect, options.base),
 							mountFolder(connect, 'node_modules'),
 							mountFolder(connect, appConfig.src + '/htdocs/modules'),
@@ -201,9 +193,8 @@ module.exports = function (grunt) {
 
 					paths: {
 						leaflet: '../../../node_modules/leaflet/dist/leaflet-src',
-						mvc: '../../../bower_components/hazdev-webutils/src/mvc',
-						util: '../../../bower_components/hazdev-webutils/src/util',
-
+						mvc: '../../../node_modules/hazdev-webutils/src/mvc',
+						util: '../../../node_modules/hazdev-webutils/src/util',
 						tablist: '../../../node_modules/hazdev-tablist/src/tablist',
 						svgimagemap: '../../../node_modules/hazdev-svgimagemap/src/svgimagemap',
 						quakeml: '../../../node_modules/quakeml-parser-js/src/quakeml',
@@ -302,9 +293,9 @@ module.exports = function (grunt) {
 			dist: {
 				files: {
 					'<%= app.dist %>/htdocs/lib/requirejs/require.js':
-							['<%= bower.directory %>/requirejs/require.js'],
+							['node_modules/requirejs/require.js'],
 					'<%= app.dist %>/htdocs/lib/html5shiv/html5shiv.js':
-							['<%= bower.directory %>/html5shiv-dist/html5shiv.js']
+							['node_modules/html5shiv-dist/html5shiv.js']
 				}
 			}
 		},
