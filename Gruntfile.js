@@ -102,14 +102,12 @@ module.exports = function (grunt) {
 				options: {
 					base: '<%= app.src %>/htdocs',
 					port: 8080,
-					components: 'node_modules',
 					middleware: function (connect, options) {
 						return [
 							lrSnippet,
 							rewriteRulesSnippet,
 							proxySnippet,
 							mountFolder(connect, '.tmp'),
-							mountFolder(connect, options.components),
 							mountPHP(options.base),
 							mountFolder(connect, options.base),
 							mountFolder(connect, 'node_modules')
@@ -137,7 +135,6 @@ module.exports = function (grunt) {
 			test: {
 				options: {
 					base: '<%= app.test %>',
-					components: 'node_modules',
 					port: 8000,
 					middleware: function (connect, options) {
 						return [
