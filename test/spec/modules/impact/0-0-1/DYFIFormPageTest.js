@@ -62,6 +62,9 @@ define([
 				return button.hasAttribute('disabled');
 			}
 
+			//work around to ignore not having an event.
+			form._event.properties = {'code': 'unknown'};
+
 			it('submit button is properly enabled/disabled', function () {
 				// Initially disabled
 				/* jshint -W030 */
@@ -89,6 +92,7 @@ define([
 
 			beforeEach(function (done) {
 				form = new DYFIFormPage();
+				form._event.properties = {'code': 'unknown'};   //work around
 				spy = sinon.spy(form, '_updateSubmitEnabled');
 				form._fetchDialog(done);
 			});
@@ -135,5 +139,12 @@ define([
 				expect(spy.callCount).to.equal(2);
 			});
 		});
+
+		describe('onSubmit', function (){
+			it('has such a method', function() {
+				expect((new DYFIFormPage())).to.respondTo('_onSubmit');
+			});
+		});
+
 	});
 });
