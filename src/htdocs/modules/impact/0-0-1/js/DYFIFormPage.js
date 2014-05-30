@@ -27,25 +27,31 @@ define([
 	'use strict';
 
 	var DEFAULTS = {
-		language: 'en' // English
+		language: 'en', // English
+		responseurl: 'https://ehpd-sslearthquake.cr.usgs.gov/dyfi/response.php'
 	};
 
 	var ID_INCREMENT = 0;
 
 	var SUPPORTED_LANGUAGES = ['en'];
+	var FORM_VERSION = '1.3';
+	var _DYFIIFRAME = null;
+	var _RESPONSEURL = null;
+
 
 	var DYFIFormPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options || {});
 		this._dialog = null;
-		this._dyfiIframe = null;
 
 		if (SUPPORTED_LANGUAGES.indexOf(this._options.language) === -1) {
 			this._options.language = DEFAULTS.language;
 		}
+		_RESPONSEURL = this._options.responseurl;
 
 		this._updateSubmitEnabled = this._updateSubmitEnabled.bind(this);
 		EventModulePage.call(this, this._options);
 	};
+
 	DYFIFormPage.prototype = Object.create(EventModulePage.prototype);
 
 	DYFIFormPage.prototype.destroy = function () {
@@ -81,12 +87,18 @@ define([
 	DYFIFormPage.prototype._setContentMarkup = function () {
 		// TODO :: Make this better.
 		this._content.innerHTML = '<div class="dyfiform-content">' +
-				'A dialog should automatically appear&hellip;<div>';
-
+				'A dialog should automatically appear&hellip;</div>';
 	};
 
 	DYFIFormPage.prototype._showForm = function () {
 		var _this = this;
+		var content;
+
+		if(_DYFIIFRAME) {
+			content = this._content.querySelector('.dyfiform-content');
+			content.innerHTML = '<div>Thank you for submitting your experience.</div>';
+			return;
+		}
 
 		if (this._dialog === null) {
 			this._fetchDialog(function () {
@@ -126,22 +138,20 @@ define([
 	DYFIFormPage.prototype._onSubmit = function (/*event*//*, domElement*/) {
 		var eventData;
 		var contentdiv;
+		var iframe;
 
 		eventData = _collectAnswers(this);
 
-		//TODO move this to DYFIFormPage
 		contentdiv = document.querySelector('.dyfiform-content');
-		this._dyfiIframe = document.createElement('iFrame');
-		this._dyfiIframe.name = 'resultFrame';
-		this._dyfiIframe.id = 'resultFrame';
-		this._dyfiIframe.className = 'dyfiIframe';
-		/*this._dyfiIframe.width = '100%';
-		this._dyfiIframe.height = '400px';
-		this._dyfiIframe.border = '0';
-		this._dyfiIframe.frameBorder = '0';*/
+		iframe = document.createElement('iframe');
+		iframe.setAttribute('name', 'dyfiIframe');
+		iframe.setAttribute('id', 'dyfiIframe');
+		iframe.setAttribute('class', 'dyfiIframe');
+
+		_DYFIIFRAME = iframe;
 
 		contentdiv.innerHTML = '';
-		contentdiv.appendChild(this._dyfiIframe);
+		contentdiv.appendChild(iframe);
 
 		this._dyfiHiddenForm = _createHiddenDYFIForm(eventData);
 		document.body.appendChild(this._dyfiHiddenForm);
@@ -209,6 +219,12 @@ define([
 			{eventData.ciim_region ='';}
 		if(!eventData.hasOwnProperty('ciim_country'))
 			{eventData.ciim_country ='';}
+		if(_this._options.language) {
+			eventData.language = _this._options.language;
+		}
+		else {
+			eventData.language = 'en';
+		}
 		//if d_text isn't an array,  get rid of it.
 		if(eventData.hasOwnProperty('d_text') && !(eventData.d_text instanceof Array)) {
 			delete eventData.d_text;
@@ -235,10 +251,8 @@ define([
 		dyfiHiddenForm.name = 'frmCiim';
 		dyfiHiddenForm.method='post';
 		dyfiHiddenForm.appendChild(_createInput('windowtype', 'enabled'));
-		//TODO set this up to work on dev or production as appropriate.
-		//dyfiHiddenForm.action='https://sslearthquake.usgs.gov/dyfi/response.php';
-		dyfiHiddenForm.action='https://ehpd-sslearthquake.cr.usgs.gov/dyfi/response.php';
-		dyfiHiddenForm.target='resultFrame';
+		dyfiHiddenForm.action=_RESPONSEURL;
+		dyfiHiddenForm.target='dyfiIframe';
 		dyfiHiddenForm.id='frmCiim';
 		dyfiHiddenForm.style.display = 'none';
 
@@ -246,10 +260,7 @@ define([
 		dyfiHiddenForm.appendChild(_createInput('network', eventData.network));
 		dyfiHiddenForm.appendChild(_createInput('dyficode', eventData.dyficode));
 		dyfiHiddenForm.appendChild(_createInput('ciim_time', eventData.timestamp));
-		//TODO get language from form if possible.
-		dyfiHiddenForm.appendChild(_createInput('language', 'en'));
-		//TODO get form_version from event if possible.
-		dyfiHiddenForm.appendChild(_createInput('form_version', '1.3'));
+		dyfiHiddenForm.appendChild(_createInput('form_version', FORM_VERSION));
 
 		for (var data in eventData) {
 			values = eventData[data];
@@ -321,6 +332,7 @@ define([
 		    contactContainer = document.createElement('div'),
 		    locationInfo = data.locationInfo,
 		    baseQuestions = data.baseQuestions,
+		    eventTime = data.eventTime,
 		    toggleInfo = data.toggleInfo,
 		    moreQuestions = data.moreQuestions,
 		    contactInfo = data.contactInfo,
@@ -336,6 +348,10 @@ define([
 
 		// Handle location question
 		__create_location_questions(locationInfo, baseQuestionsEl, questions);
+
+		if (!this._event.properties.hasOwnProperty('code')) {
+				__create_text_questions(eventTime, baseQuestionsEl, questions);
+		}
 
 		// Loop over each base question and create a QuestionView
 		__create_questions(baseQuestions, baseQuestionsEl, questions);
