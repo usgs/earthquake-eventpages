@@ -67,7 +67,7 @@ define([
 		}
 
 		if (this._dyfiHiddenForm) {
-			this._dyfiHiddenForm.parentNode.removechild(this._dyfiHiddenForm);
+			this._dyfiHiddenForm.parentNode.removeChild(this._dyfiHiddenForm);
 			this._dyfiHiddenForm = null;
 		}
 
@@ -142,7 +142,7 @@ define([
 		    contentdiv,
 		    iframe;
 
-		eventData = _collectAnswers(this);
+		eventData = this._collectAnswers();
 
 		contentdiv = document.querySelector('.dyfiform-content');
 		iframe = document.createElement('iframe');
@@ -155,7 +155,7 @@ define([
 		contentdiv.innerHTML = '';
 		contentdiv.appendChild(iframe);
 
-		this._dyfiHiddenForm = _createHiddenDYFIForm(this, eventData);
+		this._dyfiHiddenForm = this._createHiddenDYFIForm(eventData);
 		document.body.appendChild(this._dyfiHiddenForm);
 		this._dyfiHiddenForm.submit();
 
@@ -168,22 +168,22 @@ define([
 
 		//Collect answers from questionViews into an object.
 	//Make certain properties required by response.php are included.
-	var _collectAnswers = function(_this) {
+	DYFIFormPage.prototype._collectAnswers = function() {
 		var eventData = {},
 		    cnt,
-		    questions = _this._questions,
+		    questions = this._questions,
 		    question_other,
 		    answers;
 
 		//Use the event properties passed in.
-		if ( _this._event.properties.hasOwnProperty('code') &&
-					_this._event.properties.code !== 'unknown') {
+		if ( this._event.properties.hasOwnProperty('code') &&
+					this._event.properties.code !== 'unknown') {
 			//if there's a code,  use the time passed in.  Otherwise it's in a question.
-			eventData.ciim_time = Math.floor(_this._event.properties.time/1000);
+			eventData.ciim_time = Math.floor(this._event.properties.time/1000);
 
-			eventData.code = _this._event.properties.code;
-			eventData.network = _this._event.properties.net;
-			eventData.dyficode = _this._event.properties.products.dyfi[0].code;
+			eventData.code = this._event.properties.code;
+			eventData.network = this._event.properties.net;
+			eventData.dyficode = this._event.properties.products.dyfi[0].code;
 		//or set event properties to unknown.
 		} else {
 			eventData.code = 'unknown';
@@ -226,8 +226,8 @@ define([
 		if (!eventData.hasOwnProperty('ciim_country')) {
 			eventData.ciim_country ='';
 		}
-		if (_this._options.language) {
-			eventData.language = _this._options.language;
+		if (this._options.language) {
+			eventData.language = this._options.language;
 		}
 		else {
 			eventData.language = 'en';
@@ -241,7 +241,7 @@ define([
 		return eventData;
 	};
 
-	var _createInput = function(name, value) {
+	DYFIFormPage.prototype._createInput = function(name, value) {
 		var node = document.createElement('input');
 		node.setAttribute('hidden', 'hidden');
 		node.setAttribute('name', name);
@@ -251,32 +251,32 @@ define([
 	};
 
 	//Set up Hidden form to submit questions/answers.
-	var _createHiddenDYFIForm = function(_this, eventData) {
+	DYFIFormPage.prototype._createHiddenDYFIForm = function(eventData) {
 		var hiddenForm = document.createElement('form'),
 		    values,
 		    cnt;
 
 		hiddenForm.name = 'frmCiim';
 		hiddenForm.method = 'post';
-		hiddenForm.appendChild(_createInput('windowtype', 'enabled'));
-		hiddenForm.action = _this._options.responseURL;
+		hiddenForm.appendChild(this._createInput('windowtype', 'enabled'));
+		hiddenForm.action = this._options.responseURL;
 		hiddenForm.target = 'dyfiIframe';
 		hiddenForm.id = 'frmCiim';
 		hiddenForm.style.display = 'none';
 
 		//hiddenForm.appendChild(_createInput('ciim_time', eventData.timestamp));
-		hiddenForm.appendChild(_createInput('form_version', FORM_VERSION));
+		hiddenForm.appendChild(this._createInput('form_version', FORM_VERSION));
 
 		for (var data in eventData) {
 			values = eventData[data];
 			if (values instanceof Array) {
 				for(cnt = 0; cnt < values.length; cnt++) {
 					//there's got to be a better way, but for now I just append []'s.
-					hiddenForm.appendChild(_createInput(data+'[]', values[cnt]));
+					hiddenForm.appendChild(this._createInput(data+'[]', values[cnt]));
 				}
 			}
 			else {
-				hiddenForm.appendChild(_createInput(data, values));
+				hiddenForm.appendChild(this._createInput(data, values));
 			}
 		}
 
@@ -354,7 +354,9 @@ define([
 		// Handle location question
 		__create_location_questions(locationInfo, baseQuestionsEl, questions);
 
-		if (!this._event.properties.hasOwnProperty('code')) {
+		//TODO confirm this works with whatever scheme we come up to call the form with an unknown event.
+		if (this._event.hasOwnProperty('properties') &&
+					!this._event.properties.hasOwnProperty('code')) {
 				__create_text_questions(eventTime, baseQuestionsEl, questions);
 		}
 
@@ -498,7 +500,7 @@ define([
 
 		for (field in questionInfo) {
 			view = new QuestionView(Util.extend(
-					{_el: document.createDocumentFragment()}, questionInfo[field]));
+					{el: document.createDocumentFragment()}, questionInfo[field]));
 
 			questions[field] = view;
 			container.appendChild(view._el);
