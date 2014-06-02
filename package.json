@@ -44,9 +44,9 @@
     "leaflet": "~0.7.0",
     "hazdev-svgimagemap": "0.0.3",
     "quakeml-parser-js": "0.0.1",
-    "hazdev-location-view": "0.0.3",
-    "hazdev-question-view": "0.0.1",
-    "hazdev-webutils": "~0.0.11"
+    "hazdev-location-view": "0.0.5",
+    "hazdev-question-view": "0.0.2",
+    "hazdev-webutils": "~0.0.12"
   },
   "engines": {
     "node": ">=0.8.0"
