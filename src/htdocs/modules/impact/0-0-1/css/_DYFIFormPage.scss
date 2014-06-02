@@ -110,21 +110,15 @@ $dyfi-question-indent: 1.3em;
 		}
 	}
 
-.eqtime {
-	font-size: .8em;
-	font-weight: normal;
-	> p {
-		line-height: 80%;
-		margin: .1em;
-	}
-}
-
-
-
 	// Location/Comments/Contact
 	> label {
 		display:block;
 		@include question-question();
+
+		> small {
+			font-weight:normal;
+			display:block;
+		}
 	}
 
 	> button {
