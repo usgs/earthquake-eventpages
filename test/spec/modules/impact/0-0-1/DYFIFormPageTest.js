@@ -5,14 +5,21 @@ define([
 
 	'util/Events',
 
-	'impact/DYFIFormPage'
+	'impact/ImpactModule',
+	'impact/DYFIFormPage',
+	'./Usb000ldeh',
+	'./nc72119970'
 ], function (
 	chai,
 	sinon,
 
 	Events,
 
-	DYFIFormPage
+	ImpactModule,
+	DYFIFormPage,
+
+	Usb000ldeh,
+	nc72119970
 ) {
 	'use strict';
 	var expect = chai.expect;
@@ -141,9 +148,49 @@ define([
 		});
 
 		describe('onSubmit', function (){
+			var event = Usb000ldeh;
+			var curmodule = null;
+			var module_info;
+			var page;
+			var eventData;
+			var hidden_form;
+
 			it('has such a method', function() {
-				expect((new DYFIFormPage())).to.respondTo('_onSubmit');
+					expect((new DYFIFormPage())).to.respondTo('_onSubmit');
 			});
+			curmodule = new ImpactModule({eventDetails: nc72119970});
+			module_info = {hash:'tellus', title:'Tell Us!',
+					eventDetails:event, module:curmodule};
+
+			page = new DYFIFormPage(module_info);
+			//form._fetchDialog(done);
+			page._showForm();
+			eventData = page._collectAnswers();
+
+			it('always has default answers', function() {
+				/* jshint -W030 */
+				expect(eventData.code).to.exist;
+				expect(eventData.network).to.exist;
+				expect(eventData.dyficode).to.exist;
+				expect(eventData.ciim_time).to.exist;
+				expect(eventData.ciim_zip).to.exist;
+				expect(eventData.ciim_city).to.exist;
+				expect(eventData.ciim_region).to.exist;
+				expect(eventData.ciim_country).to.exist;
+				/* jshint +W030 */
+			});
+			hidden_form = page._createHiddenDYFIForm(eventData);
+			it('creates a hidden form', function () {
+				/* jshint -W030 */
+				expect(hidden_form).to.not.be.undefined;
+				/* jshint +W030 */
+			});
+			it('has a form with a dyfiIframe target', function () {
+				/* jshint -W030 */
+				expect(hidden_form.target).to.equal('dyfiIframe');
+				/* jshint +W030 */
+			});
+
 		});
 
 	});
