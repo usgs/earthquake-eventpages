@@ -38,15 +38,15 @@
     "mocha": "~1.9.0",
     "sinon": "~1.7.3",
     "hazdev-tablist": "~0.0.6",
-    "hazdev-template": "~0.0.11",
+    "hazdev-template": "0.0.12",
     "grunt-connect-rewrite": "~0.1.1",
     "grunt-connect-proxy": "~0.1.6",
     "leaflet": "~0.7.0",
     "hazdev-svgimagemap": "0.0.3",
     "quakeml-parser-js": "0.0.1",
-    "hazdev-location-view": "0.0.5",
+    "hazdev-location-view": "0.0.6",
     "hazdev-question-view": "0.0.2",
-    "hazdev-webutils": "~0.0.12"
+    "hazdev-webutils": "0.0.13"
   },
   "engines": {
     "node": ">=0.8.0"
