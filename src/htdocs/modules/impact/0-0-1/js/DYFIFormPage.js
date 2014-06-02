@@ -28,7 +28,7 @@ define([
 
 	var DEFAULTS = {
 		language: 'en', // English
-		responseurl: 'https://ehpd-sslearthquake.cr.usgs.gov/dyfi/response.php'
+		responseURL: 'https://ehpd-sslearthquake.cr.usgs.gov/dyfi/response.php'
 	};
 
 	var ID_INCREMENT = 0;
@@ -36,7 +36,6 @@ define([
 	var SUPPORTED_LANGUAGES = ['en'];
 	var FORM_VERSION = '1.3';
 	var _DYFIIFRAME = null;
-	var _RESPONSEURL = null;
 
 
 	var DYFIFormPage = function (options) {
@@ -46,7 +45,8 @@ define([
 		if (SUPPORTED_LANGUAGES.indexOf(this._options.language) === -1) {
 			this._options.language = DEFAULTS.language;
 		}
-		_RESPONSEURL = this._options.responseurl;
+
+		this._showForm = this._showForm.bind(this);
 
 		this._updateSubmitEnabled = this._updateSubmitEnabled.bind(this);
 		EventModulePage.call(this, this._options);
@@ -64,6 +64,11 @@ define([
 		if (this._dialog && this._dialog.destroy &&
 				typeof this._dialog.destroy === 'function') {
 			this._dialog.destroy();
+		}
+
+		if (this._dyfiHiddenForm) {
+			this._dyfiHiddenForm.parentNode.removechild(this._dyfiHiddenForm);
+			this._dyfiHiddenForm = null;
 		}
 
 		this._dialog = null;
@@ -91,7 +96,6 @@ define([
 	};
 
 	DYFIFormPage.prototype._showForm = function () {
-		var _this = this;
 		var content;
 
 		if(_DYFIIFRAME) {
@@ -101,15 +105,13 @@ define([
 		}
 
 		if (this._dialog === null) {
-			this._fetchDialog(function () {
-				_this._showForm();
-			});
+			this._fetchDialog(this._showForm);
 		} else if (this._dialog === 'pending') {
 			// Already fetching labels via XHR from previous call, but not ready yet.
 			// Just wait until ready. XHR will attempt to open when ready.
 		} else {
 			// Show form if ready
-			_this._dialog.show();
+			this._dialog.show();
 		}
 	};
 
@@ -136,9 +138,9 @@ define([
 	};
 
 	DYFIFormPage.prototype._onSubmit = function (/*event*//*, domElement*/) {
-		var eventData;
-		var contentdiv;
-		var iframe;
+		var eventData,
+		    contentdiv,
+		    iframe;
 
 		eventData = _collectAnswers(this);
 
@@ -153,7 +155,7 @@ define([
 		contentdiv.innerHTML = '';
 		contentdiv.appendChild(iframe);
 
-		this._dyfiHiddenForm = _createHiddenDYFIForm(eventData);
+		this._dyfiHiddenForm = _createHiddenDYFIForm(this, eventData);
 		document.body.appendChild(this._dyfiHiddenForm);
 		this._dyfiHiddenForm.submit();
 
@@ -167,16 +169,17 @@ define([
 		//Collect answers from questionViews into an object.
 	//Make certain properties required by response.php are included.
 	var _collectAnswers = function(_this) {
-		var eventData = {};
-		var cnt;
-		var questions = _this._questions;
-		var question_other;
-		var answers;
+		var eventData = {},
+		    cnt,
+		    questions = _this._questions,
+		    question_other,
+		    answers;
 
 		//Use the event properties passed in.
-		if( _this._event.properties.hasOwnProperty('code')) {
+		if ( _this._event.properties.hasOwnProperty('code') &&
+					_this._event.properties.code !== 'unknown') {
 			//if there's a code,  use the time passed in.  Otherwise it's in a question.
-			eventData.timestamp = Math.floor(_this._event.properties.time/1000);
+			eventData.ciim_time = Math.floor(_this._event.properties.time/1000);
 
 			eventData.code = _this._event.properties.code;
 			eventData.network = _this._event.properties.net;
@@ -211,22 +214,27 @@ define([
 		//make certain we have required properties for response.php
 		//if fldSituation_felt, ciim_mapLat, & ciim_mapLon are empty
 		//we want response.php to fail.
-		if(!eventData.hasOwnProperty('ciim_zip'))
-			{eventData.ciim_zip ='';}
-		if(!eventData.hasOwnProperty('ciim_city'))
-			{eventData.ciim_city ='';}
-		if(!eventData.hasOwnProperty('ciim_region'))
-			{eventData.ciim_region ='';}
-		if(!eventData.hasOwnProperty('ciim_country'))
-			{eventData.ciim_country ='';}
-		if(_this._options.language) {
+		if (!eventData.hasOwnProperty('ciim_zip')) {
+			eventData.ciim_zip ='';
+		}
+		if (!eventData.hasOwnProperty('ciim_city')) {
+			eventData.ciim_city ='';
+		}
+		if (!eventData.hasOwnProperty('ciim_region')) {
+			eventData.ciim_region ='';
+		}
+		if (!eventData.hasOwnProperty('ciim_country')) {
+			eventData.ciim_country ='';
+		}
+		if (_this._options.language) {
 			eventData.language = _this._options.language;
 		}
 		else {
 			eventData.language = 'en';
 		}
 		//if d_text isn't an array,  get rid of it.
-		if(eventData.hasOwnProperty('d_text') && !(eventData.d_text instanceof Array)) {
+		if (eventData.hasOwnProperty('d_text') &&
+				!(eventData.d_text instanceof Array)) {
 			delete eventData.d_text;
 		}
 
@@ -243,39 +251,36 @@ define([
 	};
 
 	//Set up Hidden form to submit questions/answers.
-	var _createHiddenDYFIForm = function(eventData) {
-		var dyfiHiddenForm = document.createElement('form');
-		var values;
-		var cnt;
+	var _createHiddenDYFIForm = function(_this, eventData) {
+		var hiddenForm = document.createElement('form'),
+		    values,
+		    cnt;
 
-		dyfiHiddenForm.name = 'frmCiim';
-		dyfiHiddenForm.method='post';
-		dyfiHiddenForm.appendChild(_createInput('windowtype', 'enabled'));
-		dyfiHiddenForm.action=_RESPONSEURL;
-		dyfiHiddenForm.target='dyfiIframe';
-		dyfiHiddenForm.id='frmCiim';
-		dyfiHiddenForm.style.display = 'none';
+		hiddenForm.name = 'frmCiim';
+		hiddenForm.method = 'post';
+		hiddenForm.appendChild(_createInput('windowtype', 'enabled'));
+		hiddenForm.action = _this._options.responseURL;
+		hiddenForm.target = 'dyfiIframe';
+		hiddenForm.id = 'frmCiim';
+		hiddenForm.style.display = 'none';
 
-		dyfiHiddenForm.appendChild(_createInput('code', eventData.code));
-		dyfiHiddenForm.appendChild(_createInput('network', eventData.network));
-		dyfiHiddenForm.appendChild(_createInput('dyficode', eventData.dyficode));
-		dyfiHiddenForm.appendChild(_createInput('ciim_time', eventData.timestamp));
-		dyfiHiddenForm.appendChild(_createInput('form_version', FORM_VERSION));
+		//hiddenForm.appendChild(_createInput('ciim_time', eventData.timestamp));
+		hiddenForm.appendChild(_createInput('form_version', FORM_VERSION));
 
 		for (var data in eventData) {
 			values = eventData[data];
 			if (values instanceof Array) {
 				for(cnt = 0; cnt < values.length; cnt++) {
 					//there's got to be a better way, but for now I just append []'s.
-					dyfiHiddenForm.appendChild(_createInput(data+'[]', values[cnt]));
+					hiddenForm.appendChild(_createInput(data+'[]', values[cnt]));
 				}
 			}
 			else {
-				dyfiHiddenForm.appendChild(_createInput(data, values));
+				hiddenForm.appendChild(_createInput(data, values));
 			}
 		}
 
-	return dyfiHiddenForm;
+		return hiddenForm;
 	};
 
 	DYFIFormPage.prototype._fetchDialog = function (callback) {
@@ -483,7 +488,7 @@ define([
 	 *      corresponding to that information as expected by the DYFI form
 	 *      processing code.
 	 * @param container {DOMElement} pass-by-reference
-	 *      The container into which the view.el should be appended.
+	 *      The container into which the view._el should be appended.
 	 * @param questions {Object} pass-by-reference
 	 *      The resulting hash of {field: QuestionView}
 	 */
@@ -493,10 +498,10 @@ define([
 
 		for (field in questionInfo) {
 			view = new QuestionView(Util.extend(
-					{el: document.createDocumentFragment()}, questionInfo[field]));
+					{_el: document.createDocumentFragment()}, questionInfo[field]));
 
 			questions[field] = view;
-			container.appendChild(view.el);
+			container.appendChild(view._el);
 		}
 
 	};
@@ -513,7 +518,7 @@ define([
 			view = __create_text_question_view(questionInfo[field]);
 
 			questions[field] = view;
-			container.appendChild(view.el);
+			container.appendChild(view._el);
 		}
 	};
 
@@ -534,7 +539,7 @@ define([
 		// A lightweight object to mimic the minimally required API for a
 		// QuestionView-like object as needed for the DYFIFormPage
 		return {
-			el: el,
+			_el: el,
 			getAnswers: function () {
 				return {value: input.value, label: info.label};
 			}
