@@ -74,11 +74,10 @@ module.exports = function (grunt) {
 			predist: [
 				'jshint:scripts',
 				'jshint:tests',
-				'compass',
-				'copy'
+				'compass'
 			],
 			dist: [
-				'cssmin:dist',
+				'copy',
 				'htmlmin:dist',
 				'uglify'
 			]
@@ -263,9 +262,18 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				expand: true,
-				cwd: '.tmp',
+				cwd: '<%= app.dist %>/htdocs',
 				dest: '<%= app.dist %>/htdocs',
 				src: '**/*.css'
+			},
+			impact: {
+				files: {
+					'<%= app.dist %>/htdocs/modules/impact/0-0-1/css/index.css': [
+						'node_modules/leaflet/dist/leaflet.css',
+						'node_modules/hazdev-webutils/src/mvc/ModalView.css',
+						'<%= app.dist %>/htdocs/modules/impact/0-0-1/css/index.css'
+					]
+				}
 			}
 		},
 		htmlmin: {
@@ -302,10 +310,16 @@ module.exports = function (grunt) {
 				src: 'node_modules/leaflet/dist/leaflet.css',
 				dest: 'node_modules/leaflet/dist/_leaflet.scss'
 			},
-			leaflet_images: {
+			leaflet_images_summary: {
 				expand: true,
 				cwd: 'node_modules/leaflet/dist/images',
 				dest: '<%= app.dist %>/htdocs/modules/summary/0-0-1/css/images',
+				src: ['*.png']
+			},
+			leaflet_images_impact: {
+				expand: true,
+				cwd: 'node_modules/leaflet/dist/images',
+				dest: '<%= app.dist %>/htdocs/modules/impact/0-0-1/css/images',
 				src: ['*.png']
 			},
 			app: {
@@ -336,6 +350,36 @@ module.exports = function (grunt) {
 				],
 				options: {
 					mode: true
+				}
+			},
+			locationview_images: {
+				expand: true,
+				cwd: 'node_modules/hazdev-location-view/src',
+				dest: '<%= app.dist %>/htdocs/modules/impact/0-0-1/css',
+				src: [
+					'*.png',
+					'*.cur'
+				]
+			},
+			css: {
+				expand: true,
+				cwd: '.tmp',
+				dest: '<%= app.dist %>/htdocs',
+				src: [
+					'**/*.css'
+				],
+				options: {
+					process: function (content, filepath) {
+						console.log(filepath);
+						if (filepath === '.tmp/modules/impact/0-0-1/css/index.css') {
+							return content.replace(
+									'@import url(/leaflet/dist/leaflet.css);',
+									'').replace(
+									'@import url(/hazdev-webutils/src/mvc/ModalView.css);',
+									'');
+						}
+						return content;
+					}
 				}
 			}
 		},
@@ -388,7 +432,8 @@ module.exports = function (grunt) {
 		'concurrent:predist',
 		'requirejs:dist',
 		'concurrent:dist',
-		'copy:leaflet_images',
+		'cssmin:dist',
+		'cssmin:impact',
 		'replace',
 		'configureRewriteRules',
 		'configureProxies',
