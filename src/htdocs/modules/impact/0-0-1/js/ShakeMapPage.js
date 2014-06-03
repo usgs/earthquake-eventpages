@@ -87,8 +87,6 @@ define([
 		this._options.module = this._options.module || new ImpactModule();
 		this._tablist = null;
 		this._shakemap = null;
-		this._code = this._options.code || null;
-		this._source = this._options.source || null;
 		this._toggleDetails = this._toggleDetails.bind(this);
 		SummaryDetailsPage.call(this, this._options);
 	};
@@ -111,12 +109,12 @@ define([
 	};
 
 // this is not needed anymore
-	ShakeMapPage.prototype.getDetailsContent = function () {
+	ShakeMapPage.prototype.getDetailsContent = function (product) {
 		var tablistDiv = document.createElement('div'),
 		    shakemap;
 
 		tablistDiv.className = 'shakemap';
-		shakemap = this._shakemap = this._getProduct();
+		shakemap = this._shakemap = product;
 
 		// Build TabList with all of the shakemap images
 		this._tablist = new TabList({
@@ -170,31 +168,6 @@ define([
 		}
 
 		return tablist;
-	};
-
-	/**
-	 * When a product code is specified, return the corresponding
-	 * shakemap product.
-	 *
-	 * @return {object}
-	 *         shakemap object that matches the code
-	 */
-	ShakeMapPage.prototype._getProduct = function () {
-		var products = this._event.properties.products.shakemap,
-		    product;
-
-		if (this._code && this._source) {
-			for (var i = 0; i < products.length; i++) {
-				if (products[i].code === this._code &&
-						products[i].source === this._source) {
-					product = products[i];
-				}
-			}
-		} else {
-			product = products[0];
-		}
-
-		return product;
 	};
 
 	/**
