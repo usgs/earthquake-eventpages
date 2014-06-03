@@ -209,6 +209,12 @@
 		}
 	},
 
+	"eventTime": {
+		"ciim_time": {
+			"label": "Time of Earthquake <small>Local time <em>1/31/2008 9:00 AM</em>, or Relative time <em>5 minutes ago</em></small>"
+		}
+	},
+
 	"submit": {
 		"label": "Submit"
 	}
