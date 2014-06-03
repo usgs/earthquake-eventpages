@@ -77,6 +77,7 @@ module.exports = function (grunt) {
 			],
 			dist: [
 				'cssmin:dist',
+				'cssmin:leaflet',
 				'htmlmin:dist',
 				'uglify'
 			]
@@ -281,6 +282,10 @@ module.exports = function (grunt) {
 				cwd: '<%= app.tmp %>',
 				dest: '<%= app.dist %>/htdocs',
 				src: '**/*.css'
+			},
+			leaflet: {
+				dest: '<%= app.dist %>/htdocs/lib/leaflet/leaflet.css',
+				src: 'node_modules/leaflet/dist/leaflet.css'
 			}
 		},
 		htmlmin: {
