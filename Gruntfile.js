@@ -242,7 +242,7 @@ module.exports = function (grunt) {
 							},
 							{
 								name: 'summary/InteractiveMap',
-								exclude: BUNDLED_DEPENDENCIES
+								exclude: BUNDLED_DEPENDENCIES.concat(['leaflet'])
 							},
 							{
 								name: 'impact/DYFIPage',
@@ -250,7 +250,7 @@ module.exports = function (grunt) {
 							},
 							{
 								name: 'impact/DYFIFormPage',
-								exclude: BUNDLED_DEPENDENCIES
+								exclude: BUNDLED_DEPENDENCIES.concat(['leaflet'])
 							},
 							{
 								name: 'impact/ShakeMapPage',
@@ -271,7 +271,10 @@ module.exports = function (grunt) {
 		},
 		cssmin: {
 			options: {
-				report: 'min'
+				report: 'min',
+				root: '<%= app.dist %>/htdocs',
+				processImport: false,
+				noRebase: true
 			},
 			dist: {
 				expand: true,
@@ -302,29 +305,20 @@ module.exports = function (grunt) {
 			dist: {
 				files: {
 					'<%= app.dist %>/htdocs/lib/requirejs/require.js':
-							['node_modules/requirejs/require.js'],
-					'<%= app.dist %>/htdocs/lib/html5shiv/html5shiv.js':
-							['node_modules/html5shiv-dist/html5shiv.js']
+							['node_modules/requirejs/require.js']
 				}
 			}
 		},
 		copy: {
-			// convert leaflet css into embeddable scss
 			leaflet: {
-				src: 'node_modules/leaflet/dist/leaflet.css',
-				dest: 'node_modules/leaflet/dist/_leaflet.scss'
-			},
-			leaflet_images_summary: {
 				expand: true,
 				cwd: 'node_modules/leaflet/dist',
-				dest: '<%= app.dist %>/htdocs/modules/summary/0-0-1/css',
-				src: ['images/**']
-			},
-			leaflet_images_impact: {
-				expand: true,
-				cwd: 'node_modules/leaflet/dist',
-				dest: '<%= app.dist %>/htdocs/modules/impact/0-0-1/css',
-				src: ['images/**']
+				dest: '<%= app.dist %>/htdocs/lib/leaflet',
+				src: [
+					'leaflet.js',
+					'leaflet.css',
+					'images/**'
+				]
 			},
 			app: {
 				expand: true,
@@ -367,6 +361,15 @@ module.exports = function (grunt) {
 					'*.png',
 					'*.cur'
 				]
+			},
+			locationview_images_dev: {
+				expand: true,
+				cwd: 'node_modules/hazdev-location-view/src',
+				dest: '<%= app.tmp %>/modules/impact/0-0-1/css',
+				src: [
+					'*.png',
+					'*.cur'
+				]
 			}
 		},
 		replace: {
@@ -380,6 +383,24 @@ module.exports = function (grunt) {
 					{
 						from: '<script src="http://<%= connect.options.hostname %>:35729/livereload.js?snipver=1"></script>',
 						to: ''
+					}
+				]
+			},
+			leaflet_shim_dist: {
+				src: [
+					'<%= app.dist %>/htdocs/js/index.js',
+					'<%= app.dist %>/htdocs/modules/impact/0-0-1/css/index.css',
+					'<%= app.dist %>/htdocs/modules/summary/0-0-1/css/index.css',
+				],
+				overwrite: true,
+				replacements: [
+					{
+						from: 'leaflet/dist',
+						to: 'lib/leaflet'
+					},
+					{
+						from: 'leaflet-src',
+						to: 'leaflet'
 					}
 				]
 			}
@@ -412,6 +433,7 @@ module.exports = function (grunt) {
 		'mocha_phantomjs'
 	]);
 
+
 	grunt.registerTask('build', [
 		'clean:dist',
 		'concurrent:predist',
@@ -419,7 +441,11 @@ module.exports = function (grunt) {
 		'copy',
 		'compass',
 		'concurrent:dist',
-		'replace',
+		'replace'
+	]);
+
+	grunt.registerTask('dist', [
+		'build',
 		'configureRewriteRules',
 		'configureProxies',
 		'open:dist',
@@ -430,6 +456,7 @@ module.exports = function (grunt) {
 		'clean:dist',
 		'copy:leaflet',
 		'copy:modalview',
+		'copy:locationview_images_dev',
 		'compass:dev',
 		'configureRewriteRules',
 		'configureProxies',
