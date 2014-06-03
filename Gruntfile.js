@@ -45,7 +45,7 @@ module.exports = function (grunt) {
 			},
 			scss: {
 				files: ['<%= app.src %>/htdocs/**/*.scss'],
-				tasks: ['copy:leaflet', 'compass:dev']
+				tasks: ['copy:leaflet', 'copy:modalview', 'compass:dev']
 			},
 			tests: {
 				files: ['<%= app.test %>/*.html', '<%= app.test %>/**/*.js'],
@@ -73,9 +73,7 @@ module.exports = function (grunt) {
 			tests: ['jshint:tests', 'mocha_phantomjs'],
 			predist: [
 				'jshint:scripts',
-				'jshint:tests',
-				'compass',
-				'copy'
+				'jshint:tests'
 			],
 			dist: [
 				'cssmin:dist',
@@ -196,7 +194,8 @@ module.exports = function (grunt) {
 						svgimagemap: '../../../node_modules/hazdev-svgimagemap/src/svgimagemap',
 						quakeml: '../../../node_modules/quakeml-parser-js/src/quakeml',
 						theme: '../../../node_modules/hazdev-template/src/htdocs/js',
-
+						questionview: '../../../node_modules/hazdev-question-view/src',
+						locationview: '../../../node_modules/hazdev-location-view/src',
 
 						base: '../modules/base/0-0-1/js',
 						summary: '../modules/summary/0-0-1/js',
@@ -216,10 +215,19 @@ module.exports = function (grunt) {
 							'base/EventModulePage',
 							'base/EventModulePages',
 							'base/TabbedModulePage',
+							'base/SummaryDetailsPage',
 							'base/ContentsXML',
 							'base/Formatter',
+							'base/EventPage',
+							'base/EventModulePage',
+							'summary/Attribution',
+							'mvc/Collection',
+							'mvc/Model',
+							'mvc/View',
+							'mvc/ModalView',
 							'util/Util',
-							'util/Xhr'
+							'util/Xhr',
+							'util/Events'
 						];
 						return [
 							{
@@ -238,6 +246,10 @@ module.exports = function (grunt) {
 							},
 							{
 								name: 'impact/DYFIPage',
+								exclude: BUNDLED_DEPENDENCIES
+							},
+							{
+								name: 'impact/DYFIFormPage',
 								exclude: BUNDLED_DEPENDENCIES
 							},
 							{
@@ -263,7 +275,7 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				expand: true,
-				cwd: '.tmp',
+				cwd: '<%= app.tmp %>',
 				dest: '<%= app.dist %>/htdocs',
 				src: '**/*.css'
 			}
@@ -302,11 +314,17 @@ module.exports = function (grunt) {
 				src: 'node_modules/leaflet/dist/leaflet.css',
 				dest: 'node_modules/leaflet/dist/_leaflet.scss'
 			},
-			leaflet_images: {
+			leaflet_images_summary: {
 				expand: true,
-				cwd: 'node_modules/leaflet/dist/images',
-				dest: '<%= app.dist %>/htdocs/modules/summary/0-0-1/css/images',
-				src: ['*.png']
+				cwd: 'node_modules/leaflet/dist',
+				dest: '<%= app.dist %>/htdocs/modules/summary/0-0-1/css',
+				src: ['images/**']
+			},
+			leaflet_images_impact: {
+				expand: true,
+				cwd: 'node_modules/leaflet/dist',
+				dest: '<%= app.dist %>/htdocs/modules/impact/0-0-1/css',
+				src: ['images/**']
 			},
 			app: {
 				expand: true,
@@ -314,8 +332,7 @@ module.exports = function (grunt) {
 				dest: '<%= app.dist %>/htdocs',
 				src: [
 					'img/**/*.{png,gif,jpg,jpeg}',
-					'**/*.php',
-					'**/*.js'
+					'**/*.php'
 				]
 			},
 			conf: {
@@ -337,6 +354,19 @@ module.exports = function (grunt) {
 				options: {
 					mode: true
 				}
+			},
+			modalview: {
+				src: 'node_modules/hazdev-webutils/src/mvc/ModalView.css',
+				dest: 'node_modules/hazdev-webutils/src/mvc/_ModalView.scss'
+			},
+			locationview_images: {
+				expand: true,
+				cwd: 'node_modules/hazdev-location-view/src',
+				dest: '<%= app.dist %>/htdocs/modules/impact/0-0-1/css',
+				src: [
+					'*.png',
+					'*.cur'
+				]
 			}
 		},
 		replace: {
@@ -384,11 +414,11 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('build', [
 		'clean:dist',
-		'copy:leaflet',
 		'concurrent:predist',
 		'requirejs:dist',
+		'copy',
+		'compass',
 		'concurrent:dist',
-		'copy:leaflet_images',
 		'replace',
 		'configureRewriteRules',
 		'configureProxies',
@@ -399,6 +429,7 @@ module.exports = function (grunt) {
 	grunt.registerTask('default', [
 		'clean:dist',
 		'copy:leaflet',
+		'copy:modalview',
 		'compass:dev',
 		'configureRewriteRules',
 		'configureProxies',

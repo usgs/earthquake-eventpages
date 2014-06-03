@@ -348,8 +348,7 @@ define([
 		moreQuestionsEl.classList.add('dyfi-optional-questions');
 		contactContainer.classList.add('dyfi-contact-questions');
 
-		header.classList.add('modal-header');
-		header.innerHTML = '<h3>Felt Report</h3>';
+		header.innerHTML = '<h3 class="felt-header">Felt Report</h3>';
 
 		// Handle location question
 		__create_location_questions(locationInfo, baseQuestionsEl, questions);
