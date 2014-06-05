@@ -23,7 +23,7 @@ define([
 
 	var SOURCE_MAP = {
 		'AK,AEIC': {id: 'AK,AEIC', 'title': 'Alaska Earthquake Information Center', 'url': 'http://www.aeic.alaska.edu/', 'logo': LOGO_ROOT + 'AK.jpg'},
-		'AT,ATWC': {id: 'AT,ATWC', 'title': 'Alaska Tsunami Warning Center', 'url': 'http://wcatwc.arh.noaa.gov/', 'logo': LOGO_ROOT + 'PT.jpg'},
+		'AT,ATWC': {id: 'AT,ATWC', 'title': 'National Tsunami Warning Center', 'url': 'ntwc.arh.noaa.gov', 'logo': LOGO_ROOT + 'PT.jpg'},
 		'CI': {id: 'CI', 'title': 'Southern California Seismic Network, Caltech, USGS Pasadena, and Partners', 'url': 'http://www.cisn.org/', 'logo': LOGO_ROOT + 'CI.gif'},
 		'HV': {id: 'HV', 'title': 'Hawaii Volcano Observatory', 'url': 'http://hvo.wr.usgs.gov/', 'logo': ''},
 		'LD': {id: 'LD', 'title': 'Lamont-Doherty Cooperative Seismographic Network', 'url': 'http://www.ldeo.columbia.edu/LCSN/', 'logo': ''},
@@ -116,7 +116,7 @@ define([
 		'PDG': {id: 'PDG', title: 'Seizmoloski zavod Crne Gore, Podgorica, Montenegro'},
 		'PEPP': {id: 'PEPP', title: 'Princeton Earth Physics Project, Princeton, New Jersey, USA'},
 		'PIVS': {id: 'PIVS', title: 'Philippine Inst. of Volcanology & Seismology, Quezon City, Philippines'},
-		'PMR': {id: 'PMR', title: 'NOAA West Coast and Alaska Tsunami Warning Center, Palmer, Alaska, USA'},
+		'PMR': {id: 'PMR', title: 'NOAA West Coast and National Tsunami Warning Center, Palmer, Alaska, USA'},
 		'PNNL': {id: 'PNNL', title: 'Pacific Northwest National Laboratory, Richland, Washington, USA'},
 		'POLR': {id: 'POLR', title: 'POLARIS Project, Ottawa, Canada'},
 		'PPT': {id: 'PPT', title: 'Laboratoire de Geophysique, Papeete, French Polynesia'},
