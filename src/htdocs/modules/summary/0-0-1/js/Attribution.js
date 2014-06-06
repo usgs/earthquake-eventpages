@@ -116,7 +116,7 @@ define([
 		'PDG': {id: 'PDG', title: 'Seizmoloski zavod Crne Gore, Podgorica, Montenegro'},
 		'PEPP': {id: 'PEPP', title: 'Princeton Earth Physics Project, Princeton, New Jersey, USA'},
 		'PIVS': {id: 'PIVS', title: 'Philippine Inst. of Volcanology & Seismology, Quezon City, Philippines'},
-		'PMR': {id: 'PMR', title: 'NOAA West Coast and National Tsunami Warning Center, Palmer, Alaska, USA'},
+		'PMR': {id: 'PMR', title: 'National Tsunami Warning Center, Palmer, Alaska, USA'},
 		'PNNL': {id: 'PNNL', title: 'Pacific Northwest National Laboratory, Richland, Washington, USA'},
 		'POLR': {id: 'POLR', title: 'POLARIS Project, Ottawa, Canada'},
 		'PPT': {id: 'PPT', title: 'Laboratoire de Geophysique, Papeete, French Polynesia'},
