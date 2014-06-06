@@ -40,6 +40,16 @@ define([
 	};
 	SummaryModule.prototype = Object.create(EventModule.prototype);
 
+	SummaryModule.prototype.getNavigationMarkup = function (hash) {
+		var markUp = EventModule.prototype.getNavigationMarkup.call(this, hash),
+		    eventId = this._eventDetails.id,
+		    kmlLink = '/earthquakes/feed/v1.0/detail/' + eventId + '.kml';
+
+		markUp = markUp.replace('</section>',
+				'<a href="' + kmlLink + '">Google Earth KML</a></section>');
+		return markUp;
+	};
+
 	SummaryModule.prototype._updateTimestampHeader = function () {
 		var stampElement = document.querySelector('.event-header .utc'),
 		    properties = this._eventDetails.properties,
