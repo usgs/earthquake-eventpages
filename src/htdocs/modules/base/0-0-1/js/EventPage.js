@@ -136,7 +136,7 @@ define([
 		for (; i < numModules; i++) {
 			module = this._modules[i];
 			if (module.hasContent()) {
-				markup.push(module.getNavigationMarkup(hash));
+				markup.push('<section>' + module.getNavigationItems(hash).join('') + '</section>');
 			}
 		}
 
