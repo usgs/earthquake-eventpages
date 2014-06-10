@@ -4,8 +4,8 @@ define([
 	'util/Xhr',
 
 	'base/SummaryDetailsPage',
+	'base/EventModulePage',
 	'base/Formatter',
-	'base/ContentsXML',
 
 	'summary/Attribution',
 
@@ -16,8 +16,8 @@ define([
 	Xhr,
 
 	SummaryDetailsPage,
+	EventModulePage,
 	Formatter,
-	ContentsXML,
 
 	Attribution,
 
@@ -313,7 +313,7 @@ define([
 		    len;
 
 		// convert products to Tensor objects
-		products = SummaryDetailsPage.prototype.getProducts.call(this);
+		products = EventModulePage.prototype._getProducts.apply(this);
 		for (i = 0, len = products.length; i < len; i++) {
 			tensors.push(Tensor.fromProduct(products[i]));
 		}
@@ -365,28 +365,6 @@ define([
 		].join('');
 	};
 
-
-
-	MomentTensorPage.prototype.getDownloads = function (product) {
-		var el = document.createElement('div'),
-		    title = '<header><h3>Downloads</h3></header>';
-
-		el.innerHTML = title + '<p>Loading contents &hellip;</p>';
-		el.className = 'downloads';
-
-		new ContentsXML({
-				product: product.product,
-				callback: function (contents) {
-					// build content
-					el.innerHTML = title + contents.getDownloads();
-				},
-				errback: function () {
-					el.innerHTML = title +
-							'<p class="alert error">Unable to load downloads &hellip;</p>';
-				}});
-
-		this._content.appendChild(el);
-	};
 
 	MomentTensorPage.prototype.destroy = function () {
 		this._options = null;
