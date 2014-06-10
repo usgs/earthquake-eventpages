@@ -293,23 +293,18 @@ define([
 		});
 	};
 
+	//Overrides EventModuelPage.js
 	SummaryPage.prototype._setFooterMarkup = function () {
 		var product = this._event.properties.products.origin[0],
 		    el = document.createElement('div');
-		el.innerHTML = 'Loading contents ...';
-		el.className = 'downloads';
 
-		new ContentsXML({
-				product: product,
-				callback: function (contents) {
-					// build content
-					el.innerHTML = '<header><h3>Downloads</h3></header>' +
-							contents.getDownloads();
-				},
-				errback: function () {
-					el.innerHTML = 'Error loading contents ...';
-				}});
+		el = document.createElement('div');
+		el.innerHTML = '<p><header><h3>Downloads</h3></header></p>';
+		el.className = 'downloads';
 		this._footer.appendChild(el);
+
+
+		EventModulePage.prototype.getDownloads.apply(this, [product]);
 	};
 
 	return SummaryPage;
