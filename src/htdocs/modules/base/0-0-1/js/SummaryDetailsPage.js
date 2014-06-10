@@ -1,12 +1,10 @@
 /* global define */
 define([
 	'util/Util',
-	'./EventModulePage',
-	'./ContentsXML'
+	'./EventModulePage'
 ], function (
 	Util,
-	EventModulePage,
-	ContentsXML
+	EventModulePage
 ) {
 	'use strict';
 
@@ -77,7 +75,6 @@ define([
 		if (product) {
 			// If there is only one product display details
 			this.getDetailsContent(product);
-			this.getDownloads(product);
 		} else {
 			// there is more than one product display summary
 			this.getSummaryContent(products);
@@ -92,20 +89,7 @@ define([
 	 *
 	 */
 	SummaryDetailsPage.prototype.getProducts = function () {
-		var options = this._options,
-		    productTypes = options.productTypes || [],
-		    products = [],
-		    allProducts = [],
-		    type;
-
-		// loop through different productTypes
-		for (var i = 0; i < productTypes.length; i++) {
-			type = productTypes[i];
-			products = this._event.properties.products[type] || [];
-			allProducts = allProducts.concat(products);
-		}
-
-		return allProducts;
+		return EventModulePage.prototype._getProducts.apply(this);
 	};
 
 
@@ -242,30 +226,6 @@ define([
 	SummaryDetailsPage.prototype._buildHash = function (product) {
 		return '#' + this._options.module._hash + '_' + this._hash + ':'+
 				product.source + '_' + product.code;
-	};
-
-	/**
-	 * Retrieves downloadable content from contents.xml
-	 */
-	SummaryDetailsPage.prototype.getDownloads = function (product) {
-		var el = document.createElement('div'),
-		    title = '<header><h3>Downloads</h3></header>';
-
-		el.innerHTML = title + '<p>Loading contents &hellip;</p>';
-		el.className = 'downloads';
-
-		new ContentsXML({
-				product: product,
-				callback: function (contents) {
-					// build content
-					el.innerHTML = title + contents.getDownloads();
-				},
-				errback: function () {
-					el.innerHTML = title +
-							'<p class="alert error">Unable to load downloads &hellip;</p>';
-				}});
-
-		this._content.appendChild(el);
 	};
 
 
