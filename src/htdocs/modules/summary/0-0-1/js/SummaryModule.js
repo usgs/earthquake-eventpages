@@ -33,6 +33,10 @@ define([
 
 	var SummaryModule = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
+		if (options.eventConfig && options.eventConfig.KML_STUB) {
+			this._kmlUrl = options.eventConfig.KML_STUB.replace('%s',
+					options.eventDetails.id);
+		}
 		EventModule.call(this, Util.extend({}, DEFAULTS, options || {}));
 
 		// Enhance the timestamp in event
@@ -41,11 +45,15 @@ define([
 	SummaryModule.prototype = Object.create(EventModule.prototype);
 
 	SummaryModule.prototype.getNavigationItems = function (hash) {
-		var markUp = EventModule.prototype.getNavigationItems.call(this, hash),
-		    eventId = this._eventDetails.id,
-		    kmlLink = '/earthquakes/feed/v1.0/detail/' + eventId + '.kml';
+		var markUp = EventModule.prototype.getNavigationItems.call(this, hash);
+		    // eventId = this._eventDetails.id,
+		    // kmlLink = '/earthquakes/feed/v1.0/detail/' + eventId + '.kml';
 
-		markUp.push('<a href="' + kmlLink + '">Google Earth KML</a>');
+		// markUp.push('<a href="' + kmlLink + '">Google Earth KML</a>');
+		if ( this._kmlUrl ) {
+			markUp.push('<a href="' + this._kmlUrl + '">Google Earth KML</a>');
+		}
+
 		return markUp;
 	};
 

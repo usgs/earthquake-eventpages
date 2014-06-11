@@ -22,6 +22,11 @@ if (!isset($TEMPLATE)) {
 	$TITLE = $PROPERTIES['title'];
 	$NAVIGATION = navItem('#', 'Event Summary');
 
+	$EVENT_CONFIG = array(
+		'KML_STUB' => isset($CONFIG['KML_STUB']) ? $CONFIG['KML_STUB'] : null,
+		'MOUNT_PATH' => $CONFIG['MOUNT_PATH']
+	);
+
 	$HEAD = '
 		<link rel="alternate" type="application/atom+xml" href="' .
 				sprintf($CONFIG['ATOM_STUB'], $eventid) . '"/>
@@ -32,6 +37,7 @@ if (!isset($TEMPLATE)) {
 		/* Embed event details in an explicitly named define. */
 		'<script>' .
 			'define(\'EventDetails\', ' . json_encode($EVENT) . ');' .
+			'define(\'EventConfig\', ' . json_encode($EVENT_CONFIG) . ');' .
 		'</script>' .
 		/* Now start the action in a separate JS file for cachability. */
 		'<script src="js/index.js"></script>' .

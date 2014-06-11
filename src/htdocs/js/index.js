@@ -27,11 +27,13 @@ require.config({
 
 require([
 	'EventDetails',
+	'EventConfig',
 	'base/EventPage',
 // "theme" is configured by hazdev-template
 	'theme/OffCanvas'
 ], function (
 	EventDetails,
+	EventConfig,
 	EventPage,
 	OffCanvas
 ) {
@@ -41,7 +43,8 @@ require([
 	    offcanvas;
 
 	eventpage = new EventPage({
-		eventDetails: EventDetails
+		eventDetails: EventDetails,
+		eventConfig: EventConfig
 	});
 
 	offcanvas = OffCanvas.getOffCanvas();
