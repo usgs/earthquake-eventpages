@@ -3,12 +3,14 @@ define([
 	'base/EventModule',
 
 	'util/Util',
-	'base/ContentsXML'
+	'base/ContentsXML',
+	'summary/Attribution'
 ], function (
 	EventModule,
 
 	Util,
-	ContentsXML
+	ContentsXML,
+	Attribution
 ) {
 	'use strict';
 
@@ -69,6 +71,7 @@ define([
 		this._footer = document.createElement('footer');
 		Util.addClass(this._footer, 'event-module-footer');
 		Util.addClass(this._footer, 'clearfix');
+		this.loadDownloadMarkup = this.loadDownloadMarkup.bind(this);
 
 		this._setHeaderMarkup();
 		this._setContentMarkup();
@@ -86,10 +89,7 @@ define([
 	};
 
 	EventModulePage.prototype._setFooterMarkup = function () {
-		var footerMarkup = this._module.getFooterMarkup(this),
-		    products,
-		    el,
-		    i;
+		var footerMarkup = this._module.getFooterMarkup(this);
 
 		//This isn't currently used. But it makes sense to leave it.
 		if (typeof footerMarkup === 'object') {
@@ -98,22 +98,41 @@ define([
 			this._footer.innerHTML = footerMarkup;
 		}
 
+		this.setDownloadMarkup();
+
+	};
+
+	EventModulePage.prototype.setDownloadMarkup = function () {
+		var products,
+		    el;
 		//Get a list of products to add to the downloads list.
-		products = this._getProducts();
+		products = this.getProducts();
 
 		//IRIS page, and tests can return no products.
 		if (products.length !== 0) {
 
-			el = document.createElement('div');
-			el.innerHTML = '<p><header><h3>Downloads</h3></header></p>';
-			el.className = 'downloads';
+			el = document.createElement('section');
+			el.innerHTML = '<header><a href="#">Downloads</a></header>';
+			el.className = 'page-downloads';
 			this._footer.appendChild(el);
 
-			for (i=0; i< products.length; i++) {
-				this.getDownloads(products[i]);
-			}
+			el.addEventListener('click', this.loadDownloadMarkup);
+			this._downloadsEl = el;
 		}
+	};
 
+	EventModulePage.prototype.loadDownloadMarkup = function (e) {
+		var products = this.getProducts(),
+		    i;
+
+		e.preventDefault();
+		this._downloadsEl.removeEventListener('click',this.loadDownloadMarkup);
+
+		for (i=0; i< products.length; i++) {
+			this.getDownloads(products[i]);
+		}
+		this._downloadsEl.classList.add('page-downloads-loaded');
+		this._downloadsEl.querySelector('a').removeAttribute('href');
 	};
 
 	/**
@@ -122,10 +141,8 @@ define([
 	 * @return {Array<Object>} allProducts,
 	 *         all products that match options.productTypes.
 	 *
-	 * Named '_getProducts' to not conflict with the tablist
-	 * call 'getProducts' that was overridden in MomentTensorPage.js
 	 */
-	EventModulePage.prototype._getProducts = function () {
+	EventModulePage.prototype.getProducts = function () {
 		var productTypes = this._productTypes,
 		    products = [],
 		    allProducts = [],
@@ -145,23 +162,34 @@ define([
 	 * Gets the downloadable products and attachs to the footer.
 	 */
 	EventModulePage.prototype.getDownloads = function (product) {
-		var el = document.createElement('div');
+		var el = document.createElement('section');
 
 		el.innerHTML = '<p>Loading contents &hellip;</p>';
-		el.className = 'downloads';
+		el.className = 'page-download';
 
-			new ContentsXML({
-				product: product,
-				callback: function (contents) {
-					// build content
-					el.innerHTML = contents.getDownloads();
-				},
-				errback: function () {
+		this._downloadsEl.appendChild(el);
+		new ContentsXML({
+			product: product,
+			callback: function (contents) {
+			// build content
+				var header = '<header class="page-download-header">' +
+						'<span class="type">' + product.type + '</span>' +
+						' <span class="source">' + Attribution.getName(product.source) +
+						'</span>' +
+						' <span class="code">' + product.code + '</span>' +
+						'</header>';
+				el.innerHTML = header + contents.getDownloads();
+			},
+			errback: function (contents,err) {
+				if (err.message === 'product has no contents.xml content') {
+					el.parentNode.removeChild(el);
+				} else {
 					el.innerHTML =
-							'<p class="alert error">Unable to load downloads &hellip;</p>';
-				}});
+						'<p class="alert error">Unable to load downloads &hellip;</p>';
+				}
+			}});
 
-			this._footer.appendChild(el);
+
 	};
 
 
