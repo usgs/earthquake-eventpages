@@ -1,0 +1,32 @@
+.page-downloads-loaded {
+	border: 1px solid #000;
+	padding: 8px;
+
+	> header > a {
+		text-decoration: none;
+		color: #000;
+		cursor: default;
+	}
+}
+
+.page-download {
+	margin-top: 1em;
+	> .contentsxml {
+		padding-left:20px;
+	}
+}
+
+.page-download-header {
+	> .type {
+		font-weight: bold;
+	}
+	> .source {
+		display: block;
+		font-size: .7em;
+	}
+	> .code {
+		display: block;
+		font-size: .7em;
+	}
+
+}
