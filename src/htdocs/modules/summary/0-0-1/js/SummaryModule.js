@@ -46,10 +46,7 @@ define([
 
 	SummaryModule.prototype.getNavigationItems = function (hash) {
 		var markUp = EventModule.prototype.getNavigationItems.call(this, hash);
-		    // eventId = this._eventDetails.id,
-		    // kmlLink = '/earthquakes/feed/v1.0/detail/' + eventId + '.kml';
 
-		// markUp.push('<a href="' + kmlLink + '">Google Earth KML</a>');
 		if ( this._kmlUrl ) {
 			markUp.push('<a href="' + this._kmlUrl + '">Google Earth KML</a>');
 		}
