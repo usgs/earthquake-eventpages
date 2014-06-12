@@ -93,8 +93,8 @@ define([
 	 * @return {String}
 	 *      Navigation markup for this module.
 	 */
-	EventModule.prototype.getNavigationMarkup = function (hash) {
-		var markup = ['<section><header>', this._title, '</header>'],
+	EventModule.prototype.getNavigationItems = function (hash) {
+		var markup = ['<header>', this._title, '</header>'],
 		    numPages = this._pages.length, fullHash = null,
 		    i = null, page = null, pageOptions = null;
 
@@ -118,9 +118,7 @@ define([
 			}
 		}
 
-		markup.push('</section>');
-
-		return markup.join('');
+		return markup;
 	};
 
 	/**

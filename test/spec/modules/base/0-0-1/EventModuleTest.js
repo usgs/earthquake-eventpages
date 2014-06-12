@@ -25,10 +25,10 @@ define([
 			});
 		});
 
-		describe('getNavigationMarkup()', function () {
+		describe('getNavigationItems()', function () {
 			it('has such a method', function () {
 				/* jshint -W030 */
-				expect((new EventModule()).getNavigationMarkup).to.not.be.undefined;
+				expect((new EventModule()).getNavigationItems).to.not.be.undefined;
 				/* jshint +W030 */
 			});
 		});

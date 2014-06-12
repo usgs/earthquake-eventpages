@@ -56,6 +56,7 @@ define([
 				document.createElement('footer');
 
 		this._eventDetails = options.eventDetails || {};
+		this._eventConfig = options.eventConfig || null;
 
 		this._defaultPage = options.hasOwnProperty('defaultPage') ?
 				options.defaultPage : DEFAULTS.defaultPage;
@@ -64,7 +65,10 @@ define([
 		this._cache = [];
 
 		this._modules = options.modules || [
-			new SummaryModule({'eventDetails':this._eventDetails}),
+			new SummaryModule({
+					'eventDetails': this._eventDetails,
+					'eventConfig': this._eventConfig
+			}),
 			new ImpactModule({'eventDetails':this._eventDetails}),
 			new ScientificModule({'eventDetails':this._eventDetails})
 		];
@@ -136,7 +140,7 @@ define([
 		for (; i < numModules; i++) {
 			module = this._modules[i];
 			if (module.hasContent()) {
-				markup.push(module.getNavigationMarkup(hash));
+				markup.push('<section>' + module.getNavigationItems(hash).join('') + '</section>');
 			}
 		}
 

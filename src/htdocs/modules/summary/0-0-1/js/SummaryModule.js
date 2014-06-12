@@ -33,12 +33,26 @@ define([
 
 	var SummaryModule = function (options) {
 		options = Util.extend({}, DEFAULTS, options || {});
+		if (options.eventConfig && options.eventConfig.KML_STUB) {
+			this._kmlUrl = options.eventConfig.KML_STUB.replace('%s',
+					options.eventDetails.id);
+		}
 		EventModule.call(this, Util.extend({}, DEFAULTS, options || {}));
 
 		// Enhance the timestamp in event
 		this._updateTimestampHeader();
 	};
 	SummaryModule.prototype = Object.create(EventModule.prototype);
+
+	SummaryModule.prototype.getNavigationItems = function (hash) {
+		var markUp = EventModule.prototype.getNavigationItems.call(this, hash);
+
+		if ( this._kmlUrl ) {
+			markUp.push('<a href="' + this._kmlUrl + '">Google Earth KML</a>');
+		}
+
+		return markUp;
+	};
 
 	SummaryModule.prototype._updateTimestampHeader = function () {
 		var stampElement = document.querySelector('.event-header .utc'),

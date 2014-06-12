@@ -80,6 +80,12 @@ $prompts = array(
 		'prompt' => 'URL stub for event detail ATOM web service',
 		'default' => '/earthquakes/eventpage/%s.xml',
 		'secure' => false
+	),
+
+	'KML_STUB' => array(
+		'prompt' => 'URL for kml feed',
+		'default' => '/earthquakes/feed/v1.0/detail/%s.kml',
+		'secure' => false
 	)
 );
 
