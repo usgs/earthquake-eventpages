@@ -81,6 +81,12 @@ define([
 		}
 	};
 
+/*	SummaryDetailsPage.prototype.setDownloadMarkup = function () {
+		if (this._code) {
+			EventModulePage.prototype.setDownloadMarkup.apply(this);
+		}
+	};*/
+
 	/**
 	 * Find the products to display on this page.
 	 *
@@ -89,7 +95,19 @@ define([
 	 *
 	 */
 	SummaryDetailsPage.prototype.getProducts = function () {
-		return EventModulePage.prototype._getProducts.apply(this);
+		var product = [], products = this._products, j = 0;
+
+		if (this._code) {
+			for (var i = 0; i < products.length; i++) {
+				if (this._code === products[i].source + '_' + products[i].code) {
+					product[j++] = products[i];
+				}
+			}
+			return product;
+		}
+		else {
+			return EventModulePage.prototype.getProducts.apply(this);
+		}
 	};
 
 
