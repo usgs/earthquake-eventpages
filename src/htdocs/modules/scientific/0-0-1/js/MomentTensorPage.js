@@ -41,11 +41,11 @@ define([
 	 *        page options.
 	 */
 	var MomentTensorPage = function (options) {
-		this._options = Util.extend({}, DEFAULTS, options);
-		this._code = options.code;
+		options = Util.extend({}, DEFAULTS, options);
+		//this._code = options.code;
 		this._toggleButton = null;
 		this._toggleInfo = this._toggleInfo.bind(this);
-		SummaryDetailsPage.call(this, this._options);
+		SummaryDetailsPage.call(this, options);
 	};
 
 	// extend TabbedModulePage.
@@ -58,8 +58,11 @@ define([
 	 * @param  {object} product, origin product to display
 	 *
 	 */
-	MomentTensorPage.prototype.getDetailsContent = function (tensor) {
+	MomentTensorPage.prototype.getDetailsContent = function (product) {
+		var tensor = Tensor.fromProduct(product);
 		var el = document.createElement('div');
+
+		this._product = product;
 
 		// set layout
 		el.className = 'tensor-detail';
@@ -306,19 +309,18 @@ define([
 		].join('');
 	};
 
-	MomentTensorPage.prototype.getProducts = function () {
-		var tensors = [],
-		    products,
-		    i,
-		    len;
+	MomentTensorPage.prototype.getSummaryContent = function (products) {
+		var i, len, tensors = [];
 
-		// convert products to Tensor objects
-		products = EventModulePage.prototype._getProducts.apply(this);
 		for (i = 0, len = products.length; i < len; i++) {
 			tensors.push(Tensor.fromProduct(products[i]));
 		}
 
-		return tensors;
+		SummaryDetailsPage.prototype.getSummaryContent.apply(this, [tensors]);
+	};
+
+	MomentTensorPage.prototype._buildHash = function (tensor) {
+		return SummaryDetailsPage.prototype._buildHash.call(this, tensor.product);
 	};
 
 	MomentTensorPage.prototype._getSummaryHeader = function (tensor) {
