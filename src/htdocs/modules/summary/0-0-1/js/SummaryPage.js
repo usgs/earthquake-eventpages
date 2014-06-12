@@ -294,7 +294,7 @@ define([
 	};
 
 	//Overrides EventModuelPage.js
-	SummaryPage.prototype._setFooterMarkup = function () {
+/*	SummaryPage.prototype._setFooterMarkup = function () {
 		var product = this._event.properties.products.origin[0],
 		    el = document.createElement('div');
 
@@ -305,7 +305,7 @@ define([
 
 
 		EventModulePage.prototype.getDownloads.apply(this, [product]);
-	};
+	};*/
 
 	return SummaryPage;
 });
