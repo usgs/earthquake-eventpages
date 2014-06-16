@@ -86,10 +86,16 @@ define([
 		    phases = this._event.properties.products['phase-data'] || [],
 		    phase,
 		    allProducts = [],
+		    tmpProducts = [],
 		    sourceCode = [],
 		    index,
 		    id,
-		    i;
+		    i,
+		    code = this._code;
+
+		if (!code) {
+			code = this._getHash();
+		}
 
 		allProducts = origins;
 
@@ -113,6 +119,15 @@ define([
 				// phase-data updateTime is same age or newer.
 				if (allProducts[index].updateTime <= phase.updateTime) {
 					allProducts[index] = phase;
+				}
+			}
+		}
+
+		if (code) {
+			for (i = 0; i < allProducts.length; i++) {
+				if (code === allProducts[i].source + '_' + allProducts[i].code) {
+					tmpProducts.push(allProducts[i]);
+					allProducts = tmpProducts;
 				}
 			}
 		}
