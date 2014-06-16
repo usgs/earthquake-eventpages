@@ -228,7 +228,8 @@ module.exports = function (grunt) {
 							'mvc/ModalView',
 							'util/Util',
 							'util/Xhr',
-							'util/Events'
+							'util/Events',
+							'theme/Accordion'
 						];
 						return [
 							{
