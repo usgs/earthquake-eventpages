@@ -4,13 +4,15 @@ define([
 	'base/EventModulePage',
 	'base/ContentsXML',
 	'util/Xhr',
-	'util/Util'
+	'util/Util',
+	'theme/Accordion'
 ], function (
 	Attribution,
 	EventModulePage,
 	ContentsXML,
 	Xhr,
-	Util
+	Util,
+	Accordion
 ) {
 	'use strict';
 	var DEFAULTS = {
@@ -113,8 +115,11 @@ define([
 		}
 
 		if (this.tectonicSummary !== null) {
-			this._setTextContent(this.tectonicSummary, 'Tectonic Summary',
-					geoserve.tectonicSummary.text);
+			new Accordion({el:this.tectonicSummary}).addAccordion({
+				toggleText: 'Tectonic Summary',
+				toggleElement: 'h3',
+				contentText: geoserve.tectonicSummary.text
+			});
 		}
 
 	};
@@ -231,8 +236,8 @@ define([
 		return '';
 	};
 
-	SummaryPage.prototype._loadTextualContent = function (container, type, title) {
-
+	SummaryPage.prototype._loadTextualContent =
+			function (container, type, title) {
 		var i = null,
 		    len = null,
 		    products = null,
@@ -249,35 +254,28 @@ define([
 			markup.push('<div>' + products[0].contents[''].bytes + '<div>');
 		}
 
-		this._setTextContent(container, title, markup.join(''));
+		new Accordion({el:container}).addAccordion({
+			toggleText: title,
+			toggleElement: 'h3',
+			contentText: markup.join('')
+		});
 	};
 
+	SummaryPage.prototype.getProducts = function () {
+		var products = EventModulePage.prototype.getProducts.call(this),
+		    toshow = [],
+		    show = {},
+		    key, product;
 
-	SummaryPage.prototype._setTextContent = function (container, title, markup) {
-		var wrapper = document.createElement('div'),
-		    header = document.createElement('h3');
-
-		Util.addClass(container, 'accordion');
-		Util.addClass(container, 'accordion-collapsed');
-
-		if (title !== null && typeof title !== 'undefined' && title !== '') {
-			header.innerHTML = title;
-		} else {
-			header.innerHTML = 'Section Header'; // TODO :: Hmm ... ?
+		for ( key in products ) {
+			product = products[key];
+			if (!(product.type in show)) {
+				show[product.type] = '';
+				toshow.push(product);
+			}
 		}
 
-		wrapper.innerHTML = markup;
-
-		container.appendChild(header);
-		container.appendChild(wrapper);
-
-		Util.addEvent(header, 'click', function () {
-			if (Util.hasClass(container, 'accordion-collapsed')) {
-				Util.removeClass(container, 'accordion-collapsed');
-			} else {
-				Util.addClass(container, 'accordion-collapsed');
-			}
-		});
+		return toshow;
 	};
 
 	SummaryPage.prototype._showInteractiveMap = function () {
@@ -292,20 +290,6 @@ define([
 			_this._interactiveMap.show(document.body);
 		});
 	};
-
-	//Overrides EventModuelPage.js
-/*	SummaryPage.prototype._setFooterMarkup = function () {
-		var product = this._event.properties.products.origin[0],
-		    el = document.createElement('div');
-
-		el = document.createElement('div');
-		el.innerHTML = '<p><header><h3>Downloads</h3></header></p>';
-		el.className = 'downloads';
-		this._footer.appendChild(el);
-
-
-		EventModulePage.prototype.getDownloads.apply(this, [product]);
-	};*/
 
 	return SummaryPage;
 });
