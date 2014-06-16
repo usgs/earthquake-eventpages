@@ -359,11 +359,6 @@ define([
 		var station,
 		    components;
 
-		// check for null index id
-		// if (!index) {
-		// 	return;
-		// }
-
 		station = this._stations[index];
 		components = station.comp;
 
@@ -506,23 +501,21 @@ define([
 		    detailSection,
 		    newSection;
 
-		// if (target.nodeName === 'A' && target.classList.contains('expand')) {
-			// after creating the section, toggle the details on click
-			detailSection = container.querySelector('.station-details');
-			if (detailSection) {
-				container.classList.toggle('show-station-details');
-				return;
-			}
-
-			className = 'station-details';
-			details = this._buildStationDetails(target.getAttribute('data-id'));
-			newSection = document.createElement('div');
-			newSection.className = className;
-			newSection.innerHTML = details;
-
+		// after creating the section, toggle the details on click
+		detailSection = container.querySelector('.station-details');
+		if (detailSection) {
 			container.classList.toggle('show-station-details');
-			container.appendChild(newSection);
-		// }
+			return;
+		}
+
+		className = 'station-details';
+		details = this._buildStationDetails(target.getAttribute('data-id'));
+		newSection = document.createElement('div');
+		newSection.className = className;
+		newSection.innerHTML = details;
+
+		container.classList.toggle('show-station-details');
+		container.appendChild(newSection);
 	};
 
 	/**
