@@ -206,8 +206,9 @@ define([
 			this._parseQuakeml(xml);
 		} else if (!this._magnitudeRendered) {
 			this._magnitudeEl.innerHTML = this._getMagnitudesMarkup();
-			this._magnitudeEl.addEventListener('click',
-					this._toggleMagnitudeDetails);
+			new Accordion({
+				el:this._magnitudeEl
+			});
 			this._magnitudeRendered = true;
 		}
 	};
