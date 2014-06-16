@@ -7,7 +7,8 @@ define([
 	'base/SummaryDetailsPage',
 	'base/Formatter',
 	'summary/Attribution',
-	'tablist/TabList'
+	'tablist/TabList',
+	'theme/Accordion'
 ], function (
 	Util,
 	Xhr,
@@ -16,7 +17,8 @@ define([
 	SummaryDetailsPage,
 	Formatter,
 	Attribution,
-	TabList
+	TabList,
+	Accordion
 ) {
 	'use strict';
 
@@ -327,7 +329,7 @@ define([
 		numStations = magnitude.stationCount || NOT_SPECIFIED;
 
 		buf.push(
-			'<section class="networkmagnitude-toggle">',
+			'<section class="accordion accordion-closed networkmagnitude">',
 			'<h3>', source, '</h3>',
 			'<ul class="networkmagnitude-summary">',
 				'<li class="magnitude">',
@@ -347,8 +349,8 @@ define([
 					'<abbr title="Number of stations">Stations</abbr>',
 				'</li>',
 			'</ul>',
-			'<a class="expand">Details</a>',
-			'<div class="networkmagnitude-details">'
+			'<a class="accordion-toggle">Details</a>',
+			'<div class="accordion-content">'
 		);
 
 		if (contributions.length === 0) {
