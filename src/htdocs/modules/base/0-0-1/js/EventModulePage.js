@@ -4,13 +4,15 @@ define([
 
 	'util/Util',
 	'base/ContentsXML',
-	'summary/Attribution'
+	'summary/Attribution',
+	'theme/Accordion'
 ], function (
 	EventModule,
 
 	Util,
 	ContentsXML,
-	Attribution
+	Attribution,
+	Accordion
 ) {
 	'use strict';
 
@@ -89,16 +91,18 @@ define([
 	};
 
 	EventModulePage.prototype._setFooterMarkup = function () {
-		var footerMarkup = this._module.getFooterMarkup(this);
-
-		//This isn't currently used. But it makes sense to leave it.
-		if (typeof footerMarkup === 'object') {
-			this._footer.appendChild(footerMarkup);
-		} else {
-			this._footer.innerHTML = footerMarkup;
-		}
+		var footerMarkup = this._module.getFooterMarkup(this),
+		    el;
 
 		this.setDownloadMarkup();
+
+		//This isn't currently used. But it makes sense to leave it.
+		if (typeof footerMarkup === 'string') {
+			el = document.createElement('div');
+			el.innerHTML = footerMarkup;
+			footerMarkup = el;
+		}
+		this._footer.appendChild(footerMarkup);
 
 	};
 
@@ -112,8 +116,15 @@ define([
 		if (products.length !== 0) {
 
 			el = document.createElement('section');
-			el.innerHTML = '<header><a href="#">Downloads</a></header>';
-			el.className = 'page-downloads';
+			new Accordion({
+				el: el,
+				accordions: [{
+					toggleText: 'Downloads',
+					contentText: '<div class="page-downloads"></div>',
+					classes: 'accordion-standard accordion-closed accordian-page-downloads'
+				}]
+			});
+
 			this._footer.appendChild(el);
 
 			el.addEventListener('click', this.loadDownloadMarkup);
@@ -131,8 +142,6 @@ define([
 		for (i=0; i< products.length; i++) {
 			this.getDownloads(products[i]);
 		}
-		this._downloadsEl.classList.add('page-downloads-loaded');
-		this._downloadsEl.querySelector('a').removeAttribute('href');
 	};
 
 	/**
@@ -167,7 +176,7 @@ define([
 		el.innerHTML = '<p>Loading contents &hellip;</p>';
 		el.className = 'page-download';
 
-		this._downloadsEl.appendChild(el);
+		this._downloadsEl.querySelector('.page-downloads').appendChild(el);
 		new ContentsXML({
 			product: product,
 			callback: function (contents) {
