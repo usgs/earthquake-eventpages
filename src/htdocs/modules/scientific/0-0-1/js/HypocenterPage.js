@@ -61,8 +61,6 @@ define([
 		this._quakeml = null;
 
 		if (this._magnitudeEl) {
-			this._magnitudeEl.removeEventListener('click',
-					this._toggleMagnitudeDetails);
 			this._magnitudeEl = null;
 		}
 
