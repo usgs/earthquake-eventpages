@@ -482,40 +482,6 @@ define([
 		return content.join('');
 	};
 
-
-	/**
-	 * Event delagator for station list section,
-	 * handles expanding and collapsing station details.
-	 *
-	 * @param  {object} e,
-	 *         click event.
-	 *
-	 */
-	ShakeMapPage.prototype._toggleDetails = function (e) {
-		var target = e.target,
-		    container = e.target.parentNode,
-		    className,
-		    details,
-		    detailSection,
-		    newSection;
-
-		// after creating the section, toggle the details on click
-		detailSection = container.querySelector('.station-details');
-		if (detailSection) {
-			container.classList.toggle('show-station-details');
-			return;
-		}
-
-		className = 'station-details';
-		details = this._buildStationDetails(target.getAttribute('data-id'));
-		newSection = document.createElement('div');
-		newSection.className = className;
-		newSection.innerHTML = details;
-
-		container.classList.toggle('show-station-details');
-		container.appendChild(newSection);
-	};
-
 	/**
 	 * Find the max value in an array, used to determine max
 	 * values for station summary section.
