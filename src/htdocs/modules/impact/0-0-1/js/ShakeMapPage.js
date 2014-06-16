@@ -195,7 +195,9 @@ define([
 							// add station list content
 							container.innerHTML = _this._buildStationList(stations);
 							// add click event to toggle details for stations
-							container.addEventListener('click', _this._toggleDetails);
+							new Accordion({
+								el:container
+							});
 						},
 						function (errorMessage) {
 							container.innerHTML = '<p class="error">' + errorMessage + '</p>';
@@ -501,15 +503,15 @@ define([
 		    detailSection,
 		    newSection;
 
-		if (target.nodeName === 'A' && target.classList.contains('expand')) {
+		// if (target.nodeName === 'A' && target.classList.contains('expand')) {
 			// after creating the section, toggle the details on click
-			detailSection = container.querySelector('.accordion-content');
+			detailSection = container.querySelector('.station-details');
 			if (detailSection) {
 				container.classList.toggle('show-station-details');
 				return;
 			}
 
-			className = 'accordion-content';
+			className = 'station-details';
 			details = this._buildStationDetails(target.getAttribute('data-id'));
 			newSection = document.createElement('div');
 			newSection.className = className;
@@ -517,7 +519,7 @@ define([
 
 			container.classList.toggle('show-station-details');
 			container.appendChild(newSection);
-		}
+		// }
 	};
 
 	/**
