@@ -3,6 +3,7 @@ define([
 	'util/Util',
 	'base/EventModulePage',
 	'base/Formatter',
+	'summary/SummaryPage',
 	'./tensor/Tensor',
 	'./tensor/BeachBall',
 	'./HypocenterPage'
@@ -10,6 +11,7 @@ define([
 	Util,
 	EventModulePage,
 	Formatter,
+	SummaryPage,
 	Tensor,
 	BeachBall,
 	HypocenterPage
@@ -86,6 +88,10 @@ define([
 		}
 	};
 
+	ScientificSummaryPage.prototype.getProducts = function () {
+		return SummaryPage.prototype.getProducts.call(this);
+	};
+
 	/**
 	 * Get a summary of the preferred location.
 	 *
@@ -102,9 +108,9 @@ define([
 			originEl.innerHTML = [
 				'<a href="#scientific_hypocenter"><h3>Hypocenter</h3></a>',
 				HypocenterPage.prototype.getOriginDetail.call(this, origins[0]),
-				'<p><a href="#scientific_hypocenter">',
+				'<div><a href="#scientific_hypocenter">',
 					'View all locations, magnitudes, phases, and arrivals.',
-				'</a></p>'
+				'</a></div>'
 			].join('');
 
 			HypocenterPage.prototype.getFeString.call(this, origins[0],
