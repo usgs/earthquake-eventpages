@@ -46,7 +46,6 @@ define([
 		this._phaseRendered = false;
 		this._magnitudeEl = document.createElement('div');
 		this._magnitudeRendered = false;
-		this._toggleMagnitudeDetails = this._toggleMagnitudeDetails.bind(this);
 		SummaryDetailsPage.call(this, this._options);
 	};
 
@@ -413,15 +412,6 @@ define([
 		}
 		buf.push('</div></section>');
 		return buf.join('');
-	};
-
-	HypocenterPage.prototype._toggleMagnitudeDetails = function (e) {
-		var target = e.target,
-		    container = e.target.parentNode;
-
-		if (target.nodeName === 'A' && target.classList.contains('expand')) {
-			container.classList.toggle('show-networkmagnitude-details');
-		}
 	};
 
 	HypocenterPage.prototype._parseQuakeml = function (quakemlInfo) {
