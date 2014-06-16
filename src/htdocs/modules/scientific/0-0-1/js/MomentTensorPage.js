@@ -75,8 +75,7 @@ define([
 					this._getAxes(tensor),
 				'</div>',
 				'<div class="column one-of-two beachball"></div>',
-			'</div>',
-			'<div class="row clearfix downloads"></div>'
+			'</div>'
 		].join('');
 
 		// add beachball
