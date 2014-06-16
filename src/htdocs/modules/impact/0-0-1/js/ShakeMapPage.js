@@ -336,6 +336,7 @@ define([
 						'</li>',
 					'</ul>',
 					'<a class="accordion-toggle" data-id="', i ,'">Details</a>',
+					this._buildStationDetails(i),
 				'</div>'
 			].join(''));
 		}
@@ -359,25 +360,27 @@ define([
 		    components;
 
 		// check for null index id
-		if (!index) {
-			return;
-		}
+		// if (!index) {
+		// 	return;
+		// }
 
 		station = this._stations[index];
 		components = station.comp;
 
 		return [
-				'<dl>',
-					'<dt>Type: </dt>',
-					'<dd>', (station.insttype === '') ? '--' : station.insttype ,'</dd>',
-					'<dt>Location: </dt>',
-					'<dd>(', station.lat, ', ', station.lon ,')</dd>',
-					'<dt>Source: </dt>',
-					'<dd>', station.source ,'</dd>',
-					'<dt>Intensity: </dt>',
-					'<dd>', station.intensity, '</dd>',
-				'</dl>',
-				this._buildComponentDetails(components),
+				'<div class="accordion-content">',
+					'<dl>',
+						'<dt>Type: </dt>',
+						'<dd>', (station.insttype === '') ? '--' : station.insttype ,'</dd>',
+						'<dt>Location: </dt>',
+						'<dd>(', station.lat, ', ', station.lon ,')</dd>',
+						'<dt>Source: </dt>',
+						'<dd>', station.source ,'</dd>',
+						'<dt>Intensity: </dt>',
+						'<dd>', station.intensity, '</dd>',
+					'</dl>',
+					this._buildComponentDetails(components),
+				'</div>'
 			].join('');
 	};
 
