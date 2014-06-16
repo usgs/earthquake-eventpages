@@ -89,7 +89,6 @@ define([
 		this._options.module = this._options.module || new ImpactModule();
 		this._tablist = null;
 		this._shakemap = null;
-		this._toggleDetails = this._toggleDetails.bind(this);
 		SummaryDetailsPage.call(this, this._options);
 	};
 
@@ -207,7 +206,6 @@ define([
 				return container;
 			},
 			onDestroy: function () {
-				container.removeEventListener('click', _this._toggleDetails);
 				container = null;
 				_this = null;
 			}
