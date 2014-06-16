@@ -3,6 +3,7 @@ define([
 	'util/Util',
 	'util/Xhr',
 	'tablist/TabList',
+	'theme/Accordion',
 	'base/ContentsXML',
 	'./ImpactUtil',
 	'base/SummaryDetailsPage',
@@ -12,6 +13,7 @@ define([
 	Util,
 	Xhr,
 	TabList,
+	Accordion,
 	ContentsXML,
 	ImpactUtil,
 	SummaryDetailsPage,
@@ -307,7 +309,7 @@ define([
 			}
 
 			stations.push([
-				'<div class="station-toggle">',
+				'<div class="accordion accordion-closed station">',
 					'<h3>', title, '</h3>',
 					'<ul class="station-summary">',
 						'<li class="mmi mmi', romanNumeral, '">',
@@ -331,7 +333,7 @@ define([
 							'<abbr title="Distance from Epicenter">dist</abbr>',
 						'</li>',
 					'</ul>',
-					'<a class="expand" data-id="', i ,'">Details</a>',
+					'<a class="accordion-toggle" data-id="', i ,'">Details</a>',
 				'</div>'
 			].join(''));
 		}
@@ -501,13 +503,13 @@ define([
 
 		if (target.nodeName === 'A' && target.classList.contains('expand')) {
 			// after creating the section, toggle the details on click
-			detailSection = container.querySelector('.station-details');
+			detailSection = container.querySelector('.accordion-content');
 			if (detailSection) {
 				container.classList.toggle('show-station-details');
 				return;
 			}
 
-			className = 'station-details';
+			className = 'accordion-content';
 			details = this._buildStationDetails(target.getAttribute('data-id'));
 			newSection = document.createElement('div');
 			newSection.className = className;
