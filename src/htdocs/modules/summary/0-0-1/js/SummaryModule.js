@@ -19,7 +19,12 @@ define([
 				options: {
 					title: 'Summary',
 					hash: 'summary'
-				}
+				},
+				//Always include page.
+				hasContent: function () {
+					return true;
+				},
+				productTypes: ['origin', 'geoserve']
 			},
 			{
 				className: 'summary/InteractiveMap',

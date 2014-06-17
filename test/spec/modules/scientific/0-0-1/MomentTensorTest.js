@@ -115,15 +115,6 @@ define ([
 				/* jshint +W030 */
 			});
 
-			// getDetail()
-			it('Can build downloads section', function () {
-				var content = page.getContent();
-				var downloads = content.querySelector('.downloads');
-				/* jshint -W030 */
-				expect(downloads).not.to.be.null;
-				/* jshint +W030 */
-			});
-
 		});
 
 	}); // close MomentTensorSummary test suite

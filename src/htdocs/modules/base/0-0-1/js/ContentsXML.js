@@ -240,10 +240,12 @@ define([
 	ContentsXML.prototype._formatDownloadContent = function (content) {
 		var formatBuf = [],
 		    title,
-		    caption;
+		    caption = '';
 
 		title = content.title;
-		caption = content.caption;
+		if (content.caption) {
+			caption = '<div class="caption">' + content.caption + '</div>';
+		}
 
 		// get total list of formats
 		formatBuf = this._getDownloadLinks(content);
@@ -251,6 +253,7 @@ define([
 		return [
 			'<section class="contentsxml-content">',
 				'<header><h1>', title, '</h1></header>',
+				caption,
 				'<ul class="formats">',
 					'<li>', formatBuf.join('</li><li>'), '</li>',
 				'</ul>',

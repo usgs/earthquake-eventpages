@@ -4,8 +4,8 @@ define([
 	'util/Xhr',
 
 	'base/SummaryDetailsPage',
+	'base/EventModulePage',
 	'base/Formatter',
-	'base/ContentsXML',
 
 	'summary/Attribution',
 
@@ -16,8 +16,8 @@ define([
 	Xhr,
 
 	SummaryDetailsPage,
+	EventModulePage,
 	Formatter,
-	ContentsXML,
 
 	Attribution,
 
@@ -41,11 +41,11 @@ define([
 	 *        page options.
 	 */
 	var MomentTensorPage = function (options) {
-		this._options = Util.extend({}, DEFAULTS, options);
-		this._code = options.code;
+		options = Util.extend({}, DEFAULTS, options);
+		//this._code = options.code;
 		this._toggleButton = null;
 		this._toggleInfo = this._toggleInfo.bind(this);
-		SummaryDetailsPage.call(this, this._options);
+		SummaryDetailsPage.call(this, options);
 	};
 
 	// extend TabbedModulePage.
@@ -58,8 +58,11 @@ define([
 	 * @param  {object} product, origin product to display
 	 *
 	 */
-	MomentTensorPage.prototype.getDetailsContent = function (tensor) {
+	MomentTensorPage.prototype.getDetailsContent = function (product) {
+		var tensor = Tensor.fromProduct(product);
 		var el = document.createElement('div');
+
+		this._product = product;
 
 		// set layout
 		el.className = 'tensor-detail';
@@ -72,8 +75,7 @@ define([
 					this._getAxes(tensor),
 				'</div>',
 				'<div class="column one-of-two beachball"></div>',
-			'</div>',
-			'<div class="row clearfix downloads"></div>'
+			'</div>'
 		].join('');
 
 		// add beachball
@@ -306,19 +308,18 @@ define([
 		].join('');
 	};
 
-	MomentTensorPage.prototype.getProducts = function () {
-		var tensors = [],
-		    products,
-		    i,
-		    len;
+	MomentTensorPage.prototype.getSummaryContent = function (products) {
+		var i, len, tensors = [];
 
-		// convert products to Tensor objects
-		products = SummaryDetailsPage.prototype.getProducts.call(this);
 		for (i = 0, len = products.length; i < len; i++) {
 			tensors.push(Tensor.fromProduct(products[i]));
 		}
 
-		return tensors;
+		SummaryDetailsPage.prototype.getSummaryContent.apply(this, [tensors]);
+	};
+
+	MomentTensorPage.prototype._buildHash = function (tensor) {
+		return SummaryDetailsPage.prototype._buildHash.call(this, tensor.product);
 	};
 
 	MomentTensorPage.prototype._getSummaryHeader = function (tensor) {
@@ -365,28 +366,6 @@ define([
 		].join('');
 	};
 
-
-
-	MomentTensorPage.prototype.getDownloads = function (product) {
-		var el = document.createElement('div'),
-		    title = '<header><h3>Downloads</h3></header>';
-
-		el.innerHTML = title + '<p>Loading contents &hellip;</p>';
-		el.className = 'downloads';
-
-		new ContentsXML({
-				product: product.product,
-				callback: function (contents) {
-					// build content
-					el.innerHTML = title + contents.getDownloads();
-				},
-				errback: function () {
-					el.innerHTML = title +
-							'<p class="alert error">Unable to load downloads &hellip;</p>';
-				}});
-
-		this._content.appendChild(el);
-	};
 
 	MomentTensorPage.prototype.destroy = function () {
 		this._options = null;

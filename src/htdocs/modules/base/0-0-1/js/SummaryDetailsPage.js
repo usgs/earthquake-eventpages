@@ -1,12 +1,10 @@
 /* global define */
 define([
 	'util/Util',
-	'./EventModulePage',
-	'./ContentsXML'
+	'./EventModulePage'
 ], function (
 	Util,
-	EventModulePage,
-	ContentsXML
+	EventModulePage
 ) {
 	'use strict';
 
@@ -56,31 +54,23 @@ define([
 	 * page, and fetch the products for the page.
 	 */
 	SummaryDetailsPage.prototype._setContentMarkup = function () {
-		var products = this._products = this.getProducts(),
-		    product = null;
+		var products = this._products = this.getProducts();
 
-		// get the product hash (i.e. us_usb000kqnc)
-		if (this._code === null) {
-			this._code = this._getHash();
-		}
-
-		if (this._code) {
-			for (var i = 0; i < products.length; i++) {
-				if (this._code === products[i].source + '_' + products[i].code) {
-					product = products[i];
-				}
-			}
-		} else if (products.length === 1) {
-			product = products[0];
-		}
-
-		if (product) {
+		if (products.length === 1) {
 			// If there is only one product display details
-			this.getDetailsContent(product);
-			this.getDownloads(product);
+			this.getDetailsContent(products[0]);
 		} else {
 			// there is more than one product display summary
 			this.getSummaryContent(products);
+		}
+	};
+
+	/**
+	 * Only show downloads on details page.
+	 */
+	SummaryDetailsPage.prototype.setDownloadMarkup = function () {
+		if (this._products.length === 1) {
+			EventModulePage.prototype.setDownloadMarkup.apply(this);
 		}
 	};
 
@@ -92,20 +82,28 @@ define([
 	 *
 	 */
 	SummaryDetailsPage.prototype.getProducts = function () {
-		var options = this._options,
-		    productTypes = options.productTypes || [],
-		    products = [],
-		    allProducts = [],
-		    type;
+		var products = EventModulePage.prototype.getProducts.call(this),
+		    i, len,
+		    product,
+		    code = this._code;
 
-		// loop through different productTypes
-		for (var i = 0; i < productTypes.length; i++) {
-			type = productTypes[i];
-			products = this._event.properties.products[type] || [];
-			allProducts = allProducts.concat(products);
+		if (!code) {
+			code = this._getHash();
 		}
 
-		return allProducts;
+		if (code) {
+			//look for specific product with this code
+			len = products.length;
+			for (i = 0; i < len; i++) {
+				product = products[i];
+				if (code === product.source + '_' + product.code) {
+					return [product];
+				}
+			}
+		}
+
+		//didn't find specific product
+		return products;
 	};
 
 
@@ -159,9 +157,9 @@ define([
 		    header, headerMarkup,
 		    info, infoMarkup;
 
-		el = document.createElement('div');
+		el = document.createElement('a');
 		el.className = this._options.hash + '-summary summary';
-		el.setAttribute('data-id', this._buildHash(product));
+		el.setAttribute('href', this._buildHash(product));
 
 		header = document.createElement('div');
 		header.className = 'header';
@@ -185,9 +183,6 @@ define([
 
 		el.appendChild(header);
 		el.appendChild(info);
-
-		// navigate to details page
-		Util.addEvent(el, 'click', this._updateHashOnSummaryClick);
 
 		return el;
 	};
@@ -242,30 +237,6 @@ define([
 	SummaryDetailsPage.prototype._buildHash = function (product) {
 		return '#' + this._options.module._hash + '_' + this._hash + ':'+
 				product.source + '_' + product.code;
-	};
-
-	/**
-	 * Retrieves downloadable content from contents.xml
-	 */
-	SummaryDetailsPage.prototype.getDownloads = function (product) {
-		var el = document.createElement('div'),
-		    title = '<header><h3>Downloads</h3></header>';
-
-		el.innerHTML = title + '<p>Loading contents &hellip;</p>';
-		el.className = 'downloads';
-
-		new ContentsXML({
-				product: product,
-				callback: function (contents) {
-					// build content
-					el.innerHTML = title + contents.getDownloads();
-				},
-				errback: function () {
-					el.innerHTML = title +
-							'<p class="alert error">Unable to load downloads &hellip;</p>';
-				}});
-
-		this._content.appendChild(el);
 	};
 
 

@@ -97,9 +97,14 @@ define([
 	 *
 	 */
 	PagerPage.prototype._setFooterMarkup = function () {
+		var pagertag;
+
+		EventModulePage.prototype._setFooterMarkup.apply(this);
+
 		this._footer.classList.add('pager');
-		this._footer.innerHTML =
-			'<p class="disclaimer">' +
+		pagertag = document.createElement('section');
+		pagertag.innerHTML =
+				'<p class="disclaimer">' +
 				'PAGER content is automatically generated, and <strong>only ' +
 				'considers losses due to structural damage</strong>. Limitations of ' +
 				'input data, shaking estimates, and loss models may add uncertainty. ' +
@@ -118,8 +123,9 @@ define([
 			'<br/>' +
 			'<a href="/research/pager/disclaimer.php">' +
 				'Read Additional PAGER Disclaimers' +
-			'</a>'
-		;
+			'</a>';
+
+		this._footer.appendChild(pagertag);
 	};
 
 	/**

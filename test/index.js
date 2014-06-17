@@ -42,6 +42,7 @@ require.config({
 		mvc: 'hazdev-webutils/src/mvc',
 		util: 'hazdev-webutils/src/util',
 		tablist: 'hazdev-tablist/src/tablist',
+		theme: '/theme/js',
 		svgimagemap: 'hazdev-svgimagemap/src/svgimagemap',
 		quakeml: 'quakeml-parser-js/src/quakeml',
 		questionview: 'hazdev-question-view/src',

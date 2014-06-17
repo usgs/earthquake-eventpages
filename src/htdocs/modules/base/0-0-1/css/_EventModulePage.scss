@@ -1,0 +1,25 @@
+.accordian-page-downloads {
+	margin: 0 0 1em;
+}
+
+.page-download {
+	margin-top: 1em;
+	> .contentsxml {
+		padding-left:20px;
+	}
+}
+
+.page-download-header {
+	> .type {
+		font-weight: bold;
+	}
+	> .source {
+		display: block;
+		font-size: .7em;
+	}
+	> .code {
+		display: block;
+		font-size: .7em;
+	}
+
+}
