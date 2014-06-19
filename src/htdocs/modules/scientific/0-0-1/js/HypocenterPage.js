@@ -7,7 +7,8 @@ define([
 	'base/SummaryDetailsPage',
 	'base/Formatter',
 	'summary/Attribution',
-	'tablist/TabList'
+	'tablist/TabList',
+	'theme/Accordion'
 ], function (
 	Util,
 	Xhr,
@@ -16,7 +17,8 @@ define([
 	SummaryDetailsPage,
 	Formatter,
 	Attribution,
-	TabList
+	TabList,
+	Accordion
 ) {
 	'use strict';
 
@@ -44,7 +46,6 @@ define([
 		this._phaseRendered = false;
 		this._magnitudeEl = document.createElement('div');
 		this._magnitudeRendered = false;
-		this._toggleMagnitudeDetails = this._toggleMagnitudeDetails.bind(this);
 		SummaryDetailsPage.call(this, this._options);
 	};
 
@@ -60,8 +61,6 @@ define([
 		this._quakeml = null;
 
 		if (this._magnitudeEl) {
-			this._magnitudeEl.removeEventListener('click',
-					this._toggleMagnitudeDetails);
 			this._magnitudeEl = null;
 		}
 
@@ -219,8 +218,9 @@ define([
 			this._parseQuakeml(xml);
 		} else if (!this._magnitudeRendered) {
 			this._magnitudeEl.innerHTML = this._getMagnitudesMarkup();
-			this._magnitudeEl.addEventListener('click',
-					this._toggleMagnitudeDetails);
+			new Accordion({
+				el:this._magnitudeEl
+			});
 			this._magnitudeRendered = true;
 		}
 	};
@@ -342,7 +342,7 @@ define([
 		numStations = magnitude.stationCount || NOT_SPECIFIED;
 
 		buf.push(
-			'<section class="networkmagnitude-toggle">',
+			'<section class="accordion accordion-closed networkmagnitude">',
 			'<h3>', source, '</h3>',
 			'<ul class="networkmagnitude-summary">',
 				'<li class="magnitude">',
@@ -362,8 +362,8 @@ define([
 					'<abbr title="Number of stations">Stations</abbr>',
 				'</li>',
 			'</ul>',
-			'<a class="expand">Details</a>',
-			'<div class="networkmagnitude-details">'
+			'<a class="accordion-toggle">Details</a>',
+			'<div class="accordion-content">'
 		);
 
 		if (contributions.length === 0) {
@@ -425,15 +425,6 @@ define([
 		}
 		buf.push('</div></section>');
 		return buf.join('');
-	};
-
-	HypocenterPage.prototype._toggleMagnitudeDetails = function (e) {
-		var target = e.target,
-		    container = e.target.parentNode;
-
-		if (target.nodeName === 'A' && target.classList.contains('expand')) {
-			container.classList.toggle('show-networkmagnitude-details');
-		}
 	};
 
 	HypocenterPage.prototype._parseQuakeml = function (quakemlInfo) {

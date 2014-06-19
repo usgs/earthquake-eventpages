@@ -45,7 +45,10 @@
 	}
 }
 
-div.station-details {
+.station > .accordion-content {
+
+	padding: 0;
+
 	> dl {
 		color:#666;
 		font-size:13px;
