@@ -213,6 +213,7 @@ module.exports = function (grunt) {
 					modules: (function () {
 						var BUNDLED_DEPENDENCIES = [
 							'tablist/Tablist',
+							'theme/Accordion',
 							'base/EventModulePage',
 							'base/EventModulePages',
 							'base/TabbedModulePage',

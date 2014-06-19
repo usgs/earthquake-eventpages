@@ -3,6 +3,7 @@ define([
 	'util/Util',
 	'util/Xhr',
 	'tablist/TabList',
+	'theme/Accordion',
 	'base/ContentsXML',
 	'./ImpactUtil',
 	'base/SummaryDetailsPage',
@@ -12,6 +13,7 @@ define([
 	Util,
 	Xhr,
 	TabList,
+	Accordion,
 	ContentsXML,
 	ImpactUtil,
 	SummaryDetailsPage,
@@ -87,7 +89,6 @@ define([
 		this._options.module = this._options.module || new ImpactModule();
 		this._tablist = null;
 		this._shakemap = null;
-		this._toggleDetails = this._toggleDetails.bind(this);
 		SummaryDetailsPage.call(this, this._options);
 	};
 
@@ -193,7 +194,9 @@ define([
 							// add station list content
 							container.innerHTML = _this._buildStationList(stations);
 							// add click event to toggle details for stations
-							container.addEventListener('click', _this._toggleDetails);
+							new Accordion({
+								el:container
+							});
 						},
 						function (errorMessage) {
 							container.innerHTML = '<p class="error">' + errorMessage + '</p>';
@@ -203,7 +206,6 @@ define([
 				return container;
 			},
 			onDestroy: function () {
-				container.removeEventListener('click', _this._toggleDetails);
 				container = null;
 				_this = null;
 			}
@@ -307,7 +309,7 @@ define([
 			}
 
 			stations.push([
-				'<div class="station-toggle">',
+				'<div class="accordion accordion-closed station">',
 					'<h3>', title, '</h3>',
 					'<ul class="station-summary">',
 						'<li class="mmi mmi', romanNumeral, '">',
@@ -331,7 +333,8 @@ define([
 							'<abbr title="Distance from Epicenter">dist</abbr>',
 						'</li>',
 					'</ul>',
-					'<a class="expand" data-id="', i ,'">Details</a>',
+					'<a class="accordion-toggle" data-id="', i ,'">Details</a>',
+					this._buildStationDetails(i),
 				'</div>'
 			].join(''));
 		}
@@ -354,26 +357,23 @@ define([
 		var station,
 		    components;
 
-		// check for null index id
-		if (!index) {
-			return;
-		}
-
 		station = this._stations[index];
 		components = station.comp;
 
 		return [
-				'<dl>',
-					'<dt>Type: </dt>',
-					'<dd>', (station.insttype === '') ? '--' : station.insttype ,'</dd>',
-					'<dt>Location: </dt>',
-					'<dd>(', station.lat, ', ', station.lon ,')</dd>',
-					'<dt>Source: </dt>',
-					'<dd>', station.source ,'</dd>',
-					'<dt>Intensity: </dt>',
-					'<dd>', station.intensity, '</dd>',
-				'</dl>',
-				this._buildComponentDetails(components),
+				'<div class="accordion-content">',
+					'<dl>',
+						'<dt>Type: </dt>',
+						'<dd>', (station.insttype === '') ? '--' : station.insttype ,'</dd>',
+						'<dt>Location: </dt>',
+						'<dd>(', station.lat, ', ', station.lon ,')</dd>',
+						'<dt>Source: </dt>',
+						'<dd>', station.source ,'</dd>',
+						'<dt>Intensity: </dt>',
+						'<dd>', station.intensity, '</dd>',
+					'</dl>',
+					this._buildComponentDetails(components),
+				'</div>'
 			].join('');
 	};
 
@@ -480,42 +480,6 @@ define([
 		}
 
 		return content.join('');
-	};
-
-
-	/**
-	 * Event delagator for station list section,
-	 * handles expanding and collapsing station details.
-	 *
-	 * @param  {object} e,
-	 *         click event.
-	 *
-	 */
-	ShakeMapPage.prototype._toggleDetails = function (e) {
-		var target = e.target,
-		    container = e.target.parentNode,
-		    className,
-		    details,
-		    detailSection,
-		    newSection;
-
-		if (target.nodeName === 'A' && target.classList.contains('expand')) {
-			// after creating the section, toggle the details on click
-			detailSection = container.querySelector('.station-details');
-			if (detailSection) {
-				container.classList.toggle('show-station-details');
-				return;
-			}
-
-			className = 'station-details';
-			details = this._buildStationDetails(target.getAttribute('data-id'));
-			newSection = document.createElement('div');
-			newSection.className = className;
-			newSection.innerHTML = details;
-
-			container.classList.toggle('show-station-details');
-			container.appendChild(newSection);
-		}
 	};
 
 	/**
