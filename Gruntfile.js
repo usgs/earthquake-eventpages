@@ -239,6 +239,8 @@ module.exports = function (grunt) {
 								exclude: [
 									// provided by event page
 									'EventDetails',
+									// provided by event page
+									'EventConfig',
 									// provided by template
 									'theme/OffCanvas'
 								]
