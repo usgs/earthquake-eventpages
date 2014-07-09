@@ -15,16 +15,16 @@ define([
 	Accordion
 ) {
 	'use strict';
-	var DEFAULTS = {
-		snippetLength: 100
-	};
+
 	var SummaryPage = function (options) {
-		options = Util.extend({}, DEFAULTS, options || {});
+		options = Util.extend({}, options || {});
+		if( options.eventDetails.properties.products.hasOwnProperty('nearby-cities')) {
+			this._nearbyCitiesFlag = true;
+		}
 		this.mapContainer = {};
 		this.nearbyCities = {};
 		this.tectonicSummary = {};
 		EventModulePage.call(this, options);
-		this._snippetLength = options.snippetLength;
 	};
 	SummaryPage.prototype = Object.create(EventModulePage.prototype);
 
@@ -73,6 +73,24 @@ define([
 			this._ajaxError();
 		}
 
+		if( this._nearbyCitiesFlag ) {
+			try{
+				Xhr.ajax({
+					url: this._event.properties.products['nearby-cities'][0]
+							.contents['nearby-cities.json'].url,
+							success: function (nearbyCities) {
+								_this._ajaxSuccessNearbyCities(nearbyCities);
+							},
+							error: function () {
+								_this._ajaxErrorNearbyCities();
+							}
+				});
+			}
+			catch (e) {
+				this._ajaxErrorNearbyCities();
+			}
+		}
+
 		this._loadTextualContent(generalHeader, 'general-header', null);
 		this._loadTextualContent(impactText, 'impact-text', 'Impact Text');
 		this._loadTextualContent(generalText, 'general-text',
@@ -80,38 +98,28 @@ define([
 	};
 
 	SummaryPage.prototype._ajaxError = function () {
-		if (this.nearbyCities) {
-			this.nearbyCities.parentNode.removeChild(this.nearbyCities);
-		}
+		this._ajaxErrorNearbyCities();
 		if (this.tectonicSummary) {
 			this.tectonicSummary.parentNode.removeChild(this.tectonicSummary);
 		}
-		this.nearbyCities = null;
 		this.tectonicSummary = null;
 	};
 
-	SummaryPage.prototype._ajaxSuccess = function (geoserve) {
+	SummaryPage.prototype._ajaxErrorNearbyCities = function () {
+		if (this.nearbyCities) {
+			this.nearbyCities.parentNode.removeChild(this.nearbyCities);
+		}
+		this.nearbyCities = null;
+	};
 
-		var i,
-		    city,
-		    cities,
-		    len;
+	SummaryPage.prototype._ajaxSuccess = function (geoserve) {
 
 		if (this.mapContainer) {
 			this._loadStaticMapContent(this.mapContainer, geoserve.cities);
 		}
 
-		if (this.nearbyCities !== null) {
-			cities = ['<ol class="staticmap">'];
-			for (i = 0, len = geoserve.cities.length; i < len; i++) {
-				city = geoserve.cities[i];
-				cities.push('<li>' + city.distance +
-					'km ' + city.direction +
-					' of ' + city.name +
-					'</li>');
-			}
-			cities.push('</ol>');
-			this.nearbyCities.innerHTML = '<h3>Nearby Cities</h3>' + cities.join('');
+		if (!this._nearbyCitiesFlag) {
+			this._ajaxSuccessNearbyCities(geoserve.cities);
 		}
 
 		if (this.tectonicSummary !== null) {
@@ -122,6 +130,26 @@ define([
 			});
 		}
 
+	};
+
+	SummaryPage.prototype._ajaxSuccessNearbyCities = function (nearbyCities) {
+		var i,
+		    city,
+		    cities,
+		    len;
+
+		if (this.nearbyCities !== null) {
+			cities = ['<ol class="staticmap">'];
+			for (i = 0, len = nearbyCities.length; i < len; i++) {
+				city = nearbyCities[i];
+				cities.push('<li>' + city.distance +
+					'km ' + city.direction +
+					' of ' + city.name +
+					'</li>');
+			}
+			cities.push('</ol>');
+			this.nearbyCities.innerHTML = '<h3>Nearby Cities</h3>' + cities.join('');
+		}
 	};
 
 	SummaryPage.prototype._getTextContentMarkup = function (type) {

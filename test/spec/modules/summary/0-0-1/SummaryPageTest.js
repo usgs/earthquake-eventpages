@@ -46,6 +46,7 @@ define([
 
 			page = new SummaryPage(options);
 			page._ajaxSuccess(geoserve);
+			page._ajaxSuccessNearbyCities(geoserve.cities);
 			content = page.getContent();
 		});
 
