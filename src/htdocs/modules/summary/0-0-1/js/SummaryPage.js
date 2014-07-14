@@ -18,7 +18,8 @@ define([
 
 	var SummaryPage = function (options) {
 		options = Util.extend({}, options || {});
-		if( options.eventDetails.properties.products.hasOwnProperty('nearby-cities')) {
+		if( options.eventDetails.properties &&
+				options.eventDetails.properties.products.hasOwnProperty('nearby-cities')) {
 			this._nearbyCitiesFlag = true;
 		}
 		this.mapContainer = {};
