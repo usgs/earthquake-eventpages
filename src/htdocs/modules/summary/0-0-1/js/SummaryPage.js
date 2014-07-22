@@ -19,7 +19,8 @@ define([
 	var SummaryPage = function (options) {
 		options = Util.extend({}, options || {});
 		if( options.eventDetails.properties &&
-				options.eventDetails.properties.products.hasOwnProperty('nearby-cities')) {
+				options.eventDetails.properties.products.hasOwnProperty
+				('nearby-cities')) {
 			this._nearbyCitiesFlag = true;
 		}
 		this.mapContainer = {};
@@ -74,20 +75,19 @@ define([
 			this._ajaxError();
 		}
 
-		if( this._nearbyCitiesFlag ) {
+		if (this._nearbyCitiesFlag) {
 			try{
 				Xhr.ajax({
-					url: this._event.properties.products['nearby-cities'][0]
-							.contents['nearby-cities.json'].url,
-							success: function (nearbyCities) {
-								_this._ajaxSuccessNearbyCities(nearbyCities);
-							},
-							error: function () {
-								_this._ajaxErrorNearbyCities();
-							}
-				});
-			}
-			catch (e) {
+						url: this._event.properties.products['nearby-cities'][0]
+								.contents['nearby-cities.json'].url,
+						success: function (nearbyCities) {
+							_this._ajaxSuccessNearbyCities(nearbyCities);
+						},
+						error: function () {
+							_this._ajaxErrorNearbyCities();
+						}
+					});
+			} catch (e) {
 				this._ajaxErrorNearbyCities();
 			}
 		}
@@ -125,10 +125,10 @@ define([
 
 		if (this.tectonicSummary !== null) {
 			new Accordion({el:this.tectonicSummary}).addAccordion({
-				toggleText: 'Tectonic Summary',
-				toggleElement: 'h3',
-				contentText: geoserve.tectonicSummary.text
-			});
+					toggleText: 'Tectonic Summary',
+					toggleElement: 'h3',
+					contentText: geoserve.tectonicSummary.text
+				});
 		}
 
 	};
