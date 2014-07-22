@@ -6,6 +6,7 @@ define([
 	'summary/SummaryPage',
 	'./usc000lnnb',
 	'./usc000lnnb-nogeoserve',
+	'./usc000lnnb-nonearbycities',
 	'./geoserve',
 	'util/Xhr'
 ], function (
@@ -15,6 +16,7 @@ define([
 	SummaryPage,
 	eventData,
 	eventData_nogeoserve,
+	eventData_nonearbycities,
 	geoserve,
 	Xhr
 ) {
@@ -34,6 +36,12 @@ define([
 		eventDetails: eventData_nogeoserve,
 		module: new SummaryModule({eventDetails: eventData_nogeoserve})
 	};
+	var options_nonearbycities = {
+		hash: 'summary',
+		title: 'Summary',
+		eventDetails: eventData_nonearbycities,
+		module: new SummaryModule({eventDetails: eventData_nonearbycities})
+	};
 
 
 	describe('SummaryPage test suite.', function () {
@@ -46,6 +54,7 @@ define([
 
 			page = new SummaryPage(options);
 			page._ajaxSuccess(geoserve);
+			page._ajaxSuccessNearbyCities(geoserve.cities);
 			content = page.getContent();
 		});
 
@@ -61,6 +70,10 @@ define([
 				expect(page).to.be.an.instanceof(SummaryPage);
 			});
 
+			it('Detects nearby cities', function () {
+				expect(page._nearbyCitiesFlag).to.equal(true);
+			});
+
 			it('Does not throw exception if no geoserve product', function () {
 				var page_nogeoserve = null;
 
@@ -73,6 +86,21 @@ define([
 				/* jshint +W030 */
 
 				expect(page_nogeoserve).to.be.an.instanceOf(SummaryPage);
+
+				/* jshint -W030 */
+				expect(page._nearbyCitiesFlag).to.equal(true);
+				/* jshint +W030 */
+			});
+
+			it('Correctly deals with no nearbycities in product', function () {
+				var page_nonearbycities = null;
+
+				try {
+					page_nonearbycities = new SummaryPage(options_nonearbycities);
+				} catch (e) { }
+
+				expect(page_nonearbycities._nearbyCitiesFlag).to.equal(undefined);
+
 			});
 
 		});
