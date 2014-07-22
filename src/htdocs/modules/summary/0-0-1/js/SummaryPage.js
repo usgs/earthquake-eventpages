@@ -99,7 +99,9 @@ define([
 	};
 
 	SummaryPage.prototype._ajaxError = function () {
-		this._ajaxErrorNearbyCities();
+		if (!this._nearbyCitiesFlag) {
+			this._ajaxErrorNearbyCities();
+		}
 		if (this.tectonicSummary) {
 			this.tectonicSummary.parentNode.removeChild(this.tectonicSummary);
 		}
