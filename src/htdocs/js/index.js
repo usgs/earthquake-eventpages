@@ -12,6 +12,7 @@ require.config({
 		quakeml: 'quakeml-parser-js/src/quakeml',
 		questionview: 'hazdev-question-view/src',
 		locationview: 'hazdev-location-view/src',
+		accordion: 'hazdev-accordion/src',
 
 		base: 'modules/base/0-0-1/js',
 		summary: 'modules/summary/0-0-1/js',
