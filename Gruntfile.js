@@ -197,6 +197,7 @@ module.exports = function (grunt) {
 						theme: '../../../node_modules/hazdev-template/src/htdocs/js',
 						questionview: '../../../node_modules/hazdev-question-view/src',
 						locationview: '../../../node_modules/hazdev-location-view/src',
+						accordion: '../../../node_modules/hazdev-accordion/src',
 
 						base: '../modules/base/0-0-1/js',
 						summary: '../modules/summary/0-0-1/js',
@@ -213,7 +214,7 @@ module.exports = function (grunt) {
 					modules: (function () {
 						var BUNDLED_DEPENDENCIES = [
 							'tablist/Tablist',
-							'theme/Accordion',
+							'accordion/Accordion',
 							'base/EventModulePage',
 							'base/EventModulePages',
 							'base/TabbedModulePage',
@@ -230,7 +231,7 @@ module.exports = function (grunt) {
 							'util/Util',
 							'util/Xhr',
 							'util/Events',
-							'theme/Accordion'
+							'accordion/Accordion'
 						];
 						return [
 							{
