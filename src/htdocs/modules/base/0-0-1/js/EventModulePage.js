@@ -5,7 +5,7 @@ define([
 	'util/Util',
 	'base/ContentsXML',
 	'summary/Attribution',
-	'theme/Accordion'
+	'accordion/Accordion'
 ], function (
 	EventModule,
 

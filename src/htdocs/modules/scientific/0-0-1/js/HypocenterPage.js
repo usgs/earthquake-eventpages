@@ -8,7 +8,7 @@ define([
 	'base/Formatter',
 	'summary/Attribution',
 	'tablist/TabList',
-	'theme/Accordion'
+	'accordion/Accordion'
 ], function (
 	Util,
 	Xhr,

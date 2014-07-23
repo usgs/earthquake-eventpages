@@ -3,7 +3,7 @@ define([
 	'util/Util',
 	'util/Xhr',
 	'tablist/TabList',
-	'theme/Accordion',
+	'accordion/Accordion',
 	'base/ContentsXML',
 	'./ImpactUtil',
 	'base/SummaryDetailsPage',
