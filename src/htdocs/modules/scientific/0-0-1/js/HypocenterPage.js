@@ -509,7 +509,7 @@ define([
 		    magnitudeError = p['magnitude-error'] || null,
 		    horizontalError = p['horizontal-error'] || null,
 		    depth = p.depth || null,
-		    depthError = p['depth-error'] || null,
+		    depthError = p['vertical-error'] || null,
 		    numStations = p['num-stations-used'] || null,
 		    numPhases = p['num-phases-used'] || null,
 		    minimumDistance = p['minimum-distance'] || null,
