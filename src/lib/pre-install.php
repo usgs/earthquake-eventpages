@@ -41,6 +41,11 @@ file_put_contents($HTTPD_CONF, '
 
 	Alias ' . $CONFIG['MOUNT_PATH'] . ' ' . $HTDOCS_DIR . '
 
+	# unknown events
+	RewriteCond %{REQUEST_URI} !' . $CONFIG['MOUNT_PATH'] . '/unknown.php
+	RewriteRule ' . $CONFIG['MOUNT_PATH'] . '/unknown ' . $CONFIG['MOUNT_PATH'] . '/unknown.php [L,PT]
+
+	# event ids
 	RewriteCond %{REQUEST_URI} !' . $CONFIG['MOUNT_PATH'] . '/index.php
 	RewriteRule ' . $CONFIG['MOUNT_PATH'] . '/([^/]+)$ ' . $CONFIG['MOUNT_PATH'] . '/index.php?eventid=$1 [L,PT]
 
