@@ -81,24 +81,24 @@ define([
 		});
 
 		otherTimes.innerHTML =
-				this._formatDate(parseInt(properties.time, 10), properties.tz) +
-				' <abbr title="Time where earthquake occurred">at epicenter</abbr>' +
-				'<br/>' +
 				this._formatDate(parseInt(properties.time, 10),
-						-1 * (new Date()).getTimezoneOffset()) +
+						-1 * (new Date()).getTimezoneOffset(), ' ') +
 				' <abbr title="Timezone your computer is configured to use">' +
-					'system time' +
+					'local system time' +
 				'</abbr>' +
 				'<br/>' +
-				'<a href="http://www.timeanddate.com/worldclock/" target="_blank">' +
+				'<a href="' +
+				this._formatWorldClock(parseInt(properties.time, 10)) +
+				'" target="_blank">' +
 					'Times in other timezones' +
 				'</a>';
 	};
 
+
 	// TODO :: Move these date formatting methods to a utility class for re-use.
 
 	SummaryModule.prototype._formatDate = function (stamp, minutesOffset) {
-		var milliOffset = minutesOffset * 60 * 1000,
+				var milliOffset = minutesOffset * 60 * 1000,
 		    offsetString = this._formatTimezoneOffset(minutesOffset),
 		    theDate = new Date(stamp + milliOffset),
 		    year = theDate.getUTCFullYear(),
@@ -114,8 +114,21 @@ define([
 		if (minutes < 10) {minutes = '0' + minutes;}
 		if (seconds < 10) {seconds = '0' + seconds;}
 
-		return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' +
-				seconds + ' UTC' + offsetString;
+		return year + '-' + month + '-' + day + ' ' + hours + ':' +
+				minutes + ':' + seconds + ' (UTC' + offsetString + ')';
+	};
+
+	SummaryModule.prototype._formatWorldClock = function (stamp) {
+		var theDate = new Date(stamp),
+		    uri,
+		    reference,
+		    title = this._eventDetails.properties.title;
+
+		uri = 'http://www.timeanddate.com/worldclock/fixedtime.html?iso=' +
+				theDate.toISOString() + '&msg=Earthquake ' + title;
+		reference = encodeURI(uri);
+
+		return reference;
 	};
 
 	SummaryModule.prototype._formatTimezoneOffset = function (offset) {
