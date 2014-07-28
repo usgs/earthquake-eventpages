@@ -9,7 +9,7 @@
 
 <header class="event-header clearfix">
 	<div>
-		<span class="utc"><?php print $utctime; ?> UTC</span>
+		<span class="utc"><?php print $utctime; ?> (UTC)</span>
 		<span class="location">
 			<?php print format_coord($GEOMETRY['coordinates'][1], 'N', 'S'); ?>
 			<?php print format_coord($GEOMETRY['coordinates'][0], 'E', 'W'); ?>
