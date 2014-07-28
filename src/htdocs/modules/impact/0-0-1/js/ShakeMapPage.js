@@ -562,6 +562,19 @@ define([
 				contents[SUMMARY_THUMBNAIL].url + '" alt=" ' + THUMBNAIL_ALT + ' " />';
 	};
 
+	ShakeMapPage.prototype._setFooterMarkup = function () {
+		var links;
+
+		SummaryDetailsPage.prototype._setFooterMarkup.apply(this);
+
+		links = document.createElement('section');
+		links.innerHTML = '<a href="/research/shakemap/">' +
+				'Scientific Background on ShakeMap' +
+				'</a>';
+
+		this._footer.appendChild(links);
+	};
+
 	// return constructor
 	return ShakeMapPage;
 });
