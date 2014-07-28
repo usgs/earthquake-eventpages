@@ -42,11 +42,11 @@ define([
 		markup.push(this._getMapMarkup());
 
 		markup.push(this._getTextContentMarkup('nearby-cities'));
+		markup.push(this._getMoreInformationMarkup());
 		markup.push(this._getTextContentMarkup('tectonic-summary'));
 		markup.push(this._getTextContentMarkup('general-text'));
 		markup.push(this._getTextContentMarkup('impact-text'));
 
-		markup.push(this._getRelatedLinksMarkup());
 		markup.push(this._getAttributionMarkup());
 
 		this._content.innerHTML = markup.join('');
@@ -209,13 +209,14 @@ define([
 		})(this));
 	};
 
-	SummaryPage.prototype._getRelatedLinksMarkup = function () {
+	SummaryPage.prototype._getMoreInformationMarkup = function () {
 		var i = null,
 		    len = null,
 		    link = null,
 		    cache = {},
 		    links = this._event.properties.products['general-link'],
-		    markup = ['<div class="summary-related-links"><h3>Related Links</h3><ul>'];
+		    markup = ['<div class="summary-related-links">' +
+		        '<h3>For More Information</h3><ul>'];
 
 		if (links && links.length) {
 			for (i = 0, len = links.length; i < len; i++) {
