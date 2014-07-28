@@ -25,6 +25,17 @@ module.exports = function (grunt) {
 	// Load grunt tasks
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
+	var iniConfig = require('ini').parse(require('fs')
+			.readFileSync('./src/conf/config.ini', 'utf-8'));
+
+	var rewrites = {};
+	// template rewrite
+	rewrites['^/theme/(.*)$'] = '/hazdev-template/src/htdocs/$1';
+	// event page rewrites
+	rewrites['^' + iniConfig.MOUNT_PATH + '/unknown$'] = '/unknown.php';
+	rewrites['^' + iniConfig.MOUNT_PATH + '/([^/]+)$'] = '/index.php?eventid=$1';
+	rewrites['^' + iniConfig.MOUNT_PATH + '/(.*)$'] = '/$1';
+
 	// App configuration, used throughout
 	var appConfig = {
 		src: 'src',
@@ -94,9 +105,7 @@ module.exports = function (grunt) {
 				changeOrigin: true,
 				xforward: false
 			}],
-			rules: {
-				'^/theme/(.*)$': '/hazdev-template/src/htdocs/$1'
-			},
+			rules: rewrites,
 			dev: {
 				options: {
 					base: '<%= app.src %>/htdocs',
