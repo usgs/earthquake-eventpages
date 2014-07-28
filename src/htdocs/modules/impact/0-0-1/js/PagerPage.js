@@ -118,7 +118,7 @@ define([
 				'release for any earthquake.' +
 			'</p>' +
 			'<a href="/research/pager/">' +
-				'Scientific Background on the PAGER Process' +
+				'Scientific Background on PAGER' +
 			'</a>' +
 			'<br/>' +
 			'<a href="/research/pager/disclaimer.php">' +
