@@ -267,7 +267,7 @@ define([
 					'<tr>' +
 						'<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +
 						'<th><abbr title="Perceived Shaking">Shaking</abbr></th>' +
-						'<th><abbr title="Population Exposure">Population</abbr></th>' +
+						'<th><abbr title="Population Exposure">Pop.</abbr></th>' +
 					'</tr>' +
 				'</thead>' +
 				'<tbody>' +
@@ -343,22 +343,33 @@ define([
 			this._cityEl.addEventListener('click', this._onCityClick);
 		}
 
-		markup.push('<ol class="pager-cities">');
+		markup.push(
+			'<table class="pager-cities">' +
+				'<thead>' +
+					'<tr>' +
+						'<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +
+						'<th>City</th>' +
+						'<th><abbr title="Population">Pop.</abbr></th>' +
+					'</tr>' +
+				'</thead>'
+		);
 
 		for (; i < len; i++) {
 			city = cities[i];
 
 			Array.prototype.push.apply(markup, [
-				'<li class="', ((i>10)?'city-additional':''),'">',
-					'<span class="roman mmi ', city.css, '">', city.roman, '</span>',
-					city.name,
-					'<span class="population">', city.populationDisplay, '</span>',
-				'</li>'
+				'<tr class="', ((i>10)?'city-additional':''),'">',
+					'<td class="cities-mmi">',
+						'<span class="roman mmi ', city.css, '">', city.roman, '</span>',
+					'</td>',
+					'<td>', city.name, '</td>',
+					'<td class="cities-population">', city.populationDisplay, '</td>',
+				'</tr>'
 			]);
 		}
 
 		markup.push(
-			'</ol>' +
+			'</tbody></table>' +
 			'<span class="legend">(k = x1,000)</span>'
 		);
 
@@ -405,12 +416,12 @@ define([
 	 */
 	PagerPage.prototype._createExposureItem = function (exposure) {
 		return '<tr>' +
-			'<td>' +
+			'<td class="exposure-mmi">' +
 				'<span class="roman mmi ' + exposure.css + '">' +
 				exposure.label + '</span>' +
 			'</td>' +
 			'<td>' + exposure.perc + '</td>' +
-			'<td class="population-value">' + exposure.populationDisplay + '</td>' +
+			'<td class="exposure-population">' + exposure.populationDisplay + '</td>' +
 		'</tr>';
 	};
 
