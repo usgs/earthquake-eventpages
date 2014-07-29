@@ -301,7 +301,7 @@ define([
 
 		EventModulePage.prototype._setFooterMarkup.apply(this);
 
-		links = document.createElement('section');
+		links = document.createElement('div');
 		links.innerHTML = '<a href="/research/dyfi/">' +
 				'Scientific Background on Did You Feel It?' +
 				'</a>';
