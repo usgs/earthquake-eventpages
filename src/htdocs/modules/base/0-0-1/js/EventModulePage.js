@@ -31,8 +31,8 @@ define([
 		this._module = options.module || new EventModule();
 		this._hash = options.hash || DEFAULTS.hash;
 		this._title = options.title || DEFAULTS.title;
-		this._event = options.eventDetails || {};
-		this._productTypes = options.productTypes || [];
+		this._event = options.eventDetails;
+		this._productTypes = options.productTypes;
 
 		this._initialize();
 	};
@@ -158,10 +158,12 @@ define([
 		    type;
 
 		// loop through different productTypes
-		for (var i = 0; i < productTypes.length; i++) {
-			type = productTypes[i];
-			products = this._event.properties.products[type] || [];
-			allProducts = allProducts.concat(products);
+		if (productTypes) {
+			for (var i = 0; i < productTypes.length; i++) {
+				type = productTypes[i];
+				products = this._event.properties.products[type] || [];
+				allProducts = allProducts.concat(products);
+			}
 		}
 
 		return allProducts;
