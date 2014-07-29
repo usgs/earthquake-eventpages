@@ -102,7 +102,7 @@ define([
 		EventModulePage.prototype._setFooterMarkup.apply(this);
 
 		this._footer.classList.add('pager');
-		pagertag = document.createElement('section');
+		pagertag = document.createElement('div');
 		pagertag.innerHTML =
 				'<p class="disclaimer">' +
 				'PAGER content is automatically generated, and <strong>only ' +
@@ -118,7 +118,7 @@ define([
 				'release for any earthquake.' +
 			'</p>' +
 			'<a href="/research/pager/">' +
-				'Scientific Background on the PAGER Process' +
+				'Scientific Background on PAGER' +
 			'</a>' +
 			'<br/>' +
 			'<a href="/research/pager/disclaimer.php">' +
