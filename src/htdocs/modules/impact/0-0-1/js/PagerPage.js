@@ -237,7 +237,9 @@ define([
 	 *
 	 */
 	PagerPage.prototype._renderExposures = function () {
-		var exposureList = ['<ol class="pager-exposures">'],
+		var exposureRows = [],
+		    exposureTable = document.createElement('table'),
+		    mmiLink = document.createElement('a'),
 		    exposures = this._pagerInfo.exposures,
 		    i = 0,
 		    len = exposures.length,
@@ -250,15 +252,30 @@ define([
 		for (; i < len; i++) {
 			exposure = exposures[i];
 
-			exposureList.push(this._createExposureItem(exposure,
-					(exposure.min <= mmi && mmi <= exposure.max)));
+			exposureRows.push(this._createExposureItem(exposure));
 		}
 
 		if (len === 0) {
 			this._exposureEl.parentNode.removeChild(this._exposureEl);
 			this._exposureEl = null;
 		} else {
-			this._exposureEl.innerHTML = exposureList.join('');
+			exposureTable.className = 'pager-exposures';
+			exposureTable.innerHTML =
+				'<thead>' +
+					'<tr>' +
+						'<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +
+						'<th><abbr title="Perceived Shaking">Shaking</abbr></th>' +
+						'<th><abbr title="Population Exposure">Population</abbr></th>' +
+					'</tr>' +
+				'</thead>' +
+				'<tbody>' +
+					exposureRows.join('') +
+				'</tbody>'
+			;
+			mmiLink.href = '/learn/topics/mercalli.php';
+			mmiLink.innerHTML = 'MMI values explained';
+			this._exposureEl.appendChild(exposureTable);
+			this._exposureEl.appendChild(mmiLink);
 			this._exposureEl.addEventListener('click', this._onExposureClick);
 		}
 	};
@@ -384,22 +401,15 @@ define([
 	 * @return {String}
 	 *      The markup.
 	 */
-	PagerPage.prototype._createExposureItem = function (exposure, expanded) {
-		return '<li class="' + (expanded?'expanded':'') + '">' +
-			'<span class="roman mmi ' + exposure.css + '">' +
-				exposure.label +
-			'</span>' +
-			'<span class="population-label">Population Exposure</span>' +
-			'<span class="population-value">' + exposure.populationDisplay + '</span>' +
-			'<dl>' +
-				'<dt>Perceived Shaking</dt>' +
-					'<dd>' + exposure.perc + '</dd>' +
-				'<dt>Damage to Resistant Structures</dt>' +
-					'<dd>' + exposure.resist + '</dd>' +
-				'<dt>Damage to Vulnerable Structures</dt>' +
-					'<dd>' + exposure.vuln + '</dd>' +
-			'</dl>' +
-		'</li>';
+	PagerPage.prototype._createExposureItem = function (exposure) {
+		return '<tr>' +
+			'<td>' +
+				'<span class="roman mmi ' + exposure.css + '">' +
+				exposure.label + '</span>' +
+			'</td>' +
+			'<td>' + exposure.perc + '</td>' +
+			'<td class="population-value">' + exposure.populationDisplay + '</td>' +
+		'</tr>';
 	};
 
 	return PagerPage;
