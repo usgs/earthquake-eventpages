@@ -82,7 +82,7 @@ define([
 
 		otherTimes.innerHTML =
 				this._formatDate(parseInt(properties.time, 10),
-						-1 * (new Date()).getTimezoneOffset(), ' ') +
+						-1 * (new Date()).getTimezoneOffset()) +
 				' <abbr title="Timezone your computer is configured to use">' +
 					'local system time' +
 				'</abbr>' +
@@ -98,7 +98,7 @@ define([
 	// TODO :: Move these date formatting methods to a utility class for re-use.
 
 	SummaryModule.prototype._formatDate = function (stamp, minutesOffset) {
-				var milliOffset = minutesOffset * 60 * 1000,
+		var milliOffset = minutesOffset * 60 * 1000,
 		    offsetString = this._formatTimezoneOffset(minutesOffset),
 		    theDate = new Date(stamp + milliOffset),
 		    year = theDate.getUTCFullYear(),
@@ -121,14 +121,13 @@ define([
 	SummaryModule.prototype._formatWorldClock = function (stamp) {
 		var theDate = new Date(stamp),
 		    uri,
-		    reference,
 		    title = this._eventDetails.properties.title;
 
 		uri = 'http://www.timeanddate.com/worldclock/fixedtime.html?iso=' +
 				theDate.toISOString() + '&msg=Earthquake ' + title;
-		reference = encodeURI(uri);
+		uri = encodeURI(uri);
 
-		return reference;
+		return uri;
 	};
 
 	SummaryModule.prototype._formatTimezoneOffset = function (offset) {
