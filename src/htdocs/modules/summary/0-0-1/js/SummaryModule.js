@@ -62,7 +62,8 @@ define([
 	SummaryModule.prototype._updateTimestampHeader = function () {
 		var stampElement = document.querySelector('.event-header .utc'),
 		    properties = this._eventDetails.properties,
-		    otherTimes = null;
+		    otherTimes = null,
+		    time;
 
 		if (!stampElement) { return; }
 
@@ -79,16 +80,16 @@ define([
 				Util.addClass(otherTimes, 'visible');
 			}
 		});
+		time = parseInt(properties.time, 10);
 
 		otherTimes.innerHTML =
-				this._formatDate(parseInt(properties.time, 10),
-						-1 * (new Date()).getTimezoneOffset()) +
+				this._formatDate(time, -1 * (new Date()).getTimezoneOffset()) +
 				' <abbr title="Timezone your computer is configured to use">' +
 					'local system time' +
 				'</abbr>' +
 				'<br/>' +
 				'<a href="' +
-				this._formatWorldClock(parseInt(properties.time, 10)) +
+				this._formatWorldClock(time) +
 				'" target="_blank">' +
 					'Times in other timezones' +
 				'</a>';
@@ -124,7 +125,7 @@ define([
 		    title = this._eventDetails.properties.title;
 
 		uri = 'http://www.timeanddate.com/worldclock/fixedtime.html?iso=' +
-				theDate.toISOString() + '&msg=Earthquake ' + title;
+				theDate.toISOString() + '&msg=' + title;
 		uri = encodeURI(uri);
 
 		return uri;
