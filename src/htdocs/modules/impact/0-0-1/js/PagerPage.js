@@ -102,7 +102,7 @@ define([
 		EventModulePage.prototype._setFooterMarkup.apply(this);
 
 		this._footer.classList.add('pager');
-		pagertag = document.createElement('section');
+		pagertag = document.createElement('div');
 		pagertag.innerHTML =
 				'<p class="disclaimer">' +
 				'PAGER content is automatically generated, and <strong>only ' +
