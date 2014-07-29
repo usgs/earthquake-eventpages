@@ -62,6 +62,12 @@ define([
 
 	DYFIPage.prototype = Object.create(EventModulePage.prototype);
 
+	DYFIPage.prototype._setHeaderMarkup = function () {
+		EventModulePage.prototype._setHeaderMarkup.apply(this);
+		this._header.querySelector('h2').insertAdjacentHTML('beforeend',
+				' - <a href="#impact_tellus">Tell Us!</a>');
+	};
+
 	DYFIPage.prototype._setContentMarkup = function () {
 		var products = this._event.properties.products,
 		    dyfi, tablistDiv;
@@ -94,7 +100,6 @@ define([
 		this._addDyfiResponsesTab();
 
 	};
-
 
 	DYFIPage.prototype._addDyfiResponsesTab = function () {
 		var title = 'DYFI Responses',
