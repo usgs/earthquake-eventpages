@@ -1,11 +1,11 @@
 .pager {
 
-	.disclaimer, .legend {
+	.disclaimer, .legend, figcaption {
 		display:block;
 		font-size:.8em;
 		color:#666;
 	}
-	.legend {
+	.legend, figcaption {
 		font-style:italic;
 	}
 	.toggle {
@@ -14,6 +14,11 @@
 		cursor:pointer;
 		display:block;
 		font-size:.8em;
+		margin:1em 0;
+	}
+
+	figure {
+		margin:0;
 	}
 
 	.mmi {
@@ -32,7 +37,6 @@
 		border-spacing: 0;
 		border-collapse: collapse;
 		width:100%;
-		margin:1em 0;
 
 		.mmi {
 			width:100%;
