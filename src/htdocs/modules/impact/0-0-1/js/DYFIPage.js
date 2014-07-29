@@ -296,5 +296,18 @@ define([
 		}
 	};
 
+	DYFIPage.prototype._setFooterMarkup = function () {
+		var links;
+
+		EventModulePage.prototype._setFooterMarkup.apply(this);
+
+		links = document.createElement('div');
+		links.innerHTML = '<a href="/research/dyfi/">' +
+				'Scientific Background on Did You Feel It?' +
+				'</a>';
+
+		this._footer.appendChild(links);
+	};
+
 	return DYFIPage;
 });
