@@ -239,30 +239,24 @@ define([
 	 *
 	 */
 	PagerPage.prototype._renderExposures = function () {
-		var exposureRows = [],
-		    exposureTable = document.createElement('table'),
-		    mmiLink = document.createElement('a'),
+		var markup = [],
 		    exposures = this._pagerInfo.exposures,
 		    i = 0,
 		    len = exposures.length,
 		    exposure,
 		    mmi;
 
-		mmi = parseFloat(this._event.properties.products.losspager[0]
-				.properties.maxmmi);
-
-		for (; i < len; i++) {
-			exposure = exposures[i];
-
-			exposureRows.push(this._createExposureItem(exposure));
-		}
-
 		if (len === 0) {
 			this._exposureEl.parentNode.removeChild(this._exposureEl);
 			this._exposureEl = null;
-		} else {
-			exposureTable.className = 'pager-exposures';
-			exposureTable.innerHTML =
+			return;
+		}
+
+		mmi = parseFloat(this._event.properties.products.losspager[0]
+				.properties.maxmmi);
+
+		markup.push(
+			'<table class="pager-exposures">' +
 				'<thead>' +
 					'<tr>' +
 						'<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +
@@ -270,16 +264,26 @@ define([
 						'<th><abbr title="Population Exposure">Pop.</abbr></th>' +
 					'</tr>' +
 				'</thead>' +
-				'<tbody>' +
-					exposureRows.join('') +
-				'</tbody>'
-			;
-			mmiLink.href = '/learn/topics/mercalli.php';
-			mmiLink.innerHTML = 'MMI values explained';
-			this._exposureEl.appendChild(exposureTable);
-			this._exposureEl.appendChild(mmiLink);
-			this._exposureEl.addEventListener('click', this._onExposureClick);
+				'<tbody>'
+			);
+
+		// generate table row content
+		for (; i < len; i++) {
+			exposure = exposures[i];
+			markup.push(this._createExposureItem(exposure));
 		}
+
+		markup.push(
+				'</tbody>' +
+			'</table>' +
+			'<span class="legend">' +
+				'*Estimated exposure only includes population within ' +
+				'calculated shake map area. (k = x1,000)' +
+			'</span>' +
+			'<a href="/learn/topics/mercalli.php">MMI values explained</a>'
+		);
+
+		this._exposureEl.innerHTML = markup.join('');
 	};
 
 	/**
