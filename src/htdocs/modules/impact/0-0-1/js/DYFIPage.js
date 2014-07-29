@@ -64,7 +64,6 @@ define([
 
 	DYFIPage.prototype._setHeaderMarkup = function () {
 		EventModulePage.prototype._setHeaderMarkup.apply(this);
-
 		this._header.querySelector('h2').insertAdjacentHTML('beforeend',
 				' - <a href="#impact_tellus">Tell Us!</a>');
 	};
