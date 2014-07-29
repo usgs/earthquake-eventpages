@@ -69,9 +69,6 @@ define([
 				return button.hasAttribute('disabled');
 			}
 
-			//work around to ignore not having an event.
-			form._event.properties = {'code': 'unknown'};
-
 			it('submit button is properly enabled/disabled', function () {
 				// Initially disabled
 				/* jshint -W030 */
