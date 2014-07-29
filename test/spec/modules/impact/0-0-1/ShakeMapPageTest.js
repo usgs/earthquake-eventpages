@@ -45,12 +45,6 @@ define([
 		}
 	};
 
-	var getClickEvent = function () {
-		var clickEvent = document.createEvent('MouseEvents');
-		clickEvent.initMouseEvent('click', true, true, window, 1, 0, 0);
-		return clickEvent;
-	};
-
 	describe('ShakeMapPageTest test suite.', function () {
 
 		describe('Constructor', function () {
@@ -81,7 +75,14 @@ define([
 		});
 
 		describe('Station List Content', function () {
-			var eventDetails = {
+			var eventDetails,
+			    page,
+			    content,
+			    ajaxStub,
+			    stations,
+			    container;
+
+			eventDetails = {
 				properties: {
 					products: {
 						shakemap: [{
@@ -94,16 +95,12 @@ define([
 						}]
 					}
 				}
-			},
-			    page, content, ajaxStub, stations, container, detailsClickSpy;
+			};
 
 			beforeEach(function () {
 
 				var parser = new DOMParser();
 				var doc = parser.parseFromString(stationlist.xml, 'application/xml');
-
-				detailsClickSpy = sinon.spy(ShakeMapPage.prototype,
-						'_toggleDetails');
 
 				ajaxStub = sinon.stub(Xhr, 'ajax', function (options) {
 					if (options.success) {
@@ -116,13 +113,12 @@ define([
 				});
 				content = page.getContent();
 				container = content.querySelector('.stations');
-				stations = content.querySelectorAll('.station-toggle');
+				stations = content.querySelectorAll('.accordion');
 			});
 
 			afterEach(function () {
 				ajaxStub.restore();
 				ajaxStub = null;
-				detailsClickSpy.restore();
 			});
 
 			// check all stations are present
@@ -147,26 +143,17 @@ define([
 
 			// check detail information
 			it('has station details', function () {
-				var station = stations[0],
-				    target = station.querySelector('a'),
-				    stationDetails, components, content;
-
-				page._toggleDetails({'target': target});
+				var stationDetails,
+				    components,
+				    content;
 
 				content = page.getContent();
-				stationDetails = content.querySelector('.station-details');
+				stationDetails = content.querySelector('.accordion-content');
 				components = content.querySelector('.station-components');
 
 				expect(stationDetails.querySelector('dd').innerHTML).to.equal('UNK');
 				expect(components.querySelectorAll('tbody>tr').length).to.equal(9);
 			});
-
-			//check click event on show details
-			it('toggles details on click', function () {
-				container.dispatchEvent(getClickEvent());
-				expect(detailsClickSpy.callCount).to.equal(1);
-			});
-
 		});
 
 		describe('Summary section details', function () {
