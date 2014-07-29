@@ -9,16 +9,13 @@
 		font-style:italic;
 	}
 	.toggle {
-		color:#00C;
-		text-decoration:underline;
 		cursor:pointer;
 		display:block;
-		font-size:.8em;
 		margin:1em 0;
 	}
 
 	figure {
-		margin:0;
+		margin:1em 0;
 	}
 
 	.mmi {
@@ -37,6 +34,7 @@
 		border-spacing: 0;
 		border-collapse: collapse;
 		width:100%;
+		margin:1em 0 0.5em;
 
 		.mmi {
 			width:100%;
