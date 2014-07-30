@@ -50,26 +50,25 @@ define([
 		    contents = this._event.properties.products.losspager[0].contents;
 
 		this._content.classList.add('pager');
-		this._content.innerHTML = [
-			'<div class="alert-wrapper row"></div>',
-			'<div class="row right-to-left">',
-				'<h3>Estimated Population Exposure to Earthquake Shaking</h3>',
-				'<div class="map-wrapper column one-of-two">',
-					'<figure>',
-						'<img src="', contents['exposure.png'].url,
-								'" alt="Population Exposure Map"/>',
-						'<figcaption>',
-							'Population per ~1 sq. km. from LandScan',
-						'</figcaption>',
-					'</figure>',
-				'</div>',
-				'<div class="exposure-wrapper column one-of-two"></div>',
-			'</div>',
-			'<div class="row right-to-left">',
-				'<div class="comment-wrapper column one-of-two"></div>',
-				'<div class="city-wrapper column one-of-two"></div>',
-			'</div>'
-		].join('');
+		this._content.innerHTML =
+			'<div class="alert-wrapper row"></div>' +
+			'<div class="row right-to-left">' +
+				'<h3>Estimated Population Exposure to Earthquake Shaking</h3>' +
+				'<div class="map-wrapper column one-of-two">' +
+					'<figure>' +
+						'<img src="' + contents['exposure.png'].url +
+								'" alt="Population Exposure Map"/>' +
+						'<figcaption>' +
+							'Population per ~1 sq. km. from LandScan' +
+						'</figcaption>' +
+					'</figure>' +
+				'</div>' +
+				'<div class="exposure-wrapper column one-of-two"></div>' +
+			'</div>' +
+			'<div class="row right-to-left">' +
+				'<div class="comment-wrapper column one-of-two"></div>' +
+				'<div class="city-wrapper column one-of-two"></div>' +
+			'</div>';
 
 		// Store these for later. See _renderPage
 		this._alertEl = this._content.querySelector('.alert-wrapper');
@@ -173,16 +172,15 @@ define([
 				econLevel = levelValues[econLevel];
 			}
 			econMarkup =
-			'<div class="column one-of-two">' +
-				'<h3>Estimated Economic Losses</h3>' +
-				'<a href="' + contents['alertecon.pdf'].url + '">' +
-					'<img src="' + contents['alertecon.png'].url + '" alt=""/>' +
-				'</a>' +
-				'<p>' +
-					((comments.length === 2) ? comments[1] : comments[0]) +
-				'</p>' +
-			'</div>'
-			;
+				'<div class="column one-of-two">' +
+					'<h3>Estimated Economic Losses</h3>' +
+					'<a href="' + contents['alertecon.pdf'].url + '">' +
+						'<img src="' + contents['alertecon.png'].url + '" alt=""/>' +
+					'</a>' +
+					'<p>' +
+						((comments.length === 2) ? comments[1] : comments[0]) +
+					'</p>' +
+				'</div>';
 		}
 
 		if (alerts.fatality) {
@@ -190,21 +188,14 @@ define([
 			if (levelValues.hasOwnProperty(fatLevel)) {
 				fatLevel = levelValues[fatLevel];
 			}
-			fatMarkup = [
-			'<div class="column one-of-two">' +
-				'<h3>Estimated Fatalities</h3>' +
-				'<a href="' + contents['alertfatal.pdf'].url + '">' +
-					'<img src="' + contents['alertfatal.png'].url + '" alt=""/>' +
-				'</a>'
-			];
-
-			if (comments.length === 2) {
-				fatMarkup.push('<p>' + comments[0] + '</p>');
-			}
-
-			fatMarkup.push('</div>');
-
-			fatMarkup = fatMarkup.join('');
+			fatMarkup =
+				'<div class="column one-of-two">' +
+					'<h3>Estimated Fatalities</h3>' +
+					'<a href="' + contents['alertfatal.pdf'].url + '">' +
+						'<img src="' + contents['alertfatal.png'].url + '" alt=""/>' +
+					'</a>' +
+					((comments.length === 2) ? '<p>' + comments[0] + '</p>' : '') +
+				'</div>';
 		}
 
 		if (fatLevel === -1 && econLevel === -1) {
@@ -341,15 +332,15 @@ define([
 		for (; i < len; i++) {
 			city = cities[i];
 
-			Array.prototype.push.apply(markup, [
-				'<tr class="', ((i>10)?'city-additional':''),'">',
-					'<td class="cities-mmi">',
-						'<span class="roman mmi ', city.css, '">', city.roman, '</span>',
-					'</td>',
-					'<td>', city.name, '</td>',
-					'<td class="cities-population">', city.populationDisplay, '</td>',
+			markup.push(
+				'<tr class="' + ((i>10)?'city-additional':'') +'">' +
+					'<td class="cities-mmi">' +
+						'<span class="roman mmi ' + city.css + '">' + city.roman + '</span>' +
+					'</td>' +
+					'<td>' + city.name + '</td>' +
+					'<td class="cities-population">' + city.populationDisplay + '</td>' +
 				'</tr>'
-			]);
+			);
 		}
 
 		markup.push(
