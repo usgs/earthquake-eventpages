@@ -130,7 +130,6 @@ define([
 
 			beforeEach(function (done) {
 				form = new DYFIFormPage();
-				form._event.properties = {'code': 'unknown'};   //work around
 				spy = sinon.spy(form, '_updateSubmitEnabled');
 				form._fetchDialog(done);
 			});
