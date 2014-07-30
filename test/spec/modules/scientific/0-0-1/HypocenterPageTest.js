@@ -40,8 +40,8 @@ define([
 			'origin',
 			'phase-data'
 		],
-		title: 'Hypocenter',
-		hash: 'hypocenter'
+		title: 'Origin',
+		hash: 'origin'
 	};
 	SummaryPage = new HypocenterPage(summaryOptions);
 
@@ -85,7 +85,7 @@ define([
 			it('Can summarize hypocenter data.', function () {
 				var content = SummaryPage.getContent();
 				var hypocenter_summary =
-						content.querySelectorAll('.hypocenter-summary');
+						content.querySelectorAll('.origin-summary');
 				/* jshint -W030 */
 				expect(hypocenter_summary.length).to.not.equal(0);
 				/* jshint +W030 */
