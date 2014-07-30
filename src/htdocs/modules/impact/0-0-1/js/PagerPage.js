@@ -51,8 +51,8 @@ define([
 
 		this._content.classList.add('pager');
 		this._content.innerHTML = [
-			'<section class="alert-wrapper row"></section>',
-			'<section class="row">',
+			'<div class="alert-wrapper row"></div>',
+			'<div class="row">',
 				'<h3>Estimated Population Exposure to Earthquake Shaking</h3>',
 				'<span class="disclaimer">' +
 					'*Estimated exposure only includes population within ' +
@@ -68,11 +68,11 @@ define([
 						'</figcaption>',
 					'</figure>',
 				'</div>',
-			'</section>',
-			'<section class="row right-to-left">',
+			'</div>',
+			'<div class="row right-to-left">',
 				'<div class="comment-wrapper column one-of-two"></div>',
 				'<div class="city-wrapper column one-of-two"></div>',
-			'</section>'
+			'</div>'
 		].join('');
 
 		// Store these for later. See _renderPage
