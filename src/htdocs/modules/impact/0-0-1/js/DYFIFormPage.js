@@ -60,6 +60,10 @@ define([
 		Events.prototype.off.call(this._questions.ciim_mapLon, 'change',
 				this._updateSubmitEnabled);
 		this._questions.fldSituation_felt.off('change', this._updateSubmitEnabled);
+		if (!this._event) {
+			this._questions.ciim_time._el.removeEventListener('change',
+					this._updateSubmitEnabled);
+		}
 
 		if (this._dialog && this._dialog.destroy &&
 				typeof this._dialog.destroy === 'function') {
@@ -125,16 +129,23 @@ define([
 		    latAns = questions.ciim_mapLat.getAnswers(),
 		    lonAns = questions.ciim_mapLon.getAnswers(),
 		    feltAns = questions.fldSituation_felt.getAnswers(),
-		    button = this._dialog._el.querySelector('.dyfi-button-submit');
+		    button = this._dialog._el.querySelector('.dyfi-button-submit'),
+		    timeAns = {value: 'defined'};
 
-			// Check current form status. Enable/disable button
-			if (latAns === null || typeof latAns.value === 'undefined' ||
-					lonAns === null || typeof lonAns.value === 'undefined' ||
-					feltAns === null || typeof feltAns.value === 'undefined') {
-				button.setAttribute('disabled', 'disabled');
-			} else {
-				button.removeAttribute('disabled');
-			}
+		if (!this._event) {
+			// time is required
+			timeAns = questions.ciim_time.getAnswers();
+		}
+
+		// Check current form status. Enable/disable button
+		if (latAns === null || typeof latAns.value === 'undefined' ||
+				lonAns === null || typeof lonAns.value === 'undefined' ||
+				feltAns === null || typeof feltAns.value === 'undefined' ||
+				timeAns === null || timeAns.value === '') {
+			button.setAttribute('disabled', 'disabled');
+		} else {
+			button.removeAttribute('disabled');
+		}
 	};
 
 	DYFIFormPage.prototype._onSubmit = function (/*event*//*, domElement*/) {
@@ -176,8 +187,7 @@ define([
 		    answers;
 
 		//Use the event properties passed in.
-		if ( this._event.properties.hasOwnProperty('code') &&
-					this._event.properties.code !== 'unknown') {
+		if (this._event) {
 			//if there's a code,  use the time passed in.  Otherwise it's in a question.
 			eventData.ciim_time = Math.floor(this._event.properties.time/1000);
 
@@ -354,8 +364,7 @@ define([
 		__create_location_questions(locationInfo, baseQuestionsEl, questions);
 
 		//TODO confirm this works with whatever scheme we come up to call the form with an unknown event.
-		if (this._event.hasOwnProperty('properties') &&
-					!this._event.properties.hasOwnProperty('code')) {
+		if (!this._event) {
 				__create_text_questions(eventTime, baseQuestionsEl, questions);
 		}
 
@@ -387,6 +396,10 @@ define([
 		Events.prototype.on.call(this._questions.ciim_mapLon, 'change',
 				this._updateSubmitEnabled);
 		this._questions.fldSituation_felt.on('change', this._updateSubmitEnabled);
+		if (!this._event) {
+			this._questions.ciim_time._el.addEventListener('change',
+					this._updateSubmitEnabled);
+		}
 
 		// TODO :: More interaction like progress meter.
 
