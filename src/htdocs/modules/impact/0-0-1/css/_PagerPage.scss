@@ -1,11 +1,11 @@
 .pager {
 
-	.disclaimer, .legend, figcaption {
+	.disclaimer, .legend {
 		display:block;
 		font-size:.8em;
 		color:#666;
 	}
-	.legend, figcaption {
+	.legend {
 		font-style:italic;
 	}
 	.toggle {
@@ -78,9 +78,9 @@
 			}
 		}
 
-			&.show-additional > tbody > .city-additional {
-				display:table-row;
-			}
+		&.show-additional > tbody > .city-additional {
+			display:table-row;
+		}
 	}
 
 
