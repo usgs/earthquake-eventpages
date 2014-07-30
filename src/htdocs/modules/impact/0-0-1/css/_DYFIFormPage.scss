@@ -204,8 +204,11 @@ $dyfi-question-indent: 1.3em;
 }
 
 .dyfi-form {
-	header {position: relative;}
-		> .modal-footer {
+	header {
+		position: relative;
+	}
+
+	> .modal-footer {
 		> button {
 			margin:2px 2px 2px 4px;
 			padding:2px 6px 3px 6px;
