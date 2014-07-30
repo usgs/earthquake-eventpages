@@ -359,7 +359,7 @@ define([
 		contactContainer.classList.add('dyfi-contact-questions');
 
 		header.innerHTML = '<h3 class="felt-header">Felt Report</h3>' +
-				'<div class="disclaimer">OMB No. 1028-0048' +
+				'<div class="dyfi-disclaimer">OMB No. 1028-0048' +
 				'<br>Expires 05/31/2015' +
 				'<br><a href="/research/dyfi/disclaimer.php">Disclaimer</a></div>';
 
