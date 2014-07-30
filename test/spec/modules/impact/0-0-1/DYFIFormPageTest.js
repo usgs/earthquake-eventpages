@@ -58,35 +58,69 @@ define([
 			});
 		});
 
-		describe('_updateSubmitEnabled', function (done) {
-			var form = new DYFIFormPage(),
+		describe('_updateSubmitEnabled', function () {
+			var form,
 			    getAnswers = function () { return {'value': true};};
-
-			form._fetchDialog(done);
 
 			function isDisabled () {
 				var button = form._dialog._el.querySelector('.dyfi-button-submit');
 				return button.hasAttribute('disabled');
 			}
 
-			it('submit button is properly enabled/disabled', function () {
-				// Initially disabled
-				/* jshint -W030 */
-				expect(isDisabled()).to.be.true;
-				/* jshint +W030 */
+			it('submit button is properly enabled/disabled for unknown events', function (done) {
+				form = new DYFIFormPage()
+				form._fetchDialog(function () {
 
-				// Stub the questions so it appears the requisite information has
-				// been input by the user
-				sinon.stub(form._questions.ciim_mapLat, 'getAnswers', getAnswers);
-				sinon.stub(form._questions.ciim_mapLon, 'getAnswers', getAnswers);
-				sinon.stub(form._questions.fldSituation_felt, 'getAnswers',
-						getAnswers);
+					// Initially disabled
+					/* jshint -W030 */
+					expect(isDisabled()).to.be.true;
+					/* jshint +W030 */
 
-				form._updateSubmitEnabled();
+					// Stub the questions so it appears the requisite information has
+					// been input by the user
+					sinon.stub(form._questions.ciim_mapLat, 'getAnswers', getAnswers);
+					sinon.stub(form._questions.ciim_mapLon, 'getAnswers', getAnswers);
+					sinon.stub(form._questions.fldSituation_felt, 'getAnswers',
+							getAnswers);
+					// Still disabled
+					/* jshint -W030 */
+					expect(isDisabled()).to.be.true;
+					/* jshint +W030 */
+					sinon.stub(form._questions.ciim_time, 'getAnswers', getAnswers);
 
-				/* jshint -W030 */
-				expect(isDisabled()).to.be.false;
-				/* jshint +W030 */
+					form._updateSubmitEnabled();
+
+					/* jshint -W030 */
+					expect(isDisabled()).to.be.false;
+					/* jshint +W030 */
+
+					done();
+				});
+			});
+
+			it('submit button is properly enabled/disabled for regular events', function (done) {
+				form = new DYFIFormPage({eventDetails: {}})
+				form._fetchDialog(function () {
+					// Initially disabled
+					/* jshint -W030 */
+					expect(isDisabled()).to.be.true;
+					/* jshint +W030 */
+
+					// Stub the questions so it appears the requisite information has
+					// been input by the user
+					sinon.stub(form._questions.ciim_mapLat, 'getAnswers', getAnswers);
+					sinon.stub(form._questions.ciim_mapLon, 'getAnswers', getAnswers);
+					sinon.stub(form._questions.fldSituation_felt, 'getAnswers',
+							getAnswers);
+
+					form._updateSubmitEnabled();
+
+					/* jshint -W030 */
+					expect(isDisabled()).to.be.false;
+					/* jshint +W030 */
+
+					done();
+				});
 			});
 		});
 
