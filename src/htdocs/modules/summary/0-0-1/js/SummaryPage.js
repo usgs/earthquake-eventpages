@@ -237,12 +237,11 @@ define([
 
 	SummaryPage.prototype._getAttributionMarkup = function () {
 		var products = this._event.properties.products,
-		    origin = products.origin[0],
+		    origin,
 		    ids = {},
 		    idsArray = [],
 		    id,
-		    markup = '<div class="summary-attribution">' +
-		        '<h3>Attributions</h3>' + '<ul>',
+		    markup = [],
 		    productname,
 		    length,
 		    product,
@@ -256,27 +255,32 @@ define([
 			}
 		}
 
-		if (origin.properties.hasOwnProperty('origin-source')) {
-			ids[origin.properties['origin-source'].toUpperCase()] = true;
-		}
-		if (origin.properties.hasOwnProperty('magnitude-source')) {
-			ids[origin.properties['magnitude-source'].toUpperCase()] = true;
+		if (products.hasOwnProperty('origin')){
+			origin = products.origin[0];
+
+			if (origin.properties.hasOwnProperty('origin-source')) {
+				ids[origin.properties['origin-source'].toUpperCase()] = true;
+			}
+			if (origin.properties.hasOwnProperty('magnitude-source')) {
+				ids[origin.properties['magnitude-source'].toUpperCase()] = true;
+			}
 		}
 
-		if (Object.getOwnPropertyNames(ids).length > 0) {
-			for (id in ids) {
-				idsArray.push(id);
-			}
-			idsArray.sort();
-			length = idsArray.length;
-			for (i = 0; i < length; i++) {
-				markup += '<li>' + Attribution.getName(idsArray[i]) + '</li>';
-			}
-		markup += '</ul>';
-		return markup;
+		for (id in ids) {
+			idsArray.push(id);
 		}
+		idsArray.sort();
+		length = idsArray.length;
 
-		return '';
+		markup.push(['<div class="summary-attribution">',
+				'<h3>Attributions</h3><ul>'].join(''));
+
+		for (i = 0; i < length; i++) {
+			markup.push(['<li>',Attribution.getName(idsArray[i]),'</li>'].join(''));
+		}
+		markup.push('</ul>');
+
+		return markup.join('');
 	};
 
 	SummaryPage.prototype._loadTextualContent =
