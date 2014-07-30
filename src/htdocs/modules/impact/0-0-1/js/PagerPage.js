@@ -52,9 +52,8 @@ define([
 		this._content.classList.add('pager');
 		this._content.innerHTML = [
 			'<div class="alert-wrapper row"></div>',
-			'<div class="row">',
+			'<div class="row right-to-left">',
 				'<h3>Estimated Population Exposure to Earthquake Shaking</h3>',
-				'<div class="exposure-wrapper column one-of-two"></div>',
 				'<div class="map-wrapper column one-of-two">',
 					'<figure>',
 						'<img src="', contents['exposure.png'].url,
@@ -64,6 +63,7 @@ define([
 						'</figcaption>',
 					'</figure>',
 				'</div>',
+				'<div class="exposure-wrapper column one-of-two"></div>',
 			'</div>',
 			'<div class="row right-to-left">',
 				'<div class="comment-wrapper column one-of-two"></div>',
