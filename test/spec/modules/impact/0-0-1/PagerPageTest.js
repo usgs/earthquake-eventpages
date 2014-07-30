@@ -77,7 +77,7 @@ define([
 			it('contains all expected exposures', function () {
 				expect(container.querySelectorAll('.pager-exposures'))
 						.to.have.length(1);
-				expect(container.querySelectorAll('.pager-exposures > li'))
+				expect(container.querySelectorAll('.pager-exposures > tbody > tr'))
 						.to.have.length(9);
 			});
 
@@ -91,7 +91,7 @@ define([
 			it('contains all expected cities', function () {
 				expect(container.querySelectorAll('.pager-cities'))
 						.to.have.length(1);
-				expect(container.querySelectorAll('.pager-cities > li'))
+				expect(container.querySelectorAll('.pager-cities > tbody > tr'))
 						.to.have.length(300);
 			});
 
@@ -121,41 +121,9 @@ define([
 				cityClickSpy.restore();
 			});
 
-			it('responds to click events on exposure info', function () {
-				_fireClickEvent(content.querySelector('.exposure-wrapper'));
-				expect(exposureClickSpy.callCount).to.equal(1);
-			});
-
 			it('responds to click events on city list', function () {
 				_fireClickEvent(content.querySelector('.city-wrapper'));
 				expect(cityClickSpy.callCount).to.equal(1);
-			});
-
-			it('only toggles exposure if click is on mmi target', function () {
-				// Close all expanded li first
-				var expanded = content.querySelectorAll('.pager-exposures .expanded'),
-				    i = 0,
-				    numExpanded = expanded.length;
-
-				for (; i < numExpanded; i++) {
-					expanded.item(i).classList.remove('expanded');
-				}
-				expect(content.querySelectorAll('.expanded')).to.have.length(0);
-
-				// Click on container itself, item should NOT
-				page._onExposureClick(
-						{target: content.querySelector('.pager-exposures')});
-				expect(content.querySelectorAll('.expanded')).to.have.length(0);
-
-				// Click on list item itself; item should NOT expand
-				page._onExposureClick(
-						{target: content.querySelector('.pager-exposures li')});
-				expect(content.querySelectorAll('.expanded')).to.have.length(0);
-
-				// Click on mmi; item should expand
-				page._onExposureClick(
-						{target: content.querySelector('.pager-exposures .mmi')});
-				expect(content.querySelectorAll('.expanded')).to.have.length(1);
 			});
 
 			it('only toggles city list if click is on control', function () {
