@@ -106,7 +106,7 @@ define([
 			originEl.className = 'location';
 
 			originEl.innerHTML = [
-				'<a href="#scientific_hypocenter"><h3>Hypocenter</h3></a>',
+				'<a href="#scientific_hypocenter"><h3>Origin</h3></a>',
 				HypocenterPage.prototype.getOriginDetail.call(this, origins[0]),
 				'<div><a href="#scientific_hypocenter">',
 					'View all locations, magnitudes, phases, and arrivals.',

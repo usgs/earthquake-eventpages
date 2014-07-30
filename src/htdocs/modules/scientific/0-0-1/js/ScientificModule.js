@@ -33,8 +33,8 @@ define([
 			{
 				className: 'scientific/HypocenterPage',
 				options: {
-					title: 'Hypocenter',
-					hash: 'hypocenter'
+					title: 'Origin',
+					hash: 'origin'
 				},
 				productTypes: [
 					'origin',
