@@ -5,7 +5,7 @@ define([
 	'base/ContentsXML',
 	'util/Xhr',
 	'util/Util',
-	'accordion/Accordion'
+	'accordion/Accordion',
 ], function (
 	Attribution,
 	EventModulePage,
@@ -236,35 +236,46 @@ define([
 	};
 
 	SummaryPage.prototype._getAttributionMarkup = function () {
-		var origin = this._event.properties.products.origin[0],
-		    id = origin.id.split(':')[2],
-		    locationId = id,
-		    magnitudeId = id;
+		var products = this._event.properties.products,
+		    origin = products.origin[0],
+		    ids = {},
+		    idsArray = [],
+		    id,
+		    markup = '<div class="summary-attribution">' +
+		        '<h3>Attributions</h3>' + '<ul>',
+		    productname,
+		    length,
+		    product,
+		    i;
+
+		for (productname in products) {
+			product = products[productname];
+			length = product.length;
+			for (i = 0; i < length; i++) {
+				ids[product[i].source.toUpperCase()] = true;
+			}
+		}
 
 		if (origin.properties.hasOwnProperty('origin-source')) {
-			locationId = origin.properties['origin-source'];
+			ids[origin.properties['origin-source'].toUpperCase()] = true;
 		}
 		if (origin.properties.hasOwnProperty('magnitude-source')) {
-			magnitudeId = origin.properties['magnitude-source'];
+			ids[origin.properties['magnitude-source'].toUpperCase()] = true;
 		}
 
-		id = id.toUpperCase();
-		locationId = locationId.toUpperCase();
-		magnitudeId = magnitudeId.toUpperCase();
-
-		if (locationId === magnitudeId) {
-			return '<div class="summary-attribution">' +
-				'Location and Magnitude contributed by: ' +
-				Attribution.getMainContributerHeader(locationId) +
-			'</div>';
-		} else {
-			return '<div class="summary-attribution">' +
-				'Location contributed by: ' +
-				Attribution.getMainContributerHeader(locationId) + '<br/>' +
-				'Magnitude contributed by: ' +
-				Attribution.getMainContributerHeader(magnitudeId) +
-			'</div>';
+		if (Object.getOwnPropertyNames(ids).length > 0) {
+			for (id in ids) {
+				idsArray.push(id);
+			}
+			idsArray.sort();
+			length = idsArray.length;
+			for (i = 0; i < length; i++) {
+				markup += '<li>' + Attribution.getName(idsArray[i]) + '</li>';
+			}
+		markup += '</ul>';
+		return markup;
 		}
+
 		return '';
 	};
 
