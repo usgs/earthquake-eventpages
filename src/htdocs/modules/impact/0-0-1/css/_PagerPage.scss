@@ -1,27 +1,9 @@
 .pager {
 
-	.disclaimer, .legend {
+	.disclaimer {
 		display:block;
 		font-size:.8em;
-		color:#666;
 		margin:0.5em 0;
-	}
-	.legend {
-		font-style:italic;
-	}
-	.toggle {
-		cursor:pointer;
-		display:block;
-	}
-
-	.mmi {
-		display:inline-block;
-		width:64px;
-		padding:2px 4px;
-		text-align:center;
-		margin-right:8px;
-		border-radius:2px;
-		text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
 	}
 
 	figure {
@@ -34,11 +16,6 @@
 		border-spacing: 0;
 		border-collapse: collapse;
 		width:100%;
-
-		.mmi {
-			width:100%;
-			background-image: linear-gradient(to bottom, rgba(255,255,255,0.15),rgba(255,255,255,0));
-		}
 
 		td,
 		th {
@@ -70,6 +47,16 @@
 				border-bottom: 1px solid #e0e0e0;
 				border-left: 1px solid #e0e0e0;
 
+				.mmi {
+					display:inline-block;
+					width:100%;
+					padding:2px 4px;
+					border-radius:2px;
+					text-align:center;
+					text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
+					background-image: linear-gradient(to bottom, rgba(255,255,255,0.15),rgba(255,255,255,0));
+				}
+
 				&.exposure-mmi,
 				&.cities-mmi {
 					width:86px;
@@ -84,41 +71,6 @@
 
 		&.show-additional > tbody > .city-additional {
 			display:table-row;
-		}
-	}
-
-
-	.pager-cities {
-		list-style:none;
-		margin:0;
-		padding:0;
-
-		> li {
-			position:relative;
-			margin:8px 0;
-			padding:0 72px 0 0;
-			white-space:nowrap;
-			overflow:hidden;
-			text-overflow:ellipsis;
-
-			> .population {
-				position:absolute;
-				top:7px;
-				bottom:6px;
-				background-color:#fff;
-				right:0;
-				padding-left:8px;
-				z-index:10;
-				text-align:right;
-			}
-		}
-
-		> .city-additional {
-			display:none;
-		}
-
-		&.show-additional > .city-additional {
-			display:block;
 		}
 	}
 }

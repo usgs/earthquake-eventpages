@@ -345,7 +345,7 @@ define([
 
 		markup.push(
 			'</tbody></table>' +
-			'<span class="legend">' +
+			'<span class="disclaimer">' +
 				'From GeoNames Database of Cities with 1,000 or more ' +
 				'residents (k = x1,000)' +
 			'</span>'
