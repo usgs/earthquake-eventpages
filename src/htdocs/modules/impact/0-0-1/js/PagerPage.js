@@ -335,10 +335,7 @@ define([
 		    city;
 
 		markup.push(
-			'<h3>Selected Cities Exposed</h3>' +
-			'<span class="legend">' +
-				'from GeoNames Database of Cities with 1,000 or more residents' +
-			'</span>'
+			'<h3>Selected Cities Exposed</h3>'
 		);
 
 		if (len > 11) {
@@ -374,7 +371,10 @@ define([
 
 		markup.push(
 			'</tbody></table>' +
-			'<span class="legend">(k = x1,000)</span>'
+			'<span class="legend">' +
+				'From GeoNames Database of Cities with 1,000 or more ' +
+				'residents (k = x1,000)' +
+			'</span>'
 		);
 
 		if (len === 0) {
