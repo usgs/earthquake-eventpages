@@ -54,10 +54,6 @@ define([
 			'<div class="alert-wrapper row"></div>',
 			'<div class="row">',
 				'<h3>Estimated Population Exposure to Earthquake Shaking</h3>',
-				'<span class="disclaimer">' +
-					'*Estimated exposure only includes population within ' +
-					'calculated shake map area. (k = x1,000)' +
-				'</span>' +
 				'<div class="exposure-wrapper column one-of-two"></div>',
 				'<div class="map-wrapper column one-of-two">',
 					'<figure>',
@@ -280,7 +276,11 @@ define([
 		markup.push(
 				'</tbody>' +
 			'</table>' +
-			'<a href="/learn/topics/mercalli.php">MMI values explained</a>'
+			'<span class="disclaimer">' +
+				'*Estimated exposure only includes population within ' +
+				'calculated shake map area. (k = x1,000)' +
+			'</span>' +
+			'<a href="/research/shakemap/#intmaps">Modified Mercalli Intensity (MMI) scale</a>'
 		);
 
 		this._exposureEl.innerHTML = markup.join('');
