@@ -360,8 +360,9 @@ define([
 
 		header.innerHTML = '<h3 class="felt-header">Felt Report</h3>' +
 				'<div class="dyfi-disclaimer">OMB No. 1028-0048' +
-				'<br>Expires 05/31/2015' +
-				'<br><a href="/research/dyfi/disclaimer.php">Disclaimer</a></div>';
+				'<br/>Expires 05/31/2015' +
+				'<br/><a href="/research/dyfi/disclaimer.php#DYFIFormDisclaimer">' +
+						'Disclaimer</a></div>';
 
 		// Handle location question
 		__create_location_questions(locationInfo, baseQuestionsEl, questions);
