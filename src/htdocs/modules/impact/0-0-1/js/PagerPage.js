@@ -106,26 +106,10 @@ define([
 		this._footer.classList.add('pager');
 		pagertag = document.createElement('div');
 		pagertag.innerHTML =
-				'<p class="disclaimer">' +
-				'PAGER content is automatically generated, and <strong>only ' +
-				'considers losses due to structural damage</strong>. Limitations of ' +
-				'input data, shaking estimates, and loss models may add uncertainty. ' +
-				'PAGER results are generally available within 30 minutes of the ' +
-				'earthquake&rsquo;s occurrence. However, information on the extent ' +
-				'of shaking will be uncertain in the minutes and hours following an ' +
-				'earthquake and typically improves as additional sensor data and ' +
-				'reported intensities are acquired and incorporated into models of ' +
-				'the earthquake&rsquo;s source. Users of PAGER estimates should ' +
-				'account for uncertainty and always seek the most current PAGER ' +
-				'release for any earthquake.' +
-			'</p>' +
 			'<a href="/research/pager/">' +
 				'Scientific Background on PAGER' +
-			'</a>' +
-			'<br/>' +
-			'<a href="/research/pager/disclaimer.php">' +
-				'Read Additional PAGER Disclaimers' +
-			'</a>';
+			'</a>'
+		;
 
 		this._footer.appendChild(pagertag);
 	};
@@ -279,8 +263,7 @@ define([
 			'<span class="disclaimer">' +
 				'*Estimated exposure only includes population within ' +
 				'calculated shake map area. (k = x1,000)' +
-			'</span>' +
-			'<a href="/research/shakemap/#intmaps">Modified Mercalli Intensity (MMI) scale</a>'
+			'</span>'
 		);
 
 		this._exposureEl.innerHTML = markup.join('');
