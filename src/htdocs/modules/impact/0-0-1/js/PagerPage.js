@@ -64,7 +64,7 @@ define([
 						'<img src="', contents['exposure.png'].url,
 								'" alt="Population Exposure Map"/>',
 						'<figcaption>',
-							'Population per ~1 sq. km. from LandScan (k = x1,000)',
+							'Population per ~1 sq. km. from LandScan',
 						'</figcaption>',
 					'</figure>',
 				'</div>',
