@@ -191,28 +191,40 @@ $dyfi-question-indent: 1.3em;
 
 .felt-header {
 	border-bottom:1px solid #333;
+	padding: .5em 0;
 }
 
-.dyfi-form > .modal-footer {
-	> button {
-		margin:2px 2px 2px 4px;
-		padding:2px 6px 3px 6px;
-		cursor:pointer;
+.disclaimer {
+	position: absolute;
+	text-align: right;
+	top:0;
+	right:0;
+	font-size: .8em;
 
-		&.dyfi-button-cancel {
-			margin-left:8px;
-			background:none;
-			border:none;
-			color:#00C;
-			text-decoration:underline;
-		}
+}
 
-		&.dyfi-button-submit {
-			@include button();
+.dyfi-form {
+	header {position: relative;}
+		> .modal-footer {
+		> button {
+			margin:2px 2px 2px 4px;
+			padding:2px 6px 3px 6px;
+			cursor:pointer;
+
+			&.dyfi-button-cancel {
+				margin-left:8px;
+				background:none;
+				border:none;
+				color:#00C;
+				text-decoration:underline;
+			}
+
+			&.dyfi-button-submit {
+				@include button();
+			}
 		}
 	}
 }
-
 
 .dyfi-form > .modal-footer,
 .locationview > .modal-footer {

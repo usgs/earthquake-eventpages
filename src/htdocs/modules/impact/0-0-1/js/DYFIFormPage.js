@@ -358,7 +358,10 @@ define([
 		moreQuestionsEl.classList.add('dyfi-optional-questions');
 		contactContainer.classList.add('dyfi-contact-questions');
 
-		header.innerHTML = '<h3 class="felt-header">Felt Report</h3>';
+		header.innerHTML = '<h3 class="felt-header">Felt Report</h3>' +
+				'<div class="disclaimer">OMB No. 1028-0048' +
+				'<br>Expires 05/31/2015' +
+				'<br><a href="/research/dyfi/disclaimer.php">Disclaimer</a></div>';
 
 		// Handle location question
 		__create_location_questions(locationInfo, baseQuestionsEl, questions);
