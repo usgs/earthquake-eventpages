@@ -253,7 +253,7 @@ define([
 			'</table>' +
 			'<span class="disclaimer">' +
 				'*Estimated exposure only includes population within ' +
-				'calculated shake map area. (k = x1,000)' +
+				'map area (k = x1,000)' +
 			'</span>'
 		);
 
