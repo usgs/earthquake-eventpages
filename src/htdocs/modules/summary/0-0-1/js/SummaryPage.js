@@ -256,13 +256,16 @@ define([
 		}
 
 		if (products.hasOwnProperty('origin')){
-			origin = products.origin[0];
+			length = products.origin.length;
+			for (i = 0; i < length; i++) {
+				origin = products.origin[i];
 
-			if (origin.properties.hasOwnProperty('origin-source')) {
-				ids[origin.properties['origin-source'].toUpperCase()] = true;
-			}
-			if (origin.properties.hasOwnProperty('magnitude-source')) {
-				ids[origin.properties['magnitude-source'].toUpperCase()] = true;
+				if (origin.properties.hasOwnProperty('origin-source')) {
+					ids[origin.properties['origin-source'].toUpperCase()] = true;
+				}
+				if (origin.properties.hasOwnProperty('magnitude-source')) {
+					ids[origin.properties['magnitude-source'].toUpperCase()] = true;
+				}
 			}
 		}
 
@@ -273,7 +276,7 @@ define([
 		length = idsArray.length;
 
 		markup.push(['<div class="summary-attribution">',
-				'<h3>Attributions</h3><ul>'].join(''));
+				'<h3>Attribution</h3><ul>'].join(''));
 
 		for (i = 0; i < length; i++) {
 			markup.push(['<li>',Attribution.getName(idsArray[i]),'</li>'].join(''));
