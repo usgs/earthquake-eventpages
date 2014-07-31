@@ -175,12 +175,14 @@ define([
 			econMarkup =
 				'<div class="column one-of-two">' +
 					'<h3>Estimated Economic Losses</h3>' +
-					'<a href="' + contents['alertecon.pdf'].url + '">' +
-						'<img src="' + contents['alertecon.png'].url + '" alt=""/>' +
-					'</a>' +
-					'<p>' +
-						((comments.length === 2) ? comments[1] : comments[0]) +
-					'</p>' +
+					'<figure>' +
+						'<a href="' + contents['alertecon.pdf'].url + '">' +
+							'<img src="' + contents['alertecon.png'].url + '" alt=""/>' +
+						'</a>' +
+						'<figcaption>' +
+							((comments.length === 2) ? comments[1] : comments[0]) +
+						'</figcaption>' +
+					'</figure>' +
 				'</div>';
 		}
 
@@ -192,10 +194,13 @@ define([
 			fatMarkup =
 				'<div class="column one-of-two">' +
 					'<h3>Estimated Fatalities</h3>' +
-					'<a href="' + contents['alertfatal.pdf'].url + '">' +
-						'<img src="' + contents['alertfatal.png'].url + '" alt=""/>' +
-					'</a>' +
-					((comments.length === 2) ? '<p>' + comments[0] + '</p>' : '') +
+					'<figure>' +
+						'<a href="' + contents['alertfatal.pdf'].url + '">' +
+							'<img src="' + contents['alertfatal.png'].url + '" alt=""/>' +
+						'</a>' +
+						((comments.length === 2) ?
+								'<figcaption>' + comments[0] + '</figcaption>' : '') +
+					'</figure>' +
 				'</div>';
 		}
 
