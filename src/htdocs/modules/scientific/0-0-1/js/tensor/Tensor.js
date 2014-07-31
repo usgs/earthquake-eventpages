@@ -10,7 +10,9 @@ define([
 
 	var R2D = 180 / Math.PI,
 	    D2R = Math.PI / 180,
-	    BEACHBALL_TYPES;
+	    BEACHBALL_TYPES,
+	    BEACHBALL_COLOR_MT = '#B5E7B8',
+	    BEACHBALL_COLOR_FM = '#FFDDB8';
 
 
 	// mapping from quakeml method id to type
@@ -294,6 +296,7 @@ define([
 
 			tensor = Tensor.fromStrikeDipRake(+strike, +dip, +rake, +moment);
 			tensor.isMechanism = true;
+			tensor.fillColor = BEACHBALL_COLOR_FM;
 		} else if (product.type === 'moment-tensor') {
 			tensor = new Tensor({
 				mrr: +props['tensor-mrr'],
@@ -305,6 +308,7 @@ define([
 			});
 			tensor.depth = +props['derived-depth'] || +props.depth || null;
 			tensor.isMechanism = false;
+			tensor.fillColor = BEACHBALL_COLOR_MT;
 		} else {
 			throw new Error('Expected "focal-mechanism" or "moment-tensor"' +
 					', got ' + product.type);
