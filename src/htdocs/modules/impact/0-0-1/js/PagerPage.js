@@ -107,8 +107,7 @@ define([
 		pagertag.innerHTML =
 			'<a href="/research/pager/">' +
 				'Scientific Background on PAGER' +
-			'</a>'
-		;
+			'</a>';
 
 		this._footer.appendChild(pagertag);
 	};
