@@ -236,35 +236,33 @@ define([
 	};
 
 	SummaryPage.prototype._getAttributionMarkup = function () {
-		var products = this._event.properties.products,
+		var allProducts = this._event.properties.products,
 		    origin,
 		    ids = {},
 		    idsArray = [],
 		    id,
 		    markup = [],
-		    productname,
+		    type,
 		    length,
+		    products,
 		    product,
 		    i;
 
-		for (productname in products) {
-			product = products[productname];
-			length = product.length;
+		for (type in allProducts) {
+			products = allProducts[type];
+			length = products.length;
 			for (i = 0; i < length; i++) {
-				ids[product[i].source.toUpperCase()] = true;
-			}
-		}
-
-		if (products.hasOwnProperty('origin')){
-			length = products.origin.length;
-			for (i = 0; i < length; i++) {
-				origin = products.origin[i];
-
-				if (origin.properties.hasOwnProperty('origin-source')) {
-					ids[origin.properties['origin-source'].toUpperCase()] = true;
-				}
-				if (origin.properties.hasOwnProperty('magnitude-source')) {
-					ids[origin.properties['magnitude-source'].toUpperCase()] = true;
+				product = products[i];
+				ids[product.source.toUpperCase()] = true;
+				if (type === 'origin') {
+					id = origin.properties['origin-source'];
+					if (id) {
+						ids[id.toUpperCase()] = true;
+					}
+					id = origin.properties['magnitude-source'];
+					if (id) {
+						ids[id.toUpperCase()] = true;
+					}
 				}
 			}
 		}
@@ -275,11 +273,11 @@ define([
 		idsArray.sort();
 		length = idsArray.length;
 
-		markup.push(['<div class="summary-attribution">',
-				'<h3>Attribution</h3><ul>'].join(''));
+		markup.push('<div class="summary-attribution">' +
+				'<h3>Attribution</h3><ul>');
 
 		for (i = 0; i < length; i++) {
-			markup.push(['<li>',Attribution.getName(idsArray[i]),'</li>'].join(''));
+			markup.push('<li>' + Attribution.getName(idsArray[i]) + '</li>');
 		}
 		markup.push('</ul>');
 
