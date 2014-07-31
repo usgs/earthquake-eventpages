@@ -5,7 +5,7 @@ define([
 	'base/ContentsXML',
 	'util/Xhr',
 	'util/Util',
-	'accordion/Accordion',
+	'accordion/Accordion'
 ], function (
 	Attribution,
 	EventModulePage,
