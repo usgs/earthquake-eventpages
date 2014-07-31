@@ -237,7 +237,6 @@ define([
 
 	SummaryPage.prototype._getAttributionMarkup = function () {
 		var allProducts = this._event.properties.products,
-		    origin,
 		    ids = {},
 		    idsArray = [],
 		    id,
@@ -255,11 +254,11 @@ define([
 				product = products[i];
 				ids[product.source.toUpperCase()] = true;
 				if (type === 'origin') {
-					id = origin.properties['origin-source'];
+					id = product.properties['origin-source'];
 					if (id) {
 						ids[id.toUpperCase()] = true;
 					}
-					id = origin.properties['magnitude-source'];
+					id = product.properties['magnitude-source'];
 					if (id) {
 						ids[id.toUpperCase()] = true;
 					}
