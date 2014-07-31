@@ -11,8 +11,8 @@ define([
 	var R2D = 180 / Math.PI,
 	    D2R = Math.PI / 180,
 	    BEACHBALL_TYPES,
-	    BEACHBALL_COLOR_MT = '#B5E7B8',
-	    BEACHBALL_COLOR_FM = '#FFDDB8';
+	    BEACHBALL_COLOR_MT = '#6ea8ff',
+	    BEACHBALL_COLOR_FM = '#ffaa69';
 
 
 	// mapping from quakeml method id to type
