@@ -50,24 +50,25 @@ define([
 		    contents = this._event.properties.products.losspager[0].contents;
 
 		this._content.classList.add('pager');
-		this._content.innerHTML = [
-			'<section class="alert-wrapper row"></section>',
-			'<section class="row">',
-				'<h3>Estimated Population Exposure to Earthquake Shaking</h3>',
-				'<span class="legend">',
-					'Population per ~1 sq. km. from LandScan (k = x1,000)',
-				'</span>',
-				'<div class="map-wrapper column one-of-two">',
-					'<img src="', contents['exposure.png'].url,
-							'" alt="Population Exposure Map"/>',
-				'</div>',
-				'<div class="exposure-wrapper column one-of-two"></div>',
-			'</section>',
-			'<section class="row right-to-left">',
-				'<div class="comment-wrapper column one-of-two"></div>',
-				'<div class="city-wrapper column one-of-two"></div>',
-			'</section>'
-		].join('');
+		this._content.innerHTML =
+			'<div class="alert-wrapper row"></div>' +
+			'<div class="row right-to-left">' +
+				'<h3>Estimated Population Exposure to Earthquake Shaking</h3>' +
+				'<div class="map-wrapper column one-of-two">' +
+					'<figure>' +
+						'<img src="' + contents['exposure.png'].url +
+								'" alt="Population Exposure Map"/>' +
+						'<figcaption>' +
+							'Population per ~1 sq. km. from LandScan' +
+						'</figcaption>' +
+					'</figure>' +
+				'</div>' +
+				'<div class="exposure-wrapper column one-of-two"></div>' +
+			'</div>' +
+			'<div class="row right-to-left">' +
+				'<div class="comment-wrapper column one-of-two"></div>' +
+				'<div class="city-wrapper column one-of-two"></div>' +
+			'</div>';
 
 		// Store these for later. See _renderPage
 		this._alertEl = this._content.querySelector('.alert-wrapper');
@@ -104,26 +105,10 @@ define([
 		this._footer.classList.add('pager');
 		pagertag = document.createElement('div');
 		pagertag.innerHTML =
-				'<p class="disclaimer">' +
-				'PAGER content is automatically generated, and <strong>only ' +
-				'considers losses due to structural damage</strong>. Limitations of ' +
-				'input data, shaking estimates, and loss models may add uncertainty. ' +
-				'PAGER results are generally available within 30 minutes of the ' +
-				'earthquake&rsquo;s occurrence. However, information on the extent ' +
-				'of shaking will be uncertain in the minutes and hours following an ' +
-				'earthquake and typically improves as additional sensor data and ' +
-				'reported intensities are acquired and incorporated into models of ' +
-				'the earthquake&rsquo;s source. Users of PAGER estimates should ' +
-				'account for uncertainty and always seek the most current PAGER ' +
-				'release for any earthquake.' +
-			'</p>' +
 			'<a href="/research/pager/">' +
 				'Scientific Background on PAGER' +
-			'</a>' +
-			'<br/>' +
-			'<a href="/research/pager/disclaimer.php">' +
-				'Read Additional PAGER Disclaimers' +
-			'</a>';
+			'</a>'
+		;
 
 		this._footer.appendChild(pagertag);
 	};
@@ -187,16 +172,15 @@ define([
 				econLevel = levelValues[econLevel];
 			}
 			econMarkup =
-			'<div class="column one-of-two">' +
-				'<h3>Estimated Economic Losses</h3>' +
-				'<a href="' + contents['alertecon.pdf'].url + '">' +
-					'<img src="' + contents['alertecon.png'].url + '" alt=""/>' +
-				'</a>' +
-				'<p>' +
-					((comments.length === 2) ? comments[1] : comments[0]) +
-				'</p>' +
-			'</div>'
-			;
+				'<div class="column one-of-two">' +
+					'<h3>Estimated Economic Losses</h3>' +
+					'<a href="' + contents['alertecon.pdf'].url + '">' +
+						'<img src="' + contents['alertecon.png'].url + '" alt=""/>' +
+					'</a>' +
+					'<p>' +
+						((comments.length === 2) ? comments[1] : comments[0]) +
+					'</p>' +
+				'</div>';
 		}
 
 		if (alerts.fatality) {
@@ -204,21 +188,14 @@ define([
 			if (levelValues.hasOwnProperty(fatLevel)) {
 				fatLevel = levelValues[fatLevel];
 			}
-			fatMarkup = [
-			'<div class="column one-of-two">' +
-				'<h3>Estimated Fatalities</h3>' +
-				'<a href="' + contents['alertfatal.pdf'].url + '">' +
-					'<img src="' + contents['alertfatal.png'].url + '" alt=""/>' +
-				'</a>'
-			];
-
-			if (comments.length === 2) {
-				fatMarkup.push('<p>' + comments[0] + '</p>');
-			}
-
-			fatMarkup.push('</div>');
-
-			fatMarkup = fatMarkup.join('');
+			fatMarkup =
+				'<div class="column one-of-two">' +
+					'<h3>Estimated Fatalities</h3>' +
+					'<a href="' + contents['alertfatal.pdf'].url + '">' +
+						'<img src="' + contents['alertfatal.png'].url + '" alt=""/>' +
+					'</a>' +
+					((comments.length === 2) ? '<p>' + comments[0] + '</p>' : '') +
+				'</div>';
 		}
 
 		if (fatLevel === -1 && econLevel === -1) {
@@ -237,30 +214,50 @@ define([
 	 *
 	 */
 	PagerPage.prototype._renderExposures = function () {
-		var exposureList = ['<ol class="pager-exposures">'],
+		var markup = [],
 		    exposures = this._pagerInfo.exposures,
 		    i = 0,
 		    len = exposures.length,
 		    exposure,
 		    mmi;
 
-		mmi = parseFloat(this._event.properties.products.losspager[0]
-				.properties.maxmmi);
-
-		for (; i < len; i++) {
-			exposure = exposures[i];
-
-			exposureList.push(this._createExposureItem(exposure,
-					(exposure.min <= mmi && mmi <= exposure.max)));
-		}
-
 		if (len === 0) {
 			this._exposureEl.parentNode.removeChild(this._exposureEl);
 			this._exposureEl = null;
-		} else {
-			this._exposureEl.innerHTML = exposureList.join('');
-			this._exposureEl.addEventListener('click', this._onExposureClick);
+			return;
 		}
+
+		mmi = parseFloat(this._event.properties.products.losspager[0]
+				.properties.maxmmi);
+
+		markup.push(
+			'<table class="pager-exposures">' +
+				'<thead>' +
+					'<tr>' +
+						'<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +
+						'<th><abbr title="Perceived Shaking">Shaking</abbr></th>' +
+						'<th><abbr title="Population Exposure">Pop.</abbr></th>' +
+					'</tr>' +
+				'</thead>' +
+				'<tbody>'
+			);
+
+		// generate table row content
+		for (; i < len; i++) {
+			exposure = exposures[i];
+			markup.push(this._createExposureItem(exposure));
+		}
+
+		markup.push(
+				'</tbody>' +
+			'</table>' +
+			'<span class="disclaimer">' +
+				'*Estimated exposure only includes population within ' +
+				'calculated shake map area. (k = x1,000)' +
+			'</span>'
+		);
+
+		this._exposureEl.innerHTML = markup.join('');
 	};
 
 	/**
@@ -312,10 +309,7 @@ define([
 		    city;
 
 		markup.push(
-			'<h3>Selected Cities Exposed</h3>' +
-			'<span class="legend">' +
-				'from GeoNames Database of Cities with 1,000 or more residents' +
-			'</span>'
+			'<h3>Selected Cities Exposed</h3>'
 		);
 
 		if (len > 11) {
@@ -324,23 +318,37 @@ define([
 			this._cityEl.addEventListener('click', this._onCityClick);
 		}
 
-		markup.push('<ol class="pager-cities">');
+		markup.push(
+			'<table class="pager-cities">' +
+				'<thead>' +
+					'<tr>' +
+						'<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +
+						'<th>City</th>' +
+						'<th><abbr title="Population">Pop.</abbr></th>' +
+					'</tr>' +
+				'</thead>'
+		);
 
 		for (; i < len; i++) {
 			city = cities[i];
 
-			Array.prototype.push.apply(markup, [
-				'<li class="', ((i>10)?'city-additional':''),'">',
-					'<span class="roman mmi ', city.css, '">', city.roman, '</span>',
-					city.name,
-					'<span class="population">', city.populationDisplay, '</span>',
-				'</li>'
-			]);
+			markup.push(
+				'<tr class="' + ((i>10)?'city-additional':'') +'">' +
+					'<td class="cities-mmi">' +
+						'<span class="roman mmi ' + city.css + '">' + city.roman + '</span>' +
+					'</td>' +
+					'<td>' + city.name + '</td>' +
+					'<td class="cities-population">' + city.populationDisplay + '</td>' +
+				'</tr>'
+			);
 		}
 
 		markup.push(
-			'</ol>' +
-			'<span class="legend">(k = x1,000)</span>'
+			'</tbody></table>' +
+			'<span class="disclaimer">' +
+				'From GeoNames Database of Cities with 1,000 or more ' +
+				'residents (k = x1,000)' +
+			'</span>'
 		);
 
 		if (len === 0) {
@@ -384,22 +392,15 @@ define([
 	 * @return {String}
 	 *      The markup.
 	 */
-	PagerPage.prototype._createExposureItem = function (exposure, expanded) {
-		return '<li class="' + (expanded?'expanded':'') + '">' +
-			'<span class="roman mmi ' + exposure.css + '">' +
-				exposure.label +
-			'</span>' +
-			'<span class="population-label">Population Exposure</span>' +
-			'<span class="population-value">' + exposure.populationDisplay + '</span>' +
-			'<dl>' +
-				'<dt>Perceived Shaking</dt>' +
-					'<dd>' + exposure.perc + '</dd>' +
-				'<dt>Damage to Resistant Structures</dt>' +
-					'<dd>' + exposure.resist + '</dd>' +
-				'<dt>Damage to Vulnerable Structures</dt>' +
-					'<dd>' + exposure.vuln + '</dd>' +
-			'</dl>' +
-		'</li>';
+	PagerPage.prototype._createExposureItem = function (exposure) {
+		return '<tr>' +
+			'<td class="exposure-mmi">' +
+				'<span class="roman mmi ' + exposure.css + '">' +
+				exposure.label + '</span>' +
+			'</td>' +
+			'<td>' + exposure.perc + '</td>' +
+			'<td class="exposure-population">' + exposure.populationDisplay + '</td>' +
+		'</tr>';
 	};
 
 	return PagerPage;
