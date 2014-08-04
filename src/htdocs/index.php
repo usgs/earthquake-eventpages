@@ -13,12 +13,12 @@ if (!isset($TEMPLATE)) {
 		exit(-1);
 	}
 
-	$STUB = $CONFIG['SERVICE_STUB'];
+	$STUB = 'http://' . $CONFIG['OFFSITE_HOST'] . $CONFIG['DETAILS_STUB'];
 	$EVENT_FEED = file_get_contents(sprintf($STUB, $eventid));
 
 	$replaceWith = 'url":"';
-	$searchFor = $replaceWith . str_replace(parse_url(
-			$STUB, PHP_URL_PATH), '', $STUB);
+	$searchFor = $replaceWith . $CONFIG['OFFSITE_HOST'];
+
 	$EVENT = json_decode(str_replace(
 			$searchFor, $replaceWith, $EVENT_FEED), true);
 
