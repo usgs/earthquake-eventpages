@@ -177,16 +177,12 @@ define([
 			anchor.appendChild(rowEl);
 
 			len = tensors.length;
-			className = (len <= 1 ? '' :
-					'column one-of-' + ['', 'one', 'two', 'three', 'four', 'five'][len]);
 			for (i = 0; i < len; i++) {
-				el = document.createElement('div');
-				el.className = className;
-				el.appendChild(new BeachBall({
+				rowEl.appendChild(new BeachBall({
 						tensor: tensors[i],
 						size: 256,
+						fillColor: tensors[i].fillColor
 					}).getCanvas());
-				rowEl.appendChild(el);
 			}
 		}
 

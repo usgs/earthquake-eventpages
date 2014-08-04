@@ -82,7 +82,8 @@ define([
 		el.querySelector('.beachball').appendChild(
 				new BeachBall({
 					tensor: tensor,
-					size: 320
+					size: 320,
+					fillColor: tensor.fillColor
 				}).getCanvas());
 
 		this._content.appendChild(el);
@@ -328,7 +329,8 @@ define([
 			tensor: tensor,
 			size: 200,
 			plotAxes: false,
-			plotPlanes: true
+			plotPlanes: true,
+			fillColor: tensor.fillColor
 		}).getCanvas();
 	};
 
