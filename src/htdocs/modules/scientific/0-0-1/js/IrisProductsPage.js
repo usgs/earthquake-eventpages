@@ -15,8 +15,8 @@ define([
 	var IRIS_WILBER_URL = 'http://www.iris.edu/wilber3/find_stations/';
 
 	var DEFAULTS = {
-		title: 'IRIS Products',
-		hash: 'iris'
+		title: 'Waveforms',
+		hash: 'waveforms'
 	};
 
 

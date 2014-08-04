@@ -68,8 +68,8 @@ define([
 			{
 				className: 'scientific/IrisProductsPage',
 				options: {
-					title: 'IRIS Products',
-					hash: 'iris'
+					title: 'Waveforms',
+					hash: 'waveforms'
 				}
 			}
 		]
