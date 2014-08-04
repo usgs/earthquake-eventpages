@@ -126,11 +126,8 @@ define([
 		}
 
 		if (this.tectonicSummary !== null) {
-			new Accordion({el:this.tectonicSummary}).addAccordion({
-					toggleText: 'Tectonic Summary',
-					toggleElement: 'h3',
-					contentText: geoserve.tectonicSummary.text
-				});
+			this.tectonicSummary.innerHTML = '<h3>Tectonic Summary</h3>' +
+					geoserve.tectonicSummary.text;
 		}
 
 	};
