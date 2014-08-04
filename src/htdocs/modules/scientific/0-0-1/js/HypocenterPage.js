@@ -159,8 +159,8 @@ define([
 			content: originDetails
 		});
 
-		if (product.type === 'phase-data' &&
-				product.contents['quakeml.xml'] !== null) {
+		if ((product.type === 'phase-data' || product.type === 'origin') &&
+				product.contents.hasOwnProperty('quakeml.xml')) {
 			// build phase table
 			tabListContents.push({
 				title: 'Phases',
@@ -299,6 +299,8 @@ define([
 					    '</tbody>',
 					  '</table>',
 					'</section>');
+			} else {
+				buf.push('<p class="error alert">No Phase Data Exists</p>');
 			}
 		}
 
@@ -311,9 +313,13 @@ define([
 		    magnitude,
 		    m;
 
-		for (m = 0; m < magnitudes.length; m++) {
-			magnitude = magnitudes[m];
-			buf.push(this._getMagnitudeMarkup(magnitude));
+		if (magnitudes.length) {
+			for (m = 0; m < magnitudes.length; m++) {
+				magnitude = magnitudes[m];
+				buf.push(this._getMagnitudeMarkup(magnitude));
+			}
+		} else {
+			buf.push('<p class="error alert">No Magnitude Data Exists</p>');
 		}
 		return buf.join('');
 	};
@@ -336,9 +342,14 @@ define([
 		    magError,
 		    numStations;
 
-		source = Attribution.getName(magnitude.creationInfo.agencyID);
-		type = magnitude.type;
-		mag = magnitude.mag.value;
+		if (magnitude.creationInfo) {
+			source = Attribution.getName(magnitude.creationInfo.agencyID);
+		} else {
+			source = Attribution.getName(this._product.source);
+		}
+
+		type = magnitude.type || NOT_SPECIFIED;
+		mag = magnitude.mag.value || NOT_SPECIFIED;
 		magError = magnitude.mag.uncertainty || NOT_SPECIFIED;
 		numStations = magnitude.stationCount || NOT_SPECIFIED;
 
@@ -431,7 +442,7 @@ define([
 	HypocenterPage.prototype._parseQuakeml = function (quakemlInfo) {
 		var that = this;
 
-		if (quakemlInfo !== null) {
+		if (quakemlInfo) {
 			Xhr.ajax({
 				url: quakemlInfo.url,
 				success: function (xml) {
@@ -518,7 +529,7 @@ define([
 		    azimuthalGap = p['azimuthal-gap'] || null,
 		    reviewStatus = p['review-status'] || 'automatic',
 		    originSource = p['origin-source'] || eventSource,
-		    magnitudeSource = p['magnitude-source'] || eventSource;
+		    magnitudeSource = p['magnitude-source'] || product.source;
 
 		buf.push('<table class="origin-detail responsive-vertical"><tbody>');
 
