@@ -1,3 +1,24 @@
 .summary-attribution {
 	margin-top:1.0em;
 }
+
+.summary-nearby-cities {
+	> ol {
+		list-style-type:none;
+		padding-left: 0;
+	}
+}
+
+.summary-time {
+	> ol {
+		list-style-type:none;
+		padding-left:0;
+	}
+}
+
+.summary-location {
+	> ol {
+		list-style-type:none;
+		padding-left:0;
+	}
+}
