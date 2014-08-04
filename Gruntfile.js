@@ -98,8 +98,22 @@ module.exports = function (grunt) {
 				hostname: 'localhost'
 			},
 			proxies: [{
+				context: '/realtime',
+				host: iniConfig.OFFSITE_HOST,
+				port: 80,
+				https: false,
+				changeOrigin: true,
+				xforward: false
+			},{
+				context: '/archive',
+				host: iniConfig.OFFSITE_HOST,
+				port: 80,
+				https: false,
+				changeOrigin: true,
+				xforward: false
+			},{ // This last one can be deleted if not testing against COMCAT
 				context: '/product',
-				host: 'comcat.cr.usgs.gov',
+				host: iniConfig.OFFSITE_HOST,
 				port: 80,
 				https: false,
 				changeOrigin: true,
