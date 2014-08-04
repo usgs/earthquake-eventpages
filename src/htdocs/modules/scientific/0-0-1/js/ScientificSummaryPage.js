@@ -137,8 +137,6 @@ define([
 		    tensorEl = null,
 		    anchor,
 		    rowEl,
-		    el,
-		    className,
 		    source,
 		    i,
 		    len;
