@@ -17,7 +17,8 @@ define([
 
 	// mapping from quakeml method id to type
 	BEACHBALL_TYPES = {
-		'smi:nc.anss.org/momentTensor/TMTS': 'TMTS'
+		'smi:nc.anss.org/momentTensor/TMTS': 'TMTS',
+		'smi:ci.anss.org/momentTensor/TMTS': 'TMTS'
 	};
 
 
