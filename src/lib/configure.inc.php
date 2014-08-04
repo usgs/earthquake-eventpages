@@ -70,9 +70,9 @@ $prompts = array(
 		'secure' => false
 	),
 
-	'SERVICE_STUB' => array(
-		'prompt' => 'URL stub for event detail GEOJSON web service',
-		'default' => '/earthquakes/eventpage/%s.geojson',
+	'DETAILS_STUB' => array(
+		'prompt' => 'Site-relative path stub for GeoJSON detail content',
+		'default' => '/earthquakes/feed/v1.0/detail/%s.geojson',
 		'secure' => false
 	),
 
@@ -85,6 +85,12 @@ $prompts = array(
 	'KML_STUB' => array(
 		'prompt' => 'URL for kml feed',
 		'default' => '/earthquakes/feed/v1.0/detail/%s.kml',
+		'secure' => false
+	),
+
+	'OFFSITE_HOST' => array(
+		'prompt' => 'Offsite host where content exists',
+		'default' => '',
 		'secure' => false
 	)
 );
