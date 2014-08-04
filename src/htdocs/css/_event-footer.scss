@@ -2,7 +2,11 @@
 	clear: both;
 	color: #999999;
 	background-color: white;
-	padding: 8px;
+	padding: 1em 0;
 	margin: 1em 0 0;
-	border: 1px solid #dddddd;
+	border-top: 1px solid #dddddd;
+
+	> a {
+		display:block;
+	}
 }

@@ -150,7 +150,10 @@ define([
 	EventPage.prototype.updateFooter = function () {
 		this._footer.innerHTML =
 			'<a href="/earthquakes/map/doc_aboutdata.php">' +
-					'About ANSS Comprehensive Catalog' +
+					'About ANSS Comprehensive Catalog (ComCat)' +
+			'</a>' +
+			'<a href="/earthquakes/eventpage/terms.php">' +
+				'Technical Terms used on Event Pages' +
 			'</a>';
 	};
 

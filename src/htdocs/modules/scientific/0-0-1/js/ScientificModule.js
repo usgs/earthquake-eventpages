@@ -82,12 +82,5 @@ define([
 	};
 	ScientificModule.prototype = Object.create(EventModule.prototype);
 
-
-	ScientificModule.prototype.getFooterMarkup = function () {
-		return '<a href="' +
-				'http://earthquake.usgs.gov/earthquakes/eventpage/terms.php' +
-				'">Technical Terms used on Event Pages</a>';
-	};
-
 	return ScientificModule;
 });

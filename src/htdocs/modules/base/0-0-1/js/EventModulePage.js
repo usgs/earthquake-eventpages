@@ -94,16 +94,23 @@ define([
 		var footerMarkup = this._module.getFooterMarkup(this),
 		    el;
 
-		this.setDownloadMarkup();
+		//this.setDownloadMarkup();
 
 		//This isn't currently used. But it makes sense to leave it.
 		if (typeof footerMarkup === 'string') {
-			el = document.createElement('div');
-			el.innerHTML = footerMarkup;
-			footerMarkup = el;
-		}
-		this._footer.appendChild(footerMarkup);
 
+			if (footerMarkup !== '') {
+				el = document.createElement('div');
+				el.innerHTML = footerMarkup;
+				footerMarkup = el;
+			} else {
+				footerMarkup = null;
+			}
+		}
+
+		if (footerMarkup) {
+			this._footer.appendChild(footerMarkup);
+		}
 	};
 
 	EventModulePage.prototype.setDownloadMarkup = function () {
