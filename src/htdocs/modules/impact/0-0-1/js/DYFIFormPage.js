@@ -28,7 +28,7 @@ define([
 
 	var DEFAULTS = {
 		language: 'en', // English
-		responseURL: 'https://ehpd-sslearthquake.cr.usgs.gov/dyfi/response.php'
+		responseURL: '/dyfi/response.php'
 	};
 
 	var ID_INCREMENT = 0;
@@ -40,6 +40,12 @@ define([
 
 	var DYFIFormPage = function (options) {
 		this._options = Util.extend({}, DEFAULTS, options || {});
+
+		if (this._options.hasOwnProperty('eventConfig') &&
+				this._options.eventConfig.hasOwnProperty('DYFI_RESPONSE_URL')) {
+			this._options.responseURL = this._options.eventConfig.DYFI_RESPONSE_URL;
+		}
+
 		this._dialog = null;
 
 		if (SUPPORTED_LANGUAGES.indexOf(this._options.language) === -1) {

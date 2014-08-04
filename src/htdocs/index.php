@@ -30,7 +30,8 @@ if (!isset($TEMPLATE)) {
 
 	$EVENT_CONFIG = array(
 		'KML_STUB' => isset($CONFIG['KML_STUB']) ? $CONFIG['KML_STUB'] : null,
-		'MOUNT_PATH' => $CONFIG['MOUNT_PATH']
+		'MOUNT_PATH' => $CONFIG['MOUNT_PATH'],
+		'DYFI_RESPONSE_URL' => $CONFIG['DYFI_RESPONSE_URL']
 	);
 
 	$HEAD = '

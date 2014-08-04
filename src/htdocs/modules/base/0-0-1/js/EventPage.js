@@ -69,8 +69,14 @@ define([
 					'eventDetails': this._eventDetails,
 					'eventConfig': this._eventConfig
 			}),
-			new ImpactModule({'eventDetails':this._eventDetails}),
-			new ScientificModule({'eventDetails':this._eventDetails})
+			new ImpactModule({
+				'eventDetails': this._eventDetails,
+				'eventConfig': this._eventConfig
+			}),
+			new ScientificModule({
+				'eventDetails': this._eventDetails,
+				'eventConfig': this._eventConfig
+			})
 		];
 
 		this._initialize();

@@ -92,6 +92,12 @@ $prompts = array(
 		'prompt' => 'Offsite host where content exists',
 		'default' => '',
 		'secure' => false
+	),
+
+	'DYFI_RESPONSE_URL' => array(
+		'prompt' => 'URL for DYFI form submissions',
+		'default' => '/dyfi/response.php',
+		'secure' => false
 	)
 );
 

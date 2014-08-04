@@ -10,7 +10,8 @@ if (!isset($TEMPLATE)) {
 
 	$EVENT_CONFIG = array(
 		'KML_STUB' => null,
-		'MOUNT_PATH' => $CONFIG['MOUNT_PATH']
+		'MOUNT_PATH' => $CONFIG['MOUNT_PATH'],
+		'DYFI_RESPONSE_URL' => $CONFIG['DYFI_RESPONSE_URL']
 	);
 
 	$HEAD = '<link rel="stylesheet" href="css/index.css"/>';
