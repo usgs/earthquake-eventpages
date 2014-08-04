@@ -41,42 +41,6 @@
 	height:100%;
 }
 
-.summary-nearby-cities {
-	> ol {
-		margin:0;
-
-		> li {
-			margin:2px 0;
-			padding:2px 4px;
-
-			&.selected {
-				background-color: #C3D3F0;
-			}
-		}
-	}
-
-	> ol.staticmap {
-
-		> li {
-			// TODO :: SCSS Loop?
-			&:nth-child(1) {
-				list-style-image:url('http://www.mapquestapi.com/staticmap/geticon?uri=poi-orange-1-only.png');
-			}
-			&:nth-child(2) {
-				list-style-image:url('http://www.mapquestapi.com/staticmap/geticon?uri=poi-orange-2-only.png');
-			}
-			&:nth-child(3) {
-				list-style-image:url('http://www.mapquestapi.com/staticmap/geticon?uri=poi-orange-3-only.png');
-			}
-			&:nth-child(4) {
-				list-style-image:url('http://www.mapquestapi.com/staticmap/geticon?uri=poi-orange-4-only.png');
-			}
-			&:nth-child(5) {
-				list-style-image:url('http://www.mapquestapi.com/staticmap/geticon?uri=poi-orange-5-only.png');
-			}
-		}
-	}
-}
 
 .summary-map a img {
 	border:none;
