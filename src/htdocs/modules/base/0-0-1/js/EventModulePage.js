@@ -94,7 +94,7 @@ define([
 		var footerMarkup = this._module.getFooterMarkup(this),
 		    el;
 
-		//this.setDownloadMarkup();
+		this.setDownloadMarkup();
 
 		//This isn't currently used. But it makes sense to leave it.
 		if (typeof footerMarkup === 'string') {
