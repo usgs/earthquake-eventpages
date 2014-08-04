@@ -3,6 +3,7 @@ define([
 	'summary/Attribution',
 	'base/EventModulePage',
 	'base/ContentsXML',
+	'base/Formatter',
 	'util/Xhr',
 	'util/Util',
 	'accordion/Accordion'
@@ -10,6 +11,7 @@ define([
 	Attribution,
 	EventModulePage,
 	ContentsXML,
+	Formatter,
 	Xhr,
 	Util,
 	Accordion
@@ -39,9 +41,19 @@ define([
 
 		markup.push(this._getTextContentMarkup('general-header'));
 
-		markup.push(this._getMapMarkup());
+		markup.push(this._getColumnMarkupBegin());
 
+		markup.push(this._getMainColMarkupBegin());
+		markup.push(this._getMapMarkup());
+		markup.push(this._getMarkupDivEnd());
+
+		markup.push(this._getSideColMarkupBegin());
+		markup.push(this._getTimeMarkup());
+		markup.push(this._getLocationMarkup());
 		markup.push(this._getTextContentMarkup('nearby-cities'));
+		markup.push(this._getMarkupDivEnd());
+		markup.push(this._getMarkupDivEnd());
+
 		markup.push(this._getMoreInformationMarkup());
 		markup.push(this._getTextContentMarkup('tectonic-summary'));
 		markup.push(this._getTextContentMarkup('general-text'));
@@ -139,11 +151,12 @@ define([
 		    len;
 
 		if (this.nearbyCities !== null) {
-			cities = ['<ol class="staticmap">'];
+			cities = ['<ol class="nearbyCities">'];
 			for (i = 0, len = nearbyCities.length; i < len; i++) {
 				city = nearbyCities[i];
 				cities.push('<li>' + city.distance +
-					'km ' + city.direction +
+					'km (' + Math.round(this._kmToMi(city.distance)) + 'mi) ' +
+					city.direction +
 					' of ' + city.name +
 					'</li>');
 			}
@@ -159,8 +172,80 @@ define([
 		return '';
 	};
 
+	SummaryPage.prototype._getColumnMarkupBegin = function () {
+		return '<div class = "row left-to-right clearfix">';
+	};
+
+	SummaryPage.prototype._getMainColMarkupBegin = function () {
+		return '<div class = "mainCol column six-of-ten">';
+	};
+
+	SummaryPage.prototype._getSideColMarkupBegin = function () {
+		return '<div class = "sideCol column four-of-ten">';
+	};
+
+	SummaryPage.prototype._getMarkupDivEnd = function () {
+		return '</div>';
+	};
+
 	SummaryPage.prototype._getMapMarkup = function () {
 		return '<div class="summary-map"></div>';
+	};
+
+	SummaryPage.prototype._getTimeMarkup = function () {
+		var properties = this._event.properties,
+		    markup = [],
+		    time,
+		    headertime = document.querySelector('.utc');
+
+		headertime.innerHTML = '';
+
+		time = parseInt(properties.time, 10);
+
+		markup.push(
+				'<div class="summary-time">' +
+				'<h3>Event Times</h3>' +
+				'<ol>' +
+				'<li>' +
+				this._formatDate(time, -1 * properties.tz) +
+				'</li>' +
+				'<li>' +
+				'<a href="' +
+				this._formatWorldClock(time) +
+				'" target="_blank">' +
+					'Times in other timezones' +
+				'</a>' +
+				'</li>' +
+				'</ol>' +
+				'</div>');
+
+		return markup.join('');
+	};
+
+	SummaryPage.prototype._getLocationMarkup = function () {
+		var geometry = this._event.geometry,
+		    markup = [],
+		    headerlocation = document.querySelector('.location'),
+		    depth = geometry.coordinates[2];
+
+		headerlocation.innerHTML = '';
+
+		markup.push(
+			'<div class="summary-location">' +
+			'<h3>Event Location</h3>' +
+			'<ol>' +
+			'<li>' +
+			this._format_coord(geometry.coordinates[1], 'N', 'S') +
+			' ' +
+			this._format_coord(geometry.coordinates[0], 'E', 'W') +
+			' depth=' + (Math.round(depth * 10) / 10).toFixed(1) + 'km (' +
+			(Math.round(this._kmToMi(depth) * 10) / 10).toFixed(1) + 'mi)' +
+		'</li>' +
+			'</ol>' +
+			'</div>');
+
+		return markup.join('');
+
 	};
 
 	SummaryPage.prototype._loadStaticMapContent = function (container, cities) {
@@ -333,6 +418,80 @@ define([
 
 			_this._interactiveMap.show(document.body);
 		});
+	};
+
+		// TODO :: Move these date formatting methods to a utility class for re-use.
+
+	SummaryPage.prototype._formatDate = function (stamp, minutesOffset) {
+		var milliOffset = minutesOffset * 60 * 1000,
+		    offsetString = this._formatTimezoneOffset(minutesOffset),
+		    theDate = new Date(stamp + milliOffset),
+		    year = theDate.getUTCFullYear(),
+		    month = theDate.getUTCMonth() + 1,
+		    day = theDate.getUTCDate(),
+		    hours = theDate.getUTCHours(),
+		    minutes = theDate.getUTCMinutes(),
+		    seconds = theDate.getUTCSeconds();
+
+		if (month < 10) {month = '0' + month;}
+		if (day < 10) {day = '0' + day;}
+		if (hours < 10) {hours = '0' + hours;}
+		if (minutes < 10) {minutes = '0' + minutes;}
+		if (seconds < 10) {seconds = '0' + seconds;}
+
+		return year + '-' + month + '-' + day + ' ' + hours + ':' +
+				minutes + ':' + seconds + ' (UTC' + offsetString + ')';
+	};
+
+	SummaryPage.prototype._formatWorldClock = function (stamp) {
+		var theDate = new Date(stamp),
+		    uri,
+		    title = this._event.properties.title;
+
+		uri = 'http://www.timeanddate.com/worldclock/fixedtime.html?iso=' +
+				theDate.toISOString() + '&msg=' + title;
+		uri = encodeURI(uri);
+
+		return uri;
+	};
+
+	SummaryPage.prototype._formatTimezoneOffset = function (offset) {
+		var buffer = [],
+		    hours = null,
+		    minutes = null;
+
+		if (offset < 0) {
+			buffer.push('-');
+			offset *= -1;
+		} else {
+			buffer.push('+');
+		}
+
+		hours = parseInt(offset / 60, 10);
+		if (hours < 10) {
+			buffer.push('0');
+		}
+		buffer.push(hours + ':');
+
+		minutes = parseInt(offset % 60, 10);
+		if (minutes < 10) {
+			buffer.push('0');
+		}
+		buffer.push(minutes);
+
+		return buffer.join('');
+	};
+
+	SummaryPage.prototype._format_coord = function (value, pos, neg) {
+		if (value >= 0.0) {
+			return ((Math.round(value * 1000) / 1000).toFixed(3) + '&deg' + pos);
+		} else {
+			return ((Math.round(value * -1000) / 1000).toFixed(3) + '&deg' + neg);
+		}
+	};
+
+	SummaryPage.prototype._kmToMi = function (km) {
+		return (km * 0.621371);
 	};
 
 	return SummaryPage;
