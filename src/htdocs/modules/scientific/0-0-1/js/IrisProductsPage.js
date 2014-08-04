@@ -87,7 +87,21 @@ define([
 	IrisProductsPage.prototype.getIrisLinks = function (eventid) {
 		return '<dl class="iris-products">' +
 				'<dt>' +
-					'<a href="' + IRIS_SPUD_URL + eventid + '">' +
+				'<a href="' + IRIS_WILBER_URL + eventid + '" target="_blank">' +
+					'Seismic Waveform Data (Wilber)' +
+				'</a>' +
+				'</dt>' +
+				'<dd>' +
+					'Wilber locates stations in operation at the time of the event,' +
+					' allows users to filter stations, preview waveform data, and' +
+					' view record section plots. Data can be downloaded in a' +
+					' number of formats including <abbr title="Seismic Analysis' +
+					' Code">SAC</abbr>, <abbr title="Standard for the Exchange of' +
+					' Earthquake Data">SEED</abbr>, miniSEED and ASCII.' +
+				'</dd>' +
+
+				'<dt>' +
+					'<a href="' + IRIS_SPUD_URL + eventid + '" target="_blank">' +
 						'Searchable Product Depository (SPUD) Event Page' +
 					'</a>' +
 				'</dt>' +
@@ -98,20 +112,6 @@ define([
 					' primarily contains derivative data products of other types' +
 					' (images, movies, etc.) created either at the DMC or by members' +
 					' of the community.' +
-				'</dd>' +
-
-				'<dt>' +
-				'<a href="' + IRIS_WILBER_URL + eventid + '">' +
-					'Wilber Station Data for Event' +
-				'</a>' +
-				'</dt>' +
-				'<dd>' +
-					'Wilber locates stations in operation at the time of the event,' +
-					' allows users to filter stations, preview waveform data, and' +
-					' view record section plots. Data can be downloaded in a' +
-					' number of formats including <abbr title="Seismic Analysis' +
-					' Code">SAC</abbr>, <abbr title="Standard for the Exchange of' +
-					' Earthquake Data">SEED</abbr>, miniSEED and ASCII.' +
 				'</dd>' +
 				'</dl>';
 	};
