@@ -226,83 +226,97 @@ define([
 	};
 
 	HypocenterPage.prototype._getPhasesMarkup = function () {
-		var buf = [],
+		var buf,
 		    origins = this._quakeml.getOrigins(),
 		    origin,
 		    arrivals,
-		    arrival,
-		    pick,
-		    station,
-		    a,
-		    o,
-		    time;
+		    o;
 
 		for (o = 0; o < origins.length; o++) {
 			origin = origins[o];
+			if (!origin.isPreferred) {
+				continue;
+			}
+
 			arrivals = origin.arrivals;
 
 			// output origin arrivals
 			if (arrivals.length > 0) {
-				buf.push(
-					'<section class="origin">',
-						'<h3>Phase Arrival Times</h3>',
-						'<table class="responsive hypocenter-phase">',
-							'<thead><tr>',
-								'<th>',
-									'<abbr title="Network Station Channel Location">Channel',
-									'</abbr>',
-								'</th>',
-								'<th>Distance</th>',
-								'<th>Azimuth</th>',
-								'<th>Phase</th>',
-								'<th>Arrival Time</th>',
-								'<th>Status</th>',
-								'<th>Residual</th>',
-								'<th>Weight</th>',
-							'</tr></thead>',
-							'<tbody>');
-				for (a = 0; a < arrivals.length; a++) {
-					arrival = arrivals[a];
-					pick = arrival.pick;
-					station = pick.waveformID;
-
-					time = pick.time.value.split('T')[1].split('Z')[0].split(':');
-					time[2] = parseFloat(time[2]).toFixed(2);
-					time = time.join(':');
-
-					buf.push(
-						'<tr>',
-							'<th scope="row">',
-								station.networkCode,
-								' ', station.stationCode,
-								' ', station.channelCode,
-								' ', station.locationCode,
-							'</th>',
-							'<td class="distance">',
-								parseFloat(arrival.distance).toFixed(2), '&deg;',
-							'</td>',
-							'<td class="azimuth">',
-								parseFloat(arrival.azimuth).toFixed(2), '&deg;',
-							'</td>',
-							'<td class="phase">', arrival.phase, '</td>',
-							'<td class="time">', time, '</td>',
-							'<td class="status">', pick.evaluationMode, '</td>',
-							'<td class="residual">',
-								parseFloat(arrival.timeResidual).toFixed(2),
-							'</td>',
-							'<td class="weight">',
-								parseFloat(arrival.timeWeight).toFixed(2),
-							'</td>',
-						'</tr>');
-				}
-				buf.push(
-					    '</tbody>',
-					  '</table>',
-					'</section>');
-			} else {
-				buf.push('<p class="error alert">No Phase Data Exists</p>');
+				buf = this._getPhaseTableMarkup(origin);
+			}
+			else {
+				buf = '<p class="error alert">No Phase Data Exists</p>';
 			}
 		}
+
+		return buf;
+	};
+
+	HypocenterPage.prototype._getPhaseTableMarkup = function (origin) {
+		var arrivals = origin.arrivals,
+		    arrival,
+		    pick,
+		    station,
+		    a,
+		    time,
+		    buf = [];
+
+		buf.push(
+			'<section class="origin">',
+				'<h3>Phase Arrival Times</h3>',
+				'<table class="responsive hypocenter-phase">',
+					'<thead><tr>',
+						'<th>',
+							'<abbr title="Network Station Channel Location">Channel',
+							'</abbr>',
+						'</th>',
+						'<th>Distance</th>',
+						'<th>Azimuth</th>',
+						'<th>Phase</th>',
+						'<th>Arrival Time</th>',
+						'<th>Status</th>',
+						'<th>Residual</th>',
+						'<th>Weight</th>',
+					'</tr></thead>',
+					'<tbody>');
+		for (a = 0; a < arrivals.length; a++) {
+			arrival = arrivals[a];
+			pick = arrival.pick;
+			station = pick.waveformID;
+
+			time = pick.time.value.split('T')[1].split('Z')[0].split(':');
+			time[2] = parseFloat(time[2]).toFixed(2);
+			time = time.join(':');
+
+			buf.push(
+				'<tr>',
+					'<th scope="row">',
+						station.networkCode,
+						' ', station.stationCode,
+						' ', station.channelCode,
+						' ', station.locationCode,
+					'</th>',
+					'<td class="distance">',
+						parseFloat(arrival.distance).toFixed(2), '&deg;',
+					'</td>',
+					'<td class="azimuth">',
+						parseFloat(arrival.azimuth).toFixed(2), '&deg;',
+					'</td>',
+					'<td class="phase">', arrival.phase, '</td>',
+					'<td class="time">', time, '</td>',
+					'<td class="status">', pick.evaluationMode, '</td>',
+					'<td class="residual">',
+						parseFloat(arrival.timeResidual).toFixed(2),
+					'</td>',
+					'<td class="weight">',
+						parseFloat(arrival.timeWeight).toFixed(2),
+					'</td>',
+				'</tr>');
+		}
+		buf.push(
+			    '</tbody>',
+			  '</table>',
+			'</section>');
 
 		return buf.join('');
 	};
