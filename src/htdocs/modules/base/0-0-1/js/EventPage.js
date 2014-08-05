@@ -136,14 +136,6 @@ define([
 		}
 	};
 
-	EventPage.prototype.updateHeader = function () {
-		var eventheader = document.querySelector('.event-header');
-
-		if (eventheader){
-				eventheader.classList.add('event-header-loaded');
-		}
-	};
-
 	EventPage.prototype.updateNavigation = function (evt) {
 		var markup = [],
 		    i = 0,
@@ -230,7 +222,6 @@ define([
 		var hash = __get_hash();
 
 		Events.on('hashchange', this._onHashChange, this);
-		this.updateHeader();
 		this.updateNavigation();
 		this.updateFooter();
 
