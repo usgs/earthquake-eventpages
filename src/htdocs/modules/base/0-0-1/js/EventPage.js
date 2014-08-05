@@ -137,11 +137,10 @@ define([
 	};
 
 	EventPage.prototype.updateHeader = function () {
-		var headertimelocation = document.querySelector('.event-time-location');
+		var eventheader = document.querySelector('.event-header');
 
-		if (headertimelocation){
-				headertimelocation.className =
-						headertimelocation.className + ' event-header-hide';
+		if (eventheader){
+				eventheader.classList.add('event-header-loaded');
 		}
 	};
 
