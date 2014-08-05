@@ -8,7 +8,7 @@
 ?>
 
 <header class="event-header clearfix">
-	<div>
+	<div class="event-time-location">
 		<span class="utc"><?php print $utctime; ?> (UTC)</span>
 		<span class="location">
 			<?php print format_coord($GEOMETRY['coordinates'][1], 'N', 'S'); ?>
