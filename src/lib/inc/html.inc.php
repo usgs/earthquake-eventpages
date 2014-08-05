@@ -8,7 +8,7 @@
 ?>
 
 <header class="event-header clearfix">
-	<div class="event-time-location">
+	<noscript class="event-time-location">
 		<span class="utc"><?php print $utctime; ?> (UTC)</span>
 		<span class="location">
 			<?php print format_coord($GEOMETRY['coordinates'][1], 'N', 'S'); ?>
@@ -17,7 +17,7 @@
 			<?php print number_format(round(floatval(
 					$GEOMETRY['coordinates'][2]) * 10) / 10, 1); ?> km depth
 		</span>
-	</div>
+	</noscript>
 
 	<?php
 		if ($PROPERTIES['tsunami'] === 1 || $PROPERTIES['alert'] !== null ||
