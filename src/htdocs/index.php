@@ -13,8 +13,14 @@ if (!isset($TEMPLATE)) {
 		exit(-1);
 	}
 
-	$EVENT_FEED = file_get_contents(sprintf($CONFIG['SERVICE_STUB'], $eventid));
-	$EVENT = json_decode($EVENT_FEED, true);
+	$STUB = 'http://' . $CONFIG['OFFSITE_HOST'] . $CONFIG['DETAILS_STUB'];
+	$EVENT_FEED = file_get_contents(sprintf($STUB, $eventid));
+
+	$replaceWith = 'url":"';
+	$searchFor = $replaceWith . $CONFIG['OFFSITE_HOST'];
+
+	$EVENT = json_decode(str_replace(
+			$searchFor, $replaceWith, $EVENT_FEED), true);
 
 	$PROPERTIES = $EVENT['properties'];
 	$GEOMETRY = $EVENT['geometry'];
