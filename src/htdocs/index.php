@@ -13,11 +13,17 @@ if (!isset($TEMPLATE)) {
 		exit(-1);
 	}
 
-	$STUB = 'http://' . $CONFIG['OFFSITE_HOST'] . $CONFIG['DETAILS_STUB'];
+	if (isset($CONFIG['OFFSITE_HOST']) && $CONFIG['OFFSITE_HOST'] != '') {
+		$OFFSITE_HOST = 'http://' . $CONFIG['OFFSITE_HOST'];
+	} else {
+		$OFFSITE_HOST = '';
+	}
+
+	$STUB = $OFFSITE_HOST . $CONFIG['DETAILS_STUB'];
 	$EVENT_FEED = file_get_contents(sprintf($STUB, $eventid));
 
 	$replaceWith = 'url":"';
-	$searchFor = $replaceWith . $CONFIG['OFFSITE_HOST'];
+	$searchFor = $replaceWith . $OFFSITE_HOST;
 
 	$EVENT = json_decode(str_replace(
 			$searchFor, $replaceWith, $EVENT_FEED), true);
@@ -29,14 +35,13 @@ if (!isset($TEMPLATE)) {
 	$NAVIGATION = navItem('#', 'Event Summary');
 
 	$EVENT_CONFIG = array(
-		'KML_STUB' => isset($CONFIG['KML_STUB']) ? $CONFIG['KML_STUB'] : null,
 		'MOUNT_PATH' => $CONFIG['MOUNT_PATH'],
+		'KML_STUB' => isset($CONFIG['KML_STUB']) ?
+				$OFFSITE_HOST . $CONFIG['KML_STUB'] : null,
 		'DYFI_RESPONSE_URL' => $CONFIG['DYFI_RESPONSE_URL']
 	);
 
 	$HEAD = '
-		<link rel="alternate" type="application/atom+xml" href="' .
-				sprintf($CONFIG['ATOM_STUB'], $eventid) . '"/>
 		<link rel="stylesheet" href="css/index.css"/>
 	';
 
