@@ -43,16 +43,14 @@ define([
 
 		markup.push('<div class = "row left-to-right clearfix">');
 
-		markup.push('<div class = "mainCol column six-of-ten">');
-		markup.push('<div class="summary-map"></div>');
-		markup.push('</div>');
+		markup.push('<div class = "mainCol column five-of-ten">');
+		markup.push('<div class="summary-map"></div></div>');
 
-		markup.push('<div class = "sideCol column four-of-ten no-bullets">');
+		markup.push('<div class = "sideCol column five-of-ten">');
 		markup.push(this._getTimeMarkup());
 		markup.push(this._getLocationMarkup());
 		markup.push(this._getTextContentMarkup('nearby-cities'));
-		markup.push('</div>');
-		markup.push('</div>');
+		markup.push('</div></div>');
 
 		markup.push(this._getMoreInformationMarkup());
 		markup.push(this._getTextContentMarkup('tectonic-summary'));
@@ -189,8 +187,6 @@ define([
 				'</li>' +
 				'<li>' +
 				this._getOtherTimeZoneLink(time) +
-					'Times in other timezones' +
-				'</a>' +
 				'</li>' +
 				'</ol>' +
 				'</div>');
@@ -425,7 +421,8 @@ define([
 				theDate.toISOString() + '&msg=' + title;
 		uri = encodeURI(uri);
 
-		return '<a href="' + uri + '" target="_blank">';
+		return '<a href="' + uri +
+		'" target="_blank">Times in other timezones</a>';
 	};
 
 	SummaryPage.prototype._formatTimezoneOffset = function (offset) {
