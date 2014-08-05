@@ -178,7 +178,7 @@ define([
 
 		markup.push(
 				'<div class="summary-time">' +
-				'<h3>Event Times</h3>' +
+				'<h3>Event Time</h3>' +
 				'<ol class="no-bullets">' +
 				'<li>' +
 				this._formatDate(time, 0) +
