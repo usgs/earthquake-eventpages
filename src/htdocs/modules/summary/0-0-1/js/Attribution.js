@@ -11,6 +11,9 @@ define([
 		AK: 'AK,AEIC',
 		AEIC: 'AK,AEIC',
 
+		AT: 'AT,ATWC',
+		ATWC: 'AT,ATWC',
+
 		PT: 'PT,PTWC',
 		PTWC: 'PT,PTWC',
 
