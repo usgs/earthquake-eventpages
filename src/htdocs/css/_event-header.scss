@@ -12,34 +12,7 @@
 		> span {
 			display:block;
 		}
-
-		> .popup {
-			font-size: smaller;
-			display:none;
-			position:absolute;
-			top:-125%;
-			left:-1em;
-			line-height:1.5;
-			background-color:#FAFAFA;
-			box-shadow:2px 2px 5px rgba(53, 53, 53, 0.7);
-			border:1px solid #333;
-			padding:2px 4px;
-			margin:4px;
-
-			&.visible {
-				display:block;
-			}
-
-			> abbr {
-				border-bottom:1px dotted #333;
-			}
-		}
-
 	}
-
-.event-header-hide {
-	display: none;
-}
 
 	> .impact-bubbles {
 
@@ -71,6 +44,10 @@
 		}
 	}
 }
+
+.event-header-loaded .event-time-location{
+		display:none;
+	}
 
 .pager-alertlevel-pending {
 	background-color:#fff;
