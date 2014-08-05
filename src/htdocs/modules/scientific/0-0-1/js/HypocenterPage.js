@@ -299,9 +299,11 @@ define([
 					    '</tbody>',
 					  '</table>',
 					'</section>');
-			} else {
-				buf.push('<p class="error alert">No Phase Data Exists</p>');
 			}
+		}
+
+		if (buf.length === 0) {
+			buf.push('<p class="error alert">No Phase Data Exists</p>');
 		}
 
 		return buf.join('');
