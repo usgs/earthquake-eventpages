@@ -136,6 +136,15 @@ define([
 		}
 	};
 
+	EventPage.prototype.updateHeader = function () {
+		var headertimelocation = document.querySelector('.event-time-location');
+
+		if (headertimelocation){
+				headertimelocation.className =
+						headertimelocation.className + ' event-header-hide';
+		}
+	};
+
 	EventPage.prototype.updateNavigation = function (evt) {
 		var markup = [],
 		    i = 0,
@@ -222,6 +231,7 @@ define([
 		var hash = __get_hash();
 
 		Events.on('hashchange', this._onHashChange, this);
+		this.updateHeader();
 		this.updateNavigation();
 		this.updateFooter();
 
