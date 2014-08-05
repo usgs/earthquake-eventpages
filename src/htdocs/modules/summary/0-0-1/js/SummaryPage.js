@@ -42,11 +42,11 @@ define([
 		markup.push(this._getTextContentMarkup('general-header'));
 
 		markup.push(
-			'<div class= "row left-to-right clearfix">' +
-			'<div class= "mainCol column five-of-ten">' +
+			'<div class="row">' +
+			'<div class="column five-of-ten">' +
 			'<div class="summary-map"></div>' +
 			'</div>' +
-			'<div class= "sideCol column five-of-ten">' +
+			'<div class="column five-of-ten">' +
 			this._getTimeMarkup() +
 			this._getLocationMarkup() +
 			this._getTextContentMarkup('nearby-cities') +
