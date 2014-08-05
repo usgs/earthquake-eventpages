@@ -41,17 +41,18 @@ define([
 
 		markup.push(this._getTextContentMarkup('general-header'));
 
-		markup.push('<div class = "row left-to-right clearfix">');
-
-		markup.push('<div class = "mainCol column five-of-ten">');
-		markup.push('<div class="summary-map"></div></div>');
-
-		markup.push('<div class = "sideCol column five-of-ten">');
-		markup.push(this._getTimeMarkup());
-		markup.push(this._getLocationMarkup());
-		markup.push(this._getTextContentMarkup('nearby-cities'));
-		markup.push('</div></div>');
-
+		markup.push(
+			'<div class= "row left-to-right clearfix">' +
+			'<div class= "mainCol column five-of-ten">' +
+			'<div class="summary-map"></div>' +
+			'</div>' +
+			'<div class= "sideCol column five-of-ten">' +
+			this._getTimeMarkup() +
+			this._getLocationMarkup() +
+			this._getTextContentMarkup('nearby-cities') +
+			'</div>' +
+			'</div>'
+			);
 		markup.push(this._getMoreInformationMarkup());
 		markup.push(this._getTextContentMarkup('tectonic-summary'));
 		markup.push(this._getTextContentMarkup('general-text'));
@@ -202,15 +203,13 @@ define([
 		markup.push(
 			'<div class="summary-location">' +
 			'<h3>Event Location</h3>' +
-			'<ol class="no-bullets">' +
-			'<li>' +
-			this._format_coord(geometry.coordinates[1], 'N', 'S') +
+			'<p class="no-bullets">' +
+			this._formatCoord(geometry.coordinates[1], 'N', 'S') +
 			' ' +
-			this._format_coord(geometry.coordinates[0], 'E', 'W') +
+			this._formatCoord(geometry.coordinates[0], 'E', 'W') +
 			' depth=' + (Math.round(depth * 10) / 10).toFixed(1) + 'km (' +
 			(Math.round(this._kmToMi(depth) * 10) / 10).toFixed(1) + 'mi)' +
-		'</li>' +
-			'</ol>' +
+			'</p>' +
 			'</div>');
 
 		return markup.join('');
@@ -454,7 +453,7 @@ define([
 		return buffer.join('');
 	};
 
-	SummaryPage.prototype._format_coord = function (value, pos, neg) {
+	SummaryPage.prototype._formatCoord = function (value, pos, neg) {
 		if (value >= 0.0) {
 			return ((Math.round(value * 1000) / 1000).toFixed(3) + '&deg' + pos);
 		} else {
