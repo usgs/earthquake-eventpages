@@ -41,18 +41,18 @@ define([
 
 		markup.push(this._getTextContentMarkup('general-header'));
 
-		markup.push(this._getColumnMarkupBegin());
+		markup.push('<div class = "row left-to-right clearfix">');
 
-		markup.push(this._getMainColMarkupBegin());
-		markup.push(this._getMapMarkup());
-		markup.push(this._getMarkupDivEnd());
+		markup.push('<div class = "mainCol column six-of-ten">');
+		markup.push('<div class="summary-map"></div>');
+		markup.push('</div>');
 
-		markup.push(this._getSideColMarkupBegin());
+		markup.push('<div class = "sideCol column four-of-ten no-bullets">');
 		markup.push(this._getTimeMarkup());
 		markup.push(this._getLocationMarkup());
 		markup.push(this._getTextContentMarkup('nearby-cities'));
-		markup.push(this._getMarkupDivEnd());
-		markup.push(this._getMarkupDivEnd());
+		markup.push('</div>');
+		markup.push('</div>');
 
 		markup.push(this._getMoreInformationMarkup());
 		markup.push(this._getTextContentMarkup('tectonic-summary'));
@@ -129,9 +129,7 @@ define([
 
 	SummaryPage.prototype._ajaxSuccess = function (geoserve) {
 
-		if (this.mapContainer) {
-			this._loadStaticMapContent(this.mapContainer, geoserve.cities);
-		}
+		this._loadStaticMapContent(this.mapContainer, geoserve.cities);
 
 		if (!this._nearbyCitiesFlag) {
 			this._ajaxSuccessNearbyCities(geoserve.cities);
@@ -151,7 +149,7 @@ define([
 		    len;
 
 		if (this.nearbyCities !== null) {
-			cities = ['<ol class="nearbyCities">'];
+			cities = ['<ol class="nearbyCities no-bullets">'];
 			for (i = 0, len = nearbyCities.length; i < len; i++) {
 				city = nearbyCities[i];
 				cities.push('<li>' + city.distance +
@@ -172,47 +170,25 @@ define([
 		return '';
 	};
 
-	SummaryPage.prototype._getColumnMarkupBegin = function () {
-		return '<div class = "row left-to-right clearfix">';
-	};
-
-	SummaryPage.prototype._getMainColMarkupBegin = function () {
-		return '<div class = "mainCol column six-of-ten">';
-	};
-
-	SummaryPage.prototype._getSideColMarkupBegin = function () {
-		return '<div class = "sideCol column four-of-ten">';
-	};
-
-	SummaryPage.prototype._getMarkupDivEnd = function () {
-		return '</div>';
-	};
-
-	SummaryPage.prototype._getMapMarkup = function () {
-		return '<div class="summary-map"></div>';
-	};
-
 	SummaryPage.prototype._getTimeMarkup = function () {
 		var properties = this._event.properties,
 		    markup = [],
-		    time,
-		    headertime = document.querySelector('.utc');
-
-		headertime.innerHTML = '';
+		    time;
 
 		time = parseInt(properties.time, 10);
 
 		markup.push(
 				'<div class="summary-time">' +
 				'<h3>Event Times</h3>' +
-				'<ol>' +
+				'<ol class="no-bullets">' +
+				'<li>' +
+				this._formatDate(time, 0) +
+				'</li>' +
 				'<li>' +
 				this._formatDate(time, -1 * properties.tz) +
 				'</li>' +
 				'<li>' +
-				'<a href="' +
-				this._formatWorldClock(time) +
-				'" target="_blank">' +
+				this._getOtherTimeZoneLink(time) +
 					'Times in other timezones' +
 				'</a>' +
 				'</li>' +
@@ -225,15 +201,12 @@ define([
 	SummaryPage.prototype._getLocationMarkup = function () {
 		var geometry = this._event.geometry,
 		    markup = [],
-		    headerlocation = document.querySelector('.location'),
 		    depth = geometry.coordinates[2];
-
-		headerlocation.innerHTML = '';
 
 		markup.push(
 			'<div class="summary-location">' +
 			'<h3>Event Location</h3>' +
-			'<ol>' +
+			'<ol class="no-bullets">' +
 			'<li>' +
 			this._format_coord(geometry.coordinates[1], 'N', 'S') +
 			' ' +
@@ -443,7 +416,7 @@ define([
 				minutes + ':' + seconds + ' (UTC' + offsetString + ')';
 	};
 
-	SummaryPage.prototype._formatWorldClock = function (stamp) {
+	SummaryPage.prototype._getOtherTimeZoneLink = function (stamp) {
 		var theDate = new Date(stamp),
 		    uri,
 		    title = this._event.properties.title;
@@ -452,7 +425,7 @@ define([
 				theDate.toISOString() + '&msg=' + title;
 		uri = encodeURI(uri);
 
-		return uri;
+		return '<a href="' + uri + '" target="_blank">';
 	};
 
 	SummaryPage.prototype._formatTimezoneOffset = function (offset) {
@@ -460,7 +433,9 @@ define([
 		    hours = null,
 		    minutes = null;
 
-		if (offset < 0) {
+		if (offset === 0 ) {
+			return '';
+		} else if (offset < 0) {
 			buffer.push('-');
 			offset *= -1;
 		} else {
