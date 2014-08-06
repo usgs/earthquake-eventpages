@@ -386,6 +386,10 @@ module.exports = function (grunt) {
 				src: 'node_modules/hazdev-webutils/src/mvc/ModalView.css',
 				dest: 'node_modules/hazdev-webutils/src/mvc/_ModalView.scss'
 			},
+			downloadview: {
+				src: 'node_modules/hazdev-webutils/src/mvc/DownloadView.css',
+				dest: 'node_modules/hazdev-webutils/src/mvc/_DownloadView.scss'
+			},
 			locationview_images: {
 				expand: true,
 				cwd: 'node_modules/hazdev-location-view/src',
@@ -489,6 +493,7 @@ module.exports = function (grunt) {
 		'clean:dist',
 		'copy:leaflet',
 		'copy:modalview',
+		'copy:downloadview',
 		'copy:locationview_images_dev',
 		'compass:dev',
 		'configureRewriteRules',
