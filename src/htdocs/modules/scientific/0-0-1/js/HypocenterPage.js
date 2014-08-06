@@ -493,7 +493,7 @@ define([
 				'<table class="responsive networkmagnitude-stations">',
 					'<thead><tr>',
 						'<th>',
-							'<abbr title="Network Station Channel Location">Source</abbr>',
+							'<abbr title="Network Station Channel Location">Channel</abbr>',
 						'</th>',
 						'<th>Type</th>',
 						'<th>Amplitude</th>',
