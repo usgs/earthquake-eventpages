@@ -709,19 +709,7 @@ define([
 		return buf.join('');
 	};
 
-	HypocenterPage.prototype._getSummaryHeader = function (product) {
-		var formatter = this._options.formatter,
-		    p = product.properties,
-		    magnitude = p.magnitude,
-		    magnitudeType = p['magnitude-type'];
-
-		// return '<header>' + formatter.magnitude(magnitude) + '</header>' +
-		// 		'<small>' + (magnitudeType || 'undefined') + '</small>';
-
-		return '';
-	};
-
-	HypocenterPage.prototype._getSummaryInfo = function (product) {
+	HypocenterPage.prototype._getSummaryMarkup = function (product) {
 		var formatter = this._options.formatter,
 		    source = Attribution.getContributor(product.source),
 		    p = product.properties,

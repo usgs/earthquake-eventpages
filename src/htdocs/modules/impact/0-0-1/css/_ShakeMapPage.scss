@@ -1,33 +1,22 @@
+.shakemap-summary > ul > li {
+	width:25%;
+}
 
 .station-flag {
 	color:#999;
-}
-
-.shakemap-summary > .info > ul > li {
-		width:25%;
-
-		&.image {
-
-		}
-}
-
-.summary-thumbnail {
-	height:100px;
-	width:105px;
 }
 
 .shakemap > .tablist-panel {
 	padding:0 10px;
 }
 
-.shakemap-summary > .info > ul > li,
 .station-summary > li {
 
 	&.mmi {
-		padding:5px;
 		color:#000;
-		text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
+		padding:5px;
 		border-radius:2px;
+		text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
 		background-image: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(0,0,0,0));
 
 		> abbr {
@@ -37,7 +26,6 @@
 }
 
 .station > .accordion-content {
-
 	padding: 0;
 
 	> dl {

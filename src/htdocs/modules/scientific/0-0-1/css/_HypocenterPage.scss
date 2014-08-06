@@ -1,12 +1,9 @@
 @import '../../../../../../node_modules/hazdev-webutils/src/mvc/ModalView';
 @import '../../../../../../node_modules/hazdev-webutils/src/mvc/DownloadView';
 
-.origin-summary {
-
-	> .info > ul > li {
-		width:25%;
-		padding:10px 0;
-	}
+.origin-summary > ul > li {
+	width:25%;
+	padding:10px 0;
 }
 
 .origin-detail {
@@ -34,7 +31,6 @@
 	> .downloads {
 		margin:2em 0;
 	}
-
 }
 
 .networkmagnitude-mag {
@@ -91,7 +87,7 @@
 }
 
 @media screen and (min-width:768px) {
-	.hypocenters-summary > .info {
+	.hypocenters-summary {
 		padding:30px 10px 0 100px;
 		font-size:14px;
 	}

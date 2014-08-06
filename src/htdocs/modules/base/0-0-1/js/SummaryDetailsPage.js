@@ -154,35 +154,19 @@ define([
 	 */
 	SummaryDetailsPage.prototype.buildSummaryMarkup = function (product) {
 		var el,
-		    header, headerMarkup,
-		    info, infoMarkup;
+		    summaryMarkup;
 
 		el = document.createElement('a');
 		el.className = this._options.hash + '-summary summary';
 		el.setAttribute('href', this._buildHash(product));
 
-		header = document.createElement('div');
-		header.className = 'header';
-		headerMarkup = this._getSummaryHeader(product);
-		// Add header content
-		if (typeof headerMarkup === 'object') {
-			header.appendChild(headerMarkup);
-		} else {
-			header.innerHTML = headerMarkup;
-		}
-
-		info = document.createElement('div');
-		info.className = 'info';
-		infoMarkup = this._getSummaryInfo(product);
+		summaryMarkup = this._getSummaryMarkup(product);
 		// Add description content
-		if (typeof infoMarkup === 'object') {
-			info.appendChild(infoMarkup);
+		if (typeof summaryMarkup === 'object') {
+			el.appendChild(summaryMarkup);
 		} else {
-			info.innerHTML = infoMarkup;
+			el.innerHTML = summaryMarkup;
 		}
-
-		el.appendChild(header);
-		el.appendChild(info);
 
 		return el;
 	};
@@ -192,20 +176,18 @@ define([
 	};
 
 	/**
-	 * The content that goes into the summary card header
+	 * The content that goes into the summary section
 	 */
-	SummaryDetailsPage.prototype._getSummaryHeader = function (product) {
-		return 'Summary Header: <p>' + product.source + '<p>';
-	};
+	SummaryDetailsPage.prototype._getSummaryMarkup = function (product) {
 
-	/**
-	 * The content that goes into the summary card description
-	 */
-	SummaryDetailsPage.prototype._getSummaryInfo = function (product) {
-		var p = document.createElement('div');
-		p.innerHTML = 'Summary Description: <p>' + product.code + '<p>';
-
-		return p;
+		return '<p>Summary Section:</p>' +
+				'<ul>' +
+					'<li>' +
+						'<span>' + product.source + '</span>' +
+						'<abbr title="Source">src</abbr>' +
+					'</li>' +
+				'/<ul>'
+			;
 	};
 
 	/**

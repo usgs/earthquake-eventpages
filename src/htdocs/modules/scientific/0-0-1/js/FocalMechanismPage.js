@@ -30,7 +30,7 @@ define([
 	FocalMechanismPage.prototype = Object.create(MomentTensorPage.prototype);
 
 
-	FocalMechanismPage.prototype._getSummaryInfo = function (tensor) {
+	FocalMechanismPage.prototype._getSummaryMarkup = function (tensor) {
 		var formatter = this._options.formatter,
 		    magnitude = tensor.magnitude,
 		    percentDC = Math.round(tensor.percentDC * 100),

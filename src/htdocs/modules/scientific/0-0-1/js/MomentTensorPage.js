@@ -323,10 +323,6 @@ define([
 		return SummaryDetailsPage.prototype._buildHash.call(this, tensor.product);
 	};
 
-	MomentTensorPage.prototype._getSummaryHeader = function (tensor) {
-		return '';
-	};
-
 	/**
 	 * Used by getSummary() method,
 	 * so subclasses can override non-beachball content.
@@ -335,7 +331,7 @@ define([
 	 *        tensor object.
 	 * @return {String} summary content.
 	 */
-	MomentTensorPage.prototype._getSummaryInfo = function (tensor) {
+	MomentTensorPage.prototype._getSummaryMarkup = function (tensor) {
 		var formatter = this._options.formatter,
 		    type = tensor.type,
 		    magnitude = tensor.magnitude,

@@ -538,7 +538,7 @@ define([
 	/**
 	 * Sets up summary info for Shakemap events with 2 or more events
 	 */
-	ShakeMapPage.prototype._getSummaryInfo = function (product) {
+	ShakeMapPage.prototype._getSummaryMarkup = function (product) {
 		var properties = product.properties,
 		    contents = product.contents,
 		    maxmmi = properties.maxmmi,
@@ -553,7 +553,7 @@ define([
 					'<img src="' + contents[SUMMARY_THUMBNAIL].url +
 							'" alt="' + THUMBNAIL_ALT + '" />' +
 				'</li>' +
-				'<li>' +
+				'<li class="mmi">' +
 					'<span>' + maxmmi + '</span>' +
 					'<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
 				'</li>' +
@@ -567,18 +567,6 @@ define([
 							'">Source</abbr>' +
 				'</li>' +
 			'</ul>';
-	};
-
-	/**
-	 * Sets up thumbnail images for Smakemap event with 2 or more events
-	 * Currently uses intensity map
-	 */
-	ShakeMapPage.prototype._getSummaryHeader = function () {
-		// var contents = product.contents;
-
-		// return '<img class="summary-thumbnail" src="' +
-		// 		contents[SUMMARY_THUMBNAIL].url + '" alt=" ' + THUMBNAIL_ALT + ' " />';
-		return '';
 	};
 
 	ShakeMapPage.prototype._setFooterMarkup = function () {

@@ -1,15 +1,5 @@
-.tensor-summary > .info > ul {
-
-	> li {
-		width:20%;
-	}
-}
-
-@media screen and (min-width:768px) {
-
-	.tensor-summary > .info > ul > li {
-		width:16.6%;
-	}
+.tensor-summary  > ul > li {
+	width:20%;
 }
 
 .tensor-detail {
@@ -75,5 +65,12 @@
 
 	> .downloads {
 		margin:2em 0;
+	}
+}
+
+@media screen and (min-width:768px) {
+
+	.tensor-summary > ul > li {
+		width:16.6%;
 	}
 }
