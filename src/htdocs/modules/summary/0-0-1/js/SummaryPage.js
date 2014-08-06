@@ -218,7 +218,6 @@ define([
 	SummaryPage.prototype._loadStaticMapContent = function (container) {
 		var latitude = this._event.geometry.coordinates[1],
 		    longitude = this._event.geometry.coordinates[0],
-		    points = [],
 		    img = document.createElement('img'),
 		    imgSrc = null,
 		    imgLink = document.createElement('a');
@@ -230,13 +229,10 @@ define([
 				'type=map&' +
 				'imagetype=jpeg&' +
 				'zoom=8&' +
-				'pois='
+				'center=' + latitude + ',' + longitude + '&' +
+				'pois=' + 'red_1,' + latitude +',' + longitude
 		];
 
-		points.push('red_1,' + latitude + ',' + longitude);
-
-		imgSrc.push(points.join('|'));
-		imgSrc.push('&center=' + latitude + ',' + longitude);
 		img.setAttribute('src', imgSrc.join(''));
 		imgLink.href = '#general_map';
 
