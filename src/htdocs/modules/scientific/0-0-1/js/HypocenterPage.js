@@ -3,6 +3,8 @@ define([
 	'util/Util',
 	'util/Xhr',
 	'quakeml/Quakeml',
+	'mvc/Collection',
+	'mvc/DataTable',
 
 	'base/SummaryDetailsPage',
 	'base/Formatter',
@@ -13,6 +15,8 @@ define([
 	Util,
 	Xhr,
 	Quakeml,
+	Collection,
+	DataTable,
 
 	SummaryDetailsPage,
 	Formatter,
@@ -31,6 +35,149 @@ define([
 	};
 
 	var NOT_SPECIFIED = '<abbr title="Not Specified">-</abbr>';
+
+	// columns for phase data table
+	var PHASE_DATA_COLUMNS = [
+		{
+			'className': 'channel',
+			'title': 'Channel',
+			'format': function (arrival) {
+				var station = arrival.pick.waveformID;
+				return station.networkCode + ' ' + station.stationCode +
+						' ' + station.channelCode + ' ' + station.locationCode;
+			},
+			'header': true
+		},
+		{
+			'className': 'distance',
+			'title': 'Distance',
+			'format': function (arrival) {
+				return parseFloat(arrival.distance).toFixed(2) + '&deg;';
+			},
+			'downloadFormat': function (arrival) {
+				return arrival.distance;
+			}
+		},
+		{
+			'className': 'azimuth',
+			'title': 'Azimuth',
+			'format': function (arrival) {
+				return parseFloat(arrival.azimuth).toFixed(2) + '&deg;';
+			},
+			'downloadFormat': function (arrival) {
+				return arrival.azimuth;
+			}
+		},
+		{
+			'className': 'phase',
+			'title': 'Phase',
+			'format': function (arrival) {
+				return arrival.phase;
+			}
+		},
+		{
+			'className': 'time',
+			'title': 'Arrival Time',
+			'format': function (arrival) {
+				var pick = arrival.pick,
+				    time;
+
+				time = pick.time.value.split('T')[1].split('Z')[0].split(':');
+				time[2] = parseFloat(time[2]).toFixed(2);
+				if (time[2] < 10) {
+					time[2] = '0' + time[2];
+				}
+				time = time.join(':');
+				return time;
+			},
+			'downloadFormat': function (arrival) {
+				return arrival.pick.time.value;
+			}
+		},
+		{
+			'className': 'status',
+			'title': 'Status',
+			'format': function (arrival) {
+				return arrival.pick.evaluationMode;
+			}
+		},
+		{
+			'className': 'residual',
+			'title': 'Residual',
+			'format': function (arrival) {
+				return parseFloat(arrival.timeResidual).toFixed(2);
+			},
+			'downloadFormat': function (arrival) {
+				return arrival.timeResidual;
+			}
+		},
+		{
+			'className': 'weight',
+			'title': 'Weight',
+			'format': function (arrival) {
+				return parseFloat(arrival.timeWeight).toFixed(2);
+			},
+			'downloadFormat': function (arrival) {
+				return arrival.timeWeight;
+			}
+		}
+	];
+
+	// sort options for phase data table
+	var PHASE_DATA_SORTS = [
+		{
+			'id': 'channel',
+			'title': 'Channel',
+			'sortBy': function (arrival) {
+				var station = arrival.pick.waveformID;
+				return station.networkCode + ' ' + station.stationCode +
+						' ' + station.channelCode + ' ' + station.locationCode;
+			}
+		},
+		{
+			'id': 'distance',
+			'title': 'Distance',
+			'sortBy': function (arrival) {
+				return parseFloat(arrival.distance);
+			}
+		},
+		{
+			'id': 'azimuth',
+			'title': 'Azimuth',
+			'sortBy': function (arrival) {
+				return parseFloat(arrival.azimuth);
+			}
+		},
+		{
+			'id': 'phase',
+			'title': 'Phase',
+			'sortBy': function (arrival) {
+				return arrival.phase;
+			}
+		},
+		{
+			'id': 'time',
+			'title': 'Arrival Time',
+			'sortBy': function (arrival) {
+				return arrival.pick.time.value;
+			}
+		},
+		{
+			'id': 'residual',
+			'title': 'Residual',
+			'sortBy': function (arrival) {
+				return parseFloat(arrival.timeResidual);
+			}
+		},
+		{
+			'id': 'weight',
+			'title': 'Weight',
+			'sortBy': function (arrival) {
+				return parseFloat(arrival.timeWeight);
+			}
+		}
+	];
+
 
 	/**
 	 * Construct a new HypocenterPage.
@@ -205,7 +352,7 @@ define([
 			this._parseQuakemlCallback = this._getPhaseDetail;
 			this._parseQuakeml(xml);
 		} else if (!this._phaseRendered) {
-			this._phaseEl.innerHTML = this._getPhasesMarkup();
+			this._renderPhases(this._phaseEl);
 			this._phaseRendered = true;
 		}
 	};
@@ -225,86 +372,47 @@ define([
 		}
 	};
 
-	HypocenterPage.prototype._getPhasesMarkup = function () {
-		var buf = [],
-		    origins = this._quakeml.getOrigins(),
-		    origin,
-		    arrivals,
-		    arrival,
-		    pick,
-		    station,
-		    a,
-		    o,
-		    time;
+	HypocenterPage.prototype._renderPhases = function (phaseEl) {
+		var origins = this._quakeml.getOrigins(),
+		    origin, o, oLen,
+		    preferred = null,
+		    arrivals, a, aLen;
 
-		for (o = 0; o < origins.length; o++) {
+		for (o = 0, oLen = origins.length; o < oLen; o++) {
 			origin = origins[o];
-			arrivals = origin.arrivals;
-
-			// output origin arrivals
-			if (arrivals.length > 0) {
-				buf.push(
-					'<section class="origin">',
-						'<h3>Phase Arrival Times</h3>',
-						'<table class="responsive hypocenter-phase">',
-							'<thead><tr>',
-								'<th>',
-									'<abbr title="Network Station Channel Location">Channel',
-									'</abbr>',
-								'</th>',
-								'<th>Distance</th>',
-								'<th>Azimuth</th>',
-								'<th>Phase</th>',
-								'<th>Arrival Time</th>',
-								'<th>Status</th>',
-								'<th>Residual</th>',
-								'<th>Weight</th>',
-							'</tr></thead>',
-							'<tbody>');
-				for (a = 0; a < arrivals.length; a++) {
-					arrival = arrivals[a];
-					pick = arrival.pick;
-					station = pick.waveformID;
-
-					time = pick.time.value.split('T')[1].split('Z')[0].split(':');
-					time[2] = parseFloat(time[2]).toFixed(2);
-					time = time.join(':');
-
-					buf.push(
-						'<tr>',
-							'<th scope="row">',
-								station.networkCode,
-								' ', station.stationCode,
-								' ', station.channelCode,
-								' ', station.locationCode,
-							'</th>',
-							'<td class="distance">',
-								parseFloat(arrival.distance).toFixed(2), '&deg;',
-							'</td>',
-							'<td class="azimuth">',
-								parseFloat(arrival.azimuth).toFixed(2), '&deg;',
-							'</td>',
-							'<td class="phase">', arrival.phase, '</td>',
-							'<td class="time">', time, '</td>',
-							'<td class="status">', pick.evaluationMode, '</td>',
-							'<td class="residual">',
-								parseFloat(arrival.timeResidual).toFixed(2),
-							'</td>',
-							'<td class="weight">',
-								parseFloat(arrival.timeWeight).toFixed(2),
-							'</td>',
-						'</tr>');
-				}
-				buf.push(
-					    '</tbody>',
-					  '</table>',
-					'</section>');
-			} else {
-				buf.push('<p class="error alert">No Phase Data Exists</p>');
+			if (origin.isPreferred) {
+				preferred = origin;
+				break;
 			}
 		}
 
-		return buf.join('');
+		phaseEl.innerHTML = '<section class="hypocenter-phase">' +
+				'<header><h3>Phase Arrival Times</h3></header>' +
+				'<div class="datatable"></div>' +
+				'</section>';
+
+		if (!preferred || !preferred.arrivals) {
+			phaseEl.querySelector('.datatable').innerHTML =
+					'<p class="error alert">No Phase Data Exists</p>';
+			return;
+		}
+
+		// add ids to arrivals
+		arrivals = preferred.arrivals;
+		for (a = 0, aLen = arrivals.length; a < aLen; a++) {
+			arrivals[a].id = a;
+		}
+
+		this._phaseTable = new DataTable({
+			el: phaseEl.querySelector('.datatable'),
+			className: 'responsive hypocenter-phase',
+			collection: new Collection(preferred.arrivals),
+			emptyMarkup: '<p class="error alert">No Phase Data Exists</p>',
+			columns: PHASE_DATA_COLUMNS,
+			sorts: PHASE_DATA_SORTS,
+			defaultSort: 'distance'
+		});
+
 	};
 
 	HypocenterPage.prototype._getMagnitudesMarkup = function () {
