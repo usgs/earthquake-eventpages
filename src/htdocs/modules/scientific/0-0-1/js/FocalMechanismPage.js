@@ -1,10 +1,12 @@
 /* global define */
 define([
 	'util/Util',
-	'./MomentTensorPage'
+	'./MomentTensorPage',
+	'summary/Attribution'
 ], function (
 	Util,
-	MomentTensorPage
+	MomentTensorPage,
+	Attribution
 ) {
 	'use strict';
 
@@ -31,21 +33,31 @@ define([
 	FocalMechanismPage.prototype._getSummaryInfo = function (tensor) {
 		var formatter = this._options.formatter,
 		    magnitude = tensor.magnitude,
-		    author = tensor.source,
-		    percentDC = Math.round(tensor.percentDC * 100);
+		    percentDC = Math.round(tensor.percentDC * 100),
+		    source = Attribution.getContributor(tensor.source);
 
 		magnitude = formatter.magnitude(magnitude);
 
 		return [
 					'<header class="title">', tensor.title, '</header>',
-					'<dl>',
-						'<dt>Magnitude:</dt>',
-						'<dd>', magnitude, '</dd>',
-						'<dt>Percent <abbr title="Double Couple">DC</abbr>:</dt>',
-						'<dd>', percentDC, '%</dd>',
-						'<dt>Author:</dt>',
-						'<dd>', author, '</dd>',
-					'</dl>',
+					'<ul>',
+						'<li class="beachball">',
+							'<img src="', this.getBeachball(tensor), '" />',
+						'</li>',
+						'<li>',
+							'<span>', magnitude, '</span>',
+							'<abbr title="Magnitude">Mag</abbr>',
+						'</li>',
+						'<li>',
+							'<span>', percentDC, '</span>',
+							'<abbr title="Percent Double Couple">% DC</abbr>',
+						'</li>',
+						'<li>',
+							'<span>', tensor.source.toUpperCase(), '</span>',
+							'<abbr title="', (source ? source.title : 'Contributor'),
+									'">Source</abbr>',
+						'</li>',
+					'</ul>',
 		].join('');
 	};
 

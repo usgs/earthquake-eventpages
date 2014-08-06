@@ -340,23 +340,14 @@ define([
 		    type = tensor.type,
 		    magnitude = tensor.magnitude,
 		    depth = Math.round(tensor.depth),
-		    percentDC = Math.round(tensor.percentDC * 100),
-		    beachball;
+		    percentDC = Math.round(tensor.percentDC * 100);
 
 		magnitude = formatter.magnitude(magnitude);
-
-		beachball = new BeachBall({
-								tensor: tensor,
-								size: 200,
-								plotAxes: false,
-								plotPlanes: true,
-								fillColor: tensor.fillColor
-							}).getCanvas().toDataURL();
 
 		return [
 					'<ul>',
 						'<li class="beachball">',
-							'<img src="', beachball, '" />',
+							'<img src="', this.getBeachball(tensor), '" />',
 						'</li>',
 						'<li>',
 							'<span>', type, '</span>',
@@ -382,6 +373,15 @@ define([
 		].join('');
 	};
 
+	MomentTensorPage.prototype.getBeachball = function(tensor) {
+		return new BeachBall({
+				tensor: tensor,
+				size: 200,
+				plotAxes: false,
+				plotPlanes: true,
+				fillColor: tensor.fillColor
+			}).getCanvas().toDataURL();
+	};
 
 	MomentTensorPage.prototype.destroy = function () {
 		this._options = null;
