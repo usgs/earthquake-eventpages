@@ -1,3 +1,5 @@
+@import '../../../../../../node_modules/hazdev-webutils/src/mvc/ModalView';
+@import '../../../../../../node_modules/hazdev-webutils/src/mvc/DownloadView';
 
 .origin-summary {
 
@@ -79,8 +81,13 @@
 }
 
 .networkmagnitude > .accordion-content {
-		padding:0;
-	}
+	padding:0;
+}
+
+.hypocenter-phase > .datatable > .datatable-tools > .sortview {
+	float:left;
+	margin-right:1em;
+}
 
 @media screen and (max-width:767px) {
 
