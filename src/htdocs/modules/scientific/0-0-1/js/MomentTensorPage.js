@@ -340,13 +340,14 @@ define([
 		    type = tensor.type,
 		    magnitude = tensor.magnitude,
 		    depth = Math.round(tensor.depth),
-		    percentDC = Math.round(tensor.percentDC * 100);
+		    percentDC = Math.round(tensor.percentDC * 100),
+		    source = Attribution.getName(tensor.source);
 
 		magnitude = formatter.magnitude(magnitude);
 
 		return [
 					'<ul>',
-						'<li class="beachball">',
+						'<li class="image">',
 							'<img src="', this.getBeachball(tensor), '" />',
 						'</li>',
 						'<li>',
@@ -365,11 +366,11 @@ define([
 							'<span>', percentDC, '</span>',
 							'<abbr title="Percent Double Couple">% DC</abbr>',
 						'</li>',
-						'<li class="source">',
-							Attribution.getName(tensor.source),
+						'<li class="summary-hide">',
+							'<span>', tensor.source.toUpperCase(), '</span>',
+							'<abbr title="', source.title, '">source</abbr>',
 						'</li>',
 					'</ul>'
-					//'<span class="source">', Attribution.getName(tensor.source), '</span>'
 		].join('');
 	};
 

@@ -3,33 +3,10 @@
 
 .origin-summary {
 
-	> .header {
-		padding:30px 0 0;
-		color:#444;
-		width:85px;
-
-		> header {
-			margin:0;
-			font-size:30px;
-			line-height:36px;
-			font-weight:bold;
-		}
-
-		> small {
-			font-size:inherit;
-		}
+	> .info > ul > li {
+		width:25%;
+		padding:10px 0;
 	}
-
-	> .info {
-		padding:30px 10px 0 100px;
-		font-size:14px;
-
-		> span {
-			display:block;
-			margin:0;
-		}
-	}
-
 }
 
 .origin-detail {

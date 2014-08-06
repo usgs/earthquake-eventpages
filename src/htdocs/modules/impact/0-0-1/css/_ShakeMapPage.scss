@@ -5,13 +5,9 @@
 
 .shakemap-summary > .info > ul > li {
 		width:25%;
-		vertical-align: middle;
 
 		&.image {
-			width:2.5em;
-			margin-right:1em;
-			position:relative;
-			text-align:left;
+
 		}
 }
 
@@ -70,10 +66,6 @@
 }
 
 @media screen and (min-width:768px) {
-
-	.shakemap-summary > .info > ul > li.image {
-			width:5.5em;
-	}
 
 	table.station-components {
 		> tbody > tr {

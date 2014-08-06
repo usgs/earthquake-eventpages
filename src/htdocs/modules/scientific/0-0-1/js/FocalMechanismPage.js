@@ -39,9 +39,8 @@ define([
 		magnitude = formatter.magnitude(magnitude);
 
 		return [
-					'<header class="title">', tensor.title, '</header>',
 					'<ul>',
-						'<li class="beachball">',
+						'<li class="image">',
 							'<img src="', this.getBeachball(tensor), '" />',
 						'</li>',
 						'<li>',

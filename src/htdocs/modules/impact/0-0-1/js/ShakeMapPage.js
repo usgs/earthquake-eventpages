@@ -553,7 +553,7 @@ define([
 					'<img src="' + contents[SUMMARY_THUMBNAIL].url +
 							'" alt="' + THUMBNAIL_ALT + '" />' +
 				'</li>' +
-				'<li class="roman mmi mmi'+ maxmmi + '">' +
+				'<li>' +
 					'<span>' + maxmmi + '</span>' +
 					'<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
 				'</li>' +

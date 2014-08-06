@@ -715,27 +715,51 @@ define([
 		    magnitude = p.magnitude,
 		    magnitudeType = p['magnitude-type'];
 
-		return '<header>' + formatter.magnitude(magnitude) + '</header>' +
-				'<small>' + (magnitudeType || 'undefined') + '</small>';
+		// return '<header>' + formatter.magnitude(magnitude) + '</header>' +
+		// 		'<small>' + (magnitudeType || 'undefined') + '</small>';
+
+		return '';
 	};
 
 	HypocenterPage.prototype._getSummaryInfo = function (product) {
 		var formatter = this._options.formatter,
-		    source = product.source,
+		    source = Attribution.getContributor(product.source),
 		    p = product.properties,
 		    latitude = p.latitude,
 		    longitude = p.longitude,
-		    depth = p.depth;
+		    depth = p.depth,
+		    magnitude = p.magnitude,
+		    magnitudeType = p['magnitude-type'];
 
-		return '<span class="location">' +
-					formatter.location(latitude, longitude) +
-				'</span>' +
-				'<span class="depth">' +
-					formatter.depth(depth, 'km') + ' depth' +
-				'</span>' +
-				'<span class="contributor truncate">' +
-					Attribution.getName(source) +
-				'</span>';
+		// return '<span class="location">' +
+		// 			formatter.location(latitude, longitude) +
+		// 		'</span>' +
+		// 		'<span class="depth">' +
+		// 			formatter.depth(depth, 'km') + ' depth' +
+		// 		'</span>' +
+		// 		'<span class="contributor truncate">' +
+		// 			Attribution.getName(source) +
+		// 		'</span>';
+
+		return '<ul>' +
+					'<li>' +
+						'<span>' + magnitude + '</span>' +
+						'<abbr title="Magnitude">Mag</abbr>' +
+					'</li>' +
+					'<li>' +
+						'<span>' + magnitudeType + '</span>' +
+						'<abbr title="Magnitude Type">Type</abbr>' +
+					'</li>' +
+					'<li>' +
+						'<span>' + depth + '</span>' +
+						'<abbr title="Depth (km)">Depth</abbr>' +
+					'</li>' +
+					'<li>' +
+						'<span>' + product.source.toUpperCase() + '</span>' +
+						'<abbr title="' + (source ? source.title : 'Contributor') +
+								'">Source</abbr>' +
+					'</li>' +
+				'</ul>';
 	};
 
 	// return constructor

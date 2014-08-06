@@ -22,6 +22,16 @@
 				max-width: 100px;
 				text-align: center;
 				line-height: 1;
+				vertical-align: middle;
+
+				&.image > img {
+					width:2.5em;
+					height:2.5em;
+				}
+
+				&.summary-hide {
+					display:none;
+				}
 
 				> span {
 					display:block;
@@ -68,4 +78,18 @@ a.summary:hover {
 	border-right: 2em solid transparent;
 	border-top: 2em solid #49a34b;
 	z-index:2;
+}
+
+@media screen and (min-width:768px) {
+	.summary > .info > ul > li {
+
+		&.image > img {
+			width:5.5em;
+			height:5.5em;
+		}
+
+		&.summary-hide {
+			display:inline-block;
+		}
+	}
 }
