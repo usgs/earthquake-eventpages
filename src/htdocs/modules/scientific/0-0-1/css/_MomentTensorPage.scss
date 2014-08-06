@@ -1,31 +1,45 @@
-.tensor-summary,
-.mechanism-summary {
+.tensor-summary > .info > ul {
 
-	> .info {
-		padding:12px 10px 0 135px;
+	> li {
+		width:20%;
+		vertical-align: middle;
 
-		> header.title {
-			font-weight:bold;
-			font-size:16px;
-			margin:0 0 5px;
+		&.beachball {
+			width:2.5em;
+			height:2.5em;
+			margin-right:0.5em;
+			position:relative;
+			text-align:left;
 		}
 
-		> dl {
-			//color:#666;
-			margin:0;
-
-			> dt {
-				float: left;
-				width: 85px;
-			}
-
-			> dd {
-				margin: 0 0 0 95px;
-			}
+		&.source {
+			width:100%;
+			max-width:100%;
+			text-align:left;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			margin-top:1em;
+			font-size:0.875em;
 		}
 	}
 }
 
+@media screen and (min-width:768px) {
+
+	.tensor-summary > .info > ul > li {
+
+		&.beachball {
+			width:5.5em;
+			height:4em;
+		}
+
+		&.source {
+			margin-top:0;
+			padding-left:9em;
+		}
+	}
+}
 
 .tensor-detail {
 

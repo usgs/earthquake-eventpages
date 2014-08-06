@@ -324,14 +324,7 @@ define([
 	};
 
 	MomentTensorPage.prototype._getSummaryHeader = function (tensor) {
-		// add beachball
-		return new BeachBall({
-			tensor: tensor,
-			size: 200,
-			plotAxes: false,
-			plotPlanes: true,
-			fillColor: tensor.fillColor
-		}).getCanvas();
+		return '';
 	};
 
 	/**
@@ -346,25 +339,46 @@ define([
 		var formatter = this._options.formatter,
 		    type = tensor.type,
 		    magnitude = tensor.magnitude,
-		    depth = Math.round(tensor.depth) + ' km',
-		    author = tensor.source,
-		    percentDC = Math.round(tensor.percentDC * 100);
+		    depth = Math.round(tensor.depth),
+		    percentDC = Math.round(tensor.percentDC * 100),
+		    beachball;
 
 		magnitude = formatter.magnitude(magnitude);
-		author = Attribution.getName(author);
+
+		beachball = new BeachBall({
+								tensor: tensor,
+								size: 200,
+								plotAxes: false,
+								plotPlanes: true,
+								fillColor: tensor.fillColor
+							}).getCanvas().toDataURL();
 
 		return [
-					'<header class="title">', type, '</header>',
-					'<dl>',
-						'<dt>Magnitude:</dt>',
-						'<dd>', magnitude, '</dd>',
-						'<dt>Depth:</dt>',
-						'<dd>', depth, '</dd>',
-						'<dt>Percent <abbr title="Double Couple">DC</abbr>:</dt>',
-						'<dd>', percentDC, '%</dd>',
-						'<dt>Author:</dt>',
-						'<dd><span class="truncate">', author, '</span></dd>',
-					'</dl>',
+					'<ul>',
+						'<li class="beachball">',
+							'<img src="', beachball, '" />',
+						'</li>',
+						'<li>',
+							'<span>', type, '</span>',
+							'<abbr title="Tensor Type">Type</abbr>',
+						'</li>',
+						'<li>',
+							'<span>', magnitude, '</span>',
+							'<abbr title="Magnitude">Mag</abbr>',
+						'</li>',
+						'<li>',
+							'<span>', depth, '</span>',
+							'<abbr title="Depth (km)">Depth</abbr>',
+						'</li>',
+						'<li>',
+							'<span>', percentDC, '</span>',
+							'<abbr title="Percent Double Couple">% DC</abbr>',
+						'</li>',
+						'<li class="source">',
+							Attribution.getName(tensor.source),
+						'</li>',
+					'</ul>'
+					//'<span class="source">', Attribution.getName(tensor.source), '</span>'
 		].join('');
 	};
 
