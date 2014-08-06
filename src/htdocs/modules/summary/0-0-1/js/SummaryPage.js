@@ -70,6 +70,8 @@ define([
 		generalText = this._content.querySelector('.summary-general-text');
 		impactText = this._content.querySelector('.summary-impact-text');
 
+		this._loadStaticMapContent(this.mapContainer);
+
 		// Fetch AJAX content and load it into the containers
 		try {
 			Xhr.ajax({
@@ -127,9 +129,6 @@ define([
 	};
 
 	SummaryPage.prototype._ajaxSuccess = function (geoserve) {
-
-		this._loadStaticMapContent(this.mapContainer, geoserve.cities);
-
 		if (!this._nearbyCitiesFlag) {
 			this._ajaxSuccessNearbyCities(geoserve.cities);
 		}
@@ -216,11 +215,8 @@ define([
 
 	};
 
-	SummaryPage.prototype._loadStaticMapContent = function (container, cities) {
-		var i = null,
-		    len = null,
-		    city = null,
-		    latitude = this._event.geometry.coordinates[1],
+	SummaryPage.prototype._loadStaticMapContent = function (container) {
+		var latitude = this._event.geometry.coordinates[1],
 		    longitude = this._event.geometry.coordinates[0],
 		    points = [],
 		    img = document.createElement('img'),
@@ -233,18 +229,14 @@ define([
 				'size=500,500&' +
 				'type=map&' +
 				'imagetype=jpeg&' +
+				'zoom=8&' +
 				'pois='
 		];
-
-		for (i = 0, len = cities.length; i < len; i++) {
-			city = cities[i];
-			points.push('orange_1-' + (i+1) + ',' + city.latitude + ',' +
-					city.longitude);
-		}
 
 		points.push('red_1,' + latitude + ',' + longitude);
 
 		imgSrc.push(points.join('|'));
+		imgSrc.push('&center=' + latitude + ',' + longitude);
 		img.setAttribute('src', imgSrc.join(''));
 		imgLink.href = '#general_map';
 
