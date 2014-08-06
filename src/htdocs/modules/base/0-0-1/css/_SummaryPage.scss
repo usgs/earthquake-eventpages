@@ -4,7 +4,6 @@
 	display: block;
 	margin: 1em 0;
 	padding: 1em;
-	color:#444;
 	border: 1px solid #e5e5e5;
 	text-decoration:none;
 
@@ -35,6 +34,14 @@
 			}
 		}
 	}
+}
+
+a.summary,
+a.summary:visited,
+a.summary:active,
+a.summary:hover {
+	text-decoration:none;
+	color:#444;
 }
 
 .summary.preferred:before {
