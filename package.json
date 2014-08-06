@@ -46,7 +46,7 @@
     "quakeml-parser-js": "0.0.1",
     "hazdev-location-view": "0.0.6",
     "hazdev-question-view": "0.0.2",
-    "hazdev-webutils": "0.0.13",
+    "hazdev-webutils": "0.0.15",
     "hazdev-accordion": "0.0.1",
     "ini": "^1.2.1"
   },
