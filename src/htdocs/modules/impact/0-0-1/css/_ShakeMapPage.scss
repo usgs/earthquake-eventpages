@@ -3,19 +3,16 @@
 	color:#999;
 }
 
-.shakemap-summary {
-	> .info {
-		> span {
-			display:block;
-			margin:0;
+.shakemap-summary > .info > ul > li {
+		width:25%;
+		vertical-align: middle;
+
+		&.image {
+			width:2.5em;
+			margin-right:1em;
+			position:relative;
+			text-align:left;
 		}
-		> .mmi-summary {
-			display:inline-block;
-			padding:3px 6px;
-			text-align:center;
-			border-radius:3px;
-		}
-	}
 }
 
 .summary-thumbnail {
@@ -27,20 +24,18 @@
 	padding:0 10px;
 }
 
-.station-summary {
-	> li {
-		&.mmiI {
-			border:1px solid #eee;
-		}
+.shakemap-summary > .info > ul > li,
+.station-summary > li {
 
-		&.mmi {
-			color:#000;
-			text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
-			border-radius:2px;
+	&.mmi {
+		padding:5px;
+		color:#000;
+		text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
+		border-radius:2px;
+		background-image: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(0,0,0,0));
 
-			> abbr {
-				color:#000;
-			}
+		> abbr {
+			color:#666;
 		}
 	}
 }
@@ -75,6 +70,11 @@
 }
 
 @media screen and (min-width:768px) {
+
+	.shakemap-summary > .info > ul > li.image {
+			width:5.5em;
+	}
+
 	table.station-components {
 		> tbody > tr {
 			> .acc,

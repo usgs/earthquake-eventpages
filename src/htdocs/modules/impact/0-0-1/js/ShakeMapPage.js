@@ -540,26 +540,45 @@ define([
 	 */
 	ShakeMapPage.prototype._getSummaryInfo = function (product) {
 		var properties = product.properties,
+		    contents = product.contents,
 		    maxmmi = properties.maxmmi,
-		    contributor;
+		    source = Attribution.getContributor(product.source);
+
+		console.log(product);
 
 		maxmmi = ImpactUtil._translateMmi(maxmmi);
-		contributor = Attribution.getName(product.source);
 
-		return '<span class="mmi-summary roman mmi mmi'+ maxmmi + '">' + maxmmi +
-				'</span>' +
-				'<span class="contributor truncate">' + contributor + '</span>';
+		return '<ul>' +
+				'<li class="image">' +
+					'<img src="' + contents[SUMMARY_THUMBNAIL].url +
+							'" alt="' + THUMBNAIL_ALT + '" />' +
+				'</li>' +
+				'<li class="roman mmi mmi'+ maxmmi + '">' +
+					'<span>' + maxmmi + '</span>' +
+					'<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
+				'</li>' +
+				'<li>' +
+					'<span>' + Number(properties.magnitude).toFixed(1) + '</span>' +
+					'<abbr title="Magnitude">Mag</abbr>' +
+				'</li>' +
+				'<li>' +
+					'<span>' + product.source.toUpperCase() + '</span>' +
+					'<abbr title="' + (source ? source.title : 'Contributor') +
+							'">Source</abbr>' +
+				'</li>' +
+			'</ul>';
 	};
 
 	/**
 	 * Sets up thumbnail images for Smakemap event with 2 or more events
 	 * Currently uses intensity map
 	 */
-	ShakeMapPage.prototype._getSummaryHeader = function (product) {
-		var contents = product.contents;
+	ShakeMapPage.prototype._getSummaryHeader = function () {
+		// var contents = product.contents;
 
-		return '<img class="summary-thumbnail" src="' +
-				contents[SUMMARY_THUMBNAIL].url + '" alt=" ' + THUMBNAIL_ALT + ' " />';
+		// return '<img class="summary-thumbnail" src="' +
+		// 		contents[SUMMARY_THUMBNAIL].url + '" alt=" ' + THUMBNAIL_ALT + ' " />';
+		return '';
 	};
 
 	ShakeMapPage.prototype._setFooterMarkup = function () {
