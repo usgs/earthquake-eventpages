@@ -35,8 +35,6 @@ define([
 		    np2 = tensor.NP2,
 		    source = Attribution.getContributor(tensor.source);
 
-		console.log(tensor);
-
 		return [
 					'<ul>',
 						'<li class="image">',

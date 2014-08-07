@@ -544,8 +544,6 @@ define([
 		    maxmmi = properties.maxmmi,
 		    source = Attribution.getContributor(product.source);
 
-		console.log(product);
-
 		maxmmi = ImpactUtil._translateMmi(maxmmi);
 
 		return '<ul>' +

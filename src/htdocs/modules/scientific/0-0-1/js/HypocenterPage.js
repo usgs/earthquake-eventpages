@@ -710,24 +710,11 @@ define([
 	};
 
 	HypocenterPage.prototype._getSummaryMarkup = function (product) {
-		var formatter = this._options.formatter,
-		    source = Attribution.getContributor(product.source),
+		var source = Attribution.getContributor(product.source),
 		    p = product.properties,
-		    latitude = p.latitude,
-		    longitude = p.longitude,
 		    depth = p.depth,
 		    magnitude = p.magnitude,
 		    magnitudeType = p['magnitude-type'];
-
-		// return '<span class="location">' +
-		// 			formatter.location(latitude, longitude) +
-		// 		'</span>' +
-		// 		'<span class="depth">' +
-		// 			formatter.depth(depth, 'km') + ' depth' +
-		// 		'</span>' +
-		// 		'<span class="contributor truncate">' +
-		// 			Attribution.getName(source) +
-		// 		'</span>';
 
 		return '<ul>' +
 					'<li>' +
