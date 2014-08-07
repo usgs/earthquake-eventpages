@@ -344,7 +344,8 @@ define([
 		return [
 					'<ul>',
 						'<li class="image">',
-							'<img src="', this.getBeachball(tensor), '" />',
+							'<img src="', this.getBeachball(tensor), '" ',
+									'alt="Moment Tensort Beachball (', tensor.code, ')"/>',
 						'</li>',
 						'<li>',
 							'<span>', type, '</span>',
