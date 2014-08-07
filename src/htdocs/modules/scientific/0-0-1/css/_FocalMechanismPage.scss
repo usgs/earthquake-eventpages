@@ -1,3 +1,28 @@
 .mechanism-summary > ul > li {
-	width:25%;
+	//font-size:0.875em;
+	width:40%;
+	max-width: 150px;
+
+	&.image {
+		width:20%;
+		font-size:1rem;
+	}
+
+	i {
+		font-style:normal;
+		display:inline-block;
+		margin:0 2px;
+	}
+
+}
+
+@media screen and (min-width:768px) {
+
+	.mechanism-summary > ul > li {
+		width:25%;
+
+		i {
+			margin:0 4px;
+		}
+	}
 }

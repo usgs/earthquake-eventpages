@@ -31,12 +31,11 @@ define([
 
 
 	FocalMechanismPage.prototype._getSummaryMarkup = function (tensor) {
-		var formatter = this._options.formatter,
-		    magnitude = tensor.magnitude,
-		    percentDC = Math.round(tensor.percentDC * 100),
+		var np1 = tensor.NP1,
+		    np2 = tensor.NP2,
 		    source = Attribution.getContributor(tensor.source);
 
-		magnitude = formatter.magnitude(magnitude);
+		console.log(tensor);
 
 		return [
 					'<ul>',
@@ -44,14 +43,26 @@ define([
 							'<img src="', this.getBeachball(tensor), '" />',
 						'</li>',
 						'<li>',
-							'<span>', magnitude, '</span>',
-							'<abbr title="Magnitude">Mag</abbr>',
+							'<span>',
+								Math.round(np1.strike), '<i>/</i>',
+								Math.round(np1.dip), '<i>/</i>',
+								Math.round(np1.rake),
+							'</span>',
+							'<abbr title="Nodal Plane 1">',
+								'Strike<i>/</i>Dip<i>/</i>Rake</abbr>',
+							'</abbr>',
 						'</li>',
 						'<li>',
-							'<span>', percentDC, '</span>',
-							'<abbr title="Percent Double Couple">% DC</abbr>',
+							'<span>',
+								Math.round(np2.strike), '<i>/</i>',
+								Math.round(np2.dip), '<i>/</i>',
+								Math.round(np2.rake),
+							'</span>',
+							'<abbr title="Nodal Plane 2">',
+								'Strike<i>/</i>Dip<i>/</i>Rake</abbr>',
+							'</abbr>',
 						'</li>',
-						'<li>',
+						'<li class="summary-hide">',
 							'<span>', tensor.source.toUpperCase(), '</span>',
 							'<abbr title="', (source ? source.title : 'Contributor'),
 									'">Source</abbr>',
