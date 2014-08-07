@@ -68,7 +68,7 @@ define([
 			}
 
 			it('submit button is properly enabled/disabled for unknown events', function (done) {
-				form = new DYFIFormPage()
+				form = new DYFIFormPage();
 				form._fetchDialog(function () {
 
 					// Initially disabled
@@ -99,7 +99,7 @@ define([
 			});
 
 			it('submit button is properly enabled/disabled for regular events', function (done) {
-				form = new DYFIFormPage({eventDetails: {}})
+				form = new DYFIFormPage({eventDetails: {}});
 				form._fetchDialog(function () {
 					// Initially disabled
 					/* jshint -W030 */
