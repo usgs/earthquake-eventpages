@@ -5,11 +5,14 @@ define([
 	'use strict';
 
 	// TODO :: Configurable
-	var LOGO_ROOT = '/images/logos/';
+	var LOGO_ROOT = 'images/logos/';
 
 	var MULTI_MAP = {
 		AK: 'AK,AEIC',
 		AEIC: 'AK,AEIC',
+
+		AT: 'AT,ATWC',
+		ATWC: 'AT,ATWC',
 
 		PT: 'PT,PTWC',
 		PTWC: 'PT,PTWC',

@@ -636,7 +636,7 @@ define([
 		    standardError = p['standard-error'] || null,
 		    azimuthalGap = p['azimuthal-gap'] || null,
 		    reviewStatus = p['review-status'] || 'automatic',
-		    originSource = p['origin-source'] || eventSource,
+		    originSource = p['origin-source'] || product.source,
 		    magnitudeSource = p['magnitude-source'] || product.source;
 
 		buf.push('<table class="origin-detail responsive-vertical"><tbody>');
@@ -697,10 +697,10 @@ define([
 		buf.push(
 				'<tr><th scope="row">Event ID</th><td>', eventId, '</td></tr>',
 				'<tr><th scope="row">Magnitude Source</th><td>',
-						magnitudeSource,
+						Attribution.getName(magnitudeSource),
 						'</td></tr>',
 				'<tr><th scope="row">Location Source</th><td>',
-						originSource,
+						Attribution.getName(originSource),
 						'</td></tr>');
 
 
