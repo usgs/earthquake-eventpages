@@ -44,7 +44,7 @@ define([
 		markup.push(
 			'<div class="row">' +
 			'<div class="column five-of-ten">' +
-			'<div class="summary-map"></div>' +
+			this._getMapMarkup() +
 			'</div>' +
 			'<div class="column five-of-ten">' +
 			this._getTimeMarkup() +
@@ -64,11 +64,13 @@ define([
 
 		// Store references to containing elements for faster access
 		generalHeader = this._content.querySelector('.summary-general-header');
-		this.mapContainer = this._content.querySelector('.summary-map');
+		this.mapContainer = this._content.querySelector('img-map');
 		this.nearbyCities = this._content.querySelector('.summary-nearby-cities');
 		this.tectonicSummary = this._content.querySelector('.summary-tectonic-summary');
 		generalText = this._content.querySelector('.summary-general-text');
 		impactText = this._content.querySelector('.summary-impact-text');
+
+		this._addInteractiveMap(this.mapContainer);
 
 		// Fetch AJAX content and load it into the containers
 		try {
@@ -127,9 +129,6 @@ define([
 	};
 
 	SummaryPage.prototype._ajaxSuccess = function (geoserve) {
-
-		this._loadStaticMapContent(this.mapContainer, geoserve.cities);
-
 		if (!this._nearbyCitiesFlag) {
 			this._ajaxSuccessNearbyCities(geoserve.cities);
 		}
@@ -216,42 +215,30 @@ define([
 
 	};
 
-	SummaryPage.prototype._loadStaticMapContent = function (container, cities) {
-		var i = null,
-		    len = null,
-		    city = null,
-		    latitude = this._event.geometry.coordinates[1],
+	SummaryPage.prototype._getMapMarkup = function () {
+		var latitude = this._event.geometry.coordinates[1],
 		    longitude = this._event.geometry.coordinates[0],
-		    points = [],
-		    img = document.createElement('img'),
-		    imgSrc = null,
-		    imgLink = document.createElement('a');
+		    markup = [];
 
-		img.setAttribute('alt', 'Map');
-		imgSrc = ['http://www.mapquestapi.com/staticmap/v4/getmap?' +
+		markup.push('<div class="summary-map">' +
+			'<a href="#general_map">' +
+			'<img class="img-map" alt="Map" src="' +
+			'http://www.mapquestapi.com/staticmap/v4/getmap?' +
 				'key=Fmjtd%7Cluub2h0rnh%2Cb2%3Do5-9ut0g6&' +
 				'size=500,500&' +
 				'type=map&' +
 				'imagetype=jpeg&' +
-				'pois='
-		];
+				'zoom=8&' +
+				'center=' + latitude + ',' + longitude,'&' +
+				'pois=' + 'red_1,' + latitude + ',' + longitude + '">' +
+			'</a>' +
+			'</div>');
 
-		for (i = 0, len = cities.length; i < len; i++) {
-			city = cities[i];
-			points.push('orange_1-' + (i+1) + ',' + city.latitude + ',' +
-					city.longitude);
-		}
+		return markup.join('');
+	};
 
-		points.push('red_1,' + latitude + ',' + longitude);
-
-		imgSrc.push(points.join('|'));
-		img.setAttribute('src', imgSrc.join(''));
-		imgLink.href = '#general_map';
-
-		imgLink.appendChild(img);
-		container.appendChild(imgLink);
-
-		Util.addEvent(img, 'click', (function (_this) {
+	SummaryPage.prototype._addInteractiveMap = function (container) {
+		Util.addEvent(container, 'click', (function (_this) {
 			var callback = function callback () {
 				_this._showInteractiveMap();
 			};
