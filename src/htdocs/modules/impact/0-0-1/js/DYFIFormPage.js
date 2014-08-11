@@ -351,6 +351,7 @@ define([
 		    toggleContainer = fragment.appendChild(document.createElement('div')),
 		    moreQuestionsEl = fragment.appendChild(document.createElement('div')),
 		    contactContainer = document.createElement('div'),
+		    disclaimerEl = document.createElement('div'),
 		    locationInfo = data.locationInfo,
 		    baseQuestions = data.baseQuestions,
 		    eventTime = data.eventTime,
@@ -365,10 +366,9 @@ define([
 		contactContainer.classList.add('dyfi-contact-questions');
 
 		header.innerHTML = '<h3 class="felt-header">Felt Report</h3>' +
-				'<div class="dyfi-disclaimer">OMB No. 1028-0048' +
+				'<div class="omb-number">OMB No. 1028-0048' +
 				'<br/>Expires 05/31/2015' +
-				'<br/><a href="/research/dyfi/disclaimer.php#DYFIFormDisclaimer">' +
-						'Disclaimer</a></div>';
+				'</div>';
 
 		// Handle location question
 		__create_location_questions(locationInfo, baseQuestionsEl, questions);
@@ -395,6 +395,12 @@ define([
 				'<span class="subheader">Optional</span></h4>';
 		__create_text_questions(contactInfo, contactContainer, questions);
 		moreQuestionsEl.appendChild(contactContainer);
+
+		// Add disclaimer link
+		disclaimerEl.className = 'dyfi-disclaimer';
+		disclaimerEl.innerHTML ='<a href="/research/dyfi/disclaimer.php' +
+				'#DYFIFormDisclaimer">DYFI Form Disclaimer</a>';
+		moreQuestionsEl.appendChild(disclaimerEl);
 
 		// Hold on to this for later it is now an object{field: view}
 		this._questions = questions;

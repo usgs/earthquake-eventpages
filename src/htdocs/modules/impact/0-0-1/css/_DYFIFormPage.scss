@@ -191,16 +191,20 @@ $dyfi-question-indent: 1.3em;
 
 .felt-header {
 	border-bottom:1px solid #333;
-	padding: .5em 0;
+	padding: 0 0 0.5em;
 }
 
-.dyfi-disclaimer {
+.omb-number {
 	position: absolute;
 	text-align: right;
 	top:0;
 	right:0;
 	font-size: .8em;
 
+}
+
+.dyfi-disclaimer {
+	margin:1em 0;
 }
 
 .dyfi-form {
