@@ -1,4 +1,9 @@
+@import '../../../../../../node_modules/hazdev-webutils/src/mvc/ModalView';
+@import '../../../../../../node_modules/hazdev-webutils/src/mvc/DownloadView';
+
 .dyfi-responses {
+
+	margin-top:10px;
 
 	/* span with role="button" */
 	> .button {
@@ -17,10 +22,36 @@
 	}
 
 	.dyfi {
-		.hidden {
-			display:none;
+		> tbody > tr {
+
+			> .location {
+				line-height: 1.2;
+
+				> small {
+					display:block;
+					color:#999;
+				}
+			}
+
+			> td, > th {
+				display:none;
+			}
+
+			// Show only first 10 rows by default
+			@for $i from 1 through 10 {
+				&:nth-child(#{$i}) > td, &:nth-child(#{$i}) > th {
+					display:table-cell;
+				}
+			}
 		}
-		.mmi span {
+
+		&.full-list > tbody > tr {
+			td, th {
+				display:table-cell;
+			}
+		}
+
+		.mmi > span {
 			display:block;
 			padding:10px 0;
 			text-align:center;
@@ -71,10 +102,34 @@
 	}
 
 	.dyfi-responses {
+		margin-top:15px;
 		.dyfi {
-			.mmi span {
-				padding:5px 0;
-				width:50px;
+			> tbody > tr {
+
+				> .location > small {
+					display: inline;
+				}
+
+				> td, > th {
+					display:none;
+				}
+
+				@for $i from 1 through 10 {
+					&:nth-child(#{$i}) > td, &:nth-child(#{$i}) > th {
+						display:block;
+					}
+				}
+			}
+
+			&.full-list > tbody > tr {
+				td, th {
+					display:block;
+				}
+			}
+
+			.mmi > span {
+				width:2em;
+				padding:0;
 			}
 		}
 	}

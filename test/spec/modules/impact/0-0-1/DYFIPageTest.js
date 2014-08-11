@@ -87,24 +87,27 @@ define([
 			    module_info = {hash:'dyfi', title:'Did You Feel It?',
 							eventDetails:event, module:module};
 
-			beforeEach(function() {
-
-				stub = sinon.stub(Xhr, 'ajax', function () {
+			beforeEach(function () {
+				stub = sinon.stub(Xhr, 'ajax', function (options) {
 					var xmlDoc;
 					if (window.DOMParser) {
-						var parser=new DOMParser();
-						xmlDoc=parser.parseFromString(cdi_zip.xml,'text/xml');
+						var parser = new DOMParser();
+						xmlDoc = parser.parseFromString(cdi_zip.xml,'text/xml');
 					}
-					content = DYFIPage.prototype._buildResponsesTable(
-							DYFIPage.prototype._buildResponsesArray(xmlDoc));
+					options.success(xmlDoc, {responseXML: xmlDoc});
+					// content = DYFIPage.prototype._buildResponsesTable(
+					// 		DYFIPage.prototype._buildResponsesArray(xmlDoc));
 				});
 
 				page = new DYFIPage(module_info);
 				page._setContentMarkup();
 
+				// Select responses tab
+				page._tablist._tabs[page._tablist._tabs.length - 1].select();
+
+				content = page._content;
 				tbody = content.querySelector('tbody');
 				rows  = tbody.querySelectorAll('tr');
-				hiddenRows = tbody.querySelectorAll('.hidden');
 			});
 
 			afterEach(function() {
@@ -114,10 +117,6 @@ define([
 			it('can get content.', function () {
 				// should equal 104
 				expect(rows.length).not.to.equal(0);
-			});
-
-			it('will only display 10 rows by default', function () {
-				expect(rows.length - hiddenRows.length).to.equal(10);
 			});
 
 			it('has all 104 locations from event "nc72119970" in the DOM',
