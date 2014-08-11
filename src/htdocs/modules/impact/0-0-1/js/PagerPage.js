@@ -253,6 +253,8 @@ define([
 			'<span class="disclaimer">' +
 				'*Estimated exposure only includes population within ' +
 				'map area (k = x1,000)' +
+				'</br><a href="http://earthquake.usgs.gov/research/shakemap/#intmaps">'+
+				'Modified Mercalli Intensity (MMI) scale</a>' +
 			'</span>'
 		);
 
