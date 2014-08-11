@@ -180,7 +180,7 @@
 				{"value": "_crackchim", "label": "Cracks in chimney"},
 				{"value": "_crackwindows", "label": "One or several cracked windows"},
 				{"value": "_brokenwindows", "label": "Many windows cracked or some broken out"},
-				{"value": "_masonryfell", "label": "Masonry fell from block or brikc wall(s)"},
+				{"value": "_masonryfell", "label": "Masonry fell from block or brick wall(s)"},
 				{"value": "_majoroldchim", "label": "Old chimney, major damage or fell down"},
 				{"value": "_majormodernchim", "label": "Modern chimney, major damage or fell down"},
 				{"value": "_tiltedwall", "label": "Outside wall(s) tilted over or collapsed completely"},
