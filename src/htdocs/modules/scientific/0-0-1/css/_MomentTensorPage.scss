@@ -1,5 +1,9 @@
 .tensor-summary  > ul > li {
 	width:20%;
+
+	.units {
+		margin-left:2px;
+	}
 }
 
 .tensor-detail {
@@ -72,5 +76,9 @@
 
 	.tensor-summary > ul > li {
 		width:16.6%;
+
+		.units {
+			margin-left:4px;
+		}
 	}
 }

@@ -356,7 +356,7 @@ define([
 							'<abbr title="Magnitude">Mag</abbr>',
 						'</li>',
 						'<li>',
-							'<span>', depth, '</span>',
+							'<span>', depth, '<span class="units">km</span></span>',
 							'<abbr title="Depth (km)">Depth</abbr>',
 						'</li>',
 						'<li>',
