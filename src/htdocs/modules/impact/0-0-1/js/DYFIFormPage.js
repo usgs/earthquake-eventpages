@@ -351,7 +351,7 @@ define([
 		    toggleContainer = fragment.appendChild(document.createElement('div')),
 		    moreQuestionsEl = fragment.appendChild(document.createElement('div')),
 		    contactContainer = document.createElement('div'),
-		    disclaimerEl = document.createElement('div'),
+		    disclaimerEl = document.createElement('a'),
 		    locationInfo = data.locationInfo,
 		    baseQuestions = data.baseQuestions,
 		    eventTime = data.eventTime,
@@ -398,9 +398,9 @@ define([
 
 		// Add disclaimer link
 		disclaimerEl.className = 'dyfi-disclaimer';
-		disclaimerEl.innerHTML ='<a href="/research/dyfi/disclaimer.php' +
-				'#DYFIFormDisclaimer">DYFI Form Disclaimer</a>';
-		moreQuestionsEl.appendChild(disclaimerEl);
+		disclaimerEl.href = '/research/dyfi/disclaimer.php#DYFIFormDisclaimer';
+		disclaimerEl.innerHTML = 'Disclaimers';
+		contactContainer.appendChild(disclaimerEl);
 
 		// Hold on to this for later it is now an object{field: view}
 		this._questions = questions;
