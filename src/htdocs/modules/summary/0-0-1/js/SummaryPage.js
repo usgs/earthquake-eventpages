@@ -64,13 +64,10 @@ define([
 
 		// Store references to containing elements for faster access
 		generalHeader = this._content.querySelector('.summary-general-header');
-		this.mapContainer = this._content.querySelector('img-map');
 		this.nearbyCities = this._content.querySelector('.summary-nearby-cities');
 		this.tectonicSummary = this._content.querySelector('.summary-tectonic-summary');
 		generalText = this._content.querySelector('.summary-general-text');
 		impactText = this._content.querySelector('.summary-impact-text');
-
-		this._addInteractiveMap(this.mapContainer);
 
 		// Fetch AJAX content and load it into the containers
 		try {
@@ -222,7 +219,7 @@ define([
 
 		markup.push('<div class="summary-map">' +
 			'<a href="#general_map">' +
-			'<img class="img-map" alt="Map" src="' +
+			'<img alt="Map" src="' +
 			'http://www.mapquestapi.com/staticmap/v4/getmap?' +
 				'key=Fmjtd%7Cluub2h0rnh%2Cb2%3Do5-9ut0g6&' +
 				'size=500,500&' +
@@ -235,15 +232,6 @@ define([
 			'</div>');
 
 		return markup.join('');
-	};
-
-	SummaryPage.prototype._addInteractiveMap = function (container) {
-		Util.addEvent(container, 'click', (function (_this) {
-			var callback = function callback () {
-				_this._showInteractiveMap();
-			};
-			return callback;
-		})(this));
 	};
 
 	SummaryPage.prototype._getMoreInformationMarkup = function () {
@@ -360,19 +348,6 @@ define([
 		}
 
 		return toshow;
-	};
-
-	SummaryPage.prototype._showInteractiveMap = function () {
-		var _this = this;
-
-		require(['summary/InteractiveMap'], function (InteractiveMap) {
-			if (!_this._interactiveMap) {
-				_this._interactiveMap = new InteractiveMap({
-						eventDetails: _this._event});
-			}
-
-			_this._interactiveMap.show(document.body);
-		});
 	};
 
 		// TODO :: Move these date formatting methods to a utility class for re-use.
