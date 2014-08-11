@@ -53,12 +53,11 @@ define([
 				'</div>' +
 			'</div>'
 			);
-		markup.push(this._getMoreInformationMarkup());
 		markup.push(this._getTextContentMarkup('tectonic-summary'));
 		markup.push(this._getTextContentMarkup('general-text'));
 		markup.push(this._getTextContentMarkup('impact-text'));
-
 		markup.push(this._getAttributionMarkup());
+		markup.push(this._getMoreInformationMarkup());
 
 		this._content.innerHTML = markup.join('');
 
@@ -180,7 +179,8 @@ define([
 				this._formatDate(time, 0) +
 				'</li>' +
 				'<li>' +
-				this._formatDate(time, -1 * properties.tz) +
+				this._formatDate(time, properties.tz) +
+				' at epicenter' +
 				'</li>' +
 				'<li>' +
 				this._getOtherTimeZoneLink(time) +
