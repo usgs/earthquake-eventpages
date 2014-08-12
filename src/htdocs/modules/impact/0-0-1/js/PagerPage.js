@@ -52,22 +52,24 @@ define([
 		this._content.classList.add('pager');
 		this._content.innerHTML =
 			'<div class="alert-wrapper row"></div>' +
-			'<div class="row right-to-left">' +
-				'<h3>Estimated Population Exposure to Earthquake Shaking</h3>' +
-				'<div class="map-wrapper column one-of-two">' +
-					'<figure>' +
-						'<img src="' + contents['exposure.png'].url +
-								'" alt="Population Exposure Map"/>' +
-						'<figcaption>' +
-							'Population per ~1 sq. km. from LandScan' +
-						'</figcaption>' +
-					'</figure>' +
+			'<div class="row">' +
+				'<div class="column one-of-two">' +
+					'<h3>Estimated Population Exposure to Earthquake Shaking</h3>' +
+					'<div class="map-wrapper">' +
+						'<figure>' +
+							'<img src="' + contents['exposure.png'].url +
+									'" alt="Population Exposure Map"/>' +
+							'<figcaption>' +
+								'Population per ~1 sq. km. from LandScan' +
+							'</figcaption>' +
+						'</figure>' +
+					'</div>' +
+					'<div class="exposure-wrapper"></div>' +
 				'</div>' +
-				'<div class="exposure-wrapper column one-of-two"></div>' +
-			'</div>' +
-			'<div class="row right-to-left">' +
-				'<div class="comment-wrapper column one-of-two"></div>' +
-				'<div class="city-wrapper column one-of-two"></div>' +
+				'<div class="column one-of-two">' +
+					'<div class="comment-wrapper"></div>' +
+					'<div class="city-wrapper"></div>' +
+				'</div>' +
 			'</div>';
 
 		// Store these for later. See _renderPage
@@ -173,12 +175,14 @@ define([
 			econMarkup =
 				'<div class="column one-of-two">' +
 					'<h3>Estimated Economic Losses</h3>' +
-					'<a href="' + contents['alertecon.pdf'].url + '">' +
-						'<img src="' + contents['alertecon.png'].url + '" alt=""/>' +
-					'</a>' +
-					'<p>' +
-						((comments.length === 2) ? comments[1] : comments[0]) +
-					'</p>' +
+					'<figure>' +
+						'<a href="' + contents['alertecon.pdf'].url + '">' +
+							'<img src="' + contents['alertecon.png'].url + '" alt=""/>' +
+						'</a>' +
+						'<figcaption>' +
+							((comments.length === 2) ? comments[1] : comments[0]) +
+						'</figcaption>' +
+					'</figure>' +
 				'</div>';
 		}
 
@@ -190,10 +194,13 @@ define([
 			fatMarkup =
 				'<div class="column one-of-two">' +
 					'<h3>Estimated Fatalities</h3>' +
-					'<a href="' + contents['alertfatal.pdf'].url + '">' +
-						'<img src="' + contents['alertfatal.png'].url + '" alt=""/>' +
-					'</a>' +
-					((comments.length === 2) ? '<p>' + comments[0] + '</p>' : '') +
+					'<figure>' +
+						'<a href="' + contents['alertfatal.pdf'].url + '">' +
+							'<img src="' + contents['alertfatal.png'].url + '" alt=""/>' +
+						'</a>' +
+						((comments.length === 2) ?
+								'<figcaption>' + comments[0] + '</figcaption>' : '') +
+					'</figure>' +
 				'</div>';
 		}
 

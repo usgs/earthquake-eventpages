@@ -84,7 +84,7 @@ define([
 			it('contains all expected comments', function () {
 				expect(container.querySelectorAll('.comment-wrapper > div'))
 						.to.have.length(2);
-				expect(container.querySelectorAll('.alert-wrapper p'))
+				expect(container.querySelectorAll('.alert-wrapper figcaption'))
 						.to.have.length(2);
 			});
 
