@@ -112,14 +112,16 @@ define([
 			title: 'MMI',
 			sortBy: function (response) {
 				return response.cdi;
-			}
+			},
+			descending: true
 		},
 		{
 			id: 'numResp',
 			title: 'Responses',
 			sortBy: function (response) {
 				return response.nresp;
-			}
+			},
+			descending: true
 		},
 		{
 			id: 'distance',
