@@ -205,7 +205,7 @@ define([
 
 					if (responses.data().length > 10) {
 						_this._addToggleButton(container,
-								container.querySelector('.responsive'));
+								container.querySelector('.datatable-data'));
 					}
 				});
 

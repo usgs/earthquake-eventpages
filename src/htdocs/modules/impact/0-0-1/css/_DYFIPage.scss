@@ -45,18 +45,18 @@
 			}
 		}
 
-		&.full-list > tbody > tr {
-			td, th {
-				display:table-cell;
-			}
-		}
-
 		.mmi > span {
 			display:block;
 			padding:10px 0;
 			text-align:center;
 			border-radius:2px;
 			text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
+		}
+	}
+
+	.full-list > .dyfi > tbody > tr {
+		td, th {
+			display:table-cell;
 		}
 	}
 }
@@ -104,6 +104,11 @@
 	.dyfi-responses {
 		margin-top:15px;
 		.dyfi {
+			/*** Label the data ***/
+			td:nth-of-type(1):before { content:"MMI"; }
+			td:nth-of-type(2):before { content:"Responses"; }
+			td:nth-of-type(3):before { content:"Distance"; }
+
 			> tbody > tr {
 
 				> .location > small {
@@ -121,12 +126,6 @@
 				}
 			}
 
-			&.full-list > tbody > tr {
-				td, th {
-					display:block;
-				}
-			}
-
 			.mmi > span {
 				width:2em;
 				padding:0;
@@ -134,10 +133,9 @@
 		}
 	}
 
-	.dyfi {
-		/*** Label the data ***/
-		td:nth-of-type(1):before { content:"MMI"; }
-		td:nth-of-type(2):before { content:"Responses"; }
-		td:nth-of-type(3):before { content:"Distance"; }
+	.full-list > .dyfi > tbody > tr {
+		td, th {
+			display:block;
+		}
 	}
 }
