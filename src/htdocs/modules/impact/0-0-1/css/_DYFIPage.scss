@@ -1,4 +1,9 @@
+@import '../../../../../../node_modules/hazdev-webutils/src/mvc/ModalView';
+@import '../../../../../../node_modules/hazdev-webutils/src/mvc/DownloadView';
+
 .dyfi-responses {
+
+	margin-top:10px;
 
 	/* span with role="button" */
 	> .button {
@@ -17,15 +22,41 @@
 	}
 
 	.dyfi {
-		.hidden {
-			display:none;
+		> tbody > tr {
+
+			> .location {
+				line-height: 1.2;
+
+				> small {
+					display:block;
+					color:#999;
+				}
+			}
+
+			> td, > th {
+				display:none;
+			}
+
+			// Show only first 10 rows by default
+			@for $i from 1 through 10 {
+				&:nth-child(#{$i}) > td, &:nth-child(#{$i}) > th {
+					display:table-cell;
+				}
+			}
 		}
-		.mmi span {
+
+		.mmi > span {
 			display:block;
 			padding:10px 0;
 			text-align:center;
 			border-radius:2px;
 			text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
+		}
+	}
+
+	.full-list > .dyfi > tbody > tr {
+		td, th {
+			display:table-cell;
 		}
 	}
 }
@@ -71,18 +102,40 @@
 	}
 
 	.dyfi-responses {
+		margin-top:15px;
 		.dyfi {
-			.mmi span {
-				padding:5px 0;
-				width:50px;
+			/*** Label the data ***/
+			td:nth-of-type(1):before { content:"MMI"; }
+			td:nth-of-type(2):before { content:"Responses"; }
+			td:nth-of-type(3):before { content:"Distance"; }
+
+			> tbody > tr {
+
+				> .location > small {
+					display: inline;
+				}
+
+				> td, > th {
+					display:none;
+				}
+
+				@for $i from 1 through 10 {
+					&:nth-child(#{$i}) > td, &:nth-child(#{$i}) > th {
+						display:block;
+					}
+				}
+			}
+
+			.mmi > span {
+				width:2em;
+				padding:0;
 			}
 		}
-	}
 
-	.dyfi {
-		/*** Label the data ***/
-		td:nth-of-type(1):before { content:"MMI"; }
-		td:nth-of-type(2):before { content:"Responses"; }
-		td:nth-of-type(3):before { content:"Distance"; }
+		.full-list > .dyfi > tbody > tr {
+			td, th {
+				display:block;
+			}
+		}
 	}
 }

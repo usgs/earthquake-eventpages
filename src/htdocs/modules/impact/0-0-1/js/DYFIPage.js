@@ -1,5 +1,7 @@
 /* global define */
 define([
+	'mvc/Collection',
+	'mvc/DataTable',
 	'util/Util',
 	'base/EventModulePage',
 	'tablist/Tablist',
@@ -7,6 +9,8 @@ define([
 	'./TabListUtil',
 	'./ImpactUtil'
 ], function (
+	Collection,
+	DataTable,
 	Util,
 	EventModulePage,
 	TabList,
@@ -51,6 +55,80 @@ define([
 		{
 			title:'Responses Vs. Time',
 			suffix:'_plot_numresp.jpg'
+		}
+	];
+
+	var RESPONSE_DATA_COLUMNS = [
+		{
+			className: 'location',
+			title: 'Location',
+			format: function (response) {
+				return response.name + ', ' + response.state + ' ' + response.zip +
+						'<small>' + response.country + '</small>';
+			},
+			downloadFormat: function (response) {
+				return response.name + ', ' + response.state + ' ' + response.zip +
+						response.country;
+			},
+			header: true
+		},
+		{
+			className: 'mmi',
+			title: 'MMI',
+			format: function (response) {
+				var roman = ImpactUtil._translateMmi(response.cdi);
+				return '<span class="mmi' + roman + '">' + roman + '</span>';
+			},
+			downloadFormat: function (response) {
+				return ImpactUtil._translateMmi(response.cdi);
+			}
+		},
+		{
+			className: 'numResp',
+			title: 'Responses',
+			format: function (response) {
+				return response.nresp;
+			}
+		},
+		{
+			className: 'distance',
+			title: 'Distance',
+			format: function (response) {
+				return response.dist;
+			}
+		}
+	];
+
+	var RESPONSE_DATA_SORTS = [
+		{
+			id: 'location',
+			title: 'Location',
+			sortBy: function (response) {
+				return response.name;
+			}
+		},
+		{
+			id: 'mmi',
+			title: 'MMI',
+			sortBy: function (response) {
+				return response.cdi;
+			},
+			descending: true
+		},
+		{
+			id: 'numResp',
+			title: 'Responses',
+			sortBy: function (response) {
+				return response.nresp;
+			},
+			descending: true
+		},
+		{
+			id: 'distance',
+			title: 'Distance',
+			sortBy: function (response) {
+				return response.dist;
+			}
 		}
 	];
 
@@ -114,10 +192,21 @@ define([
 				container.innerHTML =
 						'<p>Loading DYFI Responses data from XML,please wait...</p>';
 
-				_this._getDYFIResponses(function (content) {
-					// add station list content
-					container.innerHTML = '';
-					container.appendChild(content);
+				_this._getDYFIResponses(function (responses) {
+					_this._responseTable = new DataTable({
+						el: container,
+						className: 'responsive dyfi',
+						collection: responses,
+						emptyMarkup: '<p class="error alert">No Response Data Exists</p>',
+						columns: RESPONSE_DATA_COLUMNS,
+						sorts: RESPONSE_DATA_SORTS,
+						defaultSort: 'distance'
+					});
+
+					if (responses.data().length > 10) {
+						_this._addToggleButton(container,
+								container.querySelector('.datatable-data'));
+					}
 				});
 
 				// return panel content
@@ -132,8 +221,7 @@ define([
 		Xhr.ajax({
 			url: this._dyfi.contents['cdi_zip.xml'].url,
 			success: function (data, xhr) {
-				callback(_this._buildResponsesTable(_this._buildResponsesArray(
-						xhr.responseXML)));
+				callback(_this._buildResponsesCollection(xhr.responseXML));
 			},
 			error: function () {
 				var output = document.createElement('p');
@@ -144,22 +232,27 @@ define([
 		});
 	};
 
-	DYFIPage.prototype._buildResponsesArray = function (xmlDoc) {
+	DYFIPage.prototype._buildResponsesCollection = function (xmlDoc) {
 
 		var data = xmlDoc.getElementsByTagName('location'),
-		    responsesArray = [];
+		    responsesArray = [],
+		    locationName, locations, location,
+		    node, nodeName, nodeValue;
 
 		for (var x = 0; x < data.length; x++) {
 
-			var locationName = data[x].getAttribute('name'),
-			    locations = data[x].childNodes,
-			    location = {};
+			locationName = data[x].getAttribute('name');
+			locations = data[x].childNodes;
+			location = {
+				id: x,  // Assign an ID for sorting caching
+				zip: '' // Provide empty default to prevent undefined
+			};
 
 			for (var i = 0; i < locations.length; i++) {
 
-				var node = locations[i],
-				    nodeName = node.nodeName,
-				    nodeValue = node.textContent;
+				node = locations[i];
+				nodeName = node.nodeName;
+				nodeValue = node.textContent;
 
 				if (nodeName === 'name' ||
 						nodeName === 'state' ||
@@ -189,111 +282,25 @@ define([
 			responsesArray.push(location);
 		}
 
-		return responsesArray;
+		return new Collection(responsesArray);
 	};
 
-	DYFIPage.prototype._buildResponsesTable = function (records) {
-		var responsesDiv;
+	DYFIPage.prototype._addToggleButton = function (container, table) {
+		var button = container.appendChild(document.createElement('span'));
 
-		if (records.length !== 0) {
+		button.setAttribute('role', 'button');
+		button.innerHTML = 'See All Responses';
+		button.className = 'button';
 
-			responsesDiv = document.createDocumentFragment();
-			records.sort(ImpactUtil._sortByDistance);
-
-			var tableMarkup = [
-				'<thead>',
-					'<tr>',
-						'<th>Location</th>',
-						'<th>',
-							'<abbr title="Modified Mercalli Intensity">MMI</abbr>',
-						'</th>',
-						'<th title="Number of responses">Responses</th>',
-						'<th title="Distance from epicenter">Distance</th>',
-					'</tr>',
-				'</thead>',
-				'<tbody>'
-			];
-
-			var responsesTable = document.createElement('table');
-			responsesTable.className = 'responsive dyfi';
-			var expandListLink = document.createElement('span');
-			expandListLink.setAttribute('role', 'button');
-			expandListLink.innerHTML = 'See All Responses';
-			expandListLink.id = 'showResponses';
-			expandListLink.className = 'button';
-
-
-			for (var i = 0; i < records.length; i++) {
-
-				var record = records[i];
-
-				if (i >= 10) {
-					tableMarkup.push('<tr class="hidden">');
-				} else {
-					tableMarkup.push('<tr>');
-				}
-
-				var romanNumeral = ImpactUtil._translateMmi(record.cdi);
-
-				tableMarkup.push(
-						'<th scope="row">',
-							record.name, ', ' ,record.state, ' ', record.zip,
-							'<small>', record.country,'</small>',
-						'</th>',
-						'<td class="mmi">',
-							'<span class="mmi', romanNumeral, '">', romanNumeral, '</span>',
-						'</td>',
-						'<td>',record.nresp,'</td>',
-						'<td>',record.dist,' km</td>',
-					'</tr>'
-				);
-
+		button.addEventListener('click', function (/*evt*/) {
+			if (table.classList.contains('full-list')) {
+				table.classList.remove('full-list');
+				button.innerHTML = 'Show All Responses';
+			} else {
+				table.classList.add('full-list');
+				button.innerHTML = 'Show Only First 10 Responses';
 			}
-
-			tableMarkup.push(
-					'</tbody>'
-			);
-
-			responsesTable.innerHTML = tableMarkup.join('');
-			responsesDiv.appendChild(responsesTable);
-
-			if (records.length > 10) {
-				responsesDiv.appendChild(expandListLink);
-			}
-
-			this._bindEvent(expandListLink, responsesTable);
-
-		} else {
-			// There are no records
-			var div = document.createElement('div');
-			div.className = 'dyfi-info';
-			div.innerHTML = 'No data available.';
-			this._content.appendChild(div);
-		}
-
-		return responsesDiv;
-	};
-
-	DYFIPage.prototype._bindEvent = function (linkDom, table) {
-
-		var allRecords;
-		var elementList = table.querySelectorAll('tr.hidden');
-
-		allRecords = function allRecords (linkDom, elementList) {
-			//remove button after expanding
-			linkDom.parentElement.removeChild(linkDom);
-
-			for (var i = 0; i < elementList.length; i++) {
-				// the only class is the "hidden" class
-				elementList[i].removeAttribute('class');
-			}
-		};
-
-		if (linkDom) {
-			Util.addEvent(linkDom, 'click', function () {
-					allRecords(linkDom, elementList);
-			});
-		}
+		});
 	};
 
 	DYFIPage.prototype._setFooterMarkup = function () {
