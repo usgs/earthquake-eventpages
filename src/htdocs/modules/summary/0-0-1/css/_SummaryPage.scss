@@ -6,3 +6,21 @@
 	list-style-type:none;
 	padding-left:0;
 }
+
+.summary-map {
+
+	> a {
+		position:relative;
+		display:inline-block;
+
+		background-size:32px 32px;
+		background-repeat:no-repeat;
+		background-position:center center;
+		background-image:url('../../../../images/star.png');
+
+		> img {
+			position:relative;
+			z-index:-1;
+		}
+	}
+}
