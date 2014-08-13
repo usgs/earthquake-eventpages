@@ -18,13 +18,36 @@
 
 		> a {
 			display: block;
-			background: #fff;
-			padding: 8px 15px;
-			margin-top: 8px;
+			float:left;
+			background-color: #fff;
+			padding: 6px;
 			text-align: center;
 			text-decoration: none;
+			line-height:1;
 			border-radius: 3px;
 			text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+			width:23.25%;
+			margin-left:2%;
+			max-width:100px;
+			overflow:hidden;
+			text-overflow:ellipsis;
+
+			&:first-child {
+				margin-left:0;
+			}
+
+			> strong, > span {
+				display:block;
+			}
+
+			> strong {
+				font-size:.8em;
+			}
+
+			> small {
+				font-size:.6875em;
+				color:#444;
+			}
 		}
 
 		> a:hover {
@@ -37,9 +60,17 @@
 			text-align:left;
 			display:inline-block;
 			font-size:0; /* removes hover effect that spills over */
+			max-height:41px;
+			max-width:96px;
+			border-bottom:1px solid #292772;
+
+			@media screen and (min-width:768px) {
+				max-height:44px;
+			}
 
 			img {
 				border-radius:3px;
+				max-width:none;
 			}
 		}
 	}
@@ -84,9 +115,18 @@
 @media screen and (min-width: 768px) {
 	.event-header {
 		> .impact-bubbles {
+			> a > strong {
+				font-size:1em;
+			}
+		}
+	}
+}
+// Width for media query makes the switch from percentages to pixels smooth.
+@media screen and (min-width: 1088px) {
+	.event-header {
+		> .impact-bubbles {
 			> a {
-				float:left;
-				margin-right:16px;
+				margin-left:16px;
 			}
 		}
 	}
