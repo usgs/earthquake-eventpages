@@ -18,7 +18,7 @@ define([
 		mapWidth: 256,  // Width of resulting image in pixels
 		mapHeight: 256, // Height of resulting image in pixels
 
-		imageFormat: 'png',
+		imageFormat: 'jpg',
 		imageTransparent: 'true',
 		imageDpi: 96,
 	};
