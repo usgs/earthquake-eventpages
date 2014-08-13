@@ -6,7 +6,8 @@ define([
 	'base/Formatter',
 	'util/Xhr',
 	'util/Util',
-	'accordion/Accordion'
+	'accordion/Accordion',
+	'map/StaticMap'
 ], function (
 	Attribution,
 	EventModulePage,
@@ -14,7 +15,8 @@ define([
 	Formatter,
 	Xhr,
 	Util,
-	Accordion
+	Accordion,
+	StaticMap
 ) {
 	'use strict';
 
@@ -43,10 +45,10 @@ define([
 
 		markup.push(
 			'<div class="row">' +
-				'<div class="column five-of-ten">' +
+				'<div class="column five-of-ten summary-map">' +
 					this._getMapMarkup() +
 				'</div>' +
-				'<div class="column five-of-ten">' +
+				'<div class="column five-of-ten summary-info">' +
 					this._getTimeMarkup() +
 					this._getLocationMarkup() +
 					this._getTextContentMarkup('nearby-cities') +
@@ -214,24 +216,12 @@ define([
 
 	SummaryPage.prototype._getMapMarkup = function () {
 		var latitude = this._event.geometry.coordinates[1],
-		    longitude = this._event.geometry.coordinates[0],
-		    markup = [];
+		    longitude = this._event.geometry.coordinates[0];
 
-		markup.push('<div class="summary-map">' +
-			'<a href="#general_map">' +
-			'<img alt="Map" src="' +
-			'http://www.mapquestapi.com/staticmap/v4/getmap?' +
-				'key=Fmjtd%7Cluub2h0rnh%2Cb2%3Do5-9ut0g6&' +
-				'size=500,500&' +
-				'type=map&' +
-				'imagetype=jpeg&' +
-				'zoom=8&' +
-				'center=' + latitude + ',' + longitude,'&' +
-				'pois=' + 'red_1,' + latitude + ',' + longitude + '">' +
-			'</a>' +
-			'</div>');
-
-		return markup.join('');
+		return '<a href="#general_map">' +
+				StaticMap.getImageMarkup(
+						StaticMap.getExtent(longitude, latitude, 10),512, 512) +
+			'</a>';
 	};
 
 	SummaryPage.prototype._getMoreInformationMarkup = function () {
