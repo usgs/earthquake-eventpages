@@ -40,3 +40,17 @@
 	float:left;
 	margin-right:1em;
 }
+
+.tablist-panel {
+	padding:0 1em;
+}
+
+table.tabular {
+	font-size:0.9375em;
+}
+
+@media screen and (min-width:560px) {
+	table.tabular {
+		font-size:0.875em;
+	}
+}
