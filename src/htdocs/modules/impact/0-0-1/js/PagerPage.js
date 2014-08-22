@@ -237,7 +237,7 @@ define([
 				.properties.maxmmi);
 
 		markup.push(
-			'<table class="pager-exposures">' +
+			'<table class="tabular pager-exposures">' +
 				'<thead>' +
 					'<tr>' +
 						'<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +
@@ -327,7 +327,7 @@ define([
 		}
 
 		markup.push(
-			'<table class="pager-cities">' +
+			'<table class="tabular pager-cities">' +
 				'<thead>' +
 					'<tr>' +
 						'<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +

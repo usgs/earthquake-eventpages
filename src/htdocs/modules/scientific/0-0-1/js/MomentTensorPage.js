@@ -67,7 +67,7 @@ define([
 		// set layout
 		el.className = 'tensor-detail';
 		el.innerHTML = [
-			'<h3>', this._getTitle(tensor), '</h3>',
+			this._getTitle(tensor),
 			'<div class="row clearfix">',
 				'<div class="column one-of-two">',
 					this._getInfo(tensor),
@@ -147,7 +147,7 @@ define([
 		contributor = Attribution.getName(contributor);
 
 		return [
-			'<table class="info-table responsive-vertical"><tbody>',
+			'<table class="tabular info-table"><tbody>',
 			'<tr><th scope="row">Moment</th>',
 				'<td>', moment, '</td></tr>',
 			'<tr><th scope="row">Magnitude</th>',
@@ -192,7 +192,7 @@ define([
 		} else {
 			title = type;
 		}
-		return title;
+		return '<h3>' + title + '</h3>';
 	};
 
 
@@ -239,7 +239,7 @@ define([
 
 		return [
 				'<h4>Principal Axes</h4>',
-				'<table class="principal-axes-table responsive-vertical">',
+				'<table class="tabular center principal-axes-table">',
 				'<thead><tr>',
 					'<th>Axis</th>',
 					'<th>Value</th>',
@@ -284,7 +284,7 @@ define([
 
 		return [
 				'<h4>Nodal Planes</h4>',
-				'<table class="nodal-plane-table responsive-vertical">',
+				'<table class="tabular center nodal-plane-table">',
 				'<thead><tr>',
 					'<th>Plane</th>',
 					'<th>Strike</th>',

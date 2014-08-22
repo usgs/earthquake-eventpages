@@ -417,7 +417,7 @@ define([
 		}
 
 		return [
-			'<table class="responsive station-components">',
+			'<table class="tabular responsive station-components">',
 				'<thead>',
 					'<tr>',
 						'<th>name</th>',

@@ -405,7 +405,7 @@ define([
 
 		this._phaseTable = new DataTable({
 			el: phaseEl.querySelector('.datatable'),
-			className: 'responsive hypocenter-phase',
+			className: 'tabular responsive hypocenter-phase',
 			collection: new Collection(preferred.arrivals),
 			emptyMarkup: '<p class="error alert">No Phase Data Exists</p>',
 			columns: PHASE_DATA_COLUMNS,
@@ -490,7 +490,7 @@ define([
 			buf.push('<p>No amplitudes contributed for this magnitude</p>');
 		} else {
 			buf.push(
-				'<table class="responsive networkmagnitude-stations">',
+				'<table class="tabular responsive networkmagnitude-stations">',
 					'<thead><tr>',
 						'<th>',
 							'<abbr title="Network Station Channel Location">Channel</abbr>',
@@ -639,7 +639,7 @@ define([
 		    originSource = p['origin-source'] || product.source,
 		    magnitudeSource = p['magnitude-source'] || product.source;
 
-		buf.push('<table class="origin-detail responsive-vertical"><tbody>');
+		buf.push('<table class="tabular origin-detail"><tbody>');
 
 
 		buf.push('<tr><th scope="row">Magnitude</th><td>',

@@ -79,7 +79,7 @@ define([
 	 */
 	FocalMechanismPage.prototype._getInfo = function (tensor) {
 		return [
-			'<table class="info-table responsive-vertical"><tbody>',
+			'<table class="tabular info-table"><tbody>',
 			'<tr><th scope="row">Author</th>',
 				'<td>', tensor.source, '</td></tr>',
 			'<tr><th scope="row">Catalog</th>',
@@ -98,6 +98,17 @@ define([
 	 * @return {String} empty string, don't show axes for mechanism.
 	 */
 	FocalMechanismPage.prototype._getAxes = function () {
+		return '';
+	};
+
+	/**
+	 * Format focal mechanism title.
+	 *
+	 * @param tensor {Tensor}
+	 *        tensor to format.
+	 * @return {String} title for focal mechanism detail area.
+	 */
+	FocalMechanismPage.prototype._getTitle = function () {
 		return '';
 	};
 
