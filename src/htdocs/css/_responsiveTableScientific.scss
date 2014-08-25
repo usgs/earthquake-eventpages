@@ -4,24 +4,28 @@
 	border:1px solid #ddd;
 	background:#f6f6f6;
 	color:#666;
-	margin:10px 0;
-	padding:10px 15px;
+	margin:1em 0;
+	padding:1em;
 
 	> h3 {
 		display: block;
 		margin:0;
 		color:#444;
 		font-weight:normal;
-		padding-right:70px;
+		padding-right:3.5em;
 		overflow:hidden;
 		white-space:nowrap;
 		text-overflow:ellipsis;
 
 		> em {
-			padding-right:10px;
+			padding-right:0.5em;
 			font-weight:bold;
 			font-style:normal;
 		}
+	}
+
+	table {
+		margin-bottom:0;
 	}
 
 	abbr {
@@ -30,12 +34,11 @@
 
 	> .accordion-toggle {
 		position:absolute;
-		top:3px;
-		right:15px;
-		margin:10px 0 0px;
+		top:1em;
+		right:1em;
 		color:#00f;
-		padding:2px;
-		font-size:12px;
+		padding:0;
+		font-size:0.875em;
 
 		&:hover {
 			text-decoration: underline;
@@ -45,7 +48,7 @@
 
 .station-summary,
 .networkmagnitude-summary {
-	margin:10px 0 0;
+	margin:1em 0 0;
 	padding:0;
 
 	> li {

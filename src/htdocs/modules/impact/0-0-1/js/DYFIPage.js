@@ -195,7 +195,7 @@ define([
 				_this._getDYFIResponses(function (responses) {
 					_this._responseTable = new DataTable({
 						el: container,
-						className: 'responsive dyfi',
+						className: 'tabular responsive dyfi',
 						collection: responses,
 						emptyMarkup: '<p class="error alert">No Response Data Exists</p>',
 						columns: RESPONSE_DATA_COLUMNS,

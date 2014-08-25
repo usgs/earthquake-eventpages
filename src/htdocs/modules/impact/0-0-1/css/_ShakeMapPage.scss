@@ -6,10 +6,6 @@
 	color:#999;
 }
 
-.shakemap > .tablist-panel {
-	padding:0 10px;
-}
-
 .station-summary > li {
 
 	&.mmi {
@@ -30,19 +26,19 @@
 
 	> dl {
 		color:#666;
-		font-size:13px;
-		margin:15px 0;
+		font-size:0.875em;
+		margin:1em 0;
 
 		> dt {
 			font-weight:bold;
 			float:left;
-			width:60px;
+			width:6em;
 		}
 
 		> dd {
 			-webkit-margin-start:0;
 			-moz-margin-start:0;
-			padding-left:70px;
+			padding-left:6em;
 
 			&:after {
 				content:'';
@@ -53,10 +49,16 @@
 	}
 }
 
-@media screen and (min-width:768px) {
+@media screen and (min-width:560px) {
 
 	table.station-components {
 		> tbody > tr {
+			background: #fafafa;
+
+			> th {
+				font-weight:normal;
+				background:none;
+			}
 			> .acc,
 			> .vel,
 			> .psa03,
@@ -68,7 +70,7 @@
 	}
 }
 
-@media screen and (max-width:767px) {
+@media screen and (max-width:559px) {
 	// Impact -> Shakemap -> Staion List
 	table.station-components {
 		td:nth-of-type(1):before { content:'acc'; }

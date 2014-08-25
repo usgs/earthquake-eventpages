@@ -45,10 +45,10 @@ define([
 
 		markup.push(
 			'<div class="row">' +
-				'<div class="column five-of-ten summary-map">' +
+				'<div class="column one-of-two summary-map">' +
 					this._getMapMarkup() +
 				'</div>' +
-				'<div class="column five-of-ten summary-info">' +
+				'<div class="column one-of-two summary-info">' +
 					this._getTimeMarkup() +
 					this._getLocationMarkup() +
 					this._getTextContentMarkup('nearby-cities') +
