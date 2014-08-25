@@ -73,13 +73,13 @@ define([
 		// Fetch AJAX content and load it into the containers
 		try {
 			Xhr.ajax({
-					url: this._event.properties.products.geoserve[0]
-							.contents['geoserve.json'].url,
-					success: function (geoserve) {
-						_this._ajaxSuccess(geoserve);
+					url: this._event.properties.products['tectonic-summary'][0]
+							.contents['tectonic-summary.inc.html'].url,
+					success: function (tectonicSummary) {
+						_this._ajaxSuccessTectonicSummary(tectonicSummary);
 					},
 					error: function () {
-						_this._ajaxError();
+						_this._ajaxErrorTectonicSummary();
 					}
 				});
 		} catch (e) {
@@ -109,10 +109,7 @@ define([
 				'Additional Commentary');
 	};
 
-	SummaryPage.prototype._ajaxError = function () {
-		if (!this._nearbyCitiesFlag) {
-			this._ajaxErrorNearbyCities();
-		}
+	SummaryPage.prototype._ajaxErrorTectonicSummary = function () {
 		if (this.tectonicSummary) {
 			this.tectonicSummary.parentNode.removeChild(this.tectonicSummary);
 		}
@@ -126,16 +123,11 @@ define([
 		this.nearbyCities = null;
 	};
 
-	SummaryPage.prototype._ajaxSuccess = function (geoserve) {
-		if (!this._nearbyCitiesFlag) {
-			this._ajaxSuccessNearbyCities(geoserve.cities);
-		}
-
+	SummaryPage.prototype._ajaxSuccessTectonicSummary = function (tectonicSummary) {
 		if (this.tectonicSummary !== null) {
 			this.tectonicSummary.innerHTML = '<h3>Tectonic Summary</h3>' +
-					geoserve.tectonicSummary.text;
+					tectonicSummary;
 		}
-
 	};
 
 	SummaryPage.prototype._ajaxSuccessNearbyCities = function (nearbyCities) {
