@@ -12,7 +12,7 @@ define([
 	var DEFAULTS = {
 		title: 'Event Module',
 		hash: 'module',
-		cssUrl: require.toUrl('base/../css/index.css'),
+		cssUrl: require.toUrl('baseCss/index.css'),
 		dependencyLoader: 'base/EventModulePages',
 		pages: [
 			{

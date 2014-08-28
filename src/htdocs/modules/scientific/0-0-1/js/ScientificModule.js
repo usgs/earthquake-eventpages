@@ -13,7 +13,7 @@ define([
 	var DEFAULTS = {
 		title: 'Scientific',
 		hash: 'scientific',
-		cssUrl: require.toUrl('scientific/../css/index.css'),
+		cssUrl: require.toUrl('scientificCss/index.css'),
 		dependencyLoader: 'scientific/ScientificModuleDependencies',
 		pages: [
 			{

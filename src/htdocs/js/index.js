@@ -15,9 +15,13 @@ require.config({
 		accordion: 'hazdev-accordion/src',
 
 		base: 'modules/base/0-0-1/js',
+		baseCss: 'modules/base/0-0-1/css',
 		summary: 'modules/summary/0-0-1/js',
+		summaryCss: 'modules/summary/0-0-1/css',
 		impact: 'modules/impact/0-0-1/js',
-		scientific: 'modules/scientific/0-0-1/js'
+		impactCss: 'modules/impact/0-0-1/css',
+		scientific: 'modules/scientific/0-0-1/js',
+		scientificCss: 'modules/scientific/0-0-1/css'
 	},
 	shim: {
 		leaflet: {

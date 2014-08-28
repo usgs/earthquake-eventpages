@@ -11,7 +11,7 @@ define([
 	var DEFAULTS = {
 		title: 'General',
 		hash: 'general',
-		cssUrl: require.toUrl('summary/../css/index.css'),
+		cssUrl: require.toUrl('summaryCss/index.css'),
 		dependencyLoader: null,
 		pages: [
 			{

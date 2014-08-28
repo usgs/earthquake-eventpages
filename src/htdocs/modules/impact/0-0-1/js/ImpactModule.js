@@ -15,7 +15,7 @@ define([
 	var DEFAULTS = {
 		title: 'Impact',
 		hash: 'impact',
-		cssUrl: require.toUrl('impact/../css/index.css'),
+		cssUrl: require.toUrl('impactCss/index.css'),
 		dependencyLoader: null,
 		pages: [
 			{
