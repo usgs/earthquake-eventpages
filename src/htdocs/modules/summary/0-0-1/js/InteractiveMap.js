@@ -41,7 +41,8 @@ define([
 		    faultsLayer = null,
 		    latitude = null,
 		    longitude = null,
-		    epicenterMarker;
+		    epicenterMarker,
+		    map;
 
 		Util.addClass(this._content, 'summary-interactive-map-wrapper');
 		Util.addClass(_el, 'summary-interactive-map');
@@ -54,13 +55,13 @@ define([
 		this._closeButton.setAttribute('title', 'Close');
 		this._bindCloseEvent();
 
-		this._map = new L.Map(_el, {
+		map = new L.Map(_el, {
 			center: [0.0, 0.0],
 			zoom: 2,
 			zoomAnimation: false,
 			attributionControl: false
 		});
-
+		this._map = map;
 		layerControl = new L.Control.Layers();
 
 		// Basic greyscale map
@@ -90,41 +91,6 @@ define([
 				this._map.addLayer(faultsLayer);
 				layerControl.addOverlay(faultsLayer, 'U.S. Faults');
 			}
-
-
-
-// New code -----------------------------------------------------------------
-	// Contours
-	var contourLayer = null,
-	    map = this._map;
-
-	Xhr.ajax({
-		url: 'http://comcat.cr.usgs.gov/product/shakemap/ci15507801/ci/1402602373648/download/cont_mi.json',
-		success: function (data) {
-			contourLayer = L.geoJson(data, {
-				style: function (feature) {
-					return {
-						color: feature.properties.color,
-						weight: feature.properties.weight,
-						opacity: 1.0
-					};
-				},
-				onEachFeature: function (feature, layer) {
-					var ROMANS = ['I', 'I', 'II', 'III', 'IV', 'VI', 'VII', 'VIII', 'IX'],
-					    roman = ROMANS[Math.round(feature.properties.value)];
-
-					layer.bindPopup('<span class="contour mmi mmi'+roman+'">'+roman+'</span>');
-				}
-			});
-
-			contourLayer.addTo(map);
-			//layers.addOverlay(contourLayer, 'Contours');
-		}
-	});
-// End New Code --------------------------------------------------------------
-
-
-
 			// Place a marker at the earthquake location
 			epicenterMarker = new L.Marker([latitude, longitude], {
 				icon: new L.Icon({
@@ -140,7 +106,9 @@ define([
 				this._event.properties.mag
 			].join(''));
 			this._map.addLayer(epicenterMarker);
-
+			// console log added here delete later
+			console.log(this._event.properties.products.geoserve);
+			// End delete
 			if (this._event.properties.products.geoserve) {
 				Xhr.ajax({
 					url: this._event.properties.products.geoserve[0].contents['geoserve.json'].url,
@@ -173,7 +141,6 @@ define([
 							_this._map.addLayer(cityMarker);
 
 						}
-
 						_this._map.invalidateSize();
 
 						if (_this._event) {
@@ -192,8 +159,45 @@ define([
 					}
 				});
 			}
-		}
 
+
+// New code -----------------------------------------------------------------
+	// Contours
+			if (this._event.properties.products.shakemap) {
+				var contourLayer = null,
+				    shakemap = this._event.properties.products.shakemap[0],
+				    contourJson,
+				    shakemapContents = shakemap.contents;
+				if ('download/cont_mi.json' in shakemapContents) {
+					contourJson = shakemapContents['download/cont_mi.json'];
+
+					Xhr.ajax({
+						url: contourJson.url,
+						success: function (data) {
+							contourLayer = L.geoJson(data, {
+								style: function (feature) {
+									return {
+										color: feature.properties.color,
+										weight: feature.properties.weight,
+										opacity: 1.0
+									};
+								},
+								onEachFeature: function (feature, layer) {
+									var ROMANS = ['I', 'I', 'II', 'III', 'IV', 'VI', 'VII', 'VIII', 'IX'],
+									    roman = ROMANS[Math.round(feature.properties.value)];
+
+									layer.bindPopup('<span class="contour mmi mmi'+roman+'">'+roman+'</span>');
+								}
+							});
+
+							contourLayer.addTo(map);
+							layerControl.addOverlay(contourLayer, 'ShakeMap Intensity');
+						}
+					});
+				}
+			}
+// End New Code --------------------------------------------------------------
+		}
 		this._map.addControl(layerControl);
 
 		this._content.appendChild(_el);
@@ -238,6 +242,5 @@ define([
 			window.history.go(-1);
 		});
 	};
-
 	return InteractiveMap;
 });
