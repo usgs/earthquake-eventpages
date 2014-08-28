@@ -91,6 +91,40 @@ define([
 				layerControl.addOverlay(faultsLayer, 'U.S. Faults');
 			}
 
+
+
+// New code -----------------------------------------------------------------
+	// Contours
+	var contourLayer = null,
+	    map = this._map;
+
+	Xhr.ajax({
+		url: 'http://comcat.cr.usgs.gov/product/shakemap/ci15507801/ci/1402602373648/download/cont_mi.json',
+		success: function (data) {
+			contourLayer = L.geoJson(data, {
+				style: function (feature) {
+					return {
+						color: feature.properties.color,
+						weight: feature.properties.weight,
+						opacity: 1.0
+					};
+				},
+				onEachFeature: function (feature, layer) {
+					var ROMANS = ['I', 'I', 'II', 'III', 'IV', 'VI', 'VII', 'VIII', 'IX'],
+					    roman = ROMANS[Math.round(feature.properties.value)];
+
+					layer.bindPopup('<span class="contour mmi mmi'+roman+'">'+roman+'</span>');
+				}
+			});
+
+			contourLayer.addTo(map);
+			//layers.addOverlay(contourLayer, 'Contours');
+		}
+	});
+// End New Code --------------------------------------------------------------
+
+
+
 			// Place a marker at the earthquake location
 			epicenterMarker = new L.Marker([latitude, longitude], {
 				icon: new L.Icon({
