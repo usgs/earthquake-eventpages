@@ -207,8 +207,14 @@ $dyfi-question-indent: 1.3em;
 }
 
 .dyfi-form {
-	header {
-		position: relative;
+	> .modal-content {
+		> header {
+			position: relative;
+
+			> .felt-header {
+				margin-top: 0;
+			}
+		}
 	}
 
 	> .modal-footer {
