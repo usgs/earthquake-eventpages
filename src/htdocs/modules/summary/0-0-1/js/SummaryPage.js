@@ -46,11 +46,16 @@ define([
 		markup.push(
 			'<div class="row">' +
 				'<div class="column one-of-two summary-map">' +
-					this._getMapMarkup() +
+					'<h3>Event Location</h3>' +
+					'<figure>' +
+						this._getMapMarkup() +
+						'<figcaption>' +
+							this._getLocationMarkup() +
+						'</figcaption>' +
+					'</figure>' +
 				'</div>' +
 				'<div class="column one-of-two summary-info">' +
 					this._getTimeMarkup() +
-					this._getLocationMarkup() +
 					this._getTextContentMarkup('nearby-cities') +
 				'</div>' +
 			'</div>'
@@ -191,16 +196,12 @@ define([
 		    depth = geometry.coordinates[2];
 
 		markup.push(
-			'<div class="summary-location">' +
-			'<h3>Event Location</h3>' +
-			'<p class="no-bullets">' +
 			this._formatCoord(geometry.coordinates[1], 'N', 'S') +
 			' ' +
 			this._formatCoord(geometry.coordinates[0], 'E', 'W') +
 			' depth=' + (Math.round(depth * 10) / 10).toFixed(1) + 'km (' +
-			(Math.round(this._kmToMi(depth) * 10) / 10).toFixed(1) + 'mi)' +
-			'</p>' +
-			'</div>');
+			(Math.round(this._kmToMi(depth) * 10) / 10).toFixed(1) + 'mi)'
+		);
 
 		return markup.join('');
 
