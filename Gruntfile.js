@@ -30,7 +30,7 @@ module.exports = function (grunt) {
 
 	var rewrites = {};
 	// template rewrite
-	rewrites['^/theme/(.*)$'] = '/hazdev-template/src/htdocs/$1';
+	rewrites['^/theme/(.*)$'] = '/hazdev-template/dist/htdocs/$1';
 	// event page rewrites
 	rewrites['^' + iniConfig.MOUNT_PATH + '/unknown$'] = '/unknown.php';
 	rewrites['^' + iniConfig.MOUNT_PATH + '/([^/]+)$'] = '/index.php?eventid=$1';
