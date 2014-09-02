@@ -53,7 +53,7 @@ define([
 			stub = sinon.stub(Xhr, 'ajax', function () {});
 
 			page = new SummaryPage(options);
-			page._ajaxSuccess(geoserve);
+			page._ajaxSuccessTectonicSummary(geoserve.tectonicSummary.text);
 			page._ajaxSuccessNearbyCities(geoserve.cities);
 			content = page.getContent();
 		});
@@ -72,6 +72,10 @@ define([
 
 			it('Detects nearby cities', function () {
 				expect(page._nearbyCitiesFlag).to.equal(true);
+			});
+
+			it('Detects tectonic summary', function () {
+				expect(page._tectonicSummaryFlag).to.equal(true);
 			});
 
 			it('Does not throw exception if no geoserve product', function () {

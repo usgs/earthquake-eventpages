@@ -22,11 +22,17 @@ define([
 
 	var SummaryPage = function (options) {
 		options = Util.extend({}, options || {});
-		if( options.eventDetails.properties &&
-				options.eventDetails.properties.products.hasOwnProperty
-				('nearby-cities')) {
+
+		var properties = options.eventDetails.properties;
+
+		if (properties && properties.products.hasOwnProperty('nearby-cities')) {
 			this._nearbyCitiesFlag = true;
 		}
+
+		if (properties && properties.products.hasOwnProperty('tectonic-summary')) {
+			this._tectonicSummaryFlag = true;
+		}
+
 		this.mapContainer = {};
 		this.nearbyCities = {};
 		this.tectonicSummary = {};
@@ -39,7 +45,8 @@ define([
 		    markup = [],
 		    generalHeader,
 		    generalText,
-		    impactText;
+		    impactText,
+		    fallbackToGeoserve = false;
 
 		markup.push(this._getTextContentMarkup('general-header'));
 
@@ -76,23 +83,27 @@ define([
 		impactText = this._content.querySelector('.summary-impact-text');
 
 		// Fetch AJAX content and load it into the containers
-		try {
-			Xhr.ajax({
-					url: this._event.properties.products['tectonic-summary'][0]
-							.contents['tectonic-summary.inc.html'].url,
-					success: function (tectonicSummary) {
-						_this._ajaxSuccessTectonicSummary(tectonicSummary);
-					},
-					error: function () {
-						_this._ajaxErrorTectonicSummary();
-					}
-				});
-		} catch (e) {
-			this._ajaxErrorTectonicSummary();
+		if (this._tectonicSummaryFlag) {
+			try {
+				Xhr.ajax({
+						url: this._event.properties.products['tectonic-summary'][0]
+								.contents['tectonic-summary.inc.html'].url,
+						success: function (tectonicSummary) {
+							_this._ajaxSuccessTectonicSummary(tectonicSummary);
+						},
+						error: function () {
+							throw new Exception('Failed to load tectonic summary.');
+						}
+					});
+			} catch (e) {
+				this._ajaxErrorTectonicSummary();
+			}
+		} else {
+			fallbackToGeoserve = true;
 		}
 
 		if (this._nearbyCitiesFlag) {
-			try{
+			try {
 				Xhr.ajax({
 						url: this._event.properties.products['nearby-cities'][0]
 								.contents['nearby-cities.json'].url,
@@ -100,11 +111,50 @@ define([
 							_this._ajaxSuccessNearbyCities(nearbyCities);
 						},
 						error: function () {
-							_this._ajaxErrorNearbyCities();
+							throw new Exception('Failed to load nearby cities.');
 						}
 					});
 			} catch (e) {
 				this._ajaxErrorNearbyCities();
+			}
+		} else {
+			fallbackToGeoserve = true;
+		}
+
+		if (fallbackToGeoserve) {
+			try {
+				// Note :: For now, assume geoserve product will exist. In the future,
+				//         this will be a dynamic call for data or potentally separate
+				//         calls for each part of the data
+				Xhr.ajax({
+					url: this._event.properties.products['geoserve'][0].contents['geoserve.json'].url,
+					success: function (geoserve) {
+						if (!this._nearbyCitiesFlag) {
+							try {
+								this._ajaxSuccessNearbyCities(geoserve.cities);
+							} catch (e) {
+								this._ajaxErrorNearbyCities();
+							}
+						}
+						if (!this._tectonicSummaryFlag) {
+							try {
+								this._ajaxSuccessTectonicSummary(geoserve.tectonicSummary.text);
+							} catch (e) {
+								this._ajaxErrorTectonicSummary();
+							}
+						}
+					},
+					error: function () {
+						throw new Exception('Failed to load geoserve.');
+					}
+				});
+			} catch (e) {
+				if (!this._nearbyCitiesFlag) {
+					this._ajaxErrorNearbyCities();
+				}
+				if (!this._tectonicSummaryFlag) {
+					this._ajaxErrorTectonicSummary();
+				}
 			}
 		}
 
