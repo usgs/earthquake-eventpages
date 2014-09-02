@@ -51,7 +51,7 @@ define([
 						this._getMapMarkup() +
 						'<figcaption>' +
 							this._getLocationMarkup() +
-							'<a href="#general_map">view interactive map</a>' +
+							'<a href="#general_map">View interactive map</a>' +
 						'</figcaption>' +
 					'</figure>' +
 				'</div>' +
