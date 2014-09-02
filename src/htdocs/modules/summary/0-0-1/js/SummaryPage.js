@@ -45,9 +45,9 @@ define([
 
 		markup.push(
 			'<div class="row">' +
-				'<div class="column one-of-two summary-map">' +
+				'<div class="column one-of-two">' +
 					'<h3>Event Location</h3>' +
-					'<figure>' +
+					'<figure class="summary-map">' +
 						this._getMapMarkup() +
 						'<figcaption>' +
 							this._getLocationMarkup() +
