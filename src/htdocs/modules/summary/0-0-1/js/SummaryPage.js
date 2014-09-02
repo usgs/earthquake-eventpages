@@ -88,7 +88,7 @@ define([
 					}
 				});
 		} catch (e) {
-			this._ajaxError();
+			this._ajaxErrorTectonicSummary();
 		}
 
 		if (this._nearbyCitiesFlag) {
