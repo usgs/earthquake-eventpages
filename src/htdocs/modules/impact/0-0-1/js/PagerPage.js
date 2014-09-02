@@ -54,7 +54,7 @@ define([
 			'<div class="alert-wrapper row"></div>' +
 			'<div class="row">' +
 				'<div class="column one-of-two">' +
-					'<h3>Estimated Population Exposure to Earthquake Shaking</h3>' +
+					'<h3 class="collapse-margin">Estimated Population Exposure to Earthquake Shaking</h3>' +
 					'<div class="map-wrapper">' +
 						'<figure>' +
 							'<img src="' + contents['exposure.png'].url +
@@ -174,7 +174,7 @@ define([
 			}
 			econMarkup =
 				'<div class="column one-of-two">' +
-					'<h3>Estimated Economic Losses</h3>' +
+					'<h3 class="collapse-margin">Estimated Economic Losses</h3>' +
 					'<figure>' +
 						'<a href="' + contents['alertecon.pdf'].url + '">' +
 							'<img src="' + contents['alertecon.png'].url + '" alt=""/>' +

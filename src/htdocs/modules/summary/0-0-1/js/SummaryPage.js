@@ -45,12 +45,18 @@ define([
 
 		markup.push(
 			'<div class="row">' +
-				'<div class="column one-of-two summary-map">' +
-					this._getMapMarkup() +
+				'<div class="column one-of-two">' +
+					'<h3 class="collapse-margin">Event Location</h3>' +
+					'<figure class="summary-map">' +
+						this._getMapMarkup() +
+						'<figcaption>' +
+							this._getLocationMarkup() +
+							'<a href="#general_map">View interactive map</a>' +
+						'</figcaption>' +
+					'</figure>' +
 				'</div>' +
 				'<div class="column one-of-two summary-info">' +
 					this._getTimeMarkup() +
-					this._getLocationMarkup() +
 					this._getTextContentMarkup('nearby-cities') +
 				'</div>' +
 			'</div>'
@@ -125,7 +131,7 @@ define([
 
 	SummaryPage.prototype._ajaxSuccessTectonicSummary = function (tectonicSummary) {
 		if (this.tectonicSummary !== null) {
-			this.tectonicSummary.innerHTML = '<h3>Tectonic Summary</h3>' +
+			this.tectonicSummary.innerHTML = '<h3 class="collapse-margin">Tectonic Summary</h3>' +
 					tectonicSummary;
 		}
 	};
@@ -167,7 +173,7 @@ define([
 
 		markup.push(
 				'<div class="summary-time">' +
-				'<h3>Event Time</h3>' +
+				'<h3 class="collapse-margin">Event Time</h3>' +
 				'<ol class="no-bullets">' +
 				'<li>' +
 				this._formatDate(time, 0) +
@@ -191,16 +197,12 @@ define([
 		    depth = geometry.coordinates[2];
 
 		markup.push(
-			'<div class="summary-location">' +
-			'<h3>Event Location</h3>' +
-			'<p class="no-bullets">' +
 			this._formatCoord(geometry.coordinates[1], 'N', 'S') +
 			' ' +
 			this._formatCoord(geometry.coordinates[0], 'E', 'W') +
 			' depth=' + (Math.round(depth * 10) / 10).toFixed(1) + 'km (' +
-			(Math.round(this._kmToMi(depth) * 10) / 10).toFixed(1) + 'mi)' +
-			'</p>' +
-			'</div>');
+			(Math.round(this._kmToMi(depth) * 10) / 10).toFixed(1) + 'mi)'
+		);
 
 		return markup.join('');
 
