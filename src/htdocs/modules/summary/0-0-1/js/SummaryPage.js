@@ -46,7 +46,7 @@ define([
 		markup.push(
 			'<div class="row">' +
 				'<div class="column one-of-two">' +
-					'<h3>Event Location</h3>' +
+					'<h3 class="collapse-margin">Event Location</h3>' +
 					'<figure class="summary-map">' +
 						this._getMapMarkup() +
 						'<figcaption>' +
@@ -131,7 +131,7 @@ define([
 
 	SummaryPage.prototype._ajaxSuccessTectonicSummary = function (tectonicSummary) {
 		if (this.tectonicSummary !== null) {
-			this.tectonicSummary.innerHTML = '<h3>Tectonic Summary</h3>' +
+			this.tectonicSummary.innerHTML = '<h3 class="collapse-margin">Tectonic Summary</h3>' +
 					tectonicSummary;
 		}
 	};
@@ -173,7 +173,7 @@ define([
 
 		markup.push(
 				'<div class="summary-time">' +
-				'<h3>Event Time</h3>' +
+				'<h3 class="collapse-margin">Event Time</h3>' +
 				'<ol class="no-bullets">' +
 				'<li>' +
 				this._formatDate(time, 0) +
