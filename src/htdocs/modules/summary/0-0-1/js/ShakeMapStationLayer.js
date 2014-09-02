@@ -94,32 +94,32 @@ define([
 							this._formatDecimal(p.intensity, 1),
 						'</dd>',
 				'</dl>',
-				this._createComponentTable(p.channels),
+				this._createChannelTable(p.channels),
 			'</div>'];
 
 			return markup.join('');
 		},
 
-		_createComponentTable: function (channels) {
-			var i = 0, numComponents = channels.length;
+		_createChannelTable: function (channels) {
+			var i = 0, numChannels = channels.length;
 
 			var markup = [
-				'<table class="station-component">',
+				'<table class="station-channel">',
 					'<thead>',
 						'<tr>',
-							'<th scope="col" class="station-component-name">name</th>',
-							'<th scope="col" class="station-component-acc">acc</th>',
-							'<th scope="col" class="station-component-vel">vel</th>',
-							'<th scope="col" class="station-component-psa03">psa03</th>',
-							'<th scope="col" class="station-component-psa10">psa10</th>',
-							'<th scope="col" class="station-component-psa30">psa30</th>',
+							'<th scope="col" class="station-channel-name">name</th>',
+							'<th scope="col" class="station-channel-acc">acc</th>',
+							'<th scope="col" class="station-channel-vel">vel</th>',
+							'<th scope="col" class="station-channel-psa03">psa03</th>',
+							'<th scope="col" class="station-channel-psa10">psa10</th>',
+							'<th scope="col" class="station-channel-psa30">psa30</th>',
 						'</tr>',
 					'</thead>',
 					'<tbody>'
 			];
 
-			for (; i < numComponents; i++) {
-				markup.push(this._createComponentRow(channels[i]));
+			for (; i < numChannels; i++) {
+				markup.push(this._createChannelRow(channels[i]));
 			}
 
 			markup.push('</tbody></table>');
@@ -127,31 +127,31 @@ define([
 			return markup.join('');
 		},
 
-		_createComponentRow: function (component) {
+		_createChannelRow: function (channel) {
 			return [
 				'<tr>',
-					'<th scope="row" class="station-component-name">',
-						component.name,
+					'<th scope="row" class="station-channel-name">',
+						channel.name,
 					'</th>',
-					'<td class="station-component-acc">',
-						(component.acc&&component.acc.value) ?
-								this._formatDecimal(component.acc.value) : '--',
+					'<td class="station-channel-acc">',
+						(channel.acc&&channel.acc.value) ?
+								this._formatDecimal(channel.acc.value) : '--',
 					'</td>',
-					'<td class="station-component-vel">',
-						(component.vel&&component.vel.value) ?
-								this._formatDecimal(component.vel.value) : '--',
+					'<td class="station-channel-vel">',
+						(channel.vel&&channel.vel.value) ?
+								this._formatDecimal(channel.vel.value) : '--',
 					'</td>',
-					'<td class="station-component-psa03">',
-						(component.psa03&&component.psa03.value) ?
-								this._formatDecimal(component.psa03.value) : '--',
+					'<td class="station-channel-psa03">',
+						(channel.psa03&&channel.psa03.value) ?
+								this._formatDecimal(channel.psa03.value) : '--',
 					'</td>',
-					'<td class="station-component-psa10">',
-						(component.psa10&&component.psa10.value) ?
-								this._formatDecimal(component.psa10.value) : '--',
+					'<td class="station-channel-psa10">',
+						(channel.psa10&&channel.psa10.value) ?
+								this._formatDecimal(channel.psa10.value) : '--',
 					'</td>',
-					'<td class="station-component-psa30">',
-						(component.psa30&&component.psa30.value) ?
-								this._formatDecimal(component.psa30.value) : '--',
+					'<td class="station-channel-psa30">',
+						(channel.psa30&&channel.psa30.value) ?
+								this._formatDecimal(channel.psa30.value) : '--',
 					'</td>',
 				'</tr>',
 			].join('');
