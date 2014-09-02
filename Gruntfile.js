@@ -165,6 +165,7 @@ module.exports = function (grunt) {
 							mountFolder(connect, options.base),
 							mountFolder(connect, 'node_modules'),
 							mountFolder(connect, appConfig.src + '/htdocs/modules'),
+							mountFolder(connect, appConfig.src + '/htdocs/js'),
 							// module css is relative to module root which is at '/' above
 							mountFolder(connect, '.tmp/modules')
 						];
