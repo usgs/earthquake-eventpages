@@ -710,8 +710,7 @@ define([
 	};
 
 	HypocenterPage.prototype._getSummaryMarkup = function (product) {
-		var source = Attribution.getContributor(product.source),
-		    p = product.properties,
+		var p = product.properties,
 		    depth = p.depth,
 		    magnitude = p.magnitude,
 		    magnitudeType = p['magnitude-type'];
@@ -731,7 +730,7 @@ define([
 					'</li>' +
 					'<li>' +
 						Attribution.getContributorReference(product.source) +
-						'<abbr title="' + (source ? source.title : 'Contributor') +
+						'<abbr title="' + Attribution.getName(product.source) +
 								'">Source</abbr>' +
 					'</li>' +
 				'</ul>';

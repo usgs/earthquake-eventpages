@@ -337,8 +337,7 @@ define([
 		    type = tensor.type,
 		    magnitude = tensor.magnitude,
 		    depth = Math.round(tensor.depth),
-		    percentDC = Math.round(tensor.percentDC * 100),
-		    source = Attribution.getName(tensor.source);
+		    percentDC = Math.round(tensor.percentDC * 100);
 
 		magnitude = formatter.magnitude(magnitude);
 
@@ -366,7 +365,8 @@ define([
 						'</li>',
 						'<li class="summary-hide">',
 							Attribution.getContributorReference(tensor.source),
-							'<abbr title="', source.title, '">source</abbr>',
+							'<abbr title="', Attribution.getName(tensor.source),
+								'">source</abbr>',
 						'</li>',
 					'</ul>'
 		].join('');

@@ -32,8 +32,7 @@ define([
 
 	FocalMechanismPage.prototype._getSummaryMarkup = function (tensor) {
 		var np1 = tensor.NP1,
-		    np2 = tensor.NP2,
-		    source = Attribution.getContributor(tensor.source);
+		    np2 = tensor.NP2;
 
 		return [
 					'<ul>',
@@ -63,7 +62,7 @@ define([
 						'</li>',
 						'<li class="summary-hide">',
 							Attribution.getContributorReference(tensor.source),
-							'<abbr title="', (source ? source.title : 'Contributor'),
+							'<abbr title="', Attribution.getName(tensor.source),
 									'">Source</abbr>',
 						'</li>',
 					'</ul>',

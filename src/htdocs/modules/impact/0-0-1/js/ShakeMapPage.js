@@ -541,8 +541,7 @@ define([
 	ShakeMapPage.prototype._getSummaryMarkup = function (product) {
 		var properties = product.properties,
 		    contents = product.contents,
-		    maxmmi = properties.maxmmi,
-		    source = Attribution.getContributor(product.source);
+		    maxmmi = properties.maxmmi;
 
 		maxmmi = ImpactUtil._translateMmi(maxmmi);
 
@@ -561,7 +560,7 @@ define([
 				'</li>' +
 				'<li>' +
 					Attribution.getContributorReference(product.source) +
-					'<abbr title="' + (source ? source.title : 'Contributor') +
+					'<abbr title="' + Attribution.getName(product.source) +
 							'">Source</abbr>' +
 				'</li>' +
 			'</ul>';
