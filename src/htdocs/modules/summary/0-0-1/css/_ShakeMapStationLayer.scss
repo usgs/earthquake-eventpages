@@ -1,0 +1,89 @@
+.station-popup {
+	color:#444;
+}
+
+.station-title {
+	margin:0 0 1em;
+}
+
+.station-summary {
+	display:block;
+	list-style:none;
+	margin:0 auto;
+	padding:0;
+}
+.station-summary:after {
+	display:block;
+	content:' ';
+	clear:both;
+}
+
+.station-summary > li {
+	display:block;
+	float:left;
+	width:25%;
+	padding:4px;
+	text-align:center;
+}
+.station-summary > li > abbr {
+	display:block;
+	clear:left;
+	font-size:.8em;
+	color:#999;
+	cursor:help;
+}
+.station-summary-intensity {
+	font-family:Tahoma, Verdana, Segoe, sans-serif;
+	text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
+	border-radius:2px;
+}
+.station-summary-intensity > abbr {
+	font-family:Helvetica, Arial, sans-serif;
+	text-shadow:none;
+	border-radius:0;
+}
+
+.station-metadata {
+	display:block;
+	margin:1.25em 0 0 0;
+}
+.station-metadata:after {
+	display:block;
+	content:' ';
+	clear:both;
+}
+.station-metadata > dt {
+	display:block;
+	width:25%;
+	padding-right:16px;
+	margin-bottom:4px;
+	font-weight:bold;
+	float:left;
+	clear:left;
+}
+.station-metadata > dd {
+	display:block;
+	width:75%;
+	padding:0;
+	margin:0 0 4px 0;
+	float:left;
+}
+
+.station-channels {
+	margin-top:1em;
+}
+.station-channels-name,
+.station-channels-pga,
+.station-channels-pgv,
+.station-channels-psa03,
+.station-channels-psa10,
+.station-channels-psa30 {
+	width:20%;
+}
+.station-channels-pga,
+.station-channels-pgv,
+.station-channels-psa03,
+.station-channels-psa10,
+.station-channels-psa30 {
+	text-align:center;
+}
