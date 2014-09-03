@@ -23,13 +23,13 @@ define([
 	var SummaryPage = function (options) {
 		options = Util.extend({}, options || {});
 
-		var properties = options.eventDetails.properties;
+		var products = options.eventDetails.properties.products;
 
-		if (properties && properties.products.hasOwnProperty('nearby-cities')) {
+		if (products.hasOwnProperty('nearby-cities')) {
 			this._nearbyCitiesFlag = true;
 		}
 
-		if (properties && properties.products.hasOwnProperty('tectonic-summary')) {
+		if (products.hasOwnProperty('tectonic-summary')) {
 			this._tectonicSummaryFlag = true;
 		}
 
