@@ -143,7 +143,7 @@ define([
 		this.T = T;
 		this.N = N;
 		this.P = P;
-		this.fCLVD = N.value / T.value;
+		this.fCLVD = N.value / Math.max(Math.abs(T.value), Math.abs(P.value));
 		this.percentDC = abs(1 - (abs(this.fCLVD) / 0.5));
 		this.forceThrust = pow(sin(T.plunge()), 2);
 		this.forceStrikeSlip = pow(sin(N.plunge()), 2);
