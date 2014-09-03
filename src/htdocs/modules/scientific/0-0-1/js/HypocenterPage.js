@@ -697,11 +697,11 @@ define([
 		buf.push(
 				'<tr><th scope="row">Event ID</th><td>', eventId, '</td></tr>',
 				'<tr><th scope="row">Magnitude Source</th><td>',
-						Attribution.getName(magnitudeSource),
-						'</td></tr>',
+					Attribution.getContributorReference(magnitudeSource),
+				'</td></tr>',
 				'<tr><th scope="row">Location Source</th><td>',
-						Attribution.getName(originSource),
-						'</td></tr>');
+					Attribution.getContributorReference(originSource),
+				'</td></tr>');
 
 
 		buf.push('</tbody></table>');
@@ -730,7 +730,7 @@ define([
 						'<abbr title="Depth (km)">Depth</abbr>' +
 					'</li>' +
 					'<li>' +
-						'<span>' + product.source.toUpperCase() + '</span>' +
+						Attribution.getContributorReference(product.source) +
 						'<abbr title="' + (source ? source.title : 'Contributor') +
 								'">Source</abbr>' +
 					'</li>' +

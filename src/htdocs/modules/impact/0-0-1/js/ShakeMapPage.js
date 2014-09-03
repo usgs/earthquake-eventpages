@@ -560,7 +560,7 @@ define([
 					'<abbr title="Magnitude">Mag</abbr>' +
 				'</li>' +
 				'<li>' +
-					'<span>' + product.source.toUpperCase() + '</span>' +
+					Attribution.getContributorReference(product.source) +
 					'<abbr title="' + (source ? source.title : 'Contributor') +
 							'">Source</abbr>' +
 				'</li>' +

@@ -140,9 +140,6 @@ define([
 		magnitude = magnitude.toFixed(2);
 		percentDC = Math.round(percentDC * 100) + '%';
 		depth = formatter.depth(depth, 'km');
-		author = Attribution.getName(author);
-		catalog = Attribution.getName(catalog);
-		contributor = Attribution.getName(contributor);
 
 		return [
 			'<table class="tabular info-table"><tbody>',
@@ -157,11 +154,17 @@ define([
 			'<tr><th scope="row">Half Duration</th>',
 				'<td>', half_duration, '</td></tr>',
 			'<tr><th scope="row">Author</th>',
-				'<td>', author, '<span class="toggle-button off"></span></td></tr>',
+				'<td>',
+					Attribution.getContributorReference(author),
+					'<span class="toggle-button off"></span></td></tr>',
 			'<tr class="toggle hidden"><th scope="row">Catalog</th>',
-				'<td>', catalog, '</td></tr>',
+				'<td>',
+					Attribution.getContributorReference(catalog),
+					'</td></tr>',
 			'<tr class="toggle hidden"><th scope="row">Contributor</th>',
-				'<td>', contributor, '</td></tr>',
+				'<td>',
+					Attribution.getContributorReference(contributor),
+					'</td></tr>',
 			'<tr class="toggle hidden"><th scope="row">Code</th>',
 				'<td><span class="truncate" title="', code ,'">', code, '</span></td></tr>',
 			'</tbody></table>'
@@ -362,7 +365,7 @@ define([
 							'<abbr title="Percent Double Couple">% DC</abbr>',
 						'</li>',
 						'<li class="summary-hide">',
-							'<span>', tensor.source.toUpperCase(), '</span>',
+							Attribution.getContributorReference(tensor.source),
 							'<abbr title="', source.title, '">source</abbr>',
 						'</li>',
 					'</ul>'

@@ -62,7 +62,7 @@ define([
 							'</abbr>',
 						'</li>',
 						'<li class="summary-hide">',
-							'<span>', tensor.source.toUpperCase(), '</span>',
+							Attribution.getContributorReference(tensor.source),
 							'<abbr title="', (source ? source.title : 'Contributor'),
 									'">Source</abbr>',
 						'</li>',
@@ -81,11 +81,17 @@ define([
 		return [
 			'<table class="tabular info-table"><tbody>',
 			'<tr><th scope="row">Author</th>',
-				'<td>', tensor.source, '</td></tr>',
+				'<td>', Attribution.getContributorReference(
+						tensor.source),
+				'</td></tr>',
 			'<tr><th scope="row">Catalog</th>',
-				'<td>', tensor.product.properties.eventsource, '</td></tr>',
+				'<td>', Attribution.getContributorReference(
+						tensor.product.properties.eventsource),
+				'</td></tr>',
 			'<tr><th scope="row">Contributor</th>',
-				'<td>', tensor.product.source, '</td></tr>',
+				'<td>', Attribution.getContributorReference(
+						tensor.product.source),
+				'</td></tr>',
 			'<tr><th scope="row">Code</th>',
 				'<td>', tensor.product.code, '</td></tr>',
 			'</tbody></table>'
