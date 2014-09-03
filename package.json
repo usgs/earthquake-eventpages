@@ -40,7 +40,7 @@
     "hazdev-tablist": "~0.0.6",
     "hazdev-template": "0.1.0",
     "grunt-connect-rewrite": "~0.1.1",
-    "grunt-connect-proxy": "0.1.10",
+    "grunt-connect-proxy": "~0.1.10",
     "leaflet": "~0.7.0",
     "hazdev-svgimagemap": "0.0.3",
     "quakeml-parser-js": "0.0.1",
