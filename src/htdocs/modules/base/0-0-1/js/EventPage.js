@@ -173,13 +173,14 @@ define([
 		    product,
 		    sources = [],
 		    type,
+		    i,
 		    length;
 
 		for (type in allProducts) {
 			products = allProducts[type];
 			length = products.length;
 
-			for (var i = 0; i < length; i++) {
+			for (i = 0; i < length; i++) {
 				product = products[i];
 
 				// check product source
