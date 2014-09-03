@@ -127,20 +127,21 @@ define([
 				//         this will be a dynamic call for data or potentally separate
 				//         calls for each part of the data
 				Xhr.ajax({
-					url: this._event.properties.products['geoserve'][0].contents['geoserve.json'].url,
+					url: this._event.properties.products['geoserve'][0]
+							.contents['geoserve.json'].url,
 					success: function (geoserve) {
 						if (!this._nearbyCitiesFlag) {
 							try {
-								this._ajaxSuccessNearbyCities(geoserve.cities);
+								_this._ajaxSuccessNearbyCities(geoserve.cities);
 							} catch (e) {
-								this._ajaxErrorNearbyCities();
+								_this._ajaxErrorNearbyCities();
 							}
 						}
-						if (!this._tectonicSummaryFlag) {
+						if (!_this._tectonicSummaryFlag) {
 							try {
-								this._ajaxSuccessTectonicSummary(geoserve.tectonicSummary.text);
+								_this._ajaxSuccessTectonicSummary(geoserve.tectonicSummary.text);
 							} catch (e) {
-								this._ajaxErrorTectonicSummary();
+								_this._ajaxErrorTectonicSummary();
 							}
 						}
 					},
