@@ -458,8 +458,7 @@ define([
 
 			for (var i = 0; i < SOURCES.length; i++) {
 				source = SOURCES[i];
-				listMarkup.push('<li id="' + source + '">' + this.getName(source) +
-						'</li>');
+				listMarkup.push('<li>' + this.getName(source) + '</li>');
 			}
 
 			return '<ol class="contributors">' + listMarkup.join('') + '</ol>';
