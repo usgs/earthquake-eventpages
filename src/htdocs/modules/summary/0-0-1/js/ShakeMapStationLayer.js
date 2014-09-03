@@ -17,9 +17,6 @@ define([
 		initialize: function (stationJson) {
 			var _this = this;
 
-			// DEV
-			_this.firstLayer = null;
-
 			L.GeoJSON.prototype.initialize.call(this, stationJson, {
 				pointToLayer: function (feature, latlng) {
 					return L.marker(latlng, {
@@ -38,20 +35,8 @@ define([
 					layer.options.title = _this._formatTitle(feature, true);
 					layer.bindPopup(_this._generatePopupContent(feature),
 							{minWidth:300});
-
-					// DEV
-					if (_this.firstLayer === null) { _this.firstLayer = layer; }
 				}
 			});
-		},
-
-		// DEV
-		onAdd: function () {
-			var retVal = L.GeoJSON.prototype.onAdd.apply(this, arguments);
-
-			this.firstLayer.openPopup();
-
-			return retVal;
 		},
 
 		_generatePopupContent: function (feature) {
