@@ -409,7 +409,18 @@ define([
 		'UNAH': {id: 'UNAH', title: 'Universidad Nacional Autonoma de Honduras, Tegucigalpa, Honduras'}
 	};
 
+	var SOURCES = [];
+
 	var Attribution = {
+
+		setContributors: function (sources) {
+			SOURCES = sources;
+		},
+
+		getContributors: function () {
+			return SOURCES;
+		},
+
 		getContributor: function (id) {
 			var title = null,
 			    url = null,
@@ -440,6 +451,37 @@ define([
 			};
 		},
 
+		getContributorList: function () {
+
+			var listMarkup = [],
+			    source;
+
+			for (var i = 0; i < SOURCES.length; i++) {
+				source = SOURCES[i];
+				listMarkup.push('<li id="' + source + '">' + this.getName(source) +
+						'</li>');
+			}
+
+			return '<ol class="contributors">' + listMarkup.join('') + '</ol>';
+		},
+
+		getContributorReference: function (contributor) {
+			var source = contributor.toLowerCase(),
+			    listPosition = SOURCES.indexOf(source) + 1,
+			    span;
+
+			/* When mapping does not exist, return the contributor text */
+			if (listPosition === 0) {
+				return contributor;
+			}
+
+			span = '<span>' + source.toUpperCase() + '<sup>' + listPosition +
+					'</sup></span>';
+
+			return span;
+		},
+
+
 		getMainContributerHeader: function (id) {
 			var contributor = this.getContributor(id),
 			    url = contributor.url,
@@ -459,15 +501,13 @@ define([
 		getName: function (id) {
 			var contributor = this.getContributor(id),
 			    title = contributor.title,
-			    code =  contributor.id,
-			    buf = [];
+			    code =  contributor.id;
 
-			buf.push('<em>', code, '</em>');
-
-			if ( title !== code) {
-				buf.push(' ', '<small>', title, '</small>');
+			if (!title) {
+				title = code;
 			}
-			return buf.join('');
+
+			return title + ' (' + code + ')';
 		}
 	};
 

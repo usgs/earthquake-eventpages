@@ -3,6 +3,7 @@ define([
 	'util/Util',
 	'util/Events',
 
+	'base/Attribution',
 	'base/EventModule',
 	'summary/SummaryModule',
 	'scientific/ScientificModule',
@@ -11,6 +12,7 @@ define([
 	Util,
 	Events,
 
+	Attribution,
 	EventModule,
 	SummaryModule,
 	ScientificModule,
@@ -78,6 +80,8 @@ define([
 				'eventConfig': this._eventConfig
 			})
 		];
+
+		this._buildContributorArray();
 
 		this._initialize();
 	};
@@ -154,7 +158,7 @@ define([
 	};
 
 	EventPage.prototype.updateFooter = function () {
-		this._footer.innerHTML =
+		this._footer.innerHTML = Attribution.getContributorList() +
 			'<a href="/earthquakes/map/doc_aboutdata.php">' +
 					'About ANSS Comprehensive Catalog (ComCat)' +
 			'</a>' +
@@ -162,6 +166,38 @@ define([
 				'Technical Terms used on Event Pages' +
 			'</a>';
 	};
+
+	EventPage.prototype._buildContributorArray = function () {
+		var allProducts = this._eventDetails.properties.products,
+		    products,
+		    product,
+		    sources = [],
+		    type,
+		    length;
+
+		for (type in allProducts) {
+			products = allProducts[type];
+			length = products.length;
+
+			for (var i = 0; i < length; i++) {
+				product = products[i];
+
+				// check product source
+				if (product.source && !Util.contains(sources, product.source)) {
+					sources.push(product.source.toLowerCase());
+				}
+
+				// check event source
+				if (product.properties.eventsource &&
+					!Util.contains(sources, product.properties.eventsource)) {
+					sources.push(product.properties.eventsource.toLowerCase());
+				}
+			}
+		}
+
+		Attribution.setContributors(sources);
+	};
+
 
 	EventPage.prototype.getModule = function (hash) {
 		var i = null,
