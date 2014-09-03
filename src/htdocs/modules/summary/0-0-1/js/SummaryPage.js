@@ -64,7 +64,6 @@ define([
 		markup.push(this._getTextContentMarkup('tectonic-summary'));
 		markup.push(this._getTextContentMarkup('general-text'));
 		markup.push(this._getTextContentMarkup('impact-text'));
-		markup.push(this._getAttributionMarkup());
 		markup.push(this._getMoreInformationMarkup());
 
 		this._content.innerHTML = markup.join('');
@@ -242,54 +241,6 @@ define([
 			return markup.join('');
 		}
 		return '';
-	};
-
-	SummaryPage.prototype._getAttributionMarkup = function () {
-		var allProducts = this._event.properties.products,
-		    ids = {},
-		    idsArray = [],
-		    id,
-		    markup = [],
-		    type,
-		    length,
-		    products,
-		    product,
-		    i;
-
-		for (type in allProducts) {
-			products = allProducts[type];
-			length = products.length;
-			for (i = 0; i < length; i++) {
-				product = products[i];
-				ids[product.source.toUpperCase()] = true;
-				if (type === 'origin') {
-					id = product.properties['origin-source'];
-					if (id) {
-						ids[id.toUpperCase()] = true;
-					}
-					id = product.properties['magnitude-source'];
-					if (id) {
-						ids[id.toUpperCase()] = true;
-					}
-				}
-			}
-		}
-
-		for (id in ids) {
-			idsArray.push(id);
-		}
-		idsArray.sort();
-		length = idsArray.length;
-
-		markup.push('<div class="summary-attribution">' +
-				'<h3>Attribution</h3><ul>');
-
-		for (i = 0; i < length; i++) {
-			markup.push('<li>' + Attribution.getName(idsArray[i]) + '</li>');
-		}
-		markup.push('</ul>');
-
-		return markup.join('');
 	};
 
 	SummaryPage.prototype._loadTextualContent =
