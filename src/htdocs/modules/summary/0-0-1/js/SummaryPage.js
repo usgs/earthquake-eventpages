@@ -46,6 +46,7 @@ define([
 		    generalHeader,
 		    generalText,
 		    impactText,
+		    products = this._event.properties.products,
 		    fallbackToGeoserve = false;
 
 		markup.push(this._getTextContentMarkup('general-header'));
@@ -86,7 +87,7 @@ define([
 		if (this._tectonicSummaryFlag) {
 			try {
 				Xhr.ajax({
-						url: this._event.properties.products['tectonic-summary'][0]
+						url: products['tectonic-summary'][0]
 								.contents['tectonic-summary.inc.html'].url,
 						success: function (tectonicSummary) {
 							_this._ajaxSuccessTectonicSummary(tectonicSummary);
@@ -105,7 +106,7 @@ define([
 		if (this._nearbyCitiesFlag) {
 			try {
 				Xhr.ajax({
-						url: this._event.properties.products['nearby-cities'][0]
+						url: products['nearby-cities'][0]
 								.contents['nearby-cities.json'].url,
 						success: function (nearbyCities) {
 							_this._ajaxSuccessNearbyCities(nearbyCities);
@@ -127,8 +128,7 @@ define([
 				//         this will be a dynamic call for data or potentally separate
 				//         calls for each part of the data
 				Xhr.ajax({
-					url: this._event.properties.products['geoserve'][0]
-							.contents['geoserve.json'].url,
+					url: products['geoserve'][0].contents['geoserve.json'].url,
 					success: function (geoserve) {
 						if (!this._nearbyCitiesFlag) {
 							try {
