@@ -104,15 +104,15 @@ define([
 			var i = 0, numChannels = channels.length;
 
 			var markup = [
-				'<table class="station-channel">',
+				'<table class="station-channels">',
 					'<thead>',
 						'<tr>',
-							'<th scope="col" class="station-channel-name">name</th>',
-							'<th scope="col" class="station-channel-acc">acc</th>',
-							'<th scope="col" class="station-channel-vel">vel</th>',
-							'<th scope="col" class="station-channel-psa03">psa03</th>',
-							'<th scope="col" class="station-channel-psa10">psa10</th>',
-							'<th scope="col" class="station-channel-psa30">psa30</th>',
+							'<th scope="col" class="station-channels-name">name</th>',
+							'<th scope="col" class="station-channels-pga">pga</th>',
+							'<th scope="col" class="station-channels-pgv">pgv</th>',
+							'<th scope="col" class="station-channels-psa03">psa03</th>',
+							'<th scope="col" class="station-channels-psa10">psa10</th>',
+							'<th scope="col" class="station-channels-psa30">psa30</th>',
 						'</tr>',
 					'</thead>',
 					'<tbody>'
@@ -127,36 +127,51 @@ define([
 			return markup.join('');
 		},
 
+		_createAmplitudesObject: function (amplitudes) {
+			var amp = {},
+			    i,
+			    len = amplitudes.length,
+			    amplitude = null;
+
+			for (i = 0; i < len; i++) {
+				amplitude = amplitudes[i];
+				amp[amplitude.name] = amplitude;
+			}
+
+			return amp;
+		},
+
 		_createChannelRow: function (channel) {
+			var amp = this._createAmplitudesObject(channel.amplitudes);
+
 			return [
 				'<tr>',
 					'<th scope="row" class="station-channel-name">',
 						channel.name,
 					'</th>',
-					'<td class="station-channel-acc">',
-						(channel.acc&&channel.acc.value) ?
-								this._formatDecimal(channel.acc.value) : '--',
+					'<td class="station-channel-pga">',
+						(amp.pga&&amp.pga.value) ?
+								this._formatDecimal(amp.pga.value) : '--',
 					'</td>',
-					'<td class="station-channel-vel">',
-						(channel.vel&&channel.vel.value) ?
-								this._formatDecimal(channel.vel.value) : '--',
+					'<td class="station-channel-pgv">',
+						(amp.pgv&&amp.pgv.value) ?
+								this._formatDecimal(amp.pgv.value) : '--',
 					'</td>',
 					'<td class="station-channel-psa03">',
-						(channel.psa03&&channel.psa03.value) ?
-								this._formatDecimal(channel.psa03.value) : '--',
+						(amp.psa03&&amp.psa03.value) ?
+								this._formatDecimal(amp.psa03.value) : '--',
 					'</td>',
 					'<td class="station-channel-psa10">',
-						(channel.psa10&&channel.psa10.value) ?
-								this._formatDecimal(channel.psa10.value) : '--',
+						(amp.psa10&&amp.psa10.value) ?
+								this._formatDecimal(amp.psa10.value) : '--',
 					'</td>',
 					'<td class="station-channel-psa30">',
-						(channel.psa30&&channel.psa30.value) ?
-								this._formatDecimal(channel.psa30.value) : '--',
+						(amp.psa30&&amp.psa30.value) ?
+								this._formatDecimal(amp.psa30.value) : '--',
 					'</td>',
 				'</tr>',
 			].join('');
 		},
-
 
 		_formatTitle: function (feature, plainText) {
 			var p = feature.properties;
