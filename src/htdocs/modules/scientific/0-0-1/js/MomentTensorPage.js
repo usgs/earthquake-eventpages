@@ -6,8 +6,7 @@ define([
 	'base/SummaryDetailsPage',
 	'base/EventModulePage',
 	'base/Formatter',
-
-	'summary/Attribution',
+	'base/Attribution',
 
 	'./tensor/Tensor',
 	'./tensor/BeachBall'
@@ -18,7 +17,6 @@ define([
 	SummaryDetailsPage,
 	EventModulePage,
 	Formatter,
-
 	Attribution,
 
 	Tensor,

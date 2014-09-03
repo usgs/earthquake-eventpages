@@ -1,6 +1,6 @@
 /* global define */
 define([
-	'summary/Attribution',
+	'base/Attribution',
 	'base/EventModulePage',
 	'base/ContentsXML',
 	'base/Formatter',

@@ -8,7 +8,7 @@ define([
 
 	'base/SummaryDetailsPage',
 	'base/Formatter',
-	'summary/Attribution',
+	'base/Attribution',
 	'tablist/TabList',
 	'accordion/Accordion'
 ], function (

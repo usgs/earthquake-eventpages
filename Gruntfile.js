@@ -247,7 +247,7 @@ module.exports = function (grunt) {
 							'base/Formatter',
 							'base/EventPage',
 							'base/EventModulePage',
-							'summary/Attribution',
+							'base/Attribution',
 							'mvc/Collection',
 							'mvc/Model',
 							'mvc/View',

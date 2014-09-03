@@ -2,7 +2,7 @@
 define([
 	'util/Util',
 	'./MomentTensorPage',
-	'summary/Attribution'
+	'base/Attribution'
 ], function (
 	Util,
 	MomentTensorPage,

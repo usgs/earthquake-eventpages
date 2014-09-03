@@ -7,7 +7,7 @@ define([
 	'base/ContentsXML',
 	'./ImpactUtil',
 	'base/SummaryDetailsPage',
-	'summary/Attribution',
+	'base/Attribution',
 	'impact/ImpactModule'
 ], function (
 	Util,
