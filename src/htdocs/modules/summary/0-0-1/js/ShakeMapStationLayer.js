@@ -142,7 +142,7 @@ define([
 		},
 
 		_createChannelRow: function (channel) {
-			var amp = this._createAmplitudesObject(channel.amplitudes);
+			var amplitude = this._createAmplitudesObject(channel.amplitudes);
 
 			return [
 				'<tr>',
@@ -150,24 +150,24 @@ define([
 						channel.name,
 					'</th>',
 					'<td class="station-channel-pga">',
-						(amp.pga&&amp.pga.value) ?
-								this._formatDecimal(amp.pga.value) : '--',
+						(amplitude.pga&&amplitude.pga.value) ?
+								this._formatDecimal(amplitude.pga.value) : '--',
 					'</td>',
 					'<td class="station-channel-pgv">',
-						(amp.pgv&&amp.pgv.value) ?
-								this._formatDecimal(amp.pgv.value) : '--',
+						(amplitude.pgv&&amplitude.pgv.value) ?
+								this._formatDecimal(amplitude.pgv.value) : '--',
 					'</td>',
 					'<td class="station-channel-psa03">',
-						(amp.psa03&&amp.psa03.value) ?
-								this._formatDecimal(amp.psa03.value) : '--',
+						(amplitude.psa03&&amplitude.psa03.value) ?
+								this._formatDecimal(amplitude.psa03.value) : '--',
 					'</td>',
 					'<td class="station-channel-psa10">',
-						(amp.psa10&&amp.psa10.value) ?
-								this._formatDecimal(amp.psa10.value) : '--',
+						(amplitude.psa10&&amplitude.psa10.value) ?
+								this._formatDecimal(amplitude.psa10.value) : '--',
 					'</td>',
 					'<td class="station-channel-psa30">',
-						(amp.psa30&&amp.psa30.value) ?
-								this._formatDecimal(amp.psa30.value) : '--',
+						(amplitude.psa30&&amplitude.psa30.value) ?
+								this._formatDecimal(amplitude.psa30.value) : '--',
 					'</td>',
 				'</tr>',
 			].join('');
