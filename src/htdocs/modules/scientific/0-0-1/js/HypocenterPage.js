@@ -34,7 +34,7 @@ define([
 		}
 	};
 
-	var NOT_SPECIFIED = '<abbr title="Not Specified">-</abbr>';
+	var NOT_REPORTED = '&ndash;';
 
 	// columns for phase data table
 	var PHASE_DATA_COLUMNS = [
@@ -456,10 +456,10 @@ define([
 			source = Attribution.getName(this._product.source);
 		}
 
-		type = magnitude.type || NOT_SPECIFIED;
-		mag = magnitude.mag.value || NOT_SPECIFIED;
-		magError = magnitude.mag.uncertainty || NOT_SPECIFIED;
-		numStations = magnitude.stationCount || NOT_SPECIFIED;
+		type = magnitude.type || NOT_REPORTED;
+		mag = magnitude.mag.value || NOT_REPORTED;
+		magError = magnitude.mag.uncertainty || NOT_REPORTED;
+		numStations = magnitude.stationCount || NOT_REPORTED;
 
 		buf.push(
 			'<section class="accordion accordion-closed networkmagnitude">',
@@ -511,10 +511,10 @@ define([
 				type = stationMagnitude.type;
 				amplitude = stationMagnitude.amplitude || {};
 				station = stationMagnitude.waveformID || amplitude.waveformID;
-				mag = stationMagnitude.mag.value || '-';
+				mag = stationMagnitude.mag.value || NOT_REPORTED;
 				weight = contribution.weight;
-				amp = '-';
-				period = '-';
+				amp = NOT_REPORTED;
+				period = NOT_REPORTED;
 
 				if (amplitude.genericAmplitude) {
 					amp = amplitude.genericAmplitude.value + ( amplitude.unit || '' );
@@ -604,11 +604,11 @@ define([
 					callback(geoserve.fe.longName + ' (' + geoserve.fe.number + ')');
 				},
 				error: function () {
-					callback('-');
+					callback(NOT_REPORTED);
 				}
 			});
 		} catch (e) {
-			callback('-');
+			callback(NOT_REPORTED);
 		}
 	};
 
@@ -652,7 +652,9 @@ define([
 				'</td></tr>');
 
 		buf.push('<tr><th scope="row">Depth</th><td>',
-				formatter.depth(depth, 'km', depthError),
+				formatter.number(depth, formatter._options.depthDecimals,
+						NOT_REPORTED, 'km') +
+				formatter.uncertainty(depthError, formatter._options.depthDecimals, ''),
 				'</td></tr>');
 
 		buf.push('<tr><th scope="row">Origin Time</th><td>',
@@ -662,25 +664,25 @@ define([
 				'</td></tr>');
 
 		buf.push('<tr><th scope="row">Number of Stations</th><td>',
-				(numStations === null ? '-' : numStations),
+				(numStations === null ? NOT_REPORTED : numStations),
 				'</td></tr>');
 
 		buf.push('<tr><th scope="row">Number of Phases</th><td>',
-				(numPhases === null ? '-' : numPhases),
+				(numPhases === null ? NOT_REPORTED : numPhases),
 				'</td></tr>');
 
 		buf.push('<tr><th scope="row">Minimum Distance</th><td>',
-				(minimumDistance === null ? '-' :
+				(minimumDistance === null ? NOT_REPORTED :
 						(minimumDistance * 0.0174532925 * 6378.1).toFixed(2) + ' km' +
 						' (' + parseFloat(minimumDistance).toFixed(2) + '&deg;)'),
 				'</td></tr>');
 
 		buf.push('<tr><th scope="row">Travel Time Residual</th><td>',
-				(standardError === null ? '-' : standardError + ' sec'),
+				(standardError === null ? NOT_REPORTED : standardError + ' sec'),
 				'</td></tr>');
 
 		buf.push('<tr><th scope="row">Azimuthal Gap</th><td>',
-				(azimuthalGap === null ? '-' : azimuthalGap + '&deg;'),
+				(azimuthalGap === null ? NOT_REPORTED : azimuthalGap + '&deg;'),
 				'</td></tr>');
 
 		// Placeholder, filled in asynchronously
@@ -688,7 +690,7 @@ define([
 				'<th scope="row">',
 					'<abbr title="Flinn Engdahl">FE</abbr> Region',
 				'</th>',
-				'<td class="fe-info">-</td></tr>');
+				'<td class="fe-info">' + NOT_REPORTED + '</td></tr>');
 
 		buf.push('<tr><th scope="row">Review Status</th><td>',
 				reviewStatus.toUpperCase().replace('REVIEWED', 'MANUAL'),

@@ -198,13 +198,19 @@ define([
 	};
 
 	EventPage.prototype._buildContributorArray = function () {
-		var allProducts = this._eventDetails.properties.products,
+		var allProducts,
 		    products,
 		    product,
 		    sources = [],
 		    type,
 		    i,
 		    length;
+
+		try {
+			allProducts = this._eventDetails.properties.products;
+		} catch (e) {
+			allProducts = {};
+		}
 
 		for (type in allProducts) {
 			products = allProducts[type];

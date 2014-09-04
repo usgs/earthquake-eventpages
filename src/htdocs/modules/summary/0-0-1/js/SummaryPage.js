@@ -31,6 +31,7 @@ define([
 		this.mapContainer = {};
 		this.nearbyCities = {};
 		this.tectonicSummary = {};
+		this._formatter = new Formatter();
 		EventModulePage.call(this, options);
 	};
 	SummaryPage.prototype = Object.create(EventModulePage.prototype);
@@ -242,15 +243,12 @@ define([
 
 	SummaryPage.prototype._getLocationMarkup = function () {
 		var geometry = this._event.geometry,
-		    markup = [],
-		    depth = geometry.coordinates[2];
+		    markup = [];
 
 		markup.push(
-			this._formatCoord(geometry.coordinates[1], 'N', 'S') +
-			' ' +
-			this._formatCoord(geometry.coordinates[0], 'E', 'W') +
-			' depth=' + (Math.round(depth * 10) / 10).toFixed(1) + 'km (' +
-			(Math.round(this._kmToMi(depth) * 10) / 10).toFixed(1) + 'mi)'
+			this._formatter.location(geometry.coordinates[1],
+					geometry.coordinates[0]) +
+			' depth=' + this._formatter.depth(geometry.coordinates[2], ' km')
 		);
 
 		return markup.join('');
@@ -398,14 +396,6 @@ define([
 		buffer.push(minutes);
 
 		return buffer.join('');
-	};
-
-	SummaryPage.prototype._formatCoord = function (value, pos, neg) {
-		if (value >= 0.0) {
-			return ((Math.round(value * 1000) / 1000).toFixed(3) + '&deg' + pos);
-		} else {
-			return ((Math.round(value * -1000) / 1000).toFixed(3) + '&deg' + neg);
-		}
 	};
 
 	SummaryPage.prototype._kmToMi = function (km) {
