@@ -130,7 +130,7 @@ define([
 				Xhr.ajax({
 					url: products['geoserve'][0].contents['geoserve.json'].url,
 					success: function (geoserve) {
-						if (!this._nearbyCitiesFlag) {
+						if (!_this._nearbyCitiesFlag) {
 							try {
 								_this._ajaxSuccessNearbyCities(geoserve.cities);
 							} catch (e) {
