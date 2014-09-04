@@ -295,19 +295,17 @@ define([
 		if (hash === '') {
 			// No hash on page URL, use default page
 			this._showDefaultPage();
-		} else {
-			// There is a hash already, make sure we show the page from the hash
-			this._onHashChange();
-		}
-
-		// Redirect
-		if (REDIRECTS.hasOwnProperty(hash)) {
+		} else if (REDIRECTS.hasOwnProperty(hash)) {
 			if (window.location.replace) {
 				window.location.replace('#' + REDIRECTS[hash]);
 			} else {
 				window.location = '#' + REDIRECTS[hash];
 			}
+		} else {
+			// There is a hash already, make sure we show the page from the hash
+			this._onHashChange();
 		}
+
 	};
 
 	EventPage.prototype._getCacheIndex = function (hash) {
