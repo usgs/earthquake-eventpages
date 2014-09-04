@@ -11,11 +11,17 @@
 	<noscript class="event-time-location">
 		<span class="utc"><?php print $utctime; ?> (UTC)</span>
 		<span class="location">
-			<?php print format_coord($GEOMETRY['coordinates'][1], 'N', 'S'); ?>
-			<?php print format_coord($GEOMETRY['coordinates'][0], 'E', 'W'); ?>
+			<?php
+				$coordinates = $GEOMETRY['coordinates'];
+				print format_coord($coordinates[1], 'N', 'S');
+				print format_coord($coordinates[0], 'E', 'W');
+			?>
 			<br/>
-			<?php print number_format(round(floatval(
-					$GEOMETRY['coordinates'][2]) * 10) / 10, 1); ?> km depth
+			<?php
+				print isset($coordinates[2]) ?
+					number_format(round(floatval($coordinates[2]) * 10) / 10, 1) :
+					'<abbr title="Not reported">?</abbr>';
+			?> km depth
 		</span>
 	</noscript>
 
