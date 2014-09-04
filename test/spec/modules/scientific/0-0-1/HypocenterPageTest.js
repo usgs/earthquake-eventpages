@@ -183,7 +183,7 @@ define([
 
 			it('Uses default string on error', function (done) {
 				hp.getFeString(null, function (feString) {
-					expect(feString).to.equal('-');
+					expect(feString).to.equal('<abbr title="Not reported">-</abbr>');
 					done();
 				});
 			});
