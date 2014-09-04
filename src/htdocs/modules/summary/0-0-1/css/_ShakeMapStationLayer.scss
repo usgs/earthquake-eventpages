@@ -87,3 +87,40 @@
 .station-channels-psa30 {
 	text-align:left;
 }
+
+.station-layer-icon {
+	position:relative;
+	background-color:#F00;
+
+ 	&:before {
+ 		display:block;
+ 		content:' ';
+		border: 6px solid transparent;
+		position: absolute;
+		top:-5px;
+		left:-6px;
+		z-index: 2;
+	}
+	&:after {
+		display: block;
+		content: ' ';
+		border: 8px solid transparent;
+		border-bottom-color: #666;
+		position: absolute;
+		top: -8px;
+		left: -8px;
+		z-index: 1;
+	}
+}
+.station-mmiI:before {border-bottom-color:#FFFFFF;}
+.station-mmiII:before {border-bottom-color:#ACD8E9;}
+.station-mmiIII:before {border-bottom-color:#ACD8E9;}
+.station-mmiIV:before {border-bottom-color:#83D0DA;}
+.station-mmiV:before {border-bottom-color:#7BC87F;}
+.station-mmiVI:before {border-bottom-color:#F9F518;}
+.station-mmiVII:before {border-bottom-color:#FAC611;}
+.station-mmiVIII:before {border-bottom-color:#FA8A11;}
+.station-mmiIX:before {border-bottom-color:#F7100C;}
+.station-mmiX:before {border-bottom-color:#C80F0A;}
+.station-mmiXI:before {border-bottom-color:#C80F0A;}
+.station-mmiXII:before {border-bottom-color:#C80F0A;}
