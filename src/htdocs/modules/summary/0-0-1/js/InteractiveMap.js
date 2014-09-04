@@ -185,7 +185,7 @@ define([
 									    roman = ROMANS[Math.round(feature.properties.value)];
 
 									layer.bindPopup('<span class="contour mmi mmi'+roman+'">'+
-										roman+'</span>');
+										roman+'<abbr title="Modified Mercalli Intensity">mmi</abbr></span>');
 								}
 							});
 
@@ -193,7 +193,6 @@ define([
 							layerControl.addOverlay(contourLayer, 'ShakeMap Intensity');
 						}
 					});
-
 				}
 				// Adds sakemap station layer
 				var stationLayer = null,
