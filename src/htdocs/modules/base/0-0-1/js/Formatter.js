@@ -18,7 +18,7 @@ define([
 		// decimal places for magnitude
 		magnitudeDecimals: 1,
 		// content when a value is missing
-		empty: '?'
+		empty: '<abbr title="Not reported">?</abbr>'
 	};
 
 	/**
