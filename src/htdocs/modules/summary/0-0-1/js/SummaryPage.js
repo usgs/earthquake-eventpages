@@ -166,9 +166,13 @@ define([
 	SummaryPage.prototype._getTimeMarkup = function () {
 		var properties = this._event.properties,
 		    markup = [],
-		    time;
+		    time,
+		    d = new Date(),
+		    systemTimezoneOffset;
+
 
 		time = parseInt(properties.time, 10);
+		systemTimezoneOffset =  d.getTimezoneOffset() * -1;
 
 		markup.push(
 				'<div class="summary-time">' +
@@ -178,8 +182,8 @@ define([
 				this._formatDate(time, 0) +
 				'</li>' +
 				'<li>' +
-				this._formatDate(time, properties.tz) +
-				' at epicenter' +
+				this._formatDate(time, systemTimezoneOffset) +
+				' <abbr title="Your computer timezone setting">in your timezone</abbr>' +
 				'</li>' +
 				'<li>' +
 				this._getOtherTimeZoneLink(time) +
