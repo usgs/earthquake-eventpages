@@ -39,11 +39,26 @@
 	height:100%;
 }
 
-
 .summary-map a img {
 	border:none;
 }
 
 .summary-map a:hover {
 	cursor:pointer;
+}
+
+.contour {
+	text-align:center;
+	display:block;
+	border-radius: 2px;
+	line-height: 1;
+	padding:4px;
+	font-family: Tahoma, Verdana, Segoe, sans-serif;
+	> abbr {
+		display:block;
+	clear:left;
+	font-size:.8em;
+	color:#999;
+	cursor:help;
+	}
 }
