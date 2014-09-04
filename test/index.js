@@ -94,6 +94,7 @@ require([
 		'spec/modules/impact/0-0-1/PagerPageTest',
 		'spec/modules/impact/0-0-1/PagerXmlParserTest',
 		'spec/modules/scientific/0-0-1/HypocenterPageTest',
+		'spec/modules/scientific/0-0-1/TensorTest',
 		'spec/modules/scientific/0-0-1/MomentTensorTest'
 	], function () {
 		if (window.mochaPhantomJS) {
