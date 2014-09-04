@@ -103,7 +103,7 @@ define([
 					page_nonearbycities = new SummaryPage(options_nonearbycities);
 				} catch (e) { }
 
-				expect(page_nonearbycities._nearbyCitiesFlag).to.equal(undefined);
+				expect(page_nonearbycities._nearbyCitiesFlag).to.equal(false);
 
 			});
 

@@ -20,6 +20,36 @@ define([
 ) {
 	'use strict';
 
+	var REDIRECTS = {
+		'summary': 'general_summary',
+
+		'shakemap': 'impact_shakemap',
+		'shakemap_intensity': 'impact_shakemap',
+		'shakemap_pga': 'impact_shakemap',
+		'shakemap_pgv': 'impact_shakemap',
+		'shakemap_sr03': 'impact_shakemap',
+		'shakemap_sr10': 'impact_shakemap',
+		'shakemap_sr30': 'impact_shakemap',
+		'shakemap_uncertainty': 'impact_shakemap',
+		'shakemap_stationlist': 'impact_shakemap',
+
+		'pager': 'impact_pager',
+		'pager_impact': 'impact_pager',
+		'pager_historic': 'impact_pager',
+		'pager_cities': 'impact_pager',
+
+		'dyfi': 'impact_dyfi',
+		'dyfi_maps': 'impact_dyfi',
+		'dyfi_graphs': 'impact_dyfi',
+		'dyfi_form': 'impact_tellus',
+
+		'scientific': 'scientific_summary',
+		'scientific_contributed-solutions': 'scientific_origin',
+		'scientific_moment-tensor': 'scientific_tensor',
+		'scientific_focal-mechanism': 'scientific_mechanism',
+		'scientific_finite-fault': 'scientific_finitefault'
+	};
+
 	var DEFAULTS = {
 		// Maximum number of modules to cache
 		maxCacheLength: 3,
@@ -265,10 +295,17 @@ define([
 		if (hash === '') {
 			// No hash on page URL, use default page
 			this._showDefaultPage();
+		} else if (REDIRECTS.hasOwnProperty(hash)) {
+			if (window.location.replace) {
+				window.location.replace('#' + REDIRECTS[hash]);
+			} else {
+				window.location = '#' + REDIRECTS[hash];
+			}
 		} else {
 			// There is a hash already, make sure we show the page from the hash
 			this._onHashChange();
 		}
+
 	};
 
 	EventPage.prototype._getCacheIndex = function (hash) {
