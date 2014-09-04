@@ -135,11 +135,6 @@ define([
 				expect(links.childNodes.length).to.not.equal(0);
 			});
 
-			it('can get attribution', function () {
-				var attribution = content.querySelector('.summary-attribution');
-				expect(attribution.childNodes.length).to.not.equal(0);
-			});
-
 			it('can get general-text', function () {
 				var general = content.querySelector('.summary-general-text');
 				expect(general.childNodes.length).to.not.equal(0);
