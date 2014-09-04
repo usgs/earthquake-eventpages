@@ -90,24 +90,28 @@
 
 .station-layer-icon {
 	position:relative;
-	background-color:#F00;
 
 	&:before {
 		display:block;
 		content:' ';
-		border: 6px solid transparent;
+		border: 10px solid transparent;
+		border-left-width: 6px;
+		border-right-width: 6px;
 		position: absolute;
-		top:-5px;
+		top:-10px;
 		left:-6px;
 		z-index: 2;
 	}
+
 	&:after {
 		display: block;
 		content: ' ';
-		border: 8px solid transparent;
+		border: 12px solid transparent;
+		border-left-width: 8px;
+		border-right-width: 8px;
 		border-bottom-color: #666;
 		position: absolute;
-		top: -8px;
+		top: -13px;
 		left: -8px;
 		z-index: 1;
 	}
