@@ -20,7 +20,7 @@
 			<?php
 				print isset($coordinates[2]) ?
 					number_format(round(floatval($coordinates[2]) * 10) / 10, 1) :
-					'<abbr title="Not reported">?</abbr>';
+					'?';
 			?> km depth
 		</span>
 	</noscript>

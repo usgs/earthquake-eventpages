@@ -248,7 +248,7 @@ define([
 		markup.push(
 			this._formatter.location(geometry.coordinates[1],
 					geometry.coordinates[0]) +
-			' depth=' + this._formatter.depth(geometry.coordinates[2])
+			' depth=' + this._formatter.depth(geometry.coordinates[2], ' km')
 		);
 
 		return markup.join('');
