@@ -34,7 +34,7 @@ define([
 		}
 	};
 
-	var NOT_REPORTED = '<abbr title="Not reported">-</abbr>';
+	var NOT_REPORTED = '<abbr title="Not reported">--</abbr>';
 
 	// columns for phase data table
 	var PHASE_DATA_COLUMNS = [
@@ -652,7 +652,9 @@ define([
 				'</td></tr>');
 
 		buf.push('<tr><th scope="row">Depth</th><td>',
-				formatter.depth(depth, 'km', depthError),
+				formatter.number(depth, formatter._options.depthDecimals,
+						NOT_SPECIFIED, 'km') +
+				formatter.uncertainty(depthError, formatter._options.depthDecimals, ''),
 				'</td></tr>');
 
 		buf.push('<tr><th scope="row">Origin Time</th><td>',
