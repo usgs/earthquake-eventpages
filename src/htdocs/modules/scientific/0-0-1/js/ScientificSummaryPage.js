@@ -57,7 +57,7 @@ define([
 				'<div class="mainCol column two-of-three"></div>',
 				'<div class="sideCol column one-of-three"></div>',
 			'</div>',
-			'<div class="rest row clearfix"></div>'
+			'<div class="rest"></div>'
 		].join('');
 		mainCol = content.querySelector('.mainCol');
 		sideCol = content.querySelector('.sideCol');
