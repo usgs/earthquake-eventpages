@@ -19,12 +19,14 @@ define([
 
 			L.GeoJSON.prototype.initialize.call(this, stationJson, {
 				pointToLayer: function (feature, latlng) {
+					var p = feature.properties,
+			    romanIntensity = _this._romanIntensity(p.intensity);
 					return L.marker(latlng, {
-						icon: L.icon({
-							iconUrl: 'images/station-icon.png',
-							iconSize: [17, 15],
+						icon: L.divIcon({
+							className: 'station-layer-icon station-mmi'+romanIntensity+'',
+							iconSize: [0, 0],
 							iconAnchor: [9, 7],
-							popupAnchor: [0, -7]
+							popupAnchor: [-9, -4]
 						})
 					});
 				},
