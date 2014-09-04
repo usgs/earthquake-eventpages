@@ -25,13 +25,8 @@ define([
 
 		var products = options.eventDetails.properties.products;
 
-		if (products.hasOwnProperty('nearby-cities')) {
-			this._nearbyCitiesFlag = true;
-		}
-
-		if (products.hasOwnProperty('tectonic-summary')) {
-			this._tectonicSummaryFlag = true;
-		}
+		this._nearbyCitiesFlag = products.hasOwnProperty('nearby-cities');
+		this._tectonicSummaryFlag = products.hasOwnProperty('tectonic-summary');
 
 		this.mapContainer = {};
 		this.nearbyCities = {};
