@@ -92,9 +92,9 @@
 	position:relative;
 	background-color:#F00;
 
- 	&:before {
- 		display:block;
- 		content:' ';
+	&:before {
+		display:block;
+		content:' ';
 		border: 6px solid transparent;
 		position: absolute;
 		top:-5px;
