@@ -95,6 +95,7 @@ define([
 			}
 			// Place a marker at the earthquake location
 			epicenterMarker = new L.Marker([latitude, longitude], {
+				zIndexOffset: 99999,
 				icon: new L.Icon({
 					iconUrl: 'images/star.png',
 					iconSize: [32, 32],
