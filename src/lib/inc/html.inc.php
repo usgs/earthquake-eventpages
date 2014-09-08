@@ -37,21 +37,21 @@
 		echo '<a href="#impact_dyfi" title="Did You Feel It? maximum reported intensity ' .
 				'(' . intval($PROPERTIES['felt']) . 'reports)" class="mmi' .
 				$romanCDI . '"><strong class="roman">' . $romanCDI .
-				'</strong> <small>DYFI?</small></a>';
+				'</strong><br/><abbr title="Did You Feel It?">DYFI?</abbr></a>';
 	}
 
 	if ($PROPERTIES['mmi'] !== null) {
 		$romanMMI = $ROMANS[round(floatval($PROPERTIES['mmi']))];
 		echo '<a href="#impact_shakemap" title="ShakeMap maximum estimated intensity" ' .
 				'class="mmi' . $romanMMI . '"><strong class="roman">' . $romanMMI .
-				'</strong> <small>ShakeMap</small></a> ';
+				'</strong><br/><abbr title="ShakeMap">SM</abbr></a> ';
 	}
 
 	if ($PROPERTIES['alert'] !== null) {
 		echo '<a href="#impact_pager" title="PAGER estimated impact alert level" ' .
 				'class="pager-alertlevel-' . strtolower($PROPERTIES['alert']) .
 				'"><strong class="roman">' . strtoupper($PROPERTIES['alert']) .
-				'</strong> <small>PAGER</small></a> ';
+				'</strong><br/><abbr title="Prompt Assessment of Global Earthquakes for Response">PAGER</abbr></a> ';
 	}
 
 	if ($PROPERTIES['tsunami'] === 1) {

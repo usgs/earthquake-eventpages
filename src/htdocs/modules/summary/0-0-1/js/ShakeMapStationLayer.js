@@ -48,7 +48,7 @@ define([
 			var markup = ['<div class="station-popup">',
 				'<h2 class="station-title">', this._formatTitle(feature), '</h2>',
 				'<ul class="station-summary">',
-					'<li class="station-summary-intensity mmi', romanIntensity, '">',
+					'<li class="station-summary-intensity roman mmi', romanIntensity, '">',
 						romanIntensity,
 						'<br><abbr title="Modified Mercalli Intensity">mmi</abbr></br>',
 					'</li>',

@@ -184,8 +184,8 @@ define([
 									var ROMANS = ['I', 'I', 'II', 'III', 'IV', 'VI', 'VII', 'VIII', 'IX'],
 									    roman = ROMANS[Math.round(feature.properties.value)];
 
-									layer.bindPopup('<span class="contour mmi mmi'+roman+'">'+
-										roman+'<br><abbr title="Modified Mercalli Intensity">mmi</abbr></span>');
+									layer.bindPopup('<div class="roman station-summary-intensity mmi'+roman+'">'+
+										roman+'<br><abbr title="Modified Mercalli Intensity">mmi</abbr></div>');
 								}
 							});
 

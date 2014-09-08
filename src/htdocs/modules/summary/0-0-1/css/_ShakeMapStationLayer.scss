@@ -27,19 +27,17 @@
 }
 .station-summary > li > abbr {
 	clear:left;
-	font-size:.8em;
+	font-size:.6875em;
 	color:#999;
 	cursor:help;
 }
+
 .station-summary-intensity {
-	font-family:Tahoma, Verdana, Segoe, sans-serif;
-	text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
-	border-radius:2px;
-}
-.station-summary-intensity > abbr {
-	font-family:Helvetica, Arial, sans-serif;
-	text-shadow:none;
-	border-radius:0;
+	text-align:center;
+	> abbr {
+		color:#999;
+		font-size:.6875em;
+	}
 }
 
 .station-metadata {
