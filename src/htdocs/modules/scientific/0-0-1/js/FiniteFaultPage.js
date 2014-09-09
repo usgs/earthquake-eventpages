@@ -53,7 +53,7 @@ define([
 					// make all content urls absolute instead of relative
 					var path;
 					for (path in product.contents) {
-						data = data.replace(path, baseURL + path);
+						data = data.replace('"' + path + '"', baseURL + path);
 					}
 					// insert content
 					el.innerHTML = data;
