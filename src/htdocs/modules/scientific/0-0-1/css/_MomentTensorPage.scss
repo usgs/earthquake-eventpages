@@ -36,17 +36,18 @@
 		}
 	}
 
+	.toggle-row {
+		position:relative;
+	}
+
 	.toggle.hidden {
 		display:none; // hide elements
 	}
 
 	.toggle-button {
-		border: 1px solid #87B4D4;
-		background: #E1E8FF;
-		color: #3B769C;
-		padding:0 5px;
-		float:right;
-		cursor:pointer;
+		position: absolute;
+		top: 2px;
+		right: 2px;
 	}
 
 	.toggle-button.on:before {
