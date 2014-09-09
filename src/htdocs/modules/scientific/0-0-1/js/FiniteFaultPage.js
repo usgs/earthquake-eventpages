@@ -2,11 +2,11 @@
 define([
 	'util/Util',
 	'util/Xhr',
-	'base/TabbedModulePage'
+	'base/SummaryDetailsPage'
 ], function (
 	Util,
 	Xhr,
-	TabbedModulePage
+	SummaryDetailsPage
 ) {
 	'use strict';
 
@@ -22,10 +22,10 @@ define([
 		options = Util.extend({}, options, {
 			productType: 'finite-fault'
 		});
-		TabbedModulePage.call(this, options);
+		SummaryDetailsPage.call(this, options);
 	};
 
-	FiniteFaultPage.prototype = Object.create(TabbedModulePage.prototype);
+	FiniteFaultPage.prototype = Object.create(SummaryDetailsPage.prototype);
 
 
 	/**
@@ -35,7 +35,7 @@ define([
 	 *        finite-fault product.
 	 * @return {DOMElement} that is updated to contain html content.
 	 */
-	FiniteFaultPage.prototype.getDetail = function (product) {
+	FiniteFaultPage.prototype.getDetailsContent = function (product) {
 		var el = document.createElement('div'),
 		    path = product.properties.eventsourcecode + '.html',
 		    content = product.contents[path],
@@ -60,10 +60,8 @@ define([
 				}
 			});
 		}
-		// Finite fault contents xml is currently invalid
-		//el.appendChild(TabbedModulePage.prototype.getDownloads.call(this, product));
 
-		return el;
+		this._content.appendChild(el);
 	};
 
 
