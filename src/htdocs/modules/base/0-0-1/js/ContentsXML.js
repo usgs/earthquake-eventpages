@@ -109,6 +109,7 @@ define([
 		    title,
 		    caption,
 		    formats,
+		    errors,
 		    els,
 		    el,
 		    i,
@@ -127,6 +128,7 @@ define([
 		caption = file.getElementsByTagName('caption')[0];
 		caption = (caption ? caption.textContent : null);
 		formats = [];
+		errors = [];
 
 		// parse file formats
 		els = file.getElementsByTagName('format');
@@ -135,19 +137,27 @@ define([
 			href = el.getAttribute('href');
 			type = el.getAttribute('type');
 			content = productContents[href];
-			formats.push({
-				href: href,
-				type: type,
-				url: content.url,
-				length: content.length
-			});
+			if (content) {
+				formats.push({
+					href: href,
+					type: type,
+					url: content.url,
+					length: content.length
+				});
+			} else {
+				errors.push({
+					href: href,
+					type: type
+				});
+			}
 		}
 
 		return {
 			id: id,
 			title: title,
 			caption: caption,
-			formats: formats
+			formats: formats,
+			errors: errors
 		};
 	};
 

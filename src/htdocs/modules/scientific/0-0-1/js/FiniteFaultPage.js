@@ -37,7 +37,7 @@ define([
 	 */
 	FiniteFaultPage.prototype.getDetail = function (product) {
 		var el = document.createElement('div'),
-		    path = product.eventsourcecode + '.html',
+		    path = product.properties.eventsourcecode + '.html',
 		    content = product.contents[path],
 		    url,
 		    baseURL;
