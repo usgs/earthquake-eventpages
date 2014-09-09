@@ -36,8 +36,7 @@ if (!isset($TEMPLATE)) {
 
 	$EVENT_CONFIG = array(
 		'MOUNT_PATH' => $CONFIG['MOUNT_PATH'],
-		'KML_STUB' => isset($CONFIG['KML_STUB']) ?
-				$OFFSITE_HOST . $CONFIG['KML_STUB'] : null,
+		'KML_STUB' => isset($CONFIG['KML_STUB']) ? $CONFIG['KML_STUB'] : null,
 		'DYFI_RESPONSE_URL' => $CONFIG['DYFI_RESPONSE_URL']
 	);
 
