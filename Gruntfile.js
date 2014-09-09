@@ -242,7 +242,6 @@ module.exports = function (grunt) {
 							'accordion/Accordion',
 							'base/EventModulePage',
 							'base/EventModulePages',
-							'base/TabbedModulePage',
 							'base/SummaryDetailsPage',
 							'base/ContentsXML',
 							'base/Formatter',

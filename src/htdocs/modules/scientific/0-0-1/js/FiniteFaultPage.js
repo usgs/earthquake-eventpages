@@ -16,7 +16,7 @@ define([
 	 *
 	 * @param options {Object}
 	 *        page options.
-	 * @see base/TabbedModulePage for additional options.
+	 * @see base/SummaryDetailsPage for additional options.
 	 */
 	var FiniteFaultPage = function (options) {
 		options = Util.extend({}, options, {
