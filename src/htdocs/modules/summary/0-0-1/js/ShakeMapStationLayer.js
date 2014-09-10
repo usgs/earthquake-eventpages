@@ -68,14 +68,14 @@ define([
 				'<dl class="station-metadata">',
 					'<dt class="station-metadata-type">Type</dt>',
 						'<dd class="station-metadata-type">',
-							(p.instrumentType||'--'),
+							(p.instrumentType||'&ndash;'),
 						'</dd>',
 					'<dt class="station-metadata-location">Location</dt>',
 						'<dd class="station-metadata-location">',
 							this._formatLocation(feature),
 						'</dd>',
 					'<dt class="station-metadata-source">Source</dt>',
-						'<dd class="station-metadata-source">', (p.source || '--'), '</dd>',
+						'<dd class="station-metadata-source">', (p.source || '&ndash;'), '</dd>',
 					'<dt class="station-metadata-intensity">Intensity</dt>',
 						'<dd class="station-metadata-intensity">',
 							this._formatDecimal(p.intensity, 1),
@@ -138,23 +138,23 @@ define([
 					'</th>',
 					'<td class="station-channel-pga">',
 						(amplitude.pga&&amplitude.pga.value) ?
-								this._formatDecimal(amplitude.pga.value) : '--',
+								this._formatDecimal(amplitude.pga.value) : '&ndash;',
 					'</td>',
 					'<td class="station-channel-pgv">',
 						(amplitude.pgv&&amplitude.pgv.value) ?
-								this._formatDecimal(amplitude.pgv.value) : '--',
+								this._formatDecimal(amplitude.pgv.value) : '&ndash;',
 					'</td>',
 					'<td class="station-channel-psa03">',
 						(amplitude.psa03&&amplitude.psa03.value) ?
-								this._formatDecimal(amplitude.psa03.value) : '--',
+								this._formatDecimal(amplitude.psa03.value) : '&ndash;',
 					'</td>',
 					'<td class="station-channel-psa10">',
 						(amplitude.psa10&&amplitude.psa10.value) ?
-								this._formatDecimal(amplitude.psa10.value) : '--',
+								this._formatDecimal(amplitude.psa10.value) : '&ndash;',
 					'</td>',
 					'<td class="station-channel-psa30">',
 						(amplitude.psa30&&amplitude.psa30.value) ?
-								this._formatDecimal(amplitude.psa30.value) : '--',
+								this._formatDecimal(amplitude.psa30.value) : '&ndash;',
 					'</td>',
 				'</tr>',
 			].join('');
@@ -166,13 +166,13 @@ define([
 			var title = [];
 
 			if (!plainText) { title.push('<span class="station-code">'); }
-			title.push(p.code || '--');
+			title.push(p.code || '&ndash;');
 			if (!plainText) { title.push('</span>'); }
 
 			title.push(' ');
 
 			if (!plainText) { title.push('<span class="station-name">'); }
-			title.push(p.name || '--');
+			title.push(p.name || '&ndash;');
 			if (!plainText) { title.push('</span>'); }
 
 			return title.join('');
@@ -182,7 +182,7 @@ define([
 			var formatted = null;
 
 			if (typeof value === 'undefined' || value === null || value === '') {
-				return '--';
+				return '&ndash;';
 			}
 			if (typeof decimals === 'undefined' || decimals === null) {
 				decimals = 3;
@@ -190,7 +190,7 @@ define([
 
 			formatted = parseFloat(value);
 			if (isNaN(formatted)) {
-				return '--';
+				return '&ndash;';
 			}
 
 			return formatted.toFixed(decimals);
