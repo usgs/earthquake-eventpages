@@ -133,7 +133,7 @@ define([
 		    catalog = tensor.product.properties.eventsource,
 		    contributor = tensor.product.source,
 		    code = tensor.product.code,
-		    half_duration = tensor.product.properties.duration/2 || '--';
+		    half_duration = tensor.product.properties.duration/2 || '&ndash;';
 
 		moment = (moment / tensor.scale).toFixed(3) +
 				'e+' + tensor.exponent + ' ' + tensor.units;
