@@ -25,9 +25,9 @@ define([
 					return L.marker(latlng, {
 						icon: L.divIcon({
 							className: 'station-layer-icon station-mmi'+romanIntensity+'',
-							iconSize: [0, 0],
-							iconAnchor: [9, 7],
-							popupAnchor: [-9, -4]
+							iconSize: [14, 10],
+							iconAnchor: [7, 8],
+							popupAnchor: [0, -4]
 						})
 					});
 				},
