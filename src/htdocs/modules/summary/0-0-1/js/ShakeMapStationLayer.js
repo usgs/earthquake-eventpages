@@ -20,7 +20,8 @@ define([
 			L.GeoJSON.prototype.initialize.call(this, stationJson, {
 				pointToLayer: function (feature, latlng) {
 					var p = feature.properties,
-			    romanIntensity = _this._romanIntensity(p.intensity);
+					    romanIntensity = _this._romanIntensity(p.intensity);
+
 					return L.marker(latlng, {
 						icon: L.divIcon({
 							className: 'station-layer-icon station-mmi'+romanIntensity+'',
