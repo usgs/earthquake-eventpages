@@ -286,11 +286,9 @@ define([
 	};
 
 	DYFIPage.prototype._addToggleButton = function (container, table) {
-		var button = container.appendChild(document.createElement('span'));
+		var button = container.appendChild(document.createElement('button'));
 
-		button.setAttribute('role', 'button');
 		button.innerHTML = 'See All Responses';
-		button.className = 'button';
 
 		button.addEventListener('click', function (/*evt*/) {
 			if (table.classList.contains('full-list')) {
