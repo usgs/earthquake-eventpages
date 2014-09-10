@@ -1,3 +1,4 @@
+@import '../../../../css/_mmi-variables';
 .station-popup {
 	color:#444;
 }
@@ -114,15 +115,15 @@
 	}
 }
 
-.station-mmiI:before {border-bottom-color:#FFFFFF;}
-.station-mmiII:before {border-bottom-color:#ACD8E9;}
-.station-mmiIII:before {border-bottom-color:#ACD8E9;}
-.station-mmiIV:before {border-bottom-color:#83D0DA;}
-.station-mmiV:before {border-bottom-color:#7BC87F;}
-.station-mmiVI:before {border-bottom-color:#F9F518;}
-.station-mmiVII:before {border-bottom-color:#FAC611;}
-.station-mmiVIII:before {border-bottom-color:#FA8A11;}
-.station-mmiIX:before {border-bottom-color:#F7100C;}
-.station-mmiX:before {border-bottom-color:#C80F0A;}
-.station-mmiXI:before {border-bottom-color:#C80F0A;}
-.station-mmiXII:before {border-bottom-color:#C80F0A;}
+.station-mmiI:before {border-bottom-color:$mmiI;}
+.station-mmiII:before {border-bottom-color:$mmiII;}
+.station-mmiIII:before {border-bottom-color:$mmiIII;}
+.station-mmiIV:before {border-bottom-color:$mmiIV;}
+.station-mmiV:before {border-bottom-color:$mmiV;}
+.station-mmiVI:before {border-bottom-color:$mmiVI;}
+.station-mmiVII:before {border-bottom-color:$mmiVII;}
+.station-mmiVIII:before {border-bottom-color:$mmiVIII;}
+.station-mmiIX:before {border-bottom-color:$mmiIX;}
+.station-mmiX:before {border-bottom-color:$mmiX;}
+.station-mmiXI:before {border-bottom-color:$mmiXI;}
+.station-mmiXII:before {border-bottom-color:$mmiXII;}

@@ -1,3 +1,4 @@
+@import '_mmi-variables';
 .event-header {
 	> div {
 		position:relative;
@@ -93,20 +94,70 @@
 	color:#000 !important;
 }
 
-.roman {font-family: Tahoma, Verdana, Segoe, sans-serif;}
-.mmiI{color:#000000 !important; background-color:#FFFFFF !important;
-		box-shadow: 0 0 1px #666;}
-.mmiII{color:#000000 !important; background-color:#ACD8E9 !important;}
-.mmiIII{color:#000000 !important; background-color:#ACD8E9 !important;}
-.mmiIV{color:#000000 !important; background-color:#83D0DA !important;}
-.mmiV{color:#000000 !important; background-color:#7BC87F !important;}
-.mmiVI{color:#000000 !important; background-color:#F9F518 !important;}
-.mmiVII{color:#000000 !important; background-color:#FAC611 !important;}
-.mmiVIII{color:#000000 !important; background-color:#FA8A11 !important;}
-.mmiIX{color:#000000 !important; background-color:#F7100C !important;}
-.mmiX{color:#000000 !important; background-color:#C80F0A !important;}
-.mmiXI{color:#000000 !important; background-color:#C80F0A !important;}
-.mmiXII{color:#000000 !important; background-color:#C80F0A !important;}
+.roman {
+	font-family:$mmi-font-family;
+}
+
+.mmiI{
+	color:$mmiI-text-color;
+	background-color:$mmiI;
+	box-shadow:0 0 1px #666;
+}
+
+.mmiII{
+	color:$mmiII-text-color;
+	background-color:$mmiII;
+}
+
+.mmiIII{
+	color:$mmiIII-text-color;
+	background-color:$mmiIII;
+}
+
+.mmiIV{
+	color:$mmiIV-text-color;
+	background-color:$mmiIV;
+}
+
+.mmiV{
+	color:$mmiV-text-color;
+	background-color:$mmiV;
+}
+
+.mmiVI{
+	color:$mmiVI-text-color;
+	background-color:$mmiVI;
+}
+
+.mmiVII{
+	color:$mmiVII-text-color;
+	background-color:$mmiVII;
+}
+
+.mmiVIII{
+	color:$mmiVIII-text-color;
+	background-color:$mmiVIII;
+}
+
+.mmiIX{
+	color:$mmiIX-text-color;
+	background-color:$mmiIX;
+}
+
+.mmiX{
+	color:$mmiX-text-color;
+	background-color:$mmiX;
+}
+
+.mmiXI{
+	color:$mmiXI-text-color;
+	background-color:$mmiXI;
+}
+
+.mmiXII{
+	color:$mmiXII-text-color;
+	background-color:$mmiXII;
+}
 
 @media screen and (min-width: 768px) {
 	.event-header {
