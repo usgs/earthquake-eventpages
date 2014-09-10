@@ -4,6 +4,7 @@ define([
 	'base/EventModulePage',
 	'map/MouseOverLayer',
 	'summary/ShakeMapStationLayer',
+	'impact/ImpactUtil',
 
 	'util/Util',
 	'util/Xhr'
@@ -12,6 +13,7 @@ define([
 	EventModulePage,
 	MouseOverLayer,
 	ShakeMapStationLayer,
+	ImpactUtil,
 
 	Util,
 	Xhr
@@ -182,11 +184,10 @@ define([
 									};
 								},
 								onEachFeature: function (feature, layer) {
-									var ROMANS = ['I', 'I', 'II', 'III', 'IV', 'VI', 'VII', 'VIII', 'IX'],
-									    roman = ROMANS[Math.round(feature.properties.value)];
+									var p = feature.properties,
+									    roman = ImpactUtil._translateMmi(p.value);
 
-									layer.bindPopup('<div class="roman station-summary-intensity mmi'+roman+'">'+
-										roman+'<br><abbr title="Modified Mercalli Intensity">mmi</abbr></div>');
+									layer.bindPopup('<div class="roman station-summary-intensity mmi'+roman+'">'+roman+'<br><abbr title="Modified Mercalli Intensity">mmi</abbr></div>');
 								}
 							});
 

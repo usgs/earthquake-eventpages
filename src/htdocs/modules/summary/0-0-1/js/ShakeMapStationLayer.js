@@ -1,11 +1,13 @@
 /* global define */
 define([
 	'leaflet',
+	'impact/ImpactUtil',
 
 	'util/Util',
 	'util/Xhr'
 ], function (
 	L,
+	ImpactUtil,
 
 	Util,
 	Xhr
@@ -20,7 +22,7 @@ define([
 			L.GeoJSON.prototype.initialize.call(this, stationJson, {
 				pointToLayer: function (feature, latlng) {
 					var p = feature.properties,
-					    romanIntensity = _this._romanIntensity(p.intensity);
+					    romanIntensity = ImpactUtil._translateMmi(p.intensity);
 
 					return L.marker(latlng, {
 						icon: L.divIcon({
@@ -44,7 +46,7 @@ define([
 
 		_generatePopupContent: function (feature) {
 			var p = feature.properties,
-			    romanIntensity = this._romanIntensity(p.intensity);
+			    romanIntensity = ImpactUtil._translateMmi(p.intensity);
 
 			var markup = ['<div class="station-popup">',
 				'<h2 class="station-title">', this._formatTitle(feature), '</h2>',
@@ -203,27 +205,6 @@ define([
 					feature.geometry.coordinates[1] + ', ' +
 					feature.geometry.coordinates[0] + ')';
 		},
-
-		_romanIntensity: function (intensity) {
-			var ROMANS = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX',
-					'X', 'XI', 'XII'];
-
-			var index;
-			if (isNaN(intensity)) {
-				return 'NaN';
-			} else {
-				index = Math.round(intensity);
-			}
-
-			if (index < 0) {
-				index = 0;
-			}
-			if (index > (ROMANS.length - 1)) {
-				index = ROMANS.length - 1;
-			}
-
-			return ROMANS[index];
-		}
 	});
 	return ShakeMapStationLayer;
 });
