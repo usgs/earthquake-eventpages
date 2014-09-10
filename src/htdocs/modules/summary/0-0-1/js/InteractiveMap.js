@@ -191,7 +191,7 @@ define([
 							});
 
 							contourLayer.addTo(map);
-							layerControl.addOverlay(contourLayer, 'ShakeMap Intensity');
+							layerControl.addOverlay(contourLayer, 'ShakeMap MMI Contours');
 						}
 					});
 				}
@@ -207,7 +207,7 @@ define([
 						success: function (data) {
 							stationLayer = new ShakeMapStationLayer(data);
 							stationLayer.addTo(map);
-							layerControl.addOverlay(stationLayer, 'Station');
+							layerControl.addOverlay(stationLayer, 'ShakeMap Stations');
 						}
 					});
 				}
