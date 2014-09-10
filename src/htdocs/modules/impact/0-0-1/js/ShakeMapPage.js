@@ -290,8 +290,8 @@ define([
 			vel = this._findMaxValue(components, 'vel');
 
 
-			vel = (vel) ? vel.toFixed(3) : '--';
-			acc = (acc) ? acc.toFixed(3) : '--';
+			vel = (vel) ? vel.toFixed(3) : '&ndash;';
+			acc = (acc) ? acc.toFixed(3) : '&ndash;';
 
 			if (typeof station.dist === 'string') {
 				dist = parseFloat(station.dist, 10);
@@ -476,7 +476,7 @@ define([
 				content.push('</span>');
 			}
 		} else {
-			content.push('<span>--</span>');
+			content.push('<span>&ndash;</span>');
 		}
 
 		return content.join('');
