@@ -7,7 +7,9 @@ define([
 	'base/EventModule',
 
 	'util/Events',
-	'util/Util'
+	'util/Util',
+
+	'./usc000lnnb'
 ], function (
 	chai,
 	sinon,
@@ -16,7 +18,9 @@ define([
 	EventModule,
 
 	Events,
-	Util
+	Util,
+
+	eventData
 ) {
 	'use strict';
 	var expect = chai.expect;
@@ -189,6 +193,14 @@ define([
 				eventPage.on('render', listener);
 				hashChange = hashChangeEvent1;
 				Events.trigger('hashchange', hashChange);
+			});
+		});
+
+		describe('getAttribution', function () {
+			it('can get attribution', function () {
+				var eventPage = createEventPage({ eventDetails: eventData }),
+				    attribution = eventPage._footer.querySelector('ol.contributors');
+				expect(attribution.childNodes.length).to.not.equal(0);
 			});
 		});
 
