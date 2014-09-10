@@ -46,7 +46,7 @@ define([
 		SummaryDetailsPage.call(this, options);
 	};
 
-	// extend TabbedModulePage.
+	// extend SummaryDetailsPage.
 	MomentTensorPage.prototype = Object.create(SummaryDetailsPage.prototype);
 
 	/**
