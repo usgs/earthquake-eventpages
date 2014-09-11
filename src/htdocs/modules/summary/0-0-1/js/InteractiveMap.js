@@ -59,25 +59,25 @@ define([
 		this._closeButton.setAttribute('title', 'Close');
 		this._bindCloseEvent();
 
-		map = new L.Map(_el, {
+		this._map = map = new L.Map(_el, {
 			center: [0.0, 0.0],
 			zoom: 2,
 			zoomAnimation: false,
 			attributionControl: false
 		});
-		this._map = map;
+
 		layerControl = new L.Control.Layers();
 
 		// Basic greyscale map
 		baseLayer = new L.TileLayer(
 				'http://earthquake.usgs.gov/basemap/tiles/natgeo_hires/{z}/{y}/{x}.jpg');
-		this._map.addLayer(baseLayer);
+		map.addLayer(baseLayer);
 		layerControl.addBaseLayer(baseLayer, 'USGS Topography');
 
 		// Plates
 		platesLayer = new L.TileLayer(
 				'http://earthquake.usgs.gov/basemap/tiles/plates/{z}/{x}/{y}.png');
-		this._map.addLayer(platesLayer);
+		map.addLayer(platesLayer);
 		layerControl.addOverlay(platesLayer, 'Tectonic Plates');
 
 		if (this._event) {
@@ -92,7 +92,7 @@ define([
 					dataUrl: 'http://earthquake.usgs.gov/basemap/tiles/faults/{z}/{x}/{y}.grid.json?callback={cb}',
 					tiptext: '{NAME}'
 				});
-				this._map.addLayer(faultsLayer);
+				map.addLayer(faultsLayer);
 				layerControl.addOverlay(faultsLayer, 'U.S. Faults');
 			}
 			// Place a marker at the earthquake location
@@ -110,7 +110,7 @@ define([
 				'M',
 				this._event.properties.mag
 			].join(''));
-			this._map.addLayer(epicenterMarker);
+			map.addLayer(epicenterMarker);
 
 			if (this._event.properties.products.geoserve) {
 				Xhr.ajax({
@@ -141,10 +141,10 @@ define([
 									city.distance, 'km from epicenter',
 								'</span>'
 							].join(''));
-							_this._map.addLayer(cityMarker);
+							map.addLayer(cityMarker);
 
 						}
-						_this._map.invalidateSize();
+						map.invalidateSize();
 
 						if (_this._event) {
 							// Show a 2deg map centered on earthquake epicenter)
@@ -157,7 +157,7 @@ define([
 							lngmin = lng - 2.0;
 							lngmax = lng + 2.0;
 
-							_this._map.fitBounds([[latmax, lngmin], [latmin, lngmax]]);
+							map.fitBounds([[latmax, lngmin], [latmin, lngmax]]);
 						}
 					}
 				});
@@ -214,7 +214,7 @@ define([
 				}
 			}
 		}
-		this._map.addControl(layerControl);
+		map.addControl(layerControl);
 
 		this._content.appendChild(_el);
 		this._content.appendChild(this._closeButton);
