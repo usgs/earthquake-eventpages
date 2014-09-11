@@ -47,7 +47,7 @@ define([
 		Util.addClass(_el, 'summary-interactive-map');
 		//Util.addClass(this._closeButton, 'summary-interactive-map-close');
 
-		this._closeButton.innerHTML = 'Close';
+		this._closeButton.innerHTML = 'Close Map';
 		this._closeButton.className = 'summary-interactive-map-close cancel';
 		_el.innerHTML = '';
 
