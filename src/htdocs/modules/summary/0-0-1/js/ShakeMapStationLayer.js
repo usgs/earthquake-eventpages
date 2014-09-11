@@ -2,12 +2,14 @@
 define([
 	'leaflet',
 	'impact/ImpactUtil',
+	'base/Formatter',
 
 	'util/Util',
 	'util/Xhr'
 ], function (
 	L,
 	ImpactUtil,
+	Formatter,
 
 	Util,
 	Xhr
@@ -18,6 +20,8 @@ define([
 
 		initialize: function (stationJson) {
 			var _this = this;
+
+			this._formatter = new Formatter();
 
 			L.GeoJSON.prototype.initialize.call(this, stationJson, {
 				pointToLayer: function (feature, latlng) {
@@ -56,15 +60,15 @@ define([
 						'<br><abbr title="Modified Mercalli Intensity">mmi</abbr></br>',
 					'</li>',
 					'<li class="station-summary-pgv">',
-						this._formatDecimal(p.pgv),
+						this._formatter.number(p.pgv, 3, '&ndash;'),
 						'<br><abbr title="Maximum Horizontal Peak Ground Velocity">pgv</abbr></br>',
 					'</li>',
 					'<li class="station-summary-pga">',
-						this._formatDecimal(p.pga),
+						this._formatter.number(p.pga, 3, '&ndash;'),
 						'<br><abbr title="Maximum Horizontal Peak Ground Velocity">pga</abbr></br>',
 					'</li>',
 					'<li class="station-summary-distance">',
-						this._formatDecimal(p.distance, 1),
+						this._formatter.number(p.distance, 1, '&ndash;'),
 						'<br><abbr title="Distance from Epicenter">dist</abbr></br>',
 					'</li>',
 				'</ul>',
@@ -81,7 +85,7 @@ define([
 						'<dd class="station-metadata-source">', (p.source || '&ndash;'), '</dd>',
 					'<dt class="station-metadata-intensity">Intensity</dt>',
 						'<dd class="station-metadata-intensity">',
-							this._formatDecimal(p.intensity, 1),
+							this._formatter.number(p.intensity, 1, '&ndash;'),
 						'</dd>',
 				'</dl>',
 				this._createChannelTable(p.channels),
@@ -141,23 +145,23 @@ define([
 					'</th>',
 					'<td class="station-channel-pga">',
 						(amplitude.pga&&amplitude.pga.value) ?
-								this._formatDecimal(amplitude.pga.value) : '&ndash;',
+								this._formatter.number(amplitude.pga.value, 3) : '&ndash;',
 					'</td>',
 					'<td class="station-channel-pgv">',
 						(amplitude.pgv&&amplitude.pgv.value) ?
-								this._formatDecimal(amplitude.pgv.value) : '&ndash;',
+								this._formatter.number(amplitude.pgv.value, 3) : '&ndash;',
 					'</td>',
 					'<td class="station-channel-psa03">',
 						(amplitude.psa03&&amplitude.psa03.value) ?
-								this._formatDecimal(amplitude.psa03.value) : '&ndash;',
+								this._formatter.number(amplitude.psa03.value, 3) : '&ndash;',
 					'</td>',
 					'<td class="station-channel-psa10">',
 						(amplitude.psa10&&amplitude.psa10.value) ?
-								this._formatDecimal(amplitude.psa10.value) : '&ndash;',
+								this._formatter.number(amplitude.psa10.value, 3) : '&ndash;',
 					'</td>',
 					'<td class="station-channel-psa30">',
 						(amplitude.psa30&&amplitude.psa30.value) ?
-								this._formatDecimal(amplitude.psa30.value) : '&ndash;',
+								this._formatter.number(amplitude.psa30.value, 3) : '&ndash;',
 					'</td>',
 				'</tr>',
 			].join('');
@@ -179,24 +183,6 @@ define([
 			if (!plainText) { title.push('</span>'); }
 
 			return title.join('');
-		},
-
-		_formatDecimal: function (value, decimals) {
-			var formatted = null;
-
-			if (typeof value === 'undefined' || value === null || value === '') {
-				return '&ndash;';
-			}
-			if (typeof decimals === 'undefined' || decimals === null) {
-				decimals = 3;
-			}
-
-			formatted = parseFloat(value);
-			if (isNaN(formatted)) {
-				return '&ndash;';
-			}
-
-			return formatted.toFixed(decimals);
 		},
 
 		_formatLocation: function (feature) {
