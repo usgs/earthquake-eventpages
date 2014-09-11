@@ -7,7 +7,6 @@
 	left:0;
 	padding:8px;
 	z-index:9999;
-
 	background-color:rgba(0, 0, 0, 0.75);
 
 	> .summary-interactive-map-close {
@@ -15,10 +14,15 @@
 		position: relative;
 		padding: 8px 12px;
 		width: 95%;
-		max-width: 300px;
+		max-width: 120px;
 		margin: 0 auto;
 		z-index: 9999;
 		bottom:3.5em;
+		color:#000;
+		background:#fff;
+		border: 2px solid rgba(0, 0, 0, 0.2);
+		border-radius: 4px;
+		background-clip: padding-box;
 	}
 
 	.city-distance {
