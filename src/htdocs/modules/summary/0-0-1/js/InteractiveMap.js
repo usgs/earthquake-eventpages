@@ -4,6 +4,7 @@ define([
 	'base/EventModulePage',
 	'map/MouseOverLayer',
 	'summary/ShakeMapStationLayer',
+	'summary/ContoursLayer',
 	'impact/ImpactUtil',
 
 	'util/Util',
@@ -13,6 +14,7 @@ define([
 	EventModulePage,
 	MouseOverLayer,
 	ShakeMapStationLayer,
+	ContoursLayer,
 	ImpactUtil,
 
 	Util,
@@ -175,22 +177,7 @@ define([
 					Xhr.ajax({
 						url: contourJson.url,
 						success: function (data) {
-							contourLayer = L.geoJson(data, {
-								style: function (feature) {
-									return {
-										color: feature.properties.color,
-										weight: feature.properties.weight,
-										opacity: 1.0
-									};
-								},
-								onEachFeature: function (feature, layer) {
-									var p = feature.properties,
-									    roman = ImpactUtil._translateMmi(p.value);
-
-									layer.bindPopup('<div class="roman station-summary-intensity mmi'+roman+'">'+roman+'<br><abbr title="Modified Mercalli Intensity">mmi</abbr></div>');
-								}
-							});
-
+							contourLayer = new ContoursLayer(data);
 							contourLayer.addTo(map);
 							layerControl.addOverlay(contourLayer, 'ShakeMap MMI Contours');
 						}
