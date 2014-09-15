@@ -30,7 +30,5 @@ define([
 			});
 		}
 	});
-
 	return ContoursLayer;
-
 });
