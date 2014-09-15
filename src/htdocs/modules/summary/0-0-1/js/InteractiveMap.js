@@ -23,7 +23,7 @@ define([
 		options = Util.extend({}, DEFAULTS, options || {});
 		this._map = {};
 		this._wrapper = document.createElement('div');
-		this._closeBtn = document.createElement('div');
+		this._closeButton = document.createElement('button');
 		EventModulePage.call(this, options);
 	};
 
@@ -45,12 +45,13 @@ define([
 
 		Util.addClass(this._content, 'summary-interactive-map-wrapper');
 		Util.addClass(_el, 'summary-interactive-map');
-		Util.addClass(this._closeBtn, 'summary-interactive-map-close');
+		//Util.addClass(this._closeButton, 'summary-interactive-map-close');
 
-		this._closeBtn.innerHTML = 'CLOSE';
+		this._closeButton.innerHTML = 'Close Map';
+		this._closeButton.className = 'summary-interactive-map-close cancel';
 		_el.innerHTML = '';
 
-		this._closeBtn.setAttribute('title', 'Close');
+		this._closeButton.setAttribute('title', 'Close');
 		this._bindCloseEvent();
 
 		this._map = new L.Map(_el, {
@@ -162,7 +163,7 @@ define([
 		this._map.addControl(layerControl);
 
 		this._content.appendChild(_el);
-		this._content.appendChild(this._closeBtn);
+		this._content.appendChild(this._closeButton);
 
 
 	};
@@ -198,7 +199,7 @@ define([
 	InteractiveMap.prototype._bindCloseEvent = function () {
 		//var _this = this;
 
-		Util.addEvent(this._closeBtn, 'click', function () {
+		Util.addEvent(this._closeButton, 'click', function () {
 			//_this._wrapper.parentNode.removeChild(_this._wrapper);
 			window.history.go(-1);
 		});

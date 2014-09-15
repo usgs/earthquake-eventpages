@@ -3,22 +3,6 @@
 
 .dyfi-responses {
 
-	/* span with role="button" */
-	> .button {
-		display:inline-block;
-		color:#fff;
-		background:#4e7ab9;
-		border-radius:3px;
-		padding:8px 15px;
-		text-align:center;
-		text-decoration:none;
-
-		&:hover {
-			cursor:pointer;
-			background-image:linear-gradient(to top, rgba(0,0,0,0.1) 0% ,rgba(0,0,0,0) 100%);
-		}
-	}
-
 	.dyfi {
 		> tbody > tr {
 
@@ -89,13 +73,6 @@
 	.dyfi-error,
 	.dyfi-info {
 		display:block;
-	}
-
-	.dyfi-responses {
-		> .button {
-			display:block;
-			width:100%;
-		}
 	}
 
 	.dyfi-responses {

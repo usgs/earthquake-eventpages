@@ -7,24 +7,20 @@
 	left:0;
 	padding:8px;
 	z-index:9999;
-
 	background-color:rgba(0, 0, 0, 0.75);
 
 	> .summary-interactive-map-close {
-		display:block;
-		position:absolute;
-		bottom:12px;
-		right:12px;
-		left:12px;
-		line-height:1em;
-		text-align:center;
-		color:#000;
-		background-color:#fff;
-		cursor:pointer;
-		z-index:9999;
-		padding:8px 0;
-		box-shadow:0 1px 5px rgba(0,0,0,0.65);
-		border-radius:4px;
+		display: block;
+		position: relative;
+		padding: 8px 12px;
+		width: 95%;
+		max-width: 130px;
+		margin: 0 auto;
+		z-index: 9999;
+		bottom:3.6em;
+		border: 2px solid rgba(0, 0, 0, 0.2);
+		border-radius: 4px;
+		background-clip: padding-box;
 	}
 
 	.city-distance {
