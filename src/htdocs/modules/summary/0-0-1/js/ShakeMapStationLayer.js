@@ -2,17 +2,11 @@
 define([
 	'leaflet',
 	'impact/ImpactUtil',
-	'base/Formatter',
-
-	'util/Util',
-	'util/Xhr'
+	'base/Formatter'
 ], function (
 	L,
 	ImpactUtil,
-	Formatter,
-
-	Util,
-	Xhr
+	Formatter
 ) {
 	'use strict';
 
@@ -38,9 +32,6 @@ define([
 					});
 				},
 				onEachFeature: function (feature, layer) {
-					var lat = feature.geometry.coordinates[1],
-					    lng = feature.geometry.coordinates[0];
-
 					layer.options.title = _this._formatTitle(feature, true);
 					layer.bindPopup(_this._generatePopupContent(feature),
 							{minWidth:300});
