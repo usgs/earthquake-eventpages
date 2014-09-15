@@ -89,7 +89,7 @@ define([
 							_this._ajaxSuccessTectonicSummary(tectonicSummary);
 						},
 						error: function () {
-							throw new Exception('Failed to load tectonic summary.');
+							throw new Error('Failed to load tectonic summary.');
 						}
 					});
 			} catch (e) {
@@ -108,7 +108,7 @@ define([
 							_this._ajaxSuccessNearbyCities(nearbyCities);
 						},
 						error: function () {
-							throw new Exception('Failed to load nearby cities.');
+							throw new Error('Failed to load nearby cities.');
 						}
 					});
 			} catch (e) {
@@ -124,7 +124,7 @@ define([
 				//         this will be a dynamic call for data or potentally separate
 				//         calls for each part of the data
 				Xhr.ajax({
-					url: products['geoserve'][0].contents['geoserve.json'].url,
+					url: products.geoserve[0].contents['geoserve.json'].url,
 					success: function (geoserve) {
 						if (!_this._nearbyCitiesFlag) {
 							try {
@@ -142,7 +142,7 @@ define([
 						}
 					},
 					error: function () {
-						throw new Exception('Failed to load geoserve.');
+						throw new Error('Failed to load geoserve.');
 					}
 				});
 			} catch (e) {
