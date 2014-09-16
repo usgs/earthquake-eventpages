@@ -177,7 +177,7 @@ define([
 					Xhr.ajax({
 						url: contourJson.url,
 						success: function (data) {
-							contourLayer = new ContoursLayer(data);
+							_this._contourLayer = contourLayer = new ContoursLayer(data);
 							contourLayer.addTo(map);
 							layerControl.addOverlay(contourLayer, 'ShakeMap MMI Contours');
 						}
@@ -193,7 +193,8 @@ define([
 					Xhr.ajax({
 						url: stationJson.url,
 						success: function (data) {
-							stationLayer = new ShakeMapStationLayer(data);
+							_this._stationLayer = stationLayer =
+									new ShakeMapStationLayer(data);
 							stationLayer.addTo(map);
 							layerControl.addOverlay(stationLayer, 'ShakeMap Stations');
 						}

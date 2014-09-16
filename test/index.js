@@ -86,6 +86,7 @@ require([
 		'spec/modules/base/0-0-1/EventModuleTest',
 		'spec/modules/base/0-0-1/EventModulePageTest',
 		'spec/modules/summary/0-0-1/SummaryPageTest',
+		'spec/modules/summary/0-0-1/InteractiveMapTest',
 		'spec/modules/impact/0-0-1/ImpactModuleTest',
 		'spec/modules/impact/0-0-1/DYFIPageTest',
 		'spec/modules/impact/0-0-1/DYFIFormPageTest',
