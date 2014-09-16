@@ -3,6 +3,7 @@ define([
 	'leaflet',
 	'base/EventModulePage',
 	'map/MouseOverLayer',
+	'summary/ShakeMapStationLayer',
 
 	'util/Util',
 	'util/Xhr'
@@ -10,6 +11,7 @@ define([
 	L,
 	EventModulePage,
 	MouseOverLayer,
+	ShakeMapStationLayer,
 
 	Util,
 	Xhr
@@ -106,9 +108,7 @@ define([
 				this._event.properties.mag
 			].join(''));
 			this._map.addLayer(epicenterMarker);
-			// console log added here delete later
-			console.log(this._event.properties.products.geoserve);
-			// End delete
+
 			if (this._event.properties.products.geoserve) {
 				Xhr.ajax({
 					url: this._event.properties.products.geoserve[0].contents['geoserve.json'].url,
@@ -159,15 +159,13 @@ define([
 					}
 				});
 			}
-
-
-// New code -----------------------------------------------------------------
-	// Contours
+			// Adds shake map contours data to map
 			if (this._event.properties.products.shakemap) {
 				var contourLayer = null,
 				    shakemap = this._event.properties.products.shakemap[0],
 				    contourJson,
 				    shakemapContents = shakemap.contents;
+
 				if ('download/cont_mi.json' in shakemapContents) {
 					contourJson = shakemapContents['download/cont_mi.json'];
 
@@ -186,7 +184,8 @@ define([
 									var ROMANS = ['I', 'I', 'II', 'III', 'IV', 'VI', 'VII', 'VIII', 'IX'],
 									    roman = ROMANS[Math.round(feature.properties.value)];
 
-									layer.bindPopup('<span class="contour mmi mmi'+roman+'">'+roman+'</span>');
+									layer.bindPopup('<span class="contour mmi mmi'+roman+'">'+
+										roman+'</span>');
 								}
 							});
 
@@ -194,18 +193,31 @@ define([
 							layerControl.addOverlay(contourLayer, 'ShakeMap Intensity');
 						}
 					});
+
+				}
+				// Adds sakemap station layer
+				var stationLayer = null,
+				    stationJson;
+
+				if ('download/stationlist.json' in shakemapContents) {
+					stationJson = shakemapContents['download/stationlist.json'];
+
+					Xhr.ajax({
+						url: stationJson.url,
+						success: function (data) {
+							stationLayer = new ShakeMapStationLayer(data);
+							stationLayer.addTo(map);
+							layerControl.addOverlay(stationLayer, 'Station');
+						}
+					});
 				}
 			}
-// End New Code --------------------------------------------------------------
 		}
 		this._map.addControl(layerControl);
 
 		this._content.appendChild(_el);
 		this._content.appendChild(this._closeButton);
-
-
 	};
-
 
 	InteractiveMap.prototype.show = function (container) {
 		var lat, latmin, latmax,
@@ -232,7 +244,6 @@ define([
 			}
 		}
 	};
-
 
 	InteractiveMap.prototype._bindCloseEvent = function () {
 		//var _this = this;
