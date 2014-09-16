@@ -43,7 +43,13 @@ define([
 		    generalText,
 		    impactText,
 		    products = this._event.properties.products,
-		    fallbackToGeoserve = false;
+		    fallbackToGeoserve = false,
+		    preferredOrigin = products.origin[0],
+		    originSource = preferredOrigin.properties.eventsource,
+		    originCode = preferredOrigin.properties.eventsourcecode,
+		    allNearbyCities = [],
+		    preferredNearbyCities = null,
+		    i;
 
 		markup.push(this._getTextContentMarkup('general-header'));
 
@@ -100,10 +106,26 @@ define([
 		}
 
 		if (this._nearbyCitiesFlag) {
+			// Look for nearby cities based on preferred origin
+			allNearbyCities = products['nearby-cities'];
+
+			if (originSource && originCode) {
+				// Loop backwards, this way if not found, default to using first product
+				for (i = allNearbyCities.length - 1; i >= 0; i--) {
+					preferredNearbyCities = allNearbyCities[i];
+					if (preferredNearbyCities.properties.eventsource === originSource &&
+							preferredNearbyCities.properties.eventsourcecode === originCode) {
+						break;
+					}
+				}
+			} else {
+				// Just use first nearby-cities
+				preferredNearbyCities = allNearbyCities[0];
+			}
+
 			try {
 				Xhr.ajax({
-						url: products['nearby-cities'][0]
-								.contents['nearby-cities.json'].url,
+						url: preferredNearbyCities.contents['nearby-cities.json'].url,
 						success: function (nearbyCities) {
 							_this._ajaxSuccessNearbyCities(nearbyCities);
 						},
