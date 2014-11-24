@@ -2,11 +2,13 @@
 define([
   'leaflet',
   'impact/ImpactUtil',
-  'base/Formatter'
+  'base/Formatter',
+  'util/Xhr'
 ], function (
   L,
   ImpactUtil,
-  Formatter
+  Formatter,
+  Xhr
 ) {
   'use strict';
 
@@ -16,8 +18,12 @@ define([
       var _this = this;
 
       this._formatter = new Formatter();
+      this._layers = {};
 
-      L.GeoJSON.prototype.initialize.call(this, stationJson, {
+      this.stationURL = stationJson;
+      this.data = null;
+
+      this.options = {
         pointToLayer: function (feature, latlng) {
           var p = feature.properties,
               romanIntensity = ImpactUtil._translateMmi(p.intensity);
@@ -36,7 +42,21 @@ define([
           layer.bindPopup(_this._generatePopupContent(feature),
               {minWidth:300});
         }
-      });
+      };
+    },
+
+    onAdd: function (map) {
+      if (this.data === null) {
+        Xhr.ajax({
+          url: this.stationURL,
+          success: (function (layer) {
+            return function (data) {
+              layer.addData(data);
+              L.LayerGroup.prototype.onAdd.call(layer, map);
+            };
+          })(this)
+        });
+      }
     },
 
     _generatePopupContent: function (feature) {
