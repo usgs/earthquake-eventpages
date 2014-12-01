@@ -51,6 +51,7 @@ define([
           url: this.stationURL,
           success: (function (layer) {
             return function (data) {
+              this.data = data;
               layer.addData(data);
               L.LayerGroup.prototype.onAdd.call(layer, map);
             };
