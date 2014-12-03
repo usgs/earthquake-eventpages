@@ -46,17 +46,20 @@ define([
     },
 
     onAdd: function (map) {
-      if (this.data === null) {
+      if ( this.data === null) {
         Xhr.ajax({
           url: this.stationURL,
           success: (function (layer) {
             return function (data) {
-              this.data = data;
+              layer.data = data;
               layer.addData(data);
               L.LayerGroup.prototype.onAdd.call(layer, map);
             };
           })(this)
         });
+      } else {
+        this.addData(this.data);
+        L.LayerGroup.prototype.onAdd.call(this, map);
       }
     },
 
