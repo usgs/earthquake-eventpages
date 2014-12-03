@@ -46,7 +46,7 @@ define([
     },
 
     onAdd: function (map) {
-      if ( this.data === null) {
+      if (this.data === null) {
         Xhr.ajax({
           url: this.stationURL,
           success: (function (layer) {

@@ -187,7 +187,7 @@ define([
 
         if ('download/stationlist.json' in shakemapContents) {
           stationJson = shakemapContents['download/stationlist.json'];
-          this._stationLayer = new ShakeMapStationLayer ( stationJson.url);
+          this._stationLayer = new ShakeMapStationLayer(stationJson.url);
           layerControl.addOverlay(this._stationLayer, 'ShakeMap Stations');
         }
       }
