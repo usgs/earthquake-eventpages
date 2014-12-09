@@ -188,13 +188,22 @@ define([
 	};
 
 	EventPage.prototype.updateFooter = function () {
-		this._footer.innerHTML = Attribution.getContributorList() +
-			'<a href="/earthquakes/map/doc_aboutdata.php">' +
-					'About ANSS Comprehensive Catalog (ComCat)' +
-			'</a>' +
-			'<a href="/earthquakes/eventpage/terms.php">' +
-				'Technical Terms used on Event Pages' +
-			'</a>';
+		this._footer.innerHTML =
+			'<h3>Contributors</h3>' +
+			Attribution.getContributorList() +
+			'<h3>Additional Information</h3>' +
+			'<ul>' +
+				'<li>' +
+					'<a href="/earthquakes/map/doc_aboutdata.php">' +
+							'About ANSS Comprehensive Catalog (ComCat)' +
+					'</a>' +
+				'</li>' +
+				'<li>' +
+				'<a href="/earthquakes/eventpage/terms.php">' +
+					'Technical Terms used on Event Pages' +
+				'</a>' +
+				'</li>' +
+			'</ul>';
 	};
 
 	EventPage.prototype._buildContributorArray = function () {
