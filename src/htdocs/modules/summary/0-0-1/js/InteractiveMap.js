@@ -63,7 +63,7 @@ define([
     this._map = map = new L.Map(_el, {
       center: [0.0, 0.0],
       zoom: 2,
-      zoomAnimation: false,
+      zoomAnimation: true,
       attributionControl: false
     });
 
