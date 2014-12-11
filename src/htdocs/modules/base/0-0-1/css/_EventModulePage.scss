@@ -1,29 +1,44 @@
-.accordian-page-downloads {
-	margin: 0 0 1em;
+.accordion-page-downloads > .accordion-toggle {
+  font-size: 1.2em;
 }
 
-.page-download {
-	margin-top: 1em;
-	> .contentsxml {
-		padding-left:20px;
-	}
-}
+dl.page-download {
+  border-top: 1px solid #ddd;
+  padding-top: 1em;
 
-.page-download-header {
-	> .type {
-		font-weight: bold;
-	}
-	> .source {
-		display: block;
-		font-size: .7em;
-	}
-	> .code {
-		display: block;
-		font-size: .7em;
-	}
+  &:first-child {
+    padding: 0;
+    border: none;
+  }
 
-}
+  span {
+    display:block;
+  }
 
-.collapse-margin {
-	margin-top:10px;
+  > dt {
+    > .type {
+      font-size: 1.3em;
+    }
+
+    > .source {
+      font-weight: normal;
+      font-size: 0.8em;
+      color: #666;
+    }
+
+    > .code {
+      font-weight: normal;
+      font-size: 0.8em;
+      color: #666;
+    }
+  }
+
+  > dd.file {
+    margin: 1em 0 0;
+
+    > .caption {
+      font-size: 0.8em;
+      color: #666;
+    }
+  }
 }

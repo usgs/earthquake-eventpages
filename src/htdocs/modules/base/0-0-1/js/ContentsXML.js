@@ -224,7 +224,6 @@ define([
 			throw new Error('No contents to format');
 		}
 
-		buf.push('<section class="contentsxml">');
 		for (i = 0, len = contents.length; i < len; i++) {
 			content = contents[i];
 			if (format === 'image') {
@@ -235,7 +234,6 @@ define([
 				buf.push(this._formatAllContent(content, {includeDownloads: true}));
 			}
 		}
-		buf.push('</section>');
 
 		return buf.join('');
 	};
@@ -254,20 +252,20 @@ define([
 
 		title = content.title;
 		if (content.caption) {
-			caption = '<div class="caption">' + content.caption + '</div>';
+			caption = '<span class="caption">' + content.caption + '</span>';
 		}
 
 		// get total list of formats
 		formatBuf = this._getDownloadLinks(content);
 
 		return [
-			'<section class="contentsxml-content">',
-				'<header><h1>', title, '</h1></header>',
-				caption,
-				'<ul class="formats">',
-					'<li>', formatBuf.join('</li><li>'), '</li>',
-				'</ul>',
-			'</section>'
+				'<dd class="file">',
+					'<span class="title">', title, '</span>',
+					caption,
+					'<ul class="formats">',
+						'<li>', formatBuf.join('</li><li>'), '</li>',
+					'</ul>',
+				'</dd>'
 		].join('');
 	};
 
