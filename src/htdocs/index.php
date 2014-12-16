@@ -54,6 +54,23 @@ if (!isset($TEMPLATE)) {
 		'<script src="js/index.js"></script>' .
 		'<script src="http://localhost:35729/livereload.js?snipver=1"></script>';
 
+	// cache control headers
+	$now = time();
+	$age = $now - ($PROPERTIES['time'] / 1000);
+	if ($age <= 604800) {
+		// past 7 days, cache for 1 minute
+		$maxAge = 60;
+	} else if ($age <= 2592000) {
+		// past 30 days, cache for 15 minutes
+		$maxAge = 900;
+	} else {
+		// older, cache for 1 day
+		$maxAge = 86400;
+	}
+	header('Cache-Control: max-age=' . $maxAge);
+	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', $now + $maxAge));
+	header('Last-Modified: ' . gmdate('D, d M Y H:i:s \G\M\T', $now));
+
 	include_once 'template.inc.php';
 }
 
