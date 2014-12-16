@@ -58,11 +58,14 @@ if (!isset($TEMPLATE)) {
 	$now = time();
 	$age = $now - ($PROPERTIES['time'] / 1000);
 	if ($age <= 604800) {
-		// past 7 days
+		// past 7 days, cache for 1 minute
 		$maxAge = 60;
-	} else {
-		// older
+	} else if ($age <= 2592000) {
+		// past 30 days, cache for 15 minutes
 		$maxAge = 900;
+	} else {
+		// older, cache for 1 day
+		$maxAge = 86400;
 	}
 	header('Cache-Control: max-age=' . $maxAge);
 	header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', $now + $maxAge));
