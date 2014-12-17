@@ -155,6 +155,7 @@
 
 
 @media screen and (min-width: 560px) {
+
   .information-list-mask > .information-list > li {
     top:0;
     padding: 5px 0 0 0;
@@ -167,12 +168,15 @@
 
 
 @media screen and (min-width:768px) {
+
   .dyfi-form {
     padding-bottom: 57px;
+
+    .question .other {
+      margin-left: 3em;
+    }
   }
-  .question fieldset .other {
-    margin-left: 3em;
-  }
+
   .locationview-button {
     line-height: 3rem;
     height: 3rem;
