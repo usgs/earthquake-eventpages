@@ -106,11 +106,8 @@ define([
 			originEl.className = 'location';
 
 			originEl.innerHTML = [
-				'<a href="#scientific_origin"><h3>Origin</h3></a>',
-				HypocenterPage.prototype.getOriginDetail.call(this, origins[0]),
-				'<div><a href="#scientific_origin">',
-					'View all locations, magnitudes, phases, and arrivals.',
-				'</a></div>'
+				'<h3><a href="#scientific_origin">Origin</a></h3>',
+				HypocenterPage.prototype.getOriginDetail.call(this, origins[0])
 			].join('');
 
 			HypocenterPage.prototype.getFeString.call(this, origins[0],
@@ -133,58 +130,57 @@ define([
 		var products = this._event.properties.products,
 		    tensorProducts = products['moment-tensor'],
 		    mechanismProducts = products['focal-mechanism'],
-		    tensors = [],
+		    rowEl = document.createElement('div'),
+		    mechanismEl = null,
 		    tensorEl = null,
-		    anchor,
-		    rowEl,
+		    tensor,
 		    source,
-		    i,
-		    len;
+		    i;
 
-		if (tensorProducts || mechanismProducts) {
+		if (tensorProducts) {
 			tensorEl = document.createElement('div');
 			tensorEl.className = 'tensor';
-			anchor = document.createElement('a');
-			tensorEl.appendChild(anchor);
+			rowEl.appendChild(tensorEl);
 
-			if (tensorProducts) {
-				anchor.innerHTML = '<h3>Moment Tensor</h3>';
-				// load tensors page
-				anchor.href = '#scientific_tensor';
+			tensorEl.innerHTML =
+					'<h3>' +
+						'<a href="#scientific_tensor">Moment Tensor</a>' +
+					'</h3>';
 
-				// only show preferred moment tensor
-				tensors.push(Tensor.fromProduct(tensorProducts[0]));
-			} else {
-				// mechanisms
-				anchor.innerHTML = '<h3>Focal Mechanism</h3>';
-				// load mechanism page
-				anchor.href = '#scientific_mechanism';
-
-				// show all mechanisms from preferred source
-				source = mechanismProducts[0].source;
-				for (i = 0; i < mechanismProducts.length; i++) {
-					if (mechanismProducts[i].source === source) {
-						tensors.push(Tensor.fromProduct(mechanismProducts[i]));
-					}
-				}
-			}
-
-			// put all beachballs in one row
-			rowEl = document.createElement('div');
-			rowEl.className = 'row';
-			anchor.appendChild(rowEl);
-
-			len = tensors.length;
-			for (i = 0; i < len; i++) {
-				rowEl.appendChild(new BeachBall({
-						tensor: tensors[i],
+			// only show preferred moment tensor
+			tensor = Tensor.fromProduct(tensorProducts[0]);
+			tensorEl.appendChild(new BeachBall({
+						tensor: tensor,
 						size: 256,
-						fillColor: tensors[i].fillColor
+						fillColor: tensor.fillColor
 					}).getCanvas());
+		}
+
+		if (mechanismProducts) {
+			mechanismEl = document.createElement('div');
+			mechanismEl.className = 'mechanism';
+			rowEl.appendChild(mechanismEl);
+
+			mechanismEl.innerHTML =
+					'<h3>' +
+						'<a href="#scientific_mechanism">Focal Mechanism</a>' +
+					'</h3>';
+
+			// show all mechanisms from preferred source
+			source = mechanismProducts[0].source;
+			for (i = 0; i < mechanismProducts.length; i++) {
+				if (mechanismProducts[i].source === source) {
+					tensor = Tensor.fromProduct(mechanismProducts[i]);
+					mechanismEl.appendChild(new BeachBall({
+						tensor: tensor,
+						size: 256,
+						fillColor: tensor.fillColor
+					}).getCanvas());
+				}
 			}
 		}
 
-		return tensorEl;
+		return rowEl;
 	};
 
 	/**
