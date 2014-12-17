@@ -171,7 +171,6 @@ define([
 
 			// put all beachballs in one row
 			rowEl = document.createElement('div');
-			rowEl.className = 'row';
 			anchor.appendChild(rowEl);
 
 			len = tensors.length;
