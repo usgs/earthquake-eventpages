@@ -1,22 +1,5 @@
 /* This file should import partials for the scientific module/modulepages. */
 
-
-
-// TODO: move this to a different style sheet
-canvas {
-	max-width: 100%;
-	display:block;
-	margin:auto;
-}
-
-// TODO: move this to a different style sheet
-@media screen and (max-width:767px) {
-	.tablist-panel {
-		border-top: 1px solid #ccc;
-	}
-}
-
-@import "ScientificSummaryPage";
 @import "HypocenterPage";
 @import "MomentTensorPage";
 @import "FocalMechanismPage";
