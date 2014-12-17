@@ -15,8 +15,9 @@
 
 		> .uncertainty {
 			color:#666;
-			float:right;
-			white-space:nowrap;
+			display:block;
+			font-weight:normal;
+			font-size:smaller;
 		}
 	}
 }
