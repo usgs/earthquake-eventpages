@@ -1,24 +1,44 @@
-.downloads {
-	> dl {
-		> dt {
-			display:block;
-			font-weight:bold;
-			color:#333;
-		}
-		> dd {
-			display:block;
-			margin-bottom:8px;
+dl.page-download {
+  border-top: 1px solid #f0f0f0;
+  margin: 1em 0;
 
-			> ul {
-				margin:0;
-				padding:0;
-				list-style:none;
+  &:first-child {
+    border: none;
+  }
 
-				> li {
-					display:block;
-					margin:0 0 4px;
-				}
-			}
-		}
-	}
+  span {
+    display:block;
+  }
+
+  > dt {
+    > .type {
+      margin-bottom: 0.5em;
+      font-weight: bold;
+    }
+
+    > .source {
+      font-weight: normal;
+      font-size: 0.8125em;
+      color: #666;
+    }
+
+    > .code {
+      font-weight: normal;
+      font-size: 0.8125em;
+      color: #666;
+    }
+  }
+
+  > dd.file {
+    margin: 1em 0 0;
+    font-size: 0.8125em;
+
+    > .title {
+      font-weight: bold;
+    }
+
+    > .caption {
+      color: #666;
+    }
+  }
 }
