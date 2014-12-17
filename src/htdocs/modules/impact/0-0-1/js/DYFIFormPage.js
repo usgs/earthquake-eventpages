@@ -330,7 +330,7 @@ define([
 			buttons: [
 				{
 					text: data.submit.label,
-					classes: ['dyfi-button-submit'],
+					classes: ['dyfi-button-submit', 'green'],
 					callback: this._onSubmit.bind(this)
 				},
 				{
@@ -361,9 +361,9 @@ define([
 		    questions = {};
 
 		baseQuestionsEl.classList.add('dyfi-required-questions');
-		toggleContainer.classList.add('dyfi-optional-callout');
+		toggleContainer.classList.add('dyfi-optional-callout', 'alert');
 		moreQuestionsEl.classList.add('dyfi-optional-questions');
-		contactContainer.classList.add('dyfi-contact-questions');
+		contactContainer.classList.add('dyfi-contact-questions', 'alert');
 
 		header.innerHTML = '<h3 class="felt-header">Felt Report</h3>' +
 				'<div class="omb-number">OMB No. 1028-0048' +
@@ -391,8 +391,8 @@ define([
 		__create_text_questions(data.comments, moreQuestionsEl, questions);
 
 		// Handle contact information
-		contactContainer.innerHTML = '<h4>Contact Information' +
-				'<span class="subheader">Optional</span></h4>';
+		contactContainer.innerHTML = '<legend>Contact Information' +
+				'<span class="subheader"> (optional)</span></legend>';
 		__create_text_questions(contactInfo, contactContainer, questions);
 		moreQuestionsEl.appendChild(contactContainer);
 
@@ -428,14 +428,15 @@ define([
 			questions) {
 		var section = document.createElement('section'),
 		    label = section.appendChild(document.createElement('label')),
-		    display = section.appendChild(document.createElement('div')),
 		    button = section.appendChild(document.createElement('button')),
+		    display = section.appendChild(document.createElement('div')),
 		    curLoc = {},
 		    locationView = null;
 
 		section.classList.add('question');
 		label.innerHTML = questionInfo.label;
 		button.innerHTML = questionInfo.button;
+		button.classList.add('location-button');
 
 		// Add QuestionView-like objects to the list of questions
 		questions.ciim_mapLat = {
@@ -486,12 +487,15 @@ define([
 					markup.push(curLoc.place + '<br/>');
 				}
 
-				display.innerHTML = '<strong>' +
-						((curLoc.place) ? (curLoc.place + '</strong>') : '') +
-						prettyLat + ', ' + prettyLng +
-						((curLoc.place) ? '' : '</strong>');
+				display.classList.add('location-result', 'alert', 'success');
 
-				button.classList.add('as-link');
+				display.innerHTML = '<span class="address">' +
+						((curLoc.place) ? (curLoc.place + '</span>') : '') +
+						'<span class="coordinates">' +
+						prettyLat + ', ' + prettyLng +
+						((curLoc.place) ? '' : '</span>');
+
+
 				button.innerHTML = questionInfo.buttonUpdate;
 
 				Events.prototype.trigger.call(questions.ciim_mapLat, 'change');
