@@ -462,7 +462,7 @@ define([
 		numStations = magnitude.stationCount || NOT_REPORTED;
 
 		buf.push(
-			'<section class="accordion accordion-closed networkmagnitude">',
+			'<section class="accordion accordion-section accordion-closed networkmagnitude">',
 			'<h3>', source, '</h3>',
 			'<ul class="networkmagnitude-summary">',
 				'<li class="magnitude">',
