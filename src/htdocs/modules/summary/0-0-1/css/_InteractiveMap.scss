@@ -12,17 +12,12 @@
 	background-color:rgba(0, 0, 0, 0.75);
 
 	> .summary-interactive-map-close {
+		box-sizing:content-box;
 		display: block;
-		position: relative;
-		padding: 8px 12px;
-		width: 95%;
-		max-width: 130px;
 		margin: 0 auto;
-		z-index: 9999;
 		bottom:3.6em;
-		border: 2px solid rgba(0, 0, 0, 0.2);
-		border-radius: 4px;
-		background-clip: padding-box;
+		box-shadow:none; // removes inset box shadow
+		box-shadow: 0 1px 5px rgba(0,0,0,0.65);
 	}
 
 	.city-distance {
