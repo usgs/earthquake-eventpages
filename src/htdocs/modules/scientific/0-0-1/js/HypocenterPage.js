@@ -641,19 +641,22 @@ define([
 
 		buf.push('<table class="tabular origin-detail"><tbody>');
 
-
-		buf.push('<tr><th scope="row">Magnitude</th><td>',
+		buf.push('<tr><th scope="row">Magnitude',
+				(magnitudeError ? '<span class="uncertainty">uncertainty</span>' : ''),
+				'</th><td>',
 				formatter.magnitude(magnitude, magnitudeType, magnitudeError),
 				'</td></tr>');
 
 		buf.push('<tr><th scope="row">Location',
-				'<span class="uncertainty">uncertainty</small></th><td>',
+				(horizontalError ? '<span class="uncertainty">uncertainty</span>' : ''),
+				'</th><td>',
 				formatter.location(latitude, longitude),
 				formatter.uncertainty(horizontalError, 1, '', 'km'),
 				'</td></tr>');
 
 		buf.push('<tr><th scope="row">Depth',
-				'<span class="uncertainty">uncertainty</small></th><td>',
+				(depthError ? '<span class="uncertainty">uncertainty</span>' : ''),
+				'</th><td>',
 				formatter.number(depth, formatter._options.depthDecimals,
 						NOT_REPORTED, 'km') +
 				formatter.uncertainty(depthError, formatter._options.depthDecimals, ''),
