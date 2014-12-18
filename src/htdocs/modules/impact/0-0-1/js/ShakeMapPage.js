@@ -303,7 +303,7 @@ define([
 
 			// Do not repeat the zip code if it's already part of the name
 			if (station.name.indexOf('ZIP Code') === -1) {
-				title = '<em>' + station.code + '</em>' + station.name;
+				title = station.code + '<small>' + station.name + '</small>';
 			} else {
 				title = station.name;
 			}
