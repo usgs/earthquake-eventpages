@@ -3,13 +3,12 @@
 	position:relative;
 	border:1px solid #ddd;
 	background:#f9f9f9;
-	color:#666;
+	color:#444;
 	padding:1em;
 
 	> h3 {
 		display: block;
 		margin:0;
-		color:#444;
 		font-weight:bold;
 		font-size:2rem;
 
@@ -22,6 +21,10 @@
 
 	abbr {
 		border-bottom:1px dotted #999;
+	}
+
+	.accordion-content {
+		font-size: 1.5rem;
 	}
 }
 

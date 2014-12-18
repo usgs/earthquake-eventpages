@@ -18,16 +18,14 @@
 	}
 }
 
-
-.stations {
-	> .accordion {
-		margin: 1em 0 0;
-	}
+.stations > .accordion {
+	margin: 1em 0 0;
 }
+
 
 @media screen and (min-width:560px) {
 
-	dl.horizontal {
+	.station dl.horizontal {
 
 		> dt {
 			width: 6em;
@@ -66,5 +64,9 @@
 		td:nth-of-type(3):before { content:'psa03'; }
 		td:nth-of-type(4):before { content:'psa10'; }
 		td:nth-of-type(5):before { content:'psa30'; }
+	}
+
+	.station dl.horizontal > dd {
+		margin:0 0 0.25em;
 	}
 }
