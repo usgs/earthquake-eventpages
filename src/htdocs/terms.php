@@ -37,7 +37,7 @@ if (!isset($TEMPLATE)) {
   Magnitudes commonly used by seismic networks include:
 </h2>
 
-<table class="magnitudes">
+<table class="tabular">
   <thead>
     <tr>
       <th class="type">Magnitude type</th>
