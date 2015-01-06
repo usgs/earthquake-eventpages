@@ -1,7 +1,6 @@
 <?php
 if (!isset($TEMPLATE)) {
   $TITLE = "Technical Terms used on Event Pages";
-  $HEAD = '<link rel="stylesheet" href="terms.css"/>';
   include_once 'template.inc.php';
 }
 ?>
@@ -40,14 +39,14 @@ if (!isset($TEMPLATE)) {
 <table class="tabular">
   <thead>
     <tr>
-      <th class="type">Magnitude type</th>
-      <th class="mrange">Applicable magnitude range</th>
-      <th class="drange">Distance range</th>
-      <th class="comments">Comments</th>
+      <th>Magnitude type</th>
+      <th>Applicable magnitude range</th>
+      <th>Distance range</th>
+      <th>Comments</th>
     </tr>
   </thead>
   <tbody>
-    <tr class="odd">
+    <tr>
       <td>Duration (Md)</td>
       <td>&lt; 4</td>
       <td>0-400 km</td>
@@ -59,7 +58,7 @@ if (!isset($TEMPLATE)) {
         measure peak amplitudes.
       </td>
     </tr>
-    <tr class="even">
+    <tr>
       <td>Local (ML)</td>
       <td>2-6</td>
       <td>0-400 km</td>
@@ -71,7 +70,7 @@ if (!isset($TEMPLATE)) {
         using modern instrumentation with appropriate adjustments.
       </td>
     </tr>
-    <tr class="odd">
+    <tr>
       <td>Surface wave (Ms)</td>
       <td>5-8</td>
       <td>20-180 degrees</td>
@@ -80,7 +79,7 @@ if (!isset($TEMPLATE)) {
         surface waves measured at a period near 20 sec.
       </td>
     </tr>
-    <tr class="even">
+    <tr>
       <td>Moment (Mw)</td>
       <td>&gt; 3.5</td>
       <td>all</td>
@@ -90,7 +89,7 @@ if (!isset($TEMPLATE)) {
         of fault area that slipped.
       </td>
     </tr>
-    <tr class="odd">
+    <tr>
       <td>Energy (Me)</td>
       <td>&gt; 3.5</td>
       <td>all</td>
@@ -99,7 +98,7 @@ if (!isset($TEMPLATE)) {
         earthquake.
       </td>
     </tr>
-    <tr class="even">
+    <tr>
       <td>Moment (Mi)</td>
       <td>5-8</td>
       <td>all</td>
@@ -108,7 +107,7 @@ if (!isset($TEMPLATE)) {
         instruments (Tsuboi method).
       </td>
     </tr>
-    <tr class="odd">
+    <tr>
       <td>Body (Mb)</td>
       <td>4-7</td>
       <td>16-100 degrees (only deep earthquakes)</td>
@@ -117,7 +116,7 @@ if (!isset($TEMPLATE)) {
         for deep-focus earthquakes.
       </td>
     </tr>
-    <tr class="even">
+    <tr>
       <td>Surface wave (MLg)</td>
       <td>5-8</td>
       <td>all</td>
