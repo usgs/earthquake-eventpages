@@ -69,9 +69,9 @@ define([
 
     layerControl = new L.Control.Layers();
 
-    // Basic greyscale map
+    // National Geographic map
     baseLayer = new L.TileLayer(
-        'http://earthquake.usgs.gov/basemap/tiles/natgeo_hires/{z}/{y}/{x}.jpg');
+        'http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}.jpg');
     map.addLayer(baseLayer);
     layerControl.addBaseLayer(baseLayer, 'USGS Topography');
 
