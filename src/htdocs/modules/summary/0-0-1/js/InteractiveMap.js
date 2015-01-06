@@ -71,7 +71,14 @@ define([
 
     // National Geographic map
     baseLayer = new L.TileLayer(
-        'http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}.jpg');
+      'http://{s}/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}.jpg',
+      {
+        subdomains: [
+          'server.arcgisonline.com',
+          'services.arcgisonline.com'
+        ]
+      }
+    );
     map.addLayer(baseLayer);
     layerControl.addBaseLayer(baseLayer, 'USGS Topography');
 
