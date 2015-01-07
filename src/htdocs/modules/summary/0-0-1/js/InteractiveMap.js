@@ -42,7 +42,12 @@ define([
         _el = document.createElement('div');
 
     var layerControl = null,
-        baseLayer = null,
+        //temp
+        terrainLayer = null,
+        grayscaleLayer = null,
+        streetLayer = null,
+        satelliteLayer = null,
+        //end temp
         platesLayer = null,
         faultsLayer = null,
         latitude = null,
@@ -69,11 +74,30 @@ define([
 
     layerControl = new L.Control.Layers();
 
-    // Basic greyscale map
-    baseLayer = new L.TileLayer(
-        'http://earthquake.usgs.gov/basemap/tiles/natgeo_hires/{z}/{y}/{x}.jpg');
-    map.addLayer(baseLayer);
-    layerControl.addBaseLayer(baseLayer, 'USGS Topography');
+    // Terrain layer
+    terrainLayer = new L.TileLayer(
+        'http://{s}.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}.jpg',
+        {'subdomains': ['server', 'services']});
+    map.addLayer(terrainLayer);
+    layerControl.addBaseLayer(terrainLayer, 'Terrain');
+
+    // Grayscale layer
+    grayscaleLayer = new L.TileLayer(
+        'http://{s}.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.jpg',
+        {'subdomains': ['server', 'services']});
+    layerControl.addBaseLayer(grayscaleLayer, 'Grayscale');
+
+    // Street Layer
+    streetLayer = new L.TileLayer (
+        'http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg',
+        {'subdomains': '1234'});
+    layerControl.addBaseLayer(streetLayer, 'Street');
+
+    //Satellite Layer
+    satelliteLayer = new L.TileLayer (
+        'http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg',
+        {'subdomains': '1234'});
+    layerControl.addBaseLayer(satelliteLayer, 'Satellite');
 
     // Plates
     platesLayer = new L.TileLayer(
