@@ -20,7 +20,24 @@ if (!isset($TEMPLATE)) {
 	}
 
 	$STUB = $OFFSITE_HOST . $CONFIG['DETAILS_STUB'];
-	$EVENT_FEED = file_get_contents(sprintf($STUB, $eventid));
+
+	$ch = curl_init(sprintf($STUB, $eventid));
+	curl_setopt_array($ch, array(
+			CURLOPT_CONNECTTIMEOUT_MS => 500,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_RETURNTRANSFER => true));
+	$EVENT_FEED = curl_exec($ch);
+	$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+	if ($httpCode === 404 || $httpCode === 204) {
+		// event not found
+		header('HTTP/1.0 404 Not Found');
+		exit(-1);
+	} else if ($httpCode !== 200) {
+		// unexpected return
+		header('HTTP/1.0 503 Service Unavailable');
+		echo 'Unable to retrieve event information (' . $httpCode . ')';
+		exit(-1);
+	}
 
 	$replaceWith = 'url":"';
 	$searchFor = $replaceWith . $OFFSITE_HOST;
