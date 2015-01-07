@@ -2,12 +2,20 @@
 $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 
 .summary-tectonic-summary {
-	a.tectonic {
-		margin:0 0 16px 0;
 
-		&:before{
+	a.tectonic {
+		display:inline-block;
+		margin: 1em 0 1em;
+		width: 304px;
+		position:relative;
+
+		&:after{
 			content:'Map of Tectonic Summary Region';
 			display:block;
+			font-size: 0.75em;
+			position:absolute;
+			bottom:-2em;
+			left:1em;
 		}
 	}
 
@@ -15,7 +23,6 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 		margin-top:0.7em;
 	}
 
-	/*
 	a.aleutian {
 		background-image:url('#{$baseImageUrl}/aleutian_tsum304.jpg');
 		height:204px;
@@ -89,18 +96,20 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 		background-image:url('#{$baseImageUrl}/mediterranean_tsum304.jpg');
 		height:204px;
 	}
-	*/
+	
 }
 
-@media (min-width:768px) {
+@media (min-width:560px) {
 	.summary-tectonic-summary {
+
 		a.tectonic {
 			float:right;
-			width:464px;
-			margin:0 16px 16px 0;
+			//width:464px;
+			margin:1em 0 2em 1em;
 			&:before{content:none;}
 		}
 
+/*
 		a.aleutian {
 			background-image:url('#{$baseImageUrl}/aleutian_tsum464.jpg');
 			height:300px;
@@ -170,5 +179,6 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 			background-image:url('#{$baseImageUrl}/mediterranean_tsum464.jpg');
 			height:312px;
 		}
+*/
 	}
 }

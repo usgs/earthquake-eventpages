@@ -3,6 +3,10 @@
 
 .dyfi-responses {
 
+	.view-all {
+		margin: 1em 0;
+	}
+
 	.dyfi {
 		> tbody > tr {
 
@@ -38,6 +42,7 @@
 			text-align:center;
 			border-radius:2px;
 			text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
+			width: 3em;
 		}
 	}
 
@@ -48,32 +53,7 @@
 	}
 }
 
-.dyfi-tablist {
-	> .tablist-panel {
-		padding:1em;
-	}
-}
-
-.dyfi-error,
-.dyfi-info {
-	display: inline-block;
-	padding:10px;
-}
-
-.dyfi-error {
-	background:#fcc;
-}
-
-.dyfi-info {
-	background:#eee;
-}
-
 @media screen and (max-width: 559px) {
-
-	.dyfi-error,
-	.dyfi-info {
-		display:block;
-	}
 
 	.dyfi-responses {
 
@@ -84,14 +64,6 @@
 			td:nth-of-type(3):before { content:"Distance"; }
 
 			> tbody > tr {
-				> th {
-					font-weight:bold;
-				}
-
-				> .location > small {
-					display: inline;
-					margin-left: 0.5em;
-				}
 
 				> td, > th {
 					display:none;

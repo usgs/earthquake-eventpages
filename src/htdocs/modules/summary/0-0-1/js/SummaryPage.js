@@ -6,7 +6,6 @@ define([
 	'base/Formatter',
 	'util/Xhr',
 	'util/Util',
-	'accordion/Accordion',
 	'map/StaticMap'
 ], function (
 	Attribution,
@@ -15,7 +14,6 @@ define([
 	Formatter,
 	Xhr,
 	Util,
-	Accordion,
 	StaticMap
 ) {
 	'use strict';
@@ -56,7 +54,7 @@ define([
 		markup.push(
 			'<div class="row">' +
 				'<div class="column one-of-two">' +
-					'<h3 class="collapse-margin">Event Location</h3>' +
+					'<h3>Event Location</h3>' +
 					'<figure class="summary-map">' +
 						this._getMapMarkup() +
 						'<figcaption>' +
@@ -199,7 +197,7 @@ define([
 
 	SummaryPage.prototype._ajaxSuccessTectonicSummary = function (tectonicSummary) {
 		if (this.tectonicSummary !== null) {
-			this.tectonicSummary.innerHTML = '<h3 class="collapse-margin">Tectonic Summary</h3>' +
+			this.tectonicSummary.innerHTML = '<h3>Tectonic Summary</h3>' +
 					tectonicSummary;
 		}
 	};
@@ -211,7 +209,7 @@ define([
 		    len;
 
 		if (this.nearbyCities !== null) {
-			cities = ['<ol class="nearbyCities no-bullets">'];
+			cities = ['<ol class="nearbyCities no-style">'];
 			for (i = 0, len = nearbyCities.length; i < len; i++) {
 				city = nearbyCities[i];
 				cities.push('<li>' + city.distance +
@@ -245,8 +243,8 @@ define([
 
 		markup.push(
 				'<div class="summary-time">' +
-				'<h3 class="collapse-margin">Event Time</h3>' +
-				'<ol class="no-bullets">' +
+				'<h3>Event Time</h3>' +
+				'<ol class="no-style">' +
 				'<li>' +
 				this._formatDate(time, 0) +
 				'</li>' +
@@ -328,14 +326,10 @@ define([
 		products = this._event.properties.products[type];
 
 		for (i = 0, len = products.length; i < len; i++) {
-			markup.push('<div>' + products[0].contents[''].bytes + '<div>');
+			markup.push('<p>' + products[0].contents[''].bytes + '<p>');
 		}
 
-		new Accordion({el:container}).addAccordion({
-			toggleText: title,
-			toggleElement: 'h3',
-			contentText: markup.join('')
-		});
+		container.innerHTML = '<h3>' + title + '</h3>' + markup.join('');
 	};
 
 	SummaryPage.prototype.getProducts = function () {

@@ -1,19 +1,6 @@
 @import '_mmi-variables';
+
 .event-header {
-	> div {
-		position:relative;
-		margin:8px 0;
-
-		> .link {
-			color: #009;
-			text-decoration:underline;
-			cursor:pointer;
-		}
-
-		> span {
-			display:block;
-		}
-	}
 
 	> .impact-bubbles {
 
@@ -21,6 +8,7 @@
 			display: block;
 			float:left;
 			background-color: #fff;
+			margin: 1em 0 0;
 			padding: 6px;
 			text-align: center;
 			text-decoration: none;
@@ -56,8 +44,7 @@
 			padding:0;
 			text-align:left;
 			display:inline-block;
-			font-size:0; /* removes hover effect that spills over */
-			max-height:41px;
+			max-height:44px;
 			max-width:96px;
 			border-bottom:1px solid #292772;
 

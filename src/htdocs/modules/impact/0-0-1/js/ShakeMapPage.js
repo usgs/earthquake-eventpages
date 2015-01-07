@@ -303,13 +303,13 @@ define([
 
 			// Do not repeat the zip code if it's already part of the name
 			if (station.name.indexOf('ZIP Code') === -1) {
-				title = '<em>' + station.code + '</em>' + station.name;
+				title = station.code + '<small>' + station.name + '</small>';
 			} else {
 				title = station.name;
 			}
 
 			stations.push([
-				'<div class="accordion accordion-closed station">',
+				'<div class="accordion accordion-section accordion-closed station">',
 					'<h3>', title, '</h3>',
 					'<ul class="station-summary">',
 						'<li class="mmi mmi', romanNumeral, '">',
@@ -362,7 +362,7 @@ define([
 
 		return [
 				'<div class="accordion-content">',
-					'<dl>',
+					'<dl class="horizontal">',
 						'<dt>Type: </dt>',
 						'<dd>', (station.insttype === '') ? '--' : station.insttype ,'</dd>',
 						'<dt>Location: </dt>',
@@ -569,14 +569,20 @@ define([
 	ShakeMapPage.prototype._setFooterMarkup = function () {
 		var links;
 
-		SummaryDetailsPage.prototype._setFooterMarkup.apply(this);
-
 		links = document.createElement('section');
-		links.innerHTML = '<a href="/research/shakemap/">' +
-				'Scientific Background on ShakeMap' +
-				'</a>';
+		links.innerHTML =
+				'<h3>For More Information</h3>' +
+				'<ul>' +
+					'<li>' +
+						'<a href="/research/shakemap/">' +
+							'Scientific Background on ShakeMap' +
+						'</a>' +
+					'</li>' +
+				'<ul>';
 
 		this._footer.appendChild(links);
+
+		SummaryDetailsPage.prototype._setFooterMarkup.apply(this);
 	};
 
 	// return constructor

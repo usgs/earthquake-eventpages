@@ -1,12 +1,3 @@
-.summary-attribution {
-	margin-top:1.0em;
-}
-
-.no-bullets {
-	list-style-type:none;
-	padding-left:0;
-}
-
 .summary-map {
 
 	> a {
@@ -25,7 +16,7 @@
 		}
 	}
 
-	> figcaption a {
-		display:block;
+	> figcaption > a {
+		display: block;
 	}
 }

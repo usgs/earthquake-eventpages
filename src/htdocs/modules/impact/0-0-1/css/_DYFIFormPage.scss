@@ -2,179 +2,184 @@
 @import '../../../../../../node_modules/hazdev-question-view/src/QuestionView';
 @import '../../../../../../node_modules/hazdev-webutils/src/mvc/ModalView';
 
+/* this supports both location view and dyfi-form */
+.modal-dialog > .modal-footer {
+  line-height: 40px;
+  padding: 0.5em 1em;
+  background: #fff;
+  height: inherit;
 
-$dyfi-question-indent: 1.3em;
-
-.hidden {
-	display:none;
-}
-
-.dyfi-required-questions,
-.dyfi-toggle-control,
-.dyfi-optional-questions {
-	margin:12px 0;
-}
-
-@mixin clickable {
-	cursor:pointer;
-}
-
-@mixin question-question {
-	margin-bottom:5px;
-	font-weight:bold;
-	color:#333;
-}
-
-@mixin question-answer {
-	font-size:.9em;
-}
-
-@mixin dyfi-callout {
-	background-color:#EEE;
-	border:1px solid #999;
-	padding:16px;
-}
-
-.dyfi-optional-callout {
-	@include dyfi-callout();
-	color:#333;
-	font-size:.8em;
-
-	> strong {
-		display:block;
-	}
-}
-
-.question {
-	margin:20px 0;
-
-	// QuestionView overrides
-	> fieldset {
-		padding:0;
-
-		> legend {
-			@include question-question();
-		}
-
-		> ul {
-			margin:0 0 0 $dyfi-question-indent/2;
-			padding:0;
-
-			> li {
-				@include question-answer();
-				margin:2px 0;
-
-				> label {
-					font-size:.95em;
-					padding-bottom:2px;
-					padding-left:$dyfi-question-indent;
-					text-indent:-($dyfi-question-indent+.1em);
-					@include clickable();
-
-					> input {
-						margin:0 $dyfi-question-indent/2 0 0;
-					}
-				}
-
-				> .other {
-					width:200px;
-				}
-			}
-		}
-	}
-
-	// Location/Comments/Contact
-	> label {
-		display:block;
-		@include question-question();
-
-		> small {
-			font-weight:normal;
-			display:block;
-		}
-	}
-}
-
-.dyfiIframe {
-		width: 100%;
-		height: 500px;
-		border: 0;
-		frameBorder: 0;
-}
-
-.dyfi-text-input {
-	margin:10px 0;
-
-	> input,
-	> textarea {
-		display:block;
-	}
-	> input {
-		width:200px;
-	}
-	> textarea {
-		width:100%;
-		min-height:100px;
-	}
-}
-
-.dyfi-contact-questions {
-	@include dyfi-callout();
-	margin-top:20px;
-
-	> h4 {
-		margin-bottom:0;
-		line-height:1.0;
-
-		> .subheader {
-			display:block;
-			color:#666;
-			font-size:.7em;
-			font-weight:normal;
-			font-style:italic;
-		}
-	}
-}
-
-.felt-header {
-	border-bottom:1px solid #333;
-	padding: 0 0 0.5em;
-}
-
-.omb-number {
-	position: absolute;
-	text-align: right;
-	top:0;
-	right:0;
-	font-size: .8em;
-
-}
-
-.dyfi-disclaimer {
-	margin:1em 0;
+  button {
+    vertical-align:middle;
+    margin: 0 8px 0 0;
+  }
 }
 
 .dyfi-form {
-	> .modal-content {
-		> header {
-			position: relative;
+  > .modal-content {
+    position: relative;
+  }
 
-			> .felt-header {
-				margin-top: 0;
-			}
-		}
-	}
+  .question {
+    .other {
+      margin-left: 2.5em; /* align input box with labels */
+    }
 
-	> .modal-footer {
-		> button {
-			margin:2px 2px 2px 4px;
-			cursor:pointer;
-		}
-	}
+    ul {
+      padding: 0;
+      margin: 0;
+    }
+
+    legend {
+      font-weight: bold;
+    }
+  }
+
+  .alert {
+    margin: 1em 0 0;
+  }
 }
 
-.dyfi-form > .modal-footer,
-.locationview > .modal-footer {
-	padding: 4px;
-	text-align:right;
+.dyfi-optional-callout > strong {
+  display:block;
+  margin-bottom: 0.5em;
+}
+
+.dyfi-text-input {
+  margin: 1em 0 0;
+
+  textarea {
+    width: 100%;
+    margin: 0;
+    height: 5em;
+  }
+
+  label {
+    font-weight: bold;
+    display:block;
+  }
+}
+
+.dyfi-contact-questions {
+
+  label {
+    font-weight:normal;
+  }
+
+  h4 {
+    //margin:0;
+  }
+  .subheader {
+    font-size:12px;
+    //color: #777;
+  }
+}
+
+.dyfi-required-questions {
+  margin: 1em 0 0;
+}
+
+.omb-number {
+  font-size:12px;
+  position: absolute;
+  right: 1.5em;
+  top: 0.5em;
+}
+
+.felt-header {
+  margin-top: 8px;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #ddd;
+}
+
+.location-result {
+  font-size: 0.815em;
+  margin: 1em 0 0;
+  display:inline-block;
+
+  > .address {
+    font-weight:bold;
+    display:block;
+  }
+}
+
+.location-button {
+  display:block;
+  margin:1em 0 0;
+}
+
+
+/** Location View **/
+.modal-dialog.locationview {
+  padding: 43px 0 56px;
+}
+
+.locationview-button {
+  font-size:inherit;
+  padding:0 1em;
+  font-size:15px;
+
+  &:hover {
+    color: #fff;
+    text-shadow:0 0 1px rgba(0,0,0,0.6);
+  }
+}
+
+.leaflet-control-input > button {
+  line-height:3rem;
+  font-size: 1em;
+}
+
+.information-list-mask > .information-list > li {
+  padding: 5px 0;
+
+  > .icon {
+    position: relative;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    line-height: 50px;
+    vertical-align: middle;
+  }
+
+    > p {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 1em;
+    vertical-align: middle;
+    width: 70%;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+
+@media screen and (min-width: 560px) {
+
+  .information-list-mask > .information-list > li {
+    top:0;
+    padding: 5px 0 0 0;
+
+    > span.icon {
+      top: 0;
+    }
+  }
+}
+
+
+@media screen and (min-width:768px) {
+
+  .dyfi-form {
+    padding-bottom: 57px;
+
+    .question .other {
+      margin-left: 3em;
+    }
+  }
+
+  .locationview-button {
+    line-height: 3rem;
+    height: 3rem;
+    font-size:12px;
+  }
 }

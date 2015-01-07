@@ -85,7 +85,7 @@ define([
 	};
 
 	IrisProductsPage.prototype.getIrisLinks = function (eventid) {
-		return '<dl class="iris-products">' +
+		return '<dl class="iris-products vertical">' +
 				'<dt>' +
 				'<a href="' + IRIS_WILBER_URL + eventid + '" target="_blank">' +
 					'Seismic Waveform Data (Wilber)' +

@@ -127,8 +127,9 @@ define([
 				el: el,
 				accordions: [{
 					toggleText: 'Downloads',
+					toggleElement: 'h3',
 					contentText: '<div class="page-downloads"></div>',
-					classes: 'accordion-standard accordion-closed accordian-page-downloads'
+					classes: 'accordion-standard accordion-closed accordion-page-downloads'
 				}]
 			});
 
@@ -180,34 +181,41 @@ define([
 	 * Gets the downloadable products and attachs to the footer.
 	 */
 	EventModulePage.prototype.getDownloads = function (product) {
-		var el = document.createElement('section');
+		var el = document.createElement('dl'),
+		    downloadEl = this._downloadsEl.querySelector('.page-downloads'),
+		    statusEl = document.createElement('p');
 
-		el.innerHTML = '<p>Loading contents &hellip;</p>';
 		el.className = 'page-download';
+		statusEl.innerHTML = 'Loading contents &hellip;';
 
-		this._downloadsEl.querySelector('.page-downloads').appendChild(el);
+		downloadEl.appendChild(statusEl);
+		downloadEl.appendChild(el);
+
 		new ContentsXML({
 			product: product,
 			callback: function (contents) {
 			// build content
-				var header = '<header class="page-download-header">' +
-						'<span class="type">' + product.type + '</span>' +
-						' <span class="source">' + Attribution.getName(product.source) +
+				var header = '<dt>' +
+						'<h4 class="type">' + product.type + '</h4>' +
+						'<span class="source">' + Attribution.getName(product.source) +
 						'</span>' +
-						' <span class="code">' + product.code + '</span>' +
-						'</header>';
+						'<span class="code">' + product.code + '</span>' +
+					'</dt>';
+				downloadEl.removeChild(statusEl);
 				el.innerHTML = header + contents.getDownloads();
 			},
 			errback: function (contents,err) {
 				if (err.message === 'product has no contents.xml content') {
-					el.parentNode.removeChild(el);
+					downloadEl.removeChild(el);
+					downloadEl.removeChild(statusEl);
+					// statusEl.className = 'alert error';
+					// statusEl.innerHTML = err.message;
 				} else {
-					el.innerHTML =
-						'<p class="alert error">Unable to load downloads &hellip;</p>';
+					statusEl.className = 'alert error';
+					statusEl.innerHTML = 'Unable to load downloads &hellip;';
 				}
-			}});
-
-
+			}
+		});
 	};
 
 

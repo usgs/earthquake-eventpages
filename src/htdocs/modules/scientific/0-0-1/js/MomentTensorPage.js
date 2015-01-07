@@ -40,9 +40,7 @@ define([
 	 */
 	var MomentTensorPage = function (options) {
 		options = Util.extend({}, DEFAULTS, options);
-		//this._code = options.code;
-		this._toggleButton = null;
-		this._toggleInfo = this._toggleInfo.bind(this);
+
 		SummaryDetailsPage.call(this, options);
 	};
 
@@ -85,34 +83,6 @@ define([
 				}).getCanvas());
 
 		this._content.appendChild(el);
-		this._toggleButton = el.querySelector('.toggle-button');
-
-		Util.addEvent(this._toggleButton, 'click', this._toggleInfo);
-	};
-
-
-
-	MomentTensorPage.prototype._toggleInfo = function () {
-		var button = this.getContent().querySelector('.toggle-button'),
-		    rows = this.getContent().querySelectorAll('.toggle'),
-		    row;
-
-		for (var i = 0; i < rows.length; i++) {
-			row = rows[i];
-			if (Util.hasClass(row, 'hidden')) {
-				Util.removeClass(row, 'hidden');
-			} else  {
-				Util.addClass(row, 'hidden');
-			}
-		}
-
-		if (Util.hasClass(button, 'on')) {
-			Util.removeClass(button, 'on');
-			Util.addClass(button, 'off');
-		} else  {
-			Util.removeClass(button, 'off');
-			Util.addClass(button, 'on');
-		}
 	};
 
 
@@ -154,18 +124,18 @@ define([
 			'<tr><th scope="row">Half Duration</th>',
 				'<td>', half_duration, '</td></tr>',
 			'<tr><th scope="row">Author</th>',
-				'<td class="toggle-row">',
+				'<td>',
 					Attribution.getContributorReference(author),
-					'<button class="toggle-button off"></button></td></tr>',
-			'<tr class="toggle hidden"><th scope="row">Catalog</th>',
+					'</td></tr>',
+			'<tr><th scope="row">Catalog</th>',
 				'<td>',
 					Attribution.getContributorReference(catalog),
 					'</td></tr>',
-			'<tr class="toggle hidden"><th scope="row">Contributor</th>',
+			'<tr><th scope="row">Contributor</th>',
 				'<td>',
 					Attribution.getContributorReference(contributor),
 					'</td></tr>',
-			'<tr class="toggle hidden"><th scope="row">Code</th>',
+			'<tr><th scope="row">Code</th>',
 				'<td><span class="truncate" title="', code ,'">', code, '</span></td></tr>',
 			'</tbody></table>'
 		].join('');
@@ -384,13 +354,6 @@ define([
 
 	MomentTensorPage.prototype.destroy = function () {
 		this._options = null;
-
-		if (this._toggleButton) {
-			Util.removeEvent(this._toggleButton, 'click', this._toggle);
-		}
-
-		this._toggle = null;
-		this._toggleButton = null;
 
 		SummaryDetailsPage.prototype.destroy.call(this);
 	};

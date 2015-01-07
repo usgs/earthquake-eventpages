@@ -289,6 +289,7 @@ define([
 		var button = container.appendChild(document.createElement('button'));
 
 		button.innerHTML = 'See All Responses';
+		button.className = 'view-all';
 
 		button.addEventListener('click', function (/*evt*/) {
 			if (table.classList.contains('full-list')) {
@@ -304,14 +305,20 @@ define([
 	DYFIPage.prototype._setFooterMarkup = function () {
 		var links;
 
-		EventModulePage.prototype._setFooterMarkup.apply(this);
-
-		links = document.createElement('div');
-		links.innerHTML = '<a href="/research/dyfi/">' +
-				'Scientific Background on Did You Feel It?' +
-				'</a>';
+		links = document.createElement('section');
+		links.innerHTML =
+				'<h3>For More Information</h3>' +
+				'<ul>' +
+					'<li>' +
+						'<a href="/research/dyfi/">' +
+							'Scientific Background on Did You Feel It?' +
+						'</a>' +
+					'</li>' +
+				'<ul>';
 
 		this._footer.appendChild(links);
+
+		EventModulePage.prototype._setFooterMarkup.apply(this);
 	};
 
 	return DYFIPage;

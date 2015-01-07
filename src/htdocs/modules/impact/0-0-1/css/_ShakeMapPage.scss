@@ -2,10 +2,6 @@
 	width:25%;
 }
 
-.station-flag {
-	color:#999;
-}
-
 .station-summary > li {
 
 	&.mmi {
@@ -13,7 +9,8 @@
 		padding:5px;
 		border-radius:2px;
 		text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
-		background-image: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(0,0,0,0));
+		box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5);
+		padding:0.5em 0;
 
 		> abbr {
 			color:#666;
@@ -21,35 +18,24 @@
 	}
 }
 
-.station > .accordion-content {
-	padding: 0;
+.stations > .accordion {
+	margin: 1em 0 0;
+}
 
-	> dl {
-		color:#666;
-		font-size:0.875em;
-		margin:1em 0;
+
+@media screen and (min-width:560px) {
+
+	.station dl.horizontal {
 
 		> dt {
-			font-weight:bold;
-			float:left;
-			width:6em;
+			width: 6em;
+			margin: 0;
 		}
 
 		> dd {
-			-webkit-margin-start:0;
-			-moz-margin-start:0;
-			padding-left:6em;
-
-			&:after {
-				content:'';
-				display:block;
-				clear:both;
-			}
+			margin-left:7em;
 		}
 	}
-}
-
-@media screen and (min-width:560px) {
 
 	table.station-components {
 		> tbody > tr {
@@ -78,5 +64,9 @@
 		td:nth-of-type(3):before { content:'psa03'; }
 		td:nth-of-type(4):before { content:'psa10'; }
 		td:nth-of-type(5):before { content:'psa30'; }
+	}
+
+	.station dl.horizontal > dd {
+		margin:0 0 0.25em;
 	}
 }

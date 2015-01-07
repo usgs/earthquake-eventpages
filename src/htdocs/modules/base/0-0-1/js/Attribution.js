@@ -474,8 +474,8 @@ define([
 				return contributor;
 			}
 
-			span = '<span>' + source.toUpperCase() + '<sup>[' + listPosition +
-					']</sup></span>';
+			span = '<span>' + source.toUpperCase() + '<sup>' + listPosition +
+					'</sup></span>';
 
 			return span;
 		},

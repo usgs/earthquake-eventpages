@@ -1,14 +1,13 @@
 @import 'compass/css3';
 
-@import 'event-layout';
 @import 'event-header';
 @import 'event-footer';
 @import 'downloads';
 @import 'MouseOverLayer';
-@import 'alerts';
 
 @import '../../../node_modules/hazdev-tablist/src/tablist/TabList.scss';
 @import '../../../node_modules/hazdev-accordion/src/accordion.scss';
+@import '../../../node_modules/hazdev-template/src/htdocs/css/alert.scss';
 
 /* svg image map */
 @import '../../../node_modules/hazdev-svgimagemap/src/svgimagemap/SvgImageMap.scss';
@@ -28,29 +27,19 @@
 	clear:both;
 }
 
-.truncate {
-	width:100%;
-	display:block;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+.sortview {
+  display:inline;
 }
 
-.datatable > .datatable-tools > .sortview {
-	float:left;
-	margin-right:1em;
+.datatable-tools {
+  margin: 1em 0 0;
 }
 
-.tablist-panel {
-	padding:0 1em;
+canvas {
+  margin: 1em 0 0;
+  display: block;
 }
 
-table.tabular {
-	font-size:0.9375em;
-}
-
-@media screen and (min-width:560px) {
-	table.tabular {
-		font-size:0.875em;
-	}
+.tablist-panel img {
+  margin: 1em 0 0;
 }

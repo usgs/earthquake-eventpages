@@ -100,18 +100,22 @@ define([
 	 *
 	 */
 	PagerPage.prototype._setFooterMarkup = function () {
-		var pagertag;
+		var links;
+
+		links = document.createElement('section');
+		links.innerHTML =
+				'<h3>For More Information</h3>' +
+				'<ul>' +
+					'<li>' +
+						'<a href="/research/pager/">' +
+							'Scientific Background on PAGER' +
+						'</a>' +
+					'</li>' +
+				'<ul>';
+
+		this._footer.appendChild(links);
 
 		EventModulePage.prototype._setFooterMarkup.apply(this);
-
-		this._footer.classList.add('pager');
-		pagertag = document.createElement('div');
-		pagertag.innerHTML =
-			'<a href="/research/pager/">' +
-				'Scientific Background on PAGER' +
-			'</a>';
-
-		this._footer.appendChild(pagertag);
 	};
 
 	/**
