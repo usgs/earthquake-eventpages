@@ -44,7 +44,7 @@
 		$romanMMI = $ROMANS[round(floatval($PROPERTIES['mmi']))];
 		echo '<a href="#impact_shakemap" title="ShakeMap maximum estimated intensity" ' .
 				'class="mmi' . $romanMMI . '"><strong class="roman">' . $romanMMI .
-				'</strong><br/><abbr title="ShakeMap">SM</abbr></a> ';
+				'</strong><br/><abbr title="ShakeMap">Shakemap</abbr></a> ';
 	}
 
 	if ($PROPERTIES['alert'] !== null) {
