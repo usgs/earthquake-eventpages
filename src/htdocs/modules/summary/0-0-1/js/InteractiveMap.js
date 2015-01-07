@@ -42,12 +42,10 @@ define([
         _el = document.createElement('div');
 
     var layerControl = null,
-        //temp
         terrainLayer = null,
         grayscaleLayer = null,
         streetLayer = null,
         satelliteLayer = null,
-        //end temp
         platesLayer = null,
         faultsLayer = null,
         latitude = null,
@@ -88,13 +86,13 @@ define([
     layerControl.addBaseLayer(grayscaleLayer, 'Grayscale');
 
     // Street Layer
-    streetLayer = new L.TileLayer (
+    streetLayer = new L.TileLayer(
         'http://otile{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg',
         {'subdomains': '1234'});
     layerControl.addBaseLayer(streetLayer, 'Street');
 
     //Satellite Layer
-    satelliteLayer = new L.TileLayer (
+    satelliteLayer = new L.TileLayer(
         'http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg',
         {'subdomains': '1234'});
     layerControl.addBaseLayer(satelliteLayer, 'Satellite');
