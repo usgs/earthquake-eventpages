@@ -195,7 +195,7 @@ define([
 			product: product,
 			callback: function (contents) {
 			// build content
-				var header = '<dt>' +
+				var header = '<dt class="product">' +
 						'<h4 class="type">' + product.type + '</h4>' +
 						'<span class="source">' + Attribution.getName(product.source) +
 						'</span>' +

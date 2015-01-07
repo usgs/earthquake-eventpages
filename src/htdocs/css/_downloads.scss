@@ -6,23 +6,21 @@ dl.page-download {
     border: none;
   }
 
-  span {
-    display:block;
-  }
-
-  > dt {
+  > dt.product {
     > .type {
       margin-bottom: 0.5em;
       font-weight: bold;
     }
 
     > .source {
+      display:block;
       font-weight: normal;
       font-size: 0.8125em;
       color: #666;
     }
 
     > .code {
+      display:block;
       font-weight: normal;
       font-size: 0.8125em;
       color: #666;
@@ -34,6 +32,7 @@ dl.page-download {
     font-size: 0.8125em;
 
     > .title {
+      display:block;
       font-weight: bold;
     }
 
