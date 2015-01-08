@@ -47,7 +47,7 @@
     "hazdev-location-view": "0.0.6",
     "hazdev-question-view": "0.0.2",
     "hazdev-webutils": "0.0.15",
-    "hazdev-accordion": "0.0.1",
+    "hazdev-accordion": "usgs/hazdev-accordion",
     "ini": "^1.2.1"
   },
   "engines": {
