@@ -326,7 +326,7 @@ define([
 		products = this._event.properties.products[type];
 
 		for (i = 0, len = products.length; i < len; i++) {
-			markup.push('<p>' + products[0].contents[''].bytes + '<p>');
+			markup.push('<div>' + products[0].contents[''].bytes + '</div>');
 		}
 
 		container.innerHTML = '<h3>' + title + '</h3>' + markup.join('');

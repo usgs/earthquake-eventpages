@@ -20,3 +20,9 @@
 		display: block;
 	}
 }
+
+.summary-general-header > div,
+.summary-general-text > div,
+.summary-impact-text > div {
+	margin-top: 1em;
+}

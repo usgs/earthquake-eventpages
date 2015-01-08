@@ -208,8 +208,6 @@ define([
 				if (err.message === 'product has no contents.xml content') {
 					downloadEl.removeChild(el);
 					downloadEl.removeChild(statusEl);
-					// statusEl.className = 'alert error';
-					// statusEl.innerHTML = err.message;
 				} else {
 					statusEl.className = 'alert error';
 					statusEl.innerHTML = 'Unable to load downloads &hellip;';
