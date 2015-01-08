@@ -415,6 +415,22 @@ define([
 
 		setContributors: function (sources) {
 			SOURCES = sources;
+			SOURCES.sort(
+				function (a, b) {
+					var aName,
+							bName;
+
+					aName = Attribution.getName(a);
+					bName = Attribution.getName(b);
+
+					if (aName < bName) {
+						return -1;
+					} else if (aName > bName) {
+						return 1;
+					} else {
+						return 0;
+					}
+				});
 		},
 
 		getContributors: function () {
