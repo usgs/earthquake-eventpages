@@ -183,6 +183,7 @@ define([
 				markup.push('<section>' + module.getNavigationItems(hash).join('') + '</section>');
 			}
 		}
+		markup.push('<a href="/earthquakes/map/">Latest Earthquakes</a>')
 
 		this._navigation.innerHTML = markup.join('');
 	};
