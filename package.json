@@ -37,7 +37,7 @@
     "matchdep": "~0.1.2",
     "mocha": "~1.9.0",
     "sinon": "~1.7.3",
-    "hazdev-tablist": "~0.0.6",
+    "hazdev-tablist": "usgs/hazdev-tablist",
     "hazdev-template": "usgs/hazdev-template",
     "grunt-connect-rewrite": "~0.1.1",
     "grunt-connect-proxy": "0.1.10",
