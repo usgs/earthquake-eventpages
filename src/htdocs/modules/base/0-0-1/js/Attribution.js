@@ -523,6 +523,23 @@ define([
       }
 
       return title + ' (' + code + ')';
+    },
+
+    getLink: function (id) {
+      var contributor = this.getContributor(id),
+          title = contributor.title,
+          code =  contributor.id,
+          url = contributor.url;
+
+      if (!title) {
+        title = code;
+      }
+
+      if (url) {
+        return '<a href="' + url + '">' + title + '</a>';
+      } else {
+          return title;
+      }
     }
   };
 
