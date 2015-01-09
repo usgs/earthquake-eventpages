@@ -282,6 +282,7 @@ define([
 
 		//hiddenForm.appendChild(_createInput('ciim_time', eventData.timestamp));
 		hiddenForm.appendChild(this._createInput('form_version', FORM_VERSION));
+		hiddenForm.appendChild(this._createInput('ciim_report', 'Submit Form'));
 
 		for (var data in eventData) {
 			values = eventData[data];
