@@ -40,7 +40,7 @@ define([
     'SE': {id: 'SE', 'title': 'Center for Earthquake Research and Information', 'url': 'http://www.ceri.memphis.edu/seismic/', 'logo': ''},
     'UU': {id: 'UU', 'title': 'University of Utah Seismograph Stations', 'url': 'http://www.seis.utah.edu/', 'logo': ''},
     'UW,PNSN': {id: 'UW,PNSN', 'title': 'Pacific Northwest Seismic Network', 'url': 'http://www.pnsn.org/', 'logo': ''},
-    'US,NEIC': {id: 'US,NEIC', 'title': 'USGS National Earthquake Information Center', 'url': 'http://earthquake.usgs.gov/regional/neic/', 'logo': LOGO_ROOT + 'usgs.gif'},
+    'US,NEIC': {id: 'US,NEIC', 'title': 'USGS National Earthquake Information Center', 'url': 'http://earthquake.usgs.gov/contactus/golden/neic.php', 'logo': LOGO_ROOT + 'usgs.gif'},
     'AEI': {id: 'AEI', title: 'Alaska Earthquake Center, Fairbanks'},
     'ALG': {id: 'ALG', title: 'CRAAG, Alger-Bouzareah, Algeria'},
     'ALQ': {id: 'ALQ', title: 'Albuquerque Seismological Laboratory, Albuquerque, New Mexico, USA'},
