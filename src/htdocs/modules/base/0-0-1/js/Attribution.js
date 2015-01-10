@@ -25,7 +25,7 @@ define([
   };
 
   var SOURCE_MAP = {
-    'AK,AEIC': {id: 'AK,AEIC', 'title': 'Alaska Earthquake Information Center', 'url': 'http://www.aeic.alaska.edu/', 'logo': LOGO_ROOT + 'AK.jpg'},
+    'AK,AEIC': {id: 'AK,AEIC', 'title': 'Alaska Earthquake Center', 'url': 'http://www.aeic.alaska.edu/', 'logo': LOGO_ROOT + 'AK.jpg'},
     'AT,ATWC': {id: 'AT,ATWC', 'title': 'National Tsunami Warning Center', 'url': 'http://ntwc.arh.noaa.gov', 'logo': LOGO_ROOT + 'PT.jpg'},
     'CI': {id: 'CI', 'title': 'Southern California Seismic Network, Caltech, USGS Pasadena, and Partners', 'url': 'http://www.cisn.org/', 'logo': LOGO_ROOT + 'CI.gif'},
     'HV': {id: 'HV', 'title': 'Hawaii Volcano Observatory', 'url': 'http://hvo.wr.usgs.gov/', 'logo': ''},
@@ -40,8 +40,8 @@ define([
     'SE': {id: 'SE', 'title': 'Center for Earthquake Research and Information', 'url': 'http://www.ceri.memphis.edu/seismic/', 'logo': ''},
     'UU': {id: 'UU', 'title': 'University of Utah Seismograph Stations', 'url': 'http://www.seis.utah.edu/', 'logo': ''},
     'UW,PNSN': {id: 'UW,PNSN', 'title': 'Pacific Northwest Seismic Network', 'url': 'http://www.pnsn.org/', 'logo': ''},
-    'US,NEIC': {id: 'US,NEIC', 'title': 'USGS National Earthquake Information Center', 'url': 'http://earthquake.usgs.gov/regional/neic/', 'logo': LOGO_ROOT + 'usgs.gif'},
-    'AEI': {id: 'AEI', title: 'Alaska Earthquake Information Center, Fairbanks'},
+    'US,NEIC': {id: 'US,NEIC', 'title': 'USGS National Earthquake Information Center', 'url': 'http://earthquake.usgs.gov/contactus/golden/neic.php', 'logo': LOGO_ROOT + 'usgs.gif'},
+    'AEI': {id: 'AEI', title: 'Alaska Earthquake Center, Fairbanks'},
     'ALG': {id: 'ALG', title: 'CRAAG, Alger-Bouzareah, Algeria'},
     'ALQ': {id: 'ALQ', title: 'Albuquerque Seismological Laboratory, Albuquerque, New Mexico, USA'},
     'ANZA': {id: 'ANZA', title: 'Anza Seismic Network, IGPP, UC San Diego, La Jolla, California, USA'},
@@ -169,7 +169,7 @@ define([
     'ZAMG': {id: 'ZAMG', title: 'ZentralAnstalt fuer Meteorologie und Geodynamik, Vienna, Austria'},
     'ZUR': {id: 'ZUR', title: 'Schweizerischer Erdbebendienst, Zurich, Switzerland'},
     'IDC': {id: 'IDC', title: 'Internation Data Center'},
-    'AEIC': {id: 'AEIC', title: 'Alaska Earthquake Information Center, Fairbanks'},
+    'AEIC': {id: 'AEIC', title: 'Alaska Earthquake Center, Fairbanks'},
     'AAE': {id: 'AAE', title: 'Geophysical Observatory, Adis Abeba University, Ethiopia'},
     'AAM': {id: 'AAM', title: 'University of Michigan, Ann Arbor, USA'},
     'ADE': {id: 'ADE', title: 'Primary Industries and Resources SA, Adelaide, S.A., Australia'},
@@ -474,7 +474,7 @@ define([
 
       for (var i = 0; i < SOURCES.length; i++) {
         source = SOURCES[i];
-        listMarkup.push('<li>' + this.getName(source) + '</li>');
+        listMarkup.push('<li>' + this.getLink(source) + '</li>');
       }
 
       return '<ol class="contributors">' + listMarkup.join('') + '</ol>';
@@ -523,6 +523,26 @@ define([
       }
 
       return title + ' (' + code + ')';
+    },
+
+    getLink: function (id) {
+      var contributor = this.getContributor(id),
+          title = contributor.title,
+          code =  contributor.id,
+          url = contributor.url;
+
+      if (!title) {
+        title = code;
+      }
+      if (title !== code) {
+        title = title + ' (' + code + ')';
+      }
+
+      if (url) {
+        return '<a href="' + url + '">' + title + '</a>';
+      } else {
+          return title;
+      }
     }
   };
 

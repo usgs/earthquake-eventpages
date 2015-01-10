@@ -34,6 +34,7 @@ define([
 	};
 	SummaryPage.prototype = Object.create(EventModulePage.prototype);
 
+
 	SummaryPage.prototype._setContentMarkup = function () {
 		var _this = this,
 		    markup = [],
@@ -52,6 +53,9 @@ define([
 		markup.push(this._getTextContentMarkup('general-header'));
 
 		markup.push(
+			'<p class="attribution alert">' +
+				this.getOriginAttribution(preferredOrigin) +
+			'</p>' +
 			'<div class="row">' +
 				'<div class="column one-of-two">' +
 					'<h3>Event Location</h3>' +
