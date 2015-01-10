@@ -178,6 +178,32 @@ define([
 	};
 
 	/**
+	 * Get attribution content for the specified origin.
+	 */
+	EventModulePage.prototype.getOriginAttribution = function (origin) {
+		var attribution,
+		    locationSource,
+		    magnitudeSource,
+		    props,
+		    source;
+		// build attribution markup
+		props = origin.properties;
+		source = origin.source;
+		locationSource = props['origin-source'] || source;
+		magnitudeSource = props['magnitude-source'] || source;
+		if (locationSource === magnitudeSource) {
+			attribution = 'Location and Magnitude contributed by ' +
+					Attribution.getLink(locationSource);
+		} else {
+			attribution = 'Location contributed by ' +
+						Attribution.getLink(locationSource) +
+					'<br/>Magnitude contributed by ' +
+						Attribution.getLink(magnitudeSource);
+		}
+		return attribution;
+	};
+
+	/**
 	 * Gets the downloadable products and attachs to the footer.
 	 */
 	EventModulePage.prototype.getDownloads = function (product) {
