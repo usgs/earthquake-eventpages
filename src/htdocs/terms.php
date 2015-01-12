@@ -209,6 +209,14 @@ if (!isset($TEMPLATE)) {
 <a id="magnitudeUncertainty"></a>
 <h2>Magnitude Uncertainty</h2>
 
+<p>
+  The estimated standard error of the magnitude. The uncertainty corresponds
+  the specific magnitude type being reported and does not take into account
+  magnitude variations and biases between different magnitude scales. We assign
+  an "unknown" value if the contributing seismic network does not supply the
+  necessary information to generate uncertainty estimates.
+</p>
+
 <a id="locationUncertainty"></a>
 <h2>Location Uncertainty</h2>
 
@@ -287,6 +295,14 @@ if (!isset($TEMPLATE)) {
 <a id="reviewStatus"></a>
 <h2>Review Status</h2>
 
+<p>
+  Review status is either automatic or reviewed.  Automatic events are directly
+  posted by our automatic processing systems and have not been verified or
+  altered by a human. Reviewed events have been looked at by a human. The level
+  of review can range from an quick validity check to a careful reanalysis of
+  the event.
+</p>
+
 <a id="eventID"></a>
 <h2>Event ID</h2>
 
@@ -298,4 +314,8 @@ if (!isset($TEMPLATE)) {
 
 <a id="momentTensors"></a>
 <h2>Moment Tensors</h2>
+
+<p>
+  Descriptions under development.
+</p>
 
