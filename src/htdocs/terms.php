@@ -210,11 +210,11 @@ if (!isset($TEMPLATE)) {
 <h2>Magnitude Uncertainty</h2>
 
 <p>
-  The estimated standard error of the magnitude. The uncertainty corresponds
+  The estimated standard error of the magnitude. The uncertainty corresponds to
   the specific magnitude type being reported and does not take into account
-  magnitude variations and biases between different magnitude scales. We assign
-  an "unknown" value if the contributing seismic network does not supply the
-  necessary information to generate uncertainty estimates.
+  magnitude variations and biases between different magnitude scales. We report
+  an "unknown" value if the contributing seismic network does not supply
+  uncertainty estimates.
 </p>
 
 <a id="locationUncertainty"></a>
@@ -228,8 +228,8 @@ if (!isset($TEMPLATE)) {
   location varies from about 100 m horizontally and 300 meters vertically for
   the best located events, those in the middle of densely spaced seismograph
   networks, to 10s of kilometers for global events in many parts of the world.
-  We assign an "unknown" value if the contributing seismic network does not
-  supply the necessary information to generate uncertainty estimates.
+  We report an "unknown" value if the contributing seismic network does not
+  supply uncertainty estimates.
 </p>
 
 <a id="depthUncertainty"></a>
@@ -297,7 +297,7 @@ if (!isset($TEMPLATE)) {
 
 <p>
   Review status is either automatic or reviewed.  Automatic events are directly
-  posted by our automatic processing systems and have not been verified or
+  posted by automatic processing systems and have not been verified or
   altered by a human. Reviewed events have been looked at by a human. The level
   of review can range from an quick validity check to a careful reanalysis of
   the event.
