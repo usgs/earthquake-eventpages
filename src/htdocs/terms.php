@@ -316,6 +316,9 @@ if (!isset($TEMPLATE)) {
 <h2>Moment Tensors</h2>
 
 <p>
-  Descriptions under development.
+  A mathematical representation of the movement on a fault during an earthquake.
+  The tensor depends on the source strength and fault orientation. See also
+  <a href="http://earthquake.usgs.gov/learn/topics/beachball.php">Focal
+  Mechanisms</a>
 </p>
 
