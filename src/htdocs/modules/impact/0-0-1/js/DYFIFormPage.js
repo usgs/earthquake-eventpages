@@ -110,7 +110,8 @@ define([
 
 		if(_DYFIIFRAME) {
 			content = this._content.querySelector('.dyfiform-content');
-			content.innerHTML = '<div>Thank you for submitting your experience.</div>';
+			content.innerHTML = '<p class="alert success">Thank you for submitting' +
+					'your experience.</p>';
 			return;
 		}
 
