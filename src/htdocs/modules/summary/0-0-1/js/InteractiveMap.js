@@ -230,33 +230,6 @@ define([
     this._content.appendChild(this._closeButton);
   };
 
-  // InteractiveMap.prototype.show = function (container) {
-  //   var lat, latmin, latmax,
-  //       lng, lngmin, lngmax;
-  //   // delete this
-  //   console.log('InteractiveMap.show Its alive');
-  //   container = container || this._content;
-
-  //   if (container) {
-  //     container.appendChild(this._wrapper);
-  //     this._map.invalidateSize();
-
-  //     if (this._event) {
-  //       // Show a 2deg map centered on earthquake epicenter)
-  //       lat = this._event.geometry.coordinates[1];
-  //       lng = this._event.geometry.coordinates[0];
-
-  //       latmin = Math.max(lat - 2.0, -90.0);
-  //       latmax = Math.min(lat + 2.0, 90.0);
-
-  //       lngmin = lng - 2.0;
-  //       lngmax = lng + 2.0;
-
-  //       this._map.fitBounds([[latmax, lngmin], [latmin, lngmax]]);
-  //     }
-  //   }
-  // };
-
   InteractiveMap.prototype._onAfterRender = function () {
     if (this._map) {
       this._map.invalidateSize();
