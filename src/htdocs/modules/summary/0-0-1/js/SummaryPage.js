@@ -53,9 +53,9 @@ define([
 		markup.push(this._getTextContentMarkup('general-header'));
 
 		markup.push(
-			'<p class="attribution alert">' +
-				this.getOriginAttribution(preferredOrigin) +
-			'</p>' +
+			'<small class="attribution">Contributed by ' +
+					Attribution.getContributorReference(preferredOrigin.source) +
+			'</small>' +
 			'<div class="row">' +
 				'<div class="column one-of-two">' +
 					'<h3>Event Location</h3>' +
