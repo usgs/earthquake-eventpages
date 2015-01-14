@@ -99,15 +99,18 @@ define([
 		this._modules = options.modules || [
 			new SummaryModule({
 					'eventDetails': this._eventDetails,
-					'eventConfig': this._eventConfig
+					'eventConfig': this._eventConfig,
+					'eventPage': this
 			}),
 			new ImpactModule({
 				'eventDetails': this._eventDetails,
-				'eventConfig': this._eventConfig
+				'eventConfig': this._eventConfig,
+				'eventPage': this
 			}),
 			new ScientificModule({
 				'eventDetails': this._eventDetails,
-				'eventConfig': this._eventConfig
+				'eventConfig': this._eventConfig,
+				'eventPage': this
 			})
 		];
 

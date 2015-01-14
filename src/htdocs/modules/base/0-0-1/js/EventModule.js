@@ -43,6 +43,7 @@ define([
 		this._cssUrl = options.cssUrl;
 		this._eventDetails = options.eventDetails;
 		this._eventConfig = options.eventConfig;
+		this._eventPage = options.eventPage;
 
 		this._cssLoaded = false;
 	};
@@ -212,7 +213,8 @@ define([
 					productTypes: pageInfo.productTypes,
 					eventDetails: this._eventDetails,
 					eventConfig: this._eventConfig,
-					module: module
+					module: module,
+					eventPage: this._eventPage
 				});
 		var classLoader = null;
 

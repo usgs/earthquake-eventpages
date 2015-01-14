@@ -28,6 +28,7 @@ define([
 
 		options = options || {};
 
+		this._eventPage = options.eventPage || null;
 		this._module = options.module || new EventModule();
 		this._hash = options.hash || DEFAULTS.hash;
 		this._title = options.title || DEFAULTS.title;
