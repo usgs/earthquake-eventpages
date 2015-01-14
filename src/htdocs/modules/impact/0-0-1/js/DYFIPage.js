@@ -3,6 +3,7 @@ define([
 	'mvc/Collection',
 	'mvc/DataTable',
 	'util/Util',
+	'base/Attribution',
 	'base/EventModulePage',
 	'tablist/Tablist',
 	'util/Xhr',
@@ -12,6 +13,7 @@ define([
 	Collection,
 	DataTable,
 	Util,
+	Attribution,
 	EventModulePage,
 	TabList,
 	Xhr,
@@ -154,6 +156,11 @@ define([
 		}
 
 		dyfi = this._dyfi = products.dyfi[0];
+
+		this._content.innerHTML = '<small class="attribution">Contributed by ' +
+				Attribution.getContributorReference(dyfi.source) +
+				'</small>';
+
 		// Tablist element
 		tablistDiv = document.createElement('div');
 		tablistDiv.className = 'dyfi-tablist';
