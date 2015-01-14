@@ -488,11 +488,15 @@ define([
 
       /* When mapping does not exist, return the contributor text */
       if (listPosition === 0) {
-        return contributor;
+        return '<span>' + contributor + '</span>';
       }
 
-      span = '<span>' + source.toUpperCase() + '<sup>' + listPosition +
-          '</sup></span>';
+      span = '<span>' +
+          '<abbr title="' + Attribution.getName(source) + '">' +
+            source.toUpperCase() +
+            '<sup>' + listPosition + '</sup>' +
+          '</abbr>' +
+          '</span>';
 
       return span;
     },
