@@ -63,6 +63,9 @@ define([
 		// set layout
 		el.className = 'tensor-detail';
 		el.innerHTML = [
+			'<small class="attribution">Contributed by ',
+				Attribution.getContributorReference(product.source),
+				'</small>',
 			this._getTitle(tensor),
 			'<div class="row clearfix">',
 				'<div class="column one-of-two">',
@@ -99,10 +102,6 @@ define([
 		    magnitude = tensor.magnitude,
 		    percentDC = tensor.percentDC,
 		    depth = tensor.depth,
-		    author = tensor.source,
-		    catalog = tensor.product.properties.eventsource,
-		    contributor = tensor.product.source,
-		    code = tensor.product.code,
 		    half_duration = tensor.product.properties.duration/2 || '&ndash;';
 
 		moment = (moment / tensor.scale).toFixed(3) +
@@ -123,20 +122,10 @@ define([
 				'<td>', percentDC, '</td></tr>',
 			'<tr><th scope="row">Half Duration</th>',
 				'<td>', half_duration, '</td></tr>',
-			'<tr><th scope="row">Author</th>',
-				'<td>',
-					Attribution.getContributorReference(author),
-					'</td></tr>',
-			'<tr><th scope="row">Catalog</th>',
-				'<td>',
-					Attribution.getContributorReference(catalog),
-					'</td></tr>',
-			'<tr><th scope="row">Contributor</th>',
-				'<td>',
-					Attribution.getContributorReference(contributor),
-					'</td></tr>',
-			'<tr><th scope="row">Code</th>',
-				'<td><span class="truncate" title="', code ,'">', code, '</span></td></tr>',
+			'<tr><th scope="row">Catalog</th><td>',
+				this.getCatalogDetail(tensor.product), '</td></tr>',
+			'<tr><th scope="row">Source</th><td>',
+				Attribution.getContributorReference(tensor.source), '</td></tr>',
 			'</tbody></table>'
 		].join('');
 	};
@@ -336,7 +325,7 @@ define([
 						'<li class="summary-hide">',
 							Attribution.getContributorReference(tensor.source),
 							'<abbr title="', Attribution.getName(tensor.source),
-								'">source</abbr>',
+								'">Source</abbr>',
 						'</li>',
 					'</ul>'
 		].join('');
