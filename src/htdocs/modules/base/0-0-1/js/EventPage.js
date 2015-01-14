@@ -214,6 +214,8 @@ define([
 		var allProducts,
 		    products,
 		    product,
+		    props,
+		    author,
 		    sources = [],
 		    type,
 		    i,
@@ -237,10 +239,24 @@ define([
 					sources.push(product.source.toLowerCase());
 				}
 
-				// check event source
-				if (product.properties.eventsource &&
-					!Util.contains(sources, product.properties.eventsource)) {
-					sources.push(product.properties.eventsource.toLowerCase());
+				props = product.properties;
+				if (props['origin-source']) {
+					author = props['origin-source'].toLowerCase();
+					if (!Util.contains(sources, author)) {
+						sources.push(author);
+					}
+				}
+				if (props['magnitude-source']) {
+					author = props['magnitude-source'].toLowerCase();
+					if (!Util.contains(sources, author)) {
+						sources.push(author);
+					}
+				}
+				if (props['beachball-source']) {
+					author = props['beachball-source'].toLowerCase();
+					if (!Util.contains(sources, author)) {
+						sources.push(author);
+					}
 				}
 			}
 		}
