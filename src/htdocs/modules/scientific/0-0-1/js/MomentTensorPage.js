@@ -329,8 +329,7 @@ define([
 						'</li>',
 						'<li class="summary-hide">',
 							Attribution.getContributorReference(tensor.source),
-							'<abbr title="', Attribution.getName(tensor.source),
-								'">Source</abbr>',
+							'<abbr title="Moment Tensor Data Source">Source</abbr>',
 						'</li>',
 					'</ul>'
 		].join('');
