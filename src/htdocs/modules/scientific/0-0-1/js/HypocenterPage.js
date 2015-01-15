@@ -44,7 +44,9 @@ define([
 			'format': function (arrival) {
 				var station = arrival.pick.waveformID;
 				return station.networkCode + ' ' + station.stationCode +
-						' ' + station.channelCode + ' ' + station.locationCode;
+						(station.channelCode ? ' ' + station.channelCode +
+								(station.locationCode ? ' ' + station.locationCode : '')
+								: '');
 			},
 			'header': true
 		},
