@@ -200,7 +200,9 @@ define([
 
 			eventData.code = this._event.properties.code;
 			eventData.network = this._event.properties.net;
-			eventData.dyficode = this._event.properties.products.dyfi[0].code;
+			eventData.dyficode = ('dyfi' in this._event.properties.products ?
+					this._event.properties.products.dyfi[0].code :
+					'unknown');
 		//or set event properties to unknown.
 		} else {
 			eventData.code = 'unknown';
