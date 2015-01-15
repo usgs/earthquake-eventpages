@@ -58,7 +58,7 @@ define([
 						data = data.replace('"' + path + '"', baseURL + path);
 					}
 					// insert content
-					el.innerHTML = '<small class="attribution">Contributed by ' +
+					el.innerHTML = '<small class="attribution">Data Source ' +
 							Attribution.getContributorReference(product.source) +
 							'</small>' +
 							data;
