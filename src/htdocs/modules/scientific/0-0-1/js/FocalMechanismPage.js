@@ -79,13 +79,12 @@ define([
 	FocalMechanismPage.prototype._getInfo = function (tensor) {
 		return [
 			'<table class="tabular info-table"><tbody>',
-			'<tr><th scope="row">Catalog</th>',
-				'<td>', this.getCatalogDetail(tensor.product),
-				'</td></tr>',
-			'<tr><th scope="row">Source</th>',
-				'<td>', Attribution.getContributorReference(
-						tensor.source),
-				'</td></tr>',
+			'<tr><th scope="row">Catalog</th><td>',
+				this.getCatalogDetail(tensor.product), '</td></tr>',
+			'<tr><th scope="row">Data Source</th><td>',
+				Attribution.getContributorReference(tensor.source), '</td></tr>',
+			'<tr><th scope="row">Contributor</th><td>',
+				Attribution.getContributorReference(tensor.product.source), '</td></tr>',
 			'</tbody></table>'
 		].join('');
 	};
