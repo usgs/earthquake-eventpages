@@ -2,6 +2,13 @@
 @import '../../../../../../node_modules/hazdev-question-view/src/QuestionView';
 @import '../../../../../../node_modules/hazdev-webutils/src/mvc/ModalView';
 
+.dyfiIframe {
+  border: 1px solid #ddd;
+  margin: 1em 0 0;
+  padding: 1em;
+  width: 100%;
+}
+
 /* this supports both location view and dyfi-form */
 .modal-dialog > .modal-footer {
   line-height: 40px;

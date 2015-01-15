@@ -110,7 +110,8 @@ define([
 
 		if(_DYFIIFRAME) {
 			content = this._content.querySelector('.dyfiform-content');
-			content.innerHTML = '<div>Thank you for submitting your experience.</div>';
+			content.innerHTML = '<p class="alert success">Thank you for submitting' +
+					'your experience.</p>';
 			return;
 		}
 
@@ -282,6 +283,7 @@ define([
 
 		//hiddenForm.appendChild(_createInput('ciim_time', eventData.timestamp));
 		hiddenForm.appendChild(this._createInput('form_version', FORM_VERSION));
+		hiddenForm.appendChild(this._createInput('ciim_report', 'Submit Form'));
 
 		for (var data in eventData) {
 			values = eventData[data];
