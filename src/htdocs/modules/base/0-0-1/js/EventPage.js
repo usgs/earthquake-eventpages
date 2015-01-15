@@ -214,6 +214,8 @@ define([
 		var allProducts,
 		    products,
 		    product,
+		    props,
+		    author,
 		    sources = [],
 		    type,
 		    i,
@@ -232,15 +234,33 @@ define([
 			for (i = 0; i < length; i++) {
 				product = products[i];
 
+				if (product.source === 'admin') {
+					continue;
+				}
+
 				// check product source
 				if (product.source && !Util.contains(sources, product.source)) {
 					sources.push(product.source.toLowerCase());
 				}
 
-				// check event source
-				if (product.properties.eventsource &&
-					!Util.contains(sources, product.properties.eventsource)) {
-					sources.push(product.properties.eventsource.toLowerCase());
+				props = product.properties;
+				if (props['origin-source']) {
+					author = props['origin-source'].toLowerCase();
+					if (!Util.contains(sources, author)) {
+						sources.push(author);
+					}
+				}
+				if (props['magnitude-source']) {
+					author = props['magnitude-source'].toLowerCase();
+					if (!Util.contains(sources, author)) {
+						sources.push(author);
+					}
+				}
+				if (props['beachball-source']) {
+					author = props['beachball-source'].toLowerCase();
+					if (!Util.contains(sources, author)) {
+						sources.push(author);
+					}
 				}
 			}
 		}

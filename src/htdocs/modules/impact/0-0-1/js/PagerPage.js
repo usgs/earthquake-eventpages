@@ -3,12 +3,14 @@ define([
 	'util/Util',
 	'util/Xhr',
 
+	'base/Attribution',
 	'base/EventModulePage',
 	'impact/PagerXmlParser'
 ], function (
 	Util,
 	Xhr,
 
+	Attribution,
 	EventModulePage,
 	PagerXmlParser
 ) {
@@ -47,10 +49,14 @@ define([
 	 */
 	PagerPage.prototype._setContentMarkup = function () {
 		var _this = this,
-		    contents = this._event.properties.products.losspager[0].contents;
+		    product = this._event.properties.products.losspager[0],
+		    contents = product.contents;
 
 		this._content.classList.add('pager');
 		this._content.innerHTML =
+			'<small class="attribution">Data Source ' +
+				Attribution.getContributorReference(product.source) +
+				'</small>' +
 			'<div class="alert-wrapper row"></div>' +
 			'<div class="row">' +
 				'<div class="column one-of-two">' +

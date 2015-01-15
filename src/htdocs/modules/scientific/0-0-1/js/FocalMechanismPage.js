@@ -11,7 +11,9 @@ define([
 	'use strict';
 
 
-	var DEFAULTS = {};
+	var DEFAULTS = {
+		markPreferred: false
+	};
 
 	/**
 	 * Construct a new FocalMechanismPage.
@@ -79,20 +81,12 @@ define([
 	FocalMechanismPage.prototype._getInfo = function (tensor) {
 		return [
 			'<table class="tabular info-table"><tbody>',
-			'<tr><th scope="row">Author</th>',
-				'<td>', Attribution.getContributorReference(
-						tensor.source),
-				'</td></tr>',
-			'<tr><th scope="row">Catalog</th>',
-				'<td>', Attribution.getContributorReference(
-						tensor.product.properties.eventsource),
-				'</td></tr>',
-			'<tr><th scope="row">Contributor</th>',
-				'<td>', Attribution.getContributorReference(
-						tensor.product.source),
-				'</td></tr>',
-			'<tr><th scope="row">Code</th>',
-				'<td>', tensor.product.code, '</td></tr>',
+			'<tr><th scope="row">Catalog</th><td>',
+				this.getCatalogDetail(tensor.product), '</td></tr>',
+			'<tr><th scope="row">Data Source</th><td>',
+				Attribution.getContributorReference(tensor.source), '</td></tr>',
+			'<tr><th scope="row">Contributor</th><td>',
+				Attribution.getContributorReference(tensor.product.source), '</td></tr>',
 			'</tbody></table>'
 		].join('');
 	};

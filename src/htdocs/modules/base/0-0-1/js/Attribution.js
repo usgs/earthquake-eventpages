@@ -40,7 +40,7 @@ define([
     'SE': {id: 'SE', 'title': 'Center for Earthquake Research and Information', 'url': 'http://www.ceri.memphis.edu/seismic/', 'logo': ''},
     'UU': {id: 'UU', 'title': 'University of Utah Seismograph Stations', 'url': 'http://www.seis.utah.edu/', 'logo': ''},
     'UW,PNSN': {id: 'UW,PNSN', 'title': 'Pacific Northwest Seismic Network', 'url': 'http://www.pnsn.org/', 'logo': ''},
-    'US,NEIC': {id: 'US,NEIC', 'title': 'USGS National Earthquake Information Center', 'url': 'http://earthquake.usgs.gov/contactus/golden/neic.php', 'logo': LOGO_ROOT + 'usgs.gif'},
+    'US,NEIC': {id: 'US,NEIC', 'title': 'USGS National Earthquake Information Center, PDE', 'url': 'http://earthquake.usgs.gov/contactus/golden/neic.php', 'logo': LOGO_ROOT + 'usgs.gif'},
     'AEI': {id: 'AEI', title: 'Alaska Earthquake Center, Fairbanks'},
     'ALG': {id: 'ALG', title: 'CRAAG, Alger-Bouzareah, Algeria'},
     'ALQ': {id: 'ALQ', title: 'Albuquerque Seismological Laboratory, Albuquerque, New Mexico, USA'},
@@ -255,6 +255,7 @@ define([
     'INY': {id: 'INY', title: 'Cornell University, Ithaca, New York, USA'},
     'IRSA': {id: 'IRSA', title: 'Institutul Roman de Seismologie Aplicata, Bucharest, Romania'},
     'ISC': {id: 'ISC', title: 'International Seismological Centre, UK'},
+    'ISCGEM': {id: 'ISCGEM', title: 'ISC-GEM', url: 'http://www.isc.ac.uk/iscgem/'},
     'IST': {id: 'IST', title: 'Istanbul Technical University, Maslak, Istanbul, Turkey'},
     'JCK': {id: 'JCK', title: 'Geologisches Landesamt Nordrhein-Westfalen, Krefeld, Germany'},
     'JHI': {id: 'JHI', title: 'Regional Research Laboratory, Jorhat, India'},
@@ -487,11 +488,15 @@ define([
 
       /* When mapping does not exist, return the contributor text */
       if (listPosition === 0) {
-        return contributor;
+        return '<span>' + contributor + '</span>';
       }
 
-      span = '<span>' + source.toUpperCase() + '<sup>' + listPosition +
-          '</sup></span>';
+      span = '<span>' +
+          '<abbr title="' + Attribution.getName(source) + '">' +
+            source.toUpperCase() +
+            '<sup>' + listPosition + '</sup>' +
+          '</abbr>' +
+          '</span>';
 
       return span;
     },

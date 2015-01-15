@@ -43,6 +43,10 @@ define([
 	var SummaryDetailsPage = function (options) {
 		this._options = options || {};
 		this._code = this._options.code || null;
+		if (! ('markPreferred' in this._options)) {
+			// default is true.
+			this._options.markPreferred = true;
+		}
 		EventModulePage.call(this, this._options);
 	};
 
@@ -131,13 +135,10 @@ define([
 		var product,
 		    summary;
 
-		this._content.innerHTML =
-				'<p>Click on a summary section to view the details.</p>';
-
 		for (var i = 0; i < products.length; i++) {
 			product = products[i];
 			summary = this.buildSummaryMarkup(product);
-			if (i === 0) {
+			if (i === 0 && this._options.markPreferred) {
 				Util.addClass(summary, 'preferred');
 			}
 			this._content.appendChild(summary);

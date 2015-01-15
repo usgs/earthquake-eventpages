@@ -179,32 +179,6 @@ define([
 	};
 
 	/**
-	 * Get attribution content for the specified origin.
-	 */
-	EventModulePage.prototype.getOriginAttribution = function (origin) {
-		var attribution,
-		    locationSource,
-		    magnitudeSource,
-		    props,
-		    source;
-		// build attribution markup
-		props = origin.properties;
-		source = origin.source;
-		locationSource = props['origin-source'] || source;
-		magnitudeSource = props['magnitude-source'] || source;
-		if (locationSource === magnitudeSource) {
-			attribution = 'Location and Magnitude contributed by ' +
-					Attribution.getLink(locationSource);
-		} else {
-			attribution = 'Location contributed by ' +
-						Attribution.getLink(locationSource) +
-					'<br/>Magnitude contributed by ' +
-						Attribution.getLink(magnitudeSource);
-		}
-		return attribution;
-	};
-
-	/**
 	 * Gets the downloadable products and attachs to the footer.
 	 */
 	EventModulePage.prototype.getDownloads = function (product) {
@@ -223,10 +197,12 @@ define([
 			callback: function (contents) {
 			// build content
 				var header = '<dt class="product">' +
-						'<h4 class="type">' + product.type + '</h4>' +
-						'<span class="source">' + Attribution.getName(product.source) +
-						'</span>' +
-						'<span class="code">' + product.code + '</span>' +
+						'<h4 class="type">' + product.type +
+							' <small>(' + product.code + ')</small>' +
+						'</h4>' +
+						'<small class="attribution">Contributed by ' +
+								Attribution.getContributorReference(product.source) +
+						'</small>' +
 					'</dt>';
 				downloadEl.removeChild(statusEl);
 				el.innerHTML = header + contents.getDownloads();
@@ -241,6 +217,37 @@ define([
 				}
 			}
 		});
+	};
+
+
+	EventModulePage.prototype.getCatalogSummary = function (product) {
+		var props = product.properties,
+		    eventSource = props.eventsource,
+		    eventSourceCode = props.eventsourcecode,
+		    eventId = '';
+
+		if (eventSource) {
+			eventId = (eventSource + eventSourceCode).toLowerCase();
+		}
+
+		return '<span>' +
+					(eventSource ? eventSource.toUpperCase() : '&ndash;') +
+					'</span>' +
+					'<abbr title="' + eventId + '">Catalog</abbr>';
+	};
+
+	EventModulePage.prototype.getCatalogDetail = function (product) {
+		var props = product.properties,
+		    eventSource = props.eventsource,
+		    eventSourceCode = props.eventsourcecode,
+		    eventId = '';
+
+		if (!eventSource) {
+			return '&ndash';
+		}
+
+		eventId = (eventSource + eventSourceCode).toLowerCase();
+		return eventSource.toUpperCase() + ' <small>(' + eventId + ')</small>';
 	};
 
 

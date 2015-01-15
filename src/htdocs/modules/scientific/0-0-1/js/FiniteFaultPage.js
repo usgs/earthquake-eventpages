@@ -2,10 +2,12 @@
 define([
 	'util/Util',
 	'util/Xhr',
+	'base/Attribution',
 	'base/SummaryDetailsPage'
 ], function (
 	Util,
 	Xhr,
+	Attribution,
 	SummaryDetailsPage
 ) {
 	'use strict';
@@ -56,7 +58,10 @@ define([
 						data = data.replace('"' + path + '"', baseURL + path);
 					}
 					// insert content
-					el.innerHTML = data;
+					el.innerHTML = '<small class="attribution">Data Source ' +
+							Attribution.getContributorReference(product.source) +
+							'</small>' +
+							data;
 				}
 			});
 		}

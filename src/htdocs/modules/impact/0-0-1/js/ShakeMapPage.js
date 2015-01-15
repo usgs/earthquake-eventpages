@@ -114,6 +114,10 @@ define([
 		var tablistDiv = document.createElement('div'),
 		    shakemap;
 
+		this._content.innerHTML = '<small class="attribution">Data Source ' +
+				Attribution.getContributorReference(product.source) +
+				'</small>';
+
 		tablistDiv.className = 'shakemap';
 		shakemap = this._shakemap = product;
 
@@ -559,9 +563,11 @@ define([
 					'<abbr title="Magnitude">Mag</abbr>' +
 				'</li>' +
 				'<li>' +
+					this.getCatalogSummary(product) +
+				'</li>' +
+				'<li class="summary-hide">' +
 					Attribution.getContributorReference(product.source) +
-					'<abbr title="' + Attribution.getName(product.source) +
-							'">Source</abbr>' +
+					'<abbr title="ShakeMap Data Source">Source</abbr>' +
 				'</li>' +
 			'</ul>';
 	};
