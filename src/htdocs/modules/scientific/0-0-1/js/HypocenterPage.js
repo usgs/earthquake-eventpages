@@ -345,7 +345,7 @@ define([
 
 		// Build TabList
 		this._tabList = new TabList({
-			el: this._content.appendChild(tabListDiv),
+			el: el.appendChild(tabListDiv),
 			tabPosition: 'top',
 			tabs: tabListContents
 		});
