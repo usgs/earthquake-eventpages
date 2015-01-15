@@ -234,6 +234,10 @@ define([
 			for (i = 0; i < length; i++) {
 				product = products[i];
 
+				if (product.source === 'admin') {
+					continue;
+				}
+
 				// check product source
 				if (product.source && !Util.contains(sources, product.source)) {
 					sources.push(product.source.toLowerCase());
