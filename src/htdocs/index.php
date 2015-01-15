@@ -23,7 +23,6 @@ if (!isset($TEMPLATE)) {
 
 	$ch = curl_init(sprintf($STUB, $eventid));
 	curl_setopt_array($ch, array(
-			CURLOPT_CONNECTTIMEOUT_MS => 500,
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_RETURNTRANSFER => true));
 	$EVENT_FEED = curl_exec($ch);
