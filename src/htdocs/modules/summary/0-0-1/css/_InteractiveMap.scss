@@ -1,12 +1,14 @@
 @import '_ShakeMapStationLayer';
 
 .summary-interactive-map-wrapper {
-	position:fixed;
+	// these rules are applied in JS see InteractiveMap
+	// position:fixed;
+	// top:0;
+	// right:0;
+	// bottom:0;
+	// left:0;
+
 	margin:0;
-	top:0;
-	right:0;
-	bottom:0;
-	left:0;
 	padding:8px;
 	z-index:9999;
 	background-color:rgba(0, 0, 0, 0.75);
@@ -31,7 +33,9 @@
 .summary-interactive-map {
 	display:block;
 	width:100%;
-	height:100%;
+
+	// This rule is applied in JS see InteractiveMap
+	// height:100%;
 }
 
 .summary-map a img {

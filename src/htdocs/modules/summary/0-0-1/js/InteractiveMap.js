@@ -35,10 +35,23 @@ define([
 
   InteractiveMap.prototype = Object.create(EventModulePage.prototype);
 
+  InteractiveMap.prototype._initialize = function () {
+    EventModulePage.prototype._initialize.apply(this);
+    if (this._eventPage) {
+      this._eventPage.on('render', this._onAfterRender, this);
+    }
+  };
+
+  InteractiveMap.prototype.destroy = function () {
+    if (this._eventPage) {
+      this._eventPage.off('render', this._onAfterRender, this);
+    }
+  };
+
   InteractiveMap.prototype._setContentMarkup = function () {
 
     var _this = this,
-        lat, latmax, latmin, lng, lngmax, lngmin,
+        latmax, latmin, lngmax, lngmin,
         _el = document.createElement('div');
 
     var layerControl = null,
@@ -55,10 +68,15 @@ define([
 
     Util.addClass(this._content, 'summary-interactive-map-wrapper');
     Util.addClass(_el, 'summary-interactive-map');
-
     this._closeButton.innerHTML = 'Close Map';
     this._closeButton.className = 'summary-interactive-map-close cancel';
     _el.innerHTML = '';
+
+    // This css is added in JS because css files are loading asynchronous
+    // and these rules must be applied before the map is initialized other wise
+    // the map is not properly displayed.
+    this._content.setAttribute('style', 'position:fixed;top:0;right:0;bottom:0;left:0;');
+    _el.setAttribute('style', 'height:100%;');
 
     this._closeButton.setAttribute('title', 'Close');
     this._bindCloseEvent();
@@ -108,6 +126,15 @@ define([
       latitude = this._event.geometry.coordinates[1];
       longitude = this._event.geometry.coordinates[0];
 
+      // Show a 2deg map centered on earthquake epicenter)
+      latmin = Math.max(latitude - 2.0, -90.0);
+      latmax = Math.min(latitude + 2.0, 90.0);
+
+      lngmin = longitude - 2.0;
+      lngmax = longitude + 2.0;
+
+      this._defaultBounds = [[latmax, lngmin], [latmin, lngmax]];
+
       if (latitude >= 24.6 && latitude <= 50.0 && longitude >= -125.0 && longitude <= -65.0) {
         // Add faults layer, this is a US event
         faultsLayer = new L.MouseOverLayer({
@@ -134,7 +161,6 @@ define([
         this._event.properties.mag
       ].join(''));
       map.addLayer(epicenterMarker);
-
       if (this._event.properties.products.geoserve) {
         Xhr.ajax({
           url: this._event.properties.products.geoserve[0].contents['geoserve.json'].url,
@@ -165,22 +191,6 @@ define([
                 '</span>'
               ].join(''));
               map.addLayer(cityMarker);
-
-            }
-            map.invalidateSize();
-
-            if (_this._event) {
-              // Show a 2deg map centered on earthquake epicenter)
-              lat = _this._event.geometry.coordinates[1];
-              lng = _this._event.geometry.coordinates[0];
-
-              latmin = Math.max(lat - 2.0, -90.0);
-              latmax = Math.min(lat + 2.0, 90.0);
-
-              lngmin = lng - 2.0;
-              lngmax = lng + 2.0;
-
-              map.fitBounds([[latmax, lngmin], [latmin, lngmax]]);
             }
           }
         });
@@ -220,28 +230,11 @@ define([
     this._content.appendChild(this._closeButton);
   };
 
-  InteractiveMap.prototype.show = function (container) {
-    var lat, latmin, latmax,
-        lng, lngmin, lngmax;
-
-    container = container || this._content;
-
-    if (container) {
-      container.appendChild(this._wrapper);
+  InteractiveMap.prototype._onAfterRender = function () {
+    if (this._map) {
       this._map.invalidateSize();
-
-      if (this._event) {
-        // Show a 2deg map centered on earthquake epicenter)
-        lat = this._event.geometry.coordinates[1];
-        lng = this._event.geometry.coordinates[0];
-
-        latmin = Math.max(lat - 2.0, -90.0);
-        latmax = Math.min(lat + 2.0, 90.0);
-
-        lngmin = lng - 2.0;
-        lngmax = lng + 2.0;
-
-        this._map.fitBounds([[latmax, lngmin], [latmin, lngmax]]);
+      if (this._defaultBounds) {
+        this._map.fitBounds(this._defaultBounds);
       }
     }
   };
