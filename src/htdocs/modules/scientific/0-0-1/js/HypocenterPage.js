@@ -295,12 +295,14 @@ define([
 		    tabListDiv = document.createElement('section'),
 		    tabListContents = [],
 		    _this = this,
-		    originDetails;
+		    originDetails,
+		    originAuthor,
+		    magnitudeAuthor,
+		    props;
 
 		this._product = product;
 
 		originDetails = [
-			'<h3>', product.source.toUpperCase(), '</h3>',
 			this.getOriginDetail(product)
 		].join('');
 		tabListContents.push({
@@ -327,6 +329,19 @@ define([
 				}
 			});
 		}
+
+		props = product.properties;
+		originAuthor = props['origin-source'] || product.source;
+		magnitudeAuthor = props['magnitude-source'] || product.source;
+
+		el.innerHTML = '<small class="attribution">Data Source ' +
+				(originAuthor === magnitudeAuthor ?
+					Attribution.getContributorReference(originAuthor) :
+					'<span>' +
+						Attribution.getContributorReference(originAuthor) + ', ' +
+						Attribution.getContributorReference(magnitudeAuthor) +
+					'</span>') +
+				'</small>';
 
 		// Build TabList
 		this._tabList = new TabList({
@@ -447,15 +462,17 @@ define([
 		    period,
 		    a,
 		    source,
+		    magSource,
 		    type,
 		    mag,
 		    magError,
 		    numStations;
 
+		source = this._product.source;
 		if (magnitude.creationInfo) {
-			source = Attribution.getName(magnitude.creationInfo.agencyID);
+			magSource = magnitude.creationInfo.agencyID;
 		} else {
-			source = Attribution.getName(this._product.source);
+			magSource = source;
 		}
 
 		type = magnitude.type || NOT_REPORTED;
@@ -465,15 +482,11 @@ define([
 
 		buf.push(
 			'<section class="accordion accordion-section accordion-closed networkmagnitude">',
-			'<h3>', source, '</h3>',
+			'<h3>', type, '</h3>',
 			'<ul class="networkmagnitude-summary">',
 				'<li class="magnitude">',
 					'<span><strong>', mag, '</strong></span>',
 					'<abbr title="Magnitude">Mag</abbr>',
-				'</li>',
-				'<li>',
-					'<span>', type, '</span>',
-					'<abbr title="Magnitude type">Type</abbr>',
 				'</li>',
 				'<li>',
 					'<span>', magError, '</span>',
@@ -481,9 +494,16 @@ define([
 				'</li>',
 				'<li>',
 					'<span>', numStations, '</span>',
-					'<abbr title="Number of stations">Stations</abbr>',
+					'<abbr title="Number of Stations">Stations</abbr>',
 				'</li>',
-			'</ul>',
+				'<li>',
+					Attribution.getContributorReference(magSource),
+					'<abbr title="Magnitude Data Source">Source</abbr>',
+				'</li>',
+			'</ul>'
+		);
+
+		buf.push(
 			'<a class="accordion-toggle">Details</a>',
 			'<div class="accordion-content">'
 		);
@@ -622,9 +642,6 @@ define([
 		    latitude = p.latitude,
 		    longitude = p.longitude,
 		    eventTime = p.eventtime,
-		    eventSource = p.eventsource,
-		    eventSourceCode = p.eventsourcecode,
-		    eventId = eventSource + eventSourceCode,
 		    // optional attributes for origins
 		    magnitude = p.magnitude || null,
 		    magnitudeType = p['magnitude-type'] || null,
@@ -704,14 +721,18 @@ define([
 				'</td></tr>');
 
 		buf.push(
-				'<tr><th scope="row">Event ID</th><td>', eventId, '</td></tr>',
-				'<tr><th scope="row">Magnitude Source</th><td>',
-					Attribution.getContributorReference(magnitudeSource),
+				'<tr><th scope="row">Catalog</th><td>',
+					this.getCatalogDetail(product),
 				'</td></tr>',
 				'<tr><th scope="row">Location Source</th><td>',
 					Attribution.getContributorReference(originSource),
+				'</td></tr>',
+				'<tr><th scope="row">Magnitude Source</th><td>',
+					Attribution.getContributorReference(magnitudeSource),
+				'</td></tr>',
+				'<tr><th scope="row">Contributor</th><td>',
+					Attribution.getContributorReference(product.source),
 				'</td></tr>');
-
 
 		buf.push('</tbody></table>');
 
@@ -722,7 +743,9 @@ define([
 		var p = product.properties,
 		    depth = p.depth,
 		    magnitude = p.magnitude,
-		    magnitudeType = p['magnitude-type'];
+		    magnitudeType = p['magnitude-type'],
+		    originSource = p['origin-source'] || product.source,
+		    magnitudeSource = p['magnitude-source'] || product.source;
 
 		return '<ul>' +
 					'<li>' +
@@ -738,9 +761,16 @@ define([
 						'<abbr title="Depth (km)">Depth</abbr>' +
 					'</li>' +
 					'<li>' +
-						Attribution.getContributorReference(product.source) +
-						'<abbr title="' + Attribution.getName(product.source) +
-								'">Source</abbr>' +
+						this.getCatalogSummary(product) +
+					'</li>' +
+					'<li class="summary-hide">' +
+						(originSource === magnitudeSource ?
+							Attribution.getContributorReference(originSource) :
+							'<span>' +
+								Attribution.getContributorReference(originSource) + ', ' +
+								Attribution.getContributorReference(magnitudeSource) +
+							'</span>') +
+						'<abbr title="Location and Magnitude Data Source">Source</abbr>' +
 					'</li>' +
 				'</ul>';
 	};
