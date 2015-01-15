@@ -11,7 +11,9 @@ define([
 	'use strict';
 
 
-	var DEFAULTS = {};
+	var DEFAULTS = {
+		markPreferred: false
+	};
 
 	/**
 	 * Construct a new FocalMechanismPage.
