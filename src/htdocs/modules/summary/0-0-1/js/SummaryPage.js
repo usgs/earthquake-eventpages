@@ -44,21 +44,32 @@ define([
 		    products = this._event.properties.products,
 		    fallbackToGeoserve = false,
 		    preferredOrigin = products.origin[0],
-		    originSource = preferredOrigin.properties.eventsource,
-		    originCode = preferredOrigin.properties.eventsourcecode,
+		    props = preferredOrigin.properties,
+		    originSource = props.eventsource,
+		    originCode = props.eventsourcecode,
+		    originAuthor,
+		    magnitudeAuthor,
 		    allNearbyCities = [],
 		    preferredNearbyCities = null,
 		    i;
 
+		originAuthor = props['origin-source'] || preferredOrigin.source;
+		magnitudeAuthor = props['magnitude-source'] || preferredOrigin.source;
+
 		markup.push(this._getTextContentMarkup('general-header'));
 
 		markup.push(
-			'<small class="attribution">Contributed by ' +
-					Attribution.getContributorReference(preferredOrigin.source) +
-			'</small>' +
 			'<div class="row">' +
 				'<div class="column one-of-two">' +
 					'<h3>Event Location</h3>' +
+					'<small class="attribution">Data Source ' +
+						(originAuthor === magnitudeAuthor ?
+							Attribution.getContributorReference(originAuthor) :
+							'<span>' +
+								Attribution.getContributorReference(originAuthor) + ', ' +
+								Attribution.getContributorReference(magnitudeAuthor) +
+							'</span>') +
+					'</small>' +
 					'<figure class="summary-map">' +
 						this._getMapMarkup() +
 						'<figcaption>' +
