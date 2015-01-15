@@ -55,16 +55,19 @@ define([
 	 *
 	 */
 	MomentTensorPage.prototype.getDetailsContent = function (product) {
-		var tensor = Tensor.fromProduct(product);
-		var el = document.createElement('div');
+		var tensor = Tensor.fromProduct(product),
+		    el = document.createElement('div'),
+		    author;
 
 		this._product = product;
+
+		author = product.properties['beachball-source'] || product.source;
 
 		// set layout
 		el.className = 'tensor-detail';
 		el.innerHTML = [
-			'<small class="attribution">Contributed by ',
-				Attribution.getContributorReference(product.source),
+			'<small class="attribution">Data Source ',
+				Attribution.getContributorReference(author),
 				'</small>',
 			this._getTitle(tensor),
 			'<div class="row clearfix">',
@@ -124,8 +127,10 @@ define([
 				'<td>', half_duration, '</td></tr>',
 			'<tr><th scope="row">Catalog</th><td>',
 				this.getCatalogDetail(tensor.product), '</td></tr>',
-			'<tr><th scope="row">Source</th><td>',
+			'<tr><th scope="row">Data Source</th><td>',
 				Attribution.getContributorReference(tensor.source), '</td></tr>',
+			'<tr><th scope="row">Contributor</th><td>',
+				Attribution.getContributorReference(tensor.product.source), '</td></tr>',
 			'</tbody></table>'
 		].join('');
 	};
