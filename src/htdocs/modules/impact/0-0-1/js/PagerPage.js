@@ -54,7 +54,7 @@ define([
 
 		this._content.classList.add('pager');
 		this._content.innerHTML =
-			'<small class="attribution">Contributed by ' +
+			'<small class="attribution">Data Source ' +
 				Attribution.getContributorReference(product.source) +
 				'</small>' +
 			'<div class="alert-wrapper row"></div>' +

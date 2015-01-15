@@ -157,7 +157,7 @@ define([
 
 		dyfi = this._dyfi = products.dyfi[0];
 
-		this._content.innerHTML = '<small class="attribution">Contributed by ' +
+		this._content.innerHTML = '<small class="attribution">Data Source ' +
 				Attribution.getContributorReference(dyfi.source) +
 				'</small>';
 
