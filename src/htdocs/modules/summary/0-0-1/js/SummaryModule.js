@@ -47,6 +47,14 @@ define([
 
 	SummaryModule.prototype = Object.create(EventModule.prototype);
 
+
+	/**
+	 * Suppress module header.
+	 */
+	SummaryModule.prototype.getHeaderMarkup = function () {
+		return '';
+	};
+
 	SummaryModule.prototype.getNavigationItems = function (hash) {
 		var markUp = EventModule.prototype.getNavigationItems.call(this, hash);
 
