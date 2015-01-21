@@ -440,6 +440,7 @@ module.exports = function (grunt) {
 			leaflet_shim_dist: {
 				src: [
 					'<%= app.dist %>/htdocs/js/index.js',
+					'<%= app.dist %>/htdocs/js/unknown.js',
 					'<%= app.dist %>/htdocs/modules/impact/0-0-1/css/index.css',
 					'<%= app.dist %>/htdocs/modules/summary/0-0-1/css/index.css',
 				],
