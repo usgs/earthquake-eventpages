@@ -294,6 +294,18 @@ module.exports = function (grunt) {
 							{
 								name: 'scientific/ScientificModuleDependencies',
 								exclude: BUNDLED_DEPENDENCIES
+							},
+							{
+								name: 'unknown',
+								include: BUNDLED_DEPENDENCIES,
+								exclude: [
+									// provided by event page
+									'EventDetails',
+									// provided by event page
+									'EventConfig',
+									// provided by template
+									'theme/OffCanvas'
+								]
 							}
 						];
 					})()
