@@ -294,6 +294,18 @@ module.exports = function (grunt) {
 							{
 								name: 'scientific/ScientificModuleDependencies',
 								exclude: BUNDLED_DEPENDENCIES
+							},
+							{
+								name: 'unknown',
+								include: BUNDLED_DEPENDENCIES,
+								exclude: [
+									// provided by event page
+									'EventDetails',
+									// provided by event page
+									'EventConfig',
+									// provided by template
+									'theme/OffCanvas'
+								]
 							}
 						];
 					})()
@@ -428,6 +440,7 @@ module.exports = function (grunt) {
 			leaflet_shim_dist: {
 				src: [
 					'<%= app.dist %>/htdocs/js/index.js',
+					'<%= app.dist %>/htdocs/js/unknown.js',
 					'<%= app.dist %>/htdocs/modules/impact/0-0-1/css/index.css',
 					'<%= app.dist %>/htdocs/modules/summary/0-0-1/css/index.css',
 				],
