@@ -377,14 +377,9 @@ define([
 	};
 
 	EventPage.prototype._showDefaultPage = function () {
-		var newLocation;
-
 		if (this._defaultPage !== null) {
 			if (window.location.replace) {
-				newLocation = window.location.origin +
-						window.location.pathname + window.location.search + '#' +
-						this._defaultPage;
-				window.location.replace(newLocation);
+				window.location.replace('#' + this._defaultPage);
 			} else {
 				window.location.hash = '#' + this._defaultPage;
 			}
