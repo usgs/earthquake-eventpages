@@ -27,14 +27,23 @@ if (!isset($TEMPLATE)) {
 			CURLOPT_RETURNTRANSFER => true));
 	$EVENT_FEED = curl_exec($ch);
 	$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-	if ($httpCode === 404 || $httpCode === 204) {
-		// event not found
-		header('HTTP/1.0 404 Not Found');
-		exit(-1);
-	} else if ($httpCode !== 200) {
-		// unexpected return
-		header('HTTP/1.0 503 Service Unavailable');
-		echo 'Unable to retrieve event information (' . $httpCode . ')';
+
+	if ($httpCode !== 200) {
+		if ($httpCode === 404 || $httpCode === 204) {
+			// event not found
+			header('HTTP/1.0 404 Not Found');
+		} else {
+			// other, unexpected return
+			header('HTTP/1.0 503 Service Unavailable');
+			echo 'Unable to retrieve event information (' . $httpCode . ')';
+		}
+		// cache "error" for 1 minute
+		$now = time();
+		$maxAge = 60;
+		header('Cache-Control: max-age=' . $maxAge);
+		header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', $now + $maxAge));
+		header('Last-Modified: ' . gmdate('D, d M Y H:i:s \G\M\T', $now));
+		// done
 		exit(-1);
 	}
 
