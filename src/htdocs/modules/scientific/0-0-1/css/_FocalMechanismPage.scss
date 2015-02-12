@@ -1,25 +1,25 @@
 .mechanism-summary > ul > li {
-	width:40%;
-	max-width: 150px;
+  width:40%;
+  max-width: 150px;
 
-	&.image {
-		width:20%;
-	}
+  &.image {
+    width:20%;
+  }
 
-	i {
-		font-style:normal;
-		display:inline-block;
-		margin:0 2px;
-	}
+  i {
+    font-style:normal;
+    display:inline-block;
+    margin:0 2px;
+  }
 }
 
 @media screen and (min-width:560px) {
 
-	.mechanism-summary > ul > li {
-		width:25%;
+  .mechanism-summary > ul > li {
+    width:25%;
 
-		i {
-			margin:0 4px;
-		}
-	}
+    i {
+      margin:0 4px;
+    }
+  }
 }

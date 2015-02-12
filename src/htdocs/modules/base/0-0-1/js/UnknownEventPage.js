@@ -1,25 +1,25 @@
 /* global define */
 define([
-	'base/EventPage',
-	'impact/ImpactModule'
+  'base/EventPage',
+  'impact/ImpactModule'
 ], function (
-	EventPage,
-	ImpactModule
+  EventPage,
+  ImpactModule
 ) {
-	'use strict';
+  'use strict';
 
-	var UnknownEventPage = function (options) {
-		options.defaultPage = 'impact_tellus';
-		options.modules = options.modules || [
-			new ImpactModule({
-				'eventDetails': this._eventDetails,
-				'eventConfig': options.eventConfig || {}
-			})
-		];
-		EventPage.call(this, options);
-	};
+  var UnknownEventPage = function (options) {
+    options.defaultPage = 'impact_tellus';
+    options.modules = options.modules || [
+      new ImpactModule({
+        'eventDetails': this._eventDetails,
+        'eventConfig': options.eventConfig || {}
+      })
+    ];
+    EventPage.call(this, options);
+  };
 
-	UnknownEventPage.prototype = Object.create(EventPage.prototype);
+  UnknownEventPage.prototype = Object.create(EventPage.prototype);
 
-	return UnknownEventPage;
+  return UnknownEventPage;
 });

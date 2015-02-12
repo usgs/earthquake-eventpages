@@ -1,9 +1,9 @@
 /* global define */
 define([], function() {
-	'use strict';
+  'use strict';
 
-	// NOTE: this is a placeholder for compilation
-	// actual EventDetails are provided by php.
+  // NOTE: this is a placeholder for compilation
+  // actual EventDetails are provided by php.
 
-	throw new Error('EventDetails should not be loaded from base');
+  throw new Error('EventDetails should not be loaded from base');
 });

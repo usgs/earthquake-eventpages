@@ -5,14 +5,14 @@ pushd `dirname $0` > /dev/null 2>&1;
 PHP_BIN=`which php`;
 
 if [ -z "$PHP_BIN" ]; then
-	read -p 'PHP executable not found, enter path to php: ' PHP_BIN;
+  read -p 'PHP executable not found, enter path to php: ' PHP_BIN;
 fi
 
 if [ -x "$PHP_BIN" ]; then
-	$PHP_BIN ./pre-install.php
+  $PHP_BIN ./pre-install.php
 else
-	echo 'PHP executable not found, unable to run pre-install.php';
-	exit 1;
+  echo 'PHP executable not found, unable to run pre-install.php';
+  exit 1;
 fi
 
 popd > /dev/null 2>&1;

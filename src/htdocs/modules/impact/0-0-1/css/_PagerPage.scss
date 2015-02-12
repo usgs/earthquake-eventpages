@@ -1,49 +1,49 @@
 .pager {
 
-	.disclaimer {
-		display:block;
-		font-size:.8em;
-		margin:0.5em 0;
-	}
+  .disclaimer {
+    display:block;
+    font-size:.8em;
+    margin:0.5em 0;
+  }
 
-	table.pager-exposures,
-	table.pager-cities {
-		border-spacing: 0;
-		border-collapse: collapse;
-		width:100%;
+  table.pager-exposures,
+  table.pager-cities {
+    border-spacing: 0;
+    border-collapse: collapse;
+    width:100%;
 
-		> tbody > tr {
+    > tbody > tr {
 
-			&.city-additional {
-				display:none;
-			}
+      &.city-additional {
+        display:none;
+      }
 
-			> td {
+      > td {
 
-				.mmi {
-					display:inline-block;
-					width:100%;
-					padding:2px 4px;
-					border-radius:2px;
-					text-align:center;
-					text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
-					background-image: linear-gradient(to bottom, rgba(255,255,255,0.15),rgba(255,255,255,0));
-				}
+        .mmi {
+          display:inline-block;
+          width:100%;
+          padding:2px 4px;
+          border-radius:2px;
+          text-align:center;
+          text-shadow:1px 1px 0 rgba(255, 255, 255, 0.3);
+          background-image: linear-gradient(to bottom, rgba(255,255,255,0.15),rgba(255,255,255,0));
+        }
 
-				&.exposure-mmi,
-				&.cities-mmi {
-					width:86px;
-				}
+        &.exposure-mmi,
+        &.cities-mmi {
+          width:86px;
+        }
 
-				&.exposure-population,
-				&.cities-population, {
-					text-align:right;
-				}
-			}
-		}
+        &.exposure-population,
+        &.cities-population, {
+          text-align:right;
+        }
+      }
+    }
 
-		&.show-additional > tbody > .city-additional {
-			display:table-row;
-		}
-	}
+    &.show-additional > tbody > .city-additional {
+      display:table-row;
+    }
+  }
 }

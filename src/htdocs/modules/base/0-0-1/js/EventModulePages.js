@@ -1,13 +1,13 @@
 /* global define */
 define([
-	'base/EventModulePage'
+  'base/EventModulePage'
 ], function (
-	EventModulePage
+  EventModulePage
 ) {
-	'use strict';
+  'use strict';
 
-	return {
-		'base/EventModulePage': EventModulePage
-	};
+  return {
+    'base/EventModulePage': EventModulePage
+  };
 
 });
