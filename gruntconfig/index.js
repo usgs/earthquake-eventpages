@@ -3,6 +3,7 @@
 var gruntConfig = {
   config: require('./config'),
 
+  browserify: require('./browserify'),
   clean: require('./clean'),
   compass: require('./compass'),
   concurrent: require('./concurrent'),
@@ -18,6 +19,7 @@ var gruntConfig = {
   watch: require('./watch'),
 
   tasks: [
+    'grunt-browserify',
     'grunt-concurrent',
     'grunt-connect-proxy',
     'grunt-connect-rewrite',
@@ -28,7 +30,6 @@ var gruntConfig = {
     'grunt-contrib-cssmin',
     'grunt-contrib-htmlmin',
     'grunt-contrib-jshint',
-    'grunt-contrib-requirejs',
     'grunt-contrib-uglify',
     'grunt-contrib-watch',
     'grunt-mocha-phantomjs',
