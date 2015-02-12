@@ -72,12 +72,11 @@ if (!isset($TEMPLATE)) {
   $FOOT =
     /* Embed event details in an explicitly named define. */
     '<script>' .
-      'define(\'EventDetails\', ' . json_encode($EVENT) . ');' .
-      'define(\'EventConfig\', ' . json_encode($EVENT_CONFIG) . ');' .
+      'var EventDetails = ' . json_encode($EVENT) . ';' .
+      'var EventConfig = ' . json_encode($EVENT_CONFIG) . ';' .
     '</script>' .
     /* Now start the action in a separate JS file for cachability. */
-    '<script src="js/index.js"></script>' .
-    '<script src="http://localhost:35729/livereload.js?snipver=1"></script>';
+    '<script src="js/index.js"></script>';
 
   // cache control headers
   $now = time();
