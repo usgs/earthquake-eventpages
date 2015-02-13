@@ -1,6 +1,6 @@
 'use strict';
 
-var config = require('./connect').dev.options;
+var config = require('./connect').test.options;
 
 var mocha_phantomjs = {
   all: {

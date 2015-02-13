@@ -2,12 +2,14 @@
 
 var concurrent = {
   scripts: [
-    'jshint:scripts',
-    'mocha_phantomjs'
+    'browserify:index',
+    'browserify:unknown',
+    'browserify:test',
+    'jshint:scripts'
   ],
   tests: [
-    'jshint:tests',
-    'mocha_phantomjs'
+    'browserify:test',
+    'jshint:tests'
   ],
   build: [
     'browserify',

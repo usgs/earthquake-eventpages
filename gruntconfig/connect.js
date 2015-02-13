@@ -79,6 +79,7 @@ var connect = {
         'node_modules'
       ],
       port: 8101,
+      livereload: true,
       open: 'http://localhost:8101/test.html'
     }
   },

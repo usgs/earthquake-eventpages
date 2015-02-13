@@ -5,7 +5,7 @@ var config = require('./config');
 var watch = {
   scripts: {
     files: [config.src + '/htdocs/**/*.js'],
-    tasks: ['concurrent:scripts'],
+    tasks: ['concurrent:scripts', 'mocha_phantomjs'],
     options: {
       livereload: true
     }
@@ -19,7 +19,10 @@ var watch = {
       config.test + '/*.html',
       config.test + '/**/*.js'
     ],
-    tasks: ['concurrent:tests']
+    tasks: ['concurrent:tests', 'mocha_phantomjs'],
+    options: {
+      livereload: true
+    }
   },
   livereload: {
     options: {
