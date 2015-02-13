@@ -7,7 +7,7 @@ var EventModule = require('base/EventModule'),
 var DEFAULTS = {
   title: 'General',
   hash: 'general',
-  cssUrl: require.toUrl('summaryCss/index.css'),
+  cssUrl: 'modules/summary.css',
   dependencyLoader: null,
   pages: [
     {

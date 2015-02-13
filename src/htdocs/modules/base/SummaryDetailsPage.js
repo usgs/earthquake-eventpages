@@ -136,7 +136,7 @@ SummaryDetailsPage.prototype.getSummaryContent = function (products) {
     product = products[i];
     summary = this.buildSummaryMarkup(product);
     if (i === 0 && this._options.markPreferred) {
-      Util.addClass(summary, 'preferred');
+      summary.classList.add('preferred');
     }
     this._content.appendChild(summary);
   }

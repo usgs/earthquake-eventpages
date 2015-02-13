@@ -33,7 +33,7 @@ DetailPage = new HypocenterPage(detailOptions);
 
 before( function (done) {
   Xhr.ajax({
-    url: '/spec/scientific/usc000njrq_phase-data.xml',
+    url: '/spec/modules/scientific/usc000njrq_phase-data.xml',
     success: function (xml) {
       // use quakeml parser to make xml into quakeml
       DetailPage._quakeml = new Quakeml({xml: xml});

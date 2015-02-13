@@ -36,20 +36,20 @@ mocha.setup('bdd');
 
 // Add each test class here as they are implemented
 require('./spec/modules/base/EventPageTest');
-require('spec/modules/base/EventModuleTest');
-require('spec/modules/base/EventModulePageTest');
-require('spec/modules/summary/SummaryPageTest');
-require('spec/modules/summary/InteractiveMapTest');
-require('spec/modules/impact/ImpactModuleTest');
-require('spec/modules/impact/DYFIPageTest');
-require('spec/modules/impact/DYFIFormPageTest');
-require('spec/modules/impact/ShakeMapPageTest');
-require('spec/modules/impact/TabListUtilTest');
-require('spec/modules/impact/PagerPageTest');
-require('spec/modules/impact/PagerXmlParserTest');
-require('spec/modules/scientific/HypocenterPageTest');
-require('spec/modules/scientific/TensorTest');
-require('spec/modules/scientific/MomentTensorTest');
+require('./spec/modules/base/EventModuleTest');
+require('./spec/modules/base/EventModulePageTest');
+require('./spec/modules/summary/SummaryPageTest');
+require('./spec/modules/summary/InteractiveMapTest');
+require('./spec/modules/impact/ImpactModuleTest');
+require('./spec/modules/impact/DYFIPageTest');
+require('./spec/modules/impact/DYFIFormPageTest');
+require('./spec/modules/impact/ShakeMapPageTest');
+require('./spec/modules/impact/TabListUtilTest');
+require('./spec/modules/impact/PagerPageTest');
+require('./spec/modules/impact/PagerXmlParserTest');
+require('./spec/modules/scientific/HypocenterPageTest');
+require('./spec/modules/scientific/TensorTest');
+require('./spec/modules/scientific/MomentTensorTest');
 
 if (window.mochaPhantomJS) {
   window.mochaPhantomJS.run();

@@ -9,21 +9,24 @@ var Accordion = require('accordion/Accordion'),
 
 
 var DEFAULTS = {
+  eventPage: null,
+  module: null,
+  eventDetails: null,
+  productTypes: null,
   // URL hash fragment identifying this page; unique within the parent module.
   hash: 'page',
-
   // Title of this specific module page
   title: 'Page'
 };
 
 var EventModulePage = function (options) {
 
-  options = options || {};
+  options = Util.extend({}, DEFAULTS, options);
 
-  this._eventPage = options.eventPage || null;
+  this._eventPage = options.eventPage;
   this._module = options.module || new EventModule();
-  this._hash = options.hash || DEFAULTS.hash;
-  this._title = options.title || DEFAULTS.title;
+  this._hash = options.hash;
+  this._title = options.title;
   this._event = options.eventDetails;
   this._productTypes = options.productTypes;
 
@@ -56,16 +59,16 @@ EventModulePage.prototype.getTitle = function () {
 
 EventModulePage.prototype._initialize = function () {
   this._header = document.createElement('header');
-  Util.addClass(this._header, 'event-module-header');
-  Util.addClass(this._header, 'clearfix');
+  this._header.classList.add('event-module-header');
+  this._header.classList.add('clearfix');
 
   this._content = document.createElement('section');
-  Util.addClass(this._content, 'event-module-content');
-  Util.addClass(this._content, 'clearfix');
+  this._content.classList.add('event-module-content');
+  this._content.classList.add('clearfix');
 
   this._footer = document.createElement('footer');
-  Util.addClass(this._footer, 'event-module-footer');
-  Util.addClass(this._footer, 'clearfix');
+  this._footer.classList.add('event-module-footer');
+  this._footer.classList.add('clearfix');
   this.loadDownloadMarkup = this.loadDownloadMarkup.bind(this);
 
   this._setHeaderMarkup();

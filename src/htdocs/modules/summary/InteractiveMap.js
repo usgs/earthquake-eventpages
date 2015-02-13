@@ -3,7 +3,7 @@
 var EventModulePage = require('base/EventModulePage'),
     L = require('leaflet'),
     Util = require('util/Util'),
-    Xhr = require('xhr/Xhr'),
+    Xhr = require('util/Xhr'),
 
     ContoursLayer = require('./ContoursLayer'),
     ShakeMapStationLayer = require('./ShakeMapStationLayer');
@@ -53,8 +53,8 @@ InteractiveMap.prototype._setContentMarkup = function () {
       epicenterMarker,
       map;
 
-  Util.addClass(this._content, 'summary-interactive-map-wrapper');
-  Util.addClass(_el, 'summary-interactive-map');
+  this._content.classList.add('summary-interactive-map-wrapper');
+  _el.classList.add('summary-interactive-map');
   this._closeButton.innerHTML = 'Close Map';
   this._closeButton.className = 'summary-interactive-map-close cancel';
   _el.innerHTML = '';
