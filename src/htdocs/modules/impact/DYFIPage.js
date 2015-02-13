@@ -4,11 +4,11 @@ var Attribution = require('base/Attribution'),
     Collection = require('mvc/Collection'),
     DataTable = require('mvc/DataTable'),
     EventModulePage = require('base/EventModulePage'),
+    ImpactUtil = require('base/ImpactUtil'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr'),
 
-    ImpactUtil = require('./ImpactUtil'),
     TabListUtil = require('./TabListUtil');
 
 
@@ -68,11 +68,11 @@ var RESPONSE_DATA_COLUMNS = [
     className: 'mmi',
     title: 'MMI',
     format: function (response) {
-      var roman = ImpactUtil._translateMmi(response.cdi);
+      var roman = ImpactUtil.translateMmi(response.cdi);
       return '<span class="mmi' + roman + '">' + roman + '</span>';
     },
     downloadFormat: function (response) {
-      return ImpactUtil._translateMmi(response.cdi);
+      return ImpactUtil.translateMmi(response.cdi);
     }
   },
   {

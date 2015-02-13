@@ -1,6 +1,6 @@
 'use strict';
 
-var ImpactUtil = require('impact/ImpactUtil'),
+var ImpactUtil = require('base/ImpactUtil'),
     L = require('leaflet');
 
 
@@ -18,7 +18,7 @@ var ContoursLayer = L.GeoJSON.extend({
 
       onEachFeature: function (feature, layer) {
         var p = feature.properties,
-            roman = ImpactUtil._translateMmi(p.value);
+            roman = ImpactUtil.translateMmi(p.value);
 
         layer.bindPopup('<div class="roman station-summary-intensity mmi'+
           roman+'">'+roman+'<br><abbr title="Modified Mercalli Intensity">mmi</abbr></div>');

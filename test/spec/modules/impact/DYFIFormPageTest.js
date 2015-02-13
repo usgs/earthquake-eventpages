@@ -3,11 +3,10 @@
 
 var expect = chai.expect,
     DYFIFormPage = require('impact/DYFIFormPage'),
-    Events = require('util/Events'),
     ImpactModule = require('impact/ImpactModule'),
 
     nc72119970 = require('./nc72119970'),
-    Usb000ldeh = require('./Usb000ldeh');
+    Usb000ldeh = require('./usb000ldeh');
 
 
 describe('DYFIFormPage test suite.', function () {
@@ -49,7 +48,7 @@ describe('DYFIFormPage test suite.', function () {
         getAnswers = function () { return {'value': true};};
 
     function isDisabled () {
-      var button = form._dialog._el.querySelector('.dyfi-button-submit');
+      var button = form._dialog.el.querySelector('.dyfi-button-submit');
       return button.hasAttribute('disabled');
     }
 
@@ -128,11 +127,10 @@ describe('DYFIFormPage test suite.', function () {
     // button clicks trigger locationView.show
     it('listens for clicks on show location button', function () {
       var clickEvent = document.createEvent('MouseEvents');
-      var button = form._dialog._el.querySelector(
-          '.dyfi-required-questions button');
-
       clickEvent.initMouseEvent('click', true, true, window, 1, 0, 0);
 
+      var button = form._dialog.el.querySelector(
+          '.dyfi-required-questions button');
       button.dispatchEvent(clickEvent);
 
       expect(spy.callCount).to.equal(1);
@@ -143,12 +141,12 @@ describe('DYFIFormPage test suite.', function () {
       var questions = form._questions;
 
 
-      Events.prototype.trigger.call(questions.ciim_mapLat, 'change');
+      questions.ciim_mapLat.trigger('change');
       // _updateSubmitEnabled is called once during _fetchDialog method so
       // start at 2
       expect(spy.callCount).to.equal(2);
 
-      Events.prototype.trigger.call(questions.ciim_mapLon, 'change');
+      questions.ciim_mapLon.trigger('change');
       expect(spy.callCount).to.equal(3);
     });
 

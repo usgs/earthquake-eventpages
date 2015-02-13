@@ -15,6 +15,13 @@ var expect = chai.expect,
     DetailPage;
 
 
+var _fireClickEvent = function (target) {
+  var clickEvent = document.createEvent('MouseEvents');
+  clickEvent.initMouseEvent('click', true, true, window, 1, 0, 0);
+  target.dispatchEvent(clickEvent);
+};
+
+
 summaryOptions = {
   eventDetails: eventDetails,
   module: new ScientificModule(),
@@ -78,14 +85,18 @@ describe('HypocenterPage test suite.', function () {
     it('Loads phases when tab is clicked.', function () {
       // The phase element should be empty
       expect(DetailPage._phaseEl.innerHTML).to.equal('');
-      DetailPage._tabList._tabs[1].select();
+      // select phase tab
+      _fireClickEvent(
+          DetailPage._content.querySelector('nav :nth-child(2)'));
       expect(DetailPage._phaseEl.innerHTML).to.not.equal('');
     });
 
     it('Loads magnitudes when tab is clicked.', function () {
       // The magnitude element should be empty
       expect(DetailPage._magnitudeEl.innerHTML).to.equal('');
-      DetailPage._tabList._tabs[2].select();
+      // select magnitude tab
+      _fireClickEvent(
+          DetailPage._content.querySelector('nav :nth-child(3)'));
       // The phase element should not be empty anymore
       expect(DetailPage._magnitudeEl.innerHTML).to.not.equal('');
     });

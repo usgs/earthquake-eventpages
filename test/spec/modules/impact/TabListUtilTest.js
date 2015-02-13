@@ -1,11 +1,10 @@
-/* global chai, sinon, describe, it */
+/* global chai, describe, it */
 'use strict';
 
 var expect = chai.expect,
-    SvgImageMap = require('svgimagemap/SvgImageMap'),
     TabListUtil = require('impact/TabListUtil'),
 
-    Usb000ldeh = require('./Usb000ldeh');
+    Usb000ldeh = require('./usb000ldeh');
 
 
 describe('TabListUtil test', function () {
@@ -64,12 +63,17 @@ describe('TabListUtil test', function () {
     });
 
     it('cretes SVG image maps when needed', function () {
-      var spy = sinon.spy(SvgImageMap.prototype, 'initialize');
-
-      TabListUtil.CreateTabListData(options);
-
-      expect(spy.callCount).to.equal(3);
-      spy.restore();
+      var tabs = TabListUtil.CreateTabListData(options),
+          found = false;
+      for (var i = 0, len = tabs.length; i < len; i++) {
+        if (tabs[i].content.classList.contains('svgimagemap')) {
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        expect('tablist').to.equal('has svg');
+      }
     });
 
     it('Each tablist entry is an instance of a tab', function () {

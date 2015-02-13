@@ -2,13 +2,13 @@
 
 var Accordion = require('accordion/Accordion'),
     Attribution = require('base/Attribution'),
+    ImpactUtil = require('base/ImpactUtil'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr'),
 
-    ImpactModule = require('./ImpactModule'),
-    ImpactUtil = require('./ImpactUtil');
+    ImpactModule = require('./ImpactModule');
 
 
 var DEFAULTS = {
@@ -245,7 +245,7 @@ ShakeMapPage.prototype._getStationData = function (callback, errback) {
  *         array of station objects
  */
 ShakeMapPage.prototype._parseStationList = function (xml) {
-  var data = ImpactUtil._xmlToJson(xml),
+  var data = ImpactUtil.xmlToJson(xml),
       shakemapData = data['shakemap-data'][1],
       stations = this._stations = shakemapData.stationlist.station;
 
@@ -254,7 +254,7 @@ ShakeMapPage.prototype._parseStationList = function (xml) {
   }
 
   // sort by distance
-  stations.sort(ImpactUtil._sortByDistance);
+  stations.sort(ImpactUtil.sortByDistance);
 
   return stations;
 };
@@ -293,7 +293,7 @@ ShakeMapPage.prototype._buildStationList = function (data) {
 
     dist = dist.toFixed(1);
 
-    romanNumeral = ImpactUtil._translateMmi(station.intensity);
+    romanNumeral = ImpactUtil.translateMmi(station.intensity);
 
     // Do not repeat the zip code if it's already part of the name
     if (station.name.indexOf('ZIP Code') === -1) {
@@ -537,7 +537,7 @@ ShakeMapPage.prototype._getSummaryMarkup = function (product) {
       contents = product.contents,
       maxmmi = properties.maxmmi;
 
-  maxmmi = ImpactUtil._translateMmi(maxmmi);
+  maxmmi = ImpactUtil.translateMmi(maxmmi);
 
   return '<ul>' +
       '<li class="image">' +

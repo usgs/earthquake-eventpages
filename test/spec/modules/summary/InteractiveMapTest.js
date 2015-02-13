@@ -69,9 +69,10 @@ describe('InteractiveMap test suite.', function () {
       interactiveMap = new InteractiveMap({
         eventDetails: eventDetails
       });
-      expect(interactiveMap._contourLayer).to.be.an.instanceOf(ContoursLayer);
-      expect(interactiveMap._stationLayer).to.be.an.instanceOf(
-          ShakeMapStationLayer);
+      /* jshint -W030 */
+      expect(interactiveMap._contourLayer).to.not.be.undefined;
+      expect(interactiveMap._stationLayer).to.not.be.undefined;
+      /* jshint +W030 */
     });
 
     it('Has Station but not Contours Layer', function () {
@@ -83,10 +84,8 @@ describe('InteractiveMap test suite.', function () {
 
       /* jshint -W030 */
       expect(interactiveMap._contourLayer).to.be.undefined;
+      expect(interactiveMap._stationLayer).to.not.be.undefined;
       /* jshint +W030 */
-
-      expect(interactiveMap._stationLayer).to.be.an.instanceOf(
-          ShakeMapStationLayer);
     });
 
     it('Has Contours Layer but not Station Layer', function () {
@@ -97,11 +96,9 @@ describe('InteractiveMap test suite.', function () {
       });
 
       /* jshint -W030 */
+      expect(interactiveMap._contourLayer).to.not.be.undefined;
       expect(interactiveMap._stationLayer).to.be.undefined;
       /* jshint +W030 */
-
-      expect(interactiveMap._contourLayer).to.be.an.instanceOf(
-          ContoursLayer);
     });
 
     it('Has neither Contours Layer or Station Layer', function () {

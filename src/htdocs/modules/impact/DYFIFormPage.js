@@ -36,21 +36,15 @@ var __create_location_questions = function (questionInfo, container,
   button.classList.add('location-button');
 
   // Add QuestionView-like objects to the list of questions
-  questions.ciim_mapLat = {
-    getAnswers: function () {
-      return {value: curLoc.latitude};
-    }
+  questions.ciim_mapLat = Events();
+  questions.ciim_mapLat.getAnswers = function () {
+    return {value: curLoc.latitude};
   };
-  questions.ciim_mapLat.prototype = Object.create(QuestionView.prototype);
-  Events.apply(questions.ciim_mapLat);
 
-  questions.ciim_mapLon = {
-    getAnswers: function () {
-      return {value: curLoc.longitude};
-    }
+  questions.ciim_mapLon = Events();
+  questions.ciim_mapLon.getAnswers = function () {
+    return {value: curLoc.longitude};
   };
-  questions.ciim_mapLon.prototype = Object.create(QuestionView.prototype);
-  Events.apply(questions.ciim_mapLon);
 
   questions.ciim_mapConfidence = {
     getAnswers: function () {
@@ -58,7 +52,7 @@ var __create_location_questions = function (questionInfo, container,
     }
   };
 
-  locationView = new LocationView({
+  locationView = LocationView({
     callback: function (locationObject) {
       var markup = [],
           prettyLat = null,
@@ -95,8 +89,8 @@ var __create_location_questions = function (questionInfo, container,
 
       button.innerHTML = questionInfo.buttonUpdate;
 
-      Events.prototype.trigger.call(questions.ciim_mapLat, 'change');
-      Events.prototype.trigger.call(questions.ciim_mapLon, 'change');
+      questions.ciim_mapLat.trigger('change');
+      questions.ciim_mapLon.trigger('change');
     }
   });
 
@@ -119,7 +113,7 @@ var __create_location_questions = function (questionInfo, container,
  *      corresponding to that information as expected by the DYFI form
  *      processing code.
  * @param container {DOMElement} pass-by-reference
- *      The container into which the view._el should be appended.
+ *      The container into which the view.el should be appended.
  * @param questions {Object} pass-by-reference
  *      The resulting hash of {field: QuestionView}
  */
@@ -128,11 +122,11 @@ var __create_questions = function (questionInfo, container, questions) {
       view = null;
 
   for (field in questionInfo) {
-    view = new QuestionView(Util.extend(
+    view = QuestionView(Util.extend(
         {el: document.createDocumentFragment()}, questionInfo[field]));
 
     questions[field] = view;
-    container.appendChild(view._el);
+    container.appendChild(view.el);
   }
 
 };
@@ -158,7 +152,7 @@ var __create_text_question_view = function (info) {
   // A lightweight object to mimic the minimally required API for a
   // QuestionView-like object as needed for the DYFIFormPage
   return {
-    _el: el,
+    el: el,
     getAnswers: function () {
       return {value: input.value, label: info.label};
     }
@@ -173,7 +167,7 @@ var __create_text_questions = function (questionInfo, container, questions) {
     view = __create_text_question_view(questionInfo[field]);
 
     questions[field] = view;
-    container.appendChild(view._el);
+    container.appendChild(view.el);
   }
 };
 
@@ -200,13 +194,11 @@ var DYFIFormPage = function (options) {
 DYFIFormPage.prototype = Object.create(EventModulePage.prototype);
 
 DYFIFormPage.prototype.destroy = function () {
-  Events.prototype.off.call(this._questions.ciim_mapLat, 'change',
-      this._updateSubmitEnabled);
-  Events.prototype.off.call(this._questions.ciim_mapLon, 'change',
-      this._updateSubmitEnabled);
+  this._questions.ciim_mapLat.off('change', this._updateSubmitEnabled);
+  this._questions.ciim_mapLon.off('change', this._updateSubmitEnabled);
   this._questions.fldSituation_felt.off('change', this._updateSubmitEnabled);
   if (!this._event) {
-    this._questions.ciim_time._el.removeEventListener('change',
+    this._questions.ciim_time.el.removeEventListener('change',
         this._updateSubmitEnabled);
   }
 
@@ -275,7 +267,7 @@ DYFIFormPage.prototype._updateSubmitEnabled = function () {
       latAns = questions.ciim_mapLat.getAnswers(),
       lonAns = questions.ciim_mapLon.getAnswers(),
       feltAns = questions.fldSituation_felt.getAnswers(),
-      button = this._dialog._el.querySelector('.dyfi-button-submit'),
+      button = this._dialog.el.querySelector('.dyfi-button-submit'),
       timeAns = {value: 'defined'};
 
   if (!this._event) {
@@ -550,13 +542,11 @@ DYFIFormPage.prototype._renderQuestions = function (data) {
 
 
   // When location or felt response changes update submit button enabled
-  Events.prototype.on.call(this._questions.ciim_mapLat, 'change',
-      this._updateSubmitEnabled);
-  Events.prototype.on.call(this._questions.ciim_mapLon, 'change',
-      this._updateSubmitEnabled);
+  this._questions.ciim_mapLat.on('change', this._updateSubmitEnabled);
+  this._questions.ciim_mapLon.on('change', this._updateSubmitEnabled);
   this._questions.fldSituation_felt.on('change', this._updateSubmitEnabled);
   if (!this._event) {
-    this._questions.ciim_time._el.addEventListener('change',
+    this._questions.ciim_time.el.addEventListener('change',
         this._updateSubmitEnabled);
   }
 

@@ -1,8 +1,7 @@
 'use strict';
 
 var Formatter = require('base/Formatter'),
-    // TODO: remove cross-module dependency
-    ImpactUtil = require('impact/ImpactUtil'),
+    ImpactUtil = require('base/ImpactUtil'),
     L = require('leaflet'),
     Xhr = require('util/Xhr');
 
@@ -21,7 +20,7 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
     this.options = {
       pointToLayer: function (feature, latlng) {
         var p = feature.properties,
-            romanIntensity = ImpactUtil._translateMmi(p.intensity);
+            romanIntensity = ImpactUtil.translateMmi(p.intensity);
 
         return L.marker(latlng, {
           icon: L.divIcon({
@@ -60,7 +59,7 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
 
   _generatePopupContent: function (feature) {
     var p = feature.properties,
-        romanIntensity = ImpactUtil._translateMmi(p.intensity);
+        romanIntensity = ImpactUtil.translateMmi(p.intensity);
 
     var markup = ['<div class="station-popup">',
       '<h2 class="station-title">', this._formatTitle(feature), '</h2>',

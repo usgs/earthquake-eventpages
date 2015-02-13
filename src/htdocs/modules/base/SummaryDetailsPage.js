@@ -1,8 +1,6 @@
 'use strict';
 
-var Util = require('util/Util'),
-
-    EventModulePage = require('./EventModulePage');
+var EventModulePage = require('./EventModulePage');
 
 
 /**
@@ -169,10 +167,6 @@ SummaryDetailsPage.prototype.buildSummaryMarkup = function (product) {
   return el;
 };
 
-SummaryDetailsPage.prototype._updateHashOnSummaryClick = function (e) {
-  window.location.hash = e.currentTarget.getAttribute('data-id');
-};
-
 /**
  * The content that goes into the summary section
  */
@@ -222,17 +216,6 @@ SummaryDetailsPage.prototype._buildHash = function (product) {
 
   // clean-up resources.
 SummaryDetailsPage.prototype.destroy = function () {
-  var summaries, summary;
-
-  // unbind click handler ono summary sections
-  if (this._content) {
-    summaries = this._content.querySelectorAll('.summary');
-    for (var i = 0; i < summaries.length; i++) {
-      summary = summaries[i];
-      Util.removeEvent(summary, 'click', this._updateHashOnSummaryClick);
-    }
-  }
-
   this._content = null;
   this._products = null;
   this._options = null;

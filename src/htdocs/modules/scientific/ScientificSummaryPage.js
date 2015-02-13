@@ -2,8 +2,6 @@
 
 var EventModulePage = require('base/EventModulePage'),
     Formatter = require('base/Formatter'),
-    // TODO: eliminate cross-module dependency
-    SummaryPage = require('summary/SummaryPage'),
     Util = require('util/Util'),
 
     HypocenterPage = require('./HypocenterPage'),
@@ -81,7 +79,20 @@ ScientificSummaryPage.prototype._setContentMarkup = function () {
 };
 
 ScientificSummaryPage.prototype.getProducts = function () {
-  return SummaryPage.prototype.getProducts.call(this);
+  var products = EventModulePage.prototype.getProducts.call(this),
+      toshow = [],
+      show = {},
+      key, product;
+
+  for ( key in products ) {
+    product = products[key];
+    if (!(product.type in show)) {
+      show[product.type] = '';
+      toshow.push(product);
+    }
+  }
+
+  return toshow;
 };
 
 /**

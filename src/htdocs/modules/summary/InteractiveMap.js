@@ -227,7 +227,7 @@ InteractiveMap.prototype._onAfterRender = function () {
 };
 
 InteractiveMap.prototype._bindCloseEvent = function () {
-  Util.addEvent(this._closeButton, 'click', function () {
+  this._closeButton.addEventListener('click', function () {
     window.history.go(-1);
   });
 };

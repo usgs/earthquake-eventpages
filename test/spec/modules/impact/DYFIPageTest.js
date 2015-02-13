@@ -8,7 +8,7 @@ var expect = chai.expect,
 
     cdi_zip = require('./cdi_zip'),
     nc72119970 = require('./nc72119970'),
-    Usb000ldeh = require('./Usb000ldeh');
+    Usb000ldeh = require('./usb000ldeh');
 
 
 var eventDetails = Usb000ldeh;
@@ -16,10 +16,10 @@ var impactModule = new ImpactModule({eventDetails: eventDetails});
 var module_info = {hash:'maps', title:'Maps',
     eventDetails:eventDetails, module:impactModule};
 
-var getClickEvent = function () {
+var _fireClickEvent = function (target) {
   var clickEvent = document.createEvent('MouseEvents');
   clickEvent.initMouseEvent('click', true, true, window, 1, 0, 0);
-  return clickEvent;
+  target.dispatchEvent(clickEvent);
 };
 
 
@@ -90,7 +90,7 @@ describe('DYFIPage test suite.', function () {
       page._setContentMarkup();
 
       // Select responses tab
-      page._tablist._tabs[page._tablist._tabs.length - 1].select();
+      _fireClickEvent(page._content.querySelector('nav :last-child'));
 
       content = page._content;
       tbody = content.querySelector('tbody');
@@ -115,8 +115,7 @@ describe('DYFIPage test suite.', function () {
     it.skip('shows all 104 locations after the button click', function () {
 
       var button = content.querySelector('#showResponses');
-
-      button.dispatchEvent(getClickEvent());
+      _fireClickEvent(button);
 
       rows  = tbody.querySelectorAll('tr');
       hiddenRows = tbody.querySelectorAll('.hidden');

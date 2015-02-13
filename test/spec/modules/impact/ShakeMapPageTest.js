@@ -14,6 +14,7 @@ var eventDetails = {
   properties: {
     products: {
       shakemap: [{
+        source: 'us',
         code: 'usc000myqq',
         contents: {
           'download/intensity.jpg': {url: 'intensity.jpg'},
@@ -72,6 +73,7 @@ describe('ShakeMapPageTest test suite.', function () {
       properties: {
         products: {
           shakemap: [{
+            source: 'ak',
             code: 'ak11171372',
             contents: {
               'download/stationlist.xml': {

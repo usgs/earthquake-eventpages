@@ -9,6 +9,7 @@ var eventInfo = {
   properties: {
     products: {
       losspager: [{
+        source: 'us',
         properties: {
           maxmmi: 7.0
         },

@@ -11,7 +11,7 @@ var expect = chai.expect,
 describe('PagerXmlParser test suite.', function () {
   before(function (done) {
     Xhr.ajax({
-      url: 'spec/modules/impact/0-0-1/pager.xml',
+      url: 'spec/modules/impact/pager.xml',
       success: function (r, xhr) {
         pagerInfo = PagerXmlParser.parse(xhr.responseXml || r);
         done();
