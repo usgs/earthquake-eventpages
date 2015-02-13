@@ -6,12 +6,12 @@ var fs = require('fs'),
 var iniConfig = ini.parse(fs.readFileSync('./src/conf/config.ini', 'utf-8'));
 
 var config = {
+  build: '.build',
   dist: 'dist',
   ini: iniConfig,
   lib: 'lib',
   src: 'src',
-  test: 'test',
-  tmp: '.tmp'
+  test: 'test'
 };
 
 module.exports = config;

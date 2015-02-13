@@ -10,10 +10,8 @@ var gruntConfig = {
   connect: require('./connect'),
   copy: require('./copy'),
   cssmin: require('./cssmin'),
-  htmlmin: require('./htmlmin'),
   jshint: require('./jshint'),
   mocha_phantomjs: require('./mocha_phantomjs'),
-  replace: require('./replace'),
   requirejs: require('./requirejs'),
   uglify: require('./uglify'),
   watch: require('./watch'),
@@ -28,12 +26,10 @@ var gruntConfig = {
     'grunt-contrib-connect',
     'grunt-contrib-copy',
     'grunt-contrib-cssmin',
-    'grunt-contrib-htmlmin',
     'grunt-contrib-jshint',
     'grunt-contrib-uglify',
     'grunt-contrib-watch',
-    'grunt-mocha-phantomjs',
-    'grunt-text-replace'
+    'grunt-mocha-phantomjs'
   ]
 };
 

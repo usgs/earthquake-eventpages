@@ -3,6 +3,38 @@
 var config = require('./config');
 
 var copy = {
+  build: {
+    expand: true,
+    cwd: config.src,
+    dest: config.build + '/' + config.src,
+    src: [
+      '**/*',
+      '!**/*.js',
+      '!**/*.scss',
+      '!**/*.orig'
+    ]
+  },
+  test: {
+    expand: true,
+    cwd: config.test,
+    dest: config.build + '/' + config.test,
+    src: [
+      '**/*',
+      '!**/*.js'
+    ]
+  },
+  dist: {
+    expand: true,
+    cwd: config.build + '/' + config.src,
+    dest: config.dist,
+    src: [
+      '**/*',
+      '!**/*.js',
+      '!**/*.css'
+    ]
+  },
+
+
   leaflet: {
     expand: true,
     cwd: 'node_modules/leaflet/dist',
@@ -12,43 +44,6 @@ var copy = {
       'leaflet.css',
       'images/**'
     ]
-  },
-  app: {
-    expand: true,
-    cwd: config.src + '/htdocs',
-    dest: config.dist + '/htdocs',
-    src: [
-      'img/**/*.{png,gif,jpg,jpeg}',
-      '**/*.php'
-    ]
-  },
-  conf: {
-    expand: true,
-    cwd: config.src + '/conf',
-    dest: config.dist + '/conf',
-    src: [
-      '**/*',
-      '!**/*.orig'
-    ]
-  },
-  lib: {
-    expand: true,
-    cwd: config.src + '/lib',
-    dest: config.dist + '/lib',
-    src: [
-      '**/*'
-    ],
-    options: {
-      mode: true
-    }
-  },
-  modalview: {
-    src: 'node_modules/hazdev-webutils/src/mvc/ModalView.css',
-    dest: 'node_modules/hazdev-webutils/src/mvc/_ModalView.scss'
-  },
-  downloadview: {
-    src: 'node_modules/hazdev-webutils/src/mvc/DownloadView.css',
-    dest: 'node_modules/hazdev-webutils/src/mvc/_DownloadView.scss'
   },
   locationview_images: {
     expand: true,
@@ -62,7 +57,7 @@ var copy = {
   locationview_images_dev: {
     expand: true,
     cwd: 'node_modules/hazdev-location-view/src',
-    dest: config.tmp + '/modules/impact/0-0-1/css',
+    dest: config.build + '/htdocs/modules/impact/0-0-1/css',
     src: [
       '*.png',
       '*.cur'

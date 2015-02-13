@@ -2,14 +2,14 @@
 
 var config = require('./config');
 
-
+/*
 var MODULES = [
   'base',
   'impact',
   'scientific',
   'summary'
 ];
-
+*/
 var CWD = process.cwd(),
     NODE_MODULES = CWD + '/node_modules';
 
@@ -19,7 +19,7 @@ var browserify = {
     browserifyOptions: {
       debug: true,
       paths: [
-        CWD + '/' + config.src + '/htdocs',
+        CWD + '/' + config.src + '/htdocs/js',
         CWD + '/' + config.src + '/htdocs/modules',
         NODE_MODULES + '/hazdev-accordion/src',
         NODE_MODULES + '/hazdev-location-view/src',

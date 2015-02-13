@@ -13,41 +13,34 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'clean:dist',
+    'clean:build',
+    'concurrent:build',
     'connect:test',
     'mocha_phantomjs'
   ]);
 
-
   grunt.registerTask('build', [
-    'clean:dist',
-    'concurrent:predist',
-    'requirejs:dist',
-    'copy',
-    'compass',
-    'concurrent:dist',
-    'replace'
+    'clean:build',
+    'concurrent:build'
   ]);
 
   grunt.registerTask('dist', [
     'build',
+    'clean:dist',
+    'concurrent:dist',
     'configureRewriteRules',
-    'configureProxies',
-    'open:dist',
+    'configureProxies:dist',
     'connect:dist'
   ]);
 
   grunt.registerTask('default', [
-    'clean:dist',
-    'copy:leaflet',
-    'copy:modalview',
-    'copy:downloadview',
-    'copy:locationview_images_dev',
-    'compass:dev',
+    'build',
     'configureRewriteRules',
-    'configureProxies',
-    'connect:test',
+    'configureProxies:dev',
+    'configureProxies:test',
     'connect:dev',
+    'connect:test',
+    'mocha_phantomjs',
     'watch'
   ]);
 

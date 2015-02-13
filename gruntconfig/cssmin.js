@@ -11,13 +11,9 @@ var cssmin = {
   },
   dist: {
     expand: true,
-    cwd: config.tmp,
-    dest: config.dist + '/htdocs',
+    cwd: config.build + '/' + config.src,
+    dest: config.dist,
     src: '**/*.css'
-  },
-  leaflet: {
-    dest: config.dist + '/htdocs/lib/leaflet/leaflet.css',
-    src: 'node_modules/leaflet/dist/leaflet.css'
   }
 };
 

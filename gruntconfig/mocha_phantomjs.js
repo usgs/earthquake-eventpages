@@ -6,7 +6,7 @@ var mocha_phantomjs = {
   all: {
     options: {
       urls: [
-        'http://localhost:' + config.port + '/index.html'
+        'http://localhost:' + config.port + '/test.html'
       ]
     }
   }

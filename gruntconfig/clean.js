@@ -3,11 +3,11 @@
 var config = require('./config');
 
 var clean = {
-  dist: [config.dist],
-  dev: [
-    config.tmp,
+  build: [
+    config.build,
     '.sass-cache'
-  ]
+  ],
+  dist: [config.dist]
 };
 
 module.exports = clean;

@@ -9,14 +9,17 @@ var concurrent = {
     'jshint:tests',
     'mocha_phantomjs'
   ],
-  predist: [
+  build: [
+    'browserify',
+    'compass:dev',
+    'copy:build',
+    'copy:test',
     'jshint:scripts',
     'jshint:tests'
   ],
   dist: [
-    'cssmin:dist',
-    'cssmin:leaflet',
-    'htmlmin:dist',
+    'copy:dist',
+    'cssmin',
     'uglify'
   ]
 };

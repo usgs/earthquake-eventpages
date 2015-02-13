@@ -9,8 +9,8 @@ var CWD = process.cwd(),
 var compass = {
   dev: {
     options: {
-      sassDir: config.src + '/htdocs',
-      cssDir: config.tmp,
+      sassDir: config.src,
+      cssDir: config.build + '/' + config.src,
       environment: 'development',
       importPath: [
         CWD + '/' + config.src,

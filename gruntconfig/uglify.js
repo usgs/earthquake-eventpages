@@ -1,6 +1,6 @@
 'use strict';
 
-//var config = require('./config');
+var config = require('./config');
 
 var uglify = {
   options: {
@@ -9,10 +9,9 @@ var uglify = {
     report: 'gzip'
   },
   dist: {
-    files: {
-      //'<%= app.dist %>/htdocs/lib/requirejs/require.js':
-      //    ['node_modules/requirejs/require.js']
-    }
+    cwd: config.build + '/' + config.src,
+    src: '**/*.js',
+    dest: config.dest
   }
 };
 
