@@ -28,6 +28,7 @@ module.exports = function (grunt) {
     'build',
     'clean:dist',
     'concurrent:dist',
+    'connect:template',
     'configureRewriteRules',
     'configureProxies:dist',
     'connect:dist'
@@ -36,6 +37,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'build',
     'configureRewriteRules',
+    'connect:template',
     'configureProxies:dev',
     'configureProxies:test',
     'connect:dev',

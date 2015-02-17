@@ -12,7 +12,6 @@ var gruntConfig = {
   cssmin: require('./cssmin'),
   jshint: require('./jshint'),
   mocha_phantomjs: require('./mocha_phantomjs'),
-  requirejs: require('./requirejs'),
   uglify: require('./uglify'),
   watch: require('./watch'),
 

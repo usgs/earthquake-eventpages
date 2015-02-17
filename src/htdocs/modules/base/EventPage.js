@@ -63,7 +63,7 @@ var __get_hash = function (evt) {
 };
 
 var EventPage = function (options) {
-  Events.call(this);
+  Util.extend(this, Events());
 
   options = options || {};
 
@@ -108,8 +108,6 @@ var EventPage = function (options) {
 
   this._initialize();
 };
-
-EventPage.prototype = Object.create(Events.prototype);
 
 EventPage.prototype.destroy = function () {
   var i = null;

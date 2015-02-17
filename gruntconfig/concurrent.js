@@ -2,9 +2,7 @@
 
 var concurrent = {
   scripts: [
-    'browserify:index',
-    'browserify:unknown',
-    'browserify:test',
+    'browserify',
     'jshint:scripts'
   ],
   tests: [

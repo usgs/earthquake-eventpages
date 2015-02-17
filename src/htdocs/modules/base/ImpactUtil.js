@@ -75,7 +75,7 @@ var xmlToJson = function (xml) {
   }
 
   return obj;
-}
+};
 
 
 var ImpactUtil = {
