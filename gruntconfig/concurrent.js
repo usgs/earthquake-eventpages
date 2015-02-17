@@ -14,6 +14,8 @@ var concurrent = {
     'compass:dev',
     'copy:build',
     'copy:test',
+    'copy:leaflet',
+    'copy:locationview_images',
     'jshint:scripts',
     'jshint:tests'
   ],

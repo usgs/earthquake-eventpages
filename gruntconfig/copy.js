@@ -38,26 +38,16 @@ var copy = {
   leaflet: {
     expand: true,
     cwd: 'node_modules/leaflet/dist',
-    dest: config.dist + '/htdocs/lib/leaflet',
+    dest: config.build + '/' + config.src + '/htdocs/lib/leaflet',
     src: [
-      'leaflet.js',
       'leaflet.css',
       'images/**'
     ]
   },
   locationview_images: {
     expand: true,
-    cwd: 'node_modules/hazdev-location-view/src',
-    dest: config.dist + '/htdocs/modules/impact/0-0-1/css',
-    src: [
-      '*.png',
-      '*.cur'
-    ]
-  },
-  locationview_images_dev: {
-    expand: true,
-    cwd: 'node_modules/hazdev-location-view/src',
-    dest: config.build + '/htdocs/modules/impact/0-0-1/css',
+    cwd: 'node_modules/hazdev-location-view/src/locationview/images',
+    dest: config.build + '/' + config.src + '/htdocs/modules/images',
     src: [
       '*.png',
       '*.cur'
