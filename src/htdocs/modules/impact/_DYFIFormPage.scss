@@ -1,4 +1,10 @@
+@import 'locationview/CoordinateControl';
+@import 'locationview/GeocodeControl';
+@import 'locationview/GeolocationControl';
+@import 'locationview/LocationControl';
 @import 'locationview/LocationView';
+@import 'locationview/PointControl';
+
 @import 'questionview/QuestionView';
 @import 'mvc/ModalView';
 
