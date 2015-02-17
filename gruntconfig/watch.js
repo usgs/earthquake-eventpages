@@ -12,7 +12,7 @@ var watch = {
   },
   scss: {
     files: [config.src + '/htdocs/**/*.scss'],
-    tasks: ['copy:leaflet', 'copy:modalview', 'compass:dev']
+    tasks: ['compass:dev']
   },
   tests: {
     files: [
