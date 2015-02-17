@@ -15,7 +15,7 @@ var DEFAULTS = {
 
   imageFormat: 'jpg',
   imageTransparent: 'true',
-  imageDpi: 96,
+  imageDpi: 96
 };
 
 var CM2M = 100;               // How many centimeters in a meter
