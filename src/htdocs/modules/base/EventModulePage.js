@@ -4,8 +4,7 @@ var Accordion = require('accordion/Accordion'),
     Util = require('util/Util'),
 
     Attribution = require('./Attribution'),
-    ContentsXML = require('./ContentsXML'),
-    EventModule = require('./EventModule');
+    ContentsXML = require('./ContentsXML');
 
 
 var DEFAULTS = {
@@ -24,7 +23,7 @@ var EventModulePage = function (options) {
   options = Util.extend({}, DEFAULTS, options);
 
   this._eventPage = options.eventPage;
-  this._module = options.module || new EventModule();
+  this._module = options.module;
   this._hash = options.hash;
   this._title = options.title;
   this._event = options.eventDetails;
@@ -77,7 +76,9 @@ EventModulePage.prototype._initialize = function () {
 };
 
 EventModulePage.prototype._setHeaderMarkup = function () {
-  this._header.innerHTML = this._module.getHeaderMarkup(this);
+  if (this._module !== null) {
+    this._header.innerHTML = this._module.getHeaderMarkup(this);
+  }
 };
 
 EventModulePage.prototype._setContentMarkup = function () {
@@ -87,8 +88,12 @@ EventModulePage.prototype._setContentMarkup = function () {
 };
 
 EventModulePage.prototype._setFooterMarkup = function () {
-  var footerMarkup = this._module.getFooterMarkup(this),
+  var footerMarkup ='',
       el;
+
+  if (this._module !== null) {
+    footerMarkup = this._module.getFooterMarkup(this);
+  }
 
   this.setDownloadMarkup();
 

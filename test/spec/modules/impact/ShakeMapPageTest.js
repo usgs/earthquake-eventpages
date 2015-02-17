@@ -44,7 +44,8 @@ describe('ShakeMapPageTest test suite.', function () {
     it('Can be instantiated', function () {
       var page = new ShakeMapPage({
           'eventDetails': eventDetails,
-          'productTypes': ['shakemap']
+          'productTypes': ['shakemap'],
+          'module': new ImpactModule()
         });
 
       expect(page).to.be.an.instanceof(ShakeMapPage);
@@ -53,9 +54,14 @@ describe('ShakeMapPageTest test suite.', function () {
 
   describe('Tabbed Content', function () {
     it('contains all images and station list', function () {
-      var page = new ShakeMapPage({ 'eventDetails': eventDetails }),
-          tablistPanels = page.getContent().
-              querySelectorAll('.tablist-panel');
+      var page,
+          tablistPanels;
+
+      page = new ShakeMapPage({
+        'eventDetails': eventDetails,
+        'module': new ImpactModule()
+      });
+      tablistPanels = page.getContent().querySelectorAll('.tablist-panel');
 
       expect(tablistPanels.length).to.be.equal(8);
     });
@@ -97,7 +103,8 @@ describe('ShakeMapPageTest test suite.', function () {
       });
 
       page = new ShakeMapPage({
-        'eventDetails': eventDetails
+        'eventDetails': eventDetails,
+        'module': new ImpactModule()
       });
       content = page.getContent();
       container = content.querySelector('.stations');

@@ -6,9 +6,7 @@ var Accordion = require('accordion/Accordion'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util'),
-    Xhr = require('util/Xhr'),
-
-    ImpactModule = require('./ImpactModule');
+    Xhr = require('util/Xhr');
 
 
 var DEFAULTS = {
@@ -76,7 +74,6 @@ var SUMMARY_THUMBNAIL = 'download/intensity.jpg',
  */
 var ShakeMapPage = function (options) {
   this._options = Util.extend({}, DEFAULTS, options);
-  this._options.module = this._options.module || new ImpactModule();
   this._tablist = null;
   this._shakemap = null;
   SummaryDetailsPage.call(this, this._options);
