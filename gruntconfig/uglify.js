@@ -5,13 +5,16 @@ var config = require('./config');
 var uglify = {
   options: {
     mangle: true,
-    compress: true,
+    compress: {},
     report: 'gzip'
   },
   dist: {
-    cwd: config.build + '/' + config.src,
-    src: '**/*.js',
-    dest: config.dest
+    files: [{
+      expand: true,
+      cwd: config.build + '/' + config.src,
+      src: '**/*.js',
+      dest: config.dist
+    }]
   }
 };
 
