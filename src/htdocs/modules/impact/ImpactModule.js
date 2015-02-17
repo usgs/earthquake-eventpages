@@ -12,7 +12,7 @@ var EventModule = require('base/EventModule'),
 var DEFAULTS = {
   title: 'Impact',
   hash: 'impact',
-  cssUrl: 'modules/impact.css',
+  cssUrl: 'modules/impact/index.css',
   pages: [
     {
       factory: DYFIPage,

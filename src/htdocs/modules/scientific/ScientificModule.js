@@ -14,7 +14,7 @@ var EventModule = require('base/EventModule'),
 var DEFAULTS = {
   title: 'Scientific',
   hash: 'scientific',
-  cssUrl: 'modules/scientific.css',
+  cssUrl: 'modules/scientific/index.css',
   pages: [
     {
       factory: ScientificSummaryPage,

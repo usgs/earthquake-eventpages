@@ -13,8 +13,7 @@ var compass = {
       cssDir: config.build + '/' + config.src,
       environment: 'development',
       importPath: [
-        CWD + '/' + config.src,
-        CWD + '/' + config.src + '/htdocs/modules',
+        CWD + '/' + config.src + '/htdocs',
         NODE_MODULES + '/hazdev-accordion/src',
         NODE_MODULES + '/hazdev-location-view/src',
         NODE_MODULES + '/hazdev-question-view/src',

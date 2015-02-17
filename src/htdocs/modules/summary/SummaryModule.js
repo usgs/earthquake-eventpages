@@ -10,7 +10,7 @@ var EventModule = require('base/EventModule'),
 var DEFAULTS = {
   title: 'General',
   hash: 'general',
-  cssUrl: 'modules/summary.css',
+  cssUrl: 'modules/summary/index.css',
   pages: [
     {
       factory: SummaryPage,

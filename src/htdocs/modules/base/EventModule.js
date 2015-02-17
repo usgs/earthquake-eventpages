@@ -11,7 +11,7 @@ var CSS_MAP = {},
 var DEFAULTS = {
   title: 'Event Module',
   hash: 'module',
-  cssUrl: 'modules/base.css',
+  cssUrl: 'modules/base/index.css',
   pages: [
     {
       factory: EventModulePage,
