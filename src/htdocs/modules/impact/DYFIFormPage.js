@@ -2,11 +2,16 @@
 
 var EventModulePage = require('base/EventModulePage'),
     Events = require('util/Events'),
+    L = require('leaflet'),
     LocationView = require('locationview/LocationView'),
     ModalView = require('mvc/ModalView'),
     QuestionView = require('questionview/QuestionView'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
+
+
+// TODO: remove this when loading leaflet using Util.loadScript
+L.Icon.Default.imagePath = 'lib/leaflet/images';
 
 
 var DEFAULTS = {
