@@ -2,14 +2,7 @@
 
 var config = require('./config');
 
-/*
-var MODULES = [
-  'base',
-  'impact',
-  'scientific',
-  'summary'
-];
-*/
+
 var CWD = process.cwd(),
     NODE_MODULES = CWD + '/node_modules';
 
@@ -34,12 +27,12 @@ var browserify = {
 
   // source bundles
   index: {
-    src: config.src + '/htdocs/index.js',
-    dest: config.build + '/' + config.src + '/htdocs/index.js'
+    src: config.src + '/htdocs/js/index.js',
+    dest: config.build + '/' + config.src + '/htdocs/js/index.js'
   },
   unknown: {
-    src: config.src + '/htdocs/unknown.js',
-    dest: config.build + '/' + config.src + '/htdocs/unknown.js'
+    src: config.src + '/htdocs/js/unknown.js',
+    dest: config.build + '/' + config.src + '/htdocs/js/unknown.js'
   },
 
   // test bundle
@@ -49,5 +42,6 @@ var browserify = {
   }
 
 };
+
 
 module.exports = browserify;
