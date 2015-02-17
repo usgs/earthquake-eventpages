@@ -1,6 +1,8 @@
 'use strict';
 
-var Util = require('util/Util');
+var Util = require('util/Util'),
+
+    EventModulePage = require('./EventModulePage');
 
 
 var CSS_MAP = {},
@@ -10,17 +12,16 @@ var DEFAULTS = {
   title: 'Event Module',
   hash: 'module',
   cssUrl: 'modules/base.css',
-  dependencyLoader: null,
   pages: [
     {
-      className: 'base/EventModulePage',
+      factory: EventModulePage,
       options: {
         title: 'Page 1',
         hash: 'page1',
       }
     },
     {
-      className: 'base/EventModulePage',
+      factory: EventModulePage,
       options: {
         title: 'Page 2',
         hash: 'page2',
@@ -35,7 +36,6 @@ var EventModule = function (options) {
 
   this._title = options.title;
   this._hash = options.hash;
-  this._dependencyLoader = options.dependencyLoader;
   this._pages = options.pages;
   this._cssUrl = options.cssUrl;
   this._eventDetails = options.eventDetails;
@@ -213,36 +213,14 @@ EventModule.prototype.getPage = function (hash, callback) {
         module: module,
         eventPage: this._eventPage
       });
-  var classLoader = null;
 
-  if (this._dependencyLoader !== null) {
-    // Use configured dependency loader to load all pages at once
-    classLoader = this._dependencyLoader;
-  } else {
-    // No dependency loader, load classes individually based on class name
-    classLoader = pageInfo.className;
+  var page = new pageInfo.factory(pageOptions);
+  if (!module._cssLoaded) {
+    module._loadCSS();
   }
-
-  require([classLoader], function (PageConstructor) {
-    var page = null;
-
-    //try {
-      if (typeof PageConstructor === 'function') {
-        page = new PageConstructor(pageOptions);
-      } else {
-        page = new PageConstructor[pageInfo.className](pageOptions);
-      }
-
-      if (!module._cssLoaded) {
-        module._loadCSS();
-      }
-    //} catch (e) {
-      // TODO :: Hmm... ?
-    //}
-
-    callback(page);
-  });
+  callback(page);
 };
+
 
 EventModule.prototype._loadCSS = function () {
   if (this._cssUrl) {
@@ -333,6 +311,7 @@ try {
   for (var i = 0; i < links.length; i++) {
     CSS_MAP[links.item(i).href] = true;
   }
+  links = null;
 } catch (e) {
   // TODO :: Hmm ... ?
 }

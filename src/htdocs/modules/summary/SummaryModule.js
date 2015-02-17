@@ -1,17 +1,19 @@
 'use strict';
 
 var EventModule = require('base/EventModule'),
-    Util = require('util/Util');
+    Util = require('util/Util'),
+
+    InteractiveMap = require('./InteractiveMap'),
+    SummaryPage = require('./SummaryPage');
 
 
 var DEFAULTS = {
   title: 'General',
   hash: 'general',
   cssUrl: 'modules/summary.css',
-  dependencyLoader: null,
   pages: [
     {
-      className: 'summary/SummaryPage',
+      factory: SummaryPage,
       options: {
         title: 'Summary',
         hash: 'summary'
@@ -23,7 +25,7 @@ var DEFAULTS = {
       productTypes: ['origin', 'geoserve']
     },
     {
-      className: 'summary/InteractiveMap',
+      factory: InteractiveMap,
       options: {
         title: 'Interactive Map',
         hash: 'map'

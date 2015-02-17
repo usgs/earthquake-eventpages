@@ -1,17 +1,23 @@
 'use strict';
 
 var EventModule = require('base/EventModule'),
-    Util = require('util/Util');
+    Util = require('util/Util'),
+
+    FiniteFaultPage = require('./FiniteFaultPage'),
+    FocalMechanismPage = require('./FocalMechanismPage'),
+    HypocenterPage = require('./HypocenterPage'),
+    IrisProductsPage = require('./IrisProductsPage'),
+    MomentTensorPage = require('./MomentTensorPage'),
+    ScientificSummaryPage = require('./ScientificSummaryPage');
 
 
 var DEFAULTS = {
   title: 'Scientific',
   hash: 'scientific',
   cssUrl: 'modules/scientific.css',
-  dependencyLoader: null,
   pages: [
     {
-      className: 'scientific/ScientificSummaryPage',
+      factory: ScientificSummaryPage,
       options: {
         title: 'Summary',
         hash: 'summary'
@@ -25,7 +31,7 @@ var DEFAULTS = {
       ]
     },
     {
-      className: 'scientific/HypocenterPage',
+      factory: HypocenterPage,
       options: {
         title: 'Origin',
         hash: 'origin'
@@ -36,7 +42,7 @@ var DEFAULTS = {
       ]
     },
     {
-      className: 'scientific/MomentTensorPage',
+      factory: MomentTensorPage,
       options: {
         title: 'Moment Tensor',
         hash: 'tensor'
@@ -44,7 +50,7 @@ var DEFAULTS = {
       productTypes: ['moment-tensor']
     },
     {
-      className: 'scientific/FocalMechanismPage',
+      factory: FocalMechanismPage,
       options: {
         title: 'Focal Mechanism',
         hash: 'mechanism'
@@ -52,7 +58,7 @@ var DEFAULTS = {
       productTypes: ['focal-mechanism']
     },
     {
-      className: 'scientific/FiniteFaultPage',
+      factory: FiniteFaultPage,
       options: {
         title: 'Finite Fault',
         hash: 'finitefault'
@@ -60,7 +66,7 @@ var DEFAULTS = {
       productTypes: ['finite-fault']
     },
     {
-      className: 'scientific/IrisProductsPage',
+      factory: IrisProductsPage,
       options: {
         title: 'Waveforms',
         hash: 'waveforms'

@@ -3,6 +3,7 @@
 
 var expect = chai.expect,
     EventModule = require('base/EventModule'),
+    EventModulePage = require('base/EventModulePage'),
     EventPage = require('base/EventPage'),
     Events = require('util/Events'),
     Util = require('util/Util'),
@@ -19,14 +20,14 @@ var createEventPage = function (options) {
         hash: 'mod1',
         pages: [
           {
-            className: 'base/EventModulePage',
+            factory: EventModulePage,
             options: {
               title: 'Page 1',
               hash: 'page1',
             }
           },
           {
-            className: 'base/EventModulePage',
+            factory: EventModulePage,
             options: {
               title: 'Page 1',
               hash: 'page1',
@@ -39,14 +40,14 @@ var createEventPage = function (options) {
         hash: 'mod2',
         pages: [
           {
-            className: 'base/EventModulePage',
+            factory: EventModulePage,
             options: {
               title: 'Page 1',
               hash: 'page1',
             }
           },
           {
-            className: 'base/EventModulePage',
+            factory: EventModulePage,
             options: {
               title: 'Page 1',
               hash: 'page1',
@@ -113,14 +114,16 @@ describe('EventPage test suite.', function () {
       // defaultPage = null so we don't try to render during initialization
       eventPage = createEventPage({defaultPage: null});
 
+      eventPage.on('render', function () {
+        expect(eventPage._navigation.querySelector('.current-page')
+            .tagName).to.equal('STRONG');
+        expect(eventPage._navigation.querySelector('.current-page')
+            .innerHTML).to.equal('Page 1');
+
+        done();
+      });
+
       Events.trigger('hashchange', hashChangeEvent1);
-
-      expect(eventPage._navigation.querySelector('.current-page')
-          .tagName).to.equal('STRONG');
-      expect(eventPage._navigation.querySelector('.current-page')
-          .innerHTML).to.equal('Page 1');
-
-      eventPage.on('render', function () { done(); });
     });
 
     it('hits the cache when appropriate', function (done) {

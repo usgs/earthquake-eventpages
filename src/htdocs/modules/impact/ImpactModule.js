@@ -1,17 +1,21 @@
 'use strict';
 
 var EventModule = require('base/EventModule'),
-    Util = require('util/Util');
+    Util = require('util/Util'),
+
+    DYFIFormPage = require('./DYFIFormPage'),
+    DYFIPage = require('./DYFIPage'),
+    PagerPage = require('./PagerPage'),
+    ShakeMapPage = require('./ShakeMapPage');
 
 
 var DEFAULTS = {
   title: 'Impact',
   hash: 'impact',
   cssUrl: 'modules/impact.css',
-  dependencyLoader: null,
   pages: [
     {
-      className: 'impact/DYFIPage',
+      factory: DYFIPage,
       options: {
         title: 'Did You Feel It?',
         hash: 'dyfi'
@@ -19,14 +23,14 @@ var DEFAULTS = {
       productTypes: ['dyfi']
     },
     {
-      className: 'impact/DYFIFormPage',
+      factory: DYFIFormPage,
       options: {
         title: 'Tell Us!',
         hash: 'tellus'
       }
     },
     {
-      className: 'impact/ShakeMapPage',
+      factory: ShakeMapPage,
       options: {
         title: 'Shakemap',
         hash: 'shakemap'
@@ -34,7 +38,7 @@ var DEFAULTS = {
       productTypes: ['shakemap']
     },
     {
-      className: 'impact/PagerPage',
+      factory: PagerPage,
       options: {
         title: 'PAGER',
         hash: 'pager'
