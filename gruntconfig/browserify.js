@@ -27,12 +27,43 @@ var browserify = {
 
   // source bundles
   index: {
-    src: config.src + '/htdocs/js/index.js',
-    dest: config.build + '/' + config.src + '/htdocs/js/index.js'
+    src: [
+      config.src + '/htdocs/js/index.js'
+    ],
+    dest: config.build + '/' + config.src + '/htdocs/js/index.js',
+    options: {
+      alias: [
+        // "require"d after leaflet is loaded
+        './' + config.src + '/htdocs/modules/summary/InteractiveMap.js:summary/InteractiveMap',
+        './' + config.src + '/htdocs/modules/impact/DYFIFormPage.js:impact/DYFIFormPage'
+      ],
+      external: ['leaflet']
+    }
   },
+
   unknown: {
-    src: config.src + '/htdocs/js/unknown.js',
-    dest: config.build + '/' + config.src + '/htdocs/js/unknown.js'
+    src: [
+      config.src + '/htdocs/js/unknown.js'
+    ],
+    dest: config.build + '/' + config.src + '/htdocs/js/unknown.js',
+    options: {
+      alias: [
+        // "require"d after leaflet is loaded
+        './' + config.src + '/htdocs/modules/impact/DYFIFormPage.js:impact/DYFIFormPage'
+      ],
+      external: ['leaflet']
+    }
+  },
+
+  // bundle leaflet externally
+  leaflet: {
+    src: [],
+    dest: config.build + '/' + config.src + '/htdocs/lib/leaflet/leaflet.js',
+    options: {
+      alias: [
+        NODE_MODULES + '/leaflet/dist/leaflet-src.js:leaflet'
+      ]
+    }
   },
 
   // test bundle

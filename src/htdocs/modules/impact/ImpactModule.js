@@ -3,7 +3,6 @@
 var EventModule = require('base/EventModule'),
     Util = require('util/Util'),
 
-    DYFIFormPage = require('./DYFIFormPage'),
     DYFIPage = require('./DYFIPage'),
     PagerPage = require('./PagerPage'),
     ShakeMapPage = require('./ShakeMapPage');
@@ -23,7 +22,9 @@ var DEFAULTS = {
       productTypes: ['dyfi']
     },
     {
-      factory: DYFIFormPage,
+      // "impact/DYFIFormPage" is an alias in gruntconfig/browserify
+      className: 'impact/DYFIFormPage',
+      dependencyBundle: 'lib/leaflet/leaflet.js',
       options: {
         title: 'Tell Us!',
         hash: 'tellus'

@@ -3,7 +3,6 @@
 var EventModule = require('base/EventModule'),
     Util = require('util/Util'),
 
-    InteractiveMap = require('./InteractiveMap'),
     SummaryPage = require('./SummaryPage');
 
 
@@ -25,7 +24,9 @@ var DEFAULTS = {
       productTypes: ['origin', 'geoserve']
     },
     {
-      factory: InteractiveMap,
+      // "summary/InteractiveMap" is an alias in gruntconfig/browserify
+      className: 'summary/InteractiveMap',
+      dependencyBundle: 'lib/leaflet/leaflet.js',
       options: {
         title: 'Interactive Map',
         hash: 'map'
