@@ -6,7 +6,8 @@ var Util = require('util/Util'),
 
 
 var CSS_MAP = {},
-    CSS_CONTAINER = document.querySelector('head');
+    CSS_CONTAINER = document.querySelector('head'),
+    JS_MAP = {};
 
 var DEFAULTS = {
   title: 'Event Module',
@@ -214,11 +215,22 @@ EventModule.prototype.getPage = function (hash, callback) {
         eventPage: this._eventPage
       });
 
-  var page = new pageInfo.factory(pageOptions);
-  if (!module._cssLoaded) {
-    module._loadCSS();
+  var loadPage = function () {
+    var page = new pageInfo.factory(pageOptions);
+    if (!module._cssLoaded) {
+      module._loadCSS();
+    }
+    callback(page);
+  };
+
+  if (typeof pageInfo.factory === 'function') {
+    loadPage();
+  } else {
+    EventModule.loadJS(pageInfo.dependencyBundle, function () {
+      pageInfo.factory = require(pageInfo.className);
+      loadPage();
+    });
   }
-  callback(page);
 };
 
 
@@ -316,5 +328,30 @@ try {
   // TODO :: Hmm ... ?
 }
 
+/**
+ * Static method to load a js file given a url. This method tracks each url
+ * that is loaded to prevent duplicate attempts to load the same file.
+ *
+ * @param url {String}
+ *      The URL for the file to load.
+ * @param callback {Function}
+ *      The function to call after URL loads.
+ */
+EventModule.loadJS = function (url, callback) {
+  if (JS_MAP.hasOwnProperty(url)) {
+    // already loaded, call callback
+    callback();
+    return;
+  }
+
+  Util.loadScript(url, {
+    success: function () {
+      // mark as loaded
+      JS_MAP[url] = true;
+      // call callback
+      callback();
+    }
+  });
+};
 
 module.exports = EventModule;
