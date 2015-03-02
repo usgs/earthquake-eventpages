@@ -8,7 +8,7 @@ var UnknownEventPage = function (options) {
   options.defaultPage = 'impact_tellus';
   options.modules = options.modules || [
     new ImpactModule({
-      'eventDetails': this._eventDetails,
+      'eventDetails': options.eventDetails || null,
       'eventConfig': options.eventConfig || {}
     })
   ];
