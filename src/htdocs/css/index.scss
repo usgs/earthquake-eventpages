@@ -5,12 +5,12 @@
 @import 'downloads';
 @import 'MouseOverLayer';
 
-@import '../../../node_modules/hazdev-tablist/src/tablist/TabList.scss';
-@import '../../../node_modules/hazdev-accordion/src/accordion.scss';
-@import '../../../node_modules/hazdev-template/src/htdocs/css/alert.scss';
+@import 'tablist/TabList.scss';
+@import 'accordion/Accordion.scss';
+@import 'htdocs/css/alert.scss';  // from hazdev-template
 
 /* svg image map */
-@import '../../../node_modules/hazdev-svgimagemap/src/svgimagemap/SvgImageMap.scss';
+@import 'svgimagemap/SvgImageMap.scss';
 
 /* Scientific table begins responsive table then add more specific styles */
 @import 'responsiveTableScientific';
@@ -19,12 +19,12 @@
 // Page-Wide Styles
 // --------------------------------------------------
 
-@import '../modules/base/0-0-1/css/index.scss';
+@import 'modules/base/index.scss';
 
 .clearfix:after {
-	display:block;
-	content:' ';
-	clear:both;
+  display:block;
+  content:' ';
+  clear:both;
 }
 
 .sortview {

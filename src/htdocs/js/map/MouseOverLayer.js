@@ -1,140 +1,134 @@
-/* global define */
-define([
-	'leaflet',
-	'map/UtfGrid',
-	'util/Events',
-	'util/Util'
-], function(
-	L,
-	UtfGrid,
-	Events,
-	Util
-) {
-	'use strict';
+'use strict';
 
-	var CLASSES = 'leaflet-mouseover-tooltip';
+var L = require('leaflet'),
+    UtfGrid = require('./UtfGrid'),
+    Util = require('Util');
 
-	L.MouseOverLayer = L.LayerGroup.extend({
 
-		_initialized: false, // Flag to tell if constructor has finished
 
-		/**
-		 * @param options {Object}
-		 *      tileUrl: URL to image tiles
-		 *      dataUrl: URL to UtfGrid tiles (requires callback={cb})
-		 *      tileOpts: Options to be used on L.TileLayer for image tiles
-		 *      dataOpts: Options to be used on L.UtfGrid for grid tiles
-		 *      tiptext: Template string to be used for auto-tooltipping on hover
-		 */
-		initialize: function (options) {
+var CLASSES = 'leaflet-mouseover-tooltip';
 
-			// Create the two layers
-			this._tileLayer = new L.TileLayer(options.tileUrl, options.tileOpts);
-			this._dataLayer = new L.UtfGrid(options.dataUrl, options.dataOpts);
+L.MouseOverLayer = L.LayerGroup.extend({
 
-			if (typeof options.tiptext === 'string') {
-				this._tiptext = options.tiptext;
-				this._tooltip = L.DomUtil.create('span', CLASSES);
-				this.on('mouseover', this._onMouseOver, this);
-				this.on('mouseout', this._onMouseOut, this);
-			}
+  _initialized: false, // Flag to tell if constructor has finished
 
-			// Call parent constructor
-			L.LayerGroup.prototype.initialize.call(this, []);
-	    this.addLayer(this._tileLayer);
-	    if (!Util.isMobile()) {
-		this.addLayer(this._dataLayer);
-	    }
+  /**
+   * @param options {Object}
+   *      tileUrl: URL to image tiles
+   *      dataUrl: URL to UtfGrid tiles (requires callback={cb})
+   *      tileOpts: Options to be used on L.TileLayer for image tiles
+   *      dataOpts: Options to be used on L.UtfGrid for grid tiles
+   *      tiptext: Template string to be used for auto-tooltipping on hover
+   */
+  initialize: function (options) {
 
-			this._initialized = true;
-		},
+    // Create the two layers
+    this._tileLayer = new L.TileLayer(options.tileUrl, options.tileOpts);
+    this._dataLayer = new UtfGrid(options.dataUrl, options.dataOpts);
 
-		// --------------------------------------------------
-		// Delegate event handling to the data layer
-		// --------------------------------------------------
+    if (typeof options.tiptext === 'string') {
+      this._tiptext = options.tiptext;
+      this._tooltip = L.DomUtil.create('span', CLASSES);
+      this.on('mouseover', this._onMouseOver, this);
+      this.on('mouseout', this._onMouseOut, this);
+    }
 
-		on: function () {
-			L.UtfGrid.prototype.on.apply(this._dataLayer, arguments);
-		},
+    // Call parent constructor
+    L.LayerGroup.prototype.initialize.call(this, []);
+    this.addLayer(this._tileLayer);
+    if (!Util.isMobile()) {
+  this.addLayer(this._dataLayer);
+    }
 
-		off: function () {
-			L.UtfGrid.prototype.off.apply(this._dataLayer, arguments);
-		},
+    this._initialized = true;
+  },
 
-		// --------------------------------------------------
-		// Override these methods inherited from LayerGroup
-		// --------------------------------------------------
+  // --------------------------------------------------
+  // Delegate event handling to the data layer
+  // --------------------------------------------------
 
-		onAdd: function (map) {
-			L.LayerGroup.prototype.onAdd.apply(this, arguments);
+  on: function () {
+    UtfGrid.prototype.on.apply(this._dataLayer, arguments);
+  },
 
-			if (this._tooltip) {
-				map.getPanes().popupPane.appendChild(this._tooltip);
-			}
-		},
+  off: function () {
+    UtfGrid.prototype.off.apply(this._dataLayer, arguments);
+  },
 
-		onRemove: function () {
-			L.LayerGroup.prototype.onRemove.apply(this, arguments);
+  // --------------------------------------------------
+  // Override these methods inherited from LayerGroup
+  // --------------------------------------------------
 
-			if (this._tooltip && this._tooltip.parentNode) {
-				this._tooltip.parentNode.removeChild(this._tooltip);
-			}
-		},
+  onAdd: function (map) {
+    L.LayerGroup.prototype.onAdd.apply(this, arguments);
 
-		// --------------------------------------------------
-		// Suppress these methods inherited from LayerGroup
-		// --------------------------------------------------
+    if (this._tooltip) {
+      map.getPanes().popupPane.appendChild(this._tooltip);
+    }
+  },
 
-		addLayer: function () {
-			if (!this._initialized) {
-				L.LayerGroup.prototype.addLayer.apply(this, arguments);
-			} else {
-				try {console.log('MouseOverLayer::addLayer - Immutable object');}
-				catch (e) { /* Ignore */ }
-			}
-		},
-		removeLayer: function () {
-			if (!this._initialized) {
-				L.LayerGroup.prototype.removeLayer.apply(this, arguments);
-			} else {
-				try {console.log('MouseOverLayer::removeLayer - Immutable object');}
-				catch (e) { /* Ignore */ }
-			}
-		},
-		clearLayers: function () {
-			if (!this._initialized) {
-				L.LayerGroup.prototype.clearLayers.apply(this, arguments);
-			} else {
-				try {console.log('MouseOverLayer::clearLayers - Immutable object');}
-				catch (e) { /* Ignore */ }
-			}
-		},
+  onRemove: function () {
+    L.LayerGroup.prototype.onRemove.apply(this, arguments);
 
-		// --------------------------------------------------
-		// Auto hover tooltip helper methods
-		// --------------------------------------------------
+    if (this._tooltip && this._tooltip.parentNode) {
+      this._tooltip.parentNode.removeChild(this._tooltip);
+    }
+  },
 
-		_onMouseOver: function (evt) {
-			// Update text
-			this._tooltip.innerHTML = L.Util.template(this._tiptext, evt.data);
+  // --------------------------------------------------
+  // Suppress these methods inherited from LayerGroup
+  // --------------------------------------------------
 
-			// Update position
-			L.DomUtil.setPosition(this._tooltip, this._map.latLngToLayerPoint(
-					evt.latlng));
+  addLayer: function () {
+    if (!this._initialized) {
+      L.LayerGroup.prototype.addLayer.apply(this, arguments);
+    } else {
+      try {console.log('MouseOverLayer::addLayer - Immutable object');}
+      catch (e) { /* Ignore */ }
+    }
+  },
+  removeLayer: function () {
+    if (!this._initialized) {
+      L.LayerGroup.prototype.removeLayer.apply(this, arguments);
+    } else {
+      try {console.log('MouseOverLayer::removeLayer - Immutable object');}
+      catch (e) { /* Ignore */ }
+    }
+  },
+  clearLayers: function () {
+    if (!this._initialized) {
+      L.LayerGroup.prototype.clearLayers.apply(this, arguments);
+    } else {
+      try {console.log('MouseOverLayer::clearLayers - Immutable object');}
+      catch (e) { /* Ignore */ }
+    }
+  },
 
-			// Show the tooltip
-			this._tooltip.style.display = 'block';
-		},
+  // --------------------------------------------------
+  // Auto hover tooltip helper methods
+  // --------------------------------------------------
 
-		_onMouseOut: function () {
-			// Hide the tooltip
-			this._tooltip.style.display = '';
-		}
-	});
+  _onMouseOver: function (evt) {
+    // Update text
+    this._tooltip.innerHTML = L.Util.template(this._tiptext, evt.data);
 
-	L.mouseOverLayer = function (options) {
-		return new L.MouseOverLayer(options);
-	};
+    // Update position
+    L.DomUtil.setPosition(this._tooltip, this._map.latLngToLayerPoint(
+        evt.latlng));
 
-	return L.MouseOverLayer;
+    // Show the tooltip
+    this._tooltip.style.display = 'block';
+  },
+
+  _onMouseOut: function () {
+    // Hide the tooltip
+    this._tooltip.style.display = '';
+  }
 });
+
+L.mouseOverLayer = function (options) {
+  return new L.MouseOverLayer(options);
+};
+
+
+module.exports = L.MouseOverLayer;

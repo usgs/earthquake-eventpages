@@ -1,31 +1,31 @@
 <?php
 
 if (!function_exists('configure')) {
-	function configure ($prompt, $default = null, $secure = false) {
+  function configure ($prompt, $default = null, $secure = false) {
 
-		echo $prompt;
-		if ($default != null) {
-			echo ' [' . $default . ']';
-		}
-		echo ': ';
+    echo $prompt;
+    if ($default != null) {
+      echo ' [' . $default . ']';
+    }
+    echo ': ';
 
-		if ($secure) {
-			system('stty -echo');
-		}
+    if ($secure) {
+      system('stty -echo');
+    }
 
-		$answer = trim(fgets(STDIN));
+    $answer = trim(fgets(STDIN));
 
-		if ($answer == '') {
-			$answer = $default;
-		}
+    if ($answer == '') {
+      $answer = $default;
+    }
 
-		if ($secure) {
-			system('stty echo');
-			echo "\n";
-		}
+    if ($secure) {
+      system('stty echo');
+      echo "\n";
+    }
 
-		return $answer;
-	}
+    return $answer;
+  }
 }
 
 // This script should only be included by the pre-install.php script. The
@@ -34,23 +34,23 @@ if (!function_exists('configure')) {
 
 $CONFIG = array();
 if (file_exists($CONFIG_FILE_INI)) {
-	$answer = configure('A previous configuration exists. ' .
-			'Would you like to use it as defaults?', 'Y|n', false);
+  $answer = configure('A previous configuration exists. ' .
+      'Would you like to use it as defaults?', 'Y|n', false);
 
-	if (strtoupper(substr($answer, 0, 1)) == 'Y') {
-		$CONFIG = parse_ini_file($CONFIG_FILE_INI);
-		print_r($CONFIG);
-	}
+  if (strtoupper(substr($answer, 0, 1)) == 'Y') {
+    $CONFIG = parse_ini_file($CONFIG_FILE_INI);
+    print_r($CONFIG);
+  }
 
-	$answer = configure('Would you like to save the old configuration file?',
-			'Y|n', false);
+  $answer = configure('Would you like to save the old configuration file?',
+      'Y|n', false);
 
-	if (strtoupper(substr($answer, 0, 1)) == 'Y') {
-		$BAK_CONFIG_FILE = $CONFIG_FILE_INI . '.' . date('YmdHis');
-		rename($CONFIG_FILE_INI, $BAK_CONFIG_FILE);
-		echo 'Old configuration saved to file: ' . basename($BAK_CONFIG_FILE) .
-				"\n";
-	}
+  if (strtoupper(substr($answer, 0, 1)) == 'Y') {
+    $BAK_CONFIG_FILE = $CONFIG_FILE_INI . '.' . date('YmdHis');
+    rename($CONFIG_FILE_INI, $BAK_CONFIG_FILE);
+    echo 'Old configuration saved to file: ' . basename($BAK_CONFIG_FILE) .
+        "\n";
+  }
 }
 
 $FP_CONFIG = fopen($CONFIG_FILE_INI, 'w');
@@ -58,54 +58,54 @@ fwrite($FP_CONFIG, ';; auto generated: ' . date('r') . "\n\n");
 
 // This data structure allows for simple configuration prompts
 $prompts = array(
-	// 'key' => array(
-	// 	'prompt' => String,  // Prompt to request value from user
-	// 	'default' => String, // Value to use if input is empty
-	//  'secure' => Boolean  // True if input should not be echo'd to console
-	// )
+  // 'key' => array(
+  //  'prompt' => String,  // Prompt to request value from user
+  //  'default' => String, // Value to use if input is empty
+  //  'secure' => Boolean  // True if input should not be echo'd to console
+  // )
 
-	'MOUNT_PATH' => array(
-		'prompt' => 'URL Path for application',
-		'default' => '/event',
-		'secure' => false
-	),
+  'MOUNT_PATH' => array(
+    'prompt' => 'URL Path for application',
+    'default' => '/event',
+    'secure' => false
+  ),
 
-	'DETAILS_STUB' => array(
-		'prompt' => 'Site-relative path stub for GeoJSON detail content',
-		'default' => '/earthquakes/feed/v1.0/detail/%s.geojson',
-		'secure' => false
-	),
+  'DETAILS_STUB' => array(
+    'prompt' => 'Site-relative path stub for GeoJSON detail content',
+    'default' => '/earthquakes/feed/v1.0/detail/%s.geojson',
+    'secure' => false
+  ),
 
-	'KML_STUB' => array(
-		'prompt' => 'URL for kml feed',
-		'default' => '/earthquakes/feed/v1.0/detail/%s.kml',
-		'secure' => false
-	),
+  'KML_STUB' => array(
+    'prompt' => 'URL for kml feed',
+    'default' => '/earthquakes/feed/v1.0/detail/%s.kml',
+    'secure' => false
+  ),
 
-	'OFFSITE_HOST' => array(
-		'prompt' => 'Offsite host where content exists',
-		'default' => '',
-		'secure' => false
-	),
+  'OFFSITE_HOST' => array(
+    'prompt' => 'Offsite host where content exists',
+    'default' => '',
+    'secure' => false
+  ),
 
-	'DYFI_RESPONSE_URL' => array(
-		'prompt' => 'URL for DYFI form submissions',
-		'default' => '/dyfi/response.php',
-		'secure' => false
-	)
+  'DYFI_RESPONSE_URL' => array(
+    'prompt' => 'URL for DYFI form submissions',
+    'default' => '/dyfi/response.php',
+    'secure' => false
+  )
 );
 
 foreach ($prompts as $key => $item) {
-	$default = null;
-	if (isset($CONFIG[$key])) {
-		$default = $CONFIG[$key];
-	} else if (isset($item['default'])) {
-		$default = $item['default'];
-	}
+  $default = null;
+  if (isset($CONFIG[$key])) {
+    $default = $CONFIG[$key];
+  } else if (isset($item['default'])) {
+    $default = $item['default'];
+  }
 
-	fwrite($FP_CONFIG, $key . ' = "' .
-			configure($item['prompt'], $default, isset($item['secure']) ? $item['secure'] : false) .
-			"\"\n");
+  fwrite($FP_CONFIG, $key . ' = "' .
+      configure($item['prompt'], $default, isset($item['secure']) ? $item['secure'] : false) .
+      "\"\n");
 }
 
 // Do any custom prompting here

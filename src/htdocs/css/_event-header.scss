@@ -2,166 +2,166 @@
 
 .event-header {
 
-	> .impact-bubbles {
+  > .impact-bubbles {
 
-		> a {
-			display: block;
-			float:left;
-			background-color: #fff;
-			margin: 1em 0 0;
-			padding: 6px 0;
-			text-align: center;
-			text-decoration: none;
-			line-height:1;
-			border-radius: 3px;
-			text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
-			width:23.5%;
-			margin-left:2%;
-			max-width:100px;
-			overflow:hidden;
-			text-overflow:ellipsis;
+    > a {
+      display: block;
+      float:left;
+      background-color: #fff;
+      margin: 1em 0 0;
+      padding: 6px 0;
+      text-align: center;
+      text-decoration: none;
+      line-height:1;
+      border-radius: 3px;
+      text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+      width:23.5%;
+      margin-left:2%;
+      max-width:100px;
+      overflow:hidden;
+      text-overflow:ellipsis;
 
-			&:first-child {
-				margin-left:0;
-			}
+      &:first-child {
+        margin-left:0;
+      }
 
-			> strong {
-				font-size:.8125em;
-			}
+      > strong {
+        font-size:.8125em;
+      }
 
-			> abbr {
-				font-size:.6875em;
-				color:#444;
-			}
-		}
+      > abbr {
+        font-size:.6875em;
+        color:#444;
+      }
+    }
 
-		> a:hover {
-			background-image: linear-gradient(to top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
-		}
+    > a:hover {
+      background-image: linear-gradient(to top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+    }
 
-		.tsunami {
-			border:0;
-			padding:0;
-			text-align:left;
-			display:inline-block;
-			max-height:44px;
-			max-width:96px;
-			border-bottom:1px solid #292772;
+    .tsunami {
+      border:0;
+      padding:0;
+      text-align:left;
+      display:inline-block;
+      max-height:44px;
+      max-width:96px;
+      border-bottom:1px solid #292772;
 
-			@media screen and (min-width:768px) {
-				max-height:44px;
-			}
+      @media screen and (min-width:768px) {
+        max-height:44px;
+      }
 
-			img {
-				border-radius:3px;
-				max-width:none;
-			}
-		}
-	}
+      img {
+        border-radius:3px;
+        max-width:none;
+      }
+    }
+  }
 }
 
 .pager-alertlevel-pending {
-	background-color:#fff;
-	color:#000;
+  background-color:#fff;
+  color:#000;
 }
 .pager-alertlevel-green {
-	background-color:#00b04f !important;
-	color:#000 !important;
+  background-color:#00b04f !important;
+  color:#000 !important;
 }
 .pager-alertlevel-yellow {
-	background-color:#ff0 !important;
-	color:#000 !important;
+  background-color:#ff0 !important;
+  color:#000 !important;
 }
 .pager-alertlevel-orange {
-	background-color:#f90 !important;
-	color:#000 !important;
+  background-color:#f90 !important;
+  color:#000 !important;
 }
 .pager-alertlevel-red {
-	background-color:#f00 !important;
-	color:#000 !important;
+  background-color:#f00 !important;
+  color:#000 !important;
 }
 
 .roman {
-	font-family:$mmi-font-family;
+  font-family:$mmi-font-family;
 }
 
 .mmiI{
-	color:$mmiI-text-color;
-	background-color:$mmiI;
-	box-shadow:0 0 1px #666;
+  color:$mmiI-text-color;
+  background-color:$mmiI;
+  box-shadow:0 0 1px #666;
 }
 
 .mmiII{
-	color:$mmiII-text-color;
-	background-color:$mmiII;
+  color:$mmiII-text-color;
+  background-color:$mmiII;
 }
 
 .mmiIII{
-	color:$mmiIII-text-color;
-	background-color:$mmiIII;
+  color:$mmiIII-text-color;
+  background-color:$mmiIII;
 }
 
 .mmiIV{
-	color:$mmiIV-text-color;
-	background-color:$mmiIV;
+  color:$mmiIV-text-color;
+  background-color:$mmiIV;
 }
 
 .mmiV{
-	color:$mmiV-text-color;
-	background-color:$mmiV;
+  color:$mmiV-text-color;
+  background-color:$mmiV;
 }
 
 .mmiVI{
-	color:$mmiVI-text-color;
-	background-color:$mmiVI;
+  color:$mmiVI-text-color;
+  background-color:$mmiVI;
 }
 
 .mmiVII{
-	color:$mmiVII-text-color;
-	background-color:$mmiVII;
+  color:$mmiVII-text-color;
+  background-color:$mmiVII;
 }
 
 .mmiVIII{
-	color:$mmiVIII-text-color;
-	background-color:$mmiVIII;
+  color:$mmiVIII-text-color;
+  background-color:$mmiVIII;
 }
 
 .mmiIX{
-	color:$mmiIX-text-color;
-	background-color:$mmiIX;
+  color:$mmiIX-text-color;
+  background-color:$mmiIX;
 }
 
 .mmiX{
-	color:$mmiX-text-color;
-	background-color:$mmiX;
+  color:$mmiX-text-color;
+  background-color:$mmiX;
 }
 
 .mmiXI{
-	color:$mmiXI-text-color;
-	background-color:$mmiXI;
+  color:$mmiXI-text-color;
+  background-color:$mmiXI;
 }
 
 .mmiXII{
-	color:$mmiXII-text-color;
-	background-color:$mmiXII;
+  color:$mmiXII-text-color;
+  background-color:$mmiXII;
 }
 
 @media screen and (min-width: 768px) {
-	.event-header {
-		> .impact-bubbles {
-			> a > strong {
-				font-size:1em;
-			}
-		}
-	}
+  .event-header {
+    > .impact-bubbles {
+      > a > strong {
+        font-size:1em;
+      }
+    }
+  }
 }
 // Width for media query makes the switch from percentages to pixels smooth.
 @media screen and (min-width: 1088px) {
-	.event-header {
-		> .impact-bubbles {
-			> a {
-				margin-left:16px;
-			}
-		}
-	}
+  .event-header {
+    > .impact-bubbles {
+      > a {
+        margin-left:16px;
+      }
+    }
+  }
 }
