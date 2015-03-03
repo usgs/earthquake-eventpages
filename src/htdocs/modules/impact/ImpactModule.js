@@ -1,11 +1,7 @@
 'use strict';
 
 var EventModule = require('base/EventModule'),
-    Util = require('util/Util'),
-
-    DYFIPage = require('./DYFIPage'),
-    PagerPage = require('./PagerPage'),
-    ShakeMapPage = require('./ShakeMapPage');
+    Util = require('util/Util');
 
 
 var DEFAULTS = {
@@ -14,7 +10,8 @@ var DEFAULTS = {
   cssUrl: 'modules/impact/index.css',
   pages: [
     {
-      factory: DYFIPage,
+      className: 'impact/DYFIPage',
+      dependencyBundle: 'modules/impact/index.js',
       options: {
         title: 'Did You Feel It?',
         hash: 'dyfi'
@@ -31,7 +28,8 @@ var DEFAULTS = {
       }
     },
     {
-      factory: ShakeMapPage,
+      className: 'impact/ShakeMapPage',
+      dependencyBundle: 'modules/impact/index.js',
       options: {
         title: 'Shakemap',
         hash: 'shakemap'
@@ -39,7 +37,8 @@ var DEFAULTS = {
       productTypes: ['shakemap']
     },
     {
-      factory: PagerPage,
+      className: 'impact/PagerPage',
+      dependencyBundle: 'modules/impact/index.js',
       options: {
         title: 'PAGER',
         hash: 'pager'
