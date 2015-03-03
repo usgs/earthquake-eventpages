@@ -3,11 +3,7 @@
 var Events = require('util/Events'),
     Util = require('util/Util'),
 
-    Attribution = require('./Attribution'),
-
-    ScientificModule = require('scientific/ScientificModule'),
-    SummaryModule = require('summary/SummaryModule'),
-    ImpactModule = require('impact/ImpactModule');
+    Attribution = require('./Attribution');
 
 
 var REDIRECTS = {
@@ -86,23 +82,7 @@ var EventPage = function (options) {
   this._maxCacheLength = options.maxCacheLength || DEFAULTS.maxCacheLength;
   this._cache = [];
 
-  this._modules = options.modules || [
-    new SummaryModule({
-        'eventDetails': this._eventDetails,
-        'eventConfig': this._eventConfig,
-        'eventPage': this
-    }),
-    new ImpactModule({
-      'eventDetails': this._eventDetails,
-      'eventConfig': this._eventConfig,
-      'eventPage': this
-    }),
-    new ScientificModule({
-      'eventDetails': this._eventDetails,
-      'eventConfig': this._eventConfig,
-      'eventPage': this
-    })
-  ];
+  this._modules = options.modules || [];
 
   this._buildContributorArray();
 

@@ -2,7 +2,7 @@
 'use strict';
 
 
-var EventPage = require('base/EventPage');
+var EventPage = require('base/DefaultEventPage');
 
 
 var eventpage,
