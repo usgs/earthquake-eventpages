@@ -72,7 +72,7 @@ var browserify = {
     dest: config.build + '/' + config.src + '/htdocs/modules/summary/index.js',
     options: {
       alias: [
-        'summary/SummaryPage',
+        // SummaryPage is already bundled in index above
         'summary/InteractiveMap'
       ].map(function(value) {
         return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;

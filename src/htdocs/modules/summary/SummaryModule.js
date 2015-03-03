@@ -18,8 +18,6 @@ var DEFAULTS = {
    */
 
     {
-      className: 'summary/SummaryPage',
-      dependencyBundle: 'modules/summary/index.js',
       factory: SummaryPage,
       options: {
         title: 'Summary',
