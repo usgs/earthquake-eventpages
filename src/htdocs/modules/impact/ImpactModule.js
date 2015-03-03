@@ -9,6 +9,12 @@ var DEFAULTS = {
   hash: 'impact',
   cssUrl: 'modules/impact/index.css',
   pages: [
+
+  /**
+   * NOTE: pages that are bundled in the impact module must be added
+   * to the "browserify:impact" target.
+   */
+
     {
       className: 'impact/DYFIPage',
       dependencyBundle: 'modules/impact/index.js',
@@ -19,9 +25,11 @@ var DEFAULTS = {
       productTypes: ['dyfi']
     },
     {
-      // "impact/DYFIFormPage" is an alias in gruntconfig/browserify
       className: 'impact/DYFIFormPage',
-      dependencyBundle: 'lib/leaflet/leaflet.js',
+      dependencyBundle: [
+        'modules/impact/index.js',
+        'lib/leaflet/leaflet.js'
+      ],
       options: {
         title: 'Tell Us!',
         hash: 'tellus'

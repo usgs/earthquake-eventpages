@@ -11,7 +11,15 @@ var DEFAULTS = {
   hash: 'general',
   cssUrl: 'modules/summary/index.css',
   pages: [
+
+  /**
+   * NOTE: pages that are bundled in the summary module must be added
+   * to the "browserify:summary" target.
+   */
+
     {
+      className: 'summary/SummaryPage',
+      dependencyBundle: 'modules/summary/index.js',
       factory: SummaryPage,
       options: {
         title: 'Summary',
@@ -24,9 +32,11 @@ var DEFAULTS = {
       productTypes: ['origin', 'geoserve']
     },
     {
-      // "summary/InteractiveMap" is an alias in gruntconfig/browserify
       className: 'summary/InteractiveMap',
-      dependencyBundle: 'lib/leaflet/leaflet.js',
+      dependencyBundle: [
+        'modules/summary/index.js',
+        'lib/leaflet/leaflet.js'
+      ],
       options: {
         title: 'Interactive Map',
         hash: 'map'

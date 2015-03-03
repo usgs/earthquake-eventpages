@@ -47,11 +47,6 @@ var browserify = {
     ],
     dest: config.build + '/' + config.src + '/htdocs/js/index.js',
     options: {
-      alias: BUNDLED_DEPENDENCIES.concat([
-        // "require"d after leaflet is loaded
-        './' + config.src + '/htdocs/modules/summary/InteractiveMap.js:summary/InteractiveMap',
-        './' + config.src + '/htdocs/modules/impact/DYFIFormPage.js:impact/DYFIFormPage'
-      ]),
       external: ['leaflet']
     }
   },
@@ -62,10 +57,6 @@ var browserify = {
     ],
     dest: config.build + '/' + config.src + '/htdocs/js/unknown.js',
     options: {
-      alias: [
-        // "require"d after leaflet is loaded
-        './' + config.src + '/htdocs/modules/impact/DYFIFormPage.js:impact/DYFIFormPage'
-      ],
       external: ['leaflet']
     }
   },
@@ -87,18 +78,33 @@ var browserify = {
     dest: config.build + '/' + config.test + '/test.js'
   },
 
+  summary: {
+    src: [],
+    dest: config.build + '/' + config.src + '/htdocs/modules/summary/index.js',
+    options: {
+      alias: [
+        'summary/SummaryPage',
+        'summary/InteractiveMap'
+      ].map(function(value) {
+        return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
+      }),
+      external: BUNDLED_DEPENDENCIES.concat(['leaflet'])
+    }
+  },
+
   impact: {
     src: [],
     dest: config.build + '/' + config.src + '/htdocs/modules/impact/index.js',
     options: {
       alias: [
         'impact/DYFIPage',
+        'impact/DYFIFormPage',
         'impact/PagerPage',
         'impact/ShakeMapPage'
       ].map(function(value) {
         return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
       }),
-      external: BUNDLED_DEPENDENCIES
+      external: BUNDLED_DEPENDENCIES.concat(['leaflet'])
     }
   },
 

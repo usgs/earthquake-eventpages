@@ -9,6 +9,12 @@ var DEFAULTS = {
   hash: 'scientific',
   cssUrl: 'modules/scientific/index.css',
   pages: [
+
+  /**
+   * NOTE: pages that are bundled in the scientific module must be added
+   * to the "browserify:scientific" target.
+   */
+
     {
       className: 'scientific/ScientificSummaryPage',
       dependencyBundle: 'modules/scientific/index.js',
