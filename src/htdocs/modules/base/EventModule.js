@@ -334,24 +334,57 @@ try {
  *
  * @param url {String}
  *      The URL for the file to load.
- * @param callback {Function}
+ * @param loadCallback {Function}
  *      The function to call after URL loads.
  */
-EventModule.loadJS = function (url, callback) {
+var __loadJS = function (url, loadCallback) {
   if (JS_MAP.hasOwnProperty(url)) {
     // already loaded, call callback
-    callback();
-    return;
+    loadCallback(url);
+  } else {
+    Util.loadScript(url, {
+      success: function () {
+        // mark as loaded
+        JS_MAP[url] = true;
+        // call callback
+        loadCallback(url);
+      }
+    });
   }
+};
 
-  Util.loadScript(url, {
-    success: function () {
-      // mark as loaded
-      JS_MAP[url] = true;
-      // call callback
+/**
+ * Static method to load one or more js files given urls.
+ * This method tracks each url that is loaded to prevent duplicate attempts to
+ * load the same file.
+ *
+ * @param url {Array<String>|String}
+ *      The URLs for the file to load.
+ * @param callback {Function}
+ *      The function to call after URLs load.
+ */
+EventModule.loadJS = function (urls, callback) {
+  var i,
+      len,
+      loaded,
+      loadCallback;
+  // make sure urls is an array
+  urls = Array.isArray(urls) ? urls : [urls];
+  len = urls.length;
+  loaded = 0;
+  // callback for __loadJS
+  loadCallback = function () {
+    loaded++;
+    if (loaded === len) {
       callback();
     }
-  });
+  };
+  // load all dependencies
+  for (i = 0; i < len; i++) {
+    __loadJS(urls[i], loadCallback);
+  }
 };
+
+
 
 module.exports = EventModule;
