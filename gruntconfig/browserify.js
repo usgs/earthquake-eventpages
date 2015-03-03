@@ -8,7 +8,6 @@ var CWD = process.cwd(),
 
 
 var BUNDLED_DEPENDENCIES = [
-  './' + config.src + '/htdocs/modules/base/EventPage.js:base/EventPage',
   './' + config.src + '/htdocs/modules/base/Attribution.js:base/Attribution',
   './' + config.src + '/htdocs/modules/base/EventModulePage.js:base/EventModulePage',
   './' + config.src + '/htdocs/modules/base/Formatter.js:base/Formatter',
@@ -43,7 +42,7 @@ var browserify = {
 
   // source bundles
   index: {
-    src: [],
+    src: [config.src + '/htdocs/js/index.js'],
     dest: config.build + '/' + config.src + '/htdocs/js/index.js',
     options: {
       alias: BUNDLED_DEPENDENCIES

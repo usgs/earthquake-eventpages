@@ -70,22 +70,13 @@ if (!isset($TEMPLATE)) {
   ';
 
   $FOOT =
-    /* this script exports "base/EventPage" */
-    '<script src="js/index.js"></script>' .
     /* create event page with event details and config. */
     '<script>' .
-    '(function () {
-      var EventPage = require(\'base/EventPage\');
-      var offcanvas = OffCanvas.getOffCanvas();
-      var eventpage = new EventPage({
-        eventDetails: ' . json_encode($EVENT) . ',
-        eventConfig: ' . json_encode($EVENT_CONFIG) . '
-      });
-      eventpage.on(\'render\', function () {
-        offcanvas.hide();
-      });
-    })();' .
-    '</script>';
+      'var EventConfig = ' . json_encode($EVENT_CONFIG) . ';' .
+      'var EventDetails = ' . json_encode($EVENT) . ';' .
+    '</script>' .
+    /* this script creates EventPage using EventConfig, EventDetails */
+    '<script src="js/index.js"></script>';
 
   // cache control headers
   $now = time();
