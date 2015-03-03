@@ -8,6 +8,7 @@ var CWD = process.cwd(),
 
 
 var BUNDLED_DEPENDENCIES = [
+  './' + config.src + '/htdocs/modules/base/EventPage.js:base/EventPage',
   './' + config.src + '/htdocs/modules/base/Attribution.js:base/Attribution',
   './' + config.src + '/htdocs/modules/base/EventModulePage.js:base/EventModulePage',
   './' + config.src + '/htdocs/modules/base/Formatter.js:base/Formatter',
@@ -42,22 +43,10 @@ var browserify = {
 
   // source bundles
   index: {
-    src: [
-      config.src + '/htdocs/js/index.js'
-    ],
+    src: [],
     dest: config.build + '/' + config.src + '/htdocs/js/index.js',
     options: {
-      external: ['leaflet']
-    }
-  },
-
-  unknown: {
-    src: [
-      config.src + '/htdocs/js/unknown.js'
-    ],
-    dest: config.build + '/' + config.src + '/htdocs/js/unknown.js',
-    options: {
-      external: ['leaflet']
+      alias: BUNDLED_DEPENDENCIES
     }
   },
 

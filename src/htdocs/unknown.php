@@ -17,13 +17,22 @@ if (!isset($TEMPLATE)) {
   $HEAD = '<link rel="stylesheet" href="css/index.css"/>';
 
   $FOOT =
-    /* Embed event details in an explicitly named define. */
+    /* this script exports "base/EventPage" */
+    '<script src="js/index.js"></script>' .
+    /* create event page with event details and config. */
     '<script>' .
-      'var EventDetails = null;' .
-      'var EventConfig = ' . json_encode($EVENT_CONFIG) . ';' .
-    '</script>' .
-    /* Now start the action in a separate JS file for cachability. */
-    '<script src="js/unknown.js"></script>';
+    '(function () {
+      var EventPage = require(\'base/EventPage\');
+      var offcanvas = OffCanvas.getOffCanvas();
+      var eventpage = new EventPage({
+        eventDetails: null,
+        eventConfig: ' . json_encode($EVENT_CONFIG) . '
+      });
+      eventpage.on(\'render\', function () {
+        offcanvas.hide();
+      });
+    })();' .
+    '</script>';
 
   include_once 'template.inc.php';
 }
