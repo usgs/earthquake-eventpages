@@ -1,6 +1,5 @@
-/* global EventDetails, EventConfig, OffCanvas */
+/* global EventConfig, EventDetails, OffCanvas */
 'use strict';
-
 
 var EventPage = require('base/EventPage');
 

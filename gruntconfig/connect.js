@@ -7,10 +7,32 @@ var MOUNT_PATH = config.ini.MOUNT_PATH;
 var OFFSITE_HOST = config.ini.OFFSITE_HOST;
 
 
+var addMiddleware = function (connect, options, middlewares) {
+  middlewares.unshift(
+    require('compression')({
+      filter: function (req, res) {
+        var type = res.getHeader('Content-Type');
+        return (type+'').match(/(css|javascript)/);
+      }
+    }),
+    require('grunt-connect-rewrite/lib/utils').rewriteRequest,
+    require('grunt-connect-proxy/lib/utils').proxyRequest,
+    require('gateway')(options.base[0], {
+      '.php': 'php-cgi',
+      'env': {
+        'PHPRC': 'node_modules/hazdev-template/dist/conf/php.ini'
+      }
+    })
+  );
+  return middlewares;
+};
+
+
 var connect = {
   options: {
     hostname: '*'
   },
+
   proxies: [
     {
       context: '/theme/',
@@ -39,6 +61,7 @@ var connect = {
       changeOrigin: true
     }
   ],
+
   rules: (function () {
     var rules = {};
     // event page rewrites
@@ -56,19 +79,7 @@ var connect = {
       port: 8100,
       livereload: true,
       open: 'http://localhost:8100/index.php',
-      middleware: function (connect, options, middlewares) {
-        middlewares.unshift(
-          require('grunt-connect-rewrite/lib/utils').rewriteRequest,
-          require('grunt-connect-proxy/lib/utils').proxyRequest,
-          require('gateway')(options.base[0], {
-            '.php': 'php-cgi',
-            'env': {
-              'PHPRC': 'node_modules/hazdev-template/dist/conf/php.ini'
-            }
-          })
-        );
-        return middlewares;
-      }
+      middleware: addMiddleware
     }
   },
   test: {
@@ -88,19 +99,7 @@ var connect = {
       port: 8102,
       keepalive: true,
       open: 'http://localhost:8102/',
-      middleware: function (connect, options, middlewares) {
-        middlewares.unshift(
-          require('grunt-connect-rewrite/lib/utils').rewriteRequest,
-          require('grunt-connect-proxy/lib/utils').proxyRequest,
-          require('gateway')(options.base[0], {
-            '.php': 'php-cgi',
-            'env': {
-              'PHPRC': 'node_modules/hazdev-template/dist/conf/php.ini'
-            }
-          })
-        );
-        return middlewares;
-      }
+      middleware: addMiddleware
     }
   },
   template: {

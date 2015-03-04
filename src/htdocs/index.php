@@ -70,12 +70,12 @@ if (!isset($TEMPLATE)) {
   ';
 
   $FOOT =
-    /* Embed event details in an explicitly named define. */
+    /* create event page with event details and config. */
     '<script>' .
-      'var EventDetails = ' . json_encode($EVENT) . ';' .
       'var EventConfig = ' . json_encode($EVENT_CONFIG) . ';' .
+      'var EventDetails = ' . json_encode($EVENT) . ';' .
     '</script>' .
-    /* Now start the action in a separate JS file for cachability. */
+    /* this script creates EventPage using EventConfig, EventDetails */
     '<script src="js/index.js"></script>';
 
   // cache control headers

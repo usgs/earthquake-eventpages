@@ -17,13 +17,14 @@ if (!isset($TEMPLATE)) {
   $HEAD = '<link rel="stylesheet" href="css/index.css"/>';
 
   $FOOT =
-    /* Embed event details in an explicitly named define. */
+    /* create event page with event details and config. */
     '<script>' .
-      'var EventDetails = null;' .
       'var EventConfig = ' . json_encode($EVENT_CONFIG) . ';' .
+      'var EventDetails = null;' .
     '</script>' .
-    /* Now start the action in a separate JS file for cachability. */
-    '<script src="js/unknown.js"></script>';
+    /* this script creates EventPage using EventConfig, EventDetails */
+    '<script src="js/index.js"></script>';
+
 
   include_once 'template.inc.php';
 }

@@ -5,6 +5,7 @@ var EventModulePage = require('base/EventModulePage'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr'),
 
+    MouseOverLayer = require('map/MouseOverLayer'),
     ContoursLayer = require('./ContoursLayer'),
     ShakeMapStationLayer = require('./ShakeMapStationLayer');
 
@@ -124,7 +125,7 @@ InteractiveMap.prototype._setContentMarkup = function () {
 
     if (latitude >= 24.6 && latitude <= 50.0 && longitude >= -125.0 && longitude <= -65.0) {
       // Add faults layer, this is a US event
-      faultsLayer = new L.MouseOverLayer({
+      faultsLayer = new MouseOverLayer({
         tileUrl: 'http://earthquake.usgs.gov/basemap/tiles/faults/{z}/{x}/{y}.png',
         dataUrl: 'http://earthquake.usgs.gov/basemap/tiles/faults/{z}/{x}/{y}.grid.json?callback={cb}',
         tiptext: '{NAME}'

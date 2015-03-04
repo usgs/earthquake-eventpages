@@ -12,7 +12,8 @@ var copy = {
       '!**/*.js',
       '!**/*.scss',
       '!**/*.orig'
-    ]
+    ],
+    filter: 'isFile'
   },
   test: {
     expand: true,
@@ -21,7 +22,8 @@ var copy = {
     src: [
       '**/*',
       '!**/*.js'
-    ]
+    ],
+    filter: 'isFile'
   },
   dist: {
     expand: true,
@@ -31,7 +33,8 @@ var copy = {
       '**/*',
       '!**/*.js',
       '!**/*.css'
-    ]
+    ],
+    filter: 'isFile'
   },
 
 

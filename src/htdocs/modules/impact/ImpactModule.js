@@ -1,12 +1,7 @@
 'use strict';
 
 var EventModule = require('base/EventModule'),
-    Util = require('util/Util'),
-
-    DYFIFormPage = require('./DYFIFormPage'),
-    DYFIPage = require('./DYFIPage'),
-    PagerPage = require('./PagerPage'),
-    ShakeMapPage = require('./ShakeMapPage');
+    Util = require('util/Util');
 
 
 var DEFAULTS = {
@@ -14,8 +9,15 @@ var DEFAULTS = {
   hash: 'impact',
   cssUrl: 'modules/impact/index.css',
   pages: [
+
+  /**
+   * NOTE: pages that are bundled in the impact module must be added
+   * to the "browserify:impact" target.
+   */
+
     {
-      factory: DYFIPage,
+      className: 'impact/DYFIPage',
+      dependencyBundle: 'modules/impact/index.js',
       options: {
         title: 'Did You Feel It?',
         hash: 'dyfi'
@@ -23,14 +25,19 @@ var DEFAULTS = {
       productTypes: ['dyfi']
     },
     {
-      factory: DYFIFormPage,
+      className: 'impact/DYFIFormPage',
+      dependencyBundle: [
+        'modules/impact/index.js',
+        'lib/leaflet/leaflet.js'
+      ],
       options: {
         title: 'Tell Us!',
         hash: 'tellus'
       }
     },
     {
-      factory: ShakeMapPage,
+      className: 'impact/ShakeMapPage',
+      dependencyBundle: 'modules/impact/index.js',
       options: {
         title: 'Shakemap',
         hash: 'shakemap'
@@ -38,7 +45,8 @@ var DEFAULTS = {
       productTypes: ['shakemap']
     },
     {
-      factory: PagerPage,
+      className: 'impact/PagerPage',
+      dependencyBundle: 'modules/impact/index.js',
       options: {
         title: 'PAGER',
         hash: 'pager'

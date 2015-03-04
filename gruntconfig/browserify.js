@@ -7,6 +7,21 @@ var CWD = process.cwd(),
     NODE_MODULES = CWD + '/node_modules';
 
 
+var BUNDLED_DEPENDENCIES = [
+  './' + config.src + '/htdocs/modules/base/Attribution.js:base/Attribution',
+  './' + config.src + '/htdocs/modules/base/EventModulePage.js:base/EventModulePage',
+  './' + config.src + '/htdocs/modules/base/Formatter.js:base/Formatter',
+  './' + config.src + '/htdocs/modules/base/ImpactUtil.js:base/ImpactUtil',
+  './' + config.src + '/htdocs/modules/base/SummaryDetailsPage.js:base/SummaryDetailsPage',
+  NODE_MODULES + '/hazdev-accordion/src/accordion/Accordion.js:accordion/Accordion',
+  NODE_MODULES + '/hazdev-tablist/src/tablist/Tablist.js:tablist/TabList',
+  NODE_MODULES + '/hazdev-webutils/src/mvc/Collection.js:mvc/Collection',
+  NODE_MODULES + '/hazdev-webutils/src/mvc/DataTable.js:mvc/DataTable',
+  NODE_MODULES + '/hazdev-webutils/src/util/Util.js:util/Util',
+  NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
+];
+
+
 var browserify = {
   options: {
     browserifyOptions: {
@@ -27,18 +42,76 @@ var browserify = {
 
   // source bundles
   index: {
-    src: config.src + '/htdocs/js/index.js',
-    dest: config.build + '/' + config.src + '/htdocs/js/index.js'
+    src: [config.src + '/htdocs/js/index.js'],
+    dest: config.build + '/' + config.src + '/htdocs/js/index.js',
+    options: {
+      alias: BUNDLED_DEPENDENCIES
+    }
   },
-  unknown: {
-    src: config.src + '/htdocs/js/unknown.js',
-    dest: config.build + '/' + config.src + '/htdocs/js/unknown.js'
+
+  // bundle leaflet externally
+  leaflet: {
+    src: [],
+    dest: config.build + '/' + config.src + '/htdocs/lib/leaflet/leaflet.js',
+    options: {
+      alias: [
+        NODE_MODULES + '/leaflet/dist/leaflet-src.js:leaflet'
+      ]
+    }
   },
 
   // test bundle
   test: {
     src: config.test + '/test.js',
     dest: config.build + '/' + config.test + '/test.js'
+  },
+
+  summary: {
+    src: [],
+    dest: config.build + '/' + config.src + '/htdocs/modules/summary/index.js',
+    options: {
+      alias: [
+        // SummaryPage is already bundled in index above
+        'summary/InteractiveMap'
+      ].map(function(value) {
+        return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
+      }),
+      external: BUNDLED_DEPENDENCIES.concat(['leaflet'])
+    }
+  },
+
+  impact: {
+    src: [],
+    dest: config.build + '/' + config.src + '/htdocs/modules/impact/index.js',
+    options: {
+      alias: [
+        'impact/DYFIPage',
+        'impact/DYFIFormPage',
+        'impact/PagerPage',
+        'impact/ShakeMapPage'
+      ].map(function(value) {
+        return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
+      }),
+      external: BUNDLED_DEPENDENCIES.concat(['leaflet'])
+    }
+  },
+
+  scientific: {
+    src: [],
+    dest: config.build + '/' + config.src + '/htdocs/modules/scientific/index.js',
+    options: {
+      alias: [
+        'scientific/FiniteFaultPage',
+        'scientific/FocalMechanismPage',
+        'scientific/HypocenterPage',
+        'scientific/IrisProductsPage',
+        'scientific/MomentTensorPage',
+        'scientific/ScientificSummaryPage'
+      ].map(function(value) {
+        return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
+      }),
+      external: BUNDLED_DEPENDENCIES
+    }
   }
 
 };

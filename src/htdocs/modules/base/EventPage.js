@@ -77,36 +77,62 @@ var EventPage = function (options) {
       document.querySelector('.event-footer') ||
       document.createElement('footer');
 
-  this._eventDetails = options.eventDetails || {};
+  this._eventDetails = options.eventDetails || null;
   this._eventConfig = options.eventConfig || null;
 
-  this._defaultPage = options.hasOwnProperty('defaultPage') ?
-      options.defaultPage : DEFAULTS.defaultPage;
+  this._defaultPage = options.defaultPage || this._getDefaultPage();
 
   this._maxCacheLength = options.maxCacheLength || DEFAULTS.maxCacheLength;
   this._cache = [];
 
-  this._modules = options.modules || [
-    new SummaryModule({
-        'eventDetails': this._eventDetails,
-        'eventConfig': this._eventConfig,
-        'eventPage': this
-    }),
-    new ImpactModule({
-      'eventDetails': this._eventDetails,
-      'eventConfig': this._eventConfig,
-      'eventPage': this
-    }),
-    new ScientificModule({
-      'eventDetails': this._eventDetails,
-      'eventConfig': this._eventConfig,
-      'eventPage': this
-    })
-  ];
+  this._modules = options.modules || this._getDefaultModules();
 
   this._buildContributorArray();
 
   this._initialize();
+};
+
+EventPage.prototype._getDefaultPage = function () {
+  if (this._eventDetails === null) {
+    return 'impact_tellus';
+  } else {
+    return 'general_summary';
+  }
+};
+
+EventPage.prototype._getDefaultModules = function () {
+  var eventConfig = this._eventConfig,
+      eventDetails = this._eventDetails;
+
+  if (eventDetails === null) {
+    // unknown event
+    return [
+      new ImpactModule({
+        'eventDetails': eventDetails,
+        'eventConfig': eventConfig,
+        'eventPage': this
+      })
+    ];
+  } else {
+    // regular event page
+    return [
+      new SummaryModule({
+          'eventDetails': eventDetails,
+          'eventConfig': eventConfig,
+          'eventPage': this
+      }),
+      new ImpactModule({
+        'eventDetails': eventDetails,
+        'eventConfig': eventConfig,
+        'eventPage': this
+      }),
+      new ScientificModule({
+        'eventDetails': eventDetails,
+        'eventConfig': eventConfig,
+        'eventPage': this
+      })
+    ];
+  }
 };
 
 EventPage.prototype.destroy = function () {

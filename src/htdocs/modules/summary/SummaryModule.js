@@ -3,7 +3,6 @@
 var EventModule = require('base/EventModule'),
     Util = require('util/Util'),
 
-    InteractiveMap = require('./InteractiveMap'),
     SummaryPage = require('./SummaryPage');
 
 
@@ -12,6 +11,12 @@ var DEFAULTS = {
   hash: 'general',
   cssUrl: 'modules/summary/index.css',
   pages: [
+
+  /**
+   * NOTE: pages that are bundled in the summary module must be added
+   * to the "browserify:summary" target.
+   */
+
     {
       factory: SummaryPage,
       options: {
@@ -25,7 +30,11 @@ var DEFAULTS = {
       productTypes: ['origin', 'geoserve']
     },
     {
-      factory: InteractiveMap,
+      className: 'summary/InteractiveMap',
+      dependencyBundle: [
+        'modules/summary/index.js',
+        'lib/leaflet/leaflet.js'
+      ],
       options: {
         title: 'Interactive Map',
         hash: 'map'

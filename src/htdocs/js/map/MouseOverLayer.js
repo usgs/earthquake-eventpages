@@ -2,7 +2,7 @@
 
 var L = require('leaflet'),
     UtfGrid = require('./UtfGrid'),
-    Util = require('Util');
+    Util = require('util/Util');
 
 
 

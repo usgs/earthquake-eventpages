@@ -1,14 +1,7 @@
 'use strict';
 
 var EventModule = require('base/EventModule'),
-    Util = require('util/Util'),
-
-    FiniteFaultPage = require('./FiniteFaultPage'),
-    FocalMechanismPage = require('./FocalMechanismPage'),
-    HypocenterPage = require('./HypocenterPage'),
-    IrisProductsPage = require('./IrisProductsPage'),
-    MomentTensorPage = require('./MomentTensorPage'),
-    ScientificSummaryPage = require('./ScientificSummaryPage');
+    Util = require('util/Util');
 
 
 var DEFAULTS = {
@@ -16,8 +9,15 @@ var DEFAULTS = {
   hash: 'scientific',
   cssUrl: 'modules/scientific/index.css',
   pages: [
+
+  /**
+   * NOTE: pages that are bundled in the scientific module must be added
+   * to the "browserify:scientific" target.
+   */
+
     {
-      factory: ScientificSummaryPage,
+      className: 'scientific/ScientificSummaryPage',
+      dependencyBundle: 'modules/scientific/index.js',
       options: {
         title: 'Summary',
         hash: 'summary'
@@ -31,7 +31,8 @@ var DEFAULTS = {
       ]
     },
     {
-      factory: HypocenterPage,
+      className: 'scientific/HypocenterPage',
+      dependencyBundle: 'modules/scientific/index.js',
       options: {
         title: 'Origin',
         hash: 'origin'
@@ -42,7 +43,8 @@ var DEFAULTS = {
       ]
     },
     {
-      factory: MomentTensorPage,
+      className: 'scientific/MomentTensorPage',
+      dependencyBundle: 'modules/scientific/index.js',
       options: {
         title: 'Moment Tensor',
         hash: 'tensor'
@@ -50,7 +52,8 @@ var DEFAULTS = {
       productTypes: ['moment-tensor']
     },
     {
-      factory: FocalMechanismPage,
+      className: 'scientific/FocalMechanismPage',
+      dependencyBundle: 'modules/scientific/index.js',
       options: {
         title: 'Focal Mechanism',
         hash: 'mechanism'
@@ -58,7 +61,8 @@ var DEFAULTS = {
       productTypes: ['focal-mechanism']
     },
     {
-      factory: FiniteFaultPage,
+      className: 'scientific/FiniteFaultPage',
+      dependencyBundle: 'modules/scientific/index.js',
       options: {
         title: 'Finite Fault',
         hash: 'finitefault'
@@ -66,7 +70,8 @@ var DEFAULTS = {
       productTypes: ['finite-fault']
     },
     {
-      factory: IrisProductsPage,
+      className: 'scientific/IrisProductsPage',
+      dependencyBundle: 'modules/scientific/index.js',
       options: {
         title: 'Waveforms',
         hash: 'waveforms'
