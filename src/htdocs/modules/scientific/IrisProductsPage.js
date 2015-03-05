@@ -10,7 +10,7 @@ var IRIS_SPUD_URL = 'http://www.iris.edu/spud/event/';
 var IRIS_WILBER_URL = 'http://www.iris.edu/wilber3/find_stations/';
 
 var DEFAULTS = {
-  title: 'Waveforms',
+  title: 'IRIS Waveforms',
   hash: 'waveforms'
 };
 
@@ -83,11 +83,11 @@ IrisProductsPage.prototype.getIrisLinks = function (eventid) {
   return '<dl class="iris-products vertical">' +
       '<dt>' +
       '<a href="' + IRIS_WILBER_URL + eventid + '" target="_blank">' +
-        'Seismic Waveform Data (Wilber)' +
+        'IRIS Seismic Waveform Data (Wilber 3)' +
       '</a>' +
       '</dt>' +
       '<dd>' +
-        'Wilber locates stations in operation at the time of the event,' +
+        'Wilber 3 locates stations in operation at the time of the event,' +
         ' allows users to filter stations, preview waveform data, and' +
         ' view record section plots. Data can be downloaded in a' +
         ' number of formats including <abbr title="Seismic Analysis' +
@@ -97,7 +97,7 @@ IrisProductsPage.prototype.getIrisLinks = function (eventid) {
 
       '<dt>' +
         '<a href="' + IRIS_SPUD_URL + eventid + '" target="_blank">' +
-          'Searchable Product Depository (SPUD) Event Page' +
+          'IRIS Searchable Product Depository (SPUD) Event Page' +
         '</a>' +
       '</dt>' +
       '<dd>' +
