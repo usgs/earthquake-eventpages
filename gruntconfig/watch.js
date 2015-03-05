@@ -3,6 +3,17 @@
 var config = require('./config');
 
 var watch = {
+  static: {
+    files: [
+      config.src + '/htdocs/**/*.php',
+      config.src + '/htdocs/**/*.html',
+      config.src + '/htdocs/img/**/*.{png,jpg,jpeg,gif}',
+      config.src + '/' + config.lib + '/inc/**/*.php'
+    ],
+    tasks: [
+      'copy:build'
+    ]
+  },
   scripts: {
     files: [config.src + '/htdocs/**/*.js'],
     tasks: ['concurrent:scripts', 'mocha_phantomjs'],
@@ -29,11 +40,11 @@ var watch = {
       livereload: true
     },
     files: [
-      config.src + '/htdocs/**/*.php',
-      config.src + '/htdocs/**/*.html',
-      config.src + '/htdocs/img/**/*.{png,jpg,jpeg,gif}',
-      config.tmp + '/**/*.css',
-      config.src + '/' + config.lib + '/inc/**/*.php'
+      config.build + '/' + config.src + '/htdocs/**/*.php',
+      config.build + '/' + config.src + '/htdocs/**/*.html',
+      config.build + '/' + config.src + '/htdocs/img/**/*.{png,jpg,jpeg,gif}',
+      config.build + '/' + config.src + '/**/*.css',
+      config.build + '/' + config.src + '/' + config.lib + '/inc/**/*.php'
     ]
   },
   gruntfile: {
