@@ -57,7 +57,7 @@ if (!isset($TEMPLATE)) {
   $GEOMETRY = $EVENT['geometry'];
 
   if ($PROPERTIES['net'] . $PROPERTIES['code'] !== $eventid) {
-    header('HTTP/1.1 302 Moved Permanently');
+    header('HTTP/1.1 301 Moved Permanently');
     header('Location: ' . $PROPERTIES['url']);
   }
 
