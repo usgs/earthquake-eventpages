@@ -11,7 +11,8 @@ var config = {
   ini: iniConfig,
   lib: 'lib',
   src: 'src',
-  test: 'test'
+  test: 'test',
+  liveReloadPort: 8109
 };
 
 module.exports = config;

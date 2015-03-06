@@ -77,7 +77,7 @@ var connect = {
     options: {
       base: [config.build + '/' + config.src + '/htdocs'],
       port: 8100,
-      livereload: true,
+      livereload: config.liveReloadPort,
       open: 'http://localhost:8100/index.php',
       middleware: addMiddleware
     }

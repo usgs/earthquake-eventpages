@@ -30,14 +30,11 @@ var watch = {
       config.test + '/*.html',
       config.test + '/**/*.js'
     ],
-    tasks: ['concurrent:tests', 'mocha_phantomjs'],
-    options: {
-      livereload: true
-    }
+    tasks: ['concurrent:tests', 'mocha_phantomjs']
   },
   livereload: {
     options: {
-      livereload: true
+      livereload: config.liveReloadPort
     },
     files: [
       config.build + '/' + config.src + '/htdocs/**/*.php',
