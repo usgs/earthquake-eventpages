@@ -5,6 +5,10 @@ if (!isset($TEMPLATE)) {
   // Defines the $CONFIG hash of configuration variables
   include_once '../conf/config.inc.php';
 
+  $HEAD = '
+    <link rel="stylesheet" href="css/index.css"/>
+  ';
+
   $eventid = param('eventid');
 
   if ($eventid == null) {
@@ -39,10 +43,14 @@ if (!isset($TEMPLATE)) {
     if ($httpCode === 404 || $httpCode === 204) {
       // event not found
       header('HTTP/1.0 404 Not Found');
+    } else if ($httpCode === 410) {
+      header('HTTP/1.0 410 Gone');
+      $TITLE = 'Event Deleted';
+      include_once 'template.inc.php';
     } else {
       // other, unexpected return
       header('HTTP/1.0 503 Service Unavailable');
-      echo 'Unable to retrieve event information (' . $httpCode . ')';
+      echo 'Aable to retrieve event information (' . $httpCode . ')';
     }
     exit(-1);
   }
@@ -69,10 +77,6 @@ if (!isset($TEMPLATE)) {
     'KML_STUB' => isset($CONFIG['KML_STUB']) ? $CONFIG['KML_STUB'] : null,
     'DYFI_RESPONSE_URL' => $CONFIG['DYFI_RESPONSE_URL']
   );
-
-  $HEAD = '
-    <link rel="stylesheet" href="css/index.css"/>
-  ';
 
   $FOOT =
     /* create event page with event details and config. */
@@ -103,5 +107,9 @@ if (!isset($TEMPLATE)) {
   include_once 'template.inc.php';
 }
 
-include_once '../lib/inc/html.inc.php';
+if ($httpCode != 410) {
+  include_once '../lib/inc/html.inc.php';
+} else {
+  print '<p class="alert error">The requested event has been deleted.</p>';
+}
 ?>
