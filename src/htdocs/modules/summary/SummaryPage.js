@@ -114,14 +114,16 @@ SummaryPage.prototype._setContentMarkup = function () {
 
     if (originSource && originCode) {
       // Loop backwards, this way if not found, default to using first product
-      for (i = allNearbyCities.length - 1; i >= 0; i--) {
-        preferredNearbyCities = allNearbyCities[i];
-        if (preferredNearbyCities.properties.eventsource === originSource &&
-            preferredNearbyCities.properties.eventsourcecode === originCode) {
+      for (i = 0; i < allNearbyCities.length; i++) {
+        if (allNearbyCities[i].properties.eventsource === originSource &&
+            allNearbyCities[i].properties.eventsourcecode === originCode) {
+          preferredNearbyCities = allNearbyCities[i];
           break;
         }
       }
-    } else {
+    }
+
+    if (preferredNearbyCities === null) {
       // Just use first nearby-cities
       preferredNearbyCities = allNearbyCities[0];
     }
