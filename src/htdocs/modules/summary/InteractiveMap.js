@@ -231,7 +231,15 @@ InteractiveMap.prototype._bindCloseEvent = function () {
   this._closeButton.addEventListener('click', function () {
     window.history.go(-1);
   });
+  /*
+  / If key down is used it causes problems with loading images on the
+  / general summary page. 
+  */
+  window.addEventListener('keyup', function(e) {
+    if (e.keyCode === 27) {
+      window.history.go(-1);
+    }
+  });
 };
-
 
 module.exports = InteractiveMap;
