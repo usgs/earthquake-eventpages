@@ -6,4 +6,3 @@ node_modules
 *.sublime-workspace
 src/conf/config.ini*
 src/conf/httpd.conf
-.tmp
