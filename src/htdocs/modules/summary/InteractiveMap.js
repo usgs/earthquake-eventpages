@@ -233,7 +233,7 @@ InteractiveMap.prototype._bindCloseEvent = function () {
   });
   /*
   / If key down is used it causes problems with loading images on the
-  / general summary page. 
+  / general summary page.
   */
   window.addEventListener('keyup', function(e) {
     if (e.keyCode === 27) {
