@@ -116,6 +116,18 @@ var RESPONSE_DATA_SORTS = [
     descending: true
   },
   {
+    id: 'zip',
+    title: 'Zip Code',
+    sortBy: function (response) {
+      if (response.zip !== '') {
+        return response.zip;
+      }
+      else {
+        return response.name;
+      }
+    }
+  },
+  {
     id: 'distance',
     title: 'Distance',
     sortBy: function (response) {
