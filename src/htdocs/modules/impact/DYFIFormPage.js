@@ -57,6 +57,12 @@ var __create_location_questions = function (questionInfo, container,
     }
   };
 
+  questions.ciim_mapAddress = {
+    getAnswers: function () {
+      return {value: curLoc.place};
+    }
+  };
+
   locationView = LocationView({
     callback: function (locationObject) {
       var markup = [],
