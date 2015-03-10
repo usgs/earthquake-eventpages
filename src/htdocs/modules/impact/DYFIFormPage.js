@@ -332,6 +332,8 @@ DYFIFormPage.prototype._onSubmit = function (/*event*//*, domElement*/) {
   this._dyfiHiddenForm.submit();
 
   this._dialog.hide();
+  this._dialog.destroy();
+  this._dialog = null;
 };
 
 DYFIFormPage.prototype._onCancel = function (/*event*//*, domElement*/) {
