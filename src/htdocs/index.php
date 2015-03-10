@@ -43,7 +43,7 @@ if (!isset($TEMPLATE)) {
     if ($httpCode === 404 || $httpCode === 204) {
       // event not found
       header('HTTP/1.0 404 Not Found');
-    } else if ($httpCode === 410) {
+    } else if ($httpCode === 409) {
       header('HTTP/1.0 410 Gone');
       $TITLE = 'Event Deleted';
       include_once 'template.inc.php';
@@ -107,7 +107,7 @@ if (!isset($TEMPLATE)) {
   include_once 'template.inc.php';
 }
 
-if ($httpCode != 410) {
+if ($httpCode != 409) {
   include_once '../lib/inc/html.inc.php';
 } else {
   print '<p class="alert error">The requested event has been deleted.</p>';
