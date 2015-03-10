@@ -73,7 +73,7 @@ var DEFAULTS = {
       className: 'scientific/IrisProductsPage',
       dependencyBundle: 'modules/scientific/index.js',
       options: {
-        title: 'IRIS Waveforms',
+        title: 'Waveforms',
         hash: 'waveforms'
       }
     }

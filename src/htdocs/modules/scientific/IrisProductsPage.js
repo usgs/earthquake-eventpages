@@ -10,7 +10,7 @@ var IRIS_SPUD_URL = 'http://www.iris.edu/spud/event/';
 var IRIS_WILBER_URL = 'http://www.iris.edu/wilber3/find_stations/';
 
 var DEFAULTS = {
-  title: 'IRIS Waveforms',
+  title: 'Waveforms',
   hash: 'waveforms'
 };
 
