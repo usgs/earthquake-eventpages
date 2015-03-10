@@ -32,6 +32,20 @@ var EventModulePage = function (options) {
   this._initialize();
 };
 
+/**
+ * Called after page content is added to the event page.
+ */
+EventModulePage.prototype.onAdd = function () {
+
+};
+
+/**
+ * Called before page content is removed from the event page.
+ */
+EventModulePage.prototype.onRemove = function () {
+
+};
+
 EventModulePage.prototype.destroy = function () {
   // TODO
 };
