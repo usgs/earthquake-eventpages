@@ -34,6 +34,16 @@ InteractiveMap.prototype.destroy = function () {
   if (this._eventPage) {
     this._eventPage.off('render', this._onAfterRender, this);
   }
+  this._closeButton.removeEventListener('click', this._onClick);
+
+};
+
+InteractiveMap.prototype.onAdd = function () {
+  window.addEventListener('keyup', this._onKeyUp);
+};
+
+InteractiveMap.prototype.onRemove = function () {
+  window.removeEventListener('keyup', this._onKeyUp);
 };
 
 InteractiveMap.prototype._setContentMarkup = function () {
@@ -67,7 +77,10 @@ InteractiveMap.prototype._setContentMarkup = function () {
   _el.setAttribute('style', 'height:100%;');
 
   this._closeButton.setAttribute('title', 'Close');
-  this._bindCloseEvent();
+  this._onClick = this._onClick.bind(this);
+  this._onKeyUp = this._onKeyUp.bind(this);
+
+  this._closeButton.addEventListener('click', this._onClick);
 
   this._map = map = new L.Map(_el, {
     center: [0.0, 0.0],
@@ -227,19 +240,14 @@ InteractiveMap.prototype._onAfterRender = function () {
   }
 };
 
-InteractiveMap.prototype._bindCloseEvent = function () {
-  this._closeButton.addEventListener('click', function () {
+InteractiveMap.prototype._onClick = function () {
+  window.history.go(-1);
+};
+
+InteractiveMap.prototype._onKeyUp = function (e) {
+  if (e.keyCode === 27) {
     window.history.go(-1);
-  });
-  /*
-  / If key down is used it causes problems with loading images on the
-  / general summary page.
-  */
-  window.addEventListener('keyup', function(e) {
-    if (e.keyCode === 27) {
-      window.history.go(-1);
-    }
-  });
+  }
 };
 
 module.exports = InteractiveMap;
