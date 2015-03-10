@@ -204,6 +204,18 @@ var DYFIFormPage = function (options) {
 
 DYFIFormPage.prototype = Object.create(EventModulePage.prototype);
 
+
+DYFIFormPage.prototype.onAdd = function () {
+  if (this._dialog !== null && this._dialog !== 'pending') {
+    this._dialog.show();
+  }
+};
+
+DYFIFormPage.prototype.onRemove = function () {
+  this._dialog.hide(true);
+};
+
+
 DYFIFormPage.prototype.destroy = function () {
   this._questions.ciim_mapLat.off('change', this._updateSubmitEnabled);
   this._questions.ciim_mapLon.off('change', this._updateSubmitEnabled);
