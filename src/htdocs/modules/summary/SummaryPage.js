@@ -51,7 +51,7 @@ SummaryPage.prototype._setContentMarkup = function () {
   markup.push(
     '<div class="row">' +
       '<div class="column one-of-two">' +
-        '<h3>Event Location</h3>' +
+        '<h3>Location</h3>' +
         '<small class="attribution">Data Source ' +
           (originAuthor === magnitudeAuthor ?
             Attribution.getContributorReference(originAuthor) :
@@ -250,7 +250,7 @@ SummaryPage.prototype._getTimeMarkup = function () {
 
   markup.push(
       '<div class="summary-time">' +
-      '<h3>Event Time</h3>' +
+      '<h3>Time</h3>' +
       '<ol class="no-style">' +
       '<li>' +
       this._formatDate(time, 0) +
