@@ -84,6 +84,7 @@ var EventPage = function (options) {
 
   this._maxCacheLength = options.maxCacheLength || DEFAULTS.maxCacheLength;
   this._cache = [];
+  this._currentPage = null;
 
   this._modules = options.modules || this._getDefaultModules();
 
@@ -150,6 +151,7 @@ EventPage.prototype.destroy = function () {
 
   this._cache = null;
   this._maxCacheLength = null;
+  this._currentPage = null;
 
   this._defaultPage = null;
 
@@ -377,6 +379,10 @@ EventPage.prototype._getCacheIndex = function (hash) {
 };
 
 EventPage.prototype._renderPage = function (hash, page) {
+  if (this._currentPage !== null) {
+      this._currentPage.onRemove();
+  }
+
   // Update the page rendering
   this._container.innerHTML = '';
   this._container.appendChild(page.getHeader());
@@ -385,6 +391,10 @@ EventPage.prototype._renderPage = function (hash, page) {
 
   // Update cache
   this.cachePage(hash, page);
+
+  // track current page
+  this._currentPage = page;
+  this._currentPage.onAdd();
 
   // Notify listeners
   this.trigger('render', {hash: hash, page: page});
