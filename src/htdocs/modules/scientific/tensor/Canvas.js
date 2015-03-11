@@ -121,6 +121,55 @@ Canvas.prototype.line = function (x, y, stroke, fill) {
 };
 
 /**
+ * Draw text.
+ *
+ * @param text {String}
+ *        text to draw.
+ * @param font {String}
+ *        font to use, e.g. '30px Arial'.
+ * @param x {Number}
+ *        x coordinate.
+ * @param y {Number}
+ *        y coordinate.
+ * @param stroke {String}
+ *        strokeStyle, or null to not stroke.
+ * @param fill {String}
+ *        fillStyle, or null to not fill.
+ * @param align {String} default 'left'
+ *        where to align text around x.
+ *        'left' starts at x.
+ *        'center' centers around x.
+ *        'right' ends at x.
+ */
+Canvas.prototype.text = function (text, font, x, y, stroke, fill, align) {
+  var c = this.context,
+      size;
+
+  align = align || 'left';
+
+  c.font = font;
+  if (align !== 'left') {
+    size = c.measureText(text);
+    if (align === 'center') {
+      x = x - size.width / 2;
+    } else if (align === 'right') {
+      x = x - size.width;
+    }
+  }
+
+  if (stroke) {
+    c.strokeStyle = stroke;
+    c.strokeText(text, x, y);
+  }
+
+  if (fill) {
+    c.fillStyle = fill;
+    c.fillText(text, x, y);
+  }
+};
+
+
+/**
  * Stroke and fill the current path.
  *
  * @param context {Object}
