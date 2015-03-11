@@ -1,0 +1,44 @@
+.leaflet-control-background,
+.leaflet-control-scale { /* This is baked into Leaflet core. */
+    padding:6px;
+    background-color:#666;
+    background-color:rgba(0,0,0,0.25);
+    color:#FFF;
+    font-size:10px;
+    text-shadow:1px 1px 1px #333;
+    -webkit-border-radius:7px;
+    -moz-border-radius:7px;
+    border-radius:7px;
+}
+
+.summary-interactive-map .leaflet-control-scale {
+  float: left;
+}
+
+.summary-interactive-map .leaflet-control-scale-line {
+  font-size: 8px;
+}
+
+.summary-interactive-map .leaflet-control-scale-line {
+  border: 2px solid #f5f5f5;
+  border-top:0;
+  color: #fff;
+  line-height: 1;
+  text-shadow: 1px 1px 1px #333;
+  background-color: transparent;
+  /** override leaflet box shadow */
+  box-shadow:none !important;
+}
+
+.summary-interactive-map .leaflet-control-scale-line:nth-child(2) {
+  border-top: 2px solid #f5f5f5;
+  padding-top: 1px;
+  border-bottom: 0px;
+  margin-top: -2px;
+}
+
+.summary-interactive-map .leaflet-control-scale.leaflet-control {
+  margin-bottom: 10px;
+  margin-left: 10px;
+  vertical-align: bottom;
+}
