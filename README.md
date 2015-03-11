@@ -20,15 +20,15 @@ Getting Started
 
 ### Example Usage ###
 1. Run grunt from the install directory.
-1. In the browser URL 
-   Change localhost:8080 to localhost:8080/?eventid=EVENTID
+1. In the browser URL
+   Change localhost:8100 to localhost:8100/?eventid=EVENTID
    where EVENTID is the id of a specific event. Examples can be found by
    going to earthquake.usgs.gov and clicking on any earthquake under significant
-   earthquakes, then pulling the id from the URL.  
-   EXAMPLE: localhost:8080/?eventid=usb000kw1x
+   earthquakes, then pulling the id from the URL.
+   EXAMPLE: localhost:8100/?eventid=usb000kw1x
 
 ### Notes ###
-1. This application uses the earthquake responsive template found at  
+1. This application uses the earthquake responsive template found at
    https://github.com/usgs/hazdev-template.git
    The responsive template dependency is not bundled during build, so sites
    can configure their theme, and must be installed before this application
