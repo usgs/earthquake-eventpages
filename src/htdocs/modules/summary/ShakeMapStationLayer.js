@@ -22,14 +22,25 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
         var p = feature.properties,
             romanIntensity = ImpactUtil.translateMmi(p.intensity);
 
-        return L.marker(latlng, {
-          icon: L.divIcon({
-            className: 'station-layer-icon station-mmi'+romanIntensity+'',
-            iconSize: [14, 10],
-            iconAnchor: [7, 8],
-            popupAnchor: [0, -4]
-          })
-        });
+        if (p.network === 'DYFI') {
+          return L.marker(latlng, {
+            icon: L.divIcon({
+              className: 'dyfi-layer-icon dyfi-station-mmi'+romanIntensity+'',
+              iconSize: [14, 14],
+              iconAnchor: [7, 7],
+              popupAnchor: [0, 0]
+            })
+          });
+        } else {
+          return L.marker(latlng, {
+            icon: L.divIcon({
+              className: 'station-layer-icon station-mmi'+romanIntensity+'',
+              iconSize: [14, 10],
+              iconAnchor: [7, 8],
+              popupAnchor: [0, -4]
+            })
+          });
+        }
       },
       onEachFeature: function (feature, layer) {
         layer.options.title = _this._formatTitle(feature, true);

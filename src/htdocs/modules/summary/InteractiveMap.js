@@ -162,40 +162,7 @@ InteractiveMap.prototype._setContentMarkup = function () {
       this._event.properties.mag
     ].join(''));
     map.addLayer(epicenterMarker);
-    if (this._event.properties.products.geoserve) {
-      Xhr.ajax({
-        url: this._event.properties.products.geoserve[0].contents['geoserve.json'].url,
-        success: function (data) {
-          var cities = data.cities,
-              numCities = cities.length,
-              i = null,
-              city = null,
-              cityMarker = null;
 
-          for (i = 0; i < numCities; i++) {
-            city = cities[i];
-            cityMarker = new L.CircleMarker([city.latitude, city.longitude], {
-              stroke: true,
-              color: '#333',
-              weight: 1,
-              opacity: 1.0,
-              fill: true,
-              fillColor: '#eee',
-              fillOpacity: 1.0,
-              radius: 5
-            });
-
-            cityMarker.bindPopup([
-              city.name, ' ',
-              '<span class="city-distance">',
-                city.distance, 'km from epicenter',
-              '</span>'
-            ].join(''));
-            map.addLayer(cityMarker);
-          }
-        }
-      });
-    }
     // Adds shake map contours data to map
     if (this._event.properties.products.shakemap) {
       var contourLayer = null,
