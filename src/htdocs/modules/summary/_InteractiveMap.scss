@@ -1,4 +1,6 @@
 @import '_ShakeMapStationLayer';
+@import 'htdocs/css/_MouseOverLayer';
+@import 'htdocs/css/_MousePosition';
 
 .summary-interactive-map-wrapper {
   // these rules are applied in JS see InteractiveMap

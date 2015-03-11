@@ -11,15 +11,15 @@
     border-radius:7px;
 }
 
-.summary-interactive-map .leaflet-control-scale {
+.leaflet-control-scale {
   float: left;
 }
 
-.summary-interactive-map .leaflet-control-scale-line {
+.leaflet-control-scale-line {
   font-size: 8px;
 }
 
-.summary-interactive-map .leaflet-control-scale-line {
+.leaflet-control-scale-line {
   border: 2px solid #f5f5f5;
   border-top:0;
   color: #fff;
@@ -30,14 +30,14 @@
   box-shadow:none !important;
 }
 
-.summary-interactive-map .leaflet-control-scale-line:nth-child(2) {
+.leaflet-control-scale-line:nth-child(2) {
   border-top: 2px solid #f5f5f5;
   padding-top: 1px;
   border-bottom: 0px;
   margin-top: -2px;
 }
 
-.summary-interactive-map .leaflet-control-scale.leaflet-control {
+.leaflet-control-scale.leaflet-control {
   margin-bottom: 10px;
   margin-left: 10px;
   vertical-align: bottom;
