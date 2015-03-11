@@ -62,6 +62,20 @@ FiniteFaultPage.prototype.getDetailsContent = function (product) {
   this._content.appendChild(el);
 };
 
+FiniteFaultPage.prototype._getSummaryMarkup = function (product) {
+  var basemap = product.contents['basemap.png'];
+
+  return '<ul>' +
+        '<li class="image">' +
+          '<img src="' + basemap.url + '" alt="Finite Fault" />' +
+        '</li>' +
+        '<li>' +
+          Attribution.getContributorReference(product.source) +
+          '<abbr title="Finite Fault Data Source">Source</abbr>' +
+        '</li>' +
+      '</ul>';
+};
+
 
 // return constructor
 module.exports = FiniteFaultPage;

@@ -4,8 +4,6 @@ var EventModulePage = require('base/EventModulePage'),
     Formatter = require('base/Formatter'),
     Util = require('util/Util'),
 
-    HypocenterPage = require('./HypocenterPage'),
-    BeachBall = require('./tensor/BeachBall'),
     Tensor = require('./tensor/Tensor');
 
 
@@ -30,193 +28,65 @@ var ScientificSummaryPage = function (options) {
 // extend EventModulePage
 ScientificSummaryPage.prototype = Object.create(EventModulePage.prototype);
 
-
 /**
  * Render page content.
  */
 ScientificSummaryPage.prototype._setContentMarkup = function () {
-  var content = this.getContent(),
-      mainCol,
-      sideCol,
-      rest,
-      el;
+  var products = this._options.eventDetails.properties.products,
+      product;
 
-  // set layout
-  content.innerHTML = [
-    '<div class="row clearfix">',
-      '<div class="mainCol column two-of-three"></div>',
-      '<div class="sideCol column one-of-three"></div>',
-    '</div>',
-    '<div class="rest"></div>'
-  ].join('');
-  mainCol = content.querySelector('.mainCol');
-  sideCol = content.querySelector('.sideCol');
-  rest = content.querySelector('.rest');
+  // Hypocenter content
+  if (products.hasOwnProperty('origin')) {
+    product = products.origin[0];
+    this._getPreferredSummaryMarkup(product, 'scientific_origin', 'Origin');
+  }
 
-  // main column content
-  el = this.getLocationSummary();
-  if (el !== null) {
-    mainCol.appendChild(el);
+  // Moment Tensor content
+  if (products.hasOwnProperty('moment-tensor')) {
+    product = Tensor.fromProduct(products['moment-tensor'][0]);
+    this._getPreferredSummaryMarkup(product, 'scientific_tensor', 'Moment Tensor');
   }
-  // side column content
-  el = this.getBeachballSummary();
-  if (el !== null) {
-    sideCol.appendChild(el);
+
+  // Focal Mechanism content
+  if (products.hasOwnProperty('focal-mechanism')) {
+    product = Tensor.fromProduct(products['focal-mechanism'][0]);
+    this._getPreferredSummaryMarkup(product, 'scientific_mechanism', 'Focal Mechanism');
   }
-  el = this.getFiniteFaultSummary();
-  if (el !== null) {
-    sideCol.appendChild(el);
+
+  // Finite Fault content
+  if (products.hasOwnProperty('finite-fault')) {
+    product = products['finite-fault'][0];
+    this._getPreferredSummaryMarkup(product, 'scientific_finitefault', 'Finite Fault');
   }
-  // rest content
-  el = this.getText();
-  if (el !== null) {
-    rest.appendChild(el);
-  }
-  el = this.getLinks();
-  if (el !== null) {
-    rest.appendChild(el);
-  }
+
+  // scitech-text content
+  this.getText();
+
+  // scitech-links content
+  this.getLinks();
 };
 
-ScientificSummaryPage.prototype.getProducts = function () {
-  var products = EventModulePage.prototype.getProducts.call(this),
-      toshow = [],
-      show = {},
-      key, product;
+ScientificSummaryPage.prototype._getPreferredSummaryMarkup = function (product, hash, name) {
+  var preferredProductMarkup = document.createElement('section');
 
-  for ( key in products ) {
-    product = products[key];
-    if (!(product.type in show)) {
-      show[product.type] = '';
-      toshow.push(product);
+  this._options.module.getPage(hash, function (page) {
+    var products = page.getProducts(),
+        preferredLink = document.createElement('a');
+
+    preferredProductMarkup.innerHTML = '<h3>' + name + '</h3>';
+    preferredProductMarkup.appendChild(page.buildSummaryMarkup(product));
+
+    // Add link to product-summary page when more than one product exists
+    if (products.length > 1) {
+      preferredLink.href = '#' + hash;
+      preferredLink.className = 'view-all';
+      preferredLink.innerHTML = 'View all ' + name + 's (' + products.length +
+          ' total)';
+      preferredProductMarkup.appendChild(preferredLink);
     }
-  }
+  });
 
-  return toshow;
-};
-
-/**
- * Get a summary of the preferred location.
- *
- * @return {DOMElement} element with preferred location information.
- */
-ScientificSummaryPage.prototype.getLocationSummary = function () {
-  var products = this._event.properties.products,
-      origins = products.origin,
-      originEl = null;
-  if (origins) {
-    originEl = document.createElement('div');
-    originEl.className = 'location';
-
-    originEl.innerHTML = [
-      '<a href="#scientific_origin"><h3>Origin</h3></a>',
-      HypocenterPage.prototype.getOriginDetail.call(this, origins[0]),
-      '<div><a href="#scientific_origin">',
-        'View all locations, magnitudes, phases, and arrivals.',
-      '</a></div>'
-    ].join('');
-
-    HypocenterPage.prototype.getFeString.call(this, origins[0],
-        function (feString) {
-      var feContainer = originEl.querySelector('.fe-info');
-      if (feContainer) {
-        feContainer.innerHTML = feString;
-      }
-    });
-  }
-  return originEl;
-};
-
-/**
- * Get a summary of the focal-mechanism and/or moment-tensor information.
- *
- * @return {DOMElement} summary, or null if no information present.
- */
-ScientificSummaryPage.prototype.getBeachballSummary = function () {
-  var products = this._event.properties.products,
-      tensorProducts = products['moment-tensor'],
-      mechanismProducts = products['focal-mechanism'],
-      tensors = [],
-      tensorEl = null,
-      anchor,
-      rowEl,
-      source,
-      i,
-      len;
-
-  if (tensorProducts || mechanismProducts) {
-    tensorEl = document.createElement('div');
-    tensorEl.className = 'tensor';
-    anchor = document.createElement('a');
-    tensorEl.appendChild(anchor);
-
-    if (tensorProducts) {
-      anchor.innerHTML = '<h3>Moment Tensor</h3>';
-      // load tensors page
-      anchor.href = '#scientific_tensor';
-
-      // only show preferred moment tensor
-      tensors.push(Tensor.fromProduct(tensorProducts[0]));
-    } else {
-      // mechanisms
-      anchor.innerHTML = '<h3>Focal Mechanism</h3>';
-      // load mechanism page
-      anchor.href = '#scientific_mechanism';
-
-      // show all mechanisms from preferred source
-      source = mechanismProducts[0].source;
-      for (i = 0; i < mechanismProducts.length; i++) {
-        if (mechanismProducts[i].source === source) {
-          tensors.push(Tensor.fromProduct(mechanismProducts[i]));
-        }
-      }
-    }
-
-    // put all beachballs in one row
-    rowEl = document.createElement('div');
-    anchor.appendChild(rowEl);
-
-    len = tensors.length;
-    for (i = 0; i < len; i++) {
-      rowEl.appendChild(new BeachBall({
-          tensor: tensors[i],
-          size: 256,
-          fillColor: tensors[i].fillColor
-        }).getCanvas());
-    }
-  }
-
-  return tensorEl;
-};
-
-/**
- * Get a summary of any finite-fault information.
- *
- * @return {DOMElement} summary, or null if no information present.
- */
-ScientificSummaryPage.prototype.getFiniteFaultSummary = function () {
-  var products = this._event.properties.products,
-      finiteFaults = products['finite-fault'],
-      fault,
-      basemap,
-      el = null,
-      buf;
-
-  if (finiteFaults) {
-    fault = finiteFaults[0];
-    basemap = fault.contents['basemap.png'];
-    if (basemap) {
-      el = document.createElement('div');
-      buf = [];
-      buf.push('<a href="#scientific_finitefault">');
-      buf.push('<h3>Finite Fault</h3>');
-      buf.push('<img src="', basemap.url, '" alt="Finite Fault"/>');
-      buf.push('</a>');
-      el.innerHTML = buf.join('');
-    }
-  }
-
-  return el;
+  this._content.appendChild(preferredProductMarkup);
 };
 
 /**
@@ -247,7 +117,9 @@ ScientificSummaryPage.prototype.getText = function () {
     textEl.innerHTML = buf.join('');
   }
 
-  return textEl;
+  if (textEl !== null) {
+    this._content.appendChild(textEl);
+  }
 };
 
 /**
@@ -279,7 +151,9 @@ ScientificSummaryPage.prototype.getLinks = function () {
     linkEl.innerHTML = buf.join('');
   }
 
-  return linkEl;
+  if (linkEl !== null) {
+    this._content.appendChild(linkEl);
+  }
 };
 
 
