@@ -55,12 +55,14 @@ MomentTensorPage.prototype.getDetailsContent = function (product) {
       '</small>',
     this._getTitle(tensor),
     '<div class="row clearfix">',
-      '<div class="column one-of-two">',
+      '<div class="column two-of-five">',
         this._getInfo(tensor),
         this._getPlanes(tensor),
-        this._getAxes(tensor),
       '</div>',
-      '<div class="column one-of-two beachball"></div>',
+      '<div class="column three-of-five beachball"></div>',
+    '</div>',
+    '<div class="clearfix">',
+      this._getAxes(tensor),
     '</div>'
   ].join('');
 
