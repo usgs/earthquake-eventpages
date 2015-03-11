@@ -69,7 +69,9 @@ MomentTensorPage.prototype.getDetailsContent = function (product) {
       new BeachBall({
         tensor: tensor,
         size: 320,
-        fillColor: tensor.fillColor
+        fillColor: tensor.fillColor,
+        labelAxes: true,
+        labelPlanes: true
       }).getCanvas());
 
   this._content.appendChild(el);
