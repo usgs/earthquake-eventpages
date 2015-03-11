@@ -289,7 +289,7 @@ ShakeMapPage.prototype._parseStationList = function (xml) {
  */
 ShakeMapPage.prototype._buildStationList = function (data) {
   var stations = [],
-      station, acc, vel, dist, components, romanNumeral, title;
+      station, pga, pgv, dist, components, romanNumeral, title;
 
   if (data.length === 0) {
     return '<p>No station data available at this time.</p>';
@@ -299,12 +299,12 @@ ShakeMapPage.prototype._buildStationList = function (data) {
     station = data[i];
     components = station.comp;
 
-    acc = this._findMaxValue(components, 'acc');
-    vel = this._findMaxValue(components, 'vel');
+    pga = this._findMaxValue(components, 'pga');
+    pgv = this._findMaxValue(components, 'pgv');
 
 
-    vel = (vel) ? vel.toFixed(3) : '&ndash;';
-    acc = (acc) ? acc.toFixed(3) : '&ndash;';
+    pgv = (pgv) ? pgv.toFixed(3) : '&ndash;';
+    pga = (pga) ? pga.toFixed(3) : '&ndash;';
 
     if (typeof station.dist === 'string') {
       dist = parseFloat(station.dist, 10);
@@ -330,13 +330,13 @@ ShakeMapPage.prototype._buildStationList = function (data) {
             '<abbr title="Modified Mercalli Intensity">mmi</abbr>',
           '</li>',
           '<li>',
-            '<span>', vel ,'</span>',
+            '<span>', pgv ,'</span>',
             '<abbr title="Maximum Horizontal Peak Ground Velocity">',
               'pgv',
             '</abbr>',
           '</li>',
           '<li>',
-            '<span>', acc ,'</span>',
+            '<span>', pga ,'</span>',
             '<abbr title="Maximum Horizontal Peak Ground Acceleration">',
               'pga',
             '</abbr>',
@@ -420,8 +420,8 @@ ShakeMapPage.prototype._buildComponentDetails = function (components) {
     componentsMarkup.push([
       '<tr>',
         '<th scope="row">', component.name ,'</th>',
-        '<td class="acc">', this._formatComponent(component.acc), '</td>',
-        '<td class="vel">', this._formatComponent(component.vel), '</td>',
+        '<td class="pga">', this._formatComponent(component.pga), '</td>',
+        '<td class="pgv">', this._formatComponent(component.pgv), '</td>',
         '<td class="psa03">', this._formatComponent(component.psa03), '</td>',
         '<td class="psa10">', this._formatComponent(component.psa10), '</td>',
         '<td class="psa30">', this._formatComponent(component.psa30), '</td>',
@@ -434,8 +434,8 @@ ShakeMapPage.prototype._buildComponentDetails = function (components) {
       '<thead>',
         '<tr>',
           '<th>name</th>',
-          '<th>acc</th>',
-          '<th>vel</th>',
+          '<th>pga</th>',
+          '<th>pgv</th>',
           '<th>psa03</th>',
           '<th>psa10</th>',
           '<th>psa30</th>',
