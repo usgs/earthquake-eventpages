@@ -100,7 +100,9 @@ var BeachBall = function (options) {
   this._lineColor = options.lineColor || '#000';
   this._lineWidth = options.lineWidth || 0.25;
   this._plotAxes = (options.plotAxes !== false);
+  this._labelAxes = (options.labelAxes === true);
   this._plotPlanes = (options.plotPlanes !== false);
+  this._labelPlanes = (options.labelPlanes === true);
   this._canvas = options.canvas || new Canvas({
     width: size,
     height: size
@@ -138,6 +140,10 @@ BeachBall.prototype._plot = function () {
       xy,
       i;
 
+  if (this._labelPlanes) {
+
+  }
+
   // make y axis go up
   c.save();
   c.translate(0, canvas.canvas.height);
@@ -163,7 +169,7 @@ BeachBall.prototype._plot = function () {
     canvas.line(line.x, line.y, lineColor);
   }
 
-  if (this._plotAxes) {
+  if (this._plotAxes && !this._labelAxes) {
     xy = this._getPoint(tensor.P.azimuth(), tensor.P.plunge());
     canvas.circle(xy.x, xy.y, axisSize, 'white', 'black');
     xy = this._getPoint(tensor.T.azimuth(), tensor.T.plunge());
@@ -174,6 +180,33 @@ BeachBall.prototype._plot = function () {
   canvas.circle(x0, y0, size, lineColor);
 
   c.restore();
+
+  if (this._labelAxes) {
+    xy = this._getPoint(tensor.P.azimuth(), tensor.P.plunge(), true);
+    canvas.text('P', '24px Arial', xy.x,
+        Math.min(xy.y + 12, size), null, 'black', 'center');
+    xy = this._getPoint(tensor.T.azimuth(), tensor.T.plunge(), true);
+    canvas.text('T', '24px Arial', xy.x,
+        Math.min(xy.y + 12, size), null, 'black', 'center');
+  }
+
+  if (this._labelPlanes) {
+    xy = this._getPoint(tensor.NP1.strike * D2R, 0, true);
+    canvas.text('(' +
+        tensor.NP1.strike.toFixed(0) + ', ' +
+        tensor.NP1.dip.toFixed(0) + ', ' +
+        tensor.NP1.rake.toFixed(0) + ')',
+        '12px Arial', xy.x, Math.max(xy.y, 15), null, 'black',
+        xy.x > radius ? 'right' : 'left');
+
+    xy = this._getPoint(tensor.NP2.strike * D2R, 0, true);
+    canvas.text('(' +
+        tensor.NP2.strike.toFixed(0) + ', ' +
+        tensor.NP2.dip.toFixed(0) + ', ' +
+        tensor.NP2.rake.toFixed(0) + ')',
+        '16px Arial', xy.x, Math.max(xy.y, 15), null, 'black',
+        xy.x > radius ? 'right' : 'left');
+  }
 };
 
 /**
@@ -181,13 +214,16 @@ BeachBall.prototype._plot = function () {
  *
  * @param azimuth of vector.
  * @param plunge of vector.
+ * @param normalYAxis whether context yAxis is inverted (default) or normal.
  * @return {Object} with keys x and y; values are pixel coordinates.
  */
-BeachBall.prototype._getPoint = function (azimuth, plunge) {
+BeachBall.prototype._getPoint = function (azimuth, plunge, normalYAxis) {
   var x0 = this._x0,
       y0 = this._y0,
       radius = this._radius,
-      r;
+      r,
+      x,
+      y;
 
   if (plunge < 0) {
     plunge *= -1;
@@ -196,9 +232,12 @@ BeachBall.prototype._getPoint = function (azimuth, plunge) {
   azimuth = _range(azimuth, 0, TWO_PI);
 
   r = Math.min(sqrt(1 - sin(plunge)), 0.97);
+  x = x0 + radius * r * sin(azimuth);
+  y = y0 + radius * r * cos(azimuth);
+
   return {
-    x: x0 + radius * r * sin(azimuth),
-    y: y0 + radius * r * cos(azimuth)
+    x: x,
+    y: (normalYAxis ? (radius + 1) * 2 - y : y)
   };
 };
 
