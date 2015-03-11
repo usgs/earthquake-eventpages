@@ -28,6 +28,9 @@ var ScientificSummaryPage = function (options) {
 // extend EventModulePage
 ScientificSummaryPage.prototype = Object.create(EventModulePage.prototype);
 
+// Do not display a header
+ScientificSummaryPage.prototype._setHeaderMarkup = function () {};
+
 /**
  * Render page content.
  */
