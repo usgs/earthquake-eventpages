@@ -1,9 +1,8 @@
 .mechanism-summary > ul > li {
   width:40%;
-  max-width: 150px;
 
   &.image {
-    width:20%;
+    width: 20%;
   }
 
   i {
@@ -16,10 +15,11 @@
 @media screen and (min-width:560px) {
 
   .mechanism-summary > ul > li {
-    width:25%;
+    width: 33.3%;
 
-    i {
-      margin:0 4px;
+    &.image,
+    &.summary-hide {
+      width:16.6%;
     }
   }
 }
