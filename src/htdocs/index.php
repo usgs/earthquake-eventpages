@@ -50,7 +50,7 @@ if (!isset($TEMPLATE)) {
     } else {
       // other, unexpected return
       header('HTTP/1.0 503 Service Unavailable');
-      echo 'Aable to retrieve event information (' . $httpCode . ')';
+      echo 'Unable to retrieve event information (' . $httpCode . ')';
     }
     exit(-1);
   }
