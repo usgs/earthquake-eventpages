@@ -89,23 +89,81 @@ var _axisCache = function (axis) {
  */
 var BeachBall = function (options) {
   var size = options.size || 200,
-      radius = parseInt(options.radius || (size - 2) / 2, 10);
+      radius = parseInt(options.radius || (size - 2) / 2, 10),
+      width = options.width || size,
+      height = options.height || size,
+      tensor = options.tensor,
+      labelAxes = (options.labelAxes === true),
+      x0 = options.x0 || width / 2,
+      y0 = options.y0 || height / 2,
+      top,
+      right,
+      bottom,
+      left;
 
-  this._tensor = options.tensor;
-  this._x0 = options.x0 || radius+1;
-  this._y0 = options.y0 || radius+1;
+  if (labelAxes) {
+    top = 0;
+    right = 0;
+    bottom = 0;
+    left = 0;
+
+    [tensor.NP1.strike, tensor.NP2.strike].forEach(function (strike) {
+      strike = Math.round(strike);
+      if (340 <= strike || strike <= 20) {
+        top = 20;
+      } else if (20 <= strike && strike <= 40) {
+        // top right
+        top = Math.max(top, 10);
+        right = Math.max(right, 50);
+      } else if (45 <= strike && strike <= 135) {
+        right = 90;
+      } else if (140 <= strike && strike <= 160) {
+        // bottom right
+        bottom = Math.max(bottom, 10);
+        right = Math.max(right, 50);
+      } else if (160 <= strike && strike <= 200) {
+        bottom = 20;
+      } else if (200 <= strike && strike <= 220) {
+        bottom = Math.max(bottom, 10);
+        left = Math.max(left, 40);
+      } else if (220 <= strike && strike <= 320) {
+        if (250 <= strike && strike <= 290) {
+          left = 105;
+        } else {
+          left = Math.max(left, 90);
+        }
+      } else {
+        // top left
+        left = Math.max(left, 40);
+        top = Math.max(top, 10);
+      }
+    });
+
+    // add margin
+    width = width + left + right;
+    x0 = x0 + left;
+    height = height + top + bottom;
+    // most plotting is on inverted y axis
+    y0 = y0 + bottom;
+  }
+
+  this._tensor = tensor;
   this._radius = radius;
+  this._x0 = x0;
+  this._y0 = y0;
+  this._height = height;
+  this._width = width;
   this._bgColor = options.bgColor || '#fff';
   this._fillColor = options.fillColor || '#ddd';
   this._lineColor = options.lineColor || '#000';
   this._lineWidth = options.lineWidth || 0.25;
   this._plotAxes = (options.plotAxes !== false);
-  this._labelAxes = (options.labelAxes === true);
+  this._labelAxes = labelAxes;
   this._plotPlanes = (options.plotPlanes !== false);
   this._labelPlanes = (options.labelPlanes === true);
   this._canvas = options.canvas || new Canvas({
-    width: size,
-    height: size
+    width: width,
+    height: height
   });
 
   this._plot();
@@ -130,6 +188,8 @@ BeachBall.prototype._plot = function () {
       y0 = this._y0,
       radius = this._radius,
       size = radius * 2,
+      height = this._height,
+      width = this._width,
       axisSize = parseInt(radius / 12.5, 10),
       canvas = this._canvas,
       c = canvas.context,
@@ -139,10 +199,6 @@ BeachBall.prototype._plot = function () {
       line,
       xy,
       i;
-
-  if (this._labelPlanes) {
-
-  }
 
   // make y axis go up
   c.save();
@@ -183,30 +239,87 @@ BeachBall.prototype._plot = function () {
 
   if (this._labelAxes) {
     xy = this._getPoint(tensor.P.azimuth(), tensor.P.plunge(), true);
-    canvas.text('P', '24px Arial', xy.x,
-        Math.min(xy.y + 12, size), null, 'black', 'center');
+    canvas.text('P', '24px Arial',
+        Math.min(xy.x, width - 12),
+        Math.min(xy.y + 12, height),
+        null, 'black', 'center');
     xy = this._getPoint(tensor.T.azimuth(), tensor.T.plunge(), true);
-    canvas.text('T', '24px Arial', xy.x,
-        Math.min(xy.y + 12, size), null, 'black', 'center');
+    canvas.text('T', '24px Arial',
+        Math.min(xy.x, width - 12),
+        Math.min(xy.y + 12, height),
+        null, 'black', 'center');
   }
 
   if (this._labelPlanes) {
-    xy = this._getPoint(tensor.NP1.strike * D2R, 0, true);
-    canvas.text('(' +
-        tensor.NP1.strike.toFixed(0) + ', ' +
-        tensor.NP1.dip.toFixed(0) + ', ' +
-        tensor.NP1.rake.toFixed(0) + ')',
-        '12px Arial', xy.x, Math.max(xy.y, 15), null, 'black',
-        xy.x > radius ? 'right' : 'left');
+    this._labelAzimuth(tensor.NP1.strike * D2R,
+        '(' + tensor.NP1.strike.toFixed(0) + ', ' +
+            tensor.NP1.dip.toFixed(0) + ', ' +
+            tensor.NP1.rake.toFixed(0) + ')',
+        '14px Arial');
 
-    xy = this._getPoint(tensor.NP2.strike * D2R, 0, true);
-    canvas.text('(' +
-        tensor.NP2.strike.toFixed(0) + ', ' +
-        tensor.NP2.dip.toFixed(0) + ', ' +
-        tensor.NP2.rake.toFixed(0) + ')',
-        '16px Arial', xy.x, Math.max(xy.y, 15), null, 'black',
-        xy.x > radius ? 'right' : 'left');
+    this._labelAzimuth(tensor.NP2.strike * D2R,
+        '(' + tensor.NP2.strike.toFixed(0) + ', ' +
+            tensor.NP2.dip.toFixed(0) + ', ' +
+            tensor.NP2.rake.toFixed(0) + ')',
+        '14px Arial');
   }
+};
+
+
+
+/**
+ * Plot a label at the edge of the beachball.
+ *
+ * Assumes canvas is using normal y axis, as opposed to inverted,
+ * so text is not upside down.
+ *
+ * @param azimuth {Number}
+ *        azimuth of label in radians.
+ * @param text {String}
+ *        text to plot
+ * @param font {String}
+ *        font to use, e.g. '12px Arial'.
+ */
+BeachBall.prototype._labelAzimuth = function (azimuth, text, font) {
+  var x0 = this._x0,
+      y0 = this._y0,
+      radius = this._radius,
+      height = this._height,
+      canvas = this._canvas,
+      edge_x,
+      edge_y,
+      label_distance,
+      label_x,
+      label_y,
+      r_x,
+      r_y,
+      tick_distance,
+      tick_x,
+      tick_y;
+
+  azimuth = _range(azimuth, 0, TWO_PI);
+  r_x = radius * sin(azimuth);
+  r_y = radius * cos(azimuth);
+  // edge
+  edge_x = x0 + r_x;
+  edge_y = height - (y0 + r_y);
+  // 5px away from edge
+  tick_distance = (radius + 5)/radius;
+  tick_x = x0 + r_x * tick_distance;
+  tick_y = height - (y0 + r_y * tick_distance);
+  // 10 px away from edge
+  label_distance = (radius + 10)/radius;
+  label_x = x0 + r_x * label_distance;
+  label_y = height - (y0 + r_y * label_distance);
+
+  // plot tick mark
+  canvas.line([edge_x, tick_x], [edge_y, tick_y], 'black');
+  // plot label
+  canvas.text(text, font,
+      label_x,
+      label_y + (label_y < y0 ? 0 : 5),
+      null, 'black',
+      label_x < x0 ? 'right' : 'left');
 };
 
 /**
@@ -237,7 +350,7 @@ BeachBall.prototype._getPoint = function (azimuth, plunge, normalYAxis) {
 
   return {
     x: x,
-    y: (normalYAxis ? (radius + 1) * 2 - y : y)
+    y: (normalYAxis ? this._height - y : y)
   };
 };
 
