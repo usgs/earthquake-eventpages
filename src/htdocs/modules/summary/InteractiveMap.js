@@ -5,6 +5,7 @@ var EventModulePage = require('base/EventModulePage'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr'),
 
+    MousePosition = require('map/MousePosition'),
     MouseOverLayer = require('map/MouseOverLayer'),
     ContoursLayer = require('./ContoursLayer'),
     ShakeMapStationLayer = require('./ShakeMapStationLayer');
@@ -52,7 +53,8 @@ InteractiveMap.prototype._setContentMarkup = function () {
       latmax, latmin, lngmax, lngmin,
       _el = document.createElement('div');
 
-  var layerControl = null,
+  var mousePosition = null,
+      layerControl = null,
       terrainLayer = null,
       grayscaleLayer = null,
       streetLayer = null,
@@ -88,6 +90,8 @@ InteractiveMap.prototype._setContentMarkup = function () {
     zoomAnimation: true,
     attributionControl: false
   });
+
+  mousePosition = new MousePosition();
 
   layerControl = new L.Control.Layers();
 
@@ -191,6 +195,12 @@ InteractiveMap.prototype._setContentMarkup = function () {
         layerControl.addOverlay(this._stationLayer, 'ShakeMap Stations');
       }
     }
+  }
+
+  // Add Map Controls
+  if (!Util.isMobile()) {
+    map.addControl(mousePosition);
+    map.addControl(new L.Control.Scale({'position':'bottomleft'}));
   }
   map.addControl(layerControl);
 
