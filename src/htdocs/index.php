@@ -5,6 +5,10 @@ if (!isset($TEMPLATE)) {
   // Defines the $CONFIG hash of configuration variables
   include_once '../conf/config.inc.php';
 
+  $HEAD = '
+    <link rel="stylesheet" href="css/index.css"/>
+  ';
+
   $eventid = param('eventid');
 
   if ($eventid == null) {
@@ -39,6 +43,10 @@ if (!isset($TEMPLATE)) {
     if ($httpCode === 404 || $httpCode === 204) {
       // event not found
       header('HTTP/1.0 404 Not Found');
+    } else if ($httpCode === 409) {
+      header('HTTP/1.0 410 Gone');
+      $TITLE = 'Event Deleted';
+      include_once 'template.inc.php';
     } else {
       // other, unexpected return
       header('HTTP/1.0 503 Service Unavailable');
@@ -70,10 +78,6 @@ if (!isset($TEMPLATE)) {
     'DYFI_RESPONSE_URL' => $CONFIG['DYFI_RESPONSE_URL']
   );
 
-  $HEAD = '
-    <link rel="stylesheet" href="css/index.css"/>
-  ';
-
   $FOOT =
     /* create event page with event details and config. */
     '<script>' .
@@ -103,5 +107,9 @@ if (!isset($TEMPLATE)) {
   include_once 'template.inc.php';
 }
 
-include_once '../lib/inc/html.inc.php';
+if ($httpCode != 409) {
+  include_once '../lib/inc/html.inc.php';
+} else {
+  print '<p class="alert error">The requested event has been deleted.</p>';
+}
 ?>
