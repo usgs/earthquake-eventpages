@@ -231,11 +231,10 @@ HypocenterPage.prototype.getProducts = function () {
     code = this._getHash();
   }
 
-  allProducts = origins;
-
   // build array of products that are in the allProducts array
   for (i = 0; i < origins.length; i++) {
     origin = origins[i];
+    allProducts.push(origin);
     sourceCode.push(origin.source + '_' + origin.code);
   }
 
