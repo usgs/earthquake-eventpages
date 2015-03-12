@@ -55,13 +55,13 @@ MomentTensorPage.prototype.getDetailsContent = function (product) {
       '</small>',
     this._getTitle(tensor),
     '<div class="row clearfix">',
-      '<div class="column one-of-two">',
+      '<div class="column two-of-five">',
         this._getInfo(tensor),
         this._getPlanes(tensor),
-        this._getAxes(tensor),
       '</div>',
-      '<div class="column one-of-two beachball"></div>',
-    '</div>'
+      '<div class="column three-of-five beachball"></div>',
+    '</div>',
+    this._getAxes(tensor)
   ].join('');
 
   // add beachball
@@ -69,7 +69,9 @@ MomentTensorPage.prototype.getDetailsContent = function (product) {
       new BeachBall({
         tensor: tensor,
         size: 320,
-        fillColor: tensor.fillColor
+        fillColor: tensor.fillColor,
+        labelAxes: true,
+        labelPlanes: true
       }).getCanvas());
 
   this._content.appendChild(el);
@@ -186,37 +188,37 @@ MomentTensorPage.prototype._getAxes = function (tensor) {
   N = formatAxis(tensor.N);
   P = formatAxis(tensor.P);
 
-  return [
-      '<h4>Principal Axes</h4>',
-      '<table class="tabular center principal-axes-table">',
-      '<thead><tr>',
-        '<th>Axis</th>',
-        '<th>Value</th>',
-        '<th>Plunge</th>',
-        '<th>Azimuth</th>',
-      '</thead>',
-      '<tbody>',
-        '<tr>',
-          '<th scope="row">T</th>',
-          '<td>', T.value, '</td>',
-          '<td>', T.plunge, '&deg;</td>',
-          '<td>', T.azimuth, '&deg;</td>',
-        '</tr>',
-        '<tr>',
-          '<th scope="row">N</th>',
-          '<td>', N.value, '</td>',
-          '<td>', N.plunge, '&deg;</td>',
-          '<td>', N.azimuth, '&deg;</td>',
-        '</tr>',
-        '<tr>',
-          '<th scope="row">P</th>',
-          '<td>', P.value, '</td>',
-          '<td>', P.plunge, '&deg;</td>',
-          '<td>', P.azimuth, '&deg;</td>',
-        '</tr>',
-      '</tbody>',
-      '</table>'
-  ].join('');
+  return '<div class="clearfix">' +
+      '<h4>Principal Axes</h4>' +
+      '<table class="tabular center principal-axes-table">' +
+      '<thead><tr>' +
+        '<th>Axis</th>' +
+        '<th>Value</th>' +
+        '<th>Plunge</th>' +
+        '<th>Azimuth</th>' +
+      '</thead>' +
+      '<tbody>' +
+        '<tr>' +
+          '<th scope="row">T</th>' +
+          '<td>' + T.value + '</td>' +
+          '<td>' + T.plunge + '&deg;</td>' +
+          '<td>' + T.azimuth + '&deg;</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">N</th>' +
+          '<td>' + N.value + '</td>' +
+          '<td>' + N.plunge + '&deg;</td>' +
+          '<td>' + N.azimuth + '&deg;</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">P</th>' +
+          '<td>' + P.value + '</td>' +
+          '<td>' + P.plunge + '&deg;</td>' +
+          '<td>' + P.azimuth + '&deg;</td>' +
+        '</tr>' +
+      '</tbody>' +
+      '</table>' +
+      '</div>';
 };
 
 /**
