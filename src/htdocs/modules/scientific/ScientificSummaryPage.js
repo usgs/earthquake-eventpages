@@ -30,6 +30,8 @@ ScientificSummaryPage.prototype = Object.create(EventModulePage.prototype);
 
 // Do not display a header
 ScientificSummaryPage.prototype._setHeaderMarkup = function () {};
+// Do not display a footer
+ScientificSummaryPage.prototype._setFooterMarkup = function () {};
 
 /**
  * Render page content.
