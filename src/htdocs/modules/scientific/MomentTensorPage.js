@@ -61,9 +61,7 @@ MomentTensorPage.prototype.getDetailsContent = function (product) {
       '</div>',
       '<div class="column three-of-five beachball"></div>',
     '</div>',
-    '<div class="clearfix">',
-      this._getAxes(tensor),
-    '</div>'
+    this._getAxes(tensor)
   ].join('');
 
   // add beachball
@@ -190,37 +188,37 @@ MomentTensorPage.prototype._getAxes = function (tensor) {
   N = formatAxis(tensor.N);
   P = formatAxis(tensor.P);
 
-  return [
-      '<h4>Principal Axes</h4>',
-      '<table class="tabular center principal-axes-table">',
-      '<thead><tr>',
-        '<th>Axis</th>',
-        '<th>Value</th>',
-        '<th>Plunge</th>',
-        '<th>Azimuth</th>',
-      '</thead>',
-      '<tbody>',
-        '<tr>',
-          '<th scope="row">T</th>',
-          '<td>', T.value, '</td>',
-          '<td>', T.plunge, '&deg;</td>',
-          '<td>', T.azimuth, '&deg;</td>',
-        '</tr>',
-        '<tr>',
-          '<th scope="row">N</th>',
-          '<td>', N.value, '</td>',
-          '<td>', N.plunge, '&deg;</td>',
-          '<td>', N.azimuth, '&deg;</td>',
-        '</tr>',
-        '<tr>',
-          '<th scope="row">P</th>',
-          '<td>', P.value, '</td>',
-          '<td>', P.plunge, '&deg;</td>',
-          '<td>', P.azimuth, '&deg;</td>',
-        '</tr>',
-      '</tbody>',
-      '</table>'
-  ].join('');
+  return '<div class="clearfix">' +
+      '<h4>Principal Axes</h4>' +
+      '<table class="tabular center principal-axes-table">' +
+      '<thead><tr>' +
+        '<th>Axis</th>' +
+        '<th>Value</th>' +
+        '<th>Plunge</th>' +
+        '<th>Azimuth</th>' +
+      '</thead>' +
+      '<tbody>' +
+        '<tr>' +
+          '<th scope="row">T</th>' +
+          '<td>' + T.value + '</td>' +
+          '<td>' + T.plunge + '&deg;</td>' +
+          '<td>' + T.azimuth + '&deg;</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">N</th>' +
+          '<td>' + N.value + '</td>' +
+          '<td>' + N.plunge + '&deg;</td>' +
+          '<td>' + N.azimuth + '&deg;</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">P</th>' +
+          '<td>' + P.value + '</td>' +
+          '<td>' + P.plunge + '&deg;</td>' +
+          '<td>' + P.azimuth + '&deg;</td>' +
+        '</tr>' +
+      '</tbody>' +
+      '</table>' +
+      '</div>';
 };
 
 /**
