@@ -53,8 +53,7 @@ InteractiveMap.prototype._setContentMarkup = function () {
       latmax, latmin, lngmax, lngmin,
       _el = document.createElement('div');
 
-  var mousePosition = null,
-      layerControl = null,
+  var layerControl = null,
       terrainLayer = null,
       grayscaleLayer = null,
       streetLayer = null,
@@ -90,8 +89,6 @@ InteractiveMap.prototype._setContentMarkup = function () {
     zoomAnimation: true,
     attributionControl: false
   });
-
-  mousePosition = new MousePosition();
 
   layerControl = new L.Control.Layers();
 
@@ -199,7 +196,7 @@ InteractiveMap.prototype._setContentMarkup = function () {
 
   // Add Map Controls
   if (!Util.isMobile()) {
-    map.addControl(mousePosition);
+    map.addControl(new MousePosition());
     map.addControl(new L.Control.Scale({'position':'bottomleft'}));
   }
   map.addControl(layerControl);
