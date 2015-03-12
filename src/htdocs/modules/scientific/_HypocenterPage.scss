@@ -3,7 +3,6 @@
 
 .origin-summary > ul > li {
   width:25%;
-  padding:10px 0;
 }
 
 .origin-detail {
@@ -76,6 +75,10 @@
 }
 
 @media screen and (min-width:560px) {
+
+  .origin-summary > ul > li {
+    width:20%;
+  }
 
   table.hypocenter-phase {
     > tbody {

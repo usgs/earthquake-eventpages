@@ -2,8 +2,8 @@
 .summary {
   position:relative;
   display: block;
-  margin: 1em 0;
-  padding: 1em;
+  margin: 1em 0 0;
+  padding: 1em 0.5em;
   border: 1px solid #e5e5e5;
 
   &:hover {
@@ -14,16 +14,18 @@
     list-style: none;
     margin:0;
     padding:0;
+    line-height: 3em;
 
     > li {
       display: inline-block;
       vertical-align: middle;
       text-align: center;
-      max-width: 100px;
-      line-height: 1;
+      max-width: 150px;
+      line-height: 1em;
 
       &.image > img {
-        width:2.5em;
+        width: 4em;
+        padding: 0 0.5em;
       }
 
       &.summary-hide {
@@ -78,15 +80,20 @@ a.summary:hover {
 
 @media screen and (min-width:560px) {
 
-  .summary > ul > li {
-    font-size:1.125em;
+  .summary > ul {
+    line-height: 3.5em;
 
-    &.image > img {
-      width:5.5em;
-    }
+     > li {
+      font-size:1.125em;
+      width: 16.6%;
 
-    &.summary-hide {
-      display:inline-block;
+      &.image > img {
+        //width:3em;
+      }
+
+      &.summary-hide {
+        display:inline-block;
+      }
     }
   }
 }
