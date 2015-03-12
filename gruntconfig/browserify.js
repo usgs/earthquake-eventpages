@@ -85,6 +85,7 @@ var browserify = {
     dest: config.build + '/' + config.src + '/htdocs/modules/impact/index.js',
     options: {
       alias: [
+        'impact/ImpactSummaryPage',
         'impact/DYFIPage',
         'impact/DYFIFormPage',
         'impact/PagerPage',

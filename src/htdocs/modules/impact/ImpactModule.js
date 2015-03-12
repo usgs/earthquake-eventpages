@@ -16,6 +16,19 @@ var DEFAULTS = {
    */
 
     {
+      className: 'impact/ImpactSummaryPage',
+      dependencyBundle: 'modules/impact/index.js',
+      options: {
+        title: 'Summary',
+        hash: 'summary'
+      },
+      productTypes: [
+        'dyfi',
+        'shakemap',
+        'losspager'
+      ]
+    },
+    {
       className: 'impact/DYFIPage',
       dependencyBundle: 'modules/impact/index.js',
       options: {
