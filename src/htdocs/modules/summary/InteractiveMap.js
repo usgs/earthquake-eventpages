@@ -3,7 +3,6 @@
 var EventModulePage = require('base/EventModulePage'),
     L = require('leaflet'),
     Util = require('util/Util'),
-    Xhr = require('util/Xhr'),
 
     MousePosition = require('map/MousePosition'),
     MouseOverLayer = require('map/MouseOverLayer'),
@@ -54,9 +53,7 @@ InteractiveMap.prototype.onRemove = function () {
 };
 
 InteractiveMap.prototype._setContentMarkup = function () {
-
-  var _this = this,
-      latmax, latmin, lngmax, lngmin,
+  var latmax, latmin, lngmax, lngmin,
       _el = document.createElement('div');
 
   var layerControl = null,
@@ -172,12 +169,12 @@ InteractiveMap.prototype._setContentMarkup = function () {
 
     if (this._event.properties.products.dyfi) {
       var dyfi = this._event.properties.products.dyfi[0],
-          dyfiJson,
           dyfiContents = dyfi.contents;
 
       if ('dyfi_geo.geojson' in dyfiContents) {
-        dyfiJson = dyfiContents['dyfi_geo.geojson'];
-        this._dyfiLayer = new DYFIUTMLayer({url: dyfiJson.url});
+        this._dyfiLayer = new DYFIUTMLayer({
+          url: dyfiContents['dyfi_geo.geojson'].url
+        });
         layerControl.addOverlay(this._dyfiLayer, 'DYFI Responses');
       }
     }
@@ -186,27 +183,19 @@ InteractiveMap.prototype._setContentMarkup = function () {
     if (this._event.properties.products.shakemap) {
       var contourLayer = null,
           shakemap = this._event.properties.products.shakemap[0],
-          contourJson,
           shakemapContents = shakemap.contents;
 
       if ('download/cont_mi.json' in shakemapContents) {
-        contourJson = shakemapContents['download/cont_mi.json'];
-
-        Xhr.ajax({
-          url: contourJson.url,
-          success: function (data) {
-            _this._contourLayer = contourLayer = new ContoursLayer(data);
-            contourLayer.addTo(map);
-            layerControl.addOverlay(contourLayer, 'ShakeMap MMI Contours');
-          }
+        this._contourLayer = contourLayer = new ContoursLayer({
+          url: shakemapContents['download/cont_mi.json'].url
         });
+        layerControl.addOverlay(contourLayer, 'ShakeMap MMI Contours');
+        contourLayer.addTo(map);
       }
 
-      var stationJson;
-
       if ('download/stationlist.json' in shakemapContents) {
-        stationJson = shakemapContents['download/stationlist.json'];
-        this._stationLayer = new ShakeMapStationLayer(stationJson.url);
+        this._stationLayer = new ShakeMapStationLayer(
+            shakemapContents['download/stationlist.json'].url);
         layerControl.addOverlay(this._stationLayer, 'ShakeMap Stations');
       }
     }
