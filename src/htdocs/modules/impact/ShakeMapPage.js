@@ -76,6 +76,7 @@ var ShakeMapPage = function (options) {
   this._options = Util.extend({}, DEFAULTS, options);
   this._tablist = null;
   this._shakemap = null;
+  this._eventConfig = options.eventConfig;
   SummaryDetailsPage.call(this, this._options);
 };
 
@@ -133,8 +134,7 @@ ShakeMapPage.prototype._createTabListData = function (options) {
   var contents = options.contents,
       tablist = [],
       imageName,
-      image,
-      content;
+      image;
 
   if (contents === null) {
     return tablist;
@@ -145,11 +145,9 @@ ShakeMapPage.prototype._createTabListData = function (options) {
     imageName = image.suffix;
 
     if (contents.hasOwnProperty(imageName)) {
-      content = '<img src="' + contents[imageName].url + '" />';
-
       tablist.push({
         title: image.title,
-        content: content
+        content: this._createTabListImage(contents[imageName].url)
       });
     }
   }
@@ -160,6 +158,30 @@ ShakeMapPage.prototype._createTabListData = function (options) {
   }
 
   return tablist;
+};
+
+/**
+ * Create combined link/image for tablist image with attached eventListener.
+ *
+ * @param  {string} url
+ *         url to the image
+ *
+ * @return {element} link
+ *         image link to interactive map.
+**/
+ShakeMapPage.prototype._createTabListImage = function (url) {
+  var eventConfig = this._eventConfig;
+  return function () {
+    var link = document.createElement('a'),
+        image = document.createElement('img');
+    link.href = '#general_map';
+    image.src = url;
+    link.appendChild(image);
+    link.addEventListener('click', function() {
+      eventConfig.fromShakemap = true;
+    });
+    return link;
+  };
 };
 
 /**
@@ -577,6 +599,5 @@ ShakeMapPage.prototype._setFooterMarkup = function () {
 
   SummaryDetailsPage.prototype._setFooterMarkup.apply(this);
 };
-
 
 module.exports = ShakeMapPage;
