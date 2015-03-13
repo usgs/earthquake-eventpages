@@ -101,7 +101,7 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
           '<br><abbr title="Distance from Epicenter">dist</abbr></br>',
         '</li>',
       '</ul>',
-      '<dl class="station-metadata">',
+      '<dl class="station-metadata horizontal">',
         '<dt class="station-metadata-type">Type</dt>',
           '<dd class="station-metadata-type">',
             (p.instrumentType||'&ndash;'),

@@ -33,20 +33,11 @@
   }
 }
 
-.station-metadata {
-  display: block;
-  margin: 1.25em 0 0 0;
+dl.station-metadata > dt {
+  width: 6em;
 }
-.station-metadata:after {
-  display: block;
-  content: ' ';
-  clear: both;
-}
-.station-metadata > dt {
-  width: 8em;
-}
-.station-metadata > dd {
-  margin-left: 9em;
+dl.station-metadata > dd {
+  margin-left: 7em;
 }
 .station-channels {
   margin-top: 1em;
