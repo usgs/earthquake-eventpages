@@ -172,7 +172,6 @@ InteractiveMap.prototype._setContentMarkup = function () {
     // Adds shake map contours data to map
     if (this._event.properties.products.shakemap) {
       var contourLayer = null,
-          stationLayer = null,
           shakemap = this._event.properties.products.shakemap[0],
           contourJson,
           shakemapContents = shakemap.contents;
@@ -194,8 +193,7 @@ InteractiveMap.prototype._setContentMarkup = function () {
 
       if ('download/stationlist.json' in shakemapContents) {
         stationJson = shakemapContents['download/stationlist.json'];
-        this._stationLayer = stationLayer =
-            new ShakeMapStationLayer(stationJson.url);
+        this._stationLayer = new ShakeMapStationLayer(stationJson.url);
         layerControl.addOverlay(this._stationLayer, 'ShakeMap Stations');
       }
     }
