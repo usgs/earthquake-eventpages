@@ -275,7 +275,9 @@ SummaryPage.prototype._getLocationMarkup = function () {
   markup.push(
     this._formatter.location(geometry.coordinates[1],
         geometry.coordinates[0]) +
-    ' depth=' + this._formatter.depth(geometry.coordinates[2], ' km')
+        ' depth=' + this._formatter.depth(geometry.coordinates[2], ' km') +
+        ' (' + this._formatter.depth(this._kmToMi(geometry.coordinates[2])) +
+        ' mi)'
   );
 
   return markup.join('');
