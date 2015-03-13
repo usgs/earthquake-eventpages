@@ -52,6 +52,17 @@ var DEFAULTS = {
         hash: 'pager'
       },
       productTypes: ['losspager']
+    },
+    {
+      className: 'summary/InteractiveMap',
+      dependencyBundle: [
+        'modules/summary/index.js',
+        'lib/leaflet/leaflet.js'
+      ],
+      options: {
+        title: 'Interactive Map',
+        hash: 'map'
+      }
     }
   ]
 };
