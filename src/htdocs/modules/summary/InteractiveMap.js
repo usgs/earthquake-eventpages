@@ -8,7 +8,8 @@ var EventModulePage = require('base/EventModulePage'),
     MousePosition = require('map/MousePosition'),
     MouseOverLayer = require('map/MouseOverLayer'),
     ContoursLayer = require('./ContoursLayer'),
-    ShakeMapStationLayer = require('./ShakeMapStationLayer');
+    ShakeMapStationLayer = require('./ShakeMapStationLayer'),
+    DYFIUTMLayer = require('./DYFIUTMLayer');
 
 
 var DEFAULTS = {
@@ -168,6 +169,18 @@ InteractiveMap.prototype._setContentMarkup = function () {
       this._event.properties.mag
     ].join(''));
     map.addLayer(epicenterMarker);
+
+    if (this._event.properties.products.dyfi) {
+      var dyfi = this._event.properties.products.dyfi[0],
+          dyfiJson,
+          dyfiContents = dyfi.contents;
+
+      if ('dyfi_geo.geojson' in dyfiContents) {
+        dyfiJson = dyfiContents['dyfi_geo.geojson'];
+        this._dyfiLayer = new DYFIUTMLayer({url: dyfiJson.url});
+        layerControl.addOverlay(this._dyfiLayer, 'DYFI Responses');
+      }
+    }
 
     // Adds shake map contours data to map
     if (this._event.properties.products.shakemap) {
