@@ -202,7 +202,7 @@ ShakeMapPage.prototype._addStationList = function () {
 
       container.className = 'shakemap-stations';
       container.innerHTML =
-          '<p>Loading station list data from XML, please wait...</p>';
+          '<p>Loading station list data from JSON, please wait...</p>';
 
       _this._getStationData(
           function (stations) {
