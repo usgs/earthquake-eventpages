@@ -5,6 +5,10 @@
   padding-top: 1em;
 }
 
+.dyfi-summary > ul > li {
+  width:25%;
+}
+
 .dyfi-responses {
 
   .view-all {
@@ -91,5 +95,14 @@
         display:block;
       }
     }
+  }
+}
+
+
+
+@media screen and (min-width: 560px) {
+
+  .dyfi-summary > ul > li {
+    width:20%;
   }
 }
