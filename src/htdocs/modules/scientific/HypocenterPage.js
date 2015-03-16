@@ -220,7 +220,6 @@ HypocenterPage.prototype.getProducts = function () {
       phases = this._event.properties.products['phase-data'] || [],
       phase,
       allProducts = [],
-      tmpProducts = [],
       sourceCode = [],
       index,
       id,
@@ -231,11 +230,10 @@ HypocenterPage.prototype.getProducts = function () {
     code = this._getHash();
   }
 
-  allProducts = origins;
-
   // build array of products that are in the allProducts array
   for (i = 0; i < origins.length; i++) {
     origin = origins[i];
+    allProducts.push(origin);
     sourceCode.push(origin.source + '_' + origin.code);
   }
 
@@ -260,8 +258,8 @@ HypocenterPage.prototype.getProducts = function () {
   if (code) {
     for (i = 0; i < allProducts.length; i++) {
       if (code === allProducts[i].source + '_' + allProducts[i].code) {
-        tmpProducts.push(allProducts[i]);
-        allProducts = tmpProducts;
+        allProducts = [allProducts[i]];
+        break;
       }
     }
   }
