@@ -1,8 +1,9 @@
 'use strict';
 
 var Attribution = require('base/Attribution'),
-    EventModulePage = require('base/EventModulePage'),
+    ImpactUtil = require('base/ImpactUtil'),
     PagerXmlParser = require('./PagerXmlParser'),
+    SummaryDetailsPage = require('base/SummaryDetailsPage'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
@@ -15,9 +16,9 @@ var DEFAULTS = {
 var PagerPage = function (options) {
   options = Util.extend({}, DEFAULTS, options || {});
   this._renderCallback = options.renderCallback;
-  EventModulePage.call(this, options);
+  SummaryDetailsPage.call(this, options);
 };
-PagerPage.prototype = Object.create(EventModulePage.prototype);
+PagerPage.prototype = Object.create(SummaryDetailsPage.prototype);
 
 
 /**
@@ -39,7 +40,7 @@ PagerPage.prototype.destroy = function () {
  *
  * @see _renderPage
  */
-PagerPage.prototype._setContentMarkup = function () {
+PagerPage.prototype.getDetailsContent = function () {
   var _this = this,
       product = this._event.properties.products.losspager[0],
       contents = product.contents;
@@ -94,6 +95,48 @@ PagerPage.prototype._setContentMarkup = function () {
 };
 
 /**
+ * Sets up summary info for Shakemap events with 2 or more events
+ */
+PagerPage.prototype._getSummaryMarkup = function (product) {
+  var properties = product.properties,
+      contents = product.contents,
+      maxmmi = properties.maxmmi;
+
+  maxmmi = ImpactUtil.translateMmi(maxmmi);
+
+  console.log(properties);
+  console.log(contents);
+
+  return '<ul>' +
+      '<li class="image">' +
+        '<img src="' + contents['alertfatal_small.png'].url +
+            '" alt="' + 'Estimated Fatalities Histogram' + '" />' +
+        '<abbr title="Estimated Fatalities Histogram">Fatalities</abbr>' +
+      '</li>' +
+      '<li class="image">' +
+        '<img src="' + contents['alertecon_small.png'].url +
+            '" alt="' + 'Estimated Economic Loss Histogram' + '" />' +
+        '<abbr title="Estimated Economic Loss Histogram">Economic Loss</abbr>' +
+      '</li>' +
+      '<li class="mmi">' +
+        '<span>' + maxmmi + '</span>' +
+        '<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
+      '</li>' +
+      // '<li>' +
+      //   '<span>' + Number(properties.magnitude).toFixed(1) + '</span>' +
+      //   '<abbr title="Magnitude">Mag</abbr>' +
+      // '</li>' +
+      '<li>' +
+        this.getCatalogSummary(product) +
+      '</li>' +
+      '<li class="summary-hide">' +
+        Attribution.getContributorReference(product.source) +
+        '<abbr title="ShakeMap Data Source">Source</abbr>' +
+      '</li>' +
+    '</ul>';
+};
+
+/**
  * Use disclaimer for footer information.
  *
  */
@@ -113,7 +156,7 @@ PagerPage.prototype._setFooterMarkup = function () {
 
   this._footer.appendChild(links);
 
-  EventModulePage.prototype._setFooterMarkup.apply(this);
+  SummaryDetailsPage.prototype._setFooterMarkup.apply(this);
 };
 
 /**

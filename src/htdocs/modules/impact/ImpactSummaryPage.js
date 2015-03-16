@@ -48,6 +48,12 @@ ImpactSummaryPage.prototype._setContentMarkup = function () {
     product = products.shakemap[0];
     this._getPreferredSummaryMarkup(product, 'impact_shakemap', 'ShakeMap');
   }
+
+  // Shakemap content
+  if (products.hasOwnProperty('losspager')) {
+    product = products.losspager[0];
+    this._getPreferredSummaryMarkup(product, 'impact_pager', 'PAGER');
+  }
 };
 
 ImpactSummaryPage.prototype._getPreferredSummaryMarkup = function (product, hash, name) {
