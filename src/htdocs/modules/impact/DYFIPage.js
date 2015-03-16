@@ -3,7 +3,7 @@
 var Attribution = require('base/Attribution'),
     Collection = require('mvc/Collection'),
     DataTable = require('mvc/DataTable'),
-    EventModulePage = require('base/EventModulePage'),
+    SummaryDetailsPage = require('base/SummaryDetailsPage'),
     ImpactUtil = require('base/ImpactUtil'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util'),
@@ -136,22 +136,29 @@ var RESPONSE_DATA_SORTS = [
   }
 ];
 
+/**
+ * Uses the intensity map as the thumbnail.
+ * Sets alt tag for thumbnail image
+ */
+var SUMMARY_THUMBNAIL = '_ciim.jpg',
+    THUMBNAIL_ALT = 'Did You Feel It Intensity Map';
+
 
 /* creates map page and sets up the content */
 var DYFIPage = function (options) {
   options = Util.extend({}, DEFAULTS, options || {});
-  EventModulePage.call(this, options);
+  SummaryDetailsPage.call(this, options);
 };
 
-DYFIPage.prototype = Object.create(EventModulePage.prototype);
+DYFIPage.prototype = Object.create(SummaryDetailsPage.prototype);
 
 DYFIPage.prototype._setHeaderMarkup = function () {
-  EventModulePage.prototype._setHeaderMarkup.apply(this);
+  SummaryDetailsPage.prototype._setHeaderMarkup.apply(this);
   this._header.querySelector('h2').insertAdjacentHTML('beforeend',
       ' - <a href="#impact_tellus">Tell Us!</a>');
 };
 
-DYFIPage.prototype._setContentMarkup = function () {
+DYFIPage.prototype.getDetailsContent = function () {
   var products = this._event.properties.products,
       dyfi, tablistDiv;
   if (!products.dyfi) {
@@ -312,6 +319,42 @@ DYFIPage.prototype._addToggleButton = function (container, table) {
   });
 };
 
+
+/**
+ * Sets up summary info for Shakemap events with 2 or more events
+ */
+DYFIPage.prototype._getSummaryMarkup = function (product) {
+  var properties = product.properties,
+      contents = product.contents,
+      eventId = properties.eventsource + properties.eventsourcecode,
+      maxmmi = properties.maxmmi;
+
+  maxmmi = ImpactUtil.translateMmi(maxmmi);
+
+  return '<ul>' +
+      '<li class="image">' +
+        '<img src="' + contents[eventId + SUMMARY_THUMBNAIL].url +
+            '" alt="' + THUMBNAIL_ALT + '" />' +
+      '</li>' +
+      '<li class="mmi">' +
+        '<span>' + maxmmi + '</span>' +
+        '<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
+      '</li>' +
+      '<li>' +
+        '<span>' + Number(properties.magnitude).toFixed(1) + '</span>' +
+        '<abbr title="Magnitude">Mag</abbr>' +
+      '</li>' +
+      '<li>' +
+        this.getCatalogSummary(product) +
+      '</li>' +
+      '<li class="summary-hide">' +
+        Attribution.getContributorReference(product.source) +
+        '<abbr title="ShakeMap Data Source">Source</abbr>' +
+      '</li>' +
+    '</ul>';
+};
+
+
 DYFIPage.prototype._setFooterMarkup = function () {
   var links;
 
@@ -328,7 +371,7 @@ DYFIPage.prototype._setFooterMarkup = function () {
 
   this._footer.appendChild(links);
 
-  EventModulePage.prototype._setFooterMarkup.apply(this);
+  SummaryDetailsPage.prototype._setFooterMarkup.apply(this);
 };
 
 

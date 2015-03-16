@@ -37,6 +37,12 @@ ImpactSummaryPage.prototype._setContentMarkup = function () {
   var products = this._options.eventDetails.properties.products,
       product;
 
+  // DYFI content
+  if (products.hasOwnProperty('dyfi')) {
+    product = products.dyfi[0];
+    this._getPreferredSummaryMarkup(product, 'impact_dyfi', 'DYFI');
+  }
+
   // Shakemap content
   if (products.hasOwnProperty('shakemap')) {
     product = products.shakemap[0];
