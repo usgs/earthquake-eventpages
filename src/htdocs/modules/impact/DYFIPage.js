@@ -307,7 +307,7 @@ DYFIPage.prototype._addToggleButton = function (container, table) {
       button.innerHTML = 'Show All Responses';
     } else {
       table.classList.add('full-list');
-      button.innerHTML = 'Show Only First 10 Responses';
+      button.innerHTML = 'Show Only 10 Responses';
     }
   });
 };
