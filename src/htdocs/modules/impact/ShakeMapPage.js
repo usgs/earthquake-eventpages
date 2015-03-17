@@ -106,7 +106,7 @@ ShakeMapPage.prototype.getDetailsContent = function (product) {
       Attribution.getContributorReference(product.source) +
       '</small>';
 
-  tablistDiv.className = 'shakemap';
+  tablistDiv.className = 'shakemap-tablist';
   shakemap = this._shakemap = product;
 
   // Build TabList with all of the shakemap images
@@ -198,7 +198,7 @@ ShakeMapPage.prototype._addStationList = function () {
     'title': title,
     'content': function () {
 
-      container.className = 'stations';
+      container.className = 'shakemap-stations';
       container.innerHTML =
           '<p>Loading station list data from XML, please wait...</p>';
 

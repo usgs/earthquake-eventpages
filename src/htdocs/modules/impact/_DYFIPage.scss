@@ -1,6 +1,10 @@
 @import 'mvc/ModalView';
 @import 'mvc/DownloadView';
 
+.dyfi-tablist > section {
+  padding-top: 1em;
+}
+
 .dyfi-responses {
 
   .view-all {
