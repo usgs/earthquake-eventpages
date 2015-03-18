@@ -158,61 +158,41 @@ PagerPage.prototype._renderAlerts = function () {
   var alerts = this._pagerInfo.alerts,
       comments = this._pagerInfo.comments.impact,
       contents = this._event.properties.products.losspager[0].contents,
-      econMarkup = '', econLevel = -1,
-      fatMarkup = '', fatLevel = -1;
-
-  var levelValues = {
-    'pending': 0,
-    'green': 1,
-    'yellow': 2,
-    'orange': 3,
-    'red': 4
-  };
-
-  if (alerts.economic) {
-    econLevel = alerts.economic.level;
-    if (levelValues.hasOwnProperty(econLevel)) {
-      econLevel = levelValues[econLevel];
-    }
-    econMarkup =
-      '<div class="column one-of-two">' +
-        '<h3 class="collapse-margin">Estimated Economic Losses</h3>' +
-        '<figure>' +
-          '<a href="' + contents['alertecon.pdf'].url + '">' +
-            '<img src="' + contents['alertecon.png'].url + '" alt=""/>' +
-          '</a>' +
-          '<figcaption>' +
-            ((comments.length === 2) ? comments[1] : comments[0]) +
-          '</figcaption>' +
-        '</figure>' +
-      '</div>';
-  }
+      alertsMarkup = [];
 
   if (alerts.fatality) {
-    fatLevel = alerts.fatality.level;
-    if (levelValues.hasOwnProperty(fatLevel)) {
-      fatLevel = levelValues[fatLevel];
-    }
-    fatMarkup =
-      '<div class="column one-of-two">' +
-        '<h3>Estimated Fatalities</h3>' +
-        '<figure>' +
-          '<a href="' + contents['alertfatal.pdf'].url + '">' +
-            '<img src="' + contents['alertfatal.png'].url + '" alt=""/>' +
-          '</a>' +
+    alertsMarkup.push(
+      '<div class="column one-of-two">',
+        '<h3>Estimated Fatalities</h3>',
+        '<figure>',
+          '<a href="', contents['alertfatal.pdf'].url, '">',
+            '<img src="', contents['alertfatal.png'].url, '" alt=""/>',
+          '</a>',
           ((comments.length === 2) ?
-              '<figcaption>' + comments[0] + '</figcaption>' : '') +
-        '</figure>' +
-      '</div>';
+              '<figcaption>' + comments[0] + '</figcaption>' : ''),
+        '</figure>',
+      '</div>');
   }
 
-  if (fatLevel === -1 && econLevel === -1) {
+  if (alerts.economic) {
+    alertsMarkup.push(
+      '<div class="column one-of-two">',
+        '<h3 class="collapse-margin">Estimated Economic Losses</h3>',
+        '<figure>',
+          '<a href="', contents['alertecon.pdf'].url, '">',
+            '<img src="', contents['alertecon.png'].url, '" alt=""/>',
+          '</a>',
+          '<figcaption>',
+            ((comments.length === 2) ? comments[1] : comments[0]),
+          '</figcaption>',
+        '</figure>',
+      '</div>');
+  }
+
+  if (alertsMarkup === []) {
     this._alertEl.parentNode.removeChild(this._alertEl);
-    this._alertEl = null;
-  } else if (fatLevel >= econLevel) {
-    this._alertEl.innerHTML = fatMarkup + econMarkup;
   } else {
-    this._alertEl.innerHTML = econMarkup + fatMarkup;
+    this._alertEl.innerHTML = alertsMarkup.join('');
   }
 };
 
