@@ -274,6 +274,8 @@ ShakeMapPage.prototype._buildStationList = function (data) {
     return '<p>No station data available at this time.</p>';
   }
 
+  data.sort(ImpactUtil.sortByDistance);
+
   for (var i = 0; i < data.length; i++) {
     station = data[i];
     props = station.properties;
