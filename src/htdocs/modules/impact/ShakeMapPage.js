@@ -283,8 +283,9 @@ ShakeMapPage.prototype._buildStationList = function (data) {
     pga = props.pga;
     pgv = props.pgv;
 
-    pgv = (pgv) ? pgv.toFixed(3) : '&ndash;';
-    pga = (pga) ? pga.toFixed(3) : '&ndash;';
+
+    pgv = (pgv !== null) ? pgv.toFixed(3) : '&ndash;';
+    pga = (pga !== null) ? pga.toFixed(3) : '&ndash;';
 
     distance = props.distance.toFixed(1);
 
