@@ -21,7 +21,6 @@ var DEFAULT_OPTIONS = {
   },
 
   onEachFeature: function (feature, layer) {
-    layer.options.title = feature.properties.name;
     layer.bindPopup(this.formatPopup(feature));
   },
 
@@ -34,15 +33,15 @@ var DEFAULT_OPTIONS = {
       '<ul class="dyfi-summary">' +
         '<li class="dyfi-summary-intensity roman mmi' + mmi + '">' +
           mmi +
-          '<br><abbr title="Community Determined Intensity">cdi</abbr></br>' +
+          '<br/><abbr title="Community Determined Intensity">cdi</abbr>' +
         '</li>' +
         '<li class="dyfi-summary-nresp">' +
           DEFAULT_FORMATTER.number(p.nresp, 0, '&ndash;') +
-          '<br><abbr title="Number of Responses">responses</abbr></br>' +
+          '<br/><abbr title="Number of Responses">responses</abbr>' +
         '</li>' +
         '<li class="dyfi-summary-distance">' +
           DEFAULT_FORMATTER.number(p.dist, 1, '&ndash;', 'km') +
-          '<br><abbr title="Distance from Epicenter in">distance</abbr></br>' +
+          '<br/><abbr title="Distance from Hypocenter">distance</abbr>' +
         '</li>' +
       '</ul>' +
     '</div>';
