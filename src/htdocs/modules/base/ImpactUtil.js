@@ -12,7 +12,7 @@ var translateMmi = function (mmi) {
 };
 
 var sortByDistance = function (a, b) {
-  return parseFloat(a.dist) - parseFloat(b.dist);
+  return parseFloat(a.properties.distance) - parseFloat(b.properties.distance);
 };
 
 /**
