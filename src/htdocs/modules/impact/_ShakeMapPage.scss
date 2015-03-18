@@ -41,6 +41,10 @@ dl.station-metadata > dd {
 }
 .station-channels {
   margin-top: 1em;
+
+  th {
+    min-width: 7em;
+  }
 }
 
 .station-channels-pga,
