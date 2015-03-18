@@ -1,30 +1,38 @@
 'use strict';
 
-var ImpactUtil = require('base/ImpactUtil'),
-    L = require('leaflet');
+var AsynchronousGeoJSON = require('map/AsynchronousGeoJSON'),
+    ImpactUtil = require('base/ImpactUtil'),
+    Util = require('util/Util');
 
 
-var ContoursLayer = L.GeoJSON.extend({
-  initialize: function (contourJson) {
+var DEFAULTS = {
+  style: function (feature) {
+    return {
+      color: feature.properties.color,
+      weight: feature.properties.weight,
+      opacity: 1.0
+    };
+  },
 
-    L.GeoJSON.prototype.initialize.call(this, contourJson, {
-      style: function (feature) {
-        return {
-          color: feature.properties.color,
-          weight: feature.properties.weight,
-          opacity: 1.0
-        };
-      },
+  onEachFeature: function (feature, layer) {
+    var roman = ImpactUtil.translateMmi(feature.properties.value);
 
-      onEachFeature: function (feature, layer) {
-        var p = feature.properties,
-            roman = ImpactUtil.translateMmi(p.value);
-
-        layer.bindPopup('<div class="roman station-summary-intensity mmi'+
-          roman+'">'+roman+'<br><abbr title="Modified Mercalli Intensity">mmi</abbr></div>');
-      }
-    });
+    layer.bindPopup(
+        '<div class="roman station-summary-intensity mmi' + roman + '">' +
+          roman +
+          '<br><abbr title="Modified Mercalli Intensity">mmi</abbr>' +
+        '</div>');
   }
+};
+
+
+var ContoursLayer = AsynchronousGeoJSON.extend({
+
+  initialize: function (options) {
+    AsynchronousGeoJSON.prototype.initialize.call(this,
+        Util.extend({}, DEFAULTS, options));
+  }
+
 });
 
 

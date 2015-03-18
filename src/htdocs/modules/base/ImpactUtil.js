@@ -4,12 +4,35 @@
 var MMI_ARRAY = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
     'IX', 'X', 'XI', 'XII'];
 
+var MMI_COLORS = [
+  '#FFFFFF',  // I
+  '#FFFFFF',  // I
+  '#ACD8E9',  // II
+  '#ACD8E9',  // III
+  '#83D0DA',  // IV
+  '#7BC87F',  // V
+  '#F9F518',  // VI
+  '#FAC611',  // VII
+  '#FA8A11',  // VIII
+  '#F7100C',  // IX
+  '#C80F0A',  // X
+  '#C80F0A',  // XI
+  '#C80F0A'   // XII
+];
+
 
 var translateMmi = function (mmi) {
   mmi = Math.round(mmi);
 
   return MMI_ARRAY[mmi] || '';
 };
+
+
+var getMmiColor = function (mmi) {
+  mmi = Math.round(mmi);
+  return MMI_COLORS[mmi] || null;
+};
+
 
 var sortByDistance = function (a, b) {
   return parseFloat(a.properties.distance) - parseFloat(b.properties.distance);
@@ -80,6 +103,7 @@ var xmlToJson = function (xml) {
 
 var ImpactUtil = {
   translateMmi: translateMmi,
+  getMmiColor: getMmiColor,
   sortByDistance: sortByDistance,
   xmlToJson: xmlToJson
 };
