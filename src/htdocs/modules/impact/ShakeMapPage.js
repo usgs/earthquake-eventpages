@@ -2,6 +2,7 @@
 
 var Accordion = require('accordion/Accordion'),
     Attribution = require('base/Attribution'),
+    Formatter = require('base/Formatter'),
     ImpactUtil = require('base/ImpactUtil'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     TabList = require('tablist/TabList'),
@@ -47,7 +48,7 @@ var MAP_IMAGES = [
 
 var STATION_LIST = {
   title: 'Station List',
-  suffix: 'download/stationlist.xml'
+  suffix: 'download/stationlist.json'
 };
 
 var FLAG_DESCRIPTIONS = {
@@ -74,6 +75,7 @@ var SUMMARY_THUMBNAIL = 'download/intensity.jpg',
  */
 var ShakeMapPage = function (options) {
   this._options = Util.extend({}, DEFAULTS, options);
+  this._formatter = new Formatter();
   this._tablist = null;
   this._shakemap = null;
   this._eventConfig = options.eventConfig;
@@ -200,7 +202,7 @@ ShakeMapPage.prototype._addStationList = function () {
 
       container.className = 'shakemap-stations';
       container.innerHTML =
-          '<p>Loading station list data from XML, please wait...</p>';
+          '<p>Loading station list data from JSON, please wait...</p>';
 
       _this._getStationData(
           function (stations) {
@@ -235,8 +237,7 @@ ShakeMapPage.prototype._addStationList = function () {
  *
  */
 ShakeMapPage.prototype._getStationData = function (callback, errback) {
-  var file = this._shakemap.contents[STATION_LIST.suffix],
-      _this = this;
+  var file = this._shakemap.contents[STATION_LIST.suffix];
 
   if (!file) {
     return errback('No station list exists.');
@@ -245,37 +246,13 @@ ShakeMapPage.prototype._getStationData = function (callback, errback) {
   // get station content and build the station list
   Xhr.ajax({
     url: file.url,
-    success: function (data, xhr) {
-      callback(_this._parseStationList(xhr.responseXML));
+    success: function (data) {
+      callback(data);
     },
     error: function () {
       errback('Error: Unable to retreive the station list.');
     }
   });
-};
-
-/**
- * Build array of station data, sort by distance
- *
- * @param  {object} xml,
- *         XML Dom object from the XHR response
- *
- * @return {array}
- *         array of station objects
- */
-ShakeMapPage.prototype._parseStationList = function (xml) {
-  var data = ImpactUtil.xmlToJson(xml),
-      shakemapData = data['shakemap-data'][1],
-      stations = this._stations = shakemapData.stationlist.station;
-
-  if (!stations) {
-    return [];
-  }
-
-  // sort by distance
-  stations.sort(ImpactUtil.sortByDistance);
-
-  return stations;
 };
 
 /**
@@ -289,36 +266,36 @@ ShakeMapPage.prototype._parseStationList = function (xml) {
  */
 ShakeMapPage.prototype._buildStationList = function (data) {
   var stations = [],
-      station, acc, vel, dist, components, romanNumeral, title;
+      station, pga, pgv, distance, romanNumeral, title, props;
+
+      data = data.features;
 
   if (data.length === 0) {
     return '<p>No station data available at this time.</p>';
   }
 
+  data.sort(ImpactUtil.sortByDistance);
+
   for (var i = 0; i < data.length; i++) {
     station = data[i];
-    components = station.comp;
+    props = station.properties;
 
-    acc = this._findMaxValue(components, 'acc');
-    vel = this._findMaxValue(components, 'vel');
+    pga = props.pga;
+    pgv = props.pgv;
 
 
-    vel = (vel) ? vel.toFixed(3) : '&ndash;';
-    acc = (acc) ? acc.toFixed(3) : '&ndash;';
+    pgv = (pgv !== null) ? pgv.toFixed(3) : '&ndash;';
+    pga = (pga !== null) ? pga.toFixed(3) : '&ndash;';
 
-    if (typeof station.dist === 'string') {
-      dist = parseFloat(station.dist, 10);
-    }
+    distance = props.distance.toFixed(1);
 
-    dist = dist.toFixed(1);
-
-    romanNumeral = ImpactUtil.translateMmi(station.intensity);
+    romanNumeral = ImpactUtil.translateMmi(props.intensity);
 
     // Do not repeat the zip code if it's already part of the name
-    if (station.name.indexOf('ZIP Code') === -1) {
-      title = station.code + '<small>' + station.name + '</small>';
+    if (props.name.indexOf('ZIP Code') === -1) {
+      title = props.code + '<small>' + props.name + '</small>';
     } else {
-      title = station.name;
+      title = props.name;
     }
 
     stations.push([
@@ -330,24 +307,24 @@ ShakeMapPage.prototype._buildStationList = function (data) {
             '<abbr title="Modified Mercalli Intensity">mmi</abbr>',
           '</li>',
           '<li>',
-            '<span>', vel ,'</span>',
-            '<abbr title="Maximum Horizontal Peak Ground Velocity">',
-              'pgv',
-            '</abbr>',
-          '</li>',
-          '<li>',
-            '<span>', acc ,'</span>',
+            '<span>', pga ,'</span>',
             '<abbr title="Maximum Horizontal Peak Ground Acceleration">',
               'pga',
             '</abbr>',
           '</li>',
           '<li>',
-            '<span>', dist ,'</span>',
+            '<span>', pgv ,'</span>',
+            '<abbr title="Maximum Horizontal Peak Ground Velocity">',
+              'pgv',
+            '</abbr>',
+          '</li>',
+          '<li>',
+            '<span>', distance ,'</span>',
             '<abbr title="Distance from Epicenter">dist</abbr>',
           '</li>',
         '</ul>',
         '<a class="accordion-toggle" data-id="', i ,'">Details</a>',
-        this._buildStationDetails(i),
+        this._buildStationDetails(station),
       '</div>'
     ].join(''));
   }
@@ -366,101 +343,108 @@ ShakeMapPage.prototype._buildStationList = function (data) {
  * @return {string}
  *         HTML markup.
  */
-ShakeMapPage.prototype._buildStationDetails = function (index) {
-  var station,
-      components;
+ShakeMapPage.prototype._buildStationDetails = function (feature) {
+  var props;
 
-  station = this._stations[index];
-  components = station.comp;
+  props = feature.properties;
 
   return [
       '<div class="accordion-content">',
-        '<dl class="horizontal">',
-          '<dt>Type: </dt>',
-          '<dd>', (station.insttype === '') ? '--' : station.insttype ,'</dd>',
-          '<dt>Location: </dt>',
-          '<dd>(', station.lat, ', ', station.lon ,')</dd>',
-          '<dt>Source: </dt>',
-          '<dd>', station.source ,'</dd>',
-          '<dt>Intensity: </dt>',
-          '<dd>', station.intensity, '</dd>',
+        '<dl class="station-metadata horizontal">',
+          '<dt class="station-metadata-type">Type</dt>',
+            '<dd class="station-metadata-type">',
+              (props.instrumentType||'&ndash;'),
+            '</dd>',
+          '<dt class="station-metadata-location">Location</dt>',
+            '<dd class="station-metadata-location">',
+              this._formatLocation(feature),
+            '</dd>',
+          '<dt class="station-metadata-source">Source</dt>',
+            '<dd class="station-metadata-source">', (props.source || '&ndash;'), '</dd>',
+          '<dt class="station-metadata-intensity">Intensity</dt>',
+            '<dd class="station-metadata-intensity">',
+              this._formatter.number(props.intensity, 1, '&ndash;'),
+            '</dd>',
         '</dl>',
-        this._buildComponentDetails(components),
+        this._createChannelTable(props.channels),
       '</div>'
     ].join('');
 };
 
-/**
- * Called by _buildStationDetails, this finishes generating
- * markup for the station details section.
- *
- * @param  {array} components,
- *         station components for the station list.
- *
- * @return {string}
- *         HTML markup
- */
-ShakeMapPage.prototype._buildComponentDetails = function (components) {
-  var componentsMarkup = [],
-      component;
+ShakeMapPage.prototype._formatLocation = function (feature) {
+  return ((feature.properties.location) ?
+      (feature.properties.location + '<br/>') : '') + ' (' +
+      feature.geometry.coordinates[1] + ', ' +
+      feature.geometry.coordinates[0] + ')';
+};
 
-  // check for null
-  if (!components) {
-    return;
-  }
+ShakeMapPage.prototype._createChannelTable = function (channels) {
+  var i = 0, numChannels = channels.length;
 
-  // When one record exists components is an object not an array
-  if(typeof components === 'object' && !(components instanceof Array)) {
-    components = [components];
-  }
-
-  for(var i = 0; i < components.length; i++) {
-    component = components[i];
-
-    componentsMarkup.push([
-      '<tr>',
-        '<th scope="row">', component.name ,'</th>',
-        '<td class="acc">', this._formatComponent(component.acc), '</td>',
-        '<td class="vel">', this._formatComponent(component.vel), '</td>',
-        '<td class="psa03">', this._formatComponent(component.psa03), '</td>',
-        '<td class="psa10">', this._formatComponent(component.psa10), '</td>',
-        '<td class="psa30">', this._formatComponent(component.psa30), '</td>',
-      '</tr>'
-    ].join(''));
-  }
-
-  return [
-    '<table class="tabular responsive station-components">',
+  var markup = [
+    '<table class="station-channels tabular">',
       '<thead>',
         '<tr>',
-          '<th>name</th>',
-          '<th>acc</th>',
-          '<th>vel</th>',
-          '<th>psa03</th>',
-          '<th>psa10</th>',
-          '<th>psa30</th>',
+          '<th scope="col" class="station-channels-name">name</th>',
+          '<th scope="col" class="station-channels-pga">pga</th>',
+          '<th scope="col" class="station-channels-pgv">pgv</th>',
+          '<th scope="col" class="station-channels-psa03">psa03</th>',
+          '<th scope="col" class="station-channels-psa10">psa10</th>',
+          '<th scope="col" class="station-channels-psa30">psa30</th>',
         '</tr>',
       '</thead>',
-      '<tbody>',
-          componentsMarkup.join(''),
-      '</tbody>',
-    '</table>'
+      '<tbody>'
+  ];
+
+  for (; i < numChannels; i++) {
+    markup.push(this._createChannelRow(channels[i]));
+  }
+
+  markup.push('</tbody></table>');
+
+  return markup.join('');
+};
+
+ShakeMapPage.prototype._createAmplitudesObject = function (amplitudes) {
+  var amp = {},
+      i,
+      len = amplitudes.length,
+      amplitude = null;
+
+  for (i = 0; i < len; i++) {
+    amplitude = amplitudes[i];
+    amp[amplitude.name] = amplitude;
+  }
+
+  return amp;
+};
+
+ShakeMapPage.prototype._createChannelRow = function (channel) {
+  var amplitude = this._createAmplitudesObject(channel.amplitudes);
+
+  return [
+    '<tr>',
+      '<th scope="row" class="station-channel-name">',
+        channel.name,
+      '</th>',
+      '<td class="station-channel-pga">',
+      this._formatComponent(amplitude.pga),
+      '</td>',
+      '<td class="station-channel-pgv">',
+      this._formatComponent(amplitude.pgv),
+      '</td>',
+      '<td class="station-channel-psa03">',
+        this._formatComponent(amplitude.psa03),
+      '<td class="station-channel-psa10">',
+        this._formatComponent(amplitude.psa10),
+      '</td>',
+      '<td class="station-channel-psa30">',
+        this._formatComponent(amplitude.psa30),
+      '</td>',
+    '</tr>'
   ].join('');
 };
 
-/**
- * Used to generate markup for component details based on the flag value.
- *
- * @param  {object} data,
- *         component value and component flag
- *         {
- *           value: 0.123,
- *           flag: 'G'
- *         }
- *
- * @return {string}
- *         HTML markup
- */
 ShakeMapPage.prototype._formatComponent = function (data) {
   var content = [],
       flag,
@@ -477,10 +461,10 @@ ShakeMapPage.prototype._formatComponent = function (data) {
 
       // display flag with title text
       if (FLAG_DESCRIPTIONS.hasOwnProperty(flag)) {
-        content.push(' <abbr title="' + FLAG_DESCRIPTIONS[flag] + '">(' +
+        content.push('<abbr title="' + FLAG_DESCRIPTIONS[flag] + '">(' +
             flag + ')</abbr>');
       } else {
-        content.push(' (' + flag + ')');
+        content.push('(' + flag + ')');
       }
       content.push('</span>');
     } else {
@@ -495,58 +479,6 @@ ShakeMapPage.prototype._formatComponent = function (data) {
   return content.join('');
 };
 
-/**
- * Find the max value in an array, used to determine max
- * values for station summary section.
- *
- * @param  {array} array,
- *         array of objects to parse through for max value.
- *
- * @param  {string} key,
- *         name of attribute to evaluate.
- *
- * @return {string}
- *         max value.
- */
-ShakeMapPage.prototype._findMaxValue = function (array, key) {
-  var values = [],
-      value,
-      item,
-      i;
-
-  // Only one value, convert to array
-  if(typeof array === 'object' && !(array instanceof Array)) {
-    array = [array];
-  }
-
-  for (i = 0; i < array.length; i++) {
-    if (array[i].hasOwnProperty(key)){
-
-      value = parseFloat(array[i][key].value, 10);
-
-      if (isNaN(value)) {
-        item = null;
-      } else {
-        item = array[i][key].value;
-      }
-
-      if (typeof item === 'string') {
-        item = parseFloat(item, 10);
-      }
-
-      if (item) {
-        values.push(item);
-      }
-    }
-  }
-
-  // otherwise infinity is computed as the max
-  if(values.length === 0) {
-    return null;
-  }
-
-  return Math.max.apply(null, values);
-};
 
 /**
  * Sets up summary info for Shakemap events with 2 or more events

@@ -6,6 +6,15 @@ var Formatter = require('base/Formatter'),
     Xhr = require('util/Xhr');
 
 
+var FLAG_DESCRIPTIONS = {
+  'M': 'Manually flagged',
+  'T': 'Outlier',
+  'G': 'Glitch (clipped or below noise)',
+  'I': 'Incomplete time series',
+  'N': 'Not in list of known stations'
+};
+
+
 var ShakeMapStationLayer = L.GeoJSON.extend({
 
   initialize: function (stationJson) {
@@ -79,20 +88,20 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
           romanIntensity,
           '<br><abbr title="Modified Mercalli Intensity">mmi</abbr></br>',
         '</li>',
-        '<li class="station-summary-pgv">',
-          this._formatter.number(p.pgv, 3, '&ndash;'),
-          '<br><abbr title="Maximum Horizontal Peak Ground Velocity">pgv</abbr></br>',
-        '</li>',
         '<li class="station-summary-pga">',
           this._formatter.number(p.pga, 3, '&ndash;'),
           '<br><abbr title="Maximum Horizontal Peak Ground Velocity">pga</abbr></br>',
+        '</li>',
+        '<li class="station-summary-pgv">',
+          this._formatter.number(p.pgv, 3, '&ndash;'),
+          '<br><abbr title="Maximum Horizontal Peak Ground Velocity">pgv</abbr></br>',
         '</li>',
         '<li class="station-summary-distance">',
           this._formatter.number(p.distance, 1, '&ndash;'),
           '<br><abbr title="Distance from Epicenter">dist</abbr></br>',
         '</li>',
       '</ul>',
-      '<dl class="station-metadata">',
+      '<dl class="station-metadata horizontal">',
         '<dt class="station-metadata-type">Type</dt>',
           '<dd class="station-metadata-type">',
             (p.instrumentType||'&ndash;'),
@@ -164,26 +173,20 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
           channel.name,
         '</th>',
         '<td class="station-channel-pga">',
-          (amplitude.pga&&amplitude.pga.value) ?
-              this._formatter.number(amplitude.pga.value, 3) : '&ndash;',
+        this._formatComponent(amplitude.pga),
         '</td>',
         '<td class="station-channel-pgv">',
-          (amplitude.pgv&&amplitude.pgv.value) ?
-              this._formatter.number(amplitude.pgv.value, 3) : '&ndash;',
+        this._formatComponent(amplitude.pgv),
         '</td>',
         '<td class="station-channel-psa03">',
-          (amplitude.psa03&&amplitude.psa03.value) ?
-              this._formatter.number(amplitude.psa03.value, 3) : '&ndash;',
-        '</td>',
+          this._formatComponent(amplitude.psa03),
         '<td class="station-channel-psa10">',
-          (amplitude.psa10&&amplitude.psa10.value) ?
-              this._formatter.number(amplitude.psa10.value, 3) : '&ndash;',
+          this._formatComponent(amplitude.psa10),
         '</td>',
         '<td class="station-channel-psa30">',
-          (amplitude.psa30&&amplitude.psa30.value) ?
-              this._formatter.number(amplitude.psa30.value, 3) : '&ndash;',
+          this._formatComponent(amplitude.psa30),
         '</td>',
-      '</tr>',
+      '</tr>'
     ].join('');
   },
 
@@ -211,6 +214,40 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
         feature.geometry.coordinates[1] + ', ' +
         feature.geometry.coordinates[0] + ')';
   },
+
+  _formatComponent: function (data) {
+    var content = [],
+        flag,
+        value;
+
+    if (data) {
+      flag = data.flag;
+      value = data.value;
+
+      // Add flag class for all non-zero flags
+      if (flag && flag !== '0') {
+        content.push('<span class="station-flag">');
+        content.push(parseFloat(value, 10).toFixed(3));
+
+        // display flag with title text
+        if (FLAG_DESCRIPTIONS.hasOwnProperty(flag)) {
+          content.push('<abbr title="' + FLAG_DESCRIPTIONS[flag] + '">(' +
+              flag + ')</abbr>');
+        } else {
+          content.push('(' + flag + ')');
+        }
+        content.push('</span>');
+      } else {
+        content.push('<span>');
+        content.push(parseFloat(value, 10).toFixed(3));
+        content.push('</span>');
+      }
+    } else {
+      content.push('<span>&ndash;</span>');
+    }
+
+    return content.join('');
+  }
 });
 
 

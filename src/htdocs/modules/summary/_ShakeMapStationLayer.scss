@@ -36,30 +36,20 @@
   }
 }
 
-.station-metadata {
-  display:block;
-  margin:1.25em 0 0 0;
+// .station-metadata {
+//   display:block;
+//   margin:1.25em 0 0 0;
+// }
+// .station-metadata:after {
+//   display:block;
+//   content:' ';
+//   clear:both;
+// }
+dl.station-metadata > dt {
+  width:6em;
 }
-.station-metadata:after {
-  display:block;
-  content:' ';
-  clear:both;
-}
-.station-metadata > dt {
-  display:block;
-  width:25%;
-  padding-right:16px;
-  margin-bottom:4px;
-  font-weight:bold;
-  float:left;
-  clear:left;
-}
-.station-metadata > dd {
-  display:block;
-  width:75%;
-  padding:0;
-  margin:0 0 4px 0;
-  float:left;
+dl.station-metadata > dd {
+  margin-left:7em;
 }
 
 .station-channels {

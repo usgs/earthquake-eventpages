@@ -63,7 +63,7 @@ describe('ShakeMapPageTest test suite.', function () {
       });
       tablistPanels = page.getContent().querySelectorAll('.tablist-panel');
 
-      expect(tablistPanels.length).to.be.equal(8);
+      expect(tablistPanels.length).to.be.equal(7);
     });
   });
 
@@ -79,11 +79,11 @@ describe('ShakeMapPageTest test suite.', function () {
       properties: {
         products: {
           shakemap: [{
-            source: 'ak',
-            code: 'ak11171372',
+            source: 'US',
+            code: 'us10001ldx',
             contents: {
-              'download/stationlist.xml': {
-                url:'stationlist.xml'
+              'download/stationlist.json': {
+                url:'stationlist.json'
               }
             }
           }]
@@ -92,13 +92,9 @@ describe('ShakeMapPageTest test suite.', function () {
     };
 
     beforeEach(function () {
-
-      var parser = new DOMParser();
-      var doc = parser.parseFromString(stationlist.xml, 'application/xml');
-
       ajaxStub = sinon.stub(Xhr, 'ajax', function (options) {
         if (options.success) {
-          options.success({}, {responseXML: doc});
+          options.success(stationlist);
         }
       });
 
@@ -118,22 +114,13 @@ describe('ShakeMapPageTest test suite.', function () {
 
     // check all stations are present
     it('has all stations', function () {
-      expect(stations.length).to.be.equal(2);
+      expect(stations.length).to.be.equal(17);
     });
 
     // check summary details
     it('has summary details', function () {
       var stationDetails = stations[0].querySelectorAll('li');
       expect(stationDetails.length).to.be.equal(4);
-    });
-
-    // check summary mmi details
-    it('has summary details for a station', function () {
-      var station = stations[0],
-          mmi = station.querySelector('.mmi');
-      /* jshint -W030 */
-      expect(mmi.classList.contains('mmiII')).to.be.true;
-      /* jshint +W030 */
     });
 
     // check detail information
@@ -144,10 +131,10 @@ describe('ShakeMapPageTest test suite.', function () {
 
       content = page.getContent();
       stationDetails = content.querySelector('.accordion-content');
-      components = content.querySelector('.station-components');
+      components = content.querySelector('.station-channels');
 
-      expect(stationDetails.querySelector('dd').innerHTML).to.equal('UNK');
-      expect(components.querySelectorAll('tbody>tr').length).to.equal(9);
+      expect(stationDetails.querySelector('dd').innerHTML).to.equal('OBSERVED');
+      expect(components.querySelectorAll('tbody>tr').length).to.equal(1);
     });
   });
 
@@ -161,15 +148,6 @@ describe('ShakeMapPageTest test suite.', function () {
           hash: 'shakemap'
         },
         page = new ShakeMapPage(options);
-
-    it('Get summary info', function () {
-      var content = page.getContent(),
-          shakemap = content.querySelectorAll('.shakemap');
-
-      /* jshint -W030 */
-      expect(shakemap.length).to.not.equal(0);
-      /* jshint +W030 */
-    });
 
     it('Can get product details', function () {
       var content = page.getContent();
