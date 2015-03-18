@@ -559,7 +559,7 @@ DYFIFormPage.prototype._renderQuestions = function (data) {
   // Add disclaimer link
   disclaimerEl.className = 'dyfi-disclaimer';
   disclaimerEl.href = '/research/dyfi/disclaimer.php#DYFIFormDisclaimer';
-  disclaimerEl.innerHTML = 'Disclaimers';
+  disclaimerEl.innerHTML = 'PRA - Privacy Statement';
   contactContainer.appendChild(disclaimerEl);
 
   // Hold on to this for later it is now an object{field: view}
