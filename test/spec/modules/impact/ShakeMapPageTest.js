@@ -149,15 +149,6 @@ describe('ShakeMapPageTest test suite.', function () {
         },
         page = new ShakeMapPage(options);
 
-    it('Get summary info', function () {
-      var content = page.getContent(),
-          shakemap = content.querySelectorAll('.shakemap');
-
-      /* jshint -W030 */
-      expect(shakemap.length).to.not.equal(0);
-      /* jshint +W030 */
-    });
-
     it('Can get product details', function () {
       var content = page.getContent();
 
