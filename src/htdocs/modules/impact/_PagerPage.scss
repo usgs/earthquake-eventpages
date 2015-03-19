@@ -1,3 +1,13 @@
+
+.pager-summary > ul > li {
+  width:25%;
+
+  &.image > img {
+    display: block;
+    margin: auto;
+  }
+}
+
 .pager {
 
   .disclaimer {
@@ -46,4 +56,13 @@
       display:table-row;
     }
   }
+}
+
+
+@media screen and (min-width: 560px) {
+
+  .pager-summary > ul > li {
+    width:20%;
+  }
+
 }

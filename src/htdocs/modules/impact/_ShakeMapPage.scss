@@ -47,6 +47,43 @@ dl.station-metadata > dd {
   }
 }
 
+@media screen and (min-width:560px) {
+
+  .shakemap-summary > ul > li {
+    width:20%;
+  }
+
+  .station dl.horizontal {
+
+    > dt {
+      width: 6em;
+      margin: 0;
+    }
+
+    > dd {
+      margin-left:7em;
+    }
+  }
+
+  table.station-components {
+    > tbody > tr {
+      background: #fafafa;
+
+      > th {
+        font-weight:normal;
+        background:none;
+      }
+      > .acc,
+      > .vel,
+      > .psa03,
+      > .psa10,
+      > .psa30 {
+        text-align:right;
+      }
+    }
+  }
+}
+
 .station-channels-list-pga,
 .station-channels-list-pgv,
 .station-channels-list-psa03,
