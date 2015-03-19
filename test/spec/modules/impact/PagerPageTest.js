@@ -2,6 +2,7 @@
 'use strict';
 
 var expect = chai.expect,
+    ImpactModule = require('impact/ImpactModule'),
     PagerPage = require('impact/PagerPage');
 
 
@@ -44,7 +45,8 @@ describe('PagerPage test suite.', function () {
     it('Can be instantiated', function () {
       var c = new PagerPage({
         el: document.createElement('div'),
-        eventDetails: eventInfo
+        eventDetails: eventInfo,
+        'module': new ImpactModule()
       });
       expect(c).to.be.an.instanceof(PagerPage);
     });
@@ -56,7 +58,8 @@ describe('PagerPage test suite.', function () {
     beforeEach(function (done) {
       page = new PagerPage({
         renderCallback: done,
-        eventDetails: eventInfo
+        eventDetails: eventInfo,
+        'module': new ImpactModule()
       });
       container = page.getContent();
     });
@@ -105,7 +108,8 @@ describe('PagerPage test suite.', function () {
 
       page = new PagerPage({
         renderCallback: done,
-        eventDetails: eventInfo
+        eventDetails: eventInfo,
+        'module': new ImpactModule()
       });
       content = page.getContent();
     });

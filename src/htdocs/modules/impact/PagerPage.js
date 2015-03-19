@@ -9,9 +9,10 @@ var Attribution = require('base/Attribution'),
 
 
 var DEFAULTS = {
-  renderCallback: null // Function to call when async rendering is complete
+  renderCallback: null, // Function to call when async rendering is complete
+  productTypes: ['losspager'],
+  hash: 'pager'
 };
-
 
 var PagerPage = function (options) {
   options = Util.extend({}, DEFAULTS, options || {});

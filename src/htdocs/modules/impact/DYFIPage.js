@@ -12,7 +12,10 @@ var Attribution = require('base/Attribution'),
     TabListUtil = require('./TabListUtil');
 
 
-var DEFAULTS = {};
+var DEFAULTS = {
+  productTypes: ['dyfi'],
+  hash: 'dyfi'
+};
 
 /* sets up titles and images for tabs */
 var MAP_GRAPH_IMAGES = [
