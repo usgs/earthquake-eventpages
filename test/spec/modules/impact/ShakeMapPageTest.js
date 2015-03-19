@@ -131,7 +131,7 @@ describe('ShakeMapPageTest test suite.', function () {
 
       content = page.getContent();
       stationDetails = content.querySelector('.accordion-content');
-      components = content.querySelector('.station-channels');
+      components = content.querySelector('.station-channels-list');
 
       expect(stationDetails.querySelector('dd').innerHTML).to.equal('OBSERVED');
       expect(components.querySelectorAll('tbody>tr').length).to.equal(1);
