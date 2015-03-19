@@ -320,7 +320,7 @@ ShakeMapPage.prototype._buildStationList = function (data) {
           '</li>',
           '<li>',
             '<span>', distance ,'</span>',
-            '<abbr title="Distance from Epicenter km">Distance</abbr>',
+            '<abbr title="Distance km">dist</abbr>',
           '</li>',
         '</ul>',
         '<a class="accordion-toggle" data-id="', i ,'">Details</a>',
