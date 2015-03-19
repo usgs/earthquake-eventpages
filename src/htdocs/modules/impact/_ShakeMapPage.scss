@@ -39,7 +39,7 @@ dl.station-metadata > dt {
 dl.station-metadata > dd {
   margin-left: 7em;
 }
-.station-channels {
+.station-channels-list {
   margin-top: 1em;
 
   th {
@@ -47,10 +47,10 @@ dl.station-metadata > dd {
   }
 }
 
-.station-channels-pga,
-.station-channels-pgv,
-.station-channels-psa03,
-.station-channels-psa10,
-.station-channels-psa30 {
+.station-channels-list-pga,
+.station-channels-list-pgv,
+.station-channels-list-psa03,
+.station-channels-list-psa10,
+.station-channels-list-psa30 {
   text-align: left;
 }
