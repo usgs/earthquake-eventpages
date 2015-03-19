@@ -26,6 +26,34 @@ var FORM_VERSION = '1.3';
 var _DYFIIFRAME = null;
 
 
+var DYFI_DISCLAIMER = '<p>' +
+    '<strong>Privacy Act Statement</strong>' +
+    ' You are not required to provide your personal contact information in' +
+    ' order to submit your survey. However, if you do not provide contact' +
+    ' information, we may be unable to contact you for additional information' +
+    ' to verify your responses. If you do provide contact information, this' +
+    ' information will only be used to initiate follow-up communications with' +
+    ' you. The records for this collection will be maintained in the' +
+    ' appropriate Privacy Act System of Records identified as Earthquake' +
+    ' Hazards Program Earthquake Information. (INTERIOR/USGS-2) published' +
+    ' at 74 FR 34033 (July 14,2009).' +
+    '</p>' +
+    '<p>' +
+    '<strong>Paperwork Reduction Act Statement</strong>' +
+    ' The Paperwork Reduction Act of 1995 (44 U.S.C. 3501 et. seq.) requires' +
+    ' us to inform you that this information is being collected to supplement' +
+    ' instrumental data and to promote public safety through better' +
+    ' understanding of earthquakes. Response to this request is voluntary.' +
+    ' Public reporting for this form is estimated to average 6 minutes per' +
+    ' response, including the time for reviewing instructions and completing' +
+    ' the form. A Federal agency may not conduct or sponsor, and a person is' +
+    ' not required to respond to, a collection of information unless it' +
+    ' displays a currently valid OMB Control Number. Comments regarding this' +
+    ' collection of information should be directed to: Bureau Clearance' +
+    ' officer, U.S. Geological Survey, 807 National Center, Reston, VA 20192.' +
+    '</p>';
+
+
 var __create_location_questions = function (questionInfo, container,
     questions) {
   var section = document.createElement('section'),
@@ -181,6 +209,7 @@ var __create_text_questions = function (questionInfo, container, questions) {
     container.appendChild(view.el);
   }
 };
+
 
 var DYFIFormPage = function (options) {
   this._options = Util.extend({}, DEFAULTS, options || {});
@@ -559,7 +588,26 @@ DYFIFormPage.prototype._renderQuestions = function (data) {
   // Add disclaimer link
   disclaimerEl.className = 'dyfi-disclaimer';
   disclaimerEl.href = '/research/dyfi/disclaimer.php#DYFIFormDisclaimer';
-  disclaimerEl.innerHTML = 'Disclaimers';
+  disclaimerEl.innerHTML = 'PRA - Privacy Statement';
+  disclaimerEl.addEventListener('click', function (e) {
+    var dialog = ModalView(DYFI_DISCLAIMER, {
+      title: 'PRA - Privacy Statement',
+      closable: false,
+      buttons: [
+        {
+          text: 'OK',
+          classes: ['green'],
+          callback: function () {
+            dialog.hide();
+            dialog.destroy();
+            dialog = null;
+          }
+        }
+      ]
+    }).show();
+    e.preventDefault();
+  });
+
   contactContainer.appendChild(disclaimerEl);
 
   // Hold on to this for later it is now an object{field: view}
