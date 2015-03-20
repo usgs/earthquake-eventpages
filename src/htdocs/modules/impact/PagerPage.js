@@ -202,7 +202,20 @@ PagerPage.prototype._renderAlerts = function () {
   var alerts = this._pagerInfo.alerts,
       comments = this._pagerInfo.comments.impact,
       contents = this._event.properties.products.losspager[0].contents,
+      fatalityComment = '',
+      economicComment = '',
       alertsMarkup = [];
+
+  if (comments.length === 2) {
+    if (comments[0] !== '') {
+      fatalityComment = comments[0];
+      economicComment = comments[1];
+    } else {
+      fatalityComment = comments[1];
+    }
+  } else {
+    fatalityComment = comments[0];
+  }
 
   if (alerts.fatality) {
     alertsMarkup.push(
@@ -212,8 +225,7 @@ PagerPage.prototype._renderAlerts = function () {
           '<a href="', contents['alertfatal.pdf'].url, '">',
             '<img src="', contents['alertfatal.png'].url, '" alt=""/>',
           '</a>',
-          ((comments.length === 2) ?
-              '<figcaption>' + comments[0] + '</figcaption>' : ''),
+              '<figcaption>', fatalityComment, '</figcaption>',
         '</figure>',
       '</div>');
   }
@@ -226,9 +238,7 @@ PagerPage.prototype._renderAlerts = function () {
           '<a href="', contents['alertecon.pdf'].url, '">',
             '<img src="', contents['alertecon.png'].url, '" alt=""/>',
           '</a>',
-          '<figcaption>',
-            ((comments.length === 2) ? comments[1] : comments[0]),
-          '</figcaption>',
+          '<figcaption>', economicComment, '</figcaption>',
         '</figure>',
       '</div>');
   }
