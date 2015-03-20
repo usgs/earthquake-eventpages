@@ -225,7 +225,9 @@ PagerPage.prototype._renderAlerts = function () {
           '<a href="', contents['alertfatal.pdf'].url, '">',
             '<img src="', contents['alertfatal.png'].url, '" alt=""/>',
           '</a>',
-              '<figcaption>', fatalityComment, '</figcaption>',
+          ((fatalityComment !== '') ?
+            '<figcaption>' + fatalityComment + '</figcaption>' : ''
+          ),
         '</figure>',
       '</div>');
   }
@@ -238,12 +240,14 @@ PagerPage.prototype._renderAlerts = function () {
           '<a href="', contents['alertecon.pdf'].url, '">',
             '<img src="', contents['alertecon.png'].url, '" alt=""/>',
           '</a>',
-          '<figcaption>', economicComment, '</figcaption>',
+          ((economicComment !== '') ?
+            '<figcaption>' + economicComment + '</figcaption>' : ''
+          ),
         '</figure>',
       '</div>');
   }
 
-  if (alertsMarkup === []) {
+  if (alertsMarkup.length === 0) {
     this._alertEl.parentNode.removeChild(this._alertEl);
   } else {
     this._alertEl.innerHTML = alertsMarkup.join('');
