@@ -109,13 +109,11 @@ EventModule.prototype.getNavigationItems = function (hash) {
     pageOptions = page.options;
     fullHash = this._hash + '_' + pageOptions.hash;
 
-    if (fullHash === hash) {
-      markup.push('<strong class="current-page">' + pageOptions.title +
-          '</strong>');
-    } else {
-      markup.push('<a href="#' + this._hash + '_' + pageOptions.hash + '">' +
-          pageOptions.title + '</a>');
-    }
+    markup.push('<a href="#' + this._hash + '_' + pageOptions.hash + '">' +
+        ((fullHash === hash) ?
+            '<strong class="current-page">' + pageOptions.title + '</strong>' :
+            pageOptions.title) +
+        '</a>');
   }
 
   return markup;
