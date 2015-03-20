@@ -1,17 +1,17 @@
 
 .dyfi-popup {
   color:#444;
-}
 
-.dyfi-summary {
-  display:block;
-  list-style:none;
-  padding:0;
-
-  &:after {
+  > .dyfi-summary {
     display:block;
-    content:' ';
-    clear:both;
+    list-style:none;
+    padding:0;
+
+    &:after {
+      display:block;
+      content:' ';
+      clear:both;
+    }
   }
 }
 
