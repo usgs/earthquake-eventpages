@@ -309,7 +309,7 @@ MomentTensorPage.prototype._getSummaryMarkup = function (tensor) {
             '<span>', depth, '<span class="units">km</span></span>',
             '<abbr title="Depth (km)">Depth</abbr>',
           '</li>',
-          '<li>',
+          '<li class="summary-hide">',
             '<span>', percentDC, '</span>',
             '<abbr title="Percent Double Couple">% DC</abbr>',
           '</li>',
