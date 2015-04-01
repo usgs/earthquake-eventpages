@@ -331,14 +331,17 @@ SummaryPage.prototype._loadTextualContent =
       !this._event.properties.products.hasOwnProperty(type)) {
     return;
   }
-
-  products = this._event.properties.products[type];
-
-  for (i = 0, len = products.length; i < len; i++) {
-    markup.push('<div>' + products[0].contents[''].bytes + '</div>');
+  
+  if (title) {
+      markup.push('<h3>' + title + '</h3>');
   }
 
-  container.innerHTML = '<h3>' + title + '</h3>' + markup.join('');
+  products = this._event.properties.products[type];
+  for (i = 0, len = products.length; i < len; i++) {
+    markup.push('<div>' + products[i].contents[''].bytes + '</div>');
+  }
+
+  container.innerHTML = markup.join('');
 };
 
 SummaryPage.prototype.getProducts = function () {
