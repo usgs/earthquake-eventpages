@@ -43,25 +43,25 @@ ScientificSummaryPage.prototype._setContentMarkup = function () {
   // Hypocenter content
   if (products.hasOwnProperty('origin')) {
     product = products.origin[0];
-    this._getPreferredSummaryMarkup(product, 'scientific_origin', 'Origin');
+    this.getPreferredSummaryMarkup(product, 'scientific_origin', 'Origin');
   }
 
   // Moment Tensor content
   if (products.hasOwnProperty('moment-tensor')) {
     product = Tensor.fromProduct(products['moment-tensor'][0]);
-    this._getPreferredSummaryMarkup(product, 'scientific_tensor', 'Moment Tensor');
+    this.getPreferredSummaryMarkup(product, 'scientific_tensor', 'Moment Tensor');
   }
 
   // Focal Mechanism content
   if (products.hasOwnProperty('focal-mechanism')) {
     product = Tensor.fromProduct(products['focal-mechanism'][0]);
-    this._getPreferredSummaryMarkup(product, 'scientific_mechanism', 'Focal Mechanism');
+    this.getPreferredSummaryMarkup(product, 'scientific_mechanism', 'Focal Mechanism');
   }
 
   // Finite Fault content
   if (products.hasOwnProperty('finite-fault')) {
     product = products['finite-fault'][0];
-    this._getPreferredSummaryMarkup(product, 'scientific_finitefault', 'Finite Fault');
+    this.getPreferredSummaryMarkup(product, 'scientific_finitefault', 'Finite Fault');
   }
 
   // scitech-text content
@@ -69,29 +69,6 @@ ScientificSummaryPage.prototype._setContentMarkup = function () {
 
   // scitech-links content
   this.getLinks();
-};
-
-ScientificSummaryPage.prototype._getPreferredSummaryMarkup = function (product, hash, name) {
-  var preferredProductMarkup = document.createElement('section');
-
-  this._options.module.getPage(hash, function (page) {
-    var products = page.getProducts(),
-        preferredLink = document.createElement('a');
-
-    preferredProductMarkup.innerHTML = '<h3>' + name + '</h3>';
-    preferredProductMarkup.appendChild(page.buildSummaryMarkup(product));
-
-    // Add link to product-summary page when more than one product exists
-    if (products.length > 1) {
-      preferredLink.href = '#' + hash;
-      preferredLink.className = 'view-all';
-      preferredLink.innerHTML = 'View all ' + name + 's (' + products.length +
-          ' total)';
-      preferredProductMarkup.appendChild(preferredLink);
-    }
-  });
-
-  this._content.appendChild(preferredProductMarkup);
 };
 
 /**
