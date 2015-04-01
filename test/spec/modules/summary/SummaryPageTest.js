@@ -11,6 +11,23 @@ var expect = chai.expect,
     eventData_nogeoserve = require('./usc000lnnb-nogeoserve'),
     eventData_nonearbycities = require('./usc000lnnb-nonearbycities');
 
+// inject a general-header product
+eventData.properties.products['general-header'] = [
+  {
+    contents: {
+      '': {
+        bytes: '<div class="general-header-1">General Header Text 1</div>'
+      }
+    }
+  },
+  {
+    contents: {
+      '': {
+        bytes: '<div class="general-header-2">General Header Text 2</div>'
+      }
+    }
+  }
+];
 
 var options = {
   hash: 'summary',
@@ -133,6 +150,30 @@ describe('SummaryPage test suite.', function () {
       expect(impact.childNodes.length).to.not.equal(0);
     });
 
+  });
+
+  describe('_loadTextualContent', function () {
+
+    it('does not add a title if null', function () {
+      var container = document.createElement('div');
+
+      page._loadTextualContent(container, 'general-header', null);
+
+      /* jshint -W030 */
+      expect(container.querySelector('h3')).to.be.null;
+      /* jshint +W030 */
+    });
+
+    it('loops over all products available', function () {
+      var container = document.createElement('div');
+
+      page._loadTextualContent(container, 'general-header', null);
+
+      /* jshint -W030 */
+      expect(container.querySelector('.general-header-1')).not.to.be.null;
+      expect(container.querySelector('.general-header-2')).not.to.be.null;
+      /* jshint +W030 */
+    });
   });
 
   after(function () {
