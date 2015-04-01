@@ -331,18 +331,17 @@ SummaryPage.prototype._loadTextualContent =
       !this._event.properties.products.hasOwnProperty(type)) {
     return;
   }
+  
+  if (title) {
+      markup.push('<h3>' + title + '</h3>');
+  }
 
   products = this._event.properties.products[type];
-
   for (i = 0, len = products.length; i < len; i++) {
     markup.push('<div>' + products[i].contents[''].bytes + '</div>');
   }
 
-  if (title) {
-    container.innerHTML = '<h3>' + title + '</h3>';
-  }
-
-  container.innerHTML += markup.join('');
+  container.innerHTML = markup.join('');
 };
 
 SummaryPage.prototype.getProducts = function () {
