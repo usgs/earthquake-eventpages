@@ -267,7 +267,7 @@ MomentTensorPage.prototype.getSummaryContent = function (products) {
     tensors.push(Tensor.fromProduct(products[i]));
   }
 
-  SummaryDetailsPage.prototype.getSummaryContent.apply(this, [tensors]);
+  return SummaryDetailsPage.prototype.getSummaryContent.apply(this, [tensors]);
 };
 
 MomentTensorPage.prototype._buildHash = function (tensor) {

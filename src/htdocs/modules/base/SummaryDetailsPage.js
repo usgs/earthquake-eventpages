@@ -60,7 +60,7 @@ SummaryDetailsPage.prototype._setContentMarkup = function () {
     this.getDetailsContent(products[0]);
   } else {
     // there is more than one product display summary
-    this.getSummaryContent(products);
+    this._content.appendChild(this.getSummaryContent(products));
   }
 };
 
@@ -128,7 +128,8 @@ SummaryDetailsPage.prototype.getDetailsContent = function (product) {
  */
 SummaryDetailsPage.prototype.getSummaryContent = function (products) {
   var product,
-      summary;
+      summary,
+      fragment = document.createDocumentFragment();
 
   for (var i = 0; i < products.length; i++) {
     product = products[i];
@@ -136,8 +137,9 @@ SummaryDetailsPage.prototype.getSummaryContent = function (products) {
     if (i === 0 && this._options.markPreferred) {
       summary.classList.add('preferred');
     }
-    this._content.appendChild(summary);
+    fragment.appendChild(summary);
   }
+  return fragment;
 };
 
 /**
