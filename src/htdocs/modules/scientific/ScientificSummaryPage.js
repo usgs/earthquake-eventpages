@@ -65,7 +65,8 @@ ScientificSummaryPage.prototype._setContentMarkup = function () {
   }
 
   // scitech-text content
-  this.getText();
+  //this.getTexts();
+  this._content.appendChild(this.getTexts());
 
   // scitech-links content
   this._content.appendChild(this.getLinks());
@@ -76,32 +77,37 @@ ScientificSummaryPage.prototype._setContentMarkup = function () {
  *
  * @return {DOMElement} content, or null if no information present.
  */
-ScientificSummaryPage.prototype.getText = function () {
-  var products = this._event.properties.products,
+ScientificSummaryPage.prototype.getTexts = function () {
+  var fragment = document.createDocumentFragment(),
+      products = this._event.properties.products,
       texts = products['scitech-text'],
       textEl = null,
-      buf,
       i,
-      len,
-      text;
+      len;
 
   if (texts) {
     textEl = document.createElement('div');
     textEl.className = 'scitech-text';
+    textEl.innerHTML = '<h3>Scientific and Technical Commentary</h3>';
+    fragment.appendChild(textEl);
 
-    buf = [];
-    buf.push('<h3>Scientific and Technical Commentary</h3>');
     for (i = 0, len = texts.length; i < len; i++) {
-      text = texts[i].contents[''].bytes;
-      buf.push('<section>', text, '</section>');
+      textEl.appendChild(this.getText(texts[i]));
     }
-
-    textEl.innerHTML = buf.join('');
   }
 
-  if (textEl !== null) {
-    this._content.appendChild(textEl);
+  return fragment;
+};
+
+ScientificSummaryPage.prototype.getText = function (product) {
+  var el = document.createElement('section'),
+      contents = product.contents;
+
+  if (contents && contents['']) {
+    el.innerHTML = contents[''].bytes;
   }
+
+  return el;
 };
 
 /**

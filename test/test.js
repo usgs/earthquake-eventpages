@@ -48,6 +48,7 @@ require('./spec/modules/impact/TabListUtilTest');
 require('./spec/modules/impact/PagerPageTest');
 require('./spec/modules/impact/PagerXmlParserTest');
 require('./spec/modules/scientific/HypocenterPageTest');
+require('./spec/modules/scientific/ScientificSummaryPageTest');
 require('./spec/modules/scientific/TensorTest');
 require('./spec/modules/scientific/MomentTensorTest');
 
