@@ -68,7 +68,7 @@ ScientificSummaryPage.prototype._setContentMarkup = function () {
   this.getText();
 
   // scitech-links content
-  this.getLinks();
+  this._content.appendChild(this.getLinks());
 };
 
 /**
@@ -107,35 +107,54 @@ ScientificSummaryPage.prototype.getText = function () {
 /**
  * Get any scitech-link information.
  *
- * @return {DOMElement} links, or null if no information present.
+ * @return {DocumentFragment}
+ *         Fragment with links, or empty if no information present.
  */
 ScientificSummaryPage.prototype.getLinks = function () {
-  var products = this._event.properties.products,
+  var fragment = document.createDocumentFragment(),
+      products = this._event.properties.products,
       links = products['scitech-link'],
       linkEl = null,
-      buf,
       i,
+      item,
       len,
-      link;
+      list;
 
   if (links) {
     linkEl = document.createElement('div');
     linkEl.className = 'scitech-links';
+    linkEl.innerHTML = '<h3>Scientific and Technical Links</h3>';
+    fragment.appendChild(linkEl);
 
-    buf = [];
-    buf.push('<h3>Scientific and Technical Links</h3>');
-    buf.push('<ul>');
+    list = document.createElement('ul');
+    linkEl.appendChild(list);
+
     for (i = 0, len = links.length; i < len; i++) {
-      link = links[i].properties;
-      buf.push('<li><a href="', link.url, '">', link.text, '</a></li>');
+      item = document.createElement('li');
+      item.appendChild(this.getLink(links[i]));
+      list.appendChild(item);
     }
-    buf.push('</ul>');
-    linkEl.innerHTML = buf.join('');
   }
 
-  if (linkEl !== null) {
-    this._content.appendChild(linkEl);
-  }
+  return fragment;
+};
+
+/**
+ * Create an anchor element from a link product.
+ *
+ * @param product {Object}
+ *        The link product.
+ * @return {DOMEElement}
+ *         anchor element.
+ */
+ScientificSummaryPage.prototype.getLink = function (product) {
+  var el = document.createElement('a'),
+      props = product.properties;
+
+  el.setAttribute('href', props.url);
+  el.innerHTML = props.text;
+
+  return el;
 };
 
 
