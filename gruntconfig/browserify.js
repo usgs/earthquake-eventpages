@@ -63,7 +63,10 @@ var browserify = {
   // test bundle
   test: {
     src: config.test + '/test.js',
-    dest: config.build + '/' + config.test + '/test.js'
+    dest: config.build + '/' + config.test + '/test.js',
+    options: {
+      alias: BUNDLED_DEPENDENCIES
+    }
   },
 
   summary: {
