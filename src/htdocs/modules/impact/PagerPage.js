@@ -105,9 +105,6 @@ PagerPage.prototype._getSummaryMarkup = function (product) {
 
   maxmmi = ImpactUtil.translateMmi(maxmmi);
 
-  console.log(properties);
-  console.log(contents);
-
   return '<ul>' +
       '<li class="image">' +
         '<img src="' + contents['alertfatal_small.png'].url +
