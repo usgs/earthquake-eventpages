@@ -111,13 +111,13 @@ var BeachBall = function (options) {
       strike = Math.round(strike);
       if (340 <= strike || strike <= 20) {
         top = 20;
-      } else if (20 <= strike && strike <= 40) {
+      } else if (20 <= strike && strike <= 45) {
         // top right
         top = Math.max(top, 10);
         right = Math.max(right, 50);
       } else if (45 <= strike && strike <= 135) {
         right = 90;
-      } else if (140 <= strike && strike <= 160) {
+      } else if (135 <= strike && strike <= 160) {
         // bottom right
         bottom = Math.max(bottom, 10);
         right = Math.max(right, 50);
