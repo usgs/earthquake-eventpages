@@ -88,6 +88,7 @@ var SOURCE_MAP = {
   'INMG': {id: 'INMG', title: 'Instituto de Meteorologia, Lisbon, Portugal'},
   'ISK': {id: 'ISK', title: 'Kandilli Observatory & Earthquake Research Inst., Istanbul, Turkey'},
   'ISTP': {id: 'ISTP', title: 'Instituto Superior Tecnico, Lisbon, Portugal'},
+  'ISP': {id: 'ISP', title: 'USGS Induced Seismicity Project'},
   'JMA': {id: 'JMA', title: 'Japan Meteorological Agency, Tokyo, Japan'},
   'JSN': {id: 'JSN', title: 'University of the West Indies, Mona, Jamaica'},
   'KAZK': {id: 'KAZK', title: 'Seismological Institute, Kazakhstan Academy of Sciences, Almaty'},
