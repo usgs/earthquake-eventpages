@@ -110,23 +110,25 @@ PagerPage.prototype._getSummaryMarkup = function (product) {
 
   return '<ul>' +
       '<li class="image">' +
-        '<img src="' + contents['alertfatal_small.png'].url +
-            '" alt="' + 'Estimated Fatalities Histogram' + '" />' +
+        (contents['alertfatal_small.png'] ?
+            '<img src="' + contents['alertfatal_small.png'].url +
+            '" alt="' + 'Estimated Fatalities Histogram' + '" />' :
+            ''
+        ) +
         '<abbr title="Estimated Fatalities Histogram">Fatalities</abbr>' +
       '</li>' +
       '<li class="image">' +
-        '<img src="' + contents['alertecon_small.png'].url +
-            '" alt="' + 'Estimated Economic Loss Histogram' + '" />' +
+        (contents['alertecon_small.png'] ?
+            '<img src="' + contents['alertecon_small.png'].url +
+            '" alt="' + 'Estimated Economic Loss Histogram' + '" />' :
+            ''
+        ) +
         '<abbr title="Estimated Economic Loss Histogram">Economic Loss</abbr>' +
       '</li>' +
       '<li class="mmi">' +
         '<span>' + maxmmi + '</span>' +
         '<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
       '</li>' +
-      // '<li>' +
-      //   '<span>' + Number(properties.magnitude).toFixed(1) + '</span>' +
-      //   '<abbr title="Magnitude">Mag</abbr>' +
-      // '</li>' +
       '<li>' +
         this.getCatalogSummary(product) +
       '</li>' +
