@@ -43,11 +43,12 @@ PagerPage.prototype.destroy = function () {
  */
 PagerPage.prototype.getDetailsContent = function () {
   var _this = this,
+      el = document.createElement('div'),
       product = this._event.properties.products.losspager[0],
       contents = product.contents;
 
-  this._content.classList.add('pager');
-  this._content.innerHTML =
+  el.classList.add('pager');
+  el.innerHTML =
     '<small class="attribution">Data Source ' +
       Attribution.getContributorReference(product.source) +
       '</small>' +
@@ -73,10 +74,10 @@ PagerPage.prototype.getDetailsContent = function () {
     '</div>';
 
   // Store these for later. See _renderPage
-  this._alertEl = this._content.querySelector('.alert-wrapper');
-  this._exposureEl = this._content.querySelector('.exposure-wrapper');
-  this._commentEl = this._content.querySelector('.comment-wrapper');
-  this._cityEl = this._content.querySelector('.city-wrapper');
+  this._alertEl = el.querySelector('.alert-wrapper');
+  this._exposureEl = el.querySelector('.exposure-wrapper');
+  this._commentEl = el.querySelector('.comment-wrapper');
+  this._cityEl = el.querySelector('.city-wrapper');
 
   // Can only display exposure map by default. Everything else relies on info
   // found in pager.xml, so must fetch/parse that asynchrounously.
@@ -93,6 +94,8 @@ PagerPage.prototype.getDetailsContent = function () {
       _this._renderError(errorInfo);
     }
   });
+
+  return el;
 };
 
 /**
@@ -182,7 +185,7 @@ PagerPage.prototype._renderPage = function () {
  *
  */
 PagerPage.prototype._renderError = function (errorInfo) {
-  this._content.innerHTML = '<p class="error">' +
+  this._content.innerHTML = '<p class="alert error">' +
       'An error occurred loading this page. Please try again later.</p>';
 
   if (this._renderCallback && typeof this._renderCallback === 'function') {

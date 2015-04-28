@@ -59,7 +59,7 @@ FiniteFaultPage.prototype.getDetailsContent = function (product) {
     });
   }
 
-  this._content.appendChild(el);
+  return el;
 };
 
 FiniteFaultPage.prototype._getSummaryMarkup = function (product) {

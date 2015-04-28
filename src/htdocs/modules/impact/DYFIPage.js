@@ -162,25 +162,27 @@ DYFIPage.prototype._setHeaderMarkup = function () {
 };
 
 DYFIPage.prototype.getDetailsContent = function () {
-  var products = this._event.properties.products,
+  var el = document.createElement('div'),
+      products = this._event.properties.products,
       dyfi, tablistDiv;
+
   if (!products.dyfi) {
     return;
   }
 
   dyfi = this._dyfi = products.dyfi[0];
 
-  this._content.innerHTML = '<small class="attribution">Data Source ' +
+  el.innerHTML = '<small class="attribution">Data Source ' +
       Attribution.getContributorReference(dyfi.source) +
-      '</small>';
+      '</small>' +
+      '<div class="dyfi-tablist"></div>';
 
   // Tablist element
-  tablistDiv = document.createElement('div');
-  tablistDiv.className = 'dyfi-tablist';
+  tablistDiv = el.querySelector('.dyfi-tablist');
 
   /* creates tab list */
   this._tablist = new TabList({
-    el: this._content.appendChild(tablistDiv),
+    el: tablistDiv,
     tabPosition: 'top',
     tabs: TabListUtil.CreateTabListData({
       contents:dyfi.contents,
@@ -197,6 +199,7 @@ DYFIPage.prototype.getDetailsContent = function () {
 
   this._addDyfiResponsesTab();
 
+  return el;
 };
 
 DYFIPage.prototype._addDyfiResponsesTab = function () {

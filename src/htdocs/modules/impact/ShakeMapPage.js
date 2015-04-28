@@ -101,25 +101,28 @@ ShakeMapPage.prototype.destroy = function () {
 
 // this is not needed anymore
 ShakeMapPage.prototype.getDetailsContent = function (product) {
-  var tablistDiv = document.createElement('div'),
+  var el = document.createElement('div'),
+      tablistDiv,
       shakemap;
 
-  this._content.innerHTML = '<small class="attribution">Data Source ' +
-      Attribution.getContributorReference(product.source) +
-      '</small>';
-
-  tablistDiv.className = 'shakemap-tablist';
   shakemap = this._shakemap = product;
+
+  el.innerHTML = '<small class="attribution">Data Source ' +
+      Attribution.getContributorReference(product.source) +
+      '</small><div class="shakemap-tablist"></div>';
+  tablistDiv = el.querySelector('.shakemap-tablist');
 
   // Build TabList with all of the shakemap images
   this._tablist = new TabList({
-    el: this._content.appendChild(tablistDiv),
+    el: tablistDiv,
     tabPosition: 'top',
     tabs: this._createTabListData(
       {
         contents: shakemap.contents
       })
   });
+
+  return el;
 };
 // end
 

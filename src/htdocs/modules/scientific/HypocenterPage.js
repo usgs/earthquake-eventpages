@@ -343,7 +343,7 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
     }
   });
 
-  this._content.appendChild(el);
+  return el;
 };
 
 HypocenterPage.prototype._getPhaseDetail = function () {

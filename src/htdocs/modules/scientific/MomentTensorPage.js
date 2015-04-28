@@ -74,7 +74,7 @@ MomentTensorPage.prototype.getDetailsContent = function (product) {
         labelPlanes: true
       }).getCanvas());
 
-  this._content.appendChild(el);
+  return el;
 };
 
 
