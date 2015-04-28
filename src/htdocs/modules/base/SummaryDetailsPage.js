@@ -57,7 +57,7 @@ SummaryDetailsPage.prototype._setContentMarkup = function () {
 
   if (products.length === 1) {
     // If there is only one product display details
-    this.getDetailsContent(products[0]);
+    this._content.appendChild(this.getDetailsContent(products[0]));
   } else {
     // there is more than one product display summary
     this._content.appendChild(this.getSummaryContent(products));
