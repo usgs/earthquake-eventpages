@@ -51,6 +51,7 @@ FiniteFaultPage.prototype.getDetailsContent = function (product) {
           data = data.replace('"' + path + '"', '"' + baseURL + path + '"');
         }
         // insert content
+        el.classList.add('finite-fault');
         el.innerHTML = '<small class="attribution">Data Source ' +
             Attribution.getContributorReference(product.source) +
             '</small>' +

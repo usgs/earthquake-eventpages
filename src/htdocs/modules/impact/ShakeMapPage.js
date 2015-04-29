@@ -107,6 +107,7 @@ ShakeMapPage.prototype.getDetailsContent = function (product) {
 
   shakemap = this._shakemap = product;
 
+  el.classList.add('shakemap');
   el.innerHTML = '<small class="attribution">Data Source ' +
       Attribution.getContributorReference(product.source) +
       '</small><div class="shakemap-tablist"></div>';

@@ -47,7 +47,7 @@ PagerPage.prototype.getDetailsContent = function () {
       product = this._event.properties.products.losspager[0],
       contents = product.contents;
 
-  el.classList.add('pager');
+  el.classList.add('losspager');
   el.innerHTML =
     '<small class="attribution">Data Source ' +
       Attribution.getContributorReference(product.source) +

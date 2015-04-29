@@ -318,6 +318,7 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
   originAuthor = props['origin-source'] || product.source;
   magnitudeAuthor = props['magnitude-source'] || product.source;
 
+  el.classList.add('origin');
   el.innerHTML = '<small class="attribution">Data Source ' +
       (originAuthor === magnitudeAuthor ?
         Attribution.getContributorReference(originAuthor) :

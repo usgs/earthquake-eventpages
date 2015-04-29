@@ -172,6 +172,7 @@ DYFIPage.prototype.getDetailsContent = function () {
 
   dyfi = this._dyfi = products.dyfi[0];
 
+  el.classList.add('dyfi');
   el.innerHTML = '<small class="attribution">Data Source ' +
       Attribution.getContributorReference(dyfi.source) +
       '</small>' +
