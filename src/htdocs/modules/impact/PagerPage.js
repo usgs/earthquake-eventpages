@@ -113,7 +113,7 @@ PagerPage.prototype._getSummaryMarkup = function (product) {
         (contents['alertfatal_small.png'] ?
             '<img src="' + contents['alertfatal_small.png'].url +
             '" alt="' + 'Estimated Fatalities Histogram' + '" />' :
-            ''
+            '<span>(no image)</span>'
         ) +
         '<abbr title="Estimated Fatalities Histogram">Fatalities</abbr>' +
       '</li>' +
@@ -121,7 +121,7 @@ PagerPage.prototype._getSummaryMarkup = function (product) {
         (contents['alertecon_small.png'] ?
             '<img src="' + contents['alertecon_small.png'].url +
             '" alt="' + 'Estimated Economic Loss Histogram' + '" />' :
-            ''
+            '<span>(no image)</span>'
         ) +
         '<abbr title="Estimated Economic Loss Histogram">Economic Loss</abbr>' +
       '</li>' +
