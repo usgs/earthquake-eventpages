@@ -74,8 +74,8 @@ SummaryPage.prototype._setContentMarkup = function () {
       '</div>' +
     '</div>'
     );
-  markup.push(this._getTextContentMarkup('tectonic-summary'));
   markup.push(this._getTextContentMarkup('general-text'));
+  markup.push(this._getTextContentMarkup('tectonic-summary'));
   markup.push(this._getTextContentMarkup('impact-text'));
   markup.push(this._getMoreInformationMarkup());
 
@@ -183,9 +183,8 @@ SummaryPage.prototype._setContentMarkup = function () {
   }
 
   this._loadTextualContent(generalHeader, 'general-header', null);
-  this._loadTextualContent(impactText, 'impact-text', 'Impact Text');
-  this._loadTextualContent(generalText, 'general-text',
-      'Additional Commentary');
+  this._loadTextualContent(impactText, 'impact-text', null);
+  this._loadTextualContent(generalText, 'general-text', null);
 };
 
 SummaryPage.prototype._ajaxErrorTectonicSummary = function () {
