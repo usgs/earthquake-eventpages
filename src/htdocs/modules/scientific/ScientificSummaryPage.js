@@ -101,10 +101,14 @@ ScientificSummaryPage.prototype.getTexts = function () {
 
 ScientificSummaryPage.prototype.getText = function (product) {
   var el = document.createElement('section'),
+      content,
       contents = product.contents;
 
   if (contents && contents['']) {
-    el.innerHTML = contents[''].bytes;
+    content = contents[''].bytes;
+    content = this._replaceRelativePaths(content, product.contents);
+
+    el.innerHTML = content;
   }
 
   return el;
