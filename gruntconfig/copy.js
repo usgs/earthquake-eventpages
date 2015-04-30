@@ -13,7 +13,10 @@ var copy = {
       '!**/*.scss',
       '!**/*.orig'
     ],
-    filter: 'isFile'
+    filter: 'isFile',
+    options: {
+      mode: true
+    }
   },
   test: {
     expand: true,
@@ -34,7 +37,10 @@ var copy = {
       '!**/*.js',
       '!**/*.css'
     ],
-    filter: 'isFile'
+    filter: 'isFile',
+    options: {
+      mode: true
+    }
   },
 
 
