@@ -96,7 +96,12 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
     background-image:url('#{$baseImageUrl}/mediterranean_tsum304.jpg');
     height:204px;
   }
-  
+
+  a.qcf {
+    background-image:url('#{$baseImageUrl}/qcf_tsum304.jpg');
+    height:390px;
+  }
+
 }
 
 @media (min-width:560px) {
@@ -178,6 +183,11 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
     a.mediterranean {
       background-image:url('#{$baseImageUrl}/mediterranean_tsum464.jpg');
       height:312px;
+    }
+
+    a.qcf {
+      background-image:url('#{$baseImageUrl}/qcf_tsum464.jpg');
+      height:585px;
     }
 */
   }
