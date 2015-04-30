@@ -35,9 +35,11 @@ FiniteFaultPage.prototype.getDetailsContent = function (product) {
       path = product.properties.eventsourcecode + '.html',
       content = product.contents[path],
       url,
-      baseURL;
+      baseURL,
+      _this;
 
   if (content) {
+    _this = this;
     // compute absolute base url
     url = content.url;
     baseURL = url.replace(path, '');
@@ -46,10 +48,7 @@ FiniteFaultPage.prototype.getDetailsContent = function (product) {
       url: url,
       success: function (data) {
         // make all content urls absolute instead of relative
-        var path;
-        for (path in product.contents) {
-          data = data.replace('"' + path + '"', '"' + baseURL + path + '"');
-        }
+        data = _this._replaceRelativePaths(data, product.contents);
         // insert content
         el.classList.add('finite-fault');
         el.innerHTML = '<small class="attribution">Data Source ' +

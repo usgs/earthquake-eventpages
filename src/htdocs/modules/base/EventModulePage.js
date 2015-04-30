@@ -289,4 +289,27 @@ EventModulePage.prototype.getPreferredSummaryMarkup = function (product, hash, n
 };
 
 
+/**
+ * Replace relative paths in content.
+ *
+ * @param html {String}
+ *        html markup.
+ * @param contents {Object<path => Content>}
+ *        contents to replace.
+ * @return {String}
+ *         markup any quoted paths are replaced with quoted content urls.
+ *         "path" => "content.url".
+ */
+EventModulePage.prototype._replaceRelativePaths = function (html, contents) {
+  var content,
+      path;
+  for (path in contents) {
+    content = contents[path];
+    html = html.replace(new RegExp('"' + path + '"', 'g'),
+        '"' + content.url + '"');
+  }
+  return html;
+};
+
+
 module.exports = EventModulePage;

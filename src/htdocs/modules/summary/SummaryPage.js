@@ -74,8 +74,8 @@ SummaryPage.prototype._setContentMarkup = function () {
       '</div>' +
     '</div>'
     );
-  markup.push(this._getTextContentMarkup('tectonic-summary'));
   markup.push(this._getTextContentMarkup('general-text'));
+  markup.push(this._getTextContentMarkup('tectonic-summary'));
   markup.push(this._getTextContentMarkup('impact-text'));
   markup.push(this._getMoreInformationMarkup());
 
@@ -183,9 +183,8 @@ SummaryPage.prototype._setContentMarkup = function () {
   }
 
   this._loadTextualContent(generalHeader, 'general-header', null);
-  this._loadTextualContent(impactText, 'impact-text', 'Impact Text');
-  this._loadTextualContent(generalText, 'general-text',
-      'Additional Commentary');
+  this._loadTextualContent(impactText, 'impact-text', null);
+  this._loadTextualContent(generalText, 'general-text', null);
 };
 
 SummaryPage.prototype._ajaxErrorTectonicSummary = function () {
@@ -322,8 +321,10 @@ SummaryPage.prototype._getMoreInformationMarkup = function () {
 
 SummaryPage.prototype._loadTextualContent =
     function (container, type, title) {
-  var i = null,
+  var content,
+      i = null,
       len = null,
+      product,
       products = null,
       markup = [];
 
@@ -331,14 +332,17 @@ SummaryPage.prototype._loadTextualContent =
       !this._event.properties.products.hasOwnProperty(type)) {
     return;
   }
-  
+
   if (title) {
       markup.push('<h3>' + title + '</h3>');
   }
 
   products = this._event.properties.products[type];
   for (i = 0, len = products.length; i < len; i++) {
-    markup.push('<div>' + products[i].contents[''].bytes + '</div>');
+    product = products[i];
+    content = product.contents[''].bytes;
+    content = this._replaceRelativePaths(content, product.contents);
+    markup.push('<div>' + content + '</div>');
   }
 
   container.innerHTML = markup.join('');
