@@ -9,16 +9,6 @@ var Attribution = require('base/Attribution'),
 
 
 var SummaryPage = function (options) {
-  options = Util.extend({}, options || {});
-
-  var products = options.eventDetails.properties.products;
-
-  this._nearbyCitiesFlag = products.hasOwnProperty('nearby-cities');
-  this._tectonicSummaryFlag = products.hasOwnProperty('tectonic-summary');
-
-  this.mapContainer = {};
-  this.nearbyCities = {};
-  this.tectonicSummary = {};
   this._formatter = new Formatter();
   EventModulePage.call(this, options);
 };
@@ -26,326 +16,495 @@ SummaryPage.prototype = Object.create(EventModulePage.prototype);
 
 
 SummaryPage.prototype._setContentMarkup = function () {
-  var _this = this,
-      markup = [],
+  var content = this._content,
       generalHeader,
       generalText,
-      impactText,
-      products = this._event.properties.products,
-      fallbackToGeoserve = false,
-      preferredOrigin = products.origin[0],
-      props = preferredOrigin.properties,
-      originSource = props.eventsource,
-      originCode = props.eventsourcecode,
-      originAuthor,
-      magnitudeAuthor,
-      allNearbyCities = [],
-      preferredNearbyCities = null,
-      i;
+      impactText;
 
-  originAuthor = props['origin-source'] || preferredOrigin.source;
-  magnitudeAuthor = props['magnitude-source'] || preferredOrigin.source;
-
-  markup.push(this._getTextContentMarkup('general-header'));
-
-  markup.push(
-    '<div class="row">' +
-      '<div class="column one-of-two">' +
-        '<h3>Location</h3>' +
-        '<small class="attribution">Data Source ' +
-          (originAuthor === magnitudeAuthor ?
-            Attribution.getContributorReference(originAuthor) :
-            '<span>' +
-              Attribution.getContributorReference(originAuthor) + ', ' +
-              Attribution.getContributorReference(magnitudeAuthor) +
-            '</span>') +
-        '</small>' +
-        '<figure class="summary-map">' +
-          this._getMapMarkup() +
-          '<figcaption>' +
-            this._getLocationMarkup() +
-            '<a href="#general_map">View interactive map</a>' +
-          '</figcaption>' +
-        '</figure>' +
+  content.innerHTML =
+      '<div class="summary-general-header"></div>' +
+      '<div class="row">' +
+        '<div class="column one-of-two">' +
+          '<div class="summary-location"></div>' +
+        '</div>' +
+        '<div class="column one-of-two summary-info">' +
+          '<div class="summary-time"></div>' +
+          '<div class="summary-nearby-cities"></div>' +
+        '</div>' +
       '</div>' +
-      '<div class="column one-of-two summary-info">' +
-        this._getTimeMarkup() +
-        this._getTextContentMarkup('nearby-cities') +
-      '</div>' +
-    '</div>'
-    );
-  markup.push(this._getTextContentMarkup('general-text'));
-  markup.push(this._getTextContentMarkup('tectonic-summary'));
-  markup.push(this._getTextContentMarkup('impact-text'));
-  markup.push(this._getMoreInformationMarkup());
+      '<div class="summary-general-text"></div>' +
+      '<div class="summary-tectonic-summary"></div>' +
+      '<div class="summary-impact-text"></div>';
 
-  this._content.innerHTML = markup.join('');
+  content.querySelector('.summary-location').appendChild(this._getLocation());
+  content.querySelector('.summary-time').appendChild(this._getTime());
+  content.appendChild(this.getLinks());
+
+  this._loadNearbyCities();
+  this._loadTectonicSummary();
 
   // Store references to containing elements for faster access
-  generalHeader = this._content.querySelector('.summary-general-header');
-  this.nearbyCities = this._content.querySelector('.summary-nearby-cities');
-  this.tectonicSummary = this._content.querySelector('.summary-tectonic-summary');
-  generalText = this._content.querySelector('.summary-general-text');
-  impactText = this._content.querySelector('.summary-impact-text');
-
-  // Fetch AJAX content and load it into the containers
-  if (this._tectonicSummaryFlag) {
-    try {
-      Xhr.ajax({
-          url: products['tectonic-summary'][0]
-              .contents['tectonic-summary.inc.html'].url,
-          success: function (tectonicSummary) {
-            _this._ajaxSuccessTectonicSummary(tectonicSummary);
-          },
-          error: function () {
-            throw new Error('Failed to load tectonic summary.');
-          }
-        });
-    } catch (e) {
-      this._ajaxErrorTectonicSummary();
-    }
-  } else {
-    fallbackToGeoserve = true;
-  }
-
-  if (this._nearbyCitiesFlag) {
-    // Look for nearby cities based on preferred origin
-    allNearbyCities = products['nearby-cities'];
-
-    if (originSource && originCode) {
-      // Loop backwards, this way if not found, default to using first product
-      for (i = 0; i < allNearbyCities.length; i++) {
-        if (allNearbyCities[i].properties.eventsource === originSource &&
-            allNearbyCities[i].properties.eventsourcecode === originCode) {
-          preferredNearbyCities = allNearbyCities[i];
-          break;
-        }
-      }
-    }
-
-    if (preferredNearbyCities === null) {
-      // Just use first nearby-cities
-      preferredNearbyCities = allNearbyCities[0];
-    }
-
-    try {
-      Xhr.ajax({
-          url: preferredNearbyCities.contents['nearby-cities.json'].url,
-          success: function (nearbyCities) {
-            _this._ajaxSuccessNearbyCities(nearbyCities);
-          },
-          error: function () {
-            throw new Error('Failed to load nearby cities.');
-          }
-        });
-    } catch (e) {
-      this._ajaxErrorNearbyCities();
-    }
-  } else {
-    fallbackToGeoserve = true;
-  }
-
-  if (fallbackToGeoserve) {
-    try {
-      // Note :: For now, assume geoserve product will exist. In the future,
-      //         this will be a dynamic call for data or potentally separate
-      //         calls for each part of the data
-      Xhr.ajax({
-        url: products.geoserve[0].contents['geoserve.json'].url,
-        success: function (geoserve) {
-          if (!_this._nearbyCitiesFlag) {
-            try {
-              _this._ajaxSuccessNearbyCities(geoserve.cities);
-            } catch (e) {
-              _this._ajaxErrorNearbyCities();
-            }
-          }
-          if (!_this._tectonicSummaryFlag) {
-            try {
-              _this._ajaxSuccessTectonicSummary(geoserve.tectonicSummary.text);
-            } catch (e) {
-              _this._ajaxErrorTectonicSummary();
-            }
-          }
-        },
-        error: function () {
-          throw new Error('Failed to load geoserve.');
-        }
-      });
-    } catch (e) {
-      if (!this._nearbyCitiesFlag) {
-        this._ajaxErrorNearbyCities();
-      }
-      if (!this._tectonicSummaryFlag) {
-        this._ajaxErrorTectonicSummary();
-      }
-    }
-  }
+  generalHeader = content.querySelector('.summary-general-header');
+  generalText = content.querySelector('.summary-general-text');
+  impactText = content.querySelector('.summary-impact-text');
 
   this._loadTextualContent(generalHeader, 'general-header', null);
   this._loadTextualContent(impactText, 'impact-text', null);
   this._loadTextualContent(generalText, 'general-text', null);
 };
 
-SummaryPage.prototype._ajaxErrorTectonicSummary = function () {
-  if (this.tectonicSummary) {
-    this.tectonicSummary.parentNode.removeChild(this.tectonicSummary);
-  }
-  this.tectonicSummary = null;
+
+/**
+ * Create content for location section.
+ *
+ * @return {DOMFragment}
+ *         location content.
+ */
+SummaryPage.prototype._getLocation = function () {
+  var figure,
+      fragment,
+      header;
+
+  header = document.createElement('h3');
+  header.innerHTML = 'Location';
+
+  figure = document.createElement('figure');
+  figure.classList.add('summary-map');
+  figure.appendChild(this._getLocationMap());
+  figure.appendChild(this._getLocationCaption());
+
+  fragment = document.createDocumentFragment();
+  fragment.appendChild(header);
+  fragment.appendChild(this._getLocationAttribution());
+  fragment.appendChild(figure);
+
+  return fragment;
 };
 
-SummaryPage.prototype._ajaxErrorNearbyCities = function () {
-  if (this.nearbyCities) {
-    this.nearbyCities.parentNode.removeChild(this.nearbyCities);
-  }
-  this.nearbyCities = null;
+/**
+ * Create attribution for location section.
+ *
+ * @return {DOMElement}
+ *         element containing attribution content.
+ */
+SummaryPage.prototype._getLocationAttribution = function () {
+  var el,
+      magnitudeAuthor,
+      origin,
+      originAuthor,
+      props;
+
+  origin = this._event.properties.products.origin[0];
+  props = origin.properties;
+  originAuthor = props['origin-source'] || origin.source;
+  magnitudeAuthor = props['magnitude-source'] || origin.source;
+
+  el = document.createElement('small');
+  el.classList.add('attribution');
+  el.innerHTML = 'Data Source ' +
+      (originAuthor === magnitudeAuthor ?
+        Attribution.getContributorReference(originAuthor) :
+        '<span>' +
+          Attribution.getContributorReference(originAuthor) + ', ' +
+          Attribution.getContributorReference(magnitudeAuthor) +
+        '</span>');
+
+  return el;
 };
 
-SummaryPage.prototype._ajaxSuccessTectonicSummary = function (tectonicSummary) {
-  if (this.tectonicSummary !== null) {
-    this.tectonicSummary.innerHTML = '<h3>Tectonic Summary</h3>' +
-        tectonicSummary;
-  }
-};
-
-SummaryPage.prototype._ajaxSuccessNearbyCities = function (nearbyCities) {
-  var i,
-      city,
-      cities,
-      len;
-
-  if (this.nearbyCities !== null) {
-    cities = ['<ol class="nearbyCities no-style">'];
-    for (i = 0, len = nearbyCities.length; i < len; i++) {
-      city = nearbyCities[i];
-      cities.push('<li>' + city.distance +
-        'km (' + Math.round(this._kmToMi(city.distance)) + 'mi) ' +
-        city.direction +
-        ' of ' + city.name +
-        '</li>');
-    }
-    cities.push('</ol>');
-    this.nearbyCities.innerHTML = '<h3>Nearby Cities</h3>' + cities.join('');
-  }
-};
-
-SummaryPage.prototype._getTextContentMarkup = function (type) {
-  if (this._event.properties.products.hasOwnProperty(type)) {
-    return '<div class="summary-' + type + '"></div>';
-  }
-  return '';
-};
-
-SummaryPage.prototype._getTimeMarkup = function () {
-  var properties = this._event.properties,
-      markup = [],
-      time,
-      d = new Date(),
-      systemTimezoneOffset;
-
-
-  time = parseInt(properties.time, 10);
-  systemTimezoneOffset =  d.getTimezoneOffset() * -1;
-
-  markup.push(
-      '<div class="summary-time">' +
-      '<h3>Time</h3>' +
-      '<ol class="no-style">' +
-      '<li>' +
-      this._formatDate(time, 0) +
-      '</li>' +
-      '<li>' +
-      this._formatDate(time, systemTimezoneOffset) +
-      ' <abbr title="Your computer timezone setting">in your timezone</abbr>' +
-      '</li>' +
-      '<li>' +
-      this._getOtherTimeZoneLink(time) +
-      '</li>' +
-      '</ol>' +
-      '</div>');
-
-  return markup.join('');
-};
-
-SummaryPage.prototype._getLocationMarkup = function () {
-  var geometry = this._event.geometry,
-      markup = [];
-
-  markup.push(
-    this._formatter.location(geometry.coordinates[1],
-        geometry.coordinates[0]) +
-        ' depth=' + this._formatter.depth(geometry.coordinates[2], ' km') +
-        ' (' + this._formatter.depth(this._kmToMi(geometry.coordinates[2])) +
-        ' mi)'
-  );
-
-  return markup.join('');
-
-};
-
-SummaryPage.prototype._getMapMarkup = function () {
-  var latitude = this._event.geometry.coordinates[1],
+/**
+ * Create map for location section.
+ *
+ * @return {DOMElement}
+ *         location map.
+ */
+SummaryPage.prototype._getLocationMap = function () {
+  var el,
+      latitude = this._event.geometry.coordinates[1],
       longitude = this._event.geometry.coordinates[0];
 
-  return '<a href="#general_map">' +
-      StaticMap.getImageMarkup(
-          StaticMap.getExtent(longitude, latitude, 10),512, 512) +
-    '</a>';
+  el = document.createElement('a');
+  el.setAttribute('href', '#general_map');
+  el.innerHTML = StaticMap.getImageMarkup(
+          StaticMap.getExtent(longitude, latitude, 10), 512, 512);
+
+  return el;
 };
 
-SummaryPage.prototype._getMoreInformationMarkup = function () {
-  var i = null,
-      len = null,
-      link = null,
-      cache = {},
-      links = this._event.properties.products['general-link'],
-      markup = ['<div class="summary-related-links">' +
-          '<h3>For More Information</h3><ul>'];
+/**
+ * Create caption for location section.
+ *
+ * @return {DOMElement}
+ *         caption for location map.
+ */
+SummaryPage.prototype._getLocationCaption = function () {
+  var el,
+      depth,
+      formatter = this._formatter,
+      geometry = this._event.geometry,
+      latitude,
+      longitude;
 
-  if (links && links.length) {
-    for (i = 0, len = links.length; i < len; i++) {
-      link = links[i];
+  depth = geometry.coordinates[2];
+  latitude = geometry.coordinates[1];
+  longitude = geometry.coordinates[0];
 
-      if (!cache.hasOwnProperty(link.properties.url)) {
-        markup.push('<li class="summary-related-link"><a href="' +
-            link.properties.url + '">' + link.properties.text + '</a></li>');
-        cache[link.properties.url] = true;
-      }
-    }
+  el = document.createElement('figcaption');
+  el.innerHTML = formatter.location(latitude, longitude) +
+        ' depth=' + formatter.depth(depth, 'km') +
+        ' (' + formatter.depth(formatter.kmToMi(depth), 'mi') + ')' +
+        '<a href="#general_map">View interactive map</a>';
 
-    markup.push('</ul></div>');
-    return markup.join('');
-  }
-  return '';
+  return el;
 };
 
-SummaryPage.prototype._loadTextualContent =
-    function (container, type, title) {
-  var content,
-      i = null,
-      len = null,
+
+/**
+ * Create content for time section.
+ *
+ * @return {DOMElement}
+ *         time content.
+ */
+SummaryPage.prototype._getTime = function () {
+  var fragment,
+      formatter = this._formatter,
+      header,
+      list,
+      properties = this._event.properties,
+      time,
+      systemTimezoneOffset;
+
+  time = Number(properties.time);
+  systemTimezoneOffset =  new Date().getTimezoneOffset() * -1;
+
+  header = document.createElement('h3');
+  header.innerHTML = 'Time';
+
+  list = document.createElement('ol');
+  list.classList.add('no-style');
+  list.innerHTML =
+        '<li>' +
+          formatter.datetime(time, 0) +
+        '</li>' +
+        '<li>' +
+          formatter.datetime(time, systemTimezoneOffset) +
+          ' <abbr title="Your computer timezone setting">in your timezone</abbr>' +
+        '</li>' +
+        '<li>' +
+          this._getOtherTimeZoneLink(time) +
+        '</li>';
+
+  fragment = document.createDocumentFragment();
+  fragment.appendChild(header);
+  fragment.appendChild(list);
+
+  return fragment;
+};
+
+
+/**
+ * Load nearby cities information.
+ *
+ * Attempts to load from a nearby-cities product.
+ * If no such product is found, call _loadAutomaticNearbyCities().
+ *
+ * Once load is complete (error or not), _setNearbyCities is called.
+ */
+SummaryPage.prototype._loadNearbyCities = function () {
+  var i,
+      nearbyCities,
+      origin,
+      originCode,
+      originSource,
       product,
-      products = null,
-      markup = [];
+      products,
+      props;
 
-  if (container === null ||
-      !this._event.properties.products.hasOwnProperty(type)) {
+  products = this._event.properties.products;
+  nearbyCities = products['nearby-cities'];
+  if (!nearbyCities) {
+    // no nearby cities products
+    this._loadAutomaticNearbyCities();
     return;
   }
 
-  if (title) {
-      markup.push('<h3>' + title + '</h3>');
+  // choose nearby-cities product
+  product = null;
+  origin = products.origin[0];
+  originCode = origin.properties.eventsourcecode;
+  originSource = origin.properties.eventsource;
+  for (i = 0; i < nearbyCities.length; i++) {
+    props = nearbyCities[i].properties;
+    if (props.eventsource === originSource &&
+        props.eventsourcecode === originCode) {
+      product = nearbyCities[i];
+      break;
+    }
+  }
+  if (product === null) {
+    product = nearbyCities[0];
   }
 
-  products = this._event.properties.products[type];
-  for (i = 0, len = products.length; i < len; i++) {
-    product = products[i];
-    content = product.contents[''].bytes;
-    content = this._replaceRelativePaths(content, product.contents);
-    markup.push('<div>' + content + '</div>');
+  // load nearby cities
+  Xhr.ajax({
+    url: product.contents['nearby-cities.json'].url,
+    success: function (cities) {
+      this._setNearbyCities(cities, product);
+    }.bind(this),
+    error: function () {
+      this._setNearbyCities(null, product);
+      throw new Error('Failed to load nearby cities.');
+    }.bind(this)
+  });
+};
+
+/**
+ * Load automatic list of nearby cities.
+ *
+ * Currently geoserve product, eventually geoserve webservice.
+ *
+ * Once load is complete (error or not), _setNearbyCities is called.
+ */
+SummaryPage.prototype._loadAutomaticNearbyCities = function () {
+  var geoserve,
+      product;
+
+  geoserve = this._event.properties.products.geoserve;
+  if (!geoserve) {
+    this._setNearbyCities(null, null);
+    return;
   }
 
-  container.innerHTML = markup.join('');
+  product = geoserve[0];
+  Xhr.ajax({
+    url: product.contents['geoserve.json'].url,
+    success: function (geoserve) {
+      this._setNearbyCities(geoserve.cities, product);
+    }.bind(this),
+    error: function () {
+      this._setNearbyCities(null, product);
+      throw new Error('Failed to load nearby cities from geoserve');
+    }.bind(this)
+  });
+};
+
+/**
+ * Set the nearby cities to be displayed.
+ *
+ * Inject result of _formatNearbyCities into nearby-cities element.
+ *
+ * @param cities {Array<Object>}
+ *        array of city objects with properties:
+ *          city.distance {Number} distance in km.
+ *          city.direction {String} compass direction from city to event.
+ *          city.name {String} city name.
+ *        null if there are no cities.
+ * @param product {Product}
+ *        the source of the cities.
+ *        null if there is no product.
+ */
+SummaryPage.prototype._setNearbyCities = function (cities, product) {
+  var content,
+      el;
+  el = this._content.querySelector('.summary-nearby-cities');
+  content = this._formatNearbyCities(cities, product);
+  if (!content.firstChild) {
+    // empty
+    Util.detach(el);
+  } else {
+    el.appendChild(content);
+  }
+};
+
+/**
+ * Create content for nearby cities section.
+ *
+ * @param cities {Array<Object>}
+ *        array of city objects with properties:
+ *          city.distance {Number} distance in km.
+ *          city.direction {String} compass direction from city to event.
+ *          city.name {String} city name.
+ *        null if there are no cities.
+ * @param product {Product}
+ *        the source of the cities.
+ *        null if there is no product.
+ * @return {DOMFragment}
+ *         nearby cities content.
+ */
+SummaryPage.prototype._formatNearbyCities = function (cities /*,product*/) {
+  var fragment,
+      formatter = this._formatter,
+      header,
+      list;
+
+  fragment = document.createDocumentFragment();
+
+  if (cities) {
+    header = document.createElement('h3');
+    header.innerHTML = 'Nearby Cities';
+
+    list = document.createElement('ol');
+    list.classList.add('no-style');
+    list.classList.add('nearbyCities');
+    list.innerHTML = cities.map(function (city) {
+      return '<li>' +
+          city.distance + 'km ' +
+              '(' + Math.round(formatter.kmToMi(city.distance)) + 'mi) ' +
+          city.direction +
+          ' of ' + city.name +
+          '</li>';
+    }).join('');
+
+    fragment.appendChild(header);
+    fragment.appendChild(list);
+  }
+
+  return fragment;
+};
+
+
+/**
+ * Load tectonic summary information.
+ *
+ * Attempts to load from a tectonic-summary product.
+ * If no such product is found, call _loadAutomaticTectonicSummary().
+ *
+ * Once load is complete (error or not), _setTectonicSummary is called.
+ */
+SummaryPage.prototype._loadTectonicSummary = function () {
+  var tectonicSummaries,
+      product;
+
+  tectonicSummaries = this._event.properties.products['tectonic-summary'];
+  if (!tectonicSummaries) {
+    // no tectonic summary products
+    this._loadAutomaticTectonicSummary();
+    return;
+  }
+
+  // load tectonic summary product
+  product = tectonicSummaries[0];
+  Xhr.ajax({
+    url: product.contents['tectonic-summary.inc.html'].url,
+    success: function (summary) {
+      this._setTectonicSummary(summary, product);
+    }.bind(this),
+    error: function () {
+      this._setTectonicSummary(null, product);
+      throw new Error('Failed to load tectonic summary.');
+    }.bind(this)
+  });
+};
+
+/**
+ * Load automatic list of nearby cities.
+ *
+ * Currently geoserve product, eventually geoserve webservice.
+ *
+ * Once load is complete (error or not), _setNearbyCities is called.
+ */
+SummaryPage.prototype._loadAutomaticTectonicSummary = function () {
+  var geoserve,
+      product;
+
+  geoserve = this._event.properties.products.geoserve;
+  if (!geoserve) {
+    this._setNearbyCities(null, null);
+    return;
+  }
+
+  product = geoserve[0];
+  Xhr.ajax({
+    url: product.contents['geoserve.json'].url,
+    success: function (geoserve) {
+      var summary;
+      try {
+        summary = geoserve.tectonicSummary.text;
+      } catch (e) {
+        summary = null;
+      }
+      this._setTectonicSummary(summary, product);
+    }.bind(this),
+    error: function () {
+      this._setTectonicSummary(null, product);
+      throw new Error('Failed to load nearby cities from geoserve');
+    }.bind(this)
+  });
+};
+
+/**
+ * Set the nearby cities to be displayed.
+ *
+ * Inject result of _formatNearbyCities into nearby-cities element.
+ *
+ * @param cities {Array<Object>}
+ *        array of city objects with properties:
+ *          city.distance {Number} distance in km.
+ *          city.direction {String} compass direction from city to event.
+ *          city.name {String} city name.
+ *        null if there are no cities.
+ * @param product {Product}
+ *        the source of the cities.
+ *        null if there is no product.
+ */
+SummaryPage.prototype._setTectonicSummary = function (cities, product) {
+  var content,
+      el;
+  el = this._content.querySelector('.summary-tectonic-summary');
+  content = this._formatTectonicSummary(cities, product);
+  if (!content.firstChild) {
+    // empty
+    Util.detach(el);
+  } else {
+    el.appendChild(content);
+  }
+};
+
+/**
+ * Create content for tectonic summary section.
+ *
+ * @param summary {String}
+ *        tectonic summary markup.
+ *        null if there is no tectonic summary.
+ * @param product {Product}
+ *        the source of the cities.
+ *        null if there is no product.
+ * @return {DOMFragment}
+ *         tectonic summary content.
+ */
+SummaryPage.prototype._formatTectonicSummary = function (summary /*,product*/) {
+  var fragment,
+      el;
+
+  fragment = document.createDocumentFragment();
+
+  if (summary) {
+    el = document.createElement('div');
+    el.innerHTML = summary;
+    while (el.firstChild) {
+      fragment.appendChild(el.firstChild);
+    }
+    el = null;
+  }
+
+  return fragment;
+};
+
+
+SummaryPage.prototype._loadTextualContent = function (el, type) {
+  var content;
+
+  if (el === null) {
+    return;
+  }
+
+  content = this.getTexts(type);
+  if (!content.firstChild) {
+    // empty
+    Util.detach(el);
+  } else {
+    el.appendChild(content);
+  }
 };
 
 SummaryPage.prototype.getProducts = function () {
@@ -365,29 +524,6 @@ SummaryPage.prototype.getProducts = function () {
   return toshow;
 };
 
-  // TODO :: Move these date formatting methods to a utility class for re-use.
-
-SummaryPage.prototype._formatDate = function (stamp, minutesOffset) {
-  var milliOffset = minutesOffset * 60 * 1000,
-      offsetString = this._formatTimezoneOffset(minutesOffset),
-      theDate = new Date(stamp + milliOffset),
-      year = theDate.getUTCFullYear(),
-      month = theDate.getUTCMonth() + 1,
-      day = theDate.getUTCDate(),
-      hours = theDate.getUTCHours(),
-      minutes = theDate.getUTCMinutes(),
-      seconds = theDate.getUTCSeconds();
-
-  if (month < 10) {month = '0' + month;}
-  if (day < 10) {day = '0' + day;}
-  if (hours < 10) {hours = '0' + hours;}
-  if (minutes < 10) {minutes = '0' + minutes;}
-  if (seconds < 10) {seconds = '0' + seconds;}
-
-  return year + '-' + month + '-' + day + ' ' + hours + ':' +
-      minutes + ':' + seconds + ' (UTC' + offsetString + ')';
-};
-
 SummaryPage.prototype._getOtherTimeZoneLink = function (stamp) {
   var theDate = new Date(stamp),
       uri,
@@ -401,37 +537,126 @@ SummaryPage.prototype._getOtherTimeZoneLink = function (stamp) {
   '" target="_blank">Times in other timezones</a>';
 };
 
-SummaryPage.prototype._formatTimezoneOffset = function (offset) {
-  var buffer = [],
-      hours = null,
-      minutes = null;
 
-  if (offset === 0 ) {
-    return '';
-  } else if (offset < 0) {
-    buffer.push('-');
-    offset *= -1;
-  } else {
-    buffer.push('+');
+
+/**
+ * Get any scitech-text information.
+ *
+ * @return {DOMElement} content, or null if no information present.
+ */
+ SummaryPage.prototype.getTexts = function (type) {
+  var el,
+      fragment,
+      i,
+      len,
+      products,
+      texts;
+
+  fragment = document.createDocumentFragment();
+
+  products = this._event.properties.products;
+  texts = products[type];
+  if (texts) {
+    el = document.createElement('div');
+    el.className = type;
+    fragment.appendChild(el);
+
+    for (i = 0, len = texts.length; i < len; i++) {
+      el.appendChild(this.getText(texts[i]));
+    }
   }
 
-  hours = parseInt(offset / 60, 10);
-  if (hours < 10) {
-    buffer.push('0');
-  }
-  buffer.push(hours + ':');
-
-  minutes = parseInt(offset % 60, 10);
-  if (minutes < 10) {
-    buffer.push('0');
-  }
-  buffer.push(minutes);
-
-  return buffer.join('');
+  return fragment;
 };
 
-SummaryPage.prototype._kmToMi = function (km) {
-  return (km * 0.621371);
+/**
+ * Get an content for one text product.
+ *
+ * @param product {Product}
+ *        text product.
+ */
+SummaryPage.prototype.getText = function (product) {
+  var el = document.createElement('section'),
+      content,
+      contents = product.contents;
+
+  if (contents && contents['']) {
+    content = contents[''].bytes;
+    content = this._replaceRelativePaths(content, product.contents);
+
+    el.innerHTML = content;
+  }
+
+  return el;
+};
+
+
+/**
+ * Get any scitech-link information.
+ *
+ * @return {DocumentFragment}
+ *         Fragment with links, or empty if no information present.
+ */
+ SummaryPage.prototype.getLinks = function () {
+  var cache = {},
+      el,
+      fragment,
+      i,
+      item,
+      len,
+      link,
+      links,
+      list,
+      products,
+      url;
+
+  fragment = document.createDocumentFragment();
+
+  products = this._event.properties.products;
+  links = products['general-link'];
+  if (links) {
+    el = document.createElement('div');
+    el.className = 'general-links';
+    el.innerHTML = '<h3>For More Information</h3>';
+    fragment.appendChild(el);
+
+    list = document.createElement('ul');
+    el.appendChild(list);
+
+    for (i = 0, len = links.length; i < len; i++) {
+      link = links[i];
+      // this is hacky, duplicate links shouldn't be sent
+      url = link.properties.url;
+      if (url in cache) {
+        continue;
+      }
+      cache[url] = true;
+      // end hacky
+      item = document.createElement('li');
+      item.appendChild(this.getLink(link));
+      list.appendChild(item);
+    }
+  }
+
+  return fragment;
+};
+
+/**
+ * Create an anchor element from a link product.
+ *
+ * @param product {Object}
+ *        The link product.
+ * @return {DOMEElement}
+ *         anchor element.
+ */
+ SummaryPage.prototype.getLink = function (product) {
+  var el = document.createElement('a'),
+      props = product.properties;
+
+  el.setAttribute('href', props.url);
+  el.innerHTML = props.text;
+
+  return el;
 };
 
 

@@ -174,5 +174,147 @@ Formatter.prototype.fileSize = function (bytes) {
   return bytes + sizes[sizeIndex];
 };
 
+/**
+ * Format a date and time.
+ *
+ * @param stamp {Date|Number}
+ *        Date or millisecond epoch timstamp to format.
+ * @param minutesOffset {Number}
+ *        UTC offset in minutes.  0 for UTC.
+ * @param includeMilliseconds {Boolean}
+ *        default false.
+ *        whether to output milliseconds.
+ * @return {String}
+ *         formatted date.
+ */
+Formatter.prototype.datetime = function (stamp, minutesOffset,
+    includeMilliseconds) {
+  var milliOffset = minutesOffset * 60 * 1000,
+      date = new Date(stamp + milliOffset);
+
+  return this.date(date) + ' ' + this.time(date, includeMilliseconds) +
+      ' (UTC' + this.timezoneOffset(minutesOffset) + ')';
+};
+
+/**
+ * Format a UTC date.
+ *
+ * @param date {Date}
+ *        date to format.
+ * @return {String}
+ *         formatted date.
+ */
+Formatter.prototype.date = function (date) {
+  var year,
+      month,
+      day;
+
+  year = date.getUTCFullYear();
+  month = date.getUTCMonth() + 1;
+  day = date.getUTCDate();
+
+  if (month < 10) {
+    month = '0' + month;
+  }
+  if (day < 10) {
+    day = '0' + day;
+  }
+
+  return year + '-' + month + '-' + day;
+};
+
+
+/**
+ * Format a UTC time.
+ *
+ * @param date {Date}
+ *        date to format.
+ * @param includeMilliseconds {Boolean}
+ *        default false.
+ *        whether to output milliseconds.
+ * @return {String}
+ *         formatted time.
+ */
+Formatter.prototype.time = function (date, includeMilliseconds) {
+  var hours,
+      minutes,
+      seconds,
+      milliseconds;
+
+  hours = date.getUTCHours();
+  minutes = date.getUTCMinutes();
+  seconds = date.getUTCSeconds();
+  milliseconds = '';
+
+  if (hours < 10) {
+    hours = '0' + hours;
+  }
+  if (minutes < 10) {
+    minutes = '0' + minutes;
+  }
+  if (seconds < 10) {
+    seconds = '0' + seconds;
+  }
+  if (includeMilliseconds) {
+    milliseconds = date.getUTCMilliseconds();
+    if (milliseconds < 10) {
+      milliseconds = '.00' + milliseconds;
+    } else if (milliseconds < 100) {
+      milliseconds = '.0' + milliseconds;
+    } else {
+      milliseconds = '.' + milliseconds;
+    }
+  }
+
+  return hours + ':' + minutes + ':' + seconds + milliseconds;
+};
+
+/**
+ * Format a UTC timezone offset.
+ *
+ * @param offset {Number}
+ *        UTC offset in minutes.  0 for UTC.
+ * @return {String}
+ *         formatted timezone offset, or '' when offset is 0.
+ */
+Formatter.prototype.timezoneOffset = function (offset) {
+  var hours,
+      minutes,
+      sign;
+
+  if (offset === 0 ) {
+    return '';
+  } else if (offset < 0) {
+    sign = '-';
+    offset *= -1;
+  } else {
+    sign = '+';
+  }
+
+  hours = parseInt(offset / 60, 10);
+  minutes = parseInt(offset % 60, 10);
+
+  if (hours < 10) {
+    hours = '0' + hours;
+  }
+  if (minutes < 10) {
+    minutes = '0' + minutes;
+  }
+
+  return sign + hours + ':' + minutes;
+};
+
+/**
+ * Convert kilometers to miles.
+ *
+ * @param km {Number}
+ *        kilometers.
+ * @return {Number}
+ *         miles.
+ */
+Formatter.prototype.kmToMi = function (km) {
+  return (km * 0.621371);
+};
+
 
 module.exports = Formatter;
