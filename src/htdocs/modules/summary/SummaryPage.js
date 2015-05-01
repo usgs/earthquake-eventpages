@@ -27,6 +27,7 @@ SummaryPage.prototype = Object.create(EventModulePage.prototype);
 
 SummaryPage.prototype._setContentMarkup = function () {
   var _this = this,
+      content = this._content,
       markup = [],
       generalHeader,
       generalText,
@@ -45,9 +46,11 @@ SummaryPage.prototype._setContentMarkup = function () {
 
   markup.push(
     '<div class="row">' +
-      '<div class="column one-of-two location"></div>' +
+      '<div class="column one-of-two">' +
+        '<div class="summary-location"></div>' +
+      '</div>' +
       '<div class="column one-of-two summary-info">' +
-        this._getTimeMarkup() +
+        '<div class="summary-time"></div>' +
         this._getTextContentMarkup('nearby-cities') +
       '</div>' +
     '</div>'
@@ -56,9 +59,10 @@ SummaryPage.prototype._setContentMarkup = function () {
   markup.push(this._getTextContentMarkup('tectonic-summary'));
   markup.push(this._getTextContentMarkup('impact-text'));
 
-  this._content.innerHTML = markup.join('');
-  this._content.querySelector('.location').appendChild(this._getLocation());
-  this._content.appendChild(this.getLinks());
+  content.innerHTML = markup.join('');
+  content.querySelector('.summary-location').appendChild(this._getLocation());
+  content.querySelector('.summary-time').appendChild(this._getTime());
+  content.appendChild(this.getLinks());
 
   // Store references to containing elements for faster access
   generalHeader = this._content.querySelector('.summary-general-header');
@@ -322,36 +326,48 @@ SummaryPage.prototype._getLocationCaption = function () {
 };
 
 
-SummaryPage.prototype._getTimeMarkup = function () {
-  var formatter = this._formatter,
+/**
+ * Create content for time section.
+ *
+ * @return {DOMElement}
+ *         time content.
+ */
+SummaryPage.prototype._getTime = function () {
+  var fragment,
+      formatter = this._formatter,
+      header,
+      list,
       properties = this._event.properties,
-      markup = [],
       time,
       systemTimezoneOffset;
-
 
   time = Number(properties.time);
   systemTimezoneOffset =  new Date().getTimezoneOffset() * -1;
 
-  markup.push(
-      '<div class="summary-time">' +
-      '<h3>Time</h3>' +
-      '<ol class="no-style">' +
-      '<li>' +
-      formatter.datetime(time, 0) +
-      '</li>' +
-      '<li>' +
-      formatter.datetime(time, systemTimezoneOffset) +
-      ' <abbr title="Your computer timezone setting">in your timezone</abbr>' +
-      '</li>' +
-      '<li>' +
-      this._getOtherTimeZoneLink(time) +
-      '</li>' +
-      '</ol>' +
-      '</div>');
+  header = document.createElement('h3');
+  header.innerHTML = 'Time';
 
-  return markup.join('');
+  list = document.createElement('ol');
+  list.classList.add('no-style');
+  list.innerHTML =
+        '<li>' +
+          formatter.datetime(time, 0) +
+        '</li>' +
+        '<li>' +
+          formatter.datetime(time, systemTimezoneOffset) +
+          ' <abbr title="Your computer timezone setting">in your timezone</abbr>' +
+        '</li>' +
+        '<li>' +
+          this._getOtherTimeZoneLink(time) +
+        '</li>';
+
+  fragment = document.createDocumentFragment();
+  fragment.appendChild(header);
+  fragment.appendChild(list);
+
+  return fragment;
 };
+
 
 SummaryPage.prototype._loadTextualContent = function (container, type) {
   if (container === null) {
