@@ -545,20 +545,24 @@ SummaryPage.prototype._getOtherTimeZoneLink = function (stamp) {
  * @return {DOMElement} content, or null if no information present.
  */
  SummaryPage.prototype.getTexts = function (type) {
-  var fragment = document.createDocumentFragment(),
-      products = this._event.properties.products,
-      texts = products[type],
-      textEl = null,
+  var el,
+      fragment,
       i,
-      len;
+      len,
+      products,
+      texts;
 
+  fragment = document.createDocumentFragment();
+
+  products = this._event.properties.products;
+  texts = products[type];
   if (texts) {
-    textEl = document.createElement('div');
-    textEl.className = type;
-    fragment.appendChild(textEl);
+    el = document.createElement('div');
+    el.className = type;
+    fragment.appendChild(el);
 
     for (i = 0, len = texts.length; i < len; i++) {
-      textEl.appendChild(this.getText(texts[i]));
+      el.appendChild(this.getText(texts[i]));
     }
   }
 
@@ -594,27 +598,42 @@ SummaryPage.prototype.getText = function (product) {
  *         Fragment with links, or empty if no information present.
  */
  SummaryPage.prototype.getLinks = function () {
-  var fragment = document.createDocumentFragment(),
-      products = this._event.properties.products,
-      links = products['general-link'],
-      linkEl = null,
+  var cache = {},
+      el,
+      fragment,
       i,
       item,
       len,
-      list;
+      link,
+      links,
+      list,
+      products,
+      url;
 
+  fragment = document.createDocumentFragment();
+
+  products = this._event.properties.products;
+  links = products['general-link'];
   if (links) {
-    linkEl = document.createElement('div');
-    linkEl.className = 'general-links';
-    linkEl.innerHTML = '<h3>For More Information</h3>';
-    fragment.appendChild(linkEl);
+    el = document.createElement('div');
+    el.className = 'general-links';
+    el.innerHTML = '<h3>For More Information</h3>';
+    fragment.appendChild(el);
 
     list = document.createElement('ul');
-    linkEl.appendChild(list);
+    el.appendChild(list);
 
     for (i = 0, len = links.length; i < len; i++) {
+      link = links[i];
+      // this is hacky, duplicate links shouldn't be sent
+      url = link.properties.url;
+      if (url in cache) {
+        continue;
+      }
+      cache[url] = true;
+      // end hacky
       item = document.createElement('li');
-      item.appendChild(this.getLink(links[i]));
+      item.appendChild(this.getLink(link));
       list.appendChild(item);
     }
   }
