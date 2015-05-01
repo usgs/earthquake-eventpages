@@ -59,7 +59,7 @@ describe('SummaryPage test suite.', function () {
 
     page = new SummaryPage(options);
     page._ajaxSuccessTectonicSummary(geoserve.tectonicSummary.text);
-    page._ajaxSuccessNearbyCities(geoserve.cities);
+    page._setNearbyCities(geoserve.cities, geoserve);
     content = page.getContent();
   });
 
@@ -104,12 +104,9 @@ describe('SummaryPage test suite.', function () {
     it('Correctly deals with no nearbycities in product', function () {
       var page_nonearbycities = null;
 
-      try {
-        page_nonearbycities = new SummaryPage(options_nonearbycities);
-      } catch (e) { }
-
-      expect(page_nonearbycities._nearbyCitiesFlag).to.equal(false);
-
+      page_nonearbycities = new SummaryPage(options_nonearbycities);
+      expect(page_nonearbycities._content.querySelector(
+          '.summary-nearby-cities').innerHTML).to.equal('');
     });
 
   });

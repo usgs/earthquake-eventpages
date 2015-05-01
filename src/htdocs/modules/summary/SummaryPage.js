@@ -33,14 +33,7 @@ SummaryPage.prototype._setContentMarkup = function () {
       generalText,
       impactText,
       products = this._event.properties.products,
-      fallbackToGeoserve = false,
-      preferredOrigin = products.origin[0],
-      props = preferredOrigin.properties,
-      originSource = props.eventsource,
-      originCode = props.eventsourcecode,
-      allNearbyCities = [],
-      preferredNearbyCities = null,
-      i;
+      fallbackToGeoserve = false;
 
   markup.push(this._getTextContentMarkup('general-header'));
 
@@ -51,7 +44,7 @@ SummaryPage.prototype._setContentMarkup = function () {
       '</div>' +
       '<div class="column one-of-two summary-info">' +
         '<div class="summary-time"></div>' +
-        this._getTextContentMarkup('nearby-cities') +
+        '<div class="summary-nearby-cities"></div>' +
       '</div>' +
     '</div>'
     );
@@ -63,6 +56,8 @@ SummaryPage.prototype._setContentMarkup = function () {
   content.querySelector('.summary-location').appendChild(this._getLocation());
   content.querySelector('.summary-time').appendChild(this._getTime());
   content.appendChild(this.getLinks());
+
+  this._loadNearbyCities();
 
   // Store references to containing elements for faster access
   generalHeader = this._content.querySelector('.summary-general-header');
@@ -91,43 +86,6 @@ SummaryPage.prototype._setContentMarkup = function () {
     fallbackToGeoserve = true;
   }
 
-  if (this._nearbyCitiesFlag) {
-    // Look for nearby cities based on preferred origin
-    allNearbyCities = products['nearby-cities'];
-
-    if (originSource && originCode) {
-      // Loop backwards, this way if not found, default to using first product
-      for (i = 0; i < allNearbyCities.length; i++) {
-        if (allNearbyCities[i].properties.eventsource === originSource &&
-            allNearbyCities[i].properties.eventsourcecode === originCode) {
-          preferredNearbyCities = allNearbyCities[i];
-          break;
-        }
-      }
-    }
-
-    if (preferredNearbyCities === null) {
-      // Just use first nearby-cities
-      preferredNearbyCities = allNearbyCities[0];
-    }
-
-    try {
-      Xhr.ajax({
-          url: preferredNearbyCities.contents['nearby-cities.json'].url,
-          success: function (nearbyCities) {
-            _this._ajaxSuccessNearbyCities(nearbyCities);
-          },
-          error: function () {
-            throw new Error('Failed to load nearby cities.');
-          }
-        });
-    } catch (e) {
-      this._ajaxErrorNearbyCities();
-    }
-  } else {
-    fallbackToGeoserve = true;
-  }
-
   if (fallbackToGeoserve) {
     try {
       // Note :: For now, assume geoserve product will exist. In the future,
@@ -136,13 +94,6 @@ SummaryPage.prototype._setContentMarkup = function () {
       Xhr.ajax({
         url: products.geoserve[0].contents['geoserve.json'].url,
         success: function (geoserve) {
-          if (!_this._nearbyCitiesFlag) {
-            try {
-              _this._ajaxSuccessNearbyCities(geoserve.cities);
-            } catch (e) {
-              _this._ajaxErrorNearbyCities();
-            }
-          }
           if (!_this._tectonicSummaryFlag) {
             try {
               _this._ajaxSuccessTectonicSummary(geoserve.tectonicSummary.text);
@@ -156,9 +107,6 @@ SummaryPage.prototype._setContentMarkup = function () {
         }
       });
     } catch (e) {
-      if (!this._nearbyCitiesFlag) {
-        this._ajaxErrorNearbyCities();
-      }
       if (!this._tectonicSummaryFlag) {
         this._ajaxErrorTectonicSummary();
       }
@@ -177,39 +125,10 @@ SummaryPage.prototype._ajaxErrorTectonicSummary = function () {
   this.tectonicSummary = null;
 };
 
-SummaryPage.prototype._ajaxErrorNearbyCities = function () {
-  if (this.nearbyCities) {
-    this.nearbyCities.parentNode.removeChild(this.nearbyCities);
-  }
-  this.nearbyCities = null;
-};
-
 SummaryPage.prototype._ajaxSuccessTectonicSummary = function (tectonicSummary) {
   if (this.tectonicSummary !== null) {
     this.tectonicSummary.innerHTML = '<h3>Tectonic Summary</h3>' +
         tectonicSummary;
-  }
-};
-
-SummaryPage.prototype._ajaxSuccessNearbyCities = function (nearbyCities) {
-  var formatter = this._formatter,
-      i,
-      city,
-      cities,
-      len;
-
-  if (this.nearbyCities !== null) {
-    cities = ['<ol class="nearbyCities no-style">'];
-    for (i = 0, len = nearbyCities.length; i < len; i++) {
-      city = nearbyCities[i];
-      cities.push('<li>' + city.distance +
-        'km (' + Math.round(formatter.kmToMi(city.distance)) + 'mi) ' +
-        city.direction +
-        ' of ' + city.name +
-        '</li>');
-    }
-    cities.push('</ol>');
-    this.nearbyCities.innerHTML = '<h3>Nearby Cities</h3>' + cities.join('');
   }
 };
 
@@ -364,6 +283,167 @@ SummaryPage.prototype._getTime = function () {
   fragment = document.createDocumentFragment();
   fragment.appendChild(header);
   fragment.appendChild(list);
+
+  return fragment;
+};
+
+
+/**
+ * Load nearby cities information.
+ *
+ * Attempts to load from a nearby-cities product.
+ * If no such product is found, call _loadAutomaticNearbyCities().
+ *
+ * Once load is complete (error or not), _setNearbyCities is called.
+ */
+SummaryPage.prototype._loadNearbyCities = function () {
+  var i,
+      nearbyCities,
+      origin,
+      originCode,
+      originSource,
+      product,
+      products,
+      props;
+
+  products = this._event.properties.products;
+  nearbyCities = products['nearby-cities'];
+  if (!nearbyCities) {
+    // no nearby cities products
+    this._loadAutomaticNearbyCities();
+    return;
+  }
+
+  // choose nearby-cities product
+  product = null;
+  origin = products.origin[0];
+  originCode = origin.properties.eventsourcecode;
+  originSource = origin.properties.eventsource;
+  for (i = 0; i < nearbyCities.length; i++) {
+    props = nearbyCities[i].properties;
+    if (props.eventsource === originSource &&
+        props.eventsourcecode === originCode) {
+      product = nearbyCities[i];
+      break;
+    }
+  }
+  if (product === null) {
+    product = nearbyCities[0];
+  }
+
+  // load nearby cities
+  Xhr.ajax({
+    url: product.contents['nearby-cities.json'].url,
+    success: function (cities) {
+      this._setNearbyCities(cities, product);
+    }.bind(this),
+    error: function () {
+      this._setNearbyCities(null, product);
+      throw new Error('Failed to load nearby cities.');
+    }.bind(this)
+  });
+};
+
+/**
+ * Load automatic list of nearby cities.
+ *
+ * Currently geoserve product, eventually geoserve webservice.
+ *
+ * Once load is complete (error or not), _setNearbyCities is called.
+ */
+SummaryPage.prototype._loadAutomaticNearbyCities = function () {
+  var geoserve,
+      product;
+
+  geoserve = this._event.properties.products.geoserve;
+  if (!geoserve) {
+    this._setNearbyCities(null, null);
+    return;
+  }
+
+  product = geoserve[0];
+  Xhr.ajax({
+    url: product.contents['geoserve.json'].url,
+    success: function (geoserve) {
+      this._setNearbyCities(geoserve.cities, product);
+    }.bind(this),
+    error: function () {
+      this._setNearbyCities(null, product);
+      throw new Error('Failed to load nearby cities from geoserve');
+    }.bind(this)
+  });
+};
+
+/**
+ * Set the nearby cities to be displayed.
+ *
+ * Inject result of _formatNearbyCities into nearby-cities element.
+ *
+ * @param cities {Array<Object>}
+ *        array of city objects with properties:
+ *          city.distance {Number} distance in km.
+ *          city.direction {String} compass direction from city to event.
+ *          city.name {String} city name.
+ *        null if there are no cities.
+ * @param product {Product}
+ *        the source of the cities.
+ *        null if there is no product.
+ */
+SummaryPage.prototype._setNearbyCities = function (cities, product) {
+  var content,
+      el;
+  el = this._content.querySelector('.summary-nearby-cities');
+  content = this._formatNearbyCities(cities, product);
+  if (content.childElementCount === 0) {
+    // empty
+    Util.detach(el);
+  } else {
+    el.appendChild(content);
+  }
+};
+
+/**
+ * Create content for nearby cities section.
+ *
+ * @param cities {Array<Object>}
+ *        array of city objects with properties:
+ *          city.distance {Number} distance in km.
+ *          city.direction {String} compass direction from city to event.
+ *          city.name {String} city name.
+ *        null if there are no cities.
+ * @param product {Product}
+ *        the source of the cities.
+ *        null if there is no product.
+ * @return {DOMFragment}
+ *         nearby cities content.
+ */
+SummaryPage.prototype._formatNearbyCities = function (cities /*,product*/) {
+  var fragment,
+      formatter = this._formatter,
+      header,
+      list;
+
+  fragment = document.createDocumentFragment();
+
+  if (cities) {
+    header = document.createElement('h3');
+    header.innerHTML = 'Nearby Cities';
+
+    list = document.createElement('ol');
+    list.classList.add('no-style');
+    list.classList.add('nearbyCities');
+    list.innerHTML = cities.map(function (city) {
+      return '<li>' +
+          city.distance + 'km ' +
+              '(' + Math.round(formatter.kmToMi(city.distance)) + 'mi) ' +
+          city.direction +
+          ' of ' + city.name +
+          '</li>';
+    }).join('');
+
+    fragment.appendChild(header);
+    fragment.appendChild(list);
+  }
 
   return fragment;
 };
