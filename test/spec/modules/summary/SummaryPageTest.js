@@ -136,7 +136,7 @@ describe('SummaryPage test suite.', function () {
     });
 
     it('can get related links', function () {
-      var links = content.querySelector('.summary-related-links');
+      var links = content.querySelector('.general-links');
       expect(links.childNodes.length).to.not.equal(0);
     });
 

@@ -77,9 +77,9 @@ SummaryPage.prototype._setContentMarkup = function () {
   markup.push(this._getTextContentMarkup('general-text'));
   markup.push(this._getTextContentMarkup('tectonic-summary'));
   markup.push(this._getTextContentMarkup('impact-text'));
-  markup.push(this._getMoreInformationMarkup());
 
   this._content.innerHTML = markup.join('');
+  this._content.appendChild(this.getLinks());
 
   // Store references to containing elements for faster access
   generalHeader = this._content.querySelector('.summary-general-header');
@@ -300,59 +300,12 @@ SummaryPage.prototype._getMapMarkup = function () {
     '</a>';
 };
 
-SummaryPage.prototype._getMoreInformationMarkup = function () {
-  var i = null,
-      len = null,
-      link = null,
-      cache = {},
-      links = this._event.properties.products['general-link'],
-      markup = ['<div class="summary-related-links">' +
-          '<h3>For More Information</h3><ul>'];
-
-  if (links && links.length) {
-    for (i = 0, len = links.length; i < len; i++) {
-      link = links[i];
-
-      if (!cache.hasOwnProperty(link.properties.url)) {
-        markup.push('<li class="summary-related-link"><a href="' +
-            link.properties.url + '">' + link.properties.text + '</a></li>');
-        cache[link.properties.url] = true;
-      }
-    }
-
-    markup.push('</ul></div>');
-    return markup.join('');
-  }
-  return '';
-};
-
-SummaryPage.prototype._loadTextualContent =
-    function (container, type, title) {
-  var content,
-      i = null,
-      len = null,
-      product,
-      products = null,
-      markup = [];
-
-  if (container === null ||
-      !this._event.properties.products.hasOwnProperty(type)) {
+SummaryPage.prototype._loadTextualContent = function (container, type) {
+  if (container === null) {
     return;
   }
 
-  if (title) {
-      markup.push('<h3>' + title + '</h3>');
-  }
-
-  products = this._event.properties.products[type];
-  for (i = 0, len = products.length; i < len; i++) {
-    product = products[i];
-    content = product.contents[''].bytes;
-    content = this._replaceRelativePaths(content, product.contents);
-    markup.push('<div>' + content + '</div>');
-  }
-
-  container.innerHTML = markup.join('');
+  container.appendChild(this.getTexts(type));
 };
 
 SummaryPage.prototype.getProducts = function () {
@@ -383,6 +336,109 @@ SummaryPage.prototype._getOtherTimeZoneLink = function (stamp) {
 
   return '<a href="' + uri +
   '" target="_blank">Times in other timezones</a>';
+};
+
+
+
+/**
+ * Get any scitech-text information.
+ *
+ * @return {DOMElement} content, or null if no information present.
+ */
+ SummaryPage.prototype.getTexts = function (type) {
+  var fragment = document.createDocumentFragment(),
+      products = this._event.properties.products,
+      texts = products[type],
+      textEl = null,
+      i,
+      len;
+
+  if (texts) {
+    textEl = document.createElement('div');
+    textEl.className = type;
+    fragment.appendChild(textEl);
+
+    for (i = 0, len = texts.length; i < len; i++) {
+      textEl.appendChild(this.getText(texts[i]));
+    }
+  }
+
+  return fragment;
+};
+
+/**
+ * Get an content for one text product.
+ *
+ * @param product {Product}
+ *        text product.
+ */
+SummaryPage.prototype.getText = function (product) {
+  var el = document.createElement('section'),
+      content,
+      contents = product.contents;
+
+  if (contents && contents['']) {
+    content = contents[''].bytes;
+    content = this._replaceRelativePaths(content, product.contents);
+
+    el.innerHTML = content;
+  }
+
+  return el;
+};
+
+
+/**
+ * Get any scitech-link information.
+ *
+ * @return {DocumentFragment}
+ *         Fragment with links, or empty if no information present.
+ */
+ SummaryPage.prototype.getLinks = function () {
+  var fragment = document.createDocumentFragment(),
+      products = this._event.properties.products,
+      links = products['general-link'],
+      linkEl = null,
+      i,
+      item,
+      len,
+      list;
+
+  if (links) {
+    linkEl = document.createElement('div');
+    linkEl.className = 'general-links';
+    linkEl.innerHTML = '<h3>For More Information</h3>';
+    fragment.appendChild(linkEl);
+
+    list = document.createElement('ul');
+    linkEl.appendChild(list);
+
+    for (i = 0, len = links.length; i < len; i++) {
+      item = document.createElement('li');
+      item.appendChild(this.getLink(links[i]));
+      list.appendChild(item);
+    }
+  }
+
+  return fragment;
+};
+
+/**
+ * Create an anchor element from a link product.
+ *
+ * @param product {Object}
+ *        The link product.
+ * @return {DOMEElement}
+ *         anchor element.
+ */
+ SummaryPage.prototype.getLink = function (product) {
+  var el = document.createElement('a'),
+      props = product.properties;
+
+  el.setAttribute('href', props.url);
+  el.innerHTML = props.text;
+
+  return el;
 };
 
 
