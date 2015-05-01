@@ -58,7 +58,7 @@ describe('SummaryPage test suite.', function () {
     stub = sinon.stub(Xhr, 'ajax', function () {});
 
     page = new SummaryPage(options);
-    page._ajaxSuccessTectonicSummary(geoserve.tectonicSummary.text);
+    page._setTectonicSummary(geoserve.tectonicSummary.text, geoserve);
     page._setNearbyCities(geoserve.cities, geoserve);
     content = page.getContent();
   });
@@ -75,14 +75,6 @@ describe('SummaryPage test suite.', function () {
       expect(page).to.be.an.instanceof(SummaryPage);
     });
 
-    it('Detects nearby cities', function () {
-      expect(page._nearbyCitiesFlag).to.equal(true);
-    });
-
-    it('Detects tectonic summary', function () {
-      expect(page._tectonicSummaryFlag).to.equal(true);
-    });
-
     it('Does not throw exception if no geoserve product', function () {
       var page_nogeoserve = null;
 
@@ -95,10 +87,6 @@ describe('SummaryPage test suite.', function () {
       /* jshint +W030 */
 
       expect(page_nogeoserve).to.be.an.instanceOf(SummaryPage);
-
-      /* jshint -W030 */
-      expect(page._nearbyCitiesFlag).to.equal(true);
-      /* jshint +W030 */
     });
 
     it('Correctly deals with no nearbycities in product', function () {
