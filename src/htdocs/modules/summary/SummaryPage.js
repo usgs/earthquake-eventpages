@@ -37,37 +37,15 @@ SummaryPage.prototype._setContentMarkup = function () {
       props = preferredOrigin.properties,
       originSource = props.eventsource,
       originCode = props.eventsourcecode,
-      originAuthor,
-      magnitudeAuthor,
       allNearbyCities = [],
       preferredNearbyCities = null,
       i;
-
-  originAuthor = props['origin-source'] || preferredOrigin.source;
-  magnitudeAuthor = props['magnitude-source'] || preferredOrigin.source;
 
   markup.push(this._getTextContentMarkup('general-header'));
 
   markup.push(
     '<div class="row">' +
-      '<div class="column one-of-two">' +
-        '<h3>Location</h3>' +
-        '<small class="attribution">Data Source ' +
-          (originAuthor === magnitudeAuthor ?
-            Attribution.getContributorReference(originAuthor) :
-            '<span>' +
-              Attribution.getContributorReference(originAuthor) + ', ' +
-              Attribution.getContributorReference(magnitudeAuthor) +
-            '</span>') +
-        '</small>' +
-        '<figure class="summary-map">' +
-          this._getMapMarkup() +
-          '<figcaption>' +
-            this._getLocationMarkup() +
-            '<a href="#general_map">View interactive map</a>' +
-          '</figcaption>' +
-        '</figure>' +
-      '</div>' +
+      '<div class="column one-of-two location"></div>' +
       '<div class="column one-of-two summary-info">' +
         this._getTimeMarkup() +
         this._getTextContentMarkup('nearby-cities') +
@@ -79,6 +57,7 @@ SummaryPage.prototype._setContentMarkup = function () {
   markup.push(this._getTextContentMarkup('impact-text'));
 
   this._content.innerHTML = markup.join('');
+  this._content.querySelector('.location').appendChild(this._getLocation());
   this._content.appendChild(this.getLinks());
 
   // Store references to containing elements for faster access
@@ -237,6 +216,112 @@ SummaryPage.prototype._getTextContentMarkup = function (type) {
   return '';
 };
 
+
+/**
+ * Create content for location section.
+ *
+ * @return {DOMFragment}
+ *         location content.
+ */
+SummaryPage.prototype._getLocation = function () {
+  var figure,
+      fragment,
+      header;
+
+  header = document.createElement('h3');
+  header.innerHTML = 'Location';
+
+  figure = document.createElement('figure');
+  figure.classList.add('summary-map');
+  figure.appendChild(this._getLocationMap());
+  figure.appendChild(this._getLocationCaption());
+
+  fragment = document.createDocumentFragment();
+  fragment.appendChild(header);
+  fragment.appendChild(this._getLocationAttribution());
+  fragment.appendChild(figure);
+
+  return fragment;
+};
+
+/**
+ * Create attribution for location section.
+ *
+ * @return {DOMElement}
+ *         element containing attribution content.
+ */
+SummaryPage.prototype._getLocationAttribution = function () {
+  var el,
+      magnitudeAuthor,
+      origin,
+      originAuthor,
+      props;
+
+  origin = this._event.properties.products.origin[0];
+  props = origin.properties;
+  originAuthor = props['origin-source'] || origin.source;
+  magnitudeAuthor = props['magnitude-source'] || origin.source;
+
+  el = document.createElement('small');
+  el.classList.add('attribution');
+  el.innerHTML = 'Data Source ' +
+      (originAuthor === magnitudeAuthor ?
+        Attribution.getContributorReference(originAuthor) :
+        '<span>' +
+          Attribution.getContributorReference(originAuthor) + ', ' +
+          Attribution.getContributorReference(magnitudeAuthor) +
+        '</span>');
+
+  return el;
+};
+
+/**
+ * Create map for location section.
+ *
+ * @return {DOMElement}
+ *         location map.
+ */
+SummaryPage.prototype._getLocationMap = function () {
+  var el,
+      latitude = this._event.geometry.coordinates[1],
+      longitude = this._event.geometry.coordinates[0];
+
+  el = document.createElement('a');
+  el.setAttribute('href', '#general_map');
+  el.innerHTML = StaticMap.getImageMarkup(
+          StaticMap.getExtent(longitude, latitude, 10), 512, 512);
+
+  return el;
+};
+
+/**
+ * Create caption for location section.
+ *
+ * @return {DOMElement}
+ *         caption for location map.
+ */
+SummaryPage.prototype._getLocationCaption = function () {
+  var el,
+      depth,
+      formatter = this._formatter,
+      geometry = this._event.geometry,
+      latitude,
+      longitude;
+
+  depth = geometry.coordinates[2];
+  latitude = geometry.coordinates[1];
+  longitude = geometry.coordinates[0];
+
+  el = document.createElement('figcaption');
+  el.innerHTML = formatter.location(latitude, longitude) +
+        ' depth=' + formatter.depth(depth, 'km') +
+        ' (' + formatter.depth(formatter.kmToMi(depth), 'mi') + ')' +
+        '<a href="#general_map">View interactive map</a>';
+
+  return el;
+};
+
+
 SummaryPage.prototype._getTimeMarkup = function () {
   var formatter = this._formatter,
       properties = this._event.properties,
@@ -266,38 +351,6 @@ SummaryPage.prototype._getTimeMarkup = function () {
       '</div>');
 
   return markup.join('');
-};
-
-SummaryPage.prototype._getLocationMarkup = function () {
-  var depth,
-      formatter = this._formatter,
-      geometry = this._event.geometry,
-      latitude,
-      longitude,
-      markup = [];
-
-  depth = geometry.coordinates[2];
-  latitude = geometry.coordinates[1];
-  longitude = geometry.coordinates[0];
-
-  markup.push(
-    formatter.location(latitude, longitude) +
-        ' depth=' + formatter.depth(depth, 'km') +
-        ' (' + formatter.depth(formatter.kmToMi(depth), 'mi') + ')'
-  );
-
-  return markup.join('');
-
-};
-
-SummaryPage.prototype._getMapMarkup = function () {
-  var latitude = this._event.geometry.coordinates[1],
-      longitude = this._event.geometry.coordinates[0];
-
-  return '<a href="#general_map">' +
-      StaticMap.getImageMarkup(
-          StaticMap.getExtent(longitude, latitude, 10),512, 512) +
-    '</a>';
 };
 
 SummaryPage.prototype._loadTextualContent = function (container, type) {
