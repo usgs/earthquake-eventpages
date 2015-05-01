@@ -223,11 +223,18 @@ InteractiveMap.prototype._onAfterRender = function () {
 
 InteractiveMap.prototype._onClick = function () {
   window.history.go(-1);
+  // if the interactive map is opened directly there is no 'back'
+  setTimeout(function () {
+    if (window.location.hash === '#general_map') {
+      // still on map, show general summary
+      window.location = '#general_summary';
+    }
+  }, 200);
 };
 
 InteractiveMap.prototype._onKeyUp = function (e) {
   if (e.keyCode === 27) {
-    window.history.go(-1);
+    this._onClick();
   }
 };
 
