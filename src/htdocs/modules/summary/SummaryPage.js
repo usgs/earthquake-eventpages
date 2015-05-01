@@ -209,7 +209,8 @@ SummaryPage.prototype._ajaxSuccessTectonicSummary = function (tectonicSummary) {
 };
 
 SummaryPage.prototype._ajaxSuccessNearbyCities = function (nearbyCities) {
-  var i,
+  var formatter = this._formatter,
+      i,
       city,
       cities,
       len;
@@ -219,7 +220,7 @@ SummaryPage.prototype._ajaxSuccessNearbyCities = function (nearbyCities) {
     for (i = 0, len = nearbyCities.length; i < len; i++) {
       city = nearbyCities[i];
       cities.push('<li>' + city.distance +
-        'km (' + Math.round(this._kmToMi(city.distance)) + 'mi) ' +
+        'km (' + Math.round(formatter.kmToMi(city.distance)) + 'mi) ' +
         city.direction +
         ' of ' + city.name +
         '</li>');
@@ -237,25 +238,25 @@ SummaryPage.prototype._getTextContentMarkup = function (type) {
 };
 
 SummaryPage.prototype._getTimeMarkup = function () {
-  var properties = this._event.properties,
+  var formatter = this._formatter,
+      properties = this._event.properties,
       markup = [],
       time,
-      d = new Date(),
       systemTimezoneOffset;
 
 
-  time = parseInt(properties.time, 10);
-  systemTimezoneOffset =  d.getTimezoneOffset() * -1;
+  time = Number(properties.time);
+  systemTimezoneOffset =  new Date().getTimezoneOffset() * -1;
 
   markup.push(
       '<div class="summary-time">' +
       '<h3>Time</h3>' +
       '<ol class="no-style">' +
       '<li>' +
-      this._formatDate(time, 0) +
+      formatter.datetime(time, 0) +
       '</li>' +
       '<li>' +
-      this._formatDate(time, systemTimezoneOffset) +
+      formatter.datetime(time, systemTimezoneOffset) +
       ' <abbr title="Your computer timezone setting">in your timezone</abbr>' +
       '</li>' +
       '<li>' +
@@ -268,15 +269,21 @@ SummaryPage.prototype._getTimeMarkup = function () {
 };
 
 SummaryPage.prototype._getLocationMarkup = function () {
-  var geometry = this._event.geometry,
+  var depth,
+      formatter = this._formatter,
+      geometry = this._event.geometry,
+      latitude,
+      longitude,
       markup = [];
 
+  depth = geometry.coordinates[2];
+  latitude = geometry.coordinates[1];
+  longitude = geometry.coordinates[0];
+
   markup.push(
-    this._formatter.location(geometry.coordinates[1],
-        geometry.coordinates[0]) +
-        ' depth=' + this._formatter.depth(geometry.coordinates[2], ' km') +
-        ' (' + this._formatter.depth(this._kmToMi(geometry.coordinates[2])) +
-        ' mi)'
+    formatter.location(latitude, longitude) +
+        ' depth=' + formatter.depth(depth, 'km') +
+        ' (' + formatter.depth(formatter.kmToMi(depth), 'mi') + ')'
   );
 
   return markup.join('');
@@ -365,29 +372,6 @@ SummaryPage.prototype.getProducts = function () {
   return toshow;
 };
 
-  // TODO :: Move these date formatting methods to a utility class for re-use.
-
-SummaryPage.prototype._formatDate = function (stamp, minutesOffset) {
-  var milliOffset = minutesOffset * 60 * 1000,
-      offsetString = this._formatTimezoneOffset(minutesOffset),
-      theDate = new Date(stamp + milliOffset),
-      year = theDate.getUTCFullYear(),
-      month = theDate.getUTCMonth() + 1,
-      day = theDate.getUTCDate(),
-      hours = theDate.getUTCHours(),
-      minutes = theDate.getUTCMinutes(),
-      seconds = theDate.getUTCSeconds();
-
-  if (month < 10) {month = '0' + month;}
-  if (day < 10) {day = '0' + day;}
-  if (hours < 10) {hours = '0' + hours;}
-  if (minutes < 10) {minutes = '0' + minutes;}
-  if (seconds < 10) {seconds = '0' + seconds;}
-
-  return year + '-' + month + '-' + day + ' ' + hours + ':' +
-      minutes + ':' + seconds + ' (UTC' + offsetString + ')';
-};
-
 SummaryPage.prototype._getOtherTimeZoneLink = function (stamp) {
   var theDate = new Date(stamp),
       uri,
@@ -399,39 +383,6 @@ SummaryPage.prototype._getOtherTimeZoneLink = function (stamp) {
 
   return '<a href="' + uri +
   '" target="_blank">Times in other timezones</a>';
-};
-
-SummaryPage.prototype._formatTimezoneOffset = function (offset) {
-  var buffer = [],
-      hours = null,
-      minutes = null;
-
-  if (offset === 0 ) {
-    return '';
-  } else if (offset < 0) {
-    buffer.push('-');
-    offset *= -1;
-  } else {
-    buffer.push('+');
-  }
-
-  hours = parseInt(offset / 60, 10);
-  if (hours < 10) {
-    buffer.push('0');
-  }
-  buffer.push(hours + ':');
-
-  minutes = parseInt(offset % 60, 10);
-  if (minutes < 10) {
-    buffer.push('0');
-  }
-  buffer.push(minutes);
-
-  return buffer.join('');
-};
-
-SummaryPage.prototype._kmToMi = function (km) {
-  return (km * 0.621371);
 };
 
 
