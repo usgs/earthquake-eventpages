@@ -38,7 +38,7 @@ SummaryPage.prototype._setContentMarkup = function () {
 
   content.querySelector('.summary-location').appendChild(this._getLocation());
   content.querySelector('.summary-time').appendChild(this._getTime());
-  content.appendChild(this.getLinks());
+  content.appendChild(this._getLinks());
 
   this._loadNearbyCities();
   this._loadTectonicSummary();
@@ -498,7 +498,7 @@ SummaryPage.prototype._loadTextualContent = function (el, type) {
     return;
   }
 
-  content = this.getTexts(type);
+  content = this._getTexts(type);
   if (!content.firstChild) {
     // empty
     Util.detach(el);
@@ -544,7 +544,7 @@ SummaryPage.prototype._getOtherTimeZoneLink = function (stamp) {
  *
  * @return {DOMElement} content, or null if no information present.
  */
- SummaryPage.prototype.getTexts = function (type) {
+ SummaryPage.prototype._getTexts = function (type) {
   var el,
       fragment,
       i,
@@ -562,7 +562,7 @@ SummaryPage.prototype._getOtherTimeZoneLink = function (stamp) {
     fragment.appendChild(el);
 
     for (i = 0, len = texts.length; i < len; i++) {
-      el.appendChild(this.getText(texts[i]));
+      el.appendChild(this._getText(texts[i]));
     }
   }
 
@@ -575,7 +575,7 @@ SummaryPage.prototype._getOtherTimeZoneLink = function (stamp) {
  * @param product {Product}
  *        text product.
  */
-SummaryPage.prototype.getText = function (product) {
+SummaryPage.prototype._getText = function (product) {
   var el = document.createElement('section'),
       content,
       contents = product.contents;
@@ -597,7 +597,7 @@ SummaryPage.prototype.getText = function (product) {
  * @return {DocumentFragment}
  *         Fragment with links, or empty if no information present.
  */
- SummaryPage.prototype.getLinks = function () {
+ SummaryPage.prototype._getLinks = function () {
   var cache = {},
       el,
       fragment,
@@ -633,7 +633,7 @@ SummaryPage.prototype.getText = function (product) {
       cache[url] = true;
       // end hacky
       item = document.createElement('li');
-      item.appendChild(this.getLink(link));
+      item.appendChild(this._getLink(link));
       list.appendChild(item);
     }
   }
@@ -649,7 +649,7 @@ SummaryPage.prototype.getText = function (product) {
  * @return {DOMEElement}
  *         anchor element.
  */
- SummaryPage.prototype.getLink = function (product) {
+ SummaryPage.prototype._getLink = function (product) {
   var el = document.createElement('a'),
       props = product.properties;
 
