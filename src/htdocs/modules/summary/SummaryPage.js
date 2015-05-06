@@ -307,6 +307,10 @@ SummaryPage.prototype._setNearbyCities = function (cities, product) {
   var content,
       el;
   el = this._content.querySelector('.summary-nearby-cities');
+  if (el === null) {
+    return;
+  }
+
   content = this._formatNearbyCities(cities, product);
   if (!content.firstChild) {
     // empty
@@ -451,6 +455,10 @@ SummaryPage.prototype._setTectonicSummary = function (cities, product) {
   var content,
       el;
   el = this._content.querySelector('.summary-tectonic-summary');
+  if (el === null) {
+    return;
+  }
+
   content = this._formatTectonicSummary(cities, product);
   if (!content.firstChild) {
     // empty
