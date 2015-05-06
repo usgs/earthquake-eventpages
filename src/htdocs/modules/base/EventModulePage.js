@@ -303,10 +303,13 @@ EventModulePage.prototype.getPreferredSummaryMarkup = function (product, hash, n
 EventModulePage.prototype._replaceRelativePaths = function (html, contents) {
   var content,
       path;
+
   for (path in contents) {
-    content = contents[path];
-    html = html.replace(new RegExp('"' + path + '"', 'g'),
-        '"' + content.url + '"');
+    if (path !== '') {
+      content = contents[path];
+      html = html.replace(new RegExp('"' + path + '"', 'g'),
+          '"' + content.url + '"');
+    }
   }
   return html;
 };
