@@ -31,7 +31,8 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
         var p = feature.properties,
             romanIntensity = ImpactUtil.translateMmi(p.intensity);
 
-        if (p.network === 'DYFI') {
+        if (p.network === 'DYFI' || p.network === 'INTENSITY') {
+          console.log(p.network);
           return L.marker(latlng, {
             icon: L.divIcon({
               className: 'dyfi-layer-icon dyfi-station-mmi'+romanIntensity+'',
@@ -41,6 +42,7 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
             })
           });
         } else {
+          console.log(p.network);
           return L.marker(latlng, {
             icon: L.divIcon({
               className: 'station-layer-icon station-mmi'+romanIntensity+'',
