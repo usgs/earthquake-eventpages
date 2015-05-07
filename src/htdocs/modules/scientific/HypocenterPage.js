@@ -233,7 +233,7 @@ HypocenterPage.prototype.getProducts = function () {
   // build array of products that are in the allProducts array
   for (i = 0; i < origins.length; i++) {
     origin = origins[i];
-    allProducts.push(origin);
+    allProducts.push(Util.extend({}, origin));
     sourceCode.push(origin.source + '_' + origin.code);
   }
 
@@ -250,7 +250,7 @@ HypocenterPage.prototype.getProducts = function () {
       // replace origin with phase-data product if
       // phase-data updateTime is same age or newer.
       if (allProducts[index].updateTime <= phase.updateTime) {
-        allProducts[index] = phase;
+        allProducts[index].phasedata = phase;
       }
     }
   }
@@ -283,6 +283,10 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
       originAuthor,
       magnitudeAuthor,
       props;
+
+  if (product.phasedata) {
+    product = product.phasedata;
+  }
 
   this._product = product;
 
@@ -668,7 +672,7 @@ HypocenterPage.prototype.getOriginDetail = function (product) {
 
   buf.push('<tr><th scope="row">Origin Time</th><td>',
       '<time datetime="', eventTime, '">',
-          eventTime.replace('T', ' ').replace('Z', ' UTC'),
+          formatter.datetime(eventTime, 0),
       '</time>',
       '</td></tr>');
 

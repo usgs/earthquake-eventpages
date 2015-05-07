@@ -189,8 +189,15 @@ Formatter.prototype.fileSize = function (bytes) {
  */
 Formatter.prototype.datetime = function (stamp, minutesOffset,
     includeMilliseconds) {
-  var milliOffset = minutesOffset * 60 * 1000,
-      date = new Date(stamp + milliOffset);
+  var milliOffset,
+      date;
+
+  if (!stamp && stamp !== 0) {
+    return this._options.empty;
+  }
+
+  milliOffset = minutesOffset * 60 * 1000;
+  date = new Date(stamp + milliOffset);
 
   return this.date(date) + ' ' + this.time(date, includeMilliseconds) +
       ' (UTC' + this.timezoneOffset(minutesOffset) + ')';

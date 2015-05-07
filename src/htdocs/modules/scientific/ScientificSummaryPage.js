@@ -2,9 +2,7 @@
 
 var EventModulePage = require('base/EventModulePage'),
     Formatter = require('base/Formatter'),
-    Util = require('util/Util'),
-
-    Tensor = require('./tensor/Tensor');
+    Util = require('util/Util');
 
 
 // default options
@@ -48,13 +46,13 @@ ScientificSummaryPage.prototype._setContentMarkup = function () {
 
   // Moment Tensor content
   if (products.hasOwnProperty('moment-tensor')) {
-    product = Tensor.fromProduct(products['moment-tensor'][0]);
+    product = products['moment-tensor'][0];
     this.getPreferredSummaryMarkup(product, 'scientific_tensor', 'Moment Tensor');
   }
 
   // Focal Mechanism content
   if (products.hasOwnProperty('focal-mechanism')) {
-    product = Tensor.fromProduct(products['focal-mechanism'][0]);
+    product = products['focal-mechanism'][0];
     this.getPreferredSummaryMarkup(product, 'scientific_mechanism', 'Focal Mechanism');
   }
 
