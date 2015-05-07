@@ -157,13 +157,18 @@ EventModulePage.prototype.setDownloadMarkup = function () {
 
 EventModulePage.prototype.loadDownloadMarkup = function (e) {
   var products = this.getProducts(),
+      product,
       i;
 
   e.preventDefault();
   this._downloadsEl.removeEventListener('click',this.loadDownloadMarkup);
 
   for (i=0; i< products.length; i++) {
-    this.getDownloads(products[i]);
+    product = products[i];
+    if (product.phasedata) {
+      product = product.phasedata;
+    }
+    this.getDownloads(product);
   }
 };
 
