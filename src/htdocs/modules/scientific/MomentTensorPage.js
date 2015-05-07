@@ -269,20 +269,41 @@ MomentTensorPage.prototype._getPlanes = function (tensor) {
  * @return {String} summary content.
  */
 MomentTensorPage.prototype._getSummaryMarkup = function (product) {
-  var tensor = Tensor.fromProduct(product),
-      formatter = this._options.formatter,
-      type = tensor.type,
-      magnitude = tensor.magnitude,
-      depth = Math.round(tensor.depth),
-      percentDC = Math.round(tensor.percentDC * 100);
+  var code,
+      depth,
+      formatter,
+      magnitude,
+      percentDC,
+      source,
+      tensor,
+      type;
 
-  magnitude = formatter.magnitude(magnitude);
+  formatter = this._options.formatter;
+  tensor = Tensor.fromProduct(product);
+  if (tensor !== null) {
+    type = tensor.type;
+    source = tensor.source;
+    code = tensor.code;
+    magnitude = tensor.magnitude;
+    magnitude = formatter.magnitude(magnitude);
+    depth = Math.round(tensor.depth);
+    percentDC = Math.round(tensor.percentDC * 100);
+  } else {
+    type = '&ndash;';
+    magnitude = '&ndash;';
+    depth = '&ndash;';
+    percentDC = '&ndash;';
+    source = product.source;
+    code = product.code;
+  }
 
   return [
         '<ul>',
           '<li class="image">',
-            '<img src="', this.getBeachball(tensor), '" ',
-                'alt="Moment Tensort Beachball (', tensor.code, ')"/>',
+            (tensor !== null ?
+                '<img src="' + this.getBeachball(tensor) + '" ' +
+                    'alt="Moment Tensort Beachball (' + code + ')"/>' :
+                code),
           '</li>',
           '<li>',
             '<span>', type, '</span>',
@@ -301,7 +322,7 @@ MomentTensorPage.prototype._getSummaryMarkup = function (product) {
             '<abbr title="Percent Double Couple">% DC</abbr>',
           '</li>',
           '<li class="summary-hide">',
-            Attribution.getContributorReference(tensor.source),
+            Attribution.getContributorReference(source),
             '<abbr title="Moment Tensor Data Source">Source</abbr>',
           '</li>',
         '</ul>'
