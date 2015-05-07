@@ -3,7 +3,8 @@
 var Attribution = require('base/Attribution'),
     Util = require('util/Util'),
 
-    MomentTensorPage = require('./MomentTensorPage');
+    MomentTensorPage = require('./MomentTensorPage'),
+    Tensor = require('./tensor/Tensor');
 
 
 var DEFAULTS = {
@@ -27,8 +28,9 @@ var FocalMechanismPage = function (options) {
 FocalMechanismPage.prototype = Object.create(MomentTensorPage.prototype);
 
 
-FocalMechanismPage.prototype._getSummaryMarkup = function (tensor) {
-  var np1 = tensor.NP1,
+FocalMechanismPage.prototype._getSummaryMarkup = function (product) {
+  var tensor = Tensor.fromProduct(product),
+      np1 = tensor.NP1,
       np2 = tensor.NP2;
 
   return [
