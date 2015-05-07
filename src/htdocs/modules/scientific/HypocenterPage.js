@@ -671,9 +671,11 @@ HypocenterPage.prototype.getOriginDetail = function (product) {
       '</td></tr>');
 
   buf.push('<tr><th scope="row">Origin Time</th><td>',
-      '<time datetime="', eventTime, '">',
-          formatter.datetime(eventTime, 0),
-      '</time>',
+      (typeof eventTime === 'string' ?
+          '<time datetime="' + eventTime + '">' +
+              eventTime.replace('T', ' ').replace('Z', ' UTC') +
+          '</time>' :
+          ''),
       '</td></tr>');
 
   buf.push('<tr><th scope="row">Number of Stations</th><td>',
