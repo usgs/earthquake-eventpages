@@ -30,8 +30,17 @@ FocalMechanismPage.prototype = Object.create(MomentTensorPage.prototype);
 
 FocalMechanismPage.prototype._getSummaryMarkup = function (product) {
   var tensor = Tensor.fromProduct(product),
-      np1 = tensor.NP1,
-      np2 = tensor.NP2;
+      np1,
+      np2,
+      source;
+
+  if (tensor !== null) {
+    np1 = tensor.NP1;
+    np2 = tensor.NP2;
+    source = tensor.source;
+  } else {
+    source = product.source;
+  }
 
   return [
         '<ul>',
@@ -42,9 +51,11 @@ FocalMechanismPage.prototype._getSummaryMarkup = function (product) {
           '<li>',
             '<span>',
               '(',
-              Math.round(np1.strike), '<i>,</i>',
-              Math.round(np1.dip), '<i>,</i>',
-              Math.round(np1.rake),
+              (np1 ?
+                  Math.round(np1.strike) + '<i>,</i>' +
+                  Math.round(np1.dip) + '<i>,</i>' +
+                  Math.round(np1.rake) :
+                  '&ndash;'),
               ')',
             '</span>',
             '<abbr title="Nodal Plane 1">',
@@ -54,9 +65,11 @@ FocalMechanismPage.prototype._getSummaryMarkup = function (product) {
           '<li>',
             '<span>',
               '(',
-              Math.round(np2.strike), '<i>,</i>',
-              Math.round(np2.dip), '<i>,</i>',
-              Math.round(np2.rake),
+              (np2 ?
+                  Math.round(np2.strike) + '<i>,</i>' +
+                  Math.round(np2.dip) + '<i>,</i>' +
+                  Math.round(np2.rake) :
+                  '&ndash;'),
               ')',
             '</span>',
             '<abbr title="Nodal Plane 2">',
@@ -64,8 +77,8 @@ FocalMechanismPage.prototype._getSummaryMarkup = function (product) {
             '</abbr>',
           '</li>',
           '<li class="summary-hide">',
-            Attribution.getContributorReference(tensor.source),
-            '<abbr title="', Attribution.getName(tensor.source),
+            Attribution.getContributorReference(source),
+            '<abbr title="', Attribution.getName(source),
                 '">Source</abbr>',
           '</li>',
         '</ul>',
