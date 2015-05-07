@@ -668,7 +668,7 @@ HypocenterPage.prototype.getOriginDetail = function (product) {
 
   buf.push('<tr><th scope="row">Origin Time</th><td>',
       '<time datetime="', eventTime, '">',
-          eventTime.replace('T', ' ').replace('Z', ' UTC'),
+          formatter.datetime(eventTime, 0),
       '</time>',
       '</td></tr>');
 

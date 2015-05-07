@@ -260,20 +260,6 @@ MomentTensorPage.prototype._getPlanes = function (tensor) {
   ].join('');
 };
 
-MomentTensorPage.prototype.getSummaryContent = function (products) {
-  var i, len, tensors = [];
-
-  for (i = 0, len = products.length; i < len; i++) {
-    tensors.push(Tensor.fromProduct(products[i]));
-  }
-
-  return SummaryDetailsPage.prototype.getSummaryContent.apply(this, [tensors]);
-};
-
-MomentTensorPage.prototype._buildHash = function (tensor) {
-  return SummaryDetailsPage.prototype._buildHash.call(this, tensor.product);
-};
-
 /**
  * Used by getSummary() method,
  * so subclasses can override non-beachball content.
@@ -282,8 +268,9 @@ MomentTensorPage.prototype._buildHash = function (tensor) {
  *        tensor object.
  * @return {String} summary content.
  */
-MomentTensorPage.prototype._getSummaryMarkup = function (tensor) {
-  var formatter = this._options.formatter,
+MomentTensorPage.prototype._getSummaryMarkup = function (product) {
+  var tensor = Tensor.fromProduct(product),
+      formatter = this._options.formatter,
       type = tensor.type,
       magnitude = tensor.magnitude,
       depth = Math.round(tensor.depth),
