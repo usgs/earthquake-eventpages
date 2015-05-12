@@ -12,7 +12,7 @@
       padding: 6px 0;
       text-align: center;
       text-decoration: none;
-      line-height:1;
+      line-height:1em;
       border-radius: 3px;
       text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
       width:23.5%;
@@ -21,6 +21,8 @@
       overflow:hidden;
       text-overflow:ellipsis;
       box-shadow: inset 0 0 1px rgba(0,0,0,0.5);
+      color: #333;
+      letter-spacing: 0.03em;
 
       &:first-child {
         margin-left:0;
@@ -32,7 +34,6 @@
 
       > abbr {
         font-size:.6875em;
-        color:#444;
       }
     }
 
@@ -147,15 +148,6 @@
   background-color:$mmiXII;
 }
 
-@media screen and (min-width: 768px) {
-  .event-header {
-    > .impact-bubbles {
-      > a > strong {
-        font-size:1em;
-      }
-    }
-  }
-}
 // Width for media query makes the switch from percentages to pixels smooth.
 @media screen and (min-width: 1088px) {
   .event-header {
