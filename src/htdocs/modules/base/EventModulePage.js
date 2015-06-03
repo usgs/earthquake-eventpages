@@ -240,7 +240,7 @@ EventModulePage.prototype.getDownloads = function (product) {
 
 
 EventModulePage.prototype.getCatalogSummary = function (product) {
-  var props = product.properties,
+  var props = product.properties || {},
       eventSource = props.eventsource,
       eventSourceCode = props.eventsourcecode,
       eventId = '';

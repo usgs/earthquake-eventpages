@@ -259,7 +259,7 @@ EventPage.prototype._buildContributorArray = function () {
         sources.push(product.source.toLowerCase());
       }
 
-      props = product.properties;
+      props = product.properties || {};
       if (props['origin-source']) {
         author = props['origin-source'].toLowerCase();
         if (!Util.contains(sources, author)) {
