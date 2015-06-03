@@ -3,6 +3,7 @@
 var Attribution = require('base/Attribution'),
     Collection = require('mvc/Collection'),
     DataTable = require('mvc/DataTable'),
+    Formatter = require('base/Formatter'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     ImpactUtil = require('base/ImpactUtil'),
     TabList = require('tablist/TabList'),
@@ -150,10 +151,29 @@ var SUMMARY_THUMBNAIL = '_ciim.jpg',
 /* creates map page and sets up the content */
 var DYFIPage = function (options) {
   options = Util.extend({}, DEFAULTS, options || {});
+  this._dyfi = null;
+  this._formatter = options.formatter || new Formatter();
+  this._responseTable = null;
+  this._tablist = null;
   SummaryDetailsPage.call(this, options);
 };
 
 DYFIPage.prototype = Object.create(SummaryDetailsPage.prototype);
+
+DYFIPage.prototype.destroy = function () {
+  this._dyfi = null;
+  this._formatter = null;
+  if (this._responseTable !== null) {
+    this._responseTable.destroy();
+    this._responseTable = null;
+  }
+  if (this._tablist !== null) {
+    this._tablist.destroy();
+    this._tablist = null;
+  }
+  // call parent destroy
+  SummaryDetailsPage.prototype.destroy.call(this);
+};
 
 DYFIPage.prototype._setHeaderMarkup = function () {
   SummaryDetailsPage.prototype._setHeaderMarkup.apply(this);
@@ -161,16 +181,11 @@ DYFIPage.prototype._setHeaderMarkup = function () {
       ' - <a href="#impact_tellus">Tell Us!</a>');
 };
 
-DYFIPage.prototype.getDetailsContent = function () {
+DYFIPage.prototype.getDetailsContent = function (dyfi) {
   var el = document.createElement('div'),
-      products = this._event.properties.products,
-      dyfi, tablistDiv;
+      tablistDiv;
 
-  if (!products.dyfi) {
-    return;
-  }
-
-  dyfi = this._dyfi = products.dyfi[0];
+  this._dyfi = dyfi;
 
   el.classList.add('dyfi');
   el.innerHTML = '<small class="attribution">Data Source ' +
@@ -181,24 +196,26 @@ DYFIPage.prototype.getDetailsContent = function () {
   // Tablist element
   tablistDiv = el.querySelector('.dyfi-tablist');
 
-  /* creates tab list */
-  this._tablist = new TabList({
-    el: tablistDiv,
-    tabPosition: 'top',
-    tabs: TabListUtil.CreateTabListData({
-      contents:dyfi.contents,
-      eventId:dyfi.code,
-      dataObject:MAP_GRAPH_IMAGES,
-      callback:this._getUseMap,
-      object:this
-    })
-  });
+  if (dyfi.status.toUpperCase() === 'DELETE') {
+    tablistDiv.innerHTML = '<p class="alert info">Product Deleted</p>';
+  } else {
+    /* creates tab list */
+    this._tablist = new TabList({
+      el: tablistDiv,
+      tabPosition: 'top',
+      tabs: TabListUtil.CreateTabListData({
+        contents:dyfi.contents,
+        eventId:dyfi.code,
+        dataObject:MAP_GRAPH_IMAGES,
+        callback:this._getUseMap,
+        object:this
+      })
+    });
 
-  if (!dyfi.contents.hasOwnProperty('cdi_zip.xml')) {
-    return;
+    if (dyfi.contents.hasOwnProperty('cdi_zip.xml')) {
+      this._addDyfiResponsesTab();
+    }
   }
-
-  this._addDyfiResponsesTab();
 
   return el;
 };
@@ -334,21 +351,25 @@ DYFIPage.prototype._getSummaryMarkup = function (product) {
   var properties = product.properties,
       contents = product.contents,
       eventId = properties.eventsource + properties.eventsourcecode,
-      maxmmi = properties.maxmmi;
+      maxmmi = properties.maxmmi,
+      thumbnail;
 
   maxmmi = ImpactUtil.translateMmi(maxmmi);
+  thumbnail = contents[eventId + SUMMARY_THUMBNAIL];
 
   return '<ul>' +
       '<li class="image">' +
-        '<img src="' + contents[eventId + SUMMARY_THUMBNAIL].url +
-            '" alt="' + THUMBNAIL_ALT + '" />' +
+        (thumbnail ?
+            '<img src="' + thumbnail.url +
+              '" alt="' + THUMBNAIL_ALT + '" />'
+            : '&ndash;') +
       '</li>' +
       '<li class="mmi">' +
         '<span>' + maxmmi + '</span>' +
         '<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
       '</li>' +
       '<li>' +
-        '<span>' + Number(properties.magnitude).toFixed(1) + '</span>' +
+        '<span>' + this._formatter.magnitude(properties.magnitude) + '</span>' +
         '<abbr title="Magnitude">Mag</abbr>' +
       '</li>' +
       '<li>' +
