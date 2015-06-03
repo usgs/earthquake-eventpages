@@ -208,45 +208,55 @@ PagerPage.prototype._renderAlerts = function () {
       economicComment = '',
       alertsMarkup = [];
 
-  if (comments.length === 2) {
-    if (comments[0] !== '') {
-      fatalityComment = comments[0];
-      economicComment = comments[1];
-    } else {
-      fatalityComment = comments[1];
-    }
+  if (this._event.properties.alert === 'pending') {
+    alertsMarkup = [
+      '<p class="info alert">',
+        'Alert information for this event is currently under review and will ',
+        'be available soon. Thank you for your patience.',
+      '</p>'
+    ];
+    this._alertEl.classList.remove('row');
   } else {
-    fatalityComment = comments[0];
-  }
+    if (comments.length === 2) {
+      if (comments[0] !== '') {
+        fatalityComment = comments[0];
+        economicComment = comments[1];
+      } else {
+        fatalityComment = comments[1];
+      }
+    } else {
+      fatalityComment = comments[0];
+    }
 
-  if (alerts.fatality) {
-    alertsMarkup.push(
-      '<div class="column one-of-two">',
-        '<h3>Estimated Fatalities</h3>',
-        '<figure>',
-          '<a href="', contents['alertfatal.pdf'].url, '">',
-            '<img src="', contents['alertfatal.png'].url, '" alt=""/>',
-          '</a>',
-          ((fatalityComment !== '') ?
-            '<figcaption>' + fatalityComment + '</figcaption>' : ''
-          ),
-        '</figure>',
-      '</div>');
-  }
+    if (alerts.fatality) {
+      alertsMarkup.push(
+        '<div class="column one-of-two">',
+          '<h3>Estimated Fatalities</h3>',
+          '<figure>',
+            '<a href="', contents['alertfatal.pdf'].url, '">',
+              '<img src="', contents['alertfatal.png'].url, '" alt=""/>',
+            '</a>',
+            ((fatalityComment !== '') ?
+              '<figcaption>' + fatalityComment + '</figcaption>' : ''
+            ),
+          '</figure>',
+        '</div>');
+    }
 
-  if (alerts.economic) {
-    alertsMarkup.push(
-      '<div class="column one-of-two">',
-        '<h3 class="collapse-margin">Estimated Economic Losses</h3>',
-        '<figure>',
-          '<a href="', contents['alertecon.pdf'].url, '">',
-            '<img src="', contents['alertecon.png'].url, '" alt=""/>',
-          '</a>',
-          ((economicComment !== '') ?
-            '<figcaption>' + economicComment + '</figcaption>' : ''
-          ),
-        '</figure>',
-      '</div>');
+    if (alerts.economic) {
+      alertsMarkup.push(
+        '<div class="column one-of-two">',
+          '<h3 class="collapse-margin">Estimated Economic Losses</h3>',
+          '<figure>',
+            '<a href="', contents['alertecon.pdf'].url, '">',
+              '<img src="', contents['alertecon.png'].url, '" alt=""/>',
+            '</a>',
+            ((economicComment !== '') ?
+              '<figcaption>' + economicComment + '</figcaption>' : ''
+            ),
+          '</figure>',
+        '</div>');
+    }
   }
 
   if (alertsMarkup.length === 0) {
