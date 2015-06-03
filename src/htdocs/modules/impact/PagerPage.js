@@ -219,11 +219,12 @@ PagerPage.prototype._renderAlerts = function (product) {
   var alerts = this._pagerInfo.alerts,
       comments = this._pagerInfo.comments.impact,
       contents = product.contents,
+      properties = product.properties || {},
       fatalityComment = '',
       economicComment = '',
       alertsMarkup = [];
 
-  if (this._event.properties.alert === 'pending') {
+  if (properties.alertlevel === 'pending') {
     alertsMarkup = [
       '<p class="info alert">',
         'Alert information for this event is currently under review and will ',
