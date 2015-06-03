@@ -246,17 +246,27 @@ DYFIFormPage.prototype.onRemove = function () {
 
 
 DYFIFormPage.prototype.destroy = function () {
-  this._questions.ciim_mapLat.off('change', this._updateSubmitEnabled);
-  this._questions.ciim_mapLon.off('change', this._updateSubmitEnabled);
-  this._questions.fldSituation_felt.off('change', this._updateSubmitEnabled);
-  if (!this._event) {
-    this._questions.ciim_time.el.removeEventListener('change',
-        this._updateSubmitEnabled);
+  if (this._questions) {
+    this._questions.ciim_mapLat.off('change', this._updateSubmitEnabled);
+    this._questions.ciim_mapLon.off('change', this._updateSubmitEnabled);
+    this._questions.fldSituation_felt.off('change', this._updateSubmitEnabled);
+    if (this._questions.ciim_time) {
+      this._questions.ciim_time.el.removeEventListener('change',
+          this._updateSubmitEnabled);
+    }
+    this._questions = null;
   }
 
-  if (this._dialog && this._dialog.destroy &&
-      typeof this._dialog.destroy === 'function') {
-    this._dialog.destroy();
+  if (this._dialog) {
+    if (this._dialog.hide &&
+        typeof this._dialog.hide === 'function') {
+      this._dialog.hide(true);
+    }
+
+    if (this._dialog.destroy &&
+        typeof this._dialog.destroy === 'function') {
+      this._dialog.destroy();
+    }
   }
 
   if (this._dyfiHiddenForm) {

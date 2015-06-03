@@ -121,7 +121,7 @@ describe('DYFIFormPage test suite.', function () {
 
     afterEach(function () {
       spy.restore();
-      form._dialog.hide();
+      form.destroy();
     });
 
     // button clicks trigger locationView.show
@@ -205,6 +205,7 @@ describe('DYFIFormPage test suite.', function () {
       /* jshint +W030 */
     });
 
+    page.destroy();
   });
 
 });
