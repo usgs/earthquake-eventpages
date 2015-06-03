@@ -113,15 +113,19 @@ ShakeMapPage.prototype.getDetailsContent = function (product) {
       '</small><div class="shakemap-tablist"></div>';
   tablistDiv = el.querySelector('.shakemap-tablist');
 
-  // Build TabList with all of the shakemap images
-  this._tablist = new TabList({
-    el: tablistDiv,
-    tabPosition: 'top',
-    tabs: this._createTabListData(
-      {
-        contents: shakemap.contents
-      })
-  });
+  if (shakemap.status.toUpperCase() === 'DELETE') {
+    tablistDiv.innerHTML = '<p class="alert info">Product Deleted</p>';
+  } else {
+    // Build TabList with all of the shakemap images
+    this._tablist = new TabList({
+      el: tablistDiv,
+      tabPosition: 'top',
+      tabs: this._createTabListData(
+        {
+          contents: shakemap.contents
+        })
+    });
+  }
 
   return el;
 };
@@ -491,21 +495,25 @@ ShakeMapPage.prototype._formatComponent = function (data) {
 ShakeMapPage.prototype._getSummaryMarkup = function (product) {
   var properties = product.properties,
       contents = product.contents,
-      maxmmi = properties.maxmmi;
+      maxmmi = properties.maxmmi,
+      thumbnail;
 
   maxmmi = ImpactUtil.translateMmi(maxmmi);
+  thumbnail = contents[SUMMARY_THUMBNAIL];
 
   return '<ul>' +
       '<li class="image">' +
-        '<img src="' + contents[SUMMARY_THUMBNAIL].url +
-            '" alt="' + THUMBNAIL_ALT + '" />' +
+        (thumbnail ?
+            '<img src="' + thumbnail.url +
+              '" alt="' + THUMBNAIL_ALT + '" />'
+            : '&ndash;') +
       '</li>' +
       '<li class="mmi">' +
         '<span>' + maxmmi + '</span>' +
         '<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
       '</li>' +
       '<li>' +
-        '<span>' + Number(properties.magnitude).toFixed(1) + '</span>' +
+        '<span>' + this._formatter.magnitude(properties.magnitude) + '</span>' +
         '<abbr title="Magnitude">Mag</abbr>' +
       '</li>' +
       '<li>' +
