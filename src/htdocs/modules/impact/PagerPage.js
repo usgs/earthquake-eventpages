@@ -41,11 +41,14 @@ PagerPage.prototype.destroy = function () {
  *
  * @see _renderPage
  */
-PagerPage.prototype.getDetailsContent = function () {
+PagerPage.prototype.getDetailsContent = function (product) {
   var _this = this,
       el = document.createElement('div'),
-      product = this._event.properties.products.losspager[0],
-      contents = product.contents;
+      contentEl,
+      contents = product.contents,
+      thumbnail;
+
+  thumbnail = contents['exposure.png'];
 
   el.classList.add('losspager');
   el.innerHTML =
@@ -53,17 +56,19 @@ PagerPage.prototype.getDetailsContent = function () {
       Attribution.getContributorReference(product.source) +
       '</small>' +
     '<div class="alert-wrapper row"></div>' +
-    '<div class="row">' +
+    '<div class="row pager-content">' +
       '<div class="column one-of-two">' +
         '<h3 class="collapse-margin">Estimated Population Exposure to Earthquake Shaking</h3>' +
         '<div class="map-wrapper">' +
-          '<figure>' +
-            '<img src="' + contents['exposure.png'].url +
-                '" alt="Population Exposure Map"/>' +
-            '<figcaption>' +
-              'Population per ~1 sq. km. from LandScan' +
-            '</figcaption>' +
-          '</figure>' +
+          (thumbnail ?
+              '<figure>' +
+                '<img src="' + thumbnail.url +
+                    '" alt="Population Exposure Map"/>' +
+                '<figcaption>' +
+                  'Population per ~1 sq. km. from LandScan' +
+                '</figcaption>' +
+              '</figure>'
+              : '&ndash;') +
         '</div>' +
         '<div class="exposure-wrapper"></div>' +
       '</div>' +
@@ -82,18 +87,24 @@ PagerPage.prototype.getDetailsContent = function () {
   // Can only display exposure map by default. Everything else relies on info
   // found in pager.xml, so must fetch/parse that asynchrounously.
 
-  Xhr.ajax({
-    url: contents['pager.xml'].url,
-    success: function (responseText, xhr) {
-      _this._pagerInfo = PagerXmlParser.parse(
-          xhr.responseXML || responseText);
+  if (product.status.toUpperCase() === 'DELETE') {
+    contentEl = el.querySelector('.pager-content');
+    contentEl.innerHTML = '<p class="alert info">Product Deleted</p>';
+    contentEl.classList.remove('row');
+  } else if (contents['pager.xml']) {
+    Xhr.ajax({
+      url: contents['pager.xml'].url,
+      success: function (responseText, xhr) {
+        _this._pagerInfo = PagerXmlParser.parse(
+            xhr.responseXML || responseText);
 
-      _this._renderPage();
-    },
-    error: function (errorInfo) {
-      _this._renderError(errorInfo);
-    }
-  });
+        _this._renderPage(product);
+      },
+      error: function (errorInfo) {
+        _this._renderError(errorInfo);
+      }
+    });
+  }
 
   return el;
 };
@@ -102,7 +113,7 @@ PagerPage.prototype.getDetailsContent = function () {
  * Sets up summary info for Shakemap events with 2 or more events
  */
 PagerPage.prototype._getSummaryMarkup = function (product) {
-  var properties = product.properties,
+  var properties = product.properties || {},
       contents = product.contents,
       maxmmi = properties.maxmmi;
 
@@ -170,12 +181,14 @@ PagerPage.prototype._setFooterMarkup = function () {
  *  - comments (structure/secondary effects)
  *  - nearby cities
  *
+ * @param product {Object}
+ *        the pager product being rendered.
  */
-PagerPage.prototype._renderPage = function () {
-  this._renderAlerts();
-  this._renderExposures();
-  this._renderComments();
-  this._renderCities();
+PagerPage.prototype._renderPage = function (product) {
+  this._renderAlerts(product);
+  this._renderExposures(product);
+  this._renderComments(product);
+  this._renderCities(product);
 
   if (this._renderCallback && typeof this._renderCallback === 'function') {
     this._renderCallback();
@@ -199,11 +212,13 @@ PagerPage.prototype._renderError = function (errorInfo) {
  * Adds alert historgrams and corresponding impact comments to page.
  * Historgrams are added based on descending alert level.
  *
+ * @param product {Object}
+ *        the pager product being rendered.
  */
-PagerPage.prototype._renderAlerts = function () {
+PagerPage.prototype._renderAlerts = function (product) {
   var alerts = this._pagerInfo.alerts,
       comments = this._pagerInfo.comments.impact,
-      contents = this._event.properties.products.losspager[0].contents,
+      contents = product.contents,
       fatalityComment = '',
       economicComment = '',
       alertsMarkup = [];
@@ -270,12 +285,15 @@ PagerPage.prototype._renderAlerts = function () {
  * Adds exposure table information to page. Clicking on the MMI box for an
  * exposure level expands to show meta information about that exposure level.
  *
+ * @param product {Object}
+ *        the pager product being rendered.
  */
-PagerPage.prototype._renderExposures = function () {
+PagerPage.prototype._renderExposures = function (product) {
   var markup = [],
       exposures = this._pagerInfo.exposures,
       i = 0,
       len = exposures.length,
+      properties = product.properties || {},
       exposure,
       mmi;
 
@@ -285,8 +303,7 @@ PagerPage.prototype._renderExposures = function () {
     return;
   }
 
-  mmi = parseFloat(this._event.properties.products.losspager[0]
-      .properties.maxmmi);
+  mmi = parseFloat(properties.maxmmi);
 
   markup.push(
     '<table class="tabular pager-exposures">' +
@@ -323,8 +340,10 @@ PagerPage.prototype._renderExposures = function () {
 /**
  * Adds the structure comment and secondary effects comments to the page.
  *
+ * @param product {Object}
+ *        the pager product being rendered.
  */
-PagerPage.prototype._renderComments = function () {
+PagerPage.prototype._renderComments = function (/*product*/) {
   var comments = this._pagerInfo.comments,
       markup = [];
 
@@ -360,8 +379,10 @@ PagerPage.prototype._renderComments = function () {
  * algorithm. The first 11 cities are displayed by default and a control is
  * used to show/hide additional cities.
  *
+ * @param product {Object}
+ *        the pager product being rendered.
  */
-PagerPage.prototype._renderCities = function () {
+PagerPage.prototype._renderCities = function (/*product*/) {
   var markup = [],
       cities = this._pagerInfo.cities,
       i = 0,
