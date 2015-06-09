@@ -16,6 +16,7 @@ var eventDetails = {
       shakemap: [{
         source: 'us',
         code: 'usc000myqq',
+        status: 'UPDATE',
         contents: {
           'download/intensity.jpg': {url: 'intensity.jpg'},
           'download/pga.jpg': {url: 'pga.jpg'},
@@ -81,6 +82,7 @@ describe('ShakeMapPageTest test suite.', function () {
           shakemap: [{
             source: 'US',
             code: 'us10001ldx',
+            status: 'UPDATE',
             contents: {
               'download/stationlist.json': {
                 url:'stationlist.json'

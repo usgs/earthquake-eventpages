@@ -11,6 +11,7 @@ var eventInfo = {
     products: {
       losspager: [{
         source: 'us',
+        status: 'UPDATE',
         properties: {
           maxmmi: 7.0
         },
