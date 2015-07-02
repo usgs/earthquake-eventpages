@@ -8,6 +8,7 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
     margin: 1em 0 1em;
     width: 304px;
     position:relative;
+    background-repeat: no-repeat;
 
     &:after{
       content:'Map of Tectonic Summary Region';
@@ -25,7 +26,7 @@ $baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 
   a.aleutian {
     background-image:url('#{$baseImageUrl}/aleutian_tsum304.jpg');
-    height:204px;
+    height:196px;
   }
 
 
