@@ -566,7 +566,7 @@ DYFIFormPage.prototype._renderQuestions = function (data) {
 
   header.innerHTML = '<h3 class="felt-header">Felt Report</h3>' +
       '<div class="omb-number">OMB No. 1028-0048' +
-      '<br/>Expires 05/31/2015' +
+      '<br/>Expires 05/31/2018' +
       '</div>';
 
   // Handle location question
