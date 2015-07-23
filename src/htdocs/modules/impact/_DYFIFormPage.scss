@@ -183,12 +183,8 @@
 
 @media screen and (min-width:768px) {
 
-  .dyfi-form {
-    padding-bottom: 57px;
-
-    .question .other {
-      margin-left: 3em;
-    }
+  .dyfi-form > .question .other {
+    margin-left: 3em;
   }
 
   .locationview-button {
