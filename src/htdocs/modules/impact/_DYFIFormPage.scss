@@ -96,12 +96,12 @@
 .omb-number {
   font-size:12px;
   position: absolute;
-  right: 1.5em;
-  top: 0.5em;
+  right: 16px;
+  top: 16px;
+  text-align: right;
 }
 
 .felt-header {
-  margin-top: 8px;
   padding-bottom: 0.5em;
   border-bottom: 1px solid #ddd;
 }
@@ -183,12 +183,8 @@
 
 @media screen and (min-width:768px) {
 
-  .dyfi-form {
-    padding-bottom: 57px;
-
-    .question .other {
-      margin-left: 3em;
-    }
+  .dyfi-form > .question .other {
+    margin-left: 3em;
   }
 
   .locationview-button {
