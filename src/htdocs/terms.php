@@ -299,7 +299,7 @@ if (!isset($TEMPLATE)) {
   Review status is either automatic or reviewed.  Automatic events are directly
   posted by automatic processing systems and have not been verified or
   altered by a human. Reviewed events have been looked at by a human. The level
-  of review can range from an quick validity check to a careful reanalysis of
+  of review can range from a quick validity check to a careful reanalysis of
   the event.
 </p>
 
