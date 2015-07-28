@@ -18,21 +18,18 @@
 
 /* this supports both location view and dyfi-form */
 .modal-dialog > .modal-footer {
-  line-height: 40px;
-  padding: 0.5em 1em;
-  background: #fff;
-  height: inherit;
+  padding: 0.75em 1em;
 
   button {
-    vertical-align:middle;
-    margin: 0 8px 0 0;
+    margin: 0 0.75em 0 0;
   }
 }
 
+.modal-content {
+  position: relative;
+}
+
 .dyfi-form {
-  > .modal-content {
-    position: relative;
-  }
 
   .question {
     .other {
@@ -122,62 +119,9 @@
   margin:1em 0 0;
 }
 
-
-/** Location View **/
-.modal-dialog.locationview {
-  padding: 43px 0 56px;
-}
-
-.locationview-button {
-  font-size:inherit;
-  padding:0 1em;
-  font-size:15px;
-
-  &:hover {
-    color: #fff;
-    text-shadow:0 0 1px rgba(0,0,0,0.6);
-  }
-}
-
 .leaflet-control-input > button {
   line-height:3rem;
   font-size: 1em;
-}
-
-.information-list-mask > .information-list > li {
-  padding: 5px 0;
-
-  > .icon {
-    position: relative;
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    line-height: 50px;
-    vertical-align: middle;
-  }
-
-    > p {
-    display: inline-block;
-    font-size: 12px;
-    line-height: 1em;
-    vertical-align: middle;
-    width: 70%;
-    padding: 0;
-    margin: 0;
-  }
-}
-
-
-@media screen and (min-width: 560px) {
-
-  .information-list-mask > .information-list > li {
-    top:0;
-    padding: 5px 0 0 0;
-
-    > span.icon {
-      top: 0;
-    }
-  }
 }
 
 
