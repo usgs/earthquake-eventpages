@@ -384,7 +384,8 @@ EventPage.prototype._renderPage = function (hash, page) {
   }
 
   // Update the page rendering
-  this._container.innerHTML = '';
+  // this._container.innerHTML = '';
+  Util.empty(this._container);
   this._container.appendChild(page.getHeader());
   this._container.appendChild(page.getContent());
   this._container.appendChild(page.getFooter());
