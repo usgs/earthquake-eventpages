@@ -213,7 +213,8 @@ InteractiveMap.prototype._setContentMarkup = function () {
 };
 
 InteractiveMap.prototype._onAfterRender = function () {
-  if (this._map) {
+  if (this._map && this._map.getContainer() &&
+      this._map.getContainer().parentNode) {
     this._map.invalidateSize();
     if (this._defaultBounds) {
       this._map.fitBounds(this._defaultBounds);
