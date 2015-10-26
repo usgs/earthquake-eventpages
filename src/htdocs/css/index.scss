@@ -4,7 +4,7 @@
 
 @import 'tablist/TabList.scss';
 @import 'accordion/Accordion.scss';
-@import 'htdocs/css/alert.scss';  // from hazdev-template
+@import 'htdocs/css/_alert.scss';  /* from hazdev-template */
 
 /* svg image map */
 @import 'svgimagemap/SvgImageMap.scss';
@@ -12,9 +12,9 @@
 /* Scientific table begins responsive table then add more specific styles */
 @import '_responsiveTableScientific.scss';
 
-// --------------------------------------------------
-// Page-Wide Styles
-// --------------------------------------------------
+/* --------------------------------------------------
+ Page-Wide Styles
+ -------------------------------------------------- */
 
 @import 'modules/base/index.scss';
 
