@@ -1,5 +1,5 @@
-@import 'mvc/ModalView';
-@import 'mvc/DownloadView';
+@import 'mvc/ModalView.scss';
+@import 'mvc/DownloadView.scss';
 
 .origin-summary > ul > li {
   width:25%;
@@ -52,7 +52,7 @@
 
 @media screen and (max-width:559px) {
 
-  // Scientific -> Hypocenter -> Phases
+  /* Scientific -> Hypocenter -> Phases */
   table.hypocenter-phase {
     td:nth-of-type(1):before { content:'Distance'; }
     td:nth-of-type(2):before { content:'Azimuth'; }
@@ -63,7 +63,7 @@
     td:nth-of-type(7):before { content:'Weight'; }
   }
 
-  // Scientific -> Hypocenter -> Magnitudes
+  /* Scientific -> Hypocenter -> Magnitudes */
   table.networkmagnitude-stations {
     td:nth-of-type(1):before { content:'Type'; }
     td:nth-of-type(2):before { content:'Amplitude'; }

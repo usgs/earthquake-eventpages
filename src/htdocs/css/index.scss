@@ -1,8 +1,6 @@
-@import 'compass/css3';
-
-@import 'event-header';
-@import 'event-footer';
-@import 'downloads';
+@import '_event-header.scss';
+@import '_event-footer.scss';
+@import '_downloads.scss';
 
 @import 'tablist/TabList.scss';
 @import 'accordion/Accordion.scss';
@@ -12,7 +10,7 @@
 @import 'svgimagemap/SvgImageMap.scss';
 
 /* Scientific table begins responsive table then add more specific styles */
-@import 'responsiveTableScientific';
+@import '_responsiveTableScientific.scss';
 
 // --------------------------------------------------
 // Page-Wide Styles

@@ -1,4 +1,5 @@
-@import '../../lib/leaflet/leaflet.css';
-@import 'InteractiveMap';
-@import 'SummaryPage';
-@import 'TectonicSummary';
+@import 'leaflet.css';
+
+@import '_InteractiveMap.scss';
+@import '_SummaryPage.scss';
+@import '_TectonicSummary.scss';

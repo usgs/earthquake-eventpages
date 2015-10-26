@@ -63,7 +63,10 @@ var __get_hash = function (evt) {
 };
 
 var EventPage = function (options) {
-  Util.extend(this, Events());
+  this._events = Events();
+  this.off = this._events.off;
+  this.on = this._events.on;
+  this.trigger = this._events.trigger;
 
   options = options || {};
 
@@ -147,6 +150,9 @@ EventPage.prototype.destroy = function () {
     delete this._modules[i];
   }
 
+  this._events.destroy();
+  this._events = null;
+
   this._modules = null;
 
   this._cache = null;
@@ -182,6 +188,7 @@ EventPage.prototype.render = function (evt) {
   } catch (e) {
     // TODO :: Handle this differently?
     console.log('Error: ' + e);
+    console.log('Error stack: ' + e.stack);
 
     if (this._defaultPage !== null && this._defaultPage !== hash) {
       this._showDefaultPage();

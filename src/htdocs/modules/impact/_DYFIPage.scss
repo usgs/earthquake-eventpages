@@ -1,5 +1,5 @@
-@import 'mvc/ModalView';
-@import 'mvc/DownloadView';
+@import 'mvc/ModalView.scss';
+@import 'mvc/DownloadView.scss';
 
 .dyfi-tablist > section {
   padding-top: 1em;
@@ -36,7 +36,7 @@
         display:none;
       }
 
-      // Show only first 10 rows by default
+      /* Show only first 10 rows by default */
       @for $i from 1 through 10 {
         &:nth-child(#{$i}) > td, &:nth-child(#{$i}) > th {
           display:table-cell;

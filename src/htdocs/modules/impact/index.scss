@@ -1,5 +1,6 @@
-@import '../../lib/leaflet/leaflet.css';
-@import 'DYFIPage';
-@import 'DYFIFormPage';
-@import 'ShakeMapPage';
-@import 'PagerPage';
+@import 'leaflet.css';
+
+@import '_DYFIPage.scss';
+@import '_DYFIFormPage.scss';
+@import '_ShakeMapPage.scss';
+@import '_PagerPage.scss';

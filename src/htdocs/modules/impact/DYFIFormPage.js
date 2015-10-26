@@ -214,7 +214,7 @@ var __create_text_questions = function (questionInfo, container, questions) {
 var DYFIFormPage = function (options) {
   this._options = Util.extend({}, DEFAULTS, options || {});
 
-  if (this._options.hasOwnProperty('eventConfig') &&
+  if (this._options.eventConfig &&
       this._options.eventConfig.hasOwnProperty('DYFI_RESPONSE_URL')) {
     this._options.responseURL = this._options.eventConfig.DYFI_RESPONSE_URL;
   }

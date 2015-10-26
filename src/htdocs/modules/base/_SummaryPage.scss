@@ -62,7 +62,7 @@ a.summary:hover {
   position: absolute;
   top: 0;
   left: 0;
-  content: '\2713'; // checkmark
+  content: '\2713'; /* checkmark */
   color: #fff;
   text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
   z-index:3;
@@ -94,7 +94,7 @@ a.summary:hover {
       width: 16.6%;
 
       &.image > img {
-        //width:3em;
+        /*width:3em; */
       }
 
       &.summary-hide {

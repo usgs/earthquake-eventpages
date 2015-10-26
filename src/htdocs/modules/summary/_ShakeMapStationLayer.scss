@@ -1,4 +1,6 @@
-@import 'htdocs/css/_mmi-variables';
+@import 'css/_mmi-variables.scss';
+
+
 .station-popup {
   color:#444;
 }
@@ -36,15 +38,7 @@
   }
 }
 
-// .station-metadata {
-//   display:block;
-//   margin:1.25em 0 0 0;
-// }
-// .station-metadata:after {
-//   display:block;
-//   content:' ';
-//   clear:both;
-// }
+
 dl.station-metadata > dt {
   width:6em;
 }

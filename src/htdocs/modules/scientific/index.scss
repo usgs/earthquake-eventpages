@@ -1,7 +1,7 @@
 /* This file should import partials for the scientific module/modulepages. */
 
-@import "HypocenterPage";
-@import "MomentTensorPage";
-@import "FocalMechanismPage";
-@import "IrisProductsPage";
-@import "FiniteFaultPage";
+@import '_HypocenterPage.scss';
+@import '_MomentTensorPage.scss';
+@import '_FocalMechanismPage.scss';
+@import '_IrisProductsPage.scss';
+@import '_FiniteFaultPage.scss';

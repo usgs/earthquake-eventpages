@@ -13,21 +13,29 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'clean:build',
-    'concurrent:build',
+    'build',
     'connect:test',
     'mocha_phantomjs'
   ]);
 
   grunt.registerTask('build', [
     'clean:build',
-    'concurrent:build'
+    'jshint:scripts',
+    'jshint:tests',
+    'browserify',
+    'postcss:build',
+    'copy:build',
+    'copy:test',
+    'copy:leaflet',
+    'copy:locationview_images'
   ]);
 
   grunt.registerTask('dist', [
     'build',
     'clean:dist',
-    'concurrent:dist',
+    'copy:dist',
+    'postcss:dist',
+    'uglify',
     'connect:template',
     'configureRewriteRules',
     'configureProxies:dist',

@@ -1,4 +1,4 @@
-@import '_mmi-variables';
+@import '_mmi-variables.scss';
 
 .event-header {
 
@@ -145,7 +145,7 @@
   background-color:$mmiXII;
 }
 
-// Width for media query makes the switch from percentages to pixels smooth.
+/* Width for media query makes the switch from percentages to pixels smooth. */
 @media screen and (min-width: 1088px) {
   .event-header {
     > .impact-bubbles {
