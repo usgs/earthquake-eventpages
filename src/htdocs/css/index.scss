@@ -1,14 +1,14 @@
+@import 'htdocs/css/_alert.scss';  /* from hazdev-template */
+
+@import 'accordion/Accordion.scss';
+@import 'mvc/ModalView.scss';
+@import 'mvc/DownloadView.scss';
+@import 'tablist/TabList.scss';
+@import 'svgimagemap/SvgImageMap.scss';
+
 @import '_event-header.scss';
 @import '_event-footer.scss';
 @import '_downloads.scss';
-
-@import 'tablist/TabList.scss';
-@import 'accordion/Accordion.scss';
-@import 'htdocs/css/_alert.scss';  /* from hazdev-template */
-
-/* svg image map */
-@import 'svgimagemap/SvgImageMap.scss';
-
 /* Scientific table begins responsive table then add more specific styles */
 @import '_responsiveTableScientific.scss';
 
@@ -19,24 +19,24 @@
 @import 'modules/base/index.scss';
 
 .clearfix:after {
-  display:block;
-  content:' ';
-  clear:both;
+  clear: both;
+  content: ' ';
+  display: block;
 }
 
 .sortview {
-  display:inline;
+  display: inline;
 }
 
 canvas {
-  margin: 1em 0 0;
   display: block;
+  margin: 1em 0 0;
 }
 
 .attribution {
   color: #666;
+  display: block;
   font-size: .75em;
-  display:block;
-  font-weight:normal;
+  font-weight: normal;
   margin-top: 2px;
 }

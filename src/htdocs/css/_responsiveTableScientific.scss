@@ -1,26 +1,26 @@
 .networkmagnitude,
 .station {
-  position:relative;
-  border:1px solid #ddd;
-  background:#f9f9f9;
-  color:#444;
-  padding:1em;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  position: relative;
+  color: #444;
+  padding: 1em;
 
   > h3 {
     display: block;
-    margin:0;
-    font-weight:bold;
-    font-size:2rem;
+    font-weight: bold;
+    font-size: 2rem;
+    margin: 0;
 
     > small {
-      padding-left:0.5em;
-      font-weight:normal;
-      font-size:1.6rem;
+      font-weight: normal;
+      font-size: 1.6rem;
+      padding-left: 0.5em;
     }
   }
 
   abbr {
-    border-bottom:1px dotted #999;
+    border-bottom: 1px dotted #999;
   }
 
   .accordion-content {
@@ -30,30 +30,30 @@
 
 .networkmagnitude {
   > h3 {
-    font-size:1.6rem;
+    font-size: 1.6rem;
   }
 }
 
 .station-summary,
 .networkmagnitude-summary {
-  padding:0;
+  padding: 0;
 
   > li {
-    display:inline-block;
-    width:25%;
-    max-width:100px;
-    text-align:center;
-    line-height:1;
+    display: inline-block;
+    line-height: 1;
+    max-width: 100px;
+    text-align: center;
+    width: 25%;
 
     > span {
-      display:block;
-      padding:0; /* override styles from dyfi responses */
-      max-width:100%; /* override styles from dyfi responses */
+      display: block;
+      max-width: 100%; /* override styles from dyfi responses */
+      padding: 0; /* override styles from dyfi responses */
     }
 
     > abbr {
-      font-size:12px;
-      color:#999;
+      color: #999;
+      font-size: 12px;
     }
   }
 }

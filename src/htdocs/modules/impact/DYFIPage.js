@@ -228,7 +228,8 @@ DYFIPage.prototype._addDyfiResponsesTab = function () {
   this._tablist.addTab({
     'title': title,
     'content': function () {
-      var container = document.createElement('div');
+      var container = document.createElement('div'),
+          el;
       container.className = 'dyfi-responses';
       container.innerHTML =
           '<p>Loading DYFI Responses data from XML,please wait...</p>';
@@ -244,9 +245,10 @@ DYFIPage.prototype._addDyfiResponsesTab = function () {
           defaultSort: 'distance'
         });
 
+        el = container.querySelector('.datatable-data');
+        el.classList.add('horizontal-scrolling');
         if (responses.data().length > 10) {
-          _this._addToggleButton(container,
-              container.querySelector('.datatable-data'));
+          _this._addToggleButton(container, el);
         }
       });
 

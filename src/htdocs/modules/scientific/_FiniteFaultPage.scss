@@ -1,13 +1,12 @@
 .finitefault-summary > ul > li {
-  width:25%;
+  width: 25%;
 
   &.image > img {
     width: 6em;
     max-height: 3em;
   }
 
-  @media screen and (min-width:560px) {
+  @media screen and (min-width: 560px) {
     width: 16.6%;
   }
 }
-

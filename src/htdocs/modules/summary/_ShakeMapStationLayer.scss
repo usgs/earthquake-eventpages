@@ -2,126 +2,182 @@
 
 
 .station-popup {
-  color:#444;
+  color: #444;
 }
 
 .station-summary {
-  display:block;
-  list-style:none;
-  padding:0;
+  display: block;
+  list-style: none;
+  padding: 0;
 }
 .station-summary:after {
-  display:block;
-  content:' ';
-  clear:both;
+  clear: both;
+  content: ' ';
+  display: block;
 }
 
 .station-summary > li {
-  display:block;
-  float:left;
-  width:25%;
-  padding:4px;
-  text-align:center;
-}
-.station-summary > li > abbr {
-  clear:left;
-  font-size:.6875em;
-  color:#999;
-  cursor:help;
-}
+  display: block;
+  float: left;
+  padding: 4px;
+  text-align: center;
+  width: 25%;
 
-.station-summary-intensity {
-  text-align:center;
   > abbr {
-    color:#999;
-    font-size:.6875em;
+    clear: left;
+    color: #999;
+    cursor: help;
+    font-size: .6875em;
   }
 }
 
 
-dl.station-metadata > dt {
-  width:6em;
+.station-summary-intensity {
+  text-align: center;
+
+  > abbr {
+    color: #999;
+    font-size: .6875em;
+  }
 }
-dl.station-metadata > dd {
-  margin-left:7em;
+
+
+dl.station-metadata {
+  > dd {
+    margin-left: 7em;
+  }
+
+  > dt {
+    width: 6em;
+  }
 }
 
 .station-channels-map {
-  margin-top:1em;
+  margin-top: 1em;
 }
+
 .station-channels-map-name,
 .station-channels-map-pga,
 .station-channels-map-pgv,
 .station-channels-map-psa03,
 .station-channels-map-psa10,
 .station-channels-map-psa30 {
-  width:20%;
+  width: 20%;
 }
+
 .station-channels-map-pga,
 .station-channels-map-pgv,
 .station-channels-map-psa03,
 .station-channels-map-psa10,
 .station-channels-map-psa30 {
-  text-align:left;
+  text-align: left;
 }
 
 .station-layer-icon {
-  position:absolute;
+  position: absolute;
 
   &:before {
-    display:block;
-    content:' ';
     border: 10px solid transparent;
     border-left-width: 6px;
     border-right-width: 6px;
+    content: ' ';
+    display: block;
+    left: 1px;
     position: absolute;
-    top:-10px;
-    left:1px;
+    top: -10px;
     z-index: 2;
   }
 
   &:after {
-    display: block;
-    content: ' ';
     border: 12px solid transparent;
+    border-bottom-color: #666;
     border-left-width: 8px;
     border-right-width: 8px;
-    border-bottom-color: #666;
+    content: ' ';
+    display: block;
+    left: -1px;
     position: absolute;
     top: -13px;
-    left: -1px;
     z-index: 1;
   }
 }
 
-.station-mmiI:before {border-bottom-color:$mmiI;}
-.station-mmiII:before {border-bottom-color:$mmiII;}
-.station-mmiIII:before {border-bottom-color:$mmiIII;}
-.station-mmiIV:before {border-bottom-color:$mmiIV;}
-.station-mmiV:before {border-bottom-color:$mmiV;}
-.station-mmiVI:before {border-bottom-color:$mmiVI;}
-.station-mmiVII:before {border-bottom-color:$mmiVII;}
-.station-mmiVIII:before {border-bottom-color:$mmiVIII;}
-.station-mmiIX:before {border-bottom-color:$mmiIX;}
-.station-mmiX:before {border-bottom-color:$mmiX;}
-.station-mmiXI:before {border-bottom-color:$mmiXI;}
-.station-mmiXII:before {border-bottom-color:$mmiXII;}
-
-.dyfi-layer-icon {
-  position:absolute;
-  border-radius: 50%;
-  border: 1px solid #666;
+.station-mmiI:before {
+  border-bottom-color: $mmiI;
+}
+.station-mmiII:before {
+  border-bottom-color: $mmiII;
+}
+.station-mmiIII:before {
+  border-bottom-color: $mmiIII;
+}
+.station-mmiIV:before {
+  border-bottom-color: $mmiIV;
+}
+.station-mmiV:before {
+  border-bottom-color: $mmiV;
+}
+.station-mmiVI:before {
+  border-bottom-color: $mmiVI;
+}
+.station-mmiVII:before {
+  border-bottom-color: $mmiVII;
+}
+.station-mmiVIII:before {
+  border-bottom-color: $mmiVIII;
+}
+.station-mmiIX:before {
+  border-bottom-color: $mmiIX;
+}
+.station-mmiX:before {
+  border-bottom-color: $mmiX;
+}
+.station-mmiXI:before {
+  border-bottom-color: $mmiXI;
+}
+.station-mmiXII:before {
+  border-bottom-color: $mmiXII;
 }
 
-.dyfi-station-mmiI {background-color:$mmiI;}
-.dyfi-station-mmiII {background-color:$mmiII;}
-.dyfi-station-mmiIII {background-color:$mmiIII;}
-.dyfi-station-mmiIV {background-color:$mmiIV;}
-.dyfi-station-mmiV {background-color:$mmiV;}
-.dyfi-station-mmiVI {background-color:$mmiVI;}
-.dyfi-station-mmiVII {background-color:$mmiVII;}
-.dyfi-station-mmiVIII {background-color:$mmiVIII;}
-.dyfi-station-mmiIX {background-color:$mmiIX;}
-.dyfi-station-mmiX {background-color:$mmiX;}
-.dyfi-station-mmiXI {background-color:$mmiXI;}
-.dyfi-station-mmiXII {background-color:$mmiXII;}
+.dyfi-layer-icon {
+  border: 1px solid #666;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.dyfi-station-mmiI {
+  background-color: $mmiI;
+}
+.dyfi-station-mmiII {
+  background-color: $mmiII;
+}
+.dyfi-station-mmiIII {
+  background-color: $mmiIII;
+}
+.dyfi-station-mmiIV {
+  background-color: $mmiIV;
+}
+.dyfi-station-mmiV {
+  background-color: $mmiV;
+}
+.dyfi-station-mmiVI {
+  background-color: $mmiVI;
+}
+.dyfi-station-mmiVII {
+  background-color: $mmiVII;
+}
+.dyfi-station-mmiVIII {
+  background-color: $mmiVIII;
+}
+.dyfi-station-mmiIX {
+  background-color: $mmiIX;
+}
+.dyfi-station-mmiX {
+  background-color: $mmiX;
+}
+.dyfi-station-mmiXI {
+  background-color: $mmiXI;
+}
+.dyfi-station-mmiXII {
+  background-color: $mmiXII;
+}

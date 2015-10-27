@@ -1,25 +1,25 @@
 .mechanism-summary > ul > li {
-  width:37.5%;
+  width: 37.5%;
 
   &.image {
     width: 25%;
   }
 
   i {
-    font-style:normal;
-    display:inline-block;
-    margin:0 2px 0 0;
+    display: inline-block;
+    font-style: normal;
+    margin: 0 2px 0 0;
   }
 }
 
-@media screen and (min-width:560px) {
+@media screen and (min-width: 560px) {
 
   .mechanism-summary > ul > li {
     width: 33.3%;
 
     &.image,
     &.summary-hide {
-      width:16.6%;
+      width: 16.6%;
     }
   }
 }

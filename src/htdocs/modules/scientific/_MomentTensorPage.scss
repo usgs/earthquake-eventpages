@@ -1,18 +1,18 @@
 .tensor-summary  > ul > li {
-  width:25%;
+  width: 25%;
 
   .units {
-    margin-left:2px;
+    margin-left: 2px;
   }
 }
 
-@media screen and (min-width:560px) {
+@media screen and (min-width: 560px) {
 
   .tensor-summary > ul > li {
-    width:16.6%;
+    width: 16.6%;
 
     .units {
-      margin-left:4px;
+      margin-left: 4px;
     }
   }
 }

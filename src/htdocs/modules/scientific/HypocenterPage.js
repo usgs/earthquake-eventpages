@@ -419,6 +419,7 @@ HypocenterPage.prototype._renderPhases = function (phaseEl) {
     defaultSort: 'distance'
   });
 
+  phaseEl.querySelector('.datatable-data').classList.add('horizontal-scrolling');
 };
 
 HypocenterPage.prototype._getMagnitudesMarkup = function () {
@@ -501,6 +502,7 @@ HypocenterPage.prototype._getMagnitudeMarkup = function (magnitude) {
     buf.push('<p>No amplitudes contributed for this magnitude</p>');
   } else {
     buf.push(
+      '<div class="horizontal-scrolling">',
       '<table class="tabular responsive networkmagnitude-stations">',
         '<thead><tr>',
           '<th>',
@@ -552,7 +554,7 @@ HypocenterPage.prototype._getMagnitudeMarkup = function (magnitude) {
           '<td class="weight">', weight , '</td>',
         '</tr>');
     }
-    buf.push('</tbody></table>');
+    buf.push('</tbody></table></div>');
   }
   buf.push('</div></section>');
   return buf.join('');
