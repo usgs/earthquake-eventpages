@@ -26,13 +26,6 @@
     display: block;
     margin: 0 auto;
   }
-
-  .city-distance {
-    color: #333;
-    display: block;
-    font-size: .9em;
-    font-style: italic;
-  }
 }
 
 .summary-interactive-map {
@@ -42,12 +35,4 @@
   */
   display: block;
   width: 100%;
-}
-
-.summary-map a img {
-  border: none;
-}
-
-.summary-map a:hover {
-  cursor: pointer;
 }

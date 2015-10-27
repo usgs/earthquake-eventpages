@@ -9,19 +9,18 @@
     position: relative;
 
     > img {
+      border: none;
       position: relative;
       width: 100%;
       z-index: -1;
+    }
+
+    &:hover {
+      cursor: pointer;
     }
   }
 
   > figcaption > a {
     display: block;
   }
-}
-
-.summary-general-header > div,
-.summary-general-text > div,
-.summary-impact-text > div {
-  margin-top: 1em;
 }

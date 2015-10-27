@@ -1,33 +1,30 @@
 @import 'css/_mmi-variables.scss';
 
 
-.station-popup {
-  color: #444;
-}
-
 .station-summary {
   display: block;
   list-style: none;
   padding: 0;
-}
-.station-summary:after {
-  clear: both;
-  content: ' ';
-  display: block;
-}
 
-.station-summary > li {
-  display: block;
-  float: left;
-  padding: 4px;
-  text-align: center;
-  width: 25%;
+  > li {
+    display: block;
+    float: left;
+    padding: 4px;
+    text-align: center;
+    width: 25%;
 
-  > abbr {
-    clear: left;
-    color: #999;
-    cursor: help;
-    font-size: .6875em;
+    > abbr {
+      clear: left;
+      color: #999;
+      cursor: help;
+      font-size: .6875em;
+    }
+  }
+
+  &:after {
+    clear: both;
+    content: ' ';
+    display: block;
   }
 }
 
@@ -53,24 +50,7 @@ dl.station-metadata {
 }
 
 .station-channels-map {
-  margin-top: 1em;
-}
-
-.station-channels-map-name,
-.station-channels-map-pga,
-.station-channels-map-pgv,
-.station-channels-map-psa03,
-.station-channels-map-psa10,
-.station-channels-map-psa30 {
-  width: 20%;
-}
-
-.station-channels-map-pga,
-.station-channels-map-pgv,
-.station-channels-map-psa03,
-.station-channels-map-psa10,
-.station-channels-map-psa30 {
-  text-align: left;
+  width: 100%;
 }
 
 .station-layer-icon {
@@ -138,6 +118,7 @@ dl.station-metadata {
 .station-mmiXII:before {
   border-bottom-color: $mmiXII;
 }
+
 
 .dyfi-layer-icon {
   border: 1px solid #666;

@@ -1,118 +1,101 @@
 /*** Tectonic Summary Images ***/
 
-.summary-tectonic-summary {
+.summary-tectonic-summary > .tectonic {
+  background-repeat: no-repeat;
+  display: inline-block;
+  margin: 1em 0 1em;
+  position: relative;
+  width: 304px;
 
-  a.tectonic {
-    display:inline-block;
-    margin: 1em 0 1em;
-    width: 304px;
-    position:relative;
-    background-repeat: no-repeat;
-
-    &:after{
-      content:'Map of Tectonic Summary Region';
-      display:block;
-      font-size: 0.75em;
-      position:absolute;
-      bottom:-2em;
-      left:1em;
-    }
+  @media (min-width: 560px) {
+    float: right;
   }
 
-  > div > p {
-    margin-top:0.7em;
+  &:after{
+    bottom: -1.5em;
+    content: 'Map of Tectonic Summary Region';
+    display: block;
+    font-size: 0.75em;
+    left: 1em;
+    position: absolute;
   }
 
-  a.aleutian {
+  &.aleutian {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/aleutian_tsum304.jpg');
     height:196px;
   }
 
 
-  a.caribbean {
+  &.caribbean {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/caribbean_tsum304.jpg');
     height:204px;
   }
 
 
-  a.emaustralia {
+  &.emaustralia {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/emaustralia_tsum304.jpg');
     height:432px;
   }
 
 
-  a.himalaya {
+  &.himalaya {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/himalaya_tsum304.jpg');
     height:204px;
   }
 
 
-  a.japan {
+  &.japan {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/japan_tsum304.jpg');
     height:294px;
   }
 
-  a.java {
+  &.java {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/java_tsum304.jpg');
     height:192px;
   }
 
-  a.kuril {
+  &.kuril {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/kuril_tsum304.jpg');
     height:350px;
   }
 
-  a.middleeast {
+  &.middleeast {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/middleeast_tsum304.jpg');
     height:204px;
   }
 
-  a.newguinea {
+  &.newguinea {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/newguinea_tsum304.jpg');
     height:168px;
   }
 
-  a.philippinesea {
+  &.philippinesea {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/philippinesea_tsum304.jpg');
     height:294px;
   }
 
-  a.southamerica {
+  &.southamerica {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/southamerica_tsum304.jpg');
     height:350px;
   }
 
-  a.sumatra {
+  &.sumatra {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/sumatra_tsum304.jpg');
     height:434px;
   }
 
-  a.mexico {
+  &.mexico {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/mexico_tsum304.jpg');
     height:192px;
   }
 
-  a.mediterranean {
+  &.mediterranean {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/mediterranean_tsum304.jpg');
     height:204px;
   }
 
-  a.qcf {
+  &.qcf {
     background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/qcf_tsum304.jpg');
     height:390px;
-  }
-
-}
-
-@media (min-width:560px) {
-  .summary-tectonic-summary {
-
-    a.tectonic {
-      float:right;
-      //width:464px;
-      margin:1em 0 2em 1em;
-      &:before{content:none;}
-    }
-
   }
 }
