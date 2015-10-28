@@ -62,16 +62,24 @@ var connect = {
     }
   ],
 
-  rules: (function () {
-    var rules = {};
-    // event page rewrites
-    rules['^' + MOUNT_PATH + '/unknown$'] = '/unknown.php';
-    rules['^' + MOUNT_PATH + '/terms.php'] = '/terms.php';
-    rules['^' + MOUNT_PATH + '/([^/]+)$'] = '/index.php?eventid=$1';
-    rules['^' + MOUNT_PATH + '/(.*)$'] = '/$1';
-    return rules;
-  })(),
-
+  rules: [
+    {
+      from: '^' + MOUNT_PATH + '/unknown$',
+      to: '/unknown.php'
+    },
+    {
+      from: '^' + MOUNT_PATH + '/terms.php',
+      to: '/terms.php'
+    },
+    {
+      from: '^' + MOUNT_PATH + '/([^/]+)$',
+      to: '/index.php?eventid=$1'
+    },
+    {
+      from: '^' + MOUNT_PATH + '/(.*)$',
+      to: '/$1'
+    }
+  ],
 
   dev: {
     options: {
