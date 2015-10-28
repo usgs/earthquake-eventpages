@@ -102,7 +102,7 @@ describe('SummaryPage test suite.', function () {
   describe('getContent', function () {
 
     it('can get contents', function () {
-      expect(content).to.be.a('object');
+      expect(typeof content).to.equal('object');
     });
 
     it('can get a static map', function () {
