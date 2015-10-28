@@ -44,21 +44,27 @@ var connect = {
     },
     {
       context: '/realtime/',
+      headers: {
+        host: OFFSITE_HOST
+      },
       host: OFFSITE_HOST,
-      port: 80,
-      changeOrigin: true
+      port: 80
     },
     {
       context: '/archive/',
+      headers: {
+        host: OFFSITE_HOST
+      },
       host: OFFSITE_HOST,
-      port: 80,
-      changeOrigin: true
+      port: 80
     },
     {
       context: '/product/',
+      headers: {
+        host: OFFSITE_HOST
+      },
       host: OFFSITE_HOST,
-      port: 80,
-      changeOrigin: true
+      port: 80
     }
   ],
 
