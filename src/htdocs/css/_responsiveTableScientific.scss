@@ -7,30 +7,12 @@
   padding: 1em;
 
   > h3 {
-    display: block;
-    font-weight: bold;
-    font-size: 2rem;
     margin: 0;
 
     > small {
       font-weight: normal;
-      font-size: 1.6rem;
       padding-left: 0.5em;
     }
-  }
-
-  abbr {
-    border-bottom: 1px dotted #999;
-  }
-
-  .accordion-content {
-    font-size: 1.5rem;
-  }
-}
-
-.networkmagnitude {
-  > h3 {
-    font-size: 1.6rem;
   }
 }
 
@@ -53,7 +35,7 @@
 
     > abbr {
       color: #999;
-      font-size: 12px;
+      font-size: 0.8em;
     }
   }
 }
