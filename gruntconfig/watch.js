@@ -20,10 +20,7 @@ var watch = {
       'jshint:scripts',
       'browserify',
       'mocha_phantomjs'
-    ],
-    options: {
-      livereload: true
-    }
+    ]
   },
   scss: {
     files: [config.src + '/htdocs/**/*.scss'],
@@ -47,11 +44,7 @@ var watch = {
       livereload: config.liveReloadPort
     },
     files: [
-      config.build + '/' + config.src + '/htdocs/**/*.php',
-      config.build + '/' + config.src + '/htdocs/**/*.html',
-      config.build + '/' + config.src + '/htdocs/img/**/*.{png,jpg,jpeg,gif}',
-      config.build + '/' + config.src + '/**/*.css',
-      config.build + '/' + config.src + '/' + config.lib + '/inc/**/*.php'
+      config.build + '/' + config.src + '/**/*'
     ]
   },
   gruntfile: {
