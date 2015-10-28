@@ -36,18 +36,18 @@ module.exports = function (grunt) {
     'copy:dist',
     'postcss:dist',
     'uglify',
-    'connect:template',
     'configureRewriteRules',
     'configureProxies:dist',
+    'connect:template',
     'connect:dist'
   ]);
 
   grunt.registerTask('default', [
     'build',
     'configureRewriteRules',
-    'connect:template',
     'configureProxies:dev',
     'configureProxies:test',
+    'connect:template',
     'connect:dev',
     'connect:test',
     'mocha_phantomjs',
