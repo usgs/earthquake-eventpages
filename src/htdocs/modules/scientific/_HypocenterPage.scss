@@ -1,35 +1,58 @@
 
 .origin-summary > ul > li {
   width: 25%;
+
+  @media screen and (min-width: 560px) {
+    width: 20%;
+  }
 }
 
 .origin-detail {
   max-width: 750px;
   width: 100%;
 
-  th, td {
-    text-align: left;
-
-    > .uncertainty {
-      color: #666;
-      display: block;
-      font-size: smaller;
-      font-weight: normal;
+  > tbody {
+    td,
+    th {
+      > .uncertainty {
+        color: #666;
+        display: block;
+        font-size: 0.8em;
+        font-weight: normal;
+      }
     }
   }
 }
 
-.networkmagnitude-summary {
-  .magnitude {
-    background-color: #FFFFFF !important;
-    box-shadow: 0 0 1px #666;
-    color: #000000 !important;
+
+.hypocenter-phase {
+  width: 100%;
+
+  > tbody > tr {
+    > th {
+      background: transparent;
+      font-weight: normal;
+    }
+
+    > .distance,
+    > .azimuth,
+    > .time,
+    > .residual,
+    > .weight {
+      text-align: right;
+    }
+
+    > .phase,
+    > .status {
+      text-align: center;
+    }
   }
 }
 
-.networkmagnitude-summary > li {
 
-  &.magnitude {
+.networkmagnitude-summary {
+  > .magnitude {
+    background-color: #FFFFFF !important;
     border-radius: 2px;
     box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5);
     color: #000;
@@ -42,72 +65,33 @@
   }
 }
 
-/* add space between accordion sections, magnitudes tab */
 .networkmagnitude {
   margin: 1em 0 0;
 
   > .accordion-content {
-    background: #fff;
+    background-color: #fff;
   }
 }
 
-@media screen and (min-width: 560px) {
+.networkmagnitude-stations {
+  background: transparent;
+  width: 100%;
 
-  .origin-summary > ul > li {
-    width: 20%;
-  }
-
-  table.hypocenter-phase {
-    > tbody {
-      > tr {
-        > th {
-          background: none;
-          font-weight: normal;
-        }
-
-        > .distance,
-        > .azimuth,
-        > .time,
-        > .residual,
-        > .weight {
-          text-align: right;
-        }
-
-        > .phase,
-        > .status {
-          text-align: center;
-        }
-      }
+  > tbody > tr {
+    > th {
+      background: none;
+      font-weight: normal;
     }
 
-    > thead > tr > th {
-      text-align: center;
-    }
-  }
-
-  table.networkmagnitude-stations {
-    > tbody {
-      > tr {
-        > th {
-          background: none;
-          font-weight: normal;
-        }
-
-        > .amplitude,
-        > .period,
-        > .magnitude,
-        > .weight {
-          text-align: right;
-        }
-
-        > .type,
-        > .status {
-          text-align: center;
-        }
-      }
+    > .amplitude,
+    > .period,
+    > .magnitude,
+    > .weight {
+      text-align: right;
     }
 
-    > thead > tr > th {
+    > .type,
+    > .status {
       text-align: center;
     }
   }
