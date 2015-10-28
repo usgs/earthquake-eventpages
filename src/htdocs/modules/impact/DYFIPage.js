@@ -56,7 +56,7 @@ var MAP_GRAPH_IMAGES = [
 
 var RESPONSE_DATA_COLUMNS = [
   {
-    className: 'location',
+    className: 'dyfi-response-location',
     title: 'Location',
     format: function (response) {
       return response.name + ', ' + response.state + ' ' + response.zip +
@@ -69,7 +69,7 @@ var RESPONSE_DATA_COLUMNS = [
     header: true
   },
   {
-    className: 'mmi',
+    className: 'dyfi-response-mmi',
     title: 'MMI',
     format: function (response) {
       var roman = ImpactUtil.translateMmi(response.cdi);
@@ -80,14 +80,14 @@ var RESPONSE_DATA_COLUMNS = [
     }
   },
   {
-    className: 'numResp',
+    className: 'dyfi-response-numResp',
     title: 'Responses',
     format: function (response) {
       return response.nresp;
     }
   },
   {
-    className: 'distance',
+    className: 'dyfi-response-distance',
     title: 'Distance',
     format: function (response) {
       return response.dist;
@@ -237,7 +237,7 @@ DYFIPage.prototype._addDyfiResponsesTab = function () {
       _this._getDYFIResponses(function (responses) {
         _this._responseTable = new DataTable({
           el: container,
-          className: 'tabular responsive dyfi',
+          className: 'dyfi-response-table',
           collection: responses,
           emptyMarkup: '<p class="error alert">No Response Data Exists</p>',
           columns: RESPONSE_DATA_COLUMNS,
