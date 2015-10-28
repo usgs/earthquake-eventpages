@@ -390,7 +390,8 @@ ShakeMapPage.prototype._createChannelTable = function (channels) {
   var i = 0, numChannels = channels.length;
 
   var markup = [
-    '<table class="station-channels-list tabular">',
+    '<div class="horizontal-scrolling">',
+    '<table class="station-channels-list">',
       '<thead>',
         '<tr>',
           '<th scope="col" class="station-channels-list-name">name</th>',
@@ -408,7 +409,7 @@ ShakeMapPage.prototype._createChannelTable = function (channels) {
     markup.push(this._createChannelRow(channels[i]));
   }
 
-  markup.push('</tbody></table>');
+  markup.push('</tbody></table></div>');
 
   return markup.join('');
 };

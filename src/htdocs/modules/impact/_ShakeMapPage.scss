@@ -1,5 +1,23 @@
 .shakemap-summary > ul > li {
   width: 25%;
+
+  @media screen and (min-width: 560px) {
+    width: 20%;
+  }
+}
+
+.shakemap-tablist > section {
+  padding-top: 1em;
+}
+
+.shakemap-stations {
+  > .accordion {
+    margin: 0;
+
+    + .accordion {
+      margin-top: 1em;
+    }
+  }
 }
 
 .station-summary > li {
@@ -17,43 +35,12 @@
   }
 }
 
-.shakemap-tablist > section {
-  padding-top: 1em;
-}
-
-.shakemap-stations {
-
-  > .accordion {
-    margin: 1em 0 0;
-
-    &:first-child {
-      margin: 0;
-    }
-  }
-}
-
-dl.station-metadata > dt {
-  width: 6em;
-}
-dl.station-metadata > dd {
-  margin-left: 7em;
-}
-.station-channels-list {
-  margin-top: 1em;
-
-  th {
-    min-width: 7em;
-  }
+.station-metadata {
+  margin-top: 0;
 }
 
 @media screen and (min-width: 560px) {
-
-  .shakemap-summary > ul > li {
-    width: 20%;
-  }
-
-  .station dl.horizontal {
-
+  .station-metadata.horizontal {
     > dt {
       margin: 0;
       width: 6em;
@@ -63,31 +50,4 @@ dl.station-metadata > dd {
       margin-left: 7em;
     }
   }
-
-  table.station-components {
-    > tbody > tr {
-      background: #fafafa;
-
-      > th {
-        background: none;
-        font-weight: normal;
-      }
-
-      > .acc,
-      > .vel,
-      > .psa03,
-      > .psa10,
-      > .psa30 {
-        text-align: right;
-      }
-    }
-  }
-}
-
-.station-channels-list-pga,
-.station-channels-list-pgv,
-.station-channels-list-psa03,
-.station-channels-list-psa10,
-.station-channels-list-psa30 {
-  text-align: left;
 }
