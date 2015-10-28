@@ -5,16 +5,13 @@
     width: 25%;
   }
 
-  i {
+  > abbr > i {
     display: inline-block;
     font-style: normal;
     margin: 0 2px 0 0;
   }
-}
 
-@media screen and (min-width: 560px) {
-
-  .mechanism-summary > ul > li {
+  @media screen and (min-width: 560px) {
     width: 33.3%;
 
     &.image,

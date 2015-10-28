@@ -1,17 +1,15 @@
 .tensor-summary  > ul > li {
   width: 25%;
 
-  .units {
+  > span > .units {
     margin-left: 2px;
+    font-size: .8em;
   }
-}
 
-@media screen and (min-width: 560px) {
-
-  .tensor-summary > ul > li {
+  @media screen and (min-width: 560px) {
     width: 16.6%;
 
-    .units {
+    > span > .units {
       margin-left: 4px;
     }
   }
