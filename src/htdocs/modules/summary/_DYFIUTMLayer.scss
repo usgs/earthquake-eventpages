@@ -1,33 +1,31 @@
 
 .dyfi-popup {
-  color:#444;
-
   > .dyfi-summary {
-    display:block;
-    list-style:none;
-    padding:0;
+    display: block;
+    list-style: none;
+    padding: 0;
 
     &:after {
-      display:block;
-      content:' ';
-      clear:both;
+      clear: both;
+      content: ' ';
+      display: block;
     }
   }
 }
 
+.dyfi-summary-distance,
 .dyfi-summary-intensity,
-.dyfi-summary-nresp,
-.dyfi-summary-distance {
-  display:block;
-  float:left;
-  width:33.33%;
-  padding:4px;
-  text-align:center;
+.dyfi-summary-nresp {
+  display: block;
+  float: left;
+  padding: 4px;
+  text-align: center;
+  width: 33.33%;
 
   > abbr {
-    clear:left;
-    font-size:.6875em;
-    color:#666;
-    cursor:help;
+    clear: left;
+    color: #666;
+    cursor: help;
+    font-size: 0.6875em;
   }
 }

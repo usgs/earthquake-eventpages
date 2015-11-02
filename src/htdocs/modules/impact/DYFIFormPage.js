@@ -57,14 +57,15 @@ var DYFI_DISCLAIMER = '<p>' +
 var __create_location_questions = function (questionInfo, container,
     questions) {
   var section = document.createElement('section'),
-      label = section.appendChild(document.createElement('label')),
-      button = section.appendChild(document.createElement('button')),
-      display = section.appendChild(document.createElement('div')),
+      fieldset = section.appendChild(document.createElement('fieldset')),
+      legend = fieldset.appendChild(document.createElement('legend')),
+      display = fieldset.appendChild(document.createElement('div')),
+      button = fieldset.appendChild(document.createElement('button')),
       curLoc = {},
       locationView = null;
 
   section.classList.add('question');
-  label.innerHTML = questionInfo.label;
+  legend.innerHTML = questionInfo.label;
   button.innerHTML = questionInfo.button;
   button.classList.add('location-button');
 
@@ -101,7 +102,7 @@ var __create_location_questions = function (questionInfo, container,
 
       prettyLat = curLoc.latitude;
       if (prettyLat < 0.0) {
-        prettyLng = (-1.0*prettyLat).toFixed(curLoc.confidence) + '&deg;S';
+        prettyLat = (-1.0*prettyLat).toFixed(curLoc.confidence) + '&deg;S';
       } else {
         prettyLat = prettyLat.toFixed(curLoc.confidence) + '&deg;N';
       }
@@ -187,6 +188,7 @@ var __create_text_question_view = function (info) {
   label.setAttribute('for', id);
 
   input.id = id;
+  input.setAttribute('type', 'text');
 
   // A lightweight object to mimic the minimally required API for a
   // QuestionView-like object as needed for the DYFIFormPage
@@ -214,7 +216,7 @@ var __create_text_questions = function (questionInfo, container, questions) {
 var DYFIFormPage = function (options) {
   this._options = Util.extend({}, DEFAULTS, options || {});
 
-  if (this._options.hasOwnProperty('eventConfig') &&
+  if (this._options.eventConfig &&
       this._options.eventConfig.hasOwnProperty('DYFI_RESPONSE_URL')) {
     this._options.responseURL = this._options.eventConfig.DYFI_RESPONSE_URL;
   }
@@ -560,7 +562,7 @@ DYFIFormPage.prototype._renderQuestions = function (data) {
       questions = {};
 
   baseQuestionsEl.classList.add('dyfi-required-questions');
-  toggleContainer.classList.add('dyfi-optional-callout', 'alert');
+  toggleContainer.classList.add('dyfi-optional-callout', 'alert', 'info');
   moreQuestionsEl.classList.add('dyfi-optional-questions');
   contactContainer.classList.add('dyfi-contact-questions', 'alert');
 
@@ -591,7 +593,7 @@ DYFIFormPage.prototype._renderQuestions = function (data) {
 
   // Handle contact information
   contactContainer.innerHTML = '<legend>Contact Information' +
-      '<span class="subheader"> (optional)</span></legend>';
+      ' <small>(optional)</small></legend>';
   __create_text_questions(contactInfo, contactContainer, questions);
   moreQuestionsEl.appendChild(contactContainer);
 

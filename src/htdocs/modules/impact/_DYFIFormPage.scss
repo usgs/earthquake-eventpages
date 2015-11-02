@@ -1,13 +1,13 @@
-@import 'locationview/CoordinateControl';
-@import 'locationview/GeocodeControl';
-@import 'locationview/GeolocationControl';
-@import 'locationview/LeafletControls';
-@import 'locationview/LocationControl';
-@import 'locationview/LocationView';
-@import 'locationview/PointControl';
+@import 'locationview/_controls.scss';
+@import 'locationview/CoordinateControl.scss';
+@import 'locationview/GeocodeControl.scss';
+@import 'locationview/GeolocationControl.scss';
+@import 'locationview/LeafletControls.scss';
+@import 'locationview/LocationControl.scss';
+@import 'locationview/LocationView.scss';
+@import 'locationview/PointControl.scss';
 
-@import 'questionview/QuestionView';
-@import 'mvc/ModalView';
+@import 'questionview/_QuestionView.scss';
 
 .dyfiIframe {
   border: 1px solid #ddd;
@@ -16,184 +16,71 @@
   width: 100%;
 }
 
-/* this supports both location view and dyfi-form */
-.modal-dialog > .modal-footer {
-  line-height: 40px;
-  padding: 0.5em 1em;
-  background: #fff;
-  height: inherit;
-
-  button {
-    vertical-align:middle;
-    margin: 0 8px 0 0;
-  }
-}
-
-.dyfi-form {
-  > .modal-content {
-    position: relative;
-  }
-
-  .question {
-    .other {
-      margin-left: 2.5em; /* align input box with labels */
-    }
-
-    ul {
-      padding: 0;
-      margin: 0;
-    }
-
-    legend {
-      font-weight: bold;
-    }
-  }
-
-  .alert {
-    margin: 1em 0 0;
-  }
-}
-
-.dyfi-optional-callout > strong {
-  display:block;
-  margin-bottom: 0.5em;
-}
-
-.dyfi-text-input {
-  margin: 1em 0 0;
-
-  textarea {
-    width: 100%;
-    margin: 0;
-    height: 5em;
-  }
-
-  label {
-    font-weight: bold;
-    display:block;
-  }
-}
-
-.dyfi-contact-questions {
-
-  label {
-    font-weight:normal;
-  }
-
-  h4 {
-    //margin:0;
-  }
-  .subheader {
-    font-size:12px;
-    //color: #777;
-  }
-}
-
-.dyfi-required-questions {
-  margin: 1em 0 0;
-}
-
-.omb-number {
-  font-size:12px;
-  position: absolute;
-  right: 1.5em;
-  top: 0.5em;
+.dyfi-form > .modal-content {
+  /* relative used by .omb-number */
+  position: relative;
 }
 
 .felt-header {
-  margin-top: 8px;
-  padding-bottom: 0.5em;
   border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5em;
+}
+
+.omb-number {
+  font-size: .75em;
+  position: absolute;
+  right: 1em;
+  top: 1em;
+}
+
+.question {
+  > fieldset {
+    margin: 1em 0;
+    padding: 0;
+
+    > legend {
+      font-weight: bold;
+    }
+  }
 }
 
 .location-result {
-  font-size: 0.815em;
-  margin: 1em 0 0;
-  display:inline-block;
+  font-size: 0.8em;
 
   > .address {
-    font-weight:bold;
-    display:block;
+    display: block;
+    font-weight: bold;
   }
 }
 
 .location-button {
-  display:block;
-  margin:1em 0 0;
+  margin: 1em 0;
 }
 
-
-/** Location View **/
-.modal-dialog.locationview {
-  padding: 43px 0 56px;
+.dyfi-optional-callout > strong {
+  display: block;
+  margin-bottom: 0.5em;
 }
 
-.locationview-button {
-  font-size:inherit;
-  padding:0 1em;
-  font-size:15px;
-
-  &:hover {
-    color: #fff;
-    text-shadow:0 0 1px rgba(0,0,0,0.6);
-  }
-}
-
-.leaflet-control-input > button {
-  line-height:3rem;
-  font-size: 1em;
-}
-
-.information-list-mask > .information-list > li {
-  padding: 5px 0;
-
-  > .icon {
-    position: relative;
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    line-height: 50px;
-    vertical-align: middle;
+.dyfi-text-input {
+  > label {
+    display: block;
+    font-weight: bold;
   }
 
-    > p {
-    display: inline-block;
-    font-size: 12px;
-    line-height: 1em;
-    vertical-align: middle;
-    width: 70%;
-    padding: 0;
+  > textarea {
+    height: 5em;
     margin: 0;
+    width: 100%;
   }
 }
 
-
-@media screen and (min-width: 560px) {
-
-  .information-list-mask > .information-list > li {
-    top:0;
-    padding: 5px 0 0 0;
-
-    > span.icon {
-      top: 0;
-    }
-  }
-}
-
-
-@media screen and (min-width:768px) {
-
-  .dyfi-form {
-    padding-bottom: 57px;
-
-    .question .other {
-      margin-left: 3em;
-    }
+.dyfi-contact-questions {
+  > legend {
+    font-weight: bold;
   }
 
-  .locationview-button {
-    line-height: 3rem;
-    height: 3rem;
-    font-size:12px;
+  > .dyfi-text-input > label {
+    font-weight: normal;
   }
 }

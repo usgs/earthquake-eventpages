@@ -23,14 +23,14 @@ var createEventPage = function (options) {
             factory: EventModulePage,
             options: {
               title: 'Page 1',
-              hash: 'page1',
+              hash: 'page1'
             }
           },
           {
             factory: EventModulePage,
             options: {
-              title: 'Page 1',
-              hash: 'page1',
+              title: 'Page 2',
+              hash: 'page2'
             }
           }
         ]
@@ -43,20 +43,20 @@ var createEventPage = function (options) {
             factory: EventModulePage,
             options: {
               title: 'Page 1',
-              hash: 'page1',
+              hash: 'page1'
             }
           },
           {
             factory: EventModulePage,
             options: {
-              title: 'Page 1',
-              hash: 'page1',
+              title: 'Page 2',
+              hash: 'page2'
             }
           }
         ]
       })
     ]
-  }, options || {}));
+  }, options));
 };
 
 

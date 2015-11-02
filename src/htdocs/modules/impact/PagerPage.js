@@ -58,7 +58,7 @@ PagerPage.prototype.getDetailsContent = function (product) {
     '<div class="alert-wrapper row"></div>' +
     '<div class="row pager-content">' +
       '<div class="column one-of-two">' +
-        '<h3 class="collapse-margin">Estimated Population Exposure to Earthquake Shaking</h3>' +
+        '<h3>Estimated Population Exposure to Earthquake Shaking</h3>' +
         '<div class="map-wrapper">' +
           (thumbnail ?
               '<figure>' +
@@ -262,7 +262,7 @@ PagerPage.prototype._renderAlerts = function (product) {
     if (alerts.economic) {
       alertsMarkup.push(
         '<div class="column one-of-two">',
-          '<h3 class="collapse-margin">Estimated Economic Losses</h3>',
+          '<h3>Estimated Economic Losses</h3>',
           '<figure>',
             '<a href="', contents['alertecon.pdf'].url, '">',
               '<img src="', contents['alertecon.png'].url, '" alt=""/>',
@@ -307,7 +307,7 @@ PagerPage.prototype._renderExposures = function (product) {
   mmi = parseFloat(properties.maxmmi);
 
   markup.push(
-    '<table class="tabular pager-exposures">' +
+    '<table class="pager-exposures">' +
       '<thead>' +
         '<tr>' +
           '<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +
@@ -327,7 +327,7 @@ PagerPage.prototype._renderExposures = function (product) {
   markup.push(
       '</tbody>' +
     '</table>' +
-    '<span class="disclaimer">' +
+    '<span class="pager-disclaimer">' +
       '*Estimated exposure only includes population within ' +
       'map area (k = x1,000)' +
       '</br><a href="http://earthquake.usgs.gov/research/shakemap/#intmaps">'+
@@ -401,7 +401,7 @@ PagerPage.prototype._renderCities = function (/*product*/) {
   }
 
   markup.push(
-    '<table class="tabular pager-cities">' +
+    '<table class="pager-cities">' +
       '<thead>' +
         '<tr>' +
           '<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +
@@ -427,7 +427,7 @@ PagerPage.prototype._renderCities = function (/*product*/) {
 
   markup.push(
     '</tbody></table>' +
-    '<span class="disclaimer">' +
+    '<span class="pager-disclaimer">' +
       'From GeoNames Database of Cities with 1,000 or more ' +
       'residents (k = x1,000)' +
     '</span>'

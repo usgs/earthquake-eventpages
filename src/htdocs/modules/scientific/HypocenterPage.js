@@ -411,7 +411,7 @@ HypocenterPage.prototype._renderPhases = function (phaseEl) {
 
   this._phaseTable = new DataTable({
     el: phaseEl.querySelector('.datatable'),
-    className: 'tabular responsive hypocenter-phase',
+    className: 'hypocenter-phase',
     collection: new Collection(preferred.arrivals),
     emptyMarkup: '<p class="error alert">No Phase Data Exists</p>',
     columns: PHASE_DATA_COLUMNS,
@@ -419,6 +419,7 @@ HypocenterPage.prototype._renderPhases = function (phaseEl) {
     defaultSort: 'distance'
   });
 
+  phaseEl.querySelector('.datatable-data').classList.add('horizontal-scrolling');
 };
 
 HypocenterPage.prototype._getMagnitudesMarkup = function () {
@@ -498,10 +499,13 @@ HypocenterPage.prototype._getMagnitudeMarkup = function (magnitude) {
   );
 
   if (contributions.length === 0) {
-    buf.push('<p>No amplitudes contributed for this magnitude</p>');
+    buf.push('<p class="alert info">' +
+        'No amplitudes contributed for this magnitude' +
+        '</p>');
   } else {
     buf.push(
-      '<table class="tabular responsive networkmagnitude-stations">',
+      '<div class="horizontal-scrolling">',
+      '<table class="networkmagnitude-stations">',
         '<thead><tr>',
           '<th>',
             '<abbr title="Network Station Channel Location">Channel</abbr>',
@@ -552,7 +556,7 @@ HypocenterPage.prototype._getMagnitudeMarkup = function (magnitude) {
           '<td class="weight">', weight , '</td>',
         '</tr>');
     }
-    buf.push('</tbody></table>');
+    buf.push('</tbody></table></div>');
   }
   buf.push('</div></section>');
   return buf.join('');
@@ -647,7 +651,7 @@ HypocenterPage.prototype.getOriginDetail = function (product) {
       originSource = p['origin-source'] || product.source,
       magnitudeSource = p['magnitude-source'] || product.source;
 
-  buf.push('<table class="tabular origin-detail"><tbody>');
+  buf.push('<table class="origin-detail"><tbody>');
 
   buf.push('<tr><th scope="row">Magnitude',
       (magnitudeError ? '<span class="uncertainty">uncertainty</span>' : ''),

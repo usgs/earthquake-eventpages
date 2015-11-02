@@ -1,195 +1,101 @@
 /*** Tectonic Summary Images ***/
-$baseImageUrl: 'http://earthquake.usgs.gov/earthquakes/tectonic/images';
 
-.summary-tectonic-summary {
+.summary-tectonic-summary > .tectonic {
+  background-repeat: no-repeat;
+  display: inline-block;
+  margin: 1em 0 1em;
+  position: relative;
+  width: 304px;
 
-  a.tectonic {
-    display:inline-block;
-    margin: 1em 0 1em;
-    width: 304px;
-    position:relative;
-    background-repeat: no-repeat;
-
-    &:after{
-      content:'Map of Tectonic Summary Region';
-      display:block;
-      font-size: 0.75em;
-      position:absolute;
-      bottom:-2em;
-      left:1em;
-    }
+  @media (min-width: 560px) {
+    float: right;
   }
 
-  > div > p {
-    margin-top:0.7em;
+  &:after{
+    bottom: -1.5em;
+    content: 'Map of Tectonic Summary Region';
+    display: block;
+    font-size: 0.75em;
+    left: 1em;
+    position: absolute;
   }
 
-  a.aleutian {
-    background-image:url('#{$baseImageUrl}/aleutian_tsum304.jpg');
+  &.aleutian {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/aleutian_tsum304.jpg');
     height:196px;
   }
 
 
-  a.caribbean {
-    background-image:url('#{$baseImageUrl}/caribbean_tsum304.jpg');
+  &.caribbean {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/caribbean_tsum304.jpg');
     height:204px;
   }
 
 
-  a.emaustralia {
-    background-image:url('#{$baseImageUrl}/emaustralia_tsum304.jpg');
+  &.emaustralia {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/emaustralia_tsum304.jpg');
     height:432px;
   }
 
 
-  a.himalaya {
-    background-image:url('#{$baseImageUrl}/himalaya_tsum304.jpg');
+  &.himalaya {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/himalaya_tsum304.jpg');
     height:204px;
   }
 
 
-  a.japan {
-    background-image:url('#{$baseImageUrl}/japan_tsum304.jpg');
+  &.japan {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/japan_tsum304.jpg');
     height:294px;
   }
 
-  a.java {
-    background-image:url('#{$baseImageUrl}/java_tsum304.jpg');
+  &.java {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/java_tsum304.jpg');
     height:192px;
   }
 
-  a.kuril {
-    background-image:url('#{$baseImageUrl}/kuril_tsum304.jpg');
+  &.kuril {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/kuril_tsum304.jpg');
     height:350px;
   }
 
-  a.middleeast {
-    background-image:url('#{$baseImageUrl}/middleeast_tsum304.jpg');
+  &.middleeast {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/middleeast_tsum304.jpg');
     height:204px;
   }
 
-  a.newguinea {
-    background-image:url('#{$baseImageUrl}/newguinea_tsum304.jpg');
+  &.newguinea {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/newguinea_tsum304.jpg');
     height:168px;
   }
 
-  a.philippinesea {
-    background-image:url('#{$baseImageUrl}/philippinesea_tsum304.jpg');
+  &.philippinesea {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/philippinesea_tsum304.jpg');
     height:294px;
   }
 
-  a.southamerica {
-    background-image:url('#{$baseImageUrl}/southamerica_tsum304.jpg');
+  &.southamerica {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/southamerica_tsum304.jpg');
     height:350px;
   }
 
-  a.sumatra {
-    background-image:url('#{$baseImageUrl}/sumatra_tsum304.jpg');
+  &.sumatra {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/sumatra_tsum304.jpg');
     height:434px;
   }
 
-  a.mexico {
-    background-image:url('#{$baseImageUrl}/mexico_tsum304.jpg');
+  &.mexico {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/mexico_tsum304.jpg');
     height:192px;
   }
 
-  a.mediterranean {
-    background-image:url('#{$baseImageUrl}/mediterranean_tsum304.jpg');
+  &.mediterranean {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/mediterranean_tsum304.jpg');
     height:204px;
   }
 
-  a.qcf {
-    background-image:url('#{$baseImageUrl}/qcf_tsum304.jpg');
+  &.qcf {
+    background-image:url('http://earthquake.usgs.gov/earthquakes/tectonic/images/qcf_tsum304.jpg');
     height:390px;
-  }
-
-}
-
-@media (min-width:560px) {
-  .summary-tectonic-summary {
-
-    a.tectonic {
-      float:right;
-      //width:464px;
-      margin:1em 0 2em 1em;
-      &:before{content:none;}
-    }
-
-/*
-    a.aleutian {
-      background-image:url('#{$baseImageUrl}/aleutian_tsum464.jpg');
-      height:300px;
-    }
-
-    a.caribbean {
-      background-image:url('#{$baseImageUrl}/caribbean_tsum464.jpg');
-      height:312px;
-    }
-
-    a.emaustralia {
-      background-image:url('#{$baseImageUrl}/emaustralia_tsum464.jpg');
-      height:648px;
-    }
-
-    a.himalaya {
-      background-image:url('#{$baseImageUrl}/himalaya_tsum464.jpg');
-      height:312px;
-    }
-
-    a.japan {
-      background-image:url('#{$baseImageUrl}/japan_tsum464.jpg');
-      height:448px;
-    }
-
-    a.java {
-      background-image:url('#{$baseImageUrl}/java_tsum464.jpg');
-      height:300px;
-    }
-
-    a.kuril {
-      background-image:url('#{$baseImageUrl}/kuril_tsum464.jpg');
-      height:532px;
-    }
-
-    a.middleeast {
-      background-image:url('#{$baseImageUrl}/middleeast_tsum464.jpg');
-      height:312px;
-    }
-
-    a.newguinea {
-      background-image:url('#{$baseImageUrl}/newguinea_tsum464.jpg');
-      height:252px;
-    }
-
-    a.philippinesea {
-      background-image:url('#{$baseImageUrl}/philippinesea_tsum464.jpg');
-      height:434px;
-    }
-
-    a.southamerica {
-      background-image:url('#{$baseImageUrl}/southamerica_tsum464.jpg');
-      height:532px;
-    }
-
-    a.sumatra {
-      background-image:url('#{$baseImageUrl}/sumatra_tsum464.jpg');
-      height:658px;
-    }
-
-    a.mexico {
-      background-image:url('#{$baseImageUrl}/mexico_tsum464.jpg');
-      height:300px;
-    }
-
-    a.mediterranean {
-      background-image:url('#{$baseImageUrl}/mediterranean_tsum464.jpg');
-      height:312px;
-    }
-
-    a.qcf {
-      background-image:url('#{$baseImageUrl}/qcf_tsum464.jpg');
-      height:585px;
-    }
-*/
   }
 }

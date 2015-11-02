@@ -56,7 +56,7 @@ var MAP_GRAPH_IMAGES = [
 
 var RESPONSE_DATA_COLUMNS = [
   {
-    className: 'location',
+    className: 'dyfi-response-location',
     title: 'Location',
     format: function (response) {
       return response.name + ', ' + response.state + ' ' + response.zip +
@@ -69,7 +69,7 @@ var RESPONSE_DATA_COLUMNS = [
     header: true
   },
   {
-    className: 'mmi',
+    className: 'dyfi-response-mmi',
     title: 'MMI',
     format: function (response) {
       var roman = ImpactUtil.translateMmi(response.cdi);
@@ -80,14 +80,14 @@ var RESPONSE_DATA_COLUMNS = [
     }
   },
   {
-    className: 'numResp',
+    className: 'dyfi-response-numResp',
     title: 'Responses',
     format: function (response) {
       return response.nresp;
     }
   },
   {
-    className: 'distance',
+    className: 'dyfi-response-distance',
     title: 'Distance',
     format: function (response) {
       return response.dist;
@@ -228,7 +228,8 @@ DYFIPage.prototype._addDyfiResponsesTab = function () {
   this._tablist.addTab({
     'title': title,
     'content': function () {
-      var container = document.createElement('div');
+      var container = document.createElement('div'),
+          el;
       container.className = 'dyfi-responses';
       container.innerHTML =
           '<p>Loading DYFI Responses data from XML,please wait...</p>';
@@ -236,7 +237,7 @@ DYFIPage.prototype._addDyfiResponsesTab = function () {
       _this._getDYFIResponses(function (responses) {
         _this._responseTable = new DataTable({
           el: container,
-          className: 'tabular responsive dyfi',
+          className: 'dyfi-response-table',
           collection: responses,
           emptyMarkup: '<p class="error alert">No Response Data Exists</p>',
           columns: RESPONSE_DATA_COLUMNS,
@@ -244,9 +245,10 @@ DYFIPage.prototype._addDyfiResponsesTab = function () {
           defaultSort: 'distance'
         });
 
+        el = container.querySelector('.datatable-data');
+        el.classList.add('horizontal-scrolling');
         if (responses.data().length > 10) {
-          _this._addToggleButton(container,
-              container.querySelector('.datatable-data'));
+          _this._addToggleButton(container, el);
         }
       });
 

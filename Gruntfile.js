@@ -13,33 +13,41 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('test', [
-    'clean:build',
-    'concurrent:build',
+    'build',
     'connect:test',
     'mocha_phantomjs'
   ]);
 
   grunt.registerTask('build', [
     'clean:build',
-    'concurrent:build'
+    'jshint:scripts',
+    'jshint:tests',
+    'browserify',
+    'postcss:build',
+    'copy:build',
+    'copy:test',
+    'copy:leaflet',
+    'copy:locationview_images'
   ]);
 
   grunt.registerTask('dist', [
     'build',
     'clean:dist',
-    'concurrent:dist',
-    'connect:template',
+    'copy:dist',
+    'postcss:dist',
+    'uglify',
     'configureRewriteRules',
     'configureProxies:dist',
+    'connect:template',
     'connect:dist'
   ]);
 
   grunt.registerTask('default', [
     'build',
     'configureRewriteRules',
-    'connect:template',
     'configureProxies:dev',
     'configureProxies:test',
+    'connect:template',
     'connect:dev',
     'connect:test',
     'mocha_phantomjs',

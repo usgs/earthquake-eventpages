@@ -100,7 +100,7 @@ MomentTensorPage.prototype._getInfo = function (tensor) {
   depth = formatter.depth(depth, 'km');
 
   return [
-    '<table class="tabular info-table"><tbody>',
+    '<table class="info-table"><tbody>',
     '<tr><th scope="row">Moment</th>',
       '<td>', moment, '</td></tr>',
     '<tr><th scope="row">Magnitude</th>',
@@ -190,7 +190,7 @@ MomentTensorPage.prototype._getAxes = function (tensor) {
 
   return '<div class="clearfix">' +
       '<h4>Principal Axes</h4>' +
-      '<table class="tabular center principal-axes-table">' +
+      '<table class="principal-axes-table">' +
       '<thead><tr>' +
         '<th>Axis</th>' +
         '<th>Value</th>' +
@@ -235,7 +235,7 @@ MomentTensorPage.prototype._getPlanes = function (tensor) {
 
   return [
       '<h4>Nodal Planes</h4>',
-      '<table class="tabular center nodal-plane-table">',
+      '<table class="nodal-plane-table">',
       '<thead><tr>',
         '<th>Plane</th>',
         '<th>Strike</th>',

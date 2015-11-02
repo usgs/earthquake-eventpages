@@ -1,157 +1,152 @@
-@import '_mmi-variables';
+@import '_mmi-variables.scss';
 
 .event-header {
 
   > .impact-bubbles {
 
     > a {
-      display: block;
-      float:left;
       background-color: #fff;
+      border-radius: 3px;
+      box-shadow: inset 0 0 1px rgba(0,0,0,0.5);
+      color: #333;
+      display: block;
+      float: left;
+      letter-spacing: 0.03em;
+      line-height: 1em;
       margin: 1em 0 0;
+      max-width: 103px;
+      overflow: hidden;
       padding: 6px 0;
       text-align: center;
       text-decoration: none;
-      line-height:1em;
-      border-radius: 3px;
+      text-overflow: ellipsis;
       text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
-      width:23.5%;
-      margin-left:2%;
-      max-width:103px;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      box-shadow: inset 0 0 1px rgba(0,0,0,0.5);
-      color: #333;
-      letter-spacing: 0.03em;
+      width: 23.5%;
 
-      &:first-child {
-        margin-left:0;
+      &:hover {
+        background-image: linear-gradient(to top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
       }
 
-      > strong {
-        font-size:.8125em;
+      & + a {
+        margin-left: 2%;
       }
 
       > abbr {
-        font-size:.6875em;
+        font-size: .6875em;
+      }
+
+      > strong {
+        font-size: .8125em;
       }
     }
 
-    > a:hover {
-      background-image: linear-gradient(to top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
-    }
+    > .tsunami {
+      border: 0;
+      border-bottom: 1px solid #292772;
+      display: inline-block;
+      height: 47px;
+      max-width: 103px;
+      padding: 0;
+      text-align: left;
 
-    .tsunami {
-      border:0;
-      padding:0;
-      text-align:left;
-      display:inline-block;
-      height:47px;
-      max-width:103px;
-      border-bottom:1px solid #292772;
-
-      img {
+      > img {
+        border-radius: 3px;
         height: 47px;
-        border-radius:3px;
-        max-width:none;
+        max-width: none;
       }
     }
   }
 }
 
 .pager-alertlevel-pending {
-  background-color:#fff;
-  color:#000;
+  background-color: #fff;
+  color: #000;
 }
 .pager-alertlevel-green {
-  background-color:#00b04f !important;
-  color:#000 !important;
+  background-color: #00b04f !important;
+  color: #000 !important;
 }
 .pager-alertlevel-yellow {
-  background-color:#ff0 !important;
-  color:#000 !important;
+  background-color: #ff0 !important;
+  color: #000 !important;
 }
 .pager-alertlevel-orange {
-  background-color:#f90 !important;
-  color:#000 !important;
+  background-color: #f90 !important;
+  color: #000 !important;
 }
 .pager-alertlevel-red {
-  background-color:#f00 !important;
-  color:#000 !important;
+  background-color: #f00 !important;
+  color: #000 !important;
 }
 
 .roman {
-  font-family:$mmi-font-family;
+  font-family: $mmi-font-family;
 }
 
-.mmiI{
-  color:$mmiI-text-color;
-  background-color:$mmiI;
-  box-shadow:0 0 1px #666;
+.mmiI {
+  background-color: $mmiI !important;
+  box-shadow: 0 0 1px #666;
+  color: $mmiI-text-color !important;
 }
 
 .mmiII{
-  color:$mmiII-text-color;
-  background-color:$mmiII;
+  background-color: $mmiII !important;
+  color: $mmiII-text-color !important;
 }
 
-.mmiIII{
-  color:$mmiIII-text-color;
-  background-color:$mmiIII;
+.mmiIII {
+  background-color: $mmiIII !important;
+  color: $mmiIII-text-color !important;
 }
 
-.mmiIV{
-  color:$mmiIV-text-color;
-  background-color:$mmiIV;
+.mmiIV {
+  background-color: $mmiIV !important;
+  color: $mmiIV-text-color !important;
 }
 
-.mmiV{
-  color:$mmiV-text-color;
-  background-color:$mmiV;
+.mmiV {
+  background-color: $mmiV !important;
+  color: $mmiV-text-color !important;
 }
 
-.mmiVI{
-  color:$mmiVI-text-color;
-  background-color:$mmiVI;
+.mmiVI {
+  background-color: $mmiVI !important;
+  color: $mmiVI-text-color !important;
 }
 
-.mmiVII{
-  color:$mmiVII-text-color;
-  background-color:$mmiVII;
+.mmiVII {
+  background-color: $mmiVII !important;
+  color: $mmiVII-text-color !important;
 }
 
-.mmiVIII{
-  color:$mmiVIII-text-color;
-  background-color:$mmiVIII;
+.mmiVIII {
+  background-color: $mmiVIII !important;
+  color: $mmiVIII-text-color !important;
 }
 
-.mmiIX{
-  color:$mmiIX-text-color;
-  background-color:$mmiIX;
+.mmiIX {
+  background-color: $mmiIX !important;
+  color: $mmiIX-text-color !important;
 }
 
-.mmiX{
-  color:$mmiX-text-color;
-  background-color:$mmiX;
+.mmiX {
+  background-color: $mmiX !important;
+  color: $mmiX-text-color !important;
 }
 
-.mmiXI{
-  color:$mmiXI-text-color;
-  background-color:$mmiXI;
+.mmiXI {
+  background-color: $mmiXI !important;
+  color: $mmiXI-text-color !important;
 }
 
-.mmiXII{
-  color:$mmiXII-text-color;
-  background-color:$mmiXII;
+.mmiXII {
+  background-color: $mmiXII !important;
+  color: $mmiXII-text-color !important;
 }
 
-// Width for media query makes the switch from percentages to pixels smooth.
+/* Width for media query makes the switch from percentages to pixels smooth. */
 @media screen and (min-width: 1088px) {
-  .event-header {
-    > .impact-bubbles {
-      > a {
-        margin-left:16px;
-      }
-    }
+  .event-header > .impact-bubbles > a + a {
+    margin-left: 16px;
   }
 }

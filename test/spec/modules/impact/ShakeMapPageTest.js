@@ -154,7 +154,7 @@ describe('ShakeMapPageTest test suite.', function () {
     it('Can get product details', function () {
       var content = page.getContent();
 
-      expect(content).to.be.a('object');
+      expect(typeof content).to.equal('object');
     });
   });
 });

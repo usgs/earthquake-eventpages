@@ -43,7 +43,7 @@ describe('MomentTensorSummary test suite.', function () {
 
     it('Can get summary information.', function () {
       var content = page.getContent();
-      expect(content).to.be.a('object');
+      expect(typeof content).to.equal('object');
     });
 
     // _getInfo()
@@ -70,7 +70,7 @@ describe('MomentTensorSummary test suite.', function () {
 
     it('Can get product details.', function () {
       var content = page.getContent();
-      expect(content).to.be.a('object');
+      expect(typeof content).to.equal('object');
     });
 
     // _getInfo()

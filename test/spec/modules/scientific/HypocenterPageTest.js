@@ -69,7 +69,7 @@ describe('HypocenterPage test suite.', function () {
   describe('getContent()', function () {
     it('Can get summary information.', function () {
       var content = SummaryPage.getContent();
-      expect(content).to.be.a('object');
+      expect(typeof content).to.equal('object');
     });
 
     // _getInfo()

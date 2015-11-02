@@ -9,6 +9,12 @@ if (!function_exists('configure')) {
     }
     echo ': ';
 
+    if (NON_INTERACTIVE) {
+      // non-interactive
+      echo '(Non-interactive, using default)' . PHP_EOL;
+      return $default;
+    }
+
     if ($secure) {
       system('stty -echo');
     }
