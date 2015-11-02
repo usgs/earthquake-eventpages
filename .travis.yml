@@ -10,9 +10,9 @@ before_install:
   - npm --version
   - node --version
   - npm list -g
-  - php src/lib/pre-install.php --non-interactive
 install:
   - npm install phantomjs
   - npm install
+  - php src/lib/pre-install.php --non-interactive
 script:
   - npm test
