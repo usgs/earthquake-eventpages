@@ -320,4 +320,3 @@ if (!isset($TEMPLATE)) {
   The tensor depends on the source strength and fault orientation. See also
   <a href="/learn/topics/beachball.php">Focal Mechanisms</a>
 </p>
-
