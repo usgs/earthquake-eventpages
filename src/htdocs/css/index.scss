@@ -39,3 +39,25 @@ canvas {
   font-size: .75em;
   font-weight: normal;
 }
+
+
+.leaflet-control-layers-toggle {
+  /** important since loads before modules that include leaflet base styles. */
+  background-image: url(../lib/leaflet/images/layers.png) !important;
+}
+
+.leaflet-control-layers-base,
+.leaflet-control-layers-overlays {
+  > label > input {
+    left: auto;
+    margin: 0;
+    position: static;
+  }
+}
+
+
+.leaflet-control-layers-selector {
+  left: auto;
+  margin: 0;
+  position: static;
+}
