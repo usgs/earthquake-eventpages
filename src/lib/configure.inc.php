@@ -9,6 +9,12 @@ if (!function_exists('configure')) {
     }
     echo ': ';
 
+    if (!posix_isatty(STDOUT)) {
+      // non-interactive
+      echo '(Using default)';
+      return $default;
+    }
+
     if ($secure) {
       system('stty -echo');
     }
