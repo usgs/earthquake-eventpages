@@ -9,9 +9,9 @@ if (!function_exists('configure')) {
     }
     echo ': ';
 
-    if (!posix_isatty(STDOUT)) {
+    if (NON_INTERACTIVE) {
       // non-interactive
-      echo '(Using default)';
+      echo '(Non-interactive, using default)' . PHP_EOL;
       return $default;
     }
 
