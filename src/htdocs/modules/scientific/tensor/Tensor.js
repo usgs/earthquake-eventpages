@@ -12,8 +12,9 @@ var R2D = 180 / Math.PI,
 
 // mapping from quakeml method id to type
 BEACHBALL_TYPES = {
+  'smi:ci.anss.org/momentTensor/TMTS': 'TMTS',
   'smi:nc.anss.org/momentTensor/TMTS': 'TMTS',
-  'smi:ci.anss.org/momentTensor/TMTS': 'TMTS'
+  'smi:uu.anss.org/momentTensor/TDMT': 'TDMT'
 };
 
 
