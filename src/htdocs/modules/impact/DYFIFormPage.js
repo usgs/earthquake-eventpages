@@ -22,7 +22,7 @@ var DEFAULTS = {
 var ID_INCREMENT = 0;
 
 var SUPPORTED_LANGUAGES = ['en'];
-var FORM_VERSION = '1.3';
+var FORM_VERSION = '1.4';
 var _DYFIIFRAME = null;
 
 
