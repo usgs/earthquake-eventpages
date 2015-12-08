@@ -4,6 +4,7 @@ var Attribution = require('base/Attribution'),
     Collection = require('mvc/Collection'),
     DataTable = require('mvc/DataTable'),
     Formatter = require('base/Formatter'),
+    ProductSummarizer = require('base/ProductSummarizer'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     ImpactUtil = require('base/ImpactUtil'),
     TabList = require('tablist/TabList'),
@@ -140,13 +141,6 @@ var RESPONSE_DATA_SORTS = [
   }
 ];
 
-/**
- * Uses the intensity map as the thumbnail.
- * Sets alt tag for thumbnail image
- */
-var SUMMARY_THUMBNAIL = '_ciim.jpg',
-    THUMBNAIL_ALT = 'Did You Feel It Intensity Map';
-
 
 /* creates map page and sets up the content */
 var DYFIPage = function (options) {
@@ -218,6 +212,10 @@ DYFIPage.prototype.getDetailsContent = function (dyfi) {
   }
 
   return el;
+};
+
+DYFIPage.prototype._getSummaryMarkup = function (product) {
+  return ProductSummarizer.getDYFISummary(product);
 };
 
 DYFIPage.prototype._addDyfiResponsesTab = function () {
@@ -344,46 +342,6 @@ DYFIPage.prototype._addToggleButton = function (container, table) {
     }
   });
 };
-
-
-/**
- * Sets up summary info for Shakemap events with 2 or more events
- */
-DYFIPage.prototype._getSummaryMarkup = function (product) {
-  var properties = product.properties,
-      contents = product.contents,
-      eventId = properties.eventsource + properties.eventsourcecode,
-      maxmmi = properties.maxmmi,
-      thumbnail;
-
-  maxmmi = ImpactUtil.translateMmi(maxmmi);
-  thumbnail = contents[eventId + SUMMARY_THUMBNAIL];
-
-  return '<ul>' +
-      '<li class="image">' +
-        (thumbnail ?
-            '<img src="' + thumbnail.url +
-              '" alt="' + THUMBNAIL_ALT + '" />'
-            : '&ndash;') +
-      '</li>' +
-      '<li class="mmi">' +
-        '<span>' + maxmmi + '</span>' +
-        '<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
-      '</li>' +
-      '<li>' +
-        '<span>' + this._formatter.magnitude(properties.magnitude) + '</span>' +
-        '<abbr title="Magnitude">Mag</abbr>' +
-      '</li>' +
-      '<li>' +
-        this.getCatalogSummary(product) +
-      '</li>' +
-      '<li class="summary-hide">' +
-        Attribution.getContributorReference(product.source) +
-        '<abbr title="ShakeMap Data Source">Source</abbr>' +
-      '</li>' +
-    '</ul>';
-};
-
 
 DYFIPage.prototype._setFooterMarkup = function () {
   var links;

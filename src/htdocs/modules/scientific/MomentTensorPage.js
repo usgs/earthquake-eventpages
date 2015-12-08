@@ -2,6 +2,7 @@
 
 var Attribution = require('base/Attribution'),
     Formatter = require('base/Formatter'),
+    ProductSummarizer = require('base/ProductSummarizer'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     Util = require('util/Util'),
 
@@ -269,64 +270,7 @@ MomentTensorPage.prototype._getPlanes = function (tensor) {
  * @return {String} summary content.
  */
 MomentTensorPage.prototype._getSummaryMarkup = function (product) {
-  var code,
-      depth,
-      formatter,
-      magnitude,
-      percentDC,
-      source,
-      tensor,
-      type;
-
-  formatter = this._options.formatter;
-  tensor = Tensor.fromProduct(product);
-  if (tensor !== null) {
-    type = tensor.type;
-    source = tensor.source;
-    code = tensor.code;
-    magnitude = tensor.magnitude;
-    magnitude = formatter.magnitude(magnitude);
-    depth = Math.round(tensor.depth);
-    percentDC = Math.round(tensor.percentDC * 100);
-  } else {
-    type = '&ndash;';
-    magnitude = '&ndash;';
-    depth = '&ndash;';
-    percentDC = '&ndash;';
-    source = product.source;
-    code = product.code;
-  }
-
-  return [
-        '<ul>',
-          '<li class="image">',
-            (tensor !== null ?
-                '<img src="' + this.getBeachball(tensor) + '" ' +
-                    'alt="Moment Tensort Beachball (' + code + ')"/>' :
-                code),
-          '</li>',
-          '<li>',
-            '<span>', type, '</span>',
-            '<abbr title="Tensor Type">Type</abbr>',
-          '</li>',
-          '<li>',
-            '<span>', magnitude, '</span>',
-            '<abbr title="Magnitude">Mag</abbr>',
-          '</li>',
-          '<li>',
-            '<span>', depth, '<span class="units">km</span></span>',
-            '<abbr title="Depth (km)">Depth</abbr>',
-          '</li>',
-          '<li class="summary-hide">',
-            '<span>', percentDC, '</span>',
-            '<abbr title="Percent Double Couple">% DC</abbr>',
-          '</li>',
-          '<li class="summary-hide">',
-            Attribution.getContributorReference(source),
-            '<abbr title="Moment Tensor Data Source">Source</abbr>',
-          '</li>',
-        '</ul>'
-  ].join('');
+  return ProductSummarizer.getMomentTensorSummary(product);
 };
 
 MomentTensorPage.prototype.getBeachball = function(tensor) {

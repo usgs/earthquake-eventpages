@@ -4,6 +4,7 @@ var Accordion = require('accordion/Accordion'),
     Attribution = require('base/Attribution'),
     Formatter = require('base/Formatter'),
     ImpactUtil = require('base/ImpactUtil'),
+    ProductSummarizer = require('base/ProductSummarizer'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util'),
@@ -58,13 +59,6 @@ var FLAG_DESCRIPTIONS = {
   'I': 'Incomplete time series',
   'N': 'Not in list of known stations'
 };
-
-/**
- * Uses the intensity map as the thumbnail.
- * Sets alt tag for thumbnail image
- */
-var SUMMARY_THUMBNAIL = 'download/intensity.jpg',
-    THUMBNAIL_ALT = 'Shakemap Intensity Map';
 
 
 /**
@@ -494,37 +488,7 @@ ShakeMapPage.prototype._formatComponent = function (data) {
  * Sets up summary info for Shakemap events with 2 or more events
  */
 ShakeMapPage.prototype._getSummaryMarkup = function (product) {
-  var properties = product.properties,
-      contents = product.contents,
-      maxmmi = properties.maxmmi,
-      thumbnail;
-
-  maxmmi = ImpactUtil.translateMmi(maxmmi);
-  thumbnail = contents[SUMMARY_THUMBNAIL];
-
-  return '<ul>' +
-      '<li class="image">' +
-        (thumbnail ?
-            '<img src="' + thumbnail.url +
-              '" alt="' + THUMBNAIL_ALT + '" />'
-            : '&ndash;') +
-      '</li>' +
-      '<li class="mmi">' +
-        '<span>' + maxmmi + '</span>' +
-        '<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
-      '</li>' +
-      '<li>' +
-        '<span>' + this._formatter.magnitude(properties.magnitude) + '</span>' +
-        '<abbr title="Magnitude">Mag</abbr>' +
-      '</li>' +
-      '<li>' +
-        this.getCatalogSummary(product) +
-      '</li>' +
-      '<li class="summary-hide">' +
-        Attribution.getContributorReference(product.source) +
-        '<abbr title="ShakeMap Data Source">Source</abbr>' +
-      '</li>' +
-    '</ul>';
+  return ProductSummarizer.getShakeMapSummary(product);
 };
 
 ShakeMapPage.prototype._setFooterMarkup = function () {
