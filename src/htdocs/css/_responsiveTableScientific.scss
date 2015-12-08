@@ -1,10 +1,12 @@
 .networkmagnitude,
 .station {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
+  padding: 2em 1em;
   position: relative;
   color: #444;
-  padding: 1em;
+
+  &:last-child {
+    border: 0;
+  }
 
   > h3 {
     margin: 0;

@@ -358,7 +358,7 @@ ShakeMapPage.prototype._buildStationDetails = function (feature) {
 
   return [
       '<div class="accordion-content">',
-        '<dl class="station-metadata horizontal">',
+        '<dl class="station-metadata">',
           '<dt class="station-metadata-type">Type</dt>',
             '<dd class="station-metadata-type">',
               (props.instrumentType||'&ndash;'),
