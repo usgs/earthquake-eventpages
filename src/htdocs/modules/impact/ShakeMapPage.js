@@ -251,9 +251,9 @@ ShakeMapPage.prototype._getStationData = function (callback, errback) {
     success: function (data) {
       callback(data);
     },
-    error: function (e) {
+    error: function (msg, e) {
       errback('Unable to retreive the station list.');
-      console.log(e);
+      console.log(e.stack);
     }
   });
 };
