@@ -75,6 +75,7 @@ var browserify = {
     options: {
       alias: [
         // SummaryPage is already bundled in index above
+        'summary/ExecutiveSummaryPage',
         'summary/InteractiveMap'
       ].map(function(value) {
         return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
