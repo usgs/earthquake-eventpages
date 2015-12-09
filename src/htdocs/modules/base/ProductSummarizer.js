@@ -376,12 +376,13 @@ getMomentTensorSummary = function (product) {  var beachBall,
  *      Markup that summarizes the product.
  */
 getOriginSummary = function (product) {
-  var p,
-      depth,
+  var depth,
       magnitude,
+      magnitudeSource,
       magnitudeType,
       originSource,
-      magnitudeSource;
+      p,
+      reviewStatus;
 
   if (!product) {
     return '<p class="alert error">No origin product found for this event.</p>';
@@ -391,23 +392,26 @@ getOriginSummary = function (product) {
   depth = p.depth;
   magnitude = p.magnitude;
   magnitudeType = p['magnitude-type'];
+  reviewStatus = p['review-status'] || 'automatic';
   originSource = p['origin-source'] || product.source;
   magnitudeSource = p['magnitude-source'] || product.source;
 
+
+  reviewStatus = reviewStatus.toUpperCase().replace('REVIEWED', 'MANUAL');
 
   return [
     '<ul>',
       '<li>',
         '<span>', magnitude, '</span>',
-        '<abbr title="Magnitude">Mag</abbr>',
-      '</li>',
-      '<li>',
-        '<span>', magnitudeType, '</span>',
-        '<abbr title="Magnitude Type">Type</abbr>',
+        '<abbr title="Magnitude and Type">', magnitudeType, '</abbr>',
       '</li>',
       '<li>',
         '<span>', depth, '</span>',
-        '<abbr title="Depth (km)">Depth</abbr>',
+        '<abbr title="Depth (km)">Depth (km)</abbr>',
+      '</li>',
+      '<li>',
+        '<span>', reviewStatus, '</span>',
+        '<abbr title="Review Status">Status</abbr>',
       '</li>',
       '<li>',
         EventModulePage.prototype.getCatalogSummary.call(null, product),
