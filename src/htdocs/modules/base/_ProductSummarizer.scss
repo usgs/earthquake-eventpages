@@ -1,0 +1,51 @@
+.summary > ul {
+  > li {
+    width: 25%;
+  }
+}
+
+.dyfi-summary,
+.shakemap-summary,
+.losspager-summary {
+  > ul > .impact-bubbles {
+
+    > span {
+      background-color: #fff;
+      border-radius: 2px;
+      box-shadow: inset 0 0 1px rgba(0,0,0,0.5);
+      color: #333;
+      display: block;
+      letter-spacing: 0.03em;
+      line-height: 1em;
+      margin: 0 auto;
+      max-width: 80px;
+      overflow: hidden;
+      padding: 6px 0;
+      text-align: center;
+      text-decoration: none;
+      text-overflow: ellipsis;
+      text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+
+      &:hover {
+        background-image: linear-gradient(to top rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+      }
+
+      > strong {
+        font-size: 0.8125em;
+      }
+
+      > abbr {
+        font-size: 0.6875em;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 560px) {
+  .summary > ul {
+
+    > li {
+      width: 16.6%;
+    }
+  }
+}
