@@ -146,7 +146,9 @@ getDYFISummary = function (product) {
         '<span class="mmi', maxmmi, '">',
           '<strong class="roman">', maxmmi, '</strong>',
           '<br/>',
-          '<abbr title="Community Determined Intensity">CDI</abbr>',
+          '<abbr title="Did You Feel It? - Community Determined Intensity">',
+            'DYFI',
+          '</abbr>',
         '</span>',
       '</li>',
       '<li>',
@@ -177,6 +179,7 @@ getFiniteFaultSummary = function (product) {
     '<ul>',
       '<li class="image">',
         '<img src="', basemap.url, '" alt="Finite Fault" />',
+        '<abbr title="Finite Fault">Fault</abbr>',
       '</li>',
       '<li>',
         Attribution.getContributorReference(product.source),
@@ -221,6 +224,7 @@ getFocalMechanismSummary = function (product) {
       '<li class="image">',
         '<img src="', beachBall, '" ',
             'alt="Focal Mechanism Beachball (' + tensor.code + ')"/>',
+        '<abbr title="Focal Mechanism Beachball">FM</abbr>',
       '</li>',
       '<li class="wider">',
         '<span>',
@@ -282,7 +286,7 @@ getLossPAGERSummary = function (product) {
         '<span class="pager-alertlevel-', alertlevel, '">',
           '<strong class="roman">', alertlevel.toUpperCase(), '</strong>',
           '<br/>',
-          '<abbr title="Alert Level">Alert</abbr>',
+          '<abbr title="LossPAGER - Alert Level">PAGER</abbr>',
         '</span>',
       '</li>',
     '</ul>'
@@ -327,19 +331,14 @@ getMomentTensorSummary = function (product) {  var beachBall,
     code = product.code;
   }
 
-  beachBall = new BeachBall({
-    tensor: tensor,
-    size: 200,
-    plotAxes: false,
-    plotPlanes: true,
-    fillColor: tensor.fillColor,
-  }).getCanvas().toDataURL();
+  beachBall = _getBeachBall(tensor);
 
   return [
     '<ul>',
       '<li class="image">',
         (tensor === null ? code : '<img src="' + beachBall +
             '" alt="Moment Tensor Beachball (' + code + ')"/>'),
+        '<abbr title="Moment Tensor Beachball">MT</abbr>',
       '</li>',
       '<li>',
         '<span>', type, '</span>',
@@ -506,7 +505,9 @@ getShakeMapSummary = function (product) {
         '<span class="mmi', maxmmi, '">',
           '<strong class="roman">', maxmmi, '</strong>',
           '<br/>',
-          '<abbr title="Modified Mercalli Intenisty">MMI</abbr>',
+          '<abbr title="ShakeMap - Modified Mercalli Intenisty">',
+            'ShakeMap',
+          '</abbr>',
         '</span>',
       '</li>',
       '<li>',
