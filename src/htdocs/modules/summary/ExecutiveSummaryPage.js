@@ -21,7 +21,9 @@ var _DEFAULTS = {
  */
 var ExecutiveSummaryPage = function (params) {
   var _this,
-      _initialize;
+      _initialize,
+
+      _getImpactTextMarkup;
 
 
   // Inherit from parent class
@@ -38,6 +40,38 @@ var ExecutiveSummaryPage = function (params) {
   };
 
 
+  _getImpactTextMarkup = function (product) {
+    var classes,
+        content,
+        el,
+        markup,
+        properties;
+
+    content = product.contents;
+    properties = product.properties;
+
+    markup = [];
+    classes = ['alert'];
+
+    if (properties.hasOwnProperty('style')) {
+      classes.push('style');
+    }
+
+    if (content.hasOwnProperty('')) {
+      el = document.createElement('div');
+      el.innerText = content[''].bytes;
+
+      markup = [
+        '<p class="', classes.join(' '), '">',
+          el.innerHTML,
+        '</p>'
+      ];
+    }
+
+    return markup.join('');
+  };
+
+
   _this.setContentMarkup = function () {
     var content,
         contentMarkup,
@@ -50,13 +84,21 @@ var ExecutiveSummaryPage = function (params) {
     products = eventDetails.properties.products;
 
     // Origin product
-    if (products.hasOwnProperty('origin') || products.hasOwnProperty('phase-data')) {
+    if (products.hasOwnProperty('origin') ||
+        products.hasOwnProperty('phase-data')) {
       contentMarkup.push(ProductSummarizer.getProductSummary('origin',
           'scientific_origin', 'Origin', eventDetails));
     }
 
 
     // Impact products
+    contentMarkup.push('<h3>Impact</h3>');
+    contentMarkup.push('<a href="#impact_tellus">Did You Feel It? Tell Us!</a>');
+
+    if (products.hasOwnProperty('impact-text')) {
+      contentMarkup.push(_getImpactTextMarkup(products['impact-text'][0]));
+    }
+
     if (products.hasOwnProperty('dyfi')) {
       contentMarkup.push(ProductSummarizer.getProductSummary(
           'dyfi', 'impact_dyfi', 'DYFI', eventDetails));
@@ -74,6 +116,7 @@ var ExecutiveSummaryPage = function (params) {
 
 
     // Scientific products (excluding origin)
+    contentMarkup.push('<h3>Scientific</h3>');
     if (products.hasOwnProperty('moment-tensor')) {
       contentMarkup.push(ProductSummarizer.getProductSummary('moment-tensor',
           'scientific_tensor', 'Moment Tensor', eventDetails));

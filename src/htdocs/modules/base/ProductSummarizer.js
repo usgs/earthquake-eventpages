@@ -151,7 +151,7 @@ getDYFISummary = function (product) {
       '</li>',
       '<li>',
         '<span>', properties['num-responses'], '</span>',
-        '<abbr title="Number of Responses">Responses</abbr>',
+        '<abbr title="Number of Responses">Resp</abbr>',
       '</li>',
     '</ul>'
   ].join('');
@@ -469,7 +469,6 @@ getProductSummary = function (type, hash, name, eventDetails) {
 
   if (summary) {
     return [
-      '<h3>', name, '</h3>',
       '<a href="#', hash, '" class="horizontal-scrolling ',
           type, '-summary summary">',
         summary,
