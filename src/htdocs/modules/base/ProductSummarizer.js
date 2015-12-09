@@ -252,7 +252,7 @@ getFocalMechanismSummary = function (product) {
       '</li>',
       '<li>',
         Attribution.getContributorReference(source),
-        '<abbr title="', Attribution.getName(source), '">Source</abbr>',
+        '<abbr title="Focal Mechanism Source">Source</abbr>',
       '</li>',
     '</ul>',
   ].join('');
