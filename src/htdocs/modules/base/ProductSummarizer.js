@@ -94,7 +94,7 @@ _getFocalMechanismSummary = function (product) {
             '<img src="', beachBall, '" ',
                 'alt="Focal Mechanism Beachball (' + tensor.code + ')"/>',
           '</li>',
-          '<li>',
+          '<li class="wider">',
             '<span>',
               '(',
               (np1 ?
@@ -108,7 +108,7 @@ _getFocalMechanismSummary = function (product) {
               'Strike<i>,</i>Dip<i>,</i>Rake</abbr>',
             '</abbr>',
           '</li>',
-          '<li>',
+          '<li class="wider">',
             '<span>',
               '(',
               (np2 ?
@@ -122,7 +122,7 @@ _getFocalMechanismSummary = function (product) {
               'Strike<i>,</i>Dip<i>,</i>Rake</abbr>',
             '</abbr>',
           '</li>',
-          '<li class="summary-hide">',
+          '<li>',
             Attribution.getContributorReference(source),
             '<abbr title="', Attribution.getName(source),
                 '">Source</abbr>',
@@ -204,11 +204,11 @@ _getMomentTensorSummary = function (product) {  var beachBall,
             '<span>', depth, '<span class="units">km</span></span>',
             '<abbr title="Depth (km)">Depth</abbr>',
           '</li>',
-          '<li class="summary-hide">',
+          '<li>',
             '<span>', percentDC, '</span>',
             '<abbr title="Percent Double Couple">% DC</abbr>',
           '</li>',
-          '<li class="summary-hide">',
+          '<li>',
             Attribution.getContributorReference(source),
             '<abbr title="Moment Tensor Data Source">Source</abbr>',
           '</li>',
@@ -313,7 +313,7 @@ _getOriginSummary = function (product) {
         '<li>' +
           EventModulePage.prototype.getCatalogSummary.call(null, product) +
         '</li>' +
-        '<li class="summary-hide">' +
+        '<li>' +
           (originSource === magnitudeSource ?
             Attribution.getContributorReference(originSource) :
             '<span>' +
@@ -349,7 +349,7 @@ _getShakeMapSummary = function (product) {
       '<li>' +
         EventModulePage.prototype.getCatalogSummary.call(null, product) +
       '</li>' +
-      '<li class="summary-hide">' +
+      '<li>' +
         Attribution.getContributorReference(product.source) +
         '<abbr title="ShakeMap Data Source">Source</abbr>' +
       '</li>' +
@@ -386,7 +386,8 @@ getProductSummary = function (type, hash, name, eventDetails) {
   if (summary) {
     return [
       '<h3>', name, '</h3>',
-      '<a href="#', hash, '" class="', type, '-summary summary">',
+      '<a href="#', hash, '" class="horizontal-scrolling ',
+          type, '-summary summary">',
         summary,
       '</a>'
     ].join('');

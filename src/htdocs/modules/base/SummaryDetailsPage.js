@@ -155,7 +155,7 @@ SummaryDetailsPage.prototype.buildSummaryMarkup = function (product) {
       summaryMarkup;
 
   el = document.createElement('a');
-  el.className = this._options.hash + '-summary summary';
+  el.className = this._options.hash + '-summary summary horizontal-scrolling';
   el.setAttribute('href', this._buildHash(product));
 
   summaryMarkup = this._getSummaryMarkup(product);

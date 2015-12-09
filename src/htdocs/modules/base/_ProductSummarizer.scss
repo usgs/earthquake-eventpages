@@ -1,51 +1,102 @@
-.summary > ul {
-  > li {
-    width: 25%;
+.summary {
+  border: 1px solid #e5e5e5;
+  color: #444;
+  display: block;
+  margin: 1em 0 0;
+  padding: 1em 0.5em;
+  position: relative;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:visited,
+  &:active,
+  &:hover {
+    color: #333;
+    text-decoration: none;
   }
-}
 
-.dyfi-summary,
-.shakemap-summary,
-.losspager-summary {
-  > ul > .impact-bubbles {
+  &:hover {
+    background: rgba(48, 106, 194, 0.05);
+  }
 
-    > span {
-      background-color: #fff;
-      border-radius: 2px;
-      box-shadow: inset 0 0 1px rgba(0,0,0,0.5);
-      color: #333;
-      display: block;
-      letter-spacing: 0.03em;
-      line-height: 1em;
-      margin: 0 auto;
-      max-width: 80px;
-      overflow: hidden;
-      padding: 6px 0;
+  > ul {
+    line-height: 3;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    > li {
+      display: inline-block;
+      line-height: 1;
+      max-width: 150px;
       text-align: center;
-      text-decoration: none;
-      text-overflow: ellipsis;
-      text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+      vertical-align: middle;
+      width: 25%;
 
-      &:hover {
-        background-image: linear-gradient(to top rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
-      }
-
-      > strong {
-        font-size: 0.8125em;
+      &.image > img {
+        padding: 0 0.5em;
+        width: 4em;
       }
 
       > abbr {
+        color: #999;
         font-size: 0.6875em;
+      }
+
+      > span {
+        display: block;
+      }
+
+      &.wider {
+        width: 37.5%;
+      }
+
+      &.impact-bubbles {
+        > span {
+          background-color: #fff;
+          border-radius: 2px;
+          box-shadow: inset 0 0 1px rgba(0,0,0,0.5);
+          color: #333;
+          display: block;
+          letter-spacing: 0.03em;
+          line-height: 1em;
+          margin: 0 auto;
+          max-width: 80px;
+          overflow: hidden;
+          padding: 6px 0;
+          text-align: center;
+          text-decoration: none;
+          text-overflow: ellipsis;
+          text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+
+          &:hover {
+            background-image: linear-gradient(to top rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+          }
+
+          > strong {
+            font-size: 0.8125em;
+          }
+
+          > abbr {
+            font-size: 0.6875em;
+          }
+        }
       }
     }
   }
 }
 
+.view-all {
+  display: inline-block;
+  font-size: 13px;
+  margin: 1em 0 0 2px;
+}
+
+
 @media screen and (min-width: 560px) {
   .summary > ul {
-
     > li {
-      width: 16.6%;
+      font-size: 1.125em;
     }
   }
 }
