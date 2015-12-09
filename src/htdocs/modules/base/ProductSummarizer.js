@@ -33,26 +33,16 @@ _getDYFISummary = function (product) {
   thumbnail = contents[eventId + '_ciim.jpg'];
 
   return '<ul>' +
-      '<li class="image">' +
-        (thumbnail ?
-            '<img src="' + thumbnail.url +
-              '" alt="Did You Feel It? Intensity Map"/>'
-            : '&ndash;') +
-      '</li>' +
-      '<li class="mmi">' +
-        '<span>' + maxmmi + '</span>' +
-        '<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
+      '<li class="impact-bubbles">' +
+        '<span class="mmi' + maxmmi + '">' +
+          '<strong class="roman">' + maxmmi + '</strong>' +
+          '<br/>' +
+          '<abbr title="Community Determined Intensity">CDI</abbr>' +
+        '</span>' +
       '</li>' +
       '<li>' +
-        '<span>' + _formatter.magnitude(properties.magnitude) + '</span>' +
-        '<abbr title="Magnitude">Mag</abbr>' +
-      '</li>' +
-      '<li>' +
-        EventModulePage.prototype.getCatalogSummary.call(null, product) +
-      '</li>' +
-      '<li class="summary-hide">' +
-        Attribution.getContributorReference(product.source) +
-        '<abbr title="ShakeMap Data Source">Source</abbr>' +
+        '<span>' + properties['num-responses'] + '</span>' +
+        '<abbr title="Number of Responses">Responses</abbr>' +
       '</li>' +
     '</ul>';
 };
@@ -142,39 +132,19 @@ _getFocalMechanismSummary = function (product) {
 };
 
 _getLossPAGERSummary = function (product) {
-  var properties = product.properties || {},
-      contents = product.contents,
-      maxmmi = properties.maxmmi;
+  var alertlevel,
+      properties;
 
-  maxmmi = ImpactUtil.translateMmi(maxmmi);
+  properties = product.properties || {};
+  alertlevel = properties.alertlevel;
 
   return '<ul>' +
-      '<li class="image">' +
-        (contents['alertfatal_small.png'] ?
-            '<img src="' + contents['alertfatal_small.png'].url +
-            '" alt="' + 'Estimated Fatalities Histogram' + '" />' :
-            '<span>(no image)</span>'
-        ) +
-        '<abbr title="Estimated Fatalities Histogram">Fatalities</abbr>' +
-      '</li>' +
-      '<li class="image">' +
-        (contents['alertecon_small.png'] ?
-            '<img src="' + contents['alertecon_small.png'].url +
-            '" alt="' + 'Estimated Economic Loss Histogram' + '" />' :
-            '<span>(no image)</span>'
-        ) +
-        '<abbr title="Estimated Economic Loss Histogram">Economic Loss</abbr>' +
-      '</li>' +
-      '<li class="mmi">' +
-        '<span>' + maxmmi + '</span>' +
-        '<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
-      '</li>' +
-      '<li>' +
-        EventModulePage.prototype.getCatalogSummary.call(null, product) +
-      '</li>' +
-      '<li class="summary-hide">' +
-        Attribution.getContributorReference(product.source) +
-        '<abbr title="LossPAGER Data Source">Source</abbr>' +
+      '<li class="impact-bubbles">' +
+        '<span class="pager-alertlevel-' + alertlevel + '">' +
+          '<strong class="roman">' + alertlevel.toUpperCase() + '</strong>' +
+          '<br/>' +
+          '<abbr title="Alert Level">Alert</abbr>' +
+        '</span>' +
       '</li>' +
     '</ul>';
 };
@@ -365,15 +335,12 @@ _getShakeMapSummary = function (product) {
   thumbnail = contents['download/intensity.jpg'];
 
   return '<ul>' +
-      '<li class="image">' +
-        (thumbnail ?
-            '<img src="' + thumbnail.url +
-              '" alt="ShakeMap Intensity Map" />'
-            : '&ndash;') +
-      '</li>' +
-      '<li class="mmi">' +
-        '<span>' + maxmmi + '</span>' +
-        '<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
+      '<li class="impact-bubbles">' +
+        '<span class="mmi' + maxmmi + '">' +
+          '<strong class="roman">' + maxmmi + '</strong>' +
+          '<br/>' +
+          '<abbr title="Modified Mercalli Intenisty">MMI</abbr>' +
+        '</span>' +
       '</li>' +
       '<li>' +
         '<span>' + _formatter.magnitude(properties.magnitude) + '</span>' +
