@@ -19,7 +19,7 @@ var DEFAULTS = {
       className: 'scientific/ScientificSummaryPage',
       dependencyBundle: 'modules/scientific/index.js',
       options: {
-        title: 'Summary',
+        title: '',
         hash: 'summary'
       },
       productTypes: [

@@ -19,7 +19,7 @@ var DEFAULTS = {
       className: 'impact/ImpactSummaryPage',
       dependencyBundle: 'modules/impact/index.js',
       options: {
-        title: 'Summary',
+        title: '',
         hash: 'summary'
       },
       productTypes: [
