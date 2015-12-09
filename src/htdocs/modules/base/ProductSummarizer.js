@@ -140,19 +140,21 @@ getDYFISummary = function (product) {
   maxmmi = ImpactUtil.translateMmi(maxmmi);
   thumbnail = contents[eventId + '_ciim.jpg'];
 
-  return '<ul>' +
-      '<li class="impact-bubbles">' +
-        '<span class="mmi' + maxmmi + '">' +
-          '<strong class="roman">' + maxmmi + '</strong>' +
-          '<br/>' +
-          '<abbr title="Community Determined Intensity">CDI</abbr>' +
-        '</span>' +
-      '</li>' +
-      '<li>' +
-        '<span>' + properties['num-responses'] + '</span>' +
-        '<abbr title="Number of Responses">Responses</abbr>' +
-      '</li>' +
-    '</ul>';
+  return [
+    '<ul>',
+      '<li class="impact-bubbles">',
+        '<span class="mmi', maxmmi, '">',
+          '<strong class="roman">', maxmmi, '</strong>',
+          '<br/>',
+          '<abbr title="Community Determined Intensity">CDI</abbr>',
+        '</span>',
+      '</li>',
+      '<li>',
+        '<span>', properties['num-responses'], '</span>',
+        '<abbr title="Number of Responses">Responses</abbr>',
+      '</li>',
+    '</ul>'
+  ].join('');
 };
 
 /**
@@ -171,15 +173,17 @@ getFiniteFaultSummary = function (product) {
 
   basemap = product.contents['basemap.png'];
 
-  return '<ul>' +
-      '<li class="image">' +
-        '<img src="' + basemap.url + '" alt="Finite Fault" />' +
-      '</li>' +
-      '<li>' +
-        Attribution.getContributorReference(product.source) +
-        '<abbr title="Finite Fault Data Source">Source</abbr>' +
-      '</li>' +
-    '</ul>';
+  return [
+    '<ul>',
+      '<li class="image">',
+        '<img src="', basemap.url, '" alt="Finite Fault" />',
+      '</li>',
+      '<li>',
+        Attribution.getContributorReference(product.source),
+        '<abbr title="Finite Fault Data Source">Source</abbr>',
+      '</li>',
+    '</ul>'
+  ].join('');
 };
 
 /**
@@ -213,45 +217,44 @@ getFocalMechanismSummary = function (product) {
   beachBall = _getBeachBall(tensor);
 
   return [
-        '<ul>',
-          '<li class="image">',
-            '<img src="', beachBall, '" ',
-                'alt="Focal Mechanism Beachball (' + tensor.code + ')"/>',
-          '</li>',
-          '<li class="wider">',
-            '<span>',
-              '(',
-              (np1 ?
-                  Math.round(np1.strike) + '<i>,</i>' +
-                  Math.round(np1.dip) + '<i>,</i>' +
-                  Math.round(np1.rake) :
-                  '&ndash;'),
-              ')',
-            '</span>',
-            '<abbr title="Nodal Plane 1">',
-              'Strike<i>,</i>Dip<i>,</i>Rake</abbr>',
-            '</abbr>',
-          '</li>',
-          '<li class="wider">',
-            '<span>',
-              '(',
-              (np2 ?
-                  Math.round(np2.strike) + '<i>,</i>' +
-                  Math.round(np2.dip) + '<i>,</i>' +
-                  Math.round(np2.rake) :
-                  '&ndash;'),
-              ')',
-            '</span>',
-            '<abbr title="Nodal Plane 2">',
-              'Strike<i>,</i>Dip<i>,</i>Rake</abbr>',
-            '</abbr>',
-          '</li>',
-          '<li>',
-            Attribution.getContributorReference(source),
-            '<abbr title="', Attribution.getName(source),
-                '">Source</abbr>',
-          '</li>',
-        '</ul>',
+    '<ul>',
+      '<li class="image">',
+        '<img src="', beachBall, '" ',
+            'alt="Focal Mechanism Beachball (' + tensor.code + ')"/>',
+      '</li>',
+      '<li class="wider">',
+        '<span>',
+          '(',
+          (np1 ?
+              Math.round(np1.strike) + '<i>,</i>' +
+              Math.round(np1.dip) + '<i>,</i>' +
+              Math.round(np1.rake) :
+              '&ndash;'),
+          ')',
+        '</span>',
+        '<abbr title="Nodal Plane 1">',
+          'Strike<i>,</i>Dip<i>,</i>Rake</abbr>',
+        '</abbr>',
+      '</li>',
+      '<li class="wider">',
+        '<span>',
+          '(',
+          (np2 ?
+              Math.round(np2.strike) + '<i>,</i>' +
+              Math.round(np2.dip) + '<i>,</i>' +
+              Math.round(np2.rake) :
+              '&ndash;'),
+          ')',
+        '</span>',
+        '<abbr title="Nodal Plane 2">',
+          'Strike<i>,</i>Dip<i>,</i>Rake</abbr>',
+        '</abbr>',
+      '</li>',
+      '<li>',
+        Attribution.getContributorReference(source),
+        '<abbr title="', Attribution.getName(source), '">Source</abbr>',
+      '</li>',
+    '</ul>',
   ].join('');
 };
 
@@ -273,15 +276,17 @@ getLossPAGERSummary = function (product) {
   properties = product.properties || {};
   alertlevel = properties.alertlevel;
 
-  return '<ul>' +
-      '<li class="impact-bubbles">' +
-        '<span class="pager-alertlevel-' + alertlevel + '">' +
-          '<strong class="roman">' + alertlevel.toUpperCase() + '</strong>' +
-          '<br/>' +
-          '<abbr title="Alert Level">Alert</abbr>' +
-        '</span>' +
-      '</li>' +
-    '</ul>';
+  return [
+    '<ul>',
+      '<li class="impact-bubbles">',
+        '<span class="pager-alertlevel-', alertlevel, '">',
+          '<strong class="roman">', alertlevel.toUpperCase(), '</strong>',
+          '<br/>',
+          '<abbr title="Alert Level">Alert</abbr>',
+        '</span>',
+      '</li>',
+    '</ul>'
+  ].join('');
 };
 
 /**
@@ -331,34 +336,32 @@ getMomentTensorSummary = function (product) {  var beachBall,
   }).getCanvas().toDataURL();
 
   return [
-        '<ul>',
-          '<li class="image">',
-            (tensor !== null ?
-                '<img src="' + beachBall + '" ' +
-                    'alt="Moment Tensor Beachball (' + code + ')"/>' :
-                code),
-          '</li>',
-          '<li>',
-            '<span>', type, '</span>',
-            '<abbr title="Tensor Type">Type</abbr>',
-          '</li>',
-          '<li>',
-            '<span>', magnitude, '</span>',
-            '<abbr title="Magnitude">Mag</abbr>',
-          '</li>',
-          '<li>',
-            '<span>', depth, '<span class="units">km</span></span>',
-            '<abbr title="Depth (km)">Depth</abbr>',
-          '</li>',
-          '<li>',
-            '<span>', percentDC, '</span>',
-            '<abbr title="Percent Double Couple">% DC</abbr>',
-          '</li>',
-          '<li>',
-            Attribution.getContributorReference(source),
-            '<abbr title="Moment Tensor Data Source">Source</abbr>',
-          '</li>',
-        '</ul>'
+    '<ul>',
+      '<li class="image">',
+        (tensor === null ? code : '<img src="' + beachBall +
+            '" alt="Moment Tensor Beachball (' + code + ')"/>'),
+      '</li>',
+      '<li>',
+        '<span>', type, '</span>',
+        '<abbr title="Tensor Type">Type</abbr>',
+      '</li>',
+      '<li>',
+        '<span>', magnitude, '</span>',
+        '<abbr title="Magnitude">Mag</abbr>',
+      '</li>',
+      '<li>',
+        '<span>', depth, '<span class="units">km</span></span>',
+        '<abbr title="Depth (km)">Depth</abbr>',
+      '</li>',
+      '<li>',
+        '<span>', percentDC, '</span>',
+        '<abbr title="Percent Double Couple">% DC</abbr>',
+      '</li>',
+      '<li>',
+        Attribution.getContributorReference(source),
+        '<abbr title="Moment Tensor Data Source">Source</abbr>',
+      '</li>',
+    '</ul>'
   ].join('');
 };
 
@@ -393,32 +396,34 @@ getOriginSummary = function (product) {
   magnitudeSource = p['magnitude-source'] || product.source;
 
 
-  return '<ul>' +
-        '<li>' +
-          '<span>' + magnitude + '</span>' +
-          '<abbr title="Magnitude">Mag</abbr>' +
-        '</li>' +
-        '<li>' +
-          '<span>' + magnitudeType + '</span>' +
-          '<abbr title="Magnitude Type">Type</abbr>' +
-        '</li>' +
-        '<li>' +
-          '<span>' + depth + '</span>' +
-          '<abbr title="Depth (km)">Depth</abbr>' +
-        '</li>' +
-        '<li>' +
-          EventModulePage.prototype.getCatalogSummary.call(null, product) +
-        '</li>' +
-        '<li>' +
-          (originSource === magnitudeSource ?
-            Attribution.getContributorReference(originSource) :
-            '<span>' +
-              Attribution.getContributorReference(originSource) + ', ' +
-              Attribution.getContributorReference(magnitudeSource) +
-            '</span>') +
-          '<abbr title="Location and Magnitude Data Source">Source</abbr>' +
-        '</li>' +
-      '</ul>';
+  return [
+    '<ul>',
+      '<li>',
+        '<span>', magnitude, '</span>',
+        '<abbr title="Magnitude">Mag</abbr>',
+      '</li>',
+      '<li>',
+        '<span>', magnitudeType, '</span>',
+        '<abbr title="Magnitude Type">Type</abbr>',
+      '</li>',
+      '<li>',
+        '<span>', depth, '</span>',
+        '<abbr title="Depth (km)">Depth</abbr>',
+      '</li>',
+      '<li>',
+        EventModulePage.prototype.getCatalogSummary.call(null, product),
+      '</li>',
+      '<li>',
+        (originSource === magnitudeSource ?
+          Attribution.getContributorReference(originSource) :
+          '<span>' +
+            Attribution.getContributorReference(originSource) + ', ' +
+            Attribution.getContributorReference(magnitudeSource) +
+          '</span>'),
+        '<abbr title="Location and Magnitude Data Source">Source</abbr>',
+      '</li>',
+    '</ul>'
+  ].join('');
 };
 
 /**
@@ -446,7 +451,7 @@ getProductSummary = function (type, hash, name, eventDetails) {
   products = allProducts[type];
 
   if (type === 'origin' || type === 'phase-data') {
-    products = getOriginProducts(allProducts);
+    products = _getOriginProducts(allProducts);
     summary = getOriginSummary(products[0]);
   } else if (type === 'dyfi') {
     summary = getDYFISummary(products[0]);
@@ -496,26 +501,28 @@ getShakeMapSummary = function (product) {
   maxmmi = ImpactUtil.translateMmi(maxmmi);
   thumbnail = contents['download/intensity.jpg'];
 
-  return '<ul>' +
-      '<li class="impact-bubbles">' +
-        '<span class="mmi' + maxmmi + '">' +
-          '<strong class="roman">' + maxmmi + '</strong>' +
-          '<br/>' +
-          '<abbr title="Modified Mercalli Intenisty">MMI</abbr>' +
-        '</span>' +
-      '</li>' +
-      '<li>' +
-        '<span>' + _formatter.magnitude(properties.magnitude) + '</span>' +
-        '<abbr title="Magnitude">Mag</abbr>' +
-      '</li>' +
-      '<li>' +
-        EventModulePage.prototype.getCatalogSummary.call(null, product) +
-      '</li>' +
-      '<li>' +
-        Attribution.getContributorReference(product.source) +
-        '<abbr title="ShakeMap Data Source">Source</abbr>' +
-      '</li>' +
-    '</ul>';
+  return [
+    '<ul>' +
+      '<li class="impact-bubbles">',
+        '<span class="mmi', maxmmi, '">',
+          '<strong class="roman">', maxmmi, '</strong>',
+          '<br/>',
+          '<abbr title="Modified Mercalli Intenisty">MMI</abbr>',
+        '</span>',
+      '</li>',
+      '<li>',
+        '<span>', _formatter.magnitude(properties.magnitude), '</span>',
+        '<abbr title="Magnitude">Mag</abbr>',
+      '</li>',
+      '<li>',
+        EventModulePage.prototype.getCatalogSummary.call(null, product),
+      '</li>',
+      '<li>',
+        Attribution.getContributorReference(product.source),
+        '<abbr title="ShakeMap Data Source">Source</abbr>',
+      '</li>',
+    '</ul>'
+  ].join('');
 };
 
 
