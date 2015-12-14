@@ -100,7 +100,7 @@ var RESPONSE_DATA_COLUMNS = [
     className: 'dyfi-response-distance',
     title: 'Distance',
     format: function (response) {
-      return response.dist;
+      return response.dist + ' km';
     }
   },
   {
