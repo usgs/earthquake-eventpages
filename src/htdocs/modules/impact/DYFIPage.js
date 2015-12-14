@@ -6,6 +6,7 @@ var Attribution = require('base/Attribution'),
     Formatter = require('base/Formatter'),
     ProductSummarizer = require('base/ProductSummarizer'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
+    ImpactFormatter = require('impact/Formatter'),
     ImpactUtil = require('base/ImpactUtil'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util'),
@@ -92,6 +93,20 @@ var RESPONSE_DATA_COLUMNS = [
     title: 'Distance',
     format: function (response) {
       return response.dist;
+    }
+  },
+  {
+    className: 'dyfi-response-latitude',
+    title: 'Latitude',
+    format: function (response) {
+      return ImpactFormatter.latitude(response.lat);
+    }
+  },
+  {
+    className: 'dyfi-response-longitude',
+    title: 'Longitude',
+    format: function (response) {
+      return ImpactFormatter.longitude(response.lon);
     }
   }
 ];
