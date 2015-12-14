@@ -58,17 +58,25 @@ var MAP_GRAPH_IMAGES = [
 
 var RESPONSE_DATA_COLUMNS = [
   {
-    className: 'dyfi-response-location',
-    title: 'Location',
+    className: 'dyfi-response-state',
+    title: 'State',
     format: function (response) {
-      return response.name + ', ' + response.state + ' ' + response.zip +
-          '<small>' + response.country + '</small>';
-    },
-    downloadFormat: function (response) {
-      return response.name + ', ' + response.state + ' ' + response.zip +
-          response.country;
-    },
-    header: true
+      return response.state;
+    }
+  },
+  {
+    className: 'dyfi-response-zip-name',
+    title: 'ZIP Name',
+    format: function (response) {
+      return response.name;
+    }
+  },
+  {
+    className: 'dyfi-response-zip-code',
+    title: 'ZIP Code',
+    format: function (response) {
+      return response.zip;
+    }
   },
   {
     className: 'dyfi-response-mmi',
