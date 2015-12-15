@@ -331,16 +331,16 @@ DYFIPage.prototype._buildResponsesCollection = function (xmlDoc) {
 DYFIPage.prototype._addToggleButton = function (container, table) {
   var button = container.appendChild(document.createElement('button'));
 
-  button.innerHTML = 'See All Responses';
+  button.innerHTML = 'Show All Locations';
   button.className = 'view-all';
 
   button.addEventListener('click', function (/*evt*/) {
     if (table.classList.contains('full-list')) {
       table.classList.remove('full-list');
-      button.innerHTML = 'Show All Responses';
+      button.innerHTML = 'Show All Locations';
     } else {
       table.classList.add('full-list');
-      button.innerHTML = 'Show Only 10 Responses';
+      button.innerHTML = 'Show Only 10 Locations';
     }
   });
 };
