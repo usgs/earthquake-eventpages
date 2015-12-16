@@ -19,6 +19,8 @@ var DEFAULTS = {
   hash: 'dyfi'
 };
 
+var formatter = new Formatter();
+
 /* sets up titles and images for tabs */
 var MAP_GRAPH_IMAGES = [
   {
@@ -106,14 +108,14 @@ var RESPONSE_DATA_COLUMNS = [
     className: 'dyfi-response-latitude',
     title: 'Latitude',
     format: function (response) {
-      return new Formatter().formatLatitude(response.lat);
+      return formatter.formatLatitude(response.lat);
     }
   },
   {
     className: 'dyfi-response-longitude',
     title: 'Longitude',
     format: function (response) {
-      return new Formatter().formatLongitude(response.lon);
+      return formatter.formatLongitude(response.lon);
     }
   }
 ];
