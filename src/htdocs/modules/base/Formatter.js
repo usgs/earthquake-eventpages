@@ -123,6 +123,58 @@ Formatter.prototype.depth = function (depth, units, error) {
 };
 
 /**
+ * Format a latitude
+ * @param latitude {Number}
+ *        the latitude.
+ * @return {String} formatted string.
+ */
+Formatter.prototype.formatLatitude = function (latitude) {
+  var latDir,
+      decimals;
+
+  latDir = (latitude > 0 ? 'N' : 'S');
+  decimals = this._options.locationDecimals;
+
+  // already have sign information, abs before rounding
+  latitude = Math.abs(latitude);
+
+  // round to configured number of decimals
+  if (typeof decimals === 'number') {
+    latitude = latitude.toFixed(decimals);
+  }
+
+  return [
+    latitude, '&nbsp;&deg;', latDir
+  ].join('');
+};
+
+/**
+ * Format a longitude
+ * @param longitude {Number}
+ *        the longitude.
+ * @return {String} formatted string.
+ */
+Formatter.prototype.formatLongitude = function (longitude) {
+  var lngDir,
+      decimals;
+
+  lngDir = (longitude > 0 ? 'N' : 'S');
+  decimals = this._options.locationDecimals;
+
+  // already have sign information, abs before rounding
+  longitude = Math.abs(longitude);
+
+  // round to configured number of decimals
+  if (typeof decimals === 'number') {
+    longitude = longitude.toFixed(decimals);
+  }
+
+  return [
+    longitude, '&nbsp;&deg;', lngDir
+  ].join('');
+};
+
+/**
  * Format a latitude and longitude.
  *
  * @param latitude {Number}
@@ -132,21 +184,10 @@ Formatter.prototype.depth = function (depth, units, error) {
  * @return {String} formatted string.
  */
 Formatter.prototype.location = function (latitude, longitude) {
-  var latDir = (latitude > 0 ? 'N' : 'S'),
-      lonDir = (longitude > 0 ? 'E' : 'W'),
-      decimals = this._options.locationDecimals;
-  // already have sign information, abs before rounding
-  latitude = Math.abs(latitude);
-  longitude = Math.abs(longitude);
-  // round to configured number of decimals
-  if (typeof decimals === 'number') {
-    latitude = latitude.toFixed(decimals);
-    longitude = longitude.toFixed(decimals);
-  }
   return [
-      latitude, '&deg;', latDir,
-      ' ',
-      longitude, '&deg;', lonDir
+      this.formatLatitude(latitude),
+      '&nbsp',
+      this.formatLongitude(longitude)
   ].join('');
 };
 
