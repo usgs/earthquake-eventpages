@@ -155,10 +155,10 @@ Formatter.prototype.formatLatitude = function (latitude) {
  * @return {String} formatted string.
  */
 Formatter.prototype.formatLongitude = function (longitude) {
-  var lngDir,
+  var lonDir,
       decimals;
 
-  lngDir = (longitude > 0 ? 'N' : 'S');
+  lonDir = (longitude > 0 ? 'E' : 'W');
   decimals = this._options.locationDecimals;
 
   // already have sign information, abs before rounding
@@ -170,7 +170,7 @@ Formatter.prototype.formatLongitude = function (longitude) {
   }
 
   return [
-    longitude, '&nbsp;&deg;', lngDir
+    longitude, '&nbsp;&deg;', lonDir
   ].join('');
 };
 
