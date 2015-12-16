@@ -3,17 +3,21 @@
 var Attribution = require('base/Attribution'),
     EventModulePage = require('base/EventModulePage'),
     Formatter = require('base/Formatter'),
+    NearbyCitiesView = require('geoserve/NearbyCitiesView'),
     StaticMap = require('map/StaticMap'),
+    Model = require('mvc/Model'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
+var PLACES_URL = 'http://dev-earthquake.cr.usgs.gov/ws/geoserve/places.json';
+var REGIONS_URL = 'http://dev-earthquake.cr.usgs.gov/ws/geoserve/regions.json';
 
 var SummaryPage = function (options) {
   this._formatter = new Formatter();
   EventModulePage.call(this, options);
 };
-SummaryPage.prototype = Object.create(EventModulePage.prototype);
 
+SummaryPage.prototype = Object.create(EventModulePage.prototype);
 
 SummaryPage.prototype._setContentMarkup = function () {
   var content = this._content,
@@ -40,6 +44,10 @@ SummaryPage.prototype._setContentMarkup = function () {
   content.querySelector('.summary-time').appendChild(this._getTime());
   content.appendChild(this._getLinks());
 
+  // clear existing place/region info
+  this._geoserve = Model();
+  this._geoserve.on('change:places', '_buildNearbyCities', this);
+
   this._loadNearbyCities();
   this._loadTectonicSummary();
 
@@ -51,6 +59,53 @@ SummaryPage.prototype._setContentMarkup = function () {
   this._loadTextualContent(generalHeader, 'general-header', null);
   this._loadTextualContent(impactText, 'impact-text', null);
   this._loadTextualContent(generalText, 'general-text', null);
+};
+
+/**
+ * Set this.geoserve with places and region data based on lat/lon
+ */
+SummaryPage.prototype._getGeoserve = function () {
+   var latitude,
+       longitude,
+       _this;
+
+  _this = this;
+
+  // get location
+  latitude = this._event.geometry.coordinates[1];
+  longitude = this._event.geometry.coordinates[0];
+
+
+  if (latitude !== null && longitude !== null) {
+    // request nearby
+    Xhr.ajax({
+      url: PLACES_URL,
+      data: {
+        latitude: latitude,
+        longitude: longitude,
+        type: 'event'
+      },
+      success: function (data) {
+        _this._geoserve.set({
+          places: data
+        });
+      }
+    });
+
+    // request region information
+    Xhr.ajax({
+      url: REGIONS_URL,
+      data: {
+        latitude: latitude,
+        longitude: longitude
+      },
+      success: function (data) {
+        _this._geoserve.set({
+          regions: data
+        });
+      }
+    });
+  }
 };
 
 
@@ -206,9 +261,10 @@ SummaryPage.prototype._getTime = function () {
  * Load nearby cities information.
  *
  * Attempts to load from a nearby-cities product.
- * If no such product is found, call _loadAutomaticNearbyCities().
+ * If no such product is found, call _getGeoserve() to retreive the 
+ * nearby cities from the geoserve ws.
  *
- * Once load is complete (error or not), _setNearbyCities is called.
+ * Once load is complete (data or not), _buildNearbyCities is called.
  */
 SummaryPage.prototype._loadNearbyCities = function () {
   var i,
@@ -224,7 +280,7 @@ SummaryPage.prototype._loadNearbyCities = function () {
   nearbyCities = products['nearby-cities'];
   if (!nearbyCities) {
     // no nearby cities products
-    this._loadAutomaticNearbyCities();
+    this._getGeoserve();
     return;
   }
 
@@ -249,82 +305,34 @@ SummaryPage.prototype._loadNearbyCities = function () {
   Xhr.ajax({
     url: product.contents['nearby-cities.json'].url,
     success: function (cities) {
-      this._setNearbyCities(cities, product);
+      this._formatNearbyCities(cities);
     }.bind(this),
     error: function () {
-      this._setNearbyCities(null, product);
       throw new Error('Failed to load nearby cities.');
     }.bind(this)
   });
 };
 
 /**
- * Load automatic list of nearby cities.
- *
- * Currently geoserve product, eventually geoserve webservice.
- *
- * Once load is complete (error or not), _setNearbyCities is called.
+ * Build NearbyCitiesView from the hazdev-geoserve-ws project.
+ * 
+ * If no data is available a default message is displayed
  */
-SummaryPage.prototype._loadAutomaticNearbyCities = function () {
-  var geoserve,
-      product;
-
-  geoserve = this._event.properties.products.geoserve;
-  if (!geoserve) {
-    this._setNearbyCities(null, null);
-    return;
-  }
-
-  product = geoserve[0];
-  Xhr.ajax({
-    url: product.contents['geoserve.json'].url,
-    success: function (geoserve) {
-      this._setNearbyCities(geoserve.cities, product);
-    }.bind(this),
-    error: function () {
-      this._setNearbyCities(null, product);
-      throw new Error('Failed to load nearby cities from geoserve');
-    }.bind(this)
+SummaryPage.prototype._buildNearbyCities = function () {
+  NearbyCitiesView({
+    el: this._content.querySelector('.summary-nearby-cities'),
+    header: '<h3>Nearby Places</h3>',
+    model: this._geoserve
+    //noDataMessage: '<p class="alert info">Nearby city data not available.</p>'
   });
 };
 
 /**
- * Set the nearby cities to be displayed.
+ * Massage data from nearby-cities product into the same model object
+ * that NearbyCitiesView expects.
  *
- * Inject result of _formatNearbyCities into nearby-cities element.
- *
- * @param cities {Array<Object>}
- *        array of city objects with properties:
- *          city.distance {Number} distance in km.
- *          city.direction {String} compass direction from city to event.
- *          city.name {String} city name.
- *        null if there are no cities.
- * @param product {Product}
- *        the source of the cities.
- *        null if there is no product.
- */
-SummaryPage.prototype._setNearbyCities = function (cities, product) {
-  var content,
-      el;
-  el = this._content.querySelector('.summary-nearby-cities');
-  if (el === null) {
-    return;
-  }
-
-  content = this._formatNearbyCities(cities, product);
-  if (!content.firstChild) {
-    // empty
-    Util.detach(el);
-  } else {
-    el.appendChild(content);
-  }
-};
-
-/**
- * Create content for nearby cities section.
- *
- * @param cities {Array<Object>}
- *        array of city objects with properties:
+ * @param data {Array<Object>}
+ *        array of cities objects with properties:
  *          city.distance {Number} distance in km.
  *          city.direction {String} compass direction from city to event.
  *          city.name {String} city name.
@@ -335,35 +343,30 @@ SummaryPage.prototype._setNearbyCities = function (cities, product) {
  * @return {DOMFragment}
  *         nearby cities content.
  */
-SummaryPage.prototype._formatNearbyCities = function (cities /*,product*/) {
-  var fragment,
-      formatter = this._formatter,
-      header,
-      list;
+SummaryPage.prototype._formatNearbyCities = function (data) {
+  var cities,
+      properties;
 
-  fragment = document.createDocumentFragment();
-
-  if (cities) {
-    header = document.createElement('h3');
-    header.innerHTML = 'Nearby Cities';
-
-    list = document.createElement('ol');
-    list.classList.add('no-style');
-    list.classList.add('nearbyCities');
-    list.innerHTML = cities.map(function (city) {
-      return '<li>' +
-          city.distance + 'km ' +
-              '(' + Math.round(formatter.kmToMi(city.distance)) + 'mi) ' +
-          city.direction +
-          ' of ' + city.name +
-          '</li>';
-    }).join('');
-
-    fragment.appendChild(header);
-    fragment.appendChild(list);
+  if (data) {
+    cities = data.map(function (city) {
+      properties = {};
+      properties.azimuth = city.direction;
+      properties.distance = city.distance;
+      properties.name = city.name;
+      properties.population = city.population;
+      return {'properties': properties};
+    });
   }
 
-  return fragment;
+  // set the massaged nearby cities array 
+  this._geoserve.set({
+    'places': {
+      'event': {
+        'count': cities.length,
+        'features': cities
+      }
+    }
+  });
 };
 
 
