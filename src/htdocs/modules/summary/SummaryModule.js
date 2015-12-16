@@ -66,7 +66,7 @@ SummaryModule.prototype.getNavigationItems = function (hash) {
   var markUp = EventModule.prototype.getNavigationItems.call(this, hash);
 
   if ( this._kmlUrl ) {
-    markUp.push('<a href="' + this._kmlUrl + '">Google Earth KML</a>');
+    markUp.push('<a href="' + this._kmlUrl + '">Download KML</a>');
   }
 
   return markUp;
