@@ -4,6 +4,7 @@ var Attribution = require('base/Attribution'),
     EventModulePage = require('base/EventModulePage'),
     Formatter = require('base/Formatter'),
     NearbyCitiesView = require('geoserve/NearbyCitiesView'),
+    TectonicSummaryView = require('geoserve/TectonicSummaryView'),
     StaticMap = require('map/StaticMap'),
     Model = require('mvc/Model'),
     Util = require('util/Util'),
@@ -44,9 +45,10 @@ SummaryPage.prototype._setContentMarkup = function () {
   content.querySelector('.summary-time').appendChild(this._getTime());
   content.appendChild(this._getLinks());
 
-  // clear existing place/region info
+  // reset the model, bind to place and region changes
   this._geoserve = Model();
-  this._geoserve.on('change:places', '_buildNearbyCities', this);
+  this._geoserve.on('change:places', '_buildNearbyCitiesView', this);
+  this._geoserve.on('change:regions', '_buildTectonicSummaryView', this);
 
   this._loadNearbyCities();
   this._loadTectonicSummary();
@@ -107,7 +109,6 @@ SummaryPage.prototype._getGeoserve = function () {
     });
   }
 };
-
 
 /**
  * Create content for location section.
@@ -213,7 +214,6 @@ SummaryPage.prototype._getLocationCaption = function () {
   return el;
 };
 
-
 /**
  * Create content for time section.
  *
@@ -255,7 +255,6 @@ SummaryPage.prototype._getTime = function () {
 
   return fragment;
 };
-
 
 /**
  * Load nearby cities information.
@@ -318,7 +317,7 @@ SummaryPage.prototype._loadNearbyCities = function () {
  * 
  * If no data is available a default message is displayed
  */
-SummaryPage.prototype._buildNearbyCities = function () {
+SummaryPage.prototype._buildNearbyCitiesView = function () {
   NearbyCitiesView({
     el: this._content.querySelector('.summary-nearby-cities'),
     header: '<h3>Nearby Places</h3>',
@@ -337,11 +336,6 @@ SummaryPage.prototype._buildNearbyCities = function () {
  *          city.direction {String} compass direction from city to event.
  *          city.name {String} city name.
  *        null if there are no cities.
- * @param product {Product}
- *        the source of the cities.
- *        null if there is no product.
- * @return {DOMFragment}
- *         nearby cities content.
  */
 SummaryPage.prototype._formatNearbyCities = function (data) {
   var cities,
@@ -369,7 +363,6 @@ SummaryPage.prototype._formatNearbyCities = function (data) {
   });
 };
 
-
 /**
  * Load tectonic summary information.
  *
@@ -385,122 +378,56 @@ SummaryPage.prototype._loadTectonicSummary = function () {
   tectonicSummaries = this._event.properties.products['tectonic-summary'];
   if (!tectonicSummaries) {
     // no tectonic summary products
-    this._loadAutomaticTectonicSummary();
+    this._getGeoserve();
     return;
   }
 
   // load tectonic summary product
   product = tectonicSummaries[0];
+
   Xhr.ajax({
     url: product.contents['tectonic-summary.inc.html'].url,
     success: function (summary) {
-      this._setTectonicSummary(summary, product);
+      this._formatTectonicSummary(summary);
     }.bind(this),
     error: function () {
-      this._setTectonicSummary(null, product);
       throw new Error('Failed to load tectonic summary.');
     }.bind(this)
   });
 };
 
 /**
- * Load automatic list of nearby cities.
+ * Build TectonicSummaryView from the hazdev-geoserve-ws project.
  *
- * Currently geoserve product, eventually geoserve webservice.
- *
- * Once load is complete (error or not), _setNearbyCities is called.
+ * If no data is available a default message is displayed
  */
-SummaryPage.prototype._loadAutomaticTectonicSummary = function () {
-  var geoserve,
-      product;
-
-  geoserve = this._event.properties.products.geoserve;
-  if (!geoserve) {
-    this._setNearbyCities(null, null);
-    return;
-  }
-
-  product = geoserve[0];
-  Xhr.ajax({
-    url: product.contents['geoserve.json'].url,
-    success: function (geoserve) {
-      var summary;
-      try {
-        summary = geoserve.tectonicSummary.text;
-      } catch (e) {
-        summary = null;
-      }
-      this._setTectonicSummary(summary, product);
-    }.bind(this),
-    error: function () {
-      this._setTectonicSummary(null, product);
-      throw new Error('Failed to load nearby cities from geoserve');
-    }.bind(this)
+SummaryPage.prototype._buildTectonicSummaryView = function () {
+  TectonicSummaryView({
+    el: this._content.querySelector('.summary-tectonic-summary'),
+    header: null,
+    model: this._geoserve,
+    noDataMessage: null
   });
 };
 
 /**
- * Set the nearby cities to be displayed.
+ * Set the tectonic summary to be displayed.
  *
- * Inject result of _formatNearbyCities into nearby-cities element.
- *
- * @param cities {Array<Object>}
- *        array of city objects with properties:
- *          city.distance {Number} distance in km.
- *          city.direction {String} compass direction from city to event.
- *          city.name {String} city name.
- *        null if there are no cities.
- * @param product {Product}
- *        the source of the cities.
- *        null if there is no product.
+ * @param summary {String} tectonic summary text.
  */
-SummaryPage.prototype._setTectonicSummary = function (cities, product) {
-  var content,
-      el;
-  el = this._content.querySelector('.summary-tectonic-summary');
-  if (el === null) {
-    return;
-  }
-
-  content = this._formatTectonicSummary(cities, product);
-  if (!content.firstChild) {
-    // empty
-    Util.detach(el);
-  } else {
-    el.appendChild(content);
-  }
-};
-
-/**
- * Create content for tectonic summary section.
- *
- * @param summary {String}
- *        tectonic summary markup.
- *        null if there is no tectonic summary.
- * @param product {Product}
- *        the source of the cities.
- *        null if there is no product.
- * @return {DOMFragment}
- *         tectonic summary content.
- */
-SummaryPage.prototype._formatTectonicSummary = function (summary /*,product*/) {
-  var fragment,
-      el;
-
-  fragment = document.createDocumentFragment();
-
-  if (summary) {
-    el = document.createElement('div');
-    el.innerHTML = summary;
-    while (el.firstChild) {
-      fragment.appendChild(el.firstChild);
+SummaryPage.prototype._formatTectonicSummary = function (summary) {
+  this._geoserve.set({
+    'regions': {
+      'tectonic': {
+        'features': [{
+          'properties': {
+            'summary': summary
+          }
+        }]
+      }
     }
-    el = null;
-  }
-
-  return fragment;
+  });
 };
-
 
 SummaryPage.prototype._loadTextualContent = function (el, type) {
   var content;
