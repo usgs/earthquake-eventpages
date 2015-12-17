@@ -8,7 +8,7 @@ if (!isset($TEMPLATE)) {
   $COOPERATORS = ' ';
 
   $HEAD = '
-    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
   ';
 
   $eventid = param('eventid');
@@ -87,7 +87,7 @@ if (!isset($TEMPLATE)) {
       'var EventDetails = ' . json_encode($EVENT) . ';' .
     '</script>' .
     /* this script creates EventPage using EventConfig, EventDetails */
-    '<script src="/js/index.js"></script>';
+    '<script src="js/index.js"></script>';
 
   // cache control headers
   $now = time();
