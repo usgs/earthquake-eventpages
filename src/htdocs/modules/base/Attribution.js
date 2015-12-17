@@ -467,7 +467,6 @@ var Attribution = {
   },
 
   getContributorList: function () {
-
     var listMarkup = [],
         source;
 
@@ -546,6 +545,10 @@ var Attribution = {
     } else {
         return title;
     }
+  },
+
+  getURL: function (id) {
+    return this.getContributor(id).url;
   }
 };
 
