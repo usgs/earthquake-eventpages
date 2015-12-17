@@ -20,11 +20,15 @@ var MMI_COLORS = [
   '#C80F0A'   // XII
 ];
 
+var DEFAULT = {
+  'empty': '&ndash;'
+};
 
-var translateMmi = function (mmi) {
+
+var translateMmi = function (mmi, empty) {
   mmi = Math.round(mmi);
 
-  return MMI_ARRAY[mmi] || '';
+  return MMI_ARRAY[mmi] || empty || DEFAULT.empty;
 };
 
 
