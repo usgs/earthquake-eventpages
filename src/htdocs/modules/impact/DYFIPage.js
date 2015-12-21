@@ -6,13 +6,11 @@ var Attribution = require('base/Attribution'),
     Formatter = require('base/Formatter'),
     ProductSummarizer = require('base/ProductSummarizer'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
+    SvgImageMap = require('svgimagemap/SvgImageMap'),
     ImpactUtil = require('base/ImpactUtil'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util'),
-    Xhr = require('util/Xhr'),
-
-    TabListUtil = require('./TabListUtil');
-
+    Xhr = require('util/Xhr');
 
 var DEFAULTS = {
   productTypes: ['dyfi'],
@@ -141,15 +139,15 @@ var RESPONSE_DATA_SORTS = [
   }
 ];
 
-
 /* creates map page and sets up the content */
 var DYFIPage = function (options) {
-  options = Util.extend({}, DEFAULTS, options || {});
+  this._options = Util.extend({}, DEFAULTS, options || {});
   this._dyfi = null;
   this._formatter = options.formatter || new Formatter();
   this._responseTable = null;
   this._tablist = null;
-  SummaryDetailsPage.call(this, options);
+  this._eventConfig = options.eventConfig;
+  SummaryDetailsPage.call(this, this._options);
 };
 
 DYFIPage.prototype = Object.create(SummaryDetailsPage.prototype);
@@ -197,8 +195,9 @@ DYFIPage.prototype.getDetailsContent = function (dyfi) {
     this._tablist = new TabList({
       el: tablistDiv,
       tabPosition: 'top',
-      tabs: TabListUtil.CreateTabListData({
+      tabs: this._createTabListData({
         contents:dyfi.contents,
+        eventConfig: this,
         eventId:dyfi.code,
         dataObject:MAP_GRAPH_IMAGES,
         callback:this._getUseMap,
@@ -214,8 +213,91 @@ DYFIPage.prototype.getDetailsContent = function (dyfi) {
   return el;
 };
 
-DYFIPage.prototype._getSummaryMarkup = function (product) {
-  return ProductSummarizer.getDYFISummary(product);
+DYFIPage.prototype._createTabListImage = function (url, contents, imageObj, eventId, container) {
+  var eventConfig,
+      image,
+      link;
+
+  eventConfig = this._eventConfig;
+
+  var _this = this;
+
+  return function () {
+    link = document.createElement('a');
+    image = document.createElement('img');
+
+    image.src = url;
+
+    if (imageObj.hasOwnProperty('usemap') && imageObj.hasOwnProperty('mapSuffix')) {
+      link.href = '#general_map';
+
+      _this._createSvgImage(contents, imageObj, eventId, link);
+
+      link.addEventListener('click', function () {
+        eventConfig.fromDYFI = true;
+      });
+      container.appendChild(link);
+      return container;
+    }
+
+    container.appendChild(image);
+
+    return container;
+  };
+};
+
+DYFIPage.prototype._createSvgImage = function (contents, image, eventId, container) {
+  var imageKey,
+      mapKey;
+
+  imageKey = eventId + image.suffix;
+  mapKey = eventId + image.mapSuffix;
+
+  /* Sets up SVG image map if one exists */
+  new SvgImageMap({
+    el: container,
+    imageUrl: contents[imageKey].url,
+    mapUrl: contents[mapKey].url,
+    mapName: image.usemap
+  });
+};
+
+DYFIPage.prototype._createTabListData = function (options) {
+  var container,
+      contents,
+      dataObject,
+      eventId,
+      i,
+      imageObj,
+      imageName,
+      len,
+      tablist;
+
+  contents = options.contents;
+  dataObject = options.dataObject;
+  eventId = options.eventId;
+  tablist = [];
+
+  if (typeof contents !== 'object' || typeof eventId !== 'string' ||
+      typeof dataObject !== 'object') {
+    return tablist;
+  }
+
+  len = dataObject.length;
+
+  for (i = 0, len; i < len; i++) {
+    container = document.createElement('div');
+    imageObj = dataObject[i];
+    imageName = eventId + imageObj.suffix;
+
+    if(contents.hasOwnProperty(imageName)) {
+      tablist.push({
+        title: imageObj.title,
+        content: this._createTabListImage(contents[imageName].url, contents, imageObj, eventId, container, options)
+      });
+    }
+  }
+  return tablist;
 };
 
 DYFIPage.prototype._addDyfiResponsesTab = function () {
@@ -341,6 +423,10 @@ DYFIPage.prototype._addToggleButton = function (container, table) {
       button.innerHTML = 'Show Only 10 Locations';
     }
   });
+};
+
+DYFIPage.prototype._getSummaryMarkup = function (product) {
+  return ProductSummarizer.getDYFISummary(product);
 };
 
 DYFIPage.prototype._setFooterMarkup = function () {
