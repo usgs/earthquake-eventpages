@@ -44,7 +44,6 @@ require('./spec/modules/impact/ImpactModuleTest');
 require('./spec/modules/impact/DYFIPageTest');
 require('./spec/modules/impact/DYFIFormPageTest');
 require('./spec/modules/impact/ShakeMapPageTest');
-require('./spec/modules/impact/TabListUtilTest');
 require('./spec/modules/impact/PagerPageTest');
 require('./spec/modules/impact/PagerXmlParserTest');
 require('./spec/modules/scientific/HypocenterPageTest');
