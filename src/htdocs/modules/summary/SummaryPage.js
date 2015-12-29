@@ -99,7 +99,8 @@ SummaryPage.prototype._getGeoserve = function () {
       url: REGIONS_URL,
       data: {
         latitude: latitude,
-        longitude: longitude
+        longitude: longitude,
+        type: 'tectonic'
       },
       success: function (data) {
         _this._geoserve.set({
