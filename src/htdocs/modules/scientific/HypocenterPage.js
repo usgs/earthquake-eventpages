@@ -9,6 +9,7 @@ var Accordion = require('accordion/Accordion'),
     Formatter = require('base/Formatter'),
     Quakeml = require('quakeml/Quakeml'),
     TabList = require('tablist/TabList'),
+    Model = require('mvc/Model'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
@@ -167,6 +168,7 @@ var PHASE_DATA_SORTS = [
   }
 ];
 
+var REGIONS_URL = 'http://dev-earthquake.cr.usgs.gov/ws/geoserve/regions.json';
 
 
 /**
@@ -193,9 +195,12 @@ HypocenterPage.prototype = Object.create(EventModulePage.prototype);
  *
  */
 HypocenterPage.prototype.destroy = function () {
+  this._geoserve.off('change:regions', '_buildFeRegionView', this);
+
   this._options = null;
   this._phaseEl = null;
   this._quakeml = null;
+  this._geoserve = null;
 
   if (this._magnitudeEl) {
     this._magnitudeEl = null;
@@ -261,6 +266,9 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
 
   formatter = new Formatter();
 
+  this._fe = null;
+  this._el = el;
+
   if (product.phasedata) {
     product = product.phasedata;
   }
@@ -304,16 +312,135 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
     tabs: tabListContents
   });
 
-  // Update the FE region info
-  this.getFeString(product, function (feString) {
-    var feContainer = el.querySelector('.fe-info');
+  // Bind to geoserve model change
+  this._geoserve = Model();
+  this._geoserve.on('change:regions', '_buildFeRegionView', this);
 
-    if (feContainer) {
-      feContainer.innerHTML = feString;
-    }
-  });
+  // set FE region string
+  this._loadFeRegion(product);
 
   return el;
+};
+
+
+HypocenterPage.prototype._loadFeRegion = function (product) {
+  var geoserveProduct = null,
+      i, len, testProduct,
+      geoProducts,
+      prodEventSource,
+      prodEventSourceCode,
+      _this;
+
+  _this = this;
+
+  try {
+    geoProducts = this._event.properties.products.geoserve;
+    prodEventSource = product.properties.eventsource;
+    prodEventSourceCode = product.properties.eventsourcecode;
+
+    // Find geoserve product that corresponds to the given (origin) product
+    for (i = 0, len = geoProducts.length; i < len; i++) {
+      testProduct = geoProducts[i];
+
+      if (testProduct.properties.eventsource === prodEventSource &&
+          testProduct.properties.eventsourcecode === prodEventSourceCode) {
+        geoserveProduct = testProduct;
+        break;
+      }
+    }
+
+    if (geoserveProduct) {
+      // if a geoserve product exists, use it
+      Xhr.ajax({
+        url: geoserveProduct.contents['geoserve.json'].url,
+        success: function (geoserve) {
+          _this._formatFeRegion(geoserve.fe);
+        },
+        error: function () {
+          _this._formatFeRegion(null);
+        }
+      });
+    } else {
+      // make a geoserve request
+      this._getGeoserve();
+    }
+
+  } catch (e) {
+    this._getGeoserve();
+    console.log(e);
+  }
+};
+
+HypocenterPage.prototype._buildFeRegionView = function () {
+  var fe,
+      feElement,
+      feName,
+      feNumber;
+
+  feElement = this._el.querySelector('.fe-info');
+
+  try {
+    fe = this._geoserve.get('regions').fe.features[0].properties;
+    feName = fe.name.toUpperCase();
+    feNumber = fe.number;
+    feElement.innerHTML = (feNumber ? feName + ' (' + feNumber + ')' : feName);
+  } catch (e) {
+    feElement.innerHTML = NOT_REPORTED;
+    console.log(e);
+  }
+};
+
+HypocenterPage.prototype._formatFeRegion = function(fe) {
+  // only update model if an object is passed
+  if (!fe) {
+    return;
+  }
+
+  // set the (massaged) fe object
+  this._geoserve.set({
+    'regions': {
+      'fe': {
+        'features': [
+          {
+            'properties': {
+              'name': fe.longName,
+              'number': fe.number
+            }
+          }
+        ]
+      }
+    }
+  });
+};
+
+HypocenterPage.prototype._getGeoserve = function () {
+   var latitude,
+       longitude,
+       _this;
+
+  _this = this;
+
+  // get location
+  latitude = this._event.geometry.coordinates[1];
+  longitude = this._event.geometry.coordinates[0];
+
+
+  if (latitude !== null && longitude !== null) {
+    // request region information
+    Xhr.ajax({
+      url: REGIONS_URL,
+      data: {
+        latitude: latitude,
+        longitude: longitude,
+        type: 'fe'
+      },
+      success: function (data) {
+        _this._geoserve.set({
+          regions: data
+        });
+      }
+    });
+  }
 };
 
 HypocenterPage.prototype._getPhaseDetail = function () {
@@ -542,53 +669,6 @@ HypocenterPage.prototype._parseQuakeml = function (quakemlInfo) {
         console.log('Failed to parse quakeml');
       }
     });
-  }
-};
-
-/**
- * Format an origin product details.
- *
- * @param  product {Object}
- *         The origin-type product for which to get the FE string.
- * @param callback {Function}
- *        Callback method to execute upon completion of FE lookup. Will be
- *        called with the FE string, which may be a single hyphen if any
- *        error occurred during the lookup process.
- *
- */
-HypocenterPage.prototype.getFeString = function (product, callback) {
-  var geoserveProduct = null,
-      i, len, testProduct,
-      geoProducts,
-      prodEventSource,
-      prodEventSourceCode;
-
-  try {
-    geoProducts = this._event.properties.products.geoserve;
-    prodEventSource = product.properties.eventsource;
-    prodEventSourceCode = product.properties.eventsourcecode;
-
-    // Find geoserve product that corresponds to the given (origin) product
-    for (i = 0, len = geoProducts.length; i < len; i++) {
-      testProduct = geoProducts[i];
-      if (testProduct.properties.eventsource === prodEventSource &&
-          testProduct.properties.eventsourcecode === prodEventSourceCode) {
-        geoserveProduct = testProduct;
-        break;
-      }
-    }
-
-    Xhr.ajax({
-      url: geoserveProduct.contents['geoserve.json'].url,
-      success: function (geoserve) {
-        callback(geoserve.fe.longName + ' (' + geoserve.fe.number + ')');
-      },
-      error: function () {
-        callback(NOT_REPORTED);
-      }
-    });
-  } catch (e) {
-    callback(NOT_REPORTED);
   }
 };
 
