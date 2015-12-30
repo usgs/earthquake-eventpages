@@ -6,10 +6,10 @@ var expect = chai.expect,
     SummaryPage = require('summary/SummaryPage'),
     Xhr = require('util/Xhr'),
 
-    geoserve = require('./geoserve'),
     eventData = require('./usc000lnnb'),
     eventData_nogeoserve = require('./usc000lnnb-nogeoserve'),
-    eventData_nonearbycities = require('./usc000lnnb-nonearbycities');
+    eventData_nonearbycities = require('./usc000lnnb-nonearbycities'),
+    geoserve = require('./geoserve');
 
 // inject a general-header product
 eventData.properties.products['general-header'] = [
@@ -34,6 +34,7 @@ var options = {
   title: 'Summary',
   eventDetails: eventData,
   module: new SummaryModule({eventDetails: eventData})
+
 };
 var options_nogeoserve = {
   hash: 'summary',
@@ -55,11 +56,12 @@ describe('SummaryPage test suite.', function () {
 
   before(function() {
 
+    // do nothing
     stub = sinon.stub(Xhr, 'ajax', function () {});
 
     page = new SummaryPage(options);
-    page._setTectonicSummary(geoserve.tectonicSummary.text, geoserve);
-    page._setNearbyCities(geoserve.cities, geoserve);
+    page.formatNearbyCities(geoserve.cities);
+    page.formatTectonicSummary(geoserve.tectonicSummary);
     content = page.getContent();
   });
 

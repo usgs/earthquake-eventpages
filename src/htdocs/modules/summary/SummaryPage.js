@@ -15,6 +15,7 @@ var REGIONS_URL = 'http://dev-earthquake.cr.usgs.gov/ws/geoserve/regions.json';
 
 var SummaryPage = function (options) {
   this._formatter = new Formatter();
+  this._geoserve = new Model();
   EventModulePage.call(this, options);
 };
 
@@ -45,10 +46,9 @@ SummaryPage.prototype._setContentMarkup = function () {
   content.querySelector('.summary-time').appendChild(this._getTime());
   content.appendChild(this._getLinks());
 
-  // reset the model, bind to place and region changes
-  this._geoserve = Model();
-  this._geoserve.on('change:places', '_buildNearbyCitiesView', this);
-  this._geoserve.on('change:regions', '_buildTectonicSummaryView', this);
+  // bind to place and region changes
+  this._geoserve.on('change:places', 'buildNearbyCitiesView', this);
+  this._geoserve.on('change:regions', 'buildTectonicSummaryView', this);
 
   this._loadNearbyCities();
   this._loadTectonicSummary();
@@ -278,8 +278,9 @@ SummaryPage.prototype._loadNearbyCities = function () {
 
   products = this._event.properties.products;
   nearbyCities = products['nearby-cities'];
+
+  // no nearby cities products, make geoserve ws request
   if (!nearbyCities) {
-    // no nearby cities products
     this._getGeoserve();
     return;
   }
@@ -305,7 +306,7 @@ SummaryPage.prototype._loadNearbyCities = function () {
   Xhr.ajax({
     url: product.contents['nearby-cities.json'].url,
     success: function (cities) {
-      this._formatNearbyCities(cities);
+      this.formatNearbyCities(cities);
     }.bind(this),
     error: function () {
       throw new Error('Failed to load nearby cities.');
@@ -318,7 +319,7 @@ SummaryPage.prototype._loadNearbyCities = function () {
  * 
  * If no data is available a default message is displayed
  */
-SummaryPage.prototype._buildNearbyCitiesView = function () {
+SummaryPage.prototype.buildNearbyCitiesView = function () {
   NearbyCitiesView({
     el: this._content.querySelector('.summary-nearby-cities'),
     header: '<h3>Nearby Places</h3>',
@@ -338,7 +339,7 @@ SummaryPage.prototype._buildNearbyCitiesView = function () {
  *          city.name {String} city name.
  *        null if there are no cities.
  */
-SummaryPage.prototype._formatNearbyCities = function (data) {
+SummaryPage.prototype.formatNearbyCities = function (data) {
   var cities,
       properties;
 
@@ -377,8 +378,9 @@ SummaryPage.prototype._loadTectonicSummary = function () {
       product;
 
   tectonicSummaries = this._event.properties.products['tectonic-summary'];
+
+    // no tectonic summary products, make geoserve ws request
   if (!tectonicSummaries) {
-    // no tectonic summary products
     this._getGeoserve();
     return;
   }
@@ -389,7 +391,7 @@ SummaryPage.prototype._loadTectonicSummary = function () {
   Xhr.ajax({
     url: product.contents['tectonic-summary.inc.html'].url,
     success: function (summary) {
-      this._formatTectonicSummary(summary);
+      this.formatTectonicSummary(summary);
     }.bind(this),
     error: function () {
       throw new Error('Failed to load tectonic summary.');
@@ -402,7 +404,7 @@ SummaryPage.prototype._loadTectonicSummary = function () {
  *
  * If no data is available a default message is displayed
  */
-SummaryPage.prototype._buildTectonicSummaryView = function () {
+SummaryPage.prototype.buildTectonicSummaryView = function () {
   TectonicSummaryView({
     el: this._content.querySelector('.summary-tectonic-summary'),
     header: null,
@@ -416,7 +418,7 @@ SummaryPage.prototype._buildTectonicSummaryView = function () {
  *
  * @param summary {String} tectonic summary text.
  */
-SummaryPage.prototype._formatTectonicSummary = function (summary) {
+SummaryPage.prototype.formatTectonicSummary = function (summary) {
   this._geoserve.set({
     'regions': {
       'tectonic': {
