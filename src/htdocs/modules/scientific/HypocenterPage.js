@@ -180,13 +180,17 @@ var REGIONS_URL = 'http://dev-earthquake.cr.usgs.gov/ws/geoserve/regions.json';
 var HypocenterPage = function (options) {
   this._options = Util.extend({}, DEFAULTS, options);
   this._code = options.code;
-  this._geoserve = new Model();
   this._tabList = null;
   this._phaseEl = document.createElement('div');
   this._phaseRendered = false;
   this._magnitudeEl = document.createElement('div');
   this._magnitudeRendered = false;
+
   EventModulePage.call(this, this._options);
+
+  // Bind to geoserve model change
+  this._geoserve = new Model();
+  this._geoserve.on('change:regions', 'buildFeRegionView', this);
 };
 
 HypocenterPage.prototype = Object.create(EventModulePage.prototype);
@@ -313,16 +317,21 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
     tabs: tabListContents
   });
 
-  // Bind to geoserve model change
-  this._geoserve.on('change:regions', 'buildFeRegionView', this);
-
   // set FE region string
   this._loadFeRegion(product);
 
   return el;
 };
 
-
+/**
+ * Load fe region information.
+ *
+ * Attempts to load from a geoserve product first.
+ * If no such product is found, call _getGeoserveFeRegion()
+ * to retreive the nearby cities from the geoserve ws.
+ *
+ * Once load is complete, _buildFeRegionView is called.
+ */
 HypocenterPage.prototype._loadFeRegion = function (product) {
   var geoserveProduct = null,
       i, len, testProduct,
@@ -362,15 +371,20 @@ HypocenterPage.prototype._loadFeRegion = function (product) {
       });
     } else {
       // make a geoserve request
-      this._getGeoserve();
+      this._getGeoserveFeRegion();
     }
 
   } catch (e) {
-    this._getGeoserve();
+    this._getGeoserveFeRegion();
     console.log(e);
   }
 };
 
+/**
+ * Build Fe Region string from the hazdev-geoserve-ws project.
+ *
+ * If no data is available a default message is displayed
+ */
 HypocenterPage.prototype.buildFeRegionView = function () {
   var fe,
       feElement,
@@ -389,6 +403,14 @@ HypocenterPage.prototype.buildFeRegionView = function () {
   }
 };
 
+/**
+ * Massage data from geoserve product into the same model object
+ * that FeRegionView expects.
+ *
+ * @param fe {Object}
+ *          fe.number {Number} fe region number.
+ *          fe.name {String} fe region name.
+ */
 HypocenterPage.prototype.formatFeRegion = function(fe) {
   // only update model if an object is passed
   if (!fe) {
@@ -412,7 +434,10 @@ HypocenterPage.prototype.formatFeRegion = function(fe) {
   });
 };
 
-HypocenterPage.prototype._getGeoserve = function () {
+/**
+ * Set this._geoserve with fe region data from the geoserve ws
+ */
+HypocenterPage.prototype._getGeoserveFeRegion = function () {
    var latitude,
        longitude,
        _this;

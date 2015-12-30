@@ -15,8 +15,12 @@ var REGIONS_URL = 'http://dev-earthquake.cr.usgs.gov/ws/geoserve/regions.json';
 
 var SummaryPage = function (options) {
   this._formatter = new Formatter();
-  this._geoserve = new Model();
   EventModulePage.call(this, options);
+
+  // bind to place and region changes
+  this._geoserve = new Model();
+  this._geoserve.on('change:places', 'buildNearbyCitiesView', this);
+  this._geoserve.on('change:regions', 'buildTectonicSummaryView', this);
 };
 
 SummaryPage.prototype = Object.create(EventModulePage.prototype);
@@ -46,10 +50,6 @@ SummaryPage.prototype._setContentMarkup = function () {
   content.querySelector('.summary-time').appendChild(this._getTime());
   content.appendChild(this._getLinks());
 
-  // bind to place and region changes
-  this._geoserve.on('change:places', 'buildNearbyCitiesView', this);
-  this._geoserve.on('change:regions', 'buildTectonicSummaryView', this);
-
   this._loadNearbyCities();
   this._loadTectonicSummary();
 
@@ -64,9 +64,9 @@ SummaryPage.prototype._setContentMarkup = function () {
 };
 
 /**
- * Set this.geoserve with places and region data based on lat/lon
+ * Set this._geoserve with places data from the geoserve ws
  */
-SummaryPage.prototype._getGeoserve = function () {
+SummaryPage.prototype._getGeoserveNearbyPlaces = function () {
    var latitude,
        longitude,
        _this;
@@ -78,8 +78,8 @@ SummaryPage.prototype._getGeoserve = function () {
   longitude = this._event.geometry.coordinates[0];
 
 
+  // request nearby places
   if (latitude !== null && longitude !== null) {
-    // request nearby
     Xhr.ajax({
       url: PLACES_URL,
       data: {
@@ -93,8 +93,26 @@ SummaryPage.prototype._getGeoserve = function () {
         });
       }
     });
+  }
+};
 
-    // request region information
+/**
+ * Set this._geoserve with tectonic summary data from the geoserve ws
+ */
+SummaryPage.prototype._getGeoserveTectonicSummary = function () {
+   var latitude,
+       longitude,
+       _this;
+
+  _this = this;
+
+  // get location
+  latitude = this._event.geometry.coordinates[1];
+  longitude = this._event.geometry.coordinates[0];
+
+
+    // request tectonic summary
+  if (latitude !== null && longitude !== null) {
     Xhr.ajax({
       url: REGIONS_URL,
       data: {
@@ -261,10 +279,10 @@ SummaryPage.prototype._getTime = function () {
  * Load nearby cities information.
  *
  * Attempts to load from a nearby-cities product.
- * If no such product is found, call _getGeoserve() to retreive the 
- * nearby cities from the geoserve ws.
+ * If no such product is found, call _getGeoserveNearbyCities()
+ * to retreive the nearby cities from the geoserve ws.
  *
- * Once load is complete (data or not), _buildNearbyCities is called.
+ * Once load is complete, _buildNearbyCities is called.
  */
 SummaryPage.prototype._loadNearbyCities = function () {
   var i,
@@ -281,7 +299,7 @@ SummaryPage.prototype._loadNearbyCities = function () {
 
   // no nearby cities products, make geoserve ws request
   if (!nearbyCities) {
-    this._getGeoserve();
+    this._getGeoserveNearbyPlaces();
     return;
   }
 
@@ -324,7 +342,6 @@ SummaryPage.prototype.buildNearbyCitiesView = function () {
     el: this._content.querySelector('.summary-nearby-cities'),
     header: '<h3>Nearby Places</h3>',
     model: this._geoserve
-    //noDataMessage: '<p class="alert info">Nearby city data not available.</p>'
   });
 };
 
@@ -354,7 +371,7 @@ SummaryPage.prototype.formatNearbyCities = function (data) {
     });
   }
 
-  // set the massaged nearby cities array 
+  // set the massaged nearby cities array
   this._geoserve.set({
     'places': {
       'event': {
@@ -369,9 +386,9 @@ SummaryPage.prototype.formatNearbyCities = function (data) {
  * Load tectonic summary information.
  *
  * Attempts to load from a tectonic-summary product.
- * If no such product is found, call _loadAutomaticTectonicSummary().
+ * If no such product is found, call _getGeoserveTectonicSummary().
  *
- * Once load is complete (error or not), _setTectonicSummary is called.
+ * Once load is complete, formatTectonicSummary is called.
  */
 SummaryPage.prototype._loadTectonicSummary = function () {
   var tectonicSummaries,
@@ -379,9 +396,9 @@ SummaryPage.prototype._loadTectonicSummary = function () {
 
   tectonicSummaries = this._event.properties.products['tectonic-summary'];
 
-    // no tectonic summary products, make geoserve ws request
+  // no tectonic summary products, make geoserve ws request
   if (!tectonicSummaries) {
-    this._getGeoserve();
+    this._getGeoserveTectonicSummary();
     return;
   }
 
@@ -538,7 +555,7 @@ SummaryPage.prototype._getText = function (product) {
  * @return {DocumentFragment}
  *         Fragment with links, or empty if no information present.
  */
- SummaryPage.prototype._getLinks = function () {
+SummaryPage.prototype._getLinks = function () {
   var cache = {},
       el,
       fragment,
@@ -590,7 +607,7 @@ SummaryPage.prototype._getText = function (product) {
  * @return {DOMEElement}
  *         anchor element.
  */
- SummaryPage.prototype._getLink = function (product) {
+SummaryPage.prototype._getLink = function (product) {
   var el = document.createElement('a'),
       props = product.properties;
 
@@ -600,5 +617,15 @@ SummaryPage.prototype._getText = function (product) {
   return el;
 };
 
+/**
+ * Clean up event bindings.
+ */
+SummaryPage.prototype.destroy = function () {
+  this._geoserve.off('change:places', 'buildNearbyCitiesView', this);
+  this._geoserve.off('change:regions', 'buildTectonicSummaryView', this);
+
+  this._formatter = null;
+  this._geoserve = null;
+};
 
 module.exports = SummaryPage;
