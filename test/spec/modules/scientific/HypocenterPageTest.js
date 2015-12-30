@@ -87,28 +87,18 @@ describe('HypocenterPage test suite.', function () {
     });
   });
 
-  describe('getFeString', function () {
+  describe('formatFeRegion', function () {
     var hp = null,
-        product = null,
         ajaxStub = null;
 
     beforeEach(function () {
-      hp = new HypocenterPage(basicOptions);
-
-      product = hp.getProducts()[0];
-
-      ajaxStub = sinon.stub(Xhr, 'ajax', function (o) {
-        if (o.success) {
-          o.success({fe: {longName: 'Foo', number: '1'}});
-        }
-      });
+      ajaxStub = sinon.stub(Xhr, 'ajax', function () {});
+      hp = new HypocenterPage(detailOptions);
     });
 
     afterEach(function () {
       ajaxStub.restore();
       ajaxStub = null;
-
-      product = null;
 
       if (hp.destroy) {
         hp.destroy();
@@ -116,29 +106,16 @@ describe('HypocenterPage test suite.', function () {
       hp = null;
     });
 
-    it('Executes callback', function (done) {
-      hp.getFeString(product, function () {
-        /* jshint -W030 */
-        expect(true).to.be.true;
-        /* jshint +W030 */
-        done();
-      });
-
-      ajaxStub.restore();
+    it('Properly formats string info', function () {
+      hp.formatFeRegion({longName: 'FOO', number: '1'});
+      expect(hp._content.querySelector('.fe-info').innerHTML).to.equal('FOO (1)');
     });
 
-    it('Properly formats string info', function (done) {
-      hp.getFeString(product, function (feString) {
-        expect(feString).to.equal('Foo (1)');
-        done();
-      });
-    });
-
-    it('Uses default string on error', function (done) {
-      hp.getFeString(null, function (feString) {
-        expect(feString).to.equal('&ndash;');
-        done();
-      });
+    it('Uses default string on error', function () {
+      var el = document.createElement('span');
+      el.innerHTML = '&ndash;';
+      hp.formatFeRegion({'default': 'string'});
+      expect(hp._content.querySelector('.fe-info').innerHTML).to.equal(el.innerHTML);
     });
 
   });

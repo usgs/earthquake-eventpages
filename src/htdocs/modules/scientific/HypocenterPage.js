@@ -180,6 +180,7 @@ var REGIONS_URL = 'http://dev-earthquake.cr.usgs.gov/ws/geoserve/regions.json';
 var HypocenterPage = function (options) {
   this._options = Util.extend({}, DEFAULTS, options);
   this._code = options.code;
+  this._geoserve = new Model();
   this._tabList = null;
   this._phaseEl = document.createElement('div');
   this._phaseRendered = false;
@@ -195,7 +196,7 @@ HypocenterPage.prototype = Object.create(EventModulePage.prototype);
  *
  */
 HypocenterPage.prototype.destroy = function () {
-  this._geoserve.off('change:regions', '_buildFeRegionView', this);
+  this._geoserve.off('change:regions', 'buildFeRegionView', this);
 
   this._options = null;
   this._phaseEl = null;
@@ -313,8 +314,7 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
   });
 
   // Bind to geoserve model change
-  this._geoserve = Model();
-  this._geoserve.on('change:regions', '_buildFeRegionView', this);
+  this._geoserve.on('change:regions', 'buildFeRegionView', this);
 
   // set FE region string
   this._loadFeRegion(product);
@@ -354,10 +354,10 @@ HypocenterPage.prototype._loadFeRegion = function (product) {
       Xhr.ajax({
         url: geoserveProduct.contents['geoserve.json'].url,
         success: function (geoserve) {
-          _this._formatFeRegion(geoserve.fe);
+          _this.formatFeRegion(geoserve.fe);
         },
         error: function () {
-          _this._formatFeRegion(null);
+          _this.formatFeRegion(null);
         }
       });
     } else {
@@ -371,7 +371,7 @@ HypocenterPage.prototype._loadFeRegion = function (product) {
   }
 };
 
-HypocenterPage.prototype._buildFeRegionView = function () {
+HypocenterPage.prototype.buildFeRegionView = function () {
   var fe,
       feElement,
       feName,
@@ -386,11 +386,10 @@ HypocenterPage.prototype._buildFeRegionView = function () {
     feElement.innerHTML = (feNumber ? feName + ' (' + feNumber + ')' : feName);
   } catch (e) {
     feElement.innerHTML = NOT_REPORTED;
-    console.log(e);
   }
 };
 
-HypocenterPage.prototype._formatFeRegion = function(fe) {
+HypocenterPage.prototype.formatFeRegion = function(fe) {
   // only update model if an object is passed
   if (!fe) {
     return;
