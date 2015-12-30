@@ -98,6 +98,12 @@ $prompts = array(
     'prompt' => 'URL for DYFI form submissions',
     'default' => '/dyfi/response.php',
     'secure' => false
+  ),
+
+  'GEOSERVE_WS_URL' => array(
+    'prompt' => 'URL for geoserve web service',
+    'default' => 'http://earthquake.usgs.gov/ws/geoserve/',
+    'secure' => false
   )
 );
 

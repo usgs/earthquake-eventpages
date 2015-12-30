@@ -46,6 +46,9 @@ var options_nonearbycities = {
   hash: 'summary',
   title: 'Summary',
   eventDetails: eventData_nonearbycities,
+  eventConfig: {
+    GEOSERVE_WS_URL: 'http://earthquake.usgs.gov/ws/geoserve/'
+  },
   module: new SummaryModule({eventDetails: eventData_nonearbycities})
 };
 

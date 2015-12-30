@@ -170,7 +170,6 @@ var PHASE_DATA_SORTS = [
 
 var REGIONS_URL = 'http://dev-earthquake.cr.usgs.gov/ws/geoserve/regions.json';
 
-
 /**
  * Construct a new HypocenterPage.
  *
@@ -185,12 +184,16 @@ var HypocenterPage = function (options) {
   this._phaseRendered = false;
   this._magnitudeEl = document.createElement('div');
   this._magnitudeRendered = false;
-
-  EventModulePage.call(this, this._options);
-
   // Bind to geoserve model change
   this._geoserve = new Model();
   this._geoserve.on('change:regions', 'buildFeRegionView', this);
+
+  if (this._options.eventConfig &&
+      this._options.eventConfig.hasOwnProperty('GEOSERVE_WS_URL')) {
+    this._geoserveUrl = this._options.eventConfig.GEOSERVE_WS_URL;
+  }
+
+  EventModulePage.call(this, this._options);
 };
 
 HypocenterPage.prototype = Object.create(EventModulePage.prototype);
@@ -452,7 +455,7 @@ HypocenterPage.prototype._getGeoserveFeRegion = function () {
   if (latitude !== null && longitude !== null) {
     // request region information
     Xhr.ajax({
-      url: REGIONS_URL,
+      url: this._geoserveUrl + 'regions.json',
       data: {
         latitude: latitude,
         longitude: longitude,
@@ -462,6 +465,9 @@ HypocenterPage.prototype._getGeoserveFeRegion = function () {
         _this._geoserve.set({
           regions: data
         });
+      },
+      error: function () {
+        throw new Error('Geoserve web service not found');
       }
     });
   }

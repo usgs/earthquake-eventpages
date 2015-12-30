@@ -10,17 +10,21 @@ var Attribution = require('base/Attribution'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
-var PLACES_URL = 'http://dev-earthquake.cr.usgs.gov/ws/geoserve/places.json';
-var REGIONS_URL = 'http://dev-earthquake.cr.usgs.gov/ws/geoserve/regions.json';
-
 var SummaryPage = function (options) {
+
   this._formatter = new Formatter();
-  EventModulePage.call(this, options);
 
   // bind to place and region changes
   this._geoserve = new Model();
   this._geoserve.on('change:places', 'buildNearbyCitiesView', this);
   this._geoserve.on('change:regions', 'buildTectonicSummaryView', this);
+
+  if (options.eventConfig &&
+      options.eventConfig.hasOwnProperty('GEOSERVE_WS_URL')) {
+    this._geoserveUrl = options.eventConfig.GEOSERVE_WS_URL;
+  }
+
+  EventModulePage.call(this, options);
 };
 
 SummaryPage.prototype = Object.create(EventModulePage.prototype);
@@ -77,11 +81,10 @@ SummaryPage.prototype._getGeoserveNearbyPlaces = function () {
   latitude = this._event.geometry.coordinates[1];
   longitude = this._event.geometry.coordinates[0];
 
-
   // request nearby places
   if (latitude !== null && longitude !== null) {
     Xhr.ajax({
-      url: PLACES_URL,
+      url: this._geoserveUrl + 'places.json',
       data: {
         latitude: latitude,
         longitude: longitude,
@@ -91,6 +94,9 @@ SummaryPage.prototype._getGeoserveNearbyPlaces = function () {
         _this._geoserve.set({
           places: data
         });
+      },
+      error: function () {
+        throw new Error('Geoserve web service not found');
       }
     });
   }
@@ -114,7 +120,7 @@ SummaryPage.prototype._getGeoserveTectonicSummary = function () {
     // request tectonic summary
   if (latitude !== null && longitude !== null) {
     Xhr.ajax({
-      url: REGIONS_URL,
+      url: this._geoserveUrl + 'regions.json',
       data: {
         latitude: latitude,
         longitude: longitude,
@@ -124,6 +130,9 @@ SummaryPage.prototype._getGeoserveTectonicSummary = function () {
         _this._geoserve.set({
           regions: data
         });
+      },
+      error: function () {
+        throw new Error('Geoserve web service not found');
       }
     });
   }
