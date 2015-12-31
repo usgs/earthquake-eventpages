@@ -3,6 +3,7 @@
 var EventModule = require('base/EventModule'),
     Util = require('util/Util'),
 
+    ExecutiveSummaryPage = require('./ExecutiveSummaryPage'),
     SummaryPage = require('./SummaryPage');
 
 
@@ -16,6 +17,21 @@ var DEFAULTS = {
    * NOTE: pages that are bundled in the summary module must be added
    * to the "browserify:summary" target.
    */
+    {
+      factory: ExecutiveSummaryPage,
+      options: {
+        title: 'Executive Summary',
+        hash: 'executive'
+      },
+      hasContent: function () {
+        return true;
+      },
+      productTypes: [
+        'origin',
+        'dyfi', 'shakemap', 'losspager',
+        'phase-data', 'moment-tensor', 'focal-mechanism'
+      ]
+    },
 
     {
       factory: SummaryPage,

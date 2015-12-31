@@ -1,8 +1,8 @@
 'use strict';
 
 var Attribution = require('base/Attribution'),
-    ImpactUtil = require('base/ImpactUtil'),
     PagerXmlParser = require('./PagerXmlParser'),
+    ProductSummarizer = require('base/ProductSummarizer'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
@@ -113,41 +113,7 @@ PagerPage.prototype.getDetailsContent = function (product) {
  * Sets up summary info for Shakemap events with 2 or more events
  */
 PagerPage.prototype._getSummaryMarkup = function (product) {
-  var properties = product.properties || {},
-      contents = product.contents,
-      maxmmi = properties.maxmmi;
-
-  maxmmi = ImpactUtil.translateMmi(maxmmi);
-
-  return '<ul>' +
-      '<li class="image">' +
-        (contents['alertfatal_small.png'] ?
-            '<img src="' + contents['alertfatal_small.png'].url +
-            '" alt="' + 'Estimated Fatalities Histogram' + '" />' :
-            '<span>(no image)</span>'
-        ) +
-        '<abbr title="Estimated Fatalities Histogram">Fatalities</abbr>' +
-      '</li>' +
-      '<li class="image">' +
-        (contents['alertecon_small.png'] ?
-            '<img src="' + contents['alertecon_small.png'].url +
-            '" alt="' + 'Estimated Economic Loss Histogram' + '" />' :
-            '<span>(no image)</span>'
-        ) +
-        '<abbr title="Estimated Economic Loss Histogram">Economic Loss</abbr>' +
-      '</li>' +
-      '<li class="mmi">' +
-        '<span>' + maxmmi + '</span>' +
-        '<abbr title="Modified Mercalli Intensity">MMI</abbr>' +
-      '</li>' +
-      '<li>' +
-        this.getCatalogSummary(product) +
-      '</li>' +
-      '<li class="summary-hide">' +
-        Attribution.getContributorReference(product.source) +
-        '<abbr title="ShakeMap Data Source">Source</abbr>' +
-      '</li>' +
-    '</ul>';
+  return ProductSummarizer.getLossPAGERSummary(product);
 };
 
 /**

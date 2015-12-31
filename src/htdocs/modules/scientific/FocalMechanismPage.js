@@ -4,7 +4,7 @@ var Attribution = require('base/Attribution'),
     Util = require('util/Util'),
 
     MomentTensorPage = require('./MomentTensorPage'),
-    Tensor = require('./tensor/Tensor');
+    ProductSummarizer = require('base/ProductSummarizer');
 
 
 var DEFAULTS = {
@@ -29,60 +29,7 @@ FocalMechanismPage.prototype = Object.create(MomentTensorPage.prototype);
 
 
 FocalMechanismPage.prototype._getSummaryMarkup = function (product) {
-  var tensor = Tensor.fromProduct(product),
-      np1,
-      np2,
-      source;
-
-  if (tensor !== null) {
-    np1 = tensor.NP1;
-    np2 = tensor.NP2;
-    source = tensor.source;
-  } else {
-    source = product.source;
-  }
-
-  return [
-        '<ul>',
-          '<li class="image">',
-            '<img src="', this.getBeachball(tensor), '" ',
-                'alt="Focal Mechanism Beachball (' + tensor.code + ')"/>',
-          '</li>',
-          '<li>',
-            '<span>',
-              '(',
-              (np1 ?
-                  Math.round(np1.strike) + '<i>,</i>' +
-                  Math.round(np1.dip) + '<i>,</i>' +
-                  Math.round(np1.rake) :
-                  '&ndash;'),
-              ')',
-            '</span>',
-            '<abbr title="Nodal Plane 1">',
-              'Strike<i>,</i>Dip<i>,</i>Rake</abbr>',
-            '</abbr>',
-          '</li>',
-          '<li>',
-            '<span>',
-              '(',
-              (np2 ?
-                  Math.round(np2.strike) + '<i>,</i>' +
-                  Math.round(np2.dip) + '<i>,</i>' +
-                  Math.round(np2.rake) :
-                  '&ndash;'),
-              ')',
-            '</span>',
-            '<abbr title="Nodal Plane 2">',
-              'Strike<i>,</i>Dip<i>,</i>Rake</abbr>',
-            '</abbr>',
-          '</li>',
-          '<li class="summary-hide">',
-            Attribution.getContributorReference(source),
-            '<abbr title="', Attribution.getName(source),
-                '">Source</abbr>',
-          '</li>',
-        '</ul>',
-  ].join('');
+  return ProductSummarizer.getFocalMechanismSummary(product);
 };
 
 /**

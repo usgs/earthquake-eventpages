@@ -5,6 +5,7 @@ var Accordion = require('accordion/Accordion'),
     Collection = require('mvc/Collection'),
     DataTable = require('mvc/DataTable'),
     Formatter = require('base/Formatter'),
+    ProductSummarizer = require('base/ProductSummarizer'),
     Quakeml = require('quakeml/Quakeml'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     TabList = require('tablist/TabList'),
@@ -735,39 +736,7 @@ HypocenterPage.prototype.getOriginDetail = function (product) {
 };
 
 HypocenterPage.prototype._getSummaryMarkup = function (product) {
-  var p = product.properties,
-      depth = p.depth,
-      magnitude = p.magnitude,
-      magnitudeType = p['magnitude-type'],
-      originSource = p['origin-source'] || product.source,
-      magnitudeSource = p['magnitude-source'] || product.source;
-
-  return '<ul>' +
-        '<li>' +
-          '<span>' + magnitude + '</span>' +
-          '<abbr title="Magnitude">Mag</abbr>' +
-        '</li>' +
-        '<li>' +
-          '<span>' + magnitudeType + '</span>' +
-          '<abbr title="Magnitude Type">Type</abbr>' +
-        '</li>' +
-        '<li>' +
-          '<span>' + depth + '</span>' +
-          '<abbr title="Depth (km)">Depth</abbr>' +
-        '</li>' +
-        '<li>' +
-          this.getCatalogSummary(product) +
-        '</li>' +
-        '<li class="summary-hide">' +
-          (originSource === magnitudeSource ?
-            Attribution.getContributorReference(originSource) :
-            '<span>' +
-              Attribution.getContributorReference(originSource) + ', ' +
-              Attribution.getContributorReference(magnitudeSource) +
-            '</span>') +
-          '<abbr title="Location and Magnitude Data Source">Source</abbr>' +
-        '</li>' +
-      '</ul>';
+  return ProductSummarizer.getOriginSummary(product);
 };
 
 

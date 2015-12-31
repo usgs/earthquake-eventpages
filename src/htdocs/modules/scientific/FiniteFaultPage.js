@@ -1,6 +1,7 @@
 'use strict';
 
 var Attribution = require('base/Attribution'),
+    ProductSummarizer = require('base/ProductSummarizer'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
@@ -63,17 +64,7 @@ FiniteFaultPage.prototype.getDetailsContent = function (product) {
 };
 
 FiniteFaultPage.prototype._getSummaryMarkup = function (product) {
-  var basemap = product.contents['basemap.png'];
-
-  return '<ul>' +
-        '<li class="image">' +
-          '<img src="' + basemap.url + '" alt="Finite Fault" />' +
-        '</li>' +
-        '<li>' +
-          Attribution.getContributorReference(product.source) +
-          '<abbr title="Finite Fault Data Source">Source</abbr>' +
-        '</li>' +
-      '</ul>';
+  return ProductSummarizer.getFiniteFaultSummary(product);
 };
 
 
