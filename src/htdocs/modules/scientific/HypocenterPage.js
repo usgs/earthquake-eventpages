@@ -331,7 +331,7 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
  *
  * Attempts to load from a geoserve product first.
  * If no such product is found, call _getGeoserveFeRegion()
- * to retreive the nearby cities from the geoserve ws.
+ * to retreive the fe region string from the geoserve ws.
  *
  * Once load is complete, _buildFeRegionView is called.
  */
