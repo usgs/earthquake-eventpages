@@ -12,6 +12,7 @@ var Events = require('util/Events'),
 
 var REDIRECTS = {
   'summary': 'general_summary',
+  'general_summary': 'general_region',
 
   'shakemap': 'impact_shakemap',
   'shakemap_intensity': 'impact_shakemap',
@@ -45,7 +46,7 @@ var DEFAULTS = {
   maxCacheLength: 3,
 
   // Default page to render if no hash is specified
-  defaultPage: 'general_summary'
+  defaultPage: 'general_region'
 };
 
 var __get_hash = function (evt) {
@@ -68,7 +69,7 @@ var EventPage = function (options) {
   this.on = this._events.on;
   this.trigger = this._events.trigger;
 
-  options = options || {};
+  options = Util.extend({}, DEFAULTS, options);
 
   this._container = options.container ||
       document.querySelector('.event-content') ||
@@ -100,7 +101,7 @@ EventPage.prototype._getDefaultPage = function () {
   if (this._eventDetails === null) {
     return 'impact_tellus';
   } else {
-    return 'general_summary';
+    return this._defaultPage;
   }
 };
 

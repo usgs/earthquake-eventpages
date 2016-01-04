@@ -94,29 +94,68 @@ EventModule.prototype.hasContent = function () {
  *      Navigation markup for this module.
  */
 EventModule.prototype.getNavigationItems = function (hash) {
-  var markup = ['<header>', this._title, '</header>'],
-      numPages = this._pages.length, fullHash = null,
-      i = null, page = null, pageOptions = null;
+  var i,
+      markup,
+      numPages;
 
-  for (i = 0; i < numPages; i++) {
-    page = this._pages[i];
+  markup = [];
+  numPages = this._pages.length;
 
-    if (!this._pageHasContent(page)) {
-      // hide pages without content
-      continue;
+  // Use first module as header for nav section
+  if (numPages > 0) {
+    markup.push('<header>' +
+        this._getNavigationItem(this._pages[0], hash, true) + '</header>');
+
+    for (i = 1; i < numPages; i++) {
+      markup.push(this._getNavigationItem(this._pages[i], hash));
     }
-
-    pageOptions = page.options;
-    fullHash = this._hash + '_' + pageOptions.hash;
-
-    markup.push('<a href="#' + this._hash + '_' + pageOptions.hash + '">' +
-        ((fullHash === hash) ?
-            '<strong class="current-page">' + pageOptions.title + '</strong>' :
-            pageOptions.title) +
-        '</a>');
   }
 
   return markup;
+};
+
+/**
+ * @param page {EventModulePage}
+ * @param hash {String}
+ * @param force {Boolean}
+ *      True if a navigation item should be produced even if the page has no
+ *      content. In this case the navigation item will never be clickable.
+ */
+EventModule.prototype._getNavigationItem = function (page, hash, force) {
+  var fullHash,
+      item,
+      linkText,
+      pageOptions;
+
+  item = [];
+  pageOptions = page.options || this._title;
+
+  linkText = pageOptions.title || this._title;
+  fullHash = this._hash + '_' + pageOptions.hash;
+
+  if (this._pageHasContent(page)) {
+    item.push('<a href="#' + fullHash + '">');
+
+    if (fullHash === hash) {
+      item.push('<strong class="current-page">' + linkText + '</strong>');
+    } else {
+      item.push(linkText);
+    }
+
+    item.push('</a>');
+  } else if (force) {
+    item.push('<a href="javascript:void(null);">');
+
+    if (fullHash === hash) {
+      item.push('<strong class="current-page">' + linkText + '</strong>');
+    } else {
+      item.push(linkText);
+    }
+
+    item.push('</a>');
+  }
+
+  return item.join('');
 };
 
 /**

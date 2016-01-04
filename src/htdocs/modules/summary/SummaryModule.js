@@ -20,7 +20,7 @@ var DEFAULTS = {
     {
       factory: ExecutiveSummaryPage,
       options: {
-        title: 'Executive Summary',
+        title: '',
         hash: 'executive'
       },
       hasContent: function () {
@@ -36,8 +36,8 @@ var DEFAULTS = {
     {
       factory: SummaryPage,
       options: {
-        title: 'Summary',
-        hash: 'summary'
+        title: 'Region Info',
+        hash: 'region'
       },
       //Always include page.
       hasContent: function () {
