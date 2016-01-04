@@ -364,5 +364,16 @@ Formatter.prototype.kmToMi = function (km) {
   return (km * 0.621371);
 };
 
+Formatter.prototype.formatDYFILocation = function (response) {
+  var location,
+      region,
+      zip;
+
+  location = response.name;
+  region = response.state;
+  zip = response.zip;
+
+  return location + ', ' + region + ' ' + zip;
+};
 
 module.exports = Formatter;
