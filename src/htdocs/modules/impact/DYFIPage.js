@@ -60,7 +60,7 @@ var MAP_GRAPH_IMAGES = [
 var RESPONSE_DATA_COLUMNS = [
   {
     className: 'dyfi-response-state',
-    title: 'State',
+    title: 'Region',
     format: function (response) {
       return response.state;
     }
