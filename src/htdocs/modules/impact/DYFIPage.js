@@ -67,7 +67,7 @@ var RESPONSE_DATA_COLUMNS = [
   },
   {
     className: 'dyfi-response-zip-name',
-    title: 'ZIP Name',
+    title: 'Location',
     format: function (response) {
       return response.name;
     }
