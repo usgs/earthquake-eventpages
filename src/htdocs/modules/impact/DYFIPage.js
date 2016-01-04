@@ -59,17 +59,17 @@ var MAP_GRAPH_IMAGES = [
 
 var RESPONSE_DATA_COLUMNS = [
   {
-    className: 'dyfi-response-state',
-    title: 'Region',
-    format: function (response) {
-      return response.state;
-    }
-  },
-  {
     className: 'dyfi-response-zip-name',
     title: 'Location',
     format: function (response) {
       return response.name;
+    }
+  },
+  {
+    className: 'dyfi-response-state',
+    title: 'Region',
+    format: function (response) {
+      return response.state;
     }
   },
   {
