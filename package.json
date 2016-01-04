@@ -33,7 +33,7 @@
     "grunt-mocha-phantomjs": "^2.0.0",
     "grunt-postcss": "^0.7.0",
     "hazdev-accordion": "~0.1.0",
-    "hazdev-geoserve-ws": "file:../hazdev-geoserve-ws",
+    "hazdev-geoserve-ws": "~1.1.1",
     "hazdev-location-view": "~0.2.0",
     "hazdev-question-view": "~0.1.0",
     "hazdev-svgimagemap": "~0.0.4",
