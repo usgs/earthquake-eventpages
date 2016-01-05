@@ -162,7 +162,10 @@ DYFIPage.prototype.destroy = function () {
   if (this._tablist !== null) {
     this._tablist.destroy();
     this._tablist = null;
+    document.getElementById('a').removeEventListener('click');
+    document.getElementById('button').removeEventListener('click');
   }
+
   // call parent destroy
   SummaryDetailsPage.prototype.destroy.call(this);
 };
@@ -443,6 +446,5 @@ DYFIPage.prototype._setFooterMarkup = function () {
 
   SummaryDetailsPage.prototype._setFooterMarkup.apply(this);
 };
-
 
 module.exports = DYFIPage;
