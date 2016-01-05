@@ -73,6 +73,10 @@
     border: none;
   }
 
+  &:last-child {
+    padding-bottom: 0.5em;
+  }
+
   > .accordion-content {
     background-color: #fff;
   }
