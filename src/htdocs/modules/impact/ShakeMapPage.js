@@ -216,7 +216,7 @@ ShakeMapPage.prototype._addStationList = function () {
             });
           },
           function (errorMessage) {
-            container.innerHTML = '<p class="error">' + errorMessage + '</p>';
+            container.innerHTML = '<p class="alert error">' + errorMessage + '</p>';
           }
       );
       // return panel content
@@ -251,8 +251,9 @@ ShakeMapPage.prototype._getStationData = function (callback, errback) {
     success: function (data) {
       callback(data);
     },
-    error: function () {
-      errback('Error: Unable to retreive the station list.');
+    error: function (e /*, xhr*/) {
+      errback('Unable to retreive the station list.');
+      console.log(e.stack);
     }
   });
 };
