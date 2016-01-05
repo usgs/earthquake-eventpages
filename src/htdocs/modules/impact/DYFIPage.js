@@ -129,10 +129,36 @@ var RESPONSE_DATA_COLUMNS = [
 
 var RESPONSE_DATA_SORTS = [
   {
-    id: 'location',
-    title: 'Location',
+    id: 'city',
+    title: 'City',
     sortBy: function (response) {
       return response.name;
+    }
+  },
+  {
+    id: 'state',
+    title: 'Region / State',
+    sortBy: function (response) {
+      return response.state;
+    }
+  },
+  {
+    id: 'zip',
+    title: 'Zip Code',
+    sortBy: function (response) {
+      if (response.zip !== '') {
+        return response.zip;
+      }
+      else {
+        return response.name;
+      }
+    }
+  },
+  {
+    id: 'country',
+    title: 'Country',
+    sortBy: function (response) {
+      return response.country;
     }
   },
   {
@@ -150,18 +176,6 @@ var RESPONSE_DATA_SORTS = [
       return response.nresp;
     },
     descending: true
-  },
-  {
-    id: 'zip',
-    title: 'Zip Code',
-    sortBy: function (response) {
-      if (response.zip !== '') {
-        return response.zip;
-      }
-      else {
-        return response.name;
-      }
-    }
   },
   {
     id: 'distance',
