@@ -199,7 +199,6 @@ DYFIPage.prototype.getDetailsContent = function (dyfi) {
         contents:dyfi.contents,
         eventConfig: this,
         eventId:dyfi.code,
-        dataObject:MAP_GRAPH_IMAGES,
         callback:this._getUseMap,
         object:this
       })
@@ -214,30 +213,27 @@ DYFIPage.prototype.getDetailsContent = function (dyfi) {
 };
 
 DYFIPage.prototype._createTabListImage = function (url, contents, imageObj, eventId, container) {
-  var eventConfig,
-      image,
-      link;
-
-  eventConfig = this._eventConfig;
-
   var _this = this;
 
   return function () {
-    link = document.createElement('a');
-    image = document.createElement('img');
+    var eventConfig,
+        image;
 
-    image.src = url;
+    eventConfig = _this._eventConfig;
 
     if (imageObj.hasOwnProperty('usemap') && imageObj.hasOwnProperty('mapSuffix')) {
-      link.href = '#general_map';
+      image = document.createElement('a');
+      image.href = '#general_map';
 
-      _this._createSvgImage(contents, imageObj, eventId, link);
+      _this._createSvgImage(contents, imageObj, eventId, image);
 
-      link.addEventListener('click', function () {
+      image.addEventListener('click', function () {
         eventConfig.fromDYFI = true;
       });
-      container.appendChild(link);
-      return container;
+
+    } else {
+      image = document.createElement('img');
+      image.src = url;
     }
 
     container.appendChild(image);
@@ -274,7 +270,7 @@ DYFIPage.prototype._createTabListData = function (options) {
       tablist;
 
   contents = options.contents;
-  dataObject = options.dataObject;
+  dataObject = MAP_GRAPH_IMAGES;
   eventId = options.eventId;
   tablist = [];
 
