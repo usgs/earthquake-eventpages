@@ -31,7 +31,7 @@
       max-width: 150px;
       text-align: center;
       vertical-align: middle;
-      width: 25%;
+      min-width: 33%;
 
       &.image > img {
         display: block;
@@ -99,6 +99,7 @@
   .summary > ul {
     > li {
       font-size: 1.125em;
+      min-width: 20%;
     }
   }
 }

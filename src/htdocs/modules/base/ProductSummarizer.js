@@ -377,22 +377,27 @@ getMomentTensorSummary = function (product) {  var beachBall,
  */
 getOriginSummary = function (product) {
   var depth,
+      location,
       magnitude,
       magnitudeSource,
       magnitudeType,
       originSource,
       p,
-      reviewStatus;
+      reviewStatus,
+      time;
 
   if (!product) {
     return '<p class="alert error">No origin product found for this event.</p>';
   }
 
   p = product.properties;
-  depth = p.depth;
+  depth = _formatter.depth(p.depth, 'km');
   magnitude = p.magnitude;
   magnitudeType = p['magnitude-type'];
+  time = _formatter.time(new Date(Date.parse(p.eventtime)));
   reviewStatus = p['review-status'] || 'automatic';
+  location = _formatter.location(parseFloat(p.latitude),
+      parseFloat(p.longitude));
   originSource = p['origin-source'] || product.source;
   magnitudeSource = p['magnitude-source'] || product.source;
 
@@ -406,12 +411,20 @@ getOriginSummary = function (product) {
         '<abbr title="Magnitude and Type">', magnitudeType, '</abbr>',
       '</li>',
       '<li>',
+        '<span>', time, '</span>',
+        '<abbr title="UTC Time">Time</abbr>',
+      '</li>',
+      '<li>',
         '<span>', depth, '</span>',
-        '<abbr title="Depth (km)">Depth (km)</abbr>',
+        '<abbr title="Depth">Depth</abbr>',
       '</li>',
       '<li>',
         '<span>', reviewStatus, '</span>',
         '<abbr title="Review Status">Status</abbr>',
+      '</li>',
+      '<li>',
+        '<span>', location, '</span>',
+        '<abbr title="Location Coordinates">Location</abbr>',
       '</li>',
       '<li>',
         EventModulePage.prototype.getCatalogSummary.call(null, product),
