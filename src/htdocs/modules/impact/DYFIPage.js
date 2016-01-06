@@ -162,10 +162,11 @@ DYFIPage.prototype.destroy = function () {
   if (this._tablist !== null) {
     this._tablist.destroy();
     this._tablist = null;
-    document.getElementById('a').removeEventListener('click');
-    document.getElementById('button').removeEventListener('click');
   }
-
+  if (this._button !== null) {
+    this._button.removeEventListener('click', this._onToggleButtonClick);
+    this._button = null;
+  }
   // call parent destroy
   SummaryDetailsPage.prototype.destroy.call(this);
 };
@@ -215,37 +216,57 @@ DYFIPage.prototype.getDetailsContent = function (dyfi) {
   return el;
 };
 
-DYFIPage.prototype._createTabListImage = function (url, contents, imageObj, eventId, container) {
-  var _this = this;
+DYFIPage.prototype._createTabListImage = function (url, contents, imageObj,
+    eventId, container) {
+  var content,
+      el,
+      eventConfig,
+      onClick,
+      onDestroy,
+      title,
 
-  return function () {
-    var eventConfig,
-        image;
+      _this;
 
-    eventConfig = _this._eventConfig;
+  el = null;
+  eventConfig = this._eventConfig;
+  title = imageObj.title;
 
-    if (imageObj.hasOwnProperty('usemap') && imageObj.hasOwnProperty('mapSuffix')) {
-      image = document.createElement('a');
-      image.href = '#general_map';
+  _this = this;
 
-      _this._createSvgImage(contents, imageObj, eventId, image);
+  onClick = function () {
+    eventConfig.fromDYFI = true;
+  };
 
-      image.addEventListener('click', function () {
-        eventConfig.fromDYFI = true;
-      });
+  onDestroy = function () {
+    if (el !== null) {
+      el.removeEventListener('click', onClick);
+      el = null;
+    }
+  };
 
+  content = function () {
+    if (imageObj.hasOwnProperty('usemap') &&
+        imageObj.hasOwnProperty('mapSuffix')) {
+      el = document.createElement('a');
+      el.href = '#general_map';
+
+      _this._createSvgImage(contents, imageObj, eventId, el);
+      el.addEventListener('click', onClick);
     } else {
-      image = document.createElement('img');
-      image.src = url;
+      el = document.createElement('img');
+      el.src = url;
     }
 
-    container.appendChild(image);
+    container.appendChild(el);
 
     return container;
   };
+
+  return {title: title, content: content, onDestroy: onDestroy};
 };
 
-DYFIPage.prototype._createSvgImage = function (contents, image, eventId, container) {
+DYFIPage.prototype._createSvgImage = function (contents, image, eventId,
+    container) {
   var imageKey,
       mapKey;
 
@@ -267,8 +288,8 @@ DYFIPage.prototype._createTabListData = function (options) {
       dataObject,
       eventId,
       i,
-      imageObj,
       imageName,
+      imageObj,
       len,
       tablist;
 
@@ -290,10 +311,13 @@ DYFIPage.prototype._createTabListData = function (options) {
     imageName = eventId + imageObj.suffix;
 
     if(contents.hasOwnProperty(imageName)) {
-      tablist.push({
-        title: imageObj.title,
-        content: this._createTabListImage(contents[imageName].url, contents, imageObj, eventId, container, options)
-      });
+      tablist.push(this._createTabListImage(
+          contents[imageName].url,
+          contents,
+          imageObj,
+          eventId,
+          container,
+          options));
     }
   }
   return tablist;
@@ -307,8 +331,9 @@ DYFIPage.prototype._addDyfiResponsesTab = function () {
   this._tablist.addTab({
     'title': title,
     'content': function () {
-      var container = document.createElement('div'),
-          el;
+      var container;
+
+      container = document.createElement('div');
       container.className = 'dyfi-responses';
       container.innerHTML =
           '<p>Loading DYFI Responses data from XML,please wait...</p>';
@@ -324,10 +349,10 @@ DYFIPage.prototype._addDyfiResponsesTab = function () {
           defaultSort: 'distance'
         });
 
-        el = container.querySelector('.datatable-data');
-        el.classList.add('horizontal-scrolling');
+        _this._responseTableEl = container.querySelector('.datatable-data');
+        _this._responseTableEl.classList.add('horizontal-scrolling');
         if (responses.data().length > 10) {
-          _this._addToggleButton(container, el);
+          _this._addToggleButton(container);
         }
       });
 
@@ -407,23 +432,28 @@ DYFIPage.prototype._buildResponsesCollection = function (xmlDoc) {
   return new Collection(responsesArray);
 };
 
-DYFIPage.prototype._addToggleButton = function (container, table) {
-  var button = container.appendChild(document.createElement('button'));
-
-  button.innerHTML = 'Show All Locations';
-  button.className = 'view-all';
-
-  button.addEventListener('click', function (/*evt*/) {
-    if (table.classList.contains('full-list')) {
-      table.classList.remove('full-list');
-      button.innerHTML = 'Show All Locations';
-    } else {
-      table.classList.add('full-list');
-      button.innerHTML = 'Show Only 10 Locations';
-    }
-  });
+DYFIPage.prototype._addToggleButton = function (container) {
+  this._button = container.appendChild(document.createElement('button'));
+  this._button.innerHTML = 'See All Responses';
+  this._button.className = 'view-all';
+  this._onToggleButtonClick = this._onToggleButtonClick.bind(this);
+  this._button.addEventListener('click', this._onToggleButtonClick);
+  container.appendChild(this._button);
 };
 
+DYFIPage.prototype._onToggleButtonClick = function () {
+  if (this._responseTableEl.classList.contains('full-list')) {
+    this._responseTableEl.classList.remove('full-list');
+    this._button.innerHTML = 'Show All Responses';
+  } else {
+    this._responseTableEl.classList.add('full-list');
+    this._button.innerHTML = 'Show Only 10 Responses';
+  }
+};
+
+/**
+ * Sets up summary info for Shakemap events with 2 or more events
+ */
 DYFIPage.prototype._getSummaryMarkup = function (product) {
   return ProductSummarizer.getDYFISummary(product);
 };
