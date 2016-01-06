@@ -58,32 +58,25 @@ var MAP_GRAPH_IMAGES = [
 ];
 
 var RESPONSE_DATA_COLUMNS = [
-  // {
-  //   className: 'dyfi-response-zip-name',
-  //   title: 'Location',
-  //   format: function (response) {
-  //     return response.name;
-  //   }
-  // },
-  // {
-  //   className: 'dyfi-response-state',
-  //   title: 'Region',
-  //   format: function (response) {
-  //     return response.state;
-  //   }
-  // },
-  // {
-  //   className: 'dyfi-response-zip-code',
-  //   title: 'ZIP Code',
-  //   format: function (response) {
-  //     return response.zip;
-  //   }
-  // },
   {
     className: 'dyfi-response-location',
     title: 'Location',
+    downloadTitle: 'City\tState/Region\tCountry\tZip Code',
     format: function (response) {
       return formatter.formatDYFILocation(response);
+    },
+    downloadFormat: function (response) {
+      var country,
+          location,
+          region,
+          zip;
+
+      country = response.country;
+      location = response.name;
+      region = response.state;
+      zip = response.zip;
+
+      return [location, region, country, zip].join('\t');
     }
   },
   {
@@ -116,6 +109,9 @@ var RESPONSE_DATA_COLUMNS = [
     title: 'Latitude',
     format: function (response) {
       return formatter.formatLatitude(response.lat);
+    },
+    downloadFormat: function (response) {
+      return response.lat;
     }
   },
   {
@@ -123,6 +119,9 @@ var RESPONSE_DATA_COLUMNS = [
     title: 'Longitude',
     format: function (response) {
       return formatter.formatLongitude(response.lon);
+    },
+    downloadFormat: function (response) {
+      return response.lon;
     }
   }
 ];
