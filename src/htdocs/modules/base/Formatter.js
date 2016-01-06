@@ -384,7 +384,8 @@ Formatter.prototype.formatDYFILocation = function (response) {
   region = response.state;
   zip = response.zip;
 
-  return location + ', ' + region + '&nbsp;' + zip + '<br />' + country;
+  return '<span class="dyfi-response-location">' + location + ', ' +
+      region + '&nbsp;' + zip + '<br /><small>' + country + '</small></span>';
 };
 
 module.exports = Formatter;
