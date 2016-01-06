@@ -411,17 +411,17 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
   isReviewed = _isReviewed(product);
 
   el.innerHTML = [
-    _getAttribution(originAuthor, magnitudeAuthor, updateStamp),
-    '<p class="quality-statement alert ',
-        ((isPreferred && isReviewed) ? 'success' : 'warning'), '">',
-      'Currently viewing ', (isPreferred ? 'preferred' : 'non-preferred'),
-      ' data that has', (isReviewed ? ' ' : ' not '), 'been reviewed by a ',
-      'scientist.',
-    '</p>',
     '<small><a href="#scientific_summary">', ((originProducts.length === 1) ?
       'Back to Scientific Summary' :
       'View all Origins (' + originProducts.length + ' total)'),
     '</a></small>',
+    '<p class="quality-statement alert ',
+        ((isPreferred && isReviewed) ? 'success' : 'warning'), '">',
+      'The data below is', (isPreferred ? ' ' : ' NOT '),
+      'preferred.<br/>It has',
+      (isReviewed ? ' ' : ' NOT '), 'been reviewed by a scientist.',
+    '</p>',
+    _getAttribution(originAuthor, magnitudeAuthor, updateStamp)
   ].join('');
 
   // Build TabList
