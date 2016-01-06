@@ -6,17 +6,17 @@
   }
 }
 
-.shakemap-tablist > section {
-  padding-top: 1em;
-}
-
 .shakemap-stations {
   > .accordion {
     margin: 0;
 
     + .accordion {
-      margin-top: 1em;
+      border-top: 1px solid #ddd;
     }
+  }
+
+  > :last-child {
+    padding-bottom: 1em;
   }
 }
 
@@ -35,19 +35,10 @@
   }
 }
 
-.accordion-content > .station-metadata {
-  margin-top: 0;
-}
+.station-metadata  {
+  font-size: 0.88em;
 
-@media screen and (min-width: 560px) {
-  .station-metadata.horizontal {
-    > dt {
-      margin: 0;
-      width: 6em;
-    }
-
-    > dd {
-      margin-left: 7em;
-    }
+  > dt {
+    margin: 1em 0 0;
   }
 }
