@@ -135,29 +135,17 @@ var RESPONSE_DATA_SORTS = [
     }
   },
   {
-    id: 'state',
-    title: 'Region / State',
-    sortBy: function (response) {
-      return response.state;
-    }
-  },
-  {
-    id: 'zip',
-    title: 'Zip Code',
-    sortBy: function (response) {
-      if (response.zip !== '') {
-        return response.zip;
-      }
-      else {
-        return response.name;
-      }
-    }
-  },
-  {
     id: 'country',
     title: 'Country',
     sortBy: function (response) {
       return response.country;
+    }
+  },
+  {
+    id: 'distance',
+    title: 'Distance',
+    sortBy: function (response) {
+      return response.dist;
     }
   },
   {
@@ -169,6 +157,13 @@ var RESPONSE_DATA_SORTS = [
     descending: true
   },
   {
+    id: 'state',
+    title: 'Region / State',
+    sortBy: function (response) {
+      return response.state;
+    }
+  },
+  {
     id: 'numResp',
     title: 'Responses',
     sortBy: function (response) {
@@ -177,10 +172,15 @@ var RESPONSE_DATA_SORTS = [
     descending: true
   },
   {
-    id: 'distance',
-    title: 'Distance',
+    id: 'zip',
+    title: 'Zip Code',
     sortBy: function (response) {
-      return response.dist;
+      if (response.zip !== '') {
+        return response.zip;
+      }
+      else {
+        return response.name;
+      }
     }
   }
 ];
