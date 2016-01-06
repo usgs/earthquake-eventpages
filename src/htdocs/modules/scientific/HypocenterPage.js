@@ -167,6 +167,69 @@ var PHASE_DATA_SORTS = [
   }
 ];
 
+var _isPreferred = function (product, products) {
+  var firstProduct,
+      isPreferred;
+
+  isPreferred = false;
+  firstProduct = products[0];
+
+  if (firstProduct && firstProduct.phasedata) {
+    firstProduct = firstProduct.phasedata;
+  }
+
+  if (firstProduct && firstProduct.id === product.id) {
+      isPreferred = true;
+  }
+
+  return isPreferred;
+};
+
+/**
+ * Determines whether the given product has been reviewed.
+ *
+ * @param product {Object}
+ *      An object with a properties key which points to an object potentially
+ *      containing review status information.
+ *
+ * @return {Boolean}
+ *      True if the given product has been reviewed, false otherwise.
+ */
+var _isReviewed = function (product) {
+  var properties,
+      reviewed;
+
+  properties = product.properties;
+  reviewed = false;
+
+  if (properties.hasOwnProperty('review-status') &&
+      properties['review-status'].toUpperCase() === 'REVIEWED') {
+    reviewed = true;
+  }
+
+  return reviewed;
+};
+
+/**
+ * Generates the attribution markup used at the top of the origin details page.
+ *
+ * @param originAuthor {String}
+ * @param magnitudeAuthor {String}
+ *
+ * @return {String}
+ */
+var _getAttribution = function (originAuthor, magnitudeAuthor, updated) {
+  return '<small class="attribution">Data source ' +
+      (originAuthor === magnitudeAuthor ?
+        Attribution.getContributorReference(originAuthor) :
+        '<span>' +
+          Attribution.getContributorReference(originAuthor) + ', ' +
+          Attribution.getContributorReference(magnitudeAuthor) +
+        '</span>') +
+        ' last updated ' + updated +
+      '</small>';
+};
+
 
 /**
  * Construct a new HypocenterPage.
@@ -212,10 +275,14 @@ HypocenterPage.prototype.destroy = function () {
  * source + code combination exists across multiple product types,
  * then add the most recent product to the product array.
  *
+ * @param ignoreCode {Boolean} Optional, default false
+ *      If set and true, ignore any code that may be on the hash and
+ *      return products as normal.
+ *
  * @return {Array<object> allProducts,
  *         an array of products
  */
-HypocenterPage.prototype.getProducts = function () {
+HypocenterPage.prototype.getProducts = function (ignoreCode) {
   var origins = this._event.properties.products.origin || [],
       origin,
       phases = this._event.properties.products['phase-data'] || [],
@@ -225,9 +292,15 @@ HypocenterPage.prototype.getProducts = function () {
       index,
       id,
       i,
-      code = this._code;
+      code;
 
-  if (!code) {
+  if (ignoreCode) {
+    code = null;
+  } else {
+    code = this._code;
+  }
+
+  if (!ignoreCode && !code) {
     code = this._getHash();
   }
 
@@ -277,13 +350,20 @@ HypocenterPage.prototype.getProducts = function () {
  */
 HypocenterPage.prototype.getDetailsContent = function (product) {
   var el = document.createElement('div'),
+      isPreferred,
+      isReviewed,
+      formatter,
       tabListDiv = document.createElement('section'),
       tabListContents = [],
       _this = this,
       originDetails,
       originAuthor,
+      originProducts,
       magnitudeAuthor,
-      props;
+      props,
+      updateStamp;
+
+  formatter = new Formatter();
 
   if (product.phasedata) {
     product = product.phasedata;
@@ -322,16 +402,27 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
   props = product.properties;
   originAuthor = props['origin-source'] || product.source;
   magnitudeAuthor = props['magnitude-source'] || product.source;
+  updateStamp = formatter.datetime(product.updateTime, 0);
+  originProducts = this.getProducts(true);
 
   el.classList.add('origin');
-  el.innerHTML = '<small class="attribution">Data Source ' +
-      (originAuthor === magnitudeAuthor ?
-        Attribution.getContributorReference(originAuthor) :
-        '<span>' +
-          Attribution.getContributorReference(originAuthor) + ', ' +
-          Attribution.getContributorReference(magnitudeAuthor) +
-        '</span>') +
-      '</small>';
+
+  isPreferred = _isPreferred(product, originProducts);
+  isReviewed = _isReviewed(product);
+
+  el.innerHTML = [
+    _getAttribution(originAuthor, magnitudeAuthor, updateStamp),
+    '<p class="quality-statement alert ',
+        ((isPreferred && isReviewed) ? 'success' : 'warning'), '">',
+      'Currently viewing ', (isPreferred ? 'preferred' : 'non-preferred'),
+      ' data that has', (isReviewed ? ' ' : ' not '), 'been reviewed by a ',
+      'scientist.',
+    '</p>',
+    '<small><a href="#scientific_summary">', ((originProducts.length === 1) ?
+      'Back to Scientific Summary' :
+      'View all Origins (' + originProducts.length + ' total)'),
+    '</a></small>',
+  ].join('');
 
   // Build TabList
   this._tabList = new TabList({
