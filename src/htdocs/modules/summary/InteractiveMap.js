@@ -48,7 +48,15 @@ InteractiveMap.prototype.onAdd = function () {
   }
 
   if (this._eventConfig.fromDYFI) {
-    this._dyfiLayer.addTo(this._map);
+    if (this._dyfiLayer10km) {
+      this._dyfiLayer10km.addTo(this._map);
+    }
+    else if (this._dyfiLayer1km) {
+      this._dyfiLayer1km.addTo(this._map);
+    }
+    else {
+      this._dyfiLayer.addTo(this._map);
+    }
     this._eventConfig.fromDYFI = false;
   }
 };
