@@ -186,6 +186,7 @@ var RESPONSE_DATA_SORTS = [
 /* creates map page and sets up the content */
 var DYFIPage = function (options) {
   this._options = Util.extend({}, DEFAULTS, options || {});
+  this._button = null;
   this._dyfi = null;
   this._formatter = options.formatter || new Formatter();
   this._responseTable = null;
