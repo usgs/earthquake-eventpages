@@ -24,7 +24,7 @@ var MULTI_MAP = {
 var SOURCE_MAP = {
   'AK,AEIC': {id: 'AK,AEIC', 'title': 'Alaska Earthquake Center', 'url': 'http://www.aeic.alaska.edu/', 'logo': LOGO_ROOT + 'AK.jpg'},
   'AT,ATWC': {id: 'AT,ATWC', 'title': 'National Tsunami Warning Center', 'url': 'http://ntwc.arh.noaa.gov', 'logo': LOGO_ROOT + 'PT.jpg'},
-  'CI': {id: 'CI', 'title': 'Southern California Seismic Network, Caltech, USGS Pasadena, and Partners', 'url': 'http://www.cisn.org/', 'logo': LOGO_ROOT + 'CI.gif'},
+  'CI': {id: 'CI', 'title': 'Southern California Seismic Network, Caltech, USGS Pasadena, and Partners', 'url': 'http://www.scsn.org', 'logo': LOGO_ROOT + 'CI.gif'},
   'HV': {id: 'HV', 'title': 'Hawaii Volcano Observatory', 'url': 'http://hvo.wr.usgs.gov/', 'logo': ''},
   'LD': {id: 'LD', 'title': 'Lamont-Doherty Cooperative Seismographic Network', 'url': 'http://www.ldeo.columbia.edu/LCSN/', 'logo': ''},
   'MB': {id: 'MB', 'title': 'Montana Bureau of Mines and Geology', 'url': 'http://www.mbmg.mtech.edu/', 'logo': LOGO_ROOT + 'MB.gif'},
