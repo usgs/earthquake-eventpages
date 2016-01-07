@@ -13,6 +13,7 @@ var BUNDLED_DEPENDENCIES = [
   './' + config.src + '/htdocs/modules/base/Formatter.js:base/Formatter',
   './' + config.src + '/htdocs/modules/base/ImpactUtil.js:base/ImpactUtil',
   './' + config.src + '/htdocs/modules/base/SummaryDetailsPage.js:base/SummaryDetailsPage',
+  './' + config.src + '/htdocs/modules/base/SummaryPage.js:base/SummaryPage',
   NODE_MODULES + '/hazdev-accordion/src/accordion/Accordion.js:accordion/Accordion',
   NODE_MODULES + '/hazdev-tablist/src/tablist/TabList.js:tablist/TabList',
   NODE_MODULES + '/hazdev-webutils/src/mvc/Collection.js:mvc/Collection',
