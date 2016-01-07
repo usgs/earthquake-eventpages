@@ -6,13 +6,11 @@ var Attribution = require('base/Attribution'),
     Formatter = require('base/Formatter'),
     ProductSummarizer = require('base/ProductSummarizer'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
+    SvgImageMap = require('svgimagemap/SvgImageMap'),
     ImpactUtil = require('base/ImpactUtil'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util'),
-    Xhr = require('util/Xhr'),
-
-    TabListUtil = require('./TabListUtil');
-
+    Xhr = require('util/Xhr');
 
 var DEFAULTS = {
   productTypes: ['dyfi'],
@@ -185,15 +183,15 @@ var RESPONSE_DATA_SORTS = [
   }
 ];
 
-
 /* creates map page and sets up the content */
 var DYFIPage = function (options) {
-  options = Util.extend({}, DEFAULTS, options || {});
+  this._options = Util.extend({}, DEFAULTS, options || {});
   this._dyfi = null;
   this._formatter = options.formatter || new Formatter();
   this._responseTable = null;
   this._tablist = null;
-  SummaryDetailsPage.call(this, options);
+  this._eventConfig = options.eventConfig;
+  SummaryDetailsPage.call(this, this._options);
 };
 
 DYFIPage.prototype = Object.create(SummaryDetailsPage.prototype);
@@ -208,6 +206,10 @@ DYFIPage.prototype.destroy = function () {
   if (this._tablist !== null) {
     this._tablist.destroy();
     this._tablist = null;
+  }
+  if (this._button !== null) {
+    this._button.removeEventListener('click', this._onToggleButtonClick);
+    this._button = null;
   }
   // call parent destroy
   SummaryDetailsPage.prototype.destroy.call(this);
@@ -241,10 +243,10 @@ DYFIPage.prototype.getDetailsContent = function (dyfi) {
     this._tablist = new TabList({
       el: tablistDiv,
       tabPosition: 'top',
-      tabs: TabListUtil.CreateTabListData({
+      tabs: this._createTabListData({
         contents:dyfi.contents,
+        eventConfig: this,
         eventId:dyfi.code,
-        dataObject:MAP_GRAPH_IMAGES,
         callback:this._getUseMap,
         object:this
       })
@@ -258,8 +260,111 @@ DYFIPage.prototype.getDetailsContent = function (dyfi) {
   return el;
 };
 
-DYFIPage.prototype._getSummaryMarkup = function (product) {
-  return ProductSummarizer.getDYFISummary(product);
+DYFIPage.prototype._createTabListImage = function (url, contents, imageObj,
+    eventId, container) {
+  var content,
+      el,
+      eventConfig,
+      onClick,
+      onDestroy,
+      title,
+
+      _this;
+
+  el = null;
+  eventConfig = this._eventConfig;
+  title = imageObj.title;
+
+  _this = this;
+
+  onClick = function () {
+    eventConfig.fromDYFI = true;
+  };
+
+  onDestroy = function () {
+    if (el !== null) {
+      el.removeEventListener('click', onClick);
+      el = null;
+    }
+  };
+
+  content = function () {
+    if (imageObj.hasOwnProperty('usemap') &&
+        imageObj.hasOwnProperty('mapSuffix')) {
+      el = document.createElement('a');
+      el.href = '#general_map';
+
+      _this._createSvgImage(contents, imageObj, eventId, el);
+      el.addEventListener('click', onClick);
+    } else {
+      el = document.createElement('img');
+      el.src = url;
+    }
+
+    container.appendChild(el);
+
+    return container;
+  };
+
+  return {title: title, content: content, onDestroy: onDestroy};
+};
+
+DYFIPage.prototype._createSvgImage = function (contents, image, eventId,
+    container) {
+  var imageKey,
+      mapKey;
+
+  imageKey = eventId + image.suffix;
+  mapKey = eventId + image.mapSuffix;
+
+  /* Sets up SVG image map if one exists */
+  new SvgImageMap({
+    el: container,
+    imageUrl: contents[imageKey].url,
+    mapUrl: contents[mapKey].url,
+    mapName: image.usemap
+  });
+};
+
+DYFIPage.prototype._createTabListData = function (options) {
+  var container,
+      contents,
+      dataObject,
+      eventId,
+      i,
+      imageName,
+      imageObj,
+      len,
+      tablist;
+
+  contents = options.contents;
+  dataObject = MAP_GRAPH_IMAGES;
+  eventId = options.eventId;
+  tablist = [];
+
+  if (typeof contents !== 'object' || typeof eventId !== 'string' ||
+      typeof dataObject !== 'object') {
+    return tablist;
+  }
+
+  len = dataObject.length;
+
+  for (i = 0, len; i < len; i++) {
+    container = document.createElement('div');
+    imageObj = dataObject[i];
+    imageName = eventId + imageObj.suffix;
+
+    if(contents.hasOwnProperty(imageName)) {
+      tablist.push(this._createTabListImage(
+          contents[imageName].url,
+          contents,
+          imageObj,
+          eventId,
+          container,
+          options));
+    }
+  }
+  return tablist;
 };
 
 DYFIPage.prototype._addDyfiResponsesTab = function () {
@@ -270,8 +375,9 @@ DYFIPage.prototype._addDyfiResponsesTab = function () {
   this._tablist.addTab({
     'title': title,
     'content': function () {
-      var container = document.createElement('div'),
-          el;
+      var container;
+
+      container = document.createElement('div');
       container.className = 'dyfi-responses';
       container.innerHTML =
           '<p>Loading DYFI Responses data from XML,please wait...</p>';
@@ -287,10 +393,10 @@ DYFIPage.prototype._addDyfiResponsesTab = function () {
           defaultSort: 'distance'
         });
 
-        el = container.querySelector('.datatable-data');
-        el.classList.add('horizontal-scrolling');
+        _this._responseTableEl = container.querySelector('.datatable-data');
+        _this._responseTableEl.classList.add('horizontal-scrolling');
         if (responses.data().length > 10) {
-          _this._addToggleButton(container, el);
+          _this._addToggleButton(container);
         }
       });
 
@@ -370,21 +476,30 @@ DYFIPage.prototype._buildResponsesCollection = function (xmlDoc) {
   return new Collection(responsesArray);
 };
 
-DYFIPage.prototype._addToggleButton = function (container, table) {
-  var button = container.appendChild(document.createElement('button'));
+DYFIPage.prototype._addToggleButton = function (container) {
+  this._button = container.appendChild(document.createElement('button'));
+  this._button.innerHTML = 'See All Responses';
+  this._button.className = 'view-all';
+  this._onToggleButtonClick = this._onToggleButtonClick.bind(this);
+  this._button.addEventListener('click', this._onToggleButtonClick);
+  container.appendChild(this._button);
+};
 
-  button.innerHTML = 'Show All Locations';
-  button.className = 'view-all';
+DYFIPage.prototype._onToggleButtonClick = function () {
+  if (this._responseTableEl.classList.contains('full-list')) {
+    this._responseTableEl.classList.remove('full-list');
+    this._button.innerHTML = 'Show All Responses';
+  } else {
+    this._responseTableEl.classList.add('full-list');
+    this._button.innerHTML = 'Show Only 10 Responses';
+  }
+};
 
-  button.addEventListener('click', function (/*evt*/) {
-    if (table.classList.contains('full-list')) {
-      table.classList.remove('full-list');
-      button.innerHTML = 'Show All Locations';
-    } else {
-      table.classList.add('full-list');
-      button.innerHTML = 'Show Only 10 Locations';
-    }
-  });
+/**
+ * Sets up summary info for Shakemap events with 2 or more events
+ */
+DYFIPage.prototype._getSummaryMarkup = function (product) {
+  return ProductSummarizer.getDYFISummary(product);
 };
 
 DYFIPage.prototype._setFooterMarkup = function () {
@@ -405,6 +520,5 @@ DYFIPage.prototype._setFooterMarkup = function () {
 
   SummaryDetailsPage.prototype._setFooterMarkup.apply(this);
 };
-
 
 module.exports = DYFIPage;

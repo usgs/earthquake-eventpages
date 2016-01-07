@@ -46,6 +46,11 @@ InteractiveMap.prototype.onAdd = function () {
     this._stationLayer.addTo(this._map);
     this._eventConfig.fromShakemap = false;
   }
+
+  if (this._eventConfig.fromDYFI) {
+    this._dyfiLayer.addTo(this._map);
+    this._eventConfig.fromDYFI = false;
+  }
 };
 
 InteractiveMap.prototype.onRemove = function () {
