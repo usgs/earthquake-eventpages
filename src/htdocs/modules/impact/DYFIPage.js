@@ -19,6 +19,8 @@ var DEFAULTS = {
   hash: 'dyfi'
 };
 
+var formatter = new Formatter();
+
 /* sets up titles and images for tabs */
 var MAP_GRAPH_IMAGES = [
   {
@@ -59,15 +61,23 @@ var RESPONSE_DATA_COLUMNS = [
   {
     className: 'dyfi-response-location',
     title: 'Location',
+    downloadTitle: 'City\tState/Region\tCountry\tZip Code',
     format: function (response) {
-      return response.name + ', ' + response.state + ' ' + response.zip +
-          '<small>' + response.country + '</small>';
+      return formatter.formatDYFILocation(response);
     },
     downloadFormat: function (response) {
-      return response.name + ', ' + response.state + ' ' + response.zip +
-          response.country;
-    },
-    header: true
+      var country,
+          location,
+          region,
+          zip;
+
+      country = response.country;
+      location = response.name;
+      region = response.state;
+      zip = response.zip;
+
+      return [location, region, country, zip].join('\t');
+    }
   },
   {
     className: 'dyfi-response-mmi',
@@ -91,17 +101,51 @@ var RESPONSE_DATA_COLUMNS = [
     className: 'dyfi-response-distance',
     title: 'Distance',
     format: function (response) {
-      return response.dist;
+      return response.dist + ' km';
+    }
+  },
+  {
+    className: 'dyfi-response-latitude',
+    title: 'Latitude',
+    format: function (response) {
+      return formatter.formatLatitude(response.lat);
+    },
+    downloadFormat: function (response) {
+      return response.lat;
+    }
+  },
+  {
+    className: 'dyfi-response-longitude',
+    title: 'Longitude',
+    format: function (response) {
+      return formatter.formatLongitude(response.lon);
+    },
+    downloadFormat: function (response) {
+      return response.lon;
     }
   }
 ];
 
 var RESPONSE_DATA_SORTS = [
   {
-    id: 'location',
-    title: 'Location',
+    id: 'city',
+    title: 'City',
     sortBy: function (response) {
       return response.name;
+    }
+  },
+  {
+    id: 'country',
+    title: 'Country',
+    sortBy: function (response) {
+      return response.country;
+    }
+  },
+  {
+    id: 'distance',
+    title: 'Distance',
+    sortBy: function (response) {
+      return response.dist;
     }
   },
   {
@@ -111,6 +155,13 @@ var RESPONSE_DATA_SORTS = [
       return response.cdi;
     },
     descending: true
+  },
+  {
+    id: 'state',
+    title: 'Region / State',
+    sortBy: function (response) {
+      return response.state;
+    }
   },
   {
     id: 'numResp',
@@ -130,13 +181,6 @@ var RESPONSE_DATA_SORTS = [
       else {
         return response.name;
       }
-    }
-  },
-  {
-    id: 'distance',
-    title: 'Distance',
-    sortBy: function (response) {
-      return response.dist;
     }
   }
 ];
