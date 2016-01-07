@@ -210,6 +210,7 @@ DYFIPage.prototype.destroy = function () {
   if (this._button !== null) {
     this._button.removeEventListener('click', this._onToggleButtonClick);
     this._button = null;
+    this._onToggleButtonClick = null;
   }
   // call parent destroy
   SummaryDetailsPage.prototype.destroy.call(this);
