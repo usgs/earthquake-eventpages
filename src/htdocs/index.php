@@ -5,6 +5,8 @@ if (!isset($TEMPLATE)) {
   // Defines the $CONFIG hash of configuration variables
   include_once '../conf/config.inc.php';
 
+  $COOPERATORS = ' ';
+
   $HEAD = '
     <link rel="stylesheet" href="css/index.css"/>
   ';

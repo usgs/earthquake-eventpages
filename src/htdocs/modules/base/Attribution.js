@@ -412,38 +412,17 @@ var SOURCES = [];
 
 var Attribution = {
 
-  setContributors: function (sources) {
-    SOURCES = sources;
-    SOURCES.sort(
-      function (a, b) {
-        var aName,
-            bName;
-
-        aName = Attribution.getName(a);
-        bName = Attribution.getName(b);
-
-        if (aName < bName) {
-          return -1;
-        } else if (aName > bName) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
-  },
-
-  getContributors: function () {
-    return SOURCES;
-  },
-
   getContributor: function (id) {
-    var title = null,
-        url = null,
-        src = null,
-        code = null;
+    var code,
+        src,
+        title,
+        url;
 
     id = id.toUpperCase();
     code = id;
+    src = null;
+    title = null;
+    url = null;
 
     if (MULTI_MAP.hasOwnProperty(code)) {
       code = MULTI_MAP[code];
@@ -467,9 +446,10 @@ var Attribution = {
   },
 
   getContributorList: function () {
-
-    var listMarkup = [],
+    var listMarkup,
         source;
+
+    listMarkup = [];
 
     for (var i = 0; i < SOURCES.length; i++) {
       source = SOURCES[i];
@@ -480,9 +460,12 @@ var Attribution = {
   },
 
   getContributorReference: function (contributor) {
-    var source = contributor.toLowerCase(),
-        listPosition = SOURCES.indexOf(source) + 1,
+    var listPosition,
+        source,
         span;
+
+    source = contributor.toLowerCase();
+    listPosition = SOURCES.indexOf(source) + 1;
 
     /* When mapping does not exist, return the contributor text */
     if (listPosition === 0) {
@@ -490,49 +473,29 @@ var Attribution = {
     }
 
     span = '<span>' +
-        '<abbr title="' + Attribution.getName(source) + '">' +
-          source.toUpperCase() +
-          '<sup>' + listPosition + '</sup>' +
-        '</abbr>' +
-        '</span>';
+      '<abbr title="' + Attribution.getName(source) + '">' +
+        source.toUpperCase() +
+        '<sup>' + listPosition + '</sup>' +
+      '</abbr>' +
+    '</span>';
 
     return span;
   },
 
-
-  getMainContributerHeader: function (id) {
-    var contributor = this.getContributor(id),
-        url = contributor.url,
-        title = contributor.title,
-        code = contributor.id,
-        header;
-
-    if (url !== null) {
-      header = '<a target="_blank" href="' + url + '">' + title + ' (' + code + ')</a>';
-    } else {
-      header = title;
-    }
-
-    return header;
-  },
-
-  getName: function (id) {
-    var contributor = this.getContributor(id),
-        title = contributor.title,
-        code =  contributor.id;
-
-    if (!title) {
-      title = code;
-    }
-
-    return title + ' (' + code + ')';
+  getContributors: function () {
+    return SOURCES;
   },
 
   getLink: function (id) {
-    var contributor = this.getContributor(id),
-        title = contributor.title,
-        code =  contributor.id,
-        url = contributor.url;
+    var code,
+        contributor,
+        title,
+        url;
+
+    contributor = this.getContributor(id);
+    code =  contributor.id;
+    title = contributor.title;
+    url = contributor.url;
 
     if (!title) {
       title = code;
@@ -544,9 +507,72 @@ var Attribution = {
     if (url) {
       return '<a href="' + url + '">' + title + '</a>';
     } else {
-        return title;
+      return title;
     }
+  },
+
+  getMainContributerHeader: function (id) {
+    var code,
+        contributor,
+        header,
+        title,
+        url;
+
+    contributor = this.getContributor(id);
+    code = contributor.id;
+    title = contributor.title;
+    url = contributor.url;
+
+    if (url !== null) {
+      header = '<a target="_blank" href="' + url + '">' + title +
+                ' (' + code + ')</a>';
+    } else {
+      header = title;
+    }
+
+    return header;
+  },
+
+  getName: function (id) {
+    var code,
+        contributor,
+        title;
+
+    contributor = this.getContributor(id);
+    code =  contributor.id;
+    title = contributor.title;
+
+    if (!title) {
+      title = code;
+    }
+
+    return title + ' (' + code + ')';
+  },
+
+  getURL: function (id) {
+    return this.getContributor(id).url;
+  },
+
+  setContributors: function (sources) {
+    SOURCES = sources;
+    SOURCES.sort(
+      function (a, b) {
+        var aName,
+            bName;
+
+        aName = Attribution.getName(a);
+        bName = Attribution.getName(b);
+
+        if (aName < bName) {
+          return -1;
+        } else if (aName > bName) {
+          return 1;
+        } else {
+          return 0;
+        }
+      });
   }
+
 };
 
 

@@ -3,7 +3,7 @@
 var config = require('./config');
 
 
-var CWD = process.cwd(),
+var CWD = '.',
     NODE_MODULES = CWD + '/node_modules';
 
 

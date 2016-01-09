@@ -1,13 +1,13 @@
 'use strict';
 
-var Events = require('util/Events'),
-    Util = require('util/Util'),
+var Attribution = require('./Attribution'),
 
-    Attribution = require('./Attribution'),
-
+    ImpactModule = require('impact/ImpactModule'),
     ScientificModule = require('scientific/ScientificModule'),
     SummaryModule = require('summary/SummaryModule'),
-    ImpactModule = require('impact/ImpactModule');
+
+    Events = require('util/Events'),
+    Util = require('util/Util');
 
 
 var REDIRECTS = {
@@ -63,6 +63,7 @@ var __get_hash = function (evt) {
   return hash.split('#').slice(1).join('#');
 };
 
+
 var EventPage = function (options) {
   this._events = Events();
   this.off = this._events.off;
@@ -71,6 +72,9 @@ var EventPage = function (options) {
 
   options = Util.extend({}, DEFAULTS, options);
 
+  this._cooperators = options.cooperators ||
+      document.querySelector('.cooperators') ||
+      document.createElement('header');
   this._container = options.container ||
       document.querySelector('.event-content') ||
       document.createElement('section');
@@ -165,6 +169,8 @@ EventPage.prototype.destroy = function () {
   this._eventDetails = null;
   this._navigation = null;
   this._container = null;
+  this._cooperators = null;
+  this._footer = null;
 };
 
 EventPage.prototype.render = function (evt) {
@@ -198,13 +204,16 @@ EventPage.prototype.render = function (evt) {
 };
 
 EventPage.prototype.updateNavigation = function (evt) {
-  var markup = [],
-      i = 0,
-      numModules = this._modules.length,
+  var hash,
+      markup,
       module,
-      hash = __get_hash(evt);
+      numModules;
 
-  for (; i < numModules; i++) {
+  markup = [];
+  numModules = this._modules.length;
+  hash = __get_hash(evt);
+
+  for (var i = 0; i < numModules; i++) {
     module = this._modules[i];
     if (module.hasContent()) {
       markup.push('<section>' + module.getNavigationItems(hash).join('') + '</section>');
@@ -234,16 +243,108 @@ EventPage.prototype.updateFooter = function () {
     '</ul>';
 };
 
+EventPage.prototype.updateCooperators = function () {
+  var cooperatorMarkup,
+      length,
+      source,
+      sources;
+
+  cooperatorMarkup = [];
+  sources = Attribution.getContributors();
+  length = sources.length;
+
+  for (var i = 0; i < length; i++) {
+    source = sources[i];
+    cooperatorMarkup.push(
+      this._getImage(source)
+    );
+  }
+
+  this._cooperators.innerHTML = cooperatorMarkup;
+};
+
+EventPage.prototype._getImage = function (source) {
+  var alt,
+      height,
+      img;
+
+  alt = 'alt="in cooperation with Advanced National Seismic System (ANSS)"';
+  height = ' height="140px" ';
+  img = [];
+
+  switch (source) {
+    case 'ak,aeic':
+    case 'aei':
+    case 'aeic':
+      return '<a class="cooperator" href="' + Attribution.getURL(source) +
+             '">' +
+              '<img src="/images/logos/aec_logo_for_usgs.svg"' +
+                height +
+                alt +
+              '/>' +
+             '</a>';
+    case 'ci':
+    case 'pas':
+      return '<a class="cooperator" href="' + Attribution.getURL(source) +
+             '">' +
+              '<img src="/images/logos/Caltech_LOGO-WHITE_RGB.svg"' +
+                height +
+                alt +
+              '/>' +
+             '</a>';
+    case 'ceri':
+    case 'se':
+    case 'mnlo':
+      return '<a class="cooperator" href="' + Attribution.getURL(source) +
+             '">' +
+              '<img src="/images/logos/ceri_blk_wh.svg"' +
+                height +
+                alt +
+              '/>' +
+             '</a>';
+    case 'ld':
+    case 'pal':
+    case 'gcmt':
+      return '<a class="cooperator" href="' + Attribution.getURL(source) +
+             '">' +
+              '<img src="/images/logos/LD_LCSN_logo.svg"' +
+                height +
+                alt +
+              '/>' +
+             '</a>';
+    case 'uw,pnsn':
+      return '<a class="cooperator" href="' + Attribution.getURL(source) +
+             '">' +
+              '<img src="/images/logos/pnsn_logo_black.svg"' +
+                height +
+                alt +
+              '/>' +
+             '</a>';
+    case 'uu':
+      return '<a class="cooperator" href="' + Attribution.getURL(source) +
+             '">' +
+              '<img src="/images/logos/UUSS_usgsLogo.svg"' +
+                height +
+                alt +
+              '/>' +
+             '</a>';
+    default:
+      return '';
+  }
+};
+
 EventPage.prototype._buildContributorArray = function () {
   var allProducts,
-      products,
-      product,
-      props,
       author,
-      sources = [],
-      type,
       i,
-      length;
+      length,
+      product,
+      products,
+      props,
+      sources,
+      type;
+
+  sources = [];
 
   try {
     allProducts = this._eventDetails.properties.products;
@@ -294,12 +395,15 @@ EventPage.prototype._buildContributorArray = function () {
 
 
 EventPage.prototype.getModule = function (hash) {
-  var i = null,
-      module = null,
-      numModules = this._modules.length,
-      hashStub = hash.split('_').slice(0, 1).join('_');
+  var hashStub,
+      module,
+      numModules;
 
-  for (i = 0; i < numModules; i++) {
+  module = null;
+  numModules = this._modules.length;
+  hashStub = hash.split('_').slice(0, 1).join('_');
+
+  for (var i = 0; i < numModules; i++) {
     module = this._modules[i];
     if (module.getHash() === hashStub) {
       // found module, but suppress if it has no content.
@@ -315,12 +419,14 @@ EventPage.prototype.getModule = function (hash) {
 };
 
 EventPage.prototype.cachePage = function (hash, page) {
-  var i = null,
-      cachedPage = null,
-      numCached = this._cache.length;
+  var cachedPage,
+      numCached;
+
+  cachedPage = null;
+  numCached = this._cache.length;
 
   // Check if this module is already in the cache (it shouldn't be)
-  for (i = 0; i < numCached; i++) {
+  for (var i = 0; i < numCached; i++) {
     cachedPage = this._cache[i];
     if (hash === cachedPage.hash) {
       // Already in cache ...
@@ -396,6 +502,9 @@ EventPage.prototype._renderPage = function (hash, page) {
   this._container.appendChild(page.getHeader());
   this._container.appendChild(page.getContent());
   this._container.appendChild(page.getFooter());
+
+  // Update cooperators
+  this.updateCooperators();
 
   // Update cache
   this.cachePage(hash, page);
