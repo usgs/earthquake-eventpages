@@ -47,8 +47,8 @@ var __getMagnitudeMarkup = function (params) {
 
 var __getNPMarkup = function (params) {
   return ['(',
-    params.formatter.fmStrike(params.plane.strike), ', ',
-    params.formatter.fmDip(params.plane.dip), ', ',
+    params.formatter.fmStrike(params.plane.strike), ',',
+    params.formatter.fmDip(params.plane.dip), ',',
     params.formatter.fmRake(params.plane.rake),
     ')'
   ].join('');
@@ -231,78 +231,6 @@ var _DEFAULTS = {
             return '<img src="' + beachBall + '" alt="Focal Mechanism"/>';
           }
         },
-        // {
-        //   label: 'NP1 - Strike',
-        //   value: function (params) {
-        //     var strike,
-        //         tensor;
-
-        //     tensor = __getTensor(params);
-        //     strike = tensor ? tensor.NP1.strike : null;
-
-        //     return params.formatter.fmStrike(strike);
-        //   }
-        // },
-        // {
-        //   label: 'NP1 - Dip',
-        //   value: function (params) {
-        //     var dip,
-        //         tensor;
-
-        //     tensor = __getTensor(params);
-        //     dip = tensor ? tensor.NP1.dip : null;
-
-        //     return params.formatter.fmDip(dip);
-        //   }
-        // },
-        // {
-        //   label: 'NP1 - Rake',
-        //   value: function (params) {
-        //     var rake,
-        //         tensor;
-
-        //     tensor = __getTensor(params);
-        //     rake = tensor ? tensor.NP1.rake : null;
-
-        //     return params.formatter.fmRake(rake);
-        //   }
-        // },
-        // {
-        //   label: 'NP2 - Strike',
-        //   value: function (params) {
-        //     var strike,
-        //         tensor;
-
-        //     tensor = __getTensor(params);
-        //     strike = tensor ? tensor.NP2.strike : null;
-
-        //     return params.formatter.fmStrike(strike);
-        //   }
-        // },
-        // {
-        //   label: 'NP2 - Dip',
-        //   value: function (params) {
-        //     var dip,
-        //         tensor;
-
-        //     tensor = __getTensor(params);
-        //     dip = tensor ? tensor.NP2.dip : null;
-
-        //     return params.formatter.fmDip(dip);
-        //   }
-        // },
-        // {
-        //   label: 'NP2 - Rake',
-        //   value: function (params) {
-        //     var rake,
-        //         tensor;
-
-        //     tensor = __getTensor(params);
-        //     rake = tensor ? tensor.NP2.rake : null;
-
-        //     return params.formatter.fmRake(rake);
-        //   }
-        // },
         {
           label: 'Nodal Plane 1<br/><small>Strike,Dip,Rake</small>',
           value: function (params) {
@@ -327,6 +255,32 @@ var _DEFAULTS = {
               formatter: params.formatter,
               plane: tensor.NP2
             });
+          }
+        },
+        {
+          label: 'Source',
+          value: __getSourceMarkup
+        }
+      ]
+    },
+    'finite-fault': {
+      display: 'Finite Fault',
+      columns: [
+        {
+          label: 'Catalog',
+          value: __getCatalogMarkup
+        },
+        {
+          label: 'Preview',
+          value: function (params) {
+            var basemap,
+                product;
+
+            product = params.product;
+            basemap = product.contents['basemap.png'];
+
+            return '<img class="image" src="' + basemap.url +
+                '" alt="Finite Fault"/>';
           }
         },
         {

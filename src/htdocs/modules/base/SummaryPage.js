@@ -136,6 +136,7 @@ SummaryPage.prototype._setHeaderMarkup = function () {
 
 SummaryPage.prototype._setContentMarkup = function () {
   var markup,
+      products,
       type,
       types;
 
@@ -143,11 +144,15 @@ SummaryPage.prototype._setContentMarkup = function () {
   types = this._options.includeTypes;
 
   for (type in types) {
-    markup.appendChild(_getTypeSummary({
-      info: types[type],
-      products: this.getProducts(type),
-      type: type
-    }));
+    products = this.getProducts(type);
+
+    if (products.length > 0) {
+      markup.appendChild(_getTypeSummary({
+        info: types[type],
+        products: products,
+        type: type
+      }));
+    }
   }
 
   this._content.innerHTML = '';
