@@ -75,17 +75,11 @@ var _getTableHeaders = function (params) {
 
 
 var _getTableRow = function (params) {
-  var product;
-
-  product = params.product;
+  params.formatter = params.formatter || _FORMATTER;
 
   return '<tr class="' + (params.preferred ? 'preferred' : '') + '">' +
     params.columns.reduce(function (prev, column) {
-      return prev + '<td>' + column.value({
-        product: product,
-        formatter: _FORMATTER,
-        preferred: params.preferred
-      }) + '</td>';
+      return prev + '<td>' + column.value(params) + '</td>';
   }, '') + '</tr>';
 };
 

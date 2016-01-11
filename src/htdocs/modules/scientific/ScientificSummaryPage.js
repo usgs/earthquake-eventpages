@@ -1,9 +1,72 @@
 'use strict';
 
 var Attribution = require('base/Attribution'),
+    BeachBall = require('scientific/tensor/BeachBall'),
     SummaryPage = require('base/SummaryPage'),
-
+    Tensor = require('scientific/tensor/Tensor'),
     Util = require('util/Util');
+
+
+var __getBeachBall = function (params) {
+  return new BeachBall(Util.extend({
+    size: 30,
+    plotAxes: false,
+    plotPlanes: true
+  }, params)).getCanvas().toDataURL();
+};
+
+var __getCatalogMarkup = function (params) {
+  var markup,
+      product,
+      properties;
+
+  product = params.product;
+  properties = product.properties;
+  markup = [];
+
+
+  if (params.preferred) {
+    markup.push('<abbr title="Preferred ' + params.product.type +
+        '" class="material-icons">check</abbr>');
+  }
+
+  markup.push('<a href="#scientific_origin:' + product.source + '_' +
+      product.code + '">' + properties.eventsource.toUpperCase() + '</a>');
+
+  return markup.join('');
+};
+
+var __getMagnitudeMarkup = function (params) {
+  var properties;
+
+  properties = params.product.properties;
+
+  return params.formatter.magnitude(properties.magnitude,
+      properties['magnitude-type']);
+};
+
+var __getSourceMarkup = function (params) {
+  var magnitudeSource,
+      source,
+      originSource,
+      product,
+      properties;
+
+  product = params.product;
+  properties = product.properties;
+  source = [];
+
+  originSource = properties['origin-source'] || product.source;
+  magnitudeSource = properties['magnitude-source'] || product.source;
+
+  source.push(Attribution.getContributorReference(originSource));
+
+  if (originSource !== magnitudeSource) {
+    source.push(Attribution.getContributorReference(magnitudeSource));
+  }
+
+  return source.join('');
+};
 
 
 var _DEFAULTS = {
@@ -13,36 +76,11 @@ var _DEFAULTS = {
       columns: [
         {
           label: 'Catalog',
-          value: function (params) {
-            var markup,
-                product,
-                properties;
-
-            product = params.product;
-            properties = product.properties;
-            markup = [];
-
-
-            if (params.preferred) {
-              markup.push('<abbr title="Preferred ' + params.product.type +
-                  '" class="material-icons">check</abbr>');
-            }
-
-            markup.push('<a href="#scientific_origin:' + product.source + '_' + product.code + '">' + properties.eventsource.toUpperCase() + '</a>');
-
-            return markup.join('');
-          }
+          value: __getCatalogMarkup
         },
         {
-          label: '<abbr title="Magnitude">Mag</abbr>',
-          value: function (params) {
-            var properties;
-
-            properties = params.product.properties;
-
-            return params.formatter.magnitude(properties.magnitude,
-                properties['magnitude-type']);
-          }
+          label: '<abbr title="Magnitude and Type">Mag</abbr>',
+          value: __getMagnitudeMarkup
         },
         {
           label: 'Time',
@@ -76,30 +114,86 @@ var _DEFAULTS = {
         },
         {
           label: 'Source',
+          value: __getSourceMarkup
+        }
+      ]
+    },
+    'moment-tensor': {
+      display: 'Moment Tensor',
+      columns: [
+        {
+          label: 'Catalog',
+          value: __getCatalogMarkup,
+        },
+        {
+          label: 'Tensor',
           value: function (params) {
-            var magnitudeSource,
-                source,
-                originSource,
+            var beachBall,
                 product,
-                properties;
+                tensor;
 
             product = params.product;
-            properties = product.properties;
-            source = [];
+            params.tensor = params.tensor || Tensor.fromProduct(product);
+            tensor = params.tensor;
 
-            originSource = properties['origin-source'] || product.source;
-            magnitudeSource = properties['magnitude-source'] || product.source;
+            beachBall = __getBeachBall({
+              tensor: tensor,
+              fillColor: tensor.fillColor
+            });
 
-            source.push(Attribution.getContributorReference(originSource));
-
-            if (originSource !== magnitudeSource) {
-              source.push(Attribution.getContributorReference(magnitudeSource));
-            }
-
-            return source.join('');
+            return [
+              (tensor === null ? product.code :
+                '<img src="' + beachBall + '" alt="Moment Tensor Beachball (' +
+                    tensor.code + ')"/>')
+            ].join('');
           }
+        },
+        {
+          label: '<abbr title="Magnitude and Type">Mag</abbr>',
+          value: function (params) {
+            var tensor;
+
+            params.tensor = params.tensor || Tensor.fromProduct(params.product);
+            tensor = params.tensor;
+
+            if (tensor) {
+              return params.formatter.magnitude(
+                  tensor.magnitude, tensor.type);
+            } else {
+              return '&ndash;';
+            }
+          }
+        },
+        {
+          label: 'Depth',
+          value: function (params) {
+            var tensor;
+
+            params.tensor = params.tensor || Tensor.fromProduct(params.product);
+            tensor = params.tensor;
+
+            return params.formatter.depth(tensor ? tensor.depth : null);
+          }
+        },
+        {
+          label: '% <abbr title="Double Couple">DC</abbr>',
+          value: function (params) {
+            var tensor;
+
+            params.tensor = params.tensor || Tensor.fromProduct(params.product);
+            tensor = params.tensor;
+
+            if (tensor) {
+              return Math.round(tensor.percentDC * 100) + ' %';
+            } else {
+              return '&ndash;';
+            }
+          }
+        },
+        {
+          label: 'Source',
+          value: __getSourceMarkup
         }
-        // source
       ]
     }
   }
