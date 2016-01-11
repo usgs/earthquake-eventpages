@@ -27,6 +27,35 @@ var Formatter = function (options) {
   this._options = Util.extend({}, DEFAULTS, options);
 };
 
+
+Formatter.prototype.angle = function (angle, decimals) {
+  var value;
+
+  if (!angle && angle !== 0) {
+    return '&ndash;';
+  }
+
+  if (typeof decimals === 'number') {
+    value = Number(angle).toFixed(decimals);
+  } else {
+    value = Math.round(angle) + '&deg;';
+  }
+
+  return value + '&deg;';
+};
+
+Formatter.prototype.fmStrike = function (strike) {
+  return this.angle(strike, 0);
+};
+
+Formatter.prototype.fmDip = function (dip) {
+  return this.angle(dip, 0);
+};
+
+Formatter.prototype.fmRake = function (rake) {
+  return this.angle(rake, 0);
+};
+
 /**
  * Format a number.
  *

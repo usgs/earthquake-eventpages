@@ -45,6 +45,15 @@ var __getMagnitudeMarkup = function (params) {
       properties['magnitude-type']);
 };
 
+var __getNPMarkup = function (params) {
+  return ['(',
+    params.formatter.fmStrike(params.plane.strike), ', ',
+    params.formatter.fmDip(params.plane.dip), ', ',
+    params.formatter.fmRake(params.plane.rake),
+    ')'
+  ].join('');
+};
+
 var __getSourceMarkup = function (params) {
   var magnitudeSource,
       source,
@@ -66,6 +75,14 @@ var __getSourceMarkup = function (params) {
   }
 
   return source.join('');
+};
+
+var __getTensor = function (params) {
+  if (!params.tensor) {
+    params.tensor = Tensor.fromProduct(params.product);
+  }
+
+  return params.tensor;
 };
 
 
@@ -133,8 +150,7 @@ var _DEFAULTS = {
                 tensor;
 
             product = params.product;
-            params.tensor = params.tensor || Tensor.fromProduct(product);
-            tensor = params.tensor;
+            tensor = __getTensor(params);
 
             beachBall = __getBeachBall({
               tensor: tensor,
@@ -153,8 +169,7 @@ var _DEFAULTS = {
           value: function (params) {
             var tensor;
 
-            params.tensor = params.tensor || Tensor.fromProduct(params.product);
-            tensor = params.tensor;
+            tensor = __getTensor(params);
 
             if (tensor) {
               return params.formatter.magnitude(
@@ -169,8 +184,7 @@ var _DEFAULTS = {
           value: function (params) {
             var tensor;
 
-            params.tensor = params.tensor || Tensor.fromProduct(params.product);
-            tensor = params.tensor;
+            tensor = __getTensor(params);
 
             return params.formatter.depth(tensor ? tensor.depth : null);
           }
@@ -180,14 +194,139 @@ var _DEFAULTS = {
           value: function (params) {
             var tensor;
 
-            params.tensor = params.tensor || Tensor.fromProduct(params.product);
-            tensor = params.tensor;
+            tensor = __getTensor(params);
 
             if (tensor) {
               return Math.round(tensor.percentDC * 100) + ' %';
             } else {
               return '&ndash;';
             }
+          }
+        },
+        {
+          label: 'Source',
+          value: __getSourceMarkup
+        }
+      ]
+    },
+    'focal-mechanism': {
+      display: 'Focal Mechanism',
+      columns: [
+        {
+          label: 'Catalog',
+          value: __getCatalogMarkup
+        },
+        {
+          label: 'Mechanism',
+          value: function (params) {
+            var beachBall,
+                tensor;
+
+            tensor = __getTensor(params);
+            beachBall = __getBeachBall({
+              tensor: tensor,
+              fillColor: tensor.fillColor
+            });
+
+            return '<img src="' + beachBall + '" alt="Focal Mechanism"/>';
+          }
+        },
+        // {
+        //   label: 'NP1 - Strike',
+        //   value: function (params) {
+        //     var strike,
+        //         tensor;
+
+        //     tensor = __getTensor(params);
+        //     strike = tensor ? tensor.NP1.strike : null;
+
+        //     return params.formatter.fmStrike(strike);
+        //   }
+        // },
+        // {
+        //   label: 'NP1 - Dip',
+        //   value: function (params) {
+        //     var dip,
+        //         tensor;
+
+        //     tensor = __getTensor(params);
+        //     dip = tensor ? tensor.NP1.dip : null;
+
+        //     return params.formatter.fmDip(dip);
+        //   }
+        // },
+        // {
+        //   label: 'NP1 - Rake',
+        //   value: function (params) {
+        //     var rake,
+        //         tensor;
+
+        //     tensor = __getTensor(params);
+        //     rake = tensor ? tensor.NP1.rake : null;
+
+        //     return params.formatter.fmRake(rake);
+        //   }
+        // },
+        // {
+        //   label: 'NP2 - Strike',
+        //   value: function (params) {
+        //     var strike,
+        //         tensor;
+
+        //     tensor = __getTensor(params);
+        //     strike = tensor ? tensor.NP2.strike : null;
+
+        //     return params.formatter.fmStrike(strike);
+        //   }
+        // },
+        // {
+        //   label: 'NP2 - Dip',
+        //   value: function (params) {
+        //     var dip,
+        //         tensor;
+
+        //     tensor = __getTensor(params);
+        //     dip = tensor ? tensor.NP2.dip : null;
+
+        //     return params.formatter.fmDip(dip);
+        //   }
+        // },
+        // {
+        //   label: 'NP2 - Rake',
+        //   value: function (params) {
+        //     var rake,
+        //         tensor;
+
+        //     tensor = __getTensor(params);
+        //     rake = tensor ? tensor.NP2.rake : null;
+
+        //     return params.formatter.fmRake(rake);
+        //   }
+        // },
+        {
+          label: 'Nodal Plane 1<br/><small>Strike,Dip,Rake</small>',
+          value: function (params) {
+            var tensor;
+
+            tensor = __getTensor(params);
+
+            return __getNPMarkup({
+              formatter: params.formatter,
+              plane: tensor.NP1
+            });
+          }
+        },
+        {
+          label: 'Nodal Plane 2<br/><small>Strike,Dip,Rake</small>',
+          value: function (params) {
+            var tensor;
+
+            tensor = __getTensor(params);
+
+            return __getNPMarkup({
+              formatter: params.formatter,
+              plane: tensor.NP2
+            });
           }
         },
         {

@@ -1,4 +1,13 @@
 .table-summary {
+  > thead {
+    > tr th {
+
+      > small {
+        color: #666;
+        font-weight: normal;
+      }
+    }
+  }
   > tbody {
     > tr > td {
       color: #999;
