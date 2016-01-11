@@ -40,7 +40,7 @@ describe('Scientific Summary Page', function () {
       var el = page._content.querySelector('.scitech-text');
 
       expect(el).to.not.equal(null);
-      expect(el.querySelector('section').innerHTML).to.equal(
+      expect(el.innerHTML).to.equal(
           nc72119972.properties.products['scitech-text'][0].contents[''].bytes);
     });
   });

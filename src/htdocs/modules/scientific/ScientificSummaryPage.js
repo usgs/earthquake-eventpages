@@ -300,174 +300,87 @@ var ScientificSummaryPage = function (params) {
 
 ScientificSummaryPage.prototype = Object.create(SummaryPage.prototype);
 
+
+ScientificSummaryPage.prototype._setContentMarkup = function () {
+  var additionalContent;
+
+  SummaryPage.prototype._setContentMarkup.call(this);
+
+  // Now add scitech-text and scitech-link products to this page
+  additionalContent = document.createDocumentFragment();
+
+  additionalContent.appendChild(this._getTextContents());
+  additionalContent.appendChild(this._getLinkContents());
+
+  this._content.appendChild(additionalContent);
+};
+
+
+ScientificSummaryPage.prototype._getTextContents = function () {
+  var fragment,
+      textHeader,
+      texts;
+
+  texts = this.getProducts('scitech-text');
+  fragment = document.createDocumentFragment();
+
+  if (texts.length > 0) {
+    textHeader = fragment.appendChild(document.createElement('h2'));
+    textHeader.innerHTML = 'Scientific and Technical Commentary';
+
+    texts.forEach(function (product) {
+      var container,
+          text;
+
+      if (product.contents && product.contents['']) {
+        container = fragment.appendChild(document.createElement('div'));
+        container.id = product.id;
+        container.classList.add('scitech-text');
+
+        text = product.contents[''].bytes;
+        text = this._replaceRelativePaths(text, product.contents);
+        container.innerText = text;
+      }
+    }, this);
+  }
+
+  return fragment;
+};
+
+ScientificSummaryPage.prototype._getLinkContents = function () {
+  var fragment,
+      linkHeader,
+      links,
+      list;
+
+  links = this.getProducts('scitech-link');
+  fragment = document.createDocumentFragment();
+
+  if (links.length > 0) {
+    linkHeader = fragment.appendChild(document.createElement('h2'));
+    linkHeader.innerHTML = 'Scientific and Technical Links';
+
+    list = fragment.appendChild(document.createElement('ul'));
+    list.classList.add('scitech-links');
+
+    links.forEach(function (product) {
+      var container,
+          link,
+          properties;
+
+      properties = product.properties;
+      container = list.appendChild(document.createElement('li'));
+      container.classList.add('scitech-link');
+      container.id = product.id;
+
+      link = container.appendChild(document.createElement('a'));
+      link.setAttribute('href', properties.url);
+      link.innerHTML = properties.text;
+    });
+  }
+
+  return fragment;
+};
+
+
 module.exports = ScientificSummaryPage;
-
-// 'use strict';
-
-// var EventModulePage = require('base/EventModulePage'),
-//     Formatter = require('base/Formatter'),
-//     Util = require('util/Util');
-
-
-// // default options
-// var DEFAULTS = {
-//   title: 'Summary',
-//   hash: 'summary',
-//   formatter: new Formatter()
-// };
-
-
-// /**
-//  * Create a new ScientificSummaryPage.
-//  * @param options {Object}
-//  *        module options.
-//  */
-// var ScientificSummaryPage = function (options) {
-//   this._options = Util.extend({}, DEFAULTS, options);
-//   EventModulePage.call(this, this._options);
-// };
-
-// // extend EventModulePage
-// ScientificSummaryPage.prototype = Object.create(EventModulePage.prototype);
-
-// // Do not display a header
-// ScientificSummaryPage.prototype._setHeaderMarkup = function () {};
-// // Do not display a footer
-// ScientificSummaryPage.prototype._setFooterMarkup = function () {};
-
-// /**
-//  * Render page content.
-//  */
-// ScientificSummaryPage.prototype._setContentMarkup = function () {
-//   var products = this._options.eventDetails.properties.products,
-//       product;
-
-//   // Hypocenter content
-//   if (products.hasOwnProperty('origin')) {
-//     product = products.origin[0];
-//     this.getPreferredSummaryMarkup(product, 'scientific_origin', 'Origin');
-//   }
-
-//   // Moment Tensor content
-//   if (products.hasOwnProperty('moment-tensor')) {
-//     product = products['moment-tensor'][0];
-//     this.getPreferredSummaryMarkup(product, 'scientific_tensor', 'Moment Tensor');
-//   }
-
-//   // Focal Mechanism content
-//   if (products.hasOwnProperty('focal-mechanism')) {
-//     product = products['focal-mechanism'][0];
-//     this.getPreferredSummaryMarkup(product, 'scientific_mechanism', 'Focal Mechanism');
-//   }
-
-//   // Finite Fault content
-//   if (products.hasOwnProperty('finite-fault')) {
-//     product = products['finite-fault'][0];
-//     this.getPreferredSummaryMarkup(product, 'scientific_finitefault', 'Finite Fault');
-//   }
-
-//   // scitech-text content
-//   //this.getTexts();
-//   this._content.appendChild(this.getTexts());
-
-//   // scitech-links content
-//   this._content.appendChild(this.getLinks());
-// };
-
-// /**
-//  * Get any scitech-text information.
-//  *
-//  * @return {DOMElement} content, or null if no information present.
-//  */
-// ScientificSummaryPage.prototype.getTexts = function () {
-//   var fragment = document.createDocumentFragment(),
-//       products = this._event.properties.products,
-//       texts = products['scitech-text'],
-//       textEl = null,
-//       i,
-//       len;
-
-//   if (texts) {
-//     textEl = document.createElement('div');
-//     textEl.className = 'scitech-text';
-//     textEl.innerHTML = '<h3>Scientific and Technical Commentary</h3>';
-//     fragment.appendChild(textEl);
-
-//     for (i = 0, len = texts.length; i < len; i++) {
-//       textEl.appendChild(this.getText(texts[i]));
-//     }
-//   }
-
-//   return fragment;
-// };
-
-// ScientificSummaryPage.prototype.getText = function (product) {
-//   var el = document.createElement('section'),
-//       content,
-//       contents = product.contents;
-
-//   if (contents && contents['']) {
-//     content = contents[''].bytes;
-//     content = this._replaceRelativePaths(content, product.contents);
-
-//     el.innerHTML = content;
-//   }
-
-//   return el;
-// };
-
-// /**
-//  * Get any scitech-link information.
-//  *
-//  * @return {DocumentFragment}
-//  *         Fragment with links, or empty if no information present.
-//  */
-// ScientificSummaryPage.prototype.getLinks = function () {
-//   var fragment = document.createDocumentFragment(),
-//       products = this._event.properties.products,
-//       links = products['scitech-link'],
-//       linkEl = null,
-//       i,
-//       item,
-//       len,
-//       list;
-
-//   if (links) {
-//     linkEl = document.createElement('div');
-//     linkEl.className = 'scitech-links';
-//     linkEl.innerHTML = '<h3>Scientific and Technical Links</h3>';
-//     fragment.appendChild(linkEl);
-
-//     list = document.createElement('ul');
-//     linkEl.appendChild(list);
-
-//     for (i = 0, len = links.length; i < len; i++) {
-//       item = document.createElement('li');
-//       item.appendChild(this.getLink(links[i]));
-//       list.appendChild(item);
-//     }
-//   }
-
-//   return fragment;
-// };
-
-// /**
-//  * Create an anchor element from a link product.
-//  *
-//  * @param product {Object}
-//  *        The link product.
-//  * @return {DOMEElement}
-//  *         anchor element.
-//  */
-// ScientificSummaryPage.prototype.getLink = function (product) {
-//   var el = document.createElement('a'),
-//       props = product.properties;
-
-//   el.setAttribute('href', props.url);
-//   el.innerHTML = props.text;
-
-//   return el;
-// };
-
-
-// module.exports = ScientificSummaryPage;
