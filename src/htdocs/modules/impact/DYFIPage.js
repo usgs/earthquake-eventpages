@@ -8,6 +8,7 @@ var Attribution = require('base/Attribution'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     SvgImageMap = require('svgimagemap/SvgImageMap'),
     ImpactUtil = require('base/ImpactUtil'),
+    IntensityGraphView = require('impact/IntensityGraphView'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
@@ -254,6 +255,10 @@ DYFIPage.prototype.getDetailsContent = function (dyfi) {
       })
     });
 
+    if (dyfi.contents.hasOwnProperty('dyfi_plot_atten.json')) {
+      this._addIntensityVsDistanceTab(dyfi.contents['dyfi_plot_atten.json']);
+    }
+
     if (dyfi.contents.hasOwnProperty('cdi_zip.xml')) {
       this._addDyfiResponsesTab();
     }
@@ -367,6 +372,31 @@ DYFIPage.prototype._createTabListData = function (options) {
     }
   }
   return tablist;
+};
+
+DYFIPage.prototype._addIntensityVsDistanceTab = function (product) {
+  var _this;
+
+  _this = this;
+
+  Xhr.ajax({
+    url: product.url,
+    success: function (data) {
+      var intensityGraphView = new IntensityGraphView({
+        data: data.datasets,
+        xlabel: data.xlabel,
+        ylabel: data.ylabel,
+        title: data.title
+      });
+      _this._tablist.addTab({
+        'title': 'Intensity Vs. Distance',
+        'content': intensityGraphView.el
+      });
+    },
+    error: function (e) {
+      console.log(e);
+    }
+  });
 };
 
 DYFIPage.prototype._addDyfiResponsesTab = function () {

@@ -30,6 +30,7 @@ var browserify = {
         CWD + '/' + config.src + '/htdocs/js',
         CWD + '/' + config.src + '/htdocs/modules',
         NODE_MODULES + '/hazdev-accordion/src',
+        NODE_MODULES + '/hazdev-d3/src',
         NODE_MODULES + '/hazdev-location-view/src',
         NODE_MODULES + '/hazdev-question-view/src',
         NODE_MODULES + '/hazdev-svgimagemap/src',
