@@ -1,14 +1,17 @@
 'use strict';
 
 var Accordion = require('accordion/Accordion'),
-    Util = require('util/Util'),
-
     Attribution = require('./Attribution'),
-    ContentsXML = require('./ContentsXML');
+    ContentsXML = require('./ContentsXML'),
+    EventUtil = require('./EventUtil'),
+    Formatter = require('./Formatter'),
+    Util = require('util/Util');
+
 
 
 var DEFAULTS = {
   eventPage: null,
+  formatter: new Formatter(),
   module: null,
   eventDetails: null,
   productTypes: null,
@@ -27,6 +30,7 @@ var EventModulePage = function (options) {
   this._hash = options.hash;
   this._title = options.title;
   this._event = options.eventDetails;
+  this._formatter = options.formatter;
   this._productTypes = options.productTypes;
 
   this._initialize();
@@ -36,14 +40,12 @@ var EventModulePage = function (options) {
  * Called after page content is added to the event page.
  */
 EventModulePage.prototype.onAdd = function () {
-
 };
 
 /**
  * Called before page content is removed from the event page.
  */
 EventModulePage.prototype.onRemove = function () {
-
 };
 
 EventModulePage.prototype.destroy = function () {
@@ -96,9 +98,89 @@ EventModulePage.prototype._setHeaderMarkup = function () {
 };
 
 EventModulePage.prototype._setContentMarkup = function () {
-  this._content.innerHTML = '<p>' +
-    'Rendered: ' + (new Date()).toUTCString() +
-  '</p>';
+  var product;
+
+  product = this.getProductToRender();
+
+  if (product) {
+    this._content.innerHTML = '';
+    this._content.appendChild(this.getDetailsContent(product));
+  } else {
+    this._content.innerHTML = [
+      '<p class="alert error">',
+        'No data available.',
+        '<br/>',
+        '<small>Last rendered: ', (new Date()).toUTCString(), '</small>',
+      '</p>'
+    ].join('');
+  }
+};
+
+/**
+ * @APIMethod
+ *
+ * Returns the content details for a specific product. Implementing classes
+ * should override this method.
+ *
+ * @param product {Object}
+ *      The product for which to render details.
+ */
+EventModulePage.getDetailsContent = function (product) {
+  var div,
+      fragment;
+
+  fragment = document.createDocumentFragment();
+  div = fragment.appendChild(document.createElement('div'));
+
+  div.innerHTML = [
+    product.id,
+    '<br/>',
+    '<small>',
+      'Last rendered: ', (new Date()).toUTCSTring(),
+    '</small>'
+  ].join('');
+
+  return fragment;
+};
+
+/**
+ * @APIMethod
+ *
+ * Finds the product to render or returns null if no product is found. Checks
+ * the URL hash for a product source/code and uses that if found, otherwise
+ * uses the first product of the supported types.
+ */
+EventModulePage.prototype.getProductToRender = function () {
+  var code,
+      codeParts,
+      i,
+      product,
+      products,
+      productToRender,
+      source;
+
+  productToRender = null;
+  products = this.getProducts();
+  codeParts = EventUtil.getCodeFromHash();
+
+  if (products.length) {
+    if (codeParts) {
+      codeParts = codeParts.split('_');
+      source = codeParts[0];
+      code = codeParts.slice(1).join('_');
+
+      for (i = 0; i < products.length; i++) {
+        product = products[i];
+        if (product.code === code && product.source === source) {
+          productToRender = product;
+        }
+      }
+    } else {
+      productToRender = products[0];
+    }
+  }
+
+  return productToRender;
 };
 
 EventModulePage.prototype._setFooterMarkup = function () {
@@ -180,17 +262,17 @@ EventModulePage.prototype.loadDownloadMarkup = function (e) {
  *
  */
 EventModulePage.prototype.getProducts = function () {
-  var productTypes = this._productTypes,
-      products = [],
-      allProducts = [],
-      type;
+  var productTypes,
+      allProducts;
+
+  productTypes = this._productTypes;
+  allProducts = [];
 
   // loop through different productTypes
   if (productTypes) {
     for (var i = 0; i < productTypes.length; i++) {
-      type = productTypes[i];
-      products = this._event.properties.products[type] || [];
-      allProducts = allProducts.concat(products);
+      allProducts = allProducts.concat(EventUtil.getProducts(
+          this._event, productTypes[i]));
     }
   }
 

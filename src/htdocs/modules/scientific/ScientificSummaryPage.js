@@ -18,19 +18,21 @@ var __getBeachBall = function (params) {
 var __getCatalogMarkup = function (params) {
   var markup,
       product,
-      properties;
+      properties,
+      type;
 
   product = params.product;
   properties = product.properties;
   markup = [];
+  type = product.type;
 
 
   if (params.preferred) {
-    markup.push('<abbr title="Preferred ' + params.product.type +
+    markup.push('<abbr title="Preferred ' + product.type +
         '" class="material-icons">check</abbr>');
   }
 
-  markup.push('<a href="#scientific_origin:' + product.source + '_' +
+  markup.push('<a href="#scientific_' + type + ':' + product.source + '_' +
       product.code + '">' + properties.eventsource.toUpperCase() + '</a>');
 
   return markup.join('');

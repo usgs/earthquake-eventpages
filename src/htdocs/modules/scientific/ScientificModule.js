@@ -47,7 +47,7 @@ var DEFAULTS = {
       dependencyBundle: 'modules/scientific/index.js',
       options: {
         title: 'Moment Tensor',
-        hash: 'tensor'
+        hash: 'moment-tensor'
       },
       productTypes: ['moment-tensor']
     },
@@ -56,7 +56,7 @@ var DEFAULTS = {
       dependencyBundle: 'modules/scientific/index.js',
       options: {
         title: 'Focal Mechanism',
-        hash: 'mechanism'
+        hash: 'focal-mechanism'
       },
       productTypes: ['focal-mechanism']
     },
@@ -65,7 +65,7 @@ var DEFAULTS = {
       dependencyBundle: 'modules/scientific/index.js',
       options: {
         title: 'Finite Fault',
-        hash: 'finitefault'
+        hash: 'finite-fault'
       },
       productTypes: ['finite-fault']
     },

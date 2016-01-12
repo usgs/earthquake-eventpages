@@ -1,9 +1,8 @@
 'use strict';
 
 var Attribution = require('base/Attribution'),
-    Formatter = require('base/Formatter'),
     ProductSummarizer = require('base/ProductSummarizer'),
-    SummaryDetailsPage = require('base/SummaryDetailsPage'),
+    EventModulePage = require('base/EventModulePage'),
     Util = require('util/Util'),
 
     BeachBall = require('./tensor/BeachBall'),
@@ -11,7 +10,6 @@ var Attribution = require('base/Attribution'),
 
 // default options
 var DEFAULTS = {
-  formatter: new Formatter(),
   tabList: {
     tabPosition: 'top'
   }
@@ -26,14 +24,14 @@ var DEFAULTS = {
 var MomentTensorPage = function (options) {
   options = Util.extend({}, DEFAULTS, options);
 
-  SummaryDetailsPage.call(this, options);
+  EventModulePage.call(this, options);
 };
 
-// extend SummaryDetailsPage.
-MomentTensorPage.prototype = Object.create(SummaryDetailsPage.prototype);
+// extend EventModulePage.
+MomentTensorPage.prototype = Object.create(EventModulePage.prototype);
 
 /**
- * Called by SummaryDetailsPage._setContentMarkup(), handles
+ * Called by EventModulePage._setContentMarkup(), handles
  * displaying all detailed information for an origin product.
  *
  * @param  {object} product, origin product to display
@@ -87,7 +85,7 @@ MomentTensorPage.prototype.getDetailsContent = function (product) {
  * @return {String} markup for information.
  */
 MomentTensorPage.prototype._getInfo = function (tensor) {
-  var formatter = this._options.formatter,
+  var formatter = this._formatter,
       moment = tensor.moment,
       magnitude = tensor.magnitude,
       percentDC = tensor.percentDC,
@@ -286,7 +284,7 @@ MomentTensorPage.prototype.getBeachball = function(tensor) {
 MomentTensorPage.prototype.destroy = function () {
   this._options = null;
 
-  SummaryDetailsPage.prototype.destroy.call(this);
+  EventModulePage.prototype.destroy.call(this);
 };
 
 
