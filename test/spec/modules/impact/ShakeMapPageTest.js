@@ -17,6 +17,7 @@ var eventDetails = {
         source: 'us',
         code: 'usc000myqq',
         status: 'UPDATE',
+        properties: {},
         contents: {
           'download/intensity.jpg': {url: 'intensity.jpg'},
           'download/pga.jpg': {url: 'pga.jpg'},
@@ -83,6 +84,7 @@ describe('ShakeMapPageTest test suite.', function () {
             source: 'US',
             code: 'us10001ldx',
             status: 'UPDATE',
+            properties: {},
             contents: {
               'download/stationlist.json': {
                 url:'stationlist.json'

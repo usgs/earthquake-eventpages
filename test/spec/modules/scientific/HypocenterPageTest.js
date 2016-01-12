@@ -1,18 +1,18 @@
 /* global chai, sinon, describe, it, beforeEach, afterEach, before */
 'use strict';
 
-var expect = chai.expect,
-    HypocenterPage = require('scientific/HypocenterPage'),
-    ScientificModule = require('scientific/ScientificModule'),
+var HypocenterPage = require('scientific/HypocenterPage'),
     Quakeml = require('quakeml/Quakeml'),
+    ScientificModule = require('scientific/ScientificModule'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr'),
 
-    eventDetails = require('./usb000kqnc'),
-    summaryOptions,
+    eventDetails = require('./usb000kqnc');
+
+var basicOptions,
     detailOptions,
-    SummaryPage,
-    DetailPage;
+    detailPage,
+    expect;
 
 
 var _fireClickEvent = function (target) {
@@ -21,8 +21,9 @@ var _fireClickEvent = function (target) {
   target.dispatchEvent(clickEvent);
 };
 
+expect = chai.expect;
 
-summaryOptions = {
+basicOptions = {
   eventDetails: eventDetails,
   module: new ScientificModule(),
   // source: 'us',
@@ -33,17 +34,16 @@ summaryOptions = {
   title: 'Origin',
   hash: 'origin'
 };
-SummaryPage = new HypocenterPage(summaryOptions);
 
-detailOptions = Util.extend({}, summaryOptions, {code: 'us_usb000kqnc'});
-DetailPage = new HypocenterPage(detailOptions);
+detailOptions = Util.extend({}, basicOptions, {code: 'us_usb000kqnc'});
+detailPage = new HypocenterPage(detailOptions);
 
 before( function (done) {
   Xhr.ajax({
     url: '/spec/modules/scientific/usc000njrq_phase-data.xml',
     success: function (xml) {
       // use quakeml parser to make xml into quakeml
-      DetailPage._quakeml = new Quakeml({xml: xml});
+      detailPage._quakeml = new Quakeml({xml: xml});
       done();
     },
     error: function () {
@@ -62,71 +62,29 @@ describe('HypocenterPage test suite.', function () {
     });
 
     it('Can be instantiated', function () {
-      expect(SummaryPage).to.be.an.instanceof(HypocenterPage);
+      expect(detailPage).to.be.an.instanceof(HypocenterPage);
     });
   });
 
   describe('getContent()', function () {
-    it('Can get summary information.', function () {
-      var content = SummaryPage.getContent();
-      expect(typeof content).to.equal('object');
-    });
-
-    // _getInfo()
-    it('Can summarize hypocenter data.', function () {
-      var content = SummaryPage.getContent();
-      var hypocenter_summary =
-          content.querySelectorAll('.origin-summary');
-      /* jshint -W030 */
-      expect(hypocenter_summary.length).to.not.equal(0);
-      /* jshint +W030 */
-    });
-
     it('Loads phases when tab is clicked.', function () {
       // The phase element should be empty
-      expect(DetailPage._phaseEl.innerHTML).to.equal('');
+      expect(detailPage._phaseEl.innerHTML).to.equal('');
       // select phase tab
       _fireClickEvent(
-          DetailPage._content.querySelector('nav :nth-child(2)'));
-      expect(DetailPage._phaseEl.innerHTML).to.not.equal('');
+          detailPage._content.querySelector('nav :nth-child(2)'));
+      expect(detailPage._phaseEl.innerHTML).to.not.equal('');
     });
 
     it('Loads magnitudes when tab is clicked.', function () {
       // The magnitude element should be empty
-      expect(DetailPage._magnitudeEl.innerHTML).to.equal('');
+      expect(detailPage._magnitudeEl.innerHTML).to.equal('');
       // select magnitude tab
       _fireClickEvent(
-          DetailPage._content.querySelector('nav :nth-child(3)'));
+          detailPage._content.querySelector('nav :nth-child(3)'));
       // The phase element should not be empty anymore
-      expect(DetailPage._magnitudeEl.innerHTML).to.not.equal('');
+      expect(detailPage._magnitudeEl.innerHTML).to.not.equal('');
     });
-
-    it('Can be awesome.', function () {
-      var content = null;
-      // Just because it can be.
-      content = 'Awesome!';
-      expect(content).to.equal('Awesome!');
-    });
-
-    // TODO :: Re-enable after CORS is configured
-    it.skip('Toggles magnitude details.', function () {
-      var magEl,
-          linkEl;
-
-      DetailPage._tabList._tabs[2].select();
-      magEl = DetailPage._tabList.el.querySelector('.networkmagnitude');
-      linkEl = magEl.querySelector('.expand');
-
-      expect(magEl.classList.contains('show-networkmagnitude-details')).
-          to.equal(false);
-      DetailPage._toggleMagnitudeDetails({target: linkEl});
-      expect(magEl.classList.contains('show-networkmagnitude-details')).
-          to.equal(true);
-      DetailPage._toggleMagnitudeDetails({target: linkEl});
-      expect(magEl.classList.contains('show-networkmagnitude-details')).
-          to.equal(false);
-    });
-
   });
 
   describe('getFeString', function () {
@@ -135,7 +93,7 @@ describe('HypocenterPage test suite.', function () {
         ajaxStub = null;
 
     beforeEach(function () {
-      hp = new HypocenterPage(summaryOptions);
+      hp = new HypocenterPage(basicOptions);
 
       product = hp.getProducts()[0];
 

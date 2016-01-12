@@ -39,23 +39,6 @@ describe('MomentTensorSummary test suite.', function () {
     });
   });
 
-  describe('getSummaryContent', function () {
-
-    it('Can get summary information.', function () {
-      var content = page.getContent();
-      expect(typeof content).to.equal('object');
-    });
-
-    // _getInfo()
-    it('Can summarize moment tensor data.', function () {
-      var content = page.getContent();
-      var tensor_summary = content.querySelectorAll('.tensor-summary');
-      /* jshint -W030 */
-      expect(tensor_summary.length).to.not.equal(0);
-      /* jshint +W030 */
-    });
-  });
-
   describe('getDetailContent()', function () {
 
     var expect = chai.expect,
