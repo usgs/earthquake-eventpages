@@ -259,18 +259,6 @@ MomentTensorPage.prototype._getPlanes = function (tensor) {
   ].join('');
 };
 
-/**
- * Used by getSummary() method,
- * so subclasses can override non-beachball content.
- *
- * @param tensor {Tensor}
- *        tensor object.
- * @return {String} summary content.
- */
-MomentTensorPage.prototype._getSummaryMarkup = function (product) {
-  return ProductSummarizer.getMomentTensorSummary(product);
-};
-
 MomentTensorPage.prototype.getBeachball = function(tensor) {
   return new BeachBall({
       tensor: tensor,
