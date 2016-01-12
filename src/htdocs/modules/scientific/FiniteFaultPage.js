@@ -2,7 +2,7 @@
 
 var Attribution = require('base/Attribution'),
     ProductSummarizer = require('base/ProductSummarizer'),
-    SummaryDetailsPage = require('base/SummaryDetailsPage'),
+    EventModulePage = require('base/EventModulePage'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
@@ -12,16 +12,16 @@ var Attribution = require('base/Attribution'),
  *
  * @param options {Object}
  *        page options.
- * @see base/SummaryDetailsPage for additional options.
+ * @see base/EventModulePage for additional options.
  */
 var FiniteFaultPage = function (options) {
   options = Util.extend({}, options, {
     productType: 'finite-fault'
   });
-  SummaryDetailsPage.call(this, options);
+  EventModulePage.call(this, options);
 };
 
-FiniteFaultPage.prototype = Object.create(SummaryDetailsPage.prototype);
+FiniteFaultPage.prototype = Object.create(EventModulePage.prototype);
 
 
 /**
@@ -61,10 +61,6 @@ FiniteFaultPage.prototype.getDetailsContent = function (product) {
   }
 
   return el;
-};
-
-FiniteFaultPage.prototype._getSummaryMarkup = function (product) {
-  return ProductSummarizer.getFiniteFaultSummary(product);
 };
 
 
