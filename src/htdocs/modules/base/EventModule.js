@@ -218,7 +218,65 @@ EventModule.prototype._eventHasProduct = function (type) {
 };
 
 EventModule.prototype.getHeaderMarkup = function (page) {
-  return '<h2>' + this._title + ' - ' + page.getTitle() + '</h2>';
+  var isPreferred,
+      isReviewed,
+      markup,
+      product,
+      products,
+      subtitle,
+      title;
+
+  title = this._title;
+  subtitle = page.getTitle();
+
+  products = page.getProducts();
+  product = page.getProductToRender();
+
+
+
+  markup = [
+    '<h2>' + title + ' - ' + subtitle + '</h2>',
+
+    '<a class="back-to-summary-link" href="#', this.getHash(), '_summary">',
+      (products.length < 2) ?
+          'Back to ' + title + ' Summary' :
+          'View all ' + subtitle + 's (' + products.length + ' total)',
+    '</a>'
+  ];
+
+  if (product && products.length) {
+    isPreferred = product.id === products[0].id;
+
+    isReviewed = product.properties['review-status'];
+    if (isReviewed) {
+      isReviewed = (isReviewed.toUpperCase() === 'REVIEWED');
+    }
+
+    Array.prototype.push.apply(markup, [
+      page.getAttribution(product),
+
+      '<ul class="quality-statements no-style">',
+        '<li class="', isPreferred ? 'preferred' : 'unpreferred', '">',
+          'The data below is ', isPreferred ? '' : '<strong>NOT</strong> ',
+          'the most preferred data available.',
+        '</li>',
+    ]);
+
+    if (product.properties.hasOwnProperty('review-status')) {
+      Array.prototype.push.apply(markup,
+        [
+          '<li class="', isReviewed ? 'reviewed' : 'unreviewed', '">',
+            'The data below has ', isReviewed ? '' : '<strong>NOT</strong> ',
+            'been reviewed by a scientist.',
+          '</li>',
+        '</ul>'
+      ]);
+    } else {
+      markup.push('</ul>');
+    }
+  };
+
+  return markup.join('');
 };
 
 EventModule.prototype.getFooterMarkup = function (/* page */) {

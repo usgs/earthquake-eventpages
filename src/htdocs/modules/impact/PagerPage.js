@@ -52,9 +52,6 @@ PagerPage.prototype.getDetailsContent = function (product) {
 
   el.classList.add('losspager');
   el.innerHTML =
-    '<small class="attribution">Data Source ' +
-      Attribution.getContributorReference(product.source) +
-      '</small>' +
     '<div class="alert-wrapper row"></div>' +
     '<div class="row pager-content">' +
       '<div class="column one-of-two">' +

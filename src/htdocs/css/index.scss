@@ -33,13 +33,6 @@ canvas {
   margin: 1em 0 0;
 }
 
-.attribution {
-  color: #666;
-  display: block;
-  font-size: .75em;
-  font-weight: normal;
-}
-
 
 .leaflet-control-layers-toggle {
   /** important since loads before modules that include leaflet base styles. */

@@ -208,7 +208,7 @@ DYFIPage.prototype.destroy = function () {
     this._tablist.destroy();
     this._tablist = null;
   }
-  if (this._button !== null) {
+  if (this._button) {
     this._button.removeEventListener('click', this._onToggleButtonClick);
     this._button = null;
     this._onToggleButtonClick = null;
@@ -230,10 +230,7 @@ DYFIPage.prototype.getDetailsContent = function (dyfi) {
   this._dyfi = dyfi;
 
   el.classList.add('dyfi');
-  el.innerHTML = '<small class="attribution">Data Source ' +
-      Attribution.getContributorReference(dyfi.source) +
-      '</small>' +
-      '<div class="dyfi-tablist"></div>';
+  el.innerHTML = '<div class="dyfi-tablist"></div>';
 
   // Tablist element
   tablistDiv = el.querySelector('.dyfi-tablist');

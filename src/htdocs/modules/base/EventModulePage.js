@@ -52,6 +52,10 @@ EventModulePage.prototype.destroy = function () {
   // TODO
 };
 
+EventModulePage.prototype.getAttribution = function (product) {
+  return EventUtil.getAttribution(product || this.getProductToRender());
+};
+
 EventModulePage.prototype.getHeader = function () {
   return this._header;
 };

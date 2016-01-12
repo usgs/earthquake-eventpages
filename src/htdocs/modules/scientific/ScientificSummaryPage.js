@@ -26,9 +26,13 @@ var __getCatalogMarkup = function (params) {
   markup = [];
   type = product.type;
 
+  if (type === 'phase-data') {
+    type = 'origin';
+  }
+
 
   if (params.preferred) {
-    markup.push('<abbr title="Preferred ' + product.type +
+    markup.push('<abbr title="Preferred ' + type +
         '" class="material-icons">check</abbr>');
   }
 

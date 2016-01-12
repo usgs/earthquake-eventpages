@@ -1,7 +1,14 @@
 'use strict';
 
+var Attribution = require('base/Attribution'),
+    Formatter = require('base/Formatter');
+
+
+var _formatter = new Formatter();
 
 var _getOriginProducts,
+
+    getAttribution,
     getCodeFromHash,
     getProducts;
 
@@ -47,6 +54,17 @@ _getOriginProducts = function (allProducts) {
 };
 
 
+getAttribution = function (product) {
+  if (product) {
+    return '<small class="attribution">Data source ' +
+      Attribution.getContributorReference(product.source) +
+      ' last updated ' + _formatter.datetime(product.updateTime, 0) +
+    '</small>';
+  } else {
+    return '';
+  }
+};
+
 getCodeFromHash = function () {
   var parts;
 
@@ -73,6 +91,7 @@ getProducts = function (eventDetails, type) {
 };
 
 module.exports = {
+  getAttribution: getAttribution,
   getCodeFromHash: getCodeFromHash,
   getProducts: getProducts
 };

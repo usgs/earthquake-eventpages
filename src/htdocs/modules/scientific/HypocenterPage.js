@@ -167,68 +167,6 @@ var PHASE_DATA_SORTS = [
   }
 ];
 
-var _isPreferred = function (product, products) {
-  var firstProduct,
-      isPreferred;
-
-  isPreferred = false;
-  firstProduct = products[0];
-
-  if (firstProduct && firstProduct.phasedata) {
-    firstProduct = firstProduct.phasedata;
-  }
-
-  if (firstProduct && firstProduct.id === product.id) {
-      isPreferred = true;
-  }
-
-  return isPreferred;
-};
-
-/**
- * Determines whether the given product has been reviewed.
- *
- * @param product {Object}
- *      An object with a properties key which points to an object potentially
- *      containing review status information.
- *
- * @return {Boolean}
- *      True if the given product has been reviewed, false otherwise.
- */
-var _isReviewed = function (product) {
-  var properties,
-      reviewed;
-
-  properties = product.properties;
-  reviewed = false;
-
-  if (properties.hasOwnProperty('review-status') &&
-      properties['review-status'].toUpperCase() === 'REVIEWED') {
-    reviewed = true;
-  }
-
-  return reviewed;
-};
-
-/**
- * Generates the attribution markup used at the top of the origin details page.
- *
- * @param originAuthor {String}
- * @param magnitudeAuthor {String}
- *
- * @return {String}
- */
-var _getAttribution = function (originAuthor, magnitudeAuthor, updated) {
-  return '<small class="attribution">Data source ' +
-      (originAuthor === magnitudeAuthor ?
-        Attribution.getContributorReference(originAuthor) :
-        '<span>' +
-          Attribution.getContributorReference(originAuthor) + ', ' +
-          Attribution.getContributorReference(magnitudeAuthor) +
-        '</span>') +
-        ' last updated ' + updated +
-      '</small>';
-};
 
 
 /**
@@ -270,47 +208,40 @@ HypocenterPage.prototype.destroy = function () {
   EventModulePage.prototype.destroy.call(this);
 };
 
-HypocenterPage.prototype._setContentMarkup = function () {
-  var code,
-      codeParts,
-      i,
-      product,
-      products,
-      requestedProduct,
-      source;
+/**
+ * Generates the attribution markup used at the top of the origin details page.
+ *
+ * @param originAuthor {String}
+ * @param magnitudeAuthor {String}
+ *
+ * @return {String}
+ */
+HypocenterPage.prototype.getAttribution = function (product) {
+  var magnitudeAuthor,
+      originAuthor,
+      props,
+      updated;
 
-  products = EventUtil.getProducts(this._event, 'origin');
-  codeParts = EventUtil.getCodeFromHash();
+  product = (product.phaseData) ? product.phaseData : product;
+  props = product.properties;
 
-  if (products.length) {
-    if (codeParts) {
-      // Look for product indicated by URL
-      codeParts = codeParts.split('_');
-      source = codeParts[0];
-      code = codeParts[1];
+  originAuthor = props['origin-source'] || product.source;
+  magnitudeAuthor = props['magnitude-source'] || product.source;
+  updated = this._formatter.datetime(product.updateTime, 0);
 
-      for (i = 0; i < products.length; i++) {
-        product = products[i];
-        if (product.code === code && product.source === source) {
-          requestedProduct = product;
-        }
-      }
-    } else {
-      // Just show details for first product. This is a compatibility wedge.
-      requestedProduct = products[0];
-    }
-  }
+  return '<small class="attribution">Data source ' +
+      (originAuthor === magnitudeAuthor ?
+        Attribution.getContributorReference(originAuthor) :
+        '<span>' +
+          Attribution.getContributorReference(originAuthor) + ', ' +
+          Attribution.getContributorReference(magnitudeAuthor) +
+        '</span>') +
+        ' last updated ' + updated +
+      '</small>';
+};
 
-  if (requestedProduct) {
-    this._content.innerHTML = '';
-    this._content.appendChild(this.getDetailsContent(requestedProduct));
-  } else {
-    this._content.innerHTML = [
-      '<p class="alert error">',
-        'No data available.',
-      '</p>'
-    ].join('');
-  }
+HypocenterPage.prototype.getProducts = function () {
+  return EventUtil.getProducts(this._event, 'origin');
 };
 
 /**
@@ -322,8 +253,6 @@ HypocenterPage.prototype._setContentMarkup = function () {
  */
 HypocenterPage.prototype.getDetailsContent = function (product) {
   var el = document.createElement('div'),
-      isPreferred,
-      isReviewed,
       formatter,
       tabListDiv = document.createElement('section'),
       tabListContents = [],
@@ -375,26 +304,9 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
   originAuthor = props['origin-source'] || product.source;
   magnitudeAuthor = props['magnitude-source'] || product.source;
   updateStamp = formatter.datetime(product.updateTime, 0);
-  originProducts = EventUtil.getProducts(this._event, 'origin');
+  originProducts = this.getProducts();
 
   el.classList.add('origin');
-
-  isPreferred = _isPreferred(product, originProducts);
-  isReviewed = _isReviewed(product);
-
-  el.innerHTML = [
-    '<small><a href="#scientific_summary">', ((originProducts.length === 1) ?
-      'Back to Scientific Summary' :
-      'View all Origins (' + originProducts.length + ' total)'),
-    '</a></small>',
-    '<p class="quality-statement alert ',
-        ((isPreferred && isReviewed) ? 'success' : 'warning'), '">',
-      'The data below is', (isPreferred ? ' ' : ' NOT '),
-      'preferred.<br/>It has',
-      (isReviewed ? ' ' : ' NOT '), 'been reviewed by a scientist.',
-    '</p>',
-    _getAttribution(originAuthor, magnitudeAuthor, updateStamp)
-  ].join('');
 
   // Build TabList
   this._tabList = new TabList({

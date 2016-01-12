@@ -1,7 +1,6 @@
 'use strict';
 
 var Attribution = require('base/Attribution'),
-    ProductSummarizer = require('base/ProductSummarizer'),
     EventModulePage = require('base/EventModulePage'),
     Util = require('util/Util'),
 
@@ -49,9 +48,6 @@ MomentTensorPage.prototype.getDetailsContent = function (product) {
   // set layout
   el.className = 'tensor-detail';
   el.innerHTML = [
-    '<small class="attribution">Data Source ',
-      Attribution.getContributorReference(author),
-      '</small>',
     this._getTitle(tensor),
     '<div class="row clearfix">',
       '<div class="column two-of-five">',

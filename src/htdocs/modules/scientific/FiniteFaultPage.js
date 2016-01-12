@@ -1,8 +1,6 @@
 'use strict';
 
-var Attribution = require('base/Attribution'),
-    ProductSummarizer = require('base/ProductSummarizer'),
-    EventModulePage = require('base/EventModulePage'),
+var EventModulePage = require('base/EventModulePage'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
@@ -48,14 +46,9 @@ FiniteFaultPage.prototype.getDetailsContent = function (product) {
     Xhr.ajax({
       url: url,
       success: function (data) {
-        // make all content urls absolute instead of relative
-        data = _this._replaceRelativePaths(data, product.contents);
-        // insert content
         el.classList.add('finite-fault');
-        el.innerHTML = '<small class="attribution">Data Source ' +
-            Attribution.getContributorReference(product.source) +
-            '</small>' +
-            data;
+        // make all content urls absolute instead of relative
+        el.innerHTML = _this._replaceRelativePaths(data, product.contents);
       }
     });
   }

@@ -3,8 +3,7 @@
 var Attribution = require('base/Attribution'),
     Util = require('util/Util'),
 
-    MomentTensorPage = require('./MomentTensorPage'),
-    ProductSummarizer = require('base/ProductSummarizer');
+    MomentTensorPage = require('./MomentTensorPage');
 
 
 var DEFAULTS = {
