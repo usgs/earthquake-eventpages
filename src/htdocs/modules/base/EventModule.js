@@ -274,7 +274,7 @@ EventModule.prototype.getHeaderMarkup = function (page) {
     } else {
       markup.push('</ul>');
     }
-  };
+  }
 
   return markup.join('');
 };

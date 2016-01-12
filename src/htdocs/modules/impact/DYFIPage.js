@@ -1,7 +1,6 @@
 'use strict';
 
-var Attribution = require('base/Attribution'),
-    Collection = require('mvc/Collection'),
+var Collection = require('mvc/Collection'),
     DataTable = require('mvc/DataTable'),
     Formatter = require('base/Formatter'),
     ProductSummarizer = require('base/ProductSummarizer'),

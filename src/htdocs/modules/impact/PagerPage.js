@@ -1,7 +1,6 @@
 'use strict';
 
-var Attribution = require('base/Attribution'),
-    PagerXmlParser = require('./PagerXmlParser'),
+var PagerXmlParser = require('./PagerXmlParser'),
     ProductSummarizer = require('base/ProductSummarizer'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     Util = require('util/Util'),

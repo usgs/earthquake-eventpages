@@ -1,7 +1,6 @@
 'use strict';
 
 var Accordion = require('accordion/Accordion'),
-    Attribution = require('base/Attribution'),
     Formatter = require('base/Formatter'),
     ImpactUtil = require('base/ImpactUtil'),
     ProductSummarizer = require('base/ProductSummarizer'),
