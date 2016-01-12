@@ -27,11 +27,6 @@ var FocalMechanismPage = function (options) {
 // extend MomentTensorPage
 FocalMechanismPage.prototype = Object.create(MomentTensorPage.prototype);
 
-
-FocalMechanismPage.prototype._getSummaryMarkup = function (product) {
-  return ProductSummarizer.getFocalMechanismSummary(product);
-};
-
 /**
  * Mechanism info.
  *
