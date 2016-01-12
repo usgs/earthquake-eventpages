@@ -38,6 +38,7 @@ mocha.setup('bdd');
 require('./spec/modules/base/EventPageTest');
 require('./spec/modules/base/EventModuleTest');
 require('./spec/modules/base/EventModulePageTest');
+require('./spec/modules/base/EventUtilTest');
 require('./spec/modules/summary/SummaryPageTest');
 require('./spec/modules/summary/InteractiveMapTest');
 require('./spec/modules/impact/ImpactModuleTest');
