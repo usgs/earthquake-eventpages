@@ -4,10 +4,10 @@ var Accordion = require('accordion/Accordion'),
     Attribution = require('base/Attribution'),
     Collection = require('mvc/Collection'),
     DataTable = require('mvc/DataTable'),
+    EventModulePage = require('base/EventModulePage'),
+    EventUtil = require('base/EventUtil'),
     Formatter = require('base/Formatter'),
-    ProductSummarizer = require('base/ProductSummarizer'),
     Quakeml = require('quakeml/Quakeml'),
-    SummaryDetailsPage = require('base/SummaryDetailsPage'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
@@ -245,10 +245,10 @@ var HypocenterPage = function (options) {
   this._phaseRendered = false;
   this._magnitudeEl = document.createElement('div');
   this._magnitudeRendered = false;
-  SummaryDetailsPage.call(this, this._options);
+  EventModulePage.call(this, this._options);
 };
 
-HypocenterPage.prototype = Object.create(SummaryDetailsPage.prototype);
+HypocenterPage.prototype = Object.create(EventModulePage.prototype);
 
 /**
  * Clean up event bindings.
@@ -267,83 +267,55 @@ HypocenterPage.prototype.destroy = function () {
     this._tabList.destroy();
     this._tabList = null;
   }
-  SummaryDetailsPage.prototype.destroy.call(this);
+  EventModulePage.prototype.destroy.call(this);
 };
 
-/**
- * Get all products that match options.productTypes. If a
- * source + code combination exists across multiple product types,
- * then add the most recent product to the product array.
- *
- * @param ignoreCode {Boolean} Optional, default false
- *      If set and true, ignore any code that may be on the hash and
- *      return products as normal.
- *
- * @return {Array<object> allProducts,
- *         an array of products
- */
-HypocenterPage.prototype.getProducts = function (ignoreCode) {
-  var origins = this._event.properties.products.origin || [],
-      origin,
-      phases = this._event.properties.products['phase-data'] || [],
-      phase,
-      allProducts = [],
-      sourceCode = [],
-      index,
-      id,
+HypocenterPage.prototype._setContentMarkup = function () {
+  var code,
+      codeParts,
       i,
-      code;
+      product,
+      products,
+      requestedProduct,
+      source;
 
-  if (ignoreCode) {
-    code = null;
-  } else {
-    code = this._code;
-  }
+  products = EventUtil.getProducts(this._event, 'origin');
+  codeParts = EventUtil.getCodeFromHash();
 
-  if (!ignoreCode && !code) {
-    code = this._getHash();
-  }
+  if (products.length) {
+    if (codeParts) {
+      // Look for product indicated by URL
+      codeParts = codeParts.split('_');
+      source = codeParts[0];
+      code = codeParts[1];
 
-  // build array of products that are in the allProducts array
-  for (i = 0; i < origins.length; i++) {
-    origin = origins[i];
-    allProducts.push(Util.extend({}, origin));
-    sourceCode.push(origin.source + '_' + origin.code);
-  }
-
-  for (i = 0; i < phases.length; i++) {
-    phase = phases[i];
-    id = phase.source + '_' + phase.code;
-    index = sourceCode.indexOf(id);
-
-    // product doesn't exist, add product
-    if (index === -1) {
-      allProducts.push(phase);
-      sourceCode.push(id);
+      for (i = 0; i < products.length; i++) {
+        product = products[i];
+        if (product.code === code && product.source === source) {
+          requestedProduct = product;
+        }
+      }
     } else {
-      // replace origin with phase-data product if
-      // phase-data updateTime is same age or newer.
-      if (allProducts[index].updateTime <= phase.updateTime) {
-        allProducts[index].phasedata = phase;
-      }
+      // Just show details for first product. This is a compatibility wedge.
+      requestedProduct = products[0];
     }
   }
 
-  if (code) {
-    for (i = 0; i < allProducts.length; i++) {
-      if (code === allProducts[i].source + '_' + allProducts[i].code) {
-        allProducts = [allProducts[i]];
-        break;
-      }
-    }
+  if (requestedProduct) {
+    this._content.innerHTML = '';
+    this._content.appendChild(this.getDetailsContent(requestedProduct));
+  } else {
+    this._content.innerHTML = [
+      '<p class="alert error">',
+        'No data available.',
+      '</p>'
+    ].join('');
   }
-
-  return allProducts;
 };
 
 /**
- * Called by SummaryDetailsPage._setContentMarkup(), handles
- * displaying all detailed information for an origin product.
+ * Called by _setContentMarkup(), handles displaying all detailed information
+ * for an origin product.
  *
  * @param  {object} product, origin product to display
  *
@@ -403,7 +375,7 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
   originAuthor = props['origin-source'] || product.source;
   magnitudeAuthor = props['magnitude-source'] || product.source;
   updateStamp = formatter.datetime(product.updateTime, 0);
-  originProducts = this.getProducts(true);
+  originProducts = EventUtil.getProducts(this._event, 'origin');
 
   el.classList.add('origin');
 
@@ -824,10 +796,6 @@ HypocenterPage.prototype.getOriginDetail = function (product) {
   buf.push('</tbody></table>');
 
   return buf.join('');
-};
-
-HypocenterPage.prototype._getSummaryMarkup = function (product) {
-  return ProductSummarizer.getOriginSummary(product);
 };
 
 

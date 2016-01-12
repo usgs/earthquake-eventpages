@@ -10,6 +10,7 @@ var CWD = process.cwd(),
 var BUNDLED_DEPENDENCIES = [
   './' + config.src + '/htdocs/modules/base/Attribution.js:base/Attribution',
   './' + config.src + '/htdocs/modules/base/EventModulePage.js:base/EventModulePage',
+  './' + config.src + '/htdocs/modules/base/EventUtil.js:base/EventUtil',
   './' + config.src + '/htdocs/modules/base/Formatter.js:base/Formatter',
   './' + config.src + '/htdocs/modules/base/ImpactUtil.js:base/ImpactUtil',
   './' + config.src + '/htdocs/modules/base/SummaryDetailsPage.js:base/SummaryDetailsPage',

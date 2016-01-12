@@ -1,6 +1,7 @@
 'use strict';
 
 var EventModulePage = require('base/EventModulePage'),
+    EventUtil = require('base/EventUtil'),
     Formatter = require('base/Formatter'),
 
     Util = require('util/Util');
@@ -26,46 +27,6 @@ var _DEFAULTS = {
 
 var _FORMATTER = new Formatter();
 
-
-var _getOriginProducts = function (allProducts) {
-  var origins,
-      phases,
-      productIndex,
-      products;
-
-  productIndex = [];
-  products = [];
-
-  origins = allProducts.origin || [];
-  phases = allProducts['phase-data'] || [];
-
-  // Build a lookup index for existing origins
-  origins.forEach(function (origin) {
-    products.push(JSON.parse(JSON.stringify(origin)));
-    productIndex.push(origin.source + '_' + origin.code);
-  });
-
-  // Check phases, add phases that don't have a corresponding origin, or
-  // attach phase product to corresponding existing origins
-  phases.forEach(function (phase) {
-    var phaseId,
-        index;
-
-    phaseId = phase.source + '_' + phase.code;
-    index = productIndex.indexOf(phaseId);
-
-    if (index === -1) {
-      products.push(JSON.parse(JSON.stringify(phase)));
-      productIndex.push(phaseId);
-    } else {
-      if (products[index].updateTime <= phase.updateTime) {
-        products[index].phasedata = JSON.parse(JSON.stringify(phase));
-      }
-    }
-  });
-
-  return products;
-};
 
 var _getTableHeaders = function (params) {
   return '<tr>' + params.columns.reduce(function (prev, column) {
@@ -160,15 +121,7 @@ SummaryPage.prototype._setContentMarkup = function () {
 };
 
 SummaryPage.prototype.getProducts = function (type) {
-  var products;
-
-  if (type === 'origin' || type === 'phase-data') {
-    products = _getOriginProducts(this._event.properties.products);
-  } else {
-    products = this._event.properties.products[type];
-  }
-
-  return products || [];
+  return EventUtil.getProducts(this._event, type);
 };
 
 
