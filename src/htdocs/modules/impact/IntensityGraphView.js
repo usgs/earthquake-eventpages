@@ -1,21 +1,34 @@
 'use strict';
 
-var D3View = require('d3/D3View'),
+var d3 = require('d3'),
+    D3View = require('d3/D3View'),
     D3LineView = require('d3/D3LineView'),
+    //D3SubView = require('d3/D3SubView'),
     Util = require('util/Util');
 
 var IntensityGraphView = function (options) {
   var _this,
       _initialize,
 
+      _buildBinnedDataView,
       _buildLineView,
+      _buildMedianDataView,
+      _buildScatterPlotView,
       _parseData,
       _parseDataIntoArray;
 
   _this = D3View(Util.extend({
     title: 'Intensity vs. Distance Plot',
-    xLabel: 'Intensity (mmi)',
-    yLabel: 'Hypocentral Distance (km)'
+    xLabel: 'Hypocentral Distance (km)',
+    yLabel: 'Intensity (mmi)',
+    xAxisScale: d3.scale.log(),
+    xAxisTicks: [100,200,500,1000],
+    xAxisFormat: function (value) {
+      return value;
+    },
+    xExtent: [100,1000],
+    yAxisTicks: [1,2,3,4,5,6,7,8,9,10],
+    yExtent: [1,10]
   }, options));
 
   _initialize = function (options) {
@@ -30,11 +43,18 @@ var IntensityGraphView = function (options) {
 
   _parseData = function () {
     _this.data.forEach(function (dataset) {
-      if (dataset.class === 'estimated1') {
+      if (dataset.class === 'estimated1' ||
+          dataset.class === 'estimated2') {
         _buildLineView(dataset);
       }
-      if (dataset.class === 'estimated2') {
-        _buildLineView(dataset);
+      if (dataset.class === 'scatterplot1') {
+        _buildScatterPlotView(dataset);
+      }
+      if (dataset.class === 'median') {
+        _buildMedianDataView(dataset);
+      }
+      if (dataset.class === 'binned') {
+        _buildBinnedDataView(dataset);
       }
     });
     console.log(_this.data);
@@ -54,9 +74,51 @@ var IntensityGraphView = function (options) {
   _buildLineView = function (dataset) {
     var line = D3LineView({
       view: _this,
-      data: _parseDataIntoArray(dataset.data)
+      showPoints: (dataset.showPoints ? dataset.showPoints : false),
+      data: _parseDataIntoArray(dataset.data),
+      className: dataset.class,
+      label: dataset.legend,
+      showLegendPoint: false
     });
     _this.views.add(line);
+  };
+
+  _buildScatterPlotView = function (dataset) {
+    var scatterplot = D3LineView({
+      view: _this,
+      showLine: false,
+      data: _parseDataIntoArray(dataset.data),
+      className: dataset.class,
+      label: dataset.legend,
+      pointRadius: 2
+    });
+    _this.views.add(scatterplot);
+  };
+
+
+  _buildMedianDataView = function (dataset) {
+    var medianData = D3LineView({
+      view: _this,
+      showLine: false,
+      data: _parseDataIntoArray(dataset.data),
+      className: dataset.class,
+      label: dataset.legend,
+      pointRadius: 4
+    });
+    _this.views.add(medianData);
+  };
+
+
+  _buildBinnedDataView = function (dataset) {
+    var binnedData = D3LineView({
+      view: _this,
+      showLine: false,
+      data: _parseDataIntoArray(dataset.data),
+      className: dataset.class,
+      label: dataset.legend,
+      pointRadius: 6
+    });
+    _this.views.add(binnedData);
   };
 
     /**
@@ -67,7 +129,10 @@ var IntensityGraphView = function (options) {
       return;
     }
 
+    _buildBinnedDataView = null;
     _buildLineView = null;
+    _buildMedianDataView = null;
+    _buildScatterPlotView = null;
     _parseData = null;
     _parseDataIntoArray = null;
     _initialize = null;

@@ -390,7 +390,10 @@ DYFIPage.prototype._addIntensityVsDistanceTab = function (product) {
       });
       _this._tablist.addTab({
         'title': 'Intensity Vs. Distance',
-        'content': intensityGraphView.el
+        'content': intensityGraphView.el,
+        'onSelect': function () {
+          intensityGraphView.render();
+        }
       });
     },
     error: function (e) {
