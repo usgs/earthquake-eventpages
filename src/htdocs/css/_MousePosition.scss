@@ -11,12 +11,7 @@
   float: left;
 }
 
-.leaflet-control-scale-line {
-  font-size: 11px;
-}
-
-.leaflet-control-scale-line {
-  border: 2px solid #000;
+div.leaflet-control-scale-line {
   border-top: 0;
   box-shadow: none !important;
   line-height: 1;
@@ -24,7 +19,6 @@
 
 .leaflet-control-scale-line:nth-child(2) {
   border-bottom: 0px;
-  border-top: 2px solid #000;
   margin-top: -2px;
   padding-top: 1px;
 }
@@ -33,4 +27,12 @@
   margin-bottom: 10px;
   margin-left: 10px;
   vertical-align: bottom;
+}
+
+a.leaflet-control-zoom-in {
+  color: #333;
+}
+
+a.leaflet-control-zoom-out {
+  color: #333;
 }
