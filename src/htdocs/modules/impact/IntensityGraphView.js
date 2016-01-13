@@ -14,6 +14,8 @@ var IntensityGraphView = function (options) {
       _buildLineView,
       _buildMedianDataView,
       _buildScatterPlotView,
+      _drawStandardDeviation,
+      _getStandardDeviationPoints,
       _parseData,
       _parseDataIntoArray;
 
@@ -110,6 +112,8 @@ var IntensityGraphView = function (options) {
 
 
   _buildBinnedDataView = function (dataset) {
+    _drawStandardDeviation(dataset.data);
+
     var binnedData = D3LineView({
       view: _this,
       showLine: false,
@@ -119,6 +123,38 @@ var IntensityGraphView = function (options) {
       pointRadius: 6
     });
     _this.views.add(binnedData);
+
+  };
+
+  _drawStandardDeviation = function (dataset) {
+    // loop through each data point and draw the STDEV
+    dataset.forEach(function (data) {
+      var standardDeviationData = D3LineView({
+        view: _this,
+        showPoints: false,
+        data: _getStandardDeviationPoints(data),
+        className: 'stdev',
+        legend: null
+      });
+      _this.views.add(standardDeviationData);
+    });
+  };
+
+  _getStandardDeviationPoints = function (point) {
+    var stdev;
+
+    stdev = [
+      [point.x, point.y],
+      [point.x, (point.y + point.stdev)], // top-middle
+      [(point.x - 15), (point.y + point.stdev)], // top-left
+      [(point.x + 15), (point.y + point.stdev)], // top-right
+      [point.x, (point.y + point.stdev)], // top-middle
+      [point.x, (point.y - point.stdev)], // bottom-middle
+      [(point.x - 15), (point.y - point.stdev)], // bottom-left
+      [(point.x + 15), (point.y - point.stdev)], // bottom-right
+    ];
+
+    return stdev;
   };
 
     /**
@@ -133,6 +169,8 @@ var IntensityGraphView = function (options) {
     _buildLineView = null;
     _buildMedianDataView = null;
     _buildScatterPlotView = null;
+    _drawStandardDeviation = null;
+    _getStandardDeviationPoints = null;
     _parseData = null;
     _parseDataIntoArray = null;
     _initialize = null;
