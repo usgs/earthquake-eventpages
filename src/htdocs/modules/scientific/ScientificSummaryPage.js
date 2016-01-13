@@ -108,8 +108,14 @@ var _DEFAULTS = {
         {
           label: 'Time',
           value: function (params) {
-            return params.formatter.time(new Date(Date.parse(
-                params.product.properties.eventtime)));
+            var stamp;
+
+            stamp = new Date(params.product.properties.eventtime);
+
+            return '<abbr title="' +
+                params.formatter.datetime(stamp, 0) + '">' +
+              params.formatter.time(stamp, 0) +
+            '</abbr>';
           }
         },
         {
