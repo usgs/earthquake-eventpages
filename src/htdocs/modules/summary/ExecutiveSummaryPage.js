@@ -135,6 +135,9 @@ var ExecutiveSummaryPage = function (params) {
     content.innerHTML = contentMarkup.join('');
   };
 
+  _this.setDownloadMarkup = function () {
+  };
+
 
   // ------------------------------
   // Compatibility wedges ...
