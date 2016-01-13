@@ -48,7 +48,15 @@ InteractiveMap.prototype.onAdd = function () {
   }
 
   if (this._eventConfig.fromDYFI) {
-    this._dyfiLayer.addTo(this._map);
+    if (this._dyfiLayer10km) {
+      this._dyfiLayer10km.addTo(this._map);
+    }
+    else if (this._dyfiLayer1km) {
+      this._dyfiLayer1km.addTo(this._map);
+    }
+    else {
+      this._dyfiLayer.addTo(this._map);
+    }
     this._eventConfig.fromDYFI = false;
   }
 };
@@ -176,7 +184,21 @@ InteractiveMap.prototype._setContentMarkup = function () {
       var dyfi = this._event.properties.products.dyfi[0],
           dyfiContents = dyfi.contents;
 
-      if ('dyfi_geo.geojson' in dyfiContents) {
+      if ('dyfi_geo_10km.geojson' in dyfiContents) {
+        this._dyfiLayer10km = new DYFIUTMLayer({
+          url: dyfiContents['dyfi_geo_10km.geojson'].url
+        });
+        layerControl.addOverlay(this._dyfiLayer10km, 'DYFI Responses 10km');
+      }
+      if ('dyfi_geo_1km.geojson' in dyfiContents) {
+        this._dyfiLayer1km = new DYFIUTMLayer({
+          url: dyfiContents['dyfi_geo_1km.geojson'].url
+        });
+        layerControl.addOverlay(this._dyfiLayer1km, 'DYFI Responses 1km');
+      }
+      if (typeof this._dyfiLayer10km === 'undefined' &&
+            typeof this._dyfiLayer1km === 'undefined' &&
+            'dyfi_geo.geojson' in dyfiContents) {
         this._dyfiLayer = new DYFIUTMLayer({
           url: dyfiContents['dyfi_geo.geojson'].url
         });
