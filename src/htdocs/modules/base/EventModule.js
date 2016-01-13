@@ -252,25 +252,24 @@ EventModule.prototype.getHeaderMarkup = function (page) {
       isReviewed = (isReviewed.toUpperCase() === 'REVIEWED');
     }
 
-    Array.prototype.push.apply(markup, [
+    markup.push(
       page.getAttribution(product),
 
       '<ul class="quality-statements no-style">',
         '<li class="', isPreferred ? 'preferred' : 'unpreferred', '">',
           'The data below is ', isPreferred ? '' : '<strong>NOT</strong> ',
           'the most preferred data available.',
-        '</li>',
-    ]);
+        '</li>'
+    );
 
     if (product.properties.hasOwnProperty('review-status')) {
-      Array.prototype.push.apply(markup,
-        [
+      markup.push(
           '<li class="', isReviewed ? 'reviewed' : 'unreviewed', '">',
             'The data below has ', isReviewed ? '' : '<strong>NOT</strong> ',
             'been reviewed by a scientist.',
           '</li>',
         '</ul>'
-      ]);
+      );
     } else {
       markup.push('</ul>');
     }
