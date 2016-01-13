@@ -57,7 +57,6 @@ var IntensityGraphView = function (options) {
         _buildBinnedDataView(dataset);
       }
     });
-    console.log(_this.data);
   };
 
   _parseDataIntoArray = function (dataPoints) {

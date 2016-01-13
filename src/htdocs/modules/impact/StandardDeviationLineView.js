@@ -81,7 +81,11 @@ var StandardDeviationLineView = function (options) {
       ClassList.polyfill(_this.legend);
       _legend = d3.select(_this.legend);
       _legendLine = _legend.select('path');
-      _legendLine.empty();
+      _legendLine.attr('d',
+          'M 0  -3 L 25 -3' +
+          'M 0  -9 L 0   3' +
+          'M 25 -9 L 25  3'
+      );
     }
   };
 
