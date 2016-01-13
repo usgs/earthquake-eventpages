@@ -88,12 +88,12 @@
   fill: #8D91FF; /* purple */
 }
 
-.legend-content > .scatterplot1 > .line,
-.legend-content > .median > .line,
-.legend-content > .binned > .line {
-  stroke-width: 0;
+.standard-deviation {
+  stroke: black;
+  stroke-width: 0.5;
 }
 
-.legend-content > .stdev {
-  display: none;
+.legend-content > .scatterplot1 > .line,
+.legend-content > .median > .line {
+  stroke-width: 0;
 }
