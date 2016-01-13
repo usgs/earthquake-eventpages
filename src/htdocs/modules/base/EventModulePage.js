@@ -215,13 +215,14 @@ EventModulePage.prototype._setFooterMarkup = function () {
 };
 
 EventModulePage.prototype.setDownloadMarkup = function () {
-  var products,
-      el;
-  //Get a list of products to add to the downloads list.
-  products = this.getProducts();
+  var el,
+      product;
+
+  //Get a product to add to the downloads list.
+  product = this.getProductToRender();
 
   //IRIS page, and tests can return no products.
-  if (products.length !== 0) {
+  if (product) {
 
     el = document.createElement('section');
     new Accordion({
@@ -242,20 +243,16 @@ EventModulePage.prototype.setDownloadMarkup = function () {
 };
 
 EventModulePage.prototype.loadDownloadMarkup = function (e) {
-  var products = this.getProducts(),
-      product,
-      i;
+  var product = this.getProductToRender();
 
   e.preventDefault();
   this._downloadsEl.removeEventListener('click',this.loadDownloadMarkup);
 
-  for (i=0; i< products.length; i++) {
-    product = products[i];
-    if (product.phasedata) {
-      product = product.phasedata;
-    }
-    this.getDownloads(product);
+  if (product.phasedata) {
+    product = product.phasedata;
   }
+
+  this.getDownloads(product);
 };
 
 /**
