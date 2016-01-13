@@ -136,7 +136,7 @@ EventModule.prototype._getNavigationItem = function (page, hash, force) {
   if (this._pageHasContent(page)) {
     item.push('<a href="#' + fullHash + '">');
 
-    if (fullHash === hash) {
+    if (hash.indexOf(fullHash) !== -1) {
       item.push('<strong class="current-page">' + linkText + '</strong>');
     } else {
       item.push(linkText);
@@ -146,7 +146,7 @@ EventModule.prototype._getNavigationItem = function (page, hash, force) {
   } else if (force) {
     item.push('<a href="javascript:void(null);">');
 
-    if (fullHash === hash) {
+    if (hash.indexOf(fullHash) !== -1) {
       item.push('<strong class="current-page">' + linkText + '</strong>');
     } else {
       item.push(linkText);
