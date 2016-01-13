@@ -257,12 +257,7 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
       tabListDiv = document.createElement('section'),
       tabListContents = [],
       _this = this,
-      originDetails,
-      originAuthor,
-      originProducts,
-      magnitudeAuthor,
-      props,
-      updateStamp;
+      originDetails;
 
   formatter = new Formatter();
 
@@ -299,12 +294,6 @@ HypocenterPage.prototype.getDetailsContent = function (product) {
       }
     });
   }
-
-  props = product.properties;
-  originAuthor = props['origin-source'] || product.source;
-  magnitudeAuthor = props['magnitude-source'] || product.source;
-  updateStamp = formatter.datetime(product.updateTime, 0);
-  originProducts = this.getProducts();
 
   el.classList.add('origin');
 
