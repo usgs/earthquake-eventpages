@@ -36,7 +36,7 @@ var REDIRECTS = {
 
   'scientific': 'scientific_summary',
   'scientific_contributed-solutions': 'scientific_origin',
-  'scientific_tensor': 'scientifi_moment-tensor',
+  'scientific_tensor': 'scientific_moment-tensor',
   'scientific_mechanism': 'scientific_focal-mechanism',
   'scientific_finitefault': 'scientific_finite-fault'
 };
