@@ -88,7 +88,8 @@
   fill: #8D91FF; /* purple */
 }
 
-.standard-deviation {
+.standard-deviation,
+.binned > .line {
   stroke: black;
   stroke-width: 0.5;
 }
