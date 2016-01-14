@@ -3,7 +3,7 @@
 var Events = require('util/Events'),
     Util = require('util/Util'),
 
-    Attribution = require('./Attribution'),
+    Attribution = require('base/Attribution'),
 
     ScientificModule = require('scientific/ScientificModule'),
     SummaryModule = require('summary/SummaryModule'),

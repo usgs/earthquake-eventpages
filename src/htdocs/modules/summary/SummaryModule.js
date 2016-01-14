@@ -3,8 +3,8 @@
 var EventModule = require('base/EventModule'),
     Util = require('util/Util'),
 
-    ExecutiveSummaryPage = require('./ExecutiveSummaryPage'),
-    SummaryPage = require('./SummaryPage');
+    ExecutiveSummaryPage = require('summary/ExecutiveSummaryPage'),
+    SummaryPage = require('summary/SummaryPage');
 
 
 var DEFAULTS = {

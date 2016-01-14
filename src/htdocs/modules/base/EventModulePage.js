@@ -1,10 +1,10 @@
 'use strict';
 
 var Accordion = require('accordion/Accordion'),
-    Attribution = require('./Attribution'),
-    ContentsXML = require('./ContentsXML'),
-    EventUtil = require('./EventUtil'),
-    Formatter = require('./Formatter'),
+    Attribution = require('base/Attribution'),
+    ContentsXML = require('base/ContentsXML'),
+    EventUtil = require('base/EventUtil'),
+    Formatter = require('base/Formatter'),
     Util = require('util/Util');
 
 

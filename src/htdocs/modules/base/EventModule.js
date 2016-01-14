@@ -2,7 +2,7 @@
 
 var Util = require('util/Util'),
 
-    EventModulePage = require('./EventModulePage');
+    EventModulePage = require('base/EventModulePage');
 
 
 var CSS_MAP = {},

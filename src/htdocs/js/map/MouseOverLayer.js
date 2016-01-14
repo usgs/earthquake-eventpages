@@ -1,7 +1,7 @@
 'use strict';
 
 var L = require('leaflet'),
-    UtfGrid = require('./UtfGrid'),
+    UtfGrid = require('map/UtfGrid'),
     Util = require('util/Util');
 
 

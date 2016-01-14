@@ -6,9 +6,9 @@ var EventModulePage = require('base/EventModulePage'),
 
     MousePosition = require('map/MousePosition'),
     MouseOverLayer = require('map/MouseOverLayer'),
-    ContoursLayer = require('./ContoursLayer'),
-    ShakeMapStationLayer = require('./ShakeMapStationLayer'),
-    DYFIUTMLayer = require('./DYFIUTMLayer');
+    ContoursLayer = require('summary/ContoursLayer'),
+    ShakeMapStationLayer = require('summary/ShakeMapStationLayer'),
+    DYFIUTMLayer = require('summary/DYFIUTMLayer');
 
 
 var DEFAULTS = {

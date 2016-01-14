@@ -8,11 +8,11 @@
  * @see #getProductSummary
  */
 
-var Attribution = require('./Attribution'),
+var Attribution = require('base/Attribution'),
     BeachBall = require('scientific/tensor/BeachBall'),
-    EventModulePage = require('./EventModulePage'),
-    Formatter = require('./Formatter'),
-    ImpactUtil = require('./ImpactUtil'),
+    EventModulePage = require('base/EventModulePage'),
+    Formatter = require('base/Formatter'),
+    ImpactUtil = require('base/ImpactUtil'),
     Tensor = require('scientific/tensor/Tensor');
 
 

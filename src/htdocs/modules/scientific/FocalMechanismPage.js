@@ -3,7 +3,7 @@
 var Attribution = require('base/Attribution'),
     Util = require('util/Util'),
 
-    MomentTensorPage = require('./MomentTensorPage');
+    MomentTensorPage = require('scientific/MomentTensorPage');
 
 
 var DEFAULTS = {

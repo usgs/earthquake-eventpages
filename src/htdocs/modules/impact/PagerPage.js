@@ -1,6 +1,6 @@
 'use strict';
 
-var PagerXmlParser = require('./PagerXmlParser'),
+var PagerXmlParser = require('impact/PagerXmlParser'),
     ProductSummarizer = require('base/ProductSummarizer'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     Util = require('util/Util'),

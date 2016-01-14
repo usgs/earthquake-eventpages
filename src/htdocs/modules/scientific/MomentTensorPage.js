@@ -4,8 +4,8 @@ var Attribution = require('base/Attribution'),
     EventModulePage = require('base/EventModulePage'),
     Util = require('util/Util'),
 
-    BeachBall = require('./tensor/BeachBall'),
-    Tensor = require('./tensor/Tensor');
+    BeachBall = require('scientific/tensor/BeachBall'),
+    Tensor = require('scientific/tensor/Tensor');
 
 // default options
 var DEFAULTS = {

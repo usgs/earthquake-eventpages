@@ -1,0 +1,2297 @@
+[
+  {
+    "id": "aae",
+    "title": "Geophysical Observatory, Adis Abeba University, Ethiopia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/aae/"
+  },
+  {
+    "id": "aam",
+    "title": "University of Michigan, Ann Arbor, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/aam/"
+  },
+  {
+    "id": "aci",
+    "title": "Universita di Calabria, Cosenza, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/aci/"
+  },
+  {
+    "id": "acp",
+    "title": "Autoridad del Canal de Panama, Balboa-Ancon, Panama",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/acp/"
+  },
+  {
+    "id": "ade",
+    "title": "Primary Industries and Resources SA, Adelaide, S.A., Australia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ade/"
+  },
+  {
+    "id": "ags",
+    "title": "USGS Alaska Seismic Project, Menlo Park, California, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ags/"
+  },
+  {
+    "id": "ak",
+    "title": "Alaska Earthquake Center",
+    "aliases": [
+      "aei",
+      "aeic"
+    ],
+    "url": "http://localhost:8080/data/comcat/contributor/ak/",
+    "logo": "http://localhost:8080/data/comcat/logos/ak.svg"
+  },
+  {
+    "id": "alg",
+    "title": "CRAAG, Alger-Bouzareah, Algeria",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/alg/"
+  },
+  {
+    "id": "alq",
+    "title": "Albuquerque Seismological Laboratory, Albuquerque, New Mexico, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/alq/"
+  },
+  {
+    "id": "anza",
+    "title": "Anza Seismic Network, IGPP, UC San Diego, La Jolla, California, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/anza/"
+  },
+  {
+    "id": "aro",
+    "title": "Observatoire Geophysique d'Arta, Djibouti",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/aro/"
+  },
+  {
+    "id": "asrs",
+    "title": "GSRAS Siberian Branch, Altay-Sayan Seis. Ctr., Novosibirsk, Russia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/asrs/"
+  },
+  {
+    "id": "at",
+    "title": "National Tsunami Warning Center",
+    "aliases": [
+      "atwc"
+    ],
+    "url": "http://localhost:8080/data/comcat/contributor/at/"
+  },
+  {
+    "id": "ath",
+    "title": "National Observatory of Athens, Greece",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ath/"
+  },
+  {
+    "id": "atl",
+    "title": "Georgia Institute of Technology, Atlanta, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/atl/"
+  },
+  {
+    "id": "atx",
+    "title": "University of Texas Institute for Geophysics, Austin, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/atx/"
+  },
+  {
+    "id": "aust",
+    "title": "Geoscience Australia, Canberra, ACT, Australia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/aust/"
+  },
+  {
+    "id": "awib",
+    "title": "Alfred Wegener Inst. of Polar and Marine Research, Bremerhaven, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/awib/"
+  },
+  {
+    "id": "azer",
+    "title": "Rep. Center of Seismic Survey, Azerbaijan Academy of Science, Baku",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/azer/"
+  },
+  {
+    "id": "azur",
+    "title": "Geosciences Azur, Universite de Nice Sophia-Antipolis, Valbonne, France",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/azur/"
+  },
+  {
+    "id": "bari",
+    "title": "Osservatorio Sismologico, Universita degli Studi di Bari, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bari/"
+  },
+  {
+    "id": "basv",
+    "title": "British Antarctic Survey, Cambridge, England, UK",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/basv/"
+  },
+  {
+    "id": "bdf",
+    "title": "Observatorio Sismologico, Universidade de Brasilia, Brazil",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bdf/"
+  },
+  {
+    "id": "belr",
+    "title": "Inst. of Geochem. and Geophysics, Belarus Academy of Science, Minsk",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/belr/"
+  },
+  {
+    "id": "beo",
+    "title": "Seismological Survey of Serbia, Belgrade, Serbia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/beo/"
+  },
+  {
+    "id": "ber",
+    "title": "Institutt for geovitenskap, Universitetet i Bergen, Norway",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ber/"
+  },
+  {
+    "id": "bgrd",
+    "title": "Bundesanstalt fur Geowissenschaften und Rohstoffe, Hannover, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bgrd/"
+  },
+  {
+    "id": "bgs",
+    "title": "British Geological Survey, Edinburgh, United Kingdom",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bgs/"
+  },
+  {
+    "id": "bhd",
+    "title": "Seismology Unit, Scientific Research Council, Baghdad, Iraq",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bhd/"
+  },
+  {
+    "id": "bhky",
+    "title": "University of Kentucky, Lexington, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bhky/"
+  },
+  {
+    "id": "bhl",
+    "title": "Conseil National de la Recherche Scientifique, Beirut, Lebanon",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bhl/"
+  },
+  {
+    "id": "bji",
+    "title": "China Earthquake Administration, Beijing, China",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bji/"
+  },
+  {
+    "id": "bkk",
+    "title": "Meteorological Department, Bangkok, Thailand",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bkk/"
+  },
+  {
+    "id": "bkn",
+    "title": "Procurement Executive, Ministry of Defence, Blacknest, UK",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bkn/"
+  },
+  {
+    "id": "bla",
+    "title": "Virginia Polytechnic Institute and State University, Blacksburg, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bla/"
+  },
+  {
+    "id": "blmy",
+    "title": "Indian Point Network, Woodward-Clyde Consultants, New Jersey, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/blmy/"
+  },
+  {
+    "id": "bly",
+    "title": "Institute for Material Testing, Banja Luka, Bosnia and Herzegovina",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bly/"
+  },
+  {
+    "id": "bmu",
+    "title": "Bahrain Meteorological Service, Bahrain",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bmu/"
+  },
+  {
+    "id": "bng",
+    "title": "Inst. de Recherche pour le Developpement, Bangui, Cen. African Rep.",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bng/"
+  },
+  {
+    "id": "bns",
+    "title": "Geologisches Inst. der Universitat Koln, Bergisch Gladbach, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bns/"
+  },
+  {
+    "id": "bog",
+    "title": "Instituto Geofisico, Universidad Javeriana, Bogota, Colombia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bog/"
+  },
+  {
+    "id": "bou",
+    "title": "University of Colorado, Boulder, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bou/"
+  },
+  {
+    "id": "bra",
+    "title": "Geofyzikalny ustav SAV, Bratislava, Slovakia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bra/"
+  },
+  {
+    "id": "brg",
+    "title": "Seismologisches Observatorium, Berggiesshubel, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/brg/"
+  },
+  {
+    "id": "brk",
+    "title": "University of California, Berkeley, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/brk/"
+  },
+  {
+    "id": "brl",
+    "title": "Freie Universitat Berlin, Berlin, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/brl/"
+  },
+  {
+    "id": "brs",
+    "title": "University of Queensland, Brisbane, Australia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/brs/"
+  },
+  {
+    "id": "bse",
+    "title": "Boise State University, Idaho, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bse/"
+  },
+  {
+    "id": "buc",
+    "title": "National Institute for Earth Physics, Bucharest-Magurele, Romania",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/buc/"
+  },
+  {
+    "id": "bud",
+    "title": "Hungarian Seismological Institute, Budapest",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bud/"
+  },
+  {
+    "id": "bug",
+    "title": "Ruhr-Universitaet, Bochum, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bug/"
+  },
+  {
+    "id": "bul",
+    "title": "Goetz Observatory, Bulawayo, Zimbabwe",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bul/"
+  },
+  {
+    "id": "but",
+    "title": "Montana Bureau of Mines and Geology, Butte, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/but/"
+  },
+  {
+    "id": "bykl",
+    "title": "GSRAS Siberian Branch, Baykal Regional Seis. Center, Irkutsk, Russia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/bykl/"
+  },
+  {
+    "id": "byt",
+    "title": "Central Institute of Mines, Katowice, Poland",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/byt/"
+  },
+  {
+    "id": "cam",
+    "title": "Massachusetts Institute of Technology, Cambridge, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/cam/"
+  },
+  {
+    "id": "can",
+    "title": "Australian National University, Canberra, ACT, Australia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/can/"
+  },
+  {
+    "id": "car",
+    "title": "FUNVISIS, Caracas, Venezuela",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/car/"
+  },
+  {
+    "id": "casc",
+    "title": "Central American Seismic Center, San Jose, Costa Rica",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/casc/"
+  },
+  {
+    "id": "cat",
+    "title": "Instituto Scienze della Terra, Catania, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/cat/"
+  },
+  {
+    "id": "cdmg",
+    "title": "California Division of Mines and Geology, Sacramento, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/cdmg/"
+  },
+  {
+    "id": "cdpj",
+    "title": "Nat. Research Ctr for Disaster Prevention, Ibaraki-ken, Japan--now NIED",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/cdpj/"
+  },
+  {
+    "id": "cdr",
+    "title": "Commissariat a l'Energie Atomique (CEA) Fontenay aux Roses, France",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/cdr/"
+  },
+  {
+    "id": "cdwr",
+    "title": "California Department of Water Resources, Sacramento, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/cdwr/"
+  },
+  {
+    "id": "cels",
+    "title": "Comision Hidroelectrica del Rio Lempa, El Salvador",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/cels/"
+  },
+  {
+    "id": "ceri",
+    "title": "Center for Earthquake Research and Information, Memphis, Tennessee",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ceri/"
+  },
+  {
+    "id": "cff",
+    "title": "Inst. et Observatoire de Physique du Globe, Clermont-Ferrand, France",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/cff/"
+  },
+  {
+    "id": "chc",
+    "title": "University of North Carolina, Chapel Hill, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/chc/"
+  },
+  {
+    "id": "ci",
+    "title": "Southern California Seismic Network, Caltech, USGS Pasadena, and Partners",
+    "aliases": [
+      "pas"
+    ],
+    "url": "http://localhost:8080/data/comcat/contributor/ci/",
+    "logo": "http://localhost:8080/data/comcat/logos/ci.svg"
+  },
+  {
+    "id": "cll",
+    "title": "Geophysikalisches Observatorium, Univ. Leipzig, Collm, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/cll/"
+  },
+  {
+    "id": "cnrm",
+    "title": "Centre National de la Recherche Scient. et Tech., Rabat, Morocco",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/cnrm/"
+  },
+  {
+    "id": "cor",
+    "title": "College of Oceanography, Oregon State University, Corvallis, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/cor/"
+  },
+  {
+    "id": "crt",
+    "title": "Instituto Andaluz de Geofisica, Universidad de Granada, Spain",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/crt/"
+  },
+  {
+    "id": "csc",
+    "title": "University of South Carolina, Columbia, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/csc/"
+  },
+  {
+    "id": "csem",
+    "title": "Centre Sismologique Euro-Mediterraneen, Bruyeres-le-Chatel, France",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/csem/"
+  },
+  {
+    "id": "css",
+    "title": "Geological Survey Department, Nicosia, Cyprus",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/css/"
+  },
+  {
+    "id": "dal",
+    "title": "Southern Methodist University, Dallas, Texas, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dal/"
+  },
+  {
+    "id": "dbn",
+    "title": "Koninkijk Nederlands Meteorologisch Instituut, De Bilt, Netherlands",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dbn/"
+  },
+  {
+    "id": "dda",
+    "title": "Directorate of Disaster Affairs, Lodumlu, Ankara, Turkey",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dda/"
+  },
+  {
+    "id": "desu",
+    "title": "CADAFE, Desarrollo Uribante Caparo (DESURCA), San Cristobal, Venezuela",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/desu/"
+  },
+  {
+    "id": "dhmr",
+    "title": "National Seismological Observatory Center, Dhamar, Yemen",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dhmr/"
+  },
+  {
+    "id": "dias",
+    "title": "Dublin Institute for Advanced Studies, Ireland",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dias/"
+  },
+  {
+    "id": "dja",
+    "title": "Badan Meteorologi dan Geofisika, Jakarta, Indonesia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dja/"
+  },
+  {
+    "id": "dme",
+    "title": "Department of Minerals and Energy, Pretoria, South Africa",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dme/"
+  },
+  {
+    "id": "dmn",
+    "title": "Department of Mines and Geology, Kathmandu, Nepal",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dmn/"
+  },
+  {
+    "id": "dngm",
+    "title": "Direccao Nacional de Geologia, Maputo, Mozambique",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dngm/"
+  },
+  {
+    "id": "dnk",
+    "title": "Danmarks og Gronlands Geologiske Undersogelse, Copenhagen, Denmark",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dnk/"
+  },
+  {
+    "id": "doe",
+    "title": "US Department of Energy (and predecessors) -- explosions",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/doe/"
+  },
+  {
+    "id": "dri",
+    "title": "Disaster Prevention Research Institute, Kyoto University, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dri/"
+  },
+  {
+    "id": "drs",
+    "title": "GSRAS, Dagestan Regional Seismological Center, Makhachkala, Russia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/drs/"
+  },
+  {
+    "id": "dsit",
+    "title": "State Water Works Division (DSI), Ankara, Turkey",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dsit/"
+  },
+  {
+    "id": "dtm",
+    "title": "Carnegie Institution of Washington, Washington, DC, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/dtm/"
+  },
+  {
+    "id": "duke",
+    "title": "Duke Power Company, South Carolina, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/duke/"
+  },
+  {
+    "id": "ecx",
+    "title": "RESNOM, CICESE, Ensenada, Baja California, Mexico",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ecx/"
+  },
+  {
+    "id": "edm",
+    "title": "University of Alberta, Edmonton, Canada",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/edm/"
+  },
+  {
+    "id": "eni",
+    "title": "Ente Nazionale Idrocarburi, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/eni/"
+  },
+  {
+    "id": "ent",
+    "title": "Geological Survey and Mines Department, Entebbe, Uganda",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ent/"
+  },
+  {
+    "id": "ept",
+    "title": "Kidd Seismological Observatory, University of Texas, El Paso, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ept/"
+  },
+  {
+    "id": "erc",
+    "title": "Centro Ettore Majorana, Erice, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/erc/"
+  },
+  {
+    "id": "erij",
+    "title": "Earthquake Research Institute, Univ. of Tokyo, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/erij/"
+  },
+  {
+    "id": "euo",
+    "title": "Department of Geological Sciences, University of Oregon, Eugene, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/euo/"
+  },
+  {
+    "id": "exp",
+    "title": "Explosion parameters from any group other than DOE or predecessors",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/exp/"
+  },
+  {
+    "id": "fbb",
+    "title": "Geologisches Landesamt Baden-Wuerttemberg (LEDBW), Freiburg, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/fbb/"
+  },
+  {
+    "id": "fdf",
+    "title": "IPG Observatoire Geophysique, St. Pierre, Martinique",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/fdf/"
+  },
+  {
+    "id": "fir",
+    "title": "Universita Degli Studi di Firenze, Firenze, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/fir/"
+  },
+  {
+    "id": "flag",
+    "title": "Arizona Earthquake Information Center, Flagstaff, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/flag/"
+  },
+  {
+    "id": "fnet",
+    "title": "F-net Broadband Seismograph Network, University of Tokyo, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/fnet/"
+  },
+  {
+    "id": "fog",
+    "title": "Osservatorio V. Nigri, Foggia, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/fog/"
+  },
+  {
+    "id": "fur",
+    "title": "Geophysikalisches Obs. der Univ. Muenchen, Fuerstenfeldbruck, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/fur/"
+  },
+  {
+    "id": "gar",
+    "title": "Complex Seismological Expedition, Garm, Tajikistan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/gar/"
+  },
+  {
+    "id": "gbzt",
+    "title": "TUBITAK, Marmara Research Center, Gebze, Turkey",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/gbzt/"
+  },
+  {
+    "id": "gcg",
+    "title": "INSIVUMEH, Guatemala City, Guatemala",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/gcg/"
+  },
+  {
+    "id": "gcmt",
+    "title": "Lamont-Doherty Earth Observatory Global CMT project, New York, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/gcmt/"
+  },
+  {
+    "id": "gen",
+    "title": "Dipart. Studio del Territorio e Risorse, Universita di Genova, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/gen/"
+  },
+  {
+    "id": "geot",
+    "title": "Teledyne Geotech Corporation, Garland, Texas, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/geot/"
+  },
+  {
+    "id": "gfu",
+    "title": "Geofyzikalni ustav Akademie vid Ceske republiky, Praha, Czech Republic",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/gfu/"
+  },
+  {
+    "id": "gfz",
+    "title": "GeoForschungsZentrum Potsdam, Telegrafenberg, Potsdam, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/gfz/"
+  },
+  {
+    "id": "gia",
+    "title": "Geophysical Institute, Univ. of Alaska, Fairbanks, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/gia/"
+  },
+  {
+    "id": "gii",
+    "title": "Geophysical Institute of Israel, Lod, Israel",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/gii/"
+  },
+  {
+    "id": "gol",
+    "title": "Geophysics Department, Colorado School of Mines, Golden, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/gol/"
+  },
+  {
+    "id": "gom",
+    "title": "Observatoire Volcanologique de Goma, Goma, Dem. Republic of the Congo",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/gom/"
+  },
+  {
+    "id": "grc",
+    "title": "Observatoire Sismologique, Garchy, France",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/grc/"
+  },
+  {
+    "id": "grf",
+    "title": "BGR, Zentralobservatorium Graefenberg, Erlangen, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/grf/"
+  },
+  {
+    "id": "grn",
+    "title": "Lab. de Geophysique Interne et de Tectonophysique, Grenoble, France",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/grn/"
+  },
+  {
+    "id": "gsdm",
+    "title": "Geological Survey Department of Malawi, Zomba, Malawi",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/gsdm/"
+  },
+  {
+    "id": "guc",
+    "title": "Departamento de Geofisica, Universidad de Chile, Santiago",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/guc/"
+  },
+  {
+    "id": "guv",
+    "title": "CVG Electrificacion del Caroni (EDELCA) Guri, Venezuela",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/guv/"
+  },
+  {
+    "id": "hacu",
+    "title": "Hacettepe University, Ankara, Turkey",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hacu/"
+  },
+  {
+    "id": "hdc",
+    "title": "Universidad Nacional, Campus Omar Dengo, Heredia, Costa Rica",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hdc/"
+  },
+  {
+    "id": "hel",
+    "title": "Seismologian Laitos, Helsingin Yliopisto, Helsinki, Finland",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hel/"
+  },
+  {
+    "id": "hfs",
+    "title": "The Swedish Defence Research Agency, FOI, Stockholm, Sweden",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hfs/"
+  },
+  {
+    "id": "hig",
+    "title": "Hawaii Institute of Geophysics, Honolulu, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hig/"
+  },
+  {
+    "id": "hkc",
+    "title": "Hong Kong Observatory, Kowloon, Hong Kong, China",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hkc/"
+  },
+  {
+    "id": "hkt",
+    "title": "University of Texas Marine Science Institute, Galveston, USA (now ATX)",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hkt/"
+  },
+  {
+    "id": "hlw",
+    "title": "National Research Inst. of Astronomy and Geophysics, Helwan, Egypt",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hlw/"
+  },
+  {
+    "id": "hnr",
+    "title": "Ministry of Natural Resources, Honiara, Solomon Islands",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hnr/"
+  },
+  {
+    "id": "hon",
+    "title": "NOAA, Pacific Tsunami Warning Center, Honolulu, Hawaii",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hon/"
+  },
+  {
+    "id": "hrs",
+    "title": "Earthquake and Volcano Observatory, Hirosaki University, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hrs/"
+  },
+  {
+    "id": "hrv",
+    "title": "Harvard University, Cambridge, Massachusetts",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hrv/"
+  },
+  {
+    "id": "hss",
+    "title": "Inst. of Seismology and Volcanology, Hokkaido Univ., Sapporo, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hss/"
+  },
+  {
+    "id": "hv",
+    "title": "Hawaii Volcano Observatory",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hv/"
+  },
+  {
+    "id": "hvo",
+    "title": "USGS Hawaiian Volcano Observatory, Hawaii, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hvo/"
+  },
+  {
+    "id": "hyb",
+    "title": "National Geophysical Research Institute, Hyderabad, India",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/hyb/"
+  },
+  {
+    "id": "ice",
+    "title": "Instituto Costariccense de Electricidad, San Jose, Costa Rica",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ice/"
+  },
+  {
+    "id": "idc",
+    "title": "Internation Data Center",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/idc/"
+  },
+  {
+    "id": "igil",
+    "title": "Inst. Geofisico do Infante D. Luis, Univ. de Lisboa, Lisbon, Portugal",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/igil/"
+  },
+  {
+    "id": "iim",
+    "title": "Instituto de Ingenieria, UNAM, Mexico City, Mexico",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/iim/"
+  },
+  {
+    "id": "indr",
+    "title": "Inst. Nac. de Recursos Hidraulicos, Santo Domingo, Dominican Rep.",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/indr/"
+  },
+  {
+    "id": "inel",
+    "title": "Idaho Nat. Engineering and Environmental Laboratory, Idaho Falls, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/inel/"
+  },
+  {
+    "id": "inet",
+    "title": "Instituto Nicaraguense de Estudios Territoriales, Managua, Nicaragua",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/inet/"
+  },
+  {
+    "id": "inmg",
+    "title": "Instituto de Meteorologia, Lisbon, Portugal",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/inmg/"
+  },
+  {
+    "id": "inpp",
+    "title": "Ignalina Nuclear Power Plant, Ignalina, Lithuania",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/inpp/"
+  },
+  {
+    "id": "intv",
+    "title": "INTEVEP, Caracas, Venezuela",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/intv/"
+  },
+  {
+    "id": "iny",
+    "title": "Cornell University, Ithaca, New York, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/iny/"
+  },
+  {
+    "id": "ipec",
+    "title": "Ustav fyziky Zeme, Masaryk University, Brno, Czech Republic",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ipec/"
+  },
+  {
+    "id": "irsa",
+    "title": "Institutul Roman de Seismologie Aplicata, Bucharest, Romania",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/irsa/"
+  },
+  {
+    "id": "isc",
+    "title": "International Seismological Centre, UK",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/isc/"
+  },
+  {
+    "id": "iscgem",
+    "title": "ISC-GEM",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/iscgem/"
+  },
+  {
+    "id": "isk",
+    "title": "Kandilli Observatory & Earthquake Research Inst., Istanbul, Turkey",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/isk/"
+  },
+  {
+    "id": "ismp",
+    "title": "USGS Induced Seismicity Project",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ismp/"
+  },
+  {
+    "id": "ist",
+    "title": "Istanbul Technical University, Maslak, Istanbul, Turkey",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ist/"
+  },
+  {
+    "id": "istp",
+    "title": "Instituto Superior Tecnico, Lisbon, Portugal",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/istp/"
+  },
+  {
+    "id": "jck",
+    "title": "Geologisches Landesamt Nordrhein-Westfalen, Krefeld, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/jck/"
+  },
+  {
+    "id": "jen",
+    "title": "Inst. fuer Geowissenschaften, Friedrich-Schiller-Univ., Jena, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/jen/"
+  },
+  {
+    "id": "jhi",
+    "title": "Regional Research Laboratory, Jorhat, India",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/jhi/"
+  },
+  {
+    "id": "jma",
+    "title": "Japan Meteorological Agency, Tokyo, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/jma/"
+  },
+  {
+    "id": "jrq",
+    "title": "Centro de Geociencias, UNAM, Queretaro, Mexico",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/jrq/"
+  },
+  {
+    "id": "jsn",
+    "title": "University of the West Indies, Mona, Jamaica",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/jsn/"
+  },
+  {
+    "id": "jso",
+    "title": "Jordan Seismological Observatory, Amman",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/jso/"
+  },
+  {
+    "id": "kazk",
+    "title": "Seismological Institute, Kazakhstan Academy of Sciences, Almaty",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/kazk/"
+  },
+  {
+    "id": "kbc",
+    "title": "Institut de Recherches Geologiques et Minieres, Ekona, Cameroon",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/kbc/"
+  },
+  {
+    "id": "kgs",
+    "title": "Kansas Geological Survey, University of Kansas, Lawrence, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/kgs/"
+  },
+  {
+    "id": "kisr",
+    "title": "Kuwait Institute for Scientific Research, Safat, Kuwait",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/kisr/"
+  },
+  {
+    "id": "klm",
+    "title": "Malaysian Meteorological Department, Petaling Jaya, Selangor, Malaysia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/klm/"
+  },
+  {
+    "id": "knet",
+    "title": "Kyrgyz Broadband Seismic Network, La Jolla, Calif. and Kyrgyzstan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/knet/"
+  },
+  {
+    "id": "kors",
+    "title": "GSRAS, Kola Regional Seismological Center, Apatity, Russia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/kors/"
+  },
+  {
+    "id": "kowa",
+    "title": "Ecole Nationale d'Ingenieurs, Departement de Geologie, Bamako, Mali",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/kowa/"
+  },
+  {
+    "id": "krsc",
+    "title": "GSRAS, Kamchatka Regional Seismo. Center, Petropavlovsk, Russia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/krsc/"
+  },
+  {
+    "id": "krw",
+    "title": "Geophysikalisches Institut, Karlsruhe, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/krw/"
+  },
+  {
+    "id": "krym",
+    "title": "Crimean Geophysical Institute, Ukraine Academy of Science, Ukraine",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/krym/"
+  },
+  {
+    "id": "kuk",
+    "title": "Ghana Geological Survey Department, Accra, Ghana",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/kuk/"
+  },
+  {
+    "id": "kyrg",
+    "title": "Institute of Seismology, Kyrgyzstan Academy of Sciences, Bishkek",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/kyrg/"
+  },
+  {
+    "id": "kyt",
+    "title": "Faculty of Science, Kyoto University, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/kyt/"
+  },
+  {
+    "id": "lasa",
+    "title": "Large Aperture Seismic Array, Billings, Montana (closed)",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lasa/"
+  },
+  {
+    "id": "lbtb",
+    "title": "Geological Survey of Botswana, Lobatse, Botswana",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lbtb/"
+  },
+  {
+    "id": "ld",
+    "title": "Lamont-Doherty Cooperative Seismographic Network",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ld/",
+    "logo": "http://localhost:8080/data/comcat/logos/ld.svg"
+  },
+  {
+    "id": "ldg",
+    "title": "CEA Lab. de Detection et de Geophysique, Bruyeres-le-Chatel, France",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ldg/"
+  },
+  {
+    "id": "ldn",
+    "title": "University of Western Ontario, London, Ontario, Canada",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ldn/"
+  },
+  {
+    "id": "ldsn",
+    "title": "Libyan Center for Remote Sensing and Space Science, Tripoli, Libya",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ldsn/"
+  },
+  {
+    "id": "lei",
+    "title": "Institut fuer Geophysik und Geologie, Universitaet Leipzig, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lei/"
+  },
+  {
+    "id": "lgs",
+    "title": "Lithuanian Geological Survey, Vilnius, Lithuania",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lgs/"
+  },
+  {
+    "id": "lic",
+    "title": "Station Geophysique de Lamto, N'Douci, Cote d'Ivoire",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lic/"
+  },
+  {
+    "id": "lim",
+    "title": "Instituto Geofisico del Peru, Lima, Peru",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lim/"
+  },
+  {
+    "id": "ljc",
+    "title": "Inst. of Geop. and Planet. Phys., UC San Diego, La Jolla, Calif, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ljc/"
+  },
+  {
+    "id": "lju",
+    "title": "ARSO, Urad za seizmologijo, Ljubljana, Slovenia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lju/"
+  },
+  {
+    "id": "lli",
+    "title": "Instituto Internazionale di Vulcanologia--CNR, Catania, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lli/"
+  },
+  {
+    "id": "lmm",
+    "title": "Servico Meteorologico de Mocambique, Maputo, Mozambique (closed)",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lmm/"
+  },
+  {
+    "id": "loa",
+    "title": "Los Alamos Scientific Laboratories, Los Alamos, New Mexico, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/loa/"
+  },
+  {
+    "id": "lpa",
+    "title": "Observatorio Astronomico, Univ. Nacional de La Plata, Argentina",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lpa/"
+  },
+  {
+    "id": "lpz",
+    "title": "Observatorio San Calixto, La Paz, Bolivia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lpz/"
+  },
+  {
+    "id": "lsz",
+    "title": "Geological Survey Department, Lusaka, Zambia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lsz/"
+  },
+  {
+    "id": "lub",
+    "title": "Texas Tech University, Lubbock, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lub/"
+  },
+  {
+    "id": "lvm",
+    "title": "Lawrence Livermore National Laboratory, Livermore, California, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lvm/"
+  },
+  {
+    "id": "lvv",
+    "title": "Carpathian Seismo. Dept., Ukraine Academy of Science, Lviv, Ukraine",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lvv/"
+  },
+  {
+    "id": "lwi",
+    "title": "Departement de Geophysique, Lwiro, Democratic Republic of the Congo",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/lwi/"
+  },
+  {
+    "id": "macro",
+    "title": "Macroseismic location",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/macro/"
+  },
+  {
+    "id": "mb",
+    "title": "Montana Bureau of Mines and Geology",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mb/"
+  },
+  {
+    "id": "mbo",
+    "title": "Institut de Recherche pour le Developpement, M'Bour, Senegal",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mbo/"
+  },
+  {
+    "id": "mdd",
+    "title": "Instituto Geografico Nacional, Madrid, Spain",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mdd/"
+  },
+  {
+    "id": "mel",
+    "title": "Seismology Research Centre, Melbourne, Australia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mel/"
+  },
+  {
+    "id": "meri",
+    "title": "Maharashtra Engineering Research Institute, Nashik, India",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/meri/"
+  },
+  {
+    "id": "mes",
+    "title": "Instituto Geofisico e Geodetico, Messina, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mes/"
+  },
+  {
+    "id": "mhi",
+    "title": "Seismological Observatory, Mashhad, Iran",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mhi/"
+  },
+  {
+    "id": "mnlo",
+    "title": "USGS National Center for Earthquake Research, Menlo Park, Calif, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mnlo/"
+  },
+  {
+    "id": "mnm",
+    "title": "University of Minnesota, Minneapolis, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mnm/"
+  },
+  {
+    "id": "mold",
+    "title": "Institute of Geophysics and Geology, Chisinau, Moldova",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mold/"
+  },
+  {
+    "id": "mrb",
+    "title": "Institut Cartografic de Catalunya (ICC), Barcelona, Spain",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mrb/"
+  },
+  {
+    "id": "msco",
+    "title": "Mesa State College, Grand Junction, Colorado, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/msco/"
+  },
+  {
+    "id": "msku",
+    "title": "Universite des Sciences et Techniques de Masuku, Franceville, Gabon",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/msku/"
+  },
+  {
+    "id": "mso",
+    "title": "University of Montana, Missoula, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mso/"
+  },
+  {
+    "id": "mtat",
+    "title": "Mineral Research and Exploration Institute (MTA), Ankara, Turkey",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mtat/"
+  },
+  {
+    "id": "mui",
+    "title": "Geophysics Department, Ferdowsi University, Mashhad, Iran",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mui/"
+  },
+  {
+    "id": "mvov",
+    "title": "Montserrat Volcano Observatory, Mango Hill, Montserrat",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/mvov/"
+  },
+  {
+    "id": "nai",
+    "title": "Geology Department, University of Nairobi, Nairobi, Kenya",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nai/"
+  },
+  {
+    "id": "nao",
+    "title": "NTNF/NORSAR, Kjeller, Norway",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nao/"
+  },
+  {
+    "id": "nars",
+    "title": "NARS network, University of Utrecht, The Netherlands",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nars/"
+  },
+  {
+    "id": "nasc",
+    "title": "National Antarctic Scientific Center of Ukraine, Kiev, Ukraine",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nasc/"
+  },
+  {
+    "id": "nat",
+    "title": "Departamento de Fisica Teorica e Experimental, UFRN, Natal, Brazil",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nat/"
+  },
+  {
+    "id": "nc",
+    "title": "Northern California Seismic System, UC Berkeley and USGS Menlo Park",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nc/"
+  },
+  {
+    "id": "ndi",
+    "title": "India Meteorological Department, New Delhi",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ndi/"
+  },
+  {
+    "id": "ne",
+    "title": "New England Seismic Network",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ne/"
+  },
+  {
+    "id": "ned",
+    "title": "Delaware Geological Survey, Newark",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ned/"
+  },
+  {
+    "id": "ners",
+    "title": "GSRAS, Northeastern Regional Seismological Center, Magadan, Russia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ners/"
+  },
+  {
+    "id": "ngy",
+    "title": "RCSVDM, Graduate School of Environmental Studies, Nagoya Univ., Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ngy/"
+  },
+  {
+    "id": "nic",
+    "title": "Geological Survey Department, Nicosia, Cyprus",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nic/"
+  },
+  {
+    "id": "nied",
+    "title": "Nat. Res. Inst. for Earth Sci. and Disaster Prevention, Tsukuba, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nied/"
+  },
+  {
+    "id": "nipr",
+    "title": "National Institute of Polar Research, Tokyo, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nipr/"
+  },
+  {
+    "id": "nm",
+    "title": "New Madrid Seismic Network",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nm/",
+    "logo": "http://localhost:8080/data/comcat/logos/nm.svg"
+  },
+  {
+    "id": "nn",
+    "title": "Nevada Seismological Laboratory",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nn/"
+  },
+  {
+    "id": "nnc",
+    "title": "Nat. Nuclear Center, Inst. of Geophysical Research, Almaty, Kazakhstan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nnc/"
+  },
+  {
+    "id": "nou",
+    "title": "Institut de Recherche pour le Developpement, Noumea, New Caledonia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nou/"
+  },
+  {
+    "id": "nsau",
+    "title": "National Space Agency of Ukraine, Kiev, Ukraine",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nsau/"
+  },
+  {
+    "id": "nssc",
+    "title": "National Syrian Seismological Center, Damascus",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nssc/"
+  },
+  {
+    "id": "nssp",
+    "title": "National Survey of Seismic Protection, Yerevan, Armenia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/nssp/"
+  },
+  {
+    "id": "obm",
+    "title": "Mongolian Academy of Sciences, Ulaanbaatar",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/obm/"
+  },
+  {
+    "id": "obn",
+    "title": "GSRAS, Russian National Seismological Center, Obninsk, Russia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/obn/"
+  },
+  {
+    "id": "ogso",
+    "title": "OhioSeis Network, Ohio Geological Survey, Columbus",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ogso/"
+  },
+  {
+    "id": "oman",
+    "title": "Department of Earth Sciences, Sultan Qaboos University, Al-Khod, Oman",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/oman/"
+  },
+  {
+    "id": "ompt",
+    "title": "Observatoire Midi-Pyrenees, Toulouse, France",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ompt/"
+  },
+  {
+    "id": "ott",
+    "title": "Geological Survey of Canada, Ottawa, Canada",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ott/"
+  },
+  {
+    "id": "oul",
+    "title": "Sodankylan Geofysiikan Observatorio, Oulun Yliopisto, Oulu, Finland",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/oul/"
+  },
+  {
+    "id": "ovo",
+    "title": "Osservatorio Vesuviano, Naples, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ovo/"
+  },
+  {
+    "id": "pal",
+    "title": "Lamont-Doherty Earth Observatory, Palisades, New York. USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pal/"
+  },
+  {
+    "id": "par",
+    "title": "Institut de Physique du Globe, Univ. P et M Curie, Paris, France",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/par/"
+  },
+  {
+    "id": "pda",
+    "title": "Instituto de Meteorologia, Obs. Afonso Chaves, Ponta Delgada, Azores",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pda/"
+  },
+  {
+    "id": "pdg",
+    "title": "Seizmoloski zavod Crne Gore, Podgorica, Montenegro",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pdg/"
+  },
+  {
+    "id": "pepp",
+    "title": "Princeton Earth Physics Project, Princeton, New Jersey, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pepp/"
+  },
+  {
+    "id": "pgc",
+    "title": "Geological Survey of Canada, Pacific Geoscience Centre, Sidney, BC",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pgc/"
+  },
+  {
+    "id": "pgec",
+    "title": "Pacific Gas and Electric, California, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pgec/"
+  },
+  {
+    "id": "pins",
+    "title": "Pakistan Inst. of Nuclear Science and Technology, Rawalpindi, Pakistan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pins/"
+  },
+  {
+    "id": "pivs",
+    "title": "Philippine Inst. of Volcanology & Seismology, Quezon City, Philippines",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pivs/"
+  },
+  {
+    "id": "plv",
+    "title": "Inst. of Geophysics, Vietnamese Acad. of Science and Technology, Hanoi",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/plv/"
+  },
+  {
+    "id": "pmg",
+    "title": "Geological Survey, Port Moresby, Papua New Guinea",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pmg/"
+  },
+  {
+    "id": "pmr",
+    "title": "National Tsunami Warning Center, Palmer, Alaska, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pmr/"
+  },
+  {
+    "id": "pnnl",
+    "title": "Pacific Northwest National Laboratory, Richland, Washington, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pnnl/"
+  },
+  {
+    "id": "polr",
+    "title": "POLARIS Project, Ottawa, Canada",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/polr/"
+  },
+  {
+    "id": "ppt",
+    "title": "Laboratoire de Geophysique, Papeete, French Polynesia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ppt/"
+  },
+  {
+    "id": "pr",
+    "title": "Puerto Rico Seismic Network",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pr/"
+  },
+  {
+    "id": "pre",
+    "title": "Council for Geoscience, Pretoria, South Africa",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pre/"
+  },
+  {
+    "id": "pro",
+    "title": "Osservatorio Valerio, Pesaro, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pro/"
+  },
+  {
+    "id": "prt",
+    "title": "Osservatorio San Domenico, Prato, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/prt/"
+  },
+  {
+    "id": "pt",
+    "title": "Pacific Tsunami Warning Center",
+    "aliases": [
+      "ptwc"
+    ],
+    "url": "http://localhost:8080/data/comcat/contributor/pt/"
+  },
+  {
+    "id": "ptn",
+    "title": "State University of New York, Potsdam, New York, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ptn/"
+  },
+  {
+    "id": "pto",
+    "title": "Porto (Serro do Pilar), Portugal",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/pto/"
+  },
+  {
+    "id": "qcp",
+    "title": "Manila Observatory, Ateneo de Manila Univ., Manila, Philippines",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/qcp/"
+  },
+  {
+    "id": "qdm",
+    "title": "Queensland Department of Mines, Brisbane, Australia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/qdm/"
+  },
+  {
+    "id": "qmb",
+    "title": "University of Leeds, Yorkshire, UK",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/qmb/"
+  },
+  {
+    "id": "que",
+    "title": "Pakistan Meteorological Department, Quetta, Pakistan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/que/"
+  },
+  {
+    "id": "qui",
+    "title": "Escuela Politecnica Nacional, Quito, Ecuador",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/qui/"
+  },
+  {
+    "id": "rab",
+    "title": "Geological Survey, Vulcano Observatory, Rabaul, Papua New Guinea",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/rab/"
+  },
+  {
+    "id": "rdj",
+    "title": "Observatorio Nacional, Rio de Janeiro, Brazil",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/rdj/"
+  },
+  {
+    "id": "ren",
+    "title": "University of Nevada, Reno, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ren/"
+  },
+  {
+    "id": "rex",
+    "title": "Brigham Young University - Idaho, Rexburg, Idaho, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/rex/"
+  },
+  {
+    "id": "rey",
+    "title": "Veourstofa Islands, Reykjavik, Iceland",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/rey/"
+  },
+  {
+    "id": "ript",
+    "title": "Research Inst. of Pulse Technique, Ministry for Atomic Energy, Russia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ript/"
+  },
+  {
+    "id": "rlp",
+    "title": "Landeserdbebendienst Rheinland-Pfalz, Mainz, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/rlp/"
+  },
+  {
+    "id": "rmod",
+    "title": "Russian Ministry of Defense, Russia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/rmod/"
+  },
+  {
+    "id": "rom",
+    "title": "Istituto Nazionale di Geofisica e Vulcanologia, Rome, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/rom/"
+  },
+  {
+    "id": "rsnc",
+    "title": "Red Sismica Nacional de Colombia, INGEOMINAS, Bogota, Colombia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/rsnc/"
+  },
+  {
+    "id": "rspr",
+    "title": "Red Sismica de Puerto Rico, Universidad de Puerto Rico, Mayaguez",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/rspr/"
+  },
+  {
+    "id": "ruvs",
+    "title": "Rede Universitaria de Vigilancia Sismovulcanica, Sao Miguel, Azores",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ruvs/"
+  },
+  {
+    "id": "ryd",
+    "title": "King Saud University, Riyadh, Saudi Arabia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ryd/"
+  },
+  {
+    "id": "sakl",
+    "title": "Sakhalin Complex Research Institute, Novoalexandrovsk -- now SKHL net",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sakl/"
+  },
+  {
+    "id": "sand",
+    "title": "Sandia Laboratories, Albuquerque, New Mexico, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sand/"
+  },
+  {
+    "id": "sapn",
+    "title": "Emergency Management Office, Saipan, Northern Mariana Islands",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sapn/"
+  },
+  {
+    "id": "sbs",
+    "title": "Institut National de la Meteorologie, Tunis, Tunisia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sbs/"
+  },
+  {
+    "id": "scp",
+    "title": "Pennsylvania State University, State College, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/scp/"
+  },
+  {
+    "id": "sdd",
+    "title": "Universidad Autonoma de Santo Domingo, Dominican Republic",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sdd/"
+  },
+  {
+    "id": "se",
+    "title": "Center for Earthquake Research and Information",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/se/",
+    "logo": "http://localhost:8080/data/comcat/logos/se.svg"
+  },
+  {
+    "id": "sea",
+    "title": "Geophysics Program, University of Washington, Seattle, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sea/"
+  },
+  {
+    "id": "seo",
+    "title": "Korean Meteorological Administration, Seoul, South Korea",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/seo/"
+  },
+  {
+    "id": "sfs",
+    "title": "Real Instituto y Observatorio de la Armada, San Fernando, Spain",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sfs/"
+  },
+  {
+    "id": "shv",
+    "title": "Inst. of Seismology and Volcanology, Kyushu Univ., Shimabara, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/shv/"
+  },
+  {
+    "id": "sja",
+    "title": "Instituto Nacional de Prevencion Sismica, San Juan, Argentina",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sja/"
+  },
+  {
+    "id": "skhl",
+    "title": "GSRAS, Sakhalin Regional Seismological Ctr., Yuzhno-Sakhalinsk, Russia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/skhl/"
+  },
+  {
+    "id": "sko",
+    "title": "Seismological Observatory, Skopje University, Macedonia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sko/"
+  },
+  {
+    "id": "slc",
+    "title": "University of Utah, Salt Lake City, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/slc/"
+  },
+  {
+    "id": "slci",
+    "title": "University of Utah Research Institute, Salt Lake City, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/slci/"
+  },
+  {
+    "id": "slm",
+    "title": "St. Louis University, St. Louis, Missouri, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/slm/"
+  },
+  {
+    "id": "snet",
+    "title": "Servicio Nac. de Estudios Territoriales, San Salvador, El Salvador",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/snet/"
+  },
+  {
+    "id": "snm",
+    "title": "New Mexico Institute of Mining and Technology, Socorro, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/snm/"
+  },
+  {
+    "id": "snsn",
+    "title": "Saudi NSN, King Abdulaziz City for Sci & Tech, Riyadh, Saudi Arabia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/snsn/"
+  },
+  {
+    "id": "sof",
+    "title": "Section of Seismology, Bulgarian Academy of Sciences, Sofia, Bulgaria",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sof/"
+  },
+  {
+    "id": "sors",
+    "title": "Republic Hydrometeorological Inst., Banja Luka, Bosnia-Herzegovina",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sors/"
+  },
+  {
+    "id": "spec",
+    "title": "Special NEIS solution",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/spec/"
+  },
+  {
+    "id": "spgm",
+    "title": "Service de Physique du Globe, Rabat Agdal, Morocco",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/spgm/"
+  },
+  {
+    "id": "srpd",
+    "title": "Savannah River Laboratory, Aiken, South Carolina",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/srpd/"
+  },
+  {
+    "id": "ssnc",
+    "title": "Centro Nacional de Investigaciones Sismologicas, Santiago de Cuba, Cuba",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ssnc/"
+  },
+  {
+    "id": "sso",
+    "title": "Osservatorio Geofisico Sperimentale, Macerata, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sso/"
+  },
+  {
+    "id": "str",
+    "title": "Ecole et Observatoire des Sciences de la Terre, Strasbourg, France",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/str/"
+  },
+  {
+    "id": "stu",
+    "title": "Institut fuer Geophysik der Universitaet Stuttgart, Stuttgart, Germany",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/stu/"
+  },
+  {
+    "id": "sva",
+    "title": "Department of Mineral Resources, Suva, Fiji",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/sva/"
+  },
+  {
+    "id": "svsa",
+    "title": "Sistema de Vigilancia Sismologica dos Acores, Ponta Delgada, Azores",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/svsa/"
+  },
+  {
+    "id": "tajk",
+    "title": "Tajikistan Academy of Sciences, Dushanbe, Tajikistan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tajk/"
+  },
+  {
+    "id": "tan",
+    "title": "Institut et Observatoire Geophysique d'Antananarivo, Madagascar",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tan/"
+  },
+  {
+    "id": "tap",
+    "title": "Central Weather Bureau, Taipei, Taiwan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tap/"
+  },
+  {
+    "id": "tato",
+    "title": "Institute of Earth Sciences, Academia Sinica, Taipei, Taiwan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tato/"
+  },
+  {
+    "id": "tau",
+    "title": "University of Tasmania, Hobart, Australia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tau/"
+  },
+  {
+    "id": "tbu",
+    "title": "Environmental Physics Institute, Tibet University, Lhasa, China",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tbu/"
+  },
+  {
+    "id": "teh",
+    "title": "Institute of Geophysics, University of Tehran, Iran",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/teh/"
+  },
+  {
+    "id": "the",
+    "title": "Geophysical Laboratory, University of Thessaloniki, Greece",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/the/"
+  },
+  {
+    "id": "thr",
+    "title": "Intl. Inst. of Earthquake Engineering and Seismology, Tehran, Iran",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/thr/"
+  },
+  {
+    "id": "tif",
+    "title": "Institute of Geophysics, Academy of Sciences of Georgia, Tbilisi, Georgia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tif/"
+  },
+  {
+    "id": "tir",
+    "title": "Seismological Center, Academy of Sciences of Albania, Tirana",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tir/"
+  },
+  {
+    "id": "toh",
+    "title": "AOB, Graduate School of Science, Tohoku University, Sendai, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/toh/"
+  },
+  {
+    "id": "tol",
+    "title": "Observatorio Geofisico de Toledo, Spain (MDD network)",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tol/"
+  },
+  {
+    "id": "tri",
+    "title": "Ist. Nazle. di Oceanografia e di Geof. Sperimentale, Trieste, Italy",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tri/"
+  },
+  {
+    "id": "trkm",
+    "title": "Institute of Seismology, Turkmenistan Academy of Science, Ashgabat",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/trkm/"
+  },
+  {
+    "id": "trn",
+    "title": "University of the West Indies, St. Augustine, Trinidad",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/trn/"
+  },
+  {
+    "id": "tul",
+    "title": "Oklahoma Geological Survey, Leonard, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tul/"
+  },
+  {
+    "id": "tva",
+    "title": "Tennessee Valley Authority, Knoxville, Tennessee",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tva/"
+  },
+  {
+    "id": "tzn",
+    "title": "University of Dar es Salaam, Tanzania",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/tzn/"
+  },
+  {
+    "id": "uav",
+    "title": "Laboratorio de Geofisica, Universidad de los Andes, Merida, Venezuela",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/uav/"
+  },
+  {
+    "id": "ubc",
+    "title": "University of British Columbia, Vancouver, B.C., Canada",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ubc/"
+  },
+  {
+    "id": "ubic",
+    "title": "Univ. de Barcelona i Institut d'Estudis Catalans, Barcelona, Spain",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ubic/"
+  },
+  {
+    "id": "ucc",
+    "title": "Observatoire Royal de Belgique, Uccle, Brussels, Belgium",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ucc/"
+  },
+  {
+    "id": "ucr",
+    "title": "Seccion de Sismologia, Univ. de Costa Rica, San Jose, Costa Rica",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/ucr/"
+  },
+  {
+    "id": "udec",
+    "title": "Universidad de Concepcion, Concepcion, Chile",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/udec/"
+  },
+  {
+    "id": "udo",
+    "title": "Centro de Sismologia, Universidad de Oriente, Cumana, Venezuela",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/udo/"
+  },
+  {
+    "id": "unah",
+    "title": "Universidad Nacional Autonoma de Honduras, Tegucigalpa, Honduras",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/unah/"
+  },
+  {
+    "id": "unm",
+    "title": "Instituto de Geofisica, UNAM, Mexico City, DF, Mexico",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/unm/"
+  },
+  {
+    "id": "upa",
+    "title": "Instituto de Geociencias, Universidad de Panama, Panama",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/upa/"
+  },
+  {
+    "id": "upp",
+    "title": "Department of Earth Sciences, Uppsala University, Uppsala, Sweden",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/upp/"
+  },
+  {
+    "id": "upsl",
+    "title": "University of Patras Seismological Laboratory, Patras, Greece",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/upsl/"
+  },
+  {
+    "id": "urs",
+    "title": "Kochi University, Kochi, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/urs/"
+  },
+  {
+    "id": "us",
+    "title": "USGS National Earthquake Information Center, PDE",
+    "aliases": [
+      "gs",
+      "neic"
+    ],
+    "url": "http://localhost:8080/data/comcat/contributor/us/"
+  },
+  {
+    "id": "usaf",
+    "title": "US Air Force Technical Applications Center, Melbourne, Florida, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/usaf/"
+  },
+  {
+    "id": "usav",
+    "title": "USGS Alaska Volcano Observatory, Anchorage, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/usav/"
+  },
+  {
+    "id": "usbr",
+    "title": "US Bureau of Reclamation, Denver, Colorado, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/usbr/"
+  },
+  {
+    "id": "usc",
+    "title": "University of Southern California, Los Angeles, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/usc/"
+  },
+  {
+    "id": "uscv",
+    "title": "USGS Cascades Volcano Observatory, Vancouver WA, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/uscv/"
+  },
+  {
+    "id": "usgs",
+    "title": "US Geological Survey--other than ABQ, AGS, MNLO, NEIC, HVO and USAVO",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/usgs/"
+  },
+  {
+    "id": "utsu",
+    "title": "Utsunomiya University, Japan",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/utsu/"
+  },
+  {
+    "id": "uu",
+    "title": "University of Utah Seismograph Stations",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/uu/",
+    "logo": "http://localhost:8080/data/comcat/logos/uu.svg"
+  },
+  {
+    "id": "uvc",
+    "title": "Universidad del Valle, Cali, Colombia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/uvc/"
+  },
+  {
+    "id": "uw",
+    "title": "Pacific Northwest Seismic Network",
+    "aliases": [
+      "pnsn"
+    ],
+    "url": "http://localhost:8080/data/comcat/contributor/uw/",
+    "logo": "http://localhost:8080/data/comcat/logos/uw.svg"
+  },
+  {
+    "id": "uzbk",
+    "title": "Institute of Seismology, Uzbekistan Academy of Sciences, Tashkent",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/uzbk/"
+  },
+  {
+    "id": "vao",
+    "title": "Inst. de Astron., Geof. e Ciencias Atmos., Univ. de Sao Paulo, Brazil",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/vao/"
+  },
+  {
+    "id": "war",
+    "title": "Instytutu Geofizyki, Polskiej Akademii Nauk, Warsaw, Poland",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/war/"
+  },
+  {
+    "id": "wel",
+    "title": "Inst. of Geological and Nuclear Sciences, Lower Hutt, New Zealand",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/wel/"
+  },
+  {
+    "id": "wes",
+    "title": "Weston Observatory, Boston College, Weston, Massachusetts, USA",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/wes/"
+  },
+  {
+    "id": "wien",
+    "title": "Inst. fuer Meteorologie und Geophysik, Univ. Wien, Vienna, Austria",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/wien/"
+  },
+  {
+    "id": "wihg",
+    "title": "Wadia Institute of Himalayan Geology, Dehra Dun, India",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/wihg/"
+  },
+  {
+    "id": "wwc",
+    "title": "Woodward-Clyde Consultants, California",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/wwc/"
+  },
+  {
+    "id": "yars",
+    "title": "GSRAS Siberian Branch, Yakutiya Reg. Seis. Center, Yakutsk, Russia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/yars/"
+  },
+  {
+    "id": "zag",
+    "title": "Geophysical Institute, University of Zagreb, Croatia",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/zag/"
+  },
+  {
+    "id": "zamg",
+    "title": "ZentralAnstalt fuer Meteorologie und Geodynamik, Vienna, Austria",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/zamg/"
+  },
+  {
+    "id": "zon",
+    "title": "Universidad Nacional de San Juan, San Juan, Argentina",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/zon/"
+  },
+  {
+    "id": "zur",
+    "title": "Schweizerischer Erdbebendienst, Zurich, Switzerland",
+    "aliases": null,
+    "url": "http://localhost:8080/data/comcat/contributor/zur/"
+  }
+]

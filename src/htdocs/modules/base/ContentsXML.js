@@ -1,6 +1,6 @@
 'use strict';
 
-var Formatter = require('./Formatter'),
+var Formatter = require('base/Formatter'),
     Xhr = require('util/Xhr');
 
 // path to contents.xml in a product.

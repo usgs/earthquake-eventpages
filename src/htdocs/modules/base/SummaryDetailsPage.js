@@ -1,6 +1,6 @@
 'use strict';
 
-var EventModulePage = require('./EventModulePage');
+var EventModulePage = require('base/EventModulePage');
 
 
 /**
