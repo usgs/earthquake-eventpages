@@ -10,10 +10,10 @@ var IntensityGraphView = function (options) {
   var _this,
       _initialize,
 
-      _buildBinnedDataView,
       _buildLineView,
       _buildMedianDataView,
       _buildScatterPlotView,
+      _buildStandardDeviationLineView,
       _parseData,
       _parseDataIntoArray;
 
@@ -22,13 +22,15 @@ var IntensityGraphView = function (options) {
     xLabel: 'Hypocentral Distance (km)',
     yLabel: 'Intensity (mmi)',
     xAxisScale: d3.scale.log(),
-    xAxisTicks: [100,200,500,1000],
+    //xAxisTicks: [100,200,500,1000],
     xAxisFormat: function (value) {
       return value;
     },
-    xExtent: [100,1000],
+    // xExtent: [100,1000],
     yAxisTicks: [1,2,3,4,5,6,7,8,9,10],
-    yExtent: [1,10]
+    yExtent: [1,10],
+    marginLeft: 10,
+    paddingLeft:70
   }, options));
 
   _initialize = function (options) {
@@ -54,7 +56,7 @@ var IntensityGraphView = function (options) {
         _buildMedianDataView(dataset);
       }
       if (dataset.class === 'binned') {
-        _buildBinnedDataView(dataset);
+        _buildStandardDeviationLineView(dataset);
       }
     });
   };
@@ -108,8 +110,8 @@ var IntensityGraphView = function (options) {
   };
 
 
-  _buildBinnedDataView = function (dataset) {
-    var binnedData = StandardDevationLineView({
+  _buildStandardDeviationLineView = function (dataset) {
+    var standardDevationLineView = StandardDevationLineView({
       view: _this,
       data: _parseDataIntoArray(dataset.data),
       histogram: dataset.data,
@@ -118,7 +120,7 @@ var IntensityGraphView = function (options) {
       pointRadius: 6,
       showLine: false
     });
-    _this.views.add(binnedData);
+    _this.views.add(standardDevationLineView);
   };
 
     /**
@@ -129,10 +131,10 @@ var IntensityGraphView = function (options) {
       return;
     }
 
-    _buildBinnedDataView = null;
     _buildLineView = null;
     _buildMedianDataView = null;
     _buildScatterPlotView = null;
+    _buildStandardDeviationLineView = null;
     _parseData = null;
     _parseDataIntoArray = null;
     _initialize = null;
