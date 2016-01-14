@@ -45,7 +45,7 @@ var StandardDeviationLineView = function (options) {
     _y = _this.view.model.get('yAxisScale');
 
     _lineView.render();
-    _histograms.empty();
+    _histograms.selectAll('*').remove();
 
     if (_data.length === 0) {
       return;
