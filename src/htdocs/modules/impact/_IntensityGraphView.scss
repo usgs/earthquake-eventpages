@@ -1,0 +1,36 @@
+.estimated1 > .line {
+  stroke: #D65617; /* orange */
+  stroke-width: 1;
+}
+
+.estimated2 > .line {
+  stroke: #5FCE3B; /* green */
+  stroke-width: 1;
+}
+
+.scatterplot1 > .point {
+  stroke-width: 0;
+  fill: #94DFEA; /* blue */
+}
+
+.median > .point {
+  stroke: #000;
+  stroke-width: 0.5;
+  fill: #FE4D55; /* red */
+}
+
+.binned,
+.binned > .line,
+.binned > .point {
+  stroke: #000;
+  stroke-width: 0.5;
+}
+
+.binned > .point {
+  fill: #8D91FF; /* purple */
+}
+
+.legend-content > .scatterplot1 > .line,
+.legend-content > .median > .line {
+  stroke-width: 0;
+}

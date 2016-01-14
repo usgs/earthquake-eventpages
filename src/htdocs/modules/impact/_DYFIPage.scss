@@ -1,3 +1,4 @@
+@import '_IntensityGraphView.scss'
 
 .dyfi-summary > ul > li {
   width: 25%;
@@ -6,7 +7,6 @@
     width: 20%;
   }
 }
-
 
 .dyfi-tablist > section {
   padding-top: 1em;
@@ -61,40 +61,3 @@
   text-align: center;
 }
 
-.estimated1 > .line {
-  stroke: #D65617; /* orange */
-  stroke-width: 1;
-}
-
-.estimated2 > .line {
-  stroke: #5FCE3B; /* green */
-  stroke-width: 1;
-}
-
-.scatterplot1 > .point {
-  stroke-width: 0;
-  fill: #94DFEA; /* blue */
-}
-
-.median > .point {
-  stroke: #000;
-  stroke-width: 0.5;
-  fill: #FE4D55; /* red */
-}
-
-.binned > .point {
-  stroke: #000;
-  stroke-width: 0.5;
-  fill: #8D91FF; /* purple */
-}
-
-.standard-deviation,
-.binned > .line {
-  stroke: black;
-  stroke-width: 0.5;
-}
-
-.legend-content > .scatterplot1 > .line,
-.legend-content > .median > .line {
-  stroke-width: 0;
-}
