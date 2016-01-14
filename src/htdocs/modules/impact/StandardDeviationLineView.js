@@ -82,9 +82,9 @@ var StandardDeviationLineView = function (options) {
       _legend = d3.select(_this.legend);
       _legendLine = _legend.select('path');
       _legendLine.attr('d',
-          'M 0  -3 L 25 -3' +
-          'M 0  -9 L 0   3' +
-          'M 25 -9 L 25  3'
+          'M 1  -3 L 24 -3' +
+          'M 1  -9 L 1   3' +
+          'M 24 -9 L 24  3'
       );
     }
   };
