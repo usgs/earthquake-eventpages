@@ -23,7 +23,6 @@ var StandardDeviationLineView = function (options) {
   _this = D3SubView(options);
 
   _initialize = function (options) {
-
     ClassList.polyfill(_this.el);
     _this.el.classList.add('StandardDeviationLineView');
     _el = d3.select(_this.el);
@@ -35,9 +34,6 @@ var StandardDeviationLineView = function (options) {
     }));
 
     _data = options.histogram;
-    _x = _this.view.model.get('xAxisScale');
-    _y = _this.view.model.get('yAxisScale');
-
   };
 
   _this.render = function () {
@@ -54,7 +50,9 @@ var StandardDeviationLineView = function (options) {
     // update standard deviation for each point
     _data.forEach(function (point) {
       var el,
-          px, p0y, p1y,
+          p0y,
+          p1y,
+          px,
           width;
 
       if (point.stdev === 0) {
@@ -97,6 +95,15 @@ var StandardDeviationLineView = function (options) {
       return;
     }
 
+    _data = null;
+    _el = null;
+    _histograms = null;
+    _legend = null;
+    _legendLine = null;
+    _lineView = null;
+    _x = null;
+    _y = null;
+
     _initialize = null;
     _this = null;
   }, _this.destroy);
@@ -105,6 +112,5 @@ var StandardDeviationLineView = function (options) {
   options = null;
   return _this;
 };
-
 
 module.exports = StandardDeviationLineView;

@@ -22,11 +22,9 @@ var IntensityGraphView = function (options) {
     xLabel: 'Hypocentral Distance (km)',
     yLabel: 'Intensity (mmi)',
     xAxisScale: d3.scale.log(),
-    //xAxisTicks: [100,200,500,1000],
     xAxisFormat: function (value) {
       return value;
     },
-    // xExtent: [100,1000],
     yAxisTicks: [1,2,3,4,5,6,7,8,9,10],
     yExtent: [1,10],
     marginLeft: 10,
@@ -39,7 +37,8 @@ var IntensityGraphView = function (options) {
     if (options.data && options.data.length && options.data.length > 0) {
       _parseData();
     } else {
-      _this.el.innerHTML = '<p class="alert error">Sorry Brah, no data.</p>';
+      _this.el.innerHTML = '<p class="alert warning">Intensity vs. Distance ' +
+          'data does not exist.</p>';
     }
   };
 
