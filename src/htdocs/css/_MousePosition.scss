@@ -1,35 +1,24 @@
 .leaflet-control-background,
 .leaflet-control-scale { /* This is baked into Leaflet core. */
-    background-color: #666;
-    background-color: rgba(0,0,0,0.25);
+    background-color: #FFF;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
     border-radius: 7px;
-    color: #FFF;
-    font-size: 10px;
+    font-size: 11px;
     padding: 6px;
-    text-shadow: 1px 1px 1px #333;
 }
 
 .leaflet-control-scale {
   float: left;
 }
 
-.leaflet-control-scale-line {
-  font-size: 8px;
-}
-
-.leaflet-control-scale-line {
-  background-color: transparent;
-  border: 2px solid #f5f5f5;
+div.leaflet-control-scale-line {
   border-top: 0;
   box-shadow: none !important;
-  color: #fff;
   line-height: 1;
-  text-shadow: 1px 1px 1px #333;
 }
 
 .leaflet-control-scale-line:nth-child(2) {
   border-bottom: 0px;
-  border-top: 2px solid #f5f5f5;
   margin-top: -2px;
   padding-top: 1px;
 }
@@ -38,4 +27,12 @@
   margin-bottom: 10px;
   margin-left: 10px;
   vertical-align: bottom;
+}
+
+a.leaflet-control-zoom-in {
+  color: #333;
+}
+
+a.leaflet-control-zoom-out {
+  color: #333;
 }
