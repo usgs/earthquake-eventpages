@@ -4,9 +4,11 @@
 var expect = chai.expect,
     DYFIPage = require('impact/DYFIPage'),
     ImpactModule = require('impact/ImpactModule'),
+    IntensityGraphView = require('impact/IntensityGraphView'),
     Xhr = require('util/Xhr'),
 
     cdi_zip = require('./cdi_zip'),
+    dyfi_plot_atten = require('./dyfi_plot_atten'),
     nc72119970 = require('./nc72119970'),
     Usb000ldeh = require('./usb000ldeh');
 
@@ -125,12 +127,7 @@ describe('DYFIPage test suite.', function () {
 
   });
 
-  describe('CreeateTabListData()', function () {
-    var options = {
-      eventId: 'usb000ldeh',
-      contents: Usb000ldeh.properties.products.dyfi[0].contents
-    };
-
+  describe('CreateTabListData()', function () {
     it('has the correct number of tabs', function () {
       var dyfiPage,
           tabs;
@@ -140,21 +137,28 @@ describe('DYFIPage test suite.', function () {
 
       expect(tabs.length).to.equal(6);
     });
+  });
 
-    it('Each tablist entry is an instance of a tab', function () {
-      var tabList = new DYFIPage(module_info)._createTabListData(options),
-          i,
-          len,
-          tab;
+  describe('IntensityGraphView', function () {
+    it('DYFI Plot Attenuation is graphed using D3', function () {
+      var container,
+          data,
+          view;
 
-      for (i = 0, len = tabList.length; i < len; i++) {
-        tab = tabList[i];
-        /* jshint -W030 */
-        expect(tab.hasOwnProperty('title')).to.be.true;
-        expect(tab.hasOwnProperty('content')).to.be.true;
-        /* jshint +W030 */
-      }
+      container = document.createElement('div');
+      data = dyfi_plot_atten;
+
+      view = IntensityGraphView({
+          el: container,
+          data: data.datasets,
+          xlabel: data.xlabel,
+          ylabel: data.ylabel,
+          title: data.title
+        });
+
+      view.render();
+
+      expect(view.views.data().length).to.equal(4);
     });
-
   });
 });
