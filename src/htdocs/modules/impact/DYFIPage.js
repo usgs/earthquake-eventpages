@@ -419,20 +419,14 @@ DYFIPage.prototype._addIntensityVsDistanceTab = function (contents) {
       title: 'Intensity Vs. Distance',
       content: function () {
         var container = document.createElement('div');
-        Xhr.ajax({
-          url: contents['dyfi_plot_atten.json'].url,
-          success: function (data) {
-            new IntensityGraphView({
-              el: container,
-              data: data.datasets,
-              xlabel: data.xlabel,
-              ylabel: data.ylabel,
-              title: data.title
-            });
-          },
-          error: function (e) {
-            console.log(e);
-          }
+        _this._getDYFIPlotAttenuation(function (data) {
+          new IntensityGraphView({
+            el: container,
+            data: data.datasets,
+            xlabel: data.xlabel,
+            ylabel: data.ylabel,
+            title: data.title
+          });
         });
         return container;
       }
@@ -449,6 +443,20 @@ DYFIPage.prototype._addIntensityVsDistanceTab = function (contents) {
       )
     );
   }
+};
+
+DYFIPage.prototype._getDYFIPlotAttenuation = function (callback) {
+  var _this = this;
+
+  Xhr.ajax({
+    url: _this._dyfi.contents['dyfi_plot_atten.json'].url,
+    success: function (data) {
+      callback(data);
+    },
+    error: function (e) {
+      console.log(e);
+    }
+  });
 };
 
 DYFIPage.prototype._addDyfiResponsesTab = function () {

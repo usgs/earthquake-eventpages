@@ -128,41 +128,17 @@ describe('DYFIPage test suite.', function () {
   describe('CreeateTabListData()', function () {
     var options = {
       eventId: 'usb000ldeh',
-      contents: Usb000ldeh.properties.products.dyfi[0].contents,
-      dataObject: [
-        {
-          title:'Intensity Map',
-          suffix:'_ciim.jpg',
-          usemap:'imap_base',
-          mapSuffix:'_ciim_imap.html'
-        },
-        {
-          title:'Geocoded Map',
-          suffix:'_ciim_geo.jpg',
-          usemap:'imap_geo',
-          mapSuffix:'_ciim_geo_imap.html'
-        },
-        {
-          title:'Zoom Map',
-          suffix:'_ciim_zoom.jpg',
-          usemap:'imap_zoom',
-          mapSuffix:'_ciim_zoom_imap.html'
-        },
-        {
-          title:'Intensity Vs. Distance',
-          suffix:'_plot_atten.jpg'
-        },
-        {
-          title:'Responses Vs. Time',
-          suffix:'_plot_numresp.jpg'
-        }
-      ]
+      contents: Usb000ldeh.properties.products.dyfi[0].contents
     };
 
     it('has the correct number of tabs', function () {
-      var tablist = new DYFIPage(module_info)._createTabListData(options);
+      var dyfiPage,
+          tabs;
 
-      expect(tablist.length).to.equal(options.dataObject.length);
+      dyfiPage = new DYFIPage(module_info);
+      tabs = dyfiPage._tablist.el.querySelectorAll('.tablist-tab');
+
+      expect(tabs.length).to.equal(6);
     });
 
     it('Each tablist entry is an instance of a tab', function () {
