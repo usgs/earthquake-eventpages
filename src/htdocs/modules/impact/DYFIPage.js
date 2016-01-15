@@ -395,7 +395,7 @@ DYFIPage.prototype._createTabListData = function () {
       this._createTabListImage(
         contents[eventId + dataObject['response-time'].suffix].url,
         contents,
-        dataObject['intensity-map'],
+        dataObject['response-time'],
         eventId,
         document.createElement('div')
       )
