@@ -168,8 +168,6 @@ var PHASE_DATA_SORTS = [
   }
 ];
 
-var REGIONS_URL = 'http://dev-earthquake.cr.usgs.gov/ws/geoserve/regions.json';
-
 /**
  * Construct a new HypocenterPage.
  *
