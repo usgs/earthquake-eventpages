@@ -11,10 +11,7 @@ var _CONTRIBUTOR_LIST_CLASS = 'contributor-list';
 var _CONTRIBUTOR_REFERENCE_CLASS = 'contributor-reference';
 var _CONTRIBUTOR_DATA_ATTRIBUTE = 'data-id';
 
-
-var _DEFAULTS = {
-  url: '/contributors.json'
-};
+var _DEFAULTS = {};
 
 
 var Attribution = function (options) {
@@ -23,7 +20,6 @@ var Attribution = function (options) {
       // variables
       _contributors,
       _sourceMap,
-      _url,
       _whenReady,
       // methods
       _formatContributorLink,
@@ -42,10 +38,7 @@ var Attribution = function (options) {
 
     _contributors = [];
     _sourceMap = null;
-    _url = options.url;
     _whenReady = [];
-
-    _this.load();
   };
 
 
@@ -326,7 +319,7 @@ var Attribution = function (options) {
    */
   _this.load = function (url) {
     Xhr.ajax({
-      url: url || _url,
+      url: url,
       error: _onError,
       success: _onSuccess
     });
