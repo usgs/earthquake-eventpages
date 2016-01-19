@@ -103,7 +103,7 @@ var IntensityGraphView = function (options) {
       data: _parseDataIntoArray(dataset.data),
       className: dataset.class,
       label: dataset.legend,
-      pointRadius: 4
+      pointRadius: 3
     });
     _this.views.add(medianData);
   };
@@ -116,7 +116,7 @@ var IntensityGraphView = function (options) {
       histogram: dataset.data,
       className: dataset.class,
       label: dataset.legend,
-      pointRadius: 6,
+      pointRadius: 5,
       showLine: false
     });
     _this.views.add(standardDevationLineView);

@@ -59,7 +59,7 @@ var StandardDeviationLineView = function (options) {
         return;
       }
 
-      width = 5;
+      width = 6;
       el = _histograms.append('path').attr('class', 'binned');
       px = _x(point.x);
       p0y = _y(point.y - point.stdev);
