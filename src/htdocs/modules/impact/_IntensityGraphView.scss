@@ -1,6 +1,18 @@
-.estimated1 > .line {
-  stroke: #D65617; /* orange */
-  stroke-width: 1;
+.estimated1,
+.estimated2 {
+
+  > .line {
+    stroke: #D65617; /* orange */
+    stroke-width: 1;
+  }
+
+  &.mouseover,
+  &.selected {
+
+    > .line {
+      stroke-width: 1;
+    }
+  }
 }
 
 .estimated2 > .line {
@@ -31,34 +43,43 @@
   fill: #8D91FF; /* purple */
 }
 
-.legend-content > .scatterplot1 > .line,
-.legend-content > .median > .line {
-  stroke-width: 0;
-}
 
+.legend-content > .D3LineView {
 
-.legend-content {
+  > .line {
+    stroke-width: 0;
+  }
 
-  > .D3LineView {
-
-    &.mouseover.estimated1,
-    &.mouseover.binned {
-
-      > .line {
-        stroke-width: 1;
-      }
+  &.estimated1,
+  &.estimated2 {
+    > .line {
+      stroke-width: 1;
     }
+  }
 
-    &.selected.estimated1,
-    &.selected.binned {
+  &.mouseover.estimated1,
+  &.selected.estimated1,
+  &.mouseover.estimated2,
+  &.selected.estimated2,
+  &.mouseover.binned,
+  &.selected.binned {
 
-      > .line {
-        stroke-width: 1;
-      }
+    > .line {
+      stroke-width: 1;
+    }
+  }
 
-      > .text {
-        font-weight: bold;
-      }
+  &.selected {
+
+    > .text {
+      font-weight: normal;
+    }
+  }
+
+  &.selected.mouseover {
+
+    > .text {
+      font-weight: bold;
     }
   }
 }
