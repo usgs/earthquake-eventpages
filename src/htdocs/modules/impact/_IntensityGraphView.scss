@@ -1,18 +1,6 @@
-.estimated1,
-.estimated2 {
-
-  > .line {
-    stroke: #D65617; /* orange */
-    stroke-width: 1;
-  }
-
-  &.mouseover,
-  &.selected {
-
-    > .line {
-      stroke-width: 1;
-    }
-  }
+.estimated1 > .line {
+  stroke: #D65617; /* orange */
+  stroke-width: 1;
 }
 
 .estimated2 > .line {
@@ -43,6 +31,20 @@
   fill: #8D91FF; /* purple */
 }
 
+
+/* Undoing D3LineView styles */
+
+.estimated1,
+.estimated2 {
+
+  &.mouseover,
+  &.selected {
+
+    > .line {
+      stroke-width: 1;
+    }
+  }
+}
 
 .legend-content > .D3LineView {
 
