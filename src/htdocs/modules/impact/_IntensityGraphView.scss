@@ -9,15 +9,15 @@
 }
 
 .scatterplot1 > .point {
-  stroke: #94DFEA;
-  stroke-width: 0;
   fill: #94DFEA; /* blue */
+  stroke: #94DFEA; /* blue */
+  stroke-width: 0;
 }
 
 .median > .point {
+  fill: #FE4D55; /* red */
   stroke: #000;
   stroke-width: 0.5;
-  fill: #FE4D55; /* red */
 }
 
 .standard-deviation,
