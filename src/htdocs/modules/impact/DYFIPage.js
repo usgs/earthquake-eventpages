@@ -420,7 +420,7 @@ DYFIPage.prototype._addIntensityVsDistanceTab = function (contents) {
       content: function () {
         var container = document.createElement('div');
         _this._getDYFIPlotAttenuation(function (data) {
-          new IntensityGraphView({
+          IntensityGraphView({
             el: container,
             data: data.datasets,
             xlabel: data.xlabel,
