@@ -60,7 +60,7 @@ var StandardDeviationLineView = function (options) {
       }
 
       width = 6;
-      el = _histograms.append('path').attr('class', 'binned');
+      el = _histograms.append('path').attr('class', 'standard-deviation');
       px = _x(point.x);
       p0y = _y(point.y - point.stdev);
       p1y = _y(point.y + point.stdev);
@@ -83,7 +83,7 @@ var StandardDeviationLineView = function (options) {
           'M 1  -3 L 24 -3' +
           'M 1  -9 L 1   3' +
           'M 24 -9 L 24  3'
-      );
+      ).attr('class', 'standard-deviation');
     }
   };
 

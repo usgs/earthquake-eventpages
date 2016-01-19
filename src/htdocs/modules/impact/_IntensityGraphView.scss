@@ -9,6 +9,7 @@
 }
 
 .scatterplot1 > .point {
+  stroke: #94DFEA;
   stroke-width: 0;
   fill: #94DFEA; /* blue */
 }
@@ -19,7 +20,7 @@
   fill: #FE4D55; /* red */
 }
 
-.binned,
+.standard-deviation,
 .binned > .line,
 .binned > .point {
   stroke: #000;
@@ -33,4 +34,31 @@
 .legend-content > .scatterplot1 > .line,
 .legend-content > .median > .line {
   stroke-width: 0;
+}
+
+
+.legend-content {
+
+  > .D3LineView {
+
+    &.mouseover.estimated1,
+    &.mouseover.binned {
+
+      > .line {
+        stroke-width: 1;
+      }
+    }
+
+    &.selected.estimated1,
+    &.selected.binned {
+
+      > .line {
+        stroke-width: 1;
+      }
+
+      > .text {
+        font-weight: bold;
+      }
+    }
+  }
 }
