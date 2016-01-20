@@ -1,3 +1,4 @@
+@import '_IntensityGraphView.scss';
 
 .dyfi-summary > ul > li {
   width: 25%;
@@ -6,7 +7,6 @@
     width: 20%;
   }
 }
-
 
 .dyfi-tablist > section {
   padding-top: 1em;
@@ -60,3 +60,4 @@
 .dyfi-response-distance {
   text-align: center;
 }
+

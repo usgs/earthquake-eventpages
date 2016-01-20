@@ -4,9 +4,11 @@
 var expect = chai.expect,
     DYFIPage = require('impact/DYFIPage'),
     ImpactModule = require('impact/ImpactModule'),
+    IntensityGraphView = require('impact/IntensityGraphView'),
     Xhr = require('util/Xhr'),
 
     cdi_zip = require('./cdi_zip'),
+    dyfi_plot_atten = require('./dyfi_plot_atten'),
     nc72119970 = require('./nc72119970'),
     Usb000ldeh = require('./usb000ldeh');
 
@@ -125,60 +127,38 @@ describe('DYFIPage test suite.', function () {
 
   });
 
-  describe('CreeateTabListData()', function () {
-    var options = {
-      eventId: 'usb000ldeh',
-      contents: Usb000ldeh.properties.products.dyfi[0].contents,
-      dataObject: [
-        {
-          title:'Intensity Map',
-          suffix:'_ciim.jpg',
-          usemap:'imap_base',
-          mapSuffix:'_ciim_imap.html'
-        },
-        {
-          title:'Geocoded Map',
-          suffix:'_ciim_geo.jpg',
-          usemap:'imap_geo',
-          mapSuffix:'_ciim_geo_imap.html'
-        },
-        {
-          title:'Zoom Map',
-          suffix:'_ciim_zoom.jpg',
-          usemap:'imap_zoom',
-          mapSuffix:'_ciim_zoom_imap.html'
-        },
-        {
-          title:'Intensity Vs. Distance',
-          suffix:'_plot_atten.jpg'
-        },
-        {
-          title:'Responses Vs. Time',
-          suffix:'_plot_numresp.jpg'
-        }
-      ]
-    };
-
+  describe('CreateTabListData()', function () {
     it('has the correct number of tabs', function () {
-      var tablist = new DYFIPage(module_info)._createTabListData(options);
+      var dyfiPage,
+          tabs;
 
-      expect(tablist.length).to.equal(options.dataObject.length);
+      dyfiPage = new DYFIPage(module_info);
+      tabs = dyfiPage._tablist.el.querySelectorAll('.tablist-tab');
+
+      expect(tabs.length).to.equal(6);
     });
+  });
 
-    it('Each tablist entry is an instance of a tab', function () {
-      var tabList = new DYFIPage(module_info)._createTabListData(options),
-          i,
-          len,
-          tab;
+  describe('IntensityGraphView', function () {
+    it('DYFI Plot Attenuation is graphed using D3', function () {
+      var container,
+          data,
+          view;
 
-      for (i = 0, len = tabList.length; i < len; i++) {
-        tab = tabList[i];
-        /* jshint -W030 */
-        expect(tab.hasOwnProperty('title')).to.be.true;
-        expect(tab.hasOwnProperty('content')).to.be.true;
-        /* jshint +W030 */
-      }
+      container = document.createElement('div');
+      data = dyfi_plot_atten;
+
+      view = IntensityGraphView({
+          el: container,
+          data: data.datasets,
+          xlabel: data.xlabel,
+          ylabel: data.ylabel,
+          title: data.title
+        });
+
+      view.render();
+
+      expect(view.views.data().length).to.equal(4);
     });
-
   });
 });

@@ -7,6 +7,7 @@ var Collection = require('mvc/Collection'),
     SummaryDetailsPage = require('base/SummaryDetailsPage'),
     SvgImageMap = require('svgimagemap/SvgImageMap'),
     ImpactUtil = require('base/ImpactUtil'),
+    IntensityGraphView = require('impact/IntensityGraphView'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
@@ -19,40 +20,40 @@ var DEFAULTS = {
 var formatter = new Formatter();
 
 /* sets up titles and images for tabs */
-var MAP_GRAPH_IMAGES = [
-  {
+var MAP_GRAPH_IMAGES = {
+  'intensity-map': {
     title:'Intensity Map',
     suffix:'_ciim.jpg',
     usemap:'imap_base',
     mapSuffix:'_ciim_imap.html'
   },
-  {
+  'geocode-map': {
     title:'Geocoded Map',
     suffix:'_ciim_geo.jpg',
     usemap:'imap_geo',
     mapSuffix:'_ciim_geo_imap.html'
   },
-  {
+  'zoom-map': {
     title:'Zoom Map',
     suffix:'_ciim_zoom.jpg',
     usemap:'imap_zoom',
     mapSuffix:'_ciim_zoom_imap.html'
   },
-  {
+  'zoom-out-map': {
     title:'Zoom Out Map',
     suffix:'_ciim_zoomout.jpg',
     usemap:'imap_zoomout',
     mapSuffix:'_ciim_zoomout_imap.html'
   },
-  {
+  'intensity-distance': {
     title:'Intensity Vs. Distance',
     suffix:'_plot_atten.jpg'
   },
-  {
+  'response-time': {
     title:'Responses Vs. Time',
     suffix:'_plot_numresp.jpg'
   }
-];
+};
 
 var RESPONSE_DATA_COLUMNS = [
   {
@@ -241,18 +242,11 @@ DYFIPage.prototype.getDetailsContent = function (dyfi) {
     this._tablist = new TabList({
       el: tablistDiv,
       tabPosition: 'top',
-      tabs: this._createTabListData({
-        contents:dyfi.contents,
-        eventConfig: this,
-        eventId:dyfi.code,
-        callback:this._getUseMap,
-        object:this
-      })
+      tabs: []
     });
 
-    if (dyfi.contents.hasOwnProperty('cdi_zip.xml')) {
-      this._addDyfiResponsesTab();
-    }
+    // add tabs to tablist
+    this._createTabListData();
   }
 
   return el;
@@ -324,45 +318,141 @@ DYFIPage.prototype._createSvgImage = function (contents, image, eventId,
   });
 };
 
-DYFIPage.prototype._createTabListData = function (options) {
-  var container,
-      contents,
+DYFIPage.prototype._createTabListData = function () {
+  var contents,
       dataObject,
-      eventId,
-      i,
-      imageName,
-      imageObj,
-      len,
-      tablist;
+      eventId;
 
-  contents = options.contents;
+  contents = this._dyfi.contents;
+  eventId = this._dyfi.code;
   dataObject = MAP_GRAPH_IMAGES;
-  eventId = options.eventId;
-  tablist = [];
 
   if (typeof contents !== 'object' || typeof eventId !== 'string' ||
       typeof dataObject !== 'object') {
-    return tablist;
+    return;
   }
 
-  len = dataObject.length;
+  if (contents.hasOwnProperty(eventId + dataObject['intensity-map'].suffix)) {
+    this._tablist.addTab(
+      this._createTabListImage(
+        contents[eventId + dataObject['intensity-map'].suffix].url,
+        contents,
+        dataObject['intensity-map'],
+        eventId,
+        document.createElement('div')
+      )
+    );
+  }
 
-  for (i = 0, len; i < len; i++) {
-    container = document.createElement('div');
-    imageObj = dataObject[i];
-    imageName = eventId + imageObj.suffix;
+  if (contents.hasOwnProperty(eventId + dataObject['geocode-map'].suffix)) {
+    this._tablist.addTab(
+      this._createTabListImage(
+        contents[eventId + dataObject['geocode-map'].suffix].url,
+        contents,
+        dataObject['geocode-map'],
+        eventId,
+        document.createElement('div')
+      )
+    );
+  }
 
-    if(contents.hasOwnProperty(imageName)) {
-      tablist.push(this._createTabListImage(
-          contents[imageName].url,
-          contents,
-          imageObj,
-          eventId,
-          container,
-          options));
+  if (contents.hasOwnProperty(eventId + dataObject['zoom-map'].suffix)) {
+    this._tablist.addTab(
+      this._createTabListImage(
+        contents[eventId + dataObject['zoom-map'].suffix].url,
+        contents,
+        dataObject['zoom-map'],
+        eventId,
+        document.createElement('div')
+      )
+    );
+  }
+
+  if (contents.hasOwnProperty(eventId + dataObject['zoom-out-map'].suffix)) {
+    this._tablist.addTab(
+      this._createTabListImage(
+        contents[eventId + dataObject['zoom-out-map'].suffix].url,
+        contents,
+        dataObject['zoom-out-map'],
+        eventId,
+        document.createElement('div')
+      )
+    );
+  }
+
+  // Distance vs. Intensity Graph
+  if (contents.hasOwnProperty(eventId + dataObject['intensity-distance'].suffix) ||
+      contents.hasOwnProperty('dyfi_plot_atten.json')) {
+    this._addIntensityVsDistanceTab(contents);
+  }
+
+  if (contents.hasOwnProperty(eventId + dataObject['response-time'].suffix)) {
+    this._tablist.addTab(
+      this._createTabListImage(
+        contents[eventId + dataObject['response-time'].suffix].url,
+        contents,
+        dataObject['response-time'],
+        eventId,
+        document.createElement('div')
+      )
+    );
+  }
+
+  // DYFI Responses Table
+  if (contents.hasOwnProperty('cdi_zip.xml')) {
+    this._addDyfiResponsesTab();
+  }
+};
+
+
+DYFIPage.prototype._addIntensityVsDistanceTab = function (contents) {
+  var _this;
+
+  _this = this;
+
+  if (contents.hasOwnProperty('dyfi_plot_atten.json')) {
+    this._tablist.addTab({
+      title: 'Intensity Vs. Distance',
+      content: function () {
+        var container = document.createElement('div');
+        _this._getDYFIPlotAttenuation(function (data) {
+          IntensityGraphView({
+            el: container,
+            data: data.datasets,
+            xlabel: data.xlabel,
+            ylabel: data.ylabel,
+            title: data.title
+          });
+        });
+        return container;
+      }
+    });
+  } else {
+    this._tablist.addTab(
+      _this._createTabListImage(
+        contents[_this._dyfi.code +
+            MAP_GRAPH_IMAGES['intensity-distance'].suffix].url,
+        contents,
+        MAP_GRAPH_IMAGES['intensity-distance'],
+        _this._dyfi.code,
+        document.createElement('div')
+      )
+    );
+  }
+};
+
+DYFIPage.prototype._getDYFIPlotAttenuation = function (callback) {
+  var _this = this;
+
+  Xhr.ajax({
+    url: _this._dyfi.contents['dyfi_plot_atten.json'].url,
+    success: function (data) {
+      callback(data);
+    },
+    error: function (e) {
+      console.log(e);
     }
-  }
-  return tablist;
+  });
 };
 
 DYFIPage.prototype._addDyfiResponsesTab = function () {
