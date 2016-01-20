@@ -1,6 +1,6 @@
 {
   "name": "earthquake-eventpages",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Web application for displaying earthquake event pages.",
   "repository": {
     "type": "git",
