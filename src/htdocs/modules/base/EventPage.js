@@ -43,8 +43,6 @@ var REDIRECTS = {
 };
 
 var DEFAULTS = {
-  attributionUrl: '/contributors.json',
-
   // Maximum number of modules to cache
   maxCacheLength: 3,
 
@@ -100,7 +98,9 @@ var EventPage = function (options) {
   this._initialize();
 
   // start loading attribution info
-  Attribution.load(options.attributionUrl);
+  if (this._eventConfig && this._eventConfig.ATTRIBUTION_URL) {
+    Attribution.load(this._eventConfig.ATTRIBUTION_URL);
+  }
 };
 
 EventPage.prototype._getDefaultPage = function () {
