@@ -3,7 +3,8 @@
 var Events = require('util/Events'),
     Util = require('util/Util'),
 
-    Attribution = require('./Attribution'),
+    Attribution = require('base/Attribution'),
+    CooperatorLogo = require('base/CooperatorLogo'),
 
     ScientificModule = require('scientific/ScientificModule'),
     SummaryModule = require('summary/SummaryModule'),
@@ -95,6 +96,11 @@ var EventPage = function (options) {
   this._buildContributorArray();
 
   this._initialize();
+
+  // start loading attribution info
+  if (this._eventConfig && this._eventConfig.ATTRIBUTION_URL) {
+    Attribution.load(this._eventConfig.ATTRIBUTION_URL);
+  }
 };
 
 EventPage.prototype._getDefaultPage = function () {
@@ -349,7 +355,10 @@ EventPage.prototype.cachePage = function (hash, page) {
 
 
 EventPage.prototype._initialize = function () {
-  var hash = __get_hash();
+  var hash,
+      preferredOrigin;
+
+  hash = __get_hash();
 
   Events.on('hashchange', this._onHashChange, this);
   this.updateNavigation();
@@ -369,6 +378,18 @@ EventPage.prototype._initialize = function () {
     this._onHashChange();
   }
 
+  try {
+    preferredOrigin = this._eventDetails.properties.products.origin[0];
+  } catch (e) {
+    // any event should have a preferred origin
+  }
+  if (preferredOrigin) {
+    Attribution.whenReady(function () {
+      CooperatorLogo({
+        cooperator: Attribution.getContributor(preferredOrigin.source)
+      });
+    });
+  }
 };
 
 EventPage.prototype._getCacheIndex = function (hash) {

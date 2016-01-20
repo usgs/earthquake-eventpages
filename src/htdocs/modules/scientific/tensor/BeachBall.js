@@ -1,7 +1,7 @@
 /* This is based on code in GMT, utilmeca.c. */
 'use strict';
 
-var Canvas = require('./Canvas');
+var Canvas = require('scientific/tensor/Canvas');
 
 
 // globals

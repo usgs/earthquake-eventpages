@@ -94,6 +94,12 @@ $prompts = array(
     'secure' => false
   ),
 
+  'ATTRIBUTION_URL' => array(
+    'prompt' => 'URL for attribution',
+    'default' => '/data/comcat/contributor/index.json.php',
+    'secure' => false
+  ),
+
   'DYFI_RESPONSE_URL' => array(
     'prompt' => 'URL for DYFI form submissions',
     'default' => '/dyfi/response.php',

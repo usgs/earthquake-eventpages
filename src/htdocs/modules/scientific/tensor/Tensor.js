@@ -1,7 +1,7 @@
 'use strict';
 
-var Matrix = require('./Matrix'),
-    Vector3 = require('./Vector3');
+var Matrix = require('scientific/tensor/Matrix'),
+    Vector3 = require('scientific/tensor/Vector3');
 
 var R2D = 180 / Math.PI,
     D2R = Math.PI / 180,
