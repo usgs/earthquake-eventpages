@@ -52,7 +52,7 @@ var DEFAULTS = {
       className: 'impact/ShakeMapPage',
       dependencyBundle: 'modules/impact/index.js',
       options: {
-        title: 'Shakemap',
+        title: 'ShakeMap',
         hash: 'shakemap'
       },
       productTypes: ['shakemap']
