@@ -18,12 +18,12 @@ var SummaryPage = function (options) {
   this._geoserve.on('change:places', 'buildNearbyCitiesView', this);
   this._geoserve.on('change:regions', 'buildTectonicSummaryView', this);
 
-  EventModulePage.call(this, options);
-
   if (options.eventConfig &&
       options.eventConfig.hasOwnProperty('GEOSERVE_WS_URL')) {
     this._geoserveUrl = options.eventConfig.GEOSERVE_WS_URL;
   }
+
+  EventModulePage.call(this, options);
 };
 
 SummaryPage.prototype = Object.create(EventModulePage.prototype);
