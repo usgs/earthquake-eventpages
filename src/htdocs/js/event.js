@@ -10,7 +10,9 @@ var eventpage,
 
 eventpage = new EventPage({
   event: CatalogEvent(EventDetails),
-  config: EventConfig
+  config: EventConfig,
+  el: document.querySelector('.page-content'),
+  nav: document.querySelector('.site-sectionnav')
 });
 
 offcanvas = OffCanvas.getOffCanvas();

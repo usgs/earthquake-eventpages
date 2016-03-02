@@ -5,13 +5,19 @@ var Util = require('util/Util'),
 
 var _ID,
     _TITLE,
-    _TYPES;
+    _TYPES,
+
+    _hasContent;
 
 
 // Note: These should be overridden by each implementing sub-class.
 _ID = 'module';
 _TITLE = 'Default Module';
 _TYPES = [];
+
+_hasContent = function () {
+  return true;
+};
 
 var _DEFAULTS = {
 
@@ -41,5 +47,7 @@ Module.ID = _ID;
 Module.TITLE = _TITLE;
 Module.TYPES = _TYPES;
 
+Module.hasContent = _hasContent;
 
-module.export = Module;
+
+module.exports = Module;
