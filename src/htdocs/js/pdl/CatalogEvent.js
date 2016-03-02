@@ -328,7 +328,7 @@ var CatalogEvent = function (eventDetails) {
    */
   _this.getProductById = function (type, source, code, updateTime) {
     var i,
-        ,len,
+        len,
         product,
         products;
 
