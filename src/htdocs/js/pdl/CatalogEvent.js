@@ -310,6 +310,48 @@ var CatalogEvent = function (eventDetails) {
   };
 
   /**
+   * Gets a product based on the productId parameters.
+   *
+   * @param type {String}
+   *     The type of the product to get
+   * @param source {String}
+   *     The source of the product to get
+   * @param code {String}
+   *     The code of the product to get
+   * @param updateTime {Number} Optional.
+   *     The updateTime of the product to get
+   *
+   * @return {Product}
+   *     The product matching the given type, source, code, and updateTime. If
+   *     no updateTime is specified, the most recently updated product matching
+   *     type, source and code is returned instead.
+   */
+  _this.getProductById = function (type, source, code, updateTime) {
+    var i,
+        ,len,
+        product,
+        products;
+
+    product = null;
+    products = _this.getAllProductVersions(type, source, code);
+    len = products.length;
+
+    if (typeof updateTime !== 'undefined' && updateTime !== null) {
+      for (i = 0; i < len; i++) {
+        if (products[i].updateTime === updateTime) {
+          product = products[i];
+          break;
+        }
+      }
+    } else if (len) {
+      // No updateTime specified, most recently updated product
+      product = products[0]; // Products are sorted, so first is most recent
+    }
+
+    return product;
+  };
+
+  /**
    * Get the preferred event id.
    *
    * @return {String}
