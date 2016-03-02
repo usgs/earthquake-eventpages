@@ -37,7 +37,7 @@ var EventPage = function (options) {
       _onHashChange;
 
 
-  _this = {};
+  _this = Events();
 
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
