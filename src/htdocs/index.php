@@ -92,7 +92,7 @@ if (!isset($TEMPLATE)) {
       'var EventDetails = ' . json_encode($EVENT) . ';' .
     '</script>' .
     /* this script creates EventPage using EventConfig, EventDetails */
-    '<script src="js/index.js"></script>';
+    '<script src="js/event.js"></script>';
 
   // cache control headers
   $now = time();
