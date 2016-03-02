@@ -1,6 +1,7 @@
 'use strict';
 
 var Events = require('util/Events'),
+    Model = require('mvc/Model'),
     Util = require('util/Util');
 
 
@@ -24,11 +25,15 @@ var EventPage = function (options) {
       _initialize,
 
       _config,
+      _el,
       _event,
+      _model,
       _modules,
-      _modulesIndex,
+      _navEl,
 
-      _buildModulesIndex,
+      _createNavItem,
+      _initializeModules,
+      _moduleHasContent,
       _onHashChange;
 
 
@@ -39,29 +44,101 @@ var EventPage = function (options) {
 
     _event = options.event;
     _config = options.config;
-    _modules = options.modules;
+
+    _el = options.el || document.createElement('div');
+    _navEl = options.nav || document.createElement('nav');
+
+    _model = Model({
+      'event': _event,
+      'config': _config
+    });
 
     // Creates the mapping for later
-    _buildModulesIndex();
+    _initializeModules();
 
     Events.on('hashchange', _onHashChange);
   };
 
 
+  _createNavItem = function (module) {
+    var navItem;
+
+    navItem = document.createElement('a');
+    navItem.setAttribute('href', '#' + module.ID);
+    navItem.innerHTML = module.TITLE;
+
+    return navItem;
+  };
+
   /**
-   * Builds an index to map moduleId => module. In this way, incoming
-   * hash change events can quickly determine which module should handle
-   * rendering.
+   * Builds an navigation for current _event as well as a map of
+   * moduleId => module.
    *
    */
-  _buildModulesIndex = function () {
-    _modulesIndex = {};
+  _initializeModules = function () {
+    var group,
+        i,
+        j,
+        module,
+        modules,
+        moduleGroups,
+        numGroups,
+        numModules,
+        types;
 
-    _modules.forEach(function (moduleGroup) {
-      moduleGroup.forEach(function (module) {
-        _modulesIndex[module.ID] = module;
-      });
-    });
+    _modules = {};
+
+    types = Object.keys(_event.getProducts());
+    moduleGroups = _config.modules;
+
+    for (i = 0; i < numGroups; i++) {
+      modules = moduleGroups[i];
+      group = null;
+
+      numModules = modules.length;
+      for (j = 0; j < numModules; j++) {
+        module = modules[i];
+
+        _modules[module.ID] = module;
+
+        if (_moduleHasContent(module, types)) {
+          if (!group) {
+            group = document.createElement('section');
+          }
+
+          group.appendChild(_createNavItem(module));
+        }
+      }
+      if (group) {
+        _navEl.appendChild(group);
+      }
+
+      group = null;
+    }
+
+    // TODO :: Add one-off links to navigation ...
+  };
+
+  _moduleHasContent = function (module, productTypes) {
+    var i,
+        len,
+        type;
+
+    if (module.hasOwnProperty('hasContent') &&
+        typeof module.hasContent === 'function') {
+      return module.hasContent(_event);
+    } else if (module.hasOwnProperty('TYPES') && Array.isArray(module.TYPES)) {
+      len = module.TYPES.length;
+      for (i = 0; i < len; i++) {
+        type = module.TYPES[i];
+
+        if (productTypes.indexOf(type) !== -1) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   };
 
   /**

@@ -4,12 +4,14 @@ var Util = require('util/Util'),
     View = require('mvc/View');
 
 var _ID,
-    _TITLE;
+    _TITLE,
+    _TYPES;
 
 
 // Note: These should be overridden by each implementing sub-class.
 _ID = 'module';
 _TITLE = 'Default Module';
+_TYPES = [];
 
 var _DEFAULTS = {
 
@@ -37,6 +39,7 @@ var Module = function (options) {
 
 Module.ID = _ID;
 Module.TITLE = _TITLE;
+Module.TYPES = _TYPES;
 
 
 module.export = Module;
