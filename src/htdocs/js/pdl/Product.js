@@ -1,10 +1,8 @@
 'use strict';
 
-var Content = require('pdl/Content'),
-
-    Collection = require('mvc/Collection'),
+var Collection = require('mvc/Collection'),
+    Content = require('pdl/Content'),
     Model = require('mvc/Model'),
-
     Util = require('util/Util');
 
 
@@ -20,43 +18,51 @@ var _STATUS_UPDATE = 'UPDATE',
  *
  * @param options {Object}
  *        a product object from an event detail feed.
- * @param options.source {String}
- *        product source.
- * @param options.type {String}
- *        product type.
  * @param options.code {String}
  *        product code.
- * @param options.updateTime {Number}
- *        product update time.
+ * @param options.contents {Collection<Content>}.
+ * @param options.id {String}
+ *        product id URN, unique per product.
+ * @param options.indexid {String}
+ *        server id for product, may vary between servers.
+ * @param options.indexTime {Number}
+ *        millisecond epoch timestamp when product was indexed on server.
+ * @param options.links {Object}
+ *        keys are link relation names.
+ *        values are arrays of uri Strings for relation.
+ * @param options.preferredWeight {Number}
+ *        optional, current preferred weight of product.
+ * @param options.properties {Object}
+ *        keys are property names.
+ *        values must be strings.
+ * @param options.source {String}
+ *        product source.
  * @param options.status {String}
  *        product status.
  *        default Product.STATUS_UPDATE,
  *        use Product.STATUS_DELETE for deletes.
- * @param options.properties {Object}
- *        keys are property names.
- *        values must be strings.
- * @param options.links {Object}
- *        keys are link relation names.
- *        values are arrays of uri Strings for relation.
- * @param options.contents {Collection<Content>}.
- * @param options.preferredWeight {Number}
- *        optional, current preferred weight of product.
+ * @param options.type {String}
+ *        product type.
+ * @param options.updateTime {Number}
+ *        product update time.
  */
 var Product = function (options) {
   var _this,
       _initialize;
 
   _this = Model(Util.extend({
-    id: null,
-    source: null,
-    type: null,
     code: null,
-    updateTime: null,
-    status: _STATUS_UPDATE,
-    properties: {},
-    links: {},
     contents: null,
-    preferredWeight: null
+    id: null,
+    indexid: null,
+    indexTime: null,
+    links: {},
+    preferredWeight: null,
+    properties: {},
+    source: null,
+    status: _STATUS_UPDATE,
+    type: null,
+    updateTime: null
   }, options));
 
   _initialize = function (/*options*/) {
