@@ -35,6 +35,8 @@ if (!Function.prototype.bind) {
 mocha.setup('bdd');
 
 // Add each test class here as they are implemented
+require('./spec/pdl/ContentTest');
+
 require('./spec/modules/base/EventPageTest');
 require('./spec/modules/base/EventModuleTest');
 require('./spec/modules/base/EventModulePageTest');
