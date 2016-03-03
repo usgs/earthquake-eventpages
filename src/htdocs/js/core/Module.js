@@ -37,6 +37,22 @@ var Module = function (options) {
   };
 
 
+  _this.render = function () {
+    // TODO :: Implement
+    _this.el.innerHTML = [
+      '<div class="module-header">',
+        '<h3>Module Header</h3>',
+      '</div>',
+      '<div class="module-content">',
+        '<h3>Module Content</h3>',
+      '</div>',
+      '<div class="module-footer">',
+        '<h3>Module Footer</h3>',
+      '</div>'
+    ].join('');
+  };
+
+
   _initialize(options);
   options = null;
   return _this;

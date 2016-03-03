@@ -25,6 +25,7 @@ var EventPage = function (options) {
       _initialize,
 
       _config,
+      _currentModule,
       _el,
       _event,
       _eventContentEl,
@@ -73,6 +74,12 @@ var EventPage = function (options) {
     Events.on('hashchange', _onHashChange);
 
     _this.render();
+
+    if (window.location.hash) {
+      _onHashChange();
+    } else {
+      window.location.hash = '#default';
+    }
   };
 
 
@@ -171,6 +178,8 @@ var EventPage = function (options) {
   };
 
   /**
+   * TODO :: Implement
+   *
    * Parse URLs of format "#module?params" where params is in query string
    * format. Verify module is known, otherwise load default module (from
    * _config). If current module is different than requested, destroy current
@@ -180,6 +189,17 @@ var EventPage = function (options) {
    * @see _renderModuleContent
    */
   _onHashChange = function () {
+    // TODO
+    if (_currentModule) {
+      _currentModule.destroy();
+    }
+
+    _currentModule = Module({
+      el: _eventContentEl,
+      model: _model
+    });
+
+    _renderModuleContent();
     // TODO
   };
 
@@ -197,7 +217,11 @@ var EventPage = function (options) {
 
   _renderModuleContent = function () {
     // TODO :: Delegate to current module for rendering ...
-    _eventContentEl.innerHTML = '<h2>Event Page Content</h2>';
+    Util.empty(_eventContentEl);
+
+    if (_currentModule) {
+      _currentModule.render();
+    }
   };
 
 
