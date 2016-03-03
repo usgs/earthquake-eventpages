@@ -36,6 +36,7 @@ mocha.setup('bdd');
 
 // Add each test class here as they are implemented
 require('./spec/pdl/ContentTest');
+require('./spec/pdl/ProductTest');
 
 require('./spec/modules/base/EventPageTest');
 require('./spec/modules/base/EventModuleTest');

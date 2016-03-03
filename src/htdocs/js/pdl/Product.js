@@ -50,6 +50,7 @@ var Product = function (options) {
   var _this,
       _initialize;
 
+
   _this = Model(Util.extend({
     code: null,
     contents: null,
@@ -66,16 +67,12 @@ var Product = function (options) {
   }, options));
 
   _initialize = function (/*options*/) {
-    var contents = _this.get('contents'),
-        contentsGood = true;
+    var contents;
 
-    if (!contents) {
-      contents = [];
-    }
+    contents = _this.get('contents') || [];
 
     if (Array.isArray(contents)) {
       // Handle case if given an array
-      contentsGood = false;
       contents = contents.map(function (content) {
         if (!content.get) {
           content = Content(content);
@@ -86,17 +83,12 @@ var Product = function (options) {
     } else if (!contents.hasOwnProperty('get') ||
         !contents.hasOwnProperty('add')) {
       // Handle case when given an object map (like from data feed)
-      contentsGood = false;
       contents = Object.keys(contents).map(function (key) {
-        return Content(
-            Util.extend({}, {id: key}, contents[key]));
+        return Content(Util.extend({'id': key}, contents[key]));
       });
       contents = Collection(contents);
     }
 
-    if (!contentsGood) {
-      _this.set({contents: contents}, {silent: true});
-    }
     _this.set({'contents': contents});
   };
 
@@ -105,19 +97,21 @@ var Product = function (options) {
     var objectContents = {};
 
     json.contents.forEach(function (content) {
-      objectContents[content.id] = {
+      var id;
+
+      id = content.id;
+
+      objectContents[id] = {
         contentType: content.contentType,
         length: content.length,
         lastModified: content.lastModified
       };
 
       if (content.hasOwnProperty('url') && content.url !== null) {
-        objectContents[content.id].url = content.url;
+        objectContents[id].url = content.url;
       } else if (content.hasOwnProperty('bytes') && content.bytes !== null) {
-        objectContents[content.id].bytes = content.bytes;
+        objectContents[id].bytes = content.bytes;
       }
-
-      // Maybe add path = id here ?
     });
 
     json.contents = objectContents;
