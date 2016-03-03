@@ -3,17 +3,19 @@
 var Events = require('util/Events'),
     Model = require('mvc/Model'),
     Module = require('core/Module'),
-    Util = require('util/Util');
+    Util = require('util/Util'),
+
+    GeneralSummaryModule = require('general/GeneralSummaryModule');
 
 
 var _DEFAULTS = {
   'event': null, // CatalogEvent
   'config': {
   },
-  'defaultModule': Module.ID,
+  'defaultModule': GeneralSummaryModule.ID,
   'modules': [
     // General
-    [Module],
+    [GeneralSummaryModule, Module],
     // Impact
     [],
     // Scientific
@@ -90,7 +92,7 @@ var EventPage = function (options) {
       link = navItem.appendChild(document.createElement('a'));
     } else {
       navItem = document.createElement('a');
-      navItem = link;
+      link = navItem;
     }
 
     link.setAttribute('href', '#' + module.ID);
@@ -129,7 +131,7 @@ var EventPage = function (options) {
 
       numModules = modules.length;
       for (j = 0; j < numModules; j++) {
-        module = modules[i];
+        module = modules[j];
 
         _modules[module.ID] = module;
 
