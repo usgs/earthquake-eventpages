@@ -10,6 +10,7 @@ var _DEFAULTS = {
   'event': null, // CatalogEvent
   'config': {
   },
+  'defaultModule': Module.ID,
   'modules': [
     // General
     [Module],
@@ -39,9 +40,9 @@ var EventPage = function (options) {
       _initializeModules,
       _moduleHasContent,
       _onHashChange,
+      _parseHash,
       _renderFooterContent,
-      _renderHeaderContent,
-      _renderModuleContent;
+      _renderHeaderContent;
 
 
   _this = Events();
@@ -51,6 +52,7 @@ var EventPage = function (options) {
 
     _event = options.event;
     _config = options.config;
+    _config.defaultModule = options.defaultModule;
     _config.modules = options.modules;
 
     _el = options.el || document.createElement('div');
@@ -70,16 +72,12 @@ var EventPage = function (options) {
 
     // Creates the mapping for later
     _initializeModules();
+    _renderHeaderContent();
+    _renderFooterContent();
 
+    // render module
     Events.on('hashchange', _onHashChange);
-
-    _this.render();
-
-    if (window.location.hash) {
-      _onHashChange();
-    } else {
-      window.location.hash = '#default';
-    }
+    _onHashChange();
   };
 
 
@@ -162,7 +160,7 @@ var EventPage = function (options) {
 
     if (module.hasOwnProperty('hasContent') &&
         typeof module.hasContent === 'function') {
-      return module.hasContent(_event);
+      return module.hasContent(_model);
     } else if (module.hasOwnProperty('TYPES') && Array.isArray(module.TYPES)) {
       len = module.TYPES.length;
       for (i = 0; i < len; i++) {
@@ -178,29 +176,96 @@ var EventPage = function (options) {
   };
 
   /**
-   * TODO :: Implement
+   * Update model and module based on current url.
    *
-   * Parse URLs of format "#module?params" where params is in query string
-   * format. Verify module is known, otherwise load default module (from
-   * _config). If current module is different than requested, destroy current
-   * module. Update module params on model. If no current module, create
-   * new module with model and module content element.
-   *
-   * @see _renderModuleContent
+   * If current url is unexpected/unknown, loads default module.
+   * Triggers a render of current module.
    */
   _onHashChange = function () {
-    // TODO
-    if (_currentModule) {
-      _currentModule.destroy();
+    var hash,
+        modelParams,
+        module,
+        params;
+
+    // parse urls of format "#module?params" where params is in query string format
+    hash = _parseHash(window.location.hash || '');
+    module = hash.module;
+    params = hash.params;
+
+    // verify module is known, otherwise load default (from "config")
+    if (!_modules.hasOwnProperty(module)) {
+      // TODO: rewrite module name instead of always using default
+      module = _config.defaultModule;
+
+      // this will trigger a hashchange event...
+      window.location.hash = '#' + module;
+      return;
     }
 
-    _currentModule = Module({
-      el: _eventContentEl,
-      model: _model
-    });
+    // if current module is different than requested, destroy current module
+    if (_currentModule && _currentModule.ID !== module) {
+      _currentModule.destroy();
+      _currentModule = null;
+    }
 
-    _renderModuleContent();
-    // TODO
+    // if no current module, create module with model and module content element
+    if (!_currentModule) {
+      _currentModule = _modules[module]({
+        el: _eventContentEl,
+        model: _model
+      });
+    }
+
+    // update module params
+    params = Util.extend({}, _model.get(module), params);
+    modelParams = {};
+    modelParams[module] = params;
+    // this triggers a render of _currentModule
+    _model.set(modelParams);
+
+    // notify that page was rendered
+    _this.trigger('render');
+  };
+
+  /**
+   * Parse the module and module parameters from a hash fragment.
+   *
+   * @param hash {String}
+   *        the hash fragment to parse.
+   *        e.g. "#module?param1=value1&param2=value2"
+   * @return {Object}
+   *         module {String} name of module.
+   *         params {Object} module parameters.
+   */
+  _parseHash = function (hash) {
+    var module,
+        params,
+        parts;
+
+    hash = hash.replace('#', '');
+    parts = hash.split('?');
+    module = parts[0];
+    params = {};
+    if (parts.length > 1) {
+      // rejoin any remaining parts using ?, then split parameters on &
+      parts = parts.slice(1).join('?').split('&');
+      // parse each parameter
+      parts.forEach(function (param) {
+        var name,
+            parts,
+            value;
+        // parameter and value are separated by =
+        parts = param.split('=');
+        name = parts[0];
+        // value may include =, so slice and rejoin
+        value = parts.slice(1).join('=');
+        params[name] = value;
+      });
+    }
+    return {
+      'module': module,
+      'params': params
+    };
   };
 
   _renderFooterContent = function () {
@@ -213,22 +278,6 @@ var EventPage = function (options) {
     // TODO :: Impact summary bubbles and other header info, maybe scenario
     //         alert goes here as well.
     _eventHeaderEl.innerHTML = '<h2>Event Page Header</h2>';
-  };
-
-  _renderModuleContent = function () {
-    // TODO :: Delegate to current module for rendering ...
-    Util.empty(_eventContentEl);
-
-    if (_currentModule) {
-      _currentModule.render();
-    }
-  };
-
-
-  _this.render = function () {
-    _renderHeaderContent();
-    _renderModuleContent();
-    _renderFooterContent();
   };
 
 

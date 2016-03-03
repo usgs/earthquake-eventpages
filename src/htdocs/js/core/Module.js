@@ -15,7 +15,7 @@ _ID = 'module';
 _TITLE = 'Default Module';
 _TYPES = [];
 
-_hasContent = function () {
+_hasContent = function (/*eventPageModel*/) {
   return true;
 };
 
@@ -33,9 +33,8 @@ var Module = function (options) {
   _this = View(options);
 
   _initialize = function (/*options*/) {
-
+    _this.ID = _ID;
   };
-
 
   _this.render = function () {
     // TODO :: Implement
@@ -45,6 +44,9 @@ var Module = function (options) {
       '</div>',
       '<div class="module-content">',
         '<h3>Module Content</h3>',
+        '<pre>',
+          JSON.stringify(_this.model.get(_ID), null, 2),
+        '</pre>',
       '</div>',
       '<div class="module-footer">',
         '<h3>Module Footer</h3>',
