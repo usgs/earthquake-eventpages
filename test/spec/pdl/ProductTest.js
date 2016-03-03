@@ -31,4 +31,41 @@ describe('pdl/Product', function () {
     });
   });
 
+  describe('toJSON', function () {
+    it('is the same after a round trip', function () {
+      var json,
+          product;
+
+      product = {
+        code: 'code',
+        contents: {
+          'test.txt': {
+            'contentType': 'text/plain',
+            'length': 'some text'.length,
+            'lastModified': 1234,
+            'bytes': 'some text'
+          }
+        },
+        id: 'id',
+        indexid: 'indexid',
+        indexTime: 1234,
+        links: {
+          'rel': ['uri1', 'uri2']
+        },
+        preferredWeight: 1,
+        properties: {
+          prop1: 'value1',
+          prop2: 'value2'
+        },
+        source: 'source',
+        status: Product.STATUS_UPDATE,
+        type: 'type',
+        updateTime: new Date().getTime()
+      };
+
+      json = JSON.stringify(Product(product).toJSON());
+      expect(json).to.equal(JSON.stringify(product));
+    });
+  });
+
 });
