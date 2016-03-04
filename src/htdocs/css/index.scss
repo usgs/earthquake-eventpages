@@ -21,6 +21,10 @@
 
 @import 'modules/base/index.scss';
 
+.current-module {
+  font-weight: bold;
+}
+
 .clearfix:after {
   clear: both;
   content: ' ';

@@ -95,6 +95,7 @@ var EventPage = function (options) {
       link = navItem;
     }
 
+    link.setAttribute('class', 'module-' + module.ID + '-nav');
     link.setAttribute('href', '#' + module.ID);
     link.innerHTML = module.TITLE;
 
@@ -184,7 +185,9 @@ var EventPage = function (options) {
    * Triggers a render of current module.
    */
   _onHashChange = function () {
-    var hash,
+    var currentNav,
+        hash,
+        lastNav,
         modelParams,
         module,
         params;
@@ -224,6 +227,16 @@ var EventPage = function (options) {
     modelParams[module] = params;
     // this triggers a render of _currentModule
     _model.set(modelParams);
+
+    // update navigation
+    currentNav = _navEl.querySelector('.module-' + _currentModule.ID + '-nav');
+    lastNav = _navEl.querySelector('.current-module');
+    if (currentNav !== lastNav) {
+      if (lastNav) {
+        lastNav.classList.remove('current-module');
+      }
+      currentNav.classList.add('current-module');
+    }
 
     // notify that page was rendered
     _this.trigger('render');
