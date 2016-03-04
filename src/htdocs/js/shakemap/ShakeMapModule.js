@@ -42,36 +42,23 @@ var ShakeMapModule = function (options) {
   _initialize = function (/*options*/) {
     _this.ID = _ID;
     _this.TITLE = _TITLE;
-    _this.el.innerHTML =
-      '<div class="module-header"></div>' +
-      '<div class="module-content"></div>' +
-      '<div class="module-footer"></div>';
   };
 
   _this.render = function () {
-    var el,
-        content,
-        footer,
-        header,
-        shakemap;
-
-    el = _this.el;
-    header = el.querySelector('.module-header');
-    content = el.querySelector('.module-content');
-    footer = el.querySelector('.module-footer');
+    var shakemap;
 
     // TODO: support parameters for specific shakemap
     shakemap = _this.model.get('event').getPreferredProduct('shakemap');
 
-    header.innerHTML = '<h3>ShakeMap</h3>';
-    header.appendChild(_this.getProductHeader({
+    _this.header.innerHTML = '<h3>ShakeMap</h3>';
+    _this.header.appendChild(_this.getProductHeader({
       product: shakemap,
       // TODO: make this the impact summary module
       summaryModule: Module
     }));
 
-    content.innerHTML = '<p>content goes here</p>';
-    footer.innerHTML = '<p>footer goes here</p>';
+    _this.content.innerHTML = '<p>content goes here</p>';
+    _this.footer.innerHTML = '<p>footer goes here</p>';
   };
 
   _this.destroy = Util.compose(function () {

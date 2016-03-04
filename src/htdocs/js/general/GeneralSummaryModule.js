@@ -63,9 +63,8 @@ var GeneralSummaryModule = function (options) {
     _this.TITLE = _TITLE;
     _preferredOrigin = _this.model.get('event').getSummary().originProduct;
 
-    el = _this.el;
+    el = _this.content;
     el.innerHTML = [
-      '<div class="module-content">',
         '<div class="row">',
           '<div class="column one-of-two">',
             '<div class="location"></div>',
@@ -78,7 +77,6 @@ var GeneralSummaryModule = function (options) {
         '<div class="general-text"></div>',
         '<div class="tectonic-summary"></div>',
         '<div class="general-link"></div>',
-      '</div>',
     ].join('');
 
     _locationEl = el.querySelector('.location');

@@ -36,11 +36,31 @@ var Module = function (options) {
   _this = View(options);
 
   _initialize = function (options) {
+    var el;
+
     _this.ID = _ID;
     _this.TITLE = _TITLE;
-
     _formatter = options.formatter || Formatter();
+
+    el = _this.el;
+    el.innerHTML =
+      '<div class="module-header"></div>' +
+      '<div class="module-content"></div>' +
+      '<div class="module-footer"></div>';
+
+    // references to sections for subclass access
+    _this.header = el.querySelector('.module-header');
+    _this.content = el.querySelector('.module-content');
+    _this.footer = el.querySelector('.module-footer');
   };
+
+  /**
+   * Free references.
+   */
+  _this.destroy = Util.compose(function () {
+    _formatter = null;
+    _this = null;
+  }, _this.destroy);
 
   /**
    * Get a product header.
@@ -119,19 +139,13 @@ var Module = function (options) {
     return el;
   };
 
+  /**
+   * Render module content.
+   */
   _this.render = function () {
-    // TODO :: Implement
-    _this.el.innerHTML = [
-      '<div class="module-header">',
-        '<h3>Module Header</h3>',
-      '</div>',
-      '<div class="module-content">',
-        '<h3>Module Content</h3>',
-      '</div>',
-      '<div class="module-footer">',
-        '<h3>Module Footer</h3>',
-      '</div>'
-    ].join('');
+    _this.header.innerHTML = '<h3>Module Header</h3>';
+    _this.content.innerHTML = '<h3>Module Content</h3>';
+    _this.footer.innerHTML = '<h3>Module Footer</h3>';
   };
 
 
