@@ -328,7 +328,7 @@ var CatalogEvent = function (eventDetails) {
     var products;
 
     if (_products.hasOwnProperty(type)) {
-      products = _products.filter(function (p) {
+      products = _products[type].filter(function (p) {
         return p.get('source') === source &&
             p.get('code') === code;
       });

@@ -45,19 +45,53 @@ var ShakeMapModule = function (options) {
   };
 
   _this.render = function () {
-    var shakemap;
+    var code,
+        config,
+        content,
+        ev,
+        params,
+        product,
+        source,
+        type,
+        updateTime;
 
-    // TODO: support parameters for specific shakemap
-    shakemap = _this.model.get('event').getPreferredProduct('shakemap');
+    config = _this.model.get('config');
+    ev = _this.model.get('event');
+    params = _this.model.get(_ID);
+    source = params.source || null;
+    code = params.code || null;
+    updateTime = params.updateTime || null;
+
+    type = 'shakemap';
+    if (config.scenario_mode === true) {
+      type += '-scenario';
+    }
+
+    product = null;
+    if (source !== null && code !== null) {
+      product = ev.getProductById(type, source, code, updateTime);
+    }
+    if (product === null) {
+      product = ev.getPreferredProduct(type);
+    }
 
     _this.header.innerHTML = '<h3>ShakeMap</h3>';
-    _this.header.appendChild(_this.getProductHeader({
-      product: shakemap,
-      // TODO: make this the impact summary module
-      summaryModule: Module
-    }));
+    if (!product) {
+      _this.content.innerHTML = '<p class="alert warning">No ShakeMap Found</p>';
+    } else {
+      _this.header.appendChild(_this.getProductHeader({
+        product: product,
+        // TODO: make this the impact summary module
+        summaryModule: Module
+      }));
 
-    _this.content.innerHTML = '<p>content goes here</p>';
+      content = product.getContent('download/intensity.jpg');
+      if (content) {
+        _this.content.innerHTML = '<img src="' + content.get('url') + '"/>';
+      } else {
+        _this.content.innerHTML = '<p>content goes here</p>';
+      }
+    }
     _this.footer.innerHTML = '<p>footer goes here</p>';
   };
 
