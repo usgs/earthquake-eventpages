@@ -227,6 +227,15 @@ var EventPage = function (options) {
 
     // notify that page was rendered
     _this.trigger('render');
+
+    // TODO: remove this
+    _eventHeaderEl.querySelector('.module-settings').innerHTML =
+        '<pre>' +
+          JSON.stringify({
+            'module': module,
+            'params': params
+          }, null, 2) +
+        '</pre>';
   };
 
   /**
@@ -279,7 +288,8 @@ var EventPage = function (options) {
   _renderHeaderContent = function () {
     // TODO :: Impact summary bubbles and other header info, maybe scenario
     //         alert goes here as well.
-    _eventHeaderEl.innerHTML = '<h2>Event Page Header</h2>';
+    _eventHeaderEl.innerHTML = '<h2>Event Page Header</h2>' +
+        '<div class="module-settings"></div>';
   };
 
 

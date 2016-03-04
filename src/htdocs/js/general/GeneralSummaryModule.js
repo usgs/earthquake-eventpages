@@ -1,7 +1,10 @@
 'use strict';
 
-var Module = require('core/Module'),
+var LocationView = require('general/LocationView'),
+    Module = require('core/Module'),
+    Product = require('pdl/Product'),
     Util = require('util/Util');
+
 
 var _ID,
     _TITLE,
@@ -37,7 +40,9 @@ var GeneralSummaryModule = function (options) {
       _generalLinkEl,
       _generalTextEl,
       _locationEl,
+      _locationView,
       _nearbyPlacesEl,
+      _preferredOrigin,
       _tectonicSummaryEl,
       _timeEl,
 
@@ -53,17 +58,16 @@ var GeneralSummaryModule = function (options) {
   _this = Module(options);
 
   _initialize = function (/*options*/) {
+    var el,
+        ev;
     _this.ID = _ID;
-  };
 
-  _this.render = function () {
-    var el;
+    ev = _this.model.get('event');
+    // TODO: event should return a Product object
+    _preferredOrigin = Product(ev.getPreferredOriginProduct());
 
     el = _this.el;
     el.innerHTML = [
-      '<pre>',
-        JSON.stringify(_this.model.get(_ID), null, 2),
-      '</pre>',
       '<div class="module-content">',
         '<div class="row">',
           '<div class="column one-of-two">',
@@ -86,7 +90,9 @@ var GeneralSummaryModule = function (options) {
     _generalTextEl = el.querySelector('.general-text');
     _tectonicSummaryEl = el.querySelector('.tectonic-summary');
     _generalLinkEl = el.querySelector('.general-link');
+  };
 
+  _this.render = function () {
     _renderLocation();
     _renderTime();
     _renderNearbyPlaces();
@@ -102,7 +108,10 @@ var GeneralSummaryModule = function (options) {
     _generalLinkEl = null;
     _generalTextEl = null;
     _locationEl = null;
+    _locationView.destroy();
+    _locationView = null;
     _nearbyPlacesEl = null;
+    _preferredOrigin = null;
     _tectonicSummaryEl = null;
     _timeEl = null;
 
@@ -123,7 +132,14 @@ var GeneralSummaryModule = function (options) {
   };
 
   _renderLocation = function () {
-    _locationEl.innerHTML = '<h3>Location</h3>';
+    // only create location view on first render
+    if (!_locationView) {
+      _locationView = LocationView({
+        el: _locationEl,
+        model: _preferredOrigin
+      });
+    }
+    _locationView.render();
   };
 
   _renderNearbyPlaces = function () {
