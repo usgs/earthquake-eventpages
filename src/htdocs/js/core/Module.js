@@ -63,6 +63,50 @@ var Module = function (options) {
   }, _this.destroy);
 
   /**
+   * Get a product from the event based on module parameters and event config.
+   *
+   * Uses module parameters "source", "code", and optionally "updateTime".
+   * If "updateTime" is omitted, the latest version from "source" and "code" is
+   * returned.  If no product matching "source" and "code" is found, returns
+   * preferred product.
+   *
+   * @param type {String}
+   *     product base type.
+   *     event configuration determines whether or not to add a scenario suffix.
+   * @return {Product}
+   *     matching product, or null if not found.
+   */
+  _this.getProduct = function (type) {
+    var code,
+        config,
+        ev,
+        params,
+        product,
+        source,
+        updateTime;
+
+    ev = _this.model.get('event');
+    params = _this.model.get(_this.ID) || {};
+    source = params.source || null;
+    code = params.code || null;
+    updateTime = params.updateTime || null;
+
+    config = _this.model.get('config');
+    if (config.scenario_mode === true) {
+      type += '-scenario';
+    }
+
+    product = null;
+    if (source !== null && code !== null) {
+      product = ev.getProductById(type, source, code, updateTime);
+    }
+    if (product === null) {
+      product = ev.getPreferredProduct(type);
+    }
+    return product;
+  };
+
+  /**
    * Get a product header.
    *
    * @param options {Object}

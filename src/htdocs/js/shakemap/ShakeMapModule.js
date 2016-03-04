@@ -45,35 +45,10 @@ var ShakeMapModule = function (options) {
   };
 
   _this.render = function () {
-    var code,
-        config,
-        content,
-        ev,
-        params,
-        product,
-        source,
-        type,
-        updateTime;
+    var content,
+        product;
 
-    config = _this.model.get('config');
-    ev = _this.model.get('event');
-    params = _this.model.get(_ID);
-    source = params.source || null;
-    code = params.code || null;
-    updateTime = params.updateTime || null;
-
-    type = 'shakemap';
-    if (config.scenario_mode === true) {
-      type += '-scenario';
-    }
-
-    product = null;
-    if (source !== null && code !== null) {
-      product = ev.getProductById(type, source, code, updateTime);
-    }
-    if (product === null) {
-      product = ev.getPreferredProduct(type);
-    }
+    product = _this.getProduct('shakemap');
 
     _this.header.innerHTML = '<h3>ShakeMap</h3>';
     if (!product) {
