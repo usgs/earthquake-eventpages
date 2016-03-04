@@ -147,6 +147,23 @@ var Product = function (options) {
   };
 
   /**
+   * Check whether product is reviewed.
+   *
+   * @return {Boolean}
+   *    true, if product review-status property is `reviewed`,
+   *    false, if product review-status property is any other value,
+   *    null, if product does not have a review-status property.
+   */
+  _this.isReviewed = function () {
+    var reviewed;
+    reviewed = _this.getProperty('review-status');
+    if (reviewed !== null) {
+      return (reviewed.toUpperCase() === 'REVIEWED');
+    }
+    return null;
+  };
+
+  /**
    * Override toJSON method so contents are output as object map.
    *
    * @param json {Object}

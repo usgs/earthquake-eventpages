@@ -303,6 +303,25 @@ var CatalogEvent = function (eventDetails) {
   };
 
   /**
+   * Get the preferred product of the specified type.
+   *
+   * @param type {String}
+   *     type of product.
+   * @return {Product}
+   *     preferred product of type, or null if no product of that type exists.
+   */
+  _this.getPreferredProduct = function (type) {
+    var products;
+    products = _this.getProducts(type);
+    products = __getSortedMostPreferredFirst(
+        __getWithoutSuperseded(products));
+    if (products.length > 0) {
+      return products[0];
+    }
+    return null;
+  };
+
+  /**
    * Get all versions of a product (type, souce, code).
    */
   _this.getAllProductVersions = function (type, source, code) {
