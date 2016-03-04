@@ -93,6 +93,19 @@ describe('core/Formatter', function () {
     });
   });
 
+  describe('dyfiLocation', function () {
+    it('formats a location', function () {
+      expect(formatter.dyfiLocation({
+        'country': 'country',
+        'name': 'location',
+        'state': 'region',
+        'zip': 'zip'
+      })).to.equal(
+          '<span class="dyfi-response-location">location, region' +
+          '&nbsp;zip<br /><small>country</small></span>');
+    });
+  });
+
   describe('fileSize', function () {
     it('returns empty value when undefined', function () {
       expect(formatter.fileSize()).to.equal('EMPTY');
@@ -115,49 +128,36 @@ describe('core/Formatter', function () {
     });
   });
 
-  describe('formatDYFILocation', function () {
-    it('formats a location', function () {
-      expect(formatter.formatDYFILocation({
-        'country': 'country',
-        'name': 'location',
-        'state': 'region',
-        'zip': 'zip'
-      })).to.equal(
-          '<span class="dyfi-response-location">location, region' +
-          '&nbsp;zip<br /><small>country</small></span>');
-    });
-  });
-
-  describe('formatLatitude', function () {
-    it('returns empty value when undefined', function () {
-      expect(formatter.formatLatitude()).to.equal('EMPTY');
-    });
-
-    it('formats direction', function () {
-      expect(formatter.formatLatitude(1.2)).to.equal('1.2000&nbsp;&deg;N');
-      expect(formatter.formatLatitude(-1.2)).to.equal('1.2000&nbsp;&deg;S');
-    });
-  });
-
-  describe('formatLongitude', function () {
-    it('returns empty value when undefined', function () {
-      expect(formatter.formatLongitude()).to.equal('EMPTY');
-    });
-
-    it('formats direction', function () {
-      expect(formatter.formatLongitude(1.2)).to.equal('1.2000&nbsp;&deg;E');
-      expect(formatter.formatLongitude(-1.2)).to.equal('1.2000&nbsp;&deg;W');
-    });
-  });
-
   describe('kmToMi', function () {
     expect(formatter.kmToMi(1).toFixed(3)).to.equal('0.621');
   });
 
+  describe('latitude', function () {
+    it('returns empty value when undefined', function () {
+      expect(formatter.latitude()).to.equal('EMPTY');
+    });
+
+    it('formats direction', function () {
+      expect(formatter.latitude(1.2)).to.equal('1.2000&nbsp;&deg;N');
+      expect(formatter.latitude(-1.2)).to.equal('1.2000&nbsp;&deg;S');
+    });
+  });
+
   describe('location', function () {
     expect(formatter.location(1.23, 2.34)).to.equal(
-      formatter.formatLatitude(1.23) + '&nbsp;' +
-      formatter.formatLongitude(2.34));
+      formatter.latitude(1.23) + '&nbsp;' +
+      formatter.longitude(2.34));
+  });
+
+  describe('longitude', function () {
+    it('returns empty value when undefined', function () {
+      expect(formatter.longitude()).to.equal('EMPTY');
+    });
+
+    it('formats direction', function () {
+      expect(formatter.longitude(1.2)).to.equal('1.2000&nbsp;&deg;E');
+      expect(formatter.longitude(-1.2)).to.equal('1.2000&nbsp;&deg;W');
+    });
   });
 
   describe('magnitude', function () {

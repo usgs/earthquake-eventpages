@@ -151,6 +151,30 @@ var Formatter = function (options) {
   };
 
   /**
+   * Formats DYFI location
+   *
+   * @param {response}
+   *        dyfi response
+   *
+   * @return {string}
+   *         formatted DYFI location
+   */
+  _this.dyfiLocation = function (response) {
+    var country,
+        location,
+        region,
+        zip;
+
+    country = response.country;
+    location = response.name;
+    region = response.state;
+    zip = response.zip;
+
+    return '<span class="dyfi-response-location">' + location + ', ' +
+        region + '&nbsp;' + zip + '<br /><small>' + country + '</small></span>';
+  };
+
+  /**
    * Format file size using human friendly sizes.
    *
    * @param bytes {Number}
@@ -179,27 +203,18 @@ var Formatter = function (options) {
   };
 
   /**
-   * Formats DYFI location
+   * Convert kilometers to miles.
    *
-   * @param {response}
-   *        dyfi response
-   *
-   * @return {string}
-   *         formatted DYFI location
+   * @param km {Number}
+   *        kilometers.
+   * @return {Number}
+   *         miles.
    */
-  _this.formatDYFILocation = function (response) {
-    var country,
-        location,
-        region,
-        zip;
-
-    country = response.country;
-    location = response.name;
-    region = response.state;
-    zip = response.zip;
-
-    return '<span class="dyfi-response-location">' + location + ', ' +
-        region + '&nbsp;' + zip + '<br /><small>' + country + '</small></span>';
+  _this.kmToMi = function (km) {
+    if (!km) {
+      return km;
+    }
+    return (km * _MILES_PER_KILOMETER);
   };
 
   /**
@@ -208,7 +223,7 @@ var Formatter = function (options) {
    *        the latitude.
    * @return {String} formatted string.
    */
-  _this.formatLatitude = function (latitude) {
+  _this.latitude = function (latitude) {
     var latDir;
 
     if (!latitude && latitude !== 0) {
@@ -228,12 +243,26 @@ var Formatter = function (options) {
   };
 
   /**
+   * Format a latitude and longitude.
+   *
+   * @param latitude {Number}
+   *        the latitude.
+   * @param longitude {Number}
+   *        the longitude.
+   * @return {String} formatted string.
+   */
+  _this.location = function (latitude, longitude) {
+    return _this.latitude(latitude) + '&nbsp;' +
+        _this.longitude(longitude);
+  };
+
+  /**
    * Format a longitude
    * @param longitude {Number}
    *        the longitude.
    * @return {String} formatted string.
    */
-  _this.formatLongitude = function (longitude) {
+  _this.longitude = function (longitude) {
     var lonDir;
 
     if (!longitude && longitude !== 0) {
@@ -250,35 +279,6 @@ var Formatter = function (options) {
     }
 
     return longitude + '&nbsp;&deg;' + lonDir;
-  };
-
-  /**
-   * Convert kilometers to miles.
-   *
-   * @param km {Number}
-   *        kilometers.
-   * @return {Number}
-   *         miles.
-   */
-  _this.kmToMi = function (km) {
-    if (!km) {
-      return km;
-    }
-    return (km * _MILES_PER_KILOMETER);
-  };
-
-  /**
-   * Format a latitude and longitude.
-   *
-   * @param latitude {Number}
-   *        the latitude.
-   * @param longitude {Number}
-   *        the longitude.
-   * @return {String} formatted string.
-   */
-  _this.location = function (latitude, longitude) {
-    return _this.formatLatitude(latitude) + '&nbsp;' +
-        _this.formatLongitude(longitude);
   };
 
   /**

@@ -1,6 +1,7 @@
 'use strict';
 
-var ProductView = require('core/ProductView'),
+var Formatter = require('core/Formatter'),
+    ProductView = require('core/ProductView'),
     Util = require('util/Util');
 
 
@@ -14,6 +15,8 @@ var LocationView = function (options) {
   var _this,
       _initialize,
 
+      _formatter,
+
       _getLocationCaption,
       _getLocationMap;
 
@@ -22,6 +25,7 @@ var LocationView = function (options) {
 
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
+    _formatter = options.formatter || Formatter();
   };
 
 
@@ -58,9 +62,12 @@ var LocationView = function (options) {
     latitude = properties.latitude || null;
     longitude = properties.longitude || null;
 
-    // TODO: use formatter
-    return latitude + ', ' + longitude +
-        ' depth=' + depth + ' km' +
+    if (depth) {
+      depth = ' depth=' + _formatter.depth(depth, 'km') +
+          ' (' + _formatter.depth(_formatter.kmToMi(depth), 'mi') + ')';
+    }
+
+    return _formatter.location(latitude, longitude) + depth +
         '<br/><a href="#interactivemap">View interactive map</a>';
   };
 
