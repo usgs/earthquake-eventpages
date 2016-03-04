@@ -96,11 +96,23 @@ var connect = {
       middleware: addMiddleware
     }
   },
+  example: {
+    options: {
+      base: [
+        config.example,
+        config.build + '/' + config.src + '/htdocs',
+        config.etc
+      ],
+      port: 8104,
+      open: 'http://localhost:8104/example.html'
+    }
+  },
   test: {
     options: {
       base: [
         config.build + '/' + config.src + '/htdocs',
         config.build + '/' + config.test,
+        config.etc,
         'node_modules'
       ],
       port: 8101,

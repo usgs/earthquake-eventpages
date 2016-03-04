@@ -51,6 +51,7 @@ module.exports = function (grunt) {
     'connect:dev',
     'connect:test',
     'mocha_phantomjs',
+    'connect:example',
     'watch'
   ]);
 

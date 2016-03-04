@@ -8,6 +8,8 @@ var iniConfig = ini.parse(fs.readFileSync('./src/conf/config.ini', 'utf-8'));
 var config = {
   build: '.build',
   dist: 'dist',
+  etc: 'etc',
+  example: 'example',
   ini: iniConfig,
   lib: 'lib',
   src: 'src',
