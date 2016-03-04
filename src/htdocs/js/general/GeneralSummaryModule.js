@@ -60,6 +60,7 @@ var GeneralSummaryModule = function (options) {
     var el;
 
     _this.ID = _ID;
+    _this.TITLE = _TITLE;
     _preferredOrigin = _this.model.get('event').getSummary().originProduct;
 
     el = _this.el;

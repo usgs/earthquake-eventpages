@@ -5,8 +5,8 @@ var Events = require('util/Events'),
     Module = require('core/Module'),
     Util = require('util/Util'),
 
-    GeneralSummaryModule = require('general/GeneralSummaryModule');
-
+    GeneralSummaryModule = require('general/GeneralSummaryModule'),
+    ShakeMapModule = require('shakemap/ShakeMapModule');
 
 var _DEFAULTS = {
   'event': null, // CatalogEvent
@@ -17,7 +17,7 @@ var _DEFAULTS = {
     // General
     [GeneralSummaryModule, Module],
     // Impact
-    [],
+    [ShakeMapModule],
     // Scientific
     []
   ]
