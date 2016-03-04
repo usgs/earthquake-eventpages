@@ -131,6 +131,22 @@ var Product = function (options) {
   };
 
   /**
+   * Check whether product is deleted.
+   *
+   * @return {Boolean}
+   *     true, if product status is Product.STATUS_DELETE.
+   *     false, otherwise.
+   */
+  _this.isDeleted = function () {
+    var status;
+    status = this.get('status').toUpperCase();
+    if (status === Product.STATUS_DELETE) {
+      return true;
+    }
+    return false;
+  };
+
+  /**
    * Override toJSON method so contents are output as object map.
    *
    * @param json {Object}

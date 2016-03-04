@@ -1,6 +1,7 @@
 'use strict';
 
-var Util = require('util/Util');
+var Product = require('pdl/Product'),
+    Util = require('util/Util');
 
 /**
  * Convert a product map to an array.
@@ -35,12 +36,15 @@ var __getWithoutSuperseded = function (list) {
   list.forEach(function (product) {
     var key,
         modified;
-    key = product.source + '_' + product.type + '_' + product.code;
+
+    key = product.get('source') + '_' +
+        product.get('type') + '_' +
+        product.get('code');
     modified = -1;
     if (unique.hasOwnProperty(key)) {
-      modified = unique[key].updateTime;
+      modified = unique[key].get('updateTime');
     }
-    if (modified < product.updateTime) {
+    if (modified < product.get('updateTime')) {
       unique[key] = product;
     }
   });
@@ -62,7 +66,7 @@ var __getWithoutSuperseded = function (list) {
 var __getWithoutDeleted = function (list) {
   var withoutDeleted = [];
   list.forEach(function (product) {
-    if (product.status.toUpperCase() !== 'DELETE') {
+    if (!product.isDeleted()) {
       withoutDeleted.push(product);
     }
   });
@@ -83,11 +87,11 @@ var __getSortedMostPreferredFirst = function (list) {
   var sorted = list.splice(0);
   sorted.sort(function (p1, p2) {
     var diff;
-    diff = p2.preferredWeight - p1.preferredWeight;
+    diff = p2.get('preferredWeight') - p1.get('preferredWeight');
     if (diff !== 0) {
       return diff;
     }
-    diff = p2.updateTime - p1.updateTime;
+    diff = p2.get('updateTime') - p1.get('updateTime');
     if (diff !== 0) {
       return diff;
     }
@@ -107,7 +111,7 @@ var __getSortedMostPreferredFirst = function (list) {
  * @return true if product has all origin properties, false otherwise.
  */
 var __productHasOriginProperties = function (product) {
-  var props = product.properties;
+  var props = product.get('properties');
   if (props.hasOwnProperty('eventsource') &&
       props.hasOwnProperty('eventsourcecode') &&
       props.hasOwnProperty('latitude') &&
@@ -164,7 +168,7 @@ var __getProductWithEventIdProperties = function (list) {
       props;
   list = __getSortedMostPreferredFirst(list);
   for (i = 0; i < list.length; i++) {
-    props = list[i].properties;
+    props = list[i].get('properties');
     if (props.hasOwnProperty('eventsource') &&
         props.hasOwnProperty('eventsourcecode')) {
       return list[i];
@@ -181,24 +185,26 @@ var __removePhases = function (products) {
       newProducts = [],
       loaded = {},
       key,
+      type,
       i;
 
   for (i = 0; i < products.length; i++) {
     product = products[i];
-    key = product.source + product.code;
-
-    if (product.type === 'origin'){
+    key = product.get('source') + product.get('code');
+    type = product.get('type');
+    if (type === 'origin'){
       originProducts[key] = product;
-    } else if (product.type === 'phase-data') {
+    } else if (type === 'phase-data') {
       phaseProducts[key] = product;
     }
   }
 
   for (i = 0; i < products.length; i++) {
     product = products[i];
-    key = product.source + product.code;
+    key = product.get('source') + product.get('code');
+    type = product.get('type');
 
-    if (product.type !== 'origin' && product.type !== 'phase-data') {
+    if (type !== 'origin' && type !== 'phase-data') {
       newProducts.push(product);
     } else if(originProducts.hasOwnProperty(key) &&
         phaseProducts.hasOwnProperty(key) &&
@@ -226,16 +232,20 @@ var CatalogEvent = function (eventDetails) {
 
   _this = Object.create({});
 
-  _initialize = function () {
+  _initialize = function (eventDetails) {
+    var type;
+
     _products = {};
     _properties = {};
     if (typeof eventDetails !== 'undefined') {
       _products = eventDetails.properties.products;
       _properties = Util.extend({}, eventDetails.properties, {products:null});
     }
+    // convert all products to Product objects
+    for (type in _products) {
+      _products[type] = _products[type].map(Product);
+    }
     _summary = null;
-    // clean up
-    eventDetails = null;
   };
 
   /**
@@ -245,7 +255,9 @@ var CatalogEvent = function (eventDetails) {
    *        product to add.
    */
   _this.addProduct = function (product) {
-    var type = product.type;
+    var type;
+
+    type = product.get('type');
     if (!_products.hasOwnProperty(type)) {
       _products[type] = [];
     }
@@ -260,9 +272,10 @@ var CatalogEvent = function (eventDetails) {
    *        product to remove.
    */
   _this.removeProduct = function (product) {
-    var type = product.type,
+    var type,
         typeProducts,
         index;
+    type = product.get('type');
     if (_products.hasOwnProperty(type)) {
       typeProducts = _products[type];
       index = typeProducts.indexOf(product);
@@ -293,18 +306,19 @@ var CatalogEvent = function (eventDetails) {
    * Get all versions of a product (type, souce, code).
    */
   _this.getAllProductVersions = function (type, source, code) {
-    var products = [],
-        product;
+    var products;
 
-    for (var i = 0; i < _products[type].length; i++) {
-      product = _products[type][i];
-      if (product.source === source && product.code === code) {
-        products.push(product);
-      }
+    if (_products.hasOwnProperty(type)) {
+      products = _products.filter(function (p) {
+        return p.get('source') === source &&
+            p.get('code') === code;
+      });
+    } else {
+      products = [];
     }
     // sort most recent first.
     products.sort(function (p1, p2) {
-      return p2.updateTime - p1.updateTime;
+      return p2.get('updateTime') - p1.get('updateTime');
     });
     return products;
   };
@@ -338,7 +352,7 @@ var CatalogEvent = function (eventDetails) {
 
     if (typeof updateTime !== 'undefined' && updateTime !== null) {
       for (i = 0; i < len; i++) {
-        if (products[i].updateTime === updateTime) {
+        if (products[i].get('updateTime') === updateTime) {
           product = products[i];
           break;
         }
@@ -361,7 +375,7 @@ var CatalogEvent = function (eventDetails) {
     var product = _this.getEventIdProduct(),
         props;
     if (product !== null) {
-      props = product.properties;
+      props = product.get('properties');
       return props.eventsource + props.eventsourcecode;
     }
     return null;
@@ -376,7 +390,7 @@ var CatalogEvent = function (eventDetails) {
   _this.getSource = function () {
     var product = _this.getEventIdProduct();
     if (product !== null) {
-      return product.properties.eventsource;
+      return product.getProperty('eventsource');
     }
     return null;
   };
@@ -390,7 +404,7 @@ var CatalogEvent = function (eventDetails) {
   _this.getSourceCode = function () {
     var product = _this.getEventIdProduct();
     if (product !== null) {
-      return product.properties.eventsourcecode;
+      return product.getProperty('eventsourcecode');
     }
     return null;
   };
@@ -404,7 +418,7 @@ var CatalogEvent = function (eventDetails) {
   _this.getTime = function () {
     var product = _this.getProductWithOriginProperties();
     if (product !== null) {
-      return new Date(product.properties.eventtime);
+      return new Date(product.getProperty('eventtime'));
     }
     return null;
   };
@@ -418,7 +432,7 @@ var CatalogEvent = function (eventDetails) {
   _this.getLatitude = function () {
     var product = _this.getProductWithOriginProperties();
     if (product !== null) {
-      return Number(product.properties.latitude);
+      return Number(product.getProperty('latitude'));
     }
     return null;
   };
@@ -432,7 +446,7 @@ var CatalogEvent = function (eventDetails) {
   _this.getLongitude = function () {
     var product = _this.getProductWithOriginProperties();
     if (product !== null) {
-      return Number(product.properties.longitude);
+      return Number(product.getProperty('longitude'));
     }
     return null;
   };
@@ -447,7 +461,7 @@ var CatalogEvent = function (eventDetails) {
     var product = _this.getProductWithOriginProperties(),
         props;
     if (product !== null) {
-      props = product.properties;
+      props = product.get('properties');
       return (props.hasOwnProperty('depth') ? Number(props.depth) : null);
     }
     return null;
@@ -466,7 +480,7 @@ var CatalogEvent = function (eventDetails) {
       product = _this.getProductWithOriginProperties();
     }
     if (product !== null) {
-      props = product.properties;
+      props = product.get('properties');
       return (props.hasOwnProperty('magnitude') ?
           Number(props.magnitude) : null);
     }
@@ -482,7 +496,7 @@ var CatalogEvent = function (eventDetails) {
   _this.isDeleted = function () {
     var product = _this.getPreferredOriginProduct();
     if (product !== null &&
-        product.status.toUpperCase() !== 'DELETE' &&
+        !product.isDeleted() &&
         __productHasOriginProperties(product)) {
       // have "origin" product, that isn't deleted, and has origin properties.
       return false;
@@ -638,13 +652,13 @@ var CatalogEvent = function (eventDetails) {
       var key,
           eventCode,
           eventSource,
-          props,
           subEvent,
           subEventId;
-      key = product.source + '_' + product.type + '_' + product.code;
-      props = product.properties || {};
-      eventSource = props.eventsource || null;
-      eventCode = props.eventsourcecode || null;
+      key = product.get('source') + '_' +
+          product.get('type') + '_' +
+          product.get('code');
+      eventSource = product.getProperty('eventsource');
+      eventCode = product.getProperty('eventsourcecode');
       if (eventSource === null || eventCode === null) {
         subEvent = preferredEvent;
       } else {
@@ -663,7 +677,9 @@ var CatalogEvent = function (eventDetails) {
       if (withoutSuperseded.indexOf(product) !== -1) {
         return;
       }
-      key = product.source + '_' + product.type + '_' + product.code;
+      key = product.get('source') + '_' +
+          product.get('type') + '_' +
+          product.get('code');
       productEvents[key].addProduct(product);
     });
 
@@ -736,30 +752,37 @@ var CatalogEvent = function (eventDetails) {
       properties: null,
       source: null,
       sourceCode: null,
-      time: null
+      time: null,
+      // products for above information
+      eventIdProduct: null,
+      originProduct: null,
+      magnitudeProduct: null
     };
     _summary.isDeleted = _this.isDeleted();
 
     eventIdProduct = _this.getEventIdProduct();
     if (eventIdProduct !== null) {
-      props = eventIdProduct.properties;
+      props = eventIdProduct.get('properties');
       _summary.id = props.eventsource + props.eventsourcecode;
       _summary.source = props.eventsource;
       _summary.sourceCode = props.eventsourcecode;
+      _summary.eventIdProduct = eventIdProduct;
     }
 
     originProduct = _this.getProductWithOriginProperties();
     if (originProduct !== null) {
-      props = originProduct.properties;
+      props = originProduct.get('properties');
       _summary.depth = Number(props.depth);
       _summary.latitude = Number(props.latitude);
       _summary.longitude = Number(props.longitude);
       _summary.time = new Date(props.eventtime);
+      _summary.originProduct = originProduct;
     }
 
     magnitudeProduct = _this.getPreferredMagnitudeProduct();
     if (magnitudeProduct !== null) {
-      _summary.magnitude = Number(magnitudeProduct.properties.magnitude);
+      _summary.magnitude = Number(magnitudeProduct.getProperty('magnitude'));
+      _summary.magnitudeProduct = magnitudeProduct;
     }
 
     _summary.eventCodes = _this.getAllEventCodes();
@@ -769,7 +792,8 @@ var CatalogEvent = function (eventDetails) {
   };
 
 
-  _initialize();
+  _initialize(eventDetails);
+  eventDetails = null;
   return _this;
 };
 

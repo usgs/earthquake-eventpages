@@ -2,7 +2,6 @@
 
 var LocationView = require('general/LocationView'),
     Module = require('core/Module'),
-    Product = require('pdl/Product'),
     Util = require('util/Util');
 
 
@@ -58,13 +57,10 @@ var GeneralSummaryModule = function (options) {
   _this = Module(options);
 
   _initialize = function (/*options*/) {
-    var el,
-        ev;
-    _this.ID = _ID;
+    var el;
 
-    ev = _this.model.get('event');
-    // TODO: event should return a Product object
-    _preferredOrigin = Product(ev.getPreferredOriginProduct());
+    _this.ID = _ID;
+    _preferredOrigin = _this.model.get('event').getSummary().originProduct;
 
     el = _this.el;
     el.innerHTML = [

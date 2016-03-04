@@ -61,7 +61,7 @@ var LocationView = function (options) {
     // TODO: use formatter
     return latitude + ', ' + longitude +
         ' depth=' + depth + ' km' +
-        '<a href="#interactivemap">View interactive map</a>';
+        '<br/><a href="#interactivemap">View interactive map</a>';
   };
 
 
