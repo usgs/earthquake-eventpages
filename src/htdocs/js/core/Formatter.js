@@ -239,7 +239,7 @@ var Formatter = function (options) {
       latitude = latitude.toFixed(_locationDecimals);
     }
 
-    return latitude + '&nbsp;&deg;' + latDir;
+    return latitude + '&deg;' + latDir;
   };
 
   /**
@@ -278,7 +278,7 @@ var Formatter = function (options) {
       longitude = longitude.toFixed(_locationDecimals);
     }
 
-    return longitude + '&nbsp;&deg;' + lonDir;
+    return longitude + '&deg;' + lonDir;
   };
 
   /**

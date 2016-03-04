@@ -138,8 +138,8 @@ describe('core/Formatter', function () {
     });
 
     it('formats direction', function () {
-      expect(formatter.latitude(1.2)).to.equal('1.2000&nbsp;&deg;N');
-      expect(formatter.latitude(-1.2)).to.equal('1.2000&nbsp;&deg;S');
+      expect(formatter.latitude(1.2)).to.equal('1.2000&deg;N');
+      expect(formatter.latitude(-1.2)).to.equal('1.2000&deg;S');
     });
   });
 
@@ -155,8 +155,8 @@ describe('core/Formatter', function () {
     });
 
     it('formats direction', function () {
-      expect(formatter.longitude(1.2)).to.equal('1.2000&nbsp;&deg;E');
-      expect(formatter.longitude(-1.2)).to.equal('1.2000&nbsp;&deg;W');
+      expect(formatter.longitude(1.2)).to.equal('1.2000&deg;E');
+      expect(formatter.longitude(-1.2)).to.equal('1.2000&deg;W');
     });
   });
 
