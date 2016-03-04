@@ -1,6 +1,7 @@
 'use strict';
 
 var Events = require('util/Events'),
+    Formatter = require('core/Formatter'),
     Model = require('mvc/Model'),
     Module = require('core/Module'),
     Util = require('util/Util'),
@@ -34,6 +35,7 @@ var EventPage = function (options) {
       _eventContentEl,
       _eventFooterEl,
       _eventHeaderEl,
+      _formatter,
       _model,
       _modules,
       _navEl,
@@ -56,6 +58,8 @@ var EventPage = function (options) {
     _config = options.config;
     _config.defaultModule = options.defaultModule;
     _config.modules = options.modules;
+
+    _formatter = options.formatter || Formatter();
 
     _el = options.el || document.createElement('div');
     _navEl = options.nav || document.createElement('nav');
@@ -217,6 +221,7 @@ var EventPage = function (options) {
     if (!_currentModule) {
       _currentModule = _modules[module]({
         el: _eventContentEl,
+        formatter: _formatter,
         model: _model
       });
     }
