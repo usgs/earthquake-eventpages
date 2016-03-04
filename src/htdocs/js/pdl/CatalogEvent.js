@@ -11,7 +11,7 @@ var Util = require('util/Util');
  * @return {Array}
  *         array containing all products.
  */
-var productMapToList = function (map) {
+var __productMapToList = function (map) {
   var list = [],
       type;
   for (type in map) {
@@ -29,7 +29,7 @@ var productMapToList = function (map) {
  * @return {Array}
  *         array without superseded versions.
  */
-var getWithoutSuperseded = function (list) {
+var __getWithoutSuperseded = function (list) {
   var unique = {},
       products;
   list.forEach(function (product) {
@@ -59,7 +59,7 @@ var getWithoutSuperseded = function (list) {
  * @return {Array}
  *         array without deleted versions.
  */
-var getWithoutDeleted = function (list) {
+var __getWithoutDeleted = function (list) {
   var withoutDeleted = [];
   list.forEach(function (product) {
     if (product.status.toUpperCase() !== 'DELETE') {
@@ -79,7 +79,7 @@ var getWithoutDeleted = function (list) {
  * @return {Array}
  *         sorted array, most preferred first.
  */
-var getSortedMostPreferredFirst = function (list) {
+var __getSortedMostPreferredFirst = function (list) {
   var sorted = list.splice(0);
   sorted.sort(function (p1, p2) {
     var diff;
@@ -106,7 +106,7 @@ var getSortedMostPreferredFirst = function (list) {
  *        product to check.
  * @return true if product has all origin properties, false otherwise.
  */
-var productHasOriginProperties = function (product) {
+var __productHasOriginProperties = function (product) {
   var props = product.properties;
   if (props.hasOwnProperty('eventsource') &&
       props.hasOwnProperty('eventsourcecode') &&
@@ -124,7 +124,7 @@ var productHasOriginProperties = function (product) {
  * Origin properties include event id (eventsource, eventsourcecode) and
  * event location (latitude, longitude, eventtime).
  *
- * Products are sorted using getSortedMostPreferredFirst before checking
+ * Products are sorted using __getSortedMostPreferredFirst before checking
  * for properties.
  *
  * @param list {Array}
@@ -132,13 +132,13 @@ var productHasOriginProperties = function (product) {
  * @return {Object}
  *         most preferred product with origin properties.
  */
-var getProductWithOriginProperties = function (list) {
+var __getProductWithOriginProperties = function (list) {
   var i,
       product;
-  list = getSortedMostPreferredFirst(list);
+  list = __getSortedMostPreferredFirst(list);
   for (i = 0; i < list.length; i++) {
     product = list[i];
-    if (productHasOriginProperties(product)) {
+    if (__productHasOriginProperties(product)) {
       return product;
     }
   }
@@ -151,7 +151,7 @@ var getProductWithOriginProperties = function (list) {
  *
  * Event ID properties are eventsource and eventsourcecode.
  *
- * Products are sorted using getSortedMostPreferredFirst before checking
+ * Products are sorted using __getSortedMostPreferredFirst before checking
  * for properties.
  *
  * @param list {Array}
@@ -159,10 +159,10 @@ var getProductWithOriginProperties = function (list) {
  * @return {Object}
  *         most preferred product with event id properties.
  */
-var getProductWithEventIdProperties = function (list) {
+var __getProductWithEventIdProperties = function (list) {
   var i,
       props;
-  list = getSortedMostPreferredFirst(list);
+  list = __getSortedMostPreferredFirst(list);
   for (i = 0; i < list.length; i++) {
     props = list[i].properties;
     if (props.hasOwnProperty('eventsource') &&
@@ -174,7 +174,7 @@ var getProductWithEventIdProperties = function (list) {
 };
 
 
-var removePhases = function (products) {
+var __removePhases = function (products) {
   var product,
       originProducts = {},
       phaseProducts = {},
@@ -483,7 +483,7 @@ var CatalogEvent = function (eventDetails) {
     var product = _this.getPreferredOriginProduct();
     if (product !== null &&
         product.status.toUpperCase() !== 'DELETE' &&
-        productHasOriginProperties(product)) {
+        __productHasOriginProperties(product)) {
       // have "origin" product, that isn't deleted, and has origin properties.
       return false;
     }
@@ -504,9 +504,6 @@ var CatalogEvent = function (eventDetails) {
     if (product === null) {
       product = _this.getProductWithOriginProperties();
     }
-    if (product === null) {
-      product = _this.getProductWithEventIdProperties();
-    }
     return product;
   };
 
@@ -522,31 +519,31 @@ var CatalogEvent = function (eventDetails) {
     var product;
     if (_products.hasOwnProperty('origin')) {
       // origin products not superseded or deleted
-      product = getProductWithOriginProperties(
-          getWithoutDeleted(getWithoutSuperseded(
+      product = __getProductWithOriginProperties(
+          __getWithoutDeleted(__getWithoutSuperseded(
               _products.origin)));
       if (product !== null) {
         return product;
       }
       // origin products superseded by a delete
-      product = getProductWithOriginProperties(
-          getWithoutSuperseded(getWithoutDeleted(
+      product = __getProductWithOriginProperties(
+          __getWithoutSuperseded(__getWithoutDeleted(
               _products.origin)));
       if (product !== null) {
         return product;
       }
     }
     // products not superseded or deleted
-    product = getProductWithOriginProperties(
-        getWithoutDeleted(getWithoutSuperseded(
-            productMapToList(_products))));
+    product = __getProductWithOriginProperties(
+        __getWithoutDeleted(__getWithoutSuperseded(
+            __productMapToList(_products))));
     if (product !== null) {
       return product;
     }
     // products superseded by a delete
-    product = getProductWithOriginProperties(
-        getWithoutSuperseded(getWithoutDeleted(
-            productMapToList(_products))));
+    product = __getProductWithOriginProperties(
+        __getWithoutSuperseded(__getWithoutDeleted(
+            __productMapToList(_products))));
     return product;
   };
 
@@ -563,15 +560,15 @@ var CatalogEvent = function (eventDetails) {
     var product;
     if (_products.hasOwnProperty('origin')) {
       // origin products not superseded or deleted
-      product = getProductWithOriginProperties(
-          getWithoutDeleted(getWithoutSuperseded(
+      product = __getProductWithOriginProperties(
+          __getWithoutDeleted(__getWithoutSuperseded(
               _products.origin)));
       if (product !== null) {
         return product;
       }
       // origin products not superseded that have event id
-      product = getProductWithEventIdProperties(
-          getWithoutSuperseded(_products.origin));
+      product = __getProductWithEventIdProperties(
+          __getWithoutSuperseded(_products.origin));
       if (product !== null) {
         return product;
       }
@@ -579,15 +576,22 @@ var CatalogEvent = function (eventDetails) {
       return null;
     }
     // products not superseded or deleted
-    product = getProductWithOriginProperties(
-        getWithoutDeleted(getWithoutSuperseded(
-            productMapToList(_products))));
+    product = __getProductWithOriginProperties(
+        __getWithoutDeleted(__getWithoutSuperseded(
+            __productMapToList(_products))));
     if (product !== null) {
       return product;
     }
     // products not superseded that have eventid.
-    product = getProductWithEventIdProperties(
-        getWithoutSuperseded(productMapToList(_products)));
+    product = __getProductWithEventIdProperties(
+        __getWithoutSuperseded(__productMapToList(_products)));
+    if (product !== null) {
+      return product;
+    }
+    // products superseded by a delete that have eventid
+    product = __getProductWithEventIdProperties(
+        __getWithoutSuperseded(__getWithoutDeleted(
+          __productMapToList(_products))));
     return product;
   };
 
@@ -628,8 +632,8 @@ var CatalogEvent = function (eventDetails) {
     subEvents = {};
     subEvents[preferredEventId] = preferredEvent;
 
-    withoutSuperseded = getWithoutSuperseded(
-        productMapToList(_products));
+    withoutSuperseded = __getWithoutSuperseded(
+        __productMapToList(_products));
     withoutSuperseded.forEach(function (product) {
       var key,
           eventCode,
@@ -654,7 +658,7 @@ var CatalogEvent = function (eventDetails) {
       productEvents[key] = subEvent;
     });
 
-    productMapToList(_products).forEach(function (product) {
+    __productMapToList(_products).forEach(function (product) {
       var key;
       if (withoutSuperseded.indexOf(product) !== -1) {
         return;
@@ -771,12 +775,12 @@ var CatalogEvent = function (eventDetails) {
 
 
 // add static methods
-CatalogEvent.productMapToList = productMapToList;
-CatalogEvent.getWithoutDeleted = getWithoutDeleted;
-CatalogEvent.getWithoutSuperseded = getWithoutSuperseded;
-CatalogEvent.getSortedMostPreferredFirst = getSortedMostPreferredFirst;
-CatalogEvent.productHasOriginProperties = productHasOriginProperties;
-CatalogEvent.removePhases = removePhases;
+CatalogEvent.productMapToList = __productMapToList;
+CatalogEvent.getWithoutDeleted = __getWithoutDeleted;
+CatalogEvent.getWithoutSuperseded = __getWithoutSuperseded;
+CatalogEvent.getSortedMostPreferredFirst = __getSortedMostPreferredFirst;
+CatalogEvent.productHasOriginProperties = __productHasOriginProperties;
+CatalogEvent.removePhases = __removePhases;
 
 
 module.exports = CatalogEvent;

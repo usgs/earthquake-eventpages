@@ -67,10 +67,14 @@ var Product = function (options) {
   }, options));
 
   _initialize = function (/*options*/) {
-    var contents;
+    var contents,
+        properties;
 
+    // make sure contents and properties are defined
     contents = _this.get('contents') || [];
+    properties = _this.get('properties') || [];
 
+    // make sure contents are Content objects
     if (Array.isArray(contents)) {
       // Handle case if given an array
       contents = contents.map(function (content) {
@@ -89,10 +93,51 @@ var Product = function (options) {
       contents = Collection(contents);
     }
 
-    _this.set({'contents': contents});
+    _this.set({
+      'contents': contents,
+      'properties': properties
+    });
   };
 
+  /**
+   * Convenience method to access product content.
+   *
+   * @param path {String}
+   *     content path.
+   * @return {Content}
+   *     content object, or null if not found.
+   */
+  _this.getContent = function (path) {
+    var contents;
+    contents = _this.get('contents');
+    return contents.get(path);
+  };
 
+  /**
+   * Convenience method to access product property..
+   *
+   * @param name {String}
+   *     property name.
+   * @return {Content}
+   *     property value, or null if not found.
+   */
+  _this.getProperty = function (name) {
+    var properties;
+    properties = _this.get('properties');
+    if (properties.hasOwnProperty(name)) {
+      return properties[name];
+    }
+    return null;
+  };
+
+  /**
+   * Override toJSON method so contents are output as object map.
+   *
+   * @param json {Object}
+   *     JSONified object from Model.toJSON.
+   * @return {Object}
+   *     object, with contents as an object with content paths as keys.
+   */
   _this.toJSON = Util.compose(_this.toJSON, function (json) {
     var objectContents = {};
 
