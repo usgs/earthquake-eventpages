@@ -8,7 +8,7 @@ var _DEFAULTS = {
   // decimal places for depth
   depthDecimals: 1,
   // content when a value is missing
-  empty: '?',
+  empty: '&ndash;',
   // size abbreviations for [bytes, kilobytes, megabytes, gigabytes]
   fileSizes: [' B', ' KB', ' MB', ' GB'],
   // decimal places for latitude/longitude
@@ -54,13 +54,13 @@ var Formatter = function (options) {
     var value;
 
     if (!angle && angle !== 0) {
-      return '&ndash;';
+      return _empty;
     }
 
     if (typeof decimals === 'number') {
       value = Number(angle).toFixed(decimals);
     } else {
-      value = Math.round(angle) + '&deg;';
+      value = Math.round(angle);
     }
 
     return value + '&deg;';
@@ -78,6 +78,10 @@ var Formatter = function (options) {
     var year,
         month,
         day;
+
+    if (!date || typeof date.getTime !== 'function') {
+      return _empty;
+    }
 
     year = date.getUTCFullYear();
     month = date.getUTCMonth() + 1;
@@ -112,8 +116,12 @@ var Formatter = function (options) {
 
     if (!stamp && stamp !== 0) {
       return _empty;
+    } else if (typeof stamp.getTime === 'function') {
+      // allow Date objects
+      stamp = stamp.getTime();
     }
 
+    minutesOffset = minutesOffset || 0;
     milliOffset = minutesOffset * 60 * 1000;
     date = new Date(stamp + milliOffset);
 
@@ -135,6 +143,9 @@ var Formatter = function (options) {
    * @return {String} formatted string.
    */
   _this.depth = function (depth, units, error) {
+    if (!depth && depth !== 0) {
+      return _empty;
+    }
     return _this.number(depth, _depthDecimals, _empty, units) +
         _this.uncertainty(error, _depthDecimals, '');
   };
@@ -148,6 +159,10 @@ var Formatter = function (options) {
    */
   _this.fileSize = function (bytes) {
     var sizeIndex;
+
+    if (!bytes && bytes !== 0) {
+      return _empty;
+    }
 
     sizeIndex = 0;
     bytes = Number(bytes);
@@ -196,6 +211,9 @@ var Formatter = function (options) {
   _this.formatLatitude = function (latitude) {
     var latDir;
 
+    if (!latitude && latitude !== 0) {
+      return _empty;
+    }
     latDir = (latitude > 0 ? 'N' : 'S');
 
     // already have sign information, abs before rounding
@@ -218,6 +236,9 @@ var Formatter = function (options) {
   _this.formatLongitude = function (longitude) {
     var lonDir;
 
+    if (!longitude && longitude !== 0) {
+      return _empty;
+    }
     lonDir = (longitude > 0 ? 'E' : 'W');
 
     // already have sign information, abs before rounding
@@ -240,6 +261,9 @@ var Formatter = function (options) {
    *         miles.
    */
   _this.kmToMi = function (km) {
+    if (!km) {
+      return km;
+    }
     return (km * _MILES_PER_KILOMETER);
   };
 
@@ -321,6 +345,10 @@ var Formatter = function (options) {
         seconds,
         milliseconds;
 
+    if (!date || typeof date.getTime !== 'function') {
+      return _empty;
+    }
+
     hours = date.getUTCHours();
     minutes = date.getUTCMinutes();
     seconds = date.getUTCSeconds();
@@ -362,7 +390,7 @@ var Formatter = function (options) {
         minutes,
         sign;
 
-    if (offset === 0 ) {
+    if (!offset || offset === 0) {
       return '';
     } else if (offset < 0) {
       sign = '-';
@@ -413,6 +441,9 @@ var Formatter = function (options) {
   options = null;
   return _this;
 };
+
+
+Formatter.MILES_PER_KILOMETER = _MILES_PER_KILOMETER;
 
 
 module.exports = Formatter;
