@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<contents>
+  <file title="XML Grids" id="xmlGrids">
+    <caption><![CDATA[XML grids of ground motions]]></caption>
+    <format href="download/grid.xml" type="text/xml" />
+    <format href="download/grid.xml.zip" type="application/zip" />
+  </file>
+  <file title="Rock Grid" id="rockGrid">
+    <caption><![CDATA[XML grid of intensity/ground motions on rock]]></caption>
+    <format href="download/rock_grid.xml.zip" type="application/zip" />
+  </file>
+  <file title="Uncertainty Grid" id="uncertaintyGrid">
+    <caption><![CDATA[XML grid of uncertainties]]></caption>
+    <format href="download/uncertainty.xml.zip" type="application/zip" />
+  </file>
+  <file title="Text Grids" id="textGrids">
+    <caption><![CDATA[ASCII grid of ground motions]]></caption>
+    <format href="download/grid.xyz.zip" type="application/zip" />
+  </file>
+  <file title="KML File" id="kmlFile">
+    <caption><![CDATA[KML for Google Earth]]></caption>
+    <format href="download/us10004u1y.kml" type="application/vnd.google-earth.kml+xml" />
+  </file>
+  <file title="Event KMZ File" id="kmzEventFile">
+    <caption><![CDATA[KMZ for Google Earth]]></caption>
+    <format href="download/us10004u1y.kmz" type="application/vnd.google-earth.kmz" />
+  </file>
+  <file title="Epicenter KMZ File" id="kmzEpicenterFile">
+    <caption><![CDATA[Epicenter KMZ for Google Earth]]></caption>
+    <format href="download/epicenter.kmz" type="application/vnd.google-earth.kmz" />
+  </file>
+  <file title="Fault KMZ File" id="kmzFaultFile">
+    <caption><![CDATA[Fault KMZ for Google Earth]]></caption>
+    <format href="download/fault.kmz" type="application/vnd.google-earth.kmz" />
+  </file>
+  <file title="Intensity Overlay KMZ File" id="kmzOverlayFile">
+    <caption><![CDATA[Intensity Overlay KMZ for Google Earth]]></caption>
+    <format href="download/overlay.kmz" type="application/vnd.google-earth.kmz" />
+  </file>
+  <file title="Intensity Polygons KMZ" id="kmzPolygonsMI">
+    <caption><![CDATA[Intensity Polygons KMZ for Google Earth]]></caption>
+    <format href="download/polygons_mi.kmz" type="application/vnd.google-earth.kmz" />
+  </file>
+  <file title="GIS Files" id="gisFiles">
+    <caption><![CDATA[General-purpose GIS shape files]]></caption>
+    <format href="download/shape.zip" type="application/zip" />
+  </file>
+  <file title="HAZUS Data" id="hazusData">
+    <caption><![CDATA[Data files for HAZUS loss estimation]]></caption>
+    <format href="download/hazus.zip" type="application/zip" />
+  </file>
+  <file title="ESRI Raster Files" id="rasterData">
+    <caption><![CDATA[Data and uncertainty grids in ESRI raster format]]></caption>
+    <format href="download/raster.zip" type="application/zip" />
+  </file>
+  <file title="Station Lists" id="stationLists">
+    <caption><![CDATA[Lists of input data]]></caption>
+    <format href="download/stationlist.txt" type="text/plain" />
+    <format href="download/stationlist.xml" type="text/xml" />
+    <format href="download/stationlist.json" type="application/json" />
+  </file>
+  <file title="Metadata" id="metadata">
+    <caption><![CDATA[FGDC-compliant metadata]]></caption>
+    <format href="download/metadata.txt" type="text/plain" />
+  </file>
+  <file title="Supplemental Information" id="supplemantalInformation">
+    <caption><![CDATA[ShakeMap processing parameters and map summary information.]]></caption>
+    <format href="download/info.xml" type="text/xml" />
+  </file>
+  <file title="TV Info Sheet" id="tvinfoSheet">
+    <caption><![CDATA[ShakeMap information for reporters.]]></caption>
+    <format href="download/tvguide.txt" type="text/plain" />
+  </file>
+  <file title="Fault File" id="faultFile">
+    <caption><![CDATA[Finite fault coordinates [lat lon depth(km)].]]></caption>
+    <format href="download/hayes_fault.txt" type="text/plain" />
+  </file>
+  <file title="Intensity Map" id="intensityMap">
+    <caption><![CDATA[Map of macroseismic intensity.]]></caption>
+    <format href="download/intensity.jpg" type="image/jpeg" />
+    <format href="download/ii_thumbnail.jpg" type="image/jpeg" />
+    <format href="download/intensity.ps.zip" type="application/zip" />
+  </file>
+  <file title="PGA Map" id="pgaMap">
+    <caption><![CDATA[Map of peak ground acceleration (%g).]]></caption>
+    <format href="download/pga.jpg" type="image/jpeg" />
+    <format href="download/pga.ps.zip" type="application/zip" />
+  </file>
+  <file title="PGV Map" id="pgvMap">
+    <caption><![CDATA[Map of peak ground velocity (cm/s).]]></caption>
+    <format href="download/pgv.jpg" type="image/jpeg" />
+    <format href="download/pgv.ps.zip" type="application/zip" />
+  </file>
+  <file title="PSA03 Map" id="psa03Map">
+    <caption><![CDATA[Map of 0.3 sec 5% damped pseudo-spectral acceleration(%g).]]></caption>
+    <format href="download/psa03.jpg" type="image/jpeg" />
+    <format href="download/psa03.ps.zip" type="application/zip" />
+  </file>
+  <file title="PSA10 Map" id="psa10Map">
+    <caption><![CDATA[Map of 1.0 sec 5% damped pseudo-spectral acceleration(%g).]]></caption>
+    <format href="download/psa10.jpg" type="image/jpeg" />
+    <format href="download/psa10.ps.zip" type="application/zip" />
+  </file>
+  <file title="PSA30 Map" id="psa30Map">
+    <caption><![CDATA[Map of 3.0 sec 5% damped pseudo-spectral acceleration(%g).]]></caption>
+    <format href="download/psa30.jpg" type="image/jpeg" />
+    <format href="download/psa30.ps.zip" type="application/zip" />
+  </file>
+  <file title="TV Map" id="tvMap">
+    <caption><![CDATA[Large format map of macroseismic intensity suitable for television broadcast.]]></caption>
+    <format href="download/tvmap.jpg" type="image/jpeg" />
+    <format href="download/tvmap.ps.zip" type="application/zip" />
+  </file>
+  <file title="Bare TV Map" id="baretvMap">
+    <caption><![CDATA[Large format undecorated map of macroseismic intensity suitable for television broadcast.]]></caption>
+    <format href="download/tvmap_bare.jpg" type="image/jpeg" />
+    <format href="download/tvmap_bare.ps.zip" type="application/zip" />
+  </file>
+  <file title="Uncertainty Map" id="uncertaintyMap">
+    <caption><![CDATA[Map of PGA uncertainty.]]></caption>
+    <format href="download/urat_pga.jpg" type="image/jpeg" />
+    <format href="download/urat_pga.ps.zip" type="application/zip" />
+  </file>
+  <file title="Intensity Contours" id="miContour">
+    <caption><![CDATA[Contours of macroseismic intensity.]]></caption>
+    <format href="download/cont_mi.json" type="application/json" />
+    <format href="download/cont_mi.kmz" type="application/vnd.google-earth.kmz" />
+  </file>
+  <file title="PGA Contours" id="pgaContour">
+    <caption><![CDATA[Contours of peak ground acceleration (%g).]]></caption>
+    <format href="download/cont_pga.json" type="application/json" />
+    <format href="download/cont_pga.kmz" type="application/vnd.google-earth.kmz" />
+  </file>
+  <file title="PGV Contours" id="pgvContour">
+    <caption><![CDATA[Contours of peak ground velocity (cm/s).]]></caption>
+    <format href="download/cont_pgv.json" type="application/json" />
+    <format href="download/cont_pgv.kmz" type="application/vnd.google-earth.kmz" />
+  </file>
+  <file title="PSA03 Contours" id="psa03Contour">
+    <caption><![CDATA[Contours of 0.3 sec 5% damped pseudo-spectral acceleration(%g).]]></caption>
+    <format href="download/cont_psa03.json" type="application/json" />
+    <format href="download/cont_psa03.kmz" type="application/vnd.google-earth.kmz" />
+  </file>
+  <file title="PSA10 Contours" id="psa10Contour">
+    <caption><![CDATA[Contours of 1.0 sec 5% damped pseudo-spectral acceleration(%g).]]></caption>
+    <format href="download/cont_psa10.json" type="application/json" />
+    <format href="download/cont_psa10.kmz" type="application/vnd.google-earth.kmz" />
+  </file>
+  <file title="PSA30 Contours" id="psa30Contour">
+    <caption><![CDATA[Contours of 3.0 sec 5% damped pseudo-spectral acceleration(%g).]]></caption>
+    <format href="download/cont_psa30.json" type="application/json" />
+    <format href="download/cont_psa30.kmz" type="application/vnd.google-earth.kmz" />
+  </file>
+</contents>
