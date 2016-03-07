@@ -5,7 +5,7 @@ var DownloadView = require('general/DownloadView'),
     Xhr = require('util/Xhr');
 
 Xhr.ajax({
-  url: '/event/us10004u1y.json',
+  url: '/events/us10004u1y.json',
   success: function (data) {
     DownloadView({
       el: document.querySelector('#download-view-example'),
