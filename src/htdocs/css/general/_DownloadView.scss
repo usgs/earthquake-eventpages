@@ -1,0 +1,20 @@
+.download-file {
+  font-size: 0.8125em;
+
+  & + .download-file {
+    margin-top: 1em;
+  }
+}
+
+.download-title {
+  font-weight: bold;
+  display: block;
+}
+
+.download-caption {
+  color: #666;
+}
+
+.download-formats {
+  list-style: disc;
+}
