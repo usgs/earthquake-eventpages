@@ -6,7 +6,6 @@ var Product = require('pdl/Product'),
     TextProductView = require('general/TextProductView');
 
 var product = Product({
-    code: 'code',
     contents: {
       '': {
         'contentType': 'text/plain',
@@ -14,22 +13,7 @@ var product = Product({
         'lastModified': 1234,
         'bytes': 'some text'
       }
-    },
-    id: 'id',
-    indexid: 'indexid',
-    indexTime: 1234,
-    links: {
-      'rel': ['uri1', 'uri2']
-    },
-    preferredWeight: 1,
-    properties: {
-      prop1: 'value1',
-      prop2: 'value2'
-    },
-    source: 'source',
-    status: Product.STATUS_UPDATE,
-    type: 'type',
-    updateTime: new Date().getTime()
+    }
   });
 
 var expect = chai.expect;
