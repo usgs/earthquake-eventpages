@@ -10,8 +10,10 @@ print navGroup('General',
   );
 
 print navGroup('Impact',
+    navItem('/shakemap/ShakeMapInfoViewExample.php', 'ShakeMapInfoView') .
     navItem('/shakemap/ShakeMapStationListViewExample.php',
         'ShakeMapStationListView ') .
     navItem('/dyfi/DYFIResponsesViewExample.php', 'DYFIResponsesView')
   );
+
 ?>
