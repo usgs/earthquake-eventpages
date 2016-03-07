@@ -7,6 +7,13 @@ var CWD = process.cwd(),
     NODE_MODULES = CWD + '/node_modules';
 
 
+var ALL_CLASSES = [
+  './' + config.src + '/htdocs/js/general/DownloadView.js:general/DownloadView',
+  './' + config.src + '/htdocs/js/pdl/Product.js:pdl/Product',
+  NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
+  NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
+];
+
 var BUNDLED_DEPENDENCIES = [
   './' + config.src + '/htdocs/modules/base/Attribution.js:base/Attribution',
   './' + config.src + '/htdocs/modules/base/EventModulePage.js:base/EventModulePage',
@@ -45,6 +52,14 @@ var browserify = {
   },
 
   // source bundles
+  classes: {
+    src: [],
+    dest: config.build + '/' + config.src + '/htdocs/js/classes.js',
+    options: {
+      alias: ALL_CLASSES
+    }
+  },
+
   'event': {
     src: [config.src + '/htdocs/js/event.js'],
     dest: config.build + '/' + config.src + '/htdocs/js/event.js',

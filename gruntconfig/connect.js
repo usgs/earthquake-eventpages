@@ -87,15 +87,31 @@ var connect = {
     }
   ],
 
+
   dev: {
     options: {
-      base: [config.build + '/' + config.src + '/htdocs'],
+      base: [
+        config.build + '/' + config.src + '/htdocs'
+      ],
       port: 8100,
       livereload: config.liveReloadPort,
-      open: 'http://localhost:8100/index.php',
+      open: 'http://localhost:8100/earthquakes/eventpage/us10004u1y',
       middleware: addMiddleware
     }
   },
+
+  dist: {
+    options: {
+      base: [
+        config.dist + '/htdocs'
+      ],
+      port: 8102,
+      keepalive: true,
+      open: 'http://localhost:8102/earthquakes/eventpage/us10004u1y',
+      middleware: addMiddleware
+    }
+  },
+
   example: {
     options: {
       base: [
@@ -103,10 +119,22 @@ var connect = {
         config.build + '/' + config.src + '/htdocs',
         config.etc
       ],
-      port: 8104,
-      open: 'http://localhost:8104/example.html'
+      middleware: addMiddleware,
+      open: 'http://localhost:8104/example.php',
+      port: 8104
     }
   },
+
+  template: {
+    options: {
+      base: [
+        'node_modules/hazdev-template/dist/htdocs'
+      ],
+      port: 8103,
+      middleware: addMiddleware
+    }
+  },
+
   test: {
     options: {
       base: [
@@ -117,22 +145,6 @@ var connect = {
       ],
       port: 8101,
       open: 'http://localhost:8101/test.html'
-    }
-  },
-  dist: {
-    options: {
-      base: [config.dist + '/htdocs'],
-      port: 8102,
-      keepalive: true,
-      open: 'http://localhost:8102/',
-      middleware: addMiddleware
-    }
-  },
-  template: {
-    options: {
-      base: ['node_modules/hazdev-template/dist/htdocs'],
-      port: 8103,
-      middleware: addMiddleware
     }
   }
 };
