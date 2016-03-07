@@ -87,15 +87,31 @@ var connect = {
     }
   ],
 
+
   dev: {
     options: {
-      base: [config.build + '/' + config.src + '/htdocs'],
+      base: [
+        config.build + '/' + config.src + '/htdocs'
+      ],
       port: 8100,
       livereload: config.liveReloadPort,
       open: 'http://localhost:8100/index.php',
       middleware: addMiddleware
     }
   },
+
+  dist: {
+    options: {
+      base: [
+        config.dist + '/htdocs'
+      ],
+      port: 8102,
+      keepalive: true,
+      open: 'http://localhost:8102/',
+      middleware: addMiddleware
+    }
+  },
+
   example: {
     options: {
       base: [
@@ -107,6 +123,17 @@ var connect = {
       open: 'http://localhost:8104/example.html'
     }
   },
+
+  template: {
+    options: {
+      base: [
+        'node_modules/hazdev-template/dist/htdocs'
+      ],
+      port: 8103,
+      middleware: addMiddleware
+    }
+  },
+
   test: {
     options: {
       base: [
@@ -117,22 +144,6 @@ var connect = {
       ],
       port: 8101,
       open: 'http://localhost:8101/test.html'
-    }
-  },
-  dist: {
-    options: {
-      base: [config.dist + '/htdocs'],
-      port: 8102,
-      keepalive: true,
-      open: 'http://localhost:8102/',
-      middleware: addMiddleware
-    }
-  },
-  template: {
-    options: {
-      base: ['node_modules/hazdev-template/dist/htdocs'],
-      port: 8103,
-      middleware: addMiddleware
     }
   }
 };
