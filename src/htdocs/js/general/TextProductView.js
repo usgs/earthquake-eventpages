@@ -12,6 +12,7 @@ var TextProductView = function (options) {
     var content;
     content = _this.model.getContent('');
     if (content) {
+      _this.el.className = _this.model.get('type');
       _this.el.innerHTML = content.get('bytes');
     }
   };
