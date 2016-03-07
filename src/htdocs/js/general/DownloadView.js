@@ -1,8 +1,8 @@
 'use strict';
 
 var Formatter = require('core/Formatter'),
-    ProductView = require('core/ProductView'),
     Util = require('util/Util'),
+    View = require('mvc/View'),
     Xhr = require('util/Xhr');
 
 
@@ -30,9 +30,10 @@ var DownloadView = function (options) {
 
 
   options = Util.extend({}, _DEFAULTS, options);
-  _this = ProductView(options);
+  _this = View(options);
 
   _initialize = function (options) {
+    _this.el.classList.add('download-view');
     _formatter = options.formatter || Formatter();
     _createViewSkeleton();
   };
@@ -40,14 +41,14 @@ var DownloadView = function (options) {
 
   _createViewSkeleton = function () {
     _this.el.innerHTML = [
-      '<h4 class="type">',
-        _this.model.get('type'),
+      '<h4 class="download-type">',
+        _this.model.get('type'), ' ',
         '<small>(', _this.model.get('code'), ')</small>',
       '</h4>',
       '<small class="attribution">',
         'Contributed by ', _this.model.get('source'), // TODO :: Use generalized attribution
       '</small>',
-      '<ul class="download-files"></ul>'
+      '<ul class="no-style download-files"></ul>'
     ].join('');
 
     _listEl = _this.el.querySelector('.download-files');
@@ -71,7 +72,7 @@ var DownloadView = function (options) {
         data;
 
     // try plain old content bytes first
-    content = this._model.getContent('contents.xml');
+    content = _this.model.getContent('contents.xml');
     if (content) {
       data = content.get('bytes');
       if (data !== null) {
@@ -79,9 +80,9 @@ var DownloadView = function (options) {
         setTimeout(function () { callback(data); }, 0);
       } else {
         Xhr.ajax({
-          url: _this.model.get('url'),
-          success: function (response) {
-            callback(response);
+          url: content.get('url'),
+          success: function (response, xhr) {
+            callback(xhr.responseXML);
           },
           error: function () {
             callback(null);
@@ -103,7 +104,7 @@ var DownloadView = function (options) {
   };
 
   _parse = function (data) {
-    return Array.prototype.map.apply(
+    return Array.prototype.map.call(
         data.querySelectorAll('contents > file'), _parseFile);
   };
 
@@ -127,7 +128,7 @@ var DownloadView = function (options) {
 
     id = file.getAttribute('id');
     title = file.getAttribute('title');
-    caption = file.getQuerySelector('caption');
+    caption = file.querySelector('caption');
     caption = (caption ? caption.textContent : null);
     formats = [];
     errors = [];
@@ -142,8 +143,8 @@ var DownloadView = function (options) {
         formats.push({
           href: href,
           type: type,
-          url: content.url,
-          length: content.length
+          url: content.get('url'),
+          length: content.get('length')
         });
       } else {
         errors.push({
@@ -171,13 +172,13 @@ var DownloadView = function (options) {
     });
 
     return [
-      '<dd class="file">',
-        '<span class="title">', file.title ,'</span>',
-        '<span class="caption">', file.caption, '</span>',
-        '<ul class="formats">',
+      '<li class="download-file">',
+        '<span class="download-title">', file.title ,'</span>',
+        '<span class="download-caption">', file.caption, '</span>',
+        '<ul class="download-formats">',
           formats.join(''),
         '</ul>',
-      '</dd>'
+      '</li>'
     ].join('');
   };
 
