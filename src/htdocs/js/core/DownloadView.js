@@ -1,9 +1,8 @@
 'use strict';
 
-var Formatter = require('core/Formatter'),
-    Util = require('util/Util'),
-    View = require('mvc/View'),
-    Xhr = require('util/Xhr');
+var ContentView = require('core/ContentView'),
+    Formatter = require('core/Formatter'),
+    Util = require('util/Util');
 
 
 var _DEFAULTS = {
@@ -16,104 +15,44 @@ var DownloadView = function (options) {
       _initialize,
 
       _formatter,
-      _listEl,
-
-      _createViewSkeleton,
-      _fetchData,
-      _onData,
-      _parse,
-      _parseFile,
-      _renderFile,
-      _renderFiles,
-      _renderFormat,
-      _renderNoData;
+      _product;
 
 
   options = Util.extend({}, _DEFAULTS, options);
-  _this = View(options);
+  _this = ContentView(options);
 
   _initialize = function (options) {
+    _product = options.product;
+
     _this.el.classList.add('download-view');
     _formatter = options.formatter || Formatter();
-    _createViewSkeleton();
   };
 
 
-  _createViewSkeleton = function () {
-    _this.el.innerHTML = [
-      '<h4 class="download-type">',
-        _this.model.get('type'), ' ',
-        '<small>(', _this.model.get('code'), ')</small>',
-      '</h4>',
-      '<small class="attribution">',
-        'Contributed by ', _this.model.get('source'), // TODO :: Use generalized attribution
-      '</small>',
-      '<ul class="no-style download-files"></ul>'
-    ].join('');
-
-    _listEl = _this.el.querySelector('.download-files');
+  _this.onError = function (/*status, xhr*/) {
+    _this.el.innerHTML = 'No download content available.';
   };
 
-  /**
-   * Asynchronous method to fetch data from `_this.model` {Content} object.
-   * If the current {Content} model uses byte content, these bytes are read
-   * directly off the `this._model`, otherwise, the URL is used to make an AJAX
-   * call for the data. Either way, the result is passed to the `callback`
-   * asynchronously. If data is unavailable or an error occurs, the `callback`
-   * is invoked with `null`.
-   *
-   * @param callback {Function}
-   *     A callback method to invoke. If data if fetched successfully, the
-   *     data is passed to the callback, if any error occurs, the callback
-   *     is invoked with `null`.
-   */
-  _fetchData = function (callback) {
-    var content,
-        data;
-
-    // try plain old content bytes first
-    content = _this.model.getContent('contents.xml');
-    if (content) {
-      data = content.get('bytes');
-      if (data !== null) {
-        // force async
-        setTimeout(function () { callback(data); }, 0);
-      } else {
-        Xhr.ajax({
-          url: content.get('url'),
-          success: function (response, xhr) {
-            callback(xhr.responseXML);
-          },
-          error: function () {
-            callback(null);
-          }
-        });
-      }
-    } else {
-      // No contents.xml
-      callback(null);
+  _this.onSuccess = function (responseText, xhr) {
+    try {
+      _this.el.innerHTML = '<ul class="no-style">' +
+        _this.parse(xhr.responseXML).map(_this.renderFile).join('') +
+      '</ul>';
+    } catch (e) {
+      _this.onError('Failed to render content.');
     }
   };
 
-  _onData = function (data) {
-    if (!data) {
-      _renderNoData();
-    } else {
-      _renderFiles(_parse(data));
-    }
-  };
-
-  _parse = function (data) {
+  _this.parse = function (data) {
     return Array.prototype.map.call(
-        data.querySelectorAll('contents > file'), _parseFile);
+        data.querySelectorAll('contents > file'), _this.parseFile);
   };
 
-  _parseFile = function (file) {
+  _this.parseFile = function (file) {
     var caption,
         content,
         el,
         els,
-        errors,
         formats,
         href,
         i,
@@ -131,26 +70,26 @@ var DownloadView = function (options) {
     caption = file.querySelector('caption');
     caption = (caption ? caption.textContent : null);
     formats = [];
-    errors = [];
 
     els = file.querySelectorAll('format');
     for (i = 0, len = els.length; i < len; i++) {
       el = els[i];
       href = el.getAttribute('href');
       type = el.getAttribute('type');
-      content = _this.model.getContent(href);
-      if (content) {
+
+      try {
+        content = _product.getContent(href);
+
         formats.push({
           href: href,
           type: type,
           url: content.get('url'),
           length: content.get('length')
         });
-      } else {
-        errors.push({
-          href: href,
-          type: type
-        });
+      } catch (e) {
+        if (console && console.log) {
+          console.log(e.stack);
+        }
       }
     }
 
@@ -158,43 +97,23 @@ var DownloadView = function (options) {
       id: id,
       title: title,
       caption: caption,
-      formats: formats,
-      errors: errors
+      formats: formats
     };
   };
 
-  _renderFile = function (file) {
-    var formats;
-
-    formats = [];
-    file.formats.forEach(function (format) {
-      formats.push(_renderFormat(format));
-    });
-
+  _this.renderFile = function (file) {
     return [
       '<li class="download-file">',
         '<span class="download-title">', file.title ,'</span>',
         '<span class="download-caption">', file.caption, '</span>',
         '<ul class="download-formats">',
-          formats.join(''),
+          file.formats.map(_this.renderFormat).join(''),
         '</ul>',
       '</li>'
     ].join('');
   };
 
-  _renderFiles = function (files) {
-    var markup;
-
-    markup = [];
-
-    files.forEach(function (file) {
-      markup.push(_renderFile(file));
-    });
-
-    _listEl.innerHTML = markup.join('');
-  };
-
-  _renderFormat = function (format) {
+  _this.renderFormat = function (format) {
     var extension,
         size;
 
@@ -209,15 +128,6 @@ var DownloadView = function (options) {
         '</a>',
       '</li>'
     ].join('');
-  };
-
-  _renderNoData = function () {
-    _this.el.innerHTML = 'No download content available.';
-  };
-
-
-  _this.render = function () {
-    _fetchData(_onData);
   };
 
 
