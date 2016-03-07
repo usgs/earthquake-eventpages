@@ -119,8 +119,9 @@ var connect = {
         config.build + '/' + config.src + '/htdocs',
         config.etc
       ],
-      port: 8104,
-      open: 'http://localhost:8104/example.html'
+      middleware: addMiddleware,
+      open: 'http://localhost:8104/example.php',
+      port: 8104
     }
   },
 
