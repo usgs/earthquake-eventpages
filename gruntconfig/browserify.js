@@ -45,6 +45,14 @@ var browserify = {
   },
 
   // source bundles
+  'event': {
+    src: [config.src + '/htdocs/js/event.js'],
+    dest: config.build + '/' + config.src + '/htdocs/js/event.js',
+    options: {
+
+    }
+  },
+
   index: {
     src: [config.src + '/htdocs/js/index.js'],
     dest: config.build + '/' + config.src + '/htdocs/js/index.js',
