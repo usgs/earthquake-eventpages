@@ -8,7 +8,7 @@ var CWD = process.cwd(),
 
 
 var ALL_CLASSES = [
-  './' + config.src + '/htdocs/js/general/DownloadView.js:general/DownloadView',
+  './' + config.src + '/htdocs/js/core/DownloadView.js:core/DownloadView',
   './' + config.src + '/htdocs/js/pdl/Product.js:pdl/Product',
   NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
   NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
