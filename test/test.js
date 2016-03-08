@@ -48,6 +48,7 @@ require('./spec/pdl/ContentTest');
 require('./spec/pdl/ProductTest');
 
 require('./spec/shakemap/ShakeMapStationListViewTest');
+require('./spec/shakemap/ShakeMapViewTest');
 
 // require('./spec/modules/base/EventPageTest');
 // require('./spec/modules/base/EventModuleTest');
