@@ -7,7 +7,7 @@ var Accordion = require('accordion/Accordion'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
-var _NO_CONTENT_MESSAGE = 'No download content available.';
+var _NO_CONTENT_MESSAGE = 'No stations list available.';
 
 var FLAG_DESCRIPTIONS = {
   'M': 'Manually flagged',
