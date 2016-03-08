@@ -1,14 +1,13 @@
 'use strict';
 
 var Accordion = require('accordion/Accordion'),
+    ContentView = require('core/ContentView'),
     Formatter = require('core/Formatter'),
     ImpactUtil = require('base/ImpactUtil'),
     Util = require('util/Util'),
-    View = require('mvc/View'),
     Xhr = require('util/Xhr');
 
-var _DEFAULTS = {};
-
+var _NO_CONTENT_MESSAGE = 'No download content available.';
 
 var FLAG_DESCRIPTIONS = {
   'M': 'Manually flagged',
@@ -23,6 +22,7 @@ var STATION_LIST = {
   suffix: 'download/stationlist.json'
 };
 
+
 /**
  * View for a Station List.
  *
@@ -34,10 +34,11 @@ var ShakeMapStationListView = function (options) {
 
       _formatter;
 
-  _this = View(options);
+  options = options || {};
+  _this = ContentView(options);
 
   _initialize = function(options) {
-    options = Util.extend({}, _DEFAULTS, options);
+    _this.el.classList.add('shakemap-stations');
     _formatter = options.formatter || Formatter();
   };
 
@@ -275,61 +276,50 @@ var ShakeMapStationListView = function (options) {
         feature.geometry.coordinates[0] + ')';
   };
 
+  /**
+   * Renders the default error message. Called if an error occurs during the
+   * data fetch.
+   *
+   */
+  _this.onError = function (/*status, xhr*/) {
+    _this.el.innerHTML = _NO_CONTENT_MESSAGE;
+  };
 
-  _this.getStationData = function (callback, errback) {
-    var file = _this.model.getContent(STATION_LIST.suffix);
-
-    if (!file) {
-      return errback('No station list exists.');
-    }
-
-    // get station content and build the station list
-    Xhr.ajax({
-      url: file.get('url'),
-      success: function (data) {
-        callback(data);
-      },
-      error: function (e /*, xhr*/) {
-        errback('Unable to retreive the station list.');
-        console.log(e.stack);
-      }
+  /**
+   * Renders the list of downloads. Called when data is successfully fetched.
+   *
+   */
+  _this.onSuccess = function (responseText/*, xhr*/) {
+    _this.el.innerHTML = ['<div class="shakemap-stations">' +
+      _this.buildStationList(responseText) +
+      '</div>'].join('');
+    new Accordion({
+      el:_this.el
     });
   };
 
+  _this.fetchData = function () {
+    var data;
 
-  /**
-   * Build a list of stations from stationlist.xml, these stations have
-   * an expandable details section.
-   */
-  _this.render = function () {
-    var el = _this.el;
-
-    el = _this.el;
-    el.innerHTML = ['<div class="no-style shakemap-stations">' +
-      '<p>Loading station list data from JSON, please wait...</p>' +
-      '</div>'].join('');
-
-    _this.getStationData(
-        function (stations) {
-          // add station list content
-          el.innerHTML = ['<div class="shakemap-stations">' +
-            _this.buildStationList(stations) +
-            '</div>'].join('');
-          new Accordion({
-            el:_this.el
-          });
-        },
-        function (errorMessage) {
-          el.innerHTML = '<p class="alert error">' +
-              errorMessage + '</p>';
-        }
-    );
+    data = _this.model.getContent('byte');
+    if (data !== null) {
+      // force async
+      setTimeout(function () { _this.onSuccess(data, null); }, 0);
+    } else {
+      Xhr.ajax({
+        url: _this.model.getContent(STATION_LIST.suffix).get('url'),
+        success: _this.onSuccess,
+        error: _this.onError
+      });
+    }
   };
+
 
   _initialize(options);
   options = null;
   return _this;
 };
 
+ShakeMapStationListView.NO_CONTENT_MESSAGE = _NO_CONTENT_MESSAGE;
 
 module.exports = ShakeMapStationListView;
