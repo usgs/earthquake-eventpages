@@ -13,4 +13,8 @@ print navGroup('Impact',
         'ShakeMapStationListView ') .
     navItem('/dyfi/DYFIResponsesViewExample.php', 'DYFIResponsesView')
   );
+
+print navGroup('General',
+    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View')
+  );
 ?>
