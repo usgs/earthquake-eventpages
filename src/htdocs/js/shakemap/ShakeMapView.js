@@ -16,7 +16,7 @@ var ShakeMapView = function (options) {
   };
 
   _this.render = function () {
-    _this.el.innerHTML = '<p>ShakeMapView Product Information</p>';
+    _this.el.innerHTML = '<p>ShakeMapView Output</p>';
   };
 
   _initialize(options);
