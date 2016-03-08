@@ -41,6 +41,7 @@ require('./spec/core/FormatterTest');
 
 require('./spec/dyfi/DYFIResponsesViewTest');
 
+require('./spec/general/NearbyPlacesViewTest');
 require('./spec/general/TextProductViewTest');
 
 require('./spec/pdl/ContentTest');
