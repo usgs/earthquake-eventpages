@@ -30,25 +30,25 @@ var product = Product({
       contentType: "image/png",
       lastModified: 1455229051000,
       length: 608735,
-      url: "http://earthquake.usgs.gov/archive/product/scitech-text/usp000hvnu-1455229215593/admin/1455230870084/kur999_base.png"
+      url: "/products/scitech-text/usp000hvnu-1455229215593/admin/1455230870084/kur999_base.png"
     },
     'kur999_dip.png': {
       contentType: "image/png",
       lastModified: 1455229100000,
       length: 64213,
-      url: "http://earthquake.usgs.gov/archive/product/scitech-text/usp000hvnu-1455229215593/admin/1455230870084/kur999_dip.png"
+      url: "/products/scitech-text/usp000hvnu-1455229215593/admin/1455230870084/kur999_dip.png"
     },
     'kur999_trench.png': {
       contentType: "image/png",
       lastModified: 1455229068000,
       length: 196081,
-      url: "http://earthquake.usgs.gov/archive/product/scitech-text/usp000hvnu-1455229215593/admin/1455230870084/kur999_trench.png"
+      url: "/products/scitech-text/usp000hvnu-1455229215593/admin/1455230870084/kur999_trench.png"
     },
     'kur999_trench2.gif': {
       contentType: "image/gif",
       lastModified: 1455229779000,
       length: 61477,
-      url: "http://earthquake.usgs.gov/archive/product/scitech-text/usp000hvnu-1455229215593/admin/1455230870084/kur999_trench2.gif"
+      url: "/products/scitech-text/usp000hvnu-1455229215593/admin/1455230870084/kur999_trench2.gif"
     }
   }
 });
