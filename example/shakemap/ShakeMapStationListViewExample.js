@@ -7,9 +7,13 @@ var ShakeMapStationListView = require('shakemap/ShakeMapStationListView'),
 Xhr.ajax({
   url: '/events/us10004u1y.json',
   success: function (data) {
+    var product;
+
+    product = Product(data.properties.products.shakemap[0]);
+
     ShakeMapStationListView({
       el: document.querySelector('#shakemapstationlist-view-example'),
-      model: Product(data.properties.products.shakemap[0])
+      model: product.getContent('download/stationlist.json')
     }).render();
   },
   error: function () {

@@ -4,8 +4,7 @@ var Accordion = require('accordion/Accordion'),
     ContentView = require('core/ContentView'),
     Formatter = require('core/Formatter'),
     ImpactUtil = require('base/ImpactUtil'),
-    Util = require('util/Util'),
-    Xhr = require('util/Xhr');
+    Util = require('util/Util');
 
 var _NO_CONTENT_MESSAGE = 'No stations list available.';
 
@@ -17,10 +16,10 @@ var FLAG_DESCRIPTIONS = {
   'N': 'Not in list of known stations'
 };
 
-var STATION_LIST = {
-  title: 'Station List',
-  suffix: 'download/stationlist.json'
-};
+// var STATION_LIST = {
+//   title: 'Station List',
+//   suffix: 'download/stationlist.json'
+// };
 
 
 /**
@@ -298,27 +297,12 @@ var ShakeMapStationListView = function (options) {
     });
   };
 
-  _this.fetchData = function () {
-    var data;
-
-    data = _this.model.getContent('byte');
-    if (data !== null) {
-      // force async
-      setTimeout(function () { _this.onSuccess(data, null); }, 0);
-    } else {
-      Xhr.ajax({
-        url: _this.model.getContent(STATION_LIST.suffix).get('url'),
-        success: _this.onSuccess,
-        error: _this.onError
-      });
-    }
-  };
-
 
   _initialize(options);
   options = null;
   return _this;
 };
+
 
 ShakeMapStationListView.NO_CONTENT_MESSAGE = _NO_CONTENT_MESSAGE;
 
