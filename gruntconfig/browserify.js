@@ -11,12 +11,13 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/core/DownloadView.js:core/DownloadView',
   './' + config.src + '/htdocs/js/core/EventPage.js:core/EventPage',
   './' + config.src + '/htdocs/js/core/Formatter.js:core/Formatter',
+  './' + config.src + '/htdocs/js/general/NearbyPlacesView.js:general/NearbyPlacesView',
   './' + config.src + '/htdocs/js/general/TextProductView.js:general/TextProductView',
-  './' + config.src + '/htdocs/js/shakemap/ShakeMapStationListView.js' +
-      ':shakemap/ShakeMapStationListView',
+  './' + config.src + '/htdocs/js/pdl/Content.js:pdl/Content',
   './' + config.src + '/htdocs/js/pdl/Product.js:pdl/Product',
-  './' + config.src + '/htdocs/js/dyfi/DYFIResponsesView.js:' +
-      'dyfi/DYFIResponsesView',
+  './' + config.src + '/htdocs/js/dyfi/DYFIResponsesView.js:dyfi/DYFIResponsesView',
+  './' + config.src + '/htdocs/js/shakemap/ShakeMapStationListView.js:shakemap/ShakeMapStationListView',
+
   NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
   NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
 ];
