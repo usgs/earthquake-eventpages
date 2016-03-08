@@ -1,6 +1,6 @@
 <?php
 
-print navGroup('General',
-    navItem('/general/DownloadViewExample.php', 'DownloadView')
+print navGroup('Core',
+    navItem('/core/DownloadViewExample.php', 'DownloadView')
   );
 ?>
