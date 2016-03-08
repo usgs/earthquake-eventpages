@@ -9,6 +9,10 @@ var CWD = process.cwd(),
 
 var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/core/DownloadView.js:core/DownloadView',
+  './' + config.src + '/htdocs/js/general/DownloadView.js' +
+      ':general/DownloadView',
+  './' + config.src + '/htdocs/js/shakemap/ShakemapStationListView.js' +
+      ':shakemap/ShakeMapStationListView',
   './' + config.src + '/htdocs/js/pdl/Product.js:pdl/Product',
   NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
   NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
@@ -16,13 +20,16 @@ var ALL_CLASSES = [
 
 var BUNDLED_DEPENDENCIES = [
   './' + config.src + '/htdocs/modules/base/Attribution.js:base/Attribution',
-  './' + config.src + '/htdocs/modules/base/EventModulePage.js:base/EventModulePage',
+  './' + config.src + '/htdocs/modules/base/EventModulePage.js' +
+      ':base/EventModulePage',
   './' + config.src + '/htdocs/modules/base/EventUtil.js:base/EventUtil',
   './' + config.src + '/htdocs/modules/base/Formatter.js:base/Formatter',
   './' + config.src + '/htdocs/modules/base/ImpactUtil.js:base/ImpactUtil',
-  './' + config.src + '/htdocs/modules/base/SummaryDetailsPage.js:base/SummaryDetailsPage',
+  './' + config.src + '/htdocs/modules/base/SummaryDetailsPage.js' +
+      ':base/SummaryDetailsPage',
   './' + config.src + '/htdocs/modules/base/SummaryPage.js:base/SummaryPage',
-  NODE_MODULES + '/hazdev-accordion/src/accordion/Accordion.js:accordion/Accordion',
+  NODE_MODULES + '/hazdev-accordion/src/accordion/Accordion.js' +
+      ':accordion/Accordion',
   NODE_MODULES + '/hazdev-tablist/src/tablist/TabList.js:tablist/TabList',
   NODE_MODULES + '/hazdev-webutils/src/mvc/Collection.js:mvc/Collection',
   NODE_MODULES + '/hazdev-webutils/src/mvc/DataTable.js:mvc/DataTable',
@@ -130,7 +137,8 @@ var browserify = {
 
   scientific: {
     src: [],
-    dest: config.build + '/' + config.src + '/htdocs/modules/scientific/index.js',
+    dest: config.build + '/' + config.src +
+        '/htdocs/modules/scientific/index.js',
     options: {
       alias: [
         'scientific/FiniteFaultPage',
