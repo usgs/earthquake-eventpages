@@ -19,6 +19,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/shakemap/ShakeMapInfoView.js:shakemap/ShakeMapInfoView',
   './' + config.src + '/htdocs/js/shakemap/ShakeMapStationListView.js:shakemap/ShakeMapStationListView',
   './' + config.src + '/htdocs/js/shakemap/ShakeMapView.js:shakemap/ShakeMapView',
+  NODE_MODULES + '/hazdev-tablist/src/tablist/TabList.js:tablist/TabList',
   NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
   NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
 ];

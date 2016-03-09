@@ -277,15 +277,6 @@ var EventPage = function (options) {
 
     // notify that page was rendered
     _this.trigger('render');
-
-    // TODO: remove this
-    _eventHeaderEl.querySelector('.module-settings').innerHTML =
-        '<pre>' +
-          JSON.stringify({
-            'module': module,
-            'params': params
-          }, null, 2) +
-        '</pre>';
   };
 
   /**
