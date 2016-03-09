@@ -9,7 +9,7 @@ if (!isset($TEMPLATE)) {
 
   // Stuff that goes at the top of the page (in the <head>) (i.e. <link> tags)
   $HEAD = '
-    <link rel="stylesheet" href="/css/event.css"/>
+    <link rel="stylesheet" href="/css/index.css"/>
   ';
 
   // Stuff that goes at the bottom of the page (i.e. <script> tags)
