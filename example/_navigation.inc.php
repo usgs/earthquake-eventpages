@@ -6,7 +6,10 @@ print navGroup('Core',
   );
 
 print navGroup('General',
-    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View')
+    navItem('/general/GeoserveNearbyPlacesViewExample.php',
+        'Geoserve Nearby Places View') .
+    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View') .
+    navItem('/general/TextProductViewExample.php', 'TextProductView')
   );
 
 print navGroup('Impact',
@@ -16,5 +19,4 @@ print navGroup('Impact',
         'ShakeMapStationListView ') .
     navItem('/shakemap/ShakeMapViewExample.php', 'ShakeMapView')
   );
-
 ?>
