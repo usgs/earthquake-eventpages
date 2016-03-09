@@ -43,6 +43,72 @@ describe('core/Formatter', function () {
     });
   });
 
+  describe('compassWinds', function () {
+    it('0 degrees returns N', function () {
+      expect(formatter.compassWinds(0)).to.equal('N');
+    });
+
+    it('22.5 degrees returns NNE', function () {
+      expect(formatter.compassWinds(22.5)).to.equal('NNE');
+    });
+
+    it('45 degrees returns NE', function () {
+      expect(formatter.compassWinds(45)).to.equal('NE');
+    });
+
+    it('67.5 degrees returns ENE', function () {
+      expect(formatter.compassWinds(67.5)).to.equal('ENE');
+    });
+
+    it('90 degrees returns E', function () {
+      expect(formatter.compassWinds(90)).to.equal('E');
+    });
+
+    it('112.5 Degrees returns ESE', function () {
+      expect(formatter.compassWinds(112.5)).to.equal('ESE');
+    });
+
+    it('135 degrees returns SE', function () {
+      expect(formatter.compassWinds(135)).to.equal('SE');
+    });
+
+    it('157.5 degrees returns SSE', function () {
+      expect(formatter.compassWinds(157.5)).to.equal('SSE');
+    });
+
+    it('180 degrees returns S', function () {
+      expect(formatter.compassWinds(180)).to.equal('S');
+    });
+
+    it('202.5 degrees returns SSW', function () {
+      expect(formatter.compassWinds(202.5)).to.equal('SSW');
+    });
+
+    it('225 degrees returns SW', function () {
+      expect(formatter.compassWinds(225)).to.equal('SW');
+    });
+
+    it('247.5 degrees returns WSW', function () {
+      expect(formatter.compassWinds(247.5)).to.equal('WSW');
+    });
+
+    it('270 degrees returns W', function () {
+      expect(formatter.compassWinds(270)).to.equal('W');
+    });
+
+    it('292.5 degrees returns WNW', function () {
+      expect(formatter.compassWinds(292.5)).to.equal('WNW');
+    });
+
+    it('315 degrees returns NW', function () {
+      expect(formatter.compassWinds(315)).to.equal('NW');
+    });
+
+    it('337.5 degrees returns NNW', function () {
+      expect(formatter.compassWinds(337.5)).to.equal('NNW');
+    });
+  });
+
   describe('date', function () {
     it('returns empty value when undefined', function () {
       expect(formatter.date()).to.equal('EMPTY');
