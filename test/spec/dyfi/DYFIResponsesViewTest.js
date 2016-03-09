@@ -90,11 +90,13 @@ describe('dyfi/DYFIResponsesView', function () {
     it('should toggle clasname', function () {
       view.onSuccess(null, xhr);
 
-      expect(view.el.getElementsByClassName('full-list').length).to.equal(0);
+      expect(view.el.getElementsByClassName(
+          'full-list').length).to.equal(0);
 
       view.onToggleButtonClick();
 
-      expect(view.el.getElementsByClassName('full-list').length).to.not.equal(0);
+      expect(view.el.getElementsByClassName(
+          'full-list').length).to.not.equal(0);
     });
   });
 
