@@ -73,7 +73,7 @@ var ShakeMapView = function (options) {
     }
 
     // TODO, Add StationList
-    if (contents.get('download/stationlist.json')) {
+    if (contents.get('download/stationlist.xml')) {
       _this.tablist.addTab({
         title: 'Station List',
         content: '<p>TODO :: Add Station List View</p>'
