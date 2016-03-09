@@ -67,6 +67,22 @@ var Formatter = function (options) {
   };
 
   /**
+   * Convert azimuth in degree's into compass points.
+   */
+  _this.compassWinds = function(azimuth) {
+    var fullwind = 22.5,
+        directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE',
+            'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N'];
+
+    // if direction is already in compass points
+    if (directions.indexOf(azimuth) > -1) {
+      return azimuth;
+    }
+
+    return directions[(Math.round((azimuth%360)/fullwind))];
+  };
+
+  /**
    * Format a UTC date.
    *
    * @param date {Date}
