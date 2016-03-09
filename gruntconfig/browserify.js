@@ -13,6 +13,8 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/shakemap/ShakeMapStationListView.js' +
       ':shakemap/ShakeMapStationListView',
   './' + config.src + '/htdocs/js/pdl/Product.js:pdl/Product',
+  './' + config.src + '/htdocs/js/dyfi/DYFIResponsesView.js:' +
+      'dyfi/DYFIResponsesView',
   NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
   NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
 ];
