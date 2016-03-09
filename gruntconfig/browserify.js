@@ -13,6 +13,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/core/Formatter.js:core/Formatter',
   './' + config.src + '/htdocs/js/core/TextProductView.js:core/TextProductView',
   './' + config.src + '/htdocs/js/dyfi/DYFIResponsesView.js:dyfi/DYFIResponsesView',
+  './' + config.src + '/htdocs/js/general/GeoserveNearbyPlacesView.js:general/GeoserveNearbyPlacesView',
   './' + config.src + '/htdocs/js/general/NearbyPlacesView.js:general/NearbyPlacesView',
   './' + config.src + '/htdocs/js/pdl/Content.js:pdl/Content',
   './' + config.src + '/htdocs/js/pdl/Product.js:pdl/Product',
