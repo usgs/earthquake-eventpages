@@ -1,0 +1,164 @@
+<cdidata>
+  <cdi type="city">
+    <location name="Singapore::_no region::Singapore">
+      <cdi>2</cdi>
+      <nresp>10</nresp>
+      <dist>1267</dist>
+      <lat>1.30</lat>
+      <lon>103.85</lon>
+      <name>Singapore</name>
+    </location>
+    <location name="Badulla::Badulla::Sri Lanka">
+      <cdi>1</cdi>
+      <nresp>1</nresp>
+      <dist>1974</dist>
+      <lat>6.99</lat>
+      <lon>81.05</lon>
+      <name>Badulla</name>
+    </location>
+    <location name="Ambalangoda::Gālla::Sri Lanka">
+      <cdi>1</cdi>
+      <nresp>1</nresp>
+      <dist>2005</dist>
+      <lat>6.24</lat>
+      <lon>80.06</lon>
+      <name>Ambalangoda</name>
+    </location>
+    <location name="Ko Samui::Surat Thani::Thailand">
+      <cdi>1</cdi>
+      <nresp>1</nresp>
+      <dist>1716</dist>
+      <lat>9.53</lat>
+      <lon>99.93</lon>
+      <name>Ko Samui</name>
+    </location>
+    <location name="Port Blair::Andaman and Nicobar Islands::India">
+      <cdi>3.0916</cdi>
+      <nresp>1</nresp>
+      <dist>1840</dist>
+      <lat>11.67</lat>
+      <lon>92.76</lon>
+      <name>Port Blair</name>
+    </location>
+    <location name="Banda Aceh::Aceh::Indonesia">
+      <cdi>2</cdi>
+      <nresp>1</nresp>
+      <dist>1162</dist>
+      <lat>5.55</lat>
+      <lon>95.32</lon>
+      <name>Banda Aceh</name>
+    </location>
+    <location name="Denpasar::Bali::Indonesia">
+      <cdi>1</cdi>
+      <nresp>1</nresp>
+      <dist>2352</dist>
+      <lat>-8.65</lat>
+      <lon>115.22</lon>
+      <name>Denpasar</name>
+    </location>
+    <location name="Kuta::Bali::Indonesia">
+      <cdi>1</cdi>
+      <nresp>1</nresp>
+      <dist>2348</dist>
+      <lat>-8.72</lat>
+      <lon>115.17</lon>
+      <name>Kuta</name>
+    </location>
+    <location name="Bengkulu::Bengkulu::Indonesia">
+      <cdi>2</cdi>
+      <nresp>1</nresp>
+      <dist>894</dist>
+      <lat>-3.80</lat>
+      <lon>102.25</lon>
+      <name>Bengkulu</name>
+    </location>
+    <location name="Jakarta::Jakarta::Indonesia">
+      <cdi>1</cdi>
+      <nresp>1</nresp>
+      <dist>1398</dist>
+      <lat>-6.18</lat>
+      <lon>106.83</lon>
+      <name>Jakarta</name>
+    </location>
+    <location name="Gedangan::Jawa Timur::Indonesia">
+      <cdi>1</cdi>
+      <nresp>1</nresp>
+      <dist>2058</dist>
+      <lat>-7.38</lat>
+      <lon>112.71</lon>
+      <name>Gedangan</name>
+    </location>
+    <location name="Pekan Baru::Riau::Indonesia">
+      <cdi>1</cdi>
+      <nresp>1</nresp>
+      <dist>999</dist>
+      <lat>0.56</lat>
+      <lon>101.43</lon>
+      <name>Pekan Baru</name>
+    </location>
+    <location name="Selatpanjang::Riau::Indonesia">
+      <cdi>2</cdi>
+      <nresp>1</nresp>
+      <dist>1032</dist>
+      <lat>-0.99</lat>
+      <lon>102.70</lon>
+      <name>Selatpanjang</name>
+    </location>
+    <location name="Padang::Sumatera Barat::Indonesia">
+      <cdi>2</cdi>
+      <nresp>1</nresp>
+      <dist>805</dist>
+      <lat>-0.95</lat>
+      <lon>100.35</lon>
+      <name>Padang</name>
+    </location>
+    <location name="Medan::Sumatera Utara::Indonesia">
+      <cdi>2</cdi>
+      <nresp>1</nresp>
+      <dist>1059</dist>
+      <lat>3.59</lat>
+      <lon>98.67</lon>
+      <name>Medan</name>
+    </location>
+    <location name="Pasir Gudang::Johor::Malaysia">
+      <cdi>2</cdi>
+      <nresp>1</nresp>
+      <dist>1280</dist>
+      <lat>1.45</lat>
+      <lon>103.89</lon>
+      <name>Pasir Gudang</name>
+    </location>
+    <location name="Kota Bahru::Kelantan::Malaysia">
+      <cdi>2.2372</cdi>
+      <nresp>1</nresp>
+      <dist>1507</dist>
+      <lat>6.12</lat>
+      <lon>102.24</lon>
+      <name>Kota Bahru</name>
+    </location>
+    <location name="Kuala Lumpur::Kuala Lumpur::Malaysia">
+      <cdi>2</cdi>
+      <nresp>1</nresp>
+      <dist>1217</dist>
+      <lat>3.16</lat>
+      <lon>101.71</lon>
+      <name>Kuala Lumpur</name>
+    </location>
+    <location name="Kampong Koh::Perak::Malaysia">
+      <cdi>2.5168</cdi>
+      <nresp>1</nresp>
+      <dist>1234</dist>
+      <lat>4.19</lat>
+      <lon>100.70</lon>
+      <name>Kampong Koh</name>
+    </location>
+    <location name="Georgetown::Pulau Pinang::Malaysia">
+      <cdi>2.1883</cdi>
+      <nresp>2</nresp>
+      <dist>1320</dist>
+      <lat>5.37</lat>
+      <lon>100.31</lon>
+      <name>Georgetown</name>
+    </location>
+  </cdi>
+</cdidata>
