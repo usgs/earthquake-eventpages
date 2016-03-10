@@ -1,6 +1,7 @@
 'use strict';
 
-var LocationView = require('general/LocationView'),
+var GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
+    LocationView = require('general/LocationView'),
     Module = require('core/Module'),
     Util = require('util/Util');
 
@@ -38,6 +39,7 @@ var GeneralSummaryModule = function (options) {
 
       _generalLinkEl,
       _generalTextEl,
+      _geoserveNearbyPlacesView,
       _locationEl,
       _locationView,
       _nearbyPlacesEl,
@@ -107,6 +109,7 @@ var GeneralSummaryModule = function (options) {
 
     _generalLinkEl = null;
     _generalTextEl = null;
+    _geoserveNearbyPlacesView = null;
     _locationEl = null;
     _locationView.destroy();
     _locationView = null;
@@ -143,7 +146,16 @@ var GeneralSummaryModule = function (options) {
   };
 
   _renderNearbyPlaces = function () {
-    _nearbyPlacesEl.innerHTML = '<h3>Nearby Places</h3>';
+    if (!_geoserveNearbyPlacesView) {
+      _geoserveNearbyPlacesView = GeoserveNearbyPlacesView({
+        el: _nearbyPlacesEl,
+        model: _preferredOrigin,
+        eventConfig: {
+          'GEOSERVE_WS_URL': _this.model.get('config').GEOSERVE_WS_URL
+        }
+      });
+    }
+    _geoserveNearbyPlacesView.render();
   };
 
   _renderTectonicSummary = function () {
