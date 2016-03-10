@@ -11,4 +11,6 @@ if (!isset($TEMPLATE)) {
 }
 ?>
 
+<div class="site-sectionnav">
 <?php print $NAVIGATION; ?>
+</div>

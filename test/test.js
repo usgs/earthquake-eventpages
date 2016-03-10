@@ -39,6 +39,8 @@ require('./spec/core/DownloadViewTest');
 require('./spec/core/EventPageTest');
 require('./spec/core/FormatterTest');
 
+require('./spec/dyfi/DYFIResponsesViewTest');
+
 require('./spec/general/TextProductViewTest');
 
 require('./spec/pdl/ContentTest');
