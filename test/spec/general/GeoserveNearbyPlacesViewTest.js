@@ -6,13 +6,13 @@ var GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
 
 var expect = chai.expect;
 
-describe('general/NearbyPlacesView', function () {
+describe('general/GeoserveNearbyPlacesView', function () {
   var data,
       xhr;
 
   before(function (done) {
     Xhr.ajax({
-      url: '/products/nearby-cities/us10004u1y/us/1456926111040/nearby-cities.json',
+      url: 'http://earthquake.usgs.gov/ws/geoserve/places.json?type=event&latitude=39.75&longitude=-105.2',
       success: function (r, x) {
         data = r;
         xhr = x;
@@ -23,12 +23,12 @@ describe('general/NearbyPlacesView', function () {
 
   describe('constructor', function () {
     it('should be defined', function () {
-      expect(typeof NearbyPlacesView).to.equal('function');
+      expect(typeof GeoserveNearbyPlacesView).to.equal('function');
     });
 
     it('can be constructed', function () {
       /* jshint -W030 */
-      expect(NearbyPlacesView).to.not.be.null;
+      expect(GeoserveNearbyPlacesView).to.not.be.null;
       /* jshint +W030 */
     });
   });
@@ -37,7 +37,7 @@ describe('general/NearbyPlacesView', function () {
     var placesView;
 
     before(function () {
-      placesView = NearbyPlacesView();
+      placesView = GeoserveNearbyPlacesView();
     });
 
     it('should create a list', function () {
@@ -50,19 +50,18 @@ describe('general/NearbyPlacesView', function () {
 
     it('should return 5 locations', function () {
       /* jshint -W030 */
-      expect(data.length).to.equal(5);
+      expect(data.event.features.length).to.equal(5);
       /* jshint +W030 */
     });
 
-    it('should contain direction, distance, latitude, longitude,' +
-        ' name, and population', function () {
+    it('should contain direction, distance, name, admin1_name,' +
+        ' and, country_name', function () {
       /* jshint -W030 */
-      expect(data[0].direction).to.not.be.null;
-      expect(data[0].distance).to.not.be.null;
-      expect(data[0].latitude).to.not.be.null;
-      expect(data[0].longitude).to.not.be.null;
-      expect(data[0].name).to.not.be.null;
-      expect(data[0].population).to.not.be.null;
+      expect(data.event.features[0].properties.direction).to.not.be.null;
+      expect(data.event.features[0].properties.distance).to.not.be.null;
+      expect(data.event.features[0].properties.name).to.not.be.null;
+      expect(data.event.features[0].properties.admin1_name).to.not.be.null;
+      expect(data.event.features[0].properties.country_name).to.not.be.null;
       /* jshint +W030 */
     });
   });
