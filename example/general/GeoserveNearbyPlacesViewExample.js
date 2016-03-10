@@ -1,17 +1,30 @@
 'use strict';
 
 var GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
-    Content = require('pdl/Content'),
+    Product = require('pdl/Product'),
     Xhr = require('util/Xhr');
 
-var geoserveUrl;
-geoserveUrl = 'http://earthquake.usgs.gov/ws/geoserve/places.json?latitude=39.75&longitude=-105.2&type=event';
 
-var geoserveNearbyPlacesView = GeoserveNearbyPlacesView({
-  el: document.querySelector('#geoserve-nearby-places-view-example'),
-  model: Content({
-    url: geoserveUrl
-  })
+Xhr.ajax({
+  url: '/events/us10004u1y.json',
+  success: function (data) {
+    var product;
+
+    product = Product(data.properties.products.origin[0]);
+
+    GeoserveNearbyPlacesView({
+      el: document.querySelector('#geoserve-nearby-places-view-example'),
+      model: product,
+      eventConfig: {
+        'GEOSERVE_WS_URL': 'http://earthquake.usgs.gov/ws/geoserve/'
+      }
+    }).render();
+  },
+  error: function () {
+    document.querySelector('#geoserve-nearby-places-view-example').innerHTML = [
+      '<p class="alert error">',
+        'Failed to create a geoserve nearby places view.',
+      '</p>'
+    ].join('');
+  }
 });
-
-geoserveNearbyPlacesView.render();
