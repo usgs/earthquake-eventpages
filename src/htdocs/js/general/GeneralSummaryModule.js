@@ -2,7 +2,6 @@
 
 var LocationView = require('general/LocationView'),
     Module = require('core/Module'),
-    NearbyPlacesView = require('general/NearbyPlacesView'),
     Util = require('util/Util');
 
 
@@ -43,7 +42,6 @@ var GeneralSummaryModule = function (options) {
       _locationView,
       _nearbyPlacesEl,
       _nearbyPlaces,
-      _nearbyPlacesView,
       _preferredOrigin,
       _tectonicSummaryEl,
       _timeEl,
@@ -146,13 +144,7 @@ var GeneralSummaryModule = function (options) {
   };
 
   _renderNearbyPlaces = function () {
-    if (!_nearbyPlacesView) {
-      _nearbyPlacesView = NearbyPlacesView({
-        el: _nearbyPlacesEl,
-        model: _nearbyPlaces
-      });
-    }
-    _nearbyPlacesView.render();
+    _nearbyPlacesEl.innerHTML = '<h3>Nearby Places</h3>';
   };
 
   _renderTectonicSummary = function () {
