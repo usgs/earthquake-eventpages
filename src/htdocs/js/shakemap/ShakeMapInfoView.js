@@ -328,7 +328,7 @@ var ShakeMapInfoView = function (options) {
           data: processing.site_response,
           headers: {
             'vs30default': 'Reference rock Vs30 (m/s)',
-            'site_correction': 'Site correct applied'
+            'site_correction': 'Site correction applied'
           },
           includeUnknown: true
         }) +
