@@ -33,6 +33,12 @@ var LocationView = function (options) {
     var el;
 
     el = _this.el;
+    if (_this.model === null) {
+      el.innerHTML = '<p class="alert info">' +
+          'No event information to display.' +
+          '</p>';
+    }
+
     el.innerHTML = '<h3>Location</h3>' +
         '<small class="attribution"></small>' +
         '<figure class="summary-map">' +
@@ -57,7 +63,7 @@ var LocationView = function (options) {
         longitude,
         properties;
 
-    properties = _this.model.get('properties');
+    properties = _this.model.get('properties') || {};
     depth = properties.depth || null;
     latitude = properties.latitude || null;
     longitude = properties.longitude || null;

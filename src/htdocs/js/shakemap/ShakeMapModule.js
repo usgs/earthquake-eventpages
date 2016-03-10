@@ -6,25 +6,14 @@ var Module = require('core/Module'),
 
 var _ID,
     _TITLE,
-
-    _hasContent;
+    _TYPES;
 
 
 // Note: These should be overridden by each implementing sub-class.
 _ID = 'shakemap';
 _TITLE = 'ShakeMap';
+_TYPES = ['shakemap'];
 
-_hasContent = function (eventPageModel) {
-  var ev;
-
-  ev = eventPageModel.get('event');
-  if (ev !== null && ev.getProducts('shakemap').length > 0) {
-    // only show this module if there is an event
-    return true;
-  }
-
-  return false;
-};
 
 var _DEFAULTS = {
 
@@ -84,8 +73,7 @@ var ShakeMapModule = function (options) {
 
 ShakeMapModule.ID = _ID;
 ShakeMapModule.TITLE = _TITLE;
-
-ShakeMapModule.hasContent = _hasContent;
+ShakeMapModule.TYPES = _TYPES;
 
 
 module.exports = ShakeMapModule;

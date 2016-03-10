@@ -42,7 +42,6 @@ var EventPage = function (options) {
 
       _createNavItem,
       _initializeModules,
-      _moduleHasContent,
       _onHashChange,
       _parseHash,
       _renderFooterContent,
@@ -124,7 +123,7 @@ var EventPage = function (options) {
 
     _modules = {};
 
-    types = Object.keys(_event.getProducts());
+    types = (_event ? Object.keys(_event.getProducts()) : []);
     moduleGroups = _config.modules;
     numGroups = moduleGroups.length;
 
@@ -140,7 +139,7 @@ var EventPage = function (options) {
 
         _modules[module.ID] = module;
 
-        if (_moduleHasContent(module, types)) {
+        if (_this.moduleHasContent(module, types)) {
           if (!group) {
             group = document.createElement('section');
             group.appendChild(_createNavItem(module, true));
@@ -160,8 +159,36 @@ var EventPage = function (options) {
     // TODO :: Add one-off links to navigation ...
   };
 
-  _moduleHasContent = function (module, productTypes) {
+  /**
+   * Check whether event page is in scenario mode.
+   *
+   * @return {Boolean}
+   *     true, when event page is configured to be in scenario mode;
+   *     false, otherwise.
+   */
+  _this.isScenarioMode = function () {
+    return (_config.scenarioMode === true);
+  };
+
+  /**
+   * Check whether a module has content.
+   *
+   * If `module` defines a static hasContent method, defer to module.
+   * Otherwise, `module` should define a static TYPES property with a list
+   * of "base" product types; if event page is in scenario mode, automatically
+   * adds "-scenario" suffix to base type.
+   *
+   * @param module {Module}
+   *     the module to check.
+   * @param productTypes {Array<String>}
+   *     array of product types associated with current event.
+   * @return {Boolean}
+   *     true, if module should be included in navigation;
+   *     false, otherwise.
+   */
+  _this.moduleHasContent = function (module, productTypes) {
     var i,
+        isScenarioMode,
         len,
         type;
 
@@ -170,8 +197,13 @@ var EventPage = function (options) {
       return module.hasContent(_model);
     } else if (module.hasOwnProperty('TYPES') && Array.isArray(module.TYPES)) {
       len = module.TYPES.length;
+      isScenarioMode = _this.isScenarioMode();
+
       for (i = 0; i < len; i++) {
         type = module.TYPES[i];
+        if (isScenarioMode) {
+          type += '-scenario';
+        }
 
         if (productTypes.indexOf(type) !== -1) {
           return true;

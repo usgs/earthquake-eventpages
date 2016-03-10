@@ -9,6 +9,8 @@ var CWD = process.cwd(),
 
 var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/core/DownloadView.js:core/DownloadView',
+  './' + config.src + '/htdocs/js/core/EventPage.js:core/EventPage',
+  './' + config.src + '/htdocs/js/core/Formatter.js:core/Formatter',
   './' + config.src + '/htdocs/js/general/TextProductView.js:general/TextProductView',
   './' + config.src + '/htdocs/js/shakemap/ShakeMapStationListView.js' +
       ':shakemap/ShakeMapStationListView',
@@ -98,7 +100,7 @@ var browserify = {
     src: config.test + '/test.js',
     dest: config.build + '/' + config.test + '/test.js',
     options: {
-      alias: BUNDLED_DEPENDENCIES
+      external: ALL_CLASSES
     }
   },
 
