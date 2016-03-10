@@ -94,7 +94,10 @@ var ShakeMapInfoView = function (options) {
   /**
    * Error callback if unable to load info.json.
    */
-  _this.onError = function () {
+  _this.onError = function (e) {
+    if (e && e.stack) {
+      console.log(e.stack);
+    }
     _this.el.innerHTML = '<p class="alert error">' +
         'Unable to load ShakeMap information' +
         '</p>';
@@ -166,11 +169,9 @@ var ShakeMapInfoView = function (options) {
    */
   _this.renderOutput = function (json, el) {
     var buf,
-        map,
         output;
 
     output = json.output;
-    map = output.map_information;
 
     buf = [];
     buf.push('<h2>Output</h2>');
@@ -205,19 +206,7 @@ var ShakeMapInfoView = function (options) {
 
     buf.push('<h3>Map Information</h3>' +
         _this.formatTable({
-          data: {
-            'max': {
-              'latitude': map.bbox[1],
-              'longitude': map.bbox[0]
-            },
-            'min': {
-              'latitude': map.bbox[3],
-              'longitude': map.bbox[2]
-            },
-            'grid_points': map.grid_points,
-            'grid_spacing': map.grid_spacing,
-            'grid_span': map.grid_span
-          },
+          data: output.map_information,
           formatValue: function (v) {
             return '<td>' + v.latitude + '</td>' +
                 '<td>' + v.longitude + '</td>';
@@ -244,7 +233,9 @@ var ShakeMapInfoView = function (options) {
           data: output.uncertainty,
           headers: {
             'mean_uncertainty_ratio': 'Mean of map uncertainty',
-            'grade': 'Emperical ShakeMap Grade'
+            'grade': 'Emperical ShakeMap Grade',
+            'total_flagged_pgm': 'Flaged seismic stations',
+            'total_flagged_mi': 'Flagged DYFI stations'
           }
         }));
     el.innerHTML = buf.join('');
@@ -260,11 +251,9 @@ var ShakeMapInfoView = function (options) {
    */
   _this.renderProcessing = function (json, el) {
     var buf,
-        processing,
-        roi;
+        processing;
 
     processing = json.processing;
-    roi = processing.roi || {};
 
     buf = [];
     buf.push('<h2>Processing</h2><div class="row">');
@@ -349,16 +338,7 @@ var ShakeMapInfoView = function (options) {
         '<div class="one-of-two column">' +
         '<h3>ROI</h3>' +
         _this.formatTable({
-          data: {
-            'gm': {
-              'roi': roi.gmroi,
-              'decay': roi.gmdecay
-            },
-            'i': {
-              'roi': roi.iroi,
-              'decay': roi.idecay
-            }
-          },
+          data: processing.roi,
           formatValue: function (v) {
             return '<td>' + v.roi + '</td>' +
                 '<td>' + v.decay + '</td>';
