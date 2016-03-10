@@ -64,13 +64,15 @@ describe('shakemap/ShakeMapStationListView', function () {
 
     it('should create a list', function () {
       /* jshint -W030 */
-      expect(view.el.querySelector('div.shakemap-stations')).to.be.null;
+      expect(view.el.querySelectorAll('.shakemap-stations > .station').length).
+          to.equal(0);
       /* jshint +W030 */
 
       view.onSuccess(responseText, xhr);
 
       /* jshint -W030 */
-      expect(view.el.querySelector('div.shakemap-stations')).to.not.be.null;
+      expect(view.el.querySelector('.shakemap-stations > .station').length).
+          to.not.be.null;
       /* jshint +W030 */
     });
   });
