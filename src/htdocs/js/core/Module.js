@@ -92,7 +92,7 @@ var Module = function (options) {
     updateTime = params.updateTime || null;
 
     config = _this.model.get('config');
-    if (config.scenario_mode === true) {
+    if (config.scenarioMode === true) {
       type += '-scenario';
     }
 
