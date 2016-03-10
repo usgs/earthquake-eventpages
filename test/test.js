@@ -40,9 +40,12 @@ require('./spec/core/EventPageTest');
 require('./spec/core/FormatterTest');
 require('./spec/core/TextProductViewTest');
 
+
 require('./spec/dyfi/DYFIResponsesViewTest');
 
+require('./spec/general/GeoserveNearbyPlacesViewTest');
 require('./spec/general/NearbyPlacesViewTest');
+
 
 require('./spec/pdl/ContentTest');
 require('./spec/pdl/ProductTest');
