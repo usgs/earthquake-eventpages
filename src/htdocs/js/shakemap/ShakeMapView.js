@@ -1,6 +1,7 @@
 'use strict';
 
 var ProductView = require('core/ProductView'),
+    ShakeMapStationListView = require('shakemap/ShakeMapStationListView'),
     TabList = require('tablist/TabList');
 
 
@@ -73,10 +74,15 @@ var ShakeMapView = function (options) {
     }
 
     // TODO, Add StationList
-    if (contents.get('download/stationlist.xml')) {
+    if (contents.get('download/stationlist.json')) {
+      var shakeMapStationListView = ShakeMapStationListView({
+            el: document.createElement('div'),
+            model: contents.get('download/stationlist.json')
+          });
+      shakeMapStationListView.render();
       _this.tablist.addTab({
         title: 'Station List',
-        content: '<p>TODO :: Add Station List View</p>'
+        content: shakeMapStationListView.el
       });
     }
 
