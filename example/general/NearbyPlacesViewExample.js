@@ -1,19 +1,20 @@
 'use strict';
 
 var NearbyPlacesView = require('general/NearbyPlacesView'),
-    Content = require('pdl/Content'),
+    Product = require('pdl/Product'),
     Xhr = require('util/Xhr');
+
 
 Xhr.ajax({
   url: '/events/us10004u1y.json',
   success: function (data) {
-    var content;
+    var product;
 
-    content = Content(data.properties.products['nearby-cities'][0].contents['nearby-cities.json']);
+    product = Product(data.properties.products['nearby-cities'][0]);
 
     NearbyPlacesView({
       el: document.querySelector('#nearby-places-view-example'),
-      model: content
+      model: product.getContent('nearby-cities.json')
     }).render();
   },
   error: function () {
