@@ -61,7 +61,11 @@ var GeneralSummaryModule = function (options) {
 
     _this.ID = _ID;
     _this.TITLE = _TITLE;
-    _preferredOrigin = _this.model.get('event').getSummary().originProduct;
+    try {
+      _preferredOrigin = _this.model.get('event').getSummary().originProduct;
+    } catch (e) {
+      _preferredOrigin = null;
+    }
 
     el = _this.content;
     el.innerHTML = [
