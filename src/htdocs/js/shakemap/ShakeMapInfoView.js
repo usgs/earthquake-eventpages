@@ -94,10 +94,7 @@ var ShakeMapInfoView = function (options) {
   /**
    * Error callback if unable to load info.json.
    */
-  _this.onError = function (e) {
-    if (e && e.stack) {
-      console.log(e.stack);
-    }
+  _this.onError = function () {
     _this.el.innerHTML = '<p class="alert error">' +
         'Unable to load ShakeMap information' +
         '</p>';
@@ -234,7 +231,7 @@ var ShakeMapInfoView = function (options) {
           headers: {
             'mean_uncertainty_ratio': 'Mean of map uncertainty',
             'grade': 'Emperical ShakeMap Grade',
-            'total_flagged_pgm': 'Flaged seismic stations',
+            'total_flagged_pgm': 'Flagged seismic stations',
             'total_flagged_mi': 'Flagged DYFI stations'
           }
         }));
