@@ -8,8 +8,10 @@ var Collection = require('mvc/Collection'),
 
 var _NO_CONTENT_MESSAGE = 'No Responses available.';
 
+/* Formatter for RESPONSE_DATA_COLUMNS */
 var formatter = Formatter();
 
+/* Array of Column Objects for Responses DataTable */
 var RESPONSE_DATA_COLUMNS = [
   {
     className: 'dyfi-response-location',
@@ -79,6 +81,7 @@ var RESPONSE_DATA_COLUMNS = [
   }
 ];
 
+/* Array of sort objects for use by DataTable */
 var RESPONSE_DATA_SORTS = [
   {
     id: 'city',
@@ -138,6 +141,18 @@ var RESPONSE_DATA_SORTS = [
   }
 ];
 
+/**
+ * This class extends the {ContentView} class and is specifically used
+ * for rendering "stationlist.json" for a given product. The `options.model`
+ * should be of type {Content}.
+ *
+ *
+ * @param options {Object}
+ *     An object containing configuration options for this view.
+ *
+ * @param options.formatter {Formatter}
+ *     The formatter object to use for formatting intrinsic values.
+ */
 var DYFIResponsesView = function (options) {
   var _this,
       _initialize,
