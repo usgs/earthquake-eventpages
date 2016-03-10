@@ -41,7 +41,6 @@ var GeneralSummaryModule = function (options) {
       _locationEl,
       _locationView,
       _nearbyPlacesEl,
-      _nearbyPlaces,
       _preferredOrigin,
       _tectonicSummaryEl,
       _timeEl,
