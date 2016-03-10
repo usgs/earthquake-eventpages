@@ -1,8 +1,9 @@
 'use strict';
 
-var ContentView = require('core/ContentView'),
+var ProductView = require('core/ProductView'),
     Formatter = require('core/Formatter'),
-    Util = require('util/Util');
+    Util = require('util/Util'),
+    Xhr = require('util/Xhr');
 
 var NearbyPlacesView = function (options) {
   var _this,
@@ -11,10 +12,32 @@ var NearbyPlacesView = function (options) {
       _formatter;
 
   options = options || {};
-  _this = ContentView(options);
+  _this = ProductView(options);
 
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
+  };
+
+  /**
+   * Gets the data
+   */
+  _this.fetchData = function () {
+    Xhr.ajax({
+      url: _this.model.get('url'),
+      success: _this.onSuccess,
+      error: _this.onError
+    });
+  };
+
+  /**
+   *
+   * @param status {String}
+   *      A description of the error that occurred.
+   * @param xhr {XMLHttpRequest} Optional. Default undefined.
+   *      The original request that lead to the error.
+   */
+  _this.onError = function (status/*, xhr*/) {
+    _this.el.innerHTML = status;
   };
 
   _this.onSuccess = function (data) {
@@ -41,7 +64,17 @@ var NearbyPlacesView = function (options) {
   };
 
   /**
-   * Free references.
+   * Called when the model changes. Initially sets a loading message then starts
+   * the data fetch process to render the actual content. Relies on browser
+   * caches to avoid duplicate HTTP overhead.
+   */
+   _this.render = function () {
+     _this.el.innerHTML = 'Loading content&hellip;';
+     _this.fetchData();
+   };
+
+  /**
+   * Destroy all the things.
    */
   _this.destroy = Util.compose(function () {
     _formatter = null;
