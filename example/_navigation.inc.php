@@ -10,6 +10,7 @@ print navGroup('General',
   );
 
 print navGroup('Impact',
+    navItem('/dyfi/DYFIIntensityGraphViewExample.php', 'DYFIIntensityGraphView') .
     navItem('/dyfi/DYFIResponsesViewExample.php', 'DYFIResponsesView') .
     navItem('/shakemap/ShakeMapInfoViewExample.php', 'ShakeMapInfoView') .
     navItem('/shakemap/ShakeMapStationListViewExample.php',

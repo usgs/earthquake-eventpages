@@ -40,9 +40,11 @@ require('./spec/core/EventPageTest');
 require('./spec/core/FormatterTest');
 require('./spec/core/TextProductViewTest');
 
+require('./spec/dyfi/DYFIIntensityGraphViewTest');
 require('./spec/dyfi/DYFIResponsesViewTest');
 
 require('./spec/general/NearbyPlacesViewTest');
+require('./spec/general/TextProductViewTest');
 
 require('./spec/pdl/ContentTest');
 require('./spec/pdl/ProductTest');
