@@ -19,7 +19,7 @@ var shakemap = {
         'download/psa10.jpg': {url: 'psa10.jpg'},
         'download/psa30.jpg': {url: 'psa30.jpg'},
         'download/sd.jpg': {url: 'sd.jpg'},
-        'download/stationlist.xml': {url:'stationlist.xml'},
+        'download/stationlist.json': {url:'stationlist.json'},
       }
     };
 
