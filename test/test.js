@@ -36,6 +36,7 @@ mocha.setup('bdd');
 
 // Add each test class here as they are implemented
 require('./spec/core/DownloadViewTest');
+require('./spec/core/EventPageTest');
 require('./spec/core/FormatterTest');
 
 require('./spec/general/TextProductViewTest');
