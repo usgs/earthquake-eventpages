@@ -38,6 +38,8 @@ mocha.setup('bdd');
 require('./spec/core/DownloadViewTest');
 require('./spec/core/FormatterTest');
 
+require('./spec/general/TextProductViewTest');
+
 require('./spec/pdl/ContentTest');
 require('./spec/pdl/ProductTest');
 

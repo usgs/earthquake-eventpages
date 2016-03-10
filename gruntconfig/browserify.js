@@ -9,6 +9,7 @@ var CWD = process.cwd(),
 
 var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/core/DownloadView.js:core/DownloadView',
+  './' + config.src + '/htdocs/js/general/TextProductView.js:general/TextProductView',
   './' + config.src + '/htdocs/js/shakemap/ShakeMapStationListView.js' +
       ':shakemap/ShakeMapStationListView',
   './' + config.src + '/htdocs/js/pdl/Product.js:pdl/Product',
