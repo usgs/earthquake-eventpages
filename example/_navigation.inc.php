@@ -5,8 +5,8 @@ print navGroup('Core',
   );
 
 print navGroup('General',
-    navItem('/general/TextProductViewExample.php', 'TextProductView') .
-    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View')
+    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View') .
+    navItem('/general/TextProductViewExample.php', 'TextProductView')
   );
 
 print navGroup('Impact',
