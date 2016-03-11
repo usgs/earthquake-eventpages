@@ -49,7 +49,6 @@ var NearbyPlacesView = function (options) {
     markup = [];
 
     _this.el.className = 'nearby-places';
-    markup.push('<h3>Nearby Places</h3>');
     // Formats nearby places
     for (i = 0; i < len; i++) {
       markup.push('<li>' +
