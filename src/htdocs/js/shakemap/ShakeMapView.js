@@ -32,6 +32,31 @@ var ShakeMapView = function (options) {
   };
 
   /**
+   * Create tab content for all PSA images (PSA 0.3, 1.0, 3.0)
+   *
+   * @param  {array} contents
+   *    array of objects with title and url for images to display
+   *
+   * @return {string} markup
+   *    HTML markup for PSA tab contents
+  **/
+  _this.createPSATabListImages = function (contents) {
+    var content,
+        markup;
+
+    markup = [];
+
+    for (var i = 0; i < contents.length; i++) {
+      content = contents[i];
+      markup.push('<h3>' + content.title + '</h3>' +
+        _this.createTabListImage(content.url)
+      );
+    }
+
+    return markup.join('');
+  };
+
+  /**
    * Generate tab contents for tablist
    *
    * @param  {object} contents,
@@ -125,32 +150,6 @@ var ShakeMapView = function (options) {
       });
     }
   };
-
-  /**
-   * Create tab content for all PSA images (PSA 0.3, 1.0, 3.0)
-   *
-   * @param  {array} contents
-   *    array of objects with title and url for images to display
-   *
-   * @return {string} markup
-   *    HTML markup for PSA tab contents
-  **/
-  _this.createPSATabListImages = function (contents) {
-    var content,
-        markup;
-
-    markup = [];
-
-    for (var i = 0; i < contents.length; i++) {
-      content = contents[i];
-      markup.push('<h3>' + content.title + '</h3>' +
-        _this.createTabListImage(content.url)
-      );
-    }
-
-    return markup.join('');
-  };
-
 
   /**
    * Create combined link/image for tablist image.
