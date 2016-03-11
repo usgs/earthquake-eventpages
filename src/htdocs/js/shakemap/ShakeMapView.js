@@ -145,7 +145,9 @@ var ShakeMapView = function (options) {
     }
 
     // PSA Images
-    if (shakemap.getContent('download/pgv.jpg')) {
+    if (shakemap.getContent('download/psa03.jpg') ||
+        shakemap.getContent('download/psa10.jpg') ||
+        shakemap.getContent('download/psa30.jpg')) {
       _this.tablist.addTab({
         title: 'PSA (cm/s)',
         content: _this.createPSATabListImages(shakemap)
