@@ -67,7 +67,29 @@ var Formatter = function (options) {
   };
 
   /**
+   * Converts azimuth to a back azimuth (opposite direction).
+   *
+   * @param azimuth {Number}
+   *    azimuth to format
+   * @return {Number}
+   *    formatted azimuth
+   */
+  _this.backAzimuth = function(azimuth) {
+    if (azimuth > 180) {
+      azimuth = azimuth - 180;
+    } else if (azimuth < 180) {
+      azimuth = azimuth + 180;
+    }
+
+    return azimuth;
+  };
+
+  /**
    * Convert azimuth in degree's into compass points.
+   * @param azimuth {number}
+   *    azimuth to format
+   * @return {String}
+   *    compass direction
    */
   _this.compassWinds = function(azimuth) {
     var fullwind = 22.5,
