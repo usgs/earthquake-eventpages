@@ -1,6 +1,6 @@
 'use strict';
 
-var TextProductView = require('general/TextProductView'),
+var TextProductView = require('core/TextProductView'),
     Product = require('pdl/Product'),
     Xhr = require('util/Xhr');
 

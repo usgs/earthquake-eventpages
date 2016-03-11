@@ -1,12 +1,12 @@
 <?php
 
 print navGroup('Core',
-    navItem('/core/DownloadViewExample.php', 'DownloadView')
+    navItem('/core/DownloadViewExample.php', 'DownloadView') .
+    navItem('/core/TextProductViewExample.php', 'TextProductView')
   );
 
 print navGroup('General',
-    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View') .
-    navItem('/general/TextProductViewExample.php', 'TextProductView')
+    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View')
   );
 
 print navGroup('Impact',

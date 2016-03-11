@@ -38,11 +38,11 @@ mocha.setup('bdd');
 require('./spec/core/DownloadViewTest');
 require('./spec/core/EventPageTest');
 require('./spec/core/FormatterTest');
+require('./spec/core/TextProductViewTest');
 
 require('./spec/dyfi/DYFIResponsesViewTest');
 
 require('./spec/general/NearbyPlacesViewTest');
-require('./spec/general/TextProductViewTest');
 
 require('./spec/pdl/ContentTest');
 require('./spec/pdl/ProductTest');

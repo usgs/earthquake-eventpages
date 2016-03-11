@@ -3,7 +3,7 @@
 
 
 var Product = require('pdl/Product'),
-    TextProductView = require('general/TextProductView');
+    TextProductView = require('core/TextProductView');
 
 var generalTextProduct = Product({
     contents: {
@@ -46,7 +46,7 @@ var scitechTextProduct = Product({
 var expect = chai.expect;
 
 
-describe('general/TextProductView', function () {
+describe('core/TextProductView', function () {
 
   describe('constructor', function () {
     it('is defined', function () {
