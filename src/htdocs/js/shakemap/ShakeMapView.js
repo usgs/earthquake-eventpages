@@ -56,17 +56,17 @@ var ShakeMapView = function (options) {
     psa30 = shakemap.getContent('download/psa30.jpg');
 
     if (psa03) {
-      markup.push('<h3>PSA 0.3s (%g)</h3>');
+      markup.push('<h3>PSA 0.3 s (%g)</h3>');
       markup.push(_this.createTabListImage(psa03));
     }
 
     if (psa10) {
-      markup.push('<h3>PSA 1.0s (%g)</h3>');
+      markup.push('<h3>PSA 1.0 s (%g)</h3>');
       markup.push(_this.createTabListImage(psa10));
     }
 
     if (psa30) {
-      markup.push('<h3>PSA 3.0s (%g)</h3>');
+      markup.push('<h3>PSA 3.0 s (%g)</h3>');
       markup.push(_this.createTabListImage(psa30));
     }
 
