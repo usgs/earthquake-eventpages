@@ -69,8 +69,6 @@ var GeoserveNearbyPlacesView = function (options) {
 
     _this.el.classname = 'geoserve-nearby-places';
 
-    markup.push('<h3>Nearby Places</h3>');
-
     for (i = 0; i < len; i++) {
       // Checks to see if location is inside the US or not if it is in the US
       // the state name is used if the location is outside the US
