@@ -4,12 +4,13 @@ var Collection = require('mvc/Collection'),
     ContentView = require('core/ContentView'),
     DataTable = require('mvc/DataTable'),
     ImpactUtil = require('base/ImpactUtil'),
-    Formatter = require('core/Formatter');
+    Formatter = require('core/Formatter'),
+    Util = require('util/Util');
 
 var _NO_CONTENT_MESSAGE = 'No Responses available.';
 
 /* Formatter for RESPONSE_DATA_COLUMNS */
-var formatter = Formatter();
+var _FORMATTER = Formatter();
 
 /* Array of Column Objects for Responses DataTable */
 var RESPONSE_DATA_COLUMNS = [
@@ -18,7 +19,7 @@ var RESPONSE_DATA_COLUMNS = [
     title: 'Location',
     downloadTitle: 'City\tState/Region\tCountry\tZip Code',
     format: function (response) {
-      return formatter.dyfiLocation(response);
+      return _FORMATTER.dyfiLocation(response);
     },
     downloadFormat: function (response) {
       var country,
@@ -63,7 +64,7 @@ var RESPONSE_DATA_COLUMNS = [
     className: 'dyfi-response-latitude',
     title: 'Latitude',
     format: function (response) {
-      return formatter.latitude(response.lat);
+      return _FORMATTER.latitude(response.lat);
     },
     downloadFormat: function (response) {
       return response.lat;
@@ -73,7 +74,7 @@ var RESPONSE_DATA_COLUMNS = [
     className: 'dyfi-response-longitude',
     title: 'Longitude',
     format: function (response) {
-      return formatter.longitude(response.lon);
+      return _FORMATTER.longitude(response.lon);
     },
     downloadFormat: function (response) {
       return response.lon;
@@ -146,25 +147,17 @@ var RESPONSE_DATA_SORTS = [
  * for rendering "stationlist.json" for a given product. The `options.model`
  * should be of type {Content}.
  *
- *
- * @param options {Object}
- *     An object containing configuration options for this view.
- *
- * @param options.formatter {Formatter}
- *     The formatter object to use for formatting intrinsic values.
  */
 var DYFIResponsesView = function (options) {
   var _this,
-      _initialize,
 
-      _formatter;
+      _button,
+      _responseTable,
+      _responseTableEl;
+
 
   options = options || {};
   _this = ContentView(options);
-
-  _initialize = function (options) {
-    _formatter = options.formatter || Formatter();
-  };
 
   /**
    * Add a toggle button to the reponses DataTable.
@@ -173,12 +166,11 @@ var DYFIResponsesView = function (options) {
    *        The container element that the button should be added to.
    */
   _this.addToggleButton = function (container) {
-    _this.button = container.appendChild(document.createElement('button'));
-    _this.button.innerHTML = 'See All Responses';
-    _this.button.className = 'view-all';
-    _this.onToggleButtonClick = _this.onToggleButtonClick.bind(_this);
-    _this.button.addEventListener('click', _this.onToggleButtonClick);
-    container.appendChild(_this.button);
+    _button = container.appendChild(document.createElement('button'));
+    _button.innerHTML = 'See All Responses';
+    _button.className = 'view-all';
+    _button.addEventListener('click', _this.onToggleButtonClick);
+    container.appendChild(_button);
   };
 
   /**
@@ -242,6 +234,16 @@ var DYFIResponsesView = function (options) {
   };
 
   /**
+   * Free references.
+   */
+  _this.destroy = Util.compose(function () {
+    _button.removeEventListener('click', _this.onToggleButtonClick);
+    _responseTable.destroy();
+    _responseTable = null;
+    _this = null;
+  }, _this.destroy);
+
+  /**
    * Renders the default error message. Called if an error occurs during the
    * data fetch.
    *
@@ -258,7 +260,7 @@ var DYFIResponsesView = function (options) {
   _this.onSuccess = function (responseText, xhr) {
     var responses = _this.buildResponsesCollection(xhr.responseXML);
 
-    _this.responseTable = DataTable({
+    _responseTable = DataTable({
       el: _this.el,
       className: 'dyfi-response-table',
       collection: responses,
@@ -268,8 +270,8 @@ var DYFIResponsesView = function (options) {
       defaultSort: 'distance'
     });
 
-    _this.responseTableEl = _this.el.querySelector('.datatable-data');
-    _this.responseTableEl.classList.add('horizontal-scrolling');
+    _responseTableEl = _this.el.querySelector('.datatable-data');
+    _responseTableEl.classList.add('horizontal-scrolling');
     if (responses.data().length > 10) {
       _this.addToggleButton(_this.el);
     }
@@ -280,16 +282,15 @@ var DYFIResponsesView = function (options) {
    *
    */
   _this.onToggleButtonClick = function () {
-    if (_this.responseTableEl.classList.contains('full-list')) {
-      _this.responseTableEl.classList.remove('full-list');
-      _this.button.innerHTML = 'Show All Responses';
+    if (_responseTableEl.classList.contains('full-list')) {
+      _responseTableEl.classList.remove('full-list');
+      _button.innerHTML = 'Show All Responses';
     } else {
-      _this.responseTableEl.classList.add('full-list');
-      _this.button.innerHTML = 'Show Only 10 Responses';
+      _responseTableEl.classList.add('full-list');
+      _button.innerHTML = 'Show Only 10 Responses';
     }
   };
 
-  _initialize(options);
   options = null;
   return _this;
 };
