@@ -5,53 +5,79 @@ var ProductView = require('core/ProductView'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
+var _DEFAULTS;
+
+_DEFAULTS = {
+  errorMessage: 'Error loading nearby places.'
+};
+
+
 /**
- * View for a nearby places Product.
+ * View for a nearby-cities Product.
+ *
  * @param options {Object}
  *    all options are passed to ProductView.
  */
-
 var NearbyPlacesView = function (options) {
   var _this,
       _initialize,
 
+      _errorMessage,
       _formatter;
 
-  options = options || {};
   _this = ProductView(options);
 
   _initialize = function (options) {
+    options = Util.extend({}, _DEFAULTS, options);
+    _errorMessage = options.errorMessage;
     _formatter = options.formatter || Formatter();
   };
 
   /**
+   * Destroy all the things.
+   */
+  _this.destroy = Util.compose(function () {
+    _errorMessage = null;
+    _formatter = null;
+    _this = null;
+    _initialize = null;
+  }, _this.destroy);
+
+  /**
    * Gets the data
    */
-  _this.fetchData = function (errorMessage) {
+  _this.fetchData = function () {
+    var content;
+
+    content = _this.model.getContent('nearby-cities.json');
+
+    if (!content) {
+      _this.onError();
+      return;
+    }
+
     Xhr.ajax({
-      url: _this.model.getContent('nearby-cities.json').get('url'),
+      url: content.get('url'),
       success: _this.onSuccess,
-      error: _this.onError(errorMessage)
+      error: _this.onError
     });
   };
 
   /**
-   * THis method is called when data is unsuccessfully fetched from _this.model
+   * This method is called when there is a problem.
+   *
    * @param errorMessage {String}
    *      A description of the error that occurred.
    */
-  _this.onError = function (errorMessage) {
-    if (!errorMessage) {
-      errorMessage = 'Error loading nearby places.';
-    }
-
-    _this.el.innerHTML = errorMessage;
+  _this.onError = function () {
+    _this.el.innerHTML = _errorMessage;
   };
 
   /**
-   * This method is called when data is successfully fetched from _this.model
-   * @param data {String|JSON}
-   *    The data for _this.model {Product} object.
+   * This method is called to render nearby-cities.
+   *
+   * @param data {Object}
+   *    The data for nearby-cities JSON.
    */
   _this.onSuccess = function (data) {
     var i,
@@ -85,18 +111,11 @@ var NearbyPlacesView = function (options) {
      _this.fetchData();
    };
 
-  /**
-   * Destroy all the things.
-   */
-  _this.destroy = Util.compose(function () {
-    _formatter = null;
-    _this = null;
-    _initialize = null;
-  }, _this.destroy);
 
   _initialize(options);
   options = null;
   return _this;
 };
+
 
 module.exports = NearbyPlacesView;
