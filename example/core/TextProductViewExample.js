@@ -53,20 +53,7 @@ var product = Product({
   }
 });
 
-
-Xhr.ajax({
-  url: '/events/us10004u1y.json',
-  success: function (data) {
-    TextProductView({
-      el: document.querySelector('#text-product-view'),
-      model: product
-    }).render();
-  },
-  error: function () {
-    document.querySelector('#text-product-view').innerHTML = [
-      '<p class="alert error">',
-        'Failed to load general-text product',
-      '</p>'
-    ].join('');
-  }
-});
+TextProductView({
+  el: document.querySelector('#text-product-view'),
+  model: product
+}).render();
