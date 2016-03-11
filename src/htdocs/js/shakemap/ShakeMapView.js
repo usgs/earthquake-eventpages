@@ -45,16 +45,29 @@ var ShakeMapView = function (options) {
    *    HTML markup for PSA tab contents
   **/
   _this.createPSATabListImages = function (contents) {
-    var content,
-        markup;
+    var markup,
+        psa03,
+        psa10,
+        psa30;
 
     markup = [];
+    psa03 = contents.get('download/psa03.jpg');
+    psa10 = contents.get('download/psa10.jpg');
+    psa30 = contents.get('download/psa30.jpg');
 
-    for (var i = 0; i < contents.length; i++) {
-      content = contents[i];
-      markup.push('<h3>' + content.title + '</h3>' +
-        _this.createTabListImage(content.url)
-      );
+    if (psa03) {
+      markup.push('<h3>PSA 0.3s (%g)</h3>');
+      markup.push(_this.createTabListImage(psa03.get('url')));
+    }
+
+    if (psa10) {
+      markup.push('<h3>PSA 1.0s (%g)</h3>');
+      markup.push(_this.createTabListImage(psa10.get('url')));
+    }
+
+    if (psa30) {
+      markup.push('<h3>PSA 3.0s (%g)</h3>');
+      markup.push(_this.createTabListImage(psa30.get('url')));
     }
 
     return markup.join('');
@@ -137,20 +150,7 @@ var ShakeMapView = function (options) {
     if (contents.get('download/pgv.jpg')) {
       _this.tablist.addTab({
         title: 'PSA (cm/s)',
-        content: _this.createPSATabListImages([
-          {
-            title: 'PSA 0.3s (%g)',
-            url: contents.get('download/psa03.jpg').get('url')
-          },
-          {
-            title: 'PSA 1.0s (%g)',
-            url: contents.get('download/psa10.jpg').get('url')
-          },
-          {
-            title: 'PSA 3.0s (%g)',
-            url: contents.get('download/psa30.jpg').get('url')
-          }
-        ])
+        content: _this.createPSATabListImages(contents)
       });
     }
   };

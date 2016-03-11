@@ -57,26 +57,10 @@ describe('shakemap/ShakeMapView', function () {
   describe('createPSATabListImages', function () {
     it('returns all PSA images', function () {
       var contents,
-          markup,
-          psaContents;
+          markup;
 
       contents = shakemap.get('contents');
-      psaContents = [
-          {
-            title: 'PSA 0.3s (%g)',
-            url: contents.get('download/psa03.jpg').get('url')
-          },
-          {
-            title: 'PSA 1.0s (%g)',
-            url: contents.get('download/psa10.jpg').get('url')
-          },
-          {
-            title: 'PSA 3.0s (%g)',
-            url: contents.get('download/psa30.jpg').get('url')
-          }
-        ];
-
-      markup = shakeMapView.createPSATabListImages(psaContents);
+      markup = shakeMapView.createPSATabListImages(contents);
 
       expect(markup.match(/img/g).length).to.equal(3);
     });
