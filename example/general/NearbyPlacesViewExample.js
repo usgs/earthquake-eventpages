@@ -14,7 +14,7 @@ Xhr.ajax({
 
     NearbyPlacesView({
       el: document.querySelector('#nearby-places-view-example'),
-      model: product.getContent('nearby-cities.json')
+      model: product
     }).render();
   },
   error: function () {

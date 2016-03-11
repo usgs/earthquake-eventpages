@@ -29,7 +29,7 @@ var NearbyPlacesView = function (options) {
    */
   _this.fetchData = function (errorMessage) {
     Xhr.ajax({
-      url: _this.model.get('url'),
+      url: _this.model.getContent('nearby-cities.json').get('url'),
       success: _this.onSuccess,
       error: _this.onError(errorMessage)
     });
