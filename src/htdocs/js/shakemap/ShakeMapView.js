@@ -20,9 +20,9 @@ var ShakeMapView = function (options) {
         shakemap;
 
     el = _this.el;
-    shakemap = _this.model.get();
+    shakemap = _this.model;
 
-    if (shakemap.status.toUpperCase() === 'DELETE') {
+    if (shakemap.get('status').toUpperCase() === 'DELETE') {
       el.innerHTML = '<p class="alert info">Product Deleted</p>';
     } else {
       // Build TabList with all of the shakemap images
@@ -31,43 +31,43 @@ var ShakeMapView = function (options) {
         tabPosition: 'top',
         tabs: []
       });
-      _this.createTabListData(shakemap.contents);
+      _this.createTabListData(shakemap);
     }
   };
 
   /**
    * Create tab content for all PSA images (PSA 0.3, 1.0, 3.0)
    *
-   * @param  {array} contents
-   *    array of objects with title and url for images to display
+   * @param  {Product} shakemap
+   *    shakemap product with PSA image contents
    *
    * @return {string} markup
    *    HTML markup for PSA tab contents
   **/
-  _this.createPSATabListImages = function (contents) {
+  _this.createPSATabListImages = function (shakemap) {
     var markup,
         psa03,
         psa10,
         psa30;
 
     markup = [];
-    psa03 = contents.get('download/psa03.jpg');
-    psa10 = contents.get('download/psa10.jpg');
-    psa30 = contents.get('download/psa30.jpg');
+    psa03 = shakemap.getContent('download/psa03.jpg');
+    psa10 = shakemap.getContent('download/psa10.jpg');
+    psa30 = shakemap.getContent('download/psa30.jpg');
 
     if (psa03) {
       markup.push('<h3>PSA 0.3s (%g)</h3>');
-      markup.push(_this.createTabListImage(psa03.get('url')));
+      markup.push(_this.createTabListImage(psa03));
     }
 
     if (psa10) {
       markup.push('<h3>PSA 1.0s (%g)</h3>');
-      markup.push(_this.createTabListImage(psa10.get('url')));
+      markup.push(_this.createTabListImage(psa10));
     }
 
     if (psa30) {
       markup.push('<h3>PSA 3.0s (%g)</h3>');
-      markup.push(_this.createTabListImage(psa30.get('url')));
+      markup.push(_this.createTabListImage(psa30));
     }
 
     return markup.join('');
@@ -76,50 +76,46 @@ var ShakeMapView = function (options) {
   /**
    * Generate tab contents for tablist
    *
-   * @param  {object} contents,
-   *         shakemap downloadable contents.
+   * @param  {Product} shakemap,
+   *         shakemap product with contents
    */
-  _this.createTabListData = function (contents) {
-
-    if (contents === null) {
-      return;
-    }
+  _this.createTabListData = function (shakemap) {
 
     // Intesity Image
-    if (contents.get('download/intensity.jpg')) {
+    if (shakemap.getContent('download/intensity.jpg')) {
       _this.tablist.addTab({
         title: 'Intensity',
         content: _this.createTabListImage(
-            contents.get('download/intensity.jpg').get('url')
+            shakemap.getContent('download/intensity.jpg')
         )
       });
     }
 
     // PGA Image
-    if (contents.get('download/pga.jpg')) {
+    if (shakemap.getContent('download/pga.jpg')) {
       _this.tablist.addTab({
         title: 'PGA (%g)',
         content: _this.createTabListImage(
-            contents.get('download/pga.jpg').get('url')
+            shakemap.getContent('download/pga.jpg')
         )
       });
     }
 
     // PGV Image
-    if (contents.get('download/pgv.jpg')) {
+    if (shakemap.getContent('download/pgv.jpg')) {
       _this.tablist.addTab({
         title: 'PGV (cm/s)',
         content: _this.createTabListImage(
-            contents.get('download/pgv.jpg').get('url')
+            shakemap.getContent('download/pgv.jpg')
         )
       });
     }
 
     // TODO, Add StationList
-    if (contents.get('download/stationlist.json')) {
+    if (shakemap.getContent('download/stationlist.json')) {
       var shakeMapStationListView = ShakeMapStationListView({
             el: document.createElement('div'),
-            model: contents.get('download/stationlist.json')
+            model: shakemap.getContent('download/stationlist.json')
           });
       shakeMapStationListView.render();
       _this.tablist.addTab({
@@ -129,7 +125,7 @@ var ShakeMapView = function (options) {
     }
 
     // TODO, Add ShakeMap Info View
-    if (contents.get('download/info.json')) {
+    if (shakemap.getContent('download/info.json')) {
       _this.tablist.addTab({
         title: 'ShakeMap Info View',
         content: '<p>TODO :: Add Shakemap Info View</p>'
@@ -137,20 +133,20 @@ var ShakeMapView = function (options) {
     }
 
     // Uncertainty Image
-    if (contents.get('download/sd.jpg')) {
+    if (shakemap.getContent('download/sd.jpg')) {
       _this.tablist.addTab({
         title: 'Uncertainty',
         content: _this.createTabListImage(
-            contents.get('download/sd.jpg').get('url')
+            shakemap.getContent('download/sd.jpg')
         )
       });
     }
 
     // PSA Images
-    if (contents.get('download/pgv.jpg')) {
+    if (shakemap.getContent('download/pgv.jpg')) {
       _this.tablist.addTab({
         title: 'PSA (cm/s)',
-        content: _this.createPSATabListImages(contents)
+        content: _this.createPSATabListImages(shakemap)
       });
     }
   };
@@ -158,17 +154,23 @@ var ShakeMapView = function (options) {
   /**
    * Create combined link/image for tablist image.
    *
-   * @param  {string} url
-   *         url to the image
+   * @param  {Content} content
+   *         shakemap Content object with an url property
    *
    * @return {string} link
    *         image link to interactive map.
   **/
-  _this.createTabListImage = function (url) {
+  _this.createTabListImage = function (content) {
     var link;
 
+    if (!content.get('url')) {
+      return '';
+    }
+
     // TODO :: enable shakmap layer on interactive map (add parameter to hash?)
-    link = '<a href="#general_map"><img src="' + url + '" /></a>';
+    link = '<a href="#general_map">' +
+        '<img src="' + content.get('url') + '" />' +
+        '</a>';
 
     return link;
   };

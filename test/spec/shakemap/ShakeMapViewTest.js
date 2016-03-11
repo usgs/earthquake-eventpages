@@ -56,12 +56,9 @@ describe('shakemap/ShakeMapView', function () {
 
   describe('createPSATabListImages', function () {
     it('returns all PSA images', function () {
-      var contents,
-          markup;
+      var markup;
 
-      contents = shakemap.get('contents');
-      markup = shakeMapView.createPSATabListImages(contents);
-
+      markup = shakeMapView.createPSATabListImages(shakemap);
       expect(markup.match(/img/g).length).to.equal(3);
     });
   });
@@ -72,9 +69,9 @@ describe('shakemap/ShakeMapView', function () {
           markup;
 
       content = shakemap.getContent('download/sd.jpg');
-      markup = shakeMapView.createTabListImage(content.get('url'));
+      markup = shakeMapView.createTabListImage(content);
 
-      expect(markup.indexOf(content.get('url'))).to.not.equal(-1);
+      expect(markup.match(/img/g).length).to.equal(1);
 
     });
   });
