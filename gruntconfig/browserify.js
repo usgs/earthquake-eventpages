@@ -16,6 +16,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/pdl/Content.js:pdl/Content',
   './' + config.src + '/htdocs/js/pdl/Product.js:pdl/Product',
   './' + config.src + '/htdocs/js/dyfi/DYFIResponsesView.js:dyfi/DYFIResponsesView',
+  './' + config.src + '/htdocs/js/shakemap/ShakeMapInfoView.js:shakemap/ShakeMapInfoView',
   './' + config.src + '/htdocs/js/shakemap/ShakeMapStationListView.js:shakemap/ShakeMapStationListView',
 
   NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
