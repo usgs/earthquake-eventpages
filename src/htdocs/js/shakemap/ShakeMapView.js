@@ -129,7 +129,7 @@ var ShakeMapView = function (options) {
     // TODO, Add ShakeMap Info View
     if (shakemap.getContent('download/info.json')) {
       _this.tablist.addTab({
-        title: 'ShakeMap Info View',
+        title: 'Info',
         content: '<p>TODO :: Add Shakemap Info View</p>'
       });
     }
