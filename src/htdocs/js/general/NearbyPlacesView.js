@@ -5,41 +5,80 @@ var ProductView = require('core/ProductView'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
+var _DEFAULTS;
+
+_DEFAULTS = {
+  errorMessage: 'Error loading nearby places.'
+};
+
+
+/**
+ * View for a nearby-cities Product.
+ *
+ * @param options {Object}
+ *    all options are passed to ProductView.
+ */
 var NearbyPlacesView = function (options) {
   var _this,
       _initialize,
 
+      _errorMessage,
       _formatter;
 
-  options = options || {};
   _this = ProductView(options);
 
   _initialize = function (options) {
+    options = Util.extend({}, _DEFAULTS, options);
+    _errorMessage = options.errorMessage;
     _formatter = options.formatter || Formatter();
   };
+
+  /**
+   * Destroy all the things.
+   */
+  _this.destroy = Util.compose(function () {
+    _errorMessage = null;
+    _formatter = null;
+    _this = null;
+    _initialize = null;
+  }, _this.destroy);
 
   /**
    * Gets the data
    */
   _this.fetchData = function () {
+    var content;
+
+    content = _this.model.getContent('nearby-cities.json');
+
+    if (!content) {
+      _this.onError();
+      return;
+    }
+
     Xhr.ajax({
-      url: _this.model.get('url'),
+      url: content.get('url'),
       success: _this.onSuccess,
       error: _this.onError
     });
   };
 
   /**
+   * This method is called when there is a problem.
    *
-   * @param status {String}
+   * @param errorMessage {String}
    *      A description of the error that occurred.
-   * @param xhr {XMLHttpRequest} Optional. Default undefined.
-   *      The original request that lead to the error.
    */
-  _this.onError = function (status/*, xhr*/) {
-    _this.el.innerHTML = status;
+  _this.onError = function () {
+    _this.el.innerHTML = _errorMessage;
   };
 
+  /**
+   * This method is called to render nearby-cities.
+   *
+   * @param data {Object}
+   *    The data for nearby-cities JSON.
+   */
   _this.onSuccess = function (data) {
     var i,
         len,
@@ -49,7 +88,6 @@ var NearbyPlacesView = function (options) {
     markup = [];
 
     _this.el.className = 'nearby-places';
-    markup.push('<h3>Nearby Places</h3>');
     // Formats nearby places
     for (i = 0; i < len; i++) {
       markup.push('<li>' +
@@ -73,18 +111,11 @@ var NearbyPlacesView = function (options) {
      _this.fetchData();
    };
 
-  /**
-   * Destroy all the things.
-   */
-  _this.destroy = Util.compose(function () {
-    _formatter = null;
-    _this = null;
-    _initialize = null;
-  }, _this.destroy);
 
   _initialize(options);
   options = null;
   return _this;
 };
+
 
 module.exports = NearbyPlacesView;
