@@ -5,6 +5,13 @@ var ProductView = require('core/ProductView'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
+
+/**
+ * View for a geoserve nearby-cities Product.
+ *
+ * @param options {Object}
+ *    all options are passed to ProductView.
+ */
 var GeoserveNearbyPlacesView = function (options) {
   var _this,
       _initialize,
@@ -116,6 +123,7 @@ var GeoserveNearbyPlacesView = function (options) {
     _initialize = null;
     _this = null;
   }, _this.destroy);
+
 
   _initialize(options);
   options = null;
