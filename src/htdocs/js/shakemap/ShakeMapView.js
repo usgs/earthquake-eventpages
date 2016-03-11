@@ -6,16 +6,20 @@ var ProductView = require('core/ProductView'),
 
 
 var ShakeMapView = function (options) {
-  var _this;
+  var _this,
+      _initialize;
 
   _this = ProductView(options);
+
+  _initialize = function () {
+    _this.el.classList.add('shakemap');
+  };
 
   _this.render = function () {
     var el,
         shakemap;
 
     el = _this.el;
-    el.classList.add('shakemap');
     shakemap = _this.model.get();
 
     if (shakemap.status.toUpperCase() === 'DELETE') {
@@ -169,6 +173,7 @@ var ShakeMapView = function (options) {
     return link;
   };
 
+  _initialize();
   options = null;
   return _this;
 };
