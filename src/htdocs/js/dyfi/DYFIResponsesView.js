@@ -151,9 +151,9 @@ var RESPONSE_DATA_SORTS = [
 var DYFIResponsesView = function (options) {
   var _this,
 
-      _button,
-      _responseTable,
-      _responseTableEl;
+      _button = null,
+      _responseTable = null,
+      _responseTableEl = null;
 
 
   options = options || {};
@@ -223,8 +223,9 @@ var DYFIResponsesView = function (options) {
         location.country = 'United States of America';
         location.zip = locationName;
       } else {
-        location.state = locationName.split('::')[1];
-        location.country = locationName.split('::')[2];
+        locationName = locationName.split('::');
+        location.state = locationName[1];
+        location.country = locationName[2];
       }
 
       responsesArray.push(location);
@@ -237,9 +238,19 @@ var DYFIResponsesView = function (options) {
    * Free references.
    */
   _this.destroy = Util.compose(function () {
-    _button.removeEventListener('click', _this.onToggleButtonClick);
-    _responseTable.destroy();
-    _responseTable = null;
+    if (_button !== null) {
+      _button.removeEventListener('click', _this.onToggleButtonClick);
+    }
+
+    if (_responseTable !== null) {
+      _responseTable.destroy();
+      _responseTable = null;
+    }
+
+    if (_responseTableEl !== null) {
+      _responseTableEl = null;
+    }
+
     _this = null;
   }, _this.destroy);
 
@@ -258,7 +269,9 @@ var DYFIResponsesView = function (options) {
    *
    */
   _this.onSuccess = function (responseText, xhr) {
-    var responses = _this.buildResponsesCollection(xhr.responseXML);
+    var responses;
+
+    responses = _this.buildResponsesCollection(xhr.responseXML);
 
     _responseTable = DataTable({
       el: _this.el,
