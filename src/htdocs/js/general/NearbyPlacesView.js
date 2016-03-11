@@ -21,11 +21,11 @@ var NearbyPlacesView = function (options) {
   /**
    * Gets the data
    */
-  _this.fetchData = function () {
+  _this.fetchData = function (errorMessage) {
     Xhr.ajax({
       url: _this.model.get('url'),
       success: _this.onSuccess,
-      error: _this.onError
+      error: _this.onError(errorMessage)
     });
   };
 
@@ -36,8 +36,12 @@ var NearbyPlacesView = function (options) {
    * @param xhr {XMLHttpRequest} Optional. Default undefined.
    *      The original request that lead to the error.
    */
-  _this.onError = function (status/*, xhr*/) {
-    _this.el.innerHTML = status;
+  _this.onError = function (errorMessage) {
+    if (!errorMessage) {
+      errorMessage = 'Error loading nearby places.';
+    }
+
+    _this.el.innerHTML = errorMessage;
   };
 
   _this.onSuccess = function (data) {
