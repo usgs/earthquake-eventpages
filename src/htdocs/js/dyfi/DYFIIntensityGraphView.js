@@ -2,7 +2,13 @@
 
 
 var ContentView = require('core/ContentView'),
-    Formatter = require('core/Formatter');
+    d3 = require('d3'),
+    D3LineView = require('d3/D3LineView'),
+    D3View = require('d3/D3View'),
+    Formatter = require('core/Formatter'),
+    StandardDevationLineView = require('impact/StandardDeviationLineView'),
+    Util = require('util/Util');
+
 
 /**
  * This class extends the {ContentView} class and is specifically used
@@ -20,10 +26,10 @@ var DYFIIntensityGraphView = function (options) {
   var _this,
       _initialize,
 
-      _formatter;
+      _formatter,
+      _graph;
 
-  options = options || {};
-  _this = ContentView(options);
+    _this = ContentView(options);
 
   /**
    * @Constructor
@@ -32,14 +38,114 @@ var DYFIIntensityGraphView = function (options) {
    */
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
+  };
 
-    // TODO :: Remove console.log
-    console.log(_this.model.get());
+  _this.buildLineView = function (dataset) {
+    var line = D3LineView({
+      view: _graph,
+      showPoints: (dataset.showPoints ? dataset.showPoints : false),
+      data: _this.parseDataIntoArray(dataset.data),
+      className: dataset.class,
+      label: dataset.legend,
+      showLegendPoint: false
+    });
+    _graph.views.add(line);
+  };
+
+  _this.buildMedianDataView = function (dataset) {
+    var medianData = D3LineView({
+      view: _graph,
+      showLine: false,
+      data: _this.parseDataIntoArray(dataset.data),
+      className: dataset.class,
+      label: dataset.legend,
+      pointRadius: 3
+    });
+    _graph.views.add(medianData);
+  };
+
+  _this.buildScatterPlotView = function (dataset) {
+    var scatterplot = D3LineView({
+      view: _graph,
+      showLine: false,
+      data: _this.parseDataIntoArray(dataset.data),
+      className: dataset.class,
+      label: dataset.legend,
+      pointRadius: 2
+    });
+    _graph.views.add(scatterplot);
+  };
+
+  _this.buildStandardDeviationLineView = function (dataset) {
+    var standardDevationLineView = StandardDevationLineView({
+      view: _graph,
+      data: _this.parseDataIntoArray(dataset.data),
+      histogram: dataset.data,
+      className: dataset.class,
+      label: dataset.legend,
+      pointRadius: 5,
+      showLine: false
+    });
+    _graph.views.add(standardDevationLineView);
   };
 
 
-  _this.render = function () {
-    _this.el.innerHTML = '<p>This is the DYFIIntensityGraphView.</p>';
+  _this.onSuccess = function (data) {
+    var datasets;
+
+    datasets = data.datasets;
+
+    if (datasets && datasets.length && datasets.length > 0) {
+      _graph = D3View(Util.extend({
+        title: 'Intensity vs. Distance Plot',
+        xLabel: 'Hypocentral Distance (km)',
+        yLabel: 'Intensity (mmi)',
+        xAxisScale: d3.scale.log(),
+        xAxisFormat: function (value) {
+          return value;
+        },
+        yAxisTicks: [1,2,3,4,5,6,7,8,9,10],
+        yExtent: [1,10],
+        marginLeft: 10,
+        paddingLeft:70
+      }, options));
+      _this.parseData(datasets);
+      _this.el.innerHTML = '';
+      _this.el.classList.add('IntensityGraphView');
+      _this.el.appendChild(_graph.el);
+    } else {
+      _this.el.innerHTML = '<p class="alert warning">Intensity vs. Distance ' +
+          'data does not exist.</p>';
+    }
+  };
+
+  _this.parseData = function (data) {
+    data.forEach(function (dataset) {
+      if (dataset.class === 'estimated1' ||
+          dataset.class === 'estimated2') {
+        _this.buildLineView(dataset);
+      }
+      if (dataset.class === 'scatterplot1') {
+        _this.buildScatterPlotView(dataset);
+      }
+      if (dataset.class === 'median') {
+        _this.buildMedianDataView(dataset);
+      }
+      if (dataset.class === 'binned') {
+        _this.buildStandardDeviationLineView(dataset);
+      }
+    });
+  };
+
+  _this.parseDataIntoArray = function (dataPoints) {
+    var data;
+
+    data = [];
+    dataPoints.forEach(function (point) {
+      data.push([point.x, point.y]);
+    });
+
+    return data;
   };
 
   _initialize(options);

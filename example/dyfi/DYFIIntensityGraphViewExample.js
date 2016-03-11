@@ -11,10 +11,12 @@ Xhr.ajax({
 
     product = Product(data.properties.products.dyfi[0]);
 
-    DYFIIntensityGraphView({
+    var dyfiIntensityGraphView = DYFIIntensityGraphView({
       el: document.querySelector('#dyfi-intensity-graph-view-example'),
       model: product.getContent('dyfi_plot_atten.json')
-    }).render();
+    });
+
+    dyfiIntensityGraphView.render();
   },
   error: function () {
     document.querySelector('#dyfi-intensity-graph-view-example').innerHTML = [
