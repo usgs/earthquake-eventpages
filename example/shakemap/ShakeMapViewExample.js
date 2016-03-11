@@ -19,7 +19,7 @@ Xhr.ajax({
   error: function () {
     document.querySelector('#shakemap-view-example').innerHTML = [
       '<p class="alert error">',
-        'Failed to create a download view.',
+        'Failed to create a ShakeMap view.',
       '</p>'
     ].join('');
   }
