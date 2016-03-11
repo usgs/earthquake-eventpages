@@ -5,6 +5,12 @@ var ProductView = require('core/ProductView'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
+/**
+ * View for a nearby places Product.
+ * @param options {Object}
+ *    all options are passed to ProductView.
+ */
+
 var NearbyPlacesView = function (options) {
   var _this,
       _initialize,
@@ -30,11 +36,9 @@ var NearbyPlacesView = function (options) {
   };
 
   /**
-   *
-   * @param status {String}
+   * THis method is called when data is unsuccessfully fetched from _this.model
+   * @param errorMessage {String}
    *      A description of the error that occurred.
-   * @param xhr {XMLHttpRequest} Optional. Default undefined.
-   *      The original request that lead to the error.
    */
   _this.onError = function (errorMessage) {
     if (!errorMessage) {
@@ -44,6 +48,11 @@ var NearbyPlacesView = function (options) {
     _this.el.innerHTML = errorMessage;
   };
 
+  /**
+   * This method is called when data is successfully fetched from _this.model
+   * @param data {String|JSON}
+   *    The data for _this.model {Product} object.
+   */
   _this.onSuccess = function (data) {
     var i,
         len,
