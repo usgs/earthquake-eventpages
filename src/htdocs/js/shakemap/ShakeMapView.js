@@ -117,10 +117,12 @@ var ShakeMapView = function (options) {
             el: document.createElement('div'),
             model: shakemap.getContent('download/stationlist.json')
           });
-      shakeMapStationListView.render();
       _this.tablist.addTab({
         title: 'Station List',
-        content: shakeMapStationListView.el
+        content: function () {
+          shakeMapStationListView.render();
+          return shakeMapStationListView.el;
+        }
       });
     }
 
