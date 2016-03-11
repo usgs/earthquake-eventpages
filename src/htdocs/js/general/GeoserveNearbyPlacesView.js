@@ -58,7 +58,8 @@ var GeoserveNearbyPlacesView = function (options) {
    *     The data for _this.model {Content} object.
    */
   _this.onSuccess = function (data) {
-    var i,
+    var azimuth,
+        i,
         len,
         markup,
         countryOrState;
@@ -70,6 +71,10 @@ var GeoserveNearbyPlacesView = function (options) {
     _this.el.classname = 'geoserve-nearby-places';
 
     for (i = 0; i < len; i++) {
+      // Converst azimuth to a back azimuth so that compass directions will be
+      // in the correct direction.
+      azimuth = _formatter.backAzimuth(data[i].properties.azimuth);
+
       // Checks to see if location is inside the US or not if it is in the US
       // the state name is used if the location is outside the US
       // the country name is used.
@@ -81,9 +86,9 @@ var GeoserveNearbyPlacesView = function (options) {
 
       // Formats nearby places/cities info
       markup.push('<li>' +
-          data[i].properties.distance + ' km ' +
+          Math.round(data[i].properties.distance) + ' km ' +
           '(' + Math.round(_formatter.kmToMi(data[i].properties.distance)) +
-          ' mi) ' + _formatter.compassWinds(data[i].properties.azimuth) +
+          ' mi) ' + _formatter.compassWinds(azimuth) +
           ' of ' + data[i].properties.name +
           ', ' + countryOrState +
           '</li>');
