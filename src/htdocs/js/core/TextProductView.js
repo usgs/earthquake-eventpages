@@ -60,7 +60,8 @@ var TextProductView = function (options) {
    *
    */
   _this.onError = function () {
-    this.el.innerHTML = '<p class="alert error">No text content to render.</p>';
+    _this.el.innerHTML =
+        '<p class="alert error">No text content to render.</p>';
   };
 
   /**
