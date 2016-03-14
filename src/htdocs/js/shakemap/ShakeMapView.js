@@ -2,7 +2,8 @@
 
 var ProductView = require('core/ProductView'),
     ShakeMapStationListView = require('shakemap/ShakeMapStationListView'),
-    TabList = require('tablist/TabList');
+    TabList = require('tablist/TabList'),
+    Util = require('util/Util');
 
 
 var ShakeMapView = function (options) {
@@ -158,6 +159,11 @@ var ShakeMapView = function (options) {
 
     return link;
   };
+
+  _this.destroy = Util.compose(function () {
+    _initialize = null;
+    _this = null;
+  }, _this.destroy);
 
   _this.render = function () {
     var el,
