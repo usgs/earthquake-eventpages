@@ -61,42 +61,46 @@ var ShakeMapView = function (options) {
    *         shakemap product with contents
    */
   _this.createTabListData = function (shakemap) {
+    var intensityContent,
+        pgaContent,
+        pgvContent,
+        shakeMapInfoContent,
+        stationListContent,
+        uncertaintyContent;
 
     // Intesity Image
-    if (shakemap.getContent('download/intensity.jpg')) {
+    intensityContent = shakemap.getContent('download/intensity.jpg');
+    if (intensityContent) {
       _this.tablist.addTab({
         title: 'Intensity',
-        content: _this.createTabListImage(
-            shakemap.getContent('download/intensity.jpg')
-        )
+        content: _this.createTabListImage(intensityContent)
       });
     }
 
     // PGA Image
-    if (shakemap.getContent('download/pga.jpg')) {
+    pgaContent = shakemap.getContent('download/pga.jpg');
+    if (pgaContent) {
       _this.tablist.addTab({
         title: 'PGA (%g)',
-        content: _this.createTabListImage(
-            shakemap.getContent('download/pga.jpg')
-        )
+        content: _this.createTabListImage(pgaContent)
       });
     }
 
     // PGV Image
-    if (shakemap.getContent('download/pgv.jpg')) {
+    pgvContent = shakemap.getContent('download/pgv.jpg');
+    if (pgvContent) {
       _this.tablist.addTab({
         title: 'PGV (cm/s)',
-        content: _this.createTabListImage(
-            shakemap.getContent('download/pgv.jpg')
-        )
+        content: _this.createTabListImage(pgvContent)
       });
     }
 
     // TODO, Add StationList
-    if (shakemap.getContent('download/stationlist.json')) {
+    stationListContent = shakemap.getContent('download/stationlist.json');
+    if (stationListContent) {
       var shakeMapStationListView = ShakeMapStationListView({
             el: document.createElement('div'),
-            model: shakemap.getContent('download/stationlist.json')
+            model: stationListContent
           });
       _this.tablist.addTab({
         title: 'Station List',
@@ -108,7 +112,8 @@ var ShakeMapView = function (options) {
     }
 
     // TODO, Add ShakeMap Info View
-    if (shakemap.getContent('download/info.json')) {
+    shakeMapInfoContent = shakemap.getContent('download/info.json');
+    if (shakeMapInfoContent) {
       _this.tablist.addTab({
         title: 'Info',
         content: '<p>TODO :: Add Shakemap Info View</p>'
@@ -116,12 +121,11 @@ var ShakeMapView = function (options) {
     }
 
     // Uncertainty Image
-    if (shakemap.getContent('download/sd.jpg')) {
+    uncertaintyContent = shakemap.getContent('download/sd.jpg');
+    if (uncertaintyContent) {
       _this.tablist.addTab({
         title: 'Uncertainty',
-        content: _this.createTabListImage(
-            shakemap.getContent('download/sd.jpg')
-        )
+        content: _this.createTabListImage(uncertaintyContent)
       });
     }
 
