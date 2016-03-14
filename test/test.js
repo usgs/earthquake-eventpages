@@ -44,7 +44,6 @@ require('./spec/dyfi/DYFIIntensityGraphViewTest');
 require('./spec/dyfi/DYFIResponsesViewTest');
 
 require('./spec/general/NearbyPlacesViewTest');
-require('./spec/general/TextProductViewTest');
 
 require('./spec/pdl/ContentTest');
 require('./spec/pdl/ProductTest');
