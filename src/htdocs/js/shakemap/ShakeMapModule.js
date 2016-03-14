@@ -1,6 +1,7 @@
 'use strict';
 
 var Module = require('core/Module'),
+    ShakeMapView = require('shakemap/ShakeMapView'),
     Util = require('util/Util');
 
 
@@ -34,8 +35,7 @@ var ShakeMapModule = function (options) {
   };
 
   _this.render = function () {
-    var content,
-        product;
+    var product;
 
     product = _this.getProduct('shakemap');
 
@@ -49,12 +49,12 @@ var ShakeMapModule = function (options) {
         summaryModule: Module
       }));
 
-      content = product.getContent('download/intensity.jpg');
-      if (content) {
-        _this.content.innerHTML = '<img src="' + content.get('url') + '"/>';
-      } else {
-        _this.content.innerHTML = '<p>content goes here</p>';
-      }
+      // Load content from ShakeMapView
+      ShakeMapView({
+        el: _this.content,
+        model: product
+      }).render();
+
     }
     _this.footer.innerHTML = '<p>footer goes here</p>';
   };
