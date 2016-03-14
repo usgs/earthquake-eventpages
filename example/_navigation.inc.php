@@ -1,5 +1,7 @@
 <?php
 
+print navItem('/example.php', 'Examples Index');
+
 print navGroup('Core',
     navItem('/core/DownloadViewExample.php', 'DownloadView') .
     navItem('/core/TextProductViewExample.php', 'TextProductView')
