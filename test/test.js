@@ -48,6 +48,7 @@ require('./spec/general/NearbyPlacesViewTest');
 require('./spec/pdl/ContentTest');
 require('./spec/pdl/ProductTest');
 
+require('./spec/shakemap/ShakeMapModuleTest');
 require('./spec/shakemap/ShakeMapStationListViewTest');
 require('./spec/shakemap/ShakeMapViewTest');
 

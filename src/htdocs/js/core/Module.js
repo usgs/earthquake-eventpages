@@ -116,7 +116,7 @@ var Module = function (options) {
    *     default null.
    *     include link to module with all versions of `product`.
    */
-  _this.getProductHeader = function(options) {
+  _this.getProductHeader = function (options) {
     var buf,
         el,
         ev,

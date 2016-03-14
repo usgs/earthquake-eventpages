@@ -2,12 +2,13 @@
 
 var Events = require('util/Events'),
     Formatter = require('core/Formatter'),
+    GeneralSummaryModule = require('general/GeneralSummaryModule'),
+    ImpactSummaryModule = require('impact/ImpactSummaryModule'),
     Model = require('mvc/Model'),
     Module = require('core/Module'),
-    Util = require('util/Util'),
+    ShakeMapModule = require('shakemap/ShakeMapModule'),
+    Util = require('util/Util');
 
-    GeneralSummaryModule = require('general/GeneralSummaryModule'),
-    ShakeMapModule = require('shakemap/ShakeMapModule');
 
 var _DEFAULTS = {
   'event': null, // CatalogEvent
@@ -18,7 +19,7 @@ var _DEFAULTS = {
     // General
     [GeneralSummaryModule, Module],
     // Impact
-    [ShakeMapModule],
+    [ImpactSummaryModule, ShakeMapModule],
     // Scientific
     []
   ]
