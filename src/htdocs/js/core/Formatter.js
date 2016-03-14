@@ -75,7 +75,7 @@ var Formatter = function (options) {
    *    formatted azimuth
    */
   _this.backAzimuth = function(azimuth) {
-    if (azimuth > 180) {
+    if (azimuth >= 180) {
       azimuth = azimuth - 180;
     } else if (azimuth < 180) {
       azimuth = azimuth + 180;
