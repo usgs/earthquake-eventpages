@@ -1,7 +1,7 @@
 'use strict';
 
-var ProductView = require('core/ProductView'),
-    Formatter = require('core/Formatter'),
+var Formatter = require('core/Formatter'),
+    ProductView = require('core/ProductView'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
