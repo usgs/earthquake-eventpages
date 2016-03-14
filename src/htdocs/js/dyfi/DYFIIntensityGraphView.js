@@ -24,6 +24,18 @@ var DYFIIntensityGraphView = function (options) {
 
     _this = ContentView(options);
 
+  /**
+   * Adds a line view to the D3View (w/ connecting lines, this function is
+   * called to build the line view when, dataset.class: "estimated1" or
+   * class: "estimated2".
+   *
+   * @param {object} dataset
+   *    an object used to describe a set of data
+   *
+   *    dataset.class = identifier for type of data
+   *    dataset.legend = the dataset name, used by the legend
+   *    dataset.data = the point data to plot
+   */
   _this.buildLineView = function (dataset) {
     var line = D3LineView({
       view: _graph,
@@ -36,6 +48,17 @@ var DYFIIntensityGraphView = function (options) {
     _graph.views.add(line);
   };
 
+  /**
+   * Adds a line view to the D3View (w/o connecting lines), this function is
+   * called to build the line view when, dataset.class: "median".
+   *
+   * @param {object} dataset
+   *    an object used to describe a set of data
+   *
+   *    dataset.class = identifier for type of data
+   *    dataset.legend = the dataset name, used by the legend
+   *    dataset.data = the point data to plot
+   */
   _this.buildMedianDataView = function (dataset) {
     var medianData = D3LineView({
       view: _graph,
@@ -48,6 +71,17 @@ var DYFIIntensityGraphView = function (options) {
     _graph.views.add(medianData);
   };
 
+  /**
+   * Adds a scatter plot D3View, this function is called to build
+   * the line view when, dataset.class: "scatterplot1".
+   *
+   * @param {object} dataset
+   *    an object used to describe a set of data
+   *
+   *    dataset.class = identifier for type of data
+   *    dataset.legend = the dataset name, used by the legend
+   *    dataset.data = the point data to plot
+   */
   _this.buildScatterPlotView = function (dataset) {
     var scatterplot = D3LineView({
       view: _graph,
@@ -60,6 +94,17 @@ var DYFIIntensityGraphView = function (options) {
     _graph.views.add(scatterplot);
   };
 
+  /**
+   * Adds a StandardDeviationLineView to the D3View, this function is called
+   * to graph the standard devaiation binned data when, dataset.class: "binned"
+   *
+   * @param {object} dataset
+   *    an object used to describe a set of data
+   *
+   *    dataset.class = identifier for type of data
+   *    dataset.legend = the dataset name, used by the legend
+   *    dataset.data = the point data to plot
+   */
   _this.buildStandardDeviationLineView = function (dataset) {
     var standardDevationLineView = StandardDevationLineView({
       view: _graph,
@@ -73,7 +118,24 @@ var DYFIIntensityGraphView = function (options) {
     _graph.views.add(standardDevationLineView);
   };
 
+  /**
+   * Unbind event listeners and free references.
+   */
+  _this.destroy = Util.compose(function () {
+    if (_this === null) {
+      return;
+    }
+    _graph = null;
+    _this = null;
+  }, _this.destroy);
 
+  /**
+   * Builds the D3View that will display all of the datasets returned by the
+   * ContentView.fetchData Xhr request.
+   *
+   * @param {object} data
+   *    Data returned by the Xhr request for dyfi_plot_atten.json
+   */
   _this.onSuccess = function (data) {
     var datasets;
 
@@ -103,6 +165,13 @@ var DYFIIntensityGraphView = function (options) {
     }
   };
 
+  /**
+   * Scans all datasets returned in the XHR response and determines
+   * which type of view will be added to the D3View.
+   *
+   * @param {array} data
+   *    An array of datasets to be plotted in the D3View
+   */
   _this.parseData = function (data) {
     data.forEach(function (dataset) {
       if (dataset.class === 'estimated1' ||
@@ -121,6 +190,14 @@ var DYFIIntensityGraphView = function (options) {
     });
   };
 
+  /**
+   * Massages the point data into a new format that is expected by the
+   * D3LineView and StandardDevationLineView.
+   *
+   * @param {array} dataPoints
+   *    An array of objects that contain "x" and "y" attributes that represent
+   *    point data.
+   */
   _this.parseDataIntoArray = function (dataPoints) {
     var data;
 

@@ -7,6 +7,17 @@ var d3 = require('d3'),
     Util = require('util/Util');
 
 
+/**
+ * This class extends the {D3SubView} class and is specifically used
+ * for rendering binned standard deviation data as part of a D3LineView
+ *
+ * @param options {Object}
+ *    An object containing configuration options for a D3LineView
+ *
+ * @param options.histogram {Object}
+ *    An array of datapoints with standard deviation data
+ *    [ {x: x1, y: y1, stdev: value}, ...]
+ */
 var StandardDeviationLineView = function (options) {
   var _this,
       _initialize,
@@ -22,6 +33,11 @@ var StandardDeviationLineView = function (options) {
 
   _this = D3SubView(options);
 
+  /**
+   * @Constructor
+   *
+   * Initializes the view. See class level documentation for details.
+   */
   _initialize = function (options) {
     ClassList.polyfill(_this.el);
     _this.el.classList.add('StandardDeviationLineView');
@@ -36,6 +52,10 @@ var StandardDeviationLineView = function (options) {
     _data = options.histogram;
   };
 
+  /**
+   * Renders a point with a histogram (for the standard deviation)
+   * on the D3LineView.
+   */
   _this.render = function () {
     _x = _this.view.model.get('xAxisScale');
     _y = _this.view.model.get('yAxisScale');
