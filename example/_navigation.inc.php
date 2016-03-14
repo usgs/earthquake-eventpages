@@ -28,4 +28,8 @@ print navGroup('Scientific',
     navItem('/finitefault/FiniteFaultViewExample.php', 'FiniteFaultView')
   );
 
+print navGroup('Scientific',
+    navItem('/moment-tensor/BeachBallViewExample.php', 'BeachBallView')
+  );
+
 ?>
