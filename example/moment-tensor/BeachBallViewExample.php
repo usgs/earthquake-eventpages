@@ -22,4 +22,13 @@ if (!isset($TEMPLATE)) {
 }
 ?>
 
-<div id="beachballview-example"></div>
+<div class="row">
+  <div class="column one-of-two">
+    <h2>Actual</h2>
+    <div id="beachballview-example"></div>
+  </div>
+  <div class="column one-of-two">
+    <h2>Expected</h2>
+    <img src="expected.png" alt="expected rendering of moment tensor"/>
+  </div>
+</div>

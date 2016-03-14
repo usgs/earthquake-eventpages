@@ -16,14 +16,16 @@ Xhr.ajax({
 
     BeachBallView({
       el: document.querySelector('#beachballview-example'),
+      size: 400,
       tensor: tensor
     }).render();
   },
-  error: function () {
+  error: function (e) {
     document.querySelector('#beachballview-example').innerHTML = [
       '<p class="alert error">',
         'Failed to create a beachball view.',
       '</p>'
     ].join('');
+    throw e;
   }
 });
