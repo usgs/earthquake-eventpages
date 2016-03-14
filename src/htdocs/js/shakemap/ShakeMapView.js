@@ -15,26 +15,6 @@ var ShakeMapView = function (options) {
     _this.el.classList.add('shakemap');
   };
 
-  _this.render = function () {
-    var el,
-        shakemap;
-
-    el = _this.el;
-    shakemap = _this.model;
-
-    if (shakemap.get('status').toUpperCase() === 'DELETE') {
-      el.innerHTML = '<p class="alert info">Product Deleted</p>';
-    } else {
-      // Build TabList with all of the shakemap images
-      _this.tablist = new TabList({
-        el: el,
-        tabPosition: 'top',
-        tabs: []
-      });
-      _this.createTabListData(shakemap);
-    }
-  };
-
   /**
    * Create tab content for all PSA images (PSA 0.3, 1.0, 3.0)
    *
@@ -177,6 +157,26 @@ var ShakeMapView = function (options) {
         '</a>';
 
     return link;
+  };
+
+  _this.render = function () {
+    var el,
+        shakemap;
+
+    el = _this.el;
+    shakemap = _this.model;
+
+    if (shakemap.get('status').toUpperCase() === 'DELETE') {
+      el.innerHTML = '<p class="alert info">Product Deleted</p>';
+    } else {
+      // Build TabList with all of the shakemap images
+      _this.tablist = new TabList({
+        el: el,
+        tabPosition: 'top',
+        tabs: []
+      });
+      _this.createTabListData(shakemap);
+    }
   };
 
   _initialize();
