@@ -1,9 +1,14 @@
 'use strict';
 
 var Formatter = require('core/Formatter'),
-    ProductView = require('core/ProductView'),
+    NearbyPlacesView = require('general/NearbyPlacesView'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
+
+
+var _DEFAULTS = {
+  url: 'http://earthquake.usgs.gov/ws/geoserve/places.json'
+};
 
 
 /**
@@ -19,24 +24,22 @@ var GeoserveNearbyPlacesView = function (options) {
       _formatter,
       _url;
 
-  options = options || {};
-  _this = ProductView(options);
+
+  options = Util.extend({}, _DEFAULTS, options);
+  _this = NearbyPlacesView(options);
 
   _initialize = function (options) {
-    var latitude,
-        longitude;
-
     _formatter = options.formatter || Formatter();
+    _this.el.classList.add('geoserve-nearby-places');
 
     if (options.eventConfig &&
         options.eventConfig.hasOwnProperty('GEOSERVE_WS_URL')) {
-      latitude = _this.model.getProperty('latitude');
-      longitude = _this.model.getProperty('longitude');
       _url = options.eventConfig.GEOSERVE_WS_URL;
-      _url = _url + 'places.json?type=event&latitude=' + latitude +
-          '&longitude=' + longitude;
+    } else {
+      _url = options.url;
     }
   };
+
 
   /**
    * Gets data
@@ -45,7 +48,12 @@ var GeoserveNearbyPlacesView = function (options) {
     Xhr.ajax({
       url: _url,
       success: _this.onSuccess,
-      error: _this.onError
+      error: _this.onError,
+      data: {
+        latitude: _this.model.getProperty('latitude'),
+        longitude: _this.model.getProperty('longitude'),
+        type: 'event'
+      }
     });
   };
 
@@ -58,51 +66,34 @@ var GeoserveNearbyPlacesView = function (options) {
 
   /**
    * This method is called when data is successfully fetched from _this.model
-   * {Content} object. It should complete the render of the fetched data
-   * into _this.el container.
+   * {Content} object.
    *
    * @param data {String|JSON}
    *     The data for _this.model {Content} object.
    */
-  _this.onSuccess = function (data) {
-    var azimuth,
-        i,
-        len,
-        markup,
-        countryOrState;
+  _this.onSuccess = Util.compose(function (data) {
+    return data.event.features.map(function (item) {
+      var azimuth,
+          countryOrState;
 
-    data = data.event.features;
-    len = data.length;
-    markup = [];
-
-    _this.el.classname = 'geoserve-nearby-places';
-
-    for (i = 0; i < len; i++) {
-      // Converst azimuth to a back azimuth so that compass directions will be
-      // in the correct direction.
-      azimuth = _formatter.backAzimuth(data[i].properties.azimuth);
+      azimuth = _formatter.backAzimuth(item.properties.azimuth);
 
       // Checks to see if location is inside the US or not if it is in the US
       // the state name is used if the location is outside the US
       // the country name is used.
-      if (data[i].properties.country_code === 'US') {
-        countryOrState = data[i].properties.admin1_name;
+      if (item.properties.country_code === 'US') {
+        countryOrState = item.properties.admin1_name;
       } else {
-        countryOrState = data[i].properties.country_name;
+        countryOrState = item.properties.country_name;
       }
 
-      // Formats nearby places/cities info
-      markup.push('<li>' +
-          Math.round(data[i].properties.distance) + ' km ' +
-          '(' + Math.round(_formatter.kmToMi(data[i].properties.distance)) +
-          ' mi) ' + _formatter.compassWinds(azimuth) +
-          ' of ' + data[i].properties.name +
-          ', ' + countryOrState +
-          '</li>');
-    }
-
-    _this.el.innerHTML = '<ul class="no-style">' + markup.join('') + '</ul>';
-  };
+      return {
+        distance: item.properties.distance,
+        direction: _formatter.compassWinds(azimuth),
+        name: item.properties.name + ', ' + countryOrState
+      };
+    });
+  }, _this.onSuccess);
 
   /**
    * Called when the model changes. Initially sets a loading message then starts
