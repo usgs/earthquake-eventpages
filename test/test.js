@@ -42,6 +42,8 @@ require('./spec/core/TextProductViewTest');
 
 require('./spec/dyfi/DYFIResponsesViewTest');
 
+require('./spec/finitefault/FiniteFaultViewTest');
+
 require('./spec/general/NearbyPlacesViewTest');
 
 require('./spec/pdl/ContentTest');
