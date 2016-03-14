@@ -43,6 +43,28 @@ describe('core/Formatter', function () {
     });
   });
 
+  describe('backAzimuth', function () {
+    it('returns correct backAzimuth 180 degrees returns 0 degrees',
+        function () {
+      expect(formatter.backAzimuth(180)).to.equal(0);
+    });
+
+    it('returns correct backAzimuth 0 degrees returns 180 degrees',
+        function () {
+      expect(formatter.backAzimuth(0)).to.equal(180);
+    });
+
+    it('returns correct backAzimuth 90 degrees returns 270 degrees',
+        function () {
+      expect(formatter.backAzimuth(90)).to.equal(270);
+    });
+
+    it('returns correct backAzimuth 270 degrees returns 90 degrees',
+        function () {
+      expect(formatter.backAzimuth(270)).to.equal(90);
+    });
+  });
+
   describe('compassWinds', function () {
     it('0 degrees returns N', function () {
       expect(formatter.compassWinds(0)).to.equal('N');
