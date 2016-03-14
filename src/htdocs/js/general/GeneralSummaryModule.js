@@ -143,7 +143,7 @@ var GeneralSummaryModule = function (options) {
   };
 
   _renderNearbyPlaces = function () {
-    _nearbyPlacesEl = '<h3>Nearby Places</h3>';
+    _nearbyPlacesEl.innerHTML = '<h3>Nearby Places</h3>';
   };
 
   _renderTectonicSummary = function () {
