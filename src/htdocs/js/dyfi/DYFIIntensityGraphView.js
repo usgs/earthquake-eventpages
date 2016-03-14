@@ -109,10 +109,10 @@ var DYFIIntensityGraphView = function (options) {
         marginLeft: 10,
         paddingLeft:70
       }, options));
-      _this.parseData(datasets);
       _this.el.innerHTML = '';
       _this.el.classList.add('IntensityGraphView');
       _this.el.appendChild(_graph.el);
+      _this.parseData(datasets);
     } else {
       _this.el.innerHTML = '<p class="alert warning">Intensity vs. Distance ' +
           'data does not exist.</p>';
