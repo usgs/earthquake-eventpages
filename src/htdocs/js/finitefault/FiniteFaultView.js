@@ -10,19 +10,15 @@ var _DEFAULTS = {
 
 
 var FiniteFaultView = function (options) {
-  var _this,
-      _initialize;
+  var _this;
 
 
-  options = Util.extend({}, _DEFAULTS, options);
+  options = Util.extend({contentPath: options.model ?
+      (options.model.getProperty('eventsourcecode') + '.html') : ''},
+    _DEFAULTS, options
+  );
   _this = TextProductView(options);
 
-  _initialize = function (/*options*/) {
-
-  };
-
-
-  _initialize(options);
   options = null;
   return _this;
 };
