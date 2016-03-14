@@ -16,7 +16,7 @@ Xhr.ajax({
       el: document.querySelector('#geoserve-nearby-places-view-example'),
       model: product,
       eventConfig: {
-        'GEOSERVE_WS_URL': 'http://earthquake.usgs.gov/ws/geoserve/'
+        'GEOSERVE_WS_URL': 'http://earthquake.usgs.gov/ws/geoserve/places.json'
       }
     }).render();
   },
