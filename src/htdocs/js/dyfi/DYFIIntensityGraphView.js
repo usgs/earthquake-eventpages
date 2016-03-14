@@ -5,40 +5,24 @@ var ContentView = require('core/ContentView'),
     d3 = require('d3'),
     D3LineView = require('d3/D3LineView'),
     D3View = require('d3/D3View'),
-    Formatter = require('core/Formatter'),
-    StandardDevationLineView = require('impact/StandardDeviationLineView'),
+    StandardDevationLineView = require('dyfi/StandardDeviationLineView'),
     Util = require('util/Util');
 
 
 /**
  * This class extends the {ContentView} class and is specifically used
- * for rendering "contents.xml" for a given product. The `options.model` should
- * be of type {Content}.
- *
+ * for rendering "dyfi_plot_atten.json" for the dyfi product.
  *
  * @param options {Object}
  *     An object containing configuration options for this view.
  *
- * @param options.formatter {Formatter}
- *     The formatter object to use for formatting intrinsic values.
  */
 var DYFIIntensityGraphView = function (options) {
   var _this,
-      _initialize,
 
-      _formatter,
       _graph;
 
     _this = ContentView(options);
-
-  /**
-   * @Constructor
-   *
-   * Initializes the view. See class level documentation for details.
-   */
-  _initialize = function (options) {
-    _formatter = options.formatter || Formatter();
-  };
 
   _this.buildLineView = function (dataset) {
     var line = D3LineView({
@@ -148,7 +132,6 @@ var DYFIIntensityGraphView = function (options) {
     return data;
   };
 
-  _initialize(options);
   options = null;
   return _this;
 };
