@@ -186,8 +186,8 @@ __sortEigenvalues = function (v1, v2) {
   var v1mag,
       v2mag;
   // largest value first
-  v1mag = v2.magnitude();
-  v2mag = v2.magnitude();
+  v1mag = v1.eigenvalue;
+  v2mag = v2.eigenvalue;
   if (v1mag < v2mag) {
     return 1;
   } else if (v1mag > v2mag) {
@@ -263,8 +263,8 @@ __sortEigenvalues = function (v1, v2) {
     _this.T = t = eigen[0];
     _this.N = n = eigen[1];
     _this.P = p = eigen[2];
-    _this.fCLVD = n.magnitude() /
-        Math.max(Math.abs(t.magnitude()), Math.abs(p.magnitude()));
+    _this.fCLVD = n.eigenvalue /
+        Math.max(Math.abs(t.eigenvalue), Math.abs(p.eigenvalue));
     _this.percentDC = Math.abs(1 - Math.abs(_this.fCLVD) / 0.5);
     _this.forceThrust = Math.pow(Math.sin(t.plunge()), 2);
     _this.forceStrikeSlip = Math.pow(Math.sin(n.plunge()), 2);
