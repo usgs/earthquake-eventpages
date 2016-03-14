@@ -43,6 +43,9 @@ var Canvas = function (options) {
       _canvas.height = options.height;
     }
     _context = _canvas.getContext('2d');
+    // expose these as public properties
+    _this.canvas = _canvas;
+    _this.context = _context;
   };
 
 
@@ -55,6 +58,16 @@ var Canvas = function (options) {
     } else {
       _canvas.width = _canvas.width;
     }
+  };
+
+  /**
+   * Free references.
+   */
+  _this.destroy = function () {
+    _canvas = null;
+    _context = null;
+    _initialize = null;
+    _this = null;
   };
 
   /**
@@ -232,6 +245,7 @@ var Canvas = function (options) {
       c.fill();
     }
   };
+
 
   _initialize(options);
   options = null;
