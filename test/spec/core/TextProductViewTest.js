@@ -1,9 +1,9 @@
-/* global chai, describe, it */
+/* global before, chai, describe, it */
 'use strict';
 
 
 var Product = require('pdl/Product'),
-    TextProductView = require('general/TextProductView');
+    TextProductView = require('core/TextProductView');
 
 var generalTextProduct = Product({
     contents: {
@@ -37,7 +37,8 @@ var scitechTextProduct = Product({
       contentType: 'image/png',
       lastModified: 1455229051000,
       length: 608735,
-      url: '/products/scitech-text/usp000hvnu-1455229215593/admin/1455230870084/kur999_base.png'
+      url: '/products/scitech-text/usp000hvnu-1455229215593/admin/' +
+          '1455230870084/kur999_base.png'
     }
   }
 });
@@ -46,7 +47,7 @@ var scitechTextProduct = Product({
 var expect = chai.expect;
 
 
-describe('general/TextProductView', function () {
+describe('core/TextProductView', function () {
 
   describe('constructor', function () {
     it('is defined', function () {
@@ -55,30 +56,33 @@ describe('general/TextProductView', function () {
   });
 
   describe('render', function () {
+    var generalTextProductView,
+        scitechTextProductView;
 
-    // create text product view
-    var generalTextProductView = TextProductView({
-      el: document.createElement('div'),
-      model: generalTextProduct
+    before(function () {
+      // create general text product view
+      generalTextProductView = TextProductView({
+        el: document.createElement('div'),
+        model: generalTextProduct
+      });
+      generalTextProductView.render();
+
+      // create scitech text product view
+      scitechTextProductView = TextProductView({
+        el: document.createElement('div'),
+        model: scitechTextProduct
+      });
+      scitechTextProductView.render();
     });
-
-    generalTextProductView.render();
 
     it('displays bytes for text like product', function () {
       expect(generalTextProductView.el.innerHTML).to.equal('some text');
     });
 
-    // create text product view
-    var scitechTextProductView = TextProductView({
-      el: document.createElement('div'),
-      model: scitechTextProduct
-    });
-
-    scitechTextProductView.render();
-    var el = scitechTextProductView.el.querySelector('img');
-
     it('replaces relative URLs with fully qualified URLs', function () {
-      expect(el.getAttribute('src')).to.equal('/products/scitech-text/usp000hvnu-1455229215593/admin/1455230870084/kur999_base.png');
+      expect(scitechTextProductView.el.querySelector('img').getAttribute('src'))
+          .to.equal('/products/scitech-text/usp000hvnu-1455229215593/admin/' +
+          '1455230870084/kur999_base.png');
     });
 
   });
