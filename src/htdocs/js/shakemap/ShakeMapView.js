@@ -172,7 +172,7 @@ var ShakeMapView = function (options) {
     el = _this.el;
     shakemap = _this.model;
 
-    if (shakemap.get('status').toUpperCase() === 'DELETE') {
+    if (shakemap.isDeleted()) {
       el.innerHTML = '<p class="alert info">Product Deleted</p>';
     } else {
       // Build TabList with all of the shakemap images
