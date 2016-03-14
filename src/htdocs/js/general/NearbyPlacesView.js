@@ -31,6 +31,8 @@ var NearbyPlacesView = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
     _errorMessage = options.errorMessage;
     _formatter = options.formatter || Formatter();
+
+    _this.el.classList.add('nearby-places');
   };
 
   /**
@@ -64,6 +66,30 @@ var NearbyPlacesView = function (options) {
   };
 
   /**
+   * Formats a place.
+   *
+   * @param place {Object}
+   *     An object containing place information. Namely:
+   *         "distance" {Number} (km)
+   *         "direction" {String} (CompassWinds)
+   *         "name" {String} (Description)
+   *
+   * @return {String}
+   *     The formatted place markup.
+   */
+  _this.formatPlace = function (place) {
+    return [
+      '<li>' +
+        _formatter.distance(place.distance, 'km') +
+        ' (' +
+          _formatter.distance(_formatter.kmToMi(place.distance), 'mi') +
+        ') ' +
+        place.direction + ' of ' + place.name +
+      '</li>'
+    ].join('');
+  };
+
+  /**
    * This method is called when there is a problem.
    *
    * @param errorMessage {String}
@@ -80,25 +106,15 @@ var NearbyPlacesView = function (options) {
    *    The data for nearby-cities JSON.
    */
   _this.onSuccess = function (data) {
-    var i,
-        len,
-        markup;
+    var markup;
 
-    len = data.length;
-    markup = [];
-
-    _this.el.className = 'nearby-places';
     // Formats nearby places
-    for (i = 0; i < len; i++) {
-      markup.push('<li>' +
-          data[i].distance + ' km ' +
-          '(' + Math.round(_formatter.kmToMi(data[i].distance)) + ' mi) ' +
-          data[i].direction +
-          ' of ' + data[i].name +
-          '</li>');
-    }
+    markup = data.reduce(function (prev, item/*, idx, arr*/) {
+      return prev + _this.formatPlace(item);
+    }, '');
 
-    _this.el.innerHTML = '<ul class="no-style">' + markup.join('') + '</ul>';
+
+    _this.el.innerHTML = '<ul class="no-style">' + markup + '</ul>';
   };
 
   /**

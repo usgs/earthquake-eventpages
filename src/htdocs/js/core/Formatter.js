@@ -7,6 +7,8 @@ var Util = require('util/Util');
 var _DEFAULTS = {
   // decimal places for depth
   depthDecimals: 1,
+  // decimal places for distance
+  distanceDecimals: 1,
   // content when a value is missing
   empty: '&ndash;',
   // size abbreviations for [bytes, kilobytes, megabytes, gigabytes]
@@ -32,6 +34,7 @@ var Formatter = function (options) {
       _initialize,
 
       _depthDecimals,
+      _distanceDecimals,
       _empty,
       _fileSizes,
       _locationDecimals,
@@ -43,6 +46,7 @@ var Formatter = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
     _depthDecimals = options.depthDecimals;
+    _distanceDecimals = options.distanceDecimals;
     _empty = options.empty;
     _fileSizes = options.fileSizes;
     _locationDecimals = options.locationDecimals;
@@ -186,6 +190,21 @@ var Formatter = function (options) {
     }
     return _this.number(depth, _depthDecimals, _empty, units) +
         _this.uncertainty(error, _depthDecimals, '');
+  };
+
+  /**
+   * Format a distance (like km or mi).
+   *
+   * @param distance {Number}
+   *     The distance for format.
+   * @param units {String}
+   *     The units for this distance.
+   *
+   * @return {String}
+   *     A formatted distance string.
+   */
+  _this.distance = function (distance, units) {
+    return _this.number(distance, _distanceDecimals, _empty, units);
   };
 
   /**
