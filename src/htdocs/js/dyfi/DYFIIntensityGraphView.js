@@ -122,11 +122,16 @@ var DYFIIntensityGraphView = function (options) {
    * Unbind event listeners and free references.
    */
   _this.destroy = Util.compose(function () {
+    var views;
+
     if (_this === null) {
       return;
     }
+
     if (_graph) {
-      _graph.views.forEach(function (view) {
+      views = _graph.views.data();
+      _graph.views.reset([], {'silent': true});
+      views.forEach(function (view) {
         view.destroy();
       });
       _graph.destroy();

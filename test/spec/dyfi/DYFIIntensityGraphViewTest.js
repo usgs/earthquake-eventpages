@@ -1,43 +1,22 @@
-/* global before, chai, describe, it */
+/* global afterEach, beforeEach, chai, describe, it, sinon */
 'use strict';
 
-var DYFIIntensityGraphView = require('dyfi/DYFIIntensityGraphView'),
-    Product = require('pdl/Product'),
-    Xhr = require('util/Xhr');
+var Content = require('pdl/Content'),
+    DYFIIntensityGraphView = require('dyfi/DYFIIntensityGraphView'),
+    Util = require('util/Util');
 
 
 var expect = chai.expect;
 
-var dyfiProduct = Product({
-  id: 'urn:usgs-product:us:dyfi:us10004u1y:1457013501095',
-  type: 'dyfi',
-  code: 'us10004u1y',
-  source: 'us',
-  contents: {
-    'dyfi_plot_atten.json': {
-      contentType: 'application/json',
-      lastModified: 1457013500000,
-      length: 3075,
-      url: '/products/dyfi/us10004u1y/us/1457013501095/dyfi_plot_atten.json'
-    }
-  }
+var content = Content({
+  id: 'dyfi_plot_atten.json',
+  contentType: 'application/json',
+  lastModified: 1457013500000,
+  length: 3075,
+  url: '/products/dyfi/us10004u1y/us/1457013501095/dyfi_plot_atten.json'
 });
-
-var dyfiIntensityGraphView = DYFIIntensityGraphView({
-  el: document.createElement('div'),
-  model: dyfiProduct.getContent('dyfi_plot_atten.json')
-});
-dyfiIntensityGraphView.render();
 
 describe('dyfi/DYFIIntensityGraphView', function () {
-
-  before(function () {
-    Xhr.ajax({
-      url: '/products/dyfi/us10004u1y/us/1457013501095/dyfi_plot_atten.json',
-      success: dyfiIntensityGraphView.onSuccess,
-      error: dyfiIntensityGraphView.onError
-    });
-  });
 
   describe('constructor', function () {
 
@@ -47,19 +26,30 @@ describe('dyfi/DYFIIntensityGraphView', function () {
 
     it('can be constructed', function () {
       /* jshint -W030 */
-      expect(dyfiIntensityGraphView).to.not.be.null;
+      expect(DYFIIntensityGraphView()).to.not.be.null;
       /* jshint +W030 */
     });
   });
 
   describe('render', function () {
-    var el;
+    var dyfiIntensityGraphView,
+        el;
 
-    before(function () {
-      el = dyfiIntensityGraphView.el;
+    beforeEach(function (done) {
+      el = document.createElement('div');
+      dyfiIntensityGraphView = DYFIIntensityGraphView({
+        el: el,
+        model: content
+      });
+      sinon.stub(dyfiIntensityGraphView, 'onSuccess', Util.compose(dyfiIntensityGraphView.onSuccess, done));
+      dyfiIntensityGraphView.render();
     });
 
-    it('calls buildLineView', function () {
+    afterEach(function () {
+      dyfiIntensityGraphView.destroy();
+    });
+
+    it('creates buildLineView', function () {
       /* jshint -W030 */
       expect(el.querySelector('.estimated1')).to.not.be.null;
       expect(el.querySelector('.estimated2')).to.not.be.null;
@@ -81,6 +71,18 @@ describe('dyfi/DYFIIntensityGraphView', function () {
     it('calls buildStandardDeviationLineView', function () {
       /* jshint -W030 */
       expect(el.querySelector('.binned')).to.not.be.null;
+      /* jshint +W030 */
+    });
+  });
+
+  describe('destroy', function () {
+
+    it('calls destroy', function () {
+      var view = DYFIIntensityGraphView();
+      view.destroy();
+      /* jshint -W030 */
+      expect(view.el).to.be.null;
+      expect(view.model).to.be.null;
       /* jshint +W030 */
     });
   });
