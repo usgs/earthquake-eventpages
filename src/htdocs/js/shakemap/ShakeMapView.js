@@ -8,7 +8,10 @@ var ProductView = require('core/ProductView'),
 
 var ShakeMapView = function (options) {
   var _this,
-      _initialize;
+      _initialize,
+
+      _shakeMapStationListView,
+      _tablist;
 
   _this = ProductView(options);
 
@@ -71,7 +74,7 @@ var ShakeMapView = function (options) {
     // Intesity Image
     intensityContent = shakemap.getContent('download/intensity.jpg');
     if (intensityContent) {
-      _this.tablist.addTab({
+      _tablist.addTab({
         title: 'Intensity',
         content: _this.createTabListImage(intensityContent)
       });
@@ -80,7 +83,7 @@ var ShakeMapView = function (options) {
     // PGA Image
     pgaContent = shakemap.getContent('download/pga.jpg');
     if (pgaContent) {
-      _this.tablist.addTab({
+      _tablist.addTab({
         title: 'PGA (%g)',
         content: _this.createTabListImage(pgaContent)
       });
@@ -89,7 +92,7 @@ var ShakeMapView = function (options) {
     // PGV Image
     pgvContent = shakemap.getContent('download/pgv.jpg');
     if (pgvContent) {
-      _this.tablist.addTab({
+      _tablist.addTab({
         title: 'PGV (cm/s)',
         content: _this.createTabListImage(pgvContent)
       });
@@ -98,15 +101,15 @@ var ShakeMapView = function (options) {
     // TODO, Add StationList
     stationListContent = shakemap.getContent('download/stationlist.json');
     if (stationListContent) {
-      var shakeMapStationListView = ShakeMapStationListView({
+      _shakeMapStationListView = ShakeMapStationListView({
             el: document.createElement('div'),
             model: stationListContent
           });
-      _this.tablist.addTab({
+      _tablist.addTab({
         title: 'Station List',
         content: function () {
-          shakeMapStationListView.render();
-          return shakeMapStationListView.el;
+          _shakeMapStationListView.render();
+          return _shakeMapStationListView.el;
         }
       });
     }
@@ -114,7 +117,7 @@ var ShakeMapView = function (options) {
     // TODO, Add ShakeMap Info View
     shakeMapInfoContent = shakemap.getContent('download/info.json');
     if (shakeMapInfoContent) {
-      _this.tablist.addTab({
+      _tablist.addTab({
         title: 'Info',
         content: '<p>TODO :: Add Shakemap Info View</p>'
       });
@@ -123,7 +126,7 @@ var ShakeMapView = function (options) {
     // Uncertainty Image
     uncertaintyContent = shakemap.getContent('download/sd.jpg');
     if (uncertaintyContent) {
-      _this.tablist.addTab({
+      _tablist.addTab({
         title: 'Uncertainty',
         content: _this.createTabListImage(uncertaintyContent)
       });
@@ -133,7 +136,7 @@ var ShakeMapView = function (options) {
     if (shakemap.getContent('download/psa03.jpg') ||
         shakemap.getContent('download/psa10.jpg') ||
         shakemap.getContent('download/psa30.jpg')) {
-      _this.tablist.addTab({
+      _tablist.addTab({
         title: 'PSA (cm/s)',
         content: _this.createPSATabListImages(shakemap)
       });
@@ -165,6 +168,16 @@ var ShakeMapView = function (options) {
   };
 
   _this.destroy = Util.compose(function () {
+    // Destroy tablist
+    if (_tablist) {
+      _tablist.destroy();
+      _tablist = null;
+    }
+    // Destrop ShakeMapStationList
+    if (_shakeMapStationListView) {
+      _shakeMapStationListView.destroy();
+      _shakeMapStationListView = null;
+    }
     _initialize = null;
     _this = null;
   }, _this.destroy);
@@ -180,7 +193,7 @@ var ShakeMapView = function (options) {
       el.innerHTML = '<p class="alert info">Product Deleted</p>';
     } else {
       // Build TabList with all of the shakemap images
-      _this.tablist = new TabList({
+      _tablist = new TabList({
         el: el,
         tabPosition: 'top',
         tabs: []
