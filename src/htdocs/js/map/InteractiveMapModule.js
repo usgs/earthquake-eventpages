@@ -1,7 +1,8 @@
 'use strict';
 
 
-var ModalView = require('mvc/ModalView'),
+var InteractiveMapView = require('map/InteractiveMapView'),
+    ModalView = require('mvc/ModalView'),
     Module = require('core/Module'),
     Util = require('util/Util');
 
@@ -39,7 +40,11 @@ _DEFAULTS = {
  */
 var InteractiveMapModule = function (options) {
   var _this,
-      _initialize;
+      _initialize,
+
+      _closeButton,
+      _mapView,
+      _modal;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -55,9 +60,29 @@ var InteractiveMapModule = function (options) {
     _this.TITLE = _TITLE;
     _this.TYPES = _TYPES;
 
-    _this.modal = ModalView();
+    _this.content.addEventListener('click', _this.onContentClick);
+
+    _mapView = InteractiveMapView({});
+    _modal = ModalView(_mapView.el, {
+      buttons: null, // no footer
+      title: null    // no header
+    });
+
+    _modal.el.classList.add('modal-map');
+    _this.appendCloseButton();
+
+    _modal.on('hide', _this.onModalHide);
   };
 
+
+  _this.appendCloseButton = function () {
+    _closeButton = _modal.el.appendChild(document.createElement('button'));
+    _closeButton.classList.add('cancel');
+    _closeButton.classList.add('modal-close');
+    _closeButton.innerHTML = 'Close Map';
+
+    _closeButton.addEventListener('click', _this.onCloseButtonClick);
+  };
 
   /**
    * Free resources associated with this Module and then call parent
@@ -65,8 +90,72 @@ var InteractiveMapModule = function (options) {
    *
    */
   _this.destroy = Util.compose(function () {
-    // TODO
+    _this.content.removeEventListener('click', _this.onContentClick);
+    _closeButton.removeEventListener('click', _this.onCloseButtonClick);
+
+    _mapView.destroy();
+    _modal.hide();
+    _modal.destroy();
+
+    _mapView = null;
+    _modal = null;
+
+    _initialize = null;
+    _this = null;
   }, _this.destroy);
+
+  _this.onCloseButtonClick = function () {
+    _modal.hide();
+  };
+
+  /**
+   * Delegatede event listener to capture clicks on the button and show
+   * the modal view. This is a fallback so user can get back to map if
+   * they somehow end up viewing the background content of this module.
+   *
+   */
+  _this.onContentClick = function (ev) {
+    if (ev.target && ev.target.classList.contains('.show-map')) {
+      _this.showMap();
+    }
+  };
+
+  /**
+   * Callback executed when the underlying modal view is hidden. Updates the
+   * window hash to return the user to another page on the EventPage. Typically
+   * this is the page from which the user came, but in the case the user was
+   * linked directly to the map, the user is returned to the default page.
+   *
+   */
+  _this.onModalHide = function () {
+    // TODO :: Check if history is still on event page, if so, go there,
+    //         otherwise go to default page...
+    window.location.hash = '#'; // go to default page
+  };
+
+  /**
+   * Renders the background information and then shows the map.
+   *
+   */
+  _this.render = function () {
+    // Do basic background rendering stuff. This will largely go unseen.
+    _this.header.innerHTML = '<a class="back-to-summary-link" ' +
+        'href="#">Back to General</a>';
+    _this.content.innerHTML = '<button class="show-map">Show Map</button>';
+    _this.footer.innerHTML = '';
+
+    _this.showMap();
+  };
+
+  /**
+   * Shows the map and notifies the sub-view that its content is in the DOM
+   * so the view can invalidate dimensions etc...
+   *
+   */
+  _this.showMap = function () {
+    _modal.show();
+    _mapView.onDomReady();
+  };
 
 
   _initialize(options);
