@@ -49,6 +49,7 @@ require('./spec/general/GeoserveNearbyPlacesViewTest');
 require('./spec/general/NearbyPlacesViewTest');
 
 require('./spec/map/InteractiveMapModuleTest');
+require('./spec/map/InteractiveMapViewTest');
 
 require('./spec/pdl/ContentTest');
 require('./spec/pdl/ProductTest');
