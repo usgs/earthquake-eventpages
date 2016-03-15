@@ -149,15 +149,23 @@ var RESPONSE_DATA_SORTS = [
  *
  */
 var DYFIResponsesView = function (options) {
-  var _this,
+  var _initialize,
+      _this,
 
-      _button = null,
-      _responseTable = null,
-      _responseTableEl = null;
+      _button,
+      _responses,
+      _responseTable,
+      _responseTableEl;
 
 
   options = options || {};
   _this = ContentView(options);
+
+  _initialize = function () {
+    _button = null;
+    _responseTable = null;
+    _responseTableEl = null;
+  };
 
   /**
    * Add a toggle button to the reponses DataTable.
@@ -231,7 +239,7 @@ var DYFIResponsesView = function (options) {
       responsesArray.push(location);
     }
 
-    return new Collection(responsesArray);
+    return Collection(responsesArray);
   };
 
   /**
@@ -247,9 +255,8 @@ var DYFIResponsesView = function (options) {
       _responseTable = null;
     }
 
-    if (_responseTableEl !== null) {
-      _responseTableEl = null;
-    }
+    _responses = null;
+    _responseTableEl = null;
 
     _this = null;
   }, _this.destroy);
@@ -269,14 +276,12 @@ var DYFIResponsesView = function (options) {
    *
    */
   _this.onSuccess = function (responseText, xhr) {
-    var responses;
-
-    responses = _this.buildResponsesCollection(xhr.responseXML);
+    _responses = _this.buildResponsesCollection(xhr.responseXML);
 
     _responseTable = DataTable({
       el: _this.el,
       className: 'dyfi-response-table',
-      collection: responses,
+      collection: _responses,
       emptyMarkup: '<p class="error alert">No Response Data Exists</p>',
       columns: RESPONSE_DATA_COLUMNS,
       sorts: RESPONSE_DATA_SORTS,
@@ -285,7 +290,7 @@ var DYFIResponsesView = function (options) {
 
     _responseTableEl = _this.el.querySelector('.datatable-data');
     _responseTableEl.classList.add('horizontal-scrolling');
-    if (responses.data().length > 10) {
+    if (_responses.data().length > 10) {
       _this.addToggleButton(_this.el);
     }
   };
@@ -304,6 +309,7 @@ var DYFIResponsesView = function (options) {
     }
   };
 
+  _initialize();
   options = null;
   return _this;
 };
