@@ -1,16 +1,16 @@
 'use strict';
 
-var PAGERView = require('general/PAGERView'),
+var PAGERView = require('losspager/PAGERView'),
     Product = require('pdl/Product'),
     Xhr = require('util/Xhr');
 
 
 Xhr.ajax({
-  url: 'TODO: set up url',
+  url: '/events/us10004u1y.json',
   success: function (data) {
     var product;
-
-    product = /*this needs to be changed*/Product(data.properties.products['nearby-cities'][0]);
+    console.log(data);
+    product = Product(data.properties.products['losspager'][0]);
 
     PAGERView({
       el: document.querySelector('#pager-view-example'),
