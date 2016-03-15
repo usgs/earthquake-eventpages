@@ -40,6 +40,7 @@ require('./spec/core/EventPageTest');
 require('./spec/core/FormatterTest');
 require('./spec/core/TextProductViewTest');
 
+require('./spec/dyfi/DYFIIntensityGraphViewTest');
 require('./spec/dyfi/DYFIResponsesViewTest');
 
 require('./spec/finitefault/FiniteFaultViewTest');
