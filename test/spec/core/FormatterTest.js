@@ -216,6 +216,19 @@ describe('core/Formatter', function () {
     });
   });
 
+  describe('intensity', function () {
+    it('formats the intensity', function () {
+      var abbr = '</span>' +
+          '<abbr title="Modified Mercalli Intensity">mmi</abbr>';
+      expect(formatter.intensity(1.4)).to.equal(
+        '<span class="mmi mmiI"><span class="roman"><strong>I</strong>' +
+        '</span></span>');
+      expect(formatter.intensity(1.4, abbr)).to.equal(
+        '<span class="mmi mmiI"><span class="roman"><strong>I</strong>' +
+        '</span>' + abbr + '</span>');
+    });
+  });
+
   describe('kmToMi', function () {
     expect(formatter.kmToMi(1).toFixed(3)).to.equal('0.621');
   });
@@ -264,6 +277,21 @@ describe('core/Formatter', function () {
     it('supports uncertainty', function () {
       expect(formatter.magnitude(1.234, 'type', 0.12)).to.equal(
           '1.23400 type<span class="uncertainty">&plusmn; 0.12000</span>');
+    });
+  });
+
+  describe('mmi', function () {
+    it('returns a roman Numeral', function () {
+      expect(formatter.mmi(1.4, '-')).to.equal('I');
+    });
+    it('returns the empty value', function () {
+      expect(formatter.mmi(-1,'n')).to.equal('n');
+    });
+  });
+
+  describe('mmiColor', function () {
+    it('returns the correct mmi color', function () {
+      expect(formatter.mmiColor(1.4)).to.equal('#FFFFFF');
     });
   });
 
