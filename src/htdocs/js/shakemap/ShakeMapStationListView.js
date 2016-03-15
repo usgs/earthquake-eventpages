@@ -3,7 +3,7 @@
 var Accordion = require('accordion/Accordion'),
     ContentView = require('core/ContentView'),
     Formatter = require('core/Formatter'),
-    ImpactUtil = require('base/ImpactUtil'),
+    ImpactUtil = require('core/ImpactUtil'),
     Util = require('util/Util');
 
 var _NO_CONTENT_MESSAGE = 'No stations list available.';
@@ -16,16 +16,14 @@ var FLAG_DESCRIPTIONS = {
   'N': 'Not in list of known stations'
 };
 
-// var STATION_LIST = {
-//   title: 'Station List',
-//   suffix: 'download/stationlist.json'
-// };
-
 
 /**
  * View for a Station List.
  *
  * @param options {Object}
+ *
+ * @param options.formatter {Formatter}
+ *     The formatter object to use for formatting intrinsic values.
  */
 var ShakeMapStationListView = function (options) {
   var _this,
@@ -45,7 +43,7 @@ var ShakeMapStationListView = function (options) {
   /**
    * Generate summary markup for station list.
    *
-   * @param  {array} data,
+   * @param  data {array},
    *         list of station objects.
    *
    * @return {string}
@@ -70,11 +68,10 @@ var ShakeMapStationListView = function (options) {
       pga = props.pga;
       pgv = props.pgv;
 
+      pgv = _formatter.number(pgv, 3);
+      pga = _formatter.number(pga, 3);
 
-      pgv = (pgv !== null) ? pgv.toFixed(3) : '&ndash;';
-      pga = (pga !== null) ? pga.toFixed(3) : '&ndash;';
-
-      distance = props.distance.toFixed(1);
+      distance = _formatter.number(props.distance, 1);
 
       romanNumeral = ImpactUtil.translateMmi(props.intensity);
 
@@ -123,9 +120,9 @@ var ShakeMapStationListView = function (options) {
    * Generate details markup for station details. This is only called
    * when a station details section is expanded.
    *
-   * @param  {string} index,
+   * @param  index {string},
    *         a data-id value that identifies the station details
-   *         section that was expanded on a click event.
+   *         section that is expanded on a click event.
    *
    * @return {string}
    *         HTML markup.
@@ -147,7 +144,8 @@ var ShakeMapStationListView = function (options) {
                 _this.formatLocation(feature),
               '</dd>',
             '<dt class="station-metadata-source">Source</dt>',
-              '<dd class="station-metadata-source">', (props.source || '&ndash;'), '</dd>',
+              '<dd class="station-metadata-source">',
+                  (props.source || '&ndash;'), '</dd>',
             '<dt class="station-metadata-intensity">Intensity</dt>',
               '<dd class="station-metadata-intensity">',
                 _formatter.number(props.intensity, 1, '&ndash;'),
@@ -158,6 +156,15 @@ var ShakeMapStationListView = function (options) {
       ].join('');
   };
 
+  /**
+   * Takes an array of amplitude objects from a channel, and creates
+   *    a more user friendly amplitude object.
+   * @param [objects] amplitudes
+   *    An array of amplitude objects.
+   *
+   * @return {object}
+   *    an object with a key object pair, where the key is the amplitude name.
+   */
   _this.createAmplitudesObject = function (amplitudes) {
     var amp = {},
         i,
@@ -172,6 +179,14 @@ var ShakeMapStationListView = function (options) {
     return amp;
   };
 
+  /**
+   * create the markup for a channel table.
+   *
+   * @params [objects] channels
+   *
+   * @return {string}
+   *         HTML markup.
+   */
   _this.createChannelTable = function (channels) {
     var i = 0, numChannels = channels.length;
 
@@ -200,6 +215,15 @@ var ShakeMapStationListView = function (options) {
     return markup.join('');
   };
 
+
+  /**
+   * create the markup for a channel row
+   *
+   * @params {objects} channel
+   *
+   * @return {string}
+   *         HTML markup.
+   */
   _this.createChannelRow = function (channel) {
     var amplitude = _this.createAmplitudesObject(channel.amplitudes);
 
@@ -234,6 +258,14 @@ var ShakeMapStationListView = function (options) {
     _this = null;
   }, _this.destroy);
 
+  /**
+   * format the component of a cell for a channel table.
+   *
+   * @params {object} data
+   *
+   * @returns {string}
+   *         HTML markup.
+   */
   _this.formatComponent = function (data) {
     var content = [],
         flag,
@@ -268,6 +300,14 @@ var ShakeMapStationListView = function (options) {
     return content.join('');
   };
 
+  /**
+   * Get the Lat, Long; swap position and encapsulate in parens.
+   *
+   * @param {object} feature
+   *
+   * @return {string}
+   *         HTML markup.
+   */
   _this.formatLocation = function (feature) {
     return ((feature.properties.location) ?
         (feature.properties.location + '<br/>') : '') + ' (' +
@@ -285,14 +325,12 @@ var ShakeMapStationListView = function (options) {
   };
 
   /**
-   * Renders the list of downloads. Called when data is successfully fetched.
+   * Renders the list of stations. Called when data is successfully fetched.
    *
    */
   _this.onSuccess = function (responseText/*, xhr*/) {
-    _this.el.innerHTML = ['<div class="shakemap-stations">' +
-      _this.buildStationList(responseText) +
-      '</div>'].join('');
-    new Accordion({
+    _this.el.innerHTML = _this.buildStationList(responseText);
+    Accordion({
       el:_this.el
     });
   };
