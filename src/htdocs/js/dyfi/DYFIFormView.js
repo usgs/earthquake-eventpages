@@ -260,6 +260,24 @@ var DYFIFormView = function (options) {
   control.innerHTML = info.description;
   };
 
+  /**
+   * Free references.
+   */
+  _this.destroy = Util.compose(function () {
+    if (_questions !== null) {
+      _questions.ciim_mapLat.off('change', _this.updateSubmitEnabled);
+      _questions.ciim_mapLon.off('change', _this.updateSubmitEnabled);
+      _questions.fldSituation_felt.off('change', _this.updateSubmitEnabled);
+      if (_questions.ciim_time) {
+        _questions.ciim_time.el.removeEventListener('change',
+            _this.updateSubmitEnabled);
+      }
+      _questions = null;
+    }
+
+    _this = null;
+  }, _this.destroy);
+
   _this.onSubmit = function () {
 
   };
