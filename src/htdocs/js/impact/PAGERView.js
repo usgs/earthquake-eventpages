@@ -16,9 +16,11 @@ var PAGERView = function (options) {
 
   _this = ProductView(options);
 
+
   _initialize = function () {
 
   };
+
 
   /**
    * Destroy all the things.
