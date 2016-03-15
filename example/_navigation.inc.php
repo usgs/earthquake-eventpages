@@ -1,5 +1,7 @@
 <?php
 
+print navItem('/example.php', 'Examples Index');
+
 print navGroup('Core',
     navItem('/core/DownloadViewExample.php', 'DownloadView') .
     navItem('/core/TextProductViewExample.php', 'TextProductView')
@@ -19,4 +21,9 @@ print navGroup('Impact',
         'ShakeMapStationListView ') .
     navItem('/shakemap/ShakeMapViewExample.php', 'ShakeMapView')
   );
+
+print navGroup('Scientific',
+    navItem('/finitefault/FiniteFaultViewExample.php', 'FiniteFaultView')
+  );
+
 ?>

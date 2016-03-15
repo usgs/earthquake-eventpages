@@ -2,21 +2,26 @@
 'use strict';
 
 
-var Product = require('pdl/Product'),
+var Model = require('mvc/Model'),
+    Product = require('pdl/Product'),
     TextProductView = require('core/TextProductView');
 
-var generalTextProduct = Product({
-    contents: {
-      '': {
-        'contentType': 'text/plain',
-        'length': 'some text'.length,
-        'lastModified': 1234,
-        'bytes': 'some text'
-      }
-    }
-  });
 
-var scitechTextProduct = Product({
+var expect = chai.expect;
+
+
+var generalTextInfo = {
+  contents: {
+    '': {
+      'contentType': 'text/plain',
+      'length': 'some text'.length,
+      'lastModified': 1234,
+      'bytes': 'some text'
+    }
+  }
+};
+
+var scitechTextInfo = {
   contents: {
     '': {
       'contentType': '1',
@@ -41,13 +46,20 @@ var scitechTextProduct = Product({
           '1455230870084/kur999_base.png'
     }
   }
-});
+};
 
-
-var expect = chai.expect;
 
 
 describe('core/TextProductView', function () {
+  var generalProduct,
+      scitechProduct;
+
+
+  before(function () {
+    generalProduct = Product(generalTextInfo);
+    scitechProduct = Product(scitechTextInfo);
+  });
+
 
   describe('constructor', function () {
     it('is defined', function () {
@@ -55,35 +67,71 @@ describe('core/TextProductView', function () {
     });
   });
 
-  describe('render', function () {
-    var generalTextProductView,
-        scitechTextProductView;
+  describe('onError', function () {
+    it('should contain an error message', function () {
+      var view;
 
-    before(function () {
-      // create general text product view
-      generalTextProductView = TextProductView({
+      view = TextProductView({
         el: document.createElement('div'),
-        model: generalTextProduct
+        model: generalProduct
       });
-      generalTextProductView.render();
 
-      // create scitech text product view
-      scitechTextProductView = TextProductView({
+      view.onError();
+
+      /* jshint -W030 */
+      expect(view.el.querySelector('.error')).to.not.be.null;
+      /* jshint +W030 */
+    });
+  });
+
+  describe('onSuccess', function () {
+    it('displays simple data', function () {
+      var view;
+
+      view = TextProductView({
         el: document.createElement('div'),
-        model: scitechTextProduct
+        model: generalProduct
       });
-      scitechTextProductView.render();
+
+      view.onSuccess(generalTextInfo.contents[''].bytes);
+
+      expect(view.el.innerHTML).to.equal(generalTextInfo.contents[''].bytes);
     });
 
-    it('displays bytes for text like product', function () {
-      expect(generalTextProductView.el.innerHTML).to.equal('some text');
-    });
+    it('replaces relative paths', function () {
+      var view;
 
-    it('replaces relative URLs with fully qualified URLs', function () {
-      expect(scitechTextProductView.el.querySelector('img').getAttribute('src'))
-          .to.equal('/products/scitech-text/usp000hvnu-1455229215593/admin/' +
+      view = TextProductView({
+        el: document.createElement('div'),
+        model: scitechProduct
+      });
+
+      view.onSuccess(scitechTextInfo.contents[''].bytes);
+
+      expect(view.el.querySelector('img').getAttribute('src')).to.equal(
+          '/products/scitech-text/usp000hvnu-1455229215593/admin/' +
           '1455230870084/kur999_base.png');
     });
+  });
 
+
+  describe('replaceRelativePaths', function () {
+    var view;
+
+    before(function () {
+      view = TextProductView({
+        el: document.createElement('div'),
+        model: generalProduct
+      });
+    });
+
+    it('replaces all path instances', function () {
+      var result;
+
+      result = view.replaceRelativePaths(
+          '"foo" "bar" "foo" "bar" "foo"', [Model({id: 'foo', url: 'bar'})]);
+
+      expect(result).to.equal('"bar" "bar" "bar" "bar" "bar"');
+    });
   });
 });
