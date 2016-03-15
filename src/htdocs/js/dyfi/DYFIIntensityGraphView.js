@@ -125,7 +125,13 @@ var DYFIIntensityGraphView = function (options) {
     if (_this === null) {
       return;
     }
-    _graph = null;
+    if (_graph) {
+      _graph.views.forEach(function (view) {
+        view.destroy();
+      });
+      _graph.destroy();
+      _graph = null;
+    }
     _this = null;
   }, _this.destroy);
 
