@@ -73,7 +73,7 @@ var ShakeMapStationListView = function (options) {
 
       distance = _formatter.number(props.distance, 1);
 
-      romanNumeral = _formatter.translateMmi(props.intensity);
+      romanNumeral = _formatter.mmi(props.intensity);
 
       // Do not repeat the zip code if it's already part of the name
       if (props.name.indexOf('ZIP Code') === -1) {
@@ -86,9 +86,9 @@ var ShakeMapStationListView = function (options) {
         '<div class="accordion accordion-section accordion-closed station">',
           '<h3>', title, '</h3>',
           '<ul class="station-summary">',
-            '<li class="mmi mmi', romanNumeral, '">',
-              '<span class="roman"><strong>', romanNumeral, '</strong></span>',
-              '<abbr title="Modified Mercalli Intensity">mmi</abbr>',
+            '<li>',
+              _formatter.intensity(props.intensity,
+                  '<abbr title="Modified Mercalli Intensity">mmi</abbr>'),
             '</li>',
             '<li>',
               '<span>', pga ,'</span>',
@@ -298,7 +298,7 @@ var ShakeMapStationListView = function (options) {
       } else {
         content.push('<span>');
         content.push(parseFloat(value, 10).toFixed(3));
-        content.push('&nbsp'+ units);
+        content.push('&nbsp;'+ units);
         content.push('</span>');
       }
     } else {
