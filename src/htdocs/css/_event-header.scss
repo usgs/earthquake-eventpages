@@ -1,5 +1,3 @@
-@import '_mmi-variables.scss';
-
 .event-header {
 
   > .impact-bubbles {
@@ -77,71 +75,6 @@
 .pager-alertlevel-red {
   background-color: #f00 !important;
   color: #000 !important;
-}
-
-.roman {
-  font-family: $mmi-font-family;
-}
-
-.mmiI {
-  background-color: $mmiI !important;
-  box-shadow: 0 0 1px #666;
-  color: $mmiI-text-color !important;
-}
-
-.mmiII{
-  background-color: $mmiII !important;
-  color: $mmiII-text-color !important;
-}
-
-.mmiIII {
-  background-color: $mmiIII !important;
-  color: $mmiIII-text-color !important;
-}
-
-.mmiIV {
-  background-color: $mmiIV !important;
-  color: $mmiIV-text-color !important;
-}
-
-.mmiV {
-  background-color: $mmiV !important;
-  color: $mmiV-text-color !important;
-}
-
-.mmiVI {
-  background-color: $mmiVI !important;
-  color: $mmiVI-text-color !important;
-}
-
-.mmiVII {
-  background-color: $mmiVII !important;
-  color: $mmiVII-text-color !important;
-}
-
-.mmiVIII {
-  background-color: $mmiVIII !important;
-  color: $mmiVIII-text-color !important;
-}
-
-.mmiIX {
-  background-color: $mmiIX !important;
-  color: $mmiIX-text-color !important;
-}
-
-.mmiX {
-  background-color: $mmiX !important;
-  color: $mmiX-text-color !important;
-}
-
-.mmiXI {
-  background-color: $mmiXI !important;
-  color: $mmiXI-text-color !important;
-}
-
-.mmiXII {
-  background-color: $mmiXII !important;
-  color: $mmiXII-text-color !important;
 }
 
 /* Width for media query makes the switch from percentages to pixels smooth. */

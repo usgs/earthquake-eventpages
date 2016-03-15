@@ -71,8 +71,8 @@ describe('shakemap/ShakeMapStationListView', function () {
       view.onSuccess(responseText, xhr);
 
       /* jshint -W030 */
-      expect(view.el.querySelector('.shakemap-stations > .station').length).
-          to.not.be.null;
+      expect(view.el.querySelectorAll('.shakemap-stations > .station').length).
+          to.not.equal(0);
       /* jshint +W030 */
     });
   });

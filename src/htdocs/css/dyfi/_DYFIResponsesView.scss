@@ -28,20 +28,6 @@
   }
 }
 
-.dyfi-response-mmi > span {
-  border-radius: 2px;
-  display: block;
-  padding: 10px 0;
-  text-align: center;
-  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
-  width: 3em;
-
-  @media screen and (max-width: 559px) {
-    padding: 0;
-    width: 2em;
-  }
-}
-
 .dyfi-response-numResp,
 .dyfi-response-distance {
   text-align: center;
