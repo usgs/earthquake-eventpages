@@ -196,11 +196,11 @@ var ShakeMapStationListView = function (options) {
         '<thead>',
           '<tr>',
             '<th scope="col" class="station-channels-list-name">name</th>',
-            '<th scope="col" class="station-channels-list-pga">pga (%g)</th>',
-            '<th scope="col" class="station-channels-list-pgv">pgv (cm/s)</th>',
-            '<th scope="col" class="station-channels-list-psa03">psa03 (%g)</th>',
-            '<th scope="col" class="station-channels-list-psa10">psa10 (%g)</th>',
-            '<th scope="col" class="station-channels-list-psa30">psa30 (%g)</th>',
+            '<th scope="col" class="station-channels-list-pga">pga</th>',
+            '<th scope="col" class="station-channels-list-pgv">pgv</th>',
+            '<th scope="col" class="station-channels-list-psa03">psa03</th>',
+            '<th scope="col" class="station-channels-list-psa10">psa10</th>',
+            '<th scope="col" class="station-channels-list-psa30">psa30</th>',
           '</tr>',
         '</thead>',
         '<tbody>'
@@ -274,11 +274,13 @@ var ShakeMapStationListView = function (options) {
   _this.formatComponent = function (data) {
     var content = [],
         flag,
-        value;
+        value,
+        units;
 
     if (data) {
       flag = data.flag;
       value = data.value;
+      units = data.units;
 
       // Add flag class for all non-zero flags
       if (flag && flag !== '0') {
@@ -296,6 +298,7 @@ var ShakeMapStationListView = function (options) {
       } else {
         content.push('<span>');
         content.push(parseFloat(value, 10).toFixed(3));
+        content.push('&nbsp'+ units);
         content.push('</span>');
       }
     } else {
