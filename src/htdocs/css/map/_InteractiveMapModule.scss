@@ -1,0 +1,21 @@
+.modal-map {
+  height: 100%;
+  max-width: none;
+  position: relative;
+  width: 100%;
+
+  > .modal-content {
+    padding: 0;
+  }
+
+  > .modal-close {
+    bottom: 0;
+    margin-bottom: 1em;
+    left: 50%;
+    margin-left: -8em;
+    max-width: 100%;
+    position: absolute;
+    text-align: center;
+    width: 16em;
+  }
+}

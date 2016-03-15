@@ -6,7 +6,7 @@ if (!isset($TEMPLATE)) {
   include_once '../conf/config.inc.php';
 
   $HEAD = '
-    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/event.css"/>
   ';
 
   $eventid = param('eventid');
