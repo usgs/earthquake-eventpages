@@ -220,8 +220,10 @@ var DYFIIntensityGraphView = function (options) {
     return data;
   };
 
+
   options = null;
   return _this;
 };
+
 
 module.exports = DYFIIntensityGraphView;

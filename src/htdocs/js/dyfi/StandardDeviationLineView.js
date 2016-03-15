@@ -94,7 +94,7 @@ var StandardDeviationLineView = function (options) {
       );
     });
 
-    // update legend 
+    // update legend
     if (_lineView.legend) {
       ClassList.polyfill(_this.legend);
       _legend = d3.select(_this.legend);
@@ -113,6 +113,10 @@ var StandardDeviationLineView = function (options) {
   _this.destroy = Util.compose(function () {
     if (_this === null) {
       return;
+    }
+
+    if (_lineView) {
+      _lineView.destroy();
     }
 
     _data = null;
