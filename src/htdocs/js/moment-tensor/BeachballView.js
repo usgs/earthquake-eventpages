@@ -200,9 +200,21 @@ var BeachBallView = function (options) {
     } else {
       qpi = Math.PI / 4;
       tanDip = Math.tan(dip);
-      for (j = 0; j <= Math.PI; j+= _D2R) {
+
+      /**
+       * j starts at strike, and moves halfway around plane z=0
+       *
+       * Math.atan(tanDip * Math.sin(j)) computes the effective dip angle
+       * from the plane z=0 to the intersection of the dipping plane, beneath
+       * the azimuth strike + j.
+       *
+       * Math.sqrt(1 - effectiveDip) is the the distance from the origin in
+       * the plane z=0 to where the dipping plane intersects the focal sphere
+       * at azimuth (from north) strike + j.
+       */
+      for (j = 0; j <= Math.PI; j += _D2R) {
         i = strike + j;
-        r = Math.SQRT2 * Math.sin(qpi - (Math.atan(tanDip * Math.sin(j))) / 2);
+        r = Math.sqrt(1 - Math.sin(Math.atan(tanDip * Math.sin(j))));
         x.push(r * Math.sin(i));
         y.push(r * Math.cos(i));
       }

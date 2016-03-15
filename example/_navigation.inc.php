@@ -25,11 +25,8 @@ print navGroup('Impact',
   );
 
 print navGroup('Scientific',
+    navItem('/moment-tensor/BeachBallViewExample.php', 'BeachBallView') .
     navItem('/finitefault/FiniteFaultViewExample.php', 'FiniteFaultView')
-  );
-
-print navGroup('Scientific',
-    navItem('/moment-tensor/BeachBallViewExample.php', 'BeachBallView')
   );
 
 ?>
