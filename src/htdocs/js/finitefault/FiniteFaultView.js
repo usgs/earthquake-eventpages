@@ -19,6 +19,7 @@ var FiniteFaultView = function (options) {
   );
   _this = TextProductView(options);
 
+
   options = null;
   return _this;
 };
