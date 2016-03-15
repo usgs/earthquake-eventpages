@@ -23,6 +23,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/focal-mechanism/FocalMechanismView.js:focal-mechanism/FocalMechanismView',
   './' + config.src + '/htdocs/js/general/GeoserveNearbyPlacesView.js:general/GeoserveNearbyPlacesView',
   './' + config.src + '/htdocs/js/general/NearbyPlacesView.js:general/NearbyPlacesView',
+  './' + config.src + '/htdocs/js/impact/PAGERView.js:impact/PAGERView',
   './' + config.src + '/htdocs/js/map/ContoursLayer.js:map/ContoursLayer',
   './' + config.src + '/htdocs/js/map/DyfiUtmLayer.js:map/DyfiUtmLayer',
   './' + config.src + '/htdocs/js/map/InteractiveMapModule.js:map/InteractiveMapModule',
