@@ -50,18 +50,23 @@ var ShakeMapStationListView = function (options) {
    *         HTML markup.
    */
   _this.buildStationList = function (data) {
-    var stations = [],
-        station, pga, pgv, distance, romanNumeral, title, props;
+    var distance,
+        i,
+        pga,
+        pgv,
+        props,
+        stations,
+        station,
+        title;
 
-        data = data.features;
-
+    data = data.features;
     if (data.length === 0) {
       return '<p>No station data available at this time.</p>';
     }
 
     data.sort(_this.sortByDistance);
-
-    for (var i = 0; i < data.length; i++) {
+    stations = [];
+    for (i = 0; i < data.length; i++) {
       station = data[i];
       props = station.properties;
 
@@ -72,8 +77,6 @@ var ShakeMapStationListView = function (options) {
       pga = _formatter.number(pga, 3);
 
       distance = _formatter.number(props.distance, 1);
-
-      romanNumeral = _formatter.mmi(props.intensity);
 
       // Do not repeat the zip code if it's already part of the name
       if (props.name.indexOf('ZIP Code') === -1) {
@@ -166,11 +169,13 @@ var ShakeMapStationListView = function (options) {
    *    an object with a key object pair, where the key is the amplitude name.
    */
   _this.createAmplitudesObject = function (amplitudes) {
-    var amp = {},
+    var amp,
+        amplitude,
         i,
-        len = amplitudes.length,
-        amplitude = null;
+        len;
 
+    amp = {};
+    len = amplitudes.length;
     for (i = 0; i < len; i++) {
       amplitude = amplitudes[i];
       amp[amplitude.name] = amplitude;
@@ -188,7 +193,8 @@ var ShakeMapStationListView = function (options) {
    *         HTML markup.
    */
   _this.createChannelTable = function (channels) {
-    var i = 0, numChannels = channels.length;
+    var i,
+        numChannels;
 
     var markup = [
       '<div class="horizontal-scrolling">',
@@ -206,7 +212,8 @@ var ShakeMapStationListView = function (options) {
         '<tbody>'
     ];
 
-    for (; i < numChannels; i++) {
+    numChannels = channels.length;
+    for (i = 0; i < numChannels; i++) {
       markup.push(_this.createChannelRow(channels[i]));
     }
 
@@ -225,7 +232,9 @@ var ShakeMapStationListView = function (options) {
    *         HTML markup.
    */
   _this.createChannelRow = function (channel) {
-    var amplitude = _this.createAmplitudesObject(channel.amplitudes);
+    var amplitude;
+
+    amplitude = _this.createAmplitudesObject(channel.amplitudes);
 
     return [
       '<tr>',
@@ -256,10 +265,11 @@ var ShakeMapStationListView = function (options) {
    */
   _this.destroy = Util.compose(function () {
     if (_accordion) {
-      _accordion = null;
+      _accordion.destroy();
     }
-    _this.formatter = null;
-    _this.initialize = null;
+    _accordion = null;
+    _formatter = null;
+    _initialize = null;
     _this = null;
   }, _this.destroy);
 
@@ -272,11 +282,12 @@ var ShakeMapStationListView = function (options) {
    *         HTML markup.
    */
   _this.formatComponent = function (data) {
-    var content = [],
+    var content,
         flag,
         value,
         units;
 
+    content = [];
     if (data) {
       flag = data.flag;
       value = data.value;
