@@ -3,7 +3,6 @@
 var Collection = require('mvc/Collection'),
     ContentView = require('core/ContentView'),
     DataTable = require('mvc/DataTable'),
-    ImpactUtil = require('base/ImpactUtil'),
     Formatter = require('core/Formatter'),
     Util = require('util/Util');
 
@@ -39,11 +38,10 @@ var RESPONSE_DATA_COLUMNS = [
     className: 'dyfi-response-mmi',
     title: 'MMI',
     format: function (response) {
-      var roman = ImpactUtil.translateMmi(response.cdi);
-      return '<span class="mmi' + roman + '">' + roman + '</span>';
+      return _FORMATTER.intensity(response.cdi);
     },
     downloadFormat: function (response) {
-      return ImpactUtil.translateMmi(response.cdi);
+      return _FORMATTER.mmi(response.cdi);
     }
   },
   {
