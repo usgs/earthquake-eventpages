@@ -16,6 +16,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/core/LinkProductView.js:core/LinkProductView',
   './' + config.src + '/htdocs/js/core/TextProductView.js:core/TextProductView',
   './' + config.src + '/htdocs/js/dyfi/DYFIFormModule.js:dyfi/DYFIFormModule',
+  './' + config.src + '/htdocs/js/dyfi/DYFIFormView.js:dyfi/DYFIFormView',
   './' + config.src + '/htdocs/js/dyfi/DYFIModule.js:dyfi/DYFIModule',
   './' + config.src + '/htdocs/js/dyfi/DYFIView.js:dyfi/DYFIView',
   './' + config.src + '/htdocs/js/dyfi/DYFIIntensityGraphView.js:dyfi/DYFIIntensityGraphView',
