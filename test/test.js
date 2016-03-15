@@ -44,9 +44,10 @@ require('./spec/core/LinkProductViewTest');
 require('./spec/core/TextProductViewTest');
 
 require('./spec/dyfi/DYFIFormModuleTest');
+require('./spec/dyfi/DYFIFormViewTest');
+require('./spec/dyfi/DYFIIntensityGraphViewTest');
 require('./spec/dyfi/DYFIModuleTest');
 require('./spec/dyfi/DYFIViewTest');
-require('./spec/dyfi/DYFIIntensityGraphViewTest');
 require('./spec/dyfi/DYFIResponsesViewTest');
 
 require('./spec/finite-fault/FiniteFaultModuleTest');
