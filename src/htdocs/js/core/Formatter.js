@@ -2,25 +2,6 @@
 
 var Util = require('util/Util');
 
-var MMI_ARRAY = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
-    'IX', 'X', 'XI', 'XII'];
-
-var MMI_COLORS = [
-  '#FFFFFF',  // I
-  '#FFFFFF',  // I
-  '#ACD8E9',  // II
-  '#ACD8E9',  // III
-  '#83D0DA',  // IV
-  '#7BC87F',  // V
-  '#F9F518',  // VI
-  '#FAC611',  // VII
-  '#FA8A11',  // VIII
-  '#F7100C',  // IX
-  '#C80F0A',  // X
-  '#C80F0A',  // XI
-  '#C80F0A'   // XII
-];
-
 
 // default options
 var _DEFAULTS = {
@@ -40,6 +21,25 @@ var _DEFAULTS = {
 
 
 var _MILES_PER_KILOMETER = 0.621371;
+
+var _MMI_ARRAY = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
+    'IX', 'X', 'XI', 'XII'];
+
+var _MMI_COLORS = [
+  '#FFFFFF',  // I
+  '#FFFFFF',  // I
+  '#ACD8E9',  // II
+  '#ACD8E9',  // III
+  '#83D0DA',  // IV
+  '#7BC87F',  // V
+  '#F9F518',  // VI
+  '#FAC611',  // VII
+  '#FA8A11',  // VIII
+  '#F7100C',  // IX
+  '#C80F0A',  // X
+  '#C80F0A',  // XI
+  '#C80F0A'   // XII
+];
 
 
 /**
@@ -279,16 +279,26 @@ var Formatter = function (options) {
   };
 
   /**
-   * Get the color associated with a given MMI
+   * Format an intensity value.
    *
-   * @params mmi {number}
-   *    Modified Mercal Intensity.
-   * @return {string}
-   *    Color Code.
+   * @param intensity {Number}
+   *     numeric intensity value.
+   * @param text {String}
+   *     default ''.
+   *     content added following the formatted intensity value.
+   * @return {String}
+   *     formatted intensity.
    */
-  _this.getMmiColor = function (mmi) {
-    mmi = Math.round(mmi);
-    return MMI_COLORS[mmi] || null;
+  _this.intensity = function (intensity, text) {
+    var romanNumeral;
+
+    romanNumeral = _this.mmi(intensity);
+    text = text || '';
+
+    return '<span class="mmi mmi' + romanNumeral + '">' +
+        '<span class="roman"><strong>' + romanNumeral + '</strong></span>' +
+        text +
+        '</span>';
   };
 
   /**
@@ -386,6 +396,36 @@ var Formatter = function (options) {
   _this.magnitude = function (magnitude, type, error) {
     return _this.number(magnitude, _magnitudeDecimals, _empty, type) +
         _this.uncertainty(error, _magnitudeDecimals, '');
+  };
+
+  /**
+   * Translate mmi to a roman numeral
+   *
+   * @params mmi {number}
+   *         Modified Mercal Intensity
+   * @params empty {string}
+   *         The string to return if mmi is out of range
+   *
+   * @returns {string}
+   *          The Roman Numeral cooresponding to the mmi.
+   */
+  _this.mmi = function (mmi, empty) {
+    mmi = Math.round(mmi);
+
+    return _MMI_ARRAY[mmi] || empty || _empty;
+  };
+
+  /**
+   * Get the color associated with a given MMI
+   *
+   * @params mmi {number}
+   *    Modified Mercal Intensity.
+   * @return {string}
+   *    Color Code.
+   */
+  _this.mmiColor = function (mmi) {
+    mmi = Math.round(mmi);
+    return _MMI_COLORS[mmi] || null;
   };
 
   /**
@@ -499,23 +539,6 @@ var Formatter = function (options) {
     }
 
     return sign + hours + ':' + minutes;
-  };
-
-  /**
-   * Translate mmi to a roman numeral
-   *
-   * @params mmi {number}
-   *         Modified Mercal Intensity
-   * @params empty {string}
-   *         The string to return if mmi is out of range
-   *
-   * @returns {string}
-   *          The Roman Numeral cooresponding to the mmi.
-   */
-  _this.translateMmi = function (mmi, empty) {
-    mmi = Math.round(mmi);
-
-    return MMI_ARRAY[mmi] || empty || _empty;
   };
 
   /**
