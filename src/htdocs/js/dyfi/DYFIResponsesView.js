@@ -6,13 +6,14 @@ var Collection = require('mvc/Collection'),
     Formatter = require('core/Formatter'),
     Util = require('util/Util');
 
+
 var _NO_CONTENT_MESSAGE = 'No Responses available.';
 
-/* Formatter for RESPONSE_DATA_COLUMNS */
+/* Formatter for _RESPONSE_DATA_COLUMNS */
 var _FORMATTER = Formatter();
 
 /* Array of Column Objects for Responses DataTable */
-var RESPONSE_DATA_COLUMNS = [
+var _RESPONSE_DATA_COLUMNS = [
   {
     className: 'dyfi-response-location',
     title: 'Location',
@@ -81,7 +82,7 @@ var RESPONSE_DATA_COLUMNS = [
 ];
 
 /* Array of sort objects for use by DataTable */
-var RESPONSE_DATA_SORTS = [
+var _RESPONSE_DATA_SORTS = [
   {
     id: 'city',
     title: 'City',
@@ -140,6 +141,7 @@ var RESPONSE_DATA_SORTS = [
   }
 ];
 
+
 /**
  * This class extends the {ContentView} class and is specifically used
  * for rendering "stationlist.json" for a given product. The `options.model`
@@ -147,8 +149,8 @@ var RESPONSE_DATA_SORTS = [
  *
  */
 var DYFIResponsesView = function (options) {
-  var _initialize,
-      _this,
+  var _this,
+      _initialize,
 
       _button,
       _responses,
@@ -247,15 +249,18 @@ var DYFIResponsesView = function (options) {
     if (_button !== null) {
       _button.removeEventListener('click', _this.onToggleButtonClick);
     }
-
     if (_responseTable !== null) {
       _responseTable.destroy();
-      _responseTable = null;
+    }
+    if (_responses) {
+      _responses.destroy();
     }
 
+    _button = null;
+    _initialize = null;
     _responses = null;
     _responseTableEl = null;
-
+    _responseTable = null;
     _this = null;
   }, _this.destroy);
 
@@ -281,8 +286,8 @@ var DYFIResponsesView = function (options) {
       className: 'dyfi-response-table',
       collection: _responses,
       emptyMarkup: '<p class="error alert">No Response Data Exists</p>',
-      columns: RESPONSE_DATA_COLUMNS,
-      sorts: RESPONSE_DATA_SORTS,
+      columns: _RESPONSE_DATA_COLUMNS,
+      sorts: _RESPONSE_DATA_SORTS,
       defaultSort: 'distance'
     });
 
@@ -312,6 +317,8 @@ var DYFIResponsesView = function (options) {
   return _this;
 };
 
+
 DYFIResponsesView.NO_CONTENT_MESSAGE = _NO_CONTENT_MESSAGE;
+
 
 module.exports = DYFIResponsesView;
