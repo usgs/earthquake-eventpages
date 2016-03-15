@@ -4,8 +4,8 @@ var Events = require('util/Events'),
     Formatter = require('core/Formatter'),
     GeneralSummaryModule = require('general/GeneralSummaryModule'),
     ImpactSummaryModule = require('impact/ImpactSummaryModule'),
+    InteractiveMapModule = require('map/InteractiveMapModule'),
     Model = require('mvc/Model'),
-    Module = require('core/Module'),
     ShakeMapModule = require('shakemap/ShakeMapModule'),
     Util = require('util/Util');
 
@@ -17,7 +17,7 @@ var _DEFAULTS = {
   'defaultModule': GeneralSummaryModule.ID,
   'modules': [
     // General
-    [GeneralSummaryModule, Module],
+    [GeneralSummaryModule, InteractiveMapModule],
     // Impact
     [ImpactSummaryModule, ShakeMapModule],
     // Scientific
