@@ -76,12 +76,14 @@ var InteractiveMapModule = function (options) {
 
 
   _this.appendCloseButton = function () {
-    _closeButton = _modal.el.appendChild(document.createElement('button'));
-    _closeButton.classList.add('cancel');
-    _closeButton.classList.add('modal-close');
-    _closeButton.innerHTML = 'Close Map';
+    if (!_closeButton) {
+      _closeButton = _modal.el.appendChild(document.createElement('button'));
+      _closeButton.classList.add('cancel');
+      _closeButton.classList.add('modal-close');
+      _closeButton.innerHTML = 'Close Map';
 
-    _closeButton.addEventListener('click', _this.onCloseButtonClick);
+      _closeButton.addEventListener('click', _this.onCloseButtonClick);
+    }
   };
 
   /**
@@ -115,7 +117,7 @@ var InteractiveMapModule = function (options) {
    *
    */
   _this.onContentClick = function (ev) {
-    if (ev.target && ev.target.classList.contains('.show-map')) {
+    if (ev.target && ev.target.classList.contains('show-map')) {
       _this.showMap();
     }
   };
