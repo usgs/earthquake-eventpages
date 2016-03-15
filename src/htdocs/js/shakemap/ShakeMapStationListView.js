@@ -3,7 +3,6 @@
 var Accordion = require('accordion/Accordion'),
     ContentView = require('core/ContentView'),
     Formatter = require('core/Formatter'),
-    ImpactUtil = require('core/ImpactUtil'),
     Util = require('util/Util');
 
 var _NO_CONTENT_MESSAGE = 'No stations list available.';
@@ -29,6 +28,7 @@ var ShakeMapStationListView = function (options) {
   var _this,
       _initialize,
 
+      _accordion,
       _formatter;
 
   options = options || {};
@@ -59,7 +59,7 @@ var ShakeMapStationListView = function (options) {
       return '<p>No station data available at this time.</p>';
     }
 
-    data.sort(ImpactUtil.sortByDistance);
+    data.sort(_this.sortByDistance);
 
     for (var i = 0; i < data.length; i++) {
       station = data[i];
@@ -73,7 +73,7 @@ var ShakeMapStationListView = function (options) {
 
       distance = _formatter.number(props.distance, 1);
 
-      romanNumeral = ImpactUtil.translateMmi(props.intensity);
+      romanNumeral = _formatter.translateMmi(props.intensity);
 
       // Do not repeat the zip code if it's already part of the name
       if (props.name.indexOf('ZIP Code') === -1) {
@@ -255,6 +255,11 @@ var ShakeMapStationListView = function (options) {
    * Free references.
    */
   _this.destroy = Util.compose(function () {
+    if (_accordion) {
+      _accordion = null;
+    }
+    _this.formatter = null;
+    _this.initialize = null;
     _this = null;
   }, _this.destroy);
 
@@ -330,9 +335,25 @@ var ShakeMapStationListView = function (options) {
    */
   _this.onSuccess = function (responseText/*, xhr*/) {
     _this.el.innerHTML = _this.buildStationList(responseText);
-    Accordion({
+    _accordion = Accordion({
       el:_this.el
     });
+  };
+
+  /**
+   * Sort by Distance
+   *    Used by sort routines to determine which distance is greater.
+   *
+   * @params a {object}
+   *         An object with distance in a properties sub object.
+   * @params a {object}
+   *         An object with distance in a properties sub object.
+   *
+   * @returns {number}
+   *          The difference between the two distances.
+   */
+  _this.sortByDistance = function (a, b) {
+    return parseFloat(a.properties.distance) - parseFloat(b.properties.distance);
   };
 
 
