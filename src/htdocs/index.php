@@ -91,6 +91,7 @@ if (!isset($TEMPLATE)) {
       'var EventConfig = ' . json_encode($EVENT_CONFIG) . ';' .
       'var EventDetails = ' . json_encode($EVENT) . ';' .
     '</script>' .
+    '<script src="/lib/leaflet-0.7.7/leaflet.js"></script>' .
     /* this script creates EventPage using EventConfig, EventDetails */
     '<script src="js/event.js"></script>';
 
