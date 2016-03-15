@@ -55,6 +55,23 @@ var TextProductView = function (options) {
 
 
   /**
+   * Frees resources associated with this view. In particular, if a
+   * {ContentView} was created, it is destroyed.
+   *
+   */
+  _this.destroy = Util.compose(function () {
+    if (_contentView) {
+      _contentView.destroy();
+    }
+
+    _content = null;
+    _contentView = null;
+
+    _initialize = null;
+    _this = null;
+  }, _this.destroy);
+
+  /**
    * Callback method if the content fails to fetch its data. Displays a
    * basic error message.
    *
