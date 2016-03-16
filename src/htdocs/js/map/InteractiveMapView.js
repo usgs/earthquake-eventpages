@@ -316,7 +316,6 @@ var InteractiveMapView = function (options) {
         longitude;
 
     config = Util.extend({}, _defaultConfig, _this.model.get('map'));
-    console.log(config);
 
     Object.keys(_baseLayers).forEach(function (layerName) {
       var layer;
@@ -337,8 +336,8 @@ var InteractiveMapView = function (options) {
 
       layer = _overlays[layerName];
 
-      if (layer.map) {
-        layer.removeFrom(_map);
+      if (layer._map) {
+        _map.removeLayer(layer);
       }
 
       if (config[layerName] === 'true') {
@@ -354,8 +353,6 @@ var InteractiveMapView = function (options) {
       _map.fitBounds([[latitude + 2.0, longitude + 2.0],
           [latitude - 2.0, longitude - 2.0]]);
     }
-
-    console.log('InteractiveMapView::renderComplete');
   };
 
 
