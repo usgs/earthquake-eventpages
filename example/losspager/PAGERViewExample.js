@@ -9,7 +9,7 @@ Xhr.ajax({
   url: '/events/us10004u1y.json',
   success: function (data) {
     var product;
-    console.log(data);
+    
     product = Product(data.properties.products['losspager'][0]);
 
     PAGERView({

@@ -1,0 +1,28 @@
+<contents>
+  <!-- Full listing of files -->
+  <file title="Exposure Map" id="expoMap">
+    <caption>
+      <![CDATA[ Map of MMI intensity contours on top of population data ]]>
+    </caption>
+    <format href="exposure.png" type="image/png"/>
+    <format href="exposure.pdf" type="application/pdf"/>
+  </file>
+  <file title="onePAGER summary" id="onepager">
+    <caption>
+      <![CDATA[ One page summary of earthquake impact information ]]>
+    </caption>
+    <format href="onepager.pdf" type="application/pdf"/>
+  </file>
+  <file title="PAGER XML results" id="pagerxml">
+    <caption>
+      <![CDATA[ Summary of PAGER results in XML format ]]>
+    </caption>
+    <format href="pager.xml" type="text/xml"/>
+  </file>
+  <file title="PAGER Exposure KML" id="pagerkml">
+    <caption>
+      <![CDATA[ PAGER Exposure KML ]]>
+    </caption>
+    <format href="pagerexpo.kmz" type="text/xml"/>
+  </file>
+</contents>

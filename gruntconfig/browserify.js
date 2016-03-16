@@ -113,6 +113,18 @@ var browserify = {
   //   }
   // },
 
+
+  // bundle leaflet externally
+  leaflet: {
+    src: [],
+    dest: config.build + '/' + config.src + '/htdocs/lib/leaflet/leaflet.js',
+    options: {
+      alias: [
+        NODE_MODULES + '/leaflet/dist/leaflet-src.js:leaflet'
+      ]
+    }
+  },
+
   // test bundle
   test: {
     src: config.test + '/test.js',
