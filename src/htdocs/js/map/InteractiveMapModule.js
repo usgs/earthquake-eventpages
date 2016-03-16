@@ -62,7 +62,10 @@ var InteractiveMapModule = function (options) {
 
     _this.content.addEventListener('click', _this.onContentClick);
 
-    _mapView = InteractiveMapView({});
+    _mapView = InteractiveMapView({
+      model: _this.model
+    });
+
     _modal = ModalView(_mapView.el, {
       buttons: null, // no footer
       title: null    // no header
