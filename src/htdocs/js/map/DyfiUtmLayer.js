@@ -1,10 +1,11 @@
 /* global L */
 'use strict';
 
-var AsynchronousGeoJson = require('leaflet/layer/AsynchronousGeoJson'),
-    Formatter = require('core/Formatter'),
+var Formatter = require('core/Formatter'),
     ImpactUtil = require('base/ImpactUtil'),
     Util = require('util/Util');
+
+require('leaflet/layer/AsynchronousGeoJson');
 
 
 var _DEFAULT_FORMATTER = Formatter();
@@ -50,10 +51,10 @@ var _DEFAULT_OPTIONS = {
 };
 
 
-var DyfiUtmLayer = AsynchronousGeoJson.extend({
+var DyfiUtmLayer = L.AsynchronousGeoJson.extend({
 
   initialize: function (options) {
-    AsynchronousGeoJson.prototype.initialize.call(this,
+    L.AsynchronousGeoJson.prototype.initialize.call(this,
         Util.extend({}, _DEFAULT_OPTIONS, options));
   }
 

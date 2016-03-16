@@ -2,9 +2,10 @@
 'use strict';
 
 
-var AsynchronousGeoJson = require('map/AsynchronousGeoJson'),
-    ImpactUtil = require('base/ImpactUtil'),
+var ImpactUtil = require('base/ImpactUtil'),
     Util = require('util/Util');
+
+require('map/AsynchronousGeoJson');
 
 
 var DEFAULTS = {
@@ -28,10 +29,10 @@ var DEFAULTS = {
 };
 
 
-var ContoursLayer = AsynchronousGeoJson.extend({
+var ContoursLayer = L.AsynchronousGeoJson.extend({
 
   initialize: function (options) {
-    AsynchronousGeoJson.prototype.initialize.call(this,
+    L.AsynchronousGeoJson.prototype.initialize.call(this,
         Util.extend({}, DEFAULTS, options));
   }
 
