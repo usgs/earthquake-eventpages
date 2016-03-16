@@ -6,6 +6,7 @@ if (!isset($TEMPLATE)) {
   include_once '../conf/config.inc.php';
 
   $HEAD = '
+    <link rel="stylesheet" href="/lib/leaflet-0.7.7/leaflet.css"/>
     <link rel="stylesheet" href="css/event.css"/>
   ';
 
