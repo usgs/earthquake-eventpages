@@ -1,8 +1,9 @@
+/* global L */
 'use strict';
+
 
 var Formatter = require('base/Formatter'),
     ImpactUtil = require('base/ImpactUtil'),
-    L = require('leaflet'),
     Xhr = require('util/Xhr');
 
 
@@ -51,6 +52,7 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
           });
         }
       },
+
       onEachFeature: function (feature, layer) {
         layer.options.title = _this._formatTitle(feature, true);
         layer.bindPopup(_this._generatePopupContent(feature),
@@ -251,4 +253,11 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
 });
 
 
-module.exports = ShakeMapStationLayer;
+L.ShakeMapStationLayer = ShakeMapStationLayer;
+
+L.shakeMapStationLayer = function (options) {
+  return new ShakeMapStationLayer(options);
+};
+
+
+module.exports = L.shakeMapStationLayer;

@@ -22,18 +22,21 @@ var _DYFI_10K_OVERLAY = 'DYFI Responses 10 km',
     _DYFI_DEFAULT_OVERLAY = 'DYFI Responses',
     _EPICENTER_OVERLAY = 'Epicenter',
     _FAULTS_OVERLAY = 'U.S. Faults',
-    _PLATES_OVERLAY = 'Tectonic Plates';
+    _PLATES_OVERLAY = 'Tectonic Plates',
+    _SHAKEMAP_CONTOURS = 'ShakeMap MMI Contours',
+    _SHAKEMAP_STATIONS = 'ShakeMap Stations';
 
 var _DEFAULTS = {
   config: {
-    baseLayer: 'Terrain',
-    overlays: [
-      _EPICENTER_OVERLAY,
-      _PLATES_OVERLAY,
-      _FAULTS_OVERLAY
-    ]
+    baseLayer: 'Terrain'
   }
 };
+
+// Set up what we want enabled by default
+_DEFAULTS.config[_EPICENTER_OVERLAY] = true;
+_DEFAULTS.config[_PLATES_OVERLAY] = true;
+_DEFAULTS.config[_FAULTS_OVERLAY] = true;
+_DEFAULTS.config[_SHAKEMAP_CONTOURS] = true;
 
 
 /**
@@ -161,8 +164,25 @@ var InteractiveMapView = function (options) {
    *     The ShakeMap product for which to create overlays. If null, no overlays
    *     are added.
    */
-  _this.addShakeMapOverlays = function (/*shakemap*/) {
-    // TODO
+  _this.addShakeMapOverlays = function (shakemap) {
+    var content;
+
+    if (!shakemap) {
+      return;
+    }
+
+    content = shakemap.getContent('download/cont_mi.json');
+    if (content) {
+      _overlays[_SHAKEMAP_CONTOURS] = ContoursLayer({
+        url: content.get('url');
+      });
+    }
+
+    content = shakemap.getContent('download/stationlist.json');
+    if (content) {
+      _overlays[_SHAKEMAP_STATIONS] = ShakeMapStationLayer(
+          contents.get('url'));
+    }
   };
 
   _this.createEpicenterMarker = function (latitude, longitude, magnitude) {
@@ -314,7 +334,7 @@ var InteractiveMapView = function (options) {
         layer.removeFrom(_map);
       }
 
-      if (config.overlays.indexOf(layerName) !== -1) {
+      if (config[layerName] === true) {
         layer.addTo(_map);
       }
     });
