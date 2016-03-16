@@ -179,4 +179,58 @@ describe('map/InteractiveMapView', function () {
       /* jshint +W030 */
     });
   });
+
+  describe('createEpicenterMarker', function () {
+    var view;
+
+    afterEach(function () {
+      view.destroy();
+    });
+
+    beforeEach(function () {
+      view = InteractiveMapView();
+    });
+
+
+    it('creates a marker', function () {
+      var marker;
+
+      marker = view.createEpicenterMarker(0, 0, 0);
+
+      /* jshint -W030 */
+      expect(marker).to.not.be.undefined;
+      /* jshint +W030 */
+    });
+
+    it('uses the correct coordinates', function () {
+      var latitude,
+          longitude,
+          marker;
+
+      latitude = 0.0;
+      longitude = 0.0;
+
+      marker = view.createEpicenterMarker(latitude, longitude, 0);
+
+      expect(marker.getLatLng().lat).to.equal(latitude);
+      expect(marker.getLatLng().lng).to.equal(longitude);
+    });
+
+    it('creates good popup text', function () {
+      var latitude,
+          longitude,
+          magnitude,
+          marker;
+
+      latitude = 0.0;
+      longitude = 0.0;
+      magnitude = 0.0;
+
+      marker = view.createEpicenterMarker(0, 0, 0);
+
+      expect(marker.getPopup().getContent()).to.equal(
+        'Epicenter M0.0<br/>0.000&deg;N&nbsp;0.000&deg;E'
+      );
+    });
+  });
 });
