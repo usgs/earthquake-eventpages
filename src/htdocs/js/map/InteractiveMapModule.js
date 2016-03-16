@@ -55,7 +55,7 @@ var InteractiveMapModule = function (options) {
    *
    * @param options {Object}
    */
-  _initialize = function (/*options*/) {
+  _initialize = function (options) {
     _this.ID = _ID;
     _this.TITLE = _TITLE;
     _this.TYPES = _TYPES;
@@ -63,6 +63,7 @@ var InteractiveMapModule = function (options) {
     _this.content.addEventListener('click', _this.onContentClick);
 
     _mapView = InteractiveMapView({
+      formatter: options.formatter,
       model: _this.model
     });
 
