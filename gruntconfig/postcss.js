@@ -25,6 +25,7 @@ var postcss = {
               NODE_MODULES + '/hazdev-geoserve-ws/src/htdocs/css',
               NODE_MODULES + '/hazdev-d3/src',
               NODE_MODULES + '/hazdev-location-view/src',
+              NODE_MODULES + '/hazdev-leaflet/src',
               NODE_MODULES + '/hazdev-question-view/src',
               NODE_MODULES + '/hazdev-svgimagemap/src',
               NODE_MODULES + '/hazdev-tablist/src',

@@ -30,24 +30,24 @@ var ALL_CLASSES = [
   NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
 ];
 
-var BUNDLED_DEPENDENCIES = [
-  './' + config.src + '/htdocs/modules/base/Attribution.js:base/Attribution',
-  './' + config.src + '/htdocs/modules/base/EventModulePage.js' +
-      ':base/EventModulePage',
-  './' + config.src + '/htdocs/modules/base/EventUtil.js:base/EventUtil',
-  './' + config.src + '/htdocs/modules/base/Formatter.js:base/Formatter',
-  './' + config.src + '/htdocs/modules/base/ImpactUtil.js:base/ImpactUtil',
-  './' + config.src + '/htdocs/modules/base/SummaryDetailsPage.js' +
-      ':base/SummaryDetailsPage',
-  './' + config.src + '/htdocs/modules/base/SummaryPage.js:base/SummaryPage',
-  NODE_MODULES + '/hazdev-accordion/src/accordion/Accordion.js' +
-      ':accordion/Accordion',
-  NODE_MODULES + '/hazdev-tablist/src/tablist/TabList.js:tablist/TabList',
-  NODE_MODULES + '/hazdev-webutils/src/mvc/Collection.js:mvc/Collection',
-  NODE_MODULES + '/hazdev-webutils/src/mvc/DataTable.js:mvc/DataTable',
-  NODE_MODULES + '/hazdev-webutils/src/util/Util.js:util/Util',
-  NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
-];
+// var BUNDLED_DEPENDENCIES = [
+//   './' + config.src + '/htdocs/modules/base/Attribution.js:base/Attribution',
+//   './' + config.src + '/htdocs/modules/base/EventModulePage.js' +
+//       ':base/EventModulePage',
+//   './' + config.src + '/htdocs/modules/base/EventUtil.js:base/EventUtil',
+//   './' + config.src + '/htdocs/modules/base/Formatter.js:base/Formatter',
+//   './' + config.src + '/htdocs/modules/base/ImpactUtil.js:base/ImpactUtil',
+//   './' + config.src + '/htdocs/modules/base/SummaryDetailsPage.js' +
+//       ':base/SummaryDetailsPage',
+//   './' + config.src + '/htdocs/modules/base/SummaryPage.js:base/SummaryPage',
+//   NODE_MODULES + '/hazdev-accordion/src/accordion/Accordion.js' +
+//       ':accordion/Accordion',
+//   NODE_MODULES + '/hazdev-tablist/src/tablist/TabList.js:tablist/TabList',
+//   NODE_MODULES + '/hazdev-webutils/src/mvc/Collection.js:mvc/Collection',
+//   NODE_MODULES + '/hazdev-webutils/src/mvc/DataTable.js:mvc/DataTable',
+//   NODE_MODULES + '/hazdev-webutils/src/util/Util.js:util/Util',
+//   NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
+// ];
 
 
 var browserify = {
@@ -60,6 +60,7 @@ var browserify = {
         NODE_MODULES + '/hazdev-accordion/src',
         NODE_MODULES + '/hazdev-geoserve-ws/src/htdocs/js',
         NODE_MODULES + '/hazdev-d3/src',
+        NODE_MODULES + '/hazdev-leaflet/src',
         NODE_MODULES + '/hazdev-location-view/src',
         NODE_MODULES + '/hazdev-question-view/src',
         NODE_MODULES + '/hazdev-svgimagemap/src',
@@ -87,13 +88,13 @@ var browserify = {
     }
   },
 
-  index: {
-    src: [config.src + '/htdocs/js/index.js'],
-    dest: config.build + '/' + config.src + '/htdocs/js/index.js',
-    options: {
-      alias: BUNDLED_DEPENDENCIES
-    }
-  },
+  // index: {
+  //   src: [config.src + '/htdocs/js/index.js'],
+  //   dest: config.build + '/' + config.src + '/htdocs/js/index.js',
+  //   options: {
+  //     alias: BUNDLED_DEPENDENCIES
+  //   }
+  // },
 
   // test bundle
   test: {
@@ -102,58 +103,58 @@ var browserify = {
     options: {
       external: ALL_CLASSES
     }
-  },
+  }//,
 
-  summary: {
-    src: [],
-    dest: config.build + '/' + config.src + '/htdocs/modules/summary/index.js',
-    options: {
-      alias: [
-        // SummaryPage is already bundled in index above
-        'summary/ExecutiveSummaryPage',
-        'summary/InteractiveMap'
-      ].map(function(value) {
-        return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
-      }),
-      external: BUNDLED_DEPENDENCIES.concat(['leaflet'])
-    }
-  },
+  // summary: {
+  //   src: [],
+  //   dest: config.build + '/' + config.src + '/htdocs/modules/summary/index.js',
+  //   options: {
+  //     alias: [
+  //       // SummaryPage is already bundled in index above
+  //       'summary/ExecutiveSummaryPage',
+  //       'summary/InteractiveMap'
+  //     ].map(function(value) {
+  //       return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
+  //     }),
+  //     external: BUNDLED_DEPENDENCIES.concat(['leaflet'])
+  //   }
+  // },
 
-  impact: {
-    src: [],
-    dest: config.build + '/' + config.src + '/htdocs/modules/impact/index.js',
-    options: {
-      alias: [
-        'impact/ImpactSummaryPage',
-        'impact/DYFIPage',
-        'impact/DYFIFormPage',
-        'impact/PagerPage',
-        'impact/ShakeMapPage'
-      ].map(function(value) {
-        return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
-      }),
-      external: BUNDLED_DEPENDENCIES.concat(['leaflet'])
-    }
-  },
+  // impact: {
+  //   src: [],
+  //   dest: config.build + '/' + config.src + '/htdocs/modules/impact/index.js',
+  //   options: {
+  //     alias: [
+  //       'impact/ImpactSummaryPage',
+  //       'impact/DYFIPage',
+  //       'impact/DYFIFormPage',
+  //       'impact/PagerPage',
+  //       'impact/ShakeMapPage'
+  //     ].map(function(value) {
+  //       return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
+  //     }),
+  //     external: BUNDLED_DEPENDENCIES.concat(['leaflet'])
+  //   }
+  // },
 
-  scientific: {
-    src: [],
-    dest: config.build + '/' + config.src +
-        '/htdocs/modules/scientific/index.js',
-    options: {
-      alias: [
-        'scientific/FiniteFaultPage',
-        'scientific/FocalMechanismPage',
-        'scientific/HypocenterPage',
-        'scientific/IrisProductsPage',
-        'scientific/MomentTensorPage',
-        'scientific/ScientificSummaryPage'
-      ].map(function(value) {
-        return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
-      }),
-      external: BUNDLED_DEPENDENCIES
-    }
-  }
+  // scientific: {
+  //   src: [],
+  //   dest: config.build + '/' + config.src +
+  //       '/htdocs/modules/scientific/index.js',
+  //   options: {
+  //     alias: [
+  //       'scientific/FiniteFaultPage',
+  //       'scientific/FocalMechanismPage',
+  //       'scientific/HypocenterPage',
+  //       'scientific/IrisProductsPage',
+  //       'scientific/MomentTensorPage',
+  //       'scientific/ScientificSummaryPage'
+  //     ].map(function(value) {
+  //       return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
+  //     }),
+  //     external: BUNDLED_DEPENDENCIES
+  //   }
+  // }
 
 };
 
