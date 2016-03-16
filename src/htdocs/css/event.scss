@@ -20,8 +20,10 @@
 @import 'dyfi/_DYFIIntensityGraphView.scss';
 @import 'dyfi/_DYFIResponsesView.scss';
 
+@import 'map/_DyfiUtmLayer.scss';
 @import 'map/_InteractiveMapModule.scss';
 @import 'map/_InteractiveMapView.scss';
+@import 'map/_ShakeMapStationLayer.scss';
 
 @import 'shakemap/_ShakeMapStationList.scss';
 
