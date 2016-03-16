@@ -68,6 +68,14 @@ var __inUs = function (latitude, longitude) {
 };
 
 
+/**
+ * This class is a view that renders an interactive map in a container. It
+ * expects a model that is an instance of the EventPageModel (currently an
+ * just a generalized {Model} instance with "event" and "config" properties).
+ *
+ * @param options {Object}
+ *     See _initialize method documentation for details.
+ */
 var InteractiveMapView = function (options) {
   var _this,
       _initialize,
@@ -85,10 +93,21 @@ var InteractiveMapView = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = View(options);
 
+  /**
+   * Constructor. Initializes a new InteractiveMapView.
+   *
+   * @param options {Object}
+   *     Configuration options. Specifically...
+   * @param options.model {Model}
+   *     The EventPageModel for this view to render.
+   * @param options.formatter {Formatter}
+   *     The formatting utility class to use when rendering.
+   */
   _initialize = function (options) {
     _this.el.classList.add('interactive-map-view');
 
-    _defaultConfig = Util.extend({}, _DEFAULTS.config, _this.model.get('map'));
+    _defaultConfig = Util.extend({}, _DEFAULTS.config);
+
     _formatter = options.formatter || Formatter();
 
     _map = L.map(_this.el, {
@@ -187,6 +206,21 @@ var InteractiveMapView = function (options) {
     }
   };
 
+  /**
+   * Creates a marker to indicate the epicenter at the given latitude and
+   * longitude coordinates. Includes the magnitude in the tooltip text.
+   *
+   * @param latitude {Number}
+   *     Decimal degrees latitude.
+   * @param longitude {Number}
+   *     Decimal degrees longitude.
+   * @param magnitude {Number}
+   *     Magnitude of event.
+   *
+   * @return {L.Marker}
+   *     A marker centered on the given latitude/longitude coordinate with
+   *     tooltip text including the magnitude.
+   */
   _this.createEpicenterMarker = function (latitude, longitude, magnitude) {
     var marker;
 
@@ -238,6 +272,13 @@ var InteractiveMapView = function (options) {
     _this = null;
   }, _this.destroy);
 
+  /**
+   * Sets the instance `_baseLayers` object to a map of LayerName => Layer for
+   * each supported base layer.
+   *
+   * @return {Object}
+   *     The updated _baseLayers object.
+   */
   _this.getAvailableBaseLayers = function () {
     _baseLayers = {
       'Terrain': EsriTerrain(),
@@ -249,6 +290,13 @@ var InteractiveMapView = function (options) {
     return _baseLayers;
   };
 
+  /**
+   * Sets the instance `_overlays` object to a map of LayerName => Layer for
+   * each supported overlay layer.
+   *
+   * @return {Object}
+   *     The updated _overlays object.
+   */
   _this.getAvailableOverlays = function () {
     var catalogEvent,
         eventLatitude,
