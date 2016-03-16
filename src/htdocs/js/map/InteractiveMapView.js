@@ -139,6 +139,9 @@ var InteractiveMapView = function (options) {
    * @param dyfi {Product}
    *     The DYFI product for which to create overlays. If null, no overlays
    *     are added.
+   *
+   * @return {Object}
+   *     The _overlays instance variable, as augmented with new layers.
    */
   _this.addDyfiOverlays = function (dyfi) {
     var content;
@@ -150,15 +153,17 @@ var InteractiveMapView = function (options) {
     // 10k responses aggregation
     content = dyfi.getContent('dyfi_geo_10km.geojson');
     if (content) {
-      _overlays[_DYFI_10K_OVERLAY] = _this.createDyfiUtmLayer(
-          content.get('url'));
+      _overlays[_DYFI_10K_OVERLAY] = DyfiUtmLayer({
+        url: content.get('url')
+      });
     }
 
     // 1km responses aggregation
     content = dyfi.getContent('dyfi_geo_1km.geojson');
     if (content) {
-      _overlays[_DYFI_1K_OVERLAY] = _this.createDyfiUtmLayer(
-          content.get('url'));
+      _overlays[_DYFI_1K_OVERLAY] = DyfiUtmLayer({
+        url: content.get('url')
+      });
     }
 
     // Fallback responses aggregation
@@ -168,10 +173,13 @@ var InteractiveMapView = function (options) {
 
       content = dyfi.getContent('dyfi_geo.geojson');
       if (content) {
-        _overlays[_DYFI_DEFAULT_OVERLAY] = _this.createDyfiUtmLayer(
-            content.get('url'));
+        _overlays[_DYFI_DEFAULT_OVERLAY] = DyfiUtmLayer({
+          url: content.get('url')
+        });
       }
     }
+
+    return _overlays;
   };
 
   /**
@@ -181,6 +189,9 @@ var InteractiveMapView = function (options) {
    * @param shakemap {Product}
    *     The ShakeMap product for which to create overlays. If null, no overlays
    *     are added.
+   *
+   * @return {Object}
+   *     The _overlays instance variable, as augmented with new layers.
    */
   _this.addShakeMapOverlays = function (shakemap) {
     var content;
@@ -201,16 +212,8 @@ var InteractiveMapView = function (options) {
       _overlays[_SHAKEMAP_STATIONS] = ShakeMapStationLayer(
           content.get('url'));
     }
-  };
 
-  /**
-   * Creates a new DyfiUtmLayer.
-   *
-   * @param url {String}
-   *     The URL for the new layer.
-   */
-  _this.createDyfiUtmLayer = function (url) {
-    return DyfiUtmLayer({url: url});
+    return _overlays;
   };
 
   /**

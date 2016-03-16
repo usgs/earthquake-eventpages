@@ -1,4 +1,4 @@
-/* global before, chai, describe, it, sinon */
+/* global afterEach, before, beforeEach, chai, describe, it */
 'use strict';
 
 
@@ -42,7 +42,7 @@ describe('map/InteractiveMapView', function () {
   describe('addDyfiOverlays', function () {
     it('includes 10k and 1k when present', function () {
       var dyfi,
-          spy,
+          overlays,
           view;
 
       view = InteractiveMapView();
@@ -55,23 +55,23 @@ describe('map/InteractiveMapView', function () {
         }
       });
 
-      spy = sinon.spy(view, 'createDyfiUtmLayer');
-      view.addDyfiOverlays(dyfi);
+      overlays = view.addDyfiOverlays(dyfi);
 
-      expect(spy.callCount).to.equal(2);
       /* jshint -W030 */
-      expect(spy.calledWith('10k')).to.be.true;
-      expect(spy.calledWith('1k')).to.be.true;
-      expect(spy.calledWith('default')).to.be.false;
-      /* jshint -W030 */
+      expect(overlays.hasOwnProperty(
+          InteractiveMapView.DYFI_10K_OVERLAY)).to.be.true;
+      expect(overlays.hasOwnProperty(
+          InteractiveMapView.DYFI_1K_OVERLAY)).to.be.true;
+      expect(overlays.hasOwnProperty(
+          InteractiveMapView.DYFI_DEFAULT_OVERLAY)).to.be.false;
+      /* jshint +W030 */
 
-      spy.restore();
       dyfi.destroy();
     });
 
     it('does not include default if either 10k or 1k is present', function () {
       var dyfi,
-          spy,
+          overlays,
           view;
 
       view = InteractiveMapView();
@@ -84,18 +84,17 @@ describe('map/InteractiveMapView', function () {
         }
       });
 
-      spy = sinon.spy(view, 'createDyfiUtmLayer');
-      view.addDyfiOverlays(dyfi);
+      overlays = view.addDyfiOverlays(dyfi);
 
-      expect(spy.callCount).to.equal(1);
       /* jshint -W030 */
-      expect(spy.calledWith('default')).to.be.false;
+      expect(overlays.hasOwnProperty(
+          InteractiveMapView.DYFI_DEFAULT_OVERLAY)).to.be.false;
       /* jshint -W030 */
 
-      // 1k is present
-      spy.restore();
       dyfi.destroy();
 
+
+      // 1k is present
       dyfi = Product({
         contents: {
           'dyfi_geo_1km.geojson': {'url': '1k'},
@@ -103,21 +102,19 @@ describe('map/InteractiveMapView', function () {
         }
       });
 
-      spy = sinon.spy(view, 'createDyfiUtmLayer');
-      view.addDyfiOverlays(dyfi);
+      overlays = view.addDyfiOverlays(dyfi);
 
-      expect(spy.callCount).to.equal(1);
       /* jshint -W030 */
-      expect(spy.calledWith('default')).to.be.false;
+      expect(overlays.hasOwnProperty(
+          InteractiveMapView.DYFI_DEFAULT_OVERLAY)).to.be.false;
       /* jshint -W030 */
 
-      spy.restore();
       dyfi.destroy();
     });
 
     it('includes default if neither 10k or 1k is present', function () {
       var dyfi,
-          spy,
+          overlays,
           view;
 
       view = InteractiveMapView();
@@ -128,18 +125,58 @@ describe('map/InteractiveMapView', function () {
         }
       });
 
-      spy = sinon.spy(view, 'createDyfiUtmLayer');
-      view.addDyfiOverlays(dyfi);
+      overlays = view.addDyfiOverlays(dyfi);
 
-      expect(spy.callCount).to.equal(1);
       /* jshint -W030 */
-      expect(spy.calledWith('10k')).to.be.false;
-      expect(spy.calledWith('1k')).to.be.false;
-      expect(spy.calledWith('default')).to.be.true;
+      expect(overlays.hasOwnProperty(
+          InteractiveMapView.DYFI_DEFAULT_OVERLAY)).to.be.true;
       /* jshint -W030 */
 
-      spy.restore();
       dyfi.destroy();
+    });
+  });
+
+  describe('addShakeMapOverlays', function () {
+    var shakemap,
+        view;
+
+    afterEach(function () {
+      view.destroy();
+      shakemap.destroy();
+    });
+
+    beforeEach(function () {
+      view = InteractiveMapView();
+
+      shakemap = Product({
+        contents: {
+          'download/cont_mi.json': {url: 'contours'},
+          'download/stationlist.json': {url: 'stationlist'}
+        }
+      });
+    });
+
+
+    it('includes contours when present', function () {
+      var overlays;
+
+      overlays = view.addShakeMapOverlays(shakemap);
+
+      /* jshint -W030 */
+      expect(overlays.hasOwnProperty(
+          InteractiveMapView.SHAKEMAP_CONTOURS)).to.be.true;
+      /* jshint +W030 */
+    });
+
+    it('includes stationlist when present', function () {
+      var overlays;
+
+      overlays = view.addShakeMapOverlays(shakemap);
+
+      /* jshint -W030 */
+      expect(overlays.hasOwnProperty(
+          InteractiveMapView.SHAKEMAP_STATIONS)).to.be.true;
+      /* jshint +W030 */
     });
   });
 });
