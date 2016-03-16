@@ -41,98 +41,6 @@ var PAGERView = function (options) {
     _this.createScaffolding();
   };
 
-  _this.createScaffolding = function () {
-    var exposurePng;
-
-    exposurePng = _this.model.getContent('exposure.png');
-
-    _this.el.classList.add('losspager');
-
-    _this.el.innerHTML =
-      '<div class="alert-wrapper row"></div>' +
-      '<div class="row pager-content">' +
-        '<div class="column one-of-two">' +
-          '<h3>Estimated Population Exposure to Earthquake Shaking</h3>' +
-          '<div class="map-wrapper">' +
-            (exposurePng.get('url') ?
-                '<figure>' +
-                  '<img src="' + exposurePng.get('url') +
-                      '" alt="Population Exposure Map"/>' +
-                  '<figcaption>' +
-                    'Population per ~1 sq. km. from LandScan' +
-                  '</figcaption>' +
-                '</figure>'
-                : '&ndash;') +
-          '</div>' +
-          '<div class="exposure-wrapper"></div>' +
-        '</div>' +
-        '<div class="column one-of-two">' +
-          '<div class="comment-wrapper"></div>' +
-          '<div class="city-wrapper"></div>' +
-        '</div>' +
-      '</div>';
-
-    _alertEl = _this.el.querySelector('.alert-wrapper');
-    _exposureEl = _this.el.querySelector('.exposure-wrapper');
-    _commentEl = _this.el.querySelector('.comment-wrapper');
-    _cityEl = _this.el.querySelector('.city-wrapper');
-  };
-
-  /**
-   * Destroy all the things.
-   */
-  _this.destroy = Util.compose(function () {
-    _errorMessage = null;
-    _this = null;
-    _initialize = null;
-  }, _this.destroy);
-
-  _this.fetchData = function () {
-    var content;
-
-    content = _this.model.getContent('pager.xml');
-
-    if(!content) {
-      _this.onError();
-      return;
-    }
-
-    Xhr.ajax({
-      url: content.get('url'),
-      success: _this.onSuccess,
-      error: _this.onError
-    });
-  };
-
-
-
-
-  /**
-   * This method is called when there is a problem.
-   *
-   * @param errorMessage {String}
-   *    A description of the error that occurred.
-   */
-  _this.onError = function () {
-    _this.el.innerHTML = _errorMessage;
-  };
-
-  /**
-   * This method is called when Xhr is successful and calles all methods
-   * that render pager content.
-   */
-  _this.onSuccess = function (data, xhr) {
-    _pagerInfo = PagerXmlParser.parse(xhr.responseXML);
-    console.log(_pagerInfo);
-
-    _this.renderAlertComments();
-    //_this.getDetailsContent(PagerXmlParser.parse(xhr.responseXML));
-    // _this.renderAlerts(data.product);
-    // _this.renderExposures(data.product);
-    // _this.renderComments(data.product);
-    // _this.renderCities(data.product);
-  };
-
   /**
    * Adds alert historgrams and corresponding impact comments to page.
    */
@@ -222,6 +130,9 @@ var PAGERView = function (options) {
 
   };
 
+  /**
+   * Adds comments in alers sections the comments come from the parsed xml.
+   */
   _this.renderAlertComments = function () {
     var comments,
         economicComment,
@@ -248,6 +159,96 @@ var PAGERView = function (options) {
       _economicComments.innerHTML = economicComment;
     }
   };
+
+  _this.createScaffolding = function () {
+    var exposurePng;
+
+    exposurePng = _this.model.getContent('exposure.png');
+
+    _this.el.classList.add('losspager');
+
+    _this.el.innerHTML =
+      '<div class="alert-wrapper row"></div>' +
+      '<div class="row pager-content">' +
+        '<div class="column one-of-two">' +
+          '<h3>Estimated Population Exposure to Earthquake Shaking</h3>' +
+          '<div class="map-wrapper">' +
+            (exposurePng.get('url') ?
+                '<figure>' +
+                  '<img src="' + exposurePng.get('url') +
+                      '" alt="Population Exposure Map"/>' +
+                  '<figcaption>' +
+                    'Population per ~1 sq. km. from LandScan' +
+                  '</figcaption>' +
+                '</figure>'
+                : '&ndash;') +
+          '</div>' +
+          '<div class="exposure-wrapper"></div>' +
+        '</div>' +
+        '<div class="column one-of-two">' +
+          '<div class="comment-wrapper"></div>' +
+          '<div class="city-wrapper"></div>' +
+        '</div>' +
+      '</div>';
+
+    _alertEl = _this.el.querySelector('.alert-wrapper');
+    _exposureEl = _this.el.querySelector('.exposure-wrapper');
+    _commentEl = _this.el.querySelector('.comment-wrapper');
+    _cityEl = _this.el.querySelector('.city-wrapper');
+  };
+
+  /**
+   * Destroy all the things.
+   */
+  _this.destroy = Util.compose(function () {
+    _errorMessage = null;
+    _this = null;
+    _initialize = null;
+  }, _this.destroy);
+
+  _this.fetchData = function () {
+    var content;
+
+    content = _this.model.getContent('pager.xml');
+
+    if(!content) {
+      _this.onError();
+      return;
+    }
+
+    Xhr.ajax({
+      url: content.get('url'),
+      success: _this.onSuccess,
+      error: _this.onError
+    });
+  };
+
+  /**
+   * This method is called when there is a problem.
+   *
+   * @param errorMessage {String}
+   *    A description of the error that occurred.
+   */
+  _this.onError = function () {
+    _this.el.innerHTML = _errorMessage;
+  };
+
+  /**
+   * This method is called when Xhr is successful and calles all methods
+   * that render pager content.
+   */
+  _this.onSuccess = function (data, xhr) {
+    _pagerInfo = PagerXmlParser.parse(xhr.responseXML);
+    console.log(_pagerInfo);
+
+    _this.renderAlertComments();
+    //_this.getDetailsContent(PagerXmlParser.parse(xhr.responseXML));
+    // _this.renderAlerts(data.product);
+    // _this.renderExposures(data.product);
+    // _this.renderComments(data.product);
+    // _this.renderCities(data.product);
+  };
+
 
   /**
    * Called when the model changes. Initially sets a loading message
