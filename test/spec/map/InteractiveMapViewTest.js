@@ -1,8 +1,10 @@
-/* global afterEach, before, beforeEach, chai, describe, it */
+/* global afterEach, before, beforeEach, chai, describe, it, sinon */
 'use strict';
 
 
-var InteractiveMapView = require('map/InteractiveMapView'),
+var CatalogEvent = require('pdl/CatalogEvent'),
+    InteractiveMapView = require('map/InteractiveMapView'),
+    Model = require('mvc/Model'),
     Product = require('pdl/Product'),
     Xhr = require('util/Xhr');
 
@@ -235,6 +237,81 @@ describe('map/InteractiveMapView', function () {
       expect(Object.keys(view.getAvailableBaseLayers()).length).to.equal(4);
 
       view.destroy();
+    });
+  });
+
+  describe('getAvailableOverlays', function () {
+    var view;
+
+    afterEach(function () {
+      view.destroy();
+    });
+
+    beforeEach(function () {
+      view = InteractiveMapView({
+        model: Model({
+          'event': CatalogEvent(eventDetails),
+          'config': {}
+        })
+      });
+    });
+
+    it('does nothing when there is no event', function () {
+      var emptyView;
+
+      emptyView = InteractiveMapView();
+      expect(Object.keys(emptyView.getAvailableOverlays()).length).to.equal(0);
+
+      emptyView.destroy();
+    });
+
+    it('creates an epicenter marker', function () {
+      var overlays,
+          spy;
+
+      spy = sinon.spy(view, 'createEpicenterMarker');
+      overlays = view.getAvailableOverlays();
+
+      expect(spy.callCount).to.equal(1);
+      /* jshint -W030 */
+      expect(overlays.hasOwnProperty(
+          InteractiveMapView.EPICENTER_OVERLAY)).to.be.true;
+      /* jshint +W030 */
+
+      spy.restore();
+    });
+
+    it('adds the plates overlays', function () {
+      var overlays;
+
+      overlays = view.getAvailableOverlays();
+
+      /* jshint -W030 */
+      expect(overlays.hasOwnProperty(
+          InteractiveMapView.PLATES_OVERLAY)).to.be.true;
+      /* jshint +W030 */
+    });
+
+    it('adds DYFI overlays', function () {
+      var spy;
+
+      spy = sinon.spy(view, 'addDyfiOverlays');
+      view.getAvailableOverlays();
+
+      expect(spy.callCount).to.equal(1);
+
+      spy.restore();
+    });
+
+    it('adds ShakeMap overlays', function () {
+      var spy;
+
+      spy = sinon.spy(view, 'addShakeMapOverlays');
+      view.getAvailableOverlays();
+
+      expect(spy.callCount).to.equal(1);
+
+      spy.restore();
     });
   });
 });

@@ -358,9 +358,6 @@ var InteractiveMapView = function (options) {
     if (_map && _map.getContainer() && _map.getContainer().parentNode) {
       _map.invalidateSize();
     }
-    if (_map) {
-
-    }
   };
 
   /**
