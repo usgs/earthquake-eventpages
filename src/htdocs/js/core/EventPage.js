@@ -309,9 +309,9 @@ var EventPage = function (options) {
             value;
         // parameter and value are separated by =
         parts = param.split('=');
-        name = parts[0];
+        name = decodeURIComponent(parts[0]);
         // value may include =, so slice and rejoin
-        value = parts.slice(1).join('=');
+        value = decodeURIComponent(parts.slice(1).join('='));
         params[name] = value;
       });
     }
