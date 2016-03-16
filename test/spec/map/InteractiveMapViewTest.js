@@ -9,22 +9,31 @@ var CatalogEvent = require('pdl/CatalogEvent'),
     Xhr = require('util/Xhr');
 
 
-var expect = chai.expect;
+var eventDetails,
+    expect = chai.expect;
 
+
+var _createMapView = function (config) {
+  config = config || {};
+
+  return InteractiveMapView({
+    model: Model({
+      'event': CatalogEvent(eventDetails),
+      'config': config
+    })
+  });
+};
 
 describe('map/InteractiveMapView', function () {
-  var eventDetails;
-
   before(function (done) {
     Xhr.ajax({
       url: '/events/us10004u1y.json',
-      sucecss: function (data) {
+      success: function (data) {
         eventDetails = data;
+        done();
       },
       error: function () {
         eventDetails = {};
-      },
-      done: function () {
         done();
       }
     });
@@ -248,12 +257,7 @@ describe('map/InteractiveMapView', function () {
     });
 
     beforeEach(function () {
-      view = InteractiveMapView({
-        model: Model({
-          'event': CatalogEvent(eventDetails),
-          'config': {}
-        })
-      });
+      view = _createMapView();
     });
 
     it('does nothing when there is no event', function () {
@@ -310,6 +314,52 @@ describe('map/InteractiveMapView', function () {
       view.getAvailableOverlays();
 
       expect(spy.callCount).to.equal(1);
+
+      spy.restore();
+    });
+  });
+
+  describe('render', function () {
+    var view;
+
+    afterEach(function () {
+      // view.el.parentNode.removeChild(view.el);
+      view.destroy();
+    });
+
+    beforeEach(function () {
+      view = _createMapView();
+    });
+
+
+    it('checks baseLayers', function () {
+      var baseLayers,
+          spy;
+
+      baseLayers = view.getAvailableBaseLayers();
+      spy = sinon.spy(Object, 'keys');
+
+      view.render();
+
+      /* jshint -W030 */
+      expect(spy.calledWith(baseLayers)).to.be.true;
+      /* jshint +W030 */
+
+      spy.restore();
+    });
+
+    it('checks overlays', function () {
+      var overlays,
+          spy;
+
+      overlays = view.getAvailableBaseLayers();
+      spy = sinon.spy(Object, 'keys');
+
+      view.render();
+
+      /* jshint -W030 */
+      expect(spy.calledWith(overlays)).to.be.true;
+      /* jshint +W030 */
 
       spy.restore();
     });
