@@ -222,7 +222,8 @@ var EventPage = function (options) {
    * Triggers a render of current module.
    */
   _onHashChange = function () {
-    var currentNav,
+    var clearSettings,
+        currentNav,
         hash,
         lastNav,
         modelParams,
@@ -246,6 +247,11 @@ var EventPage = function (options) {
 
     // if current module is different than requested, destroy current module
     if (_currentModule && _currentModule.ID !== module) {
+      // Clear these so defaults are invoked
+      clearSettings = {};
+      clearSettings[_currentModule.ID] = {};
+      _model.set(clearSettings, {silent: true});
+
       _currentModule.destroy();
       _currentModule = null;
     }
