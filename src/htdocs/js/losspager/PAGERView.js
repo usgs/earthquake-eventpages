@@ -187,7 +187,7 @@ var PAGERView = function (options) {
       if (alertEconPdf && alertEconPng) {
         alertsMarkup.push(
           '<div class="column one-of-two">',
-            '<h3>Estimated Fatalities</h3>',
+            '<h3>Estimated Economic Losses</h3>',
             '<figure>',
               '<a href="', alertEconPdf.get('url'), '">',
                 '<img src="', alertEconPng.get('url'), '" alt=""/>',
@@ -198,7 +198,7 @@ var PAGERView = function (options) {
       } else {
         alertsMarkup.push(
           '<div class="column one-of-two">',
-            '<h3>Estimated Fatalities</h3>',
+            '<h3>Estimated Economic Losses</h3>',
             '<p>',
               'Alert information unavaliabele',
             '</p>',
