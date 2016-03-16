@@ -217,14 +217,7 @@ describe('map/InteractiveMapView', function () {
     });
 
     it('creates good popup text', function () {
-      var latitude,
-          longitude,
-          magnitude,
-          marker;
-
-      latitude = 0.0;
-      longitude = 0.0;
-      magnitude = 0.0;
+      var marker;
 
       marker = view.createEpicenterMarker(0, 0, 0);
 
