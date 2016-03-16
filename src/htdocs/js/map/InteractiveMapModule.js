@@ -1,7 +1,8 @@
 'use strict';
 
 
-var InteractiveMapView = require('map/InteractiveMapView'),
+var Events = require('util/Events'),
+    InteractiveMapView = require('map/InteractiveMapView'),
     ModalView = require('mvc/ModalView'),
     Module = require('core/Module'),
     Util = require('util/Util');
@@ -134,8 +135,10 @@ var InteractiveMapModule = function (options) {
    *
    */
   _this.onModalHide = function () {
-    // TODO :: Check if history is still on event page, if so, go there,
-    //         otherwise go to default page...
+    // Notify the EventPage this view would like to go back
+    Events.trigger('back');
+
+    // TODO :: Remove this once #368 is implemented.
     window.location.hash = '#'; // go to default page
   };
 
