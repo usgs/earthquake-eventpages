@@ -328,7 +328,7 @@ var Formatter = function (options) {
     if (!latitude && latitude !== 0) {
       return _empty;
     }
-    latDir = (latitude > 0 ? 'N' : 'S');
+    latDir = (latitude >= 0 ? 'N' : 'S');
 
     // already have sign information, abs before rounding
     latitude = Math.abs(latitude);
@@ -367,7 +367,7 @@ var Formatter = function (options) {
     if (!longitude && longitude !== 0) {
       return _empty;
     }
-    lonDir = (longitude > 0 ? 'E' : 'W');
+    lonDir = (longitude >= 0 ? 'E' : 'W');
 
     // already have sign information, abs before rounding
     longitude = Math.abs(longitude);
