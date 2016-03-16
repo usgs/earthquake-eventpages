@@ -226,7 +226,7 @@ var InteractiveMapView = function (options) {
 
     _baseLayers = null;
     _defaultConfig = null;
-    _formatter = null; // TODO :: This may have been provided, so don't call destroy?
+    _formatter = null;
     _layersControl = null;
     _map = null;
     _overlays = null;
@@ -360,6 +360,16 @@ var InteractiveMapView = function (options) {
   options = null;
   return _this;
 };
+
+// Expose these so others know the layers available
+InteractiveMapView.DYFI_10K_OVERLAY = _DYFI_10K_OVERLAY;
+InteractiveMapView.DYFI_1K_OVERLAY = _DYFI_1K_OVERLAY;
+InteractiveMapView.DYFI_DEFAULT_OVERLAY = _DYFI_DEFAULT_OVERLAY;
+InteractiveMapView.EPICENTER_OVERLAY = _EPICENTER_OVERLAY;
+InteractiveMapView.FAULTS_OVERLAY = _FAULTS_OVERLAY;
+InteractiveMapView.PLATES_OVERLAY = _PLATES_OVERLAY;
+InteractiveMapView.SHAKEMAP_CONTOURS = _SHAKEMAP_CONTOURS;
+InteractiveMapView.SHAKEMAP_STATIONS = _SHAKEMAP_STATIONS;
 
 
 module.exports = InteractiveMapView;
