@@ -226,4 +226,15 @@ describe('map/InteractiveMapView', function () {
       );
     });
   });
+
+  describe('getAvailableBaseLayers', function () {
+    it('should return some layers', function () {
+      var view;
+
+      view = InteractiveMapView();
+      expect(Object.keys(view.getAvailableBaseLayers()).length).to.equal(4);
+
+      view.destroy();
+    });
+  });
 });
