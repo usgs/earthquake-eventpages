@@ -1,6 +1,6 @@
 'use strict';
 
-var //PagerXmlParser = require('losspager/PagerXmlParser'),
+var PagerXmlParser = require('losspager/PagerXmlParser'),
     ProductView = require('core/ProductView'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
@@ -25,8 +25,11 @@ var PAGERView = function (options) {
       _alertEl,
       _cityEl,
       _commentEl,
+      _economicComments,
       _exposureEl,
-      _errorMessage;
+      _errorMessage,
+      _fatalityComments,
+      _pagerInfo;
 
   options = Util.extend({}, _DEFAULTS, options || {});
   _this = ProductView(options);
@@ -118,7 +121,11 @@ var PAGERView = function (options) {
    * This method is called when Xhr is successful and calles all methods
    * that render pager content.
    */
-  _this.onSuccess = function (/*data, xhr*/) {
+  _this.onSuccess = function (data, xhr) {
+    _pagerInfo = PagerXmlParser.parse(xhr.responseXML);
+    console.log(_pagerInfo);
+
+    _this.renderAlertComments();
     //_this.getDetailsContent(PagerXmlParser.parse(xhr.responseXML));
     // _this.renderAlerts(data.product);
     // _this.renderExposures(data.product);
@@ -135,17 +142,17 @@ var PAGERView = function (options) {
         alertFatalPng,
         alertFatalPdf,
         alertEconPdf,
-        alertEconPng;
+        alertEconPng,
+        content;
 
     alertLevel = _this.model.getProperty('alertlevel');
     alertsMarkup = [];
+    content = _this.model.getContent;
 
     // To see data
     console.log(_this.model.toJSON());
     console.log(_this.model.get('contents'));
     // end
-
-
 
     if (alertLevel === 'pending') {
       alertsMarkup = [
@@ -156,9 +163,9 @@ var PAGERView = function (options) {
       ];
       _this._alertEl.classList.remove('row');
     } else {
-      alertFatalPdf = _this.model.getContent('alertfatal.pdf');
-      alertFatalPng = _this.model.getContent('alertfatal_small.png') ||
-          _this.model.getContent('alertfatal.png');
+      alertFatalPdf = content('alertfatal.pdf');
+      alertFatalPng = content('alertfatal_small.png') ||
+          content('alertfatal.png');
       if (alertFatalPdf && alertFatalPng) {
         alertsMarkup.push(
           '<div class="column one-of-two">',
@@ -167,6 +174,7 @@ var PAGERView = function (options) {
               '<a href="', alertFatalPdf.get('url'), '">',
                 '<img src="', alertFatalPng.get('url'), '" alt=""/>',
               '</a>',
+              '<figcaption class="fatality-comments"></figcaption>',
             '</figure>',
           '</div>'
         );
@@ -181,9 +189,9 @@ var PAGERView = function (options) {
         );
       }
 
-      alertEconPdf = _this.model.getContent('alertecon.pdf');
-      alertEconPng = _this.model.getContent('alertecon_small.png') ||
-          _this.model.getContent('alertecon.png');
+      alertEconPdf = content('alertecon.pdf');
+      alertEconPng = content('alertecon_small.png') ||
+          content('alertecon.png');
       if (alertEconPdf && alertEconPng) {
         alertsMarkup.push(
           '<div class="column one-of-two">',
@@ -192,6 +200,7 @@ var PAGERView = function (options) {
               '<a href="', alertEconPdf.get('url'), '">',
                 '<img src="', alertEconPng.get('url'), '" alt=""/>',
               '</a>',
+              '<figcaption class="economic-comments"></figcaption>',
             '</figure>',
           '</div>'
         );
@@ -208,10 +217,36 @@ var PAGERView = function (options) {
     }
 
     _alertEl.innerHTML = alertsMarkup.join('');
+    _fatalityComments = _this.el.querySelector('.fatality-comments');
+    _economicComments = _this.el.querySelector('.economic-comments');
+
   };
 
   _this.renderAlertComments = function () {
+    var comments,
+        economicComment,
+        fatalityComment;
 
+    comments = _pagerInfo.comments.impact;
+
+    if (comments.length === 2) {
+      if (comments[0] !== '') {
+        fatalityComment = comments[0];
+        economicComment = comments[1];
+      } else {
+        fatalityComment = comments[1];
+      }
+    } else {
+      fatalityComment = comments[0];
+    }
+
+    if (fatalityComment) {
+      _fatalityComments.innerHTML = fatalityComment;
+    }
+
+    if (economicComment) {
+      _economicComments.innerHTML = economicComment;
+    }
   };
 
   /**
