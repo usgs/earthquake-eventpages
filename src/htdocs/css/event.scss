@@ -3,6 +3,11 @@
 
 @import 'accordion/Accordion.scss';
 
+@import 'leaflet/control/_Control.scss';
+@import 'leaflet/control/_Layers.scss';
+@import 'leaflet/control/_MousePosition.scss';
+@import 'leaflet/control/_Scale.scss';
+
 
 @import '_event-header.scss';
 @import '_mmi-variables.scss';
@@ -15,6 +20,7 @@
 @import 'dyfi/_DYFIResponsesView.scss';
 
 @import 'map/_InteractiveMapModule.scss';
+@import 'map/_InteractiveMapView.scss';
 
 @import 'shakemap/_ShakeMapStationList.scss';
 
