@@ -22,16 +22,15 @@ _SPLIT_THRESHOLD = 85 * _D2R;
 
 _DEFAULTS = {
   bgColor: '#fff',
-  canvas: null,
   fillColor: '#ddd',
   height: null,
-  labelAxes: false,
+  labelAxes: true,
   labelAxesFont: '24px Arial',
   labelPlanes: false,
   labelPlanesFont: '14px Arial',
   lineColor: '#000',
   lineWidth: 0.25,
-  plotAxes: true,
+  plotAxes: false,
   plotPlanes: true,
   radius: null,
   size: 200,
@@ -109,18 +108,51 @@ var BeachBallView = function (options) {
   var _this,
       _initialize,
 
-      _swapColors;
+      _bgColor,
+      _canvas,
+      _fillColor,
+      _height,
+      _labelAxes,
+      _labelAxesFont,
+      _labelPlanes,
+      _labelPlanesFont,
+      _lineColor,
+      _lineWidth,
+      _plotAxes,
+      _plotPlanes,
+      _radius,
+      _size,
+      _swapColors,
+      _tensor,
+      _width,
+      _x0,
+      _y0;
 
   _this = View(options);
 
   _initialize = function (options) {
-    options = Util.extend({}, _DEFAULTS,
-        _this.model.get(),
-        options,
-        // in case model was passed to View
-        {model: null});
-    _this.model.set(options, {silent: true});
-    options = _this.model.get();
+    options = Util.extend({}, _DEFAULTS, options);
+
+    _bgColor = options.bgColor;
+    _canvas = null;
+    _fillColor = options.fillColor;
+    _labelAxes = options.labelAxes;
+    _labelAxesFont = options.labelAxesFont;
+    _labelPlanes = options.labelPlanes;
+    _labelPlanesFont = options.labelPlanesFont;
+    _lineColor = options.lineColor;
+    _lineWidth = options.lineWidth;
+    _plotAxes = options.plotAxes;
+    _plotPlanes = options.plotPlanes;
+    _size = options.size;
+    _tensor = options.tensor;
+
+    // options with computed defaults
+    _radius = options.radius || parseInt((_size - 2) / 2, 10);
+    _height = options.height || _size;
+    _width = options.width || _size;
+    _x0 = options.x0 || _width / 2;
+    _y0 = options.y0 || _height / 2;
   };
 
 
@@ -235,15 +267,11 @@ var BeachBallView = function (options) {
    *     with properties `x` and `y` in the range [-1, 1] representing location
    *     of point in focal sphere.
    */
-  _this.getPoint = function (vector) {
-    var azimuth,
-        plunge,
-        r,
+  _this.getPoint = function (azimuth, plunge) {
+    var r,
         x,
         y;
 
-    azimuth = (Math.PI / 2) - vector.azimuth();
-    plunge = vector.plunge();
     if (plunge < 0) {
       plunge *= -1;
       azimuth += Math.PI;
@@ -259,6 +287,14 @@ var BeachBallView = function (options) {
       y: y
     };
   };
+
+  _this.getVectorPoint = function (vector) {
+    return _this.getPoint(
+      (Math.PI / 2) - vector.azimuth(),
+      vector.plunge()
+    );
+  };
+
 
   /**
    * Get Polygons representing pressure and tension regions of the beachball.
@@ -292,6 +328,7 @@ var BeachBallView = function (options) {
         s,
         s2alphan,
         sfi,
+        swapColors,
         t,
         tmp,
         takeoff,
@@ -320,6 +357,7 @@ var BeachBallView = function (options) {
     iso = (vi / t.v) || Number.EPSILON;
 
     // build azes
+    swapColors = false;
     for (i = 0; i < 360; i++) {
       fir = i * _D2R;
       sfi = Math.sin(fir);
@@ -331,7 +369,7 @@ var BeachBallView = function (options) {
         t = p;
         p = tmp;
         // swap bg/fill colors
-        _swapColors = !_swapColors;
+        swapColors = !swapColors;
         // recompute f, iso, s2alphan
         f = (-n.v / t.v) || Number.EPSILON;
         iso = (vi / t.v) || Number.EPSILON;
@@ -406,7 +444,32 @@ var BeachBallView = function (options) {
     // fix up polygons
     polygons = _this.mergePolygons(polygons);
     polygons = polygons.map(_this.completePolygon);
+    polygons.swapColors = swapColors;
     return polygons;
+  };
+
+  _this.measureText = function (text, font) {
+    var el,
+        size;
+
+    el = document.createElement('div');
+    el.setAttribute('style',
+        'height:auto;' +
+        'position:absolute;' +
+        'visibility:hidden;' +
+        'white-space:nowrap' +
+        'width:auto;' +
+        'font:' + font + ';');
+    _this.el.appendChild(el);
+    size = {
+      height: el.scrollHeight,
+      width: el.scrollWidth
+    };
+
+    _this.el.removeChild(el);
+    el = null;
+
+    return size;
   };
 
   /**
@@ -452,85 +515,88 @@ var BeachBallView = function (options) {
     return polygons;
   };
 
+
+  _this.projectX = function (x) {
+    return _x0 + _radius * x;
+  };
+
+  _this.projectY = function (y) {
+    return _height - (_y0 + _radius * y);
+  };
+
   /**
    * Render view based on current model settings.
    */
   _this.render = function () {
-    var bgColor,
-        canvas,
-        fillColor,
-        height,
-        line,
-        lineColor,
-        lineWidth,
-        model,
+    var point,
         polygons,
-        projectX,
-        projectY,
-        radius,
-        size,
-        tensor,
-        tmp,
-        width,
-        x0,
-        y0;
+        tmp;
 
-    model = _this.model.get();
-    bgColor = model.bgColor;
-    fillColor = model.fillColor;
-    lineColor = model.lineColor;
-    lineWidth = model.lineWidth;
-    tensor = model.tensor;
-    size = model.size;
-    // these have defaults based on size
-    height = model.height || size;
-    radius = model.radius || parseInt((size - 2) / 2, 10);
-    width = model.width || size;
-    x0 = model.x0 || (width / 2);
-    y0 = model.y0 || (height / 2);
-
-    canvas = Canvas({
-      height: height,
-      width: width
-    });
     Util.empty(_this.el);
-    _this.el.appendChild(canvas.canvas);
+    _canvas = Canvas({
+      height: _height,
+      width: _width
+    });
+    _this.el.appendChild(_canvas.canvas);
 
-    projectX = function (x) {
-      return x0 + radius * x;
-    };
-
-    projectY = function (y) {
-      return height - (y0 + radius * y);
-    };
 
     _swapColors = false;
-    polygons = _this.getPolygons(tensor);
-    if (_swapColors) {
-      tmp = bgColor;
-      bgColor = fillColor;
-      fillColor = tmp;
+    polygons = _this.getPolygons(_tensor);
+    if (polygons.swapColors) {
+      tmp = _bgColor;
+      _bgColor = _fillColor;
+      _fillColor = tmp;
     }
 
     // plot circle outline, with background color
     // in case polygons represent holes
-    canvas.circle(x0, y0, radius * 2, lineColor, bgColor);
+    _canvas.circle(_x0, _y0, _radius * 2, _lineColor, _bgColor);
 
     // polygons
     polygons.forEach(function(p) {
-      canvas.polygon(p.x.map(projectX), p.y.map(projectY), lineColor, fillColor);
+      _canvas.polygon(
+          p.x.map(_this.projectX),
+          p.y.map(_this.projectY),
+          _lineColor,
+          _fillColor);
     });
 
     // nodal plane lines
-    line = _this.getPlaneLine(tensor.NP1);
-    canvas.line(line.x.map(projectX), line.y.map(projectY), lineColor);
-    line = _this.getPlaneLine(tensor.NP2);
-    canvas.line(line.x.map(projectX), line.y.map(projectY), lineColor);
+    if (_plotPlanes) {
+      [_tensor.NP1, _tensor.NP2].forEach(function (np) {
+        var line;
+        line = _this.getPlaneLine(np);
+        _canvas.line(
+            line.x.map(_this.projectX),
+            line.y.map(_this.projectY),
+            _lineColor);
+      });
+    }
+
+    if (_labelAxes) {
+      point = _this.getVectorPoint(_tensor.P);
+      _canvas.text('P',
+          _labelAxesFont,
+          _this.projectX(point.x),
+          _this.projectY(point.y),
+          null,
+          'black',
+          'center');
+      point = _this.getVectorPoint(_tensor.T);
+      _canvas.text('T',
+          _labelAxesFont,
+          _this.projectX(point.x),
+          _this.projectY(point.y),
+          null,
+          'black',
+          'center');
+    }
 
     // plot circle without fill, in case polygons covered outline.
-    canvas.circle(x0, y0, radius * 2, lineColor);
+    _canvas.circle(_x0, _y0, _radius * 2, _lineColor);
 
-    canvas.destroy();
+    _canvas.destroy();
+    _canvas = null;
   };
 
 
