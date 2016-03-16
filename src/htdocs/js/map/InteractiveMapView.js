@@ -2,7 +2,8 @@
 'use strict';
 
 
-var DyfiUtmLayer = require('map/DyfiUtmLayer'),
+var ContoursLayer = require('map/ContoursLayer'),
+    DyfiUtmLayer = require('map/DyfiUtmLayer'),
     EsriGrayscale = require('leaflet/layer/EsriGrayscale'),
     EsriTerrain = require('leaflet/layer/EsriTerrain'),
     Formatter = require('core/Formatter'),
@@ -10,6 +11,7 @@ var DyfiUtmLayer = require('map/DyfiUtmLayer'),
     MousePosition = require('leaflet/control/MousePosition'),
     OpenAerialMap = require('leaflet/layer/OpenAerialMap'),
     OpenStreetMap = require('leaflet/layer/OpenStreetMap'),
+    ShakeMapStationLayer = require('map/ShakeMapStationLayer'),
     TectonicPlates = require('leaflet/layer/TectonicPlates'),
     UsFault = require('leaflet/layer/UsFault'),
     Util = require('util/Util'),
@@ -33,10 +35,10 @@ var _DEFAULTS = {
 };
 
 // Set up what we want enabled by default
-_DEFAULTS.config[_EPICENTER_OVERLAY] = true;
-_DEFAULTS.config[_PLATES_OVERLAY] = true;
-_DEFAULTS.config[_FAULTS_OVERLAY] = true;
-_DEFAULTS.config[_SHAKEMAP_CONTOURS] = true;
+_DEFAULTS.config[_EPICENTER_OVERLAY] = 'true';
+_DEFAULTS.config[_PLATES_OVERLAY] = 'true';
+_DEFAULTS.config[_FAULTS_OVERLAY] = 'true';
+_DEFAULTS.config[_SHAKEMAP_CONTOURS] = 'true';
 
 
 /**
@@ -174,14 +176,14 @@ var InteractiveMapView = function (options) {
     content = shakemap.getContent('download/cont_mi.json');
     if (content) {
       _overlays[_SHAKEMAP_CONTOURS] = ContoursLayer({
-        url: content.get('url');
+        url: content.get('url')
       });
     }
 
     content = shakemap.getContent('download/stationlist.json');
     if (content) {
       _overlays[_SHAKEMAP_STATIONS] = ShakeMapStationLayer(
-          contents.get('url'));
+          content.get('url'));
     }
   };
 
@@ -295,7 +297,12 @@ var InteractiveMapView = function (options) {
    *
    */
   _this.onDomReady = function () {
-    _map.invalidateSize();
+    if (_map && _map.getContainer() && _map.getContainer().parentNode) {
+      _map.invalidateSize();
+    }
+    if (_map) {
+
+    }
   };
 
   /**
@@ -334,7 +341,7 @@ var InteractiveMapView = function (options) {
         layer.removeFrom(_map);
       }
 
-      if (config[layerName] === true) {
+      if (config[layerName] === 'true') {
         layer.addTo(_map);
       }
     });

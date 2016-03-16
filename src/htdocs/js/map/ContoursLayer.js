@@ -5,7 +5,7 @@
 var ImpactUtil = require('base/ImpactUtil'),
     Util = require('util/Util');
 
-require('map/AsynchronousGeoJson');
+require('leaflet/layer/AsynchronousGeoJson');
 
 
 var DEFAULTS = {
