@@ -2,7 +2,8 @@
 'use strict';
 
 
-var EsriGrayscale = require('leaflet/layer/EsriGrayscale'),
+var DyfiUtmLayer = require('map/DyfiUtmLayer'),
+    EsriGrayscale = require('leaflet/layer/EsriGrayscale'),
     EsriTerrain = require('leaflet/layer/EsriTerrain'),
     Formatter = require('core/Formatter'),
     HazDevLayers = require('leaflet/control/HazDevLayers'),
@@ -16,7 +17,10 @@ var EsriGrayscale = require('leaflet/layer/EsriGrayscale'),
 
 
 // Display names of overlays
-var _EPICENTER_OVERLAY = 'Epicenter',
+var _DYFI_10K_OVERLAY = 'DYFI Responses 10 km',
+    _DYFI_1K_OVERLAY = 'DYFI Responses 1 km',
+    _DYFI_DEFAULT_OVERLAY = 'DYFI Responses',
+    _EPICENTER_OVERLAY = 'Epicenter',
     _FAULTS_OVERLAY = 'U.S. Faults',
     _PLATES_OVERLAY = 'Tectonic Plates';
 
@@ -44,9 +48,9 @@ var _DEFAULTS = {
  * @return {Boolean}
  *     True if the location is within the considered U.S., false otherwise.
  */
-var __inUs = function (/*latitude, longitude*/) {
+var __inUs = function (latitude, longitude) {
   // Note :: Only considering U.S. regions that have fault layer data...
-  return true;/* (
+  return (
     ( // Contemrinous U.S.
       latitude <= 50.0 && latitude >= 24.6 &&
       longitude <= 65.0 && longitude >= -125.0
@@ -55,7 +59,7 @@ var __inUs = function (/*latitude, longitude*/) {
       latitude <= 23.0 && latitude >= 23.0 &&
       longitude <= -154.0 && longitude >= -161.0
     )
-  );*/
+  );
 };
 
 
@@ -104,6 +108,62 @@ var InteractiveMapView = function (options) {
     }
   };
 
+  /**
+   * Creates the appropriate DYFI overlays based on the given product.
+   * Adds each overlay to the instance _overlays mapping.
+   *
+   * @param dyfi {Product}
+   *     The DYFI product for which to create overlays. If null, no overlays
+   *     are added.
+   */
+  _this.addDyfiOverlays = function (dyfi) {
+    var content;
+
+    if (!dyfi) {
+      return;
+    }
+
+    // 10k responses aggregation
+    content = dyfi.getContent('dyfi_geo_10km.geojson');
+    if (content) {
+      _overlays[_DYFI_10K_OVERLAY] = DyfiUtmLayer({
+        url: content.get('url')
+      });
+    }
+
+    // 1km responses aggregation
+    content = dyfi.getContent('dyfi_geo_1km.geojson');
+    if (content) {
+      _overlays[_DYFI_1K_OVERLAY] = DyfiUtmLayer({
+        url: content.get('url')
+      });
+    }
+
+    // Fallback responses aggregation
+    content = dyfi.getContent('dyfi_geo_1km.geojson');
+    if (!_overlays.hasOwnProperty(_DYFI_10K_OVERLAY) &&
+        !_overlays.hasOwnProperty(_DYFI_1K_OVERLAY)) {
+
+      content = dyfi.getContent('dyfi_geo.geojson');
+      if (content) {
+        _overlays[_DYFI_DEFAULT_OVERLAY] = DyfiUtmLayer({
+          url: content.get('url')
+        });
+      }
+    }
+  };
+
+  /**
+   * Creates the appropriate ShakeMap overlays based on the given product.
+   * Adds each overlay to the instance _overlays mapping.
+   *
+   * @param shakemap {Product}
+   *     The ShakeMap product for which to create overlays. If null, no overlays
+   *     are added.
+   */
+  _this.addShakeMapOverlays = function (/*shakemap*/) {
+    // TODO
+  };
 
   _this.createEpicenterMarker = function (latitude, longitude, magnitude) {
     var marker;
@@ -198,7 +258,13 @@ var InteractiveMapView = function (options) {
       _overlays[_FAULTS_OVERLAY] = UsFault();
     }
 
+    // TODO :: Add support for non-preferred products?
 
+    // DYFI
+    _this.addDyfiOverlays(catalogEvent.getPreferredProduct('dyfi'));
+
+    // ShakeMap
+    _this.addShakeMapOverlays(catalogEvent.getPreferredProduct('shakemap'));
 
     return _overlays;
   };
