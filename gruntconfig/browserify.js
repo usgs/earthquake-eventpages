@@ -22,6 +22,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/map/InteractiveMapModule.js:map/InteractiveMapModule',
   './' + config.src + '/htdocs/js/map/InteractiveMapView.js:map/InteractiveMapView',
   './' + config.src + '/htdocs/js/map/ShakeMapStationLayer.js:map/ShakeMapStationLayer',
+  './' + config.src + '/htdocs/js/pdl/CatalogEvent.js:pdl/CatalogEvent',
   './' + config.src + '/htdocs/js/pdl/Content.js:pdl/Content',
   './' + config.src + '/htdocs/js/pdl/Product.js:pdl/Product',
   './' + config.src + '/htdocs/js/shakemap/ShakeMapInfoView.js:shakemap/ShakeMapInfoView',
@@ -29,6 +30,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/shakemap/ShakeMapStationListView.js:shakemap/ShakeMapStationListView',
   './' + config.src + '/htdocs/js/shakemap/ShakeMapView.js:shakemap/ShakeMapView',
   NODE_MODULES + '/hazdev-tablist/src/tablist/TabList.js:tablist/TabList',
+  NODE_MODULES + '/hazdev-webutils/src/mvc/Model.js:mvc/Model',
   NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
   NODE_MODULES + '/hazdev-webutils/src/util/Events.js:util/Events',
   NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
