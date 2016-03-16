@@ -260,7 +260,7 @@ var EventPage = function (options) {
     }
 
     // update module params
-    params = Util.extend({}, _model.get(module), params);
+    params = Util.extend({}, params);
     modelParams = {};
     modelParams[module] = params;
     // this triggers a render of _currentModule
