@@ -1,6 +1,8 @@
+/* global L */
 'use strict';
 
-var AsynchronousGeoJSON = require('map/AsynchronousGeoJSON'),
+
+var AsynchronousGeoJson = require('map/AsynchronousGeoJson'),
     ImpactUtil = require('base/ImpactUtil'),
     Util = require('util/Util');
 
@@ -26,14 +28,21 @@ var DEFAULTS = {
 };
 
 
-var ContoursLayer = AsynchronousGeoJSON.extend({
+var ContoursLayer = AsynchronousGeoJson.extend({
 
   initialize: function (options) {
-    AsynchronousGeoJSON.prototype.initialize.call(this,
+    AsynchronousGeoJson.prototype.initialize.call(this,
         Util.extend({}, DEFAULTS, options));
   }
 
 });
 
 
-module.exports = ContoursLayer;
+L.ContoursLayer = ContoursLayer;
+
+L.contoursLayer = function (options) {
+  return new ContoursLayer(options);
+};
+
+
+module.exports = L.contoursLayer;
