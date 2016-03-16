@@ -238,7 +238,7 @@ var CatalogEvent = function (eventDetails) {
     _products = {};
     _properties = {};
     if (typeof eventDetails !== 'undefined') {
-      _products = eventDetails.properties.products;
+      _products = Util.extend({}, eventDetails.properties.products);
       _properties = Util.extend({}, eventDetails.properties, {products:null});
     }
     // convert all products to Product objects
