@@ -4,18 +4,58 @@
 
 var EsriGrayscale = require('leaflet/layer/EsriGrayscale'),
     EsriTerrain = require('leaflet/layer/EsriTerrain'),
+    Formatter = require('core/Formatter'),
+    HazDevLayers = require('leaflet/control/HazDevLayers'),
     MousePosition = require('leaflet/control/MousePosition'),
     OpenAerialMap = require('leaflet/layer/OpenAerialMap'),
     OpenStreetMap = require('leaflet/layer/OpenStreetMap'),
+    TectonicPlates = require('leaflet/layer/TectonicPlates'),
+    UsFault = require('leaflet/layer/UsFault'),
     Util = require('util/Util'),
     View = require('mvc/View');
 
 
+// Display names of overlays
+var _EPICENTER_OVERLAY = 'Epicenter',
+    _FAULTS_OVERLAY = 'U.S. Faults',
+    _PLATES_OVERLAY = 'Tectonic Plates';
+
 var _DEFAULTS = {
   config: {
     baseLayer: 'Terrain',
-    overlays: []
+    overlays: [
+      _EPICENTER_OVERLAY,
+      _PLATES_OVERLAY,
+      _FAULTS_OVERLAY
+    ]
   }
+};
+
+
+/**
+ * Checks if the given latitude/longitude represent a location within the U.S.
+ * where the U.S. fault layer has data (so some regions are not considered).
+ *
+ * @param latitude {Number}
+ *     Decimal degrees latitude.
+ * @param longitude {Number}
+ *     Decimal degrees longitude.
+ *
+ * @return {Boolean}
+ *     True if the location is within the considered U.S., false otherwise.
+ */
+var __inUs = function (/*latitude, longitude*/) {
+  // Note :: Only considering U.S. regions that have fault layer data...
+  return true;/* (
+    ( // Contemrinous U.S.
+      latitude <= 50.0 && latitude >= 24.6 &&
+      longitude <= 65.0 && longitude >= -125.0
+    ) ||
+    ( // Hawaii
+      latitude <= 23.0 && latitude >= 23.0 &&
+      longitude <= -154.0 && longitude >= -161.0
+    )
+  );*/
 };
 
 
@@ -25,6 +65,7 @@ var InteractiveMapView = function (options) {
 
       _baseLayers,
       _defaultConfig,
+      _formatter,
       _layersControl,
       _map,
       _overlays,
@@ -35,10 +76,11 @@ var InteractiveMapView = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = View(options);
 
-  _initialize = function (/*options*/) {
+  _initialize = function (options) {
     _this.el.classList.add('interactive-map-view');
 
     _defaultConfig = Util.extend({}, _DEFAULTS.config, _this.model.get('map'));
+    _formatter = options.formatter || Formatter();
 
     _map = L.map(_this.el, {
       attributionControl: false,
@@ -47,7 +89,7 @@ var InteractiveMapView = function (options) {
       zoomAnimation: true
     });
 
-    _layersControl = L.control.layers(
+    _layersControl = HazDevLayers(
       _this.getAvailableBaseLayers(),
       _this.getAvailableOverlays()
     );
@@ -60,6 +102,27 @@ var InteractiveMapView = function (options) {
       _scaleControl = L.control.scale({position: 'bottomleft'});
       _map.addControl(_scaleControl);
     }
+  };
+
+
+  _this.createEpicenterMarker = function (latitude, longitude, magnitude) {
+    var marker;
+
+    marker = L.marker([latitude, longitude], {
+      zIndexOffset: 99,
+      icon: L.icon({
+        iconUrl: 'images/star.png',
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      })
+    });
+    marker.bindPopup([
+      'Epicenter M', _formatter.magnitude(magnitude),
+      '<br/>',
+      _formatter.location(latitude, longitude)
+    ].join(''));
+
+    return marker;
   };
 
   /**
@@ -81,6 +144,7 @@ var InteractiveMapView = function (options) {
 
     _baseLayers = null;
     _defaultConfig = null;
+    _formatter = null; // TODO :: This may have been provided, so don't call destroy?
     _layersControl = null;
     _map = null;
     _overlays = null;
@@ -104,9 +168,37 @@ var InteractiveMapView = function (options) {
   };
 
   _this.getAvailableOverlays = function () {
+    var catalogEvent,
+        eventLatitude,
+        eventLongitude;
+
     // TODO :: Look at _this.model.event to see which overlays are available.
     //         Returned object is keyed by display name for each layer.
     _overlays = {};
+
+    catalogEvent = _this.model.get('event');
+
+    if (!catalogEvent) {
+      // No event, no overlays to create
+      return _overlays;
+    }
+
+    eventLatitude = catalogEvent.getLatitude();
+    eventLongitude = catalogEvent.getLongitude();
+
+    // Put a star over the epicenter
+    _overlays[_EPICENTER_OVERLAY] = _this.createEpicenterMarker(eventLatitude,
+        eventLongitude, catalogEvent.getMagnitude());
+
+    // Always include tectonic plates
+    _overlays[_PLATES_OVERLAY] = TectonicPlates();
+
+    // Include faults layer if in U.S.
+    if (__inUs(eventLatitude, eventLongitude)) {
+      _overlays[_FAULTS_OVERLAY] = UsFault();
+    }
+
+
 
     return _overlays;
   };
@@ -125,7 +217,10 @@ var InteractiveMapView = function (options) {
    *
    */
   _this.render = function () {
-    var config;
+    var catalogEvent,
+        config,
+        latitude,
+        longitude;
 
     config = Util.extend({}, _defaultConfig, _this.model.get('map'));
     console.log(config);
@@ -157,6 +252,15 @@ var InteractiveMapView = function (options) {
         layer.addTo(_map);
       }
     });
+
+    // Zoom to a two-degree map centered on event
+    catalogEvent = _this.model.get('event');
+    if (catalogEvent) {
+      latitude = catalogEvent.getLatitude();
+      longitude = catalogEvent.getLongitude();
+      _map.fitBounds([[latitude + 2.0, longitude + 2.0],
+          [latitude - 2.0, longitude - 2.0]]);
+    }
 
     console.log('InteractiveMapView::renderComplete');
   };

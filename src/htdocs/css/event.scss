@@ -4,9 +4,10 @@
 @import 'accordion/Accordion.scss';
 
 @import 'leaflet/control/_Control.scss';
-@import 'leaflet/control/_Layers.scss';
+@import 'leaflet/control/_HazDevLayers.scss';
 @import 'leaflet/control/_MousePosition.scss';
 @import 'leaflet/control/_Scale.scss';
+@import 'leaflet/layer/_MouseOverLayer.scss';
 
 
 @import '_event-header.scss';
