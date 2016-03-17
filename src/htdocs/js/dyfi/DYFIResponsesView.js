@@ -7,7 +7,7 @@ var Collection = require('mvc/Collection'),
     Util = require('util/Util');
 
 
-var _NO_CONTENT_MESSAGE = 'No Responses available.';
+var _NO_CONTENT_MESSAGE = '<p class="alert error">No Responses available.</p>';
 
 /* Formatter for _RESPONSE_DATA_COLUMNS */
 var _FORMATTER = Formatter();
@@ -285,7 +285,7 @@ var DYFIResponsesView = function (options) {
       el: _this.el,
       className: 'dyfi-response-table',
       collection: _responses,
-      emptyMarkup: '<p class="error alert">No Response Data Exists</p>',
+      emptyMarkup: _NO_CONTENT_MESSAGE,
       columns: _RESPONSE_DATA_COLUMNS,
       sorts: _RESPONSE_DATA_SORTS,
       defaultSort: 'distance'
