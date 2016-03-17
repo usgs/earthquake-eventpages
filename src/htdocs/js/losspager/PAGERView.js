@@ -6,9 +6,7 @@ var PagerXmlParser = require('losspager/PagerXmlParser'),
     Xhr = require('util/Xhr');
 
 var _DEFAULTS = {
-  //renderCallback: null, // Function to call when async rendering is complete
-  productTypes: ['losspager'],
-  hash: 'pager'
+  errorMessage: 'Error loading PAGER view'
 };
 
 
@@ -26,8 +24,8 @@ var PAGERView = function (options) {
       _cityEl,
       _commentEl,
       _economicComments,
-      _exposureEl,
       _errorMessage,
+      _exposureEl,
       _fatalityComments,
       _pagerInfo;
 
@@ -37,12 +35,11 @@ var PAGERView = function (options) {
 
   _initialize = function () {
     _errorMessage = options.errorMessage;
-
     _this.createScaffolding();
   };
 
   /**
-   * Adds alert historgrams and corresponding impact comments to page.
+   * Adds alert historgrams.
    */
   _this.renderAlerts = function () {
     var alertsMarkup,
@@ -56,11 +53,6 @@ var PAGERView = function (options) {
     alertLevel = _this.model.getProperty('alertlevel');
     alertsMarkup = [];
     content = _this.model.getContent;
-
-    // To see data
-    console.log(_this.model.toJSON());
-    console.log(_this.model.get('contents'));
-    // end
 
     if (alertLevel === 'pending') {
       alertsMarkup = [
@@ -127,7 +119,6 @@ var PAGERView = function (options) {
     _alertEl.innerHTML = alertsMarkup.join('');
     _fatalityComments = _this.el.querySelector('.fatality-comments');
     _economicComments = _this.el.querySelector('.economic-comments');
-
   };
 
   /**
@@ -160,6 +151,180 @@ var PAGERView = function (options) {
     }
   };
 
+  /**
+   * Adds the nearby cities list to the page. Cities have a very special sorting
+   * algorithm. The first 11 cities are displayed by default and a control is
+   * used to show/hide additional cities.
+   */
+  _this.renderCities = function () {
+    var cities,
+        city,
+        i,
+        len,
+        markup;
+
+    markup = [];
+    cities = _pagerInfo.cities;
+    len = cities.length;
+
+    markup.push(
+      '<h3>Selected Cities Exposed</h3>'
+    );
+
+    if (len > 11) {
+      markup.push('<a href="javascript:void(null);" class="toggle">' +
+          'Show/Hide Full City List</a>');
+      _cityEl.addEventListener('click', _this.onCityClick);
+    }
+
+    markup.push(
+      '<table class="pager-cities">' +
+        '<thead>' +
+          '<tr>' +
+            '<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +
+            '<th>City</th>' +
+            '<th><abbr title="Population">Pop.</abbr></th>' +
+          '</tr>' +
+        '</thead>'
+    );
+
+    for (i = 0; i < len; i++) {
+      city = cities[i];
+
+      markup.push(
+        '<tr class="' + ((i>10)?'city-additional':'') +'">' +
+          '<td class="cities-mmi">' +
+            '<span class="roman mmi ' + city.css + '">' + city.roman + '</span>' +
+          '</td>' +
+          '<td>' + city.name + '</td>' +
+          '<td class="cities-population">' + city.populationDisplay + '</td>' +
+        '</tr>'
+      );
+    }
+
+    markup.push(
+      '</tbody></table>' +
+      '<span class="pager-disclaimer">' +
+        'From GeoNames Database of Cities with 1,000 or more ' +
+        'residents (k = x1,000)' +
+      '</span>'
+    );
+
+    if (len === 0) {
+      _cityEl.parentNode.removeChild(_cityEl);
+      _cityEl = null;
+    } else {
+      _cityEl.innerHTML = markup.join('');
+    }
+  };
+
+  /**
+   * Adds the structure comment and secondary effects comments to the page.
+   */
+  _this.renderComments = function () {
+    var comments = _pagerInfo.comments,
+        markup = [];
+
+    if (comments.hasOwnProperty('structure')) {
+      markup.push(
+        '<div class="wrapper">' +
+          '<h3>Structure Information Summary</h3>' +
+          '<p>' + comments.structure + '</p>' +
+        '</div>'
+      );
+    }
+
+    if (comments.hasOwnProperty('effects')) {
+      markup.push(
+        '<div class="wrapper">' +
+          '<h3>Secondary Effects</h3>' +
+          '<p>' + comments.effects + '</p>' +
+        '</div>'
+      );
+    }
+
+    if (markup.length) {
+      _commentEl.innerHTML = markup.join('');
+    } else {
+      // If no comments, remove this section
+      _commentEl.parentNode.removeChild(_commentEl);
+      _commentEl = null;
+    }
+  };
+
+  _this.renderExposures = function () {
+    var exposure,
+        exposures,
+        i,
+        len,
+        markup;
+
+    markup = [];
+    exposures = _pagerInfo.exposures;
+    len = exposures.length;
+
+    if (len === 0) {
+      _exposureEl.parentNode.removeChild(_exposureEl);
+      _exposureEl = null;
+      return;
+    }
+
+    markup.push(
+      '<table class="pager-exposures">' +
+        '<thead>' +
+          '<tr>' +
+            '<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +
+            '<th><abbr title="Perceived Shaking">Shaking</abbr></th>' +
+            '<th><abbr title="Population Exposure">Pop.</abbr></th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>'
+      );
+
+    // generate table row content
+    for (i = 0; i < len; i++) {
+      exposure = exposures[i];
+      markup.push(_this.createExposureItem(exposure));
+    }
+
+    markup.push(
+        '</tbody>' +
+      '</table>' +
+      '<span class="pager-disclaimer">' +
+        '*Estimated exposure only includes population within ' +
+        'map area (k = x1,000)' +
+        '</br><a href="http://earthquake.usgs.gov/research/shakemap/#intmaps">'+
+        'Modified Mercalli Intensity (MMI) scale</a>' +
+      '</span>'
+    );
+
+    _exposureEl.innerHTML = markup.join('');
+  };
+
+  /**
+   * Utility method to create exposure item markup.
+   *
+   * @param exposure {Object}
+   *      The exposure level for which to create an element.
+   *
+   * @return {String}
+   *      The markup.
+   */
+  _this.createExposureItem = function (exposure) {
+    return '<tr>' +
+      '<td class="exposure-mmi">' +
+        '<span class="roman mmi ' + exposure.css + '">' +
+        exposure.label + '</span>' +
+      '</td>' +
+      '<td>' + exposure.perc + '</td>' +
+      '<td class="exposure-population">' + exposure.populationDisplay + '</td>' +
+    '</tr>';
+  };
+
+  /**
+   * Sets up basic layout of the Pager view and loads everything that can
+   * be pulled from the model.
+   */
   _this.createScaffolding = function () {
     var exposurePng;
 
@@ -201,9 +366,16 @@ var PAGERView = function (options) {
    * Destroy all the things.
    */
   _this.destroy = Util.compose(function () {
+    _pagerInfo = null;
+    _fatalityComments = null;
+    _exposureEl = null;
     _errorMessage = null;
-    _this = null;
+    _economicComments = null;
+    _commentEl = null;
+    _cityEl = null;
+    _alertEl = null;
     _initialize = null;
+    _this = null;
   }, _this.destroy);
 
   _this.fetchData = function () {
@@ -224,6 +396,15 @@ var PAGERView = function (options) {
   };
 
   /**
+   * Event handler for click events on city list toggle control.
+   */
+  _this.onCityClick = function (evt) {
+    if (evt.target.classList.contains('toggle')) {
+      _this.el.querySelector('.pager-cities').classList.toggle('show-additional');
+    }
+  };
+
+  /**
    * This method is called when there is a problem.
    *
    * @param errorMessage {String}
@@ -234,29 +415,31 @@ var PAGERView = function (options) {
   };
 
   /**
+   * Event handler for click events on exposure MMI controls.
+   */
+  _this.onExposureClick = function (evt) {
+    if (evt.target.classList.contains('mmi')) {
+      evt.target.parentNode.classList.toggle('expanded');
+    }
+  };
+
+  /**
    * This method is called when Xhr is successful and calles all methods
-   * that render pager content.
+   * that render PAGER content.
    */
   _this.onSuccess = function (data, xhr) {
     _pagerInfo = PagerXmlParser.parse(xhr.responseXML);
-    console.log(_pagerInfo);
 
     _this.renderAlertComments();
-    //_this.getDetailsContent(PagerXmlParser.parse(xhr.responseXML));
-    // _this.renderAlerts(data.product);
-    // _this.renderExposures(data.product);
-    // _this.renderComments(data.product);
-    // _this.renderCities(data.product);
+    _this.renderExposures();
+    _this.renderCities();
+    _this.renderComments();
   };
-
 
   /**
    * Called when the model changes. Initially sets a loading message
-   *
-   *
    */
   _this.render = function () {
-    //_this.el.innerHTML = 'Loading content&hellip;';
     _this.renderAlerts();
     _this.fetchData();
   };
