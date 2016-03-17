@@ -55,7 +55,8 @@ var PAGERView = function (options) {
         exposure.label + '</span>' +
       '</td>' +
       '<td>' + exposure.perc + '</td>' +
-      '<td class="exposure-population">' + exposure.populationDisplay + '</td>' +
+      '<td class="exposure-population">' + exposure.populationDisplay +
+          '</td>' +
     '</tr>';
   };
 
@@ -141,7 +142,8 @@ var PAGERView = function (options) {
    */
   _this.onCityClick = function (evt) {
     if (evt.target.classList.contains('toggle')) {
-      _this.el.querySelector('.pager-cities').classList.toggle('show-additional');
+      _this.el.querySelector('.pager-cities').
+          classList.toggle('show-additional');
     }
   };
 
@@ -170,7 +172,6 @@ var PAGERView = function (options) {
    */
   _this.onSuccess = function (data, xhr) {
     _pagerInfo = PagerXmlParser.parse(xhr.responseXML);
-
     _this.renderAlertComments();
     _this.renderExposures();
     _this.renderCities();
@@ -189,12 +190,12 @@ var PAGERView = function (options) {
    * Adds alert historgrams.
    */
   _this.renderAlerts = function () {
-    var alertsMarkup,
-        alertLevel,
-        alertFatalPng,
-        alertFatalPdf,
-        alertEconPdf,
+    var alertEconPdf,
         alertEconPng,
+        alertFatalPdf,
+        alertFatalPng,
+        alertLevel,
+        alertsMarkup,
         content;
 
     alertLevel = _this.model.getProperty('alertlevel');
@@ -341,7 +342,9 @@ var PAGERView = function (options) {
       markup.push(
         '<tr class="' + ((i>10)?'city-additional':'') +'">' +
           '<td class="cities-mmi">' +
-            '<span class="roman mmi ' + city.css + '">' + city.roman + '</span>' +
+            '<span class="roman mmi ' + city.css + '">' +
+              city.roman +
+            '</span>' +
           '</td>' +
           '<td>' + city.name + '</td>' +
           '<td class="cities-population">' + city.populationDisplay + '</td>' +
