@@ -92,6 +92,9 @@ var DYFIModule = function (options) {
   };
 
   _this.renderFooter = function () {
+    var additionalFooter,
+        product;
+
     _this.footer.innerHTML =[
       '<h3>For More Information</h3>',
       '<ul>',
@@ -102,6 +105,17 @@ var DYFIModule = function (options) {
         '</li>',
       '</ul>'
     ].join('');
+
+    product = _this.getProduct('dyfi');
+    if (product) {
+      additionalFooter = _this.getProductFooter({
+        product: product
+      });
+
+      if (additionalFooter) {
+        _this.footer.appendChild(additionalFooter);
+      }
+    }
   };
 
 

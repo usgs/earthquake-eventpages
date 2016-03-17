@@ -1,6 +1,8 @@
 'use strict';
 
-var Formatter = require('core/Formatter'),
+var Accordion = require('accordion/Accordion'),
+    DownloadView = require('core/DownloadView'),
+    Formatter = require('core/Formatter'),
     Util = require('util/Util'),
     View = require('mvc/View');
 
@@ -29,6 +31,9 @@ var Module = function (options) {
   var _this,
       _initialize,
 
+      _accordion,
+      _accordionEl,
+      _downloadView,
       _formatter;
 
 
@@ -58,7 +63,25 @@ var Module = function (options) {
    * Free references.
    */
   _this.destroy = Util.compose(function () {
+    if (_accordionEl) {
+      _accordionEl.off('click', _downloadView.render);
+    }
+
+    if (_accordion && _accordion.destroy) {
+      _accordion.destroy();
+    }
+
+    if (_downloadView && _downloadView.destroy) {
+      _downloadView.destroy();
+    }
+
+
+    _accordion = null;
+    _accordionEl = null;
+    _downloadView = null;
     _formatter = null;
+
+    _initialize = null;
     _this = null;
   }, _this.destroy);
 
@@ -104,6 +127,41 @@ var Module = function (options) {
       product = ev.getPreferredProduct(type);
     }
     return product;
+  };
+
+  /**
+   * Get a product footer. Generalized footer includes only the Downloads.
+   *
+   */
+  _this.getProductFooter = function (options) {
+    var content;
+
+    content = options.product.getContent('contents.xml');
+
+    if (content) {
+      _accordionEl = document.createElement('div');
+
+      _downloadView = DownloadView({
+        model: content,
+        product: options.product,
+        formatter: _formatter
+      });
+
+      _accordion = Accordion({
+        el: _accordionEl,
+        accordions: [{
+          toggleText: 'Downloads',
+          toggleElement: 'h3',
+          content: _downloadView.el,
+          classes: 'accordion-standard accordion-closed ' +
+              'accordion-page-downloads'
+        }]
+      });
+
+      _accordionEl.addEventListener('click', _downloadView.render);
+    }
+
+    return _accordionEl;
   };
 
   /**
