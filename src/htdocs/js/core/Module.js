@@ -64,7 +64,7 @@ var Module = function (options) {
    */
   _this.destroy = Util.compose(function () {
     if (_accordionEl) {
-      _accordionEl.off('click', _downloadView.render);
+      _accordionEl.removeEventListener('click', _downloadView.render);
     }
 
     if (_accordion && _accordion.destroy) {

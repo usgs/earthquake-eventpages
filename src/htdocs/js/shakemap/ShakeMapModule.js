@@ -68,7 +68,8 @@ var ShakeMapModule = function (options) {
    *
    */
   _this.render = function () {
-    var product;
+    var additionalFooter,
+        product;
 
 
     _this.header.innerHTML = '<h3>ShakeMap</h3>';
@@ -82,6 +83,10 @@ var ShakeMapModule = function (options) {
         product: product,
         summaryModule: ImpactSummaryModule
       }));
+
+      additionalFooter = _this.getProductFooter({
+        product: product
+      });
 
       // Load content from ShakeMapView
       _shakeMapView = ShakeMapView({
@@ -99,6 +104,10 @@ var ShakeMapModule = function (options) {
           '<a href="http://usgs.github.io/shakemap">ShakeMap Manual</a>' +
         '</li>' +
       '</ul>';
+
+    if (additionalFooter) {
+      _this.footer.appendChild(additionalFooter);
+    }
   };
 
 

@@ -6,6 +6,7 @@ var DYFIView = require('dyfi/DYFIView'),
     Module = require('core/Module'),
     Util = require('util/Util');
 
+
 var _ID,
     _TITLE,
     _TYPES;
@@ -57,7 +58,9 @@ var DYFIModule = function (options) {
   _this.renderHeader = function () {
     var product;
 
-    _this.header.innerHTML = '<h3>' + _this.TITLE + '</h3>';
+    // TODO :: Is this the correct hash for the form?
+    _this.header.innerHTML = '<h3>' + _this.TITLE +
+        ' - <a href="#tellus">Tell Us!</a></h3>';
 
     product = _this.getProduct('dyfi');
 
