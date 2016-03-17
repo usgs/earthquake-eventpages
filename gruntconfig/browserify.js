@@ -26,7 +26,8 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/shakemap/ShakeMapView.js:shakemap/ShakeMapView',
   NODE_MODULES + '/hazdev-tablist/src/tablist/TabList.js:tablist/TabList',
   NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
-  NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
+  NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr',
+  NODE_MODULES + '/hazdev-svgimagemap/src/svgimagemap/SvgImageMap.js:svgimagemap/SvgImageMap'
 ];
 
 var BUNDLED_DEPENDENCIES = [
