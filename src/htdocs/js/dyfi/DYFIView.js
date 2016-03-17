@@ -13,6 +13,7 @@ var _DEFAULTS = {
 
 };
 
+// Map of information used to generate tabs
 var _RESOURCES = {
   'intensity-map': {
     title: 'Intensity Map',
@@ -57,6 +58,12 @@ var _RESOURCES = {
 };
 
 
+/**
+ * This class extends a ProductView and is used to render a DYFI product.
+ *
+ * @param options {Object}
+ *     Configuration options. See _initialize for more details.
+ */
 var DYFIView = function (options) {
   var _this,
       _initialize,
@@ -72,6 +79,8 @@ var DYFIView = function (options) {
   /**
    * Initializes a new view.
    *
+   * @param options {Object}
+   *     Configuration options. Nothing specific to this view at this time.
    */
   _initialize = function (/*options*/) {
     _this.el.classList.add('dyfi-view');
@@ -80,15 +89,37 @@ var DYFIView = function (options) {
   };
 
 
+  /**
+   * Creates an image-based tab. Image-based tabs consist of an image tag,
+   * optionally wrapped in a link, optionally with a corresponding image map
+   * for interations.
+   *
+   * @param params {Object}
+   *     Information used to generate the image-based tab.
+   * @param params.alt {String}
+   *     The title for this tab. Also used as alt text for the image.
+   * @param params.href {String} Optional.
+   *     The URL to use for a link wrapping the image. If not specified,
+   *     no link will wrap the image.
+   * @param params.image {String}
+   *     The URL to use for the image source.
+   * @param params.map {String} Optional.
+   *     The URL to use for the image map. If not specified, no corresponding
+   *     image map will be generated.
+   * @param params.usemap {String} Optional.
+   *     The name/id to use for simple image maps. SvgImageMap (the typical
+   *     behavior) will not use this parameter.
+   *
+   * @return {Object}
+   *     A tab object as expected in order to provide to the TabList#addTab
+   *     method.
+   *
+   * @see TabList#addTab
+   */
   _this.createImageTab = function (params) {
     var container,
         image,
-        map,
-        tab;
-
-    tab = {
-      title: params.title
-    };
+        map;
 
     if (params.href) {
       container = document.createElement('a');
@@ -118,11 +149,14 @@ var DYFIView = function (options) {
 
         return container;
       },
+      // Called when tab list is destroyed. Cleans up map if one was generated.
       onDestroy: function () {
         if (map && map.destroy) {
           map.destroy();
         }
       },
+      // Called when tab is selected. Give map chance to render if one was
+      // generated, otherwise just set image.src to fetch the content.
       onSelect: function () {
         if (map && map.render) {
           map.render();
@@ -133,6 +167,26 @@ var DYFIView = function (options) {
     };
   };
 
+  /**
+   * Creates a subview-based tab. Subview-based tabs delegate rendering
+   * to a different view. The subview itself is created immediately, rendered
+   * during tab.onSelect, and destroyed during tabList.onDestroy.
+   *
+   * @param params {Object}
+   *     Configuration parameters for creating the subview-base tab.
+   * @param params.constructor {Function}
+   *     A constructor factory that returns a view instance.
+   * @param params.content {Model}
+   *     The model to provide the created view. Typically a {Content} model.
+   * @param params.title {String}
+   *     The title to put on the tab.
+   *
+   * @return {Object}
+   *     A tab object as expected in order to provide to the TabList#addTab
+   *     method.
+   *
+   * @see TabList#addTab
+   */
   _this.createSubViewTab = function (params) {
     var subview;
 
@@ -152,6 +206,23 @@ var DYFIView = function (options) {
     };
   };
 
+  /**
+   * Creates a tab based on information found in the given params. Based on the
+   * available information and corresponding content on `_this.model`, this
+   * method will either (1) produce a subview-based tab, (2) produce an
+   * image-based tab, or (3) not produce a tab.
+   *
+   * @param params {Object}
+   *     Configuration parameters for creating the tab.
+   *
+   * @return {Object}
+   *     A tab object as expected in order to provide to the TabList#addTab
+   *     method.
+   *
+   * @see TabList#addTab
+   * @see DYFIView#createImageTab
+   * @see DYFIView#createSubViewTab
+   */
   _this.createTab = function (params) {
     var code,
         imageContent,
@@ -184,6 +255,11 @@ var DYFIView = function (options) {
     return tab;
   };
 
+  /**
+   * Destroys sub-views (TabList) and frees all references. Calls parent
+   * destroy method via composition.
+   *
+   */
   _this.destroy = Util.compose(function () {
     if (_tabList && _tabList.destroy) {
       _tabList.destroy();
@@ -199,6 +275,13 @@ var DYFIView = function (options) {
     _this = null;
   }, _this.destroy);
 
+  /**
+   * Creates the `_tabList` and loads tab contents based on what is available
+   * in `_this.model`. If an `_tabList` was previously created, it is destroyed
+   * before a new `_tabList` is created. This is required since {TabList} does
+   * not yet have a "removeTab" method.
+   *
+   */
   _this.render = function () {
     if (_tabList && _tabList.destroy) {
       _tabList.destroy();
