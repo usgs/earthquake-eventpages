@@ -39,6 +39,149 @@ var PAGERView = function (options) {
   };
 
   /**
+   * Utility method to create exposure item markup.
+   *
+   * @param exposure {Object}
+   *      The exposure level for which to create an element.
+   *
+   * @return {String}
+   *      The markup.
+   */
+  _this.createExposureItem = function (exposure) {
+    return '<tr>' +
+      '<td class="exposure-mmi">' +
+        '<span class="roman mmi ' + exposure.css + '">' +
+        exposure.label + '</span>' +
+      '</td>' +
+      '<td>' + exposure.perc + '</td>' +
+      '<td class="exposure-population">' + exposure.populationDisplay + '</td>' +
+    '</tr>';
+  };
+
+  /**
+   * Sets up basic layout of the Pager view and loads everything that can
+   * be pulled from the model.
+   */
+  _this.createScaffolding = function () {
+    var exposurePng;
+
+    exposurePng = _this.model.getContent('exposure.png');
+
+    _this.el.classList.add('losspager');
+
+    _this.el.innerHTML =
+      '<div class="alert-wrapper row"></div>' +
+      '<div class="row pager-content">' +
+        '<div class="column one-of-two">' +
+          '<h3>Estimated Population Exposure to Earthquake Shaking</h3>' +
+          '<div class="map-wrapper">' +
+            (exposurePng.get('url') ?
+                '<figure>' +
+                  '<img src="' + exposurePng.get('url') +
+                      '" alt="Population Exposure Map"/>' +
+                  '<figcaption>' +
+                    'Population per ~1 sq. km. from LandScan' +
+                  '</figcaption>' +
+                '</figure>'
+                : '&ndash;') +
+          '</div>' +
+          '<div class="exposure-wrapper"></div>' +
+        '</div>' +
+        '<div class="column one-of-two">' +
+          '<div class="comment-wrapper"></div>' +
+          '<div class="city-wrapper"></div>' +
+        '</div>' +
+      '</div>';
+
+    _alertEl = _this.el.querySelector('.alert-wrapper');
+    _exposureEl = _this.el.querySelector('.exposure-wrapper');
+    _commentEl = _this.el.querySelector('.comment-wrapper');
+    _cityEl = _this.el.querySelector('.city-wrapper');
+  };
+
+  /**
+   * Destroy all the things.
+   */
+  _this.destroy = Util.compose(function () {
+    _pagerInfo = null;
+    _fatalityComments = null;
+    _exposureEl = null;
+    _errorMessage = null;
+    _economicComments = null;
+    _commentEl = null;
+    _cityEl = null;
+    _alertEl = null;
+    _initialize = null;
+    _this = null;
+  }, _this.destroy);
+
+  _this.fetchData = function () {
+    var content;
+
+    content = _this.model.getContent('pager.xml');
+
+    if(!content) {
+      _this.onError();
+      return;
+    }
+
+    Xhr.ajax({
+      url: content.get('url'),
+      success: _this.onSuccess,
+      error: _this.onError
+    });
+  };
+
+  /**
+   * Event handler for click events on city list toggle control.
+   */
+  _this.onCityClick = function (evt) {
+    if (evt.target.classList.contains('toggle')) {
+      _this.el.querySelector('.pager-cities').classList.toggle('show-additional');
+    }
+  };
+
+  /**
+   * This method is called when there is a problem.
+   *
+   * @param errorMessage {String}
+   *    A description of the error that occurred.
+   */
+  _this.onError = function () {
+    _this.el.innerHTML = _errorMessage;
+  };
+
+  /**
+   * Event handler for click events on exposure MMI controls.
+   */
+  _this.onExposureClick = function (evt) {
+    if (evt.target.classList.contains('mmi')) {
+      evt.target.parentNode.classList.toggle('expanded');
+    }
+  };
+
+  /**
+   * This method is called when Xhr is successful and calles all methods
+   * that render PAGER content.
+   */
+  _this.onSuccess = function (data, xhr) {
+    _pagerInfo = PagerXmlParser.parse(xhr.responseXML);
+
+    _this.renderAlertComments();
+    _this.renderExposures();
+    _this.renderCities();
+    _this.renderComments();
+  };
+
+  /**
+   * Called when the model changes. Initially sets a loading message
+   */
+  _this.render = function () {
+    _this.renderAlerts();
+    _this.fetchData();
+  };
+
+  /**
    * Adds alert historgrams.
    */
   _this.renderAlerts = function () {
@@ -299,149 +442,6 @@ var PAGERView = function (options) {
     );
 
     _exposureEl.innerHTML = markup.join('');
-  };
-
-  /**
-   * Utility method to create exposure item markup.
-   *
-   * @param exposure {Object}
-   *      The exposure level for which to create an element.
-   *
-   * @return {String}
-   *      The markup.
-   */
-  _this.createExposureItem = function (exposure) {
-    return '<tr>' +
-      '<td class="exposure-mmi">' +
-        '<span class="roman mmi ' + exposure.css + '">' +
-        exposure.label + '</span>' +
-      '</td>' +
-      '<td>' + exposure.perc + '</td>' +
-      '<td class="exposure-population">' + exposure.populationDisplay + '</td>' +
-    '</tr>';
-  };
-
-  /**
-   * Sets up basic layout of the Pager view and loads everything that can
-   * be pulled from the model.
-   */
-  _this.createScaffolding = function () {
-    var exposurePng;
-
-    exposurePng = _this.model.getContent('exposure.png');
-
-    _this.el.classList.add('losspager');
-
-    _this.el.innerHTML =
-      '<div class="alert-wrapper row"></div>' +
-      '<div class="row pager-content">' +
-        '<div class="column one-of-two">' +
-          '<h3>Estimated Population Exposure to Earthquake Shaking</h3>' +
-          '<div class="map-wrapper">' +
-            (exposurePng.get('url') ?
-                '<figure>' +
-                  '<img src="' + exposurePng.get('url') +
-                      '" alt="Population Exposure Map"/>' +
-                  '<figcaption>' +
-                    'Population per ~1 sq. km. from LandScan' +
-                  '</figcaption>' +
-                '</figure>'
-                : '&ndash;') +
-          '</div>' +
-          '<div class="exposure-wrapper"></div>' +
-        '</div>' +
-        '<div class="column one-of-two">' +
-          '<div class="comment-wrapper"></div>' +
-          '<div class="city-wrapper"></div>' +
-        '</div>' +
-      '</div>';
-
-    _alertEl = _this.el.querySelector('.alert-wrapper');
-    _exposureEl = _this.el.querySelector('.exposure-wrapper');
-    _commentEl = _this.el.querySelector('.comment-wrapper');
-    _cityEl = _this.el.querySelector('.city-wrapper');
-  };
-
-  /**
-   * Destroy all the things.
-   */
-  _this.destroy = Util.compose(function () {
-    _pagerInfo = null;
-    _fatalityComments = null;
-    _exposureEl = null;
-    _errorMessage = null;
-    _economicComments = null;
-    _commentEl = null;
-    _cityEl = null;
-    _alertEl = null;
-    _initialize = null;
-    _this = null;
-  }, _this.destroy);
-
-  _this.fetchData = function () {
-    var content;
-
-    content = _this.model.getContent('pager.xml');
-
-    if(!content) {
-      _this.onError();
-      return;
-    }
-
-    Xhr.ajax({
-      url: content.get('url'),
-      success: _this.onSuccess,
-      error: _this.onError
-    });
-  };
-
-  /**
-   * Event handler for click events on city list toggle control.
-   */
-  _this.onCityClick = function (evt) {
-    if (evt.target.classList.contains('toggle')) {
-      _this.el.querySelector('.pager-cities').classList.toggle('show-additional');
-    }
-  };
-
-  /**
-   * This method is called when there is a problem.
-   *
-   * @param errorMessage {String}
-   *    A description of the error that occurred.
-   */
-  _this.onError = function () {
-    _this.el.innerHTML = _errorMessage;
-  };
-
-  /**
-   * Event handler for click events on exposure MMI controls.
-   */
-  _this.onExposureClick = function (evt) {
-    if (evt.target.classList.contains('mmi')) {
-      evt.target.parentNode.classList.toggle('expanded');
-    }
-  };
-
-  /**
-   * This method is called when Xhr is successful and calles all methods
-   * that render PAGER content.
-   */
-  _this.onSuccess = function (data, xhr) {
-    _pagerInfo = PagerXmlParser.parse(xhr.responseXML);
-
-    _this.renderAlertComments();
-    _this.renderExposures();
-    _this.renderCities();
-    _this.renderComments();
-  };
-
-  /**
-   * Called when the model changes. Initially sets a loading message
-   */
-  _this.render = function () {
-    _this.renderAlerts();
-    _this.fetchData();
   };
 
 
