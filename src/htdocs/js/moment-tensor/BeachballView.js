@@ -14,19 +14,22 @@ var _D2R,
 
 _D2R = Math.PI / 180;
 _R2D = 180 / Math.PI;
+
 // threshold x and y pixel difference when polygons should be merged.
 // Pixels are in the range [-1, 1], so 0.02 represents a 1% difference.
 _MERGE_THRESHOLD = 0.02;
+
 // threshold takeoff angle when polygons should be split.
 _SPLIT_THRESHOLD = 85 * _D2R;
 
 _DEFAULTS = {
+  axisSize: null,
   bgColor: '#fff',
   fillColor: '#ddd',
   height: null,
   labelAxes: true,
   labelAxesFont: '24px Arial',
-  labelPlanes: false,
+  labelPlanes: true,
   labelPlanesFont: '14px Arial',
   lineColor: '#000',
   lineWidth: 0.25,
@@ -108,6 +111,7 @@ var BeachBallView = function (options) {
   var _this,
       _initialize,
 
+      _axisSize,
       _bgColor,
       _canvas,
       _fillColor,
@@ -122,7 +126,6 @@ var BeachBallView = function (options) {
       _plotPlanes,
       _radius,
       _size,
-      _swapColors,
       _tensor,
       _width,
       _x0,
@@ -134,7 +137,6 @@ var BeachBallView = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
 
     _bgColor = options.bgColor;
-    _canvas = null;
     _fillColor = options.fillColor;
     _labelAxes = options.labelAxes;
     _labelAxesFont = options.labelAxesFont;
@@ -149,12 +151,12 @@ var BeachBallView = function (options) {
 
     // options with computed defaults
     _radius = options.radius || parseInt((_size - 2) / 2, 10);
+    _axisSize = options.axisSize || parseInt(_radius / 12.5, 10);
     _height = options.height || _size;
     _width = options.width || _size;
     _x0 = options.x0 || _width / 2;
     _y0 = options.y0 || _height / 2;
   };
-
 
 
   /**
@@ -199,6 +201,94 @@ var BeachBallView = function (options) {
   };
 
   /**
+   * Compute azimuth label relative positioning.
+   *
+   * @param label {Object}
+   * @return {Object}
+   *     same `label` object, with additional properties:
+   *     - `align` {String}
+   *         'left' or 'right'
+   *     - `size` {Object}
+   *         `width` and `height` of label
+   *     - `tick` {Object}
+   *         `x` and `y` relative tick coordinates.
+   *     - `x` {Number}
+   *         relative x coordinate of label.
+   *     - `y` {Number}
+   *         relative y coordinate of label.
+   */
+  _this.computeAzimuthLabel = function (label) {
+    var align,
+        point,
+        labelOffset,
+        size,
+        tickLength,
+        x,
+        y;
+
+    // point on edge
+    point = _this.getPoint(label.azimuth, 0);
+    x = point.x;
+    y = point.y;
+    align = (x < 0) ? 'right' : 'left';
+    size = _this.measureText(label.text, label.font);
+
+    labelOffset = (_radius + 10) / _radius;
+    tickLength = (_radius + 5) / _radius;
+
+    label.align = align;
+    label.size = size;
+    label.tick = {
+      x: [x, x * tickLength],
+      y: [y, y * tickLength],
+    };
+    label.x = x * labelOffset;
+    label.y = y * labelOffset;
+
+    if (y < 0) {
+      // shift label down when in bottom half
+      label.y = y * (_radius + 10 + Math.abs(y) * size.height / 2) / _radius;
+    }
+
+    return label;
+  };
+
+  /**
+   * Free references.
+   */
+  _this.destroy = Util.compose(function () {
+    if (!_this) {
+      return;
+    }
+
+    _axisSize = null;
+    _bgColor = null;
+    _fillColor = null;
+    _labelAxes = null;
+    _labelAxesFont = null;
+    _labelPlanes = null;
+    _labelPlanesFont = null;
+    _lineColor = null;
+    _lineWidth = null;
+    _plotAxes = null;
+    _plotPlanes = null;
+    _size = null;
+    _tensor = null;
+
+    _radius = null;
+    _height = null;
+    _width = null;
+    _x0 = null;
+    _y0 = null;
+
+    _canvas.destroy();
+    _canvas = null;
+
+    _this = null;
+    _initialize = null;
+  }, _this.destroy);
+
+  /**
    * Get a line for a nodal plane.
    *
    * @param np {Object}
@@ -210,10 +300,8 @@ var BeachBallView = function (options) {
    */
   _this.getPlaneLine = function (np) {
     var dip,
-        i,
         j,
-        qpi,
-        r,
+        point,
         strike,
         tanDip,
         vertical,
@@ -230,25 +318,14 @@ var BeachBallView = function (options) {
       x.push(Math.sin(strike), Math.sin(strike + Math.PI));
       y.push(Math.cos(strike), Math.cos(strike + Math.PI));
     } else {
-      qpi = Math.PI / 4;
       tanDip = Math.tan(dip);
-
-      /**
-       * j starts at strike, and moves halfway around plane z=0
-       *
-       * Math.atan(tanDip * Math.sin(j)) computes the effective dip angle
-       * from the plane z=0 to the intersection of the dipping plane, beneath
-       * the azimuth strike + j.
-       *
-       * Math.sqrt(1 - effectiveDip) is the the distance from the origin in
-       * the plane z=0 to where the dipping plane intersects the focal sphere
-       * at azimuth (from north) strike + j.
-       */
       for (j = 0; j <= Math.PI; j += _D2R) {
-        i = strike + j;
-        r = Math.sqrt(1 - Math.sin(Math.atan(tanDip * Math.sin(j))));
-        x.push(r * Math.sin(i));
-        y.push(r * Math.cos(i));
+        // dip from [0,0,0] to intersection of plane and focal sphere
+        // at azimuth `strike + j`
+        dip = Math.atan(tanDip * Math.sin(j));
+        point = _this.getPoint(strike + j, dip);
+        x.push(point.x);
+        y.push(point.y);
       }
     }
 
@@ -287,14 +364,6 @@ var BeachBallView = function (options) {
       y: y
     };
   };
-
-  _this.getVectorPoint = function (vector) {
-    return _this.getPoint(
-      (Math.PI / 2) - vector.azimuth(),
-      vector.plunge()
-    );
-  };
-
 
   /**
    * Get Polygons representing pressure and tension regions of the beachball.
@@ -448,28 +517,179 @@ var BeachBallView = function (options) {
     return polygons;
   };
 
+  /**
+   * Call getPoint using a Vector.
+   *
+   * Vector azimuth is reported counter-clockwise from east.
+   * getPoint expects azimuth to be clockwise from north.
+   *
+   * @param vector {Vector}
+   *     the vector.
+   * @return {Object}
+   *     relative point within focal sphere.
+   */
+  _this.getVectorPoint = function (vector) {
+    return _this.getPoint(
+      (Math.PI / 2) - vector.azimuth(),
+      vector.plunge()
+    );
+  };
+
+  /**
+   * Measure pixel size of text.
+   *
+   * @param text {String}
+   *     text to measure.
+   * @param font {String}
+   *     css/canvas font property.
+   * @return {Object}
+   *     with `width` and `height` properties that are the pixel size of `text`.
+   */
   _this.measureText = function (text, font) {
     var el,
         size;
 
+    // create hidden element with text content
     el = document.createElement('div');
     el.setAttribute('style',
         'height:auto;' +
         'position:absolute;' +
         'visibility:hidden;' +
-        'white-space:nowrap' +
+        'white-space:nowrap;' +
         'width:auto;' +
         'font:' + font + ';');
+    el.innerText = text;
+
+    // add to view element and measure
     _this.el.appendChild(el);
     size = {
       height: el.scrollHeight,
       width: el.scrollWidth
     };
 
+    // clean up
     _this.el.removeChild(el);
     el = null;
 
     return size;
+  };
+
+  /**
+   * Label an axis.
+   *
+   * @param axis {Vector}
+   *     axis to label.
+   * @param text {String}
+   *     axis label.
+   */
+  _this.labelAxis = function (axis, text) {
+    var point;
+
+    point = _this.getVectorPoint(axis);
+    _canvas.text(text,
+        _labelAxesFont,
+        _this.projectX(point.x),
+        _this.projectY(point.y),
+        null,
+        'black',
+        'center');
+  };
+
+  /**
+   * Draw an azimuth label.
+   *
+   * @param label {Object}
+   *     label object with `azimuth`, `text`, and `font` properties.
+   */
+  _this.labelAzimuth = function (label) {
+    var tick;
+
+    if (!('size' in label)) {
+      label = _this.computeAzimuthLabel(label);
+    }
+
+    tick = label.tick;
+    _canvas.line(
+        tick.x.map(_this.projectX),
+        tick.y.map(_this.projectY),
+        'black');
+
+    _canvas.text(label.text, label.font,
+        _this.projectX(label.x),
+        _this.projectY(label.y),
+        null,
+        'black',
+        label.align);
+  };
+
+  /**
+   * Adjust size to make room for azimuth labels.
+   *
+   * Updates _canvas, _height, _width, _x0, and _y0.
+   * Resets canvas content, any rendering should occur after calling.
+   *
+   * @param label {Object}
+   *     label object with `azimuth`, `text`, and `font` properties.
+   */
+  _this.makeRoomForAzimuthLabel = function (label) {
+    var bottom,
+        left,
+        right,
+        size,
+        top,
+        x,
+        y;
+
+    if (!('size' in label)) {
+      label = _this.computeAzimuthLabel(label);
+    }
+
+    x = _this.projectX(label.x);
+    y = _this.projectY(label.y);
+    size = label.size;
+
+    // measure actual top/right/bottom/left
+    bottom = 0;
+    left = 0;
+    right = 0;
+    top = 0;
+    bottom = y - size.height;
+    top = y + size.height;
+    if (label.align === 'left') {
+      left = x;
+      right = x + size.width;
+    } else {
+      left = x - size.width;
+      right = x;
+    }
+
+    // convert from actual size to relative size increase
+    if (bottom < 0) {
+      bottom = Math.abs(bottom);
+    } else {
+      bottom = 0;
+    }
+    if (top > _height) {
+      top = top - _height;
+    } else {
+      top = 0;
+    }
+    if (left < 0) {
+      left = Math.abs(left);
+    } else {
+      left = 0;
+    }
+    if (right > _width) {
+      right = right - _width;
+    } else {
+      right = 0;
+    }
+
+    // change size
+    _width = _width + left + right;
+    _x0 = _x0 + left;
+    _height = _height + top + bottom;
+    _y0 = _y0 + top;
   };
 
   /**
@@ -515,11 +735,26 @@ var BeachBallView = function (options) {
     return polygons;
   };
 
-
+  /**
+   * Convert a relative x coordinate to a canvas pixel coordinate.
+   *
+   * @param x {Number}
+   *     relative x coordinate.
+   * @return {Number}
+   *     canvas pixel x coordinate.
+   */
   _this.projectX = function (x) {
     return _x0 + _radius * x;
   };
 
+  /**
+   * Convert a relative y coordinate to a canvas pixel coordinate.
+   *
+   * @param y {Number}
+   *     relative y coordinate.
+   * @return {Number}
+   *     canvas pixel y coordinate.
+   */
   _this.projectY = function (y) {
     return _height - (_y0 + _radius * y);
   };
@@ -528,19 +763,45 @@ var BeachBallView = function (options) {
    * Render view based on current model settings.
    */
   _this.render = function () {
-    var point,
+    var azimuthLabels,
+        point,
         polygons,
-        tmp;
+        tmp,
+        x,
+        y;
 
-    Util.empty(_this.el);
+    azimuthLabels = [];
+    // create azimuth labels, for now only nodal planes.
+    if (_labelPlanes) {
+      [_tensor.NP1, _tensor.NP2].forEach(function (np) {
+        var azimuth,
+            text;
+
+        azimuth = np.strike * _D2R;
+        text = '(' +
+            np.strike.toFixed(0) + ', ' +
+            np.dip.toFixed(0) + ', ' +
+            np.rake.toFixed(0) +
+            ')';
+        azimuthLabels.push({
+          'azimuth': azimuth,
+          'font': _labelPlanesFont,
+          'text': text
+        });
+      });
+    }
+    // adjust plot area so labels are visible.
+    azimuthLabels.forEach(_this.makeRoomForAzimuthLabel);
+
     _canvas = Canvas({
       height: _height,
       width: _width
     });
-    _this.el.appendChild(_canvas.canvas);
+    _canvas.context.lineWidth = _lineWidth;
 
-
-    _swapColors = false;
+    // get polygons
+    // represents either solid regions (swapColors = false),
+    // or holes (swapColors = true)
     polygons = _this.getPolygons(_tensor);
     if (polygons.swapColors) {
       tmp = _bgColor;
@@ -548,11 +809,15 @@ var BeachBallView = function (options) {
       _fillColor = tmp;
     }
 
+    // center of beachball.
+    x = _this.projectX(0);
+    y = _this.projectY(0);
+
     // plot circle outline, with background color
     // in case polygons represent holes
-    _canvas.circle(_x0, _y0, _radius * 2, _lineColor, _bgColor);
+    _canvas.circle(x, y, _radius * 2, _lineColor, _bgColor);
 
-    // polygons
+    // draw polygons
     polygons.forEach(function(p) {
       _canvas.polygon(
           p.x.map(_this.projectX),
@@ -561,7 +826,7 @@ var BeachBallView = function (options) {
           _fillColor);
     });
 
-    // nodal plane lines
+    // draw nodal plane lines
     if (_plotPlanes) {
       [_tensor.NP1, _tensor.NP2].forEach(function (np) {
         var line;
@@ -573,28 +838,24 @@ var BeachBallView = function (options) {
       });
     }
 
+    // plot circle without fill, in case polygons covered outline.
+    _canvas.circle(x, y, _radius * 2, _lineColor);
+
     if (_labelAxes) {
+      _this.labelAxis(_tensor.P, 'P');
+      _this.labelAxis(_tensor.T, 'T');
+    } else if (_plotAxes) {
       point = _this.getVectorPoint(_tensor.P);
-      _canvas.text('P',
-          _labelAxesFont,
-          _this.projectX(point.x),
-          _this.projectY(point.y),
-          null,
-          'black',
-          'center');
+      _canvas.circle(point.x, point.y, _axisSize, 'white', 'black');
       point = _this.getVectorPoint(_tensor.T);
-      _canvas.text('T',
-          _labelAxesFont,
-          _this.projectX(point.x),
-          _this.projectY(point.y),
-          null,
-          'black',
-          'center');
+      _canvas.circle(point.x, point.y, _axisSize, 'black', 'white');
     }
 
-    // plot circle without fill, in case polygons covered outline.
-    _canvas.circle(_x0, _y0, _radius * 2, _lineColor);
+    // draw azimuth labels
+    azimuthLabels.forEach(_this.labelAzimuth);
 
+    Util.empty(_this.el);
+    _this.el.appendChild(_canvas.canvas);
     _canvas.destroy();
     _canvas = null;
   };

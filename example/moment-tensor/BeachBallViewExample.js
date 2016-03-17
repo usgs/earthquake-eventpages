@@ -17,7 +17,7 @@ Xhr.ajax({
     BeachBallView({
       el: document.querySelector('#beachballview-example'),
       fillColor: '#6ea8ff',
-      size: 400,
+      size: 320,
       tensor: tensor
     }).render();
   },
