@@ -5,7 +5,9 @@ var PagerXmlParser = require('losspager/PagerXmlParser'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
-var _DEFAULTS = {
+var _DEFAULTS;
+
+_DEFAULTS = {
   errorMessage: 'Error loading PAGER view'
 };
 
@@ -29,11 +31,10 @@ var PAGERView = function (options) {
       _fatalityComments,
       _pagerInfo;
 
-  options = Util.extend({}, _DEFAULTS, options || {});
   _this = ProductView(options);
 
-
-  _initialize = function () {
+  _initialize = function (options) {
+    options = Util.extend({}, _DEFAULTS, options || {});
     _errorMessage = options.errorMessage;
     _this.createScaffolding();
   };
@@ -115,6 +116,9 @@ var PAGERView = function (options) {
     _this = null;
   }, _this.destroy);
 
+  /**
+   * Gets the data.
+   */
   _this.fetchData = function () {
     var content;
 
@@ -395,6 +399,9 @@ var PAGERView = function (options) {
     }
   };
 
+  /**
+   * Adds exposure table info to PAGER view.
+   */
   _this.renderExposures = function () {
     var exposure,
         exposures,
