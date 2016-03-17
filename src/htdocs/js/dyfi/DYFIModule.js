@@ -55,23 +55,6 @@ var DYFIModule = function (options) {
     _this.renderFooter();
   };
 
-  _this.renderHeader = function () {
-    var product;
-
-    // TODO :: Is this the correct hash for the form?
-    _this.header.innerHTML = '<h3>' + _this.TITLE +
-        ' - <a href="#tellus">Tell Us!</a></h3>';
-
-    product = _this.getProduct('dyfi');
-
-    if (product) {
-      _this.header.appendChild(_this.getProductHeader({
-        product: product,
-        summaryModule: ImpactSummaryModule
-      }));
-    }
-  };
-
   _this.renderContent = function () {
     var product;
 
@@ -118,6 +101,22 @@ var DYFIModule = function (options) {
       if (additionalFooter) {
         _this.footer.appendChild(additionalFooter);
       }
+    }
+  };
+  _this.renderHeader = function () {
+    var product;
+
+    // TODO :: Is this the correct hash for the form?
+    _this.header.innerHTML = '<h3>' + _this.TITLE +
+        ' - <a href="#tellus">Tell Us!</a></h3>';
+
+    product = _this.getProduct('dyfi');
+
+    if (product) {
+      _this.header.appendChild(_this.getProductHeader({
+        product: product,
+        summaryModule: ImpactSummaryModule
+      }));
     }
   };
 
