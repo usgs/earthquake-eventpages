@@ -281,9 +281,6 @@ var BeachBallView = function (options) {
     _x0 = null;
     _y0 = null;
 
-    _canvas.destroy();
-    _canvas = null;
-
     _this = null;
     _initialize = null;
   }, _this.destroy);
