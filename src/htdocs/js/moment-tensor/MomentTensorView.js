@@ -21,6 +21,7 @@ var _DEFAULTS = {
 
 var _R2D = 180 / Math.PI;
 
+
 /**
  * View for a `moment-tensor` product.
  *
@@ -89,20 +90,17 @@ var MomentTensorView = function (options) {
 
       azimuth = (Math.PI / 2) - axis.azimuth();
       plunge = axis.plunge();
-      value = axis.eigenvalue;
-
+      value = axis.eigenvalue / tensor.scale;
       // make sure plunge is down
       if (plunge < 0) {
         azimuth = azimuth + Math.PI;
         plunge = plunge * -1;
       }
-      azimuth = Math.round(BeachBallView.zeroToTwoPi(azimuth) * _R2D);
-      plunge = Math.round(plunge * _R2D);
-      value = value / tensor.scale;
+      azimuth = BeachBallView.zeroToTwoPi(azimuth);
 
-      // add units
-      azimuth = azimuth + '&deg;';
-      plunge = plunge + '&deg;';
+      // format values
+      azimuth = Math.round(azimuth * _R2D) + '&deg;';
+      plunge = Math.round(plunge * _R2D) + '&deg';
       value = value.toFixed(3) + 'e+' + tensor.exponent + ' ' + tensor.units;
 
       return '<tr>' +
@@ -235,13 +233,54 @@ var MomentTensorView = function (options) {
    * @return {DOMElement}
    *     markup for the info section of the moment tensor view.
    */
-  _this.getPlanes = function (/*tensor*/) {
-    var el;
+  _this.getPlanes = function (tensor) {
+    var el,
+        formatPlane,
+        fragment;
+
+    formatPlane = function (plane, name) {
+      var dip,
+          rake,
+          strike;
+
+      dip = Math.round(plane.dip) + '&deg;';
+      rake = Math.round(plane.rake) + '&deg;';
+      strike = Math.round(plane.strike) + '&deg';
+
+      return '<tr>' +
+          '<th scope="row">' + name + '</th>' +
+          '<td>' + strike + '</td>' +
+          '<td>' + dip + '</td>' +
+          '<td>' + rake + '</td>' +
+          '</tr>';
+    };
+
+    fragment = document.createDocumentFragment();
 
     el = document.createElement('h4');
-    el.innerHTML = 'Planes';
+    el.innerHTML = 'Nodal Planes';
+    fragment.appendChild(el);
 
-    return el;
+    el = document.createElement('div');
+    el.classList.add('horizontal-scrolling');
+    el.innerHTML =
+        '<table>' +
+        '<thead>' +
+          '<tr>' +
+          '<th>Plane</th>' +
+          '<th>Strike</th>' +
+          '<th>Dip</th>' +
+          '<th>Rake</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+          formatPlane(tensor.NP1, 'NP1') +
+          formatPlane(tensor.NP2, 'NP2') +
+        '</tbody>' +
+        '</table>';
+    fragment.appendChild(el);
+
+    return fragment;
   };
 
   /**
