@@ -12,6 +12,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/core/EventPage.js:core/EventPage',
   './' + config.src + '/htdocs/js/core/Formatter.js:core/Formatter',
   './' + config.src + '/htdocs/js/core/TextProductView.js:core/TextProductView',
+  './' + config.src + '/htdocs/js/dyfi/DYFIView.js:dyfi/DYFIView',
   './' + config.src + '/htdocs/js/dyfi/DYFIIntensityGraphView.js:dyfi/DYFIIntensityGraphView',
   './' + config.src + '/htdocs/js/dyfi/DYFIResponsesView.js:dyfi/DYFIResponsesView',
   './' + config.src + '/htdocs/js/finitefault/FiniteFaultView.js:finitefault/FiniteFaultView',
@@ -33,7 +34,8 @@ var ALL_CLASSES = [
   NODE_MODULES + '/hazdev-webutils/src/mvc/Model.js:mvc/Model',
   NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
   NODE_MODULES + '/hazdev-webutils/src/util/Events.js:util/Events',
-  NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
+  NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr',
+  NODE_MODULES + '/hazdev-svgimagemap/src/svgimagemap/SvgImageMap.js:svgimagemap/SvgImageMap'
 ];
 
 // var BUNDLED_DEPENDENCIES = [

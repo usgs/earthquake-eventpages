@@ -75,7 +75,7 @@ var ContentView = function (options) {
    *
    */
   _this.render = function () {
-    _this.el.innerHTML = 'Loading content&hellip;';
+    _this.el.innerHTML = '<p>Loading content&hellip;</p>';
     _this.fetchData();
   };
 

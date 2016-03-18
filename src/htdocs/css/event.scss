@@ -1,19 +1,17 @@
+/* Library styles */
+@import 'accordion/Accordion.scss';
 
 @import 'mvc/ModalView.scss';
 
-@import 'accordion/Accordion.scss';
+@import 'svgimagemap/SvgImageMap.scss';
 
-@import 'leaflet/control/_Control.scss';
-@import 'leaflet/control/_HazDevLayers.scss';
-@import 'leaflet/control/_MousePosition.scss';
-@import 'leaflet/control/_Scale.scss';
-@import 'leaflet/layer/_MouseOverLayer.scss';
+@import 'tablist/TabList.scss';
 
-
+/* Generalized styles */
 @import '_event-header.scss';
 @import '_mmi-variables.scss';
 
-
+/* Project styles */
 @import 'core/_DownloadView.scss';
 @import 'core/_Formatter.scss';
 
@@ -26,4 +24,3 @@
 @import 'map/_ShakeMapStationLayer.scss';
 
 @import 'shakemap/_ShakeMapStationList.scss';
-

@@ -1,6 +1,7 @@
 'use strict';
 
-var View = require('mvc/View');
+var Product = require('pdl/Product'),
+    View = require('mvc/View');
 
 
 /**
@@ -11,6 +12,10 @@ var View = require('mvc/View');
  */
 var ProductView = function (options) {
   var _this;
+
+  // Make sure the model used for this view is a pdl/Product
+  options = options || {};
+  options.model = options.model || Product();
 
   _this = View(options);
 
