@@ -864,4 +864,7 @@ var BeachBallView = function (options) {
 };
 
 
+BeachBallView.zeroToTwoPi = __0To2Pi;
+
+
 module.exports = BeachBallView;

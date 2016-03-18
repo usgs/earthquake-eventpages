@@ -19,6 +19,7 @@ var _DEFAULTS = {
   tensor: null
 };
 
+var _R2D = 180 / Math.PI;
 
 /**
  * View for a `moment-tensor` product.
@@ -76,13 +77,69 @@ var MomentTensorView = function (options) {
    * @return {DOMElement}
    *     markup for the axes section of the moment tensor view.
    */
-  _this.getAxes = function (/*tensor*/) {
-    var el;
+  _this.getAxes = function (tensor) {
+    var el,
+        formatAxis,
+        fragment;
+
+    formatAxis = function (axis, name) {
+      var azimuth,
+          plunge,
+          value;
+
+      azimuth = (Math.PI / 2) - axis.azimuth();
+      plunge = axis.plunge();
+      value = axis.eigenvalue;
+
+      // make sure plunge is down
+      if (plunge < 0) {
+        azimuth = azimuth + Math.PI;
+        plunge = plunge * -1;
+      }
+      azimuth = Math.round(BeachBallView.zeroToTwoPi(azimuth) * _R2D);
+      plunge = Math.round(plunge * _R2D);
+      value = value / tensor.scale;
+
+      // add units
+      azimuth = azimuth + '&deg;';
+      plunge = plunge + '&deg;';
+      value = value.toFixed(3) + 'e+' + tensor.exponent + ' ' + tensor.units;
+
+      return '<tr>' +
+          '<th scope="row">' + name + '</th>' +
+          '<td>' + value + '</td>' +
+          '<td>' + plunge + '</td>' +
+          '<td>' + azimuth + '</td>' +
+          '</tr>';
+    };
+
+    fragment = document.createDocumentFragment();
 
     el = document.createElement('h4');
-    el.innerHTML = 'Axes';
+    el.innerHTML = 'Principal Axes';
+    fragment.appendChild(el);
 
-    return el;
+    el = document.createElement('div');
+    el.classList.add('horizontal-scrolling');
+    el.innerHTML =
+        '<table>' +
+        '<thead>' +
+          '<tr>' +
+            '<th>Axis</th>' +
+            '<th>Value</th>' +
+            '<th>Plunge</th>' +
+            '<th>Azimuth</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+          formatAxis(tensor.T, 'T') +
+          formatAxis(tensor.N, 'N') +
+          formatAxis(tensor.P, 'P') +
+        '</tbody>' +
+        '</table>';
+    fragment.appendChild(el);
+
+    return fragment;
   };
 
   /**
