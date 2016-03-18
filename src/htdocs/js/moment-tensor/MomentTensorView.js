@@ -7,11 +7,18 @@ var BeachBallView = require('moment-tensor/BeachBallView'),
     Util = require('util/Util');
 
 
+var _BEACHBALL_METHODS = {
+  'smi:ci.anss.org/momentTensor/TMTS': 'TMTS',
+  'smi:nc.anss.org/momentTensor/TMTS': 'TMTS',
+  'smi:uu.anss.org/momentTensor/TDMT': 'TDMT'
+};
+
 var _DEFAULTS = {
   empty: '&ndash;',
   formatter: null,
   tensor: null
 };
+
 
 /**
  * View for a `moment-tensor` product.
@@ -189,10 +196,41 @@ var MomentTensorView = function (options) {
    *     title for view.
    */
   _this.getTitle = function (/*tensor*/) {
-    var el;
+    var el,
+        method,
+        title,
+        type;
+
+    type = _this.model.getProperty('derived-magnitude-type');
+    if (type !== null) {
+      // use derived magnitude type
+      type = type.toUpperCase();
+      if (type === 'MWW') {
+        title = 'W-phase Moment Tensor (Mww)';
+      } else if (type === 'MWC') {
+        title = 'Centroid Moment Tensor (Mwc)';
+      } else if (type === 'MWB') {
+        title = 'Body-wave Moment Tensor (Mwb)';
+      } else if (type === 'MWR') {
+        title = 'Regional Moment Tensor (Mwr)';
+      }
+    }
+
+    if (!title) {
+      method = _this.model.getProperty('beachball-type');
+      if (method in _BEACHBALL_METHODS) {
+        title = _BEACHBALL_METHODS[method];
+      } else if (type !== null) {
+        title = 'Moment Tensor (' + type + ')';
+      } else if (method !== null) {
+        title = method;
+      } else {
+        title = 'Moment Tensor';
+      }
+    }
 
     el = document.createElement('h3');
-    el.innerHTML = 'Title';
+    el.innerHTML = title;
 
     return el;
   };
