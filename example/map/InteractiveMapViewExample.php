@@ -16,8 +16,6 @@ if (!isset($TEMPLATE)) {
         min-height: 500px;
       }
     </style>
-  }
-    </style>
     <link rel="stylesheet" href="/lib/leaflet-0.7.7/leaflet.css"/>
     <link rel="stylesheet" href="/css/event.css"/>
   ';

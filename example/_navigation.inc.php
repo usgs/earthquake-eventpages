@@ -11,8 +11,7 @@ print navGroup('General',
     navItem('/map/InteractiveMapViewExample.php', 'Interactive Map') .
     navItem('/general/GeoserveNearbyPlacesViewExample.php',
         'Geoserve Nearby Places View') .
-    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View') .
-    navItem('/general/TextProductViewExample.php', 'TextProductView')
+    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View')
   );
 
 print navGroup('Impact',
