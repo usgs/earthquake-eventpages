@@ -77,8 +77,8 @@ describe('pager/PAGERModule', function () {
       expect(link).to.not.be.null;
       /* jshint +W030 */
       expect(link.getAttribute('href')).to.equal(
-          '/research/pager/');
-      expect(link.innerHTML).to.equal('Scientific Background on PAGER');
+          '/data/pager/');
+      expect(link.innerHTML).to.equal('Scientific Background for PAGER');
     });
   });
 
