@@ -11,6 +11,32 @@ _DEFAULTS = {
   errorMessage: 'Error loading PAGER view'
 };
 
+var _createHistogram = function (container, title, pdf, png, caption) {
+  var figure,
+      figureMarkup,
+      header;
+
+  header = container.appendChild(document.createElement('h3'));
+  header.innerHTML = title;
+  figureMarkup = [];
+
+  if (pdf && png) {
+    figure = container.appendChild(document.createElement('figure'));
+    figureMarkup.push('<a href="' + pdf.get('url') + '">');
+    figureMarkup.push('<img src="' + png.get('url') + '" alt=""/>');
+    figureMarkup.push('</a>');
+    if (caption) {
+      figureMarkup.push('<figcaption>' + caption + '</figcaption>');
+    }
+    figure.innerHTML = figureMarkup.join('');
+  } else {
+    figure = container.appendChild('p');
+    figure.innerHTML = 'Alert information unavailable';
+  }
+
+  return container;
+};
+
 
 /**
  * View for losspager product.
@@ -22,14 +48,15 @@ var PAGERView = function (options) {
   var _this,
       _initialize,
 
-      _alertEl,
-      _cityEl,
       _commentEl,
-      _economicComments,
+      _economicHistogramEl,
       _errorMessage,
-      _exposureEl,
-      _fatalityComments,
-      _pagerInfo;
+      _exposureCityEl,
+      _exposureMapEl,
+      _exposurePopulationEl,
+      _fatalityHistogramEl,
+      _pagerInfo,
+      _pendingMessageEl;
 
   _this = ProductView(options);
 
@@ -54,7 +81,7 @@ var PAGERView = function (options) {
         '<span class="roman mmi ' + exposure.css + '">' +
         exposure.label + '</span>' +
       '</td>' +
-      '<td>' + exposure.perc + '</td>' +
+      '<td class="exposure-perc">' + exposure.perc + '</td>' +
       '<td class="exposure-population">' + exposure.populationDisplay +
           '</td>' +
     '</tr>';
@@ -65,54 +92,50 @@ var PAGERView = function (options) {
    * be pulled from the model.
    */
   _this.createScaffolding = function () {
-    var exposurePng;
-
-    exposurePng = _this.model.getContent('exposure.png');
-
     _this.el.classList.add('losspager');
-
     _this.el.innerHTML =
-      '<div class="alert-wrapper row"></div>' +
+      '<div class="alert-wrapper row">' +
+        '<div class="column one-of-one pager-pending"></div>' +
+        '<div class="column one-of-two fatality-histogram"></div>' +
+        '<div class="column one-of-two economic-histogram"></div>' +
+      '</div>' +
       '<div class="row pager-content">' +
         '<div class="column one-of-two">' +
           '<h3>Estimated Population Exposure to Earthquake Shaking</h3>' +
-          '<div class="map-wrapper">' +
-            (exposurePng.get('url') ?
-                '<figure>' +
-                  '<img src="' + exposurePng.get('url') +
-                      '" alt="Population Exposure Map"/>' +
-                  '<figcaption>' +
-                    'Population per ~1 sq. km. from LandScan' +
-                  '</figcaption>' +
-                '</figure>'
-                : '&ndash;') +
-          '</div>' +
-          '<div class="exposure-wrapper"></div>' +
+          '<div class="exposure-map"></div>' +
+          '<div class="exposure-population"></div>' +
         '</div>' +
         '<div class="column one-of-two">' +
           '<div class="comment-wrapper"></div>' +
-          '<div class="city-wrapper"></div>' +
+          '<div class="exposure-city"></div>' +
         '</div>' +
       '</div>';
 
-    _alertEl = _this.el.querySelector('.alert-wrapper');
-    _exposureEl = _this.el.querySelector('.exposure-wrapper');
+    _pendingMessageEl = _this.el.querySelector('.pager-pending');
+    _fatalityHistogramEl = _this.el.querySelector('.fatality-histogram');
+    _economicHistogramEl = _this.el.querySelector('.economic-histogram');
+
+    _exposureMapEl = _this.el.querySelector('.exposure-map');
+    _exposurePopulationEl = _this.el.querySelector('.exposure-population');
+
     _commentEl = _this.el.querySelector('.comment-wrapper');
-    _cityEl = _this.el.querySelector('.city-wrapper');
+    _exposureCityEl = _this.el.querySelector('.exposure-city');
   };
 
   /**
    * Destroy all the things.
    */
   _this.destroy = Util.compose(function () {
-    _pagerInfo = null;
-    _fatalityComments = null;
-    _exposureEl = null;
-    _errorMessage = null;
-    _economicComments = null;
     _commentEl = null;
-    _cityEl = null;
-    _alertEl = null;
+    _economicHistogramEl = null;
+    _errorMessage = null;
+    _exposureCityEl = null;
+    _exposureMapEl = null;
+    _exposurePopulationEl = null;
+    _fatalityHistogramEl = null;
+    _pagerInfo = null;
+    _pendingMessageEl = null;
+
     _initialize = null;
     _this = null;
   }, _this.destroy);
@@ -137,6 +160,31 @@ var PAGERView = function (options) {
     });
   };
 
+  _this.getAlertComment = function (commentType) {
+    var comments,
+        economicComment,
+        fatalityComment;
+
+    comments = _pagerInfo.comments.impact;
+
+    if (comments.length === 2) {
+      if (comments[0] !== '') {
+        fatalityComment = comments[0];
+        economicComment = comments[1];
+      } else {
+        fatalityComment = comments[1];
+      }
+    } else {
+      fatalityComment = comments[0];
+    }
+
+    if (commentType === 'fatality') {
+      return fatalityComment;
+    } else if (commentType === 'economic') {
+      return economicComment;
+    }
+  };
+
   /**
    * Event handler for click events on city list toggle control.
    */
@@ -158,21 +206,13 @@ var PAGERView = function (options) {
   };
 
   /**
-   * Event handler for click events on exposure MMI controls.
-   */
-  _this.onExposureClick = function (evt) {
-    if (evt.target.classList.contains('mmi')) {
-      evt.target.parentNode.classList.toggle('expanded');
-    }
-  };
-
-  /**
    * This method is called when Xhr is successful and calles all methods
    * that render PAGER content.
    */
   _this.onSuccess = function (data, xhr) {
-    _pagerInfo = PagerXmlParser.parse(xhr.responseXML);
-    _this.renderAlertComments();
+    _pagerInfo = PagerXmlParser.parse(xhr.responseXML || data);
+    _this.renderFatalityHistogram();
+    _this.renderEconomicHistogram();
     _this.renderExposures();
     _this.renderCities();
     _this.renderComments();
@@ -182,121 +222,10 @@ var PAGERView = function (options) {
    * Called when the model changes. Initially sets a loading message
    */
   _this.render = function () {
-    _this.renderAlerts();
+    _this.renderPending();
+
+    _this.renderExposureMap();
     _this.fetchData();
-  };
-
-  /**
-   * Adds alert historgrams.
-   */
-  _this.renderAlerts = function () {
-    var alertEconPdf,
-        alertEconPng,
-        alertFatalPdf,
-        alertFatalPng,
-        alertLevel,
-        alertsMarkup,
-        content;
-
-    alertLevel = _this.model.getProperty('alertlevel');
-    alertsMarkup = [];
-    content = _this.model.getContent;
-
-    if (alertLevel === 'pending') {
-      alertsMarkup = [
-        '<p class="info alert">',
-          'Alert information for this event is currently under review and ',
-          'will be available soon. Thank you for your patience.',
-        '</p>'
-      ];
-      _this._alertEl.classList.remove('row');
-    } else {
-      alertFatalPdf = content('alertfatal.pdf');
-      alertFatalPng = content('alertfatal_small.png') ||
-          content('alertfatal.png');
-      if (alertFatalPdf && alertFatalPng) {
-        alertsMarkup.push(
-          '<div class="column one-of-two">',
-            '<h3>Estimated Fatalities</h3>',
-            '<figure>',
-              '<a href="', alertFatalPdf.get('url'), '">',
-                '<img src="', alertFatalPng.get('url'), '" alt=""/>',
-              '</a>',
-              '<figcaption class="fatality-comments"></figcaption>',
-            '</figure>',
-          '</div>'
-        );
-      } else {
-        alertsMarkup.push(
-          '<div class="column one-of-two">',
-            '<h3>Estimated Fatalities</h3>',
-            '<p>',
-              'Alert information unavaliabele',
-            '</p>',
-          '</div>'
-        );
-      }
-
-      alertEconPdf = content('alertecon.pdf');
-      alertEconPng = content('alertecon_small.png') ||
-          content('alertecon.png');
-      if (alertEconPdf && alertEconPng) {
-        alertsMarkup.push(
-          '<div class="column one-of-two">',
-            '<h3>Estimated Economic Losses</h3>',
-            '<figure>',
-              '<a href="', alertEconPdf.get('url'), '">',
-                '<img src="', alertEconPng.get('url'), '" alt=""/>',
-              '</a>',
-              '<figcaption class="economic-comments"></figcaption>',
-            '</figure>',
-          '</div>'
-        );
-      } else {
-        alertsMarkup.push(
-          '<div class="column one-of-two">',
-            '<h3>Estimated Economic Losses</h3>',
-            '<p>',
-              'Alert information unavaliabele',
-            '</p>',
-          '</div>'
-        );
-      }
-    }
-
-    _alertEl.innerHTML = alertsMarkup.join('');
-    _fatalityComments = _this.el.querySelector('.fatality-comments');
-    _economicComments = _this.el.querySelector('.economic-comments');
-  };
-
-  /**
-   * Adds comments in alers sections the comments come from the parsed xml.
-   */
-  _this.renderAlertComments = function () {
-    var comments,
-        economicComment,
-        fatalityComment;
-
-    comments = _pagerInfo.comments.impact;
-
-    if (comments.length === 2) {
-      if (comments[0] !== '') {
-        fatalityComment = comments[0];
-        economicComment = comments[1];
-      } else {
-        fatalityComment = comments[1];
-      }
-    } else {
-      fatalityComment = comments[0];
-    }
-
-    if (fatalityComment) {
-      _fatalityComments.innerHTML = fatalityComment;
-    }
-
-    if (economicComment) {
-      _economicComments.innerHTML = economicComment;
-    }
   };
 
   /**
@@ -322,7 +251,7 @@ var PAGERView = function (options) {
     if (len > 11) {
       markup.push('<a href="javascript:void(null);" class="toggle">' +
           'Show/Hide Full City List</a>');
-      _cityEl.addEventListener('click', _this.onCityClick);
+      _exposureCityEl.addEventListener('click', _this.onCityClick);
     }
 
     markup.push(
@@ -361,10 +290,10 @@ var PAGERView = function (options) {
     );
 
     if (len === 0) {
-      _cityEl.parentNode.removeChild(_cityEl);
-      _cityEl = null;
+      _exposureCityEl.parentNode.removeChild(_exposureCityEl);
+      _exposureCityEl = null;
     } else {
-      _cityEl.innerHTML = markup.join('');
+      _exposureCityEl.innerHTML = markup.join('');
     }
   };
 
@@ -402,6 +331,43 @@ var PAGERView = function (options) {
     }
   };
 
+  _this.renderEconomicHistogram = function () {
+      var alertLevel,
+          comment,
+          pdf,
+          png;
+
+      alertLevel = _this.model.getProperty('alertLevel');
+      comment = _this.getAlertComment('economic');
+      png = _this.model.getContent('alertecon_small.png') ||
+          _this.model.getContent('alertecon.png');
+      pdf = _this.model.getContent('alertecon.pdf');
+
+      if (alertLevel !== 'pending') {
+        _createHistogram(_economicHistogramEl, 'Estimated Economic Losses',
+          pdf, png, comment);
+      }
+  };
+
+  _this.renderExposureMap = function () {
+    var content;
+
+    content = _this.model.getContent('exposure.png');
+
+    if (content) {
+      _exposureMapEl.innerHTML = [
+        '<figure>',
+          '<img src="', content.get('url'), '" alt="Population Exposure Map"/>',
+          '<figcaption>',
+            'Population per ~1 sq. km. from LandScan',
+          '</figcaption>',
+        '</figure>'
+      ].join('');
+    } else {
+      _exposureMapEl.innerHTML = '&ndash;';
+    }
+  };
+
   /**
    * Adds exposure table info to PAGER view.
    */
@@ -417,8 +383,8 @@ var PAGERView = function (options) {
     len = exposures.length;
 
     if (len === 0) {
-      _exposureEl.parentNode.removeChild(_exposureEl);
-      _exposureEl = null;
+      _exposurePopulationEl.parentNode.removeChild(_exposurePopulationEl);
+      _exposurePopulationEl = null;
       return;
     }
 
@@ -451,7 +417,40 @@ var PAGERView = function (options) {
       '</span>'
     );
 
-    _exposureEl.innerHTML = markup.join('');
+    _exposurePopulationEl.innerHTML = markup.join('');
+  };
+
+  _this.renderFatalityHistogram = function () {
+      var alertLevel,
+          comment,
+          pdf,
+          png;
+
+      alertLevel = _this.model.getProperty('alertLevel');
+      comment = _this.getAlertComment('fatality');
+      png = _this.model.getContent('alertfatal_small.png') ||
+          _this.model.getContent('alertfatal.png');
+      pdf = _this.model.getContent('alertfatal.pdf');
+
+      if (alertLevel !== 'pending') {
+        _createHistogram(_fatalityHistogramEl, 'Estimated Fatalities',
+          pdf, png, comment);
+      }
+  };
+
+  _this.renderPending = function () {
+    var alertLevel;
+
+    alertLevel = _this.model.getProperty('alertLevel');
+
+    if (alertLevel === 'pending') {
+      _pendingMessageEl.innerHTML = [
+        '<p class="info alert">',
+          'Alert information for this event is currently under review and ',
+          'will be available soon. Thank you for your patience.',
+        '</p>'
+      ].joing('');
+    }
   };
 
 

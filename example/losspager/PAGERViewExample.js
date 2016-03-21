@@ -9,7 +9,7 @@ Xhr.ajax({
   url: '/events/us10004u1y.json',
   success: function (data) {
     var product;
-    
+
     product = Product(data.properties.products['losspager'][0]);
 
     PAGERView({
@@ -17,7 +17,9 @@ Xhr.ajax({
       model: product
     }).render();
   },
-  error: function () {
+  error: function (status, error) {
+    console.log(status);
+    console.log(error);
     document.querySelector('#pager-view-example').innerHTML = [
       '<p class="alert error">',
         'Failed to create pager view.',
