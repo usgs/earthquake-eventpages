@@ -7,6 +7,7 @@ var DYFIModule = require('dyfi/DYFIModule'),
     ImpactSummaryModule = require('impact/ImpactSummaryModule'),
     InteractiveMapModule = require('map/InteractiveMapModule'),
     Model = require('mvc/Model'),
+    PAGERModule = require('pager/PAGERModule'),
     ShakeMapModule = require('shakemap/ShakeMapModule'),
     Util = require('util/Util');
 
@@ -20,7 +21,7 @@ var _DEFAULTS = {
     // General
     [GeneralSummaryModule, InteractiveMapModule],
     // Impact
-    [ImpactSummaryModule, DYFIModule, ShakeMapModule],
+    [ImpactSummaryModule, DYFIModule, ShakeMapModule, PAGERModule],
     // Scientific
     []
   ]
