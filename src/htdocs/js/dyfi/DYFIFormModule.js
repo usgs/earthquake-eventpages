@@ -20,6 +20,20 @@ _ID = 'tellus';
 _TITLE = 'Tell Us!';
 
 
+/**
+ * Helper method to parse a raw response using HTML DOM manipulation. This
+ * is the most reliable parsing method, but may not be as supported across
+ * browsers.
+ *
+ * @param response {String}
+ *     An HTML string from which to parse a response.
+ *
+ * @return {String}
+ *     The parsed message.
+ *
+ * @throws {Error}
+ *     If the response does not represent valid HTML.
+ */
 _parseMessageAsHtml = function (response) {
   var h;
 
@@ -29,6 +43,16 @@ _parseMessageAsHtml = function (response) {
   return h.querySelector('dl').outerHTML;
 };
 
+/**
+ * Helper method to parse a raw response using String manipulation. This is a
+ * fallback approach when DOM parsing fails.
+ *
+ * @param response {String}
+ *     An HTML string from which to parse a response.
+ *
+ * @return {String}
+ *     The parsed message or null if no message is found.
+ */
 _parseMessageAsString = function (response) {
   var endIdx,
       startIdx;
@@ -63,7 +87,8 @@ _hasContent = function (eventPageModel) {
 };
 
 var _DEFAULTS = {
-  DYFI_RESPONSE_URL: '/products/dyfi/response.json'
+  DYFI_RESPONSE_URL: '/products/dyfi/response.html',
+  FORM_VERSION: '1.5'
 };
 
 
@@ -83,6 +108,7 @@ var DYFIFormModule = function (options) {
       _initialize,
 
       _formModel,
+      _formVersion,
       _modal,
       _submitResult,
       _submitUrl,
@@ -92,8 +118,19 @@ var DYFIFormModule = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = Module(options);
 
+  /**
+   * Constructor. Initializes a new DYFIModule.
+   *
+   * @param options {Object}
+   *     Configuration options for this module. In addition to what can be
+   *     provided a generic module, these may also include:
+   * @param options.FORM_VERSION {String}
+   *     A version string identifier for this form.
+   */
   _initialize = function (options) {
-    var config;
+    var catalogEvent,
+        config,
+        eventTimestamp;
 
     _this.ID = _ID;
     _this.TITLE = _TITLE;
@@ -103,27 +140,27 @@ var DYFIFormModule = function (options) {
         config.DYFI_RESPONSE_URL : options.DYFI_RESPONSE_URL;
     _submitResult = null;
 
+    _formVersion = options.FORM_VERSION;
+
     _this.content.addEventListener('click', _this.onContentClick);
 
-    _formModel = Model({
+    catalogEvent = _this.model.get('event');
 
+    if (catalogEvent) {
+      eventTimestamp = catalogEvent.getTime();
+    }
+
+    _formModel = Model({
+      eventTime: eventTimestamp ? eventTimestamp.toUTCString() : '',
+      language: 'en'
+      // TODO :: Also include eventid in some way?
     });
 
     _formModel.on('change', 'onFormChange', _this);
 
     _view = DYFIFormView({
-      eventTime: '', // TODO :: Get actual event time off _this.model
-      language: 'en'
-      // TODO :: Also include eventid in some way?
+      model: _formModel
     });
-    // TODO :: Remove this once DYFIFormView is ready
-    _view.render = function () {
-      var blankLines = [];
-      for (var i = 0; i < 1000; i++) {
-        blankLines.push('<br/>');
-      }
-      _view.el.innerHTML = 'I am a form view!' + blankLines.join('');
-    };
 
     _modal = ModalView(_view.el, {
       buttons: [
@@ -143,16 +180,20 @@ var DYFIFormModule = function (options) {
   };
 
 
+  /**
+   * Frees resources associated with this module.
+   *
+   */
   _this.destroy = Util.compose(function () {
     _this.content.removeEventListener('click', _this.onContentClick);
-
     _formModel.off('change', 'onFormChange', _this);
 
+    _view.destroy(); // NB: Destroy view before destroying model
     _formModel.destroy();
-    _view.destroy();
     _modal.destroy();
 
     _formModel = null;
+    _formVersion = null;
     _modal = null;
     _submitResult = null;
     _submitUrl = null;
@@ -162,21 +203,25 @@ var DYFIFormModule = function (options) {
     _this = null;
   }, _this.destroy);
 
-  _this.hideForm = function () {
-    _modal.hide();
-  };
-
+  /**
+   * Callback when user clicks the cancel button. Form is hidden and browser
+   * is navigated back to some other event page content.
+   *
+   */
   _this.onCancel = function () {
-    // Close the modal
-    _this.hideForm();
+    _modal.hide();
 
     // Notify the EventPage this view would like to go back
     Events.trigger('back');
-
-    // TODO :: Remove this once #368 is implemented
-    window.location.hash = '#';
   };
 
+  /**
+   * Callback to handel re-showing the form when a button is clicked on the
+   * page in the background.
+   *
+   * @param evt {Event}
+   *     The event that triggered this callback.
+   */
   _this.onContentClick = function (evt) {
     if (evt.target && evt.target.classList.contains('show-form')) {
       _this.showForm();
@@ -185,7 +230,8 @@ var DYFIFormModule = function (options) {
 
   /**
    * Callback when the _formModel is changed. Checks to see if required
-   * fields are complete and if so, enables submit button.
+   * fields are complete and if so, enables submit button; otherwise disables
+   * the button.
    *
    */
   _this.onFormChange = function () {
@@ -199,30 +245,32 @@ var DYFIFormModule = function (options) {
           !_formModel.get('ciim_time') ||
           !_formModel.get('fldSituation_felt')) {
         // A required field is missing, disable submit button
-        // TODO :: Enable this...
-        // submitButton.setAttribute('disabled', 'disabled');
+        submitButton.setAttribute('disabled', 'disabled');
       } else {
         submitButton.removeAttribute('disabled');
       }
     }
   };
 
+  /**
+   * Callback when the submit button is clicked on the form. This method
+   * augments the form data with some internally required information, then
+   * submits the request using AJAX via CORS.
+   *
+   */
   _this.onSubmit = function () {
     var data;
 
     _submitResult = null;
 
-    // TODO :: Remove this once a DYFIForm is ready
     data = Util.extend({
-      'ciim_mapLat': 35.0,
-      'ciim_mapLon': -118.0,
-      'ciim_time': (new Date()).toUTCString(),
-      'fldSituation_felt': 'no'
+      form_version: _formVersion,
+      ciim_report: 'Submit Form'
     }, _formModel.get());
 
     Xhr.ajax({
       method: 'POST',
-      data: data,
+      data: _formModel.get(),
       error: _this.onSubmitError,
       url: _submitUrl,
       success: _this.onSubmitSuccess
@@ -231,6 +279,16 @@ var DYFIFormModule = function (options) {
     _modal.hide();
   };
 
+  /**
+   * Callback when the submit Xhr fails. Note, this is only executed if an
+   * HTTP status code accompanies the response. Updates the result object and
+   * calls the render method.
+   *
+   * @param error {Mixed}
+   *     See Xhr#ajax:error
+   * @param xhr {XMLHttpRequest}
+   *     The XHR that caused the error.
+   */
   _this.onSubmitError = function (error/*, xhr*/) {
     _submitResult = {
       error: error
@@ -239,6 +297,16 @@ var DYFIFormModule = function (options) {
     _this.render();
   };
 
+  /**
+   * Callback when the submit Xhr succeeds. Note, this may execute even if the
+   * form was not processed if the response returns an HTTP 2XX status. Updates
+   * the result object and calls the render method.
+   *
+   * @param response {String}
+   *     The response message to parse.
+   * @param xhr {XMLHttpRequest}
+   *     The XHR that submitted the request.
+   */
   _this.onSubmitSuccess = function (response/*, xhr*/) {
     var message;
 
@@ -262,13 +330,18 @@ var DYFIFormModule = function (options) {
     _this.render();
   };
 
+  /**
+   * Called show the form or when it is submitted. Depending on the current
+   * state of the result object, displays the result message or shows the form
+   * itself.
+   *
+   */
   _this.render = function () {
     var buttonMarkup;
 
     buttonMarkup = '<button class="show-form">Show Form</button>';
 
-    _this.header.innerHTML = '<a class="back-to-summary-link" ' +
-        'href="#">Back to General</a>'; // TODO :: Should this go to impact summary?
+    _this.header.innerHTML = '';
     _this.footer.innerHTML = '';
 
     if (_submitResult && (_submitResult.error || _submitResult.success)) {
@@ -291,6 +364,11 @@ var DYFIFormModule = function (options) {
     }
   };
 
+  /**
+   * Shows the modal form. Once shown, lets updates the submit button state
+   * (disabled or not), and then allows the sub-view to render.
+   *
+   */
   _this.showForm = function () {
     _modal.show();
 
