@@ -53,6 +53,8 @@ require('./spec/general/NearbyPlacesViewTest');
 require('./spec/map/InteractiveMapModuleTest');
 require('./spec/map/InteractiveMapViewTest');
 
+require('./spec/pager/PAGERModuleTest');
+
 require('./spec/pdl/ContentTest');
 require('./spec/pdl/ProductTest');
 
