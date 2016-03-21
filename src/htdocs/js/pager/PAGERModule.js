@@ -83,7 +83,7 @@ var PAGERModule = function (options) {
       '<h3>For More Information</h3>' +
       '<ul>' +
         '<li>' +
-          '<a href="/research/pager/">Scientific Background on PAGER</a>' +
+          '<a href="/data/pager/">Scientific Background for PAGER</a>' +
         '</li>' +
       '</ul>';
   };
