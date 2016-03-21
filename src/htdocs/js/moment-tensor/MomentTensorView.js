@@ -57,15 +57,9 @@ var MomentTensorView = function (options) {
    * Free references.
    */
   _this.destroy = Util.compose(function () {
-    if (!_this) {
-      // already destroyed
-      return;
-    }
-
     _empty = null;
     _formatter = null;
     _initialize = null;
-    _tensor.destroy();
     _tensor = null;
     _this = null;
   }, _this.destroy);
