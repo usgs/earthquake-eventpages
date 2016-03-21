@@ -4,13 +4,19 @@ var DYFIFormView = require('dyfi/DYFIFormView'),
     Xhr = require('util/Xhr');
 
 Xhr.ajax({
-  url: '/products/dyfi/en.json',
-  success: function (data) {
+  url: '/events/us10004u1y.json',
+  success: function (event) {
+    var eventTime, form;
+    //evenTime = event.time;
+    event = null;
+    eventTime = null;
 
-    DYFIFormView({
-      el: document.querySelector('#dyfiform-view-example'),
-      data: data
+    form = DYFIFormView({
+      el: document.querySelector('#dyfiform-view-example')
+      // language: null,
+      // eventTime: null
     }).render();
+
   },
   error: function () {
     document.querySelector('#dyfiform-view-example').innerHTML = [
