@@ -43,7 +43,7 @@ describe('dyfi/DYFIModule', function () {
   });
 
   // Skipping until usgs/hazdev-svgimagemap#9 is resolved
-  describe.skip('render', function () {
+  describe('render', function () {
     it('should call sub-methods', function () {
       var contentSpy,
           footerSpy,
@@ -72,7 +72,7 @@ describe('dyfi/DYFIModule', function () {
   });
 
   // Skipping until usgs/hazdev-svgimagemap#9 is resolved
-  describe.skip('renderContent', function () {
+  describe('renderContent', function () {
     it('should create a view', function () {
       var module;
 
@@ -91,7 +91,7 @@ describe('dyfi/DYFIModule', function () {
   });
 
   // Skipping until usgs/hazdev-svgimagemap#9 is resolved
-  describe.skip('renderFooter', function () {
+  describe('renderFooter', function () {
     it('should include downloads', function () {
       var module,
           spy;
@@ -112,13 +112,13 @@ describe('dyfi/DYFIModule', function () {
   });
 
   // Skipping until usgs/hazdev-svgimagemap#9 is resolved
-  describe.skip('renderHeader', function () {
+  describe('renderHeader', function () {
     it('should include module header', function () {
       var module,
           spy;
 
       module = DYFIModule({
-        model: Model({'event': CatalogEvent({})/*_getEvent()*/, 'config': {}})
+        model: Model({'event': _getEvent(), 'config': {}})
       });
 
       spy = sinon.spy(module, 'getProductHeader');
