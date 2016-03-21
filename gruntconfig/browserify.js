@@ -17,6 +17,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/dyfi/DYFIView.js:dyfi/DYFIView',
   './' + config.src + '/htdocs/js/dyfi/DYFIIntensityGraphView.js:dyfi/DYFIIntensityGraphView',
   './' + config.src + '/htdocs/js/dyfi/DYFIResponsesView.js:dyfi/DYFIResponsesView',
+  './' + config.src + '/htdocs/js/finitefault/FiniteFaultModule.js:finitefault/FiniteFaultModule',
   './' + config.src + '/htdocs/js/finitefault/FiniteFaultView.js:finitefault/FiniteFaultView',
   './' + config.src + '/htdocs/js/focal-mechanism/FocalMechanismView.js:focal-mechanism/FocalMechanismView',
   './' + config.src + '/htdocs/js/general/GeoserveNearbyPlacesView.js:general/GeoserveNearbyPlacesView',
