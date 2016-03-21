@@ -17,7 +17,9 @@ Xhr.ajax({
       model: product
     }).render();
   },
-  error: function () {
+  error: function (status, error) {
+    console.log(status);
+    console.log(error);
     document.querySelector('#pager-view-example').innerHTML = [
       '<p class="alert error">',
         'Failed to create pager view.',

@@ -55,6 +55,9 @@ require('./spec/focal-mechanism/FocalMechanismViewTest');
 require('./spec/general/GeoserveNearbyPlacesViewTest');
 require('./spec/general/NearbyPlacesViewTest');
 
+require('./spec/losspager/PAGERViewTest');
+require('./spec/losspager/PagerXmlParserTest');
+
 require('./spec/map/InteractiveMapModuleTest');
 require('./spec/map/InteractiveMapViewTest');
 
