@@ -1,6 +1,8 @@
 'use strict';
 
-var DYFIModule = require('dyfi/DYFIModule'),
+
+var DYFIFormModule = require('dyfi/DYFIFormModule'),
+    DYFIModule = require('dyfi/DYFIModule'),
     Events = require('util/Events'),
     Formatter = require('core/Formatter'),
     GeneralSummaryModule = require('general/GeneralSummaryModule'),
@@ -21,7 +23,13 @@ var _DEFAULTS = {
     // General
     [GeneralSummaryModule, InteractiveMapModule],
     // Impact
-    [ImpactSummaryModule, DYFIModule, ShakeMapModule, PAGERModule],
+    [
+      ImpactSummaryModule,
+      DYFIFormModule,
+      DYFIModule,
+      ShakeMapModule,
+      PAGERModule
+    ],
     // Scientific
     []
   ]
