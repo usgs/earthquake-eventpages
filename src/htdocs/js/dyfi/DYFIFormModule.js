@@ -32,7 +32,8 @@ _TITLE = 'Tell Us!';
  *     The parsed message.
  *
  * @throws {Error}
- *     If the response does not represent valid HTML.
+ *     If the response does not represent valid HTML. Of if the response does
+ *     not include a description list tag (<dl>).
  */
 _parseMessageAsHtml = function (response) {
   var h;
