@@ -9,6 +9,14 @@ var _DEFAULTS = {
 };
 
 
+/**
+ * View for displaying focal mechanisms.
+ *
+ * Same as MomentTensorView except suppresses axes, and MT specific information.
+ *
+ * @param options {Object}
+ *     see MomentTensorView.
+ */
 var FocalMechanismView = function (options) {
   var _this;
 

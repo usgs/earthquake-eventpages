@@ -30,6 +30,9 @@ var _R2D = 180 / Math.PI;
  * @param options.empty {String}
  *     string to display if a value is missing.
  *     default '&ndash;'.
+ * @param options.fillColor {String}
+ *     fill color for beachball.
+ *     default '#6ea8ff'.
  * @param options.formatter {Formatter}
  *     formatter object.
  *     default `Formatter()`.`
