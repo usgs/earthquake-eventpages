@@ -33,7 +33,7 @@ var PAGERModule = function (options) {
 
   /**
    * Renders the details for this module. Defers bulk of header Information
-   * to generalized header rendering. Uses {ShakeMapView} for bulk of content
+   * to generalized header rendering. Uses {PAGERView} for bulk of content
    * rendering.
    *
    */
