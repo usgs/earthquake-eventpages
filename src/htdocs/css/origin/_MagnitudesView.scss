@@ -1,0 +1,55 @@
+.magnitude-view-item {
+  color: #444;
+  margin: 0;
+  padding: 1.5em 0.5em;
+  position: relative;
+
+  + .magnitude-view-item {
+    border-top: 1px solid #ddd;
+}
+
+  &:last-child {
+    padding-bottom: 0.5em;
+  }
+
+  > .accordion-toggle {
+    background: none;
+    border: none;
+    display: inline-block;
+    padding: 0;
+  }
+
+  > .accordion-content {
+    border: none;
+    padding: 0;
+  }
+
+  > h3 {
+    margin: 0;
+  }
+
+}
+
+.magnitude-summary {
+  padding: 0;
+
+  > li {
+    display: inline-block;
+    line-height: 1;
+    max-width: 100px;
+    text-align: center;
+    width: 25%;
+  }
+}
+
+.magnitude-stations {
+  width: 100%;
+
+  > tbody > tr {
+
+    > th {
+      background: none;
+      font-weight: 400;
+    }
+  }
+}

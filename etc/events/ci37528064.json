@@ -1,0 +1,2298 @@
+{
+  "type": "Feature",
+  "properties": {
+    "mag": 4.87,
+    "place": "6km SSW of Wasco, California",
+    "time": 1456272143630,
+    "updated": 1457989681510,
+    "tz": -480,
+    "url": "/earthquakes/eventpage/ci37528064",
+    "felt": 2775,
+    "cdi": 5.8,
+    "mmi": 6.6,
+    "alert": "green",
+    "status": "reviewed",
+    "tsunami": 1,
+    "sig": 945,
+    "net": "ci",
+    "code": "37528064",
+    "ids": ",at00o30yrz,ci37528064,nc72596550,us10004s7r,",
+    "sources": ",at,ci,nc,us,",
+    "types": ",cap,dyfi,focal-mechanism,general-link,geoserve,impact-link,impact-text,losspager,moment-tensor,nearby-cities,origin,phase-data,scitech-link,shakemap,",
+    "nst": 84,
+    "dmin": 0.295,
+    "rms": 0.29,
+    "gap": 37,
+    "magType": "mw",
+    "type": "earthquake",
+    "title": "M4.9  - 6km SSW of Wasco, California",
+    "products": {
+      "cap": [
+        {
+          "indexid": "81113962",
+          "indexTime": 1456278604537,
+          "id": "urn:usgs-product:ci:cap:ci37528064:1456278493570",
+          "type": "cap",
+          "code": "ci37528064",
+          "source": "ci",
+          "updateTime": 1456278493570,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "ci",
+            "eventsourcecode": "37528064"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "capalert.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456278601000,
+              "length": 5928,
+              "url": "/products/cap/ci37528064/ci/1456278493570/capalert.xml"
+            },
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1361466352000,
+              "length": 194,
+              "url": "/products/cap/ci37528064/ci/1456278493570/contents.xml"
+            }
+          }
+        },
+        {
+          "indexid": "81107182",
+          "indexTime": 1456272605077,
+          "id": "urn:usgs-product:at:cap:at00o30yrz:1456272337188",
+          "type": "cap",
+          "code": "at00o30yrz",
+          "source": "at",
+          "updateTime": 1456272337188,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "at",
+            "eventsourcecode": "00o30yrz"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "capalert.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456272602000,
+              "length": 4800,
+              "url": "/products/cap/at00o30yrz/at/1456272337188/capalert.xml"
+            },
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1361473072000,
+              "length": 194,
+              "url": "/products/cap/at00o30yrz/at/1456272337188/contents.xml"
+            }
+          }
+        }
+      ],
+      "dyfi": [
+        {
+          "indexid": "87802752",
+          "indexTime": 1457794037467,
+          "id": "urn:usgs-product:us:dyfi:ci37528064:1457794028314",
+          "type": "dyfi",
+          "code": "ci37528064",
+          "source": "us",
+          "updateTime": 1457794028314,
+          "status": "UPDATE",
+          "properties": {
+            "depth": "22.14",
+            "eventsource": "ci",
+            "eventsourcecode": "37528064",
+            "eventtime": "2016-02-24T00:02:23.000Z",
+            "latitude": "35.5423333",
+            "longitude": "-119.3728333",
+            "magnitude": "4.9",
+            "maxmmi": "5.8",
+            "num-responses": "2775",
+            "numResp": "2775"
+          },
+          "preferredWeight": 51,
+          "contents": {
+            "cdi_geo.txt": {
+              "contentType": "text/plain",
+              "lastModified": 1457794028000,
+              "length": 111139,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/cdi_geo.txt"
+            },
+            "cdi_geo.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1457794028000,
+              "length": 288368,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/cdi_geo.xml"
+            },
+            "cdi_geo_10km.txt": {
+              "contentType": "text/plain",
+              "lastModified": 1457794028000,
+              "length": 25390,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/cdi_geo_10km.txt"
+            },
+            "cdi_geo_1km.txt": {
+              "contentType": "text/plain",
+              "lastModified": 1457794028000,
+              "length": 16141,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/cdi_geo_1km.txt"
+            },
+            "cdi_zip.txt": {
+              "contentType": "text/plain",
+              "lastModified": 1457794028000,
+              "length": 22338,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/cdi_zip.txt"
+            },
+            "cdi_zip.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1457794028000,
+              "length": 68449,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/cdi_zip.xml"
+            },
+            "ci37528064_ciim.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1457794028000,
+              "length": 135200,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_ciim.jpg"
+            },
+            "ci37528064_ciim.pdf": {
+              "contentType": "application/pdf",
+              "lastModified": 1457794028000,
+              "length": 250585,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_ciim.pdf"
+            },
+            "ci37528064_ciim.ps": {
+              "contentType": "application/postscript",
+              "lastModified": 1457794028000,
+              "length": 450221,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_ciim.ps"
+            },
+            "ci37528064_ciim_geo.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1457794028000,
+              "length": 113674,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_ciim_geo.jpg"
+            },
+            "ci37528064_ciim_geo.pdf": {
+              "contentType": "application/pdf",
+              "lastModified": 1457794028000,
+              "length": 167780,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_ciim_geo.pdf"
+            },
+            "ci37528064_ciim_geo.ps": {
+              "contentType": "application/postscript",
+              "lastModified": 1457794028000,
+              "length": 348065,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_ciim_geo.ps"
+            },
+            "ci37528064_ciim_geo_imap.html": {
+              "contentType": "text/html",
+              "lastModified": 1457794028000,
+              "length": 289656,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_ciim_geo_imap.html"
+            },
+            "ci37528064_ciim_imap.html": {
+              "contentType": "text/html",
+              "lastModified": 1457794028000,
+              "length": 143962,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_ciim_imap.html"
+            },
+            "ci37528064_plot_atten.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1457794028000,
+              "length": 41205,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_plot_atten.jpg"
+            },
+            "ci37528064_plot_atten.ps": {
+              "contentType": "application/postscript",
+              "lastModified": 1457794028000,
+              "length": 75670,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_plot_atten.ps"
+            },
+            "ci37528064_plot_atten.txt": {
+              "contentType": "text/plain",
+              "lastModified": 1457794028000,
+              "length": 11841,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_plot_atten.txt"
+            },
+            "ci37528064_plot_numresp.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1457794028000,
+              "length": 25216,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_plot_numresp.jpg"
+            },
+            "ci37528064_plot_numresp.ps": {
+              "contentType": "application/postscript",
+              "lastModified": 1457794028000,
+              "length": 30199,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_plot_numresp.ps"
+            },
+            "ci37528064_plot_numresp.txt": {
+              "contentType": "text/plain",
+              "lastModified": 1457794028000,
+              "length": 29151,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/ci37528064_plot_numresp.txt"
+            },
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1457794028000,
+              "length": 3992,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/contents.xml"
+            },
+            "dyfi.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1457794028000,
+              "length": 1153,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/dyfi.kmz"
+            },
+            "dyfi_geo.geojson": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1457794028000,
+              "length": 276763,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/dyfi_geo.geojson"
+            },
+            "dyfi_geo.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1457794028000,
+              "length": 50457,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/dyfi_geo.kmz"
+            },
+            "dyfi_geo_10km.geojson": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1457794028000,
+              "length": 64086,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/dyfi_geo_10km.geojson"
+            },
+            "dyfi_geo_1km.geojson": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1457794028000,
+              "length": 276763,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/dyfi_geo_1km.geojson"
+            },
+            "dyfi_plot_atten.json": {
+              "contentType": "application/json",
+              "lastModified": 1457794028000,
+              "length": 22791,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/dyfi_plot_atten.json"
+            },
+            "dyfi_plot_numresp.geojson": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1457794028000,
+              "length": 202270,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/dyfi_plot_numresp.geojson"
+            },
+            "dyfi_zip.geojson": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1457794028000,
+              "length": 903323,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/dyfi_zip.geojson"
+            },
+            "dyfi_zip.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1457794028000,
+              "length": 94814,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/dyfi_zip.kmz"
+            },
+            "event_data.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1457794028000,
+              "length": 3045,
+              "url": "/products/dyfi/ci37528064/us/1457794028314/event_data.xml"
+            }
+          }
+        }
+      ],
+      "focal-mechanism": [
+        {
+          "indexid": "81113362",
+          "indexTime": 1456277243332,
+          "id": "urn:usgs-product:ci:focal-mechanism:ci37528064_fm1:1456277238850",
+          "type": "focal-mechanism",
+          "code": "ci37528064_fm1",
+          "source": "ci",
+          "updateTime": 1456277238850,
+          "status": "UPDATE",
+          "properties": {
+            "beachball-source": "CI",
+            "depth": "22.14",
+            "evaluation-status": "preliminary",
+            "eventParametersPublicID": "quakeml:service.scedc.caltech.edu/fdsnws/event/1/query?eventid=37528064",
+            "eventsource": "ci",
+            "eventsourcecode": "37528064",
+            "eventtime": "2016-02-24T00:02:23.630Z",
+            "latitude": "35.5423333",
+            "longitude": "-119.3728333",
+            "nodal-plane-1-dip": "80.0",
+            "nodal-plane-1-rake": "-169.0",
+            "nodal-plane-1-strike": "316.0",
+            "nodal-plane-2-dip": "79.0",
+            "nodal-plane-2-rake": "-10.0",
+            "nodal-plane-2-strike": "224.0",
+            "num-stations-used": "0",
+            "original-eventsource": "ci",
+            "original-eventsourcecode": "37528064",
+            "quakeml-publicid": "quakeml:service.scedc.caltech.edu/fdsnws/event/1/query?mecid=2915164",
+            "review-status": "automatic"
+          },
+          "preferredWeight": 156,
+          "contents": {
+            "ci37528064.cifm1.html": {
+              "contentType": "text/html",
+              "lastModified": 1456277232000,
+              "length": 4012,
+              "url": "/products/focal-mechanism/ci37528064_fm1/ci/1456277238850/ci37528064.cifm1.html"
+            },
+            "ci37528064.cifm1.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456277232000,
+              "length": 701999,
+              "url": "/products/focal-mechanism/ci37528064_fm1/ci/1456277238850/ci37528064.cifm1.jpg"
+            },
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456277238000,
+              "length": 365,
+              "url": "/products/focal-mechanism/ci37528064_fm1/ci/1456277238850/contents.xml"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456277238000,
+              "length": 4739,
+              "url": "/products/focal-mechanism/ci37528064_fm1/ci/1456277238850/quakeml.xml"
+            }
+          }
+        }
+      ],
+      "general-link": [
+        {
+          "indexid": "81541102",
+          "indexTime": 1456966251948,
+          "id": "urn:usgs-product:us:general-link:us10004s7r-0:1456966242040",
+          "type": "general-link",
+          "code": "us10004s7r-0",
+          "source": "us",
+          "updateTime": 1456966242040,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "us",
+            "eventsourcecode": "10004s7r",
+            "text": "Additional earthquake information for California",
+            "url": "http://earthquake.usgs.gov/earthquakes/states/index.php?regionID=5"
+          },
+          "preferredWeight": 6,
+          "contents": []
+        },
+        {
+          "indexid": "81114062",
+          "indexTime": 1456278774273,
+          "id": "urn:usgs-product:us:general-link:ci37528064-0:1456278769730",
+          "type": "general-link",
+          "code": "ci37528064-0",
+          "source": "us",
+          "updateTime": 1456278769730,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "ci",
+            "eventsourcecode": "37528064",
+            "text": "Additional earthquake information for California",
+            "url": "http://earthquake.usgs.gov/earthquakes/states/index.php?regionID=5"
+          },
+          "preferredWeight": 1,
+          "contents": []
+        },
+        {
+          "indexid": "81109682",
+          "indexTime": 1456273049258,
+          "id": "urn:usgs-product:us:general-link:nc72596550-0:1456272997440",
+          "type": "general-link",
+          "code": "nc72596550-0",
+          "source": "us",
+          "updateTime": 1456272997440,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "nc",
+            "eventsourcecode": "72596550",
+            "text": "Additional earthquake information for California",
+            "url": "http://earthquake.usgs.gov/earthquakes/states/index.php?regionID=5"
+          },
+          "preferredWeight": 1,
+          "contents": []
+        },
+        {
+          "indexid": "81106732",
+          "indexTime": 1456272339742,
+          "id": "urn:usgs-product:us:general-link:at00o30yrz-0:1456272337188",
+          "type": "general-link",
+          "code": "at00o30yrz-0",
+          "source": "us",
+          "updateTime": 1456272337188,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "at",
+            "eventsourcecode": "00o30yrz",
+            "text": "Additional earthquake information for California",
+            "url": "http://earthquake.usgs.gov/earthquakes/states/index.php?regionID=5"
+          },
+          "preferredWeight": 1,
+          "contents": []
+        }
+      ],
+      "geoserve": [
+        {
+          "indexid": "81541162",
+          "indexTime": 1456966257986,
+          "id": "urn:usgs-product:us:geoserve:us10004s7r:1456966242040",
+          "type": "geoserve",
+          "code": "us10004s7r",
+          "source": "us",
+          "updateTime": 1456966242040,
+          "status": "UPDATE",
+          "properties": {
+            "country": "United States",
+            "eventsource": "us",
+            "eventsourcecode": "10004s7r",
+            "location": "6km SSW of Wasco, California",
+            "state": "California",
+            "tsunamiFlag": "false",
+            "utcOffset": "-480"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "geoserve.json": {
+              "contentType": "application/json",
+              "lastModified": 1456966250000,
+              "length": 1253,
+              "url": "/products/geoserve/us10004s7r/us/1456966242040/geoserve.json"
+            }
+          }
+        },
+        {
+          "indexid": "81114082",
+          "indexTime": 1456278775766,
+          "id": "urn:usgs-product:us:geoserve:ci37528064:1456278769730",
+          "type": "geoserve",
+          "code": "ci37528064",
+          "source": "us",
+          "updateTime": 1456278769730,
+          "status": "UPDATE",
+          "properties": {
+            "country": "United States",
+            "eventsource": "ci",
+            "eventsourcecode": "37528064",
+            "location": "6km SSW of Wasco, California",
+            "state": "California",
+            "tsunamiFlag": "false",
+            "utcOffset": "-480"
+          },
+          "preferredWeight": 1,
+          "contents": {
+            "geoserve.json": {
+              "contentType": "application/json",
+              "lastModified": 1456278772000,
+              "length": 1261,
+              "url": "/products/geoserve/ci37528064/us/1456278769730/geoserve.json"
+            }
+          }
+        },
+        {
+          "indexid": "81109702",
+          "indexTime": 1456273049667,
+          "id": "urn:usgs-product:us:geoserve:nc72596550:1456272997440",
+          "type": "geoserve",
+          "code": "nc72596550",
+          "source": "us",
+          "updateTime": 1456272997440,
+          "status": "UPDATE",
+          "properties": {
+            "country": "United States",
+            "eventsource": "nc",
+            "eventsourcecode": "72596550",
+            "location": "5km W of Wasco, California",
+            "state": "California",
+            "tsunamiFlag": "false",
+            "utcOffset": "-480"
+          },
+          "preferredWeight": 1,
+          "contents": {
+            "geoserve.json": {
+              "contentType": "application/json",
+              "lastModified": 1456273034000,
+              "length": 1258,
+              "url": "/products/geoserve/nc72596550/us/1456272997440/geoserve.json"
+            }
+          }
+        },
+        {
+          "indexid": "81106752",
+          "indexTime": 1456272341265,
+          "id": "urn:usgs-product:us:geoserve:at00o30yrz:1456272337188",
+          "type": "geoserve",
+          "code": "at00o30yrz",
+          "source": "us",
+          "updateTime": 1456272337188,
+          "status": "UPDATE",
+          "properties": {
+            "country": "United States",
+            "eventsource": "at",
+            "eventsourcecode": "00o30yrz",
+            "location": "10km NNE of Buttonwillow, California",
+            "state": "California",
+            "tsunamiFlag": "false",
+            "utcOffset": "-480"
+          },
+          "preferredWeight": 1,
+          "contents": {
+            "geoserve.json": {
+              "contentType": "application/json",
+              "lastModified": 1456272338000,
+              "length": 1262,
+              "url": "/products/geoserve/at00o30yrz/us/1456272337188/geoserve.json"
+            }
+          }
+        }
+      ],
+      "impact-link": [
+        {
+          "indexid": "81106712",
+          "indexTime": 1456272338535,
+          "id": "urn:usgs-product:at:impact-link:at00o30yrz-tsunamilinks_at_v1:1456272336186",
+          "type": "impact-link",
+          "code": "at00o30yrz-tsunamilinks_at_v1",
+          "source": "at",
+          "updateTime": 1456272336186,
+          "status": "UPDATE",
+          "properties": {
+            "addon-code": "TsunamiLinks_AT_v1",
+            "addon-type": "LinkURL",
+            "eventsource": "at",
+            "eventsourcecode": "00o30yrz",
+            "text": "1-Tsunami Information Statement from the NTWC",
+            "url": "http://ntwc.arh.noaa.gov/events/PAAQ/2016/02/24/o30yrz/1/SEUS71/SEUS71.txt",
+            "version": "01"
+          },
+          "preferredWeight": 6,
+          "contents": []
+        }
+      ],
+      "impact-text": [
+        {
+          "indexid": "81541122",
+          "indexTime": 1456966253955,
+          "id": "urn:usgs-product:us:impact-text:us10004s7r:1456966242040",
+          "type": "impact-text",
+          "code": "us10004s7r",
+          "source": "us",
+          "updateTime": 1456966242040,
+          "status": "UPDATE",
+          "properties": {
+            "eventParametersPublicID": "quakeml:us.anss.org/eventparameters/10004s7r/1456966247",
+            "eventsource": "us",
+            "eventsourcecode": "10004s7r"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "": {
+              "contentType": "text/plain",
+              "lastModified": 1456966242000,
+              "length": 149,
+              "bytes": "Felt (V) at Wasco and (IV) at Bakersfield, Delano, Porterville, Shafter and Strathmore. Felt from Sacramento to Escondido and from Lompoc to Bishop.\n"
+            }
+          }
+        }
+      ],
+      "losspager": [
+        {
+          "indexid": "81161652",
+          "indexTime": 1456359010534,
+          "id": "urn:usgs-product:us:losspager:ci37528064:1456358987528",
+          "type": "losspager",
+          "code": "ci37528064",
+          "source": "us",
+          "updateTime": 1456358987528,
+          "status": "UPDATE",
+          "properties": {
+            "alertlevel": "green",
+            "depth": "22.14",
+            "eventsource": "ci",
+            "eventsourcecode": "37528064",
+            "eventtime": "2016-02-24T00:02:24.000Z",
+            "latitude": "35.5423",
+            "longitude": "-119.373",
+            "magnitude": "4.9",
+            "maxmmi": "6.0"
+          },
+          "preferredWeight": 51,
+          "contents": {
+            "alertecon.pdf": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 11287,
+              "url": "/products/losspager/ci37528064/us/1456358987528/alertecon.pdf"
+            },
+            "alertecon.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 15140,
+              "url": "/products/losspager/ci37528064/us/1456358987528/alertecon.png"
+            },
+            "alertecon_small.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 8501,
+              "url": "/products/losspager/ci37528064/us/1456358987528/alertecon_small.png"
+            },
+            "alertecon_smaller.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 4665,
+              "url": "/products/losspager/ci37528064/us/1456358987528/alertecon_smaller.png"
+            },
+            "alertfatal.pdf": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 9650,
+              "url": "/products/losspager/ci37528064/us/1456358987528/alertfatal.pdf"
+            },
+            "alertfatal.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 13530,
+              "url": "/products/losspager/ci37528064/us/1456358987528/alertfatal.png"
+            },
+            "alertfatal_small.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 7533,
+              "url": "/products/losspager/ci37528064/us/1456358987528/alertfatal_small.png"
+            },
+            "alertfatal_smaller.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 4136,
+              "url": "/products/losspager/ci37528064/us/1456358987528/alertfatal_smaller.png"
+            },
+            "alertsponge.pdf": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 7762,
+              "url": "/products/losspager/ci37528064/us/1456358987528/alertsponge.pdf"
+            },
+            "alertsponge.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 35074,
+              "url": "/products/losspager/ci37528064/us/1456358987528/alertsponge.png"
+            },
+            "alertsponge_small.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 6254,
+              "url": "/products/losspager/ci37528064/us/1456358987528/alertsponge_small.png"
+            },
+            "contents.xml": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 909,
+              "url": "/products/losspager/ci37528064/us/1456358987528/contents.xml"
+            },
+            "empfat.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 44878,
+              "url": "/products/losspager/ci37528064/us/1456358987528/empfat.png"
+            },
+            "emphist.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 51706,
+              "url": "/products/losspager/ci37528064/us/1456358987528/emphist.png"
+            },
+            "empprob.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 27348,
+              "url": "/products/losspager/ci37528064/us/1456358987528/empprob.png"
+            },
+            "expolegend.pdf": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 124589,
+              "url": "/products/losspager/ci37528064/us/1456358987528/expolegend.pdf"
+            },
+            "expolegend.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 69485,
+              "url": "/products/losspager/ci37528064/us/1456358987528/expolegend.png"
+            },
+            "exposure.pdf": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 92596,
+              "url": "/products/losspager/ci37528064/us/1456358987528/exposure.pdf"
+            },
+            "exposure.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 95045,
+              "url": "/products/losspager/ci37528064/us/1456358987528/exposure.png"
+            },
+            "exposure.xml": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 28748,
+              "url": "/products/losspager/ci37528064/us/1456358987528/exposure.xml"
+            },
+            "exposure_small.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 81798,
+              "url": "/products/losspager/ci37528064/us/1456358987528/exposure_small.png"
+            },
+            "grid.xml": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 8625670,
+              "url": "/products/losspager/ci37528064/us/1456358987528/grid.xml"
+            },
+            "historical_events.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 118438,
+              "url": "/products/losspager/ci37528064/us/1456358987528/historical_events.png"
+            },
+            "history.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 76127,
+              "url": "/products/losspager/ci37528064/us/1456358987528/history.png"
+            },
+            "info.xml": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 5306,
+              "url": "/products/losspager/ci37528064/us/1456358987528/info.xml"
+            },
+            "location.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 15632,
+              "url": "/products/losspager/ci37528064/us/1456358987528/location.png"
+            },
+            "onepager.pdf": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 434358,
+              "url": "/products/losspager/ci37528064/us/1456358987528/onepager.pdf"
+            },
+            "pager.xml": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 59177,
+              "url": "/products/losspager/ci37528064/us/1456358987528/pager.xml"
+            },
+            "pagerexpo.kmz": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 76502,
+              "url": "/products/losspager/ci37528064/us/1456358987528/pagerexpo.kmz"
+            },
+            "semi_inventory.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 121495,
+              "url": "/products/losspager/ci37528064/us/1456358987528/semi_inventory.png"
+            },
+            "temp.png": {
+              "contentType": "application/octet-stream",
+              "lastModified": 1456358986000,
+              "length": 144790,
+              "url": "/products/losspager/ci37528064/us/1456358987528/temp.png"
+            }
+          }
+        }
+      ],
+      "moment-tensor": [
+        {
+          "indexid": "81140882",
+          "indexTime": 1456340108541,
+          "id": "urn:usgs-product:ci:moment-tensor:ci37528064_mt1:1456340103160",
+          "type": "moment-tensor",
+          "code": "ci37528064_mt1",
+          "source": "ci",
+          "updateTime": 1456340103160,
+          "status": "UPDATE",
+          "properties": {
+            "beachball-source": "CI",
+            "beachball-type": "smi:ci.anss.org/momentTensor/TMTS",
+            "depth": "22.14",
+            "derived-depth": "18",
+            "derived-eventtime": "2016-02-24T00:02:23.630Z",
+            "derived-latitude": "35.5423012",
+            "derived-longitude": "-119.3728027",
+            "evaluation-status": "reviewed",
+            "eventParametersPublicID": "service.scedc.caltech.edu/ws/event/query?eventid=37528064",
+            "eventsource": "ci",
+            "eventsourcecode": "37528064",
+            "eventtime": "2016-02-24T00:02:23.630Z",
+            "latitude": "35.5423333",
+            "longitude": "-119.3728333",
+            "n-axis-azimuth": "285.577",
+            "n-axis-length": "2.000E+15",
+            "n-axis-plunge": "84.613",
+            "original-eventsource": "ci",
+            "original-eventsourcecode": "37528064",
+            "p-axis-azimuth": "176.501",
+            "p-axis-length": "-2.632E+16",
+            "p-axis-plunge": "1.765",
+            "percent-double-couple": "0.85",
+            "quakeml-publicid": "quakeml:service.scedc.caltech.edu/ws/event/query?Mecid=3177101",
+            "review-status": "reviewed",
+            "scalar-moment": "2.530E+16",
+            "t-axis-azimuth": "86.344",
+            "t-axis-length": "2.427E+16",
+            "t-axis-plunge": "5.088",
+            "tensor-mpp": "2.392E+16",
+            "tensor-mrp": "-1.909E+15",
+            "tensor-mrr": "2.154E+15",
+            "tensor-mrt": "9.958E+14",
+            "tensor-mtp": "-3.135E+15",
+            "tensor-mtt": "-2.608E+16"
+          },
+          "preferredWeight": 156,
+          "contents": {
+            "ci37528064_mechanism.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456340101000,
+              "length": 7208,
+              "url": "/products/moment-tensor/ci37528064_mt1/ci/1456340103160/ci37528064_mechanism.jpg"
+            },
+            "ci37528064_vr.gif": {
+              "contentType": "image/gif",
+              "lastModified": 1456340099000,
+              "length": 1946,
+              "url": "/products/moment-tensor/ci37528064_mt1/ci/1456340103160/ci37528064_vr.gif"
+            },
+            "ci37528064_wf_d18.0_1.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456340102000,
+              "length": 37359,
+              "url": "/products/moment-tensor/ci37528064_mt1/ci/1456340103160/ci37528064_wf_d18.0_1.jpg"
+            },
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456340103000,
+              "length": 625,
+              "url": "/products/moment-tensor/ci37528064_mt1/ci/1456340103160/contents.xml"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456340103000,
+              "length": 8916,
+              "url": "/products/moment-tensor/ci37528064_mt1/ci/1456340103160/quakeml.xml"
+            }
+          }
+        },
+        {
+          "indexid": "81135422",
+          "indexTime": 1456333138011,
+          "id": "urn:usgs-product:us:moment-tensor:ci_37528064_mww:1456333136000",
+          "type": "moment-tensor",
+          "code": "ci_37528064_mww",
+          "source": "us",
+          "updateTime": 1456333136000,
+          "status": "UPDATE",
+          "properties": {
+            "beachball-source": "us",
+            "depth": "22.0",
+            "derived-depth": "19.5",
+            "derived-eventtime": "2016-02-24T00:02:27.000Z",
+            "derived-latitude": "35.5400",
+            "derived-longitude": "-119.3700",
+            "derived-magnitude": "4.9",
+            "derived-magnitude-type": "Mww",
+            "evaluation-status": "preliminary",
+            "eventParametersPublicID": "quakeml:us.anss.org/eventParameters/37528064/1456358336",
+            "eventsource": "ci",
+            "eventsourcecode": "37528064",
+            "eventtime": "2016-02-24T00:02:23.000Z",
+            "latitude": "35.5400",
+            "longitude": "-119.3700",
+            "n-axis-azimuth": "236",
+            "n-axis-length": "42000000000000000000000",
+            "n-axis-plunge": "82",
+            "nodal-plane-1-dip": "83",
+            "nodal-plane-1-rake": "178",
+            "nodal-plane-1-strike": "133",
+            "nodal-plane-2-dip": "88",
+            "nodal-plane-2-rake": "7",
+            "nodal-plane-2-strike": "224",
+            "p-axis-azimuth": "358",
+            "p-axis-length": "-260000000000000000000000",
+            "p-axis-plunge": "3",
+            "quakeml-publicid": "quakeml:us.anss.org/focalMechanism/37528064/Mww",
+            "review-status": "automatic",
+            "scalar-moment": "24580000000000000",
+            "sourcetime-duration": "8.0",
+            "sourcetime-type": "TRIANGLE",
+            "t-axis-azimuth": "88",
+            "t-axis-length": "220000000000000000000000",
+            "t-axis-plunge": "5",
+            "tensor-mpp": "21960000000000000",
+            "tensor-mrp": "-1920000000000000",
+            "tensor-mrr": "4300000000000000",
+            "tensor-mrt": "-1960000000000000",
+            "tensor-mtp": "-1310000000000000",
+            "tensor-mtt": "-26260000000000000"
+          },
+          "preferredWeight": 51,
+          "contents": {
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456333136000,
+              "length": 195,
+              "url": "/products/moment-tensor/ci_37528064_mww/us/1456333136000/contents.xml"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456333136000,
+              "length": 5058,
+              "url": "/products/moment-tensor/ci_37528064_mww/us/1456333136000/quakeml.xml"
+            }
+          }
+        },
+        {
+          "indexid": "88007432",
+          "indexTime": 1457989684312,
+          "id": "urn:usgs-product:nc:moment-tensor:nc72596550_mt1:1457989681510",
+          "type": "moment-tensor",
+          "code": "nc72596550_mt1",
+          "source": "nc",
+          "updateTime": 1457989681510,
+          "status": "UPDATE",
+          "properties": {
+            "beachball-source": "NC",
+            "beachball-type": "smi:nc.anss.org/momentTensor/TMTS-ISO",
+            "depth": "21.74",
+            "derived-depth": "18",
+            "derived-eventtime": "2016-02-24T00:02:23.610Z",
+            "derived-latitude": "35.5470009",
+            "derived-longitude": "-119.3677979",
+            "derived-magnitude": "4.84",
+            "derived-magnitude-type": "Mw",
+            "evaluation-status": "reviewed",
+            "eventParametersPublicID": "quakeml:nc.anss.org/Event/NC/72596550#145798968151",
+            "eventsource": "nc",
+            "eventsourcecode": "72596550",
+            "eventtime": "2016-02-24T00:02:23.610Z",
+            "latitude": "35.547",
+            "longitude": "-119.3678333",
+            "n-axis-azimuth": "332.816",
+            "n-axis-length": "-4.770E+15",
+            "n-axis-plunge": "85.717",
+            "original-eventsource": "nc",
+            "original-eventsourcecode": "72596550",
+            "p-axis-azimuth": "175.412",
+            "p-axis-length": "-2.761E+16",
+            "p-axis-plunge": "3.955",
+            "percent-double-couple": "0.83",
+            "quakeml-publicid": "quakeml:nc.anss.org/Mec/NC/21962",
+            "review-status": "reviewed",
+            "scalar-moment": "2.282E+16",
+            "t-axis-azimuth": "85.299",
+            "t-axis-length": "1.812E+16",
+            "t-axis-plunge": "1.640",
+            "tensor-mpp": "1.775E+16",
+            "tensor-mrp": "-5.273E+14",
+            "tensor-mrr": "-4.862E+15",
+            "tensor-mrt": "1.625E+15",
+            "tensor-mtp": "-3.682E+15",
+            "tensor-mtt": "-2.716E+16"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1457989681000,
+              "length": 229,
+              "url": "/products/moment-tensor/nc72596550_mt1/nc/1457989681510/contents.xml"
+            },
+            "nc72596550_mechanism.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1457989675000,
+              "length": 8207,
+              "url": "/products/moment-tensor/nc72596550_mt1/nc/1457989681510/nc72596550_mechanism.jpg"
+            },
+            "nc72596550_wf_d18.0_1.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1457989676000,
+              "length": 38590,
+              "url": "/products/moment-tensor/nc72596550_mt1/nc/1457989681510/nc72596550_wf_d18.0_1.jpg"
+            },
+            "nc72596550_wf_d18.0_2.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1457989676000,
+              "length": 13622,
+              "url": "/products/moment-tensor/nc72596550_mt1/nc/1457989681510/nc72596550_wf_d18.0_2.jpg"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1457989681000,
+              "length": 9761,
+              "url": "/products/moment-tensor/nc72596550_mt1/nc/1457989681510/quakeml.xml"
+            }
+          }
+        },
+        {
+          "indexid": "81541152",
+          "indexTime": 1456966257014,
+          "id": "urn:usgs-product:us:moment-tensor:us_10004s7r_mwr:1456966242040",
+          "type": "moment-tensor",
+          "code": "us_10004s7r_mwr",
+          "source": "us",
+          "updateTime": 1456966242040,
+          "status": "UPDATE",
+          "properties": {
+            "beachball-source": "us",
+            "depth": "22",
+            "derived-depth": "18",
+            "derived-eventtime": "2016-02-24T00:02:23.600Z",
+            "derived-latitude": "35.5423",
+            "derived-longitude": "-119.3728",
+            "derived-magnitude": "4.8",
+            "derived-magnitude-type": "Mwr",
+            "evaluation-status": "confirmed",
+            "eventParametersPublicID": "quakeml:us.anss.org/eventparameters/10004s7r/1456966247",
+            "eventsource": "us",
+            "eventsourcecode": "10004s7r",
+            "eventtime": "2016-02-24T00:02:23.000Z",
+            "latitude": "35.5400",
+            "longitude": "-119.3700",
+            "n-axis-azimuth": "196",
+            "n-axis-length": "-1.11306E+15",
+            "n-axis-plunge": "85",
+            "nodal-plane-1-dip": "85.45",
+            "nodal-plane-1-rake": "-178.01",
+            "nodal-plane-1-strike": "129.5",
+            "nodal-plane-2-dip": "88.01",
+            "nodal-plane-2-rake": "-4.55",
+            "nodal-plane-2-strike": "39.34",
+            "p-axis-azimuth": "354",
+            "p-axis-length": "-1.6314E+16",
+            "p-axis-plunge": "5",
+            "percent-double-couple": "0.8722",
+            "quakeml-publicid": "quakeml:us.anss.org/focalmechanism/10004s7r/mwr",
+            "review-status": "reviewed",
+            "scalar-moment": "1.69E+16",
+            "t-axis-azimuth": "84",
+            "t-axis-length": "1.74271E+16",
+            "t-axis-plunge": "2",
+            "tensor-mpp": "1.7092E+16",
+            "tensor-mrp": "-7.02E+14",
+            "tensor-mrr": "-1.193E+15",
+            "tensor-mrt": "-1.159E+15",
+            "tensor-mtp": "-3.249E+15",
+            "tensor-mtt": "-1.5898E+16"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456966249000,
+              "length": 195,
+              "url": "/products/moment-tensor/us_10004s7r_mwr/us/1456966242040/contents.xml"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456966242000,
+              "length": 28689,
+              "url": "/products/moment-tensor/us_10004s7r_mwr/us/1456966242040/quakeml.xml"
+            }
+          }
+        },
+        {
+          "indexid": "81541192",
+          "indexTime": 1456966261040,
+          "id": "urn:usgs-product:us:moment-tensor:us_10004s7r_mwr_nc:1456966242040",
+          "type": "moment-tensor",
+          "code": "us_10004s7r_mwr_nc",
+          "source": "us",
+          "updateTime": 1456966242040,
+          "status": "UPDATE",
+          "properties": {
+            "beachball-source": "nc",
+            "depth": "22",
+            "derived-depth": "18",
+            "derived-eventtime": "2016-02-24T00:02:23.600Z",
+            "derived-latitude": "35.5470",
+            "derived-longitude": "-119.3678",
+            "derived-magnitude": "4.8",
+            "derived-magnitude-type": "Mwr",
+            "evaluation-status": "confirmed",
+            "eventParametersPublicID": "quakeml:us.anss.org/eventparameters/10004s7r/1456966247",
+            "eventsource": "us",
+            "eventsourcecode": "10004s7r",
+            "eventtime": "2016-02-24T00:02:23.000Z",
+            "latitude": "35.5400",
+            "longitude": "-119.3700",
+            "n-axis-azimuth": "333",
+            "n-axis-length": "-1.40034E+13",
+            "n-axis-plunge": "86",
+            "nodal-plane-1-dip": "88.36",
+            "nodal-plane-1-rake": "-176.02",
+            "nodal-plane-1-strike": "310.4",
+            "nodal-plane-2-dip": "86.03",
+            "nodal-plane-2-rake": "-1.65",
+            "nodal-plane-2-strike": "220.29",
+            "original-eventsource": "nc",
+            "p-axis-azimuth": "175",
+            "p-axis-length": "-2.28121E+16",
+            "p-axis-plunge": "4",
+            "percent-double-couple": "0.83",
+            "quakeml-publicid": "quakeml:nc.anss.org/focalmechanism/10004s7r/mwr",
+            "review-status": "reviewed",
+            "scalar-moment": "2.36E+16",
+            "t-axis-azimuth": "85",
+            "t-axis-length": "2.28261E+16",
+            "t-axis-plunge": "2",
+            "tensor-mpp": "1.775E+16",
+            "tensor-mrp": "-5.27E+14",
+            "tensor-mrr": "-4.862E+15",
+            "tensor-mrt": "1.625E+15",
+            "tensor-mtp": "-3.682E+15",
+            "tensor-mtt": "-2.716E+16"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456966249000,
+              "length": 195,
+              "url": "/products/moment-tensor/us_10004s7r_mwr_nc/us/1456966242040/contents.xml"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456966242000,
+              "length": 5218,
+              "url": "/products/moment-tensor/us_10004s7r_mwr_nc/us/1456966242040/quakeml.xml"
+            }
+          }
+        },
+        {
+          "indexid": "81541172",
+          "indexTime": 1456966258999,
+          "id": "urn:usgs-product:us:moment-tensor:us_10004s7r_mww:1456966242040",
+          "type": "moment-tensor",
+          "code": "us_10004s7r_mww",
+          "source": "us",
+          "updateTime": 1456966242040,
+          "status": "UPDATE",
+          "properties": {
+            "beachball-source": "us",
+            "depth": "22",
+            "derived-depth": "19.5",
+            "derived-eventtime": "2016-02-24T00:02:27.000Z",
+            "derived-latitude": "35.5400",
+            "derived-longitude": "-119.3700",
+            "derived-magnitude": "4.9",
+            "derived-magnitude-type": "Mww",
+            "evaluation-status": "confirmed",
+            "eventParametersPublicID": "quakeml:us.anss.org/eventparameters/10004s7r/1456966247",
+            "eventsource": "us",
+            "eventsourcecode": "10004s7r",
+            "eventtime": "2016-02-24T00:02:23.000Z",
+            "latitude": "35.5400",
+            "longitude": "-119.3700",
+            "n-axis-azimuth": "236",
+            "n-axis-length": "4.23642E+15",
+            "n-axis-plunge": "83",
+            "nodal-plane-1-dip": "88",
+            "nodal-plane-1-rake": "7",
+            "nodal-plane-1-strike": "224",
+            "nodal-plane-2-dip": "83",
+            "nodal-plane-2-rake": "178",
+            "nodal-plane-2-strike": "133",
+            "p-axis-azimuth": "358",
+            "p-axis-length": "-2.64275E+16",
+            "p-axis-plunge": "4",
+            "percent-double-couple": "0.6794",
+            "quakeml-publicid": "quakeml:us.anss.org/focalmechanism/10004s7r/mww",
+            "review-status": "reviewed",
+            "scalar-moment": "2.46E+16",
+            "sourcetime-decaytime": "4",
+            "sourcetime-duration": "8",
+            "sourcetime-risetime": "4",
+            "sourcetime-type": "triangle",
+            "t-axis-azimuth": "89",
+            "t-axis-length": "2.21911E+16",
+            "t-axis-plunge": "6",
+            "tensor-mpp": "2.196E+16",
+            "tensor-mrp": "-1.92E+15",
+            "tensor-mrr": "4.3E+15",
+            "tensor-mrt": "-1.96E+15",
+            "tensor-mtp": "-1.31E+15",
+            "tensor-mtt": "-2.626E+16"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456966249000,
+              "length": 195,
+              "url": "/products/moment-tensor/us_10004s7r_mww/us/1456966242040/contents.xml"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456966242000,
+              "length": 5332,
+              "url": "/products/moment-tensor/us_10004s7r_mww/us/1456966242040/quakeml.xml"
+            }
+          }
+        }
+      ],
+      "nearby-cities": [
+        {
+          "indexid": "81541142",
+          "indexTime": 1456966256016,
+          "id": "urn:usgs-product:us:nearby-cities:us10004s7r:1456966242040",
+          "type": "nearby-cities",
+          "code": "us10004s7r",
+          "source": "us",
+          "updateTime": 1456966242040,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "us",
+            "eventsourcecode": "10004s7r"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "nearby-cities.inc.html": {
+              "contentType": "text/html",
+              "lastModified": 1456966250000,
+              "length": 259,
+              "url": "/products/nearby-cities/us10004s7r/us/1456966242040/nearby-cities.inc.html"
+            },
+            "nearby-cities.json": {
+              "contentType": "application/json",
+              "lastModified": 1456966250000,
+              "length": 627,
+              "url": "/products/nearby-cities/us10004s7r/us/1456966242040/nearby-cities.json"
+            }
+          }
+        },
+        {
+          "indexid": "81114032",
+          "indexTime": 1456278772045,
+          "id": "urn:usgs-product:ci:nearby-cities:ci37528064:1456278771048",
+          "type": "nearby-cities",
+          "code": "ci37528064",
+          "source": "ci",
+          "updateTime": 1456278771048,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "ci",
+            "eventsourcecode": "37528064"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "nearby-cities.json": {
+              "contentType": "application/json",
+              "lastModified": 1456278769000,
+              "length": 879,
+              "url": "/products/nearby-cities/ci37528064/ci/1456278771048/nearby-cities.json"
+            }
+          }
+        },
+        {
+          "indexid": "81106602",
+          "indexTime": 1456272269718,
+          "id": "urn:usgs-product:ci:nearby-cities:ci37528064-cities1:1456272268159",
+          "type": "nearby-cities",
+          "code": "ci37528064-cities1",
+          "source": "ci",
+          "updateTime": 1456272268159,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "ci",
+            "eventsourcecode": "37528064"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "nearby-cities.json": {
+              "contentType": "application/json",
+              "lastModified": 1456272267000,
+              "length": 879,
+              "url": "/products/nearby-cities/ci37528064-cities1/ci/1456272268159/nearby-cities.json"
+            }
+          }
+        },
+        {
+          "indexid": "81114072",
+          "indexTime": 1456278774607,
+          "id": "urn:usgs-product:us:nearby-cities:ci37528064:1456278769730",
+          "type": "nearby-cities",
+          "code": "ci37528064",
+          "source": "us",
+          "updateTime": 1456278769730,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "ci",
+            "eventsourcecode": "37528064"
+          },
+          "preferredWeight": 1,
+          "contents": {
+            "nearby-cities.inc.html": {
+              "contentType": "text/html",
+              "lastModified": 1456278772000,
+              "length": 259,
+              "url": "/products/nearby-cities/ci37528064/us/1456278769730/nearby-cities.inc.html"
+            },
+            "nearby-cities.json": {
+              "contentType": "application/json",
+              "lastModified": 1456278772000,
+              "length": 627,
+              "url": "/products/nearby-cities/ci37528064/us/1456278769730/nearby-cities.json"
+            }
+          }
+        },
+        {
+          "indexid": "81109692",
+          "indexTime": 1456273049455,
+          "id": "urn:usgs-product:us:nearby-cities:nc72596550:1456272997440",
+          "type": "nearby-cities",
+          "code": "nc72596550",
+          "source": "us",
+          "updateTime": 1456272997440,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "nc",
+            "eventsourcecode": "72596550"
+          },
+          "preferredWeight": 1,
+          "contents": {
+            "nearby-cities.inc.html": {
+              "contentType": "text/html",
+              "lastModified": 1456273034000,
+              "length": 256,
+              "url": "/products/nearby-cities/nc72596550/us/1456272997440/nearby-cities.inc.html"
+            },
+            "nearby-cities.json": {
+              "contentType": "application/json",
+              "lastModified": 1456273034000,
+              "length": 624,
+              "url": "/products/nearby-cities/nc72596550/us/1456272997440/nearby-cities.json"
+            }
+          }
+        },
+        {
+          "indexid": "81106742",
+          "indexTime": 1456272341060,
+          "id": "urn:usgs-product:us:nearby-cities:at00o30yrz:1456272337188",
+          "type": "nearby-cities",
+          "code": "at00o30yrz",
+          "source": "us",
+          "updateTime": 1456272337188,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "at",
+            "eventsourcecode": "00o30yrz"
+          },
+          "preferredWeight": 1,
+          "contents": {
+            "nearby-cities.inc.html": {
+              "contentType": "text/html",
+              "lastModified": 1456272338000,
+              "length": 265,
+              "url": "/products/nearby-cities/at00o30yrz/us/1456272337188/nearby-cities.inc.html"
+            },
+            "nearby-cities.json": {
+              "contentType": "application/json",
+              "lastModified": 1456272338000,
+              "length": 633,
+              "url": "/products/nearby-cities/at00o30yrz/us/1456272337188/nearby-cities.json"
+            }
+          }
+        }
+      ],
+      "origin": [
+        {
+          "indexid": "81114042",
+          "indexTime": 1456278772243,
+          "id": "urn:usgs-product:ci:origin:ci37528064:1456278769730",
+          "type": "origin",
+          "code": "ci37528064",
+          "source": "ci",
+          "updateTime": 1456278769730,
+          "status": "UPDATE",
+          "properties": {
+            "azimuthal-gap": "37",
+            "depth": "22.14",
+            "depth-type": "from location",
+            "error-ellipse-azimuth": "316",
+            "error-ellipse-intermediate": "576",
+            "error-ellipse-major": "1560",
+            "error-ellipse-minor": "408",
+            "error-ellipse-plunge": "89",
+            "error-ellipse-rotation": "227",
+            "evaluation-status": "final",
+            "event-type": "earthquake",
+            "eventParametersPublicID": "quakeml:service.scedc.caltech.edu/fdsnws/event/1/query?eventid=37528064",
+            "eventsource": "ci",
+            "eventsourcecode": "37528064",
+            "eventtime": "2016-02-24T00:02:23.630Z",
+            "horizontal-error": "0.24",
+            "latitude": "35.5423333",
+            "longitude": "-119.3728333",
+            "magnitude": "4.87",
+            "magnitude-num-stations-used": "6",
+            "magnitude-source": "CI",
+            "magnitude-type": "mw",
+            "minimum-distance": "0.2950",
+            "num-phases-used": "123",
+            "num-stations-used": "84",
+            "origin-source": "CI",
+            "quakeml-magnitude-publicid": "quakeml:service.scedc.caltech.edu/fdsnws/event/1/query?magnitudeid=108303909",
+            "quakeml-origin-publicid": "quakeml:service.scedc.caltech.edu/fdsnws/event/1/query?originid=104914421",
+            "quakeml-publicid": "quakeml:service.scedc.caltech.edu/fdsnws/event/1/query?eventid=37528064",
+            "review-status": "reviewed",
+            "standard-error": "0.29",
+            "title": "6km SSW of Wasco, California",
+            "version": "8",
+            "vertical-error": "0.65"
+          },
+          "preferredWeight": 156,
+          "contents": {
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456278771000,
+              "length": 195,
+              "url": "/products/origin/ci37528064/ci/1456278769730/contents.xml"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456278769000,
+              "length": 3247,
+              "url": "/products/origin/ci37528064/ci/1456278769730/quakeml.xml"
+            }
+          }
+        },
+        {
+          "indexid": "81541082",
+          "indexTime": 1456966249963,
+          "id": "urn:usgs-product:us:origin:us10004s7r:1456966242040",
+          "type": "origin",
+          "code": "us10004s7r",
+          "source": "us",
+          "updateTime": 1456966242040,
+          "status": "UPDATE",
+          "properties": {
+            "depth": "22",
+            "error-ellipse-azimuth": "174",
+            "error-ellipse-intermediate": "5200",
+            "error-ellipse-major": "6800",
+            "error-ellipse-minor": "3400",
+            "error-ellipse-plunge": "77",
+            "error-ellipse-rotation": "171",
+            "evaluation-status": "confirmed",
+            "event-type": "earthquake",
+            "eventParametersPublicID": "quakeml:us.anss.org/eventparameters/10004s7r/1456966247",
+            "eventsource": "us",
+            "eventsourcecode": "10004s7r",
+            "eventtime": "2016-02-24T00:02:23.000Z",
+            "eventtime-error": "2.59",
+            "horizontal-error": "2.8",
+            "latitude": "35.5400",
+            "latitude-error": "0.0306",
+            "longitude": "-119.3700",
+            "longitude-error": "0.0254",
+            "magnitude": "4.9",
+            "magnitude-source": "us",
+            "magnitude-type": "mww",
+            "num-phases-used": "0",
+            "origin-source": "ci",
+            "quakeml-magnitude-publicid": "quakeml:us.anss.org/magnitude/10004s7r/mww",
+            "quakeml-origin-publicid": "quakeml:ci.anss.org/origin/37528064",
+            "quakeml-publicid": "quakeml:us.anss.org/event/10004s7r",
+            "review-status": "reviewed",
+            "standard-error": "1.28",
+            "vertical-error": "4.4"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456966249000,
+              "length": 195,
+              "url": "/products/origin/us10004s7r/us/1456966242040/contents.xml"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456966242000,
+              "length": 3244,
+              "url": "/products/origin/us10004s7r/us/1456966242040/quakeml.xml"
+            }
+          }
+        },
+        {
+          "indexid": "81109122",
+          "indexTime": 1456273033666,
+          "id": "urn:usgs-product:nc:origin:nc72596550:1456272997440",
+          "type": "origin",
+          "code": "nc72596550",
+          "source": "nc",
+          "updateTime": 1456272997440,
+          "status": "UPDATE",
+          "properties": {
+            "azimuthal-gap": "29",
+            "depth": "7.26",
+            "depth-type": "from location",
+            "evaluation-status": "reviewed",
+            "event-type": "earthquake",
+            "eventParametersPublicID": "quakeml:nc.anss.org/Event/NC/72596550#145627299744",
+            "eventsource": "nc",
+            "eventsourcecode": "72596550",
+            "eventtime": "2016-02-24T00:02:23.130Z",
+            "horizontal-error": "0.46",
+            "latitude": "35.5919991",
+            "longitude": "-119.4023361",
+            "magnitude": "5.19",
+            "magnitude-azimuthal-gap": "66.5",
+            "magnitude-error": "0.239",
+            "magnitude-num-stations-used": "23",
+            "magnitude-source": "NC",
+            "magnitude-type": "ml",
+            "minimum-distance": "0.2618",
+            "num-phases-used": "145",
+            "num-stations-used": "159",
+            "origin-source": "NC",
+            "quakeml-magnitude-publicid": "quakeml:nc.anss.org/Netmag/NC/1187010",
+            "quakeml-origin-publicid": "quakeml:nc.anss.org/Origin/NC/2122055",
+            "quakeml-publicid": "quakeml:nc.anss.org/Event/NC/72596550",
+            "review-status": "reviewed",
+            "standard-error": "0.46",
+            "version": "4",
+            "vertical-error": "1.03"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456272999000,
+              "length": 195,
+              "url": "/products/origin/nc72596550/nc/1456272997440/contents.xml"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456272997000,
+              "length": 3087,
+              "url": "/products/origin/nc72596550/nc/1456272997440/quakeml.xml"
+            }
+          }
+        },
+        {
+          "indexid": "81106722",
+          "indexTime": 1456272338906,
+          "id": "urn:usgs-product:at:origin:at00o30yrz:1456272337188",
+          "type": "origin",
+          "code": "at00o30yrz",
+          "source": "at",
+          "updateTime": 1456272337188,
+          "status": "UPDATE",
+          "properties": {
+            "azimuthal-gap": "43.2",
+            "cube-location-method": "l",
+            "cube-magnitude-type": "L",
+            "depth": "18.0",
+            "event-type": "earthquake",
+            "eventsource": "at",
+            "eventsourcecode": "00o30yrz",
+            "eventtime": "2016-02-24T00:02:23.000Z",
+            "horizontal-error": "0.0",
+            "latitude": "35.4769",
+            "location-method-algorithm": "Hypoinverse",
+            "location-method-class": "Geiger's Method and Least Squares",
+            "longitude": "-119.408",
+            "magnitude": "5.2",
+            "magnitude-num-stations-used": "16",
+            "magnitude-type": "Ml",
+            "minimum-distance": "0.28027437",
+            "num-phases-used": "33",
+            "num-stations-used": "33",
+            "review-status": "REVIEWED",
+            "standard-error": "0.52",
+            "version": "1",
+            "vertical-error": "0.0"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "contents.xml": {
+              "contentType": "text/plain",
+              "lastModified": 1456272337000,
+              "length": 272,
+              "url": "/products/origin/at00o30yrz/at/1456272337188/contents.xml"
+            },
+            "eqxml.xml": {
+              "contentType": "text/plain",
+              "lastModified": 1456272337000,
+              "length": 1105,
+              "url": "/products/origin/at00o30yrz/at/1456272337188/eqxml.xml"
+            }
+          }
+        }
+      ],
+      "phase-data": [
+        {
+          "indexid": "81114052",
+          "indexTime": 1456278773425,
+          "id": "urn:usgs-product:ci:phase-data:ci37528064:1456278769730",
+          "type": "phase-data",
+          "code": "ci37528064",
+          "source": "ci",
+          "updateTime": 1456278769730,
+          "status": "UPDATE",
+          "properties": {
+            "azimuthal-gap": "37",
+            "depth": "22.14",
+            "depth-type": "from location",
+            "error-ellipse-azimuth": "316",
+            "error-ellipse-intermediate": "576",
+            "error-ellipse-major": "1560",
+            "error-ellipse-minor": "408",
+            "error-ellipse-plunge": "89",
+            "error-ellipse-rotation": "227",
+            "evaluation-status": "final",
+            "event-type": "earthquake",
+            "eventParametersPublicID": "quakeml:service.scedc.caltech.edu/fdsnws/event/1/query?eventid=37528064",
+            "eventsource": "ci",
+            "eventsourcecode": "37528064",
+            "eventtime": "2016-02-24T00:02:23.630Z",
+            "horizontal-error": "0.24",
+            "latitude": "35.5423333",
+            "longitude": "-119.3728333",
+            "magnitude": "4.87",
+            "magnitude-num-stations-used": "6",
+            "magnitude-source": "CI",
+            "magnitude-type": "mw",
+            "minimum-distance": "0.2950",
+            "num-phases-used": "123",
+            "num-stations-used": "84",
+            "origin-source": "CI",
+            "quakeml-magnitude-publicid": "quakeml:service.scedc.caltech.edu/fdsnws/event/1/query?magnitudeid=108303909",
+            "quakeml-origin-publicid": "quakeml:service.scedc.caltech.edu/fdsnws/event/1/query?originid=104914421",
+            "quakeml-publicid": "quakeml:service.scedc.caltech.edu/fdsnws/event/1/query?eventid=37528064",
+            "review-status": "reviewed",
+            "standard-error": "0.29",
+            "title": "6km SSW of Wasco, California",
+            "version": "8",
+            "vertical-error": "0.65"
+          },
+          "preferredWeight": 156,
+          "contents": {
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456278771000,
+              "length": 195,
+              "url": "/products/phase-data/ci37528064/ci/1456278769730/contents.xml"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456278769000,
+              "length": 572600,
+              "url": "/products/phase-data/ci37528064/ci/1456278769730/quakeml.xml"
+            }
+          }
+        },
+        {
+          "indexid": "81541092",
+          "indexTime": 1456966251071,
+          "id": "urn:usgs-product:us:phase-data:us10004s7r:1456966242040",
+          "type": "phase-data",
+          "code": "us10004s7r",
+          "source": "us",
+          "updateTime": 1456966242040,
+          "status": "UPDATE",
+          "properties": {
+            "depth": "22",
+            "error-ellipse-azimuth": "174",
+            "error-ellipse-intermediate": "5200",
+            "error-ellipse-major": "6800",
+            "error-ellipse-minor": "3400",
+            "error-ellipse-plunge": "77",
+            "error-ellipse-rotation": "171",
+            "evaluation-status": "confirmed",
+            "event-type": "earthquake",
+            "eventParametersPublicID": "quakeml:us.anss.org/eventparameters/10004s7r/1456966247",
+            "eventsource": "us",
+            "eventsourcecode": "10004s7r",
+            "eventtime": "2016-02-24T00:02:23.000Z",
+            "eventtime-error": "2.59",
+            "horizontal-error": "2.8",
+            "latitude": "35.5400",
+            "latitude-error": "0.0306",
+            "longitude": "-119.3700",
+            "longitude-error": "0.0254",
+            "magnitude": "4.9",
+            "magnitude-source": "us",
+            "magnitude-type": "mww",
+            "num-phases-used": "0",
+            "origin-source": "ci",
+            "quakeml-magnitude-publicid": "quakeml:us.anss.org/magnitude/10004s7r/mww",
+            "quakeml-origin-publicid": "quakeml:ci.anss.org/origin/37528064",
+            "quakeml-publicid": "quakeml:us.anss.org/event/10004s7r",
+            "review-status": "reviewed",
+            "standard-error": "1.28",
+            "vertical-error": "4.4"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456966249000,
+              "length": 195,
+              "url": "/products/phase-data/us10004s7r/us/1456966242040/contents.xml"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456966242000,
+              "length": 487098,
+              "url": "/products/phase-data/us10004s7r/us/1456966242040/quakeml.xml"
+            }
+          }
+        },
+        {
+          "indexid": "81109142",
+          "indexTime": 1456273034249,
+          "id": "urn:usgs-product:nc:phase-data:nc72596550:1456272997440",
+          "type": "phase-data",
+          "code": "nc72596550",
+          "source": "nc",
+          "updateTime": 1456272997440,
+          "status": "UPDATE",
+          "properties": {
+            "azimuthal-gap": "29",
+            "depth": "7.26",
+            "depth-type": "from location",
+            "evaluation-status": "reviewed",
+            "event-type": "earthquake",
+            "eventParametersPublicID": "quakeml:nc.anss.org/Event/NC/72596550#145627299744",
+            "eventsource": "nc",
+            "eventsourcecode": "72596550",
+            "eventtime": "2016-02-24T00:02:23.130Z",
+            "horizontal-error": "0.46",
+            "latitude": "35.5919991",
+            "longitude": "-119.4023361",
+            "magnitude": "5.19",
+            "magnitude-azimuthal-gap": "66.5",
+            "magnitude-error": "0.239",
+            "magnitude-num-stations-used": "23",
+            "magnitude-source": "NC",
+            "magnitude-type": "ml",
+            "minimum-distance": "0.2618",
+            "num-phases-used": "145",
+            "num-stations-used": "159",
+            "origin-source": "NC",
+            "quakeml-magnitude-publicid": "quakeml:nc.anss.org/Netmag/NC/1187010",
+            "quakeml-origin-publicid": "quakeml:nc.anss.org/Origin/NC/2122055",
+            "quakeml-publicid": "quakeml:nc.anss.org/Event/NC/72596550",
+            "review-status": "reviewed",
+            "standard-error": "0.46",
+            "version": "4",
+            "vertical-error": "1.03"
+          },
+          "preferredWeight": 6,
+          "contents": {
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456272999000,
+              "length": 195,
+              "url": "/products/phase-data/nc72596550/nc/1456272997440/contents.xml"
+            },
+            "quakeml.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456272997000,
+              "length": 559935,
+              "url": "/products/phase-data/nc72596550/nc/1456272997440/quakeml.xml"
+            }
+          }
+        }
+      ],
+      "scitech-link": [
+        {
+          "indexid": "88007392",
+          "indexTime": 1457989683763,
+          "id": "urn:usgs-product:nc:scitech-link:nc72596550-momenttensor_nc:1457989680773",
+          "type": "scitech-link",
+          "code": "nc72596550-momenttensor_nc",
+          "source": "nc",
+          "updateTime": 1457989680773,
+          "status": "UPDATE",
+          "properties": {
+            "addon-code": "MomentTensor_NC",
+            "addon-type": "LinkURL",
+            "eventsource": "nc",
+            "eventsourcecode": "72596550",
+            "text": "NCSS Moment Tensor Solution",
+            "url": "http://www.ncedc.org/mt/nc72596550_MT.html",
+            "version": "1"
+          },
+          "preferredWeight": 6,
+          "contents": []
+        },
+        {
+          "indexid": "81113372",
+          "indexTime": 1456277245071,
+          "id": "urn:usgs-product:ci:scitech-link:ci37528064-waveform_ci:1456277244223",
+          "type": "scitech-link",
+          "code": "ci37528064-waveform_ci",
+          "source": "ci",
+          "updateTime": 1456277244223,
+          "status": "UPDATE",
+          "properties": {
+            "addon-code": "Waveform_CI",
+            "addon-type": "LinkURL",
+            "eventsource": "ci",
+            "eventsourcecode": "37528064",
+            "text": "Waveforms",
+            "url": "http://pasadena.wr.usgs.gov/eqview/cgi-bin/makePublicView.php?EVID=37528064",
+            "version": "01"
+          },
+          "preferredWeight": 6,
+          "contents": []
+        }
+      ],
+      "shakemap": [
+        {
+          "indexid": "81161152",
+          "indexTime": 1456358750234,
+          "id": "urn:usgs-product:ci:shakemap:ci37528064:1456358665798",
+          "type": "shakemap",
+          "code": "ci37528064",
+          "source": "ci",
+          "updateTime": 1456358665798,
+          "status": "UPDATE",
+          "properties": {
+            "depth": "22.14",
+            "event-description": "6.4 km (4.0 mi) SSW of Wasco, CA",
+            "event-type": "ACTUAL",
+            "eventsource": "ci",
+            "eventsourcecode": "37528064",
+            "eventtime": "2016-02-24T00:02:24.000Z",
+            "latitude": "35.542300",
+            "longitude": "-119.372800",
+            "magnitude": "4.9",
+            "map-status": "RELEASED",
+            "maximum-latitude": "36.375633",
+            "maximum-longitude": "-118.122800",
+            "maxmmi": "6.60",
+            "minimum-latitude": "34.708966",
+            "minimum-longitude": "-120.622800",
+            "overlayHeight": "312",
+            "overlayWidth": "468",
+            "process-timestamp": "2016-02-25T00:02:57.000Z",
+            "version": "11"
+          },
+          "preferredWeight": 231,
+          "contents": {
+            "about_formats.html": {
+              "contentType": "text/html",
+              "lastModified": 1456358662000,
+              "length": 28819,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/about_formats.html"
+            },
+            "contents.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456358665000,
+              "length": 7873,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/contents.xml"
+            },
+            "download/37528064.kml": {
+              "contentType": "application/vnd.google-earth.kml+xml",
+              "lastModified": 1456358659000,
+              "length": 1024,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/37528064.kml"
+            },
+            "download/37528064.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1456358660000,
+              "length": 360649,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/37528064.kmz"
+            },
+            "download/cont_mi.json": {
+              "contentType": "application/json",
+              "lastModified": 1456358660000,
+              "length": 219075,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/cont_mi.json"
+            },
+            "download/cont_mi.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1456358659000,
+              "length": 43857,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/cont_mi.kmz"
+            },
+            "download/cont_pga.json": {
+              "contentType": "application/json",
+              "lastModified": 1456358660000,
+              "length": 48048,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/cont_pga.json"
+            },
+            "download/cont_pga.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1456358659000,
+              "length": 9944,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/cont_pga.kmz"
+            },
+            "download/cont_pgv.json": {
+              "contentType": "application/json",
+              "lastModified": 1456358660000,
+              "length": 42582,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/cont_pgv.json"
+            },
+            "download/cont_pgv.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1456358659000,
+              "length": 8890,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/cont_pgv.kmz"
+            },
+            "download/cont_psa03.json": {
+              "contentType": "application/json",
+              "lastModified": 1456358660000,
+              "length": 74095,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/cont_psa03.json"
+            },
+            "download/cont_psa03.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1456358659000,
+              "length": 14951,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/cont_psa03.kmz"
+            },
+            "download/cont_psa10.json": {
+              "contentType": "application/json",
+              "lastModified": 1456358660000,
+              "length": 63888,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/cont_psa10.json"
+            },
+            "download/cont_psa10.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1456358659000,
+              "length": 12849,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/cont_psa10.kmz"
+            },
+            "download/cont_psa30.json": {
+              "contentType": "application/json",
+              "lastModified": 1456358660000,
+              "length": 39095,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/cont_psa30.json"
+            },
+            "download/cont_psa30.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1456358659000,
+              "length": 8175,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/cont_psa30.kmz"
+            },
+            "download/epicenter.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1456358659000,
+              "length": 1254,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/epicenter.kmz"
+            },
+            "download/event.txt": {
+              "contentType": "text/plain",
+              "lastModified": 1456358654000,
+              "length": 123,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/event.txt"
+            },
+            "download/grid.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456358653000,
+              "length": 8625670,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/grid.xml"
+            },
+            "download/grid.xml.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358658000,
+              "length": 1836236,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/grid.xml.zip"
+            },
+            "download/grid.xyz.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358658000,
+              "length": 1090065,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/grid.xyz.zip"
+            },
+            "download/ii_overlay.png": {
+              "contentType": "image/png",
+              "lastModified": 1456358659000,
+              "length": 94422,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/ii_overlay.png"
+            },
+            "download/ii_thumbnail.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456358654000,
+              "length": 6417,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/ii_thumbnail.jpg"
+            },
+            "download/info.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456358653000,
+              "length": 5306,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/info.xml"
+            },
+            "download/intensity.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456358653000,
+              "length": 155651,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/intensity.jpg"
+            },
+            "download/intensity.ps.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358654000,
+              "length": 520688,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/intensity.ps.zip"
+            },
+            "download/metadata.html": {
+              "contentType": "text/html",
+              "lastModified": 1456358659000,
+              "length": 44623,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/metadata.html"
+            },
+            "download/metadata.txt": {
+              "contentType": "text/plain",
+              "lastModified": 1456358659000,
+              "length": 32203,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/metadata.txt"
+            },
+            "download/metadata.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456358659000,
+              "length": 27607,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/metadata.xml"
+            },
+            "download/overlay.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1456358659000,
+              "length": 94765,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/overlay.kmz"
+            },
+            "download/pga.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456358654000,
+              "length": 135069,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/pga.jpg"
+            },
+            "download/pga.ps.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358655000,
+              "length": 1741360,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/pga.ps.zip"
+            },
+            "download/pgv.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456358653000,
+              "length": 134192,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/pgv.jpg"
+            },
+            "download/pgv.ps.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358654000,
+              "length": 1741147,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/pgv.ps.zip"
+            },
+            "download/polygons_mi.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1456358660000,
+              "length": 104923,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/polygons_mi.kmz"
+            },
+            "download/psa03.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456358654000,
+              "length": 136695,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/psa03.jpg"
+            },
+            "download/psa03.ps.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358655000,
+              "length": 1742314,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/psa03.ps.zip"
+            },
+            "download/psa10.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456358654000,
+              "length": 135448,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/psa10.jpg"
+            },
+            "download/psa10.ps.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358654000,
+              "length": 1741980,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/psa10.ps.zip"
+            },
+            "download/psa30.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456358653000,
+              "length": 133607,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/psa30.jpg"
+            },
+            "download/psa30.ps.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358655000,
+              "length": 1741024,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/psa30.ps.zip"
+            },
+            "download/raster.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358662000,
+              "length": 3784266,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/raster.zip"
+            },
+            "download/rock_grid.xml.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358655000,
+              "length": 899881,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/rock_grid.xml.zip"
+            },
+            "download/sd.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456358653000,
+              "length": 110452,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/sd.jpg"
+            },
+            "download/shape.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358660000,
+              "length": 1513741,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/shape.zip"
+            },
+            "download/stationlist.json": {
+              "contentType": "application/json",
+              "lastModified": 1456358664000,
+              "length": 874856,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/stationlist.json"
+            },
+            "download/stationlist.txt": {
+              "contentType": "text/plain",
+              "lastModified": 1456358663000,
+              "length": 126827,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/stationlist.txt"
+            },
+            "download/stationlist.xml": {
+              "contentType": "application/xml",
+              "lastModified": 1456358654000,
+              "length": 556234,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/stationlist.xml"
+            },
+            "download/stations.kmz": {
+              "contentType": "application/vnd.google-earth.kmz",
+              "lastModified": 1456358660000,
+              "length": 48155,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/stations.kmz"
+            },
+            "download/tvguide.txt": {
+              "contentType": "text/plain",
+              "lastModified": 1456358653000,
+              "length": 8782,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/tvguide.txt"
+            },
+            "download/tvmap.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456358653000,
+              "length": 194546,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/tvmap.jpg"
+            },
+            "download/tvmap.ps.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358654000,
+              "length": 1162971,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/tvmap.ps.zip"
+            },
+            "download/tvmap_bare.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456358653000,
+              "length": 162989,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/tvmap_bare.jpg"
+            },
+            "download/tvmap_bare.ps.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358654000,
+              "length": 1155220,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/tvmap_bare.ps.zip"
+            },
+            "download/uncertainty.xml.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358656000,
+              "length": 766401,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/uncertainty.xml.zip"
+            },
+            "download/urat_pga.jpg": {
+              "contentType": "image/jpeg",
+              "lastModified": 1456358653000,
+              "length": 110452,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/urat_pga.jpg"
+            },
+            "download/urat_pga.ps.zip": {
+              "contentType": "application/zip",
+              "lastModified": 1456358654000,
+              "length": 113044,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/download/urat_pga.ps.zip"
+            },
+            "intensity.html": {
+              "contentType": "text/html",
+              "lastModified": 1456358662000,
+              "length": 15852,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/intensity.html"
+            },
+            "pga.html": {
+              "contentType": "text/html",
+              "lastModified": 1456358662000,
+              "length": 15644,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/pga.html"
+            },
+            "pgv.html": {
+              "contentType": "text/html",
+              "lastModified": 1456358662000,
+              "length": 15644,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/pgv.html"
+            },
+            "products.html": {
+              "contentType": "text/html",
+              "lastModified": 1456358662000,
+              "length": 17153,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/products.html"
+            },
+            "psa03.html": {
+              "contentType": "text/html",
+              "lastModified": 1456358662000,
+              "length": 16811,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/psa03.html"
+            },
+            "psa10.html": {
+              "contentType": "text/html",
+              "lastModified": 1456358662000,
+              "length": 16810,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/psa10.html"
+            },
+            "psa30.html": {
+              "contentType": "text/html",
+              "lastModified": 1456358662000,
+              "length": 16810,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/psa30.html"
+            },
+            "stationlist.html": {
+              "contentType": "text/html",
+              "lastModified": 1456358662000,
+              "length": 150898,
+              "url": "/products/shakemap/ci37528064/ci/1456358665798/stationlist.html"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      -119.3728333,
+      35.5423333,
+      22.14
+    ]
+  },
+  "id": "ci37528064"
+}
