@@ -3,7 +3,7 @@
 
 var ImpactSummaryModule = require('impact/ImpactSummaryModule'),
     Module = require('core/Module'),
-    PagerView = require('mvc/View'), // TODO :: Use real PagerView
+    PagerView = require('losspager/PAGERView'),
     Util = require('util/Util');
 
 
@@ -69,12 +69,6 @@ var PAGERModule = function (options) {
           model: product
         });
       }
-
-      // TODO :: Remove this once PagerView is ready
-      _pagerView.render = function () {
-        _pagerView.el.innerHTML = '<p class="alert info">' +
-            'TODO :: Use real PagerView</p>';
-      };
 
       _pagerView.render();
     }
