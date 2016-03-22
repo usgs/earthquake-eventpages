@@ -1,17 +1,42 @@
 'use strict';
 
-var ContentView = require('core/ContentView');
+var ContentView = require('core/ContentView'),
+    Formatter = require('core/Formatter'),
+    Util = require('util/Util');
 
+
+var _DEFAULTS = {
+  empty: '&ndash;',
+  formatter: null
+};
 
 
 /**
  * View for ShakeMap info.json content.
+ *
+ * @param options {Object}
+ * @param options.empty {String}
+ *     value to display if a field is missing or empty.
+ *     default '&ndash;'.
+ * @param options.formatter {Formatter}
+ *     formatting object.
  */
 var ShakeMapInfoView = function (options) {
-  var _this;
+  var _this,
+      _initialize,
+
+      _empty,
+      _formatter;
 
 
   _this = ContentView(options);
+
+  _initialize = function (options) {
+    options = Util.extend({}, _DEFAULTS, options);
+    _empty = options.empty;
+    _formatter = options.formatter || Formatter();
+  };
+
 
   /**
    * Format a table for the shakemap info page.
@@ -125,35 +150,85 @@ var ShakeMapInfoView = function (options) {
    *        element where content should be rendered.
    */
   _this.renderInput = function (json, el) {
-    var input;
+    var info,
+        input;
 
     input = json.input;
 
+    info = input.event_information;
     el.innerHTML =
         '<h2>Inputs</h2>' +
         '<h3>Event Information</h3>' +
-        _this.formatTable({
-          data: input.event_information,
-          headers: {
-            'event_description': 'Description',
-            'event_id': 'ID',
-            'magnitude': 'Magnitude',
-            'depth': 'Depth',
-            'longitude': 'Longitude',
-            'latitude': 'Latitude',
-            'origin_time': 'Origin Time',
-            'src_mech': 'Mechanism',
-            'mech_src': 'Mechanism source',
-            'location': 'Location',
-            'feregion': 'Flinn Engdahl region',
-            'faultfiles': 'Fault file(s)',
-            'fault_ref': 'Fault reference(s)',
-            'tectonic_regime': 'Tectonic regime',
-            'seismic_stations': 'Number of seismic stations',
-            'intensity_observations': 'Number of DYFI stations'
-          },
-          includeUnknown: true
-        });
+        '<div class="horizontal-scrolling">' +
+        '<table>' +
+        '<tbody>' +
+        '<tr>' +
+          '<th scope="row">Description</th>' +
+          '<td>' + info.event_description + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">ID</th>' +
+          '<td>' + info.event_id + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Magnitude</th>' +
+          '<td>' + _formatter.magnitude(info.magnitude) + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Depth</th>' +
+          '<td>' + _formatter.depth(info.depth, 'km') + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Longitude</th>' +
+          '<td>' + _formatter.longitude(info.longitude) + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Latitude</th>' +
+          '<td>' + _formatter.latitude(info.latitude) + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Origin Time</th>' +
+          '<td>' + info.origin_time + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Mechanism</th>' +
+          '<td>' + (info.src_mech || _empty) + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Mechanism source</th>' +
+          '<td>' + (info.mech_src || _empty) + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Location</th>' +
+          '<td>' + info.location + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Flinn Engdahl region</th>' +
+          '<td>' + info.feregion + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Fault file(s)</th>' +
+          '<td>' + (info.faultfiles || _empty) + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Fault reference(s)</th>' +
+          '<td>' + (info.fault_ref || _empty) + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Tectonic regime</th>' +
+          '<td>' + (info.tectonic_regime || _empty) + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Number of seismic stations</th>' +
+          '<td>' + info.seismic_stations + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Number of DYFI stations</th>' +
+          '<td>' + info.intensity_observations + '</td>' +
+        '</tr>' +
+        '</tbody>' +
+        '</table>' +
+        '</div>';
   };
 
   /**
@@ -177,8 +252,8 @@ var ShakeMapInfoView = function (options) {
         _this.formatTable({
           data: output.ground_motions,
           formatValue: function (v) {
-            return '<td>' + v.max_grid + '</td>' +
-                '<td>' + v.max + '</td>' +
+            return '<td>' + v.max_grid + ' ' + v.units + '</td>' +
+                '<td>' + v.max + ' ' + v.units + '</td>' +
                 '<td>' + v.bias + '</td>';
           },
           headers: {
@@ -359,6 +434,8 @@ var ShakeMapInfoView = function (options) {
     el.innerHTML = buf.join('');
   };
 
+
+  _initialize(options);
   options = null;
   return _this;
 };
