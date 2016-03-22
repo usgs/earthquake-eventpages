@@ -31,6 +31,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/moment-tensor/Canvas.js:moment-tensor/Canvas',
   './' + config.src + '/htdocs/js/moment-tensor/MomentTensorView.js:moment-tensor/MomentTensorView',
   './' + config.src + '/htdocs/js/moment-tensor/Tensor.js:moment-tensor/Tensor',
+  './' + config.src + '/htdocs/js/origin/MagnitudesView.js:origin/MagnitudesView',
   './' + config.src + '/htdocs/js/pdl/CatalogEvent.js:pdl/CatalogEvent',
   './' + config.src + '/htdocs/js/pdl/Content.js:pdl/Content',
   './' + config.src + '/htdocs/js/pdl/Product.js:pdl/Product',

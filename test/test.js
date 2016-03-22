@@ -62,6 +62,8 @@ require('./spec/moment-tensor/CanvasTest');
 require('./spec/moment-tensor/MomentTensorViewTest');
 require('./spec/moment-tensor/TensorTest');
 
+require('./spec/origin/MagnitudesViewTest');
+
 require('./spec/pager/PAGERModuleTest');
 
 require('./spec/pdl/ContentTest');
