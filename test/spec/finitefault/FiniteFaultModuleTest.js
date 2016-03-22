@@ -66,19 +66,16 @@ describe('finitefault/FiniteFaultModule', function () {
       spy.restore();
     });
 
-    it('includes no footer', function () {
-      var content,
-          footer;
+    it('includes basic footer', function () {
+      var footer;
 
       module.render();
-
-      content = module.content;
       footer = module.footer;
+
       /* jshint -W030 */
       expect(footer).to.not.be.null;
       /* jshint +W030 */
-      expect(module.el.lastElementChild).to.equal(content);
-      expect(module.el.lastElementChild).to.not.equal(footer);
+      expect(module.el.lastElementChild).to.equal(footer);
     });
   });
 
