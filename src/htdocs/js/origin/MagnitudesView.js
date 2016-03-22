@@ -105,12 +105,12 @@ var MagnitudesView = function (options) {
           ' ', station.channelCode,
           ' ', station.locationCode,
         '</th>',
-        '<td class="type">', type , '</td>',
-        '<td class="amplitude">', amp , '</td>',
-        '<td class="period">', period , '</td>',
-        '<td class="status">', status , '</td>',
-        '<td class="magnitude">', mag , '</td>',
-        '<td class="weight">', weight , '</td>',
+        '<td class="type">', type, '</td>',
+        '<td class="amplitude">', amp, '</td>',
+        '<td class="period">', period, '</td>',
+        '<td class="status">', status, '</td>',
+        '<td class="magnitude">', mag, '</td>',
+        '<td class="weight">', weight, '</td>',
       '</tr>'
     ].join('');
   };
