@@ -11,7 +11,7 @@ before_install:
   - node --version
   - npm list -g
 install:
-  - npm install phantomjs
+  - npm install phantomjs-prebuilt
   - npm install
   - php src/lib/pre-install.php --non-interactive
 script:
