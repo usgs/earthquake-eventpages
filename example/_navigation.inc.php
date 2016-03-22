@@ -30,6 +30,7 @@ print navGroup('Scientific',
     navItem('/finitefault/FiniteFaultViewExample.php', 'FiniteFaultView') .
     navItem('/focal-mechanism/FocalMechanismViewExample.php', 'FocalMechanismView') .
     navItem('/origin/MagnitudesViewExample.php', 'MagnitudesView') .
+    navItem('/origin/OriginViewExample.php', 'OriginView') .
     navItem('/moment-tensor/MomentTensorViewExample.php', 'MomentTensorView')
   );
 
