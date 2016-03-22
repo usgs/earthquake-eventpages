@@ -520,6 +520,7 @@ var ShakeMapInfoView = function (options) {
     var buf,
         misc,
         processing,
+        response,
         versions;
 
     processing = json.processing;
@@ -614,17 +615,24 @@ var ShakeMapInfoView = function (options) {
         '</div>' +
         '</div>');
 
+    response = processing.site_response;
     buf.push(
         '<div class="one-of-two column">' +
         '<h3>Site Response</h3>' +
-        _this.formatTable({
-          data: processing.site_response,
-          headers: {
-            'vs30default': 'Reference rock Vs30 (m/s)',
-            'site_correction': 'Site correction applied'
-          },
-          includeUnknown: true
-        }) +
+        '<div class="horizontal-scrolling">' +
+        '<table>' +
+        '<tbody>' +
+          '<tr>' +
+            '<th scope="row">Reference rock Vs30</th>' +
+            '<td>' + response.vs30default + ' (m/s)</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Site correction applied</th>' +
+            '<td>' + response.site_correction + '</td>' +
+          '</tr>' +
+        '</tbody>' +
+        '</table>' +
+        '</div>' +
         '</div>');
 
     buf.push(
