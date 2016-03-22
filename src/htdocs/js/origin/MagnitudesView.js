@@ -134,7 +134,7 @@ var MagnitudesView = function (options) {
     }
 
     if (amplitude.period) {
-      period = amplitude.period.value + ' s'; // TODO :: Formatter?
+      period = amplitude.period.value + ' s';
     }
 
     return [
