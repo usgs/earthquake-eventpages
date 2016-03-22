@@ -1,3 +1,6 @@
+@import 'leaflet.css';
+@import 'mvc/ModalView.scss';
+
 @import 'locationview/_controls.scss';
 @import 'locationview/CoordinateControl.scss';
 @import 'locationview/GeocodeControl.scss';
@@ -8,6 +11,7 @@
 @import 'locationview/PointControl.scss';
 
 @import 'questionview/_QuestionView.scss';
+@import 'TextQuestionViews.scss';
 
 .felt-header {
   border-bottom: 1px solid #ddd;
@@ -43,25 +47,12 @@
   margin-bottom: 0.5em;
 }
 
-.dyfi-text-input {
-  > label {
-    display: block;
-    font-weight: bold;
-  }
-
-  > textarea {
-    height: 5em;
-    margin: 0;
-    width: 100%;
-  }
-}
-
 .dyfi-contact-questions {
   > legend {
     font-weight: bold;
   }
 
-  > .dyfi-text-input > label {
+  > .text-input > label {
     font-weight: normal;
   }
 }
