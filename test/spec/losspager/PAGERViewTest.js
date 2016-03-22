@@ -2,6 +2,7 @@
 'use strict';
 
 var PAGERView = require('losspager/PAGERView'),
+    PagerXmlParser = require('losspager/PagerXmlParser'),
     Product = require('pdl/Product'),
     Xhr = require('util/Xhr');
 
@@ -176,44 +177,42 @@ describe('losspager/PAGERView', function () {
     });
   });
 
-  describe.skip('getAlertComment', function () {
-    var el,
-        view;
-
-    beforeEach(function (done) {
-      var onSuccess;
-
-      el = document.createElement('div');
-      view = PAGERView({
-        el: el,
-        model: product
-      });
-      onSuccess = view.onSuccess;
-
-      view.onSuccess = function (data, xhr) {
-        try {
-          onSuccess(data, xhr);
-        } catch (e) {
-          console.log(e);
-          console.log(e.stack);
-        }
-        done();
-      };
-
-      view.render();
-    });
+  describe('getAlertComment', function () {
+    var view,
+        pagerInfo;
 
     afterEach(function () {
       view.destroy();
     });
 
+    beforeEach(function () {
+      view = PAGERView();
+    });
+
+    before(function (done) {
+      Xhr.ajax({
+        url: '/products/losspager/us10004u1y/us/1456938181480/pager.xml',
+        success: function (r, x) {
+          pagerInfo = PagerXmlParser.parse(x.responseXML || r);
+          done();
+        },
+        error: function () {
+          done();
+        }
+      });
+    });
+
     it('returns correct comment if passed fatality', function () {
+      view.setPagerInfo(pagerInfo);
+
       expect(view.getAlertComment('fatality')).to.equal(
           'Green alert for shaking-related fatalities and economic ' +
           'losses.  There is a low likelihood of casualties and damage.');
     });
 
     it('returns correct comment if passed economic', function () {
+      view.setPagerInfo(pagerInfo);
+
       expect(view.getAlertComment('economic')).to.equal(undefined);
     });
   });
