@@ -460,7 +460,7 @@ var PAGERView = function (options) {
 
       if (alertLevel !== 'pending') {
         _createHistogram(_fatalityHistogramEl, 'Estimated Fatalities',
-          pdf, png, comment);
+            pdf, png, comment);
       }
   };
 
