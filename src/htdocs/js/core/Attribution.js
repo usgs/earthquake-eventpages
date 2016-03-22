@@ -330,7 +330,7 @@ var Attribution = function (options) {
     }
 
     // Update the innerHTML of the container
-    attr.innerHTML = Object.keys.reduce(function (previous, current) {
+    attr.innerHTML = Object.keys(sources).reduce(function (previous, current) {
       return previous + sources[current];
     }, '');
 
