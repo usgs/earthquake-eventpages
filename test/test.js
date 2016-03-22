@@ -47,6 +47,7 @@ require('./spec/dyfi/DYFIViewTest');
 require('./spec/dyfi/DYFIIntensityGraphViewTest');
 require('./spec/dyfi/DYFIResponsesViewTest');
 
+require('./spec/finitefault/FiniteFaultModuleTest');
 require('./spec/finitefault/FiniteFaultViewTest');
 
 require('./spec/focal-mechanism/FocalMechanismViewTest');

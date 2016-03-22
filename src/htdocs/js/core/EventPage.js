@@ -6,6 +6,7 @@ var Attribution = require('core/Attribution'),
     DYFIModule = require('dyfi/DYFIModule'),
     Events = require('util/Events'),
     Formatter = require('core/Formatter'),
+    FiniteFaultModule = require('finitefault/FiniteFaultModule'),
     GeneralSummaryModule = require('general/GeneralSummaryModule'),
     ImpactSummaryModule = require('impact/ImpactSummaryModule'),
     InteractiveMapModule = require('map/InteractiveMapModule'),
@@ -32,7 +33,7 @@ var _DEFAULTS = {
       PAGERModule
     ],
     // Scientific
-    []
+    [FiniteFaultModule]
   ]
 };
 
