@@ -178,6 +178,12 @@ var PAGERView = function (options) {
     });
   };
 
+  /**
+   * Uses correct comments.
+   *
+   * @param commentType {String};
+   *    String can be fatality or economic.
+   */
   _this.getAlertComment = function (commentType) {
     var comments,
         economicComment,
@@ -339,6 +345,10 @@ var PAGERView = function (options) {
     }
   };
 
+  /**
+   * Sends _createHistogram the params needed to render economic
+   * histogram.
+   */
   _this.renderEconomicHistogram = function () {
       var alertLevel,
           comment,
@@ -357,6 +367,9 @@ var PAGERView = function (options) {
       }
   };
 
+  /**
+   * Creates markup for exposure map.
+   */
   _this.renderExposureMap = function () {
     var content;
 
@@ -428,6 +441,10 @@ var PAGERView = function (options) {
     _exposurePopulationEl.innerHTML = markup.join('');
   };
 
+  /**
+   * Sends _createHistogram the params needed to render fatality
+   * histogram.
+   */
   _this.renderFatalityHistogram = function () {
       var alertLevel,
           comment,
@@ -446,6 +463,9 @@ var PAGERView = function (options) {
       }
   };
 
+  /**
+   * Adds pending markup if alertLevel is equal to pending.
+   */
   _this.renderPending = function () {
     var alertLevel;
 
