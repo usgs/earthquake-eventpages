@@ -9,7 +9,8 @@ var expect = chai.expect;
 
 
 describe('origin/MagnitudesView', function () {
-  var contribution;
+  var contribution,
+      magnitude;
 
   before(function () {
     contribution = {
@@ -36,6 +37,19 @@ describe('origin/MagnitudesView', function () {
         }
       },
       weight: 'weight'
+    };
+
+    magnitude = {
+      contributions: [contribution],
+      creationInfo: {
+        agencyID: 'agencyId'
+      },
+      mag: {
+        value: 'value',
+        uncertainty: 'uncertainty'
+      },
+      stationCount: 'stationCount',
+      type: 'type'
     };
   });
 
@@ -118,7 +132,7 @@ describe('origin/MagnitudesView', function () {
       result = document.createElement('div');
     });
 
-    it('returns message when no contibutors provided', function () {
+    it('returns message when no contributors provided', function () {
       result.innerHTML = view.getContributionsMarkup();
       /* jshint -W030 */
       expect(result.querySelector('.alert')).to.not.be.null;
@@ -154,6 +168,81 @@ describe('origin/MagnitudesView', function () {
 
       headerSpy.restore();
       contentSpy.restore();
+    });
+  });
+
+  describe('getErrorMarkup', function () {
+    it('returns expected markup', function () {
+      var result,
+          view;
+
+      view = MagnitudesView();
+      result = document.createElement('ul');
+
+      result.innerHTML = view.getErrorMarkup('value');
+
+      expect(result.querySelectorAll('span').length).to.equal(2);
+      expect(result.querySelectorAll('abbr').length).to.equal(1);
+      expect(result.querySelector('span > span').innerHTML).to.equal('value');
+
+      view.destroy();
+    });
+  });
+
+  describe('getMagnitudeMarkup', function () {
+    var result,
+        view;
+
+    afterEach(function () {
+      view.destroy();
+    });
+
+    beforeEach(function () {
+      view = MagnitudesView();
+      result = document.createElement('div');
+    });
+
+    it('returns expected structure', function () {
+      result.innerHTML = view.getMagnitudeMarkup(magnitude);
+
+      expect(result.querySelectorAll('.magnitude-view-item').length)
+          .to.equal(1);
+      expect(result.querySelector('.magnitude-view-item > h3').innerHTML)
+          .to.equal('type');
+      expect(result.querySelectorAll('.magnitude-summary').length)
+          .to.equal(1);
+      expect(result.querySelectorAll('.accordion-toggle').length)
+          .to.equal(1);
+      expect(result.querySelectorAll('.accordion-content').length)
+          .to.equal(1);
+    });
+
+    it('delegates to sub methods', function () {
+      var contributionsSpy,
+          errorSpy,
+          sourceSpy,
+          stationsSpy,
+          valueSpy;
+
+      contributionsSpy = sinon.spy(view, 'getContributionsMarkup');
+      errorSpy = sinon.spy(view, 'getErrorMarkup');
+      sourceSpy = sinon.spy(view, 'getSourceMarkup');
+      stationsSpy = sinon.spy(view, 'getStationsMarkup');
+      valueSpy = sinon.spy(view, 'getValueMarkup');
+
+      view.getMagnitudeMarkup(magnitude);
+
+      expect(contributionsSpy.callCount).to.equal(1);
+      expect(errorSpy.callCount).to.equal(1);
+      expect(sourceSpy.callCount).to.equal(1);
+      expect(stationsSpy.callCount).to.equal(1);
+      expect(valueSpy.callCount).to.equal(1);
+
+      contributionsSpy.restore();
+      errorSpy.restore();
+      sourceSpy.restore();
+      stationsSpy.restore();
+      valueSpy.restore();
     });
   });
 });

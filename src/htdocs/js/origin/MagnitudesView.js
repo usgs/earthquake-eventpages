@@ -152,10 +152,14 @@ var MagnitudesView = function (options) {
   _this.getMagnitudeMarkup = function (magnitude) {
     var contributions,
         error,
+        mag,
         source,
         stations,
         type,
         value;
+
+    magnitude = magnitude || {};
+    mag = magnitude.mag || {};
 
     if (magnitude.creationInfo) {
       source = magnitude.creationInfo.agencyID;
@@ -166,8 +170,8 @@ var MagnitudesView = function (options) {
     contributions = magnitude.contributions || [];
 
     type = magnitude.type || _NOT_REPORTED;
-    value = magnitude.mag.value || _NOT_REPORTED;
-    error = magnitude.mag.uncertainty || _NOT_REPORTED;
+    value = mag.value || _NOT_REPORTED;
+    error = mag.uncertainty || _NOT_REPORTED;
     stations = magnitude.stationCount || _NOT_REPORTED;
 
     return [
