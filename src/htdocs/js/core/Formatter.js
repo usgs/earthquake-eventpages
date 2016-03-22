@@ -108,31 +108,6 @@ var Formatter = function (options) {
   };
 
   /**
-   * Converts a product into an identifiable catalog and id string.
-   *
-   * @param product {Product}
-   *    a Product model
-   */
-  _this.catalogDetail = function (product) {
-    var eventId,
-        eventSource,
-        eventSourceCode,
-        props;
-
-    props = product.properties;
-    eventSource = props.eventsource;
-    eventSourceCode = props.eventsourcecode;
-    eventId = '';
-
-    if (!eventSource) {
-      return _empty;
-    }
-
-    eventId = (eventSource + eventSourceCode).toLowerCase();
-    return eventSource.toUpperCase() + ' <small>(' + eventId + ')</small>';
-  };
-
-  /**
    * Convert azimuth in degree's into compass points.
    * @param azimuth {number}
    *    azimuth to format

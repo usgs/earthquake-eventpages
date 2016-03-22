@@ -1,14 +1,15 @@
 'use strict';
 
+
 var Attribution = require('core/Attribution'),
     Formatter = require('core/Formatter'),
     ProductView = require('core/ProductView'),
     Util = require('util/Util');
 
-var _DEFAULTS = {
 
-};
+var _DEFAULTS = {};
 var NOT_REPORTED = '&ndash;';
+
 
 var OriginView = function (options) {
 
@@ -24,6 +25,40 @@ var OriginView = function (options) {
     _formatter = options.formatter || Formatter();
   };
 
+  /**
+   * Converts a product into an identifiable catalog and id string.
+   *
+   * @param product {Product}
+   *    a Product model
+   */
+  _this.getCatalogDetail = function (product) {
+    var eventId,
+        eventSource,
+        eventSourceCode,
+        props;
+
+    props = product.properties;
+    eventSource = props.eventsource;
+    eventSourceCode = props.eventsourcecode;
+    eventId = '';
+
+    if (!eventSource) {
+      return NOT_REPORTED;
+    }
+
+    eventId = (eventSource + eventSourceCode).toLowerCase();
+    return eventSource.toUpperCase() + ' <small>(' + eventId + ')</small>';
+  };
+
+  /**
+   * Builds markup for origin detail table
+   *
+   * @param product {Product}
+   *    a Product model
+   *
+   * @return {string}
+   *    html markup for the origin table
+   */
   _this.getOriginDetailTable = function (product) {
     var azimuthalGap,
         buf,
@@ -124,7 +159,7 @@ var OriginView = function (options) {
         (azimuthalGap === null ? NOT_REPORTED : azimuthalGap + '&deg;'),
         '</td></tr>');
 
-    // Placeholder, filled in asynchronously
+    // TODO :: create a FERegionView {ProductView}
     buf.push('<tr>',
         '<th scope="row">',
           '<abbr title="Flinn Engdahl">FE</abbr> Region',
@@ -137,7 +172,7 @@ var OriginView = function (options) {
 
     buf.push(
         '<tr><th scope="row">Catalog</th><td>',
-          _formatter.catalogDetail(product),
+          _this.getCatalogDetail(product),
         '</td></tr>',
         '<tr><th scope="row">Location Source</th><td>',
           Attribution.getContributorReference(originSource),
@@ -173,8 +208,6 @@ var OriginView = function (options) {
   options = null;
   return _this;
 };
-
-
 
 
 module.exports = OriginView;
