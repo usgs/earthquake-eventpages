@@ -86,14 +86,15 @@ var MagnitudesView = function (options) {
     station = stationMagnitude.waveformID || amplitude.waveformID;
 
     amp = _NOT_REPORTED;
-    mag = stationMagnitude.mag.value || _NOT_REPORTED;
+    mag = _formatter.number(stationMagnitude.mag.value, 2, _NOT_REPORTED);
     period = _NOT_REPORTED;
     status = amplitude.evaluationMode || stationMagnitude.status || 'automatic';
     type = stationMagnitude.type;
     weight = contribution.weight;
 
     if (amplitude.genericAmplitude) {
-      amp = amplitude.genericAmplitude.value + (amplitude.unit || '');
+      amp = amplitude.genericAmplitude.value + '&nbsp;' +
+          (amplitude.unit || '');
     }
 
     if (amplitude.period) {

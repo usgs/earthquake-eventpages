@@ -5,7 +5,7 @@ var MagnitudesView = require('origin/MagnitudesView'),
     Xhr = require('util/Xhr');
 
 Xhr.ajax({
-  url: '/events/us10004u1y.json',
+  url: '/events/ci37528064.json',
   success: function (data) {
     var content,
         product;
