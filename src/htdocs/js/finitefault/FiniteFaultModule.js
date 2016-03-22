@@ -35,8 +35,8 @@ var FiniteFaultModule = function (options) {
 
   /**
    * Renders the details for this module. Defers bulk of header Information
-   * to generalized header rendering. Uses {PAGERView} for bulk of content
-   * rendering.
+   * to generalized header rendering. Uses FiniteFaultView for bulk of
+   * content rendering.
    *
    */
   _this.render = function () {
@@ -51,7 +51,7 @@ var FiniteFaultModule = function (options) {
     } else {
       _this.header.appendChild(_this.getProductHeader({
         product: product,
-        summaryModule: null // TODO add ScientificSummaryModule
+        summaryModule: null // TODO create/add ScientificSummaryModule
       }));
 
       // Load Finite Fault View
@@ -64,7 +64,6 @@ var FiniteFaultModule = function (options) {
 
     // remove module-footer, there is no content
     _this.el.removeChild(_this.footer);
-
   };
 
   _initialize();
