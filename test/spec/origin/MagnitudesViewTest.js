@@ -27,4 +27,19 @@ describe('origin/MagnitudesView', function () {
       expect(view.destroy).to.not.throw(Error);
     });
   });
+
+  describe('getStationTableHeaderRow', function () {
+    it('should produce the correct headers', function () {
+      var view,
+          result;
+
+      view = MagnitudesView();
+      result = document.createElement('thead');
+
+      result.innerHTML = view.getStationTableHeaderRow();
+      expect(result.querySelectorAll('th').length).to.equal(7);
+
+      view.destroy();
+    });
+  });
 });
