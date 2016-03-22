@@ -155,7 +155,17 @@ var OriginView = function (options) {
   };
 
   _this.render = function () {
-    _this.el.innerHTML = _this.getOriginDetailTable(_this.model.get());
+    var product;
+
+    product = _this.model.get();
+
+    if (product) {
+      _this.el.innerHTML = _this.getOriginDetailTable(product);
+    } else {
+      _this.el.innerHTML = '<p class="alert error">' +
+        'No Origin product exists.' +
+        '</p>';
+    }
   };
 
 
