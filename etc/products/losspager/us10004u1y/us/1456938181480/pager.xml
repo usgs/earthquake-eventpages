@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+<?xml version="1.0" standalone="yes"?>
 <pager version="1.0 Revision 1516" xml_version="1" process_timestamp="2016-03-02T16:59:54Z" elapsed="4 hours, 10 minutes" ccode="" approved="A" tsunami="1">
 	<event eventcode="us10004u1y" versioncode="us10004u1y" number="4" shakeversion="4" magnitude="7.8" depth="24.0" lat="-4.908200" lon="94.275000" event_timestamp="2016-03-02T12:49:48Z" event_description="SOUTHWEST OF SUMATRA, INDONESIA" maxmmi="3.0" shaketime="2016-03-02T16:45:02Z" isreviewed="False" localtime="12:49:48"/>
 	<alerts>
