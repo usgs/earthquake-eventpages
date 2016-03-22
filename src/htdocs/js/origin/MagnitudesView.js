@@ -116,7 +116,7 @@ var MagnitudesView = function (options) {
   };
 
   _this.getContributionsMarkup = function (contributions) {
-    if (contributions.length === 0) {
+    if (!contributions || contributions.length === 0) {
       return '<p class="alert info">' +
           'No amplitudes contributed for this magnitude.</p>';
     } else {
