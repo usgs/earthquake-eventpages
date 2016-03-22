@@ -4,7 +4,6 @@
 var Accordion = require('accordion/Accordion'),
     Attribution = require('core/Attribution'),
     ContentView = require('core/ContentView'),
-    Formatter = require('core/Formatter'),
     Product = require('pdl/Product'),
     Quakeml = require('quakeml/Quakeml'),
     Util = require('util/Util');
@@ -22,7 +21,6 @@ var MagnitudesView = function (options) {
       _initialize,
 
       _accordion,
-      _formatter,
       _product,
       _quakeml;
 
@@ -31,7 +29,6 @@ var MagnitudesView = function (options) {
   _this = ContentView(options);
 
   _initialize = function (options) {
-    _formatter = options.formatter || Formatter();
     _product = options.product || Product();
 
     _accordion = Accordion({
@@ -45,7 +42,6 @@ var MagnitudesView = function (options) {
     // _quakeml.destroy(); // TODO :: Yes? No?
 
     _accordion = null;
-    _formatter = null;
     _product = null;
     _quakeml = null;
 
@@ -86,7 +82,7 @@ var MagnitudesView = function (options) {
     station = stationMagnitude.waveformID || amplitude.waveformID;
 
     amp = _NOT_REPORTED;
-    mag = _formatter.number(stationMagnitude.mag.value, 2, _NOT_REPORTED);
+    mag = stationMagnitude.mag.value || _NOT_REPORTED;
     period = _NOT_REPORTED;
     status = amplitude.evaluationMode || stationMagnitude.status || 'automatic';
     type = stationMagnitude.type;
@@ -145,8 +141,10 @@ var MagnitudesView = function (options) {
   _this.getErrorMarkup = function (error) {
     return [
       '<li>',
-        '<span>', error, '</span>',
-        '<abbr title="Magnitude Error">Error</abbr>',
+        '<span class="bubble">',
+          '<span>', error, '</span>',
+          '<abbr title="Magnitude Error">Error</abbr>',
+        '</span>',
       '</li>'
     ].join('');
   };
@@ -201,8 +199,10 @@ var MagnitudesView = function (options) {
   _this.getSourceMarkup = function (source) {
     return [
       '<li>',
-        Attribution.getContributorReference(source),
-        '<abbr title="Magnitude Data Source">Source</abbr>',
+        '<span class="bubble">',
+          Attribution.getContributorReference(source),
+          '<abbr title="Magnitude Data Source">Source</abbr>',
+        '</span>',
       '</li>'
     ].join('');
   };
@@ -210,19 +210,21 @@ var MagnitudesView = function (options) {
   _this.getStationsMarkup = function (stations) {
     return [
       '<li>',
-        '<span>', stations, '</span>',
-        '<abbr title="Number of Stations">Stations</abbr>',
+        '<span class="bubble">',
+          '<span>', stations, '</span>',
+          '<abbr title="Number of Stations">Stations</abbr>',
+        '</span>',
       '</li>'
     ].join('');
   };
 
   _this.getValueMarkup = function (value) {
     return [
-      '<li class="magnitude-value">',
-        '<span><strong>',
-          _formatter.magnitude(value),
-        '</strong></span>',
-        '<abbr title="Magnitude">Mag</abbr>',
+      '<li>',
+        '<span class="bubble bubble-border">',
+          '<span><strong>', value, '</strong></span>',
+          '<abbr title="Magnitude">Mag</abbr>',
+        '</span>',
       '</li>'
     ].join('');
   };
