@@ -233,9 +233,10 @@ var PAGERView = function (options) {
   _this.onSuccess = function (data, xhr) {
     var xml;
 
-    xml = (xhr ? xhr.responseXML : data);
+    xml = ((xhr && xhr.responseXML) ? xhr.responseXML : data);
 
     _pagerInfo = PagerXmlParser.parse(xml);
+
     _this.renderFatalityHistogram();
     _this.renderEconomicHistogram();
     _this.renderExposures();

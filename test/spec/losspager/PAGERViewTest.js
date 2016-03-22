@@ -1,4 +1,4 @@
-/* global  afterEach, before, beforeEach, chai, describe, it */
+/* global  afterEach, before, beforeEach, chai, describe, it, sinon */
 'use strict';
 
 var PAGERView = require('losspager/PAGERView'),
@@ -9,36 +9,49 @@ var PAGERView = require('losspager/PAGERView'),
 var expect = chai.expect;
 
 describe('losspager/PAGERView', function () {
-  var product,
+  var pagerInfo,
+      product,
       response,
       xhr;
 
-  product = Product({
-    source: 'us',
-    status: 'UPDATE',
-    properties: {
-      maxmmi: 7.0,
-    },
-    contents: {
-      'pager.xml': {url: '/products/losspager/us10004u1y/us/1456938181480/pager.xml'},
-      'exposure.png': {url: '/products/losspager/us10004u1y/us/1456938181480/exposure.png'},
-      'alertecon.pdf': {url: '/products/losspager/us10004u1y/us/1456938181480/alertecon.pdf'},
-      'alertecon.png': {url: '/products/losspager/us10004u1y/us/1456938181480/alertecon.png'},
-      'alertfatal.pdf': {url: '/products/losspager/us10004u1y/us/1456938181480/alertfatal.pdf'},
-      'alertfatal.png': {url: '/products/losspager/us10004u1y/us/1456938181480/alertfatal.png'}
-    }
-  });
-
   before(function (done) {
+    var stub;
+
+    stub = '/products/losspager/us10004u1y/us/1456938181480';
+
+    product = Product({
+      contents: {
+        'pager.xml': {url: stub + '/pager.xml'},
+        'exposure.png': {url: stub + '/exposure.png'},
+        'alertecon.pdf': {url: stub + '/alertecon.pdf'},
+        'alertecon.png': {url: stub + '/alertecon.png'},
+        'alertfatal.pdf': {url: stub + '/alertfatal.pdf'},
+        'alertfatal.png': {url: stub + '/alertfatal.png'}
+      },
+      properties: {
+        maxmmi: 7.0,
+      },
+      source: 'us',
+      status: 'UPDATE',
+      type: 'losspager'
+    });
+
     Xhr.ajax({
       url: '/products/losspager/us10004u1y/us/1456938181480/pager.xml',
       success: function (r, x) {
-        xhr = x;
+        pagerInfo = PagerXmlParser.parse(x.responseXML || r);
+
         response = r;
+        xhr = x;
+
+        done();
+      },
+      error: function () {
         done();
       }
     });
   });
+
 
   describe('constructor', function () {
     it('should be defined', function () {
@@ -139,47 +152,51 @@ describe('losspager/PAGERView', function () {
     });
   });
 
-  describe('fetchData()', function () {
-    var el,
-        view;
+  describe('fetchData', function () {
+    it('calls error when no content available', function () {
+      var stub,
+          view;
 
-    beforeEach(function (done) {
-      var onSuccess;
-
-      el = document.createElement('div');
-      view = PAGERView({
-        el: el,
-        model: product
+      view = PAGERView();
+      stub = sinon.stub(view, 'onError', function () {
+        // Do nothing
       });
-      onSuccess = view.onSuccess;
 
-      view.onSuccess = function (data, xhr) {
-        try {
-          onSuccess(data, xhr);
-        } catch (e) {
-          console.log(e);
-          console.log(e.stack);
-        }
-        done();
-      };
+      view.fetchData();
+      expect(stub.callCount).to.equal(1);
 
-      view.render();
-    });
-
-    afterEach(function () {
+      stub.restore();
       view.destroy();
     });
 
-    it('gets data', function () {
-      /* jshint -W030 */
-      expect(product).to.not.be.null;
-      /* jshint +W030 */
+    it('calls onSuccess when content is available', function () {
+      var ajaxStub,
+          successStub,
+          view;
+
+      view = PAGERView({
+        model: product
+      });
+
+      successStub = sinon.stub(view, 'onSuccess', function () {
+        // Do no thing
+      });
+
+      ajaxStub = sinon.stub(Xhr, 'ajax', function (options) {
+        options.success();
+      });
+
+      view.fetchData();
+      expect(successStub.callCount).to.equal(1);
+
+      successStub.restore();
+      ajaxStub.restore();
+      view.destroy();
     });
   });
 
   describe('getAlertComment', function () {
-    var view,
-        pagerInfo;
+    var view;
 
     afterEach(function () {
       view.destroy();
@@ -187,33 +204,24 @@ describe('losspager/PAGERView', function () {
 
     beforeEach(function () {
       view = PAGERView();
-    });
-
-    before(function (done) {
-      Xhr.ajax({
-        url: '/products/losspager/us10004u1y/us/1456938181480/pager.xml',
-        success: function (r, x) {
-          pagerInfo = PagerXmlParser.parse(x.responseXML || r);
-          done();
-        },
-        error: function () {
-          done();
+      view.setPagerInfo({
+        comments: {
+          impact: [
+            'Fatality comment',
+            'Economic comment'
+          ]
         }
       });
     });
 
     it('returns correct comment if passed fatality', function () {
-      view.setPagerInfo(pagerInfo);
-
       expect(view.getAlertComment('fatality')).to.equal(
-          'Green alert for shaking-related fatalities and economic ' +
-          'losses.  There is a low likelihood of casualties and damage.');
+          'Fatality comment');
     });
 
     it('returns correct comment if passed economic', function () {
-      view.setPagerInfo(pagerInfo);
-
-      expect(view.getAlertComment('economic')).to.equal(undefined);
+      expect(view.getAlertComment('economic')).to.equal(
+          'Economic comment');
     });
   });
 
@@ -226,273 +234,155 @@ describe('losspager/PAGERView', function () {
       /* jshint -W030 */
       expect(view.el.querySelector('.show-additional')).to.be.null;
       /* jshint +W030 */
+
       view.onCityClick();
 
       /* jshint -W030 */
       expect(view.el.querySelector('.show-additional')).to.not.be.null;
       /* jshint +W030 */
+
+      view.destroy();
     });
   });
 
   describe('onError', function() {
-    var view;
-
-    before(function () {
-      view = PAGERView();
-    });
-
     it('should use default message', function () {
+      var view;
+
+      view = PAGERView();
+
       view.onError();
       expect(view.el.innerHTML).to.equal('Error loading PAGER view');
+
+      view.destroy();
     });
   });
 
 
-  describe.skip('onSuccess', function () {
-    var el,
-        view;
+  describe('onSuccess', function () {
+    it('calls each sub method', function () {
+      var cityStub,
+          econStub,
+          expoStub,
+          fatStub,
+          view;
 
-    beforeEach(function (done) {
-      var onSuccess;
+      view = PAGERView();
 
-      el = document.createElement('div');
-      view = PAGERView({
-        el: el,
-        model: product
-      });
-      onSuccess = view.onSuccess;
+      cityStub = sinon.stub(view, 'renderCities', function () {});
+      econStub = sinon.stub(view, 'renderEconomicHistogram', function () {});
+      expoStub = sinon.stub(view, 'renderExposures', function () {});
+      fatStub = sinon.stub(view, 'renderFatalityHistogram', function () {});
 
-      view.onSuccess = function (data, xhr) {
-        try {
-          onSuccess(data, xhr);
-        } catch (e) {
-          console.log(e);
-          console.log(e.stack);
-        }
-        done();
-      };
+      view.onSuccess(response, xhr);
 
-      view.render();
-    });
+      expect(cityStub.callCount).to.equal(1);
+      expect(econStub.callCount).to.equal(1);
+      expect(expoStub.callCount).to.equal(1);
+      expect(fatStub.callCount).to.equal(1);
 
-    afterEach(function () {
+      cityStub.restore();
+      econStub.restore();
+      expoStub.restore();
+      fatStub.restore();
+
       view.destroy();
-    });
-
-    it('calls renderFatalityHistogram', function () {
-      /* jshint -W030 */
-      expect(el.querySelector('.fatality-histogram img')).to.not.be.null;
-      /* jshint +W030 */
-    });
-
-    it('calls renderEconomicHistogram', function () {
-      /* jshint -W030 */
-      expect(el.querySelector('.economic-histogram img')).to.not.be.null;
-      /* jshint +W030 */
-    });
-
-    it('calls renderExposures', function () {
-      /* jshint -W030 */
-      expect(el.querySelector('.pager-exposures')).to.not.be.null;
-      /* jshint +W030 */
-    });
-
-    it('calls renderCities', function () {
-      /* jshint -W030 */
-      expect(el.querySelector('.cities-population')).to.not.be.null;
-      /* jshint +W030 */
     });
   });
 
-  describe.skip('renderCities', function () {
-    var el,
-        view;
-
-    beforeEach(function (done) {
-      var onSuccess;
-
-      el = document.createElement('div');
-      view = PAGERView({
-        el: el,
-        model: product
-      });
-      onSuccess = view.onSuccess;
-
-      view.onSuccess = function (data, xhr) {
-        try {
-          onSuccess(data, xhr);
-        } catch (e) {
-          console.log(e);
-          console.log(e.stack);
-        }
-        done();
-      };
-
-      view.render();
-
-    });
-
-    afterEach(function () {
-      view.destroy();
-    });
-
+  describe('renderCities', function () {
     it('renders cities and length is correct', function () {
+      var view;
+
+      view = PAGERView({
+        model: product,
+      });
+
+      view.setPagerInfo(pagerInfo);
+      view.renderCities();
+
       expect(view.el.getElementsByClassName('cities-population').length)
           .to.equal(861);
+
+      view.destroy();
     });
   });
 
-  describe.skip('renderComments', function () {
-    var el,
-        view;
+  describe('renderComments', function () {
+    it('Shows comments if they are avaliable', function () {
+      var view;
 
-    beforeEach(function (done) {
-      var onSuccess;
-
-      el = document.createElement('div');
       view = PAGERView({
-        el: el,
         model: product
       });
-      onSuccess = view.onSuccess;
+      view.setPagerInfo(pagerInfo);
 
-      view.onSuccess = function (data, xhr) {
-        try {
-          onSuccess(data, xhr);
-        } catch (e) {
-          console.log(e);
-          console.log(e.stack);
-        }
-        done();
-      };
+      view.renderComments();
 
-      view.render();
-    });
-
-    afterEach(function () {
-      view.destroy();
-    });
-
-    it('Shows comments if they are avaliable', function () {
       /* jshint -W030 */
       expect(view.el.querySelector('.wrapper')).to.not.be.null;
       /* jshint +W030 */
+
+      view.destroy();
     });
   });
 
-  describe.skip('renderEconomicHistogram', function () {
-    var el,
-        view;
+  describe('renderEconomicHistogram', function () {
+    it('renders histogram if alertLevel is not equal to pending', function () {
+      var view;
 
-    beforeEach(function (done) {
-      var onSuccess;
-
-      el = document.createElement('div');
       view = PAGERView({
-        el: el,
         model: product
       });
-      onSuccess = view.onSuccess;
+      view.setPagerInfo(pagerInfo);
 
-      view.onSuccess = function (data, xhr) {
-        try {
-          onSuccess(data, xhr);
-        } catch (e) {
-          console.log(e);
-          console.log(e.stack);
-        }
-        done();
-      };
+      view.renderEconomicHistogram();
 
-      view.render();
-    });
-
-    afterEach(function () {
-      view.destroy();
-    });
-
-    it('redners histogram if alertLevel is not equal to pending', function () {
       /* jshint -W030 */
-      expect(view.el.querySelector('.economic-histogram figure')).to.not.be.null;
+      expect(view.el.querySelector('.economic-histogram figure'))
+          .to.not.be.null;
       /* jshint +W030 */
+
+      view.destroy();
     });
   });
 
   describe('renderExposureMap', function () {
-    var el,
-        view;
+    it('renders renderExposureMap correctly', function () {
+      var view;
 
-    beforeEach(function (done) {
-      var onSuccess;
-
-      el = document.createElement('div');
       view = PAGERView({
-        el: el,
         model: product
       });
-      onSuccess = view.onSuccess;
+      view.setPagerInfo(pagerInfo);
 
-      view.onSuccess = function (data, xhr) {
-        try {
-          onSuccess(data, xhr);
-        } catch (e) {
-          console.log(e);
-          console.log(e.stack);
-        }
-        done();
-      };
+      view.renderExposureMap();
 
-      view.render();
-
-    });
-
-    afterEach(function () {
-      view.destroy();
-    });
-
-    it('renders renderExposureMap correctly', function () {
       /* jshint -W030 */
       expect(view.el.querySelector('.exposure-map img')).to.not.be.null;
       /* jshint +W030 */
+
+      view.destroy();
     });
   });
 
-  describe.skip('renderFatalityHistogram', function () {
-    var el,
-        view;
+  describe('renderFatalityHistogram', function () {
+    it('renders histogram if alertLevel is not equal to pending', function () {
+      var view;
 
-    beforeEach(function (done) {
-      var onSuccess;
-
-      el = document.createElement('div');
       view = PAGERView({
-        el: el,
         model: product
       });
-      onSuccess = view.onSuccess;
+      view.setPagerInfo(pagerInfo);
 
-      view.onSuccess = function (data, xhr) {
-        try {
-          onSuccess(data, xhr);
-        } catch (e) {
-          console.log(e);
-          console.log(e.stack);
-        }
-        done();
-      };
+      view.renderFatalityHistogram();
 
-      view.render();
-
-    });
-
-    afterEach(function () {
-      view.destroy();
-    });
-
-    it('redners histogram if alertLevel is not equal to pending', function () {
       /* jshint -W030 */
-      expect(view.el.querySelector('.fatality-histogram figure')).to.not.be.null;
+      expect(view.el.querySelector('.fatality-histogram figure'))
+          .to.not.be.null;
       /* jshint +W030 */
+
+      view.destroy();
     });
   });
 });
