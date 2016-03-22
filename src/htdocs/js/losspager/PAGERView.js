@@ -481,6 +481,16 @@ var PAGERView = function (options) {
     }
   };
 
+  /**
+   * Sets the pagerInfo to be rendered.
+   *
+   * @param pagerInfo {Object}
+   *     The PAGER info to use for rendering.
+   */
+  _this.setPagerInfo = function (pagerInfo) {
+    _pagerInfo = pagerInfo;
+  };
+
 
   _initialize(options);
   options = null;
