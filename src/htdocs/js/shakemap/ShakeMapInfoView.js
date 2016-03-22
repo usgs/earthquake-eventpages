@@ -39,6 +39,151 @@ var ShakeMapInfoView = function (options) {
 
 
   /**
+   * Format the output ground motions table.
+   *
+   * @param groundMotions {Object}
+   *     the output ground motions section of info.json.
+   * @return {String}
+   *     markup for output ground motions table.
+   */
+  _this.formatOutputGroundMotions = function (groundMotions) {
+    var buf,
+        headers,
+        formatGroundMotion;
+
+
+    buf = [];
+    buf.push('<h3>Ground Motion/Intensity Information</h3>');
+
+    buf.push(
+        '<div class="horizontal-scrolling">' +
+        '<table>' +
+        '<thead>' +
+          '<tr>' +
+          '<th scope="col">Type</th>' +
+          '<th scope="col">Max value in grid</th>' +
+          '<th scope="col">Max value on land</th>' +
+          '<th scope="col">Bias</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>');
+
+    /**
+     * Format one ground motion row.
+     *
+     * @param gm {Object}
+     *     ground motion object.
+     * @param label {String}
+     *     markup for `th` element.
+     * @return {String}
+     *     markup for table row.
+     */
+    formatGroundMotion = function (gm, label) {
+      var units;
+
+      units = gm.units;
+
+      return '<tr>' +
+          '<th scope="row">' + label + '</th>' +
+          '<td>' + gm.max_grid + ' ' + units + '</td>' +
+          '<td>' + gm.max + ' ' + units + '</td>' +
+          '<td>' + gm.bias + '</td>' +
+          '</tr>';
+    };
+
+    headers = {
+      'intensity': 'Intensity',
+      'pga': '<abbr title="Peak Ground Acceleration">PGA</abbr>',
+      'pgv': '<abbr title="Peak Ground Velocity">PGV</abbr>',
+      'psa03': '<abbr title="Pseudo Spectral Acceleration 0.3 second">' +
+          'PSA03</abbr>',
+      'psa10': '<abbr title="Pseudo Spectral Acceleration 1.0 second">' +
+          'PSA10</abbr>',
+      'psa30': '<abbr title="Pseudo Spectral Acceleration 3.0 second">' +
+          'PSA30</abbr>'
+    };
+
+    Object.keys(headers).forEach(function (key) {
+      buf.push(formatGroundMotion(groundMotions[key], headers[key]));
+    });
+    Object.keys(groundMotions).forEach(function (key) {
+      if (!(key in headers)) {
+        // unknown groundMotion
+        buf.push(formatGroundMotion(groundMotions[key], key));
+      }
+    });
+
+    buf.push(
+        '</tbody>' +
+        '</table>' +
+        '</div>');
+
+    return buf.join('');
+  };
+
+  /**
+   * Format the output map information table.
+   *
+   * @param mapInformation {Object}
+   *     the output map information section of info.json.
+   * @return {String}
+   *     markup for the map information table.
+   */
+  _this.formatOutputMapInformation = function (mapInformation) {
+    var gridPoints,
+        gridSpan,
+        gridSpacing,
+        max,
+        min;
+
+    gridPoints = mapInformation.grid_points;
+    gridSpan = mapInformation.grid_span;
+    gridSpacing = mapInformation.grid_spacing;
+    max = mapInformation.max;
+    min = mapInformation.min;
+
+    return '<h3>Map Information</h3>' +
+        '<div class="horizontal-scrolling">' +
+        '<table>' +
+        '<thead>' +
+        '<tr>' +
+        '<th scope="col">Type</th>' +
+        '<th scope="col">Latitude</th>' +
+        '<th scope="col">Longitude</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+        '<tr>' +
+          '<th scope="row">Span</th>' +
+          '<td>' + gridSpan.latitude + '&deg;</td>' +
+          '<td>' + gridSpan.longitude + '&deg;</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Grid Spacing</th>' +
+          '<td>' + gridSpacing.latitude + ' km</td>' +
+          '<td>' + gridSpacing.longitude + ' km</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Number of points</th>' +
+          '<td>' + gridPoints.latitude + '</td>' +
+          '<td>' + gridPoints.longitude + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Min</th>' +
+          '<td>' + _formatter.latitude(min.latitude) + '</td>' +
+          '<td>' + _formatter.longitude(min.longitude) + '</td>' +
+        '</tr>' +
+        '<tr>' +
+          '<th scope="row">Max</th>' +
+          '<td>' + _formatter.latitude(max.latitude) + '</td>' +
+          '<td>' + _formatter.longitude(max.longitude) + '</td>' +
+        '</tr>' +
+        '</tbody>' +
+        '</table>' +
+        '</div>';
+  };
+
+  /**
    * Format a table for the shakemap info page.
    *
    * @param options {Object}
@@ -150,85 +295,89 @@ var ShakeMapInfoView = function (options) {
    *        element where content should be rendered.
    */
   _this.renderInput = function (json, el) {
-    var info,
+    var buf,
+        info,
         input;
 
     input = json.input;
 
+    buf = [];
+    buf.push('<h2>Input</h2>');
+
     info = input.event_information;
-    el.innerHTML =
-        '<h2>Inputs</h2>' +
-        '<h3>Event Information</h3>' +
+    buf.push('<h3>Event Information</h3>' +
         '<div class="horizontal-scrolling">' +
         '<table>' +
         '<tbody>' +
-        '<tr>' +
-          '<th scope="row">Description</th>' +
-          '<td>' + info.event_description + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">ID</th>' +
-          '<td>' + info.event_id + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Magnitude</th>' +
-          '<td>' + _formatter.magnitude(info.magnitude) + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Depth</th>' +
-          '<td>' + _formatter.depth(info.depth, 'km') + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Longitude</th>' +
-          '<td>' + _formatter.longitude(info.longitude) + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Latitude</th>' +
-          '<td>' + _formatter.latitude(info.latitude) + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Origin Time</th>' +
-          '<td>' + info.origin_time + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Mechanism</th>' +
-          '<td>' + (info.src_mech || _empty) + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Mechanism source</th>' +
-          '<td>' + (info.mech_src || _empty) + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Location</th>' +
-          '<td>' + info.location + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Flinn Engdahl region</th>' +
-          '<td>' + info.feregion + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Fault file(s)</th>' +
-          '<td>' + (info.faultfiles || _empty) + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Fault reference(s)</th>' +
-          '<td>' + (info.fault_ref || _empty) + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Tectonic regime</th>' +
-          '<td>' + (info.tectonic_regime || _empty) + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Number of seismic stations</th>' +
-          '<td>' + info.seismic_stations + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Number of DYFI stations</th>' +
-          '<td>' + info.intensity_observations + '</td>' +
-        '</tr>' +
+          '<tr>' +
+            '<th scope="row">Description</th>' +
+            '<td>' + info.event_description + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">ID</th>' +
+            '<td>' + info.event_id + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Magnitude</th>' +
+            '<td>' + _formatter.magnitude(info.magnitude) + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Depth</th>' +
+            '<td>' + _formatter.depth(info.depth, 'km') + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Longitude</th>' +
+            '<td>' + _formatter.longitude(info.longitude) + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Latitude</th>' +
+            '<td>' + _formatter.latitude(info.latitude) + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Origin Time</th>' +
+            '<td>' + info.origin_time + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Mechanism</th>' +
+            '<td>' + (info.src_mech || _empty) + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Mechanism source</th>' +
+            '<td>' + (info.mech_src || _empty) + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Location</th>' +
+            '<td>' + info.location + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Flinn Engdahl region</th>' +
+            '<td>' + info.feregion + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Fault file(s)</th>' +
+            '<td>' + (info.faultfiles || _empty) + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Fault reference(s)</th>' +
+            '<td>' + (info.fault_ref || _empty) + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Tectonic regime</th>' +
+            '<td>' + (info.tectonic_regime || _empty) + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Number of seismic stations</th>' +
+            '<td>' + info.seismic_stations + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Number of DYFI stations</th>' +
+            '<td>' + info.intensity_observations + '</td>' +
+          '</tr>' +
         '</tbody>' +
         '</table>' +
-        '</div>';
+        '</div>');
+
+    el.innerHTML = buf.join('');
   };
 
   /**
@@ -247,58 +396,8 @@ var ShakeMapInfoView = function (options) {
 
     buf = [];
     buf.push('<h2>Output</h2>');
-
-    buf.push('<h3>Ground Motion/Intensity Information</h3>' +
-        _this.formatTable({
-          data: output.ground_motions,
-          formatValue: function (v) {
-            return '<td>' + v.max_grid + ' ' + v.units + '</td>' +
-                '<td>' + v.max + ' ' + v.units + '</td>' +
-                '<td>' + v.bias + '</td>';
-          },
-          headers: {
-            'intensity': 'Intensity',
-            'pga': '<abbr title="Peak Ground Acceleration">PGA</abbr>',
-            'pgv': '<abbr title="Peak Ground Velocity">PGV</abbr>',
-            'psa03': '<abbr title="Pseudo Spectral Acceleration 0.3 second">PSA03</abbr>',
-            'psa10': '<abbr title="Pseudo Spectral Acceleration 1.0 second">PSA10</abbr>',
-            'psa30': '<abbr title="Pseudo Spectral Acceleration 3.0 second">PSA30</abbr>'
-          },
-          includeUnknown: true,
-          thead:
-              '<thead>' +
-              '<tr>' +
-              '<th scope="col">Type</th>' +
-              '<th scope="col">Max value in grid</th>' +
-              '<th scope="col">Max value on land</th>' +
-              '<th scope="col">Bias</th>' +
-              '</tr>' +
-              '</thead>'
-        }));
-
-    buf.push('<h3>Map Information</h3>' +
-        _this.formatTable({
-          data: output.map_information,
-          formatValue: function (v) {
-            return '<td>' + v.latitude + '</td>' +
-                '<td>' + v.longitude + '</td>';
-          },
-          headers: {
-            'grid_span': 'Span',
-            'grid_spacing': 'Grid Spacing',
-            'grid_points': 'Number of points',
-            'min': 'Min',
-            'max': 'Max'
-          },
-          thead:
-            '<thead>' +
-            '<tr>' +
-            '<th scope="col">Type</th>' +
-            '<th scope="col">Latitude</th>' +
-            '<th scope="col">Longitude</th>' +
-            '</tr>' +
-            '</thead>'
-        }));
+    buf.push(_this.formatOutputGroundMotions(output.ground_motions));
+    buf.push(_this.formatOutputMapInformation(output.map_information));
 
     buf.push('<h3>Uncertainty</h3>' +
         _this.formatTable({
