@@ -1,44 +1,33 @@
-/* global afterEach, before, beforeEach, chai, describe, it, sinon */
+/* global  afterEach, before, beforeEach, chai, describe, it */
 'use strict';
 
 var PAGERView = require('losspager/PAGERView'),
-    ImpactModule = require('impact/ImpactModule'),
+    Product = require('pdl/Product'),
+    //Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
 var expect = chai.expect;
 
-var eventInfo = {
-  properties: {
-    products: {
-      losspager: [{
-        source: 'us',
-        status: 'UPDATE',
-        properties: {
-          maxmmi: 7.0
-        },
-        contents: {
-          'pager.xml': {url:
-              '/etc/products/losspager/us10004u1y/us/1456938181480/pager.xml'},
-          'exposure.png': {url: 'exposure.png'},
-          'alertecon.pdf': {url: 'alertecon.pdf'},
-          'alertecon.png': {url: 'alertecon.png'},
-          'alertfatal.pdf': {url: 'alertfatal.pdf'},
-          'alertfatal.png': {url: 'alertfatal.png'}
-        }
-      }]
-    }
-  }
-};
-
-var _fireClickEvent = function (target) {
-  var clickEvent = document.createEvent('MouseEvents');
-  clickEvent.initMouseEvent('click', true, true, window, 1, 0, 0);
-  target.dispatchEvent(clickEvent);
-};
-
 describe('losspager/PAGERView', function () {
-  var response,
+  var product,
+      response,
       xhr;
+
+  product = Product({
+    source: 'us',
+    status: 'UPDATE',
+    properties: {
+      maxmmi: 7.0,
+    },
+    contents: {
+      'pager.xml': {url: '/products/losspager/us10004u1y/us/1456938181480/pager.xml'},
+      'exposure.png': {url: '/products/losspager/us10004u1y/us/1456938181480/exposure.png'},
+      'alertecon.pdf': {url: '/products/losspager/us10004u1y/us/1456938181480/alertecon.pdf'},
+      'alertecon.png': {url: '/products/losspager/us10004u1y/us/1456938181480/alertecon.png'},
+      'alertfatal.pdf': {url: '/products/losspager/us10004u1y/us/1456938181480/alertfatal.pdf'},
+      'alertfatal.png': {url: '/products/losspager/us10004u1y/us/1456938181480/alertfatal.png'}
+    }
+  });
 
   before(function (done) {
     Xhr.ajax({
@@ -102,12 +91,7 @@ describe('losspager/PAGERView', function () {
     });
   });
 
-
-
-
-
-
-  describe('createScaffolding()', function () {
+  describe('createScaffolding', function () {
     var view;
 
     before(function () {
@@ -156,55 +140,105 @@ describe('losspager/PAGERView', function () {
     });
   });
 
-  // describe('fetchData()', function () {
-  //   var view;
-  //
-  //   before(function () {
-  //     view = PAGERView();
-  //   });
-  //
-  //   view.fetchData(response, xhr);
-  //
-  //   // it('calls onSucces when data is found', function () {
-  //   //   /* -W030 */
-  //   //   expect(view.event).to.equal('stuff');
-  //   //   /* -W030 */
-  //   // });
-  //
-  // });
+  describe('fetchData()', function () {
+    var el,
+        view;
 
-  describe('getAlertComment', function () {
+    beforeEach(function (done) {
+      var onSuccess;
 
+      el = document.createElement('div');
+      view = PAGERView({
+        el: el,
+        model: product
+      });
+      onSuccess = view.onSuccess;
+
+      view.onSuccess = function (data, xhr) {
+        try {
+          onSuccess(data, xhr);
+        } catch (e) {
+          console.log(e);
+          console.log(e.stack);
+        }
+        done();
+      };
+
+      view.render();
+
+    });
+
+    afterEach(function () {
+      view.destroy();
+    });
+
+    it('gets data', function () {
+      /* jshint -W030 */
+      expect(product).to.not.be.null;
+      /* jshint +W030 */
+    });
   });
 
-  // describe('onCityClick', function () {
-  //   var page,
-  //       content,
-  //       exposureClickSpy,
-  //       cityClickSpy;
-  //
-  //   beforeEach(function (done) {
-  //     exposureClickSpy = sinon.spy(PAGERView, 'onCityClick');
-  //     cityClickSpy = sinon.spy(PAGERView, 'onCityClick');
-  //
-  //     page = new PAGERView({
-  //       renderCallback: done,
-  //       eventDetails: eventInfo,
-  //       'module': new ImpactModule()
-  //     });
-  //     content = page.getContent();
-  //   });
-  //
-  //   afterEach(function () {
-  //     exposureClickSpy.restore();
-  //     cityClickSpy.restore();
-  //   });
-  //
-  //   it('responds to click events on city list', function () {
-  //     _fireClickEvent(content.querySelector('.toggle'));
-  //     expect(cityClickSpy.callCount).to.equal(1);
-  //   });
-  // });
+  describe.skip('getAlertComment', function () {
+    var el,
+        view;
+
+    beforeEach(function (done) {
+      var onSuccess;
+
+      el = document.createElement('div');
+      view = PAGERView({
+        el: el,
+        model: product
+      });
+      onSuccess = view.onSuccess;
+
+      view.onSuccess = function (data, xhr) {
+        try {
+          onSuccess(data, xhr);
+        } catch (e) {
+          console.log(e);
+          console.log(e.stack);
+        }
+        done();
+      };
+
+      view.render();
+
+    });
+
+    afterEach(function () {
+      view.destroy();
+    });
+
+    it('returns correct comment if passed fatality', function () {
+      expect(view.getAlertComment('fatality')).to.equal(
+          'Green alert for shaking-related fatalities and economic ' +
+          'losses.  There is a low likelihood of casualties and damage.');
+    });
+
+    it('returns correct comment if passed economic', function () {
+      expect(view.getAlertComment('economic')).to.equal(undefined);
+    });
+  });
+
+  describe('onCityClick', function () {
+    it('should toggle classname', function () {
+      var view;
+
+      view = PAGERView();
+
+      /* jshint -W030 */
+      expect(view.el.querySelector('.show-additional')).to.be.null;
+      /* jshint +W030 */
+      view.onCityClick();
+
+      /* jshint -W030 */
+      expect(view.el.querySelector('.show-additional')).to.not.be.null;
+      /* jshint +W030 */
+
+    });
+  });
 
   describe('onError', function() {
     var view;
@@ -220,7 +254,259 @@ describe('losspager/PAGERView', function () {
   });
 
 
-  describe('', function() {
+  describe.skip('onSuccess', function () {
+    var el,
+        view;
+
+    beforeEach(function (done) {
+      var onSuccess;
+
+      el = document.createElement('div');
+      view = PAGERView({
+        el: el,
+        model: product
+      });
+      onSuccess = view.onSuccess;
+
+      view.onSuccess = function (data, xhr) {
+        try {
+          onSuccess(data, xhr);
+        } catch (e) {
+          console.log(e);
+          console.log(e.stack);
+        }
+        done();
+      };
+
+      view.render();
+
+    });
+
+    afterEach(function () {
+      view.destroy();
+    });
+
+    it('calls renderFatalityHistogram', function () {
+      /* jshint -W030 */
+      expect(el.querySelector('.fatality-histogram img')).to.not.be.null;
+      /* jshint +W030 */
+    });
+
+    it('calls renderEconomicHistogram', function () {
+      /* jshint -W030 */
+      expect(el.querySelector('.economic-histogram img')).to.not.be.null;
+      /* jshint +W030 */
+    });
+
+    it('calls renderExposures', function () {
+      /* jshint -W030 */
+      expect(el.querySelector('.pager-exposures')).to.not.be.null;
+      /* jshint +W030 */
+    });
+
+    it('calls renderCities', function () {
+      /* jshint -W030 */
+      expect(el.querySelector('.cities-population')).to.not.be.null;
+      /* jshint +W030 */
+    });
+  });
+
+  describe.skip('renderCities', function () {
+    var el,
+        view;
+
+    beforeEach(function (done) {
+      var onSuccess;
+
+      el = document.createElement('div');
+      view = PAGERView({
+        el: el,
+        model: product
+      });
+      onSuccess = view.onSuccess;
+
+      view.onSuccess = function (data, xhr) {
+        try {
+          onSuccess(data, xhr);
+        } catch (e) {
+          console.log(e);
+          console.log(e.stack);
+        }
+        done();
+      };
+
+      view.render();
+
+    });
+
+    afterEach(function () {
+      view.destroy();
+    });
+
+    it('renders cities and length is correct', function () {
+      expect(view.el.getElementsByClassName('cities-population').length)
+          .to.equal(861);
+    });
+  });
+
+  describe.skip('renderComments', function () {
+    var el,
+        view;
+
+    beforeEach(function (done) {
+      var onSuccess;
+
+      el = document.createElement('div');
+      view = PAGERView({
+        el: el,
+        model: product
+      });
+      onSuccess = view.onSuccess;
+
+      view.onSuccess = function (data, xhr) {
+        try {
+          onSuccess(data, xhr);
+        } catch (e) {
+          console.log(e);
+          console.log(e.stack);
+        }
+        done();
+      };
+
+      view.render();
+
+    });
+
+    afterEach(function () {
+      view.destroy();
+    });
+
+    it('Shows comments if they are avaliable', function () {
+      /* jshint -W030 */
+      expect(view.el.querySelector('.wrapper')).to.not.be.null;
+      /* jshint +W030 */
+    });
+
+  });
+
+  describe.skip('renderEconomicHistogram', function () {
+    var el,
+        view;
+
+    beforeEach(function (done) {
+      var onSuccess;
+
+      el = document.createElement('div');
+      view = PAGERView({
+        el: el,
+        model: product
+      });
+      onSuccess = view.onSuccess;
+
+      view.onSuccess = function (data, xhr) {
+        try {
+          onSuccess(data, xhr);
+        } catch (e) {
+          console.log(e);
+          console.log(e.stack);
+        }
+        done();
+      };
+
+      view.render();
+
+    });
+
+    afterEach(function () {
+      view.destroy();
+    });
+
+    it('redners histogram if alertLevel is not equal to pending', function () {
+      /* jshint -W030 */
+      expect(view.el.querySelector('.economic-histogram figure')).to.not.be.null;
+      /* jshint +W030 */
+    });
+  });
+
+  describe('renderExposureMap', function () {
+    var el,
+        view;
+
+    beforeEach(function (done) {
+      var onSuccess;
+
+      el = document.createElement('div');
+      view = PAGERView({
+        el: el,
+        model: product
+      });
+      onSuccess = view.onSuccess;
+
+      view.onSuccess = function (data, xhr) {
+        try {
+          onSuccess(data, xhr);
+        } catch (e) {
+          console.log(e);
+          console.log(e.stack);
+        }
+        done();
+      };
+
+      view.render();
+
+    });
+
+    afterEach(function () {
+      view.destroy();
+    });
+
+    it('renders renderExposureMap correctly', function () {
+      /* jshint -W030 */
+      expect(view.el.querySelector('.exposure-map img')).to.not.be.null;
+      /* jshint +W030 */
+    });
+  });
+
+  describe.skip('renderFatalityHistogram', function () {
+    var el,
+        view;
+
+    beforeEach(function (done) {
+      var onSuccess;
+
+      el = document.createElement('div');
+      view = PAGERView({
+        el: el,
+        model: product
+      });
+      onSuccess = view.onSuccess;
+
+      view.onSuccess = function (data, xhr) {
+        try {
+          onSuccess(data, xhr);
+        } catch (e) {
+          console.log(e);
+          console.log(e.stack);
+        }
+        done();
+      };
+
+      view.render();
+
+    });
+
+    afterEach(function () {
+      view.destroy();
+    });
+
+    it('redners histogram if alertLevel is not equal to pending', function () {
+      /* jshint -W030 */
+      expect(view.el.querySelector('.fatality-histogram figure')).to.not.be.null;
+      /* jshint +W030 */
+    });
+  });
+
+  describe('renderPending', function () {
 
   });
 });
