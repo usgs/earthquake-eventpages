@@ -15,6 +15,7 @@ var _BEACHBALL_METHODS = {
 
 var _DEFAULTS = {
   empty: '&ndash;',
+  fillColor: '#6ea8ff',
   formatter: null,
   tensor: null
 };
@@ -29,6 +30,9 @@ var _R2D = 180 / Math.PI;
  * @param options.empty {String}
  *     string to display if a value is missing.
  *     default '&ndash;'.
+ * @param options.fillColor {String}
+ *     fill color for beachball.
+ *     default '#6ea8ff'.
  * @param options.formatter {Formatter}
  *     formatter object.
  *     default `Formatter()`.`
@@ -40,6 +44,7 @@ var MomentTensorView = function (options) {
       _initialize,
 
       _empty,
+      _fillColor,
       _formatter,
       _tensor;
 
@@ -49,6 +54,7 @@ var MomentTensorView = function (options) {
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
     _empty = options.empty;
+    _fillColor = options.fillColor;
     _formatter = options.formatter || Formatter();
     _tensor = Tensor.fromProduct(_this.model);
   };
@@ -58,6 +64,7 @@ var MomentTensorView = function (options) {
    */
   _this.destroy = Util.compose(function () {
     _empty = null;
+    _fillColor = null;
     _formatter = null;
     _initialize = null;
     _tensor = null;
@@ -172,6 +179,10 @@ var MomentTensorView = function (options) {
     moment = (tensor.moment / tensor.scale).toFixed(3) +
         'e+' + tensor.exponent + ' ' + tensor.units;
     percentDC = Math.round(tensor.percentDC * 100) + '%';
+
+    catalog = catalog.toUpperCase();
+    contributor = contributor.toUpperCase();
+    dataSource = dataSource.toUpperCase();
 
     el = document.createElement('div');
     el.classList.add('moment-tensor-info');
@@ -356,7 +367,7 @@ var MomentTensorView = function (options) {
 
     beachball = BeachBallView({
       el: beachball,
-      fillColor: '#6ea8ff',
+      fillColor: _fillColor,
       size: 320,
       tensor: _tensor
     });
