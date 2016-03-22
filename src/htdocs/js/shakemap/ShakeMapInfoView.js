@@ -189,7 +189,7 @@ var ShakeMapInfoView = function (options) {
    * @param groundMotions {Object}
    *     the processing ground motions section of info.json.
    * @return {String}
-   *     markup for output ground motions table.
+   *     markup for processing ground motions table.
    */
   _this.formatProcessingGroundMotions = function (groundMotions) {
     var buf,
@@ -262,6 +262,47 @@ var ShakeMapInfoView = function (options) {
         '</div>');
 
     return buf.join('');
+  };
+
+  /**
+   * Format the processing ground motions table.
+   *
+   * @param rois {Object}
+   *     the processing rois section of info.json.
+   * @return {String}
+   *     markup for processing rois table.
+   */
+  _this.formatProcessingRois = function (rois) {
+    var groundMotion,
+        intensity;
+
+    groundMotion = rois.gm;
+    intensity = rois.intensity;
+
+    return '<h3>ROI</h3>' +
+        '<div class="horizontal-scrolling">' +
+        '<table>' +
+        '<thead>' +
+          '<tr>' +
+            '<th scope="col">Type</th>' +
+            '<th scope="col">ROI</th>' +
+            '<th scope="col">Observation Decay</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+          '<tr>' +
+            '<th scope="row">Ground Motion</th>' +
+            '<td>' + groundMotion.roi + ' km</td>' +
+            '<td>' + groundMotion.decay + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Intensity</th>' +
+            '<td>' + intensity.roi + ' km</td>' +
+            '<td>' + intensity.decay + '</td>' +
+          '</tr>' +
+        '</tbody>' +
+        '</table>' +
+        '</div>';
   };
 
   /**
@@ -349,6 +390,7 @@ var ShakeMapInfoView = function (options) {
     _this.el.innerHTML = '<p class="alert error">' +
         'Unable to load ShakeMap information' +
         '</p>';
+    console.log(arguments);
   };
 
   /**
@@ -637,29 +679,11 @@ var ShakeMapInfoView = function (options) {
 
     buf.push(
         '<div class="one-of-two column">' +
-        '<h3>ROI</h3>' +
-        _this.formatTable({
-          data: processing.roi,
-          formatValue: function (v) {
-            return '<td>' + v.roi + '</td>' +
-                '<td>' + v.decay + '</td>';
-          },
-          headers: {
-            'gm': 'Ground Motion',
-            'i': 'Intensity'
-          },
-          thead:
-              '<thead>' +
-              '<tr>' +
-              '<th scope="col">Type</th>' +
-              '<th scope="col">ROI (km)</th>' +
-              '<th scope="col">Observation Decay</th>' +
-              '</tr>' +
-              '</thead>'
-        }) +
+        _this.formatProcessingRois(processing.roi) +
         '</div>');
 
-        buf.push('</div>');
+    buf.push('</div>');
+
     el.innerHTML = buf.join('');
   };
 
