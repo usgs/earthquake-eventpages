@@ -19,7 +19,6 @@ describe('shakemap/ShakeMapInfoView', function () {
     var el,
         view;
 
-
     view = ShakeMapInfoView();
     el = document.createElement('div');
     el.innerHTML = view.formatOutputGroundMotions({
@@ -44,4 +43,32 @@ describe('shakemap/ShakeMapInfoView', function () {
     expect(el.querySelector('tbody > tr + tr > th').innerHTML).to.equal(
         'unknown');
   });
+
+  describe('formatProcessingGroundMotions', function () {
+    var el,
+        view;
+
+    view = ShakeMapInfoView();
+    el = document.createElement('div');
+    el.innerHTML = view.formatProcessingGroundMotions({
+      'unknown': {
+        module: 'x',
+        reference: 'y'
+      },
+      'directivity': {
+        module: 'u',
+        reference: 'v'
+      }
+    });
+
+    // uses expected heading for known ground motions,
+    // and places known fields first
+    expect(el.querySelector('tbody > tr > th').innerHTML).to.equal(
+        'Directivity');
+    // displays unknown ground motions, after known
+    expect(el.querySelector('tbody > tr + tr > th').innerHTML).to.equal(
+        'unknown');
+
+  });
+
 });

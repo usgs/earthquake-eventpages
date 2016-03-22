@@ -249,7 +249,9 @@ var ShakeMapInfoView = function (options) {
     };
 
     Object.keys(headers).forEach(function (key) {
-      buf.push(formatGroundMotion(groundMotions[key], headers[key]));
+      if (key in groundMotions) {
+        buf.push(formatGroundMotion(groundMotions[key], headers[key]));
+      }
     });
     Object.keys(groundMotions).forEach(function (key) {
       if (!(key in headers)) {
