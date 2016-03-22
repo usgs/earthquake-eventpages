@@ -7,8 +7,7 @@ var FocalMechanismView = require('focal-mechanism/FocalMechanismView'),
 Xhr.ajax({
   url: '/events/nn00536452.json',
   success: function (data) {
-    var product,
-        tensor;
+    var product;
 
     product = Product(data.properties.products['focal-mechanism'][0]);
 
