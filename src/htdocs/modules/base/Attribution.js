@@ -289,6 +289,54 @@ var Attribution = function (options) {
     }
   };
 
+  _this.getProductAttribution = function (product) {
+    var attr,
+        source,
+        sources,
+        type;
+
+    attr = document.createElement('small');
+    attr.classList.add('contributor-reference');
+
+    sources = {}; // Keep a unique list
+
+    // TODO :: Deal with internal- and -scenario variants
+    type = product.get('type');
+
+    // Put product.source on first
+    source = product.get('source');
+    sources[source] = _this.getContributorReference(source);
+
+    // Add in additional sources based on product type
+
+    if (type === 'origin' || type === 'phase-data') {
+      // Look for origin-source property and magnitude-source property and
+      // add them as contributors if new ids
+      source = product.get('origin-source');
+      if (source && !sources.hasOwnProperty(source)) {
+        sources[source] = _this.getContributorReference(source);
+      }
+
+      source = product.get('magnitude-source');
+      if (source && !sources.hasOwnProperty(source)) {
+        sources[source] = _this.getContributorReference(source);
+      }
+    } else if (type === 'focal-mechanism' || type === 'moment-tensor') {
+      // Look for beachball-source property and add it as contributor if new id
+      source = product.get('beachball-source');
+      if (source && !sources.hasOwnProperty(source)) {
+        sources[source] = _this.getContributorReference(source);
+      }
+    }
+
+    // Update the innerHTML of the container
+    attr.innerHTML = Object.keys.reduce(function (previous, current) {
+      return previous + sources[current];
+    }, '');
+
+    return attr;
+  };
+
   /**
    * Set list of contributors.
    *
