@@ -239,13 +239,18 @@ var MagnitudesView = function (options) {
   };
 
   _this.onSuccess = function (data/*, xhr*/) {
-    _quakeml = Quakeml({xml: data});
+    try {
+      _quakeml = Quakeml({xml: data});
 
-    _this.render();
+      _this.render();
 
-    // Let others know about our success so they don't have to download
-    // and parse it themselves...
-    _this.trigger('quakeml', _quakeml);
+      // Let others know about our success so they don't have to download
+      // and parse it themselves...
+      _this.trigger('quakeml', _quakeml);
+    } catch (e) {
+      // Ignore ...
+      console.log(e.stack);
+    }
   };
 
   _this.render = function () {

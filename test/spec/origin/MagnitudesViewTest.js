@@ -2,17 +2,28 @@
 'use strict';
 
 
-var MagnitudesView = require('origin/MagnitudesView');
+var MagnitudesView = require('origin/MagnitudesView'),
+    Quakeml = require('quakeml/Quakeml'),
+    Xhr = require('util/Xhr');
 
 
 var expect = chai.expect;
 
 
 describe('origin/MagnitudesView', function () {
-  var contribution,
-      magnitude;
+  var content,
+      contribution,
+      magnitude,
+      quakeml;
 
-  before(function () {
+  before(function (done) {
+    content = {
+      contentType: 'application/xml',
+      lastModified: 0,
+      length: 572600,
+      url: '/products/phase-data/ci37528064/ci/1456278769730/quakeml.xml'
+    };
+
     contribution = {
       stationMagnitude: {
         amplitude: {
@@ -51,6 +62,17 @@ describe('origin/MagnitudesView', function () {
       stationCount: 'stationCount',
       type: 'type'
     };
+
+    Xhr.ajax({
+      url: content.url,
+      success: function (data) {
+        quakeml = data;
+        done();
+      },
+      error: function () {
+        done();
+      }
+    });
   });
 
   describe('constructor', function () {
@@ -320,6 +342,89 @@ describe('origin/MagnitudesView', function () {
       expect(result.querySelector('span > span').innerHTML).to.equal(
           '<strong>value</strong>');
 
+      view.destroy();
+    });
+  });
+
+  describe('onError', function () {
+    it('creates the error message', function () {
+      var view;
+
+      view = MagnitudesView();
+
+      view.onError();
+      expect(view.el.querySelectorAll('.alert').length).to.equal(1);
+
+      view.destroy();
+    });
+  });
+
+  describe('onSuccess', function () {
+    var view;
+
+    afterEach(function () {
+      view.destroy();
+    });
+
+    beforeEach(function () {
+      view = MagnitudesView();
+    });
+
+    it('calls render again', function () {
+      var spy;
+
+      spy = sinon.spy(view, 'render');
+
+      view.onSuccess(quakeml);
+      expect(spy.callCount).to.equal(1);
+
+      spy.restore();
+    });
+
+    it('triggers an quakeml event', function () {
+      var listener;
+
+      listener = sinon.spy();
+      view.on('quakeml', listener);
+
+      view.onSuccess(quakeml);
+
+      expect(listener.callCount).to.equal(1);
+    });
+  });
+
+  describe('render', function () {
+    it('fetches data if needs be', function () {
+      var stub,
+          view;
+
+      view = MagnitudesView();
+      stub = sinon.stub(view, 'fetchData', function () {
+        // Do nothing...
+      });
+
+      view.render();
+      expect(stub.callCount).to.equal(1);
+
+      stub.restore();
+      view.destroy();
+    });
+
+    it('generates markup if ready', function () {
+      var stub,
+          view;
+
+      view = MagnitudesView();
+      stub = sinon.stub(view, 'getMagnitudesMarkup', function () {
+        // Do nothing...
+      });
+      view.setQuakeml(Quakeml({xml: quakeml}));
+
+      view.render();
+
+      expect(stub.callCount).to.equal(1);
+
+      stub.restore();
       view.destroy();
     });
   });
