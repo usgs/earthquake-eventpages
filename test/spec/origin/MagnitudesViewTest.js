@@ -245,4 +245,82 @@ describe('origin/MagnitudesView', function () {
       valueSpy.restore();
     });
   });
+
+  describe('getMagnitudesMarkup', function () {
+    it('loops over all magnitudes', function () {
+      var stub,
+          view;
+
+      view = MagnitudesView();
+
+      stub = sinon.stub(view, 'getMagnitudeMarkup', function () {
+        return '';
+      });
+
+      view.getMagnitudesMarkup([1, 2, 3]);
+
+      expect(stub.callCount).to.equal(3);
+      expect(stub.calledWith(1)).to.equal(true);
+      expect(stub.calledWith(2)).to.equal(true);
+      expect(stub.calledWith(3)).to.equal(true);
+
+      stub.restore();
+      view.destroy();
+    });
+  });
+
+  describe('getSourceMarkup', function () {
+    it('returns expected markup', function () {
+      var result,
+          view;
+
+      view = MagnitudesView();
+      result = document.createElement('ul');
+
+      result.innerHTML = view.getSourceMarkup('value');
+
+      expect(result.querySelectorAll('span').length).to.equal(2);
+      expect(result.querySelectorAll('abbr').length).to.equal(1);
+      expect(result.querySelector('span > span').innerHTML).to.equal('VALUE');
+
+      view.destroy();
+    });
+  });
+
+  describe('getStationsMarkup', function () {
+    it('returns expected markup', function () {
+      var result,
+          view;
+
+      view = MagnitudesView();
+      result = document.createElement('ul');
+
+      result.innerHTML = view.getStationsMarkup('value');
+
+      expect(result.querySelectorAll('span').length).to.equal(2);
+      expect(result.querySelectorAll('abbr').length).to.equal(1);
+      expect(result.querySelector('span > span').innerHTML).to.equal('value');
+
+      view.destroy();
+    });
+  });
+
+  describe('getValueMarkup', function () {
+    it('returns expected markup', function () {
+      var result,
+          view;
+
+      view = MagnitudesView();
+      result = document.createElement('ul');
+
+      result.innerHTML = view.getValueMarkup('value');
+
+      expect(result.querySelectorAll('span').length).to.equal(2);
+      expect(result.querySelectorAll('abbr').length).to.equal(1);
+      expect(result.querySelector('span > span').innerHTML).to.equal(
+          '<strong>value</strong>');
+
+      view.destroy();
+    });
+  });
 });
