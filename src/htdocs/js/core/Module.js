@@ -1,6 +1,7 @@
 'use strict';
 
 var Accordion = require('accordion/Accordion'),
+    Attribution = require('core/Attribution'),
     DownloadView = require('core/DownloadView'),
     Formatter = require('core/Formatter'),
     Util = require('util/Util'),
@@ -207,7 +208,7 @@ var Module = function (options) {
     }
 
     buf.push('<small class="attribution">' +
-        'Contributed by TODO' +
+        'Contributed by ' + Attribution.getProductAttribution(product) +
         ' last updated ' + _formatter.datetime(product.get('updateTime')) +
         '</small>');
 

@@ -289,14 +289,19 @@ var Attribution = function (options) {
     }
   };
 
+  /**
+   * Finds all the relevant attribution to provide for a given product.
+   *
+   * @param product {Product}
+   *     The product for which to generate attribution.
+   *
+   * @return {String}
+   *     Attribution markup for the given product.
+   */
   _this.getProductAttribution = function (product) {
-    var attr,
-        source,
+    var source,
         sources,
         type;
-
-    attr = document.createElement('small');
-    attr.classList.add('contributor-reference');
 
     sources = {}; // Keep a unique list
 
@@ -329,12 +334,9 @@ var Attribution = function (options) {
       }
     }
 
-    // Update the innerHTML of the container
-    attr.innerHTML = Object.keys(sources).reduce(function (previous, current) {
-      return previous + sources[current];
-    }, '');
-
-    return attr;
+    return Object.keys(sources).reduce(function (previous, current) {
+          return previous + sources[current];
+        }, '');
   };
 
   /**

@@ -1,7 +1,8 @@
 'use strict';
 
 
-var DYFIFormModule = require('dyfi/DYFIFormModule'),
+var Attribution = require('core/Attribution'),
+    DYFIFormModule = require('dyfi/DYFIFormModule'),
     DYFIModule = require('dyfi/DYFIModule'),
     Events = require('util/Events'),
     Formatter = require('core/Formatter'),
@@ -71,6 +72,11 @@ var EventPage = function (options) {
 
     _formatter = options.formatter || Formatter();
 
+    _this.updateContributors();
+    if (_config.hasOwnProperty('ATTRIBUTION_URL')) {
+      Attribution.load(_config.ATTRIBUTION_URL);
+    }
+
     _el = options.el || document.createElement('div');
     _navEl = options.nav || document.createElement('nav');
 
@@ -89,7 +95,7 @@ var EventPage = function (options) {
     // Creates the mapping for later
     _initializeModules();
     _renderHeaderContent();
-    _renderFooterContent();
+    Attribution.whenReady(_renderFooterContent); // Need to wait ...
 
     // render module
     Events.on('hashchange', _onHashChange);
@@ -168,6 +174,71 @@ var EventPage = function (options) {
     }
 
     // TODO :: Add one-off links to navigation ...
+  };
+
+
+  /**
+   * Loops over each product and checks for source information. Creates a
+   * unique list of contributors and then sets this list on the
+   * Attribution so we have a complete list.
+   *
+   */
+  _this.updateContributors = function () {
+    var allProducts,
+        products,
+        product,
+        source,
+        sources,
+        type,
+        i,
+        length;
+
+    allProducts = _event ? _event.getProducts() : {};
+    sources = {};
+
+    for (type in allProducts) {
+      products = allProducts[type];
+      length = products.length;
+
+      for (i = 0; i < length; i++) {
+        product = products[i];
+
+
+        // check product source
+        source = product.get('source');
+        if (source) {
+          source = source.toLowerCase();
+
+          if (source !== 'admin' && !sources.hasOwnProperty(source)) {
+            sources[source] = true;
+          }
+        }
+
+        source = product.get('origin-source');
+        if (source) {
+          source = source.toLowerCase();
+          if (!sources.hasOwnProperty(source)) {
+            sources[source] = source;
+          }
+        }
+        source = product.get('magnitude-source');
+        if (source) {
+          source = source.toLowerCase();
+          if (!sources.hasOwnProperty(source)) {
+            sources[source] = source;
+          }
+        }
+        source = product.get('beachball-source');
+        if (source) {
+          source = source.toLowerCase();
+          if (!sources.hasOwnProperty(source)) {
+            sources[source] = source;
+          }
+        }
+      }
+    }
+
+    Attribution.setContributors(Object.keys(sources));
   };
 
   /**
@@ -338,9 +409,10 @@ var EventPage = function (options) {
   };
 
   _renderFooterContent = function () {
-    // TODO :: Contributor and additional information links. Maybe scenario
-    //         link goes here as well.
-    _eventFooterEl.innerHTML = '<h2>Event Page Footer</h2>';
+    // TODO :: Additional information links. Maybe scenario link goes here
+    //         as well.
+    _eventFooterEl.innerHTML = '<h3>Contributors</h3>' +
+        Attribution.getContributorList();
   };
 
   _renderHeaderContent = function () {

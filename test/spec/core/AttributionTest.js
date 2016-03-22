@@ -38,10 +38,12 @@ describe('core/Attribution', function () {
       var product,
           result;
 
+      result = document.createElement('small');
+
       // No special handling for a lossPAGER
       product = Product(eventDetails.properties.products.losspager[0]);
 
-      result = Attribution.getProductAttribution(product);
+      result.innerHTML = Attribution.getProductAttribution(product);
 
       expect(result.childNodes.length).to.equal(1);
     });
@@ -50,16 +52,18 @@ describe('core/Attribution', function () {
       var product,
           result;
 
+      result = document.createElement('small');
+
       // First make sure it skips if the same
       product = Product(eventDetails.properties.products.origin[0]);
 
       product.set({'origin-source': product.get('source')});
-      result = Attribution.getProductAttribution(product);
+      result.innerHTML = Attribution.getProductAttribution(product);
       expect(result.childNodes.length).to.equal(1);
 
       // Now make sure it adds if different
       product.set({'origin-source': 'nc'});
-      result = Attribution.getProductAttribution(product);
+      result.innerHTML = Attribution.getProductAttribution(product);
       expect(result.childNodes.length).to.equal(2);
     });
 
@@ -67,16 +71,18 @@ describe('core/Attribution', function () {
       var product,
           result;
 
+      result = document.createElement('small');
+
       // First make sure it skips if the same
       product = Product(eventDetails.properties.products.origin[0]);
 
       product.set({'magnitude-source': product.get('source')});
-      result = Attribution.getProductAttribution(product);
+      result.innerHTML = Attribution.getProductAttribution(product);
       expect(result.childNodes.length).to.equal(1);
 
       // Now make sure it adds if different
       product.set({'magnitude-source': 'nc'});
-      result = Attribution.getProductAttribution(product);
+      result.innerHTML = Attribution.getProductAttribution(product);
       expect(result.childNodes.length).to.equal(2);
     });
 
@@ -84,16 +90,18 @@ describe('core/Attribution', function () {
       var product,
           result;
 
+      result = document.createElement('small');
+
       // First make sure it skips if the same
       product = Product(eventDetails.properties.products['moment-tensor'][0]);
 
       product.set({'beachball-source': product.get('source')});
-      result = Attribution.getProductAttribution(product);
+      result.innerHTML = Attribution.getProductAttribution(product);
       expect(result.childNodes.length).to.equal(1);
 
       // Now make sure it adds if different
       product.set({'beachball-source': 'nc'});
-      result = Attribution.getProductAttribution(product);
+      result.innerHTML = Attribution.getProductAttribution(product);
       expect(result.childNodes.length).to.equal(2);
     });
   });
