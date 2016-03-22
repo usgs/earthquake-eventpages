@@ -1,6 +1,7 @@
 'use strict';
 
-var MomentTensorView = require('moment-tensor/MomentTensorView'),
+var Attribution = require('core/Attribution'),
+    MomentTensorView = require('moment-tensor/MomentTensorView'),
     Util = require('util/Util');
 
 
@@ -54,8 +55,8 @@ var FocalMechanismView = function (options) {
     dataSource = product.getProperty('beachball-source') || contributor;
 
     catalog = catalog.toUpperCase();
-    contributor = contributor.toUpperCase();
-    dataSource = dataSource.toUpperCase();
+    contributor = Attribution.getContributorReference(contributor);
+    dataSource = Attribution.getContributorReference(dataSource);
 
     el = document.createElement('div');
     el.classList.add('moment-tensor-info');
@@ -81,6 +82,22 @@ var FocalMechanismView = function (options) {
     return el;
   };
 
+  /**
+   * Override the focal mechanism view title.
+   *
+   * @param tensor {Tensor}
+   *     the tensor being displayed.
+   * @return {DOMElement}
+   *     markup for the info section of the moment tensor view.
+   */
+  _this.getTitle = function (/*tensor*/) {
+    var el;
+
+    el = document.createElement('h3');
+    el.innerHTML = 'Focal Mechanism';
+
+    return el;
+  };
 
   return _this;
 };
