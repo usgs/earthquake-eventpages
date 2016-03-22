@@ -184,6 +184,87 @@ var ShakeMapInfoView = function (options) {
   };
 
   /**
+   * Format the processing ground motions table.
+   *
+   * @param groundMotions {Object}
+   *     the processing ground motions section of info.json.
+   * @return {String}
+   *     markup for output ground motions table.
+   */
+  _this.formatProcessingGroundMotions = function (groundMotions) {
+    var buf,
+        headers,
+        formatGroundMotion;
+
+
+    buf = [];
+    buf.push('<h3>Ground Motion/Intensity Information</h3>');
+
+    buf.push(
+        '<div class="horizontal-scrolling">' +
+        '<table>' +
+        '<thead>' +
+          '<tr>' +
+          '<th scope="col">Type</th>' +
+          '<th scope="col">Module</th>' +
+          '<th scope="col">Reference</th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>');
+
+    /**
+     * Format one ground motion row.
+     *
+     * @param gm {Object}
+     *     ground motion object.
+     * @param label {String}
+     *     markup for `th` element.
+     * @return {String}
+     *     markup for table row.
+     */
+    formatGroundMotion = function (gm, label) {
+      var units;
+
+      units = gm.units;
+
+      return '<tr>' +
+          '<th scope="row">' + label + '</th>' +
+          '<td>' + gm.module + '</td>' +
+          '<td>' + gm.reference + '</td>' +
+          '</tr>';
+    };
+
+    headers = {
+      'gmpe': '<abbr title="Ground Motion Prediction Equation">GMPE</abbr>',
+      'ipe': '<abbr title="Intensity Prediction Equation">IPE</abbr>',
+      'mi2pgm': '<abbr title="Ground Motion Intensity Conversion Equation">' +
+          'GMICE</abbr>',
+      'pgm2mi':
+          '<abbr title="Inverse Ground Motion Intensity Conversion Equation">' +
+          'IGMICE</abbr>',
+      'directivity': 'Directivity',
+      'basin_correction': 'Basin'
+    };
+
+    Object.keys(headers).forEach(function (key) {
+      buf.push(formatGroundMotion(groundMotions[key], headers[key]));
+    });
+    Object.keys(groundMotions).forEach(function (key) {
+      if (!(key in headers)) {
+        // unknown groundMotion
+        buf.push(formatGroundMotion(groundMotions[key], key));
+      }
+    });
+
+    buf.push(
+        '</tbody>' +
+        '</table>' +
+        '</div>');
+
+    return buf.join('');
+  };
+
+  /**
    * Format a table for the shakemap info page.
    *
    * @param options {Object}
@@ -390,7 +471,8 @@ var ShakeMapInfoView = function (options) {
    */
   _this.renderOutput = function (json, el) {
     var buf,
-        output;
+        output,
+        uncertainty;
 
     output = json.output;
 
@@ -399,16 +481,30 @@ var ShakeMapInfoView = function (options) {
     buf.push(_this.formatOutputGroundMotions(output.ground_motions));
     buf.push(_this.formatOutputMapInformation(output.map_information));
 
+    uncertainty = output.uncertainty;
     buf.push('<h3>Uncertainty</h3>' +
-        _this.formatTable({
-          data: output.uncertainty,
-          headers: {
-            'mean_uncertainty_ratio': 'Mean of map uncertainty',
-            'grade': 'Emperical ShakeMap Grade',
-            'total_flagged_pgm': 'Flagged seismic stations',
-            'total_flagged_mi': 'Flagged DYFI stations'
-          }
-        }));
+        '<div class="horizontal-scrolling">' +
+        '<table>' +
+        '<tbody>' +
+          '<tr>' +
+            '<th scope="row">Mean of map uncertainty</th>' +
+            '<td>' + uncertainty.mean_uncertainty_ratio + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Emperical ShakeMap grade</th>' +
+            '<td>' + uncertainty.grade + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Flagged seismic stations</th>' +
+            '<td>' + uncertainty.total_flagged_pgm + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Flagged DYFI stations</th>' +
+            '<td>' + uncertainty.total_flagged_mi + '</td>' +
+          '</tr>' +
+        '</tbody>' +
+        '</table>');
+
     el.innerHTML = buf.join('');
   };
 
@@ -422,60 +518,75 @@ var ShakeMapInfoView = function (options) {
    */
   _this.renderProcessing = function (json, el) {
     var buf,
+        misc,
         processing;
 
     processing = json.processing;
 
     buf = [];
-    buf.push('<h2>Processing</h2><div class="row">');
+    buf.push('<h2>Processing</h2>' +
+        '<div class="row">');
 
-    buf.push(
-        '<div class="one-of-two column">' +
-        '<h3>Ground Motion/Intensity Information</h3>' +
-        _this.formatTable({
-          data: processing.ground_motion_modules,
-          formatValue: function (v) {
-            return '<td>' + v.module + '</td>' +
-                '<td>' + v.reference + '</td>';
-          },
-          headers: {
-            'gmpe': '<abbr title="Ground Motion Prediction Equation">GMPE</abbr>',
-            'ipe': '<abbr title="Intensity Prediction Equation">IPE</abbr>',
-            'mi2pgm': '<abbr title="Ground Motion Intensity Conversion Equation">GMICE</abbr>',
-            'pgm2mi': '<abbr title="Inverse Ground Motion Intensity Conversion Equation">IGMICE</abbr>',
-            'directivity': 'Directivity',
-            'basin_correction': 'Basin'
-          },
-          thead:
-              '<thead>' +
-              '<tr>' +
-              '<th scope="col">Type</th>' +
-              '<th scope="col">Module</th>' +
-              '<th scope="col">Reference</th>' +
-              '</tr>' +
-              '</thead>'
-        }) +
+    buf.push('<div class="one-of-two column">' +
+        _this.formatProcessingGroundMotions(processing.ground_motion_modules) +
         '</div>');
 
+    misc = processing.miscellaneous;
     buf.push(
         '<div class="one-of-two column">' +
         '<h3>Miscellaneous</h3>' +
-        _this.formatTable({
-          data: processing.miscellaneous,
-          headers: {
-            'bias_log_amp': 'Used log amp to compute bias?',
-            'bias_max_range': 'Maximum distance to include station in bias (km)',
-            'bias_max_mag': 'Max magnitude to compute bias',
-            'bias_min_bias': 'Min allowed bias',
-            'outlier_max_mag': 'Maximum magnitude to flag outliers',
-            'bias_norm': 'Norm of the bias (l1|l2)',
-            'bias_min_stations': 'Min # of stations necessary to compute bias',
-            'bias_max_bias': 'Max allowed bias',
-            'outlier_deviation_level': 'Outlier level (# of std dev)',
-            'median_dist': 'Median distance used'
-          },
-          includeUnknown: true
-        }) +
+        '<div class="horizontal-scrolling">' +
+          '<table>' +
+          '<tbody>' +
+            '<tr>' +
+              '<th scope="row">Used log amp to compute bias?</th>' +
+              '<td>' + misc.bias_log_amp + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">' +
+                'Maximum distance to include station in bias' +
+              '</th>' +
+              '<td>' +
+                _formatter.distance(misc.bias_max_range, 'km') +
+              '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Max magnitude to compute bias</th>' +
+              '<td>' + _formatter.magnitude(misc.bias_max_mag) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Min allowed bias</th>' +
+              '<td>' + (misc.bias_min_bias || _empty) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Maximum magnitude to flag outliers</th>' +
+              '<td>' + _formatter.magnitude(misc.outlier_max_mag) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Norm of the bias</th>' +
+              '<td>' + (misc.bias_norm || _empty) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">' +
+                'Min # of stations necessary to compute bias' +
+              '</th>' +
+              '<td>' + (misc.bias_min_stations || _empty) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Max allowed bias</th>' +
+              '<td>' + (misc.bias_max_bias || _empty) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Outlier level (# of std dev)</th>' +
+              '<td>' + (misc.outlier_deviation_level || _empty) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Median distance used</th>' +
+              '<td>' + misc.median_dist + '</td>' +
+            '</tr>' +
+          '</tbody>' +
+          '</table>' +
+        '</div>' +
         '</div>');
 
     buf.push(
