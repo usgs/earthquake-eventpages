@@ -3,7 +3,6 @@
 
 var PAGERView = require('losspager/PAGERView'),
     Product = require('pdl/Product'),
-    //Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
 var expect = chai.expect;
@@ -136,7 +135,6 @@ describe('losspager/PAGERView', function () {
       /* jshint -W030 */
       expect(view.el.querySelector('.exposure-city')).to.not.be.null;
       /* jshint +W030 */
-
     });
   });
 
@@ -165,7 +163,6 @@ describe('losspager/PAGERView', function () {
       };
 
       view.render();
-
     });
 
     afterEach(function () {
@@ -204,7 +201,6 @@ describe('losspager/PAGERView', function () {
       };
 
       view.render();
-
     });
 
     afterEach(function () {
@@ -236,7 +232,6 @@ describe('losspager/PAGERView', function () {
       /* jshint -W030 */
       expect(view.el.querySelector('.show-additional')).to.not.be.null;
       /* jshint +W030 */
-
     });
   });
 
@@ -279,7 +274,6 @@ describe('losspager/PAGERView', function () {
       };
 
       view.render();
-
     });
 
     afterEach(function () {
@@ -374,7 +368,6 @@ describe('losspager/PAGERView', function () {
       };
 
       view.render();
-
     });
 
     afterEach(function () {
@@ -386,7 +379,6 @@ describe('losspager/PAGERView', function () {
       expect(view.el.querySelector('.wrapper')).to.not.be.null;
       /* jshint +W030 */
     });
-
   });
 
   describe.skip('renderEconomicHistogram', function () {
@@ -414,7 +406,6 @@ describe('losspager/PAGERView', function () {
       };
 
       view.render();
-
     });
 
     afterEach(function () {
@@ -504,9 +495,5 @@ describe('losspager/PAGERView', function () {
       expect(view.el.querySelector('.fatality-histogram figure')).to.not.be.null;
       /* jshint +W030 */
     });
-  });
-
-  describe('renderPending', function () {
-
   });
 });
