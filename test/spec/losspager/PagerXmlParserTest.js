@@ -13,7 +13,7 @@ describe('PagerXmlParser test suite.', function () {
     Xhr.ajax({
       url: 'spec/modules/impact/pager.xml',
       success: function (r, xhr) {
-        pagerInfo = PagerXmlParser.parse(xhr.responseXml || r);
+        pagerInfo = PagerXmlParser.parse(xhr.responseXML || r);
         done();
       },
       error: function () {
