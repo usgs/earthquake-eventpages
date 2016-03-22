@@ -519,7 +519,8 @@ var ShakeMapInfoView = function (options) {
   _this.renderProcessing = function (json, el) {
     var buf,
         misc,
-        processing;
+        processing,
+        versions;
 
     processing = json.processing;
 
@@ -589,18 +590,28 @@ var ShakeMapInfoView = function (options) {
         '</div>' +
         '</div>');
 
+    versions = processing.shakemap_versions;
     buf.push(
         '<div class="one-of-two column">' +
         '<h3>ShakeMap Versions</h3>' +
-        _this.formatTable({
-          data: processing.shakemap_versions,
-          headers: {
-            'shakemap_revision': 'Code',
-            'map_version': 'Map',
-            'process_time': 'Date'
-          },
-          includeUnknown: true
-        }) +
+        '<div class="horizontal-scrolling">' +
+        '<table>' +
+        '<tbody>' +
+          '<tr>' +
+            '<th scope="row">Code</th>' +
+            '<td>' + versions.shakemap_revision + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Map</th>' +
+            '<td>' + versions.map_version + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Date</th>' +
+            '<td>' + versions.process_time + '</td>' +
+          '</tr>' +
+        '</tbody>' +
+        '</table>' +
+        '</div>' +
         '</div>');
 
     buf.push(
