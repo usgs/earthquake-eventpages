@@ -30,7 +30,7 @@ var _createHistogram = function (container, title, pdf, png, caption) {
     }
     figure.innerHTML = figureMarkup.join('');
   } else {
-    figure = container.appendChild('p');
+    figure = container.appendChild(document.createElement('p'));
     figure.innerHTML = 'Alert information unavailable';
   }
 
@@ -52,6 +52,8 @@ var PAGERView = function (options) {
       _economicHistogramEl,
       _errorMessage,
       _exposureCityEl,
+      _exposureCityTable,
+      _exposureCityToggle,
       _exposureMapEl,
       _exposurePopulationEl,
       _fatalityHistogramEl,
@@ -107,7 +109,16 @@ var PAGERView = function (options) {
         '</div>' +
         '<div class="column one-of-two">' +
           '<div class="comment-wrapper"></div>' +
-          '<div class="exposure-city"></div>' +
+          '<div class="exposure-city">' +
+            '<h3>Selected Cities Exposed</h3>' +
+            '<a href="javascript:void(null);" class="toggle">' +
+                'Show/Hide Full City List</a>' +
+            '<table class="pager-cities"></table>' +
+            '<span class="pager-disclaimer">' +
+              'From GeoNames Database of Cities with 1,000 or more ' +
+              'residents (k = x1,000)' +
+            '</span>' +
+          '</div>' +
         '</div>' +
       '</div>';
 
@@ -120,6 +131,10 @@ var PAGERView = function (options) {
 
     _commentEl = _this.el.querySelector('.comment-wrapper');
     _exposureCityEl = _this.el.querySelector('.exposure-city');
+    _exposureCityToggle = _exposureCityEl.querySelector('.toggle');
+    _exposureCityTable = _exposureCityEl.querySelector('.pager-cities');
+
+    _exposureCityToggle.addEventListener('click', _this.onCityClick);
   };
 
   /**
@@ -130,11 +145,14 @@ var PAGERView = function (options) {
     _economicHistogramEl = null;
     _errorMessage = null;
     _exposureCityEl = null;
+    _exposureCityTable = null;
+    _exposureCityToggle = null;
     _exposureMapEl = null;
     _exposurePopulationEl = null;
     _fatalityHistogramEl = null;
     _pagerInfo = null;
     _pendingMessageEl = null;
+
 
     _initialize = null;
     _this = null;
@@ -188,11 +206,8 @@ var PAGERView = function (options) {
   /**
    * Event handler for click events on city list toggle control.
    */
-  _this.onCityClick = function (evt) {
-    if (evt.target.classList.contains('toggle')) {
-      _this.el.querySelector('.pager-cities').
-          classList.toggle('show-additional');
-    }
+  _this.onCityClick = function () {
+    _exposureCityTable.classList.toggle('show-additional');
   };
 
   /**
@@ -210,7 +225,11 @@ var PAGERView = function (options) {
    * that render PAGER content.
    */
   _this.onSuccess = function (data, xhr) {
-    _pagerInfo = PagerXmlParser.parse(xhr.responseXML || data);
+    var xml;
+
+    xml = (xhr ? xhr.responseXML : data);
+
+    _pagerInfo = PagerXmlParser.parse(xml);
     _this.renderFatalityHistogram();
     _this.renderEconomicHistogram();
     _this.renderExposures();
@@ -244,18 +263,11 @@ var PAGERView = function (options) {
     cities = _pagerInfo.cities;
     len = cities.length;
 
-    markup.push(
-      '<h3>Selected Cities Exposed</h3>'
-    );
-
-    if (len > 11) {
-      markup.push('<a href="javascript:void(null);" class="toggle">' +
-          'Show/Hide Full City List</a>');
-      _exposureCityEl.addEventListener('click', _this.onCityClick);
+    if (len <= 11) {
+      _exposureCityEl.style.display = 'none';
     }
 
     markup.push(
-      '<table class="pager-cities">' +
         '<thead>' +
           '<tr>' +
             '<th><abbr title="Modified Mercalli Intensity">MMI</abbr></th>' +
@@ -282,18 +294,14 @@ var PAGERView = function (options) {
     }
 
     markup.push(
-      '</tbody></table>' +
-      '<span class="pager-disclaimer">' +
-        'From GeoNames Database of Cities with 1,000 or more ' +
-        'residents (k = x1,000)' +
-      '</span>'
+      '</tbody>'
     );
 
     if (len === 0) {
       _exposureCityEl.parentNode.removeChild(_exposureCityEl);
       _exposureCityEl = null;
     } else {
-      _exposureCityEl.innerHTML = markup.join('');
+      _exposureCityTable.innerHTML = markup.join('');
     }
   };
 
