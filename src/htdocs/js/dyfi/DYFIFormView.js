@@ -6,6 +6,7 @@ var Events = require('util/Events'),
     Model = require('mvc/Model'),
     ModalView = require('mvc/ModalView'),
     QuestionView = require('questionview/QuestionView'),
+    TextQuestionView = require('dyfi/TextQuestionView'),
     Util = require('util/Util'),
     View = require('mvc/View'),
     Xhr = require('util/Xhr');
@@ -16,8 +17,6 @@ var DEFAULTS = {
   language: 'en', //English
   responseURL: '/dyfi/response.php'
 };
-
-var ID_INCREMENT = 0;
 
 var DYFI_DISCLAIMER = '<p>' +
     '<strong>Privacy Act Statement</strong>' +
@@ -47,8 +46,6 @@ var DYFI_DISCLAIMER = '<p>' +
     '</p>';
 
 /**
- * @params el {DOCUMENT ELEMENT}
- *    The element to connect the form to.
  * @params language {string}
  *    The language to fetch the questions for.
  * @params eventTime {string}
@@ -75,7 +72,7 @@ var DYFIFormView = function (options) {
           language: options.language,
           eventTime: options.eventTime
         }), {silent: true} );
-    _this.el.classList.add('dyfiform');
+    // _this.el.classList.add('dyfiform');
   };
 
   _this.addQuestionListeners = function () {
@@ -88,13 +85,10 @@ var DYFIFormView = function (options) {
     var el = _this.el,
         // Form Elements
         baseQuestionsEl,
-        cancelButton,
         contactContainer,
         disclaimerEl,
         header,
         moreQuestionsEl,
-        submitButton,
-        buttons,
         toggleContainer,
         // data information
         baseQuestions,
@@ -118,12 +112,6 @@ var DYFIFormView = function (options) {
     toggleContainer.classList.add('dyfi-optional-callout', 'alert', 'info');
     moreQuestionsEl = el.appendChild(document.createElement('div'));
     moreQuestionsEl.classList.add('dyfi-optional-questions');
-    buttons = el.appendChild(document.createElement('fieldset'));
-    buttons.classList.add('dyfi-buttions');
-    submitButton = buttons.appendChild(document.createElement('button'));
-    submitButton.classList.add('dyfi-button-submit', 'green');
-    cancelButton = buttons.appendChild(document.createElement('button'));
-    cancelButton.classList.add('dyfi-button-cancel');
     contactContainer = document.createElement('div');
     contactContainer.classList.add('dyfi-contact-questions', 'alert');
     disclaimerEl = document.createElement('a');
@@ -182,21 +170,6 @@ var DYFIFormView = function (options) {
     });
 
     contactContainer.appendChild(disclaimerEl);
-
-    submitButton.innerHTML = 'Submit';
-    submitButton.addEventListener('click', _this.onSubmit());
-    submitButton.setAttribute('disabled', 'disabled');
-    cancelButton.innerHTML = 'Cancel';
-    cancelButton.addEventListener('click', _this.onCancel());
-
-    // When location or felt response changes update submit button enabled
-    _questions.ciim_mapLat.on('change', _this.updateSubmitEnabled);
-    _questions.ciim_mapLon.on('change', _this.updateSubmitEnabled);
-    _questions.fldSituation_felt.on('change', _this.updateSubmitEnabled);
-    if (!_this.eventTime) {
-      _questions.ciim_time.el.addEventListener('change',
-          _this.updateSubmitEnabled);
-    }
 
     _this.synchQuestionAnswers();
     _this.addQuestionListeners();
@@ -317,64 +290,6 @@ var DYFIFormView = function (options) {
   };
 
   /**
-   * Creates a set of text questions.
-   *    see createQuestions for general overview.
-   *    The main difference is that this calls createTextQuestionView
-   *    to handle questions that use input/Text-Area as it's type.
-   */
-  _this.createTextQuestion = function (questionInfo, container) {
-    var field = null,
-        view = null;
-
-    for (field in questionInfo) {
-      view = _this.createTextQuestionView(questionInfo[field]);
-
-      _questions[field] = view;
-      container.appendChild(view.el);
-    }
-  };
-
-  /**
-   * Creates a text question view.
-   *    Creates a questionView specifically as an input type, or any optional
-   *    type provided by the type element, normally a text-area.
-   *
-   * @param info {object}
-   *    field: {object}
-   *      label: {string}
-   *      type: {string}
-   *
-   * @return {object}
-   *    el: element
-   *    getAnswers: function
-   */
-  _this.createTextQuestionView = function (info) {
-    var el = document.createElement(info.nodeName || 'section'),
-        label = el.appendChild(document.createElement('label')),
-        input = el.appendChild(document.createElement(info.type || 'input')),
-        id = 'dyfi-text-input-' + (ID_INCREMENT++),
-        view;
-
-    el.classList.add('dyfi-text-input');
-    el.classList.add('question');
-
-    label.innerHTML = info.label;
-    label.setAttribute('for', id);
-
-    input.id = id;
-    input.setAttribute('type', 'text');
-
-    // A lightweight object to mimic the minimally required API for a
-    // QuestionView-like object as needed for the DYFIFormView
-    view = Events();
-    view.el = el;
-    view.getAnswers = function () {
-        return {value: input.value, label: info.label};
-      };
-    return view;
-  };
-
-  /**
    * Helper method to iterate over a hash of questionInfo creating a view
    * for each question, appending the views content to the container, and
    * holding on to a reference to that view on the question hash (keyed by the
@@ -386,8 +301,6 @@ var DYFIFormView = function (options) {
    *      processing code.
    * @param container {DOMElement} pass-by-reference
    *      The container into which the view.el should be appended.
-   * @param questions {Object} pass-by-reference
-   *      The resulting hash of {field: QuestionView}
    */
   _this.createQuestions = function (questionInfo, container) {
     var field = null,
@@ -395,14 +308,37 @@ var DYFIFormView = function (options) {
 
     for (field in questionInfo) {
       view = QuestionView(Util.extend(
-          {el: document.createDocumentFragment()}, questionInfo[field],
+          {el: document.createDocumentFragment()},
+          questionInfo[field],
+          {model: Model({field: field})})
+      );
+
+      _questions[field] = view;
+      container.appendChild(view.el);
+    }
+  };
+
+  /**
+   * Creates a set of text questions.
+   *    see createQuestions for general overview.
+   *    The main difference is that this calls TextQuestionView
+   *    to handle questions that use input/Text-Area as it's type.
+   */
+  _this.createTextQuestion = function (questionInfo, container) {
+    var field = null,
+        view = null;
+
+    for (field in questionInfo) {
+      view = TextQuestionView(Util.extend(
+          {el: document.createDocumentFragment()},
+          questionInfo[field],
           {model: Model({field: field})}));
 
       _questions[field] = view;
       container.appendChild(view.el);
     }
-
   };
+
 
   /**
    * sets the text of the toggle control, which informs the user whether
@@ -412,7 +348,7 @@ var DYFIFormView = function (options) {
     control.innerHTML = info.description;
   };
 
-    /**
+  /**
    * Free references.
    */
   _this.destroy = Util.compose(function () {
@@ -435,19 +371,10 @@ var DYFIFormView = function (options) {
     }
   };
 
-  _this.onSubmit = function () {
-
-  };
-
-  _this.onCancel = function () {
-
-  };
-
   _this.render = function (changed) {
     if (!changed || changed.hasOwnProperty('language')) {
       _this.renderQuestions();
     } else {
-        //TODO just change the answer that was changed.
         _this.updateAnswer(changed);
     }
   };
@@ -477,7 +404,6 @@ var DYFIFormView = function (options) {
     var answer,
         field;
 
-    answer = {};
     field = question.model.get('field');
     answer = question.getAnswers();
 
@@ -533,33 +459,6 @@ var DYFIFormView = function (options) {
     }
 
     return answerObject;
-  };
-
-  /**
-   * Checks if the required answers have been filled in, if they are
-   * it enables the Submit button.
-   */
-  _this.updateSubmitEnabled = function () {
-    var latAns = _questions.ciim_mapLat.getAnswers(),
-        lonAns = _questions.ciim_mapLon.getAnswers(),
-        feltAns = _questions.fldSituation_felt.getAnswers(),
-        button = _this.el.querySelector('.dyfi-button-submit'),
-        timeAns = {value: 'defined'};
-
-    if (!_this.eventTime) {
-      // time is required
-      timeAns = _questions.ciim_time.getAnswers();
-    }
-
-    // Check current form status. Enable/disable button
-    if (latAns === null || typeof latAns.value === 'undefined' ||
-        lonAns === null || typeof lonAns.value === 'undefined' ||
-        feltAns === null || typeof feltAns.value === 'undefined' ||
-        timeAns === null || timeAns.value === '') {
-      button.setAttribute('disabled', 'disabled');
-    } else {
-      button.removeAttribute('disabled');
-    }
   };
 
   _initialize(options);
