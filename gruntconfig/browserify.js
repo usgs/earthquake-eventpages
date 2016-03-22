@@ -23,6 +23,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/focal-mechanism/FocalMechanismView.js:focal-mechanism/FocalMechanismView',
   './' + config.src + '/htdocs/js/general/GeoserveNearbyPlacesView.js:general/GeoserveNearbyPlacesView',
   './' + config.src + '/htdocs/js/general/NearbyPlacesView.js:general/NearbyPlacesView',
+  './' + config.src + '/htdocs/js/losspager/PAGERView.js:losspager/PAGERView',
   './' + config.src + '/htdocs/js/map/ContoursLayer.js:map/ContoursLayer',
   './' + config.src + '/htdocs/js/map/DyfiUtmLayer.js:map/DyfiUtmLayer',
   './' + config.src + '/htdocs/js/map/InteractiveMapModule.js:map/InteractiveMapModule',
@@ -113,6 +114,18 @@ var browserify = {
   //     alias: BUNDLED_DEPENDENCIES
   //   }
   // },
+
+
+  // bundle leaflet externally
+  leaflet: {
+    src: [],
+    dest: config.build + '/' + config.src + '/htdocs/lib/leaflet/leaflet.js',
+    options: {
+      alias: [
+        NODE_MODULES + '/leaflet/dist/leaflet-src.js:leaflet'
+      ]
+    }
+  },
 
   // test bundle
   test: {

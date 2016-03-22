@@ -1,0 +1,916 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+<pager version="1.0 Revision 1516" xml_version="1" process_timestamp="2016-03-02T16:59:54Z" elapsed="4 hours, 10 minutes" ccode="" approved="A" tsunami="1">
+	<event eventcode="us10004u1y" versioncode="us10004u1y" number="4" shakeversion="4" magnitude="7.8" depth="24.0" lat="-4.908200" lon="94.275000" event_timestamp="2016-03-02T12:49:48Z" event_description="SOUTHWEST OF SUMATRA, INDONESIA" maxmmi="3.0" shaketime="2016-03-02T16:45:02Z" isreviewed="False" localtime="12:49:48"/>
+	<alerts>
+		<alert type="economic" level="green" summary="no" units="USD">
+			<bin min="0" max="999999" probability="99" color="green"/>
+			<bin min="1000000" max="9999999" probability="1" color="yellow"/>
+			<bin min="10000000" max="99999999" probability="0" color="yellow"/>
+			<bin min="100000000" max="999999999" probability="0" color="orange"/>
+			<bin min="1000000000" max="9999999999" probability="0" color="red"/>
+			<bin min="10000000000" max="99999999999" probability="0" color="red"/>
+			<bin min="100000000000" max="999999999999" probability="0" color="red"/>
+		</alert>
+		<alert type="fatality" level="green" summary="yes" units="fatalities">
+			<bin min="0" max="0" probability="99" color="green"/>
+			<bin min="1" max="9" probability="1" color="yellow"/>
+			<bin min="10" max="99" probability="0" color="yellow"/>
+			<bin min="100" max="999" probability="0" color="orange"/>
+			<bin min="1000" max="9999" probability="0" color="red"/>
+			<bin min="10000" max="99999" probability="0" color="red"/>
+			<bin min="100000" max="999999" probability="0" color="red"/>
+		</alert>
+</alerts>
+	<exposure dmin="0.5" dmax="1.5" exposure="53394092" rangeInsideMap="0"/>
+	<exposure dmin="1.5" dmax="2.5" exposure="38093610" rangeInsideMap="0"/>
+	<exposure dmin="2.5" dmax="3.5" exposure="595710" rangeInsideMap="0"/>
+	<exposure dmin="3.5" dmax="4.5" exposure="0" rangeInsideMap="0"/>
+	<exposure dmin="4.5" dmax="5.5" exposure="0" rangeInsideMap="1"/>
+	<exposure dmin="5.5" dmax="6.5" exposure="0" rangeInsideMap="1"/>
+	<exposure dmin="6.5" dmax="7.5" exposure="0" rangeInsideMap="1"/>
+	<exposure dmin="7.5" dmax="8.5" exposure="0" rangeInsideMap="1"/>
+	<exposure dmin="8.5" dmax="9.5" exposure="0" rangeInsideMap="1"/>
+	<exposure dmin="9.5" dmax="10.5" exposure="0" rangeInsideMap="1"/>
+	<city name="Sikabaluan" lat="-1.119610" lon="98.992170" population="0" mmi="2.740000" iscapital="0"/>
+	<city name="Muara Siberut" lat="-1.597870" lon="99.210970" population="0" mmi="2.700000" iscapital="0"/>
+	<city name="Kambang" lat="-1.690400" lon="100.720900" population="0" mmi="2.590000" iscapital="0"/>
+	<city name="Pasarbaru" lat="-1.305100" lon="100.509950" population="0" mmi="2.550000" iscapital="0"/>
+	<city name="Tiku" lat="-0.395800" lon="99.923070" population="0" mmi="2.520000" iscapital="0"/>
+	<city name="Tabing" lat="-0.872030" lon="100.342790" population="0" mmi="2.520000" iscapital="0"/>
+	<city name="Pariaman" lat="-0.618980" lon="100.119970" population="92183" mmi="2.520000" iscapital="0"/>
+	<city name="Padang" lat="-0.949240" lon="100.354270" population="840352" mmi="2.490000" iscapital="1"/>
+	<city name="Painan" lat="-1.351720" lon="100.573830" population="0" mmi="2.470000" iscapital="0"/>
+	<city name="Pauhambar" lat="-0.655360" lon="100.212790" population="0" mmi="2.470000" iscapital="0"/>
+	<city name="Lubukalung" lat="-0.686240" lon="100.286130" population="0" mmi="2.470000" iscapital="0"/>
+	<city name="Painan" lat="-1.351720" lon="100.573830" population="0" mmi="2.470000" iscapital="0"/>
+	<city name="Lubukbergalung" lat="-0.960760" lon="100.400110" population="0" mmi="2.440000" iscapital="0"/>
+	<city name="Solok" lat="-0.791830" lon="100.659320" population="48372" mmi="2.400000" iscapital="0"/>
+	<city name="Semurup" lat="-1.991700" lon="101.369000" population="0" mmi="2.330000" iscapital="0"/>
+	<city name="Payakumbuh" lat="-0.220190" lon="100.630780" population="121572" mmi="2.320000" iscapital="0"/>
+	<city name="Kampungladang" lat="-0.541920" lon="100.170440" population="0" mmi="2.320000" iscapital="0"/>
+	<city name="Kototujuh" lat="-0.641860" lon="100.917630" population="0" mmi="2.320000" iscapital="0"/>
+	<city name="Mandarahan" lat="-1.796100" lon="100.829500" population="0" mmi="2.310000" iscapital="0"/>
+	<city name="Tanjungpati" lat="-0.160460" lon="100.679970" population="0" mmi="2.290000" iscapital="0"/>
+	<city name="Talawi" lat="-0.597450" lon="100.739790" population="0" mmi="2.290000" iscapital="0"/>
+	<city name="Padangpanjang" lat="-0.467210" lon="100.402260" population="0" mmi="2.280000" iscapital="0"/>
+	<city name="Sungailimau" lat="-0.516380" lon="100.061710" population="0" mmi="2.270000" iscapital="0"/>
+	<city name="Sungaisarik" lat="-0.573580" lon="100.224640" population="0" mmi="2.260000" iscapital="0"/>
+	<city name="Bukittinggi" lat="-0.309070" lon="100.370550" population="98746" mmi="2.250000" iscapital="0"/>
+	<city name="Guguk" lat="-0.141480" lon="100.565080" population="0" mmi="2.240000" iscapital="0"/>
+	<city name="Sungai Penuh" lat="-2.056100" lon="101.391300" population="95913" mmi="2.230000" iscapital="0"/>
+	<city name="Pasarkuok" lat="-1.441400" lon="100.622000" population="0" mmi="2.210000" iscapital="0"/>
+	<city name="Kotabaru" lat="-1.101550" lon="101.760310" population="0" mmi="2.210000" iscapital="0"/>
+	<city name="Bonjol" lat="-0.017850" lon="100.227480" population="0" mmi="2.200000" iscapital="0"/>
+	<city name="Bengkulu" lat="-3.800440" lon="102.265540" population="309712" mmi="2.200000" iscapital="1"/>
+	<city name="Saruaso" lat="-0.483100" lon="100.637660" population="0" mmi="2.180000" iscapital="0"/>
+	<city name="Sulitair" lat="-0.612580" lon="100.647880" population="0" mmi="2.170000" iscapital="0"/>
+	<city name="Baso" lat="-0.280670" lon="100.453620" population="0" mmi="2.170000" iscapital="0"/>
+	<city name="Matur" lat="-0.278770" lon="100.288020" population="0" mmi="2.160000" iscapital="0"/>
+	<city name="Gunung Talang" lat="-0.905660" lon="100.627090" population="0" mmi="2.160000" iscapital="0"/>
+	<city name="Kumanis" lat="-0.537100" lon="100.804850" population="0" mmi="2.160000" iscapital="0"/>
+	<city name="Sinabang" lat="2.480300" lon="96.380100" population="15000" mmi="2.150000" iscapital="0"/>
+	<city name="Sarolangun" lat="-2.312100" lon="102.727100" population="0" mmi="2.150000" iscapital="0"/>
+	<city name="Rambatan" lat="-0.492140" lon="100.545440" population="0" mmi="2.150000" iscapital="0"/>
+	<city name="Sirukam" lat="-0.887110" lon="100.759500" population="0" mmi="2.130000" iscapital="0"/>
+	<city name="Muararupit" lat="-2.723600" lon="102.910800" population="0" mmi="2.110000" iscapital="0"/>
+	<city name="Muaralimun" lat="-2.396700" lon="102.638900" population="0" mmi="2.110000" iscapital="0"/>
+	<city name="Lubukalung" lat="-0.683210" lon="100.318560" population="0" mmi="2.100000" iscapital="0"/>
+	<city name="Sijunjung" lat="-0.687620" lon="100.953650" population="27786" mmi="2.090000" iscapital="0"/>
+	<city name="Surian" lat="-1.255870" lon="100.881290" population="0" mmi="2.080000" iscapital="0"/>
+	<city name="Jangkat" lat="-2.507200" lon="102.054000" population="0" mmi="2.080000" iscapital="0"/>
+	<city name="Bangko" lat="-2.079600" lon="102.257300" population="0" mmi="2.080000" iscapital="0"/>
+	<city name="Sungayang" lat="-0.407560" lon="100.597180" population="0" mmi="2.070000" iscapital="0"/>
+	<city name="Simabur" lat="-0.464480" lon="100.528170" population="0" mmi="2.070000" iscapital="0"/>
+	<city name="Lubuklinggau" lat="-3.300000" lon="102.866670" population="148243" mmi="2.060000" iscapital="0"/>
+	<city name="Alahanpanjang" lat="-1.074910" lon="100.793540" population="0" mmi="2.060000" iscapital="0"/>
+	<city name="Surulangun Rawas" lat="-2.622700" lon="102.763400" population="0" mmi="2.050000" iscapital="0"/>
+	<city name="Maninjau" lat="-0.300590" lon="100.226710" population="0" mmi="2.050000" iscapital="0"/>
+	<city name="Lubukgadang" lat="-1.525100" lon="101.273400" population="0" mmi="2.050000" iscapital="0"/>
+	<city name="Salimpaung" lat="-0.352300" lon="100.548840" population="0" mmi="2.050000" iscapital="0"/>
+	<city name="Tanjungampalu" lat="-0.638640" lon="100.828100" population="0" mmi="2.050000" iscapital="0"/>
+	<city name="Sawahlunto" lat="-0.674830" lon="100.807150" population="0" mmi="2.040000" iscapital="0"/>
+	<city name="Pauh" lat="-2.138600" lon="102.818600" population="0" mmi="2.030000" iscapital="0"/>
+	<city name="Muaralabuh" lat="-1.462100" lon="101.023000" population="0" mmi="2.030000" iscapital="0"/>
+	<city name="Curup" lat="-3.466670" lon="102.533330" population="46245" mmi="2.030000" iscapital="0"/>
+	<city name="Siulakderasmudik" lat="-1.906700" lon="101.230300" population="0" mmi="2.020000" iscapital="0"/>
+	<city name="Padangsidempuan" lat="1.366670" lon="99.266670" population="100561" mmi="2.010000" iscapital="0"/>
+	<city name="Pekanbaru" lat="0.533330" lon="101.450000" population="703956" mmi="1.990000" iscapital="1"/>
+	<city name="Muarasiau" lat="-2.273000" lon="102.099800" population="0" mmi="1.990000" iscapital="0"/>
+	<city name="Muaralakitan" lat="-2.859400" lon="103.303900" population="0" mmi="1.990000" iscapital="0"/>
+	<city name="Rantauambacang" lat="-1.397800" lon="101.920200" population="0" mmi="1.990000" iscapital="0"/>
+	<city name="Rantauprapat" lat="2.100000" lon="99.833330" population="103009" mmi="1.980000" iscapital="0"/>
+	<city name="Palembaian" lat="-0.183330" lon="100.233330" population="0" mmi="1.980000" iscapital="0"/>
+	<city name="Batusangkar" lat="-0.456240" lon="100.626800" population="0" mmi="1.980000" iscapital="0"/>
+	<city name="Rantaupangiang" lat="-2.496200" lon="102.250500" population="0" mmi="1.970000" iscapital="0"/>
+	<city name="Balaipungut" lat="1.050000" lon="101.283330" population="56452" mmi="1.970000" iscapital="0"/>
+	<city name="Bingintelok" lat="-2.623200" lon="103.117300" population="0" mmi="1.950000" iscapital="0"/>
+	<city name="Tanjunggadang" lat="-0.301260" lon="100.738400" population="0" mmi="1.940000" iscapital="0"/>
+	<city name="Pagaralam" lat="-4.016670" lon="103.266670" population="70386" mmi="1.930000" iscapital="0"/>
+	<city name="Sibolga" lat="1.742700" lon="98.779200" population="79714" mmi="1.920000" iscapital="0"/>
+	<city name="Bandar" lat="2.050000" lon="99.750000" population="31442" mmi="1.920000" iscapital="0"/>
+	<city name="Tanjungbalai" lat="2.966670" lon="99.800000" population="142506" mmi="1.910000" iscapital="0"/>
+	<city name="Saribudolok" lat="2.939200" lon="98.610700" population="0" mmi="1.900000" iscapital="0"/>
+	<city name="Belawan" lat="3.775500" lon="98.683200" population="102707" mmi="1.900000" iscapital="0"/>
+	<city name="Singkarak" lat="-0.690890" lon="100.603350" population="0" mmi="1.900000" iscapital="0"/>
+	<city name="Stabat" lat="3.761000" lon="98.451300" population="26862" mmi="1.880000" iscapital="0"/>
+	<city name="Medan" lat="3.583330" lon="98.666670" population="1750971" mmi="1.880000" iscapital="1"/>
+	<city name="Labuhan Deli" lat="3.727800" lon="98.673800" population="49668" mmi="1.880000" iscapital="0"/>
+	<city name="Binjai" lat="3.600100" lon="98.485400" population="228763" mmi="1.880000" iscapital="0"/>
+	<city name="Mandahara" lat="-1.033330" lon="103.583330" population="56268" mmi="1.880000" iscapital="0"/>
+	<city name="Sunggal" lat="3.576500" lon="98.615100" population="157914" mmi="1.870000" iscapital="0"/>
+	<city name="Kisaran" lat="2.984500" lon="99.615800" population="129911" mmi="1.870000" iscapital="0"/>
+	<city name="Kotatua" lat="-0.345140" lon="100.362410" population="0" mmi="1.870000" iscapital="0"/>
+	<city name="Tebingtinggi" lat="3.328500" lon="99.162500" population="117530" mmi="1.860000" iscapital="0"/>
+	<city name="Sondi" lat="2.973500" lon="98.861700" population="0" mmi="1.860000" iscapital="0"/>
+	<city name="Dumai" lat="1.683330" lon="101.450000" population="143760" mmi="1.860000" iscapital="0"/>
+	<city name="Tanjung Mas" lat="-0.491280" lon="100.754110" population="0" mmi="1.860000" iscapital="0"/>
+	<city name="Onan Ganjang" lat="2.158100" lon="98.629600" population="0" mmi="1.860000" iscapital="0"/>
+	<city name="Pekan Bahapal" lat="3.113130" lon="99.173520" population="40000" mmi="1.860000" iscapital="0"/>
+	<city name="Tanjungtiram" lat="4.061300" lon="98.369900" population="25118" mmi="1.850000" iscapital="0"/>
+	<city name="Perbaungan" lat="3.567900" lon="98.956000" population="157174" mmi="1.850000" iscapital="0"/>
+	<city name="Pangkalan Brandan" lat="4.023800" lon="98.278200" population="25542" mmi="1.840000" iscapital="0"/>
+	<city name="Biha" lat="-5.329600" lon="104.029500" population="0" mmi="1.840000" iscapital="0"/>
+	<city name="Teluk Nibung" lat="3.001000" lon="99.816400" population="25146" mmi="1.830000" iscapital="0"/>
+	<city name="Panguruan" lat="2.608100" lon="98.696100" population="0" mmi="1.830000" iscapital="0"/>
+	<city name="Kabanjahe" lat="3.100100" lon="98.490800" population="57159" mmi="1.830000" iscapital="0"/>
+	<city name="Deli Tua" lat="3.507800" lon="98.683900" population="27940" mmi="1.830000" iscapital="0"/>
+	<city name="Martapura" lat="-4.318850" lon="104.347150" population="0" mmi="1.820000" iscapital="0"/>
+	<city name="Pematangsiantar" lat="2.959500" lon="99.068700" population="209614" mmi="1.810000" iscapital="0"/>
+	<city name="Meulaboh" lat="4.136300" lon="96.128500" population="35062" mmi="1.810000" iscapital="0"/>
+	<city name="Tigarunggu" lat="2.896500" lon="98.722600" population="0" mmi="1.810000" iscapital="0"/>
+	<city name="Jambi" lat="-1.600000" lon="103.616670" population="420323" mmi="1.790000" iscapital="1"/>
+	<city name="Percut" lat="3.625300" lon="98.864000" population="311063" mmi="1.780000" iscapital="0"/>
+	<city name="Lahat" lat="-3.800000" lon="103.533330" population="65906" mmi="1.760000" iscapital="0"/>
+	<city name="Kualatungkal" lat="-0.816670" lon="103.466670" population="33683" mmi="1.740000" iscapital="0"/>
+	<city name="Sarimatondang" lat="2.864100" lon="98.915500" population="0" mmi="1.740000" iscapital="0"/>
+	<city name="Pane Tongah" lat="2.905900" lon="98.972300" population="0" mmi="1.740000" iscapital="0"/>
+	<city name="Perabumulih" lat="-3.450000" lon="104.250000" population="103470" mmi="1.730000" iscapital="0"/>
+	<city name="Sipintuangin" lat="2.813300" lon="98.790400" population="0" mmi="1.730000" iscapital="0"/>
+	<city name="Baturaja" lat="-4.128910" lon="104.166950" population="134759" mmi="1.720000" iscapital="0"/>
+	<city name="Kurungannyawa" lat="-4.238040" lon="104.464820" population="0" mmi="1.720000" iscapital="0"/>
+	<city name="Langsa" lat="4.468300" lon="97.968300" population="54465" mmi="1.710000" iscapital="0"/>
+	<city name="Simpang" lat="-1.266670" lon="104.083330" population="36652" mmi="1.710000" iscapital="0"/>
+	<city name="Banding Agung" lat="-4.809470" lon="103.924430" population="0" mmi="1.710000" iscapital="0"/>
+	<city name="Kuripan" lat="-5.035460" lon="103.764200" population="0" mmi="1.710000" iscapital="0"/>
+	<city name="Tanjungagung" lat="-3.933330" lon="103.800000" population="53117" mmi="1.700000" iscapital="0"/>
+	<city name="Muara Dua" lat="-4.531780" lon="104.073970" population="0" mmi="1.700000" iscapital="0"/>
+	<city name="Kotabumi" lat="-4.825050" lon="104.881700" population="42366" mmi="1.700000" iscapital="0"/>
+	<city name="Parapat" lat="2.663000" lon="98.934900" population="0" mmi="1.690000" iscapital="0"/>
+	<city name="Gumawang" lat="-4.111310" lon="104.648410" population="0" mmi="1.690000" iscapital="0"/>
+	<city name="Bara Datu" lat="-4.744230" lon="104.496400" population="0" mmi="1.680000" iscapital="0"/>
+	<city name="Simpang" lat="-4.448670" lon="104.192200" population="0" mmi="1.670000" iscapital="0"/>
+	<city name="Liwa" lat="-5.035540" lon="104.075950" population="0" mmi="1.660000" iscapital="0"/>
+	<city name="Ketapang" lat="-4.713350" lon="104.799540" population="0" mmi="1.630000" iscapital="0"/>
+	<city name="Negararatu" lat="-4.656030" lon="104.735760" population="0" mmi="1.630000" iscapital="0"/>
+	<city name="Krui" lat="-5.182510" lon="103.937460" population="0" mmi="1.630000" iscapital="0"/>
+	<city name="Pengandonan" lat="-4.054210" lon="103.876680" population="0" mmi="1.620000" iscapital="0"/>
+	<city name="Kenali" lat="-4.991570" lon="104.192900" population="0" mmi="1.620000" iscapital="0"/>
+	<city name="Pulauberingin" lat="-4.499820" lon="103.636620" population="0" mmi="1.590000" iscapital="0"/>
+	<city name="Harian" lat="2.556100" lon="98.662500" population="0" mmi="1.590000" iscapital="0"/>
+	<city name="Oganlima" lat="-4.867360" lon="104.703080" population="0" mmi="1.590000" iscapital="0"/>
+	<city name="Pasar Banjit" lat="-4.799450" lon="104.483230" population="0" mmi="1.560000" iscapital="0"/>
+	<city name="Ambarita" lat="2.681400" lon="98.831100" population="0" mmi="1.530000" iscapital="0"/>
+	<city name="Tanjung Sepat" lat="2.657900" lon="101.562900" population="22340" mmi="1.530000" iscapital="0"/>
+	<city name="Pulaupanggung" lat="-5.318120" lon="104.741520" population="0" mmi="1.480000" iscapital="0"/>
+	<city name="Umbulan Kapiak" lat="-4.834380" lon="104.528670" population="0" mmi="1.470000" iscapital="0"/>
+	<city name="Bukitkemuning" lat="-4.859620" lon="104.573730" population="0" mmi="1.460000" iscapital="0"/>
+	<city name="Kasui" lat="-4.715720" lon="104.449800" population="0" mmi="1.450000" iscapital="0"/>
+	<city name="Tanjung Raja" lat="-4.910690" lon="104.661190" population="0" mmi="1.430000" iscapital="0"/>
+	<city name="Kotaagung" lat="-5.494150" lon="104.622010" population="0" mmi="1.430000" iscapital="0"/>
+	<city name="Reuleuet" lat="5.216670" lon="96.283330" population="40393" mmi="1.210000" iscapital="0"/>
+	<city name="Sigli" lat="5.384800" lon="95.960900" population="17504" mmi="1.000000" iscapital="0"/>
+	<city name="Sabang" lat="5.889690" lon="95.316440" population="24519" mmi="1.000000" iscapital="0"/>
+	<city name="Lhokseumawe" lat="5.180100" lon="97.150700" population="88974" mmi="1.000000" iscapital="0"/>
+	<city name="Bireun" lat="5.203000" lon="96.700900" population="25793" mmi="1.000000" iscapital="0"/>
+	<city name="Banda Aceh" lat="5.557700" lon="95.322200" population="250757" mmi="1.000000" iscapital="1"/>
+	<city name="Wanasalam" lat="-6.803100" lon="105.910800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Turus" lat="-6.408500" lon="106.055600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Terbanggi-besar" lat="-4.866670" lon="105.233330" population="52566" mmi="1.000000" iscapital="0"/>
+	<city name="Tenjolahang Timur" lat="-6.355700" lon="105.856100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tegal" lat="-6.404600" lon="105.897200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tanjungpinang" lat="0.916670" lon="104.450000" population="125472" mmi="1.000000" iscapital="0"/>
+	<city name="Bandarlampung" lat="-5.425440" lon="105.258030" population="800348" mmi="1.000000" iscapital="1"/>
+	<city name="Kubangkepuh" lat="-5.899400" lon="106.028400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sungailiat" lat="-1.850000" lon="106.133330" population="74719" mmi="1.000000" iscapital="0"/>
+	<city name="Sumurbatu" lat="-6.787400" lon="105.850500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukadana" lat="-5.064460" lon="105.548690" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Seredang" lat="-6.804300" lon="106.265300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Serang" lat="-6.114900" lon="106.150200" population="164767" mmi="1.000000" iscapital="0"/>
+	<city name="Sekampung" lat="-5.133260" lon="105.435950" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Saketi" lat="-6.401000" lon="105.992000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Rangkasbitung" lat="-6.359100" lon="106.249400" population="126910" mmi="1.000000" iscapital="0"/>
+	<city name="Pringsewu" lat="-5.358220" lon="104.974410" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Perdana" lat="-6.528000" lon="105.840300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Patia Kidul" lat="-6.486080" lon="105.859310" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasirnangka" lat="-6.829590" lon="106.095140" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasirnangka" lat="-6.788600" lon="105.628900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasirgadung Satu" lat="-6.491900" lon="105.900200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasauran" lat="-6.230600" lon="105.832500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Parungrasa" lat="-6.731800" lon="105.924300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Parakanbeusi" lat="-6.594000" lon="106.191100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Panjang" lat="-5.475900" lon="105.319820" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pangkalpinang" lat="-2.133330" lon="106.133330" population="125933" mmi="1.000000" iscapital="0"/>
+	<city name="Pangarengan" lat="-5.957140" lon="106.072660" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pandeglang" lat="-6.308400" lon="106.106700" population="92316" mmi="1.000000" iscapital="0"/>
+	<city name="Panacaran" lat="-6.660600" lon="105.924000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Palembang" lat="-2.916730" lon="104.745800" population="1441500" mmi="1.000000" iscapital="1"/>
+	<city name="Pakuan Agung" lat="-4.664810" lon="104.962930" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pakis" lat="-6.560000" lon="105.961300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pagelaran" lat="-6.815500" lon="106.040110" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pagelaran" lat="-6.433000" lon="105.857200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Padarincang" lat="-6.214000" lon="105.951200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Padangcermin" lat="-5.600750" lon="105.138700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pabuaran" lat="-6.204300" lon="106.071100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sirnagalih" lat="-6.288800" lon="105.997300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Natar" lat="-5.308970" lon="105.192510" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Muruy" lat="-6.366300" lon="105.899900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Muntok" lat="-2.066670" lon="105.183330" population="26709" mmi="1.000000" iscapital="0"/>
+	<city name="Munjul" lat="-6.610500" lon="105.898900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Binuangeun" lat="-6.834500" lon="105.889500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Metro" lat="-5.113060" lon="105.306670" population="149526" mmi="1.000000" iscapital="0"/>
+	<city name="Menes" lat="-6.377700" lon="105.919800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Mandalawangi" lat="-6.310200" lon="105.988600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Malingping" lat="-6.778380" lon="106.017670" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kampungmasjid" lat="-6.426700" lon="105.970800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Leuwidamar" lat="-6.512500" lon="106.193400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Lebakkeusik" lat="-6.600800" lon="105.951700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Langensari" lat="-6.422200" lon="105.942500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Labuhanmaringgai" lat="-5.350740" lon="105.809930" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Labuan" lat="-6.378400" lon="105.830000" population="33576" mmi="1.000000" iscapital="0"/>
+	<city name="Kumpai" lat="-6.476500" lon="106.013400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kijang" lat="0.900000" lon="104.633330" population="41344" mmi="1.000000" iscapital="0"/>
+	<city name="Kedaton" lat="-5.383540" lon="105.259600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Katumbiri" lat="-6.642100" lon="105.697900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Karangbolong" lat="-6.628800" lon="105.650100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kapinango" lat="-6.412700" lon="105.862500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kandang" lat="-6.804160" lon="106.005980" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikaludan" lat="-6.707700" lon="105.890600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaliandak" lat="-5.738050" lon="105.591600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaduranca" lat="-6.361000" lon="105.929900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadupandak" lat="-6.506100" lon="105.969000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadumula" lat="-6.516200" lon="105.966100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadujajar" lat="-6.748260" lon="106.026160" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cililitan" lat="-6.506380" lon="105.978020" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadugedong" lat="-6.363900" lon="106.100000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaduengang" lat="-6.259800" lon="106.074200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadubeureum" lat="-6.359500" lon="105.941600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Jiput" lat="-6.344200" lon="105.901400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cijalarang" lat="-6.664400" lon="105.670400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Jepara" lat="-5.169480" lon="105.704410" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Jatake" lat="-6.872700" lon="106.256400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Janaka" lat="-6.316710" lon="105.881370" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Jabung" lat="-5.463140" lon="105.667520" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gunungsari" lat="-6.162800" lon="106.061100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gunungkendeng" lat="-6.670600" lon="106.054700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gunungkencana" lat="-6.572100" lon="106.074200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gemuruh" lat="-6.439300" lon="106.088900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gonggong" lat="-6.387500" lon="105.897600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gerdug" lat="-6.436100" lon="105.972500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gedongtataan" lat="-5.382700" lon="105.095500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kotadukuh" lat="-6.597300" lon="105.903600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Citeureup" lat="-6.648300" lon="106.075100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Citeureup" lat="-6.533800" lon="105.709900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciseureuheun" lat="-6.599500" lon="105.715200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciseukeut Timur" lat="-6.523200" lon="105.754800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cirinten" lat="-6.632400" lon="106.157200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cipinang" lat="-6.607500" lon="105.864000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cipicung Timur" lat="-6.675000" lon="106.173700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cipeundeuy" lat="-6.700300" lon="106.113400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cipaas" lat="-6.703300" lon="105.904500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciomas" lat="-6.217300" lon="106.044000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cimoyan" lat="-6.470700" lon="105.887500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cimanuk" lat="-6.344000" lon="106.028900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cimandiri" lat="-6.856600" lon="106.171300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cilentung" lat="-6.327400" lon="105.956300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cilegong" lat="-6.548500" lon="105.998800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikeusikdesa" lat="-6.754000" lon="105.953900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikeusik" lat="-6.728200" lon="105.872000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikayas" lat="-6.592440" lon="105.880280" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikawung" lat="-6.753500" lon="106.168900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikate" lat="-6.728900" lon="106.216300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikaras" lat="-6.783100" lon="106.148100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikarang" lat="-6.716500" lon="105.920100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikadu" lat="-6.745400" lon="105.700700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciherang" lat="-6.374000" lon="105.949100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciherang" lat="-6.182900" lon="106.059900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cigemlong" lat="-6.722700" lon="106.157600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cigaber" lat="-6.799970" lon="106.109830" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cidima" lat="-6.593000" lon="106.039900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cicatang Satu" lat="-6.864330" lon="106.106910" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciburial" lat="-6.723900" lon="105.666500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibungurgardu" lat="-6.467500" lon="105.814700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibitungmasjid" lat="-6.616100" lon="105.888900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibaliung" lat="-6.705000" lon="105.716000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciapus" lat="-6.746100" lon="106.086900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Carita" lat="-6.317800" lon="105.838200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Caringin Lor" lat="-6.350300" lon="105.827200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bulakan" lat="-6.645400" lon="106.032900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bolang" lat="-6.765800" lon="105.992800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bojongmanik Girang" lat="-6.584300" lon="106.166200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bojong" lat="-6.161800" lon="106.089900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bojonegara" lat="-5.970000" lon="106.095500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Batubantar" lat="-6.350100" lon="106.044400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Barusatu" lat="-6.320700" lon="105.946000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Barengkok Hilir" lat="-6.766300" lon="105.923400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Badur" lat="-6.380500" lon="105.847400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bangunrejo" lat="-5.140300" lon="105.037200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Punggur" lat="-5.041460" lon="105.277340" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pekalongan" lat="-5.082770" lon="105.358840" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Batanghari" lat="-5.140950" lon="105.375200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaburon" lat="-6.287500" lon="106.126700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Karangtanjung" lat="-6.288600" lon="106.128300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pekijing" lat="-6.123400" lon="106.103300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Babakankasilun" lat="-6.498400" lon="106.225400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Talagasari" lat="-6.495400" lon="106.200300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pakuncen" lat="-5.954300" lon="106.071100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Curug" lat="-5.981300" lon="106.019300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bandaragung" lat="-5.292290" lon="105.692550" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gadingrejo" lat="-5.372330" lon="105.061630" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Palas" lat="-5.651910" lon="105.680110" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sidorejo" lat="-5.584710" lon="105.523640" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasuruan" lat="-5.746300" lon="105.677070" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Penengahan" lat="-5.770600" lon="105.696900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kedondong" lat="-5.462840" lon="105.000900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Babakanbungur" lat="-6.553300" lon="105.700900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Songgom" lat="-6.562700" lon="105.742600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cigeulis" lat="-6.587600" lon="105.692400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Marapat" lat="-6.609970" lon="105.696920" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cisuren" lat="-6.859100" lon="106.263900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Peusar" lat="-6.633200" lon="105.718000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Babakantengah" lat="-6.642100" lon="105.697900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikadondongdesa" lat="-6.660900" lon="105.698300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gunungkendeng" lat="-6.679400" lon="105.704300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Salam" lat="-6.691400" lon="105.717600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Babakantonggoh" lat="-6.694500" lon="105.629600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Polos" lat="-6.700100" lon="105.649300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciunil Barat" lat="-6.697400" lon="105.663900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukajadi" lat="-6.714400" lon="105.706200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Babakancibaliung" lat="-6.717600" lon="105.736900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cangkeuteuk Sabrang" lat="-6.726700" lon="105.625900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadubadak" lat="-6.647600" lon="105.861100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Leuwibuleud" lat="-6.682500" lon="105.857300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bungurdua" lat="-6.714800" lon="105.780500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Dahu Satu" lat="-6.737300" lon="105.801400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Benger" lat="-6.735800" lon="105.843300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Rancasadang" lat="-6.755400" lon="105.680600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sudimanik" lat="-6.752800" lon="105.727700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sorongan" lat="-6.758100" lon="105.748300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tugu Hilir" lat="-6.809200" lon="105.629200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pematangluhur" lat="-6.770600" lon="105.646100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sindanglaya" lat="-6.775600" lon="105.678100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Citeluk" lat="-6.795000" lon="105.673500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cicadas" lat="-6.824900" lon="105.661800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cinyurup" lat="-6.777200" lon="105.694600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Leuwibuaya" lat="-6.811500" lon="105.697400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukapura" lat="-6.763600" lon="105.721100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikiruh" lat="-6.773700" lon="105.722600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cihaur" lat="-6.782400" lon="105.711000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Karamat" lat="-6.787600" lon="105.721300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Curug" lat="-6.761600" lon="105.763900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cicadas" lat="-6.758700" lon="105.801800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikaramat" lat="-6.763800" lon="105.827500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tanjungan" lat="-6.824500" lon="105.827000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Umbulan" lat="-6.765000" lon="105.855900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Rancaseneng" lat="-6.758900" lon="105.867100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukawaris" lat="-6.804100" lon="105.863900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibunar" lat="-6.794200" lon="106.213200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cipancur" lat="-6.830500" lon="106.236000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bangbayang" lat="-6.858100" lon="106.175100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Lebak" lat="-6.640720" lon="105.875200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cigalih" lat="-6.665900" lon="105.894800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Curuglanglang" lat="-6.630100" lon="105.919800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Perumahan Kopi" lat="-6.677020" lon="105.960860" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kampungsawah" lat="-6.675500" lon="105.976000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciseda" lat="-6.635200" lon="105.988300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pagenggang Selatan" lat="-6.748200" lon="105.986600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gintung Utara" lat="-6.729800" lon="105.978500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Senanghati" lat="-6.716500" lon="105.962700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bunut" lat="-6.729380" lon="105.911490" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Babakan" lat="-6.728900" lon="105.906500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kiarajangkung" lat="-6.741900" lon="105.880400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Daleum" lat="-6.752000" lon="105.969100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikiruh Wetan" lat="-6.826200" lon="105.875700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukamulya" lat="-6.812100" lon="105.887400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cisarap" lat="-6.785000" lon="105.909300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukatani" lat="-6.800900" lon="105.940600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasirkadu" lat="-6.515400" lon="105.853000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Teladan" lat="-6.522400" lon="105.824600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Perintis" lat="-6.527800" lon="105.802900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Jambubol" lat="-6.546500" lon="105.872800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Rancahideung" lat="-6.542500" lon="105.847700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Seuseupan" lat="-6.546400" lon="105.819500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pangkalan" lat="-6.558300" lon="105.757400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kalapadua" lat="-6.563910" lon="105.854950" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sobang" lat="-6.562200" lon="105.757100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bojen Kulon" lat="-6.563800" lon="105.787800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Awilega" lat="-6.566660" lon="105.848120" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Carodok" lat="-6.582300" lon="105.850800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sumurwaru" lat="-6.577000" lon="105.806800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cimara" lat="-6.584360" lon="105.825170" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibodas" lat="-6.593500" lon="105.858400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cangkeuteuk" lat="-6.598500" lon="105.789300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Keboncau" lat="-6.628100" lon="106.210100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Datarcae" lat="-6.650900" lon="106.162200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Parigi" lat="-6.653500" lon="106.196000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Nyungcung" lat="-6.715480" lon="106.141030" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tunasbaru" lat="-6.508900" lon="105.999500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Jalupang Dua" lat="-6.541500" lon="105.996200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kukuluk" lat="-6.562000" lon="105.991700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Anggrik" lat="-6.622270" lon="105.984400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Turus" lat="-6.506400" lon="105.881600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kampungbaru" lat="-6.533000" lon="105.900200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasirloa" lat="-6.541200" lon="105.887900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kampungmasjid" lat="-6.566100" lon="105.891400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadumelati" lat="-6.505600" lon="105.921200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Campaka" lat="-6.544400" lon="105.920300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Langkapcaang Hilir" lat="-6.548300" lon="105.923500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibeureum" lat="-6.599100" lon="105.919900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasanggrahan" lat="-6.605200" lon="105.904500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pematang" lat="-6.508000" lon="105.937300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasarbaru" lat="-6.521000" lon="105.936900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciodeng" lat="-6.579100" lon="105.948700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cimoyan" lat="-6.533400" lon="105.965300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciruji Dua" lat="-6.530100" lon="105.987500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kampungruweh" lat="-6.582800" lon="105.983900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Warungsugan" lat="-6.593100" lon="105.978000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Manggu" lat="-6.608200" lon="105.978700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kampunglistrik" lat="-6.377700" lon="105.829100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Lantera" lat="-6.378000" lon="105.823300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Balekersukamaju" lat="-6.382500" lon="105.836100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tarogong" lat="-6.392900" lon="105.839100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Montor Timur" lat="-6.395200" lon="105.873300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadubadak" lat="-6.391030" lon="105.870880" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadupayung" lat="-6.396800" lon="105.847700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadugadung" lat="-6.392800" lon="105.856200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pangampoan" lat="-6.398950" lon="105.851550" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tegalpanjang" lat="-6.411500" lon="105.829100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Margahayu" lat="-6.426400" lon="105.864610" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tegalpapak" lat="-6.439600" lon="105.825400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kampungpinggirkali" lat="-6.440300" lon="105.846600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Surianeun" lat="-6.446800" lon="105.858500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kebonjaya" lat="-6.444600" lon="105.853000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sidamukti" lat="-6.487010" lon="105.803250" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Panimbang" lat="-6.494300" lon="105.796100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Neglasari" lat="-6.495100" lon="105.793600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Paojan" lat="-6.496800" lon="105.815700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Leuwigede" lat="-6.496600" lon="105.833800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kubangkampil" lat="-6.490800" lon="105.839500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Weru" lat="-6.462300" lon="105.839200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Carenang Lor" lat="-6.462300" lon="105.865900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Parigi" lat="-6.381800" lon="105.875600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cirumput" lat="-6.396900" lon="105.884200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kuluwut Tengah" lat="-6.413600" lon="105.884600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kubang" lat="-6.419400" lon="105.883000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kubangkondanglapangan" lat="-6.415400" lon="105.912100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kubangkondang" lat="-6.421900" lon="105.908900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bangko Dua" lat="-6.385800" lon="105.885600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaducukang" lat="-6.392900" lon="105.918000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Leuweungkolot" lat="-6.392500" lon="105.928600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kebonjeruk" lat="-6.388800" lon="105.922300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikiray" lat="-6.379400" lon="105.900700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukamara" lat="-6.380900" lon="105.940600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Manungtung" lat="-6.378700" lon="105.943200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bongbong" lat="-6.394300" lon="105.949500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadusirung Hilir" lat="-6.429600" lon="105.935000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasirtundun" lat="-6.413900" lon="105.950100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasirwaringin" lat="-6.409630" lon="105.941220" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Timbang" lat="-6.386600" lon="105.981890" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ganjur Girang" lat="-6.403400" lon="105.979700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaduseeng" lat="-6.396500" lon="105.969300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Legokkopra" lat="-6.396800" lon="105.959100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Saketipasar" lat="-6.401400" lon="105.994300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Saketipasir" lat="-6.397600" lon="105.993100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pamatang" lat="-6.423200" lon="105.988100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadupinang" lat="-6.419700" lon="105.969400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kampungmasjid" lat="-6.426700" lon="105.970800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Karangsari" lat="-6.436100" lon="105.972500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadukandel" lat="-6.433400" lon="105.909800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Karangtengah" lat="-6.458600" lon="105.886800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kebon" lat="-6.473000" lon="105.878200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Nambo" lat="-6.491900" lon="105.950700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Mekarsari" lat="-6.463000" lon="105.986400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadubera" lat="-6.459300" lon="105.920800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasirpanjang" lat="-6.478500" lon="105.926900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kampungpasar" lat="-6.504900" lon="106.194300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Jati" lat="-6.515300" lon="106.195800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cirangga Kidul" lat="-6.529400" lon="106.171900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Palopat" lat="-6.536900" lon="106.228700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukamaju" lat="-6.536200" lon="106.229900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadulari" lat="-6.544500" lon="106.161200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kemancing" lat="-6.555700" lon="106.225700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bantarnaga Tonggoh" lat="-6.560900" lon="106.244300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bulakan" lat="-6.566300" lon="106.240900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadurahayu" lat="-6.569000" lon="106.128700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Babakansukamulya" lat="-6.582700" lon="106.167600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaduketug" lat="-6.598000" lon="106.224800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciboleger" lat="-6.594400" lon="106.225500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sumberwaras" lat="-6.595400" lon="106.153000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pajagan" lat="-6.606500" lon="106.166700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Nagreg" lat="-6.255600" lon="106.005600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Peuteuy" lat="-6.260700" lon="106.002800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Citajur" lat="-6.284500" lon="105.827300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kasepen" lat="-6.312400" lon="105.842600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tembol" lat="-6.322100" lon="105.842700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pamatang" lat="-6.329500" lon="105.834300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibango" lat="-6.344100" lon="105.833900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tangkil" lat="-6.315300" lon="105.850300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaducondong" lat="-6.347200" lon="105.855000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Picungbera" lat="-6.353570" lon="105.844320" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sepenmasjid" lat="-6.367960" lon="105.847530" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bogor" lat="-6.331400" lon="105.868400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukacai" lat="-6.348700" lon="105.866700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukacai Tengah" lat="-6.351700" lon="105.865200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sarampu" lat="-6.364300" lon="105.869400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Padahayu" lat="-6.372200" lon="105.860900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Teluk" lat="-6.372200" lon="105.825200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Makui" lat="-6.373100" lon="105.831200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kalepasan" lat="-6.260000" lon="106.079900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tanagara" lat="-6.265400" lon="106.095300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Jalanbaru" lat="-6.261200" lon="106.120300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sindanghayu" lat="-6.268300" lon="106.104600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Juhut" lat="-6.295500" lon="106.106400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Mandalasari" lat="-6.301900" lon="106.004800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gunungsari" lat="-6.307000" lon="106.020700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Campraksanta" lat="-6.301900" lon="106.077600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Keboncau" lat="-6.306800" lon="106.105100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gobang" lat="-6.371600" lon="106.007200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadulomber" lat="-6.370000" lon="106.041400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cileuksa" lat="-6.373700" lon="106.086700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Rancapiit" lat="-6.367700" lon="106.090800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Garawati" lat="-6.363600" lon="106.119300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gunungputri" lat="-6.360600" lon="106.093700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Salinggara" lat="-6.363800" lon="106.079200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kalahang" lat="-6.360600" lon="106.053100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cimongkor" lat="-6.363900" lon="106.024800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Rocek" lat="-6.357100" lon="106.047600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadubincarung" lat="-6.352300" lon="106.108600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Curuggaru" lat="-6.344100" lon="106.066600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Panday" lat="-6.349800" lon="106.045700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Rancanyenang" lat="-6.337600" lon="106.016400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibebek" lat="-6.341560" lon="106.076740" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadomas" lat="-6.329300" lon="106.110100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Majamasjid" lat="-6.328800" lon="106.093100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cipacung Landeuh" lat="-6.329000" lon="106.082500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Girihieum" lat="-6.331900" lon="106.069000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Rokoy" lat="-6.332800" lon="106.060600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kukulu" lat="-6.332100" lon="106.047600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cilanggar" lat="-6.331900" lon="106.041400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bengkung" lat="-6.330600" lon="106.037200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasarnangka" lat="-6.330200" lon="106.034300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibulakan" lat="-6.327100" lon="106.021300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Calincing" lat="-6.326100" lon="106.005100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kurungkambing" lat="-6.310200" lon="106.009600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Garokgek" lat="-6.311200" lon="106.032200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Nagrog" lat="-6.318200" lon="106.034200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cidahu" lat="-6.311300" lon="106.056800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cilaja" lat="-6.312800" lon="106.091000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciekek" lat="-6.320400" lon="106.099600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kabayancitiis" lat="-6.311700" lon="106.109700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gardutanjak" lat="-6.313300" lon="106.101300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Penikebon" lat="-6.342000" lon="106.087500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadumantung" lat="-6.289900" lon="106.118350" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Karangcombong" lat="-6.630200" lon="106.266600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ciparay" lat="-6.132600" lon="105.865900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kopibera" lat="-6.154800" lon="105.873400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kopibaru" lat="-6.162000" lon="105.872900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bantarwaru" lat="-6.202600" lon="105.864200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Dahu" lat="-6.216300" lon="105.874000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kawoyang" lat="-6.242800" lon="105.862700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bengras" lat="-6.248100" lon="105.832400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Umbultanjung" lat="-6.233700" lon="105.831600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tawingmuara" lat="-6.163700" lon="105.854800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pondokwaru" lat="-6.197200" lon="105.839400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Talaga" lat="-6.320900" lon="105.999700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Banyuresmi" lat="-6.356000" lon="105.880400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadukotok" lat="-6.357100" lon="105.890700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Jami" lat="-6.368100" lon="105.882600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Panghadangan" lat="-6.305200" lon="105.897100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadubamban" lat="-6.319200" lon="105.899400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaduheuleut" lat="-6.336100" lon="105.898100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pamarayan" lat="-6.355400" lon="105.898900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cukangpanjang" lat="-6.334000" lon="105.909800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cigadung" lat="-6.333600" lon="105.922700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sampangbitung" lat="-6.350200" lon="105.917500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sorodot" lat="-6.362300" lon="105.912800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Munjul" lat="-6.342500" lon="105.936400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadupager" lat="-6.348700" lon="105.935400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cigandeng" lat="-6.369200" lon="105.930000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kupahandap" lat="-6.374500" lon="105.931400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Mandalawangi" lat="-6.303500" lon="105.993100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadujangkung" lat="-6.260200" lon="105.946700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadutalahab" lat="-6.347500" lon="105.948200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bojongpinang" lat="-6.361200" lon="105.945600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasargunung" lat="-6.363900" lon="105.952300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadukoneng" lat="-6.265000" lon="105.968100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cisaat" lat="-6.292300" lon="105.971700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Batulayang" lat="-6.289000" lon="105.973500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadujampang" lat="-6.306000" lon="105.975300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pandat" lat="-6.313800" lon="105.960500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaduronyok" lat="-6.373100" lon="105.960700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kalahang" lat="-6.280500" lon="105.994200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Karangdawa Barat" lat="-6.131810" lon="106.110940" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bojongseler" lat="-6.142700" lon="106.033800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Uluarang" lat="-6.147300" lon="106.045200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Padukan" lat="-6.149500" lon="106.104300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Merapit" lat="-6.154400" lon="106.062500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasagipasir" lat="-6.182140" lon="106.121230" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pancanagara" lat="-6.191900" lon="106.087700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Panyirapan" lat="-6.233900" lon="106.123300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Lengor" lat="-6.227900" lon="106.110000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kalibuntu" lat="-6.213400" lon="106.113800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sioah" lat="-6.206300" lon="106.110700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cigudang" lat="-6.244200" lon="106.101600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadukaung" lat="-6.247900" lon="106.107000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cipayung" lat="-6.207400" lon="106.015800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibetung Dua" lat="-6.200000" lon="106.024700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sampiran" lat="-6.208400" lon="106.073400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikaung" lat="-6.204000" lon="106.082700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sirnagalih" lat="-6.215700" lon="106.043700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikendi" lat="-6.210700" lon="106.023400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Talagabakti" lat="-6.208100" lon="106.009300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Curuggoong" lat="-6.216500" lon="106.003500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Nagreg" lat="-6.219430" lon="106.089070" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cemplang" lat="-6.230000" lon="106.075200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Parapatan" lat="-6.228600" lon="106.059500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cilongkrangpusaka" lat="-6.226250" lon="106.025300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kurungkotok" lat="-6.227800" lon="106.037200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Lebak" lat="-6.236900" lon="106.011900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Citaman" lat="-6.235600" lon="106.020100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaduela" lat="-6.245200" lon="106.081400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kampungsawah Landeuh" lat="-6.248500" lon="106.010000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadubetara" lat="-6.627400" lon="106.071900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Parakanlima" lat="-6.631900" lon="106.107700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukakerta" lat="-6.675900" lon="106.053500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pamundayan Kaler" lat="-6.696600" lon="106.025100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kandangsapi" lat="-6.742900" lon="106.029100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Simpanggarung" lat="-6.709900" lon="106.049400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukamaju" lat="-6.705300" lon="106.070100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Peucangpari" lat="-6.711700" lon="106.111100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Munturkaju" lat="-6.511000" lon="106.024300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cahayamekar" lat="-6.513890" lon="106.038740" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tajur" lat="-6.529400" lon="106.077700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sajir" lat="-6.506800" lon="106.085800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Keboncau" lat="-6.521700" lon="106.102100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cilutung" lat="-6.565400" lon="106.077700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibeusi" lat="-6.553300" lon="106.035100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Mangpeng" lat="-6.567800" lon="106.019400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kebonkalapa" lat="-6.589700" lon="106.026900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Lebakmasjid" lat="-6.605220" lon="106.086590" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cihaladan" lat="-6.580960" lon="106.106320" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cempaka" lat="-6.607800" lon="106.119200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Citeureup" lat="-6.770700" lon="106.002580" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasirgeleng" lat="-6.802530" lon="106.012850" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Jatiraya" lat="-6.808230" lon="106.017610" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukaraja" lat="-6.786880" lon="106.024880" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasirhaur" lat="-6.776730" lon="106.016740" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Citaritih" lat="-6.823360" lon="106.052800" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukamaju" lat="-6.771660" lon="106.050640" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikadu" lat="-6.788120" lon="106.095170" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Manglid" lat="-6.762560" lon="106.111600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikedung" lat="-6.132200" lon="105.985300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Mekarsari" lat="-6.135100" lon="105.904700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cinoyong" lat="-6.232200" lon="105.888500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibojong" lat="-6.220200" lon="105.939200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaduranca" lat="-6.220200" lon="105.925400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibunut" lat="-6.160100" lon="105.911300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadumonyong" lat="-6.172520" lon="105.884730" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikuray" lat="-6.198700" lon="105.925400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Nengger" lat="-6.208300" lon="105.987500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Citasuk" lat="-6.211200" lon="105.960600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kalumpang" lat="-6.213000" lon="105.952900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Manggu" lat="-6.215300" lon="105.949700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tambakan" lat="-6.202800" lon="105.938400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Rancaranji" lat="-6.212400" lon="105.934200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Gajahmada" lat="-6.378600" lon="106.012300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadugadung" lat="-6.383200" lon="106.018000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Citalahab" lat="-6.375200" lon="106.101900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikaduen" lat="-6.392400" lon="106.004100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Parumasan Timur" lat="-6.387600" lon="106.028300" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sidamulya Satu" lat="-6.385300" lon="106.084400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sumurlebu Barat" lat="-6.395900" lon="106.105600" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cikeper" lat="-6.393500" lon="106.101000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sarakole" lat="-6.396240" lon="106.072160" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Koncang" lat="-6.402990" lon="106.013330" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kampungdukuh" lat="-6.401700" lon="106.030400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Rancabugel" lat="-6.401850" lon="106.032160" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadungabaris" lat="-6.404610" lon="106.089970" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cibeureum Satu" lat="-6.400500" lon="106.104400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sarageni" lat="-6.465350" lon="106.122240" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kaum" lat="-6.478190" lon="106.115650" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Umbul" lat="-6.445300" lon="106.093000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kadusimbar" lat="-6.422200" lon="106.088900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Lebakgempol" lat="-6.467800" lon="106.090900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sidamukti" lat="-6.452400" lon="106.055900" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kopi" lat="-6.440100" lon="106.058500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cigembor" lat="-6.438310" lon="106.037290" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Parag" lat="-6.477400" lon="106.026700" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cipadung" lat="-6.490460" lon="106.015200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Parakan" lat="-6.419100" lon="106.008100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Jasugih Selatan" lat="-6.434700" lon="106.001500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pasirjambu" lat="-6.445200" lon="106.013400" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cimadang" lat="-6.473700" lon="106.000100" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukoharjo Satu" lat="-5.300940" lon="104.983290" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kalirejo" lat="-5.225820" lon="104.961310" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sukacai" lat="-6.236500" lon="106.110500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sekong" lat="-6.376160" lon="106.033880" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Sanghiang" lat="-6.764870" lon="106.002260" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kuah" lat="6.326490" lon="99.843200" population="30212" mmi="1.000000" iscapital="0"/>
+	<city name="Jerantut" lat="3.936000" lon="102.362600" population="33606" mmi="1.000000" iscapital="0"/>
+	<city name="Raub" lat="3.789900" lon="101.857000" population="40024" mmi="1.000000" iscapital="0"/>
+	<city name="Batu Pahat" lat="1.854800" lon="102.932500" population="156236" mmi="1.000000" iscapital="0"/>
+	<city name="Parit Raja" lat="1.868100" lon="103.112400" population="17441" mmi="1.000000" iscapital="0"/>
+	<city name="Pekan Nenas" lat="1.510000" lon="103.514100" population="23292" mmi="1.000000" iscapital="0"/>
+	<city name="Pontian Kechil" lat="1.486600" lon="103.389600" population="50836" mmi="1.000000" iscapital="0"/>
+	<city name="Kampung Pasir Gudang Baru" lat="1.472600" lon="103.878000" population="145639" mmi="1.000000" iscapital="0"/>
+	<city name="Kota Tinggi" lat="1.738100" lon="103.899900" population="52743" mmi="1.000000" iscapital="0"/>
+	<city name="Taman Senai" lat="1.600600" lon="103.641900" population="73176" mmi="1.000000" iscapital="0"/>
+	<city name="Kulai" lat="1.656100" lon="103.603200" population="63762" mmi="1.000000" iscapital="0"/>
+	<city name="Sekudai" lat="1.537420" lon="103.657790" population="159733" mmi="1.000000" iscapital="0"/>
+	<city name="Johor Bahru" lat="1.465500" lon="103.757800" population="802489" mmi="1.000000" iscapital="1"/>
+	<city name="Kluang" lat="2.025100" lon="103.332800" population="169828" mmi="1.000000" iscapital="0"/>
+	<city name="Yong Peng" lat="2.013600" lon="103.065900" population="27138" mmi="1.000000" iscapital="0"/>
+	<city name="Mersing" lat="2.431200" lon="103.840500" population="22007" mmi="1.000000" iscapital="0"/>
+	<city name="Segamat" lat="2.514800" lon="102.815800" population="69816" mmi="1.000000" iscapital="0"/>
+	<city name="Tangkak" lat="2.267300" lon="102.545300" population="35109" mmi="1.000000" iscapital="0"/>
+	<city name="Muar" lat="2.044200" lon="102.568900" population="127897" mmi="1.000000" iscapital="0"/>
+	<city name="Bakeri" lat="2.044100" lon="102.652700" population="30280" mmi="1.000000" iscapital="0"/>
+	<city name="Labis" lat="2.385000" lon="103.021000" population="21906" mmi="1.000000" iscapital="0"/>
+	<city name="Chaah" lat="2.249000" lon="103.048000" population="11844" mmi="1.000000" iscapital="0"/>
+	<city name="Kuala Selangor" lat="3.350000" lon="101.250000" population="55887" mmi="1.000000" iscapital="0"/>
+	<city name="Batang Berjuntai" lat="3.383330" lon="101.416670" population="20001" mmi="1.000000" iscapital="0"/>
+	<city name="Batu Arang" lat="3.316670" lon="101.466670" population="22579" mmi="1.000000" iscapital="0"/>
+	<city name="Shah Alam" lat="3.085070" lon="101.532810" population="481654" mmi="1.000000" iscapital="0"/>
+	<city name="Klang" lat="3.033330" lon="101.450000" population="879867" mmi="1.000000" iscapital="1"/>
+	<city name="Cukai" lat="4.250000" lon="103.416670" population="82425" mmi="1.000000" iscapital="0"/>
+	<city name="Kuala Lipis" lat="4.184200" lon="102.046800" population="15448" mmi="1.000000" iscapital="0"/>
+	<city name="Paka" lat="4.637400" lon="103.436800" population="21044" mmi="1.000000" iscapital="0"/>
+	<city name="Kertih" lat="4.514100" lon="103.448300" population="24401" mmi="1.000000" iscapital="0"/>
+	<city name="Kulim" lat="5.364990" lon="100.561770" population="170889" mmi="1.000000" iscapital="0"/>
+	<city name="Bagan Serai" lat="5.010800" lon="100.541010" population="20476" mmi="1.000000" iscapital="0"/>
+	<city name="Bedong" lat="5.727440" lon="100.508760" population="47585" mmi="1.000000" iscapital="0"/>
+	<city name="Simpang Empat" lat="4.950000" lon="100.633330" population="58004" mmi="1.000000" iscapital="0"/>
+	<city name="Taiping" lat="4.850000" lon="100.733330" population="217647" mmi="1.000000" iscapital="0"/>
+	<city name="Kuala Kangsar" lat="4.766670" lon="100.933330" population="39331" mmi="1.000000" iscapital="0"/>
+	<city name="Ipoh" lat="4.584100" lon="101.082900" population="673318" mmi="1.000000" iscapital="1"/>
+	<city name="Gua Musang" lat="4.882300" lon="101.964400" population="19731" mmi="1.000000" iscapital="0"/>
+	<city name="Kuala Terengganu" lat="5.330200" lon="103.140800" population="285065" mmi="1.000000" iscapital="1"/>
+	<city name="Marang" lat="5.205600" lon="103.205900" population="21410" mmi="1.000000" iscapital="0"/>
+	<city name="Tampin" lat="2.470100" lon="102.230200" population="28238" mmi="1.000000" iscapital="0"/>
+	<city name="Alor Gajah" lat="2.380400" lon="102.208900" population="20163" mmi="1.000000" iscapital="0"/>
+	<city name="Kampung Ayer Keroh" lat="2.265400" lon="102.280100" population="37716" mmi="1.000000" iscapital="0"/>
+	<city name="Sungai Udang" lat="2.269000" lon="102.142700" population="26044" mmi="1.000000" iscapital="0"/>
+	<city name="Melaka" lat="2.196000" lon="102.240500" population="180671" mmi="1.000000" iscapital="0"/>
+	<city name="Banting" lat="2.816670" lon="101.500000" population="75454" mmi="1.000000" iscapital="0"/>
+	<city name="Jenjarum" lat="2.883330" lon="101.500000" population="24857" mmi="1.000000" iscapital="0"/>
+	<city name="Semenyih" lat="2.951600" lon="101.843000" population="80574" mmi="1.000000" iscapital="0"/>
+	<city name="Beranang" lat="2.873300" lon="101.869700" population="14369" mmi="1.000000" iscapital="0"/>
+	<city name="Seremban" lat="2.729700" lon="101.938100" population="372917" mmi="1.000000" iscapital="1"/>
+	<city name="Port Dickson" lat="2.522800" lon="101.795900" population="89198" mmi="1.000000" iscapital="0"/>
+	<city name="Bahau" lat="2.807900" lon="102.404900" population="31273" mmi="1.000000" iscapital="0"/>
+	<city name="Kuala Pilah" lat="2.738900" lon="102.248700" population="19510" mmi="1.000000" iscapital="0"/>
+	<city name="Buloh Kasap" lat="2.553600" lon="102.764000" population="13088" mmi="1.000000" iscapital="0"/>
+	<city name="Pekan" lat="3.483600" lon="103.399600" population="31826" mmi="1.000000" iscapital="0"/>
+	<city name="Mentekab" lat="3.485400" lon="102.348400" population="42171" mmi="1.000000" iscapital="0"/>
+	<city name="Temerluh" lat="3.450600" lon="102.417600" population="59916" mmi="1.000000" iscapital="0"/>
+	<city name="Butterworth" lat="5.399100" lon="100.363820" population="107591" mmi="1.000000" iscapital="0"/>
+	<city name="Perai" lat="5.383330" lon="100.383330" population="65301" mmi="1.000000" iscapital="0"/>
+	<city name="Bukit Mertajam" lat="5.363010" lon="100.466700" population="212329" mmi="1.000000" iscapital="0"/>
+	<city name="Nibong Tebal" lat="5.165860" lon="100.477930" population="40072" mmi="1.000000" iscapital="0"/>
+	<city name="Parit Buntar" lat="5.126710" lon="100.493160" population="27313" mmi="1.000000" iscapital="0"/>
+	<city name="Tasek Glugor" lat="5.480320" lon="100.498490" population="135786" mmi="1.000000" iscapital="0"/>
+	<city name="George Town" lat="5.411230" lon="100.335430" population="300000" mmi="1.000000" iscapital="1"/>
+	<city name="Kampung Bukit Tinggi" lat="3.350000" lon="101.816670" population="12346" mmi="1.000000" iscapital="0"/>
+	<city name="Serendah" lat="3.364600" lon="101.604100" population="28484" mmi="1.000000" iscapital="0"/>
+	<city name="Rawang" lat="3.321300" lon="101.576700" population="120447" mmi="1.000000" iscapital="0"/>
+	<city name="Petaling Jaya" lat="3.107260" lon="101.606710" population="520698" mmi="1.000000" iscapital="0"/>
+	<city name="Kuala Lumpur" lat="3.141200" lon="101.686530" population="1453975" mmi="1.000000" iscapital="1"/>
+	<city name="Sabak Bernam" lat="3.769800" lon="100.987900" population="17251" mmi="1.000000" iscapital="0"/>
+	<city name="Sungai Besar" lat="3.674600" lon="100.986700" population="26939" mmi="1.000000" iscapital="0"/>
+	<city name="Kuantan" lat="3.807700" lon="103.326000" population="366229" mmi="1.000000" iscapital="1"/>
+	<city name="Tanah Rata" lat="4.475000" lon="101.370400" population="7000" mmi="1.000000" iscapital="0"/>
+	<city name="Batu Gajah" lat="4.469160" lon="101.041070" population="46183" mmi="1.000000" iscapital="0"/>
+	<city name="Kampar" lat="4.300000" lon="101.150000" population="19056" mmi="1.000000" iscapital="0"/>
+	<city name="Tapah Road" lat="4.166670" lon="101.200000" population="27863" mmi="1.000000" iscapital="0"/>
+	<city name="Bidur" lat="4.116670" lon="101.283330" population="30016" mmi="1.000000" iscapital="0"/>
+	<city name="Lumut" lat="4.232300" lon="100.629800" population="39595" mmi="1.000000" iscapital="0"/>
+	<city name="Teluk Intan" lat="4.025900" lon="101.021300" population="63353" mmi="1.000000" iscapital="0"/>
+	<city name="Gurun" lat="5.817170" lon="100.473810" population="15964" mmi="1.000000" iscapital="0"/>
+	<city name="Sungai Petani" lat="5.647000" lon="100.487720" population="228843" mmi="1.000000" iscapital="0"/>
+	<city name="Kepala Batas" lat="5.517070" lon="100.426500" population="17131" mmi="1.000000" iscapital="0"/>
+	<city name="Ketereh" lat="5.957010" lon="102.248170" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pulai Chondong" lat="5.871330" lon="102.231770" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tanah Merah" lat="5.800000" lon="102.150000" population="29116" mmi="1.000000" iscapital="0"/>
+	<city name="Kangar" lat="6.441400" lon="100.198620" population="63869" mmi="1.000000" iscapital="1"/>
+	<city name="Kuala Perlis" lat="6.400000" lon="100.133330" population="13917" mmi="1.000000" iscapital="0"/>
+	<city name="Jitra" lat="6.268120" lon="100.421670" population="63489" mmi="1.000000" iscapital="0"/>
+	<city name="Kuala Kedah" lat="6.100000" lon="100.300000" population="19231" mmi="1.000000" iscapital="0"/>
+	<city name="Alor Setar" lat="6.121040" lon="100.360140" population="217368" mmi="1.000000" iscapital="1"/>
+	<city name="Tumpat" lat="6.197760" lon="102.170980" population="12280" mmi="1.000000" iscapital="0"/>
+	<city name="Pasir Mas" lat="6.049340" lon="102.139870" population="19017" mmi="1.000000" iscapital="0"/>
+	<city name="Kota Bharu" lat="6.133280" lon="102.238600" population="279316" mmi="1.000000" iscapital="0"/>
+	<city name="Jertih" lat="5.733600" lon="102.489700" population="13526" mmi="1.000000" iscapital="0"/>
+	<city name="Ulu Tiram" lat="1.600000" lon="103.816670" population="75350" mmi="1.000000" iscapital="0"/>
+	<city name="Tanjung Tokong" lat="5.460610" lon="100.307420" population="24071" mmi="1.000000" iscapital="0"/>
+	<city name="Sungai Pelek New Village" lat="2.650000" lon="101.700000" population="13829" mmi="1.000000" iscapital="0"/>
+	<city name="Pulau Sebang" lat="2.455000" lon="102.232900" population="11879" mmi="1.000000" iscapital="0"/>
+	<city name="Permatang Kuching" lat="5.463390" lon="100.381440" population="27191" mmi="1.000000" iscapital="0"/>
+	<city name="Peringat" lat="6.033330" lon="102.283330" population="23288" mmi="1.000000" iscapital="0"/>
+	<city name="Ladang Seri Kundang" lat="3.285600" lon="101.519000" population="23307" mmi="1.000000" iscapital="0"/>
+	<city name="Pantai Remis" lat="4.455700" lon="100.628800" population="16317" mmi="1.000000" iscapital="0"/>
+	<city name="Kuang" lat="3.259400" lon="101.554100" population="21185" mmi="1.000000" iscapital="0"/>
+	<city name="Kuala Sungai Baru" lat="2.359400" lon="102.035300" population="12269" mmi="1.000000" iscapital="0"/>
+	<city name="Klebang Besar" lat="2.218600" lon="102.199500" population="38643" mmi="1.000000" iscapital="0"/>
+	<city name="Kelapa Sawit" lat="1.669800" lon="103.532700" population="13239" mmi="1.000000" iscapital="0"/>
+	<city name="Kampung Tanjung Karang" lat="3.424200" lon="101.184900" population="16393" mmi="1.000000" iscapital="0"/>
+	<city name="Kampung Sungai Ara" lat="5.326990" lon="100.273480" population="140849" mmi="1.000000" iscapital="0"/>
+	<city name="Kampung Simpang Renggam" lat="1.827800" lon="103.300000" population="17528" mmi="1.000000" iscapital="0"/>
+	<city name="Kampong Pangkal Kalong" lat="5.916670" lon="102.216670" population="39904" mmi="1.000000" iscapital="0"/>
+	<city name="Kampong Masjid Tanah" lat="2.350000" lon="102.116670" population="29185" mmi="1.000000" iscapital="0"/>
+	<city name="Kampong Kadok" lat="6.000000" lon="102.250000" population="19233" mmi="1.000000" iscapital="0"/>
+	<city name="Kampong Dungun" lat="3.216670" lon="101.316670" population="58674" mmi="1.000000" iscapital="0"/>
+	<city name="Kampung Bukit Baharu" lat="2.215200" lon="102.285100" population="55656" mmi="1.000000" iscapital="0"/>
+	<city name="Kampung Baru Subang" lat="3.150000" lon="101.533330" population="833571" mmi="1.000000" iscapital="0"/>
+	<city name="Kampung Baharu Nilai" lat="2.803300" lon="101.797200" population="36720" mmi="1.000000" iscapital="0"/>
+	<city name="Kampong Baharu Balakong" lat="3.033330" lon="101.750000" population="69302" mmi="1.000000" iscapital="0"/>
+	<city name="Kampung Ayer Molek" lat="2.213900" lon="102.327800" population="15497" mmi="1.000000" iscapital="0"/>
+	<city name="Juru" lat="5.312010" lon="100.442290" population="12265" mmi="1.000000" iscapital="0"/>
+	<city name="Bukit Rambai" lat="2.259400" lon="102.183800" population="17391" mmi="1.000000" iscapital="0"/>
+	<city name="Bentong Town" lat="3.516670" lon="101.900000" population="49213" mmi="1.000000" iscapital="0"/>
+	<city name="Bemban" lat="2.268400" lon="102.374600" population="14329" mmi="1.000000" iscapital="0"/>
+	<city name="Berendam" lat="2.248700" lon="102.246000" population="25028" mmi="1.000000" iscapital="0"/>
+	<city name="Putrajaya" lat="2.935270" lon="101.691120" population="50000" mmi="1.000000" iscapital="0"/>
+	<city name="Kampung Lemal" lat="6.030210" lon="102.141260" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Singapore" lat="1.289670" lon="103.850070" population="3547809" mmi="1.000000" iscapital="1"/>
+	<city name="Tha Phae" lat="6.790140" lon="99.970050" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="La-ngu" lat="6.884920" lon="99.788360" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Na Mom" lat="6.958560" lon="100.556830" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Waeng" lat="5.928000" lon="101.883820" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Thepha" lat="6.829360" lon="100.964310" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Bacho" lat="6.516780" lon="101.651000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Yi-ngo" lat="6.402960" lon="101.706260" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Yaring" lat="6.866170" lon="101.368940" population="31111" mmi="1.000000" iscapital="0"/>
+	<city name="Yarang" lat="6.759860" lon="101.293390" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Yala" lat="6.539950" lon="101.281280" population="93558" mmi="1.000000" iscapital="1"/>
+	<city name="Yaha" lat="6.479700" lon="101.132000" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Than To" lat="6.167390" lon="101.180080" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Tak Bai" lat="6.259470" lon="102.054610" population="17241" mmi="1.000000" iscapital="0"/>
+	<city name="Ban Su-ngai Pa Di" lat="6.072390" lon="101.871720" population="14274" mmi="1.000000" iscapital="0"/>
+	<city name="Su-ngai Kolok" lat="6.029770" lon="101.965860" population="42776" mmi="1.000000" iscapital="0"/>
+	<city name="Sukhirin" lat="5.938890" lon="101.770770" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Si Sakhon" lat="6.231370" lon="101.500480" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Satun" lat="6.623140" lon="100.066760" population="34544" mmi="1.000000" iscapital="1"/>
+	<city name="Sai Buri" lat="6.701310" lon="101.616750" population="14356" mmi="1.000000" iscapital="0"/>
+	<city name="Sadao" lat="6.638830" lon="100.423420" population="46236" mmi="1.000000" iscapital="0"/>
+	<city name="Saba Yoi" lat="6.617500" lon="100.951890" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Rueso" lat="6.393640" lon="101.518470" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ra-ngae" lat="6.296780" lon="101.728440" population="16862" mmi="1.000000" iscapital="0"/>
+	<city name="Raman" lat="6.478620" lon="101.424140" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Pattani" lat="6.868140" lon="101.250090" population="43690" mmi="1.000000" iscapital="1"/>
+	<city name="Panare" lat="6.861920" lon="101.491030" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Nong Chik" lat="6.843560" lon="101.178030" population="11385" mmi="1.000000" iscapital="0"/>
+	<city name="Na Thawi" lat="6.741920" lon="100.691390" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Narathiwat" lat="6.426390" lon="101.823080" population="47771" mmi="1.000000" iscapital="1"/>
+	<city name="Mayo" lat="6.718640" lon="101.409830" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Mai Kaen" lat="6.609750" lon="101.666860" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Khuan Kalong" lat="6.845380" lon="100.071480" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Khuan Don" lat="6.787580" lon="100.077780" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Khok Pho" lat="6.730640" lon="101.096200" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Krong Pi Nang" lat="6.411200" lon="101.273940" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Su-ngai Padi" lat="6.085700" lon="101.879590" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Ka Bang" lat="6.415360" lon="101.054560" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Cho-airong" lat="6.225530" lon="101.811280" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Hat Yai" lat="7.008360" lon="100.476680" population="191696" mmi="1.000000" iscapital="0"/>
+	<city name="Chanae" lat="6.099140" lon="101.693530" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Chana" lat="6.915420" lon="100.740390" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Betong" lat="5.774340" lon="101.072310" population="29604" mmi="1.000000" iscapital="0"/>
+	<city name="Ban Nang Sata" lat="6.266380" lon="101.264610" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Mae Lan" lat="6.661140" lon="101.239580" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Khlong Hoi Khong" lat="6.898650" lon="100.388850" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kapho" lat="6.559680" lon="101.534260" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Thung Yang Daeng" lat="6.618220" lon="101.426500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Na Mom" lat="6.958560" lon="100.556830" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Manang" lat="6.999330" lon="99.921610" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Thung Yang Daeng" lat="6.618220" lon="101.426500" population="0" mmi="1.000000" iscapital="0"/>
+	<city name="Kapho" lat="6.559680" lon="101.534260" population="0" mmi="1.000000" iscapital="0"/>
+	<structcomment>
+		There are likely to be no affected structures in this region.	</structcomment>
+	<alertcomment>
+			</alertcomment>
+	<comment>
+		<![CDATA[<para style="commentstyle">There were no earthquakes with significant population exposure to shaking within a 400 km radius of this event.</para><para style="commentstyle"></para>]]>	</comment>
+	<impact_comment>
+		Green alert for shaking-related fatalities and economic losses.  There is a low likelihood of casualties and damage.#	</impact_comment>
+	<secondary_effects>
+		
+		
+		
+		
+	
+	
+	
+	</secondary_effects>
+	<similarevents>
+	</similarevents>
+	<historicevents>
+	</historicevents>
+</pager>
