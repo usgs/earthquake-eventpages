@@ -1,6 +1,7 @@
 'use strict';
 
-var Module = require('core/Module'),
+var FiniteFaultView = require('finitefault/FiniteFaultView'),
+    Module = require('core/Module'),
     Util = require('util/Util');
 
 var _ID,
@@ -14,7 +15,9 @@ _TYPES = ['finite-fault'];
 var FiniteFaultModule = function (options) {
 
   var _this,
-      _initialize;
+      _initialize,
+
+      _finiteFaultView;
 
   options = Util.extend({}, options);
   _this = Module(options);
@@ -51,12 +54,17 @@ var FiniteFaultModule = function (options) {
         summaryModule: null // TODO add ScientificSummaryModule
       }));
 
-      // TODO :: Load content from Finite Fault View
-      _this.content.innerHTML = '<p class="alert info">TODO :: add FiniteFaultView</p>';
+      // Load Finite Fault View
+      _finiteFaultView = FiniteFaultView({
+        el: _this.content,
+        model: product
+      });
+      _finiteFaultView.render();
     }
 
-    // TODO :: remove footer entirely?
-    _this.footer.innerHTML = '';
+    // remove module-footer, there is no content
+    _this.el.removeChild(_this.footer);
+
   };
 
   _initialize();
