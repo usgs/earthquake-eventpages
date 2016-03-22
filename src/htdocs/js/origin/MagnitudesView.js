@@ -13,9 +13,20 @@ var _DEFAULTS = {
 
 };
 
+// Value to display when a value is not provided
 var _NOT_REPORTED = '&ndash;';
 
 
+/**
+ * View for displaying magnitude information found in a quakeml.xml {Content}
+ * object. This view uses event delegation through a single {Accordion} instance
+ * to deal with click events and it manually builds accordion markup for
+ * each magnitude item.
+ *
+ * @param options {Object}
+ *     Configuration options for this view. See _initialize method documentation
+ *     for details.
+ */
 var MagnitudesView = function (options) {
   var _this,
       _initialize,
@@ -28,6 +39,17 @@ var MagnitudesView = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = ContentView(options);
 
+  /**
+   * Constructor. Initializes a new {MagnitudesView}.
+   *
+   * @param options {Object}
+   *     Configuration options for this view.
+   * @param options.model {Content}
+   *     The content model to render.
+   * @param options.product {Product}
+   *     The product that contains the given {Content}. Typically an origin
+   *     or phase-data product.
+   */
   _initialize = function (options) {
     _product = options.product || Product();
 
@@ -37,6 +59,10 @@ var MagnitudesView = function (options) {
   };
 
 
+  /**
+   * Frees resources allocated to this view.
+   *
+   */
   _this.destroy = Util.compose(function () {
     _accordion.destroy();
     // _quakeml.destroy(); // TODO :: Yes? No?
@@ -49,6 +75,11 @@ var MagnitudesView = function (options) {
     _this = null;
   }, _this.destroy);
 
+  /**
+   * Returns markup for the table header row for the station details table.
+   *
+   * @return {String}
+   */
   _this.getStationTableHeaderRow = function () {
     return [
       '<tr>',
@@ -65,6 +96,15 @@ var MagnitudesView = function (options) {
     ].join('');
   };
 
+  /**
+   * Returns markup for a single row in the station details table body.
+   *
+   * @param contribution {Object}
+   *     An object containing contribution information. See {quakeml/Quakeml}
+   *     for more details.
+   *
+   * @return {String}
+   */
   _this.getStationTableRow = function (contribution) {
     var amp,
         amplitude,
@@ -115,6 +155,16 @@ var MagnitudesView = function (options) {
     ].join('');
   };
 
+  /**
+   * Returns markup for the contributions table. This includes
+   * a scrolling wrapper for responsiveness. If no contributions are provided,
+   * this markup consists of an informational alert message.
+   *
+   * @param contributions {Array}
+   *     An array of contribution information.
+   *
+   * @return {String}
+   */
   _this.getContributionsMarkup = function (contributions) {
     if (!contributions || contributions.length === 0) {
       return '<p class="alert info">' +
@@ -138,6 +188,14 @@ var MagnitudesView = function (options) {
     }
   };
 
+  /**
+   * Returns markup for the magnitude error list item bubble.
+   *
+   * @param error {String}
+   *     The error value to render.
+   *
+   * @return {String}
+   */
   _this.getErrorMarkup = function (error) {
     return [
       '<li>',
@@ -149,6 +207,15 @@ var MagnitudesView = function (options) {
     ].join('');
   };
 
+  /**
+   * Returns markup for a single magnitude found in the quakeml.
+   *
+   * @param magnitude {Object}
+   *     An object containing magntiude information as parsed out of
+   *     the quakeml.
+   *
+   * @return {String}
+   */
   _this.getMagnitudeMarkup = function (magnitude) {
     var contributions,
         error,
@@ -191,6 +258,15 @@ var MagnitudesView = function (options) {
     ].join('');
   };
 
+  /**
+   * Returns markup for all the magnitudes found in the quakeml.
+   *
+   * @param magnitudes {Array}
+   *     An array of objects containing magnitude information as parsed
+   *     out of the quakeml.
+   *
+   * @return {String}
+   */
   _this.getMagnitudesMarkup = function (magnitudes) {
     magnitudes = magnitudes || [];
 
@@ -200,6 +276,14 @@ var MagnitudesView = function (options) {
     }, []).join('');
   };
 
+  /**
+   * Returns markup for the magnitude source list item bubble.
+   *
+   * @param source {String}
+   *     The source value to render.
+   *
+   * @return {String}
+   */
   _this.getSourceMarkup = function (source) {
     return [
       '<li>',
@@ -211,6 +295,14 @@ var MagnitudesView = function (options) {
     ].join('');
   };
 
+  /**
+   * Returns markup for the magnitude stations list item bubble.
+   *
+   * @param stations {String}
+   *     The stations value to render.
+   *
+   * @return {String}
+   */
   _this.getStationsMarkup = function (stations) {
     return [
       '<li>',
@@ -222,6 +314,14 @@ var MagnitudesView = function (options) {
     ].join('');
   };
 
+  /**
+   * Returns markup for the magnitude value list item bubble.
+   *
+   * @param value {String}
+   *     The magnitude value to render.
+   *
+   * @return {String}
+   */
   _this.getValueMarkup = function (value) {
     return [
       '<li>',
@@ -233,11 +333,30 @@ var MagnitudesView = function (options) {
     ].join('');
   };
 
+  /**
+   * Callback executed when fetchData fails. Displays an error message.
+   *
+   * @param status {String}
+   *     An error message. Currently ignored.
+   * @param xhr {XMLHttpRequest}
+   *     The XHR object used to fetch the data.
+   */
   _this.onError = function (/*status, xhr*/) {
     _this.el.innerHTML = '<p class="alert error">' +
         'Failed to load magnitude data.</p>';
   };
 
+  /**
+   * Callback executed when fetchData succeeds. Parses and renders the
+   * quakeml data and triggers an event offering the parsed quakeml back
+   * so others can save the effort.
+   *
+   * @param data {String}
+   *     The raw QuakeML XML string content.
+   * @param xhr {XMLHttpRequest}
+   *     The XHR object used to fetch the data.
+   *
+   */
   _this.onSuccess = function (data/*, xhr*/) {
     try {
       _quakeml = Quakeml({xml: data});
@@ -253,6 +372,11 @@ var MagnitudesView = function (options) {
     }
   };
 
+  /**
+   * Fetches quakeml based on the current model, or renders it if the quakeml
+   * is already available. Delegates to sub methods.
+   *
+   */
   _this.render = function () {
     var magnitudes;
 
@@ -273,7 +397,13 @@ var MagnitudesView = function (options) {
     }
   };
 
-
+  /**
+   * Sets the quakeml to render. This is useful in case some external party
+   * already downloaded/parsed the quakeml, thus saving time internally.
+   *
+   * @param quakeml {Quakeml}
+   *     The parsed Quakeml to render.
+   */
   _this.setQuakeml = function (quakeml) {
     _quakeml = quakeml;
   };
