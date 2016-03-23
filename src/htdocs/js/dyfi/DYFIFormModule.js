@@ -1,7 +1,7 @@
 'use strict';
 
 
-var DYFIFormView = require('mvc/View'), // TODO :: Use actual DYFIFormView
+var DYFIFormView = require('dyfi/DYFIFormView'),
     Events = require('util/Events'),
     ModalView = require('mvc/ModalView'),
     Model = require('mvc/Model'),
