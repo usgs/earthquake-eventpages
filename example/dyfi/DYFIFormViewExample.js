@@ -12,9 +12,8 @@ Xhr.ajax({
     eventTime = null;
 
     form = DYFIFormView({
-      el: document.querySelector('#dyfiform-view-example')
-      // language: null,
-      // eventTime: null
+      el: document.querySelector('#dyfiform-view-example'),
+      url: '../js/languages/'
     }).render();
 
   },
