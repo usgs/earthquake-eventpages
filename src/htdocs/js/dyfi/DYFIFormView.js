@@ -14,8 +14,8 @@ var Events = require('util/Events'),
 
 var DEFAULTS = {
   eventTime: null,
-  language: 'en', //English
-  responseURL: '/dyfi/response.php'
+  language: 'en',
+  url: 'js/languages/'
 };
 
 var DYFI_DISCLAIMER = '<p>' +
@@ -46,10 +46,16 @@ var DYFI_DISCLAIMER = '<p>' +
     '</p>';
 
 /**
- * @params language {string}
- *    The language to fetch the questions for.
- * @params eventTime {string}
- *    The time of the event.
+ * View for the DYFI Form. This view retrieves the questions/answers from the
+ * appropriate language object, builds the form, and binds the questions to
+ * the model using the updateModel method.
+* @param options {Object}
+ *     Configuration options for this module. See _initialize method
+ *     documentation for details.
+ *
+ * Class variables.
+ *  _data: {object} Contains the questions/answers from the language object.
+ *  _questions: {ojbect} An object containing the question views.
  */
 var DYFIFormView = function (options) {
   var _this,
@@ -57,30 +63,48 @@ var DYFIFormView = function (options) {
 
       _data,
       _formatter,
+      _options,
       _questions = {};
 
 
   _this = View(options);
 
+  /**
+   * Constructor. Initializes a new DYFIView.
+   *
+   * @params language {string}
+   *    The language to fetch the questions for.
+   * @params eventTime {string}
+   *    The time of the event.
+   * @params url {string}
+   *    The url location for the language/questions object.
+   */
   _initialize = function (options) {
-    options = Util.extend({}, DEFAULTS, options || {});
+    _options = Util.extend({}, DEFAULTS, options || {});
 
     _data = null;
-    _formatter = options.formatter || Formatter();
-    _this.model.set(Util.extend({},
-        {
-          language: options.language,
-          eventTime: options.eventTime
-        }), {silent: true} );
-    // _this.el.classList.add('dyfiform');
+    _formatter = _options.formatter || Formatter();
+    if (!_this.model.get('language')) {
+      _this.model.set({language: _options.language}, {silent: true});
+    }
+    if (!_this.model.get('eventTime')) {
+      _this.model.set({eventTime: _options.eventTime}, {silent: true});
+    }
   };
 
+  /**
+   * Adds Listeners to all questions in the questions object.
+   */
   _this.addQuestionListeners = function () {
     for (var field in _questions) {
       _questions[field].on('change', _this.updateModel);
     }
   };
 
+  /**
+   * Create DFYI Form
+   *  Spins through the questions object, and builds the appropriate sections.
+   */
   _this.createForm = function () {
     var el = _this.el,
         // Form Elements
@@ -180,8 +204,9 @@ var DYFIFormView = function (options) {
   /**
    * Creates Location Questions.
    *    Location questions are not visible to users, instead a button is
-   *    visible that calls a LocationView. Which when returns fills in the
-   *    location questions.
+   *    visible that calls a LocationView. Which then fills in the
+   *    location questions. The location questions are a minimum subset of
+   *    the QuestionView API.
    *
    * @params questionInfo {object}
    *    locationInfo: {object}
@@ -189,8 +214,6 @@ var DYFIFormView = function (options) {
    *      button: {string}
    *      buttonUpdate: {string}
    * @params container {dom element}
-   * @params question {object}
-   *    An object containing all questionviews.
    */
   _this.createLocationQuestions = function (questionInfo, container) {
     var section = document.createElement('section'),
@@ -364,6 +387,9 @@ var DYFIFormView = function (options) {
     _this = null;
   }, _this.destroy);
 
+  /**
+   * Destroys the questions in the Form.
+   */
   _this.destroyForm = function () {
     for (var field in _questions) {
       _questions[field].off('change');
@@ -371,6 +397,15 @@ var DYFIFormView = function (options) {
     }
   };
 
+  /**
+   * Render the form.
+   *
+   * @param changed {object}
+   *    Contains a key:value pair of any question that has changed.
+   *    If the object is null, or if the key is language, then the
+   *    entire form is rendered, after fetching the language object.
+   *    If it contains any other key, it updates the specific answer.
+   */
   _this.render = function (changed) {
     if (!changed || changed.hasOwnProperty('language')) {
       _this.renderQuestions();
@@ -379,13 +414,16 @@ var DYFIFormView = function (options) {
     }
   };
 
+  /**
+   * Renders the Question form after fetching the language object.
+   */
   _this.renderQuestions = function () {
     var language;
 
     language = _this.model.get('language');
 
     Xhr.ajax({
-      url: '../js/dyfi/' + language + '.json',
+      url: _options.url + language + '.json',
       success: function (data) {
         if (_data !== null) {
           _this.destroyForm();
@@ -394,12 +432,18 @@ var DYFIFormView = function (options) {
         _data = data;
         _this.createForm();
       },
-      error: function () {
-        document.querySelector();
+      error: function (e) {
+        console.log(e);
       }
     });
   };
 
+  /**
+   * Updates the Model when a question is changed.
+   *
+   * @params question {QuestionView}
+   *    The question that has changed.
+   */
   _this.updateModel = function (question) {
     var answer,
         field;
@@ -410,6 +454,12 @@ var DYFIFormView = function (options) {
     _this.model.set(_this.stripAnswer(field, answer));
   };
 
+  /**
+   * Update Answer for a question.
+   *
+   * @params changed {object}
+   *     holds a key/value pair of the questionid/answer that has changed.
+   */
   _this.updateAnswer = function (changed) {
     var field;
 
@@ -432,6 +482,9 @@ var DYFIFormView = function (options) {
   };
 
   /**
+   * Strips an Answer from the object a question passes back. And packages it
+   *   in an object for the model.
+   *
    * @params field {string}
    *    The name of a question.
    * @param answer {string}
