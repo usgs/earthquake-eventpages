@@ -49,6 +49,7 @@ require('./spec/dyfi/DYFIIntensityGraphViewTest');
 require('./spec/dyfi/DYFIModuleTest');
 require('./spec/dyfi/DYFIViewTest');
 require('./spec/dyfi/DYFIResponsesViewTest');
+require('./spec/dyfi/TextQuestionViewTest');
 
 require('./spec/finite-fault/FiniteFaultModuleTest');
 require('./spec/finite-fault/FiniteFaultViewTest');
