@@ -90,14 +90,24 @@ var TextQuestionView = function (options) {
     _this = null;
   }, _this.destroy);
 
+  /**
+   * Get Answers
+   *  Returns {object}
+   */
   _this.getAnswers = function () {
     return {value: _input.value, label: _label.value};
   };
 
+  /**
+   * Triggers an event change when a text question changes.
+   */
   _this.onChange = function () {
     _this.trigger('change', _this);
   };
 
+  /**
+   * Sets an Answer.
+   */
   _this.setAnswers = function (value) {
     _input.value = value;
   };
