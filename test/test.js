@@ -50,6 +50,7 @@ require('./spec/dyfi/DYFIResponsesViewTest');
 require('./spec/finitefault/FiniteFaultModuleTest');
 require('./spec/finitefault/FiniteFaultViewTest');
 
+require('./spec/focal-mechanism/FocalMechanismModuleTest');
 require('./spec/focal-mechanism/FocalMechanismViewTest');
 
 require('./spec/general/GeoserveNearbyPlacesViewTest');
