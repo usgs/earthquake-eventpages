@@ -1,6 +1,7 @@
 'use strict';
 
-var BeachBallView = require('moment-tensor/BeachBallView'),
+var Attribution = require('core/Attribution'),
+    BeachBallView = require('moment-tensor/BeachBallView'),
     Formatter = require('core/Formatter'),
     ProductView = require('core/ProductView'),
     Tensor = require('moment-tensor/Tensor'),
@@ -181,8 +182,8 @@ var MomentTensorView = function (options) {
     percentDC = Math.round(tensor.percentDC * 100) + '%';
 
     catalog = catalog.toUpperCase();
-    contributor = contributor.toUpperCase();
-    dataSource = dataSource.toUpperCase();
+    contributor = Attribution.getContributorReference(contributor);
+    dataSource = Attribution.getContributorReference(dataSource);
 
     el = document.createElement('div');
     el.classList.add('moment-tensor-info');
@@ -345,19 +346,18 @@ var MomentTensorView = function (options) {
         info,
         title;
 
-    el = document.createElement('section');
-    el.classList.add('moment-tensor-view');
-    el.innerHTML = '<section class="moment-tensor-view">' +
-        '<header class="title"></header>' +
-        '<div class="row">' +
-          '<div class="column one-of-two"></div>' +
-          '<div class="column one-of-two"></div>' +
-        '</div>' +
+    el = _this.el;
+    el.innerHTML =
+        '<section class="moment-tensor-view">' +
+          '<header class="title"></header>' +
+          '<div class="row">' +
+            '<div class="column one-of-two"></div>' +
+            '<div class="column one-of-two"></div>' +
+          '</div>' +
         '</section>';
     title = el.querySelector('.title');
     info = el.querySelector('.column');
     beachball = el.querySelector('.column + .column');
-    _this.el.appendChild(el);
 
     title.appendChild(_this.getTitle(_tensor));
 

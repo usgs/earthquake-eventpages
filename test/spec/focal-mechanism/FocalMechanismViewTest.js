@@ -24,6 +24,8 @@ describe('focal-mechanism/FocalMechanismView', function () {
       fragment = view.getAxes();
       expect(fragment).to.be.instanceof(DocumentFragment);
       expect(fragment.firstChild).to.equal(null);
+      view.destroy();
+      view = null;
     });
   });
 
