@@ -351,7 +351,7 @@ ScientificSummaryPage.prototype._getTextContents = function () {
 
         text = product.contents[''].bytes;
         text = this._replaceRelativePaths(text, product.contents);
-        container.innerText = text;
+        container.innerHTML = text;
       }
     }, this);
   }

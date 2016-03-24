@@ -43,7 +43,6 @@ var ExecutiveSummaryPage = function (params) {
   _getImpactTextMarkup = function (product) {
     var classes,
         content,
-        el,
         markup,
         properties;
 
@@ -58,12 +57,9 @@ var ExecutiveSummaryPage = function (params) {
     }
 
     if (content.hasOwnProperty('')) {
-      el = document.createElement('div');
-      el.innerText = content[''].bytes;
-
       markup = [
         '<p class="', classes.join(' '), '">',
-          el.innerHTML,
+          content[''].bytes,
         '</p>'
       ];
     }
