@@ -1,5 +1,6 @@
 'use strict';
 
+
 var ContentView = require('core/ContentView'),
     Formatter = require('core/Formatter'),
     Util = require('util/Util');
@@ -39,6 +40,29 @@ var ShakeMapInfoView = function (options) {
 
 
   /**
+   * Format one ground motion row.
+   *
+   * @param gm {Object}
+   *     ground motion object.
+   * @param label {String}
+   *     markup for `th` element.
+   * @return {String}
+   *     markup for table row.
+   */
+  _this.formatGroundMotion = function (gm, label) {
+    var units;
+
+    units = gm.units;
+
+    return '<tr>' +
+        '<th scope="row">' + label + '</th>' +
+        '<td>' + gm.max_grid + ' ' + units + '</td>' +
+        '<td>' + gm.max + ' ' + units + '</td>' +
+        '<td>' + gm.bias + '</td>' +
+        '</tr>';
+  };
+
+  /**
    * Format the output ground motions table.
    *
    * @param groundMotions {Object}
@@ -48,9 +72,7 @@ var ShakeMapInfoView = function (options) {
    */
   _this.formatOutputGroundMotions = function (groundMotions) {
     var buf,
-        headers,
-        formatGroundMotion;
-
+        headers;
 
     buf = [];
     buf.push('<h3>Ground Motion/Intensity Information</h3>');
@@ -60,58 +82,36 @@ var ShakeMapInfoView = function (options) {
         '<table>' +
         '<thead>' +
           '<tr>' +
-          '<th scope="col">Type</th>' +
-          '<th scope="col">Max value in grid</th>' +
-          '<th scope="col">Max value on land</th>' +
-          '<th scope="col">Bias</th>' +
+            '<th scope="col">Type</th>' +
+            '<th scope="col">Max value in grid</th>' +
+            '<th scope="col">Max value on land</th>' +
+            '<th scope="col">Bias</th>' +
           '</tr>' +
         '</thead>' +
         '<tbody>');
-
-    /**
-     * Format one ground motion row.
-     *
-     * @param gm {Object}
-     *     ground motion object.
-     * @param label {String}
-     *     markup for `th` element.
-     * @return {String}
-     *     markup for table row.
-     */
-    formatGroundMotion = function (gm, label) {
-      var units;
-
-      units = gm.units;
-
-      return '<tr>' +
-          '<th scope="row">' + label + '</th>' +
-          '<td>' + gm.max_grid + ' ' + units + '</td>' +
-          '<td>' + gm.max + ' ' + units + '</td>' +
-          '<td>' + gm.bias + '</td>' +
-          '</tr>';
-    };
 
     headers = {
       'intensity': 'Intensity',
       'pga': '<abbr title="Peak Ground Acceleration">PGA</abbr>',
       'pgv': '<abbr title="Peak Ground Velocity">PGV</abbr>',
-      'psa03': '<abbr title="Pseudo Spectral Acceleration 0.3 second">' +
+      'psa03': '<abbr title="Pseudo Spectral Acceleration 0.3 s">' +
           'PSA03</abbr>',
-      'psa10': '<abbr title="Pseudo Spectral Acceleration 1.0 second">' +
+      'psa10': '<abbr title="Pseudo Spectral Acceleration 1.0 s">' +
           'PSA10</abbr>',
-      'psa30': '<abbr title="Pseudo Spectral Acceleration 3.0 second">' +
+      'psa30': '<abbr title="Pseudo Spectral Acceleration 3.0 s">' +
           'PSA30</abbr>'
     };
 
     Object.keys(headers).forEach(function (key) {
       if (key in groundMotions) {
-        buf.push(formatGroundMotion(groundMotions[key], headers[key]));
+        buf.push(_this.formatGroundMotion(groundMotions[key], headers[key]));
       }
     });
+
     Object.keys(groundMotions).forEach(function (key) {
       if (!(key in headers)) {
         // unknown groundMotion
-        buf.push(formatGroundMotion(groundMotions[key], key));
+        buf.push(_this.formatGroundMotion(groundMotions[key], key));
       }
     });
 
@@ -147,40 +147,40 @@ var ShakeMapInfoView = function (options) {
     return '<h3>Map Information</h3>' +
         '<div class="horizontal-scrolling">' +
         '<table>' +
-        '<thead>' +
-        '<tr>' +
-        '<th scope="col">Type</th>' +
-        '<th scope="col">Latitude</th>' +
-        '<th scope="col">Longitude</th>' +
-        '</tr>' +
-        '</thead>' +
-        '<tbody>' +
-        '<tr>' +
-          '<th scope="row">Span</th>' +
-          '<td>' + gridSpan.latitude + '&deg;</td>' +
-          '<td>' + gridSpan.longitude + '&deg;</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Grid Spacing</th>' +
-          '<td>' + gridSpacing.latitude + ' km</td>' +
-          '<td>' + gridSpacing.longitude + ' km</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Number of points</th>' +
-          '<td>' + gridPoints.latitude + '</td>' +
-          '<td>' + gridPoints.longitude + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Min</th>' +
-          '<td>' + _formatter.latitude(min.latitude) + '</td>' +
-          '<td>' + _formatter.longitude(min.longitude) + '</td>' +
-        '</tr>' +
-        '<tr>' +
-          '<th scope="row">Max</th>' +
-          '<td>' + _formatter.latitude(max.latitude) + '</td>' +
-          '<td>' + _formatter.longitude(max.longitude) + '</td>' +
-        '</tr>' +
-        '</tbody>' +
+          '<thead>' +
+          '<tr>' +
+            '<th scope="col">Type</th>' +
+            '<th scope="col">Latitude</th>' +
+            '<th scope="col">Longitude</th>' +
+          '</tr>' +
+          '</thead>' +
+          '<tbody>' +
+          '<tr>' +
+            '<th scope="row">Span</th>' +
+            '<td>' + gridSpan.latitude + '&deg;</td>' +
+            '<td>' + gridSpan.longitude + '&deg;</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Grid Spacing</th>' +
+            '<td>' + gridSpacing.latitude + ' km</td>' +
+            '<td>' + gridSpacing.longitude + ' km</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Number of points</th>' +
+            '<td>' + gridPoints.latitude + '</td>' +
+            '<td>' + gridPoints.longitude + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Min</th>' +
+            '<td>' + _formatter.latitude(min.latitude) + '</td>' +
+            '<td>' + _formatter.longitude(min.longitude) + '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<th scope="row">Max</th>' +
+            '<td>' + _formatter.latitude(max.latitude) + '</td>' +
+            '<td>' + _formatter.longitude(max.longitude) + '</td>' +
+          '</tr>' +
+          '</tbody>' +
         '</table>' +
         '</div>';
   };
@@ -198,21 +198,20 @@ var ShakeMapInfoView = function (options) {
         headers,
         formatGroundMotion;
 
-
     buf = [];
     buf.push('<h3>Ground Motion/Intensity Information</h3>');
 
     buf.push(
         '<div class="horizontal-scrolling">' +
         '<table>' +
-        '<thead>' +
-          '<tr>' +
-          '<th scope="col">Type</th>' +
-          '<th scope="col">Module</th>' +
-          '<th scope="col">Reference</th>' +
-          '</tr>' +
-        '</thead>' +
-        '<tbody>');
+          '<thead>' +
+            '<tr>' +
+            '<th scope="col">Type</th>' +
+            '<th scope="col">Module</th>' +
+            '<th scope="col">Reference</th>' +
+            '</tr>' +
+          '</thead>' +
+          '<tbody>');
 
     /**
      * Format one ground motion row.
@@ -233,7 +232,7 @@ var ShakeMapInfoView = function (options) {
           '<th scope="row">' + label + '</th>' +
           '<td>' + gm.module + '</td>' +
           '<td>' + gm.reference + '</td>' +
-          '</tr>';
+        '</tr>';
     };
 
     headers = {
@@ -260,10 +259,9 @@ var ShakeMapInfoView = function (options) {
       }
     });
 
-    buf.push(
-        '</tbody>' +
+    buf.push('</tbody>' +
         '</table>' +
-        '</div>');
+      '</div>');
 
     return buf.join('');
   };
@@ -284,29 +282,29 @@ var ShakeMapInfoView = function (options) {
     intensity = rois.intensity;
 
     return '<h3>ROI</h3>' +
-        '<div class="horizontal-scrolling">' +
+      '<div class="horizontal-scrolling">' +
         '<table>' +
-        '<thead>' +
-          '<tr>' +
-            '<th scope="col">Type</th>' +
-            '<th scope="col">ROI</th>' +
-            '<th scope="col">Observation Decay</th>' +
-          '</tr>' +
-        '</thead>' +
-        '<tbody>' +
-          '<tr>' +
-            '<th scope="row">Ground Motion</th>' +
-            '<td>' + groundMotion.roi + ' km</td>' +
-            '<td>' + groundMotion.decay + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Intensity</th>' +
-            '<td>' + intensity.roi + ' km</td>' +
-            '<td>' + intensity.decay + '</td>' +
-          '</tr>' +
-        '</tbody>' +
+          '<thead>' +
+            '<tr>' +
+              '<th scope="col">Type</th>' +
+              '<th scope="col">ROI</th>' +
+              '<th scope="col">Observation Decay</th>' +
+            '</tr>' +
+          '</thead>' +
+          '<tbody>' +
+            '<tr>' +
+              '<th scope="row">Ground Motion</th>' +
+              '<td>' + groundMotion.roi + ' km</td>' +
+              '<td>' + groundMotion.decay + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Intensity</th>' +
+              '<td>' + intensity.roi + ' km</td>' +
+              '<td>' + intensity.decay + '</td>' +
+            '</tr>' +
+          '</tbody>' +
         '</table>' +
-        '</div>';
+      '</div>';
   };
 
   /**
@@ -315,7 +313,7 @@ var ShakeMapInfoView = function (options) {
   _this.onError = function () {
     _this.el.innerHTML = '<p class="alert error">' +
         'Unable to load ShakeMap information' +
-        '</p>';
+      '</p>';
     console.log(arguments);
   };
 
@@ -355,76 +353,76 @@ var ShakeMapInfoView = function (options) {
 
     info = input.event_information;
     buf.push('<h3>Event Information</h3>' +
-        '<div class="horizontal-scrolling">' +
+      '<div class="horizontal-scrolling">' +
         '<table>' +
-        '<tbody>' +
-          '<tr>' +
-            '<th scope="row">Description</th>' +
-            '<td>' + info.event_description + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">ID</th>' +
-            '<td>' + info.event_id + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Magnitude</th>' +
-            '<td>' + _formatter.magnitude(info.magnitude) + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Depth</th>' +
-            '<td>' + _formatter.depth(info.depth, 'km') + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Longitude</th>' +
-            '<td>' + _formatter.longitude(info.longitude) + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Latitude</th>' +
-            '<td>' + _formatter.latitude(info.latitude) + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Origin Time</th>' +
-            '<td>' + info.origin_time + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Mechanism</th>' +
-            '<td>' + (info.src_mech || _empty) + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Mechanism source</th>' +
-            '<td>' + (info.mech_src || _empty) + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Location</th>' +
-            '<td>' + info.location + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Flinn Engdahl region</th>' +
-            '<td>' + info.feregion + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Fault file(s)</th>' +
-            '<td>' + (info.faultfiles || _empty) + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Fault reference(s)</th>' +
-            '<td>' + (info.fault_ref || _empty) + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Tectonic regime</th>' +
-            '<td>' + (info.tectonic_regime || _empty) + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Number of seismic stations</th>' +
-            '<td>' + info.seismic_stations + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Number of DYFI stations</th>' +
-            '<td>' + info.intensity_observations + '</td>' +
-          '</tr>' +
-        '</tbody>' +
+          '<tbody>' +
+            '<tr>' +
+              '<th scope="row">Description</th>' +
+              '<td>' + info.event_description + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">ID</th>' +
+              '<td>' + info.event_id + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Magnitude</th>' +
+              '<td>' + _formatter.magnitude(info.magnitude) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Depth</th>' +
+              '<td>' + _formatter.depth(info.depth, 'km') + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Longitude</th>' +
+              '<td>' + _formatter.longitude(info.longitude) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Latitude</th>' +
+              '<td>' + _formatter.latitude(info.latitude) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Origin Time</th>' +
+              '<td>' + info.origin_time + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Mechanism</th>' +
+              '<td>' + (info.src_mech || _empty) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Mechanism source</th>' +
+              '<td>' + (info.mech_src || _empty) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Location</th>' +
+              '<td>' + info.location + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Flinn Engdahl region</th>' +
+              '<td>' + info.feregion + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Fault file(s)</th>' +
+              '<td>' + (info.faultfiles || _empty) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Fault reference(s)</th>' +
+              '<td>' + (info.fault_ref || _empty) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Tectonic regime</th>' +
+              '<td>' + (info.tectonic_regime || _empty) + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Number of seismic stations</th>' +
+              '<td>' + info.seismic_stations + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Number of DYFI stations</th>' +
+              '<td>' + info.intensity_observations + '</td>' +
+            '</tr>' +
+          '</tbody>' +
         '</table>' +
-        '</div>');
+      '</div>');
 
     el.innerHTML = buf.join('');
   };
@@ -451,27 +449,28 @@ var ShakeMapInfoView = function (options) {
 
     uncertainty = output.uncertainty;
     buf.push('<h3>Uncertainty</h3>' +
-        '<div class="horizontal-scrolling">' +
+      '<div class="horizontal-scrolling">' +
         '<table>' +
-        '<tbody>' +
-          '<tr>' +
-            '<th scope="row">Mean of map uncertainty</th>' +
-            '<td>' + uncertainty.mean_uncertainty_ratio + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Emperical ShakeMap grade</th>' +
-            '<td>' + uncertainty.grade + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Flagged seismic stations</th>' +
-            '<td>' + uncertainty.total_flagged_pgm + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Flagged DYFI stations</th>' +
-            '<td>' + uncertainty.total_flagged_mi + '</td>' +
-          '</tr>' +
-        '</tbody>' +
-        '</table>');
+          '<tbody>' +
+            '<tr>' +
+              '<th scope="row">Mean of map uncertainty</th>' +
+              '<td>' + uncertainty.mean_uncertainty_ratio + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Emperical ShakeMap grade</th>' +
+              '<td>' + uncertainty.grade + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Flagged seismic stations</th>' +
+              '<td>' + uncertainty.total_flagged_pgm + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Flagged DYFI stations</th>' +
+              '<td>' + uncertainty.total_flagged_mi + '</td>' +
+            '</tr>' +
+          '</tbody>' +
+        '</table>' +
+      '</div>');
 
     el.innerHTML = buf.join('');
   };
@@ -499,117 +498,116 @@ var ShakeMapInfoView = function (options) {
 
     buf.push('<div class="one-of-two column">' +
         _this.formatProcessingGroundMotions(processing.ground_motion_modules) +
-        '</div>');
+      '</div>');
 
     misc = processing.miscellaneous;
     buf.push(
-        '<div class="one-of-two column">' +
+      '<div class="one-of-two column">' +
         '<h3>Miscellaneous</h3>' +
         '<div class="horizontal-scrolling">' +
           '<table>' +
-          '<tbody>' +
-            '<tr>' +
-              '<th scope="row">Used log amp to compute bias?</th>' +
-              '<td>' + misc.bias_log_amp + '</td>' +
-            '</tr>' +
-            '<tr>' +
-              '<th scope="row">' +
-                'Maximum distance to include station in bias' +
-              '</th>' +
-              '<td>' +
-                _formatter.distance(misc.bias_max_range, 'km') +
-              '</td>' +
-            '</tr>' +
-            '<tr>' +
-              '<th scope="row">Max magnitude to compute bias</th>' +
-              '<td>' + _formatter.magnitude(misc.bias_max_mag) + '</td>' +
-            '</tr>' +
-            '<tr>' +
-              '<th scope="row">Min allowed bias</th>' +
-              '<td>' + (misc.bias_min_bias || _empty) + '</td>' +
-            '</tr>' +
-            '<tr>' +
-              '<th scope="row">Maximum magnitude to flag outliers</th>' +
-              '<td>' + _formatter.magnitude(misc.outlier_max_mag) + '</td>' +
-            '</tr>' +
-            '<tr>' +
-              '<th scope="row">Norm of the bias</th>' +
-              '<td>' + (misc.bias_norm || _empty) + '</td>' +
-            '</tr>' +
-            '<tr>' +
-              '<th scope="row">' +
-                'Min # of stations necessary to compute bias' +
-              '</th>' +
-              '<td>' + (misc.bias_min_stations || _empty) + '</td>' +
-            '</tr>' +
-            '<tr>' +
-              '<th scope="row">Max allowed bias</th>' +
-              '<td>' + (misc.bias_max_bias || _empty) + '</td>' +
-            '</tr>' +
-            '<tr>' +
-              '<th scope="row">Outlier level (# of std dev)</th>' +
-              '<td>' + (misc.outlier_deviation_level || _empty) + '</td>' +
-            '</tr>' +
-            '<tr>' +
-              '<th scope="row">Median distance used</th>' +
-              '<td>' + misc.median_dist + '</td>' +
-            '</tr>' +
-          '</tbody>' +
+            '<tbody>' +
+              '<tr>' +
+                '<th scope="row">Used log amp to compute bias?</th>' +
+                '<td>' + misc.bias_log_amp + '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<th scope="row">' +
+                  'Maximum distance to include station in bias' +
+                '</th>' +
+                '<td>' +
+                  _formatter.distance(misc.bias_max_range, 'km') +
+                '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<th scope="row">Max magnitude to compute bias</th>' +
+                '<td>' + _formatter.magnitude(misc.bias_max_mag) + '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<th scope="row">Min allowed bias</th>' +
+                '<td>' + (misc.bias_min_bias || _empty) + '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<th scope="row">Maximum magnitude to flag outliers</th>' +
+                '<td>' + _formatter.magnitude(misc.outlier_max_mag) + '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<th scope="row">Norm of the bias</th>' +
+                '<td>' + (misc.bias_norm || _empty) + '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<th scope="row">' +
+                  'Min # of stations necessary to compute bias' +
+                '</th>' +
+                '<td>' + (misc.bias_min_stations || _empty) + '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<th scope="row">Max allowed bias</th>' +
+                '<td>' + (misc.bias_max_bias || _empty) + '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<th scope="row">Outlier level (# of std dev)</th>' +
+                '<td>' + (misc.outlier_deviation_level || _empty) + '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<th scope="row">Median distance used</th>' +
+                '<td>' + misc.median_dist + '</td>' +
+              '</tr>' +
+            '</tbody>' +
           '</table>' +
         '</div>' +
-        '</div>');
+      '</div>');
 
     versions = processing.shakemap_versions;
     buf.push(
-        '<div class="one-of-two column">' +
+      '<div class="one-of-two column">' +
         '<h3>ShakeMap Versions</h3>' +
         '<div class="horizontal-scrolling">' +
-        '<table>' +
-        '<tbody>' +
-          '<tr>' +
-            '<th scope="row">Code</th>' +
-            '<td>' + versions.shakemap_revision + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Map</th>' +
-            '<td>' + versions.map_version + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Date</th>' +
-            '<td>' + versions.process_time + '</td>' +
-          '</tr>' +
-        '</tbody>' +
-        '</table>' +
+          '<table>' +
+            '<tbody>' +
+              '<tr>' +
+                '<th scope="row">Code</th>' +
+                '<td>' + versions.shakemap_revision + '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<th scope="row">Map</th>' +
+                '<td>' + versions.map_version + '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<th scope="row">Date</th>' +
+                '<td>' + versions.process_time + '</td>' +
+              '</tr>' +
+            '</tbody>' +
+          '</table>' +
         '</div>' +
-        '</div>');
+      '</div>');
 
     response = processing.site_response;
     buf.push(
-        '<div class="one-of-two column">' +
+      '<div class="one-of-two column">' +
         '<h3>Site Response</h3>' +
         '<div class="horizontal-scrolling">' +
-        '<table>' +
-        '<tbody>' +
-          '<tr>' +
-            '<th scope="row">Reference rock Vs30</th>' +
-            '<td>' + response.vs30default + ' (m/s)</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Site correction applied</th>' +
-            '<td>' + response.site_correction + '</td>' +
-          '</tr>' +
-        '</tbody>' +
-        '</table>' +
+          '<table>' +
+            '<tbody>' +
+              '<tr>' +
+                '<th scope="row">Reference rock Vs30</th>' +
+                '<td>' + response.vs30default + ' (m/s)</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<th scope="row">Site correction applied</th>' +
+                '<td>' + response.site_correction + '</td>' +
+              '</tr>' +
+            '</tbody>' +
+          '</table>' +
         '</div>' +
-        '</div>');
+      '</div>');
 
     buf.push(
-        '<div class="one-of-two column">' +
+      '<div class="one-of-two column">' +
         _this.formatProcessingRois(processing.roi) +
-        '</div>');
+      '</div>');
 
     buf.push('</div>');
-
     el.innerHTML = buf.join('');
   };
 
