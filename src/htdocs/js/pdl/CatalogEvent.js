@@ -239,7 +239,7 @@ var CatalogEvent = function (eventDetails) {
       typeProducts = _products[type];
       index = typeProducts.indexOf(product);
       if (index >= 0) {
-        typeProducts = typeProducts.splice(index, 1);
+        typeProducts.splice(index, 1);
         if (typeProducts.length === 0) {
           delete _products[type];
         } else {
