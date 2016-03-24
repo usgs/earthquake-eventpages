@@ -324,6 +324,10 @@ var MagnitudesView = function (options) {
     ].join('');
   };
 
+  /**
+   * Renders the quakeml.
+   *
+   */
   _this.renderQuakeml = function () {
     var magnitudes;
 
