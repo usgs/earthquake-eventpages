@@ -31,6 +31,7 @@ print navGroup('Scientific',
     navItem('/focal-mechanism/FocalMechanismViewExample.php', 'FocalMechanismView') .
     navItem('/origin/MagnitudesViewExample.php', 'MagnitudesView') .
     navItem('/origin/OriginViewExample.php', 'OriginView') .
+    navItem('/origin/PhasesViewExample.php', 'PhasesView') .
     navItem('/moment-tensor/MomentTensorViewExample.php', 'MomentTensorView')
   );
 
