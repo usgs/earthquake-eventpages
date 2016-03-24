@@ -67,6 +67,39 @@ var MagnitudesView = function (options) {
   }, _this.destroy);
 
   /**
+   * Returns markup for the contributions table. This includes
+   * a scrolling wrapper for responsiveness. If no contributions are provided,
+   * this markup consists of an informational alert message.
+   *
+   * @param contributions {Array}
+   *     An array of contribution information.
+   *
+   * @return {String}
+   */
+  _this.getContributionsMarkup = function (contributions) {
+    if (!contributions || contributions.length === 0) {
+      return '<p class="alert info">' +
+          'No amplitudes contributed for this magnitude.</p>';
+    } else {
+      return [
+        '<div class="horizontal-scrolling">',
+          '<table class="magnitude-stations">',
+            '<thead>',
+              _this.getStationTableHeaderRow(),
+            '</thead>',
+            '<tbody>',
+              contributions.reduce(function (markup, contribution) {
+                markup.push(_this.getStationTableRow(contribution));
+                return markup;
+              }, []).join(''),
+            '</tbody>',
+          '</table>',
+        '</div>'
+      ].join('');
+    }
+  };
+
+  /**
    * Returns markup for the table header row for the station details table.
    *
    * @return {String}
@@ -144,39 +177,6 @@ var MagnitudesView = function (options) {
         '<td class="weight">', weight, '</td>',
       '</tr>'
     ].join('');
-  };
-
-  /**
-   * Returns markup for the contributions table. This includes
-   * a scrolling wrapper for responsiveness. If no contributions are provided,
-   * this markup consists of an informational alert message.
-   *
-   * @param contributions {Array}
-   *     An array of contribution information.
-   *
-   * @return {String}
-   */
-  _this.getContributionsMarkup = function (contributions) {
-    if (!contributions || contributions.length === 0) {
-      return '<p class="alert info">' +
-          'No amplitudes contributed for this magnitude.</p>';
-    } else {
-      return [
-        '<div class="horizontal-scrolling">',
-          '<table class="magnitude-stations">',
-            '<thead>',
-              _this.getStationTableHeaderRow(),
-            '</thead>',
-            '<tbody>',
-              contributions.reduce(function (markup, contribution) {
-                markup.push(_this.getStationTableRow(contribution));
-                return markup;
-              }, []).join(''),
-            '</tbody>',
-          '</table>',
-        '</div>'
-      ].join('');
-    }
   };
 
   /**
