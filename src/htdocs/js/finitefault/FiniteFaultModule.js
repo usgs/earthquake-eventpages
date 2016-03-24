@@ -46,6 +46,12 @@ var FiniteFaultModule = function (options) {
   _this.render = function () {
     var product;
 
+    // Destroy FiniteFaultView if it already exists
+    if (_finiteFaultView && _finiteFaultView.destroy) {
+      _finiteFaultView.destroy();
+      _finiteFaultView = null;
+    }
+
     _this.header.innerHTML = '<h3>Finite Fault</h3>';
 
     product = _this.getProduct('finite-fault');
