@@ -15,6 +15,7 @@ var Attribution = require('core/Attribution'),
     MomentTensorModule = require('moment-tensor/MomentTensorModule'),
     OriginModule = require('origin/OriginModule'),
     PAGERModule = require('pager/PAGERModule'),
+    ScientificSummaryModule = require('scientific/ScientificSummaryModule'),
     ShakeMapModule = require('shakemap/ShakeMapModule'),
     Util = require('util/Util'),
     WaveformModule = require('waveform/WaveformModule');
@@ -38,6 +39,7 @@ var _DEFAULTS = {
     ],
     // Scientific
     [
+      ScientificSummaryModule,
       OriginModule,
       MomentTensorModule,
       FocalMechanismModule,

@@ -83,6 +83,8 @@ require('./spec/pdl/CatalogEventTest');
 require('./spec/pdl/ContentTest');
 require('./spec/pdl/ProductTest');
 
+require('./spec/scientific/ScientificSummaryModuleTest');
+
 require('./spec/shakemap/ShakeMapInfoViewTest');
 require('./spec/shakemap/ShakeMapModuleTest');
 require('./spec/shakemap/ShakeMapStationListViewTest');
