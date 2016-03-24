@@ -25,6 +25,12 @@ var OriginView = function (options) {
     _formatter = options.formatter || Formatter();
   };
 
+  _this.destroy = Util.compose(function () {
+    _formatter = null;
+    _initialize = null;
+    _this = null;
+  }, _this.destroy);
+
   /**
    * Converts a product into an identifiable catalog and id string.
    *

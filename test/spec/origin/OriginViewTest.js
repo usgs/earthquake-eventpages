@@ -35,6 +35,16 @@ describe('origin/OriginView', function () {
     });
   });
 
+  describe('destroy', function () {
+    it('can be destroyed', function () {
+      var view;
+
+      view = OriginView();
+      expect(view.destroy).to.not.throw(Error);
+    });
+  });
+
+
   describe('formats output', function () {
     var view;
 
@@ -68,5 +78,7 @@ describe('origin/OriginView', function () {
       expect(rows.count).to.not.equal(0);
     });
   });
+
+
 
 });
