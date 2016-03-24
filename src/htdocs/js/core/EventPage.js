@@ -5,6 +5,7 @@ var Attribution = require('core/Attribution'),
     DYFIFormModule = require('dyfi/DYFIFormModule'),
     DYFIModule = require('dyfi/DYFIModule'),
     Events = require('util/Events'),
+    FocalMechanismModule = require('focal-mechanism/FocalMechanismModule'),
     Formatter = require('core/Formatter'),
     FiniteFaultModule = require('finitefault/FiniteFaultModule'),
     GeneralSummaryModule = require('general/GeneralSummaryModule'),
@@ -36,6 +37,7 @@ var _DEFAULTS = {
     // Scientific
     [
       MomentTensorModule,
+      FocalMechanismModule,
       FiniteFaultModule
     ]
   ]
