@@ -3,7 +3,6 @@
 
 
 var MagnitudesView = require('origin/MagnitudesView'),
-    Quakeml = require('quakeml/Quakeml'),
     Xhr = require('util/Xhr');
 
 
