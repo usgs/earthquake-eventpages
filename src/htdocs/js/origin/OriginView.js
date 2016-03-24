@@ -4,6 +4,7 @@
 var Attribution = require('core/Attribution'),
     Formatter = require('core/Formatter'),
     ProductView = require('core/ProductView'),
+    TabList = require('tablist/TabList'),
     Util = require('util/Util');
 
 
@@ -16,7 +17,8 @@ var OriginView = function (options) {
   var _this,
       _initialize,
 
-      _formatter;
+      _formatter,
+      _tabList;
 
   options = Util.extend({}, _DEFAULTS, options);
   _this = ProductView(options);
@@ -26,6 +28,10 @@ var OriginView = function (options) {
   };
 
   _this.destroy = Util.compose(function () {
+    if (_tabList && _tabList.destroy) {
+      _tabList.destroy();
+    }
+
     _formatter = null;
     _initialize = null;
     _this = null;
@@ -195,17 +201,33 @@ var OriginView = function (options) {
   };
 
   _this.render = function () {
-    var product;
+    var content,
+        product;
+
+    // Destroy tablist if it already exists
+    if (_tabList && _tabList.destroy) {
+      _tabList.destroy();
+    }
+
+    _tabList = TabList({
+      el: _this.el,
+      tabs: []
+    });
 
     product = _this.model.get();
-
     if (product) {
-      _this.el.innerHTML = _this.getOriginDetailTable(product);
+      content = _this.getOriginDetailTable(product);
     } else {
-      _this.el.innerHTML = '<p class="alert error">' +
+      content = '<p class="alert error">' +
         'No Origin product exists.' +
         '</p>';
     }
+
+    _tabList.addTab({
+      'title': 'Origin Detail',
+      'content': content
+    });
+
   };
 
 
