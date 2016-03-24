@@ -1,4 +1,4 @@
-/* global chai, describe, it */
+/* global chai, describe, DocumentFragment, it */
 'use strict';
 
 var FocalMechanismView = require('focal-mechanism/FocalMechanismView');

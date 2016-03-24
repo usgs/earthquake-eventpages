@@ -123,19 +123,19 @@ var MomentTensorView = function (options) {
     el.classList.add('horizontal-scrolling');
     el.innerHTML =
         '<table>' +
-        '<thead>' +
-          '<tr>' +
-            '<th>Axis</th>' +
-            '<th>Value</th>' +
-            '<th>Plunge</th>' +
-            '<th>Azimuth</th>' +
-          '</tr>' +
-        '</thead>' +
-        '<tbody>' +
-          formatAxis(tensor.T, 'T') +
-          formatAxis(tensor.N, 'N') +
-          formatAxis(tensor.P, 'P') +
-        '</tbody>' +
+          '<thead>' +
+            '<tr>' +
+              '<th>Axis</th>' +
+              '<th>Value</th>' +
+              '<th>Plunge</th>' +
+              '<th>Azimuth</th>' +
+            '</tr>' +
+          '</thead>' +
+          '<tbody>' +
+            formatAxis(tensor.T, 'T') +
+            formatAxis(tensor.N, 'N') +
+            formatAxis(tensor.P, 'P') +
+          '</tbody>' +
         '</table>';
     fragment.appendChild(el);
 
@@ -190,42 +190,42 @@ var MomentTensorView = function (options) {
     el.classList.add('horizontal-scrolling');
     el.innerHTML =
         '<table>' +
-        '<tbody>' +
-          '<tr>' +
-            '<th scope="row">Moment</th></th>' +
-            '<td>' + moment + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Magnitude</th>' +
-            '<td>' + magnitude + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Depth</th>' +
-            '<td>' + depth + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">' +
-              'Percent <abbr title="Double Couple">DC</abbr>' +
-            '</th>' +
-            '<td>' + percentDC + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Half Duration</th>' +
-            '<td>' + halfDuration + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Catalog</th>' +
-            '<td>' + catalog + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Data Source</th>' +
-            '<td>' + dataSource + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Contributor</th>' +
-            '<td>' + contributor + '</td>' +
-          '</tr>' +
-        '</tbody>' +
+          '<tbody>' +
+            '<tr>' +
+              '<th scope="row">Moment</th></th>' +
+              '<td>' + moment + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Magnitude</th>' +
+              '<td>' + magnitude + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Depth</th>' +
+              '<td>' + depth + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">' +
+                'Percent <abbr title="Double Couple">DC</abbr>' +
+              '</th>' +
+              '<td>' + percentDC + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Half Duration</th>' +
+              '<td>' + halfDuration + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Catalog</th>' +
+              '<td>' + catalog + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Data Source</th>' +
+              '<td>' + dataSource + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Contributor</th>' +
+              '<td>' + contributor + '</td>' +
+            '</tr>' +
+          '</tbody>' +
         '</table>';
 
     return el;
@@ -258,7 +258,7 @@ var MomentTensorView = function (options) {
           '<td>' + strike + '</td>' +
           '<td>' + dip + '</td>' +
           '<td>' + rake + '</td>' +
-          '</tr>';
+        '</tr>';
     };
 
     fragment = document.createDocumentFragment();
@@ -271,18 +271,18 @@ var MomentTensorView = function (options) {
     el.classList.add('horizontal-scrolling');
     el.innerHTML =
         '<table>' +
-        '<thead>' +
-          '<tr>' +
-          '<th>Plane</th>' +
-          '<th>Strike</th>' +
-          '<th>Dip</th>' +
-          '<th>Rake</th>' +
-          '</tr>' +
-        '</thead>' +
-        '<tbody>' +
-          formatPlane(tensor.NP1, 'NP1') +
-          formatPlane(tensor.NP2, 'NP2') +
-        '</tbody>' +
+          '<thead>' +
+            '<tr>' +
+            '<th>Plane</th>' +
+            '<th>Strike</th>' +
+            '<th>Dip</th>' +
+            '<th>Rake</th>' +
+            '</tr>' +
+          '</thead>' +
+          '<tbody>' +
+            formatPlane(tensor.NP1, 'NP1') +
+            formatPlane(tensor.NP2, 'NP2') +
+          '</tbody>' +
         '</table>';
     fragment.appendChild(el);
 

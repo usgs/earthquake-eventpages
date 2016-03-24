@@ -63,20 +63,20 @@ var FocalMechanismView = function (options) {
     el.classList.add('horizontal-scrolling');
     el.innerHTML =
         '<table>' +
-        '<tbody>' +
-          '<tr>' +
-            '<th scope="row">Catalog</th>' +
-            '<td>' + catalog + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Data Source</th>' +
-            '<td>' + dataSource + '</td>' +
-          '</tr>' +
-          '<tr>' +
-            '<th scope="row">Contributor</th>' +
-            '<td>' + contributor + '</td>' +
-          '</tr>' +
-        '</tbody>' +
+          '<tbody>' +
+            '<tr>' +
+              '<th scope="row">Catalog</th>' +
+              '<td>' + catalog + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Data Source</th>' +
+              '<td>' + dataSource + '</td>' +
+            '</tr>' +
+            '<tr>' +
+              '<th scope="row">Contributor</th>' +
+              '<td>' + contributor + '</td>' +
+            '</tr>' +
+          '</tbody>' +
         '</table>';
 
     return el;
