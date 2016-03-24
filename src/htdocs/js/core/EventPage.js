@@ -12,6 +12,7 @@ var Attribution = require('core/Attribution'),
     InteractiveMapModule = require('map/InteractiveMapModule'),
     Model = require('mvc/Model'),
     MomentTensorModule = require('moment-tensor/MomentTensorModule'),
+    OriginModule = require('origin/OriginModule'),
     PAGERModule = require('pager/PAGERModule'),
     ShakeMapModule = require('shakemap/ShakeMapModule'),
     Util = require('util/Util');
@@ -35,6 +36,7 @@ var _DEFAULTS = {
     ],
     // Scientific
     [
+      OriginModule,
       MomentTensorModule,
       FiniteFaultModule
     ]
