@@ -4,8 +4,7 @@
 var Formatter = require('core/Formatter'),
     Module = require('core/Module'),
     MomentTensorView = require('moment-tensor/MomentTensorView'),
-    // TODO: import actual ScientificSummaryModule once implemented
-    ScientificSummaryModule = require('general/GeneralSummaryModule'),
+    ScientificSummaryModule = require('scientific/ScientificSummaryModule'),
     Util = require('util/Util');
 
 

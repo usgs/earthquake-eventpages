@@ -1,8 +1,10 @@
 'use strict';
 
 
-var Formatter = require('core/Formatter'),
+var Attribution = require('core/Attribution'),
+    Formatter = require('core/Formatter'),
     Module = require('core/Module'),
+    Tensor = require('moment-tensor/Tensor'),
     Util = require('util/Util');
 
 
@@ -66,7 +68,7 @@ var ScientificSummaryModule = function (options) {
     return markup.join('');
   };
 
-  _this.getMechanismTable = function (products) {
+  _this.getFocalMechanismTable = function (products) {
     var markup;
 
     markup = [];
@@ -82,14 +84,68 @@ var ScientificSummaryModule = function (options) {
   _this.getMomentTensorTable = function (products) {
     var markup;
 
-    markup = [];
-
     if (products.length) {
-      markup.push('<h2>Moment Tensor</h2>');
-      // TODO :: Render the summary table
+      markup = [
+        '<h2>Moment Tensor</h2>',
+        '<div class="horizontal-scrolling">',
+          '<table class="table-summary table-moment-tensor-summary">',
+            '<thead>',
+              '<tr>',
+                '<th scope="col">Catalog</th>',
+                '<th scope="col">Tensor</th>',
+                '<th scope="col">Magnitude and Type</th>',
+                '<th scope="col">Depth</th>',
+                '<th scope="col">% <abbr title="Double Couple">DC</abbr></th>',
+                '<th scope="col">Source</th>',
+              '</tr>',
+            '</thead>',
+            '<tbody>',
+              products.map(_this.getMomentTensorTableRow).join(''),
+            '</tbody>',
+          '</table>',
+        '</div>'
+      ];
+    } else {
+      markup = [];
     }
 
     return markup.join('');
+  };
+
+  _this.getMomentTensorTableRow = function (product, index) {
+    var preferred,
+        rowClass,
+        tensor;
+
+    preferred = (index === 0);
+    rowClass = preferred ? ' class="preferred"' : '';
+    tensor = Tensor.fromProduct(product);
+
+    return [
+      '<tr', rowClass, '>',
+        '<th scope="row">',
+          _this.getProductLinkMarkup(product, preferred),
+        '</th>',
+        '<td>',
+          // TODO
+        '</td>',
+        '<td>',
+          _formatter.magnitude(
+            tensor.magnitude,
+            product.getProperty('derived-magnitude-type') || 'Mw'
+          ),
+        '</td>',
+        '<td>',
+          _formatter.depth(product.getProperty('depth'), 'km'),
+        '</td>',
+        '<td>',
+          Math.round(tensor.percentDC * 100) + ' %',
+        '</td>',
+        '<td>',
+          Attribution.getProductAttribution(product),
+        '</td>',
+      '</tr>'
+    ].join('');
   };
 
   _this.getOriginProducts = function (ev) {
@@ -100,7 +156,7 @@ var ScientificSummaryModule = function (options) {
         var phase;
 
         // Find a corresponding phase-data product
-        phase = ev.getProduct('phase-data', origin.get('source'),
+        phase = ev.getProductById('phase-data', origin.get('source'),
             origin.get('code'));
 
         // Prefer the phase-data product if it is at least as new as the origin
@@ -120,12 +176,96 @@ var ScientificSummaryModule = function (options) {
   _this.getOriginTable = function (products) {
     var markup;
 
-    markup = [];
-
     if (products.length) {
-      markup.push('<h2>Origin</h2>');
-      // TODO :: Render the summary table
+      markup = [
+        '<h2>Origin</h2>',
+        '<div class="horizontal-scrolling">',
+          '<table class="table-summary table-origin-summary">',
+            '<thead>',
+              '<tr>',
+                '<th scope="col">Catalog</th>',
+                '<th scope="col"><abbr title="Magnitude">Mag</abbr></th>',
+                '<th scope="col">Time</th>',
+                '<th scope="col">Depth</th>',
+                '<th scope="col">Status</th>',
+                '<th scope="col">Location</th>',
+                '<th scope="col">Source</th>',
+              '</tr>',
+            '</thead>',
+            '<tbody>',
+              products.map(_this.getOriginTableRow).join(''),
+            '</tbody>',
+          '</table>',
+        '</div>'
+      ];
+    } else {
+      markup = [];
     }
+
+    return markup.join('');
+  };
+
+  _this.getOriginTableRow = function (product, index) {
+    var preferred,
+        rowClass;
+
+    preferred = (index === 0);
+    rowClass = preferred ? ' class="preferred"' : '';
+
+    return [
+      '<tr', rowClass, '>',
+        '<th scope="row">',
+          _this.getProductLinkMarkup(product, preferred),
+        '</th>',
+        '<td>',
+          _formatter.magnitude(
+            product.getProperty('magnitude'),
+            product.get('magnitude-type')
+          ),
+        '</td>',
+        '<td>',
+          _formatter.time(new Date(product.getProperty('eventtime')), false),
+        '</td>',
+        '<td>',
+          _formatter.depth(product.getProperty('depth')),
+        '</td>',
+        '<td>',
+          product.getProperty('review-status').toUpperCase(),
+        '</td>',
+        '<td>',
+          _formatter.location(
+            product.getProperty('latitude'),
+            product.getProperty('longitude')
+          ),
+        '</td>',
+        '<td>',
+          Attribution.getProductAttribution(product),
+        '</td>',
+      '</tr>'
+    ].join('');
+  };
+
+  _this.getProductLinkMarkup = function (product, preferred) {
+    var markup,
+        type;
+
+    markup = [];
+    type = product.get('type');
+
+    // phase-data are actually rendered by the origin module
+    if (type === 'phase-data') {
+      type = 'origin';
+    }
+
+    if (preferred) {
+      markup.push('<abbr title="Preferred ' + type +
+        '" class="material-icons">check</abbr>');
+    }
+
+    markup.push('<a href="#' + type + '?source=' + product.get('source') +
+        '&amp;code=' + product.get('code') + '">' +
+      product.getProperty('eventsource').toUpperCase() +
+    '</a>');
 
     return markup.join('');
   };
@@ -171,6 +311,10 @@ var ScientificSummaryModule = function (options) {
     _this.content.innerHTML = buf.join('');
     _this.footer.innerHTML = '';
   };
+
+  _initialize(options);
+  options = null;
+  return _this;
 };
 
 

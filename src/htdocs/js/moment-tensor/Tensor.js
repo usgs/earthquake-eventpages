@@ -3,7 +3,8 @@
 var Matrix = require('math/Matrix');
 
 
-var _D2R,
+var _BEACHBALL_METHODS,
+    _D2R,
     _R2D,
     __calculatePlane,
     __fromProduct,
@@ -12,6 +13,13 @@ var _D2R,
     __sortEigenvalues,
     Tensor;
 
+
+_BEACHBALL_METHODS = {
+  'smi:ci.anss.org/momentTensor/TMTS': 'TMTS',
+  'smi:nc.anss.org/momentTensor/TMTS': 'TMTS',
+  'smi:nc.anss.org/momentTensor/TMTS-ISO': 'TMTS-ISO',
+  'smi:uu.anss.org/momentTensor/TDMT': 'TDMT'
+};
 
 _D2R = Math.PI / 180;
 _R2D = 180 / Math.PI;
@@ -74,6 +82,20 @@ __fromProduct = function (product) {
       mrp: Number(props['tensor-mrp']),
       mtp: Number(props['tensor-mtp'])
     });
+  }
+
+  if (tensor) {
+    type = product.getProperty('derived-magnitude-type');
+    if (!type) {
+      type = product.getProperty('beachball-type');
+      if (type && _BEACHBALL_METHODS.hasOwnProperty(type)) {
+        type = _BEACHBALL_METHODS[type];
+      }
+    }
+
+    if (type) {
+      tensor.type = type;
+    }
   }
 
   return tensor;

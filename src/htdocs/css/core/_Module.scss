@@ -41,3 +41,56 @@
     }
   }
 }
+
+.table-summary {
+  > thead {
+    > tr th {
+
+      > small {
+        color: #666;
+        font-weight: normal;
+      }
+    }
+  }
+  > tbody {
+    > tr > th,
+    > tr > td {
+      background-color: #fff;
+      color: #999;
+      font-weight: 400;
+      white-space: nowrap;
+
+      > img {
+        max-height: 3em;
+      }
+
+      &:first-child {
+        padding-left: 2.25em;
+      }
+    }
+
+    > tr:hover > th,
+    > tr:hover > td {
+      background-color: rgba(0,0,0,0.02);
+    }
+
+    > .preferred {
+      > th,
+      > td {
+        color: #333;
+
+        &:first-child {
+          padding-left: 0.75em;
+        }
+
+        > .material-icons {
+          color: #090;
+          font-weight: bold;
+          display: inline-block;
+          margin-right: .5em;
+          font-size: 1em;
+        }
+      }
+    }
+  }
+}
