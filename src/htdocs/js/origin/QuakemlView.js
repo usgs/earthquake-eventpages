@@ -108,7 +108,7 @@ var QuakemlView = function (options) {
   };
 
   /**
-   * Renders the quakeml.
+   * Renders the quakeml. This should be overriden by implementing classes.
    *
    */
   _this.renderQuakeml = function () {
