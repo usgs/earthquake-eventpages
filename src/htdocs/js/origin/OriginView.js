@@ -146,9 +146,8 @@ var OriginView = function (options) {
         '</td></tr>');
 
     buf.push('<tr><th scope="row">Minimum Distance</th><td>',
-        (minimumDistance === null ? NOT_REPORTED :
-            (minimumDistance * 0.0174532925 * 6378.1).toFixed(2) + ' km' +
-            ' (' + parseFloat(minimumDistance).toFixed(2) + '&deg;)'),
+        _formatter.distance((minimumDistance * 0.0174532925 * 6378.1), 'km'),
+        ' (', _formatter.angle(minimumDistance, 2), ')',
         '</td></tr>');
 
     buf.push('<tr><th scope="row">Travel Time Residual</th><td>',
@@ -156,7 +155,7 @@ var OriginView = function (options) {
         '</td></tr>');
 
     buf.push('<tr><th scope="row">Azimuthal Gap</th><td>',
-        (azimuthalGap === null ? NOT_REPORTED : azimuthalGap + '&deg;'),
+        _formatter.angle(azimuthalGap),
         '</td></tr>');
 
     // TODO :: create a FERegionView {ProductView}
