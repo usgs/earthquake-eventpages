@@ -3,9 +3,7 @@
 
 var Accordion = require('accordion/Accordion'),
     Attribution = require('core/Attribution'),
-    ContentView = require('core/ContentView'),
-    Product = require('pdl/Product'),
-    Quakeml = require('quakeml/Quakeml'),
+    QuakemlView = require('origin/QuakemlView'),
     Util = require('util/Util');
 
 
@@ -31,13 +29,11 @@ var MagnitudesView = function (options) {
   var _this,
       _initialize,
 
-      _accordion,
-      _product,
-      _quakeml;
+      _accordion;
 
 
   options = Util.extend({}, _DEFAULTS, options);
-  _this = ContentView(options);
+  _this = QuakemlView(options);
 
   /**
    * Constructor. Initializes a new {MagnitudesView}.
@@ -50,9 +46,7 @@ var MagnitudesView = function (options) {
    *     The product that contains the given {Content}. Typically an origin
    *     or phase-data product.
    */
-  _initialize = function (options) {
-    _product = options.product || Product();
-
+  _initialize = function (/*options*/) {
     _accordion = Accordion({
       el: _this.el
     });
@@ -65,11 +59,8 @@ var MagnitudesView = function (options) {
    */
   _this.destroy = Util.compose(function () {
     _accordion.destroy();
-    // _quakeml.destroy(); // TODO :: Yes? No?
 
     _accordion = null;
-    _product = null;
-    _quakeml = null;
 
     _initialize = null;
     _this = null;
@@ -231,7 +222,7 @@ var MagnitudesView = function (options) {
     if (magnitude.creationInfo) {
       source = magnitude.creationInfo.agencyID;
     } else {
-      source = _product.get('source');
+      source = _this.product.get('source');
     }
 
     contributions = magnitude.contributions || [];
@@ -333,60 +324,12 @@ var MagnitudesView = function (options) {
     ].join('');
   };
 
-  /**
-   * Callback executed when fetchData fails. Displays an error message.
-   *
-   * @param status {String}
-   *     An error message. Currently ignored.
-   * @param xhr {XMLHttpRequest}
-   *     The XHR object used to fetch the data.
-   */
-  _this.onError = function (/*status, xhr*/) {
-    _this.el.innerHTML = '<p class="alert error">' +
-        'Failed to load magnitude data.</p>';
-  };
-
-  /**
-   * Callback executed when fetchData succeeds. Parses and renders the
-   * quakeml data and triggers an event offering the parsed quakeml back
-   * so others can save the effort.
-   *
-   * @param data {String}
-   *     The raw QuakeML XML string content.
-   * @param xhr {XMLHttpRequest}
-   *     The XHR object used to fetch the data.
-   *
-   */
-  _this.onSuccess = function (data/*, xhr*/) {
-    try {
-      _quakeml = Quakeml({xml: data});
-
-      _this.render();
-
-      // Let others know about our success so they don't have to download
-      // and parse it themselves...
-      _this.trigger('quakeml', _quakeml);
-    } catch (e) {
-      // Ignore ...
-      console.log(e.stack);
-    }
-  };
-
-  /**
-   * Fetches quakeml based on the current model, or renders it if the quakeml
-   * is already available. Delegates to sub methods.
-   *
-   */
-  _this.render = function () {
+  _this.renderQuakeml = function () {
     var magnitudes;
 
-    if (!_quakeml) {
-      // Don't have quakeml yet, try to get it
-      _this.el.innerHTML = '<p>Loading content&hellip;</p>';
-      _this.fetchData();
-    } else {
+    if (_this.quakeml) {
       // Already have quakeml, render it
-      magnitudes = _quakeml.getMagnitudes();
+      magnitudes = _this.quakeml.getMagnitudes();
 
       if (magnitudes.length) {
         _this.el.innerHTML = _this.getMagnitudesMarkup(magnitudes);
@@ -395,17 +338,6 @@ var MagnitudesView = function (options) {
             'No magnitude data available.</p>';
       }
     }
-  };
-
-  /**
-   * Sets the quakeml to render. This is useful in case some external party
-   * already downloaded/parsed the quakeml, thus saving time internally.
-   *
-   * @param quakeml {Quakeml}
-   *     The parsed Quakeml to render.
-   */
-  _this.setQuakeml = function (quakeml) {
-    _quakeml = quakeml;
   };
 
 
