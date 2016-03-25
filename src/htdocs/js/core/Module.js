@@ -1,6 +1,6 @@
 'use strict';
 
-var Accordion = require('accordion/Accordion'),
+var AccordionView = require('core/AccordionView'),
     Attribution = require('core/Attribution'),
     DownloadView = require('core/DownloadView'),
     Formatter = require('core/Formatter'),
@@ -32,8 +32,6 @@ var Module = function (options) {
   var _this,
       _initialize,
 
-      _accordion,
-      _accordionEl,
       _downloadView,
       _formatter;
 
@@ -64,22 +62,12 @@ var Module = function (options) {
    * Free references.
    */
   _this.destroy = Util.compose(function () {
-    if (_accordionEl) {
-      _accordionEl.removeEventListener('click', _downloadView.render);
-    }
-
-    if (_accordion && _accordion.destroy) {
-      _accordion.destroy();
-    }
-
-    if (_downloadView && _downloadView.destroy) {
+    if (_downloadView) {
+      // clean up any previous footer
       _downloadView.destroy();
+      _downloadView = null;
     }
 
-
-    _accordion = null;
-    _accordionEl = null;
-    _downloadView = null;
     _formatter = null;
 
     _initialize = null;
@@ -135,34 +123,33 @@ var Module = function (options) {
    *
    */
   _this.getProductFooter = function (options) {
-    var content;
+    var content,
+        el;
 
-    content = options.product.getContent('contents.xml');
-
-    if (content) {
-      _accordionEl = document.createElement('div');
-
-      _downloadView = DownloadView({
-        model: content,
-        product: options.product,
-        formatter: _formatter
-      });
-
-      _accordion = Accordion({
-        el: _accordionEl,
-        accordions: [{
-          toggleText: 'Downloads',
-          toggleElement: 'h3',
-          content: _downloadView.el,
-          classes: 'accordion-standard accordion-closed ' +
-              'accordion-page-downloads'
-        }]
-      });
-
-      _accordionEl.addEventListener('click', _downloadView.render);
+    if (_downloadView) {
+      // clean up any previous footer
+      _downloadView.destroy();
+      _downloadView = null;
     }
 
-    return _accordionEl;
+    content = options.product.getContent('contents.xml');
+    if (content) {
+      el = document.createElement('div');
+      _downloadView = AccordionView({
+        classes: 'accordion-standard accordion-page-downloads',
+        el: el,
+        toggleElement: 'h3',
+        toggleText: 'Downloads',
+        view: DownloadView({
+          model: content,
+          product: options.product,
+          formatter: _formatter
+        })
+      });
+      _downloadView.render();
+    }
+
+    return el;
   };
 
   /**
