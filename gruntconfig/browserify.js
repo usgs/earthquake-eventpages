@@ -47,6 +47,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/shakemap/ShakeMapModule.js:shakemap/ShakeMapModule',
   './' + config.src + '/htdocs/js/shakemap/ShakeMapStationListView.js:shakemap/ShakeMapStationListView',
   './' + config.src + '/htdocs/js/shakemap/ShakeMapView.js:shakemap/ShakeMapView',
+  './' + config.src + '/htdocs/js/waveform/WaveformModule.js:waveform/WaveformModule',
   NODE_MODULES + '/hazdev-tablist/src/tablist/TabList.js:tablist/TabList',
   NODE_MODULES + '/hazdev-webutils/src/mvc/Model.js:mvc/Model',
   NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
