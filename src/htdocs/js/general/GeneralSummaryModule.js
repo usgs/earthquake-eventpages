@@ -1,6 +1,7 @@
 'use strict';
 
 var AccordionView = require('core/AccordionView'),
+    GeoserveRegionSummaryView = require('general/GeoserveRegionSummaryView'),
     LinkProductView = require('core/LinkProductView'),
     LocationView = require('general/LocationView'),
     Module = require('core/Module'),
@@ -42,6 +43,7 @@ var GeneralSummaryModule = function (options) {
       _generalLinkEl,
       _generalLinks,
       _generalTextEl,
+      _generalTexts,
       _locationEl,
       _locationView,
       _nearbyPlacesEl,
@@ -98,12 +100,16 @@ var GeneralSummaryModule = function (options) {
   };
 
   _this.render = function () {
-    _renderLocation();
-    _renderTime();
-    _renderNearbyPlaces();
-    _renderGeneralText();
-    _renderTectonicSummary();
-    _renderGeneralLink();
+    var ev;
+
+    ev = _this.model.get('event');
+
+    _renderLocation(ev);
+    _renderTime(ev);
+    _renderNearbyPlaces(ev);
+    _renderGeneralText(ev);
+    _renderTectonicSummary(ev);
+    _renderGeneralLink(ev);
   };
 
   _this.destroy = Util.compose(function () {
@@ -143,9 +149,8 @@ var GeneralSummaryModule = function (options) {
   /**
    * Render any general-link products.
    */
-  _renderGeneralLink = function () {
+  _renderGeneralLink = function (ev) {
     var el,
-        ev,
         links;
 
     // remove any existing views if re-rendering
@@ -157,7 +162,6 @@ var GeneralSummaryModule = function (options) {
     }
 
     // nothing to render if no event or link products
-    ev = _this.model.get('event');
     if (!ev) {
       return;
     }
@@ -166,25 +170,51 @@ var GeneralSummaryModule = function (options) {
       return;
     }
 
-    _generalLinks = [];
     _generalLinkEl.innerHTML = '<h3>For More Information</h3>';
     el = _generalLinkEl.appendChild(document.createElement('ul'));
-    links.forEach(function (product) {
+    _generalLinks = links.map(function (product) {
       var view;
       view = LinkProductView({
         el: el.appendChild(document.createElement('li')),
         model: product
       });
       view.render();
-      _generalLinks.push(view);
+      return view;
     });
   };
 
-  _renderGeneralText = function () {
-    _generalTextEl.innerHTML = '<h3>General Text</h3>';
+  _renderGeneralText = function (ev) {
+    var texts;
+
+    if (_generalTexts) {
+      _generalTexts.forEach(function (view) {
+        view.destroy();
+      });
+      _generalTexts = null;
+    }
+
+    if (!ev) {
+      return;
+    }
+    texts = ev.getProducts('general-text');
+    if (texts.length === 0) {
+      return;
+    }
+
+    _generalTexts = [];
+    Util.empty(_generalTextEl);
+    _generalTexts = texts.map(function (product) {
+      var view;
+      view = TextProductView({
+        el: _generalTextEl.appendChild(document.createElement('section')),
+        model: product
+      });
+      view.render();
+      return view;
+    });
   };
 
-  _renderLocation = function () {
+  _renderLocation = function (/*ev*/) {
     // only create location view on first render
     if (!_locationView) {
       _locationView = LocationView({
@@ -202,11 +232,9 @@ var GeneralSummaryModule = function (options) {
   /**
    * Render the tectonic-summary product if available.
    */
-  _renderTectonicSummary = function () {
-    var ev,
-        product;
+  _renderTectonicSummary = function (ev) {
+    var product;
 
-    ev = _this.model.get('event');
     if (!ev) {
       return;
     }
@@ -216,14 +244,13 @@ var GeneralSummaryModule = function (options) {
       _tectonicSummaryView = null;
     }
 
-    product = _this.getProduct('tectonic-summary');
-    if (product && product.getContent('tectonic-summary.inc.html')) {
+    product = ev.getPreferredOriginProduct();
+    if (product) {
       _tectonicSummaryView = AccordionView({
         el: _tectonicSummaryEl,
         toggleElement: 'h3',
-        toggleText: 'Tectonic Summary',
-        view: TextProductView({
-          contentPath: 'tectonic-summary.inc.html',
+        toggleText: 'Regional Tectonic Summary',
+        view: GeoserveRegionSummaryView({
           model: product
         })
       });
@@ -231,7 +258,7 @@ var GeneralSummaryModule = function (options) {
     }
   };
 
-  _renderTime = function() {
+  _renderTime = function(/*ev*/) {
     _timeEl.innerHTML = '<h3>Time</h3>';
   };
 
