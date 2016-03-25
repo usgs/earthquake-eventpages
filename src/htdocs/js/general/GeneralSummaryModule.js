@@ -1,6 +1,7 @@
 'use strict';
 
-var LocationView = require('general/LocationView'),
+var AccordionView = require('core/AccordionView'),
+    LocationView = require('general/LocationView'),
     Module = require('core/Module'),
     TextProductView = require('core/TextProductView'),
     Util = require('util/Util');
@@ -153,6 +154,9 @@ var GeneralSummaryModule = function (options) {
     _nearbyPlacesEl.innerHTML = '<h3>Nearby Places</h3>';
   };
 
+  /**
+   * Render the tectonic-summary product if available.
+   */
   _renderTectonicSummary = function () {
     var ev,
         product;
@@ -169,10 +173,14 @@ var GeneralSummaryModule = function (options) {
 
     product = _this.getProduct('tectonic-summary');
     if (product && product.getContent('tectonic-summary.inc.html')) {
-      _tectonicSummaryView = TextProductView({
-        contentPath: 'tectonic-summary.inc.html',
+      _tectonicSummaryView = AccordionView({
         el: _tectonicSummaryEl,
-        model: product
+        toggleElement: 'h3',
+        toggleText: 'Tectonic Summary',
+        view: TextProductView({
+          contentPath: 'tectonic-summary.inc.html',
+          model: product
+        })
       });
       _tectonicSummaryView.render();
     }
