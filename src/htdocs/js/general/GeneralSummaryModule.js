@@ -1,6 +1,7 @@
 'use strict';
 
 var AccordionView = require('core/AccordionView'),
+    LinkProductView = require('core/LinkProductView'),
     LocationView = require('general/LocationView'),
     Module = require('core/Module'),
     TextProductView = require('core/TextProductView'),
@@ -39,6 +40,7 @@ var GeneralSummaryModule = function (options) {
       _initialize,
 
       _generalLinkEl,
+      _generalLinks,
       _generalTextEl,
       _locationEl,
       _locationView,
@@ -113,6 +115,13 @@ var GeneralSummaryModule = function (options) {
       _tectonicSummaryView = null;
     }
 
+    if (_generalLinks) {
+      _generalLinks.forEach(function (view) {
+        view.destroy();
+      });
+      _generalLinks = null;
+    }
+
     _generalLinkEl = null;
     _generalTextEl = null;
     _locationEl = null;
@@ -131,8 +140,44 @@ var GeneralSummaryModule = function (options) {
     _renderTime = null;
   }, _this.destroy);
 
+  /**
+   * Render any general-link products.
+   */
   _renderGeneralLink = function () {
+    var el,
+        ev,
+        links;
+
+    // remove any existing views if re-rendering
+    if (_generalLinks) {
+      _generalLinks.forEach(function (view) {
+        view.destroy();
+      });
+      _generalLinks = null;
+    }
+
+    // nothing to render if no event or link products
+    ev = _this.model.get('event');
+    if (!ev) {
+      return;
+    }
+    links = ev.getProducts('general-link');
+    if (links.length === 0) {
+      return;
+    }
+
+    _generalLinks = [];
     _generalLinkEl.innerHTML = '<h3>For More Information</h3>';
+    el = _generalLinkEl.appendChild(document.createElement('ul'));
+    links.forEach(function (product) {
+      var view;
+      view = LinkProductView({
+        el: el.appendChild(document.createElement('li')),
+        model: product
+      });
+      view.render();
+      _generalLinks.push(view);
+    });
   };
 
   _renderGeneralText = function () {
