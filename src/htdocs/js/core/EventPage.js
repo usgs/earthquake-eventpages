@@ -16,7 +16,8 @@ var Attribution = require('core/Attribution'),
     OriginModule = require('origin/OriginModule'),
     PAGERModule = require('pager/PAGERModule'),
     ShakeMapModule = require('shakemap/ShakeMapModule'),
-    Util = require('util/Util');
+    Util = require('util/Util'),
+    WaveformModule = require('waveform/WaveformModule');
 
 
 var _DEFAULTS = {
@@ -40,7 +41,8 @@ var _DEFAULTS = {
       OriginModule,
       MomentTensorModule,
       FocalMechanismModule,
-      FiniteFaultModule
+      FiniteFaultModule,
+      WaveformModule
     ]
   ]
 };
