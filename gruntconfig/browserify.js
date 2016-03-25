@@ -8,6 +8,7 @@ var CWD = process.cwd(),
 
 
 var ALL_CLASSES = [
+  './' + config.src + '/htdocs/js/core/AccordionView.js:core/AccordionView',
   './' + config.src + '/htdocs/js/core/Attribution.js:core/Attribution',
   './' + config.src + '/htdocs/js/core/DownloadView.js:core/DownloadView',
   './' + config.src + '/htdocs/js/core/EventPage.js:core/EventPage',
