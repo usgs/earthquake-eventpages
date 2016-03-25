@@ -13,6 +13,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/core/DownloadView.js:core/DownloadView',
   './' + config.src + '/htdocs/js/core/EventPage.js:core/EventPage',
   './' + config.src + '/htdocs/js/core/Formatter.js:core/Formatter',
+  './' + config.src + '/htdocs/js/core/LinkProductView.js:core/LinkProductView',
   './' + config.src + '/htdocs/js/core/TextProductView.js:core/TextProductView',
   './' + config.src + '/htdocs/js/dyfi/DYFIFormModule.js:dyfi/DYFIFormModule',
   './' + config.src + '/htdocs/js/dyfi/DYFIModule.js:dyfi/DYFIModule',

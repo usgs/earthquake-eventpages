@@ -40,6 +40,7 @@ require('./spec/core/AttributionTest');
 require('./spec/core/DownloadViewTest');
 require('./spec/core/EventPageTest');
 require('./spec/core/FormatterTest');
+require('./spec/core/LinkProductViewTest');
 require('./spec/core/TextProductViewTest');
 
 require('./spec/dyfi/DYFIFormModuleTest');
