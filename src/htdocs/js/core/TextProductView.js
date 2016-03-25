@@ -102,6 +102,7 @@ var TextProductView = function (options) {
    * @see TextProductView#onError
    */
   _this.render = function () {
+    _this.el.innerHTML = '<p class="alert info">Loading...</p>';
     if (_contentView) {
       _contentView.render();
     } else {
