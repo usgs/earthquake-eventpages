@@ -1,10 +1,12 @@
 'use strict';
 
 var AccordionView = require('core/AccordionView'),
+    GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
     GeoserveRegionSummaryView = require('general/GeoserveRegionSummaryView'),
     LinkProductView = require('core/LinkProductView'),
     LocationView = require('general/LocationView'),
     Module = require('core/Module'),
+    NearbyPlacesView = require('general/NearbyPlacesView'),
     TextProductView = require('core/TextProductView'),
     Util = require('util/Util');
 
@@ -47,6 +49,7 @@ var GeneralSummaryModule = function (options) {
       _locationEl,
       _locationView,
       _nearbyPlacesEl,
+      _nearbyPlacesView,
       _preferredOrigin,
       _tectonicSummaryEl,
       _tectonicSummaryView,
@@ -109,16 +112,21 @@ var GeneralSummaryModule = function (options) {
     _this = null;
     _initialize = null;
 
-    if (_tectonicSummaryView) {
-      _tectonicSummaryView.destroy();
-      _tectonicSummaryView = null;
-    }
-
     if (_generalLinks) {
       _generalLinks.forEach(function (view) {
         view.destroy();
       });
       _generalLinks = null;
+    }
+
+    if (_nearbyPlacesView) {
+      _nearbyPlacesView.destroy();
+      _nearbyPlacesView = null;
+    }
+
+    if (_tectonicSummaryView) {
+      _tectonicSummaryView.destroy();
+      _tectonicSummaryView = null;
     }
 
     _generalLinkEl = null;
@@ -169,6 +177,9 @@ var GeneralSummaryModule = function (options) {
     });
   };
 
+  /**
+   * Render any general-text products.
+   */
   _this.renderGeneralText = function (ev) {
     var texts;
 
@@ -211,8 +222,37 @@ var GeneralSummaryModule = function (options) {
     _locationView.render();
   };
 
-  _this.renderNearbyPlaces = function () {
+  /**
+   * Render nearby-cities product, or nearby places from geoserve.
+   */
+  _this.renderNearbyPlaces = function (ev) {
+    var product;
+
+    if (_nearbyPlacesView) {
+      _nearbyPlacesView.destroy();
+      _nearbyPlacesView = null;
+    }
+    Util.empty(_nearbyPlacesEl);
+
+    if (!ev) {
+      return;
+    }
+
+    product = ev.getPreferredProduct('nearby-cities');
+    if (product) {
+      _nearbyPlacesView = NearbyPlacesView({
+        model: product
+      });
+    } else {
+      product = ev.getPreferredOriginProduct();
+      _nearbyPlacesView = GeoserveNearbyPlacesView({
+        model: product
+      });
+    }
+
     _nearbyPlacesEl.innerHTML = '<h3>Nearby Places</h3>';
+    _nearbyPlacesEl.appendChild(_nearbyPlacesView.el);
+    _nearbyPlacesView.render();
   };
 
   /**
