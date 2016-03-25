@@ -2,6 +2,7 @@
 
 var LocationView = require('general/LocationView'),
     Module = require('core/Module'),
+    TextProductView = require('core/TextProductView'),
     Util = require('util/Util');
 
 
@@ -43,6 +44,7 @@ var GeneralSummaryModule = function (options) {
       _nearbyPlacesEl,
       _preferredOrigin,
       _tectonicSummaryEl,
+      _tectonicSummaryView,
       _timeEl,
 
       _renderGeneralLink,
@@ -105,6 +107,11 @@ var GeneralSummaryModule = function (options) {
     _this = null;
     _initialize = null;
 
+    if (_tectonicSummaryView) {
+      _tectonicSummaryView.destroy();
+      _tectonicSummaryView = null;
+    }
+
     _generalLinkEl = null;
     _generalTextEl = null;
     _locationEl = null;
@@ -147,7 +154,28 @@ var GeneralSummaryModule = function (options) {
   };
 
   _renderTectonicSummary = function () {
-    _tectonicSummaryEl.innerHTML = '<h3>Tectonic Summary</h3>';
+    var ev,
+        product;
+
+    ev = _this.model.get('event');
+    if (!ev) {
+      return;
+    }
+
+    if (_tectonicSummaryView) {
+      _tectonicSummaryView.destroy();
+      _tectonicSummaryView = null;
+    }
+
+    product = _this.getProduct('tectonic-summary');
+    if (product && product.getContent('tectonic-summary.inc.html')) {
+      _tectonicSummaryView = TextProductView({
+        contentPath: 'tectonic-summary.inc.html',
+        el: _tectonicSummaryEl,
+        model: product
+      });
+      _tectonicSummaryView.render();
+    }
   };
 
   _renderTime = function() {
