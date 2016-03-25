@@ -50,14 +50,7 @@ var GeneralSummaryModule = function (options) {
       _preferredOrigin,
       _tectonicSummaryEl,
       _tectonicSummaryView,
-      _timeEl,
-
-      _renderGeneralLink,
-      _renderGeneralText,
-      _renderLocation,
-      _renderNearbyPlaces,
-      _renderTectonicSummary,
-      _renderTime;
+      _timeEl;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -104,12 +97,12 @@ var GeneralSummaryModule = function (options) {
 
     ev = _this.model.get('event');
 
-    _renderLocation(ev);
-    _renderTime(ev);
-    _renderNearbyPlaces(ev);
-    _renderGeneralText(ev);
-    _renderTectonicSummary(ev);
-    _renderGeneralLink(ev);
+    _this.renderLocation(ev);
+    _this.renderTime(ev);
+    _this.renderNearbyPlaces(ev);
+    _this.renderGeneralText(ev);
+    _this.renderTectonicSummary(ev);
+    _this.renderGeneralLink(ev);
   };
 
   _this.destroy = Util.compose(function () {
@@ -137,19 +130,12 @@ var GeneralSummaryModule = function (options) {
     _preferredOrigin = null;
     _tectonicSummaryEl = null;
     _timeEl = null;
-
-    _renderGeneralLink = null;
-    _renderGeneralText = null;
-    _renderLocation = null;
-    _renderNearbyPlaces = null;
-    _renderTectonicSummary = null;
-    _renderTime = null;
   }, _this.destroy);
 
   /**
    * Render any general-link products.
    */
-  _renderGeneralLink = function (ev) {
+  _this.renderGeneralLink = function (ev) {
     var el,
         links;
 
@@ -183,7 +169,7 @@ var GeneralSummaryModule = function (options) {
     });
   };
 
-  _renderGeneralText = function (ev) {
+  _this.renderGeneralText = function (ev) {
     var texts;
 
     if (_generalTexts) {
@@ -214,7 +200,7 @@ var GeneralSummaryModule = function (options) {
     });
   };
 
-  _renderLocation = function (/*ev*/) {
+  _this.renderLocation = function (/*ev*/) {
     // only create location view on first render
     if (!_locationView) {
       _locationView = LocationView({
@@ -225,14 +211,14 @@ var GeneralSummaryModule = function (options) {
     _locationView.render();
   };
 
-  _renderNearbyPlaces = function () {
+  _this.renderNearbyPlaces = function () {
     _nearbyPlacesEl.innerHTML = '<h3>Nearby Places</h3>';
   };
 
   /**
    * Render the tectonic-summary product if available.
    */
-  _renderTectonicSummary = function (ev) {
+  _this.renderTectonicSummary = function (ev) {
     var product;
 
     if (!ev) {
@@ -245,7 +231,7 @@ var GeneralSummaryModule = function (options) {
     }
 
     product = ev.getPreferredOriginProduct();
-    if (product) {
+    if (product && product.getProperty('eventtype') !== 'sonic boom') {
       _tectonicSummaryView = AccordionView({
         el: _tectonicSummaryEl,
         toggleElement: 'h3',
@@ -258,7 +244,7 @@ var GeneralSummaryModule = function (options) {
     }
   };
 
-  _renderTime = function(/*ev*/) {
+  _this.renderTime = function(/*ev*/) {
     _timeEl.innerHTML = '<h3>Time</h3>';
   };
 
