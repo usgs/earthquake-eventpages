@@ -56,6 +56,7 @@ require('./spec/focal-mechanism/FocalMechanismModuleTest');
 require('./spec/focal-mechanism/FocalMechanismViewTest');
 
 require('./spec/general/GeoserveNearbyPlacesViewTest');
+require('./spec/general/GeoserveRegionSummaryViewTest');
 require('./spec/general/NearbyPlacesViewTest');
 
 require('./spec/losspager/PAGERViewTest');

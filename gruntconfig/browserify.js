@@ -25,6 +25,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/focal-mechanism/FocalMechanismModule.js:focal-mechanism/FocalMechanismModule',
   './' + config.src + '/htdocs/js/focal-mechanism/FocalMechanismView.js:focal-mechanism/FocalMechanismView',
   './' + config.src + '/htdocs/js/general/GeoserveNearbyPlacesView.js:general/GeoserveNearbyPlacesView',
+  './' + config.src + '/htdocs/js/general/GeoserveRegionSummaryView.js:general/GeoserveRegionSummaryView',
   './' + config.src + '/htdocs/js/general/NearbyPlacesView.js:general/NearbyPlacesView',
   './' + config.src + '/htdocs/js/losspager/PAGERView.js:losspager/PAGERView',
   './' + config.src + '/htdocs/js/map/ContoursLayer.js:map/ContoursLayer',
