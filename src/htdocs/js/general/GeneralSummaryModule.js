@@ -43,14 +43,13 @@ var GeneralSummaryModule = function (options) {
       _initialize,
 
       _generalLinkEl,
-      _generalLinks,
+      _generalLinkViews,
       _generalTextEl,
-      _generalTexts,
+      _generalTextViews,
       _locationEl,
       _locationView,
       _nearbyPlacesEl,
       _nearbyPlacesView,
-      _preferredOrigin,
       _tectonicSummaryEl,
       _tectonicSummaryView,
       _timeEl;
@@ -64,12 +63,6 @@ var GeneralSummaryModule = function (options) {
 
     _this.ID = _ID;
     _this.TITLE = _TITLE;
-
-    try {
-      _preferredOrigin = _this.model.get('event').getSummary().originProduct;
-    } catch (e) {
-      _preferredOrigin = null;
-    }
 
     el = _this.content;
     el.innerHTML = [
@@ -112,11 +105,16 @@ var GeneralSummaryModule = function (options) {
     _this = null;
     _initialize = null;
 
-    if (_generalLinks) {
-      _generalLinks.forEach(function (view) {
+    if (_generalLinkViews) {
+      _generalLinkViews.forEach(function (view) {
         view.destroy();
       });
-      _generalLinks = null;
+      _generalLinkViews = null;
+    }
+
+    if (_locationView) {
+      _locationView.destroy();
+      _locationView = null;
     }
 
     if (_nearbyPlacesView) {
@@ -132,10 +130,7 @@ var GeneralSummaryModule = function (options) {
     _generalLinkEl = null;
     _generalTextEl = null;
     _locationEl = null;
-    _locationView.destroy();
-    _locationView = null;
     _nearbyPlacesEl = null;
-    _preferredOrigin = null;
     _tectonicSummaryEl = null;
     _timeEl = null;
   }, _this.destroy);
@@ -148,11 +143,11 @@ var GeneralSummaryModule = function (options) {
         links;
 
     // remove any existing views if re-rendering
-    if (_generalLinks) {
-      _generalLinks.forEach(function (view) {
+    if (_generalLinkViews) {
+      _generalLinkViews.forEach(function (view) {
         view.destroy();
       });
-      _generalLinks = null;
+      _generalLinkViews = null;
     }
 
     // nothing to render if no event or link products
@@ -166,7 +161,7 @@ var GeneralSummaryModule = function (options) {
 
     _generalLinkEl.innerHTML = '<h3>For More Information</h3>';
     el = _generalLinkEl.appendChild(document.createElement('ul'));
-    _generalLinks = links.map(function (product) {
+    _generalLinkViews = links.map(function (product) {
       var view;
       view = LinkProductView({
         el: el.appendChild(document.createElement('li')),
@@ -183,11 +178,11 @@ var GeneralSummaryModule = function (options) {
   _this.renderGeneralText = function (ev) {
     var texts;
 
-    if (_generalTexts) {
-      _generalTexts.forEach(function (view) {
+    if (_generalTextViews) {
+      _generalTextViews.forEach(function (view) {
         view.destroy();
       });
-      _generalTexts = null;
+      _generalTextViews = null;
     }
 
     if (!ev) {
@@ -198,9 +193,9 @@ var GeneralSummaryModule = function (options) {
       return;
     }
 
-    _generalTexts = [];
+    _generalTextViews = [];
     Util.empty(_generalTextEl);
-    _generalTexts = texts.map(function (product) {
+    _generalTextViews = texts.map(function (product) {
       var view;
       view = TextProductView({
         el: _generalTextEl.appendChild(document.createElement('section')),
@@ -216,7 +211,7 @@ var GeneralSummaryModule = function (options) {
     if (!_locationView) {
       _locationView = LocationView({
         el: _locationEl,
-        model: _preferredOrigin
+        model: _this.model
       });
     }
     _locationView.render();
@@ -261,13 +256,14 @@ var GeneralSummaryModule = function (options) {
   _this.renderTectonicSummary = function (ev) {
     var product;
 
-    if (!ev) {
-      return;
-    }
-
     if (_tectonicSummaryView) {
       _tectonicSummaryView.destroy();
       _tectonicSummaryView = null;
+    }
+    Util.empty(_tectonicSummaryEl);
+
+    if (!ev) {
+      return;
     }
 
     product = ev.getPreferredOriginProduct();

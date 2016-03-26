@@ -31,7 +31,8 @@ var _DYFI_10K_OVERLAY = 'DYFI Responses 10 km',
 var _DEFAULTS = {
   config: {
     baseLayer: 'Terrain'
-  }
+  },
+  interactive: true
 };
 
 // Set up what we want enabled by default
@@ -83,6 +84,7 @@ var InteractiveMapView = function (options) {
       _baseLayers,
       _defaultConfig,
       _formatter,
+      _interactive,
       _layersControl,
       _map,
       _overlays,
@@ -109,23 +111,35 @@ var InteractiveMapView = function (options) {
     _defaultConfig = Util.extend({}, _DEFAULTS.config);
 
     _formatter = options.formatter || Formatter();
+    _interactive = options.interactive;
 
     _map = L.map(_this.el, {
       attributionControl: false,
+      boxZoom: _interactive,
       center: [0, 0],
+      doubleClickZoom: _interactive,
+      dragging: _interactive,
+      scrollWheelZoom: _interactive,
+      tap: _interactive,
+      touchZoom: _interactive,
       zoom: 2,
-      zoomAnimation: true
+      zoomAnimation: true,
+      zoomControl: _interactive
     });
 
     _layersControl = HazDevLayers(
       _this.getAvailableBaseLayers(),
       _this.getAvailableOverlays()
     );
-    _map.addControl(_layersControl);
+    if (_interactive) {
+      _map.addControl(_layersControl);
+    }
 
     if (!Util.isMobile()) {
-      _positionControl = MousePosition();
-      _map.addControl(_positionControl);
+      if (_interactive) {
+        _positionControl = MousePosition();
+        _map.addControl(_positionControl);
+      }
 
       _scaleControl = L.control.scale({position: 'bottomleft'});
       _map.addControl(_scaleControl);
