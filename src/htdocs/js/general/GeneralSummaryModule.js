@@ -213,8 +213,9 @@ var GeneralSummaryModule = function (options) {
         el: _locationEl,
         model: _this.model
       });
+      // only render first time, view binds to same model
+      _locationView.render();
     }
-    _locationView.render();
   };
 
   /**
