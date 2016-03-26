@@ -1,6 +1,7 @@
 'use strict';
 
 var AccordionView = require('core/AccordionView'),
+    Formatter = require('core/Formatter'),
     GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
     GeoserveRegionSummaryView = require('general/GeoserveRegionSummaryView'),
     LinkProductView = require('core/LinkProductView'),
@@ -34,7 +35,7 @@ _hasContent = function (eventPageModel) {
 };
 
 var _DEFAULTS = {
-
+  formatter: null
 };
 
 
@@ -42,6 +43,7 @@ var GeneralSummaryModule = function (options) {
   var _this,
       _initialize,
 
+      _formatter,
       _generalLinkEl,
       _generalLinkViews,
       _generalTextEl,
@@ -55,37 +57,40 @@ var GeneralSummaryModule = function (options) {
       _timeEl;
 
 
-  options = Util.extend({}, _DEFAULTS, options);
   _this = Module(options);
 
-  _initialize = function (/*options*/) {
+  _initialize = function (options) {
     var el;
 
     _this.ID = _ID;
     _this.TITLE = _TITLE;
 
+    options = Util.extend({}, _DEFAULTS, options);
+    _formatter = options.formatter || Formatter();
+
     el = _this.content;
+    el.classList.add('generalsummary');
     el.innerHTML = [
         '<div class="row">',
           '<div class="column one-of-two">',
-            '<div class="location"></div>',
+            '<div class="generalsummary-location"></div>',
           '</div>',
           '<div class="column one-of-two">',
-            '<div class="time"></div>',
-            '<div class="nearby-places"></div>',
+            '<div class="generalsummary-time"></div>',
+            '<div class="generalsummary-places"></div>',
           '</div>',
         '</div>',
-        '<div class="general-text"></div>',
-        '<div class="tectonic-summary"></div>',
-        '<div class="general-link"></div>',
+        '<div class="generalsummary-general-text"></div>',
+        '<div class="generalsummary-tectonic-summary"></div>',
+        '<div class="generalsummary-general-link"></div>',
     ].join('');
 
-    _locationEl = el.querySelector('.location');
-    _timeEl = el.querySelector('.time');
-    _nearbyPlacesEl = el.querySelector('.nearby-places');
-    _generalTextEl = el.querySelector('.general-text');
-    _tectonicSummaryEl = el.querySelector('.tectonic-summary');
-    _generalLinkEl = el.querySelector('.general-link');
+    _locationEl = el.querySelector('.generalsummary-location');
+    _timeEl = el.querySelector('.generalsummary-time');
+    _nearbyPlacesEl = el.querySelector('.generalsummary-places');
+    _generalTextEl = el.querySelector('.generalsummary-general-text');
+    _tectonicSummaryEl = el.querySelector('.generalsummary-tectonic-summary');
+    _generalLinkEl = el.querySelector('.generalsummary-general-link');
   };
 
   _this.render = function () {
@@ -136,7 +141,32 @@ var GeneralSummaryModule = function (options) {
   }, _this.destroy);
 
   /**
+   * Get link for additional timezone information.
+   *
+   * @param time {Date}
+   *     the event time.
+   * @param title {String}
+   *     the event title.
+   *     default ''.
+   * @return {String}
+   *     markup for link to other time zones.
+   */
+  _this.getOtherTimeZoneLink = function (time, title) {
+    var uri;
+
+    title = title || '';
+    uri = 'http://www.timeanddate.com/worldclock/fixedtime.html?iso=' +
+        time.toISOString() + '&msg=' + title;
+    uri = encodeURI(uri);
+
+    return '<a target="_blank" href="' + uri + '">Times in other timezones</a>';
+  };
+
+  /**
    * Render any general-link products.
+   *
+   * @param ev {CatalogEvent}
+   *     the event.
    */
   _this.renderGeneralLink = function (ev) {
     var el,
@@ -174,6 +204,9 @@ var GeneralSummaryModule = function (options) {
 
   /**
    * Render any general-text products.
+   *
+   * @param ev {CatalogEvent}
+   *     the event.
    */
   _this.renderGeneralText = function (ev) {
     var texts;
@@ -206,14 +239,21 @@ var GeneralSummaryModule = function (options) {
     });
   };
 
+  /**
+   * Render location information for the event.
+   *
+   * @param ev {CatalogEvent}
+   *     the event.
+   */
   _this.renderLocation = function (/*ev*/) {
     // only create location view on first render
     if (!_locationView) {
       _locationView = LocationView({
         el: _locationEl,
+        formatter: _formatter,
         model: _this.model
       });
-      // only render first time, view binds to same model
+      // only render first time, binds to model separately
       _locationView.render();
     }
   };
@@ -253,6 +293,9 @@ var GeneralSummaryModule = function (options) {
 
   /**
    * Render the tectonic-summary product if available.
+   *
+   * @param ev {CatalogEvent}
+   *     the event.
    */
   _this.renderTectonicSummary = function (ev) {
     var product;
@@ -281,8 +324,44 @@ var GeneralSummaryModule = function (options) {
     }
   };
 
-  _this.renderTime = function(/*ev*/) {
-    _timeEl.innerHTML = '<h3>Time</h3>';
+  /**
+   * Render time information for the event.
+   *
+   * @param ev {CatalogEvent}
+   *     the event.
+   */
+  _this.renderTime = function(ev) {
+    var product,
+        systemTimezoneOffset,
+        time,
+        title;
+
+    Util.empty(_timeEl);
+    if (!ev) {
+      return;
+    }
+
+    product = ev.getPreferredOriginProduct();
+    time = new Date(product.getProperty('eventtime'));
+    systemTimezoneOffset = new Date().getTimezoneOffset() * -1;
+    title = ev.getSummary().properties.title;
+    console.log(ev.getSummary());
+    _timeEl.innerHTML =
+        '<h3>Time</h3>' +
+        '<ol class="no-style">' +
+        '<li>' +
+          _formatter.datetime(time, 0) +
+        '</li>' +
+        '<li>' +
+          _formatter.datetime(time, systemTimezoneOffset) +
+          ' <abbr title="Your computer timezone setting">' +
+          'in your timezone' +
+          '</abbr>' +
+        '</li>' +
+        '<li>' +
+          '<small>' + _this.getOtherTimeZoneLink(time, title) + '</small>' +
+        '</li>' +
+        '</ol>';
   };
 
 
