@@ -76,6 +76,7 @@ require('./spec/origin/QuakemlViewTest');
 
 require('./spec/pager/PAGERModuleTest');
 
+require('./spec/pdl/CatalogEventTest');
 require('./spec/pdl/ContentTest');
 require('./spec/pdl/ProductTest');
 

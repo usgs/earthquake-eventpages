@@ -178,48 +178,6 @@ var __getProductWithEventIdProperties = function (list) {
 };
 
 
-var __removePhases = function (products) {
-  var product,
-      originProducts = {},
-      phaseProducts = {},
-      newProducts = [],
-      loaded = {},
-      key,
-      type,
-      i;
-
-  for (i = 0; i < products.length; i++) {
-    product = products[i];
-    key = product.get('source') + product.get('code');
-    type = product.get('type');
-    if (type === 'origin'){
-      originProducts[key] = product;
-    } else if (type === 'phase-data') {
-      phaseProducts[key] = product;
-    }
-  }
-
-  for (i = 0; i < products.length; i++) {
-    product = products[i];
-    key = product.get('source') + product.get('code');
-    type = product.get('type');
-
-    if (type !== 'origin' && type !== 'phase-data') {
-      newProducts.push(product);
-    } else if(originProducts.hasOwnProperty(key) &&
-        phaseProducts.hasOwnProperty(key) &&
-        loaded[key] !== true) {
-      newProducts.push(originProducts[key]);
-      loaded[key] = true;
-    } else if (loaded[key] !== true) {
-      newProducts.push(product);
-    }
-  }
-
-  return newProducts;
-};
-
-
 /**
  * An event is a collection of products.
  */
@@ -237,7 +195,8 @@ var CatalogEvent = function (eventDetails) {
 
     _products = {};
     _properties = {};
-    if (typeof eventDetails !== 'undefined') {
+    if (typeof eventDetails !== 'undefined' &&
+        eventDetails.properties) {
       _products = Util.extend({}, eventDetails.properties.products);
       _properties = Util.extend({}, eventDetails.properties, {products:null});
     }
@@ -280,7 +239,7 @@ var CatalogEvent = function (eventDetails) {
       typeProducts = _products[type];
       index = typeProducts.indexOf(product);
       if (index >= 0) {
-        typeProducts = typeProducts.splice(index, 1);
+        typeProducts.splice(index, 1);
         if (typeProducts.length === 0) {
           delete _products[type];
         } else {
@@ -823,7 +782,6 @@ CatalogEvent.getWithoutDeleted = __getWithoutDeleted;
 CatalogEvent.getWithoutSuperseded = __getWithoutSuperseded;
 CatalogEvent.getSortedMostPreferredFirst = __getSortedMostPreferredFirst;
 CatalogEvent.productHasOriginProperties = __productHasOriginProperties;
-CatalogEvent.removePhases = __removePhases;
 
 
 module.exports = CatalogEvent;
