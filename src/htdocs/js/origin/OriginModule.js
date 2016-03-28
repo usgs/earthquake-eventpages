@@ -2,7 +2,7 @@
 
 var Formatter = require('core/Formatter'),
     Module = require('core/Module'),
-    OriginView = require('mvc/View'), // TODO :: Use origin/OriginView
+    OriginView = require('origin/OriginView'),
     ScientificSummaryModule = require('general/GeneralSummaryModule'), // TODO :: Use scientific/ScientificSummaryModule
     Util = require('util/Util');
 
