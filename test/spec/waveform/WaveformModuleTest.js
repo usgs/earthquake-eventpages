@@ -38,6 +38,7 @@ describe('waveform/WaveformModule', function () {
         options.error();
       });
       view.fetchData();
+
       expect(view.onError.callCount).to.equal(1);
 
       view.onError.restore();
@@ -54,6 +55,7 @@ describe('waveform/WaveformModule', function () {
         options.success();
       });
       view.fetchData();
+
       expect(view.onSuccess.callCount).to.equal(1);
 
       view.onSuccess.restore();
@@ -142,10 +144,10 @@ describe('waveform/WaveformModule', function () {
 
   describe('renderContent', function () {
     it('renders content', function () {
-      var spy,
+      var eventId,
+          spy,
           stub,
-          view,
-          eventId;
+          view;
 
       view = WaveformModule();
       eventId = '5176028';
@@ -153,8 +155,8 @@ describe('waveform/WaveformModule', function () {
       stub = sinon.stub(view, 'onSuccess', function () {
         return eventId;
       });
-
       spy = sinon.spy(view, 'renderContent');
+
       view.renderContent();
 
       expect(spy.callCount).to.equal(1);

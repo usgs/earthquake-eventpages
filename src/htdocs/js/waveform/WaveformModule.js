@@ -5,9 +5,10 @@ var Module = require('core/Module'),
     Xhr = require('util/Xhr');
 
 var _DEFAULTS,
+    _hasContent,
     _ID,
-    _TITLE,
-    _TYPES;
+    _TITLE;
+
 
 _DEFAULTS = {
   irisServiceUrl: 'http://service.iris.edu/fdsnws/event/1/query',
@@ -17,9 +18,23 @@ _DEFAULTS = {
 };
 _ID = 'waveform';
 _TITLE = 'Waveform Module';
-_TYPES = ['origin'];
 
 
+_hasContent = function (eventPageModel) {
+  var config;
+
+  config = eventPageModel.get('config');
+  return config.hasOwnProperty('scenarioMode') ?
+      !config.scenarioMode : true;
+};
+
+
+/**
+ * Waveform module
+ *
+ * @param options {object}
+ *    url options
+ */
 var WaveformModule = function (options) {
   var _this,
       _initialize,
@@ -42,6 +57,8 @@ var WaveformModule = function (options) {
     _irisServiceUrl = options.irisServiceUrl;
     _irisSpudUrl = options.irisSpudUrl;
     _irisWilberUrl = options.irisWilberUrl;
+
+    _this.el.classList.add('wave-form');
   };
 
   _this.destroy = Util.compose(function () {
@@ -56,40 +73,12 @@ var WaveformModule = function (options) {
     _errorMessage = null;
   }, _this.destroy);
 
-  _this.createScaffolding = function () {
-    _this.el.classList.add('wave-form');
-    _this.header.innerHTML = '<h3>Scientific - Waveforms</h3>';
-    _this.content.innerHTML =
-      '<div class="row">' +
-        '<div class="column waveform-content"></div>' +
-      '</div>';
-
-    _waveformContentEl = _this.el.querySelector('.waveform-content');
-  };
-
-  _this.fetchData = function () {
-    var latitude,
-        longitude,
-        search,
-        summary,
-        time;
-
-    summary = _this.model.get('event').getSummary();
-
-    //console.log(_this.model.get('event').getSummary());
-    latitude = summary.latitude;
-    longitude = summary.longitude;
-    time = Number(summary.time.getTime());
-    // search parameters
-    search = {
-      'starttime': new Date(time - 16000).toISOString().replace('Z', ''),
-      'endtime': new Date(time + 16000).toISOString().replace('Z', ''),
-      'latitude': latitude,
-      'longitude': longitude,
-      'maxradius': 1,
-      'format': 'text'
-    };
-
+  /**
+   * Gets the data.
+   * @param search {object}
+   *    Search parameters.
+   */
+  _this.fetchData = function (search) {
     Xhr.ajax({
       url: _irisServiceUrl,
       data: search,
@@ -98,29 +87,101 @@ var WaveformModule = function (options) {
     });
   };
 
+  /**
+   * Gets search parameters from the model and creates search object
+   */
+  _this.getSearch = function () {
+    var ev,
+        latitude,
+        longitude,
+        search,
+        summary,
+        time;
+
+    ev = _this.model.get('event');
+    search = null;
+
+    if (ev) {
+      summary = ev.getSummary();
+      latitude = summary.latitude;
+      longitude = summary.longitude;
+      time = Number(summary.time.getTime());
+      // search parameters
+      search = {
+        'starttime': new Date(time - 16000).toISOString().replace('Z', ''),
+        'endtime': new Date(time + 16000).toISOString().replace('Z', ''),
+        'latitude': latitude,
+        'longitude': longitude,
+        'maxradius': 1,
+        'format': 'text'
+      };
+    }
+
+    return search;
+  };
+
+  /**
+   * Shows default error message which can be changed.
+   */
   _this.onError = function () {
     _this.el.innerHTML = _errorMessage;
   };
 
+  /**
+   * onSuccess is called when Xhr is successful and calls eventId if no event
+   * is found. If an event is found it calls renderContent.
+   * @param data {string}
+   *    data in string format.
+   */
   _this.onSuccess = function (data) {
-    _eventId = _this.parseIrisEventId(data);
+    var eventId;
 
-    if (_eventId !== -1) {
-      _this.getIrisLinks(_eventId);
-    } else {
+    eventId = _this.parseIrisEventId(data);
+
+    if (!eventId) {
       _this.onError();
+      return;
     }
+
+    _this.renderContent(eventId);
   };
 
+  /**
+   * Gets eventId from data
+   * @param {string}
+   *    data in string format.
+   */
   _this.parseIrisEventId = function (data) {
     return data.split('\n')[1].split('|')[0];
   };
 
-  _this.getIrisLinks = function () {
-    _waveformContentEl.innerHTML = [
+  /**
+   * Called when the model changes
+   */
+  _this.render = function () {
+    var search;
+
+    _this.header.innerHTML = '<h3>Waveforms</h3>';
+
+    search = _this.getSearch();
+
+    if (search === null) {
+      _this.onError();
+    } else {
+      _this.fetchData(search);
+    }
+  };
+
+  /**
+   * Renders main content and adds urls.
+   * @param eventId {string}
+   *    The event id parsed from data.
+   */
+  _this.renderContent = function (eventId) {
+    _this.content.innerHTML = [
       '<dl class="iris-products vertical">',
         '<dt>',
-          '<a href="', _irisWilberUrl, _eventId, '" target="_blank">',
+          '<a href="', _irisWilberUrl, eventId, '" target="_blank">',
             'IRIS Seismic Waveform Data (Wilber 3)',
           '</a>',
         '</dt>',
@@ -134,7 +195,7 @@ var WaveformModule = function (options) {
         '</dd>',
 
         '<dt>',
-          '<a href="', _irisSpudUrl, _eventId, '" target="_blank">',
+          '<a href="', _irisSpudUrl, eventId, '" target="_blank">',
             'IRIS Searchable Product Depository (SPUD) Event Page',
           '</a>',
         '</dt>',
@@ -150,11 +211,6 @@ var WaveformModule = function (options) {
     ].join('');
   };
 
-  _this.render = function () {
-    _this.createScaffolding();
-    _this.fetchData();
-  };
-
   _initialize(options);
   options = null;
   return _this;
@@ -162,6 +218,6 @@ var WaveformModule = function (options) {
 
 WaveformModule.ID = _ID;
 WaveformModule.TITLE = _TITLE;
-WaveformModule.TYPES = _TYPES;
+WaveformModule.hasContent = _hasContent;
 
 module.exports = WaveformModule;
