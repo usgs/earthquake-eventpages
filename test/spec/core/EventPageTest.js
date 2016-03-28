@@ -19,7 +19,7 @@ describe('core/EventPage', function () {
       var eventPage;
       eventPage = EventPage({
         config: {
-          scenarioMode: true
+          SCENARIO_MODE: true
         }
       });
       expect(eventPage.isScenarioMode()).to.equal(true);
@@ -67,7 +67,7 @@ describe('core/EventPage', function () {
 
       eventPage = EventPage({
         config: {
-          scenarioMode: true
+          SCENARIO_MODE: true
         }
       });
       module = {
