@@ -24,8 +24,8 @@ _hasContent = function (eventPageModel) {
   var config;
 
   config = eventPageModel.get('config');
-  return config.hasOwnProperty('scenarioMode') ?
-      !config.scenarioMode : true;
+  return config.hasOwnProperty('SCENARIO_MODE') ?
+      !config.SCENARIO_MODE : true;
 };
 
 
