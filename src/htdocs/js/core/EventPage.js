@@ -193,7 +193,7 @@ var EventPage = function (options) {
   /**
    * Unbind event listeners and free references.
    */
-  _this.destroy = function () {
+  _this.destroy = Util.compose(function () {
     if (!_this) {
       return;
     }
@@ -232,7 +232,7 @@ var EventPage = function (options) {
     _modules = null;
     _navEl = null;
     _this = null;
-  };
+  }, _this.destroy);
 
 
   /**
