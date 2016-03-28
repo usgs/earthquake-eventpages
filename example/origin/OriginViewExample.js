@@ -7,13 +7,16 @@ var OriginView = require('origin/OriginView'),
 Xhr.ajax({
   url: '/events/us10004u1y.json',
   success: function (data) {
-    var product;
+    var phaseData,
+        product;
 
     product = Product(data.properties.products.origin[0]);
+    phaseData = Product(data.properties.products['phase-data'][0]);
 
     OriginView({
       el: document.querySelector('#origin-view-example'),
-      model: product
+      model: product,
+      phases: phaseData
     }).render();
   },
   error: function () {

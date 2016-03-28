@@ -3,6 +3,8 @@
 
 var Attribution = require('core/Attribution'),
     Formatter = require('core/Formatter'),
+    MagnitudesView = require('origin/MagnitudesView'),
+    PhasesView = require('origin/PhasesView'),
     ProductView = require('core/ProductView'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util');
@@ -18,6 +20,9 @@ var OriginView = function (options) {
       _initialize,
 
       _formatter,
+      _magnitudesView,
+      _phases,
+      _phasesView,
       _tabList;
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -25,14 +30,27 @@ var OriginView = function (options) {
 
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
+    _phases = options.phases || null;
   };
 
   _this.destroy = Util.compose(function () {
     if (_tabList && _tabList.destroy) {
       _tabList.destroy();
+      _tabList = null;
+    }
+
+    if (_phasesView && _phasesView.destroy) {
+      _phasesView.destroy();
+      _phasesView = null;
+    }
+
+    if (_magnitudesView && _magnitudesView.destroy) {
+      _magnitudesView.destroy();
+      _magnitudesView = null;
     }
 
     _formatter = null;
+    _phases = null;
     _initialize = null;
     _this = null;
   }, _this.destroy);
@@ -202,7 +220,8 @@ var OriginView = function (options) {
 
   _this.render = function () {
     var content,
-        product;
+        product,
+        quakeml;
 
     // Destroy tablist if it already exists
     if (_tabList && _tabList.destroy) {
@@ -217,16 +236,54 @@ var OriginView = function (options) {
     product = _this.model.get();
     if (product) {
       content = _this.getOriginDetailTable(product);
+      _tabList.addTab({
+        'title': 'Origin Detail',
+        'content': content
+      });
     } else {
       content = '<p class="alert error">' +
         'No Origin product exists.' +
         '</p>';
     }
 
-    _tabList.addTab({
-      'title': 'Origin Detail',
-      'content': content
-    });
+    if (_phases) {
+      quakeml = _phases.getContent('quakeml.xml');
+
+      _phasesView = PhasesView({
+        el: document.createElement('div'),
+        model: quakeml,
+        product: _phases
+      });
+
+      _tabList.addTab({
+        'title': 'Phases',
+        'content': _phasesView.el,
+        onDestroy: function () {
+          _phasesView.destroy();
+        },
+        onSelect: function () {
+          _phasesView.render();
+        }
+      });
+
+      _magnitudesView = MagnitudesView({
+        el: document.createElement('div'),
+        model: quakeml,
+        product: _phases
+      });
+
+      _tabList.addTab({
+        'title': 'Magnitudes',
+        'content': _magnitudesView.el,
+        onDestroy: function () {
+          _magnitudesView.destroy();
+        },
+        onSelect: function () {
+          _magnitudesView.render();
+        }
+      });
+
+    }
 
   };
 
