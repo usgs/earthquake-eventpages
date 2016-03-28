@@ -309,7 +309,7 @@ var EventPage = function (options) {
    *     false, otherwise.
    */
   _this.isScenarioMode = function () {
-    return (_config.scenarioMode === true);
+    return (_config.SCENARIO_MODE === true);
   };
 
   /**

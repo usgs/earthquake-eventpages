@@ -74,16 +74,12 @@ if (!isset($TEMPLATE)) {
   $NAVIGATION = navItem('#', 'Event Summary');
 
   $EVENT_CONFIG = array(
-    'ATTRIBUTION_URL' => isset($CONFIG['ATTRIBUTION_URL']) ?
-        $CONFIG['ATTRIBUTION_URL'] : null,
-    'DYFI_RESPONSE_URL' => isset($CONFIG['DYFI_RESPONSE_URL']) ?
-        $CONFIG['DYFI_RESPONSE_URL'] : null,
-    'GEOSERVE_WS_URL' => isset($CONFIG['GEOSERVE_WS_URL']) ?
-        $CONFIG['GEOSERVE_WS_URL'] : null,
-    'MOUNT_PATH' => isset($CONFIG['MOUNT_PATH']) ?
-        $CONFIG['MOUNT_PATH'] : null,
-    'KML_STUB' => isset($CONFIG['KML_STUB']) ?
-        $CONFIG['KML_STUB'] : null
+    'ATTRIBUTION_URL' => $ATTRIBUTION_URL,
+    'DYFI_RESPONSE_URL' => $DYFI_RESPONSE_URL,
+    'GEOSERVE_WS_URL' => $GEOSERVE_WS_URL,
+    'MOUNT_PATH' => $MOUNT_PATH,
+    'KML_STUB' => $KML_STUB,
+    'SCENARIO_MODE' => $SCENARIO_MODE
   );
 
   $FOOT =
