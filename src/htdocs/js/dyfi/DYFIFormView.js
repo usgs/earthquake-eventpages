@@ -61,10 +61,14 @@ var DYFIFormView = function (options) {
   var _this,
       _initialize,
 
+      _curLoc,
       _data,
       _formatter,
+      _locationButton,
+      _locationDisplay,
+      _locationView,
       _options,
-      _questions = {};
+      _questions;
 
 
   _this = View(options);
@@ -82,13 +86,19 @@ var DYFIFormView = function (options) {
   _initialize = function (options) {
     _options = Util.extend({}, DEFAULTS, options || {});
 
+    _curLoc = {};
     _data = null;
     _formatter = _options.formatter || Formatter();
+    _locationView = null;
+    _questions = {};
     if (!_this.model.get('language')) {
       _this.model.set({language: _options.language}, {silent: true});
     }
     if (!_this.model.get('eventTime')) {
       _this.model.set({eventTime: _options.eventTime}, {silent: true});
+    } else {
+      _this.model.set({ciim_time: _this.model.get('eventTime')},
+          {silent: true});
     }
   };
 
@@ -216,100 +226,104 @@ var DYFIFormView = function (options) {
    * @params container {dom element}
    */
   _this.createLocationQuestions = function (questionInfo, container) {
-    var section = document.createElement('section'),
-        fieldset = section.appendChild(document.createElement('fieldset')),
-        legend = fieldset.appendChild(document.createElement('legend')),
-        display = fieldset.appendChild(document.createElement('div')),
-        button = fieldset.appendChild(document.createElement('button')),
-        curLoc = {},
-        locationView = null;
+    var fieldset,
+        legend,
+        section;
+
+    section = document.createElement('section');
+    fieldset = section.appendChild(document.createElement('fieldset'));
+    legend = fieldset.appendChild(document.createElement('legend'));
+    _locationDisplay = fieldset.appendChild(document.createElement('div'));
+    _locationButton = fieldset.appendChild(document.createElement('button'));
 
     section.classList.add('question');
     legend.innerHTML = questionInfo.label;
-    button.innerHTML = questionInfo.button;
-    button.classList.add('location-button');
+    _locationButton.innerHTML = questionInfo.button;
+    _locationButton.classList.add('location-button');
 
     // Add QuestionView-like objects to the list of questions
     _questions.ciim_mapLat = Events();
     _questions.ciim_mapLat.model = Model({field:'ciim_mapLat'});
     _questions.ciim_mapLat.getAnswers = function () {
-      return {value: curLoc.latitude};
+      return {value: _curLoc.latitude};
     };
     _questions.ciim_mapLat.setAnswers = function (latitude) {
-      curLoc.latitude = latitude;
+      _curLoc.latitude = latitude;
     };
 
     _questions.ciim_mapLon = Events();
     _questions.ciim_mapLon.model = Model({field:'ciim_mapLon'});
     _questions.ciim_mapLon.getAnswers = function () {
-      return {value: curLoc.longitude};
+      return {value: _curLoc.longitude};
     };
     _questions.ciim_mapLon.setAnswers = function (longitude) {
-      curLoc.longitude = longitude;
+      _curLoc.longitude = longitude;
     };
 
     _questions.ciim_mapConfidence = Events();
     _questions.ciim_mapConfidence.model = Model({field:'ciim_mapConfidence'});
     _questions.ciim_mapConfidence.getAnswers = function () {
-        return {value: curLoc.confidence};
+        return {value: _curLoc.confidence};
     };
     _questions.ciim_mapConfidence.setAnswers = function () {};
 
     _questions.ciim_mapAddress = Events();
     _questions.ciim_mapAddress.model = Model({field:'ciim_mapAddress'});
     _questions.ciim_mapAddress.getAnswers = function () {
-        return {value: curLoc.place};
+        return {value: _curLoc.place};
     };
     _questions.ciim_mapConfidence.setAnswers = function () {};
 
-    locationView = LocationView({
-      callback: function (locationObject) {
-        var markup = [],
-            prettyLat = null,
-            prettyLng = null;
-
-        curLoc = locationObject;
-
-        prettyLat = curLoc.latitude;
-        if (prettyLat < 0.0) {
-          prettyLat = (-1.0*prettyLat).toFixed(curLoc.confidence) + '&deg;S';
-        } else {
-          prettyLat = prettyLat.toFixed(curLoc.confidence) + '&deg;N';
-        }
-
-        prettyLng = curLoc.longitude;
-        if (prettyLng < 0.0) {
-          prettyLng = (-1.0*prettyLng).toFixed(curLoc.confidence) + '&deg;W';
-        } else {
-          prettyLng = prettyLng.toFixed(curLoc.confidence) + '&deg;E';
-        }
-
-        if (curLoc.place !== null) {
-          markup.push(curLoc.place + '<br/>');
-        }
-
-        display.classList.add('location-result', 'alert', 'success');
-
-        display.innerHTML = '<span class="address">' +
-            ((curLoc.place) ? (curLoc.place + '</span>') : '') +
-            '<span class="coordinates">' +
-            prettyLat + ', ' + prettyLng +
-            ((curLoc.place) ? '' : '</span>');
-
-
-        button.innerHTML = questionInfo.buttonUpdate;
-
-        _questions.ciim_mapLat.trigger('change', _questions.ciim_mapLat);
-        _questions.ciim_mapLon.trigger('change', _questions.ciim_mapLon);
-      }
+    _locationView = LocationView({
+      callback: _this.locationCallback
     });
 
-    button.addEventListener('click', function () {
-      locationView.show({initialLocation: curLoc});
+    _locationButton.addEventListener('click', function () {
+      _locationView.show({initialLocation: _curLoc});
     });
 
     // Append content to container
     container.appendChild(section);
+  };
+
+  _this.locationCallback = function (locationObject) {
+    var markup = [],
+        prettyLat = null,
+        prettyLng = null;
+
+    _curLoc = locationObject;
+
+    prettyLat = _curLoc.latitude;
+    if (prettyLat < 0.0) {
+      prettyLat = (-1.0*prettyLat).toFixed(_curLoc.confidence) + '&deg;S';
+    } else {
+      prettyLat = prettyLat.toFixed(_curLoc.confidence) + '&deg;N';
+    }
+
+    prettyLng = _curLoc.longitude;
+    if (prettyLng < 0.0) {
+      prettyLng = (-1.0*prettyLng).toFixed(_curLoc.confidence) + '&deg;W';
+    } else {
+      prettyLng = prettyLng.toFixed(_curLoc.confidence) + '&deg;E';
+    }
+
+    if (_curLoc.place !== null) {
+      markup.push(_curLoc.place + '<br/>');
+    }
+
+    _locationDisplay.classList.add('location-result', 'alert', 'success');
+
+    _locationDisplay.innerHTML = '<span class="address">' +
+        ((_curLoc.place) ? (_curLoc.place + '</span>') : '') +
+        '<span class="coordinates">' +
+        prettyLat + ', ' + prettyLng +
+        ((_curLoc.place) ? '' : '</span>');
+
+
+    _locationButton.innerHTML = _data.locationInfo.buttonUpdate;
+
+    _questions.ciim_mapLat.trigger('change', _questions.ciim_mapLat);
+    _questions.ciim_mapLon.trigger('change', _questions.ciim_mapLon);
   };
 
   /**
@@ -376,10 +390,6 @@ var DYFIFormView = function (options) {
    */
   _this.destroy = Util.compose(function () {
     if (_questions !== null) {
-      if (_questions.ciim_time) {
-        _questions.ciim_time.el.removeEventListener('change',
-            _this.updateSubmitEnabled);
-      }
       _this.destroyForm();
       _questions = null;
     }
@@ -395,6 +405,14 @@ var DYFIFormView = function (options) {
       _questions[field].off('change');
       _questions[field].destroy();
     }
+  };
+
+  /**
+   * Get list of questions.
+   *   This exists for testing, _questions should be considered private.
+   */
+  _this.getQuestions = function () {
+    return _questions;
   };
 
   /**
