@@ -117,7 +117,7 @@ var Module = function (options) {
 
     config = _this.model.get('config');
 
-    if (config.SCENARIO_MODE === true) {
+    if (config && config.SCENARIO_MODE === true) {
       type += '-scenario';
     }
 
