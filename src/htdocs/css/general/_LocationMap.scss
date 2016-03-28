@@ -9,11 +9,11 @@
 
 .locationview-map {
   display: block;
+  max-height: 512px;
   max-width: 100%;
   /* padding-bottom sets height responsively based on width. */
   padding-bottom: 100%;
   position: relative;
-  width: 512px;
 
   > div {
     left: 0;
