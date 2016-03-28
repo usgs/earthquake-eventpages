@@ -66,7 +66,7 @@ var copy = {
   locationview_images: {
     expand: true,
     cwd: 'node_modules/hazdev-location-view/src/locationview/images',
-    dest: config.build + '/' + config.src + '/htdocs/modules/impact/images',
+    dest: config.build + '/' + config.src + '/htdocs/css/images',
     src: [
       '*.png',
       '*.cur'
