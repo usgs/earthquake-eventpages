@@ -219,7 +219,7 @@ var Module = function (options) {
           '</li>');
     } else {
       buf.push('<li class="unpreferred">' +
-          'The data below is <strong>NOT</strong>' +
+          'The data below are <strong>NOT</strong>' +
           ' the most preferred data available' +
           '</li>');
     }
@@ -230,7 +230,7 @@ var Module = function (options) {
     } else if (reviewed === false) {
       // only claim product is unreviewed if review-status property was set.
       buf.push('<li class="unreviewed">' +
-          'The data below has <strong>NOT</strong>' +
+          'The data below have <strong>NOT</strong>' +
           ' been reviewed by a scientist.' +
           '</li>');
     }
