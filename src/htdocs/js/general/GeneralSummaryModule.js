@@ -108,6 +108,9 @@ var GeneralSummaryModule = function (options) {
     _this.renderFooter(ev);
   };
 
+  /**
+   * Free references.
+   */
   _this.destroy = Util.compose(function () {
     _this = null;
     _initialize = null;
@@ -196,11 +199,13 @@ var GeneralSummaryModule = function (options) {
       }
     }
 
-    downloads = _this.getProductFooter({
-      product: product
-    });
-    if (downloads) {
-      _this.footer.appendChild(downloads);
+    if (product) {
+      downloads = _this.getProductFooter({
+        product: product
+      });
+      if (downloads) {
+        _this.footer.appendChild(downloads);
+      }
     }
   };
 
