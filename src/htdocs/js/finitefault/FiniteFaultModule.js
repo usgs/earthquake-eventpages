@@ -44,7 +44,8 @@ var FiniteFaultModule = function (options) {
    *
    */
   _this.render = function () {
-    var product;
+    var footer,
+        product;
 
     // Destroy FiniteFaultView if it already exists
     if (_finiteFaultView && _finiteFaultView.destroy) {
@@ -53,6 +54,8 @@ var FiniteFaultModule = function (options) {
     }
 
     _this.header.innerHTML = '<h3>Finite Fault</h3>';
+    Util.empty(_this.content);
+    Util.empty(_this.footer);
 
     product = _this.getProduct('finite-fault');
     if (!product) {
@@ -74,9 +77,12 @@ var FiniteFaultModule = function (options) {
       _finiteFaultView.render();
 
       // Display downloads in footer section
-      _this.footer.appendChild(_this.getProductFooter({
+      footer = _this.getProductFooter({
         product: product,
-      }));
+      });
+      if (footer) {
+        _this.footer.appendChild(footer);
+      }
     }
   };
 
