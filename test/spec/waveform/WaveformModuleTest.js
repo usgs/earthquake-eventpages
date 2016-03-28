@@ -138,14 +138,15 @@ describe('waveform/WaveformModule', function () {
       view = WaveformModule();
       eventId = '5176028';
 
-      stub = sinon.stub(view, 'onSuccess', function () {
+      stub = sinon.stub(view, 'parseIrisEventId', function () {
         return eventId;
       });
       spy = sinon.spy(view, 'renderContent');
 
-      view.renderContent();
+      view.onSuccess();
 
-      expect(spy.callCount).to.equal(1);
+      expect(spy.calledWith(eventId)).to.equal(true);
+
       spy.restore();
       stub.restore();
       view.destroy();
