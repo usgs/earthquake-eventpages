@@ -215,22 +215,22 @@ var Module = function (options) {
     buf.push('<ul class="quality-statements no-style">');
     if (preferred) {
       buf.push('<li class="preferred">' +
-          'The data below is the most preferred data available' +
+          'The data below are the most preferred data available' +
           '</li>');
     } else {
       buf.push('<li class="unpreferred">' +
-          'The data below is <strong>NOT</strong>' +
+          'The data below are <strong>NOT</strong>' +
           ' the most preferred data available' +
           '</li>');
     }
     if (reviewed === true) {
       buf.push('<li class="reviewed">' +
-          'The data below has been reviewed by a scientist' +
+          'The data below have been reviewed by a scientist' +
           '</li>');
     } else if (reviewed === false) {
       // only claim product is unreviewed if review-status property was set.
       buf.push('<li class="unreviewed">' +
-          'The data below has <strong>NOT</strong>' +
+          'The data below have <strong>NOT</strong>' +
           ' been reviewed by a scientist.' +
           '</li>');
     }
