@@ -28,6 +28,10 @@ var FiniteFaultModule = function (options) {
   };
 
   _this.destroy = Util.compose(function () {
+    if (_finiteFaultView) {
+      _finiteFaultView.destroy();
+      _finiteFaultView = null;
+    }
     _initialize = null;
     _this = null;
   }, _this.destroy);
@@ -42,6 +46,12 @@ var FiniteFaultModule = function (options) {
   _this.render = function () {
     var product;
 
+    // Destroy FiniteFaultView if it already exists
+    if (_finiteFaultView && _finiteFaultView.destroy) {
+      _finiteFaultView.destroy();
+      _finiteFaultView = null;
+    }
+
     _this.header.innerHTML = '<h3>Finite Fault</h3>';
 
     product = _this.getProduct('finite-fault');
@@ -49,21 +59,25 @@ var FiniteFaultModule = function (options) {
       _this.content.innerHTML =
           '<p class="alert warning">No Finite Fault Found</p>';
     } else {
+      // Display review/preferred status in header section
       _this.header.appendChild(_this.getProductHeader({
         product: product,
-        summaryModule: null // TODO create/add ScientificSummaryModule
+        // TODO create/add ScientificSummaryModule
+        summaryModule: null
       }));
 
-      // Load Finite Fault View
+      // Display Finite Fault View in content section
       _finiteFaultView = FiniteFaultView({
         el: _this.content,
         model: product
       });
       _finiteFaultView.render();
-    }
 
-    // remove module-footer, there is no content
-    _this.el.removeChild(_this.footer);
+      // Display downloads in footer section
+      _this.footer.appendChild(_this.getProductFooter({
+        product: product,
+      }));
+    }
   };
 
   _initialize();
