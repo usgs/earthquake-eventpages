@@ -118,14 +118,10 @@ var ScientificSummaryModule = function (options) {
         '</tr>'
       ].join('');
 
-      tbody.appendChild(products.map(_this.getMomentTensorTableRow).reduce(
-        function (fragment, row) {
-          if (row !== null) {
-            fragment.appendChild(row);
-          }
-          return fragment;
-        }, document.createDocumentFragment()
-      ));
+      tbody.appendChild(products.reduce(function (fragment, product, index) {
+        fragment.appendChild(_this.getMomentTensorTableRow(product, index));
+        return fragment;
+      }, document.createDocumentFragment()));
     }
 
     return fragment;
@@ -209,75 +205,96 @@ var ScientificSummaryModule = function (options) {
   };
 
   _this.getOriginTable = function (products) {
-    var markup;
+    var fragment,
+        header,
+        table,
+        tbody,
+        thead,
+        wrapper;
+
+    fragment = document.createDocumentFragment();
 
     if (products.length) {
-      markup = [
-        '<h2>Origin</h2>',
-        '<div class="horizontal-scrolling">',
-          '<table class="table-summary table-origin-summary">',
-            '<thead>',
-              '<tr>',
-                '<th scope="col">Catalog</th>',
-                '<th scope="col"><abbr title="Magnitude">Mag</abbr></th>',
-                '<th scope="col">Time</th>',
-                '<th scope="col">Depth</th>',
-                '<th scope="col">Status</th>',
-                '<th scope="col">Location</th>',
-                '<th scope="col">Source</th>',
-              '</tr>',
-            '</thead>',
-            '<tbody>',
-              products.map(_this.getOriginTableRow).join(''),
-            '</tbody>',
-          '</table>',
-        '</div>'
-      ];
-    } else {
-      markup = [];
+      header = fragment.appendChild(document.createElement('h2'));
+      wrapper = fragment.appendChild(document.createElement('div'));
+      table = wrapper.appendChild(document.createElement('table'));
+      thead = table.appendChild(document.createElement('thead'));
+      tbody = table.appendChild(document.createElement('tbody'));
+
+      header.innerHTML = 'Origin';
+
+      wrapper.classList.add('horizontal-scrolling');
+
+      table.classList.add('table-summary');
+      table.classList.add('table-origin-summary');
+
+      thead.innerHTML = [
+        '<tr>',
+          '<th scope="col">Catalog</th>',
+          '<th scope="col"><abbr title="Magnitude">Mag</abbr></th>',
+          '<th scope="col">Time</th>',
+          '<th scope="col">Depth</th>',
+          '<th scope="col">Status</th>',
+          '<th scope="col">Location</th>',
+          '<th scope="col">Source</th>',
+        '</tr>',
+      ].join('');
+
+      tbody.appendChild(products.reduce(function (fragment, product, index) {
+        fragment.appendChild(_this.getOriginTableRow(product, index));
+        return fragment;
+      }, document.createDocumentFragment()));
     }
 
-    return markup.join('');
+    return fragment;
   };
 
   _this.getOriginTableRow = function (product, index) {
-    var preferred,
-        rowClass;
+    var eventTime,
+        preferred,
+        row;
 
+    row = document.createElement('tr');
     preferred = (index === 0);
-    rowClass = preferred ? ' class="preferred"' : '';
+    eventTime = new Date(product.getProperty('eventtime'));
 
-    return [
-      '<tr', rowClass, '>',
-        '<th scope="row">',
-          _this.getProductLinkMarkup(product, preferred),
-        '</th>',
-        '<td>',
-          _formatter.magnitude(
-            product.getProperty('magnitude'),
-            product.get('magnitude-type')
-          ),
-        '</td>',
-        '<td>',
-          _formatter.time(new Date(product.getProperty('eventtime')), false),
-        '</td>',
-        '<td>',
-          _formatter.depth(product.getProperty('depth')),
-        '</td>',
-        '<td>',
-          product.getProperty('review-status').toUpperCase(),
-        '</td>',
-        '<td>',
-          _formatter.location(
-            product.getProperty('latitude'),
-            product.getProperty('longitude')
-          ),
-        '</td>',
-        '<td>',
-          Attribution.getProductAttribution(product),
-        '</td>',
-      '</tr>'
+    if (preferred) {
+      row.classList.add('preferred');
+    }
+
+    row.innerHTML = [
+      '<th scope="row">',
+        _this.getProductLinkMarkup(product, preferred),
+      '</th>',
+      '<td>',
+        _formatter.magnitude(
+          product.getProperty('magnitude'),
+          product.getProperty('magnitude-type')
+        ),
+      '</td>',
+      '<td>',
+        '<abbr title="', _formatter.datetime(eventTime, 0), '">',
+          _formatter.time(eventTime),
+        '</abbr>',
+      '</td>',
+      '<td>',
+        _formatter.depth(product.getProperty('depth')),
+      '</td>',
+      '<td>',
+        product.getProperty('review-status').toUpperCase(),
+      '</td>',
+      '<td>',
+        _formatter.location(
+          product.getProperty('latitude'),
+          product.getProperty('longitude')
+        ),
+      '</td>',
+      '<td>',
+        Attribution.getProductAttribution(product),
+      '</td>'
     ].join('');
+
+    return row;
   };
 
   _this.getProductLinkMarkup = function (product, preferred) {
@@ -319,7 +336,6 @@ var ScientificSummaryModule = function (options) {
   };
 
   _this.render = function () {
-    // var buf,
     var ev,
         faults,
         fragment,
@@ -328,7 +344,6 @@ var ScientificSummaryModule = function (options) {
         origins,
         tensors;
 
-    // buf = [];
     fragment = document.createDocumentFragment();
     ev = _this.model.get('event');
 
@@ -338,18 +353,18 @@ var ScientificSummaryModule = function (options) {
     origins = _this.getOriginProducts(ev);
     tensors = ev.getProducts('moment-tensor');
 
-    // buf.push(_this.getOriginTable(origins));
-    // buf.push(_this.getMomentTensorTable(tensors));
     // buf.push(_this.getFocalMechanismTable(mechs));
     // buf.push(_this.getFiniteFaultTable(faults));
     // buf.push(_this.getScitechLinks(links));
 
+    fragment.appendChild(_this.getOriginTable(origins));
     fragment.appendChild(_this.getMomentTensorTable(tensors));
 
     _this.header.innerHTML = '';
-    // _this.content.innerHTML = buf.join('');
+
     Util.empty(_this.content);
     _this.content.appendChild(fragment);
+
     _this.footer.innerHTML = '';
   };
 
