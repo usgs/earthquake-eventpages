@@ -6,6 +6,7 @@ var Attribution = require('core/Attribution'),
     Formatter = require('core/Formatter'),
     Module = require('core/Module'),
     Tensor = require('moment-tensor/Tensor'),
+    TextProductView = require('core/TextProductView'),
     Util = require('util/Util');
 
 
@@ -47,7 +48,8 @@ var ScientificSummaryModule = function (options) {
 
       _fmFillColor,
       _formatter,
-      _mtFillColor;
+      _mtFillColor,
+      _textViews;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -70,6 +72,8 @@ var ScientificSummaryModule = function (options) {
     _formatter = options.formatter || Formatter();
     _mtFillColor = options.mtFillColor;
     _fmFillColor = options.fmFillColor;
+
+    _textViews = [];
   };
 
 
@@ -156,6 +160,14 @@ var ScientificSummaryModule = function (options) {
     _fmFillColor = null;
     _formatter = null;
     _mtFillColor = null;
+
+    if (_textViews && _textViews.length) {
+      _textViews.forEach(function (view) {
+        view.destroy();
+      });
+
+      _textViews = null;
+    }
 
     _initialize = null;
     _this = null;
@@ -569,6 +581,36 @@ var ScientificSummaryModule = function (options) {
   };
 
   /**
+   * Creates visualization for text-based products. Typically scitech-header and
+   * scitech-text products. Delegates to the {TextProductView}.
+   *
+   * @param products {Array}
+   *     An array of products to generate visualizations for.
+   *
+   * @return {DocumentFragment}
+   *     A fragment containing the markup for each text product.
+   */
+  _this.getText = function (products) {
+    var fragment;
+
+    fragment = document.createDocumentFragment();
+
+    products.forEach(function (product) {
+      var view;
+
+      view = TextProductView({
+        el: fragment.appendChild(document.createElement('div')),
+        model: product
+      });
+      view.render();
+
+      _textViews.push(view);
+    });
+
+    return fragment;
+  };
+
+  /**
    * Renders the module header, content, and footer.
    *
    */
@@ -576,27 +618,43 @@ var ScientificSummaryModule = function (options) {
     var ev,
         faults,
         fragment,
+        headers,
         links,
         mechs,
         origins,
-        tensors;
+        tensors,
+        texts;
 
     fragment = document.createDocumentFragment();
     ev = _this.model.get('event');
 
+    if (_textViews && _textViews.length) {
+      _textViews.forEach(function (view) {
+        view.destroy();
+      });
+
+      _textViews = null;
+    }
+
+    _textViews = [];
+
     faults = ev.getProducts('finite-fault');
+    headers = ev.getProducts('scitech-header');
     links = ev.getProducts('scitech-link');
     mechs = ev.getProducts('focal-mechanism');
     origins = _this.getOriginProducts(ev);
     tensors = ev.getProducts('moment-tensor');
+    texts = ev.getProducts('scitech-text');
+
+    Util.empty(_this.header);
+    _this.header.appendChild(_this.getText(headers));
 
     fragment.appendChild(_this.getOriginTable(origins));
     fragment.appendChild(_this.getMomentTensorTable(tensors));
     fragment.appendChild(_this.getFiniteFaultTable(faults));
     fragment.appendChild(_this.getFocalMechanismTable(mechs));
     fragment.appendChild(_this.getScitechLinks(links));
-
-    _this.header.innerHTML = '';
+    fragment.appendChild(_this.getText(texts));
 
     Util.empty(_this.content);
     _this.content.appendChild(fragment);
