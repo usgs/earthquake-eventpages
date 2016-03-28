@@ -97,12 +97,14 @@ var GeneralSummaryModule = function (options) {
 
     ev = _this.model.get('event');
 
+    _this.renderHeader(ev);
     _this.renderLocation(ev);
     _this.renderTime(ev);
     _this.renderNearbyPlaces(ev);
     _this.renderGeneralText(ev);
     _this.renderTectonicSummary(ev);
     _this.renderGeneralLink(ev);
+    _this.renderFooter(ev);
   };
 
   _this.destroy = Util.compose(function () {
@@ -159,6 +161,39 @@ var GeneralSummaryModule = function (options) {
     uri = encodeURI(uri);
 
     return '<a target="_blank" href="' + uri + '">Times in other timezones</a>';
+  };
+
+  /**
+   * Render module footer.
+   *
+   * @param ev {CatalogEvent}
+   *     the event.
+   */
+  _this.renderFooter = function (ev) {
+    var downloads,
+        product,
+        phase;
+
+    Util.empty(_this.footer);
+    if (!ev) {
+      return;
+    }
+
+    product = ev.getPreferredOriginProduct();
+    if (product) {
+      phase = ev.getProductById('phase-data', product.get('source'),
+          product.get('code'));
+      if (phase) {
+        product = phase;
+      }
+    }
+
+    downloads = _this.getProductFooter({
+      product: product
+    });
+    if (downloads) {
+      _this.footer.appendChild(downloads);
+    }
   };
 
   /**
@@ -236,6 +271,19 @@ var GeneralSummaryModule = function (options) {
       view.render();
       return view;
     });
+  };
+
+  /**
+   * Render module header.
+   *
+   * @param ev {CatalogEvent}
+   *     the event.
+   */
+  _this.renderHeader = function (ev) {
+    Util.empty(_this.header);
+    if (!ev) {
+      return;
+    }
   };
 
   /**
@@ -359,7 +407,7 @@ var GeneralSummaryModule = function (options) {
     time = new Date(product.getProperty('eventtime'));
     systemTimezoneOffset = new Date().getTimezoneOffset() * -1;
     title = ev.getSummary().properties.title;
-    console.log(ev.getSummary());
+
     _timeEl.innerHTML =
         '<h3>Time</h3>' +
         '<ol class="no-style">' +
