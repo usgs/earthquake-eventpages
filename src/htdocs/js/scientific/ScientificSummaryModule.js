@@ -32,6 +32,15 @@ _DEFAULTS = {
 };
 
 
+/**
+ * Module for the scientific summary page. This module renders a table-like
+ * set of summary-level data for the products contained within the "scientific"
+ * section of the event page.
+ *
+ * @param options {Object}
+ *     Configuration options for this module. See initialize documentation for
+ *     details.
+ */
 var ScientificSummaryModule = function (options) {
   var _this,
       _initialize,
@@ -44,6 +53,16 @@ var ScientificSummaryModule = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = Module(options);
 
+  /**
+   * Constructor. Initializes a new {ScientificSummaryModule}.
+   *
+   * @param options {Object}
+   *     Configuration options for the module. Specifically...
+   * @param options.mtFillColor {String}
+   *     A hexadecimal color to be used when rendering moment tensors.
+   * @param options.fmFillColor {String}
+   *     A hexadecimal color to be used when rendering focal mechanisms.
+   */
   _initialize = function (options) {
     _this.ID = _ID;
     _this.TITLE = _TITLE;
@@ -54,6 +73,16 @@ var ScientificSummaryModule = function (options) {
   };
 
 
+  /**
+   * Helper method for creating a simple TR DOM element potentially with a
+   * "preferred" class on it.
+   *
+   * @param preferred {Boolean}
+   *     True if the "preferred" class should be added. False otherwise.
+   *
+   * @return {DOMElement}
+   *     A TR DOM Element.
+   */
   _this.createRow = function (preferred) {
     var row;
 
@@ -66,6 +95,25 @@ var ScientificSummaryModule = function (options) {
     return row;
   };
 
+  /**
+   * Helper method for creating a summary section for a type of product.
+   *
+   * @param products {Array}
+   *     An array of {Product}s to summarize.
+   * @param title {String}
+   *     The header text to label this summary section.
+   * @param labels {Array}
+   *     An array of {String}s to use a column header text.
+   * @param callback {Function}
+   *     A callback function to execute for each product. This callback function
+   *     should return a TR DOM element. The callback function expects a
+   *     {Product} as its first parameter and an index {Number} as it's second
+   *     parameter.
+   *
+   * @return {DocumentFragment}
+   *     A document fragment containing the section summary, this could be
+   *     empty if no products or labels are provided.
+   */
   _this.createTable = function (products, title, labels, callback) {
     var fragment,
         header,
@@ -100,6 +148,10 @@ var ScientificSummaryModule = function (options) {
     return fragment;
   };
 
+  /**
+   * Frees resources associated with this module.
+   *
+   */
   _this.destroy = Util.compose(function () {
     _fmFillColor = null;
     _formatter = null;
@@ -109,6 +161,16 @@ var ScientificSummaryModule = function (options) {
     _this = null;
   }, _this.destroy);
 
+  /**
+   * Creates the summary section for the finite fault product(s).
+   *
+   * @param products {Array}
+   *     An array of products to summarize.
+   *
+   * @return {DocumentFragment}
+   *     A (potentially empty) document fragment containing the summary for
+   *     the given set of products.
+   */
   _this.getFiniteFaultTable = function (products) {
     return _this.createTable(products, 'Finite Fault', [
         'Catalog',
@@ -119,6 +181,18 @@ var ScientificSummaryModule = function (options) {
     );
   };
 
+  /**
+   * Creates a row with summary information for the given product.
+   *
+   * @param product {Product}
+   *     The product to summarize
+   * @param index {Number}
+   *     The place in which this product ranks among other products of the
+   *     same type within the context of the current event. 0 = most preferred
+   *
+   * @return {DOMElement}
+   *     A TR DOM element.
+   */
   _this.getFiniteFaultTableRow = function (product, index) {
     var map,
         preferred,
@@ -143,6 +217,16 @@ var ScientificSummaryModule = function (options) {
     return row;
   };
 
+  /**
+   * Creates the summary section for the focal mechanism product(s).
+   *
+   * @param products {Array}
+   *     An array of products to summarize.
+   *
+   * @return {DocumentFragment}
+   *     A (potentially empty) document fragment containing the summary for
+   *     the given set of products.
+   */
   _this.getFocalMechanismTable = function (products) {
     return _this.createTable(products, 'Focal Mechanism', [
         'Catalog',
@@ -154,6 +238,18 @@ var ScientificSummaryModule = function (options) {
       _this.getFocalMechanismTableRow);
   };
 
+  /**
+   * Creates a row with summary information for the given product.
+   *
+   * @param product {Product}
+   *     The product to summarize
+   * @param index {Number}
+   *     The place in which this product ranks among other products of the
+   *     same type within the context of the current event. 0 = most preferred
+   *
+   * @return {DOMElement}
+   *     A TR DOM element.
+   */
   _this.getFocalMechanismTableRow = function (product, index) {
     var beachball,
         np1,
@@ -205,6 +301,16 @@ var ScientificSummaryModule = function (options) {
     return row;
   };
 
+  /**
+   * Creates the summary section for the moment tensor product(s).
+   *
+   * @param products {Array}
+   *     An array of products to summarize.
+   *
+   * @return {DocumentFragment}
+   *     A (potentially empty) document fragment containing the summary for
+   *     the given set of products.
+   */
   _this.getMomentTensorTable = function (products) {
     return _this.createTable(products, 'Moment Tensor', ['Catalog', 'Tensor',
         'Magnitude and Type', 'Depth',
@@ -212,6 +318,18 @@ var ScientificSummaryModule = function (options) {
         _this.getMomentTensorTableRow);
   };
 
+  /**
+   * Creates a row with summary information for the given product.
+   *
+   * @param product {Product}
+   *     The product to summarize
+   * @param index {Number}
+   *     The place in which this product ranks among other products of the
+   *     same type within the context of the current event. 0 = most preferred
+   *
+   * @return {DOMElement}
+   *     A TR DOM element.
+   */
   _this.getMomentTensorTableRow = function (product, index) {
     var beachball,
         preferred,
@@ -260,6 +378,18 @@ var ScientificSummaryModule = function (options) {
     return row;
   };
 
+  /**
+   * Checks origin and phase-data type products on the given event. Prefers
+   * phase-data from the same source and code unless there is a newer
+   * corresponding origin.
+   *
+   * @param ev {CatalogEvent}
+   *     The event to check.
+   *
+   * @return {Array}
+   *     An array of {Product}s of either origin or phase-data type. Most
+   *     preferred product first.
+   */
   _this.getOriginProducts = function (ev) {
     var products;
 
@@ -285,6 +415,16 @@ var ScientificSummaryModule = function (options) {
     return products;
   };
 
+  /**
+   * Creates the summary section for the origin product(s).
+   *
+   * @param products {Array}
+   *     An array of products to summarize.
+   *
+   * @return {DocumentFragment}
+   *     A (potentially empty) document fragment containing the summary for
+   *     the given set of products.
+   */
   _this.getOriginTable = function (products) {
     return _this.createTable(products, 'Origin', ['Catalog',
         '<abbr title="Magnitude">Mag</abbr>', 'Time', 'Depth', 'Status',
@@ -292,6 +432,18 @@ var ScientificSummaryModule = function (options) {
         _this.getOriginTableRow);
   };
 
+  /**
+   * Creates a row with summary information for the given product.
+   *
+   * @param product {Product}
+   *     The product to summarize
+   * @param index {Number}
+   *     The place in which this product ranks among other products of the
+   *     same type within the context of the current event. 0 = most preferred
+   *
+   * @return {DOMElement}
+   *     A TR DOM element.
+   */
   _this.getOriginTableRow = function (product, index) {
     var eventTime,
         preferred,
@@ -336,6 +488,17 @@ var ScientificSummaryModule = function (options) {
     return row;
   };
 
+  /**
+   * Generates markup for a link to the product details page.
+   *
+   * @param product {Product}
+   *     The product for which to generate the link.
+   * @param preferred {Boolean}
+   *     True if the current product is preferred, false otherwise.
+   *
+   * @return {String}
+   *     The markup for the link to the product details page.
+   */
   _this.getProductLinkMarkup = function (product, preferred) {
     var markup,
         type;
@@ -361,6 +524,15 @@ var ScientificSummaryModule = function (options) {
     return markup.join('');
   };
 
+  /**
+   * Generate links for scientific and technical link products.
+   *
+   * @param products {Array}
+   *     An array of scitech-link {Product}s.
+   *
+   * @return {DocumentFragment}
+   *     A fragment containing links for each given product.
+   */
   _this.getScitechLinks = function (products) {
     var fragment,
         header,
@@ -390,6 +562,10 @@ var ScientificSummaryModule = function (options) {
     return fragment;
   };
 
+  /**
+   * Renders the module header, content, and footer.
+   *
+   */
   _this.render = function () {
     var ev,
         faults,
@@ -407,8 +583,6 @@ var ScientificSummaryModule = function (options) {
     mechs = ev.getProducts('focal-mechanism');
     origins = _this.getOriginProducts(ev);
     tensors = ev.getProducts('moment-tensor');
-
-    // buf.push(_this.getScitechLinks(links));
 
     fragment.appendChild(_this.getOriginTable(origins));
     fragment.appendChild(_this.getMomentTensorTable(tensors));
