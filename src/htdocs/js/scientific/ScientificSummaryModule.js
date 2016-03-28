@@ -27,7 +27,8 @@ _TYPES = [
 ];
 
 _DEFAULTS = {
-  mtFillColor: '#6ea8ff'
+  mtFillColor: '#6ea8ff',
+  fmFillColor: '#ffaa69'
 };
 
 
@@ -35,6 +36,7 @@ var ScientificSummaryModule = function (options) {
   var _this,
       _initialize,
 
+      _fmFillColor,
       _formatter,
       _mtFillColor;
 
@@ -48,10 +50,58 @@ var ScientificSummaryModule = function (options) {
 
     _formatter = options.formatter || Formatter();
     _mtFillColor = options.mtFillColor;
+    _fmFillColor = options.fmFillColor;
   };
 
 
+  _this.createRow = function (preferred) {
+    var row;
+
+    row = document.createElement('tr');
+
+    if (preferred) {
+      row.classList.add('preferred');
+    }
+
+    return row;
+  };
+
+  _this.createTable = function (products, title, labels, callback) {
+    var fragment,
+        header,
+        table,
+        tbody,
+        thead,
+        wrapper;
+
+    fragment = document.createDocumentFragment();
+
+    if (products.length && labels.length) {
+      header = fragment.appendChild(document.createElement('h2'));
+      wrapper = fragment.appendChild(document.createElement('div'));
+      table = wrapper.appendChild(document.createElement('table'));
+      thead = table.appendChild(document.createElement('thead'));
+      tbody = table.appendChild(document.createElement('tbody'));
+
+      header.innerHTML = title;
+
+      wrapper.classList.add('horizontal-scrolling');
+      table.classList.add('table-summary');
+
+      thead.innerHTML = '<tr><th scope="row">' +
+          labels.join('</th><th scope="row">') + '</th></tr>';
+
+      tbody.appendChild(products.reduce(function (fragment, product, index) {
+        fragment.appendChild(callback(product, index));
+        return fragment;
+      }, document.createDocumentFragment()));
+    }
+
+    return fragment;
+  };
+
   _this.destroy = Util.compose(function () {
+    _fmFillColor = null;
     _formatter = null;
     _mtFillColor = null;
 
@@ -60,71 +110,106 @@ var ScientificSummaryModule = function (options) {
   }, _this.destroy);
 
   _this.getFiniteFaultTable = function (products) {
-    var markup;
+    return _this.createTable(products, 'Finite Fault', [
+        'Catalog',
+        'Preview',
+        'Source'
+      ],
+      _this.getFiniteFaultTableRow
+    );
+  };
 
-    markup = [];
+  _this.getFiniteFaultTableRow = function (product, index) {
+    var map,
+        preferred,
+        row;
 
-    if (products.length) {
-      markup.push('<h2>Finite Fault</h2>');
-      // TODO :: Render the summary table
-    }
+    map = product.getContent('basemap.png');
+    preferred = (index === 0);
+    row = _this.createRow(preferred);
 
-    return markup.join('');
+    row.innerHTML = [
+      '<th scope="row">',
+        _this.getProductLinkMarkup(product, preferred),
+      '</th>',
+      '<td>',
+        '<img src="', map.get('url'), '" class="image" alt="Finite Fault"/>',
+      '</td>',
+      '<td>',
+        Attribution.getProductAttribution(product),
+      '</td>'
+    ].join('');
+
+    return row;
   };
 
   _this.getFocalMechanismTable = function (products) {
-    var markup;
+    return _this.createTable(products, 'Focal Mechanism', [
+        'Catalog',
+        'Mechanism',
+        'Nodal Plan 1<br/><small>Strike,Dip,Rake</small>',
+        'Nodal Plan 1<br/><small>Strike,Dip,Rake</small>',
+        'Source'
+      ],
+      _this.getFocalMechanismTableRow);
+  };
 
-    markup = [];
+  _this.getFocalMechanismTableRow = function (product, index) {
+    var beachball,
+        np1,
+        np2,
+        preferred,
+        row,
+        tensor;
 
-    if (products.length) {
-      markup.push('<h2>Focah Mechanism</h2>');
-      // TODO :: Render the summary table
-    }
+    preferred = (index === 0);
+    row = _this.createRow(preferred);
 
-    return markup.join('');
+    tensor = Tensor.fromProduct(product);
+    np1 = tensor.NP1;
+    np2 = tensor.NP2;
+
+    row.innerHTML = [
+      '<th scope="row">',
+        _this.getProductLinkMarkup(product, preferred),
+      '</th>',
+      '<td class="beachball"></td>',
+      '<td>(',
+        _formatter.angle(np1.strike), ', ',
+        _formatter.angle(np1.dip), ', ',
+        _formatter.angle(np1.rake),
+      ')</td>',
+      '<td>(',
+        _formatter.angle(np2.strike), ', ',
+        _formatter.angle(np2.dip), ', ',
+        _formatter.angle(np2.rake),
+      ')</td>',
+      '<td>',
+        Attribution.getProductAttribution(product),
+      '</td>'
+    ].join('');
+
+    beachball = BeachBallView({
+      el: row.querySelector('.beachball'),
+      fillColor: _fmFillColor,
+      labelAxes: false,
+      labelPlanes: false,
+      size: 30,
+      tensor: tensor
+    });
+
+    beachball.render();
+    beachball.destroy();
+    beachball = null;
+
+    return row;
   };
 
   _this.getMomentTensorTable = function (products) {
-    var fragment,
-        table,
-        tbody,
-        thead,
-        title,
-        wrapper;
-
-    fragment = document.createDocumentFragment();
-
-    if (products.length) {
-      title = fragment.appendChild(document.createElement('h2'));
-      wrapper = fragment.appendChild(document.createElement('div'));
-      table = wrapper.appendChild(document.createElement('table'));
-      thead = table.appendChild(document.createElement('thead'));
-      tbody = table.appendChild(document.createElement('tbody'));
-
-      title.innerHTML = 'Moment Tensor';
-      wrapper.classList.add('horizontal-scrolling');
-      table.classList.add('table-summary');
-      table.classList.add('table-moment-tensor-summary');
-
-      thead.innerHTML = [
-        '<tr>',
-          '<th scope="col">Catalog</th>',
-          '<th scope="col">Tensor</th>',
-          '<th scope="col">Magnitude and Type</th>',
-          '<th scope="col">Depth</th>',
-          '<th scope="col">% <abbr title="Double Couple">DC</abbr></th>',
-          '<th scope="col">Source</th>',
-        '</tr>'
-      ].join('');
-
-      tbody.appendChild(products.reduce(function (fragment, product, index) {
-        fragment.appendChild(_this.getMomentTensorTableRow(product, index));
-        return fragment;
-      }, document.createDocumentFragment()));
-    }
-
-    return fragment;
+    return _this.createTable(products, 'Moment Tensor', ['Catalog', 'Tensor',
+        'Magnitude and Type', 'Depth',
+        '% <abbr title="Double Couple">DC</abbr>', 'Source'],
+        _this.getMomentTensorTableRow);
   };
 
   _this.getMomentTensorTableRow = function (product, index) {
@@ -134,12 +219,8 @@ var ScientificSummaryModule = function (options) {
         tensor;
 
     tensor = Tensor.fromProduct(product);
-    row = document.createElement('tr');
     preferred = (index === 0);
-
-    if (preferred) {
-      row.classList.add('preferred');
-    }
+    row = _this.createRow(preferred);
 
     row.innerHTML = [
       '<th scope="row">',
@@ -205,48 +286,10 @@ var ScientificSummaryModule = function (options) {
   };
 
   _this.getOriginTable = function (products) {
-    var fragment,
-        header,
-        table,
-        tbody,
-        thead,
-        wrapper;
-
-    fragment = document.createDocumentFragment();
-
-    if (products.length) {
-      header = fragment.appendChild(document.createElement('h2'));
-      wrapper = fragment.appendChild(document.createElement('div'));
-      table = wrapper.appendChild(document.createElement('table'));
-      thead = table.appendChild(document.createElement('thead'));
-      tbody = table.appendChild(document.createElement('tbody'));
-
-      header.innerHTML = 'Origin';
-
-      wrapper.classList.add('horizontal-scrolling');
-
-      table.classList.add('table-summary');
-      table.classList.add('table-origin-summary');
-
-      thead.innerHTML = [
-        '<tr>',
-          '<th scope="col">Catalog</th>',
-          '<th scope="col"><abbr title="Magnitude">Mag</abbr></th>',
-          '<th scope="col">Time</th>',
-          '<th scope="col">Depth</th>',
-          '<th scope="col">Status</th>',
-          '<th scope="col">Location</th>',
-          '<th scope="col">Source</th>',
-        '</tr>',
-      ].join('');
-
-      tbody.appendChild(products.reduce(function (fragment, product, index) {
-        fragment.appendChild(_this.getOriginTableRow(product, index));
-        return fragment;
-      }, document.createDocumentFragment()));
-    }
-
-    return fragment;
+    return _this.createTable(products, 'Origin', ['Catalog',
+        '<abbr title="Magnitude">Mag</abbr>', 'Time', 'Depth', 'Status',
+        'Location', 'Source'],
+        _this.getOriginTableRow);
   };
 
   _this.getOriginTableRow = function (product, index) {
@@ -254,13 +297,9 @@ var ScientificSummaryModule = function (options) {
         preferred,
         row;
 
-    row = document.createElement('tr');
-    preferred = (index === 0);
     eventTime = new Date(product.getProperty('eventtime'));
-
-    if (preferred) {
-      row.classList.add('preferred');
-    }
+    preferred = (index === 0);
+    row = _this.createRow(preferred);
 
     row.innerHTML = [
       '<th scope="row">',
@@ -323,16 +362,32 @@ var ScientificSummaryModule = function (options) {
   };
 
   _this.getScitechLinks = function (products) {
-    var markup;
+    var fragment,
+        header,
+        list;
 
-    markup = [];
+    fragment = document.createDocumentFragment();
 
     if (products.length) {
-      markup.push('<h2>Scientific and Technical Links</h2>');
-      // TODO :: Render the list
+      header = fragment.appendChild(document.createElement('h2'));
+      list = fragment.appendChild(document.createElement('ul'));
+
+      list.classList.add('scitech-links');
+
+      header.innerHTML = 'Scientific and Technical Links';
+      list.innerHTML = products.reduce(function (markup, product) {
+        markup.push([
+          '<li class="scitech-link">',
+            '<a href="', product.getProperty('url'), '">',
+              product.getProperty('text'),
+            '</a>',
+          '</li>'
+        ].join(''));
+        return markup;
+      }, []).join('');
     }
 
-    return markup.join('');
+    return fragment;
   };
 
   _this.render = function () {
@@ -353,12 +408,13 @@ var ScientificSummaryModule = function (options) {
     origins = _this.getOriginProducts(ev);
     tensors = ev.getProducts('moment-tensor');
 
-    // buf.push(_this.getFocalMechanismTable(mechs));
-    // buf.push(_this.getFiniteFaultTable(faults));
     // buf.push(_this.getScitechLinks(links));
 
     fragment.appendChild(_this.getOriginTable(origins));
     fragment.appendChild(_this.getMomentTensorTable(tensors));
+    fragment.appendChild(_this.getFiniteFaultTable(faults));
+    fragment.appendChild(_this.getFocalMechanismTable(mechs));
+    fragment.appendChild(_this.getScitechLinks(links));
 
     _this.header.innerHTML = '';
 
