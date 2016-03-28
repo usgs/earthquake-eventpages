@@ -1,6 +1,7 @@
 'use strict';
 
-var ProductView = require('core/ProductView'),
+var InteractiveMapView = require('map/InteractiveMapView'),
+    ProductView = require('core/ProductView'),
     ShakeMapInfoView = require('shakemap/ShakeMapInfoView'),
     ShakeMapStationListView = require('shakemap/ShakeMapStationListView'),
     TabList = require('tablist/TabList'),
@@ -168,8 +169,8 @@ var ShakeMapView = function (options) {
       return '';
     }
 
-    // TODO :: enable shakmap layer on interactive map (add parameter to hash?)
-    link = '<a href="#general_map">' +
+    // In addition to contours (default), enable stations
+    link = '<a href="#map?' + InteractiveMapView.SHAKEMAP_STATIONS + '=true">' +
         '<img src="' + content.get('url') + '" />' +
         '</a>';
 
