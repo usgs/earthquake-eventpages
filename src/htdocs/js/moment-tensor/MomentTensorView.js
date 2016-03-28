@@ -8,12 +8,6 @@ var Attribution = require('core/Attribution'),
     Util = require('util/Util');
 
 
-var _BEACHBALL_METHODS = {
-  'smi:ci.anss.org/momentTensor/TMTS': 'TMTS',
-  'smi:nc.anss.org/momentTensor/TMTS': 'TMTS',
-  'smi:uu.anss.org/momentTensor/TDMT': 'TDMT'
-};
-
 var _DEFAULTS = {
   empty: '&ndash;',
   fillColor: '#6ea8ff',
@@ -297,13 +291,12 @@ var MomentTensorView = function (options) {
    * @return {DOMElement}
    *     title for view.
    */
-  _this.getTitle = function (/*tensor*/) {
+  _this.getTitle = function (tensor) {
     var el,
-        method,
         title,
         type;
 
-    type = _this.model.getProperty('derived-magnitude-type');
+    type = tensor.type;
     if (type !== null) {
       // use derived magnitude type
       type = type.toUpperCase();
@@ -319,13 +312,8 @@ var MomentTensorView = function (options) {
     }
 
     if (!title) {
-      method = _this.model.getProperty('beachball-type');
-      if (method in _BEACHBALL_METHODS) {
-        title = _BEACHBALL_METHODS[method];
-      } else if (type !== null) {
-        title = 'Moment Tensor (' + type + ')';
-      } else if (method !== null) {
-        title = method;
+      if (type !== null) {
+        title = 'Moment Tensor (' + tensor.type + ')';
       } else {
         title = 'Moment Tensor';
       }

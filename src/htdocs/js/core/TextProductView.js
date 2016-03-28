@@ -39,6 +39,7 @@ var TextProductView = function (options) {
    */
   _initialize = function (options) {
     _this.el.classList.add(_this.model.get('type'));
+    _this.el.classList.add('text-product');
 
     _content = _this.model.getContent(options.contentPath);
 

@@ -46,6 +46,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/pdl/CatalogEvent.js:pdl/CatalogEvent',
   './' + config.src + '/htdocs/js/pdl/Content.js:pdl/Content',
   './' + config.src + '/htdocs/js/pdl/Product.js:pdl/Product',
+  './' + config.src + '/htdocs/js/scientific/ScientificSummaryModule.js:scientific/ScientificSummaryModule',
   './' + config.src + '/htdocs/js/shakemap/ShakeMapInfoView.js:shakemap/ShakeMapInfoView',
   './' + config.src + '/htdocs/js/shakemap/ShakeMapModule.js:shakemap/ShakeMapModule',
   './' + config.src + '/htdocs/js/shakemap/ShakeMapStationListView.js:shakemap/ShakeMapStationListView',
