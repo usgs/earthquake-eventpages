@@ -1,4 +1,4 @@
-/* global before, chai, describe, it, sinon */
+/* global chai, describe, it, sinon */
 'use strict';
 
 var WaveformModule = require('waveform/WaveformModule'),
@@ -8,20 +8,6 @@ var WaveformModule = require('waveform/WaveformModule'),
 var expect = chai.expect;
 
 describe('waveform/WaveformModule', function () {
-  var data,
-      xhr;
-
-  before(function (done) {
-    Xhr.ajax({
-      url: 'http://service.iris.edu/fdsnws/event/1/query?starttime=2016-03-02T12%3A49%3A32.360&endtime=2016-03-02T12%3A50%3A04.360&latitude=-4.9082&longitude=94.275&maxradius=1&format=text',
-      success: function (r, x) {
-        data = r;
-        xhr = x;
-        done();
-      }
-    });
-  });
-
   describe('constructor', function () {
     it('should be defined', function () {
       expect(typeof WaveformModule).to.equal('function');
