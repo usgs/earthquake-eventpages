@@ -2,7 +2,7 @@
 'use strict';
 
 var CatalogEvent = require('pdl/CatalogEvent'),
-    FiniteFaultModule = require('finitefault/FiniteFaultModule'),
+    FiniteFaultModule = require('finite-fault/FiniteFaultModule'),
     Model = require('mvc/Model'),
     Xhr = require('util/Xhr');
 
@@ -10,7 +10,7 @@ var CatalogEvent = require('pdl/CatalogEvent'),
 var expect = chai.expect;
 
 
-describe('finitefault/FiniteFaultModule', function () {
+describe('finite-fault/FiniteFaultModule', function () {
   var eventModel;
 
   before(function (done) {

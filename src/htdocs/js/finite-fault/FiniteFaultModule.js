@@ -1,6 +1,6 @@
 'use strict';
 
-var FiniteFaultView = require('finitefault/FiniteFaultView'),
+var FiniteFaultView = require('finite-fault/FiniteFaultView'),
     Module = require('core/Module'),
     Util = require('util/Util');
 

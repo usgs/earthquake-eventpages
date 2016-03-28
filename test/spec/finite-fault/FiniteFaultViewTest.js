@@ -2,13 +2,13 @@
 'use strict';
 
 
-var FiniteFaultView = require('finitefault/FiniteFaultView');
+var FiniteFaultView = require('finite-fault/FiniteFaultView');
 
 
 var expect = chai.expect;
 
 
-describe('finitefault/FiniteFaultView', function () {
+describe('finite-fault/FiniteFaultView', function () {
   describe('constructor', function () {
     it('should be defined', function () {
       expect(typeof FiniteFaultView).to.equal('function');

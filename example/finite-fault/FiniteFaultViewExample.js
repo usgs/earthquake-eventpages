@@ -1,6 +1,6 @@
 'use strict';
 
-var FiniteFaultView = require('finitefault/FiniteFaultView'),
+var FiniteFaultView = require('finite-fault/FiniteFaultView'),
     Product = require('pdl/Product'),
     Xhr = require('util/Xhr');
 
