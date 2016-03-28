@@ -1,7 +1,6 @@
 'use strict';
 
-var AccordionView = require('core/AccordionView'),
-    Formatter = require('core/Formatter'),
+var Formatter = require('core/Formatter'),
     GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
     GeoserveRegionSummaryView = require('general/GeoserveRegionSummaryView'),
     LinkProductView = require('core/LinkProductView'),
@@ -298,7 +297,9 @@ var GeneralSummaryModule = function (options) {
    *     the event.
    */
   _this.renderTectonicSummary = function (ev) {
-    var product;
+    var eventtype,
+        product,
+        summary;
 
     if (_tectonicSummaryView) {
       _tectonicSummaryView.destroy();
@@ -310,16 +311,29 @@ var GeneralSummaryModule = function (options) {
       return;
     }
 
-    product = ev.getPreferredOriginProduct();
-    if (product && product.getProperty('eventtype') !== 'sonic boom') {
-      _tectonicSummaryView = AccordionView({
+    summary = ev.getSummary();
+    eventtype = summary.properties.type;
+    if (eventtype === 'sonic boom') {
+      // do not show tectonic summary on sonic boom events.
+      return;
+    }
+
+    product = ev.getPreferredProduct('tectonic-summary');
+    if (product) {
+      _tectonicSummaryView = TextProductView({
+        contentPath: 'tectonic-summary.inc.html',
         el: _tectonicSummaryEl,
-        toggleElement: 'h3',
-        toggleText: 'Regional Tectonic Summary',
-        view: GeoserveRegionSummaryView({
-          model: product
-        })
+        model: product
       });
+    } else {
+      product = ev.getPreferredOriginProduct();
+      _tectonicSummaryView = GeoserveRegionSummaryView({
+        el: _tectonicSummaryEl,
+        model: product
+      });
+    }
+
+    if (_tectonicSummaryView) {
       _tectonicSummaryView.render();
     }
   };
