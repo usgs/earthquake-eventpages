@@ -1,6 +1,7 @@
 'use strict';
 
 var ProductView = require('core/ProductView'),
+    ShakeMapInfoView = require('shakemap/ShakeMapInfoView'),
     ShakeMapStationListView = require('shakemap/ShakeMapStationListView'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util');
@@ -10,6 +11,7 @@ var ShakeMapView = function (options) {
   var _this,
       _initialize,
 
+      _shakeMapInfoView,
       _shakeMapStationListView,
       _tablist;
 
@@ -98,7 +100,7 @@ var ShakeMapView = function (options) {
       });
     }
 
-    // TODO, Add StationList
+    // StationList
     stationListContent = shakemap.getContent('download/stationlist.json');
     if (stationListContent) {
       _shakeMapStationListView = ShakeMapStationListView({
@@ -114,12 +116,19 @@ var ShakeMapView = function (options) {
       });
     }
 
-    // TODO, Add ShakeMap Info View
+    // Info
     shakeMapInfoContent = shakemap.getContent('download/info.json');
     if (shakeMapInfoContent) {
+      _shakeMapInfoView = ShakeMapInfoView({
+        el: document.createElement('div'),
+        model: shakeMapInfoContent
+      });
       _tablist.addTab({
         title: 'Info',
-        content: '<p>TODO :: Add Shakemap Info View</p>'
+        content: function () {
+          _shakeMapInfoView.render();
+          return _shakeMapInfoView.el;
+        }
       });
     }
 
@@ -173,11 +182,18 @@ var ShakeMapView = function (options) {
       _tablist.destroy();
       _tablist = null;
     }
+
+    if (_shakeMapInfoView) {
+      _shakeMapInfoView.destroy();
+      _shakeMapInfoView = null;
+    }
+
     // Destrop ShakeMapStationList
     if (_shakeMapStationListView) {
       _shakeMapStationListView.destroy();
       _shakeMapStationListView = null;
     }
+
     _initialize = null;
     _this = null;
   }, _this.destroy);
