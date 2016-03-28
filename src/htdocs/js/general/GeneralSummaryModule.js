@@ -112,6 +112,13 @@ var GeneralSummaryModule = function (options) {
     _this = null;
     _initialize = null;
 
+    if (_generalHeaderViews) {
+      _generalHeaderViews.forEach(function (view) {
+        view.destroy();
+      });
+      _generalHeaderViews = null;
+    }
+
     if (_generalLinkViews) {
       _generalLinkViews.forEach(function (view) {
         view.destroy();
