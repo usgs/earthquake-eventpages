@@ -36,6 +36,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/moment-tensor/MomentTensorView.js:moment-tensor/MomentTensorView',
   './' + config.src + '/htdocs/js/moment-tensor/Tensor.js:moment-tensor/Tensor',
   './' + config.src + '/htdocs/js/origin/MagnitudesView.js:origin/MagnitudesView',
+  './' + config.src + '/htdocs/js/origin/OriginModule.js:origin/OriginModule',
   './' + config.src + '/htdocs/js/origin/OriginView.js:origin/OriginView',
   './' + config.src + '/htdocs/js/origin/PhasesView.js:origin/PhasesView',
   './' + config.src + '/htdocs/js/origin/QuakemlView.js:origin/QuakemlView',
