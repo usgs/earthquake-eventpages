@@ -59,7 +59,8 @@ __calculatePlane = function (v1, v2) {
  *     a focal-mechanism or moment-tensor product.
  */
 __fromProduct = function (product) {
-  var props,
+  var depth,
+      props,
       type,
       tensor;
 
@@ -82,6 +83,13 @@ __fromProduct = function (product) {
       mrp: Number(props['tensor-mrp']),
       mtp: Number(props['tensor-mtp'])
     });
+
+    depth = product.getProperty('derived-depth');
+    if (depth === null)  {
+      depth = product.getProperty('depth');
+    }
+
+    tensor.depth = depth;
   }
 
   if (tensor) {
