@@ -17,7 +17,7 @@ _DEFAULTS = {
   errorMessage: '<p class="alert error">Error finding waveform data</p>'
 };
 _ID = 'waveform';
-_TITLE = 'Waveform Module';
+_TITLE = 'Waveforms';
 
 
 _hasContent = function (eventPageModel) {
