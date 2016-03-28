@@ -126,9 +126,9 @@ var _injectNumberSeparator = function (number, separator) {
  */
 var _formatCityPopulation = function (population) {
   if (population < 1000) {
-    return '&lt;1k';
+    return '&lt;1 k';
   } else {
-    return _injectNumberSeparator(Math.round(population / 1000)) + 'k';
+    return _injectNumberSeparator(Math.round(population / 1000)) + ' k';
   }
 };
 
@@ -145,7 +145,7 @@ var _formatCityPopulation = function (population) {
  *      A formated display value representing the population.
  */
 var _formatExposurePopulation = function (population, incomplete) {
-  var display = _injectNumberSeparator(Math.round(population / 1000)) + 'k';
+  var display = _injectNumberSeparator(Math.round(population / 1000)) + ' k';
 
   if (incomplete) {
     if (population === 0) {
