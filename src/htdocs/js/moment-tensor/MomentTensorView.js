@@ -179,7 +179,7 @@ var MomentTensorView = function (options) {
         product.getProperty('derived-magnitude-type') || '');
     moment = (tensor.moment / tensor.scale).toFixed(3) +
         'e+' + tensor.exponent + ' ' + tensor.units;
-    percentDC = Math.round(tensor.percentDC * 100) + '%';
+    percentDC = Math.round(tensor.percentDC * 100) + ' %';
 
     catalog = catalog.toUpperCase();
     contributor = Attribution.getContributorReference(contributor);
