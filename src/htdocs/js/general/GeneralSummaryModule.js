@@ -43,6 +43,7 @@ var GeneralSummaryModule = function (options) {
       _initialize,
 
       _formatter,
+      _generalHeaderViews,
       _generalLinkEl,
       _generalLinkViews,
       _generalTextEl,
@@ -252,6 +253,7 @@ var GeneralSummaryModule = function (options) {
       _generalTextViews = null;
     }
 
+    Util.empty(_generalTextEl);
     if (!ev) {
       return;
     }
@@ -260,8 +262,6 @@ var GeneralSummaryModule = function (options) {
       return;
     }
 
-    _generalTextViews = [];
-    Util.empty(_generalTextEl);
     _generalTextViews = texts.map(function (product) {
       var view;
       view = TextProductView({
@@ -280,10 +280,33 @@ var GeneralSummaryModule = function (options) {
    *     the event.
    */
   _this.renderHeader = function (ev) {
+    var products;
+
+    if (_generalHeaderViews) {
+      _generalHeaderViews.forEach(function (view) {
+        view.destroy();
+      });
+      _generalHeaderViews = null;
+    }
+
     Util.empty(_this.header);
     if (!ev) {
       return;
     }
+    products = ev.getProducts('general-header');
+    if (products.length === 0) {
+      return;
+    }
+
+    _generalHeaderViews = products.map(function (product) {
+      var view;
+      view = TextProductView({
+        el: _this.header.appendChild(document.createElement('section')),
+        model: product
+      });
+      view.render();
+      return view;
+    });
   };
 
   /**
