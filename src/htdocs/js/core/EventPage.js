@@ -57,6 +57,7 @@ var EventPage = function (options) {
       _eventFooterEl,
       _eventHeaderEl,
       _formatter,
+      _hasPrevious,
       _model,
       _modules,
       _navEl,
@@ -80,6 +81,8 @@ var EventPage = function (options) {
     _config.modules = options.modules;
 
     _formatter = options.formatter || Formatter();
+    // whether event page has previously rendered any content
+    _hasPrevious = false;
 
     _this.updateContributors();
     if (_config.hasOwnProperty('ATTRIBUTION_URL')) {
@@ -107,6 +110,7 @@ var EventPage = function (options) {
     Attribution.whenReady(_renderFooterContent); // Need to wait ...
 
     // render module
+    Events.on('back', 'onBack', _this);
     Events.on('hashchange', _onHashChange);
     _onHashChange();
   };
@@ -183,6 +187,51 @@ var EventPage = function (options) {
     }
 
     // TODO :: Add one-off links to navigation ...
+  };
+
+
+  /**
+   * Unbind event listeners and free references.
+   */
+  _this.destroy = function () {
+    if (!_this) {
+      return;
+    }
+
+    // render module
+    Events.off('back', 'onBack', _this);
+    Events.off('hashchange', _onHashChange);
+
+    if (_currentModule) {
+      _currentModule.destroy();
+    }
+
+    if (_model) {
+      _model.destroy();
+    }
+
+    // functions
+    _createNavItem = null;
+    _initializeModules = null;
+    _onHashChange = null;
+    _parseHash = null;
+    _renderFooterContent = null;
+    _renderHeaderContent = null;
+
+    // variables
+    _config = null;
+    _currentModule = null;
+    _el = null;
+    _event = null;
+    _eventContentEl = null;
+    _eventFooterEl = null;
+    _eventHeaderEl = null;
+    _formatter = null;
+    _hasPrevious = false;
+    _model = null;
+    _modules = null;
+    _navEl = null;
+    _this = null;
   };
 
 
@@ -306,6 +355,21 @@ var EventPage = function (options) {
   };
 
   /**
+   * Back event listener.
+   *
+   * Called in response to `back` event on global Events object.
+   */
+  _this.onBack = function () {
+    if (_hasPrevious) {
+      // there is a previous module to render
+      console.log('window history going back');
+      window.history.back();
+    } else {
+      window.location.hash = '#' + _config.defaultModule;
+    }
+  };
+
+  /**
    * Update model and module based on current url.
    *
    * If current url is unexpected/unknown, loads default module.
@@ -335,15 +399,20 @@ var EventPage = function (options) {
       return;
     }
 
-    // if current module is different than requested, destroy current module
-    if (_currentModule && _currentModule.ID !== module) {
-      // Clear these so defaults are invoked
-      clearSettings = {};
-      clearSettings[_currentModule.ID] = {};
-      _model.set(clearSettings, {silent: true});
+    if (_currentModule) {
+      // can navigate backwards using window.history
+      _hasPrevious = true;
 
-      _currentModule.destroy();
-      _currentModule = null;
+      // if current module is different than requested, destroy current module
+      if (_currentModule.ID !== module) {
+        // Clear these so defaults are invoked
+        clearSettings = {};
+        clearSettings[_currentModule.ID] = {};
+        _model.set(clearSettings, {silent: true});
+
+        _currentModule.destroy();
+        _currentModule = null;
+      }
     }
 
     // if no current module, create module with model and module content element

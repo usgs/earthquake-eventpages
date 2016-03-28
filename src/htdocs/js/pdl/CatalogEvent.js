@@ -292,6 +292,29 @@ var CatalogEvent = function (eventDetails) {
   };
 
   /**
+   * Free references.
+   */
+  _this.destroy = function () {
+    var key;
+
+    if (_this === null) {
+      return;
+    }
+
+    for (key in _products) {
+      _products[key].map(function (model) {
+        model.destroy();
+      });
+    }
+
+    _initialize = null;
+    _products = null;
+    _properties = null;
+    _summary = null;
+    _this = null;
+  };
+
+  /**
    * Get event products.
    */
   _this.getProducts = function (type) {
