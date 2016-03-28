@@ -4,6 +4,7 @@
 var Attribution = require('core/Attribution'),
     Formatter = require('core/Formatter'),
     MagnitudesView = require('origin/MagnitudesView'),
+    Model = require('mvc/Model'),
     PhasesView = require('origin/PhasesView'),
     ProductView = require('core/ProductView'),
     TabList = require('tablist/TabList'),
@@ -25,6 +26,7 @@ var OriginView = function (options) {
       _magnitudesView,
       _phases,
       _phasesView,
+      _region,
       _tabList,
       _url;
 
@@ -34,10 +36,11 @@ var OriginView = function (options) {
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
     _phases = options.phases || null;
+    _geoserve = options.geoserve || null;
 
     // Bind to geoserve model change
-    _geoserve = options.geoserve || null;
-    _geoserve.on('change:regions', 'buildFeRegionView', _this);
+    _region = Model();
+    _region.on('change:regions', 'buildFeRegionView', _this);
 
     if (options.eventConfig &&
         options.eventConfig.hasOwnProperty('GEOSERVE_WS_URL')) {
@@ -48,7 +51,7 @@ var OriginView = function (options) {
   };
 
   _this.destroy = Util.compose(function () {
-    this._geoserve.off('change:regions', 'buildFeRegionView', _this);
+    _region.off('change:regions', 'buildFeRegionView', _this);
 
     if (_tabList && _tabList.destroy) {
       _tabList.destroy();
@@ -68,6 +71,7 @@ var OriginView = function (options) {
     _formatter = null;
     _geoserve = null;
     _phases = null;
+    _region = null;
     _url = null;
 
     _initialize = null;
@@ -88,7 +92,7 @@ var OriginView = function (options) {
     feElement = _this.el.querySelector('.fe-info');
 
     try {
-      fe = _geoserve.get('regions').fe.features[0].properties;
+      fe = _region.get('regions').fe.features[0].properties;
       feName = fe.name.toUpperCase();
       feNumber = fe.number;
       feElement.innerHTML = (feNumber ? feName + ' (' + feNumber + ')' : feName);
@@ -135,7 +139,9 @@ var OriginView = function (options) {
   _this.getFeRegion = function () {
     var geoserveJson;
 
-    geoserveJson = _geoserve.getContent('geoserve.json');
+    if (_geoserve) {
+      geoserveJson = _geoserve.getContent('geoserve.json');
+    }
 
     if (geoserveJson) {
       // if a geoserve product exists, use it
@@ -179,7 +185,7 @@ var OriginView = function (options) {
           type: 'fe'
         },
         success: function (data) {
-          _geoserve.set({
+          _region.set({
             regions: data
           });
         },
