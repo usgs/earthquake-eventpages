@@ -8,10 +8,12 @@ var CWD = process.cwd(),
 
 
 var ALL_CLASSES = [
+  './' + config.src + '/htdocs/js/core/AccordionView.js:core/AccordionView',
   './' + config.src + '/htdocs/js/core/Attribution.js:core/Attribution',
   './' + config.src + '/htdocs/js/core/DownloadView.js:core/DownloadView',
   './' + config.src + '/htdocs/js/core/EventPage.js:core/EventPage',
   './' + config.src + '/htdocs/js/core/Formatter.js:core/Formatter',
+  './' + config.src + '/htdocs/js/core/LinkProductView.js:core/LinkProductView',
   './' + config.src + '/htdocs/js/core/TextProductView.js:core/TextProductView',
   './' + config.src + '/htdocs/js/dyfi/DYFIFormModule.js:dyfi/DYFIFormModule',
   './' + config.src + '/htdocs/js/dyfi/DYFIModule.js:dyfi/DYFIModule',
@@ -23,6 +25,7 @@ var ALL_CLASSES = [
   './' + config.src + '/htdocs/js/focal-mechanism/FocalMechanismModule.js:focal-mechanism/FocalMechanismModule',
   './' + config.src + '/htdocs/js/focal-mechanism/FocalMechanismView.js:focal-mechanism/FocalMechanismView',
   './' + config.src + '/htdocs/js/general/GeoserveNearbyPlacesView.js:general/GeoserveNearbyPlacesView',
+  './' + config.src + '/htdocs/js/general/GeoserveRegionSummaryView.js:general/GeoserveRegionSummaryView',
   './' + config.src + '/htdocs/js/general/NearbyPlacesView.js:general/NearbyPlacesView',
   './' + config.src + '/htdocs/js/losspager/PAGERView.js:losspager/PAGERView',
   './' + config.src + '/htdocs/js/map/ContoursLayer.js:map/ContoursLayer',

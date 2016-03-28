@@ -1,7 +1,9 @@
 'use strict';
 
-var Formatter = require('core/Formatter'),
-    ProductView = require('core/ProductView'),
+var Attribution = require('core/Attribution'),
+    Formatter = require('core/Formatter'),
+    InteractiveMapView = require('map/InteractiveMapView'),
+    View = require('mvc/View'),
     Util = require('util/Util');
 
 
@@ -9,64 +11,111 @@ var _DEFAULTS = {};
 
 
 /**
- * Class info and constructor parameters.
+ * View to display location information.
+ *
+ * @param options {Object}
+ *     padded to View.
+ * @param options.formatter {Formatter}
+ *     formatting object.
+ *     default `Formatter()`.
  */
 var LocationView = function (options) {
   var _this,
       _initialize,
 
+      _attribution,
+      _caption,
       _formatter,
-
-      _getLocationCaption,
-      _getLocationMap;
+      _mapView;
 
 
-  _this = ProductView(options);
+  _this = View(options);
 
   _initialize = function (options) {
-    options = Util.extend({}, _DEFAULTS, options);
-    _formatter = options.formatter || Formatter();
-  };
-
-
-  _this.render = function () {
     var el;
 
+    options = Util.extend({}, _DEFAULTS, options);
+    _formatter = options.formatter || Formatter();
+
     el = _this.el;
-    if (_this.model === null) {
-      el.innerHTML = '<p class="alert info">' +
-          'No event information to display.' +
-          '</p>';
+    el.classList.add('locationview');
+    el.innerHTML =
+        '<h3>Location</h3>' +
+        '<small class="attribution"></small>' +
+        '<figure>' +
+          '<a href="#map" class="locationview-map">' +
+            '<div></div>' +
+          '</a>' +
+          '<figcaption class="locationview-caption"></figcaption>' +
+        '</figure>';
+
+    _attribution = el.querySelector('.attribution');
+    _caption = el.querySelector('.locationview-caption');
+    _mapView = InteractiveMapView({
+      el: el.querySelector('.locationview-map > div'),
+      interactive: false,
+      model: _this.model
+    });
+    _mapView.el.addEventListener('click', _this.onClick);
+  };
+
+
+  /**
+   * Unbind events and free references.
+   */
+  _this.destroy = Util.compose(function () {
+    if (_this === null) {
+      return;
+    }
+    _mapView.el.removeEventListener('click', _this.onClick);
+    _mapView.destroy();
+
+    _attribution = null;
+    _caption = null;
+    _formatter = null;
+    _mapView = null;
+    _this = null;
+  }, _this.destroy);
+
+  /**
+   * Get attribution for product.
+   *
+   * @param product {Product}
+   *     the product.
+   * @return {String}
+   *     attribution markup.
+   */
+  _this.getAttribution = function (product) {
+    if (!product) {
+      return '';
     }
 
-    el.innerHTML = '<h3>Location</h3>' +
-        '<small class="attribution"></small>' +
-        '<figure class="summary-map">' +
-          '<a href="#interactivemap">' +
-            _getLocationMap() +
-          '</a>' +
-          '<figcaption>' +
-            _getLocationCaption() +
-          '</figcaption>' +
-        '</figure>';
+    return 'Contributed by ' +
+        Attribution.getProductAttribution(product) +
+        ' last updated ' +
+        _formatter.datetime(product.get('updateTime'));
   };
 
-
-  _getLocationMap = function () {
-    // TODO: use actual map
-    return '<span>MAP GOES HERE</span>';
-  };
-
-  _getLocationCaption = function () {
+  /**
+   * Get location caption for product.
+   *
+   * @param product {Product}
+   *     the product.
+   * @return {String}
+   *     caption markup.
+   */
+  _this.getCaption = function (product) {
     var depth,
         latitude,
-        longitude,
-        properties;
+        longitude;
 
-    properties = _this.model.get('properties') || {};
-    depth = properties.depth || null;
-    latitude = properties.latitude || null;
-    longitude = properties.longitude || null;
+    if (!product) {
+      return '<p class="alert info">No location to display.</p>';
+    }
+
+    depth = product.getProperty('depth') || '';
+    latitude = product.getProperty('latitude') || null;
+    longitude = product.getProperty('longitude') || null;
 
     if (depth) {
       depth = ' depth=' + _formatter.depth(depth, 'km') +
@@ -74,7 +123,36 @@ var LocationView = function (options) {
     }
 
     return _formatter.location(latitude, longitude) + depth +
-        '<br/><a href="#interactivemap">View interactive map</a>';
+        '<br/><a href="#map">View interactive map</a>';
+  };
+
+  /**
+   * Click handler for map.
+   */
+  _this.onClick = function () {
+    window.location = '#map';
+  };
+
+  /**
+   * Render location view.
+   */
+  _this.render = function () {
+    var el,
+        ev,
+        product;
+
+    el = _this.el;
+    ev = _this.model.get('event');
+    if (ev === null) {
+      el.classList.add('locationview-empty');
+      return;
+    }
+
+    el.classList.remove('locationview-empty');
+    product = ev.getPreferredOriginProduct();
+    _attribution.innerHTML = _this.getAttribution(product);
+    _caption.innerHTML = _this.getCaption(product);
+    _mapView.render();
   };
 
 

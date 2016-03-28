@@ -35,10 +35,12 @@ if (!Function.prototype.bind) {
 mocha.setup('bdd');
 
 // Add each test class here as they are implemented
+require('./spec/core/AccordionViewTest');
 require('./spec/core/AttributionTest');
 require('./spec/core/DownloadViewTest');
 require('./spec/core/EventPageTest');
 require('./spec/core/FormatterTest');
+require('./spec/core/LinkProductViewTest');
 require('./spec/core/TextProductViewTest');
 
 require('./spec/dyfi/DYFIFormModuleTest');
@@ -54,6 +56,7 @@ require('./spec/focal-mechanism/FocalMechanismModuleTest');
 require('./spec/focal-mechanism/FocalMechanismViewTest');
 
 require('./spec/general/GeoserveNearbyPlacesViewTest');
+require('./spec/general/GeoserveRegionSummaryViewTest');
 require('./spec/general/NearbyPlacesViewTest');
 
 require('./spec/losspager/PAGERViewTest');

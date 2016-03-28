@@ -1,0 +1,25 @@
+
+.locationview-empty > figure {
+  > .attribution,
+  > .locationview-map {
+    display: none;
+  }
+}
+
+
+.locationview-map {
+  display: block;
+  max-width: 100%;
+  /* padding-bottom sets height responsively based on width. */
+  padding-bottom: 100%;
+  position: relative;
+  width: 512px;
+
+  > div {
+    left: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
