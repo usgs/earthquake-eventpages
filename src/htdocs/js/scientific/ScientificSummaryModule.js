@@ -327,7 +327,7 @@ var ScientificSummaryModule = function (options) {
     return _this.createTable(products, 'Moment Tensor', [
         'Catalog',
         'Tensor',
-        'Magnitude and Type',
+        'Magnitude',
         'Depth',
         '% <abbr title="Double Couple">DC</abbr>',
         'Source'
