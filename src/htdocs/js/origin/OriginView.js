@@ -7,7 +7,8 @@ var Attribution = require('core/Attribution'),
     PhasesView = require('origin/PhasesView'),
     ProductView = require('core/ProductView'),
     TabList = require('tablist/TabList'),
-    Util = require('util/Util');
+    Util = require('util/Util'),
+    Xhr = require('util/Xhr');
 
 
 var _DEFAULTS = {};
@@ -20,10 +21,12 @@ var OriginView = function (options) {
       _initialize,
 
       _formatter,
+      _geoserve,
       _magnitudesView,
       _phases,
       _phasesView,
-      _tabList;
+      _tabList,
+      _url;
 
   options = Util.extend({}, _DEFAULTS, options);
   _this = ProductView(options);
@@ -31,9 +34,22 @@ var OriginView = function (options) {
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
     _phases = options.phases || null;
+
+    // Bind to geoserve model change
+    _geoserve = options.geoserve || null;
+    _geoserve.on('change:regions', 'buildFeRegionView', _this);
+
+    if (options.eventConfig &&
+        options.eventConfig.hasOwnProperty('GEOSERVE_WS_URL')) {
+      _url = options.eventConfig.GEOSERVE_WS_URL;
+    } else {
+      _url = options.url;
+    }
   };
 
   _this.destroy = Util.compose(function () {
+    this._geoserve.off('change:regions', 'buildFeRegionView', _this);
+
     if (_tabList && _tabList.destroy) {
       _tabList.destroy();
       _tabList = null;
@@ -50,10 +66,37 @@ var OriginView = function (options) {
     }
 
     _formatter = null;
+    _geoserve = null;
     _phases = null;
+    _url = null;
+
     _initialize = null;
     _this = null;
   }, _this.destroy);
+
+  /**
+   * Build Fe Region string from the hazdev-geoserve-ws project.
+   *
+   * If no data is available a default message is displayed
+   */
+  _this.buildFeRegionView = function () {
+    var fe,
+        feElement,
+        feName,
+        feNumber;
+
+    feElement = _this.el.querySelector('.fe-info');
+
+    try {
+      fe = _geoserve.get('regions').fe.features[0].properties;
+      feName = fe.name.toUpperCase();
+      feNumber = fe.number;
+      feElement.innerHTML = (feNumber ? feName + ' (' + feNumber + ')' : feName);
+    } catch (e) {
+      feElement.innerHTML = NOT_REPORTED;
+    }
+  };
+
 
   /**
    * Converts a product into an identifiable catalog and id string.
@@ -78,6 +121,73 @@ var OriginView = function (options) {
 
     eventId = (eventSource + eventSourceCode).toLowerCase();
     return eventSource.toUpperCase() + ' <small>(' + eventId + ')</small>';
+  };
+
+/**
+ * Get fe region information.
+ *
+ * Attempts to load from a geoserve product first.
+ * If no such product is found _getGeoserveFeRegion() is called
+ * to retreive the fe region string from the geoserve ws.
+ *
+ * Once load is complete, _buildFeRegionView is called.
+ */
+  _this.getFeRegion = function () {
+    var geoserveJson;
+
+    geoserveJson = _geoserve.getContent('geoserve.json');
+
+    if (geoserveJson) {
+      // if a geoserve product exists, use it
+      Xhr.ajax({
+        url: geoserveJson.get('url'),
+        success: function (geoserve) {
+          _this.formatFeRegion(geoserve.fe);
+        },
+        error: function () {
+          _this.formatFeRegion(null);
+        }
+      });
+    } else {
+      // make a geoserve request
+      _this.getGeoserveFeRegion();
+    }
+  };
+
+  /**
+   * Set this._geoserve with fe region data from the geoserve ws
+   */
+  _this.getGeoserveFeRegion = function () {
+    var latitude,
+        longitude,
+        properties;
+
+    // get location
+    properties = _this.model.get('properties');
+    if (properties) {
+      latitude = properties.latitude;
+      longitude = properties.longitude;
+    }
+
+    if (latitude !== null && longitude !== null) {
+      // request region information
+      Xhr.ajax({
+        url: _url + 'regions.json',
+        data: {
+          latitude: latitude,
+          longitude: longitude,
+          type: 'fe'
+        },
+        success: function (data) {
+          _geoserve.set({
+            regions: data
+          });
+        },
+        error: function () {
+          throw new Error('Geoserve web service not found');
+        }
+      });
+    }
   };
 
   /**
@@ -188,12 +298,11 @@ var OriginView = function (options) {
         _formatter.angle(azimuthalGap),
         '</td></tr>');
 
-    // TODO :: create a FERegionView {ProductView}
     buf.push('<tr>',
         '<th scope="row">',
           '<abbr title="Flinn Engdahl">FE</abbr> Region',
         '</th>',
-        '<td class="fe-info">' + NOT_REPORTED + '</td></tr>');
+        '<td class="fe-info">' + _this.getFeRegion() + '</td></tr>');
 
     buf.push('<tr><th scope="row">Review Status</th><td>',
         reviewStatus.toUpperCase().replace('REVIEWED', 'MANUAL'),
@@ -216,6 +325,37 @@ var OriginView = function (options) {
     buf.push('</tbody></table></div>');
 
     return buf.join('');
+  };
+
+  /**
+   * Massage data from geoserve product into the same model object
+   * that FeRegionView expects.
+   *
+   * @param fe {Object}
+   *          fe.number {Number} fe region number.
+   *          fe.name {String} fe region name.
+   */
+  _this.formatFeRegion = function(fe) {
+    // only update model if an object is passed
+    if (!fe) {
+      return;
+    }
+
+    // set the (massaged) fe object
+    _geoserve.set({
+      'regions': {
+        'fe': {
+          'features': [
+            {
+              'properties': {
+                'name': fe.longName,
+                'number': fe.number
+              }
+            }
+          ]
+        }
+      }
+    });
   };
 
   _this.render = function () {
@@ -282,9 +422,7 @@ var OriginView = function (options) {
           _magnitudesView.render();
         }
       });
-
     }
-
   };
 
 

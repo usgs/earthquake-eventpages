@@ -7,16 +7,22 @@ var OriginView = require('origin/OriginView'),
 Xhr.ajax({
   url: '/events/us10004u1y.json',
   success: function (data) {
-    var phaseData,
+    var geoserveData,
+        phaseData,
         product;
 
     product = Product(data.properties.products.origin[0]);
     phaseData = Product(data.properties.products['phase-data'][0]);
+    geoserveData = Product(data.properties.products.geoserve[0]);
 
     OriginView({
       el: document.querySelector('#origin-view-example'),
       model: product,
-      phases: phaseData
+      phases: phaseData,
+      geoserve: geoserveData,
+      eventConfig: {
+        'GEOSERVE_WS_URL': 'http://earthquake.usgs.gov/ws/geoserve/'
+      }
     }).render();
   },
   error: function () {
