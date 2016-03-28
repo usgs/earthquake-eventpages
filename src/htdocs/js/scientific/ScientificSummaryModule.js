@@ -2,6 +2,7 @@
 
 
 var Attribution = require('core/Attribution'),
+    BeachBallView = require('moment-tensor/BeachBallView'),
     Formatter = require('core/Formatter'),
     Module = require('core/Module'),
     Tensor = require('moment-tensor/Tensor'),
@@ -26,7 +27,7 @@ _TYPES = [
 ];
 
 _DEFAULTS = {
-
+  mtFillColor: '#6ea8ff'
 };
 
 
@@ -34,22 +35,25 @@ var ScientificSummaryModule = function (options) {
   var _this,
       _initialize,
 
-      _formatter;
+      _formatter,
+      _mtFillColor;
 
 
   options = Util.extend({}, _DEFAULTS, options);
   _this = Module(options);
 
   _initialize = function (options) {
-    _formatter = options.formatter || Formatter();
-
     _this.ID = _ID;
     _this.TITLE = _TITLE;
+
+    _formatter = options.formatter || Formatter();
+    _mtFillColor = options.mtFillColor;
   };
 
 
   _this.destroy = Util.compose(function () {
     _formatter = null;
+    _mtFillColor = null;
 
     _initialize = null;
     _this = null;
@@ -82,70 +86,101 @@ var ScientificSummaryModule = function (options) {
   };
 
   _this.getMomentTensorTable = function (products) {
-    var markup;
+    var fragment,
+        table,
+        tbody,
+        thead,
+        title,
+        wrapper;
+
+    fragment = document.createDocumentFragment();
 
     if (products.length) {
-      markup = [
-        '<h2>Moment Tensor</h2>',
-        '<div class="horizontal-scrolling">',
-          '<table class="table-summary table-moment-tensor-summary">',
-            '<thead>',
-              '<tr>',
-                '<th scope="col">Catalog</th>',
-                '<th scope="col">Tensor</th>',
-                '<th scope="col">Magnitude and Type</th>',
-                '<th scope="col">Depth</th>',
-                '<th scope="col">% <abbr title="Double Couple">DC</abbr></th>',
-                '<th scope="col">Source</th>',
-              '</tr>',
-            '</thead>',
-            '<tbody>',
-              products.map(_this.getMomentTensorTableRow).join(''),
-            '</tbody>',
-          '</table>',
-        '</div>'
-      ];
-    } else {
-      markup = [];
+      title = fragment.appendChild(document.createElement('h2'));
+      wrapper = fragment.appendChild(document.createElement('div'));
+      table = wrapper.appendChild(document.createElement('table'));
+      thead = table.appendChild(document.createElement('thead'));
+      tbody = table.appendChild(document.createElement('tbody'));
+
+      title.innerHTML = 'Moment Tensor';
+      wrapper.classList.add('horizontal-scrolling');
+      table.classList.add('table-summary');
+      table.classList.add('table-moment-tensor-summary');
+
+      thead.innerHTML = [
+        '<tr>',
+          '<th scope="col">Catalog</th>',
+          '<th scope="col">Tensor</th>',
+          '<th scope="col">Magnitude and Type</th>',
+          '<th scope="col">Depth</th>',
+          '<th scope="col">% <abbr title="Double Couple">DC</abbr></th>',
+          '<th scope="col">Source</th>',
+        '</tr>'
+      ].join('');
+
+      tbody.appendChild(products.map(_this.getMomentTensorTableRow).reduce(
+        function (fragment, row) {
+          if (row !== null) {
+            fragment.appendChild(row);
+          }
+          return fragment;
+        }, document.createDocumentFragment()
+      ));
     }
 
-    return markup.join('');
+    return fragment;
   };
 
   _this.getMomentTensorTableRow = function (product, index) {
-    var preferred,
-        rowClass,
+    var beachball,
+        preferred,
+        row,
         tensor;
 
-    preferred = (index === 0);
-    rowClass = preferred ? ' class="preferred"' : '';
     tensor = Tensor.fromProduct(product);
+    row = document.createElement('tr');
+    preferred = (index === 0);
 
-    return [
-      '<tr', rowClass, '>',
-        '<th scope="row">',
-          _this.getProductLinkMarkup(product, preferred),
-        '</th>',
-        '<td>',
-          // TODO
-        '</td>',
-        '<td>',
-          _formatter.magnitude(
-            tensor.magnitude,
-            product.getProperty('derived-magnitude-type') || 'Mw'
-          ),
-        '</td>',
-        '<td>',
-          _formatter.depth(product.getProperty('depth'), 'km'),
-        '</td>',
-        '<td>',
-          Math.round(tensor.percentDC * 100) + ' %',
-        '</td>',
-        '<td>',
-          Attribution.getProductAttribution(product),
-        '</td>',
-      '</tr>'
+    if (preferred) {
+      row.classList.add('preferred');
+    }
+
+    row.innerHTML = [
+      '<th scope="row">',
+        _this.getProductLinkMarkup(product, preferred),
+      '</th>',
+      '<td class="beachball"></td>',
+      '<td>',
+        _formatter.magnitude(
+          tensor.magnitude,
+          product.getProperty('derived-magnitude-type') || 'Mw'
+        ),
+      '</td>',
+      '<td>',
+        _formatter.depth(tensor.depth, 'km'),
+      '</td>',
+      '<td>',
+        Math.round(tensor.percentDC * 100) + ' %',
+      '</td>',
+      '<td>',
+        Attribution.getProductAttribution(product),
+      '</td>'
     ].join('');
+
+    beachball = BeachBallView({
+      el: row.querySelector('.beachball'),
+      fillColor: _mtFillColor,
+      labelAxes: false,
+      labelPlanes: false,
+      size: 30,
+      tensor: tensor
+    });
+
+    beachball.render();
+    beachball.destroy();
+    beachball = null;
+
+    return row;
   };
 
   _this.getOriginProducts = function (ev) {
@@ -284,15 +319,17 @@ var ScientificSummaryModule = function (options) {
   };
 
   _this.render = function () {
-    var buf,
-        ev,
+    // var buf,
+    var ev,
         faults,
+        fragment,
         links,
         mechs,
         origins,
         tensors;
 
-    buf = [];
+    // buf = [];
+    fragment = document.createDocumentFragment();
     ev = _this.model.get('event');
 
     faults = ev.getProducts('finite-fault');
@@ -301,14 +338,18 @@ var ScientificSummaryModule = function (options) {
     origins = _this.getOriginProducts(ev);
     tensors = ev.getProducts('moment-tensor');
 
-    buf.push(_this.getOriginTable(origins));
-    buf.push(_this.getMomentTensorTable(tensors));
-    buf.push(_this.getFocalMechanismTable(mechs));
-    buf.push(_this.getFiniteFaultTable(faults));
-    buf.push(_this.getScitechLinks(links));
+    // buf.push(_this.getOriginTable(origins));
+    // buf.push(_this.getMomentTensorTable(tensors));
+    // buf.push(_this.getFocalMechanismTable(mechs));
+    // buf.push(_this.getFiniteFaultTable(faults));
+    // buf.push(_this.getScitechLinks(links));
+
+    fragment.appendChild(_this.getMomentTensorTable(tensors));
 
     _this.header.innerHTML = '';
-    _this.content.innerHTML = buf.join('');
+    // _this.content.innerHTML = buf.join('');
+    Util.empty(_this.content);
+    _this.content.appendChild(fragment);
     _this.footer.innerHTML = '';
   };
 
