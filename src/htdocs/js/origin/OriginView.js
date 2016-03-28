@@ -152,7 +152,7 @@ var OriginView = function (options) {
         '</td></tr>');
 
     buf.push('<tr><th scope="row">Travel Time Residual</th><td>',
-        (standardError === null ? NOT_REPORTED : standardError + ' sec'),
+        (standardError === null ? NOT_REPORTED : standardError + ' s'),
         '</td></tr>');
 
     buf.push('<tr><th scope="row">Azimuthal Gap</th><td>',
