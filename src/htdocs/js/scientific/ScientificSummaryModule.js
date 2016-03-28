@@ -136,8 +136,8 @@ var ScientificSummaryModule = function (options) {
       wrapper.classList.add('horizontal-scrolling');
       table.classList.add('table-summary');
 
-      thead.innerHTML = '<tr><th scope="row">' +
-          labels.join('</th><th scope="row">') + '</th></tr>';
+      thead.innerHTML = '<tr><th scope="col">' +
+          labels.join('</th><th scope="col">') + '</th></tr>';
 
       tbody.appendChild(products.reduce(function (fragment, product, index) {
         fragment.appendChild(callback(product, index));
@@ -312,10 +312,16 @@ var ScientificSummaryModule = function (options) {
    *     the given set of products.
    */
   _this.getMomentTensorTable = function (products) {
-    return _this.createTable(products, 'Moment Tensor', ['Catalog', 'Tensor',
-        'Magnitude and Type', 'Depth',
-        '% <abbr title="Double Couple">DC</abbr>', 'Source'],
-        _this.getMomentTensorTableRow);
+    return _this.createTable(products, 'Moment Tensor', [
+        'Catalog',
+        'Tensor',
+        'Magnitude and Type',
+        'Depth',
+        '% <abbr title="Double Couple">DC</abbr>',
+        'Source'
+      ],
+      _this.getMomentTensorTableRow
+    );
   };
 
   /**
