@@ -19,4 +19,15 @@
     text-align: center;
     width: 16em;
   }
+
+  > .scenario-badge {
+    left: 50%;
+    margin: 10px 0 0 -3em;
+    padding: .25em 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 6em;
+
+  }
 }

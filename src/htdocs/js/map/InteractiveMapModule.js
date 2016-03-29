@@ -45,7 +45,8 @@ var InteractiveMapModule = function (options) {
 
       _closeButton,
       _mapView,
-      _modal;
+      _modal,
+      _scenarioBadge;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -57,9 +58,13 @@ var InteractiveMapModule = function (options) {
    * @param options {Object}
    */
   _initialize = function (options) {
+    var config;
+
     _this.ID = _ID;
     _this.TITLE = _TITLE;
     _this.TYPES = _TYPES;
+
+    config = _this.model.get('config');
 
     _this.content.addEventListener('click', _this.onContentClick);
 
@@ -76,6 +81,10 @@ var InteractiveMapModule = function (options) {
     _modal.el.classList.add('modal-map');
     _this.appendCloseButton();
 
+    if (config && config.SCENARIO_MODE === true) {
+      _this.appendScenarioBadge();
+    }
+
     _modal.on('hide', _this.onModalHide);
   };
 
@@ -88,6 +97,15 @@ var InteractiveMapModule = function (options) {
       _closeButton.innerHTML = 'Close Map';
 
       _closeButton.addEventListener('click', _this.onCloseButtonClick);
+    }
+  };
+
+  _this.appendScenarioBadge = function () {
+    if (!_scenarioBadge) {
+      _scenarioBadge = _modal.el.appendChild(document.createElement('div'));
+      _scenarioBadge.classList.add('scenario-badge');
+      _scenarioBadge.classList.add('leaflet-control');
+      _scenarioBadge.innerHTML = 'Scenario';
     }
   };
 
