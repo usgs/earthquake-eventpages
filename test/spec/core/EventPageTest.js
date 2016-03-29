@@ -137,4 +137,39 @@ describe('core/EventPage', function () {
     });
   });
 
+  describe('renderHeader', function () {
+    it('does not include a scenario warning when an actual event', function () {
+      var page;
+
+      page = EventPage({
+        config: {
+          SCENARIO_MODE: false
+        }
+      });
+
+      page.renderHeader();
+
+      expect(page.header.querySelectorAll('.warning').length)
+          .to.equal(0);
+
+      page.destroy();
+    });
+
+    it('includes scenario warning when a scenario event', function () {
+      var page;
+
+      page = EventPage({
+        config: {
+          SCENARIO_MODE: true
+        }
+      });
+
+      page.renderHeader();
+
+      expect(page.header.querySelectorAll('.warning').length)
+          .to.equal(1);
+
+      page.destroy();
+    });
+  });
 });

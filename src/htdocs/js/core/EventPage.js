@@ -560,7 +560,16 @@ var EventPage = function (options) {
       }
     }
 
-    // TODO :: scenario alert goes here as well.
+    if (_this.isScenarioMode()) {
+      buf.push(
+        '<div class="alert warning">' +
+          'This event is a scenario (it did not occur) and should only be ' +
+          'used for planning purposes.' +
+          '<br/>' +
+          '<a href="/scenarios/">More information about scenarios</a>' +
+        '</div>'
+      );
+    }
 
     _this.header.innerHTML = buf.join('');
   };
