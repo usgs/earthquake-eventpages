@@ -17,7 +17,7 @@ describe('origin/OriginView', function () {
     Xhr.ajax({
       url: '/events/us10004u1y.json',
       success: function (data) {
-        origin = Product(data.properties.products.origin[0]);
+        origin = Product(data.properties.products['phase-data'][0]);
         geoserve = Product(data.properties.products.geoserve[0]);
         done();
       },
@@ -64,7 +64,7 @@ describe('origin/OriginView', function () {
     it('displays the catalog details', function () {
       var name;
 
-      name = view.getCatalogDetail(origin.get());
+      name = view.getCatalogDetail(origin);
 
       expect(name).to.equal('US <small>(us10004u1y)</small>');
     });
@@ -74,7 +74,7 @@ describe('origin/OriginView', function () {
           rows;
 
       el = document.createElement('div');
-      el.innerHTML = view.getOriginDetailTable(origin.get());
+      el.innerHTML = view.getOriginDetailTable(origin);
       rows = el.querySelectorAll('tr');
 
       expect(rows.count).to.not.equal(0);

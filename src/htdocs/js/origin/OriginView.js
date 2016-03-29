@@ -24,7 +24,6 @@ var OriginView = function (options) {
       _formatter,
       _geoserve,
       _magnitudesView,
-      _phases,
       _phasesView,
       _region,
       _tabList,
@@ -35,7 +34,6 @@ var OriginView = function (options) {
 
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
-    _phases = options.phases || null;
     _geoserve = options.geoserve || null;
 
     // Bind to geoserve model change
@@ -70,7 +68,6 @@ var OriginView = function (options) {
 
     _formatter = null;
     _geoserve = null;
-    _phases = null;
     _region = null;
     _url = null;
 
@@ -111,12 +108,10 @@ var OriginView = function (options) {
   _this.getCatalogDetail = function (product) {
     var eventId,
         eventSource,
-        eventSourceCode,
-        props;
+        eventSourceCode;
 
-    props = product.properties;
-    eventSource = props.eventsource;
-    eventSourceCode = props.eventsourcecode;
+    eventSource = product.getProperty('eventsource');
+    eventSourceCode = product.getProperty('eventsourcecode');
     eventId = '';
 
     if (!eventSource) {
@@ -225,33 +220,31 @@ var OriginView = function (options) {
         numPhases,
         numStations,
         originSource,
-        p,
         reviewStatus,
         standardError;
 
     buf = [];
-    p = product.properties;
 
     // required attributes for origins
-    latitude = p.latitude;
-    longitude = p.longitude;
-    eventTime = p.eventtime;
+    latitude = product.getProperty('latitude');
+    longitude = product.getProperty('longitude');
+    eventTime = product.getProperty('eventtime');
 
     // optional attributes for origins
-    magnitude = p.magnitude || null;
-    magnitudeType = p['magnitude-type'] || null;
-    magnitudeError = p['magnitude-error'] || null;
-    horizontalError = p['horizontal-error'] || null;
-    depth = p.depth || null;
-    depthError = p['vertical-error'] || null;
-    numStations = p['num-stations-used'] || null;
-    numPhases = p['num-phases-used'] || null;
-    minimumDistance = p['minimum-distance'] || null;
-    standardError = p['standard-error'] || null;
-    azimuthalGap = p['azimuthal-gap'] || null;
-    reviewStatus = p['review-status'] || 'automatic';
-    originSource = p['origin-source'] || product.source;
-    magnitudeSource = p['magnitude-source'] || product.source;
+    magnitude = product.getProperty('magnitude');
+    magnitudeType = product.getProperty('magnitude-type');
+    magnitudeError = product.getProperty('magnitude-error');
+    horizontalError = product.getProperty('horizontal-error');
+    depth = product.getProperty('depth');
+    depthError = product.getProperty('vertical-error');
+    numStations = product.getProperty('num-stations-used');
+    numPhases = product.getProperty('num-phases-used');
+    minimumDistance = product.getProperty('minimum-distance');
+    standardError = product.getProperty('standard-error');
+    azimuthalGap = product.getProperty('azimuthal-gap');
+    reviewStatus = product.getProperty('review-status') || 'automatic';
+    originSource = product.getProperty('origin-source') || product.get('source');
+    magnitudeSource = product.getProperty('magnitude-source') || product.get('source');
 
 
     buf.push(
@@ -328,7 +321,7 @@ var OriginView = function (options) {
           Attribution.getContributorReference(magnitudeSource),
         '</td></tr>',
         '<tr><th scope="row">Contributor</th><td>',
-          Attribution.getContributorReference(product.source),
+          Attribution.getContributorReference(product.get('source')),
         '</td></tr>');
 
     buf.push('</tbody></table></div>');
@@ -382,55 +375,56 @@ var OriginView = function (options) {
       tabs: []
     });
 
-    product = _this.model.get();
+    product = _this.model;
     if (product) {
       content = _this.getOriginDetailTable(product);
       _tabList.addTab({
         'title': 'Origin Detail',
         'content': content
       });
+
+      if (product.type === 'phase-data') {
+        quakeml = product.getContent('quakeml.xml');
+
+        _phasesView = PhasesView({
+          el: document.createElement('div'),
+          model: quakeml,
+          product: product
+        });
+
+        _tabList.addTab({
+          'title': 'Phases',
+          'content': _phasesView.el,
+          onDestroy: function () {
+            _phasesView.destroy();
+          },
+          onSelect: function () {
+            _phasesView.render();
+          }
+        });
+
+        _magnitudesView = MagnitudesView({
+          el: document.createElement('div'),
+          model: quakeml,
+          product: product
+        });
+
+        _tabList.addTab({
+          'title': 'Magnitudes',
+          'content': _magnitudesView.el,
+          onDestroy: function () {
+            _magnitudesView.destroy();
+          },
+          onSelect: function () {
+            _magnitudesView.render();
+          }
+        });
+      }
+
     } else {
       content = '<p class="alert error">' +
         'No Origin product exists.' +
         '</p>';
-    }
-
-    if (_phases) {
-      quakeml = _phases.getContent('quakeml.xml');
-
-      _phasesView = PhasesView({
-        el: document.createElement('div'),
-        model: quakeml,
-        product: _phases
-      });
-
-      _tabList.addTab({
-        'title': 'Phases',
-        'content': _phasesView.el,
-        onDestroy: function () {
-          _phasesView.destroy();
-        },
-        onSelect: function () {
-          _phasesView.render();
-        }
-      });
-
-      _magnitudesView = MagnitudesView({
-        el: document.createElement('div'),
-        model: quakeml,
-        product: _phases
-      });
-
-      _tabList.addTab({
-        'title': 'Magnitudes',
-        'content': _magnitudesView.el,
-        onDestroy: function () {
-          _magnitudesView.destroy();
-        },
-        onSelect: function () {
-          _magnitudesView.render();
-        }
-      });
     }
   };
 
