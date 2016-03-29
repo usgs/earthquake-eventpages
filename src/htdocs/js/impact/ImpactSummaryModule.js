@@ -20,6 +20,10 @@ var _DEFAULTS = {
 };
 
 
+/**
+ * Summary module for the impact products.
+ *
+ */
 var ImpactSummaryModule = function (options) {
   var _this,
       _initialize,
@@ -30,6 +34,12 @@ var ImpactSummaryModule = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = SummaryModule(options);
 
+  /**
+   * Constructor. Initializes a new {ImpactSummaryModule}.
+   *
+   * @param options {Object}
+   *     See Module#initialize documentation for details.
+   */
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
 
@@ -37,6 +47,10 @@ var ImpactSummaryModule = function (options) {
     _this.TITLE = _TITLE;
   };
 
+  /**
+   * Frees resources associated with this module.
+   *
+   */
   _this.destroy = Util.compose(function () {
     _formatter = null;
 
@@ -44,6 +58,15 @@ var ImpactSummaryModule = function (options) {
     _this = null;
   }, _this.destroy);
 
+  /**
+   * Gets the summary for the list of DYFI products.
+   *
+   * @param products {Array}
+   *     An array of DYFI {Product}s to summarize.
+   *
+   * @return {DocumentFragment}
+   *     A fragment containing the summary for the products.
+   */
   _this.getDyfiSummary = function (products) {
     return _this.createSummary(products, 'Did You Feel It?', [
         'Catalog',
@@ -53,6 +76,18 @@ var ImpactSummaryModule = function (options) {
       ], _this.getDyfiRow);
   };
 
+  /**
+   * Gets a single summary row for the single given product.
+   *
+   * @param product {Product}
+   *     The product to summarize.
+   * @param index {Number}
+   *     The relative preferred number for the given product.
+   *     0 = most preferred
+   *
+   * @return {DOMElement}
+   *     A TR DOM Element for the row summary.
+   */
   _this.getDyfiRow = function (product, index) {
     var preferred,
         row;
@@ -78,6 +113,12 @@ var ImpactSummaryModule = function (options) {
     return row;
   };
 
+  /**
+   * Gets the header for the links section for this module.
+   *
+   * @return {DOMElement}
+   *     The header element.
+   */
   _this.getLinksHeader = function () {
     var header;
 
@@ -87,6 +128,15 @@ var ImpactSummaryModule = function (options) {
     return header;
   };
 
+  /**
+   * Gets the summary for the list of LossPAGER products.
+   *
+   * @param products {Array}
+   *     An array of LossPAGER {Product}s to summarize.
+   *
+   * @return {DocumentFragment}
+   *     A fragment containing the summary for the products.
+   */
   _this.getPagerSummary = function (products) {
     return _this.createSummary(products, 'PAGER', [
         'Catalog',
@@ -95,6 +145,18 @@ var ImpactSummaryModule = function (options) {
       ], _this.getPagerRow);
   };
 
+  /**
+   * Gets a single summary row for the single given product.
+   *
+   * @param product {Product}
+   *     The product to summarize.
+   * @param index {Number}
+   *     The relative preferred number for the given product.
+   *     0 = most preferred
+   *
+   * @return {DOMElement}
+   *     A TR DOM Element for the row summary.
+   */
   _this.getPagerRow = function (product, index) {
     var alertLevel,
         preferred,
@@ -124,6 +186,15 @@ var ImpactSummaryModule = function (options) {
     return row;
   };
 
+  /**
+   * Gets the summary for the list of ShakeMap products.
+   *
+   * @param products {Array}
+   *     An array of ShakeMap {Product}s to summarize.
+   *
+   * @return {DocumentFragment}
+   *     A fragment containing the summary for the products.
+   */
   _this.getShakeMapSummary = function (products) {
     return _this.createSummary(products, 'ShakeMap', [
         'Catalog',
@@ -133,6 +204,18 @@ var ImpactSummaryModule = function (options) {
       ], _this.getShakeMapRow);
   };
 
+  /**
+   * Gets a single summary row for the single given product.
+   *
+   * @param product {Product}
+   *     The product to summarize.
+   * @param index {Number}
+   *     The relative preferred number for the given product.
+   *     0 = most preferred
+   *
+   * @return {DOMElement}
+   *     A TR DOM Element for the row summary.
+   */
   _this.getShakeMapRow = function (product, index) {
     var preferred,
         row;
@@ -158,6 +241,10 @@ var ImpactSummaryModule = function (options) {
     return row;
   };
 
+  /**
+   * Renders the summary content. Defers to sub-methods.
+   *
+   */
   _this.render = function () {
     var dyfi,
         fragment,
