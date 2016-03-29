@@ -15,7 +15,7 @@ var _DEFAULTS,
     _TYPES;
 
 
-_ID = 'scientific-summary';
+_ID = 'scientific';
 _TITLE = 'Scientific Summary';
 _TYPES = [
   'origin',

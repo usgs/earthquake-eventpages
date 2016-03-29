@@ -4,8 +4,7 @@
 var Formatter = require('core/Formatter'),
     Module = require('core/Module'),
     FocalMechanismView = require('focal-mechanism/FocalMechanismView'),
-    // TODO: import actual ScientificSummaryModule once implemented
-    ScientificSummaryModule = require('general/GeneralSummaryModule'),
+    ScientificSummaryModule = require('scientific/ScientificSummaryModule'),
     Util = require('util/Util');
 
 

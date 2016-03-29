@@ -2,6 +2,7 @@
 
 var FiniteFaultView = require('finite-fault/FiniteFaultView'),
     Module = require('core/Module'),
+    ScientificSummaryModule = require('scientific/ScientificSummaryModule'),
     Util = require('util/Util');
 
 var _ID,
@@ -65,8 +66,7 @@ var FiniteFaultModule = function (options) {
       // Display review/preferred status in header section
       _this.header.appendChild(_this.getProductHeader({
         product: product,
-        // TODO create/add ScientificSummaryModule
-        summaryModule: null
+        summaryModule: ScientificSummaryModule
       }));
 
       // Display Finite Fault View in content section
