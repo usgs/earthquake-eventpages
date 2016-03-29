@@ -12,6 +12,10 @@ var _DEFAULTS = {
 };
 
 
+/**
+ * Abstract module to serve as an extension point for summary-level modules.
+ *
+ */
 var SummaryModule = function (options) {
   var _this,
       _initialize,
@@ -42,8 +46,6 @@ var SummaryModule = function (options) {
         view.destroy();
       });
     }
-
-
   };
 
   /**
