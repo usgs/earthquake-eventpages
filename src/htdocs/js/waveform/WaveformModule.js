@@ -5,9 +5,10 @@ var Module = require('core/Module'),
     Xhr = require('util/Xhr');
 
 var _DEFAULTS,
-    _hasContent,
     _ID,
-    _TITLE;
+    _TITLE,
+
+    _hasContent;
 
 
 _DEFAULTS = {
@@ -161,7 +162,9 @@ var WaveformModule = function (options) {
   _this.render = function () {
     var search;
 
-    _this.header.innerHTML = '<h3>Waveforms</h3>';
+    _this.header.innerHTML = '<h3>Waveforms</h3>' +
+        '<a class="back-to-summary-link"' +
+        ' href="#scientific">Back to Scientific Summary</a>';
 
     search = _this.getSearch();
 
@@ -200,8 +203,8 @@ var WaveformModule = function (options) {
           '</a>',
         '</dt>',
         '<dd>',
-          'SPUD is the IRIS DMC\'s primary data product management system.',
-          ' Complementing the DMC\'s SEED and assembled data archives,',
+          'SPUD is the IRIS DMC&rsquo;s primary data product management system.',
+          ' Complementing the DMC&rsquo;s SEED and assembled data archives,',
           ' which contain time series recordings, the SPUD system',
           ' primarily contains derivative data products of other types',
           ' (images, movies, etc.) created either at the DMC or by members',
