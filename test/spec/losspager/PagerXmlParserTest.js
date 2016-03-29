@@ -89,15 +89,15 @@ describe('PagerXmlParser test suite.', function () {
       expect(exposures[7].population).to.equal(0);
       expect(exposures[8].population).to.equal(0);
 
-      expect(exposures[0].populationDisplay).to.equal('0k*');
-      expect(exposures[1].populationDisplay).to.equal('9,013k*'); // II+III
-      expect(exposures[2].populationDisplay).to.equal('5,832k');
-      expect(exposures[3].populationDisplay).to.equal('2,601k');
-      expect(exposures[4].populationDisplay).to.equal('927k');
-      expect(exposures[5].populationDisplay).to.equal('38k');
-      expect(exposures[6].populationDisplay).to.equal('0k');
-      expect(exposures[7].populationDisplay).to.equal('0k');
-      expect(exposures[8].populationDisplay).to.equal('0k');
+      expect(exposures[0].populationDisplay).to.equal('0 k*');
+      expect(exposures[1].populationDisplay).to.equal('9,013 k*'); // II+III
+      expect(exposures[2].populationDisplay).to.equal('5,832 k');
+      expect(exposures[3].populationDisplay).to.equal('2,601 k');
+      expect(exposures[4].populationDisplay).to.equal('927 k');
+      expect(exposures[5].populationDisplay).to.equal('38 k');
+      expect(exposures[6].populationDisplay).to.equal('0 k');
+      expect(exposures[7].populationDisplay).to.equal('0 k');
+      expect(exposures[8].populationDisplay).to.equal('0 k');
     });
   });
 
@@ -126,18 +126,18 @@ describe('PagerXmlParser test suite.', function () {
       expect(cities[10].name).to.equal('Los Angeles');
       expect(cities[299].name).to.equal('San Pasqual');
 
-      expect(cities[0].populationDisplay).to.equal('39k');
-      expect(cities[1].populationDisplay).to.equal('5k');
-      expect(cities[2].populationDisplay).to.equal('60k');
-      expect(cities[3].populationDisplay).to.equal('135k');
-      expect(cities[4].populationDisplay).to.equal('51k');
-      expect(cities[5].populationDisplay).to.equal('49k');
-      expect(cities[6].populationDisplay).to.equal('336k');
-      expect(cities[7].populationDisplay).to.equal('325k');
-      expect(cities[8].populationDisplay).to.equal('462k');
-      expect(cities[9].populationDisplay).to.equal('304k');
-      expect(cities[10].populationDisplay).to.equal('3,793k');
-      expect(cities[299].populationDisplay).to.equal('2k');
+      expect(cities[0].populationDisplay).to.equal('39 k');
+      expect(cities[1].populationDisplay).to.equal('5 k');
+      expect(cities[2].populationDisplay).to.equal('60 k');
+      expect(cities[3].populationDisplay).to.equal('135 k');
+      expect(cities[4].populationDisplay).to.equal('51 k');
+      expect(cities[5].populationDisplay).to.equal('49 k');
+      expect(cities[6].populationDisplay).to.equal('336 k');
+      expect(cities[7].populationDisplay).to.equal('325 k');
+      expect(cities[8].populationDisplay).to.equal('462 k');
+      expect(cities[9].populationDisplay).to.equal('304 k');
+      expect(cities[10].populationDisplay).to.equal('3,793 k');
+      expect(cities[299].populationDisplay).to.equal('2 k');
     });
   });
 
