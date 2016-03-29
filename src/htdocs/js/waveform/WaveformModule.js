@@ -188,7 +188,7 @@ var WaveformModule = function (options) {
             'IRIS Seismic Waveform Data (Wilber 3)',
           '</a>',
         '</dt>',
-        '<dd class="iris-waveforms">',
+        '<dd>',
           'Wilber 3 locates stations in operation at the time of the event,',
           ' allows users to filter stations, preview waveform data, and',
           ' view record section plots. Data can be downloaded in a',
