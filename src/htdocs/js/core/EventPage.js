@@ -266,21 +266,21 @@ var EventPage = function (options) {
           }
         }
 
-        source = product.get('origin-source');
+        source = product.getProperty('origin-source');
         if (source) {
           source = source.toLowerCase();
           if (!sources.hasOwnProperty(source)) {
             sources[source] = source;
           }
         }
-        source = product.get('magnitude-source');
+        source = product.getProperty('magnitude-source');
         if (source) {
           source = source.toLowerCase();
           if (!sources.hasOwnProperty(source)) {
             sources[source] = source;
           }
         }
-        source = product.get('beachball-source');
+        source = product.getProperty('beachball-source');
         if (source) {
           source = source.toLowerCase();
           if (!sources.hasOwnProperty(source)) {
