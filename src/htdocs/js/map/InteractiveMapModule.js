@@ -104,6 +104,7 @@ var InteractiveMapModule = function (options) {
     if (!_scenarioBadge) {
       _scenarioBadge = _modal.el.appendChild(document.createElement('div'));
       _scenarioBadge.classList.add('scenario-badge');
+      _scenarioBadge.classList.add('leaflet-control');
       _scenarioBadge.innerHTML = 'Scenario';
     }
   };
