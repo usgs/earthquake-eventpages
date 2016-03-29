@@ -46,7 +46,24 @@ var _DEFAULTS = {
       FiniteFaultModule,
       WaveformModule
     ]
-  ]
+  ],
+  'redirects': {
+    // General
+    'general_summary': 'general',
+    'general_map': 'map',
+    // Impact
+    'impact_summary': 'impact',
+    'impact_tellus': 'tellus',
+    'impact_dyfi': 'dyfi',
+    'impact_shakemap': 'shakemap',
+    'impact_pager': 'pager',
+    // Scientific
+    'scientific_origin': 'origin',
+    'scientific_moment-tensor': 'moment-tensor',
+    'scientific_focal-mechanism': 'focal-mechanism',
+    'scientific_finite-fault': 'finite-fault',
+    'scientific_waveforms': 'waveform'
+  }
 };
 
 var EventPage = function (options) {
@@ -62,17 +79,20 @@ var EventPage = function (options) {
       _model,
       _modules,
       _navEl,
+      _redirects,
 
       _createNavItem,
       _initializeModules,
       _onHashChange,
-      _parseHash;
+      _parseHash,
+      _parseLegacyHash;
 
 
   _this = Events();
 
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
+    _redirects = options.redirects;
 
     _event = options.event;
     _config = options.config;
@@ -214,6 +234,7 @@ var EventPage = function (options) {
     _initializeModules = null;
     _onHashChange = null;
     _parseHash = null;
+    _parseLegacyHash = null;
 
     // variables
     _config = null;
@@ -384,11 +405,16 @@ var EventPage = function (options) {
 
     // verify module is known, otherwise load default (from "config")
     if (!_modules.hasOwnProperty(module)) {
-      // TODO: rewrite module name instead of always using default
-      module = _config.defaultModule;
+      hash = _parseLegacyHash(window.location.hash || '');
+      module = hash.module;
+      params = hash.params;
 
-      // this will trigger a hashchange event...
-      window.location.hash = '#' + module;
+      if (_modules.hasOwnProperty(module)) {
+        window.location = '#' + hash.redirect;
+      } else {
+        window.location = '#' + _config.defaultModule;
+      }
+
       return;
     }
 
@@ -476,6 +502,54 @@ var EventPage = function (options) {
     return {
       'module': module,
       'params': params
+    };
+  };
+
+  /**
+   * Parse the module and module parameters from a hash fragment.
+   *
+   * @param hash {String}
+   *        the hash fragment to parse.
+   * @return {Object}
+   *         module {String} name of module.
+   *         params {Object} module parameters.
+   *         redirect {Object} redirect parameters.
+   */
+  _parseLegacyHash = function (hash) {
+    var module,
+        params,
+        parts,
+        redirect;
+
+    hash = hash.replace('#', '');
+    params = {};
+    parts = hash.split(':');
+    module = parts[0];
+
+    if (_redirects.hasOwnProperty(module)) {
+      module = _redirects[module];
+    }
+
+    redirect = module;
+
+    if (parts.length > 1) {
+      parts = parts.slice(1).join(':').split('_');
+
+      if (parts[0]) {
+        params.source = parts[0];
+        redirect += '?source=' + parts[0];
+      }
+
+      if (parts[1]) {
+        params.code = parts[1];
+        redirect += '&code=' + parts[1];
+      }
+    }
+
+    return {
+      'module': module,
+      'params': params,
+      'redirect': redirect
     };
   };
 
