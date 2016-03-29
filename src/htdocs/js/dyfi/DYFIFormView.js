@@ -286,46 +286,6 @@ var DYFIFormView = function (options) {
     container.appendChild(section);
   };
 
-  _this.locationCallback = function (locationObject) {
-    var markup = [],
-        prettyLat = null,
-        prettyLng = null;
-
-    _curLoc = locationObject;
-
-    prettyLat = _curLoc.latitude;
-    if (prettyLat < 0.0) {
-      prettyLat = (-1.0*prettyLat).toFixed(_curLoc.confidence) + '&deg;S';
-    } else {
-      prettyLat = prettyLat.toFixed(_curLoc.confidence) + '&deg;N';
-    }
-
-    prettyLng = _curLoc.longitude;
-    if (prettyLng < 0.0) {
-      prettyLng = (-1.0*prettyLng).toFixed(_curLoc.confidence) + '&deg;W';
-    } else {
-      prettyLng = prettyLng.toFixed(_curLoc.confidence) + '&deg;E';
-    }
-
-    if (_curLoc.place !== null) {
-      markup.push(_curLoc.place + '<br/>');
-    }
-
-    _locationDisplay.classList.add('location-result', 'alert', 'success');
-
-    _locationDisplay.innerHTML = '<span class="address">' +
-        ((_curLoc.place) ? (_curLoc.place + '</span>') : '') +
-        '<span class="coordinates">' +
-        prettyLat + ', ' + prettyLng +
-        ((_curLoc.place) ? '' : '</span>');
-
-
-    _locationButton.innerHTML = _data.locationInfo.buttonUpdate;
-
-    _questions.ciim_mapLat.trigger('change', _questions.ciim_mapLat);
-    _questions.ciim_mapLon.trigger('change', _questions.ciim_mapLon);
-  };
-
   /**
    * Helper method to iterate over a hash of questionInfo creating a view
    * for each question, appending the views content to the container, and
@@ -430,6 +390,56 @@ var DYFIFormView = function (options) {
     } else {
         _this.updateAnswer(changed);
     }
+  };
+
+  /**
+   * callback for the LocationView.
+   *  When LocationView is done, it calls this function, which then sets the
+   *  location values.
+   *
+   * @params locationObject {locationObject}
+   *    see locationView
+   *
+   * Notes: Triggers change on the latitude, and longitude "questions"
+   */
+  _this.locationCallback = function (locationObject) {
+    var markup = [],
+        prettyLat = null,
+        prettyLng = null;
+
+    _curLoc = locationObject;
+
+    prettyLat = _curLoc.latitude;
+    if (prettyLat < 0.0) {
+      prettyLat = (-1.0*prettyLat).toFixed(_curLoc.confidence) + '&deg;S';
+    } else {
+      prettyLat = prettyLat.toFixed(_curLoc.confidence) + '&deg;N';
+    }
+
+    prettyLng = _curLoc.longitude;
+    if (prettyLng < 0.0) {
+      prettyLng = (-1.0*prettyLng).toFixed(_curLoc.confidence) + '&deg;W';
+    } else {
+      prettyLng = prettyLng.toFixed(_curLoc.confidence) + '&deg;E';
+    }
+
+    if (_curLoc.place !== null) {
+      markup.push(_curLoc.place + '<br/>');
+    }
+
+    _locationDisplay.classList.add('location-result', 'alert', 'success');
+
+    _locationDisplay.innerHTML = '<span class="address">' +
+        ((_curLoc.place) ? (_curLoc.place + '</span>') : '') +
+        '<span class="coordinates">' +
+        prettyLat + ', ' + prettyLng +
+        ((_curLoc.place) ? '' : '</span>');
+
+
+    _locationButton.innerHTML = _data.locationInfo.buttonUpdate;
+
+    _questions.ciim_mapLat.trigger('change', _questions.ciim_mapLat);
+    _questions.ciim_mapLon.trigger('change', _questions.ciim_mapLon);
   };
 
   /**
