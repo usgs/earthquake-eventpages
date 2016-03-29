@@ -42,7 +42,7 @@ var ContentView = function (options) {
       setTimeout(function () {
         if (!_this) {
           // view was destroyed before next tick
-          // simluate async abort
+          // simulate async abort
           return;
         }
         _this.onSuccess(data, null);
