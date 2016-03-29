@@ -20,7 +20,8 @@ var GeoserveRegionSummaryView = function (options) {
   var _this,
       _initialize,
 
-      _url;
+      _url,
+      _xhr;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -36,7 +37,7 @@ var GeoserveRegionSummaryView = function (options) {
    * Gets data
    */
   _this.fetchData = function () {
-    Xhr.ajax({
+    _xhr = Xhr.ajax({
       url: _url,
       success: _this.onSuccess,
       error: _this.onError,
@@ -44,6 +45,9 @@ var GeoserveRegionSummaryView = function (options) {
         latitude: _this.model.getProperty('latitude'),
         longitude: _this.model.getProperty('longitude'),
         type: 'tectonic'
+      },
+      done: function () {
+        _xhr = null;
       }
     });
   };
@@ -91,6 +95,10 @@ var GeoserveRegionSummaryView = function (options) {
    * Destroy all the things.
    */
   _this.destroy = Util.compose(function () {
+    if (_xhr) {
+      _xhr.abort();
+      _xhr = null;
+    }
     _url = null;
     _initialize = null;
     _this = null;

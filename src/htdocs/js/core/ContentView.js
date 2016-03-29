@@ -40,11 +40,12 @@ var ContentView = function (options) {
     if (data !== null) {
       // force async
       setTimeout(function () {
-        if (_this) {
-          _this.onSuccess(data, null);
-        } else {
-          console.log(data);
+        if (!_this) {
+          // view was destroyed before next tick
+          // simluate async abort
+          return;
         }
+        _this.onSuccess(data, null);
       }, 0);
     } else {
       _xhr = Xhr.ajax({
