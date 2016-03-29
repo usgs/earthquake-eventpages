@@ -70,6 +70,7 @@ var WaveformModule = function (options) {
     _this = null;
 
     _waveformContentEl = null;
+    _scientific = null;
     _irisWilberUrl= null;
     _irisSpudUrl = null;
     _irisServiceUrl = null;
