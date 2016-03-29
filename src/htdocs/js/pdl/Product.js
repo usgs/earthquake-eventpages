@@ -163,6 +163,32 @@ var Product = function (options) {
     return null;
   };
 
+  _this.setProperty = function (obj) {
+    var changes,
+        properties;
+
+    properties = _this.get('properties');
+    changes = [];
+
+    Object.keys(obj).forEach(function (property) {
+      var value;
+
+      value = obj[property];
+
+      if (properties[property] !== value) {
+        changes.push(property);
+        properties[property] = value;
+      }
+    });
+
+    changes.forEach(function (change) {
+      _this.trigger('change:property:' + change);
+    });
+
+    _this.trigger('change:property');
+    _this.trigger('change');
+  };
+
   /**
    * Override toJSON method so contents are output as object map.
    *

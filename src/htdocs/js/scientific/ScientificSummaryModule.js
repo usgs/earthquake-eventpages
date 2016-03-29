@@ -4,9 +4,8 @@
 var Attribution = require('core/Attribution'),
     BeachBallView = require('moment-tensor/BeachBallView'),
     Formatter = require('core/Formatter'),
-    Module = require('core/Module'),
+    SummaryModule = require('core/SummaryModule'),
     Tensor = require('moment-tensor/Tensor'),
-    TextProductView = require('core/TextProductView'),
     Util = require('util/Util');
 
 
@@ -48,12 +47,11 @@ var ScientificSummaryModule = function (options) {
 
       _fmFillColor,
       _formatter,
-      _mtFillColor,
-      _textViews;
+      _mtFillColor;
 
 
   options = Util.extend({}, _DEFAULTS, options);
-  _this = Module(options);
+  _this = SummaryModule(options);
 
   /**
    * Constructor. Initializes a new {ScientificSummaryModule}.
@@ -72,84 +70,6 @@ var ScientificSummaryModule = function (options) {
     _formatter = options.formatter || Formatter();
     _mtFillColor = options.mtFillColor;
     _fmFillColor = options.fmFillColor;
-
-    _textViews = [];
-  };
-
-
-  /**
-   * Helper method for creating a simple TR DOM element potentially with a
-   * "preferred" class on it.
-   *
-   * @param preferred {Boolean}
-   *     True if the "preferred" class should be added. False otherwise.
-   *
-   * @return {DOMElement}
-   *     A TR DOM Element.
-   */
-  _this.createRow = function (preferred) {
-    var row;
-
-    row = document.createElement('tr');
-
-    if (preferred) {
-      row.classList.add('preferred');
-    }
-
-    return row;
-  };
-
-  /**
-   * Helper method for creating a summary section for a type of product.
-   *
-   * @param products {Array}
-   *     An array of {Product}s to summarize.
-   * @param title {String}
-   *     The header text to label this summary section.
-   * @param labels {Array}
-   *     An array of {String}s to use a column header text.
-   * @param callback {Function}
-   *     A callback function to execute for each product. This callback function
-   *     should return a TR DOM element. The callback function expects a
-   *     {Product} as its first parameter and an index {Number} as it's second
-   *     parameter.
-   *
-   * @return {DocumentFragment}
-   *     A document fragment containing the section summary, this could be
-   *     empty if no products or labels are provided.
-   */
-  _this.createTable = function (products, title, labels, callback) {
-    var fragment,
-        header,
-        table,
-        tbody,
-        thead,
-        wrapper;
-
-    fragment = document.createDocumentFragment();
-
-    if (products.length && labels.length) {
-      header = fragment.appendChild(document.createElement('h2'));
-      wrapper = fragment.appendChild(document.createElement('div'));
-      table = wrapper.appendChild(document.createElement('table'));
-      thead = table.appendChild(document.createElement('thead'));
-      tbody = table.appendChild(document.createElement('tbody'));
-
-      header.innerHTML = title;
-
-      wrapper.classList.add('horizontal-scrolling');
-      table.classList.add('table-summary');
-
-      thead.innerHTML = '<tr><th scope="col">' +
-          labels.join('</th><th scope="col">') + '</th></tr>';
-
-      tbody.appendChild(products.reduce(function (fragment, product, index) {
-        fragment.appendChild(callback(product, index));
-        return fragment;
-      }, document.createDocumentFragment()));
-    }
-
-    return fragment;
   };
 
   /**
@@ -160,14 +80,6 @@ var ScientificSummaryModule = function (options) {
     _fmFillColor = null;
     _formatter = null;
     _mtFillColor = null;
-
-    if (_textViews && _textViews.length) {
-      _textViews.forEach(function (view) {
-        view.destroy();
-      });
-
-      _textViews = null;
-    }
 
     _initialize = null;
     _this = null;
@@ -183,13 +95,13 @@ var ScientificSummaryModule = function (options) {
    *     A (potentially empty) document fragment containing the summary for
    *     the given set of products.
    */
-  _this.getFiniteFaultTable = function (products) {
-    return _this.createTable(products, 'Finite Fault', [
+  _this.getFiniteFaultSummary = function (products) {
+    return _this.createSummary(products, 'Finite Fault', [
         'Catalog',
         'Preview',
         'Source'
       ],
-      _this.getFiniteFaultTableRow
+      _this.getFiniteFaultRow
     );
   };
 
@@ -205,7 +117,7 @@ var ScientificSummaryModule = function (options) {
    * @return {DOMElement}
    *     A TR DOM element.
    */
-  _this.getFiniteFaultTableRow = function (product, index) {
+  _this.getFiniteFaultRow = function (product, index) {
     var map,
         preferred,
         row;
@@ -216,7 +128,7 @@ var ScientificSummaryModule = function (options) {
 
     row.innerHTML = [
       '<th scope="row">',
-        _this.getProductLinkMarkup(product, preferred),
+        _this.getCatalogMarkup(product, preferred),
       '</th>',
       '<td>',
         '<img src="', map.get('url'), '" class="image" alt="Finite Fault"/>',
@@ -239,15 +151,15 @@ var ScientificSummaryModule = function (options) {
    *     A (potentially empty) document fragment containing the summary for
    *     the given set of products.
    */
-  _this.getFocalMechanismTable = function (products) {
-    return _this.createTable(products, 'Focal Mechanism', [
+  _this.getFocalMechanismSummary = function (products) {
+    return _this.createSummary(products, 'Focal Mechanism', [
         'Catalog',
         'Mechanism',
-        'Nodal Plan 1<br/><small>Strike,Dip,Rake</small>',
-        'Nodal Plan 1<br/><small>Strike,Dip,Rake</small>',
+        'Nodal Plan 1<br/><small>Strike, Dip, Rake</small>',
+        'Nodal Plan 1<br/><small>Strike, Dip, Rake</small>',
         'Source'
       ],
-      _this.getFocalMechanismTableRow);
+      _this.getFocalMechanismRow);
   };
 
   /**
@@ -262,7 +174,7 @@ var ScientificSummaryModule = function (options) {
    * @return {DOMElement}
    *     A TR DOM element.
    */
-  _this.getFocalMechanismTableRow = function (product, index) {
+  _this.getFocalMechanismRow = function (product, index) {
     var beachball,
         np1,
         np2,
@@ -279,7 +191,7 @@ var ScientificSummaryModule = function (options) {
 
     row.innerHTML = [
       '<th scope="row">',
-        _this.getProductLinkMarkup(product, preferred),
+        _this.getCatalogMarkup(product, preferred),
       '</th>',
       '<td class="beachball"></td>',
       '<td>(',
@@ -313,6 +225,15 @@ var ScientificSummaryModule = function (options) {
     return row;
   };
 
+  _this.getLinksHeader = function () {
+    var header;
+
+    header = document.createElement('h3');
+    header.innerHTML = 'Scientific and Technical Links';
+
+    return header;
+  };
+
   /**
    * Creates the summary section for the moment tensor product(s).
    *
@@ -323,8 +244,8 @@ var ScientificSummaryModule = function (options) {
    *     A (potentially empty) document fragment containing the summary for
    *     the given set of products.
    */
-  _this.getMomentTensorTable = function (products) {
-    return _this.createTable(products, 'Moment Tensor', [
+  _this.getMomentTensorSummary = function (products) {
+    return _this.createSummary(products, 'Moment Tensor', [
         'Catalog',
         'Tensor',
         'Magnitude',
@@ -332,7 +253,7 @@ var ScientificSummaryModule = function (options) {
         '% <abbr title="Double Couple">DC</abbr>',
         'Source'
       ],
-      _this.getMomentTensorTableRow
+      _this.getMomentTensorRow
     );
   };
 
@@ -348,7 +269,7 @@ var ScientificSummaryModule = function (options) {
    * @return {DOMElement}
    *     A TR DOM element.
    */
-  _this.getMomentTensorTableRow = function (product, index) {
+  _this.getMomentTensorRow = function (product, index) {
     var beachball,
         preferred,
         row,
@@ -360,7 +281,7 @@ var ScientificSummaryModule = function (options) {
 
     row.innerHTML = [
       '<th scope="row">',
-        _this.getProductLinkMarkup(product, preferred),
+        _this.getCatalogMarkup(product, preferred),
       '</th>',
       '<td class="beachball"></td>',
       '<td>',
@@ -443,11 +364,11 @@ var ScientificSummaryModule = function (options) {
    *     A (potentially empty) document fragment containing the summary for
    *     the given set of products.
    */
-  _this.getOriginTable = function (products) {
-    return _this.createTable(products, 'Origin', ['Catalog',
+  _this.getOriginSummary = function (products) {
+    return _this.createSummary(products, 'Origin', ['Catalog',
         '<abbr title="Magnitude">Mag</abbr>', 'Time', 'Depth', 'Status',
         'Location', 'Source'],
-        _this.getOriginTableRow);
+        _this.getOriginRow);
   };
 
   /**
@@ -462,7 +383,7 @@ var ScientificSummaryModule = function (options) {
    * @return {DOMElement}
    *     A TR DOM element.
    */
-  _this.getOriginTableRow = function (product, index) {
+  _this.getOriginRow = function (product, index) {
     var eventTime,
         preferred,
         row;
@@ -473,7 +394,7 @@ var ScientificSummaryModule = function (options) {
 
     row.innerHTML = [
       '<th scope="row">',
-        _this.getProductLinkMarkup(product, preferred),
+        _this.getCatalogMarkup(product, preferred),
       '</th>',
       '<td>',
         _formatter.magnitude(
@@ -507,116 +428,11 @@ var ScientificSummaryModule = function (options) {
   };
 
   /**
-   * Generates markup for a link to the product details page.
-   *
-   * @param product {Product}
-   *     The product for which to generate the link.
-   * @param preferred {Boolean}
-   *     True if the current product is preferred, false otherwise.
-   *
-   * @return {String}
-   *     The markup for the link to the product details page.
-   */
-  _this.getProductLinkMarkup = function (product, preferred) {
-    var markup,
-        type;
-
-    markup = [];
-    type = product.get('type');
-
-    // phase-data are actually rendered by the origin module
-    if (type === 'phase-data') {
-      type = 'origin';
-    }
-
-    if (preferred) {
-      markup.push('<abbr title="Preferred ' + type +
-        '" class="material-icons">check</abbr>');
-    }
-
-    markup.push('<a href="#' + type + '?source=' + product.get('source') +
-        '&amp;code=' + product.get('code') + '">' +
-      product.getProperty('eventsource').toUpperCase() +
-    '</a>');
-
-    return markup.join('');
-  };
-
-  /**
-   * Generate links for scientific and technical link products.
-   *
-   * @param products {Array}
-   *     An array of scitech-link {Product}s.
-   *
-   * @return {DocumentFragment}
-   *     A fragment containing links for each given product.
-   */
-  _this.getScitechLinks = function (products) {
-    var fragment,
-        header,
-        list;
-
-    fragment = document.createDocumentFragment();
-
-    if (products.length) {
-      header = fragment.appendChild(document.createElement('h2'));
-      list = fragment.appendChild(document.createElement('ul'));
-
-      list.classList.add('scitech-links');
-
-      header.innerHTML = 'Scientific and Technical Links';
-      list.innerHTML = products.reduce(function (markup, product) {
-        markup.push([
-          '<li class="scitech-link">',
-            '<a href="', product.getProperty('url'), '">',
-              product.getProperty('text'),
-            '</a>',
-          '</li>'
-        ].join(''));
-        return markup;
-      }, []).join('');
-    }
-
-    return fragment;
-  };
-
-  /**
-   * Creates visualization for text-based products. Typically scitech-header and
-   * scitech-text products. Delegates to the {TextProductView}.
-   *
-   * @param products {Array}
-   *     An array of products to generate visualizations for.
-   *
-   * @return {DocumentFragment}
-   *     A fragment containing the markup for each text product.
-   */
-  _this.getText = function (products) {
-    var fragment;
-
-    fragment = document.createDocumentFragment();
-
-    products.forEach(function (product) {
-      var view;
-
-      view = TextProductView({
-        el: fragment.appendChild(document.createElement('div')),
-        model: product
-      });
-      view.render();
-
-      _textViews.push(view);
-    });
-
-    return fragment;
-  };
-
-  /**
    * Renders the module header, content, and footer.
    *
    */
   _this.render = function () {
-    var ev,
-        faults,
+    var faults,
         fragment,
         headers,
         links,
@@ -626,35 +442,27 @@ var ScientificSummaryModule = function (options) {
         texts;
 
     fragment = document.createDocumentFragment();
-    ev = _this.model.get('event');
 
-    if (_textViews && _textViews.length) {
-      _textViews.forEach(function (view) {
-        view.destroy();
-      });
+    _this.clearLinks(true);
+    _this.clearTexts(true);
 
-      _textViews = null;
-    }
-
-    _textViews = [];
-
-    faults = ev.getProducts('finite-fault');
-    headers = ev.getProducts('scitech-header');
-    links = ev.getProducts('scitech-link');
-    mechs = ev.getProducts('focal-mechanism');
-    origins = _this.getOriginProducts(ev);
-    tensors = ev.getProducts('moment-tensor');
-    texts = ev.getProducts('scitech-text');
+    faults = _this.getProducts('finite-fault');
+    headers = _this.getProducts('scitech-header');
+    links = _this.getProducts('scitech-link');
+    mechs = _this.getProducts('focal-mechanism');
+    origins = _this.getOriginProducts(_this.model.get('event'));
+    tensors = _this.getProducts('moment-tensor');
+    texts = _this.getProducts('scitech-text');
 
     Util.empty(_this.header);
-    _this.header.appendChild(_this.getText(headers));
+    _this.header.appendChild(_this.getTexts(headers));
 
-    fragment.appendChild(_this.getOriginTable(origins));
-    fragment.appendChild(_this.getMomentTensorTable(tensors));
-    fragment.appendChild(_this.getFiniteFaultTable(faults));
-    fragment.appendChild(_this.getFocalMechanismTable(mechs));
-    fragment.appendChild(_this.getScitechLinks(links));
-    fragment.appendChild(_this.getText(texts));
+    fragment.appendChild(_this.getOriginSummary(origins));
+    fragment.appendChild(_this.getMomentTensorSummary(tensors));
+    fragment.appendChild(_this.getFiniteFaultSummary(faults));
+    fragment.appendChild(_this.getFocalMechanismSummary(mechs));
+    fragment.appendChild(_this.getTexts(texts));
+    fragment.appendChild(_this.getLinks(links));
 
     Util.empty(_this.content);
     _this.content.appendChild(fragment);

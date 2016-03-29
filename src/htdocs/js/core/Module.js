@@ -75,6 +75,31 @@ var Module = function (options) {
   }, _this.destroy);
 
   /**
+   * Remove "internal-" prefix and "-scenario" suffix from product "type".
+   *
+   * @param type {String}
+   *     The initial product type.
+   *
+   * @return {String}
+   *     The base product type without any known prefix or suffix.
+   */
+  _this.getBaseType = function (type) {
+    var base;
+
+    base = type;
+
+    if (base.startsWith('internal-')) {
+      base = base.replace('internal-', '');
+    }
+
+    if (base.endsWith('-scenario')) {
+      base = base.replace('-scenario', '');
+    }
+
+    return base;
+  };
+
+  /**
    * Get a product from the event based on module parameters and event config.
    *
    * Uses module parameters "source", "code", and optionally "updateTime".
@@ -117,6 +142,34 @@ var Module = function (options) {
       product = ev.getPreferredProduct(type);
     }
     return product;
+  };
+
+  /**
+   * Get all products of a specific type. If the config.SCENARIO_MODE, then
+   * get the -scenario variant of the specified type.
+   *
+   * @param type {String}
+   *     The base type of products to get.
+   *
+   * @return {Array}
+   *     An array of the matching type of product. This might be an empty array.
+   */
+  _this.getProducts = function (type) {
+    var config,
+        catalogEvent;
+
+    config = _this.model.get('config');
+    catalogEvent = _this.model.get('event');
+
+    if (config && config.SCENARIO_MODE === true) {
+      type += '-scenario';
+    }
+
+    if (catalogEvent) {
+      return catalogEvent.getProducts(type);
+    } else {
+      return [];
+    }
   };
 
   /**

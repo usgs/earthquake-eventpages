@@ -41,6 +41,7 @@ require('./spec/core/DownloadViewTest');
 require('./spec/core/EventPageTest');
 require('./spec/core/FormatterTest');
 require('./spec/core/LinkProductViewTest');
+require('./spec/core/SummaryModuleTest');
 require('./spec/core/TextProductViewTest');
 
 require('./spec/dyfi/DYFIFormModuleTest');
@@ -59,6 +60,8 @@ require('./spec/general/GeneralSummaryModuleTest');
 require('./spec/general/GeoserveNearbyPlacesViewTest');
 require('./spec/general/GeoserveRegionSummaryViewTest');
 require('./spec/general/NearbyPlacesViewTest');
+
+require('./spec/impact/ImpactSummaryModuleTest');
 
 require('./spec/losspager/PAGERViewTest');
 require('./spec/losspager/PagerXmlParserTest');
