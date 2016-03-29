@@ -49,20 +49,21 @@ var _DEFAULTS = {
   ],
   'redirects': {
     // General
-    'general_summary': 'general',
-    'general_map': 'map',
+    'general_summary': GeneralSummaryModule.ID,
+    'general_map': InteractiveMapModule.ID,
     // Impact
-    'impact_summary': 'impact',
-    'impact_tellus': 'tellus',
-    'impact_dyfi': 'dyfi',
-    'impact_shakemap': 'shakemap',
-    'impact_pager': 'pager',
+    'impact_summary': ImpactSummaryModule.ID,
+    'impact_tellus': DYFIFormModule.ID,
+    'impact_dyfi': DYFIModule.ID,
+    'impact_shakemap': ShakeMapModule.ID,
+    'impact_pager': PAGERModule.ID,
     // Scientific
-    'scientific_origin': 'origin',
-    'scientific_moment-tensor': 'moment-tensor',
-    'scientific_focal-mechanism': 'focal-mechanism',
-    'scientific_finite-fault': 'finite-fault',
-    'scientific_waveforms': 'waveform'
+    'scientific_summary': ScientificSummaryModule.ID,
+    'scientific_origin': OriginModule.ID,
+    'scientific_moment-tensor': MomentTensorModule.ID,
+    'scientific_focal-mechanism': FocalMechanismModule.ID,
+    'scientific_finite-fault': FiniteFaultModule.ID,
+    'scientific_waveforms': WaveformModule.ID
   }
 };
 
