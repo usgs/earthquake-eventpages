@@ -61,6 +61,8 @@ require('./spec/general/GeoserveNearbyPlacesViewTest');
 require('./spec/general/GeoserveRegionSummaryViewTest');
 require('./spec/general/NearbyPlacesViewTest');
 
+require('./spec/impact/ImpactSummaryModuleTest');
+
 require('./spec/losspager/PAGERViewTest');
 require('./spec/losspager/PagerXmlParserTest');
 
