@@ -46,12 +46,10 @@ var WaveformModule = function (options) {
       _irisServiceUrl,
       _irisSpudUrl,
       _irisWilberUrl,
-      _scientific,
       _waveformContentEl;
 
   options = Util.extend({}, _DEFAULTS, options);
   _this = Module(options);
-  _scientific = ScientificSummaryModule();
 
   _initialize = function () {
     _this.ID = _ID;
@@ -70,7 +68,6 @@ var WaveformModule = function (options) {
     _this = null;
 
     _waveformContentEl = null;
-    _scientific = null;
     _irisWilberUrl= null;
     _irisSpudUrl = null;
     _irisServiceUrl = null;
@@ -168,7 +165,8 @@ var WaveformModule = function (options) {
 
     _this.header.innerHTML = '<h3>Waveforms</h3>' +
         '<a class="back-to-summary-link"' +
-        ' href="#' + _scientific.ID + '">Back to ' + _scientific.TITLE + '</a>';
+        ' href="#' + ScientificSummaryModule.ID + '">Back to ' +
+        ScientificSummaryModule.TITLE + '</a>';
 
     search = _this.getSearch();
 
