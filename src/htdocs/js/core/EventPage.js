@@ -197,24 +197,24 @@ var EventPage = function (options) {
     var link,
         kmlURL;
 
-    if (_config.KML_STUB) {
+    if (_event && _config.KML_STUB) {
       kmlURL = _config.KML_STUB.replace('%s',
           _event.getEventId());
-      link = document.createElement('a');
 
+      link = document.createElement('a');
       link.setAttribute('class', 'kml-download');
       link.setAttribute('href', kmlURL);
-      link.innerHTML = 'Download KML';
-
+      link.innerHTML = 'Download Event KML';
       el.appendChild(link);
     }
 
-    link = document.createElement('a');
-    link.setAttribute('class', 'latest-earthquakes');
-    link.setAttribute('href', '/earthquakes/map/');
-    link.innerHTML = 'Latest Earthquakes';
-
-    el.appendChild(link);
+    if (!_this.isScenarioMode()) {
+      link = document.createElement('a');
+      link.setAttribute('class', 'latest-earthquakes');
+      link.setAttribute('href', '/earthquakes/map/');
+      link.innerHTML = 'Latest Earthquakes';
+      el.appendChild(link);
+    }
   };
 
   /**
