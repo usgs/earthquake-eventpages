@@ -480,10 +480,28 @@ var EventPage = function (options) {
   };
 
   _this.renderFooter = function () {
-    // TODO :: Additional information links. Maybe scenario link goes here
-    //         as well.
-    _this.footer.innerHTML = '<h3>Contributors</h3>' +
-        Attribution.getContributorList();
+    var markup;
+
+    markup = [
+      '<h3>Contributors</h3>',
+      Attribution.getContributorList(),
+      '<h3>Additional Information</h3>',
+      '<ul>',
+        '<li>',
+          '<a href="/data/comcat/">',
+            'About ANSS Comprehensive Catalog (ComCat)',
+          '</a>',
+        '</li>',
+        '<li><a href="terms.php">Technical terms used on event pages</a></li>',
+    ];
+
+    if (_this.isScenarioMode()) {
+      markup.push('<li><a href="/scenarios/">Scenario Home Page</a></li>');
+    }
+
+    markup.push('</ul>');
+
+    _this.footer.innerHTML = markup.join('');
   };
 
   _this.renderHeader = function () {
