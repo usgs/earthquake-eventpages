@@ -486,20 +486,25 @@ var EventPage = function (options) {
       '<h3>Contributors</h3>',
       Attribution.getContributorList(),
       '<h3>Additional Information</h3>',
-      '<ul>',
-        '<li>',
-          '<a href="/data/comcat/">',
-            'About ANSS Comprehensive Catalog (ComCat)',
-          '</a>',
-        '</li>',
-        '<li><a href="terms.php">Technical terms used on event pages</a></li>',
+      '<ul>'
     ];
 
     if (_this.isScenarioMode()) {
       markup.push('<li><a href="/scenarios/">Scenario Home Page</a></li>');
+    } else {
+      markup.push(
+        '<li>',
+          '<a href="/data/comcat/">',
+            'About ANSS Comprehensive Catalog (ComCat)',
+          '</a>',
+        '</li>');
     }
 
-    markup.push('</ul>');
+    markup.push(
+      '<li>',
+        '<a href="terms.php">Technical terms used on event pages</a>',
+      '</li>',
+      '</ul>');
 
     _this.footer.innerHTML = markup.join('');
   };
