@@ -81,7 +81,7 @@ var InteractiveMapModule = function (options) {
     _modal.el.classList.add('modal-map');
     _this.appendCloseButton();
 
-    if (true || config && config.SCENARIO_MODE === 'true') {
+    if (config && config.SCENARIO_MODE === true) {
       _this.appendScenarioBadge();
     }
 
