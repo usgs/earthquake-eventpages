@@ -191,7 +191,8 @@ var DYFIView = function (options) {
     var subview;
 
     subview = params.constructor({
-      model: params.content
+      model: params.content,
+      products: _this.model
     });
 
     return {
