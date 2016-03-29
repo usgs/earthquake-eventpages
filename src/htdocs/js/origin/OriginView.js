@@ -137,7 +137,10 @@ var OriginView = function (options) {
  * Once load is complete, _buildFeRegionView is called.
  */
   _this.getFeRegion = function () {
-    var geoserveJson;
+    var geoserveJson,
+        that;
+
+    that = _this;
 
     if (_geoserve) {
       geoserveJson = _geoserve.getContent('geoserve.json');
@@ -148,10 +151,10 @@ var OriginView = function (options) {
       Xhr.ajax({
         url: geoserveJson.get('url'),
         success: function (geoserve) {
-          _this.formatFeRegion(geoserve.fe);
+          that.formatFeRegion(geoserve.fe);
         },
         error: function () {
-          _this.formatFeRegion(null);
+          that.formatFeRegion(null);
         }
       });
     } else {
@@ -348,7 +351,7 @@ var OriginView = function (options) {
     }
 
     // set the (massaged) fe object
-    _geoserve.set({
+    _region.set({
       'regions': {
         'fe': {
           'features': [
