@@ -9,7 +9,8 @@
     padding: 0;
   }
 
-  > .modal-close {
+  > .modal-close,
+  > .scenario-badge {
     bottom: 0;
     margin-bottom: 1em;
     left: 50%;
@@ -18,5 +19,15 @@
     position: absolute;
     text-align: center;
     width: 16em;
+  }
+
+  > .scenario-badge {
+    background-color: #fdf7dc;
+    border-radius: 2px;
+    bottom: auto;
+    margin: 10px 0 0 -3em;
+    padding: .25em 0;
+    width: 6em;
+    top: 0;
   }
 }
