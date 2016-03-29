@@ -92,7 +92,7 @@ describe('core/SummaryModule', function () {
       container.appendChild(module.createSummary([0, 1], 'Foo',
           ['Label 0', 'Label 1'], module.createRow));
 
-      expect(container.querySelectorAll('h2').length)
+      expect(container.querySelectorAll('h3').length)
           .to.equal(1);
       expect(container.querySelectorAll('.horizontal-scrolling').length)
           .to.equal(1);

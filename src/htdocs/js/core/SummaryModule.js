@@ -136,7 +136,7 @@ var SummaryModule = function (options) {
     fragment = document.createDocumentFragment();
 
     if (products.length && labels.length) {
-      header = fragment.appendChild(document.createElement('h2'));
+      header = fragment.appendChild(document.createElement('h3'));
       wrapper = fragment.appendChild(document.createElement('div'));
       table = wrapper.appendChild(document.createElement('table'));
       thead = table.appendChild(document.createElement('thead'));
