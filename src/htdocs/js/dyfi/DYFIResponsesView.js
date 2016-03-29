@@ -153,6 +153,8 @@ var DYFIResponsesView = function (options) {
       _initialize,
 
       _button,
+      _formatter,
+      _product,
       _responses,
       _responseTable,
       _responseTableEl;
@@ -163,6 +165,8 @@ var DYFIResponsesView = function (options) {
 
   _initialize = function () {
     _button = null;
+    _formatter = options.formatter || Formatter();
+    _product = options.products || null;
     _responseTable = null;
     _responseTableEl = null;
   };
@@ -179,6 +183,28 @@ var DYFIResponsesView = function (options) {
     _button.className = 'view-all';
     _button.addEventListener('click', _this.onToggleButtonClick);
     container.appendChild(_button);
+  };
+
+  _this.addDownloadLink = function(container) {
+    var element,
+        file,
+        link,
+        size,
+        url;
+
+    if (!_product) {
+      return;
+    }
+    element = container.querySelector('.datatable-tools');
+    file = _product.get('contents').get('cdi_zip.txt');
+    size = _formatter.fileSize(file.get('length'));
+    url = file.get('url');
+
+
+    link = container.insertBefore(document.createElement('a'),element);
+    link.innerHTML = 'Download DYFI Responses (' + size + ')';
+    link.className = 'download-link download-file';
+    link.setAttribute('href', url);
   };
 
   /**
@@ -296,6 +322,8 @@ var DYFIResponsesView = function (options) {
     if (_responses.data().length > 10) {
       _this.addToggleButton(_this.el);
     }
+
+    _this.addDownloadLink(_this.el);
   };
 
   /**

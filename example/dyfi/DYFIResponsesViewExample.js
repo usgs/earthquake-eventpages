@@ -15,7 +15,8 @@ Xhr.ajax({
 
     DYFIResponsesView({
       el: document.querySelector('#dyfiresponses-view-example'),
-      model: product.getContent('cdi_zip.xml')
+      model: product.getContent('cdi_zip.xml'),
+      products: product
     }).render();
   },
   error: function () {
