@@ -314,7 +314,6 @@ var ShakeMapInfoView = function (options) {
     _this.el.innerHTML = '<p class="alert error">' +
         'Unable to load ShakeMap information' +
       '</p>';
-    console.log(arguments);
   };
 
   /**

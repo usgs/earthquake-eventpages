@@ -356,7 +356,6 @@ var EventPage = function (options) {
   _this.onBack = function () {
     if (_hasPrevious) {
       // there is a previous module to render
-      console.log('window history going back');
       window.history.back();
     } else {
       window.location.hash = '#' + _config.defaultModule;
