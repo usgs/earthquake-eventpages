@@ -185,9 +185,37 @@ var EventPage = function (options) {
       group = null;
     }
 
-    // TODO :: Add one-off links to navigation ...
+    _this.createLinks(_navEl);
   };
 
+  /**
+   * Adds Links to the bottom of the navigation.
+   * @params el {DOMElement}
+   *    The element to add the links to.
+   */
+  _this.createLinks = function(el) {
+    var link,
+        kmlURL;
+
+    if (_config.KML_STUB) {
+      kmlURL = _config.KML_STUB.replace('%s',
+          _event.getEventId());
+      link = document.createElement('a');
+
+      link.setAttribute('class', 'kml-download');
+      link.setAttribute('href', kmlURL);
+      link.innerHTML = 'Download KML';
+
+      el.appendChild(link);
+    }
+
+    link = document.createElement('a');
+    link.setAttribute('class', 'latest-earthquakes');
+    link.setAttribute('href', '/earthquakes/map/');
+    link.innerHTML = 'Latest Earthquakes';
+
+    el.appendChild(link);
+  };
 
   /**
    * Unbind event listeners and free references.
