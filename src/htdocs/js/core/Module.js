@@ -165,7 +165,11 @@ var Module = function (options) {
       type += '-scenario';
     }
 
-    return catalogEvent.getProducts(type);
+    if (catalogEvent) {
+      return catalogEvent.getProducts(type);
+    } else {
+      return [];
+    }
   };
 
   /**
