@@ -5,9 +5,10 @@ var Module = require('core/Module'),
     Xhr = require('util/Xhr');
 
 var _DEFAULTS,
-    _hasContent,
     _ID,
-    _TITLE;
+    _TITLE,
+
+    _hasContent;
 
 
 _DEFAULTS = {
@@ -161,7 +162,9 @@ var WaveformModule = function (options) {
   _this.render = function () {
     var search;
 
-    _this.header.innerHTML = '<h3>Waveforms</h3>';
+    _this.header.innerHTML = '<h3>Waveforms</h3>' +
+        '<a class="back-to-summary-link"' +
+        ' href="#scientific">Back to Scientific Summary</a>';
 
     search = _this.getSearch();
 
@@ -185,7 +188,7 @@ var WaveformModule = function (options) {
             'IRIS Seismic Waveform Data (Wilber 3)',
           '</a>',
         '</dt>',
-        '<dd>',
+        '<dd class="iris-waveforms">',
           'Wilber 3 locates stations in operation at the time of the event,',
           ' allows users to filter stations, preview waveform data, and',
           ' view record section plots. Data can be downloaded in a',
