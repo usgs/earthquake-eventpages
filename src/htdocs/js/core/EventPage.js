@@ -57,9 +57,6 @@ var EventPage = function (options) {
       _currentModule,
       _el,
       _event,
-      _eventContentEl,
-      _eventFooterEl,
-      _eventHeaderEl,
       _formatter,
       _hasPrevious,
       _model,
@@ -69,9 +66,7 @@ var EventPage = function (options) {
       _createNavItem,
       _initializeModules,
       _onHashChange,
-      _parseHash,
-      _renderFooterContent,
-      _renderHeaderContent;
+      _parseHash;
 
 
   _this = Events();
@@ -96,11 +91,11 @@ var EventPage = function (options) {
     _el = options.el || document.createElement('div');
     _navEl = options.nav || document.createElement('nav');
 
-    _eventHeaderEl = _el.querySelector('.event-header') ||
+    _this.header = _el.querySelector('.event-header') ||
         document.createElement('div');
-    _eventContentEl = _el.querySelector('.event-content') ||
+    _this.content = _el.querySelector('.event-content') ||
         document.createElement('div');
-    _eventFooterEl = _el.querySelector('.event-footer') ||
+    _this.footer = _el.querySelector('.event-footer') ||
         document.createElement('div');
 
     _model = Model({
@@ -110,8 +105,8 @@ var EventPage = function (options) {
 
     // Creates the mapping for later
     _initializeModules();
-    _renderHeaderContent();
-    Attribution.whenReady(_renderFooterContent); // Need to wait ...
+    _this.renderHeader();
+    Attribution.whenReady(_this.renderFooter); // Need to wait ...
 
     // render module
     Events.on('back', 'onBack', _this);
@@ -219,17 +214,12 @@ var EventPage = function (options) {
     _initializeModules = null;
     _onHashChange = null;
     _parseHash = null;
-    _renderFooterContent = null;
-    _renderHeaderContent = null;
 
     // variables
     _config = null;
     _currentModule = null;
     _el = null;
     _event = null;
-    _eventContentEl = null;
-    _eventFooterEl = null;
-    _eventHeaderEl = null;
     _formatter = null;
     _hasPrevious = false;
     _model = null;
@@ -422,7 +412,7 @@ var EventPage = function (options) {
     // if no current module, create module with model and module content element
     if (!_currentModule) {
       _currentModule = _modules[module]({
-        el: _eventContentEl,
+        el: _this.content,
         formatter: _formatter,
         model: _model
       });
@@ -490,18 +480,92 @@ var EventPage = function (options) {
     };
   };
 
-  _renderFooterContent = function () {
+  _this.renderFooter = function () {
     // TODO :: Additional information links. Maybe scenario link goes here
     //         as well.
-    _eventFooterEl.innerHTML = '<h3>Contributors</h3>' +
+    _this.footer.innerHTML = '<h3>Contributors</h3>' +
         Attribution.getContributorList();
   };
 
-  _renderHeaderContent = function () {
-    // TODO :: Impact summary bubbles and other header info, maybe scenario
-    //         alert goes here as well.
-    _eventHeaderEl.innerHTML = '<h2>Event Page Header</h2>' +
-        '<div class="module-settings"></div>';
+  _this.renderHeader = function () {
+    var alertlevel,
+        buf,
+        cdi,
+        impactBuf,
+        mmi,
+        props,
+        summary,
+        tsunami;
+
+    buf = [];
+    if (_event) {
+      summary = _event.getSummary();
+      props = summary.properties;
+
+      // TODO: uncomment this line
+      // buf.push('<h2>', _formatter.datetime(props.time, 0), '</h2>');
+
+      alertlevel = props.alert;
+      cdi = props.cdi;
+      mmi = props.mmi;
+      tsunami = props.tsunami;
+      impactBuf = [];
+
+      if (cdi !== null) {
+        cdi = _formatter.mmi(cdi);
+        impactBuf.push('<a href="#dyfi"' +
+            ' class="mmi' + cdi + '"' +
+            ' title="Did You Feel It? maximum reported intensity"' +
+            '>' +
+              '<strong class="roman">' + cdi + '</strong>' +
+              '<br/>' +
+              '<abbr title="Did You Feel It?">DYFI?</abbr>' +
+            '</a>');
+      }
+
+      if (mmi !== null) {
+        mmi = _formatter.mmi(mmi);
+        impactBuf.push('<a href="#shakemap"' +
+            ' class="mmi' + mmi + '"' +
+            ' title="ShakeMap maximum estimated intensity"' +
+            '>' +
+              '<strong class="roman">' + mmi + '</strong>' +
+              '<br/>' +
+              '<abbr title="ShakeMap">ShakeMap</abbr>' +
+            '</a>');
+      }
+      if (alertlevel !== null) {
+        impactBuf.push('<a href="#pager"' +
+            ' class="pager-alertlevel-' + alertlevel.toLowerCase() + '"' +
+            ' title="PAGER estimated impact alert level"' +
+            '>' +
+              '<strong class="roman">' +
+                alertlevel.toUpperCase() +
+              '</strong>' +
+              '<abbr title="' +
+                  'Prompt Assessment of Global Earthquakes for Response' +
+                  '">PAGER</abbr>' +
+            '</a>');
+      }
+      if (tsunami > 0) {
+        impactBuf.push('<a href="http://www.tsunami.gov/"' +
+            ' class="tsunami"' +
+            ' title="Tsunami Warning Center"' +
+            '>' +
+              '<img src="images/logos/tsunami.jpg"' +
+                  ' alt="Tsunami Warning Center"/>' +
+            '</a>');
+      }
+      if (impactBuf.length > 0) {
+        buf.push('<div class="impact-bubbles clearfix">' +
+            impactBuf.join('') +
+            '</div>');
+      }
+    }
+
+    // TODO :: scenario alert goes here as well.
+
+    _this.header.innerHTML = buf.join('');
   };
 
 

@@ -1,6 +1,12 @@
-.event-header {
 
+.event-header {
   > .impact-bubbles {
+
+    &:after {
+      clear: both;
+      content: ' ';
+      display: block;
+    }
 
     > a {
       background-color: #fff;
@@ -35,6 +41,8 @@
 
       > strong {
         font-size: .8125em;
+        /* for pager "pending" alert level */
+        white-space: nowrap;
       }
     }
 
