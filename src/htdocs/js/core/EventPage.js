@@ -502,9 +502,6 @@ var EventPage = function (options) {
       summary = _event.getSummary();
       props = summary.properties;
 
-      // TODO: uncomment this line
-      // buf.push('<h2>', _formatter.datetime(props.time, 0), '</h2>');
-
       alertlevel = props.alert;
       cdi = props.cdi;
       mmi = props.mmi;
@@ -542,6 +539,7 @@ var EventPage = function (options) {
               '<strong class="roman">' +
                 alertlevel.toUpperCase() +
               '</strong>' +
+              '<br/>' +
               '<abbr title="' +
                   'Prompt Assessment of Global Earthquakes for Response' +
                   '">PAGER</abbr>' +
