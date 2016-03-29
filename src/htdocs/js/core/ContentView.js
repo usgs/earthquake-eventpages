@@ -1,6 +1,7 @@
 'use strict';
 
-var View = require('mvc/View'),
+var Util = require('util/Util'),
+    View = require('mvc/View'),
     Xhr = require('util/Xhr');
 
 
@@ -11,11 +12,19 @@ var View = require('mvc/View'),
  *     all options are passed to mvc/View.
  */
 var ContentView = function (options) {
-  var _this;
+  var _this,
+
+      _xhr;
 
   _this = View(options);
 
-  // TODO: render summary information
+  _this.destroy = Util.compose(function () {
+    if (_xhr) {
+      _xhr.abort();
+      _xhr = null;
+    }
+    _this = null;
+  }, _this.destroy);
 
   /**
    * Asynchronous method to fetch the data associated with _this.model {Content}
@@ -30,12 +39,21 @@ var ContentView = function (options) {
     data = _this.model.get('bytes');
     if (data !== null) {
       // force async
-      setTimeout(function () { _this.onSuccess(data, null); }, 0);
+      setTimeout(function () {
+        if (_this) {
+          _this.onSuccess(data, null);
+        } else {
+          console.log(data);
+        }
+      }, 0);
     } else {
-      Xhr.ajax({
+      _xhr = Xhr.ajax({
         url: _this.model.get('url'),
         success: _this.onSuccess,
-        error: _this.onError
+        error: _this.onError,
+        done: function () {
+          _xhr = null;
+        }
       });
     }
   };
