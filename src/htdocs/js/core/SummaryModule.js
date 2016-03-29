@@ -125,7 +125,7 @@ var SummaryModule = function (options) {
    *     A document fragment containing the section summary, this could be
    *     empty if no products or labels are provided.
    */
-  _this.createTable = function (products, title, labels, callback) {
+  _this.createSummary = function (products, title, labels, callback) {
     var fragment,
         header,
         table,

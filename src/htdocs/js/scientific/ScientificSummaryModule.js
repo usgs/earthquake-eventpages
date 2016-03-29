@@ -95,13 +95,13 @@ var ScientificSummaryModule = function (options) {
    *     A (potentially empty) document fragment containing the summary for
    *     the given set of products.
    */
-  _this.getFiniteFaultTable = function (products) {
-    return _this.createTable(products, 'Finite Fault', [
+  _this.getFiniteFaultSummary = function (products) {
+    return _this.createSummary(products, 'Finite Fault', [
         'Catalog',
         'Preview',
         'Source'
       ],
-      _this.getFiniteFaultTableRow
+      _this.getFiniteFaultRow
     );
   };
 
@@ -117,7 +117,7 @@ var ScientificSummaryModule = function (options) {
    * @return {DOMElement}
    *     A TR DOM element.
    */
-  _this.getFiniteFaultTableRow = function (product, index) {
+  _this.getFiniteFaultRow = function (product, index) {
     var map,
         preferred,
         row;
@@ -151,15 +151,15 @@ var ScientificSummaryModule = function (options) {
    *     A (potentially empty) document fragment containing the summary for
    *     the given set of products.
    */
-  _this.getFocalMechanismTable = function (products) {
-    return _this.createTable(products, 'Focal Mechanism', [
+  _this.getFocalMechanismSummary = function (products) {
+    return _this.createSummary(products, 'Focal Mechanism', [
         'Catalog',
         'Mechanism',
         'Nodal Plan 1<br/><small>Strike, Dip, Rake</small>',
         'Nodal Plan 1<br/><small>Strike, Dip, Rake</small>',
         'Source'
       ],
-      _this.getFocalMechanismTableRow);
+      _this.getFocalMechanismRow);
   };
 
   /**
@@ -174,7 +174,7 @@ var ScientificSummaryModule = function (options) {
    * @return {DOMElement}
    *     A TR DOM element.
    */
-  _this.getFocalMechanismTableRow = function (product, index) {
+  _this.getFocalMechanismRow = function (product, index) {
     var beachball,
         np1,
         np2,
@@ -244,8 +244,8 @@ var ScientificSummaryModule = function (options) {
    *     A (potentially empty) document fragment containing the summary for
    *     the given set of products.
    */
-  _this.getMomentTensorTable = function (products) {
-    return _this.createTable(products, 'Moment Tensor', [
+  _this.getMomentTensorSummary = function (products) {
+    return _this.createSummary(products, 'Moment Tensor', [
         'Catalog',
         'Tensor',
         'Magnitude',
@@ -253,7 +253,7 @@ var ScientificSummaryModule = function (options) {
         '% <abbr title="Double Couple">DC</abbr>',
         'Source'
       ],
-      _this.getMomentTensorTableRow
+      _this.getMomentTensorRow
     );
   };
 
@@ -269,7 +269,7 @@ var ScientificSummaryModule = function (options) {
    * @return {DOMElement}
    *     A TR DOM element.
    */
-  _this.getMomentTensorTableRow = function (product, index) {
+  _this.getMomentTensorRow = function (product, index) {
     var beachball,
         preferred,
         row,
@@ -364,11 +364,11 @@ var ScientificSummaryModule = function (options) {
    *     A (potentially empty) document fragment containing the summary for
    *     the given set of products.
    */
-  _this.getOriginTable = function (products) {
-    return _this.createTable(products, 'Origin', ['Catalog',
+  _this.getOriginSummary = function (products) {
+    return _this.createSummary(products, 'Origin', ['Catalog',
         '<abbr title="Magnitude">Mag</abbr>', 'Time', 'Depth', 'Status',
         'Location', 'Source'],
-        _this.getOriginTableRow);
+        _this.getOriginRow);
   };
 
   /**
@@ -383,7 +383,7 @@ var ScientificSummaryModule = function (options) {
    * @return {DOMElement}
    *     A TR DOM element.
    */
-  _this.getOriginTableRow = function (product, index) {
+  _this.getOriginRow = function (product, index) {
     var eventTime,
         preferred,
         row;
@@ -457,10 +457,10 @@ var ScientificSummaryModule = function (options) {
     Util.empty(_this.header);
     _this.header.appendChild(_this.getTexts(headers));
 
-    fragment.appendChild(_this.getOriginTable(origins));
-    fragment.appendChild(_this.getMomentTensorTable(tensors));
-    fragment.appendChild(_this.getFiniteFaultTable(faults));
-    fragment.appendChild(_this.getFocalMechanismTable(mechs));
+    fragment.appendChild(_this.getOriginSummary(origins));
+    fragment.appendChild(_this.getMomentTensorSummary(tensors));
+    fragment.appendChild(_this.getFiniteFaultSummary(faults));
+    fragment.appendChild(_this.getFocalMechanismSummary(mechs));
     fragment.appendChild(_this.getTexts(texts));
     fragment.appendChild(_this.getLinks(links));
 

@@ -55,7 +55,7 @@ describe('core/SummaryModule', function () {
     });
   });
 
-  describe('createTable', function () {
+  describe('createSummary', function () {
     var module;
 
     afterEach(function () {
@@ -71,14 +71,14 @@ describe('core/SummaryModule', function () {
 
       // No products
       container = document.createElement('div');
-      container.appendChild(module.createTable([], 'Foo', ['Label 1'],
+      container.appendChild(module.createSummary([], 'Foo', ['Label 1'],
           function () {}));
 
       expect(container.innerHTML).to.equal('');
       expect(container.childNodes.length).to.equal(0);
 
       // No labels
-      container.appendChild(module.createTable([0], 'Foo', [],
+      container.appendChild(module.createSummary([0], 'Foo', [],
           function () {}));
 
       expect(container.innerHTML).to.equal('');
@@ -89,7 +89,7 @@ describe('core/SummaryModule', function () {
       var container;
 
       container = document.createElement('div');
-      container.appendChild(module.createTable([0, 1], 'Foo',
+      container.appendChild(module.createSummary([0, 1], 'Foo',
           ['Label 0', 'Label 1'], module.createRow));
 
       expect(container.querySelectorAll('h2').length)
@@ -106,7 +106,7 @@ describe('core/SummaryModule', function () {
 
       spy = sinon.spy(function () { return document.createElement('row'); });
 
-      module.createTable([0], 'Foo', ['Label'], spy);
+      module.createSummary([0], 'Foo', ['Label'], spy);
       expect(spy.callCount).to.equal(1);
     });
   });
