@@ -1,7 +1,6 @@
 'use strict';
 
-var AccordionView = require('core/AccordionView'),
-    Formatter = require('core/Formatter'),
+var Formatter = require('core/Formatter'),
     GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
     GeoserveRegionSummaryView = require('general/GeoserveRegionSummaryView'),
     LinkProductView = require('core/LinkProductView'),
@@ -44,6 +43,7 @@ var GeneralSummaryModule = function (options) {
       _initialize,
 
       _formatter,
+      _generalHeaderViews,
       _generalLinkEl,
       _generalLinkViews,
       _generalTextEl,
@@ -98,17 +98,29 @@ var GeneralSummaryModule = function (options) {
 
     ev = _this.model.get('event');
 
+    _this.renderHeader(ev);
     _this.renderLocation(ev);
     _this.renderTime(ev);
     _this.renderNearbyPlaces(ev);
     _this.renderGeneralText(ev);
     _this.renderTectonicSummary(ev);
     _this.renderGeneralLink(ev);
+    _this.renderFooter(ev);
   };
 
+  /**
+   * Free references.
+   */
   _this.destroy = Util.compose(function () {
     _this = null;
     _initialize = null;
+
+    if (_generalHeaderViews) {
+      _generalHeaderViews.forEach(function (view) {
+        view.destroy();
+      });
+      _generalHeaderViews = null;
+    }
 
     if (_generalLinkViews) {
       _generalLinkViews.forEach(function (view) {
@@ -160,6 +172,41 @@ var GeneralSummaryModule = function (options) {
     uri = encodeURI(uri);
 
     return '<a target="_blank" href="' + uri + '">Times in other timezones</a>';
+  };
+
+  /**
+   * Render module footer.
+   *
+   * @param ev {CatalogEvent}
+   *     the event.
+   */
+  _this.renderFooter = function (ev) {
+    var downloads,
+        product,
+        phase;
+
+    Util.empty(_this.footer);
+    if (!ev) {
+      return;
+    }
+
+    product = ev.getPreferredOriginProduct();
+    if (product) {
+      phase = ev.getProductById('phase-data', product.get('source'),
+          product.get('code'));
+      if (phase) {
+        product = phase;
+      }
+    }
+
+    if (product) {
+      downloads = _this.getProductFooter({
+        product: product
+      });
+      if (downloads) {
+        _this.footer.appendChild(downloads);
+      }
+    }
   };
 
   /**
@@ -218,6 +265,7 @@ var GeneralSummaryModule = function (options) {
       _generalTextViews = null;
     }
 
+    Util.empty(_generalTextEl);
     if (!ev) {
       return;
     }
@@ -226,12 +274,46 @@ var GeneralSummaryModule = function (options) {
       return;
     }
 
-    _generalTextViews = [];
-    Util.empty(_generalTextEl);
     _generalTextViews = texts.map(function (product) {
       var view;
       view = TextProductView({
         el: _generalTextEl.appendChild(document.createElement('section')),
+        model: product
+      });
+      view.render();
+      return view;
+    });
+  };
+
+  /**
+   * Render module header.
+   *
+   * @param ev {CatalogEvent}
+   *     the event.
+   */
+  _this.renderHeader = function (ev) {
+    var products;
+
+    if (_generalHeaderViews) {
+      _generalHeaderViews.forEach(function (view) {
+        view.destroy();
+      });
+      _generalHeaderViews = null;
+    }
+
+    Util.empty(_this.header);
+    if (!ev) {
+      return;
+    }
+    products = ev.getProducts('general-header');
+    if (products.length === 0) {
+      return;
+    }
+
+    _generalHeaderViews = products.map(function (product) {
+      var view;
+      view = TextProductView({
+        el: _this.header.appendChild(document.createElement('section')),
         model: product
       });
       view.render();
@@ -298,7 +380,9 @@ var GeneralSummaryModule = function (options) {
    *     the event.
    */
   _this.renderTectonicSummary = function (ev) {
-    var product;
+    var eventtype,
+        product,
+        summary;
 
     if (_tectonicSummaryView) {
       _tectonicSummaryView.destroy();
@@ -310,16 +394,29 @@ var GeneralSummaryModule = function (options) {
       return;
     }
 
-    product = ev.getPreferredOriginProduct();
-    if (product && product.getProperty('eventtype') !== 'sonic boom') {
-      _tectonicSummaryView = AccordionView({
+    summary = ev.getSummary();
+    eventtype = summary.properties.type;
+    if (eventtype === 'sonic boom') {
+      // do not show tectonic summary on sonic boom events.
+      return;
+    }
+
+    product = ev.getPreferredProduct('tectonic-summary');
+    if (product) {
+      _tectonicSummaryView = TextProductView({
+        contentPath: 'tectonic-summary.inc.html',
         el: _tectonicSummaryEl,
-        toggleElement: 'h3',
-        toggleText: 'Regional Tectonic Summary',
-        view: GeoserveRegionSummaryView({
-          model: product
-        })
+        model: product
       });
+    } else {
+      product = ev.getPreferredOriginProduct();
+      _tectonicSummaryView = GeoserveRegionSummaryView({
+        el: _tectonicSummaryEl,
+        model: product
+      });
+    }
+
+    if (_tectonicSummaryView) {
       _tectonicSummaryView.render();
     }
   };
@@ -345,7 +442,7 @@ var GeneralSummaryModule = function (options) {
     time = new Date(product.getProperty('eventtime'));
     systemTimezoneOffset = new Date().getTimezoneOffset() * -1;
     title = ev.getSummary().properties.title;
-    console.log(ev.getSummary());
+
     _timeEl.innerHTML =
         '<h3>Time</h3>' +
         '<ol class="no-style">' +
