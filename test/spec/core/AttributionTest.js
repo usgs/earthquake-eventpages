@@ -56,13 +56,15 @@ describe('core/Attribution', function () {
 
       // First make sure it skips if the same
       product = Product(eventDetails.properties.products.origin[0]);
+      product.setProperty({'origin-source': product.get('source')});
+      product.setProperty({'magnitude-source': product.get('source')});
+      product.setProperty({'beachball-source': product.get('source')});
 
-      product.set({'origin-source': product.get('source')});
       result.innerHTML = Attribution.getProductAttribution(product);
       expect(result.childNodes.length).to.equal(1);
 
       // Now make sure it adds if different
-      product.set({'origin-source': 'nc'});
+      product.setProperty({'origin-source': 'nc'});
       result.innerHTML = Attribution.getProductAttribution(product);
       expect(result.childNodes.length).to.equal(2);
     });
@@ -75,13 +77,15 @@ describe('core/Attribution', function () {
 
       // First make sure it skips if the same
       product = Product(eventDetails.properties.products.origin[0]);
+      product.setProperty({'origin-source': product.get('source')});
+      product.setProperty({'magnitude-source': product.get('source')});
+      product.setProperty({'beachball-source': product.get('source')});
 
-      product.set({'magnitude-source': product.get('source')});
       result.innerHTML = Attribution.getProductAttribution(product);
       expect(result.childNodes.length).to.equal(1);
 
       // Now make sure it adds if different
-      product.set({'magnitude-source': 'nc'});
+      product.setProperty({'magnitude-source': 'nc'});
       result.innerHTML = Attribution.getProductAttribution(product);
       expect(result.childNodes.length).to.equal(2);
     });
@@ -94,13 +98,15 @@ describe('core/Attribution', function () {
 
       // First make sure it skips if the same
       product = Product(eventDetails.properties.products['moment-tensor'][0]);
+      product.setProperty({'origin-source': product.get('source')});
+      product.setProperty({'magnitude-source': product.get('source')});
+      product.setProperty({'beachball-source': product.get('source')});
 
-      product.set({'beachball-source': product.get('source')});
       result.innerHTML = Attribution.getProductAttribution(product);
       expect(result.childNodes.length).to.equal(1);
 
       // Now make sure it adds if different
-      product.set({'beachball-source': 'nc'});
+      product.setProperty({'beachball-source': 'nc'});
       result.innerHTML = Attribution.getProductAttribution(product);
       expect(result.childNodes.length).to.equal(2);
     });
