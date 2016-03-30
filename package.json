@@ -49,7 +49,7 @@
     "postcss-calc": "^5.0.0",
     "postcss-import": "^7.1.0",
     "precss": "^1.3.0",
-    "quakeml-parser-js": "0.0.2",
+    "quakeml-parser-js": "usgs/quakeml-parser-js",
     "sinon": "^1.17.1"
   },
   "engines": {
