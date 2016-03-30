@@ -100,12 +100,15 @@ var OriginModule = function (options) {
   };
 
   _this.renderContent = function (product) {
-    var geoserve;
+    var config,
+        geoserve;
 
     if (_originView && _originView.destroy) {
       _originView.destroy();
       _originView = null;
     }
+
+    config = _this.model.get('config');
 
     if (!product) {
       _this.content.innerHTML = '<p class="alert error">' +
@@ -116,7 +119,8 @@ var OriginModule = function (options) {
         el: _this.content,
         formatter: _formatter,
         model: product,
-        geoserve: geoserve
+        geoserve: geoserve,
+        url: (config ? config.GEOSERVE_WS_URL : null)
       });
 
       _originView.render();
