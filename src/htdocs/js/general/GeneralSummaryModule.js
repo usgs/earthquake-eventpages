@@ -345,7 +345,8 @@ var GeneralSummaryModule = function (options) {
    * Render nearby-cities product, or nearby places from geoserve.
    */
   _this.renderNearbyPlaces = function (ev) {
-    var product;
+    var config,
+        product;
 
     if (_nearbyPlacesView) {
       _nearbyPlacesView.destroy();
@@ -357,6 +358,8 @@ var GeneralSummaryModule = function (options) {
       return;
     }
 
+    config = _this.model.get('config');
+
     product = ev.getPreferredProduct('nearby-cities');
     if (product) {
       _nearbyPlacesView = NearbyPlacesView({
@@ -365,7 +368,8 @@ var GeneralSummaryModule = function (options) {
     } else {
       product = ev.getPreferredOriginProduct();
       _nearbyPlacesView = GeoserveNearbyPlacesView({
-        model: product
+        model: product,
+        url: (config ? config.GEOSERVE_WS_URL : null)
       });
     }
 

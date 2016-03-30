@@ -7,7 +7,7 @@ var Formatter = require('core/Formatter'),
 
 
 var _DEFAULTS = {
-  url: 'http://earthquake.usgs.gov/ws/geoserve/places.json'
+  url: 'http://earthquake.usgs.gov/ws/geoserve/'
 };
 
 
@@ -31,14 +31,8 @@ var GeoserveNearbyPlacesView = function (options) {
 
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
+    _url = options.url || null;
     _this.el.classList.add('geoserve-nearby-places');
-
-    if (options.eventConfig &&
-        options.eventConfig.hasOwnProperty('GEOSERVE_WS_URL')) {
-      _url = options.eventConfig.GEOSERVE_WS_URL;
-    } else {
-      _url = options.url;
-    }
   };
 
 
@@ -47,7 +41,7 @@ var GeoserveNearbyPlacesView = function (options) {
    */
   _this.fetchData = function () {
     _xhr = Xhr.ajax({
-      url: _url,
+      url: _url + 'places.json',
       success: _this.onSuccess,
       error: _this.onError,
       data: {
