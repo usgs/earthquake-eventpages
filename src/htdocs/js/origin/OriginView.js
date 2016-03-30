@@ -159,7 +159,6 @@ var OriginView = function (options) {
         (azimuthalGap === null ? NOT_REPORTED : azimuthalGap + '&deg;'),
         '</td></tr>');
 
-    // TODO :: create a FERegionView {ProductView}
     buf.push('<tr>',
         '<th scope="row">',
           '<abbr title="Flinn Engdahl">FE</abbr> Region',
