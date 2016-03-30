@@ -318,17 +318,20 @@ var Attribution = function (options) {
       // Look for origin-source property and magnitude-source property and
       // add them as contributors if new ids
       source = product.getProperty('origin-source');
+      source = source ? source.toLowerCase() : null;
       if (source && !sources.hasOwnProperty(source)) {
         sources[source] = _this.getContributorReference(source);
       }
 
       source = product.getProperty('magnitude-source');
+      source = source ? source.toLowerCase() : null;
       if (source && !sources.hasOwnProperty(source)) {
         sources[source] = _this.getContributorReference(source);
       }
     } else if (type === 'focal-mechanism' || type === 'moment-tensor') {
       // Look for beachball-source property and add it as contributor if new id
       source = product.getProperty('beachball-source');
+      source = source ? source.toLowerCase() : null;
       if (source && !sources.hasOwnProperty(source)) {
         sources[source] = _this.getContributorReference(source);
       }
