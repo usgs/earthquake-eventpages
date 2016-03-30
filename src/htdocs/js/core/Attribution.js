@@ -207,6 +207,8 @@ var Attribution = function (options) {
       contributor = _sourceMap.get(id);
 
       // TODO: contributor aliases
+      // this requires some additional thought,
+      // because sourceMap isn't necessarily set to detect duplicates
     }
 
     return contributor;
@@ -305,8 +307,9 @@ var Attribution = function (options) {
 
     sources = {}; // Keep a unique list
 
-    // TODO :: Deal with internal- and -scenario variants
     type = product.get('type');
+    type = type.replace('internal-', '');
+    type = type.replace('-scenario', '');
 
     // Put product.source on first
     source = product.get('source');
