@@ -8,6 +8,7 @@ var ContoursLayer = require('map/ContoursLayer'),
     EsriTerrain = require('leaflet/layer/EsriTerrain'),
     Formatter = require('core/Formatter'),
     HazDevLayers = require('leaflet/control/HazDevLayers'),
+    Module = require('core/Module'),
     MousePosition = require('leaflet/control/MousePosition'),
     OpenAerialMap = require('leaflet/layer/OpenAerialMap'),
     OpenStreetMap = require('leaflet/layer/OpenStreetMap'),
@@ -87,6 +88,7 @@ var InteractiveMapView = function (options) {
       _interactive,
       _layersControl,
       _map,
+      _module,
       _overlays,
       _positionControl,
       _scaleControl;
@@ -109,9 +111,13 @@ var InteractiveMapView = function (options) {
     _this.el.classList.add('interactive-map-view');
 
     _defaultConfig = Util.extend({}, _DEFAULTS.config);
+    _module = options.module || Module();
 
     _formatter = options.formatter || Formatter();
     _interactive = options.interactive;
+
+    _baseLayers = {};
+    _overlays = {};
 
     _map = L.map(_this.el, {
       attributionControl: false,
@@ -127,9 +133,11 @@ var InteractiveMapView = function (options) {
       zoomControl: _interactive
     });
 
+    // Create the control here, the "getAvailable*" methods determine what
+    // is included in this control...
     _layersControl = HazDevLayers(
       _this.getAvailableBaseLayers(),
-      _this.getAvailableOverlays()
+      {}
     );
     if (_interactive) {
       _map.addControl(_layersControl);
@@ -181,7 +189,6 @@ var InteractiveMapView = function (options) {
     }
 
     // Fallback responses aggregation
-    content = dyfi.getContent('dyfi_geo_1km.geojson');
     if (!_overlays.hasOwnProperty(_DYFI_10K_OVERLAY) &&
         !_overlays.hasOwnProperty(_DYFI_1K_OVERLAY)) {
 
@@ -287,6 +294,7 @@ var InteractiveMapView = function (options) {
     _formatter = null;
     _layersControl = null;
     _map = null;
+    _module = null;
     _overlays = null;
     _positionControl = null;
     _scaleControl = null;
@@ -352,13 +360,14 @@ var InteractiveMapView = function (options) {
       _overlays[_FAULTS_OVERLAY] = UsFault();
     }
 
-    // TODO :: Add support for non-preferred products?
+    // Calling _module.getProduct will get the current product in the
+    // case that a specific ?source=&code= were requested...
 
     // DYFI
-    _this.addDyfiOverlays(catalogEvent.getPreferredProduct('dyfi'));
+    _this.addDyfiOverlays(_module.getProduct('dyfi'));
 
     // ShakeMap
-    _this.addShakeMapOverlays(catalogEvent.getPreferredProduct('shakemap'));
+    _this.addShakeMapOverlays(_module.getProduct('shakemap'));
 
     return _overlays;
   };
@@ -400,19 +409,8 @@ var InteractiveMapView = function (options) {
       }
     });
 
-    Object.keys(_overlays).forEach(function (layerName) {
-      var layer;
+    _this.updateOverlays(config);
 
-      layer = _overlays[layerName];
-
-      if (layer._map) {
-        _map.removeLayer(layer);
-      }
-
-      if (config[layerName] === 'true') {
-        layer.addTo(_map);
-      }
-    });
 
     // Zoom to a two-degree map centered on event
     catalogEvent = _this.model.get('event');
@@ -422,6 +420,41 @@ var InteractiveMapView = function (options) {
       _map.fitBounds([[latitude + 2.0, longitude + 2.0],
           [latitude - 2.0, longitude - 2.0]]);
     }
+  };
+
+  _this.updateOverlays = function (config) {
+    // Clear existing overlays (if any)
+    Object.keys(_overlays).forEach(function (layerName) {
+      var layer;
+
+      layer = _overlays[layerName];
+
+      if (layer._map) {
+        _map.removeLayer(layer);
+      }
+
+      if (_layersControl && _layersControl._layers.hasOwnProperty(layerName)) {
+        _layersControl.removeLayer(layer);
+      }
+    });
+
+    _this.getAvailableOverlays();
+
+    // Now add each overlay to control and potentially add to map if so
+    // configured
+    Object.keys(_overlays).forEach(function (layerName) {
+      var layer;
+
+      layer = _overlays[layerName];
+
+      if (_layersControl) {
+        _layersControl.addOverlay(layer, layerName);
+      }
+
+      if (config[layerName] === 'true') {
+        layer.addTo(_map);
+      }
+    });
   };
 
 
