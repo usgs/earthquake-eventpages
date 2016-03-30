@@ -135,10 +135,10 @@ var Module = function (options) {
     }
 
     product = null;
-    if (source !== null && code !== null) {
+    if (ev && source !== null && code !== null) {
       product = ev.getProductById(type, source, code, updateTime);
     }
-    if (product === null) {
+    if (ev && product === null) {
       product = ev.getPreferredProduct(type);
     }
     return product;
