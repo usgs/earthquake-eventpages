@@ -111,13 +111,12 @@ var PAGERView = function (options) {
           '<div class="comment-wrapper"></div>' +
           '<div class="exposure-city">' +
             '<h3>Selected Cities Exposed</h3>' +
-            '<a href="javascript:void(null);" class="toggle">' +
-                'Show/Hide Full City List</a>' +
             '<table class="pager-cities"></table>' +
             '<span class="pager-disclaimer">' +
               'From GeoNames Database of Cities with 1,000 or more ' +
               'residents (k = x1,000)' +
             '</span>' +
+            '<button class="toggle">Show/Hide Full City List</button>' +
           '</div>' +
         '</div>' +
       '</div>';
