@@ -19,8 +19,6 @@ var ProductView = function (options) {
 
   _this = View(options);
 
-  // TODO: render summary information
-
   options = null;
   return _this;
 };
