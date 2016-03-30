@@ -65,6 +65,14 @@ var connect = {
       },
       host: OFFSITE_HOST,
       port: 80
+    },
+    {
+      context: '/scenario/',
+      headers: {
+        host: OFFSITE_HOST
+      },
+      host: OFFSITE_HOST,
+      port: 80
     }
   ],
 

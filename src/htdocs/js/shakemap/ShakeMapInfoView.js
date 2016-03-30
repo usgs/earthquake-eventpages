@@ -590,7 +590,7 @@ var ShakeMapInfoView = function (options) {
             '<tbody>' +
               '<tr>' +
                 '<th scope="row">Reference rock Vs30</th>' +
-                '<td>' + response.vs30default + ' (m/s)</td>' +
+                '<td>' + response.vs30default + ' m/s</td>' +
               '</tr>' +
               '<tr>' +
                 '<th scope="row">Site correction applied</th>' +
