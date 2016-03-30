@@ -184,8 +184,8 @@ var ShakeMapView = function (options) {
     // In addition to contours (default), enable stations
     link =
       '<a href="#map?' + InteractiveMapView.SHAKEMAP_STATIONS + '=true' +
-          '&source=' + _this.model.get('source') +
-          '&code=' + _this.model.get('code') + '">' +
+          '&shakemapSource=' + _this.model.get('source') +
+          '&shakemapCode=' + _this.model.get('code') + '">' +
         '<img' +
           ' src="' + content.get('url') + '"' +
           ' alt="' + alt + '"' +

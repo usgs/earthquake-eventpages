@@ -362,14 +362,44 @@ var InteractiveMapView = function (options) {
     // case that a specific ?source=&code= were requested...
 
     // DYFI
-    _this.addDyfiOverlays(_module.getProduct('dyfi'));
+    _this.getProductOverlays('dyfi', _this.addDyfiOverlays);
 
     // ShakeMap
-    _this.addShakeMapOverlays(_module.getProduct('shakemap'));
+    _this.getProductOverlays('shakemap', _this.addShakeMapOverlays);
 
     return _overlays;
   };
 
+  _this.getProductOverlays = function (type, callback) {
+    var catalogEvent,
+        codeKey,
+        config,
+        product,
+        sourceKey;
+
+    catalogEvent = _this.model.get('event');
+
+    if (!catalogEvent) {
+      return;
+    }
+
+    config = Util.extend({}, _defaultConfig, _this.model.get('map'));
+    sourceKey = type + 'Source';
+    codeKey = type + 'Code';
+    type = _module.getFullType(type);
+
+    if (config.hasOwnProperty(sourceKey) &&
+        config.hasOwnProperty(codeKey)) {
+      product = catalogEvent.getProductById(type, config[sourceKey],
+          config[codeKey]);
+    } else {
+      product = catalogEvent.getPreferredProduct(type);
+    }
+
+    if (product) {
+      callback(product);
+    }
+  };
   /**
    * Called to notify the view that it's element is now in the DOM so
    * things like dimensions can be inspected etc...
