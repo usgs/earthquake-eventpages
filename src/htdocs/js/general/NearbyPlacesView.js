@@ -23,7 +23,8 @@ var NearbyPlacesView = function (options) {
       _initialize,
 
       _errorMessage,
-      _formatter;
+      _formatter,
+      _xhr;
 
   _this = ProductView(options);
 
@@ -39,6 +40,10 @@ var NearbyPlacesView = function (options) {
    * Destroy all the things.
    */
   _this.destroy = Util.compose(function () {
+    if (_xhr) {
+      _xhr.abort();
+      _xhr = null;
+    }
     _errorMessage = null;
     _formatter = null;
     _this = null;
@@ -58,10 +63,13 @@ var NearbyPlacesView = function (options) {
       return;
     }
 
-    Xhr.ajax({
+    _xhr = Xhr.ajax({
       url: content.get('url'),
       success: _this.onSuccess,
-      error: _this.onError
+      error: _this.onError,
+      done: function () {
+        _xhr = null;
+      }
     });
   };
 
