@@ -87,7 +87,7 @@ var ShakeMapView = function (options) {
     pgaContent = shakemap.getContent('download/pga.jpg');
     if (pgaContent) {
       _tablist.addTab({
-        title: 'PGA (%g)',
+        title: 'PGA',
         content: _this.createTabListImage(pgaContent)
       });
     }
@@ -96,7 +96,7 @@ var ShakeMapView = function (options) {
     pgvContent = shakemap.getContent('download/pgv.jpg');
     if (pgvContent) {
       _tablist.addTab({
-        title: 'PGV (cm/s)',
+        title: 'PGV',
         content: _this.createTabListImage(pgvContent)
       });
     }
@@ -147,7 +147,7 @@ var ShakeMapView = function (options) {
         shakemap.getContent('download/psa10.jpg') ||
         shakemap.getContent('download/psa30.jpg')) {
       _tablist.addTab({
-        title: 'PSA (cm/s)',
+        title: 'PSA',
         content: _this.createPSATabListImages(shakemap)
       });
     }
