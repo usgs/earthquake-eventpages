@@ -15,8 +15,6 @@ var ContentView = function (options) {
 
   _this = View(options);
 
-  // TODO: render summary information
-
   /**
    * Asynchronous method to fetch the data associated with _this.model {Content}
    * object. This method proceeds asynchronously regardless of whether
