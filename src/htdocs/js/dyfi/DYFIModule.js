@@ -1,7 +1,8 @@
 'use strict';
 
 
-var DYFIView = require('dyfi/DYFIView'),
+var DYFIFormModule = require('dyfi/DYFIFormModule'),
+    DYFIView = require('dyfi/DYFIView'),
     ImpactSummaryModule = require('impact/ImpactSummaryModule'),
     Module = require('core/Module'),
     Util = require('util/Util');
@@ -108,7 +109,7 @@ var DYFIModule = function (options) {
 
     // TODO :: Is this the correct hash for the form?
     _this.header.innerHTML = '<h3>' + _this.TITLE +
-        ' - <a href="#tellus">Tell Us!</a></h3>';
+        ' - <a href="#' + DYFIFormModule.ID + '">Tell Us!</a></h3>';
 
     product = _this.getProduct('dyfi');
 
