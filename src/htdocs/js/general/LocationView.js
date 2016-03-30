@@ -3,6 +3,7 @@
 var Attribution = require('core/Attribution'),
     Formatter = require('core/Formatter'),
     InteractiveMapView = require('map/InteractiveMapView'),
+    Module = require('core/Module'),
     View = require('mvc/View'),
     Util = require('util/Util');
 
@@ -54,7 +55,8 @@ var LocationView = function (options) {
     _mapView = InteractiveMapView({
       el: el.querySelector('.locationview-map > div'),
       interactive: false,
-      model: _this.model
+      model: _this.model,
+      module: options.module || Module()
     });
     _mapView.el.addEventListener('click', _this.onClick);
   };
