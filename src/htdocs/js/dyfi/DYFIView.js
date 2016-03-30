@@ -3,6 +3,7 @@
 
 var DYFIIntensityGraphView = require('dyfi/DYFIIntensityGraphView'),
     DYFIResponsesView = require('dyfi/DYFIResponsesView'),
+    InteractiveMapView = require('map/InteractiveMapView'),
     ProductView = require('core/ProductView'),
     SvgImageMap = require('svgimagemap/SvgImageMap'),
     TabList = require('tablist/TabList'),
@@ -19,7 +20,10 @@ var _RESOURCES = {
     title: 'Intensity Map',
     suffix: '_ciim.jpg',
     usemap: 'imap_base',
-    href: '#map?', // TODO :: ShakeMap = false & DYFI = true
+    href: '#map?' +
+        InteractiveMapView.SHAKEMAP_CONTOURS + '= false&' +
+        InteractiveMapView.DYFI_10K_OVERLAY + '=true&' +
+        InteractiveMapView.DYFI_DEFAULT_OVERLAY + '=true',
     mapSuffix: '_ciim_imap.html'
   },
   'geocode-map': {
