@@ -334,8 +334,6 @@ var InteractiveMapView = function (options) {
         eventLatitude,
         eventLongitude;
 
-    // TODO :: Look at _this.model.event to see which overlays are available.
-    //         Returned object is keyed by display name for each layer.
     _overlays = {};
 
     catalogEvent = _this.model.get('event');
