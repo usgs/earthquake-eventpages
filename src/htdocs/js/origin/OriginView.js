@@ -27,7 +27,6 @@ var OriginView = function (options) {
       _geoserve,
       _magnitudesView,
       _phasesView,
-      _region,
       _tabList,
       _url;
 
@@ -38,8 +37,8 @@ var OriginView = function (options) {
     _formatter = options.formatter || Formatter();
 
     // Bind to geoserve model change
-    _region = Model();
-    _region.on('change:regions', 'buildFeRegionView', _this);
+    _geoserve = Model();
+    _geoserve.on('change:regions', 'buildFeRegionView', _this);
 
     if (options.eventConfig &&
         options.eventConfig.hasOwnProperty('GEOSERVE_WS_URL')) {
@@ -50,7 +49,7 @@ var OriginView = function (options) {
   };
 
   _this.destroy = Util.compose(function () {
-    _region.off('change:regions', 'buildFeRegionView', _this);
+    _geoserve.off('change:regions', 'buildFeRegionView', _this);
 
     if (_tabList && _tabList.destroy) {
       _tabList.destroy();
@@ -69,7 +68,6 @@ var OriginView = function (options) {
 
     _formatter = null;
     _geoserve = null;
-    _region = null;
     _url = null;
 
     _initialize = null;
@@ -90,7 +88,7 @@ var OriginView = function (options) {
     feElement = _this.el.querySelector('.fe-info');
 
     try {
-      fe = _region.get('regions').fe.features[0].properties;
+      fe = _geoserve.get('regions').fe.features[0].properties;
       feName = fe.name.toUpperCase();
       feNumber = fe.number;
       feElement.innerHTML = (feNumber ? feName + ' (' + feNumber + ')' : feName);
@@ -186,7 +184,7 @@ var OriginView = function (options) {
           type: 'fe'
         },
         success: function (data) {
-          _region.set({
+          _geoserve.set({
             regions: data
           });
         },
@@ -347,7 +345,7 @@ var OriginView = function (options) {
     }
 
     // set the (massaged) fe object
-    _region.set({
+    _geoserve.set({
       'regions': {
         'fe': {
           'features': [
