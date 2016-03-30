@@ -328,10 +328,15 @@ var ShakeMapStationListView = function (options) {
    *         HTML markup.
    */
   _this.formatLocation = function (feature) {
+    var latitude,
+        longitude;
+
+    latitude = feature.geometry.coordinates[1];
+    longitude = feature.geometry.coordinates[0];
+
     return ((feature.properties.location) ?
-        (feature.properties.location + '<br/>') : '') + ' (' +
-        feature.geometry.coordinates[1] + ', ' +
-        feature.geometry.coordinates[0] + ')';
+        (feature.properties.location + '<br/>') : '') +
+        _formatter.location(latitude, longitude);
   };
 
   /**

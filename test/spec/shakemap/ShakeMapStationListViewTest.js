@@ -143,7 +143,7 @@ describe('shakemap/ShakeMapStationListView', function () {
       location = view.formatLocation(feature);
 
       expect(location).to.contain(
-        '(35.4292, -119.0559)');
+        '35.429&deg;N&nbsp;119.056&deg;W');
     });
   });
 
