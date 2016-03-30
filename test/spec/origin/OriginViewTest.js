@@ -1,4 +1,4 @@
-/* global afterEach, before, beforeEach, chai, describe, it */
+/* global afterEach, before, beforeEach, chai, describe, it, sinon */
 'use strict';
 
 
@@ -10,13 +10,18 @@ var expect = chai.expect;
 
 
 describe('origin/OriginView', function () {
-  var product;
+  var geoserve,
+      origin;
 
   before(function (done) {
     Xhr.ajax({
       url: '/events/us10004u1y.json',
       success: function (data) {
-        product = Product(data.properties.products.origin[0]);
+        origin = Product(data.properties.products['phase-data'][0]);
+        geoserve = Product(data.properties.products.geoserve[0]);
+        origin.setProperty({
+          'geoserve': geoserve
+        });
         done();
       },
       error: function () {
@@ -35,6 +40,16 @@ describe('origin/OriginView', function () {
     });
   });
 
+  describe('destroy', function () {
+    it('can be destroyed', function () {
+      var view;
+
+      view = OriginView();
+      expect(view.destroy).to.not.throw(Error);
+    });
+  });
+
+
   describe('formats output', function () {
     var view;
 
@@ -43,16 +58,16 @@ describe('origin/OriginView', function () {
     });
 
     beforeEach(function () {
-
       view = OriginView({
-        model: product
+        model: origin,
+        geoserve: geoserve
       });
     });
 
     it('displays the catalog details', function () {
       var name;
 
-      name = view.getCatalogDetail(product.get());
+      name = view.getCatalogDetail(origin);
 
       expect(name).to.equal('US <small>(us10004u1y)</small>');
     });
@@ -62,11 +77,47 @@ describe('origin/OriginView', function () {
           rows;
 
       el = document.createElement('div');
-      el.innerHTML = view.getOriginDetailTable(product.get());
+      el.innerHTML = view.getOriginDetailTable(origin);
       rows = el.querySelectorAll('tr');
 
       expect(rows.count).to.not.equal(0);
     });
+  });
+
+  describe('formatFeRegion', function () {
+    var view = null,
+        ajaxStub = null;
+
+    beforeEach(function () {
+      ajaxStub = sinon.stub(Xhr, 'ajax', function () {});
+      view = OriginView({
+        model: origin
+      });
+      view.render();
+    });
+
+    afterEach(function () {
+      ajaxStub.restore();
+      ajaxStub = null;
+
+      if (view.destroy) {
+        view.destroy();
+      }
+      view = null;
+    });
+
+    it('Properly formats string info', function () {
+      view.formatFeRegion({longName: 'FOO', number: '1'});
+      expect(view.el.querySelector('.fe-info').innerHTML).to.equal('FOO (1)');
+    });
+
+    it('Uses default string on error', function () {
+      var el = document.createElement('span');
+      el.innerHTML = '&ndash;';
+      view.formatFeRegion({'default': 'string'});
+      expect(view.el.querySelector('.fe-info').innerHTML).to.equal(el.innerHTML);
+    });
+
   });
 
 });

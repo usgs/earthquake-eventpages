@@ -100,6 +100,8 @@ var OriginModule = function (options) {
   };
 
   _this.renderContent = function (product) {
+    var geoserve;
+
     if (_originView && _originView.destroy) {
       _originView.destroy();
       _originView = null;
@@ -109,10 +111,12 @@ var OriginModule = function (options) {
       _this.content.innerHTML = '<p class="alert error">' +
           'No origin found!</p>';
     } else {
+      geoserve = _this.getProduct('geoserve');
       _originView = OriginView({
         el: _this.content,
         formatter: _formatter,
-        model: product
+        model: product,
+        geoserve: geoserve
       });
 
       _originView.render();
