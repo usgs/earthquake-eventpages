@@ -33,11 +33,14 @@
   text-align: center;
 }
 
-.datatable-tools > button {
-  display: none;
-}
 
-.download-link {
-  margin-top: 1em;
-  display:block;
+.dyfi-view > section > .datatable {
+  .datatable-tools > button {
+    display: none;
+  }
+
+  .download-link {
+    margin-top: 1em;
+    display:block;
+  }
 }

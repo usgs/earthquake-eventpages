@@ -166,7 +166,7 @@ var DYFIResponsesView = function (options) {
   _initialize = function () {
     _button = null;
     _formatter = options.formatter || Formatter();
-    _product = options.products || null;
+    _product = options.product || null;
     _responseTable = null;
     _responseTableEl = null;
   };
