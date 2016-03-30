@@ -25,6 +25,7 @@ var OriginView = function (options) {
 
       _formatter,
       _geoserve,
+      _region,
       _magnitudesView,
       _phasesView,
       _tabList,
@@ -35,10 +36,11 @@ var OriginView = function (options) {
 
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
+    _geoserve = options.geoserve || null;
 
     // Bind to geoserve model change
-    _geoserve = Model();
-    _geoserve.on('change:regions', 'buildFeRegionView', _this);
+    _region = Model();
+    _region.on('change:regions', 'buildFeRegionView', _this);
 
     if (options.eventConfig &&
         options.eventConfig.hasOwnProperty('GEOSERVE_WS_URL')) {
@@ -49,25 +51,18 @@ var OriginView = function (options) {
   };
 
   _this.destroy = Util.compose(function () {
-    _geoserve.off('change:regions', 'buildFeRegionView', _this);
+    _region.off('change:regions', 'buildFeRegionView', _this);
 
     if (_tabList && _tabList.destroy) {
       _tabList.destroy();
       _tabList = null;
     }
 
-    if (_phasesView && _phasesView.destroy) {
-      _phasesView.destroy();
-      _phasesView = null;
-    }
-
-    if (_magnitudesView && _magnitudesView.destroy) {
-      _magnitudesView.destroy();
-      _magnitudesView = null;
-    }
-
     _formatter = null;
     _geoserve = null;
+    _magnitudesView = null;
+    _phasesView = null;
+    _region = null;
     _url = null;
 
     _initialize = null;
@@ -88,7 +83,7 @@ var OriginView = function (options) {
     feElement = _this.el.querySelector('.fe-info');
 
     try {
-      fe = _geoserve.get('regions').fe.features[0].properties;
+      fe = _region.get('regions').fe.features[0].properties;
       feName = fe.name.toUpperCase();
       feNumber = fe.number;
       feElement.innerHTML = (feNumber ? feName + ' (' + feNumber + ')' : feName);
@@ -131,15 +126,13 @@ var OriginView = function (options) {
  * Once load is complete, _buildFeRegionView is called.
  */
   _this.getFeRegion = function () {
-    var geoserve,
-        geoserveJson,
+    var geoserveJson,
         that;
 
     that = _this;
-    geoserve = _this.model.getProperty('geoserve');
 
-    if (geoserve) {
-      geoserveJson = geoserve.getContent('geoserve.json');
+    if (_geoserve) {
+      geoserveJson = _geoserve.getContent('geoserve.json');
     }
 
     if (geoserveJson) {
@@ -160,19 +153,15 @@ var OriginView = function (options) {
   };
 
   /**
-   * Set this._geoserve with fe region data from the geoserve ws
+   * Set _region with fe region data from the geoserve ws
    */
   _this.getGeoserveFeRegion = function () {
     var latitude,
-        longitude,
-        properties;
+        longitude;
 
     // get location
-    properties = _this.model.get('properties');
-    if (properties) {
-      latitude = properties.latitude;
-      longitude = properties.longitude;
-    }
+    latitude = _this.model.getProperty('latitude');
+    longitude = _this.model.getProperty('longitude');
 
     if (latitude !== null && longitude !== null) {
       // request region information
@@ -184,7 +173,7 @@ var OriginView = function (options) {
           type: 'fe'
         },
         success: function (data) {
-          _geoserve.set({
+          _region.set({
             regions: data
           });
         },
@@ -345,7 +334,7 @@ var OriginView = function (options) {
     }
 
     // set the (massaged) fe object
-    _geoserve.set({
+    _region.set({
       'regions': {
         'fe': {
           'features': [

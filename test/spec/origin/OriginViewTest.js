@@ -19,6 +19,9 @@ describe('origin/OriginView', function () {
       success: function (data) {
         origin = Product(data.properties.products['phase-data'][0]);
         geoserve = Product(data.properties.products.geoserve[0]);
+        origin.setProperty({
+          'geoserve': geoserve
+        });
         done();
       },
       error: function () {
@@ -88,8 +91,7 @@ describe('origin/OriginView', function () {
     beforeEach(function () {
       ajaxStub = sinon.stub(Xhr, 'ajax', function () {});
       view = OriginView({
-        model: origin,
-        geoserve: geoserve
+        model: origin
       });
       view.render();
     });

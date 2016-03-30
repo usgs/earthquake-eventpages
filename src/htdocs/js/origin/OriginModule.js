@@ -63,7 +63,6 @@ var OriginModule = function (options) {
    */
   _this.getOriginProduct = function () {
     var ev,
-        geoserve,
         origin,
         phase,
         product;
@@ -80,15 +79,6 @@ var OriginModule = function (options) {
       product = phase;
     } else {
       product = origin;
-    }
-
-    // set geoserve product on the origin product
-    geoserve = _this.getProduct('geoserve');
-
-    if (geoserve) {
-      product.setProperty({
-        'geoserve': geoserve
-      });
     }
 
     return product;
@@ -110,6 +100,10 @@ var OriginModule = function (options) {
   };
 
   _this.renderContent = function (product) {
+    var geoserve;
+
+    geoserve = _this.getProduct('geoserve');
+
     if (_originView && _originView.destroy) {
       _originView.destroy();
       _originView = null;
@@ -122,8 +116,8 @@ var OriginModule = function (options) {
       _originView = OriginView({
         el: _this.content,
         formatter: _formatter,
-        model: product
-
+        model: product,
+        geoserve: geoserve
       });
 
       _originView.render();
