@@ -333,7 +333,8 @@ var GeneralSummaryModule = function (options) {
       _locationView = LocationView({
         el: _locationEl,
         formatter: _formatter,
-        model: _this.model
+        model: _this.model,
+        module: _this
       });
       // only render first time, binds to model separately
       _locationView.render();
