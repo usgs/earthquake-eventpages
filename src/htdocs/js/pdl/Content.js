@@ -66,7 +66,6 @@ var Content = function (options) {
     var bytes = _this.get('bytes'),
         url = _this.get('url');
 
-    // TODO: call validate instead?
     if (bytes === null && url === null) {
       throw new Error('Invalid product contents. Must have one of bytes or ' +
           'url.');
