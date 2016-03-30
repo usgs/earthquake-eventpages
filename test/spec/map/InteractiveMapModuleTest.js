@@ -1,9 +1,8 @@
-/* global afterEach, beforeEach, chai, describe, it, sinon */
+/* global afterEach, beforeEach, chai, describe, it */
 'use strict';
 
 
-var Events = require('util/Events'),
-    InteractiveMapModule = require('map/InteractiveMapModule');
+var InteractiveMapModule = require('map/InteractiveMapModule');
 
 
 var expect = chai.expect;
@@ -86,26 +85,6 @@ describe('map/InteractiveMapModule', function () {
       /* jshint -W030 */
       expect(document.querySelector('.modal-dialog')).to.be.null;
       /* jshint +W030 */
-    });
-  });
-
-  describe('onModalHide', function () {
-    it('triggers the global back event', function () {
-      var module,
-          spy;
-
-      module = InteractiveMapModule();
-
-      spy = sinon.spy();
-      Events.on('back', spy);
-
-      module.onModalHide();
-
-      expect(spy.callCount).to.equal(1);
-
-      Events.off('back', spy);
-      module.destroy();
-      window.location.hash = ''; // TODO :: Remove when #368 is implemented.
     });
   });
 
