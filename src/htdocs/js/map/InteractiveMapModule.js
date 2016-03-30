@@ -84,8 +84,6 @@ var InteractiveMapModule = function (options) {
     if (config && config.SCENARIO_MODE === true) {
       _this.appendScenarioBadge();
     }
-
-    _modal.on('hide', _this.onModalHide);
   };
 
 
@@ -130,7 +128,7 @@ var InteractiveMapModule = function (options) {
   }, _this.destroy);
 
   _this.onCloseButtonClick = function () {
-    _modal.hide();
+    Events.trigger('back');
   };
 
   /**
@@ -143,21 +141,6 @@ var InteractiveMapModule = function (options) {
     if (ev.target && ev.target.classList.contains('show-map')) {
       _this.showMap();
     }
-  };
-
-  /**
-   * Callback executed when the underlying modal view is hidden. Updates the
-   * window hash to return the user to another page on the EventPage. Typically
-   * this is the page from which the user came, but in the case the user was
-   * linked directly to the map, the user is returned to the default page.
-   *
-   */
-  _this.onModalHide = function () {
-    // Notify the EventPage this view would like to go back
-    Events.trigger('back');
-
-    // TODO :: Remove this once #368 is implemented.
-    window.location.hash = '#'; // go to default page
   };
 
   /**

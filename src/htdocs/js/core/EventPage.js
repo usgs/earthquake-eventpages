@@ -439,7 +439,12 @@ var EventPage = function (options) {
       params = hash.params;
 
       if (_modules.hasOwnProperty(module)) {
-        window.location = '#' + hash.redirect;
+        try {
+          // This is better so redirects and 'back' don't create a loop-cage
+          window.location.replace('#' + hash.redirect);
+        } catch (e) {
+          window.location = '#' + hash.redirect;
+        }
       } else {
         window.location = '#' + _config.defaultModule;
       }

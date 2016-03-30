@@ -189,9 +189,10 @@ var DYFIFormModule = function (options) {
     _this.content.removeEventListener('click', _this.onContentClick);
     _formModel.off('change', 'onFormChange', _this);
 
+    _modal.hide();
+    _modal.destroy();
     _view.destroy(); // NB: Destroy view before destroying model
     _formModel.destroy();
-    _modal.destroy();
 
     _formModel = null;
     _formVersion = null;
