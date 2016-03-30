@@ -136,7 +136,7 @@ var ShakeMapView = function (options) {
         model: shakeMapInfoContent
       });
       _tablist.addTab({
-        title: 'Info',
+        title: 'Metadata',
         content: function () {
           _shakeMapInfoView.render();
           return _shakeMapInfoView.el;
