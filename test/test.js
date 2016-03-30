@@ -63,6 +63,7 @@ require('./spec/general/NearbyPlacesViewTest');
 
 require('./spec/impact/ImpactSummaryModuleTest');
 
+require('./spec/losspager/PAGERModuleTest');
 require('./spec/losspager/PAGERViewTest');
 require('./spec/losspager/PagerXmlParserTest');
 
@@ -80,8 +81,6 @@ require('./spec/origin/OriginModuleTest');
 require('./spec/origin/OriginViewTest');
 require('./spec/origin/PhasesViewTest');
 require('./spec/origin/QuakemlViewTest');
-
-require('./spec/pager/PAGERModuleTest');
 
 require('./spec/pdl/CatalogEventTest');
 require('./spec/pdl/ContentTest');

@@ -3,14 +3,14 @@
 
 var CatalogEvent = require('pdl/CatalogEvent'),
     Model = require('mvc/Model'),
-    PAGERModule = require('pager/PAGERModule'),
+    PAGERModule = require('losspager/PAGERModule'),
     Xhr = require('util/Xhr');
 
 
 var expect = chai.expect;
 
 
-describe('pager/PAGERModule', function () {
+describe('losspager/PAGERModule', function () {
   var eventModel;
 
   before(function (done) {
