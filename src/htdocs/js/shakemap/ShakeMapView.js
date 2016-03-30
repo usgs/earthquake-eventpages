@@ -32,32 +32,40 @@ var ShakeMapView = function (options) {
    *    HTML markup for PSA tab contents
   **/
   _this.createPSATabListImages = function (shakemap) {
-    var markup,
+    var header,
+        markup,
         psa03,
         psa10,
         psa30;
 
+    header = [];
     markup = [];
     psa03 = shakemap.getContent('download/psa03.jpg');
     psa10 = shakemap.getContent('download/psa10.jpg');
     psa30 = shakemap.getContent('download/psa30.jpg');
 
     if (psa03) {
-      markup.push('<h3>PSA 0.3 s (%g)</h3>');
-      markup.push(_this.createTabListImage(psa03));
+      header.push('0.3 s');
+      markup.push(_this.createTabListImage(psa03,
+          'ShakeMap Peak Spectral Acceleration 0.3 s image'));
     }
 
     if (psa10) {
-      markup.push('<h3>PSA 1.0 s (%g)</h3>');
-      markup.push(_this.createTabListImage(psa10));
+      header.push('1.0 s');
+      markup.push(_this.createTabListImage(psa10,
+          'ShakeMap Peak Spectral Acceleration 1.0 s image'));
     }
 
     if (psa30) {
-      markup.push('<h3>PSA 3.0 s (%g)</h3>');
-      markup.push(_this.createTabListImage(psa30));
+      header.push('3.0 s');
+      markup.push(_this.createTabListImage(psa30,
+          'ShakeMap Peak Spectral Acceleration 3.0 s image'));
     }
 
-    return markup.join('');
+    return '<h3>' +
+        'Peak Spectral Acceleration (%g) for ' + header.join(', ') +
+        '</h3>' +
+        markup.join('');
   };
 
   /**
@@ -79,7 +87,8 @@ var ShakeMapView = function (options) {
     if (intensityContent) {
       _tablist.addTab({
         title: 'Intensity',
-        content: _this.createTabListImage(intensityContent)
+        content: _this.createTabListImage(intensityContent,
+            'ShakeMap Intensity image')
       });
     }
 
@@ -87,8 +96,9 @@ var ShakeMapView = function (options) {
     pgaContent = shakemap.getContent('download/pga.jpg');
     if (pgaContent) {
       _tablist.addTab({
-        title: 'PGA',
-        content: _this.createTabListImage(pgaContent)
+        title: '<abbr title="Peak Ground Acceleration">PGA</abbr>',
+        content: _this.createTabListImage(pgaContent,
+            'ShakeMap Peak Ground Acceleration image')
       });
     }
 
@@ -96,8 +106,9 @@ var ShakeMapView = function (options) {
     pgvContent = shakemap.getContent('download/pgv.jpg');
     if (pgvContent) {
       _tablist.addTab({
-        title: 'PGV',
-        content: _this.createTabListImage(pgvContent)
+        title: '<abbr title="Peak Ground Velocity">PGV</abbr>',
+        content: _this.createTabListImage(pgvContent,
+            'ShakeMap Peak Ground Velocity image')
       });
     }
 
@@ -138,7 +149,8 @@ var ShakeMapView = function (options) {
     if (uncertaintyContent) {
       _tablist.addTab({
         title: 'Uncertainty',
-        content: _this.createTabListImage(uncertaintyContent)
+        content: _this.createTabListImage(uncertaintyContent,
+            'ShakeMap Uncertainty image')
       });
     }
 
@@ -147,7 +159,7 @@ var ShakeMapView = function (options) {
         shakemap.getContent('download/psa10.jpg') ||
         shakemap.getContent('download/psa30.jpg')) {
       _tablist.addTab({
-        title: 'PSA',
+        title: '<abbr title="Peak Spectral Acceleration">PSA</abbr>',
         content: _this.createPSATabListImages(shakemap)
       });
     }
@@ -162,7 +174,7 @@ var ShakeMapView = function (options) {
    * @return {string} link
    *         image link to interactive map.
   **/
-  _this.createTabListImage = function (content) {
+  _this.createTabListImage = function (content, alt) {
     var link;
 
     if (!content.get('url')) {
@@ -171,7 +183,10 @@ var ShakeMapView = function (options) {
 
     // In addition to contours (default), enable stations
     link = '<a href="#map?' + InteractiveMapView.SHAKEMAP_STATIONS + '=true">' +
-        '<img src="' + content.get('url') + '" />' +
+        '<img' +
+          ' src="' + content.get('url') + '"' +
+          ' alt="' + alt + '"' +
+        '/>' +
         '</a>';
 
     return link;
