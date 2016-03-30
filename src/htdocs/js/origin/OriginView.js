@@ -12,7 +12,9 @@ var Attribution = require('core/Attribution'),
     Xhr = require('util/Xhr');
 
 
-var _DEFAULTS = {};
+var _DEFAULTS = {
+  url: 'http://earthquake.usgs.gov/ws/geoserve/'
+};
 var NOT_REPORTED = '&ndash;';
 
 
@@ -34,7 +36,6 @@ var OriginView = function (options) {
 
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
-    _geoserve = options.geoserve || null;
 
     // Bind to geoserve model change
     _region = Model();
@@ -132,13 +133,15 @@ var OriginView = function (options) {
  * Once load is complete, _buildFeRegionView is called.
  */
   _this.getFeRegion = function () {
-    var geoserveJson,
+    var geoserve,
+        geoserveJson,
         that;
 
     that = _this;
+    geoserve = _this.model.getProperty('geoserve');
 
-    if (_geoserve) {
-      geoserveJson = _geoserve.getContent('geoserve.json');
+    if (geoserve) {
+      geoserveJson = geoserve.getContent('geoserve.json');
     }
 
     if (geoserveJson) {
@@ -383,7 +386,7 @@ var OriginView = function (options) {
         'content': content
       });
 
-      if (product.type === 'phase-data') {
+      if (product.get('type') === 'phase-data') {
         quakeml = product.getContent('quakeml.xml');
 
         _phasesView = PhasesView({
