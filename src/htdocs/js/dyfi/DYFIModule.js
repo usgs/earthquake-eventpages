@@ -108,7 +108,9 @@ var DYFIModule = function (options) {
     var product;
 
     _this.header.innerHTML = '<h3>' + _this.TITLE +
-        ' - <a href="#' + DYFIFormModule.ID + '">Tell Us!</a></h3>';
+        ' - <a href="#' + DYFIFormModule.ID + '">' +
+        DYFIFormModule.TITLE +
+        '</a></h3>';
 
     product = _this.getProduct('dyfi');
 
