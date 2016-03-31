@@ -1,0 +1,12 @@
+.text-input {
+  > label {
+    display: block;
+    font-weight: bold;
+  }
+
+  > textarea {
+    height: 5em;
+    margin: 0;
+    width: 100%;
+  }
+}

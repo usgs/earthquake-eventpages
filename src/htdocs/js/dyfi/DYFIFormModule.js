@@ -1,7 +1,7 @@
 'use strict';
 
 
-var DYFIFormView = require('mvc/View'), // TODO :: Use actual DYFIFormView
+var DYFIFormView = require('dyfi/DYFIFormView'),
     Events = require('util/Events'),
     ModalView = require('mvc/ModalView'),
     Model = require('mvc/Model'),
@@ -237,9 +237,7 @@ var DYFIFormModule = function (options) {
    *
    */
   _this.onFormChange = function () {
-    var submitButton;
-
-    submitButton = document.querySelector('.dyfi-submit-button');
+    var submitButton = document.querySelector('.dyfi-submit-button');
 
     if (submitButton) {
       if (!_formModel.get('ciim_mapLat') ||
@@ -374,7 +372,7 @@ var DYFIFormModule = function (options) {
   _this.showForm = function () {
     _modal.show();
 
-     // Ensure submit button status is currently up-to-date
+    // Ensure submit button status is currently up-to-date
     _this.onFormChange();
 
     // Render after modal is shown so content is in DOM

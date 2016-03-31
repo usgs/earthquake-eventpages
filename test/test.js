@@ -45,10 +45,12 @@ require('./spec/core/SummaryModuleTest');
 require('./spec/core/TextProductViewTest');
 
 require('./spec/dyfi/DYFIFormModuleTest');
+require('./spec/dyfi/DYFIFormViewTest');
+require('./spec/dyfi/DYFIIntensityGraphViewTest');
 require('./spec/dyfi/DYFIModuleTest');
 require('./spec/dyfi/DYFIViewTest');
-require('./spec/dyfi/DYFIIntensityGraphViewTest');
 require('./spec/dyfi/DYFIResponsesViewTest');
+require('./spec/dyfi/TextQuestionViewTest');
 
 require('./spec/finite-fault/FiniteFaultModuleTest');
 require('./spec/finite-fault/FiniteFaultViewTest');
