@@ -6,7 +6,15 @@ var Attribution = require('core/Attribution'),
     Formatter = require('core/Formatter'),
     SummaryModule = require('core/SummaryModule'),
     Tensor = require('moment-tensor/Tensor'),
-    Util = require('util/Util');
+    Util = require('util/Util'),
+
+    // these modules create a circular dependency,
+    // require them in initialize
+    FiniteFaultModule,
+    FocalMechanismModule,
+    MomentTensorModule,
+    OriginModule;
+
 
 
 var _DEFAULTS,
@@ -70,6 +78,17 @@ var ScientificSummaryModule = function (options) {
     _formatter = options.formatter || Formatter();
     _mtFillColor = options.mtFillColor;
     _fmFillColor = options.fmFillColor;
+
+    // these modules create a circular dependency,
+    // require them first time initialize is called
+    FiniteFaultModule = FiniteFaultModule ||
+        require('finite-fault/FiniteFaultModule');
+    FocalMechanismModule = FocalMechanismModule ||
+        require('focal-mechanism/FocalMechanismModule');
+    MomentTensorModule = MomentTensorModule ||
+        require('moment-tensor/MomentTensorModule');
+    OriginModule = OriginModule ||
+        require('origin/OriginModule');
   };
 
   /**
@@ -128,7 +147,7 @@ var ScientificSummaryModule = function (options) {
 
     row.innerHTML = [
       '<th scope="row">',
-        _this.getCatalogMarkup(product, preferred),
+        _this.getCatalogMarkup(FiniteFaultModule, product, preferred),
       '</th>',
       '<td>',
         '<img src="', map.get('url'), '" class="image" alt="Finite Fault"/>',
@@ -191,7 +210,7 @@ var ScientificSummaryModule = function (options) {
 
     row.innerHTML = [
       '<th scope="row">',
-        _this.getCatalogMarkup(product, preferred),
+        _this.getCatalogMarkup(FocalMechanismModule, product, preferred),
       '</th>',
       '<td class="beachball"></td>',
       '<td>(',
@@ -281,7 +300,7 @@ var ScientificSummaryModule = function (options) {
 
     row.innerHTML = [
       '<th scope="row">',
-        _this.getCatalogMarkup(product, preferred),
+        _this.getCatalogMarkup(MomentTensorModule, product, preferred),
       '</th>',
       '<td class="beachball"></td>',
       '<td>',
@@ -394,7 +413,7 @@ var ScientificSummaryModule = function (options) {
 
     row.innerHTML = [
       '<th scope="row">',
-        _this.getCatalogMarkup(product, preferred),
+        _this.getCatalogMarkup(OriginModule, product, preferred),
       '</th>',
       '<td>',
         _formatter.magnitude(

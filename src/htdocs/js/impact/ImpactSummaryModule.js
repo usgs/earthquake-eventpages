@@ -3,7 +3,13 @@
 var Attribution = require('core/Attribution'),
     Formatter = require('core/Formatter'),
     SummaryModule = require('core/SummaryModule'),
-    Util = require('util/Util');
+    Util = require('util/Util'),
+
+    // these modules create a circular dependency,
+    // require them in initialize
+    DYFIModule,
+    PAGERModule,
+    ShakeMapModule;
 
 
 var _ID,
@@ -45,6 +51,12 @@ var ImpactSummaryModule = function (options) {
 
     _this.ID = _ID;
     _this.TITLE = _TITLE;
+
+    // these modules create a circular dependency,
+    // require them first time initialize is called
+    DYFIModule = DYFIModule || require('dyfi/DYFIModule');
+    PAGERModule = PAGERModule || require('losspager/PAGERModule');
+    ShakeMapModule = ShakeMapModule || require('shakemap/ShakeMapModule');
   };
 
   /**
@@ -94,10 +106,9 @@ var ImpactSummaryModule = function (options) {
 
     preferred = (index === 0);
     row = _this.createRow(preferred);
-
     row.innerHTML = [
       '<th scope="row">',
-        _this.getCatalogMarkup(product, preferred),
+        _this.getCatalogMarkup(DYFIModule, product, preferred),
       '</th>',
       '<td>',
         _formatter.intensity(product.getProperty('maxmmi')),
@@ -169,7 +180,7 @@ var ImpactSummaryModule = function (options) {
 
     row.innerHTML = [
       '<th scope="row">',
-        _this.getCatalogMarkup(product, preferred),
+        _this.getCatalogMarkup(PAGERModule, product, preferred),
       '</th>',
       '<td>',
         '<span class="mmi pager-alertlevel-', alertLevel.toLowerCase(), '">',
@@ -225,7 +236,7 @@ var ImpactSummaryModule = function (options) {
 
     row.innerHTML = [
       '<th scope="row">',
-        _this.getCatalogMarkup(product, preferred),
+        _this.getCatalogMarkup(ShakeMapModule, product, preferred),
       '</th>',
       '<td>',
         _formatter.intensity(product.getProperty('maxmmi')),

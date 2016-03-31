@@ -178,6 +178,8 @@ var SummaryModule = function (options) {
    * a link to the product details page as well as a preferred checkbox if
    * appropriate.
    *
+   * @param module {Module}
+   *     The module for which to generate the link.
    * @param product {Product}
    *     The product for which to generate the link.
    * @param preferred {Boolean}
@@ -186,24 +188,19 @@ var SummaryModule = function (options) {
    * @return {String}
    *     The markup for the link to the product details page.
    */
-  _this.getCatalogMarkup = function (product, preferred) {
+  _this.getCatalogMarkup = function (module, product, preferred) {
     var markup,
         type;
 
     markup = [];
     type = _this.getBaseType(product.get('type'));
 
-    // phase-data are actually rendered by the origin module
-    if (type === 'phase-data') {
-      type = 'origin';
-    }
-
     if (preferred) {
       markup.push('<abbr title="Preferred ' + type +
         '" class="material-icons">check</abbr>');
     }
 
-    markup.push('<a href="#' + type + '?source=' + product.get('source') +
+    markup.push('<a href="#' + module.ID + '?source=' + product.get('source') +
         '&amp;code=' + product.get('code') + '">' +
       product.getProperty('eventsource').toUpperCase() +
     '</a>');
