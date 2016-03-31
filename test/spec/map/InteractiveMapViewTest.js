@@ -341,6 +341,7 @@ describe('map/InteractiveMapView', function () {
       expect(spy.callCount).to.equal(1); // Should still get preferred dyfi
       expect(spy.getCall(0).args[0].get('id')).to.equal(dyfi.get('id'));
 
+      dyfi.destroy();
       view.destroy();
     });
   });
