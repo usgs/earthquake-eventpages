@@ -425,7 +425,8 @@ var EventPage = function (options) {
         lastNav,
         modelParams,
         module,
-        params;
+        params,
+        redirect;
 
     // parse urls of format "#module?params" where params is in query string format
     hash = _parseHash(window.location.hash || '');
@@ -439,14 +440,16 @@ var EventPage = function (options) {
       params = hash.params;
 
       if (_modules.hasOwnProperty(module)) {
-        try {
-          // This is better so redirects and 'back' don't create a loop-cage
-          window.location.replace('#' + hash.redirect);
-        } catch (e) {
-          window.location = '#' + hash.redirect;
-        }
+        redirect = '#' + hash.redirect;
       } else {
-        window.location = '#' + _config.defaultModule;
+        redirect = '#' + _config.defaultModule;
+      }
+
+      try {
+        // Replace the "bad" url so users can go back before the redirect
+        window.location.replace(redirect);
+      } catch (e) {
+        window.location = redirect;
       }
 
       return;
