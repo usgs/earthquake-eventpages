@@ -70,8 +70,8 @@ var MomentTensorModule = function (options) {
 
     product = _this.getProduct('moment-tensor');
 
-    _this.renderHeader(product);
     _this.renderContent(product);
+    _this.renderHeader(product);
     _this.renderFooter(product);
   };
 
@@ -128,12 +128,19 @@ var MomentTensorModule = function (options) {
    *     product to render, or null if no product.
    */
   _this.renderHeader = function (product) {
+    var header;
+
     Util.empty(_this.header);
     if (product) {
-      _this.header.appendChild(_this.getProductHeader({
+      header = _this.getProductHeader({
         product: product,
         summaryModule: ScientificSummaryModule
-      }));
+      });
+
+      if (header) {
+        _this.header.innerHTML = '<h3>Moment Tensor</h3>';
+        _this.header.appendChild(header);
+      }
     }
   };
 

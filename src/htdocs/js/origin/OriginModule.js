@@ -161,6 +161,7 @@ var OriginModule = function (options) {
       });
 
       if (header) {
+        _this.header.innerHTML = '<h3>Origin</h3>';
         _this.header.appendChild(header);
       }
     }
