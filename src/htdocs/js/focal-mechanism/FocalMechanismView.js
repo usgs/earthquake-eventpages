@@ -82,6 +82,18 @@ var FocalMechanismView = function (options) {
     return el;
   };
 
+  /**
+   * Override the focal mechanism view title.
+   *
+   * @param tensor {Tensor}
+   *     the tensor being displayed.
+   * @return {DOMElement}
+   *     markup for the info section of the moment tensor view.
+   */
+  _this.getTitle = function (/*tensor*/) {
+    return document.createDocumentFragment();
+  };
+
 
   return _this;
 };
