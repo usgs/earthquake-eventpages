@@ -3,7 +3,6 @@
 
 
 var Formatter = require('base/Formatter'),
-    ImpactUtil = require('base/ImpactUtil'),
     Xhr = require('util/Xhr');
 
 
@@ -30,7 +29,7 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
     this.options = {
       pointToLayer: function (feature, latlng) {
         var p = feature.properties,
-            romanIntensity = ImpactUtil.translateMmi(p.intensity);
+            romanIntensity = this._formatter.mmi(p.intensity);
 
         if (p.network === 'DYFI' || p.network === 'INTENSITY') {
           return L.marker(latlng, {
@@ -81,7 +80,7 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
 
   _generatePopupContent: function (feature) {
     var p = feature.properties,
-        romanIntensity = ImpactUtil.translateMmi(p.intensity);
+        romanIntensity = this._formatter.mmi(p.intensity);
 
     var markup = ['<div class="station-popup">',
       '<h2 class="station-title">', this._formatTitle(feature), '</h2>',
