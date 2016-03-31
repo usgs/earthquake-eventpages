@@ -46,6 +46,7 @@
   }
 }
 
+<<<<<<< c8d43e5828a302bc81e0aabb156317abf9824291
 .dyfi-form-header {
   position: relative;
 }
@@ -56,3 +57,15 @@
   right: 1em;
   top: -1em;
 }
+=======
+.leaflet-control {
+  padding: 0;
+
+  > a,
+  > a:hover {
+    width: $leaflet-control-size;
+    height: $leaflet-control-size;
+    line-height: $leaflet-control-size;
+  }
+}
+
