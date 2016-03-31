@@ -1,0 +1,57 @@
+@import 'mvc/ModalView.scss';
+
+@import 'locationview/_controls.scss';
+@import 'locationview/CoordinateControl.scss';
+@import 'locationview/GeocodeControl.scss';
+@import 'locationview/GeolocationControl.scss';
+@import 'locationview/LeafletControls.scss';
+@import 'locationview/LocationControl.scss';
+@import 'locationview/LocationView.scss';
+@import 'locationview/PointControl.scss';
+
+@import 'questionview/_QuestionView.scss';
+@import 'TextQuestionViews.scss';
+
+.felt-header {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5em;
+}
+
+.question {
+  > fieldset {
+    margin: 1em 0;
+    padding: 0;
+
+    > legend {
+      font-weight: bold;
+    }
+  }
+}
+
+.location-result {
+  font-size: 0.8em;
+
+  > .address {
+    display: block;
+    font-weight: bold;
+  }
+}
+
+.location-button {
+  margin: 1em 0;
+}
+
+.dyfi-optional-callout > strong {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.dyfi-contact-questions {
+  > legend {
+    font-weight: bold;
+  }
+
+  > .text-input > label {
+    font-weight: normal;
+  }
+}
