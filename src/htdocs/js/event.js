@@ -2,20 +2,28 @@
 'use strict';
 
 var CatalogEvent = require('pdl/CatalogEvent'),
+    DYFIFormModule = require('dyfi/DYFIFormModule'),
     EventPage = require('core/EventPage');
 
 
-var eventpage,
+var eventPage,
+    eventParams,
     offcanvas;
 
-eventpage = new EventPage({
+eventParams = {
   event: CatalogEvent(EventDetails),
   config: EventConfig,
   el: document.querySelector('.page-content'),
   nav: document.querySelector('.site-sectionnav')
-});
+};
+
+if (EventConfig.unknownEvent) {
+  eventParams.modules = [[DYFIFormModule]];
+}
+
+eventPage = new EventPage(eventParams);
 
 offcanvas = OffCanvas.getOffCanvas();
-eventpage.on('render', function () {
+eventPage.on('render', function () {
   offcanvas.hide();
 });
