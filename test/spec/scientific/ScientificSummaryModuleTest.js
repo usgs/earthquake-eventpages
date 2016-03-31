@@ -19,5 +19,21 @@ describe('scientific/ScientificSummaryModule', function () {
     });
   });
 
-  // TODO :: More tests?
+  describe('getFiniteFaultSumary', function () {
+    it('creates the summary section for the finite fault product', function () {
+      var product,
+          view;
+
+      product = [];
+      view = ScientificSummaryModule();
+
+      sinon.stub(view, 'getFiniteFaultRow', function () {});
+
+      view.getFiniteFaultSumary();
+
+      expect(view.getFiniteFaultRow.callCount).to.equal(1);
+
+      view.destroy();
+    });
+  });
 });
