@@ -606,14 +606,16 @@ var EventPage = function (options) {
       markup.push(
         '<li>',
           '<a href="/data/comcat/">',
-            'About ANSS Comprehensive Catalog (ComCat)',
+            'ANSS Comprehensive Earthquake Catalog (ComCat) Documentation',
           '</a>',
         '</li>');
     }
 
     markup.push(
       '<li>',
-        '<a href="terms.php">Technical terms used on event pages</a>',
+        '<a href="/data/comcat/data-eventterms.php">',
+          'Technical terms used on event pages',
+        '</a>',
       '</li>',
       '</ul>');
 
