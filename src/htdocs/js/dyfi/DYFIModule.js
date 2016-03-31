@@ -107,7 +107,6 @@ var DYFIModule = function (options) {
   _this.renderHeader = function () {
     var product;
 
-    // TODO :: Is this the correct hash for the form?
     _this.header.innerHTML = '<h3>' + _this.TITLE +
         ' - <a href="#' + DYFIFormModule.ID + '">Tell Us!</a></h3>';
 
