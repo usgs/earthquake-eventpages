@@ -70,7 +70,8 @@ var InteractiveMapModule = function (options) {
 
     _mapView = InteractiveMapView({
       formatter: options.formatter,
-      model: _this.model
+      model: _this.model,
+      module: _this
     });
 
     _modal = ModalView(_mapView.el, {

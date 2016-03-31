@@ -100,6 +100,33 @@ var Module = function (options) {
   };
 
   /**
+   * Add "internal-" prefix or "-scenario" suffix to product "type".
+   *
+   * @param type {String}
+   *     The base product type.
+   *
+   * @return {String}
+   *     The actual product type depending on the current configuration.
+   */
+  _this.getFullType = function (type) {
+    var config,
+        fullType;
+
+    config = _this.model.get('config') || {};
+    fullType = type;
+
+    if (config.INTERNAL_MODE) {
+      fullType = 'internal-' + fullType;
+    }
+
+    if (config.SCENARIO_MODE) {
+      fullType += '-scenario';
+    }
+
+    return fullType;
+  };
+
+  /**
    * Get a product from the event based on module parameters and event config.
    *
    * Uses module parameters "source", "code", and optionally "updateTime".
@@ -115,7 +142,6 @@ var Module = function (options) {
    */
   _this.getProduct = function (type) {
     var code,
-        config,
         ev,
         params,
         product,
@@ -124,21 +150,16 @@ var Module = function (options) {
 
     ev = _this.model.get('event');
     params = _this.model.get(_this.ID) || {};
+    type = _this.getFullType(type);
     source = params.source || null;
     code = params.code || null;
     updateTime = params.updateTime || null;
-
-    config = _this.model.get('config');
-
-    if (config && config.SCENARIO_MODE === true) {
-      type += '-scenario';
-    }
-
     product = null;
-    if (source !== null && code !== null) {
+
+    if (ev && source !== null && code !== null) {
       product = ev.getProductById(type, source, code, updateTime);
     }
-    if (product === null) {
+    if (ev && product === null) {
       product = ev.getPreferredProduct(type);
     }
     return product;
@@ -155,15 +176,10 @@ var Module = function (options) {
    *     An array of the matching type of product. This might be an empty array.
    */
   _this.getProducts = function (type) {
-    var config,
-        catalogEvent;
+    var catalogEvent;
 
-    config = _this.model.get('config');
     catalogEvent = _this.model.get('event');
-
-    if (config && config.SCENARIO_MODE === true) {
-      type += '-scenario';
-    }
+    type = _this.getFullType(type);
 
     if (catalogEvent) {
       return catalogEvent.getProducts(type);
