@@ -37,7 +37,7 @@ var OriginView = function (options) {
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
     _geoserve = options.geoserve || null;
-    _url = options.url || null;
+    _url = options.url;
 
     // Bind to geoserve model change
     _region = Model();
