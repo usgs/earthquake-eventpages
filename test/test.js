@@ -97,23 +97,6 @@ require('./spec/shakemap/ShakeMapViewTest');
 
 require('./spec/waveform/WaveformModuleTest');
 
-// require('./spec/modules/base/EventPageTest');
-// require('./spec/modules/base/EventModuleTest');
-// require('./spec/modules/base/EventModulePageTest');
-// require('./spec/modules/base/EventUtilTest');
-// require('./spec/modules/summary/SummaryPageTest');
-// require('./spec/modules/summary/InteractiveMapTest');
-// require('./spec/modules/impact/ImpactModuleTest');
-// require('./spec/modules/impact/DYFIPageTest');
-// require('./spec/modules/impact/DYFIFormPageTest');
-// require('./spec/modules/impact/ShakeMapPageTest');
-// require('./spec/modules/impact/PagerPageTest');
-// require('./spec/modules/impact/PagerXmlParserTest');
-// require('./spec/modules/scientific/HypocenterPageTest');
-// require('./spec/modules/scientific/ScientificSummaryPageTest');
-// require('./spec/modules/scientific/TensorTest');
-// require('./spec/modules/scientific/MomentTensorTest');
-
 if (window.mochaPhantomJS) {
   window.mochaPhantomJS.run();
 } else {
