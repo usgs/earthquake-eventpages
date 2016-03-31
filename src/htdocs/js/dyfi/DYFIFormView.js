@@ -146,6 +146,7 @@ var DYFIFormView = function (options) {
     toggleInfo = _data.toggleInfo;
 
     header = el.appendChild(document.createElement('header'));
+    header.classList.add('dyfi-form-header');
 
     baseQuestionsEl = el.appendChild(document.createElement('div'));
     baseQuestionsEl.classList.add('dyfi-required-questions');
@@ -161,7 +162,7 @@ var DYFIFormView = function (options) {
 
     disclaimerEl = document.createElement('a');
 
-    header.innerHTML = '<h3 class="felt-header">Felt Report</h3>' +
+    header.innerHTML = '<h2 class="felt-header">Felt Report</h2>' +
         '<div class="omb-number">' +
           'OMB No. 1028-0048' +
           '<br/>' +
