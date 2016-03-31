@@ -280,8 +280,6 @@ var ImpactSummaryModule = function (options) {
     text = _this.getProducts('impact-text');
     link = _this.getProducts('impact-link');
 
-
-    _this.header.innerHTML = '<h2>Impact Summary</h2>';
     _this.header.appendChild(_this.getTexts(header));
 
     fragment.appendChild(_this.getDyfiSummary(dyfi));
