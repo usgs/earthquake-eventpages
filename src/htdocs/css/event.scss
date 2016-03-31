@@ -1,13 +1,6 @@
 /* Library styles */
 @import 'accordion/Accordion.scss';
 
-@import 'leaflet/control/_Control.scss';
-@import 'leaflet/control/_HazDevLayers.scss';
-@import 'leaflet/control/_MousePosition.scss';
-@import 'leaflet/control/_Scale.scss';
-@import 'leaflet/control/_Zoom.scss';
-@import 'leaflet/layer/_MouseOverLayer.scss';
-
 @import 'locationview/_controls.scss';
 @import 'locationview/CoordinateControl.scss';
 @import 'locationview/GeocodeControl.scss';
@@ -16,6 +9,13 @@
 @import 'locationview/LocationControl.scss';
 @import 'locationview/LocationView.scss';
 @import 'locationview/PointControl.scss';
+
+@import 'leaflet/control/_Control.scss';
+@import 'leaflet/control/_HazDevLayers.scss';
+@import 'leaflet/control/_MousePosition.scss';
+@import 'leaflet/control/_Scale.scss';
+@import 'leaflet/control/_Zoom.scss';
+@import 'leaflet/layer/_MouseOverLayer.scss';
 
 @import 'mvc/ModalView.scss';
 
