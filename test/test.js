@@ -48,8 +48,8 @@ require('./spec/dyfi/DYFIFormModuleTest');
 require('./spec/dyfi/DYFIFormViewTest');
 require('./spec/dyfi/DYFIIntensityGraphViewTest');
 require('./spec/dyfi/DYFIModuleTest');
-require('./spec/dyfi/DYFIViewTest');
 require('./spec/dyfi/DYFIResponsesViewTest');
+require('./spec/dyfi/DYFIViewTest');
 require('./spec/dyfi/TextQuestionViewTest');
 
 require('./spec/finite-fault/FiniteFaultModuleTest');
