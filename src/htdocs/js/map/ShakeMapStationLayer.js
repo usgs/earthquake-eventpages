@@ -2,7 +2,7 @@
 'use strict';
 
 
-var Formatter = require('base/Formatter'),
+var Formatter = require('core/Formatter'),
     Xhr = require('util/Xhr');
 
 
