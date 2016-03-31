@@ -2,13 +2,16 @@
 'use strict';
 
 
-var ImpactUtil = require('base/ImpactUtil'),
+var Formatter = require('core/Formatter'),
     Util = require('util/Util');
 
 require('leaflet/layer/AsynchronousGeoJson');
 
 
-var DEFAULTS = {
+var _DEFAULTS,
+    _FORMATTER;
+
+_DEFAULTS = {
   style: function (feature) {
     return {
       color: feature.properties.color,
@@ -18,7 +21,9 @@ var DEFAULTS = {
   },
 
   onEachFeature: function (feature, layer) {
-    var roman = ImpactUtil.translateMmi(feature.properties.value);
+    var roman;
+
+    roman = _FORMATTER.mmi(feature.properties.value);
 
     layer.bindPopup(
         '<div class="roman station-summary-intensity mmi' + roman + '">' +
@@ -28,12 +33,14 @@ var DEFAULTS = {
   }
 };
 
+_FORMATTER = Formatter();
+
 
 var ContoursLayer = L.AsynchronousGeoJson.extend({
 
   initialize: function (options) {
     L.AsynchronousGeoJson.prototype.initialize.call(this,
-        Util.extend({}, DEFAULTS, options));
+        Util.extend({}, _DEFAULTS, options));
   }
 
 });
