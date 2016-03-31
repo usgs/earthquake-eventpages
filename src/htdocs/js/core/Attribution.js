@@ -207,6 +207,8 @@ var Attribution = function (options) {
       contributor = _sourceMap.get(id);
 
       // TODO: contributor aliases
+      // this requires some additional thought,
+      // because sourceMap isn't necessarily set to detect duplicates
     }
 
     return contributor;
@@ -305,8 +307,9 @@ var Attribution = function (options) {
 
     sources = {}; // Keep a unique list
 
-    // TODO :: Deal with internal- and -scenario variants
     type = product.get('type');
+    type = type.replace('internal-', '');
+    type = type.replace('-scenario', '');
 
     // Put product.source on first
     source = product.get('source');
@@ -318,17 +321,20 @@ var Attribution = function (options) {
       // Look for origin-source property and magnitude-source property and
       // add them as contributors if new ids
       source = product.getProperty('origin-source');
+      source = source ? source.toLowerCase() : null;
       if (source && !sources.hasOwnProperty(source)) {
         sources[source] = _this.getContributorReference(source);
       }
 
       source = product.getProperty('magnitude-source');
+      source = source ? source.toLowerCase() : null;
       if (source && !sources.hasOwnProperty(source)) {
         sources[source] = _this.getContributorReference(source);
       }
     } else if (type === 'focal-mechanism' || type === 'moment-tensor') {
       // Look for beachball-source property and add it as contributor if new id
       source = product.getProperty('beachball-source');
+      source = source ? source.toLowerCase() : null;
       if (source && !sources.hasOwnProperty(source)) {
         sources[source] = _this.getContributorReference(source);
       }
