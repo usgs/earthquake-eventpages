@@ -37,17 +37,11 @@ var OriginView = function (options) {
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
     _geoserve = options.geoserve || null;
+    _url = options.url || null;
 
     // Bind to geoserve model change
     _region = Model();
     _region.on('change:regions', 'buildFeRegionView', _this);
-
-    if (options.eventConfig &&
-        options.eventConfig.hasOwnProperty('GEOSERVE_WS_URL')) {
-      _url = options.eventConfig.GEOSERVE_WS_URL;
-    } else {
-      _url = options.url;
-    }
   };
 
   _this.destroy = Util.compose(function () {
