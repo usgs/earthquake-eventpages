@@ -1,5 +1,6 @@
 'use strict';
 
+
 var Events = require('util/Events'),
     Formatter = require('core/Formatter'),
     LocationView = require('locationview/LocationView'),
@@ -12,38 +13,39 @@ var Events = require('util/Events'),
     Xhr = require('util/Xhr');
 
 
-var DEFAULTS = {
+var _DEFAULTS = {
   eventTime: null,
   language: 'en',
   url: 'js/languages/'
 };
 
-var DYFI_DISCLAIMER = '<p>' +
-    '<strong>Privacy Act Statement</strong>' +
-    ' You are not required to provide your personal contact information in' +
-    ' order to submit your survey. However, if you do not provide contact' +
-    ' information, we may be unable to contact you for additional information' +
-    ' to verify your responses. If you do provide contact information, this' +
-    ' information will only be used to initiate follow-up communications with' +
-    ' you. The records for this collection will be maintained in the' +
-    ' appropriate Privacy Act System of Records identified as Earthquake' +
-    ' Hazards Program Earthquake Information. (INTERIOR/USGS-2) published' +
-    ' at 74 FR 34033 (July 14,2009).' +
-    '</p>' +
-    '<p>' +
-    '<strong>Paperwork Reduction Act Statement</strong>' +
-    ' The Paperwork Reduction Act of 1995 (44 U.S.C. 3501 et. seq.) requires' +
-    ' us to inform you that this information is being collected to supplement' +
-    ' instrumental data and to promote public safety through better' +
-    ' understanding of earthquakes. Response to this request is voluntary.' +
-    ' Public reporting for this form is estimated to average 6 minutes per' +
-    ' response, including the time for reviewing instructions and completing' +
-    ' the form. A Federal agency may not conduct or sponsor, and a person is' +
-    ' not required to respond to, a collection of information unless it' +
-    ' displays a currently valid OMB Control Number. Comments regarding this' +
-    ' collection of information should be directed to: Bureau Clearance' +
-    ' officer, U.S. Geological Survey, 807 National Center, Reston, VA 20192.' +
-    '</p>';
+var _DYFI_DISCLAIMER = '<p>' +
+  '  <strong>Privacy Act Statement</strong>' +
+  '  You are not required to provide your personal contact information in' +
+  '  order to submit your survey. However, if you do not provide contact' +
+  '  information, we may be unable to contact you for additional information' +
+  '  to verify your responses. If you do provide contact information, this' +
+  '  information will only be used to initiate follow-up communications with' +
+  '  you. The records for this collection will be maintained in the' +
+  '  appropriate Privacy Act System of Records identified as Earthquake' +
+  '  Hazards Program Earthquake Information. (INTERIOR/USGS-2) published' +
+  '  at 74 FR 34033 (July 14,2009).' +
+  '</p>' +
+  '<p>' +
+  '  <strong>Paperwork Reduction Act Statement</strong>' +
+  '  The Paperwork Reduction Act of 1995 (44 U.S.C. 3501 et. seq.) requires' +
+  '  us to inform you that this information is being collected to supplement' +
+  '  instrumental data and to promote public safety through better' +
+  '  understanding of earthquakes. Response to this request is voluntary.' +
+  '  Public reporting for this form is estimated to average 6 minutes per' +
+  '  response, including the time for reviewing instructions and completing' +
+  '  the form. A Federal agency may not conduct or sponsor, and a person is' +
+  '  not required to respond to, a collection of information unless it' +
+  '  displays a currently valid OMB Control Number. Comments regarding this' +
+  '  collection of information should be directed to: Bureau Clearance' +
+  '  officer, U.S. Geological Survey, 807 National Center, Reston, VA 20192.' +
+  '</p>';
+
 
 /**
  * View for the DYFI Form. This view retrieves the questions/answers from the
@@ -84,16 +86,18 @@ var DYFIFormView = function (options) {
    *    The url location for the language/questions object.
    */
   _initialize = function (options) {
-    _options = Util.extend({}, DEFAULTS, options || {});
+    _options = Util.extend({}, _DEFAULTS, options || {});
 
     _curLoc = {};
     _data = null;
     _formatter = _options.formatter || Formatter();
     _locationView = null;
     _questions = {};
+
     if (!_this.model.get('language')) {
       _this.model.set({language: _options.language}, {silent: true});
     }
+
     if (!_this.model.get('eventTime')) {
       _this.model.set({eventTime: _options.eventTime}, {silent: true});
     } else {
@@ -116,7 +120,7 @@ var DYFIFormView = function (options) {
    *  Spins through the questions object, and builds the appropriate sections.
    */
   _this.createForm = function () {
-    var el = _this.el,
+    var el,
         // Form Elements
         baseQuestionsEl,
         contactContainer,
@@ -132,6 +136,8 @@ var DYFIFormView = function (options) {
         locationInfo,
         toggleInfo;
 
+    el = _this.el;
+
     baseQuestions = _data.baseQuestions;
     contactInfo = _data.contactInfo;
     eventTime = _data.eventTime;
@@ -140,19 +146,26 @@ var DYFIFormView = function (options) {
     toggleInfo = _data.toggleInfo;
 
     header = el.appendChild(document.createElement('header'));
+
     baseQuestionsEl = el.appendChild(document.createElement('div'));
     baseQuestionsEl.classList.add('dyfi-required-questions');
+
     toggleContainer = el.appendChild(document.createElement('div'));
     toggleContainer.classList.add('dyfi-optional-callout', 'alert', 'info');
+
     moreQuestionsEl = el.appendChild(document.createElement('div'));
     moreQuestionsEl.classList.add('dyfi-optional-questions');
+
     contactContainer = document.createElement('div');
     contactContainer.classList.add('dyfi-contact-questions', 'alert');
+
     disclaimerEl = document.createElement('a');
 
     header.innerHTML = '<h3 class="felt-header">Felt Report</h3>' +
-        '<div class="omb-number">OMB No. 1028-0048' +
-        '<br/>Expires 05/31/2018' +
+        '<div class="omb-number">' +
+          'OMB No. 1028-0048' +
+          '<br/>' +
+          'Expires 05/31/2018' +
         '</div>';
 
     // Handle location question
@@ -185,7 +198,7 @@ var DYFIFormView = function (options) {
     disclaimerEl.href = '/research/dyfi/disclaimer.php#DYFIFormDisclaimer';
     disclaimerEl.innerHTML = 'PRA - Privacy Statement';
     disclaimerEl.addEventListener('click', function (e) {
-      var dialog = ModalView(DYFI_DISCLAIMER, {
+      var dialog = ModalView(_DYFI_DISCLAIMER, {
         title: 'PRA - Privacy Statement',
         closable: false,
         buttons: [
@@ -199,7 +212,9 @@ var DYFIFormView = function (options) {
             }
           }
         ]
-      }).show();
+      });
+
+      dialog.show();
       e.preventDefault();
     });
 
@@ -207,8 +222,6 @@ var DYFIFormView = function (options) {
 
     _this.synchQuestionAnswers();
     _this.addQuestionListeners();
-    // TODO :: More interaction like progress meter.
-
   };
 
   /**
@@ -272,7 +285,7 @@ var DYFIFormView = function (options) {
     _questions.ciim_mapAddress.getAnswers = function () {
         return {value: _curLoc.place};
     };
-    _questions.ciim_mapConfidence.setAnswers = function () {};
+    _questions.ciim_mapAddress.setAnswers = function () {};
 
     _locationView = LocationView({
       callback: _this.locationCallback
@@ -305,9 +318,14 @@ var DYFIFormView = function (options) {
 
     for (field in questionInfo) {
       view = QuestionView(Util.extend(
-          {el: document.createDocumentFragment()},
+          {
+            el: document.createDocumentFragment()
+          },
           questionInfo[field],
-          {model: Model({field: field})})
+          {
+            model: Model({field: field})
+          }
+        )
       );
 
       _questions[field] = view;
@@ -327,9 +345,15 @@ var DYFIFormView = function (options) {
 
     for (field in questionInfo) {
       view = TextQuestionView(Util.extend(
-          {el: document.createDocumentFragment()},
+          {
+            el: document.createDocumentFragment()
+          },
           questionInfo[field],
-          {model: Model({field: field})}));
+          {
+            model: Model({field: field})
+          }
+        )
+      );
 
       _questions[field] = view;
       container.appendChild(view.el);
