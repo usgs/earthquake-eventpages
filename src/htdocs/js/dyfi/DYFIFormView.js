@@ -69,8 +69,8 @@ var DYFIFormView = function (options) {
       _locationButton,
       _locationDisplay,
       _locationView,
-      _options,
-      _questions;
+      _questions,
+      _url;
 
 
   _this = View(options);
@@ -86,20 +86,21 @@ var DYFIFormView = function (options) {
    *    The url location for the language/questions object.
    */
   _initialize = function (options) {
-    _options = Util.extend({}, _DEFAULTS, options || {});
+    options = Util.extend({}, _DEFAULTS, options || {});
 
     _curLoc = {};
     _data = null;
-    _formatter = _options.formatter || Formatter();
+    _formatter = options.formatter || Formatter();
     _locationView = null;
     _questions = {};
+    _url = options.url;
 
     if (!_this.model.get('language')) {
-      _this.model.set({language: _options.language}, {silent: true});
+      _this.model.set({language: options.language}, {silent: true});
     }
 
     if (!_this.model.get('eventTime')) {
-      _this.model.set({eventTime: _options.eventTime}, {silent: true});
+      _this.model.set({eventTime: options.eventTime}, {silent: true});
     } else {
       _this.model.set({ciim_time: _this.model.get('eventTime')},
           {silent: true});
@@ -476,7 +477,7 @@ var DYFIFormView = function (options) {
     language = _this.model.get('language');
 
     Xhr.ajax({
-      url: _options.url + language + '.json',
+      url: _url + language + '.json',
       success: function (data) {
         if (_data !== null) {
           _this.destroyForm();

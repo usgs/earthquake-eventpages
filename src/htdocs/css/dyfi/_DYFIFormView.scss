@@ -1,17 +1,3 @@
-@import 'mvc/ModalView.scss';
-
-@import 'locationview/_controls.scss';
-@import 'locationview/CoordinateControl.scss';
-@import 'locationview/GeocodeControl.scss';
-@import 'locationview/GeolocationControl.scss';
-@import 'locationview/LeafletControls.scss';
-@import 'locationview/LocationControl.scss';
-@import 'locationview/LocationView.scss';
-@import 'locationview/PointControl.scss';
-
-@import 'questionview/_QuestionView.scss';
-@import 'TextQuestionViews.scss';
-
 .felt-header {
   border-bottom: 1px solid #ddd;
   margin-top: 0.5em;
@@ -57,6 +43,7 @@
   }
 }
 
+
 .dyfi-form-header {
   position: relative;
 }
@@ -67,3 +54,15 @@
   right: 1em;
   top: -1em;
 }
+
+.leaflet-control {
+  padding: 0;
+
+  > a,
+  > a:hover {
+    width: $leaflet-control-size;
+    height: $leaflet-control-size;
+    line-height: $leaflet-control-size;
+  }
+}
+
