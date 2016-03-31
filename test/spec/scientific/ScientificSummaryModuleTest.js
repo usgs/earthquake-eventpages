@@ -1,4 +1,4 @@
-/* global chai, describe, it */
+/* global chai, describe, it, sinon */
 'use strict';
 
 
@@ -20,20 +20,24 @@ describe('scientific/ScientificSummaryModule', function () {
   });
 
   describe('getFiniteFaultSumary', function () {
-    it('creates the summary section for the finite fault product', function () {
-      var product,
-          view;
+    it('calls createSummary', function () {
+      var view;
 
-      product = [];
       view = ScientificSummaryModule();
 
-      sinon.stub(view, 'getFiniteFaultRow', function () {});
+      sinon.stub(view, 'createSummary', function () {});
 
-      view.getFiniteFaultSumary();
+      view.getFiniteFaultSummary();
 
-      expect(view.getFiniteFaultRow.callCount).to.equal(1);
+      expect(view.createSummary.callCount).to.equal(1);
 
       view.destroy();
+    });
+  });
+
+  describe('getFiniteFaultRow', function () {
+    it('', function () {
+
     });
   });
 });
