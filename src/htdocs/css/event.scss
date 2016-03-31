@@ -1,6 +1,13 @@
 /* Library styles */
 @import 'accordion/Accordion.scss';
 
+@import 'leaflet/control/_Control.scss';
+@import 'leaflet/control/_HazDevLayers.scss';
+@import 'leaflet/control/_MousePosition.scss';
+@import 'leaflet/control/_Scale.scss';
+@import 'leaflet/control/_Zoom.scss';
+@import 'leaflet/layer/_MouseOverLayer.scss';
+
 @import 'locationview/_controls.scss';
 @import 'locationview/CoordinateControl.scss';
 @import 'locationview/GeocodeControl.scss';
@@ -9,13 +16,6 @@
 @import 'locationview/LocationControl.scss';
 @import 'locationview/LocationView.scss';
 @import 'locationview/PointControl.scss';
-
-@import 'leaflet/control/_Control.scss';
-@import 'leaflet/control/_HazDevLayers.scss';
-@import 'leaflet/control/_MousePosition.scss';
-@import 'leaflet/control/_Scale.scss';
-@import 'leaflet/control/_Zoom.scss';
-@import 'leaflet/layer/_MouseOverLayer.scss';
 
 @import 'mvc/ModalView.scss';
 
@@ -36,13 +36,12 @@
 @import 'dyfi/_DYFIFormView.scss';
 @import 'dyfi/_DYFIIntensityGraphView.scss';
 @import 'dyfi/_DYFIResponsesView.scss';
+@import 'dyfi/_TextQuestionViews.scss';
 
 @import 'general/_GeneralSummary.scss';
 @import 'general/_LocationMap.scss';
 
 @import 'losspager/_PAGERView.scss';
-@import 'shakemap/_ShakeMapStationList.scss';
-@import 'mvc/ModalView.scss';
 
 @import 'map/_DyfiUtmLayer.scss';
 @import 'map/_InteractiveMapModule.scss';
@@ -54,7 +53,6 @@
 @import 'origin/_PhasesView.scss';
 
 @import 'questionview/_QuestionView.scss';
-@import 'dyfi/_TextQuestionViews.scss';
 
 @import 'shakemap/_ShakeMapStationList.scss';
 
