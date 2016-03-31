@@ -96,9 +96,9 @@ var EventPage = function (options) {
     _redirects = options.redirects;
 
     _event = options.event;
-    _config = options.config;
-    _config.defaultModule = options.defaultModule;
-    _config.modules = options.modules;
+    _config = options.config || {};
+    _config.defaultModule = _config.defaultModule || options.defaultModule;
+    _config.modules = options.modules || [];
 
     _formatter = options.formatter || Formatter();
     // whether event page has previously rendered any content
@@ -178,6 +178,7 @@ var EventPage = function (options) {
     numGroups = moduleGroups.length;
 
     Util.empty(_navEl);
+
 
     for (i = 0; i < numGroups; i++) {
       modules = moduleGroups[i];
@@ -643,7 +644,7 @@ var EventPage = function (options) {
       tsunami = props.tsunami;
       impactBuf = [];
 
-      if (cdi !== null) {
+      if (typeof cdi !== 'undefined' && cdi !== null) {
         cdi = _formatter.mmi(cdi);
         impactBuf.push('<a href="#dyfi"' +
             ' class="mmi' + cdi + '"' +
@@ -655,7 +656,7 @@ var EventPage = function (options) {
             '</a>');
       }
 
-      if (mmi !== null) {
+      if (typeof mmi !== 'undefined' && mmi !== null) {
         mmi = _formatter.mmi(mmi);
         impactBuf.push('<a href="#shakemap"' +
             ' class="mmi' + mmi + '"' +
@@ -666,7 +667,7 @@ var EventPage = function (options) {
               '<abbr title="ShakeMap">ShakeMap</abbr>' +
             '</a>');
       }
-      if (alertlevel !== null) {
+      if (typeof alertlevel !== 'undefined' && alertlevel !== null) {
         impactBuf.push('<a href="#pager"' +
             ' class="pager-alertlevel-' + alertlevel.toLowerCase() + '"' +
             ' title="PAGER estimated impact alert level"' +
@@ -680,7 +681,7 @@ var EventPage = function (options) {
                   '">PAGER</abbr>' +
             '</a>');
       }
-      if (tsunami > 0) {
+      if (typeof tsunami !== 'undefined' && tsunami !== null && tsunami > 0) {
         impactBuf.push('<a href="http://www.tsunami.gov/"' +
             ' class="tsunami"' +
             ' title="Tsunami Warning Center"' +
