@@ -601,7 +601,7 @@ var EventPage = function (options) {
     ];
 
     if (_this.isScenarioMode()) {
-      markup.push('<li><a href="/scenarios/">Scenario Home Page</a></li>');
+      markup.push('<li><a href="/scenarios/">Earthquake Scenarios</a></li>');
     } else {
       markup.push(
         '<li>',
