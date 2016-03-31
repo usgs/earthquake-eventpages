@@ -5,10 +5,10 @@ var config = require('./config');
 var watch = {
   static: {
     files: [
-      config.src + '/htdocs/**/*.php',
-      config.src + '/htdocs/**/*.html',
-      config.src + '/htdocs/img/**/*.{png,jpg,jpeg,gif}',
-      config.src + '/' + config.lib + '/inc/**/*.php'
+      config.src + '/**/*',
+      '!**/*.js',
+      '!**/*.scss',
+      '!**/*.orig'
     ],
     tasks: [
       'copy:build'
@@ -35,6 +35,7 @@ var watch = {
     ],
     tasks: [
       'jshint:tests',
+      'copy:test',
       'browserify:test',
       'mocha_phantomjs'
     ]
