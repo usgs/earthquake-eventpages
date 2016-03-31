@@ -154,6 +154,8 @@ var OriginModule = function (options) {
     var header;
 
     Util.empty(_this.header);
+    _this.header.innerHTML = '<h3>' + _this.TITLE + '</h3>';
+
     if (product) {
       header = _this.getProductHeader({
         product: product,
@@ -161,7 +163,6 @@ var OriginModule = function (options) {
       });
 
       if (header) {
-        _this.header.innerHTML = '<h3>Origin</h3>';
         _this.header.appendChild(header);
       }
     }
