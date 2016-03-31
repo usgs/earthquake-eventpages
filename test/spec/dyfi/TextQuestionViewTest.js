@@ -1,15 +1,12 @@
 /* global chai, describe, it, sinon */
 'use strict';
 
+
 var TextQuestionView = require('dyfi/TextQuestionView');
+
 
 var expect = chai.expect;
 
-var getChangeEvent = function () {
-  var evt = document.createEvent('HTMLEvents');
-  evt.initEvent('change', false, true);
-  return evt;
-};
 
 describe('dyfi/TextQuestionView', function () {
   describe('constructor', function () {
@@ -18,56 +15,71 @@ describe('dyfi/TextQuestionView', function () {
     });
 
     it('can be contructed', function () {
-      /* jshint -W030 */
-      expect(TextQuestionView).to.not.be.null;
-      /* jshint +W030 */
+      expect(TextQuestionView).to.not.throw(Error);
     });
-    it('Has proper default attributes.', function () {
-      /* jshint -W030 */
-      expect(TextQuestionView.el).to.not.be.null;
-      expect(TextQuestionView.label).to.not.be.null;
-      /* jshint +W030 */
-    });
-  });
 
-  describe('_onChange()', function () {
-    var spy = sinon.spy();
-    it('returns value', function () {
-      var question = TextQuestionView({
-        label:'This label'
-      });
+    it('can be destroyed', function () {
+      var view;
 
-    var el = question.el,
-        inputs = el.getElementsByTagName('input');
+      view = TextQuestionView();
 
-    question.on('change', spy);
-
-    inputs[0].value ='dont say anything';
-    inputs[0].dispatchEvent(getChangeEvent());
-    expect(spy.callCount).to.equal(1);
+      expect(view.destroy).to.not.throw(Error);
     });
   });
 
   describe('getAnswers', function () {
-    var question = TextQuestionView({
-      label:'This label',
-      value:'Set'
-    });
-
     it('Returns the appropriate answer', function() {
-      expect(question.getAnswers().value).to.equal('Set');
+      var answer,
+          view;
+
+      view = TextQuestionView({
+        label: 'A Label',
+        value: 'A Value'
+      });
+
+      answer = view.getAnswers();
+
+      expect(answer.label).to.equal('A Label');
+      expect(answer.value).to.equal('A Value');
+
+      view.destroy();
     });
   });
 
-  describe('setAnswers()', function() {
-    var question = TextQuestionView({
-      label:'This label'
+  describe('onChange', function () {
+    it('triggers a change event', function () {
+      var spy,
+          view;
+
+      view = TextQuestionView();
+      spy = sinon.spy();
+      view.on('change', spy);
+
+      view.onChange();
+      expect(spy.callCount).to.equal(1);
+
+      view.destroy();
     });
-    /* jshint -W030 */
-    expect(question.getAnswers().value).to.equal('');
-    question.setAnswers('set');
-    expect(question.getAnswers().value).to.equal('set');
-    /* jshint +W030 */
+  });
+
+  describe('setAnswers', function() {
+    it('changes the answer', function () {
+      var answer,
+          view;
+
+      view = TextQuestionView({
+        label: 'A Label',
+        value: 'A Value'
+      });
+
+      view.setAnswers('New Value');
+      answer = view.getAnswers();
+
+      expect(answer.label).to.equal('A Label');
+      expect(answer.value).to.equal('New Value');
+
+      view.destroy();
+    });
   });
 
 });
