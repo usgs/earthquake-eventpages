@@ -195,8 +195,7 @@ var CatalogEvent = function (eventDetails) {
 
     _products = {};
     _properties = {};
-    if (typeof eventDetails !== 'undefined' &&
-        eventDetails.properties) {
+    if (eventDetails && eventDetails.properties) {
       _products = Util.extend({}, eventDetails.properties.products);
       _properties = Util.extend({}, eventDetails.properties, {products:null});
     }
