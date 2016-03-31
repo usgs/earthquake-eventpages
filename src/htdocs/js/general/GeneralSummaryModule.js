@@ -19,7 +19,7 @@ var _ID,
 
 // Note: These should be overridden by each implementing sub-class.
 _ID = 'general';
-_TITLE = 'General';
+_TITLE = 'General Summary';
 
 _hasContent = function (eventPageModel) {
   var ev;

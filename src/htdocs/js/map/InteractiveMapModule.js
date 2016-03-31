@@ -151,7 +151,7 @@ var InteractiveMapModule = function (options) {
   _this.render = function () {
     // Do basic background rendering stuff. This will largely go unseen.
     _this.header.innerHTML = '<a class="back-to-summary-link" ' +
-        'href="#">Back to General</a>';
+        'href="#">Back to General Summary</a>';
     _this.content.innerHTML = '<button class="show-map">Show Map</button>';
     _this.footer.innerHTML = '';
 
