@@ -601,19 +601,21 @@ var EventPage = function (options) {
     ];
 
     if (_this.isScenarioMode()) {
-      markup.push('<li><a href="/scenarios/">Scenario Home Page</a></li>');
+      markup.push('<li><a href="/scenarios/">Earthquake Scenarios</a></li>');
     } else {
       markup.push(
         '<li>',
           '<a href="/data/comcat/">',
-            'About ANSS Comprehensive Catalog (ComCat)',
+            'ANSS Comprehensive Earthquake Catalog (ComCat) Documentation',
           '</a>',
         '</li>');
     }
 
     markup.push(
       '<li>',
-        '<a href="terms.php">Technical terms used on event pages</a>',
+        '<a href="/data/comcat/data-eventterms.php">',
+          'Technical terms used on event pages',
+        '</a>',
       '</li>',
       '</ul>');
 
