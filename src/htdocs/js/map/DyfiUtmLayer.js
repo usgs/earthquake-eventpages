@@ -2,7 +2,6 @@
 'use strict';
 
 var Formatter = require('core/Formatter'),
-    ImpactUtil = require('base/ImpactUtil'),
     Util = require('util/Util');
 
 require('leaflet/layer/AsynchronousGeoJson');
@@ -12,7 +11,7 @@ var _DEFAULT_FORMATTER = Formatter();
 
 var _DEFAULT_OPTIONS = {
   style: function (feature) {
-    var color = ImpactUtil.getMmiColor(feature.properties.cdi);
+    var color = _DEFAULT_FORMATTER.mmiColor(feature.properties.cdi);
     return {
       color: '#999',
       fillColor: color,
@@ -27,8 +26,11 @@ var _DEFAULT_OPTIONS = {
   },
 
   formatPopup: function (feature) {
-    var p = feature.properties,
-        mmi = ImpactUtil.translateMmi(p.cdi);
+    var mmi,
+        p;
+
+    p = feature.properties;
+    mmi = _DEFAULT_FORMATTER.mmi(p.cdi);
 
     return '<div class="dyfi-popup">' +
       '<h2 class="dyfi-name">' + p.name + '</h2>' +
