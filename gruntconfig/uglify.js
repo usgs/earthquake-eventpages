@@ -12,7 +12,10 @@ var uglify = {
     files: [{
       expand: true,
       cwd: config.build + '/' + config.src,
-      src: '**/*.js',
+      src: [
+        '**/*.js',
+        '!**/classes.js'
+      ],
       dest: config.dist
     }]
   }
