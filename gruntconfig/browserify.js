@@ -3,57 +3,86 @@
 var config = require('./config');
 
 
-var CWD = process.cwd(),
-    NODE_MODULES = CWD + '/node_modules';
+var CWD,
+    JS,
+    NODE_MODULES;
+
+CWD = process.cwd(),
+NODE_MODULES = CWD + '/node_modules';
+JS = './' + config.src + '/htdocs/js';
 
 
 var ALL_CLASSES = [
-  './' + config.src + '/htdocs/js/core/AccordionView.js:core/AccordionView',
-  './' + config.src + '/htdocs/js/core/Attribution.js:core/Attribution',
-  './' + config.src + '/htdocs/js/core/DownloadView.js:core/DownloadView',
-  './' + config.src + '/htdocs/js/core/EventPage.js:core/EventPage',
-  './' + config.src + '/htdocs/js/core/Formatter.js:core/Formatter',
-  './' + config.src + '/htdocs/js/core/LinkProductView.js:core/LinkProductView',
-  './' + config.src + '/htdocs/js/core/SummaryModule.js:core/SummaryModule',
-  './' + config.src + '/htdocs/js/core/TextProductView.js:core/TextProductView',
-  './' + config.src + '/htdocs/js/dyfi/DYFIFormModule.js:dyfi/DYFIFormModule',
-  './' + config.src + '/htdocs/js/dyfi/DYFIFormView.js:dyfi/DYFIFormView',
-  './' + config.src + '/htdocs/js/dyfi/DYFIModule.js:dyfi/DYFIModule',
-  './' + config.src + '/htdocs/js/dyfi/DYFIView.js:dyfi/DYFIView',
-  './' + config.src + '/htdocs/js/dyfi/DYFIIntensityGraphView.js:dyfi/DYFIIntensityGraphView',
-  './' + config.src + '/htdocs/js/dyfi/DYFIResponsesView.js:dyfi/DYFIResponsesView',
-  './' + config.src + '/htdocs/js/finite-fault/FiniteFaultModule.js:finite-fault/FiniteFaultModule',
-  './' + config.src + '/htdocs/js/finite-fault/FiniteFaultView.js:finite-fault/FiniteFaultView',
-  './' + config.src + '/htdocs/js/focal-mechanism/FocalMechanismModule.js:focal-mechanism/FocalMechanismModule',
-  './' + config.src + '/htdocs/js/focal-mechanism/FocalMechanismView.js:focal-mechanism/FocalMechanismView',
-  './' + config.src + '/htdocs/js/general/GeoserveNearbyPlacesView.js:general/GeoserveNearbyPlacesView',
-  './' + config.src + '/htdocs/js/general/GeoserveRegionSummaryView.js:general/GeoserveRegionSummaryView',
-  './' + config.src + '/htdocs/js/general/NearbyPlacesView.js:general/NearbyPlacesView',
-  './' + config.src + '/htdocs/js/losspager/PAGERView.js:losspager/PAGERView',
-  './' + config.src + '/htdocs/js/map/ContoursLayer.js:map/ContoursLayer',
-  './' + config.src + '/htdocs/js/map/DyfiUtmLayer.js:map/DyfiUtmLayer',
-  './' + config.src + '/htdocs/js/map/InteractiveMapModule.js:map/InteractiveMapModule',
-  './' + config.src + '/htdocs/js/map/InteractiveMapView.js:map/InteractiveMapView',
-  './' + config.src + '/htdocs/js/map/ShakeMapStationLayer.js:map/ShakeMapStationLayer',
-  './' + config.src + '/htdocs/js/moment-tensor/BeachBallView.js:moment-tensor/BeachBallView',
-  './' + config.src + '/htdocs/js/moment-tensor/Canvas.js:moment-tensor/Canvas',
-  './' + config.src + '/htdocs/js/moment-tensor/MomentTensorModule.js:moment-tensor/MomentTensorModule',
-  './' + config.src + '/htdocs/js/moment-tensor/MomentTensorView.js:moment-tensor/MomentTensorView',
-  './' + config.src + '/htdocs/js/moment-tensor/Tensor.js:moment-tensor/Tensor',
-  './' + config.src + '/htdocs/js/origin/MagnitudesView.js:origin/MagnitudesView',
-  './' + config.src + '/htdocs/js/origin/OriginModule.js:origin/OriginModule',
-  './' + config.src + '/htdocs/js/origin/OriginView.js:origin/OriginView',
-  './' + config.src + '/htdocs/js/origin/PhasesView.js:origin/PhasesView',
-  './' + config.src + '/htdocs/js/origin/QuakemlView.js:origin/QuakemlView',
-  './' + config.src + '/htdocs/js/pdl/CatalogEvent.js:pdl/CatalogEvent',
-  './' + config.src + '/htdocs/js/pdl/Content.js:pdl/Content',
-  './' + config.src + '/htdocs/js/pdl/Product.js:pdl/Product',
-  './' + config.src + '/htdocs/js/scientific/ScientificSummaryModule.js:scientific/ScientificSummaryModule',
-  './' + config.src + '/htdocs/js/shakemap/ShakeMapInfoView.js:shakemap/ShakeMapInfoView',
-  './' + config.src + '/htdocs/js/shakemap/ShakeMapModule.js:shakemap/ShakeMapModule',
-  './' + config.src + '/htdocs/js/shakemap/ShakeMapStationListView.js:shakemap/ShakeMapStationListView',
-  './' + config.src + '/htdocs/js/shakemap/ShakeMapView.js:shakemap/ShakeMapView',
-  './' + config.src + '/htdocs/js/waveform/WaveformModule.js:waveform/WaveformModule',
+  JS + '/core/AccordionView.js:core/AccordionView',
+  JS + '/core/Attribution.js:core/Attribution',
+  JS + '/core/ContentView.js:core/ContentView',
+  JS + '/core/DownloadView.js:core/DownloadView',
+  JS + '/core/EventPage.js:core/EventPage',
+  JS + '/core/Formatter.js:core/Formatter',
+  JS + '/core/LinkProductView.js:core/LinkProductView',
+  JS + '/core/Module.js:core/Module',
+  JS + '/core/ProductView.js:core/ProductView',
+  JS + '/core/SummaryModule.js:core/SummaryModule',
+  JS + '/core/TextProductView.js:core/TextProductView',
+
+  JS + '/dyfi/DYFIFormModule.js:dyfi/DYFIFormModule',
+  JS + '/dyfi/DYFIFormView.js:dyfi/DYFIFormView',
+  JS + '/dyfi/DYFIIntensityGraphView.js:dyfi/DYFIIntensityGraphView',
+  JS + '/dyfi/DYFIModule.js:dyfi/DYFIModule',
+  JS + '/dyfi/DYFIResponsesView.js:dyfi/DYFIResponsesView',
+  JS + '/dyfi/DYFIView.js:dyfi/DYFIView',
+  JS + '/dyfi/StandardDeviationLineView.js:dyfi/StandardDeviationLineView',
+  JS + '/dyfi/TextQuestionView.js:dyfi/TextQuestionView',
+
+  JS + '/finite-fault/FiniteFaultModule.js:finite-fault/FiniteFaultModule',
+  JS + '/finite-fault/FiniteFaultView.js:finite-fault/FiniteFaultView',
+
+  JS + '/focal-mechanism/FocalMechanismModule.js:focal-mechanism/FocalMechanismModule',
+  JS + '/focal-mechanism/FocalMechanismView.js:focal-mechanism/FocalMechanismView',
+
+  JS + '/general/GeneralSummaryModule.js:general/GeneralSummaryModule',
+  JS + '/general/GeoserveNearbyPlacesView.js:general/GeoserveNearbyPlacesView',
+  JS + '/general/GeoserveRegionSummaryView.js:general/GeoserveRegionSummaryView',
+  JS + '/general/LocationView.js:general/LocationView',
+  JS + '/general/NearbyPlacesView.js:general/NearbyPlacesView',
+
+  JS + '/impact/ImpactSummaryModule.js:impact/ImpactSummaryModule',
+
+  JS + '/losspager/PAGERModule.js:losspager/PAGERModule',
+  JS + '/losspager/PAGERView.js:losspager/PAGERView',
+  JS + '/losspager/PagerXmlParser.js:losspager/PagerXmlParser',
+
+  JS + '/map/ContoursLayer.js:map/ContoursLayer',
+  JS + '/map/DyfiUtmLayer.js:map/DyfiUtmLayer',
+  JS + '/map/InteractiveMapModule.js:map/InteractiveMapModule',
+  JS + '/map/InteractiveMapView.js:map/InteractiveMapView',
+  JS + '/map/ShakeMapStationLayer.js:map/ShakeMapStationLayer',
+
+  JS + '/moment-tensor/BeachBallView.js:moment-tensor/BeachBallView',
+  JS + '/moment-tensor/Canvas.js:moment-tensor/Canvas',
+  JS + '/moment-tensor/MomentTensorModule.js:moment-tensor/MomentTensorModule',
+  JS + '/moment-tensor/MomentTensorView.js:moment-tensor/MomentTensorView',
+  JS + '/moment-tensor/Tensor.js:moment-tensor/Tensor',
+
+  JS + '/origin/MagnitudesView.js:origin/MagnitudesView',
+  JS + '/origin/OriginModule.js:origin/OriginModule',
+  JS + '/origin/OriginView.js:origin/OriginView',
+  JS + '/origin/PhasesView.js:origin/PhasesView',
+  JS + '/origin/QuakemlView.js:origin/QuakemlView',
+
+  JS + '/pdl/CatalogEvent.js:pdl/CatalogEvent',
+  JS + '/pdl/Content.js:pdl/Content',
+  JS + '/pdl/Product.js:pdl/Product',
+
+  JS + '/scientific/ScientificSummaryModule.js:scientific/ScientificSummaryModule',
+
+  JS + '/shakemap/ShakeMapInfoView.js:shakemap/ShakeMapInfoView',
+  JS + '/shakemap/ShakeMapModule.js:shakemap/ShakeMapModule',
+  JS + '/shakemap/ShakeMapStationListView.js:shakemap/ShakeMapStationListView',
+  JS + '/shakemap/ShakeMapView.js:shakemap/ShakeMapView',
+
+  JS + '/waveform/WaveformModule.js:waveform/WaveformModule',
+
   NODE_MODULES + '/hazdev-tablist/src/tablist/TabList.js:tablist/TabList',
   NODE_MODULES + '/hazdev-webutils/src/mvc/Model.js:mvc/Model',
   NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
@@ -62,25 +91,6 @@ var ALL_CLASSES = [
   NODE_MODULES + '/hazdev-svgimagemap/src/svgimagemap/SvgImageMap.js:svgimagemap/SvgImageMap'
 ];
 
-// var BUNDLED_DEPENDENCIES = [
-//   './' + config.src + '/htdocs/modules/base/Attribution.js:base/Attribution',
-//   './' + config.src + '/htdocs/modules/base/EventModulePage.js' +
-//       ':base/EventModulePage',
-//   './' + config.src + '/htdocs/modules/base/EventUtil.js:base/EventUtil',
-//   './' + config.src + '/htdocs/modules/base/Formatter.js:base/Formatter',
-//   './' + config.src + '/htdocs/modules/base/ImpactUtil.js:base/ImpactUtil',
-//   './' + config.src + '/htdocs/modules/base/SummaryDetailsPage.js' +
-//       ':base/SummaryDetailsPage',
-//   './' + config.src + '/htdocs/modules/base/SummaryPage.js:base/SummaryPage',
-//   NODE_MODULES + '/hazdev-accordion/src/accordion/Accordion.js' +
-//       ':accordion/Accordion',
-//   NODE_MODULES + '/hazdev-tablist/src/tablist/TabList.js:tablist/TabList',
-//   NODE_MODULES + '/hazdev-webutils/src/mvc/Collection.js:mvc/Collection',
-//   NODE_MODULES + '/hazdev-webutils/src/mvc/DataTable.js:mvc/DataTable',
-//   NODE_MODULES + '/hazdev-webutils/src/util/Util.js:util/Util',
-//   NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr'
-// ];
-
 
 var browserify = {
   options: {
@@ -88,7 +98,6 @@ var browserify = {
       debug: true,
       paths: [
         CWD + '/' + config.src + '/htdocs/js',
-        CWD + '/' + config.src + '/htdocs/modules',
         NODE_MODULES + '/hazdev-accordion/src',
         NODE_MODULES + '/hazdev-geoserve-ws/src/htdocs/js',
         NODE_MODULES + '/hazdev-d3/src',
@@ -104,7 +113,7 @@ var browserify = {
   },
 
   // source bundles
-  classes: {
+  'classes': {
     src: [],
     dest: config.build + '/' + config.src + '/htdocs/js/classes.js',
     options: {
@@ -116,90 +125,17 @@ var browserify = {
     src: [config.src + '/htdocs/js/event.js'],
     dest: config.build + '/' + config.src + '/htdocs/js/event.js',
     options: {
-
-    }
-  },
-
-  // index: {
-  //   src: [config.src + '/htdocs/js/index.js'],
-  //   dest: config.build + '/' + config.src + '/htdocs/js/index.js',
-  //   options: {
-  //     alias: BUNDLED_DEPENDENCIES
-  //   }
-  // },
-
-
-  // bundle leaflet externally
-  leaflet: {
-    src: [],
-    dest: config.build + '/' + config.src + '/htdocs/lib/leaflet/leaflet.js',
-    options: {
-      alias: [
-        NODE_MODULES + '/leaflet/dist/leaflet-src.js:leaflet'
-      ]
     }
   },
 
   // test bundle
-  test: {
+  'test': {
     src: config.test + '/test.js',
     dest: config.build + '/' + config.test + '/test.js',
     options: {
       external: ALL_CLASSES
     }
-  }//,
-
-  // summary: {
-  //   src: [],
-  //   dest: config.build + '/' + config.src + '/htdocs/modules/summary/index.js',
-  //   options: {
-  //     alias: [
-  //       // SummaryPage is already bundled in index above
-  //       'summary/ExecutiveSummaryPage',
-  //       'summary/InteractiveMap'
-  //     ].map(function(value) {
-  //       return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
-  //     }),
-  //     external: BUNDLED_DEPENDENCIES.concat(['leaflet'])
-  //   }
-  // },
-
-  // impact: {
-  //   src: [],
-  //   dest: config.build + '/' + config.src + '/htdocs/modules/impact/index.js',
-  //   options: {
-  //     alias: [
-  //       'impact/ImpactSummaryPage',
-  //       'impact/DYFIPage',
-  //       'impact/DYFIFormPage',
-  //       'impact/PagerPage',
-  //       'impact/ShakeMapPage'
-  //     ].map(function(value) {
-  //       return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
-  //     }),
-  //     external: BUNDLED_DEPENDENCIES.concat(['leaflet'])
-  //   }
-  // },
-
-  // scientific: {
-  //   src: [],
-  //   dest: config.build + '/' + config.src +
-  //       '/htdocs/modules/scientific/index.js',
-  //   options: {
-  //     alias: [
-  //       'scientific/FiniteFaultPage',
-  //       'scientific/FocalMechanismPage',
-  //       'scientific/HypocenterPage',
-  //       'scientific/IrisProductsPage',
-  //       'scientific/MomentTensorPage',
-  //       'scientific/ScientificSummaryPage'
-  //     ].map(function(value) {
-  //       return './' + config.src + '/htdocs/modules/' + value + '.js:' + value;
-  //     }),
-  //     external: BUNDLED_DEPENDENCIES
-  //   }
-  // }
-
+  }
 };
 
 
