@@ -128,12 +128,19 @@ var FocalMechanismModule = function (options) {
    *     product to render, or null if no product.
    */
   _this.renderHeader = function (product) {
+    var header;
+
     Util.empty(_this.header);
     if (product) {
-      _this.header.appendChild(_this.getProductHeader({
+      header = _this.getProductHeader({
         product: product,
         summaryModule: ScientificSummaryModule
-      }));
+      });
+
+      if (header) {
+        _this.header.innerHTML = '<h3>Focal Mechanism</h3>';
+        _this.header.appendChild(header);
+      }
     }
   };
 
