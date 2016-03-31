@@ -319,6 +319,33 @@ describe('map/InteractiveMapView', function () {
     });
   });
 
+  describe('getProductOverlays', function () {
+    it('only uses configured source/code properties for type', function () {
+      var dyfi,
+          mapConfig,
+          spy,
+          view;
+
+      view = _createMapView();
+      dyfi = Product(eventDetails.properties.products.dyfi[0]);
+      spy = sinon.spy();
+      mapConfig = view.model.get('map') || {};
+      mapConfig.shakemapSource = 'fakeSource';
+      mapConfig.shakemapCode = 'fakeCode';
+      view.model.set({map: mapConfig}, {silent: true});
+
+      view.getProductOverlays('shakemap', spy);
+      expect(spy.callCount).to.equal(0); // No matching product, not called
+
+      view.getProductOverlays('dyfi', spy);
+      expect(spy.callCount).to.equal(1); // Should still get preferred dyfi
+      expect(spy.getCall(0).args[0].get('id')).to.equal(dyfi.get('id'));
+
+      dyfi.destroy();
+      view.destroy();
+    });
+  });
+
   describe('render', function () {
     var view;
 
