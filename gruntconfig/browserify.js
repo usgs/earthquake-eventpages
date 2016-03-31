@@ -7,7 +7,7 @@ var CWD,
     JS,
     NODE_MODULES;
 
-CWD = process.cwd(),
+CWD = process.cwd();
 NODE_MODULES = CWD + '/node_modules';
 JS = './' + config.src + '/htdocs/js';
 
