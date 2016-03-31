@@ -150,7 +150,7 @@ var MagnitudesView = function (options) {
     period = _NOT_REPORTED;
     status = amplitude.evaluationMode || stationMagnitude.status || 'automatic';
     type = stationMagnitude.type;
-    weight = contribution.weight;
+    weight = contribution.weight || _NOT_REPORTED;
 
     if (amplitude.genericAmplitude) {
       amp = amplitude.genericAmplitude.value + '&nbsp;' +
@@ -159,6 +159,13 @@ var MagnitudesView = function (options) {
 
     if (amplitude.period) {
       period = amplitude.period.value + ' s';
+    }
+
+    if (period === _NOT_REPORTED && amplitude.unit === 's') {
+      // quakeml requires a period value to be placed in the amplitude
+      // if there is no other amplitude information
+      period = amp;
+      amp = _NOT_REPORTED;
     }
 
     return [
