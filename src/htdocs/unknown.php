@@ -9,12 +9,21 @@ if (!isset($TEMPLATE)) {
   $NAVIGATION = navItem('#', 'Event Summary');
 
   $EVENT_CONFIG = array(
-    'KML_STUB' => null,
-    'MOUNT_PATH' => $CONFIG['MOUNT_PATH'],
-    'DYFI_RESPONSE_URL' => $CONFIG['DYFI_RESPONSE_URL']
+    'ATTRIBUTION_URL' => '',
+    'DYFI_RESPONSE_URL' => $DYFI_RESPONSE_URL,
+    'GEOSERVE_WS_URL' => $GEOSERVE_WS_URL,
+    'MOUNT_PATH' => $MOUNT_PATH,
+    'KML_STUB' => '',
+    'SCENARIO_MODE' => $SCENARIO_MODE,
+
+    'unknownEvent' => true,
+    'defaultModule' => 'tellus'
   );
 
-  $HEAD = '<link rel="stylesheet" href="css/index.css"/>';
+  $HEAD = '
+    <link rel="stylesheet" href="/lib/leaflet-0.7.7/leaflet.css"/>
+    <link rel="stylesheet" href="css/event.css"/>
+  ';
 
   $FOOT =
     /* create event page with event details and config. */
@@ -22,8 +31,9 @@ if (!isset($TEMPLATE)) {
       'var EventConfig = ' . json_encode($EVENT_CONFIG) . ';' .
       'var EventDetails = null;' .
     '</script>' .
+    '<script src="/lib/leaflet-0.7.7/leaflet.js"></script>' .
     /* this script creates EventPage using EventConfig, EventDetails */
-    '<script src="js/index.js"></script>';
+    '<script src="js/event.js"></script>';
 
 
   include_once 'template.inc.php';
