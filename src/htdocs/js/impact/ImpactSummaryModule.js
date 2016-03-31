@@ -270,9 +270,7 @@ var ImpactSummaryModule = function (options) {
     _this.clearTexts(true);
     _this.clearLinks(true);
 
-
     header = _this.getProducts('impact-header');
-
     dyfi = _this.getProducts('dyfi');
     shakemap = _this.getProducts('shakemap');
     pager = _this.getProducts('losspager');
@@ -280,6 +278,7 @@ var ImpactSummaryModule = function (options) {
     text = _this.getProducts('impact-text');
     link = _this.getProducts('impact-link');
 
+    Util.empty(_this.header);
     _this.header.appendChild(_this.getTexts(header));
 
     fragment.appendChild(_this.getDyfiSummary(dyfi));
