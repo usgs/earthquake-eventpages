@@ -8,7 +8,7 @@ var expect = chai.expect,
     pagerInfo = null;
 
 
-describe('PagerXmlParser test suite.', function () {
+describe('losspager/PagerXmlParser test suite.', function () {
   before(function (done) {
     Xhr.ajax({
       url: 'spec/modules/impact/pager.xml',
