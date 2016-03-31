@@ -341,7 +341,7 @@ var DYFIFormModule = function (options) {
 
     buttonMarkup = '<button class="show-form">Show Form</button>';
 
-    _this.header.innerHTML = '';
+    _this.header.innerHTML = '<h3>' + _this.TITLE + '</h3>';
     _this.footer.innerHTML = '';
 
     if (_submitResult && (_submitResult.error || _submitResult.success)) {
