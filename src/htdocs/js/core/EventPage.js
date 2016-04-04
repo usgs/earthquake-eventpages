@@ -93,8 +93,6 @@ var EventPage = function (options) {
   _this = Events();
 
   _initialize = function (options) {
-    var preferredOrigin;
-
     options = Util.extend({}, _DEFAULTS, options);
     _redirects = options.redirects;
 
@@ -130,24 +128,13 @@ var EventPage = function (options) {
     // Creates the mapping for later
     _initializeModules();
     _this.renderHeader();
-    Attribution.whenReady(_this.renderFooter); // Need to wait ...
-
-    // Update banner with cooperator logo
-    preferredOrigin = _event ? _event.getPreferredOriginProduct() : null;
-    if (preferredOrigin) {
-      Attribution.whenReady(function () {
-        CooperatorLogo({
-          cooperator: Attribution.getContributor(preferredOrigin.get('source'))
-        });
-      });
-    }
+    Attribution.whenReady(_this.onAttributionReady);
 
     // render module
     Events.on('back', 'onBack', _this);
     Events.on('hashchange', _onHashChange);
     _onHashChange();
   };
-
 
   _createNavItem = function (module, isHeader) {
     var link,
@@ -292,6 +279,25 @@ var EventPage = function (options) {
     _this = null;
   }, _this.destroy);
 
+  /**
+   * Called when attribution information has been loaded,
+   * Updates the contributor logo in the header and
+   * the contributor list in the banner.
+   */
+  _this.onAttributionReady = function () {
+    var preferredOrigin;
+
+    // Contributor logo in banner
+    preferredOrigin = _event ? _event.getPreferredOriginProduct() : null;
+    if (preferredOrigin) {
+      CooperatorLogo({
+        cooperator: Attribution.getContributor(preferredOrigin.get('source'))
+      });
+    }
+
+    // Add Contributor list in footer
+    _this.renderFooter();
+  };
 
   /**
    * Loops over each product and checks for source information. Creates a
