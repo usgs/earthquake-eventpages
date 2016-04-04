@@ -9,9 +9,9 @@ var Util = require('util/Util'),
 var _DEFAULTS = {
   // label - The question being asked
   type: 'input',
-  label: null,
+  label: '',
   placeholder: '',
-  value: null
+  value: ''
 };
 
 var _ID_SEQUENCE = 0;
