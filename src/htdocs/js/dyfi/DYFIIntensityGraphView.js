@@ -163,6 +163,7 @@ var DYFIIntensityGraphView = function (options) {
         },
         yAxisTicks: [1,2,3,4,5,6,7,8,9,10],
         yExtent: [1,10],
+        marginTop: 10,
         marginLeft: 10,
         paddingLeft:70
       }, options));
