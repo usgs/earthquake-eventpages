@@ -153,13 +153,16 @@ var DYFIFormView = function (options) {
     baseQuestionsEl.classList.add('dyfi-required-questions');
 
     toggleContainer = el.appendChild(document.createElement('div'));
-    toggleContainer.classList.add('dyfi-optional-callout', 'alert', 'info');
+    toggleContainer.classList.add('dyfi-optional-callout');
+    toggleContainer.classList.add('alert');
+    toggleContainer.classList.add('info');
 
     moreQuestionsEl = el.appendChild(document.createElement('div'));
     moreQuestionsEl.classList.add('dyfi-optional-questions');
 
     contactContainer = document.createElement('div');
-    contactContainer.classList.add('dyfi-contact-questions', 'alert');
+    contactContainer.classList.add('dyfi-contact-questions');
+    contactContainer.classList.add('alert');
 
     disclaimerEl = document.createElement('a');
 
