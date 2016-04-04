@@ -61,7 +61,7 @@ var TextQuestionView = function (options) {
     }
 
     _label.innerHTML = options.label;
-    _input.value = options.value;
+    _input.value = options.value || '';
 
     _this.el.appendChild(section);
 
@@ -90,7 +90,7 @@ var TextQuestionView = function (options) {
    * @return {Object}
    */
   _this.getAnswers = function () {
-    return {value: _input.value, label: _label.innerHTML};
+    return {value: _input.value || null, label: _label.innerHTML};
   };
 
   /**
@@ -106,7 +106,7 @@ var TextQuestionView = function (options) {
    *
    */
   _this.setAnswers = function (value) {
-    _input.value = value;
+    _input.value = value || '';
   };
 
 
