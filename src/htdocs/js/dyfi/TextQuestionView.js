@@ -9,9 +9,9 @@ var Util = require('util/Util'),
 var _DEFAULTS = {
   // label - The question being asked
   type: 'input',
-  label: '',
+  label: null,
   placeholder: '',
-  value: ''
+  value: null
 };
 
 var _ID_SEQUENCE = 0;
@@ -61,7 +61,7 @@ var TextQuestionView = function (options) {
     }
 
     _label.innerHTML = options.label;
-    _input.value = options.value;
+    _input.value = options.value || '';
 
     _this.el.appendChild(section);
 
@@ -90,7 +90,7 @@ var TextQuestionView = function (options) {
    * @return {Object}
    */
   _this.getAnswers = function () {
-    return {value: _input.value, label: _label.innerHTML};
+    return {value: _input.value || null, label: _label.innerHTML};
   };
 
   /**
