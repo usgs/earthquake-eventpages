@@ -106,7 +106,7 @@ var TextQuestionView = function (options) {
    *
    */
   _this.setAnswers = function (value) {
-    _input.value = value;
+    _input.value = value || '';
   };
 
 
