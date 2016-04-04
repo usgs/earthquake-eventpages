@@ -70,7 +70,7 @@ describe('scientific/ScientificSummaryModule', function () {
 
       view = ScientificSummaryModule();
 
-      expect(view.getLinksHeader()).to.equal('<h3>Scientific and Technical Links</h3>');
+      expect(view.getLinksHeader().innerHTML).to.equal('Scientific and Technical Links');
     });
   });
 
