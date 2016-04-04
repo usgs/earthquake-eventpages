@@ -16,6 +16,7 @@ var ALL_CLASSES = [
   JS + '/core/AccordionView.js:core/AccordionView',
   JS + '/core/Attribution.js:core/Attribution',
   JS + '/core/ContentView.js:core/ContentView',
+  JS + '/core/CooperatorLogo.js:core/CooperatorLogo',
   JS + '/core/DownloadView.js:core/DownloadView',
   JS + '/core/EventPage.js:core/EventPage',
   JS + '/core/Formatter.js:core/Formatter',

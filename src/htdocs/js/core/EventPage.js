@@ -2,6 +2,7 @@
 
 
 var Attribution = require('core/Attribution'),
+    CooperatorLogo = require('core/CooperatorLogo'),
     DYFIFormModule = require('dyfi/DYFIFormModule'),
     DYFIModule = require('dyfi/DYFIModule'),
     Events = require('util/Events'),
@@ -92,6 +93,8 @@ var EventPage = function (options) {
   _this = Events();
 
   _initialize = function (options) {
+    var preferredOrigin;
+
     options = Util.extend({}, _DEFAULTS, options);
     _redirects = options.redirects;
 
@@ -128,6 +131,16 @@ var EventPage = function (options) {
     _initializeModules();
     _this.renderHeader();
     Attribution.whenReady(_this.renderFooter); // Need to wait ...
+
+    // Update banner with cooperator logo
+    preferredOrigin = _event ? _event.getPreferredOriginProduct() : null;
+    if (preferredOrigin) {
+      Attribution.whenReady(function () {
+        CooperatorLogo({
+          cooperator: Attribution.getContributor(preferredOrigin.get('source'))
+        });
+      });
+    }
 
     // render module
     Events.on('back', 'onBack', _this);
