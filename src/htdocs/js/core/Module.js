@@ -89,7 +89,7 @@ var Module = function (options) {
     base = type;
 
     if (base.indexOf('internal-') === 0) {
-      base = base.raplace('internal-', '');
+      base = base.replace('internal-', '');
     }
 
     if (base.indexOf('-scenario', base.length - '-scenario'.length) !== -1) {
