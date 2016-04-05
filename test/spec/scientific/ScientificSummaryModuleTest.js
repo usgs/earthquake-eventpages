@@ -2,7 +2,8 @@
 'use strict';
 
 
-var ScientificSummaryModule = require('scientific/ScientificSummaryModule');
+var Attribution = require('core/Attribution'),
+    ScientificSummaryModule = require('scientific/ScientificSummaryModule');
 
 
 var expect = chai.expect;
@@ -38,6 +39,44 @@ describe('scientific/ScientificSummaryModule', function () {
 
   describe('getFiniteFaultRow', function () {
     it('Creates a row with summary information', function () {
+      var args,
+          product,
+          row,
+          view;
+
+      view = ScientificSummaryModule();
+
+      product = {
+        getContent: sinon.stub().returns({
+          get: function () {
+            return 'image source';
+          }
+        })
+      };
+
+      sinon.stub(view, 'getCatalogMarkup', function () {
+        return 'Catalog Markup';
+      });
+
+      sinon.stub(Attribution, 'getProductAttribution', function () {
+        return 'Attribution';
+      });
+
+      row = view.getFiniteFaultRow(product, 0);
+      expect(product.getContent.getCall(0).args[0]).to.equal('basemap.png');
+
+      args = view.getCatalogMarkup.getCall(0).args;
+      expect(args[1]).to.equal(product);
+      expect(args[2]).to.equal(true);
+
+      expect(Attribution.getProductAttribution.getCall(0).args[0]).to.equal(product);
+
+      expect(row.childNodes[0].innerHTML).to.equal('Catalog Markup');
+      expect(row.childNodes[1].firstChild.getAttribute('src')).to.equal('image source');
+      expect(row.childNodes[2].innerHTML).to.equal('Attribution');
+
+      Attribution.getProductAttribution.restore();
+      view.destroy();
 
     });
   });
