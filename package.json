@@ -41,7 +41,7 @@
     "hazdev-question-view": "~0.1.0",
     "hazdev-svgimagemap": "~0.0.9",
     "hazdev-tablist": "~0.1.0",
-    "hazdev-template": "~0.2.1",
+    "hazdev-template": "~0.2.4",
     "hazdev-webutils": "~0.1.8",
     "ini": "^1.2.1",
     "leaflet": "0.7.7",
