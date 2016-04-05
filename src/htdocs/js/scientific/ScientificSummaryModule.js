@@ -389,7 +389,7 @@ var ScientificSummaryModule = function (options) {
         '<abbr title="Magnitude">Mag</abbr>',
         'Time',
         'Depth',
-        'Status',
+        'Review Status',
         'Location',
         'Source'
       ],
@@ -418,7 +418,7 @@ var ScientificSummaryModule = function (options) {
     eventTime = new Date(product.getProperty('eventtime'));
     preferred = (index === 0);
     row = _this.createRow(preferred);
-    reviewStatus = product.getProperty('review-status');
+    reviewStatus = product.getProperty('review-status') || 'automatic';
 
     row.innerHTML = [
       '<th scope="row">',
@@ -439,7 +439,7 @@ var ScientificSummaryModule = function (options) {
         _formatter.depth(product.getProperty('depth')),
       '</td>',
       '<td>',
-        (reviewStatus ? reviewStatus.toUpperCase() : ''),
+        reviewStatus.toUpperCase().replace('REVIEWED', 'MANUAL'),
       '</td>',
       '<td>',
         _formatter.location(
