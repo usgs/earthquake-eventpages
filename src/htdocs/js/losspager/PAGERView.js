@@ -111,7 +111,9 @@ var PAGERView = function (options) {
           '<div class="comment-wrapper"></div>' +
           '<div class="exposure-city">' +
             '<h3>Selected Cities Exposed</h3>' +
-            '<table class="pager-cities"></table>' +
+            '<div class="horizontal-scrolling">' +
+              '<table class="pager-cities"></table>' +
+            '</div>' +
             '<span class="pager-disclaimer">' +
               'From GeoNames Database of Cities with 1,000 or more ' +
               'residents (k = x1,000)' +
@@ -410,6 +412,7 @@ var PAGERView = function (options) {
     }
 
     markup.push(
+      '<div class="horizontal-scrolling">' +
       '<table class="pager-exposures">' +
         '<thead>' +
           '<tr>' +
@@ -430,6 +433,7 @@ var PAGERView = function (options) {
     markup.push(
         '</tbody>' +
       '</table>' +
+      '</div>' +
       '<span class="pager-disclaimer">' +
         '*Estimated exposure only includes population within ' +
         'map area (k = x1,000)' +

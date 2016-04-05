@@ -187,6 +187,7 @@ var ShakeMapView = function (options) {
           '&shakemapSource=' + _this.model.get('source') +
           '&shakemapCode=' + _this.model.get('code') + '">' +
         '<img' +
+          ' class="shakemap-tablist-image" ' +
           ' src="' + content.get('url') + '"' +
           ' alt="' + alt + '"' +
         '/>' +
