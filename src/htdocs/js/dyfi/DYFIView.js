@@ -131,6 +131,7 @@ var DYFIView = function (options) {
     } else {
       container = document.createElement('div');
     }
+    container.className = 'dyfi-tablist-image';
 
     if (!params.map) {
       image = container.appendChild(document.createElement('img'));
