@@ -88,11 +88,11 @@ var Module = function (options) {
 
     base = type;
 
-    if (base.startsWith('internal-')) {
+    if (base.indexOf('internal-') === 0) {
       base = base.replace('internal-', '');
     }
 
-    if (base.endsWith('-scenario')) {
+    if (base.indexOf('-scenario', base.length - '-scenario'.length) !== -1) {
       base = base.replace('-scenario', '');
     }
 
