@@ -352,11 +352,11 @@ var ScientificSummaryModule = function (options) {
     var products;
 
     if (ev) {
-      products = ev.getProducts('origin').map(function (origin) {
+      products = ev.getProducts(_this.getFullType('origin')).map(function (origin) {
         var phase;
 
         // Find a corresponding phase-data product
-        phase = ev.getProductById('phase-data', origin.get('source'),
+        phase = ev.getProductById(_this.getFullType('phase-data'), origin.get('source'),
             origin.get('code'));
 
         // Prefer the phase-data product if it is at least as new as the origin
@@ -384,10 +384,17 @@ var ScientificSummaryModule = function (options) {
    *     the given set of products.
    */
   _this.getOriginSummary = function (products) {
-    return _this.createSummary(products, 'Origin', ['Catalog',
-        '<abbr title="Magnitude">Mag</abbr>', 'Time', 'Depth', 'Status',
-        'Location', 'Source'],
-        _this.getOriginRow);
+    return _this.createSummary(products, 'Origin', [
+        'Catalog',
+        '<abbr title="Magnitude">Mag</abbr>',
+        'Time',
+        'Depth',
+        'Status',
+        'Location',
+        'Source'
+      ],
+      _this.getOriginRow
+    );
   };
 
   /**
@@ -405,11 +412,13 @@ var ScientificSummaryModule = function (options) {
   _this.getOriginRow = function (product, index) {
     var eventTime,
         preferred,
+        reviewStatus,
         row;
 
     eventTime = new Date(product.getProperty('eventtime'));
     preferred = (index === 0);
     row = _this.createRow(preferred);
+    reviewStatus = product.getProperty('review-status');
 
     row.innerHTML = [
       '<th scope="row">',
@@ -430,7 +439,7 @@ var ScientificSummaryModule = function (options) {
         _formatter.depth(product.getProperty('depth')),
       '</td>',
       '<td>',
-        product.getProperty('review-status').toUpperCase(),
+        (reviewStatus ? reviewStatus.toUpperCase() : ''),
       '</td>',
       '<td>',
         _formatter.location(
