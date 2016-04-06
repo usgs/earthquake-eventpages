@@ -1,9 +1,13 @@
-/* global chai, describe, it, sinon */
+/* global after, before, chai, describe, it, sinon */
 'use strict';
 
 
 var Attribution = require('core/Attribution'),
-    ScientificSummaryModule = require('scientific/ScientificSummaryModule');
+    Formatter = require('core/Formatter'),
+    Product = require('pdl/Product'),
+    ScientificSummaryModule = require('scientific/ScientificSummaryModule'),
+    Tensor = require('moment-tensor/Tensor'),
+    Xhr = require('util/Xhr');
 
 
 var expect = chai.expect;
@@ -98,8 +102,56 @@ describe('scientific/ScientificSummaryModule', function () {
   });
 
   describe('getFocalMechanismRow', function () {
-    it('', function () {
+    var product;
 
+    after(function () {
+      product.destroy();
+    });
+
+    before(function (done) {
+      Xhr.ajax({
+        url: 'events/ci37528064.json',
+        success: function (data) {
+          product = Product(data.properties.products['focal-mechanism'][0]);
+        },
+        done: function () {
+          done();
+        }
+      });
+    });
+
+    it('Creates a row with summary information', function () {
+      var angleSpy,
+          formatter,
+          fromProductSpy,
+          getCatalogMarkupSpy,
+          getProductAttributionSpy,
+          module,
+          row;
+
+      formatter = Formatter();
+      module = ScientificSummaryModule({formatter: formatter});
+
+      angleSpy = sinon.spy(formatter, 'angle');
+      fromProductSpy = sinon.spy(Tensor, 'fromProduct');
+      getCatalogMarkupSpy = sinon.spy(module, 'getCatalogMarkup');
+      getProductAttributionSpy = sinon.spy(Attribution, 'getProductAttribution');
+
+
+      row = module.getFocalMechanismRow(product, 0);
+
+      expect(row.childNodes.length).to.equal(5);
+
+      expect(angleSpy.callCount).to.equal(6);
+      expect(fromProductSpy.callCount).to.equal(1);
+      expect(getCatalogMarkupSpy.callCount).to.equal(1);
+      expect(getProductAttributionSpy.callCount).to.equal(1);
+
+      angleSpy.restore();
+      fromProductSpy.restore();
+      getCatalogMarkupSpy.restore();
+      getProductAttributionSpy.restore();
+      module.destroy();
     });
   });
 
@@ -130,14 +182,56 @@ describe('scientific/ScientificSummaryModule', function () {
   });
 
   describe('getMomentTensorRow', function () {
-    it('', function () {
+    var product;
 
+    after(function () {
+      product.destroy();
     });
-  });
 
-  describe('getOriginProducts', function () {
-    it('', function () {
+    before(function (done) {
+      Xhr.ajax({
+        url: 'events/ci37528064.json',
+        success: function (data) {
+          product = Product(data.properties.products['moment-tensor'][0]);
+        },
+        done: function () {
+          done();
+        }
+      });
+    });
 
+    it('Creates a row with summary information', function () {
+      var depthSpy,
+          fromProductSpy,
+          formatter,
+          getCatalogMarkupSpy,
+          getProductAttributionSpy,
+          module,
+          row;
+
+      formatter = Formatter();
+      module = ScientificSummaryModule({formatter: formatter});
+
+      depthSpy = sinon.spy(formatter, 'depth');
+      fromProductSpy = sinon.spy(Tensor, 'fromProduct');
+      getCatalogMarkupSpy = sinon.spy(module, 'getCatalogMarkup');
+      getProductAttributionSpy = sinon.spy(Attribution, 'getProductAttribution');
+
+
+      row = module.getMomentTensorRow(product, 0);
+
+      expect(row.childNodes.length).to.equal(6);
+
+      expect(depthSpy.callCount).to.equal(1);
+      expect(fromProductSpy.callCount).to.equal(1);
+      expect(getCatalogMarkupSpy.callCount).to.equal(1);
+      expect(getProductAttributionSpy.callCount).to.equal(1);
+
+      depthSpy.restore();
+      fromProductSpy.restore();
+      getCatalogMarkupSpy.restore();
+      getProductAttributionSpy.restore();
+      module.destroy();
     });
   });
 
@@ -158,14 +252,35 @@ describe('scientific/ScientificSummaryModule', function () {
   });
 
   describe('getOriginRow', function () {
-    it('', function () {
+    it('Creates a row with summary information', function () {
+      var product,
+          row,
+          view;
 
-    });
-  });
+      view = ScientificSummaryModule();
 
-  describe('getFiniteFaultRow', function () {
-    it('', function () {
+      product = {
+        getProperty: sinon.stub().returns('eventtime'),
+        get: function () {
+          return 'origin';
+        }
+      };
 
+      sinon.stub(view, 'getCatalogMarkup', function () {
+        return 'Catalog Markup';
+      });
+
+      row = view.getOriginRow(product, 0);
+
+      expect(row.querySelectorAll('td').length).to.equal(6);
+      expect(row.childNodes[0].innerHTML).to.equal('Catalog Markup');
+      expect(row.childNodes[1].innerHTML).to.equal('NaN eventtime');
+      expect(row.childNodes[2].innerHTML).to.equal('<abbr title="NaN-NaN-NaN NaN:NaN:NaN (UTC)">NaN:NaN:NaN</abbr>');
+      expect(row.childNodes[3].innerHTML).to.equal('NaN');
+      expect(row.childNodes[4].innerHTML).to.equal('EVENTTIME');
+      expect(row.childNodes[5].innerHTML).to.equal('NaN°S&nbsp;NaN°W');
+
+      view.destroy();
     });
   });
 });
