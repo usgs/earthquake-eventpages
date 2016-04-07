@@ -154,8 +154,25 @@ var ForecastTableView = function (options) {
   };
 
   _this.renderForecast = function () {
+    var footnote,
+        topnote;
+
     _this.el.innerHTML = '';
+
+    topnote = _this.el.appendChild(document.createElement('p'));
+    topnote.classList.add('alert');
+    topnote.innerHTML = [
+      'Note: The expected rate of earthquakes continues to decline throughout ',
+      'the time windows. The probabilities in the longer time windows are ',
+      'higher only because the rates are being summed over a longer time ',
+      'period. These longer periods may be useful when planning recovery ',
+      'and rebuliding projects.'
+    ].join('');
+
     _this.el.appendChild(_this.getTable(_this.forecast || {forecast:[]}));
+
+    footnote = _this.el.appendChild(document.createElement('small'));
+    footnote.innerHTML = '* Earthquake possible but with a low probability.';
   };
 
 
