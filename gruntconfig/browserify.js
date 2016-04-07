@@ -78,6 +78,8 @@ var ALL_CLASSES = [
   JS + '/moment-tensor/Tensor.js:moment-tensor/Tensor',
 
   JS + '/oaf/ForecastTableView.js:oaf/ForecastTableView',
+  JS + '/oaf/ForecastTextView.js:oaf/ForecastTextView',
+  JS + '/oaf/ForecastView.js:oaf/ForecastView',
   JS + '/oaf/OafModule.js:oaf/OafModule',
   JS + '/oaf/OafView.js:oaf/OafView',
 

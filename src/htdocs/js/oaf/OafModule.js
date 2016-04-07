@@ -69,6 +69,7 @@ var OafModule = function (options) {
       _this.content.innerHTML = '<p class="alert error">No OAF found!</p>';
     } else {
       _oafView = OafView({
+        catalogEvent: _this.model.get('event'),
         el: _this.content,
         model: product
       });

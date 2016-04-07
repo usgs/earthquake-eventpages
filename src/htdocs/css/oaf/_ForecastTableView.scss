@@ -1,20 +1,22 @@
-$forecast-cell-width: 10em;
+$forecast-cell-width: 15em;
 
 .oaf-forecast-table-view {
   > table {
     > thead {
-      > th {
+      > tr > th {
         max-width: $forecast-cell-width;
+        text-align: center;
       }
     }
 
     > tbody {
-      > th,
-      > td {
+      > tr > th,
+      > tr > td {
         max-width: $forecast-cell-width;
+        text-align: center;
       }
 
-      th {
+      > tr > th {
         background-color: #fff;
         font-weight: normal;
       }

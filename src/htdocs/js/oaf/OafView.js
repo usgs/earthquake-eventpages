@@ -2,6 +2,7 @@
 
 
 var ForecastTableView = require('oaf/ForecastTableView'),
+    ForecastTextView = require('oaf/ForecastTextView'),
     ProductView = require('core/ProductView'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util');
@@ -14,8 +15,13 @@ _DEFAULTS = {
 };
 
 _RESOURCES = {
+  'forecast-text': {
+    title: 'Commentary',
+    content: 'forecast.json',
+    subview: ForecastTextView
+  },
   'forecast-table': {
-    title: 'Table',
+    title: 'Details',
     content: 'forecast.json',
     subview: ForecastTableView
   }
@@ -26,15 +32,19 @@ var OafView = function (options) {
   var _this,
       _initialize,
 
+      _catalogEvent,
       _resources,
+      _subviews,
       _tabList,
       _tabs;
 
   options = Util.extend({}, _DEFAULTS, options);
   _this = ProductView(options);
 
-  _initialize = function (/*options*/) {
+  _initialize = function (options) {
     _this.el.classList.add('oaf-view');
+
+    _catalogEvent = options.catalogEvent;
 
     _resources = Util.extend({}, _RESOURCES, options.resources);
   };
@@ -49,14 +59,19 @@ var OafView = function (options) {
 
     if (content && params.subview) {
       subview = params.subview({
-          model: content
+          catalogEvent: _catalogEvent,
+          model: content,
+          product: _this.model
       });
+
+      subview.on('forecast', 'setSubviewForecast', _this);
+      _subviews.push(subview);
 
       tab = {
         title: params.title,
         content: subview.el,
         onDestroy: function () {
-          subview.destroy();
+          try { subview.destroy(); } catch (e) { /* ignore */ }
         },
         onSelect: function () {
           subview.render();
@@ -85,6 +100,22 @@ var OafView = function (options) {
       _tabList.destroy();
     }
 
+    if (Array.isArray(_subviews)) {
+      _subviews.forEach(function (subview) {
+        if (subview) {
+          if (typeof subview.off === 'function') {
+            try {
+              subview.off('forecast', 'setSubviewForecast', _this);
+            } catch (e) { /* ignore */ }
+          }
+          if (typeof subview.destroy === 'function') {
+            subview.destroy();
+          }
+        }
+      });
+    }
+
+    _subviews = null;
     _tabList = null;
     _tabs = null;
   };
@@ -97,7 +128,9 @@ var OafView = function (options) {
       tabs: []
     });
 
+    _subviews = [];
     _tabs = {};
+
     Object.keys(_resources).forEach(function (key) {
       var info,
           tab;
@@ -106,6 +139,14 @@ var OafView = function (options) {
       tab = _this.createTab(info);
       if (tab) {
         _tabs[key] = _tabList.addTab(tab);
+      }
+    });
+  };
+
+  _this.setSubviewForecast = function (forecast) {
+    _subviews.forEach(function (subview) {
+      if (subview && typeof subview.setForecast === 'function') {
+        subview.setForecast(forecast);
       }
     });
   };

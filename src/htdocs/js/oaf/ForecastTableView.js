@@ -1,7 +1,7 @@
 'use strict';
 
 
-var ContentView = require('core/ContentView'),
+var ForecastView = require('oaf/ForecastView'),
     Formatter = require('core/Formatter'),
     Util = require('util/Util');
 
@@ -19,7 +19,7 @@ var ForecastTableView = function (options) {
 
 
   options = Util.extend({}, _DEFAULTS, options);
-  _this = ContentView(options);
+  _this = ForecastView(options);
 
   _initialize = function (options) {
     _this.el.classList.add('oaf-forecast-table-view');
@@ -31,6 +31,8 @@ var ForecastTableView = function (options) {
   _this.destroy = Util.compose(function () {
     _this.el.classList.remove('horizontal-scrolling');
     _this.el.classList.remove('oaf-forecast-table-view');
+
+    _formatter = null;
 
     _initialize = null;
     _this = null;
@@ -44,12 +46,11 @@ var ForecastTableView = function (options) {
     th.setAttribute('rowspan', info.bins.length);
 
     th.innerHTML = [
-      info.label,
+      '<strong>', info.label, '</strong>',
       '<br/>',
-      'Starting on ',
-      _formatter.date(new Date(info.timeStart)),
-      ' to the end of ',
-      _formatter.date(new Date(info.timeEnd))
+      _formatter.datetime(new Date(info.timeStart)),
+      '<br/>through<br/>',
+      _formatter.datetime(new Date(info.timeEnd))
     ].join('');
 
     return th;
@@ -130,23 +131,31 @@ var ForecastTableView = function (options) {
 
     // Magnitude
     magCell = row.appendChild(document.createElement('td'));
-    magCell.innerHTML = '&ge; ' + bin.magnitude;
+    magCell.innerHTML = 'M &ge; ' + bin.magnitude;
 
     // 95 % confidence
     p95Cell = row.appendChild(document.createElement('td'));
-    p95Cell.innerHTML = bin.p95minimum + ' to ' + bin.p95maximum;
+    if (bin.p95minimum + bin.p95maximum) {
+      p95Cell.innerHTML = bin.p95minimum + ' to ' + bin.p95maximum;
+    } else {
+      p95Cell.innerHTML = '*';
+    }
 
     // Expectation
     expCell = row.appendChild(document.createElement('td'));
-    expCell.innerHTML = bin.probability;
+    if (bin.probability < 1.0) {
+      expCell.innerHTML = _formatter.number(
+          bin.probability*100, 0, '&ndash', '%');
+    } else {
+      expCell.innerHTML = '&gt; 99 %';
+    }
 
     return row;
   };
 
-  _this.onSuccess = function (data/*, xhr*/) {
+  _this.renderForecast = function () {
     _this.el.innerHTML = '';
-
-    _this.el.appendChild(_this.getTable(data));
+    _this.el.appendChild(_this.getTable(_this.forecast || {forecast:[]}));
   };
 
 
