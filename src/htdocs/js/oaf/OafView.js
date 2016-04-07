@@ -3,6 +3,7 @@
 
 var ForecastTableView = require('oaf/ForecastTableView'),
     ForecastTextView = require('oaf/ForecastTextView'),
+    ModelDetailsView = require('oaf/ModelDetailsView'),
     ProductView = require('core/ProductView'),
     TabList = require('tablist/TabList'),
     Util = require('util/Util');
@@ -24,6 +25,11 @@ _RESOURCES = {
     title: 'Forecast Probabilities',
     content: 'forecast.json',
     subview: ForecastTableView
+  },
+  'forecast-model': {
+    title: 'Model Details',
+    content: 'forecast.json',
+    subview: ModelDetailsView
   }
 };
 

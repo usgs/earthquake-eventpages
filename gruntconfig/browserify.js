@@ -80,6 +80,7 @@ var ALL_CLASSES = [
   JS + '/oaf/ForecastTableView.js:oaf/ForecastTableView',
   JS + '/oaf/ForecastTextView.js:oaf/ForecastTextView',
   JS + '/oaf/ForecastView.js:oaf/ForecastView',
+  JS + '/oaf/ModelDetailsView.js:oaf/ModelDetailsView',
   JS + '/oaf/OafModule.js:oaf/OafModule',
   JS + '/oaf/OafView.js:oaf/OafView',
 
