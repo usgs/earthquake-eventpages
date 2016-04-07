@@ -1,0 +1,23 @@
+$forecast-cell-width: 10em;
+
+.oaf-forecast-table-view {
+  > table {
+    > thead {
+      > th {
+        max-width: $forecast-cell-width;
+      }
+    }
+
+    > tbody {
+      > th,
+      > td {
+        max-width: $forecast-cell-width;
+      }
+
+      th {
+        background-color: #fff;
+        font-weight: normal;
+      }
+    }
+  }
+}
