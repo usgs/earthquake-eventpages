@@ -36,11 +36,9 @@ var ForecastTextView = function (options) {
   _this.getCommentary = function (forecast) {
     var awarenessTimeSpan,
         commentary,
-        damageIncrease,
         elevatedTimeSpan,
         feltTimeSpan,
         m3display,
-        m3increase,
         m5display,
         m6display,
         m7display,
@@ -52,10 +50,6 @@ var ForecastTextView = function (options) {
         wcDisplay,
         weekFromIssue,
         weekInfo;
-
-    // TODO :: Figure a way to get this data ...
-    damageIncrease = '<span style="color:red;">UNKNOWN</span>';
-    m3increase = '<span style="color:red;">UNKNOWN</span>';
 
     if (_catalogEvent) {
       summary = _catalogEvent.getSummary() || {properties: {}};
@@ -167,9 +161,7 @@ var ForecastTextView = function (options) {
         '<li>',
           'the chance of an earthquake large enough to feel ',
           '(magnitude 3 or higher) is ',
-          m3display.probability, ', and ', m3display.expectation, '. ',
-          'This is ', m3increase, ' times higher than it was before the ',
-          'magnitude ', magDisplay, ' ', place, ' earthquake occurred.',
+          m3display.probability, ', and ', m3display.expectation, '.',
         '</li>',
         '<li>',
           'the chance of an earthquake of magnitude 5 or higher is ',
@@ -182,11 +174,6 @@ var ForecastTextView = function (options) {
         '<li>',
           'the chance of an earthquake of magnitude 7 or higher is ',
           m7display.probability, ', and ', m7display.expectation, '.',
-        '</li>',
-        '<li>',
-          'the chance of any damaging earthquake is ',
-          damageIncrease, ' times higher than it was before the magnitude ',
-          magDisplay, ' ', place, ' ', 'earthquake occurred.',
         '</li>',
       '</ul>',
       '<p>',
