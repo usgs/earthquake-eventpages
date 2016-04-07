@@ -100,21 +100,6 @@ var OafView = function (options) {
       _tabList.destroy();
     }
 
-    if (Array.isArray(_subviews)) {
-      _subviews.forEach(function (subview) {
-        if (subview) {
-          if (typeof subview.off === 'function') {
-            try {
-              subview.off('forecast', 'setSubviewForecast', _this);
-            } catch (e) { /* ignore */ }
-          }
-          if (typeof subview.destroy === 'function') {
-            subview.destroy();
-          }
-        }
-      });
-    }
-
     _subviews = null;
     _tabList = null;
     _tabs = null;
