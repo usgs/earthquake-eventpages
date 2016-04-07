@@ -174,6 +174,11 @@ var BeachBallView = function (options) {
         x,
         y;
 
+    if (polygon.x.length === 360) {
+      // already a complete polygon
+      return polygon;
+    }
+
     az1 = polygon.startAz.az;
     az2 = polygon.endAz.az;
     x = polygon.x;
