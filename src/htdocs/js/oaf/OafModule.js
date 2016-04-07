@@ -1,7 +1,8 @@
 'use strict';
 
 
-var LinkProductView = require('core/LinkProductView'),
+var Formatter = require('core/Formatter'),
+    LinkProductView = require('core/LinkProductView'),
     OafView = require('oaf/OafView'),
     ScientificSummaryModule = require('scientific/ScientificSummaryModule'),
     TextProductView = require('core/TextProductView'),
@@ -27,6 +28,7 @@ var OafModule = function (options) {
   var _this,
       _initialize,
 
+      _formatter,
       _oafView,
       _subviews;
 
@@ -34,16 +36,19 @@ var OafModule = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = Module(options);
 
-  _initialize = function (/*options*/) {
+  _initialize = function (options) {
     _this.ID = _ID;
     _this.TITLE = _TITLE;
 
+    _formatter = options.formatter || Formatter();
     _subviews = [];
   };
 
 
   _this.destroy = Util.compose(function () {
     _this.destroyViews();
+
+    _formatter = null;
 
     _initialize = null;
     _this = null;
@@ -86,6 +91,7 @@ var OafModule = function (options) {
 
         view = LinkProductView({
           el: ul.appendChild(document.createElement('li')),
+          formatter: _formatter,
           model: product
         });
 
@@ -156,9 +162,20 @@ var OafModule = function (options) {
   };
 
   _this.renderFooter = function (product) {
+    var expires;
+
+    if (product) {
+      expires = _this.footer.appendChild(document.createElement('small'));
+      expires.innerHTML = [
+        'This advisory will be updated on or before: ',
+        _formatter.datetime(new Date(604800000 + product.get('updateTime')))
+      ].join('');
+    }
+
     _this.footer.appendChild(_this.getOafLinkViews());
 
     if (product) {
+      // Generates download section
       _this.footer.appendChild(_this.getProductFooter({
         product: product
       }));

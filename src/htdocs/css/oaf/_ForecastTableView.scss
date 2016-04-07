@@ -1,18 +1,15 @@
-$forecast-cell-width: 15em;
-
 .oaf-forecast-table-view {
-  > table {
+  > div > table {
     > thead {
       > tr > th {
-        max-width: $forecast-cell-width;
         text-align: center;
+        min-width: 7.5em;
       }
     }
 
     > tbody {
       > tr > th,
       > tr > td {
-        max-width: $forecast-cell-width;
         text-align: center;
       }
 
@@ -21,5 +18,11 @@ $forecast-cell-width: 15em;
         font-weight: normal;
       }
     }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .oaf-forecast-table-view > div > table > thead > tr > th {
+    min-width: 15em;
   }
 }

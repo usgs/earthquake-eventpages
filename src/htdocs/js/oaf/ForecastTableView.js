@@ -23,13 +23,11 @@ var ForecastTableView = function (options) {
 
   _initialize = function (options) {
     _this.el.classList.add('oaf-forecast-table-view');
-    _this.el.classList.add('horizontal-scrolling');
 
     _formatter = options.formatter || Formatter();
   };
 
   _this.destroy = Util.compose(function () {
-    _this.el.classList.remove('horizontal-scrolling');
     _this.el.classList.remove('oaf-forecast-table-view');
 
     _formatter = null;
@@ -57,9 +55,13 @@ var ForecastTableView = function (options) {
   };
 
   _this.getTable = function (data) {
-    var table;
+    var table,
+        wrapper;
 
-    table = document.createElement('table');
+    wrapper = document.createElement('div');
+    wrapper.classList.add('horizontal-scrolling');
+
+    table = wrapper.appendChild(document.createElement('table'));
 
     table.innerHTML = [
       '<thead>',
@@ -82,7 +84,7 @@ var ForecastTableView = function (options) {
 
     table.appendChild(_this.getTableBody(data));
 
-    return table;
+    return wrapper;
   };
 
   _this.getTableBody = function (data) {
