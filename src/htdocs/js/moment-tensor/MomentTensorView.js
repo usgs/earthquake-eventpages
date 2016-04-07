@@ -162,7 +162,7 @@ var MomentTensorView = function (options) {
     contributor = product.get('source');
     dataSource = product.getProperty('beachball-source') || contributor;
     depth = _formatter.depth(tensor.depth, 'km');
-    halfDuration = product.getProperty('duration');
+    halfDuration = product.getProperty('sourcetime-duration');
     if (halfDuration) {
       halfDuration = (halfDuration / 2) + ' s';
     } else {
