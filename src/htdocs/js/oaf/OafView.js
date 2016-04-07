@@ -21,7 +21,7 @@ _RESOURCES = {
     subview: ForecastTextView
   },
   'forecast-table': {
-    title: 'Details',
+    title: 'Forecast Probabilities',
     content: 'forecast.json',
     subview: ForecastTableView
   }

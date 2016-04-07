@@ -13,7 +13,7 @@ var _DEFAULTS,
     _TYPES;
 
 _ID = 'oaf';
-_TITLE = 'Operational Aftershock Forecast';
+_TITLE = 'Aftershock Forecast';
 _TYPES = ['oaf'];
 
 _DEFAULTS = {
@@ -84,7 +84,7 @@ var OafModule = function (options) {
   };
 
   _this.renderHeader = function () {
-    _this.header.innerHTML = '';
+    _this.header.innerHTML = '<h3>' + _this.TITLE + '</h3>';
 
     _this.header.appendChild(_this.getProductHeader({
       product: _this.getProduct('oaf'),
