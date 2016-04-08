@@ -9,7 +9,7 @@ if (!isset($TEMPLATE)) {
   $NAVIGATION = navItem('#', 'Event Summary');
 
   $EVENT_CONFIG = array(
-    'ATTRIBUTION_URL' => '',
+    'ATTRIBUTION_URL' => $ATTRIBUTION_URL,
     'DYFI_RESPONSE_URL' => $DYFI_RESPONSE_URL,
     'GEOSERVE_WS_URL' => $GEOSERVE_WS_URL,
     'MOUNT_PATH' => $MOUNT_PATH,
