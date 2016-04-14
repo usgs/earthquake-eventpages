@@ -49,7 +49,8 @@ var PAGERModule = function (options) {
    *
    */
   _this.render = function () {
-    var product;
+    var downloads,
+        product;
 
     _this.header.innerHTML = '<h3>PAGER</h3>';
 
@@ -71,6 +72,8 @@ var PAGERModule = function (options) {
       }
 
       _pagerView.render();
+
+      downloads = _this.getProductFooter({product: product});
     }
 
     _this.footer.innerHTML =
@@ -80,6 +83,10 @@ var PAGERModule = function (options) {
           '<a href="/data/pager/">Scientific Background for PAGER</a>' +
         '</li>' +
       '</ul>';
+
+    if (downloads) {
+      _this.footer.appendChild(downloads);
+    }
   };
 
 
