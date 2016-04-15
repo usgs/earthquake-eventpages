@@ -29,7 +29,7 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
     this.options = {
       pointToLayer: function (feature, latlng) {
         var p = feature.properties,
-            romanIntensity = this._formatter.mmi(p.intensity);
+            romanIntensity = _this._formatter.mmi(p.intensity);
 
         if (p.network === 'DYFI' || p.network === 'INTENSITY') {
           return L.marker(latlng, {

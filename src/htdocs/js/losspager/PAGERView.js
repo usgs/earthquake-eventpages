@@ -191,6 +191,9 @@ var PAGERView = function (options) {
         fatalityComment;
 
     comments = _pagerInfo.comments.impact;
+    if (!comments) {
+      return '';
+    }
 
     if (comments.length === 2) {
       if (comments[0] !== '') {
