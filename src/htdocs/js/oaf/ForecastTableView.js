@@ -106,6 +106,7 @@ var ForecastTableView = function (options) {
     fragment = document.createDocumentFragment();
 
     row = fragment.appendChild(document.createElement('tr'));
+    row.classList.add('separator');
     row.appendChild(_this.getRowHeader(info));
 
     info.bins.forEach(function (bin, index) {
@@ -145,7 +146,9 @@ var ForecastTableView = function (options) {
 
     // Expectation
     expCell = row.appendChild(document.createElement('td'));
-    if (bin.probability < 1.0) {
+    if (bin.probability < 0.01) {
+      expCell.innerHTML = '&lt; 1 %';
+    } else if (bin.probability < 1.0) {
       expCell.innerHTML = _formatter.number(
           bin.probability*100, 0, '&ndash', '%');
     } else {
