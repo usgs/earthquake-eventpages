@@ -201,14 +201,14 @@ var ForecastTextView = function (options) {
       probability = '1 in 100';
     } else if (info.probability < 1.0) {
       probability = _formatter.number(
-          info.probability * 100, '&ndash', '%');
+          info.probability * 100, 0, '&ndash', '%');
     } else {
       probability = '&gt; 99 %';
     }
 
-    if (info.m95minimum + info.m95maximum) {
+    if (info.p95minimum + info.p95maximum) {
       expectation = 'it is most likely that ' +
-          info.m95minimum + ' to ' + info.m95maximum +
+          info.p95minimum + ' to ' + info.p95maximum +
           ' such earthquakes may occur' ;
     } else {
       expectation = 'such an earthquake is possible, but with low probability';
