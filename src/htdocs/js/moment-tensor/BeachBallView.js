@@ -434,6 +434,9 @@ var BeachBallView = function (options) {
       sfi = Math.sin(fir);
       cfi = Math.cos(fir);
       s2alphan = (2 + 2 * iso) / (3 + (1 - 2 * f) * Math.cos(2 * fir));
+      if (Math.abs(1 - s2alphan) <= Number.EPSILON) {
+        s2alphan = 1;
+      }
       if (s2alphan > 1) {
         // swap axes
         tmp = t;
