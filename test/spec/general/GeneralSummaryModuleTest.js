@@ -57,6 +57,43 @@ describe('general/GeneralSummaryModule', function () {
     });
   });
 
+  describe('isDuplicate', function () {
+    it('is a duplicate', function () {
+      var links,
+          module;
+
+      module = GeneralSummaryModule();
+      links = us10004u1y.getProducts('general-link');
+
+      expect(module.isDuplicate(links[0], links)).to.equal(true);
+    });
+    it('is a NOT duplicate', function () {
+      var links,
+          module;
+
+      module = GeneralSummaryModule();
+      links = us10004u1y.getProducts('general-link');
+
+      expect(module.isDuplicate(links[0], [])).to.equal(false);
+    });
+  });
+
+  describe('removeDuplicateLinks', function () {
+    it('removes duplicate link products from the array', function () {
+      var links,
+          module;
+
+      module = GeneralSummaryModule();
+      links = us10004u1y.getProducts('general-link');
+
+      sinon.stub(module, 'isDuplicate', function () {
+        return true;
+      });
+
+      expect(module.removeDuplicateLinks(links).length).to.equal(1);
+    });
+  });
+
   describe('render', function () {
     it('calls component render methods with model event', function () {
       var ev,
@@ -121,7 +158,7 @@ describe('general/GeneralSummaryModule', function () {
       module.renderGeneralLink(us10004u1y);
       expect(module.el.querySelectorAll(
             '.generalsummary-general-link > ul > li'
-          ).length).to.equal(us10004u1y.getProducts('general-link').length);
+          ).length).to.equal(1);
       module.destroy();
     });
   });
