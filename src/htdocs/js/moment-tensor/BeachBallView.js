@@ -440,7 +440,7 @@ var BeachBallView = function (options) {
         t = p;
         p = tmp;
         // swap bg/fill colors
-        swapColors = !swapColors;
+        swapColors = true;
         // recompute f, iso, s2alphan
         f = (-n.v / t.v) || Number.EPSILON;
         iso = (vi / t.v) || Number.EPSILON;
