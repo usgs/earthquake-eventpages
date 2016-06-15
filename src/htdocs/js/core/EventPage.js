@@ -164,6 +164,7 @@ var EventPage = function (options) {
     var group,
         i,
         j,
+        link,
         module,
         modules,
         moduleGroups,
@@ -179,6 +180,13 @@ var EventPage = function (options) {
 
     Util.empty(_navEl);
 
+    if (!_this.isScenarioMode()) {
+      link = document.createElement('a');
+      link.setAttribute('class', 'latest-earthquakes');
+      link.setAttribute('href', '/earthquakes/map/');
+      link.innerHTML = 'Latest Earthquakes';
+      _navEl.appendChild(link);
+    }
 
     for (i = 0; i < numGroups; i++) {
       modules = moduleGroups[i];
@@ -207,7 +215,7 @@ var EventPage = function (options) {
       group = null;
     }
 
-    _this.createLinks(_navEl);
+    _this.createLink(_navEl);
   };
 
   /**
@@ -215,7 +223,7 @@ var EventPage = function (options) {
    * @params el {DOMElement}
    *    The element to add the links to.
    */
-  _this.createLinks = function(el) {
+  _this.createLink = function(el) {
     var link,
         kmlURL;
 
@@ -227,14 +235,6 @@ var EventPage = function (options) {
       link.setAttribute('class', 'kml-download');
       link.setAttribute('href', kmlURL);
       link.innerHTML = 'Download Event KML';
-      el.appendChild(link);
-    }
-
-    if (!_this.isScenarioMode()) {
-      link = document.createElement('a');
-      link.setAttribute('class', 'latest-earthquakes');
-      link.setAttribute('href', '/earthquakes/map/');
-      link.innerHTML = 'Latest Earthquakes';
       el.appendChild(link);
     }
   };
