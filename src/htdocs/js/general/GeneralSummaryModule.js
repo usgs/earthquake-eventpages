@@ -93,21 +93,6 @@ var GeneralSummaryModule = function (options) {
     _generalLinkEl = el.querySelector('.generalsummary-general-link');
   };
 
-  _this.render = function () {
-    var ev;
-
-    ev = _this.model.get('event');
-
-    _this.renderHeader(ev);
-    _this.renderLocation(ev);
-    _this.renderTime(ev);
-    _this.renderNearbyPlaces(ev);
-    _this.renderGeneralText(ev);
-    _this.renderTectonicSummary(ev);
-    _this.renderGeneralLink(ev);
-    _this.renderFooter(ev);
-  };
-
   /**
    * Free references.
    */
@@ -175,6 +160,69 @@ var GeneralSummaryModule = function (options) {
   };
 
   /**
+   * Does a comparison of one Product against an array of Products to see if
+   * the same "url" property already exists in the array.
+   *
+   * @param {boolean}
+   *     return true if the link already exists in the array
+   *
+   */
+  _this.isDuplicate = function (needle, haystack) {
+    try {
+      for (var i = 0; i < haystack.length; i++) {
+        if (haystack[i].get('properties').url ===
+            needle.get('properties').url) {
+          return true;
+        }
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  /**
+   * Remove duplicate items from the array that have the same "url" property
+   *
+   * @param links {Array<Product>}
+   *     An array of Products
+   *
+   */
+  _this.removeDuplicateLinks = function (links) {
+    var link,
+        products;
+
+    // add the first item since it cannot be a duplicate yet
+    products = [];
+    products.push(links[0]);
+
+    // add all additional links that do not already exist in products array
+    for (var i = 1; i < links.length; i++) {
+      link = links[i];
+      if (!_this.isDuplicate(link, products)) {
+        products.push(link);
+      }
+    }
+
+    return products;
+  };
+
+  _this.render = function () {
+    var ev;
+
+    ev = _this.model.get('event');
+
+    _this.renderHeader(ev);
+    _this.renderLocation(ev);
+    _this.renderTime(ev);
+    _this.renderNearbyPlaces(ev);
+    _this.renderGeneralText(ev);
+    _this.renderTectonicSummary(ev);
+    _this.renderGeneralLink(ev);
+    _this.renderFooter(ev);
+  };
+
+  /**
    * Render module footer.
    *
    * @param ev {CatalogEvent}
@@ -235,6 +283,8 @@ var GeneralSummaryModule = function (options) {
     if (links.length === 0) {
       return;
     }
+
+    links = _this.removeDuplicateLinks(links);
 
     _generalLinkEl.innerHTML = '<h3>For More Information</h3>';
     el = _generalLinkEl.appendChild(document.createElement('ul'));

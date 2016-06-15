@@ -680,6 +680,25 @@
           },
           "preferredWeight": 1,
           "contents": []
+        },
+        {
+          "indexid": "81088682",
+          "indexTime": 1456954667001,
+          "id": "urn:usgs-product:admin:general-link:eventadmin-us10004u1y-20160302213744:1456954665650",
+          "type": "general-link",
+          "code": "eventadmin-us10004u1y-20160302213744",
+          "source": "admin",
+          "updateTime": 1456954665650,
+          "status": "UPDATE",
+          "properties": {
+            "eventsource": "us",
+            "eventsourcecode": "10004u1y",
+            "senderemail": "gsmoczyk@usgs.gov",
+            "text": "Earthquake Summary Poster",
+            "url": "http://earthquake.usgs.gov/earthquakes/eqarchives/poster/2016/20160302.php"
+          },
+          "preferredWeight": 1,
+          "contents": []
         }
       ],
       "general-text": [
