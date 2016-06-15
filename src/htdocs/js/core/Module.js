@@ -259,7 +259,7 @@ var Module = function (options) {
       buf.push('<a class="back-to-summary-link"' +
           ' href="#'  + summaryModule.ID + '">');
       if (numProducts > 1) {
-        buf.push('View alternative ' + _this.TITLE + 's' +
+        buf.push('View alternative ' + _this.TITLE.toLowerCase() + 's' +
             ' (' + numProducts + ' total)');
       } else {
         buf.push('Back to ' + summaryModule.TITLE);
