@@ -111,6 +111,7 @@ var DYFIFormModule = function (options) {
       _formModel,
       _formVersion,
       _modal,
+      _submitButton,
       _submitResult,
       _submitUrl,
       _view;
@@ -237,17 +238,15 @@ var DYFIFormModule = function (options) {
    *
    */
   _this.onFormChange = function () {
-    var submitButton = document.querySelector('.dyfi-submit-button');
-
-    if (submitButton) {
+    if (_submitButton) {
       if (!_formModel.get('ciim_mapLat') ||
           !_formModel.get('ciim_mapLon') ||
           !_formModel.get('ciim_time') ||
           !_formModel.get('fldSituation_felt')) {
         // A required field is missing, disable submit button
-        submitButton.setAttribute('disabled', 'disabled');
+        _submitButton.setAttribute('disabled', 'disabled');
       } else {
-        submitButton.removeAttribute('disabled');
+        _submitButton.removeAttribute('disabled');
       }
     }
   };
@@ -371,6 +370,7 @@ var DYFIFormModule = function (options) {
    */
   _this.showForm = function () {
     _modal.show();
+    _submitButton = document.querySelector('.dyfi-submit-button');
 
     // Ensure submit button status is currently up-to-date
     _this.onFormChange();
