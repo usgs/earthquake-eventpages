@@ -248,6 +248,7 @@ var EventPage = function (options) {
       link.setAttribute('class', 'latest-earthquakes');
       link.setAttribute('href', '/earthquakes/map/');
       link.innerHTML = 'Latest Earthquakes';
+      link.classList.add('up-one-level');
       el.appendChild(link);
     }
   };
