@@ -20,6 +20,36 @@ var _DEFAULTS = {
 };
 
 var _DYFI_DISCLAIMER = '<p>' +
+  '  <strong>THIS FORM IS SUBJECT TO THE PRIVACY ACT OF 1974.</strong>' +
+  '</p>' +
+  '<p>' +
+  '  <strong>AUTHORITY:</strong>' +
+  '  the National Earthquake Hazards Reduction Program (NEHRP), which ' +
+  '  was first authorized in 1977, Public Law (PL) 95–124), and most ' +
+  '  recently reauthorized in 2004 (NEHRP Reauthorization Act of 2004, ' +
+  '  PL 108–360' +
+  '</p>' +
+  '<p>' +
+  '  <strong>PRINCIPAL PURPOSE:</strong>' +
+  '  The Earthquake Hazards Program provides rapid, authoritative ' +
+  '  information on earthquakes and their impact to emergency responders, ' +
+  '  governments, facilities managers and researchers across the country.' +
+  '</p>' +
+  '<p>' +
+  '  <strong>ROUTINE USE:</strong>' +
+  '  Used to allow users to report shaking intensity of earthquake events, ' +
+  '  to allow users to receive notifications of earthquake events, and to ' +
+  '  allow users to volunteer to have seismic instrumentation installed ' +
+  '  on their property.' +
+  '</p>' +
+  '<p>' +
+  '  <strong>DISCLOSURE IS VOLUNTARY:</strong>' +
+  '  If the individual does not furnish the information requested, there ' +
+  '  will be no adverse consequences. However, if you do not provide ' +
+  '  contact information we may be unable to contact you for additional ' +
+  '  information to verify your responses.' +
+  '</p>' +
+  '<p>' +
   '  <strong>Privacy Act Statement</strong>' +
   '  You are not required to provide your personal contact information in' +
   '  order to submit your survey. However, if you do not provide contact' +
