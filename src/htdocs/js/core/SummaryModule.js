@@ -202,7 +202,7 @@ var SummaryModule = function (options) {
 
     markup.push('<a href="#' + module.ID + '?source=' + product.get('source') +
         '&amp;code=' + product.get('code') + '">' +
-      product.getProperty('eventsource').toUpperCase() +
+      (product.getProperty('eventsource') || 'N/A').toUpperCase() +
     '</a>');
 
     return markup.join('');
