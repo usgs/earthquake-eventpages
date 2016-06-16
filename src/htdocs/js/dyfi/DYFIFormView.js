@@ -19,61 +19,62 @@ var _DEFAULTS = {
   url: 'js/languages/'
 };
 
-var _DYFI_DISCLAIMER = '<p>' +
-  '  <strong>THIS FORM IS SUBJECT TO THE PRIVACY ACT OF 1974.</strong>' +
+var _DYFI_DISCLAIMER =
+  '<p class="alert info">' +
+    'This form is subject to the Privacy Act of 1974.' +
   '</p>' +
   '<p>' +
-  '  <strong>AUTHORITY:</strong>' +
-  '  the National Earthquake Hazards Reduction Program (NEHRP), which ' +
-  '  was first authorized in 1977, Public Law (PL) 95–124), and most ' +
-  '  recently reauthorized in 2004 (NEHRP Reauthorization Act of 2004, ' +
-  '  PL 108–360' +
+    '<strong>Authority</strong><br/>' +
+    'The National Earthquake Hazards Reduction Program (NEHRP), which ' +
+    'was first authorized in 1977, Public Law (PL) 95–124), and most ' +
+    'recently reauthorized in 2004 (NEHRP Reauthorization Act of 2004, ' +
+    'PL 108–360' +
   '</p>' +
   '<p>' +
-  '  <strong>PRINCIPAL PURPOSE:</strong>' +
-  '  The Earthquake Hazards Program provides rapid, authoritative ' +
-  '  information on earthquakes and their impact to emergency responders, ' +
-  '  governments, facilities managers and researchers across the country.' +
+    '<strong>Principal Purpose</strong><br/>' +
+    'The Earthquake Hazards Program provides rapid, authoritative ' +
+    'information on earthquakes and their impact to emergency responders, ' +
+    'governments, facilities managers and researchers across the country.' +
   '</p>' +
   '<p>' +
-  '  <strong>ROUTINE USE:</strong>' +
-  '  Used to allow users to report shaking intensity of earthquake events, ' +
-  '  to allow users to receive notifications of earthquake events, and to ' +
-  '  allow users to volunteer to have seismic instrumentation installed ' +
-  '  on their property.' +
+    '<strong>Routine Use</strong><br/>' +
+    'Used to allow users to report shaking intensity of earthquake events, ' +
+    'to allow users to receive notifications of earthquake events, and to ' +
+    'allow users to volunteer to have seismic instrumentation installed ' +
+    'on their property.' +
   '</p>' +
   '<p>' +
-  '  <strong>DISCLOSURE IS VOLUNTARY:</strong>' +
-  '  If the individual does not furnish the information requested, there ' +
-  '  will be no adverse consequences. However, if you do not provide ' +
-  '  contact information we may be unable to contact you for additional ' +
-  '  information to verify your responses.' +
+    '<strong>Disclosure is Voluntary</strong><br/>' +
+    'If the individual does not furnish the information requested, there ' +
+    'will be no adverse consequences. However, if you do not provide ' +
+    'contact information we may be unable to contact you for additional ' +
+    'information to verify your responses.' +
   '</p>' +
   '<p>' +
-  '  <strong>Privacy Act Statement</strong>' +
-  '  You are not required to provide your personal contact information in' +
-  '  order to submit your survey. However, if you do not provide contact' +
-  '  information, we may be unable to contact you for additional information' +
-  '  to verify your responses. If you do provide contact information, this' +
-  '  information will only be used to initiate follow-up communications with' +
-  '  you. The records for this collection will be maintained in the' +
-  '  appropriate Privacy Act System of Records identified as Earthquake' +
-  '  Hazards Program Earthquake Information. (INTERIOR/USGS-2) published' +
-  '  at 74 FR 34033 (July 14,2009).' +
+    '<strong>Privacy Act Statement</strong><br/>' +
+    'You are not required to provide your personal contact information in' +
+    'order to submit your survey. However, if you do not provide contact' +
+    'information, we may be unable to contact you for additional information' +
+    'to verify your responses. If you do provide contact information, this' +
+    'information will only be used to initiate follow-up communications with' +
+    'you. The records for this collection will be maintained in the' +
+    'appropriate Privacy Act System of Records identified as Earthquake' +
+    'Hazards Program Earthquake Information. (INTERIOR/USGS-2) published' +
+    'at 74 FR 34033 (July 14,2009).' +
   '</p>' +
   '<p>' +
-  '  <strong>Paperwork Reduction Act Statement</strong>' +
-  '  The Paperwork Reduction Act of 1995 (44 U.S.C. 3501 et. seq.) requires' +
-  '  us to inform you that this information is being collected to supplement' +
-  '  instrumental data and to promote public safety through better' +
-  '  understanding of earthquakes. Response to this request is voluntary.' +
-  '  Public reporting for this form is estimated to average 6 minutes per' +
-  '  response, including the time for reviewing instructions and completing' +
-  '  the form. A Federal agency may not conduct or sponsor, and a person is' +
-  '  not required to respond to, a collection of information unless it' +
-  '  displays a currently valid OMB Control Number. Comments regarding this' +
-  '  collection of information should be directed to: Bureau Clearance' +
-  '  officer, U.S. Geological Survey, 807 National Center, Reston, VA 20192.' +
+    '<strong>Paperwork Reduction Act Statement</strong><br/>' +
+    'The Paperwork Reduction Act of 1995 (44 U.S.C. 3501 et. seq.) requires ' +
+    'us to inform you that this information is being collected to supplement ' +
+    'instrumental data and to promote public safety through better ' +
+    'understanding of earthquakes. Response to this request is voluntary. ' +
+    'Public reporting for this form is estimated to average 6 minutes per ' +
+    'response, including the time for reviewing instructions and completing ' +
+    'the form. A Federal agency may not conduct or sponsor, and a person is ' +
+    'not required to respond to, a collection of information unless it ' +
+    'displays a currently valid OMB Control Number. Comments regarding this ' +
+    'collection of information should be directed to: Bureau Clearance ' +
+    'officer, U.S. Geological Survey, 807 National Center, Reston, VA 20192.' +
   '</p>';
 
 
