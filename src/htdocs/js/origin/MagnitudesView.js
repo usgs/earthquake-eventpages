@@ -218,6 +218,7 @@ var MagnitudesView = function (options) {
     var contributions,
         error,
         mag,
+        preferredType,
         source,
         stations,
         type,
@@ -238,10 +239,14 @@ var MagnitudesView = function (options) {
     value = mag.value || _NOT_REPORTED;
     error = mag.uncertainty || _NOT_REPORTED;
     stations = magnitude.stationCount || _NOT_REPORTED;
+    preferredType = this.product.getProperty('magnitude-type') || '';
 
     return [
       '<section class="accordion accordion-closed magnitude-view-item">',
-        '<h3>', type, '</h3>',
+        (preferredType.toLowerCase() === type.toLowerCase() ?
+            '<h3 class="preferred">': '<h3>' ),
+          type,
+        '</h3>',
         '<ul class="magnitude-summary">',
           _this.getValueMarkup(value),
           _this.getErrorMarkup(error),
