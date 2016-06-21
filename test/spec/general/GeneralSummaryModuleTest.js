@@ -110,6 +110,7 @@ describe('general/GeneralSummaryModule', function () {
 
       sinon.stub(module, 'renderHeader');
       sinon.stub(module, 'renderLocation');
+      sinon.stub(module, 'renderLocationWarning');
       sinon.stub(module, 'renderTime');
       sinon.stub(module, 'renderNearbyPlaces');
       sinon.stub(module, 'renderGeneralText');
@@ -120,6 +121,7 @@ describe('general/GeneralSummaryModule', function () {
       module.render();
       expect(module.renderHeader.calledWith(ev)).to.equal(true);
       expect(module.renderLocation.calledWith(ev)).to.equal(true);
+      expect(module.renderLocationWarning.calledWith(ev)).to.equal(true);
       expect(module.renderTime.calledWith(ev)).to.equal(true);
       expect(module.renderNearbyPlaces.calledWith(ev)).to.equal(true);
       expect(module.renderGeneralText.calledWith(ev)).to.equal(true);
@@ -172,6 +174,20 @@ describe('general/GeneralSummaryModule', function () {
       expect(module.el.querySelectorAll(
             '.generalsummary-general-text > section'
           ).length).to.equal(us10004u1y.getProducts('general-text').length);
+      module.destroy();
+    });
+  });
+
+  describe('renderLocationWarning', function () {
+    it('renders correctly when latitudes extents are +/- 85 degrees', function () {
+      var module;
+
+      module = GeneralSummaryModule();
+      module.renderLocationWarning(us10004u1y);
+
+      expect(module.el.querySelectorAll(
+          '.generalsummary-warning > p').length).to.equal(1);
+
       module.destroy();
     });
   });
