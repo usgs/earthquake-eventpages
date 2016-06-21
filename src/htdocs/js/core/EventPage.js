@@ -626,14 +626,23 @@ var EventPage = function (options) {
   };
 
   _this.renderFooter = function () {
-    var markup;
+    var contributors,
+        markup;
 
-    markup = [
-      '<h3>Contributors</h3>',
-      Attribution.getContributorList(),
+    contributors = Attribution.getContributors();
+    markup = [];
+
+    if (contributors && contributors.length !== 0) {
+      markup.push(
+        '<h3>Contributors</h3>',
+        Attribution.getContributorList()
+      );
+    }
+
+    markup.push(
       '<h3>Additional Information</h3>',
       '<ul>'
-    ];
+    );
 
     if (_this.isScenarioMode()) {
       markup.push('<li><a href="/scenarios/">Earthquake Scenarios</a></li>');
