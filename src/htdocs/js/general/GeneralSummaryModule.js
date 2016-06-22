@@ -55,7 +55,6 @@ var GeneralSummaryModule = function (options) {
       _tectonicSummaryEl,
       _tectonicSummaryView,
       _timeEl;
-      //_this.warningEl;
 
 
   _this = Module(options);
@@ -140,7 +139,6 @@ var GeneralSummaryModule = function (options) {
     _nearbyPlacesEl = null;
     _tectonicSummaryEl = null;
     _timeEl = null;
-    //_this.warningEl = null;
   }, _this.destroy);
 
   /**
