@@ -161,6 +161,7 @@ var DYFIIntensityGraphView = function (options) {
         xAxisFormat: function (value) {
           return value;
         },
+        xAxisTicks: _this.xAxisTicks,
         yAxisTicks: [1,2,3,4,5,6,7,8,9,10],
         yExtent: [1,10],
         marginTop: 10,
@@ -219,6 +220,41 @@ var DYFIIntensityGraphView = function (options) {
     });
 
     return data;
+  };
+
+  /**
+   * Makes certain that x Axis ticks are visible for small axis extents.
+   *
+   * @param {array} extent
+   *    An array containing the min and max of the x axis data range.
+   */
+  _this.xAxisTicks = function (extent) {
+    var logmin,
+        logmax,
+        min,
+        max,
+        ticks;
+
+    // No extents, return null.
+    if (extent.length < 1) {
+      return null;
+    }
+
+    min = extent[0];
+    max = extent[extent.length -1];
+
+    logmin = Math.log(min) / Math.LN10;
+    logmax = Math.log(max) / Math.LN10;
+
+    // range is completely within 2 ticks on the log 10 scale.
+    // Create 2 ticks, rounded to the nearest 1000's.
+    if (logmax - logmin < 1) {
+      ticks = [Math.round(min * 1000.0) / 1000.0,
+          Math.round(max * 1000.0) / 1000.0];
+      return ticks;
+    }
+
+    return null;
   };
 
 
