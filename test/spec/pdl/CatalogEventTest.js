@@ -448,7 +448,7 @@ describe('pdl/CatalogEvent', function () {
 
   describe('getLatitude', function () {
     it('returns the event latitude', function () {
-      expect(realEvent.getLatitude()).to.equal(-4.9082);
+      expect(realEvent.getLatitude()).to.equal(-86.9082);
     });
   });
 

@@ -72,6 +72,9 @@ var GeneralSummaryModule = function (options) {
     el.classList.add('generalsummary');
     el.innerHTML = [
         '<div class="row">',
+          '<div class="column">',
+            '<div class="generalsummary-warning"></div>',
+          '</div>',
           '<div class="column one-of-two">',
             '<div class="generalsummary-location"></div>',
           '</div>',
@@ -85,6 +88,7 @@ var GeneralSummaryModule = function (options) {
         '<div class="generalsummary-general-link"></div>',
     ].join('');
 
+    _this.warningEl = el.querySelector('.generalsummary-warning');
     _locationEl = el.querySelector('.generalsummary-location');
     _timeEl = el.querySelector('.generalsummary-time');
     _nearbyPlacesEl = el.querySelector('.generalsummary-places');
@@ -214,6 +218,7 @@ var GeneralSummaryModule = function (options) {
 
     _this.renderHeader(ev);
     _this.renderLocation(ev);
+    _this.renderLocationWarning(ev);
     _this.renderTime(ev);
     _this.renderNearbyPlaces(ev);
     _this.renderGeneralText(ev);
@@ -388,6 +393,42 @@ var GeneralSummaryModule = function (options) {
       });
       // only render first time, binds to model separately
       _locationView.render();
+    }
+  };
+
+  /**
+   * If location latitude extents are + or - 85 degrees show warning
+   *
+   * @param ev {CatalogEvent}
+   *     the event.
+   *
+   * @return {String}
+   *    warning markup.
+   */
+  _this.renderLocationWarning = function (ev) {
+    var code,
+        latitude,
+        product;
+
+    Util.empty(_this.warningEl);
+    if (!ev) {
+      return;
+    }
+
+    product = ev.getPreferredOriginProduct();
+
+    code = product.get('code') || null;
+    latitude = product.get('properties').latitude || null;
+
+    if ((latitude > 85) || (latitude < -85)) {
+      _this.warningEl.innerHTML =
+        '<p class="alert warning">Due to the high latitude of this' +
+        ' event, the location map does not show the correct location. We' +
+        ' are working on a solution for this problem. To see the actual' +
+        ' location we recommend using' +
+        ' <a href="/earthquakes/feed/v1.0/detail/' + code + '.kml">' +
+        'Google Earth KML' +
+        '</a>.</p>';
     }
   };
 
