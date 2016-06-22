@@ -6,7 +6,7 @@
 
   + .magnitude-view-item {
     border-top: 1px solid #ddd;
-}
+  }
 
   &:last-child {
     padding-bottom: 0.5em;
@@ -26,8 +26,17 @@
 
   > h3 {
     margin: 0;
-  }
 
+    &.preferred:before {
+      color: #090;
+      content: '\0e5ca';
+      display: inline-block;
+      font-family: 'Material Icons';
+      margin-right: 0.25em;
+      vertical-align: bottom;
+      width: 1em;
+    }
+  }
 }
 
 .magnitude-summary {
