@@ -534,6 +534,9 @@ var EventPage = function (options) {
 
     // notify that page was rendered
     _this.trigger('render');
+
+    // scroll to top of page
+    window.scroll(0,0);
   };
 
   /**
