@@ -44,7 +44,7 @@ var _DEFAULT_OPTIONS = {
           '<br/><abbr title="Number of Responses">responses</abbr>' +
         '</li>' +
         '<li class="dyfi-summary-distance">' +
-          _DEFAULT_FORMATTER.number(p.dist, 1, '&ndash;', 'km') +
+          _DEFAULT_FORMATTER.number(p.dist, 0, '&ndash;', 'km') +
           '<br/><abbr title="Distance from Hypocenter">distance</abbr>' +
         '</li>' +
       '</ul>' +
