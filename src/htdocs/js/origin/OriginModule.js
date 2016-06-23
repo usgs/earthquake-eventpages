@@ -159,7 +159,8 @@ var OriginModule = function (options) {
     if (product) {
       header = _this.getProductHeader({
         product: product,
-        summaryModule: ScientificSummaryModule
+        summaryModule: ScientificSummaryModule,
+        type: 'origin'
       });
 
       if (header) {

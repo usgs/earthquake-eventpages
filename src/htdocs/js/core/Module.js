@@ -248,8 +248,10 @@ var Module = function (options) {
 
     buf = [];
     ev = _this.model.get('event');
-    type = product.get('type');
-    preferred = (ev.getPreferredProduct(type) === product);
+    type = options.type || product.get('type');
+    // can't use var type because it breaks the prefered setting when it uses
+    // options.type
+    preferred = (ev.getPreferredProduct(product.get('type')) === product);
     reviewed = product.isReviewed();
 
     if (summaryModule) {
@@ -257,7 +259,7 @@ var Module = function (options) {
       buf.push('<a class="back-to-summary-link"' +
           ' href="#'  + summaryModule.ID + '">');
       if (numProducts > 1) {
-        buf.push('View alternative ' + _this.TITLE + 's' +
+        buf.push('View alternative ' + _this.TITLE.toLowerCase() + 's' +
             ' (' + numProducts + ' total)');
       } else {
         buf.push('Back to ' + summaryModule.TITLE);
