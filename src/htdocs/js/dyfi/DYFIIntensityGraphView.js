@@ -141,6 +141,45 @@ var DYFIIntensityGraphView = function (options) {
   }, _this.destroy);
 
   /**
+   * Gets an arbitrary set of logrithmic values for graphs whose tick values
+   *  would otherwise run into each other.
+   *
+   * @params {array} extent
+   *    An array containing the min and max of the x axis data range.
+   *
+   * @returns {array} ticks
+   *    An array of tick values.
+   */
+  _this.getLogTicks = function (extent) {
+    var min,
+        max,
+        ticks;
+
+    min = extent[0];
+    max = extent[1];
+
+    if (max > 5000) {
+      ticks = [50, 100, 500, 1000, 2000, 5000, 10000];
+    } else {
+      ticks = [10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000, 2000, 5000];
+    }
+
+    if (min > ticks[0] ) {
+      ticks = ticks.filter(function(value) {
+        return value > min;
+      });
+    }
+
+    if (max < ticks[ticks.length - 1]) {
+      ticks = ticks.filter(function(value) {
+        return value < max;
+      });
+    }
+
+  return ticks;
+  };
+
+  /**
    * Builds the D3View that will display all of the datasets returned by the
    * ContentView.fetchData Xhr request.
    *
@@ -227,6 +266,9 @@ var DYFIIntensityGraphView = function (options) {
    *
    * @param {array} extent
    *    An array containing the min and max of the x axis data range.
+   *
+   * @returns {array} ticks
+   *    An array of tick values, or null if the d3 default will suffice.
    */
   _this.xAxisTicks = function (extent) {
     var logmin,
@@ -251,6 +293,11 @@ var DYFIIntensityGraphView = function (options) {
     if (logmax - logmin < 1) {
       ticks = [Math.round(min * 1000.0) / 1000.0,
           Math.round(max * 1000.0) / 1000.0];
+      return ticks;
+    }
+
+    if (logmax - logmin > 1.5) {
+      ticks = _this.getLogTicks(extent);
       return ticks;
     }
 
