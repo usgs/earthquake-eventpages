@@ -98,7 +98,7 @@ describe('dyfi/DYFIFormView', function () {
         locationCallback({place: null,
           latitude: 36.13787471840729,
           longitude: -100.546875,
-          confidence: 1,
+          confidence: -1,
           method: 'point'});
         done();
       });

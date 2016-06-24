@@ -463,24 +463,26 @@ var DYFIFormView = function (options) {
    * Notes: Triggers change on the latitude, and longitude "questions"
    */
   _this.locationCallback = function (locationObject) {
-    var markup = [],
+    var confidence,
+        markup = [],
         prettyLat = null,
         prettyLng = null;
 
     _curLoc = locationObject;
+    confidence = (_curLoc.confidence === -1 ? 0 : _curLoc.confidence);
 
     prettyLat = _curLoc.latitude;
     if (prettyLat < 0.0) {
-      prettyLat = (-1.0*prettyLat).toFixed(_curLoc.confidence) + '&deg;S';
+      prettyLat = (-1.0*prettyLat).toFixed(confidence) + '&deg;S';
     } else {
-      prettyLat = prettyLat.toFixed(_curLoc.confidence) + '&deg;N';
+      prettyLat = prettyLat.toFixed(confidence) + '&deg;N';
     }
 
     prettyLng = _curLoc.longitude;
     if (prettyLng < 0.0) {
-      prettyLng = (-1.0*prettyLng).toFixed(_curLoc.confidence) + '&deg;W';
+      prettyLng = (-1.0*prettyLng).toFixed(confidence) + '&deg;W';
     } else {
-      prettyLng = prettyLng.toFixed(_curLoc.confidence) + '&deg;E';
+      prettyLng = prettyLng.toFixed(confidence) + '&deg;E';
     }
 
     if (_curLoc.place !== null) {
