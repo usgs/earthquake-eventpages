@@ -5,9 +5,10 @@
   }
 
   .pin-content {
-    margin: 0;
+    /* use margin top/bottom with overflow hidden */
+    margin: 1em 0;
     overflow: hidden;
-    padding: 1em 0.5em;
+    padding: 0 0.5em;
     position: relative;
 
     > :after {
