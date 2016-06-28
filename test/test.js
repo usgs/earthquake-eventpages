@@ -81,6 +81,7 @@ require('./spec/moment-tensor/TensorTest');
 
 require('./spec/origin/MagnitudesViewTest');
 require('./spec/origin/OriginModuleTest');
+require('./spec/origin/OriginPinViewTest');
 require('./spec/origin/OriginViewTest');
 require('./spec/origin/PhasesViewTest');
 require('./spec/origin/QuakemlViewTest');
