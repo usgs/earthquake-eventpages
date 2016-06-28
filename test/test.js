@@ -37,6 +37,7 @@ mocha.setup('bdd');
 // Add each test class here as they are implemented
 require('./spec/core/AccordionViewTest');
 require('./spec/core/AttributionTest');
+require('./spec/core/BasicPinViewTest');
 require('./spec/core/DownloadViewTest');
 require('./spec/core/EventPageTest');
 require('./spec/core/FormatterTest');
