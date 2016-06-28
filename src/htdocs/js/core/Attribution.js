@@ -56,17 +56,21 @@ var Attribution = function (options) {
         title,
         url;
 
-    id = id.toUpperCase();
     title = null;
     url = null;
-    contributor = _this.getContributor(id);
-    if (contributor) {
-      title = contributor.title;
-      url = contributor.url;
-    }
 
-    if (!title) {
-      title = id;
+    if (id !== null) {
+      id = id.toUpperCase();
+      contributor = _this.getContributor(id);
+
+      if (contributor) {
+        title = contributor.title;
+        url = contributor.url;
+      }
+
+      if (!title) {
+        title = id;
+      }
     }
 
     if (url) {
@@ -110,28 +114,37 @@ var Attribution = function (options) {
         title,
         url;
 
-    id = id.toUpperCase();
+    buf = [];
     title = null;
     url = null;
-    contributor = _this.getContributor(id);
-    if (contributor) {
-      title = contributor.title;
-      url = contributor.url;
-    }
-    listPosition = _contributors.indexOf(id.toLowerCase()) + 1;
 
-    buf = [];
-    if (title) {
-      buf.push('<abbr title="' + title + '">');
+    if (id !== null) {
+      id = id.toUpperCase();
+      contributor = _this.getContributor(id);
+
+      if (contributor) {
+        title = contributor.title;
+        url = contributor.url;
+      }
+
+      listPosition = _contributors.indexOf(id.toLowerCase()) + 1;
+
+      if (title) {
+        buf.push('<abbr title="' + title + '">');
+      }
+
+      buf.push(id);
+
+      if (listPosition > 0) {
+        // found in list
+        buf.push('<sup>' + listPosition + '</sup>');
+      }
+
+      if (title) {
+        buf.push('</abbr>');
+      }
     }
-    buf.push(id);
-    if (listPosition > 0) {
-      // found in list
-      buf.push('<sup>' + listPosition + '</sup>');
-    }
-    if (title) {
-      buf.push('</abbr>');
-    }
+
     return buf.join('');
   };
 
