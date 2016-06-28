@@ -34,24 +34,29 @@ var TextProductPinView = function (options) {
 
   /**
    * delegates click event if "read more" link is clicked
-   *
-   * @param  {[type]} e [description]
-   * @return {[type]}   [description]
    */
   _onClick = function (e) {
     _this.onClick();
     e.preventDefault();
   };
 
+  _this.destroy = Util.compose(function () {
+    if (_this.dialog) {
+      _this.dialog.hide();
+    }
+
+    _initialize = null;
+    _this = null;
+  }, _this.destroy);
+
+
   _this.onClick = function () {
-    var dialog;
-
-    dialog = ModalView(_this.textProductView.el.innerHTML, {
+    _this.dialog = ModalView(_this.textProductView.el.innerHTML, {
       title: _title,
-      classes: ['text-product-pin-modal']
+      classes: ['text-product-pin-modal'],
+      destroyOnHide: true
     });
-
-    dialog.show();
+    _this.dialog.show();
   };
 
   _this.renderPinContent = function () {
