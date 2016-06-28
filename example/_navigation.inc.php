@@ -3,6 +3,7 @@
 print navItem('/example.php', 'Examples Index');
 
 print navGroup('Core',
+    navItem('/core/BasicPinViewExample.php', 'BasicPinView') .
     navItem('/core/DownloadViewExample.php', 'DownloadView') .
     navItem('/core/TextProductViewExample.php', 'TextProductView')
   );
