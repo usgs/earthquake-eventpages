@@ -2,6 +2,7 @@
 
 
 var Collection = require('mvc/Collection'),
+    Product = require('pdl/Product'),
     Util = require('util/Util'),
     Xhr = require('util/Xhr');
 
@@ -307,9 +308,7 @@ var Attribution = function (options) {
 
     sources = {}; // Keep a unique list
 
-    type = product.get('type');
-    type = type.replace('internal-', '');
-    type = type.replace('-scenario', '');
+    type = Product.getBaseType(product.get('type'));
 
     // Put product.source on first
     source = product.get('source');

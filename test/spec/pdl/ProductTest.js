@@ -68,4 +68,40 @@ describe('pdl/Product', function () {
     });
   });
 
+  describe('getBaseType', function () {
+    it('works for internal products', function () {
+      var product;
+
+      product = Product({type: 'internal-type'});
+      expect(Product.getBaseType(product.get('type'))).to.equal('type');
+
+      product.destroy();
+    });
+
+    it('works for scenario products', function () {
+      var product;
+
+      product = Product({type: 'type-scenario'});
+      expect(Product.getBaseType(product.get('type'))).to.equal('type');
+
+      product.destroy();
+    });
+
+    it('fails gracefully', function () {
+      var graceful,
+          product,
+          result;
+
+      product = Product();
+
+      graceful = function () {
+        result = Product.getBaseType(product.get('type'));
+      };
+
+      expect(graceful).to.not.throw(Error);
+      expect(result).to.equal(null);
+
+      product.destroy();
+    });
+  });
 });

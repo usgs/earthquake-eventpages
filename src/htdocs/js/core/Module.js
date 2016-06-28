@@ -75,31 +75,6 @@ var Module = function (options) {
   }, _this.destroy);
 
   /**
-   * Remove "internal-" prefix and "-scenario" suffix from product "type".
-   *
-   * @param type {String}
-   *     The initial product type.
-   *
-   * @return {String}
-   *     The base product type without any known prefix or suffix.
-   */
-  _this.getBaseType = function (type) {
-    var base;
-
-    base = type;
-
-    if (base.match(/^internal-/)) {
-      base = base.replace('internal-', '');
-    }
-
-    if (base.match(/-scenario$/)) {
-      base = base.replace('-scenario', '');
-    }
-
-    return base;
-  };
-
-  /**
    * Add "internal-" prefix or "-scenario" suffix to product "type".
    *
    * @param type {String}

@@ -3,6 +3,7 @@
 
 var LinkProductView = require('core/LinkProductView'),
     Module = require('core/Module'),
+    Product = require('pdl/Product'),
     TextProductView = require('core/TextProductView'),
     Util = require('util/Util');
 
@@ -193,7 +194,7 @@ var SummaryModule = function (options) {
         type;
 
     markup = [];
-    type = _this.getBaseType(product.get('type'));
+    type = Product.getBaseType(product.get('type'));
 
     if (preferred) {
       markup.push('<abbr title="Preferred ' + type +
@@ -292,9 +293,11 @@ var SummaryModule = function (options) {
     return fragment;
   };
 
+
   _initialize(options);
   options = null;
   return _this;
 };
+
 
 module.exports = SummaryModule;

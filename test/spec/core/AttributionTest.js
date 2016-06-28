@@ -48,6 +48,17 @@ describe('core/Attribution', function () {
       expect(result.childNodes.length).to.equal(1);
     });
 
+    it('fails gracefully when no source is set', function () {
+      var graceful,
+          result;
+
+      graceful = function () {
+        result = Attribution.getProductAttribution(Product());
+      };
+
+      expect(graceful).to.not.throw(Error);
+    });
+
     it('adds on origin-source if different', function () {
       var product,
           result;

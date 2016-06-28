@@ -9,6 +9,33 @@ var Collection = require('mvc/Collection'),
 var _STATUS_UPDATE = 'UPDATE',
     _STATUS_DELETE = 'DELETE';
 
+var _getBaseType;
+
+/**
+ * Remove "internal-" prefix and "-scenario" suffix from product "type".
+ *
+ * @param type {String}
+ *     The initial product type.
+ *
+ * @return {String}
+ *     The base product type without any known prefix or suffix.
+ */
+_getBaseType = function (type) {
+  var base;
+
+  base = type;
+
+  if (base && base.match(/^internal-/)) {
+    base = base.replace('internal-', '');
+  }
+
+  if (base && base.match(/-scenario$/)) {
+    base = base.replace('-scenario', '');
+  }
+
+  return base;
+};
+
 
 /**
  * A product object.
@@ -229,6 +256,8 @@ var Product = function (options) {
   return _this;
 };
 
+
+Product.getBaseType = _getBaseType;
 
 Product.STATUS_UPDATE = _STATUS_UPDATE;
 Product.STATUS_DELETE = _STATUS_DELETE;
