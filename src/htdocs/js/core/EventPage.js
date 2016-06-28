@@ -6,6 +6,7 @@ var Attribution = require('core/Attribution'),
     DYFIFormModule = require('dyfi/DYFIFormModule'),
     DYFIModule = require('dyfi/DYFIModule'),
     Events = require('util/Events'),
+    ExecutiveSummaryModule = require('general/ExecutiveSummaryModule'),
     FiniteFaultModule = require('finite-fault/FiniteFaultModule'),
     FocalMechanismModule = require('focal-mechanism/FocalMechanismModule'),
     Formatter = require('core/Formatter'),
@@ -26,10 +27,14 @@ var _DEFAULTS = {
   'event': null, // CatalogEvent
   'config': {
   },
-  'defaultModule': GeneralSummaryModule.ID,
+  'defaultModule': ExecutiveSummaryModule.ID,
   'modules': [
     // General
-    [GeneralSummaryModule, InteractiveMapModule],
+    [
+      ExecutiveSummaryModule,
+      GeneralSummaryModule,
+      InteractiveMapModule
+    ],
     // Impact
     [
       ImpactSummaryModule,

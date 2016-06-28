@@ -132,7 +132,7 @@ describe('core/EventPage', function () {
       expect(window.location.hash).to.equal('#moment-tensor');
       // has previous should not be true yet
       Events.trigger('back');
-      expect(window.location.hash).to.equal('#general');
+      expect(window.location.hash).to.equal('#executive');
       eventPage.destroy();
     });
   });
