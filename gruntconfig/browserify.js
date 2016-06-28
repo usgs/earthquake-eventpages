@@ -51,6 +51,7 @@ var ALL_CLASSES = [
   JS + '/impact/ImpactSummaryModule.js:impact/ImpactSummaryModule',
 
   JS + '/losspager/PAGERModule.js:losspager/PAGERModule',
+  JS + '/losspager/PAGERPinView.js:losspager/PAGERPinView',
   JS + '/losspager/PAGERView.js:losspager/PAGERView',
   JS + '/losspager/PagerXmlParser.js:losspager/PagerXmlParser',
 

@@ -67,6 +67,7 @@ require('./spec/general/NearbyPlacesViewTest');
 require('./spec/impact/ImpactSummaryModuleTest');
 
 require('./spec/losspager/PAGERModuleTest');
+require('./spec/losspager/PAGERPinViewTest');
 require('./spec/losspager/PAGERViewTest');
 require('./spec/losspager/PagerXmlParserTest');
 
