@@ -423,9 +423,8 @@ var GeneralSummaryModule = function (options) {
     if ((latitude > 85) || (latitude < -85)) {
       _this.warningEl.innerHTML =
         '<p class="alert warning">Due to the high latitude of this' +
-        ' event, the location map does not show the correct location. We' +
-        ' are working on a solution for this problem. To see the actual' +
-        ' location we recommend using' +
+        ' event, the location map does not show the correct location.' +
+        ' To see the actual location we recommend using' +
         ' <a href="/earthquakes/feed/v1.0/detail/' + code + '.kml">' +
         'Google Earth KML' +
         '</a>.</p>';
