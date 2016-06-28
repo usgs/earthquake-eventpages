@@ -42,6 +42,7 @@ var ALL_CLASSES = [
   JS + '/focal-mechanism/FocalMechanismModule.js:focal-mechanism/FocalMechanismModule',
   JS + '/focal-mechanism/FocalMechanismView.js:focal-mechanism/FocalMechanismView',
 
+  JS + '/general/ExecutiveSummaryModule.js:general/ExecutiveSummaryModule',
   JS + '/general/GeneralSummaryModule.js:general/GeneralSummaryModule',
   JS + '/general/GeoserveNearbyPlacesView.js:general/GeoserveNearbyPlacesView',
   JS + '/general/GeoserveRegionSummaryView.js:general/GeoserveRegionSummaryView',
