@@ -19,27 +19,33 @@ var TextProductPinView = function (options) {
   _this = BasicPinView(options);
 
   _initialize = function () {
+    _title = _this.module.TITLE;
+    _this.el.classList.add('text-product-pin-view');
+
     // create TextProductView
     _this.textProductView = TextProductView({
       el: _this.content,
       model: _this.model
     });
 
-    _title = _this.module.TITLE;
-    _this.el.classList.add('text-product-pin-view');
-
     // show modal when header is clicked
     _this.header.addEventListener('click', _onClick);
   };
 
   /**
-   * delegates click event if "read more" link is clicked
+   * Called when pin header is clicked
+   *
+   * @param e {MouseEvent}
+   *     a MouseEvent event
    */
   _onClick = function (e) {
     _this.onClick();
     e.preventDefault();
   };
 
+  /**
+   * Clean up TextProductPinView
+   */
   _this.destroy = Util.compose(function () {
     if (_this.dialog) {
       _this.dialog.hide();
@@ -50,6 +56,9 @@ var TextProductPinView = function (options) {
   }, _this.destroy);
 
 
+  /**
+   * Open modal with TextProductView
+   */
   _this.onClick = function () {
     _this.dialog = ModalView(_this.textProductView.el.innerHTML, {
       title: _title,
@@ -59,6 +68,9 @@ var TextProductPinView = function (options) {
     _this.dialog.show();
   };
 
+  /**
+   * Render the TextProductPinView contents
+   */
   _this.renderPinContent = function () {
     _this.textProductView.render();
   };
