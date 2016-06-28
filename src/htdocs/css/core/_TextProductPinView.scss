@@ -1,5 +1,8 @@
 .text-product-pin-view {
-  cursor: pointer;
+
+  .pin-header {
+    cursor: pointer;
+  }
 
   .pin-content {
     margin: 0;
@@ -7,15 +10,8 @@
     padding: 1em 0.5em;
     position: relative;
 
-/*
-    background: linear-gradient(0deg,#fff 50%,#fff),linear-gradient(180deg,#fff 50%,#fff) bottom,radial-gradient(farthest-side at 50% 0,rgba(0,0,0,.2),transparent),radial-gradient(farthest-side at 50% 100%,rgba(0,0,0,.2),transparent) 0 100%;
-    background-repeat: no-repeat;
-    background-size: 100% 10px,100% 10px,100% 5px,100% 5px;
-    background-attachment: local,local,scroll,scroll;
-*/
-
     > :after {
-      background: linear-gradient(to bottom, transparent 80%, rgba(255,255,255,0.2) 90%, rgba(255,255,255,0.4) 98%, #fff 100%);
+      background: linear-gradient(to bottom, transparent 80%, rgba(255,255,255,0.2) 90%, rgba(255,255,255,0.4) 99%, #fff 100%);
       content: '';
       display: block;
       position: absolute;

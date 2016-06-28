@@ -19,16 +19,17 @@ var TextProductPinView = function (options) {
   _this = BasicPinView(options);
 
   _initialize = function () {
-    _title = _this.module.TITLE;
-
     // create TextProductView
     _this.textProductView = TextProductView({
       el: _this.content,
       model: _this.model
     });
 
+    _title = _this.module.TITLE;
     _this.el.classList.add('text-product-pin-view');
-    _this.el.addEventListener('click', _onClick);
+
+    // show modal when header is clicked
+    _this.header.addEventListener('click', _onClick);
   };
 
   /**
@@ -38,22 +39,14 @@ var TextProductPinView = function (options) {
    * @return {[type]}   [description]
    */
   _onClick = function (e) {
-    var target;
-
-    target = e.target;
-    if (target && target.className === 'pop-up') {
-      _this.onClick();
-      e.preventDefault();
-    }
+    _this.onClick();
+    e.preventDefault();
   };
 
   _this.onClick = function () {
-    var el,
-        dialog;
+    var dialog;
 
-    el = _this.textProductView.el.innerHTML;
-
-    dialog = ModalView(el, {
+    dialog = ModalView(_this.textProductView.el.innerHTML, {
       title: _title,
       classes: ['text-product-pin-modal']
     });
@@ -63,12 +56,6 @@ var TextProductPinView = function (options) {
 
   _this.renderPinContent = function () {
     _this.textProductView.render();
-  };
-
-  // TODO, open model on header click
-  _this.renderPinFooter = function () {
-    _this.footer.innerHTML = '<a class="pop-up" ' +
-        'href="#">click to view ' + _title + '</a>';
   };
 
   _initialize();
