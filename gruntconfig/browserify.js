@@ -68,6 +68,7 @@ var ALL_CLASSES = [
 
   JS + '/origin/MagnitudesView.js:origin/MagnitudesView',
   JS + '/origin/OriginModule.js:origin/OriginModule',
+  JS + '/origin/OriginPinView.js:origin/OriginPinView',
   JS + '/origin/OriginView.js:origin/OriginView',
   JS + '/origin/PhasesView.js:origin/PhasesView',
   JS + '/origin/QuakemlView.js:origin/QuakemlView',
