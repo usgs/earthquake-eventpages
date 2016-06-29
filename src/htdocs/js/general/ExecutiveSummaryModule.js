@@ -168,6 +168,11 @@ var ExecutiveSummary = function (options) {
   };
 
   _this.destroy = Util.compose(function () {
+    if (_this === null) {
+      return; // Already destroyed
+    }
+
+
     if (_this.pinViews) {
       _this.pinViews.forEach(function (view) {
         view.destroy();
