@@ -78,22 +78,43 @@ var ExecutiveSummary = function (options) {
    * array of products. This product is removed from the given array of products
    * and the created pin view is added to _this.pinViews.
    *
+   * @param parent {DOMElement}
+   *     The parent element onto which the created pin view element should
+   *     be attached.
    * @param products {Array<Product>}
    *     An array of products from which the first product (if exists) is
    *     popped. This product is used to create a pin view which is added to
    *     _this.pinViews.
+   * @param numPins {Integer}
+   *     How "many" pins have been added to _this.pinList thus far. Note that
+   *     this is not necessarily equal to _this.pinList.length since some
+   *     of these pins may be "double-wide" and get counted as 2 for purposes
+   *     of this parameter.
+   * @param pinsPerRow {Integer}
+   *     How many pins fit across a row before wrapping.
+   *
+   * @return {Integer}
+   *     The number of effective pins added to _this.pinList.
    */
-  _this.addTextProductPin = function (products) {
-    var product;
+  _this.addTextProductPin = function (parent, products, numPins, pinsPerRow) {
+    var pinFitsInRow,
+        pinsInRow,
+        product;
 
     products = products || [];
     product = products.slice(0, 1)[0];
 
-    if (product) {
+    pinsInRow = (numPins % pinsPerRow);
+    pinFitsInRow = ((pinsPerRow - pinsInRow) >= 2);
+
+    if (product && pinFitsInRow) {
       _this.pinViews.push(TextPinView({
-        el: _this.createPinContainer('double-wide'),
+        el: _this.createPinContainer(parent, 'double-wide'),
         model: product
-      }).render());
+      }));
+      return 2;
+    } else {
+      return 0;
     }
   };
 
@@ -107,7 +128,7 @@ var ExecutiveSummary = function (options) {
    * @return {Integer}
    *     The number of "single-wide" pins that can fit in a single row.
    */
-  _this.computeMaxColumns = function (containerWidth) {
+  _this.computePinsPerRow = function (containerWidth) {
     var columnWidth;
 
     containerWidth = containerWidth || document.body.clientWidth;
@@ -132,10 +153,10 @@ var ExecutiveSummary = function (options) {
    *
    * @return {DOMElement}
    */
-  _this.createPinContainer = function (classes) {
+  _this.createPinContainer = function (parent, classes) {
     var container;
 
-    container = _this.pinList.appendChild(document.createElement('li'));
+    container = parent.appendChild(document.createElement('li'));
     container.classList.add('executive-summary-pin');
 
     classes = classes || [];
@@ -379,6 +400,9 @@ var ExecutiveSummary = function (options) {
    */
   _this.renderPins = function (ev) {
     var config,
+        fragment,
+        pinCount,
+        pinsPerRow,
         product,
         textProducts;
 
@@ -389,7 +413,6 @@ var ExecutiveSummary = function (options) {
     }
 
     _this.pinViews = [];
-
     Util.empty(_this.pinList);
 
     if (!ev) {
@@ -397,101 +420,128 @@ var ExecutiveSummary = function (options) {
     }
 
     config = _this.model.get('config');
-
+    fragment = document.createDocumentFragment();
+    pinCount = 0;
+    pinsPerRow = _this.computePinsPerRow(_this.pinList.clientWidth);
     textProducts = ev.getProducts(Product.getFullType('general-text', config));
 
     // Origin pin
     product = ev.getPreferredOriginProduct();
     if (product) {
       _this.pinViews.push(OriginPinView({
-        el: _this.createPinContainer(),
+        el: _this.createPinContainer(fragment),
         model: product
-      }).render());
+      }));
+      ++pinCount;
     }
 
     // Interactive Map pin
     // TODO :: Product ???
     _this.pinViews.push(InteractiveMapPinView({
-      el: _this.createPinContainer(),
+      el: _this.createPinContainer(fragment),
       model: ev.getPreferredOriginProduct() // TODO ...
-    }).render());
+    }));
+    ++pinCount;
+
+    // Sprinkle in text products here and there
+    pinCount += _this.addTextProductPin(fragment, textProducts,
+        pinCount, pinsPerRow);
 
     // Regional Info pin
     // TODO :: Product ???
     _this.pinViews.push(RegionInfoPinView({
-      el: _this.createPinContainer(),
+      el: _this.createPinContainer(fragment),
       model: ev.getPreferredOriginProduct() // TODO ...
-    }).render());
+    }));
+    ++pinCount;
 
     // PAGER pin
     product = ev.getPreferredProduct(Product.getFullType('losspager', config));
     if (product) {
       _this.pinViews.push(PagerPinView({
-        el: _this.createPinContainer(),
+        el: _this.createPinContainer(fragment),
         model: product
-      }).render());
+      }));
+      ++pinCount;
     }
-
-    // Sprinkle in text products here and there
-    _this.addTextProductPin(textProducts);
 
     // ShakeMap pin
     product = ev.getPreferredProduct(Product.getFullType('shakemap', config));
     if (product) {
       _this.pinViews.push(ShakeMapPinView({
-        el: _this.createPinContainer(),
+        el: _this.createPinContainer(fragment),
         model: product
-      }).render());
+      }));
     }
 
     // DYFI pin
     product = ev.getPreferredProduct(Product.getFullType('dyfi', config));
     if (product) {
       _this.pinViews.push(DyfiPinView({
-        el: _this.createPinContainer(),
+        el: _this.createPinContainer(fragment),
         model: product
-      }).render());
+      }));
     }
+
+    // Sprinkle in text products here and there
+    pinCount += _this.addTextProductPin(fragment, textProducts,
+        pinCount, pinsPerRow);
 
     // Moment Tensor pin
     product = ev.getPreferredProduct(Product.getFullType('moment-tensor',
         config));
     if (product) {
       _this.pinViews.push(MomentTensorPinView({
-        el: _this.createPinContainer(),
+        el: _this.createPinContainer(fragment),
         model: product
-      }).render());
+      }));
+      ++pinCount;
+    } else {
+      // Only show focal mechanism if no moment tensor
+
+      // Focal Mechanism pin
+      // TODO :: Question - Do we include FM on this page?
+      product = ev.getPreferredProduct(Product.getFullType('focal-mechanism',
+          config));
+      if (product) {
+        _this.pinViews.push(FocalMechanismPinView({
+          el: _this.createPinContainer(fragment),
+          model: product
+        }));
+        ++pinCount;
+      }
     }
 
     // Sprinkle in text products here and there
-    _this.addTextProductPin(textProducts);
-
-    // Focal Mechanism pin
-    // TODO :: Question - Do we include FM on this page?
-    product = ev.getPreferredProduct(Product.getFullType('focal-mechanism',
-        config));
-    if (product) {
-      _this.pinViews.push(FocalMechanismPinView({
-        el: _this.createPinContainer(),
-        model: product
-      }).render());
-    }
+    pinCount += _this.addTextProductPin(fragment, textProducts,
+        pinCount, pinsPerRow);
 
     // Finite Fault pin
     product = ev.getPreferredProduct(Product.getFullType('finite-fault',
         config));
     if (product) {
       _this.pinViews.push(FiniteFaultPinView({
-        el: _this.createPinContainer(),
+        el: _this.createPinContainer(fragment),
         model: product
-      }).render());
+      }));
+      ++pinCount;
     }
 
     // Add any remaining text products to the end
     while (textProducts.length) {
-      _this.addTextProductPin(textProducts);
+      // Fudge the pinCount and pinsPerRow parameters so these pins are always
+      // added regardless...
+      _this.addTextProductPin(fragment, textProducts, 0, 10);
     }
 
+
+    // Put all view containers in the DOM
+    _this.pinList.appendChild(fragment);
+
+    // Render all the pin views now
+    _this.pinViews.forEach(function (view) {
+      view.render();
+    });
   };
 
 
