@@ -2,19 +2,14 @@
 'use strict';
 
 var PAGERPinView = require('losspager/PAGERPinView'),
-    PagerXmlParser = require('losspager/PagerXmlParser'),
-    Product = require('pdl/Product'),
-    Xhr = require('util/Xhr');
+    Product = require('pdl/Product');
 
 var expect = chai.expect;
 
-describe('losspager/PAGERView', function () {
-  var pagerInfo,
-      product,
-      response,
-      xhr;
+describe('losspager/PAGERPinView', function () {
+  var product;
 
-  before(function (done) {
+  before(function () {
     var stub;
 
     stub = '/products/losspager/us10004u1y/us/1456938181480';
@@ -36,20 +31,6 @@ describe('losspager/PAGERView', function () {
       type: 'losspager'
     });
 
-    Xhr.ajax({
-      url: '/products/losspager/us10004u1y/us/1456938181480/pager.xml',
-      success: function (r, x) {
-        pagerInfo = PagerXmlParser.parse(x.responseXML || r);
-
-        response = r;
-        xhr = x;
-
-        done();
-      },
-      error: function () {
-        done();
-      }
-    });
   });
 
   describe('constructor', function () {
@@ -61,6 +42,27 @@ describe('losspager/PAGERView', function () {
       /* jshint -W030 */
       expect(PAGERPinView).to.not.be.null;
       /* jshint +W030 */
+    });
+  });
+
+  describe('renderPinContent', function () {
+    it('renders Pager content in the pin', function () {
+      var el,
+          view;
+
+      view = PAGERPinView({
+        el: document.createElement('div'),
+        model: product,
+        module: {'ID': 'pager', 'title': 'Pager'}
+      });
+
+      el = view.content;
+
+      expect(el.innerHTML).to.be.equal('');
+
+      view.renderPinContent();
+
+      expect(el.innerHTML).to.not.be.equal('');
     });
   });
 

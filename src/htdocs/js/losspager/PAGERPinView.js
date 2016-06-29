@@ -15,7 +15,7 @@ var PAGERPinView = function (options) {
   _this = BasicPinView(options);
 
   _initialize = function () {
-    _this.el.classList.add('losspager-pin-view');
+    _this.el.classList.add('pager-pin-view');
     _this.pagerView = PAGERView({
       el: document.createElement('div'),
       model: _this.model
@@ -23,7 +23,7 @@ var PAGERPinView = function (options) {
   };
 
   /**
-   * Render the PAGERPinView contents
+   * Render the histograms as PAGERPinView content
    */
   _this.renderPinContent = function () {
     var economic,
@@ -40,6 +40,5 @@ var PAGERPinView = function (options) {
   options = null;
   return _this;
 };
-
 
 module.exports = PAGERPinView;
