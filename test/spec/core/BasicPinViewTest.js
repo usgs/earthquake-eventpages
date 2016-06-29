@@ -32,6 +32,26 @@ describe('core/BasicPinView', function () {
     });
   });
 
+  describe('redirect', function () {
+    it('updates the hash with the module ID', function () {
+      var module,
+          spy,
+          view;
+
+      module = {'ID': 'module-id'};
+      view = BasicPinView({
+        module: module
+      });
+      spy = sinon.spy(view, 'redirect');
+      view.onClick();
+
+      expect(spy.calledOnce).to.equal(true);
+      expect(spy.calledWith('#' + module.ID)).to.equal(true);
+
+      view.destroy();
+    });
+  });
+
   describe('render', function () {
     it('calls sub-render methods', function () {
       var view;
