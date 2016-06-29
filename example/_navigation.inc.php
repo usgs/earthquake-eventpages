@@ -12,12 +12,14 @@ print navGroup('General',
     navItem('/map/InteractiveMapViewExample.php', 'Interactive Map') .
     navItem('/general/GeoserveNearbyPlacesViewExample.php',
         'Geoserve Nearby Places View') .
-    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View')
+    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View') .
+    navItem('/general/TsunamiPinViewExample.php', 'Tsunami Pin View')
   );
 
 print navGroup('Impact',
     navItem('/dyfi/DYFIFormViewExample.php', 'DYFIFormView') .
-    navItem('/dyfi/DYFIIntensityGraphViewExample.php', 'DYFIIntensityGraphView') .
+    navItem('/dyfi/DYFIIntensityGraphViewExample.php',
+        'DYFIIntensityGraphView') .
     navItem('/dyfi/DYFIViewExample.php', 'DYFIView') .
     navItem('/dyfi/DYFIResponsesViewExample.php', 'DYFIResponsesView') .
     navItem('/losspager/PAGERPinViewExample.php', 'PAGERPin View') .
