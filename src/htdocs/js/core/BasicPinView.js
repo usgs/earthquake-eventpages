@@ -35,7 +35,9 @@ var _DEFAULTS = {
  */
 var BasicPinView = function (options) {
   var _this,
-      _initialize;
+      _initialize,
+
+      _onClick;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -69,14 +71,48 @@ var BasicPinView = function (options) {
     _this.header = _this.el.querySelector('.pin-header');
     _this.content = _this.el.querySelector('.pin-content');
     _this.footer = _this.el.querySelector('.pin-footer');
+
+    _this.el.addEventListener('click', _onClick);
   };
 
+  /**
+   * Called when _this.el is clicked
+   *
+   */
+  _onClick = function (e) {
+    _this.onClick();
+    e.preventDefault();
+  };
+
+  /**
+   * Handle a click on _this.el
+   *
+   */
+  _this.onClick = function () {
+    _this.redirect('#' + _this.module.ID);
+  };
+
+  /**
+   * Update window.location
+   *
+   */
+  _this.redirect = function (hash) {
+    window.location.hash = hash;
+  };
 
   /**
    * Frees resources associated with this view.
    *
    */
   _this.destroy = Util.compose(function () {
+    if (_this === null) {
+      return;
+    }
+
+    _this.el.removeEventListener('click', _onClick);
+
+    _onClick = null;
+
     _initialize = null;
     _this = null;
   }, _this.destroy);

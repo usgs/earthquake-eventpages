@@ -32,6 +32,41 @@ describe('core/BasicPinView', function () {
     });
   });
 
+  describe('onClick', function () {
+    it('handles the click event', function () {
+      var module,
+          spy,
+          view;
+
+      module = {'ID': 'module-id'};
+      view = BasicPinView({
+        module: module
+      });
+      spy = sinon.spy(view, 'redirect');
+      view.onClick();
+
+      expect(spy.calledOnce).to.equal(true);
+      expect(spy.calledWith('#' + module.ID)).to.equal(true);
+
+      view.destroy();
+    });
+  });
+
+  describe('redirect', function () {
+    it('updates the hash with the module ID', function () {
+      var hash,
+          view;
+
+      hash = '#test';
+      view = BasicPinView();
+      view.redirect(hash);
+
+      expect(window.location.hash).to.equal(hash);
+
+      view.destroy();
+    });
+  });
+
   describe('render', function () {
     it('calls sub-render methods', function () {
       var view;
