@@ -190,7 +190,10 @@ var PAGERView = function (options) {
         economicComment,
         fatalityComment;
 
-    comments = _pagerInfo.comments.impact;
+    if (_pagerInfo && _pagerInfo.comments) {
+      comments = _pagerInfo.comments.impact;
+    }
+
     if (!comments) {
       return '';
     }
@@ -367,7 +370,7 @@ var PAGERView = function (options) {
       pdf = _this.model.getContent('alertecon.pdf');
 
       if (alertLevel !== 'pending') {
-        _createHistogram(_economicHistogramEl, 'Estimated Economic Losses',
+        return _createHistogram(_economicHistogramEl, 'Estimated Economic Losses',
           pdf, png, comment);
       }
   };
@@ -465,7 +468,7 @@ var PAGERView = function (options) {
       pdf = _this.model.getContent('alertfatal.pdf');
 
       if (alertLevel !== 'pending') {
-        _createHistogram(_fatalityHistogramEl, 'Estimated Fatalities',
+        return _createHistogram(_fatalityHistogramEl, 'Estimated Fatalities',
             pdf, png, comment);
       }
   };

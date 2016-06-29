@@ -20,7 +20,8 @@ Xhr.ajax({
       module: {ID: 'losspager', TITLE: 'PAGER'}
     }).render();
   },
-  error: function () {
+  error: function (e) {
+    console.log(e);
     document.querySelector('.losspager-pin-view-example').innerHTML = [
       '<p class="alert error">',
         'Failed to create a PAGERPinView.',

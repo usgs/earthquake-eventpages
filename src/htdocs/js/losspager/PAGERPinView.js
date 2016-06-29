@@ -2,6 +2,7 @@
 
 
 var BasicPinView = require('core/BasicPinView'),
+    PAGERView = require('losspager/PAGERView'),
     Util = require('util/Util');
 
 
@@ -14,15 +15,26 @@ var PAGERPinView = function (options) {
   _this = BasicPinView(options);
 
   _initialize = function () {
-
+    _this.el.classList.add('losspager-pin-view');
+    _this.pagerView = PAGERView({
+      el: document.createElement('div'),
+      model: _this.model
+    });
   };
 
   /**
    * Render the PAGERPinView contents
    */
   _this.renderPinContent = function () {
-    _this.content.innerHTML = 'PAGERPinView';
+    var economic,
+        fatality;
+
+    economic = _this.pagerView.renderEconomicHistogram();
+    fatality = _this.pagerView.renderFatalityHistogram();
+
+    _this.content.innerHTML = economic.innerHTML + fatality.innerHTML;
   };
+
 
   _initialize();
   options = null;
