@@ -19,10 +19,7 @@ var _DEFAULTS = {
  */
 var SummaryModule = function (options) {
   var _this,
-      _initialize,
-
-      _linkViews,
-      _textViews;
+      _initialize;
 
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -59,12 +56,12 @@ var SummaryModule = function (options) {
    * @see #_this.clearViews
    */
   _this.clearLinks = function (init) {
-    _this.clearViews(_linkViews);
+    _this.clearViews(_this.linkViews);
 
     if (init) {
-      _linkViews = [];
+      _this.linkViews = [];
     } else {
-      _linkViews = null;
+      _this.linkViews = null;
     }
   };
 
@@ -78,12 +75,12 @@ var SummaryModule = function (options) {
    * @see #_this.clearViews
    */
   _this.clearTexts = function (init) {
-    _this.clearViews(_textViews, init);
+    _this.clearViews(_this.textViews, init);
 
     if (init) {
-      _textViews = [];
+      _this.textViews = [];
     } else {
-      _textViews = null;
+      _this.textViews = null;
     }
   };
 
@@ -167,6 +164,10 @@ var SummaryModule = function (options) {
    *
    */
   _this.destroy = Util.compose(function () {
+    if (_this === null) {
+      return; // Already destroyed
+    }
+
     _this.clearLinks();
     _this.clearTexts();
 
@@ -238,7 +239,7 @@ var SummaryModule = function (options) {
         });
         view.render();
 
-        _linkViews.push(view);
+        _this.linkViews.push(view);
       });
     }
 
@@ -287,7 +288,7 @@ var SummaryModule = function (options) {
       });
       view.render();
 
-      _textViews.push(view);
+      _this.textViews.push(view);
     });
 
     return fragment;
