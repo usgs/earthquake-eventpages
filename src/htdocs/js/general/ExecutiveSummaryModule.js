@@ -73,6 +73,54 @@ var ExecutiveSummary = function (options) {
   };
 
 
+  /**
+   * Create a new {TextPinView} using the first product (if exists) in the given
+   * array of products. This product is removed from the given array of products
+   * and the created pin view is added to _this.pinViews.
+   *
+   * @param products {Array<Product>}
+   *     An array of products from which the first product (if exists) is
+   *     popped. This product is used to create a pin view which is added to
+   *     _this.pinViews.
+   */
+  _this.addTextProductPin = function (products) {
+    var product;
+
+    products = products || [];
+    product = products.slice(0, 1)[0];
+
+    if (product) {
+      _this.pinViews.push(TextPinView({
+        el: _this.createPinContainer('double-wide'),
+        model: product
+      }).render());
+    }
+  };
+
+  /**
+   * Creates an LI element, appends it to _this.pinList and sets appropriate
+   * classes. The `executive-summary-pin` class is added by default but other
+   * classes my be added by providing them in the `classes` parameter.
+   *
+   * @param classes {Array} Optional.
+   *      An array of classes to add to the created container.
+   *
+   * @return {DOMElement}
+   */
+  _this.createPinContainer = function (classes) {
+    var container;
+
+    container = _this.pinList.appendChild(document.createElement('li'));
+    container.classList.add('executive-summary-pin');
+
+    classes = classes || [];
+    classes.forEach(function (className) {
+      container.classList.add(className);
+    });
+
+    return container;
+  };
+
   _this.destroy = Util.compose(function () {
     if (_this.pinViews) {
       _this.pinViews.forEach(function (view) {
@@ -150,6 +198,10 @@ var ExecutiveSummary = function (options) {
     return products;
   };
 
+  /**
+   * Renders the module by delegating to three sub-render methods.
+   *
+   */
   _this.render = function () {
     var ev;
 
@@ -160,6 +212,12 @@ var ExecutiveSummary = function (options) {
     _this.renderFooter(ev);
   };
 
+  /**
+   * Renders the content by delegating to two sub-render methods.
+   *
+   * @param ev {CatalogEvent}
+   *     The event data to render.
+   */
   _this.renderContent = function (ev) {
     _this.renderPins(ev);
     _this.renderLinks(ev);
@@ -169,7 +227,7 @@ var ExecutiveSummary = function (options) {
    * Render module footer.
    *
    * @param ev {CatalogEvent}
-   *     the event.
+   *     The event data to render.
    */
   _this.renderFooter = function (ev) {
     var downloads,
@@ -204,7 +262,7 @@ var ExecutiveSummary = function (options) {
    * Render module header.
    *
    * @param ev {CatalogEvent}
-   *     the event.
+   *     The event data to render.
    */
   _this.renderHeader = function (ev) {
     var products;
@@ -239,7 +297,7 @@ var ExecutiveSummary = function (options) {
   };
 
   /**
-   * Render any general-link products.
+   * Render any general-link products into _this.linksEl container.
    *
    * @param ev {CatalogEvent}
    *     the event.
@@ -288,6 +346,12 @@ var ExecutiveSummary = function (options) {
     });
   };
 
+  /**
+   * Renders each of the pins in order within _this.pinList container.
+   *
+   * @param ev {CatalogEvent}
+   *     The event data to render.
+   */
   _this.renderPins = function (ev) {
     var config,
         product,
@@ -403,44 +467,6 @@ var ExecutiveSummary = function (options) {
       _this.addTextProductPin(textProducts);
     }
 
-  };
-
-  _this.addTextProductPin = function (products) {
-    var product;
-
-    products = products || [];
-    product = products.slice(0, 1)[0];
-
-    if (product) {
-      _this.pinViews.push(TextPinView({
-        el: _this.createPinContainer('double-wide'),
-        model: product
-      }).render());
-    }
-  };
-
-  /**
-   * Creates an LI element, appends it to _this.pinList and sets appropriate
-   * classes. The `executive-summary-pin` class is added by default but other
-   * classes my be added by providing them in the `classes` parameter.
-   *
-   * @param classes {Array} Optional.
-   *      An array of classes to add to the created container.
-   *
-   * @return {DOMElement}
-   */
-  _this.createPinContainer = function (classes) {
-    var container;
-
-    container = _this.pinList.appendChild(document.createElement('li'));
-    container.classList.add('executive-summary-pin');
-
-    classes = classes || [];
-    classes.forEach(function (className) {
-      container.classList.add(className);
-    });
-
-    return container;
   };
 
 
