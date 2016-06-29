@@ -105,7 +105,7 @@ var ExecutiveSummary = function (options) {
     product = products.slice(0, 1)[0];
 
     pinsInRow = (numPins % pinsPerRow);
-    pinFitsInRow = ((pinsPerRow - pinsInRow) >= 2);
+    pinFitsInRow = (pinsPerRow === 1) || ((pinsPerRow - pinsInRow) >= 2);
 
     if (product && pinFitsInRow) {
       _this.pinViews.push(TextPinView({
