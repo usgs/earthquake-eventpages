@@ -61,6 +61,7 @@ var ExecutiveSummaryModule = function (options) {
    * @param options.model.event {CatalogEvent}
    * @param options.model.config {Object}
    *
+   */
   _initialize = function (/*options*/) {
     var el;
 
