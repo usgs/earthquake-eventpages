@@ -20,6 +20,7 @@ print navGroup('Impact',
     navItem('/dyfi/DYFIIntensityGraphViewExample.php', 'DYFIIntensityGraphView') .
     navItem('/dyfi/DYFIViewExample.php', 'DYFIView') .
     navItem('/dyfi/DYFIResponsesViewExample.php', 'DYFIResponsesView') .
+    navItem('/losspager/PAGERPinViewExample.php', 'PAGERPin View') .
     navItem('/losspager/PAGERViewExample.php', 'PAGER View') .
     navItem('/shakemap/ShakeMapInfoViewExample.php', 'ShakeMapInfoView') .
     navItem('/shakemap/ShakeMapStationListViewExample.php',
