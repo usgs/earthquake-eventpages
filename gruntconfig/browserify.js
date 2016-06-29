@@ -42,6 +42,7 @@ var ALL_CLASSES = [
   JS + '/focal-mechanism/FocalMechanismModule.js:focal-mechanism/FocalMechanismModule',
   JS + '/focal-mechanism/FocalMechanismView.js:focal-mechanism/FocalMechanismView',
 
+  JS + '/general/ExecutiveSummaryModule.js:general/ExecutiveSummaryModule',
   JS + '/general/GeneralSummaryModule.js:general/GeneralSummaryModule',
   JS + '/general/GeoserveNearbyPlacesView.js:general/GeoserveNearbyPlacesView',
   JS + '/general/GeoserveRegionSummaryView.js:general/GeoserveRegionSummaryView',
@@ -91,6 +92,7 @@ var ALL_CLASSES = [
   NODE_MODULES + '/hazdev-webutils/src/mvc/Model.js:mvc/Model',
   NODE_MODULES + '/hazdev-webutils/src/mvc/View.js:mvc/View',
   NODE_MODULES + '/hazdev-webutils/src/util/Events.js:util/Events',
+  NODE_MODULES + '/hazdev-webutils/src/util/Util.js:util/Util',
   NODE_MODULES + '/hazdev-webutils/src/util/Xhr.js:util/Xhr',
   NODE_MODULES + '/hazdev-svgimagemap/src/svgimagemap/SvgImageMap.js:svgimagemap/SvgImageMap'
 ];

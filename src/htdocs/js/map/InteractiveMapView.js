@@ -12,6 +12,7 @@ var ContoursLayer = require('map/ContoursLayer'),
     MousePosition = require('leaflet/control/MousePosition'),
     OpenAerialMap = require('leaflet/layer/OpenAerialMap'),
     OpenStreetMap = require('leaflet/layer/OpenStreetMap'),
+    Product = require('pdl/Product'),
     ShakeMapStationLayer = require('map/ShakeMapStationLayer'),
     TectonicPlates = require('leaflet/layer/TectonicPlates'),
     UsFault = require('leaflet/layer/UsFault'),
@@ -386,7 +387,7 @@ var InteractiveMapView = function (options) {
     config = Util.extend({}, _defaultConfig, _this.model.get('map'));
     sourceKey = type + 'Source';
     codeKey = type + 'Code';
-    type = _module.getFullType(type);
+    type = Product.getFullType(type, _module.model.get('config'));
 
     if (config.hasOwnProperty(sourceKey) &&
         config.hasOwnProperty(codeKey)) {

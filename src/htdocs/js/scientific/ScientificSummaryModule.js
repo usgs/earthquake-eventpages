@@ -4,6 +4,7 @@
 var Attribution = require('core/Attribution'),
     BeachBallView = require('moment-tensor/BeachBallView'),
     Formatter = require('core/Formatter'),
+    Product = require('pdl/Product'),
     SummaryModule = require('core/SummaryModule'),
     Tensor = require('moment-tensor/Tensor'),
     Util = require('util/Util'),
@@ -349,15 +350,19 @@ var ScientificSummaryModule = function (options) {
    *     preferred product first.
    */
   _this.getOriginProducts = function (ev) {
-    var products;
+    var config,
+        products;
+
+    config = _this.model.get('config');
 
     if (ev) {
-      products = ev.getProducts(_this.getFullType('origin')).map(function (origin) {
+      products = ev.getProducts(Product.getFullType('origin', config)).map(
+      function (origin) {
         var phase;
 
         // Find a corresponding phase-data product
-        phase = ev.getProductById(_this.getFullType('phase-data'), origin.get('source'),
-            origin.get('code'));
+        phase = ev.getProductById(Product.getFullType('phase-data', config),
+            origin.get('source'), origin.get('code'));
 
         // Prefer the phase-data product if it is at least as new as the origin
         if (phase && phase.get('updateTime') >= origin.get('updateTime')) {

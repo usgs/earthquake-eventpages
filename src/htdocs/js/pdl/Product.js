@@ -9,7 +9,8 @@ var Collection = require('mvc/Collection'),
 var _STATUS_UPDATE = 'UPDATE',
     _STATUS_DELETE = 'DELETE';
 
-var _getBaseType;
+var _getBaseType,
+    _getFullType;
 
 /**
  * Remove "internal-" prefix and "-scenario" suffix from product "type".
@@ -34,6 +35,35 @@ _getBaseType = function (type) {
   }
 
   return base;
+};
+
+/**
+ * Add "internal-" prefix or "-scenario" suffix to product "type".
+ *
+ * @param type {String}
+ *     The base product type.
+ * @param config {Object}
+ *     Configuration object containing INTERNAL_MODE and/or SCENARIO_MODE flags
+ *     as appropriate.
+ *
+ * @return {String}
+ *     The actual product type depending on the current configuration.
+ */
+_getFullType = function (type, config) {
+  var fullType;
+
+  config = config || {};
+  fullType = type;
+
+  if (config.INTERNAL_MODE) {
+    fullType = 'internal-' + fullType;
+  }
+
+  if (config.SCENARIO_MODE) {
+    fullType += '-scenario';
+  }
+
+  return fullType;
 };
 
 
@@ -258,6 +288,7 @@ var Product = function (options) {
 
 
 Product.getBaseType = _getBaseType;
+Product.getFullType = _getFullType;
 
 Product.STATUS_UPDATE = _STATUS_UPDATE;
 Product.STATUS_DELETE = _STATUS_DELETE;

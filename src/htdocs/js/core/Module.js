@@ -4,6 +4,7 @@ var AccordionView = require('core/AccordionView'),
     Attribution = require('core/Attribution'),
     DownloadView = require('core/DownloadView'),
     Formatter = require('core/Formatter'),
+    Product = require('pdl/Product'),
     Util = require('util/Util'),
     View = require('mvc/View');
 
@@ -75,33 +76,6 @@ var Module = function (options) {
   }, _this.destroy);
 
   /**
-   * Add "internal-" prefix or "-scenario" suffix to product "type".
-   *
-   * @param type {String}
-   *     The base product type.
-   *
-   * @return {String}
-   *     The actual product type depending on the current configuration.
-   */
-  _this.getFullType = function (type) {
-    var config,
-        fullType;
-
-    config = _this.model.get('config') || {};
-    fullType = type;
-
-    if (config.INTERNAL_MODE) {
-      fullType = 'internal-' + fullType;
-    }
-
-    if (config.SCENARIO_MODE) {
-      fullType += '-scenario';
-    }
-
-    return fullType;
-  };
-
-  /**
    * Get a product from the event based on module parameters and event config.
    *
    * Uses module parameters "source", "code", and optionally "updateTime".
@@ -125,7 +99,7 @@ var Module = function (options) {
 
     ev = _this.model.get('event');
     params = _this.model.get(_this.ID) || {};
-    type = _this.getFullType(type);
+    type = Product.getFullType(type, _this.model.get('config'));
     source = params.source || null;
     code = params.code || null;
     updateTime = params.updateTime || null;
@@ -154,7 +128,7 @@ var Module = function (options) {
     var catalogEvent;
 
     catalogEvent = _this.model.get('event');
-    type = _this.getFullType(type);
+    type = Product.getFullType(type, _this.model.get('config'));
 
     if (catalogEvent) {
       return catalogEvent.getProducts(type);

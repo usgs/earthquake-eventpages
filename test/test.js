@@ -59,6 +59,7 @@ require('./spec/finite-fault/FiniteFaultViewTest');
 require('./spec/focal-mechanism/FocalMechanismModuleTest');
 require('./spec/focal-mechanism/FocalMechanismViewTest');
 
+require('./spec/general/ExecutiveSummaryModuleTest');
 require('./spec/general/GeneralSummaryModuleTest');
 require('./spec/general/GeoserveNearbyPlacesViewTest');
 require('./spec/general/GeoserveRegionSummaryViewTest');
