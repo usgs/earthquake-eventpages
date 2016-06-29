@@ -42,7 +42,12 @@ _DEFAULTS = {
 };
 
 
-var ExecutiveSummary = function (options) {
+/**
+ * The ExecutiveSummaryModule provides a "Pin Board" views of preferred product
+ * information for the current event.
+ *
+ */
+var ExecutiveSummaryModule = function (options) {
   var _this,
       _initialize;
 
@@ -50,6 +55,12 @@ var ExecutiveSummary = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = SummaryModule(options);
 
+  /**
+   * Creates a new ExecutiveSummaryModule.
+   *
+   * @param options.model.event {CatalogEvent}
+   * @param options.model.config {Object}
+   *
   _initialize = function (/*options*/) {
     var el;
 
@@ -86,22 +97,26 @@ var ExecutiveSummary = function (options) {
   };
 
   /**
-   * Creates an LI element, appends it to _this.pinList and sets appropriate
-   * classes. The `executive-summary-pin` class is added by default but other
-   * classes my be added by providing them in the `classes` parameter.
+   * Creates an LI element, appends it to the given `parent` and sets
+   * appropriate classes. The `executive-summary-pin` class is added by default
+   * but other classes my be added by providing them in the `classes` parameter.
    *
+   * @param parent {DOMElement}
+   *     The parent element to which the created container should be appended.
    * @param classes {Array} Optional.
-   *      An array of classes to add to the created container.
+   *     An array of classes to add to the created container.
    *
    * @return {DOMElement}
    */
   _this.createPinContainer = function (parent, classes) {
     var container;
 
+    parent = parent || document.createDocumentFragment();
+    classes = classes || [];
+
     container = parent.appendChild(document.createElement('li'));
     container.classList.add('executive-summary-pin');
 
-    classes = classes || [];
     classes.forEach(function (className) {
       container.classList.add(className);
     });
@@ -136,6 +151,120 @@ var ExecutiveSummary = function (options) {
     header.innerHTML = 'For More Information';
 
     return header;
+  };
+
+  /**
+   * Renders each of the pins in order within _this.pinList container.
+   *
+   * @param ev {CatalogEvent}
+   *     The event data to render.
+   */
+  _this.getPins = function (ev) {
+    var config,
+        list,
+        product;
+
+    _this.pinViews = _this.pinViews || [];
+    config = _this.model.get('config');
+    list = document.createElement('ul');
+    list.classList.add('executive-summary-pins');
+
+    if (!ev) {
+      return list;
+    }
+
+    // Origin pin
+    product = ev.getPreferredOriginProduct();
+    if (product) {
+      _this.pinViews.push(OriginPinView({
+        el: _this.createPinContainer(list),
+        model: product
+      }));
+    }
+
+    // Interactive Map pin
+    // TODO :: Product ???
+    _this.pinViews.push(InteractiveMapPinView({
+      el: _this.createPinContainer(list),
+      model: ev.getPreferredOriginProduct() // TODO ...
+    }));
+
+
+    // Regional Info pin
+    // TODO :: Product ???
+    _this.pinViews.push(RegionInfoPinView({
+      el: _this.createPinContainer(list),
+      model: ev.getPreferredOriginProduct() // TODO ...
+    }));
+
+    // DYFI pin
+    product = ev.getPreferredProduct(Product.getFullType('dyfi', config));
+    if (product) {
+      _this.pinViews.push(DyfiPinView({
+        el: _this.createPinContainer(list),
+        model: product
+      }));
+    }
+
+    // ShakeMap pin
+    product = ev.getPreferredProduct(Product.getFullType('shakemap', config));
+    if (product) {
+      _this.pinViews.push(ShakeMapPinView({
+        el: _this.createPinContainer(list),
+        model: product
+      }));
+    }
+
+    // PAGER pin
+    product = ev.getPreferredProduct(Product.getFullType('losspager', config));
+    if (product) {
+      _this.pinViews.push(PagerPinView({
+        el: _this.createPinContainer(list),
+        model: product
+      }));
+    }
+
+    // Tsunami pin
+    if (ev.getSummary().properties.tsunami === 1) {
+      _this.pinViews.push(TsunamiPinView({
+        el: _this.createPinContainer(list),
+        model: ev.getPreferredOriginProduct() // TODO ...
+      }));
+    }
+
+    // Moment Tensor pin
+    product = ev.getPreferredProduct(Product.getFullType('moment-tensor',
+        config));
+    if (product) {
+      _this.pinViews.push(MomentTensorPinView({
+        el: _this.createPinContainer(list),
+        model: product
+      }));
+    } else {
+      // Only show focal mechanism if no moment tensor
+
+      // Focal Mechanism pin
+      product = ev.getPreferredProduct(Product.getFullType('focal-mechanism',
+          config));
+      if (product) {
+        _this.pinViews.push(FocalMechanismPinView({
+          el: _this.createPinContainer(list),
+          model: product
+        }));
+      }
+    }
+
+    // Finite Fault pin
+    product = ev.getPreferredProduct(Product.getFullType('finite-fault',
+        config));
+    if (product) {
+      _this.pinViews.push(FiniteFaultPinView({
+        el: _this.createPinContainer(list),
+        model: product
+      }));
+    }
+
+    return list;
   };
 
   /**
@@ -239,122 +368,6 @@ var ExecutiveSummary = function (options) {
     });
   };
 
-  /**
-   * Renders each of the pins in order within _this.pinList container.
-   *
-   * @param ev {CatalogEvent}
-   *     The event data to render.
-   */
-  _this.getPins = function (ev) {
-    var config,
-        list,
-        product;
-
-
-    _this.pinViews = _this.pinViews || [];
-
-    if (!ev) {
-      return;
-    }
-
-    config = _this.model.get('config');
-    list = document.createElement('ul');
-    list.classList.add('executive-summary-pins');
-
-    // Origin pin
-    product = ev.getPreferredOriginProduct();
-    if (product) {
-      _this.pinViews.push(OriginPinView({
-        el: _this.createPinContainer(list),
-        model: product
-      }));
-    }
-
-    // Interactive Map pin
-    // TODO :: Product ???
-    _this.pinViews.push(InteractiveMapPinView({
-      el: _this.createPinContainer(list),
-      model: ev.getPreferredOriginProduct() // TODO ...
-    }));
-
-
-    // Regional Info pin
-    // TODO :: Product ???
-    _this.pinViews.push(RegionInfoPinView({
-      el: _this.createPinContainer(list),
-      model: ev.getPreferredOriginProduct() // TODO ...
-    }));
-
-    // DYFI pin
-    product = ev.getPreferredProduct(Product.getFullType('dyfi', config));
-    if (product) {
-      _this.pinViews.push(DyfiPinView({
-        el: _this.createPinContainer(list),
-        model: product
-      }));
-    }
-
-    // ShakeMap pin
-    product = ev.getPreferredProduct(Product.getFullType('shakemap', config));
-    if (product) {
-      _this.pinViews.push(ShakeMapPinView({
-        el: _this.createPinContainer(list),
-        model: product
-      }));
-    }
-
-    // PAGER pin
-    product = ev.getPreferredProduct(Product.getFullType('losspager', config));
-    if (product) {
-      _this.pinViews.push(PagerPinView({
-        el: _this.createPinContainer(list),
-        model: product
-      }));
-    }
-
-    // Tsunami pin
-    if (ev.getSummary().properties.tsunami === 1) {
-      _this.pinViews.push(TsunamiPinView({
-        el: _this.createPinContainer(list),
-        model: ev.getPreferredOriginProduct() // TODO ...
-      }));
-    }
-
-    // Moment Tensor pin
-    product = ev.getPreferredProduct(Product.getFullType('moment-tensor',
-        config));
-    if (product) {
-      _this.pinViews.push(MomentTensorPinView({
-        el: _this.createPinContainer(list),
-        model: product
-      }));
-    } else {
-      // Only show focal mechanism if no moment tensor
-
-      // Focal Mechanism pin
-      product = ev.getPreferredProduct(Product.getFullType('focal-mechanism',
-          config));
-      if (product) {
-        _this.pinViews.push(FocalMechanismPinView({
-          el: _this.createPinContainer(list),
-          model: product
-        }));
-      }
-    }
-
-    // Finite Fault pin
-    product = ev.getPreferredProduct(Product.getFullType('finite-fault',
-        config));
-    if (product) {
-      _this.pinViews.push(FiniteFaultPinView({
-        el: _this.createPinContainer(list),
-        model: product
-      }));
-    }
-
-    return list;
-  };
-
 
   _initialize(options);
   options = null;
@@ -362,10 +375,10 @@ var ExecutiveSummary = function (options) {
 };
 
 
-ExecutiveSummary.ID = _ID;
-ExecutiveSummary.TITLE = _TITLE;
+ExecutiveSummaryModule.ID = _ID;
+ExecutiveSummaryModule.TITLE = _TITLE;
 
-ExecutiveSummary.hasContent = _hasContent;
+ExecutiveSummaryModule.hasContent = _hasContent;
 
 
-module.exports = ExecutiveSummary;
+module.exports = ExecutiveSummaryModule;
