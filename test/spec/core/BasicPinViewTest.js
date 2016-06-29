@@ -32,8 +32,8 @@ describe('core/BasicPinView', function () {
     });
   });
 
-  describe('redirect', function () {
-    it('updates the hash with the module ID', function () {
+  describe('onClick', function () {
+    it('handles the click event', function () {
       var module,
           spy,
           view;
@@ -47,6 +47,21 @@ describe('core/BasicPinView', function () {
 
       expect(spy.calledOnce).to.equal(true);
       expect(spy.calledWith('#' + module.ID)).to.equal(true);
+
+      view.destroy();
+    });
+  });
+
+  describe('redirect', function () {
+    it('updates the hash with the module ID', function () {
+      var hash,
+          view;
+
+      hash = '#test';
+      view = BasicPinView();
+      view.redirect(hash);
+
+      expect(window.location.hash).to.equal(hash);
 
       view.destroy();
     });
