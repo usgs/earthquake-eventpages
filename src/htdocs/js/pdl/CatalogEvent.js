@@ -1,7 +1,14 @@
 'use strict';
 
+
 var Product = require('pdl/Product'),
     Util = require('util/Util');
+
+
+var _DEFAULTS = {
+  config: {}
+};
+
 
 /**
  * Convert a product map to an array.
@@ -181,24 +188,32 @@ var __getProductWithEventIdProperties = function (list) {
 /**
  * An event is a collection of products.
  */
-var CatalogEvent = function (eventDetails) {
+var CatalogEvent = function (eventDetails, options) {
   var _this,
       _initialize,
+
+      _config,
       _products,
       _properties,
       _summary;
 
   _this = Object.create({});
 
-  _initialize = function (eventDetails) {
+  _initialize = function (eventDetails, options) {
     var type;
+
+    options = Util.extend({}, _DEFAULTS, options);
+
+    _config = options.config;
 
     _products = {};
     _properties = {};
+
     if (eventDetails && eventDetails.properties) {
       _products = Util.extend({}, eventDetails.properties.products);
       _properties = Util.extend({}, eventDetails.properties, {products:null});
     }
+
     // convert all products to Product objects
     for (type in _products) {
       _products[type] = _products[type].map(Product);
@@ -530,30 +545,40 @@ var CatalogEvent = function (eventDetails) {
    *         the product with origin properties this event, or null if none.
    */
   _this.getProductWithOriginProperties = function () {
-    var product;
-    if (_products.hasOwnProperty('origin')) {
+    var originType,
+        product;
+
+    originType = Product.getFullType('origin', _config);
+
+    if (_products.hasOwnProperty(originType)) {
       // origin products not superseded or deleted
       product = __getProductWithOriginProperties(
           __getWithoutDeleted(__getWithoutSuperseded(
-              _products.origin)));
+              _products[originType])));
+
       if (product !== null) {
         return product;
       }
+
       // origin products superseded by a delete
       product = __getProductWithOriginProperties(
           __getWithoutSuperseded(__getWithoutDeleted(
-              _products.origin)));
+              _products[originType])));
+
       if (product !== null) {
         return product;
       }
     }
+
     // products not superseded or deleted
     product = __getProductWithOriginProperties(
         __getWithoutDeleted(__getWithoutSuperseded(
             __productMapToList(_products))));
+
     if (product !== null) {
       return product;
     }
+
     // products superseded by a delete
     product = __getProductWithOriginProperties(
         __getWithoutSuperseded(__getWithoutDeleted(
@@ -571,37 +596,50 @@ var CatalogEvent = function (eventDetails) {
    *         the preferred product with origin properties this event, or null.
    */
   _this.getPreferredOriginProduct = function () {
-    var product;
-    if (_products.hasOwnProperty('origin')) {
+    var originType,
+        product;
+
+    originType = Product.getFullType('origin', _config);
+
+    if (_products.hasOwnProperty(originType)) {
       // origin products not superseded or deleted
       product = __getProductWithOriginProperties(
           __getWithoutDeleted(__getWithoutSuperseded(
-              _products.origin)));
+              _products[originType])));
+
       if (product !== null) {
         return product;
       }
+
       // origin products not superseded that have event id
       product = __getProductWithEventIdProperties(
-          __getWithoutSuperseded(_products.origin));
+          __getWithoutSuperseded(_products[originType]));
+
       if (product !== null) {
         return product;
       }
+
       // origin exists, but is incomplete
       return null;
     }
+
     // products not superseded or deleted
     product = __getProductWithOriginProperties(
         __getWithoutDeleted(__getWithoutSuperseded(
             __productMapToList(_products))));
+
     if (product !== null) {
       return product;
     }
+
     // products not superseded that have eventid.
     product = __getProductWithEventIdProperties(
         __getWithoutSuperseded(__productMapToList(_products)));
+
     if (product !== null) {
       return product;
     }
+
     // products superseded by a delete that have eventid
     product = __getProductWithEventIdProperties(
         __getWithoutSuperseded(__getWithoutDeleted(
@@ -792,8 +830,9 @@ var CatalogEvent = function (eventDetails) {
   };
 
 
-  _initialize(eventDetails);
+  _initialize(eventDetails, options);
   eventDetails = null;
+  options = null;
   return _this;
 };
 
