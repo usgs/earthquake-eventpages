@@ -84,6 +84,7 @@ var ALL_CLASSES = [
 
   JS + '/shakemap/ShakeMapInfoView.js:shakemap/ShakeMapInfoView',
   JS + '/shakemap/ShakeMapModule.js:shakemap/ShakeMapModule',
+  JS + '/shakemap/ShakeMapPinView.js:shakemap/ShakeMapPinView',
   JS + '/shakemap/ShakeMapStationListView.js:shakemap/ShakeMapStationListView',
   JS + '/shakemap/ShakeMapView.js:shakemap/ShakeMapView',
 
