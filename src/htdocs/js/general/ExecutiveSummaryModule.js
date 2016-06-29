@@ -98,6 +98,31 @@ var ExecutiveSummary = function (options) {
   };
 
   /**
+   * Computes how many "single-wide" pins can fit across a row within
+   * the given `containerWidth` value before the pins wrap to the next row.
+   *
+   * @param containerWidth {Integer}
+   *     The maximum width available to a row of pins.
+   *
+   * @return {Integer}
+   *     The number of "single-wide" pins that can fit in a single row.
+   */
+  _this.computeMaxColumns = function (containerWidth) {
+    var columnWidth;
+
+    containerWidth = containerWidth || document.body.clientWidth;
+
+    // Note :: The columnWidth is set to match the pin pin width + margin
+    //         values specified in CSS in "em"s. It it technically possible to
+    //         construct a DOM element and then measure this value. Doing so
+    //         is more future-proof, but also a bit slower...
+
+    columnWidth = 238; // = Pin width + margin = 221 + 17 = 13em + 1em
+
+    return parseInt(containerWidth / columnWidth, 10);
+  };
+
+  /**
    * Creates an LI element, appends it to _this.pinList and sets appropriate
    * classes. The `executive-summary-pin` class is added by default but other
    * classes my be added by providing them in the `classes` parameter.
