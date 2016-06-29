@@ -12,7 +12,7 @@ var DyfiPinView = require('core/BasicPinView'), // TODO
     RegionInfoPinView = require('core/BasicPinView'), // TODO
     ShakeMapPinView = require('core/BasicPinView'), // TODO
     SummaryModule = require('core/SummaryModule'),
-    TsunamiPinView = require('core/BasicPinView'), // TODO
+    TsunamiPinView = require('general/TsunamiPinView'), // TODO
     Util = require('util/Util');
 
 
