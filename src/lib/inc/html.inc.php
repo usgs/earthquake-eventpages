@@ -1,68 +1,30 @@
-<?php
-  include_once 'formatfuncs.inc.php';
-
-  $ROMANS = array('I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX',
-  'X', 'XI', 'XII');
-
-  $utctime = date('Y-m-d H:i:s', intval(substr($PROPERTIES['time'], 0, -3)));
-?>
+<?php include_once 'formatfuncs.inc.php'; ?>
 
 <header class="event-header clearfix">
-  <noscript class="event-time-location">
-    <span class="utc"><?php print $utctime; ?> (UTC)</span>
-    <span class="location">
-      <?php
-        $coordinates = $GEOMETRY['coordinates'];
-        print format_coord($coordinates[1], 'N', 'S');
-        print format_coord($coordinates[0], 'E', 'W');
-      ?>
+  <span class="event-datetime">
+    <?php print prettyDate($PROPERTIES['time']); ?>
+  </span>
+  <span class="event-coordinates">
+    <?php $coordinates = $GEOMETRY['coordinates']; ?>
+    <?php print format_coord($coordinates[1], 'N', 'S'); ?>
+    &nbsp;
+    <?php print format_coord($coordinates[0], 'E', 'W'); ?>
+  </span>
+  <span class="event-depth">
+  <?php
+    print isset($coordinates[2]) ?
+      number_format(round(floatval($coordinates[2]) * 10) / 10, 1) :
+      '?';
+  ?> km depth
+  </span>
+  <?php if ($EVENT_CONFIG['SCENARIO_MODE'] == true) { ?>
+    <div class="alert warning">
+      This event is a scenario (it did not occur) and should only be used for
+      planning purposes.
       <br/>
-      <?php
-        print isset($coordinates[2]) ?
-          number_format(round(floatval($coordinates[2]) * 10) / 10, 1) :
-          '?';
-      ?> km depth
-    </span>
-  </noscript>
-
-  <?php
-    if ($PROPERTIES['tsunami'] === 1 || $PROPERTIES['alert'] !== null ||
-        $PROPERTIES['mmi'] !== null || $PROPERTIES['cdi'] !== null) {
-  ?>
-  <div class="impact-bubbles clearfix">
-  <?php
-
-  if ($PROPERTIES['cdi'] !== null) {
-    $romanCDI = $ROMANS[round(floatval($PROPERTIES['cdi']))];
-    echo '<a href="#impact_dyfi" title="Did You Feel It? maximum reported intensity ' .
-        '(' . intval($PROPERTIES['felt']) . 'reports)" class="mmi' .
-        $romanCDI . '"><strong class="roman">' . $romanCDI .
-        '</strong><br/><abbr title="Did You Feel It?">DYFI?</abbr></a>';
-  }
-
-  if ($PROPERTIES['mmi'] !== null) {
-    $romanMMI = $ROMANS[round(floatval($PROPERTIES['mmi']))];
-    echo '<a href="#impact_shakemap" title="ShakeMap maximum estimated intensity" ' .
-        'class="mmi' . $romanMMI . '"><strong class="roman">' . $romanMMI .
-        '</strong><br/><abbr title="ShakeMap">ShakeMap</abbr></a> ';
-  }
-
-  if ($PROPERTIES['alert'] !== null) {
-    echo '<a href="#impact_pager" title="PAGER estimated impact alert level" ' .
-        'class="pager-alertlevel-' . strtolower($PROPERTIES['alert']) .
-        '"><strong class="roman">' . strtoupper($PROPERTIES['alert']) .
-        '</strong><br/><abbr title="Prompt Assessment of Global Earthquakes for Response">PAGER</abbr></a> ';
-  }
-
-  if ($PROPERTIES['tsunami'] === 1) {
-    echo '<a href="http://www.tsunami.gov/" title="Tsunami Warning Center" ' .
-        'class="tsunami"><img src="images/logos/tsunami.jpg" ' .
-        'alt="Tsunami Warning Center"/></a> ';
-  }
-
-  ?>
-  </div>
-  <?php } /* endif (impact bubbles) */ ?>
+      <a href="/scenarios/">More information about scenarios</a>
+    </div>
+  <?php } /* END :: SCENARIO_MODE */ ?>
 </header>
 
 <section class="event-content">
@@ -113,6 +75,4 @@
 </div>
 </section>
 
-<footer class="event-footer">
-  <!-- TODO :: ??? -->
-</footer>
+<footer class="event-footer"></footer>
