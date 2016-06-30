@@ -10,6 +10,9 @@ var OriginPinView = function (options) {
   options = Util.extend({}, options);
   _this = BasicPinView(options);
 
+  /**
+   * Renders Origin content
+   */
   _this.renderPinContent = function () {
     var magnitude,
         magnitudeType,
