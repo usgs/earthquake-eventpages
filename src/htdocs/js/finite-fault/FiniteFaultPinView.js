@@ -17,8 +17,8 @@ var FiniteFaultPinView = function (options) {
   _this = BasicPinView(options);
 
   /**
-   * Render the content section of the pin. Implementing sub-classes will
-   * likely want to override this method.
+   * Render the content section of the pin. This loads the smaller version
+   * of the finite-fault basemap.png
    *
    */
   _this.renderPinContent = function () {
