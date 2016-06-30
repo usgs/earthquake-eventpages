@@ -6,7 +6,7 @@ var CatalogEvent = require('pdl/CatalogEvent'),
     Xhr = require('util/Xhr');
 
 Xhr.ajax({
-  url: '/events/us10004u1y.json',
+  url: '/events/us10004u1y_orig.json',
   success: function (data) {
     InteractiveMapView({
       el: document.querySelector('#interactivemap-view-example'),
