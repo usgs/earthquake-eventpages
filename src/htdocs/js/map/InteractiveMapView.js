@@ -150,8 +150,10 @@ var InteractiveMapView = function (options) {
         _map.addControl(_positionControl);
       }
 
-      _scaleControl = L.control.scale({position: 'bottomleft'});
-      _map.addControl(_scaleControl);
+      if (options.scaleControl !== false) {
+        _scaleControl = L.control.scale({position: 'bottomleft'});
+        _map.addControl(_scaleControl);
+      }
     }
   };
 
