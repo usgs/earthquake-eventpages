@@ -4,10 +4,15 @@ var BasicPinView = require('core/BasicPinView'),
     Util = require('util/Util');
 
 
+var _DEFAULTS = {
+  module: {ID: 'origin', TITLE: 'Origin'}
+};
+
+
 var OriginPinView = function (options) {
   var _this;
 
-  options = Util.extend({}, options);
+  options = Util.extend({}, _DEFAULTS, options);
   _this = BasicPinView(options);
 
   /**
