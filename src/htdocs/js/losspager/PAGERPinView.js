@@ -20,13 +20,21 @@ var PAGERPinView = function (options) {
 
   _initialize = function () {
     _this.pagerView = PAGERView({
-      el: document.createElement('div'),
       model: _this.model
     });
   };
 
   /**
+   * Destroy all the things.
+   *
+   */
+  _this.destroy = Util.compose(function () {
+    _this.pagerView.destroy();
+  }, _this.destroy);
+
+  /**
    * Render the histograms as PAGERPinView content
+   *
    */
   _this.renderPinContent = function () {
     var economic,
