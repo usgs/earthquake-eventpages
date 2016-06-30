@@ -97,7 +97,10 @@ var BasicPinView = function (options) {
    */
   _this.onClick = function (e) {
     _this.redirect(_this.getLinkUrl());
-    e.preventDefault();
+
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
   };
 
   /**
