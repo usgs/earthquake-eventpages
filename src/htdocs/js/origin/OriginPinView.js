@@ -20,28 +20,27 @@ var OriginPinView = function (options) {
 
     magnitude = product.getProperty('magnitude');
     magnitudeType = product.getProperty('magnitude-type');
-    reviewStatus = product.getProperty('review-status') || 'automatic';
+    reviewStatus = product.getProperty('review-status') || 'AUTOMATIC';
+
+    if (reviewStatus !== 'AUTOMATIC') {
+      reviewStatus = 'MANUAL';
+    }
 
     _this.content.innerHTML =
-      '<div>' +
-        '<div class="origin-pin">' +
-          '<a href="#phase-data" class="origin-pin-badge" title="Origin magnitude">' +
-            '<strong class="origin-magnitude">' +
-              magnitude +
-            '</strong>' +
-            '<br />' +
-            '<abbr class="origin-magnitude-type" title="Magnitude type">' +
-              magnitudeType +
-            '</abbr>' +
-          '</a>' +
-        '</div>' +
-        '<div class="origin-review-status">' +
-          '<strong>' +
-            reviewStatus +
+      '<div class="origin-pin">' +
+        '<a href="#phase-data" class="origin-pin-badge" ' +
+            'title="Origin magnitude">' +
+          '<strong class="origin-magnitude">' +
+            magnitude +
           '</strong>' +
           '<br />' +
-          '<abbr class="origin-review-status-abbr" title="Review Status">status</abbr>' +
-        '</div>' +
+          '<abbr class="origin-magnitude-type" title="Magnitude type">' +
+            magnitudeType +
+          '</abbr>' +
+        '</a>' +
+      '</div>' +
+      '<div class="origin-review-status">' +
+        reviewStatus +
       '</div>';
   };
 
