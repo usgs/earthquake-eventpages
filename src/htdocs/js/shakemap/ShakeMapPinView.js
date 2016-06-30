@@ -4,11 +4,16 @@ var BasicPinView = require('core/BasicPinView'),
     Util = require('util/Util');
 
 
+var _DEFAULTS = {
+  module: {ID: 'shakemap', TITLE: 'ShakeMap'}
+};
+
 var ShakeMapPinView = function (options) {
   var _this;
 
-  options = Util.extend({}, options);
+  options = Util.extend({}, _DEFAULTS, options);
   _this = BasicPinView(options);
+
 
   /**
    * Renders content for ShakeMapPinView
