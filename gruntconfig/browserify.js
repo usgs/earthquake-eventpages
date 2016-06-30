@@ -62,6 +62,7 @@ var ALL_CLASSES = [
   JS + '/map/ContoursLayer.js:map/ContoursLayer',
   JS + '/map/DyfiUtmLayer.js:map/DyfiUtmLayer',
   JS + '/map/InteractiveMapModule.js:map/InteractiveMapModule',
+  JS + '/map/InteractiveMapPinView.js:map/InteractiveMapPinView',
   JS + '/map/InteractiveMapView.js:map/InteractiveMapView',
   JS + '/map/ShakeMapStationLayer.js:map/ShakeMapStationLayer',
 
