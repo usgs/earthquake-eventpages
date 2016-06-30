@@ -107,6 +107,8 @@ var InteractiveMapView = function (options) {
    *     The EventPageModel for this view to render.
    * @param options.formatter {Formatter}
    *     The formatting utility class to use when rendering.
+   * @param options.scaleControl {boolean}
+   *    The scale
    */
   _initialize = function (options) {
     _this.el.classList.add('interactive-map-view');
