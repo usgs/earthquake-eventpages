@@ -80,16 +80,18 @@ var BasicPinView = function (options) {
    *
    */
   _onClick = function (e) {
-    _this.onClick();
-    e.preventDefault();
+    _this.onClick(e);
   };
 
   /**
    * Handle a click on _this.el
    *
+   * @param e {MouseEvent}
+   *     A MouseEvent object
    */
-  _this.onClick = function () {
+  _this.onClick = function (e) {
     _this.redirect('#' + _this.module.ID);
+    e.preventDefault();
   };
 
   /**
