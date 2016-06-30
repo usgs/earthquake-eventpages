@@ -21,21 +21,18 @@ var ShakeMapPinView = function (options) {
     maxmmi = _this.model.get('properties').maxmmi;
 
     _this.content.innerHTML =
-      '<div>' +
-        '<div class="shakemap-pin-badge">' +
-          '<a href="#shakemap" title="ShakeMap MMI">' +
-            '<strong class="shakemap-mmi">' +
-              maxmmi +
-            '</strong>' +
-            '<br />' +
-            '<abbr title="Max Modified Mercalli Intensity">' +
-              'Max MMI' +
-            '</abbr>' +
-          '</a>' +
-        '</div>' +
-        '<div class="shakemap-map">' +
-          '<img src="' + intensityMap.get('url') + '" />' +
-        '</div>' +
+      '<div class="shakemap-pin-badge" title="ShakeMap MMI">' +
+        '<strong class="shakemap-mmi">' +
+          maxmmi +
+        '</strong>' +
+        '<br />' +
+        '<abbr class="shakemap-max-mmi" ' +
+            'title="Max Modified Mercalli Intensity">' +
+          'Max MMI' +
+        '</abbr>' +
+      '</div>' +
+      '<div class="shakemap-map">' +
+        '<img src="' + intensityMap.get('url') + '" />' +
       '</div>';
   };
 
