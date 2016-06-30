@@ -101,7 +101,6 @@ var BasicPinView = function (options) {
    */
   _this.onClick = function (e) {
     _this.redirect(_this.getLinkUrl());
-
     if (e && typeof e.preventDefault === 'function') {
       e.preventDefault();
     }
