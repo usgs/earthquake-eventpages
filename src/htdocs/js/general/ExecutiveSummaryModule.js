@@ -2,7 +2,7 @@
 
 
 var DyfiPinView = require('core/BasicPinView'), // TODO
-    FiniteFaultPinView = require('core/BasicPinView'), // TODO
+    FiniteFaultPinView = require('finite-fault/FiniteFaultPinView'),
     FocalMechanismPinView = require('core/BasicPinView'), // TODO
     InteractiveMapPinView = require('core/BasicPinView'), // TODO
     MomentTensorPinView = require('core/BasicPinView'), // TODO
