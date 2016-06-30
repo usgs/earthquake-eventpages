@@ -61,16 +61,20 @@ var BasicPinView = function (options) {
     _this.module = options.module || Module;
 
     _this.el.innerHTML = [
-      '<section class="pin-view">',
+      '<article class="pin-view">',
         '<header class="pin-header"></header>',
-        '<div class="pin-content"></div>',
+        '<section class="pin-content"></section>',
         '<footer class="pin-footer"></footer>',
-      '</section>'
+      '</article>'
     ].join('');
 
     _this.header = _this.el.querySelector('.pin-header');
     _this.content = _this.el.querySelector('.pin-content');
     _this.footer = _this.el.querySelector('.pin-footer');
+
+    _this.header.classList.add(_this.module.ID + '-pin-header');
+    _this.content.classList.add(_this.module.ID + '-pin-content');
+    _this.footer.classList.add(_this.module.ID + '-pin-footer');
 
     _this.el.addEventListener('click', _onClick);
   };

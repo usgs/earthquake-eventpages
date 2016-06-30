@@ -16,8 +16,7 @@ Xhr.ajax({
 
     PAGERPinView({
       el: document.querySelector('.losspager-pin-view-example'),
-      model: product,
-      module: {ID: 'losspager', TITLE: 'PAGER'}
+      model: product
     }).render();
   },
   error: function (e) {

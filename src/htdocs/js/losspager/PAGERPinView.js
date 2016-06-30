@@ -5,17 +5,20 @@ var BasicPinView = require('core/BasicPinView'),
     PAGERView = require('losspager/PAGERView'),
     Util = require('util/Util');
 
+var _DEFAULTS = {
+  module: {ID: 'pager', TITLE: 'PAGER'}
+};
+
 
 var PAGERPinView = function (options) {
   var _this,
       _initialize;
 
 
-  options = Util.extend({}, options);
+  options = Util.extend({}, _DEFAULTS, options);
   _this = BasicPinView(options);
 
   _initialize = function () {
-    _this.el.classList.add('pager-pin-view');
     _this.pagerView = PAGERView({
       el: document.createElement('div'),
       model: _this.model
