@@ -37,6 +37,7 @@ var ALL_CLASSES = [
   JS + '/dyfi/TextQuestionView.js:dyfi/TextQuestionView',
 
   JS + '/finite-fault/FiniteFaultModule.js:finite-fault/FiniteFaultModule',
+  JS + '/finite-fault/FiniteFaultPinView.js:finite-fault/FiniteFaultPinView',
   JS + '/finite-fault/FiniteFaultView.js:finite-fault/FiniteFaultView',
 
   JS + '/focal-mechanism/FocalMechanismModule.js:focal-mechanism/FocalMechanismModule',
