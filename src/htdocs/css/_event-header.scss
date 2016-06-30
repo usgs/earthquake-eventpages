@@ -1,4 +1,3 @@
-
 .event-header {
   > .event-datetime,
   > .event-coordinates,
@@ -6,6 +5,10 @@
     color: #444;
     display: block;
     font-size: 0.88em;
+  }
+
+  > .event-depth {
+    display: inline-block;
   }
 }
 
@@ -30,24 +33,29 @@
   color: #000 !important;
 }
 
-/* Width for media query makes the switch from percentages to pixels smooth. */
-@media screen and (min-width: 480px) {
-  .event-header {
-    > .event-datetime,
-    > .event-coordinates,
-    > .event-depth {
-      display: inline-block;
-      padding-right: 1em;
-      margin-left: 1em;
-    }
 
-    > .event-datetime,
+@media screen and (min-width: 300px) {
+  .event-header {
     > .event-coordinates {
       border-right: 1px solid #ccc;
+      display: inline-block;
+      padding-right: 1em;
     }
+    > .event-depth {
+      margin-left: 1em;
+    }
+  }
+}
 
+@media screen and (min-width: 480px) {
+  .event-header {
     > .event-datetime {
-      margin-left: 0;
+      border-right: 1px solid #ccc;
+      display: inline-block;
+      padding-right: 1em;
+    }
+    > .event-coordinates {
+      margin-left: 1em;
     }
   }
 }
