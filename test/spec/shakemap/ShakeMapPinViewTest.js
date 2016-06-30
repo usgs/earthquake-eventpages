@@ -36,14 +36,13 @@ describe('shakemap/ShakeMapPinView', function () {
 
     it('displays mmi content correctly', function () {
       view.renderPinContent();
-      expect(view.el.querySelector('.shakemap-pin-badge > a > strong').innerHTML).
+      expect(view.el.querySelector('.shakemap-mmi').innerHTML).
           to.equal('3.07');
     });
 
     it('displays reviewStatus content correctly', function () {
       view.renderPinContent();
-      expect(view.el.querySelectorAll('.shakemap-map > img').length).
-          to.equal(1);
+      expect(view.el.querySelectorAll('.shakemap-map > img').length).to.equal(1);
     });
   });
 });
