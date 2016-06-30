@@ -64,6 +64,7 @@ require('./spec/general/GeneralSummaryModuleTest');
 require('./spec/general/GeoserveNearbyPlacesViewTest');
 require('./spec/general/GeoserveRegionSummaryViewTest');
 require('./spec/general/NearbyPlacesViewTest');
+require('./spec/general/TsunamiPinViewTest');
 
 require('./spec/impact/ImpactSummaryModuleTest');
 

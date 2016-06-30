@@ -48,6 +48,7 @@ var ALL_CLASSES = [
   JS + '/general/GeoserveRegionSummaryView.js:general/GeoserveRegionSummaryView',
   JS + '/general/LocationView.js:general/LocationView',
   JS + '/general/NearbyPlacesView.js:general/NearbyPlacesView',
+  JS + '/general/TsunamiPinView.js:general/TsunamiPinView',
 
   JS + '/impact/ImpactSummaryModule.js:impact/ImpactSummaryModule',
 

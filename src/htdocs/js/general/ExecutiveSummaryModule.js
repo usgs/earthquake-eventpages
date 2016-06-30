@@ -7,12 +7,12 @@ var DyfiPinView = require('core/BasicPinView'), // TODO
     InteractiveMapPinView = require('core/BasicPinView'), // TODO
     MomentTensorPinView = require('core/BasicPinView'), // TODO
     OriginPinView = require('origin/OriginPinView'),
-    PagerPinView = require('losspager/PagerPinView'),
+    PAGERPinView = require('losspager/PAGERPinView'),
     Product = require('pdl/Product'),
     RegionInfoPinView = require('core/BasicPinView'), // TODO
     ShakeMapPinView = require('core/BasicPinView'), // TODO
     SummaryModule = require('core/SummaryModule'),
-    TsunamiPinView = require('core/BasicPinView'), // TODO
+    TsunamiPinView = require('general/TsunamiPinView'), // TODO
     Util = require('util/Util');
 
 
@@ -219,7 +219,7 @@ var ExecutiveSummaryModule = function (options) {
     // PAGER pin
     product = ev.getPreferredProduct(Product.getFullType('losspager', config));
     if (product) {
-      _this.pinViews.push(PagerPinView({
+      _this.pinViews.push(PAGERPinView({
         el: _this.createPinContainer(list),
         model: product
       }));

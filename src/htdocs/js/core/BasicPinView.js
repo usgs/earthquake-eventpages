@@ -75,12 +75,18 @@ var BasicPinView = function (options) {
     _this.el.addEventListener('click', _onClick);
   };
 
+
   /**
    * Called when _this.el is clicked
    *
    */
   _onClick = function (e) {
     _this.onClick(e);
+  };
+
+
+  _this.getLinkUrl = function () {
+    return '#' + _this.module.ID;
   };
 
   /**
@@ -90,16 +96,19 @@ var BasicPinView = function (options) {
    *     A MouseEvent object
    */
   _this.onClick = function (e) {
-    _this.redirect('#' + _this.module.ID);
-    e.preventDefault();
+    _this.redirect(_this.getLinkUrl());
+
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
   };
 
   /**
    * Update window.location
    *
    */
-  _this.redirect = function (hash) {
-    window.location.hash = hash;
+  _this.redirect = function (url) {
+    window.location = url;
   };
 
   /**
@@ -163,15 +172,13 @@ var BasicPinView = function (options) {
    *
    */
   _this.renderPinHeader = function () {
-    var fragment,
-        display;
+    var display;
 
     // Use module ID and TITLE to create a link
-    fragment = _this.module.ID;
     display = _this.module.TITLE;
 
     _this.header.innerHTML = [
-      '<a href="#', fragment, '">', display, '</a>'
+      '<a href="', _this.getLinkUrl(), '">', display, '</a>'
     ].join('');
   };
 
