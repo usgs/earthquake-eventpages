@@ -24,13 +24,13 @@ var OriginPinView = function (options) {
 
     _this.content.innerHTML =
       '<div>' +
-        '<div class="origin-pin-badge">' +
-          '<a href="#phase-data" title="Origin magnitude">' +
+        '<div class="origin-pin">' +
+          '<a href="#phase-data" class="origin-pin-badge" title="Origin magnitude">' +
             '<strong class="origin-magnitude">' +
               magnitude +
             '</strong>' +
             '<br />' +
-            '<abbr title="Magnitude type">' +
+            '<abbr class="origin-magnitude-type" title="Magnitude type">' +
               magnitudeType +
             '</abbr>' +
           '</a>' +
@@ -40,7 +40,7 @@ var OriginPinView = function (options) {
             reviewStatus +
           '</strong>' +
           '<br />' +
-          '<abbr title="Review Status">status</abbr>' +
+          '<abbr class="origin-review-status-abbr" title="Review Status">status</abbr>' +
         '</div>' +
       '</div>';
   };
