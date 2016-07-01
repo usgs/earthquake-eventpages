@@ -11,6 +11,7 @@ describe('dyfi/DYFIPinView', function () {
 
   before(function () {
     product = Product({
+      code: 'us10004u1y',
       contents: {
         'us10004u1y_ciim.jpg': {
           url: '/products/dyfi/us10004u1y/us/1457013501095/us10004u1y_ciim.jpg'
@@ -34,6 +35,21 @@ describe('dyfi/DYFIPinView', function () {
       /* jshint -W030 */
       expect(DYFIPinView).to.not.be.null;
       /* jshint +W030 */
+    });
+  });
+
+  describe('renderPinContent', function () {
+    it('renders into the proper container', function () {
+      var view;
+
+      view = DYFIPinView({
+        el: document.createElement('div'),
+        model: product
+      });
+      view.renderPinContent();
+
+      expect(view.content.innerHTML).to.not.equal('');
+      expect(view.content.querySelectorAll('img').length).to.equal(1);
     });
   });
 
