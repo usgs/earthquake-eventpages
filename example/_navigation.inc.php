@@ -20,6 +20,7 @@ print navGroup('Impact',
     navItem('/dyfi/DYFIFormViewExample.php', 'DYFIFormView') .
     navItem('/dyfi/DYFIIntensityGraphViewExample.php',
         'DYFIIntensityGraphView') .
+    navItem('/dyfi/DYFIPinViewExample.php', 'DYFIPinView') .
     navItem('/dyfi/DYFIViewExample.php', 'DYFIView') .
     navItem('/dyfi/DYFIResponsesViewExample.php', 'DYFIResponsesView') .
     navItem('/losspager/PAGERPinViewExample.php', 'PAGERPin View') .

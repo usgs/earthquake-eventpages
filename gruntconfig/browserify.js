@@ -32,6 +32,7 @@ var ALL_CLASSES = [
   JS + '/dyfi/DYFIIntensityGraphView.js:dyfi/DYFIIntensityGraphView',
   JS + '/dyfi/DYFIModule.js:dyfi/DYFIModule',
   JS + '/dyfi/DYFIResponsesView.js:dyfi/DYFIResponsesView',
+  JS + '/dyfi/DYFIPinView.js:dyfi/DYFIPinView',
   JS + '/dyfi/DYFIView.js:dyfi/DYFIView',
   JS + '/dyfi/StandardDeviationLineView.js:dyfi/StandardDeviationLineView',
   JS + '/dyfi/TextQuestionView.js:dyfi/TextQuestionView',
