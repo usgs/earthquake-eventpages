@@ -1,7 +1,7 @@
 'use strict';
 
 
-var DyfiPinView = require('core/BasicPinView'), // TODO
+var DyfiPinView = require('dyfi/DyfiPinView'),
     FiniteFaultPinView = require('core/BasicPinView'), // TODO
     FocalMechanismPinView = require('core/BasicPinView'), // TODO
     InteractiveMapPinView = require('core/BasicPinView'), // TODO
