@@ -2,11 +2,12 @@
 
 
 var BasicPinView = require('core/BasicPinView'),
+    DYFIModule = require('dyfi/DYFIModule'),
     Util = require('util/Util');
 
 
 var _DEFAULTS = {
-  module: {ID: '', TITLE: 'Module Title'}
+  module: DYFIModule
 };
 
 var DYFIPinView = function (options) {
