@@ -13,8 +13,7 @@ Xhr.ajax({
 
     ShakeMapPinView({
       el: document.querySelector('.shakemap-pin-view-example'),
-      model: product,
-      module: {ID: 'shakemap', TITLE: 'ShakeMap'}
+      model: product
     }).render();
   },
   error: function () {
