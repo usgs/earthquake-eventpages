@@ -1,8 +1,8 @@
 'use strict';
 
 
-var DyfiFormPinView = require('dyfi/DyfiFormPinView'),
-    DyfiPinView = require('dyfi/DyfiPinView'),
+var DyfiFormPinView = require('dyfi/DYFIFormPinView'),
+    DyfiPinView = require('dyfi/DYFIPinView'),
     FiniteFaultPinView = require('finite-fault/FiniteFaultPinView'),
     FocalMechanismPinView = require('core/BasicPinView'), // TODO
     InteractiveMapPinView = require('core/BasicPinView'), // TODO
