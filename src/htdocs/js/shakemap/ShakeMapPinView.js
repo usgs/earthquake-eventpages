@@ -1,11 +1,12 @@
 'use strict';
 
 var BasicPinView = require('core/BasicPinView'),
+    ShakeMapModule = require('shakemap/ShakeMapModule'),
     Util = require('util/Util');
 
 
 var _DEFAULTS = {
-  module: {ID: 'shakemap', TITLE: 'ShakeMap'}
+  module: ShakeMapModule
 };
 
 var ShakeMapPinView = function (options) {
