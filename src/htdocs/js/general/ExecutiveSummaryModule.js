@@ -4,7 +4,7 @@
 var DyfiPinView = require('dyfi/DyfiPinView'),
     FiniteFaultPinView = require('finite-fault/FiniteFaultPinView'),
     FocalMechanismPinView = require('core/BasicPinView'), // TODO
-    InteractiveMapPinView = require('core/BasicPinView'), // TODO
+    InteractiveMapPinView = require('map/InteractiveMapPinView'),
     MomentTensorPinView = require('core/BasicPinView'), // TODO
     OriginPinView = require('origin/OriginPinView'),
     PAGERPinView = require('losspager/PAGERPinView'),
@@ -187,7 +187,7 @@ var ExecutiveSummaryModule = function (options) {
     // TODO :: Product ???
     _this.pinViews.push(InteractiveMapPinView({
       el: _this.createPinContainer(list),
-      model: ev.getPreferredOriginProduct() // TODO ...
+      model: _this.model
     }));
 
 
