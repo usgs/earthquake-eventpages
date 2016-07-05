@@ -144,8 +144,11 @@ var RegionalInfoModule = function (options) {
         degrees = _mapRadius;
       }
 
-      _map.fitBounds([[latitude + degrees, longitude + degrees],
-          [latitude - degrees, longitude - degrees]]);
+      // Use Math.max to provide some minimum extent for context...
+      _map.fitBounds([
+        [latitude + Math.max(degrees, 1), longitude + Math.max(degrees, 1)],
+        [latitude - Math.max(degrees, 1), longitude - Math.max(degrees, 1)]
+      ]);
     }
   };
 
