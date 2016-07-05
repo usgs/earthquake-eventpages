@@ -28,6 +28,7 @@ var ALL_CLASSES = [
   JS + '/core/TextProductView.js:core/TextProductView',
 
   JS + '/dyfi/DYFIFormModule.js:dyfi/DYFIFormModule',
+  JS + '/dyfi/DYFIFormPinView.js:dyfi/DYFIFormPinView',
   JS + '/dyfi/DYFIFormView.js:dyfi/DYFIFormView',
   JS + '/dyfi/DYFIIntensityGraphView.js:dyfi/DYFIIntensityGraphView',
   JS + '/dyfi/DYFIModule.js:dyfi/DYFIModule',
