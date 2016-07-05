@@ -10,7 +10,8 @@
     <?php print format_coord($coordinates[1], 'N', 'S'); ?>
     &nbsp;
     <?php print format_coord($coordinates[0], 'E', 'W'); ?>
-    &nbsp;
+  </span>
+  <span class="event-depth">
     <?php
     print isset($coordinates[2]) ?
       number_format(round(floatval($coordinates[2]) * 10) / 10, 1) :

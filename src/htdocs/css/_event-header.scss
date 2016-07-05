@@ -8,14 +8,22 @@
   margin-bottom: 0.75em;
 
   > .event-datetime,
-  > .event-coordinates {
+  > .event-coordinates,
+  > .event-depth {
     color: #444;
     display: block;
     font-size: 0.88em;
   }
 
   > .event-coordinates {
+    border-right: 1px solid #ccc;
     display: inline-block;
+    padding-right: 1em;
+  }
+
+  > .event-depth {
+    display: inline-block;
+    margin-left: 1em;
   }
 }
 
