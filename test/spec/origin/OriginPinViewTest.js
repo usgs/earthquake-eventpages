@@ -36,14 +36,14 @@ describe('origin/OriginPinView', function () {
 
     it('displays magnitude content correctly', function () {
       view.renderPinContent();
-      expect(view.el.querySelector('.origin-pin-badge > a > strong').innerHTML).
+      expect(view.el.querySelector('.origin-magnitude').innerHTML).
           to.equal('7.8');
     });
 
     it('displays reviewStatus content correctly', function () {
       view.renderPinContent();
-      expect(view.el.querySelector('.origin-review-status > strong').innerHTML).
-          to.equal('reviewed');
+      expect(view.el.querySelector('.origin-review-status').innerHTML).
+          to.equal('MANUAL');
     });
   });
 });
