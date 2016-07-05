@@ -2,6 +2,7 @@
 
 
 var Attribution = require('core/Attribution'),
+    CatalogEvent = require('pdl/CatalogEvent'),
     CooperatorLogo = require('core/CooperatorLogo'),
     DYFIFormModule = require('dyfi/DYFIFormModule'),
     DYFIModule = require('dyfi/DYFIModule'),
@@ -101,7 +102,7 @@ var EventPage = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
     _redirects = options.redirects;
 
-    _event = options.event;
+    _event = options.event || CatalogEvent();
     _config = options.config || {};
     _config.defaultModule = _config.defaultModule || options.defaultModule;
     _config.modules = options.modules || [];
@@ -675,92 +676,12 @@ var EventPage = function (options) {
     _this.footer.innerHTML = markup.join('');
   };
 
+  /**
+   * Render event page header content.
+   *
+   */
   _this.renderHeader = function () {
-    var alertlevel,
-        buf,
-        cdi,
-        impactBuf,
-        mmi,
-        props,
-        summary,
-        tsunami;
-
-    buf = [];
-    if (_event) {
-      summary = _event.getSummary();
-      props = summary.properties;
-
-      alertlevel = props.alert;
-      cdi = props.cdi;
-      mmi = props.mmi;
-      tsunami = props.tsunami;
-      impactBuf = [];
-
-      if (typeof cdi !== 'undefined' && cdi !== null) {
-        cdi = _formatter.mmi(cdi);
-        impactBuf.push('<a href="#dyfi"' +
-            ' class="mmi' + cdi + '"' +
-            ' title="Did You Feel It? maximum reported intensity"' +
-            '>' +
-              '<strong class="roman">' + cdi + '</strong>' +
-              '<br/>' +
-              '<abbr title="Did You Feel It?">DYFI?</abbr>' +
-            '</a>');
-      }
-
-      if (typeof mmi !== 'undefined' && mmi !== null) {
-        mmi = _formatter.mmi(mmi);
-        impactBuf.push('<a href="#shakemap"' +
-            ' class="mmi' + mmi + '"' +
-            ' title="ShakeMap maximum estimated intensity"' +
-            '>' +
-              '<strong class="roman">' + mmi + '</strong>' +
-              '<br/>' +
-              '<abbr title="ShakeMap">ShakeMap</abbr>' +
-            '</a>');
-      }
-      if (typeof alertlevel !== 'undefined' && alertlevel !== null) {
-        impactBuf.push('<a href="#pager"' +
-            ' class="pager-alertlevel-' + alertlevel.toLowerCase() + '"' +
-            ' title="PAGER estimated impact alert level"' +
-            '>' +
-              '<strong class="roman">' +
-                alertlevel.toUpperCase() +
-              '</strong>' +
-              '<br/>' +
-              '<abbr title="' +
-                  'Prompt Assessment of Global Earthquakes for Response' +
-                  '">PAGER</abbr>' +
-            '</a>');
-      }
-      if (typeof tsunami !== 'undefined' && tsunami !== null && tsunami > 0) {
-        impactBuf.push('<a href="http://www.tsunami.gov/"' +
-            ' class="tsunami"' +
-            ' title="Tsunami Warning Center"' +
-            '>' +
-              '<img src="images/logos/tsunami.jpg"' +
-                  ' alt="Tsunami Warning Center"/>' +
-            '</a>');
-      }
-      if (impactBuf.length > 0) {
-        buf.push('<div class="impact-bubbles clearfix">' +
-            impactBuf.join('') +
-            '</div>');
-      }
-    }
-
-    if (_this.isScenarioMode()) {
-      buf.push(
-        '<div class="alert warning">' +
-          'This event is a scenario (it did not occur) and should only be ' +
-          'used for planning purposes.' +
-          '<br/>' +
-          '<a href="/scenarios/">More information about scenarios</a>' +
-        '</div>'
-      );
-    }
-
-    _this.header.innerHTML = buf.join('');
+    // Event page header content is generated on server. Do not modify it here.
   };
 
 

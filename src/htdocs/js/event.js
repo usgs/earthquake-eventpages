@@ -21,7 +21,7 @@ if (EventConfig.unknownEvent) {
   eventParams.modules = [[DYFIFormModule]];
 }
 
-eventPage = new EventPage(eventParams);
+eventPage = EventPage(eventParams);
 
 offcanvas = OffCanvas.getOffCanvas();
 eventPage.on('render', function () {

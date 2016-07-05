@@ -1,66 +1,13 @@
-
 .event-header {
-  > .impact-bubbles {
+  > .event-datetime,
+  > .event-coordinates {
+    color: #444;
+    display: block;
+    font-size: 0.88em;
+  }
 
-    &:after {
-      clear: both;
-      content: ' ';
-      display: block;
-    }
-
-    > a {
-      background-color: #fff;
-      border-radius: 3px;
-      box-shadow: inset 0 0 1px rgba(0,0,0,0.5);
-      color: #333;
-      display: block;
-      float: left;
-      letter-spacing: 0.03em;
-      line-height: 1em;
-      margin: 0.5em 0 0;
-      max-width: 103px;
-      overflow: hidden;
-      padding: 6px 0;
-      text-align: center;
-      text-decoration: none;
-      text-overflow: ellipsis;
-      text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
-      width: 23.5%;
-
-      &:hover {
-        background-image: linear-gradient(to top, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
-      }
-
-      & + a {
-        margin-left: 2%;
-      }
-
-      > abbr {
-        font-size: .6875em;
-      }
-
-      > strong {
-        font-size: .8125em;
-        /* for pager "pending" alert level */
-        white-space: nowrap;
-      }
-    }
-
-    > .tsunami {
-      border: 0;
-      border-bottom: 1px solid #292772;
-      display: inline-block;
-      height: 47px;
-      max-width: 103px;
-      padding: 0;
-      text-align: left;
-
-      > img {
-        border-radius: 3px;
-        height: 47px;
-        max-width: none;
-      }
-    }
+  > .event-coordinates {
+    display: inline-block;
   }
 }
 
@@ -85,9 +32,16 @@
   color: #000 !important;
 }
 
-/* Width for media query makes the switch from percentages to pixels smooth. */
-@media screen and (min-width: 1088px) {
-  .event-header > .impact-bubbles > a + a {
-    margin-left: 16px;
+
+@media screen and (min-width: 480px) {
+  .event-header {
+    > .event-datetime {
+      border-right: 1px solid #ccc;
+      display: inline-block;
+      padding-right: 1em;
+    }
+    > .event-coordinates {
+      margin-left: 1em;
+    }
   }
 }
