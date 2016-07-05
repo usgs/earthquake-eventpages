@@ -32,7 +32,8 @@ _hasContent = function (eventPageModel) {
 };
 
 var _DEFAULTS = {
-  formatter: null
+  formatter: null,
+  mapRadius: 2.5
 };
 
 
@@ -44,6 +45,7 @@ var RegionalInfoModule = function (options) {
       _locationEl,
       _locationView,
       _map,
+      _mapRadius,
       _nearbyPlacesEl,
       _nearbyPlacesView,
       _scale,
@@ -61,22 +63,23 @@ var RegionalInfoModule = function (options) {
 
     options = Util.extend({}, _DEFAULTS, options);
     _formatter = options.formatter || Formatter();
+    _mapRadius = options.mapRadius;
 
     el = _this.content;
     el.classList.add('generalsummary');
     el.innerHTML = [
         '<div class="row">',
-          '<div class="column one-of-two">',
-            '<div class="generalsummary-location"></div>',
+          '<div class="column two-of-three">',
+            '<div class="regional-info-module-map"></div>',
           '</div>',
-          '<div class="column one-of-two">',
+          '<div class="column one-of-three">',
             '<div class="generalsummary-places"></div>',
           '</div>',
         '</div>',
         '<div class="generalsummary-tectonic-summary"></div>',
     ].join('');
 
-    _locationEl = el.querySelector('.generalsummary-location');
+    _locationEl = el.querySelector('.regional-info-module-map');
     _nearbyPlacesEl = el.querySelector('.generalsummary-places');
     _tectonicSummaryEl = el.querySelector('.generalsummary-tectonic-summary');
   };
@@ -104,7 +107,13 @@ var RegionalInfoModule = function (options) {
       _tectonicSummaryView = null;
     }
 
+    if (_map) {
+      _map.remove();
+    }
+
     _locationEl = null;
+    _map = null;
+    _mapRadius = null;
     _nearbyPlacesEl = null;
     _tectonicSummaryEl = null;
   }, _this.destroy);
@@ -173,13 +182,21 @@ var RegionalInfoModule = function (options) {
    * @param ev {CatalogEvent}
    *     the event.
    */
-  _this.renderLocation = function (/*ev*/) {
+  _this.renderLocation = function (ev) {
     var latitude,
         longitude,
         maxLatitude,
         maxLongitude,
         minLatitude,
         minLongitude;
+
+    latitude = ev.getLatitude();
+    longitude = ev.getLongitude();
+
+    maxLatitude = latitude + _mapRadius;
+    minLatitude = latitude - _mapRadius;
+    maxLongitude = longitude + _mapRadius;
+    minLongitude = longitude - _mapRadius;
 
     // only create location view on first render
     // if (!_locationView) {
@@ -193,16 +210,14 @@ var RegionalInfoModule = function (options) {
     //   _locationView.render();
     // }
     _map = L.map(_locationEl, {
-      bounds: [[minLatitude, minLongitude], [maxLatitude, maxLongitude]],
-      dragging: false,
-      touchZoom: false,
-      scrollWheelZoom: false,
-      doubleClickZoom: false,
-      boxZoom: false,
-      tap: false,
-      keyboard: false,
-      zoomControl: false,
       attributionControl: false,
+      bounds: [[minLatitude, minLongitude], [maxLatitude, maxLongitude]],
+      boxZoom: false,
+      doubleClickZoom: false,
+      dragging: false,
+      fadeAnimation: false,
+      keyboard: false,
+      markerZoomAnimation: false,
       layers: [
         EsriTerrain(),
         L.marker([latitude, longitude], {
@@ -213,7 +228,12 @@ var RegionalInfoModule = function (options) {
             iconAnchor: [16, 16]
           })
         })
-      ]
+      ],
+      scrollWheelZoom: false,
+      tap: false,
+      touchZoom: false,
+      zoomAnimation: false,
+      zoomControl: false
     });
 
     _scale = L.control.scale({position: 'bottomleft'});

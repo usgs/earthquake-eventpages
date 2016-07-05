@@ -1,0 +1,16 @@
+.regional-info-module-map {
+  cursor: text;
+  height: 310px;
+}
+
+@media screen and (min-height: 600px) {
+  .regional-info-module-map {
+    height: 500px;
+  }
+}
+
+@media screen and (min-height: 900px) {
+  .regional-info-module-map {
+    height: 640px;
+  }
+}
