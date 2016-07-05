@@ -1,11 +1,12 @@
 'use strict';
 
 var BasicPinView = require('core/BasicPinView'),
+    OriginModule = require('origin/OriginModule'),
     Util = require('util/Util');
 
 
 var _DEFAULTS = {
-  module: {ID: 'origin', TITLE: 'Origin'}
+  module: OriginModule
 };
 
 
