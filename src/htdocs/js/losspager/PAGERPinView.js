@@ -2,11 +2,12 @@
 
 
 var BasicPinView = require('core/BasicPinView'),
+    PAGERModule = require('losspager/PAGERModule'),
     PAGERView = require('losspager/PAGERView'),
     Util = require('util/Util');
 
 var _DEFAULTS = {
-  module: {ID: 'pager', TITLE: 'PAGER'}
+  module: PAGERModule
 };
 
 
