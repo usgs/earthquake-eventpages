@@ -2,11 +2,12 @@
 
 
 var BasicPinView = require('core/BasicPinView'),
+    FiniteFaultModule = require('finite-fault/FiniteFaultModule'),
     Util = require('util/Util');
 
 
 var _DEFAULTS = {
-  module: {ID: 'finite-fault', TITLE: 'Finite Fault'}
+  module: FiniteFaultModule
 };
 
 var FiniteFaultPinView = function (options) {
