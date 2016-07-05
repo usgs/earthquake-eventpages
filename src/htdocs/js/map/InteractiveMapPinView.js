@@ -56,6 +56,7 @@ var MapPinView = function (options) {
   }, _this.destroy);
 
   _this.renderPinContent = function () {
+    _mapView.onDomReady();
     _mapView.render();
   };
 
