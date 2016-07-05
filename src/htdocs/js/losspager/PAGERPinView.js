@@ -5,25 +5,36 @@ var BasicPinView = require('core/BasicPinView'),
     PAGERView = require('losspager/PAGERView'),
     Util = require('util/Util');
 
+var _DEFAULTS = {
+  module: {ID: 'pager', TITLE: 'PAGER'}
+};
+
 
 var PAGERPinView = function (options) {
   var _this,
       _initialize;
 
 
-  options = Util.extend({}, options);
+  options = Util.extend({}, _DEFAULTS, options);
   _this = BasicPinView(options);
 
   _initialize = function () {
-    _this.el.classList.add('pager-pin-view');
     _this.pagerView = PAGERView({
-      el: document.createElement('div'),
       model: _this.model
     });
   };
 
   /**
+   * Destroy all the things.
+   *
+   */
+  _this.destroy = Util.compose(function () {
+    _this.pagerView.destroy();
+  }, _this.destroy);
+
+  /**
    * Render the histograms as PAGERPinView content
+   *
    */
   _this.renderPinContent = function () {
     var economic,

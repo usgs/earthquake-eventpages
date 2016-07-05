@@ -8,47 +8,47 @@
 
   display: flex;
   flex-direction: column;
+}
 
-  > .pin-header,
-  > .pin-content,
-  > .pin-footer {
-    overflow: hidden;
-    padding: 0.5em;
-  }
+.pin-header,
+.pin-content,
+.pin-footer {
+  overflow: hidden;
+  padding: 0.5em;
+}
 
-  > .pin-header,
-  > .pin-footer {
-    flex-shrink: 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+.pin-header,
+.pin-footer {
+  flex-shrink: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-  > .pin-header {
-    border-bottom: 1px solid #ccc;
-  }
+.pin-header {
+  border-bottom: 1px solid #ccc;
+}
 
-  > .pin-content {
-    flex-grow: 1;
-    margin: 0.5em 0;
-    max-height: 100%;
-    padding: 0 0.5em;
-  }
+.pin-content {
+  flex-grow: 1;
+  margin: 0.5em 0;
+  max-height: 100%;
+  padding: 0 0.5em;
+}
 
-  > .pin-footer {
-    color: #666;
-    font-size: 0.88em;
-    position: relative;
-    text-align: center;
+.pin-footer {
+  color: #666;
+  font-size: 0.88em;
+  position: relative;
+  text-align: center;
 
-    &:before {
-      background-image: linear-gradient(90deg, transparent 10%, rgba(0, 0, 0, 0.2) 50%, transparent 90%);
-      content: '';
-      height: 1px;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 100%;
-    }
+  &:before {
+    background-image: linear-gradient(90deg, transparent 10%, rgba(0, 0, 0, 0.2) 50%, transparent 90%);
+    content: '';
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
   }
 }
 
