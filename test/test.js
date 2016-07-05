@@ -97,6 +97,7 @@ require('./spec/scientific/ScientificSummaryModuleTest');
 
 require('./spec/shakemap/ShakeMapInfoViewTest');
 require('./spec/shakemap/ShakeMapModuleTest');
+require('./spec/shakemap/ShakeMapPinViewTest');
 require('./spec/shakemap/ShakeMapStationListViewTest');
 require('./spec/shakemap/ShakeMapViewTest');
 
