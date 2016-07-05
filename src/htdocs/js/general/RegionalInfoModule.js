@@ -1,6 +1,7 @@
 'use strict';
 
-var Formatter = require('core/Formatter'),
+var EsriTerrain = require('leaflet/layer/EsriTerrain'),
+    Formatter = require('core/Formatter'),
     GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
     GeoserveRegionSummaryView = require('general/GeoserveRegionSummaryView'),
     LocationView = require('general/LocationView'),
@@ -172,16 +173,42 @@ var RegionalInfoModule = function (options) {
    */
   _this.renderLocation = function (/*ev*/) {
     // only create location view on first render
-    if (!_locationView) {
-      _locationView = LocationView({
-        el: _locationEl,
-        formatter: _formatter,
-        model: _this.model,
-        module: _this
-      });
-      // only render first time, binds to model separately
-      _locationView.render();
-    }
+    // if (!_locationView) {
+    //   _locationView = LocationView({
+    //     el: _locationEl,
+    //     formatter: _formatter,
+    //     model: _this.model,
+    //     module: _this
+    //   });
+    //   // only render first time, binds to model separately
+    //   _locationView.render();
+    // }
+    _map = L.map(_locationEl, {
+      bounds: [[minLatitude, minLongitude], [maxLatitude, maxLongitude]],
+      dragging: false,
+      touchZoom: false,
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
+      boxZoom: false,
+      tap: false,
+      keyboard: false,
+      zoomControl: false,
+      attributionControl: false,
+      layers: [
+        EsriTerrain(),
+        L.marker([latitude, longitude], {
+          zIndexOffset: 99,
+          icon: L.icon({
+            iconUrl: 'images/star.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+          })
+        })
+      ]
+    });
+
+    _scale = L.control.scale({position: 'bottomleft'});
+    _map.addControl(_scale);
   };
 
   /**
