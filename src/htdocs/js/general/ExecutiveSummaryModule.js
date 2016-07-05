@@ -1,7 +1,7 @@
 'use strict';
 
 
-var DyfiPinView = require('core/BasicPinView'), // TODO
+var DyfiPinView = require('dyfi/DyfiPinView'),
     FiniteFaultPinView = require('finite-fault/FiniteFaultPinView'),
     FocalMechanismPinView = require('core/BasicPinView'), // TODO
     InteractiveMapPinView = require('core/BasicPinView'), // TODO
@@ -12,7 +12,7 @@ var DyfiPinView = require('core/BasicPinView'), // TODO
     RegionInfoPinView = require('core/BasicPinView'), // TODO
     ShakeMapPinView = require('shakemap/ShakeMapPinView'),
     SummaryModule = require('core/SummaryModule'),
-    TsunamiPinView = require('general/TsunamiPinView'), // TODO
+    TsunamiPinView = require('general/TsunamiPinView'),
     Util = require('util/Util');
 
 
@@ -229,7 +229,7 @@ var ExecutiveSummaryModule = function (options) {
     if (ev.getSummary().properties.tsunami === 1) {
       _this.pinViews.push(TsunamiPinView({
         el: _this.createPinContainer(list),
-        model: ev.getPreferredOriginProduct() // TODO ...
+        model: ev.getPreferredOriginProduct()
       }));
     }
 
