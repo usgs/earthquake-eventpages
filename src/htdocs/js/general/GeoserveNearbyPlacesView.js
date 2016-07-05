@@ -60,6 +60,7 @@ var GeoserveNearbyPlacesView = function (options) {
    */
   _this.onError = function () {
     _this.el.innerHTML = 'Unable to load geoserve web service, URL: ' + _url;
+    _this.trigger('places-error');
   };
 
   /**

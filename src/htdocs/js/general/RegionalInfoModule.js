@@ -33,7 +33,7 @@ _hasContent = function (eventPageModel) {
 
 var _DEFAULTS = {
   formatter: null,
-  mapRadius: 2.5
+  mapRadius: 5.0
 };
 
 
@@ -98,6 +98,8 @@ var RegionalInfoModule = function (options) {
     }
 
     if (_nearbyPlacesView) {
+      _nearbyPlacesView.off('places', 'onNearbyPlaces', _this);
+      _nearbyPlacesView.off('places-error', 'onNearbyPlaces', _this);
       _nearbyPlacesView.destroy();
       _nearbyPlacesView = null;
     }
@@ -117,6 +119,35 @@ var RegionalInfoModule = function (options) {
     _nearbyPlacesEl = null;
     _tectonicSummaryEl = null;
   }, _this.destroy);
+
+  _this.onNearbyPlaces = function (places) {
+    var degrees,
+        ev,
+        km,
+        latitude,
+        longitude,
+        place;
+
+    ev = _this.model.get('event');
+
+    if (ev) {
+      places = places || [];
+      place = places[places.length - 1] || {};
+      km = place.distance;
+
+      latitude = ev.getLatitude();
+      longitude = ev.getLongitude();
+
+      if (km) {
+        degrees = km / 111.2; // not regarding latitude, but close enough
+      } else {
+        degrees = _mapRadius;
+      }
+
+      _map.fitBounds([[latitude + degrees, longitude + degrees],
+          [latitude - degrees, longitude - degrees]]);
+    }
+  };
 
   _this.render = function () {
     var ev;
@@ -211,8 +242,9 @@ var RegionalInfoModule = function (options) {
     // }
     _map = L.map(_locationEl, {
       attributionControl: false,
-      bounds: [[minLatitude, minLongitude], [maxLatitude, maxLongitude]],
       boxZoom: false,
+      center: [latitude, longitude],
+      zoom: 1,
       doubleClickZoom: false,
       dragging: false,
       fadeAnimation: false,
@@ -236,6 +268,7 @@ var RegionalInfoModule = function (options) {
       zoomControl: false
     });
 
+    _map.fitBounds([[minLatitude, minLongitude], [maxLatitude, maxLongitude]]);
     _scale = L.control.scale({position: 'bottomleft'});
     _map.addControl(_scale);
   };
@@ -248,6 +281,8 @@ var RegionalInfoModule = function (options) {
         product;
 
     if (_nearbyPlacesView) {
+      _nearbyPlacesView.off('places', 'onNearbyPlaces', _this);
+      _nearbyPlacesView.off('places-error', 'onNearbyPlaces', _this);
       _nearbyPlacesView.destroy();
       _nearbyPlacesView = null;
     }
@@ -271,6 +306,9 @@ var RegionalInfoModule = function (options) {
         url: (config ? config.GEOSERVE_WS_URL : null)
       });
     }
+
+    _nearbyPlacesView.on('places', 'onNearbyPlaces', _this);
+    _nearbyPlacesView.on('places-error', 'onNearbyPlaces', _this);
 
     _nearbyPlacesEl.innerHTML = '<h3>Nearby Places</h3>';
     _nearbyPlacesEl.appendChild(_nearbyPlacesView.el);

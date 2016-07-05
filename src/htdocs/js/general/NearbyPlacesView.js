@@ -105,6 +105,7 @@ var NearbyPlacesView = function (options) {
    */
   _this.onError = function () {
     _this.el.innerHTML = _errorMessage;
+    _this.trigger('places-error');
   };
 
   /**
@@ -123,6 +124,7 @@ var NearbyPlacesView = function (options) {
 
 
     _this.el.innerHTML = '<ul class="no-style">' + markup + '</ul>';
+    _this.trigger('places', data);
   };
 
   /**
