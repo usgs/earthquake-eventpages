@@ -1,10 +1,10 @@
+/* global L */
 'use strict';
 
 var EsriTerrain = require('leaflet/layer/EsriTerrain'),
     Formatter = require('core/Formatter'),
     GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
     GeoserveRegionSummaryView = require('general/GeoserveRegionSummaryView'),
-    LocationView = require('general/LocationView'),
     Module = require('core/Module'),
     NearbyPlacesView = require('general/NearbyPlacesView'),
     Util = require('util/Util');
@@ -43,8 +43,10 @@ var RegionalInfoModule = function (options) {
       _formatter,
       _locationEl,
       _locationView,
+      _map,
       _nearbyPlacesEl,
       _nearbyPlacesView,
+      _scale,
       _tectonicSummaryEl,
       _tectonicSummaryView;
 
@@ -172,6 +174,13 @@ var RegionalInfoModule = function (options) {
    *     the event.
    */
   _this.renderLocation = function (/*ev*/) {
+    var latitude,
+        longitude,
+        maxLatitude,
+        maxLongitude,
+        minLatitude,
+        minLongitude;
+
     // only create location view on first render
     // if (!_locationView) {
     //   _locationView = LocationView({
