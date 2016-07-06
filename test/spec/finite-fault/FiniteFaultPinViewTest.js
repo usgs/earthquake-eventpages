@@ -1,10 +1,11 @@
+
 /* global before, chai, describe, it */
 'use strict';
 
 
 var FiniteFaultPinView = require('finite-fault/FiniteFaultPinView'),
     Product = require('pdl/Product'),
-    Xhr = require('Util/Xhr');
+    Xhr = require('util/Xhr');
 
 
 var expect;
