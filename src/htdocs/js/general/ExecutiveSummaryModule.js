@@ -175,15 +175,6 @@ var ExecutiveSummaryModule = function (options) {
       return list;
     }
 
-    // Origin pin
-    product = ev.getPreferredOriginProduct();
-    if (product) {
-      _this.pinViews.push(OriginPinView({
-        el: _this.createPinContainer(list),
-        model: product
-      }));
-    }
-
     // Interactive Map pin
     // TODO :: Product ???
     _this.pinViews.push(InteractiveMapPinView({
@@ -227,6 +218,15 @@ var ExecutiveSummaryModule = function (options) {
     product = ev.getPreferredProduct(Product.getFullType('losspager', config));
     if (product) {
       _this.pinViews.push(PAGERPinView({
+        el: _this.createPinContainer(list),
+        model: product
+      }));
+    }
+
+    // Origin pin
+    product = ev.getPreferredOriginProduct();
+    if (product) {
+      _this.pinViews.push(OriginPinView({
         el: _this.createPinContainer(list),
         model: product
       }));
