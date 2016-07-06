@@ -8,7 +8,8 @@ var EsriTerrain = require('leaflet/layer/EsriTerrain'),
     Module = require('core/Module'),
     NearbyPlacesView = require('general/NearbyPlacesView'),
     Product = require('pdl/Product'),
-    Util = require('util/Util');
+    Util = require('util/Util'),
+    Xhr = require('util/Xhr');
 
 
 var _ID,
@@ -49,6 +50,7 @@ var RegionalInfoModule = function (options) {
       _mapRadius,
       _nearbyPlacesEl,
       _nearbyPlacesView,
+      _otherRegionInfoEl,
       _tectonicSummaryEl,
       _tectonicSummaryView;
 
@@ -75,6 +77,7 @@ var RegionalInfoModule = function (options) {
           '<div class="column one-of-three">',
             '<div class="regional-info-module-location"></div>',
             '<div class="regional-info-module-places"></div>',
+            '<div class="regional-info-module-regions"></div>',
           '</div>',
         '</div>',
         '<div class="regional-info-module-tectonic-summary"></div>',
@@ -84,6 +87,7 @@ var RegionalInfoModule = function (options) {
 
     _locationEl = el.querySelector('.regional-info-module-location');
     _nearbyPlacesEl = el.querySelector('.regional-info-module-places');
+    _otherRegionInfoEl = el.querySelector('.regional-info-module-regions');
 
     _tectonicSummaryEl = el.querySelector(
         '.regional-info-module-tectonic-summary');
@@ -118,6 +122,7 @@ var RegionalInfoModule = function (options) {
     _mapEl = null;
     _mapRadius = null;
     _nearbyPlacesEl = null;
+    _otherRegionInfoEl = null;
     _tectonicSummaryEl = null;
   }, _this.destroy);
 
@@ -221,6 +226,50 @@ var RegionalInfoModule = function (options) {
     }
   };
 
+  _this.onOtherRegionComplete = function (data) {
+    var admin,
+        fe,
+        markup;
+
+    if (!data || !data.admin || !data.fe) {
+      return;
+    }
+
+    markup = [];
+    admin = data.admin.features[0] || {};
+    fe = data.fe.features[0] || {};
+
+    if (admin.properties) {
+      admin = admin.properties;
+      markup.push([
+        '<h3>Administrative Region</h3>',
+        '<ul class="no-style regional-info-module-admin">',
+          '<li class="regional-info-module-admin-iso">',
+            '<strong>ISO</strong> ', admin.iso,
+          '</li>',
+          '<li class="regional-info-module-admin-country">',
+            '<strong>Country</strong> ', admin.country,
+          '</li>',
+          '<li class="regional-info-module-admin-region">',
+            '<strong>Region</strong> ', admin.region,
+          '</li>',
+        '</ul>',
+      ].join(''));
+    }
+
+    if (fe.properties) {
+      fe = fe.properties;
+      markup.push([
+        '<h3>Flinn Engdahl</h3>',
+        '<span class="regional-info-module-fe">',
+          fe.name, ' (', fe.number, ')',
+        '</span>'
+      ].join(''));
+    }
+
+    _otherRegionInfoEl.innerHTML = markup.join('');
+  };
+
   _this.render = function () {
     var ev;
 
@@ -232,6 +281,7 @@ var RegionalInfoModule = function (options) {
 
     _this.renderLocation(ev);
     _this.renderNearbyPlaces(ev);
+    _this.renderOtherRegionInfo(ev);
 
     _this.renderTectonicSummary(ev);
 
@@ -405,6 +455,37 @@ var RegionalInfoModule = function (options) {
     _nearbyPlacesEl.innerHTML = '<h3>Nearby Places</h3>';
     _nearbyPlacesEl.appendChild(_nearbyPlacesView.el);
     _nearbyPlacesView.render();
+  };
+
+  _this.renderOtherRegionInfo = function (ev) {
+    var config,
+        latitude,
+        longitude;
+
+    Util.empty(_otherRegionInfoEl);
+
+    if (!ev) {
+      return;
+    }
+
+    config = _this.model.get('config');
+    latitude = ev.getLatitude();
+    longitude = ev.getLongitude();
+
+    if (latitude === null || longitude === null) {
+      return;
+    }
+
+    Xhr.ajax({
+      url: ((config) ? config.GEOSERVE_WS_URL : null) + 'regions.json',
+      data: {
+        latitude: latitude,
+        longitude: longitude,
+        type: 'admin,fe'
+      },
+      success: _this.onOtherRegionComplete,
+      error: _this.onOtherRegionComplete
+    });
   };
 
   /**

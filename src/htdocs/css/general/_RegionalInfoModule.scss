@@ -1,15 +1,16 @@
 .regional-info-module-map {
   cursor: text;
   height: 310px;
+  margin-bottom: 1em;
 }
 
-@media screen and (min-height: 600px) {
+@media screen and (min-height: 600px) and (min-width: 900px) {
   .regional-info-module-map {
     height: 500px;
   }
 }
 
-@media screen and (min-height: 900px) {
+@media screen and (min-height: 900px) and (min-width: 1280px) {
   .regional-info-module-map {
     height: 640px;
   }
@@ -17,6 +18,13 @@
 
 .regional-info-module-location-coordinates {
   margin-top: 0;
+}
+
+.regional-info-module-admin > li > strong {
+  color: #555;
+  display: inline-block;
+  margin-right: 1em;
+  width: 4.5em;
 }
 
 .regional-info-module-tectonic-summary > .tectonic {
