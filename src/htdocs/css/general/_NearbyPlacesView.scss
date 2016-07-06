@@ -1,0 +1,21 @@
+.nearby-places-place {
+  margin-bottom: .5em;
+  overflow: hidden;
+  clear: both;
+}
+
+.nearby-places-name {
+  display: block;
+}
+
+.nearby-places-distance,
+.nearby-places-population {
+  display: block;
+  float: left;
+  font-size: smaller;
+  color: #666;
+}
+
+.nearby-places-population {
+  float: right;
+}

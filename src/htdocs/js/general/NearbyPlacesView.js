@@ -8,7 +8,8 @@ var ProductView = require('core/ProductView'),
 var _DEFAULTS;
 
 _DEFAULTS = {
-  errorMessage: 'Error loading nearby places.'
+  errorMessage: 'Error loading nearby places.',
+  renderNewLayout: false
 };
 
 
@@ -24,14 +25,17 @@ var NearbyPlacesView = function (options) {
 
       _errorMessage,
       _formatter,
+      _renderNewLayout,
       _xhr;
 
   _this = ProductView(options);
 
   _initialize = function (options) {
     options = Util.extend({}, _DEFAULTS, options);
+
     _errorMessage = options.errorMessage;
     _formatter = options.formatter || Formatter();
+    _renderNewLayout = options.renderNewLayout;
 
     _this.el.classList.add('nearby-places');
   };
@@ -86,15 +90,39 @@ var NearbyPlacesView = function (options) {
    *     The formatted place markup.
    */
   _this.formatPlace = function (place) {
-    return [
-      '<li>' +
-        _formatter.distance(place.distance, 'km') +
-        ' (' +
-          _formatter.distance(_formatter.kmToMi(place.distance), 'mi') +
-        ') ' +
-        place.direction + ' of ' + place.name +
-      '</li>'
-    ].join('');
+    var markup;
+
+    if (_renderNewLayout) {
+      markup = [
+        '<li class="nearby-places-place">',
+          '<span class="nearby-places-name">',
+            place.name,
+          '</span>',
+          '<aside class="nearby-places-distance">',
+            _formatter.distance(place.distance, 'km'),
+            ' (',
+              _formatter.distance(_formatter.kmToMi(place.distance), 'mi'),
+            ') ',
+            place.direction,
+          '</aside>',
+          '<aside class="nearby-places-population">Population: ',
+            _formatter.numberWithCommas(place.population),
+          '</aside>',
+        '</li>'
+      ];
+    } else {
+      markup = [
+        '<li>',
+          _formatter.distance(place.distance, 'km'),
+          ' (',
+            _formatter.distance(_formatter.kmToMi(place.distance), 'mi'),
+          ') ',
+          place.direction, ' of ', place.name,
+        '</li>'
+      ];
+    }
+
+    return markup.join('');
   };
 
   /**
@@ -123,7 +151,12 @@ var NearbyPlacesView = function (options) {
     }, '');
 
 
-    _this.el.innerHTML = '<ul class="no-style">' + markup + '</ul>';
+    _this.el.innerHTML = [
+      (!_renderNewLayout) ? '' :
+        ('<small>Direction data (below) indicate the ' +
+        'position of the event relative to the place.</small>'),
+        '<ul class="no-style">', markup, '</ul>'].join('');
+
     _this.trigger('places', data);
   };
 

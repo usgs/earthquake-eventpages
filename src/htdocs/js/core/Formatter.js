@@ -458,6 +458,17 @@ var Formatter = function (options) {
   };
 
   /**
+   * Put commas into a number for display.
+   */
+  _this.numberWithCommas = function (x) {
+    var parts = x.toString().split('.');
+
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    return parts.join('.');
+  };
+
+  /**
    * Format a UTC time.
    *
    * @param date {Date}

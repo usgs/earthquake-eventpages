@@ -7,6 +7,7 @@ var EsriTerrain = require('leaflet/layer/EsriTerrain'),
     GeoserveRegionSummaryView = require('general/GeoserveRegionSummaryView'),
     Module = require('core/Module'),
     NearbyPlacesView = require('general/NearbyPlacesView'),
+    Product = require('pdl/Product'),
     Util = require('util/Util');
 
 
@@ -48,7 +49,6 @@ var RegionalInfoModule = function (options) {
       _mapRadius,
       _nearbyPlacesEl,
       _nearbyPlacesView,
-      _scale,
       _tectonicSummaryEl,
       _tectonicSummaryView;
 
@@ -120,6 +120,72 @@ var RegionalInfoModule = function (options) {
     _tectonicSummaryEl = null;
   }, _this.destroy);
 
+  /**
+   * Finds a non-automatic nearby-cities product. If none exists, returns null.
+   *
+   * @param ev {CatalogEvent}
+   *     The event containing nearby-cities products.
+   *
+   * @param config {Object}
+   *     An object containing a SCENARIO_MODE and/or INTERNAL_MODE flag
+   *     (boolean) used to determine the full product types.
+   *
+   * @return {Product}
+   *     The most preferred, non-automatic nearby-cities product or null if
+   *     none exist.
+   */
+  _this.getNearbyPlacesProduct = function (ev, config) {
+    var nearbyCities,
+        origins,
+        product;
+
+    product = null;
+
+    nearbyCities = ev.getProducts(Product.getFullType('nearby-cities'), config);
+    origins = ev.getProducts(Product.getFullType('origin'), config);
+
+    // Have both nearby-cities and origin products. Look for a nearby-cities
+    // product that does not directly correspond to an origin. The resulting
+    // list of nearby-cities products will be only those manually sent by RSNs.
+    nearbyCities = nearbyCities.filter(function (nearbyCity) {
+      var match;
+
+      match = false;
+      origins.some(function (origin) {
+        match = _this.isAutomaticNearbyCity(nearbyCity, origin);
+        return match;
+      });
+
+      return !match; // If not matched, then not automatic --> keep product
+    });
+
+    // If we have any non-automatic nearby-cities, use the first (most
+    // preferred) one.
+    if (nearbyCities.length) {
+      product = nearbyCities[0];
+    }
+
+    return product;
+  };
+
+  _this.isAutomaticNearbyCity = function (nearbyCity, origin) {
+    var cityCode,
+        citySource,
+        cityUpdateTime,
+        originCode,
+        originUpdateTime;
+
+    citySource = nearbyCity.get('source');
+    cityCode = nearbyCity.get('code');
+    originCode = origin.get('code');
+
+    // If code matches and source is "us" then product is automatic.
+    return (
+      citySource === 'us' &&
+      cityCode === originCode
+    );
+  };
+
   _this.onNearbyPlaces = function (places) {
     var degrees,
         ev,
@@ -130,13 +196,17 @@ var RegionalInfoModule = function (options) {
 
     ev = _this.model.get('event');
 
-    if (ev) {
+    if (ev && _map) {
       places = places || [];
       place = places[places.length - 1] || {};
       km = place.distance;
 
       latitude = ev.getLatitude();
       longitude = ev.getLongitude();
+
+      if (latitude === null || longitude === null) {
+        return;
+      }
 
       if (km) {
         degrees = km / 111.2; // not regarding latitude, but close enough
@@ -158,7 +228,7 @@ var RegionalInfoModule = function (options) {
     ev = _this.model.get('event');
 
     _this.renderHeader(ev);
-    _this.renderLocation(ev);
+    _this.renderMap(ev);
     _this.renderNearbyPlaces(ev);
     _this.renderTectonicSummary(ev);
     _this.renderFooter(ev);
@@ -211,38 +281,31 @@ var RegionalInfoModule = function (options) {
   };
 
   /**
-   * Render location information for the event.
+   * Render map information for the event.
    *
    * @param ev {CatalogEvent}
    *     the event.
    */
-  _this.renderLocation = function (ev) {
+  _this.renderMap = function (ev) {
     var latitude,
-        longitude,
-        maxLatitude,
-        maxLongitude,
-        minLatitude,
-        minLongitude;
+        longitude;
+
+    if (_map) {
+      _map.remove();
+      _map = null;
+    }
+
+    if (!ev) {
+      return;
+    }
 
     latitude = ev.getLatitude();
     longitude = ev.getLongitude();
 
-    maxLatitude = latitude + _mapRadius;
-    minLatitude = latitude - _mapRadius;
-    maxLongitude = longitude + _mapRadius;
-    minLongitude = longitude - _mapRadius;
+    if (latitude === null || longitude === null) {
+      return;
+    }
 
-    // only create location view on first render
-    // if (!_locationView) {
-    //   _locationView = LocationView({
-    //     el: _locationEl,
-    //     formatter: _formatter,
-    //     model: _this.model,
-    //     module: _this
-    //   });
-    //   // only render first time, binds to model separately
-    //   _locationView.render();
-    // }
     _map = L.map(_locationEl, {
       attributionControl: false,
       boxZoom: false,
@@ -271,9 +334,7 @@ var RegionalInfoModule = function (options) {
       zoomControl: false
     });
 
-    _map.fitBounds([[minLatitude, minLongitude], [maxLatitude, maxLongitude]]);
-    _scale = L.control.scale({position: 'bottomleft'});
-    _map.addControl(_scale);
+    L.control.scale({position: 'bottomleft'}).addTo(_map);
   };
 
   /**
@@ -297,15 +358,17 @@ var RegionalInfoModule = function (options) {
 
     config = _this.model.get('config');
 
-    product = ev.getPreferredProduct('nearby-cities');
+    product = _this.getNearbyPlacesProduct(ev, config);
     if (product) {
       _nearbyPlacesView = NearbyPlacesView({
-        model: product
+        model: product,
+        renderNewLayout: true
       });
     } else {
       product = ev.getPreferredOriginProduct();
       _nearbyPlacesView = GeoserveNearbyPlacesView({
         model: product,
+        renderNewLayout: true,
         url: (config ? config.GEOSERVE_WS_URL : null)
       });
     }
