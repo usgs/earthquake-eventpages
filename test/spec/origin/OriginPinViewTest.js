@@ -43,7 +43,7 @@ describe('origin/OriginPinView', function () {
     it('displays reviewStatus content correctly', function () {
       view.renderPinContent();
       expect(view.el.querySelector('.origin-review-status').innerHTML).
-          to.equal('MANUAL');
+          to.equal('REVIEWED');
     });
   });
 });
