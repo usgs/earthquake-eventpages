@@ -46,6 +46,7 @@ require('./spec/core/SummaryModuleTest');
 require('./spec/core/TextProductViewTest');
 
 require('./spec/dyfi/DYFIFormModuleTest');
+require('./spec/dyfi/DYFIFormPinViewTest');
 require('./spec/dyfi/DYFIFormViewTest');
 require('./spec/dyfi/DYFIIntensityGraphViewTest');
 require('./spec/dyfi/DYFIModuleTest');

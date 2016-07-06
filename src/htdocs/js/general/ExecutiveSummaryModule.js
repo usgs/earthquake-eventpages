@@ -1,7 +1,8 @@
 'use strict';
 
 
-var DyfiPinView = require('dyfi/DyfiPinView'),
+var DyfiFormPinView = require('dyfi/DyfiFormPinView'),
+    DyfiPinView = require('dyfi/DyfiPinView'),
     FiniteFaultPinView = require('finite-fault/FiniteFaultPinView'),
     FocalMechanismPinView = require('core/BasicPinView'), // TODO
     InteractiveMapPinView = require('core/BasicPinView'), // TODO
@@ -197,6 +198,13 @@ var ExecutiveSummaryModule = function (options) {
       el: _this.createPinContainer(list),
       model: ev.getPreferredOriginProduct() // TODO ...
     }));
+
+    // DYFI Form pin
+    if (product) {
+      _this.pinViews.push(DyfiFormPinView({
+        el: _this.createPinContainer(list)
+      }));
+    }
 
     // DYFI pin
     product = ev.getPreferredProduct(Product.getFullType('dyfi', config));

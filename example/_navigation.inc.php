@@ -17,6 +17,7 @@ print navGroup('General',
   );
 
 print navGroup('Impact',
+    navItem('/dyfi/DYFIFormPinViewExample.php', 'DYFIFormPinView') .
     navItem('/dyfi/DYFIFormViewExample.php', 'DYFIFormView') .
     navItem('/dyfi/DYFIIntensityGraphViewExample.php',
         'DYFIIntensityGraphView') .
