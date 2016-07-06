@@ -1,55 +1,79 @@
 'use strict';
 
 var BasicPinView = require('core/BasicPinView'),
+    Formatter = require('core/Formatter'),
+    OriginModule = require('origin/OriginModule'),
     Util = require('util/Util');
 
 
 var _DEFAULTS = {
-  module: {ID: 'origin', TITLE: 'Origin'}
+  module: OriginModule
 };
 
 
 var OriginPinView = function (options) {
-  var _this;
+  var _this,
+      _initialize,
+
+      _formatter;
 
   options = Util.extend({}, _DEFAULTS, options);
   _this = BasicPinView(options);
+
+  _initialize = function (options) {
+    _formatter = options.formatter || Formatter();
+  };
+
+  _this.destroy = Util.compose(function () {
+    _formatter = null;
+
+    _initialize = null;
+    _this = null;
+  }, _this.destroy);
 
   /**
    * Renders Origin content
    */
   _this.renderPinContent = function () {
-    var magnitude,
-        magnitudeType,
+    var depth,
+        latitude,
+        location,
+        longitude,
         product,
-        reviewStatus;
+        reviewStatus,
+        time;
 
     product = _this.model;
 
-    magnitude = product.getProperty('magnitude');
-    magnitudeType = product.getProperty('magnitude-type');
-    reviewStatus = product.getProperty('review-status') || 'AUTOMATIC';
+    depth = product.getProperty('depth');
+    latitude = product.getProperty('latitude');
+    longitude = product.getProperty('longitude');
+    reviewStatus =
+        product.getProperty('review-status').toUpperCase() || 'AUTOMATIC';
+    time = product.getProperty('eventtime');
 
-    if (reviewStatus !== 'AUTOMATIC') {
-      reviewStatus = 'MANUAL';
-    }
+    depth = _formatter.depth(depth, 'km');
+    location = _formatter.location(latitude, longitude);
+    time = (time === null ? '&ndash;' :
+        '<time datetime="' + time + '">' +
+          time.replace('T', '<br />').replace('Z', ' (UTC)') +
+        '</time>');
 
     _this.content.innerHTML =
-      '<div class="origin-pin-badge" ' +
-          'title="Origin magnitude">' +
-        '<strong class="origin-magnitude">' +
-          magnitude +
-        '</strong>' +
-        '<br />' +
-        '<abbr class="origin-magnitude-type" title="Magnitude type">' +
-          magnitudeType +
-        '</abbr>' +
-      '</div>' +
-      '<div class="origin-review-status">' +
-        reviewStatus +
-      '</div>';
+        '<dl class="no-style origin-pin-view">' +
+          '<dt>Review Status:</dt>' +
+            '<dd class="origin-pin-review-status">' + reviewStatus + '</dd>' +
+          '<dt>Location:</dt>' +
+            '<dd class="origin-pin-location">' + location + '</dd>' +
+          '<dt>Depth:</dt>' +
+            '<dd class="origin-pin-depth">' + depth + '</dd>' +
+          '<dt>Time:</dt>' +
+            '<dd class="origin-pin-time">' + time + '</dd>' +
+        '</dl>';
   };
 
+
+  _initialize(options);
   options = null;
   return _this;
 };

@@ -291,7 +291,7 @@ var OriginView = function (options) {
         '<td class="fe-info">' + _this.getFeRegion() + '</td></tr>');
 
     buf.push('<tr><th scope="row">Review Status</th><td>',
-        reviewStatus.toUpperCase().replace('REVIEWED', 'MANUAL'),
+        reviewStatus.toUpperCase(),
         '</td></tr>');
 
     buf.push(

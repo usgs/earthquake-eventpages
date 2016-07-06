@@ -1,4 +1,4 @@
-/* global chai, describe, it */
+/* global before, chai, describe, it */
 'use strict';
 
 var OriginPinView = require('origin/OriginPinView'),
@@ -15,35 +15,44 @@ describe('origin/OriginPinView', function () {
   });
 
   describe('renderPinContent', function () {
-    var view;
+    var product;
 
-    Xhr.ajax({
-      url: '/events/us10004u1y.json',
-      success: function (data) {
-        var product;
-
-        product = Product(data.properties.products['phase-data'][0]);
-
-        view = OriginPinView({
-          model: product,
-          module: {ID: 'phase-data', TITLE: 'Origin'}
-        });
-      },
-      error: function (e) {
-        console.log(e);
-      }
+    before(function (done) {
+      Xhr.ajax({
+        url: '/events/us10004u1y.json',
+        success: function (data) {
+          product = Product(data.properties.products['phase-data'][0]);
+          done();
+        },
+        error: function () {
+          done();
+        }
+      });
     });
 
-    it('displays magnitude content correctly', function () {
-      view.renderPinContent();
-      expect(view.el.querySelector('.origin-magnitude').innerHTML).
-          to.equal('7.8');
-    });
+    it('displays origin info content', function () {
+      var view;
 
-    it('displays reviewStatus content correctly', function () {
+      view = OriginPinView({
+        model: product
+      });
+
       view.renderPinContent();
-      expect(view.el.querySelector('.origin-review-status').innerHTML).
-          to.equal('MANUAL');
+
+      expect(view.el.querySelectorAll('dl').length).to.equal(1);
+      expect(view.el.querySelectorAll('dt').length).to.equal(4);
+      expect(view.el.querySelectorAll('dd').length).to.equal(4);
+
+      expect(view.el.querySelector('.origin-pin-review-status').innerHTML).
+          to.equal('REVIEWED');
+      expect(view.el.querySelector('.origin-pin-location').innerHTML).
+          to.equal('86.908°S&nbsp;94.275°E');
+      expect(view.el.querySelector('.origin-pin-depth').innerHTML).
+          to.equal('24.0 km');
+      expect(view.el.querySelector('.origin-pin-time').innerHTML).
+          to.equal('<time datetime="2016-03-02T12:49:48.360Z">2016-03-02<br>12:49:48.360 (UTC)</time>');
+
+      view.destroy();
     });
   });
 });

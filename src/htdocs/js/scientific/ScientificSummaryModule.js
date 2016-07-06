@@ -444,7 +444,7 @@ var ScientificSummaryModule = function (options) {
         _formatter.depth(product.getProperty('depth')),
       '</td>',
       '<td>',
-        reviewStatus.toUpperCase().replace('REVIEWED', 'MANUAL'),
+        reviewStatus.toUpperCase(),
       '</td>',
       '<td>',
         _formatter.location(
