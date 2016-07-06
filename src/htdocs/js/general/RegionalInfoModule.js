@@ -44,7 +44,6 @@ var RegionalInfoModule = function (options) {
       _initialize,
 
       _formatter,
-      _map,
       _mapEl,
       _mapRadius,
       _nearbyPlacesEl,
@@ -95,8 +94,9 @@ var RegionalInfoModule = function (options) {
    * Free references.
    */
   _this.destroy = Util.compose(function () {
-    _this = null;
-    _initialize = null;
+    if (_this === null) {
+      return;
+    }
 
     if (_nearbyPlacesView) {
       _nearbyPlacesView.off('places', 'onNearbyPlaces', _this);
@@ -110,16 +110,19 @@ var RegionalInfoModule = function (options) {
       _tectonicSummaryView = null;
     }
 
-    if (_map) {
-      _map.remove();
+    if (_this.map) {
+      _this.map.remove();
     }
 
-    _map = null;
     _mapEl = null;
     _mapRadius = null;
     _nearbyPlacesEl = null;
     _otherRegionInfoEl = null;
     _tectonicSummaryEl = null;
+
+
+    _initialize = null;
+    _this = null;
   }, _this.destroy);
 
   /**
@@ -196,7 +199,7 @@ var RegionalInfoModule = function (options) {
 
     ev = _this.model.get('event');
 
-    if (ev && _map) {
+    if (ev && _this.map) {
       places = places || [];
       place = places[places.length - 1] || {};
       km = place.distance;
@@ -214,10 +217,12 @@ var RegionalInfoModule = function (options) {
         degrees = _mapRadius;
       }
 
-      // Use Math.max to provide some minimum extent for context...
-      _map.fitBounds([
-        [latitude + Math.max(degrees, 1), longitude + Math.max(degrees, 1)],
-        [latitude - Math.max(degrees, 1), longitude - Math.max(degrees, 1)]
+      // Provide some minimum extent for context...
+      degrees = Math.max(degrees, 1);
+
+      _this.map.fitBounds([
+        [latitude + degrees, longitude + degrees],
+        [latitude - degrees, longitude - degrees]
       ]);
     }
   };
@@ -339,9 +344,9 @@ var RegionalInfoModule = function (options) {
     var latitude,
         longitude;
 
-    if (_map) {
-      _map.remove();
-      _map = null;
+    if (_this.map) {
+      _this.map.remove();
+      _this.map = null;
     }
 
     if (!ev) {
@@ -355,7 +360,7 @@ var RegionalInfoModule = function (options) {
       return;
     }
 
-    _map = L.map(_mapEl, {
+    _this.map = L.map(_mapEl, {
       attributionControl: false,
       boxZoom: false,
       center: [latitude, longitude],
@@ -383,7 +388,7 @@ var RegionalInfoModule = function (options) {
       zoomControl: false
     });
 
-    L.control.scale({position: 'bottomleft'}).addTo(_map);
+    L.control.scale({position: 'bottomleft'}).addTo(_this.map);
   };
 
   /**
