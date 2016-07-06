@@ -78,6 +78,7 @@ require('./spec/losspager/PAGERViewTest');
 require('./spec/losspager/PagerXmlParserTest');
 
 require('./spec/map/InteractiveMapModuleTest');
+require('./spec/map/InteractiveMapPinViewTest');
 require('./spec/map/InteractiveMapViewTest');
 
 require('./spec/moment-tensor/BeachBallViewTest');

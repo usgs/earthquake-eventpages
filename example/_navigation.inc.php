@@ -13,6 +13,7 @@ print navGroup('General',
     navItem('/general/GeoserveNearbyPlacesViewExample.php',
         'Geoserve Nearby Places View') .
     navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View') .
+    navItem('/map/InteractiveMapPinViewExample.php', 'Interactive Map Pin') .
     navItem('/general/TsunamiPinViewExample.php', 'Tsunami Pin View')
   );
 

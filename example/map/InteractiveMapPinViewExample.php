@@ -1,7 +1,7 @@
 <?php
 if (!isset($TEMPLATE)) {
 
-  $TITLE = 'DYFIView';
+  $TITLE = 'InteractiveMapPinView';
 
   // If you want to include section navigation.
   // The nearest _navigation.inc.php file will be used by default
@@ -11,17 +11,23 @@ if (!isset($TEMPLATE)) {
   $HEAD = '
     <link rel="stylesheet" href="/lib/leaflet-0.7.7/leaflet.css"/>
     <link rel="stylesheet" href="/css/event.css"/>
+    <style>
+      .map-pin-view-example {
+        width: 210px;
+        height: 310px;
+      }
+    </style>
   ';
 
   // Stuff that goes at the bottom of the page (i.e. <script> tags)
   $FOOT = '
     <script src="/js/classes.js"></script>
     <script src="/lib/leaflet-0.7.7/leaflet.js"></script>
-    <script src="DYFIViewExample.js"></script>
+    <script src="InteractiveMapPinViewExample.js"></script>
   ';
 
   include 'template.inc.php';
 }
 ?>
 
-<div id="dyfi-view-example"></div>
+<div class="map-pin-view-example"></div>

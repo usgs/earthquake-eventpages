@@ -1,15 +1,16 @@
 'use strict';
 
 var CatalogEvent = require('pdl/CatalogEvent'),
+    InteractiveMapPinView = require('map/InteractiveMapPinView'),
     Model = require('mvc/Model'),
-    InteractiveMapView = require('map/InteractiveMapView'),
     Xhr = require('util/Xhr');
 
 Xhr.ajax({
   url: '/events/us10004u1y_orig.json',
   success: function (data) {
-    InteractiveMapView({
-      el: document.querySelector('#interactivemap-view-example'),
+
+    InteractiveMapPinView({
+      el: document.querySelector('.map-pin-view-example'),
       model: Model({
         'event': CatalogEvent(data),
         'config': {}
@@ -17,10 +18,14 @@ Xhr.ajax({
     }).render();
   },
   error: function () {
-    document.querySelector('#interactivemap-view-example').innerHTML = [
+    document.querySelector('.map-pin-view-example').innerHTML = [
       '<p class="alert error">',
-        'Failed to create a InteractiveMap view.',
+        'Failed to create Map Pin view.',
       '</p>'
     ].join('');
   }
 });
+
+
+
+
