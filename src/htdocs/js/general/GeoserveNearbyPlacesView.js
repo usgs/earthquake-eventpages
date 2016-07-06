@@ -60,6 +60,7 @@ var GeoserveNearbyPlacesView = function (options) {
    */
   _this.onError = function () {
     _this.el.innerHTML = 'Unable to load geoserve web service, URL: ' + _url;
+    _this.trigger('places-error');
   };
 
   /**
@@ -88,7 +89,8 @@ var GeoserveNearbyPlacesView = function (options) {
       return {
         distance: item.properties.distance,
         direction: _formatter.compassWinds(azimuth),
-        name: item.properties.name + ', ' + countryOrState
+        name: item.properties.name + ', ' + countryOrState,
+        population: item.properties.population
       };
     });
   }, _this.onSuccess);

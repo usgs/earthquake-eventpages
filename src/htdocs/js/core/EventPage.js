@@ -18,6 +18,7 @@ var Attribution = require('core/Attribution'),
     MomentTensorModule = require('moment-tensor/MomentTensorModule'),
     OriginModule = require('origin/OriginModule'),
     PAGERModule = require('losspager/PAGERModule'),
+    RegionalInfoModule = require('general/RegionalInfoModule'),
     ScientificSummaryModule = require('scientific/ScientificSummaryModule'),
     ShakeMapModule = require('shakemap/ShakeMapModule'),
     Util = require('util/Util'),
@@ -33,6 +34,7 @@ var _DEFAULTS = {
     // General
     [
       ExecutiveSummaryModule,
+      RegionalInfoModule,
       GeneralSummaryModule,
       InteractiveMapModule
     ],

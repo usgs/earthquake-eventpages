@@ -1,4 +1,12 @@
+.page-header {
+  > h1 {
+    margin-bottom: 0;
+  }
+}
+
 .event-header {
+  margin-bottom: 0.75em;
+
   > .event-datetime,
   > .event-coordinates {
     color: #444;
