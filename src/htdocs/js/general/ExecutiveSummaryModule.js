@@ -200,14 +200,13 @@ var ExecutiveSummaryModule = function (options) {
     }));
 
     // DYFI Form pin
-    if (product) {
-      _this.pinViews.push(DyfiFormPinView({
-        el: _this.createPinContainer(list)
-      }));
-    }
+    product = ev.getPreferredProduct(Product.getFullType('dyfi', config));
+    _this.pinViews.push(DyfiFormPinView({
+      el: _this.createPinContainer(list),
+      model: product || Product()
+    }));
 
     // DYFI pin
-    product = ev.getPreferredProduct(Product.getFullType('dyfi', config));
     if (product) {
       _this.pinViews.push(DyfiPinView({
         el: _this.createPinContainer(list),
