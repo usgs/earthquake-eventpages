@@ -25,8 +25,7 @@ describe('shakemap/ShakeMapPinView', function () {
         product = Product(data.properties.products.shakemap[0]);
 
         view = ShakeMapPinView({
-          model: product,
-          module: {ID: 'shakemap', TITLE: 'ShakeMap'}
+          model: product
         });
       },
       error: function (e) {
