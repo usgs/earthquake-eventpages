@@ -16,6 +16,7 @@ var OriginPinView = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = BasicPinView(options);
 
+
   /**
    * Renders Origin content
    */
@@ -29,11 +30,8 @@ var OriginPinView = function (options) {
 
     magnitude = product.getProperty('magnitude');
     magnitudeType = product.getProperty('magnitude-type');
-    reviewStatus = product.getProperty('review-status') || 'AUTOMATIC';
-
-    if (reviewStatus !== 'AUTOMATIC') {
-      reviewStatus = 'MANUAL';
-    }
+    reviewStatus =
+        product.getProperty('review-status').toUpperCase() || 'AUTOMATIC';
 
     _this.content.innerHTML =
       '<div class="origin-pin-badge" ' +
