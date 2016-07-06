@@ -1,7 +1,8 @@
 'use strict';
 
 
-var BasicPinView = require('core/BasicPinView'),
+var Attribution = require('core/Attribution'),
+    BasicPinView = require('core/BasicPinView'),
     InteractiveMapView = require('map/InteractiveMapView'),
     Util = require('util/Util');
 
@@ -28,14 +29,10 @@ var MapPinView = function (options) {
   _initialize = function (/*options*/) {
     var el;
 
-    // Turn off the shakemap contours.
-    _this.model.set(
-        {'map':{'ShakeMap MMI Contours':false}},
-        {'silent':true}
-      );
-
     el = document.createElement('div');
     el.classList.add('locationview-map');
+
+    _this.product = _this.model.get('event').getPreferredOriginProduct();
 
     _this.content.appendChild(el);
 
@@ -65,6 +62,9 @@ var MapPinView = function (options) {
    * This pin doesn't have a contributor.
    */
   _this.renderPinFooter = function () {
+
+    _this.footer.innerHTML = 'Contributed by ' +
+        Attribution.getProductAttribution(_this.product);
   };
 
 
