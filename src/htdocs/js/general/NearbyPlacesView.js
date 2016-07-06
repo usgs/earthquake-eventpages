@@ -151,12 +151,7 @@ var NearbyPlacesView = function (options) {
     }, '');
 
 
-    _this.el.innerHTML = [
-      (!_renderNewLayout) ? '' :
-        ('<small>Direction data (below) indicate the ' +
-        'position of the event relative to the place.</small>'),
-        '<ul class="no-style">', markup, '</ul>'].join('');
-
+    _this.el.innerHTML = '<ul class="no-style">' + markup + '</ul>';
     _this.trigger('places', data);
   };
 

@@ -44,7 +44,6 @@ var RegionalInfoModule = function (options) {
       _initialize,
 
       _formatter,
-      _locationEl,
       _map,
       _mapEl,
       _mapRadius,
@@ -70,22 +69,20 @@ var RegionalInfoModule = function (options) {
     el = _this.content;
     el.classList.add('regional-info-module');
     el.innerHTML = [
-        '<div class="row">',
+        '<div class="row right-to-left">',
+          '<div class="column one-of-three">',
+            '<div class="regional-info-module-regions"></div>',
+            '<div class="regional-info-module-places"></div>',
+          '</div>',
           '<div class="column two-of-three">',
             '<div class="regional-info-module-map"></div>',
-          '</div>',
-          '<div class="column one-of-three">',
-            '<div class="regional-info-module-location"></div>',
-            '<div class="regional-info-module-places"></div>',
-            '<div class="regional-info-module-regions"></div>',
+          '<div class="regional-info-module-tectonic-summary"></div>',
           '</div>',
         '</div>',
-        '<div class="regional-info-module-tectonic-summary"></div>',
     ].join('');
 
     _mapEl = el.querySelector('.regional-info-module-map');
 
-    _locationEl = el.querySelector('.regional-info-module-location');
     _nearbyPlacesEl = el.querySelector('.regional-info-module-places');
     _otherRegionInfoEl = el.querySelector('.regional-info-module-regions');
 
@@ -117,7 +114,6 @@ var RegionalInfoModule = function (options) {
       _map.remove();
     }
 
-    _locationEl = null;
     _map = null;
     _mapEl = null;
     _mapRadius = null;
@@ -260,7 +256,7 @@ var RegionalInfoModule = function (options) {
     if (fe.properties) {
       fe = fe.properties;
       markup.push([
-        '<h3>Flinn Engdahl</h3>',
+        '<h3>Flinn Engdahl Region</h3>',
         '<span class="regional-info-module-fe">',
           fe.name, ' (', fe.number, ')',
         '</span>'
@@ -279,9 +275,8 @@ var RegionalInfoModule = function (options) {
 
     _this.renderMap(ev);
 
-    _this.renderLocation(ev);
-    _this.renderNearbyPlaces(ev);
     _this.renderOtherRegionInfo(ev);
+    _this.renderNearbyPlaces(ev);
 
     _this.renderTectonicSummary(ev);
 
@@ -331,28 +326,6 @@ var RegionalInfoModule = function (options) {
       ].join('');
     } else {
       _this.header.innerHTML = '';
-    }
-  };
-
-  _this.renderLocation = function (ev) {
-    var latitude,
-        longitude;
-
-    Util.empty(_locationEl);
-
-    if (!ev) {
-      return;
-    }
-
-    latitude = ev.getLatitude();
-    longitude = ev.getLongitude();
-
-    if (latitude !== null && longitude !== null) {
-      _locationEl.innerHTML = [
-        '<p class="regional-info-module-location-coordinates alert success">',
-          _formatter.location(latitude, longitude),
-        '</p>'
-      ].join('');
     }
   };
 
@@ -452,7 +425,12 @@ var RegionalInfoModule = function (options) {
     _nearbyPlacesView.on('places', 'onNearbyPlaces', _this);
     _nearbyPlacesView.on('places-error', 'onNearbyPlaces', _this);
 
-    _nearbyPlacesEl.innerHTML = '<h3>Nearby Places</h3>';
+    _nearbyPlacesEl.innerHTML = '<h3>Nearby Places</h3>' +
+        '<small>' +
+          'Direction data (below) indicate the position of the event ' +
+          'relative to the place.' +
+        '</small>';
+
     _nearbyPlacesEl.appendChild(_nearbyPlacesView.el);
     _nearbyPlacesView.render();
   };

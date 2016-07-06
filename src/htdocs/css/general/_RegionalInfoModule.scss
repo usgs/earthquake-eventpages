@@ -20,32 +20,45 @@
   margin-top: 0;
 }
 
+.regional-info-module-places > small {
+  color: #666;
+}
+
+.regional-info-module-regions > :first-child {
+  margin-top: 0;
+}
+
 .regional-info-module-admin > li > strong {
-  color: #555;
+  color: #666;
   display: inline-block;
+  font-size: 0.88em;
   margin-right: 1em;
   width: 4.5em;
 }
 
 .regional-info-module-tectonic-summary > .tectonic {
   background-repeat: no-repeat;
-  display: inline-block;
-  margin: 1em 0 1em;
+  display: block;
+  margin: 0 auto 2em;
   position: relative;
   width: 304px;
-
-  @media (min-width: 560px) {
-    float: right;
-  }
 
   &:after{
     bottom: -1.5em;
     content: 'Map of Tectonic Summary Region';
     display: block;
     font-size: 0.75em;
-    left: 1em;
+    left: 50%;
+    margin-left: -152px;
     position: absolute;
+    text-align: center;
+    width: 304px;
   }
+
+  @media screen and (min-width: 740px) and (max-width: 767px), screen and (min-width: 960px) {
+    float: right;
+  }
+
 
   &.aleutian {
     background-image: url('http://earthquake.usgs.gov/earthquakes/tectonic/images/aleutian_tsum304.jpg');
