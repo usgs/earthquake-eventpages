@@ -34,8 +34,7 @@ describe('origin/OriginPinView', function () {
       var view;
 
       view = OriginPinView({
-        model: product,
-        module: {ID: 'phase-data', TITLE: 'Origin'}
+        model: product
       });
 
       view.renderPinContent();
