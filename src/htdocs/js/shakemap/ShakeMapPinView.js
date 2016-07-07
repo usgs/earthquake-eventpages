@@ -26,7 +26,7 @@ var ShakeMapPinView = function (options) {
 
     if (tvMap !== null) {
       tvMap = '<div class="shakemap-tvmap">' +
-          '<img src="' + tvMap.get('url') + '" />' +
+          '<img src="' + tvMap.get('url') + '" alt="Intensity Map"/>' +
           '</div>';
     } else {
       tvMap = '<p>Map not available</p>';
