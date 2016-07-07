@@ -1,10 +1,12 @@
 'use strict';
 
 
-var BasicPinView = require('core/BasicPinView'),
+var Attribution = require('core/Attribution'),
+    BasicPinView = require('core/BasicPinView'),
     CatalogEvent = require('pdl/CatalogEvent'),
     Formatter = require('core/Formatter'),
     ImpactSummaryModule = require('impact/ImpactSummaryModule'),
+    Product = require('pdl/Product'),
     Util = require('util/Util');
 
 
@@ -23,6 +25,7 @@ var ImpactPinView = function (options) {
   var _this,
       _initialize,
 
+      _config,
       _formatter;
 
 
@@ -38,6 +41,7 @@ var ImpactPinView = function (options) {
    *     The event for which to generate impact pins.
    */
   _initialize = function (options) {
+    _config = options.config || {};
     _formatter = options.formatter || Formatter();
 
     _this.event = options.event || CatalogEvent();
@@ -53,6 +57,7 @@ var ImpactPinView = function (options) {
       return;
     }
 
+    _config = null;
     _formatter = null;
 
     _initialize = null;
@@ -72,6 +77,51 @@ var ImpactPinView = function (options) {
     bubble.classList.add('impact-pin-view-bubble');
 
     return bubble;
+  };
+
+  /**
+   * Creates an attribution string for each unique contributor of DYFI,
+   * ShakeMap and PAGER products.
+   *
+   * @return {String}
+   *     An attribution string.
+   */
+  _this.getAttribution = function () {
+    var product,
+        source,
+        sourceKeys,
+        sources;
+
+    sources = {};
+
+    product = _this.event.getPreferredProduct(Product.getFullType(
+        'dyfi', _config));
+    if (product) {
+      source = product.get('source');
+      sources[source] = Attribution.getContributorReference(source);
+    }
+
+    product = _this.event.getPreferredProduct(Product.getFullType(
+        'shakemap', _config));
+    if (product) {
+      source = product.get('source');
+      sources[source] = Attribution.getContributorReference(source);
+    }
+
+    product = _this.event.getPreferredProduct(Product.getFullType(
+        'losspager', _config));
+    if (product) {
+      source = product.get('source');
+      sources[source] = Attribution.getContributorReference(source);
+    }
+
+    // Make list alphabetical
+    sourceKeys = Object.keys(sources);
+    sourceKeys.sort();
+
+    return sourceKeys.map(function (key) {
+      return sources[key];
+    }).join(', ');
   };
 
   /**
@@ -205,6 +255,15 @@ var ImpactPinView = function (options) {
     fragment.appendChild(_this.getPagerBubble(summary));
 
     _this.content.appendChild(fragment);
+  };
+
+  /**
+   * Renders the pin footer.
+   *
+   */
+  _this.renderPinFooter = function () {
+    _this.footer.innerHTML = 'Contributed by ' +
+        _this.getAttribution();
   };
 
 
