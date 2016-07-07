@@ -2,6 +2,7 @@
 
 
 var BasicPinView = require('core/BasicPinView'),
+    Formatter = require('core/Formatter'),
     PAGERModule = require('losspager/PAGERModule'),
     Util = require('util/Util');
 
@@ -11,12 +12,18 @@ var _DEFAULTS = {
 
 
 var PAGERPinView = function (options) {
-  var _this;
+  var _this,
+      _initialize,
+
+      _formatter;
 
 
   options = Util.extend({}, _DEFAULTS, options);
   _this = BasicPinView(options);
 
+  _initialize = function (options) {
+    _formatter = options.formatter || Formatter();
+  };
 
   /**
    * Render the histograms as PAGERPinView content
@@ -44,7 +51,32 @@ var PAGERPinView = function (options) {
     _this.content.innerHTML = markup.join('');
   };
 
+  /**
+   * Render the pager level in PAGERPinView header
+   */
+  _this.renderPinHeader = function () {
+    var alertlevel,
+        display,
+        properties;
 
+    // Use module ID and TITLE to create a link
+    display = _this.module.TITLE;
+    properties = _this.model.get('properties');
+    alertlevel = (properties ? properties.alertlevel : null);
+
+    _this.header.innerHTML = [
+      '<a href="', _this.getLinkUrl(), '">', display, '</a>',
+      (alertlevel ?
+      '<span class="pager-bubble pager-alertlevel-' + alertlevel + '">' +
+        '<strong class="roman">' +
+          alertlevel.toUpperCase() +
+        '</strong>' +
+      '</span>' : null)
+    ].join('');
+  };
+
+
+  _initialize(options);
   options = null;
   return _this;
 };
