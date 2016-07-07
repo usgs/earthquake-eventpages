@@ -59,7 +59,7 @@ var ImpactPinView = function (options) {
     fragment = document.createDocumentFragment();
     value = (summary && summary.properties) ? summary.properties.cdi : null;
 
-    if (value !== null) {
+    if (value !== null && typeof value !== 'undefined') {
       cdi = _formatter.mmi(value);
       bubble = fragment.appendChild(_this.createBubble());
       bubble.classList.add('mmi' + cdi);
@@ -86,7 +86,7 @@ var ImpactPinView = function (options) {
     fragment = document.createDocumentFragment();
     value = (summary && summary.properties) ? summary.properties.alert : null;
 
-    if (value !== null) {
+    if (value !== null && typeof value !== 'undefined') {
       bubble = fragment.appendChild(_this.createBubble());
       bubble.classList.add('pager-alertlevel-' + value);
 
@@ -113,7 +113,7 @@ var ImpactPinView = function (options) {
     fragment = document.createDocumentFragment();
     value = (summary && summary.properties) ? summary.properties.mmi : null;
 
-    if (value !== null) {
+    if (value !== null && typeof value !== 'undefined') {
       mmi = _formatter.mmi(value);
       bubble = fragment.appendChild(_this.createBubble());
       bubble.classList.add('mmi' + mmi);
@@ -137,6 +137,11 @@ var ImpactPinView = function (options) {
         summary;
 
     Util.empty(_this.content);
+
+    if (!_this.event) {
+      return;
+    }
+
     fragment = document.createDocumentFragment();
     summary = _this.event.getSummary();
 

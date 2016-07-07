@@ -5,6 +5,7 @@ var DyfiFormPinView = require('dyfi/DYFIFormPinView'),
     DyfiPinView = require('dyfi/DYFIPinView'),
     FiniteFaultPinView = require('finite-fault/FiniteFaultPinView'),
     FocalMechanismPinView = require('core/BasicPinView'), // TODO
+    ImpactPinView = require('impact/ImpactPinView'),
     InteractiveMapPinView = require('map/InteractiveMapPinView'),
     MomentTensorPinView = require('moment-tensor/MomentTensorPinView'),
     OriginPinView = require('origin/OriginPinView'),
@@ -163,6 +164,7 @@ var ExecutiveSummaryModule = function (options) {
    */
   _this.getPins = function (ev) {
     var config,
+        eventProps,
         list,
         product;
 
@@ -173,6 +175,18 @@ var ExecutiveSummaryModule = function (options) {
 
     if (!ev) {
       return list;
+    }
+
+    eventProps = ev.getSummary().properties || {};
+
+    // Impact pin
+    if (eventProps.cdi !== null || eventProps.mmi !== null ||
+        eventProps.alert !== null) {
+      _this.pinViews.push(ImpactPinView({
+        el: _this.createPinContainer(list),
+        event: ev,
+        model: ev.getPreferredOriginProduct() || Product()
+      }));
     }
 
     // Interactive Map pin
