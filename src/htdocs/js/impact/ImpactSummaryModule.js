@@ -17,7 +17,7 @@ var _ID,
     _TYPES;
 
 _ID = 'impact';
-_TITLE = 'Impact Summary';
+_TITLE = 'Impact';
 _TYPES = ['dyfi', 'shakemap', 'losspager'];
 
 

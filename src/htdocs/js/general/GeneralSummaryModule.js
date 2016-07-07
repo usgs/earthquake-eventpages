@@ -19,7 +19,8 @@ var _ID,
 
 // Note: These should be overridden by each implementing sub-class.
 _ID = 'general';
-_TITLE = 'General Summary';
+_TITLE = 'General ' +
+    '<small title="This page will be removed in the future">(Legacy)</small>';
 
 _hasContent = function (eventPageModel) {
   var ev;
