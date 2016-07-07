@@ -8,6 +8,7 @@ var BasicPinView = require('core/BasicPinView'),
 
 
 var _DEFAULTS = {
+  className: 'moment-tensor-pin-beachball',
   fillColor: '#6ea8ff',
   module: MomentTensorModule
 };
@@ -17,6 +18,8 @@ var MomentTensorPinView = function (options) {
   var _this,
       _initialize,
 
+      _beachballView,
+      _className,
       _fillColor,
       _tensor;
 
@@ -24,11 +27,18 @@ var MomentTensorPinView = function (options) {
   _this = BasicPinView(options);
 
   _initialize = function (options) {
+    _className = options.className;
     _fillColor = options.fillColor;
     _tensor = Tensor.fromProduct(_this.model);
   };
 
   _this.destroy = Util.compose(function () {
+    if (_beachballView) {
+      _beachballView.destroy();
+    }
+
+    _beachballView = null;
+    _className = null;
     _fillColor = null;
     _tensor = null;
 
@@ -40,23 +50,19 @@ var MomentTensorPinView = function (options) {
    * Creats pin content
    */
   _this.renderPinContent = function () {
-    var beachball;
+    Util.empty(_this.content);
 
-    _this.content.innerHTML = '<div class="moment-tensor-pin-beachball"></div>';
-
-    beachball = _this.content.querySelector('.moment-tensor-pin-beachball');
-
-    beachball = BeachBallView({
-      el: beachball,
+    _beachballView = BeachBallView({
       fillColor: _fillColor,
+      labelAxes: false,
       labelPlanes: false,
-      size: 320,
+      size: 200,
       tensor: _tensor
     });
 
-    beachball.render();
-    beachball.destroy();
-    beachball = null;
+    _beachballView.el.classList.add(_className);
+    _this.content.appendChild(_beachballView.el);
+    _beachballView.render();
   };
 
 

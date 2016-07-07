@@ -96,7 +96,7 @@ describe('moment-tensor/MomentTensorPinViewTest', function () {
       view.renderPinContent();
 
       expect(view.el.querySelector('.moment-tensor-pin-beachball').innerHTML).
-          to.equal('<canvas width="320" height="320"></canvas>');
+          to.equal('<canvas width="200" height="200"></canvas>');
     });
   });
 });
