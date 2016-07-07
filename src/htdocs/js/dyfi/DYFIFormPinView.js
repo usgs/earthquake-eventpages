@@ -49,7 +49,11 @@ var DYFIFormPinView = function (options) {
         '<strong>' + _formatter.number(responses, 0, '&ndash;') + '</strong>' +
         '<br>' +
         '<abbr>Responses</abbr>' +
-      '</div>';
+      '</div>' +
+      '<small class="disclaimer">' +
+        'Contribute to citizen science. Please <a href="#tellus">tell us</a> ' +
+        'about your experience.' +
+      '</small>';
   };
 
   _initialize(options);
