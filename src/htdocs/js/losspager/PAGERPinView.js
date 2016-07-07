@@ -3,7 +3,6 @@
 
 var BasicPinView = require('core/BasicPinView'),
     PAGERModule = require('losspager/PAGERModule'),
-    PAGERView = require('losspager/PAGERView'),
     Util = require('util/Util');
 
 var _DEFAULTS = {
@@ -12,26 +11,12 @@ var _DEFAULTS = {
 
 
 var PAGERPinView = function (options) {
-  var _this,
-      _initialize;
+  var _this;
 
 
   options = Util.extend({}, _DEFAULTS, options);
   _this = BasicPinView(options);
 
-  _initialize = function () {
-    _this.pagerView = PAGERView({
-      model: _this.model
-    });
-  };
-
-  /**
-   * Destroy all the things.
-   *
-   */
-  _this.destroy = Util.compose(function () {
-    _this.pagerView.destroy();
-  }, _this.destroy);
 
   /**
    * Render the histograms as PAGERPinView content
@@ -39,16 +24,27 @@ var PAGERPinView = function (options) {
    */
   _this.renderPinContent = function () {
     var economic,
-        fatality;
+        fatality,
+        markup;
 
-    economic = _this.pagerView.renderEconomicHistogram();
-    fatality = _this.pagerView.renderFatalityHistogram();
+    markup = [];
+    economic = _this.model.getContent('alertecon_smaller.png');
+    fatality = _this.model.getContent('alertfatal_smaller.png');
 
-    _this.content.innerHTML = economic.innerHTML + fatality.innerHTML;
+    if (economic) {
+      markup.push('<span>Estimated Economic Losses</span>' +
+          '<img src="' + economic.get('url') + '" />');
+    }
+
+    if (fatality) {
+      markup.push('<span>Estimated Fatalities</span>' +
+          '<img src="' + fatality.get('url') + '" />');
+    }
+
+    _this.content.innerHTML = markup.join('');
   };
 
 
-  _initialize();
   options = null;
   return _this;
 };

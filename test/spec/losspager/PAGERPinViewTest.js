@@ -19,9 +19,9 @@ describe('losspager/PAGERPinView', function () {
         'pager.xml': {url: stub + '/pager.xml'},
         'exposure.png': {url: stub + '/exposure.png'},
         'alertecon.pdf': {url: stub + '/alertecon.pdf'},
-        'alertecon.png': {url: stub + '/alertecon.png'},
+        'alertecon_smaller.png': {url: stub + '/alertecon_smaller.png'},
         'alertfatal.pdf': {url: stub + '/alertfatal.pdf'},
-        'alertfatal.png': {url: stub + '/alertfatal.png'}
+        'alertfatal_smaller.png': {url: stub + '/alertfatal_smaller.png'}
       },
       properties: {
         maxmmi: 7.0,
