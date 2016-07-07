@@ -4,6 +4,7 @@
 
 var CatalogEvent = require('pdl/CatalogEvent'),
     ImpactPinView = require('impact/ImpactPinView'),
+    Product = require('pdl/Product'),
     Xhr = require('util/Xhr');
 
 
@@ -62,6 +63,48 @@ describe('impact/ImpactPinView', function () {
       expect(bubble).to.not.equal(null);
       expect(bubble.classList.contains('impact-pin-view-bubble'))
           .to.equal(true);
+
+      view.destroy();
+    });
+  });
+
+  describe('getAttribution', function () {
+    it('returns a string', function () {
+      var view;
+
+      view = ImpactPinView();
+
+      expect(typeof view.getAttribution()).to.equal('string');
+
+      view.destroy();
+    });
+
+    it('returns expected attribution', function () {
+      var ev,
+          result,
+          view;
+
+      ev = CatalogEvent();
+
+      view = ImpactPinView({
+        event: ev
+      });
+
+      ev.addProduct(Product({
+        type: 'dyfi',
+        source: 'us'
+      }));
+
+      ev.addProduct(Product({
+        type: 'shakemap',
+        source: 'ci'
+      }));
+
+      result = view.getAttribution();
+      expect(result).to.equal([
+        '<span class="contributor-reference" data-id="ci">CI</span>, ',
+        '<span class="contributor-reference" data-id="us">US</span>'
+      ].join(''));
 
       view.destroy();
     });
@@ -186,6 +229,23 @@ describe('impact/ImpactPinView', function () {
       view.getShakeMapBubble.restore();
 
       view.destroy();
+    });
+
+    describe('renderPinFooter', function () {
+      it('calls sub-method', function () {
+        var view;
+
+        view = ImpactPinView();
+
+        sinon.spy(view, 'getAttribution');
+
+        view.renderPinFooter();
+
+        expect(view.getAttribution.callCount).to.equal(1);
+
+        view.getAttribution.restore();
+        view.destroy();
+      });
     });
   });
 });

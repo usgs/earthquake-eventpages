@@ -183,6 +183,7 @@ var ExecutiveSummaryModule = function (options) {
     if (eventProps.cdi !== null || eventProps.mmi !== null ||
         eventProps.alert !== null) {
       _this.pinViews.push(ImpactPinView({
+        config: config,
         el: _this.createPinContainer(list),
         event: ev,
         model: ev.getPreferredOriginProduct() || Product()

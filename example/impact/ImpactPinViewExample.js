@@ -18,6 +18,7 @@ Xhr.ajax({
     ev = CatalogEvent(data);
 
     ImpactPinView({
+      config: {},
       el: el,
       model: ev.getPreferredOriginProduct(),
       event: ev
