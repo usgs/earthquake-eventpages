@@ -16,6 +16,7 @@ var Attribution = require('core/Attribution'),
     InteractiveMapModule = require('map/InteractiveMapModule'),
     Model = require('mvc/Model'),
     MomentTensorModule = require('moment-tensor/MomentTensorModule'),
+    NearbySeismicity = require('core/NearbySeismicity'),
     OriginModule = require('origin/OriginModule'),
     PAGERModule = require('losspager/PAGERModule'),
     RegionalInfoModule = require('general/RegionalInfoModule'),
@@ -219,6 +220,9 @@ var EventPage = function (options) {
 
     // Add navigation link to download event KML
     _this.createKmlLink(_navEl);
+
+    // Add search nearby seismicity link
+    _this.createSearchNearbySeismicityLink(_navEl);
   };
 
   /**
@@ -242,7 +246,6 @@ var EventPage = function (options) {
     }
   };
 
-
   /**
    * Adds Latest Earthquakes Link to the top of the navigation.
    * @params el {DOMElement}
@@ -261,6 +264,29 @@ var EventPage = function (options) {
     }
   };
 
+  /**
+   * Create search nearby seismicity link.
+   *
+   * @param el {DOMElement}
+   *     element to add link to.
+   */
+  _this.createSearchNearbySeismicityLink = function (el) {
+    var link,
+        nearbySeismicity,
+        url;
+
+    if (_event && !_this.isScenarioMode()) {
+      nearbySeismicity = NearbySeismicity();
+      url = nearbySeismicity.getNearbySeismicityLink(_event.getSummary());
+      nearbySeismicity.destroy();
+
+      link = document.createElement('a');
+      link.setAttribute('class', 'search-nearby-seismicity');
+      link.setAttribute('href', url);
+      link.innerHTML = 'Search Nearby Seismicity';
+      el.appendChild(link);
+    }
+  };
 
 
   /**
