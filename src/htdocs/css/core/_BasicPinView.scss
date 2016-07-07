@@ -26,6 +26,13 @@
 
 .pin-header {
   border-bottom: 1px solid #ccc;
+
+  > .mmi {
+    display: inline-block;
+    float: right;
+    font-size: 0.77em;
+    padding: 6px 18px;
+  }
 }
 
 .pin-content {
