@@ -351,9 +351,11 @@ var InteractiveMapView = function (options) {
     eventLatitude = catalogEvent.getLatitude();
     eventLongitude = catalogEvent.getLongitude();
 
-    // Put a star over the epicenter
-    _overlays[_EPICENTER_OVERLAY] = _this.createEpicenterMarker(eventLatitude,
-        eventLongitude, catalogEvent.getMagnitude());
+    if (eventLatitude !== null && eventLongitude !== null) {
+      // Put a star over the epicenter
+      _overlays[_EPICENTER_OVERLAY] = _this.createEpicenterMarker(eventLatitude,
+          eventLongitude, catalogEvent.getMagnitude());
+    }
 
     // Always include tectonic plates
     _overlays[_PLATES_OVERLAY] = TectonicPlates();

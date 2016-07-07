@@ -105,8 +105,11 @@ describe('core/EventPage', function () {
     });
 
     after(function () {
-      ev.destroy();
-      ev = null;
+      if (ev) {
+        ev.destroy();
+        ev = null;
+      }
+
       window.location.hash = '';
     });
 

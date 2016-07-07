@@ -4,6 +4,7 @@
 var Attribution = require('core/Attribution'),
     BasicPinView = require('core/BasicPinView'),
     InteractiveMapView = require('map/InteractiveMapView'),
+    Product = require('pdl/Product'),
     Util = require('util/Util');
 
 
@@ -27,12 +28,21 @@ var MapPinView = function (options) {
    * @param options {Object}
    */
   _initialize = function (/*options*/) {
-    var el;
+    var el,
+        ev;
 
     el = document.createElement('div');
     el.classList.add('locationview-map');
 
-    _this.product = _this.model.get('event').getPreferredOriginProduct();
+    ev = _this.model.get('event');
+
+    if (ev) {
+      _this.product = ev.getPreferredOriginProduct();
+    }
+
+    if (!_this.product) {
+      _this.product = Product();
+    }
 
     _this.content.appendChild(el);
 
