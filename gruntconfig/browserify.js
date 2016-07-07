@@ -23,6 +23,7 @@ var ALL_CLASSES = [
   JS + '/core/Formatter.js:core/Formatter',
   JS + '/core/LinkProductView.js:core/LinkProductView',
   JS + '/core/Module.js:core/Module',
+  JS + '/core/NearbySeismicity.js:core/NearbySeismicity',
   JS + '/core/ProductView.js:core/ProductView',
   JS + '/core/SummaryModule.js:core/SummaryModule',
   JS + '/core/TextProductView.js:core/TextProductView',
