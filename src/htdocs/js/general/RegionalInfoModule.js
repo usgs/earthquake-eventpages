@@ -5,6 +5,8 @@ var EsriTerrain = require('leaflet/layer/EsriTerrain'),
     Formatter = require('core/Formatter'),
     GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
     GeoserveRegionSummaryView = require('general/GeoserveRegionSummaryView'),
+    InteractiveMapModule = require('map/InteractiveMapModule'),
+    InteractiveMapView = require('map/InteractiveMapView'),
     Module = require('core/Module'),
     NearbyPlacesView = require('general/NearbyPlacesView'),
     Product = require('pdl/Product'),
@@ -35,7 +37,9 @@ _hasContent = function (eventPageModel) {
 
 var _DEFAULTS = {
   formatter: null,
-  mapRadius: 5.0
+  gisBaseUrl: '/arcgis/rest/services',
+  mapRadius: 5.0,
+  seismicityUrl: '/eq/catalog_2015/MapServer/tile/{z}/{y}/{x}'
 };
 
 
@@ -48,11 +52,13 @@ var RegionalInfoModule = function (options) {
       _initialize,
 
       _formatter,
+      _gisBaseUrl,
       _mapEl,
       _mapRadius,
       _nearbyPlacesEl,
       _nearbyPlacesView,
       _otherRegionInfoEl,
+      _seismicityUrl,
       _tectonicSummaryEl,
       _tectonicSummaryView;
 
@@ -69,14 +75,25 @@ var RegionalInfoModule = function (options) {
    *     not used unless nearby cities fails.
    */
   _initialize = function (options) {
-    var el;
+    var el,
+        mapLink;
 
     _this.ID = _ID;
     _this.TITLE = _TITLE;
 
     options = Util.extend({}, _DEFAULTS, options);
+
+    _gisBaseUrl = options.gisBaseUrl;
     _formatter = options.formatter || Formatter();
     _mapRadius = options.mapRadius;
+    _seismicityUrl = options.seismicityUrl;
+
+    mapLink = [
+      '#', InteractiveMapModule.ID, '?',
+        encodeURIComponent(InteractiveMapView.HIST_SEIS_OVERLAY), '=true&amp;',
+        encodeURIComponent(InteractiveMapView.POPULATION_OVERLAY), '=true&amp;',
+        encodeURIComponent(InteractiveMapView.SHAKEMAP_CONTOURS), '=false'
+    ].join('');
 
     el = _this.content;
     el.classList.add('regional-info-module');
@@ -87,7 +104,10 @@ var RegionalInfoModule = function (options) {
             '<div class="regional-info-module-places"></div>',
           '</div>',
           '<div class="column two-of-three">',
-            '<div class="regional-info-module-map"></div>',
+            '<a href="', mapLink, '">',
+              '<div class="regional-info-module-map"></div>',
+              'View Interactive Map',
+            '</a>',
           '<div class="regional-info-module-tectonic-summary"></div>',
           '</div>',
         '</div>',
@@ -127,10 +147,12 @@ var RegionalInfoModule = function (options) {
       _this.map.remove();
     }
 
+    _gisBaseUrl = null;
     _mapEl = null;
     _mapRadius = null;
     _nearbyPlacesEl = null;
     _otherRegionInfoEl = null;
+    _seismicityUrl = null;
     _tectonicSummaryEl = null;
 
 
@@ -422,6 +444,8 @@ var RegionalInfoModule = function (options) {
       markerZoomAnimation: false,
       layers: [
         EsriTerrain(),
+        L.tileLayer(_gisBaseUrl + _seismicityUrl),
+        // TODO :: Population density layer ... need tile layer in GIS first
         L.marker([latitude, longitude], {
           zIndexOffset: 99,
           icon: L.icon({

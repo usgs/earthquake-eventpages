@@ -44,6 +44,7 @@ var connect = {
     },
     {
       context: [
+        '/arcgis/',
         '/archive/',
         '/data/',
         '/product/',
