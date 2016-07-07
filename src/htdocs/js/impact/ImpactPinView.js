@@ -13,6 +13,12 @@ var _DEFAULTS = {
 };
 
 
+/**
+ * This pin presents impact bubbles for DYFI, ShakeMap, and PAGER products.
+ * The intent is to provide high-level impact summary information on the
+ * executive summary page.
+ *
+ */
 var ImpactPinView = function (options) {
   var _this,
       _initialize,
@@ -23,6 +29,14 @@ var ImpactPinView = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = BasicPinView(options);
 
+  /**
+   * Constructor.
+   *
+   * @param options.formatter {core/Formatter}
+   *     The formatter to use when generating content for this pin.
+   * @param options.event {CatalogEvent}
+   *     The event for which to generate impact pins.
+   */
   _initialize = function (options) {
     _formatter = options.formatter || Formatter();
 
@@ -30,6 +44,10 @@ var ImpactPinView = function (options) {
   };
 
 
+  /**
+   * Frees resources associated with this pin view.
+   *
+   */
   _this.destroy = Util.compose(function () {
     if (_this === null) {
       return;
@@ -41,6 +59,12 @@ var ImpactPinView = function (options) {
     _this = null;
   }, _this.destroy);
 
+  /**
+   * Creates a generic impact bubble container.
+   *
+   * @return {HTMLElement}
+   *     A generic HTMLElement with basic bubble classes applied.
+   */
   _this.createBubble = function () {
     var bubble;
 
@@ -50,6 +74,15 @@ var ImpactPinView = function (options) {
     return bubble;
   };
 
+  /**
+   * Creates the DYFI impact bubble.
+   *
+   * @param summary {Object}
+   *     An event summary with properties, specifically, a "cdi" property.
+   *
+   * @return {DocumentFragment}
+   *     A document fragment containing relevant DYFI impact bubble data.
+   */
   _this.getDyfiBubble = function (summary) {
     var bubble,
         cdi,
@@ -78,6 +111,15 @@ var ImpactPinView = function (options) {
     return fragment;
   };
 
+  /**
+   * Creates the PAGER impact bubble.
+   *
+   * @param summary {Object}
+   *     An event summary with properties, specifically, an "alert" property.
+   *
+   * @return {DocumentFragment}
+   *     A document fragment containing relevant PAGER impact bubble data.
+   */
   _this.getPagerBubble = function (summary) {
     var bubble,
         fragment,
@@ -104,6 +146,15 @@ var ImpactPinView = function (options) {
     return fragment;
   };
 
+  /**
+   * Creates the ShakeMap impact bubble.
+   *
+   * @param summary {Object}
+   *     An event summary with properties, specifically, an "mmi" property.
+   *
+   * @return {DocumentFragment}
+   *     A document fragment containing relevant ShakeMap impact bubble data.
+   */
   _this.getShakeMapBubble = function (summary) {
     var bubble,
         fragment,
@@ -132,6 +183,10 @@ var ImpactPinView = function (options) {
     return fragment;
   };
 
+  /**
+   * Renders pin content. Delegates to sub-methods.
+   *
+   */
   _this.renderPinContent = function () {
     var fragment,
         summary;
