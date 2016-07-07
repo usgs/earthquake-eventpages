@@ -71,6 +71,7 @@ require('./spec/general/RegionalInfoModuleTest');
 require('./spec/general/TsunamiPinViewTest');
 
 require('./spec/impact/ImpactSummaryModuleTest');
+require('./spec/impact/ImpactPinViewTest');
 
 require('./spec/losspager/PAGERModuleTest');
 require('./spec/losspager/PAGERPinViewTest');
