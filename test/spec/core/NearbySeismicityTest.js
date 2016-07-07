@@ -156,10 +156,10 @@ describe('core/NearbySeismicity', function () {
       summary = ev.getSummary();
       params = nearbySeismicity.getNearbySeismicityParams(summary);
 
-      expect(params.minmagnitude).to.equal(5);
+      expect(params.minmagnitude).to.equal(4);
       expect(params.latitude).to.equal(summary.latitude);
       expect(params.longitude).to.equal(summary.longitude);
-      expect(params.maxradiuskm).to.equal(150);
+      expect(params.maxradiuskm).to.equal(250);
       expect(params.starttime).to.equal('2016-02-10T12:49:48.360Z');
       expect(params.endtime).to.equal('2016-03-23T12:49:48.360Z');
     });

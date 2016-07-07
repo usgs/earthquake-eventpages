@@ -6,7 +6,7 @@ var Util = require('util/Util');
 
 var _DEFAULTS = {
   mapUrl: '/earthquakes/map/',
-  radius: 150
+  radius: 250
 };
 
 var _KM_PER_DEGREE = 111.12;
@@ -65,6 +65,8 @@ var NearbySeismicity = function (options) {
     settings = {
       // do not auto update searches
       autoUpdate: false,
+      // terrain basemap
+      basemap: 'terrain',
       // selected event
       event: eventid,
       // feed needs to match search id
@@ -183,7 +185,7 @@ var NearbySeismicity = function (options) {
 
     minmagnitude = 1;
     if (magnitude !== null) {
-      minmagnitude = Math.max(Math.floor(magnitude) - 2, 1);
+      minmagnitude = Math.max(Math.floor(magnitude) - 3, 1);
     }
 
     threeWeeks = 3 * 7 * 24 * 60 * 60 * 1000;

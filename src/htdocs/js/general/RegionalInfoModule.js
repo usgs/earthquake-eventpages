@@ -475,7 +475,7 @@ var RegionalInfoModule = function (options) {
       _nearbyPlacesView = GeoserveNearbyPlacesView({
         model: product,
         renderNewLayout: true,
-        url: (config ? config.GEOSERVE_WS_URL : null)
+        url: (config ? config.GEOSERVE_WS_URL : '/ws/geoserve/')
       });
     }
 
@@ -518,7 +518,8 @@ var RegionalInfoModule = function (options) {
     }
 
     Xhr.ajax({
-      url: ((config) ? config.GEOSERVE_WS_URL : null) + 'regions.json',
+      url: ((config) ? config.GEOSERVE_WS_URL : '/ws/geoserve/') +
+          'regions.json',
       data: {
         latitude: latitude,
         longitude: longitude,
