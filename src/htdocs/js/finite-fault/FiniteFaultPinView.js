@@ -23,15 +23,20 @@ var FiniteFaultPinView = function (options) {
    *
    */
   _this.renderPinContent = function () {
-    var markup,
-        map;
+    var code,
+        img,
+        markup;
 
-    map = _this.model.getContent('basemap.png');
-    if (map) {
-      markup = '<img src="' + map.get('url') +
-          '" class="finite-fault-basemap" alt="Finite Fault basemap"/>';
-    } else {
-      markup = '<p class="alert error">Error loading image</p>';
+    try {
+      code = _this.model.get('properties').eventsourcecode;
+      img = _this.model.getContent('web1/' + code + '_slip2.png');
+      markup = '<h3>Cross-section of slip distribution</h3>' +
+          '<img src="' + img.get('url') + '"' +
+          ' class="finite-fault-cross-section" ' +
+          ' alt="Cross-section of slip distribution"/>';
+    } catch (e) {
+      markup = '<p class="alert error">Could not load cross-section of ' +
+          'slip distribution</p>';
     }
 
     _this.content.innerHTML = markup;
