@@ -3,7 +3,6 @@
 
 var BasicPinView = require('core/BasicPinView'),
     DYFIFormModule = require('dyfi/DYFIFormModule'),
-    Formatter = require('core/Formatter'),
     Util = require('util/Util');
 
 var _DEFAULTS = {
@@ -12,43 +11,40 @@ var _DEFAULTS = {
 
 
 var DYFIFormPinView = function (options) {
-  var _this,
-      _initialize,
-
-      _formatter;
+  var _this;
 
 
   options = Util.extend({}, _DEFAULTS, options);
   _this = BasicPinView(options);
-
-  _initialize = function (options) {
-    _formatter = options.formatter || Formatter();
-  };
-
-  _this.destroy = Util.compose(function () {
-    _formatter = null;
-
-    _initialize = null;
-    _this = null;
-  }, _this.destroy);
 
   /**
    * Render the histograms as DYFIFormPinView content
    *
    */
   _this.renderPinContent = function () {
-    var properties,
+    var markup,
+        properties,
         responses;
 
+    markup = [];
     properties = _this.model.get('properties');
     responses = properties['num-responses'] || properties.numResp;
 
+    if (responses) {
+      for (var i = 0, len = responses.length; i < len; i += 1) {
+        markup.push('<div class="responses-digit">' + responses.charAt(i) +
+            '</div>');
+      }
+    } else {
+      markup = ['<div class="responses-digit">&ndash;</div>'];
+    }
+
     _this.content.innerHTML =
-      '<div class="pin-badge dyfi-responses-badge" ' +
-          'title="Number of DYFI Responses">' +
-        '<strong>' + _formatter.number(responses, 0, '&ndash;') + '</strong>' +
-        '<br>' +
-        '<abbr>Responses</abbr>' +
+      '<div class="dyfi-responses-badge" title="Number of DYFI Responses">' +
+        markup.join('') +
+      '</div>' +
+      '<div class="dyfi-responses-abbr">' +
+        '<abbr title="Number of DYFI Responses">Responses</abbr>' +
       '</div>' +
       '<small class="disclaimer">' +
         'Contribute to citizen science. Please <a href="#tellus">tell us</a> ' +
@@ -56,7 +52,7 @@ var DYFIFormPinView = function (options) {
       '</small>';
   };
 
-  _initialize(options);
+
   options = null;
   return _this;
 };
