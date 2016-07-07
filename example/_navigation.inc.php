@@ -43,7 +43,8 @@ print navGroup('Scientific',
     navItem('/origin/OriginViewExample.php', 'OriginView') .
     navItem('/origin/OriginPinViewExample.php', 'OriginPinView') .
     navItem('/origin/PhasesViewExample.php', 'PhasesView') .
-    navItem('/moment-tensor/MomentTensorViewExample.php', 'MomentTensorView')
+    navItem('/moment-tensor/MomentTensorViewExample.php', 'MomentTensorView') .
+    navItem('/moment-tensor/MomentTensorPinViewExample.php', 'MomentTensorPinView')
   );
 
 ?>

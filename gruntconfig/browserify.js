@@ -71,6 +71,7 @@ var ALL_CLASSES = [
   JS + '/moment-tensor/BeachBallView.js:moment-tensor/BeachBallView',
   JS + '/moment-tensor/Canvas.js:moment-tensor/Canvas',
   JS + '/moment-tensor/MomentTensorModule.js:moment-tensor/MomentTensorModule',
+  JS + '/moment-tensor/MomentTensorPinView.js:moment-tensor/MomentTensorPinView',
   JS + '/moment-tensor/MomentTensorView.js:moment-tensor/MomentTensorView',
   JS + '/moment-tensor/Tensor.js:moment-tensor/Tensor',
 

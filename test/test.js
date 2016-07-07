@@ -84,6 +84,7 @@ require('./spec/map/InteractiveMapViewTest');
 require('./spec/moment-tensor/BeachBallViewTest');
 require('./spec/moment-tensor/CanvasTest');
 require('./spec/moment-tensor/MomentTensorModuleTest');
+require('./spec/moment-tensor/MomentTensorPinViewTest');
 require('./spec/moment-tensor/MomentTensorViewTest');
 require('./spec/moment-tensor/TensorTest');
 
