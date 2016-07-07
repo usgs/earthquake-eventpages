@@ -3,15 +3,12 @@
 <header class="event-header clearfix">
   <span class="event-datetime">
     <?php print prettyDate($PROPERTIES['time']); ?>
-  </span>
-
-  <span class="event-coordinates">
+  </span><span class="event-coordinates">
     <?php $coordinates = $GEOMETRY['coordinates']; ?>
     <?php print format_coord($coordinates[1], 'N', 'S'); ?>
     &nbsp;
     <?php print format_coord($coordinates[0], 'E', 'W'); ?>
-  </span>
-  <span class="event-depth">
+  </span><span class="event-depth">
     <?php
     print isset($coordinates[2]) ?
       number_format(round(floatval($coordinates[2]) * 10) / 10, 1) :
