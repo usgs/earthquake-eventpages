@@ -57,7 +57,7 @@ var ImpactPinView = function (options) {
         value;
 
     fragment = document.createDocumentFragment();
-    value = summary.properties.cdi;
+    value = (summary && summary.properties) ? summary.properties.cdi : null;
 
     if (value !== null) {
       cdi = _formatter.mmi(value);
@@ -84,7 +84,7 @@ var ImpactPinView = function (options) {
         value;
 
     fragment = document.createDocumentFragment();
-    value = summary.properties.alert;
+    value = (summary && summary.properties) ? summary.properties.alert : null;
 
     if (value !== null) {
       bubble = fragment.appendChild(_this.createBubble());
@@ -111,7 +111,7 @@ var ImpactPinView = function (options) {
         value;
 
     fragment = document.createDocumentFragment();
-    value = summary.properties.mmi;
+    value = (summary && summary.properties) ? summary.properties.mmi : null;
 
     if (value !== null) {
       mmi = _formatter.mmi(value);

@@ -1,8 +1,8 @@
-/* global before, chai, describe, it */
+/* global before, chai, describe, it, sinon */
 'use strict';
 
 
-var //CatalogEvent = require('pdl/CatalogEvent'),
+var CatalogEvent = require('pdl/CatalogEvent'),
     ImpactPinView = require('impact/ImpactPinView'),
     Xhr = require('util/Xhr');
 
@@ -10,9 +10,9 @@ var //CatalogEvent = require('pdl/CatalogEvent'),
 var expect = chai.expect;
 
 
-// var _createEvent = function (eventDetails) {
-//   return CatalogEvent(JSON.parse(JSON.stringify(eventDetails)));
-// };
+var _createEvent = function (eventDetails) {
+  return CatalogEvent(JSON.parse(JSON.stringify(eventDetails)));
+};
 
 describe('impact/ImpactPinView', function () {
   var EVENT_DETAILS;
@@ -45,6 +45,145 @@ describe('impact/ImpactPinView', function () {
       view = ImpactPinView();
 
       expect(view.destroy).to.not.throw(Error);
+
+      view.destroy();
+    });
+  });
+
+  describe('createBubble', function () {
+    it('returns expected element', function () {
+      var bubble,
+          view;
+
+      view = ImpactPinView();
+
+      bubble = view.createBubble();
+
+      expect(bubble).to.not.equal(null);
+      expect(bubble.classList.contains('impact-pin-view-bubble'))
+          .to.equal(true);
+
+      view.destroy();
+    });
+  });
+
+  describe('getDyfiBubble', function () {
+    it('returns an element regardless of parameters', function () {
+      var result,
+          view;
+
+      view = ImpactPinView();
+
+      result = view.getDyfiBubble();
+      expect(result).to.be.an.instanceOf(DocumentFragment);
+
+      result = view.getDyfiBubble({properties: {cdi: 1}});
+      expect(result).to.be.an.instanceOf(DocumentFragment);
+
+      view.destroy();
+    });
+
+    it('contains expected value', function () {
+      var result,
+          view;
+
+      view = ImpactPinView();
+
+      result = view.getDyfiBubble({properties: {cdi: 1}});
+      result = result.firstChild; // Pull bubble off the fragment
+      expect(result.classList.contains('mmiI')).to.equal(true);
+      expect(result.querySelector('.impact-pin-view-value').innerHTML)
+          .to.equal('I');
+
+      view.destroy();
+    });
+  });
+
+  describe('getPagerBubble', function () {
+    it('returns an element regardless of parameters', function () {
+      var result,
+          view;
+
+      view = ImpactPinView();
+
+      result = view.getPagerBubble();
+      expect(result).to.be.an.instanceOf(DocumentFragment);
+
+      result = view.getPagerBubble({properties: {alert: 'green'}});
+      expect(result).to.be.an.instanceOf(DocumentFragment);
+
+      view.destroy();
+    });
+
+    it('contains expected value', function () {
+      var result,
+          view;
+
+      view = ImpactPinView();
+
+      result = view.getPagerBubble({properties: {alert: 'green'}});
+      result = result.firstChild; // Pull bubble off the fragment
+      expect(result.classList.contains('pager-alertlevel-green'))
+          .to.equal(true);
+      expect(result.querySelector('.impact-pin-view-value').innerHTML)
+          .to.equal('GREEN');
+
+      view.destroy();
+    });
+  });
+
+  describe('getShakeMapBubble', function () {
+    it('returns an element regardless of parameters', function () {
+      var result,
+          view;
+
+      view = ImpactPinView();
+
+      result = view.getShakeMapBubble();
+      expect(result).to.be.an.instanceOf(DocumentFragment);
+
+      result = view.getShakeMapBubble({properties: {mmi: 1}});
+      expect(result).to.be.an.instanceOf(DocumentFragment);
+
+      view.destroy();
+    });
+
+    it('contains expected value', function () {
+      var result,
+          view;
+
+      view = ImpactPinView();
+
+      result = view.getShakeMapBubble({properties: {mmi: 1}});
+      result = result.firstChild; // Pull bubble off the fragment
+      expect(result.classList.contains('mmiI')).to.equal(true);
+      expect(result.querySelector('.impact-pin-view-value').innerHTML)
+          .to.equal('I');
+
+      view.destroy();
+    });
+  });
+
+  describe('renderPinContent', function () {
+    it('calls each sub-method', function () {
+      var view;
+
+      view = ImpactPinView({
+        event: _createEvent(EVENT_DETAILS)
+      });
+
+      sinon.spy(view, 'getDyfiBubble');
+      sinon.spy(view, 'getPagerBubble');
+      sinon.spy(view, 'getShakeMapBubble');
+
+      view.render();
+      expect(view.getDyfiBubble.callCount).to.equal(1);
+      expect(view.getPagerBubble.callCount).to.equal(1);
+      expect(view.getShakeMapBubble.callCount).to.equal(1);
+
+      view.getDyfiBubble.restore();
+      view.getPagerBubble.restore();
+      view.getShakeMapBubble.restore();
 
       view.destroy();
     });
