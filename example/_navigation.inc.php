@@ -39,13 +39,18 @@ print navGroup('Scientific',
     navItem('/moment-tensor/BeachBallViewExample.php', 'BeachBallView') .
     navItem('/finite-fault/FiniteFaultPinViewExample.php', 'FiniteFaultPinView') .
     navItem('/finite-fault/FiniteFaultViewExample.php', 'FiniteFaultView') .
-    navItem('/focal-mechanism/FocalMechanismViewExample.php', 'FocalMechanismView') .
+    navItem('/focal-mechanism/FocalMechanismPinViewExample.php',
+        'FocalMechanismPinView') .
+    navItem('/focal-mechanism/FocalMechanismViewExample.php',
+        'FocalMechanismView') .
     navItem('/origin/MagnitudesViewExample.php', 'MagnitudesView') .
-    navItem('/origin/OriginViewExample.php', 'OriginView') .
     navItem('/origin/OriginPinViewExample.php', 'OriginPinView') .
+    navItem('/origin/OriginViewExample.php', 'OriginView') .
     navItem('/origin/PhasesViewExample.php', 'PhasesView') .
-    navItem('/moment-tensor/MomentTensorViewExample.php', 'MomentTensorView') .
-    navItem('/moment-tensor/MomentTensorPinViewExample.php', 'MomentTensorPinView')
+    navItem('/moment-tensor/MomentTensorPinViewExample.php',
+        'MomentTensorPinView') .
+    navItem('/moment-tensor/MomentTensorViewExample.php',
+        'MomentTensorView')
   );
 
 ?>

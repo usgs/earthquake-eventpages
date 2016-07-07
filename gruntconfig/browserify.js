@@ -43,6 +43,7 @@ var ALL_CLASSES = [
   JS + '/finite-fault/FiniteFaultView.js:finite-fault/FiniteFaultView',
 
   JS + '/focal-mechanism/FocalMechanismModule.js:focal-mechanism/FocalMechanismModule',
+  JS + '/focal-mechanism/FocalMechanismPinView.js:focal-mechanism/FocalMechanismPinView',
   JS + '/focal-mechanism/FocalMechanismView.js:focal-mechanism/FocalMechanismView',
 
   JS + '/general/ExecutiveSummaryModule.js:general/ExecutiveSummaryModule',
