@@ -60,6 +60,7 @@ require('./spec/finite-fault/FiniteFaultPinViewTest');
 require('./spec/finite-fault/FiniteFaultViewTest');
 
 require('./spec/focal-mechanism/FocalMechanismModuleTest');
+require('./spec/focal-mechanism/FocalMechanismPinViewTest');
 require('./spec/focal-mechanism/FocalMechanismViewTest');
 
 require('./spec/general/ExecutiveSummaryModuleTest');

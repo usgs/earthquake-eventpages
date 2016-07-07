@@ -4,7 +4,7 @@
 var DyfiFormPinView = require('dyfi/DYFIFormPinView'),
     DyfiPinView = require('dyfi/DYFIPinView'),
     FiniteFaultPinView = require('finite-fault/FiniteFaultPinView'),
-    FocalMechanismPinView = require('core/BasicPinView'), // TODO
+    FocalMechanismPinView = require('focal-mechanism/FocalMechanismPinView'),
     ImpactPinView = require('impact/ImpactPinView'),
     InteractiveMapPinView = require('map/InteractiveMapPinView'),
     MomentTensorPinView = require('moment-tensor/MomentTensorPinView'),
@@ -266,8 +266,8 @@ var ExecutiveSummaryModule = function (options) {
       // Only show focal mechanism if no moment tensor
 
       // Focal Mechanism pin
-      product = ev.getPreferredProduct(Product.getFullType('focal-mechanism',
-          config));
+      product = ev.getPreferredProduct(Product.getFullType(
+          'focal-mechanism', config));
       if (product) {
         _this.pinViews.push(FocalMechanismPinView({
           el: _this.createPinContainer(list),
