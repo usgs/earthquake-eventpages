@@ -46,6 +46,9 @@ var connect = {
       context: [
         '/archive/',
         '/data/',
+        '/earthquakes/map/',
+        '/earthquakes/search/',
+        '/fdsnws/',
         '/product/',
         '/realtime/',
         '/scenario/',
@@ -53,6 +56,7 @@ var connect = {
         '/ws/'
       ],
       headers: {
+        'accept-encoding': 'identity',
         host: OFFSITE_HOST
       },
       host: OFFSITE_HOST,
