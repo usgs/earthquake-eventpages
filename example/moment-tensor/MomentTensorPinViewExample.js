@@ -81,6 +81,5 @@ product = Product({
 
 MomentTensorPinView({
   el: document.querySelector('.moment-tensor-pin-view-example'),
-  model: product,
-  module: {ID: 'moment-tensor', TITLE: 'Moment Tensor'},
+  model: product
 }).render();
