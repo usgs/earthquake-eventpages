@@ -23,12 +23,18 @@ var FiniteFaultPinView = function (options) {
    *
    */
   _this.renderPinContent = function () {
-    var map;
+    var markup,
+        map;
 
     map = _this.model.getContent('basemap.png');
+    if (map) {
+      markup = '<img src="' + map.get('url') +
+          '" class="finite-fault-basemap" alt="Finite Fault basemap"/>';
+    } else {
+      markup = '<p class="alert error">Error loading image</p>';
+    }
 
-    _this.content.innerHTML = '<img src="' + map.get('url') +
-        '" class="finite-fault-basemap" alt="Finite Fault basemap"/>';
+    _this.content.innerHTML = markup;
   };
 
 
