@@ -1,11 +1,12 @@
 'use strict';
 
 var BasicPinView = require('core/BasicPinView'),
+    ShakeMapModule = require('shakemap/ShakeMapModule'),
     Util = require('util/Util');
 
 
 var _DEFAULTS = {
-  module: {ID: 'shakemap', TITLE: 'ShakeMap'}
+  module: ShakeMapModule
 };
 
 var ShakeMapPinView = function (options) {
@@ -19,26 +20,19 @@ var ShakeMapPinView = function (options) {
    * Renders content for ShakeMapPinView
    */
   _this.renderPinContent = function () {
-    var intensityMap,
-        maxmmi;
+    var tvMap;
 
-    intensityMap = _this.model.getContent('download/intensity.jpg');
-    maxmmi = _this.model.get('properties').maxmmi;
+    tvMap = _this.model.getContent('download/tvmap.jpg') || null;
 
-    _this.content.innerHTML =
-      '<div class="shakemap-pin-badge" title="ShakeMap MMI">' +
-        '<strong class="shakemap-mmi">' +
-          maxmmi +
-        '</strong>' +
-        '<br />' +
-        '<abbr class="shakemap-max-mmi" ' +
-            'title="Max Modified Mercalli Intensity">' +
-          'Max MMI' +
-        '</abbr>' +
-      '</div>' +
-      '<div class="shakemap-map">' +
-        '<img src="' + intensityMap.get('url') + '" />' +
-      '</div>';
+    if (tvMap !== null) {
+      tvMap = '<div class="shakemap-tvmap">' +
+          '<img src="' + tvMap.get('url') + '" />' +
+          '</div>';
+    } else {
+      tvMap = '<p>Map not available</p>';
+    }
+
+    _this.content.innerHTML = tvMap;
   };
 
 

@@ -30,7 +30,7 @@ print navGroup('Impact',
     navItem('/shakemap/ShakeMapInfoViewExample.php', 'ShakeMapInfoView') .
     navItem('/shakemap/ShakeMapStationListViewExample.php',
         'ShakeMapStationListView ') .
-    navItem('/shakemap/ShakeMapViewExample.php', 'ShakeMapView').
+    navItem('/shakemap/ShakeMapViewExample.php', 'ShakeMapView') .
     navItem('/shakemap/ShakeMapPinViewExample.php', 'ShakeMapPinView')
   );
 

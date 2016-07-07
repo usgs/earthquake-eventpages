@@ -1,4 +1,4 @@
-/* global chai, describe, it */
+/* global before, chai, describe, it */
 'use strict';
 
 var ShakeMapPinView = require('shakemap/ShakeMapPinView'),
@@ -15,34 +15,32 @@ describe('shakemap/ShakeMapPinView', function () {
   });
 
   describe('renderPinContent', function () {
-    var view;
+    var product;
 
-    Xhr.ajax({
-      url: '/events/us10004u1y.json',
-      success: function (data) {
-        var product;
-
-        product = Product(data.properties.products.shakemap[0]);
-
-        view = ShakeMapPinView({
-          model: product,
-          module: {ID: 'shakemap', TITLE: 'ShakeMap'}
-        });
-      },
-      error: function (e) {
-        console.log(e);
-      }
+    before(function (done) {
+      Xhr.ajax({
+        url: '/events/us10004u1y.json',
+        success: function (data) {
+          product = Product(data.properties.products.shakemap[0]);
+          done();
+        },
+        error: function () {
+          done();
+        }
+      });
     });
 
-    it('displays mmi content correctly', function () {
-      view.renderPinContent();
-      expect(view.el.querySelector('.shakemap-mmi').innerHTML).
-          to.equal('3.07');
-    });
+    it('displays map content correctly', function () {
+      var view;
 
-    it('displays reviewStatus content correctly', function () {
+      view = ShakeMapPinView({
+        model: product
+      });
+
       view.renderPinContent();
-      expect(view.el.querySelectorAll('.shakemap-map > img').length).to.equal(1);
+      expect(view.el.querySelectorAll('.shakemap-tvmap > img').length).to.equal(1);
+
+      view.destroy();
     });
   });
 });
