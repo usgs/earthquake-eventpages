@@ -258,18 +258,22 @@ var DYFIFormModule = function (options) {
    *
    */
   _this.onSubmit = function () {
-    var data;
+    var data,
+        ev;
 
     _submitResult = null;
 
+    ev = _this.model.get('event');
+
     data = Util.extend({
+      eventid: ev ? ev.getEventId() : null,
       form_version: _formVersion,
       ciim_report: 'Submit Form'
     }, _formModel.get());
 
     Xhr.ajax({
       method: 'POST',
-      data: _formModel.get(),
+      data: data,
       error: _this.onSubmitError,
       url: _submitUrl,
       success: _this.onSubmitSuccess
