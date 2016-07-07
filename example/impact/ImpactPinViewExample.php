@@ -12,8 +12,9 @@ if (!isset($TEMPLATE)) {
     <link rel="stylesheet" href="/css/event.css"/>
     <style>
       .impact-pin-view-example {
-        width: 210px;
         height: 310px;
+        margin-top: 1em;
+        width: 210px;
       }
     </style>
   ';
@@ -28,4 +29,4 @@ if (!isset($TEMPLATE)) {
 }
 ?>
 
-<div id="impact-pin-view-example"></div>
+<div class="impact-pin-view-example"></div>

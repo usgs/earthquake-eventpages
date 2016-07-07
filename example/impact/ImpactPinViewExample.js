@@ -2,6 +2,7 @@
 
 
 var ImpactPinView = require('impact/ImpactPinView'),
+    CatalogEvent = require('pdl/CatalogEvent'),
     Xhr = require('util/Xhr');
 
 

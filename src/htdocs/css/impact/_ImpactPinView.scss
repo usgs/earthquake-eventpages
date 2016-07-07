@@ -1,0 +1,21 @@
+.impact-pin-view-bubble {
+  border-radius: 2px;
+  display: block;
+  margin: 1em auto;
+  padding: 0.25em;
+  text-align: center;
+  width: 8em;
+
+  &:first-child {
+    margin-top: 0.5em;
+  }
+}
+
+.impact-pin-view-value {
+  display: block;
+  font-size: 0.8125em;
+}
+
+.impact-pin-view-title {
+  font-size: 0.6875em;
+}
