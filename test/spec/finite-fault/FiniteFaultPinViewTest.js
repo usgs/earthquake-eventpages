@@ -62,5 +62,18 @@ describe('finite-fault/FiniteFaultPinView', function () {
       expect(view.content.innerHTML).to.not.equal('');
       expect(view.content.querySelectorAll('img').length).to.equal(1);
     });
+
+    it('renders a warning when image cannot be found', function () {
+      var view;
+
+      view = FiniteFaultPinView({
+        el: document.createElement('div'),
+        model: null
+      });
+      view.renderPinContent();
+
+      expect(view.content.innerHTML).to.not.equal('');
+      expect(view.content.querySelectorAll('p').length).to.equal(1);
+    });
   });
 });
