@@ -261,7 +261,7 @@ describe('general/RegionalInfoModule', function () {
       expect(fe).to.not.equal(null);
 
       expect(admin.childNodes.length).to.equal(3);
-      expect(fe.innerHTML).to.equal('Colorado (0)');
+      expect(fe.childNodes.length).to.equal(2);
 
       module.destroy();
     });
