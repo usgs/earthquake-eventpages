@@ -16,8 +16,7 @@ Xhr.ajax({
 
     DYFIPinVIew({
       el: document.querySelector('.dyfi-pin-view-example'),
-      model: product,
-      module: {ID: 'dyfi', TITLE: 'DYFI'}
+      model: product
     }).render();
   },
   error: function (e) {
