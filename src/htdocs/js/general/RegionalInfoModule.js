@@ -329,9 +329,14 @@ var RegionalInfoModule = function (options) {
       fe = fe.properties;
       markup.push([
         '<h3>Flinn Engdahl Region</h3>',
-        '<span class="regional-info-module-fe">',
-          fe.name, ' (', fe.number, ')',
-        '</span>'
+        '<ul class="no-style regional-info-module-fe">',
+          '<li class="regional-info-module-admin-iso">',
+            '<strong>Name</strong>', fe.name,
+          '</li>',
+          '<li class="regional-info-module-admin-iso">',
+            '<strong>Number</strong>', fe.number,
+          '</li>',
+        '</ul>',
       ].join(''));
     }
 
