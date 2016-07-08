@@ -36,8 +36,8 @@ var _DEFAULTS = {
     [
       ExecutiveSummaryModule,
       RegionalInfoModule,
-      GeneralSummaryModule,
-      InteractiveMapModule
+      InteractiveMapModule,
+      GeneralSummaryModule
     ],
     // Impact
     [

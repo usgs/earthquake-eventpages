@@ -25,7 +25,7 @@ var _DEFAULTS,
 
 
 _ID = 'scientific';
-_TITLE = 'Scientific Summary';
+_TITLE = 'Technical';
 _TYPES = [
   'origin',
   'phase-data',
