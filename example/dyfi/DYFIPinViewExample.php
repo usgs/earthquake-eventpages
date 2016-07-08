@@ -20,6 +20,7 @@ if (!isset($TEMPLATE)) {
 
   // Stuff that goes at the bottom of the page (i.e. <script> tags)
   $FOOT = '
+    <script src="/lib/leaflet-0.7.7/leaflet.js"></script>
     <script src="/js/classes.js"></script>
     <script src="DYFIPinViewExample.js"></script>
   ';
