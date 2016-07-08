@@ -26,7 +26,9 @@ var _DYFI_10K_OVERLAY = 'DYFI Responses 10 km',
     _DYFI_DEFAULT_OVERLAY = 'DYFI Responses',
     _EPICENTER_OVERLAY = 'Epicenter',
     _FAULTS_OVERLAY = 'U.S. Faults',
+    _HIST_SEIS_OVERLAY = 'Historical Seismicity',
     _PLATES_OVERLAY = 'Tectonic Plates',
+    _POPULATION_OVERLAY = 'Population Density',
     _SHAKEMAP_CONTOURS = 'ShakeMap MMI Contours',
     _SHAKEMAP_STATIONS = 'ShakeMap Stations';
 
@@ -504,7 +506,9 @@ InteractiveMapView.DYFI_1K_OVERLAY = _DYFI_1K_OVERLAY;
 InteractiveMapView.DYFI_DEFAULT_OVERLAY = _DYFI_DEFAULT_OVERLAY;
 InteractiveMapView.EPICENTER_OVERLAY = _EPICENTER_OVERLAY;
 InteractiveMapView.FAULTS_OVERLAY = _FAULTS_OVERLAY;
+InteractiveMapView.HIST_SEIS_OVERLAY = _HIST_SEIS_OVERLAY;
 InteractiveMapView.PLATES_OVERLAY = _PLATES_OVERLAY;
+InteractiveMapView.POPULATION_OVERLAY = _POPULATION_OVERLAY;
 InteractiveMapView.SHAKEMAP_CONTOURS = _SHAKEMAP_CONTOURS;
 InteractiveMapView.SHAKEMAP_STATIONS = _SHAKEMAP_STATIONS;
 
