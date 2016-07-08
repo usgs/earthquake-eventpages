@@ -45,8 +45,8 @@ describe('origin/OriginPinView', function () {
 
       expect(view.el.querySelector('.origin-pin-review-status').innerHTML).
           to.equal('REVIEWED');
-      expect(view.el.querySelector('.origin-pin-location').innerHTML).
-          to.equal('86.908°S&nbsp;94.275°E');
+      expect(view.el.querySelector('.origin-pin-magnitude').innerHTML).
+          to.equal('7.8 mww');
       expect(view.el.querySelector('.origin-pin-depth').innerHTML).
           to.equal('24.0 km');
       expect(view.el.querySelector('.origin-pin-time').innerHTML).

@@ -36,9 +36,8 @@ var OriginPinView = function (options) {
    */
   _this.renderPinContent = function () {
     var depth,
-        latitude,
-        location,
-        longitude,
+        magnitude,
+        magnitudeType,
         product,
         reviewStatus,
         time;
@@ -46,14 +45,14 @@ var OriginPinView = function (options) {
     product = _this.model;
 
     depth = product.getProperty('depth');
-    latitude = product.getProperty('latitude');
-    longitude = product.getProperty('longitude');
-    reviewStatus =
-        product.getProperty('review-status').toUpperCase() || 'AUTOMATIC';
+    magnitude = product.getProperty('magnitude');
+    magnitudeType = product.getProperty('magnitude-type');
+    reviewStatus = product.getProperty('review-status').toUpperCase() ||
+        'AUTOMATIC';
     time = product.getProperty('eventtime');
 
     depth = _formatter.depth(depth, 'km');
-    location = _formatter.location(latitude, longitude);
+    magnitude = _formatter.magnitude(magnitude, magnitudeType);
     time = (time === null ? '&ndash;' :
         '<time datetime="' + time + '">' +
           time.replace('T', '<br />').replace('Z', ' (UTC)') +
@@ -63,8 +62,8 @@ var OriginPinView = function (options) {
         '<dl class="no-style origin-pin-view">' +
           '<dt>Review Status:</dt>' +
             '<dd class="origin-pin-review-status">' + reviewStatus + '</dd>' +
-          '<dt>Location:</dt>' +
-            '<dd class="origin-pin-location">' + location + '</dd>' +
+          '<dt>Magnitude:</dt>' +
+            '<dd class="origin-pin-magnitude">' + magnitude + '</dd>' +
           '<dt>Depth:</dt>' +
             '<dd class="origin-pin-depth">' + depth + '</dd>' +
           '<dt>Time:</dt>' +
