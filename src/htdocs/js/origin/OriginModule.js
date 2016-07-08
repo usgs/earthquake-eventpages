@@ -106,6 +106,8 @@ var OriginModule = function (options) {
     if (_originView && _originView.destroy) {
       _originView.destroy();
       _originView = null;
+      // remove previous _originView skeleton
+      Util.empty(_this.content);
     }
 
     config = _this.model.get('config');
