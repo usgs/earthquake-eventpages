@@ -32,14 +32,17 @@ var ShakeMapPinView = function (options) {
   _this.renderPinContent = function () {
     var tvMap;
 
-    tvMap = _this.model.getContent('download/tvmap.jpg') || null;
+    tvMap = _this.model.getContent('pin-thumbnail.png');
+    if (!tvMap) {
+      tvMap = _this.model.getContent('download/tvmap.jpg');
+    }
 
-    if (tvMap !== null) {
+    if (tvMap) {
       tvMap = '<div class="shakemap-tvmap">' +
           '<img src="' + tvMap.get('url') + '" alt="Intensity Map"/>' +
           '</div>';
     } else {
-      tvMap = '<p>Map not available</p>';
+      tvMap = '<p class="alert warning">Map not available</p>';
     }
 
     _this.content.innerHTML = tvMap;
