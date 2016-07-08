@@ -1,14 +1,23 @@
 
 .pager-pin-content {
 
-  > h3 {
-    font-size: 0.77em;
-    font-weight: normal;
-    margin-top: 0.5em;
+  > span {
+    display: block;
+    font-size: 0.88em;
+    margin: 0.5em 0;
   }
 
-  > figure {
-    width: 70%;
+  > img {
+    display: block;
     margin: 0.5em auto;
+    width: 70%;
   }
+}
+
+.pager-bubble {
+  border-radius: 2px;
+  display: inline-block;
+  float: right;
+  font-size: 0.77em;
+  padding: 3px 18px;
 }
