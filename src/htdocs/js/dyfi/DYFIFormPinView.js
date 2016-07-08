@@ -23,20 +23,28 @@ var DYFIFormPinView = function (options) {
    */
   _this.renderPinContent = function () {
     var markup,
-        properties,
-        responses;
+        pad,
+        responses,
+        stillZero,
+        value;
 
     markup = [];
-    properties = _this.model.get('properties');
-    responses = properties['num-responses'] || properties.numResp;
+    pad = '000000';
+    responses = _this.model.getProperty('num-responses') ||
+        _this.model.getProperty('numResp') || '0';
+    // pad with zeros
+    responses = pad.substring(0, pad.length - responses.length) + responses;
+    stillZero = true;
 
-    if (responses) {
-      for (var i = 0, len = responses.length; i < len; i += 1) {
-        markup.push('<div class="responses-digit">' + responses.charAt(i) +
-            '</div>');
+    for (var i = 0, len = responses.length; i < len; i += 1) {
+      value = responses.charAt(i);
+
+      if (value === '0' && stillZero) {
+        markup.push('<div class="responses-digit empty-digit">0</div>');
+      } else {
+        stillZero = false;
+        markup.push('<div class="responses-digit">', value, '</div>');
       }
-    } else {
-      markup = ['<div class="responses-digit">&ndash;</div>'];
     }
 
     _this.content.innerHTML =
