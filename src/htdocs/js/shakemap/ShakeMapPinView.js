@@ -26,6 +26,17 @@ var ShakeMapPinView = function (options) {
   };
 
   /**
+   * Frees resources associated with this view.
+   *
+   */
+  _this.destroy = Util.compose(function () {
+    _formatter = null;
+
+    _initialize = null;
+    _this = null;
+  }, _this.destroy);
+
+  /**
    * Renders content for ShakeMapPinView
    *
    */
