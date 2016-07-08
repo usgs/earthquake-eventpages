@@ -56,7 +56,6 @@ var ALL_CLASSES = [
   JS + '/general/RegionalInfoModule.js:general/RegionalInfoModule',
   JS + '/general/TsunamiPinView.js:general/TsunamiPinView',
 
-  JS + '/impact/ImpactPinView.js:impact/ImpactPinView',
   JS + '/impact/ImpactSummaryModule.js:impact/ImpactSummaryModule',
 
   JS + '/losspager/PAGERModule.js:losspager/PAGERModule',
