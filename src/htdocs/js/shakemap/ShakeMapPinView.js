@@ -41,22 +41,23 @@ var ShakeMapPinView = function (options) {
    *
    */
   _this.renderPinContent = function () {
-    var tvMap;
+    var img,
+        markup;
 
-    tvMap = _this.model.getContent('pin-thumbnail.png');
-    if (!tvMap) {
-      tvMap = _this.model.getContent('download/tvmap.jpg');
+    img = _this.model.getContent('pin-thumbnail.png');
+    if (!img) {
+      img = _this.model.getContent('download/tvmap.jpg');
     }
 
-    if (tvMap) {
-      tvMap = '<div class="shakemap-tvmap">' +
-          '<img src="' + tvMap.get('url') + '" alt="Intensity Map"/>' +
+    if (img) {
+      markup = '<div class="shakemap-tvmap">' +
+          '<img src="' + img.get('url') + '" alt="Intensity Map"/>' +
           '</div>';
     } else {
-      tvMap = '<p class="alert warning">Map not available</p>';
+      markup = '<p class="alert warning">Map not available</p>';
     }
 
-    _this.content.innerHTML = tvMap;
+    _this.content.innerHTML = markup;
   };
 
   /**
@@ -69,7 +70,7 @@ var ShakeMapPinView = function (options) {
 
     // Use module ID and TITLE to create a link
     display = _this.module.TITLE;
-    maxmmi = _this.model.get('properties').maxmmi;
+    maxmmi = _this.model.getProperty('maxmmi');
 
     _this.header.innerHTML = [
       '<a href="', _this.getLinkUrl(), '">', display, '</a>',
