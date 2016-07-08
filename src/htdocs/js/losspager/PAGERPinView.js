@@ -71,7 +71,7 @@ var PAGERPinView = function (options) {
         '<strong class="roman">' +
           alertlevel.toUpperCase() +
         '</strong>' +
-      '</span>' : null)
+      '</span>' : '')
     ].join('');
   };
 
