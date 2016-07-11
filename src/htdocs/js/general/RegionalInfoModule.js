@@ -39,8 +39,7 @@ _hasContent = function (eventPageModel) {
 var _DEFAULTS = {
   formatter: null,
   gisBaseUrl: '/arcgis/rest/services',
-  mapRadius: 5.0,
-  seismicityUrl: '/eq/catalog_2015/MapServer/tile/{z}/{y}/{x}'
+  mapRadius: 5.0
 };
 
 
@@ -59,7 +58,6 @@ var RegionalInfoModule = function (options) {
       _nearbyPlacesEl,
       _nearbyPlacesView,
       _otherRegionInfoEl,
-      _seismicityUrl,
       _tectonicSummaryEl,
       _tectonicSummaryView;
 
@@ -87,7 +85,6 @@ var RegionalInfoModule = function (options) {
     _gisBaseUrl = options.gisBaseUrl;
     _formatter = options.formatter || Formatter();
     _mapRadius = options.mapRadius;
-    _seismicityUrl = options.seismicityUrl;
 
     mapLink = [
       '#', InteractiveMapModule.ID, '?',
@@ -153,7 +150,6 @@ var RegionalInfoModule = function (options) {
     _mapRadius = null;
     _nearbyPlacesEl = null;
     _otherRegionInfoEl = null;
-    _seismicityUrl = null;
     _tectonicSummaryEl = null;
 
 
