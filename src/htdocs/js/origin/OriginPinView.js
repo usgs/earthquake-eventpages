@@ -47,12 +47,13 @@ var OriginPinView = function (options) {
     depth = product.getProperty('depth');
     magnitude = product.getProperty('magnitude');
     magnitudeType = product.getProperty('magnitude-type');
-    reviewStatus = product.getProperty('review-status').toUpperCase() ||
-        'AUTOMATIC';
+    reviewStatus = product.getProperty('review-status');
     time = product.getProperty('eventtime');
 
     depth = _formatter.depth(depth, 'km');
     magnitude = _formatter.magnitude(magnitude, magnitudeType);
+    reviewStatus = (reviewStatus === null ? '&ndash;' :
+        reviewStatus.toUpperCase());
     time = (time === null ? '&ndash;' :
         '<time datetime="' + time + '">' +
           time.replace('T', '<br />').replace('Z', ' (UTC)') +
