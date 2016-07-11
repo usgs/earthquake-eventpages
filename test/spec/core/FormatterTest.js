@@ -244,10 +244,24 @@ describe('core/Formatter', function () {
     });
   });
 
+  describe('leftPad', function () {
+    it('does not pad longer strings', function () {
+      expect(formatter.leftPad('longer string', 2, 'X')).to.equal(
+          'longer string');
+    });
+
+    it('pads out a shorter string', function () {
+      expect(formatter.leftPad('short', '10', '-')).to.equal(
+          '-----short');
+    });
+  });
+
   describe('location', function () {
-    expect(formatter.location(1.23, 2.34)).to.equal(
+    it('formats as expected', function () {
+      expect(formatter.location(1.23, 2.34)).to.equal(
       formatter.latitude(1.23) + '&nbsp;' +
       formatter.longitude(2.34));
+    });
   });
 
   describe('longitude', function () {
