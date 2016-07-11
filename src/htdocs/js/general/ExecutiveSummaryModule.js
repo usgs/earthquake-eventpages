@@ -10,7 +10,7 @@ var DyfiFormPinView = require('dyfi/DYFIFormPinView'),
     OriginPinView = require('origin/OriginPinView'),
     PAGERPinView = require('losspager/PAGERPinView'),
     Product = require('pdl/Product'),
-    RegionInfoPinView = require('core/BasicPinView'), // TODO
+    RegionalInfoPinView = require('general/RegionalInfoPinView'),
     ShakeMapPinView = require('shakemap/ShakeMapPinView'),
     SummaryModule = require('core/SummaryModule'),
     TsunamiPinView = require('general/TsunamiPinView'),
@@ -179,7 +179,6 @@ var ExecutiveSummaryModule = function (options) {
     eventProps = ev.getSummary().properties || {};
 
     // Interactive Map pin
-    // TODO :: Product ???
     _this.pinViews.push(InteractiveMapPinView({
       el: _this.createPinContainer(list),
       model: _this.model
@@ -187,8 +186,7 @@ var ExecutiveSummaryModule = function (options) {
 
 
     // Regional Info pin
-    // TODO :: Product ???
-    _this.pinViews.push(RegionInfoPinView({
+    _this.pinViews.push(RegionalInfoPinView({
       el: _this.createPinContainer(list),
       model: ev.getPreferredOriginProduct() // TODO ...
     }));

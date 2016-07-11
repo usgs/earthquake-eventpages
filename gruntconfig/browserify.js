@@ -54,6 +54,7 @@ var ALL_CLASSES = [
   JS + '/general/LocationView.js:general/LocationView',
   JS + '/general/NearbyPlacesView.js:general/NearbyPlacesView',
   JS + '/general/RegionalInfoModule.js:general/RegionalInfoModule',
+  JS + '/general/RegionalInfoPinView.js:general/RegionalInfoPinView',
   JS + '/general/TsunamiPinView.js:general/TsunamiPinView',
 
   JS + '/impact/ImpactSummaryModule.js:impact/ImpactSummaryModule',

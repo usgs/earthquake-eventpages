@@ -70,6 +70,7 @@ require('./spec/general/GeoserveNearbyPlacesViewTest');
 require('./spec/general/GeoserveRegionSummaryViewTest');
 require('./spec/general/NearbyPlacesViewTest');
 require('./spec/general/RegionalInfoModuleTest');
+require('./spec/general/RegionalInfoPinViewTest');
 require('./spec/general/TsunamiPinViewTest');
 
 require('./spec/impact/ImpactSummaryModuleTest');
