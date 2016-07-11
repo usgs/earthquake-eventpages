@@ -52,8 +52,8 @@ var OriginPinView = function (options) {
 
     depth = _formatter.depth(depth, 'km');
     magnitude = _formatter.magnitude(magnitude, magnitudeType);
-    reviewStatus = (reviewStatus === null ? '&ndash;' :
-        reviewStatus.toUpperCase());
+    reviewStatus = (reviewStatus === null) ? '&ndash;' :
+        reviewStatus.toUpperCase();
     time = (time === null ? '&ndash;' :
         '<time datetime="' + time + '">' +
           time.replace('T', '<br />').replace('Z', ' (UTC)') +
