@@ -1,7 +1,7 @@
 /* global L */
 'use strict';
 
-var EsriTerrain = require('leaflet/layer/EsriTerrain'),
+var Terrain = require('leaflet/layer/Terrain'),
     Formatter = require('core/Formatter'),
     GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
     GeoserveRegionSummaryView = require('general/GeoserveRegionSummaryView'),
@@ -448,7 +448,7 @@ var RegionalInfoModule = function (options) {
       keyboard: false,
       markerZoomAnimation: false,
       layers: [
-        EsriTerrain(),
+        Terrain(),
         L.tileLayer(_gisBaseUrl + _seismicityUrl),
         // TODO :: Population density layer ... need tile layer in GIS first
         L.marker([latitude, longitude], {

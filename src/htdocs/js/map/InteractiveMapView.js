@@ -4,14 +4,14 @@
 
 var ContoursLayer = require('map/ContoursLayer'),
     DyfiUtmLayer = require('map/DyfiUtmLayer'),
-    EsriGrayscale = require('leaflet/layer/EsriGrayscale'),
-    EsriTerrain = require('leaflet/layer/EsriTerrain'),
+    Grayscale = require('leaflet/layer/Grayscale'),
+    Terrain = require('leaflet/layer/Terrain'),
     Formatter = require('core/Formatter'),
     HazDevLayers = require('leaflet/control/HazDevLayers'),
     Module = require('core/Module'),
     MousePosition = require('leaflet/control/MousePosition'),
-    OpenAerialMap = require('leaflet/layer/OpenAerialMap'),
-    OpenStreetMap = require('leaflet/layer/OpenStreetMap'),
+    Satellite = require('leaflet/layer/Satellite'),
+    Street = require('leaflet/layer/Street'),
     Product = require('pdl/Product'),
     ShakeMapStationLayer = require('map/ShakeMapStationLayer'),
     TectonicPlates = require('leaflet/layer/TectonicPlates'),
@@ -320,10 +320,10 @@ var InteractiveMapView = function (options) {
    */
   _this.getAvailableBaseLayers = function () {
     _baseLayers = {
-      'Terrain': EsriTerrain(),
-      'Grayscale': EsriGrayscale(),
-      'Street': OpenStreetMap(),
-      'Satellite': OpenAerialMap()
+      'Terrain': Terrain(),
+      'Grayscale': Grayscale(),
+      'Street': Street(),
+      'Satellite': Satellite()
     };
 
     return _baseLayers;
