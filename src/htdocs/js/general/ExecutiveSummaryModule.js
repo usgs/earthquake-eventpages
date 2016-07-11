@@ -168,7 +168,7 @@ var ExecutiveSummaryModule = function (options) {
         product;
 
     _this.pinViews = _this.pinViews || [];
-    config = _this.model.get('config');
+    config = _this.model.get('config') || {};
     list = document.createElement('ul');
     list.classList.add('executive-summary-pins');
 
@@ -192,11 +192,13 @@ var ExecutiveSummaryModule = function (options) {
     }));
 
     // DYFI Form pin
-    product = ev.getPreferredProduct(Product.getFullType('dyfi', config));
-    _this.pinViews.push(DyfiFormPinView({
-      el: _this.createPinContainer(list),
-      model: product || Product()
-    }));
+    if (config.SCENARIO_MODE !== true) {
+      product = ev.getPreferredProduct(Product.getFullType('dyfi', config));
+      _this.pinViews.push(DyfiFormPinView({
+        el: _this.createPinContainer(list),
+        model: product || Product()
+      }));
+    }
 
     // DYFI pin
     if (product) {
