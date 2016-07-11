@@ -38,7 +38,6 @@ _hasContent = function (eventPageModel) {
 
 var _DEFAULTS = {
   formatter: null,
-  gisBaseUrl: '/arcgis/rest/services',
   mapRadius: 5.0
 };
 
@@ -52,7 +51,6 @@ var RegionalInfoModule = function (options) {
       _initialize,
 
       _formatter,
-      _gisBaseUrl,
       _mapEl,
       _mapRadius,
       _nearbyPlacesEl,
@@ -82,7 +80,6 @@ var RegionalInfoModule = function (options) {
 
     options = Util.extend({}, _DEFAULTS, options);
 
-    _gisBaseUrl = options.gisBaseUrl;
     _formatter = options.formatter || Formatter();
     _mapRadius = options.mapRadius;
 
@@ -145,7 +142,6 @@ var RegionalInfoModule = function (options) {
       _this.map.remove();
     }
 
-    _gisBaseUrl = null;
     _mapEl = null;
     _mapRadius = null;
     _nearbyPlacesEl = null;
