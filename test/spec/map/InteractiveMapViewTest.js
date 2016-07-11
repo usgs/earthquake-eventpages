@@ -296,6 +296,17 @@ describe('map/InteractiveMapView', function () {
       /* jshint +W030 */
     });
 
+    it('adds the historic seismicity overlay', function () {
+      var overlays;
+
+      overlays = view.getAvailableOverlays();
+
+      /* jshint -W030 */
+      expect(overlays.hasOwnProperty(
+          InteractiveMapView.HIST_SEIS_OVERLAY)).to.be.true;
+      /* jshint +W030 */
+    });
+
     it('adds DYFI overlays', function () {
       var spy;
 
