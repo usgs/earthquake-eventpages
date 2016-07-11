@@ -8,6 +8,7 @@ var ContoursLayer = require('map/ContoursLayer'),
     Terrain = require('leaflet/layer/Terrain'),
     Formatter = require('core/Formatter'),
     HazDevLayers = require('leaflet/control/HazDevLayers'),
+    HistoricSeismicity = require('leaflet/layer/HistoricSeismicity'),
     Module = require('core/Module'),
     MousePosition = require('leaflet/control/MousePosition'),
     Satellite = require('leaflet/layer/Satellite'),
@@ -366,6 +367,9 @@ var InteractiveMapView = function (options) {
     if (__inUs(eventLatitude, eventLongitude)) {
       _overlays[_FAULTS_OVERLAY] = UsFault();
     }
+
+    // Historic seismicity
+    _overlays[_HIST_SEIS_OVERLAY] = HistoricSeismicity();
 
     // Calling _module.getProduct will get the current product in the
     // case that a specific ?source=&code= were requested...
