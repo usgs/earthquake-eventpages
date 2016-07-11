@@ -92,7 +92,7 @@ var connect = {
       ],
       port: 8100,
       livereload: config.liveReloadPort,
-      open: 'http://localhost:8100/earthquakes/eventpage/us10004u1y',
+      open: 'http://localhost:8100' + MOUNT_PATH + '/us10004u1y',
       middleware: addMiddleware
     }
   },
@@ -104,7 +104,7 @@ var connect = {
       ],
       port: 8102,
       keepalive: true,
-      open: 'http://localhost:8102/earthquakes/eventpage/us10004u1y',
+      open: 'http://localhost:8102' + MOUNT_PATH + '/us10004u1y',
       middleware: addMiddleware
     }
   },
