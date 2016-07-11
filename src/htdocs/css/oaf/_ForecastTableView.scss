@@ -1,0 +1,38 @@
+.oaf-forecast-table-view {
+  > div > table {
+    border-bottom: 1px solid #efefef;
+    border-right: 1px solid #efefef;
+
+    > thead {
+      > tr > th {
+        text-align: center;
+        min-width: 7.5em;
+      }
+    }
+
+    > tbody {
+      > tr + .separator > th,
+      > tr + .separator > td {
+        border-top: 1px solid #999;
+      }
+
+      > tr > th,
+      > tr > td {
+        border-bottom: none;
+        border-right: none;
+        text-align: center;
+      }
+
+      > tr > th {
+        background-color: #fff;
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .oaf-forecast-table-view > div > table > thead > tr > th {
+    min-width: 15em;
+  }
+}
