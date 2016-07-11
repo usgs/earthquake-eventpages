@@ -12,6 +12,8 @@ var _DEFAULTS,
     _FORMATTER;
 
 _DEFAULTS = {
+  clickable: true,
+
   style: function (feature) {
     return {
       color: feature.properties.color,
@@ -25,11 +27,13 @@ _DEFAULTS = {
 
     roman = _FORMATTER.mmi(feature.properties.value);
 
-    layer.bindPopup(
-        '<div class="roman station-summary-intensity mmi' + roman + '">' +
-          roman +
-          '<br><abbr title="Modified Mercalli Intensity">mmi</abbr>' +
-        '</div>');
+    if (this.clickable) {
+      layer.bindPopup(
+          '<div class="roman station-summary-intensity mmi' + roman + '">' +
+            roman +
+            '<br><abbr title="Modified Mercalli Intensity">mmi</abbr>' +
+          '</div>');
+    }
   }
 };
 
