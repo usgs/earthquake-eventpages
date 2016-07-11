@@ -321,7 +321,7 @@ var InteractiveMapView = function (options) {
    */
   _this.getAvailableBaseLayers = function () {
     _baseLayers = {
-      'Terrain': Terrain(),
+      'Terrain': Terrain({provider: Terrain.NATGEO}),
       'Grayscale': Grayscale(),
       'Street': Street(),
       'Satellite': Satellite()

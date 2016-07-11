@@ -5,6 +5,7 @@ var Terrain = require('leaflet/layer/Terrain'),
     Formatter = require('core/Formatter'),
     GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
     GeoserveRegionSummaryView = require('general/GeoserveRegionSummaryView'),
+    HistoricSeismicity = require('leaflet/layer/HistoricSeismicity'),
     InteractiveMapModule = require('map/InteractiveMapModule'),
     InteractiveMapView = require('map/InteractiveMapView'),
     Module = require('core/Module'),
@@ -448,8 +449,8 @@ var RegionalInfoModule = function (options) {
       keyboard: false,
       markerZoomAnimation: false,
       layers: [
-        Terrain(),
-        L.tileLayer(_gisBaseUrl + _seismicityUrl),
+        Terrain({provider: Terrain.NATGEO}),
+        HistoricSeismicity(),
         // TODO :: Population density layer ... need tile layer in GIS first
         L.marker([latitude, longitude], {
           zIndexOffset: 99,
