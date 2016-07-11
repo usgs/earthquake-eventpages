@@ -40,6 +40,10 @@
   margin: 0.5em 0;
   max-height: 100%;
   padding: 0 0.5em;
+
+  > .leaflet-container {
+    cursor: pointer;
+  }
 }
 
 .pin-footer {
