@@ -47,14 +47,11 @@ var DYFIFormPinView = function (options) {
    */
   _this.renderPinContent = function () {
     var markup,
-        pad,
         responses,
         stillZero,
         value;
 
     markup = [];
-    pad = '000000';
-
     responses = _this.model.getProperty('num-responses') ||
         _this.model.getProperty('numResp') || '0';
     // pad with zeros
