@@ -28,13 +28,9 @@
   margin-top: 0;
 }
 
-.regional-info-module-admin > li > strong,
-.regional-info-module-fe > li > strong {
-  color: #666;
-  display: inline-block;
+.regional-info-module-admin > dt,
+.regional-info-module-fe > dt {
   font-size: 0.88em;
-  margin-right: 1em;
-  width: 4.5em;
 }
 
 .regional-info-module-tectonic-summary > .tectonic {

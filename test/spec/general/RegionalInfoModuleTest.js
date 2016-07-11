@@ -260,8 +260,8 @@ describe('general/RegionalInfoModule', function () {
       expect(admin).to.not.equal(null);
       expect(fe).to.not.equal(null);
 
-      expect(admin.childNodes.length).to.equal(3);
-      expect(fe.childNodes.length).to.equal(2);
+      expect(admin.childNodes.length).to.equal(6);
+      expect(fe.childNodes.length).to.equal(4);
 
       module.destroy();
     });
