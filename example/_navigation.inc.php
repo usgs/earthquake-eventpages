@@ -9,11 +9,12 @@ print navGroup('Core',
   );
 
 print navGroup('General',
-    navItem('/map/InteractiveMapViewExample.php', 'Interactive Map') .
     navItem('/general/GeoserveNearbyPlacesViewExample.php',
         'Geoserve Nearby Places View') .
-    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View') .
     navItem('/map/InteractiveMapPinViewExample.php', 'Interactive Map Pin') .
+    navItem('/map/InteractiveMapViewExample.php', 'Interactive Map') .
+    navItem('/general/NearbyPlacesViewExample.php', 'Nearby Places View') .
+    navItem('/general/RegionalInfoPinViewExample.php', 'RegionalInfoPinView') .
     navItem('/general/TsunamiPinViewExample.php', 'Tsunami Pin View')
   );
 

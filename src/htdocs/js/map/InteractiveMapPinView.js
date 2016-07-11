@@ -49,6 +49,7 @@ var MapPinView = function (options) {
     _mapView = InteractiveMapView({
       el: el,
       interactive: false,
+      markerSize: 16,
       model: _this.model,
       scaleControl: false
     });
