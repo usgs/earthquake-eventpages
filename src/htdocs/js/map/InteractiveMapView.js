@@ -235,6 +235,7 @@ var InteractiveMapView = function (options) {
     content = shakemap.getContent('download/cont_mi.json');
     if (content) {
       _overlays[_SHAKEMAP_CONTOURS] = ContoursLayer({
+        clickable: _interactive,
         url: content.get('url')
       });
     }
@@ -274,11 +275,14 @@ var InteractiveMapView = function (options) {
         iconAnchor: [_markerSize/2, _markerSize/2]
       })
     });
-    marker.bindPopup([
-      'Epicenter M', _formatter.magnitude(magnitude),
-      '<br/>',
-      _formatter.location(latitude, longitude)
-    ].join(''));
+
+    if (_interactive) {
+      marker.bindPopup([
+        'Epicenter M', _formatter.magnitude(magnitude),
+        '<br/>',
+        _formatter.location(latitude, longitude)
+      ].join(''));
+    }
 
     return marker;
   };
