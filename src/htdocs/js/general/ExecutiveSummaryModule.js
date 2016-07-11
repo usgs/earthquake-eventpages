@@ -188,7 +188,7 @@ var ExecutiveSummaryModule = function (options) {
     // Regional Info pin
     _this.pinViews.push(RegionalInfoPinView({
       el: _this.createPinContainer(list),
-      model: ev.getPreferredOriginProduct() // TODO ...
+      model: ev.getPreferredOriginProduct()
     }));
 
     // DYFI Form pin

@@ -2,7 +2,6 @@
 'use strict';
 
 var Terrain = require('leaflet/layer/Terrain'),
-    Formatter = require('core/Formatter'),
     GeoserveNearbyPlacesView = require('general/GeoserveNearbyPlacesView'),
     GeoserveRegionSummaryView = require('general/GeoserveRegionSummaryView'),
     HistoricSeismicity = require('leaflet/layer/HistoricSeismicity'),
@@ -50,7 +49,6 @@ var RegionalInfoModule = function (options) {
   var _this,
       _initialize,
 
-      _formatter,
       _mapEl,
       _mapRadius,
       _nearbyPlacesEl,
@@ -80,7 +78,6 @@ var RegionalInfoModule = function (options) {
 
     options = Util.extend({}, _DEFAULTS, options);
 
-    _formatter = options.formatter || Formatter();
     _mapRadius = options.mapRadius;
 
     mapLink = [

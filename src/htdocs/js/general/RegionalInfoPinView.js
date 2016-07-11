@@ -1,9 +1,10 @@
+/* global L */
 'use strict';
 
 
 var BasicPinView = require('core/BasicPinView'),
-    InteractiveMapView = require('map/InteractiveMapView'),
-    Product = require('pdl/Product'),
+    HistoricSeismicity = require('leaflet/layer/HistoricSeismicity'),
+    Terrain = require('leaflet/layer/Terrain'),
     Util = require('util/Util');
 
 
@@ -16,6 +17,7 @@ var RegionalInfoPinView = function (options) {
   var _this,
       _initialize,
 
+      _mapEl,
       _mapView;
 
   options = Util.extend({}, _DEFAULTS, options);
@@ -27,43 +29,76 @@ var RegionalInfoPinView = function (options) {
    * @param options {Object}
    */
   _initialize = function (/*options*/) {
-    var el,
-        ev;
-
-    el = document.createElement('div');
-    el.classList.add('locationview-map');
-
-    ev = _this.model.get('event');
-
-    if (ev) {
-      _this.product = ev.getPreferredOriginProduct();
-    }
-
-    if (!_this.product) {
-      _this.product = Product();
-    }
-
-    _this.content.appendChild(el);
-
-    _mapView = InteractiveMapView({
-      el: el,
-      interactive: false,
-      model: _this.model,
-      scaleControl: false
-    });
+    _mapEl = document.createElement('div');
+    _mapEl.classList.add('regional-info-map');
+    _this.content.appendChild(_mapEl);
   };
 
   _this.destroy = Util.compose(function () {
     if (_this === null) {
       return;
     }
-    _mapView.destroy();
+
+    if (_this.map) {
+      _this.map.remove();
+    }
+
+    _mapEl = null;
+    _mapView = null;
+
+    _initialize = null;
     _this = null;
   }, _this.destroy);
 
+  /**
+   * Render map information for the event.
+   *
+   */
   _this.renderPinContent = function () {
-    _mapView.onDomReady();
-    _mapView.render();
+    var latitude,
+        longitude;
+
+    if (_mapView) {
+      _mapView.remove();
+      _mapView = null;
+    }
+
+    latitude = _this.model.getProperty('latitude');
+    longitude = _this.model.getProperty('longitude');
+
+    if (latitude === null || longitude === null) {
+      return;
+    }
+
+    _mapView = L.map(_mapEl, {
+      attributionControl: false,
+      boxZoom: false,
+      center: [latitude, longitude],
+      zoom: 1,
+      doubleClickZoom: false,
+      dragging: false,
+      fadeAnimation: false,
+      keyboard: false,
+      markerZoomAnimation: false,
+      layers: [
+        Terrain({provider: Terrain.NATGEO}),
+        HistoricSeismicity(),
+        // TODO :: Population density layer ... need tile layer in GIS first
+        L.marker([latitude, longitude], {
+          zIndexOffset: 99,
+          icon: L.icon({
+            iconUrl: 'images/star.png',
+            iconSize: [32, 32],
+            iconAnchor: [16, 16]
+          })
+        })
+      ],
+      scrollWheelZoom: false,
+      tap: false,
+      touchZoom: false,
+      zoomAnimation: false,
+      zoomControl: false
+    });
   };
 
 
