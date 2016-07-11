@@ -1,12 +1,11 @@
 /* global before, chai, describe, it */
 'use strict';
 
-var CatalogEvent = require('pdl/CatalogEvent'),
-    RegionalInfoPinView = require('general/RegionalInfoPinView'),
-    Model = require('mvc/Model'),
+var RegionalInfoPinView = require('general/RegionalInfoPinView'),
+    Product = require('pdl/Product'),
     Xhr = require('util/Xhr');
 
-var _data,
+var product,
     expect = chai.expect;
 
 describe('general/RegionalInfoPinView', function () {
@@ -14,11 +13,11 @@ describe('general/RegionalInfoPinView', function () {
     Xhr.ajax({
       url: '/events/us10004u1y_orig.json',
       success: function (data) {
-        _data = data;
+        product = Product(data.properties.products['phase-data'][0]);
         done();
       },
       error: function () {
-        _data = {};
+        product = {};
         done();
       }
     });
@@ -39,21 +38,22 @@ describe('general/RegionalInfoPinView', function () {
   describe('renderPinContent', function () {
     it('renders Regional Map content in the pin', function () {
       var el,
-          view;
+          view,
+          mapEl;
 
       view = RegionalInfoPinView({
         el: document.createElement('div'),
-        model: Model({
-          'event': CatalogEvent(_data),
-          'config': {}
-        })
+        model: product
       });
 
       el = view.content;
+      mapEl = el.querySelector('.regional-info-map');
 
-      /* jshint -W030 */
-      expect(el.innerHTML).to.not.be.null;
-      /* jshint +W030 */
+      expect(mapEl.innerHTML).to.equal('');
+
+      view.render();
+
+      expect(mapEl.innerHTML).to.not.equal('');
     });
   });
 });
