@@ -37,7 +37,8 @@ var _DEFAULTS = {
   config: {
     baseLayer: 'Terrain'
   },
-  interactive: true
+  interactive: true,
+  markerSize: 32
 };
 
 // Set up what we want enabled by default
@@ -92,6 +93,7 @@ var InteractiveMapView = function (options) {
       _interactive,
       _layersControl,
       _map,
+      _markerSize,
       _module,
       _overlays,
       _positionControl,
@@ -121,6 +123,7 @@ var InteractiveMapView = function (options) {
 
     _formatter = options.formatter || Formatter();
     _interactive = options.interactive;
+    _markerSize = options.markerSize;
 
     _baseLayers = {};
     _overlays = {};
@@ -134,7 +137,7 @@ var InteractiveMapView = function (options) {
       scrollWheelZoom: _interactive,
       tap: _interactive,
       touchZoom: _interactive,
-      zoom: 2,
+      zoom: 0,
       zoomAnimation: true,
       zoomControl: _interactive
     });
@@ -267,8 +270,8 @@ var InteractiveMapView = function (options) {
       zIndexOffset: 99,
       icon: L.icon({
         iconUrl: 'images/star.png',
-        iconSize: [32, 32],
-        iconAnchor: [16, 16]
+        iconSize: [_markerSize, _markerSize],
+        iconAnchor: [_markerSize/2, _markerSize/2]
       })
     });
     marker.bindPopup([
@@ -302,6 +305,7 @@ var InteractiveMapView = function (options) {
     _formatter = null;
     _layersControl = null;
     _map = null;
+    _markerSize = null;
     _module = null;
     _overlays = null;
     _positionControl = null;

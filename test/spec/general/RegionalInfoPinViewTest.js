@@ -48,9 +48,6 @@ describe('general/RegionalInfoPinView', function () {
 
       el = view.content;
       mapEl = el.querySelector('.regional-info-map');
-
-      expect(mapEl.innerHTML).to.equal('');
-
       view.render();
 
       expect(mapEl.innerHTML).to.not.equal('');
