@@ -11,7 +11,6 @@ var Attribution = require('core/Attribution'),
     FiniteFaultModule = require('finite-fault/FiniteFaultModule'),
     FocalMechanismModule = require('focal-mechanism/FocalMechanismModule'),
     Formatter = require('core/Formatter'),
-    GeneralSummaryModule = require('general/GeneralSummaryModule'),
     ImpactSummaryModule = require('impact/ImpactSummaryModule'),
     InteractiveMapModule = require('map/InteractiveMapModule'),
     Model = require('mvc/Model'),
@@ -32,12 +31,11 @@ var _DEFAULTS = {
   },
   'defaultModule': ExecutiveSummaryModule.ID,
   'modules': [
-    // General
+    // Overview
     [
       ExecutiveSummaryModule,
       InteractiveMapModule,
-      RegionalInfoModule,
-      GeneralSummaryModule
+      RegionalInfoModule
     ],
     // Impact
     [
@@ -47,7 +45,7 @@ var _DEFAULTS = {
       ShakeMapModule,
       PAGERModule
     ],
-    // Scientific
+    // Technical
     [
       ScientificSummaryModule,
       OriginModule,
@@ -58,8 +56,8 @@ var _DEFAULTS = {
     ]
   ],
   'redirects': {
-    // General
-    'general_summary': GeneralSummaryModule.ID,
+    // Overview
+    'general_summary': ExecutiveSummaryModule.ID,
     'general_map': InteractiveMapModule.ID,
     // Impact
     'impact_summary': ImpactSummaryModule.ID,
@@ -67,7 +65,7 @@ var _DEFAULTS = {
     'impact_dyfi': DYFIModule.ID,
     'impact_shakemap': ShakeMapModule.ID,
     'impact_pager': PAGERModule.ID,
-    // Scientific
+    // Technical
     'scientific_summary': ScientificSummaryModule.ID,
     'scientific_origin': OriginModule.ID,
     'scientific_moment-tensor': MomentTensorModule.ID,
