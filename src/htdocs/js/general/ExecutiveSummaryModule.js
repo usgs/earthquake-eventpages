@@ -184,7 +184,6 @@ var ExecutiveSummaryModule = function (options) {
       model: _this.model
     }));
 
-
     // Regional Info pin
     _this.pinViews.push(RegionalInfoPinView({
       el: _this.createPinContainer(list),
@@ -235,14 +234,6 @@ var ExecutiveSummaryModule = function (options) {
       }));
     }
 
-    // Tsunami pin
-    if (ev.getSummary().properties.tsunami === 1) {
-      _this.pinViews.push(TsunamiPinView({
-        el: _this.createPinContainer(list),
-        model: ev.getPreferredOriginProduct()
-      }));
-    }
-
     // Moment Tensor pin
     product = ev.getPreferredProduct(Product.getFullType('moment-tensor',
         config));
@@ -272,6 +263,14 @@ var ExecutiveSummaryModule = function (options) {
       _this.pinViews.push(FiniteFaultPinView({
         el: _this.createPinContainer(list),
         model: product
+      }));
+    }
+
+    // Tsunami pin
+    if (ev.getSummary().properties.tsunami === 1) {
+      _this.pinViews.push(TsunamiPinView({
+        el: _this.createPinContainer(list),
+        model: ev.getPreferredOriginProduct()
       }));
     }
 
