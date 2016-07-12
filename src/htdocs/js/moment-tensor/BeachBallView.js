@@ -8,12 +8,15 @@ var Canvas = require('moment-tensor/Canvas'),
 
 var _D2R,
     _DEFAULTS,
+    _EPSILON,
     _MERGE_THRESHOLD,
     _R2D,
     _SPLIT_THRESHOLD;
 
 _D2R = Math.PI / 180;
 _R2D = 180 / Math.PI;
+
+_EPSILON = Number.EPSILON || 1e-16;
 
 // threshold x and y pixel difference when polygons should be merged.
 // Pixels are in the range [-1, 1], so 0.02 represents a 1% difference.
@@ -315,7 +318,7 @@ var BeachBallView = function (options) {
     x = [];
     y = [];
 
-    vertical = (Math.abs(dip - Math.PI / 2)) < Number.EPSILON;
+    vertical = (Math.abs(dip - Math.PI / 2)) < _EPSILON;
     if (vertical) {
       x.push(Math.sin(strike), Math.sin(strike + Math.PI));
       y.push(Math.cos(strike), Math.cos(strike + Math.PI));
@@ -424,8 +427,8 @@ var BeachBallView = function (options) {
     p.v -= vi;
 
     // compute f, iso
-    f = (-n.v / t.v) || Number.EPSILON;
-    iso = (vi / t.v) || Number.EPSILON;
+    f = (-n.v / t.v) || _EPSILON;
+    iso = (vi / t.v) || _EPSILON;
 
     // build azes
     swapColors = false;
@@ -434,7 +437,7 @@ var BeachBallView = function (options) {
       sfi = Math.sin(fir);
       cfi = Math.cos(fir);
       s2alphan = (2 + 2 * iso) / (3 + (1 - 2 * f) * Math.cos(2 * fir));
-      if (Math.abs(1 - s2alphan) <= Number.EPSILON) {
+      if (Math.abs(1 - s2alphan) <= _EPSILON) {
         s2alphan = 1;
       }
       if (s2alphan > 1) {
@@ -445,8 +448,8 @@ var BeachBallView = function (options) {
         // swap bg/fill colors
         swapColors = !swapColors;
         // recompute f, iso, s2alphan
-        f = (-n.v / t.v) || Number.EPSILON;
-        iso = (vi / t.v) || Number.EPSILON;
+        f = (-n.v / t.v) || _EPSILON;
+        iso = (vi / t.v) || _EPSILON;
         s2alphan = (2 + 2 * iso) / (3 + (1 - 2 * f) * Math.cos(2 * fir));
       }
       // compute z,n,e components
@@ -457,7 +460,7 @@ var BeachBallView = function (options) {
       xn = c * t.cp * t.ca + s * sfi * n.cp * n.ca + s * cfi * p.cp * p.ca;
       xe = c * t.cp * t.sa + s * sfi * n.cp * n.sa + s * cfi * p.cp * p.sa;
       // compute azimuth and takeoff angle
-      if (Math.abs(xn) < Number.EPSILON && Math.abs(xe) < Number.EPSILON) {
+      if (Math.abs(xn) < _EPSILON && Math.abs(xe) < _EPSILON) {
         az = 0;
         takeoff = 0;
       } else {
