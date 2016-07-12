@@ -197,7 +197,7 @@ var DYFIFormView = function (options) {
 
     disclaimerEl = document.createElement('a');
 
-    header.innerHTML = '<h2 class="felt-header">Felt Report</h2>' +
+    header.innerHTML = '<h2 class="felt-header">Felt Report - Tell Us!</h2>' +
         '<div class="omb-number">' +
           'OMB No. 1028-0048' +
           '<br/>' +
