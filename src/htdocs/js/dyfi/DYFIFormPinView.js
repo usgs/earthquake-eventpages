@@ -47,6 +47,7 @@ var DYFIFormPinView = function (options) {
    */
   _this.renderPinContent = function () {
     var markup,
+        numResponses,
         responses,
         stillZero,
         value;
@@ -54,6 +55,7 @@ var DYFIFormPinView = function (options) {
     markup = [];
     responses = _this.model.getProperty('num-responses') ||
         _this.model.getProperty('numResp') || '0';
+    numResponses = responses.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     // pad with zeros
     responses = _formatter.leftPad(responses.toString(), 6, '0');
     stillZero = true;
@@ -74,7 +76,7 @@ var DYFIFormPinView = function (options) {
         markup.join('') +
       '</div>' +
       '<div class="dyfi-responses-abbr">' +
-        '<abbr title="Number of DYFI Responses">Responses</abbr>' +
+        '<abbr title="' + numResponses + ' DYFI Responses">Responses</abbr>' +
       '</div>' +
       '<small class="disclaimer">' +
         'Contribute to citizen science. Please <a href="#tellus">tell us</a> ' +
