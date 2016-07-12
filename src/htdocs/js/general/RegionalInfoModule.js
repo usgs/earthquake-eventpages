@@ -151,6 +151,37 @@ var RegionalInfoModule = function (options) {
   }, _this.destroy);
 
   /**
+   * Get the FE info from an array of data.
+   *
+   * @param data {Array}
+   *     An array of data with properties containing a name/number.
+   */
+  _this.getFeInfo = function (data) {
+    var i,
+        info,
+        len,
+        name,
+        number;
+
+    name = null;
+    number = null;
+    len = data.length || 0;
+
+    for (i = 0; (name === null || number === null) && i < len; i++) {
+      info = data[i] || {};
+      name = name || (info.properties) ? info.properties.name : null;
+      number = number || (info.properties) ? info.properties.number : null;
+    }
+
+    return {
+      properties: {
+        name: name,
+        number: number
+      }
+    };
+  };
+
+  /**
    * Finds a non-automatic nearby-cities product. If none exists, returns null.
    *
    * @param ev {CatalogEvent}
@@ -295,7 +326,7 @@ var RegionalInfoModule = function (options) {
 
     markup = [];
     admin = data.admin.features[0] || {};
-    fe = data.fe.features[0] || {};
+    fe = _this.getFeInfo(data.fe.features || []);
 
     if (admin.properties) {
       admin = admin.properties;
