@@ -55,7 +55,7 @@ var DYFIFormPinView = function (options) {
     markup = [];
     responses = _this.model.getProperty('num-responses') ||
         _this.model.getProperty('numResp') || '0';
-    numResponses = responses.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    numResponses = _formatter.numberWithCommas(responses);
     // pad with zeros
     responses = _formatter.leftPad(responses.toString(), 6, '0');
     stillZero = true;
