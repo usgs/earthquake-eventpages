@@ -54,7 +54,10 @@ var postcss = {
   dist: {
     options: {
       processors: [
-        cssnano({zindex: false})
+        cssnano({
+          autoprefixer: false,
+          zindex: false
+        })
       ]
     },
     expand: true,
