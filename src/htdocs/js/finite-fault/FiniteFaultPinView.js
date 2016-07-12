@@ -17,21 +17,47 @@ var FiniteFaultPinView = function (options) {
   options = Util.extend({}, _DEFAULTS, options);
   _this = BasicPinView(options);
 
+
+  _this.getSlipImage = function (product) {
+    var code,
+        image,
+        paths;
+
+    code = product.get('properties').eventsourcecode;
+    image = product.getContent('web/' + code + '_slip2.png');
+    image = image || product.getContent('web1/' + code + '_slip2.png');
+    image = image || product.getContent('web2/' + code + '_slip2.png');
+
+    if (!image) {
+      paths = product.get('contents');
+      paths = paths ? paths.getIds() : {};
+      paths = Object.keys(paths);
+
+      paths.some(function (path) {
+        if (path.indexOf('slip') !== -1) {
+          image = product.getContent(path);
+          return true;
+        }
+      });
+    }
+
+    return image;
+  };
+
   /**
    * Render the content section of the pin. This loads the smaller version
    * of the finite-fault basemap.png
    *
    */
   _this.renderPinContent = function () {
-    var code,
-        img,
+    var image,
         markup;
 
     try {
-      code = _this.model.get('properties').eventsourcecode;
-      img = _this.model.getContent('web1/' + code + '_slip2.png');
-      markup = '<h3>Cross-section of slip distribution</h3>' +
-          '<img src="' + img.get('url') + '"' +
+      image = _this.getSlipImage(_this.model);
+
+      markup = '<span>Cross-section of slip distribution</span>' +
+          '<img src="' + image.get('url') + '"' +
           ' class="finite-fault-cross-section" ' +
           ' alt="Cross-section of slip distribution"/>';
     } catch (e) {
