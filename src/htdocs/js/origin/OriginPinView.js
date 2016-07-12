@@ -61,13 +61,13 @@ var OriginPinView = function (options) {
 
     _this.content.innerHTML =
         '<dl class="no-style origin-pin-view">' +
-          '<dt>Review Status:</dt>' +
+          '<dt>Review Status</dt>' +
             '<dd class="origin-pin-review-status">' + reviewStatus + '</dd>' +
-          '<dt>Magnitude:</dt>' +
+          '<dt>Magnitude</dt>' +
             '<dd class="origin-pin-magnitude">' + magnitude + '</dd>' +
-          '<dt>Depth:</dt>' +
+          '<dt>Depth</dt>' +
             '<dd class="origin-pin-depth">' + depth + '</dd>' +
-          '<dt>Time:</dt>' +
+          '<dt>Time</dt>' +
             '<dd class="origin-pin-time">' + time + '</dd>' +
         '</dl>';
   };
