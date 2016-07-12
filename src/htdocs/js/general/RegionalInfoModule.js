@@ -169,8 +169,8 @@ var RegionalInfoModule = function (options) {
 
     for (i = 0; (name === null || number === null) && i < len; i++) {
       info = data[i] || {};
-      name = name || (info.properties) ? info.properties.name : null;
-      number = number || (info.properties) ? info.properties.number : null;
+      name = name || (info.properties ? info.properties.name : null);
+      number = number || (info.properties ? info.properties.number : null);
     }
 
     return {
