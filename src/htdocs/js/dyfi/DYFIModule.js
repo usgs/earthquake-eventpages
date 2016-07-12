@@ -107,10 +107,9 @@ var DYFIModule = function (options) {
   _this.renderHeader = function () {
     var product;
 
-    _this.header.innerHTML = '<h3>' + _this.TITLE +
-        ' - <a href="#' + DYFIFormModule.ID + '">' +
-        DYFIFormModule.TITLE +
-        '</a></h3>';
+    _this.header.innerHTML = '<h3 class="dyfi-title">' + _this.TITLE + '</h3>' +
+        '<a class="tell-us-link" href="#' + DYFIFormModule.ID +
+        '">Felt Report - ' + DYFIFormModule.TITLE + '</a>';
 
     product = _this.getProduct('dyfi');
 
