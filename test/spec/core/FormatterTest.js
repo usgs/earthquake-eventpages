@@ -314,12 +314,33 @@ describe('core/Formatter', function () {
       expect(formatter.number(null, 1, 'empty')).to.equal('empty');
     });
 
+    it('returns EMPTY value when undefined and empty value is not passed',
+        function () {
+      expect(formatter.number(null, 1)).to.equal('EMPTY');
+    });
+
     it('uses decimals to round', function () {
       expect(formatter.number(1.2366, 3)).to.equal('1.237');
     });
 
     it('supports units', function () {
       expect(formatter.number(1, 0, 'empty', 'units')).to.equal('1 units');
+    });
+  });
+
+  describe('numberWithCommas', function () {
+    it('returns passed empty value when x is null', function () {
+      expect(formatter.numberWithCommas(null, 'emptyValue')).
+          to.equal('emptyValue');
+    });
+
+    it('returns ndash when x is null and empty value is not passed',
+        function () {
+      expect(formatter.numberWithCommas(null)).to.equal('EMPTY');
+    });
+
+    it('returns number correctly formatted', function () {
+      expect(formatter.numberWithCommas(30000)).to.equal('30,000');
     });
   });
 
