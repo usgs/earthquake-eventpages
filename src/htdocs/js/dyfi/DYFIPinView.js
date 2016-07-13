@@ -48,20 +48,14 @@ var DYFIPinView = function (options) {
     }
   };
 
-  _this.renderPinHeader = function () {
-    var display,
-        maxmmi;
-
-    // Use module ID and TITLE to create a link
-    display = _this.module.TITLE;
-    maxmmi = _this.model.get('properties').maxmmi;
-
-    _this.header.innerHTML = [
-      '<a href="', _this.getLinkUrl(), '">', display, '</a>',
-      _formatter.intensity(maxmmi, null)
-    ].join('');
-  };
-
+  /**
+   * Render header for DYFIPinView with impact bubble
+   *
+   */
+  _this.renderPinHeader = Util.compose(_this.renderPinHeader, function () {
+    _this.header.insertAdjacentHTML('beforeend',
+        _formatter.intensity(_this.model.getProperty('maxmmi'), null));
+  });
 
   _initialize(options);
   options = null;

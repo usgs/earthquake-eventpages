@@ -52,28 +52,23 @@ var PAGERPinView = function (options) {
   };
 
   /**
-   * Render the pager level in PAGERPinView header
+   * Render header for PAGERPinView with impact bubble
+   *
    */
-  _this.renderPinHeader = function () {
-    var alertlevel,
-        display,
-        properties;
+  _this.renderPinHeader = Util.compose(_this.renderPinHeader, function () {
+    var alertlevel;
 
-    // Use module ID and TITLE to create a link
-    display = _this.module.TITLE;
-    properties = _this.model.get('properties');
-    alertlevel = (properties ? properties.alertlevel : null);
-
-    _this.header.innerHTML = [
-      '<a href="', _this.getLinkUrl(), '">', display, '</a>',
-      (alertlevel ?
-      '<span class="pager-bubble pager-alertlevel-' + alertlevel + '">' +
-        '<strong class="roman">' +
-          alertlevel.toUpperCase() +
-        '</strong>' +
-      '</span>' : '')
-    ].join('');
-  };
+    alertlevel = _this.model.getProperty('alertlevel');
+    if (alertlevel) {
+      _this.header.insertAdjacentHTML('beforeend',
+        '<span class="pager-bubble pager-alertlevel-' + alertlevel + '">' +
+          '<strong class="roman">' +
+            alertlevel.toUpperCase() +
+          '</strong>' +
+        '</span>'
+      );
+    }
+  });
 
 
   _initialize(options);

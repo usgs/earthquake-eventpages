@@ -24,11 +24,14 @@
   white-space: nowrap;
 }
 
-.pin-header > .mmi {
-  display: inline-block;
-  float: right;
-  font-size: 0.77em;
-  padding: 6px 18px;
+.pin-header {
+  display: flex;
+  justify-content: space-between;
+
+  > .mmi {
+    font-size: 0.77em;
+    padding: 6px 18px;
+  }
 }
 
 .pin-content {
