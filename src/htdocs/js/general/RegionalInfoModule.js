@@ -91,7 +91,7 @@ var RegionalInfoModule = function (options) {
     el.classList.add('regional-info-module');
     el.innerHTML = [
         '<div class="row right-to-left">',
-          '<div class="column one-of-three">',
+          '<div class="column one-of-three regions-places">',
             '<div class="regional-info-module-regions"></div>',
             '<div class="regional-info-module-places"></div>',
           '</div>',
@@ -106,10 +106,8 @@ var RegionalInfoModule = function (options) {
     ].join('');
 
     _mapEl = el.querySelector('.regional-info-module-map');
-
     _nearbyPlacesEl = el.querySelector('.regional-info-module-places');
     _otherRegionInfoEl = el.querySelector('.regional-info-module-regions');
-
     _tectonicSummaryEl = el.querySelector(
         '.regional-info-module-tectonic-summary');
   };
@@ -150,32 +148,6 @@ var RegionalInfoModule = function (options) {
     _this = null;
   }, _this.destroy);
 
-  /**
-   * Get the FE info from an array of data.
-   *
-   * @param data {Array}
-   *     An array of data with properties containing a name/number.
-   */
-  _this.getFeInfo = function (data) {
-    var i,
-        info,
-        len,
-        name;
-
-    name = null;
-    len = data.length || 0;
-
-    for (i = 0; (name === null) && i < len; i++) {
-      info = data[i] || {};
-      name = name || (info.properties ? info.properties.name : null);
-    }
-
-    return {
-      properties: {
-        name: name
-      }
-    };
-  };
 
   /**
    * Finds a non-automatic nearby-cities product. If none exists, returns null.
@@ -308,21 +280,19 @@ var RegionalInfoModule = function (options) {
    * sections of the page.
    *
    * @param data {Object}
-   *      An object containing "admin" and/or "fe" region information as
+   *      An object containing "admin" region information as
    *      returned by Geoserve.
    */
   _this.onOtherRegionComplete = function (data) {
     var admin,
-        fe,
         markup;
 
-    if (!data || !data.admin || !data.fe) {
+    if (!data || !data.admin) {
       return;
     }
 
     markup = [];
     admin = data.admin.features[0] || {};
-    fe = _this.getFeInfo(data.fe.features || []);
 
     if (admin.properties) {
       admin = admin.properties;
@@ -349,24 +319,11 @@ var RegionalInfoModule = function (options) {
           '</dd>',
         '</dl>',
       ].join(''));
-    }
 
-    if (fe.properties) {
-      fe = fe.properties;
-      markup.push([
-        '<h3>Flinn Engdahl Region</h3>',
-        '<dl class="no-style regional-info-module-fe vertical">',
-          '<dt class="regional-info-module-admin-iso">',
-            '<h3>Name</h3>',
-          '</dt>',
-          '<dd>',
-            (fe.name === null) ? '&ndash;' : fe.name,
-          '</dd>',
-        '</dl>',
-      ].join(''));
+      _otherRegionInfoEl.innerHTML = markup.join('');
+    } else {
+      _otherRegionInfoEl.parentNode.removeChild(_otherRegionInfoEl);
     }
-
-    _otherRegionInfoEl.innerHTML = markup.join('');
   };
 
   /**
