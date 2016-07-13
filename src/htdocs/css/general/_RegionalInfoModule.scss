@@ -21,10 +21,10 @@
 }
 
 .regional-info-module-places > small {
-  color: #666;
+  display: block;
 }
 
-.regional-info-module-regions > :first-child {
+.regions-places > :first-child > h3 {
   margin-top: 0;
 }
 
