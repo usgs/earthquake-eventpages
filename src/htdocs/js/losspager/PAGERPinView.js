@@ -61,7 +61,8 @@ var PAGERPinView = function (options) {
     alertlevel = _this.model.getProperty('alertlevel');
     if (alertlevel) {
       _this.header.insertAdjacentHTML('beforeend',
-        '<span class="pager-bubble pager-alertlevel-' + alertlevel + '">' +
+        '<span class="pager-bubble bubble-border pager-alertlevel-' +
+            alertlevel + '">' +
           '<strong class="roman">' +
             alertlevel.toUpperCase() +
           '</strong>' +
