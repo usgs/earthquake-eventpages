@@ -28,7 +28,8 @@
   display: flex;
   justify-content: space-between;
 
-  > .mmi {
+  > .mmi,
+  > .bubble-border {
     font-size: 0.77em;
     padding: 6px 18px;
   }
