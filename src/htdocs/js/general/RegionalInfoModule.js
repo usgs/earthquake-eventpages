@@ -160,23 +160,19 @@ var RegionalInfoModule = function (options) {
     var i,
         info,
         len,
-        name,
-        number;
+        name;
 
     name = null;
-    number = null;
     len = data.length || 0;
 
-    for (i = 0; (name === null || number === null) && i < len; i++) {
+    for (i = 0; (name === null) && i < len; i++) {
       info = data[i] || {};
       name = name || (info.properties ? info.properties.name : null);
-      number = number || (info.properties ? info.properties.number : null);
     }
 
     return {
       properties: {
-        name: name,
-        number: number
+        name: name
       }
     };
   };
@@ -361,16 +357,10 @@ var RegionalInfoModule = function (options) {
         '<h3>Flinn Engdahl Region</h3>',
         '<dl class="no-style regional-info-module-fe vertical">',
           '<dt class="regional-info-module-admin-iso">',
-            'Name',
+            '<h3>Name</h3>',
           '</dt>',
           '<dd>',
             (fe.name === null) ? '&ndash;' : fe.name,
-          '</dd>',
-          '<dt class="regional-info-module-admin-iso">',
-            'Number',
-          '</dt>',
-          '<dd>',
-            (fe.number === null) ? '&ndash;' : fe.number,
           '</dd>',
         '</dl>',
       ].join(''));
