@@ -482,7 +482,7 @@ var Formatter = function (options) {
    */
   _this.number = function (value, decimals, empty, units) {
     if (!value && value !== 0) {
-      return empty;
+      return empty || _empty;
     }
     if (typeof decimals === 'number') {
       value = Number(value).toFixed(decimals);
@@ -495,8 +495,16 @@ var Formatter = function (options) {
 
   /**
    * Put commas into a number for display.
+   *
+   * @param empty {Any}
+   *        Optional, default none.
+   *        value to return if value is empty.
    */
-  _this.numberWithCommas = function (x) {
+  _this.numberWithCommas = function (x, empty) {
+    if (x === null) {
+      return empty || _empty;
+    }
+
     var parts = x.toString().split('.');
 
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
