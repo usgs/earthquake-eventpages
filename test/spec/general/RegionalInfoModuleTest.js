@@ -224,7 +224,6 @@ describe('general/RegionalInfoModule', function () {
     it('renders into the container', function () {
       var admin,
           data,
-          fe,
           module;
 
       module = RegionalInfoModule();
@@ -239,29 +238,16 @@ describe('general/RegionalInfoModule', function () {
               }
             }
           ]
-        },
-        fe: {
-          features: [
-            {
-              properties: {
-                name: 'Colorado',
-                number: 0
-              }
-            }
-          ]
         }
       };
 
       module.onOtherRegionComplete(data);
 
       admin = module.content.querySelector('.regional-info-module-admin');
-      fe = module.content.querySelector('.regional-info-module-fe');
 
       expect(admin).to.not.equal(null);
-      expect(fe).to.not.equal(null);
 
       expect(admin.childNodes.length).to.equal(6);
-      expect(fe.childNodes.length).to.equal(2);
 
       module.destroy();
     });
