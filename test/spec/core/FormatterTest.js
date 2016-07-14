@@ -334,13 +334,17 @@ describe('core/Formatter', function () {
           to.equal('emptyValue');
     });
 
-    it('returns ndash when x is null and empty value is not passed',
+    it('returns EMPTY when x is null and empty value is not passed',
         function () {
       expect(formatter.numberWithCommas(null)).to.equal('EMPTY');
     });
 
     it('returns number correctly formatted', function () {
       expect(formatter.numberWithCommas(30000)).to.equal('30,000');
+    });
+
+    it('returns EMPTY when no x value is passed', function () {
+      expect(formatter.numberWithCommas()).to.equal('EMPTY');
     });
   });
 

@@ -496,12 +496,15 @@ var Formatter = function (options) {
   /**
    * Put commas into a number for display.
    *
+   * @param x {Number}
+   *        number to format.
+   *
    * @param empty {Any}
    *        Optional, default none.
    *        value to return if value is empty.
    */
   _this.numberWithCommas = function (x, empty) {
-    if (x === null) {
+    if (!x && x !== 0) {
       return empty || _empty;
     }
 
