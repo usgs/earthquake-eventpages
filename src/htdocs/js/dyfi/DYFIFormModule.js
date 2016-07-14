@@ -163,6 +163,7 @@ var DYFIFormModule = function (options) {
     _view = DYFIFormView({
       model: _formModel
     });
+    _view.render();
 
     _modal = ModalView(_view.el, {
       buttons: [
@@ -378,9 +379,6 @@ var DYFIFormModule = function (options) {
 
     // Ensure submit button status is currently up-to-date
     _this.onFormChange();
-
-    // Render after modal is shown so content is in DOM
-    _view.render();
   };
 
 
