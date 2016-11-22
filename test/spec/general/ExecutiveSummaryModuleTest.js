@@ -220,6 +220,7 @@ describe('general/ExecutiveSummaryModule', function () {
       sinon.spy(module, 'getPins');
       sinon.spy(module, 'getTexts');
       sinon.spy(module, 'getLinks');
+      sinon.spy(module, 'getProductFooter');
 
       module.render();
 
@@ -227,11 +228,13 @@ describe('general/ExecutiveSummaryModule', function () {
       expect(module.getPins.callCount).to.equal(1);
       expect(module.getTexts.callCount).to.equal(2);
       expect(module.getLinks.callCount).to.equal(1);
+      expect(module.getProductFooter.callCount).to.equal(1);
 
       module.removeDuplicateLinks.restore();
       module.getPins.restore();
       module.getTexts.restore();
       module.getLinks.restore();
+      module.getProductFooter.restore();
     });
   });
 
