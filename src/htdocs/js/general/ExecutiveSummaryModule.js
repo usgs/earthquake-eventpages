@@ -338,9 +338,11 @@ var ExecutiveSummaryModule = function (options) {
   _this.render = function () {
     var config,
         content,
+        downloadView,
         ev,
         headers,
         links,
+        posters,
         texts;
 
     ev = _this.model.get('event');
@@ -360,6 +362,7 @@ var ExecutiveSummaryModule = function (options) {
     config = _this.model.get('config');
     content = document.createDocumentFragment();
     headers = ev.getProducts(Product.getFullType('general-header'), config);
+    posters = ev.getProducts(Product.getFullType('poster'), config);
     texts = ev.getProducts(Product.getFullType('general-text'), config);
     links = _this.removeDuplicateLinks(ev.getProducts(
         Product.getFullType('general-link'), config));
@@ -371,6 +374,14 @@ var ExecutiveSummaryModule = function (options) {
     content.appendChild(_this.getTexts(texts));
     content.appendChild(_this.getLinks(links));
     _this.content.appendChild(content);
+
+    if (posters && posters.length > 0) {
+      downloadView = _this.getProductFooter({
+        product: posters[0]
+      });
+
+      _this.footer.appendChild(downloadView);
+    }
 
     // Render the pin views after they are in the DOM so they have extents
     _this.pinViews.forEach(function (view) {
