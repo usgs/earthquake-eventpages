@@ -1,9 +1,6 @@
 .download-file {
   font-size: 0.8125em;
-
-  & + .download-file {
-    margin-top: 1em;
-  }
+  margin: 1.5em 0;
 }
 
 .download-title {
@@ -17,4 +14,5 @@
 
 .download-formats {
   list-style: disc;
+  margin: 0.5em 0 0;
 }
