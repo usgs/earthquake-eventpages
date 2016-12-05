@@ -338,8 +338,8 @@ var ExecutiveSummaryModule = function (options) {
   _this.render = function () {
     var config,
         content,
-        downloadView,
         ev,
+        footerEl,
         headers,
         links,
         posters,
@@ -375,12 +375,22 @@ var ExecutiveSummaryModule = function (options) {
     content.appendChild(_this.getLinks(links));
     _this.content.appendChild(content);
 
+    // Creates a download accordion if poster data is available. This accordion
+    // has poster data.
     if (posters && posters.length > 0) {
-      downloadView = _this.getProductFooter({
+      footerEl = _this.getProductFooter({
         product: posters[0]
       });
 
-      _this.footer.appendChild(downloadView);
+      // Calls render to make data available and removes the accordion-closed
+      // class so that the accordion is open by default.
+      if (footerEl && footerEl.querySelector('.accordion-closed')) {
+        _this.downloadView.render();
+        footerEl.querySelector('.accordion-closed').classList.
+            remove('accordion-closed');
+      }
+
+      _this.footer.appendChild(footerEl);
     }
 
     // Render the pin views after they are in the DOM so they have extents
