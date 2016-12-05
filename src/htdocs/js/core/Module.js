@@ -33,7 +33,7 @@ var Module = function (options) {
   var _this,
       _initialize,
 
-      _downloadView,
+      _accordionView,
       _formatter;
 
 
@@ -63,10 +63,10 @@ var Module = function (options) {
    * Free references.
    */
   _this.destroy = Util.compose(function () {
-    if (_downloadView) {
+    if (_accordionView) {
       // clean up any previous footer
-      _downloadView.destroy();
-      _downloadView = null;
+      _accordionView.destroy();
+      _accordionView = null;
     }
 
     _formatter = null;
@@ -145,27 +145,30 @@ var Module = function (options) {
     var content,
         el;
 
-    if (_downloadView) {
+    if (_accordionView) {
       // clean up any previous footer
-      _downloadView.destroy();
-      _downloadView = null;
+      _accordionView.destroy();
+      _accordionView = null;
     }
 
     content = options.product.getContent('contents.xml');
     if (content) {
       el = document.createElement('div');
-      _downloadView = AccordionView({
+
+      _this.downloadView = DownloadView({
+        model: content,
+        product: options.product,
+        formatter: _formatter
+      });
+
+      _accordionView = AccordionView({
         classes: 'accordion-standard accordion-page-downloads',
         el: el,
         toggleElement: 'h3',
         toggleText: 'Downloads',
-        view: DownloadView({
-          model: content,
-          product: options.product,
-          formatter: _formatter
-        })
+        view: _this.downloadView
       });
-      _downloadView.render();
+      _accordionView.render();
     }
 
     return el;
