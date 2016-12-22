@@ -443,7 +443,7 @@ var PAGERView = function (options) {
       '<span class="pager-disclaimer">' +
         '*Estimated exposure only includes population within ' +
         'map area (k = x1,000)' +
-        '</br><a href="http://earthquake.usgs.gov/research/shakemap/#intmaps">'+
+        '</br><a href="https://earthquake.usgs.gov/research/shakemap/#intmaps">'+
         'Modified Mercalli Intensity (MMI) scale</a>' +
       '</span>'
     );

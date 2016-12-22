@@ -13,7 +13,7 @@ var Attribution = require('core/Attribution'),
 
 
 var _DEFAULTS = {
-  url: 'http://earthquake.usgs.gov/ws/geoserve/'
+  url: 'https://earthquake.usgs.gov/ws/geoserve/'
 };
 var NOT_REPORTED = '&ndash;';
 

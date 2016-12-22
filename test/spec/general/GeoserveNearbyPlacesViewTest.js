@@ -12,7 +12,7 @@ describe('general/GeoserveNearbyPlacesView', function () {
 
   before(function (done) {
     Xhr.ajax({
-      url: 'http://earthquake.usgs.gov/ws/geoserve/places.json?type=event&latitude=39.75&longitude=-105.2',
+      url: 'https://earthquake.usgs.gov/ws/geoserve/places.json?type=event&latitude=39.75&longitude=-105.2',
       success: function (r, x) {
         data = r;
         xhr = x;

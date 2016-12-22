@@ -78,7 +78,7 @@ describe('shakemap/ShakeMapModule', function () {
       expect(link).to.not.be.null;
       /* jshint +W030 */
       expect(link.getAttribute('href')).to.equal(
-          'http://usgs.github.io/shakemap');
+          'https://usgs.github.io/shakemap');
       expect(link.innerHTML).to.equal('ShakeMap Manual');
     });
   });

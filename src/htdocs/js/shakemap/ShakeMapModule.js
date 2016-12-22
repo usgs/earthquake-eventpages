@@ -101,7 +101,7 @@ var ShakeMapModule = function (options) {
       '<h3>For More Information</h3>' +
       '<ul>' +
         '<li>' +
-          '<a href="http://usgs.github.io/shakemap">ShakeMap Manual</a>' +
+          '<a href="https://usgs.github.io/shakemap">ShakeMap Manual</a>' +
         '</li>' +
       '</ul>';
 

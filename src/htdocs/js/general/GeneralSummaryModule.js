@@ -157,7 +157,7 @@ var GeneralSummaryModule = function (options) {
     var uri;
 
     title = title || '';
-    uri = 'http://www.timeanddate.com/worldclock/fixedtime.html?iso=' +
+    uri = 'https://www.timeanddate.com/worldclock/fixedtime.html?iso=' +
         time.toISOString() + '&msg=' + title;
     uri = encodeURI(uri);
 
