@@ -13,7 +13,7 @@ if (!isset($TEMPLATE)) {
   $eventid = param('eventid');
 
   if ($eventid == null) {
-    header('HTTPS/1.0 400 Bad Request');
+    header('HTTP/1.0 400 Bad Request');
     trigger_error('Missing required parameter "eventid".');
     exit(-1);
   }
@@ -43,14 +43,14 @@ if (!isset($TEMPLATE)) {
 
     if ($httpCode === 404 || $httpCode === 204) {
       // event not found
-      header('HTTPS/1.0 404 Not Found');
+      header('HTTP/1.0 404 Not Found');
     } else if ($httpCode === 409) {
-      header('HTTPS/1.0 410 Gone');
+      header('HTTP/1.0 410 Gone');
       $TITLE = 'Event Deleted';
       include_once 'template.inc.php';
     } else {
       // other, unexpected return
-      header('HTTPS/1.0 503 Service Unavailable');
+      header('HTTP/1.0 503 Service Unavailable');
       echo 'Unable to retrieve event information (' . $httpCode . ')';
     }
     exit(-1);
@@ -66,7 +66,7 @@ if (!isset($TEMPLATE)) {
   $GEOMETRY = $EVENT['geometry'];
 
   if ($PROPERTIES['net'] . $PROPERTIES['code'] !== $eventid) {
-    header('HTTPS/1.1 301 Moved Permanently');
+    header('HTTP/1.1 301 Moved Permanently');
     header('Location: ' . $PROPERTIES['url']);
   }
 
