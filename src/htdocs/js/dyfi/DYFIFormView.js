@@ -323,9 +323,9 @@ var DYFIFormView = function (options) {
     };
     _questions.ciim_mapAddress.setAnswers = function () {};
 
-    _locationView = LocationView({
-      callback: _this.locationCallback
-    });
+    _locationView = LocationView();
+
+    _locationView.on('location', _this.locationCallback);
 
     _locationButton.addEventListener('click', function () {
       _locationView.show({initialLocation: _curLoc});
@@ -412,6 +412,11 @@ var DYFIFormView = function (options) {
     if (_questions !== null) {
       _this.destroyForm();
       _questions = null;
+    }
+
+    if (_locationView) {
+      _locationView.destroy();
+      _locationView = null;
     }
 
     _this = null;
