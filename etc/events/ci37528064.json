@@ -375,7 +375,7 @@
             "eventsource": "us",
             "eventsourcecode": "10004s7r",
             "text": "Additional earthquake information for California",
-            "url": "http://earthquake.usgs.gov/earthquakes/states/index.php?regionID=5"
+            "url": "https://earthquake.usgs.gov/earthquakes/states/index.php?regionID=5"
           },
           "preferredWeight": 6,
           "contents": []
@@ -393,7 +393,7 @@
             "eventsource": "ci",
             "eventsourcecode": "37528064",
             "text": "Additional earthquake information for California",
-            "url": "http://earthquake.usgs.gov/earthquakes/states/index.php?regionID=5"
+            "url": "https://earthquake.usgs.gov/earthquakes/states/index.php?regionID=5"
           },
           "preferredWeight": 1,
           "contents": []
@@ -411,7 +411,7 @@
             "eventsource": "nc",
             "eventsourcecode": "72596550",
             "text": "Additional earthquake information for California",
-            "url": "http://earthquake.usgs.gov/earthquakes/states/index.php?regionID=5"
+            "url": "https://earthquake.usgs.gov/earthquakes/states/index.php?regionID=5"
           },
           "preferredWeight": 1,
           "contents": []
@@ -429,7 +429,7 @@
             "eventsource": "at",
             "eventsourcecode": "00o30yrz",
             "text": "Additional earthquake information for California",
-            "url": "http://earthquake.usgs.gov/earthquakes/states/index.php?regionID=5"
+            "url": "https://earthquake.usgs.gov/earthquakes/states/index.php?regionID=5"
           },
           "preferredWeight": 1,
           "contents": []
@@ -565,7 +565,7 @@
             "eventsource": "at",
             "eventsourcecode": "00o30yrz",
             "text": "1-Tsunami Information Statement from the NTWC",
-            "url": "http://ntwc.arh.noaa.gov/events/PAAQ/2016/02/24/o30yrz/1/SEUS71/SEUS71.txt",
+            "url": "https://ntwc.arh.noaa.gov/events/PAAQ/2016/02/24/o30yrz/1/SEUS71/SEUS71.txt",
             "version": "01"
           },
           "preferredWeight": 6,
@@ -1830,7 +1830,7 @@
             "eventsource": "nc",
             "eventsourcecode": "72596550",
             "text": "NCSS Moment Tensor Solution",
-            "url": "http://www.ncedc.org/mt/nc72596550_MT.html",
+            "url": "https://www.ncedc.org/mt/nc72596550_MT.html",
             "version": "1"
           },
           "preferredWeight": 6,
@@ -1851,7 +1851,7 @@
             "eventsource": "ci",
             "eventsourcecode": "37528064",
             "text": "Waveforms",
-            "url": "http://pasadena.wr.usgs.gov/eqview/cgi-bin/makePublicView.php?EVID=37528064",
+            "url": "https://pasadena.wr.usgs.gov/eqview/cgi-bin/makePublicView.php?EVID=37528064",
             "version": "01"
           },
           "preferredWeight": 6,

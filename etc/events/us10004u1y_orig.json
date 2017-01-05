@@ -676,7 +676,7 @@
             "eventsourcecode": "10004u1y",
             "senderemail": "gsmoczyk@usgs.gov",
             "text": "Earthquake Summary Poster",
-            "url": "http://earthquake.usgs.gov/earthquakes/eqarchives/poster/2016/20160302.php"
+            "url": "https://earthquake.usgs.gov/earthquakes/eqarchives/poster/2016/20160302.php"
           },
           "preferredWeight": 1,
           "contents": []
@@ -695,7 +695,7 @@
             "eventsourcecode": "10004u1y",
             "senderemail": "gsmoczyk@usgs.gov",
             "text": "Earthquake Summary Poster",
-            "url": "http://earthquake.usgs.gov/earthquakes/eqarchives/poster/2016/20160302.php"
+            "url": "https://earthquake.usgs.gov/earthquakes/eqarchives/poster/2016/20160302.php"
           },
           "preferredWeight": 1,
           "contents": []

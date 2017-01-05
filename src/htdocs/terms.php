@@ -210,7 +210,7 @@ if (!isset($TEMPLATE)) {
   We provide distances and directions from nearby geographical reference points
   to the earthquake. The reference points are towns, cities, and major
   geographic features derived from US Census data, such as from
-  <a href="http://www.census.gov/geo/www/gazetteer/places2k.html">
+  <a href="https://www.census.gov/geo/www/gazetteer/places2k.html">
   http://www.census.gov/geo/www/gazetteer/places2k.html</a>. International
   places were gathered from a specially created USGS catalog. Selected places
   were based on minimum population values that were specified for each

@@ -13,9 +13,9 @@ var _DEFAULTS,
 
 
 _DEFAULTS = {
-  irisServiceUrl: 'http://service.iris.edu/fdsnws/event/1/query',
-  irisSpudUrl:'http://www.iris.edu/spud/event/',
-  irisWilberUrl:'http://www.iris.edu/wilber3/find_stations/',
+  irisServiceUrl: 'https://service.iris.edu/fdsnws/event/1/query',
+  irisSpudUrl:'https://www.iris.edu/spud/event/',
+  irisWilberUrl:'https://www.iris.edu/wilber3/find_stations/',
   errorMessage: '<p class="alert error">Error finding waveform data</p>'
 };
 _ID = 'waveform';

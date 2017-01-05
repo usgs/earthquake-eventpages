@@ -676,7 +676,7 @@
             "eventsourcecode": "10004u1y",
             "senderemail": "gsmoczyk@usgs.gov",
             "text": "Earthquake Summary Poster",
-            "url": "http://earthquake.usgs.gov/earthquakes/eqarchives/poster/2016/20160302.php"
+            "url": "https://earthquake.usgs.gov/earthquakes/eqarchives/poster/2016/20160302.php"
           },
           "preferredWeight": 1,
           "contents": []
@@ -695,7 +695,7 @@
             "eventsourcecode": "10004u1y",
             "senderemail": "gsmoczyk@usgs.gov",
             "text": "Earthquake Summary Poster",
-            "url": "http://earthquake.usgs.gov/earthquakes/eqarchives/poster/2016/20160302.php"
+            "url": "https://earthquake.usgs.gov/earthquakes/eqarchives/poster/2016/20160302.php"
           },
           "preferredWeight": 1,
           "contents": []
@@ -1326,43 +1326,43 @@
               "contentType":"application/octet-stream",
               "lastModified":1462205472000,
               "length":63488,
-              "url":"http://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/Thumbs.db"
+              "url":"https://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/Thumbs.db"
             },
             "contents.xml":{
               "contentType":"application/xml",
               "lastModified":1452016894000,
               "length":427,
-              "url":"http://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/contents.xml"
+              "url":"https://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/contents.xml"
             },
             "poster.jpg":{
               "contentType":"image/jpeg",
               "lastModified":1456952544000,
               "length":25509447,
-              "url":"http://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/poster.jpg"
+              "url":"https://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/poster.jpg"
             },
             "poster.low.jpg":{
               "contentType":"image/jpeg",
               "lastModified":1456953510000,
               "length":55775,
-              "url":"http://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/poster.low.jpg"
+              "url":"https://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/poster.low.jpg"
             },
             "poster.medium.jpg":{
               "contentType":"image/jpeg",
               "lastModified":1456953493000,
               "length":420588,
-              "url":"http://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/poster.medium.jpg"
+              "url":"https://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/poster.medium.jpg"
             },
             "poster.pdf":{
               "contentType":"application/pdf",
               "lastModified":1456952484000,
               "length":6607749,
-              "url":"http://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/poster.pdf"
+              "url":"https://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/poster.pdf"
             },
             "poster.small.jpg":{
               "contentType":"image/jpeg",
               "lastModified":1456953501000,
               "length":118593,
-              "url":"http://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/poster.small.jpg"
+              "url":"https://earthquake.usgs.gov/archive/product/poster/20160302/us/1462205492066/poster.small.jpg"
             }
           }
         }

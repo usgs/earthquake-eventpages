@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<q:quakeml xmlns:q="http://quakeml.org/xmlns/quakeml/1.2" xmlns="http://quakeml.org/xmlns/bed/1.2" xmlns:catalog="http://anss.org/xmlns/catalog/0.1" xmlns:tensor="http://anss.org/xmlns/tensor/0.1">
+<q:quakeml xmlns:q="https://quakeml.org/xmlns/quakeml/1.2" xmlns="https://quakeml.org/xmlns/bed/1.2" xmlns:catalog="https://anss.org/xmlns/catalog/0.1" xmlns:tensor="https://anss.org/xmlns/tensor/0.1">
 
-  <eventParameters xmlns="http://quakeml.org/xmlns/bed/1.2" publicID="quakeml:us.anss.org/eventparameters/10004u1y/1456926113">
+  <eventParameters xmlns="https://quakeml.org/xmlns/bed/1.2" publicID="quakeml:us.anss.org/eventparameters/10004u1y/1456926113">
     <comment>
       <text>HYDRA - us</text>
     </comment>

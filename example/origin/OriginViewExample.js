@@ -18,7 +18,7 @@ Xhr.ajax({
       model: product,
       geoserve: geoserve,
       eventConfig: {
-        'GEOSERVE_WS_URL': 'http://earthquake.usgs.gov/ws/geoserve/'
+        'GEOSERVE_WS_URL': 'https://earthquake.usgs.gov/ws/geoserve/'
       }
     }).render();
   },

@@ -6,7 +6,7 @@ var ProductView = require('core/ProductView'),
 
 
 var _DEFAULTS = {
-  url: 'http://earthquake.usgs.gov/ws/geoserve/regions.json'
+  url: 'https://earthquake.usgs.gov/ws/geoserve/regions.json'
 };
 
 

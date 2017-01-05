@@ -19,9 +19,9 @@ if (!isset($TEMPLATE)) {
   }
 
   if (isset($CONFIG['OFFSITE_HOST']) && $CONFIG['OFFSITE_HOST'] != '') {
-    $OFFSITE_HOST = 'http://' . $CONFIG['OFFSITE_HOST'];
+    $OFFSITE_HOST = 'https://' . $CONFIG['OFFSITE_HOST'];
   } else {
-    $OFFSITE_HOST = 'http://' . $_SERVER['HTTP_HOST'];
+    $OFFSITE_HOST = 'https://' . $_SERVER['HTTP_HOST'];
   }
 
   $STUB = $OFFSITE_HOST . $CONFIG['DETAILS_STUB'];

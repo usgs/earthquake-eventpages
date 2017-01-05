@@ -7,7 +7,7 @@ var Formatter = require('core/Formatter'),
 
 
 var _DEFAULTS = {
-  url: 'http://earthquake.usgs.gov/ws/geoserve/'
+  url: 'https://earthquake.usgs.gov/ws/geoserve/'
 };
 
 
