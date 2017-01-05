@@ -363,7 +363,7 @@ var PAGERView = function (options) {
           pdf,
           png;
 
-      alertLevel = _this.model.getProperty('alertLevel');
+      alertLevel = _this.model.getProperty('alertlevel');
       comment = _this.getAlertComment('economic');
       png = _this.model.getContent('alertecon_small.png') ||
           _this.model.getContent('alertecon.png');
@@ -461,7 +461,7 @@ var PAGERView = function (options) {
           pdf,
           png;
 
-      alertLevel = _this.model.getProperty('alertLevel');
+      alertLevel = _this.model.getProperty('alertlevel');
       comment = _this.getAlertComment('fatality');
       png = _this.model.getContent('alertfatal_small.png') ||
           _this.model.getContent('alertfatal.png');
@@ -479,7 +479,7 @@ var PAGERView = function (options) {
   _this.renderPending = function () {
     var alertLevel;
 
-    alertLevel = _this.model.getProperty('alertLevel');
+    alertLevel = _this.model.getProperty('alertlevel');
 
     if (alertLevel === 'pending') {
       _pendingMessageEl.innerHTML = [
@@ -487,7 +487,7 @@ var PAGERView = function (options) {
           'Alert information for this event is currently under review and ',
           'will be available soon. Thank you for your patience.',
         '</p>'
-      ].joing('');
+      ].join('');
     }
   };
 
