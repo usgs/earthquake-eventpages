@@ -66,3 +66,17 @@
   }
 }
 
+/**
+this is a workaround for the click jumping problem in chrome.
+TODO: consider making template default.
+*/
+.question-answers > li {
+  > input[type='checkbox'],
+  > input[type='radio'] {
+    position: static;
+    height: 0;
+    width: 0;
+    display: block;
+    visibility: hidden;
+  }
+}
