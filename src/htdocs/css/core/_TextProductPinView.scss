@@ -1,0 +1,26 @@
+.text-product-pin-view {
+
+  .pin-header {
+    cursor: pointer;
+  }
+
+  .pin-content {
+    /* use margin top/bottom with overflow hidden */
+    margin: 1em 0;
+    overflow: hidden;
+    padding: 0 0.5em;
+    position: relative;
+
+    > :after {
+      background: linear-gradient(to bottom, transparent 80%, rgba(255,255,255,0.2) 90%, rgba(255,255,255,0.4) 99%, #fff 100%);
+      content: '';
+      display: block;
+      position: absolute;
+      top:0; bottom: 0; left: 0; right: 0;
+    }
+
+    > :first-child {
+      margin-top: 0;
+    }
+  }
+}

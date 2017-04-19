@@ -5,6 +5,7 @@ print navItem('/example.php', 'Examples Index');
 print navGroup('Core',
     navItem('/core/BasicPinViewExample.php', 'BasicPinView') .
     navItem('/core/DownloadViewExample.php', 'DownloadView') .
+    navItem('/core/TextProductPinViewExample.php', 'TextProductPinView') .
     navItem('/core/TextProductViewExample.php', 'TextProductView')
   );
 
