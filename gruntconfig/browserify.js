@@ -26,6 +26,7 @@ var ALL_CLASSES = [
   JS + '/core/NearbySeismicity.js:core/NearbySeismicity',
   JS + '/core/ProductView.js:core/ProductView',
   JS + '/core/SummaryModule.js:core/SummaryModule',
+  JS + '/core/TextProductPinView.js:core/TextProductPinView',
   JS + '/core/TextProductView.js:core/TextProductView',
 
   JS + '/dyfi/DYFIFormModule.js:dyfi/DYFIFormModule',
