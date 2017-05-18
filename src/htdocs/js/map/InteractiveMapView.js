@@ -18,7 +18,8 @@ var ContoursLayer = require('map/ContoursLayer'),
     TectonicPlates = require('leaflet/layer/TectonicPlates'),
     UsFault = require('leaflet/layer/UsFault'),
     Util = require('util/Util'),
-    View = require('mvc/View');
+    View = require('mvc/View'),
+    Legend = require('leaflet/control/Legend');
 
 
 // Display names of overlays
@@ -92,6 +93,7 @@ var InteractiveMapView = function (options) {
       _formatter,
       _interactive,
       _layersControl,
+      _legendControl,
       _map,
       _markerSize,
       _module,
@@ -150,6 +152,17 @@ var InteractiveMapView = function (options) {
     );
     if (_interactive) {
       _map.addControl(_layersControl);
+    }
+
+    // Add legend control
+    if (_interactive) {
+      _legendControl = Legend({
+        legends: [{
+          //title: 'Historical Seismicity',
+          image: 'images/historic-seismicity-legend.jpg'
+        }]
+      });
+      _map.addControl(_legendControl);
     }
 
     if (!Util.isMobile()) {
