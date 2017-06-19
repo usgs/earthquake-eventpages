@@ -26,7 +26,7 @@ var _RESOURCES = {
       InteractiveMapView.DYFI_DEFAULT_OVERLAY + '=true',
     mapSuffix:'_ciim_geo_imap.html'
   },
-  'geocode-map': {
+  'zip-map': {
     title:'ZIP Map',
     suffix: '_ciim.jpg',
     usemap: 'imap_base',
