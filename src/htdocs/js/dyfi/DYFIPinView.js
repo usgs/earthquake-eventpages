@@ -36,7 +36,7 @@ var DYFIPinView = function (options) {
     code = _this.model.get('code');
     img = _this.model.getContent('pin-thumbnail.png');
     if (!img) {
-      img = _this.model.getContent(code + '_ciim.jpg');
+      img = _this.model.getContent(code + '_ciim_geo.jpg');
     }
 
     if (img) {
