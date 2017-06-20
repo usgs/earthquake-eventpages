@@ -507,6 +507,8 @@ var DYFIFormView = function (options) {
 
     _questions.ciim_mapLat.trigger('change', _questions.ciim_mapLat);
     _questions.ciim_mapLon.trigger('change', _questions.ciim_mapLon);
+    _questions.ciim_mapConfidence.trigger('change',
+        _questions.ciim_mapConfidence);
   };
 
   /**
