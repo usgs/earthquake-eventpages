@@ -138,9 +138,9 @@ var ShakeMapStationListView = function (options) {
     return [
         '<div class="accordion-content">',
           '<dl class="station-metadata vertical">',
-            '<dt class="station-metadata-type">Type</dt>',
-              '<dd class="station-metadata-type">',
-                (props.instrumentType||'&ndash;'),
+            '<dt class="station-metadata-network">Network</dt>',
+              '<dd class="station-metadata-network">',
+                (props.network || '&ndash;'),
               '</dd>',
             '<dt class="station-metadata-location">Location</dt>',
               '<dd class="station-metadata-location">',
