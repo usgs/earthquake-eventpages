@@ -19,10 +19,16 @@ var ContentView = require('core/ContentView'),
  */
 var DYFIIntensityGraphView = function (options) {
   var _this,
+      _initialize,
 
+      _data,
       _graph;
 
     _this = ContentView(options);
+
+  _initialize = function () {
+    _data = [];
+  };
 
   /**
    * Adds a line view to the D3View (w/ connecting lines, this function is
@@ -37,7 +43,9 @@ var DYFIIntensityGraphView = function (options) {
    *    dataset.data = the point data to plot
    */
   _this.buildLineView = function (dataset) {
-    var line = D3LineView({
+    var line;
+
+    line = D3LineView({
       view: _graph,
       showPoints: (dataset.showPoints ? dataset.showPoints : false),
       data: _this.parseDataIntoArray(dataset.data),
@@ -45,7 +53,8 @@ var DYFIIntensityGraphView = function (options) {
       label: dataset.legend,
       showLegendPoint: false
     });
-    _graph.views.add(line);
+
+    return line;
   };
 
   /**
@@ -60,7 +69,9 @@ var DYFIIntensityGraphView = function (options) {
    *    dataset.data = the point data to plot
    */
   _this.buildMedianDataView = function (dataset) {
-    var medianData = D3LineView({
+    var medianData;
+
+    medianData = D3LineView({
       view: _graph,
       showLine: false,
       data: _this.parseDataIntoArray(dataset.data),
@@ -68,7 +79,8 @@ var DYFIIntensityGraphView = function (options) {
       label: dataset.legend,
       pointRadius: 3
     });
-    _graph.views.add(medianData);
+
+    return medianData;
   };
 
   /**
@@ -83,7 +95,9 @@ var DYFIIntensityGraphView = function (options) {
    *    dataset.data = the point data to plot
    */
   _this.buildScatterPlotView = function (dataset) {
-    var scatterplot = D3LineView({
+    var scatterplot;
+
+    scatterplot = D3LineView({
       view: _graph,
       showLine: false,
       data: _this.parseDataIntoArray(dataset.data),
@@ -91,7 +105,8 @@ var DYFIIntensityGraphView = function (options) {
       label: dataset.legend,
       pointRadius: 2
     });
-    _graph.views.add(scatterplot);
+
+    return scatterplot;
   };
 
   /**
@@ -106,7 +121,9 @@ var DYFIIntensityGraphView = function (options) {
    *    dataset.data = the point data to plot
    */
   _this.buildStandardDeviationLineView = function (dataset) {
-    var standardDevationLineView = StandardDevationLineView({
+    var standardDevationLineView;
+
+    standardDevationLineView = StandardDevationLineView({
       view: _graph,
       data: _this.parseDataIntoArray(dataset.data),
       histogram: dataset.data,
@@ -115,7 +132,8 @@ var DYFIIntensityGraphView = function (options) {
       pointRadius: 5,
       showLine: false
     });
-    _graph.views.add(standardDevationLineView);
+
+    return standardDevationLineView;
   };
 
   /**
@@ -137,6 +155,7 @@ var DYFIIntensityGraphView = function (options) {
       _graph.destroy();
       _graph = null;
     }
+    _data = null;
     _this = null;
   }, _this.destroy);
 
@@ -228,18 +247,23 @@ var DYFIIntensityGraphView = function (options) {
     data.forEach(function (dataset) {
       if (dataset.class === 'estimated1' ||
           dataset.class === 'estimated2') {
-        _this.buildLineView(dataset);
+        _data.push(_this.buildLineView(dataset));
       }
       if (dataset.class === 'scatterplot1') {
-        _this.buildScatterPlotView(dataset);
+        _data.push(_this.buildScatterPlotView(dataset));
       }
       if (dataset.class === 'median') {
-        _this.buildMedianDataView(dataset);
+        _data.push(_this.buildMedianDataView(dataset));
       }
       if (dataset.class === 'binned') {
-        _this.buildStandardDeviationLineView(dataset);
+        _data.push(_this.buildStandardDeviationLineView(dataset));
       }
     });
+
+    // Add all graphs to D3View
+    if (_data) {
+      _graph.views.addAll(_data);
+    }
   };
 
   /**
@@ -306,6 +330,7 @@ var DYFIIntensityGraphView = function (options) {
 
 
   options = null;
+  _initialize();
   return _this;
 };
 
