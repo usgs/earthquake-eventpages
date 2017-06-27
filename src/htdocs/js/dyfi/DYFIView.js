@@ -18,19 +18,19 @@ var _DEFAULTS = {
 var _RESOURCES = {
   'intensity-map': {
     title: 'Intensity Map',
-    suffix: '_ciim.jpg',
-    usemap: 'imap_base',
-    href: '#map?' +
-        InteractiveMapView.SHAKEMAP_CONTOURS + '= false&' +
-        InteractiveMapView.DYFI_10K_OVERLAY + '=true&' +
-        InteractiveMapView.DYFI_DEFAULT_OVERLAY + '=true',
-    mapSuffix: '_ciim_imap.html'
-  },
-  'geocode-map': {
-    title:'Geocoded Map',
     suffix:'_ciim_geo.jpg',
     usemap:'imap_geo',
+    href: '#map?' +
+      InteractiveMapView.SHAKEMAP_CONTOURS + '= false&' +
+      InteractiveMapView.DYFI_10K_OVERLAY + '=true&' +
+      InteractiveMapView.DYFI_DEFAULT_OVERLAY + '=true',
     mapSuffix:'_ciim_geo_imap.html'
+  },
+  'zip-map': {
+    title:'ZIP Map',
+    suffix: '_ciim.jpg',
+    usemap: 'imap_base',
+    mapSuffix: '_ciim_imap.html'
   },
   'zoom-map': {
     title:'Zoom Map',
