@@ -193,9 +193,10 @@ var InteractiveMapView = function (options) {
     if (content) {
       _overlays[_DYFI_10K_OVERLAY] = DyfiUtmLayer({
         url: content.get('url'),
-        legend:
-            '<img src="images/legends/legend-geocoded-area.jpg" />' +
+        legends: [
+            '<img src="images/legends/legend-geocoded-area.jpg" />',
             '<img src="images/legends/legend-intensity-scale.jpg" />'
+          ]
       });
     }
 
@@ -204,9 +205,10 @@ var InteractiveMapView = function (options) {
     if (content) {
       _overlays[_DYFI_1K_OVERLAY] = DyfiUtmLayer({
         url: content.get('url'),
-        legend:
-            '<img src="images/legends/legend-geocoded-area.jpg" />' +
+        legends: [
+            '<img src="images/legends/legend-geocoded-area.jpg" />',
             '<img src="images/legends/legend-intensity-scale.jpg" />'
+          ]
       });
     }
 
@@ -218,9 +220,10 @@ var InteractiveMapView = function (options) {
       if (content) {
         _overlays[_DYFI_DEFAULT_OVERLAY] = DyfiUtmLayer({
           url: content.get('url'),
-        legend:
-            '<img src="images/legends/legend-geocoded-area.jpg" />' +
+        legends: [
+            '<img src="images/legends/legend-geocoded-area.jpg" />',
             '<img src="images/legends/legend-intensity-scale.jpg" />'
+          ]
         });
       }
     }
@@ -251,9 +254,10 @@ var InteractiveMapView = function (options) {
       _overlays[_SHAKEMAP_CONTOURS] = ContoursLayer({
         clickable: _interactive,
         url: content.get('url'),
-        legend:
-            '<img src="images/legends/legend.jpg" />' +
+        legends: [
+            '<img src="images/legends/legend-intensity-contour.jpg" />',
             '<img src="images/legends/legend-intensity-scale.jpg" />'
+          ]
 
       });
     }
@@ -262,10 +266,11 @@ var InteractiveMapView = function (options) {
     if (content) {
       _overlays[_SHAKEMAP_STATIONS] = ShakeMapStationLayer({
         url: content.get('url'),
-        legend:
-            '<img src="images/legends/legend-seismic-station.jpg" />' +
-            '<img src="images/legends/legend-shakemap-station.jpg" />' +
+        legends: [
+            '<img src="images/legends/legend-seismic-station.jpg" />',
+            '<img src="images/legends/legend-shakemap-station.jpg" />',
             '<img src="images/legends/legend-intensity-scale.jpg" />'
+          ]
       });
     }
 

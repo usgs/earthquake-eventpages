@@ -22,7 +22,7 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
 
     this._formatter = new Formatter();
     this._layers = {};
-    this._legend = stationJson.legend || null;
+    this._legends = stationJson.legends || null;
 
     this.stationURL = stationJson.url || null;
     this.data = null;
@@ -61,8 +61,8 @@ var ShakeMapStationLayer = L.GeoJSON.extend({
     };
   },
 
-  getLegend: function () {
-    return this._legend;
+  getLegends: function () {
+    return this._legends;
   },
 
   onAdd: function (map) {
