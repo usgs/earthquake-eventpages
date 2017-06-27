@@ -390,7 +390,9 @@ var ExecutiveSummaryModule = function (options) {
             remove('accordion-closed');
       }
 
-      _this.footer.appendChild(footerEl);
+      if (footerEl) {
+        _this.footer.appendChild(footerEl);
+      }
     }
 
     // Render the pin views after they are in the DOM so they have extents
