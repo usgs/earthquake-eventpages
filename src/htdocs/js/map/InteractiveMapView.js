@@ -154,8 +154,10 @@ var InteractiveMapView = function (options) {
     }
 
     // Add legend control to map
-    _this.legend = Legend();
-    _map.addControl(_this.legend);
+    if (options.legendControl !== false) {
+      _this.legend = Legend();
+      _map.addControl(_this.legend);
+    }
 
     if (!Util.isMobile()) {
       if (_interactive) {
