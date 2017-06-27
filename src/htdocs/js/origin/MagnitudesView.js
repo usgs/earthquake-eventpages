@@ -134,6 +134,7 @@ var MagnitudesView = function (options) {
         amplitude,
         mag,
         period,
+        sncl,
         station,
         stationMagnitude,
         status,
@@ -144,6 +145,14 @@ var MagnitudesView = function (options) {
     amplitude = stationMagnitude.amplitude || {};
 
     station = stationMagnitude.waveformID || amplitude.waveformID;
+    if (station) {
+      sncl = station.networkCode +
+          ' ' + station.stationCode +
+          ' ' + station.channelCode +
+          ' ' + station.locationCode;
+    } else {
+      sncl = _NOT_REPORTED;
+    }
 
     amp = _NOT_REPORTED;
     mag = stationMagnitude.mag.value || _NOT_REPORTED;
@@ -170,12 +179,7 @@ var MagnitudesView = function (options) {
 
     return [
       '<tr>',
-        '<th scope="row">',
-          station.networkCode,
-          ' ', station.stationCode,
-          ' ', station.channelCode,
-          ' ', station.locationCode,
-        '</th>',
+        '<th scope="row">', sncl, '</th>',
         '<td class="type">', type, '</td>',
         '<td class="amplitude">', amp, '</td>',
         '<td class="period">', period, '</td>',
