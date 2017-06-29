@@ -309,7 +309,7 @@ describe('core/Formatter', function () {
     });
   });
 
-  describe.only('normalizeLongitude', function () {
+  describe('normalizeLongitude', function () {
     it('returns null value when is null or NaN', function () {
       expect(formatter.normalizeLongitude(null)).to.equal(null);
       expect(formatter.normalizeLongitude('test')).to.equal(null);
