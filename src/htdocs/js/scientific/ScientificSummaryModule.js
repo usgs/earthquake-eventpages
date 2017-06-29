@@ -175,8 +175,8 @@ var ScientificSummaryModule = function (options) {
     return _this.createSummary(products, 'Focal Mechanism', [
         'Catalog',
         'Mechanism',
-        'Nodal Plan 1<br/><small>Strike, Dip, Rake</small>',
-        'Nodal Plan 1<br/><small>Strike, Dip, Rake</small>',
+        'Nodal Plane 1<br/><small>Strike, Dip, Rake</small>',
+        'Nodal Plane 2<br/><small>Strike, Dip, Rake</small>',
         'Source'
       ],
       _this.getFocalMechanismRow);
