@@ -168,7 +168,7 @@
       ]
     },
 
-    "d_text": {
+    "d_text[]": {
       "label": "Was there any damage to the building?",
       "multiSelect": true,
       "answers": [
