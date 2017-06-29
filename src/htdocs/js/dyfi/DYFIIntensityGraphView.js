@@ -313,10 +313,9 @@ var DYFIIntensityGraphView = function (options) {
     logmax = Math.log(max) / Math.LN10;
 
     // range is completely within 2 ticks on the log 10 scale.
-    // Create 2 ticks, rounded to the nearest 1000's.
+    // Create 2 ticks, rounded to the nearest whole number.
     if (logmax - logmin < 1) {
-      ticks = [Math.round(min * 1000.0) / 1000.0,
-          Math.round(max * 1000.0) / 1000.0];
+      ticks = [Math.round(min), Math.round(max)];
       return ticks;
     }
 
