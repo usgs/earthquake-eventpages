@@ -309,6 +309,25 @@ describe('core/Formatter', function () {
     });
   });
 
+  describe('normalizeLongitude', function () {
+    it('returns null value when is null or NaN', function () {
+      expect(formatter.normalizeLongitude(null)).to.equal(null);
+      expect(formatter.normalizeLongitude('test')).to.equal(null);
+    });
+
+    it('returns normalized value', function () {
+      expect(formatter.normalizeLongitude(0)).to.equal(0);
+      expect(formatter.normalizeLongitude(180)).to.equal(180);
+      expect(formatter.normalizeLongitude(-180)).to.equal(-180);
+
+      expect(formatter.normalizeLongitude(-260)).to.equal(100);
+      expect(formatter.normalizeLongitude(-620)).to.equal(100);
+
+      expect(formatter.normalizeLongitude(260)).to.equal(-100);
+      expect(formatter.normalizeLongitude(620)).to.equal(-100);
+    });
+  });
+
   describe('number', function () {
     it('returns empty value when undefined', function () {
       expect(formatter.number(null, 1, 'empty')).to.equal('empty');

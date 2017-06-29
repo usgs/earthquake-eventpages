@@ -465,6 +465,31 @@ var Formatter = function (options) {
   };
 
   /**
+   * Get the normalized longitude value that is in range (-180, 180)
+   *
+   * @param value {Number}
+   *        Longitude value
+   *
+   * @return {Number}
+   *        Normalized longitude value (-180, 180)
+   */
+  _this.normalizeLongitude = function (value) {
+    if (value === null || isNaN(value)) {
+      return null;
+    }
+
+    while (value < -180 || value > 180) {
+      if (value < -180) {
+        value += 360;
+      } else {
+        value -= 360;
+      }
+    }
+
+    return value;
+  };
+
+  /**
    * Format a number.
    *
    * @param value {Number}

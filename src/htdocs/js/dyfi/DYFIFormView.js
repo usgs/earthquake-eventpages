@@ -96,7 +96,6 @@ var DYFIFormView = function (options) {
 
       _curLoc,
       _data,
-      _formatter,
       _locationButton,
       _locationDisplay,
       _locationView,
@@ -121,7 +120,7 @@ var DYFIFormView = function (options) {
 
     _curLoc = {};
     _data = null;
-    _formatter = options.formatter || Formatter();
+    _this.formatter = options.formatter || Formatter();
     _locationView = null;
     _questions = {};
     _url = options.url;
@@ -303,10 +302,10 @@ var DYFIFormView = function (options) {
     _questions.ciim_mapLon = Events();
     _questions.ciim_mapLon.model = Model({field:'ciim_mapLon'});
     _questions.ciim_mapLon.getAnswers = function () {
-      return {value: _curLoc.longitude};
+      return {value: this.formatter.normalizeLongitude(_curLoc.longitude)};
     };
     _questions.ciim_mapLon.setAnswers = function (longitude) {
-      _curLoc.longitude = longitude;
+      _curLoc.longitude = this.formatter.normalizeLongitude(longitude);
     };
 
     _questions.ciim_mapConfidence = Events();
@@ -474,6 +473,13 @@ var DYFIFormView = function (options) {
         prettyLng = null;
 
     _curLoc = locationObject;
+
+    _questions.ciim_mapLat.trigger('change', _questions.ciim_mapLat);
+    _questions.ciim_mapLon.trigger('change', _questions.ciim_mapLon);
+    _questions.ciim_mapConfidence.trigger('change',
+        _questions.ciim_mapConfidence);
+    _questions.ciim_mapAddress.trigger('change', _questions.ciim_mapAddress);
+
     confidence = (_curLoc.confidence === -1 ? 0 : _curLoc.confidence);
 
     prettyLat = _curLoc.latitude;
@@ -504,9 +510,6 @@ var DYFIFormView = function (options) {
 
 
     _locationButton.innerHTML = _data.locationInfo.buttonUpdate;
-
-    _questions.ciim_mapLat.trigger('change', _questions.ciim_mapLat);
-    _questions.ciim_mapLon.trigger('change', _questions.ciim_mapLon);
   };
 
   /**
@@ -544,7 +547,7 @@ var DYFIFormView = function (options) {
         field;
 
     field = question.model.get('field');
-    answer = question.getAnswers();
+    answer = question.getAnswers.call(_this);
 
     _this.model.set(_this.stripAnswer(field, answer));
   };
@@ -559,7 +562,7 @@ var DYFIFormView = function (options) {
     var field;
 
     for (field in changed) {
-      _questions[field].setAnswers(changed[field]);
+      _questions[field].setAnswers.call(_this, changed[field]);
     }
   };
 
