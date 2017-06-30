@@ -12,9 +12,9 @@ if (!isset($TEMPLATE)) {
 
 
     '<meta property="og:image" content="' . $HOST_URL_PREFIX .
-        $MOUNT_PATH . '/images/logos/usgs-logo-facebook.png"/>' .
-    '<meta property="og:image:height" content="500"/>' .
-    '<meta property="og:image:width" content="500"/>';
+        $MOUNT_PATH . '/images/logos/usgs-logo-facebook.jpg"/>' .
+    '<meta property="og:image:height" content="630"/>' .
+    '<meta property="og:image:width" content="1200"/>';
 
   $eventid = param('eventid');
 
