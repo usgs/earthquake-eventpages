@@ -1,3 +1,9 @@
 .interactive-map-view {
   flex: 1;
+
+  .leaflet-control > a.leaflet-control-legend-toggle {
+    height: 35px;
+    line-height: 35px;
+    width: 35px;
+  }
 }
