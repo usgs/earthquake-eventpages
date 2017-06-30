@@ -51,7 +51,8 @@ var MapPinView = function (options) {
       interactive: false,
       markerSize: 16,
       model: _this.model,
-      scaleControl: false
+      scaleControl: false,
+      legendControl: false
     });
   };
 

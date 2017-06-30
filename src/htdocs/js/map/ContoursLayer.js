@@ -45,6 +45,11 @@ var ContoursLayer = L.AsynchronousGeoJson.extend({
   initialize: function (options) {
     L.AsynchronousGeoJson.prototype.initialize.call(this,
         Util.extend({}, _DEFAULTS, options));
+    this._legends = options.legends || null;
+  },
+
+  getLegends: function () {
+    return this._legends;
   }
 
 });

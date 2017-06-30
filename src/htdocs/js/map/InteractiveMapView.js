@@ -9,6 +9,7 @@ var ContoursLayer = require('map/ContoursLayer'),
     Formatter = require('core/Formatter'),
     HazDevLayers = require('leaflet/control/HazDevLayers'),
     HistoricSeismicity = require('leaflet/layer/HistoricSeismicity'),
+    Legend = require('leaflet/control/Legend'),
     Module = require('core/Module'),
     MousePosition = require('leaflet/control/MousePosition'),
     Satellite = require('leaflet/layer/Satellite'),
@@ -152,6 +153,12 @@ var InteractiveMapView = function (options) {
       _map.addControl(_layersControl);
     }
 
+    // Add legend control to map
+    if (options.legendControl !== false) {
+      _this.legend = Legend();
+      _map.addControl(_this.legend);
+    }
+
     if (!Util.isMobile()) {
       if (_interactive) {
         _positionControl = MousePosition();
@@ -187,7 +194,11 @@ var InteractiveMapView = function (options) {
     content = dyfi.getContent('dyfi_geo_10km.geojson');
     if (content) {
       _overlays[_DYFI_10K_OVERLAY] = DyfiUtmLayer({
-        url: content.get('url')
+        url: content.get('url'),
+        legends: [
+            '<img src="images/legends/legend-intensity-scale.jpg" />',
+            '<img src="images/legends/legend-geocoded-area.jpg" />'
+          ]
       });
     }
 
@@ -195,7 +206,11 @@ var InteractiveMapView = function (options) {
     content = dyfi.getContent('dyfi_geo_1km.geojson');
     if (content) {
       _overlays[_DYFI_1K_OVERLAY] = DyfiUtmLayer({
-        url: content.get('url')
+        url: content.get('url'),
+        legends: [
+            '<img src="images/legends/legend-intensity-scale.jpg" />',
+            '<img src="images/legends/legend-geocoded-area.jpg" />'
+          ]
       });
     }
 
@@ -206,7 +221,11 @@ var InteractiveMapView = function (options) {
       content = dyfi.getContent('dyfi_geo.geojson');
       if (content) {
         _overlays[_DYFI_DEFAULT_OVERLAY] = DyfiUtmLayer({
-          url: content.get('url')
+          url: content.get('url'),
+        legends: [
+            '<img src="images/legends/legend-intensity-scale.jpg" />',
+            '<img src="images/legends/legend-geocoded-area.jpg" />'
+          ]
         });
       }
     }
@@ -236,14 +255,25 @@ var InteractiveMapView = function (options) {
     if (content) {
       _overlays[_SHAKEMAP_CONTOURS] = ContoursLayer({
         clickable: _interactive,
-        url: content.get('url')
+        url: content.get('url'),
+        legends: [
+            '<img src="images/legends/legend-intensity-scale.jpg" />',
+            '<img src="images/legends/legend-intensity-contour.jpg" />'
+          ]
+
       });
     }
 
     content = shakemap.getContent('download/stationlist.json');
     if (content) {
-      _overlays[_SHAKEMAP_STATIONS] = ShakeMapStationLayer(
-          content.get('url'));
+      _overlays[_SHAKEMAP_STATIONS] = ShakeMapStationLayer({
+        url: content.get('url'),
+        legends: [
+            '<img src="images/legends/legend-intensity-scale.jpg" />',
+            '<img src="images/legends/legend-seismic-station.jpg" />',
+            '<img src="images/legends/legend-shakemap-station.jpg" />'
+          ]
+      });
     }
 
     return _overlays;

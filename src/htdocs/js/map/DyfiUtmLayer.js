@@ -58,6 +58,11 @@ var DyfiUtmLayer = L.AsynchronousGeoJson.extend({
   initialize: function (options) {
     L.AsynchronousGeoJson.prototype.initialize.call(this,
         Util.extend({}, _DEFAULT_OPTIONS, options));
+    this._legends = options.legends || null;
+  },
+
+  getLegends: function () {
+    return this._legends;
   }
 
 });
