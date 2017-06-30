@@ -26,3 +26,25 @@ if (isset($CONFIG['INSTALLATION_TYPE']) &&
     strcasecmp($CONFIG['INSTALLATION_TYPE'], 'scenario') === 0) {
     $SCENARIO_MODE = true;
 }
+
+// build absolute Event Page URL string
+$server_protocol =
+    (
+      (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'Off')
+      || $forwarded_https
+    ) ? 'https://' : 'http://';
+$server_host = isset($_SERVER['HTTP_HOST']) ?
+    $_SERVER['HTTP_HOST'] : "earthquake.usgs.gov";
+$server_port = isset($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT'] : 80;
+$server_uri = $_SERVER['REQUEST_URI'];
+
+$HOST_URL_PREFIX = $server_protocol . $server_host;
+if ( ($server_port == 80 && ($server_protocol == 'http://' || $forwarded_https))
+    || ($server_port == 443 && $server_protocol == 'https://') ) {
+  // don't need port
+} else {
+  // if a port is specified in the HTTP_HOST, don't use twice (ex: localhost:8080, perhaps used in port forwarding)
+  if(!strpos($server_host, ':')) {
+    $HOST_URL_PREFIX .= ':' . $server_port;
+  }
+}
