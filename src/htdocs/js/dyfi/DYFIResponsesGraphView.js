@@ -105,7 +105,7 @@ var DYFIResponsesGraphView = function (options) {
         legendPosition: 'bottomright',
         marginTop: 10,
         marginLeft: 10,
-        paddingLeft:70
+        paddingLeft:80
       }, options));
       _this.el.innerHTML = '';
       _this.el.classList.add('ResponsesGraphView');
