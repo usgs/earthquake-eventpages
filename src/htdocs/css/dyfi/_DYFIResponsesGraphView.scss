@@ -1,0 +1,11 @@
+@import 'd3/_D3LineView.scss';
+@import 'd3/_D3View.scss';
+
+.ResponsesGraphView {
+  margin: 1em 0 0;
+
+  .histogram > .line {
+    stroke: #34e16d;
+    stroke-width: 2;
+  }
+}
