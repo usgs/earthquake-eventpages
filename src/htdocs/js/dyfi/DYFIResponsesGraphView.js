@@ -124,6 +124,8 @@ var DYFIResponsesGraphView = function (options) {
    *    An array of datasets to be plotted in the D3View
    */
   _this.parseData = function (data) {
+    _data = [];
+
     data.forEach(function (dataset) {
       if (dataset.class === 'histogram') {
         _data.push(_this.buildLineView(dataset));
