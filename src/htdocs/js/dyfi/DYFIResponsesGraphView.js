@@ -102,6 +102,7 @@ var DYFIResponsesGraphView = function (options) {
         title: title,
         xLabel: xLabel,
         yLabel: yLabel,
+        legendPosition: 'bottomright',
         marginTop: 10,
         marginLeft: 10,
         paddingLeft:70

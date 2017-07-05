@@ -6,6 +6,10 @@
 
   .histogram > .line {
     stroke: #34e16d;
-    stroke-width: 2;
+    stroke-width: 3px;
+  }
+
+  .legend {
+    display: none;
   }
 }
