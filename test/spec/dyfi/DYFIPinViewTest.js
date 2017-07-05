@@ -13,8 +13,8 @@ describe('dyfi/DYFIPinView', function () {
     product = Product({
       code: 'us10004u1y',
       contents: {
-        'us10004u1y_ciim.jpg': {
-          url: '/products/dyfi/us10004u1y/us/1457013501095/us10004u1y_ciim.jpg'
+        'us10004u1y_ciim_geo.jpg': {
+          url: '/products/dyfi/us10004u1y/us/1457013501095/us10004u1y_ciim_geo.jpg'
         }
       },
       properties: {
@@ -52,8 +52,4 @@ describe('dyfi/DYFIPinView', function () {
       expect(view.content.querySelectorAll('img').length).to.equal(1);
     });
   });
-
 });
-
-
-
