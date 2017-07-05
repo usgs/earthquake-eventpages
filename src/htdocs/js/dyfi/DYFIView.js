@@ -2,6 +2,7 @@
 
 
 var DYFIIntensityGraphView = require('dyfi/DYFIIntensityGraphView'),
+    DYFIResponsesGraphView = require('dyfi/DYFIResponsesGraphView'),
     DYFIResponsesView = require('dyfi/DYFIResponsesView'),
     InteractiveMapView = require('map/InteractiveMapView'),
     ProductView = require('core/ProductView'),
@@ -52,7 +53,9 @@ var _RESOURCES = {
   },
   'response-time': {
     title:'Responses Vs. Time',
-    suffix:'_plot_numresp.jpg'
+    suffix:'_plot_numresp.jpg',
+    subview: DYFIResponsesGraphView,
+    subviewContent: 'dyfi_plot_numresp.json'
   },
   'response-list': {
     title: 'DYFI Responses',
