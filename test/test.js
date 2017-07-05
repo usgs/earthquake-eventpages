@@ -51,6 +51,7 @@ require('./spec/dyfi/DYFIFormPinViewTest');
 require('./spec/dyfi/DYFIFormViewTest');
 require('./spec/dyfi/DYFIIntensityGraphViewTest');
 require('./spec/dyfi/DYFIModuleTest');
+require('./spec/dyfi/DYFIResponsesGraphViewTest');
 require('./spec/dyfi/DYFIResponsesViewTest');
 require('./spec/dyfi/DYFIPinViewTest');
 require('./spec/dyfi/DYFIViewTest');
