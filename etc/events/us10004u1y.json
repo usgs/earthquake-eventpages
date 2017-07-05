@@ -117,11 +117,11 @@
               "length": 3075,
               "url": "/products/dyfi/us10004u1y/us/1457013501095/dyfi_plot_atten.json"
             },
-            "dyfi_plot_numresp.geojson": {
-              "contentType": "application/octet-stream",
+            "dyfi_plot_numresp.json": {
+              "contentType": "application/json",
               "lastModified": 1457013500000,
-              "length": 2136,
-              "url": "/products/dyfi/us10004u1y/us/1457013501095/dyfi_plot_numresp.geojson"
+              "length": 27005,
+              "url": "/products/dyfi/us10004u1y/us/1457013501095/dyfi_plot_numresp.json"
             },
             "dyfi_zip.geojson": {
               "contentType": "application/octet-stream",
@@ -216,7 +216,7 @@
             "us10004u1y_plot_numresp.ps": {
               "contentType": "application/postscript",
               "lastModified": 1457013500000,
-              "length": 33144,
+              "length": 6843,
               "url": "/products/dyfi/us10004u1y/us/1457013501095/us10004u1y_plot_numresp.ps"
             },
             "us10004u1y_plot_numresp.txt": {

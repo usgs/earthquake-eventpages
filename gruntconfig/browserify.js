@@ -33,6 +33,7 @@ var ALL_CLASSES = [
   JS + '/dyfi/DYFIFormView.js:dyfi/DYFIFormView',
   JS + '/dyfi/DYFIIntensityGraphView.js:dyfi/DYFIIntensityGraphView',
   JS + '/dyfi/DYFIModule.js:dyfi/DYFIModule',
+  JS + '/dyfi/DYFIResponsesGraphView.js:dyfi/DYFIResponsesGraphView',
   JS + '/dyfi/DYFIResponsesView.js:dyfi/DYFIResponsesView',
   JS + '/dyfi/DYFIPinView.js:dyfi/DYFIPinView',
   JS + '/dyfi/DYFIView.js:dyfi/DYFIView',
