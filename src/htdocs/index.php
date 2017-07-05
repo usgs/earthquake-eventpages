@@ -7,8 +7,14 @@ if (!isset($TEMPLATE)) {
 
   $HEAD = '
     <link rel="stylesheet" href="/lib/leaflet-0.7.7/leaflet.css"/>
-    <link rel="stylesheet" href="css/event.css"/>
-  ';
+    <link rel="stylesheet" href="css/event.css"/>' .
+
+
+
+    '<meta property="og:image" content="' . $HOST_URL_PREFIX .
+        $MOUNT_PATH . '/images/logos/usgs-logo-facebook.jpg"/>' .
+    '<meta property="og:image:height" content="630"/>' .
+    '<meta property="og:image:width" content="1200"/>';
 
   $eventid = param('eventid');
 
