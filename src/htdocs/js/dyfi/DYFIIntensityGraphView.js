@@ -244,6 +244,8 @@ var DYFIIntensityGraphView = function (options) {
    *    An array of datasets to be plotted in the D3View
    */
   _this.parseData = function (data) {
+    _data = [];
+
     data.forEach(function (dataset) {
       if (dataset.class === 'estimated1' ||
           dataset.class === 'estimated2') {
