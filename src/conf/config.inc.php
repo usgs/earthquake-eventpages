@@ -28,6 +28,8 @@ if (isset($CONFIG['INSTALLATION_TYPE']) &&
 }
 
 // build absolute Event Page URL string
+$forwarded_https = (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) &&
+    $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
 $server_protocol =
     (
       (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'Off')
