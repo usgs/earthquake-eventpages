@@ -196,8 +196,8 @@ var InteractiveMapView = function (options) {
       _overlays[_DYFI_10K_OVERLAY] = DyfiUtmLayer({
         url: content.get('url'),
         legends: [
-            '<img src="images/legends/legend-intensity-scale.jpg" />',
-            '<img src="images/legends/legend-geocoded-area.jpg" />'
+            '<img src="images/legends/legend-intensity-scale.png" />',
+            '<img src="images/legends/legend-geocoded-area.png" />'
           ]
       });
     }
@@ -208,8 +208,8 @@ var InteractiveMapView = function (options) {
       _overlays[_DYFI_1K_OVERLAY] = DyfiUtmLayer({
         url: content.get('url'),
         legends: [
-            '<img src="images/legends/legend-intensity-scale.jpg" />',
-            '<img src="images/legends/legend-geocoded-area.jpg" />'
+            '<img src="images/legends/legend-intensity-scale.png" />',
+            '<img src="images/legends/legend-geocoded-area.png" />'
           ]
       });
     }
@@ -223,8 +223,8 @@ var InteractiveMapView = function (options) {
         _overlays[_DYFI_DEFAULT_OVERLAY] = DyfiUtmLayer({
           url: content.get('url'),
         legends: [
-            '<img src="images/legends/legend-intensity-scale.jpg" />',
-            '<img src="images/legends/legend-geocoded-area.jpg" />'
+            '<img src="images/legends/legend-intensity-scale.png" />',
+            '<img src="images/legends/legend-geocoded-area.png" />'
           ]
         });
       }
@@ -257,8 +257,8 @@ var InteractiveMapView = function (options) {
         clickable: _interactive,
         url: content.get('url'),
         legends: [
-            '<img src="images/legends/legend-intensity-scale.jpg" />',
-            '<img src="images/legends/legend-intensity-contour.jpg" />'
+            '<img src="images/legends/legend-intensity-scale.png" />',
+            '<img src="images/legends/legend-intensity-contour.png" />'
           ]
 
       });
@@ -269,9 +269,9 @@ var InteractiveMapView = function (options) {
       _overlays[_SHAKEMAP_STATIONS] = ShakeMapStationLayer({
         url: content.get('url'),
         legends: [
-            '<img src="images/legends/legend-intensity-scale.jpg" />',
-            '<img src="images/legends/legend-seismic-station.jpg" />',
-            '<img src="images/legends/legend-shakemap-station.jpg" />'
+            '<img src="images/legends/legend-intensity-scale.png" />',
+            '<img src="images/legends/legend-seismic-station.png" />',
+            '<img src="images/legends/legend-shakemap-station.png" />'
           ]
       });
     }
