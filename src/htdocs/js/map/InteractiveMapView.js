@@ -196,8 +196,10 @@ var InteractiveMapView = function (options) {
       _overlays[_DYFI_10K_OVERLAY] = DyfiUtmLayer({
         url: content.get('url'),
         legends: [
-            '<img src="images/legends/legend-intensity-scale.png" />',
-            '<img src="images/legends/legend-geocoded-area.png" />'
+            '<img class="legend-intensity-scale" ' +
+                'src="images/legends/legend-intensity-scale.png" />',
+            '<img class="legend-geocoded-area" ' +
+                'src="images/legends/legend-geocoded-area.png" />'
           ]
       });
     }
@@ -208,8 +210,10 @@ var InteractiveMapView = function (options) {
       _overlays[_DYFI_1K_OVERLAY] = DyfiUtmLayer({
         url: content.get('url'),
         legends: [
-            '<img src="images/legends/legend-intensity-scale.png" />',
-            '<img src="images/legends/legend-geocoded-area.png" />'
+            '<img class="legend-intensity-scale" ' +
+                'src="images/legends/legend-intensity-scale.png" />',
+            '<img class="legend-geocoded-area" ' +
+                'src="images/legends/legend-geocoded-area.png" />'
           ]
       });
     }
@@ -223,8 +227,10 @@ var InteractiveMapView = function (options) {
         _overlays[_DYFI_DEFAULT_OVERLAY] = DyfiUtmLayer({
           url: content.get('url'),
         legends: [
-            '<img src="images/legends/legend-intensity-scale.png" />',
-            '<img src="images/legends/legend-geocoded-area.png" />'
+            '<img class="legend-intensity-scale" ' +
+                'src="images/legends/legend-intensity-scale.png" />',
+            '<img class="legend-geocoded-area" ' +
+                'src="images/legends/legend-geocoded-area.png" />'
           ]
         });
       }
@@ -257,8 +263,10 @@ var InteractiveMapView = function (options) {
         clickable: _interactive,
         url: content.get('url'),
         legends: [
-            '<img src="images/legends/legend-intensity-scale.png" />',
-            '<img src="images/legends/legend-intensity-contour.png" />'
+            '<img class="legend-intensity-scale" ' +
+                'src="images/legends/legend-intensity-scale.png" />',
+            '<img class="legend-intensity-contour" ' +
+                'src="images/legends/legend-intensity-contour.png" />'
           ]
 
       });
@@ -269,9 +277,12 @@ var InteractiveMapView = function (options) {
       _overlays[_SHAKEMAP_STATIONS] = ShakeMapStationLayer({
         url: content.get('url'),
         legends: [
-            '<img src="images/legends/legend-intensity-scale.png" />',
-            '<img src="images/legends/legend-seismic-station.png" />',
-            '<img src="images/legends/legend-shakemap-station.png" />'
+            '<img class="legend-intensity-scale" ' +
+                'src="images/legends/legend-intensity-scale.png" />',
+            '<img class="legend-seismic-station" ' +
+                'src="images/legends/legend-seismic-station.png" />',
+            '<img class="legend-shakemap-station" ' +
+                'src="images/legends/legend-shakemap-station.png" />'
           ]
       });
     }
