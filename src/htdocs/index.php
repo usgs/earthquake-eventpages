@@ -9,8 +9,6 @@ if (!isset($TEMPLATE)) {
     <link rel="stylesheet" href="/lib/leaflet-0.7.7/leaflet.css"/>
     <link rel="stylesheet" href="css/event.css"/>' .
 
-
-
     '<meta property="og:image" content="' . $HOST_URL_PREFIX .
         $MOUNT_PATH . '/images/logos/usgs-logo-facebook.jpg"/>' .
     '<meta property="og:image:height" content="630"/>' .
