@@ -317,6 +317,14 @@ var InteractiveMapView = function (options) {
       })
     });
 
+    // add epicenter legend
+    marker.getLegends = function () {
+      return [
+        '<img class="legend-epicenter"' +
+          'src="images/legends/legend-epicenter.png" />'
+      ];
+    };
+
     if (_interactive) {
       marker.bindPopup([
         'Epicenter M', _formatter.magnitude(magnitude),
@@ -410,11 +418,21 @@ var InteractiveMapView = function (options) {
     }
 
     // Always include tectonic plates
-    _overlays[_PLATES_OVERLAY] = TectonicPlates();
+    _overlays[_PLATES_OVERLAY] = TectonicPlates({
+        legends: [
+          '<img class="legend-tectonic-plates" ' +
+              'src="images/legends/legend-tectonic-plates.png" />'
+        ]
+      });
 
     // Include faults layer if in U.S.
     if (__inUs(eventLatitude, eventLongitude)) {
-      _overlays[_FAULTS_OVERLAY] = UsFault();
+      _overlays[_FAULTS_OVERLAY] = UsFault({
+        legends: [
+          '<img class="legend-us-faults" ' +
+              'src="images/legends/legend-us-faults.png" />'
+        ]
+      });
     }
 
     // Historic seismicity
