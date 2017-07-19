@@ -15,7 +15,7 @@ var Attribution = require('core/Attribution'),
     InteractiveMapModule = require('map/InteractiveMapModule'),
     Model = require('mvc/Model'),
     MomentTensorModule = require('moment-tensor/MomentTensorModule'),
-    NearbySeismicity = require('core/NearbySeismicity'),
+    NearbySeismicity = require('nearby-seismicity/NearbySeismicity'),
     OafModule = require('oaf/OafModule'),
     OriginModule = require('origin/OriginModule'),
     PAGERModule = require('losspager/PAGERModule'),
@@ -283,7 +283,7 @@ var EventPage = function (options) {
       link = document.createElement('a');
       link.setAttribute('class', 'search-nearby-seismicity');
       link.setAttribute('href', url);
-      link.innerHTML = 'Search Nearby Seismicity';
+      link.innerHTML = 'View Nearby Seismicity';
       el.appendChild(link);
     }
   };
