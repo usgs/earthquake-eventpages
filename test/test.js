@@ -42,7 +42,6 @@ require('./spec/core/DownloadViewTest');
 require('./spec/core/EventPageTest');
 require('./spec/core/FormatterTest');
 require('./spec/core/LinkProductViewTest');
-require('./spec/core/NearbySeismicityTest');
 require('./spec/core/SummaryModuleTest');
 require('./spec/core/TextProductViewTest');
 
@@ -90,6 +89,9 @@ require('./spec/moment-tensor/MomentTensorModuleTest');
 require('./spec/moment-tensor/MomentTensorPinViewTest');
 require('./spec/moment-tensor/MomentTensorViewTest');
 require('./spec/moment-tensor/TensorTest');
+
+require('./spec/nearby-seismicity/NearbySeismicityTest');
+require('./spec/nearby-seismicity/NearbySeismicityPinViewTest');
 
 require('./spec/origin/MagnitudesViewTest');
 require('./spec/origin/OriginModuleTest');
