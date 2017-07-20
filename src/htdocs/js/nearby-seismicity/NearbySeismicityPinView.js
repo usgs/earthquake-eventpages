@@ -64,13 +64,13 @@ var NearbySeismicityPinView = function (options) {
     _this.content.innerHTML =
         '<dl class="no-style nearby-seismicity-pin-view">' +
           '<dt>Time</dt>' +
-            '<dd class="nearby-seismicity-pin-time">+/- Three Weeks</dd>' +
+            '<dd class="nearby-seismicity-pin-time">&plusmn; Three Weeks</dd>' +
           '<dt>Search Radius</dt>' +
             '<dd class="nearby-seismicity-pin-maxradiuskm">' +
               maxRadiusKm +
             '</dd>' +
           '<dt>Min Magnitude</dt>' +
-            '<dd class="nearby-seismicity-pin-min-magnitude">' +
+            '<dd class="nearby-seismicity-pin-min-magnitude">&gt;= ' +
               minMagnitude +
             '</dd>' +
         '</dl>';
