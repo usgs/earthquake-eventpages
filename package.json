@@ -1,6 +1,6 @@
 {
   "name": "earthquake-eventpages",
-  "version": "0.6.2",
+  "version": "0.7.0",
   "description": "Web application for displaying earthquake event pages.",
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     "hazdev-accordion": "0.1.1",
     "hazdev-d3": "0.2.2",
     "hazdev-geoserve-ws": "1.1.2",
-    "hazdev-leaflet": "0.3.4",
+    "hazdev-leaflet": "0.3.5",
     "hazdev-location-view": "0.4.3",
     "hazdev-question-view": "0.1.0",
     "hazdev-svgimagemap": "0.0.9",
