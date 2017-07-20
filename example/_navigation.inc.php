@@ -46,6 +46,8 @@ print navGroup('Scientific',
     navItem('/focal-mechanism/FocalMechanismViewExample.php',
         'FocalMechanismView') .
     navItem('/origin/MagnitudesViewExample.php', 'MagnitudesView') .
+    navItem('/nearby-seismicity/NearbySeismicityPinViewExample.php',
+        'NearbySeismicityPinView') .
     navItem('/origin/OriginPinViewExample.php', 'OriginPinView') .
     navItem('/origin/OriginViewExample.php', 'OriginView') .
     navItem('/origin/PhasesViewExample.php', 'PhasesView') .

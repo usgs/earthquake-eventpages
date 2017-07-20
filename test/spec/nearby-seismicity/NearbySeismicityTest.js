@@ -6,11 +6,11 @@ var expect = chai.expect;
 
 
 var CatalogEvent = require('pdl/CatalogEvent'),
-    NearbySeismicity = require('core/NearbySeismicity'),
+    NearbySeismicity = require('nearby-seismicity/NearbySeismicity'),
     Xhr = require('util/Xhr');
 
 
-describe('core/NearbySeismicity', function () {
+describe('nearby-seismicity/NearbySeismicity', function () {
   describe('constructor', function () {
     it('is a function', function () {
       expect(typeof NearbySeismicity).to.equal('function');

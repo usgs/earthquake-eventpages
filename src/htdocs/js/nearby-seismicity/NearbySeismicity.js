@@ -212,7 +212,7 @@ var NearbySeismicity = function (options) {
 };
 
 
-NearbySeismicity.KM_PER_DEGREE = _KM_PER_DEGREE;
+ NearbySeismicity.KM_PER_DEGREE = _KM_PER_DEGREE;
 
 
 module.exports = NearbySeismicity;

@@ -7,6 +7,8 @@ var DyfiFormPinView = require('dyfi/DYFIFormPinView'),
     FocalMechanismPinView = require('focal-mechanism/FocalMechanismPinView'),
     InteractiveMapPinView = require('map/InteractiveMapPinView'),
     MomentTensorPinView = require('moment-tensor/MomentTensorPinView'),
+    NearbySeismicityPinView =
+       require('nearby-seismicity/NearbySeismicityPinView'),
     OriginPinView = require('origin/OriginPinView'),
     PAGERPinView = require('losspager/PAGERPinView'),
     Product = require('pdl/Product'),
@@ -273,6 +275,12 @@ var ExecutiveSummaryModule = function (options) {
         model: ev.getPreferredOriginProduct()
       }));
     }
+
+    // Nearby Seismicity pin
+    _this.pinViews.push(NearbySeismicityPinView({
+      el: _this.createPinContainer(list),
+      event: ev
+    }));
 
     return list;
   };

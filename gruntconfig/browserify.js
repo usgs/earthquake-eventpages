@@ -23,7 +23,6 @@ var ALL_CLASSES = [
   JS + '/core/Formatter.js:core/Formatter',
   JS + '/core/LinkProductView.js:core/LinkProductView',
   JS + '/core/Module.js:core/Module',
-  JS + '/core/NearbySeismicity.js:core/NearbySeismicity',
   JS + '/core/ProductView.js:core/ProductView',
   JS + '/core/SummaryModule.js:core/SummaryModule',
   JS + '/core/TextProductView.js:core/TextProductView',
@@ -77,6 +76,9 @@ var ALL_CLASSES = [
   JS + '/moment-tensor/MomentTensorPinView.js:moment-tensor/MomentTensorPinView',
   JS + '/moment-tensor/MomentTensorView.js:moment-tensor/MomentTensorView',
   JS + '/moment-tensor/Tensor.js:moment-tensor/Tensor',
+
+  JS + '/nearby-seismicity/NearbySeismicity.js:nearby-seismicity/NearbySeismicity',
+  JS + '/nearby-seismicity/NearbySeismicityPinView.js:nearby-seismicity/NearbySeismicityPinView',
 
   JS + '/oaf/ForecastTableView.js:oaf/ForecastTableView',
   JS + '/oaf/ForecastTextView.js:oaf/ForecastTextView',
