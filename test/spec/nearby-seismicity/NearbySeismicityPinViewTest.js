@@ -93,13 +93,13 @@ describe('nearby-seismicity/NearbySeismicityPinView', function () {
   });
 
   describe('renderPinFooter', function () {
-    it('renders footer with link', function () {
+    it('renders footer with correct text', function () {
       var pinView;
 
       pinView = NearbySeismicityPinView();
       pinView.renderPinFooter();
 
-      expect(pinView.footer.querySelector('a')).to.not.equal(null);
+      expect(pinView.footer.innerHTML).to.equal('ANSS ComCat');
 
       pinView.destroy();
     });

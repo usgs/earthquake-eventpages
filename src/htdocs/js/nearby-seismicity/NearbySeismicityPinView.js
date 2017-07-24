@@ -81,7 +81,7 @@ var NearbySeismicityPinView = function (options) {
    */
    _this.renderPinFooter = function () {
      _this.footer.innerHTML = [
-       '<a href="', _this.getLinkUrl(), '">Nearby Seismicity</a>'
+       'ANSS ComCat'
      ].join('');
    };
 
