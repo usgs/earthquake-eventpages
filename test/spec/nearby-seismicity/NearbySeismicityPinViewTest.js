@@ -69,7 +69,8 @@ describe('nearby-seismicity/NearbySeismicityPinView', function () {
     });
 
     it('renders correct pin content', function () {
-      var pinView;
+      var pinView,
+          timeRangeEl;
 
       pinView = NearbySeismicityPinView({
         event: ev
@@ -77,13 +78,17 @@ describe('nearby-seismicity/NearbySeismicityPinView', function () {
 
       pinView.renderPinContent();
 
+      // create element to match HTML entity
+      timeRangeEl = document.createElement('p');
+      timeRangeEl.innerHTML = '&plusmn; Three Weeks';
+
       // expect(pinView.content.innerHTML).to.equal('test');
       expect(pinView.content.querySelector('.nearby-seismicity-pin-time').
-          innerHTML).to.equal('+/- Three Weeks');
+          innerHTML).to.equal(timeRangeEl.innerHTML);
       expect(pinView.content.querySelector('.nearby-seismicity-pin-maxradiuskm')
           .innerHTML).to.equal('250.0 km');
       expect(pinView.content.querySelector('.nearby-seismicity-pin-min-magnitude')
-          .innerHTML).to.equal('4.0');
+          .innerHTML).to.equal('&gt;= 4.0');
     });
   });
 });
