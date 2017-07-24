@@ -76,6 +76,18 @@ var NearbySeismicityPinView = function (options) {
         '</dl>';
   };
 
+  /**
+   * @APIMethod
+   *
+   * Render the footer section of the pin.
+   *
+   */
+   _this.renderPinFooter = function () {
+     _this.footer.innerHTML = [
+       '<a href="', _this.getLinkUrl(), '">Nearby Seismicity</a>'
+     ].join('');
+   };
+
   _initialize(options);
   options = null;
   return _this;

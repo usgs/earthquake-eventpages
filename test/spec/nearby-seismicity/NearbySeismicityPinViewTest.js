@@ -91,4 +91,17 @@ describe('nearby-seismicity/NearbySeismicityPinView', function () {
           .innerHTML).to.equal('&gt;= 4.0');
     });
   });
+
+  describe('renderPinFooter', function () {
+    it('renders footer with link', function () {
+      var pinView;
+
+      pinView = NearbySeismicityPinView();
+      pinView.renderPinFooter();
+
+      expect(pinView.footer.querySelector('a')).to.not.equal(null);
+
+      pinView.destroy();
+    });
+  });
 });
