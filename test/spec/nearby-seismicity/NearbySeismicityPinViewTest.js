@@ -82,12 +82,12 @@ describe('nearby-seismicity/NearbySeismicityPinView', function () {
       timeRangeEl = document.createElement('p');
       timeRangeEl.innerHTML = '&plusmn; Three Weeks';
 
-      // expect(pinView.content.innerHTML).to.equal('test');
       expect(pinView.content.querySelector('.nearby-seismicity-pin-time').
           innerHTML).to.equal(timeRangeEl.innerHTML);
       expect(pinView.content.querySelector('.nearby-seismicity-pin-maxradiuskm')
           .innerHTML).to.equal('250.0 km');
-      expect(pinView.content.querySelector('.nearby-seismicity-pin-min-magnitude')
+      expect(pinView.content.querySelector(
+          '.nearby-seismicity-pin-min-magnitude')
           .innerHTML).to.equal('&gt;= 4.0');
     });
   });
