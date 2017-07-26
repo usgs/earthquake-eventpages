@@ -64,15 +64,19 @@ var NearbySeismicityPinView = function (options) {
     _this.content.innerHTML =
         '<dl class="nearby-seismicity-pin-view">' +
           '<dt>Time Range</dt>' +
-            '<dd class="nearby-seismicity-pin-time">&plusmn; Three Weeks</dd>' +
+          '<dd class="nearby-seismicity-pin-time">'+
+            '<img class="pin-icon" src="images/nearby-seismicity/time.png" />' +
+            '&plusmn; Three Weeks</dd>' +
           '<dt>Search Radius</dt>' +
-            '<dd class="nearby-seismicity-pin-maxradiuskm">' +
-              maxRadiusKm +
-            '</dd>' +
+          '<dd class="nearby-seismicity-pin-maxradiuskm">' +
+            '<img class="pin-icon" src="images/nearby-seismicity/radius.png" />' +
+            maxRadiusKm +
+          '</dd>' +
           '<dt>Magnitude Range</dt>' +
-            '<dd class="nearby-seismicity-pin-min-magnitude">&ge; ' +
-              minMagnitude +
-            '</dd>' +
+          '<dd class="nearby-seismicity-pin-min-magnitude">' +
+            '<img class="pin-icon" src="images/nearby-seismicity/magnitude.png" />' +
+            '&ge; ' + minMagnitude +
+          '</dd>' +
         '</dl>';
   };
 

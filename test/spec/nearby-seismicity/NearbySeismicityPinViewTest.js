@@ -69,9 +69,7 @@ describe('nearby-seismicity/NearbySeismicityPinView', function () {
     });
 
     it('renders correct pin content', function () {
-      var magnitudeEl,
-          pinView,
-          timeRangeEl;
+      var pinView;
 
       pinView = NearbySeismicityPinView({
         event: ev
@@ -79,19 +77,15 @@ describe('nearby-seismicity/NearbySeismicityPinView', function () {
 
       pinView.renderPinContent();
 
-      // create element to match HTML entity
-      timeRangeEl = document.createElement('p');
-      timeRangeEl.innerHTML = '&plusmn; Three Weeks';
-      magnitudeEl = document.createElement('p');
-      magnitudeEl.innerHTML = '&ge; 4.0';
-
-      expect(pinView.content.querySelector('.nearby-seismicity-pin-time').
-          innerHTML).to.equal(timeRangeEl.innerHTML);
-      expect(pinView.content.querySelector('.nearby-seismicity-pin-maxradiuskm')
-          .innerHTML).to.equal('250.0 km');
       expect(pinView.content.querySelector(
-          '.nearby-seismicity-pin-min-magnitude')
-          .innerHTML).to.equal(magnitudeEl.innerHTML);
+          '.nearby-seismicity-pin-time').innerHTML).to.equal(
+          '<img class="pin-icon" src="images/nearby-seismicity/time.png">± Three Weeks');
+      expect(pinView.content.querySelector(
+          '.nearby-seismicity-pin-maxradiuskm').innerHTML).to.equal(
+          '<img class="pin-icon" src="images/nearby-seismicity/radius.png">250.0 km');
+      expect(pinView.content.querySelector(
+          '.nearby-seismicity-pin-min-magnitude').innerHTML).to.equal(
+          '<img class="pin-icon" src="images/nearby-seismicity/magnitude.png">≥ 4.0');
     });
   });
 
