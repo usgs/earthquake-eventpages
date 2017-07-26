@@ -80,9 +80,7 @@ var NearbySeismicityPinView = function (options) {
    * Render the footer section of the pin.
    */
    _this.renderPinFooter = function () {
-     _this.footer.innerHTML = [
-       'ANSS ComCat'
-     ].join('');
+     _this.footer.innerHTML = 'ANSS ComCat';
    };
 
   _initialize(options);
