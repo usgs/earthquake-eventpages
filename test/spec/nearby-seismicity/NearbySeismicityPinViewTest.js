@@ -69,7 +69,8 @@ describe('nearby-seismicity/NearbySeismicityPinView', function () {
     });
 
     it('renders correct pin content', function () {
-      var pinView,
+      var magnitudeEl,
+          pinView,
           timeRangeEl;
 
       pinView = NearbySeismicityPinView({
@@ -81,14 +82,29 @@ describe('nearby-seismicity/NearbySeismicityPinView', function () {
       // create element to match HTML entity
       timeRangeEl = document.createElement('p');
       timeRangeEl.innerHTML = '&plusmn; Three Weeks';
+      magnitudeEl = document.createElement('p');
+      magnitudeEl.innerHTML = '&ge; 4.0';
 
-      // expect(pinView.content.innerHTML).to.equal('test');
       expect(pinView.content.querySelector('.nearby-seismicity-pin-time').
           innerHTML).to.equal(timeRangeEl.innerHTML);
       expect(pinView.content.querySelector('.nearby-seismicity-pin-maxradiuskm')
           .innerHTML).to.equal('250.0 km');
-      expect(pinView.content.querySelector('.nearby-seismicity-pin-min-magnitude')
-          .innerHTML).to.equal('&gt;= 4.0');
+      expect(pinView.content.querySelector(
+          '.nearby-seismicity-pin-min-magnitude')
+          .innerHTML).to.equal(magnitudeEl.innerHTML);
+    });
+  });
+
+  describe('renderPinFooter', function () {
+    it('renders footer with correct text', function () {
+      var pinView;
+
+      pinView = NearbySeismicityPinView();
+      pinView.renderPinFooter();
+
+      expect(pinView.footer.innerHTML).to.equal('ANSS ComCat');
+
+      pinView.destroy();
     });
   });
 });

@@ -164,5 +164,4 @@ describe('nearby-seismicity/NearbySeismicity', function () {
       expect(params.endtime).to.equal('2016-03-23T12:49:48.360Z');
     });
   });
-
 });

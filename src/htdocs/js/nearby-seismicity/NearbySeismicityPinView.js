@@ -70,11 +70,18 @@ var NearbySeismicityPinView = function (options) {
               maxRadiusKm +
             '</dd>' +
           '<dt>Magnitude Range</dt>' +
-            '<dd class="nearby-seismicity-pin-min-magnitude">&gt;= ' +
+            '<dd class="nearby-seismicity-pin-min-magnitude">&ge; ' +
               minMagnitude +
             '</dd>' +
         '</dl>';
   };
+
+  /**
+   * Render the footer section of the pin.
+   */
+   _this.renderPinFooter = function () {
+     _this.footer.innerHTML = 'ANSS ComCat';
+   };
 
   _initialize(options);
   options = null;
