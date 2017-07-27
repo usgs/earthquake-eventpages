@@ -70,7 +70,7 @@ var NearbySeismicityPinView = function (options) {
           '</div>' +
           '<div class="text-container">' +
             '<h4>Time Range</h4>' +
-            '<span>' + timeRange + '</span>' +
+            '<span class="pin-time">' + timeRange + '</span>' +
           '</div>' +
         '</li>' +
         '<li>' +
@@ -79,7 +79,7 @@ var NearbySeismicityPinView = function (options) {
           '</div>' +
           '<div class="text-container">' +
             '<h4>Search Radius</h4>' +
-            '<span>' + maxRadiusKm + '</span>' +
+            '<span class="pin-maxradiuskm">' + maxRadiusKm + '</span>' +
           '</div>' +
         '</li>' +
         '<li>' +
@@ -88,7 +88,7 @@ var NearbySeismicityPinView = function (options) {
           '</div>' +
           '<div class="text-container">' +
             '<h4>Magnitude Range</h4>' +
-            '<span>' + minMagnitude + '</span>' +
+            '<span class="pin-minmagnitude">' + minMagnitude + '</span>' +
           '</div>' +
         '</li>' +
       '</ul>';
