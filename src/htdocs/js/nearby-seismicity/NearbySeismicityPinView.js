@@ -52,28 +52,46 @@ var NearbySeismicityPinView = function (options) {
     var formatter,
         maxRadiusKm,
         minMagnitude,
-        params;
+        params,
+        timeRange;
 
     formatter = _this.formatter;
     params = _this.params;
 
-
     maxRadiusKm = formatter.distance(params.maxradiuskm, 'km');
-    minMagnitude = formatter.magnitude(params.minmagnitude);
+    minMagnitude = '&ge; ' + formatter.magnitude(params.minmagnitude);
+    timeRange = '&plusmn; Three Weeks';
 
     _this.content.innerHTML =
-        '<dl class="nearby-seismicity-pin-view">' +
-          '<dt>Time Range</dt>' +
-            '<dd class="nearby-seismicity-pin-time">&plusmn; Three Weeks</dd>' +
-          '<dt>Search Radius</dt>' +
-            '<dd class="nearby-seismicity-pin-maxradiuskm">' +
-              maxRadiusKm +
-            '</dd>' +
-          '<dt>Magnitude Range</dt>' +
-            '<dd class="nearby-seismicity-pin-min-magnitude">&ge; ' +
-              minMagnitude +
-            '</dd>' +
-        '</dl>';
+      '<ul class="flex-image-grid nearby-seismicity-pin-view no-style">' +
+        '<li>' +
+          '<div class="image-container">' +
+            '<img class="pin-icon" src="images/nearby-seismicity/time.png" />' +
+          '</div>' +
+          '<div class="text-container">' +
+            '<h4>Time Range</h4>' +
+            '<span class="pin-time">' + timeRange + '</span>' +
+          '</div>' +
+        '</li>' +
+        '<li>' +
+          '<div class="image-container">' +
+            '<img class="pin-icon" src="images/nearby-seismicity/radius.png" />' +
+          '</div>' +
+          '<div class="text-container">' +
+            '<h4>Search Radius</h4>' +
+            '<span class="pin-maxradiuskm">' + maxRadiusKm + '</span>' +
+          '</div>' +
+        '</li>' +
+        '<li>' +
+          '<div class="image-container">' +
+            '<img class="pin-icon" src="images/nearby-seismicity/magnitude.png" />' +
+          '</div>' +
+          '<div class="text-container">' +
+            '<h4>Magnitude Range</h4>' +
+            '<span class="pin-minmagnitude">' + minMagnitude + '</span>' +
+          '</div>' +
+        '</li>' +
+      '</ul>';
   };
 
   /**
