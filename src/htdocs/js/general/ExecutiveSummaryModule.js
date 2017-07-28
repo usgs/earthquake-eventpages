@@ -277,10 +277,12 @@ var ExecutiveSummaryModule = function (options) {
     }
 
     // Nearby Seismicity pin
-    _this.pinViews.push(NearbySeismicityPinView({
-      el: _this.createPinContainer(list),
-      event: ev
-    }));
+    if (config.SCENARIO_MODE !== true) {
+      _this.pinViews.push(NearbySeismicityPinView({
+        el: _this.createPinContainer(list),
+        event: ev
+      }));
+    }
 
     return list;
   };
