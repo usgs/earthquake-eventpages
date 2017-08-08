@@ -30,22 +30,31 @@ var PAGERPinView = function (options) {
    *
    */
   _this.renderPinContent = function () {
-    var economic,
+    var alertlevel,
+        economic,
         fatality,
         markup;
 
     markup = [];
+    alertlevel = _this.model.getProperty('alertlevel');
     economic = _this.model.getContent('alertecon_smaller.png');
     fatality = _this.model.getContent('alertfatal_smaller.png');
 
-    if (economic) {
-      markup.push('<span>Estimated Economic Losses</span>' +
-          '<img src="' + economic.get('url') + '" />');
-    }
+    if (alertlevel !== 'pending') {
+      if (economic) {
+        markup.push('<span>Estimated Economic Losses</span>' +
+            '<img src="' + economic.get('url') + '" />');
+      }
 
-    if (fatality) {
-      markup.push('<span>Estimated Fatalities</span>' +
-          '<img src="' + fatality.get('url') + '" />');
+      if (fatality) {
+        markup.push('<span>Estimated Fatalities</span>' +
+            '<img src="' + fatality.get('url') + '" />');
+      }
+    } else {
+      markup.push('<p class="info alert">',
+        'Alert information for this event is currently under review and ',
+        'will be available soon. Thank you for your patience.',
+      '</p>');
     }
 
     _this.content.innerHTML = markup.join('');
