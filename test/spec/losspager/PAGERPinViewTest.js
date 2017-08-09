@@ -7,7 +7,8 @@ var PAGERPinView = require('losspager/PAGERPinView'),
 var expect = chai.expect;
 
 describe('losspager/PAGERPinView', function () {
-  var product;
+  var product,
+      product2;
 
   before(function () {
     var stub;
@@ -24,7 +25,25 @@ describe('losspager/PAGERPinView', function () {
         'alertfatal_smaller.png': {url: stub + '/alertfatal_smaller.png'}
       },
       properties: {
-        maxmmi: 7.0,
+        maxmmi: 7.0
+      },
+      source: 'us',
+      status: 'UPDATE',
+      type: 'losspager'
+    });
+
+    product2 = Product({
+      contents: {
+        'pager.xml': {url: stub + '/pager.xml'},
+        'exposure.png': {url: stub + '/exposure.png'},
+        'alertecon.pdf': {url: stub + '/alertecon.pdf'},
+        'alertecon_smaller.png': {url: stub + '/alertecon_smaller.png'},
+        'alertfatal.pdf': {url: stub + '/alertfatal.pdf'},
+        'alertfatal_smaller.png': {url: stub + '/alertfatal_smaller.png'}
+      },
+      properties: {
+        alertlevel: 'pending',
+        maxmmi: 7.0
       },
       source: 'us',
       status: 'UPDATE',
@@ -63,6 +82,32 @@ describe('losspager/PAGERPinView', function () {
       view.renderPinContent();
 
       expect(el.innerHTML).to.not.be.equal('');
+
+      view.destroy();
+    });
+
+    it('renders alert message when alert level is pending', function () {
+      var el,
+          message,
+          view;
+
+      message = '<p class="info alert">Alert information for this event ' +
+          'is currently under review and will be available soon. Thank you ' +
+          'for your patience.</p>';
+
+      view = PAGERPinView({
+        el: document.createElement('div'),
+        model: product2,
+        module: {'ID': 'pager', 'title': 'Pager'}
+      });
+
+      el = view.content;
+
+      view.renderPinContent();
+
+      expect(el.innerHTML).to.equal(message);
+
+      view.destroy();
     });
   });
 
