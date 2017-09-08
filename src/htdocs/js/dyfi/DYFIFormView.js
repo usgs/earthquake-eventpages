@@ -224,6 +224,7 @@ var DYFIFormView = function (options) {
     // Handle contact information
     contactContainer.innerHTML = '<legend>Contact Information' +
         ' <small>(optional)</small></legend>';
+    contactContainer.appendChild(disclaimerEl);
     _this.createTextQuestion(contactInfo, contactContainer);
     moreQuestionsEl.appendChild(contactContainer);
 
@@ -252,7 +253,6 @@ var DYFIFormView = function (options) {
       e.preventDefault();
     });
 
-    contactContainer.appendChild(disclaimerEl);
 
     _this.synchQuestionAnswers();
     _this.addQuestionListeners();
