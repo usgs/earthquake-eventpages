@@ -25,10 +25,8 @@ var _DYFI_DISCLAIMER =
   '</p>' +
   '<p>' +
     '<strong>Authority</strong><br/>' +
-    'The National Earthquake Hazards Reduction Program (NEHRP), which ' +
-    'was first authorized in 1977, Public Law (PL) 95–124), and most ' +
-    'recently reauthorized in 2004 (NEHRP Reauthorization Act of 2004, ' +
-    'PL 108–360' +
+    'The National Earthquake Hazards Reduction Program (NEHRP), ' +
+    '42 USC 7701.' +
   '</p>' +
   '<p>' +
     '<strong>Principal Purpose</strong><br/>' +
@@ -52,14 +50,14 @@ var _DYFI_DISCLAIMER =
   '</p>' +
   '<p>' +
     '<strong>Privacy Act Statement</strong><br/>' +
-    'You are not required to provide your personal contact information in' +
-    'order to submit your survey. However, if you do not provide contact' +
-    'information, we may be unable to contact you for additional information' +
-    'to verify your responses. If you do provide contact information, this' +
-    'information will only be used to initiate follow-up communications with' +
-    'you. The records for this collection will be maintained in the' +
-    'appropriate Privacy Act System of Records identified as Earthquake' +
-    'Hazards Program Earthquake Information. (INTERIOR/USGS-2) published' +
+    'You are not required to provide your personal contact information in ' +
+    'order to submit your survey. However, if you do not provide contact ' +
+    'information, we may be unable to contact you for additional information ' +
+    'to verify your responses. If you do provide contact information, this ' +
+    'information will only be used to initiate follow-up communications with ' +
+    'you. The records for this collection will be maintained in the ' +
+    'appropriate Privacy Act System of Records identified as Earthquake ' +
+    'Hazards Program Earthquake Information. (INTERIOR/USGS-2) published ' +
     'at 74 FR 34033 (July 14,2009).' +
   '</p>' +
   '<p>' +
@@ -74,7 +72,8 @@ var _DYFI_DISCLAIMER =
     'not required to respond to, a collection of information unless it ' +
     'displays a currently valid OMB Control Number. Comments regarding this ' +
     'collection of information should be directed to: Bureau Clearance ' +
-    'officer, U.S. Geological Survey, 807 National Center, Reston, VA 20192.' +
+    'Officer, U.S. Geological Survey, ' +
+    '<a href="gs-info_collections@usgs.gov">gs-info_collections@usgs.gov.' +
   '</p>';
 
 
