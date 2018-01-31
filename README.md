@@ -37,3 +37,22 @@ Getting Started
 ### Implementing Modules and Module Pages
 
 [Read more about creating modules and pages](MODULE.md)
+
+
+Running in Docker
+-----------------
+
+### Build container ###
+
+        docker build -t usgs/earthquake-eventpages:latest .
+
+### Run container ###
+
+        docker run --rm -it -p 8000:80 -e OFFSITE_HOST="earthquake.usgs.gov" usgs/earthquake-eventpages:latest
+
+    Then open a browser to view http://localhost:8000/earthquakes/eventpage/us2000cmy3
+
+    > The `OFFSITE_HOST` environment variable determines how data is loaded.
+    > When not configured, data is loaded based on the HTTP `Host` header.
+    > See https://github.com/usgs/earthquake-eventpages/blob/master/src/lib/configure.inc.php#L73
+    > for other configuration options.
