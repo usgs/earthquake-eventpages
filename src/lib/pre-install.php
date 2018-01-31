@@ -51,23 +51,41 @@ file_put_contents($HTTPD_CONF, '
 
   Alias ' . $CONFIG['MOUNT_PATH'] . ' ' . $HTDOCS_DIR . '
 
+  RewriteEngine on
+
   # unknown events
   RewriteCond %{REQUEST_URI} !' . $CONFIG['MOUNT_PATH'] . '/unknown.php
-  RewriteRule ' . $CONFIG['MOUNT_PATH'] . '/unknown ' . $CONFIG['MOUNT_PATH'] . '/unknown.php [L,PT]
+  RewriteRule ^' . $CONFIG['MOUNT_PATH'] . '/unknown$' . $CONFIG['MOUNT_PATH'] . '/unknown.php [L,PT]
 
   # event ids
   RewriteCond %{REQUEST_URI} !' . $CONFIG['MOUNT_PATH'] . '/(index|terms|unknown).php
-  RewriteRule ' . $CONFIG['MOUNT_PATH'] . '/([^/]+)$ ' . $CONFIG['MOUNT_PATH'] . '/index.php?eventid=$1 [L,PT]
+  # query string must be empty
+  RewriteCond %{QUERY_STRING} ^$
+  # request must not contain "?"
+  RewriteCond %{THE_REQUEST} !\?
+  RewriteRule ^' . $CONFIG['MOUNT_PATH'] . '/([^/&\'"\\?]+)$ ' . $CONFIG['MOUNT_PATH'] . '/index.php?eventid=$1 [L,PT]
+
+  # block direct requests to index.php or unknown.php
+  RewriteRule ^' . $CONFIG['MOUNT_PATH'] . '/(index|unknown).php - [R=404,L]
 
   <Location ' . $CONFIG['MOUNT_PATH'] . '>
-    Order allow,deny
-    Allow from all
-
-    <LimitExcept GET>
-      deny from all
-    </LimitExcept>
-
     ExpiresActive on
     ExpiresDefault "access plus 1 days"
+
+    # apache 2.2
+    <IfModule !mod_authz_core.c>
+      Order allow,deny
+      Allow from all
+      <LimitExcept GET>
+        Deny from all
+      </LimitExcept>
+    </IfModule>
+    # apache 2.4
+    <IfModule mod_authz_core.c>
+      Require all granted
+      <LimitExcept GET>
+        Require all denied
+      </LimitExcept>
+    </IfModule>
   </Location>
 ');
