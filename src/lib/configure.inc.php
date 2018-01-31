@@ -72,7 +72,7 @@ $prompts = array(
 
   'MOUNT_PATH' => array(
     'prompt' => 'URL Path for application',
-    'default' => '/event',
+    'default' => '/earthquakes/eventpage',
     'secure' => false
   ),
 
