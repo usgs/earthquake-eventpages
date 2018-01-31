@@ -30,12 +30,17 @@ module.exports = function (grunt) {
     'copy:locationview_images'
   ]);
 
-  grunt.registerTask('dist', [
+
+  grunt.registerTask('builddist', [
     'build',
     'clean:dist',
     'copy:dist',
     'postcss:dist',
-    'uglify',
+    'uglify'
+  ]);
+
+  grunt.registerTask('dist', [
+    'builddist',
     'configureRewriteRules',
     'configureProxies:dist',
     'connect:template',
