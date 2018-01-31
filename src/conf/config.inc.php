@@ -9,6 +9,7 @@ if (!file_exists($CONFIG_INI_FILE)) {
 }
 
 $CONFIG = parse_ini_file($CONFIG_INI_FILE);
+$CONFIG = array_merge($CONFIG, $_ENV);
 
 $ATTRIBUTION_URL = isset($CONFIG['ATTRIBUTION_URL']) ?
     $CONFIG['ATTRIBUTION_URL'] : null;
