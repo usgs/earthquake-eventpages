@@ -17,17 +17,29 @@ export class EventService implements OnDestroy, OnInit {
 
   constructor (
     private http: HttpClient
-  ) {}
+  ) { }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
-  ngOnDestroy() {
+  ngOnDestroy () {
   }
 
-  getEvent (eventid: string): Observable<any> {
-    console.log('get event ' + eventid);
-    return of({});
+  getEvent (eventid: string): void {
+    let url = `https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/${eventid}.geojson`;
+
+    this.http.get<any>(url).pipe(
+      catchError(this.handleError('getEvent', {}))
+    ).subscribe((response) => {
+      this.event.next(response);
+    });
+  }
+
+  private handleError<T> (action: string, result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
   }
 
 /*
@@ -35,7 +47,7 @@ export class EventService implements OnDestroy, OnInit {
     return this.API_URL.replace('{{EVENTID}}', eventid);
   }
 
-  empty ():void {
+  empty (): void {
     this._event.next(null);
   }
 

@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { EventService } from '../event.service';
@@ -14,21 +13,20 @@ import { EventService } from '../event.service';
 })
 export class EventPageComponent implements OnInit, OnDestroy {
 
-  public event$: Observable<any>;
   private paramMapSubscription: Subscription;
 
   constructor (
     public route: ActivatedRoute,
     public eventService: EventService,
-  ) {}
+  ) { }
 
-  ngOnInit() {
-    console.log('EventPageComponent::ngOnInit');
-    this.paramMapSubscription = this.route.paramMap.subscribe(this.onParamMapChange);
-    this.eventSubscription = this.eventService.event$.subscribe(this.onEvent);
+  ngOnInit () {
+    this.paramMapSubscription = this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      return this.onParamMapChange(paramMap);
+    });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy () {
     this.paramMapSubscription.unsubscribe();
   }
 
@@ -36,7 +34,11 @@ export class EventPageComponent implements OnInit, OnDestroy {
     this.eventService.getEvent(paramMap.get('eventid'));
   }
 
-  onEventChange (event: any) {
-    this.event
+  formatEventTitle (event: any) {
+    return event.id;
+  }
+
+  asJson (event: any) {
+    return JSON.stringify(event, null, 2);
   }
 }

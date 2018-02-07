@@ -1,3 +1,8 @@
-<p>
-  event-page works!
-</p>
+<ng-container *ngIf="this.eventService.event$ | async; else noEvent; let event">
+  <h1>{{ this.formatEventTitle(event) }}</h1>
+  <pre>{{ this.asJson(event) }}</pre>
+</ng-container>
+
+<ng-template #noEvent>
+  <h1>No Event</h1>
+</ng-template>

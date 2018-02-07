@@ -7,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UnknownEventPageComponent implements OnInit {
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit() {
-    console.log('hello from unknown event');
+  ngOnInit () {
   }
 
 }
