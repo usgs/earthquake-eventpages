@@ -11,9 +11,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class EventService implements OnDestroy, OnInit {
   public readonly API_URL = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/{{EVENTID}}.geojson'
 
-  private _event: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private event: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  public readonly event: Observable<any> = this._event.asObservable();
+  public readonly event$: Observable<any> = this.event.asObservable();
 
   constructor (
     private http: HttpClient
