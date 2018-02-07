@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { EventPageComponent } from './event-page/event-page/event-page.component';
-import { UnknownEventPageComponent } from './event-page/unknown-event-page/unknown-event-page.component';
+import { EventPageComponent } from './event-page/event-page.component';
+import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-page.component';
 
 
 const appRoutes: Routes = [

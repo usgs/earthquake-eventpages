@@ -5,18 +5,20 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { EventPageModule } from './event-page/event-page.module';
-import { AppRoutingModule } from './/app-routing.module';
+import { EventPageComponent } from './event-page/event-page.component';
+import { AppRoutingModule } from './app-routing.module';
+import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-page.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EventPageComponent,
+    UnknownEventPageComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
-    EventPageModule,
     AppRoutingModule
   ],
   providers: [],
