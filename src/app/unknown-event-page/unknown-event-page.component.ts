@@ -10,6 +10,7 @@ export class UnknownEventPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('hello from unknown event');
   }
 
 }

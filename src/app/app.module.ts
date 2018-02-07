@@ -1,14 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 
 import { EventPageComponent } from './event-page/event-page.component';
-import { AppRoutingModule } from './app-routing.module';
 import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-page.component';
-
+import { EventService } from './event.service';
 
 @NgModule({
   declarations: [
@@ -18,10 +17,12 @@ import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-pa
   ],
   imports: [
     BrowserModule,
-    RouterModule,
+    HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    EventService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

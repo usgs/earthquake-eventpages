@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { EventPageComponent } from './event-page/event-page.component';
 import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-page.component';
 
 
-const appRoutes: Routes = [
+const appRoutes = [
   {
     path: 'unknown',
     component: UnknownEventPageComponent
@@ -23,12 +22,13 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true }
+      { enableTracing: false }
     )
   ],
-  declarations: []
+  exports: [
+    RouterModule
+  ]
 })
 export class AppRoutingModule { }
