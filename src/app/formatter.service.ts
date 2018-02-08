@@ -21,7 +21,7 @@ export class FormatterService {
    * @return {String}
    */
   date (date: Date): string {
-    var year,
+    let year,
         month,
         day;
 
@@ -56,7 +56,7 @@ export class FormatterService {
    * @return {String}
    */
   dateTime (date: Date, minutesOffset = 0, includeMilliseconds = false) {
-    var milliOffset;
+    let milliOffset;
 
     if (date === null || typeof date === 'undefined') {
       return this.empty;
@@ -69,7 +69,7 @@ export class FormatterService {
 
     return this.date(date) + ' ' + this.time(date, includeMilliseconds) +
         ' (UTC' + this.timezoneOffset(minutesOffset) + ')';
-  };
+  }
 
   /**
    * Format a depth.
@@ -83,14 +83,14 @@ export class FormatterService {
    *
    * @return {String}
    */
-  depth = function (depth: number, units?: string, error?: number) {
+  depth (depth: number, units?: string, error?: number) {
     let number,
         uncertainty;
 
     number = this.number(depth, this.depthDecimals, this.empty, units);
     uncertainty = this.uncertainty(error, this.depthDecimals, '');
     return number + uncertainty;
-  };
+  }
 
   /**
    * Format a latitude
@@ -112,7 +112,7 @@ export class FormatterService {
     result = this.number(Math.abs(latitude), decimals);
 
     return `${result}&deg;${latDir}`;
-  };
+  }
 
   /**
    * Format a latitude and longitude.
@@ -130,7 +130,7 @@ export class FormatterService {
       decimals = this.locationDecimals): string {
     return this.latitude(latitude, decimals) + '&nbsp;' +
         this.longitude(longitude, decimals);
-  };
+  }
 
   /**
    * Format a longitude
@@ -153,7 +153,7 @@ export class FormatterService {
 
 
     return `${result}&deg;${lngDir}`;
-  };
+  }
 
   /**
    * Format a number.
@@ -170,7 +170,7 @@ export class FormatterService {
    * @return {String}
    */
   number (value: number, decimals?: number, empty = this.empty,
-      units?: string): string {
+      units = ''): string {
     let factor,
         result;
 
@@ -190,7 +190,7 @@ export class FormatterService {
     }
 
     return result;
-  };
+  }
 
   /**
    * Format a UTC time.
@@ -203,7 +203,7 @@ export class FormatterService {
    * @return {String}
    */
   time (date: Date, includeMilliseconds = false): string {
-    var hours,
+    let hours,
         minutes,
         seconds,
         milliseconds;
@@ -238,7 +238,7 @@ export class FormatterService {
     }
 
     return `${hours}:${minutes}:${seconds}${milliseconds}`;
-  };
+  }
 
   /**
    * Format a UTC timezone offset.
@@ -249,7 +249,7 @@ export class FormatterService {
    * @return {String}
    */
   timezoneOffset (offset = 0): string {
-    var hours,
+    let hours,
         minutes,
         sign;
 
@@ -273,7 +273,7 @@ export class FormatterService {
     }
 
     return `${sign}${hours}:${minutes}`;
-  };
+  }
 
   /**
    * Format an uncertainty.
@@ -290,7 +290,7 @@ export class FormatterService {
    * @return {String} formatted string.
    */
   uncertainty (error: number, decimals: number, empty: any,
-      units: string): string {
+      units?: string): string {
     let result;
 
     if (!error && error !== 0) {
@@ -299,5 +299,5 @@ export class FormatterService {
 
     result = this.number(error, decimals, null, units);
     return `<span class="uncertainty">&plusmn; ${result}</span>`;
-  };
+  }
 }

@@ -5,11 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 // Credit: https://github.com/cnunciato/ng2-mock-component/issues/14
 export function MockPipe (name: string): any {
   @Pipe({ name })
-  class MockPipe implements PipeTransform {
+  class MockPipeImpl implements PipeTransform {
     transform (input: any, ...args: any[]): any {
       return input;
     }
   }
 
-  return MockPipe;
+  return MockPipeImpl;
 }

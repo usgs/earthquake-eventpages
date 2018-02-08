@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -9,9 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http/src/response';
 
 
 @Injectable()
-export class EventService implements OnDestroy, OnInit {
-  public readonly API_URL = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/{{EVENTID}}.geojson'
-
+export class EventService {
   private event: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   public readonly event$: Observable<any> = this.event.asObservable();
@@ -20,18 +18,12 @@ export class EventService implements OnDestroy, OnInit {
     private http: HttpClient
   ) { }
 
-  ngOnInit () {
-  }
-
-  ngOnDestroy () {
-  }
-
   empty (): void {
     this.event.next(null);
   }
 
   getDeletedEvent (eventid: string): void {
-    let url = `https://earthquake.usgs.gov/fdsnws/event/1/query.geojson?eventid=${eventid}&includedeleted=true`;
+    const url = `https://earthquake.usgs.gov/fdsnws/event/1/query.geojson?eventid=${eventid}&includedeleted=true`;
 
     this.http.get<any>(url).pipe(
       catchError(this.handleError(eventid))
@@ -42,7 +34,7 @@ export class EventService implements OnDestroy, OnInit {
   }
 
   getEvent (eventid: string): void {
-    let url = `https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/${eventid}.geojson`;
+    const url = `https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/${eventid}.geojson`;
 
     this.http.get<HttpResponse<any>>(url).pipe(
       catchError(this.handleError(eventid))
