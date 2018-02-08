@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-page.component';
 import { EventPageComponent } from './event-page/event-page/event-page.component';
+import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-page/unknown-event-page.component';
 
 import { ExecutiveComponent } from './executive/executive/executive.component';
 import { RegionInfoComponent } from './region-info/region-info/region-info.component';

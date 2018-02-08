@@ -6,23 +6,24 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { EventPageModule } from './event-page/event-page.module';
-
-import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-page.component';
-import { EventService } from './event.service';
+import { UnknownEventPageModule } from './unknown-event-page/unknown-event-page.module';
 
 import { ExecutiveModule } from './executive/executive.module';
 import { RegionInfoModule } from './region-info/region-info.module';
 
+import { EventService } from './event.service';
+
 @NgModule({
   declarations: [
-    AppComponent,
-    UnknownEventPageComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
 
     EventPageModule,
+    UnknownEventPageModule,
+
     ExecutiveModule,
     RegionInfoModule,
 
