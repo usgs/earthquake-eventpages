@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { EventService } from '../../event.service';
+
 @Component({
   selector: 'app-executive',
   templateUrl: './executive.component.html',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExecutiveComponent implements OnInit {
 
-  constructor() { }
+  constructor (public eventService: EventService) { }
 
   ngOnInit() {
   }
 
+  objectKeys = Object.keys;
 }
