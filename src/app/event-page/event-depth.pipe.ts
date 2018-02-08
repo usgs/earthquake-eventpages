@@ -13,7 +13,7 @@ export class EventDepthPipe implements PipeTransform {
     let depth;
 
     try {
-      depth = event.geometry.coordinates[2];
+      depth = parseFloat(event.geometry.coordinates[2]);
     } catch {
       depth = NaN;
     }

@@ -31,7 +31,7 @@ export class ContributorListPipe implements PipeTransform {
       });
 
       if (details) {
-        result = `<li><a href="${details}.url}">${details.title}</a></li>`;
+        result = `<li><a href="${details.url}">${details.title}</a></li>`;
       } else {
         result = `<li>${sourceId.toUpperCase()}</li>`;
       }

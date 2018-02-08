@@ -5,9 +5,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class EventTitlePipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
-    const properties = value.properties || {};
-    return `M ${properties.mag} - ${properties.place}`;
+  transform(event: any): any {
+    const properties = event.properties || {};
+    return `${properties.title}`;
   }
 
 }
