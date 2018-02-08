@@ -21,14 +21,14 @@ export class ContributorService {
 
 
   getContributors () {
-    let url = 'https://earthquake.usgs.gov/data/comcat/contributor/index.json.php';
+    const url = 'https://earthquake.usgs.gov/data/comcat/contributor/index.json.php';
 
     this.http.get<any>(url).pipe(
       catchError(this.handleError('getContributors', []))
     ).subscribe((response) => {
       console.log('Contributors', response);
       this.contributors.next(response);
-    })
+    });
   }
 
 

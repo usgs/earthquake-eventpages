@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export function MockPipe (name: string): any {
   @Pipe({ name })
   class MockPipe implements PipeTransform {
-    transform (input: any, ...args: any): any {
+    transform (input: any, ...args: any[]): any {
       return input;
     }
   }

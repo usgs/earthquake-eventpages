@@ -36,7 +36,7 @@ const appRoutes = [
     redirectTo: '/unknown',
     pathMatch: 'full'
   }
-]
+];
 
 @NgModule({
   imports: [

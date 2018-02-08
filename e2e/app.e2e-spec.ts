@@ -7,8 +7,14 @@ describe('earthquake-eventpages App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display unknown event title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getEventPageHeaderTitle()).toEqual('Unknown Event');
+  });
+
+  it('should display actual event title', () => {
+    // TODO :: Stub this data and mock http so results come back consistent
+    page.navigateTo('/us1000chhc');
+    expect(page.getEventPageHeaderTitle()).toEqual('M 6.4 - 22km NNE of Hualian, Taiwan');
   });
 });

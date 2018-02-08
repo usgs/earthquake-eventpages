@@ -34,7 +34,7 @@ describe('EventPageComponent', () => {
         RouterTestingModule
       ],
       providers: [
-        {provide: ContributorService, useValue: contributorServiceStub}
+        {provide: ContributorService, useValue: contributorServiceStub},
         {provide: EventService, useValue: eventServiceStub}
       ]
     })
