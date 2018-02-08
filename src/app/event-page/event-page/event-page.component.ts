@@ -3,7 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
 
-import { EventService } from '../event.service';
+import { EventService } from '../../event.service';
 
 
 @Component({
