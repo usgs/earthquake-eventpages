@@ -1,17 +1,14 @@
 <ng-container *ngIf="this.eventService.event$ | async; else noEvent; let event">
-  <!-- Header content -->
   <eq-event-header [event]="event"></eq-event-header>
 
-  <!-- Page content -->
   <router-outlet></router-outlet>
 
-  <!-- Footer content -->
-  <h2>Additional Information</h2>
-  <p>TODO</p>
-
-  <h2>Contributors</h2>
-  <p>TODO</p>
+  <event-page-footer
+    [event]="event"
+    [contributors]="this.contributorService.contributors$ | async"
+  ></event-page-footer>
 </ng-container>
+
 
 <ng-template #noEvent>
   <h1>No Event</h1>

@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
 
+import { ContributorService } from '../../contributor.service';
 import { EventService } from '../../event.service';
 
 
@@ -17,6 +18,7 @@ export class EventPageComponent implements OnInit, OnDestroy {
 
   constructor (
     public route: ActivatedRoute,
+    public contributorService: ContributorService,
     public eventService: EventService,
   ) { }
 

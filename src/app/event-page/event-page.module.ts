@@ -11,6 +11,8 @@ import { EventDateTimePipe } from './event-date-time.pipe';
 import { EventDepthPipe } from './event-depth.pipe';
 import { EventLocationPipe } from './event-location.pipe';
 import { EventTitlePipe } from './event-title.pipe';
+import { FooterComponent } from './footer/footer.component';
+import { ContributorListPipe } from './contributor-list.pipe';
 
 
 @NgModule({
@@ -23,12 +25,14 @@ import { EventTitlePipe } from './event-title.pipe';
     // Components
     EventPageComponent,
     EventHeaderComponent,
+    FooterComponent,
 
     // Pipes
     EventDateTimePipe,
     EventDepthPipe,
     EventLocationPipe,
-    EventTitlePipe
+    EventTitlePipe,
+    ContributorListPipe
   ],
   exports: [
     EventPageComponent

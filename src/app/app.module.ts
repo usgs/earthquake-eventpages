@@ -11,6 +11,7 @@ import { UnknownEventPageModule } from './unknown-event-page/unknown-event-page.
 import { ExecutiveModule } from './executive/executive.module';
 import { RegionInfoModule } from './region-info/region-info.module';
 
+import { ContributorService } from './contributor.service';
 import { EventService } from './event.service';
 import { FormatterService } from './formatter.service';
 
@@ -32,6 +33,7 @@ import { FormatterService } from './formatter.service';
     AppRoutingModule
   ],
   providers: [
+    ContributorService,
     EventService,
     FormatterService
   ],
