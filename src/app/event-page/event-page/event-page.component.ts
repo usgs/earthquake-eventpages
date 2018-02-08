@@ -31,6 +31,7 @@ export class EventPageComponent implements OnInit, OnDestroy {
   }
 
   onParamMapChange (paramMap: any) {
+    this.eventService.empty();
     this.eventService.getEvent(paramMap.get('eventid'));
   }
 

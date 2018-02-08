@@ -1,10 +1,11 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { HttpErrorResponse } from '@angular/common/http/src/response';
 
 
 @Injectable()
@@ -25,49 +26,43 @@ export class EventService implements OnDestroy, OnInit {
   ngOnDestroy () {
   }
 
-  getEvent (eventid: string): void {
-    let url = `https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/${eventid}.geojson`;
+  empty (): void {
+    this.event.next(null);
+  }
+
+  getDeletedEvent (eventid: string): void {
+    let url = `https://earthquake.usgs.gov/fdsnws/event/1/query.geojson?eventid=${eventid}&includedeleted=true`;
 
     this.http.get<any>(url).pipe(
-      catchError(this.handleError('getEvent', {}))
+      catchError(this.handleError(eventid))
     ).subscribe((response) => {
       this.event.next(response);
     });
   }
 
-  private handleError<T> (action: string, result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
-  }
+  getEvent (eventid: string): void {
+    let url = `https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/${eventid}.geojson`;
 
-/*
-  buildUrl (eventid: string) {
-    return this.API_URL.replace('{{EVENTID}}', eventid);
-  }
-
-  empty (): void {
-    this._event.next(null);
-  }
-
-  getEvent (eventid: string) {
-    const url = this.buildUrl(eventid);
-
-    // make a geocode request
-    this.http.get<any>(url).pipe(
-      catchError(this.handleError('getEvent', null))
+    this.http.get<HttpResponse<any>>(url).pipe(
+      catchError(this.handleError(eventid))
     ).subscribe((response) => {
-      this._event.next(response);
+      if (response['type'] === 'Error' && response['status'] === 409) {
+        this.getDeletedEvent(eventid);
+        return;
+      }
+      this.event.next(response);
     });
   }
 
-  handleError<T> (action: string, result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
+  private handleError (eventid: string) {
+    return (error: HttpErrorResponse): Observable<any> => {
+      return of({
+        id: eventid,
+        type: 'Error',
+        message: error.message,
+        status: error.status
+      });
     };
   }
-*/
 
 }
