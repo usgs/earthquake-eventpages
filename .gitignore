@@ -1,8 +1,0 @@
-.DS_Store
-.build
-.sass-cache
-dist
-node_modules
-*.sublime-workspace
-src/conf/config.ini*
-src/conf/httpd.conf
