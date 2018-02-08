@@ -4,14 +4,14 @@ import { RouterModule } from '@angular/router';
 
 // Components
 import { EventPageComponent } from './event-page/event-page.component';
-import { EventHeaderComponent } from './event-header/event-header.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 // Pipes
 import { EventDateTimePipe } from './event-date-time.pipe';
 import { EventDepthPipe } from './event-depth.pipe';
 import { EventLocationPipe } from './event-location.pipe';
 import { EventTitlePipe } from './event-title.pipe';
-import { FooterComponent } from './footer/footer.component';
 import { ContributorListPipe } from './contributor-list.pipe';
 
 
@@ -24,8 +24,8 @@ import { ContributorListPipe } from './contributor-list.pipe';
   declarations: [
     // Components
     EventPageComponent,
-    EventHeaderComponent,
     FooterComponent,
+    HeaderComponent,
 
     // Pipes
     EventDateTimePipe,
