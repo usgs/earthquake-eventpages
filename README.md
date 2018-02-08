@@ -1,5 +1,11 @@
 # Earthquake Event Pages
 
+> This application is currently being overhauled to an Angular framework. To
+> view the latest working code prior to this process, please view the
+> [master-pre-angular branch](https://github.com/usgs/earthquake-eventpages/tree/master-pre-angular).
+>
+> Alternatively, please review our [previous releases](https://github.com/usgs/earthquake-eventpages/releases).
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli)
 version 1.6.7.
 
