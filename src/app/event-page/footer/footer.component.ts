@@ -13,7 +13,7 @@ export class FooterComponent implements OnInit {
   @Input() event: any = null;
   @Input() contributors: any = null;
 
-  constructor (public contributorService: ContributorService) { }
+  constructor () { }
 
   ngOnInit () {
   }

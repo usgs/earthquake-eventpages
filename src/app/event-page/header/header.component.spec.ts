@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MockPipe } from '../../mock-pipe';
+
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -8,7 +10,14 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      declarations: [
+        HeaderComponent,
+
+        MockPipe('eventTitle'),
+        MockPipe('eventDateTime'),
+        MockPipe('eventDepth'),
+        MockPipe('eventLocation')
+      ]
     })
     .compileComponents();
   }));
