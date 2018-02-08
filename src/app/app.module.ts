@@ -12,6 +12,8 @@ import { ExecutiveModule } from './executive/executive.module';
 import { RegionInfoModule } from './region-info/region-info.module';
 
 import { EventService } from './event.service';
+import { FormatterService } from './formatter.service';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { EventService } from './event.service';
     AppRoutingModule
   ],
   providers: [
-    EventService
+    EventService,
+    FormatterService
   ],
   bootstrap: [AppComponent]
 })

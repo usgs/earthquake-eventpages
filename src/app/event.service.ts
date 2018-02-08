@@ -36,6 +36,7 @@ export class EventService implements OnDestroy, OnInit {
     this.http.get<any>(url).pipe(
       catchError(this.handleError(eventid))
     ).subscribe((response) => {
+      console.log('EventDetails', response);
       this.event.next(response);
     });
   }

@@ -1,6 +1,6 @@
 <ng-container *ngIf="this.eventService.event$ | async; else noEvent; let event">
   <!-- Header content -->
-  <h1>{{ this.formatEventTitle(event) }}</h1>
+  <eq-event-header [event]="event"></eq-event-header>
 
   <!-- Page content -->
   <router-outlet></router-outlet>
@@ -11,8 +11,6 @@
 
   <h2>Contributors</h2>
   <p>TODO</p>
-
-  <pre>{{ this.asJson(event) }}</pre>
 </ng-container>
 
 <ng-template #noEvent>

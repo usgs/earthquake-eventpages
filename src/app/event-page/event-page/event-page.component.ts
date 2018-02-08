@@ -34,12 +34,4 @@ export class EventPageComponent implements OnInit, OnDestroy {
     this.eventService.empty();
     this.eventService.getEvent(paramMap.get('eventid'));
   }
-
-  formatEventTitle (event: any) {
-    return event.id;
-  }
-
-  asJson (event: any) {
-    return JSON.stringify(event, null, 2);
-  }
 }
