@@ -3,8 +3,18 @@
 <nav>
   <a routerLink="/unknown" routerLinkActive="active">Unknown Event</a><br/>
   <br/>
-  <a routerLink="/us1000chhc">us1000chhc</a><br/>
-  <a routerLink="/us2000crmu">us2000crmu</a>
+  <ul>
+    <li>
+      <a routerLink="/us1000chhc">us1000chhc (no child)</a><br/>
+      <a routerLink="/us1000chhc/executive">us1000chhc (executive)</a><br/>
+      <a routerLink="/us1000chhc/region-info">us1000chhc (region-info)</a>
+    </li>
+    <li>
+      <a routerLink="/us2000crmu">us2000crmu (no child)</a><br/>
+      <a routerLink="/us2000crmu/executive">us2000crmu (executive)</a><br/>
+      <a routerLink="/us2000crmu/region-info">us2000crmu (region-info)</a>
+    </li>
+  </ul>
 </nav>
 
 <router-outlet></router-outlet>

@@ -1,5 +1,17 @@
 <ng-container *ngIf="this.eventService.event$ | async; else noEvent; let event">
+  <!-- Header content -->
   <h1>{{ this.formatEventTitle(event) }}</h1>
+
+  <!-- Page content -->
+  <router-outlet></router-outlet>
+
+  <!-- Footer content -->
+  <h2>Additional Information</h2>
+  <p>TODO</p>
+
+  <h2>Contributors</h2>
+  <p>TODO</p>
+
   <pre>{{ this.asJson(event) }}</pre>
 </ng-container>
 

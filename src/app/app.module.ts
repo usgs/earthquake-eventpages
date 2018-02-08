@@ -9,6 +9,9 @@ import { EventPageComponent } from './event-page/event-page.component';
 import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-page.component';
 import { EventService } from './event.service';
 
+import { ExecutiveModule } from './executive/executive.module';
+import { RegionInfoModule } from './region-info/region-info.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +21,10 @@ import { EventService } from './event.service';
   imports: [
     BrowserModule,
     HttpClientModule,
+
+    ExecutiveModule,
+    RegionInfoModule,
+
     AppRoutingModule
   ],
   providers: [
