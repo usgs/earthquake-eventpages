@@ -1,39 +1,33 @@
-earthquake-eventpages
-==============
+# Earthquake Event Pages
 
-Web application for displaying earthquake event pages.
+> This application is currently being overhauled to an Angular framework. To
+> view the latest working code prior to this process, please view the
+> [master-pre-angular branch](https://github.com/usgs/earthquake-eventpages/tree/master-pre-angular).
+>
+> Alternatively, please review our [previous releases](https://github.com/usgs/earthquake-eventpages/releases).
 
-Getting Started
----------------
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli)
+version 1.6.7.
 
-[Use git to clone earthquake-eventpages from git repository](readme_git_install.md)
+## Development server
 
-[Install needed dependencies and run them](readme_dependency_install.md)
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`.
+The app will automatically reload if you change any of the source files.
 
+## Build
 
-### Configure the Project ###
-1. run ./src/lib/pre-install to setup config.ini
-   1. URL Path for application: leave as default for now.
-   1. URL stub for event detail GEOJSON web service:
-      enter https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/%s.geojson
-   1. URL stub for event detail ATOM web service: leave as default for now.
+Run `ng build` to build the project. The build artifacts will be stored in
+the `dist/` directory. Use the `-prod` flag for a production build.
 
-### Example Usage ###
-1. Run grunt from the install directory.
-1. In the browser URL
-   Change localhost:8100 to localhost:8100/?eventid=EVENTID
-   where EVENTID is the id of a specific event. Examples can be found by
-   going to earthquake.usgs.gov and clicking on any earthquake under significant
-   earthquakes, then pulling the id from the URL.
-   EXAMPLE: localhost:8100/?eventid=usb000kw1x
+## Running unit tests
 
-### Notes ###
-1. This application uses the earthquake responsive template found at
-   https://github.com/usgs/hazdev-template.git
-   The responsive template dependency is not bundled during build, so sites
-   can configure their theme, and must be installed before this application
-   is deployed.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-### Implementing Modules and Module Pages
+## Running end-to-end tests
 
-[Read more about creating modules and pages](MODULE.md)
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the
+[Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

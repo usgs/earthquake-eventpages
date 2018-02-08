@@ -1,0 +1,21 @@
+<ng-container *ngIf="this.eventService.event$ | async; else noEvent; let event">
+  <event-page-header [event]="event"></event-page-header>
+
+  <ng-container *ngIf="event?.properties?.status === 'deleted'">
+    <p class="error">
+      Event Deleted!
+    </p>
+  </ng-container>
+
+  <router-outlet></router-outlet>
+
+  <event-page-footer
+    [event]="event"
+    [contributors]="this.contributorService.contributors$ | async"
+  ></event-page-footer>
+</ng-container>
+
+
+<ng-template #noEvent>
+  <h1>No Event</h1>
+</ng-template>
