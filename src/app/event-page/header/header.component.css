@@ -1,0 +1,26 @@
+h1 {
+  margin-bottom: 0;
+}
+
+ul {
+  list-style:  none;
+  margin: 0;
+  padding:  0;
+}
+
+li {
+  display: inline-block;
+  padding: 0 1em;
+}
+
+li:first-child {
+  padding-left: 0;
+}
+
+li:last-child {
+  padding-right: 0;
+}
+
+li + li {
+  border-left:  1px solid #999;
+}
