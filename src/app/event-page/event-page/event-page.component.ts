@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { ContributorService } from '../../contributor.service';
 import { EventService } from '../../event.service';
+import { ProductService } from '../../product.service';
 
 
 @Component({
@@ -14,26 +15,37 @@ import { EventService } from '../../event.service';
 })
 export class EventPageComponent implements OnInit, OnDestroy {
 
+  private eventSubscription: Subscription;
   private paramMapSubscription: Subscription;
 
   constructor (
     public route: ActivatedRoute,
     public contributorService: ContributorService,
     public eventService: EventService,
+    public productService: ProductService
   ) { }
 
   ngOnInit () {
+    this.eventSubscription = this.eventService.event$.subscribe((event: any) => {
+      return this.onEventChange(event);
+    });
+
     this.paramMapSubscription = this.route.paramMap.subscribe((paramMap: ParamMap) => {
       return this.onParamMapChange(paramMap);
     });
   }
 
   ngOnDestroy () {
+    this.eventSubscription.unsubscribe();
     this.paramMapSubscription.unsubscribe();
   }
 
+  onEventChange (event: any) {
+    this.productService.setEvent(event);
+  }
+
   onParamMapChange (paramMap: any) {
-    this.eventService.empty();
     this.eventService.getEvent(paramMap.get('eventid'));
   }
+
 }

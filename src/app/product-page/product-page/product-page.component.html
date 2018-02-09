@@ -1,0 +1,23 @@
+<ng-container *ngIf="productService.product$ | async; else noProduct; let product">
+
+  <product-page-header
+    [contributors]="contributorService.contributors$ | async"
+    [event]="productService.event"
+    [product]="product"
+    [title]="pageTitle"
+  >
+    <ng-content select=".product-header"></ng-content>
+  </product-page-header>
+
+  <ng-content></ng-content>
+
+  <product-page-footer
+    [event]="productService.event"
+    [product]="product"
+  ></product-page-footer>
+</ng-container>
+
+
+<ng-template #noProduct>
+  <p>No product information yet.</p>
+</ng-template>

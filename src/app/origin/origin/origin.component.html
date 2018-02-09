@@ -1,0 +1,17 @@
+<product-page
+  [pageTitle]="'Origin'"
+  [productService]="productService"
+  [productType]="'origin'"
+>
+
+  <ng-container *ngIf="productService.product$ | async; else noProduct; let product">
+
+    <!-- origin module content goes here -->
+    <origin-details [origin]="product"></origin-details>
+
+  </ng-container>
+</product-page>
+
+<ng-template #noProduct>
+  <p>loading origin</p>
+</ng-template>

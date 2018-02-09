@@ -1,0 +1,37 @@
+<header class="product-header">
+  <h3>{{title}}</h3>
+
+  <small class="attribution">
+    Contributed by
+    <span [innerHTML]="product | contributorList:contributors:event "></span>
+    last updated {{product.updateTime | dateTime}}
+  </small>
+
+  <ul class="quality-statements">
+    <ng-container *ngIf="isPreferred(); then preferred else unpreferred"></ng-container>
+    <ng-container *ngIf="isReviewed(); then reviewed else unreviewed"></ng-container>
+  </ul>
+</header>
+
+
+<ng-template #preferred>
+  <li class="preferred">
+    The data below are the most preferred data available
+  </li>
+</ng-template>
+<ng-template #unpreferred>
+  <li class="unpreferred">
+    The data below are <strong>NOT</strong> the most preferred data available
+  </li>
+</ng-template>
+
+<ng-template #reviewed>
+  <li class="reviewed">
+    The data below have been reviewed by a scientist
+  </li>
+</ng-template>
+<ng-template #unreviewed>
+  <li class="unreviewed">
+    The data below have <strong>NOT</strong> been reviewed by a scientist.
+  </li>
+</ng-template>
