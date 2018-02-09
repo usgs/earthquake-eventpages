@@ -297,7 +297,7 @@ export class FormatterService {
    *
    * @return {String} formatted string.
    */
-  uncertainty (error: number, decimals: number, empty: any,
+  uncertainty (error: number, decimals: number, empty = this.empty,
       units?: string): string {
     let result;
 
