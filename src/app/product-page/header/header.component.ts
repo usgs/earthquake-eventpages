@@ -22,6 +22,11 @@ export class HeaderComponent implements OnInit {
   }
 
   isReviewed(): boolean {
-    return this.product.properties['review-status'] === 'reviewed';
+    let reviewStatus;
+    if (this.product.properties['review-status']) {
+      reviewStatus = this.product.properties['review-status'].toLowerCase();
+    }
+    return reviewStatus === 'reviewed';
   }
+
 }
