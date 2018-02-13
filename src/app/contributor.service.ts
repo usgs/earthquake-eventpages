@@ -7,6 +7,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { catchError } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
+import { environment } from '../environments/environment';
+
 @Injectable()
 export class ContributorService {
   private contributors = new BehaviorSubject<any>(null);
@@ -21,7 +23,7 @@ export class ContributorService {
 
 
   getContributors () {
-    const url = 'https://earthquake.usgs.gov/data/comcat/contributor/index.json.php';
+    const url = environment.CONTRIBUTOR_SERVICE;
 
     this.http.get<any>(url).pipe(
       catchError(this.handleError('getContributors', []))
