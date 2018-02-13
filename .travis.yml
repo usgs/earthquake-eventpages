@@ -1,0 +1,31 @@
+sudo: required
+dist: trusty
+language: node_js
+node_js:
+  - "8.9.4"
+
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
+      - google-chrome-beta
+
+before_install:
+  - export CHROME_BIN=/usr/bin/google-chrome
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
+install:
+  - npm install -g angular-cli codacy-coverage
+  - npm install
+
+script:
+  - ng lint
+  - ng test --single-run --code-coverage
+  - ng e2e
+  - ng build --prod --base-href /earthquakes/eventpage/
+
+after_success:
+  - cat coverage/lcov.info | codacy-coverage --verbose
