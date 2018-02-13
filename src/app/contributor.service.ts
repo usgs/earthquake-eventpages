@@ -12,10 +12,7 @@ import { environment } from '../environments/environment';
 @Injectable()
 export class ContributorService {
   private contributors = new BehaviorSubject<any>(null);
-  private readonly contributors$ = this.contributors.asObservable();
-  private contributorsSubscription: Subscription;
-
-  private list: any = null;
+  public readonly contributors$ = this.contributors.asObservable();
 
   constructor (
     private http: HttpClient
@@ -28,7 +25,6 @@ export class ContributorService {
     this.http.get<any>(url).pipe(
       catchError(this.handleError('getContributors', []))
     ).subscribe((response) => {
-      console.log('Contributors', response);
       this.contributors.next(response);
     });
   }
