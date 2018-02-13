@@ -6,19 +6,20 @@ import { of } from 'rxjs/observable/of';
 import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+import { Event } from './event';
 
 @Injectable()
 export class EventService {
-  private event: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private event: BehaviorSubject<Event> = new BehaviorSubject<Event>(new Event(null));
 
-  public readonly event$: Observable<any> = this.event.asObservable();
+  public readonly event$: Observable<Event> = this.event.asObservable();
 
   constructor (
     private http: HttpClient
   ) { }
 
   empty (): void {
-    this.event.next(null);
+    this.event.next(new Event(null));
   }
 
   getDeletedEvent (eventid: string): void {
@@ -28,7 +29,7 @@ export class EventService {
       catchError(this.handleError(eventid))
     ).subscribe((response) => {
       console.log('EventDetails', response);
-      this.event.next(response);
+      this.event.next(new Event(response));
     });
   }
 
@@ -42,7 +43,7 @@ export class EventService {
         this.getDeletedEvent(eventid);
         return;
       }
-      this.event.next(response);
+      this.event.next(new Event(response));
     });
   }
 
