@@ -13,7 +13,9 @@ describe('ContributorService', () => {
       imports: [
         HttpClientTestingModule
       ],
-      providers: [ContributorService]
+      providers: [
+        ContributorService
+      ]
     });
 
     injector = getTestBed();
@@ -24,7 +26,45 @@ describe('ContributorService', () => {
     httpClient.verify();
   });
 
-  it('should be created', inject([ContributorService], (service: ContributorService) => {
+  it('should be created', inject([ContributorService],
+      (service: ContributorService) => {
     expect(service).toBeTruthy();
   }));
+
+  describe('getContributors', () => {
+    it('invokes correct url', inject([ContributorService],
+        (service: ContributorService) => {
+      service.getContributors();
+      const req = httpClient.expectOne(environment.CONTRIBUTOR_SERVICE);
+      expect(req.request.method).toBe('GET');
+      req.flush([]);
+    }));
+
+    it('notifies subscribers with response', inject([ContributorService],
+        (service: ContributorService) => {
+      service.getContributors();
+
+      const responseBody = [];
+      const req = httpClient.expectOne(environment.CONTRIBUTOR_SERVICE);
+
+      req.flush(responseBody);
+
+      service.contributors$.subscribe((contributors: any) => {
+        expect(contributors).toEqual(responseBody);
+      });
+    });
+
+    it('handles errors', inject([ContributorService],
+        (service: ContributorService) => {
+      service.getContributors();
+
+      const req = httpClient.expectOne(environment.CONTRIBUTOR_SERVICE);
+      req.error(null);
+
+      service.contributors$.subscribe((contributors) => {
+        expect(contributors.length).toBe(0);
+      });
+
+    }));
+  });
 });
