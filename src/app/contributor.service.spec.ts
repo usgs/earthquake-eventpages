@@ -52,7 +52,7 @@ describe('ContributorService', () => {
       service.contributors$.subscribe((contributors: any) => {
         expect(contributors).toEqual(responseBody);
       });
-    });
+    }));
 
     it('handles errors', inject([ContributorService],
         (service: ContributorService) => {

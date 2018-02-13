@@ -1,5 +1,8 @@
 # Earthquake Event Pages
 
+[![Build Status](https://travis-ci.org/usgs/earthquake-eventpages.svg?branch=master)](https://travis-ci.org/usgs/earthquake-eventpages)
+
+
 > This application is currently being overhauled to an Angular framework. To
 > view the latest working code prior to this process, please view the
 > [master-pre-angular branch](https://github.com/usgs/earthquake-eventpages/tree/master-pre-angular).
