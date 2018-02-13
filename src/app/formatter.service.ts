@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class FormatterService {
-  private depthDecimals: number;
-  private empty: string;
-  private locationDecimals: number;
+  public readonly depthDecimals: number;
+  public readonly empty: string;
+  public readonly locationDecimals: number;
 
   constructor () {
     this.depthDecimals = 1;
@@ -106,6 +106,10 @@ export class FormatterService {
     let latDir,
         result;
 
+    if (latitude === null || typeof latitude === 'undefined') {
+      return this.empty;
+    }
+
     latDir = (latitude >= 0 ? 'N' : 'S');
 
     // already have sign information, abs and round
@@ -145,6 +149,10 @@ export class FormatterService {
   longitude (longitude: number, decimals = this.locationDecimals): string {
     let lngDir,
         result;
+
+    if (longitude === null || typeof longitude === 'undefined') {
+      return this.empty;
+    }
 
     lngDir = (longitude >= 0 ? 'E' : 'W');
 
@@ -208,7 +216,7 @@ export class FormatterService {
         seconds,
         milliseconds;
 
-    if (!date || typeof date.getTime !== 'function') {
+    if (!date) {
       return this.empty;
     }
 
@@ -289,7 +297,7 @@ export class FormatterService {
    *
    * @return {String} formatted string.
    */
-  uncertainty (error: number, decimals: number, empty: any,
+  uncertainty (error: number, decimals: number, empty = this.empty,
       units?: string): string {
     let result;
 

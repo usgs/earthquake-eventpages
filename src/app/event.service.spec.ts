@@ -26,4 +26,17 @@ describe('EventService', () => {
   it('should be created', inject([EventService], (service: EventService) => {
     expect(service).toBeTruthy();
   }));
+
+  describe('empty', () => {
+    it('should put null', inject([EventService], (service: EventService) => {
+      const spy = jasmine.createSpy('event spy');
+      const subscription = service.event$.subscribe(spy);
+
+      service.empty();
+      expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith(null);
+
+      subscription.unsubscribe();
+    }));
+  });
 });
