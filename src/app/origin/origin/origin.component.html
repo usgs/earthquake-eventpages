@@ -4,6 +4,10 @@
   [productType]="'origin'"
 >
 
+  <!--
+    this needs to go inside "product-page",
+    because ProductPageComponent populates productService.product$
+  -->
   <ng-container *ngIf="productService.product$ | async; else noProduct; let product">
 
     <!-- origin module content goes here -->
