@@ -4,5 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  CONTRIBUTOR_SERVICE: 'https://earthquake.usgs.gov/data/comcat/contributor/index.json.php'
 };
