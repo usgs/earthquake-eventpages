@@ -8,11 +8,13 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Event } from './event';
 
+import { environment } from '../environments/environment';
+
 @Injectable()
 export class EventService {
 
   // currently selected event
-  public readonly event: BehaviorSubject<Event> = new BehaviorSubject<Event>(new Event(null));
+  private event = new BehaviorSubject<Event>(new Event(null));
 
   // Observable event
   public readonly event$: Observable<Event> = this.event.asObservable();
@@ -33,7 +35,7 @@ export class EventService {
    * @param eventid the event id.
    */
   getEvent (eventid: string): void {
-    const url = `https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/${eventid}.geojson`;
+    const url = `${environment.EVENT_SERVICE}/${eventid}.geojson`;
 
     // clear existing information if requested event id is different
     // otherwise let browser caching determine whether to update
@@ -79,7 +81,7 @@ export class EventService {
    * @see this.event$
    */
   private getDeletedEvent (eventid: string): void {
-    const url = `https://earthquake.usgs.gov/fdsnws/event/1/query.geojson?eventid=${eventid}&includedeleted=true`;
+    const url = `${environment.DELETED_EVENT_SERVICE}&eventid=${eventid}`;
 
     this.http.get<any>(url).pipe(
       catchError(this.handleError(eventid))
@@ -122,9 +124,11 @@ export class EventService {
    */
   private updateProduct(): void {
     const event = this.event.getValue();
-    if (event) {
-      event.product = event.getProduct(this.productType, this.productSource, this.productCode);
-    }
+    event.product = event.getProduct(
+      this.productType,
+      this.productSource,
+      this.productCode
+    );
   }
 
 }
