@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class OriginDetailsComponent implements OnInit {
 
-  @Input() origin: any;
+  @Input() product: any;
 
   constructor() { }
 

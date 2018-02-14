@@ -1,3 +1,5 @@
+<div class="product-page {{productType}}-product-page">
+
 <!-- containers ensure product information is ready before rendering -->
 <ng-container *ngIf="eventService.event$ | async; else noEvent; let event">
   <ng-container *ngIf="event.product; else noProduct">
@@ -6,19 +8,26 @@
       [contributors]="contributorService.contributors$ | async"
       [event]="event"
       [product]="event.product"
-      [title]="pageTitle"
-    ></product-page-header>
+    >
+      <!-- custom module header content -->
+      <ng-content select="[header]"></ng-content>
+    </product-page-header>
 
-    <!-- insert module content -->
+    <!-- custom module content -->
     <ng-content></ng-content>
 
     <product-page-footer
       [event]="event"
       [product]="event.product"
-    ></product-page-footer>
+    >
+      <!-- custom module footer cnotent -->
+      <ng-content select="[footer]"></ng-content>
+    </product-page-footer>
 
   </ng-container>
 </ng-container>
+
+</div>
 
 
 <ng-template #noEvent>
@@ -26,5 +35,5 @@
 </ng-template>
 
 <ng-template #noProduct>
-    <p>No product information yet.</p>
+  <p>Loading {{productType}} product information.</p>
 </ng-template>

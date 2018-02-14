@@ -1,11 +1,5 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import { Component } from '@angular/core';
 
-import { ProductPageComponent } from '../../product-page/product-page/product-page.component';
 import { EventService } from '../../event.service';
 
 
@@ -19,10 +13,5 @@ export class OriginComponent {
   constructor(
     public eventService: EventService
   ) { }
-
-
-  showProduct(product: any) {
-    return JSON.stringify(product, null, 2);
-  }
 
 }
