@@ -15,7 +15,6 @@ import { RegionInfoModule } from './region-info/region-info.module';
 import { ContributorService } from './contributor.service';
 import { EventService } from './event.service';
 import { FormatterService } from './formatter.service';
-import { ProductService } from './product.service';
 
 
 @NgModule({
@@ -38,8 +37,7 @@ import { ProductService } from './product.service';
   providers: [
     ContributorService,
     EventService,
-    FormatterService,
-    ProductService
+    FormatterService
   ],
   bootstrap: [AppComponent]
 })
