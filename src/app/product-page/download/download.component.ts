@@ -33,6 +33,9 @@ export class DownloadComponent {
 
   getContentsXML() {
     // fetch contents.xml
+    if (!this.product.contents) {
+      return;
+    }
     const content = this.product.contents['contents.xml'];
     if (!content) {
       this.contents.next(false);
@@ -42,7 +45,4 @@ export class DownloadComponent {
     this.contents.next(content.url);
   }
 
-  jsonify(data: any): any {
-    return JSON.stringify(data, null, 2);
-  }
 }

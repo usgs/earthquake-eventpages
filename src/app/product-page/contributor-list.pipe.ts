@@ -5,56 +5,69 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class ContributorListPipe implements PipeTransform {
 
-  transform(product: any, detailsMap = [], event = null): string {
+  transform(product: any, event = null, detailsMap = []): string {
     let eventSources,
         sources;
 
     try {
-      eventSources = event.properties.sources.split(',');
-      eventSources = eventSources.filter((s) => !!s);
-      eventSources.sort();
+      eventSources = event.sources;
     } catch (e) {
       eventSources = [];
     }
 
-    sources = this.getProductSources(product);
+    sources = this.getSources(product);
     return sources.map((sourceId: string) => {
       let details;
 
-      if (!sourceId) {
-        return '';
-      }
-
-      sourceId = sourceId.toLowerCase();
+      // look up details for source
       details = detailsMap.find((item: any) => {
         return (
           item.id === sourceId ||
-          (item.aliases || []).indexOf(sourceId) !== -1
+          (item.aliases && item.aliases.indexOf(sourceId) !== -1)
         );
       });
 
-      let text = `${sourceId.toUpperCase()}`;
-      if (details) {
-        text = `<abbr title="${details.title}">${text}</abbr>`;
-      }
-      const index = eventSources.indexOf(sourceId) + 1;
-
-      return `<span class="contributor-reference">${text}<sup>${index}</sup></span>`
+      return this.formatSource(sourceId, eventSources, details);
     }).join('');
   }
 
-  getProductSources(product: any): string[] {
-    const sources = {};
-    sources[product.source] = true;
-    [
-      'origin-source',
-      'magnitude-source',
-      'beachball-source'
-    ].forEach((prop) => {
-      if (product.properties[prop]) {
-        sources[product.properties[prop]] = true;
-      }
-    });
-    return Object.keys(sources);
+  formatSource(source: string, eventSources = null, details = null): string {
+    const sourceId = source.toLowerCase();
+
+    let text = `${sourceId.toUpperCase()}`;
+    if (details) {
+      text = `<abbr title="${details.title}">${text}</abbr>`;
+    }
+    const index = eventSources.indexOf(sourceId) + 1;
+
+    return `<span>${text}<sup>${index}</sup></span>`
+  }
+
+  getSources(product: any): Array<string> {
+    const sources = new Set<string>();
+
+    if (!product) {
+      return [];
+    }
+
+    if (product.source) {
+      sources.add(product.source.toLowerCase());
+    }
+
+    if (product.properties) {
+      [
+        'origin-source',
+        'magnitude-source',
+        'beachball-source'
+      ].forEach((prop) => {
+        if (product.properties[prop]) {
+          sources.add(product.properties[prop].toLowerCase());
+        }
+      });
+    }
+
+    const sourceArray = Array.from(sources);
+    sourceArray.sort();
+    return sourceArray;
   }
 }

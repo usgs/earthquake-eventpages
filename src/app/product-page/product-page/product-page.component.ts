@@ -15,16 +15,13 @@ import { EventService } from '../../event.service';
 })
 export class ProductPageComponent implements OnInit, OnDestroy {
 
-  // page title
-  @Input() pageTitle: string;
-
   // type of product to be shown
   @Input() productType: string;
 
   // query params can override default product source/code to be shown
   private queryParamMapSubscription: Subscription;
 
-  constructor(
+  constructor (
     public contributorService: ContributorService,
     public eventService: EventService,
     public route: ActivatedRoute

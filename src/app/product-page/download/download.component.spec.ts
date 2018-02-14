@@ -36,4 +36,33 @@ describe('DownloadComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should return same product that was set', () => {
+    const product = {};
+    component.product = product;
+    expect(component.product).toBe(product);
+  });
+
+  it('should update contents after set', async() => {
+    component.product = {
+      contents: {
+        'contents.xml': {
+          url: 'test contents url'
+        }
+      }
+    };
+    component.contents$.subscribe((content) => {
+      expect(content).toBe('test contents url');
+    });
+  });
+
+  it('should clear contents when there is no contents.xml', async () => {
+    component.product = {
+      contents: {}
+    };
+    component.contents$.subscribe((content) => {
+      expect(content).toBe(false);
+    });
+  });
+
 });

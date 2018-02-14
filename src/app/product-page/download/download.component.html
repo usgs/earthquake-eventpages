@@ -1,7 +1,7 @@
 <ng-container *ngIf="contents$ | async; else noContents; let contents">
   <h3>Downloads</h3>
   <pre>
-    {{jsonify(contents)}}
+    {{contents}}
   </pre>
 </ng-container>
 

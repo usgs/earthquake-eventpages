@@ -1,24 +1,18 @@
-<!--
-  product page sets eventService product prameters,
-  and needs to be the outermost wrapper
--->
 <!-- productType attribute defines type of product to load -->
-<product-page productType="origin">
+<product-page productType="origin" *ngIf="eventService.event$ | async; let event">
 
   <!-- container with header attribute is added before attribution -->
   <ng-container header>
     <h3>Origin</h3>
   </ng-container>
 
-  <!-- use ng-container with eventService to access event and product info -->
-  <ng-container *ngIf="eventService.event$ | async; let event">
-
-    <!-- product content -->
-    <origin-details [product]="event.product"></origin-details>
-
-  </ng-container>
+  <!-- product content -->
+  <origin-details *ngIf="event.product?.type === 'origin'"
+      [product]="event.product">
+  </origin-details>
 
   <!-- container with footer attribute is added before downloads -->
   <ng-container footer>
   </ng-container>
+
 </product-page>
