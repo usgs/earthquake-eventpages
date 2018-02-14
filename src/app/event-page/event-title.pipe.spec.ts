@@ -15,5 +15,5 @@ describe('EventTitlePipe', () => {
     };
 
     expect(pipe.transform(event)).toEqual(event.properties.title);
-  })
+  });
 });

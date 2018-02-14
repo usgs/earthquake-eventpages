@@ -7,13 +7,12 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { catchError } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
+import { environment } from '../environments/environment';
+
 @Injectable()
 export class ContributorService {
   private contributors = new BehaviorSubject<any>(null);
   public readonly contributors$ = this.contributors.asObservable();
-  private contributorsSubscription: Subscription;
-
-  private list: any = null;
 
   constructor (
     private http: HttpClient
@@ -21,12 +20,11 @@ export class ContributorService {
 
 
   getContributors () {
-    const url = 'https://earthquake.usgs.gov/data/comcat/contributor/index.json.php';
+    const url = environment.CONTRIBUTOR_SERVICE;
 
     this.http.get<any>(url).pipe(
       catchError(this.handleError('getContributors', []))
     ).subscribe((response) => {
-      console.log('Contributors', response);
       this.contributors.next(response);
     });
   }

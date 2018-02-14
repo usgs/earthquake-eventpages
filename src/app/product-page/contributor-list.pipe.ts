@@ -40,7 +40,7 @@ export class ContributorListPipe implements PipeTransform {
     }
     const index = eventSources.indexOf(sourceId) + 1;
 
-    return `<span>${text}<sup>${index}</sup></span>`
+    return `<span>${text}<sup>${index}</sup></span>`;
   }
 
   getSources(product: any): Array<string> {
