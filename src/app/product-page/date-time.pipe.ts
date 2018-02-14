@@ -12,11 +12,7 @@ export class DateTimePipe implements PipeTransform {
   transform(time: any): string {
     let date;
 
-    try {
-      date = new Date(time);
-    } catch (e) {
-      date = null;
-    }
+    date = new Date(time);
 
     return this.formatter.dateTime(date);
   }

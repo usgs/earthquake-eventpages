@@ -1,3 +1,5 @@
+import { getUnique } from './unique';
+
 export class Event {
 
   // "feature" properties
@@ -18,7 +20,7 @@ export class Event {
     let sources;
 
     try {
-      id = data.id;
+      id = this.data.id;
     } catch (e) {
       id = null;
     }
@@ -43,7 +45,8 @@ export class Event {
     } catch (e) {
       sources = [];
     }
-    this.sources = this.getUniqueList(sources);
+    this.sources = getUnique(sources);
+    this.sources.sort();
   }
 
   /**
@@ -61,7 +64,7 @@ export class Event {
     }
 
     try {
-      products = this.data['properties']['products'][type];
+      products = this.properties.products[type];
     } catch (e) {
       return;
     }
@@ -75,21 +78,4 @@ export class Event {
     });
   }
 
-  /**
-   * Remove duplicates and empty items.
-   *
-   * @param items list of items.
-   * @return unique list of non-empty items.
-   */
-  getUniqueList(items: Array<string>): Array<string> {
-    const unique = {};
-    items.forEach((item) => {
-      if (item) {
-        unique[item] = true;
-      }
-    });
-    items = Object.keys(unique);
-    items.sort();
-    return items;
-  }
 }

@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { ContributorService } from '../../contributor.service';
 import { EventService } from '../../event.service';
-import { ProductService } from '../../product.service';
 
 
 @Component({
