@@ -10,8 +10,9 @@ import { FooterComponent } from './footer/footer.component';
 import { ContributorListPipe } from './contributor-list.pipe';
 import { DateTimePipe } from './date-time.pipe';
 import { DownloadComponent } from './download/download.component';
+import { DownloadItemComponent } from './download-item/download-item.component';
 
-import { DownloadItem } from './download/download-item.pipe'
+import { FileSizePipe } from './file-size.pipe'
 
 @NgModule({
   imports: [
@@ -27,8 +28,9 @@ import { DownloadItem } from './download/download-item.pipe'
     ContributorListPipe,
     DateTimePipe,
     DownloadComponent,
+    DownloadItemComponent,
 
-    DownloadItem
+    FileSizePipe
   ],
   exports: [
     ProductPageComponent
