@@ -13,7 +13,7 @@ import { catchError } from 'rxjs/operators/catchError';
 })
 export class DownloadComponent implements OnInit {
 
-  @Input() product: any;
+  private _product: any;
 
   private contents: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public contents$: Observable<any> = this.contents.asObservable();
@@ -22,7 +22,17 @@ export class DownloadComponent implements OnInit {
     public httpClient: HttpClient
   ) { }
 
-  ngOnInit() {
+  get product(): any {
+    return this._product;
+  }
+
+  @Input() set product(product: any) {
+    this._product = product;
+    this.getContentsXML();
+  }
+
+  getContentsXML() {
+    // fetch contents.xml
     const content = this.product.contents['contents.xml'];
     if (!content) {
       this.contents.next(false);
