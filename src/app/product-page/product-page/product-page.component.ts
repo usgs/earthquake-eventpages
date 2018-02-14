@@ -7,7 +7,6 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { ContributorService } from '../../contributor.service';
 import { EventService } from '../../event.service';
-import { ProductService } from '../../product.service';
 
 @Component({
   selector: 'product-page',
@@ -19,40 +18,32 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   // page title
   @Input() pageTitle: string;
 
-  // source of product information
-  @Input() productService: ProductService;
-
   // type of product to be shown
   @Input() productType: string;
 
-  // route parameters to select product
+  // query params can override default product source/code to be shown
   private queryParamMapSubscription: Subscription;
 
   constructor(
     public contributorService: ContributorService,
-    public route: ActivatedRoute,
-    public router: Router
+    public eventService: EventService,
+    public route: ActivatedRoute
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
     this.queryParamMapSubscription = this.route.queryParamMap.subscribe((paramMap: ParamMap) => {
       this.onQueryParamMapChange(paramMap);
     });
   }
+
   ngOnDestroy () {
     this.queryParamMapSubscription.unsubscribe();
   }
 
-  /**
-   * Listen to route query parameters, to display specific source/code.
-   *
-   * If a specific source/code does not match a product, redirect to
-   * @param paramMap query string parameters
-   */
-  onQueryParamMapChange(paramMap: ParamMap) {
+  onQueryParamMapChange (paramMap: ParamMap) {
     const source = paramMap.get('source');
     const code = paramMap.get('code');
-    this.productService.setProduct(this.productType, source, code);
+    this.eventService.getProduct(this.productType, source, code);
   }
 
 }

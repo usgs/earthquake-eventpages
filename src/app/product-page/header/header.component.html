@@ -1,17 +1,19 @@
-<header class="product-header">
-  <h3>{{title}}</h3>
+<ng-container>
+  <header class="product-header">
+    <h3>{{title}}</h3>
 
-  <small class="attribution">
-    Contributed by
-    <span [innerHTML]="product | contributorList:contributors:event "></span>
-    last updated {{product.updateTime | dateTime}}
-  </small>
+    <small class="attribution">
+      Contributed by
+      <span [innerHTML]="product | contributorList:contributors:event "></span>
+      last updated {{product.updateTime | dateTime}}
+    </small>
 
-  <ul class="quality-statements">
-    <ng-container *ngIf="isPreferred(); then preferred else unpreferred"></ng-container>
-    <ng-container *ngIf="isReviewed(); then reviewed else unreviewed"></ng-container>
-  </ul>
-</header>
+    <ul class="quality-statements">
+      <ng-container *ngIf="isPreferred(); then preferred else unpreferred"></ng-container>
+      <ng-container *ngIf="isReviewed(); then reviewed else unreviewed"></ng-container>
+    </ul>
+  </header>
+</ng-container>
 
 
 <ng-template #preferred>

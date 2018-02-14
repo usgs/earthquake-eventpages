@@ -1,21 +1,21 @@
+<!--
+  product page sets eventService product prameters,
+  and needs to be the outermost wrapper
+-->
 <product-page
-  [pageTitle]="'Origin'"
-  [productService]="productService"
-  [productType]="'origin'"
+    pageTitle="Origin"
+    productType="origin"
 >
 
-  <!--
-    this needs to go inside "product-page",
-    because ProductPageComponent populates productService.product$
-  -->
-  <ng-container *ngIf="productService.product$ | async; else noProduct; let product">
+  <ng-container *ngIf="eventService.event$ | async; else noEvent; let event">
 
-    <!-- origin module content goes here -->
-    <origin-details [origin]="product"></origin-details>
+    <origin-details [origin]="event.product"></origin-details>
 
   </ng-container>
+
 </product-page>
 
-<ng-template #noProduct>
+
+<ng-template #noEvent>
   <p>loading origin</p>
 </ng-template>

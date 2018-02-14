@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 import { ProductPageComponent } from '../../product-page/product-page/product-page.component';
-import { ProductService } from '../../product.service';
+import { EventService } from '../../event.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { ProductService } from '../../product.service';
 export class OriginComponent {
 
   constructor(
-    public productService: ProductService
+    public eventService: EventService
   ) { }
 
 

@@ -15,36 +15,26 @@ import { ProductService } from '../../product.service';
 })
 export class EventPageComponent implements OnInit, OnDestroy {
 
-  private eventSubscription: Subscription;
   private paramMapSubscription: Subscription;
 
   constructor (
     public route: ActivatedRoute,
     public contributorService: ContributorService,
-    public eventService: EventService,
-    public productService: ProductService
+    public eventService: EventService
   ) { }
 
   ngOnInit () {
-    this.eventSubscription = this.eventService.event$.subscribe((event: any) => {
-      return this.onEventChange(event);
-    });
-
     this.paramMapSubscription = this.route.paramMap.subscribe((paramMap: ParamMap) => {
       return this.onParamMapChange(paramMap);
     });
   }
 
   ngOnDestroy () {
-    this.eventSubscription.unsubscribe();
     this.paramMapSubscription.unsubscribe();
   }
 
-  onEventChange (event: any) {
-    this.productService.setEvent(event);
-  }
-
-  onParamMapChange (paramMap: any) {
+  onParamMapChange (paramMap: ParamMap) {
+    // request event
     this.eventService.getEvent(paramMap.get('eventid'));
   }
 

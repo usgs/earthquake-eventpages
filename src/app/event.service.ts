@@ -10,32 +10,38 @@ import { Event } from './event';
 
 @Injectable()
 export class EventService {
-  private event: BehaviorSubject<Event> = new BehaviorSubject<Event>(new Event(null));
 
+  // currently selected event
+  public readonly event: BehaviorSubject<Event> = new BehaviorSubject<Event>(new Event(null));
+
+  // Observable event
   public readonly event$: Observable<Event> = this.event.asObservable();
+
+  // id information for product to be shown.
+  private productType: string;
+  private productSource: string;
+  private productCode: string;
+
 
   constructor (
     private http: HttpClient
   ) { }
 
-  empty (): void {
-    this.event.next(new Event(null));
-  }
-
-  getDeletedEvent (eventid: string): void {
-    const url = `https://earthquake.usgs.gov/fdsnws/event/1/query.geojson?eventid=${eventid}&includedeleted=true`;
-
-    this.http.get<any>(url).pipe(
-      catchError(this.handleError(eventid))
-    ).subscribe((response) => {
-      console.log('EventDetails', response);
-      this.event.next(new Event(response));
-    });
-  }
-
+  /**
+   * Update event to be shown.
+   *
+   * @param eventid the event id.
+   */
   getEvent (eventid: string): void {
     const url = `https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/${eventid}.geojson`;
 
+    // clear existing information if requested event id is different
+    // otherwise let browser caching determine whether to update
+    if (this.event.getValue().id !== eventid) {
+      this.setEvent(new Event(null));
+    }
+
+    // load new information
     this.http.get<HttpResponse<any>>(url).pipe(
       catchError(this.handleError(eventid))
     ).subscribe((response) => {
@@ -43,10 +49,51 @@ export class EventService {
         this.getDeletedEvent(eventid);
         return;
       }
-      this.event.next(new Event(response));
+      this.setEvent(new Event(response));
     });
   }
 
+  /**
+   * Update product to be shown.
+   *
+   * @param type type of product.
+   * @param source source of product.
+   *               optional, defaults to preferred source.
+   * @param code code of product.
+   *               optional, defaults to preferred code.
+   */
+  getProduct(type: string, source?: string, code?: string): void {
+    this.productType = type;
+    this.productSource = source;
+    this.productCode = code;
+
+    this.updateProduct();
+  }
+
+  /**
+   * Update event to be shown, even if it has been deleted.
+   *
+   * Used by #getEvent when a 409 Conflict (event deleted) response is received.
+   *
+   * @param eventid the event id.
+   * @see this.event$
+   */
+  private getDeletedEvent (eventid: string): void {
+    const url = `https://earthquake.usgs.gov/fdsnws/event/1/query.geojson?eventid=${eventid}&includedeleted=true`;
+
+    this.http.get<any>(url).pipe(
+      catchError(this.handleError(eventid))
+    ).subscribe((response) => {
+      this.setEvent(new Event(response));
+    });
+  }
+
+  /**
+   * Error handler for http requests.
+   *
+   * @param eventid the event id being requested.
+   *                added to the resulting error object.
+   */
   private handleError (eventid: string) {
     return (error: HttpErrorResponse): Observable<any> => {
       return of({
@@ -56,6 +103,28 @@ export class EventService {
         status: error.status
       });
     };
+  }
+
+  /**
+   * Update event observable, and call #updateProduct.
+   *
+   * @param event
+   */
+  private setEvent(event: any): void {
+    this.event.next(event);
+    this.updateProduct();
+  }
+
+  /**
+   * Update selected product.
+   *
+   * @return whether a product was found.
+   */
+  private updateProduct(): void {
+    const event = this.event.getValue();
+    if (event) {
+      event.product = event.getProduct(this.productType, this.productSource, this.productCode);
+    }
   }
 
 }

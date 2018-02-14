@@ -1,23 +1,30 @@
-<ng-container *ngIf="productService.product$ | async; else noProduct; let product">
+<!-- containers ensure product information is ready before rendering -->
+<ng-container *ngIf="eventService.event$ | async; else noEvent; let event">
+  <ng-container *ngIf="event.product; else noProduct">
 
-  <product-page-header
-    [contributors]="contributorService.contributors$ | async"
-    [event]="productService.event"
-    [product]="product"
-    [title]="pageTitle"
-  >
-    <ng-content select=".product-header"></ng-content>
-  </product-page-header>
+    <product-page-header
+      [contributors]="contributorService.contributors$ | async"
+      [event]="event"
+      [product]="event.product"
+      [title]="pageTitle"
+    ></product-page-header>
 
-  <ng-content></ng-content>
+    <!-- insert module content -->
+    <ng-content></ng-content>
 
-  <product-page-footer
-    [event]="productService.event"
-    [product]="product"
-  ></product-page-footer>
+    <product-page-footer
+      [event]="event"
+      [product]="event.product"
+    ></product-page-footer>
+
+  </ng-container>
 </ng-container>
 
 
+<ng-template #noEvent>
+  <p>No event information yet.</p>
+</ng-template>
+
 <ng-template #noProduct>
-  <p>No product information yet.</p>
+    <p>No product information yet.</p>
 </ng-template>
