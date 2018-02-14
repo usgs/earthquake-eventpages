@@ -1,15 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Event } from '../event';
 
 @Pipe({
   name: 'contributorList'
 })
 export class ContributorListPipe implements PipeTransform {
 
-  transform(event: any, detailsMap = []): string {
+  transform(event: Event, detailsMap = []): string {
     let sources;
 
     try {
-      sources = event.properties.sources.split(',').sort();
+      sources = event.sources || [];
     } catch (e) {
       sources = [];
     }

@@ -1,0 +1,11 @@
+<ng-container *ngIf="contents$ | async; else noContents; let contents">
+  <h3>Downloads</h3>
+  <pre>
+    {{contents}}
+  </pre>
+</ng-container>
+
+
+<ng-template #noContents>
+  <!-- nothing to see -->
+</ng-template>

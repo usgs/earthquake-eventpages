@@ -19,7 +19,7 @@ export class EventPageComponent implements OnInit, OnDestroy {
   constructor (
     public route: ActivatedRoute,
     public contributorService: ContributorService,
-    public eventService: EventService,
+    public eventService: EventService
   ) { }
 
   ngOnInit () {
@@ -32,8 +32,9 @@ export class EventPageComponent implements OnInit, OnDestroy {
     this.paramMapSubscription.unsubscribe();
   }
 
-  onParamMapChange (paramMap: any) {
-    this.eventService.empty();
+  onParamMapChange (paramMap: ParamMap) {
+    // request event
     this.eventService.getEvent(paramMap.get('eventid'));
   }
+
 }

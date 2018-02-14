@@ -1,18 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { MockComponent } from 'ng2-mock-component';
-
-import { EventPageComponent } from './event-page.component';
-
 import { ContributorService } from '../../contributor.service';
 import { EventService } from '../../event.service';
+import { ProductPageModule } from '../../product-page/product-page.module';
 
-describe('EventPageComponent', () => {
-  let fixture: ComponentFixture<EventPageComponent>,
-      component: EventPageComponent,
-      contributorService,
-      eventService;
+import { OriginComponent } from './origin.component';
+import { OriginDetailsComponent } from '../origin-details/origin-details.component';
+
+
+describe('OriginComponent', () => {
+  let component: OriginComponent;
+  let fixture: ComponentFixture<OriginComponent>;
 
   beforeEach(async(() => {
     const contributorServiceStub = {
@@ -20,17 +19,18 @@ describe('EventPageComponent', () => {
     };
 
     const eventServiceStub = {
-      getEvent: jasmine.createSpy('eventService::getEvent')
+      empty: jasmine.createSpy('eventService::empty'),
+      getEvent: jasmine.createSpy('eventService::getEvent'),
+      getProduct: jasmine.createSpy('eventService::getProduct')
     };
 
     TestBed.configureTestingModule({
       declarations: [
-        EventPageComponent,
-
-        MockComponent({selector: 'event-page-header', inputs: ['event']}),
-        MockComponent({selector: 'event-page-footer', inputs: ['event', 'contributors']})
+        OriginComponent,
+        OriginDetailsComponent
       ],
       imports: [
+        ProductPageModule,
         RouterTestingModule
       ],
       providers: [
@@ -39,15 +39,13 @@ describe('EventPageComponent', () => {
       ]
     })
     .compileComponents();
+  }));
 
-
-    fixture = TestBed.createComponent(EventPageComponent);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(OriginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    contributorService = fixture.debugElement.injector.get(ContributorService);
-    eventService = fixture.debugElement.injector.get(EventService);
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

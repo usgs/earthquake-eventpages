@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 @Injectable()
 export class ContributorService {
   private contributors = new BehaviorSubject<any>(null);
-  private readonly contributors$ = this.contributors.asObservable();
+  public readonly contributors$ = this.contributors.asObservable();
   private contributorsSubscription: Subscription;
 
   private list: any = null;

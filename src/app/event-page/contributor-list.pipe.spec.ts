@@ -1,4 +1,5 @@
 import { ContributorListPipe } from './contributor-list.pipe';
+import { Event } from '../event';
 
 describe('ContributorListPipe', () => {
   let details,
@@ -7,11 +8,11 @@ describe('ContributorListPipe', () => {
 
   beforeEach(() => {
     pipe = new ContributorListPipe();
-    event = {
+    event = new Event({
       properties: {
         sources: ',bb,a,'
       }
-    };
+    });
     details = [
       {
         id: 'a',

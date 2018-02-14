@@ -1,0 +1,18 @@
+<!-- productType attribute defines type of product to load -->
+<product-page productType="origin" *ngIf="eventService.event$ | async; let event">
+
+  <!-- container with header attribute is added before attribution -->
+  <ng-container header>
+    <h3>Origin</h3>
+  </ng-container>
+
+  <!-- product content -->
+  <origin-details *ngIf="event.product?.type === 'origin'"
+      [product]="event.product">
+  </origin-details>
+
+  <!-- container with footer attribute is added before downloads -->
+  <ng-container footer>
+  </ng-container>
+
+</product-page>
