@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
+import { MockPipe } from '../../mock-pipe';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -8,7 +9,12 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      declarations: [
+        HeaderComponent,
+
+        MockPipe('contributorList'),
+        MockPipe('dateTime')
+      ]
     })
     .compileComponents();
   }));

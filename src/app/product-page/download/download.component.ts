@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators/catchError';
   templateUrl: './download.component.html',
   styleUrls: ['./download.component.css']
 })
-export class DownloadComponent implements OnInit {
+export class DownloadComponent {
 
   private _product: any;
 

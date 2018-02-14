@@ -7,7 +7,15 @@ import { Event } from '../event';
 export class ContributorListPipe implements PipeTransform {
 
   transform(event: Event, detailsMap = []): string {
-    return event.sources.map((sourceId: string) => {
+    let sources;
+
+    try {
+      sources = event.sources || [];
+    } catch (e) {
+      sources = [];
+    }
+
+    return sources.map((sourceId: string) => {
       let details,
           result;
 

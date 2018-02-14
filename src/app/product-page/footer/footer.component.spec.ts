@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FooterComponent } from './footer.component';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -8,7 +9,10 @@ describe('FooterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FooterComponent ]
+      declarations: [
+        FooterComponent,
+        MockComponent({selector: 'product-page-download', inputs: ['product']})
+      ]
     })
     .compileComponents();
   }));

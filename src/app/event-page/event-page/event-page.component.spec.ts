@@ -20,7 +20,6 @@ describe('EventPageComponent', () => {
     };
 
     const eventServiceStub = {
-      empty: jasmine.createSpy('eventService::empty'),
       getEvent: jasmine.createSpy('eventService::getEvent')
     };
 

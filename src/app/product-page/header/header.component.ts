@@ -18,15 +18,19 @@ export class HeaderComponent implements OnInit {
   }
 
   isPreferred(): boolean {
-    return this.product.id === this.event.properties.products[this.product.type][0].id;
+    try {
+      return this.product.id === this.event.properties.products[this.product.type][0].id;
+    } catch (e) {
+      return false;
+    }
   }
 
   isReviewed(): boolean {
-    let reviewStatus;
-    if (this.product.properties['review-status']) {
-      reviewStatus = this.product.properties['review-status'].toLowerCase();
+    try {
+      return 'reviewed' === this.product.properties['review-status'].toLowerCase();
+    } catch (e) {
+      return false;
     }
-    return reviewStatus === 'reviewed';
   }
 
 }
