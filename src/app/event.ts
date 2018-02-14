@@ -14,39 +14,24 @@ export class Event {
   constructor(
     public data: any
   ) {
-    let id;
-    let geometry;
-    let properties;
     let sources;
 
-    try {
-      id = this.data.id;
-    } catch (e) {
-      id = null;
+    if (!this.data) {
+      this.geometry = null;
+      this.id = null;
+      this.properties = {};
+      this.sources = [];
+      return;
     }
-    this.id = id;
 
-    try {
-      geometry = this.data.geometry || null;
-    } catch (e) {
-      geometry = null;
-    }
-    this.geometry = geometry;
+    this.geometry = this.data.geometry || null;
+    this.id = this.data.id || null;
+    this.properties = this.data.properties || {};
 
-    try {
-      properties = this.data.properties || {};
-    } catch (e) {
-      properties = {};
-    }
-    this.properties = properties;
-
-    try {
-      sources = this.data.properties.sources.split(',');
-    } catch (e) {
-      sources = [];
-    }
-    this.sources = getUnique(sources);
-    this.sources.sort();
+    sources = (this.properties.sources || '').split(',');
+    sources = getUnique(sources);
+    sources.sort();
+    this.sources = sources;
   }
 
   /**
@@ -57,25 +42,34 @@ export class Event {
    * @param code code of product.
    */
   getProduct(type: string, source?: string, code?: string): any {
-    let products;
-
-    if (!type) {
-      return;
-    }
-
-    try {
-      products = this.properties.products[type];
-    } catch (e) {
-      return;
-    }
-
-    return products.find((product) => {
+    return this.getProducts(type).find((product) => {
       if ((source && product.source !== source) ||
           (code && product.code !== code)) {
         return false;
       }
       return true;
     });
+  }
+
+  /**
+   * Return all products of given type.
+   *
+   * @param type type of product.
+   */
+  getProducts(type: string): Array<any> {
+    let products;
+
+    if (!type) {
+      return [];
+    }
+
+    try {
+      products = this.properties.products[type] || [];
+    } catch (e) {
+      products = [];
+    }
+
+    return products;
   }
 
 }
