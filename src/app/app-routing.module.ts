@@ -9,6 +9,12 @@ import { RegionInfoComponent } from './region-info/region-info/region-info.compo
 
 const appRoutes = [
   {
+    // default for root needs to happen first
+    path: '',
+    redirectTo: '/unknown',
+    pathMatch: 'full'
+  },
+  {
     path: 'unknown',
     component: UnknownEventPageComponent
   },
@@ -16,6 +22,13 @@ const appRoutes = [
     path: ':eventid',
     component: EventPageComponent,
     children: [
+      // default for section needs to happen first
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'executive'
+      },
+
       {
         path: 'executive',
         component: ExecutiveComponent
@@ -27,18 +40,8 @@ const appRoutes = [
       {
         path: 'origin',
         loadChildren: './origin/origin.module#OriginModule'
-      },
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'executive'
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/unknown',
-    pathMatch: 'full'
   }
 ];
 
