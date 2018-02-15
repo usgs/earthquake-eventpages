@@ -1,10 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { catchError } from 'rxjs/operators/catchError';
+import { ContentsXmlService } from '../../contents-xml.service';
+
 
 @Component({
   selector: 'product-page-download',
@@ -14,35 +11,39 @@ import { catchError } from 'rxjs/operators/catchError';
 export class DownloadComponent {
 
   private _product: any;
+  private open = false;
 
-  private contents: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public contents$: Observable<any> = this.contents.asObservable();
-
-  constructor(
-    public httpClient: HttpClient
+  constructor (
+    public service: ContentsXmlService
   ) { }
 
-  get product(): any {
+  get product (): any {
     return this._product;
   }
 
-  @Input() set product(product: any) {
+  @Input() set product (product: any) {
     this._product = product;
-    this.getContentsXML();
+    if (this.open) {
+      this.loadContentsXml();
+    }
   }
 
-  getContentsXML() {
-    // fetch contents.xml
-    if (!this.product.contents) {
-      return;
-    }
-    const content = this.product.contents['contents.xml'];
-    if (!content) {
-      this.contents.next(false);
-      return;
-    }
-    // TODO: fetch real contents xml
-    this.contents.next(content.url);
+  isOpen () {
+    return this.open;
   }
 
+  loadContentsXml () {
+    this.service.get(this._product);
+  }
+
+  onClose () {
+    this.open = false;
+  }
+
+  onOpen () {
+    this.open = true;
+    this.loadContentsXml();
+  }
 }
+
+

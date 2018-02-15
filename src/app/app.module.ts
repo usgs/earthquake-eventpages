@@ -12,6 +12,7 @@ import { ExecutiveModule } from './executive/executive.module';
 import { OriginModule } from './origin/origin.module';
 import { RegionInfoModule } from './region-info/region-info.module';
 
+import { ContentsXmlService } from './contents-xml.service';
 import { ContributorService } from './contributor.service';
 import { EventService } from './event.service';
 import { FormatterService } from './formatter.service';
@@ -35,6 +36,7 @@ import { FormatterService } from './formatter.service';
     AppRoutingModule
   ],
   providers: [
+    ContentsXmlService,
     ContributorService,
     EventService,
     FormatterService

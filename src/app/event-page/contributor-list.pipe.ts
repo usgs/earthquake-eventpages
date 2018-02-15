@@ -19,10 +19,6 @@ export class ContributorListPipe implements PipeTransform {
       let details,
           result;
 
-      if (!sourceId) {
-        return '';
-      }
-
       sourceId = sourceId.toLowerCase();
       details = detailsMap.find((item: any) => {
         return (

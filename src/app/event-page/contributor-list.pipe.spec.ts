@@ -48,4 +48,10 @@ describe('ContributorListPipe', () => {
     const result = pipe.transform(null);
     expect(result).toEqual('');
   });
+
+  it('gracefully handles no sources', () => {
+    delete event.sources;
+    const result = pipe.transform(event);
+    expect(result).toBe('');
+  });
 });

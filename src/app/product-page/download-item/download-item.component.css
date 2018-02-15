@@ -1,0 +1,12 @@
+ul {
+  list-style:  disc;
+}
+
+.title {
+  display: block;
+  font-weight: bold;
+}
+
+.caption {
+  color: #666;
+}

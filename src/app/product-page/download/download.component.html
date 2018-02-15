@@ -1,11 +1,19 @@
-<ng-container *ngIf="contents$ | async; else noContents; let contents">
-  <h3>Downloads</h3>
-  <pre>
-    {{contents}}
-  </pre>
-</ng-container>
+<mat-expansion-panel (opened)="onOpen()" (closed)="onClose()">
+  <mat-expansion-panel-header>
+    <h3>Downloads</h3>
+  </mat-expansion-panel-header>
 
+  <ng-template matExpansionPanelContent>
+    <ng-container *ngIf="this.service.contents$ | async; else noContent; let content">
+      <ul>
+        <li *ngFor="let item of content">
+          <product-page-download-item [item]="item"></product-page-download-item>
+        </li>
+      </ul>
+    </ng-container>
+  </ng-template>
+</mat-expansion-panel>
 
-<ng-template #noContents>
-  <!-- nothing to see -->
+<ng-template #noContent>
+  No downloads available
 </ng-template>

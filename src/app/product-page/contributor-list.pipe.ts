@@ -31,7 +31,7 @@ export class ContributorListPipe implements PipeTransform {
     }).join('');
   }
 
-  formatSource(source: string, eventSources = null, details = null): string {
+  formatSource(source: string, eventSources: Array<string>, details = null): string {
     const sourceId = source.toLowerCase();
 
     let text = `${sourceId.toUpperCase()}`;

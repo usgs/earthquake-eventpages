@@ -64,8 +64,11 @@ describe('ContributorListPipe', () => {
   });
 
   it('transforms with a detailsMap', () => {
-    const result = pipe.transform(productA, event, details);
+    let result = pipe.transform(productA, event, details);
     expect(result).toEqual('<span><abbr title="A Title">A</abbr><sup>1</sup></span>');
+
+    result = pipe.transform(productBB, event, details);
+    expect(result).toEqual('<span><abbr title="B Title">BB</abbr><sup>2</sup></span>');
   });
 
   it('transforms no sources', () => {
@@ -78,5 +81,10 @@ describe('ContributorListPipe', () => {
     expect(result[0]).toBe('a');
     expect(result[1]).toBe('b');
     expect(result[2]).toBe('c');
+  });
+
+  it('is okay if product properties do not include alternate sources', () => {
+    const result = pipe.getSources({properties: {}});
+    expect(result).toEqual([]);
   });
 });
