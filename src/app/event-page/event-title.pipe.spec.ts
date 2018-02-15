@@ -16,4 +16,11 @@ describe('EventTitlePipe', () => {
 
     expect(pipe.transform(event)).toEqual(event.properties.title);
   });
+
+  it('handles no properties gracefully', () => {
+    const pipe = new EventTitlePipe();
+    const event = {};
+
+    expect(pipe.transform(event)).toBe('undefined');
+  });
 });
