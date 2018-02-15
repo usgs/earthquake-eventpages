@@ -9,9 +9,8 @@ import { RegionInfoComponent } from './region-info/region-info/region-info.compo
 
 const appRoutes = [
   {
-    // default for root needs to happen first
     path: '',
-    redirectTo: '/unknown',
+    redirectTo: 'unknown',
     pathMatch: 'full'
   },
   {
@@ -22,13 +21,11 @@ const appRoutes = [
     path: ':eventid',
     component: EventPageComponent,
     children: [
-      // default for section needs to happen first
       {
         path: '',
         pathMatch: 'full',
         redirectTo: 'executive'
       },
-
       {
         path: 'executive',
         component: ExecutiveComponent

@@ -9,7 +9,6 @@ import { EventPageModule } from './event-page/event-page.module';
 import { UnknownEventPageModule } from './unknown-event-page/unknown-event-page.module';
 
 import { ExecutiveModule } from './executive/executive.module';
-import { OriginModule } from './origin/origin.module';
 import { RegionInfoModule } from './region-info/region-info.module';
 
 import { ContentsXmlService } from './contents-xml.service';
@@ -30,7 +29,6 @@ import { FormatterService } from './formatter.service';
     UnknownEventPageModule,
 
     ExecutiveModule,
-    OriginModule,
     RegionInfoModule,
 
     AppRoutingModule
