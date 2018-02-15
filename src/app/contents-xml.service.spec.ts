@@ -49,7 +49,7 @@ describe('ContentsXmlService', () => {
       title: 'File Two',
       caption: '',
       formats: [
-        {href: 'file2.txt', type: 'txt', url: 'url/path/file2.txt' length: 2}
+        {href: 'file2.txt', type: 'txt', url: 'url/path/file2.txt', length: 2}
       ]
     }
   ];
