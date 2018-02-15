@@ -68,10 +68,10 @@ export class ContentsXmlService {
     let result,
         content;
 
-    const href = format.getAttribute('href');
-    const type = format.getAttribute('type');
-
     try {
+      const href = format.getAttribute('href');
+      const type = format.getAttribute('type');
+
       result = {
         href: href,
         type: type,
@@ -83,9 +83,7 @@ export class ContentsXmlService {
       result.url = content.url;
       result.length = content.length;
     } catch (e) {
-      if (console && console.error) {
-        console.error(e.stack);
-      }
+      console.error(e.stack);
     }
 
     return result;
