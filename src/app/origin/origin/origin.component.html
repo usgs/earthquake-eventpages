@@ -8,15 +8,16 @@
 
   <!-- routes/components in ../origin-routing.module.ts -->
   <nav mat-tab-nav-bar>
-    <a mat-tab-link [routerLink]="'./detail'"
+    <a mat-tab-link
+        [routerLink]="'./detail'" queryParamsHandling="preserve"
         routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
       Details
     </a>
-    <a mat-tab-link [routerLink]="'./phase'"
+    <a mat-tab-link [routerLink]="'./phase'" queryParamsHandling="preserve"
         routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
       Phases
     </a>
-    <a mat-tab-link [routerLink]="'./magnitude'"
+    <a mat-tab-link [routerLink]="'./magnitude'" queryParamsHandling="preserve"
         routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
       Magnitudes
     </a>
