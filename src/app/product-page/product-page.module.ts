@@ -12,7 +12,7 @@ import { DateTimePipe } from './date-time.pipe';
 import { DownloadComponent } from './download/download.component';
 import { DownloadItemComponent } from './download-item/download-item.component';
 
-import { FileSizePipe } from './file-size.pipe'
+import { FileSizePipe } from './file-size.pipe';
 
 @NgModule({
   imports: [

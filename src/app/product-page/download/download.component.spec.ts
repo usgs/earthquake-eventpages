@@ -9,7 +9,6 @@ import { DownloadComponent } from './download.component';
 describe('DownloadComponent', () => {
   let component: DownloadComponent;
   let fixture: ComponentFixture<DownloadComponent>;
-  let injector: TestBed;
 
   beforeEach(async(() => {
     const contentsXmlServiceStub = {

@@ -11,7 +11,7 @@ import { ContentsXmlService } from '../../contents-xml.service';
 export class DownloadComponent {
 
   private _product: any;
-  private open: boolean = false;
+  private open = false;
 
   constructor (
     public service: ContentsXmlService

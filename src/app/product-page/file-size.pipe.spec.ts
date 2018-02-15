@@ -4,12 +4,11 @@ describe('FileSizePipe', () => {
   let pipe;
 
   beforeEach(() => {
-    pipe = new FileSizePipe()
+    pipe = new FileSizePipe();
   });
 
 
   it('create an instance', () => {
-    const pipe = new FileSizePipe();
     expect(pipe).toBeTruthy();
   });
 

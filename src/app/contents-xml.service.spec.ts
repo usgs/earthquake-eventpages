@@ -151,7 +151,7 @@ describe('ContentsXmlService', () => {
       file.setAttribute('refid', 'refid');
 
       expect(
-        () => {service.parseFile(file, PRODUCT);}
+        () => { service.parseFile(file, PRODUCT); }
       ).toThrow(new Error('file element with refid'));
     }));
 
@@ -164,7 +164,7 @@ describe('ContentsXmlService', () => {
       const parsed = service.parseFile(file, PRODUCT);
 
       expect(parsed).toEqual(CONTENTS_JSON[0]);
-    }))
+    }));
   });
 
   describe('parseFormat', () => {
@@ -204,6 +204,6 @@ describe('ContentsXmlService', () => {
       const parsed = service.parseResponse(CONTENTS_XML, PRODUCT);
 
       expect(parsed).toEqual(CONTENTS_JSON);
-    }))
+    }));
   });
 });
