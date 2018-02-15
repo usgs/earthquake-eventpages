@@ -84,13 +84,14 @@ describe('ContentsXmlService', () => {
         inject([ContentsXmlService], (service: ContentsXmlService) => {
       const response = '';
 
-      spyOn(service, 'parseResponse').and.returnValue([]);
+      const spy = spyOn(service, 'parseResponse').and.returnValue([]);
       service.get(PRODUCT);
       const request = httpClient.expectOne('url');
       request.flush(response);
 
-      expect(service.parseResponse).toHaveBeenCalled();
-      const args = service.parseResponse.calls.argsFor(0);
+      expect(spy).toHaveBeenCalled();
+
+      const args = spy.calls.argsFor(0);
       expect(args[0]).toEqual(response);
     }));
 
@@ -124,11 +125,11 @@ describe('ContentsXmlService', () => {
       const xml = new DOMParser().parseFromString(CONTENTS_XML, 'text/xml');
       const file = xml.querySelector('contents > file');
 
-      spyOn(service, 'parseFormat').and.returnValue({});
+      const spy = spyOn(service, 'parseFormat').and.returnValue({});
       service.parseFile(file, PRODUCT);
 
-      expect(service.parseFormat).toHaveBeenCalled();
-      expect(service.parseFormat.calls.count()).toBe(2);
+      expect(spy).toHaveBeenCalled();
+      expect(spy.calls.count()).toBe(2);
     }));
 
     it('properly parses',
@@ -150,7 +151,7 @@ describe('ContentsXmlService', () => {
       file.setAttribute('refid', 'refid');
 
       expect(
-        () => {service.parseFile(file);}
+        () => {service.parseFile(file, PRODUCT);}
       ).toThrow(new Error('file element with refid'));
     }));
 
@@ -191,11 +192,11 @@ describe('ContentsXmlService', () => {
     it('calls parseFile',
         inject([ContentsXmlService], (service: ContentsXmlService) => {
 
-      spyOn(service, 'parseFile').and.returnValue({});
+      const spy = spyOn(service, 'parseFile').and.returnValue({});
       service.parseResponse(CONTENTS_XML, PRODUCT);
 
-      expect(service.parseFile).toHaveBeenCalled();
-      expect(service.parseFile.calls.count()).toBe(2);
+      expect(spy).toHaveBeenCalled();
+      expect(spy.calls.count()).toBe(2);
     }));
 
     it('properly parses',
