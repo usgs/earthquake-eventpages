@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 
-import { EventService } from '../../event.service';
-
-
 @Component({
   selector: 'origin',
   templateUrl: './origin.component.html',
@@ -11,7 +8,6 @@ import { EventService } from '../../event.service';
 export class OriginComponent {
 
   constructor(
-    public eventService: EventService
   ) { }
 
 }

@@ -1,15 +1,27 @@
 <!-- productType attribute defines type of product to load -->
-<product-page productType="origin" *ngIf="eventService.event$ | async; let event">
+<product-page productType="origin">
 
   <!-- container with header attribute is added before attribution -->
   <ng-container header>
     <h3>Origin</h3>
   </ng-container>
 
-  <!-- product content -->
-  <origin-details *ngIf="event.product?.type === 'origin'"
-      [product]="event.product">
-  </origin-details>
+  <!-- routes/components in ../origin-routing.module.ts -->
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link [routerLink]="'./detail'"
+        routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+      Details
+    </a>
+    <a mat-tab-link [routerLink]="'./phase'"
+        routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+      Phases
+    </a>
+    <a mat-tab-link [routerLink]="'./magnitude'"
+        routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+      Magnitudes
+    </a>
+  </nav>
+  <router-outlet></router-outlet>
 
   <!-- container with footer attribute is added before downloads -->
   <ng-container footer>
