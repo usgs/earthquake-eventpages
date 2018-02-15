@@ -9,6 +9,8 @@ import { MagnitudeComponent } from './magnitude/magnitude.component';
 
 const originRoutes: Routes = [
   {
+    // this module must be loaded lazily using "loadChildren"
+    // the actual url mount point is defined in "app/app-routing.module.ts"
     path: '',
     component: OriginComponent,
     children: [
