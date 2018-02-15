@@ -11,7 +11,7 @@ import { ContentsXmlService } from '../../contents-xml.service';
 export class DownloadComponent {
 
   private _product: any;
-  private opened: boolean = false;
+  private open: boolean = false;
 
   constructor (
     public service: ContentsXmlService
@@ -23,21 +23,25 @@ export class DownloadComponent {
 
   @Input() set product (product: any) {
     this._product = product;
-    if (this.opened) {
+    if (this.open) {
       this.loadContentsXml();
     }
+  }
+
+  isOpen () {
+    return this.open;
   }
 
   loadContentsXml () {
     this.service.get(this._product);
   }
 
-  onClosed () {
-    this.opened = false;
+  onClose () {
+    this.open = false;
   }
 
   onOpen () {
-    this.opened = true;
+    this.open = true;
     this.loadContentsXml();
   }
 }
