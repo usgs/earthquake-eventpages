@@ -5,10 +5,14 @@ import { EventPageComponent } from './event-page/event-page/event-page.component
 import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-page/unknown-event-page.component';
 
 import { ExecutiveComponent } from './executive/executive/executive.component';
-import { OriginComponent } from './origin/origin/origin.component';
 import { RegionInfoComponent } from './region-info/region-info/region-info.component';
 
 const appRoutes = [
+  {
+    path: '',
+    redirectTo: 'unknown',
+    pathMatch: 'full'
+  },
   {
     path: 'unknown',
     component: UnknownEventPageComponent
@@ -17,6 +21,11 @@ const appRoutes = [
     path: ':eventid',
     component: EventPageComponent,
     children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'executive'
+      },
       {
         path: 'executive',
         component: ExecutiveComponent
@@ -27,19 +36,9 @@ const appRoutes = [
       },
       {
         path: 'origin',
-        component: OriginComponent
-      },
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'executive'
+        loadChildren: './origin/origin.module#OriginModule'
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/unknown',
-    pathMatch: 'full'
   }
 ];
 

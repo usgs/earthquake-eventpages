@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -9,7 +10,6 @@ import { EventPageModule } from './event-page/event-page.module';
 import { UnknownEventPageModule } from './unknown-event-page/unknown-event-page.module';
 
 import { ExecutiveModule } from './executive/executive.module';
-import { OriginModule } from './origin/origin.module';
 import { RegionInfoModule } from './region-info/region-info.module';
 
 import { ContentsXmlService } from './contents-xml.service';
@@ -24,13 +24,13 @@ import { FormatterService } from './formatter.service';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
 
     EventPageModule,
     UnknownEventPageModule,
 
     ExecutiveModule,
-    OriginModule,
     RegionInfoModule,
 
     AppRoutingModule

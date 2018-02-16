@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material';
 
 import { ProductPageComponent } from './product-page/product-page.component';
@@ -16,7 +15,6 @@ import { FileSizePipe } from './file-size.pipe';
 
 @NgModule({
   imports: [
-    BrowserAnimationsModule,
     CommonModule,
     MatExpansionModule
   ],

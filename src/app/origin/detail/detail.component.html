@@ -1,0 +1,6 @@
+<ng-container *ngIf="eventService.event$ | async; let event">
+
+  <h4>Details</h4>
+  <pre>{{ toJson(event.product) }}</pre>
+
+</ng-container>
