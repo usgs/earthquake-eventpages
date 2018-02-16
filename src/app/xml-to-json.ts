@@ -20,6 +20,10 @@
         i,
         len;
 
+    if (!xml) {
+      return null;
+    }
+
     if (typeof xml === 'string') {
       xml = new DOMParser().parseFromString(xml, 'text/xml');
     }
@@ -45,6 +49,9 @@
       for (i = 0, len = nodes.length; i < len; i++) {
         node = nodes.item(i);
         nodeName = node.nodeName;
+        if (nodeName === 'parsererror') {
+          throw new Error(node.textContent);
+        }
         nodeValue = xmlToJson(node);
         if (nodeValue === null) {
           // ignore whitespace-only text nodes
