@@ -34,7 +34,7 @@ export class DownloadComponent {
 
   loadContentsXml () {
     let product = this._product;
-    if (product.phasedata) {
+    if (product && product.phasedata) {
       // prefer phase data when availble
       product = product.phasedata;
     }

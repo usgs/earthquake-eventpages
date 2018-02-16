@@ -55,6 +55,15 @@ describe('DownloadComponent', () => {
 
       expect(component.loadContentsXml).toHaveBeenCalled();
     });
+
+    it('uses phasedata when set', () => {
+      component.onOpen();
+      component.product = {
+        phasedata: {}
+      };
+      expect(component.service.get).toHaveBeenCalledWith(
+          component.product.phasedata);
+    });
   });
 
   describe('opened/closed', () => {
