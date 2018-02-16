@@ -33,7 +33,12 @@ export class DownloadComponent {
   }
 
   loadContentsXml () {
-    this.service.get(this._product);
+    let product = this._product;
+    if (product.phasedata) {
+      // prefer phase data when availble
+      product = product.phasedata;
+    }
+    this.service.get(product);
   }
 
   onClose () {
