@@ -15,6 +15,8 @@ export class QuakemlService {
   private quakeml: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public readonly quakeml$: Observable<any> = this.quakeml.asObservable();
 
+  public error: any = null;
+
   constructor (
     public httpClient: HttpClient
   ) { }
@@ -27,9 +29,15 @@ export class QuakemlService {
       this.httpClient.get(quakeml.url, options).pipe(
         catchError(this.handleError())
       ).subscribe((response) => {
-        this.quakeml.next(new Quakeml(xmlToJson(response)));
+        try {
+          this.quakeml.next(this.parseResponse(response));
+        } catch (e) {
+          this.error = e;
+          this.quakeml.next(null);
+        }
       });
     } catch (e) {
+      this.error = e;
       this.quakeml.next(null);
     }
   }
@@ -39,9 +47,16 @@ export class QuakemlService {
    */
   private handleError () {
     return (error: HttpErrorResponse): Observable<any> => {
+      this.error = error;
       return of(null);
     };
   }
 
+  parseResponse (response: string) {
+    if (response === null) {
+      return null;
+    }
+    return new Quakeml(xmlToJson(response));
+  }
 
 }

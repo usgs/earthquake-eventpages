@@ -3,6 +3,21 @@ import { xmlToJson } from './xml-to-json';
 
 describe('xmlToJson', () => {
 
+  it('returns null when input is empty', () => {
+    const v: any = {};
+    expect(xmlToJson(null)).toBeNull();
+    expect(xmlToJson(v.undefined)).toBeNull();
+  });
+
+  it('throws parsing errors', () => {
+    expect(() => {
+      xmlToJson('<open></close>');
+    }).toThrowError();
+    expect(() => {
+      xmlToJson('<?xml version="1.0"><bad-declaration></bad-declaration>');
+    }).toThrowError();
+  });
+
   it('parses xml strings', () => {
     const json = xmlToJson(`<?xml version="1.0"?>
       <root xmlns="something">
