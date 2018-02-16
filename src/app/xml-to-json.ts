@@ -10,15 +10,6 @@
   export function xmlToJson (xml: string|Node): any {
     // based on http://davidwalsh.name/convert-xml-json
     const obj = {};
-    const children = [];
-    let attrs,
-        attr,
-        nodes,
-        node,
-        nodeName,
-        nodeValue,
-        i,
-        len;
 
     if (!xml) {
       return null;
@@ -37,22 +28,24 @@
     }
 
     if (xml.nodeType === 1) {
-      attrs = xml.attributes;
-      for (i = 0, len = attrs.length; i < len; i++) {
-        attr = attrs.item(i);
+      const attrs = xml.attributes;
+      for (let i = 0, len = attrs.length; i < len; i++) {
+        const attr = attrs.item(i);
         obj[attr.nodeName] = attr.nodeValue;
       }
     }
 
     if (xml.hasChildNodes()) {
-      nodes = xml.childNodes;
-      for (i = 0, len = nodes.length; i < len; i++) {
-        node = nodes.item(i);
-        nodeName = node.nodeName;
+      const children = [];
+
+      const nodes = xml.childNodes;
+      for (let i = 0, len = nodes.length; i < len; i++) {
+        const node = nodes.item(i);
+        const nodeName = node.nodeName;
         if (nodeName === 'parsererror') {
           throw new Error(node.textContent);
         }
-        nodeValue = xmlToJson(node);
+        const nodeValue = xmlToJson(node);
         if (nodeValue === null) {
           // ignore whitespace-only text nodes
           continue;
@@ -67,14 +60,15 @@
           obj[nodeName].push(nodeValue);
         }
       }
+
+      // clean up '#text' nodes
+      if (children.length === 1 &&
+          obj['#text'] &&
+          Object.keys(obj).length === 1) {
+        return obj['#text'];
+      }
     }
 
-    // clean up '#text' nodes
-    if (children.length === 1 &&
-        obj['#text'] &&
-        Object.keys(obj).length === 1) {
-      return obj['#text'];
-    }
 
     return obj;
   }
