@@ -8,7 +8,6 @@ describe('QuakemlService', () => {
       injector;
 
   // Sample product to process
-  // Note: file1.json does not exist in PRODUCT, this is on purpose
   const PRODUCT = {
     contents: {
       'quakeml.xml': {url: 'url'}
