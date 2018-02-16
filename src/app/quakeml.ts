@@ -39,7 +39,9 @@ function toIndex(values: Array<any>, key: string) {
  *        json object (ala xmlToJson) of a quakeml event element.
  */
 class QuakemlEvent {
+
   // event attributes
+  public publicID: string = null;
   public catalog: string = null;
   public creationInfo: any = null;
   public eventid: string = null;
@@ -58,16 +60,12 @@ class QuakemlEvent {
   constructor(
     data: any
   ) {
-    if (!data) {
-      return;
-    }
-
     this.creationInfo = data.creationInfo;
     this.catalog = data['catalog:eventsource'];
     this.eventid = data['catalog:eventid'];
-
     this.preferredMagnitudeID = data['preferredMagnitudeID'];
     this.preferredOriginID = data['preferredOriginID'];
+    this.publicID = data['publicID'];
 
     this.magnitudes = toArray(data.magnitude);
     this.origins = toArray(data.origin);
@@ -115,10 +113,6 @@ class Quakeml {
     data: any,
     eventElementName: string = 'event'
   ) {
-    if (!data) {
-      return;
-    }
-
     const quakeml = data['q:quakeml'];
 
     // read namespaces that appear on root element,
