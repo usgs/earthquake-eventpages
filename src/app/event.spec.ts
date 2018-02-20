@@ -74,7 +74,7 @@ describe('Event', () => {
       }
     });
 
-    expect(products.origin[0].phasedata).toEqual(products['phase-data'][0])
+    expect(products.origin[0].phasedata).toEqual(products['phase-data'][0]);
   });
 
 });
