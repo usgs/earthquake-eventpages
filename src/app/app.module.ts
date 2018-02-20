@@ -16,6 +16,7 @@ import { ContentsXmlService } from './contents-xml.service';
 import { ContributorService } from './contributor.service';
 import { EventService } from './event.service';
 import { FormatterService } from './formatter.service';
+import { QuakemlService } from './quakeml.service';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { FormatterService } from './formatter.service';
     ContentsXmlService,
     ContributorService,
     EventService,
-    FormatterService
+    FormatterService,
+    QuakemlService
   ],
   bootstrap: [AppComponent]
 })

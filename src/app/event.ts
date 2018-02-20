@@ -32,6 +32,13 @@ export class Event {
     sources = getUnique(sources);
     sources.sort();
     this.sources = sources;
+
+    try {
+      // display phase-data when available
+      this.properties.products.origin.forEach((o) => {
+        o.phasedata = this.getProduct('phase-data', o.source, o.code, o.updateTime);
+      });
+    } catch (e) { }
   }
 
   /**
@@ -41,10 +48,11 @@ export class Event {
    * @param source source of product.
    * @param code code of product.
    */
-  getProduct(type: string, source?: string, code?: string): any {
+  getProduct(type: string, source?: string, code?: string, updateTime?: any): any {
     return this.getProducts(type).find((product) => {
       if ((source && product.source !== source) ||
-          (code && product.code !== code)) {
+          (code && product.code !== code) ||
+          (updateTime && product.updateTime !== updateTime)) {
         return false;
       }
       return true;
