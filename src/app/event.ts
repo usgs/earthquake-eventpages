@@ -11,7 +11,7 @@ export class Event {
   public sources: Array<string>;
 
 
-  constructor(
+  constructor (
     public data: any
   ) {
     let sources;
@@ -48,7 +48,7 @@ export class Event {
    * @param source source of product.
    * @param code code of product.
    */
-  getProduct(type: string, source?: string, code?: string, updateTime?: number): any {
+  getProduct (type: string, source?: string, code?: string, updateTime?: number): any {
     return this.getProducts(type).find((product) => {
       if ((source && product.source !== source) ||
           (code && product.code !== code) ||
@@ -68,7 +68,7 @@ export class Event {
    *
    * @param type type of product.
    */
-  getProducts(type: string): Array<any> {
+  getProducts (type: string): Array<any> {
     let products;
 
     if (!type) {
