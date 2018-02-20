@@ -48,11 +48,15 @@ export class Event {
    * @param source source of product.
    * @param code code of product.
    */
-  getProduct(type: string, source?: string, code?: string, updateTime?: any): any {
+  getProduct(type: string, source?: string, code?: string, updateTime?: number): any {
     return this.getProducts(type).find((product) => {
       if ((source && product.source !== source) ||
           (code && product.code !== code) ||
-          (updateTime && product.updateTime !== updateTime)) {
+          (
+            // zero is suspicious, but technically a valid number
+            (updateTime || updateTime === 0)
+            && product.updateTime !== updateTime
+          )) {
         return false;
       }
       return true;
