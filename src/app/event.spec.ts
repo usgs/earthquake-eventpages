@@ -49,7 +49,7 @@ describe('Event', () => {
   });
 
   it('adds "phasedata" product to origin', () => {
-    const products = {
+    const products: any = {
       'origin': [
         {
           source: 'originsource',
