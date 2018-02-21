@@ -37,6 +37,10 @@ const appRoutes = [
       {
         path: 'origin',
         loadChildren: './origin/origin.module#OriginModule'
+      },
+      {
+        path: 'impact',
+        loadChildren: './impact/impact.module#ImpactModule'
       }
     ]
   }
