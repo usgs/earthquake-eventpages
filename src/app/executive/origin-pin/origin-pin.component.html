@@ -1,0 +1,29 @@
+<ng-container *ngIf="product; else noProduct">
+  <pre>{{ toJson(product) }}</pre>
+  <mat-card>
+    <mat-card-title>
+      <h1>{{ title }}</h1>
+    </mat-card-title>
+    <mat-card-content>
+      <dl>
+        <dt>Review Status</dt>
+        <dd>{{ product.properties['review-status'] }}</dd>
+
+        <dt>Magnitude</dt>
+        <dd>{{ product.properties.magnitude }}</dd>
+
+        <dt>Depth</dt>
+        <dd>{{ product.properties.depth }}</dd>
+
+        <dt>Time</dt>
+        <dd>{{ product.properties.time | dateTime }}</dd>
+      </dl>
+    </mat-card-content>
+    <mat-card-actions>
+      <button>{{ actions }}</button>
+    </mat-card-actions>
+    <mat-card-footer>
+      <p>{{ footer }}</p>
+    </mat-card-footer>
+  </mat-card>
+</ng-container>

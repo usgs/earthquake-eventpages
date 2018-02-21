@@ -31,7 +31,8 @@ import { FileSizePipe } from './file-size.pipe';
     FileSizePipe
   ],
   exports: [
-    ProductPageComponent
+    ProductPageComponent,
+    DateTimePipe
   ]
 })
 export class ProductPageModule { }

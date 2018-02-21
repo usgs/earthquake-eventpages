@@ -1,9 +1,6 @@
-<p>
-  executive component works!
-</p>
-
-
 <ng-container *ngIf="eventService.event$ | async; let event">
+
+  <app-origin-pin></app-origin-pin>
 
   <shared-text-product
       *ngFor="let product of event.getProducts('general-text')"
