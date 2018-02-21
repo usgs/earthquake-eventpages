@@ -54,7 +54,7 @@
         if (typeof(obj[nodeName]) === 'undefined') {
           obj[nodeName] = nodeValue;
         } else {
-          if (typeof(obj[nodeName].push) === 'undefined') {
+          if (!Array.isArray(obj[nodeName])) {
             obj[nodeName] = [obj[nodeName]];
           }
           obj[nodeName].push(nodeValue);

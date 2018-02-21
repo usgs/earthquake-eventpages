@@ -48,4 +48,33 @@ describe('Event', () => {
     expect(event.getProduct('testtype', 'source1', 'code2')).toEqual(products[2]);
   });
 
+  it('adds "phasedata" product to origin', () => {
+    const products: any = {
+      'origin': [
+        {
+          source: 'originsource',
+          type: 'origin',
+          code: 'origincode',
+          updateTime: 1234
+        }
+      ],
+      'phase-data': [
+        {
+          source: 'originsource',
+          type: 'phase-data',
+          code: 'origincode',
+          updateTime: 1234
+        }
+      ]
+    };
+
+    const event = new Event({
+      properties: {
+        products: products
+      }
+    });
+
+    expect(products.origin[0].phasedata).toEqual(products['phase-data'][0]);
+  });
+
 });
