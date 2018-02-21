@@ -1,14 +1,25 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatDialog, Sort } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import { EventService } from '../../event.service';
 import { Quakeml } from '../../quakeml';
 import { QuakemlService } from '../../quakeml.service';
-import { Subscription } from 'rxjs/Subscription';
-import { Sort } from '@angular/material';
+
+import { DownloadComponent } from '../download/download.component';
 
 
-
+/**
+ * Generic compare function used by PhaseComponent.sortPhases.
+ *
+ * @param a
+ *        first object to compared.
+ * @param b
+ *        second object to compare.
+ * @param isAsc
+ *        ascending order (true) or descending order (false)
+ */
 function compare(a, b, isAsc) {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
@@ -21,6 +32,7 @@ function compare(a, b, isAsc) {
 })
 export class PhaseComponent implements OnInit, OnDestroy {
 
+  // columns to be displayed, and solumn order
   public columnsToDisplay = [
     'channel',
     'distance',
@@ -28,18 +40,37 @@ export class PhaseComponent implements OnInit, OnDestroy {
     'phase',
     'time',
     'status',
-    'residual',
-    'weight'
+    'timeResidual',
+    'timeWeight'
   ];
 
+  // labels for titles
+  public columnTitles = {
+    'azimuth': 'Azimuth',
+    'channel': 'Channel',
+    'distance': 'Distance',
+    'phase': 'Phase',
+    'status': 'Status',
+    'time': 'Arrival Time',
+    'timeResidual': 'Residual',
+    'timeWeight': 'Weight'
+  };
+
+  /** phases parsed from quakeml. */
   private phases: Array<any>;
+
+  /** phases after sorting. */
   public sortedPhases: Array<any>;
 
+  /** subscription to product observable */
   private productSubscription: Subscription;
+
+  /** subscription to quakeml observable */
   private quakemlSubscription: Subscription;
 
 
   constructor(
+    public dialog: MatDialog,
     public eventService: EventService,
     public quakemlService: QuakemlService
   ) { }
@@ -70,7 +101,32 @@ export class PhaseComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Observe selected product, and request phase-data from quakeml service.
+   * Called when download button is clicked.
+   *
+   * Show a download dialog with tab-separated value content.
+   */
+  onDownload () {
+    const header = this.columnsToDisplay.map((c) => {
+      return this.columnTitles[c];
+    }).join('\t');
+
+    const lines = this.sortedPhases.map((phase) => {
+      return this.columnsToDisplay.map((c) => {
+        return phase[c];
+      }).join('\t');
+    });
+
+    this.dialog.open(DownloadComponent, {
+      data: {
+        title: 'Download Phase Arrival Times',
+        message: 'Copy then paste into a spreadsheet application',
+        content: header + '\n' + lines.join('\n')
+      }
+    });
+  }
+
+  /**
+   * Observe selected product, request quakeml.
    *
    * @param product next product.
    */
@@ -99,8 +155,8 @@ export class PhaseComponent implements OnInit, OnDestroy {
     const originTime = new Date(origin.time.value);
 
     origin.arrival.forEach((arrival) => {
-      let pick,
-          pickTime;
+      let pick;
+      let pickTime: Date;
       try {
         pick = event.picks[arrival.pickID];
         pickTime = new Date(pick.time.value);
@@ -115,7 +171,7 @@ export class PhaseComponent implements OnInit, OnDestroy {
         distance: arrival.distance,
         phase: arrival.phase,
         status: pick.evaluationMode,
-        time: pickTime,
+        time: pickTime.toISOString(),
         timeRelative: pickTime.getTime() - originTime.getTime(),
         timeResidual: arrival.timeResidual,
         timeWeight: arrival.timeWeight

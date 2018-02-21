@@ -1,0 +1,12 @@
+
+<h3 mat-dialog-title>{{ data.title }}</h3>
+
+<mat-dialog-content>
+  {{ data.message }}
+
+  <textarea (focus)="onFocus($event)" readonly>{{ data.content }}</textarea>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Done</button>
+</mat-dialog-actions>

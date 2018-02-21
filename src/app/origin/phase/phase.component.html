@@ -1,69 +1,88 @@
 <ng-container *ngIf="eventService.event$ | async; else noEvent; let event">
   <ng-container *ngIf="quakemlService.quakeml$ | async; else noQuakeml; let quakeml">
 
-    <mat-table [dataSource]="sortedPhases" matSort (matSortChange)="sortPhases($event)">
+    <h4>Phase Arrival Times</h4>
 
+    <button (click)="onDownload()" mat-button>Download</button>
+
+    <mat-table [dataSource]="sortedPhases" matSort (matSortChange)="sortPhases($event)">
+      <!-- render order is defined by columnsToDisplay -->
       <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
       <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
 
+      <ng-container matColumnDef="azimuth">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ columnTitles.azimuth }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            {{ arrival.azimuth }}
+          </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="channel">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Channel</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ columnTitles.channel }}
+        </mat-header-cell>
         <mat-cell *matCellDef="let arrival">
           {{ arrival.channel }}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="distance">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Distance</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ columnTitles.distance }}
+        </mat-header-cell>
         <mat-cell *matCellDef="let arrival">
           {{ arrival.distance }}
         </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="azimuth">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Azimuth</mat-header-cell>
-        <mat-cell *matCellDef="let arrival">
-          {{ arrival.azimuth }}
-        </mat-cell>
-      </ng-container>
-
       <ng-container matColumnDef="phase">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Phase</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ columnTitles.phase }}
+          </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
             {{ arrival.phase }}
           </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="time">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Time</mat-header-cell>
-          <mat-cell *matCellDef="let arrival">
-            <time dateTime="{{ arrival.time.toISOString() }}">
-              {{ arrival.timeRelative / 1000 }}s
-            </time>
-          </mat-cell>
-      </ng-container>
-
       <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ columnTitles.status }}
+          </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
             {{ arrival.status }}
           </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="residual">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Residual</mat-header-cell>
+      <ng-container matColumnDef="time">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ columnTitles.time }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            <time dateTime="{{ arrival.time }}">
+              {{ arrival.timeRelative / 1000 }}s
+            </time>
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="timeResidual">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ columnTitles.timeResidual }}
+          </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
             {{ arrival.timeResidual }}
           </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="weight">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Weight</mat-header-cell>
+      <ng-container matColumnDef="timeWeight">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ columnTitles.timeWeight }}
+          </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
             {{ arrival.timeWeight }}
           </mat-cell>
       </ng-container>
-
     </mat-table>
 
   </ng-container>
