@@ -57,7 +57,7 @@ export class PhaseComponent implements OnInit, OnDestroy {
   };
 
   /** phases parsed from quakeml. */
-  private phases: Array<any>;
+  public phases: Array<any>;
 
   /** phases after sorting. */
   public sortedPhases: Array<any>;
@@ -95,6 +95,10 @@ export class PhaseComponent implements OnInit, OnDestroy {
    * @param waveformID pick waveformID
    */
   formatChannel (waveformID: any): string {
+    if (!waveformID) {
+      return null;
+    }
+
     return waveformID.networkCode + ' ' + waveformID.stationCode +
         (waveformID.channelCode ? ' ' + waveformID.channelCode : '') +
         (waveformID.locationCode ? ' ' + waveformID.locationCode : '');
@@ -204,10 +208,10 @@ export class PhaseComponent implements OnInit, OnDestroy {
         case 'channel': return compare(a.channel, b.channel, isAsc);
         case 'distance': return compare(+a.distance, +b.distance, isAsc);
         case 'phase': return compare(a.phase, b.phase, isAsc);
-        case 'residual': return compare(+a.timeResidual, +b.timeResidual, isAsc);
         case 'status': return compare(a.status, b.status, isAsc);
-        case 'time': return compare(a.time.getTime(), b.time.getTime(), isAsc);
-        case 'weight': return compare(+a.timeWeight, +b.timeWeight, isAsc);
+        case 'time': return compare(a.time, b.time, isAsc);
+        case 'timeResidual': return compare(+a.timeResidual, +b.timeResidual, isAsc);
+        case 'timeWeight': return compare(+a.timeWeight, +b.timeWeight, isAsc);
         default: return 0;
       }
     });

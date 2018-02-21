@@ -5,8 +5,11 @@ import { of } from 'rxjs/observable/of';
 import { EventService } from '../../event.service';
 import { PhaseComponent } from './phase.component';
 import { QuakemlService } from '../../quakeml.service';
-import { xmlToJson } from '../../xml-to-json';
 import { Quakeml } from '../../quakeml';
+
+import { toArray } from '../../to-array';
+import { xmlToJson } from '../../xml-to-json';
+
 
 describe('PhaseComponent', () => {
 
@@ -258,10 +261,138 @@ describe('PhaseComponent', () => {
         }
       ]);
     });
+
+    it('handles bad quakeml', () => {
+      const quakeml = new Quakeml(xmlToJson(QUAKEML_XML));
+
+      // add arrival that mis-references pick
+      const event = quakeml.events[0];
+      event.origins[0].arrival = toArray(event.origins[0].arrival);
+      event.origins[0].arrival.push({
+        'publicID': 'test public id',
+        'pickID': 'no such pick'
+      });
+
+      component.onQuakeml(quakeml);
+      expect(component.sortedPhases[1]).toEqual({
+        arrivalPublicID: 'test public id',
+        azimuth: undefined,
+        channel: null,
+        distance: undefined,
+        phase: undefined,
+        pickPublicId: undefined,
+        status: undefined,
+        time: '1970-01-01T00:00:00.000Z',
+        timeRelative: -1518720066.02,
+        timeResidual: undefined,
+        timeWeight: undefined
+      });
+    });
   });
 
   describe('sortPhases', () => {
+    const phases = [
+      {
+        azimuth: '1',
+        channel: 'b',
+        distance: '2',
+        phase: '3',
+        residual: '4',
+        status: 'c',
+        time: 'd',
+        timeResidual: '5',
+        timeWeight: '6'
+      },
+      {
+        azimuth: '2',
+        channel: 'c',
+        distance: '3',
+        phase: '4',
+        residual: '5',
+        status: 'd',
+        time: 'e',
+        timeResidual: '6',
+        timeWeight: '7'
+      },
+      {
+        azimuth: '0',
+        channel: 'a',
+        distance: '1',
+        phase: '2',
+        residual: '3',
+        status: 'b',
+        time: 'c',
+        timeResidual: '4',
+        timeWeight: '5'
+      },
+    ];
 
+    it('skips sorting unless sort is specified', () => {
+      component.phases = phases;
+
+      component.sortPhases(null);
+      expect(component.sortedPhases).toEqual(phases);
+      component.sortPhases({active: null, direction: 'asc'});
+      expect(component.sortedPhases).toEqual(phases);
+      component.sortPhases({active: 'azimuth', direction: ''});
+      expect(component.sortedPhases).toEqual(phases);
+    });
+
+    it('resets sort to default', () => {
+      component.phases = phases;
+
+      // sort
+      component.sortPhases({active: 'azimuth', direction: 'asc'});
+      expect(component.sortedPhases[0]).toEqual(phases[2]);
+      expect(component.sortedPhases[1]).toEqual(phases[0]);
+      expect(component.sortedPhases[2]).toEqual(phases[1]);
+
+      // reset
+      component.sortPhases(null);
+      expect(component.sortedPhases).toEqual(phases);
+    });
+
+    it('sorts ascending and descending', () => {
+      component.phases = phases;
+
+      // sort asc
+      component.sortPhases({active: 'azimuth', direction: 'asc'});
+      expect(component.sortedPhases[0]).toEqual(phases[2]);
+      expect(component.sortedPhases[1]).toEqual(phases[0]);
+      expect(component.sortedPhases[2]).toEqual(phases[1]);
+
+      // sort desc
+      component.sortPhases({active: 'azimuth', direction: 'desc'});
+      expect(component.sortedPhases[0]).toEqual(phases[1]);
+      expect(component.sortedPhases[1]).toEqual(phases[0]);
+      expect(component.sortedPhases[2]).toEqual(phases[2]);
+    });
+
+    it('sorts for expected columns', () => {
+      component.phases = phases;
+
+      // sort order is different for known columns
+      component.sortPhases({active: 'azimuth', direction: 'asc'});
+      expect(component.sortedPhases).not.toEqual(phases);
+      component.sortPhases({active: 'channel', direction: 'asc'});
+      expect(component.sortedPhases).not.toEqual(phases);
+      component.sortPhases({active: 'distance', direction: 'asc'});
+      expect(component.sortedPhases).not.toEqual(phases);
+      component.sortPhases({active: 'phase', direction: 'asc'});
+      expect(component.sortedPhases).not.toEqual(phases);
+      component.sortPhases({active: 'status', direction: 'asc'});
+      expect(component.sortedPhases).not.toEqual(phases);
+      component.sortPhases({active: 'time', direction: 'asc'});
+      expect(component.sortedPhases).not.toEqual(phases);
+      component.sortPhases({active: 'timeResidual', direction: 'asc'});
+      expect(component.sortedPhases).not.toEqual(phases);
+      component.sortPhases({active: 'timeWeight', direction: 'asc'});
+      expect(component.sortedPhases).not.toEqual(phases);
+
+      // sort order is default for unknown columns
+      component.sortPhases({active: 'unknown', direction: 'asc'});
+      expect(component.sortedPhases).toEqual(phases);
+    });
   });
 
 });
