@@ -12,14 +12,4 @@ export class DownloadComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
-  /**
-   * Select textarea content when focused.
-   *
-   * @param e focus event
-   */
-  onFocus(e: any) {
-    e.target.select();
-    e.target.scrollTop = 0;
-  }
-
 }

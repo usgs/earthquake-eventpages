@@ -4,7 +4,10 @@
 <mat-dialog-content>
   {{ data.message }}
 
-  <textarea (focus)="onFocus($event)" readonly>{{ data.content }}</textarea>
+  <textarea
+      (focus)="$event.target.select(); $event.target.scrollTop=0;"
+      readonly
+  >{{ data.content }}</textarea>
 </mat-dialog-content>
 
 <mat-dialog-actions>

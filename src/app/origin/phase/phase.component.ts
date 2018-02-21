@@ -8,7 +8,7 @@ import { Quakeml } from '../../quakeml';
 import { QuakemlService } from '../../quakeml.service';
 
 import { DownloadComponent } from '../download/download.component';
-
+import { toArray } from '../../to-array';
 
 /**
  * Generic compare function used by PhaseComponent.sortPhases.
@@ -131,10 +131,7 @@ export class PhaseComponent implements OnInit, OnDestroy {
    * @param product next product.
    */
   onProduct (product) {
-    if (product && product.phasedata) {
-      product = product.phasedata;
-    }
-    this.quakemlService.get(product);
+    this.quakemlService.getQuakeml(product);
   }
 
   /**
@@ -152,27 +149,30 @@ export class PhaseComponent implements OnInit, OnDestroy {
 
     const event = quakeml.events[0];
     const origin = event.preferredOrigin();
-    const originTime = new Date(origin.time.value);
+    const originTime = Quakeml.parseTime(origin.time.value);
 
-    origin.arrival.forEach((arrival) => {
+    toArray(origin.arrival).forEach((arrival) => {
       let pick;
-      let pickTime: Date;
+      let pickTime;
+
       try {
         pick = event.picks[arrival.pickID];
-        pickTime = new Date(pick.time.value);
+        pickTime = Quakeml.parseTime(pick.time.value);
       } catch (e) {
         pick = {};
         pickTime = new Date(null);
       }
 
       phases.push({
+        arrivalPublicID: arrival.publicID,
         azimuth: arrival.azimuth,
         channel: this.formatChannel(pick.waveformID),
         distance: arrival.distance,
         phase: arrival.phase,
+        pickPublicId: pick.publicID,
         status: pick.evaluationMode,
         time: pickTime.toISOString(),
-        timeRelative: pickTime.getTime() - originTime.getTime(),
+        timeRelative: Quakeml.duration(originTime, pickTime),
         timeResidual: arrival.timeResidual,
         timeWeight: arrival.timeWeight
       });

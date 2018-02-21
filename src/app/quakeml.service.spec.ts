@@ -14,6 +14,18 @@ describe('QuakemlService', () => {
     }
   };
 
+  // Sample product to process
+  const PRODUCT_WITH_PHASEDATA = {
+    contents: {
+      'quakeml.xml': {url: 'url'}
+    },
+    phasedata: {
+      contents: {
+        'quakeml.xml': {url: 'phasedata_url'}
+      }
+    }
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -37,13 +49,13 @@ describe('QuakemlService', () => {
   }));
 
 
-  describe('get', () => {
+  describe('getQuakeml', () => {
     it('handles success',
         inject([QuakemlService], (service: QuakemlService) => {
       const response = '';
 
       const spy = spyOn(service, 'parseResponse').and.returnValue({});
-      service.get(PRODUCT);
+      service.getQuakeml(PRODUCT);
       const request = httpClient.expectOne('url');
       request.flush(response);
 
@@ -56,7 +68,7 @@ describe('QuakemlService', () => {
     it('handles failure',
         inject([QuakemlService], (service: QuakemlService) => {
 
-      service.get(PRODUCT);
+      service.getQuakeml(PRODUCT);
       const request = httpClient.expectOne('url');
       request.flush('', {status: 500, statusText: 'Error'});
 
@@ -71,7 +83,7 @@ describe('QuakemlService', () => {
 
       const spy = spyOn(service, 'parseResponse').and.throwError('test error');
 
-      service.get(PRODUCT);
+      service.getQuakeml(PRODUCT);
       const request = httpClient.expectOne('url');
       request.flush('', {status: 500, statusText: 'Error'});
 
@@ -84,10 +96,23 @@ describe('QuakemlService', () => {
     it('pushes null for bad usage',
         inject([QuakemlService], (service: QuakemlService) => {
 
-      service.get(null);
+      service.getQuakeml(null);
       service.quakeml$.subscribe((parsed) => {
         expect(parsed).toBe(null);
       });
+    }));
+
+    it('prefers phasedata products',
+        inject([QuakemlService], (service: QuakemlService) => {
+
+      const response = '';
+
+      const spy = spyOn(service, 'parseResponse').and.returnValue({});
+      service.getQuakeml(PRODUCT_WITH_PHASEDATA);
+      const request = httpClient.expectOne('phasedata_url');
+      request.flush(response);
+
+      expect(spy).toHaveBeenCalled();
     }));
   });
 
