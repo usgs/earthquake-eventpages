@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DyfiSummaryComponent } from './DyfiSummary.component';
+import { DyfiSummaryComponent } from './dyfi-summary.component';
 
 describe('DyfisummaryComponent', () => {
   let component: DyfiSummaryComponent;

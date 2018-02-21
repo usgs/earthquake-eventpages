@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShakeMapSummaryComponent } from './shake-map-summary.component';
+import { ShakemapSummaryComponent } from './shakemap-summary.component';
 
 describe('ShakeMapSummaryComponent', () => {
-  let component: ShakeMapSummaryComponent;
-  let fixture: ComponentFixture<ShakeMapSummaryComponent>;
+  let component: ShakemapSummaryComponent;
+  let fixture: ComponentFixture<ShakemapSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShakeMapSummaryComponent ]
+      declarations: [ ShakemapSummaryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShakeMapSummaryComponent);
+    fixture = TestBed.createComponent(ShakemapSummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

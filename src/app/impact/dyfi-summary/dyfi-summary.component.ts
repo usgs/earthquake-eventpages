@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-DyfiSummary',
-  templateUrl: './DyfiSummary.component.html',
-  styleUrls: ['./DyfiSummary.component.css']
+  selector: 'app-dyfi-summary',
+  templateUrl: './dyfi-summary.component.html',
+  styleUrls: ['./dyfi-summary.component.css']
 })
 export class DyfiSummaryComponent implements OnInit {
 

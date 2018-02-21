@@ -4,8 +4,9 @@ import { CommonModule } from '@angular/common';
 import { ImpactRoutingModule } from './impact-routing.module';
 
 import { ImpactComponent } from './impact/impact.component';
-import { DyfiSummaryComponent } from './DyfiSummary/DyfiSummary.component';
-import { ShakeMapSummaryComponent } from './shake-map-summary/shake-map-summary.component';
+import { DyfiSummaryComponent } from './dyfi-summary/dyfi-summary.component';
+import { ShakemapSummaryComponent } from
+    './shakemap-summary/shakemap-summary.component';
 import { PagerSummaryComponent } from './pager-summary/pager-summary.component';
 
 @NgModule({
@@ -16,7 +17,7 @@ import { PagerSummaryComponent } from './pager-summary/pager-summary.component';
   declarations: [
     ImpactComponent,
     DyfiSummaryComponent,
-    ShakeMapSummaryComponent,
+    ShakemapSummaryComponent,
     PagerSummaryComponent
   ]
 })
