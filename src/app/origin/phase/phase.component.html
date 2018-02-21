@@ -1,3 +1,81 @@
-<p>
-  phase works!
-</p>
+<ng-container *ngIf="eventService.event$ | async; else noEvent; let event">
+  <ng-container *ngIf="quakemlService.quakeml$ | async; else noQuakeml; let quakeml">
+
+    <mat-table [dataSource]="getPhases(quakeml)">
+      <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+
+      <ng-container matColumnDef="channel">
+        <mat-header-cell *matHeaderCellDef>Channel</mat-header-cell>
+        <mat-cell *matCellDef="let arrival">
+          {{ arrival.waveformID?.networkCode }}
+          {{ arrival.waveformID?.stationCode }}
+          {{ arrival.waveformID?.channelCode }}
+          {{ arrival.waveformID?.locationCode }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="distance">
+        <mat-header-cell *matHeaderCellDef>Distance</mat-header-cell>
+        <mat-cell *matCellDef="let arrival">
+          {{ arrival.distance }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="azimuth">
+        <mat-header-cell *matHeaderCellDef>Azimuth</mat-header-cell>
+        <mat-cell *matCellDef="let arrival">
+          {{ arrival.azimuth }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="phase">
+          <mat-header-cell *matHeaderCellDef>Phase</mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            {{ arrival.phase }}
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="time">
+          <mat-header-cell *matHeaderCellDef>Time</mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            <time dateTime="{{ arrival.time.toISOString() }}">
+              {{ arrival.timeRelative / 1000 }}s
+            </time>
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef>Phase</mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            {{ arrival.status }}
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="residual">
+          <mat-header-cell *matHeaderCellDef>Residual</mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            {{ arrival.timeResidual }}
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="weight">
+          <mat-header-cell *matHeaderCellDef>Weight</mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            {{ arrival.timeWeight }}
+          </mat-cell>
+      </ng-container>
+
+    </mat-table>
+
+  </ng-container>
+</ng-container>
+
+<ng-template #noEvent>
+  <p>Loading event</p>
+</ng-template>
+
+<ng-template #noQuakeml>
+  <p>Loading quakeml</p>
+</ng-template>

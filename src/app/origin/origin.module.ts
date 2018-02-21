@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { OriginComponent } from './origin/origin.component';
@@ -14,6 +15,7 @@ import { MagnitudeComponent } from './magnitude/magnitude.component';
 @NgModule({
   imports: [
     CommonModule,
+    MatTableModule,
     MatTabsModule,
     ProductPageModule,
 
