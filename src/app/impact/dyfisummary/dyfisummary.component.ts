@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-dyfisummary',
-  templateUrl: './dyfisummary.component.html',
-  styleUrls: ['./dyfisummary.component.css']
+  selector: 'app-DyfiSummary',
+  templateUrl: './DyfiSummary.component.html',
+  styleUrls: ['./DyfiSummary.component.css']
 })
-export class DyfisummaryComponent implements OnInit {
+export class DyfiSummaryComponent implements OnInit {
 
   constructor() { }
 

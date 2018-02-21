@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DyfisummaryComponent } from './dyfisummary.component';
+import { DyfiSummaryComponent } from './DyfiSummary.component';
 
 describe('DyfisummaryComponent', () => {
-  let component: DyfisummaryComponent;
-  let fixture: ComponentFixture<DyfisummaryComponent>;
+  let component: DyfiSummaryComponent;
+  let fixture: ComponentFixture<DyfiSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DyfisummaryComponent ]
+      declarations: [ DyfiSummaryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DyfisummaryComponent);
+    fixture = TestBed.createComponent(DyfiSummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
