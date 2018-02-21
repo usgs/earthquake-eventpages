@@ -9,6 +9,7 @@ import { QuakemlService } from '../../quakeml.service';
 
 import { DownloadComponent } from '../download/download.component';
 import { toArray } from '../../to-array';
+import { FormatterService } from '../../formatter.service';
 
 /**
  * Generic compare function used by PhaseComponent.sortPhases.
@@ -72,6 +73,7 @@ export class PhaseComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     public eventService: EventService,
+    public formatterService: FormatterService,
     public quakemlService: QuakemlService
   ) { }
 
@@ -157,14 +159,21 @@ export class PhaseComponent implements OnInit, OnDestroy {
 
     toArray(origin.arrival).forEach((arrival) => {
       let pick;
-      let pickTime;
+      let time;
+      let timeRelative;
 
       try {
         pick = event.picks[arrival.pickID];
-        pickTime = Quakeml.parseTime(pick.time.value);
+        time = Quakeml.parseTime(pick.time.value);
       } catch (e) {
         pick = {};
-        pickTime = new Date(null);
+        time = null;
+        timeRelative = null;
+      }
+
+      if (time) {
+        timeRelative = (time.getTime() - originTime.getTime()) / 1000;
+        time = time.toISOString();
       }
 
       phases.push({
@@ -175,8 +184,8 @@ export class PhaseComponent implements OnInit, OnDestroy {
         phase: arrival.phase,
         pickPublicId: pick.publicID,
         status: pick.evaluationMode,
-        time: pickTime.toISOString(),
-        timeRelative: Quakeml.duration(originTime, pickTime),
+        time: time,
+        timeRelative: timeRelative,
         timeResidual: arrival.timeResidual,
         timeWeight: arrival.timeWeight
       });

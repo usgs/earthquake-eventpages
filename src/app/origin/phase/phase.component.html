@@ -15,7 +15,7 @@
             {{ columnTitles.azimuth }}
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
-            {{ arrival.azimuth }}
+            {{ formatterService.number(arrival.azimuth, 2, '&ndash', '&deg;') }}
           </mat-cell>
       </ng-container>
 
@@ -33,7 +33,7 @@
           {{ columnTitles.distance }}
         </mat-header-cell>
         <mat-cell *matCellDef="let arrival">
-          {{ arrival.distance }}
+          {{ formatterService.number(arrival.distance, 2, '&ndash;', '&deg;') }}
         </mat-cell>
       </ng-container>
 
@@ -60,9 +60,9 @@
             {{ columnTitles.time }}
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
-            <time dateTime="{{ arrival.time }}">
-              {{ arrival.timeRelative }}s
-            </time>
+            <abbr title="{{ arrival.time }}">
+              {{ formatterService.number(arrival.timeRelative, 1, '&ndash;', 's') }}
+            </abbr>
           </mat-cell>
       </ng-container>
 
@@ -71,7 +71,7 @@
             {{ columnTitles.timeResidual }}
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
-            {{ arrival.timeResidual }}
+            {{ formatterService.number(arrival.timeResidual, 2) }}
           </mat-cell>
       </ng-container>
 
@@ -80,7 +80,7 @@
             {{ columnTitles.timeWeight }}
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
-            {{ arrival.timeWeight }}
+            {{ formatterService.number(arrival.timeWeight, 2) }}
           </mat-cell>
       </ng-container>
     </mat-table>

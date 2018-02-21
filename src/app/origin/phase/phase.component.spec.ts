@@ -9,6 +9,7 @@ import { Quakeml } from '../../quakeml';
 
 import { toArray } from '../../to-array';
 import { xmlToJson } from '../../xml-to-json';
+import { FormatterService } from '../../formatter.service';
 
 
 describe('PhaseComponent', () => {
@@ -177,7 +178,8 @@ describe('PhaseComponent', () => {
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},
-        {provide: QuakemlService, useValue: quakemlServiceStub}
+        {provide: QuakemlService, useValue: quakemlServiceStub},
+        FormatterService
       ]
     })
     .compileComponents();
@@ -255,7 +257,7 @@ describe('PhaseComponent', () => {
           pickPublicId: 'quakeml:uu.anss.org/Arrival/UU/1907274',
           status: 'manual',
           time: '2018-02-15T18:41:08.570Z',
-          timeRelative: 2.55,
+          timeRelative: 2.550,
           timeResidual: '-.17',
           timeWeight: '0.14'
         }
@@ -282,8 +284,8 @@ describe('PhaseComponent', () => {
         phase: undefined,
         pickPublicId: undefined,
         status: undefined,
-        time: '1970-01-01T00:00:00.000Z',
-        timeRelative: -1518720066.02,
+        time: null,
+        timeRelative: null,
         timeResidual: undefined,
         timeWeight: undefined
       });

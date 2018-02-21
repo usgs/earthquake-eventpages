@@ -47,26 +47,12 @@ export class Quakeml {
   }
 
   /**
-   * Return number of seconds from start to end.
-   *
-   * @param start start of duration.
-   * @param end end of duration.
-   * @return number of seconds, or null if start/end are undefined.
-   */
-  static duration(start: Date, end: Date): number {
-    if (!end || !start) {
-      return null;
-    }
-    return (end.getTime() - start.getTime()) / 1000;
-  }
-
-  /**
    * Parse a time string using quakeml rules.
    *
    * @param time quakeml time string.
    */
-  static parseTime(time: string): Date {
-    if (time === null) {
+  static parseTime (time: string): Date {
+    if (!time) {
       return null;
     }
     if (!time.endsWith('Z')) {
