@@ -41,6 +41,10 @@ const appRoutes = [
       {
         path: 'impact',
         loadChildren: './impact/impact.module#ImpactModule'
+      },
+      {
+        path: 'technical',
+        loadChildren: './technical/technical.module#TechnicalModule'
       }
     ]
   }

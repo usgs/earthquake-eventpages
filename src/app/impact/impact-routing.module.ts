@@ -20,4 +20,6 @@ const impactRoutes: Routes = [
     RouterModule
   ]
 })
+
+
 export class ImpactRoutingModule { }
