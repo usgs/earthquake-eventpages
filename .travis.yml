@@ -23,12 +23,13 @@ install:
 
 before_script:
   - export TRAVIS_NODE_PATH=$(nvm which $TRAVIS_NODE_VERSION)
+  - echo $TRAVIS_NODE_PATH
 
 script:
-  - ng lint
-  - ng test --single-run --code-coverage
+#  - ng lint
+#  - ng test --single-run --code-coverage
   - npm run e2e
-  - ng build --prod --base-href /earthquakes/eventpage/
+#  - ng build --prod --base-href /earthquakes/eventpage/
 
 after_success:
   - cat coverage/lcov.info | codacy-coverage --verbose

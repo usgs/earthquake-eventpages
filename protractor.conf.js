@@ -9,7 +9,7 @@ const { SpecReporter } = require('jasmine-spec-reporter');
 const { spawn } = require('child_process');
 const nodePath = process.env.TRAVIS_NODE_PATH || 'node';
 console.log('TRAVIS_NODE_PATH=', nodePath);
-const mockServer = spawn(nodePath, ['e2e/mock-server.js']);
+const mockServer = spawn(nodePath, ['./e2e/mock-server.js']);
 mockServer.stdout.pipe(process.stdout);
 mockServer.stderr.pipe(process.stderr);
 process.on('exit', () => {
