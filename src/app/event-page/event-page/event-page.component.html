@@ -1,18 +1,37 @@
 <ng-container *ngIf="this.eventService.event$ | async; else noEvent; let event">
-  <event-page-header [event]="event"></event-page-header>
+  <app-hazdev-template>
+    <event-page-header [event]="event"></event-page-header>
 
-  <ng-container *ngIf="event?.properties?.status === 'deleted'">
-    <p class="error">
-      Event Deleted!
-    </p>
-  </ng-container>
 
-  <router-outlet></router-outlet>
+    <mat-nav-list templateSideNavigation>
+      <event-page-navigation class="site-sectionnav" [event]="event"></event-page-navigation>
 
-  <event-page-footer
-    [event]="event"
-    [contributors]="this.contributorService.contributors$ | async"
-  ></event-page-footer>
+      <!-- TODO :: Delete before production, these are helper links to find events -->
+      <app-navigation-group style="border-top:1px solid #ddd; display: block;">
+        <app-navigation-item display="Helper Links" navHrefLink="#" navGroupHeader></app-navigation-item>
+
+        <app-navigation-item display="Not Found" navRouterLink="/notfound"></app-navigation-item>
+        <app-navigation-item display="Unknown" navRouterLink="/unknown"></app-navigation-item>
+        <app-navigation-item display="us1000chhc" navRouterLink="/us1000chhc"></app-navigation-item>
+        <app-navigation-item display="us2000crmu" navRouterLink="/us2000crmu"></app-navigation-item>
+        <app-navigation-item display="us2000cmy3" navRouterLink="/us2000cmy3/region-info"></app-navigation-item>
+        <app-navigation-item display="nc72733850 (deleted)" navRouterLink="/nc72733850"></app-navigation-item>
+      </app-navigation-group>
+    </mat-nav-list>
+
+    <ng-container *ngIf="event?.properties?.status === 'deleted'">
+      <p class="error">
+        Event Deleted!
+      </p>
+    </ng-container>
+
+    <router-outlet></router-outlet>
+
+    <event-page-footer
+      [event]="event"
+      [contributors]="this.contributorService.contributors$ | async"
+    ></event-page-footer>
+  </app-hazdev-template>
 </ng-container>
 
 
