@@ -24,7 +24,7 @@ install:
 script:
   - ng lint
   - ng test --single-run --code-coverage
-  - ng e2e
+  - npm run e2e
   - ng build --prod --base-href /earthquakes/eventpage/
 
 after_success:

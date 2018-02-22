@@ -8,7 +8,7 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e --environment e2e --proxy-config e2e/proxy.conf.json"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +42,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "ng-apimock": "^1.4.4",
     "ng2-mock-component": "^0.1.1",
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",

@@ -1,0 +1,12 @@
+{
+  "https://earthquake.usgs.gov/earthquakes/feed/*": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/ngapimock/*": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}

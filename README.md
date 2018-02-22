@@ -30,7 +30,11 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+> NOTE: this uses `npm run` instead of `ng` in order to run using a custom `e2e` environment,
+> and mock selected api requests for more stable testing data.
+
 
 ## Further help
 

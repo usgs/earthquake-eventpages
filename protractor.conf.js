@@ -3,6 +3,15 @@
 
 const { SpecReporter } = require('jasmine-spec-reporter');
 
+// start mock proxy server
+const { spawn } = require('child_process');
+const mockServer = spawn('node', ['e2e/mock-server.js']);
+mockServer.stdout.pipe(process.stdout);
+process.on('exit', () => {
+  mockServer.kill();
+});
+
+
 exports.config = {
   allScriptsTimeout: 11000,
   specs: [
@@ -19,7 +28,12 @@ exports.config = {
     defaultTimeoutInterval: 30000,
     print: function() {}
   },
+  ngApimockOpts: {
+    angularVersion: 2,
+    hybrid: false
+  },
   onPrepare() {
+    browser.ngApimock = require('./.tmp/ngApimock/protractor.mock.js');
     require('ts-node').register({
       project: 'e2e/tsconfig.e2e.json'
     });
