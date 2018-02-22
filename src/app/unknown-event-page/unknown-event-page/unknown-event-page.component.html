@@ -1,3 +1,28 @@
-<header>
-  <h1>Unknown Event</h1>
-</header>
+<app-hazdev-template TITLE="Unknown Event">
+
+
+  <mat-nav-list templateSideNavigation>
+    <a templateSideNavigation class="up-one-level"
+        href="/earthquakes/map/">Latest Earthquakes</a>
+
+    <!-- TODO :: Delete before production, these are helper links to find events -->
+    <app-navigation-group>
+      <app-navigation-item navGroupHeader display="Helper Links"
+          navHrefLink="#" ></app-navigation-item>
+
+      <app-navigation-item display="Not Found"
+          navRouterLink="/notfound"></app-navigation-item>
+      <app-navigation-item display="Unknown"
+          navRouterLink="/unknown"></app-navigation-item>
+      <app-navigation-item display="us1000chhc"
+          navRouterLink="/us1000chhc"></app-navigation-item>
+      <app-navigation-item display="us2000crmu"
+          navRouterLink="/us2000crmu"></app-navigation-item>
+      <app-navigation-item display="us2000cmy3"
+          navRouterLink="/us2000cmy3/region-info"></app-navigation-item>
+      <app-navigation-item display="nc72733850 (deleted)"
+          navRouterLink="/nc72733850"></app-navigation-item>
+    </app-navigation-group>
+  </mat-nav-list>
+
+</app-hazdev-template>
