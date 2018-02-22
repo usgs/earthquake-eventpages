@@ -7,9 +7,8 @@ const { SpecReporter } = require('jasmine-spec-reporter');
 
 // start mock proxy server
 const { spawn } = require('child_process');
-const mockServer = spawn('node', ['e2e/mock-server.js'], {
-  env: process.env
-});
+const nodePath = process.env.TRAVIS_NODE_PATH || 'node';
+const mockServer = spawn(nodePath, ['e2e/mock-server.js']);
 mockServer.stdout.pipe(process.stdout);
 process.on('exit', () => {
   mockServer.kill();

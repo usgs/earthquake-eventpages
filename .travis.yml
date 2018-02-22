@@ -21,6 +21,9 @@ install:
   - npm install -g angular-cli codacy-coverage
   - npm install
 
+before_script:
+  - export TRAVIS_NODE_PATH=$(nvm which $TRAVIS_NODE_VERSION)
+
 script:
   - ng lint
   - ng test --single-run --code-coverage
