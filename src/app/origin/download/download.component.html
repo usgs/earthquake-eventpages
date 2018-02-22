@@ -1,0 +1,15 @@
+
+<h3 mat-dialog-title>{{ data.title }}</h3>
+
+<mat-dialog-content>
+  {{ data.message }}
+
+  <textarea
+      (focus)="$event.target.select(); $event.target.scrollTop=0;"
+      readonly
+  >{{ data.content }}</textarea>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Done</button>
+</mat-dialog-actions>

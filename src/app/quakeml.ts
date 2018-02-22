@@ -46,4 +46,20 @@ export class Quakeml {
     });
   }
 
+  /**
+   * Parse a time string using quakeml rules.
+   *
+   * @param time quakeml time string.
+   */
+  static parseTime (time: string): Date {
+    if (!time) {
+      return null;
+    }
+    if (!time.endsWith('Z')) {
+      // quakeml doesn't require Z for UTC; javascript does
+      time = time + 'Z';
+    }
+    return new Date(time);
+  }
+
 }

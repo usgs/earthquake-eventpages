@@ -9,7 +9,6 @@ describe('DetailComponent', () => {
 
   beforeEach(async(() => {
     const eventServiceStub = {
-      empty: jasmine.createSpy('eventService::empty'),
       getEvent: jasmine.createSpy('eventService::getEvent'),
       getProduct: jasmine.createSpy('eventService::getProduct')
     };

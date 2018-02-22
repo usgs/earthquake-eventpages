@@ -1,3 +1,103 @@
-<p>
-  phase works!
-</p>
+<ng-container *ngIf="eventService.event$ | async; else noEvent; let event">
+  <ng-container *ngIf="quakemlService.quakeml$ | async; else noQuakeml; let quakeml">
+
+    <h4>Phase Arrival Times</h4>
+
+    <button (click)="onDownload()" mat-button>Download</button>
+
+    <mat-table [dataSource]="sortedPhases" matSort (matSortChange)="sortPhases($event)">
+      <!-- render order is defined by columnsToDisplay -->
+      <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+      <ng-container matColumnDef="azimuth">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ columnTitles.azimuth }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            {{ formatterService.number(arrival.azimuth, 2, '&ndash', '&deg;') }}
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="channel">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ columnTitles.channel }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let arrival">
+          {{ arrival.channel }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="distance">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ columnTitles.distance }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let arrival">
+          {{ formatterService.number(arrival.distance, 2, '&ndash;', '&deg;') }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="phase">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ columnTitles.phase }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            {{ arrival.phase }}
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ columnTitles.status }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            {{ arrival.status }}
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="time">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ columnTitles.time }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            <abbr title="{{ arrival.time }}">
+              {{ formatterService.number(arrival.timeRelative, 1, '&ndash;', 's') }}
+            </abbr>
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="timeResidual">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ columnTitles.timeResidual }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            {{ formatterService.number(arrival.timeResidual, 2) }}
+          </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="timeWeight">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ columnTitles.timeWeight }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let arrival">
+            {{ formatterService.number(arrival.timeWeight, 2) }}
+          </mat-cell>
+      </ng-container>
+    </mat-table>
+
+  </ng-container>
+</ng-container>
+
+<ng-template #noEvent>
+  <p>Loading event</p>
+</ng-template>
+
+<ng-template #noQuakeml>
+  <ng-container *ngIf="quakemlService.error; else loadingQuakeml; let error">
+    <p class="alert info">No phase information available.</p>
+  </ng-container>
+</ng-template>
+
+<ng-template #loadingQuakeml>
+  <p>Loading quakeml</p>
+</ng-template>

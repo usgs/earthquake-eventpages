@@ -163,4 +163,18 @@ describe('Quakeml', () => {
     expect(parsedEvent.preferredOrigin()).toEqual(parsedEvent.origins[0]);
   });
 
+  describe('parseTime', () => {
+    it('parses times with timezones', () => {
+      expect(Quakeml.parseTime('2017-01-01T00:00:00Z').toISOString()).toEqual('2017-01-01T00:00:00.000Z');
+    });
+
+    it('parses times without timezones', () => {
+      expect(Quakeml.parseTime('2017-01-01T00:00:00').toISOString()).toEqual('2017-01-01T00:00:00.000Z');
+    });
+
+    it('returns null for falsey inputs', () => {
+      expect(Quakeml.parseTime(undefined)).toBeNull();
+    });
+  });
+
 });

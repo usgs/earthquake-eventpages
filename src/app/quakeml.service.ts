@@ -21,8 +21,11 @@ export class QuakemlService {
     public httpClient: HttpClient
   ) { }
 
-  get (product: any): void {
+  getQuakeml (product: any): void {
     try {
+      if (product.phasedata) {
+        product = product.phasedata;
+      }
       const quakeml = product.contents['quakeml.xml'];
       const options = {responseType: 'text' as 'text'};
 

@@ -24,6 +24,8 @@ export class EventService {
   private productSource: string;
   private productCode: string;
 
+  private product = new BehaviorSubject<any>(null);
+  public readonly product$: Observable<any> = this.product.asObservable();
 
   constructor (
     private http: HttpClient
@@ -124,11 +126,13 @@ export class EventService {
    */
   private updateProduct(): void {
     const event = this.event.getValue();
-    event.product = event.getProduct(
+    const product = event.getProduct(
       this.productType,
       this.productSource,
       this.productCode
     );
+    event.product = product;
+    this.product.next(product);
   }
 
 }
