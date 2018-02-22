@@ -22,14 +22,15 @@ install:
   - npm install
 
 before_script:
-  - export TRAVIS_NODE_PATH=$(nvm which $TRAVIS_NODE_VERSION)
-  - echo $TRAVIS_NODE_PATH
+  - TRAVIS_NODE_PATH=$(dirname $(nvm which $TRAVIS_NODE_VERSION))
+  - export PATH="${PATH}:${TRAVIS_NODE_PATH}"
 
 script:
 #  - ng lint
 #  - ng test --single-run --code-coverage
-  - pwd
-  - ls -al *
+  - which node
+  - which npm
+  - echo $PATH
   - npm run e2e
 #  - ng build --prod --base-href /earthquakes/eventpage/
 

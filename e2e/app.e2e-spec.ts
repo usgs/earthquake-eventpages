@@ -13,7 +13,7 @@ describe('earthquake-eventpages App', () => {
     expect(page.getEventPageHeaderTitle()).toEqual('Unknown Event');
   });
 
-  it('should display actual event title', async() => {
+  it('should display actual event title', () => {
     // mock response for event data to e2e/data/us1000chhc.geojson
     browser.ngApimock.selectScenario('eventService', 'us1000chhc');
 
