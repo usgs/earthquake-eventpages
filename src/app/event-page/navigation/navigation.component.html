@@ -1,0 +1,72 @@
+<ng-container *ngIf="event">
+
+  <a templateSideNavigation class="up-one-level"
+      href="/earthquakes/map/">Latest Earthquakes</a>
+
+  <app-navigation-group>
+    <app-navigation-item navGroupHeader display="Overview"
+        navRouterLink="executive"></app-navigation-item>
+
+    <app-navigation-item display="Interactive Map" class="not-supported"
+        navRouterLink="map"></app-navigation-item>
+    <app-navigation-item display="Regional Information"
+        navRouterLink="region-info"></app-navigation-item>
+  </app-navigation-group>
+
+  <app-navigation-group *ngIf="hasImpact(event); else noImpact">
+    <app-navigation-item navGroupHeader display="Impact" class="not-supported"
+        navRouterLink="impact"></app-navigation-item>
+
+    <app-navigation-item display="Felt Report - Tell Us!" class="not-supported"
+        navRouterLink="tellus"></app-navigation-item>
+    <app-navigation-item *ngIf="event.hasProductType(['dyfi'])"
+        display="Did You Feel It?" class="not-supported"
+        navRouterLink="dyfi"></app-navigation-item>
+    <app-navigation-item *ngIf="event.hasProductType(['shakemap'])"
+        display="ShakeMap" class="not-supported"
+        navRouterLink="shakemap"></app-navigation-item>
+    <app-navigation-item *ngIf="event.hasProductType(['losspager'])"
+        display="PAGER" class="not-supported"
+        navRouterLink="pager"></app-navigation-item>
+  </app-navigation-group>
+
+  <app-navigation-group *ngIf="hasScientific(event)">
+    <app-navigation-item navGroupHeader
+        display="Technical" class="not-supported"
+        navRouterLink="scientific"></app-navigation-item>
+
+    <app-navigation-item *ngIf="event.hasProductType(['origin', 'phase-data'])"
+        display="Origin"
+        navRouterLink="origin"></app-navigation-item>
+    <app-navigation-item *ngIf="event.hasProductType(['moment-tensor'])"
+        display="Moment Tensor" class="not-supported"
+        navRouterLink="moment-tensor"></app-navigation-item>
+    <app-navigation-item *ngIf="event.hasProductType(['focal-mechanism'])"
+        display="Focal Mechanism" class="not-supported"
+        navRouterLink="focal-mechanism"></app-navigation-item>
+    <app-navigation-item *ngIf="event.hasProductType(['finite-fault'])"
+        display="Finite Fault" class="not-supported"
+        navRouterLink="finite-fault"></app-navigation-item>
+    <app-navigation-item display="Waveforms" class="not-supported"
+        navRouterLink="waveforms"></app-navigation-item>
+    <app-navigation-item *ngIf="event.hasProductType(['oaf'])"
+        display="Aftershock Forecast" class="not-supported"
+        navRouterLink="oaf"></app-navigation-item>
+  </app-navigation-group>
+
+  <app-navigation-item display="Download Event KML"
+      navHrefLink="{{ getKmlLink(event) }}"></app-navigation-item>
+  <app-navigation-item display="View Nearby Seismicity"
+      navHrefLink="{{ getNearbySeismicityLink(event) }}"></app-navigation-item>
+
+
+  <ng-template #noImpact>
+    <app-navigation-item display="Felt Report - Tell Us!" class="not-supported"
+        navRouterLink="tellus"></app-navigation-item>
+  </ng-template>
+
+  <ng-template #noTechnical>
+    <app-navigation-item display="Waveforms" class="not-supported"
+        navRouterLink="waveforms"></app-navigation-item>
+  </ng-template>
+</ng-container>
