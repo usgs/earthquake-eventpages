@@ -1,0 +1,17 @@
+<ng-container *ngIf="content$ | async; else noContent; let content">
+
+  <section class="text-product" data-id="{{ product?.id }}"
+      [innerHTML]="replaceRelativePaths(content)">
+  </section>
+
+</ng-container>
+
+<ng-template #noContent>
+  <ng-container *ngIf="error; else loadingContent">
+    <p class="alert error">{{ error }}</p>
+  </ng-container>
+</ng-template>
+
+<ng-template #loadingContent>
+  <p class="alert info">Loading product</p>
+</ng-template>

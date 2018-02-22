@@ -77,4 +77,35 @@ describe('Event', () => {
     expect(products.origin[0].phasedata).toEqual(products['phase-data'][0]);
   });
 
+  it('checks whether products exist', () => {
+    const products: any = {
+      'origin': [
+        {
+          source: 'originsource',
+          type: 'origin',
+          code: 'origincode',
+          updateTime: 1234
+        }
+      ],
+      'phase-data': [
+        {
+          source: 'originsource',
+          type: 'phase-data',
+          code: 'origincode',
+          updateTime: 1234
+        }
+      ]
+    };
+
+    const event = new Event({
+      properties: {
+        products: products
+      }
+    });
+
+    expect(event.hasProducts('origin')).toBeTruthy();
+    expect(event.hasProducts('phase-data')).toBeTruthy();
+    expect(event.hasProducts('anothertype')).not.toBeTruthy();
+  });
+
 });

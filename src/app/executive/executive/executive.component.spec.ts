@@ -1,14 +1,27 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExecutiveComponent } from './executive.component';
+import { MockComponent } from 'ng2-mock-component';
+import { EventService } from '../../event.service';
 
 describe('ExecutiveComponent', () => {
   let component: ExecutiveComponent;
   let fixture: ComponentFixture<ExecutiveComponent>;
 
   beforeEach(async(() => {
+    const eventServiceStub = {
+      getEvent: jasmine.createSpy('eventService::getEvent')
+    };
+
     TestBed.configureTestingModule({
-      declarations: [ ExecutiveComponent ]
+      declarations: [
+        ExecutiveComponent,
+        MockComponent({ selector: 'shared-link-product', inputs: ['product']}),
+        MockComponent({ selector: 'shared-text-product', inputs: ['product']})
+      ],
+      providers: [
+        { provide: EventService, useValue: eventServiceStub }
+      ]
     })
     .compileComponents();
   }));
