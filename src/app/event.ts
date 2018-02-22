@@ -84,4 +84,9 @@ export class Event {
     return products;
   }
 
+  hasProducts (type: string): boolean {
+    const products = this.getProducts(type);
+    return products.length > 0;
+  }
+
 }

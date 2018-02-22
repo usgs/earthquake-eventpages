@@ -16,6 +16,7 @@ describe('ExecutiveComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ExecutiveComponent,
+        MockComponent({ selector: 'shared-link-product', inputs: ['product']}),
         MockComponent({ selector: 'shared-text-product', inputs: ['product']})
       ],
       providers: [
