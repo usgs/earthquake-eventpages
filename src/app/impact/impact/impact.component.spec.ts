@@ -13,9 +13,9 @@ describe('ImpactComponent', () => {
       declarations: [
         ImpactComponent,
 
-        MockComponent({selector: 'app-dyfi-summary'}),
-        MockComponent({selector: 'app-pager-summary'}),
-        MockComponent({selector: 'app-shakemap-summary'})
+        MockComponent({selector: 'app-impact-dyfi-summary'}),
+        MockComponent({selector: 'app-impact-pager-summary'}),
+        MockComponent({selector: 'app-impact-shakemap-summary'})
       ],
       imports: [
         RouterTestingModule

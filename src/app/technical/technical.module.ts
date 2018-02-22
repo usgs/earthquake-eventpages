@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { TechnicalRoutingModule } from './technical-routing.module';
 
 import { TechnicalComponent } from './technical/technical.component';
-import { OriginSummaryComponent } from './origin-summary/origin-summary.component';
-import { MomentTensorSummaryComponent } from './moment-tensor-summary/moment-tensor-summary.component';
+import { TechnicalOriginSummaryComponent } from './technical-origin-summary/origin-summary.component';
+import { TechnicalMomentTensorSummaryComponent } from './technical-moment-tensor-summary/moment-tensor-summary.component';
 
 
 @NgModule({
@@ -15,8 +15,8 @@ import { MomentTensorSummaryComponent } from './moment-tensor-summary/moment-ten
   ],
   declarations: [
     TechnicalComponent,
-    OriginSummaryComponent,
-    MomentTensorSummaryComponent
+    TechnicalOriginSummaryComponent,
+    TechnicalMomentTensorSummaryComponent
   ]
 })
 

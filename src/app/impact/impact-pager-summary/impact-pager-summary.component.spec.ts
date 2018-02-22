@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PagerSummaryComponent } from './pager-summary.component';
+import { ImpactPagerSummaryComponent } from './impact-pager-summary.component';
 
-describe('PagerSummaryComponent', () => {
-  let component: PagerSummaryComponent;
-  let fixture: ComponentFixture<PagerSummaryComponent>;
+describe('ImpactPagerSummaryComponent', () => {
+  let component: ImpactPagerSummaryComponent;
+  let fixture: ComponentFixture<ImpactPagerSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PagerSummaryComponent ]
+      declarations: [ ImpactPagerSummaryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PagerSummaryComponent);
+    fixture = TestBed.createComponent(ImpactPagerSummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
