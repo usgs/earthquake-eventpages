@@ -29,7 +29,7 @@ script:
 #  - ng lint
 #  - ng test --single-run --code-coverage
   - pwd
-  - ls -al
+  - ls -al *
   - npm run e2e
 #  - ng build --prod --base-href /earthquakes/eventpage/
 
