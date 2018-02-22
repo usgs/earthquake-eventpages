@@ -9,12 +9,12 @@ describe('earthquake-eventpages App', () => {
 
   it('should display unknown event title', () => {
     page.navigateTo();
-    expect(page.getEventPageHeaderTitle()).toEqual('Unknown Event');
+    expect(page.getUnknownPageHeaderTitle()).toEqual('Unknown Event');
   });
 
   it('should display actual event title', () => {
     // TODO :: Stub this data and mock http so results come back consistent
     page.navigateTo('/us1000chhc');
-    expect(page.getEventPageHeaderTitle()).toEqual('M 6.4 - 17km NNE of Hualian, Taiwan');
+    expect(page.getEventPageHeaderTitle()).toEqual('M 6.4 - 18km NNE of Hualian, Taiwan');
   });
 });
