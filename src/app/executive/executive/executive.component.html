@@ -1,3 +1,13 @@
 <p>
   executive component works!
 </p>
+
+
+<ng-container *ngIf="eventService.event$ | async; let event">
+
+  <shared-text-product
+      *ngFor="let product of event.getProducts('general-text')"
+      [product]="product">
+  </shared-text-product>
+
+</ng-container>
