@@ -12,6 +12,9 @@ console.log('TRAVIS_NODE_PATH=', nodePath);
 const mockServer = spawn(nodePath, ['./e2e/mock-server.js'], {
   env: process.env
 });
+mockServer.on('error', (err) => {
+  console.error(err);
+});
 mockServer.stdout.pipe(process.stdout);
 mockServer.stderr.pipe(process.stderr);
 process.on('exit', () => {
