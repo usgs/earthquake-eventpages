@@ -19,13 +19,13 @@
 
     <app-navigation-item display="Felt Report - Tell Us!" class="not-supported"
         navRouterLink="tellus"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProductType(['dyfi'])"
+    <app-navigation-item *ngIf="event.hasProducts('dyfi')"
         display="Did You Feel It?" class="not-supported"
         navRouterLink="dyfi"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProductType(['shakemap'])"
+    <app-navigation-item *ngIf="event.hasProducts('shakemap')"
         display="ShakeMap" class="not-supported"
         navRouterLink="shakemap"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProductType(['losspager'])"
+    <app-navigation-item *ngIf="event.hasProducts('losspager')"
         display="PAGER" class="not-supported"
         navRouterLink="pager"></app-navigation-item>
   </app-navigation-group>
@@ -35,21 +35,21 @@
         display="Technical" class="not-supported"
         navRouterLink="scientific"></app-navigation-item>
 
-    <app-navigation-item *ngIf="event.hasProductType(['origin', 'phase-data'])"
+    <app-navigation-item *ngIf="event.hasProducts(['origin', 'phase-data'])"
         display="Origin"
         navRouterLink="origin"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProductType(['moment-tensor'])"
+    <app-navigation-item *ngIf="event.hasProducts('moment-tensor')"
         display="Moment Tensor" class="not-supported"
         navRouterLink="moment-tensor"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProductType(['focal-mechanism'])"
+    <app-navigation-item *ngIf="event.hasProducts('focal-mechanism')"
         display="Focal Mechanism" class="not-supported"
         navRouterLink="focal-mechanism"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProductType(['finite-fault'])"
+    <app-navigation-item *ngIf="event.hasProducts('finite-fault')"
         display="Finite Fault" class="not-supported"
         navRouterLink="finite-fault"></app-navigation-item>
     <app-navigation-item display="Waveforms" class="not-supported"
         navRouterLink="waveforms"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProductType(['oaf'])"
+    <app-navigation-item *ngIf="event.hasProducts('oaf')"
         display="Aftershock Forecast" class="not-supported"
         navRouterLink="oaf"></app-navigation-item>
   </app-navigation-group>

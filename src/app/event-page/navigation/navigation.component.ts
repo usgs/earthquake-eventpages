@@ -125,7 +125,7 @@ export class NavigationComponent implements OnInit {
   }
 
   hasImpact (event: Event) {
-    return event.hasProductType([
+    return event.hasProducts([
       'dyfi',
       'impact-text',
       'impact-link',
@@ -135,7 +135,7 @@ export class NavigationComponent implements OnInit {
   }
 
   hasScientific (event: Event) {
-    return event.hasProductType([
+    return event.hasProducts([
       'origin',
       'phase-data',
       'moment-tensor',
