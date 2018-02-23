@@ -9,7 +9,7 @@ describe('earthquake-eventpages App', () => {
 
   it('should display unknown event title', () => {
     page.navigateTo();
-    expect(page.getEventPageHeaderTitle()).toEqual('Unknown Event');
+    expect(page.getUnknownPageHeaderTitle()).toEqual('Unknown Event');
   });
 
   it('should display actual event title', () => {

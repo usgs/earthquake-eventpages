@@ -5,7 +5,11 @@ export class AppPage {
     return browser.get(path);
   }
 
-  getEventPageHeaderTitle() {
+  getUnknownPageHeaderTitle () {
     return element(by.css('app-root h1')).getText();
+  }
+
+  getEventPageHeaderTitle () {
+    return element(by.css('event-page-header > header > h1')).getText();
   }
 }
