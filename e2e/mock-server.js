@@ -1,7 +1,6 @@
 const express = require('express');
 const fs = require('fs');
 const ngApimock = require('ng-apimock');
-const path = require('path');
 
 
 // Register all available mocks and generate interface
@@ -18,10 +17,10 @@ app.use(require('ng-apimock/lib/utils').ngApimockRequest);
 // serve the mocking interface for local development
 app.use('/mocking', express.static('.tmp/ngApimock'));
 
-
-if (fs.existsSync('.tmp/ngApimock.sock')) {
-  fs.unlinkSync('.tmp/ngApimock.sock');
+const mockSocket = '.tmp/ngApimock.sock';
+if (fs.existsSync(mockSocket)) {
+  fs.unlinkSync(mockSocket);
 }
 app.listen(mockSocket, () => {
- process.stdout.write('ngApimock running on .tmp/ngApimock.sock\n');
+  process.stdout.write(`ngApimock running on ${mockSocket}\n`);
 });
