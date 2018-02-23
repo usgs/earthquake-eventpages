@@ -5,18 +5,15 @@
 
 const { SpecReporter } = require('jasmine-spec-reporter');
 
-const { spawn } = require('child_process');
-
 
 console.log('starting mock server');
-const mockServer = spawn('node', ['./e2e/mock-server.js'], {
-  env: process.env
-});
-mockServer.stdout.pipe(process.stdout);
+const { spawn } = require('child_process');
+const mockServer = spawn('node', ['./e2e/mock-server.js']);
 process.on('exit', () => {
   console.log('stopping mock server');
   mockServer.kill();
 });
+mockServer.stdout.pipe(process.stdout);
 
 
 exports.config = {
@@ -35,12 +32,10 @@ exports.config = {
     defaultTimeoutInterval: 30000,
     print: function() {}
   },
-
   ngApimockOpts: {
     angularVersion: 2,
     hybrid: false
   },
-
   onPrepare () {
     // this is generated during beforeLaunch()
     browser.ngApimock = require('./.tmp/ngApimock/protractor.mock.js');
@@ -49,5 +44,4 @@ exports.config = {
     });
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
   }
-
 };

@@ -3,7 +3,7 @@
     "target": {
       "socketPath": ".tmp/ngApimock.sock"
     },
-    "secure": true,
+    "secure": false,
     "logLevel": "debug"
   },
   "/ngapimock": {
