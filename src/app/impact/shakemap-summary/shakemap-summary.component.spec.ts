@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ImpactDyfiSummaryComponent } from './impact-dyfi-summary.component';
+import { ShakemapSummaryComponent } from './shakemap-summary.component';
 
-describe('ImpactDyfisummaryComponent', () => {
-  let component: ImpactDyfiSummaryComponent;
-  let fixture: ComponentFixture<ImpactDyfiSummaryComponent>;
+describe('ShakeMapSummaryComponent', () => {
+  let component: ShakemapSummaryComponent;
+  let fixture: ComponentFixture<ShakemapSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImpactDyfiSummaryComponent ]
+      declarations: [ ShakemapSummaryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ImpactDyfiSummaryComponent);
+    fixture = TestBed.createComponent(ShakemapSummaryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

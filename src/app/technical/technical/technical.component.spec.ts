@@ -13,8 +13,8 @@ describe('TechnicalComponent', () => {
       declarations: [
         TechnicalComponent,
 
-        MockComponent({selector: 'app-technical-moment-tensor-summary'}),
-        MockComponent({selector: 'app-technical-origin-summary'})
+        MockComponent({selector: 'technical-moment-tensor-summary'}),
+        MockComponent({selector: 'technical-origin-summary'})
       ],
       imports: [
         RouterTestingModule
