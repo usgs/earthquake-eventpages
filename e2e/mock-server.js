@@ -6,9 +6,9 @@ const path = require('path');
 
 // Register all available mocks and generate interface
 ngApimock().run({
-  "src": "e2e/mocks",
-  "outputDir": ".tmp/ngApimock",
-  "done": function() {}
+  src: 'e2e/mocks',
+  outputDir: '.tmp/ngApimock',
+  done: () => {}
 });
 
 
@@ -19,10 +19,9 @@ app.use(require('ng-apimock/lib/utils').ngApimockRequest);
 app.use('/mocking', express.static('.tmp/ngApimock'));
 
 
-const mockSocket = '.tmp/ngApimock.sock';
-if (fs.existsSync(mockSocket)) {
-  fs.unlinkSync(mockSocket);
+if (fs.existsSync('.tmp/ngApimock.sock')) {
+  fs.unlinkSync('.tmp/ngApimock.sock');
 }
-app.listen(mockSocket, function() {
- console.log('ngApimock running on ' + mockSocket);
+app.listen(mockSocket, () => {
+ process.stdout.write('ngApimock running on .tmp/ngApimock.sock\n');
 });
