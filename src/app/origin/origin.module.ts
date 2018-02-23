@@ -9,10 +9,10 @@ import { ProductPageModule } from '../product-page/product-page.module';
 import { OriginRoutingModule } from './origin-routing.module';
 
 import { DetailComponent } from './detail/detail.component';
-import { DownloadComponent } from './download/download.component';
 import { MagnitudeComponent } from './magnitude/magnitude.component';
 import { OriginComponent } from './origin/origin.component';
 import { PhaseComponent } from './phase/phase.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -23,18 +23,15 @@ import { PhaseComponent } from './phase/phase.component';
     MatTableModule,
     MatTabsModule,
     ProductPageModule,
+    SharedModule,
 
     OriginRoutingModule
   ],
   declarations: [
     DetailComponent,
-    DownloadComponent,
     MagnitudeComponent,
     OriginComponent,
     PhaseComponent
-  ],
-  entryComponents: [
-    DownloadComponent
   ]
 })
 export class OriginModule {
