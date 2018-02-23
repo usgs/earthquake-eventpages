@@ -1,29 +1,33 @@
-<ng-container *ngIf="product; else noProduct">
-  <pre>{{ toJson(product) }}</pre>
-  <mat-card>
+<ng-container *ngIf="product">
+  <mat-card [routerLink]="'../origin'">
     <mat-card-title>
-      <h1>{{ title }}</h1>
+      {{ title }}
     </mat-card-title>
+    <mat-card-subtitle>
+      Contributed by {{ product.source }}
+    </mat-card-subtitle>
     <mat-card-content>
       <dl>
         <dt>Review Status</dt>
-        <dd>{{ product.properties['review-status'] }}</dd>
+        <dd>{{ product.properties['review-status'].toUpperCase() }}</dd>
 
         <dt>Magnitude</dt>
-        <dd>{{ product.properties.magnitude }}</dd>
+        <dd>{{ product.properties.magnitude }} {{ product.properties['magnitude-type'] }}</dd>
 
         <dt>Depth</dt>
-        <dd>{{ product.properties.depth }}</dd>
+        <dd>{{ this.formatterService.depth(product.properties.depth, 'km') }}</dd>
 
         <dt>Time</dt>
-        <dd>{{ product.properties.time | dateTime }}</dd>
+        <dd>{{ product.properties.eventtime | date:"yyyy-MM-dd HH:mm:ss":"UTC" }} (UTC)</dd>
       </dl>
     </mat-card-content>
     <mat-card-actions>
-      <button>{{ actions }}</button>
+      <a mat-button color="primary" [routerLink]="'../origin'">View Origin Details</a>
     </mat-card-actions>
+<!--
     <mat-card-footer>
-      <p>{{ footer }}</p>
+      <span>Contributed by {{ product.source }}</span>
     </mat-card-footer>
+ -->
   </mat-card>
 </ng-container>

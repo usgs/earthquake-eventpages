@@ -1,28 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
 
-import { DateTimePipe } from '../../product-page/date-time.pipe';
 import { EventService } from '../../event.service';
+import { FormatterService } from '../../formatter.service';
+
 import { Event } from '../../event';
 
 @Component({
   selector: 'app-origin-pin',
   templateUrl: './origin-pin.component.html',
-  styleUrls: ['./origin-pin.component.css']
+  styleUrls: ['./origin-pin.component.scss']
 })
 export class OriginPinComponent implements OnInit {
-  title: string = 'Title';
-  content: string = 'Content ...';
-  actions: string = 'Press Me';
-  footer: string = 'Footer';
-  product: any;
+  title: string = 'Origin';
 
   // keep track of event subscription
   private eventServiceSubscription: Subscription;
 
   constructor(
-    public eventService: EventService
+    public eventService: EventService,
+    public formatterService: FormatterService
   ) { }
 
   ngOnInit () {

@@ -1,0 +1,31 @@
+mat-card {
+  cursor: pointer;
+}
+
+mat-card:hover {
+  background: rgba(0,0,0,0.03);
+}
+
+mat-card:active {
+  background: rgba(0,0,0,0.1);
+}
+
+mat-card-content {
+  margin: 2em 0;
+}
+
+mat-card-footer {
+  border-top: 1px solid #ededed;
+  margin: 0;
+  padding: 1em 0 0;
+  text-align: center;
+}
+
+dt {
+  font-weight: 500;
+}
+
+dd {
+  margin: 0.25em 0 1em;
+  padding: 0;
+}

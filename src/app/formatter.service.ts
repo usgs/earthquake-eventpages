@@ -83,12 +83,14 @@ export class FormatterService {
    *
    * @return {String}
    */
-  depth (depth: number, units?: string, error?: number) {
+  depth (depth: number, units?: string, precision?: number, error?: number) {
     let number,
         uncertainty;
 
-    number = this.number(depth, this.depthDecimals, this.empty, units);
-    uncertainty = this.uncertainty(error, this.depthDecimals, '');
+    precision = precision ? precision : this.depthDecimals;
+    number = this.number(depth, precision, this.empty, units);
+    uncertainty = this.uncertainty(error, precision, '');
+
     return number + uncertainty;
   }
 

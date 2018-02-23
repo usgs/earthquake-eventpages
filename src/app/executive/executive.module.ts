@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MatCard,
-  MatCardTitle,
-  MatCardTitleGroup,
-  MatCardContent,
-  MatCardImage,
-  MatCardActions,
-  MatCardFooter
+  MatButtonModule,
+  MatCardModule,
+  MatDividerModule,
+  MatListModule
 } from '@angular/material';
+import { RouterModule } from '@angular/router';
+
 
 import { ExecutiveComponent } from './executive/executive.component';
 import { OriginPinComponent } from './origin-pin/origin-pin.component';
@@ -20,19 +19,16 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     ProductPageModule,
-    SharedModule
+    SharedModule,
+    MatListModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDividerModule,
+    RouterModule
   ],
   declarations: [
     ExecutiveComponent,
-    MatCard,
-    MatCardTitle,
-    MatCardTitleGroup,
-    MatCardContent,
-    MatCardImage,
-    MatCardActions,
-    MatCardFooter,
     OriginPinComponent
-
   ]
 })
 export class ExecutiveModule { }
