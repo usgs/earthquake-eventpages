@@ -26,13 +26,10 @@ before_script:
   - export PATH="${PATH}:${TRAVIS_NODE_PATH}"
 
 script:
-#  - ng lint
-#  - ng test --single-run --code-coverage
-  - which node
-  - which npm
-  - echo $PATH
+  - ng lint
+  - ng test --single-run --code-coverage
   - npm run e2e
-#  - ng build --prod --base-href /earthquakes/eventpage/
+  - ng build --prod --base-href /earthquakes/eventpage/
 
 after_success:
   - cat coverage/lcov.info | codacy-coverage --verbose
