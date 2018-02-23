@@ -1,11 +1,15 @@
 {
-  "https://earthquake.usgs.gov/earthquakes/feed/*": {
-    "target": "http://localhost:3000",
-    "secure": false,
+  "/earthquakes/feed": {
+    "target": {
+      "socketPath": ".tmp/ngApimock.sock"
+    },
+    "secure": true,
     "logLevel": "debug"
   },
-  "/ngapimock/*": {
-    "target": "http://localhost:3000",
+  "/ngapimock": {
+    "target": {
+      "socketPath": ".tmp/ngApimock.sock"
+    },
     "secure": false,
     "logLevel": "debug"
   }
