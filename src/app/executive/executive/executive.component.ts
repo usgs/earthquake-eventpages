@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../event.service';
+import { ContributorService } from '../../contributor.service';
 
 @Component({
   selector: 'app-executive',
@@ -9,7 +10,8 @@ import { EventService } from '../../event.service';
 export class ExecutiveComponent implements OnInit {
 
   constructor (
-    public eventService: EventService
+    public eventService: EventService,
+    public contributorService: ContributorService
   ) { }
 
   ngOnInit () {

@@ -4,7 +4,8 @@
       {{ title }}
     </mat-card-title>
     <mat-card-subtitle>
-      Contributed by {{ product.source }}
+      Contributed by
+      <span [innerHTML]="product | contributorList:event:contributors"></span>
     </mat-card-subtitle>
     <mat-card-content>
       <dl>
@@ -24,10 +25,5 @@
     <mat-card-actions>
       <a mat-button color="primary" [routerLink]="'../origin'">View Origin Details</a>
     </mat-card-actions>
-<!--
-    <mat-card-footer>
-      <span>Contributed by {{ product.source }}</span>
-    </mat-card-footer>
- -->
   </mat-card>
 </ng-container>

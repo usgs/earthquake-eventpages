@@ -2,7 +2,10 @@
 
   <ul class="executive-summary-pins">
     <li class="executive-summary-pin">
-      <app-origin-pin class="pin-view"></app-origin-pin>
+      <app-origin-pin class="pin-view"
+          [contributors]="contributorService.contributors$ | async"
+          [event]="event">
+      </app-origin-pin>
     </li>
   </ul>
 

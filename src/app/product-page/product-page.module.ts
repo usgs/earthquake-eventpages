@@ -31,6 +31,7 @@ import { FileSizePipe } from './file-size.pipe';
     FileSizePipe
   ],
   exports: [
+    ContributorListPipe,
     ProductPageComponent,
     DateTimePipe
   ]

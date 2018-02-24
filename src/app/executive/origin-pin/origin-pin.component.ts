@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -14,7 +14,11 @@ import { Event } from '../../event';
   styleUrls: ['./origin-pin.component.scss']
 })
 export class OriginPinComponent implements OnInit {
+  @Input() contributors: any;
+  @Input() event: any;
+
   title: string = 'Origin';
+  product: any;
 
   // keep track of event subscription
   private eventServiceSubscription: Subscription;
