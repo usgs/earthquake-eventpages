@@ -1,0 +1,16 @@
+{
+  "/earthquakes/feed": {
+    "target": {
+      "socketPath": ".tmp/ngApimock.sock"
+    },
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/ngapimock": {
+    "target": {
+      "socketPath": ".tmp/ngApimock.sock"
+    },
+    "secure": false,
+    "logLevel": "debug"
+  }
+}

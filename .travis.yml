@@ -21,10 +21,14 @@ install:
   - npm install -g angular-cli codacy-coverage
   - npm install
 
+before_script:
+  - TRAVIS_NODE_PATH=$(dirname $(nvm which $TRAVIS_NODE_VERSION))
+  - export PATH="${PATH}:${TRAVIS_NODE_PATH}"
+
 script:
   - ng lint
   - ng test --single-run --code-coverage
-  - ng e2e
+  - npm run e2e
   - ng build --prod --base-href /earthquakes/eventpage/
 
 after_success:

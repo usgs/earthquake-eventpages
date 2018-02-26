@@ -1,0 +1,16 @@
+{
+  "expression": "/earthquakes/feed/v1.0/detail/.*",
+  "method": "GET",
+  "name": "eventService",
+  "isArray": false,
+  "responses": {
+    "us1000chhc": {
+      "default": "true",
+      "status": 200,
+      "headers": {
+        "content-type": "application/json"
+      },
+      "file": "e2e/data/us1000chhc.geojson"
+    }
+  }
+}
