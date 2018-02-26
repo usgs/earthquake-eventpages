@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -13,11 +13,11 @@ import { Event } from '../../event';
   templateUrl: './origin-pin.component.html',
   styleUrls: ['./origin-pin.component.scss']
 })
-export class OriginPinComponent implements OnInit {
+export class OriginPinComponent implements OnDestroy, OnInit {
   @Input() contributors: any;
   @Input() event: any;
 
-  title: string = 'Origin';
+  title = 'Origin';
   product: any;
 
   // keep track of event subscription
@@ -37,9 +37,5 @@ export class OriginPinComponent implements OnInit {
 
   ngOnDestroy () {
     this.eventServiceSubscription.unsubscribe();
-  }
-
-  toJson (data: any): string {
-    return JSON.stringify(data, null, 2);
   }
 }
