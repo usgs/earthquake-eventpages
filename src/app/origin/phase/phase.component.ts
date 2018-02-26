@@ -7,7 +7,7 @@ import { EventService } from '../../event.service';
 import { Quakeml } from '../../quakeml';
 import { QuakemlService } from '../../quakeml.service';
 
-import { DownloadComponent } from '../download/download.component';
+import { DownloadDialogComponent } from '../../shared/download-dialog/download-dialog.component';
 import { toArray } from '../../to-array';
 import { FormatterService } from '../../formatter.service';
 
@@ -122,7 +122,7 @@ export class PhaseComponent implements OnInit, OnDestroy {
       }).join('\t');
     });
 
-    this.dialog.open(DownloadComponent, {
+    this.dialog.open(DownloadDialogComponent, {
       data: {
         title: 'Download Phase Arrival Times',
         message: 'Copy then paste into a spreadsheet application',

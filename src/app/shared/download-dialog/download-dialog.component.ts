@@ -2,11 +2,11 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
-  selector: 'app-download',
-  templateUrl: './download.component.html',
-  styleUrls: ['./download.component.css']
+  selector: 'shared-download-dialog',
+  templateUrl: './download-dialog.component.html',
+  styleUrls: ['./download-dialog.component.css']
 })
-export class DownloadComponent {
+export class DownloadDialogComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any

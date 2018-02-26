@@ -1,16 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material';
 
-import { DownloadComponent } from './download.component';
+import { DownloadDialogComponent } from './download-dialog.component';
 
-describe('DownloadComponent', () => {
-  let component: DownloadComponent;
-  let fixture: ComponentFixture<DownloadComponent>;
+describe('DownloadDialogComponent', () => {
+  let component: DownloadDialogComponent;
+  let fixture: ComponentFixture<DownloadDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        DownloadComponent
+        DownloadDialogComponent
       ],
       imports: [
         MatDialogModule
@@ -24,7 +24,7 @@ describe('DownloadComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DownloadComponent);
+    fixture = TestBed.createComponent(DownloadDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
