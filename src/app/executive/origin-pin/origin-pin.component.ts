@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -13,29 +13,19 @@ import { Event } from '../../event';
   templateUrl: './origin-pin.component.html',
   styleUrls: ['./origin-pin.component.scss']
 })
-export class OriginPinComponent implements OnDestroy, OnInit {
+export class OriginPinComponent implements OnChanges {
   @Input() contributors: any;
-  @Input() event: any;
+  @Input() event: Event;
 
-  title = 'Origin';
   product: any;
-
-  // keep track of event subscription
-  private eventServiceSubscription: Subscription;
+  title = 'Origin';
 
   constructor(
     public eventService: EventService,
     public formatterService: FormatterService
   ) { }
 
-  ngOnInit () {
-    this.eventServiceSubscription = this.eventService.event$.subscribe(
-        (event: Event) => {
-      this.product = event.getProduct('origin');
-    });
-  }
-
-  ngOnDestroy () {
-    this.eventServiceSubscription.unsubscribe();
+  ngOnChanges() {
+    this.product = this.event.getProduct('origin');
   }
 }
