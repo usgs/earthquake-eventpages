@@ -8,6 +8,11 @@
       "root": "src",
       "outDir": "dist",
       "assets": [
+        {
+          "glob": "**/*",
+          "input": "../node_modules/hazdev-template/src/assets",
+          "output": "./assets/"
+        },
         "assets",
         "favicon.ico"
       ],

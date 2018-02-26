@@ -84,9 +84,19 @@ export class Event {
     return products;
   }
 
-  hasProducts (type: string): boolean {
-    const products = this.getProducts(type);
-    return products.length > 0;
+  hasProducts (types: string|string[]): boolean {
+    try {
+      if (!Array.isArray(types)) {
+        types = [types];
+      }
+
+      return types.some((type) => {
+        // TODO :: Handle internal and scenario variants
+        return (this.getProducts(type).length > 0);
+      });
+    } catch (e) {
+      return false;
+    }
   }
 
 }
