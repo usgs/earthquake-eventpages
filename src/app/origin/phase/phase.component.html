@@ -3,7 +3,7 @@
 
     <h4>Phase Arrival Times</h4>
 
-    <button (click)="onDownload()" mat-button>Download</button>
+    <button (click)="onDownload()" mat-raised-button>Download</button>
 
     <mat-table [dataSource]="sortedPhases" matSort (matSortChange)="sortPhases($event)">
       <!-- render order is defined by columnsToDisplay -->

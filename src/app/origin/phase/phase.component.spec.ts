@@ -195,24 +195,6 @@ describe('PhaseComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('formatChannel', () => {
-    it('handles full nscl', () => {
-      expect(component.formatChannel({
-        networkCode: 'net',
-        stationCode: 'sta',
-        channelCode: 'cha',
-        locationCode: 'loc'
-      })).toEqual('net sta cha loc');
-    });
-
-    it('handles partial nscl', () => {
-      expect(component.formatChannel({
-        networkCode: 'net',
-        stationCode: 'sta'
-      })).toEqual('net sta');
-    });
-  });
-
   describe('onDownload', () => {
     it('formats download and opens dialog', () => {
       component.sortedPhases = [

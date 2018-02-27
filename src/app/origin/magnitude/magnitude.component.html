@@ -1,3 +1,40 @@
-<p>
-  magnitude works!
-</p>
+<mat-card *ngFor="let magnitude of magnitudes">
+  <mat-card-title>
+    <ng-container *ngIf="magnitude.isPreferred">
+        <abbr class="preferred" title="Preferred Magnitude"><mat-icon>done</mat-icon></abbr>
+    </ng-container>
+    {{ magnitude.type }}
+    <span class="magnitude">
+      {{ magnitude.magnitude}}
+      <small *ngIf="magnitude.magnitudeError">
+        &plusmn;{{ magnitude.magnitudeError }}
+      </small>
+    </span>
+  </mat-card-title>
+
+  <ng-container *ngIf="eventService.event$ | async; let event">
+    <mat-card-subtitle *ngIf="contributorService.contributors$ | async; let contributors">
+      Data Source
+      <span [innerHTML]="magnitude | contributorList:event:contributors"></span>
+    </mat-card-subtitle>
+  </ng-container>
+
+  <mat-expansion-panel [disabled]="!magnitude.stationCount || !magnitude.contributions.length">
+    <mat-expansion-panel-header>
+      <ng-container *ngIf="magnitude.stationCount; else noContributions">
+        {{ magnitude.stationCount }} Stations Used
+      </ng-container>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <origin-magnitude-detail *ngIf="magnitude.contributions.length; else noContributions;"
+          [contributions]="magnitude.contributions">
+      </origin-magnitude-detail>
+    </ng-template>
+  </mat-expansion-panel>
+
+</mat-card>
+
+<ng-template #noContributions>
+  No station information contributed
+</ng-template>

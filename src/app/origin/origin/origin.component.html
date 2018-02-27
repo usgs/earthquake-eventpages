@@ -10,15 +10,15 @@
   <nav mat-tab-nav-bar>
     <a mat-tab-link
         [routerLink]="'./detail'" queryParamsHandling="preserve"
-        routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        routerLinkActive #details="routerLinkActive" [active]="details.isActive">
       Details
     </a>
     <a mat-tab-link [routerLink]="'./phase'" queryParamsHandling="preserve"
-        routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        routerLinkActive #phase="routerLinkActive" [active]="phase.isActive">
       Phases
     </a>
     <a mat-tab-link [routerLink]="'./magnitude'" queryParamsHandling="preserve"
-        routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        routerLinkActive #magnitude="routerLinkActive" [active]="magnitude.isActive">
       Magnitudes
     </a>
   </nav>
