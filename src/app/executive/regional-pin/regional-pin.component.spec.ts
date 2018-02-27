@@ -5,10 +5,11 @@ import {
   MatCardModule,
   MatListModule
 } from '@angular/material';
+
+import * as L from 'leaflet';
+
 import { MockPipe } from '../../mock-pipe';
-
 import { RegionalPinComponent } from './regional-pin.component';
-
 import { EventService } from '../../event.service';
 
 describe('RegionalPinComponent', () => {
