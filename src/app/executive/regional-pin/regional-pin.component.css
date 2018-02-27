@@ -1,0 +1,6 @@
+#region-info-map {
+  background: #eee;
+  height: 200px;
+  margin: 0 -24px 16px -24px;
+  width: calc(100% + 48px);
+}
