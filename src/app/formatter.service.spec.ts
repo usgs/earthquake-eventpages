@@ -123,6 +123,14 @@ describe('FormatterService', () => {
     }));
   });
 
+  describe('mmi', () => {
+    it('formats correctly', inject(
+      [FormatterService], (formatter: FormatterService) => {
+      expect(formatter.mmi(5.4)).toEqual('V');
+      expect(formatter.mmi(1)).toEqual('I');
+    }));
+  });
+
 
   describe('number', () => {
     it('returns empty value when undefined', inject(
