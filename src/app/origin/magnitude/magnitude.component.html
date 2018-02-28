@@ -1,4 +1,5 @@
-<mat-card *ngFor="let magnitude of magnitudes">
+<mat-card *ngFor="let magnitude of magnitudes"
+    [attr.data-magnitudeID]="magnitude.magnitudePublicID">
   <mat-card-title>
     <ng-container *ngIf="magnitude.isPreferred">
         <abbr class="preferred" title="Preferred Magnitude"><mat-icon>done</mat-icon></abbr>

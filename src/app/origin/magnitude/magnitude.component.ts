@@ -93,7 +93,6 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
       period: null,
       residual: null,
       stationMagnitudeID: null,
-      stationMagnitudeContributionID: null,
       status: null,
       type: null,
       unit: null,
@@ -105,7 +104,6 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
     const amplitude = (stationMagnitude.amplitudeID ?
         event.amplitudes[stationMagnitude.amplitudeID] : null) || {};
 
-    parsed.stationMagnitudeContributionID = contribution.publicID;
     parsed.stationMagnitudeID = contribution.stationMagnitudeID;
     parsed.amplitudeID = stationMagnitude.amplitudeID;
 
@@ -113,7 +111,7 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
       parsed.amplitude = amplitude.genericAmplitude.value +
           (amplitude.unit ? ' ' + amplitude.unit : '');
     }
-    parsed.channel = Quakeml.formatWaveformID(stationMagnitude.waveformID || amplitude.waveformID);
+    parsed.channel = Quakeml.formatWaveformID(amplitude.waveformID || stationMagnitude.waveformID);
     if (stationMagnitude.mag) {
       parsed.magnitude = stationMagnitude.mag.value;
     }
@@ -140,7 +138,7 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
       isPreferred: false,
       magnitude: null,
       magnitudeError: null,
-      publicID: null,
+      magnitudePublicID: null,
       status: null,
       source: null,
       stationCount: null,
@@ -148,12 +146,14 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
     };
 
     parsed.isPreferred = (magnitude.publicID === event.preferredMagnitudeID);
-    parsed.magnitude = magnitude.mag.value;
-    parsed.magnitudeError = magnitude.mag.uncertainty;
-    parsed.publicID = magnitude.publicID;
+    if (magnitude.mag) {
+      parsed.magnitude = magnitude.mag.value;
+      parsed.magnitudeError = magnitude.mag.uncertainty;
+    }
+    parsed.magnitudePublicID = magnitude.publicID;
     parsed.status = magnitude.evaluationMode;
-    parsed.source = magnitude.creationInfo.agencyID ||
-        event.creationInfo.agencyID;
+    parsed.source = (magnitude.creationInfo || {}).agencyID ||
+        (event.creationInfo || {}).agencyID;
     parsed.stationCount = magnitude.stationCount;
     parsed.type = magnitude.type;
 

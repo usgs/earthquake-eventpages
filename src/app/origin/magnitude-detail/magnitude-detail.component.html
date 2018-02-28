@@ -5,7 +5,6 @@
   <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
   <mat-row
       *matRowDef="let myRowData; columns: columnsToDisplay"
-      [attr.data-stationMagnitudeContributionID]="myRowData.stationMagnitudeContributionID"
       [attr.data-stationMagnitudeID]="myRowData.stationMagnitudeID"
       [attr.data-amplitudeID]="myRowData.amplitudeID">
   </mat-row>
@@ -15,7 +14,7 @@
         {{ columnTitles.amplitude }}
       </mat-header-cell>
       <mat-cell *matCellDef="let amp">
-        {{ amp.amplitude }}
+        {{ amp.amplitude || '&ndash;' }}
       </mat-cell>
   </ng-container>
 
@@ -42,7 +41,7 @@
       {{ columnTitles.period }}
     </mat-header-cell>
     <mat-cell *matCellDef="let amp">
-      {{ amp.period }}
+      {{ amp.period || '&ndash;' }}
     </mat-cell>
   </ng-container>
 
@@ -60,7 +59,7 @@
       {{ columnTitles.type }}
     </mat-header-cell>
     <mat-cell *matCellDef="let amp">
-      {{ amp.type }}
+      {{ amp.type || '&ndash;' }}
     </mat-cell>
   </ng-container>
 
@@ -69,7 +68,7 @@
       {{ columnTitles.weight }}
     </mat-header-cell>
     <mat-cell *matCellDef="let amp">
-      {{ amp.weight }}
+      {{ amp.weight || '&ndash;' }}
     </mat-cell>
   </ng-container>
 
