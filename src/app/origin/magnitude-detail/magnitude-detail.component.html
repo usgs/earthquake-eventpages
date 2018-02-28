@@ -1,6 +1,6 @@
 <button (click)="onDownload()">Download</button>
 
-<mat-table [dataSource]="contributions">
+<mat-table [dataSource]="dataSource" matSort>
   <!-- render order is defined by columnsToDisplay -->
   <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
   <mat-row
@@ -10,7 +10,7 @@
   </mat-row>
 
   <ng-container matColumnDef="amplitude">
-      <mat-header-cell *matHeaderCellDef>
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
         {{ columnTitles.amplitude }}
       </mat-header-cell>
       <mat-cell *matCellDef="let amp">
@@ -19,7 +19,7 @@
   </ng-container>
 
   <ng-container matColumnDef="channel">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ columnTitles.channel }}
     </mat-header-cell>
     <mat-cell *matCellDef="let amp">
@@ -28,7 +28,7 @@
   </ng-container>
 
   <ng-container matColumnDef="magnitude">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ columnTitles.magnitude }}
     </mat-header-cell>
     <mat-cell *matCellDef="let amp">
@@ -37,7 +37,7 @@
   </ng-container>
 
   <ng-container matColumnDef="period">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ columnTitles.period }}
     </mat-header-cell>
     <mat-cell *matCellDef="let amp">
@@ -46,7 +46,7 @@
   </ng-container>
 
   <ng-container matColumnDef="status">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ columnTitles.status }}
     </mat-header-cell>
     <mat-cell *matCellDef="let amp">
@@ -55,7 +55,7 @@
   </ng-container>
 
   <ng-container matColumnDef="type">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ columnTitles.type }}
     </mat-header-cell>
     <mat-cell *matCellDef="let amp">
@@ -64,7 +64,7 @@
   </ng-container>
 
   <ng-container matColumnDef="weight">
-    <mat-header-cell *matHeaderCellDef>
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
       {{ columnTitles.weight }}
     </mat-header-cell>
     <mat-cell *matCellDef="let amp">

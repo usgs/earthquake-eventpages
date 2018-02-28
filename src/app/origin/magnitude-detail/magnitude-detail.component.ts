@@ -1,15 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
+
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+
 import { DownloadDialogComponent } from '../../shared/download-dialog/download-dialog.component';
+
 
 @Component({
   selector: 'origin-magnitude-detail',
   templateUrl: './magnitude-detail.component.html',
   styleUrls: ['./magnitude-detail.component.css']
 })
-export class MagnitudeDetailComponent implements OnInit {
+export class MagnitudeDetailComponent implements OnInit, AfterViewInit {
 
-  // columns to be displayed, and solumn order
+  // columns to be displayed, and column order
   public columnsToDisplay = [
     'channel',
     'type',
@@ -31,13 +37,32 @@ export class MagnitudeDetailComponent implements OnInit {
     'weight': 'Weight'
   };
 
-  @Input() contributions: Array<any>;
+  public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+
+  // sort object from mat-table in view
+  // bound to dataSource in ngAfterViewInit
+  @ViewChild(MatSort) sort: MatSort;
+
+  // map contributions input to data source data (which is observable).
+  @Input() set contributions(contributions: any[]) {
+     this.dataSource.data = contributions;
+  }
+  get contributions() {
+    return this.dataSource.data;
+  }
 
   constructor(
     public dialog: MatDialog
-  ) { }
+  ) {
+    // numeric sort for numeric fields
+    this.dataSource.sortingDataAccessor = this.sortBy;
+  }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit () {
+    this.dataSource.sort = this.sort;
   }
 
   /**
@@ -50,7 +75,10 @@ export class MagnitudeDetailComponent implements OnInit {
       return this.columnTitles[c];
     }).join('\t');
 
-    const lines = this.contributions.map((contribution) => {
+    // data as it is currently rendered
+    const contributions = this.dataSource.connect().value;
+
+    const lines = contributions.map((contribution) => {
       return this.columnsToDisplay.map((c) => {
         return contribution[c];
       }).join('\t');
@@ -65,4 +93,22 @@ export class MagnitudeDetailComponent implements OnInit {
     });
   }
 
+  /**
+   * Convert numeric fields to numeric values for sorting.
+   *
+   * @param data row of data (contribution).
+   * @param header column being sorted.
+   * @return value of data[header], as number or string.
+   */
+  sortBy (data: any, header: string): any {
+    switch (header) {
+      case 'amplitude':
+      case 'period':
+      case 'magnitude':
+      case 'weight':
+        return +((data[header] || '').split(' ')[0]);
+      default:
+        return data[header];
+    }
+  }
 }
