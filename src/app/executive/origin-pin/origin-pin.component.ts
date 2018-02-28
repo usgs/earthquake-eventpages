@@ -3,7 +3,6 @@ import { RouterLink } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
 
-import { EventService } from '../../event.service';
 import { FormatterService } from '../../formatter.service';
 
 import { Event } from '../../event';
@@ -19,10 +18,8 @@ export class OriginPinComponent implements OnChanges {
 
   product: any;
   title = 'Origin';
-  testDate = new Date(1234567891011);
 
   constructor(
-    public eventService: EventService,
     public formatterService: FormatterService
   ) { }
 
