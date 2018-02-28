@@ -38,8 +38,6 @@ export class NavigationComponent implements OnInit {
       }
     };
 
-    console.log(settings);
-
     return '/earthquakes/map/#' + encodeURIComponent(JSON.stringify(settings));
   }
 
@@ -79,9 +77,10 @@ export class NavigationComponent implements OnInit {
   }
 
   getNearbySeismicityLink (event: Event) {
-    console.log('getNearbySeismicityLink', event);
-    return this.getLatestEarthquakesLink(event.id,
-        this.getNearbySeismicityParams(event));
+    if (event && event.geometry && event.id) {
+      return this.getLatestEarthquakesLink(event.id,
+          this.getNearbySeismicityParams(event));
+    }
 
   }
 
@@ -92,8 +91,6 @@ export class NavigationComponent implements OnInit {
     const latitude = event.geometry.coordinates[1];
     const longitude = event.geometry.coordinates[0];
     const magnitude = event.properties.mag;
-
-    console.log(latitude, longitude, magnitude);
 
     time = event.properties.time;
 

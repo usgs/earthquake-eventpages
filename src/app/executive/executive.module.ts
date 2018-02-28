@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 
 import { ExecutiveComponent } from './executive/executive.component';
 import { OriginPinComponent } from './origin-pin/origin-pin.component';
+import { RegionalPinComponent } from './regional-pin/regional-pin.component';
 
 import { EventPageModule } from '../event-page/event-page.module';
 import { ProductPageModule } from '../product-page/product-page.module';
@@ -30,7 +31,8 @@ import { SharedModule } from '../shared/shared.module';
   ],
   declarations: [
     ExecutiveComponent,
-    OriginPinComponent
+    OriginPinComponent,
+    RegionalPinComponent
   ]
 })
 export class ExecutiveModule { }
