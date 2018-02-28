@@ -7,9 +7,7 @@
       Contributed by
       <span [innerHTML]="product | contributorList:event:contributors"></span>
     </mat-card-subtitle>
-    <mat-card-content>
-      <div id="region-info-map" class="full-width"></div>
-    </mat-card-content>
+    <div mat-card-image id="region-info-map"></div>
     <mat-card-actions>
       <a mat-button color="primary" [routerLink]="'../region-info'">
         View Regional Information

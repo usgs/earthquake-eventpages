@@ -2,16 +2,3 @@
   background: #eee;
   height: 200px;
 }
-
-/*** mat-card-image-(like) styles for other elements such as leaflet maps ***/
-.full-width {
-  margin: 0 -16px 16px -16px;
-  width: calc(100% + 32px);
-}
-
-@media screen and (min-width: 600px) {
-  .full-width {
-    margin: 0 -24px 16px -24px;
-    width: calc(100% + 48px);
-  }
-}
