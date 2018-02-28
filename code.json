@@ -14,9 +14,7 @@
           "URL": "https://github.com/usgs/earthquake-eventpages/blob/master/LICENSE.md"
         }
       ],
-      "usageType": {
-        "openSource": "Open Source"
-      }
+      "usageType": "openSource"
     },
     "laborHours": null,
     "tags": [
