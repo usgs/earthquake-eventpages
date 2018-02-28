@@ -46,8 +46,8 @@ export class FormatterService {
   /**
    * Format a date and time.
    *
-   * @param stamp {Date}
-   *     Date or millisecond epoch timstamp to format.
+   * @param stamp {value}
+   *     Date, ISO8601 formatted string, or millisecond epoch timstamp.
    * @param minutesOffset {Number} Optional, default 0
    *     UTC offset in minutes. 0 for UTC.
    * @param includeMilliseconds {Boolean} Optional, default false
@@ -55,11 +55,17 @@ export class FormatterService {
    *
    * @return {String}
    */
-  dateTime (date: Date, minutesOffset = 0, includeMilliseconds = false) {
+  dateTime (date: any, minutesOffset = 0, includeMilliseconds = false) {
     let milliOffset;
 
     if (date === null || typeof date === 'undefined') {
       return this.empty;
+    }
+
+    if (typeof date === 'string') {
+      date = new Date(date);
+    } else if (typeof date === 'number') {
+      date = new Date(date);
     }
 
     if (minutesOffset) {
@@ -164,6 +170,24 @@ export class FormatterService {
   }
 
   /**
+   * Format a magnitude and magnitude type.
+   *
+   * @param value {Number}
+   *        Magnitude value to format.
+   * @param type {String}
+   *        Magnitude type to format with magnitude value (i.e. mw, mww, mb)
+   *
+   * @return {String}
+   */
+  magnitude (value: number, type: string) {
+    if (!value) {
+      return this.empty;
+    }
+
+    return this.number(value) + ' ' + type;
+  }
+
+  /**
    * Format a number.
    *
    * @param value {Number}
@@ -198,6 +222,22 @@ export class FormatterService {
     }
 
     return result;
+  }
+
+  /**
+   * Format the review status of a product
+   *
+   * @param status {String}
+   *        Review status to format. ("reviewed", "official")
+   *
+   * @return {String}
+   */
+  reviewStatus (status: string): string {
+    if (!status || status === '') {
+      return this.empty;
+    }
+
+    return status.toUpperCase();
   }
 
   /**

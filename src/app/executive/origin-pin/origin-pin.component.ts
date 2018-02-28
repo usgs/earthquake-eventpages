@@ -19,6 +19,7 @@ export class OriginPinComponent implements OnChanges {
 
   product: any;
   title = 'Origin';
+  testDate = new Date(1234567891011);
 
   constructor(
     public eventService: EventService,
