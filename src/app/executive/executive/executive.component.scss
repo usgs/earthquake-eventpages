@@ -17,9 +17,25 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
-  width: 100%;
+  width: 15em;
+
+  mat-card {
+    cursor: pointer;
+  }
+
+  mat-card:hover {
+    background: rgba(0,0,0,0.03);
+  }
+
+  mat-card:active {
+    background: rgba(0,0,0,0.1);
+  }
+
+  mat-card-content {
+    margin: 2em 0;
+  }
 }
 
 @media screen and (min-width: 32em) {
