@@ -1,9 +1,13 @@
-<p>
-  executive component works!
-</p>
-
-
 <ng-container *ngIf="eventService.event$ | async; let event">
+
+  <ul class="executive-summary-pins">
+    <li class="executive-summary-pin">
+      <app-origin-pin class="pin-view"
+          [contributors]="contributorService.contributors$ | async"
+          [event]="event">
+      </app-origin-pin>
+    </li>
+  </ul>
 
   <shared-text-product
       *ngFor="let product of event.getProducts('general-text')"

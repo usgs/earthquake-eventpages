@@ -1,0 +1,52 @@
+.executive-summary-pins {
+  list-style: none;
+  padding: 1em 0;
+  margin: 1em 0;
+}
+
+.executive-summary-pin {
+  margin: 1em 1em 0 0;
+  overflow: visible;
+  width: 100%;
+}
+
+.pin-view {
+  border: 1px solid #ededed;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  width: 15em;
+
+  mat-card {
+    cursor: pointer;
+  }
+
+  mat-card:hover {
+    background: rgba(0,0,0,0.03);
+  }
+
+  mat-card:active {
+    background: rgba(0,0,0,0.1);
+  }
+
+  mat-card-content {
+    margin: 2em 0;
+  }
+}
+
+@media screen and (min-width: 32em) {
+  .executive-summary-pins {
+    margin: 0 0 1em -1em;
+    overflow: hidden;
+  }
+
+  .executive-summary-pin {
+    float: left;
+    margin: 1em 0 0 1em;
+    width: 15em;
+  }
+}
