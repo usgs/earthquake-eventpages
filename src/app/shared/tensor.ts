@@ -16,8 +16,6 @@ const _R2D = 180 / Math.PI;
 
 
 let __calculatePlane,
-    __fromProduct,
-    __fromStrikeDipRake,
     __range,
     __sortEigenvalues;
 
@@ -48,138 +46,6 @@ __calculatePlane = function (v1: Vector, v2: Vector): any {
     dip: Math.acos(-v1.z()) * _R2D,
     rake: Math.atan2(-v2.z(), v2.cross(v1).z()) * _R2D
   };
-};
-
-/**
- * Create a Tensor object from a Product object.
- *
- * @param product {Product}
- *     a focal-mechanism or moment-tensor product.
- */
-__fromProduct = function (product: any): Tensor {
-  let depth,
-      props,
-      type,
-      tensor;
-
-  if (!product) {
-    return null;
-  }
-
-  tensor = null;
-  type = product.type;
-  props = product.properties || {};
-
-  if (type === 'focal-mechanism') {
-    tensor = __fromStrikeDipRake(
-        Number(props['nodal-plane-1-strike']),
-        Number(props['nodal-plane-1-dip']),
-        Number(props['nodal-plane-1-rake'] || props['nodal-plane-1-slip'] || 0),
-        Number(props['scalar-moment'] || Math.SQRT2));
-  } else if (type === 'moment-tensor') {
-    tensor = new Tensor({
-      mrr: Number(props['tensor-mrr']),
-      mtt: Number(props['tensor-mtt']),
-      mpp: Number(props['tensor-mpp']),
-      mrt: Number(props['tensor-mrt']),
-      mrp: Number(props['tensor-mrp']),
-      mtp: Number(props['tensor-mtp'])
-    });
-
-    depth = props['derived-depth'];
-    if (depth === null)  {
-      depth = product.depth;
-    }
-
-    tensor.depth = depth;
-  }
-
-  if (tensor) {
-    type = props['derived-magnitude-type'];
-    if (!type) {
-      type = props['beachball-type'];
-      if (type && _BEACHBALL_METHODS.hasOwnProperty(type)) {
-        type = _BEACHBALL_METHODS[type];
-      }
-    }
-
-    if (type) {
-      tensor.type = type;
-    }
-  }
-
-  return tensor;
-};
-
-/**
- * Create a Tensor from strike, dip, and rake of one nodal plane.
- *
- * @param strike {Number}
- *        strike of nodal plane in degrees.
- * @param dip {Number}
- *        dip of nodal plane in degrees.
- * @param rake {Number}
- *        rake of nodal plane in degrees.
- * @param moment {Number}
- *        scale resulting matrix by this number.
- * @return Tensor object.
- */
-__fromStrikeDipRake = function(strike: number, dip: number, rake: number, moment: number) {
-  let c2d,
-      c2s,
-      cd,
-      cr,
-      cs,
-      d,
-      mxx,
-      mxy,
-      mxz,
-      myy,
-      myz,
-      mzz,
-      r,
-      s,
-      s2d,
-      s2s,
-      sd,
-      sr,
-      ss;
-
-  s = strike * _D2R;
-  ss = Math.sin(s);
-  cs = Math.cos(s);
-  s2s = Math.sin(2 * s);
-  c2s = Math.cos(2 * s);
-  d = dip * _D2R;
-  sd = Math.sin(d);
-  cd = Math.cos(d);
-  s2d = Math.sin(2 * d);
-  c2d = Math.cos(2 * d);
-  r = (rake % 90 !== 0 ? rake : rake + 1e-15) * _D2R;
-  sr = Math.sin(r);
-  cr = Math.cos(r);
-
-  // mtt
-  mxx = -1 * (sd * cr * s2s + s2d * sr * ss * ss);
-  // -mtp
-  mxy =      (sd * cr * c2s + s2d * sr * s2s * 0.5);
-  // mrt
-  mxz = -1 * (cd * cr * cs  + c2d * sr * ss);
-  // mpp
-  myy =      (sd * cr * s2s - s2d * sr * cs * cs);
-  // -mrp
-  myz = -1 * (cd * cr * ss  - c2d * sr * cs);
-  // mrr
-  mzz =      (s2d * sr);
-
-  return new Tensor({
-    mrr:  mzz * moment,
-    mtt:  mxx * moment,
-    mpp:  myy * moment,
-    mtp: -mxy * moment,
-    mrp: -myz * moment,
-    mrt:  mxz * moment
-  });
 };
 
 /**
@@ -249,9 +115,6 @@ export class Tensor {
 
   // add static methods
   static calculatePlane = __calculatePlane;
-  static fromProduct = __fromProduct;
-  static fromStrikeDipRake = __fromStrikeDipRake;
-
 
   public mtt: number;
   public mpp: number;
@@ -279,6 +142,140 @@ export class Tensor {
 
   public NP1: any;
   public NP2: any;
+
+
+  /**
+   * Create a Tensor object from a Product object.
+   *
+   * @param product {Product}
+   *     a focal-mechanism or moment-tensor product.
+   */
+  static fromProduct (product: any): Tensor {
+    let depth,
+        props,
+        type,
+        tensor;
+
+    if (!product) {
+      return null;
+    }
+
+    tensor = null;
+    type = product.type;
+    props = product.properties || {};
+
+    if (type === 'focal-mechanism') {
+      tensor = Tensor.fromStrikeDipRake(
+          Number(props['nodal-plane-1-strike']),
+          Number(props['nodal-plane-1-dip']),
+          Number(props['nodal-plane-1-rake'] || props['nodal-plane-1-slip'] || 0),
+          Number(props['scalar-moment'] || Math.SQRT2));
+    } else if (type === 'moment-tensor') {
+      tensor = new Tensor({
+        mrr: Number(props['tensor-mrr']),
+        mtt: Number(props['tensor-mtt']),
+        mpp: Number(props['tensor-mpp']),
+        mrt: Number(props['tensor-mrt']),
+        mrp: Number(props['tensor-mrp']),
+        mtp: Number(props['tensor-mtp'])
+      });
+
+      depth = props['derived-depth'];
+      if (depth === null)  {
+        depth = product.depth;
+      }
+
+      tensor.depth = depth;
+    }
+
+    if (tensor) {
+      type = props['derived-magnitude-type'];
+      if (!type) {
+        type = props['beachball-type'];
+        if (type && _BEACHBALL_METHODS.hasOwnProperty(type)) {
+          type = _BEACHBALL_METHODS[type];
+        }
+      }
+
+      if (type) {
+        tensor.type = type;
+      }
+    }
+
+    return tensor;
+  }
+
+  /**
+   * Create a Tensor from strike, dip, and rake of one nodal plane.
+   *
+   * @param strike {Number}
+   *        strike of nodal plane in degrees.
+   * @param dip {Number}
+   *        dip of nodal plane in degrees.
+   * @param rake {Number}
+   *        rake of nodal plane in degrees.
+   * @param moment {Number}
+   *        scale resulting matrix by this number.
+   * @return Tensor object.
+   */
+  static fromStrikeDipRake (strike: number, dip: number, rake: number, moment: number): Tensor {
+    let c2d,
+        c2s,
+        cd,
+        cr,
+        cs,
+        d,
+        mxx,
+        mxy,
+        mxz,
+        myy,
+        myz,
+        mzz,
+        r,
+        s,
+        s2d,
+        s2s,
+        sd,
+        sr,
+        ss;
+
+    s = strike * _D2R;
+    ss = Math.sin(s);
+    cs = Math.cos(s);
+    s2s = Math.sin(2 * s);
+    c2s = Math.cos(2 * s);
+    d = dip * _D2R;
+    sd = Math.sin(d);
+    cd = Math.cos(d);
+    s2d = Math.sin(2 * d);
+    c2d = Math.cos(2 * d);
+    r = (rake % 90 !== 0 ? rake : rake + 1e-15) * _D2R;
+    sr = Math.sin(r);
+    cr = Math.cos(r);
+
+    // mtt
+    mxx = -1 * (sd * cr * s2s + s2d * sr * ss * ss);
+    // -mtp
+    mxy =      (sd * cr * c2s + s2d * sr * s2s * 0.5);
+    // mrt
+    mxz = -1 * (cd * cr * cs  + c2d * sr * ss);
+    // mpp
+    myy =      (sd * cr * s2s - s2d * sr * cs * cs);
+    // -mrp
+    myz = -1 * (cd * cr * ss  - c2d * sr * cs);
+    // mrr
+    mzz =      (s2d * sr);
+
+    return new Tensor({
+      mrr:  mzz * moment,
+      mtt:  mxx * moment,
+      mpp:  myy * moment,
+      mtp: -mxy * moment,
+      mrp: -myz * moment,
+      mrt:  mxz * moment
+    });
+  }
+
 
   constructor(
     options: any

@@ -1,7 +1,8 @@
-<ng-container *ngIf="eventService.event$ | async; let event">
-  <ng-container *ngIf="event">
+<ng-container *ngIf="products && products.length != 0">
 
-  <div *ngFor="let product of event.getProducts('moment-tensor')">
+  <h2>Moment Tensor</h2>
+
+  <div *ngFor="let product of products">
     <shared-beachball
         [fillColor]="'#6ea8ff'"
         [labelAxes]="false"
@@ -10,5 +11,5 @@
         [tensor]="getTensor(product)">
     </shared-beachball>
   </div>
-  </ng-container>
+
 </ng-container>

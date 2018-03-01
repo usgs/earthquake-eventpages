@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { EventService } from '../../event.service';
+import { Component, OnInit, Input } from '@angular/core';
+
 import { Tensor } from '../../shared/tensor';
 
 @Component({
@@ -9,8 +9,9 @@ import { Tensor } from '../../shared/tensor';
 })
 export class MomentTensorSummaryComponent implements OnInit {
 
+  @Input() products: Array<any>;
+
   constructor(
-    public eventService: EventService
   ) { }
 
   ngOnInit() {

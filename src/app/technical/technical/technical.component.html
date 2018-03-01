@@ -1,7 +1,11 @@
-<p>
-  technical works!
-</p>
+<ng-container *ngIf="eventService.event$ | async; let event">
+  <ng-container *ngIf="event">
 
-<technical-origin-summary></technical-origin-summary>
-<technical-moment-tensor-summary></technical-moment-tensor-summary>
+    <technical-origin-summary></technical-origin-summary>
 
+    <technical-moment-tensor-summary
+        [products]="event.getProducts('moment-tensor')">
+    </technical-moment-tensor-summary>
+
+  </ng-container>
+</ng-container>
