@@ -7,7 +7,7 @@ import { Event } from '../../event';
 
 
 @Component({
-  selector: 'app-regional-pin',
+  selector: 'region-info-pin',
   templateUrl: './regional-pin.component.html',
   styleUrls: ['./regional-pin.component.css']
 })

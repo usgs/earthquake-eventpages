@@ -6,8 +6,10 @@
       </executive-origin-pin>
     </li>
     <li class="executive-summary-pin">
-      <app-regional-pin class="pin-view" [event]="event">
-      </app-regional-pin>
+      <region-info-pin class="pin-view"
+          [contributors]="contributorService.contributors$ | async"
+          [event]="event">
+      </region-info-pin>
     </li>
   </ul>
   <shared-text-product
