@@ -1,3 +1,14 @@
-<p>
-  technical-moment-tensor-summary works!
-</p>
+<ng-container *ngIf="eventService.event$ | async; let event">
+  <ng-container *ngIf="event">
+
+  <div *ngFor="let product of event.getProducts('moment-tensor')">
+    <shared-beachball
+        [fillColor]="'#6ea8ff'"
+        [labelAxes]="false"
+        [labelPlanes]="false"
+        [size]="30"
+        [tensor]="getTensor(product)">
+    </shared-beachball>
+  </div>
+  </ng-container>
+</ng-container>
