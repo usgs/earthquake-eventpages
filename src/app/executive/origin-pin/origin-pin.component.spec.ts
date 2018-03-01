@@ -9,20 +9,14 @@ import {
 import { MockPipe } from '../../mock-pipe';
 
 import { OriginPinComponent } from './origin-pin.component';
-
-import { EventService } from '../../event.service';
 import { FormatterService } from '../../formatter.service';
+import { Event } from '../../event';
 
 describe('OriginPinComponent', () => {
   let component: OriginPinComponent;
   let fixture: ComponentFixture<OriginPinComponent>;
 
   beforeEach(async(() => {
-    const eventServiceStub = {
-      getEvent: jasmine.createSpy('eventService::getEvent'),
-      getProduct: jasmine.createSpy('eventService::getProduct')
-    };
-
     TestBed.configureTestingModule({
       declarations: [
         OriginPinComponent,
@@ -37,7 +31,6 @@ describe('OriginPinComponent', () => {
         RouterModule
       ],
       providers: [
-        { provide: EventService, useValue: eventServiceStub },
         { provide: FormatterService, useValue: {} }
       ]
     })
@@ -53,4 +46,27 @@ describe('OriginPinComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('ngOnChanges', () => {
+    it('should fetch/set the origin product', () => {
+      let event: Event,
+          product,
+          spy;
+
+      event = new Event({});
+      product = { id: 1 };
+
+      // spy on event object
+      component.event = event;
+      spy = spyOn(component.event, 'getProduct').and.returnValue(product);
+
+      // trigger ngOnChanges
+      component.ngOnChanges();
+
+      // check component's product value
+      expect(spy).toHaveBeenCalled();
+      expect(component.product).toEqual(product);
+    });
+  });
+
 });

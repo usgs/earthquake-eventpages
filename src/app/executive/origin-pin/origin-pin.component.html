@@ -10,16 +10,16 @@
     <mat-card-content>
       <dl>
         <dt>Review Status</dt>
-        <dd>{{ product.properties['review-status'].toUpperCase() }}</dd>
+        <dd [innerHTML]="this.formatterService.reviewStatus(product.properties['review-status'])"></dd>
 
         <dt>Magnitude</dt>
-        <dd>{{ product.properties.magnitude }} {{ product.properties['magnitude-type'] }}</dd>
+        <dd [innerHTML]="this.formatterService.magnitude(product.properties.magnitude, product.properties['magnitude-type'])"></dd>
 
         <dt>Depth</dt>
-        <dd>{{ this.formatterService.depth(product.properties.depth, 'km') }}</dd>
+        <dd [innerHTML]="this.formatterService.depth(product.properties.depth, 'km')"></dd>
 
         <dt>Time</dt>
-        <dd>{{ product.properties.eventtime | date:"yyyy-MM-dd HH:mm:ss":"UTC" }} (UTC)</dd>
+        <dd [innerHTML]="this.formatterService.dateTime(product.properties.eventtime)"></dd>
       </dl>
     </mat-card-content>
     <mat-card-actions>

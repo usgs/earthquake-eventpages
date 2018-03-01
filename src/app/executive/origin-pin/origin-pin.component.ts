@@ -3,13 +3,12 @@ import { RouterLink } from '@angular/router';
 
 import { Subscription } from 'rxjs/Subscription';
 
-import { EventService } from '../../event.service';
 import { FormatterService } from '../../formatter.service';
 
 import { Event } from '../../event';
 
 @Component({
-  selector: 'app-origin-pin',
+  selector: 'origin-pin',
   templateUrl: './origin-pin.component.html',
   styleUrls: ['./origin-pin.component.scss']
 })
@@ -21,7 +20,6 @@ export class OriginPinComponent implements OnChanges {
   title = 'Origin';
 
   constructor(
-    public eventService: EventService,
     public formatterService: FormatterService
   ) { }
 
