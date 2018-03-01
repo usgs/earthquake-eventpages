@@ -1,3 +1,52 @@
-<p>
-  impact-shakemap-summary works!
-</p>
+<ng-container *ngIf="eventService.event$ | async; else noEvent">
+  <h4>ShakeMap</h4>
+  <mat-table [dataSource]="shakemapData">
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+    <ng-container matColumnDef="catalog">
+      <mat-header-cell *matHeaderCellDef>
+        {{ columnTitles.catalog }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let shakemap">
+        <abbr title="Preferred" class="material-icons">check</abbr>
+        {{ shakemap.catalog }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="mmi">
+      <mat-header-cell *matHeaderCellDef>
+        {{ columnTitles.mmi }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let shakemap">
+        <abbr title="Maximum Modified Mercalli Intensity"
+            [innerHTML]=" formatterService.intensity(shakemap.mmi)">
+
+        </abbr>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="source">
+      <mat-header-cell *matHeaderCellDef>
+        {{ columnTitles.source }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let shakemap">
+        {{ shakemap.source }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>
+        {{ columnTitles.description }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let shakemap">
+        {{ shakemap.description }}
+      </mat-cell>
+    </ng-container>
+
+  </mat-table>
+</ng-container>
+
+<ng-template #noEvent>
+  <p>No data available.</p>
+</ng-template>

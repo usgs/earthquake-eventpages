@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatDialogModule, MatSortModule } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
 
 import { ImpactRoutingModule } from './impact-routing.module';
 
@@ -12,6 +14,10 @@ import { PagerSummaryComponent } from './pager-summary/pager-summary.component';
 @NgModule({
   imports: [
     CommonModule,
+    MatDialogModule,
+    MatSortModule,
+    MatTableModule,
+
     ImpactRoutingModule
   ],
   declarations: [

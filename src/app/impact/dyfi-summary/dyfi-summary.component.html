@@ -1,3 +1,48 @@
-<p>
-  impact-dyfi-summary works!
-</p>
+<ng-container *ngIf="products.length > 0">
+  <h4>Did You Feel It?</h4>
+  <mat-table [dataSource]="products">
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+    <ng-container matColumnDef="catalog">
+      <mat-header-cell *matHeaderCellDef>
+        {{ columnTitles.catalog }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let dyfi">
+        <abbr title="Preferred" class="material-icons">check</abbr>
+        {{ dyfi.catalog }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cdi">
+      <mat-header-cell *matHeaderCellDef>
+        {{ columnTitles.cdi }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let dyfi">
+        <abbr title="Community Determined Intensity"
+            [innerHTML]=" formatterService.intensity(dyfi.cdi)">
+
+        </abbr>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="responses">
+      <mat-header-cell *matHeaderCellDef>
+        {{ columnTitles.responses }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let dyfi">
+        {{ dyfi.responses }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="source">
+      <mat-header-cell *matHeaderCellDef>
+        {{ columnTitles.source }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let dyfi">
+        {{ dyfi.source }}
+      </mat-cell>
+    </ng-container>
+
+  </mat-table>
+</ng-container>

@@ -1,3 +1,40 @@
-<p>
-  impact-pager-summary works!
-</p>
+<ng-container *ngIf="eventService.event$ | async; else noEvent">
+  <h4>PAGER</h4>
+  <mat-table [dataSource]="pagerData">
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+    <ng-container matColumnDef="catalog">
+      <mat-header-cell *matHeaderCellDef>
+        {{ columnTitles.catalog }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let pager">
+        <abbr title="Preferred" class="material-icons">check</abbr>
+        {{ pager.catalog }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="alertlevel">
+      <mat-header-cell *matHeaderCellDef>
+        {{ columnTitles.alertlevel }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let pager"
+          [innerHTML]=" formatterService.intensity(pager.alertlevel)">
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="source">
+      <mat-header-cell *matHeaderCellDef>
+        {{ columnTitles.source }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let pager">
+        {{ pager.source }}
+      </mat-cell>
+    </ng-container>
+
+  </mat-table>
+</ng-container>
+
+<ng-template #noEvent>
+  <p>No data available.</p>
+</ng-template>

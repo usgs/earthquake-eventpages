@@ -131,7 +131,6 @@ describe('FormatterService', () => {
     }));
   });
 
-
   describe('number', () => {
     it('returns empty value when undefined', inject(
         [FormatterService], (formatter: FormatterService) => {
