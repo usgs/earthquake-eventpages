@@ -46,6 +46,22 @@ export class Quakeml {
     });
   }
 
+
+  /**
+   * Format channel identifier.
+   *
+   * @param waveformID pick waveformID
+   */
+  static formatWaveformID (waveformID: any): string {
+    if (!waveformID) {
+      return null;
+    }
+
+    return waveformID.networkCode + ' ' + waveformID.stationCode +
+        (waveformID.channelCode ? ' ' + waveformID.channelCode : '') +
+        (waveformID.locationCode ? ' ' + waveformID.locationCode : '');
+  }
+
   /**
    * Parse a time string using quakeml rules.
    *

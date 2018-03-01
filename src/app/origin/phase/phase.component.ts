@@ -92,21 +92,6 @@ export class PhaseComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Format channel identifier.
-   *
-   * @param waveformID pick waveformID
-   */
-  formatChannel (waveformID: any): string {
-    if (!waveformID) {
-      return null;
-    }
-
-    return waveformID.networkCode + ' ' + waveformID.stationCode +
-        (waveformID.channelCode ? ' ' + waveformID.channelCode : '') +
-        (waveformID.locationCode ? ' ' + waveformID.locationCode : '');
-  }
-
-  /**
    * Called when download button is clicked.
    *
    * Show a download dialog with tab-separated value content.
@@ -179,7 +164,7 @@ export class PhaseComponent implements OnInit, OnDestroy {
       phases.push({
         arrivalPublicID: arrival.publicID,
         azimuth: arrival.azimuth,
-        channel: this.formatChannel(pick.waveformID),
+        channel: Quakeml.formatWaveformID(pick.waveformID),
         distance: arrival.distance,
         phase: arrival.phase,
         pickPublicId: pick.publicID,

@@ -163,6 +163,25 @@ describe('Quakeml', () => {
     expect(parsedEvent.preferredOrigin()).toEqual(parsedEvent.origins[0]);
   });
 
+
+  describe('formatWaveformID', () => {
+    it('handles full nscl', () => {
+      expect(Quakeml.formatWaveformID({
+        networkCode: 'net',
+        stationCode: 'sta',
+        channelCode: 'cha',
+        locationCode: 'loc'
+      })).toEqual('net sta cha loc');
+    });
+
+    it('handles partial nscl', () => {
+      expect(Quakeml.formatWaveformID({
+        networkCode: 'net',
+        stationCode: 'sta'
+      })).toEqual('net sta');
+    });
+  });
+
   describe('parseTime', () => {
     it('parses times with timezones', () => {
       expect(Quakeml.parseTime('2017-01-01T00:00:00Z').toISOString()).toEqual('2017-01-01T00:00:00.000Z');
