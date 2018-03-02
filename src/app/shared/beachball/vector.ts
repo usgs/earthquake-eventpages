@@ -426,8 +426,6 @@ export class Vector {
   static z = __z;
 
 
-  public eigenvalue: number = null;
-
   constructor(
     public data: Array<number>
   ) { }

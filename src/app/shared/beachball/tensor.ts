@@ -15,86 +15,6 @@ const _D2R = Math.PI / 180;
 const _R2D = 180 / Math.PI;
 
 
-let __calculatePlane,
-    __range,
-    __sortEigenvalues;
-
-
-/**
- * Calculate one nodal plane.
- *
- * Argument order matters, so getPlane(v1, v2) and getPlane(v2, v1)
- * are different planes.
- *
- * @param v1 {Vector}
- *     first vector.
- * @param v2 {Vector}
- *     second vector.
- * @return {Object}
- *     computed plane, defined as the properties strike, dip, and rake.
- */
-__calculatePlane = function (v1: Vector, v2: Vector): any {
-  v1 = v1.unit();
-  v2 = v2.unit();
-  // make sure first vector dips downward
-  if (v1.z() > 0) {
-    v1 = v1.multiply(-1);
-    v2 = v2.multiply(-1);
-  }
-  return {
-    strike: __range(Math.atan2(-v1.x(), v1.y()), 0, 2 * Math.PI) * _R2D,
-    dip: Math.acos(-v1.z()) * _R2D,
-    rake: Math.atan2(-v2.z(), v2.cross(v1).z()) * _R2D
-  };
-};
-
-/**
- * Shift a number until it is in the specified range.
- *
- * Add or subtract the range size (max - min) until value is between.
- *
- * @param value {Number}
- *        value to normalize.
- * @param min {Number}
- *        range minimum.
- * @param max {Number}
- *        range maximum.
- * @return {Number} value in the range [min, max).
- */
-__range = function (value: number, min: number, max: number) {
-  const span = max - min;
-  while (value < min) {
-    value += span;
-  }
-  while (value >= max) {
-    value -= span;
-  }
-  return value;
-};
-
-/**
- * Sort eigen vectors in descending order by magnitude.
- *
- * @param v1 {any}
- *     first eigenvector.
- * @param v2 {any}
- *     second eigenvector.
- */
-__sortEigenvalues = function (v1: any, v2: any): number {
-  let v1mag,
-      v2mag;
-  // largest value first
-  v1mag = v1.eigenvalue;
-  v2mag = v2.eigenvalue;
-  if (v1mag < v2mag) {
-    return 1;
-  } else if (v1mag > v2mag) {
-    return -1;
-  } else {
-    return 0;
-  }
-};
-
 /**
  * Construct a new tensor.
  *
@@ -112,9 +32,6 @@ __sortEigenvalues = function (v1: any, v2: any): number {
  *        mtp value in N-m.
  */
 export class Tensor {
-
-  // add static methods
-  static calculatePlane = __calculatePlane;
 
   public mtt: number;
   public mpp: number;
@@ -144,6 +61,35 @@ export class Tensor {
   public NP2: any;
 
   public product: any = null;
+
+
+  /**
+   * Calculate one nodal plane.
+   *
+   * Argument order matters, so getPlane(v1, v2) and getPlane(v2, v1)
+   * are different planes.
+   *
+   * @param v1 {Vector}
+   *     first vector.
+   * @param v2 {Vector}
+   *     second vector.
+   * @return {Object}
+   *     computed plane, defined as the properties strike, dip, and rake.
+   */
+  static calculatePlane (v1: Vector, v2: Vector): any {
+    v1 = v1.unit();
+    v2 = v2.unit();
+    // make sure first vector dips downward
+    if (v1.z() > 0) {
+      v1 = v1.multiply(-1);
+      v2 = v2.multiply(-1);
+    }
+    return {
+      strike: Tensor.range(Math.atan2(-v1.x(), v1.y()), 0, 2 * Math.PI) * _R2D,
+      dip: Math.acos(-v1.z()) * _R2D,
+      rake: Math.atan2(-v2.z(), v2.cross(v1).z()) * _R2D
+    };
+  }
 
   /**
    * Create a Tensor object from a Product object.
@@ -182,8 +128,8 @@ export class Tensor {
       });
 
       depth = props['derived-depth'];
-      if (depth === null)  {
-        depth = product.depth;
+      if (!depth)  {
+        depth = props['depth'];
       }
 
       tensor.depth = depth;
@@ -280,6 +226,54 @@ export class Tensor {
   }
 
 
+  /**
+   * Shift a number until it is in the specified range.
+   *
+   * Add or subtract the range size (max - min) until value is between.
+   *
+   * @param value {Number}
+   *        value to normalize.
+   * @param min {Number}
+   *        range minimum.
+   * @param max {Number}
+   *        range maximum.
+   * @return {Number} value in the range [min, max).
+   */
+  static range (value: number, min: number, max: number): number {
+    const span = max - min;
+    while (value < min) {
+      value += span;
+    }
+    while (value >= max) {
+      value -= span;
+    }
+    return value;
+  }
+
+  /**
+   * Sort eigen vectors in descending order by magnitude.
+   *
+   * @param v1 {any}
+   *     first eigenvector.
+   * @param v2 {any}
+   *     second eigenvector.
+   */
+  static sortEigenvalues (v1: any, v2: any): number {
+    let v1mag,
+        v2mag;
+    // largest value first
+    v1mag = v1.eigenvalue;
+    v2mag = v2.eigenvalue;
+    if (v1mag < v2mag) {
+      return 1;
+    } else if (v1mag > v2mag) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }
+
+
   constructor(
     options: any
   ) {
@@ -322,7 +316,7 @@ export class Tensor {
       mrt, -mrp, mrr
     ], 3, 3);
     eigen = this.matrix.jacobi();
-    eigen.sort(__sortEigenvalues);
+    eigen.sort(Tensor.sortEigenvalues);
     this.T = t = eigen[0];
     this.N = n = eigen[1];
     this.P = p = eigen[2];
@@ -338,8 +332,8 @@ export class Tensor {
     // t = (n + l) / sqrt2
     l = t.vector.subtract(p.vector).unit();
     n = t.vector.add(p.vector).unit();
-    this.NP1 = __calculatePlane(l, n);
-    this.NP2 = __calculatePlane(n, l);
+    this.NP1 = Tensor.calculatePlane(l, n);
+    this.NP2 = Tensor.calculatePlane(n, l);
   }
 
 }
