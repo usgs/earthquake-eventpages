@@ -150,7 +150,7 @@ __index = function (m: number, n: number, row: number, col: number): number {
  * @return {Array<any>}
  *         Object with eigenvalue and vector properties.
  */
-__jacobi = function (data: Array<number>, m: number, n: number, maxRotations: number = 100): Array<any> {
+__jacobi = function (data: Array<number>, m: number, n: number, maxRotations: number): Array<any> {
   let a,
       aip,
       aiq,
@@ -185,7 +185,7 @@ __jacobi = function (data: Array<number>, m: number, n: number, maxRotations: nu
   }
 
   // set a default max
-  maxRotations = maxRotations || 100;
+  maxRotations = maxRotations;
   a = data.slice(0);
   e = __diagonal(data, m, n);
   v = __identity(n);
@@ -475,7 +475,7 @@ export class Matrix {
       if (this.m !== Math.floor(this.m)) {
         throw new Error('wrong number of data elements');
       }
-    } else if (!this.n) {
+    } else { // (!this.n)
       this.n = this.data.length / this.m;
       if (this.n !== Math.floor(this.n)) {
         throw new Error('wrong number of data elements');
