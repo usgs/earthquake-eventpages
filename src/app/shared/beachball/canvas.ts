@@ -24,9 +24,9 @@ export class Canvas {
   ) {
     if (!this.canvas) {
       this.canvas = document.createElement('canvas');
-      this.canvas.height = this.height;
-      this.canvas.width = this.width;
     }
+    this.canvas.height = this.height;
+    this.canvas.width = this.width;
     this.context = this.canvas.getContext('2d');
   }
 
@@ -37,8 +37,7 @@ export class Canvas {
     if (this.context.clearRect) {
       this.context.clearRect(0, 0, this.width, this.height);
     } else {
-      const el = this.canvas;
-      el.width = el.width;
+      this.canvas.width = this.canvas.width;
     }
   }
 
@@ -56,7 +55,7 @@ export class Canvas {
    * @param fill {String}
    *        fillStyle, or null to not fill.
    */
-  circle (x, y, size, stroke = null, fill = null) {
+  circle (x, y, size, stroke, fill) {
     const c = this.context;
 
     c.beginPath();
@@ -78,7 +77,7 @@ export class Canvas {
    * @param fill {String}
    *        fillStyle, or null to not fill.
    */
-  polygon (x, y, stroke = null, fill = null) {
+  polygon (x, y, stroke, fill) {
     const c = this.context;
 
     c.beginPath();
@@ -105,7 +104,7 @@ export class Canvas {
    * @param fill {String}
    *        fillStyle, or null to not fill.
    */
-  line (x, y, stroke = null, fill = null) {
+  line (x, y, stroke, fill) {
     const c = this.context;
 
     c.beginPath();
@@ -156,15 +155,15 @@ export class Canvas {
    *        'center' centers around x.
    *        'right' ends at x.
    */
-  text (text, font, x, y, stroke = null, fill = null, align = 'left') {
+  text (text, font, x, y, stroke, fill, align = 'left') {
     const c = this.context;
 
     c.font = font;
-    if (align !== 'left') {
+    if (align === 'center' || align === 'right') {
       const size = c.measureText(text);
       if (align === 'center') {
         x = x - size.width / 2;
-      } else if (align === 'right') {
+      } else { // (align === 'right')
         x = x - size.width;
       }
     }
@@ -191,7 +190,7 @@ export class Canvas {
    * @param fill {String}
    *        fillStyle, or null to not fill.
    */
-  _strokeAndFill (stroke = null, fill = null) {
+  _strokeAndFill (stroke, fill) {
     const c = this.context;
 
     if (stroke) {
