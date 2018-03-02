@@ -19,20 +19,7 @@ export class ProductAttributionComponent implements OnInit {
   ngOnInit() {
   }
 
-
-  formatSource(source: string, eventSources: Array<string>, details = null): string {
-    const sourceId = source.toLowerCase();
-
-    let text = `${sourceId.toUpperCase()}`;
-    if (details) {
-      text = `<abbr title="${details.title}">${text}</abbr>`;
-    }
-    const index = eventSources.indexOf(sourceId) + 1;
-
-    return `<span>${text}<sup>${index}</sup></span>`;
-  }
-
-  getSources(product: any, event: any, details: Array<any>): Array<any> {
+  getSources(product: any, event: any = null, details: Array<any> = []): Array<any> {
     const sources = new Set<any>();
 
     if (!product) {

@@ -116,6 +116,17 @@ export class Beachball {
 
   public canvas: Canvas;
 
+  /**
+   * Create and render a beachball.
+   *
+   * @param tensor
+   * @param el
+   * @param options
+   */
+  static render(tensor: Tensor, el: any, options?: any) {
+    new Beachball(tensor, el, options).render();
+  }
+
   constructor (
     public tensor: Tensor,
     public el: any,

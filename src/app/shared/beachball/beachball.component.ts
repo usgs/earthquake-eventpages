@@ -7,8 +7,8 @@ import {
   ViewChild
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Tensor } from '../tensor';
-import { Beachball } from '../beachball';
+import { Tensor } from './tensor';
+import { Beachball } from './beachball';
 
 
 @Component({
@@ -41,12 +41,12 @@ export class BeachballComponent implements OnInit, OnChanges {
       return;
     }
 
-    new Beachball(this.tensor, this.elementRef.nativeElement, {
+    Beachball.render(this.tensor, this.elementRef.nativeElement, {
       fillColor: this.fillColor,
       labelAxes: this.labelAxes,
       labelPlanes: this.labelPlanes,
       size: this.size
-    }).render();
+    });
   }
 
 }

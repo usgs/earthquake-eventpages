@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Tensor } from '../../shared/tensor';
+import { Tensor } from '../../shared/beachball/tensor';
 import { FormatterService } from '../../formatter.service';
 
 @Component({
