@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Tensor } from '../../shared/tensor';
+import { FormatterService } from '../../formatter.service';
 
 @Component({
   selector: 'technical-moment-tensor-summary',
@@ -9,16 +10,35 @@ import { Tensor } from '../../shared/tensor';
 })
 export class MomentTensorSummaryComponent implements OnInit {
 
-  @Input() products: Array<any>;
+  public columnsToDisplay = [
+    'catalog',
+    'tensor',
+    'magnitude',
+    'depth',
+    'percentDC',
+    'source'
+  ];
 
-  constructor(
-  ) { }
+  private _products: Array<any>;
 
-  ngOnInit() {
+  @Input() set products (products: Array<any>) {
+    this._products = products;
+    this.tensors = (products || []).map((p) => {
+      return Tensor.fromProduct(p);
+    });
   }
 
-  getTensor (product: any): Tensor {
-    return Tensor.fromProduct(product);
+  get products () {
+    return this._products;
+  }
+
+  public tensors: Array<any> = [];
+
+  constructor(
+    public formatterService: FormatterService
+  ) { }
+
+  ngOnInit () {
   }
 
 }

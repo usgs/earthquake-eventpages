@@ -143,6 +143,7 @@ export class Tensor {
   public NP1: any;
   public NP2: any;
 
+  public product: any = null;
 
   /**
    * Create a Tensor object from a Product object.
@@ -189,6 +190,8 @@ export class Tensor {
     }
 
     if (tensor) {
+      tensor.product = product;
+
       type = props['derived-magnitude-type'];
       if (!type) {
         type = props['beachball-type'];

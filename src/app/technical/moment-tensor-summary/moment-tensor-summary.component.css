@@ -1,0 +1,16 @@
+
+.preferred mat-icon {
+  color: #0c0;
+  font-size: 16px;
+  font-weight: bold;
+  height: 16px;
+  width: 16px;
+}
+
+/* same amount of space as preferred icon */
+mat-cell.unpreferred:before {
+  content: ' ';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
