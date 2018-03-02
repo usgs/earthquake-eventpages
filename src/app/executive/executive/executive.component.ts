@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { EventService } from '../../event.service';
-import { ContributorService } from '../../contributor.service';
 
 @Component({
   selector: 'app-executive',
@@ -11,8 +10,7 @@ import { ContributorService } from '../../contributor.service';
 export class ExecutiveComponent implements OnInit {
 
   constructor (
-    public eventService: EventService,
-    public contributorService: ContributorService
+    public eventService: EventService
   ) { }
 
   ngOnInit () {

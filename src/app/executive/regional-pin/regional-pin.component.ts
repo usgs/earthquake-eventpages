@@ -19,6 +19,8 @@ export class RegionalPinComponent implements OnChanges {
 
   title = 'Regional Info';
   product: any;
+  link = '../regional-info';
+  type = 'geoserve';
 
 
   constructor() { }

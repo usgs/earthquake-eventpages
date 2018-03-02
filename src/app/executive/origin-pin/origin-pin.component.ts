@@ -1,21 +1,21 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { Subscription } from 'rxjs/Subscription';
-
-import { FormatterService } from '../../formatter.service';
-
 import { Event } from '../../event';
+import { FormatterService } from '../../formatter.service';
 
 @Component({
   selector: 'executive-origin-pin',
   templateUrl: './origin-pin.component.html',
   styleUrls: ['./origin-pin.component.scss']
 })
+
 export class OriginPinComponent {
 
-  public product: any = null;
+  public link = '../origin';
+  public product: any;
   public title = 'Origin';
+  public type = 'origin';
 
   private _event: Event;
 
@@ -31,6 +31,7 @@ export class OriginPinComponent {
   get event () {
     return this._event;
   }
+
 
   constructor(
     public formatterService: FormatterService

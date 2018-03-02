@@ -16,6 +16,7 @@ import { RegionalPinComponent } from './regional-pin/regional-pin.component';
 import { EventPageModule } from '../event-page/event-page.module';
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
+import { BasicPinComponent } from './basic-pin/basic-pin.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     ExecutiveComponent,
     OriginPinComponent,
-    RegionalPinComponent
+    RegionalPinComponent,
+    BasicPinComponent
   ]
 })
 export class ExecutiveModule { }

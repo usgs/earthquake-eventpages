@@ -1,29 +1,22 @@
 <ng-container *ngIf="product">
-  <mat-card [routerLink]="'../origin'">
-    <mat-card-title>
-      {{ title }}
-    </mat-card-title>
-    <mat-card-subtitle>
-      Contributed by
-      <shared-product-attribution [product]="product"></shared-product-attribution>
-    </mat-card-subtitle>
-    <mat-card-content>
-      <dl>
-        <dt>Review Status</dt>
-        <dd [innerHTML]="this.formatterService.reviewStatus(product.properties['review-status'])"></dd>
+  <basic-pin
+      [title]=title
+      [link]=link
+      [action]=link
+      [type]=type>
+    <!-- pin content -->
+    <dl card-content>
+      <dt>Review Status</dt>
+      <dd>{{ product.properties['review-status'].toUpperCase() }}</dd>
 
-        <dt>Magnitude</dt>
-        <dd [innerHTML]="this.formatterService.magnitude(product.properties.magnitude, product.properties['magnitude-type'])"></dd>
+      <dt>Magnitude</dt>
+      <dd>{{ product.properties.magnitude }} {{ product.properties['magnitude-type'] }}</dd>
 
-        <dt>Depth</dt>
-        <dd [innerHTML]="this.formatterService.depth(product.properties.depth, 'km')"></dd>
+      <dt>Depth</dt>
+      <dd>{{ this.formatterService.depth(product.properties.depth, 'km') }}</dd>
 
-        <dt>Time</dt>
-        <dd [innerHTML]="this.formatterService.dateTime(product.properties.eventtime)"></dd>
-      </dl>
-    </mat-card-content>
-    <mat-card-actions>
-      <a mat-button color="primary" [routerLink]="'../origin'">View Origin Details</a>
-    </mat-card-actions>
-  </mat-card>
+      <dt>Time</dt>
+      <dd>{{ product.properties.eventtime | date:"yyyy-MM-dd HH:mm:ss":"UTC" }} (UTC)</dd>
+    </dl>
+  </basic-pin>
 </ng-container>
