@@ -219,7 +219,7 @@ __plunge = function (v: Array<number>): number {
  *        default [0, 0, 0].
  *        origin of axis of rotation.
  */
-__rotate = function (v1: Array<number>, axis: Array<number>, theta: number, origin: Array<number>): Array<number> {
+__rotate = function (v1: Array<number>, axis: Array<number>, theta: number, origin: Array<number> = [0, 0, 0]): Array<number> {
   let a,
       au,
       av,
@@ -253,7 +253,6 @@ __rotate = function (v1: Array<number>, axis: Array<number>, theta: number, orig
       y,
       z;
 
-  origin = origin || [0, 0, 0];
   a = origin[0];
   b = origin[1];
   c = origin[2];
@@ -523,13 +522,6 @@ export class Vector {
   }
 
   /**
-   * Same as multiply(-1).
-   */
-  negative (): Vector {
-    return this.multiply(-1);
-  }
-
-  /**
    * Compute plunge of this vector.
    *
    * Plunge is the angle between this vector and the plane z=0.
@@ -552,7 +544,7 @@ export class Vector {
    *        origin of axis of rotation.
    * @return {Vector} result of rotation.
    */
-  rotate (axis: Vector|Array<number>, theta: number, origin: Vector|Array<number>): Vector {
+  rotate (axis: Vector|Array<number>, theta: number, origin: Vector|Array<number> = [0, 0, 0]): Vector {
     return new Vector(__rotate(this.data,
         (axis instanceof Vector) ? axis.data : axis,
         theta,
