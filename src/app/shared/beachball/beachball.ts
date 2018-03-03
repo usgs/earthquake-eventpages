@@ -8,7 +8,7 @@ import { ElementRef } from '@angular/core';
 
 const _D2R = Math.PI / 180;
 const _R2D = 180 / Math.PI;
-const _EPSILON = Number.EPSILON || 1e-16;
+const _EPSILON = 1e-16;
 
 // threshold x and y pixel difference when polygons should be merged.
 // Pixels are in the range [-1, 1], so 0.02 represents a 1% difference.
@@ -250,6 +250,18 @@ export class Beachball {
     }
 
     return label;
+  }
+
+  /**
+   * Create a Canvas object for plotting.
+   * Mainly here for testing.
+   */
+  createCanvas (): Canvas {
+    return new Canvas(
+      null,
+      this.height,
+      this.width
+    );
   }
 
   /**
@@ -579,7 +591,8 @@ export class Beachball {
     this.canvas.line(
         tick.x.map((x) => this.projectX(x)),
         tick.y.map((y) => this.projectY(y)),
-        'black');
+        'black',
+        null);
 
     this.canvas.text(label.text, label.font,
         this.projectX(label.x),
@@ -762,11 +775,7 @@ export class Beachball {
       this.makeRoomForAzimuthLabel(label);
     });
 
-    this.canvas = new Canvas(
-      null,
-      this.height,
-      this.width
-    );
+    this.canvas = this.createCanvas();
 
     this.canvas.context.lineWidth = this.lineWidth;
 
@@ -805,12 +814,13 @@ export class Beachball {
         this.canvas.line(
             line.x.map((x0) => this.projectX(x0)),
             line.y.map((y0) => this.projectY(y0)),
-            this.lineColor);
+            this.lineColor,
+            null);
       });
     }
 
     // plot circle without fill, in case polygons covered outline.
-    this.canvas.circle(x, y, this.radius * 2, this.lineColor);
+    this.canvas.circle(x, y, this.radius * 2, this.lineColor, null);
 
     if (this.labelAxes) {
       this.labelAxis(this.tensor.P.vector, 'P');
