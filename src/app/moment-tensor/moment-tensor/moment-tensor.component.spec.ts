@@ -23,7 +23,9 @@ describe('MomentTensorComponent', () => {
       ],
       declarations: [
         MomentTensorComponent,
+
         MockComponent({selector: 'moment-tensor-axes', inputs: ['tensor']}),
+        MockComponent({selector: 'moment-tensor-info', inputs: ['tensor']}),
         MockComponent({selector: 'moment-tensor-nodal-planes', inputs: ['tensor']}),
         MockComponent({selector: 'product-page', inputs: ['product']}),
         MockComponent({selector: 'shared-beachball', inputs: ['tensor']})

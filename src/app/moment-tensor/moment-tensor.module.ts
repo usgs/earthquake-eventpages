@@ -9,6 +9,7 @@ import { MomentTensorComponent } from './moment-tensor/moment-tensor.component';
 import { AxesComponent } from './axes/axes.component';
 import { MatTableModule } from '@angular/material';
 import { NodalPlanesComponent } from './nodal-planes/nodal-planes.component';
+import { InfoComponent } from './info/info.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { NodalPlanesComponent } from './nodal-planes/nodal-planes.component';
   declarations: [
     MomentTensorComponent,
     AxesComponent,
-    NodalPlanesComponent
+    NodalPlanesComponent,
+    InfoComponent
   ]
 })
 export class MomentTensorModule { }

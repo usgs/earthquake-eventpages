@@ -60,8 +60,11 @@ export class Tensor {
   public NP1: any;
   public NP2: any;
 
+  // reference to product, and optional attributes from product
   public product: any = null;
-
+  public depth: any;
+  public type: any;
+  public halfDuration: any;
 
   /**
    * Calculate one nodal plane.
@@ -99,6 +102,7 @@ export class Tensor {
    */
   static fromProduct (product: any): Tensor {
     let depth,
+        duration,
         props,
         type,
         tensor;
@@ -131,8 +135,12 @@ export class Tensor {
       if (!depth)  {
         depth = props['depth'];
       }
-
       tensor.depth = depth;
+
+      duration = props['sourcetime-duration'];
+      if (duration) {
+        tensor.halfDuration = duration / 2;
+      }
     }
 
     if (tensor) {
