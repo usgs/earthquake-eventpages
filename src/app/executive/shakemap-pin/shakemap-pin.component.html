@@ -1,0 +1,14 @@
+<!-- <ng-container *ngIf="product"> -->
+<ng-container> 
+  <!-- <mat-card [routerLink]="'../origin'"> -->
+  <mat-card>
+    <mat-card-title>
+      {{ title }}
+    </mat-card-title>
+    <div class="mat-card-image">
+      <shakemap-view-root
+          [eventFeed]="product"
+          [configs]="configs"></shakemap-view-root>
+    </div>
+  </mat-card>
+</ng-container>

@@ -12,6 +12,11 @@
           [event]="event">
       </app-regional-pin>
     </li>
+    <li class="executive-summary-pin">
+      <shakemap-pin class="pin-view"
+        [event]="event">
+      </shakemap-pin>
+    </li>
   </ul>
   <shared-text-product
       *ngFor="let product of event.getProducts('general-text')"
