@@ -1,0 +1,57 @@
+<div class="container" *ngIf="!confService.conf?.display || confService.conf?.display !== 'static'">
+  <div class="control" 
+        [ngClass]="{'collapsed': controlCollapsed}" 
+        (dblclick)="$event.stopPropagation();">
+
+    <div class="collapsed-control" *ngIf="controlCollapsed" (click)="controlCollapsed=false">
+      <div class="control-image">
+        <img src="{{ layersImg }}">
+      </div>
+    </div>
+
+    <div class="open" *ngIf="!controlCollapsed">
+      <div class="close">
+        <div class="close-icon" (click)="controlCollapsed=true">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+
+      <div class="items">
+        <p *ngFor="let item of control" 
+            (click)="toggleLayer(item);"
+            class="layer-item">
+          <input type="checkbox" [checked]="plotting.indexOf(item.id) > -1">
+          {{ item.name }}
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Clear the float to let legend sit under control -->
+  <br style="clear:both" />
+
+  <div class="legend control" 
+          [ngClass]="{'collapsed': legendCollapsed}" 
+          (dblclick)="$event.stopPropagation();">
+
+    <div class="collapsed-control" *ngIf="legendCollapsed" (click)="toggleLegend()">
+      <div class="control-image">
+        <i class="fas fa-key"></i>
+      </div>
+    </div>
+    <div class="open" *ngIf="!legendCollapsed">
+      <div class="close">
+        <div class="close-icon" (click)="toggleLegend()">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+
+      <div class="items">
+        <div class="image" *ngFor="let image of objKeys(legend)">
+          <img *ngIf="legend[image].count>0" class="legend-image" src="{{ legend[image].url }}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

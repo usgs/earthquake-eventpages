@@ -15,13 +15,16 @@ import { RegionalPinComponent } from './regional-pin/regional-pin.component';
 
 import { EventPageModule } from '../event-page/event-page.module';
 import { ProductPageModule } from '../product-page/product-page.module';
+import { AppModule as ShakeMapModule } from '../shakemap/app.module';
 import { SharedModule } from '../shared/shared.module';
+import { ShakemapPinComponent } from './shakemap-pin/shakemap-pin.component';
 
 @NgModule({
   imports: [
     CommonModule,
     EventPageModule,
     ProductPageModule,
+    ShakeMapModule,
     SharedModule,
     MatListModule,
     MatButtonModule,
@@ -32,7 +35,8 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     ExecutiveComponent,
     OriginPinComponent,
-    RegionalPinComponent
+    RegionalPinComponent,
+    ShakemapPinComponent
   ]
 })
 export class ExecutiveModule { }

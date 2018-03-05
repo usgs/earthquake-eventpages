@@ -1,0 +1,58 @@
+.container {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(100%);
+    z-index: 1000;
+    width: 100%;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.container.show {
+    transform: translateY(0);
+}
+
+.state-toggle {
+    position: absolute;
+    top: 0;
+    transform: translateY(-30%) translateX(-50%);
+    height: 75px;
+    width: 150px;
+    border-radius:40%;
+    left: 50%;
+    background-color: #ffffff;
+}
+
+.content-container {
+    position: relative;
+    z-index: 1001
+}
+
+.arrow {
+    font-size: 32px;
+    transform: translateY(-20%);
+    cursor: pointer;
+}
+
+.tab {
+    display: inline-block;
+    width: max-content;
+    padding: 10px;
+    border: 2px solid #0099FF;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.tab:hover {
+    background-color: #0099FF;
+}
+
+.exit {
+    text-align: right;
+    margin-right: 10px;
+    font-size: 34px;
+}
+
+.exit * {
+    cursor: pointer;
+}
