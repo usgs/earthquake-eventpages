@@ -18,7 +18,6 @@ import { Beachball } from './beachball';
 })
 export class BeachballComponent implements OnInit, OnChanges {
 
-  private _product: any;
   public readonly tensor$ = new BehaviorSubject<Tensor>(null);
 
   @Input() tensor: Tensor;

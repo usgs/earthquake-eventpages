@@ -45,6 +45,10 @@ const appRoutes = [
       {
         path: 'technical',
         loadChildren: './technical/technical.module#TechnicalModule'
+      },
+      {
+        path: 'moment-tensor',
+        loadChildren: './moment-tensor/moment-tensor.module#MomentTensorModule'
       }
     ]
   }

@@ -1,0 +1,45 @@
+<h4>Principal Axes</h4>
+
+<mat-table [dataSource]="getAxes(tensor)">
+  <!-- render order is defined by columnsToDisplay -->
+  <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+  <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+  <ng-container matColumnDef="axis">
+      <mat-header-cell *matHeaderCellDef>
+        Axis
+      </mat-header-cell>
+      <mat-cell *matCellDef="let axis">
+        {{ axis.name }}
+      </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="value">
+    <mat-header-cell *matHeaderCellDef>
+      Value
+    </mat-header-cell>
+    <mat-cell *matCellDef="let axis">
+      {{ axis.value.toFixed(3) }}e+{{ axis.exponent}}
+      {{ axis.units }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="plunge">
+    <mat-header-cell *matHeaderCellDef>
+      Plunge
+    </mat-header-cell>
+    <mat-cell *matCellDef="let axis">
+      {{ round(axis.plunge) }}&deg;
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="azimuth">
+    <mat-header-cell *matHeaderCellDef>
+      Azimuth
+    </mat-header-cell>
+    <mat-cell *matCellDef="let axis">
+      {{ round(axis.azimuth) }}&deg;
+    </mat-cell>
+  </ng-container>
+
+</mat-table>

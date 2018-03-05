@@ -101,7 +101,7 @@ export class Beachball {
   public fillColor = '#ddd';
   public height: number = null;
   public labelAxes = true;
-  public labelAxesFont: '24px Arial';
+  public labelAxesFont = '24px Arial';
   public labelPlanes = true;
   public labelPlanesFont = '14px Arial';
   public lineColor = '#000';
@@ -258,7 +258,7 @@ export class Beachball {
    */
   createCanvas (): Canvas {
     return new Canvas(
-      null,
+      this.el,
       this.height,
       this.width
     );
@@ -537,17 +537,18 @@ export class Beachball {
         'white-space:nowrap;' +
         'width:auto;' +
         'font:' + font + ';');
+    console.log(el.getAttribute('style'));
     el.innerText = text;
 
     // add to canvas parent element and measure
-    this.el.appendChild(el);
+    document.body.appendChild(el);
     size = {
       height: el.scrollHeight,
       width: el.scrollWidth
     };
 
     // clean up
-    this.el.removeChild(el);
+    el.parentNode.removeChild(el);
     el = null;
 
     return size;
@@ -838,10 +839,6 @@ export class Beachball {
     });
 
     // inject canvas into dom
-    while (this.el.firstChild) {
-      this.el.removeChild(this.el.firstChild);
-    }
-    this.el.appendChild(this.canvas.canvas);
     this.canvas = null;
   }
 }

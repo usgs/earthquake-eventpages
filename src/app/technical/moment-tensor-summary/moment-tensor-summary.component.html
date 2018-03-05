@@ -13,7 +13,11 @@
         <ng-container *ngIf="tensor === tensors[0]">
           <abbr class="preferred" title="Preferred Moment Tensor"><mat-icon>check</mat-icon></abbr>
         </ng-container>
-        {{ tensor.product.properties.eventsource.toUpperCase() }}
+        <a
+            [routerLink]="['/', event?.id, 'moment-tensor']"
+            [queryParams]="{ source: tensor.product.source, code: tensor.product.code }">
+          {{ tensor.product.properties.eventsource.toUpperCase() }}
+        </a>
       </mat-cell>
     </ng-container>
 

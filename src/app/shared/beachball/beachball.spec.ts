@@ -43,14 +43,6 @@ describe('Beachball', () => {
       }
     });
 
-    it('replaces existing content', () => {
-      const el = document.createElement('div');
-      el.innerHTML = 'this is some text';
-      Beachball.render(tensor, el);
-      expect(el.childNodes.length).toEqual(1);
-      expect(el.firstChild.nodeName).toEqual('CANVAS');
-    });
-
     it('renders', () => {
       const options = {
         bgColor: '#fff',
@@ -64,16 +56,10 @@ describe('Beachball', () => {
 
       // fill fill color (center is filled)
       const call0 = testCanvas.calls[0];
-      expect(call0).toEqual({
-        name: 'circle',
-        arguments: [
-          100,
-          100,
-          198,
-          options.lineColor,
-          options.fillColor
-        ]
-      });
+      expect(call0.name).toEqual('circle');
+      expect(call0.arguments[2]).toEqual(198);
+      expect(call0.arguments[3]).toEqual(options.lineColor);
+      expect(call0.arguments[4]).toEqual(options.fillColor);
 
       // plot first "empty" polygon
       const call1 = testCanvas.calls[1];
@@ -104,16 +90,11 @@ describe('Beachball', () => {
 
       // re-plot outline to clean up rough edges
       const call5 = testCanvas.calls[5];
-      expect(call5).toEqual({
-        name: 'circle',
-        arguments: [
-          100,
-          100,
-          198,
-          options.lineColor,
-          null
-        ]
-      });
+      expect(call5.name).toEqual('circle');
+      expect(call5.arguments[2]).toEqual(198);
+      expect(call5.arguments[3]).toEqual(options.lineColor);
+      expect(call5.arguments[4]).toBeNull();
+
 
       const call6 = testCanvas.calls[6];
       expect(call6.name).toEqual('text');
@@ -159,16 +140,10 @@ describe('Beachball', () => {
 
       // fill fill color (center is filled)
       const call0 = testCanvas.calls[0];
-      expect(call0).toEqual({
-        name: 'circle',
-        arguments: [
-          100,
-          100,
-          198,
-          options.lineColor,
-          options.fillColor
-        ]
-      });
+      expect(call0.name).toEqual('circle');
+      expect(call0.arguments[2]).toEqual(198);
+      expect(call0.arguments[3]).toEqual(options.lineColor);
+      expect(call0.arguments[4]).toEqual(options.fillColor);
 
       // plot first "empty" polygon
       const call1 = testCanvas.calls[1];
@@ -186,16 +161,10 @@ describe('Beachball', () => {
 
       // re-plot outline to clean up rough edges
       const call3 = testCanvas.calls[3];
-      expect(call3).toEqual({
-        name: 'circle',
-        arguments: [
-          100,
-          100,
-          198,
-          options.lineColor,
-          null
-        ]
-      });
+      expect(call3.name).toEqual('circle');
+      expect(call3.arguments[2]).toEqual(198);
+      expect(call3.arguments[3]).toEqual(options.lineColor);
+      expect(call3.arguments[4]).toBeNull();
 
       // plot axes as circles
       const call4 = testCanvas.calls[4];

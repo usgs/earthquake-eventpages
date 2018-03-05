@@ -1,0 +1,20 @@
+<!-- productType attribute defines type of product to load -->
+<product-page productType="moment-tensor">
+
+  <!-- container with header attribute is added before attribution -->
+  <ng-container header>
+    <h3>Moment Tensor</h3>
+  </ng-container>
+
+  <ng-container *ngIf="tensor">
+
+    <moment-tensor-axes [tensor]="tensor"></moment-tensor-axes>
+
+    <shared-beachball [tensor]="tensor"></shared-beachball>
+  </ng-container>
+
+  <!-- container with footer attribute is added before downloads -->
+  <ng-container footer>
+  </ng-container>
+
+</product-page>

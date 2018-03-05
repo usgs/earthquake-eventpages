@@ -21,6 +21,8 @@ export class MomentTensorSummaryComponent implements OnInit {
 
   private _products: Array<any>;
 
+  @Input() event: any;
+
   @Input() set products (products: Array<any>) {
     this._products = products;
     this.tensors = (products || []).map((p) => {

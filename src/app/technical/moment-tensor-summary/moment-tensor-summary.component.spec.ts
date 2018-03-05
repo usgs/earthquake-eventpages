@@ -5,6 +5,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { MatTableModule, MatIconModule } from '@angular/material';
 import { FormatterService } from '../../formatter.service';
 import { Tensor } from '../../shared/beachball/tensor';
+import { RouterModule } from '@angular/router';
 
 describe('MomentTensorSummaryComponent', () => {
   let component: MomentTensorSummaryComponent;
@@ -14,7 +15,8 @@ describe('MomentTensorSummaryComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         MatIconModule,
-        MatTableModule
+        MatTableModule,
+        RouterModule
       ],
       declarations: [
         MomentTensorSummaryComponent,
