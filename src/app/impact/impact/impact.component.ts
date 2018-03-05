@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { EventService } from '../../event.service';
+
 @Component({
   selector: 'app-impact',
   templateUrl: './impact.component.html',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImpactComponent implements OnInit {
 
-  constructor() { }
+  constructor (
+    public eventService: EventService
+  ) { }
 
   ngOnInit() {
   }

@@ -1,6 +1,10 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
   <impact-dyfi-summary [products]="event.getProducts('dyfi')">
   </impact-dyfi-summary>
+  <impact-shakemap-summary [products]="event.getProducts('shakemap')">
+  </impact-shakemap-summary>
+  <impact-pager-summary [products]="event.getProducts('losspager')">
+  </impact-pager-summary>
 
   <shared-text-product
       *ngFor="let product of event.getProducts('impact-text')"
@@ -18,12 +22,3 @@
   </ng-container>
 </ng-container>
 
-
-
-
-
-
-
-
-<impact-shakemap-summary></impact-shakemap-summary>
-<impact-pager-summary></impact-pager-summary>

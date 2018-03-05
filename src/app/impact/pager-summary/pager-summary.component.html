@@ -1,6 +1,6 @@
-<ng-container *ngIf="eventService.event$ | async; else noEvent">
+<ng-container *ngIf="products.length > 0">
   <h4>PAGER</h4>
-  <mat-table [dataSource]="pagerData">
+  <mat-table [dataSource]="products">
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
     <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
 
@@ -9,8 +9,10 @@
         {{ columnTitles.catalog }}
       </mat-header-cell>
       <mat-cell *matCellDef="let pager">
-        <abbr title="Preferred" class="material-icons">check</abbr>
-        {{ pager.catalog }}
+        <ng-container *ngIf="pager === products[0]">
+          <abbr class="preferred" title="Preferred"><mat-icon>done</mat-icon></abbr>
+        </ng-container>
+        {{ pager.properties.eventsource }}
       </mat-cell>
     </ng-container>
 
@@ -18,8 +20,8 @@
       <mat-header-cell *matHeaderCellDef>
         {{ columnTitles.alertlevel }}
       </mat-header-cell>
-      <mat-cell *matCellDef="let pager"
-          [innerHTML]=" formatterService.intensity(pager.alertlevel)">
+      <mat-cell *matCellDef="let pager">
+      {{ pager.properties.alertlevel }}
       </mat-cell>
     </ng-container>
 
@@ -34,7 +36,3 @@
 
   </mat-table>
 </ng-container>
-
-<ng-template #noEvent>
-  <p>No data available.</p>
-</ng-template>

@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule, MatIconModule, MatTableModule } from '@angular/material';
 
 import { ShakemapSummaryComponent } from './shakemap-summary.component';
+import { FormatterService } from '../../formatter.service';
 
 describe('ShakeMapSummaryComponent', () => {
   let component: ShakemapSummaryComponent;
@@ -8,7 +10,17 @@ describe('ShakeMapSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShakemapSummaryComponent ]
+      declarations: [
+        ShakemapSummaryComponent
+      ],
+      imports: [
+        MatDialogModule,
+        MatIconModule,
+        MatTableModule
+      ],
+      providers: [
+        FormatterService
+      ]
     })
     .compileComponents();
   }));

@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, Sort } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
-import { EventService } from '../../event.service';
 import { FormatterService } from '../../formatter.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { FormatterService } from '../../formatter.service';
   templateUrl: './shakemap-summary.component.html',
   styleUrls: ['./shakemap-summary.component.css']
 })
-export class ShakemapSummaryComponent implements OnInit, OnDestroy {
+export class ShakemapSummaryComponent implements OnInit {
 
   // columns to be displayed
   public columnsToDisplay = [
@@ -28,42 +27,11 @@ export class ShakemapSummaryComponent implements OnInit, OnDestroy {
     'description': 'Description'
   };
 
-  public shakemapData: Array<any>;
-
-  private eventSubscription: Subscription;
+  @Input() products: Array<any> = [];
 
   constructor(
-    public eventService: EventService,
     public formatterService: FormatterService
   ) { }
 
-  ngOnInit() {
-    this.eventSubscription = this.eventService.event$.subscribe((event) => {
-      this.onEvent(event);
-    });
-  }
-
-  ngOnDestroy () {
-    this.eventSubscription.unsubscribe();
-  }
-
-  onEvent ( event: any) {
-    const products = event.getProducts('shakemap');
-    let data;
-
-    if (products.length === 0) {
-      data = [];
-    } else {
-      data = products.map((product) => {
-        return {
-          'catalog': product.properties.eventsource,
-          'mmi': product.properties.maxmmi,
-          'source': product.source,
-          'description': product.properties['event-description']
-        };
-      });
-    }
-
-    this.shakemapData = data;
-  }
+  ngOnInit() {}
 }

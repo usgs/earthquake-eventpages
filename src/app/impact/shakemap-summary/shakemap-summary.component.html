@@ -1,6 +1,6 @@
-<ng-container *ngIf="eventService.event$ | async; else noEvent">
+<ng-container *ngIf="products.length > 0">
   <h4>ShakeMap</h4>
-  <mat-table [dataSource]="shakemapData">
+  <mat-table [dataSource]="products">
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
     <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
 
@@ -9,8 +9,10 @@
         {{ columnTitles.catalog }}
       </mat-header-cell>
       <mat-cell *matCellDef="let shakemap">
-        <abbr title="Preferred" class="material-icons">check</abbr>
-        {{ shakemap.catalog }}
+        <ng-container *ngIf="shakemap === products[0]">
+          <abbr class="preferred" title="Preferred"><mat-icon>done</mat-icon></abbr>
+        </ng-container>
+        {{ shakemap.properties.eventsource }}
       </mat-cell>
     </ng-container>
 
@@ -20,7 +22,7 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let shakemap">
         <abbr title="Maximum Modified Mercalli Intensity"
-            [innerHTML]=" formatterService.intensity(shakemap.mmi)">
+            [innerHTML]=" formatterService.intensity(shakemap.properties.maxmmi)">
 
         </abbr>
       </mat-cell>
@@ -40,7 +42,7 @@
         {{ columnTitles.description }}
       </mat-header-cell>
       <mat-cell *matCellDef="let shakemap">
-        {{ shakemap.description }}
+        {{ shakemap.properties['event-description'] }}
       </mat-cell>
     </ng-container>
 

@@ -9,8 +9,10 @@
         {{ columnTitles.catalog }}
       </mat-header-cell>
       <mat-cell *matCellDef="let dyfi">
-        <abbr title="Preferred" class="material-icons">check</abbr>
-        {{ dyfi.catalog }}
+        <ng-container *ngIf="dyfi === products[0]">
+          <abbr class="preferred" title="Preferred"><mat-icon>done</mat-icon></abbr>
+        </ng-container>
+        {{ dyfi.properties.eventsource }}
       </mat-cell>
     </ng-container>
 
@@ -20,7 +22,7 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let dyfi">
         <abbr title="Community Determined Intensity"
-            [innerHTML]=" formatterService.intensity(dyfi.cdi)">
+            [innerHTML]=" formatterService.intensity(dyfi.properties.maxmmi)">
 
         </abbr>
       </mat-cell>
@@ -31,7 +33,7 @@
         {{ columnTitles.responses }}
       </mat-header-cell>
       <mat-cell *matCellDef="let dyfi">
-        {{ dyfi.responses }}
+        {{ dyfi.properties.numResp }}
       </mat-cell>
     </ng-container>
 
