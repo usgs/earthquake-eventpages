@@ -1,3 +1,30 @@
+
+dl {
+  align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+dt, dd {
+  vertical-align: middle;
+  margin: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  min-height: 48px;
+  overflow: hidden;
+}
+
 dt {
-  font-weight: bold;
+  flex: 1 40%;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 16px;
+}
+
+dd {
+  flex: 1 60%;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 14px;
+  padding: 15px;
 }
