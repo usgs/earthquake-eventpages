@@ -1,0 +1,65 @@
+.container {
+    z-index: 501;
+    text-align: center;
+    position: fixed;
+    top: 5px;
+    right: 5px;
+}
+
+.control {
+    border: 2px solid #aaaaaa;
+    background-color: white;
+    display: block;
+    border-radius: 5px;
+    margin: 5px;
+    max-width: max-content;
+    position: relative;
+    float: right;
+    cursor: auto;
+}
+
+.control.collapsed {
+    min-width: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.control.collapsed:hover {
+    border: 2px solid #0099FF;
+}
+
+.control .collapsed-control {
+    height:100%;
+    width:100%;
+}
+
+.control-image {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #454545;
+    font-size: 18px;
+}
+
+.close {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.close-icon {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.layer-item {
+    margin: 0 0 0 5px;
+    padding: 5px 5px
+}
+
+.items {
+    text-align: left;
+}
+
+.legend-image {
+    max-width: 200px;
+}

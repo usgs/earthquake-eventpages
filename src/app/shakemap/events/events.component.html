@@ -1,0 +1,7 @@
+<div class="container" *ngIf="eventData.length > 1">
+  <div class="event-list">
+    <div class="event" *ngFor="let event of eventData">
+      <h1 (click)="plot(event)">{{ event.id }}</h1>
+    </div>
+  </div>
+</div>

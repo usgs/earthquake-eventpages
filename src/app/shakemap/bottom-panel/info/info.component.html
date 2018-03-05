@@ -1,0 +1,194 @@
+<div class="container">
+  <div class="info-container" *ngIf="info">
+
+    <div class="input column" *ngIf="info.input">
+      <h2>Input</h2>
+
+      <div class="event-info group" *ngIf="info.input.event_information">
+        <h3>Event Information</h3>
+
+        <table>
+          <tr *ngFor="let name of name_order['event_information']">
+            <th *ngIf="info.input.event_information[name]">{{ names['event_information'][name] }}</th>
+            <td *ngIf="info.input.event_information[name]">
+              {{ name !== 'dyfi' ? info.input.event_information[name] : info.input.event_information['intensity']}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+      
+
+    <div class="output column" *ngIf="info.output">
+      <h2>Output</h2>
+
+      <div class="ground-motion group" *ngIf="info.output['ground_motions']">
+        <h3>Ground Motion/Intensity Information</h3>
+
+        <table>
+          <thead>
+            <th>Type</th>
+            <th>Max value in grid</th>
+            <th>Max value on land</th>
+            <th>Bias</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let name of name_order['ground_motions']">
+              <th *ngIf="info.output['ground_motions'][name]">{{ names['ground_motions'][name] }}</th>
+              <td *ngIf="info.output['ground_motions'][name]">
+                {{ info.output.ground_motions[name]['max_grid'] | number }}
+              </td>
+              <td *ngIf="info.output['ground_motions'][name]">
+                {{ info.output.ground_motions[name]['max'] | number }}
+              </td>
+              <td *ngIf="info.output['ground_motions'][name]">
+                {{ info.output.ground_motions[name]['bias'].toString().replace('[[', '').replace(']]', '') | number }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+      <div class="map-info group" *ngIf="info.output['map_information']">
+        <h3>Map Information</h3>
+
+        <table>
+          <thead>
+            <th>Type</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let name of name_order['map_information']">
+              <th *ngIf="info.output['map_information'][name]">{{ names['map_information'][name] }}</th>
+              <td *ngIf="info.output['map_information'][name]">
+                {{ info.output['map_information'][name]['latitude'] | number }}
+                {{ info.output['map_information'][name]['units'] !== 'count' ? (info.output['map_information'][name]['units'] ) : ('') }}
+
+              </td>
+              <td *ngIf="info.output['map_information'][name]">
+                {{ info.output['map_information'][name]['longitude'] | number }}
+                {{ info.output['map_information'][name]['units'] !== 'count' ? (info.output['map_information'][name]['units']) : ('') }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="uncertainty group" *ngIf="info.output.uncertainty">
+        <h3>Uncertainty</h3>
+
+        <table>
+          <tr *ngFor="let name of name_order['uncertainty']">
+            <th *ngIf="info.output.uncertainty[name]">{{ names['uncertainty'][name] }}</th>
+            <td *ngIf="info.output.uncertainty[name]">
+              {{ isNaN(name) ? (info.output.uncertainty[name]) : (info.output.uncertainty[name] | number)}}
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+
+    <div class="processing column" *ngIf="info.processing">
+      <h2>Processing</h2>
+
+      <div class="ground-motion group" *ngIf="info.processing['ground_motion_modules']">
+        <h3>Ground Mation/Intensity Information</h3>
+
+        <table>
+          <thead>
+            <th>Type</th>
+            <th>Module</th>
+            <th>Reference</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let name of name_order['ground_motion_modules']">
+              <th *ngIf="info.processing['ground_motion_modules'][name]">{{ names['ground_motion_modules'][name] }}</th>
+              <td *ngIf="info.processing['ground_motion_modules'][name]">
+                {{ info.processing['ground_motion_modules'][name]['module'] }}
+
+              </td>
+              <td *ngIf="info.processing['ground_motion_modules'][name]">
+                {{ info.processing['ground_motion_modules'][name]['reference'] }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="misc group" *ngIf="name_order['miscellaneous']">
+        <h3>Miscellaneous</h3>
+
+        <table>
+          <tr *ngFor="let name of name_order['miscellaneous']">
+            <th *ngIf="info.processing['miscellaneous'][name]">{{ names['miscellaneous'][name] }}</th>
+            <td *ngIf="info.processing['miscellaneous'][name]">
+              {{ info.processing['miscellaneous'][name] }}
+
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="shakemap group" *ngIf="info.processing['shakemap_versions']">
+        <h3>ShakeMap Versions</h3>
+
+        <table>
+          <tr *ngFor="let name of name_order['shakemap_versions']">
+            <th *ngIf="info.processing['shakemap_versions'][name]">{{ names['shakemap_versions'][name] }}</th>
+            <td *ngIf="info.processing['shakemap_versions'][name]">
+              {{ info.processing['shakemap_versions'][name] }}
+
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="site-response group" *ngIf="info.processing['site_response']">
+        <h3>Site Response</h3>
+
+        <table>
+          <tr *ngFor="let name of name_order['site_response']">
+            <th *ngIf="info.processing['site_response'][name]">
+              {{ names['site_response'][name] }}</th>
+            <td *ngIf="info.processing['site_response'][name]">
+              {{ info.processing['site_response'][name] }}
+
+            </td>
+          </tr>
+        </table>
+
+      </div>
+
+      <div class="roi group" *ngIf="info.processing['roi']">
+        <h3>ROI</h3>
+
+        <table>
+          <thead>
+            <th>Type</th>
+            <th>ROI</th>
+            <th>Observation Decay</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let name of name_order['roi']">
+              <th *ngIf="info.processing['roi'][name]">
+                {{ names['roi'][name] }}</th>
+              <td *ngIf="info.processing['roi'][name]">
+                {{ info.processing['roi'][name]['roi'] }}
+
+              </td>
+              <td *ngIf="info.processing['roi'][name]">
+                {{ info.processing['roi'][name]['decay'] }}
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+</div>
