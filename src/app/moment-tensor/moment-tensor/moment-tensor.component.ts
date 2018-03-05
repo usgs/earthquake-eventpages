@@ -21,6 +21,7 @@ export class MomentTensorComponent implements OnInit, OnDestroy {
   ngOnInit () {
     this.eventSubscription = this.eventService.product$.subscribe((product) => {
       this.tensor = Tensor.fromProduct(product);
+      console.log(this.tensor);
     });
   }
 

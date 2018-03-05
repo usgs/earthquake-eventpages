@@ -8,6 +8,7 @@ import { MomentTensorRoutingModule } from './moment-tensor-routing.module';
 import { MomentTensorComponent } from './moment-tensor/moment-tensor.component';
 import { AxesComponent } from './axes/axes.component';
 import { MatTableModule } from '@angular/material';
+import { NodalPlanesComponent } from './nodal-planes/nodal-planes.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MatTableModule } from '@angular/material';
   ],
   declarations: [
     MomentTensorComponent,
-    AxesComponent
+    AxesComponent,
+    NodalPlanesComponent
   ]
 })
 export class MomentTensorModule { }

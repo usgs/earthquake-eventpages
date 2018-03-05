@@ -31,6 +31,10 @@ describe('AxesComponent', () => {
   });
 
   describe('getAxes', () => {
+    it('returns an empty array', () => {
+      expect(component.getAxes(null)).toEqual([]);
+    });
+
     it('calculates axis values correctly', () => {
       const tensor = Tensor.fromProduct({
         id: 'urn:usgs-product:us:moment-tensor:us_2000cjfy_mww:1519977554040',

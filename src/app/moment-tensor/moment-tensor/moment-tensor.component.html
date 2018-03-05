@@ -8,6 +8,8 @@
 
   <ng-container *ngIf="tensor">
 
+    <moment-tensor-nodal-planes [tensor]="tensor"></moment-tensor-nodal-planes>
+
     <moment-tensor-axes [tensor]="tensor"></moment-tensor-axes>
 
     <shared-beachball [tensor]="tensor"></shared-beachball>

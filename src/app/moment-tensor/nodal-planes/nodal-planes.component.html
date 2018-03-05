@@ -1,0 +1,44 @@
+<h4>Nodal Planes</h4>
+
+<mat-table [dataSource]="getPlanes(tensor)">
+  <!-- render order is defined by columnsToDisplay -->
+  <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+  <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+  <ng-container matColumnDef="plane">
+      <mat-header-cell *matHeaderCellDef>
+        Plane
+      </mat-header-cell>
+      <mat-cell *matCellDef="let plane">
+        {{ plane.name }}
+      </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="strike">
+    <mat-header-cell *matHeaderCellDef>
+      Strike
+    </mat-header-cell>
+    <mat-cell *matCellDef="let plane">
+      {{ round(plane.strike) }}&deg;
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="dip">
+    <mat-header-cell *matHeaderCellDef>
+      Dip
+    </mat-header-cell>
+    <mat-cell *matCellDef="let plane">
+      {{ round(plane.dip) }}&deg;
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="rake">
+    <mat-header-cell *matHeaderCellDef>
+      Rake
+    </mat-header-cell>
+    <mat-cell *matCellDef="let plane">
+      {{ round(plane.rake) }}&deg;
+    </mat-cell>
+  </ng-container>
+
+</mat-table>
