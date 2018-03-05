@@ -1,7 +1,7 @@
 
-.mat-column-plunge,
 .mat-column-axis,
-.mat-column-azimuth {
+.mat-column-azimuth,
+.mat-column-plunge {
   flex: 1;
 }
 

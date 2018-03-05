@@ -9,7 +9,10 @@
       <mat-header-cell *matHeaderCellDef>
         Plane
       </mat-header-cell>
-      <mat-cell *matCellDef="let plane">
+      <mat-cell *matCellDef="let plane"
+          [attr.role]="'rowheader'"
+          [class.mat-cell]="false"
+          class="mat-header-cell">
         {{ plane.name }}
       </mat-cell>
   </ng-container>

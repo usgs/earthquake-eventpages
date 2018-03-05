@@ -9,7 +9,10 @@
       <mat-header-cell *matHeaderCellDef>
         Axis
       </mat-header-cell>
-      <mat-cell *matCellDef="let axis">
+      <mat-cell *matCellDef="let axis"
+          [attr.role]="'rowheader'"
+          [class.mat-cell]="false"
+          class="mat-header-cell">
         {{ axis.name }}
       </mat-cell>
   </ng-container>
