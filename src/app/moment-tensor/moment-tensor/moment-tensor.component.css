@@ -1,0 +1,15 @@
+.column {
+  max-width: 400px;
+}
+
+@media screen and (min-width: 400px) {
+  .row {
+    display: flex;
+    align-content: flex-start;
+  }
+
+  .column {
+    flex: 1;
+    min-width: 320px;
+  }
+}

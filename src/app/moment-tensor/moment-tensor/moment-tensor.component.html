@@ -6,15 +6,20 @@
     <h3>Moment Tensor</h3>
   </ng-container>
 
-  <ng-container *ngIf="tensor">
-    <moment-tensor-info [tensor]="tensor"></moment-tensor-info>
-    <moment-tensor-nodal-planes [tensor]="tensor"></moment-tensor-nodal-planes>
-    <moment-tensor-axes [tensor]="tensor"></moment-tensor-axes>
-    <shared-beachball
-        [fillColor]="'#6ea8ff'"
-        [tensor]="tensor">
-    </shared-beachball>
-  </ng-container>
+  <div class="row" *ngIf="tensor">
+    <div class="column">
+      <moment-tensor-info [tensor]="tensor"></moment-tensor-info>
+      <moment-tensor-nodal-planes [tensor]="tensor"></moment-tensor-nodal-planes>
+      <moment-tensor-axes [tensor]="tensor"></moment-tensor-axes>
+    </div>
+
+    <div class="column">
+      <shared-beachball
+          [fillColor]="'#6ea8ff'"
+          [tensor]="tensor">
+      </shared-beachball>
+    </div>
+  </div>
 
   <!-- container with footer attribute is added before downloads -->
   <ng-container footer>
