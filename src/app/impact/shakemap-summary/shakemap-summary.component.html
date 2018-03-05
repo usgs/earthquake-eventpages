@@ -21,9 +21,9 @@
         {{ columnTitles.mmi }}
       </mat-header-cell>
       <mat-cell *matCellDef="let shakemap">
-        <abbr title="Maximum Modified Mercalli Intensity"
-            [innerHTML]=" formatterService.intensity(shakemap.properties.maxmmi)">
-
+        <abbr title="Maximum Modified Mercalli Intensity">
+          <shared-mmi [intensity]="shakemap.properties.maxmmi">
+          </shared-mmi>
         </abbr>
       </mat-cell>
     </ng-container>

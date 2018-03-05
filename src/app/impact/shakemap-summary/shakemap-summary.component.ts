@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, Sort } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
-import { FormatterService } from '../../formatter.service';
 
 @Component({
   selector: 'impact-shakemap-summary',
@@ -29,9 +28,8 @@ export class ShakemapSummaryComponent implements OnInit {
 
   @Input() products: Array<any> = [];
 
-  constructor(
-    public formatterService: FormatterService
-  ) { }
+
+  constructor() {}
 
   ngOnInit() {}
 }

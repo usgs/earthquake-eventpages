@@ -2,7 +2,6 @@ import { Component, Input, OnInit} from '@angular/core';
 import { MatDialog, Sort } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
-import { FormatterService } from '../../formatter.service';
 
 @Component({
   selector: 'impact-dyfi-summary',
@@ -30,9 +29,7 @@ export class DyfiSummaryComponent implements OnInit {
   @Input() products: Array<any> = [];
 
 
-  constructor(
-    public formatterService: FormatterService
-  ) { }
+  constructor() {}
 
   ngOnInit() {}
 }

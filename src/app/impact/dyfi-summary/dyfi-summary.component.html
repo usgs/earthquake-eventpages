@@ -21,10 +21,11 @@
         {{ columnTitles.cdi }}
       </mat-header-cell>
       <mat-cell *matCellDef="let dyfi">
-        <abbr title="Community Determined Intensity"
-            [innerHTML]=" formatterService.intensity(dyfi.properties.maxmmi)">
-
+        <abbr title="Community Determined Intensity">
+          <shared-mmi [intensity]="dyfi.properties.maxmmi">
+          </shared-mmi>
         </abbr>
+
       </mat-cell>
     </ng-container>
 

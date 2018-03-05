@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatIconModule, MatTableModule } from '@angular/material';
 
 import { DyfiSummaryComponent } from './dyfi-summary.component';
-import { FormatterService } from '../../formatter.service';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('DyfisummaryComponent', () => {
   let component: DyfiSummaryComponent;
@@ -11,7 +11,8 @@ describe('DyfisummaryComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        DyfiSummaryComponent
+        DyfiSummaryComponent,
+        MockComponent({selector: 'shared-mmi', inputs: ['intensity']})
       ],
       imports: [
         MatDialogModule,
@@ -19,7 +20,6 @@ describe('DyfisummaryComponent', () => {
         MatTableModule
       ],
       providers: [
-        FormatterService
       ]
     })
     .compileComponents();

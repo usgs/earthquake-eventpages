@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatIconModule, MatTableModule } from '@angular/material';
 
 import { ShakemapSummaryComponent } from './shakemap-summary.component';
-import { FormatterService } from '../../formatter.service';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('ShakeMapSummaryComponent', () => {
   let component: ShakemapSummaryComponent;
@@ -11,7 +11,8 @@ describe('ShakeMapSummaryComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ShakemapSummaryComponent
+        ShakemapSummaryComponent,
+        MockComponent({selector: 'shared-mmi', inputs: ['intensity']})
       ],
       imports: [
         MatDialogModule,
@@ -19,7 +20,6 @@ describe('ShakeMapSummaryComponent', () => {
         MatTableModule
       ],
       providers: [
-        FormatterService
       ]
     })
     .compileComponents();

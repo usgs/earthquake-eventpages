@@ -8,6 +8,8 @@ import { CoordinatesComponent } from './coordinates/coordinates.component';
 import { DownloadDialogComponent } from './download-dialog/download-dialog.component';
 import { FeRegionComponent } from './fe-region/fe-region.component';
 import { LinkProductComponent } from './link-product/link-product.component';
+import { MmiComponent } from './mmi/mmi.component';
+import { ProductAttributionComponent } from './product-attribution/product-attribution.component';
 import { PreferredCheckComponent } from './preferred-check/preferred-check.component';
 import { ProductAttributionComponent } from './product-attribution/product-attribution.component';
 import { TextProductComponent } from './text-product/text-product.component';
@@ -16,6 +18,7 @@ import { UncertainValueComponent } from './uncertain-value/uncertain-value.compo
 import { NumberPipe } from './number.pipe';
 import { DegreesPipe } from './degrees.pipe';
 import { BubbleComponent } from './bubble/bubble.component';
+
 
 
 @NgModule({
@@ -30,16 +33,16 @@ import { BubbleComponent } from './bubble/bubble.component';
     BeachballComponent,
     BubbleComponent,
     CoordinatesComponent,
+    DegreesPipe,
     DownloadDialogComponent,
     FeRegionComponent,
     LinkProductComponent,
+    MmiComponent,
+    NumberPipe,
     PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
-    UncertainValueComponent,
-
-    DegreesPipe,
-    NumberPipe
+    UncertainValueComponent
   ],
   exports: [
     AttributionComponent,
@@ -50,13 +53,13 @@ import { BubbleComponent } from './bubble/bubble.component';
     FeRegionComponent,
     LinkProductComponent,
     MatIconModule,
+    MmiComponent,
+    NumberPipe,
     PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
     UncertainValueComponent,
-
-    DegreesPipe,
-    NumberPipe
+    DegreesPipe
   ],
   entryComponents: [
     DownloadDialogComponent
