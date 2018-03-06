@@ -30,9 +30,7 @@ export class AxesComponent implements OnInit {
       return [];
     }
 
-    return ['T', 'N', 'P'].map((name) => {
-      const axis = tensor[name];
-
+    return [tensor.T, tensor.N, tensor.P].map((axis) => {
       let azimuth,
           plunge,
           value;
@@ -51,7 +49,7 @@ export class AxesComponent implements OnInit {
       return {
         azimuth: azimuth * 180 / Math.PI,
         exponent: tensor.exponent,
-        name: name,
+        name: axis.name,
         plunge: plunge * 180 / Math.PI,
         units: tensor.units,
         value: value / tensor.scale

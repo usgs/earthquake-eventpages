@@ -342,6 +342,13 @@ export class Tensor {
     n = t.vector.add(p.vector).unit();
     this.NP1 = Tensor.calculatePlane(l, n);
     this.NP2 = Tensor.calculatePlane(n, l);
+
+    // label axes and planes
+    this.T.name = 'T';
+    this.N.name = 'N';
+    this.P.name = 'P';
+    this.NP1.name = 'NP1';
+    this.NP2.name = 'NP2';
   }
 
 }

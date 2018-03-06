@@ -50,14 +50,7 @@ describe('NodalPlanesComponent', () => {
       });
 
       const planes = component.getPlanes(tensor);
-      expect(planes[0].name).toEqual('NP1');
-      expect(planes[0].strike).toEqual(tensor.NP1.strike);
-      expect(planes[0].dip).toEqual(tensor.NP1.dip);
-      expect(planes[0].rake).toEqual(tensor.NP1.rake);
-      expect(planes[1].name).toEqual('NP2');
-      expect(planes[1].strike).toEqual(tensor.NP2.strike);
-      expect(planes[1].dip).toEqual(tensor.NP2.dip);
-      expect(planes[1].rake).toEqual(tensor.NP2.rake);
+      expect(planes).toEqual([tensor.NP1, tensor.NP2]);
     });
   });
 });

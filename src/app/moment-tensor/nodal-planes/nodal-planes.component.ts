@@ -29,15 +29,6 @@ export class NodalPlanesComponent implements OnInit {
       return [];
     }
 
-    return ['NP1', 'NP2'].map((name) => {
-      const plane = tensor[name];
-
-      return {
-        dip: plane.dip,
-        name: name,
-        rake: plane.rake,
-        strike: plane.strike
-      };
-    });
+    return [tensor.NP1, tensor.NP2];
   }
 }

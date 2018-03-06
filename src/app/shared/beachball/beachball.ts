@@ -114,8 +114,6 @@ export class Beachball {
   public x0: number = null;
   public y0: number = null;
 
-  public canvas: Canvas;
-
   /**
    * Create and render a beachball.
    *
@@ -537,10 +535,9 @@ export class Beachball {
         'white-space:nowrap;' +
         'width:auto;' +
         'font:' + font + ';');
-    console.log(el.getAttribute('style'));
     el.innerText = text;
 
-    // add to canvas parent element and measure
+    // add to document and measure
     document.body.appendChild(el);
     size = {
       height: el.scrollHeight,
@@ -555,93 +552,47 @@ export class Beachball {
   }
 
   /**
-   * Label an axis.
-   *
-   * @param axis {Vector}
-   *     axis to label.
-   * @param text {String}
-   *     axis label.
-   */
-  labelAxis (axis, text) {
-    let point;
-
-    point = this.getVectorPoint(axis);
-    this.canvas.text(text,
-        this.labelAxesFont,
-        this.projectX(point.x),
-        this.projectY(point.y),
-        null,
-        'black',
-        'center');
-  }
-
-  /**
-   * Draw an azimuth label.
-   *
-   * @param label {Object}
-   *     label object with `azimuth`, `text`, and `font` properties.
-   */
-  labelAzimuth (label) {
-    let tick;
-
-    if (!('size' in label)) {
-      label = this.computeAzimuthLabel(label);
-    }
-
-    tick = label.tick;
-    this.canvas.line(
-        tick.x.map((x) => this.projectX(x)),
-        tick.y.map((y) => this.projectY(y)),
-        'black',
-        null);
-
-    this.canvas.text(label.text, label.font,
-        this.projectX(label.x),
-        this.projectY(label.y),
-        null,
-        'black',
-        label.align);
-  }
-
-  /**
-   * Adjust size to make room for azimuth labels.
+   * Adjust size to make room for text labels.
    *
    * Updates _canvas, _height, _width, _x0, and _y0.
    * Resets canvas content, any rendering should occur after calling.
    *
-   * @param label {Object}
-   *     label object with `azimuth`, `text`, and `font` properties.
+   * @param {string} size
+   *        size of text, as computed by #measureText
+   * @param {Object} point
+   *        unprojected point where text will plot.
+   * @param {'left'|'right'|'center'} align
+   *        alignment of text relative to point
    */
-  makeRoomForAzimuthLabel (label) {
+  makeRoomForLabel (size, point, align) {
     let bottom,
         left,
         right,
-        size,
         top,
         x,
         y;
 
-    if (!('size' in label)) {
-      label = this.computeAzimuthLabel(label);
-    }
-
-    x = this.projectX(label.x);
-    y = this.projectY(label.y);
-    size = label.size;
+    x = this.projectX(point.x);
+    y = this.projectY(point.y);
 
     // measure actual top/right/bottom/left
     bottom = 0;
     left = 0;
     right = 0;
     top = 0;
+
     bottom = y - size.height;
     top = y + size.height;
-    if (label.align === 'left') {
+    if (align === 'left') {
       left = x;
       right = x + size.width;
-    } else {
+    } else if (align === 'right') {
       left = x - size.width;
       right = x;
+    } else { // center
+      const halfWidth = Math.ceil(size.width / 2);
+      left = x - halfWidth;
+      right = x + halfWidth;
     }
 
     // convert from actual size to relative size increase
@@ -745,11 +696,14 @@ export class Beachball {
    */
   render () {
     let azimuthLabels,
+        canvas,
         point,
         polygons,
         tmp,
         x,
         y;
+
+    // compute label information, since it may affect plot size.
 
     azimuthLabels = [];
     // create azimuth labels, for now only nodal planes.
@@ -764,21 +718,33 @@ export class Beachball {
             np.dip.toFixed(0) + ', ' +
             np.rake.toFixed(0) +
             ')';
-        azimuthLabels.push({
+
+        const label = this.computeAzimuthLabel({
           'azimuth': azimuth,
           'font': this.labelPlanesFont,
           'text': text
         });
+        this.makeRoomForLabel(
+            label.size,
+            {x: label.x, y: label.y},
+            label.align);
+        azimuthLabels.push(label);
       });
     }
-    // adjust plot area so labels are visible.
-    azimuthLabels.forEach((label) => {
-      this.makeRoomForAzimuthLabel(label);
-    });
 
-    this.canvas = this.createCanvas();
+    if (this.labelAxes) {
+      [this.tensor.T, this.tensor.P].forEach((axis) => {
+        this.makeRoomForLabel(
+            this.measureText(axis.name, this.labelAxesFont),
+            this.getVectorPoint(axis.vector),
+            'center');
+      });
+    }
 
-    this.canvas.context.lineWidth = this.lineWidth;
+    // create canvas, now that size is known
+    canvas = this.createCanvas();
+
+    canvas.context.lineWidth = this.lineWidth;
 
     // get polygons
     // represents either solid regions (swapColors = false),
@@ -796,11 +762,11 @@ export class Beachball {
 
     // plot circle outline, with background color
     // in case polygons represent holes
-    this.canvas.circle(x, y, this.radius * 2, this.lineColor, this.bgColor);
+    canvas.circle(x, y, this.radius * 2, this.lineColor, this.bgColor);
 
     // draw polygons
     polygons.forEach((p) => {
-      this.canvas.polygon(
+      canvas.polygon(
           p.x.map((x0) => this.projectX(x0)),
           p.y.map((y0) => this.projectY(y0)),
           this.lineColor,
@@ -812,7 +778,7 @@ export class Beachball {
       [this.tensor.NP1, this.tensor.NP2].forEach((np) => {
         let line;
         line = this.getPlaneLine(np);
-        this.canvas.line(
+        canvas.line(
             line.x.map((x0) => this.projectX(x0)),
             line.y.map((y0) => this.projectY(y0)),
             this.lineColor,
@@ -821,24 +787,44 @@ export class Beachball {
     }
 
     // plot circle without fill, in case polygons covered outline.
-    this.canvas.circle(x, y, this.radius * 2, this.lineColor, null);
+    canvas.circle(x, y, this.radius * 2, this.lineColor, null);
 
     if (this.labelAxes) {
-      this.labelAxis(this.tensor.P.vector, 'P');
-      this.labelAxis(this.tensor.T.vector, 'T');
+      [this.tensor.P, this.tensor.T].forEach((axis) => {
+        point = this.getVectorPoint(axis.vector);
+        canvas.text(axis.name,
+            this.labelAxesFont,
+            this.projectX(point.x),
+            this.projectY(point.y),
+            null,
+            'black',
+            'center');
+      });
     } else if (this.plotAxes) {
       point = this.getVectorPoint(this.tensor.P.vector);
-      this.canvas.circle(point.x, point.y, this.axisSize, 'white', 'black');
+      canvas.circle(point.x, point.y, this.axisSize, 'white', 'black');
       point = this.getVectorPoint(this.tensor.T.vector);
-      this.canvas.circle(point.x, point.y, this.axisSize, 'black', 'white');
+      canvas.circle(point.x, point.y, this.axisSize, 'black', 'white');
     }
 
     // draw azimuth labels
-    azimuthLabels.forEach((azimuth) => {
-      this.labelAzimuth(azimuth);
+    azimuthLabels.forEach((label) => {
+      let tick;
+
+      tick = label.tick;
+      canvas.line(
+          tick.x.map((tickX) => this.projectX(tickX)),
+          tick.y.map((tickY) => this.projectY(tickY)),
+          'black',
+          null);
+      canvas.text(label.text, label.font,
+          this.projectX(label.x),
+          this.projectY(label.y),
+          null,
+          'black',
+          label.align);
     });
 
-    // inject canvas into dom
-    this.canvas = null;
+    canvas = null;
   }
 }
