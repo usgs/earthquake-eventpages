@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
 
 import { AttributionComponent } from './attribution/attribution.component';
+import { TextProductComponent } from './text-product/text-product.component';
+import { LinkProductComponent } from './link-product/link-product.component';
+import { DownloadDialogComponent } from './download-dialog/download-dialog.component';
+import { MatDialogModule, MatIconModule } from '@angular/material';
+import { AlertLevelComponent } from './alert-level/alert-level.component';
 import { BeachballComponent } from './beachball/beachball.component';
 import { CoordinatesComponent } from './coordinates/coordinates.component';
 import { DownloadDialogComponent } from './download-dialog/download-dialog.component';
@@ -30,6 +35,7 @@ import { BubbleComponent } from './bubble/bubble.component';
   ],
   declarations: [
     AttributionComponent,
+    AlertLevelComponent,
     BeachballComponent,
     BubbleComponent,
     CoordinatesComponent,
@@ -46,9 +52,11 @@ import { BubbleComponent } from './bubble/bubble.component';
   ],
   exports: [
     AttributionComponent,
+    AlertLevelComponent
     BeachballComponent,
     BubbleComponent,
     CoordinatesComponent,
+    DegreesPipe,
     DownloadDialogComponent,
     FeRegionComponent,
     LinkProductComponent,
@@ -58,8 +66,7 @@ import { BubbleComponent } from './bubble/bubble.component';
     PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
-    UncertainValueComponent,
-    DegreesPipe
+    UncertainValueComponent
   ],
   entryComponents: [
     DownloadDialogComponent

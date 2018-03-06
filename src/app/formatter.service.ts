@@ -14,23 +14,6 @@ export class FormatterService {
     this.distanceDecimals = 1;
     this.empty = '&ndash;';
     this.locationDecimals = 3;
-    this.mmiArray = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
-        'IX', 'X', 'XI', 'XII'];
-    this.mmiColors = [
-        '#FFFFFF',  // I
-        '#FFFFFF',  // I
-        '#ACD8E9',  // II
-        '#ACD8E9',  // III
-        '#83D0DA',  // IV
-        '#7BC87F',  // V
-        '#F9F518',  // VI
-        '#FAC611',  // VII
-        '#FA8A11',  // VIII
-        '#F7100C',  // IX
-        '#C80F0A',  // X
-        '#C80F0A',  // XI
-        '#C80F0A'   // XII
-    ];
   }
 
   /**
@@ -236,23 +219,6 @@ export class FormatterService {
     }
 
     return this.number(value) + ' ' + type;
-  }
-
-  /**
-   * Translate mmi to a roman numeral
-   *
-   * @params mmi {number}
-   *         Modified Mercal Intensity
-   * @params empty {string}
-   *         The string to return if mmi is out of range
-   *
-   * @returns {string}
-   *          The Roman Numeral cooresponding to the mmi.
-   */
-  mmi (mmi: number) {
-    mmi = Math.round(mmi);
-
-    return this.mmiArray[mmi];
   }
 
   /**

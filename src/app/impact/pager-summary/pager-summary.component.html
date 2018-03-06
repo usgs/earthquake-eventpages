@@ -21,7 +21,8 @@
         {{ columnTitles.alertlevel }}
       </mat-header-cell>
       <mat-cell *matCellDef="let pager">
-      {{ pager.properties.alertlevel }}
+        <shared-alert-level [alert]="pager.properties.alertlevel">
+        </shared-alert-level>
       </mat-cell>
     </ng-container>
 

@@ -1,0 +1,51 @@
+$mmi-font-family: Tahoma, Verdana, Segoe, sans-serif;
+
+.mmi {
+  display: inline-block;
+  line-height: 1;
+  text-align: center;
+
+  > span {
+    display: block;
+    max-width: 100%;
+    color: #000;
+  }
+
+  > abbr {
+    color: #666;
+    font-size: 0.8em;
+  }
+}
+
+.mmi {
+  border-radius: 2px;
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5);
+  padding: 0.5em 0;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.roman {
+  font-family: $mmi-font-family;
+}
+
+
+.pager-alertlevel-pending {
+  background-color: #fff;
+  color: #000;
+}
+.pager-alertlevel-green {
+  background-color: #00b04f !important;
+  color: #000 !important;
+}
+.pager-alertlevel-yellow {
+  background-color: #ff0 !important;
+  color: #000 !important;
+}
+.pager-alertlevel-orange {
+  background-color: #f90 !important;
+  color: #000 !important;
+}
+.pager-alertlevel-red {
+  background-color: #f00 !important;
+  color: #000 !important;
+}

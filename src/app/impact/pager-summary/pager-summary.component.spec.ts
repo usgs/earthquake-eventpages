@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatIconModule, MatTableModule } from '@angular/material';
 
 import { PagerSummaryComponent } from './pager-summary.component';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('PagerSummaryComponent', () => {
   let component: PagerSummaryComponent;
@@ -10,7 +11,8 @@ describe('PagerSummaryComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        PagerSummaryComponent
+        PagerSummaryComponent,
+        MockComponent({selector: 'shared-alert-level', inputs: ['alert']})
       ],
       imports: [
         MatDialogModule,
