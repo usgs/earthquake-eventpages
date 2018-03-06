@@ -45,7 +45,8 @@ node {
       sh "rm -rf ${OWASP_REPORT_DIR}"
 
       // Clone latest source
-      SCM_VARS = checkout scm
+      // SCM_VARS = checkout scm
+      SCM_VARS = checkout([$class: 'GitSCM', branches: [[name: '**/*']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/emartinez-usgs/earthquake-eventpages.git']]])
       sh "git fetch --tags origin"
 
       if (GIT_BRANCH != '') {
