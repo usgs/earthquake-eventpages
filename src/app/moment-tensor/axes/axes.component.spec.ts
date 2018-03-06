@@ -50,7 +50,7 @@ describe('AxesComponent', () => {
       });
 
       const axes = component.getAxes(tensor);
-      console.log(axes);
+
       const t = axes[0];
       expect(t.name).toEqual('T');
       expect(t.azimuth.toFixed(1)).toEqual('28.4');
