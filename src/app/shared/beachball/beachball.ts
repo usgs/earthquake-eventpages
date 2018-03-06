@@ -84,7 +84,7 @@ __axisCache = function (axis) {
 };
 
 
-__getOption = function (options: any, name: string, defaultValue: any = null): any {
+__getOption = function (options: any, name: string, defaultValue: any): any {
   if (options && (name in options)) {
     return options[name];
   }

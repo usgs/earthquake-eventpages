@@ -277,5 +277,20 @@ describe('Beachball', () => {
       expect(beachball.bgColor).toEqual(options.fillColor);
       expect(beachball.fillColor).toEqual(options.bgColor);
     });
+
+    it('renders statically', () => {
+      Beachball.render(Tensor.fromProduct({
+        id: 'urn:usgs-product:us:moment-tensor:us_2000dca2_mwr:1520267370040',
+        type: 'moment-tensor',
+        properties: {
+          'tensor-mpp': '-1.0245E+15',
+          'tensor-mrp': '-1.089E+14',
+          'tensor-mrr': '-1.964E+14',
+          'tensor-mrt': '7.854E+14',
+          'tensor-mtp': '1.7833E+15',
+          'tensor-mtt': '1.2209E+15'
+        }
+      }), document.createElement('canvas'));
+    });
   });
 });
