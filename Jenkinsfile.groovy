@@ -130,7 +130,7 @@ node {
               ng test --single-run --code-coverage --progress false
             """
             sh """
-              ng e2e --progress false
+              npm run e2e -- --progress false
             """
           }
       }
