@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Tensor } from '../../shared/beachball/tensor';
+import { FormatterService } from '../../formatter.service';
 
 @Component({
   selector: 'technical-moment-tensor-summary',
@@ -7,9 +10,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MomentTensorSummaryComponent implements OnInit {
 
-  constructor() { }
+  public columnsToDisplay = [
+    'catalog',
+    'tensor',
+    'magnitude',
+    'depth',
+    'percentDC',
+    'source'
+  ];
 
-  ngOnInit() {
+  private _products: Array<any>;
+
+  @Input() event: any;
+
+  @Input() set products (products: Array<any>) {
+    this._products = products;
+    this.tensors = (products || []).map((p) => {
+      return Tensor.fromProduct(p);
+    });
+  }
+
+  get products () {
+    return this._products;
+  }
+
+  public tensors: Array<any> = [];
+
+  constructor(
+    public formatterService: FormatterService
+  ) { }
+
+  ngOnInit () {
   }
 
 }

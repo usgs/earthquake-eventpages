@@ -1,0 +1,10 @@
+
+.mat-column-axis,
+.mat-column-azimuth,
+.mat-column-plunge {
+  flex: 1;
+}
+
+.mat-column-value {
+  flex: 3;
+}

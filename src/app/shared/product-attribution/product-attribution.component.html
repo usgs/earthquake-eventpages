@@ -1,0 +1,13 @@
+<ng-container *ngIf="eventService.event$ | async; let event">
+  <ng-container *ngIf="contributorService.contributors$ | async; let contributors">
+    <span *ngFor="let source of getSources(product, event, contributors)">
+      <abbr *ngIf="source.details; else noDetails" [title]="source.details.title">
+        {{ source.id }}
+      </abbr>
+      <ng-template #noDetails>
+        {{ source.id }}
+      </ng-template>
+      <sup>{{ source.index }}</sup>
+    </span>
+  </ng-container>
+</ng-container>

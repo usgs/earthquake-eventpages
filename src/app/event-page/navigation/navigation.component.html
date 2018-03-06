@@ -32,14 +32,14 @@
 
   <app-navigation-group *ngIf="hasScientific(event)">
     <app-navigation-item navGroupHeader
-        display="Technical" class="not-supported"
-        navRouterLink="scientific"></app-navigation-item>
+        display="Technical"
+        navRouterLink="technical"></app-navigation-item>
 
     <app-navigation-item *ngIf="event.hasProducts(['origin', 'phase-data'])"
         display="Origin"
         navRouterLink="origin"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('moment-tensor')"
-        display="Moment Tensor" class="not-supported"
+        display="Moment Tensor"
         navRouterLink="moment-tensor"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('focal-mechanism')"
         display="Focal Mechanism" class="not-supported"

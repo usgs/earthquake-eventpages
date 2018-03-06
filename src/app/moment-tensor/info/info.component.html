@@ -1,0 +1,63 @@
+<ng-container *ngIf="tensor">
+
+  <h4 [ngSwitch]="(tensor.type || '').toUpperCase()">
+    <ng-container *ngSwitchCase="''">
+      Moment Tensor
+    </ng-container>
+    <ng-container *ngSwitchCase="'MWB'">
+      Body-wave Moment Tensor (Mwb)
+    </ng-container>
+    <ng-container *ngSwitchCase="'MWC'">
+      Centroid Moment Tensor (Mwc)
+    </ng-container>
+    <ng-container *ngSwitchCase="'MWR'">
+      Regional Moment Tensor (Mwr)
+    </ng-container>
+    <ng-container *ngSwitchCase="'MWW'">
+      W-phase Moment Tensor (Mww)
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+      Moment Tensor ({{ tensor.type }})
+    </ng-container>
+  </h4>
+
+  <dl>
+    <dt>Moment</dt>
+    <dd>{{ tensor.moment.toExponential(3) }} {{ tensor.units }}</dd>
+
+    <dt>Magnitude</dt>
+    <dd>
+      {{ formatterService.number(tensor.magnitude, 2) }}
+      {{ tensor.product.properties['derived-magnitude-type'] }}
+    </dd>
+
+    <dt>Depth</dt>
+    <dd>{{ formatterService.depth(tensor.depth, 'km') }}</dd>
+
+    <dt>
+      Percent
+      <abbr title="Double Couple">DC</abbr>
+    </dt>
+    <dd>{{ round(tensor.percentDC * 100) }} %</dd>
+
+    <dt>Half Duration</dt>
+    <dd>{{ formatterService.number(tensor.halfDuration, 2, '&ndash;', 's') }}</dd>
+
+    <dt>Catalog</dt>
+    <dd>{{ tensor.product.properties.eventsource.toUpperCase() }}</dd>
+
+    <dt>Data Source</dt>
+    <dd>
+      <shared-product-attribution
+          [product]="{ source: tensor.product.properties['beachball-source'] || tensor.product.source }">
+      </shared-product-attribution>
+    </dd>
+
+    <dt>Contributor</dt>
+    <dd>
+      <shared-product-attribution
+          [product]="{ source: tensor.product.source }">
+      </shared-product-attribution>
+    </dd>
+  </dl>
+</ng-container>

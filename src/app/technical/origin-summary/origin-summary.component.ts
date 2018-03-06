@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormatterService } from '../../formatter.service';
 
 @Component({
   selector: 'technical-origin-summary',
@@ -7,9 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OriginSummaryComponent implements OnInit {
 
-  constructor() { }
+  public columnsToDisplay = [
+    'catalog',
+    'magnitude',
+    'time',
+    'depth',
+    'status',
+    'location',
+    'source'
+  ];
 
-  ngOnInit() {
+  @Input() event: any;
+
+  @Input() products: Array<any>;
+
+  constructor(
+    public formatterService: FormatterService
+  ) { }
+
+  ngOnInit () {
+  }
+
+  toDate (str: string) {
+    return new Date(str);
   }
 
 }

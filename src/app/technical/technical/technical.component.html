@@ -1,7 +1,31 @@
-<p>
-  technical works!
-</p>
+<ng-container *ngIf="eventService.event$ | async; let event">
+  <ng-container *ngIf="event">
 
-<technical-origin-summary></technical-origin-summary>
-<technical-moment-tensor-summary></technical-moment-tensor-summary>
+    <technical-origin-summary
+        [event]="event"
+        [products]="event.getProducts('origin')">
+    </technical-origin-summary>
 
+    <technical-moment-tensor-summary
+        [event]="event"
+        [products]="event.getProducts('moment-tensor')">
+    </technical-moment-tensor-summary>
+
+
+    <shared-text-product
+        *ngFor="let product of event.getProducts('scitech-text')"
+        [product]="product">
+    </shared-text-product>
+
+    <ng-container *ngIf="event.hasProducts('scitech-link')">
+      <h3>For More Information</h3>
+      <ul>
+      <li *ngFor="let product of event.getProducts('scitech-link')">
+        <shared-link-product [product]="product">
+        </shared-link-product>
+      </li>
+      </ul>
+    </ng-container>
+
+  </ng-container>
+</ng-container>
