@@ -14,7 +14,7 @@ import { Component, OnInit, Input } from '@angular/core';
  */
 export class PreferredCheckComponent implements OnInit {
 
-  @Input() TITLE: string;
+  @Input() title: string;
 
   constructor() { }
 

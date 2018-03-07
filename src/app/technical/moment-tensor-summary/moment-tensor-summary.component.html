@@ -11,7 +11,7 @@
       <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>
       <mat-cell *matCellDef="let tensor" [class.unpreferred]="tensor !== tensors[0]">
         <ng-container *ngIf="tensor === tensors[0]">
-          <shared-preferred-check [TITLE]="'Preferred Moment Tensor'">
+          <shared-preferred-check [title]="'Preferred Moment Tensor'">
           </shared-preferred-check>
         </ng-container>
         <a
