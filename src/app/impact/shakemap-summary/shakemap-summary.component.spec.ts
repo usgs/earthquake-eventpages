@@ -12,7 +12,8 @@ describe('ShakeMapSummaryComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ShakemapSummaryComponent,
-        MockComponent({selector: 'shared-mmi', inputs: ['intensity']})
+        MockComponent({selector: 'shared-mmi', inputs: ['intensity']}),
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
       ],
       imports: [
         MatDialogModule,

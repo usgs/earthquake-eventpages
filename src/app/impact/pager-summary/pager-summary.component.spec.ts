@@ -12,7 +12,8 @@ describe('PagerSummaryComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         PagerSummaryComponent,
-        MockComponent({selector: 'shared-alert-level', inputs: ['alert']})
+        MockComponent({selector: 'shared-alert-level', inputs: ['alert']}),
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
       ],
       imports: [
         MatDialogModule,

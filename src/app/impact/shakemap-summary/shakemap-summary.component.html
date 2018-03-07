@@ -33,7 +33,8 @@
         {{ columnTitles.source }}
       </mat-header-cell>
       <mat-cell *matCellDef="let shakemap">
-        {{ shakemap.source }}
+        <shared-product-attribution [product]="shakemap">
+        </shared-product-attribution>
       </mat-cell>
     </ng-container>
 

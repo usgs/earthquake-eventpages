@@ -43,7 +43,8 @@
         {{ columnTitles.source }}
       </mat-header-cell>
       <mat-cell *matCellDef="let dyfi">
-        {{ dyfi.source }}
+        <shared-product-attribution [product]="dyfi">
+        </shared-product-attribution>
       </mat-cell>
     </ng-container>
 

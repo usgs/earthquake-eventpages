@@ -6,10 +6,12 @@
   <impact-pager-summary [products]="event.getProducts('losspager')">
   </impact-pager-summary>
 
-  <shared-text-product
-      *ngFor="let product of event.getProducts('impact-text')"
-      [product]="product">
-  </shared-text-product>
+  <p>
+    <shared-text-product
+        *ngFor="let product of event.getProducts('impact-text')"
+        [product]="product">
+    </shared-text-product>
+  </p>
 
   <ng-container *ngIf="event.hasProducts('impact-link')">
     <h3>For More Information</h3>

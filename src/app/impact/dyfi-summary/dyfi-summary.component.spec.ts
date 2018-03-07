@@ -12,7 +12,8 @@ describe('DyfisummaryComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         DyfiSummaryComponent,
-        MockComponent({selector: 'shared-mmi', inputs: ['intensity']})
+        MockComponent({selector: 'shared-mmi', inputs: ['intensity']}),
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
       ],
       imports: [
         MatDialogModule,
