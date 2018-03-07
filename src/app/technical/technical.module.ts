@@ -7,13 +7,12 @@ import { TechnicalComponent } from './technical/technical.component';
 import { OriginSummaryComponent } from './origin-summary/origin-summary.component';
 import { MomentTensorSummaryComponent } from './moment-tensor-summary/moment-tensor-summary.component';
 import { SharedModule } from '../shared/shared.module';
-import { MatTableModule, MatIconModule } from '@angular/material';
+import { MatTableModule} from '@angular/material';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    MatIconModule,
     MatTableModule,
     SharedModule,
     TechnicalRoutingModule

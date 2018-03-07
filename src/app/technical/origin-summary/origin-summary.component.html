@@ -11,7 +11,8 @@
       <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>
       <mat-cell *matCellDef="let product" [class.unpreferred]="product !== products[0]">
         <ng-container *ngIf="product === products[0]">
-          <abbr class="preferred" title="Preferred Origin"><mat-icon>check</mat-icon></abbr>
+          <shared-preferred-check [TITLE]="'Preferred Origin'">
+          </shared-preferred-check>
         </ng-container>
         <a
             [routerLink]="['/', event?.id, 'origin']"

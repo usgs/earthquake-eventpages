@@ -22,7 +22,8 @@ describe('MomentTensorSummaryComponent', () => {
         MomentTensorSummaryComponent,
 
         MockComponent({selector: 'shared-beachball', inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor']}),
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
+        MockComponent({selector: 'shared-preferred-check', inputs: ['TITLE']})
       ],
       providers: [
         FormatterService

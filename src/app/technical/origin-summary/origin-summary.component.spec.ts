@@ -20,7 +20,8 @@ describe('OriginSummaryComponent', () => {
       declarations: [
         OriginSummaryComponent,
 
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
+        MockComponent({selector: 'shared-preferred-check', inputs: ['TITLE']})
       ],
       providers: [
         FormatterService
