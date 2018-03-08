@@ -27,21 +27,21 @@
 
     <dt>Magnitude</dt>
     <dd>
-      {{ formatterService.number(tensor.magnitude, 2) }}
+      {{ tensor.magnitude | sharedNumber:2 }}
       {{ tensor.product.properties['derived-magnitude-type'] }}
     </dd>
 
     <dt>Depth</dt>
-    <dd>{{ formatterService.depth(tensor.depth, 'km') }}</dd>
+    <dd>{{ tensor.depth | sharedNumber:1:'km' }}</dd>
 
     <dt>
       Percent
       <abbr title="Double Couple">DC</abbr>
     </dt>
-    <dd>{{ round(tensor.percentDC * 100) }} %</dd>
+    <dd>{{ tensor.percentDC | percent }}</dd>
 
     <dt>Half Duration</dt>
-    <dd>{{ formatterService.number(tensor.halfDuration, 2, '&ndash;', 's') }}</dd>
+    <dd>{{ tensor.halfDuration | sharedNumber:2:'s' }}</dd>
 
     <dt>Catalog</dt>
     <dd>{{ tensor.product.properties.eventsource.toUpperCase() }}</dd>

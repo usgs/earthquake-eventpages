@@ -32,7 +32,7 @@
       Plunge
     </mat-header-cell>
     <mat-cell *matCellDef="let axis">
-      {{ round(axis.plunge) }}&deg;
+      {{ axis.plunge | sharedDegrees }}
     </mat-cell>
   </ng-container>
 
@@ -41,7 +41,7 @@
       Azimuth
     </mat-header-cell>
     <mat-cell *matCellDef="let axis">
-      {{ round(axis.azimuth) }}&deg;
+      {{ axis.azimuth | sharedDegrees }}
     </mat-cell>
   </ng-container>
 

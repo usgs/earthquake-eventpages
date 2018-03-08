@@ -14,6 +14,7 @@ import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 
 import { NumberPipe } from './number.pipe';
+import { DegreesPipe } from './degrees.pipe';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { NumberPipe } from './number.pipe';
     TextProductComponent,
     UncertainValueComponent,
 
+    DegreesPipe,
     NumberPipe
   ],
   exports: [
@@ -49,6 +51,7 @@ import { NumberPipe } from './number.pipe';
     TextProductComponent,
     UncertainValueComponent,
 
+    DegreesPipe,
     NumberPipe
   ],
   entryComponents: [

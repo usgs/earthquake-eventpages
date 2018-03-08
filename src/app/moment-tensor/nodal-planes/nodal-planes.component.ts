@@ -15,8 +15,6 @@ export class NodalPlanesComponent implements OnInit {
     'rake'
   ];
 
-  public round = Math.round;
-
   @Input() tensor: Tensor;
 
   constructor() { }
