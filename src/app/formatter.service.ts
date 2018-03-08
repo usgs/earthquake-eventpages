@@ -239,7 +239,7 @@ export class FormatterService {
         result;
 
     if (!value && value !== 0) {
-      return this.empty;
+      return empty;
     }
 
     if (typeof decimals === 'number') {
