@@ -3,13 +3,30 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FormatterService {
   public readonly depthDecimals: number;
+  public readonly distanceDecimals: number;
   public readonly empty: string;
   public readonly locationDecimals: number;
 
   constructor () {
     this.depthDecimals = 1;
+    this.distanceDecimals = 1;
     this.empty = '&ndash;';
     this.locationDecimals = 3;
+  }
+
+  /**
+   * @param angle {Number}
+   * @param decimals {Number}
+   *
+   * @return {String}
+   */
+  angle (angle: any, decimals: number): string {
+      if (angle || angle === 0) {
+        // Note: Append &deg; manually to avoid space between value/units
+        return this.number(angle, decimals) + '&deg;';
+      } else {
+        return this.empty;
+      }
   }
 
   /**
@@ -96,6 +113,21 @@ export class FormatterService {
     number = this.number(depth, this.depthDecimals, this.empty, units);
     uncertainty = this.uncertainty(error, this.depthDecimals, '');
     return number + uncertainty;
+  }
+
+  /**
+   * Format a distance (like km or mi).
+   *
+   * @param distance {Number}
+   *     The distance for format.
+   * @param units {String}
+   *     The units for this distance.
+   *
+   * @return {String}
+   *     A formatted distance string.
+   */
+  distance (distance: number, units: string): string {
+    return this.number(distance, this.distanceDecimals, this.empty, units);
   }
 
   /**
@@ -346,6 +378,6 @@ export class FormatterService {
     }
 
     result = this.number(error, decimals, null, units);
-    return `<span class="uncertainty">&plusmn; ${result}</span>`;
+    return `&plusmn; ${result}`;
   }
 }
