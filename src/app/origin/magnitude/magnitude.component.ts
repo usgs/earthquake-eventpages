@@ -24,8 +24,7 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
   /** subscription to quakeml observable */
   private quakemlSubscription: Subscription;
 
-  constructor(
-    public contributorService: ContributorService,
+  constructor (
     public eventService: EventService,
     public quakemlService: QuakemlService
   ) { }
@@ -60,7 +59,7 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
    * @param quakeml next quakeml.
    */
   onQuakeml (quakeml: Quakeml): Array<any> {
-    if (quakeml == null) {
+    if (quakeml === null) {
       this.magnitudes = [];
       return;
     }

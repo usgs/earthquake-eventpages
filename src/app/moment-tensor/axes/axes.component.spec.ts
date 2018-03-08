@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AxesComponent } from './axes.component';
 import { MatTableModule } from '@angular/material';
 import { Tensor } from '../../shared/beachball/tensor';
+import { MockPipe } from '../../mock-pipe';
 
 describe('AxesComponent', () => {
   let component: AxesComponent;
@@ -14,7 +15,9 @@ describe('AxesComponent', () => {
         MatTableModule
       ],
       declarations: [
-        AxesComponent
+        AxesComponent,
+
+        MockPipe('sharedDegrees')
       ]
     })
     .compileComponents();

@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
 import { MockPipe } from '../../mock-pipe';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -12,7 +13,7 @@ describe('HeaderComponent', () => {
       declarations: [
         HeaderComponent,
 
-        MockPipe('contributorList'),
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
         MockPipe('dateTime')
       ]
     })

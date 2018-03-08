@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatDialogModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
 
 import { AttributionComponent } from './attribution/attribution.component';
 import { BeachballComponent } from './beachball/beachball.component';
@@ -13,16 +13,22 @@ import { ProductAttributionComponent } from './product-attribution/product-attri
 import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 
+import { NumberPipe } from './number.pipe';
+import { DegreesPipe } from './degrees.pipe';
+import { BubbleComponent } from './bubble/bubble.component';
+
 
 @NgModule({
   imports: [
     CommonModule,
+    MatButtonModule,
     MatDialogModule,
     MatIconModule
   ],
   declarations: [
     AttributionComponent,
     BeachballComponent,
+    BubbleComponent,
     CoordinatesComponent,
     DownloadDialogComponent,
     FeRegionComponent,
@@ -30,11 +36,15 @@ import { UncertainValueComponent } from './uncertain-value/uncertain-value.compo
     PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
-    UncertainValueComponent
+    UncertainValueComponent,
+
+    DegreesPipe,
+    NumberPipe
   ],
   exports: [
     AttributionComponent,
     BeachballComponent,
+    BubbleComponent,
     CoordinatesComponent,
     DownloadDialogComponent,
     FeRegionComponent,
@@ -43,7 +53,10 @@ import { UncertainValueComponent } from './uncertain-value/uncertain-value.compo
     PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
-    UncertainValueComponent
+    UncertainValueComponent,
+
+    DegreesPipe,
+    NumberPipe
   ],
   entryComponents: [
     DownloadDialogComponent

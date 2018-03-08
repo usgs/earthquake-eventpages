@@ -5,7 +5,7 @@
     </mat-card-title>
     <mat-card-subtitle>
       Contributed by
-      <span [innerHTML]="product | contributorList:event:contributors"></span>
+      <shared-product-attribution [product]="product"></shared-product-attribution>
     </mat-card-subtitle>
     <mat-card-content>
       <dl>

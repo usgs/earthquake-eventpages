@@ -4,7 +4,7 @@
 
   <small class="attribution">
     Contributed by
-    <span [innerHTML]="product | contributorList:event:contributors "></span>
+    <shared-product-attribution [product]="product"></shared-product-attribution>
     last updated {{product?.updateTime | dateTime}}
   </small>
 

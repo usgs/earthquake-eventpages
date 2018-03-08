@@ -11,6 +11,7 @@ import * as L from 'leaflet';
 import { MockPipe } from '../../mock-pipe';
 import { RegionalPinComponent } from './regional-pin.component';
 import { EventService } from '../../event.service';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('RegionalPinComponent', () => {
   let component: RegionalPinComponent;
@@ -32,7 +33,7 @@ describe('RegionalPinComponent', () => {
       declarations: [
         RegionalPinComponent,
 
-        MockPipe('contributorList')
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
       ],
       imports: [
         MatListModule,

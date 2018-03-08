@@ -16,8 +16,6 @@ export class AxesComponent implements OnInit {
     'azimuth'
   ];
 
-  public round = Math.round;
-
   @Input() tensor: Tensor;
 
   constructor() { }

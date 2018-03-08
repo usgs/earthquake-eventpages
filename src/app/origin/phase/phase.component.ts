@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog, Sort } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -73,7 +73,6 @@ export class PhaseComponent implements OnInit, OnDestroy {
   constructor(
     public dialog: MatDialog,
     public eventService: EventService,
-    public formatterService: FormatterService,
     public quakemlService: QuakemlService
   ) { }
 

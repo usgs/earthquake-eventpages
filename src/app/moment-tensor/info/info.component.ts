@@ -9,12 +9,9 @@ import { FormatterService } from '../../formatter.service';
 })
 export class InfoComponent implements OnInit {
 
-  public round = Math.round;
-
   @Input() tensor: Tensor;
 
   constructor(
-    public formatterService: FormatterService
   ) { }
 
   ngOnInit() {

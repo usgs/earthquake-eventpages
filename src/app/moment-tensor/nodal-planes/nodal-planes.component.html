@@ -22,7 +22,7 @@
       Strike
     </mat-header-cell>
     <mat-cell *matCellDef="let plane">
-      {{ round(plane.strike) }}&deg;
+      {{ plane.strike | sharedDegrees }}
     </mat-cell>
   </ng-container>
 
@@ -31,7 +31,7 @@
       Dip
     </mat-header-cell>
     <mat-cell *matCellDef="let plane">
-      {{ round(plane.dip) }}&deg;
+      {{ plane.dip | sharedDegrees }}
     </mat-cell>
   </ng-container>
 
@@ -40,7 +40,7 @@
       Rake
     </mat-header-cell>
     <mat-cell *matCellDef="let plane">
-      {{ round(plane.rake) }}&deg;
+      {{ plane.rake | sharedDegrees }}
     </mat-cell>
   </ng-container>
 
