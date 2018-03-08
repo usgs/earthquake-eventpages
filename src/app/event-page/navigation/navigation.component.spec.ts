@@ -183,21 +183,21 @@ describe('NavigationComponent', () => {
   describe('hasImpact', () => {
     it('defers to event method', () => {
       const event = new Event({});
-      const spy = spyOn(event, 'hasProducts').and.returnValue('custom');
+      const spy = spyOn(event, 'hasProducts').and.returnValue(true);
       const result = component.hasImpact(event);
 
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith([
         'dyfi', 'impact-text', 'impact-link', 'losspager', 'shakemap'
       ]);
-      expect(result).toBe('custom');
+      expect(result).toBe(true);
     });
   });
 
   describe('hasScientific', () => {
     it('defers to event method', () => {
       const event = new Event({});
-      const spy = spyOn(event, 'hasProducts').and.returnValue('custom');
+      const spy = spyOn(event, 'hasProducts').and.returnValue(true);
       const result = component.hasScientific(event);
 
       expect(spy).toHaveBeenCalled();
@@ -205,7 +205,7 @@ describe('NavigationComponent', () => {
         'origin', 'phase-data', 'moment-tensor',
         'focal-mechanism', 'finite-fault', 'oaf'
       ]);
-      expect(result).toBe('custom');
+      expect(result).toBe(true);
     });
   });
 });
