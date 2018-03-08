@@ -266,7 +266,7 @@ export class FormatterService {
    * @return {String}
    */
   reviewStatus (status: string): string {
-    if (!status || status === '') {
+    if (!status) {
       return this.empty;
     }
 
