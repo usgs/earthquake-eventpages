@@ -1,12 +1,18 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TextProductComponent } from './text-product/text-product.component';
-import { LinkProductComponent } from './link-product/link-product.component';
-import { DownloadDialogComponent } from './download-dialog/download-dialog.component';
+import { NgModule } from '@angular/core';
 import { MatDialogModule, MatIconModule } from '@angular/material';
+
+import { AttributionComponent } from './attribution/attribution.component';
 import { BeachballComponent } from './beachball/beachball.component';
-import { ProductAttributionComponent } from './product-attribution/product-attribution.component';
+import { CoordinatesComponent } from './coordinates/coordinates.component';
+import { DownloadDialogComponent } from './download-dialog/download-dialog.component';
+import { FeRegionComponent } from './fe-region/fe-region.component';
+import { LinkProductComponent } from './link-product/link-product.component';
 import { PreferredCheckComponent } from './preferred-check/preferred-check.component';
+import { ProductAttributionComponent } from './product-attribution/product-attribution.component';
+import { TextProductComponent } from './text-product/text-product.component';
+import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
+
 
 @NgModule({
   imports: [
@@ -15,21 +21,29 @@ import { PreferredCheckComponent } from './preferred-check/preferred-check.compo
     MatIconModule
   ],
   declarations: [
+    AttributionComponent,
     BeachballComponent,
+    CoordinatesComponent,
     DownloadDialogComponent,
+    FeRegionComponent,
     LinkProductComponent,
+    PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
-    PreferredCheckComponent
+    UncertainValueComponent
   ],
   exports: [
+    AttributionComponent,
     BeachballComponent,
+    CoordinatesComponent,
     DownloadDialogComponent,
+    FeRegionComponent,
     LinkProductComponent,
     MatIconModule,
-    ProductAttributionComponent,
     PreferredCheckComponent,
-    TextProductComponent
+    ProductAttributionComponent,
+    TextProductComponent,
+    UncertainValueComponent
   ],
   entryComponents: [
     DownloadDialogComponent
