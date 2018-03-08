@@ -19,6 +19,7 @@ import { NumberPipe } from './number.pipe';
 import { DegreesPipe } from './degrees.pipe';
 import { BubbleComponent } from './bubble/bubble.component';
 
+import { StationComponent } from './station/station.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { BubbleComponent } from './bubble/bubble.component';
     PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
-    UncertainValueComponent
+    UncertainValueComponent,
+    StationComponent
   ],
   exports: [
     AttributionComponent,
@@ -61,7 +63,8 @@ import { BubbleComponent } from './bubble/bubble.component';
     ProductAttributionComponent,
     PreferredCheckComponent,
     TextProductComponent,
-    UncertainValueComponent
+    UncertainValueComponent,
+    StationComponent
   ],
   entryComponents: [
     DownloadDialogComponent
