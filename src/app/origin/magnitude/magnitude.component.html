@@ -1,27 +1,38 @@
-<mat-card *ngFor="let magnitude of magnitudes"
+
+<h3>Magnitudes</h3>
+
+<div *ngFor="let magnitude of magnitudes"
     [attr.data-magnitudeID]="magnitude.magnitudePublicID">
-  <mat-card-title>
-    <ng-container *ngIf="magnitude.isPreferred">
-        <abbr class="preferred" title="Preferred Magnitude"><mat-icon>done</mat-icon></abbr>
-    </ng-container>
+
+  <h4>
+    <shared-preferred-check *ngIf="magnitude.isPreferred"></shared-preferred-check>
     {{ magnitude.type }}
-    <span class="magnitude">
-      {{ magnitude.magnitude}}
-      <small *ngIf="magnitude.magnitudeError">
-        &plusmn;{{ magnitude.magnitudeError }}
-      </small>
-    </span>
-  </mat-card-title>
+  </h4>
 
-  <mat-card-subtitle>
-    Data Source
-    <shared-product-attribution [product]="magnitude"></shared-product-attribution>
-  </mat-card-subtitle>
+  <ul class="magnitude-summary">
+  <li>
+    <shared-bubble name="Mag" title="Magnitude" class="border">
+      <strong>{{ magnitude.magnitude}}</strong>
+    </shared-bubble>
+  </li><li>
+    <shared-bubble name="Err" title="Magnitude Error">
+      {{ magnitude.magnitudeError }}
+    </shared-bubble>
+  </li><li>
+    <shared-bubble name="Stations" title="Magnitude Number of Stations">
+      {{ magnitude.stationCount | sharedNumber }}
+    </shared-bubble>
+  </li><li>
+    <shared-bubble name="Source" title="Magnitude Data Source">
+        <shared-product-attribution [product]="magnitude"></shared-product-attribution>
+    </shared-bubble>
+  </li>
+  </ul>
 
-  <mat-expansion-panel [disabled]="!magnitude.stationCount || !magnitude.contributions.length">
+  <mat-expansion-panel [disabled]="!magnitude.contributions.length">
     <mat-expansion-panel-header>
-      <ng-container *ngIf="magnitude.stationCount; else noContributions">
-        {{ magnitude.stationCount }} Stations Used
+      <ng-container *ngIf="magnitude.contributions.length; else noContributions">
+        Station Details
       </ng-container>
     </mat-expansion-panel-header>
 
@@ -31,9 +42,8 @@
       </origin-magnitude-detail>
     </ng-template>
   </mat-expansion-panel>
-
-</mat-card>
+</div>
 
 <ng-template #noContributions>
-  No station information contributed
+  No station details contributed
 </ng-template>

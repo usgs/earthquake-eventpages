@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  MatCardModule,
   MatDialogModule,
   MatExpansionModule,
-  MatIconModule,
-  MatSortModule
+  MatListModule,
+  MatSortModule,
+  MatButtonModule
 } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -25,10 +25,10 @@ import { MagnitudeDetailComponent } from './magnitude-detail/magnitude-detail.co
 @NgModule({
   imports: [
     CommonModule,
-    MatCardModule,
+    MatButtonModule,
     MatDialogModule,
     MatExpansionModule,
-    MatIconModule,
+    MatListModule,
     MatSortModule,
     MatTableModule,
     MatTabsModule,

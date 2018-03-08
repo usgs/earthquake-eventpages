@@ -44,21 +44,21 @@ export class MagnitudeDetailComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   // map contributions input to data source data (which is observable).
-  @Input() set contributions(contributions: any[]) {
+  @Input() set contributions (contributions: any[]) {
      this.dataSource.data = contributions;
   }
-  get contributions() {
+  get contributions () {
     return this.dataSource.data;
   }
 
-  constructor(
+  constructor (
     public dialog: MatDialog
   ) {
     // numeric sort for numeric fields
     this.dataSource.sortingDataAccessor = this.sortBy;
   }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
   ngAfterViewInit () {
@@ -86,7 +86,7 @@ export class MagnitudeDetailComponent implements OnInit, AfterViewInit {
 
     this.dialog.open(DownloadDialogComponent, {
       data: {
-        title: 'Download Station Magnitudes',
+        title: 'Download Station Data',
         message: 'Copy then paste into a spreadsheet application',
         content: header + '\n' + lines.join('\n')
       }

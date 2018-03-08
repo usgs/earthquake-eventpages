@@ -40,7 +40,11 @@ describe('MagnitudeComponent', () => {
         MagnitudeComponent,
 
         MockComponent({selector: 'origin-magnitude-detail', inputs: ['contributions']}),
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
+        MockComponent({selector: 'shared-bubble', inputs: ['name', 'title']}),
+        MockComponent({selector: 'shared-preferred-check', inputs: ['title']}),
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
+
+        MockPipe('sharedNumber')
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},

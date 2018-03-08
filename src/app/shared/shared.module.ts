@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatDialogModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
 
 import { AttributionComponent } from './attribution/attribution.component';
 import { BeachballComponent } from './beachball/beachball.component';
@@ -15,17 +15,20 @@ import { UncertainValueComponent } from './uncertain-value/uncertain-value.compo
 
 import { NumberPipe } from './number.pipe';
 import { DegreesPipe } from './degrees.pipe';
+import { BubbleComponent } from './bubble/bubble.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
+    MatButtonModule,
     MatDialogModule,
     MatIconModule
   ],
   declarations: [
     AttributionComponent,
     BeachballComponent,
+    BubbleComponent,
     CoordinatesComponent,
     DownloadDialogComponent,
     FeRegionComponent,
@@ -41,6 +44,7 @@ import { DegreesPipe } from './degrees.pipe';
   exports: [
     AttributionComponent,
     BeachballComponent,
+    BubbleComponent,
     CoordinatesComponent,
     DownloadDialogComponent,
     FeRegionComponent,
