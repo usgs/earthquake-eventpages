@@ -10,7 +10,8 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let pager">
         <ng-container *ngIf="pager === products[0]">
-          <abbr class="preferred" title="Preferred"><mat-icon>done</mat-icon></abbr>
+          <shared-preferred-check [title]="'Preferred LossPager'">
+          </shared-preferred-check>
         </ng-container>
         {{ pager.properties.eventsource }}
       </mat-cell>

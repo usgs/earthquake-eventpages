@@ -10,7 +10,8 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let dyfi">
         <ng-container *ngIf="dyfi === products[0]">
-          <abbr class="preferred" title="Preferred"><mat-icon>done</mat-icon></abbr>
+          <shared-preferred-check [title]="'Preferred DYFI'">
+          </shared-preferred-check>
         </ng-container>
         {{ dyfi.properties.eventsource }}
       </mat-cell>

@@ -8,9 +8,11 @@
       <mat-header-cell *matHeaderCellDef>
         {{ columnTitles.catalog }}
       </mat-header-cell>
-      <mat-cell *matCellDef="let shakemap">
+      <mat-cell *matCellDef="let shakemap" [class.unpreferred]="shakemap
+          !== products[0]">
         <ng-container *ngIf="shakemap === products[0]">
-          <abbr class="preferred" title="Preferred"><mat-icon>done</mat-icon></abbr>
+          <shared-preferred-check [title]="'Preferred Shakemap'">
+          </shared-preferred-check>
         </ng-container>
         {{ shakemap.properties.eventsource }}
       </mat-cell>

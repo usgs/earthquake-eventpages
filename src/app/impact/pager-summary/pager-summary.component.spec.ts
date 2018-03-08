@@ -13,7 +13,8 @@ describe('PagerSummaryComponent', () => {
       declarations: [
         PagerSummaryComponent,
         MockComponent({selector: 'shared-alert-level', inputs: ['alert']}),
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
+        MockComponent({selector: 'shared-preferred-check', inputs: ['TITLE']})
       ],
       imports: [
         MatDialogModule,

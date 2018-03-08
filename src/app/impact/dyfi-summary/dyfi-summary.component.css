@@ -1,1 +1,7 @@
-
+/* same amount of space as preferred icon */
+mat-cell.unpreferred:before {
+  content: ' ';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
