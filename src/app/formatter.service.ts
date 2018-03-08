@@ -65,7 +65,7 @@ export class FormatterService {
   /**
    * Format a date and time.
    *
-   * @param stamp {value}
+   * @param date {Number|String|Date}
    *     Date, ISO8601 formatted string, or millisecond epoch timstamp.
    * @param minutesOffset {Number} Optional, default 0
    *     UTC offset in minutes. 0 for UTC.
@@ -81,9 +81,7 @@ export class FormatterService {
       return this.empty;
     }
 
-    if (typeof date === 'string') {
-      date = new Date(date);
-    } else if (typeof date === 'number') {
+    if (!(date instanceof Date)) {
       date = new Date(date);
     }
 
