@@ -29,8 +29,6 @@ export class RegionalPinComponent implements OnChanges {
   ) { }
 
   ngOnChanges(changes) {
-    console.log('ngOnChanges');
-
     if (!this.event || !this.event.geometry) {
       return;
     }
