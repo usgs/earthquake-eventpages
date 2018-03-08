@@ -29,23 +29,33 @@ export class AttributionComponent implements OnInit {
 
   sourceCodeToInfo (sourceCode: string, event: Event = null,
       details: Array<any> = []): any {
+    let id;
+    let index;
     const eventSources = (event && event.sources) ? event.sources : [];
 
     if (!sourceCode) {
       return '';
     }
 
-    const id = sourceCode.toLowerCase();
+    id = sourceCode.toLowerCase();
+
+    const detailInfo = details.find((item) => {
+     return (
+       item.id === id ||
+       (item.aliases && item.aliases.indexOf(id) !== -1)
+     );
+    });
+
+    if (detailInfo) {
+      // reset id to be the mapped details id in case an alias matched
+      id = detailInfo.id.toLowerCase();
+    }
+
 
     return {
       id: id.toUpperCase(),
       index: eventSources.indexOf(id) + 1,
-      details: details.find((item: any) => {
-         return (
-           item.id === id ||
-           (item.aliases && item.aliases.indexOf(id) !== -1)
-         );
-      })
+      details: detailInfo
     };
   }
 }
