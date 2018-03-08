@@ -15,7 +15,7 @@
             {{ columnTitles.azimuth }}
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
-            {{ formatterService.number(arrival.azimuth, 2, '&ndash', '&deg;') }}
+            {{ arrival.azimuth | sharedNumber:2:'°' }}
           </mat-cell>
       </ng-container>
 
@@ -33,7 +33,7 @@
           {{ columnTitles.distance }}
         </mat-header-cell>
         <mat-cell *matCellDef="let arrival">
-          {{ formatterService.number(arrival.distance, 2, '&ndash;', '&deg;') }}
+          {{ arrival.distance | sharedNumber:2:'°' }}
         </mat-cell>
       </ng-container>
 
@@ -61,7 +61,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
             <abbr title="{{ arrival.time }}">
-              {{ formatterService.number(arrival.timeRelative, 1, '&ndash;', 's') }}
+              {{ arrival.timeRelative | sharedNumber:1:'s' }}
             </abbr>
           </mat-cell>
       </ng-container>
@@ -71,7 +71,7 @@
             {{ columnTitles.timeResidual }}
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
-            {{ formatterService.number(arrival.timeResidual, 2) }}
+            {{ arrival.timeResidual | sharedNumber:2 }}
           </mat-cell>
       </ng-container>
 
@@ -80,7 +80,7 @@
             {{ columnTitles.timeWeight }}
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
-            {{ formatterService.number(arrival.timeWeight, 2) }}
+            {{ arrival.timeWeight | sharedNumber:2 }}
           </mat-cell>
       </ng-container>
     </mat-table>

@@ -10,6 +10,7 @@ import { Quakeml } from '../../quakeml';
 import { toArray } from '../../to-array';
 import { xmlToJson } from '../../xml-to-json';
 import { FormatterService } from '../../formatter.service';
+import { MockPipe } from '../../mock-pipe';
 
 
 describe('PhaseComponent', () => {
@@ -170,7 +171,9 @@ describe('PhaseComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [
-        PhaseComponent
+        PhaseComponent,
+
+        MockPipe('sharedNumber')
       ],
       imports: [
         MatDialogModule,
@@ -178,8 +181,7 @@ describe('PhaseComponent', () => {
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},
-        {provide: QuakemlService, useValue: quakemlServiceStub},
-        FormatterService
+        {provide: QuakemlService, useValue: quakemlServiceStub}
       ]
     })
     .compileComponents();

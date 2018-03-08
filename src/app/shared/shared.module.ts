@@ -13,6 +13,8 @@ import { ProductAttributionComponent } from './product-attribution/product-attri
 import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 
+import { NumberPipe } from './number.pipe';
+
 
 @NgModule({
   imports: [
@@ -30,7 +32,9 @@ import { UncertainValueComponent } from './uncertain-value/uncertain-value.compo
     PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
-    UncertainValueComponent
+    UncertainValueComponent,
+
+    NumberPipe
   ],
   exports: [
     AttributionComponent,
@@ -43,7 +47,9 @@ import { UncertainValueComponent } from './uncertain-value/uncertain-value.compo
     PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
-    UncertainValueComponent
+    UncertainValueComponent,
+
+    NumberPipe
   ],
   entryComponents: [
     DownloadDialogComponent
