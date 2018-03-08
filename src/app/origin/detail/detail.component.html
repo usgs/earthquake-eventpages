@@ -1,6 +1,152 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
+  <ng-container *ngIf="getProduct(event); let product">
+    <table *ngIf="product.properties; let props">
+      <tbody>
+        <tr>
+          <th scope="row">
+            Magnitude
+            <span *ngIf="props['magnitude-error']"
+                class="uncertainty">uncertainty</span>
+          </th>
+          <td>
+            <shared-uncertain-value
+              [value]="formatter.magnitude(props.magnitude, props['magnitude-type'])"
+              [uncertainty]="props['magnitude-error']"
+            ></shared-uncertain-value>
+          </td>
+        </tr>
 
-  <h4>Details</h4>
-  <pre>{{ toJson(event.product) }}</pre>
+        <tr>
+          <th scope="row">
+            Location
+            <span *ngIf="props['horizontal-error']"
+                class="uncertainty">uncertainty</span>
+          </th>
+          <td>
+            <shared-uncertain-value
+              [uncertainty]="props['horizontal-error']"
+              [uncertaintyUnits]="'km'"
+            >
+              <shared-coordinates uncertainValue
+                [latitude]="props.latitude"
+                [longitude]="props.longitude"
+              ></shared-coordinates>
+            </shared-uncertain-value>
+          </td>
+        </tr>
 
+        <tr>
+          <th scope="row">
+            Depth
+            <span class="uncertainty">uncertainty</span>
+          </th>
+          <td>
+            <shared-uncertain-value
+              [value]="formatter.depth(props.depth, 'km')"
+              [uncertainty]="props['vertical-error']"
+            ></shared-uncertain-value>
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Origin Time</th>
+          <td>
+            <time *ngIf="hasEventTime(props)" dateTime="{{ props.eventtime }}">
+              {{ props.eventtime.replace('T', ' ').replace('Z', ' UTC') }}
+            </time>
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Number of Stations</th>
+          <td
+            [innerHTML]="formatter.number(props['num-stations-used'], 0)"
+          ></td>
+        </tr>
+
+        <tr>
+          <th scope="row">Number of Phases</th>
+          <td
+            [innerHTML]="formatter.number(props['num-phases-used'], 0)"
+          ></td>
+        </tr>
+
+        <tr>
+          <th scope="row">Minimum Distance</th>
+          <td>
+            <span
+              [innerHTML]="formatter.distance(props['minimum-distance'] * 0.0174532925 * 6378.1, 'km')"
+            ></span>
+            (<span
+              [innerHTML]="formatter.angle(props['minimum-distance'], 2)"
+            ></span>)
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Travel Time Residual</th>
+          <td>
+            {{ formatter.number(props['standard-error'], null, null, 's') }}
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Azimuthal Gap</th>
+          <td [innerHTML]="formatter.angle(props['azimuthal-gap'])"></td>
+        </tr>
+
+        <tr>
+          <th scope="row">
+            <abbr title="Flin Engdahl">FE</abbr> Region
+          </th>
+          <td>
+            <shared-fe-region
+                [latitude]="props.latitude"
+                [longitude]="props.longitude"
+            ></shared-fe-region>
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Review Status</th>
+          <td>
+            {{ (props['review-status'] || 'automatic') | uppercase }}
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Catalog</th>
+          <td [innerHTML]="getCatalogDetail(props.eventsource, props.eventsourcecode)"
+          ></td>
+        </tr>
+
+        <tr>
+          <th scope="row">Location Source</th>
+          <td>
+            <shared-attribution
+              [sourceCode]="props['origin-source'] || product.source"
+            ></shared-attribution>
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Magnitude Source</th>
+          <td>
+            <shared-attribution
+              [sourceCode]="props['magnitude-source'] || product.source"
+            ></shared-attribution>
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Contributor</th>
+          <td>
+            <shared-attribution
+              [sourceCode]="product.source"
+            ></shared-attribution>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
 </ng-container>

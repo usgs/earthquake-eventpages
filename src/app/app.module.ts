@@ -16,6 +16,7 @@ import { ContentsXmlService } from './contents-xml.service';
 import { ContributorService } from './contributor.service';
 import { EventService } from './event.service';
 import { FormatterService } from './formatter.service';
+import { GeoserveService } from './geoserve.service';
 import { QuakemlService } from './quakeml.service';
 
 
@@ -41,6 +42,7 @@ import { QuakemlService } from './quakeml.service';
     ContributorService,
     EventService,
     FormatterService,
+    GeoserveService,
     QuakemlService
   ],
   bootstrap: [AppComponent]

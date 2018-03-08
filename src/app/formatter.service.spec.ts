@@ -78,7 +78,7 @@ describe('FormatterService', () => {
     it('supports uncertainty', inject(
         [FormatterService], (formatter: FormatterService) => {
       expect(formatter.depth(1.234, 'nm', 0.12)).toEqual(
-          '1.2 nm<span class="uncertainty">&plusmn; 0.1</span>');
+          '1.2 nm&plusmn; 0.1');
     }));
   });
 
@@ -202,13 +202,13 @@ describe('FormatterService', () => {
     it('uses decimals to round', inject(
         [FormatterService], (formatter: FormatterService) => {
       expect(formatter.uncertainty(1.2366, 3)).toEqual(
-          '<span class="uncertainty">&plusmn; 1.237</span>');
+          '&plusmn; 1.237');
     }));
 
     it('supports units', inject(
         [FormatterService], (formatter: FormatterService) => {
       expect(formatter.uncertainty(1.2366, 3, 'empty', 'units')).toEqual(
-          '<span class="uncertainty">&plusmn; 1.237 units</span>');
+          '&plusmn; 1.237 units');
     }));
   });
 });

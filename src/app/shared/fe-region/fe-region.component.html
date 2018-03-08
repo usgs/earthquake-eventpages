@@ -1,0 +1,13 @@
+<ng-container *ngIf="fe && fe.properties; else notReady">
+  {{ fe.properties.name }} ({{ fe.properties.number }})
+</ng-container>
+
+<ng-template #notReady>
+  <ng-container *ngIf="isLoading(); else noData">
+    Loading FE region information&hellip;
+  </ng-container>
+</ng-template>
+
+<ng-template #noData>
+  No FE region information to display
+</ng-template>
