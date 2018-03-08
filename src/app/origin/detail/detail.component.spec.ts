@@ -1,7 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MockComponent } from 'ng2-mock-component';
+
 import { DetailComponent } from './detail.component';
 import { EventService } from '../../event.service';
+import { FormatterService } from '../../formatter.service';
+
 
 describe('DetailComponent', () => {
   let component: DetailComponent;
@@ -13,11 +17,22 @@ describe('DetailComponent', () => {
       getProduct: jasmine.createSpy('eventService::getProduct')
     };
 
+    const formatterServiceStub = {
+    };
+
 
     TestBed.configureTestingModule({
-      declarations: [ DetailComponent ],
+      declarations: [
+        DetailComponent,
+
+        MockComponent({selector: 'shared-uncertain-value', inputs: ['value', 'uncertainty', 'uncertaintyUnits']}),
+        MockComponent({selector: 'shared-coordinates', inputs: ['latitude', 'longitude']}),
+        MockComponent({selector: 'shared-fe-region', inputs: ['latitude', 'longitude']}),
+        MockComponent({selector: 'shared-attribution', inputs: ['sourceCode']})
+      ],
       providers: [
-        {provide: EventService, useValue: eventServiceStub}
+        {provide: EventService, useValue: eventServiceStub},
+        {provide: FormatterService, useValue: formatterServiceStub}
       ]
     })
     .compileComponents();
