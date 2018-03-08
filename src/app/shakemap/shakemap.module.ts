@@ -34,6 +34,9 @@ import { ShakemapRoutingModule } from './shakemap-routing.module';
 
     ShakemapRoutingModule
   ],
-  declarations: [ShakemapComponent, StationListComponent, MetadataComponent]
+  declarations: [ShakemapComponent, StationListComponent, MetadataComponent],
+  exports: [
+    StationListComponent
+  ]
 })
 export class ShakemapModule { }

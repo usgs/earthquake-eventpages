@@ -10,16 +10,16 @@ import { StationService } from '../../station.service';
   styleUrls: ['./station-list.component.css']
 })
 export class StationListComponent implements OnInit, OnDestroy {
-  private subs: Subscription[] = [];
+  private subs = new Subscription()
   public stations: any[] = [];
   constructor(private eventService: EventService,
               private stationService: StationService) { }
 
   ngOnInit() {
-    this.subs.push(this.stationService.stations.subscribe((stations) => {
+    this.subs.add(this.stationService.stations.subscribe((stations) => {
       this.onStations(stations);
     }));
-    this.subs.push(this.eventService.product$.subscribe((product) => {
+    this.subs.add(this.eventService.product$.subscribe((product) => {
       this.onProduct(product);
     }));
   }
@@ -52,10 +52,6 @@ export class StationListComponent implements OnInit, OnDestroy {
    * the component is destroyed
    */
   ngOnDestroy() {
-    for (let sub of this.subs) {
-      if (sub) {
-        sub.unsubscribe();
-      }
-    }
+    this.subs.unsubscribe();
   }
 }
