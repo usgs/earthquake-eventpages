@@ -1,8 +1,9 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
   <ul class="executive-summary-pins">
     <li class="executive-summary-pin">
-      <origin-pin class="pin-view" [event]="event">
-      </origin-pin>
+      <executive-origin-pin class="pin-view"
+          [event]="event">
+      </executive-origin-pin>
     </li>
     <li class="executive-summary-pin">
       <app-regional-pin class="pin-view" [event]="event">

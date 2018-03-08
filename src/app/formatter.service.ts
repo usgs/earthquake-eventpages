@@ -201,7 +201,6 @@ export class FormatterService {
     return `${result}&deg;${lngDir}`;
   }
 
-
   /**
    * Format a magnitude and magnitude type.
    *

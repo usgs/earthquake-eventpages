@@ -8,7 +8,7 @@ import { FormatterService } from '../../formatter.service';
 import { Event } from '../../event';
 
 @Component({
-  selector: 'origin-pin',
+  selector: 'executive-origin-pin',
   templateUrl: './origin-pin.component.html',
   styleUrls: ['./origin-pin.component.scss']
 })
