@@ -1,4 +1,4 @@
-    <div class="station" *ngFor="let station of stations">
+    <div class="station">
         <h3 class="station-name">
             {{ station.properties.code }}: {{ station.properties.name }}
         </h3>
@@ -8,12 +8,18 @@
           <table>
               <tr>
                   <td class="mmi-td">
+                    <!--
                       <table class="mmi-table"
                               [style.backgroundColor]="getColor(station.properties.intensity)">
+                              -->
+                      <table class="mmi-table">
                           <tr>
                               <th>
                                   <h1>
+                                    <!--
                                       {{ getRoman(station.properties.intensity) }}
+                                      -->
+                                      {{ station.properties.intensity }}
                                   </h1>
                               </th>
                           </tr>

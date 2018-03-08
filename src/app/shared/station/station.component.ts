@@ -1,14 +1,27 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'shared-station',
   templateUrl: './station.component.html',
   styleUrls: ['./station.component.css']
 })
-export class StationComponent {
+export class StationComponent implements OnInit {
   @Input() station: any;
-  constructor() { }
-  
+
+  public isNaN: any = isNaN;
+
+  constructor() {}
+
+   ngOnInit() {}
+
+  toggleDetails(station) {
+    if (station['showDetails']) {
+      station['showDetails'] = false;
+    } else {
+      station['showDetails'] = true;
+    }
+  }
+
   getAmp(name:string, amps: any[]) {
     for (let amp of amps) {
       if (amp['name'] === name) {

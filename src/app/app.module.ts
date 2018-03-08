@@ -13,7 +13,7 @@ import { ExecutiveModule } from './executive/executive.module';
 import { RegionInfoModule } from './region-info/region-info.module';
 
 import { CoreModule } from './core/core.module';
-
+import { StationService } from './station.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +32,9 @@ import { CoreModule } from './core/core.module';
     RegionInfoModule,
 
     AppRoutingModule
+  ],
+  providers: [
+    StationService
   ],
   bootstrap: [AppComponent]
 })

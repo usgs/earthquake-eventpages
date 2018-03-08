@@ -11,6 +11,7 @@ import {
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 
+import { SharedModule } from '../shared/shared.module';
 import { ProductPageModule } from '../product-page/product-page.module';
 
 import { ShakemapComponent } from './shakemap/shakemap.component';
@@ -29,7 +30,9 @@ import { ShakemapRoutingModule } from './shakemap-routing.module';
     MatSortModule,
     MatTableModule,
     MatTabsModule,
+    
     ProductPageModule,
+    SharedModule,
 
     ShakemapRoutingModule
   ],
