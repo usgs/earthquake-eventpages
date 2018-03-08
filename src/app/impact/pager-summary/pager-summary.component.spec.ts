@@ -3,6 +3,7 @@ import { MatDialogModule, MatIconModule, MatTableModule } from '@angular/materia
 
 import { PagerSummaryComponent } from './pager-summary.component';
 import { MockComponent } from 'ng2-mock-component';
+import { RouterModule } from '@angular/router';
 
 describe('PagerSummaryComponent', () => {
   let component: PagerSummaryComponent;
@@ -10,16 +11,17 @@ describe('PagerSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        MatDialogModule,
+        MatIconModule,
+        MatTableModule,
+        RouterModule
+      ],
       declarations: [
         PagerSummaryComponent,
         MockComponent({selector: 'shared-alert-level', inputs: ['alert']}),
         MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
         MockComponent({selector: 'shared-preferred-check', inputs: ['TITLE']})
-      ],
-      imports: [
-        MatDialogModule,
-        MatIconModule,
-        MatTableModule
       ],
       providers: [
       ]

@@ -3,6 +3,7 @@ import { MatDialogModule, MatIconModule, MatTableModule } from '@angular/materia
 
 import { DyfiSummaryComponent } from './dyfi-summary.component';
 import { MockComponent } from 'ng2-mock-component';
+import { RouterModule } from '@angular/router';
 
 describe('DyfisummaryComponent', () => {
   let component: DyfiSummaryComponent;
@@ -10,16 +11,17 @@ describe('DyfisummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        MatDialogModule,
+        MatIconModule,
+        MatTableModule,
+        RouterModule
+      ],
       declarations: [
         DyfiSummaryComponent,
         MockComponent({selector: 'shared-mmi', inputs: ['intensity']}),
         MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
         MockComponent({selector: 'shared-preferred-check', inputs: ['TITLE']})
-      ],
-      imports: [
-        MatDialogModule,
-        MatIconModule,
-        MatTableModule
       ],
       providers: [
       ]

@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, Sort } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
+import { Event } from '../../event';
+
 
 @Component({
   selector: 'impact-shakemap-summary',
@@ -25,6 +27,8 @@ export class ShakemapSummaryComponent implements OnInit {
     'source': 'Source',
     'description': 'Description'
   };
+
+  @Input() event: Event;
 
   @Input() products: Array<any> = [];
 

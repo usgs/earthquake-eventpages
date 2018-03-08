@@ -14,7 +14,10 @@
           <shared-preferred-check [title]="'Preferred Shakemap'">
           </shared-preferred-check>
         </ng-container>
-        {{ shakemap.properties.eventsource }}
+        <a [routerLink]="['/', event?.id, 'shakemap']"
+            [queryParams]="{ source: shakemap.source, code: shakemap.code }">
+          {{ shakemap.properties.eventsource.toUpperCase() }}
+        </a>
       </mat-cell>
     </ng-container>
 

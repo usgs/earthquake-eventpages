@@ -20,11 +20,11 @@ describe('ImpactComponent', () => {
       declarations: [
         ImpactComponent,
 
-        MockComponent({selector: 'impact-dyfi-summary', inputs: ['products']}),
+        MockComponent({selector: 'impact-dyfi-summary', inputs: ['event', 'products']}),
         MockComponent({selector: 'shared-text-product', inputs: ['product']}),
         MockComponent({selector: 'shared-link-product', inputs: ['product']}),
-        MockComponent({selector: 'impact-pager-summary', inputs: ['products']}),
-        MockComponent({selector: 'impact-shakemap-summary', inputs: ['products']})
+        MockComponent({selector: 'impact-pager-summary', inputs: ['event', 'products']}),
+        MockComponent({selector: 'impact-shakemap-summary', inputs: ['event', 'products']})
       ],
       imports: [
         RouterTestingModule

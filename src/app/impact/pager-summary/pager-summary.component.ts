@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, Sort } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
+import { Event } from '../../event';
+
 
 @Component({
   selector: 'impact-pager-summary',
@@ -23,6 +25,8 @@ export class PagerSummaryComponent implements OnInit {
     'alertlevel': 'Alert Level',
     'source': 'Source'
   };
+
+  @Input() event: Event;
 
   @Input() products: Array<any> = [];
 

@@ -63,8 +63,8 @@ import { BubbleComponent } from './bubble/bubble.component';
     MatIconModule,
     MmiComponent,
     NumberPipe,
-    PreferredCheckComponent,
     ProductAttributionComponent,
+    PreferredCheckComponent,
     TextProductComponent,
     UncertainValueComponent
   ],

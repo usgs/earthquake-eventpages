@@ -13,7 +13,10 @@
           <shared-preferred-check [title]="'Preferred LossPager'">
           </shared-preferred-check>
         </ng-container>
-        {{ pager.properties.eventsource }}
+        <a [routerLink]="['/', event?.id, 'pager']"
+            [queryParams]="{ source: pager.source, code: pager.code }">
+          {{ pager.properties.eventsource.toUpperCase() }}
+        </a>
       </mat-cell>
     </ng-container>
 

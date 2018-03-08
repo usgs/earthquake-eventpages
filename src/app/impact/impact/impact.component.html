@@ -1,9 +1,15 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
-  <impact-dyfi-summary [products]="event.getProducts('dyfi')">
+  <impact-dyfi-summary
+      [event]="event"
+      [products]="event.getProducts('dyfi')">
   </impact-dyfi-summary>
-  <impact-shakemap-summary [products]="event.getProducts('shakemap')">
+  <impact-shakemap-summary
+      [event]="event"
+      [products]="event.getProducts('shakemap')">
   </impact-shakemap-summary>
-  <impact-pager-summary [products]="event.getProducts('losspager')">
+  <impact-pager-summary
+      [event]="event"
+      [products]="event.getProducts('losspager')">
   </impact-pager-summary>
 
   <p>
