@@ -15,7 +15,6 @@
       *ngFor="let product of event.getProducts('general-text')"
       [product]="product">
   </shared-text-product>
-
   <ng-container *ngIf="event.hasProducts('general-link')">
     <h3>For More Information</h3>
     <ul>
