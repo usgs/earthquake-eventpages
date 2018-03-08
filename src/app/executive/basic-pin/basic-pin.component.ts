@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { ContributorService } from '../../contributor.service';
@@ -10,7 +10,7 @@ import { EventService } from '../../event.service';
   templateUrl: './basic-pin.component.html',
   styleUrls: ['./basic-pin.component.css']
 })
-export class BasicPinComponent implements OnInit {
+export class BasicPinComponent implements OnDestroy, OnInit {
   @Input() action; // router link for action button
   @Input() link; // router link for entire card action
   @Input() subtitle; // text for subtitle
