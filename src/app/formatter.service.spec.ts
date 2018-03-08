@@ -20,6 +20,30 @@ describe('FormatterService', () => {
     expect(service).toBeTruthy();
   }));
 
+  describe('angle', () => {
+    it('returns empty value when undefined', inject(
+        [FormatterService], (formatter: FormatterService) => {
+      expect(formatter.angle(null, null)).toBe('&ndash;');
+    }));
+
+    it('formats zero angle', inject(
+        [FormatterService], (formatter: FormatterService) => {
+      expect(formatter.angle(0, null)).toBe('0&deg;');
+    }));
+
+    it('preserves when no decimals specified', inject(
+        [FormatterService], (formatter: FormatterService) => {
+      expect(formatter.angle(1.2, null)).toBe('1.2&deg;');
+    }));
+
+    it('rounds to specified number of decimals', inject(
+        [FormatterService], (formatter: FormatterService) => {
+      expect(formatter.angle(1.2, 0)).toBe('1&deg;');
+      expect(formatter.angle(1.2, 1)).toBe('1.2&deg;');
+      expect(formatter.angle(1.2, 2)).toBe('1.20&deg;');
+    }));
+  });
+
   describe('date', () => {
     it('returns empty value when undefined', inject(
         [FormatterService], (formatter: FormatterService) => {
@@ -82,6 +106,17 @@ describe('FormatterService', () => {
     }));
   });
 
+  describe('distance', () => {
+    it('defers to number formatting', inject(
+        [FormatterService], (formatter: FormatterService) => {
+      const spy = spyOn(formatter, 'number').and.returnValue('number');
+      formatter.distance(0, 'units');
+
+      expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith(0, 1, '&ndash;', 'units');
+    }));
+  });
+
   describe('latitude', () => {
     it('returns empty value when undefined', inject(
         [FormatterService], (formatter: FormatterService) => {
@@ -123,6 +158,30 @@ describe('FormatterService', () => {
     }));
   });
 
+  describe('magnitude', () => {
+    it('short-circuits no magnitude', inject(
+        [FormatterService], (formatter: FormatterService) => {
+      const spy = spyOn(formatter, 'number');
+      const result = formatter.magnitude(null, null);
+
+      expect(spy).not.toHaveBeenCalled();
+      expect(result).toBe(formatter.empty);
+    }));
+
+    it('defers to number method', inject(
+        [FormatterService], (formatter: FormatterService) => {
+      const spy = spyOn(formatter, 'number').and.returnValue('number');
+
+      formatter.magnitude(0, 'type');
+      expect(spy).toHaveBeenCalledWith(0, null, 'type');
+
+      formatter.magnitude(1, 'type');
+      expect(spy).toHaveBeenCalledWith(1, null, 'type');
+
+      formatter.magnitude(2, 'type');
+      expect(spy).toHaveBeenCalledWith(2, null, 'type');
+    }));
+  });
 
   describe('number', () => {
     it('returns empty value when undefined', inject(
