@@ -3,8 +3,6 @@ import { RouterLink } from '@angular/router';
 
 import * as L from 'leaflet';
 
-import { EventService } from '../../event.service';
-
 import { Event } from '../../event';
 
 
@@ -14,7 +12,6 @@ import { Event } from '../../event';
   styleUrls: ['./regional-pin.component.css']
 })
 export class RegionalPinComponent implements OnChanges {
-  @Input() contributors: any;
   @Input() event: any;
 
   map: L.Map;
@@ -25,7 +22,6 @@ export class RegionalPinComponent implements OnChanges {
 
 
   constructor(
-    public eventService: EventService
   ) { }
 
   ngOnChanges(changes) {

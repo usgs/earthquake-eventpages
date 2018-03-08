@@ -12,18 +12,28 @@ import { Event } from '../../event';
   templateUrl: './origin-pin.component.html',
   styleUrls: ['./origin-pin.component.scss']
 })
-export class OriginPinComponent implements OnChanges {
-  @Input() contributors: any;
-  @Input() event: Event;
+export class OriginPinComponent {
 
-  product: any;
-  title = 'Origin';
+  public product: any = null;
+  public title = 'Origin';
+
+  private _event: Event;
+
+  @Input() set event (event: Event) {
+    this._event = event;
+    if (event) {
+      this.product = event.getProduct('origin');
+    } else {
+      this.product = null;
+    }
+  }
+
+  get event () {
+    return this._event;
+  }
 
   constructor(
     public formatterService: FormatterService
   ) { }
 
-  ngOnChanges() {
-    this.product = this.event.getProduct('origin');
-  }
 }

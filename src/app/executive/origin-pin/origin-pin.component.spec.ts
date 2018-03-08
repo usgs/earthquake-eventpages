@@ -6,11 +6,11 @@ import {
   MatDividerModule,
   MatListModule
 } from '@angular/material';
-import { MockPipe } from '../../mock-pipe';
 
 import { OriginPinComponent } from './origin-pin.component';
 import { FormatterService } from '../../formatter.service';
 import { Event } from '../../event';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('OriginPinComponent', () => {
   let component: OriginPinComponent;
@@ -21,7 +21,7 @@ describe('OriginPinComponent', () => {
       declarations: [
         OriginPinComponent,
 
-        MockPipe('contributorList')
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
       ],
       imports: [
         MatListModule,
@@ -47,7 +47,7 @@ describe('OriginPinComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('ngOnChanges', () => {
+  describe('set event', () => {
     it('should fetch/set the origin product', () => {
       let event: Event,
           product,
@@ -57,15 +57,20 @@ describe('OriginPinComponent', () => {
       product = { id: 1 };
 
       // spy on event object
+      spy = spyOn(event, 'getProduct').and.returnValue(product);
+      // set event
       component.event = event;
-      spy = spyOn(component.event, 'getProduct').and.returnValue(product);
-
-      // trigger ngOnChanges
-      component.ngOnChanges();
 
       // check component's product value
       expect(spy).toHaveBeenCalled();
       expect(component.product).toEqual(product);
+      expect(component.event).toBe(event);
+    });
+
+    it('should clear the origin product', () => {
+      component.product = {};
+      component.event = null;
+      expect(component.product).toBeNull();
     });
   });
 
