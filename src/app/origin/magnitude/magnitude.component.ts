@@ -25,7 +25,6 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
   private quakemlSubscription: Subscription;
 
   constructor(
-    public contributorService: ContributorService,
     public eventService: EventService,
     public quakemlService: QuakemlService
   ) { }

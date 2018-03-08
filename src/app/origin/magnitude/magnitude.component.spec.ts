@@ -17,14 +17,9 @@ import { EVENT_NC72923380 } from '../../quakeml-testdata-nc72923380';
 describe('MagnitudeComponent', () => {
   let component: MagnitudeComponent;
   let fixture: ComponentFixture<MagnitudeComponent>;
-  let contributorService;
   let eventService;
 
   beforeEach(async(() => {
-    const contributorServiceStub = {
-      getContributors: jasmine.createSpy('contributorService::getContributors')
-    };
-
     const eventServiceStub = {
       event$: of({}),
       product$: of({})
@@ -43,11 +38,11 @@ describe('MagnitudeComponent', () => {
       ],
       declarations: [
         MagnitudeComponent,
+
         MockComponent({selector: 'origin-magnitude-detail', inputs: ['contributions']}),
-        MockPipe('contributorList')
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
       ],
       providers: [
-        {provide: ContributorService, useValue: contributorServiceStub},
         {provide: EventService, useValue: eventServiceStub},
         {provide: QuakemlService, useValue: quakemlServiceStub}
       ]
@@ -60,7 +55,6 @@ describe('MagnitudeComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    contributorService = fixture.debugElement.injector.get(ContributorService);
     eventService = fixture.debugElement.injector.get(EventService);
   });
 

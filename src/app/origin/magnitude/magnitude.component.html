@@ -13,12 +13,10 @@
     </span>
   </mat-card-title>
 
-  <ng-container *ngIf="eventService.event$ | async; let event">
-    <mat-card-subtitle *ngIf="contributorService.contributors$ | async; let contributors">
-      Data Source
-      <span [innerHTML]="magnitude | contributorList:event:contributors"></span>
-    </mat-card-subtitle>
-  </ng-container>
+  <mat-card-subtitle>
+    Data Source
+    <shared-product-attribution [product]="magnitude"></shared-product-attribution>
+  </mat-card-subtitle>
 
   <mat-expansion-panel [disabled]="!magnitude.stationCount || !magnitude.contributions.length">
     <mat-expansion-panel-header>

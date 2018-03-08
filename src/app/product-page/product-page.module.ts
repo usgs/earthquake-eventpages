@@ -6,24 +6,25 @@ import { ProductPageComponent } from './product-page/product-page.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
-import { ContributorListPipe } from './contributor-list.pipe';
 import { DateTimePipe } from './date-time.pipe';
 import { DownloadComponent } from './download/download.component';
 import { DownloadItemComponent } from './download-item/download-item.component';
 
 import { FileSizePipe } from './file-size.pipe';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    MatExpansionModule
+    MatExpansionModule,
+
+    SharedModule
   ],
   declarations: [
     ProductPageComponent,
     HeaderComponent,
     FooterComponent,
 
-    ContributorListPipe,
     DateTimePipe,
     DownloadComponent,
     DownloadItemComponent,
@@ -33,7 +34,6 @@ import { FileSizePipe } from './file-size.pipe';
   exports: [
     ProductPageComponent,
 
-    ContributorListPipe,
     DateTimePipe
   ]
 })
