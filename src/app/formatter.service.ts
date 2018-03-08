@@ -240,7 +240,7 @@ export class FormatterService {
         result;
 
     if (!value && value !== 0) {
-      return empty;
+      return this.empty;
     }
 
     if (typeof decimals === 'number') {
