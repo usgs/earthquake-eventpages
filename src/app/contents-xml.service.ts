@@ -83,7 +83,7 @@ export class ContentsXmlService {
       result.url = content.url;
       result.length = content.length;
     } catch (e) {
-      console.error(e.stack);
+      // This is okay and recoverable. Ignore.
     }
 
     return result;
