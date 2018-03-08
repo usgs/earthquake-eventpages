@@ -5,7 +5,6 @@ import {
   MatCardModule,
   MatDialogModule,
   MatExpansionModule,
-  MatIconModule,
   MatSortModule
 } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
@@ -26,11 +25,10 @@ import { ShakemapRoutingModule } from './shakemap-routing.module';
     MatCardModule,
     MatDialogModule,
     MatExpansionModule,
-    MatIconModule,
     MatSortModule,
     MatTableModule,
     MatTabsModule,
-    
+
     ProductPageModule,
     SharedModule,
 
