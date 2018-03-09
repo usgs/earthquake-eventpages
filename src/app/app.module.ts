@@ -14,6 +14,7 @@ import { RegionInfoModule } from './region-info/region-info.module';
 
 import { CoreModule } from './core/core.module';
 import { StationService } from './station.service';
+import { MetadataService } from './metadata.service';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { StationService } from './station.service';
   ],
   providers: [
     StationService
+    MetadataService
   ],
   bootstrap: [AppComponent]
 })

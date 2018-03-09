@@ -1,0 +1,25 @@
+.column {
+    position: relative;
+    width: 48%;
+    float: left;
+    margin: 1%;
+}
+
+.group {
+    padding-top: 10px;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+table td,th {
+    border: 1px solid #ddd;
+    padding: .666em .75em;
+}
+
+
+th {
+    background-color: rgba(0,0,0,.04);
+}
