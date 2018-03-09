@@ -1,16 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import {
   MatButtonModule,
   MatCardModule,
   MatDividerModule,
   MatListModule
 } from '@angular/material';
-
-import { OriginPinComponent } from './origin-pin.component';
-import { FormatterService } from '../../formatter.service';
-import { Event } from '../../event';
 import { MockComponent } from 'ng2-mock-component';
+
+import { Event } from '../../event';
+import { FormatterService } from '../../formatter.service';
+import { OriginPinComponent } from './origin-pin.component';
+
 
 describe('OriginPinComponent', () => {
   let component: OriginPinComponent;
@@ -21,14 +22,20 @@ describe('OriginPinComponent', () => {
       declarations: [
         OriginPinComponent,
 
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
+        MockComponent({
+          selector: 'basic-pin',
+          inputs: [
+            'action',
+            'link',
+            'subtitle',
+            'title',
+            'type'
+          ]
+        })
       ],
       imports: [
-        MatListModule,
-        MatButtonModule,
-        MatCardModule,
-        MatDividerModule,
-        RouterModule
+        RouterTestingModule
       ],
       providers: [
         { provide: FormatterService, useValue: {} }
