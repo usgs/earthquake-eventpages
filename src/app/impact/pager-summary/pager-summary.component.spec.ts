@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MatIconModule, MatTableModule } from '@angular/material';
+import { MatTableModule } from '@angular/material';
 
 import { PagerSummaryComponent } from './pager-summary.component';
 import { MockComponent } from 'ng2-mock-component';
@@ -12,8 +12,6 @@ describe('PagerSummaryComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MatDialogModule,
-        MatIconModule,
         MatTableModule,
         RouterModule
       ],

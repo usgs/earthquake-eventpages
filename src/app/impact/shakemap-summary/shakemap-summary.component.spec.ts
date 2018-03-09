@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MatIconModule, MatTableModule } from '@angular/material';
+import { MatTableModule } from '@angular/material';
 
 import { ShakemapSummaryComponent } from './shakemap-summary.component';
 import { MockComponent } from 'ng2-mock-component';
@@ -12,8 +12,6 @@ describe('ShakeMapSummaryComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MatDialogModule,
-        MatIconModule,
         MatTableModule,
         RouterModule
       ],
