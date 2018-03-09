@@ -20,18 +20,9 @@ export class ShakemapSummaryComponent implements OnInit {
     'description'
   ];
 
-  // labels for titles
-  public columnTitles = {
-    'catalog': 'Catalog',
-    'mmi': 'MMI',
-    'source': 'Source',
-    'description': 'Description'
-  };
-
   @Input() event: Event;
 
   @Input() products: Array<any> = [];
-
 
   constructor() {}
 

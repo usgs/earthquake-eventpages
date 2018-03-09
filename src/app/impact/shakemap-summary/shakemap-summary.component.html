@@ -6,7 +6,7 @@
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef>
-        {{ columnTitles.catalog }}
+        Catalog
       </mat-header-cell>
       <mat-cell *matCellDef="let shakemap" [class.unpreferred]="shakemap
           !== products[0]">
@@ -23,7 +23,7 @@
 
     <ng-container matColumnDef="mmi">
       <mat-header-cell *matHeaderCellDef>
-        {{ columnTitles.mmi }}
+        MMI
       </mat-header-cell>
       <mat-cell *matCellDef="let shakemap">
         <abbr title="Maximum Modified Mercalli Intensity">
@@ -35,7 +35,7 @@
 
     <ng-container matColumnDef="source">
       <mat-header-cell *matHeaderCellDef>
-        {{ columnTitles.source }}
+        Source
       </mat-header-cell>
       <mat-cell *matCellDef="let shakemap">
         <shared-product-attribution [product]="shakemap">
@@ -45,7 +45,7 @@
 
     <ng-container matColumnDef="description">
       <mat-header-cell *matHeaderCellDef>
-        {{ columnTitles.description }}
+        Description
       </mat-header-cell>
       <mat-cell *matCellDef="let shakemap">
         {{ shakemap.properties['event-description'] }}

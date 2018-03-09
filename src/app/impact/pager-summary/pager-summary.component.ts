@@ -19,17 +19,9 @@ export class PagerSummaryComponent implements OnInit {
     'source'
   ];
 
-  // labels for titles
-  public columnTitles = {
-    'catalog': 'Catalog',
-    'alertlevel': 'Alert Level',
-    'source': 'Source'
-  };
-
   @Input() event: Event;
 
   @Input() products: Array<any> = [];
-
 
   constructor() {}
 

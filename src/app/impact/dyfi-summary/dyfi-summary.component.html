@@ -6,7 +6,7 @@
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef>
-        {{ columnTitles.catalog }}
+        Catalog
       </mat-header-cell>
       <mat-cell *matCellDef="let dyfi">
         <ng-container *ngIf="dyfi === products[0]">
@@ -22,7 +22,7 @@
 
     <ng-container matColumnDef="cdi">
       <mat-header-cell *matHeaderCellDef>
-        {{ columnTitles.cdi }}
+        CDI
       </mat-header-cell>
       <mat-cell *matCellDef="let dyfi">
         <abbr title="Community Determined Intensity">
@@ -35,7 +35,7 @@
 
     <ng-container matColumnDef="responses">
       <mat-header-cell *matHeaderCellDef>
-        {{ columnTitles.responses }}
+        Responses
       </mat-header-cell>
       <mat-cell *matCellDef="let dyfi">
         {{ dyfi.properties.numResp }}
@@ -44,7 +44,7 @@
 
     <ng-container matColumnDef="source">
       <mat-header-cell *matHeaderCellDef>
-        {{ columnTitles.source }}
+        Source
       </mat-header-cell>
       <mat-cell *matCellDef="let dyfi">
         <shared-product-attribution [product]="dyfi">

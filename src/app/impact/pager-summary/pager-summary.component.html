@@ -6,7 +6,7 @@
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef>
-        {{ columnTitles.catalog }}
+        Catalog
       </mat-header-cell>
       <mat-cell *matCellDef="let pager">
         <ng-container *ngIf="pager === products[0]">
@@ -22,7 +22,7 @@
 
     <ng-container matColumnDef="alertlevel">
       <mat-header-cell *matHeaderCellDef>
-        {{ columnTitles.alertlevel }}
+        Alert Level
       </mat-header-cell>
       <mat-cell *matCellDef="let pager">
         <shared-alert-level [alert]="pager.properties.alertlevel">
@@ -32,7 +32,7 @@
 
     <ng-container matColumnDef="source">
       <mat-header-cell *matHeaderCellDef>
-        {{ columnTitles.source }}
+        Source
       </mat-header-cell>
       <mat-cell *matCellDef="let pager">
         <shared-product-attribution [product]="pager">

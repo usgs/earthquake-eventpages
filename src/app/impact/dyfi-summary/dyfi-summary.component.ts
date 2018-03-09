@@ -20,18 +20,9 @@ export class DyfiSummaryComponent implements OnInit {
     'source'
   ];
 
-  // labels for titles
-  public columnTitles = {
-    'catalog': 'Catalog',
-    'cdi': 'CDI',
-    'responses': 'Responses',
-    'source': 'Source'
-  };
-
   @Input() event: Event;
 
   @Input() products: Array<any> = [];
-
 
   constructor() {}
 
