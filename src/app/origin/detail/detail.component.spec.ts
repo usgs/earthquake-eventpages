@@ -107,5 +107,5 @@ describe('DetailComponent', () => {
 
       expect(component.hasEventTime({eventtime: '0'})).toBeTruthy();
     });
-  })
+  });
 });

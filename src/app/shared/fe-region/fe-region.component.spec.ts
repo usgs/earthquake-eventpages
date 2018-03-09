@@ -24,7 +24,7 @@ describe('FeRegionComponent', () => {
       subscribe: (cb) => {
         cb(response);
       }
-    }
+    };
 
     const geoserveServiceStub = {
       fe: jasmine.createSpy('geoserveService::fe').and.returnValue(observable)

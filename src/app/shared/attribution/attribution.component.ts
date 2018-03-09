@@ -30,7 +30,6 @@ export class AttributionComponent implements OnInit {
   sourceCodeToInfo (sourceCode: string, event: Event = null,
       details: Array<any> = []): any {
     let id;
-    let index;
     const eventSources = (event && event.sources) ? event.sources : [];
 
     if (!sourceCode) {
