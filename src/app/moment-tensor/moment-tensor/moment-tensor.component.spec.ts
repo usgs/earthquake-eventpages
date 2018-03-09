@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MomentTensorComponent } from './moment-tensor.component';
 import { MockComponent } from 'ng2-mock-component';
-import { EventService } from '../../event.service';
+import { EventService } from '../../core/event.service';
 import { of } from 'rxjs/observable/of';
 import { Event } from '../../event';
 import { RouterTestingModule } from '@angular/router/testing';

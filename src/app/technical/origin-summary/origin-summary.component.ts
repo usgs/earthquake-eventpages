@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormatterService } from '../../formatter.service';
+import { FormatterService } from '../../core/formatter.service';
 
 @Component({
   selector: 'technical-origin-summary',

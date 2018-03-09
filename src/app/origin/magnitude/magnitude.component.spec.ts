@@ -2,12 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MagnitudeComponent } from './magnitude.component';
 import { MatIconModule, MatCardModule, MatExpansionModule } from '@angular/material';
-import { ContributorService } from '../../contributor.service';
-import { EventService } from '../../event.service';
+import { ContributorService } from '../../core/contributor.service';
+import { EventService } from '../../core/event.service';
 import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 import { of } from 'rxjs/observable/of';
-import { QuakemlService } from '../../quakeml.service';
+import { QuakemlService } from '../../core/quakeml.service';
 import { Quakeml } from '../../quakeml';
 import { EVENT_UU60268292 } from '../../quakeml-testdata-uu60268292';
 import { xmlToJson } from '../../xml-to-json';

@@ -2,7 +2,7 @@ import { async, getTestBed, ComponentFixture, TestBed } from '@angular/core/test
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { ContentsXmlService } from '../../contents-xml.service';
+import { ContentsXmlService } from '../../core/contents-xml.service';
 import { DownloadComponent } from './download.component';
 
 

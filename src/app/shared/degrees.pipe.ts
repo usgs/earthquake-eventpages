@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { FormatterService } from '../formatter.service';
+import { FormatterService } from '../core/formatter.service';
 
 @Pipe({
   name: 'sharedDegrees'

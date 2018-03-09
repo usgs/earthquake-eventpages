@@ -5,8 +5,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { ContributorService } from '../../contributor.service';
-import { EventService } from '../../event.service';
+import { ContributorService } from '../../core/contributor.service';
+import { EventService } from '../../core/event.service';
 
 @Component({
   selector: 'product-page',

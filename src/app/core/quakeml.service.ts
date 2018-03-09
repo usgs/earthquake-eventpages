@@ -6,8 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators/catchError';
 import { of } from 'rxjs/observable/of';
 
-import { xmlToJson } from './xml-to-json';
-import { Quakeml } from './quakeml';
+import { xmlToJson } from '../xml-to-json';
+import { Quakeml } from '../quakeml';
 
 @Injectable()
 export class QuakemlService {

@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { Event } from '../../event';
 
-import { ContributorService } from '../../contributor.service';
-import { EventService } from '../../event.service';
+import { ContributorService } from '../../core/contributor.service';
+import { EventService } from '../../core/event.service';
 
 
 @Component({

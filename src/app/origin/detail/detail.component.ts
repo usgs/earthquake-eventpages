@@ -7,8 +7,8 @@ import { CoordinatesComponent } from '../../shared/coordinates/coordinates.compo
 import { FeRegionComponent } from '../../shared/fe-region/fe-region.component';
 import { UncertainValueComponent } from '../../shared/uncertain-value/uncertain-value.component';
 
-import { EventService } from '../../event.service';
-import { FormatterService } from '../../formatter.service';
+import { EventService } from '../../core/event.service';
+import { FormatterService } from '../../core/formatter.service';
 
 @Component({
   selector: 'origin-detail',

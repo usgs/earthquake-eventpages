@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Tensor } from '../../shared/beachball/tensor';
-import { EventService } from '../../event.service';
+import { EventService } from '../../core/event.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({

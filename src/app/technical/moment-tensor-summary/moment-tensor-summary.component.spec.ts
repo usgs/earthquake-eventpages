@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MomentTensorSummaryComponent } from './moment-tensor-summary.component';
 import { MockComponent } from 'ng2-mock-component';
 import { MatTableModule, MatIconModule } from '@angular/material';
-import { FormatterService } from '../../formatter.service';
+import { FormatterService } from '../../core/formatter.service';
 import { Tensor } from '../../shared/beachball/tensor';
 import { RouterModule } from '@angular/router';
 

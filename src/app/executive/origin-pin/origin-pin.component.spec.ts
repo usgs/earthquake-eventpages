@@ -8,8 +8,8 @@ import {
 } from '@angular/material';
 import { MockComponent } from 'ng2-mock-component';
 
+import { FormatterService } from '../../core/formatter.service';
 import { Event } from '../../event';
-import { FormatterService } from '../../formatter.service';
 import { OriginPinComponent } from './origin-pin.component';
 
 

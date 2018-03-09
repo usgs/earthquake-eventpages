@@ -5,8 +5,8 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { EventPageComponent } from './event-page.component';
 
-import { ContributorService } from '../../contributor.service';
-import { EventService } from '../../event.service';
+import { ContributorService } from '../../core/contributor.service';
+import { EventService } from '../../core/event.service';
 
 describe('EventPageComponent', () => {
   let fixture: ComponentFixture<EventPageComponent>,

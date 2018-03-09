@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ContentsXmlService } from '../../contents-xml.service';
+import { ContentsXmlService } from '../../core/contents-xml.service';
 
 
 @Component({

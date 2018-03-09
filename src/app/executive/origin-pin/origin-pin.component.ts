@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { Event } from '../../event';
-import { FormatterService } from '../../formatter.service';
+import { FormatterService } from '../../core/formatter.service';
 
 @Component({
   selector: 'executive-origin-pin',

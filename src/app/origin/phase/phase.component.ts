@@ -3,13 +3,13 @@ import { MatDialog, Sort } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { EventService } from '../../event.service';
+import { EventService } from '../../core/event.service';
 import { Quakeml } from '../../quakeml';
-import { QuakemlService } from '../../quakeml.service';
+import { QuakemlService } from '../../core/quakeml.service';
 
 import { DownloadDialogComponent } from '../../shared/download-dialog/download-dialog.component';
 import { toArray } from '../../to-array';
-import { FormatterService } from '../../formatter.service';
+import { FormatterService } from '../../core/formatter.service';
 
 /**
  * Generic compare function used by PhaseComponent.sortPhases.
