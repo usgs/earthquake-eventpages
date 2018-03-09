@@ -10,6 +10,25 @@ export class GeoserveService {
     private http: HttpClient
   ) { }
 
+
+  /**
+   * Regions helper endpoint. Makes request for FE region information
+   * from geoserve web service.
+   *
+   * @param latitude {String|Number}
+   *     Latitude coordinate for location of interest
+   * @param longitude {String|Number}
+   *     Longitude coordinate for location of interest
+   *
+   * @return {Observable}
+   *     The result of HttpClient.get to be subscribed to externally.
+   *
+   * @see GeoserveService#regions
+   */
+  fe (latitude: string|number, longitude: string|number) {
+    return this.regions(latitude, longitude, 'fe');
+  }
+
   /**
    * Makes a request to the geoserve web service regions end point.
    *
@@ -34,24 +53,6 @@ export class GeoserveService {
     }
 
     return this.http.get<any>(`${url}?${params.join('&')}`);
-  }
-
-  /**
-   * Regions helper endpoint. Makes request for FE region information
-   * from geoserve web service.
-   *
-   * @param latitude {String|Number}
-   *     Latitude coordinate for location of interest
-   * @param longitude {String|Number}
-   *     Longitude coordinate for location of interest
-   *
-   * @return {Observable}
-   *     The result of HttpClient.get to be subscribed to externally.
-   *
-   * @see GeoserveService#regions
-   */
-  fe (latitude: string|number, longitude: string|number) {
-    return this.regions(latitude, longitude, 'fe');
   }
 
   // TODO :: Add more methods to interact with WS? Maybe pull in from

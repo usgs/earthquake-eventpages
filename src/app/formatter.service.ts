@@ -214,11 +214,11 @@ export class FormatterService {
    * @return {String}
    */
   magnitude (value: number, type: string) {
-    if (!value) {
+    if (!value && value !== 0) {
       return this.empty;
     }
 
-    return this.number(value) + ' ' + type;
+    return this.number(value, null, type);
   }
 
   /**

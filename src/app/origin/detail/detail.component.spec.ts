@@ -6,6 +6,8 @@ import { DetailComponent } from './detail.component';
 import { EventService } from '../../event.service';
 import { FormatterService } from '../../formatter.service';
 
+import { Event } from '../../event';
+
 
 describe('DetailComponent', () => {
   let component: DetailComponent;
@@ -47,4 +49,63 @@ describe('DetailComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('getCatalogDetail', () => {
+    it('short circuits on no eventSource', () => {
+      expect(component.getCatalogDetail(null, null)).toBe('&ndash;');
+      expect(component.getCatalogDetail(null, 'code')).toBe('&ndash;');
+
+      expect(component.getCatalogDetail('', null)).toBe('&ndash;');
+      expect(component.getCatalogDetail('', 'code')).toBe('&ndash;');
+    });
+
+    it('returns expected results', () => {
+      expect(component.getCatalogDetail('Source', 'Code'))
+          .toEqual('SOURCE <small>(sourcecode)</small>');
+    });
+  });
+
+  describe('getProduct', () => {
+    it('returns object if not found', () => {
+      const event = new Event({});
+
+      expect(component.getProduct(event)).toEqual({});
+    });
+
+    it('properly looks for an origin', () => {
+      const event = new Event({});
+      const spy = spyOn(event, 'getProduct').and.returnValue({});
+
+      component.getProduct(event);
+      expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith('origin');
+    });
+
+    it('properly defers to phase-data', () => {
+      let event = new Event({
+        properties: {products: {origin: [{type: 'origin'}]}}
+      });
+      expect(component.getProduct(event).type).toEqual('origin');
+
+      event = new Event({
+        'properties': {
+          'products': {
+            'origin': [{type: 'origin'}],
+            'phase-data': [{type: 'phase-data'}]
+           }
+         }
+      });
+      expect(component.getProduct(event).type).toEqual('phase-data');
+    });
+  });
+
+  describe('hasEventTime', () => {
+    it('returns as intended', () => {
+      expect(component.hasEventTime({})).toBeFalsy();
+      expect(component.hasEventTime({eventtime: null})).toBeFalsy();
+      expect(component.hasEventTime({eventtime: 0})).toBeFalsy();
+
+      expect(component.hasEventTime({eventtime: '0'})).toBeTruthy();
+    });
+  })
 });

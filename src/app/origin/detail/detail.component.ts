@@ -41,16 +41,6 @@ export class DetailComponent {
     return product;
   }
 
-  getProductProperties (event: Event): any {
-    let product = event.getProduct('origin');
-
-    if (product && product.phasedata) {
-      product = product.phasedata;
-    }
-
-    return (product || {}).properties || {};
-  }
-
   hasEventTime (props: any): boolean {
     return (typeof props.eventtime === 'string');
   }

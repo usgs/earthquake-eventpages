@@ -35,4 +35,17 @@ describe('CoordinatesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('getters/setters', () => {
+    it('parses to float', () => {
+      const latStr = '0.0';
+      const lngStr = '-0.0';
+
+      component.latitude = latStr;
+      component.longitude = lngStr;
+
+      expect(component.latitude).toBe(0.0);
+      expect(component.longitude).toBe(0.0);
+    });
+  });
 });
