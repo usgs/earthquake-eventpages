@@ -19,8 +19,6 @@ describe('StationService', () => {
     httpClient = injector.get(HttpTestingController);
   });
 
-
-
   it('should be created', inject([StationService], (service: StationService) => {
     expect(service).toBeTruthy();
   }));
