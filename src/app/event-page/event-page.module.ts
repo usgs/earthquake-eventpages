@@ -42,6 +42,7 @@ import { NavigationComponent } from './navigation/navigation.component';
     NavigationComponent
   ],
   exports: [
+    ContributorListPipe,
     EventPageComponent
   ],
 })
