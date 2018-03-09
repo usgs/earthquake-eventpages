@@ -14,18 +14,14 @@ import { environment } from '../../environments/environment';
 export class EventService {
 
   // currently selected event
-  private event = new BehaviorSubject<Event>(new Event(null));
-
-  // Observable event
-  public readonly event$: Observable<Event> = this.event.asObservable();
+  public event$ = new BehaviorSubject<Event>(new Event(null));
 
   // id information for product to be shown.
   private productType: string;
   private productSource: string;
   private productCode: string;
 
-  private product = new BehaviorSubject<any>(null);
-  public readonly product$: Observable<any> = this.product.asObservable();
+  public product$ = new BehaviorSubject<any>(null);
 
   constructor (
     private http: HttpClient
@@ -41,7 +37,7 @@ export class EventService {
 
     // clear existing information if requested event id is different
     // otherwise let browser caching determine whether to update
-    if (this.event.getValue().id !== eventid) {
+    if (this.event$.value.id !== eventid) {
       this.setEvent(new Event(null));
     }
 
@@ -115,7 +111,7 @@ export class EventService {
    * @param event
    */
   private setEvent(event: any): void {
-    this.event.next(event);
+    this.event$.next(event);
     this.updateProduct();
   }
 
@@ -125,14 +121,14 @@ export class EventService {
    * @return whether a product was found.
    */
   private updateProduct(): void {
-    const event = this.event.getValue();
+    const event = this.event$.value;
     const product = event.getProduct(
       this.productType,
       this.productSource,
       this.productCode
     );
     event.product = product;
-    this.product.next(product);
+    this.product$.next(product);
   }
 
 }
