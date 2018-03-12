@@ -1,0 +1,19 @@
+<ng-container *ngIf="product">
+  <mat-card [routerLink]="'../moment-tensor'">
+    <mat-card-title>
+      <a [routerLink]="'../moment-tensor'">{{ title }}</a>
+    </mat-card-title>
+    <mat-card-subtitle>
+      Contributed by
+      <shared-product-attribution [product]="product"></shared-product-attribution>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <shared-beachball
+          [fillColor]="'#6ea8ff'"
+          [labelAxes]="false"
+          [labelPlanes]="false"
+          [tensor]="tensor">
+      </shared-beachball>
+    </mat-card-content>
+  </mat-card>
+</ng-container>

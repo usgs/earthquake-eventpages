@@ -10,6 +10,10 @@
           [event]="event">
       </executive-region-info-pin>
     </li>
+    <li class="executive-summary-pin" *ngIf="momentTensor">
+      <executive-moment-tensor-pin class="pin-view" [product]="momentTensor">
+      </executive-moment-tensor-pin>
+    </li>
   </ul>
   <shared-text-product
       *ngFor="let product of event.getProducts('general-text')"

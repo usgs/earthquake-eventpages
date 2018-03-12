@@ -10,13 +10,14 @@ import { RouterModule } from '@angular/router';
 
 
 import { ExecutiveComponent } from './executive/executive.component';
+import { BasicPinComponent } from './basic-pin/basic-pin.component';
+import { MomentTensorPinComponent } from './moment-tensor-pin/moment-tensor-pin.component';
 import { OriginPinComponent } from './origin-pin/origin-pin.component';
 import { RegionalPinComponent } from './regional-pin/regional-pin.component';
 
 import { EventPageModule } from '../event-page/event-page.module';
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
-import { BasicPinComponent } from './basic-pin/basic-pin.component';
 
 @NgModule({
   imports: [
@@ -32,9 +33,10 @@ import { BasicPinComponent } from './basic-pin/basic-pin.component';
   ],
   declarations: [
     ExecutiveComponent,
+    BasicPinComponent,
+    MomentTensorPinComponent,
     OriginPinComponent,
-    RegionalPinComponent,
-    BasicPinComponent
+    RegionalPinComponent
   ]
 })
 export class ExecutiveModule { }
