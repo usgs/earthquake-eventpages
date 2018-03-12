@@ -6,6 +6,7 @@ import {
   MatDividerModule,
   MatListModule
 } from '@angular/material';
+import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 import { of } from 'rxjs/observable/of';
 
@@ -32,6 +33,7 @@ describe('BasicPinComponent', () => {
       declarations: [
         BasicPinComponent,
 
+        MockComponent({selector: 'shared-attribution', inputs: ['sourceCode']}),
         MockPipe('contributorList')
       ],
       imports: [

@@ -12,13 +12,13 @@ import { FormatterService } from '../../formatter.service';
 
 export class OriginPinComponent {
 
+  private _event: Event;
   public link = '../origin';
   public product: any;
   public title = 'Origin';
   public type = 'origin';
 
-  private _event: Event;
-
+  // event passed from executive summary
   @Input() set event (event: Event) {
     this._event = event;
     if (event) {
@@ -31,7 +31,6 @@ export class OriginPinComponent {
   get event () {
     return this._event;
   }
-
 
   constructor(
     public formatterService: FormatterService

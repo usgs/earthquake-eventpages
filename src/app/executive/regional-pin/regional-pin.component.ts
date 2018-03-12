@@ -3,8 +3,6 @@ import { RouterLink } from '@angular/router';
 
 import * as L from 'leaflet';
 
-import { Event } from '../../event';
-
 
 @Component({
   selector: 'executive-region-info-pin',
@@ -12,16 +10,16 @@ import { Event } from '../../event';
   styleUrls: ['./regional-pin.component.css']
 })
 export class RegionalPinComponent implements OnChanges {
-  @Input() event: any;
 
-  map: L.Map;
-  marker: L.Marker;
+  public map: L.Map;
+  public marker: L.Marker;
 
-  title = 'Regional Info';
-  product: any;
-  link = '../regional-info';
-  type = 'geoserve';
+  public title = 'Regional Info';
+  public product: any;
+  public link = '../regional-info';
+  public type = 'geoserve';
 
+  @Input() event;
 
   constructor() { }
 

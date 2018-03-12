@@ -27,6 +27,7 @@ describe('OriginPinComponent', () => {
           selector: 'basic-pin',
           inputs: [
             'action',
+            'event',
             'link',
             'subtitle',
             'title',
