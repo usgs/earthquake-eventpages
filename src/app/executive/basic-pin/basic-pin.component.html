@@ -1,0 +1,47 @@
+  <!-- Basic Pin - material card -->
+  <mat-card [routerLink]="link">
+
+    <!-- Title -->
+    <mat-card-title>
+      <ng-container *ngIf="title; else noTitle">
+        {{ title }}
+      </ng-container>
+      <ng-template #noTitle>
+        <ng-content select="[card-title]"></ng-content>
+      </ng-template>
+    </mat-card-title>
+
+    <!-- Subtitle -->
+    <mat-card-subtitle>
+      <ng-container *ngIf="subtitle; else noSubtitle">
+        {{ subtitle }}
+      </ng-container>
+      <ng-template #noSubtitle>
+        Contributed by
+        <shared-attribution
+          [sourceCode]="product?.properties['origin-source'] || product?.source"
+        ></shared-attribution>
+      </ng-template>
+    </mat-card-subtitle>
+
+    <!-- Image -->
+    <ng-content select="[card-image]"></ng-content>
+
+    <!-- Content -->
+    <mat-card-content>
+      <ng-content select="[card-content]"></ng-content>
+    </mat-card-content>
+
+    <!-- Actions -->
+    <mat-card-actions>
+      <ng-container *ngIf="action; else noAction">
+        <a mat-button color="primary" [routerLink]="action">
+          View {{ title }}
+        </a>
+      </ng-container>
+      <ng-template #noAction>
+        <ng-content select="[card-action]"></ng-content>
+      </ng-template>
+    </mat-card-actions>
+
+  </mat-card>

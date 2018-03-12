@@ -6,15 +6,15 @@
       </executive-origin-pin>
     </li>
     <li class="executive-summary-pin">
-      <app-regional-pin class="pin-view" [event]="event">
-      </app-regional-pin>
+      <executive-region-info-pin class="pin-view"
+          [event]="event">
+      </executive-region-info-pin>
     </li>
   </ul>
   <shared-text-product
       *ngFor="let product of event.getProducts('general-text')"
       [product]="product">
   </shared-text-product>
-
   <ng-container *ngIf="event.hasProducts('general-link')">
     <h3>For More Information</h3>
     <ul>

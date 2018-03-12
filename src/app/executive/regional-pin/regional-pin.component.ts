@@ -3,28 +3,27 @@ import { RouterLink } from '@angular/router';
 
 import * as L from 'leaflet';
 
-import { Event } from '../../event';
-
 
 @Component({
-  selector: 'app-regional-pin',
+  selector: 'executive-region-info-pin',
   templateUrl: './regional-pin.component.html',
   styleUrls: ['./regional-pin.component.css']
 })
 export class RegionalPinComponent implements OnChanges {
-  @Input() event: any;
 
-  map: L.Map;
-  marker: L.Marker;
+  public map: L.Map;
+  public marker: L.Marker;
 
-  title = 'Regional Info';
-  product: any;
+  public title = 'Regional Info';
+  public product: any;
+  public link = '../regional-info';
+  public type = 'geoserve';
 
+  @Input() event;
 
-  constructor(
-  ) { }
+  constructor() { }
 
-  ngOnChanges(changes) {
+  ngOnChanges (changes) {
     if (!this.event || !this.event.geometry) {
       return;
     }
@@ -49,7 +48,7 @@ export class RegionalPinComponent implements OnChanges {
   /**
    * Create a leaflet map and add the historic seismicity overlay
    */
-  createMap() {
+  createMap () {
     if (this.map) {
       return;
     }
@@ -88,7 +87,7 @@ export class RegionalPinComponent implements OnChanges {
   /**
    * Create the event location marker and add it to the map.
    */
-  createMarker() {
+  createMarker () {
     if (this.marker) {
       return;
     }
@@ -98,7 +97,7 @@ export class RegionalPinComponent implements OnChanges {
     }
 
     // create and add marker to map
-    this.marker = new L.Marker(
+    this.marker = L.marker(
       [ 0, 0 ],
       {
         icon: L.icon({
@@ -118,7 +117,7 @@ export class RegionalPinComponent implements OnChanges {
    * @param {number} longitude
    *        event longitude
    */
-  fitMapBounds(latitude: number, longitude: number) {
+  fitMapBounds (latitude: number, longitude: number) {
     if (!this.map) {
       this.createMap();
     }
@@ -137,7 +136,7 @@ export class RegionalPinComponent implements OnChanges {
    * @param {number} longitude
    *        event longitude
    */
-  updateMarkerLocation(latitude: number, longitude: number) {
+  updateMarkerLocation (latitude: number, longitude: number) {
     // ensure marker is defined,
     // problem with ngOnit not being called when returning to the page
     if (!this.marker) {

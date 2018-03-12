@@ -17,8 +17,8 @@ describe('ExecutiveComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ExecutiveComponent,
-        MockComponent({ selector: 'app-regional-pin', inputs: ['event', 'contributors']}),
         MockComponent({ selector: 'executive-origin-pin', inputs: ['event', 'contributors']}),
+        MockComponent({ selector: 'executive-region-info-pin', inputs: ['event', 'contributors']}),
         MockComponent({ selector: 'shared-link-product', inputs: ['product']}),
         MockComponent({ selector: 'shared-text-product', inputs: ['product']})
       ],

@@ -1,17 +1,8 @@
-<ng-container>
-  <mat-card [routerLink]="'../region-info'">
-    <mat-card-title>
-      {{ title }}
-    </mat-card-title>
-    <mat-card-subtitle>
-      Contributed by
-      <shared-product-attribution [product]="product"></shared-product-attribution>
-    </mat-card-subtitle>
-    <div mat-card-image id="region-info-map"></div>
-    <mat-card-actions>
-      <a mat-button color="primary" [routerLink]="'../region-info'">
-        View Regional Information
-      </a>
-    </mat-card-actions>
-  </mat-card>
-</ng-container>
+<basic-pin
+    [action]=link
+    [event]=event
+    [link]=link
+    [title]=title
+    [type]=type>
+  <div card-image mat-card-image id="region-info-map"></div>
+</basic-pin>

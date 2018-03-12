@@ -2,21 +2,23 @@ import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { Event } from '../../event';
-import { FormatterService } from '../../formatter.service';
+
 
 @Component({
-  selector: 'executive-origin-pin',
-  templateUrl: './origin-pin.component.html',
-  styleUrls: ['./origin-pin.component.scss']
+  selector: 'basic-pin',
+  templateUrl: './basic-pin.component.html',
+  styleUrls: ['./basic-pin.component.css']
 })
-
-export class OriginPinComponent {
+export class BasicPinComponent {
 
   private _event: Event;
-  public link = '../origin';
-  public product: any;
-  public title = 'Origin';
-  public type = 'origin';
+  public product;
+
+  @Input() action; // router link for action button
+  @Input() link; // router link for entire card action
+  @Input() subtitle; // text for subtitle
+  @Input() title; // text for title
+  @Input() type; // type of product
 
   // event passed from executive summary
   @Input() set event (event: Event) {
@@ -32,8 +34,6 @@ export class OriginPinComponent {
     return this._event;
   }
 
-  constructor(
-    public formatterService: FormatterService
-  ) { }
+  constructor () { }
 
 }
