@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OriginSummaryComponent } from './origin-summary.component';
 import { MockComponent } from 'ng2-mock-component';
-import { FormatterService } from '../../formatter.service';
+import { FormatterService } from '../../core/formatter.service';
 import { MatTableModule, MatIconModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 

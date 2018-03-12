@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 
 import { DetailComponent } from './detail.component';
-import { EventService } from '../../event.service';
-import { FormatterService } from '../../formatter.service';
+import { EventService } from '../../core/event.service';
+import { FormatterService } from '../../core/formatter.service';
 
 import { Event } from '../../event';
 

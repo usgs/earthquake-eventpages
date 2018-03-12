@@ -6,14 +6,13 @@ import { Observable } from 'rxjs/Observable';
 import { catchError } from 'rxjs/operators/catchError';
 import { of } from 'rxjs/observable/of';
 
-import { xmlToJson } from './xml-to-json';
-import { Quakeml } from './quakeml';
+import { xmlToJson } from '../xml-to-json';
+import { Quakeml } from '../quakeml';
 
 @Injectable()
 export class QuakemlService {
 
-  private quakeml: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public readonly quakeml$: Observable<any> = this.quakeml.asObservable();
+  public quakeml$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   public error: any = null;
 
@@ -33,15 +32,15 @@ export class QuakemlService {
         catchError(this.handleError())
       ).subscribe((response) => {
         try {
-          this.quakeml.next(this.parseResponse(response));
+          this.quakeml$.next(this.parseResponse(response));
         } catch (e) {
           this.error = e;
-          this.quakeml.next(null);
+          this.quakeml$.next(null);
         }
       });
     } catch (e) {
       this.error = e;
-      this.quakeml.next(null);
+      this.quakeml$.next(null);
     }
   }
 

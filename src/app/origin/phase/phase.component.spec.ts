@@ -2,16 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatTableModule } from '@angular/material';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../event.service';
-import { PhaseComponent } from './phase.component';
-import { QuakemlService } from '../../quakeml.service';
-import { Quakeml } from '../../quakeml';
+import { EventService } from '../../core/event.service';
+import { FormatterService } from '../../core/formatter.service';
+import { QuakemlService } from '../../core/quakeml.service';
 
+import { Quakeml } from '../../quakeml';
 import { toArray } from '../../to-array';
 import { xmlToJson } from '../../xml-to-json';
-import { FormatterService } from '../../formatter.service';
 import { MockPipe } from '../../mock-pipe';
 
+import { PhaseComponent } from './phase.component';
 
 describe('PhaseComponent', () => {
 

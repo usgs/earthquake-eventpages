@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs/observable/of';
 
 import { Event } from '../../event';
-import { EventService } from '../../event.service';
+import { EventService } from '../../core/event.service';
 import { ImpactComponent } from './impact.component';
 import { MockComponent } from 'ng2-mock-component';
 

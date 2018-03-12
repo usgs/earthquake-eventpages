@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { EventService } from '../../event.service';
-import { QuakemlService } from '../../quakeml.service';
+import { EventService } from '../../core/event.service';
+import { QuakemlService } from '../../core/quakeml.service';
+
 import { toArray } from '../../to-array';
 import { Quakeml } from '../../quakeml';
-import { ContributorService } from '../../contributor.service';
 
 
 @Component({

@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ContributorService } from '../../contributor.service';
-import { EventService } from '../../event.service';
+import { ContributorService } from '../../core/contributor.service';
+import { EventService } from '../../core/event.service';
 import { MockComponent } from 'ng2-mock-component';
 
 import { ProductPageComponent } from './product-page.component';

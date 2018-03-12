@@ -12,12 +12,7 @@ import { UnknownEventPageModule } from './unknown-event-page/unknown-event-page.
 import { ExecutiveModule } from './executive/executive.module';
 import { RegionInfoModule } from './region-info/region-info.module';
 
-import { ContentsXmlService } from './contents-xml.service';
-import { ContributorService } from './contributor.service';
-import { EventService } from './event.service';
-import { FormatterService } from './formatter.service';
-import { GeoserveService } from './geoserve.service';
-import { QuakemlService } from './quakeml.service';
+import { CoreModule } from './core/core.module';
 
 
 @NgModule({
@@ -29,6 +24,7 @@ import { QuakemlService } from './quakeml.service';
     BrowserAnimationsModule,
     HttpClientModule,
 
+    CoreModule.forRoot(),
     EventPageModule,
     UnknownEventPageModule,
 
@@ -36,14 +32,6 @@ import { QuakemlService } from './quakeml.service';
     RegionInfoModule,
 
     AppRoutingModule
-  ],
-  providers: [
-    ContentsXmlService,
-    ContributorService,
-    EventService,
-    FormatterService,
-    GeoserveService,
-    QuakemlService
   ],
   bootstrap: [AppComponent]
 })

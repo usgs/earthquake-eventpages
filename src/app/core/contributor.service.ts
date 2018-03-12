@@ -7,12 +7,11 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { catchError } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ContributorService {
-  private contributors = new BehaviorSubject<any>(null);
-  public readonly contributors$ = this.contributors.asObservable();
+  public contributors$ = new BehaviorSubject<any>(null);
 
   constructor (
     private http: HttpClient
@@ -25,7 +24,7 @@ export class ContributorService {
     this.http.get<any>(url).pipe(
       catchError(this.handleError('getContributors', []))
     ).subscribe((response) => {
-      this.contributors.next(response);
+      this.contributors$.next(response);
     });
   }
 

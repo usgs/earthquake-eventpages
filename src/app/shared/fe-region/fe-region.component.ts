@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { GeoserveService } from '../../geoserve.service';
+import { GeoserveService } from '../../core/geoserve.service';
 
 
 @Component({

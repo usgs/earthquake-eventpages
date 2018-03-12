@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExecutiveComponent } from './executive.component';
 import { MockComponent } from 'ng2-mock-component';
-import { EventService } from '../../event.service';
-import { ContributorService } from '../../contributor.service';
+import { EventService } from '../../core/event.service';
+import { ContributorService } from '../../core/contributor.service';
 
 describe('ExecutiveComponent', () => {
   let component: ExecutiveComponent;

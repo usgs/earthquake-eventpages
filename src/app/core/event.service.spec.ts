@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { EventService } from './event.service';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 describe('EventService', () => {
   let httpClient: HttpTestingController,

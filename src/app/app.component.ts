@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ContributorService } from './contributor.service';
+import { ContributorService } from './core/contributor.service';
 
 
 @Component({

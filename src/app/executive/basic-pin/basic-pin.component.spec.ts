@@ -11,9 +11,9 @@ import { MockPipe } from '../../mock-pipe';
 import { of } from 'rxjs/observable/of';
 
 import { BasicPinComponent } from './basic-pin.component';
-import { ContributorService } from '../../contributor.service';
+import { ContributorService } from '../../core/contributor.service';
 import { Event } from '../../event';
-import { EventService } from '../../event.service';
+import { EventService } from '../../core/event.service';
 
 describe('BasicPinComponent', () => {
   let component: BasicPinComponent;

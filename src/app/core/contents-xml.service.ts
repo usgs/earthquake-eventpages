@@ -9,8 +9,7 @@ import { catchError } from 'rxjs/operators/catchError';
 @Injectable ()
 export class ContentsXmlService {
 
-  private contents: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public readonly contents$: Observable<any> = this.contents.asObservable();
+  public contents$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor (
     public httpClient: HttpClient
@@ -24,11 +23,11 @@ export class ContentsXmlService {
       this.httpClient.get(content.url, options).pipe(
         catchError(this.handleError())
       ).subscribe((response) => {
-        this.contents.next(this.parseResponse(response, product));
+        this.contents$.next(this.parseResponse(response, product));
       });
 
     } catch (e) {
-      this.contents.next(null);
+      this.contents$.next(null);
     }
   }
 

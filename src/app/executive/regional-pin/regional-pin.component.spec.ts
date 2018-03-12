@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import * as L from 'leaflet';
 
-import { EventService } from '../../event.service';
+import { EventService } from '../../core/event.service';
 import { MockComponent } from 'ng2-mock-component';
 import { RegionalPinComponent } from './regional-pin.component';
 

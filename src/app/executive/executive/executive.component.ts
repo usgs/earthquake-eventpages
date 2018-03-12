@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { EventService } from '../../event.service';
+import { EventService } from '../../core/event.service';
 
 @Component({
   selector: 'app-executive',

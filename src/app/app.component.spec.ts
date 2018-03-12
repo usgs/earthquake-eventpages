@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
 
-import { ContributorService } from './contributor.service';
+import { ContributorService } from './core/contributor.service';
 
 
 describe('AppComponent', () => {

@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { TechnicalComponent } from './technical.component';
 import { MockComponent } from 'ng2-mock-component';
-import { EventService } from '../../event.service';
+import { EventService } from '../../core/event.service';
 import { of } from 'rxjs/observable/of';
 
 describe('TechnicalComponent', () => {
