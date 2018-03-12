@@ -44,7 +44,7 @@ export class StationListComponent implements OnInit, OnDestroy {
       return
     }
 
-    this.stations = stations;
+    this.stations = stations.features;
   }
 
   /**
