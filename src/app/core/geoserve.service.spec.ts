@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { GeoserveService } from './geoserve.service';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 
 describe('GeoserveService', () => {
