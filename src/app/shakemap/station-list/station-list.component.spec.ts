@@ -29,7 +29,7 @@ describe('StationListComponent', () => {
       declarations: [
         StationListComponent,
 
-        MockComponent({selector: 'shared-station', inputs: ['station']}) 
+        MockComponent({selector: 'shared-station', inputs: ['station']})
         ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},

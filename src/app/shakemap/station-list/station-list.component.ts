@@ -10,7 +10,7 @@ import { StationService } from '../../station.service';
   styleUrls: ['./station-list.component.css']
 })
 export class StationListComponent implements OnInit, OnDestroy {
-  private subs = new Subscription()
+  private subs = new Subscription();
   public stations: any[] = [];
   constructor(private eventService: EventService,
               private stationService: StationService) { }
@@ -26,7 +26,7 @@ export class StationListComponent implements OnInit, OnDestroy {
 
   /**
    * New product, get new station list
-   * 
+   *
    * @param product shakemap product
    */
   onProduct(product) {
@@ -35,13 +35,13 @@ export class StationListComponent implements OnInit, OnDestroy {
 
   /**
    * New stations
-   * 
+   *
    * @param stations station list json
    */
   onStations(stations) {
     if (stations == null) {
       this.stations = [];
-      return
+      return;
     }
 
     this.stations = stations.features;

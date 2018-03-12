@@ -11,10 +11,10 @@ describe('ShakemapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         ShakemapComponent,
-      
-        MockComponent({selector: 'product-page', inputs: ['productType']}) 
+
+        MockComponent({selector: 'product-page', inputs: ['productType']})
       ],
       imports: [
         MatTabsModule,

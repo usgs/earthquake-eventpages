@@ -15,13 +15,13 @@ export class StationService {
 
   /**
    * Retreive a station list for a specifc shakemap
-   * 
+   *
    * @param product shakemap product json
    */
   getStations (product: any): void {
     if (product == null) {
       this.stations.next(null);
-      return
+      return;
     }
     const stations = product.contents['download/stationlist.json'];
 

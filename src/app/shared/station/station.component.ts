@@ -22,10 +22,10 @@ export class StationComponent implements OnInit {
     }
   }
 
-  getAmp(name:string, amps: any[]) {
-    for (let amp of amps) {
+  getAmp(name: string, amps: any[]) {
+    for (const amp of amps) {
       if (amp['name'] === name) {
-        return amp
+        return amp;
       }
     }
     return {};

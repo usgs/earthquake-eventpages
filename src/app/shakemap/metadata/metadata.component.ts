@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { EventService } from '../../event.service';
@@ -9,37 +9,48 @@ import { MetadataService } from '../../metadata.service';
   templateUrl: './metadata.component.html',
   styleUrls: ['./metadata.component.css']
 })
-export class MetadataComponent implements OnInit {
-  private subs = new Subscription()
+export class MetadataComponent implements OnInit, OnDestroy {
+  private subs = new Subscription();
   public metadata: any = null;
   public objKeys: any = Object.keys;
   public isNaN: any = isNaN;
-  
+
   public name_order = {
-    'event_information': ['event_description', 'event_id', 'magnitude', 'depth', 'longitude', 'latitude', 'origin_time', 'src_mech', 'location', 'fault_ref', 'seismic_stations', 'intensity_observations'],
-    'ground_motions': ['intensity', 'mmi', 'MMI', 'pga', 'PGA', 'pgv', 'PGV', 'SA(0.3)', 'psa03', 'SA(1.0)', 'psa10', 'SA(3.0)', 'psa30', 'bias'],
+    'event_information': ['event_description', 'event_id', 'magnitude',
+                            'depth', 'longitude', 'latitude', 'origin_time',
+                            'src_mech', 'location', 'fault_ref', 'seismic_stations',
+                            'intensity_observations'],
+    'ground_motions': ['intensity', 'mmi', 'MMI', 'pga', 'PGA', 'pgv',
+                          'PGV', 'SA(0.3)', 'psa03', 'SA(1.0)', 'psa10',
+                          'SA(3.0)', 'psa30', 'bias'],
     'map_information': ['grid_span', 'grid_spacing', 'grid_points', 'min', 'max'],
-    'uncertainty': ['mean_uncertainty_ratio', 'grade', 'total_flagged_mi', 'total_flagged_pgm'],
-    'ground_motion_modules': ['gmpe', 'ipe', 'gmice', 'igmice', 'ccf', 'directivity', 'basin_correction'],
-    'shakemap_versions': ['shakemap_revision', 'shakemap_revision_id', 'map_version', 'process_time'],
-    'miscellaneous': ['bias_max_mag', 'bias_max_range', 'bias_log_amp', 'bias_max_bias', 'bias_min_bias', 'bias_min_stations', 'bias_norm', 'median_dist', 'outlier_deviation_level', 'outlier_max_mag'],
+    'uncertainty': ['mean_uncertainty_ratio', 'grade', 'total_flagged_mi',
+                      'total_flagged_pgm'],
+    'ground_motion_modules': ['gmpe', 'ipe', 'gmice', 'igmice', 'ccf',
+                                'directivity', 'basin_correction'],
+    'shakemap_versions': ['shakemap_revision', 'shakemap_revision_id', 'map_version',
+                            'process_time'],
+    'miscellaneous': ['bias_max_mag', 'bias_max_range', 'bias_log_amp',
+                        'bias_max_bias', 'bias_min_bias', 'bias_min_stations',
+                        'bias_norm', 'median_dist', 'outlier_deviation_level',
+                        'outlier_max_mag'],
     'roi': ['gm', 'intensity'],
     'site_response': ['vs30default', 'site_correction']
-  }
+  };
 
   public names: any = {
     'event_information': {
       'location': 'Location',
       'longitude': 'Longitude',
       'seismic_stations': 'Number of Seismic Stations',
-      'magnitude': 'Magnitude', 
+      'magnitude': 'Magnitude',
       'depth': 'Depth',
       'event_id': 'ID',
       'event_description': 'Description', 'origin_time': 'Origin Time',
-      'latitude': 'Latitude', 
-      'fault_ref': 'Fault References', 
+      'latitude': 'Latitude',
+      'fault_ref': 'Fault References',
       'src_mech': 'Mechanism Source',
-      'intensity_observations': "Number of DYFI Stations"
+      'intensity_observations': 'Number of DYFI Stations'
     },
     'ground_motions': {
       'PGA': 'PGA (%g)',
@@ -63,7 +74,7 @@ export class MetadataComponent implements OnInit {
         'max': 'Max'
       },
     'uncertainty': {
-        'total_flagged_mi': "Flagged seismic stations",
+        'total_flagged_mi': 'Flagged seismic stations',
         'grade': 'Empirical ShakeMap grade',
         'total_flagged_pgm': 'Flagged DYFI stations',
         'mean_uncertainty_ratio': 'Mean of map uncertainty'
@@ -103,8 +114,8 @@ export class MetadataComponent implements OnInit {
       'site_correction': 'Site correction applied',
       'vs30default': 'Reference rock Vs30'
     }
-  }
-  
+  };
+
   constructor(public mdService: MetadataService,
               public eventService: EventService) { }
 
@@ -119,7 +130,7 @@ export class MetadataComponent implements OnInit {
 
   /**
    * New product, get new station list
-   * 
+   *
    * @param product shakemap product
    */
   onProduct(product) {
@@ -128,7 +139,7 @@ export class MetadataComponent implements OnInit {
 
   /**
    * New stations
-   * 
+   *
    * @param stations station list json
    */
   onMetadata(metadata) {

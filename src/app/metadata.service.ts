@@ -15,13 +15,13 @@ export class MetadataService {
 
   /**
    * Retreive metadata for a specifc shakemap
-   * 
+   *
    * @param product shakemap product json
    */
   getMetadata (product: any): void {
     if (product == null) {
       this.metadata.next(null);
-      return
+      return;
     }
     const metadata = product.contents['download/info.json'];
 
