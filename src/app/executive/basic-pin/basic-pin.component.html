@@ -18,7 +18,9 @@
       </ng-container>
       <ng-template #noSubtitle>
         Contributed by
-        <span [innerHTML]="product | contributorList:event:contributors"></span>
+        <shared-attribution
+          [sourceCode]="product?.properties['origin-source'] || product?.source"
+        ></shared-attribution>
       </ng-template>
     </mat-card-subtitle>
 
