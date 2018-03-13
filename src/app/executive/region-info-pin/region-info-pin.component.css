@@ -1,4 +1,5 @@
 .map {
   background: #eee;
   height: 200px;
+  pointer-events: none;
 }

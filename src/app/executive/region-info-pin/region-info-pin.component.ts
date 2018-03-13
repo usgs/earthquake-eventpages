@@ -76,7 +76,8 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
           iconUrl: 'assets/star.png',
           iconSize: [16, 16],
           iconAnchor: [8, 8]
-        })
+        }),
+        interactive: false
       }
     ).addTo(this.map);
 
