@@ -44,23 +44,4 @@ describe('ExecutiveComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('onEvent', () => {
-    it('clears moment-tensor when event is falsy', () => {
-      component.momentTensor = {};
-      component.onEvent(null);
-      expect(component.momentTensor).toBeNull();
-    });
-
-    it('sets moment-tensor when event is defined', () => {
-      const event = new Event({
-        properties: {
-          products: {
-            'moment-tensor': [{id: 'test moment tensor'}]
-          }
-        }
-      });
-      component.onEvent(event);
-      expect(component.momentTensor.id).toEqual('test moment tensor');
-    });
-  });
 });

@@ -11,51 +11,13 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./executive.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ExecutiveComponent implements OnInit, OnDestroy {
-
-  private eventSubscription: Subscription;
-
-  public event: Event = null;
-
-  public generalHeaders: Array<any> = [];
-  public generalLinks: Array<any> = [];
-  public generalTexts: Array<any> = [];
-
-  public momentTensor: any = null;
-  public origin: any = null;
-
+export class ExecutiveComponent implements OnInit {
 
   constructor (
     public eventService: EventService
   ) { }
 
   ngOnInit () {
-    this.eventSubscription = this.eventService.event$.subscribe((event) => {
-      this.onEvent(event);
-    });
-  }
-
-  ngOnDestroy () {
-    this.eventSubscription.unsubscribe();
-  }
-
-
-  onEvent (event: Event) {
-    this.event = event;
-
-    if (!event) {
-      // clear data and return
-      this.momentTensor = null;
-      this.origin = null;
-      return;
-    }
-
-    // products to be displayed
-    this.generalHeaders = event.getProducts('general-header');
-    this.generalLinks = event.getProducts('general-link');
-    this.generalTexts = event.getProducts('general-text');
-    this.momentTensor = event.getProduct('moment-tensor');
-    this.origin = event.getProduct('origin');
   }
 
 }

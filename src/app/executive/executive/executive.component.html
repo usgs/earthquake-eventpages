@@ -1,7 +1,7 @@
-<ng-container *ngIf="event">
+<ng-container *ngIf="eventService.event$ | async; let event">
 
   <shared-text-product
-      *ngFor="let product of generalHeaders"
+      *ngFor="let product of event.getProduct('general-header')"
       [product]="product">
   </shared-text-product>
 
@@ -11,30 +11,32 @@
       </executive-region-info-pin>
     </li>
 
-    <li class="executive-summary-pin" *ngIf="origin">
+    <li class="executive-summary-pin" *ngIf="event.getProduct('origin'); let origin">
       <executive-origin-pin [product]="origin" class="pin-view">
       </executive-origin-pin>
     </li>
 
-    <li class="executive-summary-pin" *ngIf="momentTensor">
+    <li class="executive-summary-pin" *ngIf="event.getProduct('moment-tensor'); let momentTensor">
       <executive-moment-tensor-pin [product]="momentTensor" class="pin-view">
       </executive-moment-tensor-pin>
     </li>
   </ul>
 
   <shared-text-product
-      *ngFor="let product of generalTexts"
+      *ngFor="let product of event.getProducts('general-text')"
       [product]="product">
   </shared-text-product>
 
-  <ng-container *ngIf="generalLinks && generalLinks.length">
-    <h3>For More Information</h3>
-    <ul>
-    <li *ngFor="let product of generalLinks">
-      <shared-link-product [product]="product">
-      </shared-link-product>
-    </li>
-    </ul>
+  <ng-container *ngIf="event.getProducts('general-link'); let generalLinks">
+    <ng-container *ngIf="generalLinks.length">
+      <h3>For More Information</h3>
+      <ul>
+      <li *ngFor="let product of generalLinks">
+        <shared-link-product [product]="product">
+        </shared-link-product>
+      </li>
+      </ul>
+    </ng-container>
   </ng-container>
 
 </ng-container>
