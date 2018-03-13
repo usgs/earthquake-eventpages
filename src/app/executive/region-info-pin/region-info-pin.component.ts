@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, ElementRef, AfterViewInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import * as L from 'leaflet';
@@ -8,8 +8,7 @@ import { Event } from '../../event';
 @Component({
   selector: 'executive-region-info-pin',
   templateUrl: './region-info-pin.component.html',
-  styleUrls: ['./region-info-pin.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./region-info-pin.component.css']
 })
 export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
 
@@ -42,8 +41,6 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
     this.map = L.map(this.regionInfoMap.nativeElement, {
       attributionControl: false,
       boxZoom: false,
-      center: [0, 0],
-      zoom: 0,
       doubleClickZoom: false,
       dragging: false,
       fadeAnimation: false,
@@ -81,7 +78,10 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
       }
     ).addTo(this.map);
 
-    this.updateLocation();
+    // this needs to happen after the 'AfterViewChange' lifecycle hook
+    setTimeout(() => {
+      this.updateLocation();
+    }, 0);
   }
 
   ngOnDestroy () {
@@ -134,20 +134,23 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
       this.product = null;
       latitude = 0;
       longitude = 0;
+      // while event data loads, zooming to 0,0 loads those map tiles...
+      // TBD: should this just return instead?
     } else {
-      // TBD, should this be a different product?
+      // TBD, should this be a different product and/or use a subtitle?
       this.product = this.event.getProduct('origin');
+
       // set lat/lng
       latitude = this.event.geometry.coordinates[1];
       longitude = this.event.geometry.coordinates[0];
     }
 
-    // Update the marker position
-    this.setMarkerLocation(latitude, longitude);
     // Update the map bounds
     this.fitMapBounds(latitude, longitude);
+    // Update the marker position
+    this.setMarkerLocation(latitude, longitude);
     // Invalidate map size
-    this.map.invalidateSize();
+    // this.map.invalidateSize();
   }
 
 }
