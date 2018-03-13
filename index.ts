@@ -1,4 +1,10 @@
-export { EventService }    from './src/app/event.service';
-export { StationListComponent } from './src/app/shakemap/station-list/station-list.component';
-export { StationComponent } from './src/app/shared/station/station.component';
-export { StationService } from './src/app/station.service';
+/* All singletons available in core module */
+import { CoreModule } from './src/app/core/core.module';
+export let EventpagesModule = CoreModule;
+
+/* Make ShakeMap required services available */
+export { EventService }    from './src/app/core/event.service';
+export { StationService } from './src/app/core/station.service';
+
+/* Make ShakeMap components available */
+export { ShakemapModule } from './src/app/shakemap/shakemap.module';
