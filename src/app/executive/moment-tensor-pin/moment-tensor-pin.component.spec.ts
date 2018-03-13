@@ -20,8 +20,25 @@ describe('MomentTensorPinComponent', () => {
       declarations: [
         MomentTensorPinComponent,
 
-        MockComponent({selector: 'shared-beachball', inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'tensor']}),
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
+        MockComponent({
+          selector: 'basic-pin',
+          inputs: [
+            'action',
+            'link',
+            'product',
+            'subtitle',
+            'title'
+          ]
+        }),
+        MockComponent({
+          selector: 'shared-beachball',
+          inputs: [
+            'fillColor',
+            'labelAxes',
+            'labelPlanes',
+            'tensor'
+          ]
+        })
       ]
     })
     .compileComponents();

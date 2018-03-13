@@ -11,6 +11,7 @@ export class MomentTensorPinComponent implements OnInit {
 
   private _product: any = null;
 
+  public link = '../moment-tensor';
   public title = 'Moment Tensor';
   public tensor: Tensor = null;
 
