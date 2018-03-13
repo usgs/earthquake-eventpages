@@ -22,4 +22,11 @@ describe('AlertLevelComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('set alert', () => {
+    it('sets alert level', () => {
+      component.alert = 'yellow';
+      expect(component.alert).toEqual('yellow');
+    });
+  });
 });

@@ -22,4 +22,12 @@ describe('MmiComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('set intensity', () => {
+    it('sets intensity and roman value correctly', () => {
+      component.intensity = 4.5;
+      expect(component.roman).toEqual('V');
+      expect(component.intensity).toEqual(4.5);
+    });
+  });
 });

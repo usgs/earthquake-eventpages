@@ -13,19 +13,19 @@ export class MmiComponent implements OnInit {
 
   private _intensity: number;
 
-  @Input() set intensity(mmi: number) {
+  @Input() set intensity (mmi: number) {
     this._intensity = mmi;
     mmi = Math.round(mmi);
 
     this.roman = MmiComponent.MMI_ROMAN[mmi];
   }
 
-  get intensity() {
+  get intensity () {
     return this._intensity;
   }
 
-  constructor() {}
+  constructor () {}
 
-  ngOnInit() {
+  ngOnInit () {
   }
 }
