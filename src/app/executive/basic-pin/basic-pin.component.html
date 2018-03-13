@@ -4,7 +4,7 @@
     <!-- Title -->
     <mat-card-title>
       <ng-container *ngIf="title; else noTitle">
-        {{ title }}
+        <a [routerLink]="link">{{ title }}</a>
       </ng-container>
       <ng-template #noTitle>
         <ng-content select="[card-title]"></ng-content>
@@ -18,9 +18,8 @@
       </ng-container>
       <ng-template #noSubtitle>
         Contributed by
-        <shared-attribution
-          [sourceCode]="product?.properties['origin-source'] || product?.source"
-        ></shared-attribution>
+        <shared-product-attribution [product]="product">
+        </shared-product-attribution>
       </ng-template>
     </mat-card-subtitle>
 

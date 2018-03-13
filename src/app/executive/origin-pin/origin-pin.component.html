@@ -1,20 +1,21 @@
 <ng-container *ngIf="product">
   <basic-pin
-      [action]=link
-      [event]=event
-      [link]=link
-      [title]=title
-      [type]=type>
+      [link]="link"
+      [product]="product"
+      [title]="title">
     <!-- pin content -->
     <dl card-content>
       <dt>Review Status</dt>
-      <dd>{{ product.properties['review-status'].toUpperCase() }}</dd>
+      <dd>{{ (product.properties['review-status'] || 'automatic') | uppercase }}</dd>
 
       <dt>Magnitude</dt>
-      <dd>{{ product.properties.magnitude }} {{ product.properties['magnitude-type'] }}</dd>
+      <dd>
+        {{ product.properties.magnitude | sharedNumber:1 }}
+        {{ product.properties['magnitude-type'] }}
+      </dd>
 
       <dt>Depth</dt>
-      <dd>{{ this.formatterService.depth(product.properties.depth, 'km') }}</dd>
+      <dd>{{ product.properties.depth | sharedNumber:1:'km' }}</dd>
 
       <dt>Time</dt>
       <dd>{{ product.properties.eventtime | date:"yyyy-MM-dd HH:mm:ss":"UTC" }} (UTC)</dd>

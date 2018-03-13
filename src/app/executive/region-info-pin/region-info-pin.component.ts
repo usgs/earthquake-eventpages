@@ -1,60 +1,45 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, ElementRef, AfterViewInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import * as L from 'leaflet';
+import { Event } from '../../event';
 
 
 @Component({
   selector: 'executive-region-info-pin',
-  templateUrl: './regional-pin.component.html',
-  styleUrls: ['./regional-pin.component.css']
+  templateUrl: './region-info-pin.component.html',
+  styleUrls: ['./region-info-pin.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegionalPinComponent implements OnChanges {
+export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
 
   public map: L.Map;
   public marker: L.Marker;
 
-  public title = 'Regional Info';
-  public product: any;
-  public link = '../regional-info';
-  public type = 'geoserve';
+  public title = 'Region Info';
+  public product: any = null;
+  public link = '../region-info';
 
-  @Input() event;
+  // map element reference
+  @ViewChild('regionInfoMap') regionInfoMap: ElementRef;
+
+  private _event: Event;
+
+  @Input() set event (event: Event) {
+    this._event = event;
+    this.updateLocation();
+  }
+
+  get event () {
+    return this._event;
+  }
 
   constructor() { }
 
-  ngOnChanges (changes) {
-    if (!this.event || !this.event.geometry) {
-      return;
-    }
 
-    // set lat/lng
-    const latitude = this.event.geometry.coordinates[1];
-    const longitude = this.event.geometry.coordinates[0];
-
-    // get geoserve product
-    this.product = this.event.getProduct('geoserve');
-
-    // Update the marker position
-    this.updateMarkerLocation(latitude, longitude);
-
-    // Update the map bounds
-    this.fitMapBounds(latitude, longitude);
-
-    // Invalidate map size
-    this.map.invalidateSize();
-  }
-
-  /**
-   * Create a leaflet map and add the historic seismicity overlay
-   */
-  createMap () {
-    if (this.map) {
-      return;
-    }
-
+  ngAfterViewInit() {
     // Create the map with nat geo
-    this.map = L.map('region-info-map', {
+    this.map = L.map(this.regionInfoMap.nativeElement, {
       attributionControl: false,
       boxZoom: false,
       center: [0, 0],
@@ -82,19 +67,6 @@ export class RegionalPinComponent implements OnChanges {
       zoomAnimation: false,
       zoomControl: false
     });
-  }
-
-  /**
-   * Create the event location marker and add it to the map.
-   */
-  createMarker () {
-    if (this.marker) {
-      return;
-    }
-
-    if (!this.map) {
-      this.createMap();
-    }
 
     // create and add marker to map
     this.marker = L.marker(
@@ -107,6 +79,15 @@ export class RegionalPinComponent implements OnChanges {
         })
       }
     ).addTo(this.map);
+
+    this.updateLocation();
+  }
+
+  ngOnDestroy () {
+    if (this.map) {
+      this.map.remove();
+      this.map = null;
+    }
   }
 
   /**
@@ -118,10 +99,6 @@ export class RegionalPinComponent implements OnChanges {
    *        event longitude
    */
   fitMapBounds (latitude: number, longitude: number) {
-    if (!this.map) {
-      this.createMap();
-    }
-
     this.map.fitBounds([
       [latitude - 2.0, longitude - 2.0],
       [latitude + 2.0, longitude + 2.0]
@@ -136,14 +113,41 @@ export class RegionalPinComponent implements OnChanges {
    * @param {number} longitude
    *        event longitude
    */
-  updateMarkerLocation (latitude: number, longitude: number) {
-    // ensure marker is defined,
-    // problem with ngOnit not being called when returning to the page
-    if (!this.marker) {
-      this.createMarker();
-    }
-
+  setMarkerLocation (latitude: number, longitude: number) {
     this.marker.setLatLng(L.latLng(latitude, longitude));
   }
+
+  /**
+   * Update marker location and fit bounds.
+   */
+  updateLocation () {
+    let latitude,
+        longitude;
+
+    if (!this.map) {
+      // ngAfterViewInit not called yet
+      return;
+    }
+
+    if (!this.event || !this.event.geometry) {
+      this.product = null;
+      latitude = 0;
+      longitude = 0;
+    } else {
+      // TBD, should this be a different product?
+      this.product = this.event.getProduct('origin');
+      // set lat/lng
+      latitude = this.event.geometry.coordinates[1];
+      longitude = this.event.geometry.coordinates[0];
+    }
+
+    // Update the marker position
+    this.setMarkerLocation(latitude, longitude);
+    // Update the map bounds
+    this.fitMapBounds(latitude, longitude);
+    // Invalidate map size
+    this.map.invalidateSize();
+  }
+
 }
 

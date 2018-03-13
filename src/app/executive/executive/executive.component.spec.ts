@@ -21,8 +21,8 @@ describe('ExecutiveComponent', () => {
         ExecutiveComponent,
 
         MockComponent({ selector: 'executive-moment-tensor-pin', inputs: ['product']}),
-        MockComponent({ selector: 'executive-origin-pin', inputs: ['event', 'contributors']}),
-        MockComponent({ selector: 'executive-region-info-pin', inputs: ['event', 'contributors']}),
+        MockComponent({ selector: 'executive-origin-pin', inputs: ['product']}),
+        MockComponent({ selector: 'executive-region-info-pin', inputs: ['event']}),
         MockComponent({ selector: 'shared-link-product', inputs: ['product']}),
         MockComponent({ selector: 'shared-text-product', inputs: ['product']})
       ],

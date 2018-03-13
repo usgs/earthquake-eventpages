@@ -6,11 +6,12 @@ import * as L from 'leaflet';
 
 import { EventService } from '../../core/event.service';
 import { MockComponent } from 'ng2-mock-component';
-import { RegionalPinComponent } from './regional-pin.component';
+import { RegionInfoPinComponent } from './region-info-pin.component';
+import { Event } from '../../event';
 
-describe('RegionalPinComponent', () => {
-  let component: RegionalPinComponent;
-  let fixture: ComponentFixture<RegionalPinComponent>;
+describe('RegionInfoPinComponent', () => {
+  let component: RegionInfoPinComponent;
+  let fixture: ComponentFixture<RegionInfoPinComponent>;
 
   const coordinates = {
     latitude: 35,
@@ -26,9 +27,9 @@ describe('RegionalPinComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [
-        RegionalPinComponent,
+        RegionInfoPinComponent,
 
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']})
+        MockComponent({selector: 'basic-pin', inputs: ['link', 'product', 'title']})
       ],
       imports: [
         RouterTestingModule
@@ -42,7 +43,7 @@ describe('RegionalPinComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegionalPinComponent);
+    fixture = TestBed.createComponent(RegionInfoPinComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -51,21 +52,6 @@ describe('RegionalPinComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('createMap', () => {
-    it('should create a map', () => {
-      component.createMap();
-      // check map
-      expect(component.map).not.toBeNull();
-    });
-  });
-
-  describe('createMarker', () => {
-    it('should create a marker', () => {
-      component.createMarker();
-      // check marker
-      expect(component.marker).not.toBeNull();
-    });
-  });
 
   describe('fitMapBounds', () => {
     it('should center/zoom the map', () => {
@@ -79,15 +65,11 @@ describe('RegionalPinComponent', () => {
       longitude = coordinates.longitude;
       latLng = L.latLng(latitude, longitude);
 
-      // create map
-      component.createMap();
-
       // setup spies
       mapSpy = spyOn(component.map, 'fitBounds');
 
       // call moveMap
       component.fitMapBounds(latitude, longitude);
-
 
       // check results
       expect(mapSpy).toHaveBeenCalled();
@@ -95,15 +77,22 @@ describe('RegionalPinComponent', () => {
     });
   });
 
-  describe('updateMarkerLocation', () => {
+  describe('set event', () => {
+    it('calls updateLocation', () => {
+      const event = new Event({id: 'test event'});
+      spyOn(component, 'updateLocation');
+      component.event = event;
+      expect(component.event).toBe(event);
+      expect(component.updateLocation).toHaveBeenCalled();
+    });
+  });
+
+  describe('setMarkerLocation', () => {
     it('should move the marker on the map', () => {
       let latLng,
           latitude,
           longitude,
           markerSpy;
-
-      // create marker
-      component.createMarker();
 
       // set latitude/ longitude
       latitude = coordinates.latitude;
@@ -114,11 +103,52 @@ describe('RegionalPinComponent', () => {
       markerSpy = spyOn(component.marker, 'setLatLng');
 
       // call moveMarker
-      component.updateMarkerLocation(latitude, longitude);
+      component.setMarkerLocation(latitude, longitude);
 
       // check results
       expect(markerSpy).toHaveBeenCalled();
       expect(markerSpy).toHaveBeenCalledWith(latLng);
+    });
+  });
+
+  describe('updateLocation', () => {
+    it('returns if map is undefined', () => {
+      const spy = spyOnProperty(component, 'event', 'get');
+      component.map = null;
+      component.updateLocation();
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('uses event info', () => {
+      const event = new Event(null);
+      const latitude = 34.0;
+      const longitude = -118.0;
+      event.geometry = {
+        coordinates: [longitude, latitude]
+      };
+
+      spyOn(component, 'setMarkerLocation');
+      spyOn(component, 'fitMapBounds');
+      spyOn(component.map, 'invalidateSize');
+
+      component.event = event;
+      expect(component.setMarkerLocation).toHaveBeenCalledWith(latitude, longitude);
+      expect(component.fitMapBounds).toHaveBeenCalledWith(latitude, longitude);
+      expect(component.map.invalidateSize).toHaveBeenCalled();
+    });
+
+    it('uses defaults when event geometry is undefined', () => {
+      const event = new Event(null);
+      const latitude = 0;
+      const longitude = 0;
+
+      spyOn(component, 'setMarkerLocation');
+      spyOn(component, 'fitMapBounds');
+      spyOn(component.map, 'invalidateSize');
+
+      component.event = event;
+      expect(component.setMarkerLocation).toHaveBeenCalledWith(latitude, longitude);
+      expect(component.fitMapBounds).toHaveBeenCalledWith(latitude, longitude);
     });
   });
 });
