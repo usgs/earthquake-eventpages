@@ -3,6 +3,8 @@ import { MatCardModule, MatExpansionModule } from '@angular/material';
 
 import { StationComponent } from './station.component';
 
+import { MockComponent } from 'ng2-mock-component';
+
 describe('StationComponent', () => {
   let component: StationComponent;
   let fixture: ComponentFixture<StationComponent>;
@@ -13,7 +15,10 @@ describe('StationComponent', () => {
         MatCardModule,
         MatExpansionModule
       ],
-      declarations: [ StationComponent ]
+      declarations: [
+        StationComponent,
+
+        MockComponent({selector: 'shared-mmi', inputs: ['intensity']}) ]
     })
     .compileComponents();
   }));

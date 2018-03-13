@@ -10,27 +10,11 @@
         <table>
             <tr>
                 <td class="mmi-td">
-                <!--
-                    <table class="mmi-table"
-                            [style.backgroundColor]="getColor(station.properties.intensity)">
-                            -->
-                    <table class="mmi-table">
-                        <tr>
-                            <th>
-                                <h1>
-                                <!--
-                                    {{ getRoman(station.properties.intensity) }}
-                                    -->
-                                    {{ station.properties.intensity }}
-                                </h1>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                mmi
-                            </td>
-                        </tr>
-                    </table>
+                    <h1>
+                        <shared-mmi class="intensity"
+                            [intensity]="station.properties.intensity">
+                        </shared-mmi>
+                    </h1>
                 </td>
                 <td>
                     <table>
