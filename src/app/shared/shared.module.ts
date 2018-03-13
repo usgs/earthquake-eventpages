@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
-
+import { MatButtonModule,
+          MatDialogModule,
+          MatIconModule,
+          MatExpansionModule,
+          MatCardModule } from '@angular/material';
 import { AttributionComponent } from './attribution/attribution.component';
 import { AlertLevelComponent } from './alert-level/alert-level.component';
 import { BeachballComponent } from './beachball/beachball.component';
@@ -27,7 +30,9 @@ import { StationComponent } from './station/station.component';
     CommonModule,
     MatButtonModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule,
+    MatCardModule
   ],
   declarations: [
     AttributionComponent,

@@ -1,7 +1,5 @@
-
-.station {
-    margin-bottom: 10px;
-    border-top: 1px solid #ddd;
+.details {
+    margin-top: 10px;
 }
 
 table table {
@@ -25,31 +23,6 @@ table, th, td {
 
 .mmi-td h1 {
     margin:0;
-}
-
-.details-container {
-    margin-top: 15px;
-}
-
-.details-toggle {
-    position: relative;
-    display: block;
-    width: max-content;
-    padding: 5px;
-    cursor: default;
-}
-
-.details-toggle .link {
-    margin-left: 10px;
-}
-
-.details-toggle * {
-    display: inline-block;
-    margin: 0;
-}
-
-.fa {
-    text-decoration: none;
 }
 
 .data-container {
