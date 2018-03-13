@@ -1,11 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, Input } from '@angular/core';
 import { Event } from '../../event';
 import { Tensor } from '../../shared/beachball/tensor';
+
 
 @Component({
   selector: 'executive-moment-tensor-pin',
   templateUrl: './moment-tensor-pin.component.html',
-  styleUrls: ['./moment-tensor-pin.component.scss']
+  styleUrls: ['./moment-tensor-pin.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MomentTensorPinComponent implements OnInit {
 
