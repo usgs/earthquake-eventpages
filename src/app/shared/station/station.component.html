@@ -93,50 +93,52 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <div class="details">
-                <div class = "column">
-                <dl class="station-metadata vertical">
-                    <dt class="station-metadata-network">Network</dt>
-                    <dd class="station-metadata-network">{{ station.properties.network }}</dd>
-                    <dt class="station-metadata-location">Location</dt>
-                    <dd class="station-metadata-location">{{ station.geometry.coordinates[1] }}°N 
-                                                        {{ station.geometry.coordinates[0] * -1 }}°W</dd>
-                    <dt class="station-metadata-source">Source</dt>
-                    <dd class="station-metadata-source">{{ station.properties.source }}</dd>
-                    <dt class="station-metadata-intensity">Intensity</dt>
-                    <dd class="station-metadata-intensity">{{ station.properties.intensity }}</dd>
-                </dl>
-                </div>
-                
-                <div class="column">
-                <table class="data-table">
-                    <thead>
-                    <th>name</th>
-                    <th>pga</th>
-                    <th>pgv</th>
-                    <th>psa03</th>
-                    <th>psa10</th>
-                    <th>psa30</th>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let channel of station.properties.channels">
-                        <th>
-                        {{ channel.name }}
-                        </th>
-                        <td>{{ getAmp('pga', channel.amplitudes).value | number }}</td>
-                        <td>{{ getAmp('pgv', channel.amplitudes).value | number }}</td>
-                        <td *ngIf="getAmp('psa03', channel.amplitudes).value">{{ getAmp('psa03', channel.amplitudes).value | number }}</td>
-                        <td *ngIf="getAmp('psa10', channel.amplitudes).value">{{ getAmp('psa10', channel.amplitudes).value | number }}</td>
-                        <td *ngIf="getAmp('psa30', channel.amplitudes).value">{{ getAmp('psa30', channel.amplitudes).value | number }}</td>
-                        <td *ngIf="getAmp('sa(0.3)', channel.amplitudes).value">{{ getAmp('sa(0.3)', channel.amplitudes).value | number }}</td>
-                        <td *ngIf="getAmp('sa(1.0)', channel.amplitudes).value">{{ getAmp('sa(1.0)', channel.amplitudes).value | number }}</td>
-                        <td *ngIf="getAmp('sa(3.0)', channel.amplitudes).value">{{ getAmp('sa(3.0)', channel.amplitudes).value | number }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-                </div>
+            <ng-template matExpansionPanelContent>
+                <div class="details">
+                    <div class = "column">
+                    <dl class="station-metadata vertical">
+                        <dt class="station-metadata-network">Network</dt>
+                        <dd class="station-metadata-network">{{ station.properties.network }}</dd>
+                        <dt class="station-metadata-location">Location</dt>
+                        <dd class="station-metadata-location">{{ station.geometry.coordinates[1] }}°N 
+                                                            {{ station.geometry.coordinates[0] * -1 }}°W</dd>
+                        <dt class="station-metadata-source">Source</dt>
+                        <dd class="station-metadata-source">{{ station.properties.source }}</dd>
+                        <dt class="station-metadata-intensity">Intensity</dt>
+                        <dd class="station-metadata-intensity">{{ station.properties.intensity }}</dd>
+                    </dl>
+                    </div>
+                    
+                    <div class="column">
+                    <table class="data-table">
+                        <thead>
+                        <th>name</th>
+                        <th>pga</th>
+                        <th>pgv</th>
+                        <th>psa03</th>
+                        <th>psa10</th>
+                        <th>psa30</th>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let channel of station.properties.channels">
+                            <th>
+                            {{ channel.name }}
+                            </th>
+                            <td>{{ getAmp('pga', channel.amplitudes).value | number }}</td>
+                            <td>{{ getAmp('pgv', channel.amplitudes).value | number }}</td>
+                            <td *ngIf="getAmp('psa03', channel.amplitudes).value">{{ getAmp('psa03', channel.amplitudes).value | number }}</td>
+                            <td *ngIf="getAmp('psa10', channel.amplitudes).value">{{ getAmp('psa10', channel.amplitudes).value | number }}</td>
+                            <td *ngIf="getAmp('psa30', channel.amplitudes).value">{{ getAmp('psa30', channel.amplitudes).value | number }}</td>
+                            <td *ngIf="getAmp('sa(0.3)', channel.amplitudes).value">{{ getAmp('sa(0.3)', channel.amplitudes).value | number }}</td>
+                            <td *ngIf="getAmp('sa(1.0)', channel.amplitudes).value">{{ getAmp('sa(1.0)', channel.amplitudes).value | number }}</td>
+                            <td *ngIf="getAmp('sa(3.0)', channel.amplitudes).value">{{ getAmp('sa(3.0)', channel.amplitudes).value | number }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
 
-            </div>
+                </div>
+            </ng-template>
         </mat-expansion-panel>
 
     </mat-card-content>
