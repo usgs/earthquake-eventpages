@@ -150,7 +150,7 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
     // Update the marker position
     this.setMarkerLocation(latitude, longitude);
     // Invalidate map size
-    // this.map.invalidateSize();
+    this.map.invalidateSize();
   }
 
 }
