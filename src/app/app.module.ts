@@ -13,8 +13,6 @@ import { ExecutiveModule } from './executive/executive.module';
 import { RegionInfoModule } from './region-info/region-info.module';
 
 import { CoreModule } from './core/core.module';
-import { StationService } from './station.service';
-import { MetadataService } from './metadata.service';
 
 @NgModule({
   declarations: [
@@ -33,10 +31,6 @@ import { MetadataService } from './metadata.service';
     RegionInfoModule,
 
     AppRoutingModule
-  ],
-  providers: [
-    StationService
-    MetadataService
   ],
   bootstrap: [AppComponent]
 })

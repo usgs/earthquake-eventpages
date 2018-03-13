@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { EventService } from '../../event.service';
-import { MetadataService } from '../../metadata.service';
+import { EventService } from '../../core/event.service';
+import { MetadataService } from '../../core/metadata.service';
 
 @Component({
   selector: 'shakemap-metadata',

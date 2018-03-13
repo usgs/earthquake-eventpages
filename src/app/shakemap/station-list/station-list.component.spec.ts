@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StationListComponent } from './station-list.component';
 
-import { EventService } from '../../event.service';
-import { StationService } from '../../station.service';
+import { EventService } from '../../core/event.service';
+import { StationService } from '../../core/station.service';
 
 import { of } from 'rxjs/observable/of';
 import { MockComponent } from 'ng2-mock-component';

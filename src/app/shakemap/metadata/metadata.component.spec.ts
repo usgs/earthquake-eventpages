@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MetadataComponent } from './metadata.component';
 
-import { EventService } from '../../event.service';
-import { MetadataService } from '../../metadata.service';
+import { EventService } from '../../core/event.service';
+import { MetadataService } from '../../core/metadata.service';
 
 import { of } from 'rxjs/observable/of';
 

@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { EventService } from '../../event.service';
-import { StationService } from '../../station.service';
+import { EventService } from '../../core/event.service';
+import { StationService } from '../../core/station.service';
 
 @Component({
   selector: 'shakemap-station-list',

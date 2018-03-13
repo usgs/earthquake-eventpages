@@ -7,6 +7,8 @@ import { ContributorService } from './contributor.service';
 import { QuakemlService } from './quakeml.service';
 import { FormatterService } from './formatter.service';
 import { GeoserveService } from './geoserve.service';
+import { StationService } from './station.service';
+import { MetadataService } from './metadata.service';
 
 @NgModule({
   imports: [
@@ -24,7 +26,9 @@ export class CoreModule {
         EventService,
         FormatterService,
         GeoserveService,
-        QuakemlService
+        QuakemlService,
+        StationService,
+        MetadataService
       ]
     };
   }
