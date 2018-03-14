@@ -29,12 +29,12 @@ node {
 
   // Runs zap.sh as daemon and used to execute zap-cli calls within
   def OWASP_CONTAINER = "${APP_NAME}-${BUILD_ID}-OWASP"
-  def OWASP_IMAGE = "${DEVOPS_REGISTRY}/library/owasp/zap2docker-stable"
+  def OWASP_IMAGE = "${DEVOPS_REGISTRY}/owasp/zap2docker-stable"
   def OWASP_REPORT_DIR = "${WORKSPACE}/owasp-data"
 
 
   // Used to run linting, unit tests, coverage, and e2e within this container
-  def TESTER_IMAGE = "${DEVOPS_REGISTRY}/library/trion/ng-cli-e2e"
+  def TESTER_IMAGE = "${DEVOPS_REGISTRY}/trion/ng-cli-e2e"
 
   // Queue up tasks that can be run in parallel
   def SECURITY_CHECKS = [:]
@@ -95,7 +95,7 @@ node {
 
               # Now install everything else so the build works as expected
               npm install --no-save
-              npm run build -- --prod --progress false --base-href /beta/earthquakes/eventpage/
+              npm run build -- --progress false --base-href /beta/earthquakes/eventpage/
             """
 
             writeJSON file: 'dist/metadata.json', pretty: 4, json: info
