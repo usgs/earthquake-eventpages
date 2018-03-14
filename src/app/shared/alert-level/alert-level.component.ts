@@ -7,16 +7,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AlertLevelComponent implements OnInit {
 
-  public color: string;
-  private _alertLevel: string;
+  public alertLevel: string;
 
   @Input() set alert(alertColor: string) {
-    this._alertLevel = alertColor;
-    this.color = alertColor;
+    this.alertLevel = alertColor;
   }
 
   get alert() {
-    return this._alertLevel;
+    return this.alertLevel;
   }
 
   constructor() { }
