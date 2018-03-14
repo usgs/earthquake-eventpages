@@ -135,20 +135,20 @@ describe('RegionInfoPinComponent', () => {
       expect(component.setMarkerLocation).toHaveBeenCalledWith(latitude, longitude);
       expect(component.fitMapBounds).toHaveBeenCalledWith(latitude, longitude);
       expect(component.map.invalidateSize).toHaveBeenCalled();
+      expect(component.map.hasLayer(component.marker)).toBeTruthy();
     });
 
-    it('uses defaults when event geometry is undefined', () => {
+    it('removes marker when event geometry is undefined', () => {
       const event = new Event(null);
-      const latitude = 0;
-      const longitude = 0;
 
       spyOn(component, 'setMarkerLocation');
       spyOn(component, 'fitMapBounds');
       spyOn(component.map, 'invalidateSize');
 
       component.event = event;
-      expect(component.setMarkerLocation).toHaveBeenCalledWith(latitude, longitude);
-      expect(component.fitMapBounds).toHaveBeenCalledWith(latitude, longitude);
+      expect(component.setMarkerLocation).not.toHaveBeenCalled();
+      expect(component.fitMapBounds).not.toHaveBeenCalled();
+      expect(component.map.hasLayer(component.marker)).toBeFalsy();
     });
   });
 });

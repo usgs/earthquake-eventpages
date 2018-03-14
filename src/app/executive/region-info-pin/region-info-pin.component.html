@@ -1,7 +1,10 @@
 <basic-pin
-      [product]="product"
+      [product]="event?.getProduct('origin')"
       [link]="link"
       [title]="title">
-  <div card-image mat-card-image #regionInfoMap class="map"
+  <div #regionInfoMap
+      card-image
+      class="map"
+      mat-card-image
       (mousemove)="$event.stopPropagation"></div>
 </basic-pin>

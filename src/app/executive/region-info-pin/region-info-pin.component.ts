@@ -78,10 +78,7 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
       }
     ).addTo(this.map);
 
-    // this needs to happen after the 'AfterViewChange' lifecycle hook
-    setTimeout(() => {
-      this.updateLocation();
-    }, 0);
+    this.updateLocation();
   }
 
   ngOnDestroy () {
@@ -131,24 +128,18 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
     }
 
     if (!this.event || !this.event.geometry) {
-      this.product = null;
-      latitude = 0;
-      longitude = 0;
-      // while event data loads, zooming to 0,0 loads those map tiles...
-      // TBD: should this just return instead?
-    } else {
-      // TBD, should this be a different product and/or use a subtitle?
-      this.product = this.event.getProduct('origin');
-
-      // set lat/lng
-      latitude = this.event.geometry.coordinates[1];
-      longitude = this.event.geometry.coordinates[0];
+      this.map.removeLayer(this.marker);
+      return;
     }
+
+    // Update the marker position
+    latitude = this.event.geometry.coordinates[1];
+    longitude = this.event.geometry.coordinates[0];
+    this.setMarkerLocation(latitude, longitude);
+    this.map.addLayer(this.marker);
 
     // Update the map bounds
     this.fitMapBounds(latitude, longitude);
-    // Update the marker position
-    this.setMarkerLocation(latitude, longitude);
     // Invalidate map size
     this.map.invalidateSize();
   }
