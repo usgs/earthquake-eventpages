@@ -14,11 +14,11 @@ node {
 
 
   // Name of image to use as basis when building LOCAL_IMAGE/DEPLOY_IMAGE
-  def BASE_IMAGE = "${DEVOPS_REGISTRY}/nginx:latest"
+  def BASE_IMAGE = "${DEVOPS_REGISTRY}/usgs/nginx:latest"
 
   // Used to install dependencies and build distributables
   def BUILDER_CONTAINER = "${APP_NAME}-${BUILD_ID}-BUILDER"
-  def BUILDER_IMAGE = "${DEVOPS_REGISTRY}/node:8"
+  def BUILDER_IMAGE = "${DEVOPS_REGISTRY}/usgs/node:8"
 
   // Name of image to deploy (push) to registry
   def DEPLOY_IMAGE = "${GITLAB_INNERSOURCE_REGISTRY}/ghsc/hazdev/earthquake-eventpages"
@@ -322,10 +322,10 @@ node {
       )
     }
   } catch (e) {
-    mail to: 'gs-haz_dev_team_group@usgs.gov',
-      from: 'noreply@jenkins',
-      subject: 'Jenkins: earthquake-eventpages',
-      body: "Project build (${BUILD_TAG}) failed '${e}'"
+    // mail to: 'gs-haz_dev_team_group@usgs.gov',
+    //   from: 'noreply@jenkins',
+    //   subject: 'Jenkins: earthquake-eventpages',
+    //   body: "Project build (${BUILD_TAG}) failed '${e}'"
 
     FAILURE = e
   } finally {
