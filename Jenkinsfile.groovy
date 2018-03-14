@@ -115,176 +115,176 @@ node {
       }
     }
 
-    // stage('Unit Tests') {
-    //   // Note that running angular tests destroys the "dist" folder that was
-    //   // originally created in Install stage. This is not needed later, so
-    //   // okay, but just be aware ...
+    stage('Unit Tests') {
+      // Note that running angular tests destroys the "dist" folder that was
+      // originally created in Install stage. This is not needed later, so
+      // okay, but just be aware ...
 
-    //   // Run linting, unit tests, and end-to-end tests
-    //   docker.image(TESTER_IMAGE).inside () {
-    //       ansiColor('xterm') {
-    //         sh """
-    //           ng lint
-    //         """
-    //         sh """
-    //           ng test --single-run --code-coverage --progress false
-    //         """
-    //         sh """
-    //           npm run e2e -- --progress false
-    //         """
-    //       }
-    //   }
+      // Run linting, unit tests, and end-to-end tests
+      docker.image(TESTER_IMAGE).inside () {
+          ansiColor('xterm') {
+            sh """
+              ng lint
+            """
+            sh """
+              ng test --single-run --code-coverage --progress false
+            """
+            sh """
+              npm run e2e -- --progress false
+            """
+          }
+      }
 
-    //   // Publish results
-    //   cobertura(
-    //     autoUpdateHealth: false,
-    //     autoUpdateStability: false,
-    //     coberturaReportFile: '**/cobertura-coverage.xml',
-    //     conditionalCoverageTargets: '70, 0, 0',
-    //     failUnhealthy: false,
-    //     failUnstable: false,
-    //     lineCoverageTargets: '80, 0, 0',
-    //     maxNumberOfBuilds: 0,
-    //     methodCoverageTargets: '80, 0, 0',
-    //     onlyStable: false,
-    //     sourceEncoding: 'ASCII',
-    //     zoomCoverageChart: false
-    //   )
-    // }
+      // Publish results
+      cobertura(
+        autoUpdateHealth: false,
+        autoUpdateStability: false,
+        coberturaReportFile: '**/cobertura-coverage.xml',
+        conditionalCoverageTargets: '70, 0, 0',
+        failUnhealthy: false,
+        failUnstable: false,
+        lineCoverageTargets: '80, 0, 0',
+        maxNumberOfBuilds: 0,
+        methodCoverageTargets: '80, 0, 0',
+        onlyStable: false,
+        sourceEncoding: 'ASCII',
+        zoomCoverageChart: false
+      )
+    }
 
-    // SECURITY_CHECKS['Scan Dependencies'] = {
-    //   // Analyze dependencies
-    //   ansiColor('xterm') {
-    //     dependencyCheckAnalyzer(
-    //       datadir: '',
-    //       hintsFile: '',
-    //       includeCsvReports: false,
-    //       includeHtmlReports: true,
-    //       includeJsonReports: false,
-    //       includeVulnReports: true,
-    //       isAutoupdateDisabled: false,
-    //       outdir: 'dependency-check-data',
-    //       scanpath: "${WORKSPACE}",
-    //       skipOnScmChange: false,
-    //       skipOnUpstreamChange: false,
-    //       suppressionFile: 'suppression.xml',
-    //       zipExtensions: ''
-    //     )
-    //   }
+    SECURITY_CHECKS['Scan Dependencies'] = {
+      // Analyze dependencies
+      ansiColor('xterm') {
+        dependencyCheckAnalyzer(
+          datadir: '',
+          hintsFile: '',
+          includeCsvReports: false,
+          includeHtmlReports: true,
+          includeJsonReports: false,
+          includeVulnReports: true,
+          isAutoupdateDisabled: false,
+          outdir: 'dependency-check-data',
+          scanpath: "${WORKSPACE}",
+          skipOnScmChange: false,
+          skipOnUpstreamChange: false,
+          suppressionFile: 'suppression.xml',
+          zipExtensions: ''
+        )
+      }
 
-    //   // Publish results
-    //   dependencyCheckPublisher(
-    //     canComputeNew: false,
-    //     defaultEncoding: '',
-    //     healthy: '',
-    //     pattern: '**/dependency-check-report.xml',
-    //     unHealthy: ''
-    //   )
+      // Publish results
+      dependencyCheckPublisher(
+        canComputeNew: false,
+        defaultEncoding: '',
+        healthy: '',
+        pattern: '**/dependency-check-report.xml',
+        unHealthy: ''
+      )
 
-    //   publishHTML (target: [
-    //     allowMissing: true,
-    //     alwaysLinkToLastBuild: true,
-    //     keepAll: true,
-    //     reportDir: 'dependency-check-data',
-    //     reportFiles: 'dependency-check-report.html',
-    //     reportName: 'Dependency Analysis'
-    //   ])
+      publishHTML (target: [
+        allowMissing: true,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: 'dependency-check-data',
+        reportFiles: 'dependency-check-report.html',
+        reportName: 'Dependency Analysis'
+      ])
 
-    //   publishHTML (target: [
-    //     allowMissing: true,
-    //     alwaysLinkToLastBuild: true,
-    //     keepAll: true,
-    //     reportDir: 'dependency-check-data',
-    //     reportFiles: 'dependency-check-vulnerability.html',
-    //     reportName: 'Dependency Vulnerabilities'
-    //   ])
-    // }
+      publishHTML (target: [
+        allowMissing: true,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: 'dependency-check-data',
+        reportFiles: 'dependency-check-vulnerability.html',
+        reportName: 'Dependency Vulnerabilities'
+      ])
+    }
 
-    // SECURITY_CHECKS['Penetration Tests'] = {
-    //   def ZAP_API_PORT = '8090'
+    SECURITY_CHECKS['Penetration Tests'] = {
+      def ZAP_API_PORT = '8090'
 
-    //   // Ensure report output directory exists
-    //   sh """
-    //     if [ ! -d "${OWASP_REPORT_DIR}" ]; then
-    //       mkdir -p ${OWASP_REPORT_DIR}
-    //       chmod 777 ${OWASP_REPORT_DIR}
-    //     fi
-    //   """
+      // Ensure report output directory exists
+      sh """
+        if [ ! -d "${OWASP_REPORT_DIR}" ]; then
+          mkdir -p ${OWASP_REPORT_DIR}
+          chmod 777 ${OWASP_REPORT_DIR}
+        fi
+      """
 
-    //   // Start a container to run penetration tests against
-    //   sh """
-    //     docker run --rm --name ${LOCAL_CONTAINER} \
-    //       -d ${LOCAL_IMAGE}
-    //   """
+      // Start a container to run penetration tests against
+      sh """
+        docker run --rm --name ${LOCAL_CONTAINER} \
+          -d ${LOCAL_IMAGE}
+      """
 
-    //   // Start a container to execute OWASP PENTEST
-    //   sh """
-    //     docker run --rm -d -u zap \
-    //       --name=${OWASP_CONTAINER} \
-    //       --link=${LOCAL_CONTAINER}:application \
-    //       -v ${OWASP_REPORT_DIR}:/zap/reports:rw \
-    //       -i ${OWASP_IMAGE} \
-    //       zap.sh \
-    //       -daemon \
-    //       -port ${ZAP_API_PORT} \
-    //       -config api.disablekey=true
-    //   """
+      // Start a container to execute OWASP PENTEST
+      sh """
+        docker run --rm -d -u zap \
+          --name=${OWASP_CONTAINER} \
+          --link=${LOCAL_CONTAINER}:application \
+          -v ${OWASP_REPORT_DIR}:/zap/reports:rw \
+          -i ${OWASP_IMAGE} \
+          zap.sh \
+          -daemon \
+          -port ${ZAP_API_PORT} \
+          -config api.disablekey=true
+      """
 
-    //   // Wait for OWASP container to be ready, but not for too long
-    //   timeout(
-    //     time: 20,
-    //     unit: 'SECONDS'
-    //   ) {
-    //     echo 'Waiting for OWASP container to finish starting up'
-    //     sh """
-    //       set +x
-    //       status='FAILED'
-    //       while [ \$status != 'SUCCESS' ]; do
-    //         sleep 1;
-    //         status=`\
-    //           (\
-    //             docker exec -i ${OWASP_CONTAINER} \
-    //               curl -I localhost:${ZAP_API_PORT} \
-    //               > /dev/null 2>&1 && echo 'SUCCESS'\
-    //           ) \
-    //           || \
-    //           echo 'FAILED'\
-    //         `
-    //       done
-    //     """
-    //   }
+      // Wait for OWASP container to be ready, but not for too long
+      timeout(
+        time: 20,
+        unit: 'SECONDS'
+      ) {
+        echo 'Waiting for OWASP container to finish starting up'
+        sh """
+          set +x
+          status='FAILED'
+          while [ \$status != 'SUCCESS' ]; do
+            sleep 1;
+            status=`\
+              (\
+                docker exec -i ${OWASP_CONTAINER} \
+                  curl -I localhost:${ZAP_API_PORT} \
+                  > /dev/null 2>&1 && echo 'SUCCESS'\
+              ) \
+              || \
+              echo 'FAILED'\
+            `
+          done
+        """
+      }
 
-    //   // Run the penetration tests
-    //   ansiColor('xterm') {
-    //     sh """
-    //       PENTEST_IP='application'
+      // Run the penetration tests
+      ansiColor('xterm') {
+        sh """
+          PENTEST_IP='application'
 
-    //       docker exec ${OWASP_CONTAINER} \
-    //         zap-cli -v -p ${ZAP_API_PORT} spider \
-    //         http://\$PENTEST_IP/
+          docker exec ${OWASP_CONTAINER} \
+            zap-cli -v -p ${ZAP_API_PORT} spider \
+            http://\$PENTEST_IP/
 
-    //       docker exec ${OWASP_CONTAINER} \
-    //         zap-cli -v -p ${ZAP_API_PORT} active-scan \
-    //         http://\$PENTEST_IP/
+          docker exec ${OWASP_CONTAINER} \
+            zap-cli -v -p ${ZAP_API_PORT} active-scan \
+            http://\$PENTEST_IP/
 
-    //       docker exec ${OWASP_CONTAINER} \
-    //         zap-cli -v -p ${ZAP_API_PORT} report \
-    //         -o /zap/reports/owasp-zap-report.html -f html
+          docker exec ${OWASP_CONTAINER} \
+            zap-cli -v -p ${ZAP_API_PORT} report \
+            -o /zap/reports/owasp-zap-report.html -f html
 
-    //       docker stop ${OWASP_CONTAINER} ${LOCAL_CONTAINER}
-    //     """
-    //   }
+          docker stop ${OWASP_CONTAINER} ${LOCAL_CONTAINER}
+        """
+      }
 
-    //   // Publish results
-    //   publishHTML (target: [
-    //     allowMissing: true,
-    //     alwaysLinkToLastBuild: true,
-    //     keepAll: true,
-    //     reportDir: OWASP_REPORT_DIR,
-    //     reportFiles: 'owasp-zap-report.html',
-    //     reportName: 'OWASP ZAP Report'
-    //   ])
-    // }
+      // Publish results
+      publishHTML (target: [
+        allowMissing: true,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: OWASP_REPORT_DIR,
+        reportFiles: 'owasp-zap-report.html',
+        reportName: 'OWASP ZAP Report'
+      ])
+    }
 
     // stage('Security') {
     //   parallel SECURITY_CHECKS
