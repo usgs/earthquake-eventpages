@@ -28,14 +28,22 @@ export class MetadataService {
     this.httpClient.get(metadata.url).pipe(
       catchError(this.handleError())
     ).subscribe((metadata) => {
-      metadata = this.translate(metadata);
-
-      this.metadata.next(metadata);
+      this.handleMetadata(metadata);
     }, (e) => {
       /*  Subscribe errored */
       this.error = e;
       this.metadata.next(null);
     });
+  }
+
+  /**
+   * Handle new instances of metadata
+   *
+   * @param metadata json object
+   */
+  handleMetadata(metadata) {
+    metadata = this.translate(metadata);
+    this.metadata.next(metadata);
   }
 
   /**
@@ -51,8 +59,13 @@ export class MetadataService {
     for (let dataType in needsTrans) {
       for (let each of needsTrans[dataType]) {
         // Convert non-array objects
-        if (!(metadata[dataType][each] instanceof Array)) {
+        if (metadata &&
+              metadata[dataType] && 
+              metadata[dataType][each] &&
+              (!(metadata[dataType][each] instanceof Array))) {
+
           metadata[dataType][each] = this.obj2Arr(metadata[dataType][each]);
+
         }
       }
     }
