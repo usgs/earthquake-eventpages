@@ -115,42 +115,42 @@ node {
       }
     }
 
-    // stage('Unit Tests') {
-    //   // Note that running angular tests destroys the "dist" folder that was
-    //   // originally created in Install stage. This is not needed later, so
-    //   // okay, but just be aware ...
+    stage('Unit Tests') {
+      // Note that running angular tests destroys the "dist" folder that was
+      // originally created in Install stage. This is not needed later, so
+      // okay, but just be aware ...
 
-    //   // Run linting, unit tests, and end-to-end tests
-    //   docker.image(TESTER_IMAGE).inside () {
-    //       ansiColor('xterm') {
-    //         sh """
-    //           ng lint
-    //         """
-    //         sh """
-    //           ng test --single-run --code-coverage --progress false
-    //         """
-    //         sh """
-    //           npm run e2e -- --progress false
-    //         """
-    //       }
-    //   }
+      // Run linting, unit tests, and end-to-end tests
+      docker.image(TESTER_IMAGE).inside () {
+          ansiColor('xterm') {
+            sh """
+              ng lint
+            """
+            sh """
+              ng test --single-run --code-coverage --progress false
+            """
+            sh """
+              npm run e2e -- --progress false
+            """
+          }
+      }
 
-    //   // Publish results
-    //   cobertura(
-    //     autoUpdateHealth: false,
-    //     autoUpdateStability: false,
-    //     coberturaReportFile: '**/cobertura-coverage.xml',
-    //     conditionalCoverageTargets: '70, 0, 0',
-    //     failUnhealthy: false,
-    //     failUnstable: false,
-    //     lineCoverageTargets: '80, 0, 0',
-    //     maxNumberOfBuilds: 0,
-    //     methodCoverageTargets: '80, 0, 0',
-    //     onlyStable: false,
-    //     sourceEncoding: 'ASCII',
-    //     zoomCoverageChart: false
-    //   )
-    // }
+      // Publish results
+      cobertura(
+        autoUpdateHealth: false,
+        autoUpdateStability: false,
+        coberturaReportFile: '**/cobertura-coverage.xml',
+        conditionalCoverageTargets: '70, 0, 0',
+        failUnhealthy: false,
+        failUnstable: false,
+        lineCoverageTargets: '80, 0, 0',
+        maxNumberOfBuilds: 0,
+        methodCoverageTargets: '80, 0, 0',
+        onlyStable: false,
+        sourceEncoding: 'ASCII',
+        zoomCoverageChart: false
+      )
+    }
 
     SECURITY_CHECKS['Scan Dependencies'] = {
       // Analyze dependencies
