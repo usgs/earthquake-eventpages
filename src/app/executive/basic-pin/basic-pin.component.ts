@@ -11,11 +11,21 @@ import { Event } from '../../event';
 })
 export class BasicPinComponent {
 
-  @Input() action; // router link for action button
-  @Input() link; // router link for entire card action
-  @Input() product; // product being displayed
-  @Input() subtitle; // text for subtitle
-  @Input() title; // text for title
+  // router link for action button
+  @Input() action;
+
+  // router link for entire card action
+  @Input() link;
+
+  // product attribution
+  // only used if subtitle is not provided
+  @Input() product;
+
+  // text for subtitle
+  @Input() subtitle;
+
+  // text for title
+  @Input() title;
 
   constructor () { }
 

@@ -1,7 +1,7 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
 
   <shared-text-product
-      *ngFor="let product of event.getProduct('general-header')"
+      *ngFor="let product of event.getProducts('general-header')"
       [product]="product">
   </shared-text-product>
 
@@ -27,16 +27,14 @@
       [product]="product">
   </shared-text-product>
 
-  <ng-container *ngIf="event.getProducts('general-link'); let generalLinks">
-    <ng-container *ngIf="generalLinks.length">
-      <h3>For More Information</h3>
-      <ul>
-      <li *ngFor="let product of generalLinks">
-        <shared-link-product [product]="product">
-        </shared-link-product>
-      </li>
-      </ul>
-    </ng-container>
+  <ng-container *ngIf="event.hasProducts('general-link')">
+    <h3>For More Information</h3>
+    <ul>
+    <li *ngFor="let product of event.getProducts('general-link')">
+      <shared-link-product [product]="product">
+      </shared-link-product>
+    </li>
+    </ul>
   </ng-container>
 
 </ng-container>
