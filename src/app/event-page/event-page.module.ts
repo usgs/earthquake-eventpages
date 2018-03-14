@@ -17,6 +17,7 @@ import { EventLocationPipe } from './event-location.pipe';
 import { EventTitlePipe } from './event-title.pipe';
 import { ContributorListPipe } from './contributor-list.pipe';
 import { NavigationComponent } from './navigation/navigation.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { NavigationComponent } from './navigation/navigation.component';
     MatListModule,
     RouterModule,
 
-    HazdevTemplateModule
+    HazdevTemplateModule,
+    SharedModule
   ],
   declarations: [
     // Components

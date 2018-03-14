@@ -10,6 +10,7 @@ export class Event {
   public product: any = null;
   public sources: Array<string>;
 
+  public deleted = false;
 
   constructor (
     public data: any
@@ -32,6 +33,8 @@ export class Event {
     sources = getUnique(sources);
     sources.sort();
     this.sources = sources;
+
+    this.deleted = this.properties.status === 'deleted';
 
     try {
       // display phase-data when available

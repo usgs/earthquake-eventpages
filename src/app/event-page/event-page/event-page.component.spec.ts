@@ -30,6 +30,7 @@ describe('EventPageComponent', () => {
         MockComponent({selector: 'event-page-header', inputs: ['event']}),
         MockComponent({selector: 'event-page-footer', inputs: ['event', 'contributors']}),
         MockComponent({selector: 'event-page-navigation', inputs: ['event']}),
+        MockComponent({selector: 'shared-text-product', inputs: ['product']}),
 
         MockComponent({selector: 'app-hazdev-template'}),
         MockComponent({selector: 'app-navigation-group'}),

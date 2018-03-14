@@ -19,13 +19,22 @@
       </app-navigation-group>
     </mat-nav-list>
 
-    <ng-container *ngIf="event?.properties?.status === 'deleted'">
-      <p class="error">
-        Event Deleted!
-      </p>
+
+    <ng-container *ngIf="!event.deleted; else deletedEvent">
+      <router-outlet></router-outlet>
     </ng-container>
 
-    <router-outlet></router-outlet>
+    <ng-template #deletedEvent>
+      <p class="alert error">
+        The requested event has been <strong>deleted</strong>.
+      </p>
+
+      <shared-text-product
+          *ngFor="let product of event.getProducts('deleted-text')"
+          [product]="product">
+      </shared-text-product>
+    </ng-template>
+
 
     <event-page-footer
       [event]="event"
