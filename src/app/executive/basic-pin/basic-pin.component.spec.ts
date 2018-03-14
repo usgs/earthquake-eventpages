@@ -33,7 +33,7 @@ describe('BasicPinComponent', () => {
       declarations: [
         BasicPinComponent,
 
-        MockComponent({selector: 'shared-attribution', inputs: ['sourceCode']}),
+        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
         MockPipe('contributorList')
       ],
       imports: [

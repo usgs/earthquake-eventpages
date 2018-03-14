@@ -4,6 +4,8 @@ import { ExecutiveComponent } from './executive.component';
 import { MockComponent } from 'ng2-mock-component';
 import { EventService } from '../../core/event.service';
 import { ContributorService } from '../../core/contributor.service';
+import { of } from 'rxjs/observable/of';
+import { Event } from '../../event';
 
 describe('ExecutiveComponent', () => {
   let component: ExecutiveComponent;
@@ -11,14 +13,16 @@ describe('ExecutiveComponent', () => {
 
   beforeEach(async(() => {
     const eventServiceStub = {
-      getEvent: jasmine.createSpy('eventService::getEvent')
+      event$: of(new Event(null))
     };
 
     TestBed.configureTestingModule({
       declarations: [
         ExecutiveComponent,
-        MockComponent({ selector: 'executive-origin-pin', inputs: ['event', 'contributors']}),
-        MockComponent({ selector: 'executive-region-info-pin', inputs: ['event', 'contributors']}),
+
+        MockComponent({ selector: 'executive-moment-tensor-pin', inputs: ['product']}),
+        MockComponent({ selector: 'executive-origin-pin', inputs: ['product']}),
+        MockComponent({ selector: 'executive-region-info-pin', inputs: ['event']}),
         MockComponent({ selector: 'shared-link-product', inputs: ['product']}),
         MockComponent({ selector: 'shared-text-product', inputs: ['product']})
       ],
@@ -39,4 +43,5 @@ describe('ExecutiveComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

@@ -1,5 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+
 import { EventService } from '../../core/event.service';
+import { Event } from '../../event';
+import { Tensor } from '../../shared/beachball/tensor';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-executive',
@@ -15,4 +19,5 @@ export class ExecutiveComponent implements OnInit {
 
   ngOnInit () {
   }
+
 }

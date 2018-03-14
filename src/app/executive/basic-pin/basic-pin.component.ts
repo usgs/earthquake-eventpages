@@ -11,28 +11,21 @@ import { Event } from '../../event';
 })
 export class BasicPinComponent {
 
-  private _event: Event;
-  public product;
+  // router link for action button
+  @Input() action;
 
-  @Input() action; // router link for action button
-  @Input() link; // router link for entire card action
-  @Input() subtitle; // text for subtitle
-  @Input() title; // text for title
-  @Input() type; // type of product
+  // router link for entire card action
+  @Input() link;
 
-  // event passed from executive summary
-  @Input() set event (event: Event) {
-    this._event = event;
-    if (event) {
-      this.product = event.getProduct('origin');
-    } else {
-      this.product = null;
-    }
-  }
+  // product attribution
+  // only used if subtitle is not provided
+  @Input() product;
 
-  get event () {
-    return this._event;
-  }
+  // text for subtitle
+  @Input() subtitle;
+
+  // text for title
+  @Input() title;
 
   constructor () { }
 

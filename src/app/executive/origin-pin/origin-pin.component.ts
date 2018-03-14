@@ -12,25 +12,10 @@ import { FormatterService } from '../../core/formatter.service';
 
 export class OriginPinComponent {
 
-  private _event: Event;
   public link = '../origin';
-  public product: any;
+  @Input() product: any;
   public title = 'Origin';
   public type = 'origin';
-
-  // event passed from executive summary
-  @Input() set event (event: Event) {
-    this._event = event;
-    if (event) {
-      this.product = event.getProduct('origin');
-    } else {
-      this.product = null;
-    }
-  }
-
-  get event () {
-    return this._event;
-  }
 
   constructor(
     public formatterService: FormatterService
