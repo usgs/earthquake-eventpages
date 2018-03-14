@@ -286,9 +286,9 @@ node {
       ])
     }
 
-    // stage('Security') {
-    //   parallel SECURITY_CHECKS
-    // }
+    stage('Security') {
+      parallel SECURITY_CHECKS
+    }
 
     stage('Publish Image') {
       // Re-tag candidate image as actual image name and push actual image to
