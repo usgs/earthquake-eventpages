@@ -4,7 +4,7 @@ node {
   // Used for consistency between other variables
   def APP_NAME = 'earthquake-eventpages'
   // Base group from where general images may be pulled
-  def DEVOPS_REGISTRY = "${GITLAB_INNERSOURCE_REGISTRY}/devops/containers"
+  def DEVOPS_REGISTRY = "${GITLAB_INNERSOURCE_REGISTRY}/devops/images"
   // Flag to capture exceptions and mark build as failure
   def FAILURE = null
   // What version to tag built image as
