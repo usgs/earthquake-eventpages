@@ -18,6 +18,9 @@ import { StationListComponent } from './station-list/station-list.component';
 import { MetadataComponent } from './metadata/metadata.component';
 
 import { ShakemapRoutingModule } from './shakemap-routing.module';
+import { InputComponent } from './metadata/input/input.component';
+import { OutputComponent } from './metadata/output/output.component';
+import { ProcessingComponent } from './metadata/processing/processing.component';
 
 @NgModule({
   imports: [
@@ -34,7 +37,14 @@ import { ShakemapRoutingModule } from './shakemap-routing.module';
 
     ShakemapRoutingModule
   ],
-  declarations: [ShakemapComponent, StationListComponent, MetadataComponent],
+  declarations: [
+    ShakemapComponent,
+    StationListComponent,
+    MetadataComponent,
+    InputComponent,
+    OutputComponent,
+    ProcessingComponent
+  ],
   exports: [
     StationListComponent
   ]

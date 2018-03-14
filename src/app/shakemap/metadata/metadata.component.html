@@ -3,190 +3,19 @@
   <div class="input column" *ngIf="metadata.input">
     <h2>Input</h2>
 
-    <div class="event-info group" *ngIf="metadata.input.event_information">
-      <h3>Event Information</h3>
-
-      <table>
-        <tr *ngFor="let name of name_order['event_information']">
-          <th *ngIf="metadata.input.event_information[name]">{{ names['event_information'][name] }}</th>
-          <td *ngIf="metadata.input.event_information[name]">
-            {{ name !== 'dyfi' ? metadata.input.event_information[name] : metadata.input.event_information['intensity']}}
-          </td>
-        </tr>
-      </table>
+    <div class="event-info group" *ngIf="metadata.input">
+      <shakemap-input [smInput]="metadata?.input"></shakemap-input>
     </div>
   </div>
     
 
   <div class="output column" *ngIf="metadata.output">
     <h2>Output</h2>
-
-    <div class="ground-motion group" *ngIf="metadata.output['ground_motions']">
-      <h3>Ground Motion/Intensity Information</h3>
-
-      <table>
-        <thead>
-          <th>Type</th>
-          <th>Max value in grid</th>
-          <th>Max value on land</th>
-          <th>Bias</th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let name of name_order['ground_motions']">
-            <th *ngIf="metadata.output['ground_motions'][name]">{{ names['ground_motions'][name] }}</th>
-            <td *ngIf="metadata.output['ground_motions'][name]">
-              {{ metadata.output.ground_motions[name]['max_grid'] | number }}
-            </td>
-            <td *ngIf="metadata.output['ground_motions'][name]">
-              {{ metadata.output.ground_motions[name]['max'] | number }}
-            </td>
-            <td *ngIf="metadata.output['ground_motions'][name]">
-              {{ metadata.output.ground_motions[name]['bias'].toString().replace('[[', '').replace(']]', '') | number }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
-
-    <div class="map-info group" *ngIf="metadata.output['map_information']">
-      <h3>Map Information</h3>
-
-      <table>
-        <thead>
-          <th>Type</th>
-          <th>Latitude</th>
-          <th>Longitude</th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let name of name_order['map_information']">
-            <th *ngIf="metadata.output['map_information'][name]">{{ names['map_information'][name] }}</th>
-            <td *ngIf="metadata.output['map_information'][name]">
-              {{ metadata.output['map_information'][name]['latitude'] | number }}
-              {{ metadata.output['map_information'][name]['units'] !== 'count' ? (metadata.output['map_information'][name]['units'] ) : ('') }}
-
-            </td>
-            <td *ngIf="metadata.output['map_information'][name]">
-              {{ metadata.output['map_information'][name]['longitude'] | number }}
-              {{ metadata.output['map_information'][name]['units'] !== 'count' ? (metadata.output['map_information'][name]['units']) : ('') }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="uncertainty group" *ngIf="metadata.output.uncertainty">
-      <h3>Uncertainty</h3>
-
-      <table>
-        <tr *ngFor="let name of name_order['uncertainty']">
-          <th *ngIf="metadata.output.uncertainty[name]">{{ names['uncertainty'][name] }}</th>
-          <td *ngIf="metadata.output.uncertainty[name]">
-            {{ isNaN(name) ? (metadata.output.uncertainty[name]) : (metadata.output.uncertainty[name] | number)}}
-          </td>
-        </tr>
-      </table>
-
-    </div>
+    <shakemap-output [smOutput]="metadata.output"></shakemap-output>
   </div>
 
   <div class="processing column" *ngIf="metadata.processing">
     <h2>Processing</h2>
-
-    <div class="ground-motion group" *ngIf="metadata.processing['ground_motion_modules']">
-      <h3>Ground Mation/Intensity Information</h3>
-
-      <table>
-        <thead>
-          <th>Type</th>
-          <th>Module</th>
-          <th>Reference</th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let name of name_order['ground_motion_modules']">
-            <th *ngIf="metadata.processing['ground_motion_modules'][name]">{{ names['ground_motion_modules'][name] }}</th>
-            <td *ngIf="metadata.processing['ground_motion_modules'][name]">
-              {{ metadata.processing['ground_motion_modules'][name]['module'] }}
-
-            </td>
-            <td *ngIf="metadata.processing['ground_motion_modules'][name]">
-              {{ metadata.processing['ground_motion_modules'][name]['reference'] }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="misc group" *ngIf="name_order['miscellaneous']">
-      <h3>Miscellaneous</h3>
-
-      <table>
-        <tr *ngFor="let name of name_order['miscellaneous']">
-          <th *ngIf="metadata.processing['miscellaneous'][name]">{{ names['miscellaneous'][name] }}</th>
-          <td *ngIf="metadata.processing['miscellaneous'][name]">
-            {{ metadata.processing['miscellaneous'][name] }}
-
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="shakemap group" *ngIf="metadata.processing['shakemap_versions']">
-      <h3>ShakeMap Versions</h3>
-
-      <table>
-        <tr *ngFor="let name of name_order['shakemap_versions']">
-          <th *ngIf="metadata.processing['shakemap_versions'][name]">{{ names['shakemap_versions'][name] }}</th>
-          <td *ngIf="metadata.processing['shakemap_versions'][name]">
-            {{ metadata.processing['shakemap_versions'][name] }}
-
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="site-response group" *ngIf="metadata.processing['site_response']">
-      <h3>Site Response</h3>
-
-      <table>
-        <tr *ngFor="let name of name_order['site_response']">
-          <th *ngIf="metadata.processing['site_response'][name]">
-            {{ names['site_response'][name] }}</th>
-          <td *ngIf="metadata.processing['site_response'][name]">
-            {{ metadata.processing['site_response'][name] }}
-
-          </td>
-        </tr>
-      </table>
-
-    </div>
-
-    <div class="roi group" *ngIf="metadata.processing['roi']">
-      <h3>ROI</h3>
-
-      <table>
-        <thead>
-          <th>Type</th>
-          <th>ROI</th>
-          <th>Observation Decay</th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let name of name_order['roi']">
-            <th *ngIf="metadata.processing['roi'][name]">
-              {{ names['roi'][name] }}</th>
-            <td *ngIf="metadata.processing['roi'][name]">
-              {{ metadata.processing['roi'][name]['roi'] }}
-
-            </td>
-            <td *ngIf="metadata.processing['roi'][name]">
-              {{ metadata.processing['roi'][name]['decay'] }}
-
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
-
+      <shakemap-processing [smProcessing]="metadata.processing"></shakemap-processing>
   </div>
 </div>

@@ -27,13 +27,54 @@ export class MetadataService {
 
     this.httpClient.get(metadata.url).pipe(
       catchError(this.handleError())
-    ).subscribe((response) => {
-      this.metadata.next(response);
+    ).subscribe((metadata) => {
+      metadata = this.translate(metadata);
+
+      this.metadata.next(metadata);
     }, (e) => {
       /*  Subscribe errored */
       this.error = e;
       this.metadata.next(null);
     });
+  }
+
+  /**
+   * Translate old metadata
+   *
+   * @param metadata object
+   */
+  translate(metadata) {
+    // Which objects are not arrays in ShakeMap V3
+    let needsTrans = {'output': ['ground_motions', 'map_information'],
+                        'processing': ['ground_motion_modules', 'roi']}
+
+    for (let dataType in needsTrans) {
+      for (let each of needsTrans[dataType]) {
+        // Convert non-array objects
+        if (!(metadata[dataType][each] instanceof Array)) {
+          metadata[dataType][each] = this.obj2Arr(metadata[dataType][each]);
+        }
+      }
+    }
+
+    return metadata;
+  }
+
+  /**
+   * Convert metadata objects to arrays by
+   * assigning their key as a 'type' property
+   *
+   * @param obj javascript object
+   */
+  obj2Arr(obj) {
+    let arr = [];
+    for (let item_id in obj) {
+      let item = obj[item_id];
+      item['type'] = item_id;
+
+      arr.push(item);
+    }
+    return arr;
   }
 
   /**

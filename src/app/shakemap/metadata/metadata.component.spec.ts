@@ -5,6 +5,7 @@ import { EventService } from '../../core/event.service';
 import { MetadataService } from '../../core/metadata.service';
 
 import { of } from 'rxjs/observable/of';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('InfoComponent', () => {
   let component: MetadataComponent;
@@ -23,7 +24,12 @@ describe('InfoComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ MetadataComponent ],
+      declarations: [
+        MetadataComponent,
+        MockComponent({selector: 'shakemap-input', inputs: ['smInput']}),
+        MockComponent({selector: 'shakemap-output', inputs: ['smOutput']}),
+        MockComponent({selector: 'shakemap-processing', inputs: ['smProcessing']})
+      ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},
         {provide: MetadataService, useValue: metadataServiceStub}

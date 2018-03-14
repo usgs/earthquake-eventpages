@@ -16,16 +16,6 @@ export class MetadataComponent implements OnInit, OnDestroy {
   public isNaN: any = isNaN;
 
   public name_order = {
-    'event_information': ['event_description', 'event_id', 'magnitude',
-                            'depth', 'longitude', 'latitude', 'origin_time',
-                            'src_mech', 'location', 'fault_ref', 'seismic_stations',
-                            'intensity_observations'],
-    'ground_motions': ['intensity', 'mmi', 'MMI', 'pga', 'PGA', 'pgv',
-                          'PGV', 'SA(0.3)', 'psa03', 'SA(1.0)', 'psa10',
-                          'SA(3.0)', 'psa30', 'bias'],
-    'map_information': ['grid_span', 'grid_spacing', 'grid_points', 'min', 'max'],
-    'uncertainty': ['mean_uncertainty_ratio', 'grade', 'total_flagged_mi',
-                      'total_flagged_pgm'],
     'ground_motion_modules': ['gmpe', 'ipe', 'gmice', 'igmice', 'ccf',
                                 'directivity', 'basin_correction'],
     'shakemap_versions': ['shakemap_revision', 'shakemap_revision_id', 'map_version',
@@ -39,46 +29,6 @@ export class MetadataComponent implements OnInit, OnDestroy {
   };
 
   public names: any = {
-    'event_information': {
-      'location': 'Location',
-      'longitude': 'Longitude',
-      'seismic_stations': 'Number of Seismic Stations',
-      'magnitude': 'Magnitude',
-      'depth': 'Depth',
-      'event_id': 'ID',
-      'event_description': 'Description', 'origin_time': 'Origin Time',
-      'latitude': 'Latitude',
-      'fault_ref': 'Fault References',
-      'src_mech': 'Mechanism Source',
-      'intensity_observations': 'Number of DYFI Stations'
-    },
-    'ground_motions': {
-      'PGA': 'PGA (%g)',
-      'PGV': 'PGV (cm/s)',
-      'pga': 'PGA (%g)',
-      'pgv': 'PGV (cm/s)',
-      'SA(0.3)': 'PSA03',
-      'SA(1.0)': 'PSA10',
-      'SA(3.0)': 'PSA30',
-      'psa03': 'PSA03',
-      'psa10': 'PSA10',
-      'psa30': 'PSA30',
-      'bias': 'Bias',
-      'MMI': 'Intensity'
-    },
-    'map_information': {
-        'grid_spacing': 'Grid spacing',
-        'grid_points': 'Number of points',
-        'grid_span': 'Span',
-        'min': 'Min',
-        'max': 'Max'
-      },
-    'uncertainty': {
-        'total_flagged_mi': 'Flagged seismic stations',
-        'grade': 'Empirical ShakeMap grade',
-        'total_flagged_pgm': 'Flagged DYFI stations',
-        'mean_uncertainty_ratio': 'Mean of map uncertainty'
-      },
     'ground_motion_modules': {
         'basin_correction': 'Basin',
         'gmpe': 'GMPE',
