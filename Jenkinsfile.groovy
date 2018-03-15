@@ -152,7 +152,7 @@ node {
         )
       }
 
-      // Publish results
+      // Put summary on landing page for this build
       dependencyCheckPublisher(
         canComputeNew: false,
         defaultEncoding: '',
@@ -161,23 +161,15 @@ node {
         unHealthy: ''
       )
 
-      // publishHTML (target: [
-      //   allowMissing: true,
-      //   alwaysLinkToLastBuild: true,
-      //   keepAll: true,
-      //   reportDir: 'dependency-check-data',
-      //   reportFiles: 'dependency-check-report.html',
-      //   reportName: 'Dependency Analysis'
-      // ])
-
-      // publishHTML (target: [
-      //   allowMissing: true,
-      //   alwaysLinkToLastBuild: true,
-      //   keepAll: true,
-      //   reportDir: 'dependency-check-data',
-      //   reportFiles: 'dependency-check-vulnerability.html',
-      //   reportName: 'Dependency Vulnerabilities'
-      // ])
+      // Full analysis of this build, linked in side navigation
+      publishHTML (target: [
+        allowMissing: true,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: 'dependency-check-data',
+        reportFiles: 'dependency-check-report.html',
+        reportName: 'Dependency Analysis'
+      ])
     }
 
     SECURITY_CHECKS['Penetration Tests'] = {

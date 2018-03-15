@@ -8,7 +8,7 @@ cat <<-EO_CONFIG
 location  /${BASE_HREF}  {
   add_header  'X-Frame-Options'  'DENY';
   add_header  'X-Content-Type-Options'  'nosniff';
-  add_header  'X-XSS-Protection'  '1';
+  add_header  'X-XSS-Protection'  '1; mode=block';
 
   try_files \$uri \$uri/ \$uri.html \$uri/index.html @angular-fallback;
 }
