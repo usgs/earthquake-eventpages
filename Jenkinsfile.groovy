@@ -22,6 +22,7 @@ node {
 
   // Name of image to deploy (push) to registry
   def DEPLOY_IMAGE = "${GITLAB_INNERSOURCE_REGISTRY}/ghsc/hazdev/earthquake-eventpages"
+  def DOCKER_HUB_IMAGE = "usgs/earthquake-eventpages"
 
   // Run application locally for testing security vulnerabilities
   def LOCAL_CONTAINER = "${APP_NAME}-${BUILD_ID}-PENTEST"
@@ -262,8 +263,7 @@ node {
     }
 
     stage('Publish Image') {
-      // Re-tag candidate image as actual image name and push actual image to
-      // repository
+      // Re-tag candidate image as internal image name and push to registry
       docker.withRegistry(
         "https://${GITLAB_INNERSOURCE_REGISTRY}",
         'innersource-hazdev-cicd'
@@ -278,6 +278,19 @@ node {
           sh """
             docker push ${DEPLOY_IMAGE}:${IMAGE_VERSION}
           """
+        }
+      }
+
+      // Re-tag candidate image as public image name and push to docker hub
+      docker.withRegistry('', 'usgs-docker-hub-credentials') {
+        ansiColor('xterm') {
+          sh """
+            docker tag \
+              ${LOCAL_IMAGE} \
+              ${DOCKER_HUB_IMAGE}:${IMAGE_VERSION}
+          """
+
+          sh "docker push ${DOCKER_HUB_IMAGE}:${IMAGE_VERSION}"
         }
       }
     }
@@ -313,8 +326,9 @@ node {
 
         # Cleaning up any leftover images...
         docker image rm --force \
-          ${DEPLOY_IMAGE} \
-          ${LOCAL_IMAGE} \
+          ${DOCKER_HUB_IMAGE}:${IMAGE_VERSION} \
+          ${DEPLOY_IMAGE}:${IMAGE_VERSION} \
+          ${LOCAL_IMAGE}:${IMAGE_VERSION}
         ;
 
         exit 0;
