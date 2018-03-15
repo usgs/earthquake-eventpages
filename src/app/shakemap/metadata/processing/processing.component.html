@@ -1,0 +1,160 @@
+<div  *ngIf="smProcessing">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Ground Mation/Intensity Information
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <mat-table [dataSource]="smProcessing.ground_motion_modules">
+        <mat-header-row *matHeaderRowDef="headers.groundMotionModules"></mat-header-row>
+        <mat-row *matRowDef="let myRowData; columns: headers.groundMotionModules"></mat-row>
+
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef>
+            Type
+          </mat-header-cell>
+          <mat-cell [attr.role]="'rowheader'"
+                      [class.mat-cell]="false"
+                      class="mat-header-cell"
+                      *matCellDef="let gmm">
+            {{ names.ground_motion_modules[gmm.type] ? 
+                names.ground_motion_modules[gmm.type] : gmm.type }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="module">
+          <mat-header-cell *matHeaderCellDef>
+            Module
+          </mat-header-cell>
+          <mat-cell *matCellDef="let gmm">
+            {{ gmm.module }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="reference">
+          <mat-header-cell *matHeaderCellDef>
+            Reference
+          </mat-header-cell>
+          <mat-cell *matCellDef="let gmm">
+            {{ gmm.reference }}
+          </mat-cell>
+        </ng-container>
+
+      </mat-table>
+    </ng-template>
+  </mat-expansion-panel>
+
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Miscellaneous
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <dl class="description-table" *ngIf="smProcessing.miscellaneous">
+        <ng-container *ngFor="let name of headers['miscellaneous']">
+          <dt *ngIf="smProcessing['miscellaneous'][name]">{{ names.miscellaneous[name] }}</dt>
+          <dd *ngIf="smProcessing['miscellaneous'][name]">
+            {{ smProcessing['miscellaneous'][name] }}
+          </dd>
+        </ng-container>
+      </dl>
+    </ng-template>
+  </mat-expansion-panel>
+
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            ShakeMap Versions
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <dl class="description-table" *ngIf="smProcessing.shakemap_versions">
+        <ng-container *ngFor="let name of headers['shakemap_versions']">
+          <dt *ngIf="smProcessing['shakemap_versions'][name]">{{ names.shakemap_versions[name] }}</dt>
+          <dd *ngIf="smProcessing['shakemap_versions'][name]">
+            {{ smProcessing['shakemap_versions'][name] }}
+          </dd>
+        </ng-container>
+      </dl>
+    </ng-template>
+  </mat-expansion-panel>
+
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Site Response
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+
+      <dl class="description-table" *ngIf="smProcessing.site_response">
+        <ng-container *ngFor="let name of headers['site_response']">
+          <dt *ngIf="smProcessing['site_response'][name]">{{ names.site_response[name] }}</dt>
+          <dd *ngIf="smProcessing['site_response'][name]">
+            {{ smProcessing['site_response'][name] }}
+          </dd>
+        </ng-container>
+      </dl>
+
+    </ng-template>
+  </mat-expansion-panel>
+
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            ROI
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+
+      <mat-table [dataSource]="smProcessing.roi">
+        <mat-header-row *matHeaderRowDef="headers.roi"></mat-header-row>
+        <mat-row *matRowDef="let myRowData; columns: headers.roi"></mat-row>
+
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef>
+            Type
+          </mat-header-cell>
+          <mat-cell [attr.role]="'rowheader'"
+                      [class.mat-cell]="false"
+                      class="mat-header-cell"
+                      *matCellDef="let roi">
+            {{ names.roi[roi.type] ? 
+                names.roi[roi.type] : roi.type }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="roi">
+          <mat-header-cell *matHeaderCellDef>
+            ROI
+          </mat-header-cell>
+          <mat-cell *matCellDef="let roi">
+            {{ roi.roi }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="observation_decay">
+          <mat-header-cell *matHeaderCellDef>
+            Observation Decay
+          </mat-header-cell>
+          <mat-cell *matCellDef="let roi">
+            {{ roi.decay }}
+          </mat-cell>
+        </ng-container>
+
+      </mat-table>
+      
+    </ng-template>
+  </mat-expansion-panel>
+</div>

@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
-
+import { MatButtonModule,
+          MatDialogModule,
+          MatIconModule,
+          MatExpansionModule,
+          MatCardModule,
+          MatTableModule } from '@angular/material';
 import { AttributionComponent } from './attribution/attribution.component';
 import { AlertLevelComponent } from './alert-level/alert-level.component';
 import { BeachballComponent } from './beachball/beachball.component';
@@ -19,6 +23,7 @@ import { NumberPipe } from './number.pipe';
 import { DegreesPipe } from './degrees.pipe';
 import { BubbleComponent } from './bubble/bubble.component';
 
+import { StationComponent } from './station/station.component';
 
 
 @NgModule({
@@ -26,7 +31,10 @@ import { BubbleComponent } from './bubble/bubble.component';
     CommonModule,
     MatButtonModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatTableModule
   ],
   declarations: [
     AttributionComponent,
@@ -43,7 +51,8 @@ import { BubbleComponent } from './bubble/bubble.component';
     PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
-    UncertainValueComponent
+    UncertainValueComponent,
+    StationComponent
   ],
   exports: [
     AttributionComponent,
@@ -61,7 +70,8 @@ import { BubbleComponent } from './bubble/bubble.component';
     ProductAttributionComponent,
     PreferredCheckComponent,
     TextProductComponent,
-    UncertainValueComponent
+    UncertainValueComponent,
+    StationComponent
   ],
   entryComponents: [
     DownloadDialogComponent

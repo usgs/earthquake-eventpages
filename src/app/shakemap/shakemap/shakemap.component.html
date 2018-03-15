@@ -1,0 +1,27 @@
+<!-- productType attribute defines type of product to load -->
+<product-page productType="shakemap">
+
+  <!-- container with header attribute is added before attribution -->
+  <ng-container header>
+    <h3>ShakeMap</h3>
+  </ng-container>
+
+  <!-- routes/components in ../origin-routing.module.ts -->
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link
+        [routerLink]="'./metadata'" queryParamsHandling="preserve"
+        routerLinkActive #details="routerLinkActive" [active]="details.isActive">
+      Metadata
+    </a>
+    <a mat-tab-link [routerLink]="'./stations'" queryParamsHandling="preserve"
+        routerLinkActive #phase="routerLinkActive" [active]="phase.isActive">
+      Station List
+    </a>
+  </nav>
+  <router-outlet></router-outlet>
+
+  <!-- container with footer attribute is added before downloads -->
+  <ng-container footer>
+  </ng-container>
+
+</product-page>

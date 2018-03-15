@@ -1,0 +1,26 @@
+.details {
+    margin-top: 10px;
+}
+
+table table {
+    padding: 10px;
+}
+
+table, th, td {
+    text-align: center;
+}
+
+.mmi-table {
+    border:2px solid black;
+    border-radius:3px;
+    width:100%
+}
+
+.mmi-td {
+    width:80px;
+    padding-right:10px;
+}
+
+.mmi-td h1 {
+    margin:0;
+}

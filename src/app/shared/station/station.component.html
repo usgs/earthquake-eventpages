@@ -1,0 +1,162 @@
+<mat-card *ngIf="station" class="station">
+    <mat-card-title>
+        {{ station.properties.name }}
+    </mat-card-title>
+    <mat-card-subtitle>
+        {{ station.properties.code }}
+    </mat-card-subtitle>
+
+    <mat-card-content>
+        <table>
+            <tr>
+                <td class="mmi-td">
+                    <h1>
+                        <shared-mmi class="intensity"
+                            [intensity]="station.properties.intensity">
+                        </shared-mmi>
+                    </h1>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td class="mat-cell">
+                            {{ station.properties.pga ? 
+                                ((station.properties.pga | number) + ' %g') : '-' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mat-header-cell">
+                                pga
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td class="mat-cell">
+                            {{ station.properties.pgv ? 
+                                ((station.properties.pgv | number) + ' cm/s') : '-' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mat-header-cell">
+                                pgv
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td class="mat-cell">
+                            {{ station.properties.distance ? 
+                                ((station.properties.distance | number) + ' km') : '-' }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="mat-header-cell">
+                                distance
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <mat-expansion-panel class="details">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Details
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <ng-template matExpansionPanelContent>
+
+                <dl class="description-table">
+                    <dt>Network</dt>
+                    <dd>{{ station.properties.network }}</dd>
+                    <dt>Latitude</dt>
+                    <dd>{{ station.geometry.coordinates[1] | sharedDegrees }}</dd> 
+                    <dt>Longitude</dt>
+                    <dd>{{ station.geometry.coordinates[0] | sharedDegrees }}</dd>
+                    <dt>Source</dt>
+                    <dd>{{ station.properties.source }}</dd>
+                    <dt>Intensity</dt>
+                    <dd>{{ station.properties.intensity }}</dd>
+                </dl>
+
+                <h3>Channels</h3>
+                <mat-table [dataSource]="station.properties.channels">
+                    <mat-header-row *matHeaderRowDef="channelsColumns"></mat-header-row>
+                    <mat-row *matRowDef="let myRowData; columns: channelsColumns"></mat-row>
+
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef>
+                            Name
+                        </mat-header-cell>
+                        <mat-cell [attr.role]="'rowheader'"
+                                    [class.mat-cell]="false"
+                                    class="mat-header-cell"
+                                    *matCellDef="let channel">
+                            {{ channel.name }}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="pga">
+                        <mat-header-cell *matHeaderCellDef>
+                            PGA
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let channel">
+                            {{ getAmp('pga', channel.amplitudes).value ? getAmp('pga', channel.amplitudes).value : '-' }}
+                            {{ getAmp('pga', channel.amplitudes).value ? getAmp('pga', channel.amplitudes).units : '' }}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="pgv">
+                        <mat-header-cell *matHeaderCellDef>
+                            PGV
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let channel">
+                            {{ getAmp('pgv', channel.amplitudes).value ? getAmp('pgv', channel.amplitudes).value : '-' }}
+                            {{ getAmp('pgv', channel.amplitudes).value ? getAmp('pgv', channel.amplitudes).units : '' }}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="psa03">
+                        <mat-header-cell *matHeaderCellDef>
+                            PSA(03)
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let channel">
+                            {{ getAmp('psa03', channel.amplitudes).value ? getAmp('psa03', channel.amplitudes).value : '-' }}
+                            {{ getAmp('psa03', channel.amplitudes).value ? getAmp('psa03', channel.amplitudes).units : '' }}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="psa10">
+                        <mat-header-cell *matHeaderCellDef>
+                            PSA(10)
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let channel">
+                            {{ getAmp('psa10', channel.amplitudes).value ? getAmp('psa10', channel.amplitudes).value : '-' }}
+                            {{ getAmp('psa10', channel.amplitudes).value ? getAmp('psa10', channel.amplitudes).units : '' }}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="psa30">
+                        <mat-header-cell *matHeaderCellDef>
+                            PSA(30)
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let channel">
+                            {{ getAmp('psa30', channel.amplitudes).value ? getAmp('psa30', channel.amplitudes).value : '-' }}
+                            {{ getAmp('psa30', channel.amplitudes).value ? getAmp('psa30', channel.amplitudes).units : '' }}
+                        </mat-cell>
+                    </ng-container>
+
+                </mat-table>
+
+            </ng-template>
+        </mat-expansion-panel>
+
+    </mat-card-content>
+</mat-card>

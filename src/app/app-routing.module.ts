@@ -39,6 +39,10 @@ const appRoutes = [
         loadChildren: './origin/origin.module#OriginModule'
       },
       {
+        path: 'shakemap',
+        loadChildren: './shakemap/shakemap.module#ShakemapModule'
+      },
+      {
         path: 'impact',
         loadChildren: './impact/impact.module#ImpactModule'
       },

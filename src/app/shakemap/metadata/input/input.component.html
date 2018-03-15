@@ -1,0 +1,25 @@
+<div *ngIf="smInput">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Event Information
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+
+      <dl class="description-table">
+        <ng-container *ngFor="let name of rowOrder">
+          <dt *ngIf="smInput['event_information'][name]">{{ names[name] }}</dt>
+          <dd *ngIf="smInput['event_information'][name]">
+            {{ name === 'depth' ? smInput['event_information'][name] + ' km' : 
+                (name === 'longitude' || name === 'latitude') ? (smInput['event_information'][name] | sharedDegrees) : 
+                name === 'origin_time' ? (smInput['event_information'][name] | date:'medium') :
+                smInput['event_information'][name] }}
+          </dd>
+        </ng-container>
+      </dl>
+
+    </ng-template>
+  </mat-expansion-panel>
+</div>
