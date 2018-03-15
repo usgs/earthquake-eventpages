@@ -1,0 +1,6 @@
+{
+  "version": "major.minor.patch",
+  "branch": "local/branchname",
+  "commit": null,
+  "image": "local/earthquake-eventpages"
+}

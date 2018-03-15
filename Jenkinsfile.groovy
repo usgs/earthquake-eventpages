@@ -80,35 +80,14 @@ node {
 
       // Convert from Map --> JSON
       info = readJSON text: groovy.json.JsonOutput.toJson(info)
-
-      // Install all dependencies
-      docker.image(BUILDER_IMAGE).inside() {
-        withEnv([
-          'npm_config_cache=/tmp/npm-cache',
-          'HOME=/tmp'
-        ]) {
-
-          ansiColor('xterm') {
-            sh """
-              source /etc/profile.d/nvm.sh > /dev/null 2>&1
-              npm config set package-lock false
-
-              # Now install everything else so the build works as expected
-              npm install --no-save
-              npm run build -- --progress false --base-href /beta/earthquakes/eventpage/
-            """
-
-            writeJSON file: 'dist/metadata.json', pretty: 4, json: info
-          }
-        }
-      }
+      writeJSON file: 'metadata.json', pretty: 4, json: info
 
       // Build candidate image for later penetration testing
       ansiColor('xterm') {
         sh """
-          docker pull ${BASE_IMAGE}
           docker build \
-            --build-arg BASE_IMAGE=${BASE_IMAGE} \
+            --build-arg BUILD_IMAGE=${BUILDER_IMAGE} \
+            --build-arg FROM_IMAGE=${BASE_IMAGE} \
             -t ${LOCAL_IMAGE} \
             .
         """
@@ -161,10 +140,10 @@ node {
           includeCsvReports: false,
           includeHtmlReports: true,
           includeJsonReports: false,
-          includeVulnReports: true,
+          includeVulnReports: false, // Just abbreviated version of includeHtmlReport
           isAutoupdateDisabled: false,
           outdir: 'dependency-check-data',
-          scanpath: "${WORKSPACE}",
+          scanpath: "${WORKSPACE}/package.json",
           skipOnScmChange: false,
           skipOnUpstreamChange: false,
           suppressionFile: 'suppression.xml',
@@ -181,23 +160,23 @@ node {
         unHealthy: ''
       )
 
-      publishHTML (target: [
-        allowMissing: true,
-        alwaysLinkToLastBuild: true,
-        keepAll: true,
-        reportDir: 'dependency-check-data',
-        reportFiles: 'dependency-check-report.html',
-        reportName: 'Dependency Analysis'
-      ])
+      // publishHTML (target: [
+      //   allowMissing: true,
+      //   alwaysLinkToLastBuild: true,
+      //   keepAll: true,
+      //   reportDir: 'dependency-check-data',
+      //   reportFiles: 'dependency-check-report.html',
+      //   reportName: 'Dependency Analysis'
+      // ])
 
-      publishHTML (target: [
-        allowMissing: true,
-        alwaysLinkToLastBuild: true,
-        keepAll: true,
-        reportDir: 'dependency-check-data',
-        reportFiles: 'dependency-check-vulnerability.html',
-        reportName: 'Dependency Vulnerabilities'
-      ])
+      // publishHTML (target: [
+      //   allowMissing: true,
+      //   alwaysLinkToLastBuild: true,
+      //   keepAll: true,
+      //   reportDir: 'dependency-check-data',
+      //   reportFiles: 'dependency-check-vulnerability.html',
+      //   reportName: 'Dependency Vulnerabilities'
+      // ])
     }
 
     SECURITY_CHECKS['Penetration Tests'] = {
