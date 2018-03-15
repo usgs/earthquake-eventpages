@@ -29,7 +29,7 @@
     "contact": {
       "email": "gs-haz_dev_team_group@usgs.gov"
     },
-    "version": "1.0.0",
+    "version": "1.1.0",
     "homepageURL": "https://github.com/usgs/earthquake-eventpages",
     "downloadURL": "https://github.com/usgs/earthquake-eventpages/archive/master.zip",
     "disclaimerURL": "https://github.com/usgs/earthquake-eventpages/blob/master/LICENSE.md",
