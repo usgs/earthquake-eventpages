@@ -328,7 +328,7 @@ node {
         docker image rm --force \
           ${DOCKER_HUB_IMAGE}:${IMAGE_VERSION} \
           ${DEPLOY_IMAGE}:${IMAGE_VERSION} \
-          ${LOCAL_IMAGE}:${IMAGE_VERSION}
+          ${LOCAL_IMAGE}
         ;
 
         exit 0;
