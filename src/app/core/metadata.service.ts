@@ -27,8 +27,8 @@ export class MetadataService {
 
     this.httpClient.get(metadata.url).pipe(
       catchError(this.handleError())
-    ).subscribe((metadata) => {
-      this.handleMetadata(metadata);
+    ).subscribe((data: any) => {
+      this.handleMetadata(data);
     }, (e) => {
       /*  Subscribe errored */
       this.error = e;
@@ -53,14 +53,14 @@ export class MetadataService {
    */
   translate(metadata) {
     // Which objects are not arrays in ShakeMap V3
-    let needsTrans = {'output': ['ground_motions', 'map_information'],
-                        'processing': ['ground_motion_modules', 'roi']}
+    const needsTrans = {'output': ['ground_motions', 'map_information'],
+                        'processing': ['ground_motion_modules', 'roi']};
 
-    for (let dataType in needsTrans) {
-      for (let each of needsTrans[dataType]) {
+    for (const dataType of Object.keys(needsTrans)) {
+      for (const each of needsTrans[dataType]) {
         // Convert non-array objects
         if (metadata &&
-              metadata[dataType] && 
+              metadata[dataType] &&
               metadata[dataType][each] &&
               (!(metadata[dataType][each] instanceof Array))) {
 
@@ -80,9 +80,9 @@ export class MetadataService {
    * @param obj javascript object
    */
   obj2Arr(obj) {
-    let arr = [];
-    for (let item_id in obj) {
-      let item = obj[item_id];
+    const arr = [];
+    for (const item_id of Object.keys(obj)) {
+      const item = obj[item_id];
       item['type'] = item_id;
 
       arr.push(item);

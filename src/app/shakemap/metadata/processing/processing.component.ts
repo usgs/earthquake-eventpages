@@ -55,7 +55,7 @@ export class ProcessingComponent implements OnInit {
                             'process_time'],
     'site_response': ['vs30default', 'site_correction'],
     'roi': ['type', 'roi', 'observation_decay']
-  }
+  };
 
   constructor() { }
   @Input() smProcessing: any;

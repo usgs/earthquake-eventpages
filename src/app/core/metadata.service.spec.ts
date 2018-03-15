@@ -14,18 +14,6 @@ describe('MetadataService', () => {
     }
   };
 
-  // Sample product to process
-  const PRODUCT_WITH_PHASEDATA = {
-    contents: {
-      'download/info.json': {url: 'url'}
-    },
-    phasedata: {
-      contents: {
-        'quakeml.xml': {url: 'phasedata_url'}
-      }
-    }
-  };
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -81,8 +69,6 @@ describe('MetadataService', () => {
         expect(content).toEqual(null);
       });
     }));
-
-
   });
 
   describe('obj2Arr', () => {
@@ -90,8 +76,8 @@ describe('MetadataService', () => {
     it('handles success',
         inject([MetadataService], (service: MetadataService) => {
 
-      let test_obj = {'test_obj': {'header': 'value'}}
-      let arr = service.obj2Arr(test_obj);
+      const test_obj = {'test_obj': {'header': 'value'}};
+      const arr = service.obj2Arr(test_obj);
 
       expect(arr[0].type).toEqual('test_obj');
     }));
@@ -102,12 +88,12 @@ describe('MetadataService', () => {
     it('handles success',
         inject([MetadataService], (service: MetadataService) => {
 
-      let test_obj = {'output': 
+      let test_obj = {'output':
                         {'ground_motions': {
                           'test_obj': {'header': 'value'}
                           }
                         }
-                      }
+                      };
 
       test_obj = service.translate(test_obj);
 

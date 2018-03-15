@@ -51,4 +51,16 @@ describe('StationListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  describe('onStations', () => {
+
+    it('handles null input', () => {
+
+      component.onStations(null);
+
+      expect(component.stations).toEqual([]);
+    });
+  });
+
 });

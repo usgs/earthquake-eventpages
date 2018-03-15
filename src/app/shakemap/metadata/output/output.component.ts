@@ -43,12 +43,12 @@ export class OutputComponent implements OnInit {
     'mapInformation': ['type', 'lat', 'lon'],
     'uncertainty': ['mean_uncertainty_ratio', 'grade', 'total_flagged_mi',
                       'total_flagged_pgm']
-  }
+  };
 
   constructor() { }
   @Input() smOutput: any;
 
   ngOnInit() {
   }
-  
+
 }

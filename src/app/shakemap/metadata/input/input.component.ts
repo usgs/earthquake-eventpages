@@ -18,12 +18,12 @@ export class InputComponent implements OnInit {
     'fault_ref': 'Fault References',
     'src_mech': 'Mechanism Source',
     'intensity_observations': 'Number of DYFI Stations'
-  }
+  };
 
   public rowOrder: string[] = ['event_description', 'event_id', 'magnitude',
                             'depth', 'longitude', 'latitude', 'origin_time',
                             'src_mech', 'location', 'fault_ref', 'seismic_stations',
-                            'intensity_observations']
+                            'intensity_observations'];
 
   constructor() { }
   @Input() smInput: any;
