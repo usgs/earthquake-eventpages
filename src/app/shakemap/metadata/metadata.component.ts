@@ -12,8 +12,6 @@ import { MetadataService } from '../../core/metadata.service';
 export class MetadataComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
   public metadata: any = null;
-  public objKeys: any = Object.keys;
-  public isNaN: any = isNaN;
 
   public name_order = {
     'ground_motion_modules': ['gmpe', 'ipe', 'gmice', 'igmice', 'ccf',

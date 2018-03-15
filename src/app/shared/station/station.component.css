@@ -24,28 +24,3 @@ table, th, td {
 .mmi-td h1 {
     margin:0;
 }
-
-.data-container {
-    padding:10px;
-}
-
-
-.data-table {
-    border-collapse: collapse;
-    border: 1px solid #ddd;
-}
-
-.data-table td, .data-table th {
-    border: 1px solid #ddd;
-    padding: .666em .75em;
-}
-
-
-.data-table th {
-    background-color: rgba(0,0,0,.04);
-}
-
-.column {
-    display: inline-block;
-    margin-right: 10px;
-}
