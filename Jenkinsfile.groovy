@@ -86,7 +86,6 @@ node {
       ansiColor('xterm') {
         sh """
           docker build \
-            --build-arg BASE_HREF=beta/earthquakes/eventpage \
             --build-arg BUILD_IMAGE=${BUILDER_IMAGE} \
             --build-arg FROM_IMAGE=${BASE_IMAGE} \
             -t ${LOCAL_IMAGE} \
