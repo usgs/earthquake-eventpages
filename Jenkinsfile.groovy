@@ -141,7 +141,7 @@ node {
           includeCsvReports: false,
           includeHtmlReports: true,
           includeJsonReports: false,
-          includeVulnReports: false, // Just abbreviated version of includeHtmlReport
+          includeVulnReports: false, // Abbreviated version of includeHtmlReport
           isAutoupdateDisabled: false,
           outdir: 'dependency-check-data',
           scanpath: "${WORKSPACE}/package.json",
