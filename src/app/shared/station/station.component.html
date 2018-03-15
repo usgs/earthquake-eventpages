@@ -19,15 +19,13 @@
                 <td>
                     <table>
                         <tr>
-                            <th *ngIf="!isNaN(station.properties.pga)">
-                            {{ station.properties.pga | number }} %g
-                            </th>
-                            <th *ngIf="isNaN(station.properties.pga)">
-                            None
-                            </th>
+                            <td class="mat-cell">
+                            {{ station.properties.pga ? 
+                                ((station.properties.pga | number) + ' %g') : '-' }}
+                            </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="mat-header-cell">
                                 pga
                             </td>
                         </tr>
@@ -36,15 +34,13 @@
                 <td>
                     <table>
                         <tr>
-                            <th *ngIf="!isNaN(station.properties.pgv)">
-                            {{ station.properties.pgv | number }} cm/s
-                            </th>
-                            <th *ngIf="isNaN(station.properties.pgv)">
-                            None
-                            </th>
+                            <td class="mat-cell">
+                            {{ station.properties.pgv ? 
+                                ((station.properties.pgv | number) + ' cm/s') : '-' }}
+                            </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="mat-header-cell">
                                 pgv
                             </td>
                         </tr>
@@ -53,15 +49,13 @@
                 <td>
                     <table>
                         <tr>
-                            <th *ngIf="!isNaN(station.properties.distance)">
-                            {{ station.properties.distance }} km
-                            </th>
-                            <th *ngIf="isNaN(station.properties.distance)">
-                            None
-                            </th>
+                            <td class="mat-cell">
+                            {{ station.properties.distance ? 
+                                ((station.properties.distance | number) + ' km') : '-' }}
+                            </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="mat-header-cell">
                                 distance
                             </td>
                         </tr>
@@ -78,50 +72,89 @@
             </mat-expansion-panel-header>
 
             <ng-template matExpansionPanelContent>
-                <div class="details">
-                    <div class = "column">
-                    <dl class="station-metadata vertical">
-                        <dt class="station-metadata-network">Network</dt>
-                        <dd class="station-metadata-network">{{ station.properties.network }}</dd>
-                        <dt class="station-metadata-location">Location</dt>
-                        <dd class="station-metadata-location">{{ station.geometry.coordinates[1] }}°N 
-                                                            {{ station.geometry.coordinates[0] * -1 }}°W</dd>
-                        <dt class="station-metadata-source">Source</dt>
-                        <dd class="station-metadata-source">{{ station.properties.source }}</dd>
-                        <dt class="station-metadata-intensity">Intensity</dt>
-                        <dd class="station-metadata-intensity">{{ station.properties.intensity }}</dd>
-                    </dl>
-                    </div>
-                    
-                    <div class="column">
-                    <table class="data-table">
-                        <thead>
-                        <th>name</th>
-                        <th>pga</th>
-                        <th>pgv</th>
-                        <th>psa03</th>
-                        <th>psa10</th>
-                        <th>psa30</th>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let channel of station.properties.channels">
-                            <th>
-                            {{ channel.name }}
-                            </th>
-                            <td>{{ getAmp('pga', channel.amplitudes).value | number }}</td>
-                            <td>{{ getAmp('pgv', channel.amplitudes).value | number }}</td>
-                            <td *ngIf="getAmp('psa03', channel.amplitudes).value">{{ getAmp('psa03', channel.amplitudes).value | number }}</td>
-                            <td *ngIf="getAmp('psa10', channel.amplitudes).value">{{ getAmp('psa10', channel.amplitudes).value | number }}</td>
-                            <td *ngIf="getAmp('psa30', channel.amplitudes).value">{{ getAmp('psa30', channel.amplitudes).value | number }}</td>
-                            <td *ngIf="getAmp('sa(0.3)', channel.amplitudes).value">{{ getAmp('sa(0.3)', channel.amplitudes).value | number }}</td>
-                            <td *ngIf="getAmp('sa(1.0)', channel.amplitudes).value">{{ getAmp('sa(1.0)', channel.amplitudes).value | number }}</td>
-                            <td *ngIf="getAmp('sa(3.0)', channel.amplitudes).value">{{ getAmp('sa(3.0)', channel.amplitudes).value | number }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    </div>
 
-                </div>
+                <dl class="description-table">
+                    <dt>Network</dt>
+                    <dd>{{ station.properties.network }}</dd>
+                    <dt>Latitude</dt>
+                    <dd>{{ station.geometry.coordinates[1] | sharedDegrees }}</dd> 
+                    <dt>Longitude</dt>
+                    <dd>{{ station.geometry.coordinates[0] | sharedDegrees }}</dd>
+                    <dt>Source</dt>
+                    <dd>{{ station.properties.source }}</dd>
+                    <dt>Intensity</dt>
+                    <dd>{{ station.properties.intensity }}</dd>
+                </dl>
+
+                <h3>Channels</h3>
+                <mat-table [dataSource]="station.properties.channels">
+                    <mat-header-row *matHeaderRowDef="channelsColumns"></mat-header-row>
+                    <mat-row *matRowDef="let myRowData; columns: channelsColumns"></mat-row>
+
+                    <ng-container matColumnDef="name">
+                        <mat-header-cell *matHeaderCellDef>
+                            Name
+                        </mat-header-cell>
+                        <mat-cell [attr.role]="'rowheader'"
+                                    [class.mat-cell]="false"
+                                    class="mat-header-cell"
+                                    *matCellDef="let channel">
+                            {{ channel.name }}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="pga">
+                        <mat-header-cell *matHeaderCellDef>
+                            PGA
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let channel">
+                            {{ getAmp('pga', channel.amplitudes).value ? getAmp('pga', channel.amplitudes).value : '-' }}
+                            {{ getAmp('pga', channel.amplitudes).value ? getAmp('pga', channel.amplitudes).units : '' }}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="pgv">
+                        <mat-header-cell *matHeaderCellDef>
+                            PGV
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let channel">
+                            {{ getAmp('pgv', channel.amplitudes).value ? getAmp('pgv', channel.amplitudes).value : '-' }}
+                            {{ getAmp('pgv', channel.amplitudes).value ? getAmp('pgv', channel.amplitudes).units : '' }}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="psa03">
+                        <mat-header-cell *matHeaderCellDef>
+                            PSA(03)
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let channel">
+                            {{ getAmp('psa03', channel.amplitudes).value ? getAmp('psa03', channel.amplitudes).value : '-' }}
+                            {{ getAmp('psa03', channel.amplitudes).value ? getAmp('psa03', channel.amplitudes).units : '' }}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="psa10">
+                        <mat-header-cell *matHeaderCellDef>
+                            PSA(10)
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let channel">
+                            {{ getAmp('psa10', channel.amplitudes).value ? getAmp('psa10', channel.amplitudes).value : '-' }}
+                            {{ getAmp('psa10', channel.amplitudes).value ? getAmp('psa10', channel.amplitudes).units : '' }}
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="psa30">
+                        <mat-header-cell *matHeaderCellDef>
+                            PSA(30)
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let channel">
+                            {{ getAmp('psa30', channel.amplitudes).value ? getAmp('psa30', channel.amplitudes).value : '-' }}
+                            {{ getAmp('psa30', channel.amplitudes).value ? getAmp('psa30', channel.amplitudes).units : '' }}
+                        </mat-cell>
+                    </ng-container>
+
+                </mat-table>
+
             </ng-template>
         </mat-expansion-panel>
 

@@ -29,13 +29,6 @@ table, th, td {
     padding:10px;
 }
 
-dl>dt {
-    font-weight: 700;
-}
-
-dd {
-    margin: 0;
-}
 
 .data-table {
     border-collapse: collapse;

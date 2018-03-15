@@ -9,26 +9,41 @@ export class StationComponent implements OnInit {
   @Input() station: any;
 
   public isNaN: any = isNaN;
-
+  public channelsColumns = ['name', 'pga', 'pgv', 'psa03', 'psa10', 'psa30']
   constructor() {}
 
-   ngOnInit() {}
+   ngOnInit() {
 
-  toggleDetails(station) {
-    if (station['showDetails']) {
-      station['showDetails'] = false;
-    } else {
-      station['showDetails'] = true;
-    }
-  }
+   }
 
+  /**
+   * Amplitudes associated with each station are stored as an array.
+   * This will grab an amplitude of a specific metric
+   *
+   * @param name string name of metric: pga, pgv, psa03, psa10, psa30
+   *
+   * @param amps array of amplitudes from station
+   */
   getAmp(name: string, amps: any[]) {
+    
+    // dictionary of aliases for names that have changed in different
+    // ShakeMap versions
+    let tryNames = {
+      'psa03': ['psa03', 'PSA03', 'psa(03)', 'PSA(03)'],
+      'psa10': ['psa10', 'PSA10', 'psa(10)', 'PSA(10)'],
+      'psa30': ['psa30', 'PSA30', 'psa(30)', 'PSA(30)']
+    }
+
     for (const amp of amps) {
-      if (amp['name'] === name) {
+      if (amp['name'] === name || (
+            tryNames[name] && 
+            (tryNames[name].indexOf(amp['name']) > -1))) {
+
+        // The name of this amplitude is matched (possibly by an alias)
         return amp;
       }
     }
-    return {};
+    return {'value': null};
   }
 
 }
