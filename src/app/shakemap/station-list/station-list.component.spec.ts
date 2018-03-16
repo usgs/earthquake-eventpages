@@ -21,7 +21,7 @@ describe('StationListComponent', () => {
     };
 
     const stationServiceStub = {
-      stations: of({}),
+      stationsJson$: of({}),
       getStations: jasmine.createSpy('stationService::get'),
     };
 

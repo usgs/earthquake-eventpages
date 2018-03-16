@@ -7,7 +7,7 @@ import { MetadataService } from '../../core/metadata.service';
 import { of } from 'rxjs/observable/of';
 import { MockComponent } from 'ng2-mock-component';
 
-describe('InfoComponent', () => {
+describe('MetadataComponent', () => {
   let component: MetadataComponent;
   let fixture: ComponentFixture<MetadataComponent>;
 
@@ -19,7 +19,7 @@ describe('InfoComponent', () => {
     };
 
     const metadataServiceStub = {
-      metadata: of({}),
+      metadata$: of({}),
       getMetadata: jasmine.createSpy('metadataService::get'),
     };
 

@@ -9,7 +9,8 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class StationService {
   public error: any = null;
-  public stations: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
+  public stationsJson$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private httpClient: HttpClient) { }
 
@@ -20,7 +21,7 @@ export class StationService {
    */
   getStations (product: any): void {
     if (product == null) {
-      this.stations.next(null);
+      this.stationsJson$.next(null);
       return;
     }
     const stations = product.contents['download/stationlist.json'];
@@ -28,11 +29,11 @@ export class StationService {
     this.httpClient.get(stations.url).pipe(
       catchError(this.handleError())
     ).subscribe((response) => {
-      this.stations.next(response);
+      this.stationsJson$.next(response);
     }, (e) => {
       /*  Subscribe errored */
       this.error = e;
-      this.stations.next(null);
+      this.stationsJson$.next(null);
     });
   }
 

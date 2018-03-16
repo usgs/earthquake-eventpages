@@ -68,7 +68,7 @@ export class MetadataComponent implements OnInit, OnDestroy {
               public eventService: EventService) { }
 
   ngOnInit() {
-    this.subs.add(this.mdService.metadata.subscribe((metadata) => {
+    this.subs.add(this.mdService.metadata$.subscribe((metadata) => {
       this.onMetadata(metadata);
     }));
     this.subs.add(this.eventService.product$.subscribe((product) => {
