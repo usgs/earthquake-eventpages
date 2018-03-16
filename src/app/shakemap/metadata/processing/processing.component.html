@@ -57,10 +57,14 @@
     <ng-template matExpansionPanelContent>
       <dl class="description-table" *ngIf="smProcessing.miscellaneous">
         <ng-container *ngFor="let name of headers['miscellaneous']">
-          <dt *ngIf="smProcessing['miscellaneous'][name]">{{ names.miscellaneous[name] }}</dt>
-          <dd *ngIf="smProcessing['miscellaneous'][name]">
-            {{ smProcessing['miscellaneous'][name] }}
-          </dd>
+
+          <ng-container *ngIf="smProcessing['miscellaneous'][name]">
+            <dt>{{ names.miscellaneous[name] }}</dt>
+            <dd>
+              {{ smProcessing['miscellaneous'][name] }}
+            </dd>
+          </ng-container>
+
         </ng-container>
       </dl>
     </ng-template>
@@ -77,10 +81,14 @@
     <ng-template matExpansionPanelContent>
       <dl class="description-table" *ngIf="smProcessing.shakemap_versions">
         <ng-container *ngFor="let name of headers['shakemap_versions']">
-          <dt *ngIf="smProcessing['shakemap_versions'][name]">{{ names.shakemap_versions[name] }}</dt>
-          <dd *ngIf="smProcessing['shakemap_versions'][name]">
-            {{ smProcessing['shakemap_versions'][name] }}
-          </dd>
+
+          <ng-container *ngIf="smProcessing['shakemap_versions'][name]">
+            <dt>{{ names.shakemap_versions[name] }}</dt>
+            <dd>
+              {{ smProcessing['shakemap_versions'][name] }}
+            </dd>
+          </ng-container>
+
         </ng-container>
       </dl>
     </ng-template>
@@ -98,10 +106,14 @@
 
       <dl class="description-table" *ngIf="smProcessing.site_response">
         <ng-container *ngFor="let name of headers['site_response']">
-          <dt *ngIf="smProcessing['site_response'][name]">{{ names.site_response[name] }}</dt>
-          <dd *ngIf="smProcessing['site_response'][name]">
-            {{ smProcessing['site_response'][name] }}
-          </dd>
+
+            <ng-container *ngIf="smProcessing['site_response'][name]">
+            <dt>{{ names.site_response[name] }}</dt>
+            <dd>
+              {{ smProcessing['site_response'][name] }}
+            </dd>
+
+          </ng-container>
         </ng-container>
       </dl>
 
