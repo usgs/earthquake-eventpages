@@ -9,7 +9,8 @@ import { of } from 'rxjs/observable/of';
 @Injectable()
 export class MetadataService {
   public error: any = null;
-  public metadata: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
+  public metadata$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private httpClient: HttpClient) { }
 
@@ -20,7 +21,7 @@ export class MetadataService {
    */
   getMetadata (product: any): void {
     if (product == null) {
-      this.metadata.next(null);
+      this.metadata$.next(null);
       return;
     }
     const metadata = product.contents['download/info.json'];
@@ -32,7 +33,7 @@ export class MetadataService {
     }, (e) => {
       /*  Subscribe errored */
       this.error = e;
-      this.metadata.next(null);
+      this.metadata$.next(null);
     });
   }
 
@@ -43,7 +44,7 @@ export class MetadataService {
    */
   handleMetadata(metadata) {
     metadata = this.translate(metadata);
-    this.metadata.next(metadata);
+    this.metadata$.next(metadata);
   }
 
   /**

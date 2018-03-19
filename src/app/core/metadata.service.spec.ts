@@ -54,7 +54,7 @@ describe('MetadataService', () => {
       const request = httpClient.expectOne('url');
       request.flush('', {status: 500, statusText: 'Error'});
 
-      service.metadata.subscribe((content) => {
+      service.metadata$.subscribe((content) => {
         expect(content).toEqual(null);
         expect(service.error).toBeTruthy();
       });
@@ -65,7 +65,7 @@ describe('MetadataService', () => {
 
       service.getMetadata(null);
 
-      service.metadata.subscribe((content) => {
+      service.metadata$.subscribe((content) => {
         expect(content).toEqual(null);
       });
     }));

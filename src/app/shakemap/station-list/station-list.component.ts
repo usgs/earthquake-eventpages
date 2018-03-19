@@ -16,8 +16,8 @@ export class StationListComponent implements OnInit, OnDestroy {
               private stationService: StationService) { }
 
   ngOnInit() {
-    this.subs.add(this.stationService.stations.subscribe((stations) => {
-      this.onStations(stations);
+    this.subs.add(this.stationService.stationsJson$.subscribe((stationsJson) => {
+      this.onStations(stationsJson);
     }));
     this.subs.add(this.eventService.product$.subscribe((product) => {
       this.onProduct(product);
@@ -38,13 +38,13 @@ export class StationListComponent implements OnInit, OnDestroy {
    *
    * @param stations station list json
    */
-  onStations(stations) {
-    if (stations == null) {
+  onStations(stationsJson) {
+    if (stationsJson == null) {
       this.stations = [];
       return;
     }
 
-    this.stations = stations.features;
+    this.stations = stationsJson.features;
   }
 
   /**
