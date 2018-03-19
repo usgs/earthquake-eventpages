@@ -18,6 +18,7 @@ import { RegionInfoPinComponent } from './region-info-pin/region-info-pin.compon
 import { EventPageModule } from '../event-page/event-page.module';
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
+import { FocalMechanismPinComponent } from './focal-mechanism-pin/focal-mechanism-pin.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { SharedModule } from '../shared/shared.module';
     BasicPinComponent,
     MomentTensorPinComponent,
     OriginPinComponent,
-    RegionInfoPinComponent
+    RegionInfoPinComponent,
+    FocalMechanismPinComponent
   ]
 })
 export class ExecutiveModule { }
