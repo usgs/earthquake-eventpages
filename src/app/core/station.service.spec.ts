@@ -49,7 +49,7 @@ describe('StationService', () => {
       const request = httpClient.expectOne('url');
       request.flush('', {status: 500, statusText: 'Error'});
 
-      service.stations.subscribe((content) => {
+      service.stationsJson$.subscribe((content) => {
         expect(content).toEqual(null);
         expect(service.error).toBeTruthy();
       });
@@ -60,7 +60,7 @@ describe('StationService', () => {
 
       service.getStations(null);
 
-      service.stations.subscribe((content) => {
+      service.stationsJson$.subscribe((content) => {
         expect(content).toEqual(null);
       });
     }));

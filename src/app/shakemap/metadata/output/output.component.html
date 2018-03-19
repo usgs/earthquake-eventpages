@@ -121,10 +121,14 @@
 
       <dl class="description-table" *ngIf="smOutput.uncertainty">
         <ng-container *ngFor="let name of headers['uncertainty']">
-          <dt *ngIf="smOutput['uncertainty'][name]">{{ names.uncertainty[name] }}</dt>
-          <dd *ngIf="smOutput['uncertainty'][name]">
-            {{ smOutput['uncertainty'][name] }}
-          </dd>
+
+          <ng-container *ngIf="smOutput['uncertainty'][name]">
+            <dt>{{ names.uncertainty[name] }}</dt>
+            <dd>
+              {{ smOutput['uncertainty'][name] }}
+            </dd>
+          </ng-container>
+          
         </ng-container>
       </dl>
 
