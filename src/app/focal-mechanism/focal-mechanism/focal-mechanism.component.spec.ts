@@ -1,5 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
 
+import { Event } from '../../event';
+import { EventService } from '../../core/event.service';
 import { FocalMechanismComponent } from './focal-mechanism.component';
 
 describe('FocalMechanismComponent', () => {
@@ -7,8 +11,23 @@ describe('FocalMechanismComponent', () => {
   let fixture: ComponentFixture<FocalMechanismComponent>;
 
   beforeEach(async(() => {
+    const eventServiceStub = {
+      event$: of(new Event({})),
+      product$: of(null)
+    };
+
     TestBed.configureTestingModule({
-      declarations: [ FocalMechanismComponent ]
+      declarations: [
+        FocalMechanismComponent,
+
+        MockComponent({selector: 'focal-mechanism-attribution', inputs: ['tensor']}),
+        MockComponent({selector: 'product-page', inputs: ['product']}),
+        MockComponent({selector: 'shared-beachball', inputs: ['fillColor', 'tensor']}),
+        MockComponent({selector: 'shared-nodal-planes', inputs: ['tensor']})
+      ],
+      providers: [
+        {provide: EventService, useValue: eventServiceStub}
+      ]
     })
     .compileComponents();
   }));
