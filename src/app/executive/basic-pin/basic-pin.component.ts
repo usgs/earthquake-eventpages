@@ -7,7 +7,7 @@ import { Event } from '../../event';
 @Component({
   selector: 'basic-pin',
   templateUrl: './basic-pin.component.html',
-  styleUrls: ['./basic-pin.component.css']
+  styleUrls: ['./basic-pin.component.scss']
 })
 export class BasicPinComponent {
   // router link for entire card action

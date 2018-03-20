@@ -1,24 +1,26 @@
-<ng-container *ngIf="product">
-  <basic-pin
-      [link]="link"
-      [product]="product"
-      [title]="title">
-    <!-- pin content -->
-    <dl card-content>
-      <dt>Review Status</dt>
-      <dd>{{ (product.properties['review-status'] || 'automatic') | uppercase }}</dd>
+<basic-pin *ngIf="product"
+    [link]="link"
+    [product]="product"
+    [title]="title">
+  <dl card-content>
+    <dt>Review Status</dt>
+    <dd>{{ (product.properties['review-status'] || 'automatic') | uppercase }}</dd>
 
-      <dt>Magnitude</dt>
-      <dd>
-        {{ product.properties.magnitude | sharedNumber:1 }}
-        {{ product.properties['magnitude-type'] }}
-      </dd>
+    <dt>Magnitude</dt>
+    <dd>
+      {{ product.properties.magnitude | sharedNumber:1 }}
+      {{ product.properties['magnitude-type'] }}
+    </dd>
 
-      <dt>Depth</dt>
-      <dd>{{ product.properties.depth | sharedNumber:1:'km' }}</dd>
+    <dt>Depth</dt>
+    <dd>{{ product.properties.depth | sharedNumber:1:'km' }}</dd>
 
-      <dt>Time</dt>
-      <dd>{{ product.properties.eventtime | date:"yyyy-MM-dd HH:mm:ss":"UTC" }} (UTC)</dd>
-    </dl>
-  </basic-pin>
-</ng-container>
+    <dt>Time</dt>
+    <dd>
+      {{ product.properties.eventtime | date:"yyyy-MM-dd":UTC }}
+      <br/>
+      {{ product.properties.eventtime | date:"HH:mm:ss":"UTC" }}
+      UTC
+    </dd>
+  </dl>
+</basic-pin>

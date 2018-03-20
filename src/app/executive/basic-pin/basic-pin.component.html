@@ -1,33 +1,29 @@
-  <!-- Basic Pin - material card -->
-  <mat-card [routerLink]="link">
+<!-- Basic Pin -->
+<article [routerLink]="link">
+  <!-- Title -->
+  <header>
+    <ng-container *ngIf="title; else noTitle">
+      <a [routerLink]="link">{{ title }}</a>
+    </ng-container>
+    <ng-template #noTitle>
+      <ng-content select="[card-title]"></ng-content>
+    </ng-template>
+  </header>
 
-    <!-- Title -->
-    <mat-card-title>
-      <ng-container *ngIf="title; else noTitle">
-        <a [routerLink]="link">{{ title }}</a>
-      </ng-container>
-      <ng-template #noTitle>
-        <ng-content select="[card-title]"></ng-content>
-      </ng-template>
-    </mat-card-title>
+  <!-- Content -->
+  <section>
+    <ng-content select="[card-content]"></ng-content>
+  </section>
 
-    <!-- Image -->
-    <ng-content select="[card-image]"></ng-content>
-
-    <!-- Content -->
-    <mat-card-content>
-      <ng-content select="[card-content]"></ng-content>
-    </mat-card-content>
-
-    <!-- Footer -->
-    <mat-card-footer>
-      <ng-container *ngIf="footer; else noFooter">
-        {{ footer }}
-      </ng-container>
-      <ng-template #noFooter>
-        Contributed by
-        <shared-product-attribution [product]="product">
-        </shared-product-attribution>
-      </ng-template>
-    </mat-card-footer>
-  </mat-card>
+  <!-- Footer -->
+  <footer>
+    <ng-container *ngIf="footer; else noFooter">
+      {{ footer }}
+    </ng-container>
+    <ng-template #noFooter>
+      Contributed by
+      <shared-product-attribution [product]="product">
+      </shared-product-attribution>
+    </ng-template>
+  </footer>
+</article>

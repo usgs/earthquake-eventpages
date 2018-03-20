@@ -15,7 +15,7 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
   public map: L.Map;
   public marker: L.Marker;
 
-  public title = 'Region Info';
+  public title = 'Regional Information';
   public product: any = null;
   public link = '../region-info';
 
