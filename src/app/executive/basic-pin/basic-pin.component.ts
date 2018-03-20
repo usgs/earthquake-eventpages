@@ -14,11 +14,11 @@ export class BasicPinComponent {
   @Input() link;
 
   // product attribution
-  // only used if subtitle is not provided
+  // only used if footer is not provided
   @Input() product;
 
-  // text for subtitle
-  @Input() subtitle;
+  // text for footer
+  @Input() footer;
 
   // text for title
   @Input() title;

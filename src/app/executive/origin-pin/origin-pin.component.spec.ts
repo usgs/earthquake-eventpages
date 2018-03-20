@@ -26,9 +26,9 @@ describe('OriginPinComponent', () => {
         MockComponent({
           selector: 'basic-pin',
           inputs: [
+            'footer',
             'link',
             'product',
-            'subtitle',
             'title'
           ]
         }),
