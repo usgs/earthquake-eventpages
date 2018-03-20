@@ -22,6 +22,7 @@ import { UncertainValueComponent } from './uncertain-value/uncertain-value.compo
 import { NumberPipe } from './number.pipe';
 import { DegreesPipe } from './degrees.pipe';
 import { EventLocationPipe } from './event-location.pipe';
+import { UnitsPipe } from './units.pipe';
 import { BubbleComponent } from './bubble/bubble.component';
 
 import { StationComponent } from './station/station.component';
@@ -44,6 +45,7 @@ import { StationComponent } from './station/station.component';
     BubbleComponent,
     CoordinatesComponent,
     DegreesPipe,
+    UnitsPipe,
     EventLocationPipe,
     DownloadDialogComponent,
     FeRegionComponent,
@@ -63,6 +65,7 @@ import { StationComponent } from './station/station.component';
     BubbleComponent,
     CoordinatesComponent,
     DegreesPipe,
+    UnitsPipe,
     EventLocationPipe,
     DownloadDialogComponent,
     FeRegionComponent,
