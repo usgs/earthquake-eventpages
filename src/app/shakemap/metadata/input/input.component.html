@@ -9,19 +9,77 @@
     <ng-template matExpansionPanelContent>
 
       <dl class="description-table">
-        <ng-container *ngFor="let name of rowOrder">
-
-          <ng-container *ngIf="smInput['event_information'][name]">
-            <dt>{{ names[name] }}</dt>
-            <dd>
-              {{ name === 'depth' ? smInput['event_information'][name] + ' km' : 
-                  (name === 'longitude' || name === 'latitude') ? (smInput['event_information'][name] | sharedDegrees) : 
-                  name === 'origin_time' ? (smInput['event_information'][name] | date:'medium') :
-                  smInput['event_information'][name] }}
-            </dd>
-          </ng-container>
-          
+        
+        <ng-container *ngIf="smInput['event_information']['event_description']; let description">
+          <dt>Description</dt>
+          <dd>{{ description }}</dd>
         </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['event_id']; let eventId">
+          <dt>ID</dt>
+          <dd>{{ eventId }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['magnitude']; let mag">
+          <dt>Magnitude</dt>
+          <dd>{{ mag }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['depth']; let depth">
+          <dt>Depth</dt>
+          <dd>{{ depth | sharedNumber:1:'km' }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['longitude']; let lon">
+          <dt>Longitude</dt>
+          <dd>{{ lon | sharedDegrees }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['latitude']; let lat">
+          <dt>Latitude</dt>
+          <dd>{{ lat | sharedDegrees }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['origin_time']; let oTime">
+          <dt>Origin Time</dt>
+          <dd>{{ oTime | date:'medium' }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['mech_src']; let mechSrc">
+          <dt>Mechanism</dt>
+          <dd>{{ mechSrc }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['src_mech']; let srcMech">
+          <dt>Mechanism Source</dt>
+          <dd>{{ srcMech }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['location']; let loc">
+          <dt>Location</dt>
+          <dd>{{ loc }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['faultfiles']; let faultFiles">
+          <dt>Fault Files</dt>
+          <dd>{{ faultFiles }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['fault_ref']; let faultRef">
+          <dt>Fault Reference</dt>
+          <dd>{{ faultRef }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['seismic_stations']; let stations">
+          <dt>Number of Seismic Stations</dt>
+          <dd>{{ stations }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smInput['event_information']['intensity_observations']; let intObs">
+          <dt>Number of DYFI Stations</dt>
+          <dd>{{ intObs }}</dd>
+        </ng-container>
+          
       </dl>
 
     </ng-template>
