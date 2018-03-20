@@ -31,7 +31,7 @@ export class DetailComponent {
     return eventSource.toUpperCase() + ' <small>(' + eventId + ')</small>';
   }
 
-  getProduct (event: Event): any {
+  getProduct (): any {
     let product = this.eventService.product$.getValue() || {};
 
     if (product && product.phasedata) {

@@ -13,11 +13,18 @@ describe('DetailComponent', () => {
   let component: DetailComponent;
   let fixture: ComponentFixture<DetailComponent>;
 
+  let PRODUCT: any;
+
   beforeEach(async(() => {
     const eventServiceStub = {
       getEvent: jasmine.createSpy('eventService::getEvent'),
-      getProduct: jasmine.createSpy('eventService::getProduct')
+      getProduct: jasmine.createSpy('eventService::getProduct'),
+      'product$': {
+        getValue: () => { return PRODUCT; }
+      }
     };
+
+    PRODUCT = {phasedata: {}};
 
     const formatterServiceStub = {
     };
@@ -69,33 +76,25 @@ describe('DetailComponent', () => {
     it('returns object if not found', () => {
       const event = new Event({});
 
-      expect(component.getProduct(event)).toEqual({});
+      expect(component.getProduct()).toEqual({});
     });
 
     it('properly looks for an origin', () => {
       const event = new Event({});
-      const spy = spyOn(event, 'getProduct').and.returnValue({});
+      const spy = spyOn(component.eventService.product$, 'getValue');
 
-      component.getProduct(event);
+      component.getProduct();
       expect(spy).toHaveBeenCalled();
-      expect(spy).toHaveBeenCalledWith('origin');
     });
 
     it('properly defers to phase-data', () => {
-      let event = new Event({
-        properties: {products: {origin: [{type: 'origin'}]}}
-      });
-      expect(component.getProduct(event).type).toEqual('origin');
+      expect(component.getProduct()).toBe(PRODUCT.phasedata);
 
-      event = new Event({
-        'properties': {
-          'products': {
-            'origin': [{type: 'origin'}],
-            'phase-data': [{type: 'phase-data'}]
-           }
-         }
-      });
-      expect(component.getProduct(event).type).toEqual('phase-data');
+      PRODUCT = {};
+      expect(component.getProduct()).toBe(PRODUCT);
+
+      PRODUCT = null;
+      expect(component.getProduct()).toEqual({});
     });
   });
 
