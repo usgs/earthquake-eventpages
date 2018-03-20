@@ -30,14 +30,14 @@
           <dd>{{ depth | sharedNumber:1:'km' }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smInput['event_information']['longitude']; let lon">
-          <dt>Longitude</dt>
-          <dd>{{ lon | sharedDegrees }}</dd>
-        </ng-container>
-
         <ng-container *ngIf="smInput['event_information']['latitude']; let lat">
-          <dt>Latitude</dt>
-          <dd>{{ lat | sharedDegrees }}</dd>
+          <ng-container *ngIf="smInput['event_information']['longitude']; let lng">
+
+            <dt>GPS Location</dt>
+            <dd [innerHtml]="{'geometry': 
+                                {'coordinates': [lng, lat]}} | sharedEventLocation"></dd>
+
+          </ng-container>
         </ng-container>
 
         <ng-container *ngIf="smInput['event_information']['origin_time']; let oTime">
