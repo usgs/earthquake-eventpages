@@ -30,19 +30,11 @@ export class OutputComponent implements OnInit {
         'min': 'Min',
         'max': 'Max'
       },
-    'uncertainty': {
-        'total_flagged_mi': 'Flagged seismic stations',
-        'grade': 'Empirical ShakeMap grade',
-        'total_flagged_pgm': 'Flagged DYFI stations',
-        'mean_uncertainty_ratio': 'Mean of map uncertainty'
-      }
   };
 
   public headers: any = {
     'groundMotions': ['type', 'max', 'max_on_land', 'bias'],
-    'mapInformation': ['type', 'lat', 'lon'],
-    'uncertainty': ['mean_uncertainty_ratio', 'grade', 'total_flagged_mi',
-                      'total_flagged_pgm']
+    'mapInformation': ['type', 'lat', 'lon']
   };
 
   constructor() { }

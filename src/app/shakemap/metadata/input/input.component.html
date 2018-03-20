@@ -33,7 +33,7 @@
         <ng-container *ngIf="smInput['event_information']['latitude']; let lat">
           <ng-container *ngIf="smInput['event_information']['longitude']; let lng">
 
-            <dt>GPS Location</dt>
+            <dt>GPS location</dt>
             <dd [innerHtml]="{'geometry': 
                                 {'coordinates': [lng, lat]}} | sharedEventLocation"></dd>
 
@@ -41,7 +41,7 @@
         </ng-container>
 
         <ng-container *ngIf="smInput['event_information']['origin_time']; let oTime">
-          <dt>Origin Time</dt>
+          <dt>Origin time</dt>
           <dd>{{ oTime | date:'medium' }}</dd>
         </ng-container>
 
@@ -51,7 +51,7 @@
         </ng-container>
 
         <ng-container *ngIf="smInput['event_information']['src_mech']; let srcMech">
-          <dt>Mechanism Source</dt>
+          <dt>Mechanism source</dt>
           <dd>{{ srcMech }}</dd>
         </ng-container>
 
@@ -61,22 +61,22 @@
         </ng-container>
 
         <ng-container *ngIf="smInput['event_information']['faultfiles']; let faultFiles">
-          <dt>Fault Files</dt>
+          <dt>Fault files</dt>
           <dd>{{ faultFiles }}</dd>
         </ng-container>
 
         <ng-container *ngIf="smInput['event_information']['fault_ref']; let faultRef">
-          <dt>Fault Reference</dt>
+          <dt>Fault reference</dt>
           <dd>{{ faultRef }}</dd>
         </ng-container>
 
         <ng-container *ngIf="smInput['event_information']['seismic_stations']; let stations">
-          <dt>Number of Seismic Stations</dt>
+          <dt>Number of seismic stations</dt>
           <dd>{{ stations }}</dd>
         </ng-container>
 
         <ng-container *ngIf="smInput['event_information']['intensity_observations']; let intObs">
-          <dt>Number of DYFI Stations</dt>
+          <dt>Number of DYFI stations</dt>
           <dd>{{ intObs }}</dd>
         </ng-container>
           
