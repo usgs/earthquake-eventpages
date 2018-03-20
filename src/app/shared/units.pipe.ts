@@ -25,22 +25,32 @@ export class UnitsPipe implements PipeTransform {
       value: any,
       units: string): any {
 
-    if (units === 'count') {
+    let output: string = null;
 
-        return value.toString();
+    switch (units) {
+        case 'count': {
+            output = value.toString();
+            break;
+        }
 
-    } else if (units === 'degrees') {
+        case 'degrees': {
+            const degPipe = new DegreesPipe(this.formatterService);
+            output = degPipe.transform(value);
+            break;
+        }
 
-        const degPipe = new DegreesPipe(this.formatterService);
-        return degPipe.transform(value);
+        case 'intensity': {
+            output = `${value} mmi`;
+            break;
+        }
 
-    } else if (units === 'intensity') {
-
-        return `${value} mmi`;
-
-    } else {
-
-        return `${value} ${units}`;
+        default: {
+            output = `${value} ${units}`;
+        }
     }
+
+    return output;
+
   }
+
 }
