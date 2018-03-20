@@ -1,6 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { FormatterService } from '../core/formatter.service';
-import { DegreesPipe } from './degrees.pipe'
+import { DegreesPipe } from './degrees.pipe';
+
 @Pipe({
   name: 'sharedUnits'
 })
@@ -25,16 +27,16 @@ export class UnitsPipe implements PipeTransform {
 
     if (units === 'count') {
 
-        return value;
+        return value.toString();
 
     } else if (units === 'degrees') {
 
-        let degPipe = new DegreesPipe(this.formatterService);
+        const degPipe = new DegreesPipe(this.formatterService);
         return degPipe.transform(value);
 
-    } else if (units === 'intensity'){
+    } else if (units === 'intensity') {
 
-        return `${value}  mmi`;
+        return `${value} mmi`;
 
     } else {
 

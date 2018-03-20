@@ -19,8 +19,10 @@
                       [class.mat-cell]="false"
                       class="mat-header-cell"
                       *matCellDef="let gmm">
+
             {{ names.ground_motion_modules[gmm.type] ? 
                 names.ground_motion_modules[gmm.type] : gmm.type }}
+
           </mat-cell>
         </ng-container>
 
@@ -29,7 +31,9 @@
             Module
           </mat-header-cell>
           <mat-cell *matCellDef="let gmm">
+
             {{ gmm.module }}
+
           </mat-cell>
         </ng-container>
 
@@ -38,7 +42,9 @@
             Reference
           </mat-header-cell>
           <mat-cell *matCellDef="let gmm">
+
             {{ gmm.reference }}
+
           </mat-cell>
         </ng-container>
 
@@ -56,16 +62,57 @@
 
     <ng-template matExpansionPanelContent>
       <dl class="description-table" *ngIf="smProcessing.miscellaneous">
-        <ng-container *ngFor="let name of headers['miscellaneous']">
 
-          <ng-container *ngIf="smProcessing['miscellaneous'][name]">
-            <dt>{{ names.miscellaneous[name] }}</dt>
-            <dd>
-              {{ smProcessing['miscellaneous'][name] }}
-            </dd>
-          </ng-container>
-
+        <ng-container *ngIf="smProcessing['miscellaneous']['bias_max_mag']; let biasMaxMag">
+          <dt>Max magnitude to compute bias</dt>
+          <dd>{{ biasMaxMag }}</dd>
         </ng-container>
+
+        <ng-container *ngIf="smProcessing['miscellaneous']['bias_max_range']; let biasMaxRange">
+          <dt>Maximum distance to include station in bias</dt>
+          <dd>{{ biasMaxRange }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smProcessing['miscellaneous']['bias_log_amp']; let biasLogAmp">
+          <dt>Use log amp to compute bias</dt>
+          <dd>{{ biasLogAmp }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smProcessing['miscellaneous']['bias_max_bias']; let biasMaxBias">
+          <dt>Max allowed bias</dt>
+          <dd>{{ biasMaxBias }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smProcessing['miscellaneous']['bias_min_bias']; let biasMinBias">
+          <dt>Use log amp to compute bias</dt>
+          <dd>{{ biasMinBias }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smProcessing['miscellaneous']['bias_min_stations']; let biasMinStations">
+          <dt>Min # of stations necessary to compute bias</dt>
+          <dd>{{ biasMinStations }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smProcessing['miscellaneous']['bias_norm']; let biasNorm">
+          <dt>Norm of the bias</dt>
+          <dd>{{ biasNorm }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smProcessing['miscellaneous']['median_dist']; let medDist">
+          <dt>Median distance used</dt>
+          <dd>{{ medDist }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smProcessing['miscellaneous']['outlier_deviation_level']; let devLevel">
+          <dt>Outlier level (# of std dev)</dt>
+          <dd>{{ devLevel }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smProcessing['miscellaneous']['outlier_max_mag']; let maxMag">
+          <dt>Max magnitude to flag outliers</dt>
+          <dd>{{ maxMag }}</dd>
+        </ng-container>
+
       </dl>
     </ng-template>
   </mat-expansion-panel>
@@ -80,16 +127,27 @@
 
     <ng-template matExpansionPanelContent>
       <dl class="description-table" *ngIf="smProcessing.shakemap_versions">
-        <ng-container *ngFor="let name of headers['shakemap_versions']">
 
-          <ng-container *ngIf="smProcessing['shakemap_versions'][name]">
-            <dt>{{ names.shakemap_versions[name] }}</dt>
-            <dd>
-              {{ smProcessing['shakemap_versions'][name] }}
-            </dd>
-          </ng-container>
-
+        <ng-container *ngIf="smProcessing['shakemap_versions']['shakemap_revision']; let smRev">
+          <dt>Code</dt>
+          <dd>{{ smRev }}</dd>
         </ng-container>
+
+        <ng-container *ngIf="smProcessing['shakemap_versions']['shakemap_revision_id']; let smRevId">
+          <dt>Github commit</dt>
+          <dd>{{ smRevId }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smProcessing['shakemap_versions']['map_version']; let version">
+          <dt>Map version</dt>
+          <dd>{{ version }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="smProcessing['shakemap_versions']['process_time']; let time">
+          <dt>Date</dt>
+          <dd>{{ time | date:'medium' }}</dd>
+        </ng-container>
+
       </dl>
     </ng-template>
   </mat-expansion-panel>
@@ -105,16 +163,17 @@
     <ng-template matExpansionPanelContent>
 
       <dl class="description-table" *ngIf="smProcessing.site_response">
-        <ng-container *ngFor="let name of headers['site_response']">
 
-            <ng-container *ngIf="smProcessing['site_response'][name]">
-            <dt>{{ names.site_response[name] }}</dt>
-            <dd>
-              {{ smProcessing['site_response'][name] }}
-            </dd>
-
-          </ng-container>
+        <ng-container *ngIf="smProcessing['site_response']['vs30default']; let vs30">
+          <dt>Reference rock Vs30</dt>
+          <dd>{{ vs30 }}</dd>
         </ng-container>
+
+        <ng-container *ngIf="smProcessing['site_response']['site_correction']; let site">
+          <dt>Site correction applied</dt>
+          <dd>{{ site }}</dd>
+        </ng-container>
+
       </dl>
 
     </ng-template>
@@ -142,8 +201,10 @@
                       [class.mat-cell]="false"
                       class="mat-header-cell"
                       *matCellDef="let roi">
+
             {{ names.roi[roi.type] ? 
                 names.roi[roi.type] : roi.type }}
+
           </mat-cell>
         </ng-container>
 
@@ -152,7 +213,9 @@
             ROI
           </mat-header-cell>
           <mat-cell *matCellDef="let roi">
+            
             {{ roi.roi }}
+
           </mat-cell>
         </ng-container>
 
@@ -161,7 +224,9 @@
             Observation Decay
           </mat-header-cell>
           <mat-cell *matCellDef="let roi">
+
             {{ roi.decay }}
+            
           </mat-cell>
         </ng-container>
 
