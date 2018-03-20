@@ -11,18 +11,6 @@
       </ng-template>
     </mat-card-title>
 
-    <!-- Subtitle -->
-    <mat-card-subtitle>
-      <ng-container *ngIf="subtitle; else noSubtitle">
-        {{ subtitle }}
-      </ng-container>
-      <ng-template #noSubtitle>
-        Contributed by
-        <shared-product-attribution [product]="product">
-        </shared-product-attribution>
-      </ng-template>
-    </mat-card-subtitle>
-
     <!-- Image -->
     <ng-content select="[card-image]"></ng-content>
 
@@ -43,4 +31,15 @@
       </ng-template>
     </mat-card-actions>
 
+    <!-- Footer -->
+    <mat-card-footer>
+      <ng-container *ngIf="subtitle; else noSubtitle">
+        {{ subtitle }}
+      </ng-container>
+      <ng-template #noSubtitle>
+        Contributed by
+        <shared-product-attribution [product]="product">
+        </shared-product-attribution>
+      </ng-template>
+    </mat-card-footer>
   </mat-card>
