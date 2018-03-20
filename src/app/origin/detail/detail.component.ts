@@ -32,7 +32,7 @@ export class DetailComponent {
   }
 
   getProduct (event: Event): any {
-    let product = event.getProduct('origin') || {};
+    let product = this.eventService.product$.getValue() || {};
 
     if (product && product.phasedata) {
       product = product.phasedata;
