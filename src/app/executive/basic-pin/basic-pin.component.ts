@@ -10,10 +10,6 @@ import { Event } from '../../event';
   styleUrls: ['./basic-pin.component.css']
 })
 export class BasicPinComponent {
-
-  // router link for action button
-  @Input() action;
-
   // router link for entire card action
   @Input() link;
 

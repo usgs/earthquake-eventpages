@@ -23,7 +23,6 @@ describe('MomentTensorPinComponent', () => {
         MockComponent({
           selector: 'basic-pin',
           inputs: [
-            'action',
             'link',
             'product',
             'subtitle',
