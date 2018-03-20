@@ -1,0 +1,69 @@
+<ng-container *ngIf="products && products.length != 0">
+
+  <h2>Focal Mechanism</h2>
+
+  <mat-table [dataSource]="this.products">
+    <!-- render order is defined by columnsToDisplay -->
+    <mat-header-row *matHeaderRowDef="this.columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay"></mat-row>
+
+    <ng-container matColumnDef="catalog">
+      <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>
+      <mat-cell *matCellDef="let product">
+        <a
+            [routerLink]="['/', event?.id, 'origin']"
+            [queryParams]="{ source: product.source, code: product.code }">
+          {{ product.properties.eventsource.toUpperCase() }}
+        </a>
+      </mat-cell>
+    </ng-container>
+    'catalog',
+    'mechanism',
+    'nodalPlane 1',
+    'nodalPlane 2',
+    'source'
+    <ng-container matColumnDef="mechanism">
+      <mat-header-cell *matHeaderCellDef>
+        <abbr title="Mechanism">Mechanism</abbr>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let product">
+        <basic-pin
+            [link]="link"
+            [product]="product"
+            [title]="title">
+          <shared-beachball card-content
+              [fillColor]="'#ffaa69'"
+              [labelAxes]="false"
+              [labelPlanes]="false"
+              [tensor]="tensor">
+          </shared-beachball>
+        </basic-pin>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nodalPlane1">
+      <mat-header-cell *matHeaderCellDef>Nodal Plane 1</mat-header-cell>
+      <mat-cell *matCellDef="let product">
+        {{ product.properties.np1.strike }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nodalPlane2">
+      <mat-header-cell *matHeaderCellDef>Nodal Plane 2</mat-header-cell>
+      <mat-cell *matCellDef="let product">
+        {{ product.properties.np2.strike }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="source">
+      <mat-header-cell *matHeaderCellDef>Source</mat-header-cell>
+      <mat-cell *matCellDef="let product">
+        <shared-product-attribution
+            [product]="product">
+        </shared-product-attribution>
+      </mat-cell>
+    </ng-container>
+
+  </mat-table>
+
+</ng-container>
