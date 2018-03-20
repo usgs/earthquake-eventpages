@@ -1,0 +1,20 @@
+<ng-container *ngIf="tensor">
+  <dl class="description-table">
+    <dt>Catalog</dt>
+    <dd>{{ tensor.product.properties.eventsource.toUpperCase() }}</dd>
+
+    <dt>Data Source</dt>
+    <dd>
+      <shared-product-attribution
+          [product]="{ source: tensor.product.properties['beachball-source'] || tensor.product.source }">
+      </shared-product-attribution>
+    </dd>
+
+    <dt>Contributor</dt>
+    <dd>
+      <shared-product-attribution
+          [product]="{ source: tensor.product.source }">
+      </shared-product-attribution>
+    </dd>
+  </dl>
+</ng-container>

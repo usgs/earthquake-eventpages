@@ -1,3 +1,27 @@
-<p>
-  focal-mechanism works!
-</p>
+<!-- productType attribute defines type of product to load -->
+<product-page productType="focal-mechanism">
+
+  <!-- container with header attribute is added before attribution -->
+  <ng-container header>
+    <h3>Focal Mechanism</h3>
+  </ng-container>
+
+  <div class="row" *ngIf="tensor">
+    <div class="column">
+      <focal-mechanism-attribution [tensor]="tensor"></focal-mechanism-attribution>
+      <shared-nodal-planes [tensor]="tensor"></shared-nodal-planes>
+    </div>
+
+    <div class="column">
+      <shared-beachball
+          [fillColor]="'#ffaa69'"
+          [tensor]="tensor">
+      </shared-beachball>
+    </div>
+  </div>
+
+  <!-- container with footer attribute is added before downloads -->
+  <ng-container footer>
+  </ng-container>
+
+</product-page>

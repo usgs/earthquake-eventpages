@@ -7,6 +7,7 @@ import { ProductPageModule } from '../product-page/product-page.module';
 
 import { FocalMechanismRoutingModule } from './focal-mechanism-routing.module';
 import { FocalMechanismComponent } from './focal-mechanism/focal-mechanism.component';
+import { AttributionComponent } from './attribution/attribution.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { FocalMechanismComponent } from './focal-mechanism/focal-mechanism.compo
     FocalMechanismRoutingModule
   ],
   declarations: [
-    FocalMechanismComponent
+    FocalMechanismComponent,
+    AttributionComponent
   ]
 })
 export class FocalMechanismModule { }
