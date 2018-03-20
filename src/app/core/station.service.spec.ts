@@ -36,10 +36,11 @@ describe('StationService', () => {
         inject([StationService], (service: StationService) => {
       const response = '';
 
-      service.getStations(PRODUCT);
-      const request = httpClient.expectOne('url');
-      request.flush(response);
-
+      expect(() => {
+        service.getStations(PRODUCT);
+        const request = httpClient.expectOne('url');
+        request.flush(response);
+      }).not.toThrowError();
     }));
 
     it('handles failure',
