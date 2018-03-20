@@ -42,11 +42,10 @@ node {
 
   try {
     stage('Initialize') {
-      // Clean up
-      cleanWs();
+      // Clean up old reports
+      sh "rm -rf ${OWASP_REPORT_DIR}"
 
       // Clone latest source
-      // SCM_VARS = checkout scm
       SCM_VARS = checkout scm
       sh "git fetch --tags origin"
 
