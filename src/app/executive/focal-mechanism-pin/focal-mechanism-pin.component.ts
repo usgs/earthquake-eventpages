@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Event } from '../../event';
 import { Tensor } from '../../shared/beachball/tensor';
 
+
 @Component({
   selector: 'executive-focal-mechanism-pin',
   templateUrl: './focal-mechanism-pin.component.html',
@@ -24,9 +25,8 @@ export class FocalMechanismPinComponent implements OnInit {
     return this._product;
   }
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit() {
-  }
+  ngOnInit () { }
 
 }
