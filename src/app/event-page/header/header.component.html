@@ -2,7 +2,7 @@
   <h1>{{ event | eventTitle }}</h1>
   <ul>
     <li [innerHTML]="event | eventDateTime"></li>
-    <li [innerHTML]="event | eventLocation"></li>
+    <li [innerHTML]="event | sharedEventLocation"></li>
     <li [innerHTML]="event | eventDepth"></li>
   </ul>
 </header>
