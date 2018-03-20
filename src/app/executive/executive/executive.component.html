@@ -16,16 +16,21 @@
       </executive-origin-pin>
     </li>
 
-    <li class="executive-summary-pin" *ngIf="event.getProduct('moment-tensor'); let momentTensor">
+    <li class="executive-summary-pin" *ngIf="event.getProduct('moment-tensor');
+        else focalMechanism;
+        let momentTensor">
       <executive-moment-tensor-pin [product]="momentTensor" class="pin-view">
       </executive-moment-tensor-pin>
     </li>
-    <li class="executive-summary-pin"
-        *ngIf="event.getProduct('focal-mechanism'); let focalMechanism">
-      <executive-focal-mechanism-pin [product]="focalMechanism"
-          class="pin-view">
-      </executive-focal-mechanism-pin>
-    </li>
+
+    <ng-template #focalMechanism>
+      <li class="executive-summary-pin"
+          *ngIf="event.getProduct('focal-mechanism'); let focalMechanism">
+        <executive-focal-mechanism-pin [product]="focalMechanism"
+            class="pin-view">
+        </executive-focal-mechanism-pin>
+      </li>
+    </ng-template>
   </ul>
 
   <shared-text-product

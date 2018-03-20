@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatCardModule } from '@angular/material';
+import { Mock } from 'protractor/built/driverProviders';
+import { MockComponent } from 'ng2-mock-component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { FocalMechanismPinComponent } from './focal-mechanism-pin.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MatCardModule } from '@angular/material';
-import { MockComponent } from 'ng2-mock-component';
-import { Mock } from 'protractor/built/driverProviders';
 import { Tensor } from '../../shared/beachball/tensor';
 
 
