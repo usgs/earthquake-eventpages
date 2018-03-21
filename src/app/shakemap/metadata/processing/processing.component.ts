@@ -23,6 +23,13 @@ export class ProcessingComponent implements OnInit {
     }
   };
 
+  public abbreviations = {
+        'gmpe': 'Ground Motion Prediction Equation',
+        'gmice': 'Ground Motion Intensity Conversion Equation',
+        'ipe': 'Intensity Prediction Equation',
+        'igmice': 'Inverse Ground Motion Intensity Conversion Equation'
+  };
+
   public headers: any = {
     'groundMotionModules': ['type', 'module', 'reference'],
     'roi': ['type', 'roi', 'observation_decay']

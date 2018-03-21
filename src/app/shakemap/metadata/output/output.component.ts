@@ -32,6 +32,19 @@ export class OutputComponent implements OnInit {
       },
   };
 
+  public abbreviations = {
+      'SA(0.3)': 'Spectral acceleration at 0.3 seconds',
+      'SA(1.0)': 'Spectral acceleration at 1.0 seconds',
+      'SA(3.0)': 'Spectral acceleration at 3.0 seconds',
+      'psa03': 'Spectral acceleration at 0.3 seconds',
+      'psa10': 'Spectral acceleration at 1.0 seconds',
+      'psa30': 'Spectral acceleration at 1.0 seconds',
+      'PGA': 'Peak Ground Acceleration',
+      'PGV': 'Peak Ground Velocity',
+      'pga': 'Percent of Gravitational Acceleration',
+      'pgv': 'Peak Ground Velocity'
+  };
+
   public headers: any = {
     'groundMotions': ['type', 'max', 'max_on_land', 'bias'],
     'mapInformation': ['type', 'lat', 'lon']

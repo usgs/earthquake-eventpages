@@ -20,8 +20,20 @@
                       [class.mat-cell]="false"
                       class="mat-header-cell"
                       *matCellDef="let groundMotion">
+            
+            <ng-container *ngIf="names.groundMotions[groundMotion.type] as name">
+              <ng-container *ngIf="abbreviations[groundMotion.type] as abbr;
+                                    else noAbbr">
 
-            {{ names.groundMotions[groundMotion.type] }}
+                <abbr title="{{ abbr }}">{{ name }}</abbr>
+
+              </ng-container>
+
+              <ng-template #noAbbr>
+                {{ name }}
+              </ng-template>
+
+            </ng-container>
             
           </mat-cell>
         </ng-container>
@@ -127,24 +139,24 @@
 
     <ng-template matExpansionPanelContent>
 
-      <dl class="description-table" *ngIf="smOutput.uncertainty; let uncertainty">
+      <dl class="description-table" *ngIf="smOutput.uncertainty as uncertainty">
 
-          <ng-container *ngIf="uncertainty.mean_uncertainty_ratio; let ratio">
+          <ng-container *ngIf="uncertainty.mean_uncertainty_ratio as ratio">
             <dt>Mean of map uncertainty</dt>
             <dd>{{ ratio | sharedNumber }}</dd>
           </ng-container>
 
-          <ng-container *ngIf="uncertainty.grade; let grade">
+          <ng-container *ngIf="uncertainty.grade as grade">
             <dt>Empirical ShakeMap grade</dt>
             <dd>{{ grade }}</dd>
           </ng-container>
 
-          <ng-container *ngIf="uncertaintytotal_flagged_mi; let miFlag">
+          <ng-container *ngIf="uncertaintytotal_flagged_mi as miFlag">
             <dt>Flagged Seismic Stations</dt>
             <dd>{{ miFlag }}</dd>
           </ng-container>
 
-          <ng-container *ngIf="uncertainty.total_flagged_pgm; let pgmFlag">
+          <ng-container *ngIf="uncertainty.total_flagged_pgm as pgmFlag">
             <dt>Flagged DYFI stations</dt>
             <dd>{{ pgmFlag }}</dd>
           </ng-container>
