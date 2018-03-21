@@ -20,7 +20,21 @@
                       [class.mat-cell]="false"
                       class="mat-header-cell"
                       *matCellDef="let groundMotion">
-            {{ names.groundMotions[groundMotion.type] }}
+            
+            <ng-container *ngIf="names.groundMotions[groundMotion.type] as name">
+              <ng-container *ngIf="abbreviations[groundMotion.type] as abbr;
+                                    else noAbbr">
+
+                <abbr title="{{ abbr }}">{{ name }}</abbr>
+
+              </ng-container>
+
+              <ng-template #noAbbr>
+                {{ name }}
+              </ng-template>
+
+            </ng-container>
+            
           </mat-cell>
         </ng-container>
 
@@ -29,8 +43,9 @@
             Max Value in Grid
           </mat-header-cell>
           <mat-cell *matCellDef="let groundMotion">
-            {{ groundMotion.max_grid }} 
-            {{ groundMotion.units === 'intensity' ? 'mmi' : groundMotion.units }} 
+
+            {{ groundMotion.max_grid | sharedUnits:groundMotion.units }}
+
           </mat-cell>
         </ng-container>
 
@@ -39,8 +54,9 @@
             Max Value on Land
           </mat-header-cell>
           <mat-cell *matCellDef="let groundMotion">
-            {{ groundMotion.max }} 
-            {{ groundMotion.units === 'intensity' ? 'mmi' : groundMotion.units }} 
+
+            {{ groundMotion.max | sharedUnits:groundMotion.units }}
+
           </mat-cell>
         </ng-container>
 
@@ -49,7 +65,9 @@
             Bias
           </mat-header-cell>
           <mat-cell *matCellDef="let groundMotion">
+
             {{ groundMotion.bias }}
+
           </mat-cell>
         </ng-container>
 
@@ -79,7 +97,9 @@
                       [class.mat-cell]="false"
                       class="mat-header-cell"
                       *matCellDef="let mapInfo">
+
             {{ names.mapInformation[mapInfo.type] }}
+
           </mat-cell>
         </ng-container>
 
@@ -88,9 +108,9 @@
             Latitude
           </mat-header-cell>
           <mat-cell *matCellDef="let mapInfo">
-            {{ mapInfo.units === 'count' ? mapInfo.latitude :
-                mapInfo.units === 'degrees' ? (mapInfo.latitude | sharedDegrees) :
-                mapInfo.latitude + ' ' + mapInfo.units }}
+
+            {{ mapInfo.latitude | sharedUnits:mapInfo.units }}
+
           </mat-cell>
         </ng-container>
 
@@ -99,9 +119,9 @@
             Longitude
           </mat-header-cell>
           <mat-cell *matCellDef="let mapInfo">
-            {{ mapInfo.units === 'count' ? mapInfo.longitude :
-                mapInfo.units === 'degrees' ? (mapInfo.longitude | sharedDegrees) :
-                mapInfo.longitude + ' ' + mapInfo.units }}
+
+            {{ mapInfo.longitude | sharedUnits:mapInfo.units }}
+
           </mat-cell>
         </ng-container>
 
@@ -119,17 +139,28 @@
 
     <ng-template matExpansionPanelContent>
 
-      <dl class="description-table" *ngIf="smOutput.uncertainty">
-        <ng-container *ngFor="let name of headers['uncertainty']">
+      <dl class="description-table" *ngIf="smOutput.uncertainty as uncertainty">
 
-          <ng-container *ngIf="smOutput['uncertainty'][name]">
-            <dt>{{ names.uncertainty[name] }}</dt>
-            <dd>
-              {{ smOutput['uncertainty'][name] }}
-            </dd>
+          <ng-container *ngIf="uncertainty.mean_uncertainty_ratio as ratio">
+            <dt>Mean of map uncertainty</dt>
+            <dd>{{ ratio | sharedNumber }}</dd>
+          </ng-container>
+
+          <ng-container *ngIf="uncertainty.grade as grade">
+            <dt>Empirical ShakeMap grade</dt>
+            <dd>{{ grade }}</dd>
+          </ng-container>
+
+          <ng-container *ngIf="uncertaintytotal_flagged_mi as miFlag">
+            <dt>Flagged Seismic Stations</dt>
+            <dd>{{ miFlag }}</dd>
+          </ng-container>
+
+          <ng-container *ngIf="uncertainty.total_flagged_pgm as pgmFlag">
+            <dt>Flagged DYFI stations</dt>
+            <dd>{{ pgmFlag }}</dd>
           </ng-container>
           
-        </ng-container>
       </dl>
 
     </ng-template>

@@ -1,4 +1,4 @@
-<div *ngIf="smInput">
+<div *ngIf="smInput?.event_information as eventInfo">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
         <mat-panel-title>
@@ -9,19 +9,76 @@
     <ng-template matExpansionPanelContent>
 
       <dl class="description-table">
-        <ng-container *ngFor="let name of rowOrder">
-
-          <ng-container *ngIf="smInput['event_information'][name]">
-            <dt>{{ names[name] }}</dt>
-            <dd>
-              {{ name === 'depth' ? smInput['event_information'][name] + ' km' : 
-                  (name === 'longitude' || name === 'latitude') ? (smInput['event_information'][name] | sharedDegrees) : 
-                  name === 'origin_time' ? (smInput['event_information'][name] | date:'medium') :
-                  smInput['event_information'][name] }}
-            </dd>
-          </ng-container>
-          
+        
+        <ng-container *ngIf="eventInfo.event_description as description">
+          <dt>Description</dt>
+          <dd>{{ description }}</dd>
         </ng-container>
+
+        <ng-container *ngIf="eventInfo.event_id as eventId">
+          <dt>ID</dt>
+          <dd>{{ eventId }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="eventInfo.magnitude as mag">
+          <dt>Magnitude</dt>
+          <dd>{{ mag }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="eventInfo.depth as depth">
+          <dt>Depth</dt>
+          <dd>{{ depth | sharedNumber:1:'km' }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="eventInfo.latitude as lat">
+          <ng-container *ngIf="eventInfo.longitude as lng">
+
+            <dt>GPS location</dt>
+            <dd>{{ [lng, lat] | sharedLocation }}</dd>
+
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="eventInfo.origin_time as oTime">
+          <dt>Origin time</dt>
+          <dd>{{ oTime | sharedDate }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="eventInfo.mech_src as mechSrc">
+          <dt>Mechanism</dt>
+          <dd>{{ mechSrc }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="eventInfo.src_mech as srcMech">
+          <dt>Mechanism source</dt>
+          <dd>{{ srcMech }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="eventInfo.location as loc">
+          <dt>Location</dt>
+          <dd>{{ loc }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="eventInfo.faultfiles as faultFiles">
+          <dt>Fault files</dt>
+          <dd>{{ faultFiles }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="eventInfo.fault_ref as faultRef">
+          <dt>Fault reference</dt>
+          <dd>{{ faultRef }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="eventInfo.seismic_stations as stations">
+          <dt>Number of seismic stations</dt>
+          <dd>{{ stations }}</dd>
+        </ng-container>
+
+        <ng-container *ngIf="eventInfo.intensity_observations as intObs">
+          <dt>Number of DYFI stations</dt>
+          <dd>{{ intObs }}</dd>
+        </ng-container>
+          
       </dl>
 
     </ng-template>

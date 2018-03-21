@@ -17,7 +17,9 @@ describe('OutputComponent', () => {
       declarations: [
         OutputComponent,
 
-        MockPipe('sharedDegrees')
+        MockPipe('sharedDegrees'),
+        MockPipe('sharedNumber'),
+        MockPipe('sharedUnits')
       ]
     })
     .compileComponents();

@@ -12,12 +12,12 @@ export class OutputComponent implements OnInit {
       'PGV': 'PGV',
       'pga': 'PGA',
       'pgv': 'PGV',
-      'SA(0.3)': 'PSA03',
-      'SA(1.0)': 'PSA10',
-      'SA(3.0)': 'PSA30',
-      'psa03': 'PSA03',
-      'psa10': 'PSA10',
-      'psa30': 'PSA30',
+      'SA(0.3)': 'SA(0.3s)',
+      'SA(1.0)': 'SA(1.0s)',
+      'SA(3.0)': 'SA(3.0s)',
+      'psa03': 'SA(0.3s)',
+      'psa10': 'SA(1.0s)',
+      'psa30': 'SA(3.0s)',
       'bias': 'Bias',
       'MMI': 'Intensity',
       'mmi': 'Intensity',
@@ -30,25 +30,30 @@ export class OutputComponent implements OnInit {
         'min': 'Min',
         'max': 'Max'
       },
-    'uncertainty': {
-        'total_flagged_mi': 'Flagged seismic stations',
-        'grade': 'Empirical ShakeMap grade',
-        'total_flagged_pgm': 'Flagged DYFI stations',
-        'mean_uncertainty_ratio': 'Mean of map uncertainty'
-      }
+  };
+
+  public abbreviations = {
+      'SA(0.3)': 'Spectral acceleration at 0.3 seconds',
+      'SA(1.0)': 'Spectral acceleration at 1.0 seconds',
+      'SA(3.0)': 'Spectral acceleration at 3.0 seconds',
+      'psa03': 'Spectral acceleration at 0.3 seconds',
+      'psa10': 'Spectral acceleration at 1.0 seconds',
+      'psa30': 'Spectral acceleration at 1.0 seconds',
+      'PGA': 'Peak Ground Acceleration',
+      'PGV': 'Peak Ground Velocity',
+      'pga': 'Percent of Gravitational Acceleration',
+      'pgv': 'Peak Ground Velocity'
   };
 
   public headers: any = {
     'groundMotions': ['type', 'max', 'max_on_land', 'bias'],
-    'mapInformation': ['type', 'lat', 'lon'],
-    'uncertainty': ['mean_uncertainty_ratio', 'grade', 'total_flagged_mi',
-                      'total_flagged_pgm']
+    'mapInformation': ['type', 'lat', 'lon']
   };
 
-  constructor() { }
-  @Input() smOutput: any;
+  constructor () { }
+  @Input () smOutput: any;
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
 }

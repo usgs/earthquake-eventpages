@@ -18,7 +18,10 @@ describe('InputComponent', () => {
       declarations: [
         InputComponent,
 
-        MockPipe('sharedDegrees')
+        MockPipe('sharedDegrees'),
+        MockPipe('sharedNumber'),
+        MockPipe('sharedLocation'),
+        MockPipe('sharedDate')
       ]
     })
     .compileComponents();

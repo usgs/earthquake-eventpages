@@ -21,9 +21,12 @@ import { UncertainValueComponent } from './uncertain-value/uncertain-value.compo
 
 import { NumberPipe } from './number.pipe';
 import { DegreesPipe } from './degrees.pipe';
+import { UnitsPipe } from './units.pipe';
+import { LocationPipe } from './location.pipe';
 import { BubbleComponent } from './bubble/bubble.component';
 
 import { StationComponent } from './station/station.component';
+import { DatePipe } from './date.pipe';
 
 
 @NgModule({
@@ -43,6 +46,8 @@ import { StationComponent } from './station/station.component';
     BubbleComponent,
     CoordinatesComponent,
     DegreesPipe,
+    UnitsPipe,
+    LocationPipe,
     DownloadDialogComponent,
     FeRegionComponent,
     LinkProductComponent,
@@ -52,7 +57,8 @@ import { StationComponent } from './station/station.component';
     ProductAttributionComponent,
     TextProductComponent,
     UncertainValueComponent,
-    StationComponent
+    StationComponent,
+    DatePipe
   ],
   exports: [
     AttributionComponent,
@@ -61,6 +67,8 @@ import { StationComponent } from './station/station.component';
     BubbleComponent,
     CoordinatesComponent,
     DegreesPipe,
+    UnitsPipe,
+    LocationPipe,
     DownloadDialogComponent,
     FeRegionComponent,
     LinkProductComponent,
@@ -71,7 +79,8 @@ import { StationComponent } from './station/station.component';
     PreferredCheckComponent,
     TextProductComponent,
     UncertainValueComponent,
-    StationComponent
+    StationComponent,
+    DatePipe
   ],
   entryComponents: [
     DownloadDialogComponent
