@@ -127,24 +127,24 @@
 
     <ng-template matExpansionPanelContent>
 
-      <dl class="description-table" *ngIf="smOutput.uncertainty">
+      <dl class="description-table" *ngIf="smOutput.uncertainty; let uncertainty">
 
-          <ng-container *ngIf="smOutput['uncertainty']['mean_uncertainty_ratio']; let ratio">
+          <ng-container *ngIf="uncertainty.mean_uncertainty_ratio; let ratio">
             <dt>Mean of map uncertainty</dt>
             <dd>{{ ratio | sharedNumber }}</dd>
           </ng-container>
 
-          <ng-container *ngIf="smOutput['uncertainty']['grade']; let grade">
+          <ng-container *ngIf="uncertainty.grade; let grade">
             <dt>Empirical ShakeMap grade</dt>
             <dd>{{ grade }}</dd>
           </ng-container>
 
-          <ng-container *ngIf="smOutput['uncertainty']['total_flagged_mi']; let miFlag">
+          <ng-container *ngIf="uncertaintytotal_flagged_mi; let miFlag">
             <dt>Flagged Seismic Stations</dt>
             <dd>{{ miFlag }}</dd>
           </ng-container>
 
-          <ng-container *ngIf="smOutput['uncertainty']['total_flagged_pgm']; let pgmFlag">
+          <ng-container *ngIf="uncertainty.total_flagged_pgm; let pgmFlag">
             <dt>Flagged DYFI stations</dt>
             <dd>{{ pgmFlag }}</dd>
           </ng-container>
