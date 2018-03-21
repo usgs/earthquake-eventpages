@@ -14,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { EventDateTimePipe } from './event-date-time.pipe';
 import { EventDepthPipe } from './event-depth.pipe';
 import { EventTitlePipe } from './event-title.pipe';
+import { EventLocationPipe } from './event-location.pipe';
 import { ContributorListPipe } from './contributor-list.pipe';
 import { NavigationComponent } from './navigation/navigation.component';
 import { SharedModule } from '../shared/shared.module';
@@ -38,6 +39,7 @@ import { SharedModule } from '../shared/shared.module';
     EventDateTimePipe,
     EventDepthPipe,
     EventTitlePipe,
+    EventLocationPipe,
     ContributorListPipe,
     NavigationComponent
   ],

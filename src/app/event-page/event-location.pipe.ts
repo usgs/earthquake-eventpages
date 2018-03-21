@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { FormatterService } from '../core/formatter.service';
 
 @Pipe({
-  name: 'sharedEventLocation'
+  name: 'eventLocation'
 })
 export class EventLocationPipe implements PipeTransform {
 
