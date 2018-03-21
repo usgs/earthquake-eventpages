@@ -1,33 +1,29 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
-
   <shared-text-product
       *ngFor="let product of event.getProducts('general-header')"
       [product]="product">
   </shared-text-product>
 
-  <ul class="executive-summary-pins">
-    <li class="executive-summary-pin">
-      <executive-region-info-pin [event]="event" class="pin-view">
+  <ul class="pins">
+    <li>
+      <executive-region-info-pin [event]="event">
       </executive-region-info-pin>
     </li>
 
-    <li class="executive-summary-pin" *ngIf="event.getProduct('origin'); let origin">
-      <executive-origin-pin [product]="origin" class="pin-view">
+    <li *ngIf="event.getProduct('origin') as origin">
+      <executive-origin-pin [product]="origin">
       </executive-origin-pin>
     </li>
 
-    <li class="executive-summary-pin" *ngIf="event.getProduct('moment-tensor');
-        else focalMechanism;
-        let momentTensor">
-      <executive-moment-tensor-pin [product]="momentTensor" class="pin-view">
+    <li *ngIf="event.getProduct('moment-tensor') as momentTensor;
+        else noMomentTensor">
+      <executive-moment-tensor-pin [product]="momentTensor">
       </executive-moment-tensor-pin>
     </li>
 
-    <ng-template #focalMechanism>
-      <li class="executive-summary-pin"
-          *ngIf="event.getProduct('focal-mechanism'); let focalMechanism">
-        <executive-focal-mechanism-pin [product]="focalMechanism"
-            class="pin-view">
+    <ng-template #noMomentTensor>
+      <li *ngIf="event.getProduct('focal-mechanism') as focalMechanism">
+        <executive-focal-mechanism-pin [product]="focalMechanism">
         </executive-focal-mechanism-pin>
       </li>
     </ng-template>
@@ -47,5 +43,4 @@
     </li>
     </ul>
   </ng-container>
-
 </ng-container>

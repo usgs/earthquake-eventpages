@@ -24,10 +24,9 @@ describe('FocalMechanismPinComponent', () => {
         MockComponent({
           selector: 'basic-pin',
           inputs: [
-            'action',
+            'footer',
             'link',
             'product',
-            'subtitle',
             'title'
           ]
         }),

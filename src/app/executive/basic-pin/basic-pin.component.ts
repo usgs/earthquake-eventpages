@@ -7,22 +7,18 @@ import { Event } from '../../event';
 @Component({
   selector: 'basic-pin',
   templateUrl: './basic-pin.component.html',
-  styleUrls: ['./basic-pin.component.css']
+  styleUrls: ['./basic-pin.component.scss']
 })
 export class BasicPinComponent {
-
-  // router link for action button
-  @Input() action;
-
   // router link for entire card action
   @Input() link;
 
   // product attribution
-  // only used if subtitle is not provided
+  // only used if footer is not provided
   @Input() product;
 
-  // text for subtitle
-  @Input() subtitle;
+  // text for footer
+  @Input() footer;
 
   // text for title
   @Input() title;

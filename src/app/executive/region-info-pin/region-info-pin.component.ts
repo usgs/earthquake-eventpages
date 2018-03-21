@@ -15,7 +15,7 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
   public map: L.Map;
   public marker: L.Marker;
 
-  public title = 'Region Info';
+  public title = 'Regional Information';
   public product: any = null;
   public link = '../region-info';
 
@@ -33,10 +33,10 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
     return this._event;
   }
 
-  constructor() { }
+  constructor () { }
 
 
-  ngAfterViewInit() {
+  ngAfterViewInit () {
     // Create the map with nat geo
     this.map = L.map(this.regionInfoMap.nativeElement, {
       attributionControl: false,
@@ -67,7 +67,7 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
 
     // create and add marker to map
     this.marker = L.marker(
-      [ 0, 0 ],
+      [0, 0],
       {
         icon: L.icon({
           iconUrl: 'assets/star.png',
@@ -143,6 +143,5 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
     // Invalidate map size
     this.map.invalidateSize();
   }
-
 }
 
