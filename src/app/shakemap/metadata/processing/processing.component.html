@@ -18,10 +18,10 @@
           <mat-cell [attr.role]="'rowheader'"
                       [class.mat-cell]="false"
                       class="mat-header-cell"
-                      *matCellDef="let gMM">
+                      *matCellDef="let module">
 
-            {{ names.ground_motion_modules[gMM.type] ? 
-                names.ground_motion_modules[gMM.type] : gMM.type }}
+            {{ names.ground_motion_modules[module.type] ? 
+                names.ground_motion_modules[module.type] : module.type }}
 
           </mat-cell>
         </ng-container>
@@ -30,9 +30,9 @@
           <mat-header-cell *matHeaderCellDef>
             Module
           </mat-header-cell>
-          <mat-cell *matCellDef="let gMM">
+          <mat-cell *matCellDef="let module">
 
-            {{ gMM.module }}
+            {{ module.module }}
 
           </mat-cell>
         </ng-container>
@@ -41,9 +41,9 @@
           <mat-header-cell *matHeaderCellDef>
             Reference
           </mat-header-cell>
-          <mat-cell *matCellDef="let gMM">
+          <mat-cell *matCellDef="let module">
 
-            {{ gMM.reference }}
+            {{ module.reference }}
 
           </mat-cell>
         </ng-container>
