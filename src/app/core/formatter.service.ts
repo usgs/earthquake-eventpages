@@ -25,7 +25,7 @@ export class FormatterService {
   angle (angle: any, decimals: number): string {
       if (angle || angle === 0) {
         // Note: Append &deg; manually to avoid space between value/units
-        return this.number(angle, decimals) + '&deg;';
+        return this.number(angle, decimals) + '°';
       } else {
         return this.empty;
       }
@@ -153,7 +153,7 @@ export class FormatterService {
     // already have sign information, abs and round
     result = this.number(Math.abs(latitude), decimals);
 
-    return `${result}&deg;${latDir}`;
+    return `${result}°${latDir}`;
   }
 
   /**
@@ -170,7 +170,7 @@ export class FormatterService {
    */
   location (latitude: number, longitude: number,
       decimals = this.locationDecimals): string {
-    return this.latitude(latitude, decimals) + '&nbsp;' +
+    return this.latitude(latitude, decimals) + ' ' +
         this.longitude(longitude, decimals);
   }
 
@@ -198,7 +198,7 @@ export class FormatterService {
     result = this.number(Math.abs(longitude), this.locationDecimals);
 
 
-    return `${result}&deg;${lngDir}`;
+    return `${result}°${lngDir}`;
   }
 
   /**

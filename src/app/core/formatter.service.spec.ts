@@ -28,19 +28,19 @@ describe('FormatterService', () => {
 
     it('formats zero angle', inject(
         [FormatterService], (formatter: FormatterService) => {
-      expect(formatter.angle(0, null)).toBe('0&deg;');
+      expect(formatter.angle(0, null)).toBe('0°');
     }));
 
     it('preserves when no decimals specified', inject(
         [FormatterService], (formatter: FormatterService) => {
-      expect(formatter.angle(1.2, null)).toBe('1.2&deg;');
+      expect(formatter.angle(1.2, null)).toBe('1.2°');
     }));
 
     it('rounds to specified number of decimals', inject(
         [FormatterService], (formatter: FormatterService) => {
-      expect(formatter.angle(1.2, 0)).toBe('1&deg;');
-      expect(formatter.angle(1.2, 1)).toBe('1.2&deg;');
-      expect(formatter.angle(1.2, 2)).toBe('1.20&deg;');
+      expect(formatter.angle(1.2, 0)).toBe('1°');
+      expect(formatter.angle(1.2, 1)).toBe('1.2°');
+      expect(formatter.angle(1.2, 2)).toBe('1.20°');
     }));
   });
 
@@ -125,8 +125,8 @@ describe('FormatterService', () => {
 
     it('formats direction', inject(
         [FormatterService], (formatter: FormatterService) => {
-      expect(formatter.latitude(1.2)).toEqual('1.200&deg;N');
-      expect(formatter.latitude(-1.2)).toEqual('1.200&deg;S');
+      expect(formatter.latitude(1.2)).toEqual('1.200°N');
+      expect(formatter.latitude(-1.2)).toEqual('1.200°S');
     }));
   });
 
@@ -134,12 +134,12 @@ describe('FormatterService', () => {
     it('formats as expected', inject(
         [FormatterService], (formatter: FormatterService) => {
       expect(formatter.location(1.23, 2.34)).toEqual(
-        formatter.latitude(1.23) + '&nbsp;' +
+        formatter.latitude(1.23) + ' ' +
         formatter.longitude(2.34)
       );
 
       expect(formatter.location(1.23, 2.34, 6)).toEqual(
-        formatter.latitude(1.23, 6) + '&nbsp;' +
+        formatter.latitude(1.23, 6) + ' ' +
         formatter.longitude(2.34, 6)
       );
     }));
@@ -153,8 +153,8 @@ describe('FormatterService', () => {
 
     it('formats direction', inject(
         [FormatterService], (formatter: FormatterService) => {
-      expect(formatter.longitude(1.2)).toEqual('1.200&deg;E');
-      expect(formatter.longitude(-1.2)).toEqual('1.200&deg;W');
+      expect(formatter.longitude(1.2)).toEqual('1.200°E');
+      expect(formatter.longitude(-1.2)).toEqual('1.200°W');
     }));
   });
 
