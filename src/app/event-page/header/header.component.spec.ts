@@ -16,7 +16,7 @@ describe('HeaderComponent', () => {
         MockPipe('eventTitle'),
         MockPipe('eventDateTime'),
         MockPipe('eventDepth'),
-        MockPipe('sharedEventLocation')
+        MockPipe('eventLocation')
       ]
     })
     .compileComponents();
