@@ -37,10 +37,10 @@ export class OutputComponent implements OnInit {
     'mapInformation': ['type', 'lat', 'lon']
   };
 
-  constructor() { }
-  @Input() smOutput: any;
+  constructor () { }
+  @Input () smOutput: any;
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
 }

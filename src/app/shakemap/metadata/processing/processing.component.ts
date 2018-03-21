@@ -28,10 +28,10 @@ export class ProcessingComponent implements OnInit {
     'roi': ['type', 'roi', 'observation_decay']
   };
 
-  constructor() { }
+  constructor () { }
   @Input() smProcessing: any;
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
 }
