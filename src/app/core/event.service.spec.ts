@@ -88,10 +88,12 @@ describe('EventService', () => {
 
       service.getEvent('first');
       req = httpClient.expectOne(`${environment.EVENT_SERVICE}/first.geojson`);
+      expect(req.request.method).toEqual('GET');
       req.flush({id: 'first'});
 
       service.getEvent('first');
       req = httpClient.expectOne(`${environment.EVENT_SERVICE}/first.geojson`);
+      expect(req.request.method).toEqual('GET');
       req.flush({id: 'first'});
     }));
   });

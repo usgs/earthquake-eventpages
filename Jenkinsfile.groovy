@@ -46,7 +46,6 @@ node {
       sh "rm -rf ${OWASP_REPORT_DIR}"
 
       // Clone latest source
-      // SCM_VARS = checkout scm
       SCM_VARS = checkout scm
       sh "git fetch --tags origin"
 
