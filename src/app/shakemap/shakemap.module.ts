@@ -46,7 +46,8 @@ import { ProcessingComponent } from './metadata/processing/processing.component'
     ProcessingComponent
   ],
   exports: [
-    StationListComponent
+    StationListComponent,
+    MetadataComponent
   ]
 })
 export class ShakemapModule { }
