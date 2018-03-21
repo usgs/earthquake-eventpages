@@ -1,5 +1,5 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
-  <ng-container *ngIf="getProduct(event); let product">
+  <ng-container *ngIf="getProduct(); let product">
     <table *ngIf="product.properties; let props">
       <tbody>
         <tr>
