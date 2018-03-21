@@ -20,7 +20,7 @@ describe('DetailComponent', () => {
       getEvent: jasmine.createSpy('eventService::getEvent'),
       getProduct: jasmine.createSpy('eventService::getProduct'),
       'product$': {
-        getValue: () => { return PRODUCT; }
+        getValue: () => PRODUCT
       }
     };
 
