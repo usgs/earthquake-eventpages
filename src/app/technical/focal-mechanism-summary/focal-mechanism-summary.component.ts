@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormatterService } from '../../core/formatter.service';
+import { Tensor } from '../../shared/beachball/tensor';
 
 @Component({
   selector: 'technical-focal-mechanism-summary',
@@ -16,13 +16,27 @@ export class FocalMechanismSummaryComponent implements OnInit {
     'source'
   ];
 
+ private _products: Array<any>;
+
   @Input() event: any;
-  @Input() products: Array<any>;
 
-  constructor(
-    public formatterService: FormatterService
-  ) { }
+  @Input() set products (products: Array<any>) {
+    this._products = products;
+    this.tensors = (products || []).map((p) => {
+      return Tensor.fromProduct(p);
+    });
+  }
 
-  ngOnInit () { }
+  get products () {
+    return this._products;
+  }
+
+  public tensors: Array<any> = [];
+
+  constructor () { }
+
+  ngOnInit () {
+  }
 
 }
+

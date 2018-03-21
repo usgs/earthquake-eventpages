@@ -2,64 +2,67 @@
 
   <h2>Focal Mechanism</h2>
 
-  <mat-table [dataSource]="this.products">
-    <!-- render order is defined by columnsToDisplay -->
+  <mat-table [dataSource]="this.tensors">
     <mat-header-row *matHeaderRowDef="this.columnsToDisplay"></mat-header-row>
     <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay"></mat-row>
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>
-      <mat-cell *matCellDef="let product">
+      <mat-cell *matCellDef="let tensor" class="unpreferred">
         <a
             [routerLink]="['/', event?.id, 'origin']"
-            [queryParams]="{ source: product.source, code: product.code }">
-          {{ product.properties.eventsource.toUpperCase() }}
+            [queryParams]="{ source: tensor.product.source,
+                code: tensor.product.code }">
+          {{ tensor.product.properties.eventsource.toUpperCase() }}
         </a>
       </mat-cell>
     </ng-container>
-    'catalog',
-    'mechanism',
-    'nodalPlane 1',
-    'nodalPlane 2',
-    'source'
     <ng-container matColumnDef="mechanism">
       <mat-header-cell *matHeaderCellDef>
-        <abbr title="Mechanism">Mechanism</abbr>
+        Mechanism
       </mat-header-cell>
-      <mat-cell *matCellDef="let product">
-        <basic-pin
-            [link]="link"
-            [product]="product"
-            [title]="title">
-          <shared-beachball card-content
-              [fillColor]="'#ffaa69'"
-              [labelAxes]="false"
-              [labelPlanes]="false"
-              [tensor]="tensor">
-          </shared-beachball>
-        </basic-pin>
+      <mat-cell *matCellDef="let tensor">
+        <shared-beachball card-content
+          [fillColor]="'#ffaa69'"
+          [labelAxes]="false"
+          [labelPlanes]="false"
+          [size]="30"
+          [tensor]="tensor">
+        </shared-beachball>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="nodalPlane1">
-      <mat-header-cell *matHeaderCellDef>Nodal Plane 1</mat-header-cell>
-      <mat-cell *matCellDef="let product">
-        {{ product.properties.np1.strike }}
+      <mat-header-cell *matHeaderCellDef>Nodal Plane 1 <br />
+        <small>Strike, Dip, Rake</small>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let tensor">
+        {{ tensor.product.properties['nodal-plane-1-strike'] | sharedDegrees }}
+        ,
+        {{ tensor.product.properties['nodal-plane-1-dip'] | sharedDegrees }}
+        ,
+        {{ tensor.product.properties['nodal-plane-1-rake'] | sharedDegrees }}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="nodalPlane2">
-      <mat-header-cell *matHeaderCellDef>Nodal Plane 2</mat-header-cell>
-      <mat-cell *matCellDef="let product">
-        {{ product.properties.np2.strike }}
+      <mat-header-cell *matHeaderCellDef>Nodal Plane 2 <br />
+        <small>Strike, Dip, Rake</small>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let tensor">
+        {{ tensor.product.properties['nodal-plane-2-strike'] | sharedDegrees }}
+        ,
+        {{ tensor.product.properties['nodal-plane-2-dip'] | sharedDegrees }}
+        ,
+        {{ tensor.product.properties['nodal-plane-2-rake'] | sharedDegrees }}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="source">
       <mat-header-cell *matHeaderCellDef>Source</mat-header-cell>
-      <mat-cell *matCellDef="let product">
+      <mat-cell *matCellDef="let tensor">
         <shared-product-attribution
-            [product]="product">
+            [product]="tensor.product">
         </shared-product-attribution>
       </mat-cell>
     </ng-container>
