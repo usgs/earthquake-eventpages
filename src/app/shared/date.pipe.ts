@@ -10,11 +10,11 @@ export class DatePipe implements PipeTransform {
   constructor (public formatter: FormatterService) { }
 
   transform(time: any): string {
-    let date;
 
-    try {
-      date = new Date(time);
-    } catch (e) {
+    let date = new Date(parseFloat(time));
+
+    // check for valid date
+    if (isNaN(date.getTime())) {
       date = null;
     }
 
