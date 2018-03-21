@@ -2,13 +2,9 @@
 
   <div class="input column" *ngIf="metadata.input">
     <h2>Input</h2>
-
-    <div class="event-info group" *ngIf="metadata.input">
-      <shakemap-input [smInput]="metadata?.input"></shakemap-input>
-    </div>
+    <shakemap-input [smInput]="metadata.input"></shakemap-input>
   </div>
     
-
   <div class="output column" *ngIf="metadata.output">
     <h2>Output</h2>
     <shakemap-output [smOutput]="metadata.output"></shakemap-output>
@@ -18,4 +14,5 @@
     <h2>Processing</h2>
       <shakemap-processing [smProcessing]="metadata.processing"></shakemap-processing>
   </div>
+  
 </div>
