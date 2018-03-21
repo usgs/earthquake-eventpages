@@ -2,7 +2,7 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
         <mat-panel-title>
-            Ground Mation/Intensity Information
+            Ground Motion/Intensity Information
         </mat-panel-title>
     </mat-expansion-panel-header>
 
@@ -18,10 +18,10 @@
           <mat-cell [attr.role]="'rowheader'"
                       [class.mat-cell]="false"
                       class="mat-header-cell"
-                      *matCellDef="let gmm">
+                      *matCellDef="let gMM">
 
-            {{ names.ground_motion_modules[gmm.type] ? 
-                names.ground_motion_modules[gmm.type] : gmm.type }}
+            {{ names.ground_motion_modules[gMM.type] ? 
+                names.ground_motion_modules[gMM.type] : gMM.type }}
 
           </mat-cell>
         </ng-container>
@@ -30,9 +30,9 @@
           <mat-header-cell *matHeaderCellDef>
             Module
           </mat-header-cell>
-          <mat-cell *matCellDef="let gmm">
+          <mat-cell *matCellDef="let gMM">
 
-            {{ gmm.module }}
+            {{ gMM.module }}
 
           </mat-cell>
         </ng-container>
@@ -41,9 +41,9 @@
           <mat-header-cell *matHeaderCellDef>
             Reference
           </mat-header-cell>
-          <mat-cell *matCellDef="let gmm">
+          <mat-cell *matCellDef="let gMM">
 
-            {{ gmm.reference }}
+            {{ gMM.reference }}
 
           </mat-cell>
         </ng-container>
@@ -61,54 +61,54 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <dl class="description-table" *ngIf="smProcessing.miscellaneous">
+      <dl class="description-table" *ngIf="smProcessing.miscellaneous; let miscellaneous">
 
-        <ng-container *ngIf="smProcessing['miscellaneous']['bias_max_mag']; let biasMaxMag">
+        <ng-container *ngIf="miscellaneous.bias_max_mag; let biasMaxMag">
           <dt>Max magnitude to compute bias</dt>
           <dd>{{ biasMaxMag }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['miscellaneous']['bias_max_range']; let biasMaxRange">
+        <ng-container *ngIf="miscellaneous.bias_max_range; let biasMaxRange">
           <dt>Maximum distance to include station in bias</dt>
           <dd>{{ biasMaxRange }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['miscellaneous']['bias_log_amp']; let biasLogAmp">
+        <ng-container *ngIf="miscellaneous.bias_log_amp; let biasLogAmp">
           <dt>Use log amp to compute bias</dt>
           <dd>{{ biasLogAmp }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['miscellaneous']['bias_max_bias']; let biasMaxBias">
+        <ng-container *ngIf="miscellaneous.bias_max_bias; let biasMaxBias">
           <dt>Max allowed bias</dt>
           <dd>{{ biasMaxBias }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['miscellaneous']['bias_min_bias']; let biasMinBias">
+        <ng-container *ngIf="miscellaneous.bias_min_bias; let biasMinBias">
           <dt>Use log amp to compute bias</dt>
           <dd>{{ biasMinBias }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['miscellaneous']['bias_min_stations']; let biasMinStations">
+        <ng-container *ngIf="miscellaneous.bias_min_stations; let biasMinStations">
           <dt>Min # of stations necessary to compute bias</dt>
           <dd>{{ biasMinStations }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['miscellaneous']['bias_norm']; let biasNorm">
+        <ng-container *ngIf="miscellaneous.bias_norm; let biasNorm">
           <dt>Norm of the bias</dt>
           <dd>{{ biasNorm }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['miscellaneous']['median_dist']; let medDist">
+        <ng-container *ngIf="miscellaneous.median_dist; let medDist">
           <dt>Median distance used</dt>
           <dd>{{ medDist }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['miscellaneous']['outlier_deviation_level']; let devLevel">
+        <ng-container *ngIf="miscellaneous.outlier_deviation_level; let devLevel">
           <dt>Outlier level (# of std dev)</dt>
           <dd>{{ devLevel }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['miscellaneous']['outlier_max_mag']; let maxMag">
+        <ng-container *ngIf="miscellaneous.outlier_max_mag; let maxMag">
           <dt>Max magnitude to flag outliers</dt>
           <dd>{{ maxMag }}</dd>
         </ng-container>
@@ -126,24 +126,24 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <dl class="description-table" *ngIf="smProcessing.shakemap_versions">
+      <dl class="description-table" *ngIf="smProcessing.shakemap_versions; let versions">
 
-        <ng-container *ngIf="smProcessing['shakemap_versions']['shakemap_revision']; let smRev">
+        <ng-container *ngIf="versions.shakemap_revision; let smRev">
           <dt>Code</dt>
           <dd>{{ smRev }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['shakemap_versions']['shakemap_revision_id']; let smRevId">
+        <ng-container *ngIf="versions.shakemap_revision_id; let smRevId">
           <dt>Github commit</dt>
           <dd>{{ smRevId }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['shakemap_versions']['map_version']; let version">
+        <ng-container *ngIf="versions.map_version; let version">
           <dt>Map version</dt>
           <dd>{{ version }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['shakemap_versions']['process_time']; let time">
+        <ng-container *ngIf="versions.process_time; let time">
           <dt>Date</dt>
           <dd>{{ time | date:'medium' }}</dd>
         </ng-container>
@@ -162,14 +162,14 @@
 
     <ng-template matExpansionPanelContent>
 
-      <dl class="description-table" *ngIf="smProcessing.site_response">
+      <dl class="description-table" *ngIf="smProcessing.site_response; let siteResp">
 
-        <ng-container *ngIf="smProcessing['site_response']['vs30default']; let vs30">
+        <ng-container *ngIf="siteResp.vs30default; let vs30">
           <dt>Reference rock Vs30</dt>
           <dd>{{ vs30 }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="smProcessing['site_response']['site_correction']; let site">
+        <ng-container *ngIf="siteResp.site_correction; let site">
           <dt>Site correction applied</dt>
           <dd>{{ site }}</dd>
         </ng-container>
