@@ -20,7 +20,8 @@ describe('InputComponent', () => {
 
         MockPipe('sharedDegrees'),
         MockPipe('sharedNumber'),
-        MockPipe('sharedEventLocation')
+        MockPipe('sharedLocation'),
+        MockPipe('sharedDate')
       ]
     })
     .compileComponents();

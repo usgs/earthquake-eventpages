@@ -1,4 +1,4 @@
-<div *ngIf="smInput.event_information; let event">
+<div *ngIf="smInput?.event_information; let eventInfo">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
         <mat-panel-title>
@@ -10,72 +10,71 @@
 
       <dl class="description-table">
         
-        <ng-container *ngIf="event.event_description; let description">
+        <ng-container *ngIf="eventInfo.event_description; let description">
           <dt>Description</dt>
           <dd>{{ description }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="event.event_id; let eventId">
+        <ng-container *ngIf="eventInfo.event_id; let eventId">
           <dt>ID</dt>
           <dd>{{ eventId }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="event.magnitude; let mag">
+        <ng-container *ngIf="eventInfo.magnitude; let mag">
           <dt>Magnitude</dt>
           <dd>{{ mag }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="event.depth; let depth">
+        <ng-container *ngIf="eventInfo.depth; let depth">
           <dt>Depth</dt>
           <dd>{{ depth | sharedNumber:1:'km' }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="event.latitude; let lat">
-          <ng-container *ngIf="event.longitude; let lng">
+        <ng-container *ngIf="eventInfo.latitude; let lat">
+          <ng-container *ngIf="eventInfo.longitude; let lng">
 
             <dt>GPS location</dt>
-            <dd [innerHtml]="{'geometry': 
-                                {'coordinates': [lng, lat]}} | sharedEventLocation"></dd>
+            <dd>{{ [lng, lat] | sharedLocation }}</dd>
 
           </ng-container>
         </ng-container>
 
-        <ng-container *ngIf="event.origin_time; let oTime">
+        <ng-container *ngIf="eventInfo.origin_time; let oTime">
           <dt>Origin time</dt>
-          <dd>{{ oTime | date:'medium' }}</dd>
+          <dd>{{ oTime | sharedDate }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="event.mech_src; let mechSrc">
+        <ng-container *ngIf="eventInfo.mech_src; let mechSrc">
           <dt>Mechanism</dt>
           <dd>{{ mechSrc }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="event.src_mech; let srcMech">
+        <ng-container *ngIf="eventInfo.src_mech; let srcMech">
           <dt>Mechanism source</dt>
           <dd>{{ srcMech }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="event.location; let loc">
+        <ng-container *ngIf="eventInfo.location; let loc">
           <dt>Location</dt>
           <dd>{{ loc }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="event.faultfiles; let faultFiles">
+        <ng-container *ngIf="eventInfo.faultfiles; let faultFiles">
           <dt>Fault files</dt>
           <dd>{{ faultFiles }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="event.fault_ref; let faultRef">
+        <ng-container *ngIf="eventInfo.fault_ref; let faultRef">
           <dt>Fault reference</dt>
           <dd>{{ faultRef }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="event.seismic_stations; let stations">
+        <ng-container *ngIf="eventInfo.seismic_stations; let stations">
           <dt>Number of seismic stations</dt>
           <dd>{{ stations }}</dd>
         </ng-container>
 
-        <ng-container *ngIf="event.intensity_observations; let intObs">
+        <ng-container *ngIf="eventInfo.intensity_observations; let intObs">
           <dt>Number of DYFI stations</dt>
           <dd>{{ intObs }}</dd>
         </ng-container>
