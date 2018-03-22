@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { MapComponent as SharedMapComponent } from '../../shared/map/map.component';
 
@@ -8,11 +8,4 @@ import { MapComponent as SharedMapComponent } from '../../shared/map/map.compone
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
-
-  constructor () { }
-
-  ngOnInit () {
-  }
-
-}
+export class MapComponent { }
