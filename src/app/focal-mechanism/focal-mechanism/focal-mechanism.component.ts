@@ -1,32 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { Tensor } from '../../shared/beachball/tensor';
 import { EventService } from '../../core/event.service';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'focal-mechanism',
   templateUrl: './focal-mechanism.component.html',
   styleUrls: ['./focal-mechanism.component.scss']
 })
-export class FocalMechanismComponent implements OnDestroy, OnInit {
+export class FocalMechanismComponent {
 
-  public tensor: Tensor = null;
-
-  private eventSubscription: Subscription;
-
-  constructor(
+  constructor (
     public eventService: EventService
   ) { }
-
-  ngOnInit () {
-    this.eventSubscription = this.eventService.product$.subscribe((product) => {
-      this.tensor = Tensor.fromProduct(product);
-    });
-  }
-
-  ngOnDestroy () {
-    this.eventSubscription.unsubscribe();
-  }
 
 }
