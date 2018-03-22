@@ -11,10 +11,6 @@ FROM ${BUILD_IMAGE} as buildenv
 COPY . /earthquake-eventpages
 WORKDIR /earthquake-eventpages
 
-#
-# Note : Installing git-all to provide Git CLI so long as NPM depends on
-#        unreleased package versions referencing Git repos.
-#
 
 RUN /bin/bash --login -c "\
     npm install --no-save && \
