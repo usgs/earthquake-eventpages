@@ -103,9 +103,6 @@ node {
       docker.image(TESTER_IMAGE).inside ("-u root") {
           ansiColor('xterm') {
             sh """
-              apt-get update && apt-get install -y --no-install-recommends git-all
-            """
-            sh """
               npm install --no-save
             """
             sh """

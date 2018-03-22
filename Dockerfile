@@ -17,7 +17,6 @@ WORKDIR /earthquake-eventpages
 #
 
 RUN /bin/bash --login -c "\
-    yum install -y git-all && \
     npm install --no-save && \
     npm run build -- --progress false --base-href /BASE_HREF/ \
   "
