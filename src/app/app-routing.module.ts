@@ -6,6 +6,7 @@ import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-pa
 
 import { ExecutiveComponent } from './executive/executive/executive.component';
 import { RegionInfoComponent } from './region-info/region-info/region-info.component';
+import { MapComponent } from './map/map/map.component';
 
 const appRoutes = [
   {
@@ -29,6 +30,10 @@ const appRoutes = [
       {
         path: 'executive',
         component: ExecutiveComponent
+      },
+      {
+        path: 'map',
+        component: MapComponent
       },
       {
         path: 'region-info',

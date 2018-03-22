@@ -13,6 +13,7 @@ import { CoordinatesComponent } from './coordinates/coordinates.component';
 import { DownloadDialogComponent } from './download-dialog/download-dialog.component';
 import { FeRegionComponent } from './fe-region/fe-region.component';
 import { LinkProductComponent } from './link-product/link-product.component';
+import { MapComponent } from './map/map.component';
 import { MmiComponent } from './mmi/mmi.component';
 import { NodalPlanesComponent } from './nodal-planes/nodal-planes.component';
 import { PreferredCheckComponent } from './preferred-check/preferred-check.component';
@@ -53,6 +54,7 @@ import { DateTimePipe } from './date-time.pipe';
     DownloadDialogComponent,
     FeRegionComponent,
     LinkProductComponent,
+    MapComponent,
     MmiComponent,
     NumberPipe,
     PreferredCheckComponent,
@@ -76,6 +78,7 @@ import { DateTimePipe } from './date-time.pipe';
     DownloadDialogComponent,
     FeRegionComponent,
     LinkProductComponent,
+    MapComponent,
     MatIconModule,
     MmiComponent,
     NodalPlanesComponent,
