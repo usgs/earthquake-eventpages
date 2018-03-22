@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Tensor } from '../../shared/beachball/tensor';
 import { EventService } from '../../core/event.service';
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './focal-mechanism.component.html',
   styleUrls: ['./focal-mechanism.component.scss']
 })
-export class FocalMechanismComponent implements OnInit {
+export class FocalMechanismComponent implements OnDestroy, OnInit {
 
   public tensor: Tensor = null;
 
