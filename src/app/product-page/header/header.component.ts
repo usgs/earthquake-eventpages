@@ -17,17 +17,17 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  isPreferred(): boolean {
+  isPreferred(event: any, product: any): boolean {
     try {
-      return this.product.id === this.event.properties.products[this.product.type][0].id;
+      return product.id === event.properties.products[product.type][0].id;
     } catch (e) {
       return false;
     }
   }
 
-  isReviewed(): boolean {
+  isReviewed(product: any): boolean {
     try {
-      return 'reviewed' === this.product.properties['review-status'].toLowerCase();
+      return 'reviewed' === product.properties['review-status'].toLowerCase();
     } catch (e) {
       return false;
     }

@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Tensor } from '../../shared/beachball/tensor';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { Tensor } from '../beachball/tensor';
 
 @Component({
-  selector: 'moment-tensor-nodal-planes',
+  selector: 'shared-nodal-planes',
   templateUrl: './nodal-planes.component.html',
-  styleUrls: ['./nodal-planes.component.css']
+  styleUrls: ['./nodal-planes.component.scss']
 })
 export class NodalPlanesComponent implements OnInit {
 

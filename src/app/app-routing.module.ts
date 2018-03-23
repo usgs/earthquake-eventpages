@@ -53,6 +53,10 @@ const appRoutes = [
       {
         path: 'moment-tensor',
         loadChildren: './moment-tensor/moment-tensor.module#MomentTensorModule'
+      },
+      {
+        path: 'focal-mechanism',
+        loadChildren: './focal-mechanism/focal-mechanism.module#FocalMechanismModule'
       }
     ]
   }

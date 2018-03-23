@@ -3,13 +3,13 @@
 
   <!-- container with header attribute is added before attribution -->
   <ng-container header>
-    <h3>Moment Tensor</h3>
+    <h2>Moment Tensor</h2>
   </ng-container>
 
   <div class="row" *ngIf="tensor">
     <div class="column">
       <moment-tensor-info [tensor]="tensor"></moment-tensor-info>
-      <moment-tensor-nodal-planes [tensor]="tensor"></moment-tensor-nodal-planes>
+      <shared-nodal-planes [tensor]="tensor"></shared-nodal-planes>
       <moment-tensor-axes [tensor]="tensor"></moment-tensor-axes>
     </div>
 

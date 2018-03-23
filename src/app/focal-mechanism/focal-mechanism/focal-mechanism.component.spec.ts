@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MomentTensorComponent } from './moment-tensor.component';
 import { MockComponent } from 'ng2-mock-component';
-import { EventService } from '../../core/event.service';
+import { MockPipe } from '../../mock-pipe';
 import { of } from 'rxjs/observable/of';
-import { Event } from '../../event';
-import { RouterTestingModule } from '@angular/router/testing';
 
-describe('MomentTensorComponent', () => {
-  let component: MomentTensorComponent;
-  let fixture: ComponentFixture<MomentTensorComponent>;
+import { Event } from '../../event';
+import { EventService } from '../../core/event.service';
+import { FocalMechanismComponent } from './focal-mechanism.component';
+
+describe('FocalMechanismComponent', () => {
+  let component: FocalMechanismComponent;
+  let fixture: ComponentFixture<FocalMechanismComponent>;
 
   beforeEach(async(() => {
     const eventServiceStub = {
@@ -18,17 +18,15 @@ describe('MomentTensorComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
       declarations: [
-        MomentTensorComponent,
+        FocalMechanismComponent,
 
-        MockComponent({selector: 'moment-tensor-axes', inputs: ['tensor']}),
-        MockComponent({selector: 'moment-tensor-info', inputs: ['tensor']}),
+        MockComponent({selector: 'focal-mechanism-attribution', inputs: ['tensor']}),
         MockComponent({selector: 'product-page', inputs: ['product']}),
         MockComponent({selector: 'shared-beachball', inputs: ['fillColor', 'tensor']}),
-        MockComponent({selector: 'shared-nodal-planes', inputs: ['tensor']})
+        MockComponent({selector: 'shared-nodal-planes', inputs: ['tensor']}),
+
+        MockPipe('sharedTensor')
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub}
@@ -38,7 +36,7 @@ describe('MomentTensorComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MomentTensorComponent);
+    fixture = TestBed.createComponent(FocalMechanismComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

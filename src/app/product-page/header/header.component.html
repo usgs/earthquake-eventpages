@@ -9,12 +9,15 @@
   </small>
 
   <ul class="quality-statements">
-    <ng-container *ngIf="isPreferred(); then preferred else unpreferred"></ng-container>
-    <ng-container *ngIf="isReviewed(); then reviewed else unreviewed"></ng-container>
+    <!-- Do not show preferredness for focal-mechanism products -->
+    <ng-container *ngIf="product && product.type !== 'focal-mechanism'; else empty">
+      <ng-container *ngIf="isPreferred(event, product); then preferred else unpreferred"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="isReviewed(product); then reviewed else unreviewed"></ng-container>
   </ul>
 </header>
 
-
+<!-- Display Preferred Status -->
 <ng-template #preferred>
   <li class="preferred">
     The data below are the most preferred data available
@@ -25,7 +28,9 @@
     The data below are <strong>NOT</strong> the most preferred data available
   </li>
 </ng-template>
+<ng-template #empty></ng-template>
 
+<!-- Display Review Status -->
 <ng-template #reviewed>
   <li class="reviewed">
     The data below have been reviewed by a scientist

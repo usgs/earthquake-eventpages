@@ -14,6 +14,7 @@ import { DownloadDialogComponent } from './download-dialog/download-dialog.compo
 import { FeRegionComponent } from './fe-region/fe-region.component';
 import { LinkProductComponent } from './link-product/link-product.component';
 import { MmiComponent } from './mmi/mmi.component';
+import { NodalPlanesComponent } from './nodal-planes/nodal-planes.component';
 import { PreferredCheckComponent } from './preferred-check/preferred-check.component';
 import { ProductAttributionComponent } from './product-attribution/product-attribution.component';
 import { TextProductComponent } from './text-product/text-product.component';
@@ -27,6 +28,7 @@ import { BubbleComponent } from './bubble/bubble.component';
 
 import { StationComponent } from './station/station.component';
 import { DatePipe } from './date.pipe';
+import { TensorPipe } from './tensor.pipe';
 
 
 @NgModule({
@@ -58,7 +60,9 @@ import { DatePipe } from './date.pipe';
     TextProductComponent,
     UncertainValueComponent,
     StationComponent,
-    DatePipe
+    DatePipe,
+    NodalPlanesComponent,
+    TensorPipe
   ],
   exports: [
     AttributionComponent,
@@ -74,13 +78,15 @@ import { DatePipe } from './date.pipe';
     LinkProductComponent,
     MatIconModule,
     MmiComponent,
+    NodalPlanesComponent,
     NumberPipe,
     ProductAttributionComponent,
     PreferredCheckComponent,
     TextProductComponent,
     UncertainValueComponent,
     StationComponent,
-    DatePipe
+    DatePipe,
+    TensorPipe
   ],
   entryComponents: [
     DownloadDialogComponent

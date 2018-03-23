@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatTableModule } from '@angular/material';
+import { MockPipe } from '../../mock-pipe';
 
 import { NodalPlanesComponent } from './nodal-planes.component';
-import { MatTableModule } from '@angular/material';
 import { Tensor } from '../../shared/beachball/tensor';
-import { MockPipe } from '../../mock-pipe';
 
 describe('NodalPlanesComponent', () => {
   let component: NodalPlanesComponent;
@@ -57,3 +57,4 @@ describe('NodalPlanesComponent', () => {
     });
   });
 });
+
