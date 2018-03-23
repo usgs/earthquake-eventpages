@@ -8,6 +8,7 @@ import { OriginSummaryComponent } from './origin-summary/origin-summary.componen
 import { MomentTensorSummaryComponent } from './moment-tensor-summary/moment-tensor-summary.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatTableModule} from '@angular/material';
+import { FocalMechanismSummaryComponent } from './focal-mechanism-summary/focal-mechanism-summary.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MatTableModule} from '@angular/material';
   declarations: [
     TechnicalComponent,
     OriginSummaryComponent,
-    MomentTensorSummaryComponent
+    MomentTensorSummaryComponent,
+    FocalMechanismSummaryComponent
   ]
 })
 

@@ -19,6 +19,7 @@ describe('TechnicalComponent', () => {
       declarations: [
         TechnicalComponent,
 
+        MockComponent({selector: 'technical-focal-mechanism-summary', inputs: ['event', 'products']}),
         MockComponent({selector: 'technical-moment-tensor-summary', inputs: ['event', 'products']}),
         MockComponent({selector: 'technical-origin-summary', inputs: ['event', 'products']}),
         MockComponent({selector: 'shared-link-product', inputs: ['product']}),

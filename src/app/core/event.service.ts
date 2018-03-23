@@ -128,7 +128,6 @@ export class EventService {
       this.productCode
     );
     event.product = product;
-    console.log('updateProduct', product);
     this.product$.next(product);
   }
 
