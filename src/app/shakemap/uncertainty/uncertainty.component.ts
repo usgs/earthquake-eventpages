@@ -20,7 +20,7 @@ export class UncertaintyComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * New product, get new image url 
+   * New product, get new image url
    *
    * @param product shakemap product
    */

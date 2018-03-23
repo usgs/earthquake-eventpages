@@ -28,6 +28,7 @@ describe('UncertaintyComponent', () => {
       declarations: [ UncertaintyComponent ],
       providers: [
         {provide: EventService, useValue: eventServiceStub}
+      ]
     })
     .compileComponents();
   }));
