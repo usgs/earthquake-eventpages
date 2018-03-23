@@ -37,6 +37,5 @@ export class FocalMechanismSummaryComponent implements OnInit {
 
   ngOnInit () {
   }
-
 }
 
