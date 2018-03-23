@@ -56,7 +56,7 @@ describe('HeaderComponent', () => {
       properties: {
         'review-status': status
       }
-    }
+    };
 
     expect(component.isReviewed(product)).toBeTruthy();
     expect(component.isReviewed({properties: {'happy-status': 'reviewed'}})).toBeFalsy();
