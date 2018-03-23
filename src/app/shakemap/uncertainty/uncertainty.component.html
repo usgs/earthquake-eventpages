@@ -1,0 +1,8 @@
+<ng-container *ngIf="imageUrl as url;
+                      else noImage">
+  <img src="{{ url }}">
+</ng-container>
+
+<ng-template #noImage>
+  <h1>Not available for this event</h1>
+</ng-template>
