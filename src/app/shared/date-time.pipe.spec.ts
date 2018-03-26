@@ -1,6 +1,6 @@
-import { DatePipe } from './date.pipe';
+import { DateTimePipe } from './date-time.pipe';
 
-describe('DatePipe', () => {
+describe('DateTimePipe', () => {
   let formatterService,
       pipe;
 
@@ -9,7 +9,7 @@ describe('DatePipe', () => {
       dateTime: jasmine.createSpy('dateTime spy')
     };
 
-    pipe = new DatePipe(formatterService);
+    pipe = new DateTimePipe(formatterService);
   });
 
   it('create an instance', () => {

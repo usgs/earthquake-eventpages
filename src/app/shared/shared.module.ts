@@ -27,8 +27,8 @@ import { LocationPipe } from './location.pipe';
 import { BubbleComponent } from './bubble/bubble.component';
 
 import { StationComponent } from './station/station.component';
-import { DatePipe } from './date.pipe';
 import { TensorPipe } from './tensor.pipe';
+import { DateTimePipe } from './date-time.pipe';
 
 
 @NgModule({
@@ -60,9 +60,9 @@ import { TensorPipe } from './tensor.pipe';
     TextProductComponent,
     UncertainValueComponent,
     StationComponent,
-    DatePipe,
     NodalPlanesComponent,
-    TensorPipe
+    TensorPipe,
+    DateTimePipe
   ],
   exports: [
     AttributionComponent,
@@ -85,8 +85,8 @@ import { TensorPipe } from './tensor.pipe';
     TextProductComponent,
     UncertainValueComponent,
     StationComponent,
-    DatePipe,
-    TensorPipe
+    TensorPipe,
+    DateTimePipe
   ],
   entryComponents: [
     DownloadDialogComponent

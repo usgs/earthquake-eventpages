@@ -3,9 +3,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { FormatterService } from '../core/formatter.service';
 
 @Pipe({
-  name: 'sharedDate'
+  name: 'sharedDateTime'
 })
-export class DatePipe implements PipeTransform {
+export class DateTimePipe implements PipeTransform {
 
   constructor (public formatter: FormatterService) { }
 
