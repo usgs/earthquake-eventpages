@@ -1,9 +1,9 @@
 <div  *ngIf="smProcessing">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>
-            Ground Motion/Intensity Information
-        </mat-panel-title>
+      <mat-panel-title>
+        Ground Motion/Intensity Information
+      </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
@@ -16,31 +16,26 @@
             Type
           </mat-header-cell>
           <mat-cell [attr.role]="'rowheader'"
-                      [class.mat-cell]="false"
-                      class="mat-header-cell"
-                      *matCellDef="let module">
-
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let module">
 
             <ng-container *ngIf="names.ground_motion_modules[module.type] as name;
                                   else noName">
-
               <ng-container *ngIf="abbreviations[module.type] as abbr;
                                       else noAbbr">
 
                 <abbr title="{{ abbr }}">{{ name }}</abbr>
-
               </ng-container>
 
               <ng-template #noAbbr>
                 {{ name }}
               </ng-template>
-
             </ng-container>
 
             <ng-template #noName>
               {{ module.type }}
             </ng-template>
-
 
           </mat-cell>
         </ng-container>
@@ -50,9 +45,7 @@
             Module
           </mat-header-cell>
           <mat-cell *matCellDef="let module">
-
             {{ module.module }}
-
           </mat-cell>
         </ng-container>
 
@@ -61,9 +54,7 @@
             Reference
           </mat-header-cell>
           <mat-cell *matCellDef="let module">
-
             {{ module.reference }}
-
           </mat-cell>
         </ng-container>
 
@@ -82,55 +73,65 @@
     <ng-template matExpansionPanelContent>
       <dl class="description-table" *ngIf="smProcessing.miscellaneous as miscellaneous">
 
-        <ng-container *ngIf="miscellaneous.bias_max_mag as biasMaxMag">
-          <dt>Max magnitude to compute bias</dt>
-          <dd>{{ biasMaxMag }}</dd>
-        </ng-container>
+        <dt>Max magnitude to compute bias</dt>
+        <dd *ngIf="miscellaneous.bias_max_mag as biasMaxMag;
+                      else missingData">
+          {{ biasMaxMag }}
+        </dd>
 
-        <ng-container *ngIf="miscellaneous.bias_max_range as biasMaxRange">
-          <dt>Maximum distance to include station in bias</dt>
-          <dd>{{ biasMaxRange }}</dd>
-        </ng-container>
+        <dt>Maximum distance to include station in bias</dt>
+        <dd *ngIf="miscellaneous.bias_max_range as biasMaxRange;
+                      else missingData">
+          {{ biasMaxRange }}
+        </dd>
 
-        <ng-container *ngIf="miscellaneous.bias_log_amp as biasLogAmp">
-          <dt>Use log amp to compute bias</dt>
-          <dd>{{ biasLogAmp }}</dd>
-        </ng-container>
+        <dt>Use log amp to compute bias</dt>
+        <dd *ngIf="miscellaneous.bias_log_amp as biasLogAmp;
+                      else missingData">
+          {{ biasLogAmp }}
+        </dd>
 
-        <ng-container *ngIf="miscellaneous.bias_max_bias as biasMaxBias">
-          <dt>Max allowed bias</dt>
-          <dd>{{ biasMaxBias }}</dd>
-        </ng-container>
+        <dt>Max allowed bias</dt>
+        <dd *ngIf="miscellaneous.bias_max_bias as biasMaxBias;
+                      else missingData">
+          {{ biasMaxBias }}
+        </dd>
 
-        <ng-container *ngIf="miscellaneous.bias_min_bias as biasMinBias">
-          <dt>Use log amp to compute bias</dt>
-          <dd>{{ biasMinBias }}</dd>
-        </ng-container>
+        <dt>Use log amp to compute bias</dt>
+        <dd *ngIf="miscellaneous.bias_min_bias as biasMinBias;
+                      else missingData">
+          {{ biasMinBias }}
+        </dd>
 
-        <ng-container *ngIf="miscellaneous.bias_min_stations as biasMinStations">
-          <dt>Min # of stations necessary to compute bias</dt>
-          <dd>{{ biasMinStations }}</dd>
-        </ng-container>
+        <dt>Min # of stations necessary to compute bias</dt>
+        <dd *ngIf="miscellaneous.bias_min_stations as biasMinStations;
+                      else missingData">
+          {{ biasMinStations }}
+        </dd>
 
-        <ng-container *ngIf="miscellaneous.bias_norm as biasNorm">
-          <dt>Norm of the bias</dt>
-          <dd>{{ biasNorm }}</dd>
-        </ng-container>
+        <dt>Norm of the bias</dt>
+        <dd *ngIf="miscellaneous.bias_norm as biasNorm;
+                      else missingData">
+          {{ biasNorm }}
+        </dd>
 
-        <ng-container *ngIf="miscellaneous.median_dist as medDist">
-          <dt>Median distance used</dt>
-          <dd>{{ medDist }}</dd>
-        </ng-container>
+        <dt>Median distance used</dt>
+        <dd *ngIf="miscellaneous.median_dist as medDist;
+                      else missingData">
+          {{ medDist }}
+        </dd>
 
-        <ng-container *ngIf="miscellaneous.outlier_deviation_level as devLevel">
-          <dt>Outlier level (# of std dev)</dt>
-          <dd>{{ devLevel }}</dd>
-        </ng-container>
+        <dt>Outlier level (# of std dev)</dt>
+        <dd *ngIf="miscellaneous.outlier_deviation_level as devLevel;
+                      else missingData">
+          {{ devLevel }}
+        </dd>
 
-        <ng-container *ngIf="miscellaneous.outlier_max_mag as maxMag">
-          <dt>Max magnitude to flag outliers</dt>
-          <dd>{{ maxMag }}</dd>
-        </ng-container>
+        <dt>Max magnitude to flag outliers</dt>
+        <dd *ngIf="miscellaneous.outlier_max_mag as maxMag;
+                      else missingData">
+          {{ maxMag }}
+        </dd>
 
       </dl>
     </ng-template>
@@ -145,32 +146,35 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
+
       <dl class="description-table" *ngIf="smProcessing.shakemap_versions as versions">
+        <dt>Code</dt>
+        <dd *ngIf="versions.shakemap_revision as smRev;
+                      else missingData">
+          {{ smRev }}
+        </dd>
 
-        <ng-container *ngIf="versions.shakemap_revision as smRev">
-          <dt>Code</dt>
-          <dd>{{ smRev }}</dd>
-        </ng-container>
+        <dt>Github commit</dt>
+        <dd *ngIf="versions.shakemap_revision_id as smRevId;
+                      else missingData">
+          {{ smRevId }}
+        </dd>
 
-        <ng-container *ngIf="versions.shakemap_revision_id as smRevId">
-          <dt>Github commit</dt>
-          <dd>{{ smRevId }}</dd>
-        </ng-container>
+        <dt>Map version</dt>
+        <dd *ngIf="versions.map_version as version;
+                      else missingData">
+          {{ version }}
+        </dd>
 
-        <ng-container *ngIf="versions.map_version as version">
-          <dt>Map version</dt>
-          <dd>{{ version }}</dd>
-        </ng-container>
-
-        <ng-container *ngIf="versions.process_time as time">
-          <dt>Date</dt>
-          <dd>{{ time | sharedDate }}</dd>
-        </ng-container>
+        <dt>Date</dt>
+        <dd *ngIf="versions.process_time as time;
+                      else missingData">
+          {{ time | sharedDateTime }}
+        </dd>
 
       </dl>
     </ng-template>
   </mat-expansion-panel>
-
 
   <mat-expansion-panel>
     <mat-expansion-panel-header>
@@ -182,17 +186,17 @@
     <ng-template matExpansionPanelContent>
 
       <dl class="description-table" *ngIf="smProcessing.site_response as siteResp">
-
-        <ng-container *ngIf="siteResp.vs30default as vs30">
           <dt>Reference rock Vs30</dt>
-          <dd>{{ vs30 }}</dd>
-        </ng-container>
+          <dd *ngIf="siteResp.vs30default as vs30;
+                        else missingData">
+            {{ vs30 }}
+          </dd>
 
-        <ng-container *ngIf="siteResp.site_correction as site">
           <dt>Site correction applied</dt>
-          <dd>{{ site }}</dd>
-        </ng-container>
-
+          <dd *ngIf="siteResp.site_correction as site;
+                        else missingData">
+            {{ site }}
+          </dd>
       </dl>
 
     </ng-template>
@@ -217,9 +221,9 @@
             Type
           </mat-header-cell>
           <mat-cell [attr.role]="'rowheader'"
-                      [class.mat-cell]="false"
-                      class="mat-header-cell"
-                      *matCellDef="let roi">
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let roi">
 
             {{ names.roi[roi.type] ? 
                 names.roi[roi.type] : roi.type }}
@@ -232,9 +236,7 @@
             ROI
           </mat-header-cell>
           <mat-cell *matCellDef="let roi">
-            
             {{ roi.roi }}
-
           </mat-cell>
         </ng-container>
 
@@ -243,9 +245,7 @@
             Observation Decay
           </mat-header-cell>
           <mat-cell *matCellDef="let roi">
-
             {{ roi.decay }}
-            
           </mat-cell>
         </ng-container>
 
@@ -253,4 +253,8 @@
       
     </ng-template>
   </mat-expansion-panel>
+
+  <ng-template #missingData>
+    <dd>{{ formatter.empty }}</dd>
+  </ng-template>
 </div>

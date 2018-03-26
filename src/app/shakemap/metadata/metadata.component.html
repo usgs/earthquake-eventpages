@@ -1,18 +1,18 @@
 <div class="info-container" *ngIf="metadata">
 
-  <div class="input column" *ngIf="metadata.input">
+  <div class="input column" *ngIf="metadata.input as input">
     <h2>Input</h2>
-    <shakemap-input [smInput]="metadata.input"></shakemap-input>
+    <shakemap-input [smInput]="input"></shakemap-input>
   </div>
     
-  <div class="output column" *ngIf="metadata.output">
+  <div class="output column" *ngIf="metadata.output as output">
     <h2>Output</h2>
-    <shakemap-output [smOutput]="metadata.output"></shakemap-output>
+    <shakemap-output [smOutput]="output"></shakemap-output>
   </div>
 
-  <div class="processing column" *ngIf="metadata.processing">
+  <div class="processing column" *ngIf="metadata.processing as processing">
     <h2>Processing</h2>
-      <shakemap-processing [smProcessing]="metadata.processing"></shakemap-processing>
+      <shakemap-processing [smProcessing]="processing"></shakemap-processing>
   </div>
   
 </div>

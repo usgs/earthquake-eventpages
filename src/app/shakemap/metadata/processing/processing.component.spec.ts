@@ -17,7 +17,7 @@ describe('ProcessingComponent', () => {
       declarations: [
         ProcessingComponent,
 
-        MockPipe('sharedDate')
+        MockPipe('sharedDateTime')
         ]
     })
     .compileComponents();

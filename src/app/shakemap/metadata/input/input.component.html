@@ -1,86 +1,104 @@
-<div *ngIf="smInput?.event_information as eventInfo">
+<div *ngIf="smInput.event_information as eventInfo">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>
-            Event Information
-        </mat-panel-title>
+      <mat-panel-title>
+          Event Information
+      </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-
       <dl class="description-table">
-        
-        <ng-container *ngIf="eventInfo.event_description as description">
-          <dt>Description</dt>
-          <dd>{{ description }}</dd>
-        </ng-container>
 
-        <ng-container *ngIf="eventInfo.event_id as eventId">
-          <dt>ID</dt>
-          <dd>{{ eventId }}</dd>
-        </ng-container>
+        <dt>Description</dt>
+        <dd *ngIf="eventInfo.event_description as description;
+                      else missingData">
+          {{ description }}
+        </dd>
 
-        <ng-container *ngIf="eventInfo.magnitude as mag">
-          <dt>Magnitude</dt>
-          <dd>{{ mag }}</dd>
-        </ng-container>
+        <dt>ID</dt>
+        <dd *ngIf="eventInfo.event_id as eventId;
+                      else missingData">
+          {{ eventId }}
+        </dd>
 
-        <ng-container *ngIf="eventInfo.depth as depth">
-          <dt>Depth</dt>
-          <dd>{{ depth | sharedNumber:1:'km' }}</dd>
-        </ng-container>
+        <dt>Magnitude</dt>
+        <dd *ngIf="eventInfo.magnitude as mag;
+                      else missingData">
+          {{ mag }}
+        </dd>
 
-        <ng-container *ngIf="eventInfo.latitude as lat">
-          <ng-container *ngIf="eventInfo.longitude as lng">
+        <dt>Depth</dt>
+        <dd *ngIf="eventInfo.depth as depth;
+                      else missingData">
+          {{ depth | sharedNumber:1:'km' }}
+        </dd>
 
-            <dt>GPS location</dt>
+
+        <dt>GPS location</dt>
+        <ng-container *ngIf="eventInfo.latitude as lat;
+                                else missingData">
+          <ng-container *ngIf="eventInfo.longitude as lng;
+                                  else missingData">
+
             <dd>{{ [lng, lat] | sharedLocation }}</dd>
 
           </ng-container>
         </ng-container>
 
-        <ng-container *ngIf="eventInfo.origin_time as oTime">
-          <dt>Origin time</dt>
-          <dd>{{ oTime | sharedDate }}</dd>
-        </ng-container>
+        <dt>Origin time</dt>
+        <dd *ngIf="eventInfo.origin_time as oTime;
+                      else missingData">
+          {{ oTime | sharedDateTime }}
+        </dd>
 
-        <ng-container *ngIf="eventInfo.mech_src as mechSrc">
-          <dt>Mechanism</dt>
-          <dd>{{ mechSrc }}</dd>
-        </ng-container>
+        <dt>Mechanism</dt>
+        <dd *ngIf="eventInfo.mech_src as mechSrc;
+                      else missingData">
+          {{ mechSrc }}
+        </dd>
 
-        <ng-container *ngIf="eventInfo.src_mech as srcMech">
-          <dt>Mechanism source</dt>
-          <dd>{{ srcMech }}</dd>
-        </ng-container>
+        <dt>Mechanism source</dt>
+        <dd *ngIf="eventInfo.src_mech as srcMech;
+                      else missingData">
+          {{ srcMech }}
+        </dd>
 
-        <ng-container *ngIf="eventInfo.location as loc">
-          <dt>Location</dt>
-          <dd>{{ loc }}</dd>
-        </ng-container>
+        <dt>Location</dt>
+        <dd *ngIf="eventInfo.location as loc;
+                      else missingData">
+          {{ loc }}
+        </dd>
 
-        <ng-container *ngIf="eventInfo.faultfiles as faultFiles">
-          <dt>Fault files</dt>
-          <dd>{{ faultFiles }}</dd>
-        </ng-container>
+        <dt>Fault files</dt>
+        <dd *ngIf="eventInfo.faultfiles as faultFiles;
+                      else missingData">
+          {{ faultFiles }}
+        </dd>
 
-        <ng-container *ngIf="eventInfo.fault_ref as faultRef">
-          <dt>Fault reference</dt>
-          <dd>{{ faultRef }}</dd>
-        </ng-container>
+        <dt>Fault reference</dt>
+        <dd *ngIf="eventInfo.fault_ref as faultRef;
+                      else missingData">
+          {{ faultRef }}
+        </dd>
 
-        <ng-container *ngIf="eventInfo.seismic_stations as stations">
-          <dt>Number of seismic stations</dt>
-          <dd>{{ stations }}</dd>
-        </ng-container>
+        <dt>Number of seismic stations</dt>
+        <dd *ngIf="eventInfo.seismic_stations as stations;
+                      else missingData">
+          {{ stations }}
+        </dd>
 
-        <ng-container *ngIf="eventInfo.intensity_observations as intObs">
-          <dt>Number of DYFI stations</dt>
-          <dd>{{ intObs }}</dd>
-        </ng-container>
-          
+        <dt>Number of DYFI stations</dt>
+        <dd *ngIf="eventInfo.intensity_observations as intObs;
+                      else missingData">
+          {{ intObs }}
+        </dd>
+
       </dl>
 
     </ng-template>
   </mat-expansion-panel>
+
+  <ng-template #missingData>
+    <dd>{{ formatter.empty }}</dd>
+  </ng-template>
 </div>
