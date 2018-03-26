@@ -20,8 +20,8 @@ describe('DegreesPipe', () => {
   it('formats correctly', () => {
     formatter.number.and.returnValue(10);
     const deg = pipe.transform(10);
-    
-    expect(deg).toEqual('10°')
+
+    expect(deg).toEqual('10°');
   });
 
   it('calls formatterService', () => {

@@ -12,7 +12,7 @@ export class FormatterService {
   constructor () {
     this.depthDecimals = 1;
     this.distanceDecimals = 1;
-    this.empty = '&ndash;';
+    this.empty = '-';
     this.locationDecimals = 3;
   }
 

@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTableModule, MatExpansionModule } from '@angular/material';
 
 import { ProcessingComponent } from './processing.component';
+import { FormatterService } from '../../../core/formatter.service';
+
 import { MockPipe } from '../../../mock-pipe';
 
 describe('ProcessingComponent', () => {
@@ -9,6 +11,9 @@ describe('ProcessingComponent', () => {
   let fixture: ComponentFixture<ProcessingComponent>;
 
   beforeEach(async(() => {
+
+    const formatter = {};
+
     TestBed.configureTestingModule({
       imports: [
         MatTableModule,
@@ -18,7 +23,10 @@ describe('ProcessingComponent', () => {
         ProcessingComponent,
 
         MockPipe('sharedDateTime')
-        ]
+        ],
+      providers: [
+        {provide: FormatterService, useValue: formatter}
+      ]
     })
     .compileComponents();
   }));

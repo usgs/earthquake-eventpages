@@ -23,7 +23,7 @@ describe('FormatterService', () => {
   describe('angle', () => {
     it('returns empty value when undefined', inject(
         [FormatterService], (formatter: FormatterService) => {
-      expect(formatter.angle(null, null)).toBe('&ndash;');
+      expect(formatter.angle(null, null)).toBe('-');
     }));
 
     it('formats zero angle', inject(
@@ -113,7 +113,7 @@ describe('FormatterService', () => {
       formatter.distance(0, 'units');
 
       expect(spy).toHaveBeenCalled();
-      expect(spy).toHaveBeenCalledWith(0, 1, '&ndash;', 'units');
+      expect(spy).toHaveBeenCalledWith(0, 1, '-', 'units');
     }));
   });
 
