@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FormatterService } from '../../../core/formatter.service';
 
 @Component({
   selector: 'shakemap-processing',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ProcessingComponent implements OnInit {
 
-  public names: any = {
+  public readonly names = {
     'ground_motion_modules': {
         'basin_correction': 'Basin',
         'gmpe': 'GMPE',
@@ -23,19 +24,19 @@ export class ProcessingComponent implements OnInit {
     }
   };
 
-  public abbreviations = {
+  public readonly abbreviations = {
         'gmpe': 'Ground Motion Prediction Equation',
         'gmice': 'Ground Motion Intensity Conversion Equation',
         'ipe': 'Intensity Prediction Equation',
         'igmice': 'Inverse Ground Motion Intensity Conversion Equation'
   };
 
-  public headers: any = {
+  public readonly headers = {
     'groundMotionModules': ['type', 'module', 'reference'],
     'roi': ['type', 'roi', 'observation_decay']
   };
 
-  constructor () { }
+  constructor (public formatter: FormatterService) { }
   @Input() smProcessing: any;
 
   ngOnInit () {

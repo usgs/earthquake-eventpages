@@ -30,6 +30,7 @@ export class DegreesPipe implements PipeTransform {
       units = '°',
       empty = this.formatter.empty): any {
     // NOTE: FormatterService uses different argument order
-    return this.formatter.number(value, decimals, empty, units);
+    const num = this.formatter.number(value, decimals, empty);
+    return `${num}${units}`;
   }
 }

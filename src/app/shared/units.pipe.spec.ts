@@ -37,6 +37,6 @@ describe('UnitsPipe', () => {
 
   it('calls formatterService for degrees', () => {
     pipe.transform('value', 'degrees');
-    expect(formatter.number).toHaveBeenCalledWith('value', 0, 'default empty', '°');
+    expect(formatter.number).toHaveBeenCalledWith('value', 0, 'default empty');
   });
 });

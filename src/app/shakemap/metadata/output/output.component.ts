@@ -1,23 +1,23 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { FormatterService } from '../../../core/formatter.service';
 @Component({
   selector: 'shakemap-output',
   templateUrl: './output.component.html',
   styleUrls: ['./output.component.scss']
 })
 export class OutputComponent implements OnInit {
-  public names: any = {
+  public readonly names = {
     'groundMotions': {
       'PGA': 'PGA',
       'PGV': 'PGV',
       'pga': 'PGA',
       'pgv': 'PGV',
-      'SA(0.3)': 'SA(0.3s)',
-      'SA(1.0)': 'SA(1.0s)',
-      'SA(3.0)': 'SA(3.0s)',
-      'psa03': 'SA(0.3s)',
-      'psa10': 'SA(1.0s)',
-      'psa30': 'SA(3.0s)',
+      'SA(0.3)': 'SA(0.3 s)',
+      'SA(1.0)': 'SA(1.0 s)',
+      'SA(3.0)': 'SA(3.0 s)',
+      'psa03': 'SA(0.3 s)',
+      'psa10': 'SA(1.0 s)',
+      'psa30': 'SA(3.0 s)',
       'bias': 'Bias',
       'MMI': 'Intensity',
       'mmi': 'Intensity',
@@ -32,25 +32,25 @@ export class OutputComponent implements OnInit {
       },
   };
 
-  public abbreviations = {
-      'SA(0.3)': 'Spectral acceleration at 0.3 seconds',
-      'SA(1.0)': 'Spectral acceleration at 1.0 seconds',
-      'SA(3.0)': 'Spectral acceleration at 3.0 seconds',
-      'psa03': 'Spectral acceleration at 0.3 seconds',
-      'psa10': 'Spectral acceleration at 1.0 seconds',
-      'psa30': 'Spectral acceleration at 1.0 seconds',
+  public readonly abbreviations = {
+      'SA(0.3)': 'Spectral acceleration at 0.3 s',
+      'SA(1.0)': 'Spectral acceleration at 1.0 s',
+      'SA(3.0)': 'Spectral acceleration at 3.0 s',
+      'psa03': 'Spectral acceleration at 0.3 s',
+      'psa10': 'Spectral acceleration at 1.0 s',
+      'psa30': 'Spectral acceleration at 1.0 s',
       'PGA': 'Peak Ground Acceleration',
       'PGV': 'Peak Ground Velocity',
       'pga': 'Percent of Gravitational Acceleration',
       'pgv': 'Peak Ground Velocity'
   };
 
-  public headers: any = {
+  public readonly headers = {
     'groundMotions': ['type', 'max', 'max_on_land', 'bias'],
     'mapInformation': ['type', 'lat', 'lon']
   };
 
-  constructor () { }
+  constructor (public formatter: FormatterService) { }
   @Input () smOutput: any;
 
   ngOnInit () {
