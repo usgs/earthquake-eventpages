@@ -6,7 +6,7 @@ import { FormatterService } from '../../../core/formatter.service';
   styleUrls: ['./output.component.scss']
 })
 export class OutputComponent implements OnInit {
-  public names = {
+  public readonly names = {
     'groundMotions': {
       'PGA': 'PGA',
       'PGV': 'PGV',
@@ -32,7 +32,7 @@ export class OutputComponent implements OnInit {
       },
   };
 
-  public abbreviations = {
+  public readonly abbreviations = {
       'SA(0.3)': 'Spectral acceleration at 0.3 s',
       'SA(1.0)': 'Spectral acceleration at 1.0 s',
       'SA(3.0)': 'Spectral acceleration at 3.0 s',
@@ -45,7 +45,7 @@ export class OutputComponent implements OnInit {
       'pgv': 'Peak Ground Velocity'
   };
 
-  public headers = {
+  public readonly headers = {
     'groundMotions': ['type', 'max', 'max_on_land', 'bias'],
     'mapInformation': ['type', 'lat', 'lon']
   };

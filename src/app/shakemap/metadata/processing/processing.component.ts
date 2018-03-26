@@ -8,7 +8,7 @@ import { FormatterService } from '../../../core/formatter.service';
 })
 export class ProcessingComponent implements OnInit {
 
-  public names = {
+  public readonly names = {
     'ground_motion_modules': {
         'basin_correction': 'Basin',
         'gmpe': 'GMPE',
@@ -24,14 +24,14 @@ export class ProcessingComponent implements OnInit {
     }
   };
 
-  public abbreviations = {
+  public readonly abbreviations = {
         'gmpe': 'Ground Motion Prediction Equation',
         'gmice': 'Ground Motion Intensity Conversion Equation',
         'ipe': 'Intensity Prediction Equation',
         'igmice': 'Inverse Ground Motion Intensity Conversion Equation'
   };
 
-  public headers = {
+  public readonly headers = {
     'groundMotionModules': ['type', 'module', 'reference'],
     'roi': ['type', 'roi', 'observation_decay']
   };
