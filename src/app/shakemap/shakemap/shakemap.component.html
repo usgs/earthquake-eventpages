@@ -10,12 +10,16 @@
   <nav mat-tab-nav-bar>
     <a mat-tab-link
         [routerLink]="'./metadata'" queryParamsHandling="preserve"
-        routerLinkActive #details="routerLinkActive" [active]="details.isActive">
+        routerLinkActive #metadata="routerLinkActive" [active]="metadata.isActive">
       Metadata
     </a>
     <a mat-tab-link [routerLink]="'./stations'" queryParamsHandling="preserve"
-        routerLinkActive #phase="routerLinkActive" [active]="phase.isActive">
+        routerLinkActive #stations="routerLinkActive" [active]="stations.isActive">
       Station List
+    </a>
+    <a mat-tab-link [routerLink]="'./uncertainty'" queryParamsHandling="preserve"
+        routerLinkActive #uncertainty="routerLinkActive" [active]="uncertainty.isActive">
+      Uncertainty
     </a>
   </nav>
   <router-outlet></router-outlet>

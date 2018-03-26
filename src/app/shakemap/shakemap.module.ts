@@ -21,6 +21,7 @@ import { ShakemapRoutingModule } from './shakemap-routing.module';
 import { InputComponent } from './metadata/input/input.component';
 import { OutputComponent } from './metadata/output/output.component';
 import { ProcessingComponent } from './metadata/processing/processing.component';
+import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 
 @NgModule({
   imports: [
@@ -43,11 +44,13 @@ import { ProcessingComponent } from './metadata/processing/processing.component'
     MetadataComponent,
     InputComponent,
     OutputComponent,
-    ProcessingComponent
+    ProcessingComponent,
+    UncertaintyComponent
   ],
   exports: [
     StationListComponent,
-    MetadataComponent
+    MetadataComponent,
+    UncertaintyComponent
   ]
 })
 export class ShakemapModule { }

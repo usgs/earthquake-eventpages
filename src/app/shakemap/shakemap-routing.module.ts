@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { MetadataComponent } from './metadata/metadata.component';
+import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 
 const shakemapRoutes: Routes = [
   {
@@ -19,6 +20,10 @@ const shakemapRoutes: Routes = [
       {
         path: 'metadata',
         component: MetadataComponent
+      },
+      {
+        path: 'uncertainty',
+        component: UncertaintyComponent
       },
       {
         path: '',
