@@ -10,6 +10,7 @@ import { EventPageModule } from './event-page/event-page.module';
 import { UnknownEventPageModule } from './unknown-event-page/unknown-event-page.module';
 
 import { ExecutiveModule } from './executive/executive.module';
+import { MapModule } from './map/map.module';
 import { RegionInfoModule } from './region-info/region-info.module';
 
 import { CoreModule } from './core/core.module';
@@ -28,6 +29,7 @@ import { CoreModule } from './core/core.module';
     UnknownEventPageModule,
 
     ExecutiveModule,
+    MapModule,
     RegionInfoModule,
 
     AppRoutingModule
