@@ -20,21 +20,67 @@ export class StationService {
    * @param product shakemap product json
    */
   getStations (product: any): void {
-    if (product == null) {
+    if ((product == null) ||
+          (!product.contents['download/stationlist.json'])) {
+
       this.stationsJson$.next(null);
       return;
     }
+
     const stations = product.contents['download/stationlist.json'];
 
     this.httpClient.get(stations.url).pipe(
       catchError(this.handleError())
     ).subscribe((response) => {
-      this.stationsJson$.next(response);
-    }, (e) => {
-      /*  Subscribe errored */
-      this.error = e;
-      this.stationsJson$.next(null);
+      try {
+        this.onStations(response);
+      } catch (e) {
+        /*  Processing errored */
+        this.error = e;
+        this.stationsJson$.next(null);
+      }
     });
+  }
+
+  /**
+   * Handle incoming stationlist.json
+   *
+   * @param stations station list geoJSON object
+   */
+  onStations (stations) {
+    if (stations) {
+
+      stations = this.translate(stations);
+      this.stationsJson$.next(stations);
+
+    } else {
+      this.stationsJson$.next(null);
+    }
+  }
+
+  /**
+   * Make stationlist.json from older versions compliant
+   *
+   * @param stations station list geoJSON object
+   */
+  translate (stations) {
+    const new_stations: any[] = [];
+
+    for (const station of stations.features) {
+      for (const item of Object.keys(station.properties)) {
+
+        if ((station.properties[item] === 'null') ||
+              (station.properties[item] === 'nan')) {
+          station.properties[item] = null;
+        }
+
+      }
+
+      new_stations.push(station);
+    }
+    stations.features = new_stations;
+
+    return stations;
   }
 
   /**

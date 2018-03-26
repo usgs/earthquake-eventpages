@@ -60,6 +60,22 @@ describe('MetadataService', () => {
       });
     }));
 
+    it('handles parse failure',
+        inject([MetadataService], (service: MetadataService)  => {
+
+      const spy = spyOn(service, 'onMetadata').and.throwError('test error');
+
+      service.getMetadata(PRODUCT);
+      const request = httpClient.expectOne('url');
+      request.flush('', {status: 500, statusText: 'Error'});
+
+      service.metadata$.subscribe((content) => {
+        expect(content).toEqual(null);
+        expect(service.error).toEqual(new Error('test error'));
+      });
+
+    }));
+
     it('handles null input',
         inject([MetadataService], (service: MetadataService)  => {
 

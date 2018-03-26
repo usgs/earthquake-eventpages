@@ -14,6 +14,30 @@ describe('StationService', () => {
     }
   };
 
+  // sample stations to process
+  const STATIONS_JSON = {
+    'type': 'FeatureCollection',
+    'features': [
+      {'type': 'feature',
+        'properties': {
+          'pga': 5.2
+        }
+      }
+    ]
+  };
+
+  const OLD_STATIONS_JSON = {
+    'type': 'FeatureCollection',
+    'features': [
+      {'type': 'feature',
+        'properties': {
+          'pga': 'null',
+          'pgv': 'nan'
+        }
+      }
+    ]
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -56,6 +80,22 @@ describe('StationService', () => {
       });
     }));
 
+    it('handles parse failure',
+        inject([StationService], (service: StationService)  => {
+
+      const spy = spyOn(service, 'onStations').and.throwError('test error');
+
+      service.getStations(PRODUCT);
+      const request = httpClient.expectOne('url');
+      request.flush('', {status: 500, statusText: 'Error'});
+
+      service.stationsJson$.subscribe((content) => {
+        expect(content).toEqual(null);
+        expect(service.error).toEqual(new Error('test error'));
+      });
+
+    }));
+
     it('handles null input',
         inject([StationService], (service: StationService)  => {
 
@@ -64,6 +104,33 @@ describe('StationService', () => {
       service.stationsJson$.subscribe((content) => {
         expect(content).toEqual(null);
       });
+    }));
+
+  });
+
+  describe('onStations', () => {
+
+    it('handles parse success',
+        inject([StationService], (service: StationService)  => {
+
+      service.onStations(STATIONS_JSON);
+
+      service.stationsJson$.subscribe((content) => {
+        expect(content).toEqual(STATIONS_JSON);
+      });
+
+    }));
+
+    it('handles old json',
+        inject([StationService], (service: StationService)  => {
+
+      service.onStations(OLD_STATIONS_JSON);
+
+      service.stationsJson$.subscribe((content) => {
+        expect(content.features[0].properties.pga).toEqual(null);
+        expect(content.features[0].properties.pgv).toEqual(null);
+      });
+
     }));
 
   });
