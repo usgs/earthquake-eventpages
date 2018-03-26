@@ -1,0 +1,33 @@
+.quality-statements {
+  color: #999;
+  font-size: .75em;
+  list-style: none;
+  padding: 0;
+  margin-top: 0.5em;
+
+  > li {
+    padding-left: 1.25em;
+    position: relative;
+
+    &:before {
+      display: block;
+      font-family: 'Material Icons';
+      left: 0;
+      margin-right: .25em;
+      position: absolute;
+      width: 1em;
+    }
+
+    &.preferred:before,
+    &.reviewed:before {
+      color: #090;
+      content: '\0e5ca';
+    }
+
+    &.unpreferred:before,
+    &.unreviewed:before {
+      color: #F90;
+      content: '\e888';
+    }
+  }
+}
