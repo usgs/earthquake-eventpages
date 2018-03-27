@@ -31,8 +31,7 @@ ENV BASE_HREF="${BASE_HREF}" \
     HEALTHCHECK_SCRIPT="/usr/share/nginx/healthcheck.sh" \
     DOCUMENT_ROOT="/usr/share/nginx/html"
 
-LABEL maintainer="Eric Martinez <emartinez@usgs.gov>"\
-      dockerfile_version="v1.1.0"
+LABEL maintainer="Eric Martinez <emartinez@usgs.gov>"
 
 RUN rm -rf /usr/share/nginx/html/ && \
     mkdir -p /usr/share/nginx/html/BASE_HREF
