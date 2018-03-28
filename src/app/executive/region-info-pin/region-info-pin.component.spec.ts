@@ -8,6 +8,7 @@ import { EventService } from '../../core/event.service';
 import { MockComponent } from 'ng2-mock-component';
 import { RegionInfoPinComponent } from './region-info-pin.component';
 import { Event } from '../../event';
+import { MockPipe } from '../../mock-pipe';
 
 describe('RegionInfoPinComponent', () => {
   let component: RegionInfoPinComponent;
@@ -29,7 +30,9 @@ describe('RegionInfoPinComponent', () => {
       declarations: [
         RegionInfoPinComponent,
 
-        MockComponent({selector: 'basic-pin', inputs: ['link', 'product', 'title']})
+        MockComponent({selector: 'basic-pin', inputs: ['link', 'product', 'title']}),
+
+        MockPipe('getProduct')
       ],
       imports: [
         RouterTestingModule

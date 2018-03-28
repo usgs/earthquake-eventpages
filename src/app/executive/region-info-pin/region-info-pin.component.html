@@ -1,5 +1,5 @@
 <basic-pin
-      [product]="event?.getProduct('origin')"
+      [product]="event | getProduct:'origin'"
       [link]="link"
       [title]="title">
   <div #regionInfoMap

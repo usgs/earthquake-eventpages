@@ -10,19 +10,19 @@
       </executive-region-info-pin>
     </li>
 
-    <li *ngIf="event.getProduct('origin') as origin">
+    <li *ngIf="event | getProduct:'origin'; let origin">
       <executive-origin-pin [product]="origin">
       </executive-origin-pin>
     </li>
 
-    <li *ngIf="event.getProduct('moment-tensor') as momentTensor;
+    <li *ngIf="event | getProduct:'moment-tensor'; let momentTensor;
         else noMomentTensor">
       <executive-moment-tensor-pin [product]="momentTensor">
       </executive-moment-tensor-pin>
     </li>
 
     <ng-template #noMomentTensor>
-      <li *ngIf="event.getProduct('focal-mechanism') as focalMechanism">
+      <li *ngIf="event | getProduct:'focal-mechanism'; let focalMechanism">
         <executive-focal-mechanism-pin [product]="focalMechanism">
         </executive-focal-mechanism-pin>
       </li>

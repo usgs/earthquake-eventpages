@@ -6,6 +6,7 @@ import { EventService } from '../../core/event.service';
 import { ContributorService } from '../../core/contributor.service';
 import { of } from 'rxjs/observable/of';
 import { Event } from '../../event';
+import { MockPipe } from '../../mock-pipe';
 
 describe('ExecutiveComponent', () => {
   let component: ExecutiveComponent;
@@ -25,7 +26,9 @@ describe('ExecutiveComponent', () => {
         MockComponent({ selector: 'executive-origin-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-region-info-pin', inputs: ['event']}),
         MockComponent({ selector: 'shared-link-product', inputs: ['product']}),
-        MockComponent({ selector: 'shared-text-product', inputs: ['product']})
+        MockComponent({ selector: 'shared-text-product', inputs: ['product']}),
+
+        MockPipe('getProduct')
       ],
       providers: [
         { provide: EventService, useValue: eventServiceStub },
