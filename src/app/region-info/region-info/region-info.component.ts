@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { HistoricSeismicityOverlay } from '../../shared/map-overlay/historic-seismicity-overlay';
 import { Overlay } from '../../shared/map-overlay/overlay';
+import { EventService } from '../../../..';
 
 @Component({
   selector: 'app-region-info',
@@ -12,7 +13,9 @@ export class RegionInfoComponent implements OnInit {
 
   public overlays: Array<Overlay> = [ new HistoricSeismicityOverlay() ];
 
-  constructor () { }
+  constructor (
+    public eventService: EventService
+  ) { }
 
   ngOnInit () {
   }

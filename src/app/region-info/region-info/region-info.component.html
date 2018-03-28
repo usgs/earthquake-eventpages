@@ -1,1 +1,5 @@
-<shared-map [overlays]="overlays"></shared-map>
+<ng-container *ngIf="eventService.event$ | async; let event">
+  <shared-map
+      [overlays]="event | getProduct:'origin' | regionInfoOverlay">
+  </shared-map>
+</ng-container>
