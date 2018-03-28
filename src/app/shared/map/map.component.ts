@@ -13,7 +13,7 @@ export class MapComponent implements AfterViewInit, OnInit {
   @ViewChild('mapWrapper')
   mapWrapper: ElementRef;
 
-  private map: L.Map;
+  public map: L.Map;
 
 
   constructor () { }
