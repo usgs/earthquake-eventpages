@@ -10,7 +10,7 @@ import { Overlay } from '../../shared/map-overlay/overlay';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent {
-  private overlays: Array<Overlay> = [];
+  public overlays: Array<Overlay> = [];
 
   constructor () {
     const layer = new HistoricSeismicityOverlay();
