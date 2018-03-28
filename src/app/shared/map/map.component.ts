@@ -11,6 +11,7 @@ export class MapComponent implements AfterViewInit, OnInit {
 
   @Input() baselayer = 'Topographic';
   @Input() showLayersControl = false;
+  @Input() showScaleControl = false;
 
   @ViewChild('mapWrapper')
   mapWrapper: ElementRef;
@@ -86,11 +87,13 @@ export class MapComponent implements AfterViewInit, OnInit {
       scrollWheelZoom: false
     });
 
-    this.map.addControl(L.control.scale({position: 'bottomright'}));
-
     this.layersControl = L.control.layers(baselayers, overlays);
     if (this.showLayersControl) {
       this.map.addControl(this.layersControl);
+    }
+
+    if (this.showScaleControl) {
+      this.map.addControl(L.control.scale({position: 'bottomright'}));
     }
 
     this.map.fitBounds([[85.0, 180.0], [-85.0, 180.0]]);
