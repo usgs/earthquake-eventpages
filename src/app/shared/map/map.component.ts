@@ -127,6 +127,9 @@ export class MapComponent implements AfterViewInit, OnInit {
       if (!overlays.includes(overlay)) {
         this.layersControl.removeLayer(overlay.layer);
         this.map.removeLayer(overlay.layer);
+        return false;
+      } else {
+        return true;
       }
     });
 
