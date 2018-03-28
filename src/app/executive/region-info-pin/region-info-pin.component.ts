@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input, OnDestroy, ElementRef, ViewChild } fro
 import { RouterLink } from '@angular/router';
 
 import * as L from 'leaflet';
+
 import { Event } from '../../event';
 
 
@@ -18,6 +19,7 @@ export class RegionInfoPinComponent implements AfterViewInit, OnDestroy {
   public title = 'Regional Information';
   public product: any = null;
   public link = '../region-info';
+
 
   // map element reference
   @ViewChild('regionInfoMap') regionInfoMap: ElementRef;

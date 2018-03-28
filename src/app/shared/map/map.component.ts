@@ -1,6 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 import * as L from 'leaflet';
+
+import { Overlay } from '../map-overlay/overlay';
 
 @Component({
   selector: 'shared-map',
@@ -9,11 +11,30 @@ import * as L from 'leaflet';
 })
 export class MapComponent implements AfterViewInit, OnInit {
 
+  @Input() baselayer = 'Topographic';
+  @Input() showAttributionControl = true;
+  @Input() showLayersControl = false;
+  @Input() showScaleControl = false;
+
+  private _overlays: Array<Overlay> = [];
+
+  @Input() set overlays (overlays: Array<Overlay>) {
+    this._overlays = overlays;
+
+    this.updateOverlays();
+  }
+
+  get overlays (): Array<Overlay> {
+    return this._overlays;
+  }
 
   @ViewChild('mapWrapper')
   mapWrapper: ElementRef;
 
-  private map: L.Map;
+  private _overlaysAdded: Array<Overlay> = [];
+
+  public map: L.Map;
+  public layersControl: L.Control.Layers;
 
 
   constructor () { }
@@ -44,7 +65,6 @@ export class MapComponent implements AfterViewInit, OnInit {
         }
     );
 
-
     const worldStreetLayer = L.tileLayer('https://services.arcgisonline.com/' +
         'arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
         {
@@ -72,22 +92,56 @@ export class MapComponent implements AfterViewInit, OnInit {
       'Grayscale': grayscaleLayer
     };
 
-    const overlays = {
-      // TODO
-    };
-
-    const layersControl = L.control.layers(baselayers, overlays);
-
     this.map = L.map(this.mapWrapper.nativeElement, {
+      attributionControl: this.showAttributionControl,
       layers: [
-        worldTopoLayer
+        baselayers[this.baselayer]
       ],
-      scrollWheelZoom: false,
+      scrollWheelZoom: false
     });
 
-    this.map.addControl(L.control.scale({position: 'bottomright'}));
-    this.map.addControl(layersControl);
+    this.layersControl = L.control.layers(baselayers, {});
+    if (this.showLayersControl) {
+      this.map.addControl(this.layersControl);
+    }
+
+    if (this.showScaleControl) {
+      this.map.addControl(L.control.scale({position: 'bottomright'}));
+    }
 
     this.map.fitBounds([[85.0, 180.0], [-85.0, 180.0]]);
+
+    this.updateOverlays();
   }
+
+  updateOverlays () {
+    // check if layer control has been created
+    if (!this.layersControl) {
+      return;
+    }
+
+    const overlays = this._overlays;
+
+    // remove overlays from map and layer control
+    this._overlaysAdded = this._overlaysAdded.filter((overlay) => {
+      if (!overlays.includes(overlay)) {
+        this.layersControl.removeLayer(overlay.layer);
+        this.map.removeLayer(overlay.layer);
+      }
+    });
+
+    // add overlays to layer control and add/remove overlay to/from map
+    overlays.forEach((overlay) => {
+      if (!this._overlaysAdded.includes(overlay)) {
+        this._overlaysAdded.push(overlay);
+        this.layersControl.addOverlay(overlay.layer, overlay.title);
+      }
+      if (overlay.enabled) {
+        this.map.addLayer(overlay.layer);
+      } else {
+        this.map.removeLayer(overlay.layer);
+      }
+    });
+  }
+
 }

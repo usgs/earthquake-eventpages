@@ -13,7 +13,7 @@ describe('MapComponent', () => {
       declarations: [
         MapComponent,
 
-        MockComponent({selector: 'shared-map'})
+        MockComponent({selector: 'shared-map', inputs: ['overlays', 'showLayersControl', 'showScaleControl']})
       ]
     })
     .compileComponents();
