@@ -10,11 +10,13 @@ import * as L from 'leaflet';
 export class MapComponent implements AfterViewInit, OnInit {
 
   @Input() baselayer = 'Topographic';
+  @Input() showLayersControl = false;
 
   @ViewChild('mapWrapper')
   mapWrapper: ElementRef;
 
   public map: L.Map;
+  public layersControl: L.Control.Layers;
 
 
   constructor () { }
@@ -77,17 +79,19 @@ export class MapComponent implements AfterViewInit, OnInit {
       // TODO
     };
 
-    const layersControl = L.control.layers(baselayers, overlays);
-
     this.map = L.map(this.mapWrapper.nativeElement, {
       layers: [
         baselayers[this.baselayer]
       ],
-      scrollWheelZoom: false,
+      scrollWheelZoom: false
     });
 
     this.map.addControl(L.control.scale({position: 'bottomright'}));
-    this.map.addControl(layersControl);
+
+    this.layersControl = L.control.layers(baselayers, overlays);
+    if (this.showLayersControl) {
+      this.map.addControl(this.layersControl);
+    }
 
     this.map.fitBounds([[85.0, 180.0], [-85.0, 180.0]]);
   }
