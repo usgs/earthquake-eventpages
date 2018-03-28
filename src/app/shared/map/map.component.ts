@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 import * as L from 'leaflet';
 
@@ -9,6 +9,7 @@ import * as L from 'leaflet';
 })
 export class MapComponent implements AfterViewInit, OnInit {
 
+  @Input() baselayer = 'Topographic';
 
   @ViewChild('mapWrapper')
   mapWrapper: ElementRef;
@@ -80,7 +81,7 @@ export class MapComponent implements AfterViewInit, OnInit {
 
     this.map = L.map(this.mapWrapper.nativeElement, {
       layers: [
-        worldTopoLayer
+        baselayers[this.baselayer]
       ],
       scrollWheelZoom: false,
     });
