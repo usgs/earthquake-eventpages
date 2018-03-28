@@ -10,6 +10,7 @@ import * as L from 'leaflet';
 export class MapComponent implements AfterViewInit, OnInit {
 
   @Input() baselayer = 'Topographic';
+  @Input() showAttributionControl = true;
   @Input() showLayersControl = false;
   @Input() showScaleControl = false;
 
@@ -81,6 +82,7 @@ export class MapComponent implements AfterViewInit, OnInit {
     };
 
     this.map = L.map(this.mapWrapper.nativeElement, {
+      attributionControl: this.showAttributionControl,
       layers: [
         baselayers[this.baselayer]
       ],
