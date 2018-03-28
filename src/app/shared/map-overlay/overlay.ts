@@ -6,6 +6,9 @@ import * as L from 'leaflet';
  */
 export interface Overlay {
 
+  // reference to overlay
+  id: string;
+
   // optional, bounds of data being displayed in layer (omit for worldwide view)
   bounds: Array<any>;
 
