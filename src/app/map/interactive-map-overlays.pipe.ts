@@ -10,7 +10,8 @@ import { Overlay } from '../shared/map-overlay/overlay';
 export class InteractiveMapOverlaysPipe implements PipeTransform {
 
   public defaultOverlays = {
-    epicenter: true
+    epicenter: true,
+    'shakemap-intensity': true
   };
 
   public lastEvent: Event = null;
@@ -66,7 +67,7 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
   getProduct (event: Event, params: ParamMap, type: string): any {
     // get product
     let code,
-    source;
+        source;
     if (params) {
       code = params.get(type + '-code');
       source = params.get(type + '-source');

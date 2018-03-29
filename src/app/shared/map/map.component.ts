@@ -13,10 +13,6 @@ export class MapComponent implements AfterViewInit, OnInit {
 
   @Input() baselayer = 'Topographic';
   @Input() showAttributionControl = true;
-  @Input() showLayersControl = false;
-  @Input() showScaleControl = false;
-
-  private _overlays: Array<Overlay> = [];
 
   @Input() set overlays (overlays: Array<Overlay>) {
     this._overlays = overlays;
@@ -28,14 +24,39 @@ export class MapComponent implements AfterViewInit, OnInit {
     return this._overlays;
   }
 
-  @ViewChild('mapWrapper')
-  mapWrapper: ElementRef;
+  @Input() set showLayersControl (showLayersControl: boolean) {
+    this._showLayersControl = showLayersControl;
+    this.updateControls();
+  }
 
-  private _overlaysAdded: Array<Overlay> = [];
+  get showLayersControl (): boolean {
+    return this._showLayersControl;
+  }
+
+  @Input() set showScaleControl (showScaleControl: boolean) {
+    this._showScaleControl = showScaleControl;
+    this.updateControls();
+  }
+
+  get showScaleControl (): boolean {
+    return this._showScaleControl;
+  }
+
+  // value of overlays property
+  public _overlays: Array<Overlay> = [];
+
+  // overlays currently part of the layers control
+  public _overlaysAdded: Array<Overlay> = [];
+
+  public _showLayersControl = false;
+  public _showScaleControl = false;
 
   public map: L.Map;
   public layersControl: L.Control.Layers;
+  public scaleControl: L.Control.Scale;
 
+  @ViewChild('mapWrapper')
+  mapWrapper: ElementRef;
 
   constructor () { }
 
@@ -101,22 +122,13 @@ export class MapComponent implements AfterViewInit, OnInit {
     });
 
     this.layersControl = L.control.layers(baselayers, {});
-    if (this.showLayersControl) {
-      this.map.addControl(this.layersControl);
-    }
+    this.scaleControl = L.control.scale({position: 'bottomright'});
 
-    if (this.showScaleControl) {
-      this.map.addControl(L.control.scale({position: 'bottomright'}));
-    }
-
+    this.updateControls();
     this.updateOverlays();
   }
 
-  setBounds () {
-    if (!this.map) {
-      return;
-    }
-
+  getOverlayBounds () {
     let bounds = null;
 
     // set bounds based on data
@@ -130,13 +142,41 @@ export class MapComponent implements AfterViewInit, OnInit {
       }
     });
 
-    // default to world if no bounds set
+    return bounds;
+  }
+
+  setBounds () {
+    if (!this.map) {
+      return;
+    }
+
+    let bounds = this.getOverlayBounds();
+
+    // default to world if no overlay bounds
     if (bounds === null) {
       bounds = [[85.0, 180.0], [-85.0, 180.0]];
     }
 
     this.map.fitBounds(bounds);
     this.map.invalidateSize();
+  }
+
+  updateControls () {
+    if (!this.map) {
+      return;
+    }
+
+    if (this.showLayersControl) {
+      this.map.addControl(this.layersControl);
+    } else {
+      this.map.removeControl(this.layersControl);
+    }
+
+    if (this.showScaleControl) {
+      this.map.addControl(this.scaleControl);
+    } else {
+      this.map.removeControl(this.scaleControl);
+    }
   }
 
   updateOverlays () {

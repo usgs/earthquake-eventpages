@@ -23,7 +23,7 @@ export class EpicenterOverlay implements Overlay {
       [latitude + 2.0, longitude + 2.0]
     ];
 
-    this.layer =  L.marker(
+    this.layer = L.marker(
       [latitude, longitude],
       {
         icon: L.icon({
