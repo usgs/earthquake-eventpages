@@ -31,6 +31,7 @@ import { StationComponent } from './station/station.component';
 import { TensorPipe } from './tensor.pipe';
 import { DateTimePipe } from './date-time.pipe';
 import { GetProductPipe } from './get-product.pipe';
+import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { GetProductPipe } from './get-product.pipe';
     NodalPlanesComponent,
     TensorPipe,
     DateTimePipe,
-    GetProductPipe
+    GetProductPipe,
+    RegionInfoOverlaysPipe
   ],
   exports: [
     AttributionComponent,
@@ -92,7 +94,8 @@ import { GetProductPipe } from './get-product.pipe';
     StationComponent,
     TensorPipe,
     DateTimePipe,
-    GetProductPipe
+    GetProductPipe,
+    RegionInfoOverlaysPipe
   ],
   entryComponents: [
     DownloadDialogComponent

@@ -1,5 +1,9 @@
-<shared-map
-    [overlays]="overlays"
-    [showLayersControl]="true"
-    [showScaleControl]="true">
-</shared-map>
+<ng-container *ngIf="eventService.event$ | async; let event">
+  <ng-container *ngIf="activatedRoute.queryParamMap | async; let params">
+    <shared-map
+        [overlays]="event | interactiveMapOverlays:params"
+        [showLayersControl]="true"
+        [showScaleControl]="true">
+    </shared-map>
+  </ng-container>
+</ng-container>
