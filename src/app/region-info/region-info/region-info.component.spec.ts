@@ -22,7 +22,7 @@ describe('RegionInfoComponent', () => {
 
         MockComponent({selector: 'shared-map', inputs: ['overlays']}),
         MockPipe('getProduct'),
-        MockPipe('regionInfoOverlay')
+        MockPipe('regionInfoOverlays')
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub}

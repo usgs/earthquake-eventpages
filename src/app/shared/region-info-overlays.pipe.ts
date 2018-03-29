@@ -4,7 +4,7 @@ import { Overlay } from './map-overlay/overlay';
 import { EpicenterOverlay } from './map-overlay/epicenter-overlay';
 
 @Pipe({
-  name: 'regionInfoOverlay'
+  name: 'regionInfoOverlays'
 })
 export class RegionInfoOverlaysPipe implements PipeTransform {
 

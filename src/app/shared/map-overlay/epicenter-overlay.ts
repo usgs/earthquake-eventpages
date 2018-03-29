@@ -15,8 +15,8 @@ export class EpicenterOverlay implements Overlay {
 
   constructor (product: any) {
     const properties = product ? product.properties : {};
-    const latitude = +properties.latitude;
-    const longitude = +properties.longitude;
+    const latitude = +properties.latitude || 0;
+    const longitude = +properties.longitude || 0;
 
     this.bounds = [
       [latitude - 2.0, longitude - 2.0],
