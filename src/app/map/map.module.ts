@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapComponent } from './map/map.component';
 import { SharedModule } from '../shared/shared.module';
-import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 
 @NgModule({
   imports: [
@@ -13,8 +12,7 @@ import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
     MapComponent
   ],
   declarations: [
-    MapComponent,
-    InteractiveMapOverlaysPipe
+    MapComponent
   ]
 })
 export class MapModule { }
