@@ -109,9 +109,33 @@ export class MapComponent implements AfterViewInit, OnInit {
       this.map.addControl(L.control.scale({position: 'bottomright'}));
     }
 
-    this.map.fitBounds([[85.0, 180.0], [-85.0, 180.0]]);
-
     this.updateOverlays();
+  }
+
+  setBounds () {
+    if (!this.map) {
+      return;
+    }
+
+    let bounds = null;
+
+    // set bounds based on data
+    this.overlays.forEach((overlay) => {
+      if (overlay.bounds != null) {
+        if (bounds === null) {
+          bounds = L.latLngBounds(overlay.bounds);
+        } else {
+          bounds = bounds.extend(overlay.bounds);
+        }
+      }
+    });
+
+    // default to world if no bounds set
+    if (bounds === null) {
+      bounds = [[85.0, 180.0], [-85.0, 180.0]];
+    }
+
+    this.map.fitBounds(bounds);
   }
 
   updateOverlays () {
@@ -145,6 +169,8 @@ export class MapComponent implements AfterViewInit, OnInit {
         this.map.removeLayer(overlay.layer);
       }
     });
+
+    this.setBounds();
   }
 
 }
