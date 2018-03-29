@@ -136,6 +136,7 @@ export class MapComponent implements AfterViewInit, OnInit {
     }
 
     this.map.fitBounds(bounds);
+    this.map.invalidateSize();
   }
 
   updateOverlays () {
