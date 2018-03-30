@@ -62,6 +62,10 @@ const appRoutes = [
       {
         path: 'focal-mechanism',
         loadChildren: './focal-mechanism/focal-mechanism.module#FocalMechanismModule'
+      },
+      {
+        path: 'tellus',
+        loadChildren: './tell-us/tell-us.module#TellUsModule'
       }
     ]
   }
