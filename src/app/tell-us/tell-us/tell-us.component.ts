@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../../..';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { FormComponent } from '../form/form.component';
 
 @Component({
@@ -8,23 +8,36 @@ import { FormComponent } from '../form/form.component';
   templateUrl: './tell-us.component.html',
   styleUrls: ['./tell-us.component.scss']
 })
-export class TellUsComponent implements AfterViewInit, OnInit {
+export class TellUsComponent implements OnInit {
+
+  public dialogRef: MatDialogRef<FormComponent> = null;
 
   constructor (
     public dialog: MatDialog,
     public eventService: EventService
   ) { }
 
-  ngAfterViewInit () {
+  ngOnInit () {
     this.showForm();
   }
 
-  ngOnInit () {
+  onResponse (response) {
+    // process form response
+    console.log(response);
   }
 
   showForm () {
-    this.dialog.open(FormComponent, {
+    this.dialogRef = this.dialog.open(FormComponent, {
+      data: {
+        eventService: this.eventService
+      }
+    });
 
+    this.dialogRef.afterClosed().subscribe((response) => {
+      this.dialogRef = null;
+      if (response !== null) {
+        this.onResponse(response);
+      }
     });
   }
 
