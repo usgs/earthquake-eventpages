@@ -32,6 +32,7 @@ import { TensorPipe } from './tensor.pipe';
 import { DateTimePipe } from './date-time.pipe';
 import { GetProductPipe } from './get-product.pipe';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
+import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
     TensorPipe,
     DateTimePipe,
     GetProductPipe,
+    InteractiveMapOverlaysPipe,
     RegionInfoOverlaysPipe
   ],
   exports: [
@@ -95,6 +97,7 @@ import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
     TensorPipe,
     DateTimePipe,
     GetProductPipe,
+    InteractiveMapOverlaysPipe,
     RegionInfoOverlaysPipe
   ],
   entryComponents: [

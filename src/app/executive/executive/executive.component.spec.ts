@@ -22,6 +22,7 @@ describe('ExecutiveComponent', () => {
         ExecutiveComponent,
 
         MockComponent({ selector: 'executive-focal-mechanism-pin', inputs: ['product']}),
+        MockComponent({ selector: 'executive-map-pin', inputs: ['event']}),
         MockComponent({ selector: 'executive-moment-tensor-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-origin-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-region-info-pin', inputs: ['event']}),

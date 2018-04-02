@@ -12,6 +12,7 @@ import { EventPageModule } from '../event-page/event-page.module';
 import { FocalMechanismPinComponent } from './focal-mechanism-pin/focal-mechanism-pin.component';
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
+import { MapPinComponent } from './map-pin/map-pin.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { SharedModule } from '../shared/shared.module';
     MomentTensorPinComponent,
     OriginPinComponent,
     RegionInfoPinComponent,
-    FocalMechanismPinComponent
+    FocalMechanismPinComponent,
+    MapPinComponent
   ]
 })
 export class ExecutiveModule { }

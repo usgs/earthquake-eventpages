@@ -76,16 +76,12 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
   }
 
   setEnabled (overlays: Array<Overlay>, params: ParamMap) {
-    if (!params) {
-      return;
-    }
-
     overlays.forEach((overlay) => {
-      const enabledParam = params.get(overlay.id);
+      const enabledParam = params ? params.get(overlay.id) : false;
       if (enabledParam) { // this is a string, so even 'false' is true...
         overlay.enabled = (enabledParam === 'true');
       } else {
-        overlay.enabled = !!this.defaultOverlays[overlay.id];
+        overlay.enabled = this.defaultOverlays[overlay.id];
       }
     });
   }
