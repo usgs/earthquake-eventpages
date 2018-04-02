@@ -106,8 +106,9 @@
                             PGA
                         </mat-header-cell>
                         <mat-cell *matCellDef="let channel">
-                            {{ getAmp('pga', channel.amplitudes).value ? getAmp('pga', channel.amplitudes).value : '-' }}
-                            {{ getAmp('pga', channel.amplitudes).value ? getAmp('pga', channel.amplitudes).units : '' }}
+                            {{ channel.amplitudes.pga.value | sharedNumber }}
+                            {{ channel.amplitudes.pga.value ? 
+                                channel.amplitudes.pga.units : '' }}
                         </mat-cell>
                     </ng-container>
 
@@ -116,8 +117,9 @@
                             PGV
                         </mat-header-cell>
                         <mat-cell *matCellDef="let channel">
-                            {{ getAmp('pgv', channel.amplitudes).value ? getAmp('pgv', channel.amplitudes).value : '-' }}
-                            {{ getAmp('pgv', channel.amplitudes).value ? getAmp('pgv', channel.amplitudes).units : '' }}
+                            {{ channel.amplitudes.pgv.value | sharedNumber }}
+                            {{ channel.amplitudes.pgv.value ? 
+                                channel.amplitudes.pgv.units : '' }}
                         </mat-cell>
                     </ng-container>
 
@@ -126,8 +128,9 @@
                             PSA(03)
                         </mat-header-cell>
                         <mat-cell *matCellDef="let channel">
-                            {{ getAmp('psa03', channel.amplitudes).value ? getAmp('psa03', channel.amplitudes).value : '-' }}
-                            {{ getAmp('psa03', channel.amplitudes).value ? getAmp('psa03', channel.amplitudes).units : '' }}
+                            {{ channel.amplitudes.psa03.value | sharedNumber }}
+                            {{ channel.amplitudes.psa03.value ? 
+                                channel.amplitudes.psa03.units : '' }}
                         </mat-cell>
                     </ng-container>
 
@@ -136,8 +139,9 @@
                             PSA(10)
                         </mat-header-cell>
                         <mat-cell *matCellDef="let channel">
-                            {{ getAmp('psa10', channel.amplitudes).value ? getAmp('psa10', channel.amplitudes).value : '-' }}
-                            {{ getAmp('psa10', channel.amplitudes).value ? getAmp('psa10', channel.amplitudes).units : '' }}
+                            {{ channel.amplitudes.psa10.value | sharedNumber }}
+                            {{ channel.amplitudes.psa10.value ? 
+                                channel.amplitudes.psa10.units : '' }}
                         </mat-cell>
                     </ng-container>
 
@@ -146,8 +150,9 @@
                             PSA(30)
                         </mat-header-cell>
                         <mat-cell *matCellDef="let channel">
-                            {{ getAmp('psa30', channel.amplitudes).value ? getAmp('psa30', channel.amplitudes).value : '-' }}
-                            {{ getAmp('psa30', channel.amplitudes).value ? getAmp('psa30', channel.amplitudes).units : '' }}
+                            {{ channel.amplitudes.psa30.value | sharedNumber }}
+                            {{ channel.amplitudes.psa30.value ? 
+                                channel.amplitudes.psa30.units : '' }}
                         </mat-cell>
                     </ng-container>
 

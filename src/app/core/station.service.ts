@@ -66,21 +66,52 @@ export class StationService {
   translate (stations) {
     const new_stations: any[] = [];
 
-    for (const station of stations.features) {
-      for (const item of Object.keys(station.properties)) {
-
-        if ((station.properties[item] === 'null') ||
-              (station.properties[item] === 'nan')) {
-          station.properties[item] = null;
-        }
-
-      }
+    for (let station of stations.features) {
+      station = this.translateNan(station);
+      station = this.translateAmps(station);
 
       new_stations.push(station);
     }
     stations.features = new_stations;
 
     return stations;
+  }
+
+  /**
+   * Convert string 'NaN' and 'null' to actual null
+   */
+  translateNan (station) {
+    for (const item of Object.keys(station.properties)) {
+      if ((station.properties[item] === 'null') ||
+            (station.properties[item] === 'nan')) {
+        station.properties[item] = null;
+      }
+    }
+
+    return station;
+  }
+
+/**
+ * Converts amplitude array into object
+ */
+  translateAmps (station) {
+    const channels = station.properties.channels;
+
+    for (const channel of channels) {
+      const amps = channel.amplitudes;
+      channel.amplitudes = {};
+
+      // if amplitudes is already converted, return
+      if (!Array.isArray(amps)) {
+        continue;
+      }
+
+      for (const amp of amps) {
+        channel.amplitudes[amp.name] = amp;
+      }
+    }
+
+    return station;
   }
 
   /**

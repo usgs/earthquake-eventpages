@@ -20,7 +20,13 @@ describe('StationService', () => {
     'features': [
       {'type': 'feature',
         'properties': {
-          'pga': 5.2
+          'pga': 5.2,
+          'channels': [
+            {
+              'name': 'channel',
+              'amplitudes': [{'name': 'amp1', 'value': 1}]
+            }
+          ]
         }
       }
     ]
@@ -32,7 +38,13 @@ describe('StationService', () => {
       {'type': 'feature',
         'properties': {
           'pga': 'null',
-          'pgv': 'nan'
+          'pgv': 'nan',
+          'channels': [
+            {
+              'name': 'channel',
+              'amplitudes': [{'name': 'amp1', 'value': 1}]
+            }
+          ]
         }
       }
     ]
@@ -130,6 +142,21 @@ describe('StationService', () => {
         expect(content.features[0].properties.pga).toEqual(null);
         expect(content.features[0].properties.pgv).toEqual(null);
       });
+
+    }));
+
+  });
+
+  describe('translateAmps', () => {
+
+    it('handles parse success',
+        inject([StationService], (service: StationService)  => {
+
+      let station = STATIONS_JSON.features[0];
+      station = service.translateAmps(station);
+
+      expect(Array.isArray(station.properties.channels[0].amplitudes))
+          .toEqual(false);
 
     }));
 
