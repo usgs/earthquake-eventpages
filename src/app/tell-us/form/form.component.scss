@@ -1,0 +1,16 @@
+h2 {
+  display: flex;
+  margin-top: 0;
+}
+
+h2 > span {
+  display: block;
+  flex: 1;
+}
+
+.omb-number {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1;
+  margin-left: 1em;
+}
