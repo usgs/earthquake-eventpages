@@ -8,8 +8,10 @@
 
     <ng-template matExpansionPanelContent>
       <mat-table [dataSource]="smOutput.ground_motions">
-        <mat-header-row *matHeaderRowDef="headers.groundMotions"></mat-header-row>
-        <mat-row *matRowDef="let myRowData; columns: headers.groundMotions"></mat-row>
+        <mat-header-row *matHeaderRowDef="headers.groundMotions">
+        </mat-header-row>
+        <mat-row *matRowDef="let myRowData;
+            columns: headers.groundMotions"></mat-row>
 
         <ng-container matColumnDef="type">
           <mat-header-cell *matHeaderCellDef>
@@ -20,10 +22,10 @@
                       class="mat-header-cell"
                       *matCellDef="let groundMotion">
             
-            <ng-container *ngIf="names.groundMotions[groundMotion.type] as name;
-                                    else noName">
+            <ng-container *ngIf="names.groundMotions[groundMotion.type]
+                as name; else noName">
               <ng-container *ngIf="abbreviations[groundMotion.type] as abbr;
-                                    else noAbbr">
+                  else noAbbr">
 
                 <abbr title="{{ abbr }}">{{ name }}</abbr>
               </ng-container>
@@ -81,8 +83,10 @@
 
     <ng-template matExpansionPanelContent>
       <mat-table [dataSource]="smOutput.map_information">
-        <mat-header-row *matHeaderRowDef="headers.mapInformation"></mat-header-row>
-        <mat-row *matRowDef="let myRowData; columns: headers.mapInformation"></mat-row>
+        <mat-header-row *matHeaderRowDef="headers.mapInformation">
+        </mat-header-row>
+        <mat-row *matRowDef="let myRowData;
+            columns: headers.mapInformation"></mat-row>
 
         <ng-container matColumnDef="type">
           <mat-header-cell *matHeaderCellDef>
@@ -127,29 +131,27 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <dl class="description-table" *ngIf="smOutput.uncertainty as uncertainty">
+      <dl class="description-table" *ngIf="smOutput.uncertainty
+          as uncertainty">
 
         <dt>Mean of map uncertainty</dt>
         <dd *ngIf="uncertainty.mean_uncertainty_ratio as ratio;
-                              else missingData">
+            else missingData">
           {{ ratio | sharedNumber }}
         </dd>
         
         <dt>Empirical ShakeMap grade</dt>
-        <dd *ngIf="uncertainty.grade as grade;
-                              else missingData">
+        <dd *ngIf="uncertainty.grade as grade; else missingData">
           {{ grade }}
         </dd>
 
         <dt>Flagged Seismic Stations</dt>
-        <dd *ngIf="uncertaintytotal_flagged_mi as miFlag;
-                              else missingData">
+        <dd *ngIf="uncertaintytotal_flagged_mi as miFlag; else missingData">
           {{ miFlag }}
         </dd>
 
         <dt>Flagged DYFI stations</dt>
-        <dd *ngIf="uncertainty.total_flagged_pgm as pgmFlag;
-                              else missingData">
+        <dd *ngIf="uncertainty.total_flagged_pgm as pgmFlag; else missingData">
           {{ pgmFlag }}
         </dd>
 
