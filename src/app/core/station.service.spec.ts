@@ -42,7 +42,7 @@ describe('StationService', () => {
           'channels': [
             {
               'name': 'channel',
-              'amplitudes': [{'name': 'amp1', 'value': 1}]
+              'amplitudes': [{'name': 'sa(1.0)', 'value': 1}]
             }
           ]
         }
