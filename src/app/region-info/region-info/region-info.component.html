@@ -1,5 +1,10 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
-  <shared-map
-      [overlays]="event | getProduct:'origin' | regionInfoOverlays">
-  </shared-map>
+  <a
+      [routerLink]="'../map'"
+      [queryParams]="{ 'historic-seismicity': true }">
+    <shared-map
+        [overlays]="event | getProduct:'origin' | regionInfoOverlays"
+        [showScaleControl]="true">
+    </shared-map>
+  </a>
 </ng-container>
