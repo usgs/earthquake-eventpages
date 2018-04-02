@@ -12,6 +12,7 @@ import { Overlay } from '../map-overlay/overlay';
 export class MapComponent implements AfterViewInit, OnInit {
 
   @Input() baselayer = 'Topographic';
+  @Input() interactive = false;
   @Input() showAttributionControl = true;
 
   @Input() set overlays (overlays: Array<Overlay>) {
@@ -118,7 +119,18 @@ export class MapComponent implements AfterViewInit, OnInit {
       layers: [
         baselayers[this.baselayer]
       ],
-      scrollWheelZoom: false
+      scrollWheelZoom: false,
+      // noninteractive map settings
+      boxZoom: this.interactive,
+      doubleClickZoom: this.interactive,
+      dragging: this.interactive,
+      fadeAnimation: this.interactive,
+      keyboard: this.interactive,
+      markerZoomAnimation: this.interactive,
+      tap: this.interactive,
+      touchZoom: this.interactive,
+      touchAnimation: this.interactive,
+      zoomControl: this.interactive
     });
 
     this.layersControl = L.control.layers(baselayers, {});
@@ -166,7 +178,7 @@ export class MapComponent implements AfterViewInit, OnInit {
       return;
     }
 
-    if (this.showLayersControl) {
+    if (this.showLayersControl && this.interactive === true) {
       this.map.addControl(this.layersControl);
     } else {
       this.map.removeControl(this.layersControl);

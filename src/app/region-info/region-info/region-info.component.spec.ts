@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { RegionInfoComponent } from './region-info.component';
 import { Event } from '../../event';
@@ -17,10 +18,13 @@ describe('RegionInfoComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
       declarations: [
         RegionInfoComponent,
 
-        MockComponent({selector: 'shared-map', inputs: ['overlays']}),
+        MockComponent({selector: 'shared-map', inputs: ['overlays', 'showScaleControl']}),
         MockPipe('getProduct'),
         MockPipe('regionInfoOverlays')
       ],
