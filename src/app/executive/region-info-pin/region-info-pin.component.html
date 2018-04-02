@@ -1,9 +1,10 @@
 <basic-pin
-      [product]="event | getProduct:'origin'"
-      [link]="link"
-      [title]="title">
-  <div #regionInfoMap
-      card-content
-      class="map"
-      (mousemove)="$event.stopPropagation"></div>
+    [link]="link"
+    [product]="event | getProduct:'origin'"
+    [title]="title">
+  <shared-map card-content
+      [overlays]="event | getProduct:'origin' | regionInfoOverlays"
+      [showAttributionControl]="false">
+  </shared-map>
 </basic-pin>
+
