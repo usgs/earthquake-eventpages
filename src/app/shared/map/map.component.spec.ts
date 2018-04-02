@@ -88,6 +88,7 @@ describe('MapComponent', () => {
   describe('showLayersControl', () => {
     it('adds layers control to map when true', () => {
       component.showLayersControl = true;
+      component.interactive = true;
       component.updateControls();
       expect(component.layersControl._map).toBeTruthy();
     });
