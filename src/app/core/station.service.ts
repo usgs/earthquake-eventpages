@@ -96,6 +96,11 @@ export class StationService {
  */
   translateAmps (station) {
     const channels = station.properties.channels;
+    const translateNames = {
+      'sa(0.3)': 'psa03',
+      'sa(1.0)': 'psa10',
+      'sa(3.0)': 'psa30',
+    };
 
     for (const channel of channels) {
       const amps = channel.amplitudes;
@@ -107,7 +112,12 @@ export class StationService {
       }
 
       for (const amp of amps) {
-        channel.amplitudes[amp.name] = amp;
+
+        if (translateNames[amp.name]) {
+          channel.amplitudes[translateNames[amp.name]] = amp;
+        } else {
+          channel.amplitudes[amp.name] = amp;
+        }
       }
     }
 
