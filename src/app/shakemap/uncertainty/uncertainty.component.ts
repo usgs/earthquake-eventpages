@@ -3,7 +3,7 @@ import { EventService } from '../../core/event.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'app-uncertainty',
+  selector: 'shakemap-uncertainty',
   templateUrl: './uncertainty.component.html',
   styleUrls: ['./uncertainty.component.scss']
 })

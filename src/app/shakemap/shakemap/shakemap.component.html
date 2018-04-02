@@ -8,17 +8,22 @@
 
   <!-- routes/components in ../origin-routing.module.ts -->
   <nav mat-tab-nav-bar>
-    <a mat-tab-link
-        [routerLink]="'./metadata'" queryParamsHandling="preserve"
-        routerLinkActive #metadata="routerLinkActive" [active]="metadata.isActive">
+    <a mat-tab-link [routerLink]="'./metadata'"
+        queryParamsHandling="preserve"
+        routerLinkActive #metadata="routerLinkActive"
+        [active]="metadata.isActive">
       Metadata
     </a>
-    <a mat-tab-link [routerLink]="'./stations'" queryParamsHandling="preserve"
-        routerLinkActive #stations="routerLinkActive" [active]="stations.isActive">
+    <a mat-tab-link [routerLink]="'./stations'"
+        queryParamsHandling="preserve"
+        routerLinkActive #stations="routerLinkActive"
+        [active]="stations.isActive">
       Station List
     </a>
-    <a mat-tab-link [routerLink]="'./uncertainty'" queryParamsHandling="preserve"
-        routerLinkActive #uncertainty="routerLinkActive" [active]="uncertainty.isActive">
+    <a mat-tab-link [routerLink]="'./uncertainty'"
+        queryParamsHandling="preserve"
+        routerLinkActive #uncertainty="routerLinkActive"
+        [active]="uncertainty.isActive">
       Uncertainty
     </a>
   </nav>
