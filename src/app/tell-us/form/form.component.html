@@ -9,11 +9,25 @@
 
   <p>
     form works!
-
+    <button mat-raised-button (click)="enterLocationAndFelt()">Enter Location and Felt</button>
+    <button mat-raised-button (click)="clearLocationAndFelt()">Clear Location and Felt</button>
   </p>
 
-  <button mat-raised-button (click)="enterLocationAndFelt()">Enter Location and Felt</button>
-  <button mat-raised-button (click)="clearLocationAndFelt()">Clear Location and Felt</button>
+  <mat-form-field>
+    <mat-label>Select Language</mat-label>
+    <mat-select
+        (change)="changeLanguage($event)"
+        [value]="languageService.language$.value.id">
+      <mat-option *ngFor="let language of languageService.languages"
+          [value]="language.id">
+        {{ language.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <ng-container *ngIf="languageService.language$ | async; let language">
+    <pre>{{ language | json }}</pre>
+  </ng-container>
 
   <mat-expansion-panel>
     <mat-expansion-panel-header>PRA - Privacy Act Statement</mat-expansion-panel-header>

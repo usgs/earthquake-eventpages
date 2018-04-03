@@ -4,7 +4,8 @@ import { TellUsComponent } from './tell-us/tell-us.component';
 import { SharedModule } from '../shared/shared.module';
 import { TellUsRoutingModule } from './tell-us-routing.module';
 import { FormComponent } from './form/form.component';
-import { MatButtonModule, MatDialogModule, MatExpansionModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatExpansionModule, MatSelectModule, MatFormFieldModule } from '@angular/material';
+import { FormLanguageService } from './form-language.service';
 
 @NgModule({
   imports: [
@@ -12,6 +13,8 @@ import { MatButtonModule, MatDialogModule, MatExpansionModule } from '@angular/m
     MatButtonModule,
     MatDialogModule,
     MatExpansionModule,
+    MatFormFieldModule,
+    MatSelectModule,
 
     SharedModule,
     TellUsRoutingModule
@@ -22,6 +25,9 @@ import { MatButtonModule, MatDialogModule, MatExpansionModule } from '@angular/m
   ],
   entryComponents: [
     FormComponent
+  ],
+  providers: [
+    FormLanguageService
   ],
   exports: [
     FormComponent

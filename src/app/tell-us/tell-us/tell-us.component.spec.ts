@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TellUsComponent } from './tell-us.component';
-import { MatButtonModule, MatDialogModule, MatDialog, MatExpansionModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatDialog, MatExpansionModule, MatSelectModule, MatFormFieldModule } from '@angular/material';
 import { of } from 'rxjs/observable/of';
 import { EventService } from '../../../..';
 import { Event } from '../../event';
@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { FormComponent } from '../form/form.component';
+import { FormLanguageService } from '../form-language.service';
 
 describe('TellUsComponent', () => {
   let component: TellUsComponent;
@@ -17,6 +18,10 @@ describe('TellUsComponent', () => {
   beforeEach(async(() => {
     const eventServiceStub = {
       event$: of(new Event({}))
+    };
+    const languageServiceStub = {
+      getLanguage: jasmine.createSpy('languageService::getLanguage'),
+      language$: of({})
     };
 
     TestBed.configureTestingModule({
@@ -28,9 +33,12 @@ describe('TellUsComponent', () => {
         BrowserAnimationsModule,
         MatButtonModule,
         MatDialogModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatSelectModule
       ],
       providers: [
+        {provide: FormLanguageService, useValue: languageServiceStub},
         {provide: EventService, useValue: eventServiceStub}
       ],
     });

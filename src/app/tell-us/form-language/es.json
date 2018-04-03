@@ -1,0 +1,225 @@
+{
+  "id": "es",
+  "name": "Español",
+
+  "locationInfo": {
+    "label": "Cuál era su localización cuando ocurrió el terremoto?",
+    "button": "Opciones de Localización",
+    "buttonUpdate": "Cambiar la Localización"
+  },
+
+  "baseQuestions": {
+    "fldSituation_felt": {
+      "label": "Usted sintió el terremoto?",
+      "answers": [
+        {"value": "1", "label": "Sí"},
+        {"value": "0", "label": "No"}
+      ]
+    }
+  },
+
+  "toggleInfo": {
+    "button": "Observaciones Adicionales",
+    "description": "<strong>El resto de este formulario es opcional.</strong>La información nos ayuda a crear un mapa de intensidad basado en las observaciones de tu localización."
+  },
+
+  "moreQuestions": {
+    "fldSituation_situation": {
+      "label": "Cuál era tu ubicación durante el terremoto?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "inside", "label": "Dentro de un edificio"},
+        {"value": "outside", "label": "Afuera de un edificio"},
+        {"value": "veh_stopped", "label": "En un vehículo detenido"},
+        {"value": "veh_moving", "label": "En un vehículo en movimiento"},
+        {"value": "other", "label": "Otra Situación",
+            "otherValue": "", "otherLabel": "Por favor, describa"}
+      ]
+    },
+    "fldSituation_sleep": {
+      "label": "Estaba usted durmiendo?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "no", "label": "No"},
+        {"value": "slept", "label": "No me despertó"},
+        {"value": "woke", "label": "Me despertó"}
+      ]
+    },
+    "fldSituation_others": {
+      "label": "Otras personas cerca de usted lo sintieron?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "2", "label": "Otros No lo sintieron"},
+        {"value": "3", "label": "Algunos lo sintieron, la mayoría no"},
+        {"value": "4", "label": "La mayoría lo sintieron"},
+        {"value": "5", "label": "Todos/casi todos lo sintieron"}
+      ]
+    },
+
+
+    "fldExperience_shaking": {
+      "label": "Describa la sacudida del terremoto",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "0", "label": "No se sintió"},
+        {"value": "1", "label": "Débil"},
+        {"value": "2", "label": "Suave"},
+        {"value": "3", "label": "Moderada"},
+        {"value": "4", "label": "Fuerte"},
+        {"value": "5", "label": "Violenta"}
+      ]
+    },
+    "fldExperience_reaction": {
+      "label": "Cómo reaccionó usted?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "0", "label": "Ninguna reacción/no lo sentí"},
+        {"value": "1", "label": "Muy poca reacción"},
+        {"value": "2", "label": "Sorprendido"},
+        {"value": "3", "label": "Algo asustado"},
+        {"value": "4", "label": "Muy asustado"},
+        {"value": "5", "label": "Asustado en lo extremo"}
+      ]
+    },
+    "fldExperience_response": {
+      "label": "Cómo respondió usted?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "no_action", "label": "Ninguna respuesta"},
+        {"value": "doorway", "label": "Me moví a la puerta"},
+        {"value": "duck", "label": "Me agaché y me cubrí"},
+        {"value": "ran_outside", "label": "Corrí afuera"},
+        {"value": "other", "label": "Otra",
+            "otherValue": "", "otherLabel": "Por favor, describa"}
+      ]
+    },
+    "fldExperience_stand": {
+      "label": "Se le dificultó el pararse ó caminar?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "0", "label": "No"},
+        {"value": "1", "label": "Sí"}
+      ]
+    },
+
+
+    "fldEffects_doors": {
+      "label": "Observó movimiento en objetos colgantes y/o puertas?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "0", "label": "No"},
+        {"value": "1 slight", "label": "Sí, movimiento leve"},
+        {"value": "1 violent", "label": "Sí, movimiento fuerte"}
+      ]
+    },
+    "fldEffects_sounds": {
+      "label": "Escuchó usted crujidos ó algún otro ruido?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "1 slight", "label": "Sí, ruido leve"},
+        {"value": "1 loud", "label": "Sí, ruido fuerte"}
+      ]
+    },
+    "fldEffects_shelved": {
+      "label": "Se movieron ó se cayeron obejetos en las repisas?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "0", "label": "No"},
+        {"value": "0 rattled_slightly", "label": "Se movieron un poco"},
+        {"value": "0 rattled_loudly", "label": "Se movieron mucho"},
+        {"value": "1 few_toppled_or_fell", "label": "Algunos se voltearon ó se cayeron"},
+        {"value": "2 many_toppled_or_fell", "label": "Muchos se voltearon ó se cayeron"},
+        {"value": "3 everything", "label": "Casi todo se cayó"}
+      ]
+    },
+    "fldEffects_pictures": {
+      "label": "Se movieron ó desnivelaron cuadros en las paredes?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "0", "label": "No"},
+        {"value": "1 did_not_fall", "label": "Sí, pero no se cayeron"},
+        {"value": "1 some_fell", "label": "Sí, y algunos se cayeron"}
+      ]
+    },
+    "fldEffects_furniture": {
+      "label": "Alguno de sus muebles ó ensures se deslizó, volteó ó quedó fuera de su sitio original?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "0", "label": "No"},
+        {"value": "1", "label": "Sí"}
+      ]
+    },
+    "fldEffects_appliances": {
+      "label": "Se afectó algún eletrodoméstico pesado (refrigerador ó estufa)?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "0", "label": "No"},
+        {"value": "fell", "label": "Sí, alguno de sus contenidos se cayeron"},
+        {"value": "shifted", "label": "Sí, el electrodoméstico se movió varias pulgadas"},
+        {"value": "shifted_foot", "label": "Sí, el eletrodoméstico se movió más de un pie (30 cm)"},
+        {"value": "overturned", "label": "Sí, el eletrodoméstico se cayó"}
+      ]
+    },
+    "fldEffects_walls": {
+      "label": "Observó daños en las paredes ó verjas?",
+      "answers": [
+        {"value": "", "label": "No especifico"},
+        {"value": "0", "label": "No"},
+        {"value": "cracked", "label": "Sí, observe algunas grietas"},
+        {"value": "fell_partial", "label": "Sí, algunas se cayeron parcialmente"},
+        {"value": "fell_complete", "label": "Sí, algunas se cayeron por completo"}
+      ]
+    },
+
+    "d_text": {
+      "label": "Observó daños en edificios ú otras estructuras?",
+      "multiSelect": true,
+      "answers": [
+        {"value": "_none", "label": "Ningún daño apreciable a simple vista"},
+        {"value": "_crackmin", "label": "Grietas pequeñas en las paredes"},
+        {"value": "_crackwallfew", "label": "Algunas grietas grandes en las paredes"},
+        {"value": "_crackwallmany", "label": "Varias grietas grandes en las paredes"},
+        {"value": "_tilesfell", "label": "Losas de techo/paredes y/o luces se cayeron"},
+        {"value": "_crackchim", "label": "Grietas enla chimenea"},
+        {"value": "_crackwindows", "label": "Una óvarias ventanas dañadas"},
+        {"value": "_brokenwindows", "label": "Varias ventanas dañadas ó rotas"},
+        {"value": "_masonryfell", "label": "Ladrillos y/o bloques se cayeron de las paredes"},
+        {"value": "_majoroldchim", "label": "Una chimenea vieja sufrió daños severos ó se derrumbó"},
+        {"value": "_majormodernchim", "label": "Una chimenea moderna sufrió daños severos ó se derrumbó "},
+        {"value": "_tiltedwall", "label": "Paredes exteriors se inclinaron ó cayeron por completo"},
+        {"value": "_porch", "label": "Se separaron de la estructura el balcón, marquesina y/ó cualquier otra área adicional"},
+        {"value": "_move", "label": "La casa ó estructura se movió por complete de su fundamento/base"}
+      ]
+    }
+  },
+
+  "comments": {
+    "fldContact_comments": {
+      "label": "Comentarios Adicionales",
+      "type": "textarea"
+    }
+  },
+
+  "contactInfo": {
+    "fldContact_name": {
+      "label": "Nombre"
+    },
+    "fldContact_email": {
+      "label": "Email"
+    },
+    "fldContact_phone": {
+      "label": "Número de Teléfono"
+    }
+  },
+
+  "eventTime": {
+    "ciim_time": {
+      "label": "Tiempo del Terremoto <small>Hora Local <em>1/31/2008 9:00 AM</em>, ó tiempo relativo <em>5 minutos atrás</em></small>"
+    }
+  },
+
+  "submit": {
+    "label": "Submit"
+  }
+}
+
