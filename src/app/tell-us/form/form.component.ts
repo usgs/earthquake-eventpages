@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormLanguageService } from '../form-language.service';
 
 @Component({
   selector: 'tell-us-form',
@@ -13,10 +14,15 @@ export class FormComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<FormComponent>
+    public dialogRef: MatDialogRef<FormComponent>,
+    public languageService: FormLanguageService
   ) { }
 
   ngOnInit() {
+  }
+
+  changeLanguage (selectEvent) {
+    this.languageService.getLanguage(selectEvent.value);
   }
 
   clearLocationAndFelt () {
