@@ -1,3 +1,4 @@
 <div #mapWrapper
+    [class.noninteractive]="interactive === false"
     (mousemove)="$event.stopPropagation">
 </div>

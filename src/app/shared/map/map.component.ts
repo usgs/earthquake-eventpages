@@ -12,7 +12,6 @@ import { Overlay } from '../map-overlay/overlay';
 export class MapComponent implements AfterViewInit, OnInit {
 
   @Input() baselayer = 'Topographic';
-  @Input() interactive = false;
   @Input() showAttributionControl = true;
 
   @Input() set overlays (overlays: Array<Overlay>) {
@@ -25,8 +24,20 @@ export class MapComponent implements AfterViewInit, OnInit {
     return this._overlays;
   }
 
+  @Input() set interactive (interactive: boolean) {
+    this._interactive = interactive;
+
+    this.updateControls();
+    this.updateInteractive();
+  }
+
+  get interactive (): boolean {
+    return this._interactive;
+  }
+
   @Input() set showLayersControl (showLayersControl: boolean) {
     this._showLayersControl = showLayersControl;
+
     this.updateControls();
   }
 
@@ -36,6 +47,7 @@ export class MapComponent implements AfterViewInit, OnInit {
 
   @Input() set showScaleControl (showScaleControl: boolean) {
     this._showScaleControl = showScaleControl;
+
     this.updateControls();
   }
 
@@ -55,6 +67,9 @@ export class MapComponent implements AfterViewInit, OnInit {
   public map: L.Map;
   public layersControl: L.Control.Layers;
   public scaleControl: L.Control.Scale;
+  public zoomControl: L.Control.Zoom;
+
+  private _interactive = false;
 
   @ViewChild('mapWrapper')
   mapWrapper: ElementRef;
@@ -120,23 +135,23 @@ export class MapComponent implements AfterViewInit, OnInit {
         baselayers[this.baselayer]
       ],
       scrollWheelZoom: false,
-      // noninteractive map settings
-      boxZoom: this.interactive,
-      doubleClickZoom: this.interactive,
-      dragging: this.interactive,
-      fadeAnimation: this.interactive,
-      keyboard: this.interactive,
-      markerZoomAnimation: this.interactive,
-      tap: this.interactive,
-      touchZoom: this.interactive,
-      touchAnimation: this.interactive,
-      zoomControl: this.interactive
+      // noninteractive map setting defaults
+      // managed by updateControls & updateInteractive
+      boxZoom: true,
+      doubleClickZoom: true,
+      dragging: true,
+      keyboard: true,
+      tap: true,
+      touchZoom: true,
+      zoomControl: false
     });
 
     this.layersControl = L.control.layers(baselayers, {});
     this.scaleControl = L.control.scale({position: 'bottomright'});
+    this.zoomControl = L.control.zoom();
 
     this.updateControls();
+    this.updateInteractive();
     this.updateOverlays();
   }
 
@@ -189,6 +204,40 @@ export class MapComponent implements AfterViewInit, OnInit {
     } else {
       this.map.removeControl(this.scaleControl);
     }
+
+    if (this.interactive) {
+      this.map.addControl(this.zoomControl);
+    } else {
+      this.map.removeControl(this.zoomControl);
+    }
+  }
+
+  updateInteractive () {
+    if (!this.map) {
+      return;
+    }
+
+    const handlers = [
+      this.map.boxZoom,
+      this.map.doubleClickZoom,
+      this.map.dragging,
+      this.map.keyboard,
+      this.map.tap,
+      this.map.touchZoom
+    ];
+    const interactive = this.interactive;
+
+    handlers.forEach((handler) => {
+      if (!handler) {
+        return;
+      }
+
+      if (interactive) {
+        handler.enable();
+      } else {
+        handler.disable();
+      }
+    });
   }
 
   updateOverlays () {

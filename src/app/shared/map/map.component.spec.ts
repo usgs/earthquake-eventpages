@@ -123,6 +123,25 @@ describe('MapComponent', () => {
     });
   });
 
+  describe('updateInteractive', () => {
+    it('enables handlers', () => {
+      const spy = spyOnProperty(component, 'interactive', 'get').and.returnValue(true);
+      spyOn(component.map.boxZoom, 'enable');
+
+      component.updateInteractive();
+      expect(spy).toHaveBeenCalled();
+      expect(component.map.boxZoom.enable).toHaveBeenCalled();
+    });
+
+    it('returns if map is not set', () => {
+      const spy = spyOnProperty(component, 'interactive', 'get').and.returnValue(true);
+      component.map = null;
+
+      component.updateInteractive();
+      expect(spy).not.toHaveBeenCalled();
+    });
+  });
+
   describe('updateOverlays', () => {
     it('waits for layersControl to be defined', () => {
       component.layersControl = null;

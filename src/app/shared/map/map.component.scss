@@ -4,3 +4,7 @@ div {
   margin: 1em 0;
   width: 100%;
 }
+
+.noninteractive {
+  pointer-events: none;
+}
