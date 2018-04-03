@@ -5,11 +5,16 @@ import { RouterModule } from '@angular/router';
 import { RegionInfoComponent } from './region-info/region-info.component';
 import { SharedModule } from '../shared/shared.module';
 
+import { GeoserveCoreModule, GeoserveOutputModule } from 'earthquake-geoserve-ui';
+
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+
+    GeoserveCoreModule.forRoot(),
+    GeoserveOutputModule
   ],
   declarations: [RegionInfoComponent]
 })
