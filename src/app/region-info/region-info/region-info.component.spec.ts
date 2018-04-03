@@ -78,7 +78,7 @@ describe('RegionInfoComponent', () => {
       expect(component.coordinatesService.setCoordinates).toHaveBeenCalledWith({
         latitude: latitude,
         longitude: longitude
-      })
+      });
     });
   });
 
