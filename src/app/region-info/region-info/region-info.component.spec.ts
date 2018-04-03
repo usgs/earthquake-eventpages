@@ -8,11 +8,17 @@ import { of } from 'rxjs/observable/of';
 import { EventService } from '../../../..';
 import { MockPipe } from '../../mock-pipe';
 
+import { CoordinatesService } from 'earthquake-geoserve-ui';
+
 describe('RegionInfoComponent', () => {
   let component: RegionInfoComponent;
   let fixture: ComponentFixture<RegionInfoComponent>;
 
   beforeEach(async(() => {
+    const coordinatesServiceStub = {
+      setCoordinates: jasmine.createSpy('coordinatesService::setCoordinates')
+    };
+
     const eventServiceStub = {
       event$: of(new Event({}))
     };
@@ -25,10 +31,14 @@ describe('RegionInfoComponent', () => {
         RegionInfoComponent,
 
         MockComponent({selector: 'shared-map', inputs: ['overlays', 'showScaleControl']}),
+        MockComponent({selector: 'app-admin-region'}),
+        MockComponent({selector: 'app-nearby-places'}),
+        MockComponent({selector: 'app-tectonic-summary-region'}),
         MockPipe('getProduct'),
         MockPipe('regionInfoOverlays')
       ],
       providers: [
+        {provide: CoordinatesService, useValue: coordinatesServiceStub},
         {provide: EventService, useValue: eventServiceStub}
       ]
     })
@@ -44,4 +54,32 @@ describe('RegionInfoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('updateGeoserveCoordinateService', () => {
+    it('returns when no event is passed', () => {
+      component.updateGeoserveCoordinateService(null);
+      expect(component.coordinatesService.setCoordinates).not.toHaveBeenCalled();
+    });
+    it('sets coordinates', () => {
+      const latitude = 35;
+      const longitude = -105;
+
+      const event = {
+        geometry: {
+          coordinates: [
+            longitude,
+            latitude,
+            0
+          ]
+        }
+      };
+
+      component.updateGeoserveCoordinateService(event);
+      expect(component.coordinatesService.setCoordinates).toHaveBeenCalledWith({
+        latitude: latitude,
+        longitude: longitude
+      })
+    });
+  });
+
 });

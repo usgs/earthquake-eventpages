@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -13,7 +13,7 @@ import { CoordinatesService } from 'earthquake-geoserve-ui';
   templateUrl: './region-info.component.html',
   styleUrls: ['./region-info.component.css']
 })
-export class RegionInfoComponent implements OnInit {
+export class RegionInfoComponent implements OnDestroy, OnInit {
 
   public overlays: Array<Overlay> = [ new HistoricSeismicityOverlay() ];
 
@@ -25,19 +25,8 @@ export class RegionInfoComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    this.subscription = this.eventService.event$.subscribe((event: any)=> {
-
-      if (!event || !event.geometry) {
-        return;
-      }
-
-      const latitude = event.geometry.coordinates[0];
-      const longitude = event.geometry.coordinates[1];
-
-      this.coordinatesService.setCoordinates({
-        longitude: latitude,
-        latitude: longitude
-      });
+    this.subscription = this.eventService.event$.subscribe((event: any) => {
+      this.updateGeoserveCoordinateService(event);
     });
   }
 
@@ -45,4 +34,17 @@ export class RegionInfoComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
+  updateGeoserveCoordinateService (event: any) {
+    if (!event || !event.geometry) {
+      return;
+    }
+
+    const latitude = event.geometry.coordinates[0];
+    const longitude = event.geometry.coordinates[1];
+
+    this.coordinatesService.setCoordinates({
+      longitude: latitude,
+      latitude: longitude
+    });
+  }
 }
