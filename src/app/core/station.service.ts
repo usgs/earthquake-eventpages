@@ -102,6 +102,8 @@ export class StationService {
       'sa(3.0)': 'psa30',
     };
 
+    const requiredAmps = ['pga', 'pgv', 'psa03', 'psa10', 'psa30'];
+
     for (const channel of channels) {
       const amps = channel.amplitudes;
       channel.amplitudes = {};
@@ -114,9 +116,19 @@ export class StationService {
       for (const amp of amps) {
 
         if (translateNames[amp.name]) {
-          channel.amplitudes[translateNames[amp.name]] = amp;
+          channel[translateNames[amp.name]] = amp.value;
         } else {
-          channel.amplitudes[amp.name] = amp;
+          channel[amp.name] = amp.value;
+        }
+
+        channel[`${amp.name}_units`] = amp.units;
+      }
+
+      // fill in required missing amplitudes
+      for (const req of requiredAmps) {
+        if (!channel[req]) {
+          channel[req] = null;
+          channel[`${req}_units`] = null;
         }
       }
     }
