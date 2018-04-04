@@ -217,11 +217,11 @@ export class MapComponent implements AfterViewInit, OnInit {
     }
 
     if (this.showLegendControl && this.interactive === true) {
-      // TODO, add legend control, add tests
-      //this.map.addControl(this.legendControl);
+      // TODO, add legend control to map, then add tests
+      // this.map.addControl(this.legendControl);
     } else {
-      // TODO, remove legend, add tests
-      //this.map.removeControl(this.legendControl);
+      // TODO, remove legend from map, then add tests
+      // this.map.removeControl(this.legendControl);
     }
 
     if (this.showScaleControl) {
