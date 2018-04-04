@@ -14,7 +14,8 @@ export class MapComponent implements AfterViewInit, OnInit {
   @Input() baselayer = 'Topographic';
   @Input() showAttributionControl = true;
 
-  @Input() set overlays (overlays: Array<Overlay>) {
+  @Input()
+  set overlays (overlays: Array<Overlay>) {
     this._overlays = overlays;
 
     this.updateOverlays();
@@ -24,7 +25,8 @@ export class MapComponent implements AfterViewInit, OnInit {
     return this._overlays;
   }
 
-  @Input() set interactive (interactive: boolean) {
+  @Input()
+  set interactive (interactive: boolean) {
     this._interactive = interactive;
 
     this.updateControls();
@@ -35,7 +37,8 @@ export class MapComponent implements AfterViewInit, OnInit {
     return this._interactive;
   }
 
-  @Input() set showLayersControl (showLayersControl: boolean) {
+  @Input()
+  set showLayersControl (showLayersControl: boolean) {
     this._showLayersControl = showLayersControl;
 
     this.updateControls();
@@ -45,7 +48,19 @@ export class MapComponent implements AfterViewInit, OnInit {
     return this._showLayersControl;
   }
 
-  @Input() set showScaleControl (showScaleControl: boolean) {
+  @Input()
+  set showLegendControl (showLegendControl: boolean) {
+    this._showLegendControl = showLegendControl;
+
+    this.updateControls();
+  }
+
+  get showLegendControl(): boolean {
+    return this._showLegendControl;
+  }
+
+  @Input()
+  set showScaleControl (showScaleControl: boolean) {
     this._showScaleControl = showScaleControl;
 
     this.updateControls();
@@ -62,10 +77,12 @@ export class MapComponent implements AfterViewInit, OnInit {
   public _overlaysAdded: Array<Overlay> = [];
 
   public _showLayersControl = false;
+  public _showLegendControl = false;
   public _showScaleControl = false;
 
   public map: L.Map;
   public layersControl: L.Control.Layers;
+  public legendControl: L.Control;
   public scaleControl: L.Control.Scale;
   public zoomControl: L.Control.Zoom;
 
@@ -197,6 +214,14 @@ export class MapComponent implements AfterViewInit, OnInit {
       this.map.addControl(this.layersControl);
     } else {
       this.map.removeControl(this.layersControl);
+    }
+
+    if (this.showLegendControl && this.interactive === true) {
+      // TODO, add legend control, add tests
+      //this.map.addControl(this.legendControl);
+    } else {
+      // TODO, remove legend, add tests
+      //this.map.removeControl(this.legendControl);
     }
 
     if (this.showScaleControl) {
