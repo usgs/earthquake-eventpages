@@ -1,102 +1,120 @@
-<mat-dialog-content>
-  <h2>
-    <span>Felt Report - Tell Us!</span>
-    <div class="omb-number">
-      OMB No. 1028-0048<br/>
-      Expires 05/31/2018
-    </div>
-  </h2>
+<ng-container *ngIf="languageService.language$ | async; let language">
 
-  <p>
-    form works!
-    <button mat-raised-button (click)="enterLocationAndFelt()">Enter Location and Felt</button>
-    <button mat-raised-button (click)="clearLocationAndFelt()">Clear Location and Felt</button>
-  </p>
+  <mat-dialog-content>
+    <h2>
+      <span>Felt Report - Tell Us!</span>
+      <div class="omb-number">
+        OMB No. 1028-0048<br/>
+        Expires 05/31/2018
+      </div>
+    </h2>
 
-  <mat-form-field>
-    <mat-label>Select Language</mat-label>
-    <mat-select
-        (change)="changeLanguage($event)"
-        [value]="languageService.language$.value.id">
-      <mat-option *ngFor="let language of languageService.languages"
-          [value]="language.id">
-        {{ language.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+    <p>
+      form works!
+      <button mat-raised-button (click)="enterLocationAndFelt()">Enter Location and Felt</button>
+      <button mat-raised-button (click)="clearLocationAndFelt()">Clear Location and Felt</button>
+    </p>
 
-  <ng-container *ngIf="languageService.language$ | async; let language">
-    <pre>{{ language | json }}</pre>
-  </ng-container>
+    <pre>{{ answers | json }}</pre>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>PRA - Privacy Act Statement</mat-expansion-panel-header>
-    <ng-template matExpansionPanelContent>
-      <p class="alert info">
-        This form is subject to the Privacy Act of 1974.
-      </p>
-      <p>
-        <strong>Authority</strong><br/>
-        The National Earthquake Hazards Reduction Program (NEHRP),
-        42 USC 7701.
-      </p>
-      <p>
-        <strong>Principal Purpose</strong><br/>
-        The Earthquake Hazards Program provides rapid, authoritative
-        information on earthquakes and their impact to emergency responders,
-        governments, facilities managers and researchers across the country.
-      </p>
-      <p>
-        <strong>Routine Use</strong><br/>
-        Used to allow users to report shaking intensity of earthquake events,
-        to allow users to receive notifications of earthquake events, and to
-        allow users to volunteer to have seismic instrumentation installed
-        on their property.
-      </p>
-      <p>
-        <strong>Disclosure is Voluntary</strong><br/>
-        If the individual does not furnish the information requested, there
-        will be no adverse consequences. However, if you do not provide
-        contact information we may be unable to contact you for additional
-        information to verify your responses.
-      </p>
-      <p>
-        <strong>Privacy Act Statement</strong><br/>
-        You are not required to provide your personal contact information in
-        order to submit your survey. However, if you do not provide contact
-        information, we may be unable to contact you for additional information
-        to verify your responses. If you do provide contact information, this
-        information will only be used to initiate follow-up communications with
-        you. The records for this collection will be maintained in the
-        appropriate Privacy Act System of Records identified as Earthquake
-        Hazards Program Earthquake Information. (INTERIOR/USGS-2) published
-        at 74 FR 34033 (July 14,2009).
-      </p>
-      <p>
-        <strong>Paperwork Reduction Act Statement</strong><br/>
-        The Paperwork Reduction Act of 1995 (44 U.S.C. 3501 et. seq.) requires
-        us to inform you that this information is being collected to supplement
-        instrumental data and to promote public safety through better
-        understanding of earthquakes. Response to this request is voluntary.
-        Public reporting for this form is estimated to average 6 minutes per
-        response, including the time for reviewing instructions and completing
-        the form. A Federal agency may not conduct or sponsor, and a person is
-        not required to respond to, a collection of information unless it
-        displays a currently valid OMB Control Number. Comments regarding this
-        collection of information should be directed to: Bureau Clearance
-        Officer, U.S. Geological Survey,
-        <a href="gs-info_collections@usgs.gov">gs-info_collections@usgs.gov</a>.
-      </p>
-    </ng-template>
-  </mat-expansion-panel>
+    <mat-form-field>
+      <mat-label>Select Language</mat-label>
+      <mat-select
+          (change)="changeLanguage($event)"
+          [value]="languageService.language$.value.id">
+        <mat-option *ngFor="let language of languageService.languages"
+            [value]="language.id">
+          {{ language.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-</mat-dialog-content>
+    <tell-us-location></tell-us-location>
 
-<mat-dialog-actions>
-  <button mat-button
-      (click)="onSubmit()"
-      [disabled]="location === null || felt === null">
-    Submit
-  </button>
-  <button mat-button [mat-dialog-close]="null">Cancel</button>
-</mat-dialog-actions>
+    <ng-container *ngFor="let name of language.baseQuestions | keys">
+      <tell-us-question
+          *ngIf="language.baseQuestions[name]; let question"
+          (change)="onAnswer($event)"
+          [label]="question.label"
+          [multiSelect]="question.multiSelect"
+          [name]="name"
+          [options]="question.answers"
+          [value]="answers[name]">
+      </tell-us-question>
+    </ng-container>
+
+    <p class="alert info optional"
+        [innerHTML]="language.toggleInfo.description">
+    </p>
+
+    <ng-container *ngFor="let name of language.moreQuestions | keys">
+      <tell-us-question
+          *ngIf="language.moreQuestions[name]; let question"
+          (change)="onAnswer($event)"
+          [label]="question.label"
+          [multiSelect]="question.multiSelect"
+          [name]="name"
+          [options]="question.answers"
+          [value]="answers[name]">
+      </tell-us-question>
+    </ng-container>
+
+    <fieldset>
+      <legend>{{ language.comments.fldContact_comments.label }}</legend>
+
+      <mat-form-field>
+        <textarea matInput
+            [(ngModel)]="answers.fldContact_comments"
+            matAutosizeMinRows="5"
+            matTextareaAutosize>
+        </textarea>
+      </mat-form-field>
+    </fieldset>
+
+    <fieldset>
+      <legend>Contact Information (optional)</legend>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>PRA - Privacy Act Statement</mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <tell-us-privacy-statement></tell-us-privacy-statement>
+        </ng-template>
+      </mat-expansion-panel>
+
+      <mat-form-field>
+        <mat-label>
+          {{ language.contactInfo.fldContact_name.label }}
+        </mat-label>
+        <input matInput type="text"
+            [(ngModel)]="answers.fldContact_name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>
+          {{ language.contactInfo.fldContact_email.label }}
+        </mat-label>
+        <input matInput type="email"
+            [(ngModel)]="answers.fldContact_email"/>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>
+          {{ language.contactInfo.fldContact_phone.label }}
+        </mat-label>
+        <input matInput type="tel"
+            [(ngModel)]="answers.fldContact_phone" />
+      </mat-form-field>
+    </fieldset>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-button
+        (click)="onSubmit()"
+        [disabled]="location === null || felt === null">
+      Submit
+    </button>
+    <button mat-button [mat-dialog-close]="null">Cancel</button>
+  </mat-dialog-actions>
+
+</ng-container>

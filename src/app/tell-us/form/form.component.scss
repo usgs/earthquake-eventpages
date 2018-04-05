@@ -1,3 +1,7 @@
+:host {
+  max-width: 100%;
+}
+
 h2 {
   display: flex;
   margin-top: 0;
@@ -13,4 +17,22 @@ h2 > span {
   font-weight: normal;
   line-height: 1;
   margin-left: 1em;
+}
+
+mat-expansion-panel {
+  margin-bottom: 1em;
+}
+
+mat-form-field {
+  display: block;
+}
+
+fieldset {
+  border: 0;
+  margin: 1em 0;
+  padding: 0;
+}
+
+legend {
+  font-weight: 700;
 }

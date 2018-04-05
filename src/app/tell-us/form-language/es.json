@@ -20,7 +20,7 @@
 
   "toggleInfo": {
     "button": "Observaciones Adicionales",
-    "description": "<strong>El resto de este formulario es opcional.</strong>La información nos ayuda a crear un mapa de intensidad basado en las observaciones de tu localización."
+    "description": "<strong>El resto de este formulario es opcional.</strong><br/>La información nos ayuda a crear un mapa de intensidad basado en las observaciones de tu localización."
   },
 
   "moreQuestions": {
