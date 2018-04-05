@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatListModule, MatRadioModule, MatRadioChange, MatSelectionListChange, MatSelectionList, MatListOption } from '@angular/material';
+import { MockComponent } from 'ng2-mock-component';
 
 import { QuestionComponent } from './question.component';
-import { MockComponent } from 'ng2-mock-component';
-import { MatListModule, MatRadioModule, MatRadioChange, MatSelectionListChange, MatSelectionList, MatListOption } from '@angular/material';
+
 
 describe('QuestionComponent', () => {
   let component: QuestionComponent;

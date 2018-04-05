@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { FormComponent } from './form.component';
+import { FormsModule } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatButtonModule,
@@ -11,11 +10,13 @@ import {
   MatFormFieldModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs/observable/of';
-import { FormLanguageService } from '../form-language.service';
 import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
+
 import { MockPipe } from '../../mock-pipe';
-import { FormsModule } from '@angular/forms';
+import { FormLanguageService } from '../form-language.service';
+import { FormComponent } from './form.component';
+
 
 describe('FormComponent', () => {
   let component: FormComponent;
@@ -28,15 +29,6 @@ describe('FormComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [
-        FormComponent,
-
-        MockComponent({selector: 'tell-us-fieldset', inputs: ['legend']}),
-        MockComponent({selector: 'tell-us-location', inputs: ['enter', 'update']}),
-        MockComponent({selector: 'tell-us-question', inputs: ['label', 'multiSelect', 'name', 'options', 'value']}),
-        MockComponent({selector: 'tell-us-privacy-statement'}),
-        MockPipe('keys')
-      ],
       imports: [
         BrowserAnimationsModule,
         FormsModule,
@@ -46,10 +38,19 @@ describe('FormComponent', () => {
         MatFormFieldModule,
         MatSelectModule
       ],
+      declarations: [
+        FormComponent,
+
+        MockComponent({selector: 'tell-us-fieldset', inputs: ['legend']}),
+        MockComponent({selector: 'tell-us-location', inputs: ['enter', 'update']}),
+        MockComponent({selector: 'tell-us-question', inputs: ['label', 'multiSelect', 'name', 'options', 'value']}),
+        MockComponent({selector: 'tell-us-privacy-statement'}),
+        MockPipe('keys')
+      ],
       providers: [
         {provide: FormLanguageService, useValue: languageServiceStub},
-        {provide: MAT_DIALOG_DATA, useValue: {}},
-        {provide: MatDialogRef, useValue: {close: () => {}}}
+        {provide: MatDialogRef, useValue: {close: () => {}}},
+        {provide: MAT_DIALOG_DATA, useValue: {}}
       ]
     })
     .compileComponents();
@@ -63,13 +64,6 @@ describe('FormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  describe('changeLanguage', () => {
-    it('calls languageService getLanguage', () => {
-      component.changeLanguage({value: 'test value'});
-      expect(component.languageService.getLanguage).toHaveBeenCalledWith('test value');
-    });
   });
 
   describe('onAnswer', () => {
@@ -108,6 +102,13 @@ describe('FormComponent', () => {
       component.answers = {test: 'submit'};
       component.onSubmit();
       expect(component.dialogRef.close).toHaveBeenCalledWith(component.answers);
+    });
+  });
+
+  describe('setLanguage', () => {
+    it('calls languageService getLanguage', () => {
+      component.setLanguage('test value');
+      expect(component.languageService.getLanguage).toHaveBeenCalledWith('test value');
     });
   });
 

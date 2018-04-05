@@ -2,7 +2,7 @@
 
   <mat-dialog-content>
     <h2>
-      <span>Felt Report - Tell Us!</span>
+      <span class="felt-header">Felt Report - Tell Us!</span>
       <div class="omb-number">
         OMB No. 1028-0048<br/>
         Expires 05/31/2018
@@ -12,7 +12,7 @@
     <mat-form-field>
       <mat-label>Select Language</mat-label>
       <mat-select
-          (change)="changeLanguage($event)"
+          (change)="setLanguage($event.value)"
           [value]="languageService.language$.value.id">
         <mat-option *ngFor="let language of languageService.languages"
             [value]="language.id">
@@ -105,11 +105,14 @@
         <input matInput type="tel"
             [(ngModel)]="answers.fldContact_phone" />
       </mat-form-field>
+
     </tell-us-fieldset>
 
   </mat-dialog-content>
 
+
   <mat-dialog-actions>
+
     <button mat-button
         (click)="onSubmit()"
         [disabled]="
@@ -118,8 +121,10 @@
             answers.fldSituation_felt === null">
       {{ language.submit.label }}
     </button>
+
     <button mat-button
         (click)="onCancel()">Cancel</button>
+
   </mat-dialog-actions>
 
 </ng-container>

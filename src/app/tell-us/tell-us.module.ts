@@ -14,14 +14,14 @@ import {
 } from '@angular/material';
 
 import { SharedModule } from '../shared/shared.module';
+import { FieldsetComponent } from './fieldset/fieldset.component';
 import { FormComponent } from './form/form.component';
 import { FormLanguageService } from './form-language.service';
 import { LocationComponent } from './location/location.component';
+import { PrivacyStatementComponent } from './privacy-statement/privacy-statement.component';
 import { QuestionComponent } from './question/question.component';
 import { TellUsComponent } from './tell-us/tell-us.component';
 import { TellUsRoutingModule } from './tell-us-routing.module';
-import { PrivacyStatementComponent } from './privacy-statement/privacy-statement.component';
-import { FieldsetComponent } from './fieldset/fieldset.component';
 
 
 @NgModule({
@@ -39,16 +39,16 @@ import { FieldsetComponent } from './fieldset/fieldset.component';
     MatSelectModule,
     SharedModule,
 
+    // routing module is always last
     TellUsRoutingModule
   ],
-
   declarations: [
+    FieldsetComponent,
     FormComponent,
     LocationComponent,
     QuestionComponent,
     TellUsComponent,
-    PrivacyStatementComponent,
-    FieldsetComponent
+    PrivacyStatementComponent
   ],
   entryComponents: [
     FormComponent

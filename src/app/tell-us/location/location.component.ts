@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+
 @Component({
   selector: 'tell-us-location',
   templateUrl: './location.component.html',
@@ -19,6 +20,7 @@ export class LocationComponent implements OnInit {
   @Input()
   update = 'Change location';
 
+  // current location value
   @Input()
   value: any = {};
 

@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { EventService } from '../../../..';
 import { MatDialog, MatDialogRef } from '@angular/material';
+
+import { EventService } from '../../core/event.service';
 import { FormComponent } from '../form/form.component';
 
+
 @Component({
-  selector: 'app-tell-us',
+  selector: 'tell-us-tell-us',
   templateUrl: './tell-us.component.html',
   styleUrls: ['./tell-us.component.scss']
 })
 export class TellUsComponent implements OnInit {
 
+  // the form dialog
   public dialogRef: MatDialogRef<FormComponent> = null;
 
+  // response received from form
   public response: any = null;
 
   constructor (
@@ -23,6 +27,14 @@ export class TellUsComponent implements OnInit {
     this.showForm();
   }
 
+  /**
+   * Called after dialog closes (either cancelled or submitted).
+   *
+   * @param response
+   *        false if user clicked cancel,
+   *        response object if user clicked submit,
+   *        undefined if user closed dialog another way.
+   */
   onResponse (response) {
     this.response = response;
     if (response === false) {
@@ -35,6 +47,9 @@ export class TellUsComponent implements OnInit {
     }
   }
 
+  /**
+   * Show the form dialog.
+   */
   showForm () {
     this.dialogRef = this.dialog.open(FormComponent, {
       data: {
