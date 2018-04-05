@@ -22,4 +22,17 @@ describe('LocationComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  describe('test buttons', () => {
+    it('enters/clears location', () => {
+      component.enterLocation();
+      expect(component.value.ciim_mapLat).not.toBeNull();
+      expect(component.value.ciim_mapLon).not.toBeNull();
+      component.clearLocation();
+      expect(component.value.ciim_mapLat).toBeNull();
+      expect(component.value.ciim_mapLon).toBeNull();
+    });
+  });
+
 });

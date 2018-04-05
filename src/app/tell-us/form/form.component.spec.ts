@@ -13,6 +13,9 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs/observable/of';
 import { FormLanguageService } from '../form-language.service';
+import { MockComponent } from 'ng2-mock-component';
+import { MockPipe } from '../../mock-pipe';
+import { FormsModule } from '@angular/forms';
 
 describe('FormComponent', () => {
   let component: FormComponent;
@@ -21,15 +24,22 @@ describe('FormComponent', () => {
   beforeEach(async(() => {
     const languageServiceStub = {
       getLanguage: jasmine.createSpy('languageService::getLanguage'),
-      language$: of({})
+      language$: of(null)
     };
 
     TestBed.configureTestingModule({
       declarations: [
-        FormComponent
+        FormComponent,
+
+        MockComponent({selector: 'tell-us-fieldset', inputs: ['legend']}),
+        MockComponent({selector: 'tell-us-location', inputs: ['enter', 'update']}),
+        MockComponent({selector: 'tell-us-question', inputs: ['label', 'multiSelect', 'name', 'options', 'value']}),
+        MockComponent({selector: 'tell-us-privacy-statement'}),
+        MockPipe('keys')
       ],
       imports: [
         BrowserAnimationsModule,
+        FormsModule,
         MatButtonModule,
         MatDialogModule,
         MatExpansionModule,
@@ -62,22 +72,42 @@ describe('FormComponent', () => {
     });
   });
 
-  describe('onSubmit', () => {
-    it('calls dialogref.close', () => {
-      spyOn(component.dialogRef, 'close');
-      component.onSubmit();
-      expect(component.dialogRef.close).toHaveBeenCalled();
+  describe('onAnswer', () => {
+    it('returns when answer not defined', () => {
+      spyOn(Object, 'keys');
+      component.onAnswer(null);
+      expect(Object.keys).not.toHaveBeenCalled();
+    });
+
+    it('copies keys onto answer', () => {
+      component.answers = {
+        test: 'value'
+      };
+      component.onAnswer({
+        'other': 'other value',
+        'test': 'test value'
+      });
+      expect(component.answers).toEqual({
+        'other': 'other value',
+        'test': 'test value'
+      });
     });
   });
 
-  describe('test buttons', () => {
-    it('enters/clears location and felt', () => {
-      component.enterLocationAndFelt();
-      expect(component.location).not.toBeNull();
-      expect(component.felt).not.toBeNull();
-      component.clearLocationAndFelt();
-      expect(component.location).toBeNull();
-      expect(component.felt).toBeNull();
+  describe('onCancel', () => {
+    it('calls dialogref.close', () => {
+      spyOn(component.dialogRef, 'close');
+      component.onCancel();
+      expect(component.dialogRef.close).toHaveBeenCalledWith(false);
+    });
+  });
+
+  describe('onSubmit', () => {
+    it('calls dialogref.close', () => {
+      spyOn(component.dialogRef, 'close');
+      component.answers = {test: 'submit'};
+      component.onSubmit();
+      expect(component.dialogRef.close).toHaveBeenCalledWith(component.answers);
     });
   });
 

@@ -24,16 +24,13 @@ export class TellUsComponent implements OnInit {
   }
 
   onResponse (response) {
+    this.response = response;
     if (response === false) {
       console.log('user clicked cancel');
       // todo: use router to navigate back?
-    } else if (!response) {
-      // user exited dialog with esc/background
-      return;
-    } else {
+    } else if (response) {
       // user clicked submit
       console.log('user clicked submit', response);
-      this.response = response;
       // todo: submit response
     }
   }

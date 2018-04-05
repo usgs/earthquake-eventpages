@@ -10,6 +10,8 @@ import { MockComponent } from 'ng2-mock-component';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { FormComponent } from '../form/form.component';
 import { FormLanguageService } from '../form-language.service';
+import { MockPipe } from '../../mock-pipe';
+import { FormsModule } from '@angular/forms';
 
 describe('TellUsComponent', () => {
   let component: TellUsComponent;
@@ -27,10 +29,17 @@ describe('TellUsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         TellUsComponent,
-        FormComponent
+        FormComponent,
+
+        MockComponent({selector: 'tell-us-fieldset', inputs: ['legend']}),
+        MockComponent({selector: 'tell-us-location', inputs: ['enter', 'update']}),
+        MockComponent({selector: 'tell-us-question', inputs: ['label', 'multiSelect', 'name', 'options', 'value']}),
+        MockComponent({selector: 'tell-us-privacy-statement'}),
+        MockPipe('keys')
       ],
       imports: [
         BrowserAnimationsModule,
+        FormsModule,
         MatButtonModule,
         MatDialogModule,
         MatExpansionModule,
@@ -70,11 +79,31 @@ describe('TellUsComponent', () => {
   });
 
   describe('onResponse', () => {
-    it('console logs response', () => {
+    it('sets response', () => {
+      const response = {'response': 'dyfi'};
+      component.response = null;
+      component.onResponse(response);
+      expect(component.response).toBe(response);
+    });
+
+    it('handles cancel', () => {
+      spyOn(console, 'log');
+      component.onResponse(false);
+      expect(console.log).toHaveBeenCalledWith('user clicked cancel');
+    });
+
+    it('handles submit', () => {
       const response = {'response': 'dyfi'};
       spyOn(console, 'log');
       component.onResponse(response);
-      expect(console.log).toHaveBeenCalledWith(response);
+      expect(console.log).toHaveBeenCalledWith('user clicked submit', response);
+    });
+
+    it('handles undefined', () => {
+      const response = undefined;
+      spyOn(console, 'log');
+      component.onResponse(response);
+      expect(console.log).not.toHaveBeenCalled();
     });
   });
 

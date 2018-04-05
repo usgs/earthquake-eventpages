@@ -48,7 +48,6 @@ export class QuestionComponent implements OnInit {
       });
     }
 
-
     this.change.next({
       [this.name]: this.value
     });
