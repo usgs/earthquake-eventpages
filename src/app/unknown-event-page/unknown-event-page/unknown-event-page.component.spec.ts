@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 
 import { UnknownEventPageComponent } from './unknown-event-page.component';
+
 
 describe('UnknownEventPageComponent', () => {
   let component: UnknownEventPageComponent;
@@ -10,6 +11,9 @@ describe('UnknownEventPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
       declarations: [
         UnknownEventPageComponent,
 
