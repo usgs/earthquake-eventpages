@@ -21,6 +21,7 @@ import { QuestionComponent } from './question/question.component';
 import { TellUsComponent } from './tell-us/tell-us.component';
 import { TellUsRoutingModule } from './tell-us-routing.module';
 import { PrivacyStatementComponent } from './privacy-statement/privacy-statement.component';
+import { FieldsetComponent } from './fieldset/fieldset.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { PrivacyStatementComponent } from './privacy-statement/privacy-statement
     LocationComponent,
     QuestionComponent,
     TellUsComponent,
-    PrivacyStatementComponent
+    PrivacyStatementComponent,
+    FieldsetComponent
   ],
   entryComponents: [
     FormComponent

@@ -12,6 +12,8 @@ export class TellUsComponent implements OnInit {
 
   public dialogRef: MatDialogRef<FormComponent> = null;
 
+  public response: any = null;
+
   constructor (
     public dialog: MatDialog,
     public eventService: EventService
@@ -31,6 +33,7 @@ export class TellUsComponent implements OnInit {
     } else {
       // user clicked submit
       console.log('user clicked submit', response);
+      this.response = response;
       // todo: submit response
     }
   }

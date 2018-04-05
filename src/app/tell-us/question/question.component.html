@@ -1,9 +1,9 @@
-<fieldset>
-  <legend>{{ label }}</legend>
-
-  <ng-container *ngIf="multiSelect; then isMultiSelect; else isSingleSelect">
+<tell-us-fieldset [legend]="label">
+  <ng-container *ngIf="
+      multiSelect; then isMultiSelect;
+      else isSingleSelect">
   </ng-container>
-</fieldset>
+</tell-us-fieldset>
 
 
 <ng-template #isMultiSelect>

@@ -9,8 +9,6 @@
       </div>
     </h2>
 
-    <pre>{{ answers | json }}</pre>
-
     <mat-form-field>
       <mat-label>Select Language</mat-label>
       <mat-select
@@ -23,9 +21,16 @@
       </mat-select>
     </mat-form-field>
 
-    <tell-us-location (change)="onAnswer($event)">
-    </tell-us-location>
+    <!-- location -->
+    <tell-us-fieldset [legend]="language.locationInfo.label">
+      <tell-us-location
+          (change)="onAnswer($event)"
+          [enter]="language.locationInfo.button"
+          [update]="language.locationInfo.buttonUpdate">
+      </tell-us-location>
+    </tell-us-fieldset>
 
+    <!-- base questions (Did you feel it?) -->
     <ng-container *ngFor="let name of language.baseQuestions | keys">
       <tell-us-question
           *ngIf="language.baseQuestions[name]; let question"
@@ -38,10 +43,12 @@
       </tell-us-question>
     </ng-container>
 
+    <!-- the rest is optional -->
     <p class="alert info optional"
         [innerHTML]="language.toggleInfo.description">
     </p>
 
+    <!-- optional questions -->
     <ng-container *ngFor="let name of language.moreQuestions | keys">
       <tell-us-question
           *ngIf="language.moreQuestions[name]; let question"
@@ -54,9 +61,8 @@
       </tell-us-question>
     </ng-container>
 
-    <fieldset>
-      <legend>{{ language.comments.fldContact_comments.label }}</legend>
-
+    <!-- additional comments -->
+    <tell-us-fieldset [legend]="language.comments.fldContact_comments.label">
       <mat-form-field>
         <textarea matInput
             [(ngModel)]="answers.fldContact_comments"
@@ -64,10 +70,10 @@
             matTextareaAutosize>
         </textarea>
       </mat-form-field>
-    </fieldset>
+    </tell-us-fieldset>
 
-    <fieldset>
-      <legend>Contact Information (optional)</legend>
+    <!-- contact information -->
+    <tell-us-fieldset [legend]="'Contact Information (optional)'">
 
       <mat-expansion-panel>
         <mat-expansion-panel-header>PRA - Privacy Act Statement</mat-expansion-panel-header>
@@ -99,7 +105,7 @@
         <input matInput type="tel"
             [(ngModel)]="answers.fldContact_phone" />
       </mat-form-field>
-    </fieldset>
+    </tell-us-fieldset>
 
   </mat-dialog-content>
 
@@ -110,7 +116,7 @@
             answers.ciim_mapLat === null ||
             answers.ciim_mapLon === null ||
             answers.fldSituation_felt === null">
-      Submit
+      {{ language.submit.label }}
     </button>
     <button mat-button
         (click)="onCancel()">Cancel</button>

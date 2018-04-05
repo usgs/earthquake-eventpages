@@ -89,6 +89,9 @@ export class FormComponent implements OnInit {
     }
   }
 
+  /**
+   * Called when user clicks cancel.
+   */
   onCancel () {
     this.dialogRef.close(false);
   }

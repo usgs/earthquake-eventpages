@@ -3,3 +3,5 @@
 <button (click)="showForm()" mat-raised-button>
   Show Form
 </button>
+
+<pre *ngIf="response !== null">{{ response | json }}</pre>
