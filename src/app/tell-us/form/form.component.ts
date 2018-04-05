@@ -1,7 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { FormLanguageService } from '../form-language.service';
+import { EventService } from '../../../..';
+import { Subscription } from 'rxjs/Subscription';
+import { Event } from '../../event';
 
 
 @Component({
@@ -9,7 +12,7 @@ import { FormLanguageService } from '../form-language.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
 
   // these answers control whether the submit button is enabled
   // others are populated as needed
@@ -19,13 +22,24 @@ export class FormComponent implements OnInit {
     'ciim_mapLon': null
   };
 
+  private eventSubscription: Subscription;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<FormComponent>,
+    public eventService: EventService,
     public languageService: FormLanguageService
   ) { }
 
-  ngOnInit() {
+  ngOnInit () {
+    this.eventSubscription = this.eventService.event$.subscribe((event) => {
+      this.setEvent(event);
+    });
+  }
+
+  ngOnDestroy () {
+    this.eventSubscription.unsubscribe();
+    this.eventSubscription = null;
   }
 
   /**
@@ -62,6 +76,20 @@ export class FormComponent implements OnInit {
     this.dialogRef.close(this.answers);
   }
 
+  /**
+   * Set event information.
+   *
+   * @param event the event.
+   */
+  setEvent (event: Event) {
+    let time = event.properties.time || null;
+    if (time) {
+      time = new Date(time).toISOString();
+    }
+
+    this.answers.ciim_eventid = event.id;
+    this.answers.ciim_time = time;
+  }
 
   /**
    * Called when user selects a language.

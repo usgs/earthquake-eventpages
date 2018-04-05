@@ -13,7 +13,7 @@
       <mat-label>Select Language</mat-label>
       <mat-select
           (change)="setLanguage($event.value)"
-          [value]="languageService.language$.value.id">
+          [value]="language.id">
         <mat-option *ngFor="let language of languageService.languages"
             [value]="language.id">
           {{ language.name }}
@@ -29,6 +29,15 @@
           [update]="language.locationInfo.buttonUpdate">
       </tell-us-location>
     </tell-us-fieldset>
+
+    <!-- time -->
+    <ng-container *ngIf="!answers.ciim_eventid">
+      <tell-us-fieldset [legend]="language.eventTime.ciim_time.label">
+        <mat-form-field>
+          <input matInput [(ngModel)]="answers.ciim_time"/>
+        </mat-form-field>
+      </tell-us-fieldset>
+    </ng-container>
 
     <!-- base questions (Did you feel it?) -->
     <ng-container *ngFor="let name of language.baseQuestions | keys">
@@ -128,3 +137,5 @@
   </mat-dialog-actions>
 
 </ng-container>
+
+

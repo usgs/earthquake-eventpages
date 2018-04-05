@@ -13,9 +13,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
+import { EventService } from '../../core/event.service';
 import { MockPipe } from '../../mock-pipe';
 import { FormLanguageService } from '../form-language.service';
 import { FormComponent } from './form.component';
+import { Event } from '../../event';
 
 
 describe('FormComponent', () => {
@@ -23,6 +25,9 @@ describe('FormComponent', () => {
   let fixture: ComponentFixture<FormComponent>;
 
   beforeEach(async(() => {
+    const eventServiceStub = {
+      event$: of(new Event({}))
+    };
     const languageServiceStub = {
       getLanguage: jasmine.createSpy('languageService::getLanguage'),
       language$: of(null)
@@ -48,6 +53,7 @@ describe('FormComponent', () => {
         MockPipe('keys')
       ],
       providers: [
+        {provide: EventService, useValue: eventServiceStub},
         {provide: FormLanguageService, useValue: languageServiceStub},
         {provide: MatDialogRef, useValue: {close: () => {}}},
         {provide: MAT_DIALOG_DATA, useValue: {}}
@@ -102,6 +108,31 @@ describe('FormComponent', () => {
       component.answers = {test: 'submit'};
       component.onSubmit();
       expect(component.dialogRef.close).toHaveBeenCalledWith(component.answers);
+    });
+  });
+
+  describe('setEvent', () => {
+    it('clears event id and time', () => {
+      component.answers.ciim_eventid = 'test eventid';
+      component.answers.ciim_time = 'test time';
+
+      component.setEvent(new Event(null));
+      expect(component.answers.ciim_eventid).toBe(null);
+      expect(component.answers.ciim_time).toBe(null);
+    });
+
+    it('sets event id and time', () => {
+      component.answers.ciim_eventid = undefined;
+      component.answers.ciim_time = undefined;
+
+      component.setEvent(new Event({
+        id: 'testid',
+        properties: {
+          time: 12345
+        }
+      }));
+      expect(component.answers.ciim_eventid).not.toBe(null);
+      expect(component.answers.ciim_time).not.toBe(null);
     });
   });
 
