@@ -22,7 +22,10 @@ export class LocationComponent implements OnInit {
 
   // current location value
   @Input()
-  value: any = {};
+  value: any = {
+    ciim_mapLat: null,
+    ciim_mapLon: null
+  };
 
   constructor() { }
 

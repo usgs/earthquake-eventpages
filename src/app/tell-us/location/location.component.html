@@ -1,9 +1,13 @@
 <p>
-  <button mat-raised-button (click)="enterLocation()">
+  <button mat-raised-button
+      (click)="enterLocation()"
+      [disabled]="value.ciim_mapLat !== null && value.ciim_mapLon !== null">
     {{ enter }}
   </button>
 
-  <button mat-raised-button (click)="clearLocation()">
-    Clear Location
+  <button mat-raised-button
+      (click)="clearLocation()"
+      [disabled]="value.ciim_mapLat === null && value.ciim_mapLon === null">
+    {{ update }} <em>(for now clear)</em>
   </button>
 </p>
