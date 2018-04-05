@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'tell-us-location',
@@ -7,14 +8,32 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class LocationComponent implements OnInit {
 
-  name = 'location';
-
   @Output()
-  location = new EventEmitter<any>();
+  change = new BehaviorSubject<any>(null);
+
+  name = 'location';
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  clearLocation () {
+    this.change.next({
+      ciim_mapAddress: null,
+      ciim_mapConfidence: null,
+      ciim_mapLat: null,
+      ciim_mapLon: null
+    });
+  }
+
+  enterLocation () {
+    this.change.next({
+      ciim_mapAddress: '1711 Illinois Street, Golden, CO',
+      ciim_mapConfidence: 5,
+      ciim_mapLat: 39.74951,
+      ciim_mapLon: -105.22134
+    });
   }
 
 }

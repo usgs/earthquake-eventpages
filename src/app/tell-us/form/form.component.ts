@@ -13,13 +13,9 @@ export class FormComponent implements OnInit {
   public felt: boolean = null;
 
   public answers: any = {
-    'fldSituation_situation': 'veh_moving',
-    'd_text[]': [
-      '_crackwallfew',
-      '_crackwallmany',
-      '_tilesfell',
-      '_move'
-    ]
+    'fldSituation_felt': null,
+    'ciim_mapLat': null,
+    'ciim_mapLon': null
   };
 
   public questions: Array<any> = [
@@ -68,18 +64,13 @@ export class FormComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Called when user selects a language.
+   *
+   * @param selectEvent selected language.
+   */
   changeLanguage (selectEvent) {
     this.languageService.getLanguage(selectEvent.value);
-  }
-
-  clearLocationAndFelt () {
-    this.location = null;
-    this.felt = null;
-  }
-
-  enterLocationAndFelt () {
-    this.location = 'some location';
-    this.felt = !!'maybe';
   }
 
   /**
@@ -96,6 +87,10 @@ export class FormComponent implements OnInit {
     for (const key of Object.keys(answer)) {
       this.answers[key] = answer[key];
     }
+  }
+
+  onCancel () {
+    this.dialogRef.close(false);
   }
 
   /**

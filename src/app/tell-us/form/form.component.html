@@ -9,12 +9,6 @@
       </div>
     </h2>
 
-    <p>
-      form works!
-      <button mat-raised-button (click)="enterLocationAndFelt()">Enter Location and Felt</button>
-      <button mat-raised-button (click)="clearLocationAndFelt()">Clear Location and Felt</button>
-    </p>
-
     <pre>{{ answers | json }}</pre>
 
     <mat-form-field>
@@ -29,7 +23,8 @@
       </mat-select>
     </mat-form-field>
 
-    <tell-us-location></tell-us-location>
+    <tell-us-location (change)="onAnswer($event)">
+    </tell-us-location>
 
     <ng-container *ngFor="let name of language.baseQuestions | keys">
       <tell-us-question
@@ -111,10 +106,14 @@
   <mat-dialog-actions>
     <button mat-button
         (click)="onSubmit()"
-        [disabled]="location === null || felt === null">
+        [disabled]="
+            answers.ciim_mapLat === null ||
+            answers.ciim_mapLon === null ||
+            answers.fldSituation_felt === null">
       Submit
     </button>
-    <button mat-button [mat-dialog-close]="null">Cancel</button>
+    <button mat-button
+        (click)="onCancel()">Cancel</button>
   </mat-dialog-actions>
 
 </ng-container>

@@ -22,8 +22,17 @@ export class TellUsComponent implements OnInit {
   }
 
   onResponse (response) {
-    // process form response
-    console.log(response);
+    if (response === false) {
+      console.log('user clicked cancel');
+      // todo: use router to navigate back?
+    } else if (!response) {
+      // user exited dialog with esc/background
+      return;
+    } else {
+      // user clicked submit
+      console.log('user clicked submit', response);
+      // todo: submit response
+    }
   }
 
   showForm () {
