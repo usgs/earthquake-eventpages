@@ -1,7 +1,17 @@
+/* keep the form inside the dialog */
+:host,
+mat-list,
+mat-list-item,
+mat-list-option,
+mat-radio-button,
+mat-radio-group,
+mat-selection-list {
+  max-width: 100%;
+}
+
 mat-list,
 mat-selection-list {
   margin: 0 0 1em;
-  padding-left: 1em;
 }
 
 mat-list > mat-list-item,
