@@ -5,8 +5,8 @@ import { MatListModule } from '@angular/material';
 import { HazdevTemplateModule } from 'hazdev-template';
 
 import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-page.component';
-import { TellUsModule } from '../tell-us/tell-us.module';
 import { EventPageModule } from '../event-page/event-page.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -14,7 +14,7 @@ import { EventPageModule } from '../event-page/event-page.module';
     EventPageModule,
     HazdevTemplateModule,
     MatListModule,
-    TellUsModule
+    RouterModule
   ],
   exports: [
     UnknownEventPageComponent
