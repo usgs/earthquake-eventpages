@@ -1,6 +1,5 @@
 <app-hazdev-template TITLE="Unknown Event">
 
-
   <mat-nav-list templateSideNavigation>
     <a templateSideNavigation class="up-one-level"
         href="/earthquakes/map/">Latest Earthquakes</a>
@@ -24,5 +23,12 @@
           navRouterLink="/nc72733850"></app-navigation-item>
     </app-navigation-group>
   </mat-nav-list>
+
+  <!-- dyfi unknown event form -->
+  <tell-us-tell-us></tell-us-tell-us>
+
+  <!-- include additional information links -->
+  <event-page-footer [contributors]="false">
+  </event-page-footer>
 
 </app-hazdev-template>

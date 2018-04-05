@@ -54,7 +54,8 @@ import { TellUsRoutingModule } from './tell-us-routing.module';
     FormComponent
   ],
   exports: [
-    FormComponent
+    FormComponent,
+    TellUsComponent
   ],
   providers: [
     FormLanguageService

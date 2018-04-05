@@ -2,21 +2,14 @@
   max-width: 100%;
 }
 
-h2 {
-  display: flex;
-  margin-top: 0;
-}
-
-.felt-header {
-  display: block;
-  flex: 1;
-}
-
 .omb-number {
   font-size: 14px;
   font-weight: normal;
   line-height: 1;
-  margin-left: 1em;
+}
+
+h2 {
+  margin-top: 0;
 }
 
 mat-expansion-panel {
@@ -25,4 +18,19 @@ mat-expansion-panel {
 
 mat-form-field {
   display: block;
+}
+
+@media screen and (min-width: 400px) {
+  h2 {
+    display: flex;
+  }
+
+  .felt-header {
+    display: block;
+    flex: 1;
+  }
+
+  .omb-number {
+    margin-left: 1em;
+  }
 }
