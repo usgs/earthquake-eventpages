@@ -24,7 +24,7 @@ describe('StationService', () => {
           'channels': [
             {
               'name': 'channel',
-              'amplitudes': [{'name': 'amp1', 'value': 1}]
+              'amplitudes': [{'name': 'pga', 'value': 1}]
             }
           ]
         }
@@ -155,9 +155,18 @@ describe('StationService', () => {
       let station = STATIONS_JSON.features[0];
       station = service.translateAmps(station);
 
-      expect(Array.isArray(station.properties.channels[0].amplitudes))
-          .toEqual(false);
+      expect(station.channels[0].pga.value)
+          .toEqual(1);
+    }));
 
+    it('handles sa(1.0) style headers',
+        inject([StationService], (service: StationService)  => {
+
+      let station = OLD_STATIONS_JSON.features[0];
+      station = service.translateAmps(station);
+
+      expect(station.channels[0].psa10.value)
+          .toEqual(1);
     }));
 
   });

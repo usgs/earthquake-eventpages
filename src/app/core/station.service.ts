@@ -102,36 +102,27 @@ export class StationService {
       'sa(3.0)': 'psa30',
     };
 
-    const requiredAmps = ['pga', 'pgv', 'psa03', 'psa10', 'psa30'];
+    station.channels = station.properties.channels.map((channel) => {
 
-    for (const channel of channels) {
-      const amps = channel.amplitudes;
-      channel.amplitudes = {};
+      // set required attributes to empty object,
+      // so obj.value or obj.units would still evaluate but to undefined
+      const parsed = {
+        name: channel.name,
+        pga: {},
+        pgv: {},
+        psa03: {},
+        psa10: {},
+        psa30: {}
+      };
 
-      // if amplitudes is already converted, return
-      if (!Array.isArray(amps)) {
-        continue;
-      }
+      // populate parsed object
+      channel.amplitudes.forEach((amp) => {
+        const name = translateNames[amp.name] || amp.name;
+        parsed[name] = amp;
+      });
 
-      for (const amp of amps) {
-
-        if (translateNames[amp.name]) {
-          channel[translateNames[amp.name]] = amp.value;
-        } else {
-          channel[amp.name] = amp.value;
-        }
-
-        channel[`${amp.name}_units`] = amp.units;
-      }
-
-      // fill in required missing amplitudes
-      for (const req of requiredAmps) {
-        if (!channel[req]) {
-          channel[req] = null;
-          channel[`${req}_units`] = null;
-        }
-      }
-    }
+      return parsed;
+    });
 
     return station;
   }

@@ -82,7 +82,7 @@
         </dl>
 
         <h3>Channels</h3>
-        <mat-table [dataSource]="station.properties.channels">
+        <mat-table [dataSource]="station.channels">
           <mat-header-row *matHeaderRowDef="channelsColumns">
           </mat-header-row>
           <mat-row *matRowDef="let myRowData; columns: channelsColumns">
@@ -105,8 +105,8 @@
               PGA
             </mat-header-cell>
             <mat-cell *matCellDef="let channel">
-              {{ channel.pga |
-                  sharedNumber:2:channel.pga_units }}
+              {{ channel.pga.value |
+                  sharedNumber:2:channel.pga.units }}
             </mat-cell>
           </ng-container>
 
@@ -115,8 +115,8 @@
               PGV
             </mat-header-cell>
             <mat-cell *matCellDef="let channel">
-              {{ channel.pgv |
-                  sharedNumber:2:channel.pgv_units }}
+              {{ channel.pgv.value |
+                  sharedNumber:2:channel.pgv.units }}
             </mat-cell>
           </ng-container>
 
@@ -125,8 +125,8 @@
               PSA(03)
             </mat-header-cell>
             <mat-cell *matCellDef="let channel">
-              {{ channel.psa03 |
-                  sharedNumber:2:channel.psa03_units }}
+              {{ channel.psa03.value |
+                  sharedNumber:2:channel.psa03.units }}
             </mat-cell>
           </ng-container>
 
@@ -135,8 +135,8 @@
               PSA(10)
             </mat-header-cell>
             <mat-cell *matCellDef="let channel">
-              {{ channel.psa10 |
-                  sharedNumber:2:channel.psa10_units}}
+              {{ channel.psa10.value |
+                  sharedNumber:2:channel.psa10.units}}
             </mat-cell>
           </ng-container>
 
@@ -145,8 +145,8 @@
               PSA(30)
             </mat-header-cell>
             <mat-cell *matCellDef="let channel">
-              {{ channel.psa30 |
-                  sharedNumber:2:channel.psa30_units }}
+              {{ channel.psa30.value |
+                  sharedNumber:2:channel.psa30.units }}
             </mat-cell>
           </ng-container>
 
