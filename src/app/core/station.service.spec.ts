@@ -27,7 +27,8 @@ describe('StationService', () => {
               'amplitudes': [{'name': 'pga', 'value': 1}]
             }
           ]
-        }
+        },
+        channels: []
       }
     ]
   };
@@ -45,7 +46,8 @@ describe('StationService', () => {
               'amplitudes': [{'name': 'sa(1.0)', 'value': 1}]
             }
           ]
-        }
+        },
+        channels: []
       }
     ]
   };
