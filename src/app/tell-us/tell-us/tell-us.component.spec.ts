@@ -69,10 +69,13 @@ describe('TellUsComponent', () => {
     fixture.detectChanges();
   });
 
-  afterEach(() => {
-    if (component.dialogRef) {
-      component.dialogRef.close(null);
-    }
+  afterEach((done) => {
+    component.initPromise.then(() => {
+      if (component.dialogRef) {
+        component.dialogRef.close(null);
+      }
+      done();
+    });
   });
 
   it('should create', () => {
@@ -111,33 +114,35 @@ describe('TellUsComponent', () => {
   describe('showForm', () => {
     it('does not call onResponse when response is null', (done) => {
       spyOn(component, 'onResponse');
-
-      component.dialogRef.afterClosed().subscribe(() => {
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(component.dialogRef).toBeNull();
-          expect(component.onResponse).not.toHaveBeenCalled();
-          done();
+      component.initPromise.then(() => {
+        component.dialogRef.afterClosed().subscribe(() => {
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            expect(component.dialogRef).toBeNull();
+            expect(component.onResponse).not.toHaveBeenCalled();
+            done();
+          });
         });
-      });
 
-      component.dialogRef.close(null);
+        component.dialogRef.close(null);
+      });
     });
 
     it('calls onResponse when response is not null', (done) => {
       const response = {'response': true};
       spyOn(component, 'onResponse');
-
-      component.dialogRef.afterClosed().subscribe(() => {
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(component.dialogRef).toBeNull();
-          expect(component.onResponse).toHaveBeenCalledWith(response);
-          done();
+      component.initPromise.then(() => {
+        component.dialogRef.afterClosed().subscribe(() => {
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            expect(component.dialogRef).toBeNull();
+            expect(component.onResponse).toHaveBeenCalledWith(response);
+            done();
+          });
         });
-      });
 
-      component.dialogRef.close(response);
+        component.dialogRef.close(response);
+      });
     });
   });
 });

@@ -15,8 +15,12 @@ export class TellUsComponent implements OnInit {
   // the form dialog
   public dialogRef: MatDialogRef<FormComponent> = null;
 
+  // promise representing showForm having been called in ngOnInit
+  public initPromise: Promise<any>;
+
   // response received from form
   public response: any = null;
+
 
   constructor (
     public dialog: MatDialog,
@@ -24,7 +28,9 @@ export class TellUsComponent implements OnInit {
   ) { }
 
   ngOnInit () {
-    this.showForm();
+    this.initPromise = Promise.resolve().then(() => {
+      this.showForm();
+    });
   }
 
   /**
