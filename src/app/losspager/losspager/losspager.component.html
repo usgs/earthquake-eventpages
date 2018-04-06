@@ -1,0 +1,14 @@
+<!-- productType attribute defines type of product to load -->
+<product-page productType="losspager">
+
+  <!-- container with header attribute is added before attribution -->
+  <ng-container header>
+    <h2>PAGER</h2>
+  </ng-container>
+
+  <!-- TODO, build losspager page -->
+  <ng-container *ngIf="eventService.product$ | async | json as product">
+    <pre>{{ product }}</pre>
+  </ng-container>
+
+</product-page>

@@ -66,6 +66,10 @@ const appRoutes = [
       {
         path: 'tellus',
         loadChildren: './tell-us/tell-us.module#TellUsModule'
+      },
+      {
+        path: 'pager',
+        loadChildren: './losspager/losspager.module#LosspagerModule'
       }
     ]
   }
