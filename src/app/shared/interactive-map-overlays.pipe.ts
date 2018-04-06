@@ -3,6 +3,7 @@ import { ParamMap } from '@angular/router';
 import { Event } from '../event';
 import { RegionInfoOverlaysPipe } from '../shared/region-info-overlays.pipe';
 import { Overlay } from '../shared/map-overlay/overlay';
+import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
 
 @Pipe({
   name: 'interactiveMapOverlays'
@@ -44,6 +45,8 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     Object.keys(this.overlayFactory).forEach((type) => {
       overlays.push(...this.getOverlays(event, params, type));
     });
+
+    overlays.push(new LandscanPopulationOverlay());
 
     this.setEnabled(overlays, params);
 
