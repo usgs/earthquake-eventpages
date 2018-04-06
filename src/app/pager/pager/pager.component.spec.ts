@@ -4,7 +4,9 @@ import { of } from 'rxjs/observable/of';
 
 import { Event } from '../../event';
 import { EventService } from '../../core/event.service';
+import { PagerXmlService } from '../../core/pagerxml.service';
 import { PagerComponent } from './pager.component';
+
 
 describe('PagerComponent', () => {
   let component: PagerComponent;
@@ -16,6 +18,11 @@ describe('PagerComponent', () => {
       product$: of(null)
     };
 
+    const pagerXmlServiceStub = {
+      getPagerXml: jasmine.createSpy('quakemlService::get'),
+      pagerXml$: of(null)
+    };
+
     TestBed.configureTestingModule({
       declarations: [
         PagerComponent,
@@ -23,7 +30,8 @@ describe('PagerComponent', () => {
         MockComponent({selector: 'product-page', inputs: ['product']}),
       ],
       providers: [
-        {provide: EventService, useValue: eventServiceStub}
+        {provide: EventService, useValue: eventServiceStub},
+        {provide: PagerXmlService, useValue: pagerXmlServiceStub}
       ]
     })
     .compileComponents();
