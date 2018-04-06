@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { EventService } from '../../core/event.service';
 
 @Component({
-  selector: 'app-losspager',
-  templateUrl: './losspager.component.html',
-  styleUrls: ['./losspager.component.scss']
+  selector: 'app-pager',
+  templateUrl: './pager.component.html',
+  styleUrls: ['./pager.component.scss']
 })
-export class LosspagerComponent implements OnInit {
+export class PagerComponent implements OnInit {
 
   constructor(
     public eventService: EventService

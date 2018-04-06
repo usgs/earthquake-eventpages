@@ -69,7 +69,7 @@ const appRoutes = [
       },
       {
         path: 'pager',
-        loadChildren: './losspager/losspager.module#LosspagerModule'
+        loadChildren: './pager/pager.module#PagerModule'
       }
     ]
   }

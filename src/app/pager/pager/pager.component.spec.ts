@@ -4,11 +4,11 @@ import { of } from 'rxjs/observable/of';
 
 import { Event } from '../../event';
 import { EventService } from '../../core/event.service';
-import { LosspagerComponent } from './losspager.component';
+import { PagerComponent } from './pager.component';
 
-describe('LosspagerComponent', () => {
-  let component: LosspagerComponent;
-  let fixture: ComponentFixture<LosspagerComponent>;
+describe('PagerComponent', () => {
+  let component: PagerComponent;
+  let fixture: ComponentFixture<PagerComponent>;
 
   beforeEach(async(() => {
     const eventServiceStub = {
@@ -18,7 +18,7 @@ describe('LosspagerComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [
-        LosspagerComponent,
+        PagerComponent,
 
         MockComponent({selector: 'product-page', inputs: ['product']}),
       ],
@@ -30,7 +30,7 @@ describe('LosspagerComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LosspagerComponent);
+    fixture = TestBed.createComponent(PagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
