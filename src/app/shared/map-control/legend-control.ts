@@ -47,16 +47,15 @@ const LegendControl = L.Control.extend({
     },
 
     /**
-     * Collapse the Legend control
+     * Show the Legend control
      *
      */
     _close: function () {
-      this._container.className = this._container.className
-          .replace(' leaflet-control-legend-visible', '');
+      L.DomUtil.removeClass(this._container, 'leaflet-control-legend-visible')
     },
 
     /**
-     * Expand the Legend control
+     * Hide the Legend control
      *
      */
     _open: function () {
