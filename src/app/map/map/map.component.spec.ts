@@ -21,7 +21,16 @@ describe('MapComponent', () => {
       declarations: [
         MapComponent,
 
-        MockComponent({selector: 'shared-map', inputs: ['overlays', 'showLayersControl', 'showScaleControl', 'interactive']}),
+        MockComponent({
+          selector: 'shared-map',
+          inputs: [
+            'overlays',
+            'showLayersControl',
+            'showLegendControl',
+            'showScaleControl',
+            'interactive'
+          ]
+       }),
         MockPipe('interactiveMapOverlays')
       ],
       imports: [

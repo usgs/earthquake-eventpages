@@ -100,6 +100,21 @@ describe('MapComponent', () => {
     });
   });
 
+  describe('showLegendControl', () => {
+    it('adds legend control to map when true', () => {
+      component.showLegendControl = true;
+      component.interactive = true;
+      component.updateControls();
+      expect(component.legendControl._map).toBeTruthy();
+    });
+
+    it('does not add legend control to map when false', () => {
+      component.showLegendControl = false;
+      component.updateControls();
+      expect(component.legendControl._map).toBeFalsy();
+    });
+  });
+
   describe('showScaleControl', () => {
     it('adds scale control to map when true', () => {
       component.showScaleControl = true;

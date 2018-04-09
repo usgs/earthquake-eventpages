@@ -1,0 +1,35 @@
+.leaflet-control-legend {
+  background: #fff;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-radius: 5px;
+  float: left;
+  margin: 10px;
+  padding: 0;
+}
+
+.leaflet-control-legend.leaflet-control-legend-expanded {
+  padding: 6px;
+}
+
+.leaflet-control-legend .leaflet-control-legend-toggle {
+  background: #fff;
+  border-radius: 5px;
+  color: #888;
+  font-size: 20px;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+  text-decoration: none;
+  width: 44px;
+}
+
+.leaflet-control-legend-expanded .leaflet-control-legend-toggle,
+.leaflet-control-legend-list,
+.leaflet-control-legend-close  {
+  display: none;
+}
+
+.leaflet-control-legend-expanded .leaflet-control-legend-close {
+  cursor: pointer;
+  display: block;
+}

@@ -3,6 +3,7 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEnc
 import * as L from 'leaflet';
 
 import { Overlay } from '../map-overlay/overlay';
+import { LegendControl } from '../map-control/legend-control';
 
 @Component({
   selector: 'shared-map',
@@ -164,6 +165,7 @@ export class MapComponent implements AfterViewInit, OnInit {
     });
 
     this.layersControl = L.control.layers(baselayers, {});
+    this.legendControl = new LegendControl({position: 'topright'});
     this.scaleControl = L.control.scale({position: 'bottomright'});
     this.zoomControl = L.control.zoom();
 
@@ -217,11 +219,9 @@ export class MapComponent implements AfterViewInit, OnInit {
     }
 
     if (this.showLegendControl && this.interactive === true) {
-      // TODO, add legend control to map, then add tests
-      // this.map.addControl(this.legendControl);
+      this.map.addControl(this.legendControl);
     } else {
-      // TODO, remove legend from map, then add tests
-      // this.map.removeControl(this.legendControl);
+      this.map.removeControl(this.legendControl);
     }
 
     if (this.showScaleControl) {
