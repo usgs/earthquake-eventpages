@@ -172,7 +172,7 @@ export class FormatterService {
    * @return {String}
    *     A string padded out to the desired length with the given pad.
    */
-  leftPad (source: string, length:number, pad:string) {
+  leftPad (source: string, length: number, pad: string) {
     let i,
         padLength,
         padding;
@@ -190,7 +190,7 @@ export class FormatterService {
 
 
     return padding.join('') + source;
-  };
+  }
 
   /**
    * Format a latitude and longitude.

@@ -21,7 +21,7 @@ export class DyfiCounterPipe implements PipeTransform {
 
     formatted = this.formatterService.leftPad(formatted, padding, '0');
 
-    return formatted.split("");
+    return formatted.split('');
   }
 
 }

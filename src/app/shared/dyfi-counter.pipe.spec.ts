@@ -58,6 +58,7 @@ describe('DyfiCounterPipe', () => {
       }
     };
 
-    expect(pipe.transform(product, 7)).toEqual(['p','a','d','d','i','n','g'])
+    expect(pipe.transform(product, 7)).toEqual(
+        ['p', 'a', 'd', 'd', 'i', 'n', 'g']);
   });
 });
