@@ -51,7 +51,7 @@ const LegendControl = L.Control.extend({
      *
      */
     _close: function () {
-      L.DomUtil.removeClass(this._container, 'leaflet-control-legend-visible')
+      L.DomUtil.removeClass(this._container, 'leaflet-control-legend-visible');
     },
 
     /**
@@ -60,7 +60,7 @@ const LegendControl = L.Control.extend({
      */
     _open: function () {
       L.DomUtil.addClass(this._container, 'leaflet-control-legend-visible');
-    },
+    }
 });
 
 export { LegendControl };
