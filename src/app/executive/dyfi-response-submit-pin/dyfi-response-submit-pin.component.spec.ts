@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockComponent } from 'ng2-mock-component';
+import { MockPipe } from '../../mock-pipe';
 
 import { DyfiResponseSubmitPinComponent } from './dyfi-response-submit-pin.component';
+import { FormatterService } from '../../core/formatter.service';
 
 describe('DyfiResponseSubmitPinComponent', () => {
   let component: DyfiResponseSubmitPinComponent;
@@ -8,7 +11,24 @@ describe('DyfiResponseSubmitPinComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DyfiResponseSubmitPinComponent ]
+      declarations: [
+        DyfiResponseSubmitPinComponent,
+
+        MockComponent({
+          selector: 'basic-pin',
+          inputs: [
+            'link',
+            'product',
+            'title',
+            'footer'
+          ]
+        }),
+
+        MockPipe('dyfiCounter')
+      ],
+      providers: [
+        FormatterService
+      ]
     })
     .compileComponents();
   }));
