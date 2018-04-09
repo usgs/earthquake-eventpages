@@ -3,7 +3,6 @@ import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 
 import { DyfiResponseSubmitPinComponent } from './dyfi-response-submit-pin.component';
-import { FormatterService } from '../../core/formatter.service';
 
 describe('DyfiResponseSubmitPinComponent', () => {
   let component: DyfiResponseSubmitPinComponent;
@@ -25,9 +24,6 @@ describe('DyfiResponseSubmitPinComponent', () => {
         }),
 
         MockPipe('dyfiCounter')
-      ],
-      providers: [
-        FormatterService
       ]
     })
     .compileComponents();
