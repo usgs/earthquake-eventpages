@@ -33,6 +33,7 @@ import { DateTimePipe } from './date-time.pipe';
 import { GetProductPipe } from './get-product.pipe';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
+import { DyfiCounterPipe } from './dyfi-counter.pipe';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
     BubbleComponent,
     CoordinatesComponent,
     DegreesPipe,
+    DyfiCounterPipe,
     UnitsPipe,
     LocationPipe,
     DownloadDialogComponent,
@@ -79,6 +81,7 @@ import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
     BubbleComponent,
     CoordinatesComponent,
     DegreesPipe,
+    DyfiCounterPipe,
     UnitsPipe,
     LocationPipe,
     DownloadDialogComponent,
