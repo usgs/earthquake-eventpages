@@ -40,7 +40,10 @@ const LegendControl = L.Control.extend({
     },
 
     onRemove: function(map) {
-        // Nothing to do here
+      L.DomEvent.off(this._container, 'mousewheel', L.DomEvent.stopPropagation);
+      L.DomEvent.off(this._showButton, 'click', L.DomEvent.stop)
+          .off(this._showButton, 'click', this._open, this);
+      L.DomEvent.off(this._hideButton, 'click', this._close, this);
     },
 
     /**
