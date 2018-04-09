@@ -1,14 +1,9 @@
-
 .leaflet-bottom.leaflet-right {
   width: 100%;
 }
 
 .leaflet-bottom.leaflet-right > .leaflet-control-scale {
-  background: #fff;
-  border: 2px solid rgba(0,0,0,0.2);
-  border-radius: 5px;
-  float: left;
-  margin: 10px;
+  @include leaflet-control();
   padding: 10px;
 }
 

@@ -1,10 +1,5 @@
 .leaflet-control-legend {
-  background: #fff;
-  border: 2px solid rgba(0,0,0,0.2);
-  border-radius: 5px;
-  float: left;
-  margin: 10px;
-  padding: 0;
+  @include leaflet-control();
 }
 
 .leaflet-control-legend.leaflet-control-legend-expanded {
