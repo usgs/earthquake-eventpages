@@ -7,8 +7,8 @@
   </ng-container>
 
   <!-- TODO, build pager page -->
-  <ng-container *ngIf="eventService.product$ | async | json as product">
-    <pre>{{ product }}</pre>
+  <ng-container *ngIf="pagerXmlService.pagerXml$ | async | json as xml">
+    <pre>{{ xml }}</pre>
   </ng-container>
 
   <ng-container footer>

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ProductPageModule } from '../product-page/product-page.module';
 import { PagerComponent } from './pager/pager.component';
 import { PagerRoutingModule } from './pager-routing.module';
+import { PagerXmlService } from './pagerxml.service';
 
 
 @NgModule({
@@ -15,6 +16,9 @@ import { PagerRoutingModule } from './pager-routing.module';
   ],
   declarations: [
     PagerComponent
+  ],
+  providers: [
+    PagerXmlService
   ]
 })
 export class PagerModule { }
