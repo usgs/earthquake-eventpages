@@ -6,7 +6,7 @@ describe('DyfiCounterPipe', () => {
 
   beforeEach(() => {
     formatterService = {
-      leftPad: jasmine.createSpy('leftpad').and.returnValue('padding')
+      leftPad: jasmine.createSpy('leftpad').and.returnValue('120345')
     };
 
     pipe = new DyfiCounterPipe(formatterService);
@@ -50,6 +50,13 @@ describe('DyfiCounterPipe', () => {
     expect(formatterService.leftPad).toHaveBeenCalledWith('0', 'padding', '0');
   });
 
+  it('calls formatterService with null value', () => {
+    const product = null;
+
+    pipe.transform(product, 'padding');
+    expect(formatterService.leftPad).toHaveBeenCalledWith('0', 'padding', '0');
+  });
+
   it('returns an array', () => {
     const product = {
       properties: {
@@ -58,7 +65,31 @@ describe('DyfiCounterPipe', () => {
       }
     };
 
-    expect(pipe.transform(product, 7)).toEqual(
-        ['p', 'a', 'd', 'd', 'i', 'n', 'g']);
+    expect(pipe.transform(product, 6)).toEqual([
+      {
+        'value': '1',
+        'leadingZero': false
+      },
+      {
+        'value': '2',
+        'leadingZero': false
+      },
+      {
+        'value': '0',
+        'leadingZero': false
+      },
+      {
+        'value': '3',
+        'leadingZero': false
+      },
+      {
+        'value': '4',
+        'leadingZero': false
+      },
+      {
+        'value': '5',
+        'leadingZero': false
+      }
+    ]);
   });
 });
