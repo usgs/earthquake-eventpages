@@ -14,8 +14,8 @@
       </executive-region-info-pin>
     </li>
 
-    <li *ngIf="event | getProduct:'dyfi'; let dyfi">
-      <executive-dyfi-response-submit-pin [product]="dyfi">
+    <li>
+      <executive-dyfi-response-submit-pin [product]="event | getProduct:'dyfi'">
       </executive-dyfi-response-submit-pin>
     </li>
 
