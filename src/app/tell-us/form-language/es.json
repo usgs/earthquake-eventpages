@@ -214,7 +214,8 @@
 
   "eventTime": {
     "ciim_time": {
-      "label": "Tiempo del Terremoto <small>Hora Local <em>1/31/2008 9:00 AM</em>, ó tiempo relativo <em>5 minutos atrás</em></small>"
+      "label": "Tiempo del Terremoto",
+      "placeholder": "Hora Local (1/31/2008 9:00 AM), ó tiempo relativo (5 minutos atrás)"
     }
   },
 

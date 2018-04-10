@@ -20,6 +20,11 @@ mat-form-field {
   display: block;
 }
 
+mat-dialog-actions {
+  flex-direction: row-reverse;
+  align-content: flex-start;
+}
+
 @media screen and (min-width: 400px) {
   h2 {
     display: flex;

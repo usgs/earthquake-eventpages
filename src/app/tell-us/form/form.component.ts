@@ -19,7 +19,8 @@ export class FormComponent implements OnInit, OnDestroy {
   public answers: any = {
     'fldSituation_felt': null,
     'ciim_mapLat': null,
-    'ciim_mapLon': null
+    'ciim_mapLon': null,
+    'ciim_time': null
   };
 
   private eventSubscription: Subscription;
@@ -87,7 +88,7 @@ export class FormComponent implements OnInit, OnDestroy {
       time = new Date(time).toISOString();
     }
 
-    this.answers.ciim_eventid = event.id;
+    this.answers.eventid = event.id;
     this.answers.ciim_time = time;
   }
 

@@ -1,5 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatListModule, MatRadioModule, MatRadioChange, MatSelectionListChange, MatSelectionList, MatListOption } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import {
+  MatFormFieldModule,
+  MatListModule,
+  MatListOption,
+  MatRadioChange,
+  MatRadioModule,
+  MatSelectionList,
+  MatSelectionListChange } from '@angular/material';
 import { MockComponent } from 'ng2-mock-component';
 
 import { QuestionComponent } from './question.component';
@@ -12,6 +20,8 @@ describe('QuestionComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        FormsModule,
+        MatFormFieldModule,
         MatListModule,
         MatRadioModule
       ],
@@ -59,6 +69,17 @@ describe('QuestionComponent', () => {
 
       component.onChange(change);
       expect(component.change.next).toHaveBeenCalledWith({'test name': ['test value 1', 'test value 2']});
+    });
+
+    it('gets other value for OtherValueChange', () => {
+      component.name = 'test name';
+      component.value = 'other';
+      spyOn(component.change, 'next');
+      component.onChange({type: 'other', value: 'test other'});
+      expect(component.change.next).toHaveBeenCalledWith({
+        'test name': 'other',
+        'test name_Other': 'test other'
+      });
     });
 
     it ('does not change value otherwise', () => {
