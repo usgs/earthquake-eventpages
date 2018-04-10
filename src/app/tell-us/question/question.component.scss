@@ -23,3 +23,8 @@ mat-selection-list > mat-list-option {
 mat-radio-button {
   display: block;
 }
+
+mat-list-item.other {
+  padding-left: 32px !important;
+  margin-top: -1em;
+}
