@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { EventService } from '../../core/event.service';
-import { PagerXmlService } from '../../core/pagerxml.service';
+import { PagerXmlService } from '../pagerxml.service';
 
 
 @Component({

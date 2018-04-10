@@ -4,7 +4,7 @@ import { of } from 'rxjs/observable/of';
 
 import { Event } from '../../event';
 import { EventService } from '../../core/event.service';
-import { PagerXmlService } from '../../core/pagerxml.service';
+import { PagerXmlService } from '../pagerxml.service';
 import { PagerComponent } from './pager.component';
 
 

@@ -70,8 +70,6 @@ export class PagerXmlService {
       return null;
     }
 
-    console.log('pager', pager);
-
     return {
       alerts: this._parseAlerts(pager),
       exposures: this._parseExposures(pager),
