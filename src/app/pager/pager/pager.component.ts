@@ -4,7 +4,7 @@ import { EventService } from '../../core/event.service';
 
 
 @Component({
-  selector: 'app-pager',
+  selector: 'pager-pager',
   templateUrl: './pager.component.html',
   styleUrls: ['./pager.component.scss']
 })
