@@ -24,7 +24,7 @@ export class IntensityOverlay implements Overlay {
       httpClient: httpClient
     };
 
-    this.layer = asynchronousGeoJson(options)
+    this.layer = asynchronousGeoJson(options);
   }
 
   getStyle(feature, latlng) {

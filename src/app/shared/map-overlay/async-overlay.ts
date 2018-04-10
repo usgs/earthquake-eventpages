@@ -1,5 +1,3 @@
-import { HttpClient } from '@angular/common/http';
-
 import { AsynchronousGeoJson } from './async-geojson';
 import { Overlay } from './overlay'
 import * as L from 'leaflet';
@@ -15,5 +13,4 @@ export interface AsyncOverlay extends Overlay {
   // GeoJSON data
   _data: any
 
-  layer: L.layer
 }
