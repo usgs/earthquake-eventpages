@@ -1,26 +1,23 @@
 .details {
-    margin-top: 10px;
+    margin: 20px 0 20px 0;
 }
 
-table table {
-    padding: 10px;
+.summary {
+    display: flex;
+    align-items: center;
+    margin: 20px 0 20px 0;
 }
 
-table, th, td {
-    text-align: center;
+.summary * {
+    display: inline-block;
+    margin: 5px 30px 5px 10px;
 }
 
-.mmi-table {
-    border:2px solid black;
-    border-radius:3px;
-    width:100%
+small {
+    font-weight: lighter;
+    margin-left: 8px;
 }
 
-.mmi-td {
-    width:80px;
-    padding-right:10px;
-}
-
-.mmi-td h1 {
-    margin:0;
+.flag {
+    color: red;
 }

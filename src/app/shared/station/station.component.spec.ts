@@ -25,7 +25,9 @@ describe('StationComponent', () => {
 
         MockPipe('sharedDegrees'),
         MockPipe('sharedNumber'),
-        MockComponent({selector: 'shared-mmi', inputs: ['intensity']})
+        MockPipe('sharedLocation'),
+        MockComponent({selector: 'shared-mmi', inputs: ['intensity']}),
+        MockComponent({selector: 'shared-bubble', inputs: ['name', 'title']})
       ]
     })
     .compileComponents();

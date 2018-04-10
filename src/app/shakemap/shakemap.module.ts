@@ -9,6 +9,7 @@ import {
 } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { SharedModule } from '../shared/shared.module';
 import { ProductPageModule } from '../product-page/product-page.module';
@@ -32,6 +33,7 @@ import { UncertaintyComponent } from './uncertainty/uncertainty.component';
     MatSortModule,
     MatTableModule,
     MatTabsModule,
+    MatDividerModule,
 
     ProductPageModule,
     SharedModule,

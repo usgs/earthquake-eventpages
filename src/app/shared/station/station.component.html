@@ -1,159 +1,139 @@
-<mat-card *ngIf="station" class="station">
-  <mat-card-title>
-    {{ station.properties.name }}
-  </mat-card-title>
-  <mat-card-subtitle>
+<ng-container *ngIf="station">
+  <h3>
     {{ station.properties.code }}
-  </mat-card-subtitle>
+    <small>{{ station.properties.name }}</small>
+  </h3>
 
-  <mat-card-content>
-    <table>
-      <tr>
-        <td class="mmi-td">
-          <shared-mmi class="intensity"
-            [intensity]="station.properties.intensity">
-          </shared-mmi>
-        </td>
-        <td>
-          <table>
-            <tr>
-              <td class="mat-cell">
-                {{ station.properties.pga | sharedNumber:2:'%g' }}
-              </td>
-            </tr>
-            <tr>
-              <td class="mat-header-cell">
-                pga
-              </td>
-            </tr>
-          </table>
-        </td>
-        <td>
-          <table>
-            <tr>
-              <td class="mat-cell">
-                {{ station.properties.pgv | sharedNumber:2:'cm/s'}}
-              </td>
-            </tr>
-            <tr>
-              <td class="mat-header-cell">
-                pgv
-              </td>
-            </tr>
-          </table>
-        </td>
-        <td>
-          <table>
-            <tr>
-              <td class="mat-cell">
-                {{ station.properties.distance | sharedNumber:2:'km' }}
-              </td>
-            </tr>
-            <tr>
-              <td class="mat-header-cell">
-                distance
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
+  <div class="summary">
+    <shared-mmi class="intensity"
+      [intensity]="station.properties.intensity">
+    </shared-mmi>
 
-    <mat-expansion-panel class="details">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Details
-        </mat-panel-title>
-      </mat-expansion-panel-header>
+    <shared-bubble [name]="'pga'" [title]="'Maximum Horizontal Peak Ground Acceleration'">
+      {{ station.properties.pga | sharedNumber:2:'%g' }}
+    </shared-bubble>
+    <shared-bubble [name]="'pgv'" [title]="'Maximum Horizontal Peak Ground Velocity'">
+      {{ station.properties.pgv | sharedNumber:2:'cm/s' }}
+    </shared-bubble>
+    <shared-bubble [name]="'dist'" [title]="'Distance (km)'">
+      {{ station.properties.distance | sharedNumber:2:'km' }}
+    </shared-bubble>
+  </div>
 
-      <ng-template matExpansionPanelContent>
+  <mat-expansion-panel class="details">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Details
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-        <dl class="description-table">
-          <dt>Network</dt>
-          <dd>{{ station.properties.network }}</dd>
-          <dt>Latitude</dt>
-          <dd>{{ station.geometry.coordinates[1] | sharedDegrees }}</dd> 
-          <dt>Longitude</dt>
-          <dd>{{ station.geometry.coordinates[0] | sharedDegrees }}</dd>
-          <dt>Source</dt>
-          <dd>{{ station.properties.source }}</dd>
-          <dt>Intensity</dt>
-          <dd>{{ station.properties.intensity }}</dd>
-        </dl>
+    <ng-template matExpansionPanelContent>
 
-        <h3>Channels</h3>
-        <mat-table [dataSource]="station.channels">
-          <mat-header-row *matHeaderRowDef="channelsColumns">
-          </mat-header-row>
-          <mat-row *matRowDef="let myRowData; columns: channelsColumns">
-          </mat-row>
+      <dl class="description-table">
+        <dt>Network</dt>
+        <dd>{{ station.properties.network }}</dd>
+        <dt>GPS Location</dt>
+        <dd>{{ station.geometry.coordinates | sharedLocation }}</dd>
+        <dt>Source</dt>
+        <dd>{{ station.properties.source }}</dd>
+        <dt>Intensity</dt>
+        <dd>{{ station.properties.intensity }}</dd>
+      </dl>
 
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>
-              Name
-            </mat-header-cell>
-            <mat-cell [attr.role]="'rowheader'"
-                [class.mat-cell]="false"
-                class="mat-header-cell"
-                *matCellDef="let channel">
-              {{ channel.name }}
-            </mat-cell>
-          </ng-container>
+      <h3>Channels</h3>
+      <mat-table [dataSource]="station.channels">
+        <mat-header-row *matHeaderRowDef="channelsColumns">
+        </mat-header-row>
+        <mat-row *matRowDef="let myRowData; columns: channelsColumns">
+        </mat-row>
 
-          <ng-container matColumnDef="pga">
-            <mat-header-cell *matHeaderCellDef>
-              PGA
-            </mat-header-cell>
-            <mat-cell *matCellDef="let channel">
-              {{ channel.pga.value |
-                  sharedNumber:2:channel.pga.units }}
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>
+            Name
+          </mat-header-cell>
+          <mat-cell [attr.role]="'rowheader'"
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let channel">
+            {{ channel.name }}
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="pgv">
-            <mat-header-cell *matHeaderCellDef>
-              PGV
-            </mat-header-cell>
-            <mat-cell *matCellDef="let channel">
-              {{ channel.pgv.value |
-                  sharedNumber:2:channel.pgv.units }}
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="pga">
+          <mat-header-cell *matHeaderCellDef>
+            PGA
+          </mat-header-cell>
+          <mat-cell *matCellDef="let channel">
+            {{ channel.pga.value |
+                sharedNumber:2:channel.pga.units }}
+            
+            <ng-container *ngIf="channel.pga.flag === '0'; else flagged">
+            </ng-container>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="psa03">
-            <mat-header-cell *matHeaderCellDef>
-              PSA(03)
-            </mat-header-cell>
-            <mat-cell *matCellDef="let channel">
-              {{ channel.psa03.value |
-                  sharedNumber:2:channel.psa03.units }}
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="pgv">
+          <mat-header-cell *matHeaderCellDef>
+            PGV
+          </mat-header-cell>
+          <mat-cell *matCellDef="let channel">
+            {{ channel.pgv.value |
+                sharedNumber:2:channel.pgv.units }}
+            
+            <ng-container *ngIf="channel.pgv.flag === '0'; else flagged">
+            </ng-container>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="psa10">
-            <mat-header-cell *matHeaderCellDef>
-              PSA(10)
-            </mat-header-cell>
-            <mat-cell *matCellDef="let channel">
-              {{ channel.psa10.value |
-                  sharedNumber:2:channel.psa10.units}}
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="psa03">
+          <mat-header-cell *matHeaderCellDef>
+            PSA(03)
+          </mat-header-cell>
+          <mat-cell *matCellDef="let channel">
+            {{ channel.psa03.value |
+                sharedNumber:2:channel.psa03.units }}
+            
+            <ng-container *ngIf="channel.psa03.flag === '0'; else flagged">
+            </ng-container>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="psa30">
-            <mat-header-cell *matHeaderCellDef>
-              PSA(30)
-            </mat-header-cell>
-            <mat-cell *matCellDef="let channel">
-              {{ channel.psa30.value |
-                  sharedNumber:2:channel.psa30.units }}
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="psa10">
+          <mat-header-cell *matHeaderCellDef>
+            PSA(10)
+          </mat-header-cell>
+          <mat-cell *matCellDef="let channel">
+            {{ channel.psa10.value |
+                sharedNumber:2:channel.psa10.units}}
+            
+            <ng-container *ngIf="channel.psa10.flag === '0'; else flagged">
+            </ng-container>
+          </mat-cell>
+        </ng-container>
 
-        </mat-table>
+        <ng-container matColumnDef="psa30">
+          <mat-header-cell *matHeaderCellDef>
+            PSA(30)
+          </mat-header-cell>
+          <mat-cell *matCellDef="let channel">
+            {{ channel.psa30.value |
+                sharedNumber:2:channel.psa30.units }}
+            
+            <ng-container *ngIf="channel.psa30.flag === '0'; else flagged">
+            </ng-container>
+          </mat-cell>
+        </ng-container>
 
-      </ng-template>
-    </mat-expansion-panel>
+      </mat-table>
 
-  </mat-card-content>
-</mat-card>
+    </ng-template>
+  </mat-expansion-panel>
+
+  <ng-template #flagged>
+    <small>
+      <abbr class="flag" title="Flagged as an outlier">
+        outlier
+      </abbr>
+    </small>
+  </ng-template>
+</ng-container>

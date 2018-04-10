@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDividerModule } from '@angular/material/divider';
+
 import { StationListComponent } from './station-list.component';
 
 import { EventService } from '../../core/event.service';
@@ -26,6 +28,7 @@ describe('StationListComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [MatDividerModule],
       declarations: [
         StationListComponent,
 

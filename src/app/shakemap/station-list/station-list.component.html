@@ -1,3 +1,6 @@
-<div class="station" *ngFor="let station of stations">
-  <shared-station [station]="station"></shared-station>
-</div>
+<ng-container *ngFor="let station of stations">
+  <div class="station">
+    <shared-station [station]="station"></shared-station>
+  </div>
+  <mat-divider></mat-divider>
+</ng-container>
