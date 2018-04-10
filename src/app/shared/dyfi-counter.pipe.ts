@@ -12,16 +12,28 @@ export class DyfiCounterPipe implements PipeTransform {
   ) { }
 
   transform(product: any, padding: number): Array<string> {
-    let formatted;
+    let formatted,
+        leadingZero;
 
-    formatted = (
+    try {
+      formatted = (
         product.properties['num-responses'] ||
         product.properties.numResp ||
         0).toString();
+    } catch {
+      formatted = '0';
+    }
 
     formatted = this.formatterService.leftPad(formatted, padding, '0');
+    leadingZero = true;
 
-    return formatted.split('');
+    return formatted.split('').map((value) => {
+      leadingZero = (leadingZero && value === '0');
+      return {
+        'value': value,
+        'leadingZero': leadingZero
+      };
+    });
   }
 
 }
