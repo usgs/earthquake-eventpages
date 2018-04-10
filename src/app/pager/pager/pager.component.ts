@@ -44,7 +44,7 @@ export class PagerComponent implements OnInit {
   }
 
   /**
-   * Observe pager.xml changes, process alert levels.
+   * Observe pager.xml changes, process alerts, exposure, and shaking levels.
    *
    * @param pagerXml next pager.xml
    */
