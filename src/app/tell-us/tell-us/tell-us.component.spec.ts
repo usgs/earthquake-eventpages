@@ -1,15 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TellUsComponent } from './tell-us.component';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatDialogModule, MatDialog, MatExpansionModule, MatSelectModule, MatFormFieldModule } from '@angular/material';
-import { of } from 'rxjs/observable/of';
-import { EventService } from '../../../..';
-import { Event } from '../../event';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MockComponent } from 'ng2-mock-component';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { FormComponent } from '../form/form.component';
+import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
+
+import { EventService } from '../../core/event.service';
+import { Event } from '../../event';
+import { MockPipe } from '../../mock-pipe';
 import { FormLanguageService } from '../form-language.service';
+import { FormComponent } from '../form/form.component';
+import { TellUsComponent } from './tell-us.component';
+
 
 describe('TellUsComponent', () => {
   let component: TellUsComponent;
@@ -25,17 +28,24 @@ describe('TellUsComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [
-        TellUsComponent,
-        FormComponent
-      ],
       imports: [
         BrowserAnimationsModule,
+        FormsModule,
         MatButtonModule,
         MatDialogModule,
         MatExpansionModule,
         MatFormFieldModule,
         MatSelectModule
+      ],
+      declarations: [
+        TellUsComponent,
+        FormComponent,
+
+        MockComponent({selector: 'tell-us-fieldset', inputs: ['legend']}),
+        MockComponent({selector: 'tell-us-location', inputs: ['enter', 'update']}),
+        MockComponent({selector: 'tell-us-question', inputs: ['label', 'multiSelect', 'name', 'options', 'value']}),
+        MockComponent({selector: 'tell-us-privacy-statement'}),
+        MockPipe('keys')
       ],
       providers: [
         {provide: FormLanguageService, useValue: languageServiceStub},
@@ -59,10 +69,13 @@ describe('TellUsComponent', () => {
     fixture.detectChanges();
   });
 
-  afterEach(() => {
-    if (component.dialogRef) {
-      component.dialogRef.close(null);
-    }
+  afterEach((done) => {
+    component.initPromise.then(() => {
+      if (component.dialogRef) {
+        component.dialogRef.close(null);
+      }
+      done();
+    });
   });
 
   it('should create', () => {
@@ -70,44 +83,66 @@ describe('TellUsComponent', () => {
   });
 
   describe('onResponse', () => {
-    it('console logs response', () => {
+    it('sets response', () => {
+      const response = {'response': 'dyfi'};
+      component.response = null;
+      component.onResponse(response);
+      expect(component.response).toBe(response);
+    });
+
+    it('handles cancel', () => {
+      spyOn(console, 'log');
+      component.onResponse(false);
+      expect(console.log).toHaveBeenCalledWith('user clicked cancel');
+    });
+
+    it('handles submit', () => {
       const response = {'response': 'dyfi'};
       spyOn(console, 'log');
       component.onResponse(response);
-      expect(console.log).toHaveBeenCalledWith(response);
+      expect(console.log).toHaveBeenCalledWith('user clicked submit', response);
+    });
+
+    it('handles undefined', () => {
+      const response = undefined;
+      spyOn(console, 'log');
+      component.onResponse(response);
+      expect(console.log).not.toHaveBeenCalled();
     });
   });
 
   describe('showForm', () => {
     it('does not call onResponse when response is null', (done) => {
       spyOn(component, 'onResponse');
-
-      component.dialogRef.afterClosed().subscribe(() => {
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(component.dialogRef).toBeNull();
-          expect(component.onResponse).not.toHaveBeenCalled();
-          done();
+      component.initPromise.then(() => {
+        component.dialogRef.afterClosed().subscribe(() => {
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            expect(component.dialogRef).toBeNull();
+            expect(component.onResponse).not.toHaveBeenCalled();
+            done();
+          });
         });
-      });
 
-      component.dialogRef.close(null);
+        component.dialogRef.close(null);
+      });
     });
 
     it('calls onResponse when response is not null', (done) => {
       const response = {'response': true};
       spyOn(component, 'onResponse');
-
-      component.dialogRef.afterClosed().subscribe(() => {
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(component.dialogRef).toBeNull();
-          expect(component.onResponse).toHaveBeenCalledWith(response);
-          done();
+      component.initPromise.then(() => {
+        component.dialogRef.afterClosed().subscribe(() => {
+          fixture.detectChanges();
+          fixture.whenStable().then(() => {
+            expect(component.dialogRef).toBeNull();
+            expect(component.onResponse).toHaveBeenCalledWith(response);
+            done();
+          });
         });
-      });
 
-      component.dialogRef.close(response);
+        component.dialogRef.close(response);
+      });
     });
   });
 });

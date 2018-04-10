@@ -1,6 +1,8 @@
 <footer>
-  <h3>Contributors</h3>
-  <ol [innerHTML]="event | contributorList:contributors"></ol>
+  <ng-container *ngIf="contributors !== false">
+    <h3>Contributors</h3>
+    <ol [innerHTML]="event | contributorList:contributors"></ol>
+  </ng-container>
 
   <h3>Additional Information</h3>
   <ul>

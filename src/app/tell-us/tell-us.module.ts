@@ -1,36 +1,64 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TellUsComponent } from './tell-us/tell-us.component';
+import { FormsModule } from '@angular/forms';
+import {
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatListModule,
+  MatSelectModule,
+  MatRadioModule,
+  MatInputModule
+} from '@angular/material';
+
 import { SharedModule } from '../shared/shared.module';
-import { TellUsRoutingModule } from './tell-us-routing.module';
+import { FieldsetComponent } from './fieldset/fieldset.component';
 import { FormComponent } from './form/form.component';
-import { MatButtonModule, MatDialogModule, MatExpansionModule, MatSelectModule, MatFormFieldModule } from '@angular/material';
 import { FormLanguageService } from './form-language.service';
+import { LocationComponent } from './location/location.component';
+import { PrivacyStatementComponent } from './privacy-statement/privacy-statement.component';
+import { QuestionComponent } from './question/question.component';
+import { TellUsComponent } from './tell-us/tell-us.component';
+import { TellUsRoutingModule } from './tell-us-routing.module';
+
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
+    MatInputModule,
+    MatListModule,
+    MatRadioModule,
     MatSelectModule,
-
     SharedModule,
+
+    // routing module is always last
     TellUsRoutingModule
   ],
   declarations: [
+    FieldsetComponent,
+    FormComponent,
+    LocationComponent,
+    QuestionComponent,
     TellUsComponent,
-    FormComponent
+    PrivacyStatementComponent
   ],
   entryComponents: [
     FormComponent
   ],
+  exports: [
+    FormComponent,
+    TellUsComponent
+  ],
   providers: [
     FormLanguageService
-  ],
-  exports: [
-    FormComponent
   ]
 })
 export class TellUsModule { }

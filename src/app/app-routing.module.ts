@@ -16,7 +16,13 @@ const appRoutes = [
   },
   {
     path: 'unknown',
-    component: UnknownEventPageComponent
+    component: UnknownEventPageComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './tell-us/tell-us.module#TellUsModule'
+      }
+    ]
   },
   {
     path: ':eventid',

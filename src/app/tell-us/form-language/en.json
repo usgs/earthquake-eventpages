@@ -20,7 +20,7 @@
 
   "toggleInfo": {
     "button": "Additional Observations",
-    "description": "<strong>The remainder of this form is optional.</strong>Help make a shaking intensity map by telling us about the shaking at your location."
+    "description": "<strong>The remainder of this form is optional.</strong><br/>Help make a shaking intensity map by telling us about the shaking at your location."
   },
 
   "moreQuestions": {

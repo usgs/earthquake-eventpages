@@ -1,16 +1,36 @@
-h2 {
-  display: flex;
-  margin-top: 0;
-}
-
-h2 > span {
-  display: block;
-  flex: 1;
+:host {
+  max-width: 100%;
 }
 
 .omb-number {
   font-size: 14px;
   font-weight: normal;
   line-height: 1;
-  margin-left: 1em;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+mat-expansion-panel {
+  margin-bottom: 1em;
+}
+
+mat-form-field {
+  display: block;
+}
+
+@media screen and (min-width: 400px) {
+  h2 {
+    display: flex;
+  }
+
+  .felt-header {
+    display: block;
+    flex: 1;
+  }
+
+  .omb-number {
+    margin-left: 1em;
+  }
 }

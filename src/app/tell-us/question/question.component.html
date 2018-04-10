@@ -1,0 +1,34 @@
+<tell-us-fieldset [legend]="label">
+  <ng-container *ngIf="
+      multiSelect; then isMultiSelect;
+      else isSingleSelect">
+  </ng-container>
+</tell-us-fieldset>
+
+
+<ng-template #isMultiSelect>
+  <mat-selection-list (selectionChange)="onChange($event)">
+    <mat-list-option *ngFor="let option of options"
+        [checkboxPosition]="'before'"
+        [selected]="value && value.includes(option.value)"
+        [value]="option.value">
+      {{ option.label }}
+    </mat-list-option>
+  </mat-selection-list>
+</ng-template>
+
+
+<ng-template #isSingleSelect>
+  <mat-radio-group (change)="onChange($event)">
+    <mat-list>
+      <mat-list-item *ngFor="let option of options">
+        <mat-radio-button
+            [checked]="value === option.value"
+            [name]="option.name"
+            [value]="option.value">
+          {{ option.label }}
+        </mat-radio-button>
+      </mat-list-item>
+    </mat-list>
+  </mat-radio-group>
+</ng-template>

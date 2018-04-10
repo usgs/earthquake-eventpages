@@ -1,6 +1,7 @@
 <header>
   <h1>{{ event | eventTitle }}</h1>
-  <ul>
+
+  <ul *ngIf="event?.id">
     <li [innerHTML]="event | eventDateTime"></li>
     <li [innerHTML]="event | eventLocation"></li>
     <li [innerHTML]="event | eventDepth"></li>

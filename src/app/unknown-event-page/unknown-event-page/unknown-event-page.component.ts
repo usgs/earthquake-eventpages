@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-unknown-event-page',
   templateUrl: './unknown-event-page.component.html',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UnknownEventPageComponent implements OnInit {
 
-  constructor () { }
+  constructor (
+  ) { }
 
   ngOnInit () {
   }

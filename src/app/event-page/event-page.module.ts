@@ -45,7 +45,8 @@ import { SharedModule } from '../shared/shared.module';
   ],
   exports: [
     ContributorListPipe,
-    EventPageComponent
+    EventPageComponent,
+    FooterComponent
   ],
 })
 export class EventPageModule { }
