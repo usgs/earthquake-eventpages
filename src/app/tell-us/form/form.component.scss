@@ -22,7 +22,7 @@ mat-form-field {
 
 mat-dialog-actions {
   flex-direction: row-reverse;
-  justify-content: space-between;
+  align-content: flex-start;
 }
 
 @media screen and (min-width: 400px) {
