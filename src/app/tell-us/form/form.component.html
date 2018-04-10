@@ -42,10 +42,12 @@
     </tell-us-fieldset>
 
     <!-- time -->
-    <ng-container *ngIf="!answers.ciim_eventid">
+    <ng-container *ngIf="!answers.eventid">
       <tell-us-fieldset [legend]="language.eventTime.ciim_time.label">
         <mat-form-field>
-          <input matInput [(ngModel)]="answers.ciim_time"/>
+          <input matInput
+              [(ngModel)]="answers.ciim_time"
+              [placeholder]="language.eventTime.ciim_time.placeholder"/>
         </mat-form-field>
       </tell-us-fieldset>
     </ng-container>
@@ -132,19 +134,18 @@
 
 
   <mat-dialog-actions>
-
     <button mat-button
         (click)="onSubmit()"
         [disabled]="
             answers.ciim_mapLat === null ||
             answers.ciim_mapLon === null ||
+            answers.ciim_time === null ||
             answers.fldSituation_felt === null">
       {{ language.submit.label }}
     </button>
 
     <button mat-button
         (click)="onCancel()">Cancel</button>
-
   </mat-dialog-actions>
 
 </ng-container>

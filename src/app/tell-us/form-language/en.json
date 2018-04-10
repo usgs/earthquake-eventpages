@@ -214,7 +214,8 @@
 
   "eventTime": {
     "ciim_time": {
-      "label": "Time of Earthquake <small>Local time <em>1/31/2008 9:00 AM</em>, or Relative time <em>5 minutes ago</em></small>"
+      "label": "Time of Earthquake",
+      "placeholder": "Local time (1/31/2008 9:00 AM), or Relative time (5 minutes ago)"
     }
   },
 

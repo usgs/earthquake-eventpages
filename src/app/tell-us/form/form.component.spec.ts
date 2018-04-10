@@ -113,11 +113,11 @@ describe('FormComponent', () => {
 
   describe('setEvent', () => {
     it('clears event id and time', () => {
-      component.answers.ciim_eventid = 'test eventid';
+      component.answers.eventid = 'test eventid';
       component.answers.ciim_time = 'test time';
 
       component.setEvent(new Event(null));
-      expect(component.answers.ciim_eventid).toBe(null);
+      expect(component.answers.eventid).toBe(null);
       expect(component.answers.ciim_time).toBe(null);
     });
 
@@ -131,7 +131,7 @@ describe('FormComponent', () => {
           time: 12345
         }
       }));
-      expect(component.answers.ciim_eventid).not.toBe(null);
+      expect(component.answers.eventid).not.toBe(null);
       expect(component.answers.ciim_time).not.toBe(null);
     });
   });
