@@ -1,16 +1,24 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  Output,
+  OnDestroy,
+  ViewChild } from '@angular/core';
 import * as L from 'leaflet';
 
-import { Overlay } from '../map-overlay/overlay';
 import { LegendControl } from '../map-control/legend-control';
+import { Overlay } from '../map-overlay/overlay';
+
 
 @Component({
   selector: 'shared-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit, OnInit {
+export class MapComponent implements AfterViewInit, OnInit, OnDestroy {
 
   @Input() baselayer = 'Topographic';
   @Input() showAttributionControl = true;
@@ -97,6 +105,13 @@ export class MapComponent implements AfterViewInit, OnInit {
   ngOnInit () {
   }
 
+  ngOnDestroy () {
+    if (this.map) {
+      this.map.remove();
+      this.map = null;
+    }
+  }
+
   ngAfterViewInit () {
     const worldTopoLayer = L.tileLayer('https://services.arcgisonline.com/' +
         'arcgis/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
@@ -172,6 +187,14 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.updateControls();
     this.updateInteractive();
     this.updateOverlays();
+
+    // update overlay.enabled when layers control changes
+    this.map.on('overlayadd', (e) => {
+      this.onOverlayEvent(e);
+    });
+    this.map.on('overlayremove', (e) => {
+      this.onOverlayEvent(e);
+    });
   }
 
   getOverlayBounds () {
@@ -191,6 +214,36 @@ export class MapComponent implements AfterViewInit, OnInit {
     return bounds;
   }
 
+  /**
+   * Called when map fires an 'overlayadd' or 'overlayremove' event.
+   *
+   * Updates Overlay.enabled for corresponding layer (if found).
+   *
+   * @param e the leaflet event object.
+   */
+  onOverlayEvent (e: L.Event) {
+    if (!e) {
+      return;
+    }
+
+    const overlay = this.overlays.find((o) => {
+      return o.layer === e.layer;
+    });
+    if (overlay) {
+      overlay.enabled = (e.type === 'overlayadd');
+
+      // TODO: notify legend control?
+    }
+  }
+
+  /**
+   * Called by #updateOverlays().
+   *
+   * Sets bounds to overlay bounds (see #getOverlayBounds()),
+   * or defaults to world bounds.
+   *
+   * TODO: support bounds as input parameter.
+   */
   setBounds () {
     if (!this.map) {
       return;

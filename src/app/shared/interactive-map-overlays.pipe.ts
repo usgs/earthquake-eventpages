@@ -27,7 +27,14 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
   };
 
   public overlayFactory: any = {
-    'origin': new RegionInfoOverlaysPipe()
+    'origin': new RegionInfoOverlaysPipe(),
+    '_always_': {
+      transform: () => {
+        return [
+          new LandscanPopulationOverlay()
+        ];
+      }
+    }
   };
 
   transform(event: Event, params: ParamMap): any {
@@ -46,8 +53,6 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
       overlays.push(...this.getOverlays(event, params, type));
     });
 
-    overlays.push(new LandscanPopulationOverlay());
-
     this.setEnabled(overlays, params);
 
     return overlays;
@@ -58,7 +63,7 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
 
     // get/cache overlays for product
     const cache = this.overlayCache[type] || {};
-    if (cache.product !== product) {
+    if (cache.product !== product || !this.overlayCache.hasOwnProperty(type)) {
       cache.product = product;
       cache.overlays = this.overlayFactory[type].transform(product);
       this.overlayCache[type] = cache;
