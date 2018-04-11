@@ -1,17 +1,33 @@
-import { Overlay } from './overlay';
 import * as L from 'leaflet';
 
-export class HistoricSeismicityOverlay implements Overlay {
 
-  public id = 'historic-seismicity';
-  public bounds = null;
-  public enabled = true;
-  public layer = L.tileLayer('https://earthquake.usgs.gov/arcgis/rest' +
-      '/services/eq/catalog/MapServer/tile/{z}/{y}/{x}', {
+const HistoricSeismicityOverlay = L.TileLayer.extend({
+  bounds: null,
+  enabled: true,
+  id: 'historic-seismicity',
+  isOverlay: true,
+  layer: this,
+  legend: null,
+  title: 'Historic Seismicity',
+
+
+  initialize: function () {
+    const legend = document.createElement('img');
+    legend.src = './assets/legend-historic-seismicity.png';
+    legend.setAttribute('alt', 'Historic seismicity legend');
+    this.legend = legend;
+
+    L.TileLayer.prototype.initialize.call(
+      this,
+      'https://earthquake.usgs.gov/arcgis/rest/services' +
+          '/eq/catalog/MapServer/tile/{z}/{y}/{x}',
+      {
         maxZoom: 16
-      });
-  public legend = '<img src="./assets/legend-historic-seismicity.png" ' +
-      'alt="Epicenter marker legend" />';
-  public title = 'Historic Seismicity';
+      }
+    );
+  }
 
-}
+});
+
+
+export { HistoricSeismicityOverlay };

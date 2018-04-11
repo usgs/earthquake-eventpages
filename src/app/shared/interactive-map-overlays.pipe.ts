@@ -5,6 +5,7 @@ import { RegionInfoOverlaysPipe } from '../shared/region-info-overlays.pipe';
 import { Overlay } from '../shared/map-overlay/overlay';
 import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
 
+
 @Pipe({
   name: 'interactiveMapOverlays'
 })

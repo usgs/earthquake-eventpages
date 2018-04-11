@@ -1,20 +1,16 @@
 import * as L from 'leaflet';
 
-import { Overlay } from './overlay';
 
+const EpicenterOverlay = L.Marker.extend({
+  id: 'epicenter',
+  isOverlay: true,
+  enabled: true,
+  title: 'Epicenter',
+  bounds: null,
+  legend: null,
+  layer: this, // TODO :: Remove this
 
-export class EpicenterOverlay implements Overlay {
-
-  public id = 'epicenter';
-  public enabled = true;
-  public title = 'Epicenter';
-
-  public bounds: Array<any>;
-  public layer: L.Layer;
-  public legend: string = '<img src="./assets/legend-epicenter.png" ' +
-      'alt="Epicenter marker legend" />';
-
-  constructor (product: any) {
+  initialize: function (product: any) {
     const properties = product ? product.properties : {};
     const latitude = +properties.latitude || 0;
     const longitude = +properties.longitude || 0;
@@ -24,7 +20,13 @@ export class EpicenterOverlay implements Overlay {
       [latitude + 2.0, longitude + 2.0]
     ];
 
-    this.layer = L.marker(
+    const legend = document.createElement('img');
+    legend.src = './assets/legend-epicenter.png';
+    legend.setAttribute('alt', 'Epicenter marker legend');
+    this.legend = legend;
+
+    L.Marker.prototype.initialize.call(
+      this,
       [latitude, longitude],
       {
         icon: L.icon({
@@ -36,5 +38,8 @@ export class EpicenterOverlay implements Overlay {
       }
     );
   }
+});
 
-}
+export { EpicenterOverlay };
+
+
