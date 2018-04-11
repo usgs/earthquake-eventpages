@@ -5,7 +5,7 @@ import { AsyncGeoJsonOverlay } from './async-geojson-overlay';
 import * as L from 'leaflet';
 
 
-export class IntensityOverlay extends AsyncGeoJsonOverlay {
+export class ShakemapIntensityOverlay extends AsyncGeoJsonOverlay {
 
   public id = 'shakemap-intensity';
   public enabled = true;
