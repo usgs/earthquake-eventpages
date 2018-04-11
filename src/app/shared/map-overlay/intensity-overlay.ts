@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 
+import { AsyncGeoJsonOverlay } from './async-geojson-overlay';
+
 import * as L from 'leaflet';
 
-import { AsyncGeoJsonOverlay } from './async-geojson-overlay';
 
 export class IntensityOverlay extends AsyncGeoJsonOverlay {
 
@@ -18,13 +19,13 @@ export class IntensityOverlay extends AsyncGeoJsonOverlay {
                 public httpClient: HttpClient) {
     super(httpClient);
 
+    const url = this.getUrl(product)
     const options = {
       style: this.style,
       onEachFeature: this.onEachFeature,
-      url: this.getUrl(product)
     }
 
-    this.initializeLayer(options);
+    this.initializeLayer(url, options);
   }
 
   getUrl(product) {
@@ -32,11 +33,14 @@ export class IntensityOverlay extends AsyncGeoJsonOverlay {
   }
 
   style (feature, latlng) {
+
+    // set default line style
     const lineStyle = {
       "color": "#EFEFF0",
       "weight": 2,
       "opacity": 1
     };
+
     // oscillate line thickness
     if (lineStyle.weight == 4) {
       lineStyle.weight = 2;
