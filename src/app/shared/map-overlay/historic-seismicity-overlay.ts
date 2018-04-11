@@ -6,13 +6,16 @@ const HistoricSeismicityOverlay = L.TileLayer.extend({
   enabled: true,
   id: 'historic-seismicity',
   isOverlay: true,
-  layer: this,
+  layer: null,
   legend: null,
   title: 'Historic Seismicity',
 
 
   initialize: function () {
     const legend = document.createElement('img');
+
+    this.layer = this;
+
     legend.src = './assets/legend-historic-seismicity.png';
     legend.setAttribute('alt', 'Historic seismicity legend');
     this.legend = legend;

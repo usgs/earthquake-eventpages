@@ -6,12 +6,14 @@ const LandscanPopulationOverlay = L.TileLayer.extend({
   enabled: true,
   id: 'landscap-population',
   isOverlay: true,
-  layer: this,
+  layer: null,
   legend: null,
   title: 'LandScan Population',
 
 
   initialize: function () {
+    this.layer = this;
+
     L.TileLayer.prototype.initialize.call(
       this,
       'https://earthquake.usgs.gov/arcgis/rest/services' +

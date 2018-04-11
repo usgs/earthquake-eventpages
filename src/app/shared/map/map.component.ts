@@ -18,12 +18,12 @@ export class MapComponent implements AfterViewInit, OnInit {
   // value of overlays property
   private _overlays: Array<Overlay> = [];
 
-  // overlays currently part of the layers control
-  private _overlaysAdded: Array<L.Layer> = [];
-
   private _showLayersControl = false;
   private _showLegendControl = false;
   private _showScaleControl = false;
+
+  // overlays currently part of the layers control
+  public overlaysAdded: Array<L.Layer> = [];
 
   public map: L.Map;
   public layersControl: L.Control.Layers;
@@ -284,7 +284,7 @@ export class MapComponent implements AfterViewInit, OnInit {
     const overlays = this._overlays;
 
     // remove overlays from map and layer control
-    this._overlaysAdded = this._overlaysAdded.filter((overlay) => {
+    this.overlaysAdded = this.overlaysAdded.filter((overlay) => {
       if (!overlays.includes(overlay)) {
         this.layersControl.removeLayer(overlay);
         this.map.removeLayer(overlay);
@@ -296,8 +296,8 @@ export class MapComponent implements AfterViewInit, OnInit {
 
     // add overlays to layer control and add/remove overlay to/from map
     overlays.forEach((overlay) => {
-      if (!this._overlaysAdded.includes(overlay)) {
-        this._overlaysAdded.push(overlay);
+      if (!this.overlaysAdded.includes(overlay)) {
+        this.overlaysAdded.push(overlay);
         this.layersControl.addOverlay(overlay, overlay.title);
       }
       if (overlay.enabled) {

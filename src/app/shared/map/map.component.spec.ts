@@ -176,7 +176,7 @@ describe('MapComponent', () => {
       component.layersControl = null;
       const overlays = [new HistoricSeismicityOverlay()];
       spyOn(overlays, 'forEach');
-      component._overlays = overlays;
+      component.overlays = overlays;
       component.updateOverlays();
 
       expect(overlays.forEach).not.toHaveBeenCalled();
@@ -188,23 +188,23 @@ describe('MapComponent', () => {
 
       // adds to tracking array, adds to map
       component.overlays = [overlay1];
-      expect(component._overlaysAdded.indexOf(overlay1)).toBeGreaterThanOrEqual(0);
-      expect(component.map.hasLayer(overlay1.layer)).toBeTruthy();
+      expect(component.overlaysAdded.indexOf(overlay1)).toBeGreaterThanOrEqual(0);
+      expect(component.map.hasLayer(overlay1)).toBeTruthy();
 
       // now set enabled to false, update overlays property
       overlay1.enabled = false;
       component.overlays = [overlay1];
       // overlay still there
-      expect(component._overlaysAdded.indexOf(overlay1)).toBeGreaterThanOrEqual(0);
+      expect(component.overlaysAdded.indexOf(overlay1)).toBeGreaterThanOrEqual(0);
       // but no longer on map
-      expect(component.map.hasLayer(overlay1.layer)).toBeFalsy();
+      expect(component.map.hasLayer(overlay1)).toBeFalsy();
 
       component.overlays = [overlay2];
       // old overlay removed
-      expect(component._overlaysAdded.indexOf(overlay1)).toBe(-1);
+      expect(component.overlaysAdded.indexOf(overlay1)).toBe(-1);
       // new overlay added
-      expect(component._overlaysAdded.indexOf(overlay2)).toBeGreaterThanOrEqual(0);
-      expect(component.map.hasLayer(overlay2.layer)).toBeTruthy();
+      expect(component.overlaysAdded.indexOf(overlay2)).toBeGreaterThanOrEqual(0);
+      expect(component.map.hasLayer(overlay2)).toBeTruthy();
     });
   });
 
