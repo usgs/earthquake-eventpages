@@ -7,7 +7,7 @@ import * as L from 'leaflet';
 
 export class IntensityOverlay extends AsyncGeoJsonOverlay {
 
-  public id = 'shakemap-mmi-contours';
+  public id = 'shakemap-intensity';
   public enabled = true;
   public title = 'Shakemap MMI Contours';
 
@@ -29,7 +29,11 @@ export class IntensityOverlay extends AsyncGeoJsonOverlay {
   }
 
   getUrl(product) {
-    return product.contents['download/cont_mi.json'].url;
+    if (product == null) {
+      return null;
+    }
+
+    return product.contents['download/cont_mi.json'].url || null;
   }
 
   style (feature, latlng) {

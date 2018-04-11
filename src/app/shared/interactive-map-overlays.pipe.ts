@@ -17,7 +17,7 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
 
   public defaultOverlays = {
     epicenter: true,
-    'shakemap-mmi-contours': true
+    'shakemap-intensity': true
   };
 
   public lastEvent: Event = null;
