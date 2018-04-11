@@ -32,9 +32,16 @@ class AsyncGeoJsonOverlay implements Overlay {
 
   /**
    * Call to initialize the GeoJSON layer
+   *
+   * @param url {String}
+   *    Url to access GeoJSON data
+   * 
+   * @param options {Object}: Optional, default none
+   *    Additional options for Leaflet.GeoJSON (style, onEachFeature, ...)
    */
-  initializeLayer(options) {
+  initializeLayer(url, options={}) {
     options['httpClient'] = this.httpClient;
+    options['url'] = url;
 
     this.layer = asynchronousGeoJson(options);
   }
