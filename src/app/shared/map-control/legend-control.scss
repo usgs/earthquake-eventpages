@@ -23,6 +23,22 @@
 
   > .leaflet-control-legend-hide {
     cursor: pointer;
+    width: 100%;
+  }
+
+  > .leaflet-control-legend-hide,
+    .leaflet-control-legend-list {
     display: block;
+  }
+}
+
+
+.leaflet-control-legend-list  {
+  list-style: none;
+  margin: 1em 0;
+  padding: 0;
+
+  > li > img {
+    width: 210px;
   }
 }
