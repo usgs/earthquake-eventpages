@@ -137,6 +137,9 @@ export class PagerXmlService {
       });
     }
 
+    // Sort so first 10 cities are "selected" cities
+    data = this._sortCities(data);
+
     return data;
   }
 
@@ -238,4 +241,65 @@ export class PagerXmlService {
     return data;
   }
 
+  /**
+   * Sorts the cities so the first 11 in the list of the "selected" cities and
+   * the remainder of the list is sorted by MMI (decreasing).
+   *
+   * @param cities {Array}
+   *      An array of city information to sort. This array is modified in-place,
+   *      so callers of this method should be careful to pass in a copy
+   *      (Array.slice) of the array if they need the original to remain
+   *      unchanged.
+   *
+   * @return {Array}
+   *      A specially-sorted array of city information.
+   */
+  _sortCities (cities) {
+    let sortedCities = [];
+
+    function compareMmi (a, b) {
+      return b.mmi - a.mmi;
+    }
+
+    function comparePopulation (a, b) {
+      return b.population - a.population;
+    }
+
+    function compareCapital (a, b) {
+      let acap = a.isCapital,
+          bcap = b.isCapital;
+
+      if ((acap && bcap) || (!acap && !bcap)) {
+        return comparePopulation(a, b);
+      } else if (acap) {
+        return -1;
+      } else if (bcap) {
+        return 1;
+      }
+
+      return comparePopulation(a, b);
+    }
+
+    // Sort by largest MMI first
+    cities.sort(compareMmi);
+    // Take up to first 6-largest MMI
+    Array.prototype.push.apply(sortedCities, cities.splice(0, 6));
+
+    // Sort by capital/population
+    cities.sort(compareCapital);
+    // Take up to first 5-capitals
+    while (cities.length && cities[0].isCapital && sortedCities.length < 11) {
+      sortedCities.push(cities.splice(0, 1)[0]);
+    }
+
+    // Sort by population
+    cities.sort(comparePopulation);
+    // Fill in any remaining selections based on population
+    while (cities.length && sortedCities.length < 11) {
+      sortedCities.push(cities.splice(0, 1)[0]);
+    }
+
+    // Sort each part by MMI and combine to a single list
+    return sortedCities.sort(compareMmi).concat(cities.sort(compareMmi));
+  }
 }
