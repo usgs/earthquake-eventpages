@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { IntensityOverlay } from './map-overlay/intensity-overlay';
+import { ShakemapIntensityOverlay } from './map-overlay/shakemap-intensity-overlay';
 import { EpicenterOverlay } from './map-overlay/epicenter-overlay';
 import { Overlay } from './map-overlay/overlay';
 
@@ -16,7 +16,7 @@ export class ShakemapOverlaysPipe implements PipeTransform {
 
     const overlays = [];
     if (product) {
-      overlays.push(new IntensityOverlay(product, this.httpClient));
+      overlays.push(new ShakemapIntensityOverlay(product, this.httpClient));
       overlays.push(new EpicenterOverlay(product));
     }
 
