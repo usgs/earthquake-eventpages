@@ -19,11 +19,11 @@ export class IntensityOverlay extends AsyncGeoJsonOverlay {
                 public httpClient: HttpClient) {
     super(httpClient);
 
-    const url = this.getUrl(product)
+    const url = this.getUrl(product);
     const options = {
       style: this.style,
-      onEachFeature: this.onEachFeature,
-    }
+      onEachFeature: this.onEachFeature
+    };
 
     this.initializeLayer(url, options);
   }
@@ -36,13 +36,13 @@ export class IntensityOverlay extends AsyncGeoJsonOverlay {
 
     // set default line style
     const lineStyle = {
-      "color": "#EFEFF0",
-      "weight": 2,
-      "opacity": 1
+      'color': '#EFEFF0',
+      'weight': 2,
+      'opacity': 1
     };
 
     // oscillate line thickness
-    if (lineStyle.weight == 4) {
+    if (lineStyle.weight === 4) {
       lineStyle.weight = 2;
     } else {
       lineStyle.weight = 4;
@@ -58,4 +58,4 @@ export class IntensityOverlay extends AsyncGeoJsonOverlay {
     }
   }
 
-};
+}

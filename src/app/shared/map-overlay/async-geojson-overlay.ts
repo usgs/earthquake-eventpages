@@ -1,52 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 
-import { Overlay } from './overlay'
+import { Overlay } from './overlay';
 
 import * as L from 'leaflet';
-
-/**
- * Class for asynchronous overlays used with the shared-map component
- */
-class AsyncGeoJsonOverlay implements Overlay {
-
-  // reference to overlay
-  id: string;
-
-  // optional, bounds of data being displayed in layer (omit for worldwide view)
-  bounds: Array<any>;
-
-  // whether layer should be shown
-  enabled: boolean;
-
-  // GeoJSON object object
-  layer: L.GeoJSON;
-
-  // legend content for layer object
-  legend: string;
-
-  // title of layer, for layer control
-  title: string;
-
-
-  constructor(private httpClient: HttpClient) {}
-
-  /**
-   * Call to initialize the GeoJSON layer
-   *
-   * @param url {String}
-   *    Url to access GeoJSON data
-   * 
-   * @param options {Object}: Optional, default none
-   *    Additional options for Leaflet.GeoJSON (style, onEachFeature, ...)
-   */
-  initializeLayer(url, options={}) {
-    options['httpClient'] = this.httpClient;
-    options['url'] = url;
-
-    this.layer = asynchronousGeoJson(options);
-  }
-}
-
 
 
 /**
@@ -105,5 +61,49 @@ const asynchronousGeoJson = function (options) {
   return new AsynchronousGeoJson(options);
 };
 
+
+
+/**
+ * Class for asynchronous overlays used with the shared-map component
+ */
+class AsyncGeoJsonOverlay implements Overlay {
+
+  // reference to overlay
+  id: string;
+
+  // optional, bounds of data being displayed in layer (omit for worldwide view)
+  bounds: Array<any>;
+
+  // whether layer should be shown
+  enabled: boolean;
+
+  // GeoJSON object object
+  layer: L.GeoJSON;
+
+  // legend content for layer object
+  legend: string;
+
+  // title of layer, for layer control
+  title: string;
+
+
+  constructor(public httpClient: HttpClient) {}
+
+  /**
+   * Call to initialize the GeoJSON layer
+   *
+   * @param url {String}
+   *    Url to access GeoJSON data
+   *
+   * @param options {Object}: Optional, default none
+   *    Additional options for Leaflet.GeoJSON (style, onEachFeature, ...)
+   */
+  initializeLayer(url, options = {}) {
+    options['httpClient'] = this.httpClient;
+    options['url'] = url;
+
+    this.layer = asynchronousGeoJson(options);
+  }
+}
 
 export { AsyncGeoJsonOverlay, asynchronousGeoJson, AsynchronousGeoJson };
