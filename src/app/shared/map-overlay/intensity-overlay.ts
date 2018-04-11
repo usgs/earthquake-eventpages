@@ -2,14 +2,13 @@ import { HttpClient } from '@angular/common/http';
 
 import * as L from 'leaflet';
 
-import { asynchronousGeoJson } from './async-geojson';
-import { Overlay } from './overlay';
+import { AsyncGeoJsonOverlay } from './async-geojson-overlay';
 
-export class IntensityOverlay implements Overlay {
+export class IntensityOverlay extends AsyncGeoJsonOverlay {
 
-  public id = 'intensity';
+  public id = 'shakemap-mmi-contours';
   public enabled = true;
-  public title = 'Intensity';
+  public title = 'Shakemap MMI Contours';
 
   public bounds: Array<any>;
   public layer: L.Layer;
@@ -17,17 +16,22 @@ export class IntensityOverlay implements Overlay {
 
   constructor (private product: any,
                 public httpClient: HttpClient) {
-    const options = {
-      style: this.getStyle,
-      onEachFeature: this.onEachFeature,
-      url: '',
-      httpClient: httpClient
-    };
+    super(httpClient);
 
-    this.layer = asynchronousGeoJson(options);
+    const options = {
+      style: this.style,
+      onEachFeature: this.onEachFeature,
+      url: this.getUrl(product)
+    }
+
+    this.initializeLayer(options);
   }
 
-  getStyle(feature, latlng) {
+  getUrl(product) {
+    return product.contents['download/cont_mi.json'].url;
+  }
+
+  style (feature, latlng) {
     const lineStyle = {
       "color": "#EFEFF0",
       "weight": 2,
@@ -44,9 +48,9 @@ export class IntensityOverlay implements Overlay {
     return lineStyle;
   }
 
-  onEachFeature(feature, layer) {
+  onEachFeature (feature, layer) {
     if (feature.properties) {
-      layer.bindPopup(feature.properties.value);
+      layer.bindPopup(feature.properties.value.toString());
     }
   }
 
