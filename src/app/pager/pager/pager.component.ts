@@ -27,9 +27,6 @@ export class PagerComponent implements OnInit {
     this.productSubscription = this.eventService.product$.subscribe((product) => {
       this.onProduct(product);
     });
-    this.pagerXmlSubscription = this.pagerXmlService.pagerXml$.subscribe((pagerXml) => {
-      this.onPagerXml(pagerXml);
-    });
   }
 
   /**
@@ -40,17 +37,6 @@ export class PagerComponent implements OnInit {
   onProduct (product) {
     if (product) {
       this.pagerXmlService.getPagerXml(product);
-    }
-  }
-
-  /**
-   * Observe pager.xml changes, process alerts, exposure, and shaking levels.
-   *
-   * @param pagerXml next pager.xml
-   */
-  onPagerXml (pagerXml: any) {
-    if (pagerXml) {
-      console.log('pagerxml', pagerXml);
     }
   }
 }
