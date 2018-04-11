@@ -10,7 +10,8 @@ export class HistoricSeismicityOverlay implements Overlay {
       '/services/eq/catalog/MapServer/tile/{z}/{y}/{x}', {
         maxZoom: 16
       });
-  public legend = null;
+  public legend = '<img src="./assets/legend-historic-seismicity.png" ' +
+      'alt="Epicenter marker legend" />';
   public title = 'Historic Seismicity';
 
 }
