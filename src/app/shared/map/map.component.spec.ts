@@ -20,8 +20,24 @@ describe('MapComponent', () => {
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    fixture.destroy();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('map', () => {
+    it('calls onOverlayEvent for overlayadd/overlayremove', () => {
+      const spy = spyOn(component, 'onOverlayEvent');
+      const testAdd = { 'testdata': 'test add' };
+      const testRemove = { 'testdata': 'test remove' };
+      component.map.fire('overlayadd', testAdd);
+      expect(spy.calls.argsFor(0)[0].type).toEqual('overlayadd');
+      component.map.fire('overlayremove', testRemove);
+      expect(spy.calls.argsFor(1)[0].type).toEqual('overlayremove');
+    });
   });
 
   describe('overlays', () => {
@@ -52,6 +68,46 @@ describe('MapComponent', () => {
 
       component.overlays = [overlay1, overlay2];
       expect(component.getOverlayBounds()).toBeNull();
+    });
+  });
+
+  describe('onOverlayEvent', () => {
+    it('finds matching overlay, and sets enabled', () => {
+      const overlay1 = new HistoricSeismicityOverlay();
+      const overlay2 = new HistoricSeismicityOverlay();
+      component.overlays = [overlay1, overlay2];
+
+      overlay1.enabled = true;
+      overlay2.enabled = false;
+
+      component.onOverlayEvent({
+        type: 'overlayremove',
+        layer: overlay1.layer
+      });
+      component.onOverlayEvent({
+        type: 'overlayadd',
+        layer: overlay2.layer
+      });
+
+      expect(overlay1.enabled).toBe(false);
+      expect(overlay2.enabled).toBe(true);
+    });
+
+    it('works if overlay not found', () => {
+      const event = {
+        'type': 'test type'
+      };
+      spyOn(component.overlays, 'find').and.returnValue(null);
+
+      expect(() => {
+        component.onOverlayEvent(event);
+      }).not.toThrowError();
+    });
+
+    it('returns if event is falsy', () => {
+      spyOn(component.overlays, 'find');
+      component.onOverlayEvent(null);
+      expect(component.overlays.find).not.toHaveBeenCalled();
     });
   });
 
