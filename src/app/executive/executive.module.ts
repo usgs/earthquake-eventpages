@@ -13,6 +13,7 @@ import { FocalMechanismPinComponent } from './focal-mechanism-pin/focal-mechanis
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
 import { MapPinComponent } from './map-pin/map-pin.component';
+import { DyfiResponseSubmitPinComponent } from './dyfi-response-submit-pin/dyfi-response-submit-pin.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { MapPinComponent } from './map-pin/map-pin.component';
     OriginPinComponent,
     RegionInfoPinComponent,
     FocalMechanismPinComponent,
-    MapPinComponent
+    MapPinComponent,
+    DyfiResponseSubmitPinComponent
   ]
 })
 export class ExecutiveModule { }

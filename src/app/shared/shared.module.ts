@@ -30,6 +30,7 @@ import { BubbleComponent } from './bubble/bubble.component';
 import { StationComponent } from './station/station.component';
 import { TensorPipe } from './tensor.pipe';
 import { DateTimePipe } from './date-time.pipe';
+import { DyfiCounterPipe } from './dyfi-counter.pipe';
 import { GetProductPipe } from './get-product.pipe';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
@@ -53,6 +54,7 @@ import { KeysPipe } from './keys.pipe';
     BubbleComponent,
     CoordinatesComponent,
     DegreesPipe,
+    DyfiCounterPipe,
     UnitsPipe,
     LocationPipe,
     DownloadDialogComponent,
@@ -81,6 +83,7 @@ import { KeysPipe } from './keys.pipe';
     BubbleComponent,
     CoordinatesComponent,
     DegreesPipe,
+    DyfiCounterPipe,
     UnitsPipe,
     LocationPipe,
     DownloadDialogComponent,

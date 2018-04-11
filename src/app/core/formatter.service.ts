@@ -157,6 +157,42 @@ export class FormatterService {
   }
 
   /**
+   * Left pads the source string with the pad string until the source string
+   * is at least `length` in length. If the source length is already greater
+   * than or equal to the desired length, the original source is returned.
+   *
+   * @param source {String}
+   *     The string to pad
+   * @param length {Integer}
+   *     The desired length
+   * @param pad {String} Optional. Default ' ' (single space)
+   *     The padding to add to the beginning of the source string until the
+   *     desired length is met. Should be a single rendered character.
+   *
+   * @return {String}
+   *     A string padded out to the desired length with the given pad.
+   */
+  leftPad (source: string, length: number, pad: string) {
+    let i,
+        padLength,
+        padding;
+
+    padLength = length - source.length;
+    padding = [];
+
+    if (padLength < 1) {
+      return source;
+    }
+
+    for (i = 0; i < padLength; i++) {
+      padding[i] = pad;
+    }
+
+
+    return padding.join('') + source;
+  }
+
+  /**
    * Format a latitude and longitude.
    *
    * @param latitude {Number}

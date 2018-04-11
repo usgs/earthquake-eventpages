@@ -130,6 +130,19 @@ describe('FormatterService', () => {
     }));
   });
 
+  describe('leftpad', () => {
+    it('does not pad longer strings', inject(
+        [FormatterService], (formatter: FormatterService) => {
+      expect(formatter.leftPad('longer string', 2, 'X')).toEqual('longer string');
+    }));
+
+    it('pads out a shorter string', inject(
+        [FormatterService], (formatter: FormatterService) => {
+      expect(formatter.leftPad('short', 10, '-')).toEqual(
+          '-----short');
+    }));
+  });
+
   describe('location', () => {
     it('formats as expected', inject(
         [FormatterService], (formatter: FormatterService) => {
