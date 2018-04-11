@@ -59,7 +59,6 @@ const LegendControl = L.Control.extend({
 
     if (L.Browser.touch) {
       L.DomEvent.disableClickPropagation(this._container);
-
     } else {
       L.DomEvent
         .disableClickPropagation(this._container)
