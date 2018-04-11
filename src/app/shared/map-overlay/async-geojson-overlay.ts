@@ -4,7 +4,6 @@ import { Overlay } from './overlay';
 
 import * as L from 'leaflet';
 
-
 /**
  * Extension of L.GeoJSON that allows GeoJSON to be dynamically added to a layer
  */
@@ -19,7 +18,8 @@ const AsynchronousGeoJson = L.GeoJSON.extend({
 
   onAdd: function (map) {
 
-    if (this._url == null) {
+    if ((this._url == null) ||
+        this._http == null) {
       this._data = null;
       return;
     }
