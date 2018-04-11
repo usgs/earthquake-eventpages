@@ -20,6 +20,7 @@ export class MapComponent implements AfterViewInit, OnInit {
     this._overlays = overlays;
 
     this.updateOverlays();
+    this.updateLegend();
   }
 
   get overlays (): Array<Overlay> {
@@ -95,6 +96,7 @@ export class MapComponent implements AfterViewInit, OnInit {
   constructor () { }
 
   ngOnInit () {
+
   }
 
   ngAfterViewInit () {
@@ -261,6 +263,20 @@ export class MapComponent implements AfterViewInit, OnInit {
         handler.enable();
       } else {
         handler.disable();
+      }
+    });
+  }
+
+  updateLegend () {
+    if (!this.legendControl || !this.legendControl._map) {
+      return;
+    }
+
+    this.legendControl.clearLegendContainer();
+
+    this._overlays.forEach((overlay) => {
+      if (overlay.enabled) {
+        this.legendControl.addLegend(overlay);
       }
     });
   }
