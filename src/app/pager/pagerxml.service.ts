@@ -113,11 +113,31 @@ export class PagerXmlService {
    *      An array of parsed city information.
    */
   _parseCities (pager: any) {
+    let cities,
+        city,
+        data;
+
+
     if (!pager || !pager.city) {
       return null;
     }
 
-    return pager.city;
+    data = [];
+    cities = pager.city;
+
+    for (let i = 0, len = cities.length; i < len; i++) {
+      city = cities[i];
+      data.push({
+        name: city.name,
+        latitude: parseFloat(city.lat),
+        longitude: parseFloat(city.lon),
+        population: parseInt(city.population, 10),
+        mmi: parseFloat(city.mmi),
+        isCapital: (city.iscapital === '1')
+      });
+    }
+
+    return data;
   }
 
   /**
@@ -177,28 +197,39 @@ export class PagerXmlService {
   _parseExposures (pager: any) {
     let data,
         exposure,
+        exposures,
         rangeInsideMap;
 
     if (!pager || !pager.exposure) {
       return null;
     }
 
-    data = pager.exposure;
+    data = [];
+    exposures = pager.exposure;
+
+    for (let i = 0, len = exposures.length; i < len; i++) {
+      data.push({
+        dmin: parseFloat(exposures[i].dmin),
+        dmax: parseFloat(exposures[i].dmax),
+        exposure: parseInt(exposures[i].exposure, 10),
+        rangeInsideMap: (exposures[i].rangeInsideMap === '1'),
+      });
+    }
 
     // Generally not required. If it becomes a problem, this will sort it out.
     data.sort(function (a, b) {
       return a.dmin - b.dmin;
     });
 
+
     // Combine bins II-III together
     if (data[1] && data[2]) {
-      exposure = (parseInt(data[1].exposure, 10) +
-          parseInt(data[2].exposure, 10)).toString();
+      exposure = data[1].exposure + data[2].exposure;
       rangeInsideMap = (data[1].rangeInsideMap && data[2].rangeInsideMap);
 
       data.splice(1, 2, {
-        dmax: '3.5',
-        dmin: '1.5',
+        dmin: 1.5,
+        dmax: 3.5,
         exposure: exposure,
         rangeInsideMap: rangeInsideMap
       });
