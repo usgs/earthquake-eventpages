@@ -30,6 +30,12 @@ describe('MapComponent', () => {
       component.overlays = [];
       expect(component.updateOverlays).toHaveBeenCalled();
     });
+
+    it('set calls updateLegend', () => {
+      spyOn(component, 'updateLegend');
+      component.overlays = [];
+      expect(component.updateLegend).toHaveBeenCalled();
+    });
   });
 
   describe('getOverlayBounds', () => {
@@ -154,6 +160,14 @@ describe('MapComponent', () => {
 
       component.updateInteractive();
       expect(spy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('updateLegend', () => {
+    it('does nothing if no legendControl', () => {
+      component.legendControl = null;
+      component.updateLegend();
+      expect(component.updateLegend()).toEqual(undefined);
     });
   });
 
