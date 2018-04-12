@@ -7,11 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class StationComponent implements OnInit {
   @Input() station: any;
-  public channelsColumns = ['name', 'pga', 'pgv', 'psa03', 'psa10', 'psa30'];
+  public readonly channelsColumns = ['name', 'pga', 'pgv', 'psa03', 'psa10', 'psa30'];
 
-  constructor() {}
+  constructor () {}
 
-   ngOnInit() {
+   ngOnInit () {
    }
 
 }

@@ -35,6 +35,7 @@ import { GetProductPipe } from './get-product.pipe';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 import { KeysPipe } from './keys.pipe';
+import { StationFlagComponent } from './station-flag/station-flag.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { KeysPipe } from './keys.pipe';
     GetProductPipe,
     InteractiveMapOverlaysPipe,
     RegionInfoOverlaysPipe,
-    KeysPipe
+    KeysPipe,
+    StationFlagComponent
   ],
   exports: [
     AttributionComponent,

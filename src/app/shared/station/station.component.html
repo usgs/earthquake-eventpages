@@ -15,7 +15,7 @@
     <shared-bubble [name]="'pgv'" [title]="'Maximum Horizontal Peak Ground Velocity'">
       {{ station.properties.pgv | sharedNumber:2:'cm/s' }}
     </shared-bubble>
-    <shared-bubble [name]="'dist'" [title]="'Distance (km)'">
+    <shared-bubble [name]="'dist'" [title]="'Distance'">
       {{ station.properties.distance | sharedNumber:2:'km' }}
     </shared-bubble>
   </div>
@@ -32,7 +32,7 @@
       <dl class="description-table">
         <dt>Network</dt>
         <dd>{{ station.properties.network }}</dd>
-        <dt>GPS Location</dt>
+        <dt>Location</dt>
         <dd>{{ station.geometry.coordinates | sharedLocation }}</dd>
         <dt>Source</dt>
         <dd>{{ station.properties.source }}</dd>
@@ -67,8 +67,8 @@
             {{ channel.pga.value |
                 sharedNumber:2:channel.pga.units }}
             
-            <ng-container *ngIf="channel.pga.flag === '0'; else flagged">
-            </ng-container>
+            <shared-station-flag class="flag" [flag]="channel.pga.flag">
+            </shared-station-flag>
           </mat-cell>
         </ng-container>
 
@@ -80,8 +80,8 @@
             {{ channel.pgv.value |
                 sharedNumber:2:channel.pgv.units }}
             
-            <ng-container *ngIf="channel.pgv.flag === '0'; else flagged">
-            </ng-container>
+            <shared-station-flag class="flag" [flag]="channel.pgv.flag">
+            </shared-station-flag>
           </mat-cell>
         </ng-container>
 
@@ -93,8 +93,8 @@
             {{ channel.psa03.value |
                 sharedNumber:2:channel.psa03.units }}
             
-            <ng-container *ngIf="channel.psa03.flag === '0'; else flagged">
-            </ng-container>
+            <shared-station-flag class="flag" [flag]="channel.psa03.flag">
+            </shared-station-flag>
           </mat-cell>
         </ng-container>
 
@@ -106,8 +106,8 @@
             {{ channel.psa10.value |
                 sharedNumber:2:channel.psa10.units}}
             
-            <ng-container *ngIf="channel.psa10.flag === '0'; else flagged">
-            </ng-container>
+            <shared-station-flag class="flag" [flag]="channel.psa10.flag">
+            </shared-station-flag>
           </mat-cell>
         </ng-container>
 
@@ -119,8 +119,8 @@
             {{ channel.psa30.value |
                 sharedNumber:2:channel.psa30.units }}
             
-            <ng-container *ngIf="channel.psa30.flag === '0'; else flagged">
-            </ng-container>
+            <shared-station-flag class="flag" [flag]="channel.psa30.flag">
+            </shared-station-flag>
           </mat-cell>
         </ng-container>
 
@@ -128,12 +128,4 @@
 
     </ng-template>
   </mat-expansion-panel>
-
-  <ng-template #flagged>
-    <small>
-      <abbr class="flag" title="Flagged as an outlier">
-        outlier
-      </abbr>
-    </small>
-  </ng-template>
 </ng-container>
