@@ -13,11 +13,7 @@
     margin: 5px 30px 5px 10px;
 }
 
-small {
-    font-weight: lighter;
-    margin-left: 8px;
-}
-
 .flag {
-    color: red;
+    display: block;
+    margin-left: 8px;
 }
