@@ -297,6 +297,9 @@ export class MapComponent implements AfterViewInit, OnInit {
 
     // add overlays to layer control and add/remove overlay to/from map
     overlays.forEach((overlay) => {
+      if (overlay.hasOwnProperty('httpClient')) {
+        overlay.httpClient = this.httpClient;
+      }
       if (!this.overlaysAdded.includes(overlay)) {
         this.overlaysAdded.push(overlay);
         this.layersControl.addOverlay(overlay.layer, overlay.title);
