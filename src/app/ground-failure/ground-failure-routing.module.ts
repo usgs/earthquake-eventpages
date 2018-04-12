@@ -1,0 +1,39 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { GroundFailureComponent } from './ground-failure/ground-failure.component';
+import { SummaryComponent } from './summary/summary.component';
+import { AboutComponent } from './about/about.component';
+
+
+const groundFailureRoutes: Routes = [
+  {
+    path: '',
+    component: GroundFailureComponent,
+    children: [
+      {
+        path: 'summary',
+        component: SummaryComponent
+      },
+      {
+        path: 'about',
+        component: AboutComponent
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'summary'
+      }
+    ]
+  }
+];
+
+@NgModule({
+  imports: [
+    RouterModule.forChild(groundFailureRoutes)
+  ],
+  exports: [
+    RouterModule
+  ]
+})
+export class GroundFailureRoutingModule { }
