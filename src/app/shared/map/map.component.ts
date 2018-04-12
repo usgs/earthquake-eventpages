@@ -299,12 +299,12 @@ export class MapComponent implements AfterViewInit, OnInit {
     overlays.forEach((overlay) => {
       if (!this.overlaysAdded.includes(overlay)) {
         this.overlaysAdded.push(overlay);
-        this.layersControl.addOverlay(overlay, overlay.title);
+        this.layersControl.addOverlay(overlay.layer, overlay.title);
       }
       if (overlay.enabled) {
-        this.map.addLayer(overlay);
+        this.map.addLayer(overlay.layer);
       } else {
-        this.map.removeLayer(overlay);
+        this.map.removeLayer(overlay.layer);
       }
     });
 

@@ -57,29 +57,18 @@ describe('AsynchronousGeoJSONOverlay', () => {
 
   });
 
-  describe('handleGeoJSON', () => {
+  describe('parse', () => {
     it('runs without overwrite', () => {
-      const geoJSON = overlay.handleGeoJSON(GEOJSON);
+      const geoJSON = overlay.parse(GEOJSON);
 
       expect(geoJSON).toBe(GEOJSON);
     });
 
-  });
-
-  describe('_handleGeoJSON', () => {
-
-    it('runs geoJSON', () => {
-      overlay._handleGeoJSON(GEOJSON);
-
-      expect(overlay.data).toBe(GEOJSON);
-    });
-
     it('handles geoJSON string', () => {
-      overlay._handleGeoJSON(JSON.stringify(GEOJSON));
+      const data = overlay.parse(JSON.stringify(GEOJSON));
 
-      expect(overlay.data).toEqual(GEOJSON);
+      expect(data).toEqual(GEOJSON);
     });
-
   });
 
   describe('onAdd', () => {
@@ -126,7 +115,7 @@ describe('AsynchronousGeoJSONOverlay', () => {
         get: (url) => of(GEOJSON)
       };
 
-      const spy = spyOn(overlay, '_handleGeoJSON').and.throwError('TESTING ERROR');
+      const spy = spyOn(overlay, 'parse').and.throwError('TESTING ERROR');
 
       overlay.onAdd();
 

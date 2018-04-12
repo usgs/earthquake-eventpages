@@ -6,7 +6,19 @@ import { Overlay } from './overlay';
 
 
 /**
- * Class for asynchronous overlays used with the shared-map component
+ * Class for asynchronous overlays used with the shared-map component.
+ *
+ * Notable methods subclasses may want to override:
+ * - onEachFeature(feature: any, layer: L.Layer)
+ *   called by leaflet's GeoJSON layer.
+ *
+ * - parse(json|string)
+ *   parse returned data and return a GeoJSON Feature or FeatureCollection.
+ *   default implementation converts strings to json
+ *   if returned data is not already json
+ *
+ * - style(feature)
+ *   called by leaflet's GeoJSON layer.
  */
 class AsynchronousGeoJSONOverlay implements Overlay {
 
@@ -43,15 +55,13 @@ class AsynchronousGeoJSONOverlay implements Overlay {
 
   constructor () {
     const options = {
-      style: (f) => this.style(f),
-      onEachFeature: (f, l) => this.onEachFeature(f, l)
+      style: (feature) => this.style(feature),
+      onEachFeature: (feature, layer) => this.onEachFeature(feature, layer)
     };
 
     this.layer = L.geoJSON([], options);
-
     this.layer.on('add', this.onAdd, this);
   }
-
 
   /**
    * Handling all errors
@@ -61,49 +71,11 @@ class AsynchronousGeoJSONOverlay implements Overlay {
    * @return {Observable}
    *    For caught errors during http requests
    */
-  private handleError (error) {
+  handleError (error) {
     this.error = error;
     this.data = null;
     return of(null);
   }
-
-
-  /**
-   * Handle geoJSON internally
-   *
-   * @param data {Any}
-   *    geoJSON data ready for parsing
-   */
-  _handleGeoJSON (data) {
-    // parse if needed
-    data = (typeof data === 'string' ? JSON.parse(data) : data);
-
-    // allow class specific parsing
-    data = this.handleGeoJSON(data);
-
-    // flag that data is loaded
-    this.data = data;
-    // add data to layer (and map if layer still visible)
-    this.layer.addData(data);
-  }
-
-
-  /**
-   * OPTIONAL: OVERWRITE IN EXTENDING CLASS
-   *
-   * Additional class specific parsing of geoJSON data
-   *
-   * @param data {Any}
-   *    GeoJSON data
-   *
-   * @return {Any}
-   *    Parsed geoJSON
-   *
-   */
-  handleGeoJSON (data) {
-    return data;
-  }
-
 
   /**
    * Get geoJSON data and add it to the existing layer
@@ -121,10 +93,14 @@ class AsynchronousGeoJSONOverlay implements Overlay {
         catchError(error => this.handleError(error))
       ).subscribe((data) => {
           try {
-            this._handleGeoJSON(data);
+            data = this.parse(data);
 
+            // flag that data is loaded
+            this.data = data;
+            // add data to layer (and map if layer still visible)
+            this.layer.addData(data);
             // data add successful, remove event listener
-            this.layer.removeEventListener('add', this.onAdd, this);
+            this.layer.off('add', this.onAdd, this);
           } catch (error) {
             this.handleError(error);
           }
@@ -132,7 +108,6 @@ class AsynchronousGeoJSONOverlay implements Overlay {
       );
     }
   }
-
 
   /**
    * OVERWRITE IN EXTENDING CLASS
@@ -148,6 +123,26 @@ class AsynchronousGeoJSONOverlay implements Overlay {
    */
   onEachFeature (feature, layer) {}
 
+  /**
+   * Parse returned data into GeoJSON.
+   *
+   * Subclasses may override default parsing:
+   * ```
+   * data = super.parse(data);
+   * // modify data
+   * return data;
+   * ```
+   *
+   * @param data {Any}
+   *    data ready for parsing (possibly a string)
+   * @return {Any}
+   *    Parsed geoJSON
+   */
+  parse (data) {
+    // parse if needed
+    data = (typeof data === 'string' ? JSON.parse(data) : data);
+    return data;
+  }
 
   /**
    * OVERWRITE IN EXTENDING CLASS
