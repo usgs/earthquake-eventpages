@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { MapComponent } from './map.component';
 import { HistoricSeismicityOverlay } from '../map-overlay/historic-seismicity-overlay';
@@ -9,6 +10,7 @@ describe('MapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       declarations: [ MapComponent ]
     })
     .compileComponents();

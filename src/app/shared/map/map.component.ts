@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import * as L from 'leaflet';
 
@@ -36,7 +37,7 @@ export class MapComponent implements AfterViewInit, OnInit {
   @ViewChild('mapWrapper')
   mapWrapper: ElementRef;
 
-  constructor () { }
+  constructor (private httpClient: HttpClient) { }
 
   ngOnInit () {
 

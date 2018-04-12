@@ -1,5 +1,3 @@
-import { HttpClient } from '@angular/common/http';
-
 import { Overlay } from './overlay';
 
 import * as L from 'leaflet';
@@ -7,10 +5,10 @@ import * as L from 'leaflet';
 /**
  * Extension of L.GeoJSON that allows GeoJSON to be dynamically added to a layer
  */
-const AsynchronousGeoJson = L.GeoJSON.extend({
+const AsynchronousGeoJSON = L.GeoJSON.extend({
   initialize: function (options) {
     this._url = options.url;
-    this._http = options.httpClient;
+    this.httpClient = options.httpClient;
     this._data = null;
 
     L.GeoJSON.prototype.initialize.call(this, [], options);
@@ -18,8 +16,7 @@ const AsynchronousGeoJson = L.GeoJSON.extend({
 
   onAdd: function (map) {
 
-    if ((this._url == null) ||
-        this._http == null) {
+    if (!this._url || !this.httpClient) {
       this._data = null;
       return;
     }
@@ -27,7 +24,7 @@ const AsynchronousGeoJson = L.GeoJSON.extend({
     if (this._data === null) {
       // flag that data is being loaded
       this._data = 'loading';
-      this._http.get(this._url).subscribe((data) => {
+      this.httpClient.get(this._url).subscribe((data) => {
           this._handleGeoJson(data);
         },
         (error) => {
@@ -57,8 +54,8 @@ const AsynchronousGeoJson = L.GeoJSON.extend({
  * Add function generation of AsynchronousGeoJson to mirror Leaflet's
  * class initialization behavior
  */
-const asynchronousGeoJson = function (options) {
-  return new AsynchronousGeoJson(options);
+const asynchronousGeoJSON = function (options) {
+  return new AsynchronousGeoJSON(options);
 };
 
 
@@ -66,7 +63,7 @@ const asynchronousGeoJson = function (options) {
 /**
  * Class for asynchronous overlays used with the shared-map component
  */
-class AsyncGeoJsonOverlay implements Overlay {
+class AsynchronousGeoJSONOverlay implements Overlay {
 
   // reference to overlay
   id: string;
@@ -86,8 +83,17 @@ class AsyncGeoJsonOverlay implements Overlay {
   // title of layer, for layer control
   title: string;
 
+  // for content downloads in async map layers; added to layer during
+  // initialization, or manually
+  httpClient: any;
 
-  constructor(public httpClient: HttpClient) {}
+  // url to download geoJSON
+  url: string;
+
+  // additional options to pass into layer
+  options: any;
+
+  constructor() {}
 
   /**
    * Call to initialize the GeoJSON layer
@@ -98,12 +104,47 @@ class AsyncGeoJsonOverlay implements Overlay {
    * @param options {Object}: Optional, default none
    *    Additional options for Leaflet.GeoJSON (style, onEachFeature, ...)
    */
-  initializeLayer(url, options = {}) {
-    options['httpClient'] = this.httpClient;
-    options['url'] = url;
+  initializeLayer() {
 
-    this.layer = asynchronousGeoJson(options);
+    const options = {
+      httpClient: this.httpClient,
+      url: this.url,
+      style: this.style,
+      onEachFeature: this.onEachFeature
+    };
+
+    this.layer = asynchronousGeoJSON(options);
+  }
+
+  /**
+   * OVERWRITE IN EXTENDING CLASS
+   *
+   * Sets style for geoJSON; must follow Leaflet's guidelines
+   *
+   * @param feature {Any}
+   *    GeoJSON feature
+   *
+   * @return {Any}
+   *    Object containing desired styles
+   */
+  style(feature): any {
+    return null;
+  }
+
+  /**
+   * OVERWRITE IN EXTENDING CLASS
+   *
+   * Make alterations to feature representations (ex. adding a popup)
+   *
+   * @param feature {Any}
+   *    GeoJSON feature
+   *
+   * @param layer {L.Layer}
+   *    Leaflet layer
+   *
+   */
+  onEachFeature(feature, layer) {
   }
 }
 
-export { AsyncGeoJsonOverlay, asynchronousGeoJson, AsynchronousGeoJson };
+export { AsynchronousGeoJSONOverlay, asynchronousGeoJSON, AsynchronousGeoJSON };

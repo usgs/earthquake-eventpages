@@ -6,12 +6,12 @@ import { EpicenterOverlay } from '../shared/map-overlay/epicenter-overlay';
 
 describe('InteractiveMapOverlaysPipe', () => {
   it('create an instance', () => {
-    const pipe = new InteractiveMapOverlaysPipe(null);
+    const pipe = new InteractiveMapOverlaysPipe();
     expect(pipe).toBeTruthy();
   });
 
   it('clears cache when event changes', () => {
-    const pipe = new InteractiveMapOverlaysPipe(null);
+    const pipe = new InteractiveMapOverlaysPipe();
 
     pipe.lastEvent = new Event({});
     pipe.overlayCache = {stuff: 'things'};
@@ -22,7 +22,7 @@ describe('InteractiveMapOverlaysPipe', () => {
   });
 
   it('caches overlays when product unchanged', () => {
-    const pipe = new InteractiveMapOverlaysPipe(null);
+    const pipe = new InteractiveMapOverlaysPipe();
     const event = new Event({
       properties: {
         products: {
