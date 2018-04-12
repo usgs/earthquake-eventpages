@@ -11,14 +11,19 @@ describe('AsynchronousGeoJSONOverlay', () => {
   let overlay;
 
   const FEATURE = {
+    type: 'Feature',
     properties: {
       color: 'COLOR',
       value: 5
+    },
+    geometry: {
+      type: 'Point',
+      coordinates: [-118, 34]
     }
   };
 
   const GEOJSON = {
-    type: 'FeatureGroup',
+    type: 'FeatureCollection',
     features: [FEATURE]
   };
 
@@ -45,6 +50,11 @@ describe('AsynchronousGeoJSONOverlay', () => {
       expect(style).toEqual({});
     });
 
+    it('is called by layer', () => {
+      spyOn(overlay, 'style');
+      overlay.layer.addData(FEATURE);
+      expect(overlay.style).toHaveBeenCalledWith(FEATURE);
+    });
   });
 
   describe('onEachFeature', () => {
@@ -52,9 +62,14 @@ describe('AsynchronousGeoJSONOverlay', () => {
       const layer = new L.Layer();
 
       overlay.onEachFeature(FEATURE, layer);
-
     });
 
+    it('is called by layer', () => {
+      const layer = new L.Layer();
+      spyOn(overlay, 'onEachFeature');
+      overlay.layer.addData(FEATURE);
+      expect(overlay.onEachFeature).toHaveBeenCalledWith(FEATURE, jasmine.any(Object));
+    });
   });
 
   describe('parse', () => {
