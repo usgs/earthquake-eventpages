@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import * as L from 'leaflet';
 
@@ -92,7 +93,7 @@ export class MapComponent implements AfterViewInit, OnInit {
   @ViewChild('mapWrapper')
   mapWrapper: ElementRef;
 
-  constructor () { }
+  constructor (private httpClient: HttpClient) { }
 
   ngOnInit () {
   }
@@ -286,11 +287,22 @@ export class MapComponent implements AfterViewInit, OnInit {
 
     // add overlays to layer control and add/remove overlay to/from map
     overlays.forEach((overlay) => {
-      if (!this._overlaysAdded.includes(overlay)) {
+
+      // Restrict layer addition by layer id
+      const added = this._overlaysAdded
+          .map(_overlay => _overlay.id)
+          .includes(overlay.id);
+
+      if (!added) {
+        // add an httpClient for async layers
+        if (overlay.hasOwnProperty('httpClient') && (overlay.httpClient == null)) {
+          overlay.httpClient = this.httpClient;
+        }
+
         this._overlaysAdded.push(overlay);
         this.layersControl.addOverlay(overlay.layer, overlay.title);
       }
-      if (overlay.enabled) {
+      if (overlay.enabled && !added) {
         this.map.addLayer(overlay.layer);
       } else {
         this.map.removeLayer(overlay.layer);
