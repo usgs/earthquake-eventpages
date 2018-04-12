@@ -20,8 +20,6 @@ export class ShakemapIntensityOverlay extends AsynchronousGeoJSONOverlay {
     super();
 
     this.url = this.getUrl(product);
-
-    this.initializeLayer();
   }
 
   getUrl (product) {
