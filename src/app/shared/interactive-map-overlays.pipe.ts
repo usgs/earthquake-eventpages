@@ -6,6 +6,7 @@ import { LandscanPopulationOverlay } from './map-overlay/landscan-population-ove
 import { Overlay } from '../shared/map-overlay/overlay';
 import { RegionInfoOverlaysPipe } from '../shared/region-info-overlays.pipe';
 import { ShakemapOverlaysPipe } from '../shared/shakemap-overlays.pipe';
+import { getUnique } from '../unique';
 
 
 @Pipe({
@@ -32,6 +33,7 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
   };
 
   public overlayFactory: any = {
+    // origin needs to be first (for preferred epicenter)
     'origin': new RegionInfoOverlaysPipe(),
     'shakemap': new ShakemapOverlaysPipe()
   };
@@ -47,12 +49,14 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     }
 
     // new array every time for change detection
-    const overlays = [];
+    let overlays = [];
     Object.keys(this.overlayFactory).forEach((type) => {
       overlays.push(...this.getOverlays(event, params, type));
     });
 
     overlays.push(new LandscanPopulationOverlay());
+    // allow layers to reuse overlays
+    overlays = getUnique(overlays);
 
     this.setEnabled(overlays, params);
 
