@@ -13,16 +13,25 @@
 }
 
 .leaflet-control-legend-visible > .leaflet-control-legend-show,
-.leaflet-control-legend-list,
-.leaflet-control-legend-hide {
+.leaflet-control-legend > .leaflet-control-legend-hide,
+.legend-container {
   display: none;
+}
+
+.leaflet-control-legend-hide {
+  float: right;
+}
+
+.legend-container > img {
+  display: block;
+  max-width: 210px;
 }
 
 .leaflet-control-legend-visible {
   padding: 6px;
 
-  > .leaflet-control-legend-hide {
-    cursor: pointer;
+  > .leaflet-control-legend-hide,
+  > .legend-container {
     display: block;
   }
 }

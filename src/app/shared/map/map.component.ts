@@ -15,71 +15,15 @@ export class MapComponent implements AfterViewInit, OnInit {
   @Input() baselayer = 'Topographic';
   @Input() showAttributionControl = true;
 
-  @Input()
-  set overlays (overlays: Array<Overlay>) {
-    this._overlays = overlays;
-
-    this.updateOverlays();
-  }
-
-  get overlays (): Array<Overlay> {
-    return this._overlays;
-  }
-
-  @Input()
-  set interactive (interactive: boolean) {
-    this._interactive = interactive;
-
-    this.updateControls();
-    this.updateInteractive();
-  }
-
-  get interactive (): boolean {
-    return this._interactive;
-  }
-
-  @Input()
-  set showLayersControl (showLayersControl: boolean) {
-    this._showLayersControl = showLayersControl;
-
-    this.updateControls();
-  }
-
-  get showLayersControl (): boolean {
-    return this._showLayersControl;
-  }
-
-  @Input()
-  set showLegendControl (showLegendControl: boolean) {
-    this._showLegendControl = showLegendControl;
-
-    this.updateControls();
-  }
-
-  get showLegendControl(): boolean {
-    return this._showLegendControl;
-  }
-
-  @Input()
-  set showScaleControl (showScaleControl: boolean) {
-    this._showScaleControl = showScaleControl;
-
-    this.updateControls();
-  }
-
-  get showScaleControl (): boolean {
-    return this._showScaleControl;
-  }
-
   // value of overlays property
-  public _overlays: Array<Overlay> = [];
+  private _overlays: Array<Overlay> = [];
+
+  private _showLayersControl = false;
+  private _showLegendControl = false;
+  private _showScaleControl = false;
 
   // overlays currently part of the layers control
-  public _overlaysAdded: Array<Overlay> = [];
-
-  public _showLayersControl = false;
-  public _showLegendControl = false;
-  public _showScaleControl = false;
+  public overlaysAdded: Array<L.Layer> = [];
 
   public map: L.Map;
   public layersControl: L.Control.Layers;
@@ -95,6 +39,7 @@ export class MapComponent implements AfterViewInit, OnInit {
   constructor () { }
 
   ngOnInit () {
+
   }
 
   ngAfterViewInit () {
@@ -172,6 +117,63 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.updateControls();
     this.updateInteractive();
     this.updateOverlays();
+  }
+
+  @Input()
+  set interactive (interactive: boolean) {
+    this._interactive = interactive;
+
+    this.updateControls();
+    this.updateInteractive();
+  }
+
+  get interactive (): boolean {
+    return this._interactive;
+  }
+
+  @Input()
+  set overlays (overlays: Array<Overlay>) {
+    this._overlays = overlays;
+
+    this.updateOverlays();
+    this.updateLegend();
+  }
+
+  get overlays (): Array<Overlay> {
+    return this._overlays;
+  }
+
+  @Input()
+  set showLayersControl (showLayersControl: boolean) {
+    this._showLayersControl = showLayersControl;
+
+    this.updateControls();
+  }
+
+  get showLayersControl (): boolean {
+    return this._showLayersControl;
+  }
+
+  @Input()
+  set showLegendControl (showLegendControl: boolean) {
+    this._showLegendControl = showLegendControl;
+
+    this.updateControls();
+  }
+
+  get showLegendControl(): boolean {
+    return this._showLegendControl;
+  }
+
+  @Input()
+  set showScaleControl (showScaleControl: boolean) {
+    this._showScaleControl = showScaleControl;
+
+    this.updateControls();
+  }
+
+  get showScaleControl (): boolean {
+    return this._showScaleControl;
   }
 
   getOverlayBounds () {
@@ -265,19 +267,27 @@ export class MapComponent implements AfterViewInit, OnInit {
     });
   }
 
+  updateLegend () {
+    if (!this.legendControl) {
+      return;
+    }
+
+    this.legendControl.setOverlays(this._overlays);
+  }
+
   updateOverlays () {
-    // check if layer control has been created
-    if (!this.layersControl) {
+    // // check if layer control has been created
+    if (!this.map || !this.layersControl) {
       return;
     }
 
     const overlays = this._overlays;
 
     // remove overlays from map and layer control
-    this._overlaysAdded = this._overlaysAdded.filter((overlay) => {
+    this.overlaysAdded = this.overlaysAdded.filter((overlay) => {
       if (!overlays.includes(overlay)) {
-        this.layersControl.removeLayer(overlay.layer);
-        this.map.removeLayer(overlay.layer);
+        this.layersControl.removeLayer(overlay);
+        this.map.removeLayer(overlay);
         return false;
       } else {
         return true;
@@ -286,14 +296,14 @@ export class MapComponent implements AfterViewInit, OnInit {
 
     // add overlays to layer control and add/remove overlay to/from map
     overlays.forEach((overlay) => {
-      if (!this._overlaysAdded.includes(overlay)) {
-        this._overlaysAdded.push(overlay);
-        this.layersControl.addOverlay(overlay.layer, overlay.title);
+      if (!this.overlaysAdded.includes(overlay)) {
+        this.overlaysAdded.push(overlay);
+        this.layersControl.addOverlay(overlay, overlay.title);
       }
       if (overlay.enabled) {
-        this.map.addLayer(overlay.layer);
+        this.map.addLayer(overlay);
       } else {
-        this.map.removeLayer(overlay.layer);
+        this.map.removeLayer(overlay);
       }
     });
 
