@@ -127,6 +127,7 @@ export class NavigationComponent implements OnInit {
       'impact-text',
       'impact-link',
       'losspager',
+      'ground-failure',
       'shakemap'
     ]);
   }

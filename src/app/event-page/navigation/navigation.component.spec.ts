@@ -188,7 +188,8 @@ describe('NavigationComponent', () => {
 
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith([
-        'dyfi', 'impact-text', 'impact-link', 'losspager', 'shakemap'
+        'dyfi', 'impact-text', 'impact-link', 'losspager', 'ground-failure',
+            'shakemap'
       ]);
       expect(result).toBe(true);
     });
