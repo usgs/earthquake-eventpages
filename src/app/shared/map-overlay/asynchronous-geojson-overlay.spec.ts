@@ -34,8 +34,6 @@ describe('AsynchronousGeoJSONOverlay', () => {
 
   it('uses product when defined', () => {
 
-    overlay.initializeLayer();
-
     expect(overlay.layer instanceof L.GeoJSON).toBeTruthy();
     expect(overlay.data).toBe(null);
   });
@@ -70,10 +68,6 @@ describe('AsynchronousGeoJSONOverlay', () => {
 
   describe('_handleGeoJSON', () => {
 
-    beforeEach(() => {
-      overlay.initializeLayer();
-    });
-
     it('runs geoJSON', () => {
       overlay._handleGeoJSON(GEOJSON);
 
@@ -89,10 +83,6 @@ describe('AsynchronousGeoJSONOverlay', () => {
   });
 
   describe('onAdd', () => {
-
-    beforeEach(() => {
-      overlay.initializeLayer();
-    });
 
     it('handles null url', () => {
       overlay.onAdd();

@@ -294,7 +294,6 @@ export class MapComponent implements AfterViewInit, OnInit {
           .includes(overlay.id);
 
       if (!added) {
-
         // add an httpClient for async layers
         if (overlay.hasOwnProperty('httpClient') && (overlay.httpClient == null)) {
           overlay.httpClient = this.httpClient;

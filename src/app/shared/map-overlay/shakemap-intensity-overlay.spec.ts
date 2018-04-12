@@ -15,8 +15,6 @@ describe('ShakemapIntensityOverlay', () => {
       }
     });
 
-    overlay.initializeLayer();
-
     expect(overlay.layer instanceof L.GeoJSON).toBeTruthy();
     expect(overlay.data).toBe(null);
   });

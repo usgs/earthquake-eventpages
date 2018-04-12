@@ -35,28 +35,16 @@ class AsynchronousGeoJSONOverlay implements Overlay {
   // url to download geoJSON
   url: string = null;
 
-  // Maintain layer data
+  // retain layer data
   data: any = null;
 
-  // retail url grab errors
+  // retain url grab errors
   error: Error;
 
-  constructor () {}
-
-  /**
-   * Call to initialize the GeoJSON layer
-   *
-   * @param url {String}
-   *    Url to access GeoJSON data
-   *
-   * @param options {Object}: Optional, default none
-   *    Additional options for Leaflet.GeoJSON (style, onEachFeature, ...)
-   */
-  initializeLayer () {
-
+  constructor () {
     const options = {
-      style: this.style,
-      onEachFeature: this.onEachFeature
+      style: (f) => this.style(f),
+      onEachFeature: (f, l) => this.onEachFeature(f, l)
     };
 
     this.layer = L.geoJSON([], options);
