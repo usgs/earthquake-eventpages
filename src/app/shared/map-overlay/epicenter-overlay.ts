@@ -11,9 +11,20 @@ const EpicenterOverlay = L.Marker.extend({
   layer: null,
 
   initialize: function (product: any) {
-    const properties = product ? product.properties : {};
-    const latitude = +properties.latitude || 0;
-    const longitude = +properties.longitude || 0;
+    let latitude: number;
+    let longitude: number;
+
+    try {
+      latitude = +product.properties.latitude || 0;
+    } catch (e) {
+      latitude = 0;
+    }
+
+    try {
+      longitude = +product.properties.longitude || 0;
+    } catch (e) {
+      longitude = 0;
+    }
 
     this.layer = this;
 
