@@ -1,11 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-
-import { AsyncGeoJsonOverlay } from './async-geojson-overlay';
+import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
 import * as L from 'leaflet';
 
 
-export class ShakemapIntensityOverlay extends AsyncGeoJsonOverlay {
+export class ShakemapIntensityOverlay extends AsynchronousGeoJSONOverlay {
 
   public id = 'shakemap-intensity';
   public enabled = true;
@@ -15,17 +13,15 @@ export class ShakemapIntensityOverlay extends AsyncGeoJsonOverlay {
   public layer: L.Layer;
   public legend: string = null;
 
-  constructor (private product: any,
-                public httpClient: HttpClient) {
-    super(httpClient);
+  public httpClient: any = null;
+  public url: string = null;
 
-    const url = this.getUrl(product);
-    const options = {
-      style: this.style,
-      onEachFeature: this.onEachFeature
-    };
+  constructor (private product: any) {
+    super();
 
-    this.initializeLayer(url, options);
+    this.url = this.getUrl(product);
+
+    this.initializeLayer();
   }
 
   getUrl(product) {
@@ -36,23 +32,15 @@ export class ShakemapIntensityOverlay extends AsyncGeoJsonOverlay {
     return product.contents['download/cont_mi.json'].url || null;
   }
 
-  style (feature, latlng) {
+  style (feature) {
 
     // set default line style
     const lineStyle = {
-      'color': '#EFEFF0',
-      'weight': 2,
+      'color': feature.properties.color,
+      'weight': feature.properties.weight,
       'opacity': 1
     };
 
-    // oscillate line thickness
-    if (lineStyle.weight === 4) {
-      lineStyle.weight = 2;
-    } else {
-      lineStyle.weight = 4;
-    }
-
-    lineStyle.color = feature.properties.color;
     return lineStyle;
   }
 

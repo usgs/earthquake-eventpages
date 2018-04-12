@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Pipe, PipeTransform } from '@angular/core';
 import { ParamMap } from '@angular/router';
 import { Event } from '../event';
@@ -12,7 +11,7 @@ import { LandscanPopulationOverlay } from './map-overlay/landscan-population-ove
 })
 export class InteractiveMapOverlaysPipe implements PipeTransform {
 
-  constructor(private httpClient: HttpClient) {}
+  constructor() {}
 
   public defaultOverlays = {
     epicenter: true,
@@ -32,7 +31,7 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
 
   public overlayFactory: any = {
     'origin': new RegionInfoOverlaysPipe(),
-    'shakemap': new ShakemapOverlaysPipe(this.httpClient)
+    'shakemap': new ShakemapOverlaysPipe()
   };
 
   transform(event: Event, params: ParamMap): any {

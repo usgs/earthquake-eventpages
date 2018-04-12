@@ -5,7 +5,7 @@ import * as L from 'leaflet';
 
 describe('ShakemapIntensityOverlay', () => {
   it('can be created', () => {
-    expect(new ShakemapIntensityOverlay(null, null)).toBeTruthy();
+    expect(new ShakemapIntensityOverlay(null)).toBeTruthy();
   });
 
   it('uses product when defined', () => {
@@ -13,9 +13,9 @@ describe('ShakemapIntensityOverlay', () => {
       contents: {
         'download/cont_mi.json': {url: ''}
       }
-    }, null);
+    });
 
-    overlay.initializeLayer('');
+    overlay.initializeLayer();
 
     expect(overlay.layer instanceof L.GeoJSON).toBeTruthy();
     expect(overlay.layer._data).toBe(null);
@@ -29,30 +29,11 @@ describe('ShakemapIntensityOverlay', () => {
         }
       };
 
-      const overlay = new ShakemapIntensityOverlay(null, null);
-      const style = overlay.style(feature, null);
+      const overlay = new ShakemapIntensityOverlay(null);
+      const style = overlay.style(feature);
 
       expect(style.color).toBe('COLOR');
     });
-
-/*
-    it('oscillates line weight', () => {
-      const feature = {
-        properties: {
-          color: 'COLOR'
-        }
-      };
-
-      const overlay = new ShakemapIntensityOverlay(null, null);
-      let style = overlay.style(feature, null);
-
-      expect(style.weight).toBe(4);
-
-      style = overlay.style(feature, null);
-      expect(style.weight).toBe(2);
-
-    })
-    */
 
   });
 
@@ -65,7 +46,7 @@ describe('ShakemapIntensityOverlay', () => {
         }
       };
 
-      const overlay = new ShakemapIntensityOverlay(null, null);
+      const overlay = new ShakemapIntensityOverlay(null);
       const layer = new L.Layer();
 
       overlay.onEachFeature(feature, layer);

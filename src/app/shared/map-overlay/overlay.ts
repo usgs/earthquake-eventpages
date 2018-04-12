@@ -24,4 +24,7 @@ export interface Overlay {
   // title of layer, for layer control
   title: string;
 
+  // for content downloads in async map layers
+  httpClient?: any;
+
 }
