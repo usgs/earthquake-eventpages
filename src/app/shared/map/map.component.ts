@@ -288,17 +288,18 @@ export class MapComponent implements AfterViewInit, OnInit {
     // add overlays to layer control and add/remove overlay to/from map
     overlays.forEach((overlay) => {
 
-      // add an httpClient for async layers
-      if (overlay.hasOwnProperty('httpClient') && (overlay.httpClient == null)) {
-        overlay.layer.httpClient = this.httpClient;
-      }
-
       // Restrict layer addition by layer id
       const added = this._overlaysAdded
           .map(_overlay => _overlay.id)
           .includes(overlay.id);
 
       if (!added) {
+
+        // add an httpClient for async layers
+        if (overlay.hasOwnProperty('httpClient') && (overlay.httpClient == null)) {
+          overlay.httpClient = this.httpClient;
+        }
+
         this._overlaysAdded.push(overlay);
         this.layersControl.addOverlay(overlay.layer, overlay.title);
       }

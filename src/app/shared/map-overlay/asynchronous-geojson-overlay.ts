@@ -3,64 +3,6 @@ import { Overlay } from './overlay';
 import * as L from 'leaflet';
 
 /**
- * Extension of L.GeoJSON that allows GeoJSON to be dynamically added to a layer
- */
-const AsynchronousGeoJSON = L.GeoJSON.extend({
-  initialize: function (options) {
-    this._url = options.url;
-    this.httpClient = options.httpClient;
-    this._data = null;
-
-    L.GeoJSON.prototype.initialize.call(this, [], options);
-  },
-
-  onAdd: function (map) {
-
-    if (!this._url || !this.httpClient) {
-      this._data = null;
-      return;
-    }
-
-    if (this._data === null) {
-      // flag that data is being loaded
-      this._data = 'loading';
-      this.httpClient.get(this._url).subscribe((data) => {
-          this._handleGeoJson(data);
-        },
-        (error) => {
-          // failed to load, clear loading in case re-added
-          this._data = null;
-        }
-      );
-    }
-
-    // always add layer, data added asynchronously
-    L.GeoJSON.prototype.onAdd.call(this, map);
-  },
-
-  _handleGeoJson: function (data) {
-    // parse if needed
-    data = (typeof data === 'string' ? JSON.parse(data) : data);
-    // flag that data is loaded
-    this._data = data;
-    // add data to layer (and map if layer still visible)
-    this.addData(data);
-  }
-});
-
-
-
-/**
- * Add function generation of AsynchronousGeoJson to mirror Leaflet's
- * class initialization behavior
- */
-const asynchronousGeoJSON = function (options) {
-  return new AsynchronousGeoJSON(options);
-};
-
-
-
-/**
  * Class for asynchronous overlays used with the shared-map component
  */
 class AsynchronousGeoJSONOverlay implements Overlay {
@@ -85,13 +27,16 @@ class AsynchronousGeoJSONOverlay implements Overlay {
 
   // for content downloads in async map layers; added to layer during
   // initialization, or manually
-  httpClient: any;
+  httpClient: any = null;
 
   // url to download geoJSON
-  url: string;
+  url: string = null;
 
-  // additional options to pass into layer
-  options: any;
+  // Maintain layer data
+  data: any = null;
+
+  // Maintain listener for layer add to later unsubscribe
+  layerListener: EventListener;
 
   constructor() {}
 
@@ -107,28 +52,75 @@ class AsynchronousGeoJSONOverlay implements Overlay {
   initializeLayer() {
 
     const options = {
-      httpClient: this.httpClient,
-      url: this.url,
       style: this.style,
       onEachFeature: this.onEachFeature
     };
 
-    this.layer = asynchronousGeoJSON(options);
+    this.layer = L.geoJSON([], options);
+
+    this.layer.on('add', this.onAdd, this);
+  }
+
+
+  /**
+   * Get geoJSON data and add it to the existing layer
+   */
+  onAdd() {
+    if (!this.url || !this.httpClient) {
+      this.data = null;
+      return;
+    }
+
+    if (this.data === null) {
+      // flag that data is being loaded
+      this.data = 'loading';
+      this.httpClient.get(this.url).subscribe((data) => {
+          this._handleGeoJSON(data);
+
+          // data add successful, remove event listener
+          this.layer.removeEventListener('add', this.onAdd, this);
+        },
+        (error) => {
+          // failed to load, clear loading in case re-added
+          this.data = null;
+        }
+      );
+    }
   }
 
   /**
-   * OVERWRITE IN EXTENDING CLASS
+   * Handle geoJSON internally
    *
-   * Sets style for geoJSON; must follow Leaflet's guidelines
+   * @param data {Any}
+   *    geoJSON data ready for parsing
+   */
+  _handleGeoJSON(data) {
+    // parse if needed
+    data = (typeof data === 'string' ? JSON.parse(data) : data);
+
+    // allow class specific parsing
+    data = this.handleGeoJSON(data);
+
+    // flag that data is loaded
+    this.data = data;
+    // add data to layer (and map if layer still visible)
+    this.layer.addData(data);
+  }
+
+  /**
+   * OPTIONAL: OVERWRITE IN EXTENDING CLASS
    *
-   * @param feature {Any}
-   *    GeoJSON feature
+   * Additional class specific parsing of geoJSON data
+   *
+   * @param data {Any}
+   *    GeoJSON data
    *
    * @return {Any}
-   *    Object containing desired styles
+   *    Parsed geoJSON
+   *
    */
-  style(feature): any {
-    return null;
+  handleGeoJSON(data) {
+    return data;
   }
 
   /**
@@ -145,6 +137,22 @@ class AsynchronousGeoJSONOverlay implements Overlay {
    */
   onEachFeature(feature, layer) {
   }
+
+  /**
+   * OVERWRITE IN EXTENDING CLASS
+   *
+   * Sets style for geoJSON; must follow Leaflet's guidelines
+   *
+   * @param feature {Any}
+   *    GeoJSON feature
+   *
+   * @return {Any}
+   *    Object containing desired styles
+   */
+  style(feature): any {
+    return {};
+  }
+
 }
 
-export { AsynchronousGeoJSONOverlay, asynchronousGeoJSON, AsynchronousGeoJSON };
+export { AsynchronousGeoJSONOverlay };
