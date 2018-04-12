@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
 
@@ -8,16 +8,10 @@ import { EventService } from '../../core/event.service';
   templateUrl: './ground-failure.component.html',
   styleUrls: ['./ground-failure.component.scss']
 })
-export class GroundFailureComponent implements OnInit {
+export class GroundFailureComponent {
 
   constructor (
     public eventService: EventService
   ) { }
-
-  ngOnInit() {
-    this.eventService.product$.subscribe((product) => {
-      console.log('next product', product);
-    });
-  }
 
 }
