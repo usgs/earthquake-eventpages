@@ -1,6 +1,6 @@
-import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
-
 import * as L from 'leaflet';
+
+import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
 
 export class ShakemapIntensityOverlay extends AsynchronousGeoJSONOverlay {
@@ -24,7 +24,7 @@ export class ShakemapIntensityOverlay extends AsynchronousGeoJSONOverlay {
     this.initializeLayer();
   }
 
-  getUrl(product) {
+  getUrl (product) {
     if (product == null) {
       return null;
     }

@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { ShakemapIntensityOverlay } from './map-overlay/shakemap-intensity-overlay';
 import { EpicenterOverlay } from './map-overlay/epicenter-overlay';
 import { Overlay } from './map-overlay/overlay';
+import { ShakemapIntensityOverlay } from './map-overlay/shakemap-intensity-overlay';
 
 @Pipe({
   name: 'shakemapOverlays'
