@@ -46,20 +46,32 @@ const appRoutes = [
         component: RegionInfoComponent
       },
       {
-        path: 'origin',
-        loadChildren: './origin/origin.module#OriginModule'
+        path: 'impact',
+        loadChildren: './impact/impact.module#ImpactModule'
+      },
+      {
+        path: 'tellus',
+        loadChildren: './tell-us/tell-us.module#TellUsModule'
       },
       {
         path: 'shakemap',
         loadChildren: './shakemap/shakemap.module#ShakemapModule'
       },
       {
-        path: 'impact',
-        loadChildren: './impact/impact.module#ImpactModule'
+        path: 'pager',
+        loadChildren: './pager/pager.module#PagerModule'
+      },
+      {
+        path: 'ground-failure',
+        loadChildren: './ground-failure/ground-failure.module#GroundFailureModule'
       },
       {
         path: 'technical',
         loadChildren: './technical/technical.module#TechnicalModule'
+      },
+      {
+        path: 'origin',
+        loadChildren: './origin/origin.module#OriginModule'
       },
       {
         path: 'moment-tensor',
@@ -68,14 +80,6 @@ const appRoutes = [
       {
         path: 'focal-mechanism',
         loadChildren: './focal-mechanism/focal-mechanism.module#FocalMechanismModule'
-      },
-      {
-        path: 'tellus',
-        loadChildren: './tell-us/tell-us.module#TellUsModule'
-      },
-      {
-        path: 'pager',
-        loadChildren: './pager/pager.module#PagerModule'
       }
     ]
   }

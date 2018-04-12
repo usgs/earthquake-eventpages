@@ -1,3 +1,45 @@
-<p>
-  ground-failure works!
-</p>
+<product-page productType="groundfailure">
+  <ng-container header>
+    <h2>Ground Failure</h2>
+  </ng-container>
+
+  <nav mat-tab-nav-bar>
+      <a mat-tab-link
+          [routerLink]="'./summary'" queryParamsHandling="preserve"
+          routerLinkActive #summary="routerLinkActive" [active]="summary.isActive">
+        Summary
+      </a>
+      <a mat-tab-link
+          [routerLink]="'./about'" queryParamsHandling="preserve"
+          routerLinkActive #about="routerLinkActive" [active]="about.isActive">
+        About
+      </a>
+  </nav>
+  <router-outlet></router-outlet>
+
+  <ng-container *ngIf="eventService.product$ | async as product">
+    <p>
+      Due to local factors and model limitations, ground failure may still
+      occur when alert levels indicate little to no hazard. Refer to
+      <a href="/data/grdfailure/background.php">Ground Failure Background</a>
+      for more information.
+    </p>
+    <p>
+      Results are based on ground-motion estimates from the current
+      <a [routerLink]="'./shakemap'">ShakeMap</a> (point source).
+      The extent of shaking and ground-failure estimates generally improve
+      as more details are incorporated into ShakeMap.
+
+      <ng-container *ngIf="product?.properties['rupture-warning']">
+        ShakeMap is currently approximating this earthquake as a
+        point source, and the mapped extent of ground failiure commonly
+        changes significantly when a fault model is added, especially for
+        larger earthquakes. Interpret Ground Failure results with caution
+        until ShakeMap has been updated with a fault model.
+      </ng-container>
+    </p>
+  </ng-container>
+
+  <ng-container footer>
+  </ng-container>
+</product-page>
