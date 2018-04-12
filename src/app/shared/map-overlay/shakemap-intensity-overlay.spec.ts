@@ -55,5 +55,17 @@ describe('ShakemapIntensityOverlay', () => {
 
     });
 
+    it('ignores object without properties', () => {
+      const feature = {};
+
+      const overlay = new ShakemapIntensityOverlay(null);
+      const layer = new L.Layer();
+
+      overlay.onEachFeature(feature, layer);
+
+      expect(layer._popup).toBeUndefined();
+
+    });
+
   });
 });

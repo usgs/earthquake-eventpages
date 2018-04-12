@@ -1,10 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
 import { ParamMap } from '@angular/router';
+import { Pipe, PipeTransform } from '@angular/core';
+
 import { Event } from '../event';
+import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
+import { Overlay } from '../shared/map-overlay/overlay';
 import { RegionInfoOverlaysPipe } from '../shared/region-info-overlays.pipe';
 import { ShakemapOverlaysPipe } from '../shared/shakemap-overlays.pipe';
-import { Overlay } from '../shared/map-overlay/overlay';
-import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
 
 @Pipe({
   name: 'interactiveMapOverlays'
