@@ -2,7 +2,6 @@ import { ParamMap } from '@angular/router';
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { Event } from '../event';
-import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
 import { Overlay } from '../shared/map-overlay/overlay';
 import { getUnique } from '../unique';
 
@@ -16,6 +15,9 @@ export class MapOverlaysPipe implements PipeTransform {
 
   // set default overlays that will appear on the map
   public defaultOverlays: any;
+
+  // additional not-propduct-dependant overlays
+  public staticOverlays: Overlay[] = [];
 
   // track which event was last displayed
   public lastEvent: Event = null;
@@ -38,7 +40,16 @@ export class MapOverlaysPipe implements PipeTransform {
 */
   ];
 
-  transform(event: Event, params: ParamMap): any {
+  /**
+   * Get overlay for a specific event
+   *
+   * @param event {Event}
+   *    Earthquake event to generate layers for
+   *
+   * @param params {ParamMap} Optional
+   *    Can turn on specific layers with {layerid: 'true'}
+   */
+  transform(event: Event, params: ParamMap = null): any {
     if (this.lastEvent !== event) {
       this.lastEvent = event;
       this.overlayCache = {};
@@ -54,7 +65,7 @@ export class MapOverlaysPipe implements PipeTransform {
       overlays.push(...this.getOverlays(event, params, factory));
     });
 
-    overlays.push(new LandscanPopulationOverlay());
+    overlays.push(...this.staticOverlays);
     // allow layers to reuse overlays
     overlays = getUnique(overlays);
 

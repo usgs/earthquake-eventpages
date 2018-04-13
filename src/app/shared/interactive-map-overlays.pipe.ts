@@ -1,13 +1,9 @@
-import { ParamMap } from '@angular/router';
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe } from '@angular/core';
 
-import { Event } from '../event';
 import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
 import { MapOverlaysPipe, OverlayFactory } from './map-overlays.pipe';
-import { Overlay } from '../shared/map-overlay/overlay';
 import { RegionInfoOverlaysPipe } from '../shared/region-info-overlays.pipe';
 import { ShakemapOverlaysPipe } from '../shared/shakemap-overlays.pipe';
-import { getUnique } from '../unique';
 
 
 @Pipe({
@@ -15,13 +11,15 @@ import { getUnique } from '../unique';
 })
 export class InteractiveMapOverlaysPipe extends MapOverlaysPipe {
 
-  public defaultOverlays = {
+  defaultOverlays = {
     epicenter: true,
     'shakemap-intensity': true
   };
 
+  staticOverlays = [new LandscanPopulationOverlay()];
+
   // pipes related to their product
-  public overlayFactory: OverlayFactory[] = [
+  overlayFactory: OverlayFactory[] = [
     {type: 'origin', pipe: new RegionInfoOverlaysPipe()},
     {type: 'shakemap', pipe: new ShakemapOverlaysPipe()}
   ];

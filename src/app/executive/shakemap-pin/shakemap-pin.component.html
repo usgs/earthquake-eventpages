@@ -3,21 +3,15 @@
     [product]="product"
     [title]="title">
 
-    <div badge *ngIf="product as prod">
-      <shared-mmi
-        [intensity]="prod.properties.maxmmi">
-      </shared-mmi>
-    </div>
+  <div badge *ngIf="product as prod">
+    <shared-mmi
+      [intensity]="prod.properties.maxmmi">
+    </shared-mmi>
+  </div>
 
-    <div card-content>
-      <p>MAP</p>
-    </div>
-
-    <!--
   <shared-map card-content
-      [overlays]="event | shakemapOverlays"
+      [overlays]="event | shakemapMapOverlays"
       [showAttributionControl]="false">
   </shared-map>
-  -->
 
 </basic-pin>
