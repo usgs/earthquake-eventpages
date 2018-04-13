@@ -14,7 +14,7 @@ export class MapOverlaysPipe implements PipeTransform {
   constructor() {}
 
   // set default overlays that will appear on the map
-  public defaultOverlays: any;
+  public defaultOverlays: any = {};
 
   // additional not-propduct-dependant overlays
   public staticOverlays: Overlay[] = [];
@@ -23,22 +23,18 @@ export class MapOverlaysPipe implements PipeTransform {
   public lastEvent: Event = null;
 
   // cache overlays
-  public overlayCache: any = {
-/*
-    'origin': {
-      product: product,
-      layers: []
-    }
-*/
-  };
+  public overlayCache: any = {};
 
-  // pipes related to their product
-  public overlayFactory: OverlayFactory[] = [
-/*
-    {type: 'origin', pipe: new RegionInfoOverlaysPipe()},
-    {type: 'shakemap', pipe: new ShakemapOverlaysPipe()}
-*/
-  ];
+  /**
+   *  Pipes for transforming events into overlays
+   *
+   * Example:
+   * [
+   *    {type: 'origin', pipe: new RegionInfoOverlaysPipe()},
+   *    {type: 'shakemap', pipe: new ShakemapOverlaysPipe()}
+   * ]
+  */
+  public overlayFactory: OverlayFactory[] = [];
 
   /**
    * Get overlay for a specific event
