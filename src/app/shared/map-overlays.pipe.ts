@@ -11,8 +11,6 @@ import { getUnique } from '../unique';
 })
 export class MapOverlaysPipe implements PipeTransform {
 
-  constructor () {}
-
   // set default overlays that will appear on the map
   public defaultOverlays: any = {};
 

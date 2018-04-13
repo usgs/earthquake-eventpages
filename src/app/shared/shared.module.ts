@@ -38,6 +38,7 @@ import { KeysPipe } from './keys.pipe';
 import { StationFlagComponent } from './station-flag/station-flag.component';
 import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 import { ShakemapMapOverlaysPipe } from './shakemap-map-overlays.pipe';
+import { MapOverlaysPipe } from './map-overlays.pipe';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { ShakemapMapOverlaysPipe } from './shakemap-map-overlays.pipe';
     KeysPipe,
     StationFlagComponent,
     ShakemapOverlaysPipe,
-    ShakemapMapOverlaysPipe
+    ShakemapMapOverlaysPipe,
+    MapOverlaysPipe
   ],
   exports: [
     AttributionComponent,
