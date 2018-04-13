@@ -1,9 +1,9 @@
-<basic-pin
+<basic-pin *ngIf="product as prod"
     [link]="link"
-    [product]="product"
+    [product]="prod"
     [title]="title">
 
-  <div badge *ngIf="product as prod">
+  <div badge>
     <shared-mmi
       [intensity]="prod.properties.maxmmi">
     </shared-mmi>

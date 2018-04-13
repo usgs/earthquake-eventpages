@@ -10,9 +10,9 @@ describe('MapOverlaysPipe', () => {
 
   beforeEach(() => {
     pipe = new MapOverlaysPipe();
-  })
+  });
 
-  it('create an instance', () => {
+  it('creates an instance', () => {
     expect(pipe).toBeTruthy();
   });
 
@@ -56,7 +56,7 @@ describe('MapOverlaysPipe', () => {
       'epicenter': 'false'
     });
 
-    pipe.overlayFactory = [
+    pipe.overlayFactories = [
         {type: 'origin', pipe: new RegionInfoOverlaysPipe()}
     ];
 

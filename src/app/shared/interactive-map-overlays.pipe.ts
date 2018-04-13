@@ -19,7 +19,7 @@ export class InteractiveMapOverlaysPipe extends MapOverlaysPipe implements PipeT
   public staticOverlays = [new LandscanPopulationOverlay()];
 
   // pipes related to their product
-  public overlayFactory: OverlayFactory[] = [
+  public overlayFactories: OverlayFactory[] = [
     {type: 'origin', pipe: new RegionInfoOverlaysPipe()},
     {type: 'shakemap', pipe: new ShakemapOverlaysPipe()}
   ];

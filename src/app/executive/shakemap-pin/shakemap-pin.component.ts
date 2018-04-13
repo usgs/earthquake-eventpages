@@ -7,14 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ShakemapPinComponent implements OnInit {
 
-  public readonly link = '../shakemap';
-  public readonly title = 'ShakeMap';
-
   public _event: any;
+  public link = '../shakemap';
   public product: any;
+  public title = 'ShakeMap';
 
   @Input()
-  set event(event) {
+  set event (event) {
     this._event = event;
 
     if (event) {
@@ -22,7 +21,7 @@ export class ShakemapPinComponent implements OnInit {
     }
   }
 
-  get event() {
+  get event () {
     return this._event;
   }
 

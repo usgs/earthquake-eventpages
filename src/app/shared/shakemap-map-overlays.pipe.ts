@@ -15,7 +15,7 @@ export class ShakemapMapOverlaysPipe extends MapOverlaysPipe implements PipeTran
   };
 
   // pipes related to their product
-  public overlayFactory: OverlayFactory[] = [
+  public overlayFactories: OverlayFactory[] = [
     {type: 'shakemap', pipe: new ShakemapOverlaysPipe()}
   ];
 

@@ -4,13 +4,13 @@ describe('ShakemapOverlaysPipe', () => {
   let pipe;
 
   const SHAKEMAP = {
-    type: 'shakemap', 
+    type: 'shakemap',
     properties: {
-    }, 
+    },
     contents: {
         'download/cont_mi.json': {url: 'url'}
     }
-  }
+  };
 
   beforeEach(() => {
     pipe = new ShakemapOverlaysPipe();

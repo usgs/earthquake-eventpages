@@ -11,7 +11,7 @@ import { getUnique } from '../unique';
 })
 export class MapOverlaysPipe implements PipeTransform {
 
-  constructor() {}
+  constructor () {}
 
   // set default overlays that will appear on the map
   public defaultOverlays: any = {};
@@ -34,7 +34,7 @@ export class MapOverlaysPipe implements PipeTransform {
    *    {type: 'shakemap', pipe: new ShakemapOverlaysPipe()}
    * ]
   */
-  public overlayFactory: OverlayFactory[] = [];
+  public overlayFactories: OverlayFactory[] = [];
 
   /**
    * Get overlay for a specific event
@@ -45,7 +45,7 @@ export class MapOverlaysPipe implements PipeTransform {
    * @param params {ParamMap} Optional
    *    Can turn on specific layers with {layerid: 'true'}
    */
-  transform(event: Event, params: ParamMap = null): any {
+  transform (event: Event, params: ParamMap = null): any {
     if (this.lastEvent !== event) {
       this.lastEvent = event;
       this.overlayCache = {};
@@ -57,7 +57,7 @@ export class MapOverlaysPipe implements PipeTransform {
 
     // new array every time for change detection
     let overlays = [];
-    this.overlayFactory.forEach((factory) => {
+    this.overlayFactories.forEach((factory) => {
       overlays.push(...this.getOverlays(event, params, factory));
     });
 
