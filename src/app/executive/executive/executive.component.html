@@ -19,6 +19,11 @@
       </executive-dyfi-response-submit-pin>
     </li>
 
+    <li>
+      <executive-shakemap-pin [event]="event">
+      </executive-shakemap-pin>
+    </li>
+
     <li *ngIf="event | getProduct:'origin'; let origin">
       <executive-origin-pin [product]="origin">
       </executive-origin-pin>
