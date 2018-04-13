@@ -9,8 +9,6 @@ import { ShakemapIntensityOverlay } from './map-overlay/shakemap-intensity-overl
 })
 export class ShakemapOverlaysPipe implements PipeTransform {
 
-  constructor () {}
-
   transform (product: any): Array<Overlay> {
 
     const overlays = [];

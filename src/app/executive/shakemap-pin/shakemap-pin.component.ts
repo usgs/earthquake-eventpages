@@ -21,7 +21,7 @@ export class ShakemapPinComponent implements OnInit {
       this.product = event.getProduct('shakemap');
     }
   }
-  
+
   get event() {
     return this._event;
   }
