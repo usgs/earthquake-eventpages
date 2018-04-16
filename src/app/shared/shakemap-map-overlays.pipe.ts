@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { MapOverlaysPipe, OverlayFactory } from './map-overlays.pipe';
+import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 import { ShakemapOverlaysPipe } from '../shared/shakemap-overlays.pipe';
 
 
 @Pipe({
   name: 'shakemapMapOverlays'
 })
-export class ShakemapMapOverlaysPipe extends MapOverlaysPipe implements PipeTransform {
+export class ShakemapMapOverlaysPipe extends InteractiveMapOverlaysPipe implements PipeTransform {
 
   public defaultOverlays = {
     epicenter: true,
@@ -15,8 +15,8 @@ export class ShakemapMapOverlaysPipe extends MapOverlaysPipe implements PipeTran
   };
 
   // pipes related to their product
-  public overlayFactories: OverlayFactory[] = [
-    {type: 'shakemap', pipe: new ShakemapOverlaysPipe()}
-  ];
+  public overlayFactory = {
+    'shakemap': new ShakemapOverlaysPipe()
+  };
 
 }
