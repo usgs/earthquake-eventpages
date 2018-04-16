@@ -12,10 +12,10 @@ export class GetBarPositionPipe implements PipeTransform {
       value = max;
     }
 
-    if (min === 0) {
+    if (min <= 0) {
       min = Number.EPSILON;
     }
-    if (value === 0) {
+    if (value <= 0) {
       value = Number.EPSILON;
     }
 
