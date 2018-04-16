@@ -14,6 +14,7 @@ import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
 import { MapPinComponent } from './map-pin/map-pin.component';
 import { DyfiResponseSubmitPinComponent } from './dyfi-response-submit-pin/dyfi-response-submit-pin.component';
+import { ShakemapPinComponent } from './shakemap-pin/shakemap-pin.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { DyfiResponseSubmitPinComponent } from './dyfi-response-submit-pin/dyfi-
     RegionInfoPinComponent,
     FocalMechanismPinComponent,
     MapPinComponent,
-    DyfiResponseSubmitPinComponent
+    DyfiResponseSubmitPinComponent,
+    ShakemapPinComponent
   ]
 })
 export class ExecutiveModule { }

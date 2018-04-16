@@ -2,11 +2,11 @@ import { ParamMap } from '@angular/router';
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { Event } from '../event';
+import { getUnique } from '../unique';
 import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
 import { Overlay } from '../shared/map-overlay/overlay';
 import { RegionInfoOverlaysPipe } from '../shared/region-info-overlays.pipe';
 import { ShakemapOverlaysPipe } from '../shared/shakemap-overlays.pipe';
-import { getUnique } from '../unique';
 
 
 @Pipe({
@@ -14,31 +14,35 @@ import { getUnique } from '../unique';
 })
 export class InteractiveMapOverlaysPipe implements PipeTransform {
 
-  constructor() {}
-
-  public defaultOverlays = {
+  public defaultOverlays: any = {
     epicenter: true,
     'shakemap-intensity': true
   };
 
-  public lastEvent: Event = null;
+  public staticOverlays: Overlay[] = [new LandscanPopulationOverlay()];
 
-  public overlayCache: any = {
-/*
-    'origin': {
-      product: product,
-      layers: []
-    }
-*/
-  };
-
+  // pipes related to their product
   public overlayFactory: any = {
-    // origin needs to be first (for preferred epicenter)
     'origin': new RegionInfoOverlaysPipe(),
     'shakemap': new ShakemapOverlaysPipe()
   };
 
-  transform(event: Event, params: ParamMap): any {
+  // track which event was last displayed
+  public lastEvent: Event = null;
+
+  public overlayCache: any = {};
+
+
+  /**
+   * Get overlay for a specific event
+   *
+   * @param event {Event}
+   *    Earthquake event to generate layers for
+   *
+   * @param params {ParamMap} Optional
+   *    Can turn on specific layers with {layerid: 'true'}
+   */
+  transform (event: Event, params: ParamMap = null): any {
     if (this.lastEvent !== event) {
       this.lastEvent = event;
       this.overlayCache = {};
@@ -54,7 +58,7 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
       overlays.push(...this.getOverlays(event, params, type));
     });
 
-    overlays.push(new LandscanPopulationOverlay());
+    overlays.push(...this.staticOverlays);
     // allow layers to reuse overlays
     overlays = getUnique(overlays);
 

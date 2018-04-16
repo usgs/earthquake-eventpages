@@ -1,0 +1,17 @@
+<basic-pin *ngIf="product as prod"
+    [link]="link"
+    [product]="prod"
+    [title]="title">
+
+  <div badge>
+    <shared-mmi
+      [intensity]="prod.properties.maxmmi">
+    </shared-mmi>
+  </div>
+
+  <shared-map card-content
+      [overlays]="event | shakemapMapOverlays"
+      [showAttributionControl]="false">
+  </shared-map>
+
+</basic-pin>

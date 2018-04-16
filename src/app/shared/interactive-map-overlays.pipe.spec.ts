@@ -3,15 +3,20 @@ import { Event } from '../event';
 import { HistoricSeismicityOverlay } from '../shared/map-overlay/historic-seismicity-overlay';
 import { convertToParamMap } from '@angular/router';
 import { EpicenterOverlay } from '../shared/map-overlay/epicenter-overlay';
+import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 
 describe('InteractiveMapOverlaysPipe', () => {
-  it('create an instance', () => {
-    const pipe = new InteractiveMapOverlaysPipe();
+  let pipe;
+
+  beforeEach(() => {
+    pipe = new InteractiveMapOverlaysPipe();
+  });
+
+  it('creates an instance', () => {
     expect(pipe).toBeTruthy();
   });
 
   it('clears cache when event changes', () => {
-    const pipe = new InteractiveMapOverlaysPipe();
 
     pipe.lastEvent = new Event({});
     pipe.overlayCache = {stuff: 'things'};
@@ -22,7 +27,6 @@ describe('InteractiveMapOverlaysPipe', () => {
   });
 
   it('caches overlays when product unchanged', () => {
-    const pipe = new InteractiveMapOverlaysPipe();
     const event = new Event({
       properties: {
         products: {
@@ -51,6 +55,10 @@ describe('InteractiveMapOverlaysPipe', () => {
       'origin-code': 'othercode',
       'epicenter': 'false'
     });
+
+    pipe.overlayFactories = [
+        {type: 'origin', pipe: new RegionInfoOverlaysPipe()}
+    ];
 
     let overlays = pipe.transform(event, null);
     const epicenterOverlay = overlays.filter((overlay) => {
