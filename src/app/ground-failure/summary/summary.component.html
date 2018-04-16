@@ -1,3 +1,37 @@
-<p>
-  summary works!
-</p>
+<ng-container *ngIf="eventService.product$ | async; let product">
+  <section class="summary">
+
+    <section class="landslides">
+      <h3>Landslides</h3>
+
+      <ground-failure-hazard-alert
+          [alert]="product?.properties['landslide-hazard-alert-color']"
+          [type]="'landslide'"
+          [value]="product?.properties['landslide-hazard-alert-value']">
+      </ground-failure-hazard-alert>
+
+      <ground-failure-population-alert
+          [alert]="product?.properties['landslide-population-alert-color']"
+          [type]="'landslide'"
+          [value]="product?.properties['landslide-population-alert-value']">
+      </ground-failure-population-alert>
+    </section>
+
+    <section class="liquefaction">
+      <h3>Liquefaction</h3>
+
+      <ground-failure-hazard-alert
+          [alert]="product?.properties['liquefaction-hazard-alert-color']"
+          [type]="'liquefaction'"
+          [value]="product?.properties['liquefaction-hazard-alert-value']">
+      </ground-failure-hazard-alert>
+
+      <ground-failure-population-alert
+          [alert]="product?.properties['liquefaction-population-alert-color']"
+          [type]="'liquefaction'"
+          [value]="product?.properties['liquefaction-population-alert-value']">
+      </ground-failure-population-alert>
+    </section>
+
+  </section>
+</ng-container>

@@ -1,0 +1,21 @@
+
+
+.landslides,
+.liquefaction {
+  min-width: 300px;
+  max-width: 400px;
+}
+
+@media screen and (min-width: 768px) {
+  .summary {
+    align-items: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 968px;
+  }
+
+  .landslides {
+    margin-right: 2em;
+  }
+}

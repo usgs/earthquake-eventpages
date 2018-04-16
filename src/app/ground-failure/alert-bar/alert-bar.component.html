@@ -1,0 +1,45 @@
+<svg [attr.viewBox]="'0 5 ' + (bins.length * 250) + ' 170'">
+  <title>{{ title }}</title>
+
+  <svg:g *ngFor="let bin of bins; let i = index; let first = first; let last = last"
+      [attr.transform]="'translate(' + (i * 250) + ', 70)'">
+    <title>{{ bin.text }}</title>
+
+    <rect x="0" y="0" width="250" height="70" [attr.fill]="bin.color"></rect>
+
+    <text
+        class="bin"
+        fill="black"
+        text-anchor="middle"
+        x="125"
+        y="0">{{ bin.text }}</text>
+
+    <text *ngIf="!first"
+        fill="black"
+        text-anchor="middle"
+        x="0"
+        y="70">
+      {{ bin.min | number }} {{ units }}
+    </text>
+
+    <svg:g
+        *ngIf="
+          (value > bin.min && value <= bin.max)
+          || (first && value <= bin.min)
+          || (last && value >= bin.max)
+        "
+        [attr.transform]="'translate(' + (value | getBarPosition:bin.min:bin.max:250) + ', 0)'">
+      <path
+          d="M0,0 L20,-30 L-20,-30 L0,0 Z"
+          fill="black">
+      </path>
+      <text
+          fill="black"
+          text-anchor="middle"
+          x="0"
+          y="-70">
+        {{ value | number }} {{ units }}
+      </text>
+    </svg:g>
+  </svg:g>
+</svg>

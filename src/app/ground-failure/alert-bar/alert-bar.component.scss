@@ -1,0 +1,19 @@
+svg {
+  overflow: visible;
+}
+
+rect,
+path {
+  stroke-width: 1px;
+  stroke: #000;
+}
+
+text {
+  font: 28px 'Source Sans Pro',Helvetica,Arial,sans-serif;
+  transform: translate(0, 28px);
+}
+
+text.bin {
+  font: 36px 'Source Sans Pro',Helvetica,Arial,sans-serif;
+  transform: translate(0, 46px);
+}
