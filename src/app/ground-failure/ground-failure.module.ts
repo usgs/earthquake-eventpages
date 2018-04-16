@@ -13,13 +13,16 @@ import { AlertBarComponent } from './alert-bar/alert-bar.component';
 import { GetBarPositionPipe } from './get-bar-position.pipe';
 import { HazardAlertComponent } from './hazard-alert/hazard-alert.component';
 import { PopulationAlertComponent } from './population-alert/population-alert.component';
+import { MatButtonModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
   imports: [
     CommonModule,
+    MatButtonModule,
     MatTabsModule,
-
+    RouterModule,
     ProductPageModule,
     SharedModule,
 

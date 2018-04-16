@@ -23,20 +23,20 @@
       {{ madlibs.label }} triggered by this earthquake is
 
         <ng-container *ngSwitchCase="'green'">
-          <strong>Low</strong>, but {{ madlibs.label }} damage or fatalities
+          low, but {{ madlibs.label }} damage or fatalities
           are still possible near highly susceptible slopes.
         </ng-container>
 
         <ng-container *ngSwitchCase="'yellow'">
-          <strong>Limited</strong>.
+          limited.
         </ng-container>
 
         <ng-container *ngSwitchCase="'orange'">
-          <strong>Significant</strong>.
+          significant.
         </ng-container>
 
         <ng-container *ngSwitchCase="'red'">
-          <strong>Extensive</strong>.
+          extensive.
         </ng-container>
 
       This is not a direct estimate of fatalities or losses

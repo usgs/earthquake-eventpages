@@ -5,6 +5,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 import { Event } from '../../event';
 import { EventService } from '../../../..';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SummaryComponent', () => {
   let component: SummaryComponent;
@@ -16,6 +17,9 @@ describe('SummaryComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
       declarations: [
         SummaryComponent,
 

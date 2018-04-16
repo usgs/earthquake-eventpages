@@ -15,6 +15,12 @@
           [type]="'landslide'"
           [value]="product?.properties['landslide-population-alert-value']">
       </ground-failure-population-alert>
+
+      <button mat-raised-button
+          [routerLink]="'../../map'"
+          [queryParams]="{ 'ground-failure-landslide': true }">
+        View Landslide Map
+      </button>
     </section>
 
     <section class="liquefaction">
@@ -31,6 +37,12 @@
           [type]="'liquefaction'"
           [value]="product?.properties['liquefaction-population-alert-value']">
       </ground-failure-population-alert>
+
+      <button mat-raised-button
+          [routerLink]="'../../map'"
+          [queryParams]="{ 'ground-failure-liquefaction': true }">
+        View Liquefaction Map
+      </button>
     </section>
 
   </section>
