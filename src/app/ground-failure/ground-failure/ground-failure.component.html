@@ -1,4 +1,4 @@
-<product-page productType="groundfailure">
+<product-page productType="ground-failure">
   <ng-container header>
     <h2>Ground Failure</h2>
   </ng-container>
@@ -30,7 +30,7 @@
       The extent of shaking and ground-failure estimates generally improve
       as more details are incorporated into ShakeMap.
 
-      <ng-container *ngIf="product?.properties && product.properties['rupture-warning']">
+      <ng-container *ngIf="product?.properties && (product.properties['rupture-warning'] | uppercase) !== 'FALSE'">
         ShakeMap is currently approximating this earthquake as a
         point source, and the mapped extent of ground failiure commonly
         changes significantly when a fault model is added, especially for
