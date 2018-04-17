@@ -5,7 +5,7 @@ import { Event } from '../event';
 import { getUnique } from '../unique';
 import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
 import { Overlay } from '../shared/map-overlay/overlay';
-import { LiquefactionOverlaysPipe } from '../shared/liquefaction-overlay.pipe';
+import { LiquefactionOverlaysPipe } from '../shared/liquefaction-overlays.pipe';
 import { RegionInfoOverlaysPipe } from '../shared/region-info-overlays.pipe';
 import { ShakemapOverlaysPipe } from '../shared/shakemap-overlays.pipe';
 
