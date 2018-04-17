@@ -23,11 +23,7 @@ describe('MapComponent', () => {
         MockComponent({
           selector: 'shared-map',
           inputs: [
-            'overlays',
-            'showLayersControl',
-            'showLegendControl',
-            'showScaleControl',
-            'interactive'
+            'overlays'
           ]
        }),
         MockPipe('shakemapMapOverlays')

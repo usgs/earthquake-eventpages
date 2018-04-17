@@ -10,8 +10,7 @@ import { ShakemapOverlaysPipe } from '../shared/shakemap-overlays.pipe';
 export class ShakemapMapOverlaysPipe extends InteractiveMapOverlaysPipe implements PipeTransform {
 
   public defaultOverlays = {
-    epicenter: true,
-    'shakemap-intensity': true
+    epicenter: true
   };
 
   // pipes related to their product
