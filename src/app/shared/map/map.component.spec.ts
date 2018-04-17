@@ -75,20 +75,20 @@ describe('MapComponent', () => {
     it('uses overlay bounds', () => {
       const bounds = [1, 2, 3];
       spyOn(component, 'getOverlayBounds').and.returnValue(bounds);
-      spyOn(component, 'fitBounds').and.returnValue(null);
+      spyOn(component.map, 'fitBounds').and.returnValue(null);
 
       component.setBounds();
       expect(component.getOverlayBounds).toHaveBeenCalled();
-      expect(component.fitBounds).toHaveBeenCalledWith(bounds);
+      expect(component.map.fitBounds).toHaveBeenCalledWith(bounds);
     });
 
     it('defaults to world', () => {
       spyOn(component, 'getOverlayBounds').and.returnValue(null);
-      spyOn(component, 'fitBounds').and.returnValue(null);
+      spyOn(component.map, 'fitBounds').and.returnValue(null);
 
       component.setBounds();
       expect(component.getOverlayBounds).toHaveBeenCalled();
-      expect(component.fitBounds).toHaveBeenCalledWith(
+      expect(component.map.fitBounds.calls.first().args[0]).toEqual(
           [[85, 180], [-85, 180]]);
     });
   });
