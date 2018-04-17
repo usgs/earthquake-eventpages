@@ -1,26 +1,15 @@
 
-
-.landslides,
-.liquefaction {
-  width: 100%;
-  min-width: 280px;
-  max-width: 400px;
+.summary {
+  max-width: 968px;
 }
 
-@media screen and (min-width: 768px) {
-  .summary {
-    align-items: stretch;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    max-width: 968px;
-  }
+.column {
+  min-width: 300px;
+}
 
-  .landslides, .liquefaction {
-    flex: 1;
-  }
-
-  .landslides {
-    margin-right: 1em;
-  }
+ground-failure-hazard-alert,
+ground-failure-population-alert {
+  display: block;
+  width: 100%;
+  max-width: 400px;
 }

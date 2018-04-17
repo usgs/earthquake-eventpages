@@ -17,7 +17,7 @@
   </nav>
   <router-outlet></router-outlet>
 
-  <ng-container *ngIf="eventService.product$ | async as product">
+  <ng-container *ngIf="eventService.product$ | async as product" footer>
     <p>
       Due to local factors and model limitations, ground failure may still
       occur when alert levels indicate little to no hazard. Refer to
@@ -40,6 +40,4 @@
     </p>
   </ng-container>
 
-  <ng-container footer>
-  </ng-container>
 </product-page>

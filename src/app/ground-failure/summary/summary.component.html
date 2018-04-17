@@ -1,7 +1,7 @@
 <ng-container *ngIf="eventService.product$ | async; let product">
-  <section class="summary">
+  <section class="summary row">
 
-    <section class="landslides">
+    <section class="landslides one-of-two column">
       <h3>Landslides</h3>
 
       <ground-failure-hazard-alert
@@ -23,7 +23,7 @@
       </button>
     </section>
 
-    <section class="liquefaction">
+    <section class="liquefaction one-of-two column">
       <h3>Liquefaction</h3>
 
       <ground-failure-hazard-alert
