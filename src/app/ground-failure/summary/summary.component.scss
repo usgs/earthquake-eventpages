@@ -3,8 +3,10 @@
   max-width: 968px;
 }
 
-.column {
-  min-width: 300px;
+@media screen and (min-width: 300px) {
+  .column {
+    min-width: 300px;
+  }
 }
 
 ground-failure-hazard-alert,
