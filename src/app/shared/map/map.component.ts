@@ -206,8 +206,13 @@ export class MapComponent implements AfterViewInit, OnInit {
       bounds = [[85.0, 180.0], [-85.0, 180.0]];
     }
 
-    this.map.fitBounds(bounds);
-    this.map.invalidateSize();
+    // invalidateSize must be called in setTimeout to render
+    // in some situations
+    setTimeout(() => {
+      this.map.invalidateSize();
+      this.map.fitBounds(bounds);
+    }, 0);
+
   }
 
   updateControls () {
@@ -277,6 +282,7 @@ export class MapComponent implements AfterViewInit, OnInit {
   }
 
   updateOverlays () {
+
     // // check if layer control has been created
     if (!this.map || !this.layersControl) {
       return;

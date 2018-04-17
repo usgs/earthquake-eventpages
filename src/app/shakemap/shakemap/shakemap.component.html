@@ -8,6 +8,12 @@
 
   <!-- routes/components in ../origin-routing.module.ts -->
   <nav mat-tab-nav-bar>
+    <a mat-tab-link [routerLink]="'./map'"
+        queryParamsHandling="preserve"
+        routerLinkActive #map="routerLinkActive"
+        [active]="map.isActive">
+      ShakeMap
+    </a>
     <a mat-tab-link [routerLink]="'./metadata'"
         queryParamsHandling="preserve"
         routerLinkActive #metadata="routerLinkActive"

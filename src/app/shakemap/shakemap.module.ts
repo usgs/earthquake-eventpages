@@ -23,6 +23,7 @@ import { InputComponent } from './metadata/input/input.component';
 import { OutputComponent } from './metadata/output/output.component';
 import { ProcessingComponent } from './metadata/processing/processing.component';
 import { UncertaintyComponent } from './uncertainty/uncertainty.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { UncertaintyComponent } from './uncertainty/uncertainty.component';
     InputComponent,
     OutputComponent,
     ProcessingComponent,
-    UncertaintyComponent
+    UncertaintyComponent,
+    MapComponent
   ],
   exports: [
     StationListComponent,

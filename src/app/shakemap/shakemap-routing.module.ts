@@ -5,6 +5,7 @@ import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { MetadataComponent } from './metadata/metadata.component';
 import { UncertaintyComponent } from './uncertainty/uncertainty.component';
+import { MapComponent } from './map/map.component';
 
 const shakemapRoutes: Routes = [
   {
@@ -13,6 +14,10 @@ const shakemapRoutes: Routes = [
     path: '',
     component: ShakemapComponent,
     children: [
+      {
+        path: 'map',
+        component: MapComponent
+      },
       {
         path: 'stations',
         component: StationListComponent
@@ -28,7 +33,7 @@ const shakemapRoutes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'metadata'
+        redirectTo: 'map'
       }
     ]
   }

@@ -1,0 +1,9 @@
+<ng-container *ngIf="eventService.event$ | async; let event">
+  <shared-map
+      [overlays]="event | shakemapMapOverlays"
+      [showLayersControl]="true"
+      [showLegendControl]="true"
+      [showScaleControl]="true"
+      [interactive]="true">
+  </shared-map>
+</ng-container>
