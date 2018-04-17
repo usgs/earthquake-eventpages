@@ -1,0 +1,47 @@
+<h4>{{ title }}</h4>
+
+<figure>
+  <ground-failure-alert-bar
+    [bins]="(type === 'landslide' ? landslideBins : liquefactionBins)"
+    [title]="title"
+    [units]="units"
+    [value]="value">
+  </ground-failure-alert-bar>
+
+  <figcaption [ngSwitch]="alert">
+    <ng-container
+        *ngIf="
+          type === 'landslide'
+          ? {
+            label: 'landslides'
+          }
+          : {
+            label: 'liquefaction'
+          }; let madlibs">
+
+      The approximate number of people living near areas prone to
+      {{ madlibs.label }} triggered by this earthquake is
+
+        <ng-container *ngSwitchCase="'green'">
+          low, but {{ madlibs.label }} damage or fatalities
+          are still possible near highly susceptible slopes.
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'yellow'">
+          limited.
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'orange'">
+          significant.
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'red'">
+          extensive.
+        </ng-container>
+
+      This is not a direct estimate of fatalities or losses
+      due to {{ madlibs.label }}.
+
+    </ng-container>
+  </figcaption>
+</figure>

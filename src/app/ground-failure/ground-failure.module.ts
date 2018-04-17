@@ -9,13 +9,20 @@ import { AboutComponent } from './about/about.component';
 import { GroundFailureComponent } from './ground-failure/ground-failure.component';
 import { GroundFailureRoutingModule } from './ground-failure-routing.module';
 import { SummaryComponent } from './summary/summary.component';
+import { AlertBarComponent } from './alert-bar/alert-bar.component';
+import { GetBarPositionPipe } from './get-bar-position.pipe';
+import { HazardAlertComponent } from './hazard-alert/hazard-alert.component';
+import { PopulationAlertComponent } from './population-alert/population-alert.component';
+import { MatButtonModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
   imports: [
     CommonModule,
+    MatButtonModule,
     MatTabsModule,
-
+    RouterModule,
     ProductPageModule,
     SharedModule,
 
@@ -24,7 +31,11 @@ import { SummaryComponent } from './summary/summary.component';
   declarations: [
     AboutComponent,
     GroundFailureComponent,
-    SummaryComponent
+    SummaryComponent,
+    AlertBarComponent,
+    GetBarPositionPipe,
+    HazardAlertComponent,
+    PopulationAlertComponent
   ]
 })
 export class GroundFailureModule { }

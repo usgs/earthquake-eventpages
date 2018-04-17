@@ -1,0 +1,17 @@
+
+.summary {
+  max-width: 968px;
+}
+
+@media screen and (min-width: 300px) {
+  .column {
+    min-width: 300px;
+  }
+}
+
+ground-failure-hazard-alert,
+ground-failure-population-alert {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+}
