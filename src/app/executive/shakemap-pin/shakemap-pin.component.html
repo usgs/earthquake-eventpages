@@ -1,17 +1,23 @@
-<basic-pin *ngIf="product as prod"
+<basic-pin *ngIf="product as product"
     [link]="link"
-    [product]="prod"
+    [product]="product"
     [title]="title">
 
-  <div badge>
-    <shared-mmi
-      [intensity]="prod.properties.maxmmi">
-    </shared-mmi>
-  </div>
+  <div card-content *ngIf="product.properties.maxmmi as mmi">
 
-  <shared-map card-content
-      [overlays]="event | shakemapMapOverlays"
-      [showAttributionControl]="false">
-  </shared-map>
+    <dl class="mmi-description">
+      <dt>Intensity</dt>
+      <dd>
+        <shared-mmi
+          [intensity]="mmi">
+        </shared-mmi>
+      </dd>
+      <dt>Perceived Shaking</dt>
+      <dd>{{ mmiDescription[round(mmi)].shaking }}</dd>
+
+      <dt>Potential Damage</dt>
+      <dd>{{ mmiDescription[round(mmi)].damage }}</dd>
+    </dl>
+  </div>
 
 </basic-pin>

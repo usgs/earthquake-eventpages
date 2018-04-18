@@ -22,7 +22,7 @@ describe('ExecutiveComponent', () => {
         ExecutiveComponent,
 
         MockComponent({ selector: 'executive-dyfi-response-submit-pin', inputs: ['product']}),
-        MockComponent({ selector: 'executive-shakemap-pin', inputs: ['event']}),
+        MockComponent({ selector: 'executive-shakemap-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-focal-mechanism-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-map-pin', inputs: ['event']}),
         MockComponent({ selector: 'executive-moment-tensor-pin', inputs: ['product']}),

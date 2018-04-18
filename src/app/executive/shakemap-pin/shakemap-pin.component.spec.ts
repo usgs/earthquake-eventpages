@@ -15,9 +15,8 @@ describe('ShakemapPinComponent', () => {
         ShakemapPinComponent,
         MockComponent({selector: 'basic-pin', inputs: ['link', 'product', 'title']}),
         MockComponent({selector: 'shared-mmi', inputs: ['intensity']}),
-        MockComponent({selector: 'shared-map', inputs: ['overlays', 'showAttributionControl']}),
 
-        MockPipe('shakemapMapOverlays')
+        MockPipe('getProduct')
         ]
     })
     .compileComponents();
@@ -31,28 +30,5 @@ describe('ShakemapPinComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('sets event', () => {
-    const product = {type: 'shakemap'};
-    const event = {
-      type: 'event',
-      getProduct: (prod) => {
-        return product;
-      }
-    };
-    component.event = event;
-
-    expect(component._event).toEqual(event);
-    expect(component.product).toEqual(product);
-
-  });
-
-  it('handles null event', () => {
-    component.event = null;
-
-    expect(component._event).toEqual(null);
-    expect(component.product).toBeUndefined();
-
   });
 });
