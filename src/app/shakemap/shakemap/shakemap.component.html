@@ -10,10 +10,9 @@
   <nav mat-tab-nav-bar>
     <a mat-tab-link [routerLink]="'./map'"
         queryParamsHandling="preserve"
-        [queryParams]="{ 'shakemap-intensity': true }"
         routerLinkActive #map="routerLinkActive"
         [active]="map.isActive">
-      ShakeMap
+      Intensity
     </a>
     <a mat-tab-link [routerLink]="'./metadata'"
         queryParamsHandling="preserve"
