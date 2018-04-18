@@ -287,8 +287,8 @@ export class MapComponent implements AfterViewInit, OnInit {
     // remove overlays from map and layer control
     this.overlaysAdded = this.overlaysAdded.filter((overlay) => {
       if (!overlays.includes(overlay)) {
-        this.layersControl.removeLayer(overlay);
-        this.map.removeLayer(overlay);
+        this.layersControl.removeLayer(overlay.layer);
+        this.map.removeLayer(overlay.layer);
         return false;
       } else {
         return true;
