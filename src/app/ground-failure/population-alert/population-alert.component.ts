@@ -11,7 +11,7 @@ export class PopulationAlertComponent implements OnInit {
     {
       color: '#27a83c',
       text: 'Little to no',
-      min: 0,
+      min: 10,
       max: 100
     },
     {

@@ -13,10 +13,10 @@ export class GetBarPositionPipe implements PipeTransform {
     }
 
     if (min <= 0) {
-      min = Number.EPSILON;
+      min = Number.MIN_VALUE;
     }
     if (value <= 0) {
-      value = Number.EPSILON;
+      value = Number.MIN_VALUE;
     }
 
     return range * (Math.log(value) - Math.log(min)) / (Math.log(max) - Math.log(min));

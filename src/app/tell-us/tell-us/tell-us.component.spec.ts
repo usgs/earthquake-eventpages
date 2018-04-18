@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
+import { Subject } from 'rxjs/Subject';
 
 import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
@@ -19,6 +20,18 @@ describe('TellUsComponent', () => {
   let fixture: ComponentFixture<TellUsComponent>;
 
   beforeEach(async(() => {
+    const dialogStub = {
+      open: () => {
+        const closeValue$ = new Subject<any>();
+        return {
+          afterClosed: () => closeValue$,
+          close: (value) => {
+            closeValue$.next(value);
+          }
+        };
+      }
+    };
+
     const eventServiceStub = {
       event$: of(new Event({}))
     };
@@ -49,7 +62,8 @@ describe('TellUsComponent', () => {
       ],
       providers: [
         {provide: FormLanguageService, useValue: languageServiceStub},
-        {provide: EventService, useValue: eventServiceStub}
+        {provide: EventService, useValue: eventServiceStub},
+        {provide: MatDialog, useValue: dialogStub}
       ],
     });
 
