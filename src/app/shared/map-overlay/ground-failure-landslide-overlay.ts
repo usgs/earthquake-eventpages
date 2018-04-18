@@ -1,8 +1,8 @@
 import * as L from 'leaflet';
 
 
-const LandslideOverlay = L.ImageOverlay.extend({
-  id: 'landslide',
+const GroundFailureLandslideOverlay = L.ImageOverlay.extend({
+  id: 'ground-failure-landslide',
   isOverlay: true,
   enabled: false,
   title: 'Landslide Estimate',
@@ -57,6 +57,6 @@ const LandslideOverlay = L.ImageOverlay.extend({
   }
 });
 
-export { LandslideOverlay };
+export { GroundFailureLandslideOverlay };
 
 

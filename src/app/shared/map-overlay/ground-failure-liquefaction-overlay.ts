@@ -1,8 +1,8 @@
 import * as L from 'leaflet';
 
 
-const LiquefactionOverlay = L.ImageOverlay.extend({
-  id: 'liquefaction',
+const GroundFailureLiquefactionOverlay = L.ImageOverlay.extend({
+  id: 'ground-failure-liquefaction',
   isOverlay: true,
   enabled: false,
   title: 'Liquefaction Estimate',
@@ -57,6 +57,6 @@ const LiquefactionOverlay = L.ImageOverlay.extend({
   }
 });
 
-export { LiquefactionOverlay };
+export { GroundFailureLiquefactionOverlay };
 
 

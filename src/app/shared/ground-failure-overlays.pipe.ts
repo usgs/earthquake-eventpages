@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { Overlay } from './map-overlay/overlay';
-import { LiquefactionOverlay } from './map-overlay/liquefaction-overlay';
-import { LandslideOverlay } from './map-overlay/landslide-overlay';
+import { GroundFailureLiquefactionOverlay } from './map-overlay/ground-failure-liquefaction-overlay';
+import { GroundFailureLandslideOverlay } from './map-overlay/ground-failure-landslide-overlay';
 
 @Pipe({
   name: 'groundFailureOverlays'
@@ -14,8 +14,8 @@ export class GroundFailureOverlaysPipe implements PipeTransform {
   transform (product: any): Array<Overlay> {
     const overlays = [];
     if (product) {
-      overlays.push(new LiquefactionOverlay(product));
-      overlays.push(new LandslideOverlay(product));
+      overlays.push(new GroundFailureLiquefactionOverlay(product));
+      overlays.push(new GroundFailureLandslideOverlay(product));
     }
 
     return overlays;
