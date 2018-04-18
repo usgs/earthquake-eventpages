@@ -41,7 +41,7 @@ export class HazardAlertComponent implements OnInit {
     {
       color: '#27a83c',
       text: 'Little to no',
-      min: 0,
+      min: 1,
       max: 10
     },
     {
