@@ -1,9 +1,13 @@
-<ng-container *ngIf="eventService.event$ | async; let event">
+<ng-container *ngIf="eventService.product$ | async; let product">
   <a
-      [routerLink]="'../map'"
-      [queryParams]="{ 'shakemap-intensity': true }">
+      [routerLink]="'../../map'"
+      [queryParams]="{
+        'shakemap-code': product?.code,
+        'shakemap-intensity': true,
+        'shakemap-source': product?.source
+      }">
     <shared-map
-        [overlays]="event | getProduct:'shakemap' | shakemapOverlays"
+        [overlays]="product | shakemapOverlays"
         [showScaleControl]="true">
     </shared-map>
   </a>
