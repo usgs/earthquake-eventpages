@@ -32,6 +32,7 @@ import { TensorPipe } from './tensor.pipe';
 import { DateTimePipe } from './date-time.pipe';
 import { DyfiCounterPipe } from './dyfi-counter.pipe';
 import { GetProductPipe } from './get-product.pipe';
+import { GroundFailureOverlaysPipe } from './ground-failure-overlays.pipe';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 import { KeysPipe } from './keys.pipe';
@@ -75,6 +76,7 @@ import { ShakemapMapOverlaysPipe } from './shakemap-map-overlays.pipe';
     TensorPipe,
     DateTimePipe,
     GetProductPipe,
+    GroundFailureOverlaysPipe,
     InteractiveMapOverlaysPipe,
     RegionInfoOverlaysPipe,
     KeysPipe,
@@ -108,6 +110,7 @@ import { ShakemapMapOverlaysPipe } from './shakemap-map-overlays.pipe';
     TensorPipe,
     DateTimePipe,
     GetProductPipe,
+    GroundFailureOverlaysPipe,
     KeysPipe,
     InteractiveMapOverlaysPipe,
     RegionInfoOverlaysPipe,

@@ -5,9 +5,9 @@ import { LiquefactionOverlay } from './map-overlay/liquefaction-overlay';
 import { LandslideOverlay } from './map-overlay/landslide-overlay';
 
 @Pipe({
-  name: 'liquefactionOverlays'
+  name: 'groundFailureOverlays'
 })
-export class LiquefactionOverlaysPipe implements PipeTransform {
+export class GroundFailureOverlaysPipe implements PipeTransform {
 
   constructor () {}
 
@@ -22,4 +22,3 @@ export class LiquefactionOverlaysPipe implements PipeTransform {
   }
 
 }
-

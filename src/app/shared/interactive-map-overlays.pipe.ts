@@ -5,7 +5,7 @@ import { Event } from '../event';
 import { getUnique } from '../unique';
 import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
 import { Overlay } from '../shared/map-overlay/overlay';
-import { LiquefactionOverlaysPipe } from '../shared/liquefaction-overlays.pipe';
+import { GroundFailureOverlaysPipe } from '../shared/ground-failure-overlays.pipe';
 import { RegionInfoOverlaysPipe } from '../shared/region-info-overlays.pipe';
 import { ShakemapOverlaysPipe } from '../shared/shakemap-overlays.pipe';
 
@@ -28,7 +28,7 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
 
     // keep origin first, the rest go here:
     'shakemap': new ShakemapOverlaysPipe(),
-    'ground-failure': new LiquefactionOverlaysPipe()
+    'ground-failure': new GroundFailureOverlaysPipe()
   };
 
   // track which event was last displayed
