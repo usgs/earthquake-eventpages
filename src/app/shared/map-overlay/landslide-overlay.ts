@@ -11,7 +11,10 @@ const LandslideOverlay = L.ImageOverlay.extend({
   layer: null,
 
   initialize: function (product: any) {
-    const legend = document.createElement('img');
+
+    if (!product || !product.properties || !product.contents) {
+      return this;
+    }
 
     this.layer = this;
 
@@ -28,6 +31,7 @@ const LandslideOverlay = L.ImageOverlay.extend({
     ];
 
     // set landslide legend
+    const legend = document.createElement('img');
     legend.src = './assets/legend-landslide.png';
     legend.setAttribute('alt', 'Landslide Estimate Legend');
     this.legend = legend;

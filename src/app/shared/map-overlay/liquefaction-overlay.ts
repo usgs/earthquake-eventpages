@@ -11,7 +11,10 @@ const LiquefactionOverlay = L.ImageOverlay.extend({
   layer: null,
 
   initialize: function (product: any) {
-    const legend = document.createElement('img');
+
+    if (!product || !product.properties || !product.contents) {
+      return this;
+    }
 
     this.layer = this;
 
@@ -28,6 +31,7 @@ const LiquefactionOverlay = L.ImageOverlay.extend({
     ];
 
     // set liquefaction legend
+    const legend = document.createElement('img');
     legend.src = './assets/legend-liquefaction.png';
     legend.setAttribute('alt', 'Liquefaction Estimate Legend');
     this.legend = legend;
