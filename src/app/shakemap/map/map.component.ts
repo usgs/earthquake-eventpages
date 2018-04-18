@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
@@ -9,6 +10,9 @@ import { EventService } from '../../core/event.service';
 })
 export class MapComponent {
 
-  constructor (public eventService: EventService) { }
+  constructor (
+    public eventService: EventService,
+    public activatedRoute: ActivatedRoute
+  ) { }
 
 }

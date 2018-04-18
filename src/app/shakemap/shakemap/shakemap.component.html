@@ -11,6 +11,9 @@
     <a mat-tab-link [routerLink]="'./map'"
         queryParamsHandling="preserve"
         routerLinkActive #map="routerLinkActive"
+        [queryParams]="{
+          'shakemap-intensity': true
+        }"
         [active]="map.isActive">
       Intensity
     </a>
