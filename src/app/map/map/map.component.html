@@ -1,6 +1,7 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
   <ng-container *ngIf="activatedRoute.queryParamMap | async; let params">
     <shared-map
+        [bounds]="params | interactiveMapBounds"
         [overlays]="event | interactiveMapOverlays:params"
         [showLayersControl]="true"
         [showLegendControl]="true"

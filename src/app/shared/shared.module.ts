@@ -34,6 +34,7 @@ import { DyfiCounterPipe } from './dyfi-counter.pipe';
 import { GetProductPipe } from './get-product.pipe';
 import { GroundFailureOverlaysPipe } from './ground-failure-overlays.pipe';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
+import { InteractiveMapBoundsPipe } from './interactive-map-bounds.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 import { KeysPipe } from './keys.pipe';
 import { StationFlagComponent } from './station-flag/station-flag.component';
@@ -77,6 +78,7 @@ import { ShakemapMapOverlaysPipe } from './shakemap-map-overlays.pipe';
     DateTimePipe,
     GetProductPipe,
     GroundFailureOverlaysPipe,
+    InteractiveMapBoundsPipe,
     InteractiveMapOverlaysPipe,
     RegionInfoOverlaysPipe,
     KeysPipe,
@@ -112,6 +114,7 @@ import { ShakemapMapOverlaysPipe } from './shakemap-map-overlays.pipe';
     GetProductPipe,
     GroundFailureOverlaysPipe,
     KeysPipe,
+    InteractiveMapBoundsPipe,
     InteractiveMapOverlaysPipe,
     RegionInfoOverlaysPipe,
     ShakemapMapOverlaysPipe
