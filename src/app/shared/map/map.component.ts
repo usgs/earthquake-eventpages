@@ -207,8 +207,10 @@ export class MapComponent implements AfterViewInit, OnInit {
     }
 
     setTimeout(() => {
-      this.map.fitBounds(bounds);
-      this.map.invalidateSize();
+      if (this.map) {
+        this.map.fitBounds(bounds);
+        this.map.invalidateSize();
+      }
     }, 0);
   }
 

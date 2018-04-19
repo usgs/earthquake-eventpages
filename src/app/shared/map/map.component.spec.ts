@@ -66,11 +66,11 @@ describe('MapComponent', () => {
   describe('setBounds', () => {
 
     beforeEach(() => {
-      jasmine.clock().install()
+      jasmine.clock().install();
     });
 
     afterEach(() => {
-      jasmine.clock().uninstall()
+      jasmine.clock().uninstall();
     });
 
     it('waits for map to be defined', () => {
@@ -88,11 +88,10 @@ describe('MapComponent', () => {
 
       component.setBounds();
 
-      jasmine.clock().tick(1)
+      jasmine.clock().tick(1);
 
       expect(component.getOverlayBounds).toHaveBeenCalled();
       expect(component.map.fitBounds).toHaveBeenCalledWith(bounds);
-
     });
 
     it('defaults to world', () => {
@@ -101,7 +100,7 @@ describe('MapComponent', () => {
 
       component.setBounds();
 
-      jasmine.clock().tick(1)
+      jasmine.clock().tick(1);
 
       expect(component.getOverlayBounds).toHaveBeenCalled();
       expect(component.map.fitBounds.calls.first().args[0]).toEqual(
