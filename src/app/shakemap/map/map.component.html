@@ -3,7 +3,7 @@
       [routerLink]="'../../map'"
       [queryParams]="queryParams">
     <shared-map
-        [overlays]="shakemap | shakemapOverlays:overlayEnabled"
+        [overlays]="shakemap | shakemapOverlays:enableOverlay"
         [showScaleControl]="true">
     </shared-map>
   </a>

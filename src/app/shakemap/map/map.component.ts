@@ -13,7 +13,7 @@ import { EventService } from '../../core/event.service';
 export class MapComponent implements OnInit {
 
   public event: Event;
-  public overlayEnabled_: string = null;
+  public enableOverlay_: string = null;
   public queryParams: any = {};
   public shakemap: any;
   private subscription = new Subscription;
@@ -38,13 +38,13 @@ export class MapComponent implements OnInit {
     }));
   }
 
-  @Input() set overlayEnabled(enabled: string) {
+  @Input() set enableOverlay(enabled: string) {
     this.queryParams[enabled] = true;
-    this.overlayEnabled_ = enabled;
+    this.enableOverlay_ = enabled;
   }
 
-  get overlayEnabled() {
-    return this.overlayEnabled_;
+  get enableOverlay() {
+    return this.enableOverlay_;
   }
 
 }
