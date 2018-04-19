@@ -9,12 +9,14 @@
         }">
 
       <ng-container
-          *ngIf="shakemap?.contents['download/cont_mi.json-NONE']; else noOverlay">
+          *ngIf="shakemap?.contents['download/cont_mi.json']; else noOverlay">
 
         <shared-map
             [overlays]="shakemap | shakemapOverlays:'shakemap-intensity'"
             [showScaleControl]="true">
         </shared-map>
+
+        <img src="./assets/large-intensity-legend.png" alt="Intensity legend">
       </ng-container>
 
       <ng-template #noOverlay>
