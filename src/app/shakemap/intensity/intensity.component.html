@@ -1,2 +1,16 @@
-<shakemap-map [overlayEnabled]="'shakemap-intensity'">
-</shakemap-map>
+<ng-container *ngIf="eventService.product$ | async; let product">
+  <ng-container *ngIf="product; let shakemap">
+    <a
+        [routerLink]="'../../map'"
+        [queryParams]="{
+          'shakemap-code': shakemap?.code,
+          'shakemap-source': shakemap?.source,
+          'shakemap-intensity': true
+        }">
+      <shared-map
+          [overlays]="shakemap | shakemapOverlays:'shakemap-intensity'"
+          [showScaleControl]="true">
+      </shared-map>
+    </a>
+  </ng-container>
+</ng-container>

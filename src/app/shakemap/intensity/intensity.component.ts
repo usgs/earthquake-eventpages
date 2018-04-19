@@ -9,7 +9,7 @@ import { EventService } from '../../core/event.service';
 })
 export class IntensityComponent implements OnInit {
 
-  constructor() { }
+  constructor(public eventService: EventService) { }
 
   ngOnInit() {
   }

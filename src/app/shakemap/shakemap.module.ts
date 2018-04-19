@@ -23,7 +23,6 @@ import { InputComponent } from './metadata/input/input.component';
 import { OutputComponent } from './metadata/output/output.component';
 import { ProcessingComponent } from './metadata/processing/processing.component';
 import { UncertaintyComponent } from './uncertainty/uncertainty.component';
-import { MapComponent } from './map/map.component';
 import { IntensityComponent } from './intensity/intensity.component';
 
 @NgModule({
@@ -50,7 +49,6 @@ import { IntensityComponent } from './intensity/intensity.component';
     OutputComponent,
     ProcessingComponent,
     UncertaintyComponent,
-    MapComponent,
     IntensityComponent
   ],
   exports: [
