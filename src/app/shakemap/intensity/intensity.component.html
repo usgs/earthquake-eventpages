@@ -1,14 +1,27 @@
 <ng-container *ngIf="eventService.product$ | async; let shakemap">
-  <a
-      [routerLink]="'../../map'"
-      [queryParams]="{
-        'shakemap-code': shakemap?.code,
-        'shakemap-source': shakemap?.source,
-        'shakemap-intensity': true
-      }">
-    <shared-map
-        [overlays]="shakemap | shakemapOverlays:'shakemap-intensity'"
-        [showScaleControl]="true">
-    </shared-map>
-  </a>
+
+    <a
+        [routerLink]="'../../map'"
+        [queryParams]="{
+          'shakemap-code': shakemap?.code,
+          'shakemap-source': shakemap?.source,
+          'shakemap-intensity': true
+        }">
+
+      <ng-container
+          *ngIf="shakemap?.contents['download/cont_mi.json-NONE']; else noOverlay">
+
+        <shared-map
+            [overlays]="shakemap | shakemapOverlays:'shakemap-intensity'"
+            [showScaleControl]="true">
+        </shared-map>
+      </ng-container>
+
+      <ng-template #noOverlay>
+        <img
+            src="{{ shakemap.contents['download/intensity.jpg'].url }}"
+            alt="ShakeMap intensity image">
+      </ng-template>
+
+    </a>
 </ng-container>
