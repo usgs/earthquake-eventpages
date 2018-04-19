@@ -26,6 +26,38 @@ describe('MapComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  describe('bounds', () => {
+    it('set calls setBounds', () => {
+      spyOn(component, 'setBounds');
+      component.bounds = null;
+      expect(component.setBounds).toHaveBeenCalled();
+    });
+
+    it('uses overlay bounds when not set', (done) => {
+      spyOn(component, 'getOverlayBounds').and.returnValue('test');
+      spyOn(component.map, 'fitBounds');
+
+      component.bounds = null;
+      expect(component.getOverlayBounds).toHaveBeenCalled();
+      setTimeout(() => {
+        expect(component.map.fitBounds).toHaveBeenCalledWith('test');
+        done();
+      }, 1);
+    });
+
+    it('uses bounds when set', (done) => {
+      spyOn(component.map, 'fitBounds');
+      const myBounds = [[12, 34], [56, 78]];
+
+      component.bounds = myBounds;
+
+      setTimeout(() => {
+        expect(component.map.fitBounds).toHaveBeenCalledWith(myBounds);
+        done();
+      }, 1);
+    });
+  });
+
   describe('overlays', () => {
     it('set calls updateOverlays', () => {
       spyOn(component, 'updateOverlays');

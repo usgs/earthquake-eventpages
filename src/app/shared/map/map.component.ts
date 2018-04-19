@@ -16,6 +16,9 @@ export class MapComponent implements AfterViewInit, OnInit {
   @Input() baselayer = 'Topographic';
   @Input() showAttributionControl = true;
 
+  // value of bounds property
+  private _bounds: Array<Array<number>> = null;
+
   // value of overlays property
   private _overlays: Array<Overlay> = [];
 
@@ -120,6 +123,16 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.updateOverlays();
   }
 
+  get bounds (): Array<Array<number>> {
+    return this._bounds;
+  }
+
+  @Input()
+  set bounds (bounds: Array<Array<number>>) {
+    this._bounds = bounds;
+    this.setBounds();
+  }
+
   @Input()
   set interactive (interactive: boolean) {
     this._interactive = interactive;
@@ -199,7 +212,12 @@ export class MapComponent implements AfterViewInit, OnInit {
       return;
     }
 
-    let bounds = this.getOverlayBounds();
+    let bounds = this.bounds;
+
+    // use overlays if no explicit bounds set
+    if (bounds === null) {
+      bounds = this.getOverlayBounds();
+    }
 
     // default to world if no overlay bounds
     if (bounds === null) {
