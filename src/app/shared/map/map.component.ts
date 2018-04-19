@@ -177,13 +177,6 @@ export class MapComponent implements AfterViewInit, OnInit {
     return this._showScaleControl;
   }
 
-  fitBounds(bounds) {
-    setTimeout(() => {
-      this.map.fitBounds(bounds);
-      this.map.invalidateSize();
-    }, 0);
-  }
-
   getOverlayBounds () {
     let bounds = null;
 
@@ -213,7 +206,10 @@ export class MapComponent implements AfterViewInit, OnInit {
       bounds = [[85.0, 180.0], [-85.0, 180.0]];
     }
 
-    this.fitBounds(bounds);
+    setTimeout(() => {
+      this.map.fitBounds(bounds);
+      this.map.invalidateSize();
+    }, 0);
   }
 
   updateControls () {

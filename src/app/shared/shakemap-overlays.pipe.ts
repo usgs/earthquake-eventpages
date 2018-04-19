@@ -9,10 +9,17 @@ import { ShakemapIntensityOverlay } from './map-overlay/shakemap-intensity-overl
 })
 export class ShakemapOverlaysPipe implements PipeTransform {
 
-  transform (product: any): Array<Overlay> {
+  transform (product: any, enabled: string = null): Array<Overlay> {
     const overlays = [];
     if (product) {
       overlays.push(new ShakemapIntensityOverlay(product));
+
+      if (enabled) {
+        overlays.forEach((overlay) => {
+          overlay.enabled = overlay.id === enabled;
+        });
+      }
+
       overlays.push(new EpicenterOverlay(product));
     }
 

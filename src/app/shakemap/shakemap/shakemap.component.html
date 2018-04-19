@@ -8,13 +8,10 @@
 
   <!-- routes/components in ../origin-routing.module.ts -->
   <nav mat-tab-nav-bar>
-    <a mat-tab-link [routerLink]="'./map'"
+    <a mat-tab-link [routerLink]="'./intensity'"
         queryParamsHandling="preserve"
-        routerLinkActive #map="routerLinkActive"
-        [queryParams]="{
-          'shakemap-intensity': true
-        }"
-        [active]="map.isActive">
+        routerLinkActive #intensity="routerLinkActive"
+        [active]="intensity.isActive">
       Intensity
     </a>
     <a mat-tab-link [routerLink]="'./metadata'"

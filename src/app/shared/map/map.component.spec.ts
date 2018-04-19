@@ -72,24 +72,40 @@ describe('MapComponent', () => {
       expect(component.getOverlayBounds).not.toHaveBeenCalled();
     });
 
-    it('uses overlay bounds', () => {
+    it('uses overlay bounds', (done) => {
       const bounds = [1, 2, 3];
       spyOn(component, 'getOverlayBounds').and.returnValue(bounds);
-      spyOn(component, 'fitBounds').and.returnValue(null);
+      spyOn(component.map, 'fitBounds').and.returnValue(null);
 
       component.setBounds();
-      expect(component.getOverlayBounds).toHaveBeenCalled();
-      expect(component.fitBounds).toHaveBeenCalledWith(bounds);
+
+      setTimeout(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(component.getOverlayBounds).toHaveBeenCalled();
+          expect(component.map.fitBounds).toHaveBeenCalledWith(bounds);
+          done();
+        });
+      }, 10);
+
     });
 
-    it('defaults to world', () => {
+    it('defaults to world', (done) => {
       spyOn(component, 'getOverlayBounds').and.returnValue(null);
-      spyOn(component, 'fitBounds').and.returnValue(null);
+      spyOn(component.map, 'fitBounds').and.returnValue(null);
 
       component.setBounds();
-      expect(component.getOverlayBounds).toHaveBeenCalled();
-      expect(component.fitBounds).toHaveBeenCalledWith(
-          [[85, 180], [-85, 180]]);
+
+      setTimeout(() => {
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+          expect(component.getOverlayBounds).toHaveBeenCalled();
+          expect(component.map.fitBounds).toHaveBeenCalledWith(
+              [[85, 180], [-85, 180]]);
+          done();
+        });
+      }, 10);
+
     });
   });
 

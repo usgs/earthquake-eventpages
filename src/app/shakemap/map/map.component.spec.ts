@@ -32,8 +32,7 @@ describe('MapComponent', () => {
             'showScaleControl'
           ]
        }),
-        MockPipe('interactiveMapOverlays'),
-        MockPipe('getProduct')
+        MockPipe('shakemapOverlays')
       ],
       providers: [
         { provide: EventService, useValue: eventServiceStub }
