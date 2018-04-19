@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MmiComponent } from './mmi.component';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('MmiComponent', () => {
   let component: MmiComponent;
@@ -8,7 +9,11 @@ describe('MmiComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MmiComponent ]
+      declarations: [
+        MmiComponent,
+
+        MockComponent({selector: 'shared-bubble', inputs: ['name', 'title']})
+      ]
     })
     .compileComponents();
   }));
