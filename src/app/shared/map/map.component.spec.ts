@@ -64,6 +64,15 @@ describe('MapComponent', () => {
   });
 
   describe('setBounds', () => {
+
+    beforeEach(() => {
+      jasmine.clock().install()
+    });
+
+    afterEach(() => {
+      jasmine.clock().uninstall()
+    });
+
     it('waits for map to be defined', () => {
       component.map = null;
       spyOn(component, 'getOverlayBounds');
@@ -79,14 +88,11 @@ describe('MapComponent', () => {
 
       component.setBounds();
 
-      setTimeout(() => {
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(component.getOverlayBounds).toHaveBeenCalled();
-          expect(component.map.fitBounds).toHaveBeenCalledWith(bounds);
-          done();
-        });
-      }, 10);
+      jasmine.clock().tick(1)
+
+      expect(component.getOverlayBounds).toHaveBeenCalled();
+      expect(component.map.fitBounds).toHaveBeenCalledWith(bounds);
+      done();
 
     });
 
@@ -96,16 +102,12 @@ describe('MapComponent', () => {
 
       component.setBounds();
 
-      setTimeout(() => {
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
-          expect(component.getOverlayBounds).toHaveBeenCalled();
-          expect(component.map.fitBounds).toHaveBeenCalledWith(
-              [[85, 180], [-85, 180]]);
-          done();
-        });
-      }, 10);
+      jasmine.clock().tick(1)
 
+      expect(component.getOverlayBounds).toHaveBeenCalled();
+      expect(component.map.fitBounds.calls.first().args[0]).toEqual(
+          [[85, 180], [-85, 180]]);
+      done();
     });
   });
 
