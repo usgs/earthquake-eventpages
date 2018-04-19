@@ -24,13 +24,15 @@ describe('MapComponent', () => {
         MockComponent({
           selector: 'shared-map',
           inputs: [
+            'bounds',
             'overlays',
             'showLayersControl',
             'showLegendControl',
             'showScaleControl',
             'interactive'
           ]
-       }),
+        }),
+        MockPipe('interactiveMapBounds'),
         MockPipe('interactiveMapOverlays')
       ],
       imports: [
