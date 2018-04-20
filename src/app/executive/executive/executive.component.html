@@ -41,6 +41,19 @@
         </executive-focal-mechanism-pin>
       </li>
     </ng-template>
+
+    <li *ngIf="event | getProduct:'ground-failure' let groundFailure">
+      <executive-ground-failure-pin [product]="groundFailure"
+          [landslidesAreaAlert]=
+          "groundFailure.properties['landslide-hazard-alert-color']"
+          [landslidesPopulationAlert]=
+          "groundFailure.properties['landslide-population-alert-color']"
+          [liquefactionAreaAlert]=
+          "groundFailure.properties['liquefaction-hazard-alert-color']"
+          [liquefactionPopulationAlert]=
+          "groundFailure.properties['liquefaction-population-alert-color']">
+      </executive-ground-failure-pin>
+    </li>
   </ul>
 
   <shared-text-product
