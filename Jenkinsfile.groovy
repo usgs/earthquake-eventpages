@@ -319,6 +319,9 @@ node {
       sh """
         set +e;
 
+        # Cleaning up node_modules folder...
+        rm -r node_modules;
+
         # Cleaning up any leftover containers...
         docker container rm --force \
           ${BUILDER_CONTAINER} \
