@@ -13,7 +13,7 @@ export class ShakemapIntensityOverlay extends AsynchronousGeoJSONOverlay {
     super();
 
     const legend = document.createElement('img');
-    legend.src = './assets/legend-intensity-scale.png';
+    legend.src = './assets/shakemap-intensity-legend-small.png';
     legend.setAttribute('alt', 'Intensity scale legend');
     this.layer.legend = legend;
 
