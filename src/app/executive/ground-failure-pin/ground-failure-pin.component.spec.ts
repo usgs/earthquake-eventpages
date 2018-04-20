@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockComponent } from 'ng2-mock-component';
 
 import { GroundFailurePinComponent } from './ground-failure-pin.component';
 
@@ -8,7 +9,16 @@ describe('GroundFailurePinComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroundFailurePinComponent ]
+      declarations: [
+        GroundFailurePinComponent,
+
+        Mockcomponent({
+          selector: 'basic-pin',
+          inputs: [
+            'link'
+          ]
+        })
+      ]
     })
     .compileComponents();
   }));
