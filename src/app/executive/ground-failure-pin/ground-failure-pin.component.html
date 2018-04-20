@@ -1,0 +1,91 @@
+<basic-pin *ngIf="product"
+  [link]="link"
+  [product]="product"
+  [title]="title">
+
+  <div card-content>
+    <div class="landslides-pin-content">
+      <h4>Landslides</h4>
+      <div class="material-icons landslides-liquefaction-icon"
+          [ngClass]="product.properties['landslide-hazard-alert-color']">
+        &#xE564;
+      </div>
+      <div [ngSwitch]="landslidesAreaAlert">
+        <ng-container *ngSwitchCase="'green'">
+          <span>Little to no area</span>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'yellow'">
+          <span>Limited area</span>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'orange'">
+          <span>Significant area</span>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'red'">
+          <span>Extensive area</span>
+        </ng-container>
+      </div>
+      <div [ngSwitch]="landslidesPopulationAlert">
+        <ng-container *ngSwitchCase="'green'">
+          <span>No to few people</span>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'yellow'">
+          <span>Limited people</span>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'orange'">
+          <span>Significant people</span>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'red'">
+          <span>Extensive people</span>
+        </ng-container>
+      </div>
+    </div>
+    <div class="liquefaction-pin-content">
+      <h4>Liquefaction</h4>
+      <div class="material-icons landslides-liquefaction-icon"
+          [ngClass]="product.properties['liquefaction-hazard-alert-color']">
+        &#xEB48;
+      </div>
+      <div [ngSwitch]="liquefactionAreaAlert">
+        <ng-container *ngSwitchCase="'green'">
+          <span>Little to no area</span>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'yellow'">
+          <span>Limited area</span>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'orange'">
+          <span>Significant area</span>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'red'">
+          <span>Extensive area</span>
+        </ng-container>
+      </div>
+      <div [ngSwitch]="liquefactionPopulationAlert">
+        <ng-container *ngSwitchCase="'green'">
+          <span>No to few people</span>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'yellow'">
+          <span>Limited people</span>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'orange'">
+          <span>Significant people</span>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="'red'">
+          <span>Extensive people</span>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</basic-pin>
+
