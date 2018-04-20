@@ -18,7 +18,7 @@
 
       <button mat-raised-button
           [routerLink]="'../../map'"
-          [queryParams]="{ 'ground-failure-landslide': true, 'shakemap-intensity': false }">
+          [queryParams]="{ 'ground-failure-landslide': true, 'shakemap-intensity': false, 'bounds': getMapBounds(product) }">
         View Landslide Map
       </button>
     </section>
@@ -40,7 +40,7 @@
 
       <button mat-raised-button
           [routerLink]="'../../map'"
-          [queryParams]="{ 'ground-failure-liquefaction': true, 'shakemap-intensity': false }">
+          [queryParams]="{ 'ground-failure-liquefaction': true, 'shakemap-intensity': false, 'bounds': getMapBounds(product) }">
         View Liquefaction Map
       </button>
     </section>
