@@ -26,4 +26,27 @@ describe('ShakemapOverlaysPipe', () => {
   it('handles product', () => {
     const overlays = pipe.transform(SHAKEMAP);
   });
+
+  it('only sets epicenter as enabled by default', () => {
+    const overlays = pipe.transform(SHAKEMAP);
+    overlays.forEach((overlay) => {
+      if (overlay.id !== 'epicenter') {
+        expect(overlay.enabled).toBe(false);
+      } else {
+        expect(overlay.enabled).toBe(true);
+      }
+    });
+  });
+
+  it('sets additional layer enabled using parameter', () => {
+    const overlays = pipe.transform(SHAKEMAP, 'shakemap-intensity');
+    overlays.forEach((overlay) => {
+      if (overlay.id !== 'epicenter' &&
+          overlay.id !== 'shakemap-intensity') {
+        expect(overlay.enabled).toBe(false);
+      } else {
+        expect(overlay.enabled).toBe(true);
+      }
+    });
+  });
 });

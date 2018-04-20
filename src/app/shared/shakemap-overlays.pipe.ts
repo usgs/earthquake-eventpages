@@ -14,11 +14,9 @@ export class ShakemapOverlaysPipe implements PipeTransform {
     if (product) {
       overlays.push(new ShakemapIntensityOverlay(product));
 
-      if (enabled) {
-        overlays.forEach((overlay) => {
-          overlay.enabled = overlay.id === enabled;
-        });
-      }
+      overlays.forEach((overlay) => {
+        overlay.enabled = overlay.id === enabled;
+      });
 
       overlays.push(new EpicenterOverlay(product));
     }

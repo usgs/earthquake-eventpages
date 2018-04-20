@@ -6,13 +6,16 @@ import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 export class ShakemapIntensityOverlay extends AsynchronousGeoJSONOverlay {
 
   public id = 'shakemap-intensity';
-  public enabled = true;
   public title = 'Shakemap MMI Contours';
-  public legend: string = null;
-
+  public legend = null;
 
   constructor (public product: any) {
     super();
+
+    const legend = document.createElement('img');
+    legend.src = './assets/legend-intensity-scale.png';
+    legend.setAttribute('alt', 'Intensity scale legend');
+    this.layer.legend = legend;
 
     this.url = this.getUrl(product);
   }
