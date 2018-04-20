@@ -12,10 +12,11 @@ describe('GroundFailurePinComponent', () => {
       declarations: [
         GroundFailurePinComponent,
 
-        Mockcomponent({
+        MockComponent({
           selector: 'basic-pin',
           inputs: [
-            'link'
+            'link',
+            'product'
           ]
         })
       ]

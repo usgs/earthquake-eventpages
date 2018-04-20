@@ -10,7 +10,7 @@
           [ngClass]="product.properties['landslide-hazard-alert-color']">
         &#xE564;
       </div>
-      <div [ngSwitch]="landslidesAreaAlert">
+      <div [ngSwitch]="product.properties['landslide-hazard-alert-color']">
         <ng-container *ngSwitchCase="'green'">
           <span>Little to no area</span>
         </ng-container>
@@ -27,7 +27,7 @@
           <span>Extensive area</span>
         </ng-container>
       </div>
-      <div [ngSwitch]="landslidesPopulationAlert">
+      <div [ngSwitch]="product.properties['landslide-population-alert-color']">
         <ng-container *ngSwitchCase="'green'">
           <span>No to few people</span>
         </ng-container>
@@ -51,7 +51,7 @@
           [ngClass]="product.properties['liquefaction-hazard-alert-color']">
         &#xEB48;
       </div>
-      <div [ngSwitch]="liquefactionAreaAlert">
+      <div [ngSwitch]="product.properties['liquefaction-hazard-alert-color']">
         <ng-container *ngSwitchCase="'green'">
           <span>Little to no area</span>
         </ng-container>
@@ -68,7 +68,8 @@
           <span>Extensive area</span>
         </ng-container>
       </div>
-      <div [ngSwitch]="liquefactionPopulationAlert">
+      <div [ngSwitch]=
+          "product.properties['liquefaction-population-alert-color']">
         <ng-container *ngSwitchCase="'green'">
           <span>No to few people</span>
         </ng-container>
