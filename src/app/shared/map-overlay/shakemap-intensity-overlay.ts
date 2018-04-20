@@ -25,12 +25,13 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
       return null;
     }
 
-    return product.contents['download/cont_mi.json'].url || null;
+    return product.contents['download/cont_mi.json'] ?
+         product.contents['download/cont_mi.json'].url : null;
   },
 
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
-      layer.bindPopup(feature.properties.value.toString());
+      layer.bindPopup(`${feature.properties.value} MMI`);
     }
   },
 
