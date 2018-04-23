@@ -100,7 +100,7 @@ node {
       // okay, but just be aware ...
 
       // Run linting, unit tests, and end-to-end tests
-      docker.image(TESTER_IMAGE).inside ("-u root") {
+      docker.image(TESTER_IMAGE).inside () {
           ansiColor('xterm') {
             sh """
               npm install --no-save
