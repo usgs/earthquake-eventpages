@@ -24,6 +24,11 @@
       </executive-shakemap-pin>
     </li>
 
+    <li *ngIf="event | getProduct:'ground-failure' let groundFailure">
+      <executive-ground-failure-pin [product]="groundFailure">
+      </executive-ground-failure-pin>
+    </li>
+
     <li *ngIf="event | getProduct:'origin'; let origin">
       <executive-origin-pin [product]="origin">
       </executive-origin-pin>
@@ -41,11 +46,6 @@
         </executive-focal-mechanism-pin>
       </li>
     </ng-template>
-
-    <li *ngIf="event | getProduct:'ground-failure' let groundFailure">
-      <executive-ground-failure-pin [product]="groundFailure">
-      </executive-ground-failure-pin>
-    </li>
   </ul>
 
   <shared-text-product
