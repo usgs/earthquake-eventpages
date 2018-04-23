@@ -15,4 +15,25 @@ export class SummaryComponent implements OnInit {
   ngOnInit() {
   }
 
+  getMapBounds (product: any) {
+    if (product && product.properties &&
+        product.properties['minimum-latitude'] &&
+        product.properties['minimum-longitude'] &&
+        product.properties['maximum-latitude'] &&
+        product.properties['maximum-longitude']
+    ) {
+      return [
+        [
+          product.properties['minimum-latitude'],
+          product.properties['minimum-longitude']
+        ],
+        [
+          product.properties['maximum-latitude'],
+          product.properties['maximum-longitude']
+        ]
+      ];
+    }
+
+    return null;
+  }
 }
