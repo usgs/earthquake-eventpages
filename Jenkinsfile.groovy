@@ -43,7 +43,7 @@ node {
   try {
     stage('Initialize') {
       // Clean workspace before building
-      cleanWs()
+      deleteDir()
 
       // Clone latest source
       SCM_VARS = checkout scm
