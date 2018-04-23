@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { EventService } from '../../core/event.service';
+
 @Component({
   selector: 'app-shakemap',
   templateUrl: './shakemap.component.html',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShakemapComponent implements OnInit {
 
-  constructor () { }
+  constructor (public eventService: EventService) { }
 
   ngOnInit () {
   }

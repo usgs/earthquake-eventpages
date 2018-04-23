@@ -6,34 +6,39 @@
     <h3>ShakeMap</h3>
   </ng-container>
 
+  <ng-container *ngIf="eventService.product$ | async; let shakemap">
   <!-- routes/components in ../origin-routing.module.ts -->
-  <nav mat-tab-nav-bar>
-    <a mat-tab-link [routerLink]="'./intensity'"
-        queryParamsHandling="preserve"
-        routerLinkActive #intensity="routerLinkActive"
-        [active]="intensity.isActive">
-      Intensity
-    </a>
-    <a mat-tab-link [routerLink]="'./metadata'"
-        queryParamsHandling="preserve"
-        routerLinkActive #metadata="routerLinkActive"
-        [active]="metadata.isActive">
-      Metadata
-    </a>
-    <a mat-tab-link [routerLink]="'./stations'"
-        queryParamsHandling="preserve"
-        routerLinkActive #stations="routerLinkActive"
-        [active]="stations.isActive">
-      Station List
-    </a>
-    <a mat-tab-link [routerLink]="'./uncertainty'"
-        queryParamsHandling="preserve"
-        routerLinkActive #uncertainty="routerLinkActive"
-        [active]="uncertainty.isActive">
-      Uncertainty
-    </a>
-  </nav>
-  <router-outlet></router-outlet>
+    <nav mat-tab-nav-bar>
+      <a *ngIf="shakemap?.contents['download/cont_mi.json'] ||
+          shakemap?.contents['download/intensity.jpg']"
+          mat-tab-link [routerLink]="'./intensity'"
+          queryParamsHandling="preserve"
+          routerLinkActive #intensity="routerLinkActive"
+          [active]="intensity.isActive">
+        Intensity
+      </a>
+      <a mat-tab-link [routerLink]="'./metadata'"
+          queryParamsHandling="preserve"
+          routerLinkActive #metadata="routerLinkActive"
+          [active]="metadata.isActive">
+        Metadata
+      </a>
+      <a mat-tab-link [routerLink]="'./stations'"
+          queryParamsHandling="preserve"
+          routerLinkActive #stations="routerLinkActive"
+          [active]="stations.isActive">
+        Station List
+      </a>
+      <a mat-tab-link [routerLink]="'./uncertainty'"
+          queryParamsHandling="preserve"
+          routerLinkActive #uncertainty="routerLinkActive"
+          [active]="uncertainty.isActive">
+        Uncertainty
+      </a>
+    </nav>
+
+    <router-outlet></router-outlet>
+  </ng-container>
 
   <!-- container with footer attribute is added before downloads -->
   <ng-container footer>
