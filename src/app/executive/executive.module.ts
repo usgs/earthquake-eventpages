@@ -15,6 +15,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MapPinComponent } from './map-pin/map-pin.component';
 import { DyfiResponseSubmitPinComponent } from './dyfi-response-submit-pin/dyfi-response-submit-pin.component';
 import { ShakemapPinComponent } from './shakemap-pin/shakemap-pin.component';
+import { GroundFailurePinComponent } from './ground-failure-pin/ground-failure-pin.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ShakemapPinComponent } from './shakemap-pin/shakemap-pin.component';
     FocalMechanismPinComponent,
     MapPinComponent,
     DyfiResponseSubmitPinComponent,
-    ShakemapPinComponent
+    ShakemapPinComponent,
+    GroundFailurePinComponent
   ]
 })
 export class ExecutiveModule { }

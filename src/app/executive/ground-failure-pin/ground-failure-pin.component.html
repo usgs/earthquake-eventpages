@@ -1,0 +1,55 @@
+<basic-pin *ngIf="product"
+  [link]="link"
+  [product]="product"
+  [title]="title">
+
+  <div card-content>
+
+    <div class="landslides-pin-content">
+      <h4>Landslides</h4>
+      <div class="material-icons landslides-liquefaction-icon"
+          [ngClass]="product.properties['landslide-hazard-alert-color']">
+        &#xE564;
+      </div>
+
+      <div [ngSwitch]="product.properties['landslide-hazard-alert-color']">
+        <span *ngSwitchCase="'green'">Little to no area</span>
+        <span *ngSwitchCase="'yellow'">Limited area</span>
+        <span *ngSwitchCase="'orange'">Significant area</span>
+        <span *ngSwitchCase="'red'">Extensive area</span>
+      </div>
+
+      <div [ngSwitch]="product.properties['landslide-population-alert-color']">
+        <span *ngSwitchCase="'green'">No to few people</span>
+        <span *ngSwitchCase="'yellow'">Limited people</span>
+        <span *ngSwitchCase="'orange'">Significant people</span>
+        <span *ngSwitchCase="'red'">Extensive people</span>
+      </div>
+    </div>
+
+    <div class="liquefaction-pin-content">
+      <h4>Liquefaction</h4>
+      <div class="material-icons landslides-liquefaction-icon"
+          [ngClass]="product.properties['liquefaction-hazard-alert-color']">
+        &#xEB48;
+      </div>
+
+      <div [ngSwitch]="product.properties['liquefaction-hazard-alert-color']">
+        <span *ngSwitchCase="'green'">Little to no area</span>
+        <span *ngSwitchCase="'yellow'">Limited area</span>
+        <span *ngSwitchCase="'orange'">Significant area</span>
+        <span *ngSwitchCase="'red'">Extensive area</span>
+      </div>
+
+      <div [ngSwitch]=
+          "product.properties['liquefaction-population-alert-color']">
+        <span *ngSwitchCase="'green'">No to few people</span>
+        <span *ngSwitchCase="'yellow'">Limited people</span>
+        <span *ngSwitchCase="'orange'">Significant people</span>
+        <span *ngSwitchCase="'red'">Extensive people</span>
+      </div>
+    </div>
+
+  </div>
+</basic-pin>
+
