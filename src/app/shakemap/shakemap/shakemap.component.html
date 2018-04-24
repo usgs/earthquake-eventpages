@@ -17,6 +17,29 @@
           [active]="intensity.isActive">
         Intensity
       </a>
+      <a *ngIf="shakemap?.contents['download/cont_pga.json']"
+          mat-tab-link [routerLink]="'./pga'"
+          queryParamsHandling="preserve"
+          routerLinkActive #pga="routerLinkActive"
+          [active]="pga.isActive">
+        <abbr title="Peak Ground Acceleration">PGA</abbr>
+      </a>
+      <a *ngIf="shakemap?.contents['download/cont_pgv.json']"
+          mat-tab-link [routerLink]="'./pgv'"
+          queryParamsHandling="preserve"
+          routerLinkActive #pgv="routerLinkActive"
+          [active]="pgv.isActive">
+        <abbr title="Peak Ground Velocity">PGV</abbr>
+      </a>
+      <a *ngIf="shakemap?.contents['download/cont_psa03.json'] ||
+          shakemap?.contents['download/cont_psa10.json'] ||
+          shakemap?.contents['download/cont_psa30.json']"
+          mat-tab-link [routerLink]="'./psa'"
+          queryParamsHandling="preserve"
+          routerLinkActive #psa="routerLinkActive"
+          [active]="psa.isActive">
+        <abbr title="Peak Spectral Acceleration">PSA</abbr>
+      </a>
       <a mat-tab-link [routerLink]="'./metadata'"
           queryParamsHandling="preserve"
           routerLinkActive #metadata="routerLinkActive"
@@ -29,7 +52,8 @@
           [active]="stations.isActive">
         Station List
       </a>
-      <a mat-tab-link [routerLink]="'./uncertainty'"
+      <a *ngIf="shakemap?.contents['download/urat_pga.jpg']"
+          mat-tab-link [routerLink]="'./uncertainty'"
           queryParamsHandling="preserve"
           routerLinkActive #uncertainty="routerLinkActive"
           [active]="uncertainty.isActive">

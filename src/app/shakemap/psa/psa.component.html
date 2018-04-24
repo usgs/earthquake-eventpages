@@ -1,0 +1,53 @@
+<ng-container *ngIf="eventService.product$ | async; let shakemap">
+
+  <h3>Peak Spectral Acceleration for 0.3 s, 1.0 s, 3.0 s</h3>
+
+  <small><h3>0.3 s PSA (%g)</h3></small>
+  <a *ngIf="shakemap?.contents['download/cont_psa03.json']"
+      [routerLink]="'../../map'"
+      [queryParams]="{
+        'shakemap-code': shakemap?.code,
+        'shakemap-source': shakemap?.source,
+        'shakemap-psa03': true,
+        'shakemap-intensity': false
+      }">
+
+    <shared-map
+        [overlays]="shakemap | shakemapOverlays:'shakemap-psa03'"
+        [showScaleControl]="true">
+    </shared-map>
+  </a>
+
+  <small><h3>1.0 s PSA (%g)</h3></small>
+  <a *ngIf="shakemap?.contents['download/cont_psa10.json']"
+      [routerLink]="'../../map'"
+      [queryParams]="{
+        'shakemap-code': shakemap?.code,
+        'shakemap-source': shakemap?.source,
+        'shakemap-psa10': true,
+        'shakemap-intensity': false
+      }">
+
+    <shared-map
+        [overlays]="shakemap | shakemapOverlays:'shakemap-psa10'"
+        [showScaleControl]="true">
+    </shared-map>
+  </a>
+
+  <small><h3>3.0 s PSA (%g)</h3></small>
+  <a *ngIf="shakemap?.contents['download/cont_psa30.json']"
+      [routerLink]="'../../map'"
+      [queryParams]="{
+        'shakemap-code': shakemap?.code,
+        'shakemap-source': shakemap?.source,
+        'shakemap-psa30': true,
+        'shakemap-intensity': false
+      }">
+
+    <shared-map
+        [overlays]="shakemap | shakemapOverlays:'shakemap-psa30'"
+        [showScaleControl]="true">
+    </shared-map>
+  </a>
+
+</ng-container>

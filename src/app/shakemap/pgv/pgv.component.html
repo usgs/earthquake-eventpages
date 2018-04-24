@@ -1,0 +1,17 @@
+<ng-container *ngIf="eventService.product$ | async; let shakemap">
+
+  <a *ngIf="shakemap?.contents['download/cont_pgv.json']"
+      [routerLink]="'../../map'"
+      [queryParams]="{
+        'shakemap-code': shakemap?.code,
+        'shakemap-source': shakemap?.source,
+        'shakemap-pgv': true
+      }">
+
+    <shared-map
+        [overlays]="shakemap | shakemapOverlays:'shakemap-pgv'"
+        [showScaleControl]="true">
+    </shared-map>
+  </a>
+
+</ng-container>

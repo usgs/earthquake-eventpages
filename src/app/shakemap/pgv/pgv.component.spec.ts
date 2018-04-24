@@ -6,12 +6,12 @@ import { of } from 'rxjs/observable/of';
 
 import { Event } from '../../event';
 import { EventService } from '../../core/event.service';
-import { IntensityComponent } from './intensity.component';
 import { MockPipe } from '../../mock-pipe';
+import { PgvComponent } from './pgv.component';
 
-describe('IntensityComponent', () => {
-  let component: IntensityComponent;
-  let fixture: ComponentFixture<IntensityComponent>;
+describe('PgvComponent', () => {
+  let component: PgvComponent;
+  let fixture: ComponentFixture<PgvComponent>;
 
   beforeEach(async(() => {
     const eventServiceStub = {
@@ -24,7 +24,7 @@ describe('IntensityComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        IntensityComponent,
+        PgvComponent,
 
         MockComponent({
           selector: 'shared-map',
@@ -44,7 +44,7 @@ describe('IntensityComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IntensityComponent);
+    fixture = TestBed.createComponent(PgvComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

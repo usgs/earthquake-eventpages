@@ -52,7 +52,7 @@ describe('ShakemapOverlaysPipe', () => {
   });
 
   it('excludes layers with missing geoJSON', () => {
-    let shakemap = SHAKEMAP;
+    const shakemap = SHAKEMAP;
     shakemap.contents = {};
 
     const overlays = pipe.transform(SHAKEMAP, 'shakemap-intensity');
