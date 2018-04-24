@@ -14,7 +14,7 @@
   </app-navigation-group>
 
   <app-navigation-group *ngIf="hasImpact(event); else noImpact">
-    <app-navigation-item navGroupHeader display="Impact" class="not-supported"
+    <app-navigation-item navGroupHeader display="Impact"
         navRouterLink="impact"></app-navigation-item>
 
     <app-navigation-item display="Felt Report - Tell Us!"
@@ -23,10 +23,10 @@
         display="Did You Feel It?" class="not-supported"
         navRouterLink="dyfi"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('shakemap')"
-        display="ShakeMap" class="not-supported"
+        display="ShakeMap"
         navRouterLink="shakemap"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('losspager')"
-        display="PAGER"
+        display="PAGER" class="not-supported"
         navRouterLink="pager"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('ground-failure')"
         display="Ground Failure"
