@@ -15,7 +15,7 @@ describe('ShakemapPGVOverlay', () => {
       }
     });
 
-    expect(overlay.layer instanceof L.GeoJSON).toBeTruthy();
+    expect(overlay instanceof L.GeoJSON).toBeTruthy();
     expect(overlay.data).toBe(null);
   });
 

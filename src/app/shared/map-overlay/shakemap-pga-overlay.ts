@@ -3,34 +3,34 @@ import * as L from 'leaflet';
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
 
-export class ShakemapPGAOverlay extends AsynchronousGeoJSONOverlay {
+const ShakemapPGAOverlay = AsynchronousGeoJSONOverlay.extend({
 
-  public id = 'shakemap-pga';
-  public title = 'Shakemap PGA Contours';
-  public legend = null;
+  id: 'shakemap-pga',
+  title: 'Shakemap PGA Contours',
+  legend: null,
 
-  constructor (public product: any) {
-    super();
+  initialize: function (product) {
+    AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 
     this.url = this.getUrl(product);
-  }
+  },
 
-  getUrl (product) {
+  getUrl: function (product) {
     if (product == null) {
       return null;
     }
 
     return product.contents['download/cont_pga.json'] ?
          product.contents['download/cont_pga.json'].url : null;
-  }
+  },
 
-  onEachFeature (feature, layer) {
+  onEachFeature: function (feature, layer) {
     if (feature.properties) {
       layer.bindPopup(`${feature.properties.value} %g`);
     }
-  }
+  },
 
-  style (feature) {
+  style: function (feature) {
     // set default line style
     const lineStyle = {
       'color': '#fff',
@@ -40,4 +40,6 @@ export class ShakemapPGAOverlay extends AsynchronousGeoJSONOverlay {
     return lineStyle;
   }
 
-}
+});
+
+export { ShakemapPGAOverlay };
