@@ -3,38 +3,38 @@ import * as L from 'leaflet';
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
 
-export class ShakemapIntensityOverlay extends AsynchronousGeoJSONOverlay {
+const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
 
-  public id = 'shakemap-intensity';
-  public title = 'Shakemap MMI Contours';
-  public legend = null;
+  id: 'shakemap-intensity',
+  title: 'Shakemap MMI Contours',
+  legend: null,
 
-  constructor (public product: any) {
-    super();
+  initialize: function (product) {
+    AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 
     const legend = document.createElement('img');
     legend.src = './assets/shakemap-intensity-legend-small.png';
     legend.setAttribute('alt', 'Intensity scale legend');
-    this.layer.legend = legend;
+    this.legend = legend;
 
     this.url = this.getUrl(product);
-  }
+  },
 
-  getUrl (product) {
+  getUrl: function (product) {
     if (product == null) {
       return null;
     }
 
     return product.contents['download/cont_mi.json'].url || null;
-  }
+  },
 
-  onEachFeature (feature, layer) {
+  onEachFeature: function (feature, layer) {
     if (feature.properties) {
       layer.bindPopup(feature.properties.value.toString());
     }
-  }
+  },
 
-  style (feature) {
+  style: function (feature) {
     // set default line style
     const lineStyle = {
       'color': feature.properties.color,
@@ -45,4 +45,7 @@ export class ShakemapIntensityOverlay extends AsynchronousGeoJSONOverlay {
     return lineStyle;
   }
 
-}
+});
+
+
+export { ShakemapIntensityOverlay };

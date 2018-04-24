@@ -3,10 +3,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { HistoricSeismicityOverlay } from '../../shared/map-overlay/historic-seismicity-overlay';
-import { Overlay } from '../../shared/map-overlay/overlay';
 import { EventService } from '../../../..';
 
 import { CoordinatesService } from 'earthquake-geoserve-ui';
+
+import * as L from 'leaflet';
+
 
 @Component({
   selector: 'app-region-info',
@@ -15,7 +17,7 @@ import { CoordinatesService } from 'earthquake-geoserve-ui';
 })
 export class RegionInfoComponent implements OnDestroy, OnInit {
 
-  public overlays: Array<Overlay> = [ new HistoricSeismicityOverlay() ];
+  public overlays: Array<L.Layer> = [ new HistoricSeismicityOverlay() ];
 
   private subscription: Subscription;
 

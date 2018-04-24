@@ -3,20 +3,16 @@ import * as L from 'leaflet';
 
 const GroundFailureLandslideOverlay = L.ImageOverlay.extend({
   id: 'ground-failure-landslide',
-  isOverlay: true,
   enabled: false,
   title: 'Landslide Estimate',
   bounds: null,
   legend: null,
-  layer: null,
 
   initialize: function (product: any) {
 
     if (!product || !product.properties || !product.contents) {
       return this;
     }
-
-    this.layer = this;
 
     // setup landslide overlay bounds
     this.bounds = [

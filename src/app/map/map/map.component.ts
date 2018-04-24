@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import { MapComponent as SharedMapComponent } from '../../shared/map/map.component';
 
-import { Overlay } from '../../shared/map-overlay/overlay';
 import { EventService } from '../../../..';
 import { ActivatedRoute } from '@angular/router';
 

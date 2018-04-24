@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import * as L from 'leaflet';
 
-import { Overlay } from '../map-overlay/overlay';
 import { LegendControl } from '../map-control/legend-control';
 
 @Component({
@@ -20,7 +19,7 @@ export class MapComponent implements AfterViewInit, OnInit {
   private _bounds: Array<Array<number>> = null;
 
   // value of overlays property
-  private _overlays: Array<Overlay> = [];
+  private _overlays: Array<L.Layer> = [];
 
   private _showLayersControl = false;
   private _showLegendControl = false;
@@ -146,14 +145,14 @@ export class MapComponent implements AfterViewInit, OnInit {
   }
 
   @Input()
-  set overlays (overlays: Array<Overlay>) {
+  set overlays (overlays: Array<L.Layer>) {
     this._overlays = overlays;
 
     this.updateOverlays();
     this.updateLegend();
   }
 
-  get overlays (): Array<Overlay> {
+  get overlays (): Array<L.Layer> {
     return this._overlays;
   }
 
@@ -309,8 +308,8 @@ export class MapComponent implements AfterViewInit, OnInit {
     // remove overlays from map and layer control
     this.overlaysAdded = this.overlaysAdded.filter((overlay) => {
       if (!overlays.includes(overlay)) {
-        this.layersControl.removeLayer(overlay.layer);
-        this.map.removeLayer(overlay.layer);
+        this.layersControl.removeLayer(overlay);
+        this.map.removeLayer(overlay);
         return false;
       } else {
         return true;
@@ -324,12 +323,12 @@ export class MapComponent implements AfterViewInit, OnInit {
       }
       if (!this.overlaysAdded.includes(overlay)) {
         this.overlaysAdded.push(overlay);
-        this.layersControl.addOverlay(overlay.layer, overlay.title);
+        this.layersControl.addOverlay(overlay, overlay.title);
       }
       if (overlay.enabled) {
-        this.map.addLayer(overlay.layer);
+        this.map.addLayer(overlay);
       } else {
-        this.map.removeLayer(overlay.layer);
+        this.map.removeLayer(overlay);
       }
     });
 

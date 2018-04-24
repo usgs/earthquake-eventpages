@@ -4,10 +4,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Event } from '../event';
 import { getUnique } from '../unique';
 import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
-import { Overlay } from '../shared/map-overlay/overlay';
 import { GroundFailureOverlaysPipe } from '../shared/ground-failure-overlays.pipe';
 import { RegionInfoOverlaysPipe } from '../shared/region-info-overlays.pipe';
 import { ShakemapOverlaysPipe } from '../shared/shakemap-overlays.pipe';
+
+import * as L from 'leaflet';
 
 
 @Pipe({
@@ -20,7 +21,7 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     'shakemap-intensity': true
   };
 
-  public staticOverlays: Overlay[] = [new LandscanPopulationOverlay()];
+  public staticOverlays: L.Layer[] = [new LandscanPopulationOverlay()];
 
   // pipes related to their product
   public overlayFactory: any = {
@@ -71,7 +72,7 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     return overlays;
   }
 
-  getOverlays (event: Event, params: ParamMap, type: string): Array<Overlay> {
+  getOverlays (event: Event, params: ParamMap, type: string): Array<L.Layer> {
     const product = this.getProduct(event, params, type);
 
     // get/cache overlays for product
@@ -96,7 +97,7 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     return event.getProduct(type, source, code);
   }
 
-  setEnabled (overlays: Array<Overlay>, params: ParamMap) {
+  setEnabled (overlays: Array<L.Layer>, params: ParamMap) {
     overlays.forEach((overlay) => {
       const enabledParam = params ? params.get(overlay.id) : false;
       if (enabledParam) { // this is a string, so even 'false' is true...

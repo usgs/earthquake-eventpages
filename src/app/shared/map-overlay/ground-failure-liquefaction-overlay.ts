@@ -3,20 +3,16 @@ import * as L from 'leaflet';
 
 const GroundFailureLiquefactionOverlay = L.ImageOverlay.extend({
   id: 'ground-failure-liquefaction',
-  isOverlay: true,
   enabled: false,
   title: 'Liquefaction Estimate',
   bounds: null,
   legend: null,
-  layer: null,
 
   initialize: function (product: any) {
 
     if (!product || !product.properties || !product.contents) {
       return this;
     }
-
-    this.layer = this;
 
     // setup liquefaction overlay bounds
     this.bounds = [

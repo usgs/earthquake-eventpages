@@ -37,10 +37,82 @@ describe('AsynchronousGeoJSONOverlay', () => {
     expect(overlay).toBeTruthy();
   });
 
-  it('uses product when defined', () => {
-
-    expect(overlay.layer instanceof L.GeoJSON).toBeTruthy();
+  it('is a geojson layer', () => {
+    expect(overlay instanceof L.GeoJSON).toBeTruthy();
     expect(overlay.data).toBe(null);
+  });
+
+  describe('loadData', () => {
+    it('handles null url', () => {
+      overlay.loadData();
+
+      expect(overlay.data).toBe(null);
+    });
+
+    it('handles null httpClient', () => {
+      overlay.url = 'url';
+      overlay.loadData();
+
+      expect(overlay.data).toBe(null);
+    });
+
+    it('handles success', () => {
+      overlay.url = 'url';
+      overlay.httpClient = {
+        get: (url) => of(GEOJSON)
+      };
+
+      overlay.loadData();
+
+      expect(overlay.data).toEqual(GEOJSON);
+    });
+
+    it('handles run after success', () => {
+      overlay.url = 'url';
+      overlay.httpClient = {
+        get: (url) => of(GEOJSON)
+      };
+
+      overlay.loadData();
+      overlay.loadData();
+
+      expect(overlay.data).toEqual(GEOJSON);
+    });
+
+    it('handles geoJSON parse failure', () => {
+      overlay.url = 'url';
+      overlay.httpClient = {
+        get: (url) => of(GEOJSON)
+      };
+
+      const spy = spyOn(overlay, 'parse').and.throwError('TESTING ERROR');
+
+      overlay.loadData();
+
+      expect(overlay.data).toBe(null);
+      expect(overlay.error).toBeTruthy();
+    });
+
+    it('handles url get failure', () => {
+      overlay.url = 'url';
+      overlay.httpClient = {
+        get: (url) => _throw('TESTING ERROR')
+      };
+
+      overlay.loadData();
+
+      expect(overlay.data).toBe(null);
+      expect(overlay.error).toBeTruthy();
+    });
+
+  });
+
+  describe('onAdd', () => {
+    it('calls loadData', () => {
+      spyOn(overlay, 'loadData');
+      overlay.onAdd({addLayer: () => {}});
+      expect(overlay.loadData).toHaveBeenCalled();
+    });
   });
 
   describe('style', () => {
@@ -52,7 +124,7 @@ describe('AsynchronousGeoJSONOverlay', () => {
 
     it('is called by layer', () => {
       spyOn(overlay, 'style');
-      overlay.layer.addData(FEATURE);
+      overlay.addData(FEATURE);
       expect(overlay.style).toHaveBeenCalledWith(FEATURE);
     });
   });
@@ -67,7 +139,7 @@ describe('AsynchronousGeoJSONOverlay', () => {
     it('is called by layer', () => {
       const layer = new L.Layer();
       spyOn(overlay, 'onEachFeature');
-      overlay.layer.addData(FEATURE);
+      overlay.addData(FEATURE);
       expect(overlay.onEachFeature).toHaveBeenCalledWith(FEATURE, jasmine.any(Object));
     });
   });
@@ -86,69 +158,4 @@ describe('AsynchronousGeoJSONOverlay', () => {
     });
   });
 
-  describe('onAdd', () => {
-
-    it('handles null url', () => {
-      overlay.onAdd();
-
-      expect(overlay.data).toBe(null);
-    });
-
-    it('handles null httpClient', () => {
-      overlay.url = 'url';
-      overlay.onAdd();
-
-      expect(overlay.data).toBe(null);
-    });
-
-    it('handles success', () => {
-      overlay.url = 'url';
-      overlay.httpClient = {
-        get: (url) => of(GEOJSON)
-      };
-
-      overlay.onAdd();
-
-      expect(overlay.data).toEqual(GEOJSON);
-    });
-
-    it('handles run after success', () => {
-      overlay.url = 'url';
-      overlay.httpClient = {
-        get: (url) => of(GEOJSON)
-      };
-
-      overlay.onAdd();
-      overlay.onAdd();
-
-      expect(overlay.data).toEqual(GEOJSON);
-    });
-
-    it('handles geoJSON parse failure', () => {
-      overlay.url = 'url';
-      overlay.httpClient = {
-        get: (url) => of(GEOJSON)
-      };
-
-      const spy = spyOn(overlay, 'parse').and.throwError('TESTING ERROR');
-
-      overlay.onAdd();
-
-      expect(overlay.data).toBe(null);
-      expect(overlay.error).toBeTruthy();
-    });
-
-    it('handles url get failure', () => {
-      overlay.url = 'url';
-      overlay.httpClient = {
-        get: (url) => _throw('TESTING ERROR')
-      };
-
-      overlay.onAdd();
-
-      expect(overlay.data).toBe(null);
-      expect(overlay.error).toBeTruthy();
-    });
-
-  });
 });

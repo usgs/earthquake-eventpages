@@ -3,12 +3,10 @@ import * as L from 'leaflet';
 
 const EpicenterOverlay = L.Marker.extend({
   id: 'epicenter',
-  isOverlay: true,
   enabled: true,
   title: 'Epicenter',
   bounds: null,
   legend: null,
-  layer: null,
 
   initialize: function (product: any) {
     let latitude: number;
@@ -25,8 +23,6 @@ const EpicenterOverlay = L.Marker.extend({
     } catch (e) {
       longitude = 0;
     }
-
-    this.layer = this;
 
     this.bounds = [
       [latitude - 2.0, longitude - 2.0],
