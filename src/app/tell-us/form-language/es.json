@@ -121,7 +121,7 @@
       ]
     },
     "fldEffects_shelved": {
-      "label": "Se movieron ó se cayeron obejetos en las repisas?",
+      "label": "Se movieron ó se cayeron objetos en las repisas?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -142,7 +142,7 @@
       ]
     },
     "fldEffects_furniture": {
-      "label": "Alguno de sus muebles ó ensures se deslizó, volteó ó quedó fuera de su sitio original?",
+      "label": "Alguno de sus muebles ó enseres se deslizó, volteó ó quedó fuera de su sitio original?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -150,14 +150,14 @@
       ]
     },
     "fldEffects_appliances": {
-      "label": "Se afectó algún eletrodoméstico pesado (refrigerador ó estufa)?",
+      "label": "Se afectó algún electrodoméstico pesado (refrigerador ó estufa)?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
         {"value": "fell", "label": "Sí, alguno de sus contenidos se cayeron"},
         {"value": "shifted", "label": "Sí, el electrodoméstico se movió varias pulgadas"},
         {"value": "shifted_foot", "label": "Sí, el eletrodoméstico se movió más de un pie (30 cm)"},
-        {"value": "overturned", "label": "Sí, el eletrodoméstico se cayó"}
+        {"value": "overturned", "label": "Sí, el electrodoméstico se cayó"}
       ]
     },
     "fldEffects_walls": {
@@ -181,14 +181,14 @@
         {"value": "_crackwallmany", "label": "Varias grietas grandes en las paredes"},
         {"value": "_tilesfell", "label": "Losas de techo/paredes y/o luces se cayeron"},
         {"value": "_crackchim", "label": "Grietas enla chimenea"},
-        {"value": "_crackwindows", "label": "Una óvarias ventanas dañadas"},
+        {"value": "_crackwindows", "label": "Una ó varias ventanas dañadas"},
         {"value": "_brokenwindows", "label": "Varias ventanas dañadas ó rotas"},
         {"value": "_masonryfell", "label": "Ladrillos y/o bloques se cayeron de las paredes"},
         {"value": "_majoroldchim", "label": "Una chimenea vieja sufrió daños severos ó se derrumbó"},
         {"value": "_majormodernchim", "label": "Una chimenea moderna sufrió daños severos ó se derrumbó "},
-        {"value": "_tiltedwall", "label": "Paredes exteriors se inclinaron ó cayeron por completo"},
+        {"value": "_tiltedwall", "label": "Paredes exteriores se inclinaron ó cayeron por completo"},
         {"value": "_porch", "label": "Se separaron de la estructura el balcón, marquesina y/ó cualquier otra área adicional"},
-        {"value": "_move", "label": "La casa ó estructura se movió por complete de su fundamento/base"}
+        {"value": "_move", "label": "La casa ó estructura se movió por completo de su fundamento/base"}
       ]
     }
   },
