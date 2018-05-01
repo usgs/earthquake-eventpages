@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs/observable/of';
 
 import { CommentaryComponent } from './commentary.component';
+import { EventService } from '../../core/event.service';
 
 
 describe('CommentaryComponent', () => {
@@ -8,8 +10,17 @@ describe('CommentaryComponent', () => {
   let fixture: ComponentFixture<CommentaryComponent>;
 
   beforeEach(async(() => {
+    const eventServiceStub = {
+      product$: of(null)
+    };
+
     TestBed.configureTestingModule({
-      declarations: [ CommentaryComponent ]
+      declarations: [
+        CommentaryComponent
+      ],
+      providers: [
+        {provide: EventService, useValue: eventServiceStub}
+      ]
     })
     .compileComponents();
   }));
