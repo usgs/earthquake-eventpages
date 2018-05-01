@@ -116,6 +116,7 @@
       "label": "¿Escuchó usted crujidos ó algún otro ruido?",
       "answers": [
         {"value": "", "label": "No especifico"},
+        {"value": "0", "label": "No"},
         {"value": "1 slight", "label": "Sí, ruido leve"},
         {"value": "1 loud", "label": "Sí, ruido fuerte"}
       ]
