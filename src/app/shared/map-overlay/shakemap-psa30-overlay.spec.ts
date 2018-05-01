@@ -11,10 +11,11 @@ describe('ShakemapPSA30Overlay', () => {
   it('uses product when defined', () => {
     const overlay = new ShakemapPSA30Overlay({
       contents: {
-        'download/cont_psa30.json': {url: ''}
+        'download/cont_psa30.json': {url: 'URL'}
       }
     });
 
+    expect(overlay.url).toBe('URL');
     expect(overlay instanceof L.GeoJSON).toBeTruthy();
     expect(overlay.data).toBe(null);
   });

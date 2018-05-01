@@ -11,10 +11,11 @@ describe('ShakemapPGVOverlay', () => {
   it('uses product when defined', () => {
     const overlay = new ShakemapPGVOverlay({
       contents: {
-        'download/cont_pgv.json': {url: ''}
+        'download/cont_pgv.json': {url: 'URL'}
       }
     });
 
+    expect(overlay.url).toBe('URL');
     expect(overlay instanceof L.GeoJSON).toBeTruthy();
     expect(overlay.data).toBe(null);
   });

@@ -31,7 +31,7 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
 
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
-      layer.bindPopup(`${feature.properties.value} MMI`);
+      layer.bindPopup(`<abbr title="Modified Mercalli Intensity">MMI</abbr> ${feature.properties.value}`);
     }
   },
 

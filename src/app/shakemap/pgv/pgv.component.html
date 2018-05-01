@@ -1,6 +1,6 @@
 <ng-container *ngIf="eventService.product$ | async; let shakemap">
 
-  <a *ngIf="shakemap?.contents['download/cont_pgv.json']"
+  <a *ngIf="shakemap?.contents['download/cont_pgv.json']; else noOverlay"
       [routerLink]="'../../map'"
       [queryParams]="{
         'shakemap-code': shakemap?.code,
@@ -14,5 +14,12 @@
         [showScaleControl]="true">
     </shared-map>
   </a>
+
+  <ng-template #noOverlay>
+    <img
+        *ngIf="shakemap?.contents['download/pgv.jpg']"
+        src="{{ shakemap.contents['download/pgv.jpg'].url }}"
+        alt="ShakeMap peak ground velocity image">
+  </ng-template>
 
 </ng-container>

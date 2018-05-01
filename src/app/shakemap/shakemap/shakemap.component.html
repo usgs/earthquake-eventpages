@@ -17,14 +17,16 @@
           [active]="intensity.isActive">
         Intensity
       </a>
-      <a *ngIf="shakemap?.contents['download/cont_pga.json']"
+      <a *ngIf="shakemap?.contents['download/cont_pga.json'] ||
+          shakemap?.contents['download/pga.jpg']"
           mat-tab-link [routerLink]="'./pga'"
           queryParamsHandling="preserve"
           routerLinkActive #pga="routerLinkActive"
           [active]="pga.isActive">
         <abbr title="Peak Ground Acceleration">PGA</abbr>
       </a>
-      <a *ngIf="shakemap?.contents['download/cont_pgv.json']"
+      <a *ngIf="shakemap?.contents['download/cont_pgv.json'] ||
+          shakemap?.contents['download/pgv.jpg']"
           mat-tab-link [routerLink]="'./pgv'"
           queryParamsHandling="preserve"
           routerLinkActive #pgv="routerLinkActive"
@@ -33,7 +35,10 @@
       </a>
       <a *ngIf="shakemap?.contents['download/cont_psa03.json'] ||
           shakemap?.contents['download/cont_psa10.json'] ||
-          shakemap?.contents['download/cont_psa30.json']"
+          shakemap?.contents['download/cont_psa30.json'] ||
+          shakemap?.contents['download/psa03.jpg'] ||
+          shakemap?.contents['download/psa10.jpg'] ||
+          shakemap?.contents['download/psa30.jpg']"
           mat-tab-link [routerLink]="'./psa'"
           queryParamsHandling="preserve"
           routerLinkActive #psa="routerLinkActive"
