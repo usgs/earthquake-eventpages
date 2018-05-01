@@ -3,14 +3,14 @@
   "name": "Español",
 
   "locationInfo": {
-    "label": "Cuál era su localización cuando ocurrió el terremoto?",
+    "label": "¿Cuál era su localización cuando ocurrió el terremoto?",
     "button": "Opciones de Localización",
     "buttonUpdate": "Cambiar la Localización"
   },
 
   "baseQuestions": {
     "fldSituation_felt": {
-      "label": "Usted sintió el terremoto?",
+      "label": "¿Usted sintió el terremoto?",
       "answers": [
         {"value": "1", "label": "Sí"},
         {"value": "0", "label": "No"}
@@ -25,7 +25,7 @@
 
   "moreQuestions": {
     "fldSituation_situation": {
-      "label": "Cuál era tu ubicación durante el terremoto?",
+      "label": "¿Cuál era tu ubicación durante el terremoto?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "inside", "label": "Dentro de un edificio"},
@@ -37,7 +37,7 @@
       ]
     },
     "fldSituation_sleep": {
-      "label": "Estaba usted durmiendo?",
+      "label": "¿Estaba usted durmiendo?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "no", "label": "No"},
@@ -46,7 +46,7 @@
       ]
     },
     "fldSituation_others": {
-      "label": "Otras personas cerca de usted lo sintieron?",
+      "label": "¿Otras personas cerca de usted lo sintieron?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "2", "label": "Otros No lo sintieron"},
@@ -70,7 +70,7 @@
       ]
     },
     "fldExperience_reaction": {
-      "label": "Cómo reaccionó usted?",
+      "label": "¿Cómo reaccionó usted?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "Ninguna reacción/no lo sentí"},
@@ -82,7 +82,7 @@
       ]
     },
     "fldExperience_response": {
-      "label": "Cómo respondió usted?",
+      "label": "¿Cómo respondió usted?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "no_action", "label": "Ninguna respuesta"},
@@ -94,7 +94,7 @@
       ]
     },
     "fldExperience_stand": {
-      "label": "Se le dificultó el pararse ó caminar?",
+      "label": "¿Se le dificultó el pararse ó caminar?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -104,7 +104,7 @@
 
 
     "fldEffects_doors": {
-      "label": "Observó movimiento en objetos colgantes y/o puertas?",
+      "label": "¿Observó movimiento en objetos colgantes y/o puertas?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -113,7 +113,7 @@
       ]
     },
     "fldEffects_sounds": {
-      "label": "Escuchó usted crujidos ó algún otro ruido?",
+      "label": "¿Escuchó usted crujidos ó algún otro ruido?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "1 slight", "label": "Sí, ruido leve"},
@@ -121,7 +121,7 @@
       ]
     },
     "fldEffects_shelved": {
-      "label": "Se movieron ó se cayeron obejetos en las repisas?",
+      "label": "¿Se movieron ó se cayeron objetos en las repisas?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -133,7 +133,7 @@
       ]
     },
     "fldEffects_pictures": {
-      "label": "Se movieron ó desnivelaron cuadros en las paredes?",
+      "label": "¿Se movieron ó desnivelaron cuadros en las paredes?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -142,7 +142,7 @@
       ]
     },
     "fldEffects_furniture": {
-      "label": "Alguno de sus muebles ó ensures se deslizó, volteó ó quedó fuera de su sitio original?",
+      "label": "¿Alguno de sus muebles ó enseres se deslizó, volteó ó quedó fuera de su sitio original?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -150,18 +150,18 @@
       ]
     },
     "fldEffects_appliances": {
-      "label": "Se afectó algún eletrodoméstico pesado (refrigerador ó estufa)?",
+      "label": "¿Se afectó algún electrodoméstico pesado (refrigerador ó estufa)?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
         {"value": "fell", "label": "Sí, alguno de sus contenidos se cayeron"},
         {"value": "shifted", "label": "Sí, el electrodoméstico se movió varias pulgadas"},
         {"value": "shifted_foot", "label": "Sí, el eletrodoméstico se movió más de un pie (30 cm)"},
-        {"value": "overturned", "label": "Sí, el eletrodoméstico se cayó"}
+        {"value": "overturned", "label": "Sí, el electrodoméstico se cayó"}
       ]
     },
     "fldEffects_walls": {
-      "label": "Observó daños en las paredes ó verjas?",
+      "label": "¿Observó daños en las paredes ó verjas?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -172,7 +172,7 @@
     },
 
     "d_text[]": {
-      "label": "Observó daños en edificios ú otras estructuras?",
+      "label": "¿Observó daños en edificios ú otras estructuras?",
       "multiSelect": true,
       "answers": [
         {"value": "_none", "label": "Ningún daño apreciable a simple vista"},
@@ -181,14 +181,14 @@
         {"value": "_crackwallmany", "label": "Varias grietas grandes en las paredes"},
         {"value": "_tilesfell", "label": "Losas de techo/paredes y/o luces se cayeron"},
         {"value": "_crackchim", "label": "Grietas enla chimenea"},
-        {"value": "_crackwindows", "label": "Una óvarias ventanas dañadas"},
+        {"value": "_crackwindows", "label": "Una ó varias ventanas dañadas"},
         {"value": "_brokenwindows", "label": "Varias ventanas dañadas ó rotas"},
         {"value": "_masonryfell", "label": "Ladrillos y/o bloques se cayeron de las paredes"},
         {"value": "_majoroldchim", "label": "Una chimenea vieja sufrió daños severos ó se derrumbó"},
         {"value": "_majormodernchim", "label": "Una chimenea moderna sufrió daños severos ó se derrumbó "},
-        {"value": "_tiltedwall", "label": "Paredes exteriors se inclinaron ó cayeron por completo"},
+        {"value": "_tiltedwall", "label": "Paredes exteriores se inclinaron ó cayeron por completo"},
         {"value": "_porch", "label": "Se separaron de la estructura el balcón, marquesina y/ó cualquier otra área adicional"},
-        {"value": "_move", "label": "La casa ó estructura se movió por complete de su fundamento/base"}
+        {"value": "_move", "label": "La casa ó estructura se movió por completo de su fundamento/base"}
       ]
     }
   },
