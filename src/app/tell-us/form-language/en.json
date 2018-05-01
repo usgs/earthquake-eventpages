@@ -116,6 +116,7 @@
       "label": "Did you hear creaking or other noises?",
       "answers": [
         {"value": "", "label": "Not specified"},
+        {"value": "0", "label": "No"},
         {"value": "1 slight", "label": "Yes, slight noise"},
         {"value": "1 loud", "label": "Yes, loud noise"}
       ]
