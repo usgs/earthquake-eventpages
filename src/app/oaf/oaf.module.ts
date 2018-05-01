@@ -1,14 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OafComponent } from './oaf/oaf.component';
+
+import { OafRoutingModule } from './oaf-routing.module';
+
 import { CommentaryComponent } from './commentary/commentary.component';
 import { ForecastComponent } from './forecast/forecast.component';
 import { ModelComponent } from './model/model.component';
+import { OafComponent } from './oaf/oaf.component';
+
+
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+
+    OafRoutingModule
   ],
-  declarations: [OafComponent, CommentaryComponent, ForecastComponent, ModelComponent]
+  declarations: [
+    OafComponent,
+    CommentaryComponent,
+    ForecastComponent,
+    ModelComponent
+  ]
 })
 export class OafModule { }

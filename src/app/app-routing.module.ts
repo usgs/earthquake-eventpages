@@ -80,6 +80,10 @@ const appRoutes = [
       {
         path: 'focal-mechanism',
         loadChildren: './focal-mechanism/focal-mechanism.module#FocalMechanismModule'
+      },
+      {
+        path: 'oaf',
+        loadChildren: './oaf/oaf.module#OafModule'
       }
     ]
   }
