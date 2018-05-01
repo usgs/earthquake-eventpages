@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'oaf-forecast',
   templateUrl: './forecast.component.html',

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'oaf-commentary',
   templateUrl: './commentary.component.html',

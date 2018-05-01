@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatTabsModule } from '@angular/material/tabs';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { OafComponent } from './oaf.component';
+import { MockComponent } from 'ng2-mock-component';
+
 
 describe('OafComponent', () => {
   let component: OafComponent;
@@ -8,7 +12,15 @@ describe('OafComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OafComponent ]
+      declarations: [
+        OafComponent,
+
+        MockComponent({selector: 'product-page', inputs: ['productType']})
+      ],
+      imports: [
+        MatTabsModule,
+        RouterTestingModule
+      ]
     })
     .compileComponents();
   }));
