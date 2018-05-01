@@ -171,7 +171,7 @@
       ]
     },
 
-    "d_text": {
+    "d_text[]": {
       "label": "Observó daños en edificios ú otras estructuras?",
       "multiSelect": true,
       "answers": [
