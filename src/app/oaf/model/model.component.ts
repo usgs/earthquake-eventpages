@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-model',
+  selector: 'oaf-model',
   templateUrl: './model.component.html',
   styleUrls: ['./model.component.scss']
 })
 export class ModelComponent implements OnInit {
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
 }

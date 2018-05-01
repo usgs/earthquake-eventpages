@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-oaf',
+  selector: 'oaf',
   templateUrl: './oaf.component.html',
   styleUrls: ['./oaf.component.scss']
 })
 export class OafComponent implements OnInit {
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
 }
