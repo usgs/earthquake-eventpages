@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { EventService } from '../../core/event.service';
+
 
 @Component({
   selector: 'oaf-commentary',
@@ -8,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommentaryComponent implements OnInit {
 
-  constructor () { }
+  constructor (
+    public eventService: EventService
+  ) { }
 
   ngOnInit () {
   }
