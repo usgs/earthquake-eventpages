@@ -1,3 +1,31 @@
-<p>
-  oaf works!
-</p>
+<!-- productType attribute defines type of product to load -->
+<product-page productType="oaf">
+
+  <!-- container with header attribute is added before attribution -->
+  <ng-container header>
+    <h2>Aftershock Forecast</h2>
+  </ng-container>
+
+  <!-- routes/components in ../oaf-routing.module.ts -->
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link
+        [routerLink]="'./commentary'" queryParamsHandling="preserve"
+        routerLinkActive #commentary="routerLinkActive" [active]="commentary.isActive">
+      Commentary
+    </a>
+    <a mat-tab-link [routerLink]="'./forecast'" queryParamsHandling="preserve"
+        routerLinkActive #forecast="routerLinkActive" [active]="forecast.isActive">
+      Forecast
+    </a>
+    <a mat-tab-link [routerLink]="'./model'" queryParamsHandling="preserve"
+        routerLinkActive #model="routerLinkActive" [active]="model.isActive">
+      Model
+    </a>
+  </nav>
+  <router-outlet></router-outlet>
+
+  <!-- container with footer attribute is added before downloads -->
+  <ng-container footer>
+  </ng-container>
+
+</product-page>
