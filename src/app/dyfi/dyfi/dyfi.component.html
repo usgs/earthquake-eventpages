@@ -1,0 +1,51 @@
+<!-- productType attribute defines type of product to load -->
+<product-page productType="dyfi">
+
+  <!-- container with header attribute is added before attribution -->
+  <ng-container header>
+    <h3>Did You Feel It?</h3>
+  </ng-container>
+
+  <ng-container>
+  <!-- routes/components in ../origin-routing.module.ts -->
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link [routerLink]="'./intensity'"
+          queryParamsHandling="preserve"
+          routerLinkActive #intensity="routerLinkActive"
+          [active]="intensity.isActive">
+        Intensity
+      </a>
+      <a mat-tab-link [routerLink]="'./zip'"
+          queryParamsHandling="preserve"
+          routerLinkActive #zip="routerLinkActive"
+          [active]="zip.isActive">
+        ZIP Map
+      </a>
+      <a mat-tab-link [routerLink]="'./intensity-vs-distance'"
+          queryParamsHandling="preserve"
+          routerLinkActive #intensity_vs_distance="routerLinkActive"
+          [active]="intensity_vs_distance.isActive">
+        Intensity Vs. Distance
+      </a>
+      <a mat-tab-link [routerLink]="'./responses-vs-time'"
+          queryParamsHandling="preserve"
+          routerLinkActive #responses_vs_time="routerLinkActive"
+          [active]="responses_vs_time.isActive">
+        Responses Vs. Time
+      </a>
+      <a mat-tab-link [routerLink]="'./responses'"
+          queryParamsHandling="preserve"
+          routerLinkActive #responses="routerLinkActive"
+          [active]="responses.isActive">
+        DYFI Responses
+      </a>
+    </nav>
+
+    <router-outlet></router-outlet>
+  </ng-container>
+
+  <!-- container with footer attribute is added before downloads -->
+  <ng-container footer>
+  </ng-container>
+
+</product-page>
