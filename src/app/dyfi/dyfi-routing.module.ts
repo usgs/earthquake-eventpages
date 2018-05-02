@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DyfiComponent } from './dyfi/dyfi.component';
 import { IntensityComponent } from './intensity/intensity.component';
-import { ZipComponent } from './zip/zip.component';
 import { IntensityVsDistanceComponent } from './intensity-vs-distance/intensity-vs-distance.component';
 import { ResponsesVsTimeComponent } from './responses-vs-time/responses-vs-time.component';
 import { ResponsesComponent } from './responses/responses.component';
+import { ZipComponent } from './zip/zip.component';
 
 const dyfiRoutes: Routes = [
   {

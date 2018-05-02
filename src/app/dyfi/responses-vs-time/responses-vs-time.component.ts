@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResponsesVsTimeComponent implements OnInit {
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
 }

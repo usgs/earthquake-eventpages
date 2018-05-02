@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IntensityComponent implements OnInit {
 
-  constructor() { }
+  constructor () { }
 
-  ngOnInit() {
+  ngOnInit () {
   }
 
 }
