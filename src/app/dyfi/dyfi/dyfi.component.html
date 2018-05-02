@@ -4,6 +4,11 @@
   <!-- container with header attribute is added before attribution -->
   <ng-container header>
     <h3>Did You Feel It?</h3>
+    <a [routerLink]="'../tellus'"
+        class="tell-us-link"
+        queryParamsHandling="preserve">
+      Felt Report - Tell Us!
+    </a>
   </ng-container>
 
   <ng-container>
