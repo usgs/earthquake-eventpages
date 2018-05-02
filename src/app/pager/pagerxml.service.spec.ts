@@ -206,14 +206,19 @@ describe('PagerxmlService', () => {
             testing..
           </alertcomment>
           <impact_comment>
-            testing...#
+            Red alert for shaking-related fatalities and economic losses.
+            High casualties and extensive damage are probable and the disaster
+            is likely widespread. Past red alerts have required a national or
+            international response.#Estimated economic losses are 0-1% GDP of
+            Mexico.
           </impact_comment>
           <secondary_effects/>
         </pager>`);
       const comments = service._parseComments(xml.pager);
       expect(comments.effects).toBeUndefined();
       expect(comments.impact).toBeDefined();
-      expect(comments.impact.length).toEqual(2);
+      expect(comments.impact.economic).toBeDefined();
+      expect(comments.impact.fatality).toBeDefined();
       expect(comments.structure).toBeDefined();
     }));
 

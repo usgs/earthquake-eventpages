@@ -3,13 +3,100 @@
 
   <!-- container with header attribute is added before attribution -->
   <ng-container header>
-    <h2><abbr title="Prompt Assessment of Global Earthquakes for Response">PAGER</abbr></h2>
+    <h2>
+      <abbr title="Prompt Assessment of Global Earthquakes for Response">
+        PAGER
+      </abbr>
+    </h2>
   </ng-container>
 
-  <!-- TODO, build pager page -->
-  <ng-container *ngIf="pagerXmlService.pagerXml$ | async | json as xml">
-    <pre>{{ xml }}</pre>
+  <ng-container *ngIf="pagerXmlService.pagerXml$ | async as pager; else noPager">
+
+    <div *ngIf="eventService.product$ | async as product">
+      <div class="alert-wrapper row" >
+        <div class="column one-of-one pager-pending"></div>
+        <div class="column one-of-two fatality-histogram">
+          <h3>Estimated Fatalities</h3>
+          <ng-container *ngIf="product.contents &&
+              product.contents['alertfatal.pdf'] &&
+              product.contents['alertfatal.png']; else noImage">
+            <figure>
+              <a href="{{ product.contents['alertfatal.pdf'].url }}">
+                <img src="{{ product.contents['alertfatal.png'].url }}" />
+              </a>
+              <figcaption *ngIf="pager.comments?.impact?.fatality">
+                {{ pager.comments.impact.fatality }}
+              </figcaption>
+            </figure>
+          </ng-container>
+        </div>
+        <div class="column one-of-two economic-histogram">
+          <h3>Estimated Economic Losses</h3>
+          <ng-container *ngIf="product.contents &&
+              product.contents['alertecon.pdf'] &&
+              product.contents['alertecon.png']; else noImage">
+            <figure>
+              <a href="{{ product.contents['alertecon.pdf'].url }}">
+                <img src="{{ product.contents['alertecon.png'].url }}" />
+              </a>
+              <figcaption *ngIf="pager.comments?.impact?.economic">
+                {{ pager.comments.impact.economic }}
+              </figcaption>
+            </figure>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="row pager-content">
+        <div class="column one-of-two">
+          <h3>Estimated Population Exposure to Earthquake Shaking</h3>
+          <ng-container *ngIf="product.contents &&
+              product.contents['exposure.png']; else noImage">
+            <figure>
+              <a href="#">
+                <img src="{{ product.contents['exposure.png'].url }}" />
+              </a>
+              <figcaption>
+                Population per ~1 sq. km. from LandScan
+              </figcaption>
+            </figure>
+          </ng-container>
+          <!-- TODO, Replace with PagerPopulationComponent -->
+          <div class="exposure-population">
+            <p class="alert info">TODO, add PagerPopulationComponent</p>
+          </div>
+        </div>
+
+        <div class="column one-of-two">
+          <ng-container *ngIf="pager.comments?.structure">
+            <h3>Structure Information Summary</h3>
+            <p>
+              {{ pager.comments.structure }}
+            </p>
+          </ng-container>
+          <ng-container *ngIf="pager.comments?.effects">
+            <h3>Secondary Effects</h3>
+            <p>
+              {{ pager.comments.effects }}
+            </p>
+          </ng-container>
+          <!-- TODO, Replace with PagerCitiesComponent -->
+          <div class="exposure-city">
+            <p class="alert info">TODO, add PagerCitiesComponent</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </ng-container>
+
+  <ng-template #noPager>
+    <p class="alert error">Data failed to load</p>
+  </ng-template>
+
+  <ng-template #noImage>
+    <p class="alert warning">No image to load</p>
+  </ng-template>
 
   <ng-container footer>
     <h3>For More Information</h3>
