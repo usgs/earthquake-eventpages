@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { EventService } from '../../core/event.service';
@@ -10,7 +10,7 @@ import { PagerXmlService } from '../pagerxml.service';
   templateUrl: './pager.component.html',
   styleUrls: ['./pager.component.scss']
 })
-export class PagerComponent implements OnDestroy, OnInit {
+export class PagerComponent implements AfterViewInit, OnDestroy {
 
   /** subscription to product observable */
   private productSubscription: Subscription;
@@ -20,7 +20,9 @@ export class PagerComponent implements OnDestroy, OnInit {
     public pagerXmlService: PagerXmlService
   ) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    // By the time the afterViewinit hook runs the eventService has
+    // the correct "losspager" product
     this.productSubscription = this.eventService.product$.subscribe((product) => {
       this.onProduct(product);
     });
@@ -36,7 +38,7 @@ export class PagerComponent implements OnDestroy, OnInit {
    * @param product next product.
    */
   onProduct (product) {
-    if (product) {
+    if (product && product.type === 'losspager') {
       this.pagerXmlService.getPagerXml(product);
     }
   }
