@@ -58,6 +58,10 @@ const appRoutes = [
         loadChildren: './shakemap/shakemap.module#ShakemapModule'
       },
       {
+        path: 'dyfi',
+        loadChildren: './dyfi/dyfi.module#DyfiModule'
+      },
+      {
         path: 'pager',
         loadChildren: './pager/pager.module#PagerModule'
       },
