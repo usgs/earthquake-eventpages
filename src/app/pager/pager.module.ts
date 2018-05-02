@@ -5,6 +5,7 @@ import { ProductPageModule } from '../product-page/product-page.module';
 import { PagerComponent } from './pager/pager.component';
 import { PagerRoutingModule } from './pager-routing.module';
 import { PagerXmlService } from './pagerxml.service';
+import { PagerPopulationComponent } from './pager-population/pager-population.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { PagerXmlService } from './pagerxml.service';
     PagerRoutingModule
   ],
   declarations: [
-    PagerComponent
+    PagerComponent,
+    PagerPopulationComponent
   ],
   providers: [
     PagerXmlService
