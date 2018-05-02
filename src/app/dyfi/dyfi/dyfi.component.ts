@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-dyfi',
+  selector: 'dyfi',
   templateUrl: './dyfi.component.html',
   styleUrls: ['./dyfi.component.scss']
 })
