@@ -8,6 +8,7 @@ import { PagerRoutingModule } from './pager-routing.module';
 import { PagerXmlService } from './pagerxml.service';
 import { PagerPopulationComponent } from './pager-population/pager-population.component';
 import { SharedModule } from '../shared/shared.module';
+import { PagerCitiesComponent } from './pager-cities/pager-cities.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SharedModule } from '../shared/shared.module';
   ],
   declarations: [
     PagerComponent,
-    PagerPopulationComponent
+    PagerPopulationComponent,
+    PagerCitiesComponent
   ],
   providers: [
     PagerXmlService
