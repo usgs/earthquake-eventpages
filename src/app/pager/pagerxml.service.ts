@@ -218,6 +218,10 @@ export class PagerXmlService {
       return null;
     }
 
+    const roman = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+    const shaking = ['Not Felt', 'Weak', 'Weak', 'Light', 'Moderate', 'Strong',
+        'Very Strong', 'Severe', 'Violent', 'Extreme'];
+
     data = [];
     exposures = pager.exposure;
 
@@ -227,6 +231,8 @@ export class PagerXmlService {
         dmax: parseFloat(exposures[i].dmax),
         exposure: parseInt(exposures[i].exposure, 10),
         rangeInsideMap: (exposures[i].rangeInsideMap === '1'),
+        roman: roman[i],
+        shaking: shaking[i]
       });
     }
 
@@ -245,7 +251,9 @@ export class PagerXmlService {
         dmin: 1.5,
         dmax: 3.5,
         exposure: exposure,
-        rangeInsideMap: rangeInsideMap
+        rangeInsideMap: rangeInsideMap,
+        roman: 'II-III',
+        shaking: 'Weak'
       });
     }
 

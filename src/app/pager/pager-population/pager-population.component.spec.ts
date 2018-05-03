@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatTableModule } from '@angular/material';
+import { MockComponent } from 'ng2-mock-component';
 
 import { PagerPopulationComponent } from './pager-population.component';
+import { MockPipe } from '../../mock-pipe';
 
 describe('PagerPopulationComponent', () => {
   let component: PagerPopulationComponent;
@@ -8,7 +11,16 @@ describe('PagerPopulationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PagerPopulationComponent ]
+      declarations: [
+        PagerPopulationComponent,
+
+        MockComponent({selector: 'shared-mmi',
+            inputs: ['intensity', 'value', 'bubble']}),
+        MockPipe('sharedNumber')
+      ],
+      imports: [
+        MatTableModule
+      ]
     })
     .compileComponents();
   }));
