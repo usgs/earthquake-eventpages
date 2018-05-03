@@ -18,16 +18,17 @@ export class PagerCitiesComponent {
 
   constructor() { }
 
-  toggleCities () {
+  onChange (checkbox) {
     let el;
 
-    const className = 'show';
     el = this.tableEl.nativeElement;
 
-    if (el.classList.contains(className)) {
-      el.classList.remove(className);
-    } else {
+    const className = 'show';
+
+    if (checkbox && checkbox.checked) {
       el.classList.add(className);
+    } else {
+      el.classList.remove(className);
     }
   }
 

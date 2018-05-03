@@ -2,8 +2,7 @@
 
   <h3>Selected Cities Exposed</h3>
 
-  <button mat-raised-button color="primary" (click)="toggleCities()">Show All Cities</button>
-
+  <mat-checkbox (change)="onChange($event)">Show All Cities</mat-checkbox>
   <mat-table #citiesTable class="cities" [dataSource]="cities">
 
     <ng-container matColumnDef="mmi">

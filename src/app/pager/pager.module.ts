@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MatButtonModule, MatTableModule } from '@angular/material';
+import { MatCheckboxModule, MatTableModule } from '@angular/material';
 import { ProductPageModule } from '../product-page/product-page.module';
 import { PagerComponent } from './pager/pager.component';
 import { PagerRoutingModule } from './pager-routing.module';
@@ -14,7 +14,7 @@ import { PagerCitiesComponent } from './pager-cities/pager-cities.component';
 @NgModule({
   imports: [
     CommonModule,
-    MatButtonModule,
+    MatCheckboxModule,
     MatTableModule,
     ProductPageModule,
     SharedModule,
