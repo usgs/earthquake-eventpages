@@ -24,23 +24,23 @@
           }; let locals">
 
       <ng-container *ngSwitchCase="'green'">
-        Little or no {{ locals.none }} is expected,
+        Little to no {{ locals.none }} is expected,
         but could still have occurred in highly susceptible areas.
       </ng-container>
 
       <ng-container *ngSwitchCase="'yellow'">
         {{ locals.label }} triggered by this earthquake {{ locals.verb }}
-        estimated to be restricted in number and (or) spatial extent.
+        estimated to be limited in number and (or) spatial extent.
       </ng-container>
 
       <ng-container *ngSwitchCase="'orange'">
         {{ locals.label }} triggered by this earthquake {{ locals.verb }}
-        estimated to be important in number and (or) spatial extent.
+        estimated to be significant in number and (or) spatial extent.
       </ng-container>
 
       <ng-container *ngSwitchCase="'red'">
         {{ locals.label }} triggered by this earthquake {{ locals.verb }}
-        estimated to be extremely large in number and (or) spatial extent.
+        estimated to be extremely large in number and (or) spatially extensive.
       </ng-container>
     </ng-container>
   </figcaption>
