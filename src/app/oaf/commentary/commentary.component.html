@@ -1,0 +1,9 @@
+<ng-container *ngIf="eventService.product$ | async as product; else noProduct">
+  <pre>
+    {{ product | json }}
+  </pre>
+</ng-container>
+
+<ng-template #noProduct>
+  <p>No product to display.</p>
+</ng-template>
