@@ -1,3 +1,40 @@
 <ng-container *ngIf="pager && pager.cities as cities">
-  <pre>{{ cities | json }}</pre>
+
+  <h3>Selected Cities Exposed</h3>
+
+  <button mat-raised-button color="primary" (click)="toggleCities()">Show All Cities</button>
+
+  <mat-table #citiesTable class="cities" [dataSource]="cities">
+
+    <ng-container matColumnDef="mmi">
+      <mat-header-cell *matHeaderCellDef>MMI</mat-header-cell>
+      <mat-cell *matCellDef="let city">
+        <shared-mmi class="intensity"
+            [bubble]="false"
+            [intensity]="city.mmi">
+        </shared-mmi>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef>City</mat-header-cell>
+      <mat-cell *matCellDef="let city">{{ city.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="population">
+      <mat-header-cell *matHeaderCellDef>Population</mat-header-cell>
+      <mat-cell *matCellDef="let city">
+        {{ city.population / 1000 | sharedNumber:0 | number }} k
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+
+  </mat-table>
+
+  <p class="disclaimer">
+    From GeoNames Database of Cities with 1,000 or more residents (k = x1,000)
+  </p>
+
 </ng-container>

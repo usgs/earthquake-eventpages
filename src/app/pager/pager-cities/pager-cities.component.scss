@@ -1,0 +1,12 @@
+mat-row:nth-child(n+10) {
+  display: none;
+}
+
+.show mat-row:nth-child(n+10) {
+  display: flex;
+}
+
+
+.mmi {
+  width: 60px;
+}

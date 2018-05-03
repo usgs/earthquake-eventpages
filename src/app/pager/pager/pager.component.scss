@@ -5,3 +5,13 @@ figure {
     max-width: 100%;
   }
 }
+
+mat-table {
+
+  .mat-column-mmi,
+  .mat-column-population {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 85px;
+  }
+}
