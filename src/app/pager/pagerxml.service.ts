@@ -177,9 +177,23 @@ export class PagerXmlService {
     //         send comments of this nature.
     impact = pager.impact_comment;
     if (impact && impact !== '' && typeof impact !== 'object') {
-      data.impact = impact.trim().split('#').reverse();
-      if (data.impact[0].indexOf('economic') !== -1) {
-        data.impact.reverse();
+      impact = impact.trim().split('#').reverse();
+      if (impact[0].indexOf('economic') !== -1) {
+        impact.reverse();
+      }
+
+      data.impact = {};
+
+      // name the comments
+      if (impact.length === 2) {
+        if (impact[0] !== '') {
+          data.impact.fatality = impact[0];
+          data.impact.economic = impact[1];
+        } else {
+          data.impact.fatality = impact[1];
+        }
+      } else {
+        data.impact.fatality = impact[0];
       }
     }
 
