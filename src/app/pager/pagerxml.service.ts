@@ -21,9 +21,6 @@ export class PagerXmlService {
 
   getPagerXml (product: any): void {
     try {
-      if (product.losspager) {
-        product = product.losspager;
-      }
       const contents = product.contents['pager.xml'];
       const options = {responseType: 'text' as 'text'};
 
