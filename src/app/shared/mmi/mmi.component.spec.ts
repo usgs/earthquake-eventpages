@@ -32,7 +32,7 @@ describe('MmiComponent', () => {
   });
 
   describe('set intensity', () => {
-    it('sets intensity and roman value correctly', () => {
+    it('uses formatter service to set intensity', () => {
       component.intensity = 4.5;
       expect(component.intensity).toEqual(4.5);
     });

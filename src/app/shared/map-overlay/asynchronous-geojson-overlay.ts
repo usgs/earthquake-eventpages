@@ -100,8 +100,19 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
     // subclasses should override this method
   },
 
-  pointToLayer: function (feature, layer) {
+  pointToLayer: function (feature, latlng) {
     // subclasses should override this method
+
+    const defaultOptions = {
+        radius: 8,
+        fillColor: "#ff7800",
+        color: "#000",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+    };
+
+    return L.circleMarker(latlng, defaultOptions);
   },
 
   /**
