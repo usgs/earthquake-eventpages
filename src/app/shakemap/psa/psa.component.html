@@ -1,0 +1,80 @@
+<ng-container *ngIf="eventService.product$ | async; let shakemap">
+
+  <h3>Peak Spectral Acceleration for 0.3 s, 1.0 s, 3.0 s</h3>
+
+  <ng-container 
+      *ngIf="shakemap?.contents['download/cont_psa03.json']; else noPSA03">
+    <h4>0.3 s PSA (%g)</h4>
+    <a [routerLink]="'../../map'"
+        [queryParams]="{
+          'shakemap-code': shakemap?.code,
+          'shakemap-source': shakemap?.source,
+          'shakemap-psa03': true,
+          'shakemap-intensity': false
+        }">
+
+      <shared-map
+          [overlays]="shakemap | shakemapOverlays:'shakemap-psa03'"
+          [showScaleControl]="true">
+      </shared-map>
+    </a>
+  </ng-container>
+
+  <ng-template #noPSA03>
+    <img
+        *ngIf="shakemap?.contents['download/psa03.jpg']"
+        src="{{ shakemap.contents['download/psa03.jpg'].url }}"
+        alt="ShakeMap 0.3 s PSA (%g) image">
+  </ng-template>  
+
+  <ng-container
+      *ngIf="shakemap?.contents['download/cont_psa10.json']; else noPSA10">
+    <h4>1.0 s PSA (%g)</h4>
+    <a [routerLink]="'../../map'"
+        [queryParams]="{
+          'shakemap-code': shakemap?.code,
+          'shakemap-source': shakemap?.source,
+          'shakemap-psa10': true,
+          'shakemap-intensity': false
+        }">
+
+      <shared-map
+          [overlays]="shakemap | shakemapOverlays:'shakemap-psa10'"
+          [showScaleControl]="true">
+      </shared-map>
+    </a>
+  </ng-container>
+
+  <ng-template #noPSA10>
+    <img
+        *ngIf="shakemap?.contents['download/psa10.jpg']"
+        src="{{ shakemap.contents['download/psa10.jpg'].url }}"
+        alt="ShakeMap 1.0 s PSA (%g) image">
+  </ng-template>
+
+  <ng-container
+      *ngIf="shakemap?.contents['download/cont_psa30.json']; else noPSA30">
+    <h4>3.0 s PSA (%g)</h4>
+    <a [routerLink]="'../../map'"
+        [queryParams]="{
+          'shakemap-code': shakemap?.code,
+          'shakemap-source': shakemap?.source,
+          'shakemap-psa30': true,
+          'shakemap-intensity': false
+        }">
+
+      <shared-map
+          [overlays]="shakemap | shakemapOverlays:'shakemap-psa30'"
+          [showScaleControl]="true">
+      </shared-map>
+    </a>
+  </ng-container>
+
+  <ng-template #noPSA30>
+    <img
+        *ngIf="shakemap?.contents['download/psa30.jpg']"
+        src="{{ shakemap.contents['download/psa30.jpg'].url }}"
+        alt="ShakeMap 3.0 s PSA (%g) image">
+  </ng-template>  
+
+</ng-container>

@@ -3,12 +3,13 @@ import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 describe('ShakemapOverlaysPipe', () => {
   let pipe;
 
-  const SHAKEMAP = {
+  const SHAKEMAP: any = {
     type: 'shakemap',
     properties: {
     },
     contents: {
-        'download/cont_mi.json': {url: 'url'}
+        'download/cont_mi.json': {url: 'url'},
+        'download/cont_pga.json': {url: 'url'}
     }
   };
 
@@ -48,5 +49,15 @@ describe('ShakemapOverlaysPipe', () => {
         expect(overlay.enabled).toBe(true);
       }
     });
+  });
+
+  it('excludes layers with missing geoJSON', () => {
+    const shakemap = SHAKEMAP;
+    shakemap.contents = {};
+
+    const overlays = pipe.transform(SHAKEMAP, 'shakemap-intensity');
+
+    // only the epicenter should make it through
+    expect(overlays.length).toBe(1);
   });
 });

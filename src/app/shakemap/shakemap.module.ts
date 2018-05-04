@@ -24,6 +24,9 @@ import { OutputComponent } from './metadata/output/output.component';
 import { ProcessingComponent } from './metadata/processing/processing.component';
 import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 import { IntensityComponent } from './intensity/intensity.component';
+import { PgaComponent } from './pga/pga.component';
+import { PgvComponent } from './pgv/pgv.component';
+import { PsaComponent } from './psa/psa.component';
 
 @NgModule({
   imports: [
@@ -49,7 +52,10 @@ import { IntensityComponent } from './intensity/intensity.component';
     OutputComponent,
     ProcessingComponent,
     UncertaintyComponent,
-    IntensityComponent
+    IntensityComponent,
+    PgaComponent,
+    PgvComponent,
+    PsaComponent
   ],
   exports: [
     StationListComponent,

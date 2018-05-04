@@ -6,6 +6,9 @@ import { StationListComponent } from './station-list/station-list.component';
 import { MetadataComponent } from './metadata/metadata.component';
 import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 import { IntensityComponent } from './intensity/intensity.component';
+import { PgaComponent } from './pga/pga.component';
+import { PgvComponent } from './pgv/pgv.component';
+import { PsaComponent } from './psa/psa.component';
 
 const shakemapRoutes: Routes = [
   {
@@ -17,6 +20,18 @@ const shakemapRoutes: Routes = [
       {
         path: 'intensity',
         component: IntensityComponent
+      },
+      {
+        path: 'pga',
+        component: PgaComponent
+      },
+      {
+        path: 'pgv',
+        component: PgvComponent
+      },
+      {
+        path: 'psa',
+        component: PsaComponent
       },
       {
         path: 'stations',
