@@ -5,7 +5,6 @@ import { StationService } from '../../core/station.service';
 import { FormatterService } from '../../core/formatter.service';
 import { LocationPipe } from '../location.pipe';
 
-
 const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
   id: 'shakemap-stations',
@@ -85,8 +84,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
     const options = { minWidth: 300 };
     marker.bindPopup(popupContent, options).openPopup();
 
-    // The popup is generate; let Leaflet take over
-    // hiding/showing it
+    // The popup is generated; let Leaflet take over displaying/hiding
     marker.off('click', this.generatePopup, this);
   },
 
@@ -125,7 +123,6 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
       </div>
     `;
 
-
     const descriptionTable = `
       <dl class="description-table station-overlay">
         <dt>Network</dt>
@@ -142,6 +139,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
     let channels = '';
     if (feature.channels.length > 0) {
 
+      // generate table rows for each channel
       let channelRows = '';
       for (const channel of feature.channels) {
         channelRows += `
@@ -168,6 +166,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
         `;
       }
 
+      // add the rows to a table
       channels = `
         <table class="mat-table">
           <tr class="mat-header-row mat-row">
