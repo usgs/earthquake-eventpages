@@ -14,6 +14,8 @@ export class FormatterService {
     this.distanceDecimals = 1;
     this.empty = '-';
     this.locationDecimals = 3;
+    this.mmiArray = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
+        'IX', 'X', 'XI', 'XII'];
   }
 
   /**
@@ -128,6 +130,21 @@ export class FormatterService {
    */
   distance (distance: number, units: string): string {
     return this.number(distance, this.distanceDecimals, this.empty, units);
+  }
+
+  /**
+   * Format a measured intensity as a roman numeral
+   *
+   * @param mmi {Number}
+   *     The intensity
+   *
+   * @return {String}
+   *     An MMI roman numeral
+   */
+  intensity (mmi: number): string {
+    mmi = Math.round(mmi);
+
+    return this.mmiArray[mmi];
   }
 
   /**

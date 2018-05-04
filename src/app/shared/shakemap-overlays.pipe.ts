@@ -7,6 +7,7 @@ import { ShakemapPGVOverlay } from './map-overlay/shakemap-pgv-overlay';
 import { ShakemapPSA03Overlay } from './map-overlay/shakemap-psa03-overlay';
 import { ShakemapPSA10Overlay } from './map-overlay/shakemap-psa10-overlay';
 import { ShakemapPSA30Overlay } from './map-overlay/shakemap-psa30-overlay';
+import { ShakemapStationsOverlay } from './map-overlay/shakemap-stations-overlay';
 
 import * as L from 'leaflet';
 
@@ -26,6 +27,7 @@ export class ShakemapOverlaysPipe implements PipeTransform {
       overlays.push(new ShakemapPSA03Overlay(product));
       overlays.push(new ShakemapPSA10Overlay(product));
       overlays.push(new ShakemapPSA30Overlay(product));
+      overlays.push(new ShakemapStationsOverlay(product));
 
       overlays.forEach((overlay) => {
         overlay.enabled = overlay.id === enabled;

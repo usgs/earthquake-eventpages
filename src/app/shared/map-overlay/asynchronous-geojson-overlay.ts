@@ -40,6 +40,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
 
     L.GeoJSON.prototype.initialize.call(this, [], {
       onEachFeature: (feature, layer) => this.onEachFeature(feature, layer),
+      pointToLayer: (feature, layer) => this.pointToLayer(feature, layer),
       style: (feature) => this.style(feature)
     });
   },
@@ -96,6 +97,10 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
   },
 
   onEachFeature: function (feature, layer) {
+    // subclasses should override this method
+  },
+
+  pointToLayer: function (feature, layer) {
     // subclasses should override this method
   },
 
