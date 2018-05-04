@@ -46,6 +46,13 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
   },
 
   /**
+   * Function runs after the geoJSON layer is successfully added
+   */
+  afterAdd: function () {
+    // subclasses should override this method
+  },
+
+  /**
    * Handling all errors
    *
    * @param {Error}
@@ -80,6 +87,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
           this.data = data;
           // add data to layer (and map if layer still visible)
           this.addData(data);
+          this.afterAdd();
         } catch (error) {
           this.handleError(error);
         }

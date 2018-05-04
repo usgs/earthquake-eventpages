@@ -26,8 +26,19 @@ const ShakemapPSA03Overlay = AsynchronousGeoJSONOverlay.extend({
 
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
-      layer.bindPopup(`${feature.properties.value} %g`);
+      const p = L.popup({
+        autoClose: false,
+        autoPan: false
+      }).setContent(`${feature.properties.value} %g`);
+
+      layer.bindPopup(p);
     }
+  },
+
+  afterAdd: function () {
+    this.eachLayer((layer) => {
+      layer.openPopup();
+    });
   },
 
   style: function (feature) {
