@@ -105,8 +105,8 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
 
     const defaultOptions = {
         radius: 8,
-        fillColor: "#ff7800",
-        color: "#000",
+        fillColor: '#ff7800',
+        color: '#000',
         weight: 1,
         opacity: 1,
         fillOpacity: 0.8
