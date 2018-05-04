@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MmiComponent } from './mmi.component';
 import { MockComponent } from 'ng2-mock-component';
+import { MockPipe } from '../../mock-pipe';
 
 describe('MmiComponent', () => {
   let component: MmiComponent;
@@ -12,7 +13,9 @@ describe('MmiComponent', () => {
       declarations: [
         MmiComponent,
 
-        MockComponent({selector: 'shared-bubble', inputs: ['name', 'title']})
+        MockComponent({selector: 'shared-bubble', inputs: ['name', 'title']}),
+
+        MockPipe('sharedRoman')
       ]
     })
     .compileComponents();
@@ -31,7 +34,6 @@ describe('MmiComponent', () => {
   describe('set intensity', () => {
     it('sets intensity and roman value correctly', () => {
       component.intensity = 4.5;
-      expect(component.roman).toEqual('V');
       expect(component.intensity).toEqual(4.5);
     });
   });

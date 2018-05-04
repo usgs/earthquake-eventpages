@@ -1,0 +1,48 @@
+<ng-container *ngIf="pager?.exposures as exposures; else noExposures">
+
+  <mat-table class="exposure" [dataSource]="exposures">
+
+    <ng-container matColumnDef="mmi">
+      <mat-header-cell *matHeaderCellDef>MMI</mat-header-cell>
+      <mat-cell *matCellDef="let exposure">
+        <shared-mmi class="intensity"
+            [bubble]="false"
+            [intensity]="exposure.dmin"
+            [value]="exposure.roman">
+        </shared-mmi>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="shaking">
+      <mat-header-cell *matHeaderCellDef>Shaking</mat-header-cell>
+      <mat-cell *matCellDef="let exposure">{{ exposure.shaking }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="population">
+      <mat-header-cell *matHeaderCellDef>Population</mat-header-cell>
+      <mat-cell *matCellDef="let exposure">
+        {{ exposure.exposure / 1000 | sharedNumber:0 | number }}
+        k{{ exposure.rangeInsideMap === false ? '*' : ''}}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
+
+  </mat-table>
+
+  <p class="pager-disclaimer">
+    *Estimated exposure only includes population within 
+    map area (k = x1,000)
+    <br/>
+    <a href="https://earthquake.usgs.gov/research/shakemap/#intmaps">
+        Modified Mercalli Intensity (MMI) scale</a>
+  </p>
+
+</ng-container>
+
+<ng-template #noExposures>
+  <p class="alert error">
+    This product is missing pager.xml
+  </p>
+</ng-template>

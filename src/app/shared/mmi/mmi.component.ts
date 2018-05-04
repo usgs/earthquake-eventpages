@@ -1,37 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'shared-mmi',
   templateUrl: './mmi.component.html',
   styleUrls: ['./mmi.component.scss']
 })
-export class MmiComponent implements OnInit {
-
-  static MMI_ROMAN = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
-        'IX', 'X', 'XI', 'XII'];
+export class MmiComponent {
 
   @Input()
   public bubble = false;
 
-  public roman: string;
-
-  private _intensity: number;
-
-  constructor () {}
-
-  ngOnInit () {
-  }
-
-  get intensity () {
-    return this._intensity;
-  }
+  @Input()
+  public intensity;
 
   @Input()
-  set intensity (mmi: number) {
-    this._intensity = mmi;
-    mmi = Math.round(mmi);
+  public value;
 
-    this.roman = MmiComponent.MMI_ROMAN[mmi];
-  }
-
+  constructor () {}
 }

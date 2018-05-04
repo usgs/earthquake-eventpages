@@ -1,16 +1,16 @@
 <shared-bubble *ngIf="bubble; else noBubble"
-    class="mmi mmi{{roman}}"
+    class="mmi mmi{{ intensity | sharedRoman }}"
     [name]="'mmi'"
     [title]="'Modified Mercalli Intensity'">
   <span class="roman">
-    <strong>{{roman}}</strong>
+    <strong>{{ value ? value : intensity | sharedRoman }}</strong>
   </span>
 </shared-bubble>
 
 <ng-template #noBubble>
-  <span class="mmi mmi{{roman}}">
+  <span class="mmi mmi{{ intensity | sharedRoman }}">
     <span class="roman">
-      <strong>{{roman}}</strong>
+      <strong>{{ value ? value : intensity | sharedRoman }}</strong>
     </span>
   </span>
 </ng-template>
