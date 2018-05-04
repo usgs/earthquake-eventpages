@@ -53,9 +53,8 @@
           <ng-container *ngIf="product.contents &&
               product.contents['exposure.png']; else noImage">
             <figure>
-              <a href="#">
-                <img src="{{ product.contents['exposure.png'].url }}" />
-              </a>
+              <!-- TODO, Link to map -->
+              <img src="{{ product.contents['exposure.png'].url }}" />
               <figcaption>
                 Population per ~1 sq. km. from LandScan
               </figcaption>
