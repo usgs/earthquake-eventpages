@@ -7,9 +7,60 @@
 
     <div class="landslides-pin-content">
       <h4>Landslides</h4>
-      <div class="material-icons landslides-liquefaction-icon"
-          [ngClass]="product.properties['landslide-hazard-alert-color']">
-        &#xE564;
+      <div class="ground-failure-icon"
+          [ngClass]="product.properties['landslide-alert']">
+        <svg version="1.1" id="landslide" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 11.7 10.1" style="enable-background:new 0 0 11.7 10.1;"
+            xml:space="preserve">
+        <title>Landslide</title>
+        <g>
+          <g>
+            <g>
+              <path d="M5.4,0.6C5.2,0.5,5.1,0.5,4.9,0.6C4.9,0.7,4.7,0.9,4.6,
+                  1l0,0c-0.1,0.1,0,0.2,0.1,0.3c0.1,0,0.3,0,0.4,0
+                  C5.2,1.2,5.5,0.7,5.4,0.6z"/>
+            </g>
+          </g>
+          <g>
+            <g>
+              <path d="M11.6,7.4c-0.1-0.4-0.1-0.7-0.2-1.1c0-0.2-0.1-0.5-0.2-0.7c0,0,0,0,0,0c-0.3-0.8-1.1-2-1.3-2.3C9.6,2.9,8.7,1.8,8.5,1.6
+                C8.3,1.4,7.6,0.8,7.4,0.7C7.3,0.6,6.7,0.2,6.5,0C6.4,0,6.3,0,6.1,0.1C6,0.2,5.7,0.5,5.7,0.6c0,0,0,0,0,0C5.6,0.7,5.2,1.3,5.2,1.4
+                c0,0.1,0,0.1,0,0.2C5.1,1.8,5,2.6,4.9,2.8C4.8,2.9,4.8,3.1,4.8,3.2c0,0.1,0,0.7-0.1,0.8C4.6,4.2,4.4,4.4,4.2,4.6
+                C3.9,4.8,3.7,5.1,3.7,5.5c0,0.2-0.1,0.8-0.2,0.9C3.4,6.5,3.3,6.7,3.2,6.8C3,7.1,2.9,7.3,2.8,7.6C2.8,7.8,2.6,8.1,2.5,8.3
+                C2.4,8.5,1.8,9.5,1.8,9.6c0,0.1-0.4,0.4-0.2,0.4c2,0,9.8,0,9.9,0c0.1,0,0.2-0.1,0.2-0.2C11.7,9.7,11.7,8.1,11.6,7.4z"/>
+            </g>
+          </g>
+          <g>
+            <g>
+              <path d="M0.8,8c0,0,0.1,0,0.1-0.1c0,0,0-0.1,0-0.1c0-0.1-0.1-0.2-0.3-0.2c-0.1,0-0.2,0.1-0.2,0.2C0.4,7.9,0.7,8.1,0.8,8z"/>
+            </g>
+          </g>
+          <g>
+            <g>
+              <path d="M0.5,8.2"/>
+            </g>
+          </g>
+          <g>
+            <g>
+              <path d="M0.4,8.2C0.2,8.3,0,8.4,0,8.6c0,0.1,0,0.2,0,0.2C0,9,0.1,9.2,0.2,9.3c0.1,0.2,0.2,0.3,0.5,0.4c0.1,0,0.7,0,0.9-0.1
+                c0.1-0.2,0.1-0.4,0.1-0.5c0-0.3-0.2-0.5-0.5-0.5c0,0-0.1,0-0.1,0c-0.2,0-0.3-0.1-0.4-0.2C0.6,8.3,0.5,8.2,0.4,8.2"/>
+            </g>
+          </g>
+          <path d="M3.6,4.7c0,0.2-0.1,0.3-0.2,0.4C3.2,5.1,3,5.2,2.9,5.3c-0.1,0-0.1,0-0.2,0C2.6,5.2,2,5,2,4.9C1.9,4.9,1.8,4.8,1.8,4.7
+            c0,0,0.3-0.8,0.4-0.8c0.1-0.1,0.3-0.1,0.4,0c0,0,0.4,0.2,0.5,0.3C3.3,4.2,3.5,4.4,3.6,4.7C3.5,4.6,3.6,4.6,3.6,4.7z"/>
+          <path d="M4.7,2.1c0,0.2-0.1,0.3-0.1,0.5c0,0.1-0.1,0.2-0.2,0.2C4.3,2.9,4.1,3,3.9,3.1c-0.1,0-0.2,0-0.2,0.1C3.5,3.2,3.4,3.2,3.3,3
+            C3.2,2.9,3.1,2.8,3.1,2.6c0-0.1,0-0.1,0.1-0.2c0.1-0.1,0.5-0.6,0.6-0.7C3.9,1.6,4,1.6,4.1,1.6c0.1,0,0.2,0.1,0.3,0.1
+            C4.6,1.7,4.7,1.9,4.7,2.1z"/>
+          <path d="M1.8,6.2c0.2,0,0.3,0.1,0.4,0.2c0.1,0.1,0.2,0.2,0.2,0.4c0,0.1,0,0.3,0,0.4c0,0.1-0.1,0.2-0.2,0.3C2.2,7.6,2.1,7.8,2,7.9
+            C1.9,7.9,1.9,8,1.8,8c0,0-0.1,0-0.1,0C1.5,7.8,1.3,7.6,1.2,7.4C1.1,7.2,1.1,7,1.2,6.8c0.1-0.1,0.2-0.3,0.2-0.4
+            C1.5,6.3,1.6,6.2,1.8,6.2z"/>
+          <path d="M2.4,6.1C2.3,6,2.3,5.8,2.4,5.7c0.1-0.1,0.2-0.2,0.4-0.3c0,0,0.1,0,0.2,0c0.1,0,0.2,0.1,0.2,0.2c0.1,0.1,0.1,0.2,0,0.4
+            c0,0-0.4,0.5-0.5,0.4C2.7,6.3,2.4,6.2,2.4,6.1z"/>
+          <path d="M4.5,3.7c0,0.1-0.1,0.2-0.2,0.3C4.3,4.1,4.3,4.1,4.2,4.2C4.1,4.3,3.9,4.2,3.9,4c0-0.1,0-0.2,0-0.2C3.9,3.7,4,3.5,4,3.4
+            c0-0.1,0.1-0.2,0.2-0.2c0.1,0,0.2,0.1,0.2,0.2C4.5,3.6,4.5,3.6,4.5,3.7z"/>
+        </g>
+        </svg>
       </div>
 
       <div [ngSwitch]="product.properties['landslide-hazard-alert-color']">
@@ -20,18 +71,42 @@
       </div>
 
       <div [ngSwitch]="product.properties['landslide-population-alert-color']">
-        <span *ngSwitchCase="'green'">No to few people</span>
-        <span *ngSwitchCase="'yellow'">Limited people</span>
-        <span *ngSwitchCase="'orange'">Significant people</span>
-        <span *ngSwitchCase="'red'">Extensive people</span>
+        <span *ngSwitchCase="'green'">No to few population</span>
+        <span *ngSwitchCase="'yellow'">Limited population</span>
+        <span *ngSwitchCase="'orange'">Significant population</span>
+        <span *ngSwitchCase="'red'">Extensive population</span>
       </div>
     </div>
 
     <div class="liquefaction-pin-content">
       <h4>Liquefaction</h4>
-      <div class="material-icons landslides-liquefaction-icon"
-          [ngClass]="product.properties['liquefaction-hazard-alert-color']">
-        &#xEB48;
+      <div class="ground-failure-icon"
+          [ngClass]="product.properties['liquefaction-alert']">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 17.9 14" style="enable-background:new 0 0 17.9 14;"
+            xml:space="preserve">
+        <style type="text/css">
+          .st0{fill:#FFFFFF;}
+          .st1{fill:none;stroke-width:1.224;stroke-miterlimit:8;}
+        </style>
+        <g>
+          <rect x="3.9" y="4.7" transform="matrix(0.9617 0.2742 -0.2742 0.9617 2.2849 -2.1278)" width="9.6" height="4.9"/>
+          <path class="st0" d="M11,8.7L9.3,8.2C9.2,8.1,9.1,8,9.1,7.9l0.3-1.2c0-0.1,0.2-0.2,0.3-0.2L11.5,7c0.1,0,0.2,0.2,0.2,0.3l-0.3,1.2
+            C11.3,8.6,11.2,8.7,11,8.7z"/>
+          <path class="st0" d="M7.2,8.9L5,8.3c0,0-0.1,0,0-0.1l0.8-2.8c0.2-0.6,0.8-1,1.4-0.8l0,0C7.8,4.8,8.2,5.4,8,6L7.2,8.9
+            C7.2,8.9,7.2,8.9,7.2,8.9z"/>
+          <path d="M4.4,3.1c0,0,5.7-1.4,5.7-1.4l4.3,4.4c0.3,0.3,0,0.5-0.2,0.5L4.4,3.6C4.1,3.5,4.1,3.1,4.4,3.1z"/>
+          <rect x="11.8" y="3" transform="matrix(0.9617 0.2742 -0.2742 0.9617 1.4948 -3.2069)" width="0.8" height="1.5"/>
+        </g>
+        <title>Artboard 1</title>
+        <path class="st1" d="M0.1,11c0.7-0.2,1.4-0.3,2.2-0.3c0.8,0,1.5,0.1,2.3,0.3c0.7,0.2,1.4,0.3,2.2,0.3c0.7,0,1.5-0.1,2.2-0.3
+          c0.7-0.2,1.5-0.3,2.2-0.3c0.8,0,1.5,0.1,2.3,0.3c0.7,0.2,1.4,0.3,2.2,0.3c0.7,0,1.5-0.1,2.2-0.3"/>
+        <line class="st1" x1="12.7" y1="9.2" x2="17.8" y2="9.2"/>
+        <path class="st1" d="M0.1,13.1c0.7-0.2,1.4-0.3,2.2-0.3c0.8,0,1.5,0.1,2.3,0.3c0.7,0.2,1.4,0.3,2.2,0.3c0.7,0,1.5-0.1,2.2-0.3
+          c0.7-0.2,1.5-0.3,2.2-0.3c0.8,0,1.5,0.1,2.3,0.3c0.7,0.2,1.4,0.3,2.2,0.3c0.7,0,1.5-0.1,2.2-0.3"/>
+        <line class="st1" x1="0.1" y1="8.9" x2="7.4" y2="8.9"/>
+        </svg>
       </div>
 
       <div [ngSwitch]="product.properties['liquefaction-hazard-alert-color']">
@@ -43,13 +118,14 @@
 
       <div [ngSwitch]=
           "product.properties['liquefaction-population-alert-color']">
-        <span *ngSwitchCase="'green'">No to few people</span>
-        <span *ngSwitchCase="'yellow'">Limited people</span>
-        <span *ngSwitchCase="'orange'">Significant people</span>
-        <span *ngSwitchCase="'red'">Extensive people</span>
+        <span *ngSwitchCase="'green'">No to few population</span>
+        <span *ngSwitchCase="'yellow'">Limited population</span>
+        <span *ngSwitchCase="'orange'">Significant population</span>
+        <span *ngSwitchCase="'red'">Extensive population</span>
       </div>
     </div>
 
   </div>
 </basic-pin>
+
 
