@@ -1,13 +1,13 @@
 article {
   border: 1px solid #ccc;
   cursor: pointer;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-
   display: flex;
   flex-direction: column;
+  height: 100%;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  width: 100%;
 }
 
 header,
