@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { EventService } from '../../core/event.service';
@@ -8,7 +8,8 @@ import { PagerXmlService } from '../pagerxml.service';
 @Component({
   selector: 'pager-pager',
   templateUrl: './pager.component.html',
-  styleUrls: ['./pager.component.scss']
+  styleUrls: ['./pager.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PagerComponent implements AfterViewInit, OnDestroy {
 

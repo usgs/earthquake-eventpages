@@ -28,7 +28,8 @@ describe('PagerComponent', () => {
         PagerComponent,
 
         MockComponent({selector: 'product-page', inputs: ['product']}),
-        MockComponent({selector: 'pager-population', inputs: ['pager']}),
+        MockComponent({selector: 'pager-cities', inputs: ['pager']}),
+        MockComponent({selector: 'pager-population', inputs: ['pager']})
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},
