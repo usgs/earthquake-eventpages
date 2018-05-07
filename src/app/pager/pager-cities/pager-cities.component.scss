@@ -1,8 +1,8 @@
-mat-row:nth-child(n+10) {
+mat-row:nth-of-type(n + 12) {
   display: none;
 }
 
-.show mat-row:nth-child(n+10) {
+.show mat-row:nth-of-type(n + 12) {
   display: flex;
 }
 
