@@ -48,4 +48,13 @@ describe('PagerComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onProduct', () => {
+    it('checks for losspager product', () => {
+      component.onProduct({});
+      expect(component.pagerXmlService.getPagerXml).not.toHaveBeenCalled();
+      component.onProduct({type: 'losspager'});
+      expect(component.pagerXmlService.getPagerXml).toHaveBeenCalled();
+    });
+  });
 });
