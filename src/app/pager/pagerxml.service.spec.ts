@@ -212,14 +212,15 @@ describe('PagerxmlService', () => {
             international response.#Estimated economic losses are 0-1% GDP of
             Mexico.
           </impact_comment>
-          <secondary_effects/>
+          <secondary_effects>
+            testing...
+          </secondary_effects>
         </pager>`);
+      const spy = spyOn(service, '_parseImpactComments').and.returnValue({});
       const comments = service._parseComments(xml.pager);
-      expect(comments.effects).toBeUndefined();
-      expect(comments.impact).toBeDefined();
-      expect(comments.impact.economic).toBeDefined();
-      expect(comments.impact.fatality).toBeDefined();
+      expect(comments.effects).toBeDefined();
       expect(comments.structure).toBeDefined();
+      expect(spy).toHaveBeenCalled();
     }));
 
     it('returns null when response is null',
@@ -227,6 +228,30 @@ describe('PagerxmlService', () => {
 
       const comments = service._parseComments(null);
       expect(comments).toBeNull();
+    }));
+  });
+
+  describe('parseImpactComments', () => {
+    it('handles both fatality and economic processing of impact comments',
+        inject([PagerXmlService], (service: PagerXmlService) => {
+      const impact = service._parseImpactComments('testing#with economic comment');
+      expect(impact).not.toBeNull();
+      expect(impact.economic).toBeDefined();
+      expect(impact.fatality).toBeDefined();
+    }));
+    it('handles a fatality impact comment and empty economic comment',
+        inject([PagerXmlService], (service: PagerXmlService) => {
+      const impact = service._parseImpactComments('testing#');
+      expect(impact).not.toBeNull();
+      expect(impact.economic).not.toBeDefined();
+      expect(impact.fatality).toBeDefined();
+    }));
+    it('handles just a fatality impact comment',
+        inject([PagerXmlService], (service: PagerXmlService) => {
+      const impact = service._parseImpactComments('testing');
+      expect(impact).not.toBeNull();
+      expect(impact.economic).not.toBeDefined();
+      expect(impact.fatality).toBeDefined();
     }));
   });
 
