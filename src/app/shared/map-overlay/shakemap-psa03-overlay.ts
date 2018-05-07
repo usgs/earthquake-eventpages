@@ -26,18 +26,17 @@ const ShakemapPSA03Overlay = AsynchronousGeoJSONOverlay.extend({
 
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
-      const p = L.popup({
-        autoClose: false,
-        autoPan: false
+      const t = L.tooltip({
+        permanent: true
       }).setContent(`${feature.properties.value} %g`);
 
-      layer.bindPopup(p);
+      layer.bindTooltip(t);
     }
   },
 
   afterAdd: function () {
     this.eachLayer((layer) => {
-      layer.openPopup();
+      layer.openTooltip();
     });
   },
 
