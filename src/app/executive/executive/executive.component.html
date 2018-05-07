@@ -24,6 +24,11 @@
       </executive-shakemap-pin>
     </li>
 
+    <li *ngIf="event | getProduct:'losspager'; let losspager">
+      <executive-pager-pin [product]="losspager">
+      </executive-pager-pin>
+    </li>
+
     <li *ngIf="event | getProduct:'ground-failure' let groundFailure">
       <executive-ground-failure-pin [product]="groundFailure">
       </executive-ground-failure-pin>

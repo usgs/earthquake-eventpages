@@ -16,6 +16,7 @@ import { MapPinComponent } from './map-pin/map-pin.component';
 import { DyfiResponseSubmitPinComponent } from './dyfi-response-submit-pin/dyfi-response-submit-pin.component';
 import { ShakemapPinComponent } from './shakemap-pin/shakemap-pin.component';
 import { GroundFailurePinComponent } from './ground-failure-pin/ground-failure-pin.component';
+import { PagerPinComponent } from './pager-pin/pager-pin.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { GroundFailurePinComponent } from './ground-failure-pin/ground-failure-p
     MapPinComponent,
     DyfiResponseSubmitPinComponent,
     ShakemapPinComponent,
-    GroundFailurePinComponent
+    GroundFailurePinComponent,
+    PagerPinComponent
   ]
 })
 export class ExecutiveModule { }

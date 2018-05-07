@@ -1,0 +1,19 @@
+<basic-pin
+    [link]="link"
+    [product]="product"
+    [title]="title">
+
+  <div card-content *ngIf="product">
+    <h4>Estimated Economic Losses</h4>
+    <img class="alert-histogram"
+        src="{{product.contents['alertecon_smaller.png'].url}}"
+        alt="Economic Alert Histogram" />
+
+
+    <h4>Estimated Fatalities</h4>
+    <img class="alert-histogram"
+        src="{{product.contents['alertfatal_smaller.png'].url}}"
+        alt="Fatality Alert Histogram" />
+  </div>
+
+</basic-pin>
