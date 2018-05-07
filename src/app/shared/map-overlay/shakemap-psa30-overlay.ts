@@ -15,6 +15,12 @@ const ShakemapPSA30Overlay = AsynchronousGeoJSONOverlay.extend({
     this.url = this.getUrl(product);
   },
 
+  afterAdd: function () {
+    this.eachLayer((layer) => {
+      layer.openTooltip();
+    });
+  },
+
   getUrl: function (product) {
     if (product == null) {
       return null;
@@ -32,12 +38,6 @@ const ShakemapPSA30Overlay = AsynchronousGeoJSONOverlay.extend({
 
       layer.bindTooltip(t);
     }
-  },
-
-  afterAdd: function () {
-    this.eachLayer((layer) => {
-      layer.openTooltip();
-    });
   },
 
   style: function (feature) {

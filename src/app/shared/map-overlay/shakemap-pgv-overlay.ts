@@ -15,6 +15,12 @@ const ShakemapPGVOverlay = AsynchronousGeoJSONOverlay.extend({
     this.url = this.getUrl(product);
   },
 
+  afterAdd: function () {
+    this.eachLayer((layer) => {
+      layer.openTooltip();
+    });
+  },
+
   getUrl: function (product) {
     if (product == null) {
       return null;
@@ -26,7 +32,11 @@ const ShakemapPGVOverlay = AsynchronousGeoJSONOverlay.extend({
 
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
-      layer.bindPopup(`${feature.properties.value} cm/s`);
+      const t = L.tooltip({
+        permanent: true
+      }).setContent(`${feature.properties.value} cm/s`);
+
+      layer.bindTooltip(t);
     }
   },
 
