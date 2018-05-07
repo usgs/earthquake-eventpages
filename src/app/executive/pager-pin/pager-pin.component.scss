@@ -7,3 +7,16 @@ img {
   margin: 0.5em auto;
   width: 70%;
 }
+
+[card-title] {
+  display: block;
+  position: relative;
+  width: 100%;
+
+  > shared-alert-level {
+    font-size: smaller;
+    position: absolute;
+    right: -3px;
+    top: -3px;
+  }
+}

@@ -1,7 +1,11 @@
 <basic-pin
-    [link]="link"
-    [product]="product"
-    [title]="title">
+    [product]="product">
+
+  <div card-title>
+    <a [routerLink]="link">{{ title }}</a>
+    <shared-alert-level [alert]="product?.properties?.alertlevel">
+    </shared-alert-level>
+  </div>
 
   <div card-content *ngIf="product">
     <h4>Estimated Economic Losses</h4>
