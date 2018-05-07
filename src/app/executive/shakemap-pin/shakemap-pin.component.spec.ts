@@ -5,6 +5,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 import { ShakemapPinComponent } from './shakemap-pin.component';
 
+
 describe('ShakemapPinComponent', () => {
   let component: ShakemapPinComponent;
   let fixture: ComponentFixture<ShakemapPinComponent>;
@@ -17,7 +18,7 @@ describe('ShakemapPinComponent', () => {
         MockComponent({selector: 'shared-mmi', inputs: ['bubble', 'intensity']}),
 
         MockPipe('getProduct')
-        ]
+      ]
     })
     .compileComponents();
   }));
