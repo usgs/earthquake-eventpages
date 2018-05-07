@@ -1,7 +1,9 @@
 .ground-failure-icon {
   float: left;
   height: 40px;
-  margin-right: 20px;
+  margin-right: 1rem;
+  stroke: #333;
+  stroke-width: 0.05px;
   width: 40px;
 }
 
@@ -13,9 +15,9 @@
 }
 
 .yellow {
-  fill: #e5e514;
+  fill: #F9F518;
   .st1 {
-    stroke: #e5e514;
+    stroke: #F9F518;
   }
 }
 
