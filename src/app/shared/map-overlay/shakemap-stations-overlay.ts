@@ -1,22 +1,28 @@
 import * as L from 'leaflet';
 
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
-import { StationService } from '../../core/station.service';
 import { FormatterService } from '../../core/formatter.service';
 import { LocationPipe } from '../location.pipe';
+import { NumberPipe } from '../number.pipe';
+import { RomanPipe } from '../roman.pipe';
+import { StationService } from '../../core/station.service';
 
 const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
   id: 'shakemap-stations',
   title: 'Shakemap Stations',
   legend: null,
-  formatter: new FormatterService(),
   locationPipe: null,
+  numberPipe: null,
+  romanPipe: new RomanPipe(),
 
   initialize: function (product) {
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 
-    this.locationPipe = new LocationPipe(this.formatter);
+    const formatter = new FormatterService();
+    this.locationPipe = new LocationPipe(formatter);
+    this.numberPipe = new NumberPipe(formatter);
+
     this.url = this.getUrl(product);
   },
 
@@ -31,7 +37,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
   pointToLayer: function (feature, latlng) {
     const props = feature.properties;
-    const intensity = this.formatter.intensity(props.intensity);
+    const intensity = this.romanPipe.transform(props.intensity);
     let marker;
 
     if (props.network === 'DYFI' ||
@@ -90,7 +96,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
   generatePopupContent: function (feature) {
     const props = feature.properties;
-    const intensity = this.formatter.intensity(props.intensity);
+    const intensity = this.romanPipe.transform(props.intensity);
 
     const header = `
       <h3>
@@ -107,17 +113,17 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
         </div>
 
         <div class="station-overlay-bubble">
-          <span>${this.formatter.number(props.pga, 2, '-', '%g')}</span>
+          <span>${this.numberPipe.transform(props.pga, 2, '%g')}</span>
           <abbr title="Peak Ground Acceleration">pga</abbr>
         </div>
 
         <div class="station-overlay-bubble">
-          <span>${this.formatter.number(props.pgv, 2, '-', 'cm/s')}</span>
+          <span>${this.numberPipe.transform(props.pgv, 2, 'cm/s')}</span>
           <abbr title="Peak Ground Velocity">pgv</abbr>
         </div>
 
         <div class="station-overlay-bubble">
-          <span>${this.formatter.number(props.distance, 2, '-', 'km')}</span>
+          <span>${this.numberPipe.transform(props.distance, 2, 'km')}</span>
           <abbr title="Distance">dist</abbr>
         </div>
       </div>
@@ -132,7 +138,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
         <dt>Source</dt>
         <dd>${props.source}</dd>
         <dt>Intensity</dt>
-        <dd>${this.formatter.number(props.intensity, 2)}</dd>
+        <dd>${this.numberPipe.transform(props.intensity, 2)}</dd>
       </dl>
     `;
 
@@ -145,22 +151,22 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
         channelRows += `
           <tr class="mat-row" role="row">
             <td class="mat-header-cell" role="rowheader">
-              ${this.formatter.number(channel.name)}
+              ${this.numberPipe.transform(channel.name)}
             </td>
             <td class="mat-cell" role="gridcell">
-              ${this.formatter.number(channel.pga.value, 2)}
+              ${this.numberPipe.transform(channel.pga.value, 2)}
             </td>
             <td class="mat-cell" role="gridcell">
-              ${this.formatter.number(channel.pgv.value, 2)}
+              ${this.numberPipe.transform(channel.pgv.value, 2)}
             </td>
             <td class="mat-cell" role="gridcell">
-              ${this.formatter.number(channel.psa03.value, 2)}
+              ${this.numberPipe.transform(channel.psa03.value, 2)}
             </td>
             <td class="mat-cell" role="gridcell">
-              ${this.formatter.number(channel.psa10.value, 2)}
+              ${this.numberPipe.transform(channel.psa10.value, 2)}
             </td>
             <td class="mat-cell" role="gridcell">
-              ${this.formatter.number(channel.psa30.value, 2)}
+              ${this.numberPipe.transform(channel.psa30.value, 2)}
             </td>
           </tr>
         `;
