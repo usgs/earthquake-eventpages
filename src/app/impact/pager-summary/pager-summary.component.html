@@ -14,8 +14,8 @@
           </shared-preferred-check>
         </ng-container>
         <a [routerLink]="['/', event?.id, 'pager']"
-            [queryParams]="{ source: pager.source, code: pager.code }">
-          {{ pager.properties.eventsource.toUpperCase() }}
+            [queryParams]="{ source: pager?.source, code: pager?.code }">
+          {{ pager.properties?.eventsource.toUpperCase() }}
         </a>
       </mat-cell>
     </ng-container>
@@ -25,7 +25,7 @@
         Alert Level
       </mat-header-cell>
       <mat-cell *matCellDef="let pager">
-        <shared-alert-level [alert]="pager.properties.alertlevel">
+        <shared-alert-level [alert]="pager?.properties?.alertlevel">
         </shared-alert-level>
       </mat-cell>
     </ng-container>

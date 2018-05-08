@@ -26,9 +26,12 @@
     <dd>{{ tensor.moment.toExponential(3) }} {{ tensor.units }}</dd>
 
     <dt>Magnitude</dt>
+
     <dd>
       {{ tensor.magnitude | sharedNumber:2 }}
-      {{ tensor.product.properties['derived-magnitude-type'] }}
+      <ng-container *ngIf="tensor?.product?.properties as properties">
+        {{ properties['derived-magnitude-type'] }}
+      </ng-container>
     </dd>
 
     <dt>Depth</dt>
@@ -44,19 +47,19 @@
     <dd>{{ tensor.halfDuration | sharedNumber:2:'s' }}</dd>
 
     <dt>Catalog</dt>
-    <dd>{{ tensor.product.properties.eventsource.toUpperCase() }}</dd>
+    <dd>{{ tensor.product?.properties?.eventsource.toUpperCase() }}</dd>
 
     <dt>Data Source</dt>
     <dd>
       <shared-product-attribution
-          [product]="{ source: tensor.product.properties['beachball-source'] || tensor.product.source }">
+          [product]="{ source: tensor.product?.properties['beachball-source'] || tensor.product?.source }">
       </shared-product-attribution>
     </dd>
 
     <dt>Contributor</dt>
     <dd>
       <shared-product-attribution
-          [product]="{ source: tensor.product.source }">
+          [product]="{ source: tensor.product?.source }">
       </shared-product-attribution>
     </dd>
   </dl>

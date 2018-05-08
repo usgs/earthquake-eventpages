@@ -21,7 +21,7 @@
                       [class.mat-cell]="false"
                       class="mat-header-cell"
                       *matCellDef="let groundMotion">
-            
+
             <ng-container *ngIf="names.groundMotions[groundMotion.type]
                 as name; else noName">
               <ng-container *ngIf="abbreviations[groundMotion.type] as abbr;
@@ -139,14 +139,14 @@
             else missingData">
           {{ ratio | sharedNumber }}
         </dd>
-        
+
         <dt>Empirical ShakeMap grade</dt>
         <dd *ngIf="uncertainty.grade as grade; else missingData">
           {{ grade }}
         </dd>
 
         <dt>Flagged Seismic Stations</dt>
-        <dd *ngIf="uncertaintytotal_flagged_mi as miFlag; else missingData">
+        <dd *ngIf="uncertainty.total_flagged_mi as miFlag; else missingData">
           {{ miFlag }}
         </dd>
 
