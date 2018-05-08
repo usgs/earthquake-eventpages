@@ -15,7 +15,7 @@
         </ng-container>
         <a [routerLink]="['/', event?.id, 'dyfi']"
             [queryParams]="{ source: dyfi?.source, code: dyfi?.code }">
-          {{ dyfi?.properties?.eventsource.toUpperCase() }}
+          {{ dyfi?.properties?.eventsource | uppercase }}
         </a>
       </mat-cell>
     </ng-container>
@@ -37,7 +37,7 @@
         Responses
       </mat-header-cell>
       <mat-cell *matCellDef="let dyfi">
-        {{ dyfi.properties?.numResp }}
+        {{ dyfi?.properties?.numResp }}
       </mat-cell>
     </ng-container>
 

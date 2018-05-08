@@ -3,22 +3,23 @@
     [product]="product"
     [title]="title">
 
-  <div card-content *ngIf="product?.properties?.maxmmi as mmi">
+  <div card-content>
+    <ng-container *ngIf="product.properties?.maxmmi as mmi">
+      <dl class="mmi-description">
+        <dt>Estimated Intensity</dt>
+        <dd>
+          <shared-mmi
+            [bubble]="true"
+            [intensity]="mmi">
+          </shared-mmi>
+        </dd>
+        <dt>Perceived Shaking</dt>
+        <dd>{{ mmiDescription[round(mmi)].shaking }}</dd>
 
-    <dl class="mmi-description">
-      <dt>Estimated Intensity</dt>
-      <dd>
-        <shared-mmi
-          [bubble]="true"
-          [intensity]="mmi">
-        </shared-mmi>
-      </dd>
-      <dt>Perceived Shaking</dt>
-      <dd>{{ mmiDescription[round(mmi)].shaking }}</dd>
-
-      <dt>Potential Damage</dt>
-      <dd>{{ mmiDescription[round(mmi)].damage }}</dd>
-    </dl>
+        <dt>Potential Damage</dt>
+        <dd>{{ mmiDescription[round(mmi)].damage }}</dd>
+      </dl>
+    </ng-container>
   </div>
 
 </basic-pin>
