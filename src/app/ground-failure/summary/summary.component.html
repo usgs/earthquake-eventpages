@@ -4,17 +4,19 @@
     <section class="landslides one-of-two column">
       <h3>Landslides</h3>
 
-      <ground-failure-hazard-alert
-          [alert]="product?.properties['landslide-hazard-alert-color']"
-          [type]="'landslide'"
-          [value]="product?.properties['landslide-hazard-alert-value']">
-      </ground-failure-hazard-alert>
+      <ng-container *ngIf="product?.properties as properties">
+        <ground-failure-hazard-alert
+            [alert]="properties['landslide-hazard-alert-color']"
+            [type]="'landslide'"
+            [value]="properties['landslide-hazard-alert-value']">
+        </ground-failure-hazard-alert>
 
-      <ground-failure-population-alert
-          [alert]="product?.properties['landslide-population-alert-color']"
-          [type]="'landslide'"
-          [value]="product?.properties['landslide-population-alert-value']">
-      </ground-failure-population-alert>
+        <ground-failure-population-alert
+            [alert]="properties['landslide-population-alert-color']"
+            [type]="'landslide'"
+            [value]="properties['landslide-population-alert-value']">
+        </ground-failure-population-alert>
+      </ng-container>
 
       <button mat-raised-button
           [routerLink]="'../../map'"
@@ -26,17 +28,19 @@
     <section class="liquefaction one-of-two column">
       <h3>Liquefaction</h3>
 
-      <ground-failure-hazard-alert
-          [alert]="product?.properties['liquefaction-hazard-alert-color']"
-          [type]="'liquefaction'"
-          [value]="product?.properties['liquefaction-hazard-alert-value']">
-      </ground-failure-hazard-alert>
+      <ng-container *ngIf="product?.properties as properties">
+        <ground-failure-hazard-alert
+            [alert]="properties['liquefaction-hazard-alert-color']"
+            [type]="'liquefaction'"
+            [value]="properties['liquefaction-hazard-alert-value']">
+        </ground-failure-hazard-alert>
 
-      <ground-failure-population-alert
-          [alert]="product?.properties['liquefaction-population-alert-color']"
-          [type]="'liquefaction'"
-          [value]="product?.properties['liquefaction-population-alert-value']">
-      </ground-failure-population-alert>
+        <ground-failure-population-alert
+            [alert]="properties['liquefaction-population-alert-color']"
+            [type]="'liquefaction'"
+            [value]="properties['liquefaction-population-alert-value']">
+        </ground-failure-population-alert>
+      </ng-container>
 
       <button mat-raised-button
           [routerLink]="'../../map'"

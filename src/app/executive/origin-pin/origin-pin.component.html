@@ -2,24 +2,24 @@
     [link]="link"
     [product]="product"
     [title]="title">
-  <dl card-content>
+  <dl card-content *ngIf="product.properties as properties">
     <dt>Review Status</dt>
-    <dd>{{ (product.properties['review-status'] || 'automatic') | uppercase }}</dd>
+    <dd>{{ (properties['review-status'] || 'automatic') | uppercase }}</dd>
 
     <dt>Magnitude</dt>
     <dd>
-      {{ product.properties.magnitude | sharedNumber:1 }}
-      {{ product.properties['magnitude-type'] }}
+      {{ properties.magnitude | sharedNumber:1 }}
+      {{ properties['magnitude-type'] }}
     </dd>
 
     <dt>Depth</dt>
-    <dd>{{ product.properties.depth | sharedNumber:1:'km' }}</dd>
+    <dd>{{ properties.depth | sharedNumber:1:'km' }}</dd>
 
     <dt>Time</dt>
     <dd>
-      {{ product.properties.eventtime | date:"yyyy-MM-dd":UTC }}
+      {{ properties.eventtime | date:"yyyy-MM-dd":"UTC" }}
       <br/>
-      {{ product.properties.eventtime | date:"HH:mm:ss":"UTC" }}
+      {{ properties.eventtime | date:"HH:mm:ss":"UTC" }}
       UTC
     </dd>
   </dl>

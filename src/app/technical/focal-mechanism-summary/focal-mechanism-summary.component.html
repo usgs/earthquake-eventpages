@@ -13,7 +13,7 @@
             [routerLink]="['/', event?.id, 'focal-mechanism']"
             [queryParams]="{ source: tensor.product.source,
                 code: tensor.product.code }">
-          {{ tensor.product.properties.eventsource.toUpperCase() }}
+          {{ tensor.product?.properties?.eventsource.toUpperCase() }}
         </a>
       </mat-cell>
     </ng-container>
@@ -37,11 +37,13 @@
         <small>Strike, Dip, Rake</small>
       </mat-header-cell>
       <mat-cell *matCellDef="let tensor">
-        {{ tensor.product.properties['nodal-plane-1-strike'] | sharedDegrees }}
-        ,
-        {{ tensor.product.properties['nodal-plane-1-dip'] | sharedDegrees }}
-        ,
-        {{ tensor.product.properties['nodal-plane-1-rake'] | sharedDegrees }}
+        <ng-container *ngIf="tensor?.product?.properties as properties">
+          {{ properties['nodal-plane-1-strike'] | sharedDegrees }}
+          ,
+          {{ properties['nodal-plane-1-dip'] | sharedDegrees }}
+          ,
+          {{ properties['nodal-plane-1-rake'] | sharedDegrees }}
+        </ng-container>
       </mat-cell>
     </ng-container>
 
@@ -50,11 +52,13 @@
         <small>Strike, Dip, Rake</small>
       </mat-header-cell>
       <mat-cell *matCellDef="let tensor">
-        {{ tensor.product.properties['nodal-plane-2-strike'] | sharedDegrees }}
-        ,
-        {{ tensor.product.properties['nodal-plane-2-dip'] | sharedDegrees }}
-        ,
-        {{ tensor.product.properties['nodal-plane-2-rake'] | sharedDegrees }}
+        <ng-container *ngIf="tensor?.product?.properties as properties">
+          {{ properties['nodal-plane-2-strike'] | sharedDegrees }}
+          ,
+          {{ properties['nodal-plane-2-dip'] | sharedDegrees }}
+          ,
+          {{ properties['nodal-plane-2-rake'] | sharedDegrees }}
+        </ng-container>
       </mat-cell>
     </ng-container>
 
