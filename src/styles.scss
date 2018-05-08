@@ -18,6 +18,9 @@
 @import './app/shared/css/leaflet-styles.scss';
 @import './app/shared/map-control/legend-control.scss';
 
+@import './app/shared/css/mmi-colors.scss';
+@import './app/shared/css/station-overlay.scss';
+
 /* allow wrapping on small screens */
 .mat-radio-label-content {
   white-space: normal;

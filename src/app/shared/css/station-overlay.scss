@@ -1,0 +1,128 @@
+.station-overlay-dyfi-layer-icon {
+  border: 1px solid #666;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.station-overlay-station-layer-icon {
+  position: absolute;
+
+  &:before {
+    border: 10px solid transparent;
+    border-left-width: 6px;
+    border-right-width: 6px;
+    content: ' ';
+    display: block;
+    left: 1px;
+    position: absolute;
+    top: -10px;
+    z-index: 2;
+  }
+
+  &:after {
+    border: 12px solid transparent;
+    border-bottom-color: #666;
+    border-left-width: 8px;
+    border-right-width: 8px;
+    content: ' ';
+    display: block;
+    left: -1px;
+    position: absolute;
+    top: -13px;
+    z-index: 1;
+  }
+}
+
+.station-overlay-bubble {
+  padding: 0.5em 1em;
+  display: inline-block;
+  line-height: 1;
+  max-width: 100px;
+  text-align: center;
+  width: 24%;
+}
+
+.station-overlay-bubble span {
+  margin: 0;
+  display: block;
+  white-space: nowrap;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.3)
+}
+
+.station-overlay-bubble.intensity {
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+.station-overlay-bubble.intensity span {
+  font-size: larger;
+  font-weight: bold;
+}
+
+.station-overlay-station-layer-icon.station-mmiI:before {
+  border-bottom-color: $mmiI !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiII:before {
+  border-bottom-color: $mmiII !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiIII:before {
+  border-bottom-color: $mmiIII !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiIV:before {
+  border-bottom-color: $mmiIV !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiV:before {
+  border-bottom-color: $mmiV !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiVI:before {
+  border-bottom-color: $mmiVI !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiVII:before {
+  border-bottom-color: $mmiVII !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiVIII:before {
+  border-bottom-color: $mmiVIII !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiIX:before {
+  border-bottom-color: $mmiIX !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiX:before {
+  border-bottom-color: $mmiX !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiXI:before {
+  border-bottom-color: $mmiXI !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiXII:before {
+  border-bottom-color: $mmiXII !important;
+}
+
+dl.description-table.station-overlay {
+
+  @media screen and (min-width: 300px) {
+
+    /* 24px column gaps */
+    > dt {
+      flex: 1 40%;
+      padding: 4px 3px 4px 6px;
+      min-height: auto;
+      font-size: .88em;
+    }
+
+    > dd {
+      flex: 1 60%;
+      padding: 4px 6px 4px 3px;
+      min-height: auto;
+      font-size: .88em;
+    }
+  }
+}

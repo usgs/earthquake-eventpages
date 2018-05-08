@@ -40,6 +40,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
 
     L.GeoJSON.prototype.initialize.call(this, [], {
       onEachFeature: (feature, layer) => this.onEachFeature(feature, layer),
+      pointToLayer: (feature, layer) => this.pointToLayer(feature, layer),
       style: (feature) => this.style(feature)
     });
   },
@@ -97,6 +98,21 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
 
   onEachFeature: function (feature, layer) {
     // subclasses should override this method
+  },
+
+  pointToLayer: function (feature, latlng) {
+    // subclasses should override this method
+
+    const defaultOptions = {
+        radius: 8,
+        fillColor: '#ff7800',
+        color: '#000',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+    };
+
+    return L.circleMarker(latlng, defaultOptions);
   },
 
   /**
