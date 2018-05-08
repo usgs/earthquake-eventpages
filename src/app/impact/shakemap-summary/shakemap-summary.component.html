@@ -15,8 +15,8 @@
           </shared-preferred-check>
         </ng-container>
         <a [routerLink]="['/', event?.id, 'shakemap']"
-            [queryParams]="{ source: shakemap.source, code: shakemap.code }">
-          {{ shakemap.properties.eventsource.toUpperCase() }}
+            [queryParams]="{ source: shakemap?.source, code: shakemap?.code }">
+          {{ shakemap?.properties?.eventsource.toUpperCase() }}
         </a>
       </mat-cell>
     </ng-container>
@@ -27,7 +27,7 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let shakemap">
         <abbr title="Maximum Modified Mercalli Intensity">
-          <shared-mmi [intensity]="shakemap.properties.maxmmi">
+          <shared-mmi [intensity]="shakemap?.properties?.maxmmi">
           </shared-mmi>
         </abbr>
       </mat-cell>
@@ -48,7 +48,9 @@
         Description
       </mat-header-cell>
       <mat-cell *matCellDef="let shakemap">
-        {{ shakemap.properties['event-description'] }}
+        <ng-container *ngIf="shakemap?.properties as properties">
+          {{ properties['event-description'] }}
+        </ng-container>
       </mat-cell>
     </ng-container>
 
