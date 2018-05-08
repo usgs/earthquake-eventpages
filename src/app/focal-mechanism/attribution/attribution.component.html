@@ -1,7 +1,7 @@
 <ng-container *ngIf="tensor">
   <dl class="description-table">
     <dt>Catalog</dt>
-    <dd>{{ tensor.product?.properties?.eventsource.toUpperCase() }}</dd>
+    <dd>{{ tensor.product?.properties?.eventsource | uppercase }}</dd>
 
     <dt>Data Source</dt>
     <dd>
