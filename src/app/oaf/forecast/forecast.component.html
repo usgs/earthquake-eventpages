@@ -1,3 +1,62 @@
-<p>
-  forecast works!
-</p>
+<ng-container *ngIf="eventService.product$ | async as product">
+  <ng-container *ngIf="parse(product) as forecast">
+    <p>
+      Note: The expected rate of earthquakes continues to decline throughout
+      the time windows. The probabilities in the longer time windows are
+      higher only because the rates are being summed over a longer time
+      period. These longer periods may be useful when planning recovery and
+      rebuliding projects.
+    </p>
+    <ng-container *ngFor="let timeWindow of forecast">
+      <h2>{{ timeWindow.label }}</h2>
+      <h3>
+        {{ timeWindow.timeStart | sharedDateTime }} through
+        {{ timeWindow.timeEnd | sharedDateTime }}
+      </h3>
+
+      <mat-table [dataSource]="timeWindow.bins">
+          <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+          <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+          <ng-container matColumnDef="magRange">
+              <mat-header-cell *matHeaderCellDef>
+                {{ columnTitles.magRange }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let bin">
+                M &ge; {{ bin.magnitude }}
+              </mat-cell>
+          </ng-container>
+
+          <!-- If p95maximum bin is zero show asterisk -->
+          <ng-container matColumnDef="numAftershocks">
+              <mat-header-cell *matHeaderCellDef>
+                {{ columnTitles.numAftershocks }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let bin">
+                <ng-container *ngIf="bin.p95maximum !== 0 ; else asterisk">
+                  {{ bin.p95minimum | roundDown: 2 }} to
+                      {{ bin.p95maximum | roundUp: 2 }}
+                </ng-container>
+                <ng-template #asterisk>
+                  &#x2a;
+                </ng-template>
+              </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="probability">
+              <mat-header-cell *matHeaderCellDef>
+                {{ columnTitles.probability }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let bin">
+                {{ bin.probability | oafPercent }} &#37;
+              </mat-cell>
+          </ng-container>
+
+      </mat-table>
+      <p>
+        &#x2a; Earthquake possible but with a low probability.
+      </p>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
