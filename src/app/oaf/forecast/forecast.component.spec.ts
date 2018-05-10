@@ -27,7 +27,9 @@ describe('ForecastComponent', () => {
         ForecastComponent,
 
         MockPipe('oafPercent'),
-        MockPipe('sharedDateTime')
+        MockPipe('sharedDateTime'),
+        MockPipe('roundDown'),
+        MockPipe('roundUp')
       ],
       providers: [
         { provide: EventService, useValue: eventServiceStub }

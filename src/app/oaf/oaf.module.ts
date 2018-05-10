@@ -13,6 +13,8 @@ import { ForecastComponent } from './forecast/forecast.component';
 import { ModelComponent } from './model/model.component';
 import { OafPercentPipe } from './oaf-percent.pipe';
 import { OafComponent } from './oaf/oaf.component';
+import { RoundDownPipe } from './round-down.pipe';
+import { RoundUpPipe } from './round-up.pipe';
 
 
 
@@ -31,10 +33,14 @@ import { OafComponent } from './oaf/oaf.component';
     OafPercentPipe,
     CommentaryComponent,
     ForecastComponent,
-    ModelComponent
+    ModelComponent,
+    RoundDownPipe,
+    RoundUpPipe
   ],
   exports: [
-    OafPercentPipe
+    OafPercentPipe,
+    RoundDownPipe,
+    RoundUpPipe
   ]
 })
 export class OafModule { }
