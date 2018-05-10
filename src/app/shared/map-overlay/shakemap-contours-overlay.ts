@@ -38,7 +38,10 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
       const slope = ((markerCoords[1] - nextCoords[1]) /
           (markerCoords[0] - nextCoords[0]));
 
-      const angle = Math.round(Math.atan(slope) / Math.PI * 180) * -1;
+      let angle = Math.round(Math.atan(slope) / Math.PI * 180) * -1;
+      if ((angle > 50) || angle < -50) {
+        angle = 0;
+      }
 
       const marker = L.marker([markerCoords[1], markerCoords[0]], {
         icon: L.divIcon({
