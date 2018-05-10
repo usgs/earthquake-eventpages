@@ -9,7 +9,7 @@
           'shakemap-intensity': true
         }">
       <shared-map
-          [overlays]="shakemap | shakemapOverlays:'shakemap-intensity'"
+          [overlays]="shakemap | shakemapOverlays:['shakemap-intensity']"
           [showScaleControl]="true"
           [showAttributionControl]="false">
       </shared-map>
@@ -23,9 +23,13 @@
 
   <ng-template #noOverlay>
     <img
-        *ngIf="shakemap?.contents['download/intensity.jpg']"
+        *ngIf="shakemap?.contents['download/intensity.jpg']; else noImage"
         src="{{ shakemap.contents['download/intensity.jpg'].url }}"
         alt="ShakeMap intensity image">
+
+    <ng-template #noImage>
+      <h1>No intensity available for this event</h1>
+    </ng-template>
   </ng-template>
 
 </ng-container>

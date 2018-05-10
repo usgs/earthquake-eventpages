@@ -17,7 +17,7 @@ import * as L from 'leaflet';
 })
 export class ShakemapOverlaysPipe implements PipeTransform {
 
-  transform (product: any, enabled: string = null): Array<L.Layer> {
+  transform (product: any, enabled: string[] = []): Array<L.Layer> {
     let overlays = [];
 
     if (product) {
@@ -30,7 +30,7 @@ export class ShakemapOverlaysPipe implements PipeTransform {
       overlays.push(new ShakemapStationsOverlay(product));
 
       overlays.forEach((overlay) => {
-        overlay.enabled = overlay.id === enabled;
+        overlay.enabled = enabled.indexOf(overlay.id) > -1;
       });
 
       // filter overlays with missing products

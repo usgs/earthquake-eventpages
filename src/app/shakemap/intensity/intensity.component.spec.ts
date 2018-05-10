@@ -30,7 +30,8 @@ describe('IntensityComponent', () => {
           selector: 'shared-map',
           inputs: [
             'overlays',
-            'showScaleControl'
+            'showScaleControl',
+            'showAttributionControl'
           ]
         }),
 

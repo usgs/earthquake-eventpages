@@ -1,0 +1,11 @@
+.contour-overlay-label {
+  min-width: max-content;
+  min-height: max-content;
+  font-weight: bold;
+  color: #000;
+  z-index: 0;
+}
+
+.contour-overlay-label .content {
+  transform: translateX(-30%);
+}

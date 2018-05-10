@@ -4,8 +4,22 @@ import * as L from 'leaflet';
 
 
 describe('ShakemapPGAOverlay', () => {
+  let overlay;
+  const FEATURE = {
+    properties: {
+      value: 1
+    },
+    geometry: {
+      coordinates: [[[0, 0], [1, 1]]]
+    }
+  }
+
+  beforeEach(() => {
+    overlay = new ShakemapPGAOverlay(null);
+  });
+
   it('can be created', () => {
-    expect(new ShakemapPGAOverlay(null)).toBeTruthy();
+    expect(overlay).toBeTruthy();
   });
 
   it('uses product when defined', () => {
@@ -20,44 +34,10 @@ describe('ShakemapPGAOverlay', () => {
     expect(overlay.data).toBe(null);
   });
 
-  describe('style', () => {
-    it('runs', () => {
+  it('creates a label', () => {
+    const label = overlay.createLabel(FEATURE);
 
-      const overlay = new ShakemapPGAOverlay(null);
-      const style = overlay.style({});
-    });
+    expect(label).toBeTruthy();
+  })
 
-  });
-
-  describe('onEachFeature', () => {
-    it('generates popup', () => {
-      const feature = {
-        properties: {
-          color: 'COLOR',
-          value: 5
-        }
-      };
-
-      const overlay = new ShakemapPGAOverlay(null);
-      const layer = new L.Layer();
-
-      overlay.onEachFeature(feature, layer);
-
-      expect(layer._popup).toBeDefined();
-
-    });
-
-    it('ignores object without properties', () => {
-      const feature = {};
-
-      const overlay = new ShakemapPGAOverlay(null);
-      const layer = new L.Layer();
-
-      overlay.onEachFeature(feature, layer);
-
-      expect(layer._popup).toBeUndefined();
-
-    });
-
-  });
 });

@@ -1,0 +1,99 @@
+import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
+
+import * as L from 'leaflet';
+
+
+describe('ShakemapContoursOverlay', () => {
+  let overlay;
+
+  const FEATURE = {
+    properties: {
+      value: 1
+    },
+    geometry: {
+      coordinates: [[[0, 0], [1, 1]]]
+    }
+  }
+
+  beforeEach(() => {
+    overlay = new ShakemapContoursOverlay(null);
+  });
+
+  it('can be created', () => {
+    expect(overlay).toBeTruthy();
+  });
+
+  describe('style', () => {
+    it('modifies weight', () => {
+      const style = overlay.style({});
+    });
+
+  });
+
+  describe('onEachFeature', () => {
+    it ('keeps count', () => {
+      const count = overlay._count;
+      const layer = new L.Layer();
+  
+      overlay.onEachFeature(FEATURE, layer);
+      expect(overlay._count).toBeGreaterThan(count);
+    });
+
+    it('generates new layer for even contours', () => {
+      const layer = new L.Layer();
+
+      const layerCount = Object.keys(overlay._layers).length;
+      overlay.onEachFeature(FEATURE, layer);
+
+      expect(Object.keys(overlay._layers).length).toBeGreaterThan(layerCount);
+
+    });
+
+    it('doesn\'t generate new layers for odd contours', () => {
+      const layer = new L.Layer();
+
+      const layerCount = Object.keys(overlay._layers).length;
+      overlay._count = 1;
+      overlay.onEachFeature(FEATURE, layer);
+
+      expect(Object.keys(overlay._layers).length).toEqual(layerCount);
+    });
+
+    it('ignores object without properties', () => {
+      const feature = {};
+      const layer = new L.Layer();
+
+      const layerCount = overlay._layers.length
+      overlay.onEachFeature(feature, layer);
+      expect(overlay._layers.length).toEqual(layerCount);
+
+    });
+
+  });
+
+  describe('after add', () => {
+    beforeEach(() => {
+      overlay.map = {
+        fitBounds: function (bounds) {}
+      }
+    });
+
+    it('gets bounds', () => {
+      const bounds = 'BOUNDS'
+      const spy = spyOn(overlay, 'getBounds').and.returnValue(bounds);
+
+      overlay.afterAdd();
+      expect(overlay.bounds).toBe(bounds);
+    })
+
+    it('sets map bounds', () => {
+      const bounds = 'BOUNDS'
+      const spy = spyOn(overlay, 'getBounds').and.returnValue(bounds);
+
+      const mapSpy = spyOn(overlay.map, 'fitBounds').and.callFake((bounds) => {});
+
+      overlay.afterAdd();
+      expect(mapSpy).toHaveBeenCalledWith(bounds);
+    })
+  });
+});
