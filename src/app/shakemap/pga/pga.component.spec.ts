@@ -29,7 +29,9 @@ describe('PgaComponent', () => {
           selector: 'shared-map',
           inputs: [
             'overlays',
-            'showScaleControl'
+            'showScaleControl',
+            'showAttributionControl',
+            'baselayer'
           ]
         }),
 

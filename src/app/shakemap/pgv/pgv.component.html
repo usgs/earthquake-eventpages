@@ -6,20 +6,27 @@
         'shakemap-code': shakemap?.code,
         'shakemap-source': shakemap?.source,
         'shakemap-pgv': true,
+        'shakemap-stations': true,
         'shakemap-intensity': false
       }">
 
     <shared-map
-        [overlays]="shakemap | shakemapOverlays:'shakemap-pgv'"
-        [showScaleControl]="true">
+        [overlays]="shakemap | shakemapOverlays:['shakemap-pgv', 'shakemap-stations']"
+        [baselayer]="'Grayscale'"
+        [showScaleControl]="true"
+        [showAttributionControl]="false">
     </shared-map>
   </a>
 
   <ng-template #noOverlay>
     <img
-        *ngIf="shakemap?.contents['download/pgv.jpg']"
+        *ngIf="shakemap?.contents['download/pgv.jpg']; else noImage"
         src="{{ shakemap.contents['download/pgv.jpg'].url }}"
         alt="ShakeMap peak ground velocity image">
+
+    <ng-template #noImage>
+      <h1>No PGV available for this event</h1>
+    </ng-template>
   </ng-template>
 
 </ng-container>

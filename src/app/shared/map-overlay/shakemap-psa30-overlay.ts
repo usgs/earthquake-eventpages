@@ -1,16 +1,16 @@
 import * as L from 'leaflet';
 
-import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
+import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 
 
-const ShakemapPSA30Overlay = AsynchronousGeoJSONOverlay.extend({
+const ShakemapPSA30Overlay = ShakemapContoursOverlay.extend({
 
   id: 'shakemap-psa30',
   title: 'Shakemap PSA30 Contours',
   legend: null,
 
   initialize: function (product) {
-    AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
+    ShakemapContoursOverlay.prototype.initialize.call(this);
 
     this.url = this.getUrl(product);
   },
@@ -24,20 +24,8 @@ const ShakemapPSA30Overlay = AsynchronousGeoJSONOverlay.extend({
          product.contents['download/cont_psa30.json'].url : null;
   },
 
-  onEachFeature: function (feature, layer) {
-    if (feature.properties) {
-      layer.bindPopup(`${feature.properties.value} %g`);
-    }
-  },
-
-  style: function (feature) {
-    // set default line style
-    const lineStyle = {
-      'color': '#fff',
-      'opacity': 1
-    };
-
-    return lineStyle;
+  createLabel: function (feature) {
+    return `${feature.properties.value} %g`;
   }
 
 });

@@ -30,8 +30,15 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
 
   // retain layer data to detect whether it's already loaded
   data: null,
+
+  // retain map for custom layer adjustments
+  map: null,
+
   // retain url grab errors
   error: Error,
+
+  // persistent styles (allows alternating styles in geoJSON features)
+  styles: {},
 
   initialize: function () {
     // for content downloads in async map layers; added to layer during
@@ -43,6 +50,13 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
       pointToLayer: (feature, layer) => this.pointToLayer(feature, layer),
       style: (feature) => this.style(feature)
     });
+  },
+
+  /**
+   * Runs after the geoJSON data is successfully added
+   */
+  afterAdd: function () {
+    // subclasses should override this method
   },
 
   /**
@@ -80,6 +94,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
           this.data = data;
           // add data to layer (and map if layer still visible)
           this.addData(data);
+          this.afterAdd();
         } catch (error) {
           this.handleError(error);
         }
@@ -91,6 +106,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
    * Get geoJSON data and add it to the existing layer
    */
   onAdd: function (map) {
+    this.map = map;
     L.GeoJSON.prototype.onAdd.call(this, map);
 
     this.loadData();

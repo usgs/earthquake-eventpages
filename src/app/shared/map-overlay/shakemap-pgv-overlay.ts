@@ -1,16 +1,16 @@
 import * as L from 'leaflet';
 
-import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
+import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 
 
-const ShakemapPGVOverlay = AsynchronousGeoJSONOverlay.extend({
+const ShakemapPGVOverlay = ShakemapContoursOverlay.extend({
 
   id: 'shakemap-pgv',
   title: 'Shakemap PGV Contours',
   legend: null,
 
   initialize: function (product) {
-    AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
+    ShakemapContoursOverlay.prototype.initialize.call(this);
 
     this.url = this.getUrl(product);
   },
@@ -24,21 +24,9 @@ const ShakemapPGVOverlay = AsynchronousGeoJSONOverlay.extend({
          product.contents['download/cont_pgv.json'].url : null;
   },
 
-  onEachFeature: function (feature, layer) {
-    if (feature.properties) {
-      layer.bindPopup(`${feature.properties.value} cm/s`);
-    }
+  createLabel: function (feature) {
+    return `${feature.properties.value} cm/s`;
   },
-
-  style: function (feature) {
-    // set default line style
-    const lineStyle = {
-      'color': '#fff',
-      'opacity': 1
-    };
-
-    return lineStyle;
-  }
 
 });
 
