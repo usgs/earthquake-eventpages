@@ -102,5 +102,5 @@ describe('OafService', () => {
       service.parseOaf('');
       expect(jsonSpy).toHaveBeenCalledWith('');
     }));
-  })
+  });
 });
