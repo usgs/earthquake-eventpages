@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { OafService } from '../oaf.service';
 
 
 @Component({
@@ -6,11 +8,10 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './model.component.html',
   styleUrls: ['./model.component.scss']
 })
-export class ModelComponent implements OnInit {
+export class ModelComponent {
 
-  constructor () { }
-
-  ngOnInit () {
-  }
+  constructor (
+    public oafService: OafService
+  ) { }
 
 }
