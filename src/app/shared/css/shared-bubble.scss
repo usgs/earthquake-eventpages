@@ -1,0 +1,28 @@
+:host(.shared-bubble) {
+  display: block;
+  line-height: 1;
+  text-align: center;
+}
+
+:host(.shared-bubble).border {
+  border-radius: 2px;
+  box-shadow: inset 0 0 1px rgba(0,0,0,.5);
+  padding: .5em 0;
+  text-shadow: 1px 1px 0 hsla(0,0%,100%,.3);
+}
+
+.shared-bubble {
+  display: flex;
+  flex-direction: column;
+}
+
+.shared-bubble span {
+  display: block;
+  max-width: 100%;
+  color: #000;
+}
+
+.shared-bubble abbr {
+  color: #666;
+  font-size: .8em;
+}

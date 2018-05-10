@@ -4,12 +4,12 @@
 @import './app/shared/css/contour-overlay.scss';
 @import './app/shared/css/description-table.scss';
 @import './app/shared/css/mmi-colors.scss';
+@import './app/shared/css/shared-bubble.scss';
 @import './app/shared/css/station-overlay.scss';
 
 /* Leaflet Styles */
 @import './app/shared/css/leaflet-styles.scss'; // import before legend-control.scss
 @import './app/shared/map-control/legend-control.scss';
-
 
 /* allow wrapping on small screens */
 .mat-radio-label-content {
