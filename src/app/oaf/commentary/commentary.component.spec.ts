@@ -1,8 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs/observable/of';
 
-import { CommentaryComponent } from './commentary.component';
 import { EventService } from '../../core/event.service';
+
+import { OafService } from '../oaf.service';
+
+import { CommentaryComponent } from './commentary.component';
+
 
 
 describe('CommentaryComponent', () => {
@@ -14,12 +18,17 @@ describe('CommentaryComponent', () => {
       product$: of(null)
     };
 
+    const oafServiceStub = {
+      oaf$: of(null)
+    };
+
     TestBed.configureTestingModule({
       declarations: [
         CommentaryComponent
       ],
       providers: [
-        {provide: EventService, useValue: eventServiceStub}
+        {provide: EventService, useValue: eventServiceStub},
+        {provide: OafService, useValue: oafServiceStub}
       ]
     })
     .compileComponents();

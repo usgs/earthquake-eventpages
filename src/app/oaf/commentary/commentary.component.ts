@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
+import { OafService } from '../oaf.service';
 
 
 @Component({
@@ -8,13 +9,11 @@ import { EventService } from '../../core/event.service';
   templateUrl: './commentary.component.html',
   styleUrls: ['./commentary.component.scss']
 })
-export class CommentaryComponent implements OnInit {
+export class CommentaryComponent {
 
   constructor (
-    public eventService: EventService
+    public eventService: EventService,
+    public oafService: OafService
   ) { }
-
-  ngOnInit () {
-  }
 
 }

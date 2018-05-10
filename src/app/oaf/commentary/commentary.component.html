@@ -1,7 +1,15 @@
 <ng-container *ngIf="eventService.product$ | async as product; else noProduct">
+  <h4>Product</h4>
   <pre>
     {{ product | json }}
   </pre>
+
+  <ng-container *ngIf="oafService.oaf$ | async as oaf">
+    <h4>Details</h4>
+    <pre>
+      {{ oaf | json }}
+    </pre>
+  </ng-container>
 </ng-container>
 
 <ng-template #noProduct>
