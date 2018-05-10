@@ -1,6 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatTableModule } from '@angular/material';
+
+import { EventService } from '../../core/event.service';
+import { MockPipe } from '../../mock-pipe';
 
 import { ForecastComponent } from './forecast.component';
+
+
 
 
 describe('ForecastComponent', () => {
@@ -8,8 +14,24 @@ describe('ForecastComponent', () => {
   let fixture: ComponentFixture<ForecastComponent>;
 
   beforeEach(async(() => {
+    const eventServiceStub = {
+      getProduct: jasmine.createSpy('eventService::getProduct')
+    };
+
+
     TestBed.configureTestingModule({
-      declarations: [ ForecastComponent ]
+      imports: [
+        MatTableModule
+      ],
+      declarations: [
+        ForecastComponent,
+
+        MockPipe('oafPercent'),
+        MockPipe('sharedDateTime')
+      ],
+      providers: [
+        { provide: EventService, useValue: eventServiceStub }
+      ]
     })
     .compileComponents();
   }));
