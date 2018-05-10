@@ -13,7 +13,7 @@ describe('ShakemapContoursOverlay', () => {
     geometry: {
       coordinates: [[[0, 0], [1, 1]]]
     }
-  }
+  };
 
   beforeEach(() => {
     overlay = new ShakemapContoursOverlay(null);
@@ -34,7 +34,7 @@ describe('ShakemapContoursOverlay', () => {
     it ('keeps count', () => {
       const count = overlay._count;
       const layer = new L.Layer();
-  
+
       overlay.onEachFeature(FEATURE, layer);
       expect(overlay._count).toBeGreaterThan(count);
     });
@@ -63,7 +63,7 @@ describe('ShakemapContoursOverlay', () => {
       const feature = {};
       const layer = new L.Layer();
 
-      const layerCount = overlay._layers.length
+      const layerCount = overlay._layers.length;
       overlay.onEachFeature(feature, layer);
       expect(overlay._layers.length).toEqual(layerCount);
 
@@ -75,25 +75,25 @@ describe('ShakemapContoursOverlay', () => {
     beforeEach(() => {
       overlay.map = {
         fitBounds: function (bounds) {}
-      }
+      };
     });
 
     it('gets bounds', () => {
-      const bounds = 'BOUNDS'
+      const bounds = 'BOUNDS';
       const spy = spyOn(overlay, 'getBounds').and.returnValue(bounds);
 
       overlay.afterAdd();
       expect(overlay.bounds).toBe(bounds);
-    })
+    });
 
     it('sets map bounds', () => {
-      const bounds = 'BOUNDS'
+      const bounds = 'BOUNDS';
       const spy = spyOn(overlay, 'getBounds').and.returnValue(bounds);
 
-      const mapSpy = spyOn(overlay.map, 'fitBounds').and.callFake((bounds) => {});
+      const mapSpy = spyOn(overlay.map, 'fitBounds').and.callFake((bounds_in) => {});
 
       overlay.afterAdd();
       expect(mapSpy).toHaveBeenCalledWith(bounds);
-    })
+    });
   });
 });

@@ -23,24 +23,24 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
 
   getUrl: function (product) {
     // override in subclass
-    return ''
+    return '';
   },
 
   onEachFeature: function (feature, layer) {
-    if (feature.properties && (this._count % 2 == 0)) {
-      const coordinates = feature.geometry.coordinates[0]
-      let coordinateIdx = Math.round(Math.random() * (coordinates.length - 2));
+    if (feature.properties && (this._count % 2 === 0)) {
+      const coordinates = feature.geometry.coordinates[0];
+      const coordinateIdx = Math.round(Math.random() * (coordinates.length - 2));
 
       // get angle for the labels
       const markerCoords = coordinates[coordinateIdx];
       const nextCoords = coordinates[coordinateIdx + 1];
 
-      const slope = ((markerCoords[1] - nextCoords[1]) / 
+      const slope = ((markerCoords[1] - nextCoords[1]) /
           (markerCoords[0] - nextCoords[0]));
 
       const angle = Math.round(Math.atan(slope) / Math.PI * 180) * -1;
-  
-      const marker = L.marker([markerCoords[1],markerCoords[0]], {
+
+      const marker = L.marker([markerCoords[1], markerCoords[0]], {
         icon: L.divIcon({
           className: 'contour-overlay-label',
           html: `<div
@@ -54,8 +54,8 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
           iconAnchor: [7, 8]
         })
       });
-      
-      this.addLayer(marker)
+
+      this.addLayer(marker);
     }
 
     this._count += 1;
@@ -63,7 +63,7 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
 
   createLabel: function (feature) {
     // Overwrite in subclass
-    return ''
+    return '';
   },
 
   style: function (feature) {

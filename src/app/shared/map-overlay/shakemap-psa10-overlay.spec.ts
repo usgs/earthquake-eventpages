@@ -12,7 +12,7 @@ describe('ShakemapPSA10Overlay', () => {
     geometry: {
       coordinates: [[[0, 0], [1, 1]]]
     }
-  }
+  };
 
   beforeEach(() => {
     overlay = new ShakemapPSA10Overlay(null);
@@ -23,7 +23,7 @@ describe('ShakemapPSA10Overlay', () => {
   });
 
   it('uses product when defined', () => {
-    const overlay = new ShakemapPSA10Overlay({
+    overlay = new ShakemapPSA10Overlay({
       contents: {
         'download/cont_psa10.json': {url: 'URL'}
       }
@@ -38,5 +38,5 @@ describe('ShakemapPSA10Overlay', () => {
     const label = overlay.createLabel(FEATURE);
 
     expect(label).toBeTruthy();
-  })
+  });
 });

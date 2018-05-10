@@ -12,7 +12,7 @@ describe('ShakemapPGVOverlay', () => {
     geometry: {
       coordinates: [[[0, 0], [1, 1]]]
     }
-  }
+  };
 
   beforeEach(() => {
     overlay = new ShakemapPGVOverlay(null);
@@ -23,7 +23,7 @@ describe('ShakemapPGVOverlay', () => {
   });
 
   it('uses product when defined', () => {
-    const overlay = new ShakemapPGVOverlay({
+    overlay = new ShakemapPGVOverlay({
       contents: {
         'download/cont_pgv.json': {url: 'URL'}
       }
@@ -38,5 +38,5 @@ describe('ShakemapPGVOverlay', () => {
     const label = overlay.createLabel(FEATURE);
 
     expect(label).toBeTruthy();
-  })
+  });
 });
