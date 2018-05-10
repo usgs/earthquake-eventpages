@@ -96,4 +96,16 @@ describe('ShakemapContoursOverlay', () => {
       expect(mapSpy).toHaveBeenCalledWith(bounds);
     });
   });
+
+  describe('getAngle', () => {
+    it('calculates the correct angle', () => {
+      const angle = overlay.getAngle([0, 0], [1, 1]);
+      expect(angle).toBe(45);
+    });
+
+    it('gives 0 for steep sections', () => {
+      const angle = overlay.getAngle([0, 0], [0, 1]);
+      expect(angle).toBe(0);
+    });
+  });
 });

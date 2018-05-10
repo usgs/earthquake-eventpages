@@ -53,7 +53,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
   },
 
   /**
-   * Function runs after the geoJSON layer is successfully added
+   * Runs after the geoJSON data is successfully added
    */
   afterAdd: function () {
     // subclasses should override this method
