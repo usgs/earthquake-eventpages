@@ -1,19 +1,14 @@
-:host(.shared-bubble) {
+.shared-bubble {
   display: block;
   line-height: 1;
   text-align: center;
 }
 
-:host(.shared-bubble).border {
+.shared-bubble.border {
   border-radius: 2px;
   box-shadow: inset 0 0 1px rgba(0,0,0,.5);
   padding: .5em 0;
   text-shadow: 1px 1px 0 hsla(0,0%,100%,.3);
-}
-
-.shared-bubble {
-  display: flex;
-  flex-direction: column;
 }
 
 .shared-bubble span {
