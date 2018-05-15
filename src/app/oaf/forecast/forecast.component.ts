@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
+import { OafService } from '../oaf.service';
 
 
 @Component({
@@ -25,21 +26,10 @@ export class ForecastComponent implements OnInit {
 
 
   constructor (
-    public eventService: EventService
+    public eventService: EventService,
+    public oafService: OafService
   ) { }
 
   ngOnInit () {
   }
-
-  parse (product: any): any {
-    let json;
-    try {
-      json = JSON.parse(product.contents[''].bytes);
-      console.log(json.forecast);
-      return json.forecast;
-    } catch (e) {
-      return null;
-    }
-  }
-
 }

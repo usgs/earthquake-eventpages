@@ -3,6 +3,7 @@ import { MatTableModule } from '@angular/material';
 
 import { EventService } from '../../core/event.service';
 import { MockPipe } from '../../mock-pipe';
+import { OafService } from '../oaf.service';
 
 import { ForecastComponent } from './forecast.component';
 
@@ -18,6 +19,9 @@ describe('ForecastComponent', () => {
       getProduct: jasmine.createSpy('eventService::getProduct')
     };
 
+    const oafServiceStub = {
+      getProduct: jasmine.createSpy('eventService::getOaf')
+    };
 
     TestBed.configureTestingModule({
       imports: [
@@ -32,7 +36,8 @@ describe('ForecastComponent', () => {
         MockPipe('roundUp')
       ],
       providers: [
-        { provide: EventService, useValue: eventServiceStub }
+        { provide: EventService, useValue: eventServiceStub },
+        {provide: OafService, useValue: oafServiceStub}
       ]
     })
     .compileComponents();
