@@ -51,6 +51,11 @@
         </executive-focal-mechanism-pin>
       </li>
     </ng-template>
+
+    <li *ngIf="event | getProduct:'oaf'; let oaf">
+      <executive-oaf-pin [product]="oaf">
+      </executive-oaf-pin>
+    </li>
   </ul>
 
   <shared-text-product
