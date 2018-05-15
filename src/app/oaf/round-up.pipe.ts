@@ -16,7 +16,7 @@ export class RoundUpPipe implements PipeTransform {
     }
 
     d = Math.ceil(Math.log10(value < 0 ? -value : value));
-    power = significant - Math.ceil(d);
+    power = significant - (d);
 
     magnitude = Math.pow(10, power);
     shifted = Math.ceil(value * magnitude);
