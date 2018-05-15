@@ -1,7 +1,7 @@
 <shared-bubble *ngIf="bubble; else noBubble"
-    class="mmi mmi{{ intensity | sharedRoman }}"
     [name]="'mmi'"
-    [title]="'Modified Mercalli Intensity'">
+    [title]="'Modified Mercalli Intensity'"
+    [classes]="'border mmi mmi' + romanPipe.transform(intensity)">
   <span class="roman">
     <strong>{{ value ? value : intensity | sharedRoman }}</strong>
   </span>

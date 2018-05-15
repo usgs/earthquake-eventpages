@@ -13,7 +13,7 @@ describe('MmiComponent', () => {
       declarations: [
         MmiComponent,
 
-        MockComponent({selector: 'shared-bubble', inputs: ['name', 'title']}),
+        MockComponent({selector: 'shared-bubble', inputs: ['name', 'title', 'classes']}),
 
         MockPipe('sharedRoman')
       ]

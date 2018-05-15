@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { RomanPipe } from '../roman.pipe';
+
 @Component({
   selector: 'shared-mmi',
   templateUrl: './mmi.component.html',
@@ -15,6 +17,8 @@ export class MmiComponent {
 
   @Input()
   public value;
+
+  public romanPipe = new RomanPipe();
 
   constructor () {}
 }
