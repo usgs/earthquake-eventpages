@@ -174,7 +174,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
       // add the rows to a table
       channels = `
-        <table class="mat-table">
+        <table class="mat-table station-overlay">
           <tr class="mat-header-row mat-row">
             <th class="mat-header-cell" role="columnheader">Name</th>
             <th class="mat-header-cell" role="columnheader">PGA</th>

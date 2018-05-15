@@ -126,3 +126,17 @@ dl.description-table.station-overlay {
     }
   }
 }
+
+.station-overlay.mat-table {
+  padding: 0;
+  width: 100%
+}
+
+.station-overlay .mat-header-row, .station-overlay .mat-row {
+  padding: 0;
+  width: 100%;
+}
+
+.station-overlay .mat-cell, .station-overlay .mat-header-cell {
+  padding: 5px;
+}
