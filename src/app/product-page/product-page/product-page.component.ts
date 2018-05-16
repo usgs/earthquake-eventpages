@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import { BehaviorSubject ,  Observable ,  Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 import { ContributorService } from '../../core/contributor.service';
 import { EventService } from '../../core/event.service';

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
-import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable ()

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 
-import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { DownloadDialogComponent } from '../../shared/download-dialog/download-dialog.component';
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog, Sort } from '@angular/material';
-import { Observable ,  Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { EventService } from '../../core/event.service';
 import { Quakeml } from '../../quakeml';
