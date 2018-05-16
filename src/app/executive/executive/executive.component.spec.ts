@@ -28,6 +28,7 @@ describe('ExecutiveComponent', () => {
         MockComponent({ selector: 'executive-ground-failure-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-map-pin', inputs: ['event']}),
         MockComponent({ selector: 'executive-moment-tensor-pin', inputs: ['product']}),
+        MockComponent({ selector: 'executive-oaf-pin', inputs: ['product', 'title', 'type'] }),
         MockComponent({ selector: 'executive-origin-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-pager-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-region-info-pin', inputs: ['event']}),
