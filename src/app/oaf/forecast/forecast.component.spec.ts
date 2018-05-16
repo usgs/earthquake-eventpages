@@ -37,7 +37,7 @@ describe('ForecastComponent', () => {
       ],
       providers: [
         { provide: EventService, useValue: eventServiceStub },
-        {provide: OafService, useValue: oafServiceStub}
+        { provide: OafService, useValue: oafServiceStub }
       ]
     })
     .compileComponents();
