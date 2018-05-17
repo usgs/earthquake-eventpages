@@ -13,11 +13,11 @@ import { FocalMechanismPinComponent } from './focal-mechanism-pin/focal-mechanis
 import { GroundFailurePinComponent } from './ground-failure-pin/ground-failure-pin.component';
 import { MapPinComponent } from './map-pin/map-pin.component';
 import { MomentTensorPinComponent } from './moment-tensor-pin/moment-tensor-pin.component';
+import { OafPinComponent } from './oaf-pin/oaf-pin.component';
 import { OriginPinComponent } from './origin-pin/origin-pin.component';
 import { PagerPinComponent } from './pager-pin/pager-pin.component';
 import { RegionInfoPinComponent } from './region-info-pin/region-info-pin.component';
 import { ShakemapPinComponent } from './shakemap-pin/shakemap-pin.component';
-import { OafPinComponent } from './oaf-pin/oaf-pin.component';
 
 
 @NgModule({
@@ -37,11 +37,11 @@ import { OafPinComponent } from './oaf-pin/oaf-pin.component';
     GroundFailurePinComponent,
     MapPinComponent,
     MomentTensorPinComponent,
+    OafPinComponent,
     OriginPinComponent,
     PagerPinComponent,
     RegionInfoPinComponent,
-    ShakemapPinComponent,
-    OafPinComponent
+    ShakemapPinComponent
   ]
 })
 export class ExecutiveModule { }
