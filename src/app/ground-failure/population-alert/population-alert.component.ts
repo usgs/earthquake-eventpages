@@ -34,8 +34,32 @@ export class PopulationAlertComponent implements OnInit {
     }
   ];
 
-  // same for now
-  liquefactionBins = this.landslideBins;
+  liquefactionBins = [
+    {
+      color: '#27a83c',
+      text: 'Little to no',
+      min: 10,
+      max: 1000
+    },
+    {
+      color: '#e5e514',
+      text: 'Limited',
+      min: 1000,
+      max: 10000
+    },
+    {
+      color: '#f0a216',
+      text: 'Significant',
+      min: 10000,
+      max: 100000
+    },
+    {
+      color: '#ba2d1a',
+      text: 'Extensive',
+      min: 100000,
+      max: 1000000
+    }
+  ];
 
   @Input()
   alert: 'green' | 'yellow' | 'orange' | 'red';
