@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, of, Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { of } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'shared-text-product',

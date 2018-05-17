@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Subscription } from 'rxjs/Subscription';
 
 import { environment } from '../../environments/environment';
 
