@@ -13,6 +13,6 @@ export class OafPinComponent {
 
   @Input()
   product: any;
-  
+
   constructor() { }
 }
