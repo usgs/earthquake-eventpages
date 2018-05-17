@@ -11,5 +11,4 @@ export class SignificantFigurePipe implements PipeTransform {
     }
     return parseFloat(value.toPrecision(figures));
   }
-
 }
