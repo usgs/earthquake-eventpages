@@ -62,7 +62,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "earthquake-eventpages:build"
+            "browserTarget": "earthquake-eventpages:build",
+            "proxyConfig": "e2e/proxy.conf.json"
           },
           "configurations": {
             "e2e": {
