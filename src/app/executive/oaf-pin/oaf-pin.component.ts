@@ -7,11 +7,12 @@ import { Component, Input } from '@angular/core';
 })
 export class OafPinComponent {
 
-  @Input() product: any;
-
   public link = '../oaf';
   public title = 'Aftershock Forecast';
   public type = 'oaf';
 
+  @Input()
+  product: any;
+  
   constructor() { }
 }
