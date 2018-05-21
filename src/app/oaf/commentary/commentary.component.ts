@@ -63,6 +63,7 @@ export class CommentaryComponent implements OnDestroy, OnInit {
     for (let i = 0, len = forecasts.length; i < len; i++) {
       forecast = forecasts[i];
       if (forecast.label === timeframe) {
+        forecast = JSON.parse(JSON.stringify(forecast));
         break;
       }
     }
