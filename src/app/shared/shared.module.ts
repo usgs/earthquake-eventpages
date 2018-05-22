@@ -41,7 +41,6 @@ import { StationFlagComponent } from './station-flag/station-flag.component';
 import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 import { RomanPipe } from './roman.pipe';
 import { SignificantFigurePipe } from './significant-figure.pipe';
-import { PercentagePipe } from './percentage.pipe';
 
 
 @NgModule({
@@ -87,8 +86,7 @@ import { PercentagePipe } from './percentage.pipe';
     StationFlagComponent,
     ShakemapOverlaysPipe,
     RomanPipe,
-    SignificantFigurePipe,
-    PercentagePipe
+    SignificantFigurePipe
   ],
   exports: [
     AttributionComponent,
@@ -123,8 +121,7 @@ import { PercentagePipe } from './percentage.pipe';
     RegionInfoOverlaysPipe,
     ShakemapOverlaysPipe,
     RomanPipe,
-    SignificantFigurePipe,
-    PercentagePipe
+    SignificantFigurePipe
   ],
   entryComponents: [
     DownloadDialogComponent
