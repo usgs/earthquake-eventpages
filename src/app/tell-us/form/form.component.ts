@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { FormLanguageService } from '../form-language.service';
 import { EventService } from '../../../..';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { Event } from '../../event';
 
 

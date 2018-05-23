@@ -1,5 +1,5 @@
-import { catchError } from 'rxjs/operators/catchError';
-import { of } from 'rxjs/observable/of';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 import * as L from 'leaflet';
 
 

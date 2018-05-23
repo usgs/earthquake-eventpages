@@ -3,7 +3,7 @@ import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
 import { Tensor } from '../../shared/beachball/tensor';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-executive',
