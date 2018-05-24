@@ -423,7 +423,8 @@ var InteractiveMapView = function (options) {
         legends: [
           '<img class="legend-tectonic-plates" ' +
               'src="images/legends/legend-tectonic-plates.png" />'
-        ]
+        ],
+        tileUrl: '/basemap/tiles/plates/{z}/{x}/{y}.png'
       });
 
     // Include faults layer if in U.S.
