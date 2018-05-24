@@ -419,6 +419,7 @@ var InteractiveMapView = function (options) {
 
     // Always include tectonic plates
     _overlays[_PLATES_OVERLAY] = TectonicPlates({
+        maxZoom: 12,
         legends: [
           '<img class="legend-tectonic-plates" ' +
               'src="images/legends/legend-tectonic-plates.png" />'
@@ -428,10 +429,18 @@ var InteractiveMapView = function (options) {
     // Include faults layer if in U.S.
     if (__inUs(eventLatitude, eventLongitude)) {
       _overlays[_FAULTS_OVERLAY] = UsFault({
+        dataOpts: {
+          maxZoom: 12
+        },
+        dataUrl: '/basemap/tiles/faults/{z}/{x}/{y}.grid.json?callback={cb}',
         legends: [
           '<img class="legend-us-faults" ' +
               'src="images/legends/legend-us-faults.png" />'
-        ]
+        ],
+        tileOpts: {
+          maxZoom: 12
+        },
+        tileUrl: '/basemap/tiles/faults/{z}/{x}/{y}.png'
       });
     }
 

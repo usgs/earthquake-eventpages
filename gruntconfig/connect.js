@@ -46,6 +46,7 @@ var connect = {
       context: [
         '/arcgis/',
         '/archive/',
+        '/basemap/',
         '/data/',
         '/earthquakes/map/',
         '/earthquakes/search/',
