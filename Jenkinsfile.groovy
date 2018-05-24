@@ -109,10 +109,10 @@ node {
               ng lint
             """
             sh """
-              ng test --single-run --code-coverage --progress false
+              ng test --watch=false --code-coverage --progress false
             """
             sh """
-              npm run e2e -- --progress false
+              npm run e2e
             """
           }
       }
