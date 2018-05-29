@@ -24,7 +24,7 @@ export class OafPercentPipe implements PipeTransform {
     } else if (value < 0.01) {
       value = '< 1';
     } else {
-      value = (value * 100).toFixed(0);
+      value = Math.round(value * 100);
     }
 
     return value.toString() + ' %';
