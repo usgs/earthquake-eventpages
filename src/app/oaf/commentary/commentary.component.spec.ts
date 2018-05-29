@@ -24,8 +24,8 @@ describe('CommentaryComponent', () => {
       declarations: [
         CommentaryComponent,
 
+        MockPipe('oafPercent'),
         MockPipe('sharedDateTime'),
-        MockPipe('sharedOafPercentage'),
         MockPipe('sharedSignificantFigure')
       ],
       providers: [
