@@ -93,14 +93,14 @@
       <p>
         The USGS estimates the chance of more aftershocks as follows: Within
         the next {{ oaf.advisoryTimeFrame }} until
-        {{ forecast.timeEnd | date:"yyyy-MM-dd" }}:
+        {{ forecast.timeEnd | sharedDateTime }}:
       </p>
       <ul>
         <li *ngIf="forecast.bins['magnitude-3'] as bin">
           The chance of an earthquake of magnitude {{ bin.magnitude }}
           or higher is
           <ng-container *ngIf="bin.probability <= 0.01; else mag3Prob">
-            1 in {{ 1 / bin.probability | sharedSignificantFigure:1 }},
+            1 in {{ 1 / bin.probability | sharedSignificantFigure: 1 }},
             such an earthquake is possible but with a low probability.
           </ng-container>
           <ng-template #mag3Prob>
@@ -144,7 +144,7 @@
           The chance of an earthquake of magnitude {{ bin.magnitude }}
           or higher is
           <ng-container *ngIf="bin.probability <= 0.01; else mag3Prob">
-            1 in {{ 1 / bin.probability | sharedSignificantFigure:1 }},
+            1 in {{ 1 / bin.probability | sharedSignificantFigure: 1 }},
             such an earthquake is possible but with a low probability.
           </ng-container>
           <ng-template #mag3Prob>
