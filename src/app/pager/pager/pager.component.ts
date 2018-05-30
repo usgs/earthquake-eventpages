@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { EventService } from '../../core/event.service';
 import { PagerXmlService } from '../pagerxml.service';

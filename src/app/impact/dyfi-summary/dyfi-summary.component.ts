@@ -1,6 +1,6 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { MatDialog, Sort } from '@angular/material';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 import { Event } from '../../event';
 
