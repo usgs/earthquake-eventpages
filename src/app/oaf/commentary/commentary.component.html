@@ -58,8 +58,8 @@
 
       <ng-container
           *ngIf="forecast?.bins['magnitude-3']?.p95maximum > 0; else noRange">
-        {{ forecast.bins['magnitude-3'].p95minimum | roundDown: 2 }} to
-        {{ forecast.bins['magnitude-3'].p95maximum | roundUp: 2 }}
+        {{ forecast.bins['magnitude-3'].p95minimum | sharedRoundDown: 2 }} to
+        {{ forecast.bins['magnitude-3'].p95maximum | sharedRoundUp: 2 }}
       </ng-container>
       <ng-template #noRange>
         the possibility of
@@ -106,8 +106,8 @@
           <ng-template #mag3Prob>
             {{ bin.probability | oafPercent }},
             and it is most likely that as few as
-            {{ bin.p95minimum | roundDown: 2 }} or as many as
-            {{ bin.p95maximum | roundUp: 2 }} such
+            {{ bin.p95minimum | sharedRoundDown: 2 }} or as many as
+            {{ bin.p95maximum | sharedRoundUp: 2 }} such
             earthquakes may occur in the case that the sequence is
             re-invigorated by a larger aftershock.
           </ng-template>
@@ -121,8 +121,8 @@
           </ng-container>
           <ng-template #mag3Prob>
             {{ bin.probability | oafPercent }}, and it is most likely
-            that as few as {{ bin.p95minimum | roundDown: 2 }}
-            or as many as {{ bin.p95maximum | roundUp: 2 }}
+            that as few as {{ bin.p95minimum | sharedRoundDown: 2 }}
+            or as many as {{ bin.p95maximum | sharedRoundUp: 2 }}
             such earthquakes may occur.
           </ng-template>
         </li>
@@ -135,8 +135,8 @@
           </ng-container>
           <ng-template #mag3Prob>
             {{ bin.probability | oafPercent }}, and it is most likely
-            that as few as {{ bin.p95minimum | roundDown: 2 }}
-            or as many as {{ bin.p95maximum | roundUp: 2 }}
+            that as few as {{ bin.p95minimum | sharedRoundDown: 2 }}
+            or as many as {{ bin.p95maximum | sharedRoundUp: 2 }}
             such earthquakes may occur.
           </ng-template>
         </li>
@@ -149,8 +149,8 @@
           </ng-container>
           <ng-template #mag3Prob>
             {{ bin.probability | oafPercent }}, and it is most likely
-            that as few as {{ bin.p95minimum | roundDown: 2 }}
-            or as many as {{ bin.p95maximum | roundUp: 2 }}
+            that as few as {{ bin.p95minimum | sharedRoundDown: 2 }}
+            or as many as {{ bin.p95maximum | sharedRoundUp: 2 }}
             such earthquakes may occur.
           </ng-template>
         </li>
