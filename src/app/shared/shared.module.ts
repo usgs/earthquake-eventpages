@@ -39,10 +39,12 @@ import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 import { InteractiveMapBoundsPipe } from './interactive-map-bounds.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 import { KeysPipe } from './keys.pipe';
-import { StationFlagComponent } from './station-flag/station-flag.component';
-import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 import { RomanPipe } from './roman.pipe';
+import { RoundDownPipe } from './round-down.pipe';
+import { RoundUpPipe } from './round-up.pipe';
+import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 import { SignificantFigurePipe } from './significant-figure.pipe';
+import { StationFlagComponent } from './station-flag/station-flag.component';
 
 
 @NgModule({
@@ -82,13 +84,15 @@ import { SignificantFigurePipe } from './significant-figure.pipe';
     GroundFailureOverlaysPipe,
     InteractiveMapBoundsPipe,
     InteractiveMapOverlaysPipe,
-    RegionInfoOverlaysPipe,
     KeysPipe,
-    StationFlagComponent,
-    ShakemapOverlaysPipe,
+    RegionInfoOverlaysPipe,
     RomanPipe,
+    RoundDownPipe,
+    RoundUpPipe,
+    ShakemapOverlaysPipe,
     SignificantFigurePipe,
-    StationComponent
+    StationComponent,
+    StationFlagComponent
   ],
   exports: [
     AttributionComponent,
@@ -116,12 +120,14 @@ import { SignificantFigurePipe } from './significant-figure.pipe';
     DateTimePipe,
     GetProductPipe,
     GroundFailureOverlaysPipe,
-    KeysPipe,
     InteractiveMapBoundsPipe,
     InteractiveMapOverlaysPipe,
+    KeysPipe,
     RegionInfoOverlaysPipe,
-    ShakemapOverlaysPipe,
     RomanPipe,
+    RoundDownPipe,
+    RoundUpPipe,
+    ShakemapOverlaysPipe,
     SignificantFigurePipe,
     StationComponent
   ],
