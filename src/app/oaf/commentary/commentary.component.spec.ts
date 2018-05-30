@@ -25,6 +25,8 @@ describe('CommentaryComponent', () => {
         CommentaryComponent,
 
         MockPipe('oafPercent'),
+        MockPipe('roundDown'),
+        MockPipe('roundUp'),
         MockPipe('sharedDateTime'),
         MockPipe('sharedSignificantFigure')
       ],

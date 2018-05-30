@@ -58,8 +58,8 @@
 
       <ng-container
           *ngIf="forecast?.bins['magnitude-3']?.p95maximum > 0; else noRange">
-        {{ forecast.bins['magnitude-3'].p95minimum }} to
-        {{ forecast.bins['magnitude-3'].p95maximum }}
+        {{ forecast.bins['magnitude-3'].p95minimum | roundDown: 2 }} to
+        {{ forecast.bins['magnitude-3'].p95maximum | roundUp: 2 }}
       </ng-container>
       <ng-template #noRange>
         the possibility of
@@ -101,14 +101,13 @@
           or higher is
           <ng-container *ngIf="bin.probability <= 0.01; else mag3Prob">
             1 in {{ 1 / bin.probability | sharedSignificantFigure:1 }},
-            such earthquakes may occur in the case that the sequence is
-            re-invigorated by a larger aftershock.
+            such an earthquake is possible but with a low probability.
           </ng-container>
           <ng-template #mag3Prob>
             {{ bin.probability | oafPercent }},
             and it is most likely that as few as
-            {{ bin.p95minimum | sharedSignificantFigure:2 }} or as many as
-            {{ bin.p95maximum | sharedSignificantFigure:2 }} such
+            {{ bin.p95minimum | roundDown: 2 }} or as many as
+            {{ bin.p95maximum | roundUp: 2 }} such
             earthquakes may occur in the case that the sequence is
             re-invigorated by a larger aftershock.
           </ng-template>
@@ -118,13 +117,12 @@
           or higher is
           <ng-container *ngIf="bin.probability <= 0.01; else mag3Prob">
             1 in {{ 1 / bin.probability | sharedSignificantFigure:1 }},
-            such earthquakes may occur in the case that the sequence is
-            re-invigorated by a larger aftershock.
+            such an earthquake is possible but with a low probability.
           </ng-container>
           <ng-template #mag3Prob>
             {{ bin.probability | oafPercent }}, and it is most likely
-            that as few as {{ bin.p95minimum | sharedSignificantFigure:2 }}
-            or as many as {{ bin.p95maximum | sharedSignificantFigure:2 }}
+            that as few as {{ bin.p95minimum | roundDown: 2 }}
+            or as many as {{ bin.p95maximum | roundUp: 2 }}
             such earthquakes may occur.
           </ng-template>
         </li>
@@ -133,13 +131,12 @@
           or higher is
           <ng-container *ngIf="bin.probability <= 0.01; else mag3Prob">
             1 in {{ 1 / bin.probability | sharedSignificantFigure:1 }},
-            such earthquakes may occur in the case that the sequence is
-            re-invigorated by a larger aftershock.
+            such an earthquake is possible but with a low probability.
           </ng-container>
           <ng-template #mag3Prob>
             {{ bin.probability | oafPercent }}, and it is most likely
-            that as few as {{ bin.p95minimum | sharedSignificantFigure:2 }}
-            or as many as {{ bin.p95maximum | sharedSignificantFigure:2 }}
+            that as few as {{ bin.p95minimum | roundDown: 2 }}
+            or as many as {{ bin.p95maximum | roundUp: 2 }}
             such earthquakes may occur.
           </ng-template>
         </li>
@@ -148,13 +145,12 @@
           or higher is
           <ng-container *ngIf="bin.probability <= 0.01; else mag3Prob">
             1 in {{ 1 / bin.probability | sharedSignificantFigure:1 }},
-            such earthquakes may occur in the case that the sequence is
-            re-invigorated by a larger aftershock.
+            such an earthquake is possible but with a low probability.
           </ng-container>
           <ng-template #mag3Prob>
             {{ bin.probability | oafPercent }}, and it is most likely
-            that as few as {{ bin.p95minimum | sharedSignificantFigure:2 }}
-            or as many as {{ bin.p95maximum | sharedSignificantFigure:2 }}
+            that as few as {{ bin.p95minimum | roundDown: 2 }}
+            or as many as {{ bin.p95maximum | roundUp: 2 }}
             such earthquakes may occur.
           </ng-template>
         </li>

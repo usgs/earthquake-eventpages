@@ -20,7 +20,7 @@ export class ForecastComponent implements OnInit {
 
   public columnTitles = {
     'magRange': 'Magnitude (M) range of aftershocks considered',
-    'numAftershocks': 'Most likely number of aftershocks (95 % condidence)',
+    'numAftershocks': 'Most likely number of aftershocks (95 % confidence)',
     'probability': 'Probability of one or more aftershocks'
   };
 
