@@ -1,4 +1,6 @@
-<span>
-  <ng-content></ng-content>
-</span>
-<abbr [title]="title">{{ name }}</abbr>
+<div class="shared-bubble {{ classes }}">
+  <span>
+    <ng-content></ng-content>
+  </span>
+  <abbr [title]="title">{{ name }}</abbr>
+</div>

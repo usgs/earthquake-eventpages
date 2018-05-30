@@ -1,1 +1,7 @@
 <router-outlet></router-outlet>
+
+<!-- Dummy material table to force it's CSS properties to load -->
+<mat-table [dataSource]="{}">
+  <mat-header-row *matHeaderRowDef="[]">
+  </mat-header-row>
+</mat-table>

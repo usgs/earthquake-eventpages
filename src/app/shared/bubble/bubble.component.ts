@@ -9,6 +9,7 @@ export class BubbleComponent implements OnInit {
 
   @Input() name: string;
   @Input() title: string;
+  @Input() classes = '';
 
   constructor() { }
 

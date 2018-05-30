@@ -107,22 +107,24 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
     const summary = `
       <div class="summary">
-        <div class="station-overlay-bubble intensity mmi${intensity}">
-          <span>${intensity}</span>
+        <div class="shared-bubble border mmi mmi${intensity}">
+          <span class="roman">
+            <strong>${intensity}</strong>
+          </span>
           <abbr title="Modified Mercalli Intensity">mmi</abbr>
         </div>
 
-        <div class="station-overlay-bubble">
+        <div class="shared-bubble">
           <span>${this.numberPipe.transform(props.pga, 2, '%g')}</span>
           <abbr title="Peak Ground Acceleration">pga</abbr>
         </div>
 
-        <div class="station-overlay-bubble">
+        <div class="shared-bubble">
           <span>${this.numberPipe.transform(props.pgv, 2, 'cm/s')}</span>
           <abbr title="Peak Ground Velocity">pgv</abbr>
         </div>
 
-        <div class="station-overlay-bubble">
+        <div class="shared-bubble">
           <span>${this.numberPipe.transform(props.distance, 2, 'km')}</span>
           <abbr title="Distance">dist</abbr>
         </div>
@@ -174,7 +176,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
       // add the rows to a table
       channels = `
-        <table class="mat-table">
+        <table class="mat-table station-overlay">
           <tr class="mat-header-row mat-row">
             <th class="mat-header-cell" role="columnheader">Name</th>
             <th class="mat-header-cell" role="columnheader">PGA</th>

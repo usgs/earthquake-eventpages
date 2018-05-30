@@ -6,10 +6,11 @@
         [queryParams]="{
           'shakemap-code': shakemap?.code,
           'shakemap-source': shakemap?.source,
-          'shakemap-intensity': true
+          'shakemap-intensity': true,
+          'shakemap-stations': true
         }">
       <shared-map
-          [overlays]="shakemap | shakemapOverlays:['shakemap-intensity']"
+          [overlays]="shakemap | shakemapOverlays:['shakemap-intensity', 'shakemap-stations']"
           [showScaleControl]="true"
           [showAttributionControl]="false">
       </shared-map>
