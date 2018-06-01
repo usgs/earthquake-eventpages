@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NgModule } from '@angular/core';
 
+import { NgxChartsModule } from '../shared/ngx-charts/ngx-charts.module';
+
 import { DyfiComponent } from './dyfi/dyfi.component';
 import { DyfiRoutingModule } from './dyfi-routing.module';
 import { IntensityComponent } from './intensity/intensity.component';
@@ -14,11 +16,10 @@ import { ZipComponent } from './zip/zip.component';
 @NgModule({
   imports: [
     CommonModule,
-
     DyfiRoutingModule,
     ProductPageModule,
-
-    MatTabsModule
+    MatTabsModule,
+    NgxChartsModule
   ],
   declarations: [
     DyfiComponent,

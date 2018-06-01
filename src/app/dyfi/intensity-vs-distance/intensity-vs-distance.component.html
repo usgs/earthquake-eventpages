@@ -1,3 +1,14 @@
-<p>
-  intensity-vs-distance works!
-</p>
+<div class="chart-container">
+  <ngx-charts-bubble-chart
+    [results]="multi"
+    [xAxis]="showXAxis"
+    [yAxis]="showYAxis"
+    [legend]="showLegend"
+    [showXAxisLabel]="showXAxisLabel"
+    [showYAxisLabel]="showYAxisLabel"
+    [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel"
+    [autoScale]="autoScale"
+    (select)="onSelect($event)">
+  </ngx-charts-bubble-chart>
+</div>

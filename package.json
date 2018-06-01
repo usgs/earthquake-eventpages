@@ -23,6 +23,7 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@swimlane/ngx-charts": "^8.0.2",
     "core-js": "^2.5.6",
     "earthquake-geoserve-ui": "0.0.4",
     "hazdev-template": "^2.2.0",
