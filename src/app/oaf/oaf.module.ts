@@ -13,6 +13,7 @@ import { OafComponent } from './oaf/oaf.component';
 import { OafPercentPipe } from './oaf-percent.pipe';
 import { OafRoutingModule } from './oaf-routing.module';
 import { OafService } from './oaf.service';
+import { UpdateTimePipe } from './update-time.pipe';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { OafService } from './oaf.service';
     ForecastComponent,
     ModelComponent,
     OafComponent,
-    OafPercentPipe
+    OafPercentPipe,
+    UpdateTimePipe
   ],
   providers: [
     OafService
