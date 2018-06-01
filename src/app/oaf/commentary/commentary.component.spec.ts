@@ -28,7 +28,8 @@ describe('CommentaryComponent', () => {
         MockPipe('sharedDateTime'),
         MockPipe('sharedRoundDown'),
         MockPipe('sharedRoundUp'),
-        MockPipe('sharedSignificantFigure')
+        MockPipe('sharedSignificantFigure'),
+        MockPipe('updateTime')
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},
