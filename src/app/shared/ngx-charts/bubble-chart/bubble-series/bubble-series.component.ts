@@ -34,6 +34,7 @@ import { curveLinear } from 'd3-shape';
 export class ExtendedBubbleSeriesComponent extends BubbleSeriesComponent {
 
   @Input() curve: any = curveLinear;
+  @Input() xDomain = [0, 0];
 
   getCircles(): any[] {
     const seriesName = this.data.name;
@@ -43,9 +44,7 @@ export class ExtendedBubbleSeriesComponent extends BubbleSeriesComponent {
         const y = d.y;
         const x = d.x;
         const r = d.r;
-        const max = d.max;
-        const min = d.min;
-
+  
         const radius = this.rScale(r || 1);
         const tooltipLabel = formatLabel(d.name);
 
@@ -58,6 +57,11 @@ export class ExtendedBubbleSeriesComponent extends BubbleSeriesComponent {
 
         const isActive = !this.activeEntries.length ? true : this.isActive({name: seriesName});
         const opacity = isActive ? 1 : 0.3;
+
+        // error bar calculations
+        const max = d.max;
+        const min = d.min;
+        const errorBarWidth = (this.xDomain[1] - this.xDomain[0]) * .025
 
         const data = {
           series: seriesName,
@@ -73,6 +77,7 @@ export class ExtendedBubbleSeriesComponent extends BubbleSeriesComponent {
           y,
           max,
           min,
+          errorBarWidth,
           r,
           classNames: [`circle-data-${i}`],
           value: y,

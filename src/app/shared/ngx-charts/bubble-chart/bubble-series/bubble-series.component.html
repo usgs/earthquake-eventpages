@@ -35,11 +35,11 @@
             name: 'error',
             series: [
               {
-                name: circle.x - 500,
+                name: circle.x - circle.errorBarWidth,
                 value: circle.max
               },
               {
-                name: circle.x + 500,
+                name: circle.x + circle.errorBarWidth,
                 value: circle.max
               }
             ]
@@ -61,11 +61,11 @@
             name: 'error',
             series: [
               {
-                name: circle.x - 500,
+                name: circle.x - circle.errorBarWidth,
                 value: circle.min
               },
               {
-                name: circle.x + 500,
+                name: circle.x + circle.errorBarWidth,
                 value: circle.min
               }
             ]
