@@ -61,7 +61,7 @@ export class ExtendedBubbleSeriesComponent extends BubbleSeriesComponent {
         // error bar calculations
         const max = d.max;
         const min = d.min;
-        const errorBarWidth = (this.xDomain[1] - this.xDomain[0]) * .025
+        const errorBarWidth = (this.xDomain[1] - this.xDomain[0]) * .0125
 
         const data = {
           series: seriesName,
