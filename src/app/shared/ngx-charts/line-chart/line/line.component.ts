@@ -10,7 +10,7 @@ import {
   transition
 } from '@angular/animations';
 
-import { LineComponent } from '@swimlane/ngx-charts';
+import { LineComponent as SwimlaneLine } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'g[ngx-charts-line]',
@@ -30,7 +30,7 @@ import { LineComponent } from '@swimlane/ngx-charts';
     ])
   ]
 })
-export class ExtendedLineComponent extends LineComponent {
+export class LineComponent extends SwimlaneLine {
 
   @Input() strokeWidth = '1.5px';
 

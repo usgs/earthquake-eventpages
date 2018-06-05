@@ -10,7 +10,7 @@ import {
   transition
 } from '@angular/animations';
 
-import { BubbleSeriesComponent } from '@swimlane/ngx-charts';
+import { BubbleSeriesComponent as SwimlaneBubbleSeries } from '@swimlane/ngx-charts';
 import { formatLabel } from '@swimlane/ngx-charts';
 
 import { curveLinear } from 'd3-shape';
@@ -31,7 +31,7 @@ import { curveLinear } from 'd3-shape';
     ])
   ]
 })
-export class ExtendedBubbleSeriesComponent extends BubbleSeriesComponent {
+export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
 
   @Input() curve: any = curveLinear;
   @Input() xDomain = [0, 0];

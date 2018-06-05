@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
-import { ChartCommonModule } from '@swimlane/ngx-charts';
-import { ExtendedLineComponent } from './line/line.component';
-import { ExtendedLineSeriesComponent } from './line-series/line-series.component';
 
-export { ExtendedLineComponent, ExtendedLineSeriesComponent };
+import { ChartCommonModule } from '@swimlane/ngx-charts';
+
+import { LineComponent } from './line/line.component';
+import { LineSeriesComponent } from './line-series/line-series.component';
+
+export { LineComponent, LineSeriesComponent };
 
 @NgModule({
   imports: [ChartCommonModule],
   declarations: [
-    ExtendedLineComponent,
-    ExtendedLineSeriesComponent
+    LineComponent,
+    LineSeriesComponent
   ],
   exports: [
-    ExtendedLineComponent,
-    ExtendedLineSeriesComponent
+    LineComponent,
+    LineSeriesComponent
   ]
 })
 export class LineChartModule {}

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { ChartCommonModule } from '@swimlane/ngx-charts';
-import { ExtendedBubbleChartComponent } from './bubble-chart/bubble-chart.component';
-import { ExtendedBubbleSeriesComponent } from './bubble-series/bubble-series.component';
+import { BubbleChartComponent } from './bubble-chart/bubble-chart.component';
+import { BubbleSeriesComponent } from './bubble-series/bubble-series.component';
 import { LineChartModule } from '../line-chart/line-chart.module';
 
-export { ExtendedBubbleChartComponent, ExtendedBubbleSeriesComponent };
+export { BubbleChartComponent, BubbleSeriesComponent };
 
 @NgModule({
   imports: [
@@ -12,12 +12,12 @@ export { ExtendedBubbleChartComponent, ExtendedBubbleSeriesComponent };
     LineChartModule
   ],
   declarations: [
-    ExtendedBubbleChartComponent,
-    ExtendedBubbleSeriesComponent
+    BubbleChartComponent,
+    BubbleSeriesComponent
   ],
   exports: [
-    ExtendedBubbleChartComponent,
-    ExtendedBubbleSeriesComponent
+    BubbleChartComponent,
+    BubbleSeriesComponent
   ]
 })
 export class BubbleChartModule {}

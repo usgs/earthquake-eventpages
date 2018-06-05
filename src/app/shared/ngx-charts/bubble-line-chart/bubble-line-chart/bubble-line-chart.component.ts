@@ -16,11 +16,11 @@ import {
   transition
 } from '@angular/animations';
 
-import { BubbleChartComponent as SwimlaneBubbleChart } from '@swimlane/ngx-charts';
+import { BubbleChartComponent } from '../../bubble-chart/bubble-chart/bubble-chart.component';
 
 @Component({
-  selector: 'ngx-charts-bubble-chart',
-  templateUrl: './bubble-chart.component.html',
+  selector: 'ngx-charts-bubble-line-chart',
+  templateUrl: './bubble-line-chart.component.html',
   styleUrls: ['../../common/base-chart.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -37,14 +37,9 @@ import { BubbleChartComponent as SwimlaneBubbleChart } from '@swimlane/ngx-chart
     ])
   ]
 })
-export class BubbleChartComponent extends SwimlaneBubbleChart {
+export class BubbleLineChartComponent extends BubbleChartComponent {
 
-  @Input() errorBarColor = '#000000';
+  ngOnInit() {
+  }
 
-  customColors = [
-    {
-      name: 'error',
-      value: this.errorBarColor
-    }
-  ];
 }
