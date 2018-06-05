@@ -20,9 +20,9 @@ export class IntensityVsDistanceComponent implements OnInit {
   gradient = false;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Country';
+  xAxisLabel = 'Hypocentral Distance (km)';
   showYAxisLabel = true;
-  yAxisLabel = 'Population';
+  yAxisLabel = 'Intensity (mmi)';
 
    colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']

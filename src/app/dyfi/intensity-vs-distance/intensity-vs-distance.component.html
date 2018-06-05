@@ -1,14 +1,18 @@
+<h2>Intensity vs. Distance</h2>
+
 <div class="chart-container">
-  <ngx-charts-bubble-chart
-    [results]="series"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"
-    [legend]="showLegend"
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    [autoScale]="autoScale"
-    (select)="onSelect($event)">
-  </ngx-charts-bubble-chart>
+  <ng-container *ngIf="dyfiSeries as series">
+    <ngx-charts-bubble-chart
+      [results]="series.series"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [autoScale]="autoScale"
+      (select)="onSelect($event)">
+    </ngx-charts-bubble-chart>
+  </ng-container>
 </div>
