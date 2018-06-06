@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs/observable/of';
+import { MockComponent } from 'ng2-mock-component';
 
 import { EventService } from '../../core/event.service';
 import { MockPipe } from '../../mock-pipe';
@@ -23,6 +24,8 @@ describe('CommentaryComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         CommentaryComponent,
+
+        MockComponent({selector: 'oaf-commentary-details', inputs: ['bin']}),
 
         MockPipe('oafPercent'),
         MockPipe('sharedDateTime'),

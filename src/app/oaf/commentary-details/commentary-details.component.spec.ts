@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MockPipe } from '../../mock-pipe';
+
 import { CommentaryDetailsComponent } from './commentary-details.component';
 
 describe('CommentaryDetailsComponent', () => {
@@ -8,7 +10,14 @@ describe('CommentaryDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CommentaryDetailsComponent ]
+      declarations: [
+        CommentaryDetailsComponent,
+
+        MockPipe('oafPercent'),
+        MockPipe('sharedRoundDown'),
+        MockPipe('sharedRoundUp'),
+        MockPipe('sharedSignificantFigure')
+      ]
     })
     .compileComponents();
   }));
