@@ -51,17 +51,17 @@ export class DyfiService {
 
     for (let dataset of dyfiData.datasets) {
       ngx_dataset = {
-        name: '',
+        name: dataset.legend,
+        class: dataset.class,
         series: []
       }
-      
-      ngx_dataset.name = dataset.legend
 
       let count = 0
       for (let data of dataset.data) {
         ngx_data = {
           x: data.x,
           y: data.y,
+          value: data.y,
           name: count++,
         }
 

@@ -1,6 +1,7 @@
 import {
   Component,
   Input,
+  OnInit,
   ChangeDetectionStrategy
 } from '@angular/core';
 
@@ -11,8 +12,11 @@ import { LineSeriesComponent as SwimlaneLineSeries } from '@swimlane/ngx-charts'
   templateUrl: './line-series.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LineSeriesComponent extends SwimlaneLineSeries {
+export class LineSeriesComponent extends SwimlaneLineSeries implements OnInit {
 
   @Input() strokeWidth = '1.5px';
+
+  ngOnInit() {
+  }
 
 }

@@ -54,8 +54,9 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
         const color = (this.colors.scaleType === 'linear') ?
           this.colors.getColor(r) :
           this.colors.getColor(seriesName);
+        
+        const isActive = !this.activeEntries.length ? true : (this.isActive({name: seriesName}) || seriesName === 'error');
 
-        const isActive = !this.activeEntries.length ? true : this.isActive({name: seriesName});
         const opacity = isActive ? 1 : 0.3;
 
         // error bar calculations

@@ -12,7 +12,33 @@ import { EventService } from '../../core/event.service';
 })
 export class IntensityVsDistanceComponent implements OnInit {
   private subs = new Subscription();
-  public dyfiSeries = null;
+  public dyfiSeries: any = null;
+  public bubbleSeries: any = null;
+  public lineSeries: any = null;
+  public allResults: any = null;
+
+  public classTypes = {
+    'scatterplot1': 'scatter',
+    'estimated1': 'line',
+    'estimated2': 'line',
+    'binned': 'scatter',
+    'median': 'scatter'
+  }
+
+  public styles = {
+    'scatterplot1': {
+      r: 1,
+      border: null,
+    },
+    'binned': {
+      r: 5,
+      border: null,
+    },
+    'median': {
+      r: 1,
+      border: 1,
+    }
+  }
   
   // plot options
   showXAxis = true;
@@ -54,12 +80,33 @@ export class IntensityVsDistanceComponent implements OnInit {
     this.dyfiService.getAtten(product);
   }
 
-  onDyfiSeries(series) {
-    if (series == null) {
+  onDyfiSeries(dyfiData) {
+    if (dyfiData == null) {
       this.dyfiSeries = null;
+
+      return;
     }
 
-    this.dyfiSeries = series;
+    let bubbleSeries = [];
+    let lineSeries = [];
+    for (let series of dyfiData.series) {
+      let styles = this.styles[series.class] ? this.styles[series.class] : null;
+
+      if (styles !== null) {
+        series.series = series.series.map((data) => {
+          return {...data, ...styles};
+        });
+      }
+      if (this.classTypes[series.class] == 'scatter') {
+        bubbleSeries.push(series);
+      } else if (this.classTypes[series.class] == 'line') {
+        lineSeries.push(series);
+      }
+    }
+
+    this.bubbleSeries = bubbleSeries;
+    this.lineSeries = lineSeries;
+    this.allResults = [...bubbleSeries, ...lineSeries];
   }
   
   onSelect(event) {
