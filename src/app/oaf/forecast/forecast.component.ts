@@ -13,15 +13,25 @@ export class ForecastComponent implements OnInit {
 
   // colums to be displayed
   public columnsToDisplay = [
-    'magRange',
-    'numAftershocks',
-    'probability'
+    'space',
+    'day',
+    'week',
+    'month',
+    'year',
+    // 'magRange',
+    // 'numAftershocks',
+    // 'probability'
   ];
 
   public columnTitles = {
-    'magRange': 'Magnitude (M) range of aftershocks considered',
-    'numAftershocks': 'Most likely number of aftershocks (95 % confidence)',
-    'probability': 'Probability of one or more aftershocks'
+    'space': '',
+    'day': 'Day',
+    'week': 'Week',
+    'month': 'Month',
+    'year': 'Year'
+    // 'magRange': 'Magnitude (M) range of aftershocks considered',
+    // 'numAftershocks': 'Most likely number of aftershocks (95 % confidence)',
+    // 'probability': 'Probability of one or more aftershocks'
   };
 
 

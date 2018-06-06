@@ -62,6 +62,7 @@ describe('OafService', () => {
 
     const parseOafSpy = spyOn(service, 'parseOaf').and.callThrough();
     const parseModelSpy = spyOn(service, 'parseModel').and.callThrough();
+    const parseForecast = spyOn(service, 'parseForecast').and.callThrough();
 
     const subscription = service.oaf$.subscribe((value) => {
       if (triggered) {
@@ -74,6 +75,13 @@ describe('OafService', () => {
       if (triggered) {
         expect(value).not.toEqual(null);
         expect(parseModelSpy).toHaveBeenCalledWith(MODEL);
+      }
+    }));
+
+    subscription.add(service.forecast$.subscribe((value) => {
+      if (triggered) {
+        expect(value).not.toEqual(null);
+        expect(parseForecast).toHaveBeenCalledWith(OAF);
       }
     }));
 
