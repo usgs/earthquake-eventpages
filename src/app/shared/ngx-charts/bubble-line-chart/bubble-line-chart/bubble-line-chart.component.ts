@@ -47,7 +47,7 @@ import { scaleBand, scaleLinear, scalePoint, scaleTime } from 'd3-scale';
             <svg:g ngx-charts-line-series
               [xScale]="xScale"
               [yScale]="yScale"
-              [colors]="colorsLine"
+              [colors]="colors"
               [data]="series"
               [activeEntries]="activeEntries"
               [scaleType]="scaleType"
@@ -63,7 +63,7 @@ import { scaleBand, scaleLinear, scalePoint, scaleTime } from 'd3-scale';
             [xScale]="xScale"
             [yScale]="yScale"
             [results]="combinedSeries"
-            [colors]="colorsLine"
+            [colors]="colors"
             [tooltipDisabled]="tooltipDisabled"
             (hover)="updateHoveredVertical($event)"
           />
@@ -71,7 +71,7 @@ import { scaleBand, scaleLinear, scalePoint, scaleTime } from 'd3-scale';
             <svg:g ngx-charts-circle-series
               [xScale]="xScale"
               [yScale]="yScale"
-              [colors]="colorsLine"
+              [colors]="colors"
               [data]="series"
               [scaleType]="scaleType"
               [visibleValue]="hoveredVertical"
@@ -107,7 +107,7 @@ import { scaleBand, scaleLinear, scalePoint, scaleTime } from 'd3-scale';
         </svg:g>
         <svg:g ngx-charts-y-axis
           *ngIf="yAxis"
-          [yScale]="yScaleLine"
+          [yScale]="yScale"
           [dims]="dims"
           [showGridLines]="showGridLines"
           [showLabel]="showRightYAxisLabel"
@@ -179,6 +179,8 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   @Input() yRightAxisScaleFactor: any;
   @Input() rangeFillOpacity: number;
   @Input() animations: boolean = true;
+  @Input() customColors: any[] = [];
+  @Input() errorBarColor = '#000000';
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -195,7 +197,6 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   rDomain: any;
   transform: string;
   colors: ColorHelper;
-  colorsLine: ColorHelper;
   margin: any[] = [10, 20, 10, 20];
   xAxisHeight: number = 0;
   yAxisWidth: number = 0;
@@ -219,7 +220,14 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   }
 
   update(): void {
+
+    // update custom colors to use error bars
+    this.customColors.push(
+      {name: 'error', value: this.errorBarColor}
+    );
+    this.combinedSeries = [...this.bubbleChart, ...this.lineChart];
     super.update();
+
     this.dims = calculateViewDimensions({
       width: this.width,
       height: this.height,
@@ -291,12 +299,8 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   }
 
   getSeriesDomain(): any[] {
-    this.combinedSeries = this.lineChart.slice(0);
-    this.combinedSeries.push({
-      name: this.yAxisLabel,
-      series: this.results
-    });
-    return this.combinedSeries.map(d => d.name);
+    return [...this.bubbleChart, ...this.lineChart]
+        .map((d) => { return d.name });
   }
 
   isDate(value): boolean {
@@ -463,7 +467,6 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
       domain = this.yDomain;
     }
     this.colors = new ColorHelper(this.scheme, this.schemeType, domain, this.customColors);
-    this.colorsLine = new ColorHelper(this.colorSchemeLine, this.schemeType, domain, this.customColors);
   }
 
   getLegendOptions() {
@@ -475,7 +478,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     };
     if (opts.scaleType === 'ordinal') {
       opts.domain = this.seriesDomain;
-      opts.colors = this.colorsLine;
+      opts.colors = this.colors;
       opts.title = this.legendTitle;
     } else {
       opts.domain = this.seriesDomain;

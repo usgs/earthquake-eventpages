@@ -47,6 +47,8 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
         const r = d.r;
   
         const radius = this.rScale(r || 1);
+        const borderColor = d.borderColor || null;
+
         const tooltipLabel = formatLabel(d.name);
 
         const cx = (this.xScaleType === 'linear') ? this.xScale(Number(x)) : this.xScale(x);
@@ -81,6 +83,7 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
           min,
           errorBarWidth,
           r,
+          borderColor,
           classNames: [`circle-data-${i}`],
           value: y,
           label: x,

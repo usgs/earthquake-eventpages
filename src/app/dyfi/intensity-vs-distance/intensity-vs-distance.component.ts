@@ -16,28 +16,37 @@ export class IntensityVsDistanceComponent implements OnInit {
   public bubbleSeries: any = null;
   public lineSeries: any = null;
   public allResults: any = null;
+  public customColors: any[] = [];
 
-  public classTypes = {
-    'scatterplot1': 'scatter',
-    'estimated1': 'line',
-    'estimated2': 'line',
-    'binned': 'scatter',
-    'median': 'scatter'
-  }
-
-  public styles = {
+  public classOptions = {
     'scatterplot1': {
-      r: 1,
-      border: null,
+      type: 'scatter',
+      color: '#94dfea',
+    },
+    'estimated1': {
+      type: 'line',
+      color: '#d65617'
+    },
+    'estimated2': {
+      type: 'line',
+      color: '#5fce3b'
     },
     'binned': {
-      r: 5,
-      border: null,
+      type: 'scatter',
+      color: '#8d91ff',
+      styles: {
+        r: 5,
+        borderColor: '#000000',
+      }
     },
     'median': {
-      r: 1,
-      border: 1,
-    }
+      type: 'scatter',
+      color: '#fe4d55',
+      styles: {
+        r: 2,
+        borderColor: '#000000',
+      }
+    },
   }
   
   // plot options
@@ -52,7 +61,7 @@ export class IntensityVsDistanceComponent implements OnInit {
   yAxisLabel = 'Intensity (mmi)';
 
    colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA', '#8d91ff', '#94dfea', '#fe4d55', '#5fce3b']
   };
 
    // line, area
@@ -91,7 +100,9 @@ export class IntensityVsDistanceComponent implements OnInit {
     let bubbleSeries = [];
     let lineSeries = [];
     for (let series of dyfiData.series) {
-      let styles = this.styles[series.class] ? this.styles[series.class] : null;
+
+      let styles = this.classOptions[series.class]['styles'] ?
+          this.classOptions[series.class]['styles'] : null;
 
       // add styles to specific features
       if (styles !== null) {
@@ -100,10 +111,19 @@ export class IntensityVsDistanceComponent implements OnInit {
         });
       }
 
-      if (this.classTypes[series.class] == 'scatter') {
+      if (this.classOptions[series.class]['type'] == 'scatter') {
         bubbleSeries.push(series);
-      } else if (this.classTypes[series.class] == 'line') {
+      } else if (this.classOptions[series.class]['type'] == 'line') {
         lineSeries.push(series);
+      }
+
+      if (this.classOptions[series.class]['color']) {
+        this.customColors.push(
+          {
+            name: series.name,
+            value: this.classOptions[series.class]['color']
+          }
+        );
       }
     }
 
