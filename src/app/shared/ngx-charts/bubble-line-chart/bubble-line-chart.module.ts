@@ -7,7 +7,6 @@ import { BarChartModule } from '@swimlane/ngx-charts';
 import { BubbleLineChartComponent } from './bubble-line-chart/bubble-line-chart.component';
 import { LineChartModule } from '../line-chart/line-chart.module';
 import { BubbleChartModule } from '../bubble-chart/bubble-chart.module';
-import { BubbleChartComponent } from './bubble-chart/bubble-chart.component';
 
 @NgModule({
   imports: [
@@ -18,8 +17,7 @@ import { BubbleChartComponent } from './bubble-chart/bubble-chart.component';
     BarChartModule
   ],
   declarations: [
-    BubbleLineChartComponent,
-    BubbleChartComponent
+    BubbleLineChartComponent
   ],
   exports: [
     BubbleLineChartComponent
