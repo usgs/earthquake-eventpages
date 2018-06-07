@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MockComponent } from 'ng2-mock-component';
+
 import { BubbleLineChartComponent } from './bubble-line-chart.component';
 
 describe('BubbleLineChartComponent', () => {
@@ -8,8 +10,25 @@ describe('BubbleLineChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BubbleLineChartComponent ]
-    })
+      declarations: [
+        BubbleLineChartComponent,
+
+        MockComponent(
+          {
+            selector: 'ngx-charts-chart',
+            inputs: [
+              'view',
+              'legendOptions',
+              'activeEntries',
+              'animations',
+              'legendLabelClick',
+              'legendLabelActivate',
+              'legendLabelDeactivate'
+            ]
+          }
+        )
+      ]
+      })
     .compileComponents();
   }));
 

@@ -24,124 +24,13 @@ import {
   NgxChartsModule, BaseChartComponent, LineComponent, LineSeriesComponent,
   calculateViewDimensions, ViewDimensions, ColorHelper
  } from '@swimlane/ngx-charts';
- 
-import { getScaleType, getDomain, getScale } from '../../bubble-chart/bubble-chart.utils';
+
 import { area, line, curveLinear } from 'd3-shape';
 import { scaleBand, scaleLinear, scalePoint, scaleTime } from 'd3-scale';
 
 @Component({
   selector: 'bubble-line-chart-component',
-  template:  `
-    <ngx-charts-chart
-      [view]="[width + legendSpacing, height]"
-      [showLegend]="legend"
-      [legendOptions]="legendOptions"
-      [activeEntries]="activeEntries"
-      [animations]="animations"
-      (legendLabelClick)="onClick($event)"
-      (legendLabelActivate)="onActivate($event)"
-      (legendLabelDeactivate)="onDeactivate($event)">
-      <svg:g [attr.transform]="transform" class="line-chart chart">
-        <svg:g [attr.clip-path]="clipPath">
-          <svg:g *ngFor="let series of lineChart; trackBy:trackBy">
-            <svg:g ngx-charts-line-series
-              [xScale]="xScale"
-              [yScale]="yScale"
-              [colors]="colors"
-              [data]="series"
-              [activeEntries]="activeEntries"
-              [scaleType]="scaleType"
-              [curve]="curve"
-              [rangeFillOpacity]="rangeFillOpacity"
-              [animations]="animations"
-            />
-          </svg:g>
-          <svg:g ngx-charts-tooltip-area
-            *ngIf="!tooltipDisabled"
-            [dims]="dims"
-            [xSet]="xSet"
-            [xScale]="xScale"
-            [yScale]="yScale"
-            [results]="combinedSeries"
-            [colors]="colors"
-            [tooltipDisabled]="tooltipDisabled"
-            (hover)="updateHoveredVertical($event)"
-          />
-          <svg:g *ngFor="let series of lineChart">
-            <svg:g ngx-charts-circle-series
-              [xScale]="xScale"
-              [yScale]="yScale"
-              [colors]="colors"
-              [data]="series"
-              [scaleType]="scaleType"
-              [visibleValue]="hoveredVertical"
-              [activeEntries]="activeEntries"
-              [tooltipDisabled]="tooltipDisabled"
-              (select)="onClick($event, series)"
-              (activate)="onActivate($event)"
-              (deactivate)="onDeactivate($event)"
-            />
-          </svg:g>
-        </svg:g>
-      </svg:g>
-      <svg:g [attr.transform]="transform" class="bubble-chart chart">
-          <svg:g ngx-charts-x-axis
-          *ngIf="xAxis"
-          [xScale]="xScale"
-          [dims]="dims"
-          [showLabel]="showXAxisLabel"
-          [labelText]="xAxisLabel"
-          [tickFormatting]="xAxisTickFormatting"
-          (dimensionsChanged)="updateXAxisHeight($event)">
-        </svg:g>
-        <svg:g ngx-charts-y-axis
-          *ngIf="yAxis"
-          [yScale]="yScale"
-          [dims]="dims"
-          [yOrient]="yOrientLeft"
-          [showGridLines]="showGridLines"
-          [showLabel]="showYAxisLabel"
-          [labelText]="yAxisLabel"
-          [tickFormatting]="yAxisTickFormatting"
-          (dimensionsChanged)="updateYAxisWidth($event)">
-        </svg:g>
-        <svg:g ngx-charts-y-axis
-          *ngIf="yAxis"
-          [yScale]="yScale"
-          [dims]="dims"
-          [showGridLines]="showGridLines"
-          [showLabel]="showRightYAxisLabel"
-          [labelText]="yAxisLabelRight"
-          [tickFormatting]="yRightAxisTickFormatting"
-          (dimensionsChanged)="updateYAxisWidth($event)">
-        </svg:g>
-        <ng-container *ngIf="bubbleChart as bubbleChart">
-          <svg:g [attr.clip-path]="clipPath">
-            <svg:g
-                *ngFor="let series of bubbleChart; trackBy:trackBy">
-              <svg:g ngx-charts-bubble-series
-                [xScale]="xScale"
-                [yScale]="yScale"
-                [rScale]="rScale"
-                [xDomain]="xDomain"
-                [xScaleType]="scaleType"
-                [yScaleType]="scaleType"
-                [xAxisLabel]="xAxisLabel"
-                [yAxisLabel]="yAxisLabel"
-                [colors]="colors"
-                [data]="series"
-                [activeEntries]="activeEntries"
-                [tooltipDisabled]="tooltipDisabled"
-                [tooltipTemplate]="tooltipTemplate"
-                (select)="onClick($event, series)"
-                (activate)="onActivate($event)"
-                (deactivate)="onDeactivate($event)" />
-            </svg:g>
-          </svg:g>
-        </ng-container>
-      </svg:g>
-    </ngx-charts-chart>
-  `,
+  templateUrl: './bubble-line-chart.component.html',
   styleUrls: ['./bubble-line-chart.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
@@ -149,9 +38,9 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
 
   @ViewChild(LineSeriesComponent) lineSeriesComponent: LineSeriesComponent;
 
-  @Input() curve: any = curveLinear;
+  @Input() curve = curveLinear;
   @Input() legend = false;
-  @Input() legendTitle: string = 'Legend';
+  @Input() legendTitle = 'Legend';
   @Input() xAxis;
   @Input() yAxis;
   @Input() showXAxisLabel;
@@ -162,25 +51,30 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   @Input() maxRadius = 10;
   @Input() minRadius = 3;
   @Input() yAxisLabelRight;
-  @Input() tooltipDisabled: boolean = false;
+  @Input() tooltipDisabled = false;
   @Input() gradient: boolean;
-  @Input() showGridLines: boolean = true;
+  @Input() showGridLines = true;
   @Input() activeEntries: any[] = [];
   @Input() schemeType: string;
   @Input() xAxisTickFormatting: any;
   @Input() yAxisTickFormatting: any;
   @Input() yRightAxisTickFormatting: any;
-  @Input() roundDomains: boolean = false;
+  @Input() roundDomains = false;
   @Input() colorSchemeLine: any[];
-  @Input() autoScale;
+  @Input() autoScale = false;
+  @Input() yScaleMin = 0;
+  @Input() xScaleMin = 0;
+  @Input() yScaleMax: number;
+  @Input() xScaleMax: number;
   @Input() lineChart: any;
   @Input() bubbleChart: any;
   @Input() yLeftAxisScaleFactor: any;
   @Input() yRightAxisScaleFactor: any;
   @Input() rangeFillOpacity: number;
-  @Input() animations: boolean = true;
+  @Input() animations = true;
   @Input() customColors: any[] = [];
   @Input() errorBarColor = '#000000';
+  @Input() scaleType = 'linear';
 
   @Output() activate: EventEmitter<any> = new EventEmitter();
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
@@ -198,10 +92,9 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   transform: string;
   colors: ColorHelper;
   margin: any[] = [10, 20, 10, 20];
-  xAxisHeight: number = 0;
-  yAxisWidth: number = 0;
+  xAxisHeight = 0;
+  yAxisWidth = 0;
   legendOptions: any;
-  scaleType = 'linear';
   seriesDomain;
   scaledAxis;
   combinedSeries;
@@ -212,14 +105,12 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   yOrientRight = 'right';
   legendSpacing = 0;
   bubblePadding = [0, 0, 0, 0];
-  bandwidth;
-  barPadding = 8;
 
-  trackBy(index, item): string {
+  trackBy (index, item): string {
     return item.name;
   }
 
-  update(): void {
+  update (): void {
 
     // update custom colors to use error bars
     this.customColors.push(
@@ -273,7 +164,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.transform = `translate(${ this.dims.xOffset } , ${ this.margin[0] })`;
   }
 
-  deactivateAll() {
+  deactivateAll () {
     this.activeEntries = [...this.activeEntries];
     for (const entry of this.activeEntries) {
       this.deactivate.emit({ value: entry, entries: [] });
@@ -282,55 +173,28 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   }
 
   @HostListener('mouseleave')
-  hideCircles(): void {
+  hideCircles (): void {
     this.hoveredVertical = null;
     this.deactivateAll();
   }
 
-  updateHoveredVertical(item): void {
+  updateHoveredVertical (item): void {
     this.hoveredVertical = item.value;
     this.deactivateAll();
   }
 
-  updateDomain(domain): void {
+  updateDomain (domain): void {
     this.filteredDomain = domain;
     this.xDomain = this.filteredDomain;
     this.xScale = this.getXScale(this.xDomain, this.dims.width);
   }
 
-  getSeriesDomain(): any[] {
+  getSeriesDomain (): any[] {
     return [...this.bubbleChart, ...this.lineChart]
-        .map((d) => { return d.name });
+        .map(d => d.name );
   }
 
-  isDate(value): boolean {
-    if (value instanceof Date) {
-      return true;
-    }
-
-    return false;
-  }
-
-  getScaleType(values): string {
-    let date = true;
-    let num = true;
-
-    for (const value of values) {
-      if (!this.isDate(value)) {
-        date = false;
-      }
-
-      if (typeof value !== 'number') {
-        num = false;
-      }
-    }
-
-    if (date) return 'time';
-    if (num) return 'linear';
-    return 'ordinal';
-  }
-
-  getXDomain(): any[] {
+  getXDomain (): any[] {
     let values = [];
 
     for (const results of [...this.lineChart, ...this.bubbleChart]) {
@@ -341,7 +205,21 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
       }
     }
 
-    this.scaleType = this.getScaleType(values);
+    if (!this.autoScale) {
+      if (this.xScaleMin) {
+        values.push(this.xScaleMin);
+      }
+      if (this.xScaleMax) {
+        values.push(this.xScaleMax);
+      }
+      if (this.yScaleMin) {
+        values.push(this.xScaleMin);
+      }
+      if (this.yScaleMax) {
+        values.push(this.yScaleMax);
+      }
+    }
+
     let domain = [];
 
     if (this.scaleType === 'time') {
@@ -361,7 +239,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     return domain;
   }
 
-  getYDomain(): any[] {
+  getYDomain (): any[] {
     const domain = [];
 
     for (const results of [...this.lineChart, ...this.bubbleChart]) {
@@ -393,15 +271,8 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     }
   }
 
-  getXScaleBubble(domain, width): any {
-    return getScale(domain, [this.bubblePadding[3], width], this.scaleType, this.roundDomains);
-  }
-
-  getXScale(domain, width): any {
+  getXScale (domain, width): any {
     let scale;
-    if (this.bandwidth === undefined) {
-      this.bandwidth = (this.dims.width - this.barPadding);
-    }
 
     if (this.scaleType === 'time') {
       scale = scaleTime()
@@ -415,16 +286,12 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
       if (this.roundDomains) {
         scale = scale.nice();
       }
-    } else if (this.scaleType === 'ordinal') {
-      scale = scalePoint()
-        .range([this.bandwidth / 2, width - this.bandwidth / 2])
-        .domain(domain);
     }
 
     return scale;
   }
 
-  getYScale(domain, height): any {
+  getYScale (domain, height): any {
     const scale = scaleLinear()
       .range([height, 0])
       .domain(domain);
@@ -432,15 +299,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     return this.roundDomains ? scale.nice() : scale;
   }
 
-  getYScaleBubble(): any {
-    this.yDomain = this.getYDomain();
-    const scale = scaleLinear()
-      .range([this.dims.height, 0])
-      .domain(this.yDomain);
-    return this.roundDomains ? scale.nice() : scale;
-  }
-
-  getRDomain(): number[] {
+  getRDomain (): number[] {
     let min = Infinity;
     let max = -Infinity;
 
@@ -455,11 +314,11 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     return [min, max];
   }
 
-  onClick(data) {
+  onClick (data) {
     this.select.emit(data);
   }
 
-  setColors(): void {
+  setColors (): void {
     let domain;
     if (this.schemeType === 'ordinal') {
       domain = this.xDomain;
@@ -469,7 +328,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.colors = new ColorHelper(this.scheme, this.schemeType, domain, this.customColors);
   }
 
-  getLegendOptions() {
+  getLegendOptions () {
     const opts = {
       scaleType: this.schemeType,
       colors: undefined,
@@ -487,21 +346,17 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     return opts;
   }
 
-  updateLineWidth(width): void {
-    this.bandwidth = width;
-  }
-
-  updateYAxisWidth({ width }): void {
+  updateYAxisWidth ({ width }): void {
     this.yAxisWidth = width + 20;
     this.update();
   }
 
-  updateXAxisHeight({ height }): void {
+  updateXAxisHeight ({ height }): void {
     this.xAxisHeight = height;
     this.update();
   }
 
-  onActivate(item) {
+  onActivate (item) {
     const idx = this.activeEntries.findIndex(d => {
       return d.name === item.name && d.value === item.value && d.series === item.series;
     });
@@ -513,7 +368,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.activate.emit({ value: item, entries: this.activeEntries });
   }
 
-  onDeactivate(item) {
+  onDeactivate (item) {
     const idx = this.activeEntries.findIndex(d => {
       return d.name === item.name && d.value === item.value && d.series === item.series;
     });
@@ -524,7 +379,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.deactivate.emit({ value: item, entries: this.activeEntries });
   }
 
-  getRScale(domain, range): any {
+  getRScale (domain, range): any {
     const scale = scaleLinear()
       .range(range)
       .domain(domain);
@@ -532,7 +387,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     return this.roundDomains ? scale.nice() : scale;
   }
 
-  getBubblePadding() {
+  getBubblePadding () {
     let yMin = 0;
     let xMin = 0;
     let yMax = this.dims.height;
