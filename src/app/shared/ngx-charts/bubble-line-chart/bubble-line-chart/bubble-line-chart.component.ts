@@ -41,6 +41,49 @@ import { scaleBand, scaleLinear, scalePoint, scaleTime } from 'd3-scale';
       (legendLabelClick)="onClick($event)"
       (legendLabelActivate)="onActivate($event)"
       (legendLabelDeactivate)="onDeactivate($event)">
+      <svg:g [attr.transform]="transform" class="line-chart chart">
+        <svg:g [attr.clip-path]="clipPath">
+          <svg:g *ngFor="let series of lineChart; trackBy:trackBy">
+            <svg:g ngx-charts-line-series
+              [xScale]="xScale"
+              [yScale]="yScale"
+              [colors]="colorsLine"
+              [data]="series"
+              [activeEntries]="activeEntries"
+              [scaleType]="scaleType"
+              [curve]="curve"
+              [rangeFillOpacity]="rangeFillOpacity"
+              [animations]="animations"
+            />
+          </svg:g>
+          <svg:g ngx-charts-tooltip-area
+            *ngIf="!tooltipDisabled"
+            [dims]="dims"
+            [xSet]="xSet"
+            [xScale]="xScale"
+            [yScale]="yScale"
+            [results]="combinedSeries"
+            [colors]="colorsLine"
+            [tooltipDisabled]="tooltipDisabled"
+            (hover)="updateHoveredVertical($event)"
+          />
+          <svg:g *ngFor="let series of lineChart">
+            <svg:g ngx-charts-circle-series
+              [xScale]="xScale"
+              [yScale]="yScale"
+              [colors]="colorsLine"
+              [data]="series"
+              [scaleType]="scaleType"
+              [visibleValue]="hoveredVertical"
+              [activeEntries]="activeEntries"
+              [tooltipDisabled]="tooltipDisabled"
+              (select)="onClick($event, series)"
+              (activate)="onActivate($event)"
+              (deactivate)="onDeactivate($event)"
+            />
+          </svg:g>
+        </svg:g>
+      </svg:g>
       <svg:g [attr.transform]="transform" class="bubble-chart chart">
           <svg:g ngx-charts-x-axis
           *ngIf="xAxis"
@@ -96,49 +139,6 @@ import { scaleBand, scaleLinear, scalePoint, scaleTime } from 'd3-scale';
             </svg:g>
           </svg:g>
         </ng-container>
-      </svg:g>
-      <svg:g [attr.transform]="transform" class="line-chart chart">
-        <svg:g [attr.clip-path]="clipPath">
-          <svg:g *ngFor="let series of lineChart; trackBy:trackBy">
-            <svg:g ngx-charts-line-series
-              [xScale]="xScale"
-              [yScale]="yScale"
-              [colors]="colorsLine"
-              [data]="series"
-              [activeEntries]="activeEntries"
-              [scaleType]="scaleType"
-              [curve]="curve"
-              [rangeFillOpacity]="rangeFillOpacity"
-              [animations]="animations"
-            />
-          </svg:g>
-          <svg:g ngx-charts-tooltip-area
-            *ngIf="!tooltipDisabled"
-            [dims]="dims"
-            [xSet]="xSet"
-            [xScale]="xScale"
-            [yScale]="yScale"
-            [results]="combinedSeries"
-            [colors]="colorsLine"
-            [tooltipDisabled]="tooltipDisabled"
-            (hover)="updateHoveredVertical($event)"
-          />
-          <svg:g *ngFor="let series of lineChart">
-            <svg:g ngx-charts-circle-series
-              [xScale]="xScale"
-              [yScale]="yScale"
-              [colors]="colorsLine"
-              [data]="series"
-              [scaleType]="scaleType"
-              [visibleValue]="hoveredVertical"
-              [activeEntries]="activeEntries"
-              [tooltipDisabled]="tooltipDisabled"
-              (select)="onClick($event, series)"
-              (activate)="onActivate($event)"
-              (deactivate)="onDeactivate($event)"
-            />
-          </svg:g>
-        </svg:g>
       </svg:g>
     </ngx-charts-chart>
   `,
@@ -360,7 +360,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   getYDomain(): any[] {
     const domain = [];
 
-    for (const results of this.lineChart) {
+    for (const results of [...this.lineChart, ...this.bubbleChart]) {
       for (const d of results.series) {
         if (domain.indexOf(d.value) < 0) {
           domain.push(d.value);

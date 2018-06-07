@@ -62,7 +62,7 @@ export class DyfiService {
           x: data.x,
           y: data.y,
           value: data.y,
-          name: count++,
+          name: data.x,
         }
 
         if (data.stdev) {

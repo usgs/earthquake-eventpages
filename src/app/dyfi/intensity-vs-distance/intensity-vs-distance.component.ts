@@ -93,11 +93,13 @@ export class IntensityVsDistanceComponent implements OnInit {
     for (let series of dyfiData.series) {
       let styles = this.styles[series.class] ? this.styles[series.class] : null;
 
+      // add styles to specific features
       if (styles !== null) {
         series.series = series.series.map((data) => {
           return {...data, ...styles};
         });
       }
+
       if (this.classTypes[series.class] == 'scatter') {
         bubbleSeries.push(series);
       } else if (this.classTypes[series.class] == 'line') {
