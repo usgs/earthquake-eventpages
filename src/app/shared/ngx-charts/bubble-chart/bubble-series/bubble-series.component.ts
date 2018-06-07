@@ -41,6 +41,7 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
 
     return this.data.series.map((d, i) => {
       if (typeof d.y !== 'undefined' && typeof d.x !== 'undefined') {
+        let this_ = this;
         const y = d.y;
         const x = d.x;
         const r = d.r;

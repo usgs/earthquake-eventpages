@@ -45,6 +45,7 @@ export class IntensityVsDistanceComponent implements OnInit {
   showYAxis = true;
   gradient = false;
   showLegend = true;
+  animations = true;
   showXAxisLabel = true;
   xAxisLabel = 'Hypocentral Distance (km)';
   showYAxisLabel = true;
@@ -112,5 +113,4 @@ export class IntensityVsDistanceComponent implements OnInit {
   onSelect(event) {
     console.log(event);
   }
-
 }

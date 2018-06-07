@@ -1,7 +1,8 @@
 import {
   Component,
   Input,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  OnInit
 } from '@angular/core';
 import {
   trigger,
@@ -30,8 +31,12 @@ import { LineComponent as SwimlaneLine } from '@swimlane/ngx-charts';
     ])
   ]
 })
-export class LineComponent extends SwimlaneLine {
+export class LineComponent extends SwimlaneLine implements OnInit {
 
   @Input() strokeWidth = '1.5px';
+
+  ngOnInit() {
+    
+  }
 
 }
