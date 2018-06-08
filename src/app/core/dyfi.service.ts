@@ -13,10 +13,9 @@ export class DyfiService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllReported() {
-
-  }
-
+  /**
+   * Grab dyfi_plot_atten.json product
+   */
   getAtten(product: any) {
     if ((product == null) ||
           (!product.contents['dyfi_plot_atten.json'])) {
@@ -42,6 +41,9 @@ export class DyfiService {
     });
   }
 
+  /**
+   * Grab dyfi_plot_numresp.json product
+   */
   getNumResp(product: any) {
     if ((product == null) ||
           (!product.contents['dyfi_plot_numresp.json'])) {
