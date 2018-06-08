@@ -27,9 +27,9 @@ export class ResponsesVsTimeComponent implements OnInit {
   autoScale = true;
 
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#34e16d']
   };
-  
+
   constructor (
     public dyfiService: DyfiService,
     public eventService: EventService
