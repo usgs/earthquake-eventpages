@@ -116,7 +116,8 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.customColors.push(
       {name: 'error', value: this.errorBarColor}
     );
-    this.combinedSeries = [...this.bubbleChart, ...this.lineChart];
+
+    this.combinedSeries = this.results;
     super.update();
 
     this.dims = calculateViewDimensions({

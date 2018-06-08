@@ -35,7 +35,7 @@ export class ResponsesVsTimeComponent implements OnInit {
     public eventService: EventService
   ) {}
 
-  ngOnInit() {
+  ngOnInit () {
     this.subs.add(this.dyfiService.plotNumResp$.subscribe((series) => {
       this.onDyfiSeries(series);
     }));
@@ -44,7 +44,7 @@ export class ResponsesVsTimeComponent implements OnInit {
     }));
   }
 
-  onDyfiSeries(dyfiData) {
+  onDyfiSeries (dyfiData) {
     if (dyfiData === null || !dyfiData) {
       this.dyfiSeries = null;
 
@@ -54,7 +54,7 @@ export class ResponsesVsTimeComponent implements OnInit {
     this.dyfiSeries = dyfiData;
   }
 
-  onProduct(product) {
+  onProduct (product) {
     this.dyfiService.getNumResp(product);
   }
 }

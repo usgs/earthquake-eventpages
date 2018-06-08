@@ -72,7 +72,7 @@ export class IntensityVsDistanceComponent implements OnInit {
     public eventService: EventService
   ) {}
 
-  ngOnInit() {
+  ngOnInit () {
     this.subs.add(this.dyfiService.plotAtten$.subscribe((series) => {
       this.onDyfiSeries(series);
     }));
@@ -86,11 +86,11 @@ export class IntensityVsDistanceComponent implements OnInit {
    *
    * @param product shakemap product
    */
-  onProduct(product) {
+  onProduct (product) {
     this.dyfiService.getAtten(product);
   }
 
-  onDyfiSeries(dyfiData) {
+  onDyfiSeries (dyfiData) {
     if (dyfiData === null || !dyfiData) {
       this.dyfiSeries = null;
 

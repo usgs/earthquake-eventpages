@@ -11,12 +11,12 @@ export class DyfiService {
   public plotAtten$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public plotNumResp$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private httpClient: HttpClient) { }
+  constructor (private httpClient: HttpClient) { }
 
   /**
    * Grab dyfi_plot_atten.json product
    */
-  getAtten(product: any) {
+  getAtten (product: any) {
     if ((product == null) ||
           (!product.contents['dyfi_plot_atten.json'])) {
 
@@ -44,7 +44,7 @@ export class DyfiService {
   /**
    * Grab dyfi_plot_numresp.json product
    */
-  getNumResp(product: any) {
+  getNumResp (product: any) {
     if ((product == null) ||
           (!product.contents['dyfi_plot_numresp.json'])) {
 
@@ -72,7 +72,7 @@ export class DyfiService {
   /**
    * Convert data from DYFI format to ngx-charts
    */
-  onData(dyfiData) {
+  onData (dyfiData) {
     const series = [];
     let ngx_dataset,
         ngx_data;
