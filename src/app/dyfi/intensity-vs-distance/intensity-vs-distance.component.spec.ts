@@ -1,5 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
+
+import { DyfiService } from '../../core/dyfi.service';
+import { EventService } from '../../core/event.service';
 import { IntensityVsDistanceComponent } from './intensity-vs-distance.component';
 
 describe('IntensityVsDistanceComponent', () => {
@@ -7,8 +12,48 @@ describe('IntensityVsDistanceComponent', () => {
   let fixture: ComponentFixture<IntensityVsDistanceComponent>;
 
   beforeEach(async(() => {
+    const eventServiceStub = {
+      product$: of({})
+    };
+
+    const dyfiServiceStub = {
+      plotAtten$: of({})
+    };
+
     TestBed.configureTestingModule({
-      declarations: [ IntensityVsDistanceComponent ]
+      declarations: [
+        IntensityVsDistanceComponent,
+
+        MockComponent(
+          {
+            selector: 'bubble-line-chart-component',
+            inputs: [
+              'scheme',
+              'colorSchemeLine',
+              'customColors',
+              'results',
+              'animations',
+              'lineChart',
+              'bubbleChart',
+              'tooltipDisabled',
+              'gradient',
+              'xAxis',
+              'yAxis',
+              'legend',
+              'showGridLines',
+              'showXAxisLabel',
+              'showYAxisLabel',
+              'showRightYAxisLabel',
+              'xAxisLabel',
+              'yAxisLabel',
+            ]
+          }
+        )
+      ],
+      providers: [
+        {provide: EventService, useValue: eventServiceStub},
+        {provide: DyfiService, useValue: dyfiServiceStub}
+      ]
     })
     .compileComponents();
   }));

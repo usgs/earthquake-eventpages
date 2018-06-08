@@ -47,8 +47,8 @@ export class IntensityVsDistanceComponent implements OnInit {
         borderColor: '#000000',
       }
     },
-  }
-  
+  };
+
   // plot options
   showXAxis = true;
   showYAxis = true;
@@ -65,7 +65,7 @@ export class IntensityVsDistanceComponent implements OnInit {
   };
 
    // line, area
-  autoScale = true
+  autoScale = true;
 
   constructor (
     public dyfiService: DyfiService,
@@ -91,17 +91,17 @@ export class IntensityVsDistanceComponent implements OnInit {
   }
 
   onDyfiSeries(dyfiData) {
-    if (dyfiData == null) {
+    if (dyfiData === null || !dyfiData) {
       this.dyfiSeries = null;
 
       return;
     }
 
-    let bubbleSeries = [];
-    let lineSeries = [];
-    for (let series of dyfiData.series) {
+    const bubbleSeries = [];
+    const lineSeries = [];
+    for (const series of dyfiData.series) {
 
-      let styles = this.classOptions[series.class]['styles'] ?
+      const styles = this.classOptions[series.class]['styles'] ?
           this.classOptions[series.class]['styles'] : null;
 
       // add styles to specific features
@@ -111,9 +111,9 @@ export class IntensityVsDistanceComponent implements OnInit {
         });
       }
 
-      if (this.classOptions[series.class]['type'] == 'scatter') {
+      if (this.classOptions[series.class]['type'] === 'scatter') {
         bubbleSeries.push(series);
-      } else if (this.classOptions[series.class]['type'] == 'line') {
+      } else if (this.classOptions[series.class]['type'] === 'line') {
         lineSeries.push(series);
       }
 
@@ -130,9 +130,5 @@ export class IntensityVsDistanceComponent implements OnInit {
     this.bubbleSeries = bubbleSeries;
     this.lineSeries = lineSeries;
     this.allResults = [...bubbleSeries, ...lineSeries];
-  }
-  
-  onSelect(event) {
-    console.log(event);
   }
 }

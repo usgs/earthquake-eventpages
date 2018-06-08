@@ -17,7 +17,7 @@ import { curveLinear } from 'd3-shape';
 
 @Component({
   selector: 'g[ngx-charts-bubble-series]',
-  templateUrl: './bubble-series.component.html', 
+  templateUrl: './bubble-series.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('animationState', [
@@ -41,11 +41,10 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
 
     return this.data.series.map((d, i) => {
       if (typeof d.y !== 'undefined' && typeof d.x !== 'undefined') {
-        let this_ = this;
         const y = d.y;
         const x = d.x;
         const r = d.r;
-  
+
         const radius = this.rScale(r || 1);
         const borderColor = d.borderColor || null;
 
@@ -57,7 +56,7 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
         const color = (this.colors.scaleType === 'linear') ?
           this.colors.getColor(r) :
           this.colors.getColor(seriesName);
-        
+
         const isActive = !this.activeEntries.length ? true : (this.isActive({name: seriesName}) || seriesName === 'error');
 
         const opacity = isActive ? 1 : 0.3;
@@ -65,7 +64,9 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
         // error bar calculations
         const max = d.max;
         const min = d.min;
-        const errorBarWidth = (this.xDomain[1] - this.xDomain[0]) * .0125
+
+        // Should be replaced to allow origin plot to use a log scale
+        const errorBarWidth = (this.xDomain[1] - this.xDomain[0]) * .0125;
 
         const data = {
           series: seriesName,

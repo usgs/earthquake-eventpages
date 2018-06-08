@@ -43,41 +43,40 @@ export class DyfiService {
 
   /**
    * Convert data from DYFI format to ngx-charts
-   */ 
+   */
   onData(dyfiData) {
-    const series = []
+    const series = [];
     let ngx_dataset,
         ngx_data;
 
-    for (let dataset of dyfiData.datasets) {
+    for (const dataset of dyfiData.datasets) {
       ngx_dataset = {
         name: dataset.legend,
         class: dataset.class,
         series: []
-      }
+      };
 
-      let count = 0
-      for (let data of dataset.data) {
+      for (const data of dataset.data) {
         ngx_data = {
           x: data.x,
           y: data.y,
           value: data.y,
-          name: data.x,
-        }
+          name: data.x
+        };
 
         if (data.stdev) {
-          ngx_data.max = data.y + data.stdev
-          ngx_data.min = data.y - data.stdev
+          ngx_data.max = data.y + data.stdev;
+          ngx_data.min = data.y - data.stdev;
         }
 
-        ngx_dataset.series.push(ngx_data)
+        ngx_dataset.series.push(ngx_data);
       }
 
-      series.push(ngx_dataset)
+      series.push(ngx_dataset);
     }
 
     dyfiData.series = series;
-    return dyfiData
+    return dyfiData;
   }
 
   /**
@@ -89,5 +88,4 @@ export class DyfiService {
       return of(null);
     };
   }
-  
 }

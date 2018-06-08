@@ -18,12 +18,45 @@ describe('BubbleLineChartComponent', () => {
             selector: 'ngx-charts-chart',
             inputs: [
               'view',
+              'showLegend',
               'legendOptions',
               'activeEntries',
+              'animations'
+            ]
+          }
+        ),
+         MockComponent(
+          {
+            selector: ':svg:g',
+            inputs: [
+              'xScale',
+              'yScale',
+              'xScaleType',
+              'yScaleType',
+              'xAxisLabel',
+              'yAxisLabel',
+              'rScale',
+              'xDomain',
+              'yDomain',
+              'xDomainType',
+              'colors',
+              'data',
+              'activeEntries',
+              'scaleType',
+              'curve',
+              'rangeFillOpacity',
               'animations',
-              'legendLabelClick',
-              'legendLabelActivate',
-              'legendLabelDeactivate'
+              'dims',
+              'xSet',
+              'tooltipTemplate',
+              'tooltipDisabled',
+              'results',
+              'visibleValue',
+              'showLabel',
+              'labelText',
+              'tickFormatting',
+              'yOrient',
+              'showGridLines'
             ]
           }
         )

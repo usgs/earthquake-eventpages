@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MockComponent } from 'ng2-mock-component';
+
 import { LineSeriesComponent } from './line-series.component';
 
 describe('LineSeriesComponent', () => {
@@ -8,7 +10,28 @@ describe('LineSeriesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LineSeriesComponent ]
+      declarations: [
+        LineSeriesComponent,
+
+        MockComponent(
+          {
+            selector: ':svg:g',
+            inputs: [
+              'data',
+              'path',
+              'stroke',
+              'strokeWidth',
+              'animations',
+              'fill',
+              'opacity',
+              'startOpacity',
+              'name',
+              'stops',
+              'gradient'
+            ]
+          }
+        )
+      ]
     })
     .compileComponents();
   }));

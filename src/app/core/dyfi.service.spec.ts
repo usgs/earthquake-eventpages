@@ -1,3 +1,4 @@
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { DyfiService } from './dyfi.service';
@@ -5,6 +6,9 @@ import { DyfiService } from './dyfi.service';
 describe('DyfiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule
+      ],
       providers: [DyfiService]
     });
   });

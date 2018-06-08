@@ -35,8 +35,7 @@ export class LineComponent extends SwimlaneLine implements OnInit {
 
   @Input() strokeWidth = '1.5px';
 
-  ngOnInit() {
-    
+  ngOnInit () {
   }
 
 }

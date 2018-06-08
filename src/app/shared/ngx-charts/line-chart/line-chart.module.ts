@@ -8,7 +8,9 @@ import { LineSeriesComponent } from './line-series/line-series.component';
 export { LineComponent, LineSeriesComponent };
 
 @NgModule({
-  imports: [ChartCommonModule],
+  imports: [
+    ChartCommonModule
+  ],
   declarations: [
     LineComponent,
     LineSeriesComponent
