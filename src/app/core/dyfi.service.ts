@@ -9,6 +9,7 @@ export class DyfiService {
   public error: any = null;
 
   public plotAtten$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public plotNumResp$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private httpClient: HttpClient) { }
 
@@ -41,6 +42,31 @@ export class DyfiService {
     });
   }
 
+  getNumResp(product: any) {
+    if ((product == null) ||
+          (!product.contents['dyfi_plot_numresp.json'])) {
+
+      this.plotAtten$.next(null);
+      return;
+    }
+
+    const numResp = product.contents['dyfi_plot_numresp.json'];
+
+    this.httpClient.get(numResp.url).pipe(
+      catchError(this.handleError())
+    ).subscribe((response) => {
+      try {
+        const dyfiData = this.onData(response);
+        this.plotNumResp$.next(dyfiData);
+
+      } catch (e) {
+        /*  Processing errored */
+        this.error = e;
+        this.plotNumResp$.next(null);
+      }
+    });
+  }
+
   /**
    * Convert data from DYFI format to ngx-charts
    */
@@ -51,7 +77,7 @@ export class DyfiService {
 
     for (const dataset of dyfiData.datasets) {
       ngx_dataset = {
-        name: dataset.legend,
+        name: dataset.legend || 'Responses',
         class: dataset.class,
         series: []
       };

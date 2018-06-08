@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { ChartCommonModule } from '@swimlane/ngx-charts';
+import { LineChartComponent } from '@swimlane/ngx-charts';
 
 import { LineComponent } from './line/line.component';
 import { LineSeriesComponent } from './line-series/line-series.component';
@@ -13,11 +14,13 @@ export { LineComponent, LineSeriesComponent };
   ],
   declarations: [
     LineComponent,
-    LineSeriesComponent
+    LineSeriesComponent,
+    LineChartComponent
   ],
   exports: [
     LineComponent,
-    LineSeriesComponent
+    LineSeriesComponent,
+    LineChartComponent
   ]
 })
 export class LineChartModule {}
