@@ -67,7 +67,7 @@
           <mat-cell *matCellDef="let channel">
             {{ channel.pga?.value |
                 sharedNumber:2:channel?.pga?.units }}
-            <br>
+
             <shared-station-flag class="flag" [flag]="channel.pga.flag">
             </shared-station-flag>
           </mat-cell>
@@ -80,7 +80,7 @@
           <mat-cell *matCellDef="let channel">
             {{ channel.pgv.value |
                 sharedNumber:2:channel?.pgv?.units }}
-            <br>
+
             <shared-station-flag class="flag" [flag]="channel.pgv.flag">
             </shared-station-flag>
           </mat-cell>
@@ -93,7 +93,7 @@
           <mat-cell *matCellDef="let channel">
             {{ channel.psa03.value |
                 sharedNumber:2:channel?.psa03?.units }}
-            <br>
+
             <shared-station-flag class="flag" [flag]="channel.psa03.flag">
             </shared-station-flag>
           </mat-cell>
@@ -106,7 +106,7 @@
           <mat-cell *matCellDef="let channel">
             {{ channel.psa10.value |
                 sharedNumber:2:channel?.psa10?.units}}
-            <br>
+
             <shared-station-flag class="flag" [flag]="channel.psa10.flag">
             </shared-station-flag>
           </mat-cell>
@@ -119,7 +119,7 @@
           <mat-cell *matCellDef="let channel">
             {{ channel.psa30.value |
                 sharedNumber:2:channel?.psa30?.units }}
-            <br>
+
             <shared-station-flag class="flag" [flag]="channel.psa30.flag">
             </shared-station-flag>
           </mat-cell>
