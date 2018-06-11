@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
+import { NgModule, Injector } from '@angular/core';
 import { MatButtonModule,
           MatDialogModule,
           MatIconModule,
           MatExpansionModule,
           MatCardModule,
           MatTableModule } from '@angular/material';
+
 import { AttributionComponent } from './attribution/attribution.component';
 import { AlertLevelComponent } from './alert-level/alert-level.component';
 import { BeachballComponent } from './beachball/beachball.component';
@@ -73,7 +75,6 @@ import { SignificantFigurePipe } from './significant-figure.pipe';
     ProductAttributionComponent,
     TextProductComponent,
     UncertainValueComponent,
-    StationComponent,
     NodalPlanesComponent,
     TensorPipe,
     DateTimePipe,
@@ -86,7 +87,8 @@ import { SignificantFigurePipe } from './significant-figure.pipe';
     StationFlagComponent,
     ShakemapOverlaysPipe,
     RomanPipe,
-    SignificantFigurePipe
+    SignificantFigurePipe,
+    StationComponent
   ],
   exports: [
     AttributionComponent,
@@ -110,7 +112,6 @@ import { SignificantFigurePipe } from './significant-figure.pipe';
     PreferredCheckComponent,
     TextProductComponent,
     UncertainValueComponent,
-    StationComponent,
     TensorPipe,
     DateTimePipe,
     GetProductPipe,
@@ -121,10 +122,27 @@ import { SignificantFigurePipe } from './significant-figure.pipe';
     RegionInfoOverlaysPipe,
     ShakemapOverlaysPipe,
     RomanPipe,
-    SignificantFigurePipe
+    SignificantFigurePipe,
+    StationComponent
   ],
   entryComponents: [
-    DownloadDialogComponent
+    DownloadDialogComponent,
+    StationComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+  constructor (private injector: Injector) {
+
+    // shakemap-station constructor will be an HTMLElement if it's not
+    // registered yet
+    const stationConst = document.createElement('shakemap-station').constructor
+
+    if (stationConst === HTMLElement) {
+      // shakemap-station element is not yet registered
+      const station = createCustomElement(StationComponent, { injector });
+      customElements.define('shakemap-station', station);
+    }
+  }
+
+  ngDoBootstrap () {}
+}
