@@ -1,21 +1,6 @@
 /* set MMI variables */
 @import '../css/mmi-colors.scss';
 
-$mmi-font-family: Tahoma, Verdana, Segoe, sans-serif;
-
-$mmiI-text-color: #000000;
-$mmiII-text-color: #000000;
-$mmiIII-text-color: #000000;
-$mmiIV-text-color: #000000;
-$mmiV-text-color: #000000;
-$mmiVI-text-color: #000000;
-$mmiVII-text-color: #000000;
-$mmiVIII-text-color: #000000;
-$mmiIX-text-color: #000000;
-$mmiX-text-color: #000000;
-$mmiXI-text-color: #000000;
-$mmiXII-text-color: #000000;
-
 .mmi {
   display: inline-block;
   text-align: center;
@@ -46,53 +31,4 @@ shared-bubble.mmi {
 
 .roman {
   font-family: $mmi-font-family;
-}
-
-.mmiI {
-  box-shadow: inset 0 0 1px #666;
-  color: $mmiI-text-color !important;
-}
-
-.mmiII{
-  color: $mmiII-text-color !important;
-}
-
-.mmiIII {
-  color: $mmiIII-text-color !important;
-}
-
-.mmiIV {
-  color: $mmiIV-text-color !important;
-}
-
-.mmiV {
-  color: $mmiV-text-color !important;
-}
-
-.mmiVI {
-  color: $mmiVI-text-color !important;
-}
-
-.mmiVII {
-  color: $mmiVII-text-color !important;
-}
-
-.mmiVIII {
-  color: $mmiVIII-text-color !important;
-}
-
-.mmiIX {
-  color: $mmiIX-text-color !important;
-}
-
-.mmiX {
-  color: $mmiX-text-color !important;
-}
-
-.mmiXI {
-  color: $mmiXI-text-color !important;
-}
-
-.mmiXII {
-  color: $mmiXII-text-color !important;
 }
