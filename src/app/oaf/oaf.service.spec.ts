@@ -133,35 +133,34 @@ describe('OafService', () => {
   });
 
   describe('parseForecast', () => {
-    const forecastOutput = {
-      'columnIds': [
-        'magnitude',
-        '1_Day'
-      ],
-      'columns': [
-        {
-          'id': '1_Day',
-          'label': '1 Day',
-          'timeStart': 1,
-          'timeEnd': 1
-        }
-      ],
-      'rows': [
-        {
-          'magnitude': 1,
-          'data': {
-            '1_Day': {
-              'p95minimum': 1,
-              'p95maximum': 1,
-              'probability': 1,
-              'magnitude': 1
+    it('parses forecast correctly', inject([OafService], (service: OafService) => {
+      const forecastOutput = {
+        'columnIds': [
+          'magnitude',
+          '1_Day'
+        ],
+        'columns': [
+          {
+            'id': '1_Day',
+            'label': '1 Day',
+            'timeStart': 1,
+            'timeEnd': 1
+          }
+        ],
+        'rows': [
+          {
+            'magnitude': 1,
+            'data': {
+              '1_Day': {
+                'p95minimum': 1,
+                'p95maximum': 1,
+                'probability': 1,
+                'magnitude': 1
+              }
             }
           }
-        }
-      ]
-    };
-
-    it('parses forecast correctly', inject([OafService], (service: OafService) => {
+        ]
+      };
       expect(service.parseForecast(FORECAST)).toEqual(forecastOutput);
     }));
   });
