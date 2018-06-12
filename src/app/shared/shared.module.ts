@@ -135,7 +135,7 @@ export class SharedModule {
 
     // shakemap-station constructor will be an HTMLElement if it's not
     // registered yet
-    const stationConst = document.createElement('shakemap-station').constructor
+    const stationConst = document.createElement('shakemap-station').constructor;
 
     if (stationConst === HTMLElement) {
       // shakemap-station element is not yet registered
