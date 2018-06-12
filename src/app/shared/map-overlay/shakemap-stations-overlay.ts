@@ -87,7 +87,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
     const marker = event.target;
     const popupContent = this.generatePopupContent(marker.feature);
 
-    const options = { minWidth: 300 };
+    const options = { minWidth: 400 };
     marker.bindPopup(popupContent, options).openPopup();
 
     // The popup is generated; let Leaflet take over displaying/hiding
@@ -95,100 +95,12 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
   },
 
   generatePopupContent: function (feature) {
-    const props = feature.properties;
-    const intensity = this.romanPipe.transform(props.intensity);
-
-    const header = `
-      <h3>
-        ${props.code}
-        <small>${props.name}</small>
-      </h3>
+    const station = `
+      <shakemap-station station='${JSON.stringify(feature)}'>
+      </shakemap-station>
     `;
 
-    const summary = `
-      <div class="summary">
-        <div class="station-overlay-bubble intensity mmi${intensity}">
-          <span>${intensity}</span>
-          <abbr title="Modified Mercalli Intensity">mmi</abbr>
-        </div>
-
-        <div class="station-overlay-bubble">
-          <span>${this.numberPipe.transform(props.pga, 2, '%g')}</span>
-          <abbr title="Peak Ground Acceleration">pga</abbr>
-        </div>
-
-        <div class="station-overlay-bubble">
-          <span>${this.numberPipe.transform(props.pgv, 2, 'cm/s')}</span>
-          <abbr title="Peak Ground Velocity">pgv</abbr>
-        </div>
-
-        <div class="station-overlay-bubble">
-          <span>${this.numberPipe.transform(props.distance, 2, 'km')}</span>
-          <abbr title="Distance">dist</abbr>
-        </div>
-      </div>
-    `;
-
-    const descriptionTable = `
-      <dl class="description-table station-overlay">
-        <dt>Network</dt>
-        <dd>${props.network}</dd>
-        <dt>Location</dt>
-        <dd>${this.locationPipe.transform(feature.geometry.coordinates)}</dd>
-        <dt>Source</dt>
-        <dd>${props.source}</dd>
-        <dt>Intensity</dt>
-        <dd>${this.numberPipe.transform(props.intensity, 2)}</dd>
-      </dl>
-    `;
-
-    let channels = '';
-    if (feature.channels.length > 0) {
-
-      // generate table rows for each channel
-      let channelRows = '';
-      for (const channel of feature.channels) {
-        channelRows += `
-          <tr class="mat-row" role="row">
-            <td class="mat-header-cell" role="rowheader">
-              ${this.numberPipe.transform(channel.name)}
-            </td>
-            <td class="mat-cell" role="gridcell">
-              ${this.numberPipe.transform(channel.pga.value, 2)}
-            </td>
-            <td class="mat-cell" role="gridcell">
-              ${this.numberPipe.transform(channel.pgv.value, 2)}
-            </td>
-            <td class="mat-cell" role="gridcell">
-              ${this.numberPipe.transform(channel.psa03.value, 2)}
-            </td>
-            <td class="mat-cell" role="gridcell">
-              ${this.numberPipe.transform(channel.psa10.value, 2)}
-            </td>
-            <td class="mat-cell" role="gridcell">
-              ${this.numberPipe.transform(channel.psa30.value, 2)}
-            </td>
-          </tr>
-        `;
-      }
-
-      // add the rows to a table
-      channels = `
-        <table class="mat-table">
-          <tr class="mat-header-row mat-row">
-            <th class="mat-header-cell" role="columnheader">Name</th>
-            <th class="mat-header-cell" role="columnheader">PGA</th>
-            <th class="mat-header-cell" role="columnheader">PGV</th>
-            <th class="mat-header-cell" role="columnheader">PSA(03)</th>
-            <th class="mat-header-cell" role="columnheader">PSA(10)</th>
-            <th class="mat-header-cell" role="columnheader">PSA(30)</th>
-          </tr>
-          ${channelRows}
-        </table>
-      `;
-    }
-
-    return header + summary + descriptionTable + channels;
+    return station;
   }
 
 });
