@@ -33,6 +33,7 @@ describe('ExecutiveComponent', () => {
         MockComponent({ selector: 'executive-pager-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-region-info-pin', inputs: ['event']}),
         MockComponent({ selector: 'executive-shakemap-pin', inputs: ['product']}),
+        MockComponent({ selector: 'executive-tsunami-pin'}),
         MockComponent({ selector: 'shared-link-product', inputs: ['product']}),
         MockComponent({ selector: 'shared-text-product', inputs: ['product']}),
 
