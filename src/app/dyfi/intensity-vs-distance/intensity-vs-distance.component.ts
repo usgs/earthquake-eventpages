@@ -101,11 +101,10 @@ export class IntensityVsDistanceComponent implements OnInit {
     const lineSeries = [];
     for (const series of dyfiData.series) {
 
-      const styles = this.classOptions[series.class]['styles'] ?
-          this.classOptions[series.class]['styles'] : null;
+      const styles = this.classOptions[series.class]['styles'];
 
       // add styles to specific features
-      if (styles !== null) {
+      if (styles) {
         series.series = series.series.map((data) => {
           return {...data, ...styles};
         });

@@ -52,8 +52,10 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   @Input() minRadius = 3;
   @Input() rangeFillOpacity: number;
   @Input() roundDomains = false;
+  @Input() results: any;
   @Input() scaleType = 'linear';
   @Input() schemeType: string;
+  @Input() scheme: any;
   @Input() showGridLines = true;
   @Input() showRightYAxisLabel;
   @Input() showXAxisLabel;

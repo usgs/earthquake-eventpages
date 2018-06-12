@@ -1,7 +1,7 @@
 <h2>Intensity vs. Distance</h2>
 
 <div class="chart-container">
-  <ng-container *ngIf="bubbleSeries || lineSeries">
+  <ng-container *ngIf="bubbleSeries && lineSeries">
     <bubble-line-chart-component
       [scheme]="colorScheme"
       [colorSchemeLine]="colorScheme"
