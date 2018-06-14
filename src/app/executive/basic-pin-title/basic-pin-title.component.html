@@ -1,0 +1,8 @@
+<header>
+  <ng-container *ngIf="title; else noTitle">
+    <a [routerLink]="link">{{ title }}</a>
+  </ng-container>
+  <ng-template #noTitle>
+    <ng-content select="[card-title]"></ng-content>
+  </ng-template>
+</header>

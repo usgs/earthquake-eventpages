@@ -12,6 +12,7 @@ import { Event } from '../../event';
 export class BasicPinComponent {
   // router link for entire card action
   @Input() link;
+  @Input() href;
 
   // product attribution
   // only used if footer is not provided

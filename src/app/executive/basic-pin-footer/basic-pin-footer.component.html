@@ -1,0 +1,10 @@
+<footer>
+    <ng-container *ngIf="footer; else noFooter">
+      {{ footer }}
+    </ng-container>
+    <ng-template #noFooter>
+      Contributed by
+      <shared-product-attribution [product]="product">
+      </shared-product-attribution>
+    </ng-template>
+  </footer>
