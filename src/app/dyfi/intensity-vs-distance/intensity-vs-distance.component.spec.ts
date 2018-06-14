@@ -12,12 +12,24 @@ describe('IntensityVsDistanceComponent', () => {
   let fixture: ComponentFixture<IntensityVsDistanceComponent>;
 
   beforeEach(async(() => {
+    const DyfiSeries = {
+      name: 'DYFI',
+      series: [
+        {
+          name: 'Series1',
+          class: 'none',
+          series: []
+        }
+      ]
+    };
+
     const eventServiceStub = {
       product$: of({})
     };
 
     const dyfiServiceStub = {
-      plotAtten$: of({})
+      plotAtten$: of(DyfiSeries),
+      getAtten: () => null
     };
 
     TestBed.configureTestingModule({
