@@ -48,7 +48,7 @@ export class DyfiService {
     if ((product == null) ||
           (!product.contents['dyfi_plot_numresp.json'])) {
 
-      this.plotAtten$.next(null);
+      this.plotNumResp$.next(null);
       return;
     }
 
