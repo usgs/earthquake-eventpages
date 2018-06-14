@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs/observable/of';
+import { MockComponent } from 'ng2-mock-component';
 
 import { EventService } from '../../core/event.service';
 import { MockPipe } from '../../mock-pipe';
@@ -24,11 +25,14 @@ describe('CommentaryComponent', () => {
       declarations: [
         CommentaryComponent,
 
+        MockComponent({selector: 'oaf-commentary-details', inputs: ['bin']}),
+
         MockPipe('oafPercent'),
-        MockPipe('roundDown'),
-        MockPipe('roundUp'),
         MockPipe('sharedDateTime'),
-        MockPipe('sharedSignificantFigure')
+        MockPipe('sharedRoundDown'),
+        MockPipe('sharedRoundUp'),
+        MockPipe('sharedSignificantFigure'),
+        MockPipe('updateTime')
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},

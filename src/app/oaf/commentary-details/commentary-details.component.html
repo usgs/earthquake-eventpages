@@ -1,0 +1,37 @@
+<ng-container *ngIf="bin">
+  The chance of an earthquake of magnitude {{ bin.magnitude }}
+  or higher is
+
+  <!-- Show probability differently depending on the value -->
+  <ng-container *ngIf="bin.probability <= 0; else someProbability">
+    possible but with low probability.
+  </ng-container>
+
+  <ng-template #someProbability>
+    <ng-container *ngIf="bin.probability <= 0.01; else moreProbability">
+      1 in {{ 1 / bin.probability | sharedSignificantFigure: 1 }},
+    </ng-container>
+
+    <ng-template #moreProbability>
+      {{ bin.probability | oafPercent }},
+    </ng-template>
+  </ng-template>
+
+
+  <!-- Show expectation differently depending on the value -->
+  <ng-container *ngIf="bin.probability > 0 && bin.p95maximum <= 0;
+      else p95Maximum">
+    such an earthquake is possible but with a low probability.
+  </ng-container>
+
+  <ng-template #p95Maximum>
+    <ng-container *ngIf="bin.probability > 0">
+      and it is most likely that as few as
+      {{ bin.p95minimum | sharedRoundDown: 2 }}
+      or as many as
+      {{ bin.p95maximum | sharedRoundUp: 2 }}
+      such earthquakes may occur in the case that the sequence is
+      re-invigorated by a larger aftershock.
+    </ng-container>
+  </ng-template>
+</ng-container>

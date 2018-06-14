@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'roundUp'
+  name: 'sharedRoundUp'
 })
 export class RoundUpPipe implements PipeTransform {
 
@@ -23,5 +23,4 @@ export class RoundUpPipe implements PipeTransform {
 
     return shifted / magnitude;
   }
-
 }

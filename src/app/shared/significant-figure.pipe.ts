@@ -5,10 +5,22 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SignificantFigurePipe implements PipeTransform {
 
-  transform(value: any, figures: number): any {
-    if (typeof value !== 'number') {
-      value = parseFloat(value);
+  transform(value: any, significant: number): any {
+    let d,
+        magnitude,
+        power,
+        shifted;
+
+    if (value === 0) {
+      return 0;
     }
-    return parseFloat(value.toPrecision(figures));
+
+    d = Math.ceil(Math.log10(value < 0 ? -value : value));
+    power = significant - (d);
+
+    magnitude = Math.pow(10, power);
+    shifted = Math.round(value * magnitude);
+
+    return shifted / magnitude;
   }
 }

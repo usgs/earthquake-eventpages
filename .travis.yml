@@ -27,7 +27,7 @@ before_script:
 
 script:
   - ng lint
-  - ng test --single-run --code-coverage
+  - ng test --watch=false --code-coverage
   - npm run e2e
   - ng build --prod --base-href /earthquakes/eventpage/
 

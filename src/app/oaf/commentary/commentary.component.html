@@ -58,17 +58,17 @@
 
       <ng-container
           *ngIf="forecast?.bins['magnitude-3']?.p95maximum > 0; else noRange">
-        {{ forecast.bins['magnitude-3'].p95minimum | roundDown: 2 }} to
-        {{ forecast.bins['magnitude-3'].p95maximum | roundUp: 2 }}
-      </ng-container>
-      <ng-template #noRange>
-        the possibility of
-      </ng-template>
-
-        magnitude 3 or higher aftershocks. Magnitude 3
+        {{ forecast.bins['magnitude-3'].p95minimum | sharedRoundDown: 2 }} to
+        {{ forecast.bins['magnitude-3'].p95maximum | sharedRoundUp: 2 }} the
+        possibility of magnitude 3 or higher aftershocks. Magnitude 3
         and above are large enough to be felt near the epicenter. The
         number of aftershocks will drop off over time, but a large
         aftershock can increase the numbers again, temporarily.
+      </ng-container>
+      <ng-template #noRange>
+        possibility of such an earthquake is possible but with a low
+        probability.
+      </ng-template>
     </p>
 
     <p *ngIf="oaf.template === 'Mainshock'">
@@ -93,96 +93,79 @@
       <p>
         The USGS estimates the chance of more aftershocks as follows: Within
         the next {{ oaf.advisoryTimeFrame }} until
-        {{ forecast.timeEnd | date:"yyyy-MM-dd" }}:
+        {{ forecast.timeEnd | sharedDateTime }}:
       </p>
+
       <ul>
         <li *ngIf="forecast.bins['magnitude-3'] as bin">
-          The chance of an earthquake of magnitude {{ bin.magnitude }}
-          or higher is
-          <ng-container *ngIf="bin.probability <= 0.01; else mag3Prob">
-            1 in {{ 1 / bin.probability | sharedSignificantFigure:1 }},
-            such an earthquake is possible but with a low probability.
-          </ng-container>
-          <ng-template #mag3Prob>
-            {{ bin.probability | oafPercent }},
-            and it is most likely that as few as
-            {{ bin.p95minimum | roundDown: 2 }} or as many as
-            {{ bin.p95maximum | roundUp: 2 }} such
-            earthquakes may occur in the case that the sequence is
-            re-invigorated by a larger aftershock.
-          </ng-template>
+          <oaf-commentary-details [bin]="bin"></oaf-commentary-details>
         </li>
         <li *ngIf="forecast.bins['magnitude-5'] as bin">
-          The chance of an earthquake of magnitude {{ bin.magnitude }}
-          or higher is
-          <ng-container *ngIf="bin.probability <= 0.01; else mag3Prob">
-            1 in {{ 1 / bin.probability | sharedSignificantFigure:1 }},
-            such an earthquake is possible but with a low probability.
-          </ng-container>
-          <ng-template #mag3Prob>
-            {{ bin.probability | oafPercent }}, and it is most likely
-            that as few as {{ bin.p95minimum | roundDown: 2 }}
-            or as many as {{ bin.p95maximum | roundUp: 2 }}
-            such earthquakes may occur.
-          </ng-template>
+          <oaf-commentary-details [bin]="bin"></oaf-commentary-details>
         </li>
         <li *ngIf="forecast.bins['magnitude-6'] as bin">
-          The chance of an earthquake of magnitude {{ bin.magnitude }}
-          or higher is
-          <ng-container *ngIf="bin.probability <= 0.01; else mag3Prob">
-            1 in {{ 1 / bin.probability | sharedSignificantFigure:1 }},
-            such an earthquake is possible but with a low probability.
-          </ng-container>
-          <ng-template #mag3Prob>
-            {{ bin.probability | oafPercent }}, and it is most likely
-            that as few as {{ bin.p95minimum | roundDown: 2 }}
-            or as many as {{ bin.p95maximum | roundUp: 2 }}
-            such earthquakes may occur.
-          </ng-template>
+          <oaf-commentary-details [bin]="bin"></oaf-commentary-details>
         </li>
         <li *ngIf="forecast.bins['magnitude-7'] as bin">
-          The chance of an earthquake of magnitude {{ bin.magnitude }}
-          or higher is
-          <ng-container *ngIf="bin.probability <= 0.01; else mag3Prob">
-            1 in {{ 1 / bin.probability | sharedSignificantFigure:1 }},
-            such an earthquake is possible but with a low probability.
-          </ng-container>
-          <ng-template #mag3Prob>
-            {{ bin.probability | oafPercent }}, and it is most likely
-            that as few as {{ bin.p95minimum | roundDown: 2 }}
-            or as many as {{ bin.p95maximum | roundUp: 2 }}
-            such earthquakes may occur.
-          </ng-template>
+          <oaf-commentary-details [bin]="bin"></oaf-commentary-details>
         </li>
       </ul>
     </ng-container>
 
-
     <h3>About our earthquake forecasts</h3>
-    <p>
-      No one can predict the exact time or place of any earthquake,
-      including aftershocks. Our earthquake forecasts give us an
-      understanding of the chances of having more earthquakes within a
-      given time period in the affected area. We calculate this
-      earthquake forecast using a statistical analysis based on
-      past earthquakes.
-    </p>
-    <p>
-      Our forecast changes as time passes due to decline in the frequency
-      of aftershocks, larger aftershocks that may trigger further
-      earthquakes, and changes in forecast modeling based on the data
-      collected for this earthquake sequence.
-    </p>
+    <ng-container *ngIf="oaf.template === 'Mainshock'; else eqOfNote">
+      <p>
+        No one can predict the exact time or place of any earthquake,
+        including aftershocks. Our earthquake forecasts give us an
+        understanding of the chances of having more earthquakes within a
+        given time period in the affected area. We calculate this
+        earthquake forecast using a statistical analysis based on
+        past earthquakes.
+      </p>
+      <p>
+        Our forecast changes as time passes due to decline in the frequency
+        of aftershocks, larger aftershocks that may trigger further
+        earthquakes, and changes in forecast modeling based on the data
+        collected for this earthquake sequence.
+      </p>
 
-    <p class="footnote">
-      This forecast was issued: {{ oaf.creationTime | sharedDateTime }}
-    </p>
+      <p class="footnote">
+        This forecast was issued: {{ oaf.creationTime | sharedDateTime }}
+      </p>
 
-    <p class="footnote">
-      This forecast will not be updated unless the forecast changes
-      significantly due to a new earthquake or new data analysis
-      on this earthquake.
-    </p>
+      <p class="footnote">
+        This forecast will be updated on or before {{
+        (oaf.creationTime | updateTime: oaf.advisoryTimeFrame) | sharedDateTime
+        }}
+      </p>
+    </ng-container>
+
+    <ng-template #eqOfNote>
+      <p>
+        No one can predict the exact time or place of any earthquake, including
+        aftershocks. What our earthquake forecasts do is give us an
+        understanding of the chances having more earthquakes within a given
+        time period. We calculate this earthquake forecast using a statistical
+        analysis based on past earthquakes and the aftershocks recorded for
+        this sequence.
+      </p>
+      <p>
+        Our forecast changes as time passes due to the decay in the frequency
+        of aftershocks, larger aftershocks that may trigger further
+        earthquakes, and changes in forecast modeling based on the earthquake
+        data collected.
+      </p>
+
+      <p class="footnote">
+        This forecast was issued: {{ oaf.creationTime | sharedDateTime }}
+      </p>
+
+      <p class="footnote">
+        This forecast will not be updated unless the forecast changes
+        significantly due to a new earthquake or new data analysis
+        on this earthquake.
+      </p>
+    </ng-template>
 
   </ng-container>
 </ng-container>

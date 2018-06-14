@@ -13,8 +13,8 @@ import { OafComponent } from './oaf/oaf.component';
 import { OafPercentPipe } from './oaf-percent.pipe';
 import { OafRoutingModule } from './oaf-routing.module';
 import { OafService } from './oaf.service';
-import { RoundDownPipe } from './round-down.pipe';
-import { RoundUpPipe } from './round-up.pipe';
+import { UpdateTimePipe } from './update-time.pipe';
+import { CommentaryDetailsComponent } from './commentary-details/commentary-details.component';
 
 
 @NgModule({
@@ -33,8 +33,8 @@ import { RoundUpPipe } from './round-up.pipe';
     ModelComponent,
     OafComponent,
     OafPercentPipe,
-    RoundDownPipe,
-    RoundUpPipe
+    UpdateTimePipe,
+    CommentaryDetailsComponent
   ],
   providers: [
     OafService
