@@ -13,13 +13,33 @@ describe('OafService', () => {
   };
 
   const OAF = {
-    model: MODEL
+    model: MODEL,
+    forecast: []
   };
 
   const PRODUCT = {
     contents: {'': { bytes: JSON.stringify(OAF)}}
   };
 
+  const FORECAST = [
+    {
+      'aboveMainshockMag': {
+        'magnitude': 1,
+        'probability': 1
+      },
+      'bins': [
+        {
+          'magnitude': 1,
+          'p95maximum': 1,
+          'p95minimum': 1,
+          'probability': 1
+        }
+      ],
+      'label': '1 Day',
+      'timeEnd': 1,
+      'timeStart': 1
+    }
+  ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -62,6 +82,7 @@ describe('OafService', () => {
 
     const parseOafSpy = spyOn(service, 'parseOaf').and.callThrough();
     const parseModelSpy = spyOn(service, 'parseModel').and.callThrough();
+    const parseForecast = spyOn(service, 'parseForecast').and.callThrough();
 
     const subscription = service.oaf$.subscribe((value) => {
       if (triggered) {
@@ -74,6 +95,13 @@ describe('OafService', () => {
       if (triggered) {
         expect(value).not.toEqual(null);
         expect(parseModelSpy).toHaveBeenCalledWith(MODEL);
+      }
+    }));
+
+    subscription.add(service.forecast$.subscribe((value) => {
+      if (triggered) {
+        expect(value).not.toEqual(null);
+        expect(parseForecast).toHaveBeenCalledWith(OAF.forecast);
       }
     }));
 
@@ -101,6 +129,39 @@ describe('OafService', () => {
       const jsonSpy = spyOn(JSON, 'parse');
       service.parseOaf('');
       expect(jsonSpy).toHaveBeenCalledWith('');
+    }));
+  });
+
+  describe('parseForecast', () => {
+    it('parses forecast correctly', inject([OafService], (service: OafService) => {
+      const forecastOutput = {
+        'columnIds': [
+          'magnitude',
+          '1_Day'
+        ],
+        'columns': [
+          {
+            'id': '1_Day',
+            'label': '1 Day',
+            'timeStart': 1,
+            'timeEnd': 1
+          }
+        ],
+        'rows': [
+          {
+            'magnitude': 1,
+            'data': {
+              '1_Day': {
+                'p95minimum': 1,
+                'p95maximum': 1,
+                'probability': 1,
+                'magnitude': 1
+              }
+            }
+          }
+        ]
+      };
+      expect(service.parseForecast(FORECAST)).toEqual(forecastOutput);
     }));
   });
 });
