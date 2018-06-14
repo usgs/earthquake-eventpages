@@ -9,6 +9,7 @@ import { FormatterService } from './formatter.service';
 import { GeoserveService } from './geoserve.service';
 import { StationService } from './station.service';
 import { MetadataService } from './metadata.service';
+import { DyfiService } from './dyfi.service';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ export class CoreModule {
         GeoserveService,
         QuakemlService,
         StationService,
-        MetadataService
+        MetadataService,
+        DyfiService
       ]
     };
   }

@@ -7,6 +7,7 @@ import { DyfiRoutingModule } from './dyfi-routing.module';
 import { IntensityComponent } from './intensity/intensity.component';
 import { IntensityVsDistanceComponent } from './intensity-vs-distance/intensity-vs-distance.component';
 import { ProductPageModule } from '../product-page/product-page.module';
+import { NgxChartsModule } from '../shared/ngx-charts/ngx-charts.module';
 import { ResponsesVsTimeComponent } from './responses-vs-time/responses-vs-time.component';
 import { ResponsesComponent } from './responses/responses.component';
 import { ZipComponent } from './zip/zip.component';
@@ -14,11 +15,10 @@ import { ZipComponent } from './zip/zip.component';
 @NgModule({
   imports: [
     CommonModule,
-
     DyfiRoutingModule,
     ProductPageModule,
-
-    MatTabsModule
+    MatTabsModule,
+    NgxChartsModule
   ],
   declarations: [
     DyfiComponent,

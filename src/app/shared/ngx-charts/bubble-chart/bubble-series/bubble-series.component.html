@@ -1,0 +1,107 @@
+<svg:g *ngFor="let circle of circles; trackBy: trackBy">
+  <!-- Add Error bars -->
+  <ng-container *ngIf="circle.max && circle.min">
+    <svg:g ngx-charts-line-series
+        [xScale]="xScale"
+        [yScale]="yScale"
+        [colors]="colors"
+        [strokeWidth]="'.5px'"
+        [data]="{
+          name: 'error',
+          series: [
+            {
+              name: circle.x,
+              value: circle.min
+            },
+            {
+              name: circle.x,
+              value: circle.max
+            }
+          ]
+        }"
+        [activeEntries]="activeEntries"
+        [scaleType]="'linear'"
+        [curve]="curve"
+        [rangeFillOpacity]="1"
+        [hasRange]="false"
+        [animations]="false"
+    />
+    <svg:g ngx-charts-line-series
+        [xScale]="xScale"
+        [yScale]="yScale"
+        [colors]="colors"
+        [strokeWidth]="'.5px'"
+        [data]="{
+          name: 'error',
+          series: [
+            {
+              name: circle.x - circle.errorBarWidth,
+              value: circle.max
+            },
+            {
+              name: circle.x + circle.errorBarWidth,
+              value: circle.max
+            }
+          ]
+        }"
+        [activeEntries]="activeEntries"
+        [scaleType]="'linear'"
+        [curve]="curve"
+        [rangeFillOpacity]="1"
+        [hasRange]="false"
+        [animations]="false"
+    />
+
+    <svg:g ngx-charts-line-series
+        [xScale]="xScale"
+        [yScale]="yScale"
+        [colors]="colors"
+        [strokeWidth]="'.5px'"
+        [data]="{
+          name: 'error',
+          series: [
+            {
+              name: circle.x - circle.errorBarWidth,
+              value: circle.min
+            },
+            {
+              name: circle.x + circle.errorBarWidth,
+              value: circle.min
+            }
+          ]
+        }"
+        [activeEntries]="activeEntries"
+        [scaleType]="'linear'"
+        [curve]="curve"
+        [rangeFillOpacity]="1"
+        [hasRange]="false"
+        [animations]="false"
+    />
+  </ng-container>
+  <svg:g [attr.transform]="circle.transform">
+    <svg:g ngx-charts-circle
+        [@animationState]="'active'"
+        class="circle"
+        [cx]="0"
+        [cy]="0"
+        [r]="circle.radius"
+        [fill]="circle.color"
+        [stroke]="circle.borderColor"
+        [style.opacity]="circle.opacity"
+        [class.active]="circle.isActive"
+        [pointerEvents]="'all'"
+        [data]="circle.value"
+        [classNames]="circle.classNames"
+        (select)="onClick($event, circle.label)"
+        (activate)="activateCircle(circle)"
+        (deactivate)="deactivateCircle(circle)"
+        ngx-tooltip
+        [tooltipDisabled]="tooltipDisabled"
+        [tooltipPlacement]="'top'"
+        [tooltipType]="'tooltip'"
+        [tooltipTitle]="tooltipTemplate ? undefined : getTooltipText(circle)"
+        [tooltipTemplate]="tooltipTemplate"
+        [tooltipContext]="circle.data"
+    />
+  </svg:g>
+</svg:g>
