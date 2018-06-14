@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
@@ -10,12 +10,12 @@ import { EventService } from '../../core/event.service';
   templateUrl: './intensity-vs-distance.component.html',
   styleUrls: ['./intensity-vs-distance.component.scss']
 })
-export class IntensityVsDistanceComponent implements OnInit {
+export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
   public dyfiSeries: any = null;
-  public bubbleSeries: any = null;
-  public lineSeries: any = null;
-  public allResults: any = null;
+  public bubbleSeries: any[] = null;
+  public lineSeries: any[] = null;
+  public allResults: any[] = null;
   public customColors: any[] = [];
 
   public classOptions = {
@@ -47,6 +47,9 @@ export class IntensityVsDistanceComponent implements OnInit {
         borderColor: '#000000',
       }
     },
+    'default': {
+      type: 'scatter'
+    }
   };
 
   // plot options
@@ -100,27 +103,26 @@ export class IntensityVsDistanceComponent implements OnInit {
     const bubbleSeries = [];
     const lineSeries = [];
     for (const series of dyfiData.series) {
-
-      const styles = this.classOptions[series.class]['styles'];
+      const options = this.classOptions[series.class] || this.classOptions.default;
 
       // add styles to specific features
-      if (styles) {
+      if (options.styles) {
         series.series = series.series.map((data) => {
-          return {...data, ...styles};
+          return {...data, ...options.styles};
         });
       }
 
-      if (this.classOptions[series.class]['type'] === 'scatter') {
+      if (options.type === 'scatter') {
         bubbleSeries.push(series);
-      } else if (this.classOptions[series.class]['type'] === 'line') {
+      } else if (options.type === 'line') {
         lineSeries.push(series);
       }
 
-      if (this.classOptions[series.class]['color']) {
+      if (options.color) {
         this.customColors.push(
           {
             name: series.name,
-            value: this.classOptions[series.class]['color']
+            value: options.color
           }
         );
       }
@@ -129,5 +131,9 @@ export class IntensityVsDistanceComponent implements OnInit {
     this.bubbleSeries = bubbleSeries;
     this.lineSeries = lineSeries;
     this.allResults = [...bubbleSeries, ...lineSeries];
+  }
+
+  ngOnDestroy () {
+    this.subs.unsubscribe();
   }
 }

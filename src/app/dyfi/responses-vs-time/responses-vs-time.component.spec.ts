@@ -12,12 +12,21 @@ describe('ResponsesVsTimeComponent', () => {
   let fixture: ComponentFixture<ResponsesVsTimeComponent>;
 
   beforeEach(async(() => {
+    const ResponseSeries = {
+      name: 'DYFI',
+      series: {
+        name: 'Responses',
+        series: []
+      }
+    };
+
     const eventServiceStub = {
       product$: of({})
     };
 
     const dyfiServiceStub = {
-      plotNumResp$: of({})
+      plotNumResp$: of(ResponseSeries),
+      getNumResp: () => null
     };
 
     TestBed.configureTestingModule({
