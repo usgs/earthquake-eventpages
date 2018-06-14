@@ -39,8 +39,8 @@
           <ng-container *ngIf="row.data[column.id]; let bin">
             <span class="oafColumn">E:</span>
             <ng-container *ngIf="bin.p95maximum !== 0 ; else asterisk">
-                {{ bin.p95minimum | roundDown: 2 }} to
-                    {{ bin.p95maximum | roundUp: 2 }}
+                {{ bin.p95minimum | sharedRoundDown: 2 }} to
+                    {{ bin.p95maximum | sharedRoundUp: 2 }}
             </ng-container>
             <br />
             <span class="oafColumn">P:</span> {{ bin.probability | oafPercent }}
