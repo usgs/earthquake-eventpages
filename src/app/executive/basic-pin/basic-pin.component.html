@@ -1,54 +1,45 @@
-<ng-container *ngIf="link; else href">
-  <a [routerLink]="link">
-    <executive-basic-pin-title [title]="title">
-    </executive-basic-pin-title>
-    <executive-basic-pin-content>
-    </executive-basic-pin-content>
-    <executive-basic-pin-footer
-        [footer]="footer"
-        [product]="product">
-    </executive-basic-pin-footer>
+<ng-container *ngIf="link; else useHref">
+  <a [routerLink]="link" class="pin-link-wrapper">
+    <ng-container *ngTemplateOutlet="cardTemplate"></ng-container>
   </a>
 </ng-container>
 
-<ng-template #href>
-  <!-- <executive-basic-pin-title>
-  </executive-basic-pin-title>
-  <executive-basic-pin-content>
-  </executive-basic-pin-content>
-  <executive-basic-pin-footer>
-  </executive-basic-pin-footer> -->
+<ng-template #useHref>
+  <a [href]="href" class="pin-link-wrapper">
+    <ng-container *ngTemplateOutlet="cardTemplate"></ng-container>
+  </a>
 </ng-template>
 
 
+<ng-template #cardTemplate>
+  <article>
+    <header>
+      <ng-container *ngIf="title; else noTitle">
+        <ng-container *ngIf="link; else useHrefTitle">
+          <a [routerLink]="link">{{ title }}</a>
+        </ng-container>
+        <ng-template #useHrefTitle>
+            <a [href]="href">{{ title }}</a>
+        </ng-template>
+      </ng-container>
+      <ng-template #noTitle>
+        <ng-content select="[card-title]"></ng-content>
+      </ng-template>
+    </header>
 
+    <section>
+      <ng-content></ng-content>
+    </section>
 
-<!-- Basic Pin -->
-<!-- <article [routerLink]="link"> -->
-  <!-- Title -->
-  <!-- <header>
-    <ng-container *ngIf="title; else noTitle">
-      <a [routerLink]="link">{{ title }}</a>
-    </ng-container>
-    <ng-template #noTitle>
-      <ng-content select="[card-title]"></ng-content>
-    </ng-template>
-  </header> -->
-
-  <!-- Content -->
-  <!-- <section>
-    <ng-content select="[card-content]"></ng-content>
-  </section> -->
-
-  <!-- Footer -->
-  <!-- <footer>
-    <ng-container *ngIf="footer; else noFooter">
-      {{ footer }}
-    </ng-container>
-    <ng-template #noFooter>
-      Contributed by
-      <shared-product-attribution [product]="product">
-      </shared-product-attribution>
-    </ng-template>
-  </footer>
-</article> -->
+    <footer>
+      <ng-container *ngIf="footer; else noFooter">
+        {{ footer }}
+      </ng-container>
+      <ng-template #noFooter>
+        Contributed by
+        <shared-product-attribution [product]="product">
+        </shared-product-attribution>
+      </ng-template>
+    </footer>
+  </article>
+</ng-template>

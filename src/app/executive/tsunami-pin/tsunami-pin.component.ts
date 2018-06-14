@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TsunamiPinComponent implements OnInit {
 
+  public href = 'https://www.tsunami.gov/';
+  public title = 'Tsunami';
   public footer = 'NOAA';
 
   constructor() { }
