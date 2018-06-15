@@ -10,6 +10,7 @@ import { IntensityVsDistanceComponent } from './intensity-vs-distance.component'
 describe('IntensityVsDistanceComponent', () => {
   let component: IntensityVsDistanceComponent;
   let fixture: ComponentFixture<IntensityVsDistanceComponent>;
+  let SampleSeries;
 
   beforeEach(async(() => {
     const DyfiSeries = {
@@ -20,6 +21,27 @@ describe('IntensityVsDistanceComponent', () => {
           class: 'none',
           series: []
         }
+      ]
+    };
+
+    SampleSeries = {
+      name: 'Sample',
+      series: [
+        {
+          name: 'All reported data',
+          class: 'scatterplot1',
+          series: []
+        },
+        {
+          name: 'Estimated data',
+          class: 'estimated1',
+          series: []
+        },
+        {
+          name: 'Binned data',
+          class: 'binned',
+          series: [{}]
+        },
       ]
     };
 
@@ -78,5 +100,17 @@ describe('IntensityVsDistanceComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('onDyfiSeries', () => {
+    it('handles null data', () => {
+      component.onDyfiSeries(null);
+
+      expect(component.dyfiSeries).toBe(null);
+    });
+
+    it('handles known data', () => {
+      component.onDyfiSeries(SampleSeries);
+    });
   });
 });

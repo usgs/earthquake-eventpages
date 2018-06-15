@@ -112,10 +112,10 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
         });
       }
 
-      if (options.type === 'scatter') {
-        bubbleSeries.push(series);
-      } else if (options.type === 'line') {
+      if (options.type === 'line') {
         lineSeries.push(series);
+      } else {
+        bubbleSeries.push(series);
       }
 
       if (options.color) {

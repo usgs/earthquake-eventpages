@@ -69,4 +69,12 @@ describe('ResponsesVsTimeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onDyfiSeries', () => {
+    it('handles null product', () => {
+      component.onDyfiSeries(null);
+
+      expect(component.dyfiSeries).toBeNull();
+    });
+  });
 });

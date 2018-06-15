@@ -7,8 +7,19 @@ import { BubbleSeriesComponent } from './bubble-series.component';
 describe('BubbleSeriesComponent', () => {
   let component: BubbleSeriesComponent;
   let fixture: ComponentFixture<BubbleSeriesComponent>;
+  let BUBBLESERIES, colorsStub;
 
   beforeEach(async(() => {
+    BUBBLESERIES = {
+      name: 'bubble series',
+      series: [{x: 50, y: 2, value: 2, name: 50, min: 1, max: 3}]
+    };
+
+    colorsStub = {
+      scaleType: 'ordinal',
+      getColor: (item) => '#000000'
+    };
+
     TestBed.configureTestingModule({
       declarations: [
         BubbleSeriesComponent,
@@ -74,5 +85,64 @@ describe('BubbleSeriesComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('getCircles', () => {
+    it('handles null circles', () => {
+      const bubbleSeries = {name: 'no data', series: [{}]};
+
+      component.data = bubbleSeries;
+      const circles = component.getCircles();
+      expect(circles.length).toBe(0);
+    });
+
+    it('should return circles', () => {
+      component.data = BUBBLESERIES;
+
+      // some properties come from parent... imitate simple case
+      component.rScale = (r) => r;
+      component.yScale = (y) => y;
+      component.xScale = (x) => x;
+      component.colors = colorsStub;
+      component.activeEntries = [];
+
+      const circles = component.getCircles();
+
+      expect(circles.length).toBe(1);
+    });
+
+    it('works with linear scale', () => {
+      component.data = BUBBLESERIES;
+
+      // some properties come from parent... imitate simple case
+      component.rScale = (r) => r;
+      component.yScale = (y) => y;
+      component.xScale = (x) => x;
+      component.colors = colorsStub;
+      component.activeEntries = [];
+
+      component.xScaleType = 'linear';
+      component.yScaleType = 'linear';
+      component.colors.scaleType = 'linear';
+
+      const circles = component.getCircles();
+
+      expect(circles.length).toBe(1);
+    });
+
+    it('works with series deactivated', () => {
+      component.data = BUBBLESERIES;
+
+      // some properties come from parent... imitate simple case
+      component.rScale = (r) => r;
+      component.yScale = (y) => y;
+      component.xScale = (x) => x;
+      component.colors = colorsStub;
+
+      component.activeEntries = [{name: 'not this series!'}];
+      const circles = component.getCircles();
+
+      expect(circles.length).toBe(1);
+    });
   });
 });

@@ -73,6 +73,10 @@ export class DyfiService {
    * Convert data from DYFI format to ngx-charts
    */
   onData (dyfiData) {
+    if (dyfiData === null) {
+      return null;
+    }
+
     const series = [];
     let ngx_dataset,
         ngx_data;
