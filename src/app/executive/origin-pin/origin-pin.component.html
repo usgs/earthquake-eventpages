@@ -2,7 +2,7 @@
     [link]="link"
     [product]="product"
     [title]="title">
-  <dl card-content>
+  <dl>
     <ng-container *ngIf="product.properties as properties">
       <dt>Review Status</dt>
       <dd>{{ (properties['review-status'] || 'automatic') | uppercase }}</dd>

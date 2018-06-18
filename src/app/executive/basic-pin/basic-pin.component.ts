@@ -12,6 +12,8 @@ import { Event } from '../../event';
 export class BasicPinComponent {
   // router link for entire card action
   @Input() link;
+
+  // Overrides router link
   @Input() href;
 
   // product attribution

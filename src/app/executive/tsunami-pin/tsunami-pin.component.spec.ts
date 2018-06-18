@@ -11,7 +11,7 @@ describe('TsunamiPinComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         TsunamiPinComponent,
-        MockComponent({selector: 'basic-pin', inputs: ['footer']})
+        MockComponent({selector: 'basic-pin', inputs: ['footer', 'title', 'href']})
       ]
     })
     .compileComponents();
