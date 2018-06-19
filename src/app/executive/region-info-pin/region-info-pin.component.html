@@ -2,7 +2,7 @@
     [link]="link"
     [product]="event | getProduct:'origin'"
     [title]="title">
-  <shared-map card-content
+  <shared-map
       [overlays]="event | getProduct:'origin' | regionInfoOverlays"
       [showAttributionControl]="false">
   </shared-map>

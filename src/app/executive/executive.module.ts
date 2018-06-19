@@ -18,7 +18,7 @@ import { OriginPinComponent } from './origin-pin/origin-pin.component';
 import { PagerPinComponent } from './pager-pin/pager-pin.component';
 import { RegionInfoPinComponent } from './region-info-pin/region-info-pin.component';
 import { ShakemapPinComponent } from './shakemap-pin/shakemap-pin.component';
-
+import { TsunamiPinComponent } from './tsunami-pin/tsunami-pin.component';
 
 @NgModule({
   imports: [
@@ -41,7 +41,8 @@ import { ShakemapPinComponent } from './shakemap-pin/shakemap-pin.component';
     OriginPinComponent,
     PagerPinComponent,
     RegionInfoPinComponent,
-    ShakemapPinComponent
+    ShakemapPinComponent,
+    TsunamiPinComponent
   ]
 })
 export class ExecutiveModule { }

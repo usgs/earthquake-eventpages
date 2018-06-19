@@ -8,7 +8,7 @@
     </shared-alert-level>
   </div>
 
-  <div card-content *ngIf="product">
+  <div *ngIf="product">
     <h4>Estimated Economic Losses</h4>
     <img class="alert-histogram"
         src="{{product.contents['alertecon_smaller.png'].url}}"

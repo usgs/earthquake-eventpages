@@ -56,6 +56,11 @@
       <executive-oaf-pin [product]="oaf">
       </executive-oaf-pin>
     </li>
+
+    <li *ngIf="event.data?.properties?.tsunami === 1">
+      <executive-tsunami-pin>
+      </executive-tsunami-pin>
+    </li>
   </ul>
 
   <shared-text-product
