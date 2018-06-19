@@ -55,19 +55,19 @@
        It is likely that there will be smaller earthquakes over the next
        {{ oaf.advisoryTimeFrame }}, with
 
-      <ng-container
+      <ng-container 
           *ngIf="forecast?.bins['magnitude-3']?.p95maximum > 0; else noRange">
         {{ forecast.bins['magnitude-3'].p95minimum | sharedRoundDown: 2 }} to
-        {{ forecast.bins['magnitude-3'].p95maximum | sharedRoundUp: 2 }} the
-        possibility of magnitude 3 or higher aftershocks. Magnitude 3
-        and above are large enough to be felt near the epicenter. The
-        number of aftershocks will drop off over time, but a large
-        aftershock can increase the numbers again, temporarily.
+        {{ forecast.bins['magnitude-3'].p95maximum | sharedRoundUp: 2 }}
+        magnitude 3 or higher aftershocks.
       </ng-container>
       <ng-template #noRange>
-        possibility of such an earthquake is possible but with a low
-        probability.
+        the possibility of magnitude 3 or higher aftershocks.
       </ng-template>
+
+      Magnitude 3 and above are large enough to be felt near the epicenter.
+      The number of aftershocks will drop off over time, but a large
+      aftershock can increase the numbers again, temporarily.
     </p>
 
     <p *ngIf="oaf.template === 'Mainshock'">
