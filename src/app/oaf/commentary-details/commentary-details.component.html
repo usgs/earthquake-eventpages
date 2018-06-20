@@ -30,14 +30,14 @@
       {{ bin.p95minimum | sharedRoundDown: 2 }}
       or as many as
       {{ bin.p95maximum | sharedRoundUp: 2 }}
-      such earthquakes may
+      such earthquakes may 
+      <ng-container *ngIf="bin.magnitude <= 3; else magAbove3">
+        occur in the case that the sequence is re-invigorated by a larger
+        aftershock.
+      </ng-container>
+      <ng-template #magAbove3>
+        occur.
+      </ng-template>
     </ng-container>
-    <ng-container *ngIf="bin.magnitude <= 3; else magAbove3">
-      occur in the case that the sequence is re-invigorated by a larger
-      aftershock.
-    </ng-container>
-    <ng-template #magAbove3>
-      occur.
-    </ng-template>
   </ng-template>
 </ng-container>
