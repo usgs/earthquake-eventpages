@@ -25,7 +25,6 @@ export class CommentaryComponent implements OnDestroy, OnInit {
     this.subscription = this.oafService.oaf$.subscribe((oaf) => {
       // select the forecast specified by `oaf.advisoryTimeFrame`
       this.forecast = this.transformForecast(oaf);
-      console.log(oaf);
     });
   }
 
