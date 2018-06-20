@@ -15,14 +15,14 @@
         aftershocks, especially when in or around vulnerable structures
         such as unreinforced masonry buildings.
       </li>
-      <ng-container *ngIf="oaf.template === 'Mainshock'; else eqOfNote">
+      <ng-container *ngIf="oaf.template === 'Mainshock'; else eqAdvice">
         <li>
           This earthquake could be part of a sequence. An earthquake
           sequence may have larger and potentially damaging earthquakes
           in the future, so remember to: Drop, Cover, and Hold on.
         </li>
       </ng-container>
-      <ng-template #eqOfNote>
+      <ng-template #eqAdvice>
         <li>
           In an earthquake, remember to: Drop, Cover, and Hold on.
         </li>
