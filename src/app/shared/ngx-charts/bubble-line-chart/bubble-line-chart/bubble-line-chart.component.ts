@@ -39,7 +39,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   @Input() activeEntries: any[] = [];
   @Input() animations = true;
   @Input() autoScale = false;
-  @Input() bubbleChart: any;
+  @Input() bubbleChart: any[] = [];
   @Input() colorSchemeLine: any[];
   @Input() customColors: any[] = [];
   @Input() curve = curveLinear;
@@ -47,7 +47,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   @Input() gradient: boolean;
   @Input() legend = false;
   @Input() legendTitle = 'Legend';
-  @Input() lineChart: any;
+  @Input() lineChart: any[] = [];
   @Input() maxRadius = 10;
   @Input() minRadius = 3;
   @Input() rangeFillOpacity: number;
@@ -186,12 +186,6 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.deactivateAll();
   }
 
-  updateDomain (domain): void {
-    this.filteredDomain = domain;
-    this.xDomain = this.filteredDomain;
-    this.xScale = this.getXScale(this.xDomain, this.dims.width);
-  }
-
   getSeriesDomain (): any[] {
     return [...this.bubbleChart, ...this.lineChart]
         .map(d => d.name );
@@ -214,12 +208,6 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
       }
       if (this.xScaleMax) {
         values.push(this.xScaleMax);
-      }
-      if (this.yScaleMin) {
-        values.push(this.xScaleMin);
-      }
-      if (this.yScaleMax) {
-        values.push(this.yScaleMax);
       }
     }
 
