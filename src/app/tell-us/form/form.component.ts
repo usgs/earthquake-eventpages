@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { FormLanguageService } from '../form-language.service';
@@ -14,7 +14,7 @@ import { LocationMapComponent } from 'hazdev-location-input';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit, OnDestroy {
+export class FormComponent implements AfterViewInit, OnDestroy {
 
   // these answers control whether the submit button is enabled
   // others are populated as needed
@@ -25,6 +25,9 @@ export class FormComponent implements OnInit, OnDestroy {
     'ciim_time': null
   };
 
+  @ViewChild(LocationMapComponent)
+  locationMapComponent: LocationMapComponent;
+
   private eventSubscription: Subscription;
 
   constructor(
@@ -34,10 +37,13 @@ export class FormComponent implements OnInit, OnDestroy {
     public languageService: FormLanguageService
   ) { }
 
-  ngOnInit () {
+  ngAfterViewInit () {
     this.eventSubscription = this.eventService.event$.subscribe((event) => {
       this.setEvent(event);
     });
+
+    // disable scroll wheel zoom while map is in dialog
+    this.locationMapComponent.map.scrollWheelZoom.disable();
   }
 
   ngOnDestroy () {

@@ -61,8 +61,6 @@ export class LocationComponent implements OnDestroy, OnInit {
   }
 
   setLocation (coordinates: Coordinates) {
-    console.log(coordinates);
-
     if (coordinates) {
       this.value = {
         ciim_mapAddress: coordinates.name,
