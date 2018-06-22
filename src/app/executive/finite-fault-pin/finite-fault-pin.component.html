@@ -1,0 +1,27 @@
+<basic-pin
+  [link]="link"
+  [product]="product"
+  [title]="title">
+
+  <figure *ngIf="product.contents['cross-section.png']; else oldContent; let content">
+    <img src="{{ content.url }}" alt="Cross-section of slip distribution"/>
+    <ng-container *ngTemplateOutlet="figcaption"></ng-container>
+  </figure>
+
+  <ng-template #oldContent>
+    <figure *ngIf="product.contents['web/' + product.properties?.eventsourcecode
+        + '_slip2.png']; let content">
+      <img src="{{ content.url }}" alt="Cross-section of slip distribution"/>
+      <ng-container *ngTemplateOutlet="figcaption"></ng-container>
+    </figure>
+  </ng-template>
+</basic-pin>
+
+<ng-template #figcaption>
+  <figcaption>
+    <small>
+      Cross-section of slip distribution.
+    </small>
+  </figcaption>
+</ng-template>
+

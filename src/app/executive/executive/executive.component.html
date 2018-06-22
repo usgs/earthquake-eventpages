@@ -52,6 +52,11 @@
       </li>
     </ng-template>
 
+    <li *ngIf="event | getProduct:'finite-fault'; let finiteFault">
+      <executive-finite-fault-pin [product]="finiteFault">
+      </executive-finite-fault-pin>
+    </li>
+
     <li *ngIf="event | getProduct:'oaf'; let oaf">
       <executive-oaf-pin [product]="oaf">
       </executive-oaf-pin>
