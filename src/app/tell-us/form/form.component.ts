@@ -43,7 +43,9 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     });
 
     // disable scroll wheel zoom while map is in dialog
-    this.locationMapComponent.map.scrollWheelZoom.disable();
+    if (this.locationMapComponent && this.locationMapComponent.map) {
+      this.locationMapComponent.map.scrollWheelZoom.disable();
+    }
   }
 
   ngOnDestroy () {

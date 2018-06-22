@@ -54,6 +54,7 @@ describe('TellUsComponent', () => {
         TellUsComponent,
         FormComponent,
 
+        MockComponent({ selector: 'location-input-map' }),
         MockComponent({selector: 'tell-us-fieldset', inputs: ['legend']}),
         MockComponent({selector: 'tell-us-location', inputs: ['enter', 'update']}),
         MockComponent({selector: 'tell-us-question', inputs: ['label', 'multiSelect', 'name', 'options', 'value']}),

@@ -18,6 +18,7 @@ import { MockPipe } from '../../mock-pipe';
 import { FormLanguageService } from '../form-language.service';
 import { FormComponent } from './form.component';
 import { Event } from '../../event';
+import { CoordinatesService } from 'hazdev-ng-location-input';
 
 
 describe('FormComponent', () => {
@@ -27,6 +28,9 @@ describe('FormComponent', () => {
   beforeEach(async(() => {
     const eventServiceStub = {
       event$: of(new Event({}))
+    };
+    const coordinatesServiceStub = {
+      coordinates$: of({})
     };
     const languageServiceStub = {
       getLanguage: jasmine.createSpy('languageService::getLanguage'),
@@ -46,13 +50,15 @@ describe('FormComponent', () => {
       declarations: [
         FormComponent,
 
-        MockComponent({selector: 'tell-us-fieldset', inputs: ['legend']}),
+        MockComponent({selector: 'location-input-map'}),
+        MockComponent({selector: 'tell-us-fieldset', inputs: ['legend'] }),
         MockComponent({selector: 'tell-us-location', inputs: ['enter', 'update']}),
         MockComponent({selector: 'tell-us-question', inputs: ['label', 'multiSelect', 'name', 'options', 'value']}),
         MockComponent({selector: 'tell-us-privacy-statement'}),
         MockPipe('keys')
       ],
       providers: [
+        {provide: CoordinatesService, useValue: coordinatesServiceStub},
         {provide: EventService, useValue: eventServiceStub},
         {provide: FormLanguageService, useValue: languageServiceStub},
         {provide: MatDialogRef, useValue: {close: () => {}}},

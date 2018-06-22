@@ -1,6 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs/observable/of';
+import {
+  MatDialogModule,
+  MatDialog,
+  MatDialogRef
+} from '@angular/material';
 
 import { LocationComponent } from './location.component';
+import {
+  CoordinatesService,
+  LocationDialogComponent
+} from 'hazdev-ng-location-input';
 
 
 describe('LocationComponent', () => {
@@ -8,8 +18,20 @@ describe('LocationComponent', () => {
   let fixture: ComponentFixture<LocationComponent>;
 
   beforeEach(async(() => {
+    const coordinatesServiceStub = {
+      coordinates$: of({})
+    };
     TestBed.configureTestingModule({
-      declarations: [ LocationComponent ]
+      imports: [
+        MatDialogModule
+      ],
+      declarations: [
+        LocationComponent
+      ],
+      providers: [
+        { provide: CoordinatesService, useValue: coordinatesServiceStub },
+        { provide: MatDialog, useValue: {close: () => {}, open: () => {}} }
+      ]
     })
     .compileComponents();
   }));
@@ -24,15 +46,34 @@ describe('LocationComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  describe('openLocationInput', () => {
+    it('opens the location dialog component', () => {
+      spyOn(component.dialog, 'open');
+      component.openLocationInput();
+      expect(component.dialog.open).toHaveBeenCalled();
+    });
+  });
 
-  describe('test buttons', () => {
-    it('enters/clears location', () => {
-      component.enterLocation();
+  describe('setLocation', () => {
+    it('requires a value to set', () => {
+      component.setLocation(null);
+      expect(component.value.ciim_mapAddress).not.toBeNull();
+      expect(component.value.ciim_mapConfidence).not.toBeNull();
       expect(component.value.ciim_mapLat).not.toBeNull();
       expect(component.value.ciim_mapLon).not.toBeNull();
-      component.clearLocation();
-      expect(component.value.ciim_mapLat).toBeNull();
-      expect(component.value.ciim_mapLon).toBeNull();
+    });
+    it('sets a value', () => {
+      const coordinates = {
+        'name': 'my spot',
+        'confidence': 1,
+        'latitude': 0,
+        'longitude': 0
+      };
+      component.setLocation(coordinates);
+      expect(component.value.ciim_mapAddress).toEqual(coordinates.name);
+      expect(component.value.ciim_mapConfidence).toEqual(coordinates.confidence);
+      expect(component.value.ciim_mapLat).toEqual(coordinates.latitude);
+      expect(component.value.ciim_mapLon).toEqual(coordinates.longitude);
     });
   });
 
