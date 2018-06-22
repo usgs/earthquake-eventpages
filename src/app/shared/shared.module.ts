@@ -11,6 +11,7 @@ import { MatButtonModule,
 import { AttributionComponent } from './attribution/attribution.component';
 import { AlertLevelComponent } from './alert-level/alert-level.component';
 import { BeachballComponent } from './beachball/beachball.component';
+import { ProductContentPipe } from './product-content.pipe';
 import { CoordinatesComponent } from './coordinates/coordinates.component';
 import { DownloadDialogComponent } from './download-dialog/download-dialog.component';
 import { FeRegionComponent } from './fe-region/fe-region.component';
@@ -62,6 +63,7 @@ import { StationFlagComponent } from './station-flag/station-flag.component';
     AlertLevelComponent,
     BeachballComponent,
     BubbleComponent,
+    ProductContentPipe,
     CoordinatesComponent,
     DegreesPipe,
     DyfiCounterPipe,
@@ -99,6 +101,7 @@ import { StationFlagComponent } from './station-flag/station-flag.component';
     AlertLevelComponent,
     BeachballComponent,
     BubbleComponent,
+    ProductContentPipe,
     CoordinatesComponent,
     DegreesPipe,
     DyfiCounterPipe,
