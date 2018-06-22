@@ -6,7 +6,7 @@ import { EventService } from '../../../..';
 import { Subscription } from 'rxjs';
 import { Event } from '../../event';
 
-import { LocationMapComponent } from 'hazdev-location-input';
+import { LocationMapComponent } from 'hazdev-ng-location-input';
 
 
 @Component({
