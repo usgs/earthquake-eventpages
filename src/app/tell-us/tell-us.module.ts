@@ -29,7 +29,7 @@ import { LocationInputModule } from 'hazdev-ng-location-input';
   imports: [
     CommonModule,
     FormsModule,
-    LocationInputModule.forRoot(),
+    LocationInputModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
