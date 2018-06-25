@@ -8,6 +8,7 @@ import {
 
 import { LocationComponent } from './location.component';
 import {
+  Coordinates,
   CoordinatesService,
   LocationDialogComponent
 } from 'hazdev-ng-location-input';
@@ -63,12 +64,15 @@ describe('LocationComponent', () => {
       expect(component.value.ciim_mapLon).not.toBeNull();
     });
     it('sets a value', () => {
-      const coordinates = {
+      const coordinates: Coordinates = {
         'name': 'my spot',
         'confidence': 1,
         'latitude': 0,
-        'longitude': 0
+        'longitude': 0,
+        'method': null,
+        'zoom': 12
       };
+
       component.setLocation(coordinates);
       expect(component.value.ciim_mapAddress).toEqual(coordinates.name);
       expect(component.value.ciim_mapConfidence).toEqual(coordinates.confidence);
