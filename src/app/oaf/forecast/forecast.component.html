@@ -10,7 +10,7 @@
   <h3>Forecast</h3>
 
   <P>
-    The likely number of aftershocks (E) and the probability of at least one
+    The likely number of aftershocks (N) and the probability of at least one
     aftershock occurring (P) with at least magnitude (M) and within the given
     time frame starting from
         {{ forecast.columns[0].timeStart | sharedDateTime }}.
@@ -37,7 +37,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
           <ng-container *ngIf="row.data[column.id]; let bin">
-            <span class="oafColumn">E:</span>
+            <span class="oafColumn">N:</span>
             <ng-container *ngIf="bin.p95maximum !== 0 ; else asterisk">
                 {{ bin.p95minimum | sharedRoundDown: 2 }} to
                     {{ bin.p95maximum | sharedRoundUp: 2 }}
