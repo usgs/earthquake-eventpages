@@ -1,11 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'executive-finite-fault-pin',
   templateUrl: './finite-fault-pin.component.html',
   styleUrls: ['./finite-fault-pin.component.scss']
 })
-export class FiniteFaultPinComponent implements OnInit {
+export class FiniteFaultPinComponent {
 
   @Input() product: any;
 
@@ -13,8 +13,5 @@ export class FiniteFaultPinComponent implements OnInit {
   public title = 'Finite Fault';
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }
