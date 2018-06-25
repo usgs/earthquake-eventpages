@@ -1,0 +1,18 @@
+<basic-pin
+  [link]="link"
+  [product]="product"
+  [title]="title">
+
+  <figure *ngIf="product |
+      sharedProductContent
+          :'cross-section.png'
+          :('web/' + product?.properties?.eventsourcecode + '_slip2.png');
+      let content">
+    <img src="{{ content.url }}" alt="Cross-section of slip distribution"/>
+    <figcaption>
+      <small>
+        Cross-section of slip distribution.
+      </small>
+    </figcaption>
+  </figure>
+</basic-pin>

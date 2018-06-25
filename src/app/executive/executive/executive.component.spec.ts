@@ -24,6 +24,7 @@ describe('ExecutiveComponent', () => {
         ExecutiveComponent,
 
         MockComponent({ selector: 'executive-dyfi-response-submit-pin', inputs: ['product']}),
+        MockComponent({ selector: 'executive-finite-fault-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-focal-mechanism-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-ground-failure-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-map-pin', inputs: ['event']}),
