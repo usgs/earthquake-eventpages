@@ -7,6 +7,7 @@ import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-pa
 import { ExecutiveComponent } from './executive/executive/executive.component';
 import { RegionInfoComponent } from './region-info/region-info/region-info.component';
 import { MapComponent } from './map/map/map.component';
+import { FiniteFaultComponent } from './finite-fault/finite-fault/finite-fault.component';
 
 const appRoutes = [
   {
@@ -88,6 +89,10 @@ const appRoutes = [
       {
         path: 'oaf',
         loadChildren: './oaf/oaf.module#OafModule'
+      },
+      {
+        path: 'finite-fault',
+        loadChildren: './finite-fault/finite-fault.module#FiniteFaultModule'
       }
     ]
   }
