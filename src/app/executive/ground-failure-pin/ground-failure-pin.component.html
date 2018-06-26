@@ -3,7 +3,6 @@
   [product]="product"
   [title]="title">
 
-
     <div class="landslides-pin-content">
       <h4>Landslides</h4>
       <div class="row">
@@ -11,9 +10,9 @@
           <div class="ground-failure-icon"
             [ngClass]="product.properties['landslide-alert']">
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                viewBox="0 0 100 100"
-                xml:space="preserve">
+              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+              viewBox="0 0 100 100"
+              xml:space="preserve">
               <style type="text/css">
                 .st0{fill:none;stroke:#000000;stroke-miterlimit:10;}
               </style>
@@ -46,6 +45,7 @@
             </svg>
           </div>
         </div>
+
         <div class="column text">
           <div [ngSwitch]="product.properties['landslide-hazard-alert-color']">
             <span *ngSwitchCase="'green'"><small>Little to no area affected</small></span>
@@ -61,6 +61,7 @@
             <span *ngSwitchCase="'red'"><small>Extensive population exposed</small></span>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -93,6 +94,7 @@
             </svg>
           </div>
         </div>
+
         <div class="column text">
           <div [ngSwitch]="product.properties['liquefaction-hazard-alert-color']">
             <span *ngSwitchCase="'green'"><small>Little to no area affected</small></span>
@@ -109,6 +111,7 @@
             <span *ngSwitchCase="'red'"><small>Extensive population exposed</small></span>
           </div>
         </div>
+
       </div>
     </div>
 
