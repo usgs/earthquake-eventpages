@@ -26,7 +26,15 @@
     </p>
     <p>
       Results are based on ground-motion estimates from the current
-      <a [routerLink]="'./shakemap'">ShakeMap</a> (point source).
+
+      <ng-container *ngIf="product?.properties && (product.properties['rupture-warning'] | uppercase) !== 'FALSE'; else noPointSource">
+        <a [routerLink]="'./shakemap'">ShakeMap</a> (point source).
+      </ng-container>
+
+      <ng-template #noPointSource>
+        <a [routerLink]="'./shakemap'">ShakeMap</a>.
+      </ng-template>
+
       The extent of shaking and ground-failure estimates generally improve
       as more details are incorporated into ShakeMap.
 
