@@ -29,22 +29,20 @@
 
       <ng-container *ngIf="product?.properties && (product.properties['rupture-warning'] | uppercase) !== 'FALSE'; else noPointSource">
         <a [routerLink]="'./shakemap'">ShakeMap</a> (point source).
-      </ng-container>
-
-      <ng-template #noPointSource>
-        <a [routerLink]="'./shakemap'">ShakeMap</a>.
-      </ng-template>
-
-      The extent of shaking and ground-failure estimates generally improve
-      as more details are incorporated into ShakeMap.
-
-      <ng-container *ngIf="product?.properties && (product.properties['rupture-warning'] | uppercase) !== 'FALSE'">
+        The extent of shaking and ground-failure estimates generally improve
+        as more details are incorporated into ShakeMap.
         ShakeMap is currently approximating this earthquake as a
         point source, and the mapped extent of ground failure commonly
         changes significantly when a fault model is added, especially for
         larger earthquakes. Interpret Ground Failure results with caution
         until ShakeMap has been updated with a fault model.
       </ng-container>
+
+      <ng-template #noPointSource>
+        <a [routerLink]="'./shakemap'">ShakeMap</a>.
+        The extent of shaking and ground-failure estimates generally improve
+        as more details are incorporated into ShakeMap.
+      </ng-template>
     </p>
   </ng-container>
 
