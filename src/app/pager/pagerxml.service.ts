@@ -21,9 +21,6 @@ export class PagerXmlService {
 
   getPagerXml (product: any): void {
     try {
-      if (product.losspager) {
-        product = product.losspager;
-      }
       const contents = product.contents['pager.xml'];
       const options = {responseType: 'text' as 'text'};
 
@@ -149,7 +146,6 @@ export class PagerXmlService {
   _parseComments (pager: any) {
     let effects,
         data,
-        impact,
         structure;
 
     if (!pager || (
@@ -171,31 +167,51 @@ export class PagerXmlService {
       data.effects = effects.trim();
     }
 
-    // TODO :: This is a cluster. PAGER team should sort out a better way to
-    //         send comments of this nature.
-    impact = pager.impact_comment;
-    if (impact && impact !== '' && typeof impact !== 'object') {
-      impact = impact.trim().split('#').reverse();
-      if (impact[0].indexOf('economic') !== -1) {
-        impact.reverse();
-      }
-
-      data.impact = {};
-
-      // name the comments
-      if (impact.length === 2) {
-        if (impact[0] !== '') {
-          data.impact.fatality = impact[0];
-          data.impact.economic = impact[1];
-        } else {
-          data.impact.fatality = impact[1];
-        }
-      } else {
-        data.impact.fatality = impact[0];
-      }
-    }
+    data.impact = this._parseImpactComments(pager.impact_comment);
 
     return data;
+  }
+
+  /**
+   * [_parseImpactComments description]
+   *
+   * @param comment {String}
+   *      The string representing the combinded economic and fatality
+   *      impact comment
+   *
+   * @return {Object}
+   *      An object containing parsed impact comment information.
+   *      Keyed by impact comment type.
+   */
+  _parseImpactComments (comment) {
+    let impact;
+
+    // TODO :: This is a cluster. PAGER team should sort out a better way to
+    //         send comments of this nature.
+    if (!comment || comment === '' || typeof comment === 'object') {
+      return null;
+    }
+
+    impact = {};
+
+    comment = comment.trim().split('#').reverse();
+    if (comment[0].indexOf('economic') !== -1) {
+      comment.reverse();
+    }
+
+    // name the comments
+    if (comment.length === 2) {
+      if (comment[0] !== '') {
+        impact.fatality = comment[0];
+        impact.economic = comment[1];
+      } else {
+        impact.fatality = comment[1];
+      }
+    } else {
+      impact.fatality = comment[0];
+    }
+
+    return impact;
   }
 
 

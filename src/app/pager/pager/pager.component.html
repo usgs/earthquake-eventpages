@@ -22,7 +22,8 @@
               product.contents['alertfatal.png']; else noImage">
             <figure>
               <a href="{{ product.contents['alertfatal.pdf'].url }}">
-                <img src="{{ product.contents['alertfatal.png'].url }}" />
+                <img src="{{ product.contents['alertfatal.png'].url }}"
+                    alt="Estimated Fatalities Histogram" />
               </a>
               <figcaption *ngIf="pager.comments?.impact?.fatality">
                 {{ pager.comments.impact.fatality }}
@@ -37,7 +38,8 @@
               product.contents['alertecon.png']; else noImage">
             <figure>
               <a href="{{ product.contents['alertecon.pdf'].url }}">
-                <img src="{{ product.contents['alertecon.png'].url }}" />
+                <img src="{{ product.contents['alertecon.png'].url }}"
+                    alt="Estimated Economic Losses Histogram" />
               </a>
               <figcaption *ngIf="pager.comments?.impact?.economic">
                 {{ pager.comments.impact.economic }}
@@ -53,9 +55,9 @@
           <ng-container *ngIf="product.contents &&
               product.contents['exposure.png']; else noImage">
             <figure>
-              <a href="#">
-                <img src="{{ product.contents['exposure.png'].url }}" />
-              </a>
+              <!-- TODO, Link to map -->
+              <img src="{{ product.contents['exposure.png'].url }}"
+                  alt="Population Exposure Map" />
               <figcaption>
                 Population per ~1 sq. km. from LandScan
               </figcaption>

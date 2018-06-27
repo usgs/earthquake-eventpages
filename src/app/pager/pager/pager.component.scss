@@ -1,11 +1,10 @@
 figure {
   margin: 1em 0;
-
-  > a > img {
-    max-width: 100%;
-  }
 }
 
+img {
+  max-width: 100%;
+}
 mat-table {
 
   .mat-column-mmi,
