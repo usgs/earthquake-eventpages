@@ -22,6 +22,11 @@
                 "input": "node_modules/hazdev-template/src/assets",
                 "output": "/assets"
               },
+              {
+                "glob": "**/*",
+                "input": "node_modules/leaflet/dist/images",
+                "output": "/leaflet"
+              },
               "src/assets",
               "src/favicon.ico"
             ],

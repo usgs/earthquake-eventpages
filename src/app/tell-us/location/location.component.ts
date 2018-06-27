@@ -1,13 +1,20 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, OnDestroy, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { MatDialog } from '@angular/material';
 
+import { BehaviorSubject, Subscription } from 'rxjs';
+
+import {
+  Coordinates,
+  CoordinatesService,
+  LocationDialogComponent
+} from 'hazdev-ng-location-input';
 
 @Component({
   selector: 'tell-us-location',
   templateUrl: './location.component.html',
   styleUrls: ['./location.component.scss']
 })
-export class LocationComponent implements OnInit {
+export class LocationComponent implements OnDestroy, OnInit {
 
   @Output()
   change = new BehaviorSubject<any>(null);
@@ -27,31 +34,43 @@ export class LocationComponent implements OnInit {
     ciim_mapLon: null
   };
 
-  constructor() { }
+  subscription = new Subscription();
 
-  ngOnInit() {
+
+  constructor(
+    public coordinatesService: CoordinatesService,
+    public dialog: MatDialog
+  ) { }
+
+  ngOnInit () {
+    this.subscription.add(
+      this.coordinatesService.coordinates$.subscribe((coordinates) => {
+        this.setLocation(coordinates);
+      })
+    );
   }
 
-  clearLocation () {
-    this.value = {
-      ciim_mapAddress: null,
-      ciim_mapConfidence: null,
-      ciim_mapLat: null,
-      ciim_mapLon: null
-    };
-
-    this.change.next(this.value);
+  ngOnDestroy () {
+    this.subscription.unsubscribe();
   }
 
-  enterLocation () {
-    this.value = {
-      ciim_mapAddress: '1711 Illinois Street, Golden, CO',
-      ciim_mapConfidence: 5,
-      ciim_mapLat: 39.74951,
-      ciim_mapLon: -105.22134
-    };
+  openLocationInput () {
+    if (this.dialog && LocationDialogComponent) {
+      this.dialog.open(LocationDialogComponent);
+    }
+  }
 
-    this.change.next(this.value);
+  setLocation (coordinates: Coordinates) {
+    if (coordinates) {
+      this.value = {
+        ciim_mapAddress: coordinates.name,
+        ciim_mapConfidence: coordinates.confidence,
+        ciim_mapLat: coordinates.latitude,
+        ciim_mapLon: coordinates.longitude
+      };
+
+      this.change.next(this.value);
+    }
   }
 
 }
