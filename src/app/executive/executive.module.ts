@@ -12,7 +12,6 @@ import { ExecutiveComponent } from './executive/executive.component';
 import { FocalMechanismPinComponent } from './focal-mechanism-pin/focal-mechanism-pin.component';
 import { GroundFailurePinComponent } from './ground-failure-pin/ground-failure-pin.component';
 import { MapPinComponent } from './map-pin/map-pin.component';
-import { MatGridListModule } from '@angular/material';
 import { MomentTensorPinComponent } from './moment-tensor-pin/moment-tensor-pin.component';
 import { OafPinComponent } from './oaf-pin/oaf-pin.component';
 import { OriginPinComponent } from './origin-pin/origin-pin.component';
@@ -27,7 +26,6 @@ import { TsunamiPinComponent } from './tsunami-pin/tsunami-pin.component';
     RouterModule,
 
     EventPageModule,
-    MatGridListModule,
     ProductPageModule,
     SharedModule
   ],
