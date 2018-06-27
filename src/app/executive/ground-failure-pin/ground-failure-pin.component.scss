@@ -1,10 +1,9 @@
 .ground-failure-icon {
-  float: left;
-  height: 40px;
+  height: auto;
   margin-right: 1rem;
   stroke: #333;
   stroke-width: 0.5px;
-  width: 40px;
+  width: 100%;
 }
 
 .green {
@@ -29,4 +28,22 @@
   .st0, .st1 {
     fill: #ba2d1a;
   }
+}
+
+span {
+  display: block;
+  line-height: 1;
+  margin: 0.25em 0 0.5em;
+}
+
+h4 {
+  margin: 0.5em 0;
+}
+
+.column.icon {
+  width: 70px;
+}
+
+.column.text {
+  flex: 1;
 }
