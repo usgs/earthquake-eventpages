@@ -13,11 +13,9 @@
   <div *ngIf="eventService.product$ | async as product">
 
     <h2>Result</h2>
-    <p>After comparing waveform fits based on the two planes of the input 
-      moment tensor, we find that the nodal plane (strike= 293.0 deg., 
-      dip= 7.0 deg.) fits the data better. The seismic moment release based upon
-      this plane is 7.1e+27 dyne.cm (Mw = 7.8) using a 1D crustal model 
-      interpolated from CRUST2.0 (Bassin et al., 2000).</p>
+    <p *ngIf="product.contents && product.contents['']">
+      {{ product.contents[''].bytes }}
+    </p>
     <figure *ngIf="product |
         sharedProductContent
           :'_basemap.png'
@@ -33,7 +31,7 @@
           :'_slip2.png'
           :('web/' + product?.properties?.eventsourcecode + '_slip2.png');
           let content">
-      <img src="{{ content.url }}" alt="" />
+      <img src="{{ content.url }}" alt="Slip distribution map image" />
       <figcaption><small>Slip distribution cross-section</small></figcaption>
     </figure>
 
@@ -42,14 +40,14 @@
         sharedProductContent
           :'mr.png'
           :('web/mr.png'); let content">
-      <img src="{{ content.url }}" alt="" />
+      <img src="{{ content.url }}" alt="Moment rate function image" />
       <figcaption><small>Moment rate function</small></figcaption>
     </figure>
     <p>
-        Source time function, describing the rate of moment release with time
-        after earthquake origin, relative to the peak moment rate
-        (listed in the top right corner of the plot).
-     </p>
+      Source time function, describing the rate of moment release with time
+      after earthquake origin, relative to the peak moment rate
+      (listed in the top right corner of the plot).
+    </p>
 
   </div>
 
