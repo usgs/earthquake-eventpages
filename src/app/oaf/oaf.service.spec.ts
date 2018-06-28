@@ -132,7 +132,7 @@ describe('OafService', () => {
     }));
   });
 
-  fdescribe('parseForecast', () => {
+  describe('parseForecast', () => {
     it('parses forecast correctly', inject([OafService], (service: OafService) => {
       const forecastOutput = {
         'columnIds': [
