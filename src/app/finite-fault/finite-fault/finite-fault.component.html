@@ -3,51 +3,102 @@
 
   <!-- container with header attribute is added before attribution -->
   <ng-container header>
-    <h2>
-      <abbr title="Finite Fault">
-          Finite Fault
-      </abbr>
-    </h2>
+    <h2>Finite Fault</h2>
   </ng-container>
 
   <div *ngIf="eventService.product$ | async as product">
 
-    <h2>Result</h2>
-    <p *ngIf="product.contents && product.contents['']">
-      {{ product.contents[''].bytes }}
-    </p>
-    <figure *ngIf="product |
-        sharedProductContent
-          :'_basemap.png'
-          :('web/' + product?.properties?.eventsourcecode + '_basemap.png');
-          let content">
-      <img src="{{ content.url }}" alt="Finite fault basemap" />
-      <figcaption><small>Finite fault basemap</small></figcaption>
-    </figure>
+    <shared-text-product
+      *ngIf="product.contents && product.contents['']"
+      [product]="product">
+    </shared-text-product>
 
-    <h2>Cross-section of Slip Distribution</h2>
+    <h3>Data Process and Inversion</h3>
+    <p>
+      We used GSN broadband waveforms downloaded from the NEIC waveform server.
+
+      We analyzed
+      {{ product.properties['nump1'] }} teleseismic broadband P waveforms,
+      {{ product.properties['nums1'] }} broadband SH waveforms, and
+      {{ product.properties['numlow1'] }} long period surface waves
+      selected based on data quality and azimuthal distribution.
+
+      Waveforms are first
+      converted to displacement by removing the instrument response and are then
+      used to constrain the slip history using a finite fault inverse algorithm
+      (Ji et al., 2002).
+      We begin modeling using a hypocenter matching or adjusted
+      slightly from the initial NEIC solution
+      (
+        location = {{
+            [product.properties['lon1'], product.properties['lat1']]
+            | sharedLocation: 1 }},
+        depth = {{ product.properties['depth1'] | sharedNumber: 1 }} km
+      ), and a fault plane defined using
+      either the rapid W-Phase moment tensor (for near-real time solutions), or
+      the gCMT moment tensor (for historic solutions).
+    </p>
+
+
+    <h3>Result</h3>
+    <p>
+      After comparing waveform fits based on the two planes of the input moment
+      tensor, we find that the nodal plane
+      (
+        strike = {{ product.properties['strike11'] | sharedDegrees: 1 }},
+        dip = {{ product.properties['dip11'] | sharedDegrees: 1 }}
+      )
+      fits the data better.
+
+      The seismic moment release based upon this plane is
+      {{ (+product.properties['moment1']).toExponential(1) }} dyne-cm
+      (Mw = {{ product.properties['magnitude1'] | sharedNumber: 1 }})
+      using a 1D crustal model interpolated from CRUST2.0 (Bassin et al., 2000).
+    </p>
+
+    <h3>Cross-section of Slip Distribution</h3>
     <figure *ngIf="product |
         sharedProductContent
-          :'_slip2.png'
+          :'cross-section.png'
           :('web/' + product?.properties?.eventsourcecode + '_slip2.png');
           let content">
       <img src="{{ content.url }}" alt="Slip distribution map image" />
-      <figcaption><small>Slip distribution cross-section</small></figcaption>
+      <figcaption>
+        Cross-section of slip distribution. The strike direction is indicated
+        above each fault plane and the hypocenter location is denoted by a star.
+        Slip amplitude is shown in color and the motion direction of the hanging
+        wall relative to the footwall (rake angle) is indicated with arrows.
+        Contours show the rupture initiation time in seconds.
+      </figcaption>
     </figure>
 
-    <h2>Moment Rate Function</h2>
+    <h3>Surface Projection</h3>
     <figure *ngIf="product |
         sharedProductContent
-          :'mr.png'
+          :'map.png'
+          :('web/' + product?.properties?.eventsourcecode + '_basemap.png');
+          let content">
+      <img src="{{ content.url }}" alt="Finite fault basemap" />
+      <figcaption>
+        Surface projection of the slip distribution superimposed on GEBCO
+        bathymetry. Thick white lines indicate major plate boundaries [Bird, 2003].
+        Gray circles, if present, are aftershock locations, sized by magnitude.
+      </figcaption>
+    </figure>
+
+    <h3>Moment Rate Function</h3>
+    <figure *ngIf="product |
+        sharedProductContent
+          :'moment-rate.png'
           :('web/mr.png'); let content">
       <img src="{{ content.url }}" alt="Moment rate function image" />
-      <figcaption><small>Moment rate function</small></figcaption>
+      <figcaption>
+        Source time function, describing the rate of moment release with time
+        after earthquake origin, relative to the peak moment rate (listed in
+        the top right corner of the plot). The red dashed line represents the
+        interpreted end of the event.
+      </figcaption>
     </figure>
-    <p>
-      Source time function, describing the rate of moment release with time
-      after earthquake origin, relative to the peak moment rate
-      (listed in the top right corner of the plot).
-    </p>
 
   </div>
 
