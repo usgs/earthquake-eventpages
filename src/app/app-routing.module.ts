@@ -88,6 +88,10 @@ const appRoutes = [
       {
         path: 'oaf',
         loadChildren: './oaf/oaf.module#OafModule'
+      },
+      {
+        path: 'finite-fault',
+        loadChildren: './finite-fault/finite-fault.module#FiniteFaultModule'
       }
     ]
   }

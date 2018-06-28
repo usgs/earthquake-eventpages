@@ -29,6 +29,7 @@ describe('ExecutiveComponent', () => {
         MockComponent({ selector: 'executive-ground-failure-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-map-pin', inputs: ['event']}),
         MockComponent({ selector: 'executive-moment-tensor-pin', inputs: ['product']}),
+        MockComponent({ selector: 'executive-nearby-seismicity-pin', inputs: ['event']}),
         MockComponent({ selector: 'executive-oaf-pin', inputs: ['product', 'title', 'type'] }),
         MockComponent({ selector: 'executive-origin-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-pager-pin', inputs: ['product']}),
@@ -37,6 +38,7 @@ describe('ExecutiveComponent', () => {
         MockComponent({ selector: 'executive-tsunami-pin'}),
         MockComponent({ selector: 'shared-link-product', inputs: ['product']}),
         MockComponent({ selector: 'shared-text-product', inputs: ['product']}),
+
 
         MockPipe('getProduct')
       ],

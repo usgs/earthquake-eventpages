@@ -231,7 +231,7 @@ export class FormatterService {
     lngDir = (longitude >= 0 ? 'E' : 'W');
 
     // already have sign information, abs and round
-    result = this.number(Math.abs(longitude), this.locationDecimals);
+    result = this.number(Math.abs(longitude), decimals);
 
 
     return `${result}°${lngDir}`;
