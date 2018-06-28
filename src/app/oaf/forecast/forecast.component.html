@@ -25,7 +25,7 @@
         <ng-container matColumnDef="magnitude">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
           <mat-cell *matCellDef="let row">
-              M &ge; {{ row.magnitude }}
+              M ≥ {{ row.magnitude }}
           </mat-cell>
         </ng-container>
 
@@ -47,13 +47,13 @@
               <span class="oafColumn">P:</span> {{ bin.probability | oafPercent }}
             </ng-container>
             <ng-template #asterisk>
-                &#x2a;
+                *
             </ng-template>
           </mat-cell>
         </ng-container>
     </mat-table>
     <small>
-      &#x2a; Earthquake possible but with a low probability.
+      * Earthquake possible but with a low probability.
     </small>
   </div>
 </ng-container>
