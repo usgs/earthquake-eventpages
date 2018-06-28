@@ -22,7 +22,6 @@ import { ShakemapPinComponent } from './shakemap-pin/shakemap-pin.component';
 import { TsunamiPinComponent } from './tsunami-pin/tsunami-pin.component';
 
 
-
 @NgModule({
   imports: [
     CommonModule,
