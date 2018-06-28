@@ -18,9 +18,9 @@
       We used GSN broadband waveforms downloaded from the NEIC waveform server.
 
       We analyzed
-      {{ product.properties['nump1'] }} teleseismic broadband P waveforms,
-      {{ product.properties['nums1'] }} broadband SH waveforms, and
-      {{ product.properties['numlow1'] }} long period surface waves
+      {{ product?.properties?.nump1 }} teleseismic broadband P waveforms,
+      {{ product?.properties?.nums1 }} broadband SH waveforms, and
+      {{ product?.properties?.numlow1 }} long period surface waves
       selected based on data quality and azimuthal distribution.
 
       Waveforms are first
@@ -31,9 +31,9 @@
       slightly from the initial NEIC solution
       (
         location = {{
-            [product.properties['lon1'], product.properties['lat1']]
+            [product?.properties?.lon1, product?.properties?.lat1]
             | sharedLocation: 1 }},
-        depth = {{ product.properties['depth1'] | sharedNumber: 1 }} km
+        depth = {{ product?.properties?.depth1 | sharedNumber: 1 }} km
       ), and a fault plane defined using
       either the rapid W-Phase moment tensor (for near-real time solutions), or
       the gCMT moment tensor (for historic solutions).
@@ -45,14 +45,14 @@
       After comparing waveform fits based on the two planes of the input moment
       tensor, we find that the nodal plane
       (
-        strike = {{ product.properties['strike11'] | sharedDegrees: 1 }},
-        dip = {{ product.properties['dip11'] | sharedDegrees: 1 }}
+        strike = {{ product?.properties?.strike11 | sharedDegrees: 1 }},
+        dip = {{ product?.properties?.dip11 | sharedDegrees: 1 }}
       )
       fits the data better.
 
       The seismic moment release based upon this plane is
-      {{ (+product.properties['moment1']).toExponential(1) }} dyne-cm
-      (Mw = {{ product.properties['magnitude1'] | sharedNumber: 1 }})
+      {{ (+product?.properties?.moment1).toExponential(1) }} dyne-cm
+      (Mw = {{ product?.properties?.magnitude1 | sharedNumber: 1 }})
       using a 1D crustal model interpolated from CRUST2.0 (Bassin et al., 2000).
     </p>
 
