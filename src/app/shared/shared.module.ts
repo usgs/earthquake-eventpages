@@ -46,6 +46,7 @@ import { RoundUpPipe } from './round-up.pipe';
 import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 import { SignificantFigurePipe } from './significant-figure.pipe';
 import { StationFlagComponent } from './station-flag/station-flag.component';
+import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import { StationFlagComponent } from './station-flag/station-flag.component';
     MapComponent,
     MmiComponent,
     NumberPipe,
+    NumberWithSeparatorPipe,
     PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
@@ -115,6 +117,7 @@ import { StationFlagComponent } from './station-flag/station-flag.component';
     MmiComponent,
     NodalPlanesComponent,
     NumberPipe,
+    NumberWithSeparatorPipe,
     ProductAttributionComponent,
     PreferredCheckComponent,
     TextProductComponent,

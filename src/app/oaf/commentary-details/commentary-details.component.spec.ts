@@ -14,6 +14,7 @@ describe('CommentaryDetailsComponent', () => {
         CommentaryDetailsComponent,
 
         MockPipe('oafPercent'),
+        MockPipe('sharedNumberWithSeparator'),
         MockPipe('sharedRoundDown'),
         MockPipe('sharedRoundUp'),
         MockPipe('sharedSignificantFigure')

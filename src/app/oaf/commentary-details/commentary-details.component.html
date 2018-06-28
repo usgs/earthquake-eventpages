@@ -9,7 +9,7 @@
 
   <ng-template #someProbability>
     <ng-container *ngIf="bin.probability <= 0.01; else moreProbability">
-      1 in {{ 1 / bin.probability | sharedSignificantFigure: 1 }},
+      1 in {{ 1 / bin.probability | sharedSignificantFigure: 1  | sharedNumberWithSeparator }},
     </ng-container>
 
     <ng-template #moreProbability>
@@ -27,10 +27,10 @@
   <ng-template #p95Maximum>
     <ng-container *ngIf="bin.probability > 0">
       and it is most likely that as few as
-      {{ bin.p95minimum | sharedRoundDown: 2 }}
+      {{ bin.p95minimum | sharedRoundDown: 2 | sharedNumberWithSeparator }}
       or as many as
-      {{ bin.p95maximum | sharedRoundUp: 2 }}
-      such earthquakes may 
+      {{ bin.p95maximum | sharedRoundUp: 2 | sharedNumberWithSeparator }}
+      such earthquakes may
       <ng-container *ngIf="bin.magnitude <= 3; else magAbove3">
         occur in the case that the sequence is re-invigorated by a larger
         aftershock.
