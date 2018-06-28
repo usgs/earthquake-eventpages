@@ -183,22 +183,22 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   }
 
   executeFilter (xmin, xmax, ymin, ymax) {
-    for (let series of this.bubbleChart) {
+    for (const series of this.bubbleChart) {
       series.series = series.series.filter(item =>
         (xmin ? item.x > xmin : true) &&
         (xmax ? item.x < xmax : true) &&
         (ymin ? item.y > ymin : true) &&
         (ymax ? item.y < ymax : true)
-      )
+      );
     }
 
-    for (let series of this.lineChart) {
+    for (const series of this.lineChart) {
       series.series = series.series.filter(item =>
         (xmin ? item.x > xmin : true) &&
         (xmax ? item.x < xmax : true) &&
         (ymin ? item.y > ymin : true) &&
         (ymax ? item.y < ymax : true)
-      )
+      );
     }
   }
 
@@ -219,7 +219,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   }
 
   getXDomain (): any[] {
-    let values = [];
+    const values = [];
 
     for (const results of [...this.lineChart, ...this.bubbleChart]) {
       for (const d of results.series) {
@@ -275,14 +275,14 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
         values.push(this.yScaleMin);
         min = this.yScaleMin;
       } else {
-        let min = Math.min(...values);
+        min = Math.min(...values);
       }
 
       if (this.yScaleMax) {
         values.push(this.yScaleMax);
         max = this.yScaleMax;
       } else {
-        const max = Math.max(...values);
+        max = Math.max(...values);
       }
     }
 
@@ -442,6 +442,6 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   }
 
   xAxisTickFormatting (value) {
-    return value
+    return value;
   }
 }
