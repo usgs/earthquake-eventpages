@@ -38,6 +38,7 @@ export class NumberWithSeparatorPipe implements PipeTransform {
   private _getLocaleInfo (locale) {
     const knownValue = 1000.1;
     const localeValue = knownValue.toLocaleString(locale);
+
     return {
       separator: localeValue.substr(1, 1),
       decimal: localeValue.substr(5, 1)

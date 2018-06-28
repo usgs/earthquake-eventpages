@@ -32,6 +32,14 @@ describe('NumberWithSeparatorPipe', () => {
       expect(pipe.transform(-9)).toEqual('-9');
       expect(pipe.transform(-999)).toEqual('-999');
       expect(pipe.transform(-123456789)).toEqual('-123,456,789');
+
+
+      // Note : Try other localizations, however many locales use spaces
+      //        for either the separator or decimal value and these are
+      //        sometimes returned as &nbsp; These values render properly
+      //        from pipes, but are difficult to test.
+      expect(pipe.transform(-123456789.2127, 'es'))
+          .toBe('-123.456.789,2127');
     });
   });
 });
