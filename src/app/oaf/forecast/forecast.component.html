@@ -16,42 +16,44 @@
         {{ forecast.columns[0].timeStart | sharedDateTime }}.
   </P>
 
-  <mat-table *ngIf="forecast" [dataSource]="forecast.rows">
-      <mat-header-row *matHeaderRowDef="forecast.columnIds"></mat-header-row>
-      <mat-row *matRowDef="let myRowData; columns: forecast.columnIds">
-      </mat-row>
+  <div class="horizontal-scrolling">
+    <mat-table *ngIf="forecast" [dataSource]="forecast.rows">
+        <mat-header-row *matHeaderRowDef="forecast.columnIds"></mat-header-row>
+        <mat-row *matRowDef="let myRowData; columns: forecast.columnIds">
+        </mat-row>
 
-      <ng-container matColumnDef="magnitude">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let row">
-            M &ge; {{ row.magnitude }}
-        </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="magnitude">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let row">
+              M &ge; {{ row.magnitude }}
+          </mat-cell>
+        </ng-container>
 
-      <ng-container
-          *ngFor="let column of forecast.columns"
-          [matColumnDef]="column.id">
-        <mat-header-cell *matHeaderCellDef>
-          {{ column.label }}
-          <!-- TODO: use column.timeStart and/or column.timeEnd -->
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <ng-container *ngIf="row.data[column.id]; let bin">
-            <span class="oafColumn">N:</span>
-            <ng-container *ngIf="bin.p95maximum !== 0 ; else asterisk">
-                {{ bin.p95minimum | sharedRoundDown: 2 }} to
-                    {{ bin.p95maximum | sharedRoundUp: 2 }}
+        <ng-container
+            *ngFor="let column of forecast.columns"
+            [matColumnDef]="column.id">
+          <mat-header-cell *matHeaderCellDef>
+            {{ column.label }}
+            <!-- TODO: use column.timeStart and/or column.timeEnd -->
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <ng-container *ngIf="row.data[column.id]; let bin">
+              <span class="oafColumn">N:</span>
+              <ng-container *ngIf="bin.p95maximum !== 0 ; else asterisk">
+                  {{ bin.p95minimum | sharedRoundDown: 2 }} to
+                      {{ bin.p95maximum | sharedRoundUp: 2 }}
+              </ng-container>
+              <br />
+              <span class="oafColumn">P:</span> {{ bin.probability | oafPercent }}
             </ng-container>
-            <br />
-            <span class="oafColumn">P:</span> {{ bin.probability | oafPercent }}
-          </ng-container>
-          <ng-template #asterisk>
-              &#x2a;
-          </ng-template>
-        </mat-cell>
-      </ng-container>
-  </mat-table>
-  <small>
-    &#x2a; Earthquake possible but with a low probability.
-  </small>
+            <ng-template #asterisk>
+                &#x2a;
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+    </mat-table>
+    <small>
+      &#x2a; Earthquake possible but with a low probability.
+    </small>
+  </div>
 </ng-container>
