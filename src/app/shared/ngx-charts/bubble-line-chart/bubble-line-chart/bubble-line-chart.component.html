@@ -55,6 +55,7 @@
         [dims]="dims"
         [showLabel]="showXAxisLabel"
         [labelText]="xAxisLabel"
+        [showGridLines]="showGridLines"
         [tickFormatting]="xAxisTickFormatting"
         (dimensionsChanged)="updateXAxisHeight($event)">
     </svg:g>
@@ -66,17 +67,8 @@
         [showGridLines]="showGridLines"
         [showLabel]="showYAxisLabel"
         [labelText]="yAxisLabel"
-        [tickFormatting]="yAxisTickFormatting"
-        (dimensionsChanged)="updateYAxisWidth($event)">
-    </svg:g>
-    <svg:g ngx-charts-y-axis
-        *ngIf="yAxis"
-        [yScale]="yScale"
-        [dims]="dims"
         [showGridLines]="showGridLines"
-        [showLabel]="showRightYAxisLabel"
-        [labelText]="yAxisLabelRight"
-        [tickFormatting]="yRightAxisTickFormatting"
+        [tickFormatting]="yAxisTickFormatting"
         (dimensionsChanged)="updateYAxisWidth($event)">
     </svg:g>
     <ng-container *ngIf="bubbleChart as bubbleChart">
@@ -95,11 +87,19 @@
             [data]="series"
             [activeEntries]="activeEntries"
             [tooltipDisabled]="tooltipDisabled"
-            [tooltipTemplate]="tooltipTemplate"
+            [tooltipTemplate]="meanTemplate"
             (select)="onClick($event, series)"
             (activate)="onActivate($event)"
             (deactivate)="onDeactivate($event)" />
       </svg:g>
     </ng-container>
   </svg:g>
+
+  <ng-template #meanTemplate let-model="model">
+    <h3>{{ model.series }}</h3>
+    <dl class="description-table">
+      <dt>Estimated Intensity: </dt><dd>{{ model.value }}</dd>
+      <dt>Epicentral Distance: </dt><dd>{{ model.x }} km</dd>
+    </dl>
+  </ng-template>
 </ngx-charts-chart>

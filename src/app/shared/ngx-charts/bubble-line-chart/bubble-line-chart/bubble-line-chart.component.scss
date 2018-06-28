@@ -87,3 +87,19 @@
 ngx-charts-legend {
   transform: translateX(-150%);
 }
+
+dl.description-table {
+
+  /* default size/color based on mat-header-cell */
+  > dt {
+    color: rgba(255, 255, 255, 0.54);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /** default size/color based on mat-cell */
+  > dd {
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 14px;
+  }
+}
