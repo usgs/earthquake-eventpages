@@ -32,6 +32,7 @@ describe('ForecastComponent', () => {
 
         MockPipe('oafPercent'),
         MockPipe('sharedDateTime'),
+        MockPipe('sharedNumberWithSeparator'),
         MockPipe('sharedRoundDown'),
         MockPipe('sharedRoundUp')
       ],
