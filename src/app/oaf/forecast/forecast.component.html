@@ -34,7 +34,6 @@
             [matColumnDef]="column.id">
           <mat-header-cell *matHeaderCellDef>
             {{ column.label }}
-            <!-- TODO: use column.timeStart and/or column.timeEnd -->
           </mat-header-cell>
           <mat-cell *matCellDef="let row">
             <ng-container *ngIf="row.data[column.id]; let bin">
