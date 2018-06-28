@@ -9,8 +9,8 @@
   <div *ngIf="eventService.product$ | async as product">
 
     <shared-text-product
-      *ngIf="product.contents && product.contents['']"
-      [product]="product">
+        *ngIf="product.contents && product.contents['']"
+        [product]="product">
     </shared-text-product>
 
     <h3>Data Process and Inversion</h3>
