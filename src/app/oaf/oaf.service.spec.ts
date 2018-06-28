@@ -30,14 +30,14 @@ describe('OafService', () => {
       'bins': [
         {
           'magnitude': 1,
-          'p95maximum': 1,
-          'p95minimum': 1,
-          'probability': 1
+          'p95maximum': 2,
+          'p95minimum': 0,
+          'probability': 0.5
         }
       ],
       'label': '1 Day',
-      'timeEnd': 1,
-      'timeStart': 1
+      'timeEnd': 10,
+      'timeStart': 5
     }
   ];
 
@@ -143,8 +143,8 @@ describe('OafService', () => {
           {
             'id': '1_Day',
             'label': '1 Day',
-            'timeStart': 1,
-            'timeEnd': 1
+            'timeStart': 5,
+            'timeEnd': 10
           }
         ],
         'rows': [
@@ -152,9 +152,9 @@ describe('OafService', () => {
             'magnitude': 1,
             'data': {
               '1_Day': {
-                'p95minimum': 1,
-                'p95maximum': 1,
-                'probability': 1,
+                'p95minimum': 0,
+                'p95maximum': 2,
+                'probability': 0.5,
                 'magnitude': 1
               }
             }
