@@ -57,6 +57,7 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
   gradient = false;
   showLegend = true;
   animations = true;
+  scaleType = 'log';
   showXAxisLabel = true;
   xAxisLabel = 'Hypocentral Distance (km)';
   showYAxisLabel = true;
