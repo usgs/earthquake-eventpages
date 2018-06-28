@@ -96,7 +96,7 @@ import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
     ShakemapOverlaysPipe,
     SignificantFigurePipe,
     StationComponent,
-    StationFlagComponent,
+    StationFlagComponent
   ],
   exports: [
     AttributionComponent,
