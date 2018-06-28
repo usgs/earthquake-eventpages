@@ -112,6 +112,14 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   }
 
   update (): void {
+    if (!this.autoScale) {
+      this.executeFilter(
+        this.xScaleMin,
+        this.xScaleMax,
+        this.yScaleMin,
+        this.yScaleMax
+      );
+    }
 
     // update custom colors to use error bars
     this.customColors.push(
@@ -174,6 +182,26 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.activeEntries = [];
   }
 
+  executeFilter (xmin, xmax, ymin, ymax) {
+    for (let series of this.bubbleChart) {
+      series.series = series.series.filter(item =>
+        (xmin ? item.x > xmin : true) &&
+        (xmax ? item.x < xmax : true) &&
+        (ymin ? item.y > ymin : true) &&
+        (ymax ? item.y < ymax : true)
+      )
+    }
+
+    for (let series of this.lineChart) {
+      series.series = series.series.filter(item =>
+        (xmin ? item.x > xmin : true) &&
+        (xmax ? item.x < xmax : true) &&
+        (ymin ? item.y > ymin : true) &&
+        (ymax ? item.y < ymax : true)
+      )
+    }
+  }
+
   @HostListener('mouseleave')
   hideCircles (): void {
     this.hoveredVertical = null;
@@ -221,33 +249,50 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   }
 
   getYDomain (): any[] {
-    const domain = [];
+    const values = [];
 
     for (const results of [...this.lineChart, ...this.bubbleChart]) {
       for (const d of results.series) {
-        if (domain.indexOf(d.value) < 0) {
-          domain.push(d.value);
+        if (values.indexOf(d.value) < 0) {
+          values.push(d.value);
         }
         if (d.min !== undefined) {
-          if (domain.indexOf(d.min) < 0) {
-            domain.push(d.min);
+          if (values.indexOf(d.min) < 0) {
+            values.push(d.min);
           }
         }
         if (d.max !== undefined) {
-          if (domain.indexOf(d.max) < 0) {
-            domain.push(d.max);
+          if (values.indexOf(d.max) < 0) {
+            values.push(d.max);
           }
         }
       }
     }
 
-    let min = Math.min(...domain);
-    const max = Math.max(...domain);
+    let min, max;
+    if (!this.autoScale) {
+      if (this.yScaleMin) {
+        values.push(this.yScaleMin);
+        min = this.yScaleMin;
+      } else {
+        let min = Math.min(...values);
+      }
+
+      if (this.yScaleMax) {
+        values.push(this.yScaleMax);
+        max = this.yScaleMax;
+      } else {
+        const max = Math.max(...values);
+      }
+    }
+
     if (this.yRightAxisScaleFactor) {
       const minMax = this.yRightAxisScaleFactor(min, max);
       return [Math.min(0, minMax.min), minMax.max];
     } else {
-      min = Math.min(0, min);
+      if (this.autoScale) {
+        min = Math.min(0, min);
+      }
       return [min, max];
     }
   }
