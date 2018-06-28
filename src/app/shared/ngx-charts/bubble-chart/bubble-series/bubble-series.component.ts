@@ -103,4 +103,16 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
       };
     }).filter((circle) => circle !== null);
   }
+
+  getErrorPathUpper(circle) {
+    const path = `M${this.xScale(circle.x) - 10},${this.yScale(circle.max)}L${this.xScale(circle.x) + 10},${this.yScale(circle.max)}`
+
+    return path;
+  }
+
+  getErrorPathLower(circle) {
+    const path = `M${this.xScale(circle.x) - 10},${this.yScale(circle.min)}L${this.xScale(circle.x) + 10},${this.yScale(circle.min)}`
+
+    return path;
+  }
 }

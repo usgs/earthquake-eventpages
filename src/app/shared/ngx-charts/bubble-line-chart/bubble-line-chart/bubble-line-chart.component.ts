@@ -26,7 +26,7 @@ import {
  } from '@swimlane/ngx-charts';
 
 import { area, line, curveLinear } from 'd3-shape';
-import { scaleBand, scaleLinear, scalePoint, scaleTime } from 'd3-scale';
+import { scaleBand, scaleLinear, scaleLog, scalePoint, scaleTime } from 'd3-scale';
 
 @Component({
   selector: 'bubble-line-chart-component',
@@ -63,7 +63,6 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   @Input() tooltipDisabled = false;
   @Input() xAxis;
   @Input() xAxisLabel;
-  @Input() xAxisTickFormatting: any;
   @Input() xScaleMax: number;
   @Input() xScaleMin = 0;
   @Input() yAxis;
@@ -213,18 +212,9 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
 
     let domain = [];
 
-    if (this.scaleType === 'time') {
-      const min = Math.min(...values);
-      const max = Math.max(...values);
-      domain = [min, max];
-    } else if (this.scaleType === 'linear') {
-      values = values.map(v => Number(v));
-      const min = Math.min(...values);
-      const max = Math.max(...values);
-      domain = [min, max];
-    } else {
-      domain = values;
-    }
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    domain = [min, max];
 
     this.xSet = values;
     return domain;
@@ -277,6 +267,10 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
       if (this.roundDomains) {
         scale = scale.nice();
       }
+    } else if (this.scaleType === 'log') {
+      scale = scaleLog()
+        .range([0, width])
+        .domain(domain);
     }
 
     return scale;
@@ -387,8 +381,8 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     for (const s of this.bubbleChart) {
       for (const d of s.series) {
         const r = this.rScale(d.r);
-        const cx = (this.scaleType === 'linear') ? this.xScale(Number(d.x)) : this.xScale(d.x);
-        const cy = (this.scaleType === 'linear') ? this.yScale(Number(d.y)) : this.yScale(d.y);
+        const cx = this.xScale(d.x);
+        const cy = this.yScale(d.y);
         xMin = Math.max(r - cx, xMin);
         yMin = Math.max(r - cy, yMin);
         yMax = Math.max(cy + r, yMax);
@@ -400,5 +394,9 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     yMax = Math.max(yMax - this.dims.height, 0);
 
     return [yMin, xMax, yMax, xMin];
+  }
+
+  xAxisTickFormatting (value) {
+    return value
   }
 }
