@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { NgModule } from '@angular/core';
 
@@ -25,6 +26,7 @@ import { ZipComponent } from './zip/zip.component';
     NgxChartsModule,
     MatTableModule,
     MatSortModule,
+    MatPaginatorModule,
     SharedModule
   ],
   declarations: [
