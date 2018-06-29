@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 import { NgModule } from '@angular/core';
 
 import {
@@ -16,6 +18,7 @@ import { NgxChartsModule } from '../shared/ngx-charts/ngx-charts.module';
 import { ProductPageModule } from '../product-page/product-page.module';
 import { ResponsesVsTimeComponent } from './responses-vs-time/responses-vs-time.component';
 import { ResponsesComponent } from './responses/responses.component';
+import { SharedModule } from '../shared/shared.module';
 import { ZipComponent } from './zip/zip.component';
 
 
@@ -28,7 +31,10 @@ import { ZipComponent } from './zip/zip.component';
     MdcIconModule,
     MatTabsModule,
     MdcTabModule,
-    NgxChartsModule
+    NgxChartsModule,
+    MatTableModule,
+    MatSortModule,
+    SharedModule
   ],
   declarations: [
     DyfiComponent,
