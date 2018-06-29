@@ -10,7 +10,7 @@ import { EventService } from '../../core/event.service';
   templateUrl: './responses.component.html',
   styleUrls: ['./responses.component.scss']
 })
-export class ResponsesComponent implements OnInit {
+export class ResponsesComponent implements OnInit, OnDestroy {
   private subs = new Subscription;
   public responses = new MatTableDataSource(null);
   public loaded = false;
@@ -21,7 +21,7 @@ export class ResponsesComponent implements OnInit {
     'dist',
     'lat',
     'lon'
-  ]
+  ];
   public paginatorSizes = [10, 20, 50, 100, 1000];
 
   constructor (
@@ -51,7 +51,7 @@ export class ResponsesComponent implements OnInit {
     if (product === null) {
 
       this.responses = null;
-      this.loaded = false
+      this.loaded = false;
       return;
     }
 

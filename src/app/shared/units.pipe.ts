@@ -40,12 +40,12 @@ export class UnitsPipe implements PipeTransform {
         }
 
         case 'lat': {
-            output = this.formatterService.latitude(value)
+            output = this.formatterService.latitude(value);
             break;
         }
 
         case 'lon': {
-            output = this.formatterService.longitude(value)
+            output = this.formatterService.longitude(value);
             break;
         }
 

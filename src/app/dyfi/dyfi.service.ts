@@ -139,11 +139,11 @@ export class DyfiService {
 
   translateCdi (cdiData) {
     const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(cdiData,"text/xml");
+    const xmlDoc = parser.parseFromString(cdiData, 'text/xml');
 
-    const data = xmlDoc.getElementsByTagName('location')
-    let responsesArray = [],
-        locationName, locations, location,
+    const data = xmlDoc.getElementsByTagName('location');
+    const responsesArray = [];
+    let locationName, locations, location,
         node, nodeName, nodeValue;
 
     for (let x = 0; x < data.length; x++) {
