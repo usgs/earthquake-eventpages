@@ -270,20 +270,18 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     }
 
     let min, max;
-    if (!this.autoScale) {
-      if (this.yScaleMin) {
-        values.push(this.yScaleMin);
-        min = this.yScaleMin;
-      } else {
-        min = Math.min(...values);
-      }
+    if (this.yScaleMin && !this.autoScale) {
+      values.push(this.yScaleMin);
+      min = this.yScaleMin;
+    } else {
+      min = Math.min(...values);
+    }
 
-      if (this.yScaleMax) {
-        values.push(this.yScaleMax);
-        max = this.yScaleMax;
-      } else {
-        max = Math.max(...values);
-      }
+    if (this.yScaleMax && !this.autoScale) {
+      values.push(this.yScaleMax);
+      max = this.yScaleMax;
+    } else {
+      max = Math.max(...values);
     }
 
     if (this.yRightAxisScaleFactor) {

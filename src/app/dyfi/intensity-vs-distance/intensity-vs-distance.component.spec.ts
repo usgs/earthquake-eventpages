@@ -80,6 +80,11 @@ describe('IntensityVsDistanceComponent', () => {
               'showRightYAxisLabel',
               'xAxisLabel',
               'yAxisLabel',
+              'yScaleMin',
+              'yScaleMax',
+              'xScaleMin',
+              'xScaleMax',
+              'scaleType'
             ]
           }
         )
