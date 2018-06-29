@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { Subscription } from 'rxjs';
 
 import { DyfiService } from '../dyfi.service';
@@ -22,6 +22,8 @@ export class ResponsesComponent implements OnInit {
     'lat',
     'lon'
   ]
+  public paginatorSizes = [10, 20, 50, 100, 1000];
+
   constructor (
     public dyfiService: DyfiService,
     public eventService: EventService
@@ -29,6 +31,7 @@ export class ResponsesComponent implements OnInit {
 
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit() {
     this.subs.add(this.dyfiService.cdiZip$.subscribe((data) => {
@@ -58,6 +61,7 @@ export class ResponsesComponent implements OnInit {
   onDyfiSeries (dyfiData) {
     this.responses = new MatTableDataSource(dyfiData);
     this.responses.sort = this.sort;
+    this.responses.paginator = this.paginator;
     this.loaded = true;
   }
 
