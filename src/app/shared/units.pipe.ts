@@ -39,6 +39,16 @@ export class UnitsPipe implements PipeTransform {
             break;
         }
 
+        case 'lat': {
+            output = this.formatterService.latitude(value)
+            break;
+        }
+
+        case 'lon': {
+            output = this.formatterService.longitude(value)
+            break;
+        }
+
         case 'intensity': {
             output = `${value} mmi`;
             break;

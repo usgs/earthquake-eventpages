@@ -10,6 +10,7 @@ export class DyfiService {
 
   public plotAtten$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public plotNumResp$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public cdiZip$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor (private httpClient: HttpClient) { }
 
@@ -69,6 +70,31 @@ export class DyfiService {
     });
   }
 
+  getCdi (product: any) {
+    if ((product == null) ||
+          (!product.contents['cdi_zip.xml'])) {
+
+      this.cdiZip$.next(null);
+      return;
+    }
+    const cdiZip = product.contents['cdi_zip.xml'];
+
+    this.httpClient.get(cdiZip.url, {responseType: 'text'}).pipe(
+      catchError(this.handleError())
+    ).subscribe((response) => {
+      try {
+        const cdiZipJson = this.translateCdi(response);
+        this.cdiZip$.next(cdiZipJson);
+
+      } catch (e) {
+        /*  Processing errored */
+        this.error = e;
+        this.cdiZip$.next(null);
+      }
+    });
+
+  }
+
   /**
    * Convert data from DYFI format to ngx-charts
    */
@@ -109,6 +135,62 @@ export class DyfiService {
 
     dyfiData.series = series;
     return dyfiData;
+  }
+
+  translateCdi (cdiData) {
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(cdiData,"text/xml");
+
+    const data = xmlDoc.getElementsByTagName('location')
+    let responsesArray = [],
+        locationName, locations, location,
+        node, nodeName, nodeValue;
+
+    for (let x = 0; x < data.length; x++) {
+
+      locationName = data[x].getAttribute('name');
+      locations = data[x].childNodes;
+      location = {
+        id: x,  // Assign an ID for sorting caching
+        zip: '' // Provide empty default to prevent undefined
+      };
+
+      for (let i = 0; i < locations.length; i++) {
+
+        node = locations[i];
+        nodeName = node.nodeName;
+        nodeValue = node.textContent;
+
+        if (nodeName === 'name' ||
+            nodeName === 'state' ||
+            nodeName === 'country' ||
+            nodeName === 'zip') {
+          location[nodeName] = nodeValue;
+        } else if (
+            nodeName === 'cdi' ||
+            nodeName === 'dist' ||
+            nodeName === 'lat' ||
+            nodeName === 'lon') {
+          location[nodeName] = parseFloat(nodeValue);
+        } else if (nodeName === 'nresp') {
+          location[nodeName] = parseInt(nodeValue, 10);
+        }
+      }
+
+      // determine country/ add zip code to name
+      if (locationName.length === 5) {
+        location.country = 'United States of America';
+        location.zip = locationName;
+      } else {
+        locationName = locationName.split('::');
+        location.state = locationName[1];
+        location.country = locationName[2];
+      }
+
+      responsesArray.push(location);
+    }
+
+    return responsesArray;
   }
 
   /**
