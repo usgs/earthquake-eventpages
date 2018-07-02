@@ -98,6 +98,7 @@ describe('MapComponent', () => {
   describe('setBounds', () => {
 
     beforeEach(() => {
+      // Without the additional uninstall, an error is thrown
       jasmine.clock().uninstall();
       jasmine.clock().install();
     });
