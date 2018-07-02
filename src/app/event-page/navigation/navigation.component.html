@@ -47,12 +47,12 @@
         display="Focal Mechanism"
         navRouterLink="focal-mechanism"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('finite-fault')"
-        display="Finite Fault" class="not-supported"
+        display="Finite Fault"
         navRouterLink="finite-fault"></app-navigation-item>
-    <app-navigation-item display="Waveforms" class="not-supported"
+    <app-navigation-item display="Waveforms"
         navRouterLink="waveforms"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('oaf')"
-        display="Aftershock Forecast" class="not-supported"
+        display="Aftershock Forecast"
         navRouterLink="oaf"></app-navigation-item>
   </app-navigation-group>
 
@@ -63,12 +63,12 @@
 
 
   <ng-template #noImpact>
-    <app-navigation-item display="Felt Report - Tell Us!" class="not-supported"
+    <app-navigation-item display="Felt Report - Tell Us!"
         navRouterLink="tellus"></app-navigation-item>
   </ng-template>
 
   <ng-template #noTechnical>
-    <app-navigation-item display="Waveforms" class="not-supported"
+    <app-navigation-item display="Waveforms"
         navRouterLink="waveforms"></app-navigation-item>
   </ng-template>
 </ng-container>
