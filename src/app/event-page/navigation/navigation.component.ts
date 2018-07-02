@@ -97,7 +97,7 @@ export class NavigationComponent implements OnInit {
     if (typeof latitude !== 'number' ||
         typeof longitude !== 'number' ||
         typeof time !== 'number') {
-      return false; // TODO :: return {} ???
+      return false;
     }
 
     time = new Date(time).getTime();
@@ -115,7 +115,7 @@ export class NavigationComponent implements OnInit {
       endtime: endtime,
       latitude: latitude,
       longitude: longitude,
-      maxradiuskm: 250, // TODO :: Scale this by magnitude ?
+      maxradiuskm: 250,
       minmagnitude: minmagnitude,
       starttime: starttime
     };
