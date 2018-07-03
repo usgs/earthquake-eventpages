@@ -7,6 +7,7 @@ import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
 
 import { BasicPinComponent } from './basic-pin/basic-pin.component';
+import { DyfiPinComponent } from './dyfi-pin/dyfi-pin.component';
 import { DyfiResponseSubmitPinComponent } from './dyfi-response-submit-pin/dyfi-response-submit-pin.component';
 import { ExecutiveComponent } from './executive/executive.component';
 import { FiniteFaultPinComponent } from './finite-fault-pin/finite-fault-pin.component';
@@ -33,6 +34,7 @@ import { TsunamiPinComponent } from './tsunami-pin/tsunami-pin.component';
   ],
   declarations: [
     BasicPinComponent,
+    DyfiPinComponent,
     DyfiResponseSubmitPinComponent,
     ExecutiveComponent,
     FiniteFaultPinComponent,

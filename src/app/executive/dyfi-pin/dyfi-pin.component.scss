@@ -1,0 +1,22 @@
+[card-title] {
+  display: block;
+  position: relative;
+  width: 100%;
+
+  > shared-mmi {
+    font-size: smaller;
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    white-space: nowrap;
+  }
+}
+
+figure {
+  margin: 1em 0 0;
+}
+
+img {
+  margin-bottom: 1em;
+  max-width: 100%;
+}

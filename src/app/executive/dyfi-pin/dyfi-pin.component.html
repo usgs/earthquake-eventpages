@@ -1,0 +1,15 @@
+<basic-pin
+    [link]="link"
+    [product]="product">
+  <div card-title>
+    <a [routerLink]="link">{{ title }}</a>
+    <shared-mmi
+      [bubble]="true"
+      [intensity]="product?.properties?.maxmmi">
+    </shared-mmi>
+    <figure *ngIf="product?.properties?.eventsource +
+        product?.properties?.eventsourcecode + '_ciim_geo.jpg' as image">
+      <img src="{{ product?.contents[image].url }}" alt="DYFI Intensity Map" />
+    </figure>
+  </div>
+</basic-pin>
