@@ -98,6 +98,7 @@ describe('MapComponent', () => {
   describe('setBounds', () => {
 
     beforeEach(() => {
+      jasmine.clock().uninstall();
       jasmine.clock().install();
     });
 

@@ -4,6 +4,7 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { Event } from '../../event';
 import { NavigationComponent } from './navigation.component';
+import {MockPipe} from '../../mock-pipe';
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -15,7 +16,8 @@ describe('NavigationComponent', () => {
         NavigationComponent,
 
         MockComponent({selector: 'app-navigation-group'}),
-        MockComponent({selector: 'app-navigation-item', inputs: ['display', 'navHrefLink', 'navRouterLink']})
+        MockComponent({selector: 'app-navigation-item', inputs: ['display', 'navHrefLink', 'navRouterLink']}),
+        MockPipe('nearbySeismicityLink')
       ]
     })
     .compileComponents();

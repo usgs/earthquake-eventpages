@@ -1,4 +1,4 @@
-<ng-container *ngIf="event">
+<ng-container *ngIf="event; let event">
 
   <a templateSideNavigation class="up-one-level"
       href="/earthquakes/map/">Latest Earthquakes</a>
@@ -57,10 +57,10 @@
   </app-navigation-group>
 
   <app-navigation-item display="Download Event KML"
-      navHrefLink="{{ getKmlLink(event) }}"></app-navigation-item>
-  <app-navigation-item display="View Nearby Seismicity"
-      navHrefLink="{{ getNearbySeismicityLink(event) }}"></app-navigation-item>
+    navHrefLink="{{ event | nearbySeismicityLink: 'kml' }}"></app-navigation-item>
 
+  <app-navigation-item display="View Nearby Seismicity"
+    navHrefLink="{{ event | nearbySeismicityLink: 'nearby' }}"></app-navigation-item>
 
   <ng-template #noImpact>
     <app-navigation-item display="Felt Report - Tell Us!"
