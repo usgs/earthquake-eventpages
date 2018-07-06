@@ -3,6 +3,11 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule} from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
 
+import {
+  MdcTabModule,
+  MdcIconModule
+} from '@angular-mdc/web';
+
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
 
@@ -22,6 +27,8 @@ import { CommentaryDetailsComponent } from './commentary-details/commentary-deta
     CommonModule,
     MatTableModule,
     MatTabsModule,
+    MdcIconModule,
+    MdcTabModule,
     ProductPageModule,
     SharedModule,
 

@@ -6,22 +6,32 @@
     <h2>Origin</h2>
   </ng-container>
 
-  <!-- routes/components in ../origin-routing.module.ts -->
-  <nav mat-tab-nav-bar>
-    <a mat-tab-link
-        [routerLink]="'./detail'" queryParamsHandling="preserve"
-        routerLinkActive #details="routerLinkActive" [active]="details.isActive">
-      Details
-    </a>
-    <a mat-tab-link [routerLink]="'./phase'" queryParamsHandling="preserve"
-        routerLinkActive #phase="routerLinkActive" [active]="phase.isActive">
-      Phases
-    </a>
-    <a mat-tab-link [routerLink]="'./magnitude'" queryParamsHandling="preserve"
-        routerLinkActive #magnitude="routerLinkActive" [active]="magnitude.isActive">
-      Magnitudes
-    </a>
-  </nav>
+  <mdc-tab-bar-scroller>
+    <mdc-tab-bar-scroll-back>
+      <mdc-icon>navigate_before</mdc-icon>
+    </mdc-tab-bar-scroll-back>
+    <mdc-tab-bar-scroll-frame>
+      <!-- routes/components in ../origin-routing.module.ts -->
+      <nav mdc-tab-bar>
+        <a mdc-tab mdcRouter
+            [routerLink]="'./detail'" queryParamsHandling="preserve">
+          Details
+        </a>
+        <a mdc-tab mdcRouter
+            [routerLink]="'./phase'" queryParamsHandling="preserve">
+          Phases
+        </a>
+        <a mdc-tab mdcRouter
+            [routerLink]="'./magnitude'" queryParamsHandling="preserve">
+          Magnitudes
+        </a>
+      </nav>
+    </mdc-tab-bar-scroll-frame>
+    <mdc-tab-bar-scroll-forward>
+      <mdc-icon>navigate_next</mdc-icon>
+    </mdc-tab-bar-scroll-forward>
+  </mdc-tab-bar-scroller>
+
   <router-outlet></router-outlet>
 
   <!-- container with footer attribute is added before downloads -->

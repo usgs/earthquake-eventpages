@@ -2,6 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 
+import {
+  MdcTabModule,
+  MdcIconModule
+} from '@angular-mdc/web';
+
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
 
@@ -22,6 +27,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     MatButtonModule,
     MatTabsModule,
+    MdcIconModule,
+    MdcTabModule,
     RouterModule,
     ProductPageModule,
     SharedModule,
