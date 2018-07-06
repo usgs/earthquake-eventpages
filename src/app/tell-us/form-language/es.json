@@ -3,14 +3,14 @@
   "name": "Español",
 
   "locationInfo": {
-    "label": "¿Cuál era su localización cuando ocurrió el terremoto?",
+    "label": "¿Tu localización cuando ocurrio el sismo?",
     "button": "Opciones de Localización",
     "buttonUpdate": "Cambiar la Localización"
   },
 
   "baseQuestions": {
     "fldSituation_felt": {
-      "label": "¿Usted sintió el terremoto?",
+      "label": "¿Sintió usted el temblor?",
       "answers": [
         {"value": "1", "label": "Sí"},
         {"value": "0", "label": "No"}
@@ -25,7 +25,7 @@
 
   "moreQuestions": {
     "fldSituation_situation": {
-      "label": "¿Cuál era tu ubicación durante el terremoto?",
+      "label": "¿Dónde estaba cuando ocurrio el temblor?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "inside", "label": "Dentro de un edificio"},
@@ -58,7 +58,7 @@
 
 
     "fldExperience_shaking": {
-      "label": "Describa la sacudida del terremoto",
+      "label": "Cómo describirías el movimiento",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No se sintió"},
@@ -82,7 +82,7 @@
       ]
     },
     "fldExperience_response": {
-      "label": "¿Cómo respondió usted?",
+      "label": "¿Cómo respondió?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "no_action", "label": "Ninguna respuesta"},
@@ -94,7 +94,7 @@
       ]
     },
     "fldExperience_stand": {
-      "label": "¿Se le dificultó el pararse ó caminar?",
+      "label": :Cuán difícil pararse o caminar?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -113,7 +113,7 @@
       ]
     },
     "fldEffects_sounds": {
-      "label": "¿Escuchó usted crujidos ó algún otro ruido?",
+      "label": "¿Escuchó algún ruido extraño?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -122,7 +122,7 @@
       ]
     },
     "fldEffects_shelved": {
-      "label": "¿Se movieron ó se cayeron objetos en las repisas?",
+      "label": "¿Se movieron ó se cayeron objetos de las repisas?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -134,7 +134,7 @@
       ]
     },
     "fldEffects_pictures": {
-      "label": "¿Se movieron ó desnivelaron cuadros en las paredes?",
+      "label": "¿Se movieron o se cayeron los cuadros colgados en las paredes?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -143,7 +143,7 @@
       ]
     },
     "fldEffects_furniture": {
-      "label": "¿Alguno de sus muebles ó enseres se deslizó, volteó ó quedó fuera de su sitio original?",
+      "label": "¿Alguno de sus muebles ó electrodoméstico se movio, volteó ó quedó fuera de su sitio original?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -162,7 +162,7 @@
       ]
     },
     "fldEffects_walls": {
-      "label": "¿Observó daños en las paredes ó verjas?",
+      "label": "¿Observó daños en las paredes ó cercas?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
@@ -173,7 +173,7 @@
     },
 
     "d_text[]": {
-      "label": "¿Observó daños en edificios ú otras estructuras?",
+      "label": "¿Se observó daños en edificios ú otras estructuras?",
       "multiSelect": true,
       "answers": [
         {"value": "_none", "label": "Ningún daño apreciable a simple vista"},
@@ -222,6 +222,4 @@
 
   "submit": {
     "label": "Submit"
-  }
 }
-
