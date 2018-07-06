@@ -1,0 +1,22 @@
+<basic-pin
+    [link]="link"
+    [product]="product">
+  <div card-title>
+    <a [routerLink]="link">{{ title }}</a>
+    <shared-mmi
+      [bubble]="true"
+      [intensity]="product?.properties?.maxmmi">
+    </shared-mmi>
+    <figure *ngIf="product | sharedProductContent:
+        product?.properties?.eventsource +
+        product?.properties?.eventsourcecode + '_ciim_geo.jpg'
+        let image; else empty">
+      <img src="{{ image.url }}" alt="DYFI Intensity Map" />
+    </figure>
+    <ng-template #empty>
+      <p class="alert warning">
+        Image does not exist
+      </p>
+    </ng-template>
+  </div>
+</basic-pin>
