@@ -8,6 +8,7 @@
 
 /* Leaflet Styles */
 @import './app/shared/css/leaflet-styles.scss'; // import before legend-control.scss
+@import './app/shared/map-control/legend-control.scss';
 
 /* Material Design Component Styles */
 a.mdc-tab,
