@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatTabsModule } from '@angular/material/tabs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs/observable/of';
 import { MockComponent } from 'ng2-mock-component';
@@ -26,10 +25,14 @@ describe('OafComponent', () => {
       declarations: [
         OafComponent,
 
-        MockComponent({selector: 'product-page', inputs: ['productType']})
+        MockComponent({ selector: 'product-page', inputs: ['productType'] }),
+        MockComponent({ selector: 'mdc-icon' }),
+        MockComponent({ selector: 'mdc-tab-bar-scroller' }),
+        MockComponent({ selector: 'mdc-tab-bar-scroll-back' }),
+        MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
+        MockComponent({ selector: 'mdc-tab-bar-scroll-forward' })
       ],
       imports: [
-        MatTabsModule,
         RouterTestingModule
       ],
       providers: [
