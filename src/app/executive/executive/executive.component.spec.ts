@@ -1,12 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ExecutiveComponent } from './executive.component';
 import { MockComponent } from 'ng2-mock-component';
-import { EventService } from '../../core/event.service';
-import { ContributorService } from '../../core/contributor.service';
 import { of } from 'rxjs/observable/of';
+
+import { ContributorService } from '../../core/contributor.service';
+import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
+
+import { ExecutiveComponent } from './executive.component';
 
 describe('ExecutiveComponent', () => {
   let component: ExecutiveComponent;
@@ -22,21 +23,28 @@ describe('ExecutiveComponent', () => {
         ExecutiveComponent,
 
         MockComponent({ selector: 'executive-dyfi-response-submit-pin', inputs: ['product']}),
-        MockComponent({ selector: 'executive-shakemap-pin', inputs: ['product']}),
+        MockComponent({ selector: 'executive-finite-fault-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-focal-mechanism-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-ground-failure-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-map-pin', inputs: ['event']}),
         MockComponent({ selector: 'executive-moment-tensor-pin', inputs: ['product']}),
+        MockComponent({ selector: 'executive-nearby-seismicity-pin', inputs: ['event', 'link']}),
+        MockComponent({ selector: 'executive-oaf-pin', inputs: ['product', 'title', 'type'] }),
         MockComponent({ selector: 'executive-origin-pin', inputs: ['product']}),
+        MockComponent({ selector: 'executive-pager-pin', inputs: ['product']}),
         MockComponent({ selector: 'executive-region-info-pin', inputs: ['event']}),
+        MockComponent({ selector: 'executive-shakemap-pin', inputs: ['product']}),
+        MockComponent({ selector: 'executive-tsunami-pin'}),
         MockComponent({ selector: 'shared-link-product', inputs: ['product']}),
         MockComponent({ selector: 'shared-text-product', inputs: ['product']}),
 
-        MockPipe('getProduct')
+        MockPipe('getProduct'),
+        MockPipe('nearbySeismicityLink')
+
       ],
       providers: [
-        { provide: EventService, useValue: eventServiceStub },
-        { provide: ContributorService, useValue: {} }
+        { provide: ContributorService, useValue: {} },
+        { provide: EventService, useValue: eventServiceStub }
       ]
     })
     .compileComponents();

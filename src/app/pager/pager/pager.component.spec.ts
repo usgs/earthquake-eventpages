@@ -28,6 +28,8 @@ describe('PagerComponent', () => {
         PagerComponent,
 
         MockComponent({selector: 'product-page', inputs: ['product']}),
+        MockComponent({selector: 'pager-cities', inputs: ['pager']}),
+        MockComponent({selector: 'pager-population', inputs: ['pager']})
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},
@@ -45,5 +47,14 @@ describe('PagerComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('onProduct', () => {
+    it('checks for losspager product', () => {
+      component.onProduct({});
+      expect(component.pagerXmlService.getPagerXml).not.toHaveBeenCalled();
+      component.onProduct({type: 'losspager'});
+      expect(component.pagerXmlService.getPagerXml).toHaveBeenCalled();
+    });
   });
 });

@@ -12,6 +12,14 @@ export class StationComponent implements OnInit {
   constructor () {}
 
    ngOnInit () {
+     if (this.station === null) {
+       return;
+     }
+
+     // Will need to parse from a string if used as a custom element
+     if (typeof this.station === 'string') {
+       this.station = JSON.parse(this.station);
+     }
    }
 
 }

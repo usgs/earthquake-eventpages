@@ -6,7 +6,7 @@ import {
   Input,
   ViewChild
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { Tensor } from './tensor';
 import { Beachball } from './beachball';
 

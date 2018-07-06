@@ -1,5 +1,5 @@
-import { catchError } from 'rxjs/operators/catchError';
-import { of } from 'rxjs/observable/of';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 import * as L from 'leaflet';
 
 
@@ -30,8 +30,15 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
 
   // retain layer data to detect whether it's already loaded
   data: null,
+
+  // retain map for custom layer adjustments
+  map: null,
+
   // retain url grab errors
   error: Error,
+
+  // persistent styles (allows alternating styles in geoJSON features)
+  styles: {},
 
   initialize: function () {
     // for content downloads in async map layers; added to layer during
@@ -40,8 +47,16 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
 
     L.GeoJSON.prototype.initialize.call(this, [], {
       onEachFeature: (feature, layer) => this.onEachFeature(feature, layer),
+      pointToLayer: (feature, layer) => this.pointToLayer(feature, layer),
       style: (feature) => this.style(feature)
     });
+  },
+
+  /**
+   * Runs after the geoJSON data is successfully added
+   */
+  afterAdd: function () {
+    // subclasses should override this method
   },
 
   /**
@@ -79,6 +94,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
           this.data = data;
           // add data to layer (and map if layer still visible)
           this.addData(data);
+          this.afterAdd();
         } catch (error) {
           this.handleError(error);
         }
@@ -90,6 +106,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
    * Get geoJSON data and add it to the existing layer
    */
   onAdd: function (map) {
+    this.map = map;
     L.GeoJSON.prototype.onAdd.call(this, map);
 
     this.loadData();
@@ -97,6 +114,21 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
 
   onEachFeature: function (feature, layer) {
     // subclasses should override this method
+  },
+
+  pointToLayer: function (feature, latlng) {
+    // subclasses should override this method
+
+    const defaultOptions = {
+        radius: 8,
+        fillColor: '#ff7800',
+        color: '#000',
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+    };
+
+    return L.circleMarker(latlng, defaultOptions);
   },
 
   /**

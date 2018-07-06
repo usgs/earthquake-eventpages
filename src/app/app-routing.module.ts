@@ -58,6 +58,10 @@ const appRoutes = [
         loadChildren: './shakemap/shakemap.module#ShakemapModule'
       },
       {
+        path: 'dyfi',
+        loadChildren: './dyfi/dyfi.module#DyfiModule'
+      },
+      {
         path: 'pager',
         loadChildren: './pager/pager.module#PagerModule'
       },
@@ -80,6 +84,14 @@ const appRoutes = [
       {
         path: 'focal-mechanism',
         loadChildren: './focal-mechanism/focal-mechanism.module#FocalMechanismModule'
+      },
+      {
+        path: 'oaf',
+        loadChildren: './oaf/oaf.module#OafModule'
+      },
+      {
+        path: 'finite-fault',
+        loadChildren: './finite-fault/finite-fault.module#FiniteFaultModule'
       }
     ]
   }

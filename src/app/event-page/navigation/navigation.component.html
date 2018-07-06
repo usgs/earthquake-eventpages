@@ -1,4 +1,4 @@
-<ng-container *ngIf="event">
+<ng-container *ngIf="event; let event">
 
   <a templateSideNavigation class="up-one-level"
       href="/earthquakes/map/">Latest Earthquakes</a>
@@ -20,14 +20,13 @@
     <app-navigation-item display="Felt Report - Tell Us!"
         navRouterLink="tellus"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('dyfi')"
-        display="Did You Feel It?" class="not-supported"
+        display="Did You Feel It?"
         navRouterLink="dyfi"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('shakemap')"
         display="ShakeMap"
         navRouterLink="shakemap"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('losspager')"
-        display="PAGER" class="not-supported"
-        navRouterLink="pager"></app-navigation-item>
+        display="PAGER" navRouterLink="pager"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('ground-failure')"
         display="Ground Failure"
         navRouterLink="ground-failure"></app-navigation-item>
@@ -48,28 +47,28 @@
         display="Focal Mechanism"
         navRouterLink="focal-mechanism"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('finite-fault')"
-        display="Finite Fault" class="not-supported"
+        display="Finite Fault"
         navRouterLink="finite-fault"></app-navigation-item>
-    <app-navigation-item display="Waveforms" class="not-supported"
+    <app-navigation-item display="Waveforms"
         navRouterLink="waveforms"></app-navigation-item>
     <app-navigation-item *ngIf="event.hasProducts('oaf')"
-        display="Aftershock Forecast" class="not-supported"
+        display="Aftershock Forecast"
         navRouterLink="oaf"></app-navigation-item>
   </app-navigation-group>
 
   <app-navigation-item display="Download Event KML"
-      navHrefLink="{{ getKmlLink(event) }}"></app-navigation-item>
-  <app-navigation-item display="View Nearby Seismicity"
-      navHrefLink="{{ getNearbySeismicityLink(event) }}"></app-navigation-item>
+    navHrefLink="{{ getKmlLink(event) }}"></app-navigation-item>
 
+  <app-navigation-item display="View Nearby Seismicity"
+    navHrefLink="{{ event | nearbySeismicityLink }}"></app-navigation-item>
 
   <ng-template #noImpact>
-    <app-navigation-item display="Felt Report - Tell Us!" class="not-supported"
+    <app-navigation-item display="Felt Report - Tell Us!"
         navRouterLink="tellus"></app-navigation-item>
   </ng-template>
 
   <ng-template #noTechnical>
-    <app-navigation-item display="Waveforms" class="not-supported"
+    <app-navigation-item display="Waveforms"
         navRouterLink="waveforms"></app-navigation-item>
   </ng-template>
 </ng-container>

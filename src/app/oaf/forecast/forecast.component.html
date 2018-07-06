@@ -1,0 +1,58 @@
+<ng-container *ngIf="oafService.forecast$ | async as forecast">
+  <p>
+    Note: The expected rate of earthquakes continues to decline throughout
+    the time windows. The probabilities in the longer time windows are
+    higher only because the rates are being summed over a longer time
+    period. These longer periods may be useful when planning recovery and
+    rebuliding projects.
+  </p>
+
+  <h3>Forecast</h3>
+
+  <P>
+    The likely number of aftershocks (N) and the probability of at least one
+    aftershock occurring (P) with at least magnitude (M) and within the given
+    time frame starting from
+        {{ forecast.columns[0].timeStart | sharedDateTime }}.
+  </P>
+
+  <div class="horizontal-scrolling">
+    <mat-table *ngIf="forecast" [dataSource]="forecast.rows">
+        <mat-header-row *matHeaderRowDef="forecast.columnIds"></mat-header-row>
+        <mat-row *matRowDef="let myRowData; columns: forecast.columnIds">
+        </mat-row>
+
+        <ng-container matColumnDef="magnitude">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let row">
+              M ≥ {{ row.magnitude }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container
+            *ngFor="let column of forecast.columns"
+            [matColumnDef]="column.id">
+          <mat-header-cell *matHeaderCellDef>
+            {{ column.label }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <ng-container *ngIf="row.data[column.id]; let bin">
+              <span class="oafColumn">N:</span>
+              <ng-container *ngIf="bin.p95maximum !== 0 ; else asterisk">
+                  {{ bin.p95minimum | sharedRoundDown: 2 | sharedNumberWithSeparator }} to
+                      {{ bin.p95maximum | sharedRoundUp: 2 | sharedNumberWithSeparator }}
+              </ng-container>
+              <br />
+              <span class="oafColumn">P:</span> {{ bin.probability | oafPercent }}
+            </ng-container>
+            <ng-template #asterisk>
+                *
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+    </mat-table>
+    <small>
+      * Earthquake possible but with a low probability.
+    </small>
+  </div>
+</ng-container>

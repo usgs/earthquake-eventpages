@@ -33,5 +33,4 @@ describe('DegreesPipe', () => {
     pipe.transform('value');
     expect(formatter.number).toHaveBeenCalledWith('value', 0, formatter.empty);
   });
-
 });

@@ -1,21 +1,49 @@
-.landslides-liquefaction-icon {
-  float: left;
-  font-size: 40px;
-  margin-right: 20px;
+.ground-failure-icon {
+  height: auto;
+  margin-right: 1rem;
+  stroke: #333;
+  stroke-width: 0.5px;
+  width: 100%;
 }
 
 .green {
-  color: #27a83c;
+  .st0, .st1 {
+    fill: #27a83c;
+  }
 }
 
 .yellow {
-  color: #e5e514;
+  .st0, .st1 {
+    fill: #F9F518;
+  }
 }
 
 .orange {
-  color: #f0a216;
+  .st0, .st1 {
+    fill: #f0a216;
+  }
 }
 
 .red {
-  color: #ba2d1a;
+  .st0, .st1 {
+    fill: #ba2d1a;
+  }
+}
+
+span {
+  display: block;
+  line-height: 1;
+  margin: 0.25em 0 0.5em;
+}
+
+h4 {
+  margin: 0.5em 0;
+}
+
+.column.icon {
+  width: 70px;
+}
+
+.column.text {
+  flex: 1;
 }

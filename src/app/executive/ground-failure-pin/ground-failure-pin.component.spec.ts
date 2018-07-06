@@ -16,7 +16,8 @@ describe('GroundFailurePinComponent', () => {
           selector: 'basic-pin',
           inputs: [
             'link',
-            'product'
+            'product',
+            'title'
           ]
         })
       ]

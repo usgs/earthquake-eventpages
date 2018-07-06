@@ -1,29 +1,45 @@
-<!-- Basic Pin -->
-<article [routerLink]="link">
-  <!-- Title -->
-  <header>
-    <ng-container *ngIf="title; else noTitle">
-      <a [routerLink]="link">{{ title }}</a>
-    </ng-container>
-    <ng-template #noTitle>
-      <ng-content select="[card-title]"></ng-content>
-    </ng-template>
-  </header>
+<ng-container *ngIf="link; else useHref">
+  <a [routerLink]="link" class="pin-link-wrapper">
+    <ng-container *ngTemplateOutlet="cardTemplate"></ng-container>
+  </a>
+</ng-container>
 
-  <!-- Content -->
-  <section>
-    <ng-content select="[card-content]"></ng-content>
-  </section>
+<ng-template #useHref>
+  <a [href]="href" class="pin-link-wrapper">
+    <ng-container *ngTemplateOutlet="cardTemplate"></ng-container>
+  </a>
+</ng-template>
 
-  <!-- Footer -->
-  <footer>
-    <ng-container *ngIf="footer; else noFooter">
-      {{ footer }}
-    </ng-container>
-    <ng-template #noFooter>
-      Contributed by
-      <shared-product-attribution [product]="product">
-      </shared-product-attribution>
-    </ng-template>
-  </footer>
-</article>
+
+<ng-template #cardTemplate>
+  <article>
+    <header>
+      <ng-container *ngIf="title; else noTitle">
+        <ng-container *ngIf="link; else useHrefTitle">
+          <a [routerLink]="link">{{ title }}</a>
+        </ng-container>
+        <ng-template #useHrefTitle>
+            <a [href]="href">{{ title }}</a>
+        </ng-template>
+      </ng-container>
+      <ng-template #noTitle>
+        <ng-content select="[card-title]"></ng-content>
+      </ng-template>
+    </header>
+
+    <section>
+      <ng-content></ng-content>
+    </section>
+
+    <footer>
+      <ng-container *ngIf="footer; else noFooter">
+        {{ footer }}
+      </ng-container>
+      <ng-template #noFooter>
+        Contributed by
+        <shared-product-attribution [product]="product">
+        </shared-product-attribution>
+      </ng-template>
+    </footer>
+  </article>
+</ng-template>

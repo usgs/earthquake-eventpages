@@ -1,0 +1,56 @@
+<!-- productType attribute defines type of product to load -->
+<product-page productType="dyfi">
+
+  <!-- container with header attribute is added before attribution -->
+  <ng-container header>
+    <h3>Did You Feel It?</h3>
+    <a [routerLink]="'../tellus'"
+        class="tell-us-link"
+        queryParamsHandling="preserve">
+      Felt Report - Tell Us!
+    </a>
+  </ng-container>
+
+  <ng-container>
+  <!-- routes/components in ../origin-routing.module.ts -->
+    <mdc-tab-bar-scroller>
+      <mdc-tab-bar-scroll-back>
+        <mdc-icon>navigate_before</mdc-icon>
+      </mdc-tab-bar-scroll-back>
+      <mdc-tab-bar-scroll-frame>
+        <nav mdc-tab-bar>
+          <a mdc-tab mdcRouter [routerLink]="'./intensity'"
+              queryParamsHandling="preserve">
+            Intensity
+          </a>
+          <a mdc-tab mdcRouter [routerLink]="'./zip'"
+              queryParamsHandling="preserve">
+            ZIP Map
+          </a>
+          <a mdc-tab mdcRouter [routerLink]="'./intensity-vs-distance'"
+              queryParamsHandling="preserve">
+            Intensity Vs. Distance
+          </a>
+          <a mdc-tab mdcRouter [routerLink]="'./responses-vs-time'"
+              queryParamsHandling="preserve">
+            Responses Vs. Time
+          </a>
+          <a mdc-tab mdcRouter [routerLink]="'./responses'"
+              queryParamsHandling="preserve">
+            DYFI Responses
+          </a>
+        </nav>
+      </mdc-tab-bar-scroll-frame>
+      <mdc-tab-bar-scroll-forward>
+        <mdc-icon>navigate_next</mdc-icon>
+      </mdc-tab-bar-scroll-forward>
+    </mdc-tab-bar-scroller>
+
+    <router-outlet></router-outlet>
+  </ng-container>
+
+  <!-- container with footer attribute is added before downloads -->
+  <ng-container footer>
+  </ng-container>
+
+</product-page>

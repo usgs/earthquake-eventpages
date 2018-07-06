@@ -2,12 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
 
 import { Event } from '../../event';
 import { EventService } from '../../core/event.service';
 import { IntensityComponent } from './intensity.component';
 import { MockPipe } from '../../mock-pipe';
-import { of } from 'rxjs/observable/of';
 
 describe('IntensityComponent', () => {
   let component: IntensityComponent;
@@ -30,7 +30,8 @@ describe('IntensityComponent', () => {
           selector: 'shared-map',
           inputs: [
             'overlays',
-            'showScaleControl'
+            'showScaleControl',
+            'showAttributionControl'
           ]
         }),
 

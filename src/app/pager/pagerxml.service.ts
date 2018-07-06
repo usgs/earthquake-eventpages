@@ -1,10 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { catchError } from 'rxjs/operators/catchError';
-import { of } from 'rxjs/observable/of';
+import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { xmlToJson } from '../xml-to-json';
 import { Quakeml } from '../quakeml';
@@ -23,9 +21,6 @@ export class PagerXmlService {
 
   getPagerXml (product: any): void {
     try {
-      if (product.losspager) {
-        product = product.losspager;
-      }
       const contents = product.contents['pager.xml'];
       const options = {responseType: 'text' as 'text'};
 
@@ -151,7 +146,6 @@ export class PagerXmlService {
   _parseComments (pager: any) {
     let effects,
         data,
-        impact,
         structure;
 
     if (!pager || (
@@ -173,17 +167,51 @@ export class PagerXmlService {
       data.effects = effects.trim();
     }
 
-    // TODO :: This is a cluster. PAGER team should sort out a better way to
-    //         send comments of this nature.
-    impact = pager.impact_comment;
-    if (impact && impact !== '' && typeof impact !== 'object') {
-      data.impact = impact.trim().split('#').reverse();
-      if (data.impact[0].indexOf('economic') !== -1) {
-        data.impact.reverse();
-      }
-    }
+    data.impact = this._parseImpactComments(pager.impact_comment);
 
     return data;
+  }
+
+  /**
+   * [_parseImpactComments description]
+   *
+   * @param comment {String}
+   *      The string representing the combinded economic and fatality
+   *      impact comment
+   *
+   * @return {Object}
+   *      An object containing parsed impact comment information.
+   *      Keyed by impact comment type.
+   */
+  _parseImpactComments (comment) {
+    let impact;
+
+    // TODO :: This is a cluster. PAGER team should sort out a better way to
+    //         send comments of this nature.
+    if (!comment || comment === '' || typeof comment === 'object') {
+      return null;
+    }
+
+    impact = {};
+
+    comment = comment.trim().split('#').reverse();
+    if (comment[0].indexOf('economic') !== -1) {
+      comment.reverse();
+    }
+
+    // name the comments
+    if (comment.length === 2) {
+      if (comment[0] !== '') {
+        impact.fatality = comment[0];
+        impact.economic = comment[1];
+      } else {
+        impact.fatality = comment[1];
+      }
+    } else {
+      impact.fatality = comment[0];
+    }
+
+    return impact;
   }
 
 
@@ -204,6 +232,10 @@ export class PagerXmlService {
       return null;
     }
 
+    const roman = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+    const shaking = ['Not Felt', 'Weak', 'Weak', 'Light', 'Moderate', 'Strong',
+        'Very Strong', 'Severe', 'Violent', 'Extreme'];
+
     data = [];
     exposures = pager.exposure;
 
@@ -213,6 +245,8 @@ export class PagerXmlService {
         dmax: parseFloat(exposures[i].dmax),
         exposure: parseInt(exposures[i].exposure, 10),
         rangeInsideMap: (exposures[i].rangeInsideMap === '1'),
+        roman: roman[i],
+        shaking: shaking[i]
       });
     }
 
@@ -231,7 +265,9 @@ export class PagerXmlService {
         dmin: 1.5,
         dmax: 3.5,
         exposure: exposure,
-        rangeInsideMap: rangeInsideMap
+        rangeInsideMap: rangeInsideMap,
+        roman: 'II-III',
+        shaking: 'Weak'
       });
     }
 

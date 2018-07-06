@@ -1,20 +1,33 @@
+<!-- productType attribute defines type of product to load -->
 <product-page productType="ground-failure">
+
+  <!-- container with header attribute is added before attribution -->
   <ng-container header>
     <h2>Ground Failure</h2>
   </ng-container>
 
-  <nav mat-tab-nav-bar>
-      <a mat-tab-link
-          [routerLink]="'./summary'" queryParamsHandling="preserve"
-          routerLinkActive #summary="routerLinkActive" [active]="summary.isActive">
-        Summary
-      </a>
-      <a mat-tab-link
-          [routerLink]="'./about'" queryParamsHandling="preserve"
-          routerLinkActive #about="routerLinkActive" [active]="about.isActive">
-        About
-      </a>
-  </nav>
+  <mdc-tab-bar-scroller>
+    <mdc-tab-bar-scroll-back>
+      <mdc-icon>navigate_before</mdc-icon>
+    </mdc-tab-bar-scroll-back>
+    <mdc-tab-bar-scroll-frame>
+      <!-- routes/components in ../ground-failure-routing.module.ts -->
+      <nav mdc-tab-bar>
+        <a mdc-tab mdcRouter
+            [routerLink]="'./summary'" queryParamsHandling="preserve">
+          Summary
+        </a>
+        <a mdc-tab mdcRouter
+            [routerLink]="'./about'" queryParamsHandling="preserve">
+          About
+        </a>
+      </nav>
+    </mdc-tab-bar-scroll-frame>
+    <mdc-tab-bar-scroll-forward>
+      <mdc-icon>navigate_next</mdc-icon>
+    </mdc-tab-bar-scroll-forward>
+  </mdc-tab-bar-scroller>
+
   <router-outlet></router-outlet>
 
   <ng-container *ngIf="eventService.product$ | async as product" footer>
@@ -26,17 +39,23 @@
     </p>
     <p>
       Results are based on ground-motion estimates from the current
-      <a [routerLink]="'./shakemap'">ShakeMap</a> (point source).
-      The extent of shaking and ground-failure estimates generally improve
-      as more details are incorporated into ShakeMap.
 
-      <ng-container *ngIf="product?.properties && (product.properties['rupture-warning'] | uppercase) !== 'FALSE'">
+      <ng-container *ngIf="product?.properties && (product.properties['rupture-warning'] | uppercase) !== 'FALSE'; else noPointSource">
+        <a [routerLink]="'./shakemap'">ShakeMap</a> (point source).
+        The extent of shaking and ground-failure estimates generally improve
+        as more details are incorporated into ShakeMap.
         ShakeMap is currently approximating this earthquake as a
-        point source, and the mapped extent of ground failiure commonly
+        point source, and the mapped extent of ground failure commonly
         changes significantly when a fault model is added, especially for
         larger earthquakes. Interpret Ground Failure results with caution
         until ShakeMap has been updated with a fault model.
       </ng-container>
+
+      <ng-template #noPointSource>
+        <a [routerLink]="'./shakemap'">ShakeMap</a>.
+        The extent of shaking and ground-failure estimates generally improve
+        as more details are incorporated into ShakeMap.
+      </ng-template>
     </p>
   </ng-container>
 

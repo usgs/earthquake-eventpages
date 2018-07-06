@@ -13,6 +13,9 @@ export class BasicPinComponent {
   // router link for entire card action
   @Input() link;
 
+  // Overrides router link
+  @Input() href;
+
   // product attribution
   // only used if footer is not provided
   @Input() product;

@@ -1,0 +1,20 @@
+<h2>Responses vs. Time Plot</h2>
+
+<div class="chart-container">
+  <ng-container *ngIf="dyfiSeries as series">
+    <ngx-charts-line-chart
+      [scheme]="colorScheme"
+      [results]="series.series"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [autoScale]="autoScale"
+      [timeline]="timeline">
+    </ngx-charts-line-chart>
+  </ng-container>
+</div>

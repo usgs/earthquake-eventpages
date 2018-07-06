@@ -1,23 +1,23 @@
 <ng-container *ngIf="station">
   <h3>
-    {{ station.properties.code }}
-    <small>{{ station.properties.name }}</small>
+    {{ station.properties?.code }}
+    <small>{{ station.properties?.name }}</small>
   </h3>
 
   <div class="summary">
     <shared-mmi class="intensity"
       [bubble]="true"
-      [intensity]="station.properties.intensity">
+      [intensity]="station.properties?.intensity">
     </shared-mmi>
 
     <shared-bubble [name]="'pga'" [title]="'Maximum Horizontal Peak Ground Acceleration'">
-      {{ station.properties.pga | sharedNumber:2:'%g' }}
+      {{ station.properties?.pga | sharedNumber:2:'%g' }}
     </shared-bubble>
     <shared-bubble [name]="'pgv'" [title]="'Maximum Horizontal Peak Ground Velocity'">
-      {{ station.properties.pgv | sharedNumber:2:'cm/s' }}
+      {{ station.properties?.pgv | sharedNumber:2:'cm/s' }}
     </shared-bubble>
     <shared-bubble [name]="'dist'" [title]="'Distance'">
-      {{ station.properties.distance | sharedNumber:2:'km' }}
+      {{ station.properties?.distance | sharedNumber:2:'km' }}
     </shared-bubble>
   </div>
 
@@ -32,13 +32,13 @@
 
       <dl class="description-table">
         <dt>Network</dt>
-        <dd>{{ station.properties.network }}</dd>
+        <dd>{{ station.properties?.network }}</dd>
         <dt>Location</dt>
-        <dd>{{ station.geometry.coordinates | sharedLocation }}</dd>
+        <dd>{{ station.geometry?.coordinates | sharedLocation }}</dd>
         <dt>Source</dt>
-        <dd>{{ station.properties.source }}</dd>
+        <dd>{{ station.properties?.source }}</dd>
         <dt>Intensity</dt>
-        <dd>{{ station.properties.intensity }}</dd>
+        <dd>{{ station.properties?.intensity }}</dd>
       </dl>
 
       <h3>Channels</h3>
@@ -65,8 +65,8 @@
             PGA
           </mat-header-cell>
           <mat-cell *matCellDef="let channel">
-            {{ channel.pga.value |
-                sharedNumber:2:channel.pga.units }}
+            {{ channel.pga?.value |
+                sharedNumber:2:channel?.pga?.units }}
 
             <shared-station-flag class="flag" [flag]="channel.pga.flag">
             </shared-station-flag>
@@ -79,7 +79,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let channel">
             {{ channel.pgv.value |
-                sharedNumber:2:channel.pgv.units }}
+                sharedNumber:2:channel?.pgv?.units }}
 
             <shared-station-flag class="flag" [flag]="channel.pgv.flag">
             </shared-station-flag>
@@ -92,7 +92,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let channel">
             {{ channel.psa03.value |
-                sharedNumber:2:channel.psa03.units }}
+                sharedNumber:2:channel?.psa03?.units }}
 
             <shared-station-flag class="flag" [flag]="channel.psa03.flag">
             </shared-station-flag>
@@ -105,7 +105,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let channel">
             {{ channel.psa10.value |
-                sharedNumber:2:channel.psa10.units}}
+                sharedNumber:2:channel?.psa10?.units}}
 
             <shared-station-flag class="flag" [flag]="channel.psa10.flag">
             </shared-station-flag>
@@ -118,7 +118,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let channel">
             {{ channel.psa30.value |
-                sharedNumber:2:channel.psa30.units }}
+                sharedNumber:2:channel?.psa30?.units }}
 
             <shared-station-flag class="flag" [flag]="channel.psa30.flag">
             </shared-station-flag>

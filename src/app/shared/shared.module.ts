@@ -1,14 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { createCustomElement } from '@angular/elements';
+import { NgModule, Injector } from '@angular/core';
 import { MatButtonModule,
           MatDialogModule,
           MatIconModule,
           MatExpansionModule,
           MatCardModule,
           MatTableModule } from '@angular/material';
+
 import { AttributionComponent } from './attribution/attribution.component';
 import { AlertLevelComponent } from './alert-level/alert-level.component';
 import { BeachballComponent } from './beachball/beachball.component';
+import { ProductContentPipe } from './product-content.pipe';
 import { CoordinatesComponent } from './coordinates/coordinates.component';
 import { DownloadDialogComponent } from './download-dialog/download-dialog.component';
 import { FeRegionComponent } from './fe-region/fe-region.component';
@@ -37,8 +40,15 @@ import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 import { InteractiveMapBoundsPipe } from './interactive-map-bounds.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 import { KeysPipe } from './keys.pipe';
-import { StationFlagComponent } from './station-flag/station-flag.component';
+import { NearbySeismicityLinkPipe } from './nearby-seismicity-link.pipe';
+import { RomanPipe } from './roman.pipe';
+import { RoundDownPipe } from './round-down.pipe';
+import { RoundUpPipe } from './round-up.pipe';
 import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
+import { SignificantFigurePipe } from './significant-figure.pipe';
+import { StationFlagComponent } from './station-flag/station-flag.component';
+import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
+
 
 
 @NgModule({
@@ -56,6 +66,7 @@ import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
     AlertLevelComponent,
     BeachballComponent,
     BubbleComponent,
+    ProductContentPipe,
     CoordinatesComponent,
     DegreesPipe,
     DyfiCounterPipe,
@@ -67,11 +78,11 @@ import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
     MapComponent,
     MmiComponent,
     NumberPipe,
+    NumberWithSeparatorPipe,
     PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
     UncertainValueComponent,
-    StationComponent,
     NodalPlanesComponent,
     TensorPipe,
     DateTimePipe,
@@ -79,16 +90,23 @@ import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
     GroundFailureOverlaysPipe,
     InteractiveMapBoundsPipe,
     InteractiveMapOverlaysPipe,
-    RegionInfoOverlaysPipe,
     KeysPipe,
+    RegionInfoOverlaysPipe,
+    RomanPipe,
+    RoundDownPipe,
+    RoundUpPipe,
+    ShakemapOverlaysPipe,
+    SignificantFigurePipe,
+    StationComponent,
     StationFlagComponent,
-    ShakemapOverlaysPipe
+    NearbySeismicityLinkPipe
   ],
   exports: [
     AttributionComponent,
     AlertLevelComponent,
     BeachballComponent,
     BubbleComponent,
+    ProductContentPipe,
     CoordinatesComponent,
     DegreesPipe,
     DyfiCounterPipe,
@@ -100,25 +118,47 @@ import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
     MapComponent,
     MatIconModule,
     MmiComponent,
+    NearbySeismicityLinkPipe,
     NodalPlanesComponent,
     NumberPipe,
+    NumberWithSeparatorPipe,
     ProductAttributionComponent,
     PreferredCheckComponent,
     TextProductComponent,
     UncertainValueComponent,
-    StationComponent,
     TensorPipe,
     DateTimePipe,
     GetProductPipe,
     GroundFailureOverlaysPipe,
-    KeysPipe,
     InteractiveMapBoundsPipe,
     InteractiveMapOverlaysPipe,
+    KeysPipe,
     RegionInfoOverlaysPipe,
-    ShakemapOverlaysPipe
+    RomanPipe,
+    RoundDownPipe,
+    RoundUpPipe,
+    ShakemapOverlaysPipe,
+    SignificantFigurePipe,
+    StationComponent
   ],
   entryComponents: [
-    DownloadDialogComponent
+    DownloadDialogComponent,
+    StationComponent
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+  constructor (private injector: Injector) {
+
+    // shakemap-station constructor will be an HTMLElement if it's not
+    // registered yet
+    const stationConst = document.createElement('shakemap-station').constructor;
+
+    if (stationConst === HTMLElement) {
+      // shakemap-station element is not yet registered
+      const station = createCustomElement(StationComponent, { injector });
+      customElements.define('shakemap-station', station);
+    }
+  }
+
+  ngDoBootstrap () {}
+}

@@ -12,7 +12,7 @@
     <mat-form-field>
       <mat-label>Select Language</mat-label>
       <mat-select
-          (change)="setLanguage($event.value)"
+          (selectionChange)="setLanguage($event.value)"
           [value]="language.id">
         <mat-option *ngFor="let language of languageService.languages"
             [value]="language.id">
@@ -28,17 +28,7 @@
           [enter]="language.locationInfo.button"
           [update]="language.locationInfo.buttonUpdate">
       </tell-us-location>
-
-      <pre>{{
-
-        {
-          ciim_mapAddress: answers.ciim_mapAddress,
-          ciim_mapConfidence: answers.ciim_mapConfidence,
-          ciim_mapLat: answers.ciim_mapLat,
-          ciim_mapLon: answers.ciim_mapLon
-        } | json
-
-      }}</pre>
+      <location-input-map></location-input-map>
     </tell-us-fieldset>
 
     <!-- time -->

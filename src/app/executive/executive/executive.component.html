@@ -24,6 +24,11 @@
       </executive-shakemap-pin>
     </li>
 
+    <li *ngIf="event | getProduct:'losspager'; let losspager">
+      <executive-pager-pin [product]="losspager">
+      </executive-pager-pin>
+    </li>
+
     <li *ngIf="event | getProduct:'ground-failure' let groundFailure">
       <executive-ground-failure-pin [product]="groundFailure">
       </executive-ground-failure-pin>
@@ -46,6 +51,26 @@
         </executive-focal-mechanism-pin>
       </li>
     </ng-template>
+
+    <li *ngIf="event | getProduct:'finite-fault'; let finiteFault">
+      <executive-finite-fault-pin [product]="finiteFault">
+      </executive-finite-fault-pin>
+    </li>
+
+    <li *ngIf="event | getProduct:'oaf'; let oaf">
+      <executive-oaf-pin [product]="oaf">
+      </executive-oaf-pin>
+    </li>
+
+    <li *ngIf="event.data?.properties?.tsunami === 1">
+      <executive-tsunami-pin>
+      </executive-tsunami-pin>
+    </li>
+
+    <li *ngIf="event | nearbySeismicityLink: 'nearby'; let link">
+      <executive-nearby-seismicity-pin [event]="event" [link]="link">
+      </executive-nearby-seismicity-pin>
+    </li>
   </ul>
 
   <shared-text-product

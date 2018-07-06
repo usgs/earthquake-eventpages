@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { AfterViewInit, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { EventService } from '../../core/event.service';
 import { PagerXmlService } from '../pagerxml.service';
@@ -8,28 +8,29 @@ import { PagerXmlService } from '../pagerxml.service';
 @Component({
   selector: 'pager-pager',
   templateUrl: './pager.component.html',
-  styleUrls: ['./pager.component.scss']
+  styleUrls: ['./pager.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class PagerComponent implements OnInit {
+export class PagerComponent implements AfterViewInit, OnDestroy {
 
   /** subscription to product observable */
   private productSubscription: Subscription;
-
-  /** subscription to pager xml observable */
-  private pagerXmlSubscription: Subscription;
 
   constructor(
     public eventService: EventService,
     public pagerXmlService: PagerXmlService
   ) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    // By the time the afterViewinit hook runs the eventService has
+    // the correct "losspager" product
     this.productSubscription = this.eventService.product$.subscribe((product) => {
       this.onProduct(product);
     });
-    this.pagerXmlSubscription = this.pagerXmlService.pagerXml$.subscribe((pagerXml) => {
-      this.onPagerXml(pagerXml);
-    });
+  }
+
+  ngOnDestroy () {
+    this.productSubscription.unsubscribe();
   }
 
   /**
@@ -38,19 +39,8 @@ export class PagerComponent implements OnInit {
    * @param product next product.
    */
   onProduct (product) {
-    if (product) {
+    if (product && product.type === 'losspager') {
       this.pagerXmlService.getPagerXml(product);
-    }
-  }
-
-  /**
-   * Observe pager.xml changes, process alerts, exposure, and shaking levels.
-   *
-   * @param pagerXml next pager.xml
-   */
-  onPagerXml (pagerXml: any) {
-    if (pagerXml) {
-      console.log('pagerxml', pagerXml);
     }
   }
 }

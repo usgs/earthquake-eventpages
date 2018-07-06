@@ -1,0 +1,111 @@
+.station-overlay-dyfi-layer-icon {
+  border: 1px solid #666;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.station-overlay-station-layer-icon {
+  position: absolute;
+
+  &:before {
+    border: 10px solid transparent;
+    border-left-width: 6px;
+    border-right-width: 6px;
+    content: ' ';
+    display: block;
+    left: 1px;
+    position: absolute;
+    top: -10px;
+    z-index: 2;
+  }
+
+  &:after {
+    border: 12px solid transparent;
+    border-bottom-color: #666;
+    border-left-width: 8px;
+    border-right-width: 8px;
+    content: ' ';
+    display: block;
+    left: -1px;
+    position: absolute;
+    top: -13px;
+    z-index: 1;
+  }
+}
+
+.station-overlay-station-layer-icon.station-mmiI:before {
+  border-bottom-color: $mmiI !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiII:before {
+  border-bottom-color: $mmiII !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiIII:before {
+  border-bottom-color: $mmiIII !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiIV:before {
+  border-bottom-color: $mmiIV !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiV:before {
+  border-bottom-color: $mmiV !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiVI:before {
+  border-bottom-color: $mmiVI !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiVII:before {
+  border-bottom-color: $mmiVII !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiVIII:before {
+  border-bottom-color: $mmiVIII !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiIX:before {
+  border-bottom-color: $mmiIX !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiX:before {
+  border-bottom-color: $mmiX !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiXI:before {
+  border-bottom-color: $mmiXI !important;
+}
+
+.station-overlay-station-layer-icon.station-mmiXII:before {
+  border-bottom-color: $mmiXII !important;
+}
+
+.leaflet-popup shakemap-station dl.description-table {
+
+  @media screen and (min-width: 300px) {
+
+    /* 24px column gaps */
+    > dt {
+      flex: 1 40%;
+      padding: 4px 3px 4px 6px;
+      min-height: auto;
+      font-size: .88em;
+    }
+
+    > dd {
+      flex: 1 60%;
+      padding: 4px 6px 4px 3px;
+      min-height: auto;
+      font-size: .88em;
+    }
+  }
+}
+
+.leaflet-popup shakemap-station .mat-expansion-panel-body {
+  padding: 0 4px 2px;
+}
+
+.leaflet-popup shakemap-station h3 {
+  margin: 5px 5px 0;
+}

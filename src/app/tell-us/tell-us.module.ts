@@ -23,11 +23,13 @@ import { QuestionComponent } from './question/question.component';
 import { TellUsComponent } from './tell-us/tell-us.component';
 import { TellUsRoutingModule } from './tell-us-routing.module';
 
+import { LocationInputModule } from 'hazdev-ng-location-input';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    LocationInputModule.forRoot(),
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,

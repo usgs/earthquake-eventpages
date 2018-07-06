@@ -1,0 +1,11 @@
+<ng-container *ngIf="eventService.product$ | async; let dyfi">
+  <ng-container *ngIf="dyfi.contents[dyfi.code + '_ciim_geo.jpg'] as intensity; else noImage">
+    <ng-container *ngIf="intensity?.url as url; else noImage">
+      <img src="{{ url }}" alt="DYFI intensity map">
+    </ng-container>
+  </ng-container>
+
+  <ng-template #noImage>
+    <h1>Not available for this event</h1>
+  </ng-template>
+</ng-container>

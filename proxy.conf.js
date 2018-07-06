@@ -6,7 +6,9 @@ const PROXY_CONFIG = [
       '/earthquakes/feed',
       '/earthquakes/map',
       '/fdsnws',
+      '/lib',
       '/realtime',
+      '/theme',
       '/ws/geoserve'
     ],
     target: 'https://earthquake.usgs.gov',
