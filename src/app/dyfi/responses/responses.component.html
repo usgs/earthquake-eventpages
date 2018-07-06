@@ -1,3 +1,73 @@
-<p>
-  responses works!
-</p>
+<ng-container *ngIf="loaded">
+  <mat-table [dataSource]="responses" matSort>
+        <mat-header-row *matHeaderRowDef="headers"></mat-header-row>
+        <mat-row *matRowDef="let myRowData; columns: headers"></mat-row>
+
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Location
+          </mat-header-cell>
+          <mat-cell [attr.role]="'rowheader'"
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let dyfi">
+
+            {{ dyfi.name }} {{ dyfi.state }} {{ dyfi.zip }}
+            {{ dyfi.country }}
+
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="cdi">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            MMI
+          </mat-header-cell>
+          <mat-cell *matCellDef="let dyfi">
+            <shared-mmi intensity="{{ dyfi.cdi }}">
+            </shared-mmi>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="nresp">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Responses
+          </mat-header-cell>
+          <mat-cell *matCellDef="let dyfi">
+            {{ dyfi.nresp }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="dist">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Distance
+          </mat-header-cell>
+          <mat-cell *matCellDef="let dyfi">
+            {{ dyfi.dist }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lat">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Latitude
+          </mat-header-cell>
+          <mat-cell *matCellDef="let dyfi">
+            {{ dyfi.lat | sharedUnits:'lat' }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lon">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Longitude
+          </mat-header-cell>
+          <mat-cell *matCellDef="let dyfi">
+            {{ dyfi.lon | sharedUnits:'lon' }}
+          </mat-cell>
+        </ng-container>
+
+      </mat-table>
+  
+      <mat-paginator
+          [pageSizeOptions]="paginatorSizes"
+          showFirstLastButtons></mat-paginator>
+
+</ng-container>

@@ -68,7 +68,8 @@ describe('BubbleSeriesComponent', () => {
               'tooltipType',
               'tooltipPlacement',
               'tooltipTitle',
-              'tooltipContext'
+              'tooltipContext',
+              'path'
             ]
           }
         )
