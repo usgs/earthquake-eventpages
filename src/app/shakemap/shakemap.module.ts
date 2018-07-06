@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import {
   MatCardModule,
   MatDialogModule,
@@ -10,6 +9,11 @@ import {
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
+
+import {
+  MdcTabModule,
+  MdcIconModule
+} from '@angular-mdc/web';
 
 import { SharedModule } from '../shared/shared.module';
 import { ProductPageModule } from '../product-page/product-page.module';
@@ -38,6 +42,8 @@ import { PsaComponent } from './psa/psa.component';
     MatTableModule,
     MatTabsModule,
     MatDividerModule,
+    MdcIconModule,
+    MdcTabModule,
 
     ProductPageModule,
     SharedModule,

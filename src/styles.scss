@@ -10,8 +10,38 @@
 @import './app/shared/css/leaflet-styles.scss'; // import before legend-control.scss
 @import './app/shared/map-control/legend-control.scss';
 
+/* Material Design Component Styles */
+a.mdc-tab,
+mdc-tab.mdc-tab {
+  font-size: 14px;
+
+  &:visited {
+    color: inherit;
+  }
+}
+
+nav.mdc-tab-bar,
+mdc-tab-bar.mdc-tab-bar {
+  /* stop tabs from being centered */
+  margin: 0;
+}
+
+mdc-tab-bar-scroller.mdc-tab-bar-scroller {
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+@import "~@angular-mdc/theme/material";
 
 /* allow wrapping on small screens */
 .mat-radio-label-content {
   white-space: normal;
+}
+
+/* styles that should be added to the template */
+img {
+  max-width: 100%;
+}
+
+.sidenav-content {
+  overflow: hidden;
 }

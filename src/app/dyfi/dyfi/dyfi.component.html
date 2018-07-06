@@ -13,38 +13,38 @@
 
   <ng-container>
   <!-- routes/components in ../origin-routing.module.ts -->
-    <nav mat-tab-nav-bar>
-      <a mat-tab-link [routerLink]="'./intensity'"
-          queryParamsHandling="preserve"
-          routerLinkActive #intensity="routerLinkActive"
-          [active]="intensity.isActive">
-        Intensity
-      </a>
-      <a mat-tab-link [routerLink]="'./zip'"
-          queryParamsHandling="preserve"
-          routerLinkActive #zip="routerLinkActive"
-          [active]="zip.isActive">
-        ZIP Map
-      </a>
-      <a mat-tab-link [routerLink]="'./intensity-vs-distance'"
-          queryParamsHandling="preserve"
-          routerLinkActive #intensity_vs_distance="routerLinkActive"
-          [active]="intensity_vs_distance.isActive">
-        Intensity Vs. Distance
-      </a>
-      <a mat-tab-link [routerLink]="'./responses-vs-time'"
-          queryParamsHandling="preserve"
-          routerLinkActive #responses_vs_time="routerLinkActive"
-          [active]="responses_vs_time.isActive">
-        Responses Vs. Time
-      </a>
-      <a mat-tab-link [routerLink]="'./responses'"
-          queryParamsHandling="preserve"
-          routerLinkActive #responses="routerLinkActive"
-          [active]="responses.isActive">
-        DYFI Responses
-      </a>
-    </nav>
+    <mdc-tab-bar-scroller>
+      <mdc-tab-bar-scroll-back>
+        <mdc-icon>navigate_before</mdc-icon>
+      </mdc-tab-bar-scroll-back>
+      <mdc-tab-bar-scroll-frame>
+        <nav mdc-tab-bar>
+          <a mdc-tab mdcRouter [routerLink]="'./intensity'"
+              queryParamsHandling="preserve">
+            Intensity
+          </a>
+          <a mdc-tab mdcRouter [routerLink]="'./zip'"
+              queryParamsHandling="preserve">
+            ZIP Map
+          </a>
+          <a mdc-tab mdcRouter [routerLink]="'./intensity-vs-distance'"
+              queryParamsHandling="preserve">
+            Intensity Vs. Distance
+          </a>
+          <a mdc-tab mdcRouter [routerLink]="'./responses-vs-time'"
+              queryParamsHandling="preserve">
+            Responses Vs. Time
+          </a>
+          <a mdc-tab mdcRouter [routerLink]="'./responses'"
+              queryParamsHandling="preserve">
+            DYFI Responses
+          </a>
+        </nav>
+      </mdc-tab-bar-scroll-frame>
+      <mdc-tab-bar-scroll-forward>
+        <mdc-icon>navigate_next</mdc-icon>
+      </mdc-tab-bar-scroll-forward>
+    </mdc-tab-bar-scroller>
 
     <router-outlet></router-outlet>
   </ng-container>

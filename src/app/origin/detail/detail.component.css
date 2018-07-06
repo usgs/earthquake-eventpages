@@ -24,3 +24,16 @@ th {
   font-size: 0.8em;
   font-weight: normal;
 }
+
+
+a.mdc-tab {
+  font-size: 14px;
+}
+
+a.mdc-tab:visited {
+  color: inherit;
+}
+
+.mdc-tab-bar-scroller {
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+}

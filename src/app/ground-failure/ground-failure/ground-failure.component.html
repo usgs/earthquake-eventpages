@@ -1,20 +1,33 @@
+<!-- productType attribute defines type of product to load -->
 <product-page productType="ground-failure">
+
+  <!-- container with header attribute is added before attribution -->
   <ng-container header>
     <h2>Ground Failure</h2>
   </ng-container>
 
-  <nav mat-tab-nav-bar>
-      <a mat-tab-link
-          [routerLink]="'./summary'" queryParamsHandling="preserve"
-          routerLinkActive #summary="routerLinkActive" [active]="summary.isActive">
-        Summary
-      </a>
-      <a mat-tab-link
-          [routerLink]="'./about'" queryParamsHandling="preserve"
-          routerLinkActive #about="routerLinkActive" [active]="about.isActive">
-        About
-      </a>
-  </nav>
+  <mdc-tab-bar-scroller>
+    <mdc-tab-bar-scroll-back>
+      <mdc-icon>navigate_before</mdc-icon>
+    </mdc-tab-bar-scroll-back>
+    <mdc-tab-bar-scroll-frame>
+      <!-- routes/components in ../ground-failure-routing.module.ts -->
+      <nav mdc-tab-bar>
+        <a mdc-tab mdcRouter
+            [routerLink]="'./summary'" queryParamsHandling="preserve">
+          Summary
+        </a>
+        <a mdc-tab mdcRouter
+            [routerLink]="'./about'" queryParamsHandling="preserve">
+          About
+        </a>
+      </nav>
+    </mdc-tab-bar-scroll-frame>
+    <mdc-tab-bar-scroll-forward>
+      <mdc-icon>navigate_next</mdc-icon>
+    </mdc-tab-bar-scroll-forward>
+  </mdc-tab-bar-scroller>
+
   <router-outlet></router-outlet>
 
   <ng-container *ngIf="eventService.product$ | async as product" footer>

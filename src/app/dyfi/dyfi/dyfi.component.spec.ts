@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatTabsModule } from '@angular/material/tabs';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
@@ -13,13 +12,17 @@ describe('DyfiComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MatTabsModule,
         RouterTestingModule
       ],
       declarations: [
         DyfiComponent,
 
-        MockComponent({selector: 'product-page', inputs: ['productType']})
+        MockComponent({ selector: 'product-page', inputs: ['productType'] }),
+        MockComponent({ selector: 'mdc-icon' }),
+        MockComponent({ selector: 'mdc-tab-bar-scroller' }),
+        MockComponent({ selector: 'mdc-tab-bar-scroll-back' }),
+        MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
+        MockComponent({ selector: 'mdc-tab-bar-scroll-forward' })
       ]
     })
     .compileComponents();

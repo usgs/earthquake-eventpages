@@ -6,22 +6,32 @@
     <h2>Aftershock Forecast</h2>
   </ng-container>
 
-  <!-- routes/components in ../oaf-routing.module.ts -->
-  <nav mat-tab-nav-bar>
-    <a mat-tab-link
-        [routerLink]="'./commentary'" queryParamsHandling="preserve"
-        routerLinkActive #commentary="routerLinkActive" [active]="commentary.isActive">
-      Commentary
-    </a>
-    <a mat-tab-link [routerLink]="'./forecast'" queryParamsHandling="preserve"
-        routerLinkActive #forecast="routerLinkActive" [active]="forecast.isActive">
-      Forecast
-    </a>
-    <a mat-tab-link [routerLink]="'./model'" queryParamsHandling="preserve"
-        routerLinkActive #model="routerLinkActive" [active]="model.isActive">
-      Model
-    </a>
-  </nav>
+  <mdc-tab-bar-scroller>
+    <mdc-tab-bar-scroll-back>
+      <mdc-icon>navigate_before</mdc-icon>
+    </mdc-tab-bar-scroll-back>
+    <mdc-tab-bar-scroll-frame>
+      <!-- routes/components in ../oaf-routing.module.ts -->
+      <nav mdc-tab-bar>
+        <a mdc-tab mdcRouter
+            [routerLink]="'./commentary'" queryParamsHandling="preserve">
+          Commentary
+        </a>
+        <a mdc-tab mdcRouter
+            [routerLink]="'./forecast'" queryParamsHandling="preserve">
+          Forecast
+        </a>
+        <a mdc-tab mdcRouter
+            [routerLink]="'./model'" queryParamsHandling="preserve">
+          Model
+        </a>
+      </nav>
+    </mdc-tab-bar-scroll-frame>
+    <mdc-tab-bar-scroll-forward>
+      <mdc-icon>navigate_next</mdc-icon>
+    </mdc-tab-bar-scroll-forward>
+  </mdc-tab-bar-scroller>
+
   <router-outlet></router-outlet>
 
   <!-- container with footer attribute is added before downloads -->

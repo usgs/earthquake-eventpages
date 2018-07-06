@@ -10,6 +10,11 @@ import {
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 
+import {
+  MdcTabModule,
+  MdcIconModule
+} from '@angular-mdc/web';
+
 import { ProductPageModule } from '../product-page/product-page.module';
 
 import { OriginRoutingModule } from './origin-routing.module';
@@ -32,6 +37,8 @@ import { MagnitudeDetailComponent } from './magnitude-detail/magnitude-detail.co
     MatSortModule,
     MatTableModule,
     MatTabsModule,
+    MdcIconModule,
+    MdcTabModule,
     ProductPageModule,
     SharedModule,
 
