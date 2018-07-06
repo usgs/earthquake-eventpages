@@ -40,6 +40,7 @@ import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 import { InteractiveMapBoundsPipe } from './interactive-map-bounds.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 import { KeysPipe } from './keys.pipe';
+import { NearbySeismicityLinkPipe } from './nearby-seismicity-link.pipe';
 import { RomanPipe } from './roman.pipe';
 import { RoundDownPipe } from './round-down.pipe';
 import { RoundUpPipe } from './round-up.pipe';
@@ -47,6 +48,7 @@ import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 import { SignificantFigurePipe } from './significant-figure.pipe';
 import { StationFlagComponent } from './station-flag/station-flag.component';
 import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
+
 
 
 @NgModule({
@@ -96,7 +98,8 @@ import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
     ShakemapOverlaysPipe,
     SignificantFigurePipe,
     StationComponent,
-    StationFlagComponent
+    StationFlagComponent,
+    NearbySeismicityLinkPipe
   ],
   exports: [
     AttributionComponent,
@@ -115,6 +118,7 @@ import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
     MapComponent,
     MatIconModule,
     MmiComponent,
+    NearbySeismicityLinkPipe,
     NodalPlanesComponent,
     NumberPipe,
     NumberWithSeparatorPipe,
