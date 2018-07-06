@@ -57,10 +57,10 @@
   </app-navigation-group>
 
   <app-navigation-item display="Download Event KML"
-    navHrefLink="{{ event | nearbySeismicityLink: 'kml' }}"></app-navigation-item>
+    navHrefLink="{{ getKmlLink(event) }}"></app-navigation-item>
 
   <app-navigation-item display="View Nearby Seismicity"
-    navHrefLink="{{ event | nearbySeismicityLink: 'nearby' }}"></app-navigation-item>
+    navHrefLink="{{ event | nearbySeismicityLink }}"></app-navigation-item>
 
   <ng-template #noImpact>
     <app-navigation-item display="Felt Report - Tell Us!"

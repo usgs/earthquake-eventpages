@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { Event } from '../event';
 
 @Pipe({
@@ -7,25 +8,12 @@ import { Event } from '../event';
 export class NearbySeismicityLinkPipe implements PipeTransform {
   private KM_PER_DEGREE = 111.12;
 
-  transform(event: Event, linkType: string): string {
-    linkType = linkType.toLowerCase();
+  transform(event: Event): string {
     if (!event || !event.geometry || !event.id) {
       return null;
-    } else if (linkType !== 'nearby' &&
-                linkType !== 'kml') {
-      return null;
     } else {
-      if (linkType === 'nearby') {
-        return this.getNearbySeismicityLink(event);
-      }
-      if (linkType === 'kml') {
-        return this.getKmlLink(event);
-      }
+      return this.getNearbySeismicityLink(event);
     }
-  }
-
-  getKmlLink (event: Event) {
-    return `/earthquakes/feed/v1.0/detail/${event.id}.kml`;
   }
 
   getNearbySeismicityLink (event: Event) {
@@ -94,8 +82,7 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
   }
 
   getNearbySeismicityParams (event: Event) {
-    let minmagnitude,
-      time;
+    let minmagnitude, time;
 
     const latitude = event.geometry.coordinates[1];
     const longitude = event.geometry.coordinates[0];
