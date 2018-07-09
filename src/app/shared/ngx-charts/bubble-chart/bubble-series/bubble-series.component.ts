@@ -42,7 +42,7 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
     const isActive = this.activeEntries && !this.activeEntries.length ? true : (this.isActive({name: seriesName}));
 
     return this.data.series.map((d, i) => {
-      if (!d.y || !d.x) {
+      if (typeof d.y === 'undefined' || typeof d.x === 'undefined') {
         return null;
       }
 
