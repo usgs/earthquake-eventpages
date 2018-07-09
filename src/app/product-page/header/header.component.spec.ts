@@ -13,7 +13,11 @@ describe('HeaderComponent', () => {
       declarations: [
         HeaderComponent,
 
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
+        MockComponent({selector: 'product-page-summary-link',
+            inputs: ['product', 'event']}),
+        MockComponent({selector: 'shared-product-attribution',
+            inputs: ['product']}),
+
         MockPipe('dateTime')
       ]
     })

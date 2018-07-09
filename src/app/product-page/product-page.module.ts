@@ -11,7 +11,9 @@ import { DownloadComponent } from './download/download.component';
 import { DownloadItemComponent } from './download-item/download-item.component';
 
 import { FileSizePipe } from './file-size.pipe';
+import { LinkPipe } from './link.pipe';
 import { SharedModule } from '../shared/shared.module';
+import { SummaryLinkComponent } from './summary-link/summary-link.component';
 
 @NgModule({
   imports: [
@@ -29,7 +31,10 @@ import { SharedModule } from '../shared/shared.module';
     DownloadComponent,
     DownloadItemComponent,
 
-    FileSizePipe
+    FileSizePipe,
+    LinkPipe,
+    SummaryLinkComponent,
+
   ],
   exports: [
     ProductPageComponent,
