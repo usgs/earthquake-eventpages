@@ -39,66 +39,80 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
   getCircles(): any[] {
     const seriesName = this.data.name;
 
+    const isActive = this.activeEntries && !this.activeEntries.length ? true : (this.isActive({name: seriesName}));
+
     return this.data.series.map((d, i) => {
-      if (typeof d.y !== 'undefined' && typeof d.x !== 'undefined') {
-        const y = d.y;
-        const x = d.x;
-        const r = d.r;
+      if (typeof d.y === 'undefined' || typeof d.x === 'undefined') {
+        return null;
+      }
 
-        const radius = this.rScale(r || 1);
-        const borderColor = d.borderColor || null;
+      const y = d.y;
+      const x = d.x;
+      const r = d.r;
 
-        const tooltipLabel = formatLabel(d.name);
+      const radius = this.rScale(r || 1);
+      const borderColor = d.borderColor || null;
 
-        const cx = (this.xScaleType === 'linear') ? this.xScale(Number(x)) : this.xScale(x);
-        const cy = (this.yScaleType === 'linear') ? this.yScale(Number(y)) : this.yScale(y);
+      const tooltipLabel = formatLabel(d.name);
 
-        const color = (this.colors.scaleType === 'linear') ?
+      const cx = this.xScale(x);
+      const cy = this.yScale(y);
+
+      const color = (this.colors.scaleType === 'linear') ?
           this.colors.getColor(r) :
           this.colors.getColor(seriesName);
 
-        const isActive = !this.activeEntries.length ? true : (this.isActive({name: seriesName}) || seriesName === 'error');
+      const opacity = isActive ? 1 : 0.3;
 
-        const opacity = isActive ? 1 : 0.3;
+      // error bar calculations
+      const max = d.max;
+      const min = d.min;
 
-        // error bar calculations
-        const max = d.max;
-        const min = d.min;
+      // Should be replaced to allow origin plot to use a log scale
+      const errorBarWidth = (this.xDomain[1] - this.xDomain[0]) * .0125;
 
-        // Should be replaced to allow origin plot to use a log scale
-        const errorBarWidth = (this.xDomain[1] - this.xDomain[0]) * .0125;
+      const data = {
+        series: seriesName,
+        name: d.name,
+        value: d.y,
+        x: d.x,
+        radius: d.r
+      };
 
-        const data = {
-          series: seriesName,
-          name: d.name,
-          value: d.y,
-          x: d.x,
-          radius: d.r
-        };
+      return {
+        data,
+        x,
+        y,
+        max,
+        min,
+        errorBarWidth,
+        r,
+        borderColor,
+        classNames: [`circle-data-${i}`],
+        value: y,
+        label: x,
+        cx,
+        cy,
+        radius,
+        tooltipLabel,
+        color,
+        opacity,
+        seriesName,
+        isActive,
+        transform: `translate(${cx},${cy})`
+      };
+    }).filter((circle) => circle !== null);
+  }
 
-        return {
-          data,
-          x,
-          y,
-          max,
-          min,
-          errorBarWidth,
-          r,
-          borderColor,
-          classNames: [`circle-data-${i}`],
-          value: y,
-          label: x,
-          cx,
-          cy,
-          radius,
-          tooltipLabel,
-          color,
-          opacity,
-          seriesName,
-          isActive,
-          transform: `translate(${cx},${cy})`
-        };
-      }
-    }).filter((circle) => circle !== undefined);
+  getErrorPathUpper(circle) {
+    const path = `M${this.xScale(circle.x) - 10},${this.yScale(circle.max)}L${this.xScale(circle.x) + 10},${this.yScale(circle.max)}`;
+
+    return path;
+  }
+
+  getErrorPathLower(circle) {
+    const path = `M${this.xScale(circle.x) - 10},${this.yScale(circle.min)}L${this.xScale(circle.x) + 10},${this.yScale(circle.min)}`;
+
+    return path;
   }
 }

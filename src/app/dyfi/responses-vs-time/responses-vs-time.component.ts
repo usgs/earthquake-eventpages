@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { DyfiService } from '../../core/dyfi.service';
+import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
 
 @Component({

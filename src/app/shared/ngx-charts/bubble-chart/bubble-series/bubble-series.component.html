@@ -26,55 +26,17 @@
         [hasRange]="false"
         [animations]="false"
     />
-    <svg:g ngx-charts-line-series
-        [xScale]="xScale"
-        [yScale]="yScale"
-        [colors]="colors"
+    <svg:g ngx-charts-line
         [strokeWidth]="'.5px'"
-        [data]="{
-          name: 'error',
-          series: [
-            {
-              name: circle.x - circle.errorBarWidth,
-              value: circle.max
-            },
-            {
-              name: circle.x + circle.errorBarWidth,
-              value: circle.max
-            }
-          ]
-        }"
-        [activeEntries]="activeEntries"
-        [scaleType]="'linear'"
-        [curve]="curve"
-        [rangeFillOpacity]="1"
-        [hasRange]="false"
+        [stroke]="'#000000'"
+        [path]="getErrorPathUpper(circle)"
         [animations]="false"
     />
 
-    <svg:g ngx-charts-line-series
-        [xScale]="xScale"
-        [yScale]="yScale"
-        [colors]="colors"
+    <svg:g ngx-charts-line
         [strokeWidth]="'.5px'"
-        [data]="{
-          name: 'error',
-          series: [
-            {
-              name: circle.x - circle.errorBarWidth,
-              value: circle.min
-            },
-            {
-              name: circle.x + circle.errorBarWidth,
-              value: circle.min
-            }
-          ]
-        }"
-        [activeEntries]="activeEntries"
-        [scaleType]="'linear'"
-        [curve]="curve"
-        [rangeFillOpacity]="1"
-        [hasRange]="false"
+        [stroke]="'#000000'"
+        [path]="getErrorPathLower(circle)"
         [animations]="false"
     />
   </ng-container>

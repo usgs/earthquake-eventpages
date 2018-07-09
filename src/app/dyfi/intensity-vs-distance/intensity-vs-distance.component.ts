@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { DyfiService } from '../../core/dyfi.service';
+import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
 
 @Component({
@@ -12,7 +12,6 @@ import { EventService } from '../../core/event.service';
 })
 export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
-  public dyfiSeries: any = null;
   public bubbleSeries: any[] = null;
   public lineSeries: any[] = null;
   public allResults: any[] = null;
@@ -58,6 +57,7 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
   gradient = false;
   showLegend = true;
   animations = true;
+  scaleType = 'log';
   showXAxisLabel = true;
   xAxisLabel = 'Hypocentral Distance (km)';
   showYAxisLabel = true;
@@ -94,15 +94,17 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
   }
 
   onDyfiSeries (dyfiData) {
-    if (dyfiData === null || !dyfiData) {
-      this.dyfiSeries = null;
+    if (!dyfiData) {
+      this.bubbleSeries = null;
+      this.lineSeries = null;
 
       return;
     }
 
     const bubbleSeries = [];
     const lineSeries = [];
-    for (const series of dyfiData.series) {
+    const dyfiSeries = dyfiData.series;
+    for (const series of dyfiSeries) {
       const options = this.classOptions[series.class] || this.classOptions.default;
 
       // add styles to specific features

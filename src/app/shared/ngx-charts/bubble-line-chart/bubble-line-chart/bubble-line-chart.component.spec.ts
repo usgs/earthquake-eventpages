@@ -163,6 +163,7 @@ describe('BubbleLineChartComponent', () => {
     it('Autosets', () => {
       component.bubbleChart = BUBBLESERIES;
       component.lineChart = LINESERIES;
+      component.autoScale = true;
 
       const domain = component.getYDomain();
 
