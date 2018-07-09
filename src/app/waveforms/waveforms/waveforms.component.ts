@@ -10,7 +10,7 @@ import { EventService } from '../../core/event.service';
 })
 export class WaveformsComponent implements OnInit {
 
-  constructor(private eventService: EventService,
+  constructor(public eventService: EventService,
               private router: Router,
               private route: ActivatedRoute) { }
 
