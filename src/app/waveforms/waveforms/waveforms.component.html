@@ -1,7 +1,9 @@
 <div *ngIf="eventService.event$ | async as event">
 
   <h3>Waveforms</h3>
-  <a class="back-to-summary-link" [routerLink]="['../../']">Back To Technical</a>
+  <a class="back-to-summary-link"
+     routerLink=""
+     (click)="backToTech(event)">Back To Technical</a>
 
   <div class="iris-links">
     <a href="https://www.iris.edu/wilber3/find_stations/10904586"

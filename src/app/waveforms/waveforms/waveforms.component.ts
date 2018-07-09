@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import { EventService } from '../../core/event.service';
 
@@ -9,9 +10,15 @@ import { EventService } from '../../core/event.service';
 })
 export class WaveformsComponent implements OnInit {
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+  }
+
+  backToTech(event) {
+    this.router.navigate(['../../'], {relativeTo: this.route});
   }
 
 }

@@ -12,7 +12,6 @@ const waveformRoutes: Routes = [
   }
 ];
 
-
 @NgModule({
   imports: [
     RouterModule.forChild(waveformRoutes)
