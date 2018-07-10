@@ -62,12 +62,19 @@ export class LocationComponent implements OnDestroy, OnInit {
 
   setLocation (coordinates: Coordinates) {
     if (coordinates) {
-      this.value = {
-        ciim_mapAddress: coordinates.name,
-        ciim_mapConfidence: coordinates.confidence,
-        ciim_mapLat: coordinates.latitude,
-        ciim_mapLon: coordinates.longitude
-      };
+
+      if (coordinates.name) {
+        this.value.ciim_mapAddress = coordinates.name;
+      }
+      if (coordinates.confidence) {
+        this.value.ciim_mapConfidence = coordinates.confidence;
+      }
+      if (coordinates.latitude) {
+        this.value.ciim_mapLat = coordinates.latitude;
+      }
+      if (coordinates.longitude) {
+        this.value.ciim_mapLon = coordinates.longitude;
+      }
 
       this.change.next(this.value);
     }

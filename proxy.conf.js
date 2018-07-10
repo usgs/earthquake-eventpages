@@ -3,6 +3,7 @@ const PROXY_CONFIG = [
     context: [
       '/archive',
       '/data/comcat',
+      '/data/dyfi',
       '/earthquakes/feed',
       '/earthquakes/map',
       '/fdsnws',
@@ -11,7 +12,7 @@ const PROXY_CONFIG = [
       '/theme',
       '/ws/geoserve'
     ],
-    target: 'https://earthquake.usgs.gov',
+    target: 'https://dev01-earthquake.cr.usgs.gov',
     changeOrigin: true,
     secure: true,
     logLevel: 'debug'
