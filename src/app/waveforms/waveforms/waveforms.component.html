@@ -1,0 +1,26 @@
+<div *ngIf="waveformService.event$ | async as eventId;">
+
+  <h3>Waveforms</h3>
+  <a class="back-to-summary-link"
+     routerLink="../../technical">Back To Technical</a>
+
+  <div class="iris-links">
+    <a href="https://www.iris.edu/wilber3/find_stations/{{ eventId }}"
+       target="_blank">IRIS Seismic Waveform Data (Wilber 3)</a>
+    <p>Wilber 3 locates stations in operation at the time of the event, allows
+      users to filter stations, preview waveform data, and view record section
+      plots. Data can be downloaded in a number of formats including SAC, SEED,
+      miniSEED and ASCII.</p><br>
+
+    <a href="https://www.iris.edu/spud/event/{{ eventId }}"
+       target="_blank">IRIS Searchable Product Depository (SPUD) Event Page</a>
+    <p>SPUD is the IRIS DMC’s primary data product management system. Complementing
+      the DMC’s SEED and assembled data archives, which contain time series recordings,
+      the SPUD system primarily contains derivative data products of other types
+      (images, movies, etc.) created either at the DMC or by members of the
+      community.</p>
+  </div>
+
+</div>
+
+

@@ -92,6 +92,10 @@ const appRoutes = [
       {
         path: 'finite-fault',
         loadChildren: './finite-fault/finite-fault.module#FiniteFaultModule'
+      },
+      {
+        path: 'waveforms',
+        loadChildren: './waveforms/waveforms.module#WaveformsModule'
       }
     ]
   }
