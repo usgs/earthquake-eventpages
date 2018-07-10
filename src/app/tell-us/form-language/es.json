@@ -94,7 +94,7 @@
       ]
     },
     "fldExperience_stand": {
-      "label": :Cuán difícil pararse o caminar?",
+      "label": "Cuán difícil pararse o caminar?",
       "answers": [
         {"value": "", "label": "No especifico"},
         {"value": "0", "label": "No"},
