@@ -18,7 +18,7 @@ import { MockPipe } from '../../mock-pipe';
 import { FormLanguageService } from '../form-language.service';
 import { FormComponent } from './form.component';
 import { Event } from '../../event';
-import { CoordinatesService } from 'hazdev-ng-location-input';
+import { CoordinatesService } from 'hazdev-ng-location-view';
 
 
 describe('FormComponent', () => {

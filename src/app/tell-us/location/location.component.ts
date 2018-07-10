@@ -7,7 +7,7 @@ import {
   Coordinates,
   CoordinatesService,
   LocationDialogComponent
-} from 'hazdev-ng-location-input';
+} from 'hazdev-ng-location-view';
 
 @Component({
   selector: 'tell-us-location',

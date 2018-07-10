@@ -11,7 +11,7 @@ import {
   Coordinates,
   CoordinatesService,
   LocationDialogComponent
-} from 'hazdev-ng-location-input';
+} from 'hazdev-ng-location-view';
 
 
 describe('LocationComponent', () => {
