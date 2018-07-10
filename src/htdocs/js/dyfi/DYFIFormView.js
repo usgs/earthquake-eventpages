@@ -199,7 +199,7 @@ var DYFIFormView = function (options) {
         '<div class="omb-number">' +
           'OMB No. 1028-0048' +
           '<br/>' +
-          'Expires 05/31/2018' +
+          'Expires 06/30/2021' +
         '</div>';
 
     // Handle location question
