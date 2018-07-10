@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { FormLanguageService } from '../form-language.service';
@@ -28,8 +28,7 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     'language': 'en'
   };
   public error: any = null;
-  // public responseUrl = '/data/dyfi/form/response.php';
-  public responseUrl = 'https://dev01-earthquake.cr.usgs.gov/theme/eddie.php';
+  public responseUrl = '/data/dyfi/form/response.php';
 
   @ViewChild(LocationMapComponent)
   locationMapComponent: LocationMapComponent;
@@ -89,21 +88,25 @@ export class FormComponent implements AfterViewInit, OnDestroy {
    * Passes answers back to dialog opener.
    */
   onSubmit () {
+    let params = new HttpParams();
+
     const validated = this.validateForm();
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-    });
+
 
     if (validated) {
-      // Add to form submission once validation has passed
-      this.answers.ciim_report = 'Submit Form';
-      this.answers.form_version = '1.10';
+      for (const key in this.answers) {
+        if (this.answers.hasOwnProperty(key)) {
+          params = params.append(key, this.answers[key]);
+        }
+      }
+      params = params.append('format', 'json');
+      params = params.append('form_version', '1.10');
 
       // Post the form
-      this.httpClient.post(this.responseUrl, this.answers, { headers: headers, responseType: 'json' }).pipe(
+      this.httpClient.post(this.responseUrl, params).pipe(
         catchError(this.handleError())
-      ).subscribe(() => {
-        this.dialogRef.close(this.answers);
+      ).subscribe((response) => {
+        this.dialogRef.close(response);
       });
     }
   }
