@@ -5,14 +5,14 @@ import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
 import { WaveformsComponent } from './waveforms/waveforms.component';
 import { WaveformsRoutingModule } from './waveforms-routing.module';
+import {WaveformService} from './waveform.service';
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
-    ProductPageModule,
     WaveformsRoutingModule
   ],
-  declarations: [WaveformsComponent]
+  declarations: [WaveformsComponent],
+  providers: [WaveformService]
 })
 export class WaveformsModule { }

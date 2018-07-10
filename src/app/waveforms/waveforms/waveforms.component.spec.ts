@@ -1,10 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { WaveformsComponent } from './waveforms.component';
-import {EventService} from '../../core/event.service';
-import {Event} from '../../event';
-import {of} from 'rxjs/observable/of';
-import { RouterTestingModule } from '@angular/router/testing';
+import { EventService } from '../../core/event.service';
+import { Event } from '../../event';
+import { of } from 'rxjs/observable/of';
+import { WaveformService } from '../waveform.service';
+
 
 describe('WaveformsComponent', () => {
   let component: WaveformsComponent;
@@ -17,10 +20,12 @@ describe('WaveformsComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
+      imports: [ RouterTestingModule, HttpClientModule ],
       declarations: [ WaveformsComponent ],
       providers: [
-        {provide: EventService, useValue: eventServiceStub}
+        {provide: EventService, useValue: eventServiceStub},
+        WaveformService,
+        HttpClient
       ]
     })
     .compileComponents();
