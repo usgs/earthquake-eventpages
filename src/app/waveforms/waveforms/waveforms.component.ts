@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import { Subscription } from 'rxjs/Subscription';
 import { EventService } from '../../core/event.service';
@@ -10,7 +10,7 @@ import { WaveformService } from '../waveform.service';
   templateUrl: './waveforms.component.html',
   styleUrls: ['./waveforms.component.scss']
 })
-export class WaveformsComponent implements OnInit {
+export class WaveformsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
@@ -27,6 +27,10 @@ export class WaveformsComponent implements OnInit {
 
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
