@@ -108,7 +108,7 @@ $prompts = array(
 
   'GEOSERVE_WS_URL' => array(
     'prompt' => 'URL for geoserve web service',
-    'default' => 'http://earthquake.usgs.gov/ws/geoserve/',
+    'default' => 'https://earthquake.usgs.gov/ws/geoserve/',
     'secure' => false
   ),
   'INSTALLATION_TYPE' => array(
