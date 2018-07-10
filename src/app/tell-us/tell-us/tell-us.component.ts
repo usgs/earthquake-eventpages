@@ -21,6 +21,8 @@ export class TellUsComponent implements OnInit {
   // response received from form
   public response: any = null;
 
+  // state of form submission
+  public success = false;
 
   constructor (
     public dialog: MatDialog,
@@ -42,14 +44,21 @@ export class TellUsComponent implements OnInit {
    *        undefined if user closed dialog another way.
    */
   onResponse (response) {
-    this.response = response;
-    if (response === false) {
-      console.log('user clicked cancel');
+    if (response === null) {
       // todo: use router to navigate back?
-    } else if (response) {
-      // user clicked submit
-      console.log('user clicked submit', response);
-      // todo: submit response
+      console.log('user clicked cancel');
+      return;
+    }
+
+    this.response = response;
+
+    if (response && response.your_cdi) {
+      // user successfully submitted the form
+      console.log('success!', response);
+      this.success = true;
+    } else {
+      // error while submitting the form
+      console.log('form failed to submit: ', response.message);
     }
   }
 

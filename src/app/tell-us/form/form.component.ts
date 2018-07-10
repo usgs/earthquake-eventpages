@@ -159,11 +159,9 @@ export class FormComponent implements AfterViewInit, OnDestroy {
    * Error handler for http requests.
    */
   private handleError() {
-    // TODO, display error?
     return (error: HttpErrorResponse): Observable<any> => {
-      console.log(error);
       this.error = error;
-      return of(null);
+      return of(error);
     };
   }
 }
