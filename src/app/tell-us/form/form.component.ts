@@ -28,7 +28,7 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     'language': 'en'
   };
   public error: any = null;
-  public responseUrl = '/data/dyfi/form/response.php';
+  public responseUrl = '/data/dyfi/form/response.ph';
 
   @ViewChild(LocationMapComponent)
   locationMapComponent: LocationMapComponent;

@@ -4,7 +4,7 @@
   Show Felt Report Form
 </button>
 
-<ng-container *ngIf="!response">
+<ng-container *ngIf="!response && !error">
   <p>
     By contributing your experience of the earthquake, either immediately afterward, or whenever it is possible for you to do
     so, you make a contribution to the scientific body of information about each earthquake. You also ensure that your area
@@ -20,16 +20,16 @@
   </p>
 </ng-container>
 
-<ng-container *ngIf="response && success">
+<ng-container *ngIf="response">
   <p class="alert info">
     Thanks for your response.
   </p>
   <pre>{{ response | json }}</pre>
 </ng-container>
 
-<ng-container *ngIf="response && !success">
+<ng-container *ngIf="error">
   <p class="alert error">
     Please try to resubmit the form.
   </p>
-  <pre>{{ response | json }}</pre>
+  <pre>{{ error | json }}</pre>
 </ng-container>
