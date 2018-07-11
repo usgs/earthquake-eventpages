@@ -116,11 +116,22 @@ describe('FormComponent', () => {
 
   describe('onSubmit', () => {
     beforeEach(() => {
+      spyOn(component, 'validateForm').and.returnValue(true);
+      spyOn(component.dialogRef, 'close');
       spyOn(component.httpClient, 'post').and.returnValue(of({}));
     });
 
+    it('calls validateForm', () => {
+      component.onSubmit();
+      expect(component.validateForm).toHaveBeenCalled();
+    });
+
+    it('calls HttpClient post', () => {
+      component.onSubmit();
+      expect(component.httpClient.post).toHaveBeenCalled();
+    });
+
     it('calls dialogref.close', () => {
-      spyOn(component.dialogRef, 'close');
       component.answers = {};
       component.onSubmit();
       expect(component.dialogRef.close).toHaveBeenCalled();

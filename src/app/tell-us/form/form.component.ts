@@ -28,7 +28,7 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     'language': 'en'
   };
   public error: any = null;
-  public responseUrl = '/data/dyfi/form/response.ph';
+  public responseUrl = '/data/dyfi/form/response.php';
 
   @ViewChild(LocationMapComponent)
   locationMapComponent: LocationMapComponent;
@@ -91,7 +91,6 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     let params = new HttpParams();
 
     const validated = this.validateForm();
-
 
     if (validated) {
       for (const key in this.answers) {

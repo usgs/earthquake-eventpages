@@ -63,7 +63,7 @@ export class LocationComponent implements OnDestroy, OnInit {
   setLocation (coordinates: Coordinates) {
     if (coordinates) {
 
-      if (coordinates.name) {
+      if (typeof coordinates.name !== 'undefined') {
         this.value.ciim_mapAddress = coordinates.name;
       }
       if (typeof coordinates.confidence !== 'undefined') {
