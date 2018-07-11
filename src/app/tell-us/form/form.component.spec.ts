@@ -1,4 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -24,6 +25,8 @@ import { CoordinatesService } from 'hazdev-ng-location-view';
 describe('FormComponent', () => {
   let component: FormComponent;
   let fixture: ComponentFixture<FormComponent>;
+  let httpClient: HttpTestingController;
+  let injector: TestBed;
 
   beforeEach(async(() => {
     const eventServiceStub = {
@@ -41,6 +44,7 @@ describe('FormComponent', () => {
       imports: [
         BrowserAnimationsModule,
         FormsModule,
+        HttpClientTestingModule,
         MatButtonModule,
         MatDialogModule,
         MatExpansionModule,
@@ -64,8 +68,10 @@ describe('FormComponent', () => {
         {provide: MatDialogRef, useValue: {close: () => {}}},
         {provide: MAT_DIALOG_DATA, useValue: {}}
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
+
+    injector = getTestBed();
+    httpClient = injector.get(HttpTestingController);
   }));
 
   beforeEach(() => {
@@ -109,11 +115,15 @@ describe('FormComponent', () => {
   });
 
   describe('onSubmit', () => {
+    beforeEach(() => {
+      spyOn(component.httpClient, 'post').and.returnValue(of({}));
+    });
+
     it('calls dialogref.close', () => {
       spyOn(component.dialogRef, 'close');
-      component.answers = {test: 'submit'};
+      component.answers = {};
       component.onSubmit();
-      expect(component.dialogRef.close).toHaveBeenCalledWith(component.answers);
+      expect(component.dialogRef.close).toHaveBeenCalled();
     });
   });
 

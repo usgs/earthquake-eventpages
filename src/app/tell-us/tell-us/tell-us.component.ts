@@ -46,7 +46,7 @@ export class TellUsComponent implements OnInit {
     this.dialogRef = null;
 
     // check response
-    if (response === false || typeof response === 'undefined') {
+    if (!response || response === false || typeof response === 'undefined') {
       // user closed form
       this.location.back();
     } else if (response && response.your_cdi) {
@@ -66,7 +66,7 @@ export class TellUsComponent implements OnInit {
    */
   onError (response) {
     this.error = response;
-    console.log('form failed to submit: ', this.error.message);
+    console.log('form failed to submit: ', this.error);
   }
 
   /**

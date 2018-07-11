@@ -66,13 +66,13 @@ export class LocationComponent implements OnDestroy, OnInit {
       if (coordinates.name) {
         this.value.ciim_mapAddress = coordinates.name;
       }
-      if (coordinates.confidence) {
+      if (typeof coordinates.confidence !== 'undefined') {
         this.value.ciim_mapConfidence = coordinates.confidence;
       }
-      if (coordinates.latitude) {
+      if (typeof coordinates.latitude !== 'undefined') {
         this.value.ciim_mapLat = coordinates.latitude;
       }
-      if (coordinates.longitude) {
+      if (typeof coordinates.longitude !== 'undefined') {
         this.value.ciim_mapLon = coordinates.longitude;
       }
 
