@@ -7,6 +7,7 @@ import { MatButtonModule,
           MatExpansionModule,
           MatCardModule,
           MatTableModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 import { AttributionComponent } from './attribution/attribution.component';
 import { AlertLevelComponent } from './alert-level/alert-level.component';
@@ -48,6 +49,10 @@ import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 import { SignificantFigurePipe } from './significant-figure.pipe';
 import { StationFlagComponent } from './station-flag/station-flag.component';
 import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
+import { SummaryLinkPipe } from './summary-link.pipe';
+import { SummaryLinkComponent } from './summary-link/summary-link.component';
+
+
 
 
 
@@ -59,7 +64,8 @@ import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
     MatIconModule,
     MatExpansionModule,
     MatCardModule,
-    MatTableModule
+    MatTableModule,
+    RouterModule
   ],
   declarations: [
     AttributionComponent,
@@ -99,7 +105,9 @@ import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
     SignificantFigurePipe,
     StationComponent,
     StationFlagComponent,
-    NearbySeismicityLinkPipe
+    NearbySeismicityLinkPipe,
+    SummaryLinkPipe,
+    SummaryLinkComponent
   ],
   exports: [
     AttributionComponent,
@@ -139,7 +147,9 @@ import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
     RoundUpPipe,
     ShakemapOverlaysPipe,
     SignificantFigurePipe,
-    StationComponent
+    StationComponent,
+    SummaryLinkPipe,
+    SummaryLinkComponent
   ],
   entryComponents: [
     DownloadDialogComponent,
