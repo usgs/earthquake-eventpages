@@ -29,7 +29,7 @@ describe('ProductPageComponent', () => {
         ProductPageComponent,
 
         MockComponent({selector: 'product-page-footer', inputs: ['event', 'product']}),
-        MockComponent({selector: 'product-page-header', inputs: ['contributors', 'event', 'product']})
+        MockComponent({selector: 'product-page-header', inputs: ['contributors', 'event', 'product', 'productType']})
       ],
       imports: [
         RouterTestingModule
