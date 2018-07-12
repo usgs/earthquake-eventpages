@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { GeoserveCoreModule, GeoserveOutputModule } from 'earthquake-geoserve-ui';
 
+
 @NgModule({
   imports: [
     CommonModule,
