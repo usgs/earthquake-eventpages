@@ -1,4 +1,6 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
+  <shared-summary-link [productType]="'regioninfo'" [event]="event">
+  </shared-summary-link>
   <a
       [routerLink]="'../map'"
       [queryParams]="{ 'historic-seismicity': true }">
