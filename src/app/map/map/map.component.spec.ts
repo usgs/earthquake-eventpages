@@ -32,6 +32,8 @@ describe('MapComponent', () => {
             'interactive'
           ]
         }),
+        MockComponent({selector: 'shared-summary-link',
+            inputs: ['productType', 'event']}),
         MockPipe('interactiveMapBounds'),
         MockPipe('interactiveMapOverlays')
       ],
