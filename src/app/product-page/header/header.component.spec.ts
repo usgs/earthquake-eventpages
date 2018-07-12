@@ -17,6 +17,8 @@ describe('HeaderComponent', () => {
             inputs: ['product', 'event']}),
         MockComponent({selector: 'shared-product-attribution',
             inputs: ['product']}),
+        MockComponent({selector: 'shared-summary-link',
+            inputs: ['productType', 'event']}),
 
         MockPipe('dateTime')
       ]
