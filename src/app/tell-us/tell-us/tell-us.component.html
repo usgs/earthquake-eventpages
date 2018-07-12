@@ -1,3 +1,8 @@
+<ng-container *ngIf="eventService.event$ | async; let event">
+  <shared-summary-link [productType]="'tellus'" [event]="event">
+  </shared-summary-link>
+</ng-container>
+
 <h2>Felt Report - Tell Us!</h2>
 
 <button (click)="showForm()" mat-raised-button>
