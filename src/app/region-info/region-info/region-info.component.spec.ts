@@ -31,6 +31,7 @@ describe('RegionInfoComponent', () => {
         RegionInfoComponent,
 
         MockComponent({selector: 'shared-map', inputs: ['overlays', 'showScaleControl']}),
+        MockComponent({selector: 'shared-summary-link', inputs: ['productType', 'event']}),
         MockComponent({selector: 'app-admin-region'}),
         MockComponent({selector: 'app-nearby-places'}),
         MockComponent({selector: 'app-tectonic-summary-region'}),
