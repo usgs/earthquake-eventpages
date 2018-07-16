@@ -24,8 +24,7 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     'fldSituation_felt': null,
     'ciim_mapLat': null,
     'ciim_mapLon': null,
-    'ciim_time': null,
-    'language': 'en'
+    'ciim_time': null
   };
   public error: any = null;
   public responseUrl = '/data/dyfi/form/response.php';
@@ -47,6 +46,9 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     this.eventSubscription = this.eventService.event$.subscribe((event) => {
       this.setEvent(event);
     });
+
+    // default language
+    this.answers.language = 'en';
 
     // disable scroll wheel zoom while map is in dialog
     if (this.locationMapComponent && this.locationMapComponent.map) {
@@ -115,15 +117,25 @@ export class FormComponent implements AfterViewInit, OnDestroy {
    * before submitting
    */
   validateForm () {
-    let answer;
-    const key = Object.keys(this.answers);
+    let key;
+    const errors = [];
+    const required = [
+      'fldSituation_felt',
+      'ciim_mapLat',
+      'ciim_mapLon',
+      'ciim_time'
+    ];
 
     // Validate all responses
-    for (let i = 0, len = key.length; i < len; i++) {
-      answer = this.answers[key[i]];
-      if (!answer) {
-        throw new Error('Not all of the required fields were submitted');
+    for (let i = 0, len = required.length; i < len; i++) {
+      key = required[i];
+      if (!this.answers.hasOwnProperty(key) || this.answers[key] === null) {
+        errors.push(key);
       }
+    }
+
+    if (errors.length > 0) {
+      throw new Error('Required fieldsx` missing: ' + errors.join(', '));
     }
 
     return true;
