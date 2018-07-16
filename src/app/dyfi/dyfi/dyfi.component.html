@@ -20,23 +20,23 @@
       <mdc-tab-bar-scroll-frame>
         <nav mdc-tab-bar>
           <a mdc-tab mdcRouter [routerLink]="'./intensity'"
-              queryParamsHandling="preserve">
+             queryParamsHandling="preserve">
             Intensity
           </a>
           <a mdc-tab mdcRouter [routerLink]="'./zip'"
-              queryParamsHandling="preserve">
+             queryParamsHandling="preserve">
             ZIP Map
           </a>
           <a mdc-tab mdcRouter [routerLink]="'./intensity-vs-distance'"
-              queryParamsHandling="preserve">
+             queryParamsHandling="preserve">
             Intensity Vs. Distance
           </a>
           <a mdc-tab mdcRouter [routerLink]="'./responses-vs-time'"
-              queryParamsHandling="preserve">
+             queryParamsHandling="preserve">
             Responses Vs. Time
           </a>
           <a mdc-tab mdcRouter [routerLink]="'./responses'"
-              queryParamsHandling="preserve">
+             queryParamsHandling="preserve">
             DYFI Responses
           </a>
         </nav>
@@ -54,3 +54,11 @@
   </ng-container>
 
 </product-page>
+
+<div class="csv-download">
+  <a href="{{ link }}" target="_blank">
+    <button
+      mat-raised-button
+      aria-label="Button to download all DYFI responses">Download DYFI Responses</button>
+  </a>
+</div>
