@@ -109,7 +109,7 @@ node {
               ng lint
             """
             sh """
-              ng test --watch=false --code-coverage --progress false
+              ng test --watch=false --code-coverage --progress false --browsers ChromeHeadless
             """
             sh """
               npm run e2e
