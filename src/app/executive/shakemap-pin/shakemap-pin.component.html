@@ -4,7 +4,7 @@
     [title]="title">
 
   <div>
-    <ng-container *ngIf="product?.properties?.maxmmi as mmi">
+    <ng-container *ngIf="product?.properties?.maxmmi as mmi; else noMMI">
       <dl class="mmi-description">
         <dt>Estimated Intensity</dt>
         <dd>
@@ -20,6 +20,12 @@
         <dd>{{ mmiDescription[round(mmi)].damage }}</dd>
       </dl>
     </ng-container>
+
+    <ng-template #noMMI>
+      <p class="alert info">
+        Estimated Intensity not specified.
+      </p>
+    </ng-template>
   </div>
 
 </basic-pin>
