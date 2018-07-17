@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule, MatDialogModule, MatDialog, MatExpansionModule, MatSelectModule, MatFormFieldModule } from '@angular/material';
@@ -39,6 +40,9 @@ describe('TellUsComponent', () => {
       getLanguage: jasmine.createSpy('languageService::getLanguage'),
       language$: of({})
     };
+    const locationStub = {
+      back: () => { return; }
+    };
 
     TestBed.configureTestingModule({
       imports: [
@@ -62,9 +66,10 @@ describe('TellUsComponent', () => {
         MockPipe('keys')
       ],
       providers: [
-        {provide: FormLanguageService, useValue: languageServiceStub},
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: MatDialog, useValue: dialogStub}
+        { provide: FormLanguageService, useValue: languageServiceStub },
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: Location, useValue: locationStub },
+        { provide: MatDialog, useValue: dialogStub }
       ],
     });
 
@@ -97,61 +102,59 @@ describe('TellUsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('onResponse', () => {
-    it('sets response', () => {
-      const response = {'response': 'dyfi'};
+  describe('onDialogClose', () => {
+    it('cleans up the dialog reference', () => {
+      component.onDialogClose(null);
+      expect(component.dialogRef).toBeNull();
+    });
+    it('changes the router location', () => {
+      spyOn(component.location, 'back');
+      component.onDialogClose(null);
+      expect(component.location.back).toHaveBeenCalled();
+    });
+    it('calls onSuccess with a valid response', () => {
+      const response = { 'your_cdi': '1' };
+      spyOn(component, 'onSuccess');
+      component.onDialogClose(response);
+      expect(component.onSuccess).toHaveBeenCalled();
+      expect(component.onSuccess).toHaveBeenCalledWith(response);
+    });
+    it('calls onError with an HttpError response', () => {
+      const response = { 'error': 'broken' };
+      spyOn(component, 'onError');
+      component.onDialogClose(response);
+      expect(component.onError).toHaveBeenCalled();
+      expect(component.onError).toHaveBeenCalledWith(response);
+    });
+  });
+
+  describe('onError', () => {
+    it('sets error response', () => {
+      const response = { 'message': 'error' };
       component.response = null;
-      component.onResponse(response);
+      component.onError(response);
+      expect(component.error).toBe(response);
+    });
+  });
+
+  describe('onSuccess', () => {
+    it('sets success response', () => {
+      const response = { 'your_cdi': '1' };
+      component.response = null;
+      component.onSuccess(response);
       expect(component.response).toBe(response);
-    });
-
-    it('handles cancel', () => {
-      spyOn(console, 'log');
-      component.onResponse(false);
-      expect(console.log).toHaveBeenCalledWith('user clicked cancel');
-    });
-
-    it('handles submit', () => {
-      const response = {'response': 'dyfi'};
-      spyOn(console, 'log');
-      component.onResponse(response);
-      expect(console.log).toHaveBeenCalledWith('user clicked submit', response);
-    });
-
-    it('handles undefined', () => {
-      const response = undefined;
-      spyOn(console, 'log');
-      component.onResponse(response);
-      expect(console.log).not.toHaveBeenCalled();
     });
   });
 
   describe('showForm', () => {
-    it('does not call onResponse when response is null', (done) => {
-      spyOn(component, 'onResponse');
-      component.initPromise.then(() => {
-        component.dialogRef.afterClosed().subscribe(() => {
-          fixture.detectChanges();
-          fixture.whenStable().then(() => {
-            expect(component.dialogRef).toBeNull();
-            expect(component.onResponse).not.toHaveBeenCalled();
-            done();
-          });
-        });
-
-        component.dialogRef.close(null);
-      });
-    });
-
-    it('calls onResponse when response is not null', (done) => {
+    it('calls onDialogClose with response', (done) => {
       const response = {'response': true};
-      spyOn(component, 'onResponse');
+      spyOn(component, 'onDialogClose');
       component.initPromise.then(() => {
         component.dialogRef.afterClosed().subscribe(() => {
           fixture.detectChanges();
           fixture.whenStable().then(() => {
-            expect(component.dialogRef).toBeNull();
-            expect(component.onResponse).toHaveBeenCalledWith(response);
+            expect(component.onDialogClose).toHaveBeenCalledWith(response);
             done();
           });
         });

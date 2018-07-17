@@ -3,6 +3,7 @@ const PROXY_CONFIG = [
     context: [
       '/archive',
       '/data/comcat',
+      '/data/dyfi',
       '/earthquakes/feed',
       '/earthquakes/map',
       '/fdsnws',

@@ -57,11 +57,12 @@ describe('LocationComponent', () => {
 
   describe('setLocation', () => {
     it('requires a value to set', () => {
+      component.value = {};
       component.setLocation(null);
-      expect(component.value.ciim_mapAddress).not.toBeNull();
-      expect(component.value.ciim_mapConfidence).not.toBeNull();
-      expect(component.value.ciim_mapLat).not.toBeNull();
-      expect(component.value.ciim_mapLon).not.toBeNull();
+      expect(component.value.ciim_mapAddress).toBeUndefined();
+      expect(component.value.ciim_mapConfidence).toBeUndefined();
+      expect(component.value.ciim_mapLat).toBeUndefined();
+      expect(component.value.ciim_mapLon).toBeUndefined();
     });
     it('sets a value', () => {
       const coordinates: Coordinates = {
@@ -72,7 +73,7 @@ describe('LocationComponent', () => {
         'method': null,
         'zoom': 12
       };
-
+      component.value = {};
       component.setLocation(coordinates);
       expect(component.value.ciim_mapAddress).toEqual(coordinates.name);
       expect(component.value.ciim_mapConfidence).toEqual(coordinates.confidence);

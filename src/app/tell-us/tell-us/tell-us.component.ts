@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 
@@ -21,10 +22,13 @@ export class TellUsComponent implements OnInit {
   // response received from form
   public response: any = null;
 
+  // error response received from form
+  public error: any = null;
 
   constructor (
     public dialog: MatDialog,
-    public eventService: EventService
+    public eventService: EventService,
+    public location: Location
   ) { }
 
   ngOnInit () {
@@ -34,23 +38,46 @@ export class TellUsComponent implements OnInit {
   }
 
   /**
+   * Handles the dialog closing, and checks to see if there is a dyfi response
+   *
+   * @param response dyfi response or HttpErrorResponse object
+   */
+  onDialogClose(response) {
+    this.dialogRef = null;
+
+    // check response
+    if (!response || response === false || typeof response === 'undefined') {
+      // user closed form
+      this.location.back();
+    } else if (response && response.your_cdi) {
+      // success submitting form
+      this.onSuccess(response);
+    } else {
+      // error submitting form
+      this.onError(response);
+    }
+  }
+
+  /**
+   * Called when there was an error submitting the DYFI response
+   *
+   * @param response
+   *        HttpErrorResponse object
+   */
+  onError (response) {
+    this.error = response;
+    console.log('form failed to submit: ', this.error);
+  }
+
+  /**
    * Called after dialog closes (either cancelled or submitted).
    *
    * @param response
-   *        false if user clicked cancel,
-   *        response object if user clicked submit,
-   *        undefined if user closed dialog another way.
+   *        response object from earthquake-dyfi-response
    */
-  onResponse (response) {
+  onSuccess (response) {
     this.response = response;
-    if (response === false) {
-      console.log('user clicked cancel');
-      // todo: use router to navigate back?
-    } else if (response) {
-      // user clicked submit
-      console.log('user clicked submit', response);
-      // todo: submit response
-    }
+    console.log('success!', this.response);
   }
 
   /**
@@ -64,10 +91,7 @@ export class TellUsComponent implements OnInit {
     });
 
     this.dialogRef.afterClosed().subscribe((response) => {
-      this.dialogRef = null;
-      if (response !== null) {
-        this.onResponse(response);
-      }
+      this.onDialogClose(response);
     });
   }
 
