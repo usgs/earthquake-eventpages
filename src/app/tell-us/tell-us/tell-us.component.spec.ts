@@ -63,6 +63,7 @@ describe('TellUsComponent', () => {
         MockComponent({selector: 'tell-us-location', inputs: ['enter', 'update']}),
         MockComponent({selector: 'tell-us-question', inputs: ['label', 'multiSelect', 'name', 'options', 'value']}),
         MockComponent({selector: 'tell-us-privacy-statement'}),
+        MockComponent({selector: 'shared-summary-link', inputs: ['productType', 'event']}),
         MockPipe('keys')
       ],
       providers: [
