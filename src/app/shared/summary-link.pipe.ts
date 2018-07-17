@@ -12,7 +12,7 @@ export class SummaryLinkPipe implements PipeTransform {
 
     const EXECUTIVE = {
       url: '/executive',
-      text: 'Executive'
+      text: 'Overview'
     };
 
     const IMPACT = {
@@ -30,14 +30,16 @@ export class SummaryLinkPipe implements PipeTransform {
       'regioninfo': EXECUTIVE,
 
       'dyfi': IMPACT,
-      'shakemap': IMPACT,
+      'ground-failure': IMPACT,
       'losspager': IMPACT,
+      'shakemap': IMPACT,
       'tellus': IMPACT,
 
-      'origin': TECHNICAL,
       'moment-tensor': TECHNICAL,
-      'focal-mechanism': TECHNICAL,
+      'oaf': TECHNICAL,
+      'origin': TECHNICAL,
       'finite-fault': TECHNICAL,
+      'focal-mechanism': TECHNICAL,
       'waveforms': TECHNICAL
     };
 
