@@ -1,62 +1,61 @@
 dd {
   margin: 0;
-}
 
-figure {
-  display: flex;
-  flex-direction: row;
-  margin: 0.25em 0 1em;
-
-  > .svg-wrapper {
+  figure {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    margin: 0.25em 0 0.5em;
 
-    > svg {
-      height: auto;
-      margin-right: 1rem;
-      stroke-width: 0;
-      width: 40px;
-    }
-  }
+    > .svg-wrapper {
+      display: flex;
+      flex-direction: column;
 
-  > figcaption {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    > p {
-      font-size: 0.88em;
-      line-height: 1.3;
-      margin: 0;
-
-      + p {
-        margin-top: 1em;
+      > svg {
+        height: auto;
+        margin: 0 1em 0 0.5em;
+        stroke-width: 0;
+        width: 40px;
       }
     }
-  }
 
-  &.green {
-    .st0, .st1 {
-      fill: #27a83c;
+    > figcaption {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      > p {
+        font-size: 0.88em;
+        line-height: 1.3;
+        margin: 0;
+
+        + p {
+          margin-top: 0.5em;
+        }
+      }
     }
-  }
 
-  &.yellow {
-    .st0, .st1 {
-      fill: #F3EF1A;
+    &.green {
+      .st0, .st1 {
+        fill: #27a83c;
+      }
     }
-  }
 
-  &.orange {
-    .st0, .st1 {
-      fill: #f0a216;
+    &.yellow {
+      .st0, .st1 {
+        fill: #F3EF1A;
+      }
     }
-  }
 
-  &.red {
-    .st0, .st1 {
-      fill: #ba2d1a;
+    &.orange {
+      .st0, .st1 {
+        fill: #f0a216;
+      }
+    }
+
+    &.red {
+      .st0, .st1 {
+        fill: #ba2d1a;
+      }
     }
   }
 }
