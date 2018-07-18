@@ -35,7 +35,8 @@ describe('MomentTensorPinComponent', () => {
             'fillColor',
             'labelAxes',
             'labelPlanes',
-            'tensor'
+            'tensor',
+            'size'
           ]
         })
       ]
