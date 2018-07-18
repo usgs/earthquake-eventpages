@@ -1,49 +1,62 @@
-.ground-failure-icon {
-  height: auto;
-  margin-right: 1rem;
-  stroke: #333;
-  stroke-width: 0.5px;
-  width: 100%;
+dd {
+  margin: 0;
 }
 
-.green {
-  .st0, .st1 {
-    fill: #27a83c;
+figure {
+  display: flex;
+  flex-direction: row;
+  margin: 0.25em 0 1em;
+
+  > .svg-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    > svg {
+      height: auto;
+      margin-right: 1rem;
+      stroke-width: 0;
+      width: 40px;
+    }
   }
-}
 
-.yellow {
-  .st0, .st1 {
-    fill: #F9F518;
+  > figcaption {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    > p {
+      font-size: 0.88em;
+      line-height: 1.3;
+      margin: 0;
+
+      + p {
+        margin-top: 1em;
+      }
+    }
   }
-}
 
-.orange {
-  .st0, .st1 {
-    fill: #f0a216;
+  &.green {
+    .st0, .st1 {
+      fill: #27a83c;
+    }
   }
-}
 
-.red {
-  .st0, .st1 {
-    fill: #ba2d1a;
+  &.yellow {
+    .st0, .st1 {
+      fill: #F3EF1A;
+    }
   }
-}
 
-span {
-  display: block;
-  line-height: 1;
-  margin: 0.25em 0 0.5em;
-}
+  &.orange {
+    .st0, .st1 {
+      fill: #f0a216;
+    }
+  }
 
-h4 {
-  margin: 0.5em 0;
-}
-
-.column.icon {
-  width: 70px;
-}
-
-.column.text {
-  flex: 1;
+  &.red {
+    .st0, .st1 {
+      fill: #ba2d1a;
+    }
+  }
 }
