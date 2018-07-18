@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { Event } from '../../event';
@@ -7,7 +7,8 @@ import { Event } from '../../event';
 @Component({
   selector: 'basic-pin',
   templateUrl: './basic-pin.component.html',
-  styleUrls: ['./basic-pin.component.scss']
+  styleUrls: ['./basic-pin.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class BasicPinComponent {
   // router link for entire card action
