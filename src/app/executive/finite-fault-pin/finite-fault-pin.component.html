@@ -7,12 +7,17 @@
       sharedProductContent
           :'cross-section.png'
           :('web/' + product?.properties?.eventsourcecode + '_slip2.png');
-      let content">
+      let content; else noContent">
     <img src="{{ content.url }}" alt="Cross-section of slip distribution"/>
     <figcaption>
-      <small>
-        Cross-section of slip distribution.
-      </small>
+      Cross-section of slip distribution.
     </figcaption>
   </figure>
+
+  <ng-template #noContent>
+    <p class="alert error">
+      Slip Distribution information not specified.
+    </p>
+  </ng-template>
+
 </basic-pin>

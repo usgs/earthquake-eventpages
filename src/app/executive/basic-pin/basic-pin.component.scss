@@ -38,10 +38,28 @@ basic-pin {
     > dl > dt {
       font-weight: bold;
     }
+
+    > figure {
+      margin: 0;
+
+      > img,
+      > shared-beachball {
+        display: block;
+        margin: 0 auto;
+        width: 75%;
+      }
+
+      > figcaption {
+        color: #777;
+        font-size: 0.88em;
+        margin: 0.5em 0;
+        text-align: center;
+      }
+    }
   }
 
   footer {
-    color: #666;
+    color: #333;
     font-size: 0.77em;
     position: relative;
     text-align: center;
@@ -61,3 +79,9 @@ basic-pin {
     color: inherit;
   }
 }
+
+
+
+
+
+

@@ -36,7 +36,8 @@ describe('FocalMechanismPinComponent', () => {
             'fillColor',
             'labelAxes',
             'labelPlanes',
-            'tensor'
+            'tensor',
+            'size'
           ]
         })
       ]
