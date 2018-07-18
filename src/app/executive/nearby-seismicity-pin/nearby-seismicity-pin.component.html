@@ -1,36 +1,33 @@
-<basic-pin
-  [href]="link"
-  [title]="title"
-  [footer]="footer">
+<basic-pin [href]="link" [title]="title" [footer]="footer">
+  <dl>
+    <dt>Time Range</dt>
+    <dd>
+      <figure>
+        <img src="assets/time.png" alt="Time range image" />
+        <figcaption>
+          &plusmn; Three Weeks
+        </figcaption>
+      </figure>
+    </dd>
 
-  <ul class="flex-image-grid nearby-seismicity-pin-view no-style">
-    <li>
-      <div class="image-container">
-        <img src="assets/time.png" alt="Time range image" class="pin-icon" />
-      </div>
-      <div class="text-container">
-        <h4>Time Range</h4>
-        <span class="pin-time">&plusmn; Three Weeks</span>
-      </div>
-    </li>
-    <li>
-      <div class="image-container">
-        <img src="assets/radius.png" alt="Search radius image" class="pin-icon" />
-      </div>
-      <div class="text-container">
-        <h4>Search Radius</h4>
-        <span class="pin-time">250.0 km</span>
-      </div>
-    </li>
-    <li>
-      <div class="image-container">
-        <img src="assets/magnitude.png" alt="Magnitude Range" class="pin-icon" />
-      </div>
-      <div class="text-container">
-        <h4>Magnitude Range</h4>
-        <span class="pin-time">&ge; {{ minimumMag | sharedNumber:1 }}</span>
-      </div>
-    </li>
-  </ul>
+    <dt>Search Radius</dt>
+    <dd>
+      <figure>
+        <img src="assets/radius.png" alt="Search radius image" />
+        <figcaption>
+          250.0 km
+        </figcaption>
+      </figure>
+    </dd>
 
+    <dt>Magnitude Range</dt>
+    <dd>
+      <figure>
+        <img src="assets/magnitude.png" alt="Magnitude Range" />
+        <figcaption>
+          &ge; {{ minimumMag | sharedNumber:1 }}
+        </figcaption>
+      </figure>
+    </dd>
+  </dl>
 </basic-pin>

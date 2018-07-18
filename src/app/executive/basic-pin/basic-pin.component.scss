@@ -1,4 +1,5 @@
 basic-pin {
+
   article {
     border: 1px solid #ccc;
     cursor: pointer;
@@ -32,6 +33,10 @@ basic-pin {
 
     & > :first-child {
       margin-top: 0;
+    }
+
+    > dl > dt {
+      font-weight: bold;
     }
   }
 
