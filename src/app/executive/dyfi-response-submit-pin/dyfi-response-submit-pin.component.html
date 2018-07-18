@@ -1,23 +1,33 @@
 <basic-pin *ngIf="product | dyfiCounter: 6 as responses"
-    [link]="link"
-    [product]="product"
-    [title]="title"
-    [footer]="footer">
-  <div>
+  [link]="link"
+  [product]="product"
+  [title]="title"
+  [footer]="footer">
+
+  <figure *ngIf="responses; else noResponses">
     <div class="dyfi-responses-badge">
       <div *ngFor="let response of responses"
-          class="responses-digit"
-          [class.empty-digit]="response.leadingZero">
+           class="responses-digit"
+           [class.empty-digit]="response.leadingZero">
         {{ response.value }}
       </div>
     </div>
-    <div class="dyfi-responses-abbr" title="DYFI Responses">
+    <figcaption>
       Responses
-    </div>
-    <small>
-      Contribute to citizen science. Please <a href="#tellus">tell us</a>
-      about your experience.
-    </small>
-  </div>
+    </figcaption>
+  </figure>
+
+  <p>
+    Contribute to citizen science. Please <a href="#tellus">tell us</a>
+    about your experience.
+  </p>
+
+  <ng-template #noResponses>
+    <p class="alert error">
+      Responses Information not specified.
+    </p>
+  </ng-template>
 
 </basic-pin>
+
+

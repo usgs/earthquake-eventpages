@@ -2,22 +2,36 @@
     [link]="link"
     [product]="product">
 
-  <div card-title>
+  <figure card-title *ngIf="products?.properties?.alertlevel; else noAlert">
     <a [routerLink]="link">{{ title }}</a>
     <shared-alert-level [alert]="product?.properties?.alertlevel">
     </shared-alert-level>
-  </div>
+  </figure>
 
-  <div *ngIf="product">
-    <h4>Estimated Economic Losses</h4>
+  <figure *ngIf="product?.properties; else noProperties">
+
+    <figcaption>Estimated Economic Losses</figcaption>
     <img class="alert-histogram"
-        src="{{product.contents['alertecon_smaller.png'].url}}"
-        alt="Economic Alert Histogram" />
+         src="{{product?.contents['alertecon_smaller.png']?.url}}"
+         alt="Economic Alert Histogram" />
 
-
-    <h4>Estimated Fatalities</h4>
+    <figcaption>Estimated Fatalities</figcaption>
     <img class="alert-histogram"
-        src="{{product.contents['alertfatal_smaller.png'].url}}"
-        alt="Fatality Alert Histogram" />
-  </div>
+         src="{{product.contents['alertfatal_smaller.png'].url}}"
+         alt="Fatality Alert Histogram" />
+
+  </figure>
+
+  <ng-template #noProperties>
+    <p class="alert error">
+      Pager Information not specified.
+    </p>
+  </ng-template>
+
+  <ng-template #noAlert>
+    <figure card-title>
+      <a [routerLink]="link">{{ title }}</a>
+    </figure>
+  </ng-template>
+
 </basic-pin>

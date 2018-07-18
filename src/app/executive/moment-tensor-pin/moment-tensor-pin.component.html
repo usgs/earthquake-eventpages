@@ -1,11 +1,15 @@
 <basic-pin *ngIf="tensor"
-    [link]="link"
-    [product]="product"
-    [title]="title">
-  <shared-beachball
+  [link]="link"
+  [product]="product"
+  [title]="title">
+
+  <figure>
+    <shared-beachball
       [fillColor]="'#6ea8ff'"
       [labelAxes]="false"
       [labelPlanes]="false"
       [tensor]="tensor">
-  </shared-beachball>
+    </shared-beachball>
+  </figure>
+
 </basic-pin>
