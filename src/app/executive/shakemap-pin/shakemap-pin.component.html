@@ -3,29 +3,26 @@
     [product]="product"
     [title]="title">
 
-  <div>
-    <ng-container *ngIf="product?.properties?.maxmmi as mmi; else noMMI">
-      <dl class="mmi-description">
-        <dt>Estimated Intensity</dt>
-        <dd>
-          <shared-mmi
-            [bubble]="true"
-            [intensity]="mmi">
-          </shared-mmi>
-        </dd>
-        <dt>Perceived Shaking</dt>
-        <dd>{{ mmiDescription[round(mmi)].shaking }}</dd>
+  <dl *ngIf="product?.properties?.maxmmi as mmi; else noMMI"
+      class="mmi-description">
+    <dt>Estimated Intensity</dt>
+    <dd>
+      <shared-mmi
+        [bubble]="true"
+        [intensity]="mmi">
+      </shared-mmi>
+    </dd>
+    <dt>Perceived Shaking</dt>
+    <dd>{{ mmiDescription[round(mmi)].shaking }}</dd>
 
-        <dt>Potential Damage</dt>
-        <dd>{{ mmiDescription[round(mmi)].damage }}</dd>
-      </dl>
-    </ng-container>
+    <dt>Potential Damage</dt>
+    <dd>{{ mmiDescription[round(mmi)].damage }}</dd>
+  </dl>
 
-    <ng-template #noMMI>
-      <p class="alert info">
-        Estimated Intensity not specified.
-      </p>
-    </ng-template>
-  </div>
+  <ng-template #noMMI>
+    <p class="alert error">
+      Estimated Intensity not specified.
+    </p>
+  </ng-template>
 
 </basic-pin>
