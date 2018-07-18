@@ -2,13 +2,13 @@
   [link]="link"
   [product]="product">
 
-  <figure card-title>
+  <div card-title>
     <a [routerLink]="link">{{ title }}</a>
     <shared-mmi
       [bubble]="true"
       [intensity]="product?.properties?.maxmmi">
     </shared-mmi>
-  </figure>
+  </div>
 
   <figure *ngIf="product | sharedProductContent:
       product?.properties?.eventsource +

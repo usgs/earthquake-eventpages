@@ -2,11 +2,11 @@
     [link]="link"
     [product]="product">
 
-  <figure card-title *ngIf="products?.properties?.alertlevel; else noAlert">
+  <div card-title>
     <a [routerLink]="link">{{ title }}</a>
     <shared-alert-level [alert]="product?.properties?.alertlevel">
     </shared-alert-level>
-  </figure>
+  </div>
 
   <figure *ngIf="product?.properties; else noProperties">
 
@@ -26,12 +26,6 @@
     <p class="alert error">
       Pager Information not specified.
     </p>
-  </ng-template>
-
-  <ng-template #noAlert>
-    <figure card-title>
-      <a [routerLink]="link">{{ title }}</a>
-    </figure>
   </ng-template>
 
 </basic-pin>

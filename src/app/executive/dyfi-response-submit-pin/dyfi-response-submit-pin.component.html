@@ -4,7 +4,7 @@
   [title]="title"
   [footer]="footer">
 
-  <figure *ngIf="responses; else noResponses">
+  <figure>
     <div class="dyfi-responses-badge">
       <div *ngFor="let response of responses"
            class="responses-digit"
@@ -12,21 +12,13 @@
         {{ response.value }}
       </div>
     </div>
-    <figcaption>
-      Responses
-    </figcaption>
+    <figcaption>Responses</figcaption>
   </figure>
 
   <p>
     Contribute to citizen science. Please <a href="#tellus">tell us</a>
     about your experience.
   </p>
-
-  <ng-template #noResponses>
-    <p class="alert error">
-      Responses Information not specified.
-    </p>
-  </ng-template>
 
 </basic-pin>
 
