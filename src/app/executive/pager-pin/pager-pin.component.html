@@ -9,17 +9,17 @@
   </div>
 
   <figure *ngIf="product?.properties; else noProperties">
-
-    <figcaption>Estimated Economic Losses</figcaption>
     <img class="alert-histogram"
          src="{{product?.contents['alertecon_smaller.png']?.url}}"
          alt="Economic Alert Histogram" />
+    <figcaption>Estimated Economic Losses</figcaption>
+  </figure>
 
-    <figcaption>Estimated Fatalities</figcaption>
+  <figure>
     <img class="alert-histogram"
          src="{{product.contents['alertfatal_smaller.png'].url}}"
          alt="Fatality Alert Histogram" />
-
+    <figcaption>Estimated Fatalities</figcaption>
   </figure>
 
   <ng-template #noProperties>
