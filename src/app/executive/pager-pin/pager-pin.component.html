@@ -8,24 +8,26 @@
     </shared-alert-level>
   </div>
 
-  <figure *ngIf="product?.properties; else noProperties">
-    <img class="alert-histogram"
-         src="{{product?.contents['alertecon_smaller.png']?.url}}"
-         alt="Economic Alert Histogram" />
-    <figcaption>Estimated Economic Losses</figcaption>
-  </figure>
+    <figure *ngIf="product | sharedProductContent:'alertecon_smaller.png' as content; else noAlertecon">
+      <img class="alert-histogram"
+           src="{{ content.url }}"
+           alt="Economic Alert Histogram" />
+      <figcaption>Estimated Economic Losses</figcaption>
+    </figure>
 
-  <figure>
+  <figure *ngIf="product | sharedProductContent:'alertfatal_smaller.png' as content; else noAlertFatal ">
     <img class="alert-histogram"
          src="{{product?.contents['alertfatal_smaller.png']?.url}}"
          alt="Fatality Alert Histogram" />
     <figcaption>Estimated Fatalities</figcaption>
   </figure>
 
-  <ng-template #noProperties>
-    <p class="alert error">
-      Pager Information not specified.
-    </p>
+  <ng-template #noAlertecon>
+    <p class="alert error">Economic Losses Information not specified.</p>
+  </ng-template>
+
+  <ng-template #noAlertFatal>
+    <p class="alert error">Economic Fatalities Information not specified.</p>
   </ng-template>
 
 </basic-pin>
