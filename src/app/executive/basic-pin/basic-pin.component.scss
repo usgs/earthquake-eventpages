@@ -22,6 +22,10 @@ basic-pin {
   header {
     display: flex;
     justify-content: space-between;
+
+    shared-bubble > abbr {
+      display: none;
+    }
   }
 
   section {
@@ -35,8 +39,14 @@ basic-pin {
       margin-top: 0;
     }
 
-    > dl > dt {
-      font-weight: bold;
+    > dl {
+      > dd {
+        margin-bottom: 0.25em;
+        margin-top: 0.25em;
+      }
+      > dt {
+        font-weight: bold;
+      }
     }
 
     > figure {
@@ -46,7 +56,7 @@ basic-pin {
       > shared-beachball {
         display: block;
         margin: 0 auto;
-        width: 75%;
+        width: 70%;
       }
 
       > figcaption {
