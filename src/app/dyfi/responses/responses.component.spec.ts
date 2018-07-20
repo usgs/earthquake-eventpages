@@ -12,6 +12,8 @@ import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
 import { MockPipe } from '../../mock-pipe';
 import { ResponsesComponent } from './responses.component';
+import {FormatterService} from '../../core/formatter.service';
+import {MatDialogModule} from '@angular/material';
 
 describe('ResponsesComponent', () => {
   let component: ResponsesComponent;
@@ -29,6 +31,7 @@ describe('ResponsesComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        MatDialogModule,
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
@@ -38,11 +41,14 @@ describe('ResponsesComponent', () => {
         ResponsesComponent,
 
         MockComponent({selector: 'shared-mmi', inputs: ['intensity']}),
-        MockPipe('sharedUnits')
+        MockPipe('sharedUnits'),
+        MockPipe('sharedNumber'),
+        MockPipe('sharedRoman')
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},
-        {provide: DyfiService, useValue: dyfiServiceStub}
+        {provide: DyfiService, useValue: dyfiServiceStub},
+        FormatterService
       ]
     })
     .compileComponents();
@@ -57,4 +63,36 @@ describe('ResponsesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onDownload', () => {
+    it('formats download and opens dialog', () => {
+      component.responses.filteredData = [{
+        'name': 'test name',
+        'state': 'test state',
+        'country': 'test country',
+        'zip': 'test zip',
+        'cdi': '1',
+        'nresp': 'test responses',
+        'dist': 'test distance',
+        'lat': '2.2',
+        'lon': '3.3'
+      }
+      ];
+
+      const spy = spyOn(component.dialog, 'open').and.returnValue({});
+      component.onDownload();
+
+      // dialog opened
+      expect(component.dialog.open).toHaveBeenCalled();
+      // download formatted
+      const lastCall = spy.calls.mostRecent().args[1];
+      expect(lastCall.data.title).toEqual('Donwload DYFI Responses');
+      expect(lastCall.data.message).toEqual('Copy then paste into a spreadsheet application');
+      expect(lastCall.data.content).toEqual(
+        'Location\tMMI\tResponses\tDistance\tLatitude\tLongitude\n' +
+        'test name test state test country test zip\tI\ttest responses\ttest distance km\t2.2\t3.3'
+      );
+    });
+  });
+
 });

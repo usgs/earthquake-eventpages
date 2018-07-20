@@ -6,20 +6,18 @@ import { DownloadDialogComponent } from '../../shared/download-dialog/download-d
 import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
 import {RomanPipe} from '../../shared/roman.pipe';
-import {NumberPipe} from '../../shared/number.pipe';
-
-
 
 @Component({
   selector: 'dyfi-responses',
   templateUrl: './responses.component.html',
   styleUrls: ['./responses.component.scss'],
-  providers: [RomanPipe, NumberPipe]
+  providers: [RomanPipe]
 })
 export class ResponsesComponent implements OnInit, OnDestroy {
   private subs = new Subscription;
   public responses = new MatTableDataSource(null);
   public loaded = false;
+  public responsesArray = [];
   public headers = [
     'name',
     'cdi',
@@ -45,15 +43,13 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     'lon': 'Longitude'
   };
 
-
   public paginatorSizes = [10, 20, 50, 100, 1000];
 
   constructor (
     public dyfiService: DyfiService,
     public eventService: EventService,
     public dialog: MatDialog,
-    public romanPipe: RomanPipe,
-    public numberPipe: NumberPipe
+    public romanPipe: RomanPipe
   ) { }
 
 
@@ -93,17 +89,17 @@ export class ResponsesComponent implements OnInit, OnDestroy {
   }
 
   onDownload() {
-    const responsesArray = this.responses.filteredData;
+    this.responsesArray = Array.from(this.responses.filteredData);
 
     const headers = this.columnsToDisplay.map((c) => {
       return this.columnTitles[c];
     }).join('\t');
 
-    const lines = responsesArray.map((response) => {
+    const lines = this.responsesArray.map((response) => {
       response['location'] = response['name'] + ' ' + response['state'] + ' ' +
                              response['country'] + ' ' + response['zip'];
       response['mmi'] = this.romanPipe.transform(response['cdi']);
-      response['dist'] = this.numberPipe.transform(response['dist'], 0, 'km');
+      response['dist'] = response['dist'] + ' km';
       return this.columnsToDisplay.map((c) => {
         return response[c];
       }).join('\t');
