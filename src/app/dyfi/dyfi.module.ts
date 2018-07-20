@@ -5,11 +5,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgModule } from '@angular/core';
-
-import {
-  MdcTabModule,
-  MdcIconModule
-} from '@angular-mdc/web';
+import { MdcTabModule, MdcIconModule } from '@angular-mdc/web';
 
 import { DyfiComponent } from './dyfi/dyfi.component';
 import { DyfiRoutingModule } from './dyfi-routing.module';
@@ -23,8 +19,6 @@ import { ResponsesComponent } from './responses/responses.component';
 import { SharedModule } from '../shared/shared.module';
 import { ZipComponent } from './zip/zip.component';
 import {MatButtonModule} from '@angular/material';
-
-
 
 @NgModule({
   imports: [
