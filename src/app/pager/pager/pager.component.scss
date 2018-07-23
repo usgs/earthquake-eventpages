@@ -1,16 +1,31 @@
-figure {
-  margin: 1em 0;
-}
+.losspager-product-page {
 
-img {
-  max-width: 100%;
-}
-mat-table {
+  figure {
+    margin: 1em 0;
+  }
 
-  .mat-column-mmi,
-  .mat-column-population {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: 90px;
+  img {
+    max-width: 100%;
+  }
+
+  mat-table {
+
+    .mat-column-mmi,
+    .mat-column-population {
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+
+    .mat-column-mmi {
+      flex-basis: 100px;
+    }
+
+    .mat-column-population {
+      flex-basis: 80px;
+    }
+  }
+
+  .mmi {
+    width: 60px;
   }
 }
