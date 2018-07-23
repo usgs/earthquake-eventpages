@@ -89,8 +89,8 @@ describe('ResponsesComponent', () => {
       expect(lastCall.data.title).toEqual('Donwload DYFI Responses');
       expect(lastCall.data.message).toEqual('Copy then paste into a spreadsheet application');
       expect(lastCall.data.content).toEqual(
-        'Location\tMMI\tResponses\tDistance\tLatitude\tLongitude\n' +
-        'test name test state test country test zip\tI\ttest responses\ttest distance km\t2.2\t3.3'
+        'Name\tState\tCountry\tZip\tMMI\tResponses\tDistance\tLatitude\tLongitude\n' +
+        'test name\ttest state\ttest country\ttest zip\tI\ttest responses\ttest distance km\t2.2\t3.3'
       );
     });
   });

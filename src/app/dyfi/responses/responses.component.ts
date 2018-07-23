@@ -27,7 +27,10 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     'lon'
   ];
   public columnsToDisplay = [
-    'location',
+    'name',
+    'state',
+    'country',
+    'zip',
     'mmi',
     'nresp',
     'dist',
@@ -35,7 +38,10 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     'lon'
   ];
   public columnTitles = {
-    'location': 'Location',
+    'name': 'Name',
+    'state': 'State',
+    'country': 'Country',
+    'zip': 'Zip',
     'mmi': 'MMI',
     'nresp': 'Responses',
     'dist': 'Distance',
@@ -96,8 +102,6 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     }).join('\t');
 
     const lines = this.responsesArray.map((response) => {
-      response['location'] = response['name'] + ' ' + response['state'] + ' ' +
-                             response['country'] + ' ' + response['zip'];
       response['mmi'] = this.romanPipe.transform(response['cdi']);
       response['dist'] = response['dist'] + ' km';
       return this.columnsToDisplay.map((c) => {
