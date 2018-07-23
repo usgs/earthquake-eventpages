@@ -41,12 +41,14 @@ basic-pin {
 
     > dl {
       > dd {
-        margin-bottom: 0.25em;
-        margin-top: 0.25em;
+        margin: 0.25em 0 0.25em 1em;
+
+        + dt {
+          margin-top: 1em;
+        }
       }
       > dt {
         color: #777;
-        font-size: 0.88em;
       }
     }
 
@@ -57,12 +59,11 @@ basic-pin {
       > shared-beachball {
         display: block;
         margin: 0 auto;
-        width: 70%;
+        width: 75%;
       }
 
       > figcaption {
         color: #777;
-        font-size: 0.88em;
         margin: 0.5em 0;
         text-align: center;
       }
