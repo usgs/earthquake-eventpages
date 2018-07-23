@@ -1,4 +1,7 @@
 <ng-container *ngIf="loaded">
+
+  <button mat-raised-button (click)="onDownload()">Download</button>
+
   <mat-table [dataSource]="responses" matSort matSortActive="dist" matSortDirection="asc">
     <mat-header-row *matHeaderRowDef="headers"></mat-header-row>
     <mat-row *matRowDef="let myRowData; columns: headers"></mat-row>

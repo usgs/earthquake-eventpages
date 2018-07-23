@@ -3,12 +3,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgModule } from '@angular/core';
-
-import {
-  MdcTabModule,
-  MdcIconModule
-} from '@angular-mdc/web';
+import { MdcTabModule, MdcIconModule } from '@angular-mdc/web';
 
 import { DyfiComponent } from './dyfi/dyfi.component';
 import { DyfiRoutingModule } from './dyfi-routing.module';
@@ -21,21 +18,22 @@ import { ResponsesVsTimeComponent } from './responses-vs-time/responses-vs-time.
 import { ResponsesComponent } from './responses/responses.component';
 import { SharedModule } from '../shared/shared.module';
 import { ZipComponent } from './zip/zip.component';
-
-
+import {MatButtonModule} from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     DyfiRoutingModule,
     ProductPageModule,
+    MatButtonModule,
+    MatPaginatorModule,
+    MatSortModule,
     MdcIconModule,
     MatTabsModule,
     MdcTabModule,
-    NgxChartsModule,
     MatTableModule,
-    MatSortModule,
-    MatPaginatorModule,
+    MatTooltipModule,
+    NgxChartsModule,
     SharedModule
   ],
   declarations: [

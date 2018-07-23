@@ -4,12 +4,21 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 
 import { DyfiComponent } from './dyfi.component';
+import {EventService} from '../../core/event.service';
+import {Event} from '../../event';
+import {of} from 'rxjs/observable/of';
+
 
 describe('DyfiComponent', () => {
   let component: DyfiComponent;
   let fixture: ComponentFixture<DyfiComponent>;
 
   beforeEach(async(() => {
+    const eventServiceStub = {
+      event$: of(new Event({})),
+      product$: of(null)
+    };
+
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
@@ -23,6 +32,9 @@ describe('DyfiComponent', () => {
         MockComponent({ selector: 'mdc-tab-bar-scroll-back' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-forward' })
+      ],
+      providers: [
+        {provide: EventService, useValue: eventServiceStub}
       ]
     })
     .compileComponents();
