@@ -1,7 +1,8 @@
 'use strict';
 
 
-var DyfiFormPinView = require('dyfi/DYFIFormPinView'),
+var BetaPinView = require('core/BetaPinView'),
+    DyfiFormPinView = require('dyfi/DYFIFormPinView'),
     DyfiPinView = require('dyfi/DYFIPinView'),
     FiniteFaultPinView = require('finite-fault/FiniteFaultPinView'),
     FocalMechanismPinView = require('focal-mechanism/FocalMechanismPinView'),
@@ -283,6 +284,12 @@ var ExecutiveSummaryModule = function (options) {
         event: ev
       }));
     }
+
+    // Beta pin
+    _this.pinViews.push(BetaPinView({
+      el: _this.createPinContainer(list),
+      eventId: ev.getEventId()
+    }));
 
     return list;
   };
