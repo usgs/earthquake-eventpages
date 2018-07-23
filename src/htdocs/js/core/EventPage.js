@@ -16,7 +16,7 @@ var Attribution = require('core/Attribution'),
     Model = require('mvc/Model'),
     MomentTensorModule = require('moment-tensor/MomentTensorModule'),
     NearbySeismicity = require('nearby-seismicity/NearbySeismicity'),
-    OafModule = require('oaf/OafModule'),
+    //OafModule = require('oaf/OafModule'),
     OriginModule = require('origin/OriginModule'),
     PAGERModule = require('losspager/PAGERModule'),
     RegionalInfoModule = require('general/RegionalInfoModule'),
@@ -53,8 +53,8 @@ var _DEFAULTS = {
       MomentTensorModule,
       FocalMechanismModule,
       FiniteFaultModule,
-      WaveformModule,
-      OafModule
+      WaveformModule
+      //OafModule
     ]
   ],
   'redirects': {
