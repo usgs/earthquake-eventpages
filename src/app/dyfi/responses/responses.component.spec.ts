@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatDialogModule} from '@angular/material';
+import {MatTableModule} from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs';
@@ -11,9 +11,9 @@ import { of } from 'rxjs';
 import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
 import { MockPipe } from '../../mock-pipe';
-import { ResponsesComponent } from './responses.component';
 import {FormatterService} from '../../core/formatter.service';
-import {MatDialogModule} from '@angular/material';
+import { ResponsesComponent } from './responses.component';
+
 
 describe('ResponsesComponent', () => {
   let component: ResponsesComponent;
@@ -66,11 +66,11 @@ describe('ResponsesComponent', () => {
 
   describe('onDownload', () => {
     it('formats download and opens dialog', () => {
-      component.responses.filteredData = [{
+      component.responses.data = [{
         'name': 'test name',
         'state': 'test state',
-        'country': 'test country',
         'zip': 'test zip',
+        'country': 'test country',
         'cdi': '1',
         'nresp': 'test responses',
         'dist': 'test distance',
@@ -86,11 +86,11 @@ describe('ResponsesComponent', () => {
       expect(component.dialog.open).toHaveBeenCalled();
       // download formatted
       const lastCall = spy.calls.mostRecent().args[1];
-      expect(lastCall.data.title).toEqual('Donwload DYFI Responses');
+      expect(lastCall.data.title).toEqual('Download DYFI Responses');
       expect(lastCall.data.message).toEqual('Copy then paste into a spreadsheet application');
       expect(lastCall.data.content).toEqual(
-        'Name\tState\tCountry\tZip\tMMI\tResponses\tDistance\tLatitude\tLongitude\n' +
-        'test name\ttest state\ttest country\ttest zip\tI\ttest responses\ttest distance km\t2.2\t3.3'
+        'Name\tState\tZip\tCountry\tMMI\tResponses\tDistance\tLatitude\tLongitude\n' +
+        'test name\ttest state\ttest zip\ttest country\tI\ttest responses\ttest distance km\t2.2\t3.3'
       );
     });
   });

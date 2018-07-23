@@ -29,8 +29,8 @@ export class ResponsesComponent implements OnInit, OnDestroy {
   public columnsToDisplay = [
     'name',
     'state',
-    'country',
     'zip',
+    'country',
     'mmi',
     'nresp',
     'dist',
@@ -40,8 +40,8 @@ export class ResponsesComponent implements OnInit, OnDestroy {
   public columnTitles = {
     'name': 'Name',
     'state': 'State',
-    'country': 'Country',
     'zip': 'Zip',
+    'country': 'Country',
     'mmi': 'MMI',
     'nresp': 'Responses',
     'dist': 'Distance',
@@ -95,23 +95,32 @@ export class ResponsesComponent implements OnInit, OnDestroy {
   }
 
   onDownload() {
-    this.responsesArray = Array.from(this.responses.filteredData);
-
+   this.responsesArray = this.responses.sortData(this.responses.data, this.sort);
     const headers = this.columnsToDisplay.map((c) => {
       return this.columnTitles[c];
     }).join('\t');
 
     const lines = this.responsesArray.map((response) => {
-      response['mmi'] = this.romanPipe.transform(response['cdi']);
-      response['dist'] = response['dist'] + ' km';
+      const responseObj = {
+        'name': response['name'],
+        'state': response['state'],
+        'zip': response['zip'],
+        'country': response['country'],
+        'mmi': '',
+        'nresp': response['nresp'],
+        'dist': response['dist'] + ' km',
+        'lat': response['lat'],
+        'lon': response['lon']
+      };
+      responseObj['mmi'] = this.romanPipe.transform(response['cdi']);
       return this.columnsToDisplay.map((c) => {
-        return response[c];
+        return responseObj[c];
       }).join('\t');
     });
 
     this.dialog.open(DownloadDialogComponent, {
       data: {
-        title: 'Donwload DYFI Responses',
+        title: 'Download DYFI Responses',
         message: 'Copy then paste into a spreadsheet application',
         content: headers + '\n' + lines.join('\n')
       }
