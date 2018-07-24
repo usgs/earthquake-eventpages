@@ -1,5 +1,13 @@
-<ng-container *ngIf="imageUrl as url; else noImage">
-  <img src="{{ url }}" alt="ShakeMap Uncertainty image">
+<ng-container *ngIf="eventService.product$ | async; let shakemap">
+  <ng-container 
+      *ngIf="shakemap | sharedProductContent:
+      'download/sd.jpg':'download/urat_pga.jpg' as image">
+
+    <ng-container *ngIf="image else noImage">
+      <img src="{{ image.url }}" alt="ShakeMap Uncertainty image">
+    </ng-container>
+
+  </ng-container>
 </ng-container>
 
 <ng-template #noImage>

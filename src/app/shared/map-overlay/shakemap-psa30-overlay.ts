@@ -1,5 +1,6 @@
 import * as L from 'leaflet';
 
+import { ProductContentPipe } from '../product-content.pipe';
 import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 
 
@@ -20,8 +21,14 @@ const ShakemapPSA30Overlay = ShakemapContoursOverlay.extend({
       return null;
     }
 
-    return product.contents['download/cont_psa30.json'] ?
-         product.contents['download/cont_psa30.json'].url : null;
+    const productContentPipe = new ProductContentPipe();
+    const content = productContentPipe.transform(
+        product,
+        'download/cont_psa3p0.json',
+        'download/cont_psa30.json'
+    );
+
+    return content ? content.url : null;
   },
 
   createLabel: function (feature) {
