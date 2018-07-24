@@ -6,33 +6,36 @@
     <h2>Origin</h2>
   </ng-container>
 
-  <mdc-tab-bar-scroller>
-    <mdc-tab-bar-scroll-back>
-      <mdc-icon>navigate_before</mdc-icon>
-    </mdc-tab-bar-scroll-back>
-    <mdc-tab-bar-scroll-frame>
-      <!-- routes/components in ../origin-routing.module.ts -->
-      <nav mdc-tab-bar>
-        <a mdc-tab mdcRouter
-            [routerLink]="'./detail'" queryParamsHandling="preserve">
-          Details
-        </a>
-        <a mdc-tab mdcRouter
-            [routerLink]="'./phase'" queryParamsHandling="preserve">
-          Phases
-        </a>
-        <a mdc-tab mdcRouter
-            [routerLink]="'./magnitude'" queryParamsHandling="preserve">
-          Magnitudes
-        </a>
-      </nav>
-    </mdc-tab-bar-scroll-frame>
-    <mdc-tab-bar-scroll-forward>
-      <mdc-icon>navigate_next</mdc-icon>
-    </mdc-tab-bar-scroll-forward>
-  </mdc-tab-bar-scroller>
 
-  <router-outlet></router-outlet>
+  <ng-container *ngIf="eventService.product$ | async">
+    <mdc-tab-bar-scroller>
+      <mdc-tab-bar-scroll-back>
+        <mdc-icon>navigate_before</mdc-icon>
+      </mdc-tab-bar-scroll-back>
+      <mdc-tab-bar-scroll-frame>
+        <!-- routes/components in ../origin-routing.module.ts -->
+        <nav mdc-tab-bar>
+          <a mdc-tab mdcRouter
+              [routerLink]="'./detail'" queryParamsHandling="preserve">
+            Details
+          </a>
+          <a mdc-tab mdcRouter
+              [routerLink]="'./phase'" queryParamsHandling="preserve">
+            Phases
+          </a>
+          <a mdc-tab mdcRouter
+              [routerLink]="'./magnitude'" queryParamsHandling="preserve">
+            Magnitudes
+          </a>
+        </nav>
+      </mdc-tab-bar-scroll-frame>
+      <mdc-tab-bar-scroll-forward>
+        <mdc-icon>navigate_next</mdc-icon>
+      </mdc-tab-bar-scroll-forward>
+    </mdc-tab-bar-scroller>
+
+    <router-outlet></router-outlet>
+  </ng-container>
 
   <!-- container with footer attribute is added before downloads -->
   <ng-container footer>

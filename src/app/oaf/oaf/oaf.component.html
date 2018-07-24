@@ -6,33 +6,35 @@
     <h2>Aftershock Forecast</h2>
   </ng-container>
 
-  <mdc-tab-bar-scroller>
-    <mdc-tab-bar-scroll-back>
-      <mdc-icon>navigate_before</mdc-icon>
-    </mdc-tab-bar-scroll-back>
-    <mdc-tab-bar-scroll-frame>
-      <!-- routes/components in ../oaf-routing.module.ts -->
-      <nav mdc-tab-bar>
-        <a mdc-tab mdcRouter
-            [routerLink]="'./commentary'" queryParamsHandling="preserve">
-          Commentary
-        </a>
-        <a mdc-tab mdcRouter
-            [routerLink]="'./forecast'" queryParamsHandling="preserve">
-          Forecast
-        </a>
-        <a mdc-tab mdcRouter
-            [routerLink]="'./model'" queryParamsHandling="preserve">
-          Model
-        </a>
-      </nav>
-    </mdc-tab-bar-scroll-frame>
-    <mdc-tab-bar-scroll-forward>
-      <mdc-icon>navigate_next</mdc-icon>
-    </mdc-tab-bar-scroll-forward>
-  </mdc-tab-bar-scroller>
+  <ng-container *ngIf="eventService.product$ | async">
+    <mdc-tab-bar-scroller>
+      <mdc-tab-bar-scroll-back>
+        <mdc-icon>navigate_before</mdc-icon>
+      </mdc-tab-bar-scroll-back>
+      <mdc-tab-bar-scroll-frame>
+        <!-- routes/components in ../oaf-routing.module.ts -->
+        <nav mdc-tab-bar>
+          <a mdc-tab mdcRouter
+              [routerLink]="'./commentary'" queryParamsHandling="preserve">
+            Commentary
+          </a>
+          <a mdc-tab mdcRouter
+              [routerLink]="'./forecast'" queryParamsHandling="preserve">
+            Forecast
+          </a>
+          <a mdc-tab mdcRouter
+              [routerLink]="'./model'" queryParamsHandling="preserve">
+            Model
+          </a>
+        </nav>
+      </mdc-tab-bar-scroll-frame>
+      <mdc-tab-bar-scroll-forward>
+        <mdc-icon>navigate_next</mdc-icon>
+      </mdc-tab-bar-scroll-forward>
+    </mdc-tab-bar-scroller>
 
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
+  </ng-container>
 
   <!-- container with footer attribute is added before downloads -->
   <ng-container footer>
