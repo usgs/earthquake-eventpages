@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { DownloadDialogComponent } from '../../shared/download-dialog/download-dialog.component';
 import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
-import {RomanPipe} from '../../shared/roman.pipe';
+import { RomanPipe } from '../../shared/roman.pipe';
 
 @Component({
   selector: 'dyfi-responses',
@@ -62,7 +62,7 @@ export class ResponsesComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  ngOnInit() {
+  ngOnInit () {
     this.subs.add(this.dyfiService.cdiZip$.subscribe((data) => {
       this.onDyfiSeries(data);
     }));
@@ -94,8 +94,9 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     this.loaded = true;
   }
 
-  onDownload() {
+  onDownload () {
    this.responsesArray = this.responses.sortData(this.responses.data, this.sort);
+
     const headers = this.columnsToDisplay.map((c) => {
       return this.columnTitles[c];
     }).join('\t');
@@ -113,6 +114,7 @@ export class ResponsesComponent implements OnInit, OnDestroy {
         'lon': response['lon']
       };
       responseObj['mmi'] = this.romanPipe.transform(response['cdi']);
+
       return this.columnsToDisplay.map((c) => {
         return responseObj[c];
       }).join('\t');
