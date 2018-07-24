@@ -28,7 +28,8 @@ describe('MetadataComponent', () => {
         MetadataComponent,
         MockComponent({selector: 'shakemap-input', inputs: ['smInput']}),
         MockComponent({selector: 'shakemap-output', inputs: ['smOutput']}),
-        MockComponent({selector: 'shakemap-processing', inputs: ['smProcessing']})
+        MockComponent({selector: 'shakemap-processing', inputs: ['smProcessing']}),
+        MockComponent({selector: 'mat-divider', inputs: ['vertical']})
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},

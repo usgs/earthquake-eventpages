@@ -1,13 +1,17 @@
 <div class="info-container" *ngIf="metadata">
 
-  <div class="input column" *ngIf="metadata.input as input">
-    <h2>Input</h2>
-    <shakemap-input [smInput]="input"></shakemap-input>
-  </div>
-    
-  <div class="output column" *ngIf="metadata.output as output">
-    <h2>Output</h2>
-    <shakemap-output [smOutput]="output"></shakemap-output>
+  <div class="input-output">
+    <div class="input column" *ngIf="metadata.input as input">
+      <h2>Input</h2>
+      <shakemap-input [smInput]="input"></shakemap-input>
+    </div>
+
+    <mat-divider [vertical]="true"></mat-divider>
+
+    <div class="output column" *ngIf="metadata.output as output">
+      <h2>Output</h2>
+      <shakemap-output [smOutput]="output"></shakemap-output>
+    </div>
   </div>
 
   <div class="processing column" *ngIf="metadata.processing as processing">

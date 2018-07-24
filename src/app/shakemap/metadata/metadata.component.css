@@ -1,0 +1,14 @@
+.info-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.column {
+  margin: 10px
+}
+
+.input-output {
+  display: flex;
+  flex-direction: row
+}
