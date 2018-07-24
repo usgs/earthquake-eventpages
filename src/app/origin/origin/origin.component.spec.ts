@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { EventService } from '../../core/event.service';
 import { OriginComponent } from './origin.component';
 import { MockComponent } from 'ng2-mock-component';
 
@@ -10,6 +11,11 @@ describe('OriginComponent', () => {
   let fixture: ComponentFixture<OriginComponent>;
 
   beforeEach(async(() => {
+
+    const eventServiceStub = {
+      getProduct: jasmine.createSpy('eventService::getProduct')
+    };
+
     TestBed.configureTestingModule({
       declarations: [
         OriginComponent,
@@ -23,6 +29,9 @@ describe('OriginComponent', () => {
       ],
       imports: [
         RouterTestingModule
+      ],
+      providers: [
+        { provide: EventService, useValue: eventServiceStub }
       ]
     })
     .compileComponents();

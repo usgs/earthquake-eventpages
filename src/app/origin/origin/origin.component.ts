@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EventService } from '../../core/event.service';
 
 @Component({
   selector: 'origin',
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
 export class OriginComponent {
 
   constructor(
+    public eventService: EventService
   ) { }
 
 }
