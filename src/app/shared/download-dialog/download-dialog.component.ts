@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material';
 @Component({
   selector: 'shared-download-dialog',
   templateUrl: './download-dialog.component.html',
-  styleUrls: ['./download-dialog.component.css']
+  styleUrls: ['./download-dialog.component.scss']
 })
 export class DownloadDialogComponent {
 
