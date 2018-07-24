@@ -252,7 +252,7 @@ var EventPage = function (options) {
   _this.createBetaLink = function (el, evt) {
     var link;
 
-    if (!evt || !evt.getEventId()) {
+    if (!evt || !evt.getEventId) {
       return;
     }
 
