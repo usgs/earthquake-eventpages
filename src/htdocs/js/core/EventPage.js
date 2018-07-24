@@ -223,6 +223,9 @@ var EventPage = function (options) {
 
     // Add search nearby seismicity link
     _this.createSearchNearbySeismicityLink(_navEl);
+
+    // Add beta link
+    _this.createBetaLink(_navEl, _event);
   };
 
   /**
@@ -244,6 +247,21 @@ var EventPage = function (options) {
       link.innerHTML = 'Download Event KML';
       el.appendChild(link);
     }
+  };
+
+  _this.createBetaLink = function (el, evt) {
+    var link;
+
+    if (!evt || !evt.getEventId) {
+      return;
+    }
+
+    link = document.createElement('a');
+    link.setAttribute('class', 'beta-link');
+    link.setAttribute('href', '/beta/earthquakes/eventpage/' +
+        evt.getEventId());
+    link.innerHTML = 'BETA Preview';
+    el.appendChild(link);
   };
 
   /**

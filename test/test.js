@@ -38,6 +38,7 @@ mocha.setup('bdd');
 require('./spec/core/AccordionViewTest');
 require('./spec/core/AttributionTest');
 require('./spec/core/BasicPinViewTest');
+require('./spec/core/BetaPinViewTest');
 require('./spec/core/DownloadViewTest');
 require('./spec/core/EventPageTest');
 require('./spec/core/FormatterTest');
