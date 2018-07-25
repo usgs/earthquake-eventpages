@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ContributorService } from '../../core/contributor.service';
-import { EventService } from '../../core/event.service';
 import { MockComponent } from 'ng2-mock-component';
 
+import { ContributorService } from '../../core/contributor.service';
+import { EventService } from '../../core/event.service';
 import { ProductPageComponent } from './product-page.component';
 
 
@@ -28,8 +28,10 @@ describe('ProductPageComponent', () => {
       declarations: [
         ProductPageComponent,
 
-        MockComponent({selector: 'product-page-footer', inputs: ['event', 'product']}),
-        MockComponent({selector: 'product-page-header', inputs: ['contributors', 'event', 'product', 'productType']})
+        MockComponent({selector: 'product-page-footer',
+            inputs: ['event', 'product']}),
+        MockComponent({selector: 'product-page-header',
+            inputs: ['contributors', 'event', 'product', 'productType']})
       ],
       imports: [
         RouterTestingModule

@@ -1,7 +1,8 @@
 <section class="product-page {{productType}}-product-page">
   <!-- containers ensure product information is ready before rendering -->
   <ng-container *ngIf="eventService.event$ | async as event; else noEvent">
-    <ng-container *ngIf="eventService.product$ | async as product; else noProduct">
+    <ng-container
+        *ngIf="eventService.product$ | async as product; else noProduct">
 
       <product-page-header
         [contributors]="contributorService.contributors$ | async"
@@ -17,7 +18,6 @@
       <ng-content></ng-content>
 
       <product-page-footer
-        [event]="event"
         [product]="product"
       >
         <!-- custom module footer cnotent -->
@@ -28,11 +28,10 @@
   </ng-container>
 </section>
 
-
 <ng-template #noEvent>
   <p>No event information yet.</p>
 </ng-template>
 
 <ng-template #noProduct>
-  <p>Loading {{productType}} product information.</p>
+  <p>No {{productType}} product information.</p>
 </ng-template>

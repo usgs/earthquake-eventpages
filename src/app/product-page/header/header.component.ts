@@ -11,7 +11,6 @@ export class HeaderComponent implements OnInit {
   @Input() event: any;
   @Input() product: any;
   @Input() productType: any;
-  @Input() title: any;
 
   constructor() { }
 
