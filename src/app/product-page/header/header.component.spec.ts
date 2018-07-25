@@ -1,10 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderComponent } from './header.component';
-import { MockPipe } from '../../mock-pipe';
 import { MockComponent } from 'ng2-mock-component';
 
-describe('HeaderComponent', () => {
+import { MockPipe } from '../../mock-pipe';
+import { HeaderComponent } from './header.component';
+
+fdescribe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
 
@@ -61,7 +62,8 @@ describe('HeaderComponent', () => {
     const product = {
       properties: {
         'review-status': status
-      }
+      },
+      type: 'origin'
     };
 
     expect(component.isReviewed(product)).toBeTruthy();
