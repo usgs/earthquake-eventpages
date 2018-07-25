@@ -56,5 +56,4 @@ export class HeaderComponent {
       return false;
     }
   }
-
 }
