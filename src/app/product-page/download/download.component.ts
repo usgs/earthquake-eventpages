@@ -2,52 +2,79 @@ import { Component, Input } from '@angular/core';
 
 import { ContentsXmlService } from '../../core/contents-xml.service';
 
-
+/**
+ * Generates expansion panel to list all downloadable product contents
+ *
+ * @param product {Product}
+ *    The product to download
+ */
 @Component({
   selector: 'product-page-download',
   templateUrl: './download.component.html',
-  styleUrls: ['./download.component.css']
+  styleUrls: ['./download.component.scss']
 })
 export class DownloadComponent {
 
-  private _product: any;
-  private open = false;
+  // see getter/setter below
+  public _product: any;
+
+  public open = false;
+
 
   constructor (
-    public service: ContentsXmlService
+    public contentsXmlService: ContentsXmlService
   ) { }
 
-  get product (): any {
-    return this._product;
-  }
-
-  @Input() set product (product: any) {
-    this._product = product;
-    if (this.open) {
-      this.loadContentsXml();
-    }
-  }
-
+  /**
+   * Check if downloads expansion panel is expanded
+   */
   isOpen () {
     return this.open;
   }
 
+  /**
+   * Gets contents xml from product
+   */
   loadContentsXml () {
     let product = this._product;
     if (product && product.phasedata) {
       // prefer phase data when availble
       product = product.phasedata;
     }
-    this.service.get(product);
+    this.contentsXmlService.get(product);
   }
 
+  /**
+   * Keeps track of expansion panel state
+   */
   onClose () {
     this.open = false;
   }
 
+  /**
+   * Keeps track of expansion panel state, triggers fetch
+   */
   onOpen () {
     this.open = true;
     this.loadContentsXml();
+  }
+
+  /**
+   * setter for product.
+   */
+  get product(): any {
+    return this._product;
+  }
+
+  /**
+   * getter for product,
+   * fetch contents.xml if the expansion panel is open
+   */
+  @Input() set product(product: any) {
+    this._product = product;
+    if (this.open) {
+      this.loadContentsXml();
+    }
   }
 }
 
