@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DownloadItemComponent } from './download-item.component';
 import { MockPipe } from '../../mock-pipe';
+import { DownloadItemComponent } from './download-item.component';
 
 describe('DownloadItemComponent', () => {
   let component: DownloadItemComponent;

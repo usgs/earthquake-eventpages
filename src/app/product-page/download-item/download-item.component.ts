@@ -1,17 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
+/**
+ * Generate download list item for a single product contents
+ *
+ * @param item any
+ *    A single item from the product.contents[]
+ */
 @Component({
   selector: 'product-page-download-item',
   templateUrl: './download-item.component.html',
-  styleUrls: ['./download-item.component.css']
+  styleUrls: ['./download-item.component.scss']
 })
-export class DownloadItemComponent implements OnInit {
-
+export class DownloadItemComponent {
   @Input() item: any = null;
-
-  constructor () { }
-
-  ngOnInit () {
-  }
-
 }
