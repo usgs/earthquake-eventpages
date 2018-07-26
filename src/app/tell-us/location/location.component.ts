@@ -23,6 +23,8 @@ import {
 export class LocationComponent implements OnDestroy, OnInit {
 
 
+  public subscription = new Subscription();
+
   @Output()
   change = new BehaviorSubject<any>(null);
 
@@ -40,8 +42,6 @@ export class LocationComponent implements OnDestroy, OnInit {
     ciim_mapLat: null,
     ciim_mapLon: null
   };
-
-  subscription = new Subscription();
 
 
   constructor (

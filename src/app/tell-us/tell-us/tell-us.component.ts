@@ -6,6 +6,9 @@ import { EventService } from '../../core/event.service';
 import { FormComponent } from '../form/form.component';
 
 
+/**
+ * Main tell-us component
+ */
 @Component({
   selector: 'tell-us-tell-us',
   templateUrl: './tell-us.component.html',
@@ -13,23 +16,23 @@ import { FormComponent } from '../form/form.component';
 })
 export class TellUsComponent implements OnInit {
 
+
   // the form dialog
   public dialogRef: MatDialogRef<FormComponent> = null;
-
   // promise representing showForm having been called in ngOnInit
   public initPromise: Promise<any>;
-
   // response received from form
   public response: any = null;
-
   // error response received from form
   public error: any = null;
+
 
   constructor (
     public dialog: MatDialog,
     public eventService: EventService,
     public location: Location
   ) { }
+
 
   ngOnInit () {
     this.initPromise = Promise.resolve().then(() => {
@@ -42,7 +45,7 @@ export class TellUsComponent implements OnInit {
    *
    * @param response dyfi response or HttpErrorResponse object
    */
-  onDialogClose(response) {
+  onDialogClose (response) {
     this.dialogRef = null;
 
     // check response

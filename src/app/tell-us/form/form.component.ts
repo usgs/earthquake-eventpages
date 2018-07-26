@@ -14,6 +14,7 @@ import { Event } from '../../event';
 import { FormLanguageService } from '../form-language.service';
 import { LocationMapComponent } from 'hazdev-ng-location-view';
 
+
 /**
  * The main tell-us form
  */
@@ -186,7 +187,7 @@ export class FormComponent implements AfterContentInit, OnDestroy {
   /**
    * Error handler for http requests.
    */
-  private handleError() {
+  private handleError () {
     return (error: HttpErrorResponse): Observable<any> => {
       this.error = error;
       return of(error);

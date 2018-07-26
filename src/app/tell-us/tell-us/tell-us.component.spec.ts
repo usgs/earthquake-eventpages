@@ -1,9 +1,21 @@
 import { Location } from '@angular/common';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule, MatDialogModule, MatDialog, MatExpansionModule, MatSelectModule, MatFormFieldModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import {
+  MatButtonModule,
+  MatDialogModule,
+  MatDialog,
+  MatExpansionModule,
+  MatSelectModule,
+  MatFormFieldModule
+} from '@angular/material';
+import {
+  BrowserAnimationsModule
+} from '@angular/platform-browser/animations';
+import {
+  BrowserDynamicTestingModule
+} from '@angular/platform-browser-dynamic/testing';
+
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
@@ -58,12 +70,28 @@ describe('TellUsComponent', () => {
         TellUsComponent,
         FormComponent,
 
-        MockComponent({ selector: 'location-input-map' }),
-        MockComponent({selector: 'tell-us-fieldset', inputs: ['legend']}),
-        MockComponent({selector: 'tell-us-location', inputs: ['enter', 'update']}),
-        MockComponent({selector: 'tell-us-question', inputs: ['label', 'multiSelect', 'name', 'options', 'value']}),
-        MockComponent({selector: 'tell-us-privacy-statement'}),
-        MockComponent({selector: 'shared-summary-link', inputs: ['productType', 'event']}),
+        MockComponent({
+          selector: 'location-input-map'
+        }),
+        MockComponent({
+          selector: 'tell-us-fieldset',
+          inputs: ['legend']
+        }),
+        MockComponent({
+          selector: 'tell-us-location',
+          inputs: ['enter', 'update']
+        }),
+        MockComponent({
+          selector: 'tell-us-question',
+          inputs: ['label', 'multiSelect', 'name', 'options', 'value']
+        }),
+        MockComponent({
+          selector: 'tell-us-privacy-statement'
+        }),
+        MockComponent({
+          selector: 'shared-summary-link',
+          inputs: ['productType', 'event']
+        }),
         MockPipe('keys')
       ],
       providers: [

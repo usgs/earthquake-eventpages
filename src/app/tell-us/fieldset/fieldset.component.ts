@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+
 /**
  * Fieldset component which takes a legend component
  */
@@ -10,12 +11,10 @@ import { Component, Input } from '@angular/core';
 })
 export class FieldsetComponent {
 
+
   /**
    * Legend input
    */
   @Input() legend: string;
-
-
-  constructor () { }
 
 }

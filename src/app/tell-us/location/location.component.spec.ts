@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs/observable/of';
 import {
   MatDialogModule,
   MatDialog
 } from '@angular/material';
+
+import { of } from 'rxjs/observable/of';
 
 import { LocationComponent } from './location.component';
 import {
