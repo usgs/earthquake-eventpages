@@ -1,4 +1,4 @@
-<ng-container *ngIf="products && products.length != 0">
+<ng-container *ngIf="products && products?.length != 0">
 
   <h2>Moment Tensor</h2>
 
@@ -23,7 +23,7 @@
             source: tensor.product.source,
             code: tensor.product.code
             }">
-           {{ tensor.product.properties.eventsource.toUpperCase() }}
+           {{ tensor?.product?.properties?.eventsource?.toUpperCase() }}
         </a>
       </mat-cell>
     </ng-container>
@@ -45,7 +45,7 @@
       <mat-header-cell *matHeaderCellDef>Magnitude</mat-header-cell>
       <mat-cell *matCellDef="let tensor">
         {{ formatterService.number(tensor.magnitude, 1) }}
-        {{ tensor.type }}
+        {{ tensor?.type }}
       </mat-cell>
     </ng-container>
 

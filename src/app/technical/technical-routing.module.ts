@@ -20,6 +20,4 @@ const technicalRoutes: Routes = [
     RouterModule
   ]
 })
-
-
 export class TechnicalRoutingModule { }

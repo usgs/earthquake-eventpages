@@ -24,7 +24,6 @@ describe('MomentTensorSummaryComponent', () => {
       ],
       declarations: [
         MomentTensorSummaryComponent,
-
         MockComponent({
           selector: 'shared-beachball',
           inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor']

@@ -13,6 +13,7 @@ import { FormatterService } from '../../core/formatter.service';
 })
 export class OriginSummaryComponent {
 
+
   // Table headers
   public columnsToDisplay = [
     'catalog',

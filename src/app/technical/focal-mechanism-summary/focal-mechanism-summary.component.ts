@@ -28,9 +28,6 @@ export class FocalMechanismSummaryComponent {
   @Input() event: any;
 
 
-  constructor () { }
-
-
   /**
    * Setter to set the products array
    * @param {Array<any>} products
