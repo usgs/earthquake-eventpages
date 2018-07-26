@@ -3,8 +3,12 @@
   <h2>Focal Mechanism</h2>
 
   <mat-table [dataSource]="this.tensors">
-    <mat-header-row *matHeaderRowDef="this.columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay"></mat-row>
+    <mat-header-row *matHeaderRowDef="this.columnsToDisplay">
+
+    </mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay">
+
+    </mat-row>
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>

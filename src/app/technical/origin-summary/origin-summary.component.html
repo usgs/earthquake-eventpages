@@ -5,18 +5,21 @@
   <mat-table [dataSource]="this.products">
     <!-- render order is defined by columnsToDisplay -->
     <mat-header-row *matHeaderRowDef="this.columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay"></mat-row>
+    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay">
+    </mat-row>
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>
-      <mat-cell *matCellDef="let product" [class.unpreferred]="product !== products[0]">
+      <mat-cell
+        *matCellDef="let product"
+        [class.unpreferred]="product !== products[0]">
         <ng-container *ngIf="product === products[0]">
           <shared-preferred-check [title]="'Preferred Origin'">
           </shared-preferred-check>
         </ng-container>
         <a
-            [routerLink]="['/', event?.id, 'origin']"
-            [queryParams]="{ source: product.source, code: product.code }">
+          [routerLink]="['/', event?.id, 'origin']"
+          [queryParams]="{ source: product.source, code: product.code }">
           {{ product.properties.eventsource.toUpperCase() }}
         </a>
       </mat-cell>
@@ -69,8 +72,11 @@
         <mat-header-cell *matHeaderCellDef>
           Location
         </mat-header-cell>
-        <mat-cell *matCellDef="let product"
-            [innerHTML]="formatterService.location(product.properties.latitude, product.properties.longitude)">
+        <mat-cell
+          *matCellDef="let product"
+          [innerHTML]="formatterService.location(
+          product.properties.latitude,
+          product.properties.longitude)">
         </mat-cell>
       </ng-container>
 

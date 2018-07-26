@@ -1,13 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { Tensor } from '../../shared/beachball/tensor';
 
+
+/**
+ * Focal mechanism component
+ */
 @Component({
   selector: 'technical-focal-mechanism-summary',
   templateUrl: './focal-mechanism-summary.component.html',
   styleUrls: ['./focal-mechanism-summary.component.scss']
 })
-export class FocalMechanismSummaryComponent implements OnInit {
+export class FocalMechanismSummaryComponent {
 
+
+  // MatTable headers
   public columnsToDisplay = [
     'catalog',
     'mechanism',
@@ -15,11 +22,19 @@ export class FocalMechanismSummaryComponent implements OnInit {
     'nodalPlane2',
     'source'
   ];
-
- private _products: Array<any>;
+  public _products: Array<any>;
+  public tensors: Array<any> = [];
 
   @Input() event: any;
 
+
+  constructor () { }
+
+
+  /**
+   * Setter to set the products array
+   * @param {Array<any>} products
+   */
   @Input() set products (products: Array<any>) {
     this._products = products;
     this.tensors = (products || []).map((p) => {
@@ -27,15 +42,13 @@ export class FocalMechanismSummaryComponent implements OnInit {
     });
   }
 
+  /**
+   * Get the products array
+   * @returns {Array<any>}
+   */
   get products () {
     return this._products;
   }
 
-  public tensors: Array<any> = [];
-
-  constructor () { }
-
-  ngOnInit () {
-  }
 }
 

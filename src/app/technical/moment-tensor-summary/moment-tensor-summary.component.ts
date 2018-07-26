@@ -1,15 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { Tensor } from '../../shared/beachball/tensor';
 import { FormatterService } from '../../core/formatter.service';
+import { Tensor } from '../../shared/beachball/tensor';
 
+
+/**
+ * Moment tensor component
+ */
 @Component({
   selector: 'technical-moment-tensor-summary',
   templateUrl: './moment-tensor-summary.component.html',
-  styleUrls: ['./moment-tensor-summary.component.css']
+  styleUrls: ['./moment-tensor-summary.component.scss']
 })
-export class MomentTensorSummaryComponent implements OnInit {
+export class MomentTensorSummaryComponent {
 
+
+  // Table headers
   public columnsToDisplay = [
     'catalog',
     'tensor',
@@ -18,11 +24,19 @@ export class MomentTensorSummaryComponent implements OnInit {
     'percentDC',
     'source'
   ];
-
-  private _products: Array<any>;
+  public _products: Array<any>;
+  public tensors: Array<any> = [];
 
   @Input() event: any;
 
+
+  constructor (public formatterService: FormatterService) { }
+
+
+  /**
+   * Setter for the products array
+   * @param {Array<any>} products
+   */
   @Input() set products (products: Array<any>) {
     this._products = products;
     this.tensors = (products || []).map((p) => {
@@ -30,17 +44,12 @@ export class MomentTensorSummaryComponent implements OnInit {
     });
   }
 
+  /**
+   * Getter for products array
+   * @returns {Array<any>}
+   */
   get products () {
     return this._products;
-  }
-
-  public tensors: Array<any> = [];
-
-  constructor(
-    public formatterService: FormatterService
-  ) { }
-
-  ngOnInit () {
   }
 
 }

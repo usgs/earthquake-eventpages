@@ -1,11 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTableModule, MatIconModule } from '@angular/material';
-import { MockComponent } from 'ng2-mock-component';
 import { RouterModule } from '@angular/router';
 
-import { FocalMechanismSummaryComponent } from './focal-mechanism-summary.component';
+import { MockComponent } from 'ng2-mock-component';
+
 import { MockPipe } from '../../mock-pipe';
 import { Tensor } from '../../shared/beachball/tensor';
+import {
+  FocalMechanismSummaryComponent
+} from './focal-mechanism-summary.component';
+
 
 describe('FocalMechanismSummaryComponent', () => {
   let component: FocalMechanismSummaryComponent;
@@ -20,9 +24,14 @@ describe('FocalMechanismSummaryComponent', () => {
       ],
       declarations: [
         FocalMechanismSummaryComponent,
-        MockComponent({selector: 'shared-beachball', inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor']}),
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
-
+        MockComponent({
+          selector: 'shared-beachball',
+          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor']
+        }),
+        MockComponent({
+          selector: 'shared-product-attribution',
+          inputs: ['product']
+        }),
         MockPipe('sharedDegrees')
       ],
       providers: [
