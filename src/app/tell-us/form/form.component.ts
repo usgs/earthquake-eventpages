@@ -1,22 +1,29 @@
-import { AfterViewInit, Component, Inject, OnDestroy, ViewChild } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import {
+  HttpClient, HttpErrorResponse, HttpParams
+} from '@angular/common/http';
+import {
+  AfterContentInit, Component, Inject, OnDestroy, ViewChild
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-import { FormLanguageService } from '../form-language.service';
-import { EventService } from '../../../..';
-import { Subscription, Observable, of } from 'rxjs';
-import { Event } from '../../event';
-
-import { LocationMapComponent } from 'hazdev-ng-location-view';
 import { catchError } from 'rxjs/operators';
+import { Subscription, Observable, of } from 'rxjs';
 
+import { EventService } from '../../../..';
+import { Event } from '../../event';
+import { FormLanguageService } from '../form-language.service';
+import { LocationMapComponent } from 'hazdev-ng-location-view';
 
+/**
+ * The main tell-us form
+ */
 @Component({
   selector: 'tell-us-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements AfterViewInit, OnDestroy {
+export class FormComponent implements AfterContentInit, OnDestroy {
+
 
   // these answers control whether the submit button is enabled
   // others are populated as needed
@@ -29,12 +36,15 @@ export class FormComponent implements AfterViewInit, OnDestroy {
   public error: any = null;
   public responseUrl = '/data/dyfi/form/response.php';
 
+  // The rendered map at the top of the form
   @ViewChild(LocationMapComponent)
   locationMapComponent: LocationMapComponent;
 
+  // The subscription to the event$ observable in the event service
   private eventSubscription: Subscription;
 
-  constructor(
+
+  constructor (
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<FormComponent>,
     public eventService: EventService,
@@ -42,7 +52,11 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     public languageService: FormLanguageService
   ) { }
 
-  ngAfterViewInit () {
+
+  /**
+   * Subscribe to the event$ object in event service
+   */
+  ngAfterContentInit () {
     this.eventSubscription = this.eventService.event$.subscribe((event) => {
       this.setEvent(event);
     });
@@ -56,6 +70,9 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  /**
+   * Kill subscription to event service and nullify
+   */
   ngOnDestroy () {
     this.eventSubscription.unsubscribe();
     this.eventSubscription = null;

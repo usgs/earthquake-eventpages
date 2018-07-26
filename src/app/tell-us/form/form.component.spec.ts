@@ -1,5 +1,12 @@
-import { async, ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule, HttpTestingController
+} from '@angular/common/http/testing';
+import {
+  async,
+  ComponentFixture,
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -11,14 +18,16 @@ import {
   MatFormFieldModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
 import { EventService } from '../../core/event.service';
+import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { FormLanguageService } from '../form-language.service';
 import { FormComponent } from './form.component';
-import { Event } from '../../event';
 import { CoordinatesService } from 'hazdev-ng-location-view';
 
 
@@ -54,11 +63,24 @@ describe('FormComponent', () => {
       declarations: [
         FormComponent,
 
-        MockComponent({selector: 'location-input-map'}),
-        MockComponent({selector: 'tell-us-fieldset', inputs: ['legend'] }),
-        MockComponent({selector: 'tell-us-location', inputs: ['enter', 'update']}),
-        MockComponent({selector: 'tell-us-question', inputs: ['label', 'multiSelect', 'name', 'options', 'value']}),
-        MockComponent({selector: 'tell-us-privacy-statement'}),
+        MockComponent({
+          selector: 'location-input-map'
+        }),
+        MockComponent({
+          selector: 'tell-us-fieldset',
+          inputs: ['legend']
+        }),
+        MockComponent({
+          selector: 'tell-us-location',
+          inputs: ['enter', 'update']
+        }),
+        MockComponent({
+          selector: 'tell-us-question',
+          inputs: ['label', 'multiSelect', 'name', 'options', 'value']
+        }),
+        MockComponent({
+          selector: 'tell-us-privacy-statement'
+        }),
         MockPipe('keys')
       ],
       providers: [
@@ -166,7 +188,8 @@ describe('FormComponent', () => {
   describe('setLanguage', () => {
     it('calls languageService getLanguage', () => {
       component.setLanguage('test value');
-      expect(component.languageService.getLanguage).toHaveBeenCalledWith('test value');
+      expect(component.languageService.getLanguage)
+        .toHaveBeenCalledWith('test value');
     });
   });
 

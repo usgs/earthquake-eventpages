@@ -21,8 +21,8 @@ mat-form-field {
 }
 
 mat-dialog-actions {
-  flex-direction: row-reverse;
   align-content: flex-start;
+  flex-direction: row-reverse;
 }
 
 @media screen and (min-width: 400px) {

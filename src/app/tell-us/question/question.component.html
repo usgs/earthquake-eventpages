@@ -1,22 +1,16 @@
 <tell-us-fieldset [legend]="label">
-  <ng-container *ngIf="
-      multiSelect; then isMultiSelect;
-      else isSingleSelect">
-  </ng-container>
-</tell-us-fieldset>
-
-
-<ng-template #isMultiSelect>
-  <mat-selection-list (selectionChange)="onChange($event)">
-    <mat-list-option *ngFor="let option of options"
+  <ng-container *ngIf="multiSelect; else isSingleSelect">
+    <mat-selection-list (selectionChange)="onChange($event)">
+      <mat-list-option
+        *ngFor="let option of options"
         [checkboxPosition]="'before'"
         [selected]="value && value.includes(option.value)"
         [value]="option.value">
-      {{ option.label }}
-    </mat-list-option>
-  </mat-selection-list>
-</ng-template>
-
+        {{ option.label }}
+      </mat-list-option>
+    </mat-selection-list>
+  </ng-container>
+</tell-us-fieldset>
 
 <ng-template #isSingleSelect>
   <mat-radio-group (change)="onChange($event)">
@@ -24,24 +18,25 @@
       <ng-container *ngFor="let option of options">
         <mat-list-item>
           <mat-radio-button
-              [checked]="value === option.value"
-              [name]="option.name"
-              [value]="option.value">
+            [checked]="value === option.value"
+            [name]="option.name"
+            [value]="option.value">
             {{ option.label }}
           </mat-radio-button>
         </mat-list-item>
 
         <mat-list-item *ngIf="option.otherLabel" class="other">
           <mat-form-field>
-            <input matInput
-                #other
-                (change)="onChange({
-                  type: 'other',
-                  value: other.value
-                })"
-                [disabled]="value !== option.value"
-                [placeholder]="option.otherLabel"
-                [value]="option.otherValue"/>
+            <input
+              matInput
+              #other
+              (change)="onChange({
+                type: 'other',
+                value: other.value
+              })"
+              [disabled]="value !== option.value"
+              [placeholder]="option.otherLabel"
+              [value]="option.otherValue"/>
           </mat-form-field>
         </mat-list-item>
       </ng-container>

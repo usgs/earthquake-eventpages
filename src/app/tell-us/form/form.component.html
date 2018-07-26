@@ -1,6 +1,7 @@
 <ng-container *ngIf="languageService.language$ | async; let language">
 
   <mat-dialog-content>
+
     <h2>
       <span class="felt-header">Felt Report - Tell Us!</span>
       <div class="omb-number">
@@ -32,7 +33,7 @@
     </tell-us-fieldset>
 
     <!-- time -->
-    <ng-container *ngIf="!answers.eventid">
+    <ng-container *ngIf="!answers.eventId">
       <tell-us-fieldset [legend]="language.eventTime.ciim_time.label">
         <mat-form-field>
           <input matInput
@@ -88,7 +89,9 @@
     <tell-us-fieldset [legend]="'Contact Information (optional)'">
 
       <mat-expansion-panel>
-        <mat-expansion-panel-header>PRA - Privacy Act Statement</mat-expansion-panel-header>
+        <mat-expansion-panel-header>
+          PRA - Privacy Act Statement
+        </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
           <tell-us-privacy-statement></tell-us-privacy-statement>
         </ng-template>
@@ -121,7 +124,6 @@
     </tell-us-fieldset>
 
   </mat-dialog-content>
-
 
   <mat-dialog-actions>
     <button mat-button
