@@ -6,10 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './unknown-event-page.component.html',
   styleUrls: ['./unknown-event-page.component.scss']
 })
-export class UnknownEventPageComponent {
-
-
-  constructor (
-  ) { }
-
-}
+export class UnknownEventPageComponent { }
