@@ -36,7 +36,9 @@
               })"
               [disabled]="value !== option.value"
               [placeholder]="option.otherLabel"
-              [value]="option.otherValue"/>
+              [value]="option.otherValue"
+              aria-label="Please describe your situation during the earthquake"
+            />
           </mat-form-field>
         </mat-list-item>
       </ng-container>
