@@ -1,29 +1,34 @@
 import {
-  HttpClient, HttpErrorResponse, HttpParams
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams
 } from '@angular/common/http';
 import {
-  AfterContentInit, Component, Inject, OnDestroy, ViewChild
+  AfterViewInit,
+  Component, Inject,
+  OnDestroy,
+  ViewChild
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-import { catchError } from 'rxjs/operators';
+import { LocationMapComponent } from 'hazdev-ng-location-view';
 import { Subscription, Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { EventService } from '../../../..';
 import { Event } from '../../event';
 import { FormLanguageService } from '../form-language.service';
-import { LocationMapComponent } from 'hazdev-ng-location-view';
 
 
 /**
- * The main tell-us form
+ * The main tell-us form which submits all DYFI information from user
  */
 @Component({
   selector: 'tell-us-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements AfterContentInit, OnDestroy {
+export class FormComponent implements AfterViewInit, OnDestroy {
 
 
   // these answers control whether the submit button is enabled
@@ -36,13 +41,12 @@ export class FormComponent implements AfterContentInit, OnDestroy {
   };
   public error: any = null;
   public responseUrl = '/data/dyfi/form/response.php';
+  // The subscription to the event$ observable in the event service
+  public eventSubscription: Subscription;
 
   // The rendered map at the top of the form
   @ViewChild(LocationMapComponent)
   locationMapComponent: LocationMapComponent;
-
-  // The subscription to the event$ observable in the event service
-  private eventSubscription: Subscription;
 
 
   constructor (
@@ -54,10 +58,7 @@ export class FormComponent implements AfterContentInit, OnDestroy {
   ) { }
 
 
-  /**
-   * Subscribe to the event$ object in event service
-   */
-  ngAfterContentInit () {
+  ngAfterViewInit () {
     this.eventSubscription = this.eventService.event$.subscribe((event) => {
       this.setEvent(event);
     });
@@ -71,9 +72,6 @@ export class FormComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  /**
-   * Kill subscription to event service and nullify
-   */
   ngOnDestroy () {
     this.eventSubscription.unsubscribe();
     this.eventSubscription = null;

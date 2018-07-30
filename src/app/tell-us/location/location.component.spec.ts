@@ -5,12 +5,11 @@ import {
 } from '@angular/material';
 
 import { of } from 'rxjs/observable/of';
-
-import { LocationComponent } from './location.component';
 import {
   Coordinates,
   CoordinatesService
 } from 'hazdev-ng-location-view';
+import { LocationComponent } from './location.component';
 
 
 describe('LocationComponent', () => {

@@ -1,19 +1,27 @@
 import {
-  Component, OnDestroy, OnInit, Output, Input
+  Component,
+  OnDestroy,
+  OnInit,
+  Output,
+  Input
 } from '@angular/core';
 import { MatDialog } from '@angular/material';
-
-import { BehaviorSubject, Subscription } from 'rxjs';
 
 import {
   Coordinates,
   CoordinatesService,
   LocationDialogComponent
 } from 'hazdev-ng-location-view';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 
 /**
  * Location component used to select the user's location on the form
+ *
+ * @param change { BehaviorSubject<any> }
+ * @param enter { string }
+ * @param update { string }
+ * @param value { any }
  */
 @Component({
   selector: 'tell-us-location',

@@ -19,6 +19,12 @@ interface OtherValueEvent {
 
 /**
  * The question form component
+ * @param change { BehaviorSubject<any> }
+ * @param label { string }
+ * @param multiSelect { boolean }
+ * @param name { string }
+ * @param options { Array<any> }
+ * @param value { any }
  */
 @Component({
   selector: 'tell-us-question',

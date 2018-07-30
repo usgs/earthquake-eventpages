@@ -7,7 +7,8 @@ import { FormComponent } from '../form/form.component';
 
 
 /**
- * Main tell-us component
+ * Main component that handles the displaying of the tell us form and displays
+ * server success/error response after submission of the form
  */
 @Component({
   selector: 'tell-us-tell-us',
