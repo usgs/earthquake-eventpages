@@ -6,16 +6,17 @@
       *ngIf="shakemap?.contents['download/cont_psa03.json']; else noPSA03">
     <h4>0.3 s PSA (%g)</h4>
     <a [routerLink]="'../../map'"
-        [queryParams]="{
-          'shakemap-code': shakemap?.code,
-          'shakemap-source': shakemap?.source,
-          'shakemap-psa03': true,
-          'shakemap-stations': true,
-          'shakemap-intensity': false
-        }">
+       [queryParams]="{
+         'shakemap-code': shakemap?.code,
+         'shakemap-source': shakemap?.source,
+         'shakemap-psa03': true,
+         'shakemap-stations': true,
+         'shakemap-intensity': false
+       }">
 
       <shared-map
-          [overlays]="shakemap | shakemapOverlays:['shakemap-psa03', 'shakemap-stations']"
+          [overlays]="shakemap | shakemapOverlays:['shakemap-psa03',
+          'shakemap-stations']"
           [baselayer]="'Grayscale'"
           [showScaleControl]="true"
           [showAttributionControl]="false">
@@ -47,7 +48,8 @@
         }">
 
       <shared-map
-          [overlays]="shakemap | shakemapOverlays:['shakemap-psa10', 'shakemap-stations']"
+          [overlays]="shakemap | shakemapOverlays:['shakemap-psa10',
+          'shakemap-stations']"
           [baselayer]="'Grayscale'"
           [showScaleControl]="true"
           [showAttributionControl]="false">
@@ -79,7 +81,8 @@
         }">
 
       <shared-map
-          [overlays]="shakemap | shakemapOverlays:['shakemap-psa30', 'shakemap-stations']"
+          [overlays]="shakemap | shakemapOverlays:['shakemap-psa30',
+          'shakemap-stations']"
           [baselayer]="'Grayscale'"
           [showScaleControl]="true"
           [showAttributionControl]="false">

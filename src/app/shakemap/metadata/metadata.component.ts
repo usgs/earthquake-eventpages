@@ -1,20 +1,30 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+
 import { Subscription } from 'rxjs';
 
 import { EventService } from '../../core/event.service';
 import { MetadataService } from '../../core/metadata.service';
 
+
+/**
+ * Metadata subcomponent, shows input/output/processing data when the user
+ * selects the 'metadata' tab from main shakemap component
+ */
 @Component({
   selector: 'shakemap-metadata',
   templateUrl: './metadata.component.html',
-  styleUrls: ['./metadata.component.css']
+  styleUrls: ['./metadata.component.scss']
 })
 export class MetadataComponent implements OnInit, OnDestroy {
-  private subs = new Subscription();
+
+
+  public subs = new Subscription();
   public metadata: any = null;
 
-  constructor(public mdService: MetadataService,
+
+  constructor (public mdService: MetadataService,
               public eventService: EventService) { }
+
 
   ngOnInit () {
     this.subs.add(this.mdService.metadata$.subscribe((metadata) => {
@@ -23,6 +33,10 @@ export class MetadataComponent implements OnInit, OnDestroy {
     this.subs.add(this.eventService.product$.subscribe((product) => {
       this.onProduct(product);
     }));
+  }
+
+  ngOnDestroy () {
+    this.subs.unsubscribe();
   }
 
   /**
@@ -41,14 +55,6 @@ export class MetadataComponent implements OnInit, OnDestroy {
    */
   onMetadata (metadata) {
     this.metadata = metadata;
-  }
-
-  /**
-   * Unsubscribe from all existing subs when
-   * the component is destroyed
-   */
-  ngOnDestroy () {
-    this.subs.unsubscribe();
   }
 
 }

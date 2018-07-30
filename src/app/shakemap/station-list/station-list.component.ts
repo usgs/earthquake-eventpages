@@ -1,21 +1,32 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+
 import { Subscription } from 'rxjs';
 
 import { EventService } from '../../core/event.service';
 import { StationService } from '../../core/station.service';
 
+
+/**
+ * Station list component, shows the available stations when selecting the
+ * 'station list' tab inside the main shakemap component
+ */
 @Component({
   selector: 'shakemap-station-list',
   templateUrl: './station-list.component.html',
-  styleUrls: ['./station-list.component.css']
+  styleUrls: ['./station-list.component.scss']
 })
 export class StationListComponent implements OnInit, OnDestroy {
+
+
   private subs = new Subscription();
   public stations: any[] = [];
-  constructor(private eventService: EventService,
-              private stationService: StationService) { }
 
-  ngOnInit() {
+
+  constructor(public eventService: EventService,
+              public stationService: StationService) { }
+
+
+  ngOnInit () {
     this.subs.add(this.stationService.stationsJson$.subscribe((stationsJson) => {
       this.onStations(stationsJson);
     }));
@@ -24,12 +35,16 @@ export class StationListComponent implements OnInit, OnDestroy {
     }));
   }
 
+  ngOnDestroy () {
+    this.subs.unsubscribe();
+  }
+
   /**
    * New product, get new station list
    *
    * @param product shakemap product
    */
-  onProduct(product) {
+  onProduct (product) {
     this.stationService.getStations(product);
   }
 
@@ -38,7 +53,7 @@ export class StationListComponent implements OnInit, OnDestroy {
    *
    * @param stations station list json
    */
-  onStations(stationsJson) {
+  onStations (stationsJson) {
     if (stationsJson == null) {
       this.stations = [];
       return;
@@ -47,11 +62,4 @@ export class StationListComponent implements OnInit, OnDestroy {
     this.stations = stationsJson.features;
   }
 
-  /**
-   * Unsubscribe from all existing subs when
-   * the component is destroyed
-   */
-  ngOnDestroy() {
-    this.subs.unsubscribe();
-  }
 }

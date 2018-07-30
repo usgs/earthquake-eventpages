@@ -4,10 +4,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { Event } from '../../event';
 import { EventService } from '../../core/event.service';
+import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { PsaComponent } from './psa.component';
+
 
 describe('PsaComponent', () => {
   let component: PsaComponent;

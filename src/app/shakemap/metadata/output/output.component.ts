@@ -1,11 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { FormatterService } from '../../../core/formatter.service';
+
+
+/**
+ * Output subcomponent, shows the output data table when the user selects the
+ * 'metadata' tab from the main shakemap component
+ * @param smOutput { any }
+ */
 @Component({
   selector: 'shakemap-output',
   templateUrl: './output.component.html',
   styleUrls: ['./output.component.scss']
 })
-export class OutputComponent implements OnInit {
+export class OutputComponent {
+
+
   public readonly names = {
     'groundMotions': {
       'PGA': 'PGA',
@@ -31,7 +41,6 @@ export class OutputComponent implements OnInit {
         'max': 'Max'
       },
   };
-
   public readonly abbreviations = {
       'SA(0.3)': 'Spectral acceleration at 0.3 s',
       'SA(1.0)': 'Spectral acceleration at 1.0 s',
@@ -44,16 +53,14 @@ export class OutputComponent implements OnInit {
       'pga': 'Percent of Gravitational Acceleration',
       'pgv': 'Peak Ground Velocity'
   };
-
   public readonly headers = {
     'groundMotions': ['type', 'max', 'max_on_land', 'bias'],
     'mapInformation': ['type', 'lat', 'lon']
   };
 
-  constructor (public formatter: FormatterService) { }
   @Input () smOutput: any;
 
-  ngOnInit () {
-  }
+
+  constructor (public formatter: FormatterService) { }
 
 }

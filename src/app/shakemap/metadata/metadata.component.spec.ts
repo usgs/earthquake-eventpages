@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MetadataComponent } from './metadata.component';
+
+import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
 
 import { EventService } from '../../core/event.service';
 import { MetadataService } from '../../core/metadata.service';
+import { MetadataComponent } from './metadata.component';
 
-import { of } from 'rxjs/observable/of';
-import { MockComponent } from 'ng2-mock-component';
 
 describe('MetadataComponent', () => {
   let component: MetadataComponent;
@@ -28,7 +29,8 @@ describe('MetadataComponent', () => {
         MetadataComponent,
         MockComponent({selector: 'shakemap-input', inputs: ['smInput']}),
         MockComponent({selector: 'shakemap-output', inputs: ['smOutput']}),
-        MockComponent({selector: 'shakemap-processing', inputs: ['smProcessing']})
+        MockComponent({selector: 'shakemap-processing',
+          inputs: ['smProcessing']})
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},
