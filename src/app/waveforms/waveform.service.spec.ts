@@ -1,9 +1,9 @@
-import {TestBed, inject, ComponentFixture, async} from '@angular/core/testing';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TestBed, inject, ComponentFixture, async } from '@angular/core/testing';
 
-import {EventService} from '../core/event.service';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {WaveformsComponent} from './waveforms/waveforms.component';
+import { EventService } from '../core/event.service';
 import { WaveformService } from './waveform.service';
+import { WaveformsComponent } from './waveforms/waveforms.component';
 
 
 describe('WaveformService', () => {

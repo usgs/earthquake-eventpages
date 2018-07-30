@@ -1,7 +1,8 @@
-import {RouterModule, Routes} from '@angular/router';
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
 import { WaveformsComponent } from './waveforms/waveforms.component';
+
 
 const waveformRoutes: Routes = [
   {

@@ -1,5 +1,6 @@
 import { WaveformsModule } from './waveforms.module';
 
+
 describe('WaveformsModule', () => {
   let waveformsModule: WaveformsModule;
 

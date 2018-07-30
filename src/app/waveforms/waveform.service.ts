@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-import { BehaviorSubject} from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { of } from 'rxjs/index';
+import { Observable } from 'rxjs/Observable';
+
 import { Event } from '../event';
+
 
 @Injectable()
 export class WaveformService {
