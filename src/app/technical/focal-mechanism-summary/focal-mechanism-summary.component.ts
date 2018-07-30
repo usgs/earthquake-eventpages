@@ -5,6 +5,7 @@ import { Tensor } from '../../shared/beachball/tensor';
 
 /**
  * Focal mechanism component
+ * @param event { any }
  */
 @Component({
   selector: 'technical-focal-mechanism-summary',

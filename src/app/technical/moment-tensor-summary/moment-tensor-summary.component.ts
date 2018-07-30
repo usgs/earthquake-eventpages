@@ -6,6 +6,7 @@ import { Tensor } from '../../shared/beachball/tensor';
 
 /**
  * Moment tensor component
+ * @param event { any }
  */
 @Component({
   selector: 'technical-moment-tensor-summary',

@@ -4,7 +4,7 @@ import { EventService } from '../../core/event.service';
 
 
 /**
- * Main technical component
+ * Main technical component for focal mechanism, origin, moment tensor
  */
 @Component({
   selector: 'technical',
@@ -12,7 +12,6 @@ import { EventService } from '../../core/event.service';
   styleUrls: ['./technical.component.scss']
 })
 export class TechnicalComponent {
-
 
   constructor (public eventService: EventService) { }
 

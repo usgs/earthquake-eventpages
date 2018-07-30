@@ -5,6 +5,8 @@ import { FormatterService } from '../../core/formatter.service';
 
 /**
  * Technical origin component
+ * @param event { any }
+ * @param products { Array<any> }
  */
 @Component({
   selector: 'technical-origin-summary',
