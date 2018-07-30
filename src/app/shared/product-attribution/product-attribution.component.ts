@@ -1,20 +1,22 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'shared-product-attribution',
   templateUrl: './product-attribution.component.html',
-  styleUrls: ['./product-attribution.component.css']
+  styleUrls: ['./product-attribution.component.scss']
 })
-export class ProductAttributionComponent implements OnInit {
+export class ProductAttributionComponent {
+
 
   @Input() product: any;
 
-  constructor () { }
 
-  ngOnInit () {
-  }
-
-  getSources(product: any): Array<string> {
+  /**
+   * Returns sources from product input
+   * @param product
+   * @returns {Array<string>}
+   */
+  getSources (product: any): Array<string> {
     const sources = new Set<string>();
 
     if (!product) {

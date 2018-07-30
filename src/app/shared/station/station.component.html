@@ -10,13 +10,19 @@
       [intensity]="station.properties?.intensity">
     </shared-mmi>
 
-    <shared-bubble [name]="'pga'" [title]="'Maximum Horizontal Peak Ground Acceleration'">
+    <shared-bubble
+      [name]="'pga'"
+      [title]="'Maximum Horizontal Peak Ground Acceleration'">
       {{ station.properties?.pga | sharedNumber:2:'%g' }}
     </shared-bubble>
-    <shared-bubble [name]="'pgv'" [title]="'Maximum Horizontal Peak Ground Velocity'">
+    <shared-bubble
+      [name]="'pgv'"
+      [title]="'Maximum Horizontal Peak Ground Velocity'">
       {{ station.properties?.pgv | sharedNumber:2:'cm/s' }}
     </shared-bubble>
-    <shared-bubble [name]="'dist'" [title]="'Distance'">
+    <shared-bubble
+      [name]="'dist'"
+      [title]="'Distance'">
       {{ station.properties?.distance | sharedNumber:2:'km' }}
     </shared-bubble>
   </div>
@@ -52,10 +58,11 @@
           <mat-header-cell *matHeaderCellDef>
             Name
           </mat-header-cell>
-          <mat-cell [attr.role]="'rowheader'"
-              [class.mat-cell]="false"
-              class="mat-header-cell"
-              *matCellDef="let channel">
+          <mat-cell
+            [attr.role]="'rowheader'"
+            [class.mat-cell]="false"
+            class="mat-header-cell"
+            *matCellDef="let channel">
             {{ channel.name }}
           </mat-cell>
         </ng-container>

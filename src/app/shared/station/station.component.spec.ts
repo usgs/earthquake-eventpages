@@ -3,11 +3,11 @@ import { MatCardModule,
           MatExpansionModule,
           MatTableModule } from '@angular/material';
 
-import { StationComponent } from './station.component';
-
+import { MockPipe } from '../../mock-pipe';
 import { MockComponent } from 'ng2-mock-component';
 
-import { MockPipe } from '../../mock-pipe';
+import { StationComponent } from './station.component';
+
 
 describe('StationComponent', () => {
   let component: StationComponent;

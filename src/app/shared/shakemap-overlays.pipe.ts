@@ -12,6 +12,9 @@ import { ShakemapStationsOverlay } from './map-overlay/shakemap-stations-overlay
 import * as L from 'leaflet';
 
 
+/**
+ * Returns leaflet map overlay
+ */
 @Pipe({
   name: 'shakemapOverlays'
 })

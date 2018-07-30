@@ -2,13 +2,20 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { Event } from '../event';
 
+
+/**
+ * Returns the link to the nearbyseismicity map
+ */
 @Pipe({
   name: 'nearbySeismicityLink'
 })
 export class NearbySeismicityLinkPipe implements PipeTransform {
+
+
   private KM_PER_DEGREE = 111.12;
 
-  transform(event: Event): string {
+
+  transform (event: Event): string {
     if (!event || !event.geometry || !event.id) {
       return null;
     } else {
@@ -16,6 +23,11 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
     }
   }
 
+  /**
+   * Helper function
+   * @param {Event} event
+   * @returns {any}
+   */
   getNearbySeismicityLink (event: Event) {
     if (event && event.geometry && event.id) {
       return this.getLatestEarthquakesLink(event.id,
@@ -25,6 +37,12 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
     return null;
   }
 
+  /**
+   * Returns the link based on parameters
+   * @param {string} eventid
+   * @param params
+   * @returns {string}
+   */
   getLatestEarthquakesLink (eventid: string = null, params: any = {}) {
     const id = eventid || ('' + new Date().getTime());
     const mapPosition = this.getMapPosition(params);
@@ -46,6 +64,11 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
     return '/earthquakes/map/#' + encodeURIComponent(JSON.stringify(settings));
   }
 
+  /**
+   * Returns the map coordinates
+   * @param params
+   * @returns {((any | any)[] | (any | any)[])[]}
+   */
   getMapPosition (params: any = {}) {
     let latitude,
       longitude,
@@ -81,6 +104,11 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
     ];
   }
 
+  /**
+   * Builds parameters based on the event
+   * @param {Event} event
+   * @returns {any}
+   */
   getNearbySeismicityParams (event: Event) {
     let minmagnitude, time;
 

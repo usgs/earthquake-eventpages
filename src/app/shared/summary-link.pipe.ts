@@ -1,11 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+
+/**
+ * Builds a summary link based on the event and product type
+ */
 @Pipe({
   name: 'sharedSummaryLink'
 })
 export class SummaryLinkPipe implements PipeTransform {
 
-  transform(productType: any, event: any): any {
+
+  transform (productType: any, event: any): any {
     if (!event || !productType) {
       return null;
     }

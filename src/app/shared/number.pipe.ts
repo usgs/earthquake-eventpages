@@ -1,14 +1,21 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { FormatterService } from '../core/formatter.service';
 
+
+/**
+ * Returns a number formatted specific to inputs
+ */
 @Pipe({
   name: 'sharedNumber'
 })
 export class NumberPipe implements PipeTransform {
 
+
   constructor(
     public formatter: FormatterService
   ) { }
+
 
   /**
    * Format a number.
@@ -24,7 +31,7 @@ export class NumberPipe implements PipeTransform {
    *
    * @return {String}
    */
-  transform(
+  transform (
       value: any,
       decimals?: number,
       units = '',

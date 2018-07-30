@@ -1,41 +1,52 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { BehaviorSubject ,  of ,  Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Component, Input } from '@angular/core';
+
+import { BehaviorSubject ,  of ,  Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+
+/**
+ * Shared text product component
+ */
 @Component({
   selector: 'shared-text-product',
   templateUrl: './text-product.component.html',
-  styleUrls: ['./text-product.component.css']
+  styleUrls: ['./text-product.component.scss']
 })
-export class TextProductComponent implements OnInit {
+export class TextProductComponent {
+
+
+  public _product: any;
+  public content = new BehaviorSubject<any>(null);
+  public readonly content$ = this.content.asObservable();
+  public error: any;
 
   @Input() contentPath = '';
 
-  private _product: any;
 
-  private content = new BehaviorSubject<any>(null);
-  public readonly content$ = this.content.asObservable();
+  constructor (public httpClient: HttpClient) { }
 
-  public error: any;
 
-  constructor(
-    public httpClient: HttpClient
-  ) { }
-
-  ngOnInit() {
-  }
-
-  get product() {
-    return this._product;
-  }
-
+  /**
+   * Product setter
+   * @param product
+   */
   @Input() set product(product) {
     this._product = product;
-
     this.getContent();
   }
 
+  /**
+   * Product getter
+   * @returns {any}
+   */
+  get product () {
+    return this._product;
+  }
+
+  /**
+   * Product contents getter
+   */
   getContent () {
     if (!this.product) {
       this.error = null;
@@ -70,6 +81,11 @@ export class TextProductComponent implements OnInit {
     }
   }
 
+  /**
+   * Helper method to turn relative paths into absolute
+   * @param {string} text
+   * @returns {string}
+   */
   replaceRelativePaths (text: string) {
     const product = this.product || {};
     const contents = this.product.contents || {};

@@ -1,14 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { FormatterService } from '../core/formatter.service';
 
+
+/**
+ * Returns a number with degrees symbol appended
+ */
 @Pipe({
   name: 'sharedDegrees'
 })
 export class DegreesPipe implements PipeTransform {
 
-  constructor(
-    public formatter: FormatterService
-  ) { }
+
+  constructor(public formatter: FormatterService) { }
+
 
   /**
    * Format a number.
@@ -24,7 +29,7 @@ export class DegreesPipe implements PipeTransform {
    *
    * @return {String}
    */
-  transform(
+  transform (
       value: any,
       decimals = 0,
       units = '°',
@@ -33,4 +38,5 @@ export class DegreesPipe implements PipeTransform {
     const num = this.formatter.number(value, decimals, empty);
     return `${num}${units}`;
   }
+
 }

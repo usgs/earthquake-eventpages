@@ -31,7 +31,12 @@ let __col,
  * @throws Error if column out of range.
  * @return {Array<Number>} column elements.
  */
-__col = function (data: Array<number>, m: number, n: number, col: number): Array<number> {
+__col = function (
+  data: Array<number>,
+  m: number,
+  n: number,
+  col: number
+): Array<number> {
   let row,
       values;
   if (col < 0 || col >= n) {
@@ -59,7 +64,10 @@ __col = function (data: Array<number>, m: number, n: number, col: number): Array
  *        number of columns.
  * @return {Array<Number>} elements on the diagonal.
  */
-__diagonal = function (data: Array<number>, m: number, n: number): Array<number> {
+__diagonal = function (
+  data: Array<number>,
+  m: number,
+  n: number): Array<number> {
   let len,
       diag;
   len = Math.min(m, n),
@@ -86,7 +94,13 @@ __diagonal = function (data: Array<number>, m: number, n: number): Array<number>
  * @throws Error if row or col are out of range.
  * @return {Number} value.
  */
-__get = function (data: Array<number>, m: number, n: number, row: number, col: number): number {
+__get = function (
+  data: Array<number>,
+  m: number,
+  n: number,
+  row: number,
+  col: number
+): number {
   return data[__index(m, n, row, col)];
 };
 
@@ -150,7 +164,12 @@ __index = function (m: number, n: number, row: number, col: number): number {
  * @return {Array<any>}
  *         Object with eigenvalue and vector properties.
  */
-__jacobi = function (data: Array<number>, m: number, n: number, maxRotations: number): Array<any> {
+__jacobi = function (
+  data: Array<number>,
+  m: number,
+  n: number,
+  maxRotations: number
+): Array<any> {
   let a,
       aip,
       aiq,

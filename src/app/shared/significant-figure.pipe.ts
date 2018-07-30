@@ -1,11 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+
+/**
+ * Returns significant figure
+ */
 @Pipe({
   name: 'sharedSignificantFigure'
 })
 export class SignificantFigurePipe implements PipeTransform {
 
-  transform(value: any, significant: number): any {
+
+  transform (value: any, significant: number): any {
     let d,
         magnitude,
         power,
@@ -23,4 +28,5 @@ export class SignificantFigurePipe implements PipeTransform {
 
     return shifted / magnitude;
   }
+
 }

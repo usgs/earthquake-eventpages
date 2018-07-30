@@ -1,5 +1,7 @@
-import { InteractiveMapBoundsPipe } from './interactive-map-bounds.pipe';
 import { convertToParamMap } from '@angular/router';
+
+import { InteractiveMapBoundsPipe } from './interactive-map-bounds.pipe';
+
 
 describe('InteractiveMapBoundsPipe', () => {
   it('create an instance', () => {

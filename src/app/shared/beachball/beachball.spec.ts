@@ -50,7 +50,9 @@ describe('Beachball', () => {
         labelPlanesFont: '14px Arial',
         lineColor: '#000'
       };
-      const beachball = new Beachball(tensor, document.createElement('div'), options);
+      const beachball = new Beachball(
+        tensor, document.createElement('div'), options
+      );
       spyOn(beachball, 'createCanvas').and.returnValue(testCanvas);
       beachball.render();
 
@@ -134,7 +136,9 @@ describe('Beachball', () => {
         plotAxes: true,
         plotPlanes: false
       };
-      const beachball = new Beachball(tensor, document.createElement('div'), options);
+      const beachball = new Beachball(
+        tensor, document.createElement('div'),
+        options);
       spyOn(beachball, 'createCanvas').and.returnValue(testCanvas);
       beachball.render();
 
@@ -188,7 +192,9 @@ describe('Beachball', () => {
         labelPlanes: false,
         size: 30
       };
-      const beachball = new Beachball(tensor, document.createElement('div'), options);
+      const beachball = new Beachball(
+        tensor, document.createElement('div'),
+        options);
       spyOn(beachball, 'createCanvas').and.returnValue(testCanvas);
       beachball.render();
 
@@ -270,7 +276,9 @@ describe('Beachball', () => {
         labelPlanes: false,
         size: 30
       };
-      const beachball = new Beachball(tensor2, document.createElement('div'), options);
+      const beachball = new Beachball(
+        tensor2,
+        document.createElement('div'), options);
       spyOn(beachball, 'createCanvas').and.returnValue(testCanvas);
       beachball.render();
 

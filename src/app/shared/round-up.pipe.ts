@@ -1,11 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+
+/**
+ * Rounds up a number to x significant digits
+ */
 @Pipe({
   name: 'sharedRoundUp'
 })
 export class RoundUpPipe implements PipeTransform {
 
-  transform(value: number, significant: number): any {
+  transform (value: number, significant: number): any {
     let d,
         magnitude,
         power,
@@ -23,4 +27,5 @@ export class RoundUpPipe implements PipeTransform {
 
     return shifted / magnitude;
   }
+
 }

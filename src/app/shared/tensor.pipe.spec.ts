@@ -1,5 +1,6 @@
-import { TensorPipe } from './tensor.pipe';
 import { Tensor } from './beachball/tensor';
+import { TensorPipe } from './tensor.pipe';
+
 
 describe('TensorPipe', () => {
   let pipe,

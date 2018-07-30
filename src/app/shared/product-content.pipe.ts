@@ -1,11 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+
+/**
+ * Returns the value of desired property, if exists
+ */
 @Pipe({
   name: 'sharedProductContent'
 })
 export class ProductContentPipe implements PipeTransform {
 
-  transform(product: any, ...paths: any[]): any {
+
+  transform (product: any, ...paths: any[]): any {
     if (!product || !product.contents) {
       return null;
     }

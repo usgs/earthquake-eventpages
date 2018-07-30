@@ -5,12 +5,16 @@ import { EpicenterOverlay } from './map-overlay/epicenter-overlay';
 import * as L from 'leaflet';
 
 
+/**
+ * Returns regional info leaflet overlay
+ */
 @Pipe({
   name: 'regionInfoOverlays'
 })
 export class RegionInfoOverlaysPipe implements PipeTransform {
 
-  transform(product: any): Array<L.Layer> {
+
+  transform (product: any): Array<L.Layer> {
     const overlays = [];
 
     if (product) {

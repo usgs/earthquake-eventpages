@@ -3,7 +3,6 @@
 
 import { Canvas } from './canvas';
 import { Tensor } from './tensor';
-import { ElementRef } from '@angular/core';
 
 
 const _D2R = Math.PI / 180;
@@ -94,6 +93,7 @@ __getOption = function (options: any, name: string, defaultValue: any): any {
 
 export class Beachball {
 
+
   static zeroToTwoPi = __0To2Pi;
 
   public axisSize: number = null;
@@ -114,6 +114,7 @@ export class Beachball {
   public x0: number = null;
   public y0: number = null;
 
+
   /**
    * Create and render a beachball.
    *
@@ -121,7 +122,7 @@ export class Beachball {
    * @param el
    * @param options
    */
-  static render(tensor: Tensor, el: any, options?: any) {
+  static render (tensor: Tensor, el: any, options?: any) {
     new Beachball(tensor, el, options).render();
   }
 
@@ -130,6 +131,7 @@ export class Beachball {
     public el: any,
     options?: any
   ) {
+
     this.bgColor = __getOption(options, 'bgColor', this.bgColor);
     this.fillColor = __getOption(options, 'fillColor', this.fillColor);
     this.labelAxes = __getOption(options, 'labelAxes', this.labelAxes);
@@ -354,33 +356,33 @@ export class Beachball {
    */
   getPolygons (tensor) {
     let alphan,
-        az,
-        azes,
-        azp,
-        c,
-        cfi,
-        f,
-        fir,
-        i,
-        iso,
-        n,
-        p,
-        polygon,
-        polygons,
-        r,
-        s,
-        s2alphan,
-        sfi,
-        swapColors,
-        t,
-        tmp,
-        takeoff,
-        vi,
-        x,
-        xe,
-        xn,
-        xz,
-        y;
+      az,
+      azes,
+      azp,
+      c,
+      cfi,
+      f,
+      fir,
+      i,
+      iso,
+      n,
+      p,
+      polygon,
+      polygons,
+      r,
+      s,
+      s2alphan,
+      sfi,
+      swapColors,
+      t,
+      tmp,
+      takeoff,
+      vi,
+      x,
+      xe,
+      xn,
+      xz,
+      y;
 
     t = __axisCache(tensor.T);
     n = __axisCache(tensor.N);

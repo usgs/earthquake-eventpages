@@ -3,14 +3,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { FormatterService } from '../core/formatter.service';
 import { DegreesPipe } from './degrees.pipe';
 
+
 @Pipe({
   name: 'sharedUnits'
 })
 export class UnitsPipe implements PipeTransform {
 
-  constructor(
-      private formatterService: FormatterService
-  ) { }
+
+  constructor (private formatterService: FormatterService) { }
+
 
   /**
    * Present units correctly
@@ -21,7 +22,7 @@ export class UnitsPipe implements PipeTransform {
    *
    * @return {String}
    */
-  transform(
+  transform (
       value: any,
       units: string): any {
 
@@ -58,9 +59,7 @@ export class UnitsPipe implements PipeTransform {
             output = `${value} ${units}`;
         }
     }
-
     return output;
-
   }
 
 }

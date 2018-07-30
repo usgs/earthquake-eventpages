@@ -1,11 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
+
+/**
+ * Shared flag component
+ */
 @Component({
   selector: 'shared-station-flag',
   templateUrl: './station-flag.component.html',
   styleUrls: ['./station-flag.component.scss']
 })
-export class StationFlagComponent implements OnInit {
+export class StationFlagComponent {
+
 
   public readonly FLAG_DESCRIPTIONS = {
     'M': 'Manually flagged',
@@ -15,10 +20,6 @@ export class StationFlagComponent implements OnInit {
     'N': 'Not in list of known stations'
   };
 
-  constructor () { }
   @Input() flag: string;
-
-  ngOnInit () {
-  }
 
 }

@@ -2,16 +2,22 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { FormatterService } from '../core/formatter.service';
 
+
+/**
+ * Returns the dyfi counter values/numbers
+ */
 @Pipe({
   name: 'dyfiCounter'
 })
 export class DyfiCounterPipe implements PipeTransform {
 
+
   constructor(
     public formatterService: FormatterService
   ) { }
 
-  transform(product: any, padding: number): Array<string> {
+
+  transform (product: any, padding: number): Array<string> {
     let formatted,
         leadingZero;
 

@@ -1,32 +1,46 @@
-import { Component, Input, OnInit } from '@angular/core';
-
-import { Event } from '../../event';
+import { Component, Input } from '@angular/core';
 
 import { ContributorService } from '../../core/contributor.service';
 import { EventService } from '../../core/event.service';
+import { Event } from '../../event';
 
 
+/**
+ * Attribution component
+ */
 @Component({
   selector: 'shared-attribution',
   templateUrl: './attribution.component.html',
-  styleUrls: ['./attribution.component.css']
+  styleUrls: ['./attribution.component.scss']
 })
-export class AttributionComponent implements OnInit {
+export class AttributionComponent {
+
 
   @Input() sourceCode: string;
+
 
   constructor (
     public readonly contributorService: ContributorService,
     public readonly eventService: EventService
   ) { }
 
-  ngOnInit () {
-  }
 
+  /**
+   * Returns whether or no source has an index property
+   * @param source
+   * @returns {boolean}
+   */
   hasIndex (source) {
     return (source.index || source.index === 0);
   }
 
+  /**
+   * Converts source code to informational data
+   * @param {string} sourceCode
+   * @param {Event} event
+   * @param {Array<any>} details
+   * @returns {any}
+   */
   sourceCodeToInfo (sourceCode: string, event: Event = null,
       details: Array<any> = []): any {
     let id;
@@ -50,11 +64,11 @@ export class AttributionComponent implements OnInit {
       id = detailInfo.id.toLowerCase();
     }
 
-
     return {
       id: id.toUpperCase(),
       index: eventSources.indexOf(id) + 1,
       details: detailInfo
     };
   }
+
 }

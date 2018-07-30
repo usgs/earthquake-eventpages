@@ -1,11 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AttributionComponent } from './attribution.component';
-
 import { ContributorService } from '../../core/contributor.service';
 import { EventService } from '../../core/event.service';
-
 import { Event } from '../../event';
+import { AttributionComponent } from './attribution.component';
 
 
 describe('AttributionComponent', () => {

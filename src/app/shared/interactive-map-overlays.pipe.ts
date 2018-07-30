@@ -1,5 +1,5 @@
-import { ParamMap } from '@angular/router';
 import { Pipe, PipeTransform } from '@angular/core';
+import { ParamMap } from '@angular/router';
 
 import { Event } from '../event';
 import { getUnique } from '../unique';
@@ -11,18 +11,20 @@ import { ShakemapOverlaysPipe } from '../shared/shakemap-overlays.pipe';
 import * as L from 'leaflet';
 
 
+/**
+ * Returns interactive leaflet map overlays
+ */
 @Pipe({
   name: 'interactiveMapOverlays'
 })
 export class InteractiveMapOverlaysPipe implements PipeTransform {
 
+
   public defaultOverlays: any = {
     epicenter: true,
     'shakemap-intensity': true
   };
-
   public staticOverlays: L.Layer[] = [new LandscanPopulationOverlay()];
-
   // pipes related to their product
   public overlayFactory: any = {
     'origin': new RegionInfoOverlaysPipe(),
@@ -31,10 +33,8 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     'shakemap': new ShakemapOverlaysPipe(),
     'ground-failure': new GroundFailureOverlaysPipe()
   };
-
   // track which event was last displayed
   public lastEvent: Event = null;
-
   public overlayCache: any = {};
 
 
@@ -72,6 +72,13 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     return overlays;
   }
 
+  /**
+   * Returns cache overlay
+   * @param {Event} event
+   * @param {ParamMap} params
+   * @param {string} type
+   * @returns {Array<L.Layer>}
+   */
   getOverlays (event: Event, params: ParamMap, type: string): Array<L.Layer> {
     const product = this.getProduct(event, params, type);
 
@@ -86,6 +93,13 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     return cache.overlays;
   }
 
+  /**
+   * Returns product based on event input
+   * @param {Event} event
+   * @param {ParamMap} params
+   * @param {string} type
+   * @returns {any}
+   */
   getProduct (event: Event, params: ParamMap, type: string): any {
     // get product
     let code,
@@ -97,6 +111,11 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     return event.getProduct(type, source, code);
   }
 
+  /**
+   * Sets the overlay to the overlay id
+   * @param {Array<L.Layer>} overlays
+   * @param {ParamMap} params
+   */
   setEnabled (overlays: Array<L.Layer>, params: ParamMap) {
     overlays.forEach((overlay) => {
       const enabledParam = params ? params.get(overlay.id) : false;

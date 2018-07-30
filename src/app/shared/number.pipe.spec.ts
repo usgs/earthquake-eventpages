@@ -1,5 +1,6 @@
 import { NumberPipe } from './number.pipe';
 
+
 describe('NumberPipe', () => {
   let formatter,
       pipe;
