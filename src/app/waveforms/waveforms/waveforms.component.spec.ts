@@ -1,12 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { WaveformsComponent } from './waveforms.component';
 import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
-import { of } from 'rxjs/observable/of';
 import { WaveformService } from '../waveform.service';
+import { WaveformsComponent } from './waveforms.component';
+import { of } from 'rxjs/observable/of';
 
 
 describe('WaveformsComponent', () => {

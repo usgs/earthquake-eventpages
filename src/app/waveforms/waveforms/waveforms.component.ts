@@ -1,24 +1,33 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs/Subscription';
 import { EventService } from '../../core/event.service';
 import { WaveformService } from '../waveform.service';
 
-
+/**
+ * Generates the IRIS links for the waveform page
+ */
 @Component({
   selector: 'executive-waveforms',
   templateUrl: './waveforms.component.html',
   styleUrls: ['./waveforms.component.scss']
 })
 export class WaveformsComponent implements OnInit, OnDestroy {
-  subscription: Subscription;
 
-  constructor(
+
+  public subscription: Subscription;
+
+
+  constructor (
     public eventService: EventService,
     public waveformService: WaveformService
   ) { }
 
-  ngOnInit() {
+
+  /**
+   * Waveform service subscription, which returns the IRIS event via http
+   */
+  ngOnInit () {
     this.subscription = this.eventService.event$.subscribe(
       (event) => {
         if (event && event.id) {
@@ -29,7 +38,10 @@ export class WaveformsComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
+  /**
+   * Unsubscribe from waveform service event when component is destroyed
+   */
+  ngOnDestroy () {
     this.subscription.unsubscribe();
   }
 
