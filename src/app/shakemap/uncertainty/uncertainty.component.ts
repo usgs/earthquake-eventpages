@@ -1,41 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventService } from '../../core/event.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'shakemap-uncertainty',
   templateUrl: './uncertainty.component.html',
   styleUrls: ['./uncertainty.component.scss']
 })
-export class UncertaintyComponent implements OnInit, OnDestroy {
-  public imageUrl: string = null;
-  public subs = new Subscription();
+export class UncertaintyComponent implements OnInit {
 
-  constructor (private eventService: EventService) { }
+  constructor (public eventService: EventService) { }
 
-  ngOnInit () {
-    this.subs.add(this.eventService.product$.subscribe((product) => {
-      this.onProduct(product);
-    }));
-  }
-
-  /**
-   * New product, get new image url
-   *
-   * @param product shakemap product
-   */
-  onProduct (product) {
-    if (product == null ||
-          !product.contents['download/urat_pga.jpg']) {
-      this.imageUrl = null;
-      return;
-    }
-
-    const image = product.contents['download/urat_pga.jpg'];
-    this.imageUrl = image.url;
-  }
-
-  ngOnDestroy () {
-    this.subs.unsubscribe();
-  }
+  ngOnInit () {}
 }
