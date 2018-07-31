@@ -19,7 +19,8 @@ export class DyfiCounterPipe implements PipeTransform {
    * @param padding
    *     Amount of padding
    *
-   * @return {Array<string>}
+   * @returns {Array<string>}
+   *  Returns the dyfi counter values/numbers for displaying in pin
    */
   transform (product: any, padding: number): Array<string> {
     let formatted,
