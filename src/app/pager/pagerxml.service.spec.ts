@@ -1,5 +1,8 @@
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
 import { TestBed, getTestBed, inject } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { xmlToJson } from '../xml-to-json';
 import { PagerXmlService } from './pagerxml.service';
@@ -45,7 +48,8 @@ describe('PagerxmlService', () => {
     httpClient.verify();
   });
 
-  it('should be created', inject([PagerXmlService], (service: PagerXmlService) => {
+  it('should be created', inject([PagerXmlService],
+      (service: PagerXmlService) => {
     expect(service).toBeTruthy();
   }));
 
@@ -176,12 +180,18 @@ describe('PagerxmlService', () => {
     it('parses pager.xml when response is not null',
         inject([PagerXmlService], (service: PagerXmlService) => {
       const xml = xmlToJson(`<pager>
-          <city iscapital="0" lat="36.3956" lon="-97.8784" mmi="4.1" name="Enid" population="49379"/>
-          <city iscapital="0" lat="36.2803" lon="-97.8981" mmi="3.6" name="Waukomis" population="1286"/>
-          <city iscapital="0" lat="36.8070" lon="-97.7337" mmi="3.5" name="Medford" population="996"/>
-          <city iscapital="0" lat="36.1092" lon="-97.8987" mmi="3.3" name="Hennessey" population="2131"/>
-          <city iscapital="0" lat="36.6784" lon="-97.3100" mmi="3.2" name="Tonkawa" population="3216"/>
-          <city iscapital="0" lat="36.5461" lon="-98.2701" mmi="3.2" name="Helena" population="1403"/>
+          <city iscapital="0" lat="36.3956" lon="-97.8784" mmi="4.1"
+              name="Enid" population="49379"/>
+          <city iscapital="0" lat="36.2803" lon="-97.8981" mmi="3.6"
+              name="Waukomis" population="1286"/>
+          <city iscapital="0" lat="36.8070" lon="-97.7337" mmi="3.5"
+              name="Medford" population="996"/>
+          <city iscapital="0" lat="36.1092" lon="-97.8987" mmi="3.3"
+              name="Hennessey" population="2131"/>
+          <city iscapital="0" lat="36.6784" lon="-97.3100" mmi="3.2"
+              name="Tonkawa" population="3216"/>
+          <city iscapital="0" lat="36.5461" lon="-98.2701" mmi="3.2"
+              name="Helena" population="1403"/>
         </pager>`);
       const cities = service._parseCities(xml.pager);
       expect(cities.length).toEqual(6);
@@ -234,7 +244,8 @@ describe('PagerxmlService', () => {
   describe('parseImpactComments', () => {
     it('handles both fatality and economic processing of impact comments',
         inject([PagerXmlService], (service: PagerXmlService) => {
-      const impact = service._parseImpactComments('testing#with economic comment');
+      const impact = service._parseImpactComments(
+          'testing#with economic comment');
       expect(impact).not.toBeNull();
       expect(impact.economic).toBeDefined();
       expect(impact.fatality).toBeDefined();
@@ -260,8 +271,10 @@ describe('PagerxmlService', () => {
         inject([PagerXmlService], (service: PagerXmlService) => {
       const xml = xmlToJson(`<pager>
           <exposure dmax="1.5" dmin="0.5" exposure="0" rangeInsideMap="0"/>
-          <exposure dmax="2.5" dmin="1.5" exposure="2812127" rangeInsideMap="0"/>
-          <exposure dmax="3.5" dmin="2.5" exposure="2316974" rangeInsideMap="1"/>
+          <exposure dmax="2.5" dmin="1.5" exposure="2812127"
+              rangeInsideMap="0"/>
+          <exposure dmax="3.5" dmin="2.5" exposure="2316974"
+              rangeInsideMap="1"/>
           <exposure dmax="4.5" dmin="3.5" exposure="62368" rangeInsideMap="1"/>
           <exposure dmax="5.5" dmin="4.5" exposure="0" rangeInsideMap="1"/>
           <exposure dmax="6.5" dmin="5.5" exposure="0" rangeInsideMap="1"/>
