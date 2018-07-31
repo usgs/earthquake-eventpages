@@ -1,10 +1,20 @@
-import { AfterViewInit, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  ViewEncapsulation
+} from '@angular/core';
+
 import { Subscription } from 'rxjs';
 
 import { EventService } from '../../core/event.service';
 import { PagerXmlService } from '../pagerxml.service';
 
 
+/**
+ * Pager component to display losspager product information
+ *
+ */
 @Component({
   selector: 'pager-pager',
   templateUrl: './pager.component.html',
@@ -14,7 +24,7 @@ import { PagerXmlService } from '../pagerxml.service';
 export class PagerComponent implements AfterViewInit, OnDestroy {
 
   /** subscription to product observable */
-  private productSubscription: Subscription;
+  public subscription: Subscription = new Subscription();
 
   constructor(
     public eventService: EventService,
@@ -24,21 +34,23 @@ export class PagerComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     // By the time the afterViewinit hook runs the eventService has
     // the correct "losspager" product
-    this.productSubscription = this.eventService.product$.subscribe((product) => {
+    this.subscription.add(this.eventService.product$.subscribe((product) => {
       this.onProduct(product);
-    });
+    }));
   }
 
   ngOnDestroy () {
-    this.productSubscription.unsubscribe();
+    // unsubscribe all subscriptions
+    this.subscription.unsubscribe();
   }
 
   /**
    * Observe selected product, request pager.xml
    *
-   * @param product next product.
+   * @param product
+   *     a "losspager" product.
    */
-  onProduct (product) {
+  onProduct (product: any) {
     if (product && product.type === 'losspager') {
       this.pagerXmlService.getPagerXml(product);
     }
