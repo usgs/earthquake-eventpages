@@ -1,4 +1,9 @@
-import { async, getTestBed, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  async,
+  getTestBed,
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
@@ -21,7 +26,8 @@ describe('DownloadComponent', () => {
 
         MockComponent({selector: 'mat-expansion-panel'}),
         MockComponent({selector: 'mat-expansion-panel-header'}),
-        MockComponent({selector: 'product-page-download-item', inputs: ['item']})
+        MockComponent({selector: 'product-page-download-item',
+            inputs: ['item']})
       ],
       providers: [
         {provide: ContentsXmlService, useValue: contentsXmlServiceStub}
@@ -61,7 +67,7 @@ describe('DownloadComponent', () => {
       component.product = {
         phasedata: {}
       };
-      expect(component.service.get).toHaveBeenCalledWith(
+      expect(component.contentsXmlService.get).toHaveBeenCalledWith(
           component.product.phasedata);
     });
   });

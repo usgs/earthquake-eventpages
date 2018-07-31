@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+
 @Pipe({
   name: 'fileSize'
 })
@@ -23,5 +24,4 @@ export class FileSizePipe implements PipeTransform {
 
     return formatted + ' ' + units[index];
   }
-
 }

@@ -4,10 +4,12 @@
   </mat-expansion-panel-header>
 
   <ng-template matExpansionPanelContent>
-    <ng-container *ngIf="this.service.contents$ | async; else noContent; let content">
+    <ng-container *ngIf="this.contentsXmlService.contents$ | async as content;
+        else noContent">
       <ul>
         <li *ngFor="let item of content">
-          <product-page-download-item [item]="item"></product-page-download-item>
+          <product-page-download-item [item]="item">
+          </product-page-download-item>
         </li>
       </ul>
     </ng-container>

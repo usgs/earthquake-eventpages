@@ -1,5 +1,6 @@
-import { DateTimePipe } from './date-time.pipe';
 import { Event } from '../event';
+import { DateTimePipe } from './date-time.pipe';
+
 
 describe('ContributorListPipe', () => {
   let formatter,

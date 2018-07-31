@@ -3,7 +3,7 @@
   <span class="caption">{{ item.caption }}</span>
   <ul class="formats">
     <li *ngFor="let format of item.formats">
-      <a href={{format.url}}>
+      <a href="{{ format.url }}">
         {{ format.type | uppercase }}
         {{ format.length | fileSize }}
       </a>
