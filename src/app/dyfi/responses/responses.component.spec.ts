@@ -69,8 +69,8 @@ describe('ResponsesComponent', () => {
       component.responses.data = [{
         'name': 'test name',
         'state': 'test state',
-        'zip': 'test zip',
         'country': 'test country',
+        'zip': 'test zip',
         'cdi': '1',
         'nresp': 'test responses',
         'dist': 'test distance',
@@ -89,8 +89,8 @@ describe('ResponsesComponent', () => {
       expect(lastCall.data.title).toEqual('Download DYFI Responses');
       expect(lastCall.data.message).toEqual('Copy then paste into a spreadsheet application');
       expect(lastCall.data.content).toEqual(
-        'Name\tState\tZip\tCountry\tMMI\tResponses\tDistance\tLatitude\tLongitude\n' +
-        'test name\ttest state\ttest zip\ttest country\tI\ttest responses\ttest distance km\t2.2\t3.3'
+        'City\tState/Region\tCountry\tZip Code\tMMI\tResponses\tDistance\tLatitude\tLongitude\n' +
+        'test name\ttest state\ttest country\ttest zip\tI\ttest responses\ttest distance km\t2.2\t3.3'
       );
     });
   });

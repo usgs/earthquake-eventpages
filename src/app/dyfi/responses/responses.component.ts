@@ -29,8 +29,8 @@ export class ResponsesComponent implements OnInit, OnDestroy {
   public columnsToDisplay = [
     'name',
     'state',
-    'zip',
     'country',
+    'zip',
     'mmi',
     'nresp',
     'dist',
@@ -38,10 +38,10 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     'lon'
   ];
   public columnTitles = {
-    'name': 'Name',
-    'state': 'State',
-    'zip': 'Zip',
+    'name': 'City',
+    'state': 'State/Region',
     'country': 'Country',
+    'zip': 'Zip Code',
     'mmi': 'MMI',
     'nresp': 'Responses',
     'dist': 'Distance',
@@ -105,8 +105,8 @@ export class ResponsesComponent implements OnInit, OnDestroy {
       const responseObj = {
         'name': response['name'],
         'state': response['state'],
-        'zip': response['zip'],
         'country': response['country'],
+        'zip': response['zip'],
         'mmi': '',
         'nresp': response['nresp'],
         'dist': response['dist'] + ' km',
