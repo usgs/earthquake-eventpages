@@ -3,9 +3,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Event } from '../event';
 
 
-/**
- * Returns the link to the nearbyseismicity map
- */
 @Pipe({
   name: 'nearbySeismicityLink'
 })
@@ -15,6 +12,12 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
   private KM_PER_DEGREE = 111.12;
 
 
+  /**
+   * Returns link to the nearby seismicity map
+   * @param event
+   *     The event
+   * @returns {string}
+   */
   transform (event: Event): string {
     if (!event || !event.geometry || !event.id) {
       return null;
@@ -25,7 +28,7 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
 
   /**
    * Helper function
-   * @param {Event} event
+   * @param event
    * @returns {any}
    */
   getNearbySeismicityLink (event: Event) {
@@ -39,8 +42,10 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
 
   /**
    * Returns the link based on parameters
-   * @param {string} eventid
+   * @param eventid
+   *     The event id
    * @param params
+   *     Builds a parameters object with below settings
    * @returns {string}
    */
   getLatestEarthquakesLink (eventid: string = null, params: any = {}) {
@@ -67,6 +72,7 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
   /**
    * Returns the map coordinates
    * @param params
+   *     The previously built parameters
    * @returns {((any | any)[] | (any | any)[])[]}
    */
   getMapPosition (params: any = {}) {
@@ -106,7 +112,8 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
 
   /**
    * Builds parameters based on the event
-   * @param {Event} event
+   * @param event
+   *     The event
    * @returns {any}
    */
   getNearbySeismicityParams (event: Event) {

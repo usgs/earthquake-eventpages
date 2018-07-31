@@ -13,6 +13,10 @@ describe('TensorPipe', () => {
     spy = spyOn(Tensor, 'fromProduct').and.returnValue(tensor);
   });
 
+  it('returns null', () => {
+    expect(pipe.transform(null)).toBeNull();
+  });
+
   it('create an instance', () => {
     expect(pipe).toBeTruthy();
   });

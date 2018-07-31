@@ -1,19 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { ParamMap } from '@angular/router';
 
+import * as L from 'leaflet';
+
 import { Event } from '../event';
-import { getUnique } from '../unique';
-import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
 import { GroundFailureOverlaysPipe } from '../shared/ground-failure-overlays.pipe';
 import { RegionInfoOverlaysPipe } from '../shared/region-info-overlays.pipe';
 import { ShakemapOverlaysPipe } from '../shared/shakemap-overlays.pipe';
+import { getUnique } from '../unique';
+import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
 
-import * as L from 'leaflet';
 
-
-/**
- * Returns interactive leaflet map overlays
- */
 @Pipe({
   name: 'interactiveMapOverlays'
 })
@@ -28,7 +25,6 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
   // pipes related to their product
   public overlayFactory: any = {
     'origin': new RegionInfoOverlaysPipe(),
-
     // keep origin first, the rest go here:
     'shakemap': new ShakemapOverlaysPipe(),
     'ground-failure': new GroundFailureOverlaysPipe()
@@ -40,12 +36,11 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
 
   /**
    * Get overlay for a specific event
-   *
-   * @param event {Event}
+   * @param event
    *    Earthquake event to generate layers for
-   *
-   * @param params {ParamMap} Optional
+   * @param params Optional
    *    Can turn on specific layers with {layerid: 'true'}
+   * @return {any}
    */
   transform (event: Event, params: ParamMap = null): any {
     if (this.lastEvent !== event) {
@@ -74,9 +69,12 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
 
   /**
    * Returns cache overlay
-   * @param {Event} event
-   * @param {ParamMap} params
-   * @param {string} type
+   * @param event
+   *     The event
+   * @param params
+   *     Params used to get the product
+   * @param type
+   *     Type of product
    * @returns {Array<L.Layer>}
    */
   getOverlays (event: Event, params: ParamMap, type: string): Array<L.Layer> {
@@ -95,9 +93,12 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
 
   /**
    * Returns product based on event input
-   * @param {Event} event
-   * @param {ParamMap} params
-   * @param {string} type
+   * @param event
+   *     The event
+   * @param params
+   *     The params used to get product
+   * @param type
+   *     The type of product
    * @returns {any}
    */
   getProduct (event: Event, params: ParamMap, type: string): any {
@@ -113,8 +114,10 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
 
   /**
    * Sets the overlay to the overlay id
-   * @param {Array<L.Layer>} overlays
-   * @param {ParamMap} params
+   * @param overlays
+   *     Array of map overlays
+   * @param params
+   *     Parameters used to get the overlay id
    */
   setEnabled (overlays: Array<L.Layer>, params: ParamMap) {
     overlays.forEach((overlay) => {

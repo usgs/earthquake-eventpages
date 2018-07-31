@@ -20,12 +20,14 @@ describe('NumberPipe', () => {
 
   it('calls formatterService', () => {
     pipe.transform('value', 'decimals', 'units', 'empty');
-    expect(formatter.number).toHaveBeenCalledWith('value', 'decimals', 'empty', 'units');
+    expect(formatter.number).toHaveBeenCalledWith('value', 'decimals', 'empty',
+        'units');
   });
 
   it('can be called without optional arguments', () => {
     pipe.transform('value');
-    expect(formatter.number).toHaveBeenCalledWith('value', undefined, formatter.empty, '');
+    expect(formatter.number).toHaveBeenCalledWith('value', undefined,
+        formatter.empty, '');
   });
 
 });

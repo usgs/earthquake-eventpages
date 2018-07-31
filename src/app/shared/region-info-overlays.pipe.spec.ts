@@ -1,4 +1,5 @@
-import { HistoricSeismicityOverlay } from './map-overlay/historic-seismicity-overlay';
+import {
+  HistoricSeismicityOverlay } from './map-overlay/historic-seismicity-overlay';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 
 describe('RegionInfoOverlayPipe', () => {

@@ -1,14 +1,20 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 
-/**
- * Returns number rounded down x significant digits
- */
 @Pipe({
   name: 'sharedRoundDown'
 })
 export class RoundDownPipe implements PipeTransform {
 
+
+  /**
+   * Rounds a number down to x significant digits
+   * @param value
+   *     The value to change
+   * @param significant
+   *     Number of significant digits
+   * @returns {any}
+   */
   transform (value: number, significant: number): any {
     let d,
         magnitude,

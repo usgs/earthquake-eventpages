@@ -1,5 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import * as L from 'leaflet';
+
 import { EpicenterOverlay } from './map-overlay/epicenter-overlay';
 import { ShakemapIntensityOverlay } from './map-overlay/shakemap-intensity-overlay';
 import { ShakemapPGAOverlay } from './map-overlay/shakemap-pga-overlay';
@@ -9,17 +11,21 @@ import { ShakemapPSA10Overlay } from './map-overlay/shakemap-psa10-overlay';
 import { ShakemapPSA30Overlay } from './map-overlay/shakemap-psa30-overlay';
 import { ShakemapStationsOverlay } from './map-overlay/shakemap-stations-overlay';
 
-import * as L from 'leaflet';
 
-
-/**
- * Returns leaflet map overlay
- */
 @Pipe({
   name: 'shakemapOverlays'
 })
 export class ShakemapOverlaysPipe implements PipeTransform {
 
+
+  /**
+   * Builds a shakemap overlay array with various layers
+   * @param product
+   *     The product
+   * @param enabled
+   *     The overlay array
+   * @returns {Array<L.Layer>}
+   */
   transform (product: any, enabled: string[] = []): Array<L.Layer> {
     let overlays = [];
 

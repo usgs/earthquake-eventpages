@@ -1,9 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 
-/**
- * Returns roman numeral corresponding to input number
- */
 @Pipe({
   name: 'sharedRoman'
 })
@@ -14,6 +11,12 @@ export class RomanPipe implements PipeTransform {
         'IX', 'X', 'XI', 'XII'];
 
 
+  /**
+   * Returns a roman numeral from a number
+   * @param mmi
+   *     The magnitude
+   * @returns {any}
+   */
   transform (mmi: number): any {
     let value;
 

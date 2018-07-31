@@ -1,15 +1,20 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 
-/**
- * Returns shared number with separator
- */
 @Pipe({
   name: 'sharedNumberWithSeparator'
 })
 export class NumberWithSeparatorPipe implements PipeTransform {
 
 
+  /**
+   * Returns shared number with separator
+   * @param value
+   *     The number value
+   * @param locale
+   *     The locale
+   * @returns {any}
+   */
   transform (value: number, locale?: any): any {
     let negative = '';
 

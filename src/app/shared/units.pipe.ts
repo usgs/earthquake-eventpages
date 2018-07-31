@@ -10,23 +10,27 @@ import { DegreesPipe } from './degrees.pipe';
 export class UnitsPipe implements PipeTransform {
 
 
-  constructor (private formatterService: FormatterService) { }
+  constructor (public formatterService: FormatterService) { }
 
 
   /**
    * Present units correctly
-   *
-   * @param value {Number}
+   * @param value
    *     Number to format.
-   * @param units {String} Units to describe the number.
+   * @param units
+   *     Units to describe the number.
    *
-   * @return {String}
+   * @return { String | null }
    */
   transform (
-      value: any,
-      units: string): any {
+    value: number | string,
+    units: string): string | null {
 
     let output: string = null;
+
+    if (value === null) {
+      return null;
+    }
 
     switch (units) {
         case 'count': {
@@ -40,13 +44,13 @@ export class UnitsPipe implements PipeTransform {
             break;
         }
 
-        case 'lat': {
-            output = this.formatterService.latitude(value);
+        case 'latitude': {
+            output = this.formatterService.latitude(+value);
             break;
         }
 
-        case 'lon': {
-            output = this.formatterService.longitude(value);
+        case 'longitude': {
+            output = this.formatterService.longitude(+value);
             break;
         }
 
