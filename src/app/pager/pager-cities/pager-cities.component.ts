@@ -1,11 +1,12 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
+
 /**
  * Creates a table on the PAGER module to define the cities and the
  * level of shaking that was experienced by the population of that city.
  *
  * @param pager {Object}
- *     pager product
+ *     parsed pager.xml object (from pagerXmlService.pagerXml$)
  */
 @Component({
   selector: 'pager-cities',
@@ -20,7 +21,7 @@ export class PagerCitiesComponent {
     'population'
   ];
 
-  @Input() pager;
+  @Input() pager: any;
 
   @ViewChild('citiesTable', { read: ElementRef }) tableEl: ElementRef;
 

@@ -1,4 +1,4 @@
-<ng-container *ngIf="pager && pager.cities as cities">
+<ng-container *ngIf="pager?.cities as cities; else noCities">
 
   <h3>Selected Cities Exposed</h3>
 
@@ -37,3 +37,9 @@
   </p>
 
 </ng-container>
+
+<ng-template #noCities>
+  <p class="alert error">
+    This product is missing pager.xml
+  </p>
+</ng-template>
