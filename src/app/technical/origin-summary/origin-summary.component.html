@@ -1,4 +1,4 @@
-<ng-container *ngIf="products && products.length != 0">
+<ng-container *ngIf="products && products?.length != 0">
 
   <h2>Origin</h2>
 
@@ -19,8 +19,8 @@
         </ng-container>
         <a
           [routerLink]="['/', event?.id, 'origin']"
-          [queryParams]="{ source: product.source, code: product.code }">
-          {{ product.properties.eventsource.toUpperCase() }}
+          [queryParams]="{ source: product?.source, code: product?.code }">
+          {{ product?.properties?.eventsource?.toUpperCase() }}
         </a>
       </mat-cell>
     </ng-container>
@@ -38,24 +38,24 @@
       <mat-cell *matCellDef="let product">
         {{
           formatterService.number(
-              product.properties.magnitude,
+              product?.properties?.magnitude,
               1)
         }}
-        {{ product.properties['magnitude-type'] }}
+        {{ product?.properties['magnitude-type'] }}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="time">
       <mat-header-cell *matHeaderCellDef>Time</mat-header-cell>
       <mat-cell *matCellDef="let product">
-        {{ formatterService.time(toDate(product.properties.eventtime)) }}
+        {{ formatterService.time(toDate(product?.properties?.eventtime)) }}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="depth">
       <mat-header-cell *matHeaderCellDef>Depth</mat-header-cell>
       <mat-cell *matCellDef="let product">
-        {{ formatterService.depth(product.properties.depth, 'km') }}
+        {{ formatterService.depth(product?.properties?.depth, 'km') }}
       </mat-cell>
     </ng-container>
 
@@ -64,7 +64,7 @@
         Review Status
       </mat-header-cell>
       <mat-cell *matCellDef="let product">
-        {{ (product.properties['review-status'] || 'automatic').toUpperCase() }}
+        {{ (product?.properties['review-status'] || 'automatic').toUpperCase() }}
       </mat-cell>
     </ng-container>
 
@@ -75,8 +75,8 @@
         <mat-cell
           *matCellDef="let product"
           [innerHTML]="formatterService.location(
-          product.properties.latitude,
-          product.properties.longitude)">
+          product?.properties?.latitude,
+          product?.properties?.longitude)">
         </mat-cell>
       </ng-container>
 

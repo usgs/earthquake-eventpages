@@ -21,7 +21,7 @@
         [product]="product">
     </shared-text-product>
 
-    <ng-container *ngIf="event.hasProducts('scitech-link')">
+    <ng-container *ngIf="event?.hasProducts('scitech-link')">
       <h3>For More Information</h3>
       <ul>
       <li *ngFor="let product of event?.getProducts('scitech-link')">

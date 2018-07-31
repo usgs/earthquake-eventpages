@@ -51,7 +51,7 @@ describe('OriginSummaryComponent', () => {
   describe('toDate', () => {
     it('converts strings to dates', () => {
       expect(component.toDate('2017-01-01T00:00:00Z').toISOString())
-        .toEqual('2017-01-01T00:00:00.000Z');
+          .toEqual('2017-01-01T00:00:00.000Z');
     });
   });
 });

@@ -5,8 +5,10 @@ import { FormatterService } from '../../core/formatter.service';
 
 /**
  * Technical origin component
- * @param event { any }
- * @param products { Array<any> }
+ * @param event
+ *     The event input
+ * @param products
+ *     The products array
  */
 @Component({
   selector: 'technical-origin-summary',
@@ -36,7 +38,8 @@ export class OriginSummaryComponent {
 
   /**
    * Returns a date object from a string
-   * @param {string} str
+   * @param str
+   *     String input used to create Date object
    * @returns {Date}
    */
   toDate (str: string) {

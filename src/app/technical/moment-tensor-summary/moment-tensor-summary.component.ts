@@ -6,7 +6,8 @@ import { Tensor } from '../../shared/beachball/tensor';
 
 /**
  * Moment tensor component
- * @param event { any }
+ * @param event
+ *     The event input
  */
 @Component({
   selector: 'technical-moment-tensor-summary',
@@ -36,7 +37,9 @@ export class MomentTensorSummaryComponent {
 
   /**
    * Setter for the products array
-   * @param {Array<any>} products
+   * @param products
+   *     The products array to set
+   * @returns { Tensor }
    */
   @Input() set products (products: Array<any>) {
     this._products = products;

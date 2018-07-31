@@ -4,8 +4,9 @@ import { Tensor } from '../../shared/beachball/tensor';
 
 
 /**
- * Focal mechanism component
- * @param event { any }
+ * Focal mechanism component, renders a table with data
+ * @param event
+ *     The event input
  */
 @Component({
   selector: 'technical-focal-mechanism-summary',
@@ -31,7 +32,9 @@ export class FocalMechanismSummaryComponent {
 
   /**
    * Setter to set the products array
-   * @param {Array<any>} products
+   * @param products
+   *     The products array
+   * @returns { Tensor }
    */
   @Input() set products (products: Array<any>) {
     this._products = products;
