@@ -6,8 +6,9 @@ import { RouterModule } from '@angular/router';
 import { HazdevTemplateModule } from 'hazdev-template';
 
 import { EventPageModule } from '../event-page/event-page.module';
-import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-page.component';
-
+import {
+  UnknownEventPageComponent
+} from './unknown-event-page/unknown-event-page.component';
 
 @NgModule({
   imports: [
