@@ -54,7 +54,7 @@ describe('QuestionComponent', () => {
 
       component.onChange(change);
       expect(component.change.next)
-        .toHaveBeenCalledWith({'test name': 'test value'});
+          .toHaveBeenCalledWith({'test name': 'test value'});
     });
 
     it('gets values for MatSelectionListChange', () => {
@@ -72,7 +72,9 @@ describe('QuestionComponent', () => {
 
       component.onChange(change);
       expect(component.change.next)
-        .toHaveBeenCalledWith({'test name': ['test value 1', 'test value 2']});
+          .toHaveBeenCalledWith(
+            {'test name': ['test value 1', 'test value 2']
+            });
     });
 
     it('gets other value for OtherValueChange', () => {
@@ -93,7 +95,7 @@ describe('QuestionComponent', () => {
       component.name = 'test name';
       component.onChange(null);
       expect(component.change.next)
-        .toHaveBeenCalledWith({'test name': 'test value'});
+          .toHaveBeenCalledWith({'test name': 'test value'});
     });
   });
 

@@ -40,7 +40,6 @@ import { LocationViewModule } from 'hazdev-ng-location-view';
     MatRadioModule,
     MatSelectModule,
     SharedModule,
-
     // routing module is always last
     TellUsRoutingModule
   ],

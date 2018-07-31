@@ -19,12 +19,18 @@ interface OtherValueEvent {
 
 /**
  * The question form component
- * @param change { BehaviorSubject<any> }
- * @param label { string }
- * @param multiSelect { boolean }
- * @param name { string }
- * @param options { Array<any> }
- * @param value { any }
+ * @param change
+ *     Behaviorsubject, emits changes to form
+ * @param label
+ *     The form label
+ * @param multiSelect
+ *     Multiselect options on form
+ * @param name
+ *     The name input on form
+ * @param options
+ *     Other form options input
+ * @param value
+ *
  */
 @Component({
   selector: 'tell-us-question',
@@ -39,37 +45,34 @@ export class QuestionComponent {
 
   @Output()
   change = new BehaviorSubject<any>(null);
-
   @Input()
   label: string;
-
   @Input()
   multiSelect = false;
-
   @Input()
   name: string;
-
   @Input()
   options: Array<any>;
-
   @Input()
   value: any;
 
 
   /**
-   * Convert UI value changes to answer values.
-   *
-   * @param changeEvent UI selection change.
+   * Convert UI value changes to answer values
+   * @param changeEvent
+   *     UI selection change.
    */
-  onChange (changeEvent: MatRadioChange|MatSelectionListChange|OtherValueEvent) {
+  onChange (
+    changeEvent: MatRadioChange|MatSelectionListChange|OtherValueEvent) {
     if (changeEvent instanceof MatRadioChange) {
       // single select
       this.value = changeEvent.value;
     } else if (changeEvent instanceof MatSelectionListChange) {
       // multi select
-      this.value = changeEvent.source.selectedOptions.selected.map((option: MatListOption) => {
-        return option.value;
-      });
+      this.value = changeEvent.source.selectedOptions.selected.map(
+        (option: MatListOption) => {
+          return option.value;
+        });
     } else if (changeEvent) {
       this.otherValue = changeEvent.value;
     }

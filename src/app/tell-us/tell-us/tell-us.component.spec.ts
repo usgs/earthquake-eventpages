@@ -16,13 +16,13 @@ import {
   BrowserDynamicTestingModule
 } from '@angular/platform-browser-dynamic/testing';
 
+import { MockPipe } from '../../mock-pipe';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 import { Subject } from 'rxjs/Subject';
 
 import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
-import { MockPipe } from '../../mock-pipe';
 import { FormLanguageService } from '../form-language.service';
 import { FormComponent } from '../form/form.component';
 import { TellUsComponent } from './tell-us.component';

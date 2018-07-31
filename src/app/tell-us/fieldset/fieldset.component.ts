@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 
 /**
  * Wraps the DYFI form input inside a fieldset element
- * @param legend {string}
+ * @param legend
  */
 @Component({
   selector: 'tell-us-fieldset',

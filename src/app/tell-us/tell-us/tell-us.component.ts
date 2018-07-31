@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { EventService } from '../../core/event.service';
 import { FormComponent } from '../form/form.component';
+import {HttpErrorResponse} from '@angular/common/http';
 
 
 /**
@@ -31,8 +32,7 @@ export class TellUsComponent implements OnInit {
   constructor (
     public dialog: MatDialog,
     public eventService: EventService,
-    public location: Location
-  ) { }
+    public location: Location) { }
 
 
   ngOnInit () {
@@ -43,10 +43,10 @@ export class TellUsComponent implements OnInit {
 
   /**
    * Handles the dialog closing, and checks to see if there is a dyfi response
-   *
-   * @param response dyfi response or HttpErrorResponse object
+   * @param response
+   *     dyfi response or HttpErrorResponse object
    */
-  onDialogClose (response) {
+  onDialogClose (response: any | HttpErrorResponse) {
     this.dialogRef = null;
 
     // check response
@@ -64,22 +64,20 @@ export class TellUsComponent implements OnInit {
 
   /**
    * Called when there was an error submitting the DYFI response
-   *
    * @param response
-   *        HttpErrorResponse object
+   *     HttpErrorResponse object
    */
-  onError (response) {
+  onError (response: any) {
     this.error = response;
     console.log('form failed to submit: ', this.error);
   }
 
   /**
-   * Called after dialog closes (either cancelled or submitted).
-   *
+   * Called after dialog closes (either cancelled or submitted)
    * @param response
-   *        response object from earthquake-dyfi-response
+   *     response object from earthquake-dyfi-response
    */
-  onSuccess (response) {
+  onSuccess (response: any) {
     this.response = response;
     console.log('success!', this.response);
   }

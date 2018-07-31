@@ -54,8 +54,7 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     public dialogRef: MatDialogRef<FormComponent>,
     public eventService: EventService,
     public httpClient: HttpClient,
-    public languageService: FormLanguageService
-  ) { }
+    public languageService: FormLanguageService) { }
 
 
   ngAfterViewInit () {
@@ -78,8 +77,7 @@ export class FormComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
-   * Update response information.
-   *
+   * Update response information
    * @param answer
    *        object with answers, field(s) are keys, values are values.
    */
@@ -158,9 +156,9 @@ export class FormComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
-   * Set event information.
-   *
-   * @param event the event.
+   * Set event information
+   * @param event
+   *     The event
    */
   setEvent (event: Event) {
     let time = event.properties.time || null;
@@ -175,7 +173,8 @@ export class FormComponent implements AfterViewInit, OnDestroy {
   /**
    * Called when user selects a language.
    *
-   * @param language selected language.
+   * @param language
+   *     selected language.
    */
   setLanguage (language: string) {
     this.answers.language = language;
