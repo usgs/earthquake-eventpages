@@ -165,9 +165,6 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
       type: null
     };
 
-    console.log('magnitude,', magnitude);
-    console.log('event, ', event);
-
     parsed.isPreferred = (magnitude.publicID === event.preferredMagnitudeID);
     if (magnitude.mag) {
       parsed.magnitude = magnitude.mag.value;
