@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { OriginComponent } from './origin/origin.component';
 import { DetailComponent } from './detail/detail.component';
-import { PhaseComponent } from './phase/phase.component';
 import { MagnitudeComponent } from './magnitude/magnitude.component';
+import { OriginComponent } from './origin/origin.component';
+import { PhaseComponent } from './phase/phase.component';
 
 
 const originRoutes: Routes = [
