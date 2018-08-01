@@ -1,28 +1,26 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+
 import { Subscription } from 'rxjs';
 
 import { EventService } from '../../core/event.service';
 import { QuakemlService } from '../../core/quakeml.service';
-
 import { toArray } from '../../to-array';
 import { Quakeml } from '../../quakeml';
 
 
+/**
+ * Magnitude tab contents for the Origin Module
+ */
 @Component({
   selector: 'origin-magnitude',
   templateUrl: './magnitude.component.html',
-  styleUrls: ['./magnitude.component.css']
+  styleUrls: ['./magnitude.component.scss']
 })
 export class MagnitudeComponent implements OnInit, OnDestroy {
 
-  /** phases parsed from quakeml. */
+  // phases parsed from quakeml.
   public magnitudes: Array<any>;
-
-  /** subscription to product observable */
-  private productSubscription: Subscription;
-
-  /** subscription to quakeml observable */
-  private quakemlSubscription: Subscription;
+  public subscription: Subscription = new Subscription();
 
   constructor (
     public eventService: EventService,
@@ -31,23 +29,23 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
 
 
   ngOnInit () {
-    this.productSubscription = this.eventService.product$.subscribe((product) => {
+    this.subscription.add(this.eventService.product$.subscribe((product) => {
       this.onProduct(product);
-    });
-    this.quakemlSubscription = this.quakemlService.quakeml$.subscribe((quakeml) => {
+    }));
+    this.subscription.add(this.quakemlService.quakeml$.subscribe((quakeml) => {
       this.onQuakeml(quakeml);
-    });
+    }));
   }
 
   ngOnDestroy () {
-    this.productSubscription.unsubscribe();
-    this.quakemlSubscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   /**
    * Observe selected product, request quakeml.
    *
-   * @param product next product.
+   * @param product
+   *     next product.
    */
   onProduct (product) {
     this.quakemlService.getQuakeml(product);
@@ -56,7 +54,8 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
   /**
    * Observe quakeml changes, parse phases.
    *
-   * @param quakeml next quakeml.
+   * @param quakeml
+   *     next quakeml.
    */
   onQuakeml (quakeml: Quakeml): Array<any> {
     if (quakeml === null) {
@@ -83,6 +82,17 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
     this.magnitudes = magnitudes;
   }
 
+  /**
+   * Parse station magnitude contributions from quakeml > event >  magnitude
+   *
+   * @param contribution
+   *     A QuakeML stationMagnitudeContribution object
+   * @param event
+   *     An QuakeML event object
+   *
+   * @return {Object}
+   *     object with parsed station magnitude contribution details
+   */
   parseContribution (contribution, event) {
     const parsed = {
       amplitude: null,
@@ -131,6 +141,17 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
     return parsed;
   }
 
+  /**
+   * Parse magnitudes from quakeml > event
+   *
+   * @param magnitude
+   *     A QuakeML magnitude object
+   * @param event
+   *     An QuakeML event object
+   *
+   * @return {Object}
+   *     object with parsed magnitude data
+   */
   parseMagnitude (magnitude, event) {
     const parsed = {
       contributions: null,
@@ -143,6 +164,9 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
       stationCount: null,
       type: null
     };
+
+    console.log('magnitude,', magnitude);
+    console.log('event, ', event);
 
     parsed.isPreferred = (magnitude.publicID === event.preferredMagnitudeID);
     if (magnitude.mag) {

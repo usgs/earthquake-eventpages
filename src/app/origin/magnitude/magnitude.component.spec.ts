@@ -1,17 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  MatIconModule,
+  MatCardModule,
+  MatExpansionModule
+} from '@angular/material';
 
-import { MagnitudeComponent } from './magnitude.component';
-import { MatIconModule, MatCardModule, MatExpansionModule } from '@angular/material';
+import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
+
 import { ContributorService } from '../../core/contributor.service';
 import { EventService } from '../../core/event.service';
-import { MockComponent } from 'ng2-mock-component';
-import { MockPipe } from '../../mock-pipe';
-import { of } from 'rxjs/observable/of';
 import { QuakemlService } from '../../core/quakeml.service';
+import { MockPipe } from '../../mock-pipe';
 import { Quakeml } from '../../quakeml';
 import { EVENT_UU60268292 } from '../../quakeml-testdata-uu60268292';
-import { xmlToJson } from '../../xml-to-json';
 import { EVENT_NC72923380 } from '../../quakeml-testdata-nc72923380';
+import { xmlToJson } from '../../xml-to-json';
+import { MagnitudeComponent } from './magnitude.component';
 
 
 describe('MagnitudeComponent', () => {
@@ -39,10 +44,14 @@ describe('MagnitudeComponent', () => {
       declarations: [
         MagnitudeComponent,
 
-        MockComponent({selector: 'origin-magnitude-detail', inputs: ['contributions']}),
-        MockComponent({selector: 'shared-bubble', inputs: ['name', 'title']}),
-        MockComponent({selector: 'shared-preferred-check', inputs: ['title']}),
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
+        MockComponent({selector: 'origin-magnitude-detail',
+            inputs: ['contributions']}),
+        MockComponent({selector: 'shared-bubble',
+            inputs: ['name', 'title']}),
+        MockComponent({selector: 'shared-preferred-check',
+            inputs: ['title']}),
+        MockComponent({selector: 'shared-product-attribution',
+            inputs: ['product']}),
 
         MockPipe('sharedNumber')
       ],
