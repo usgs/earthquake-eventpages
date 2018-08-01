@@ -51,8 +51,8 @@
         <tr>
           <th scope="row">Origin Time</th>
           <td>
-            <time *ngIf="hasEventTime(props)" dateTime="{{ props.eventtime }}">
-              {{ props.eventtime.replace('T', ' ').replace('Z', ' UTC') }}
+            <time dateTime="{{ props.eventtime }}">
+              {{ props.eventtime | date:"yyyy-MM-dd HH:mm:ss.SSS":"UTC" }} UTC
             </time>
           </td>
         </tr>
@@ -116,8 +116,18 @@
 
         <tr>
           <th scope="row">Catalog</th>
-          <td [innerHTML]="getCatalogDetail(props.eventsource, props.eventsourcecode)"
-          ></td>
+          <td>
+            <ng-container *ngIf="props.eventsource && props.eventsourcecode;
+                else noCatalog">
+              {{ props.eventsource | uppercase }}
+              <small>
+                {{ (props.eventsource + props.eventsourcecode) | lowercase }}
+              </small>
+            </ng-container>
+            <ng-template #noCatalog>
+              &ndash;
+            </ng-template>
+          </td>
         </tr>
 
         <tr>

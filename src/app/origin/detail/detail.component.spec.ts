@@ -29,7 +29,6 @@ describe('DetailComponent', () => {
     const formatterServiceStub = {
     };
 
-
     TestBed.configureTestingModule({
       declarations: [
         DetailComponent,
@@ -57,21 +56,6 @@ describe('DetailComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('getCatalogDetail', () => {
-    it('short circuits on no eventSource', () => {
-      expect(component.getCatalogDetail(null, null)).toBe('&ndash;');
-      expect(component.getCatalogDetail(null, 'code')).toBe('&ndash;');
-
-      expect(component.getCatalogDetail('', null)).toBe('&ndash;');
-      expect(component.getCatalogDetail('', 'code')).toBe('&ndash;');
-    });
-
-    it('returns expected results', () => {
-      expect(component.getCatalogDetail('Source', 'Code'))
-          .toEqual('SOURCE <small>(sourcecode)</small>');
-    });
-  });
-
   describe('getProduct', () => {
     it('returns object if not found', () => {
       const event = new Event({});
@@ -95,16 +79,6 @@ describe('DetailComponent', () => {
 
       PRODUCT = null;
       expect(component.getProduct()).toEqual({});
-    });
-  });
-
-  describe('hasEventTime', () => {
-    it('returns as intended', () => {
-      expect(component.hasEventTime({})).toBeFalsy();
-      expect(component.hasEventTime({eventtime: null})).toBeFalsy();
-      expect(component.hasEventTime({eventtime: 0})).toBeFalsy();
-
-      expect(component.hasEventTime({eventtime: '0'})).toBeTruthy();
     });
   });
 });
