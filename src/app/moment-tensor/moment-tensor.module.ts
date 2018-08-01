@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { MatTableModule } from '@angular/material';
 
-import { SharedModule } from '../shared/shared.module';
 import { ProductPageModule } from '../product-page/product-page.module';
+import { SharedModule } from '../shared/shared.module';
 
+import { AxesComponent } from './axes/axes.component';
+import { InfoComponent } from './info/info.component';
 import { MomentTensorRoutingModule } from './moment-tensor-routing.module';
 import { MomentTensorComponent } from './moment-tensor/moment-tensor.component';
-import { AxesComponent } from './axes/axes.component';
-import { MatTableModule } from '@angular/material';
-import { InfoComponent } from './info/info.component';
 
 
 @NgModule({
