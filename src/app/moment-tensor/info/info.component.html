@@ -1,69 +1,62 @@
-<ng-container *ngIf="tensor; else noTensor">
+<h4 [ngSwitch]="(tensor.type || '').toUpperCase()">
+  <ng-container *ngSwitchCase="''">
+    Moment Tensor
+  </ng-container>
+  <ng-container *ngSwitchCase="'MWB'">
+    Body-wave Moment Tensor (Mwb)
+  </ng-container>
+  <ng-container *ngSwitchCase="'MWC'">
+    Centroid Moment Tensor (Mwc)
+  </ng-container>
+  <ng-container *ngSwitchCase="'MWR'">
+    Regional Moment Tensor (Mwr)
+  </ng-container>
+  <ng-container *ngSwitchCase="'MWW'">
+    W-phase Moment Tensor (Mww)
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+    Moment Tensor ({{ tensor.type }})
+  </ng-container>
+</h4>
 
-  <h4 [ngSwitch]="(tensor.type || '').toUpperCase()">
-    <ng-container *ngSwitchCase="''">
-      Moment Tensor
+<dl class="description-table">
+  <dt>Moment</dt>
+  <dd>{{ tensor.moment?.toExponential(3) }} {{ tensor.units }}</dd>
+
+  <dt>Magnitude</dt>
+  <dd>
+    {{ tensor.magnitude | sharedNumber:2 }}
+    <ng-container *ngIf="tensor?.product?.properties as properties">
+      {{ properties['derived-magnitude-type'] }}
     </ng-container>
-    <ng-container *ngSwitchCase="'MWB'">
-      Body-wave Moment Tensor (Mwb)
-    </ng-container>
-    <ng-container *ngSwitchCase="'MWC'">
-      Centroid Moment Tensor (Mwc)
-    </ng-container>
-    <ng-container *ngSwitchCase="'MWR'">
-      Regional Moment Tensor (Mwr)
-    </ng-container>
-    <ng-container *ngSwitchCase="'MWW'">
-      W-phase Moment Tensor (Mww)
-    </ng-container>
-    <ng-container *ngSwitchDefault>
-      Moment Tensor ({{ tensor.type }})
-    </ng-container>
-  </h4>
+  </dd>
 
-  <dl class="description-table">
-    <dt>Moment</dt>
-    <dd>{{ tensor.moment?.toExponential(3) }} {{ tensor.units }}</dd>
+  <dt>Depth</dt>
+  <dd>{{ tensor.depth | sharedNumber:1:'km' }}</dd>
 
-    <dt>Magnitude</dt>
-    <dd>
-      {{ tensor.magnitude | sharedNumber:2 }}
-      <ng-container *ngIf="tensor?.product?.properties as properties">
-        {{ properties['derived-magnitude-type'] }}
-      </ng-container>
-    </dd>
+  <dt>
+    Percent
+    <abbr title="Double Couple">DC</abbr>
+  </dt>
+  <dd>{{ tensor.percentDC | percent }}</dd>
 
-    <dt>Depth</dt>
-    <dd>{{ tensor.depth | sharedNumber:1:'km' }}</dd>
+  <dt>Half Duration</dt>
+  <dd>{{ tensor.halfDuration | sharedNumber:2:'s' }}</dd>
 
-    <dt>
-      Percent
-      <abbr title="Double Couple">DC</abbr>
-    </dt>
-    <dd>{{ tensor.percentDC | percent }}</dd>
+  <dt>Catalog</dt>
+  <dd>{{ tensor.product?.properties?.eventsource | uppercase }}</dd>
 
-    <dt>Half Duration</dt>
-    <dd>{{ tensor.halfDuration | sharedNumber:2:'s' }}</dd>
+  <dt>Data Source</dt>
+  <dd>
+    <shared-product-attribution
+        [product]="{ source: tensor.product?.properties['beachball-source'] || tensor.product?.source }">
+    </shared-product-attribution>
+  </dd>
 
-    <dt>Catalog</dt>
-    <dd>{{ tensor.product?.properties?.eventsource | uppercase }}</dd>
-
-    <dt>Data Source</dt>
-    <dd>
-      <shared-product-attribution
-          [product]="{ source: tensor.product?.properties['beachball-source'] || tensor.product?.source }">
-      </shared-product-attribution>
-    </dd>
-
-    <dt>Contributor</dt>
-    <dd>
-      <shared-product-attribution
-          [product]="{ source: tensor.product?.source }">
-      </shared-product-attribution>
-    </dd>
-  </dl>
-</ng-container>
-
-<ng-template #noTensor>
-  <p class="alert error">No tensor information available.</p>
-</ng-template>
+  <dt>Contributor</dt>
+  <dd>
+    <shared-product-attribution
+        [product]="{ source: tensor.product?.source }">
+    </shared-product-attribution>
+  </dd>
+</dl>

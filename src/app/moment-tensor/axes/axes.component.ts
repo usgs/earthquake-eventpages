@@ -1,13 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { Tensor } from '../../shared/beachball/tensor';
 import { Beachball } from '../../shared/beachball/beachball';
 
+/**
+ * Display Moment Tensor beachball diagram
+ *
+ * @param tensor
+ *     tensor object
+ *
+ */
 @Component({
   selector: 'moment-tensor-axes',
   templateUrl: './axes.component.html',
-  styleUrls: ['./axes.component.css']
+  styleUrls: ['./axes.component.scss']
 })
-export class AxesComponent implements OnInit {
+export class AxesComponent {
 
   public columnsToDisplay = [
     'axis',
@@ -18,11 +26,13 @@ export class AxesComponent implements OnInit {
 
   @Input() tensor: Tensor;
 
-  constructor() { }
 
-  ngOnInit() {
-  }
-
+  /**
+   * Get the fault plane solution axes
+   *
+   * @param tensor
+   *     tensor object
+   */
   getAxes (tensor: Tensor) {
     if (!tensor) {
       return [];
