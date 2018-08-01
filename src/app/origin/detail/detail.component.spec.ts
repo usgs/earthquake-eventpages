@@ -5,7 +5,6 @@ import { MockComponent } from 'ng2-mock-component';
 import { DetailComponent } from './detail.component';
 import { EventService } from '../../core/event.service';
 import { FormatterService } from '../../core/formatter.service';
-
 import { Event } from '../../event';
 
 
@@ -33,10 +32,14 @@ describe('DetailComponent', () => {
       declarations: [
         DetailComponent,
 
-        MockComponent({selector: 'shared-uncertain-value', inputs: ['value', 'uncertainty', 'uncertaintyUnits']}),
-        MockComponent({selector: 'shared-coordinates', inputs: ['latitude', 'longitude']}),
-        MockComponent({selector: 'shared-fe-region', inputs: ['latitude', 'longitude']}),
-        MockComponent({selector: 'shared-attribution', inputs: ['sourceCode']})
+        MockComponent({selector: 'shared-uncertain-value',
+            inputs: ['value', 'uncertainty', 'uncertaintyUnits']}),
+        MockComponent({selector: 'shared-coordinates',
+            inputs: ['latitude', 'longitude']}),
+        MockComponent({selector: 'shared-fe-region',
+            inputs: ['latitude', 'longitude']}),
+        MockComponent({selector: 'shared-attribution',
+            inputs: ['sourceCode']})
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},

@@ -10,7 +10,8 @@
           </th>
           <td>
             <shared-uncertain-value
-              [value]="formatter.magnitude(props.magnitude, props['magnitude-type'])"
+              [value]="formatter.magnitude(props.magnitude,
+                  props['magnitude-type'])"
               [uncertainty]="props['magnitude-error']"
             ></shared-uncertain-value>
           </td>
@@ -75,7 +76,8 @@
           <th scope="row">Minimum Distance</th>
           <td>
             <span
-              [innerHTML]="formatter.distance(props['minimum-distance'] * 0.0174532925 * 6378.1, 'km')"
+              [innerHTML]="formatter.distance(props['minimum-distance']
+                  * 0.0174532925 * 6378.1, 'km')"
             ></span>
             (<span
               [innerHTML]="formatter.angle(props['minimum-distance'], 2)"

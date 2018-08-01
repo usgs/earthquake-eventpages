@@ -15,7 +15,7 @@ import { UncertainValueComponent } from '../../shared/uncertain-value/uncertain-
 @Component({
   selector: 'origin-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent {
 
@@ -24,6 +24,10 @@ export class DetailComponent {
     public formatter: FormatterService
   ) { }
 
+  /**
+   * Get phase data when it exists
+   *
+   */
   getProduct (): any {
     let product = this.eventService.product$.getValue() || {};
 
