@@ -20,7 +20,6 @@ import {
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 import { CoordinatesService } from 'hazdev-ng-location-view';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
@@ -30,7 +29,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { FormLanguageService } from '../form-language.service';
 import { FormComponent } from './form.component';
-
 
 
 describe('FormComponent', () => {

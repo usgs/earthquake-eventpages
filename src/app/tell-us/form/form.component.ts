@@ -15,13 +15,14 @@ import { LocationMapComponent } from 'hazdev-ng-location-view';
 import { Subscription, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { EventService } from '../../../..';
+import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
 import { FormLanguageService } from '../form-language.service';
 
 
 /**
  * The main tell-us form which submits all DYFI information from user
+ *
  */
 @Component({
   selector: 'tell-us-form',
@@ -29,8 +30,6 @@ import { FormLanguageService } from '../form-language.service';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements AfterViewInit, OnDestroy {
-
-
   // these answers control whether the submit button is enabled
   // others are populated as needed
   public answers: any = {
@@ -41,8 +40,7 @@ export class FormComponent implements AfterViewInit, OnDestroy {
   };
   public error: any = null;
   public responseUrl = '/data/dyfi/form/response.php';
-  // The subscription to the event$ observable in the event service
-  public eventSubscription: Subscription;
+  public subscription: Subscription = new Subscription();
 
   // The rendered map at the top of the form
   @ViewChild(LocationMapComponent)
@@ -58,9 +56,9 @@ export class FormComponent implements AfterViewInit, OnDestroy {
 
 
   ngAfterViewInit () {
-    this.eventSubscription = this.eventService.event$.subscribe((event) => {
+    this.subscription.add(this.eventService.event$.subscribe((event) => {
       this.setEvent(event);
-    });
+    }));
 
     // default language
     this.answers.language = 'en';
@@ -72,12 +70,12 @@ export class FormComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy () {
-    this.eventSubscription.unsubscribe();
-    this.eventSubscription = null;
+    this.subscription.unsubscribe();
   }
 
   /**
    * Update response information
+   *
    * @param answer
    *        object with answers, field(s) are keys, values are values.
    */
@@ -99,9 +97,7 @@ export class FormComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
-   * Called when form is submitted.
-   *
-   * Passes answers back to dialog opener.
+   * Called when form is submitted. Passes answers back to dialog opener.
    */
   onSubmit () {
     let params = new HttpParams();
@@ -128,7 +124,10 @@ export class FormComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Checks to make sure that required fields were filled out
-   * before submitting
+   * before submitting.
+   *
+   * @return {boolean}
+   *     A true or false validation response
    */
   validateForm () {
     let key;
@@ -157,6 +156,7 @@ export class FormComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Set event information
+   *
    * @param event
    *     The event
    */

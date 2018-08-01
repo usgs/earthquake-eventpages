@@ -3,18 +3,21 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  Input } from '@angular/core';
+  Input
+} from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import {
   Coordinates,
   CoordinatesService,
-  LocationDialogComponent } from 'hazdev-ng-location-view';
+  LocationDialogComponent
+} from 'hazdev-ng-location-view';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 
 /**
  * Location component used to select the user's location on the form
+ *
  * @param change
  *     Behaviorsubject emits when location has changes/been selected
  * @param enter
@@ -30,7 +33,6 @@ import { BehaviorSubject, Subscription } from 'rxjs';
   styleUrls: ['./location.component.scss']
 })
 export class LocationComponent implements OnDestroy, OnInit {
-
 
   public subscription = new Subscription();
 
@@ -78,6 +80,7 @@ export class LocationComponent implements OnDestroy, OnInit {
 
   /**
    * Set the location
+   *
    * @param coordinates
    *     The coordinates to set
    */

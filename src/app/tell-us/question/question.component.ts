@@ -19,6 +19,7 @@ interface OtherValueEvent {
 
 /**
  * The question form component
+ *
  * @param change
  *     Behaviorsubject, emits changes to form
  * @param label
@@ -30,6 +31,7 @@ interface OtherValueEvent {
  * @param options
  *     Other form options input
  * @param value
+ *     The form input value
  *
  */
 @Component({
@@ -45,6 +47,7 @@ export class QuestionComponent {
 
   @Output()
   change = new BehaviorSubject<any>(null);
+
   @Input()
   label: string;
   @Input()
@@ -59,6 +62,7 @@ export class QuestionComponent {
 
   /**
    * Convert UI value changes to answer values
+   *
    * @param changeEvent
    *     UI selection change.
    */

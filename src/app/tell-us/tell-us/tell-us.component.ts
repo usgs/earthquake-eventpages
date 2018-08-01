@@ -43,6 +43,7 @@ export class TellUsComponent implements OnInit {
 
   /**
    * Handles the dialog closing, and checks to see if there is a dyfi response
+   *
    * @param response
    *     dyfi response or HttpErrorResponse object
    */
@@ -64,6 +65,7 @@ export class TellUsComponent implements OnInit {
 
   /**
    * Called when there was an error submitting the DYFI response
+   *
    * @param response
    *     HttpErrorResponse object
    */
@@ -74,6 +76,7 @@ export class TellUsComponent implements OnInit {
 
   /**
    * Called after dialog closes (either cancelled or submitted)
+   *
    * @param response
    *     response object from earthquake-dyfi-response
    */
