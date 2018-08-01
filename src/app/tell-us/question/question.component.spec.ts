@@ -8,6 +8,7 @@ import {
   MatRadioModule,
   MatSelectionList,
   MatSelectionListChange } from '@angular/material';
+
 import { MockComponent } from 'ng2-mock-component';
 
 import { QuestionComponent } from './question.component';
@@ -52,7 +53,8 @@ describe('QuestionComponent', () => {
       spyOn(component.change, 'next');
 
       component.onChange(change);
-      expect(component.change.next).toHaveBeenCalledWith({'test name': 'test value'});
+      expect(component.change.next)
+        .toHaveBeenCalledWith({'test name': 'test value'});
     });
 
     it('gets values for MatSelectionListChange', () => {
@@ -62,13 +64,15 @@ describe('QuestionComponent', () => {
       const option2 = new MatListOption(null, null, source);
       option2.value = 'test value 2';
       const change = new MatSelectionListChange(source, null);
-      spyOnProperty(source.selectedOptions, 'selected', 'get').and.returnValue([option1, option2]);
+      spyOnProperty(source.selectedOptions, 'selected', 'get')
+        .and.returnValue([option1, option2]);
 
       component.name = 'test name';
       spyOn(component.change, 'next');
 
       component.onChange(change);
-      expect(component.change.next).toHaveBeenCalledWith({'test name': ['test value 1', 'test value 2']});
+      expect(component.change.next)
+        .toHaveBeenCalledWith({'test name': ['test value 1', 'test value 2']});
     });
 
     it('gets other value for OtherValueChange', () => {
@@ -88,7 +92,8 @@ describe('QuestionComponent', () => {
 
       component.name = 'test name';
       component.onChange(null);
-      expect(component.change.next).toHaveBeenCalledWith({'test name': 'test value'});
+      expect(component.change.next)
+        .toHaveBeenCalledWith({'test name': 'test value'});
     });
   });
 

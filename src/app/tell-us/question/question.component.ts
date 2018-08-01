@@ -1,20 +1,32 @@
-import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
-import { MatSelectionListChange, MatRadioChange, MatListOption } from '@angular/material';
+import { Component, Output, Input } from '@angular/core';
+import {
+  MatSelectionListChange,
+  MatRadioChange,
+  MatListOption
+} from '@angular/material';
+
 import { BehaviorSubject } from 'rxjs';
 
 
+/**
+ * Interface for user to enter data under any of the 'other' radio buttons
+ */
 interface OtherValueEvent {
   type: 'other';
   value: any;
 }
 
 
+/**
+ * The question form component
+ */
 @Component({
   selector: 'tell-us-question',
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss']
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent {
+
 
   @Output()
   change = new BehaviorSubject<any>(null);
@@ -37,10 +49,9 @@ export class QuestionComponent implements OnInit {
   // if there is an "other" option, the user specified value
   otherValue: any;
 
-  constructor() { }
 
-  ngOnInit() {
-  }
+  constructor () { }
+
 
   /**
    * Convert UI value changes to answer values.

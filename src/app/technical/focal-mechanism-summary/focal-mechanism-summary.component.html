@@ -1,19 +1,23 @@
-<ng-container *ngIf="products && products.length != 0">
+<ng-container *ngIf="products && products?.length != 0">
 
   <h2>Focal Mechanism</h2>
 
   <mat-table [dataSource]="this.tensors">
-    <mat-header-row *matHeaderRowDef="this.columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay"></mat-row>
+    <mat-header-row *matHeaderRowDef="this.columnsToDisplay">
+
+    </mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay">
+
+    </mat-row>
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>
       <mat-cell *matCellDef="let tensor" class="unpreferred">
         <a
             [routerLink]="['/', event?.id, 'focal-mechanism']"
-            [queryParams]="{ source: tensor.product.source,
-                code: tensor.product.code }">
-          {{ tensor.product?.properties?.eventsource.toUpperCase() }}
+            [queryParams]="{ source: tensor?.product?.source,
+                code: tensor?.product?.code }">
+          {{ tensor.product?.properties?.eventsource?.toUpperCase() }}
         </a>
       </mat-cell>
     </ng-container>
@@ -66,7 +70,7 @@
       <mat-header-cell *matHeaderCellDef>Source</mat-header-cell>
       <mat-cell *matCellDef="let tensor">
         <shared-product-attribution
-            [product]="tensor.product">
+            [product]="tensor?.product">
         </shared-product-attribution>
       </mat-cell>
     </ng-container>

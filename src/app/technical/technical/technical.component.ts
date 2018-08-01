@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
 import { EventService } from '../../core/event.service';
 
+
+/**
+ * Main technical component for focal mechanism, origin, moment tensor
+ */
 @Component({
   selector: 'technical',
   templateUrl: './technical.component.html',
-  styleUrls: ['./technical.component.css']
+  styleUrls: ['./technical.component.scss']
 })
-export class TechnicalComponent implements OnInit {
+export class TechnicalComponent {
 
-  constructor(
-    public eventService: EventService
-  ) { }
-
-  ngOnInit() {
-  }
+  constructor (public eventService: EventService) { }
 
 }

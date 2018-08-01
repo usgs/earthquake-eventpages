@@ -1,11 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MomentTensorSummaryComponent } from './moment-tensor-summary.component';
-import { MockComponent } from 'ng2-mock-component';
 import { MatTableModule, MatIconModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
+
+import { MockComponent } from 'ng2-mock-component';
+
 import { FormatterService } from '../../core/formatter.service';
 import { Tensor } from '../../shared/beachball/tensor';
-import { RouterModule } from '@angular/router';
+import {
+  MomentTensorSummaryComponent
+} from './moment-tensor-summary.component';
+
 
 describe('MomentTensorSummaryComponent', () => {
   let component: MomentTensorSummaryComponent;
@@ -20,10 +24,18 @@ describe('MomentTensorSummaryComponent', () => {
       ],
       declarations: [
         MomentTensorSummaryComponent,
-
-        MockComponent({selector: 'shared-beachball', inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor']}),
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
-        MockComponent({selector: 'shared-preferred-check', inputs: ['TITLE']})
+        MockComponent({
+          selector: 'shared-beachball',
+          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor']
+        }),
+        MockComponent({
+          selector: 'shared-product-attribution',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'shared-preferred-check',
+          inputs: ['TITLE']
+        })
       ],
       providers: [
         FormatterService

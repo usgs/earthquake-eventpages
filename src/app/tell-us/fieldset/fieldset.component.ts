@@ -1,18 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-
+/**
+ * Fieldset component which takes a legend component
+ */
 @Component({
   selector: 'tell-us-fieldset',
   templateUrl: './fieldset.component.html',
   styleUrls: ['./fieldset.component.scss']
 })
-export class FieldsetComponent implements OnInit {
+export class FieldsetComponent {
 
+  /**
+   * Legend input
+   */
   @Input() legend: string;
 
-  constructor() { }
 
-  ngOnInit() {
-  }
+  constructor () { }
 
 }
