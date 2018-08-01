@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule, MatTableModule } from '@angular/material';
 
 import { MagnitudeDetailComponent } from './magnitude-detail.component';
-import { MatDialogModule, MatTableModule } from '@angular/material';
+
 
 describe('MagnitudeDetailComponent', () => {
   let component: MagnitudeDetailComponent;
