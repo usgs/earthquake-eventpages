@@ -1,15 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs/observable/of';
 import {
   MatDialogModule,
-  MatDialog
-} from '@angular/material';
+  MatDialog } from '@angular/material';
 
-import { LocationComponent } from './location.component';
+import { of } from 'rxjs/observable/of';
 import {
   Coordinates,
   CoordinatesService
 } from 'hazdev-ng-location-view';
+
+import { LocationComponent } from './location.component';
 
 
 describe('LocationComponent', () => {
@@ -75,7 +75,7 @@ describe('LocationComponent', () => {
       component.setLocation(coordinates);
       expect(component.value.ciim_mapAddress).toEqual(coordinates.name);
       expect(component.value.ciim_mapConfidence)
-        .toEqual(coordinates.confidence);
+          .toEqual(coordinates.confidence);
       expect(component.value.ciim_mapLat).toEqual(coordinates.latitude);
       expect(component.value.ciim_mapLon).toEqual(coordinates.longitude);
     });

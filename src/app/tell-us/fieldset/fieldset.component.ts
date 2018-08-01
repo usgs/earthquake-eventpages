@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
 
+
 /**
- * Fieldset component which takes a legend component
+ * Wraps the DYFI form input inside a fieldset element
+ * @param legend
  */
 @Component({
   selector: 'tell-us-fieldset',
@@ -10,12 +12,6 @@ import { Component, Input } from '@angular/core';
 })
 export class FieldsetComponent {
 
-  /**
-   * Legend input
-   */
   @Input() legend: string;
-
-
-  constructor () { }
 
 }

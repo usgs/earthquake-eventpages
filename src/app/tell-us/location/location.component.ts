@@ -1,19 +1,28 @@
 import {
-  Component, OnDestroy, OnInit, Output, Input
-} from '@angular/core';
+  Component,
+  OnDestroy,
+  OnInit,
+  Output,
+  Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
-
-import { BehaviorSubject, Subscription } from 'rxjs';
 
 import {
   Coordinates,
   CoordinatesService,
-  LocationDialogComponent
-} from 'hazdev-ng-location-view';
+  LocationDialogComponent } from 'hazdev-ng-location-view';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 
 /**
  * Location component used to select the user's location on the form
+ * @param change
+ *     Behaviorsubject emits when location has changes/been selected
+ * @param enter
+ *     Label for user to enter location
+ * @param update
+ *     Label for user to change location, if entered before
+ * @param value
+ *     Value of current location
  */
 @Component({
   selector: 'tell-us-location',
@@ -23,17 +32,16 @@ import {
 export class LocationComponent implements OnDestroy, OnInit {
 
 
+  public subscription = new Subscription();
+
   @Output()
   change = new BehaviorSubject<any>(null);
-
   // label for user to enter location
   @Input()
   enter = 'Choose location';
-
   // label for user to change previously entered location
   @Input()
   update = 'Change location';
-
   // current location value
   @Input()
   value: any = {
@@ -41,19 +49,12 @@ export class LocationComponent implements OnDestroy, OnInit {
     ciim_mapLon: null
   };
 
-  subscription = new Subscription();
-
 
   constructor (
     public coordinatesService: CoordinatesService,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog) { }
 
 
-  /**
-   * Subscribe to the coordinate service coordinate$ object and set user
-   * location
-   */
   ngOnInit () {
     this.subscription.add(
       this.coordinatesService.coordinates$.subscribe((coordinates) => {
@@ -62,9 +63,6 @@ export class LocationComponent implements OnDestroy, OnInit {
     );
   }
 
-  /**
-   * Unsubscribe from the coordinates subscription
-   */
   ngOnDestroy () {
     this.subscription.unsubscribe();
   }
@@ -80,7 +78,8 @@ export class LocationComponent implements OnDestroy, OnInit {
 
   /**
    * Set the location
-   * @param {Coordinates} coordinates
+   * @param coordinates
+   *     The coordinates to set
    */
   setLocation (coordinates: Coordinates) {
     if (coordinates) {

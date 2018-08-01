@@ -10,18 +10,21 @@ describe('FormLanguageService', () => {
     });
   });
 
-  it('should be created', inject([FormLanguageService], (service: FormLanguageService) => {
+  it('should be created', inject([FormLanguageService],
+    (service: FormLanguageService) => {
     expect(service).toBeTruthy();
   }));
 
   describe('getLanguage', () => {
-    it('finds languages by id', inject([FormLanguageService], (service: FormLanguageService) => {
+    it('finds languages by id', inject([FormLanguageService],
+      (service: FormLanguageService) => {
       spyOn(service.language$, 'next');
       service.getLanguage('es');
       expect(service.language$.next).toHaveBeenCalledWith(service.languages[1]);
     }));
 
-    it('defaults to english', inject([FormLanguageService], (service: FormLanguageService) => {
+    it('defaults to english', inject([FormLanguageService],
+      (service: FormLanguageService) => {
       spyOn(service.language$, 'next');
       service.getLanguage(null);
       expect(service.language$.next).toHaveBeenCalledWith(service.languages[0]);
