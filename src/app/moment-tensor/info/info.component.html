@@ -1,4 +1,4 @@
-<ng-container *ngIf="tensor">
+<ng-container *ngIf="tensor; else noTensor">
 
   <h4 [ngSwitch]="(tensor.type || '').toUpperCase()">
     <ng-container *ngSwitchCase="''">
@@ -26,7 +26,6 @@
     <dd>{{ tensor.moment?.toExponential(3) }} {{ tensor.units }}</dd>
 
     <dt>Magnitude</dt>
-
     <dd>
       {{ tensor.magnitude | sharedNumber:2 }}
       <ng-container *ngIf="tensor?.product?.properties as properties">
@@ -64,3 +63,7 @@
     </dd>
   </dl>
 </ng-container>
+
+<ng-template #noTensor>
+  <p class="alert error">No tensor information available.</p>
+</ng-template>
