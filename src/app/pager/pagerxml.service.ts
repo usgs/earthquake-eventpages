@@ -1,24 +1,31 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
+import { BehaviorSubject,  Observable,  of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { xmlToJson } from '../xml-to-json';
 import { Quakeml } from '../quakeml';
 
-
+/**
+ * Parses pager.xml into the observable seqeunce pagerXml$
+ */
 @Injectable()
 export class PagerXmlService {
 
-  public pagerXml$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-
   public error: any = null;
+  public pagerXml$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor (
     public httpClient: HttpClient
   ) { }
 
+  /**
+   * Make an xhr request to get pager.xml update observable sequence
+   *
+   * @param product
+   *     pager product
+   */
   getPagerXml (product: any): void {
     try {
       const contents = product.contents['pager.xml'];
@@ -50,6 +57,16 @@ export class PagerXmlService {
     };
   }
 
+  /**
+   * Parse the pager.xml response into more easily consumable parts:
+   *  - alerts
+   *  - exposures
+   *  - cities
+   *  - comments
+   *
+   * @param response
+   *     pager.xml document
+   */
   parseResponse (response: string) {
     let pager,
         xml;
@@ -74,7 +91,9 @@ export class PagerXmlService {
   }
 
   /**
-   * @param xml {Document}
+   * Parse the alerts from the pager.xml
+   *
+   * @param xml
    *      The object representation of the PAGER XML document.
    *
    * @return {Object}
@@ -101,6 +120,8 @@ export class PagerXmlService {
   }
 
   /**
+   * Parse the cities array from the pager.xml
+   *
    * @param xml {Document}
    *      The object representation of the PAGER XML document.
    *
@@ -136,6 +157,8 @@ export class PagerXmlService {
   }
 
   /**
+   * Parse the comments from the pager.xml
+   *
    * @param xml {Document}
    *      The object representation of the PAGER XML document.
    *
@@ -173,7 +196,7 @@ export class PagerXmlService {
   }
 
   /**
-   * [_parseImpactComments description]
+   * Parse the impact comments from the pager.xml comments
    *
    * @param comment {String}
    *      The string representing the combinded economic and fatality
@@ -216,6 +239,8 @@ export class PagerXmlService {
 
 
   /**
+   * Parse the population exposures from the pager.xml
+   *
    * @param xml {Document}
    *      The object representation of the PAGER XML document.
    *

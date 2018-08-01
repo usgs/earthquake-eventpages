@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PagerComponent } from './pager/pager.component';
 
+
 const pagerRoutes: Routes = [
   {
     // this module must be loaded lazily using "loadChildren"

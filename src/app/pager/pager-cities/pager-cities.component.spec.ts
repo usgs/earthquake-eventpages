@@ -1,10 +1,12 @@
+import { ElementRef } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatCheckboxModule, MatTableModule } from '@angular/material';
-import { MockComponent } from 'ng2-mock-component';
-import { ElementRef } from '@angular/core';
 
-import { PagerCitiesComponent } from './pager-cities.component';
+import { MockComponent } from 'ng2-mock-component';
+
 import { MockPipe } from '../../mock-pipe';
+import { PagerCitiesComponent } from './pager-cities.component';
+
 
 describe('PagerCitiesComponent', () => {
   let component: PagerCitiesComponent;
