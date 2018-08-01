@@ -1,17 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule, MatTableModule } from '@angular/material';
+
 import { of } from 'rxjs/observable/of';
 
 import { EventService } from '../../core/event.service';
 import { FormatterService } from '../../core/formatter.service';
 import { QuakemlService } from '../../core/quakeml.service';
-
+import { MockPipe } from '../../mock-pipe';
 import { Quakeml } from '../../quakeml';
 import { toArray } from '../../to-array';
 import { xmlToJson } from '../../xml-to-json';
-import { MockPipe } from '../../mock-pipe';
 
 import { PhaseComponent } from './phase.component';
+
 
 describe('PhaseComponent', () => {
 
@@ -155,8 +156,6 @@ describe('PhaseComponent', () => {
   </q:quakeml>
   `;
 
-
-
   let component: PhaseComponent;
   let fixture: ComponentFixture<PhaseComponent>;
 
@@ -197,7 +196,7 @@ describe('PhaseComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('onDownload', () => {
+  fdescribe('onDownload', () => {
     it('formats download and opens dialog', () => {
       component.sortedPhases = [
         {
@@ -219,8 +218,9 @@ describe('PhaseComponent', () => {
       expect(component.dialog.open).toHaveBeenCalled();
       // download formatted
       expect(spy.calls.mostRecent().args[1].data.content).toEqual(
-        'Channel\tDistance\tAzimuth\tPhase\tArrival Time\tStatus\tResidual\tWeight\n' +
-        'test channel\ttest distance\ttest azimuth\ttest phase\ttest time\ttest status\ttest time residual\ttest time weight'
+        'Channel\tDistance\tAzimuth\tPhase\tArrival Time\tStatus\tResidual' +
+        '\tWeight\ntest channel\ttest distance\ttest azimuth\ttest phase' +
+        '\ttest time\ttest status\ttest time residual\ttest time weight'
       );
     });
   });
