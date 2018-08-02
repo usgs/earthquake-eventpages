@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { FiniteFaultComponent } from './finite-fault/finite-fault.component';
+
 
 const finiteFaultRoutes = [
   {
@@ -10,6 +12,7 @@ const finiteFaultRoutes = [
     component: FiniteFaultComponent
   }
 ];
+
 
 @NgModule({
   imports: [

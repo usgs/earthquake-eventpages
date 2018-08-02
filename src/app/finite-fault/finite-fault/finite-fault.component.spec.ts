@@ -1,11 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { of } from 'rxjs/observable/of';
-import { MockComponent } from 'ng2-mock-component';
 
-import { FiniteFaultComponent } from './finite-fault.component';
+import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
 
 import { EventService } from '../../core/event.service';
 import { MockPipe } from '../../mock-pipe';
+import { FiniteFaultComponent } from './finite-fault.component';
+
 
 describe('FiniteFaultComponent', () => {
   let component: FiniteFaultComponent;
