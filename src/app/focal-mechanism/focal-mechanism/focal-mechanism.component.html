@@ -5,7 +5,8 @@
     <h2>Focal Mechanism</h2>
   </ng-container>
 
-  <ng-container *ngIf="eventService.product$ | async | sharedTensor as tensor;">
+  <ng-container *ngIf="eventService.prodct$ | async | sharedTensor as tensor;
+      else noTensor">
     <div class="row">
       <div class="column">
         <focal-mechanism-attribution [tensor]="tensor">
@@ -23,7 +24,10 @@
   </ng-container>
 
   <!-- container with footer attribute is added before downloads -->
-  <ng-container footer>
-  </ng-container>
+  <ng-container footer></ng-container>
 
 </product-page>
+
+<ng-template #noTensor>
+  <p class="alert error">No tensor data exists for this focal mechanism.</p>
+</ng-template>

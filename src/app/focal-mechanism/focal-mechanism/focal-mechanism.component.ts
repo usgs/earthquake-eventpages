@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { EventService } from '../../core/event.service';
 
 /**
- * Display Focal Mechanism product page
+ * Scaffold Focal Mechanism product page
  */
 @Component({
   selector: 'focal-mechanism',
