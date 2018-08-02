@@ -8,7 +8,8 @@
   <ng-container *ngIf="eventService.product$ | async | sharedTensor as tensor;">
     <div class="row">
       <div class="column">
-        <focal-mechanism-attribution [tensor]="tensor"></focal-mechanism-attribution>
+        <focal-mechanism-attribution [tensor]="tensor">
+        </focal-mechanism-attribution>
         <shared-nodal-planes [tensor]="tensor"></shared-nodal-planes>
       </div>
 
