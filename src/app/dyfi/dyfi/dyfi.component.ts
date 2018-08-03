@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
 
@@ -8,10 +8,8 @@ import { EventService } from '../../core/event.service';
   styleUrls: ['./dyfi.component.scss']
 })
 
-export class DyfiComponent implements OnInit {
+export class DyfiComponent {
 
   constructor (public eventService: EventService) { }
-
-  ngOnInit() { }
 
 }
