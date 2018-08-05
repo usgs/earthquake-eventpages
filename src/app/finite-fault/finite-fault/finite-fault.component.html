@@ -6,7 +6,7 @@
     <h2>Finite Fault</h2>
   </ng-container>
 
-  <div *ngIf="eventService.product$ | async as product">
+  <div *ngIf="eventService.product$ | async as product; else noProduct">
 
     <shared-text-product
         *ngIf="product.contents && product.contents['']"
@@ -103,3 +103,9 @@
   </div>
 
 </product-page>
+
+<ng-template #noProduct>
+  <p class="alert error">
+    There is no Finite Fault information.
+  </p>
+</ng-template>
