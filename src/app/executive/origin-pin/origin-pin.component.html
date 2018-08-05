@@ -17,11 +17,7 @@
     <dd>{{ properties.depth | sharedNumber:1:'km' }}</dd>
 
     <dt>Time</dt>
-    <dd>
-      {{ properties.eventtime | date:"yyyy-MM-dd":"UTC" }}
-      {{ properties.eventtime | date:"HH:mm:ss":"UTC" }}
-      UTC
-    </dd>
+    <dd>{{ properties.eventtime | date:"yyyy-MM-dd HH:mm:ss":"UTC" }} UTC</dd>
   </dl>
 
   <ng-template #noProperties>

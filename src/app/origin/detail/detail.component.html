@@ -10,7 +10,8 @@
           </th>
           <td>
             <shared-uncertain-value
-              [value]="formatter.magnitude(props.magnitude, props['magnitude-type'])"
+              [value]="formatter.magnitude(props.magnitude,
+                  props['magnitude-type'])"
               [uncertainty]="props['magnitude-error']"
             ></shared-uncertain-value>
           </td>
@@ -51,8 +52,8 @@
         <tr>
           <th scope="row">Origin Time</th>
           <td>
-            <time *ngIf="hasEventTime(props)" dateTime="{{ props.eventtime }}">
-              {{ props.eventtime.replace('T', ' ').replace('Z', ' UTC') }}
+            <time dateTime="{{ props.eventtime }}">
+              {{ props.eventtime | date:"yyyy-MM-dd HH:mm:ss.SSS":"UTC" }} UTC
             </time>
           </td>
         </tr>
@@ -75,7 +76,8 @@
           <th scope="row">Minimum Distance</th>
           <td>
             <span
-              [innerHTML]="formatter.distance(props['minimum-distance'] * 0.0174532925 * 6378.1, 'km')"
+              [innerHTML]="formatter.distance(props['minimum-distance']
+                  * 0.0174532925 * 6378.1, 'km')"
             ></span>
             (<span
               [innerHTML]="formatter.angle(props['minimum-distance'], 2)"
@@ -116,8 +118,18 @@
 
         <tr>
           <th scope="row">Catalog</th>
-          <td [innerHTML]="getCatalogDetail(props.eventsource, props.eventsourcecode)"
-          ></td>
+          <td>
+            <ng-container *ngIf="props.eventsource && props.eventsourcecode;
+                else noCatalog">
+              {{ props.eventsource | uppercase }}
+              <small>
+                {{ (props.eventsource + props.eventsourcecode) | lowercase }}
+              </small>
+            </ng-container>
+            <ng-template #noCatalog>
+              &ndash;
+            </ng-template>
+          </td>
         </tr>
 
         <tr>

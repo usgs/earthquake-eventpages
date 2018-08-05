@@ -1,17 +1,23 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 
 import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
 
-import { DownloadDialogComponent } from '../../shared/download-dialog/download-dialog.component';
+import {
+  DownloadDialogComponent
+} from '../../shared/download-dialog/download-dialog.component';
 
 
+/**
+ * Display Magnitude Station Details on the Magnitude tab
+ * inside the Origin Module
+ */
 @Component({
   selector: 'origin-magnitude-detail',
   templateUrl: './magnitude-detail.component.html',
-  styleUrls: ['./magnitude-detail.component.css']
+  styleUrls: ['./magnitude-detail.component.scss']
 })
-export class MagnitudeDetailComponent implements OnInit, AfterViewInit {
+export class MagnitudeDetailComponent implements AfterViewInit {
 
   // columns to be displayed, and column order
   public columnsToDisplay = [
@@ -41,13 +47,6 @@ export class MagnitudeDetailComponent implements OnInit, AfterViewInit {
   // bound to dataSource in ngAfterViewInit
   @ViewChild(MatSort) sort: MatSort;
 
-  // map contributions input to data source data (which is observable).
-  @Input() set contributions (contributions: any[]) {
-     this.dataSource.data = contributions;
-  }
-  get contributions () {
-    return this.dataSource.data;
-  }
 
   constructor (
     public dialog: MatDialog
@@ -56,11 +55,20 @@ export class MagnitudeDetailComponent implements OnInit, AfterViewInit {
     this.dataSource.sortingDataAccessor = this.sortBy;
   }
 
-  ngOnInit () {
-  }
 
   ngAfterViewInit () {
     this.dataSource.sort = this.sort;
+  }
+
+  /**
+   * Map contributions input to dataSource.data (which is observable).
+   */
+  @Input()
+  set contributions(contributions: any[]) {
+    this.dataSource.data = contributions;
+  }
+  get contributions() {
+    return this.dataSource.data;
   }
 
   /**
@@ -109,4 +117,5 @@ export class MagnitudeDetailComponent implements OnInit, AfterViewInit {
         return data[header];
     }
   }
+
 }

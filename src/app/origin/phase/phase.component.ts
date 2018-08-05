@@ -1,34 +1,23 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialog, Sort } from '@angular/material';
+
 import { Observable ,  Subscription } from 'rxjs';
 
 import { EventService } from '../../core/event.service';
-import { Quakeml } from '../../quakeml';
+import { FormatterService } from '../../core/formatter.service';
 import { QuakemlService } from '../../core/quakeml.service';
-
 import { DownloadDialogComponent } from '../../shared/download-dialog/download-dialog.component';
 import { toArray } from '../../to-array';
-import { FormatterService } from '../../core/formatter.service';
+import { Quakeml } from '../../quakeml';
+
 
 /**
- * Generic compare function used by PhaseComponent.sortPhases.
- *
- * @param a
- *        first object to compared.
- * @param b
- *        second object to compare.
- * @param isAsc
- *        ascending order (true) or descending order (false)
+ * Phase data tab contents for the Origin Module
  */
-function compare(a, b, isAsc) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
-
-
 @Component({
   selector: 'origin-phase',
   templateUrl: './phase.component.html',
-  styleUrls: ['./phase.component.css']
+  styleUrls: ['./phase.component.scss']
 })
 export class PhaseComponent implements OnInit, OnDestroy {
 
@@ -62,11 +51,8 @@ export class PhaseComponent implements OnInit, OnDestroy {
   /** phases after sorting. */
   public sortedPhases: Array<any>;
 
-  /** subscription to product observable */
-  private productSubscription: Subscription;
-
-  /** subscription to quakeml observable */
-  private quakemlSubscription: Subscription;
+  /** subscriptions */
+  public subscription: Subscription = new Subscription();
 
 
   constructor(
@@ -75,18 +61,32 @@ export class PhaseComponent implements OnInit, OnDestroy {
     public quakemlService: QuakemlService
   ) { }
 
+
   ngOnInit () {
-    this.productSubscription = this.eventService.product$.subscribe((product) => {
+    this.subscription.add(this.eventService.product$.subscribe((product) => {
       this.onProduct(product);
-    });
-    this.quakemlSubscription = this.quakemlService.quakeml$.subscribe((quakeml) => {
+    }));
+    this.subscription.add(this.quakemlService.quakeml$.subscribe((quakeml) => {
       this.onQuakeml(quakeml);
-    });
+    }));
   }
 
   ngOnDestroy () {
-    this.productSubscription.unsubscribe();
-    this.quakemlSubscription.unsubscribe();
+    this.subscription.unsubscribe();
+  }
+
+  /**
+   * Generic compare function used by PhaseComponent.sortPhases.
+   *
+   * @param a
+   *        first object to compared.
+   * @param b
+   *        second object to compare.
+   * @param isAsc
+   *        ascending order (true) or descending order (false)
+   */
+  compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
   /**
@@ -117,7 +117,8 @@ export class PhaseComponent implements OnInit, OnDestroy {
   /**
    * Observe selected product, request quakeml.
    *
-   * @param product next product.
+   * @param product
+   *     next product.
    */
   onProduct (product) {
     this.quakemlService.getQuakeml(product);
@@ -126,7 +127,8 @@ export class PhaseComponent implements OnInit, OnDestroy {
   /**
    * Observe quakeml changes, parse phases.
    *
-   * @param quakeml next quakeml.
+   * @param quakeml
+   *     next quakeml.
    */
   onQuakeml (quakeml: Quakeml): Array<any> {
     const phases = [];
@@ -183,7 +185,8 @@ export class PhaseComponent implements OnInit, OnDestroy {
   /**
    * Set this.sortedPhases based on current sort.
    *
-   * @param sort sort event.
+   * @param sort
+   *     sort event.
    */
   sortPhases (sort: Sort) {
     const phases = this.phases.slice();
@@ -196,14 +199,14 @@ export class PhaseComponent implements OnInit, OnDestroy {
     phases.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'azimuth': return compare(+a.azimuth, +b.azimuth, isAsc);
-        case 'channel': return compare(a.channel, b.channel, isAsc);
-        case 'distance': return compare(+a.distance, +b.distance, isAsc);
-        case 'phase': return compare(a.phase, b.phase, isAsc);
-        case 'status': return compare(a.status, b.status, isAsc);
-        case 'time': return compare(a.time, b.time, isAsc);
-        case 'timeResidual': return compare(+a.timeResidual, +b.timeResidual, isAsc);
-        case 'timeWeight': return compare(+a.timeWeight, +b.timeWeight, isAsc);
+        case 'azimuth': return this.compare(+a.azimuth, +b.azimuth, isAsc);
+        case 'channel': return this.compare(a.channel, b.channel, isAsc);
+        case 'distance': return this.compare(+a.distance, +b.distance, isAsc);
+        case 'phase': return this.compare(a.phase, b.phase, isAsc);
+        case 'status': return this.compare(a.status, b.status, isAsc);
+        case 'time': return this.compare(a.time, b.time, isAsc);
+        case 'timeResidual': return this.compare(+a.timeResidual, +b.timeResidual, isAsc);
+        case 'timeWeight': return this.compare(+a.timeWeight, +b.timeWeight, isAsc);
         default: return 0;
       }
     });

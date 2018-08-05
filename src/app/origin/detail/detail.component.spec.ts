@@ -5,7 +5,6 @@ import { MockComponent } from 'ng2-mock-component';
 import { DetailComponent } from './detail.component';
 import { EventService } from '../../core/event.service';
 import { FormatterService } from '../../core/formatter.service';
-
 import { Event } from '../../event';
 
 
@@ -29,15 +28,18 @@ describe('DetailComponent', () => {
     const formatterServiceStub = {
     };
 
-
     TestBed.configureTestingModule({
       declarations: [
         DetailComponent,
 
-        MockComponent({selector: 'shared-uncertain-value', inputs: ['value', 'uncertainty', 'uncertaintyUnits']}),
-        MockComponent({selector: 'shared-coordinates', inputs: ['latitude', 'longitude']}),
-        MockComponent({selector: 'shared-fe-region', inputs: ['latitude', 'longitude']}),
-        MockComponent({selector: 'shared-attribution', inputs: ['sourceCode']})
+        MockComponent({selector: 'shared-uncertain-value',
+            inputs: ['value', 'uncertainty', 'uncertaintyUnits']}),
+        MockComponent({selector: 'shared-coordinates',
+            inputs: ['latitude', 'longitude']}),
+        MockComponent({selector: 'shared-fe-region',
+            inputs: ['latitude', 'longitude']}),
+        MockComponent({selector: 'shared-attribution',
+            inputs: ['sourceCode']})
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},
@@ -55,21 +57,6 @@ describe('DetailComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  describe('getCatalogDetail', () => {
-    it('short circuits on no eventSource', () => {
-      expect(component.getCatalogDetail(null, null)).toBe('&ndash;');
-      expect(component.getCatalogDetail(null, 'code')).toBe('&ndash;');
-
-      expect(component.getCatalogDetail('', null)).toBe('&ndash;');
-      expect(component.getCatalogDetail('', 'code')).toBe('&ndash;');
-    });
-
-    it('returns expected results', () => {
-      expect(component.getCatalogDetail('Source', 'Code'))
-          .toEqual('SOURCE <small>(sourcecode)</small>');
-    });
   });
 
   describe('getProduct', () => {
@@ -95,16 +82,6 @@ describe('DetailComponent', () => {
 
       PRODUCT = null;
       expect(component.getProduct()).toEqual({});
-    });
-  });
-
-  describe('hasEventTime', () => {
-    it('returns as intended', () => {
-      expect(component.hasEventTime({})).toBeFalsy();
-      expect(component.hasEventTime({eventtime: null})).toBeFalsy();
-      expect(component.hasEventTime({eventtime: 0})).toBeFalsy();
-
-      expect(component.hasEventTime({eventtime: '0'})).toBeTruthy();
     });
   });
 });
