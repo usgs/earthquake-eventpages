@@ -6,7 +6,7 @@
     <h2>Moment Tensor</h2>
   </ng-container>
 
-  <div class="row" *ngIf="tensor">
+  <div class="row" *ngIf="tensor; else noTensor">
     <div class="column">
       <moment-tensor-info [tensor]="tensor"></moment-tensor-info>
       <shared-nodal-planes [tensor]="tensor"></shared-nodal-planes>
@@ -22,7 +22,10 @@
   </div>
 
   <!-- container with footer attribute is added before downloads -->
-  <ng-container footer>
-  </ng-container>
+  <ng-container footer></ng-container>
 
 </product-page>
+
+<ng-template #noTensor>
+  <p class="alert error">No tensor information available.</p>
+</ng-template>

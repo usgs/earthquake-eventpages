@@ -1,5 +1,4 @@
 <ng-container *ngIf="tensor">
-
   <h4 [ngSwitch]="(tensor.type || '').toUpperCase()">
     <ng-container *ngSwitchCase="''">
       Moment Tensor
@@ -26,7 +25,6 @@
     <dd>{{ tensor.moment?.toExponential(3) }} {{ tensor.units }}</dd>
 
     <dt>Magnitude</dt>
-
     <dd>
       {{ tensor.magnitude | sharedNumber:2 }}
       <ng-container *ngIf="tensor?.product?.properties as properties">

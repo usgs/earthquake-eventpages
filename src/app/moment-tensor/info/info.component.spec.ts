@@ -1,9 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfoComponent } from './info.component';
 import { MockComponent } from 'ng2-mock-component';
+
 import { FormatterService } from '../../core/formatter.service';
 import { MockPipe } from '../../mock-pipe';
+import { InfoComponent } from './info.component';
+
 
 describe('InfoComponent', () => {
   let component: InfoComponent;
@@ -14,7 +16,9 @@ describe('InfoComponent', () => {
       declarations: [
         InfoComponent,
 
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
+        MockComponent({selector: 'shared-product-attribution',
+            inputs: ['product']}),
+
         MockPipe('sharedNumber')
       ]
     })
