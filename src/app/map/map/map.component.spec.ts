@@ -1,13 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
-
-import { MapComponent } from './map.component';
 import { of } from 'rxjs/observable/of';
+
+import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
-import { RouterTestingModule } from '@angular/router/testing';
 import { MockPipe } from '../../mock-pipe';
-import { EventService } from '../../../..';
+import { MapComponent } from './map.component';
+
 
 describe('MapComponent', () => {
   let component: MapComponent;
