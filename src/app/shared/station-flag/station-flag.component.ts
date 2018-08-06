@@ -2,7 +2,9 @@ import { Component, Input } from '@angular/core';
 
 
 /**
- * Shared flag component
+ * Shared flag component, shows a friendly flag description for each station
+ * @params flag
+ *    The flag
  */
 @Component({
   selector: 'shared-station-flag',

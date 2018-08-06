@@ -40,21 +40,21 @@
         [animations]="false"
     />
   </ng-container>
-  <svg:g [attr.transform]="circle.transform">
+  <svg:g [attr.transform]="circle?.transform">
     <svg:g ngx-charts-circle
         [@animationState]="'active'"
         class="circle"
         [cx]="0"
         [cy]="0"
-        [r]="circle.radius"
-        [fill]="circle.color"
-        [stroke]="circle.borderColor"
-        [style.opacity]="circle.opacity"
-        [class.active]="circle.isActive"
+        [r]="circle?.radius"
+        [fill]="circle?.color"
+        [stroke]="circle?.borderColor"
+        [style.opacity]="circle?.opacity"
+        [class.active]="circle?.isActive"
         [pointerEvents]="'all'"
-        [data]="circle.value"
-        [classNames]="circle.classNames"
-        (select)="onClick($event, circle.label)"
+        [data]="circle?.value"
+        [classNames]="circle?.classNames"
+        (select)="onClick($event, circle?.label)"
         (activate)="activateCircle(circle)"
         (deactivate)="deactivateCircle(circle)"
         ngx-tooltip

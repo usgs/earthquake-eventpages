@@ -2,7 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 
 
 /**
- * Shared station component
+ * Shared station component, which loads in list of stations on certain
+ * product pages
+ * @params station
+ *    The specific station to show properties of
  */
 @Component({
   selector: 'shared-station',

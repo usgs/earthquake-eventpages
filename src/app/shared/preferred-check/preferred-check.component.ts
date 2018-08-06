@@ -1,24 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
+
+/**
+ * Formats and styles preferred check mark icon for a title
+ * @Input title
+ *     Title of check mark icon
+ */
 @Component({
   selector: 'shared-preferred-check',
   templateUrl: './preferred-check.component.html',
   styleUrls: ['./preferred-check.component.css']
 })
 
-/**
- * Formats and styles preferred check mark.
- *
- * @Input TITLE {string}
- *     Title of check mark icon
- */
-export class PreferredCheckComponent implements OnInit {
+
+export class PreferredCheckComponent {
 
   @Input() title: string;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
 }

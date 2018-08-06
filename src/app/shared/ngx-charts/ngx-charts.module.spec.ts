@@ -1,5 +1,6 @@
 import { NgxChartsModule } from './ngx-charts.module';
 
+
 describe('NgxChartsModule', () => {
   let ngxChartsModule: NgxChartsModule;
 

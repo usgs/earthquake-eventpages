@@ -1,13 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Tensor } from '../beachball/tensor';
 
+
+/**
+ * NodalPlanesComponent, shows nodal planes for an event
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'shared-nodal-planes',
   templateUrl: './nodal-planes.component.html',
   styleUrls: ['./nodal-planes.component.scss']
 })
-export class NodalPlanesComponent implements OnInit {
+export class NodalPlanesComponent {
+
 
   public columnsToDisplay = [
     'plane',
@@ -18,11 +24,11 @@ export class NodalPlanesComponent implements OnInit {
 
   @Input() tensor: Tensor;
 
-  constructor() { }
 
-  ngOnInit() {
-  }
-
+  /**
+   * Function to return nodal planes associated with a tensor object
+   * @returns {any[]}
+   */
   getPlanes (tensor: Tensor) {
     if (!tensor) {
       return [];
@@ -30,4 +36,5 @@ export class NodalPlanesComponent implements OnInit {
 
     return [tensor.NP1, tensor.NP2];
   }
+
 }

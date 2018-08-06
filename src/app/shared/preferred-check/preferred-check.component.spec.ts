@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatIconModule } from '@angular/material';
 
 import { PreferredCheckComponent } from './preferred-check.component';
-import { MatIconModule } from '@angular/material';
 
 describe('PreferredCheckComponent', () => {
   let component: PreferredCheckComponent;

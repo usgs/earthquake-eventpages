@@ -1,33 +1,70 @@
 import {
-  Component,
-  Input,
-  ViewEncapsulation,
-  Output,
-  EventEmitter,
-  ChangeDetectionStrategy,
-  ViewChild,
-  HostListener,
-  OnInit,
-  OnChanges,
-  ContentChild,
-  TemplateRef
-} from '@angular/core';
-import {
   trigger,
   state,
   style,
   animate,
   transition
 } from '@angular/animations';
+import {
+  Component,
+  Input,
+  ViewEncapsulation,
+  Output,
+  EventEmitter,
+  ViewChild,
+  HostListener,
+  ContentChild,
+  TemplateRef } from '@angular/core';
 
 import {
-  NgxChartsModule, BaseChartComponent, LineComponent, LineSeriesComponent,
+  BaseChartComponent, LineSeriesComponent,
   calculateViewDimensions, ViewDimensions, ColorHelper
  } from '@swimlane/ngx-charts';
+ import { scaleLinear, scaleLog, scaleTime } from 'd3-scale';
+import { curveLinear } from 'd3-shape';
 
-import { area, line, curveLinear } from 'd3-shape';
-import { scaleBand, scaleLinear, scaleLog, scalePoint, scaleTime } from 'd3-scale';
 
+/**
+ * Bubble line chart component for use on maps
+ * @param activeEntries
+ * @param animations
+ * @param autoScale
+ * @param bubbleChart
+ * @param colorSchemeLine
+ * @param customColors
+ * @param curve
+ * @param errorBarColor
+ * @param gradient
+ * @param legend
+ * @param legendTitle
+ * @param lineChart
+ * @param maxRadius
+ * @param minRadius
+ * @param rangeFillOpacity
+ * @param roundDomains
+ * @param results
+ * @param scaleType
+ * @param schemeType
+ * @param scheme
+ * @param showGridLines
+ * @param showRightYAxisLabel
+ * @param showXAxisLabel;
+ * @param showYAxisLabel;
+ * @param tooltipDisabled
+ * @param xAxis;
+ * @param xAxisLabel;
+ * @param xScaleMax
+ * @param xScaleMin
+ * @param yAxis
+ * @param yAxisLabel;
+ * @param yAxisLabelRigh
+ * @param yAxisTickFormatting
+ * @param yRightAxisTickFormatting
+ * @param yScaleMin
+ * @param yScaleMax
+ * @param yLeftAxisScaleFactor
+ * @param yRightAxisScaleFactor
+ */
 @Component({
   selector: 'bubble-line-chart-component',
   templateUrl: './bubble-line-chart.component.html',
@@ -35,6 +72,30 @@ import { scaleBand, scaleLinear, scaleLog, scalePoint, scaleTime } from 'd3-scal
   encapsulation: ViewEncapsulation.None
 })
 export class BubbleLineChartComponent extends BaseChartComponent  {
+  // ngx-chart options
+  bubblePadding = [0, 0, 0, 0];
+  colors: ColorHelper;
+  combinedSeries;
+  dims: ViewDimensions;
+  filteredDomain;
+  hoveredVertical;
+  legendOptions: any;
+  legendSpacing = 0;
+  margin: any[] = [10, 20, 10, 20];
+  rDomain: any;
+  rScale: any;
+  scaledAxis;
+  seriesDomain;
+  transform: string;
+  xAxisHeight = 0;
+  xDomain: any;
+  xScale: any;
+  xSet;
+  yAxisWidth = 0;
+  yDomain: any;
+  yOrientLeft = 'left';
+  yScale: any;
+
 
   @Input() activeEntries: any[] = [];
   @Input() animations = true;
@@ -83,34 +144,20 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
 
   @ViewChild(LineSeriesComponent) lineSeriesComponent: LineSeriesComponent;
 
-  // ngx-chart options
-  bubblePadding = [0, 0, 0, 0];
-  colors: ColorHelper;
-  combinedSeries;
-  dims: ViewDimensions;
-  filteredDomain;
-  hoveredVertical;
-  legendOptions: any;
-  legendSpacing = 0;
-  margin: any[] = [10, 20, 10, 20];
-  rDomain: any;
-  rScale: any;
-  scaledAxis;
-  seriesDomain;
-  transform: string;
-  xAxisHeight = 0;
-  xDomain: any;
-  xScale: any;
-  xSet;
-  yAxisWidth = 0;
-  yDomain: any;
-  yOrientLeft = 'left';
-  yScale: any;
 
+  /**
+   * Helper function to get name property of item
+   * @param index
+   * @param item
+   *    The item to search
+   */
   trackBy (index, item): string {
     return item.name;
   }
 
+  /**
+   * Update object dimensions, colors
+   */
   update (): void {
     if (!this.autoScale) {
       this.executeFilter(
@@ -174,6 +221,9 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.transform = `translate(${ this.dims.xOffset } , ${ this.margin[0] })`;
   }
 
+  /**
+   * Emits deactivate event from all active entries
+   */
   deactivateAll () {
     this.activeEntries = [...this.activeEntries];
     for (const entry of this.activeEntries) {
@@ -182,6 +232,9 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.activeEntries = [];
   }
 
+  /**
+   * Filters x/y properties
+   */
   executeFilter (xmin, xmax, ymin, ymax) {
     for (const series of this.bubbleChart) {
       series.series = series.series.filter(item =>
@@ -208,16 +261,27 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.deactivateAll();
   }
 
+  /**
+   * Updates the item when hovered on
+   * @param item
+   *    The item to redraw
+   */
   updateHoveredVertical (item): void {
     this.hoveredVertical = item.value;
     this.deactivateAll();
   }
 
+  /**
+   * Returns the entire series domain numbers
+   */
   getSeriesDomain (): any[] {
     return [...this.bubbleChart, ...this.lineChart]
         .map(d => d.name );
   }
 
+  /**
+   * Returns all set of x domain values
+   */
   getXDomain (): any[] {
     const values = [];
 
@@ -248,6 +312,9 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     return domain;
   }
 
+  /**
+   * Returns all set of y domain values
+   */
   getYDomain (): any[] {
     const values = [];
 
@@ -295,6 +362,13 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     }
   }
 
+  /**
+   * Helper method to get the xscale of the chart
+   * @param domain
+   *    All domain numeric values
+   * @param width
+   *     Width of the chart
+   */
   getXScale (domain, width): any {
     let scale;
 
@@ -319,6 +393,13 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     return scale;
   }
 
+  /**
+   * Helper method to get the yscale of the chart
+   * @param domain
+   *    All domain numeric values
+   * @param height
+   *    Height of the chart
+   */
   getYScale (domain, height): any {
     const scale = scaleLinear()
       .range([height, 0])
@@ -327,6 +408,9 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     return this.roundDomains ? scale.nice() : scale;
   }
 
+  /**
+   * Helper function to get all R domain values
+   */
   getRDomain (): number[] {
     let min = Infinity;
     let max = -Infinity;
@@ -342,10 +426,18 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     return [min, max];
   }
 
+  /**
+   * Click listener to emit data
+   * @param data
+   *     The data to be emitted
+   */
   onClick (data) {
     this.select.emit(data);
   }
 
+  /**
+   * Sets colors on specific domain
+   */
   setColors (): void {
     let domain;
     if (this.schemeType === 'ordinal') {
@@ -353,9 +445,13 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     } else {
       domain = this.yDomain;
     }
-    this.colors = new ColorHelper(this.scheme, this.schemeType, domain, this.customColors);
+    this.colors = new ColorHelper(this.scheme,
+        this.schemeType, domain, this.customColors);
   }
 
+  /**
+   * Helper function to return all options of chart legend
+   */
   getLegendOptions () {
     const opts = {
       scaleType: this.schemeType,
@@ -374,19 +470,35 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     return opts;
   }
 
+  /**
+   * Helper function to update the y axis width of the chart
+   * @param width
+   *    The object width
+   */
   updateYAxisWidth ({ width }): void {
     this.yAxisWidth = width + 20;
     this.update();
   }
 
+  /**
+   * Helper function to update the x axis height of the chart
+   * @param height
+   */
   updateXAxisHeight ({ height }): void {
     this.xAxisHeight = height;
     this.update();
   }
 
+  /**
+   * Helper function for activation
+   * @param item
+   *    The item object, checks for equal object within activeEntries set and
+   *    returns result
+   */
   onActivate (item) {
     const idx = this.activeEntries.findIndex(d => {
-      return d.name === item.name && d.value === item.value && d.series === item.series;
+      return d.name === item.name && d.value === item.value
+      && d.series === item.series;
     });
     if (idx > -1) {
       return;
@@ -396,9 +508,16 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.activate.emit({ value: item, entries: this.activeEntries });
   }
 
+  /**
+   * Helper function for deactivation
+   * @param item
+   *    The item object, checks for equal object within activeEntries set and
+   *    returns result
+   */
   onDeactivate (item) {
     const idx = this.activeEntries.findIndex(d => {
-      return d.name === item.name && d.value === item.value && d.series === item.series;
+      return d.name === item.name && d.value === item.value &&
+      d.series === item.series;
     });
 
     this.activeEntries.splice(idx, 1);
@@ -407,6 +526,13 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.deactivate.emit({ value: item, entries: this.activeEntries });
   }
 
+  /**
+   * Helper function to return scale of R values
+   * @param domain
+   *    All domain values
+   * @param range
+   *    All y range values
+   */
   getRScale (domain, range): any {
     const scale = scaleLinear()
       .range(range)
@@ -415,6 +541,9 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     return this.roundDomains ? scale.nice() : scale;
   }
 
+  /**
+   * Gets padding on the buble chart
+   */
   getBubblePadding () {
     let yMin = 0;
     let xMin = 0;
@@ -439,6 +568,11 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     return [yMin, xMax, yMax, xMin];
   }
 
+  /**
+   * Returns the tick format value of the chart
+   * @param value
+   *    The value of the x axis tick
+   */
   xAxisTickFormatting (value) {
     return value;
   }

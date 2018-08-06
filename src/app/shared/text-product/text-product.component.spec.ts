@@ -1,5 +1,11 @@
-import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
+import {
+  HttpTestingController,
+  HttpClientTestingModule } from '@angular/common/http/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  getTestBed } from '@angular/core/testing';
 
 import { TextProductComponent } from './text-product.component';
 

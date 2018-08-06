@@ -1,5 +1,12 @@
 import { Component, Input } from '@angular/core';
 
+
+/**
+ * ProductAttributionComponent, the main component for showing product
+ * attribution
+ * @param product
+ *    The current product
+ */
 @Component({
   selector: 'shared-product-attribution',
   templateUrl: './product-attribution.component.html',
@@ -14,7 +21,9 @@ export class ProductAttributionComponent {
   /**
    * Returns sources from product input
    * @param product
+   *    The current product
    * @returns {Array<string>}
+   *    The set of sources from product properties
    */
   getSources (product: any): Array<string> {
     const sources = new Set<string>();

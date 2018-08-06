@@ -4,6 +4,7 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { LineChartComponent } from './line-chart.component';
 
+
 describe('LineChartComponent', () => {
   let component: LineChartComponent;
   let fixture: ComponentFixture<LineChartComponent>;

@@ -1,16 +1,21 @@
 import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-} from '@angular/core';
-import {
   trigger,
   style,
   animate,
   transition
 } from '@angular/animations';
+import {
+  Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+
 import { LineChartComponent as SwimlaneLineChart } from '@swimlane/ngx-charts';
 
+
+/**
+ * Line chart component for use in maps
+ */
 @Component({
   selector: 'ngx-charts-line-chart',
   templateUrl: './line-chart.component.html',
@@ -30,6 +35,4 @@ import { LineChartComponent as SwimlaneLineChart } from '@swimlane/ngx-charts';
     ])
   ]
 })
-export class LineChartComponent extends SwimlaneLineChart {
-
-}
+export class LineChartComponent extends SwimlaneLineChart { }

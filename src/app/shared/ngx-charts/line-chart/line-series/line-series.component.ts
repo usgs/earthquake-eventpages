@@ -1,24 +1,39 @@
 import {
   Component,
   Input,
-  OnInit,
   ChangeDetectionStrategy
 } from '@angular/core';
 
-import { LineSeriesComponent as SwimlaneLineSeries } from '@swimlane/ngx-charts';
+import {
+  LineSeriesComponent as SwimlaneLineSeries } from '@swimlane/ngx-charts';
 
+
+/**
+ * LineSeriesComponent
+ * @params strokeWidth
+ *    The string value of the width of stroke
+ */
 @Component({
   selector: 'g[ngx-charts-line-series]',
   templateUrl: './line-series.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LineSeriesComponent extends SwimlaneLineSeries implements OnInit {
+export class LineSeriesComponent extends SwimlaneLineSeries {
+
 
   @Input() strokeWidth = '1.5px';
 
-  ngOnInit () {
-  }
 
+  /**
+   * Helper function to sort by direction
+   * @param data
+   *    The data to sort
+   * @param [property='name']
+   *    The data name
+   * @param [direction='asc']
+   *    The direction
+   * @returns number
+   */
   sortData(data, property = 'name', direction = 'asc') {
     return data.sort((a, b) => {
       if (direction === 'asc') {

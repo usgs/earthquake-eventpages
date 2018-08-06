@@ -7,7 +7,7 @@
   <div class="summary">
     <shared-mmi class="intensity"
       [bubble]="true"
-      [intensity]="station.properties?.intensity">
+      [intensity]="station?.properties?.intensity">
     </shared-mmi>
 
     <shared-bubble
@@ -48,7 +48,7 @@
       </dl>
 
       <h3>Channels</h3>
-      <mat-table [dataSource]="station.channels">
+      <mat-table [dataSource]="station?.channels">
         <mat-header-row *matHeaderRowDef="channelsColumns">
         </mat-header-row>
         <mat-row *matRowDef="let myRowData; columns: channelsColumns">
@@ -75,7 +75,7 @@
             {{ channel.pga?.value |
                 sharedNumber:2:channel?.pga?.units }}
 
-            <shared-station-flag class="flag" [flag]="channel.pga.flag">
+            <shared-station-flag class="flag" [flag]="channel?.pga?.flag">
             </shared-station-flag>
           </mat-cell>
         </ng-container>
@@ -88,7 +88,7 @@
             {{ channel.pgv.value |
                 sharedNumber:2:channel?.pgv?.units }}
 
-            <shared-station-flag class="flag" [flag]="channel.pgv.flag">
+            <shared-station-flag class="flag" [flag]="channel?.pgv?.flag">
             </shared-station-flag>
           </mat-cell>
         </ng-container>
@@ -101,7 +101,7 @@
             {{ channel.psa03.value |
                 sharedNumber:2:channel?.psa03?.units }}
 
-            <shared-station-flag class="flag" [flag]="channel.psa03.flag">
+            <shared-station-flag class="flag" [flag]="channel?.psa03?.flag">
             </shared-station-flag>
           </mat-cell>
         </ng-container>
@@ -114,7 +114,7 @@
             {{ channel.psa10.value |
                 sharedNumber:2:channel?.psa10?.units}}
 
-            <shared-station-flag class="flag" [flag]="channel.psa10.flag">
+            <shared-station-flag class="flag" [flag]="channel?.psa10?.flag">
             </shared-station-flag>
           </mat-cell>
         </ng-container>
@@ -127,7 +127,7 @@
             {{ channel.psa30.value |
                 sharedNumber:2:channel?.psa30?.units }}
 
-            <shared-station-flag class="flag" [flag]="channel.psa30.flag">
+            <shared-station-flag class="flag" [flag]="channel?.psa30?.flag">
             </shared-station-flag>
           </mat-cell>
         </ng-container>

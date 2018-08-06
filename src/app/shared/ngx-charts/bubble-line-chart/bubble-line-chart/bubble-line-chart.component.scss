@@ -33,8 +33,8 @@
   .line-series-range,
   .area-series {
     &.inactive {
+      opacity: .2;
       transition: opacity 100ms ease-in-out;
-      opacity: .2
     }
   }
 
@@ -66,9 +66,9 @@
   }
 
   .gridline-path {
+    fill: none;
     stroke: #ddd;
     stroke-width: 1;
-    fill: none;
   }
 
   .grid-panel {

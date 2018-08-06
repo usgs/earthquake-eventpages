@@ -7,6 +7,8 @@ import { catchError } from 'rxjs/operators';
 
 /**
  * Shared text product component
+ * @params contentPath
+ *     The path to content to render
  */
 @Component({
   selector: 'shared-text-product',
@@ -30,15 +32,17 @@ export class TextProductComponent {
   /**
    * Product setter
    * @param product
+   *     The product to set
    */
-  @Input() set product(product) {
+  @Input() set product (product) {
     this._product = product;
     this.getContent();
   }
 
   /**
    * Product getter
-   * @returns {any}
+   * @returns _product
+   *     The product object
    */
   get product () {
     return this._product;
@@ -83,7 +87,7 @@ export class TextProductComponent {
 
   /**
    * Helper method to turn relative paths into absolute
-   * @param {string} text
+   * @param text
    * @returns {string}
    */
   replaceRelativePaths (text: string) {

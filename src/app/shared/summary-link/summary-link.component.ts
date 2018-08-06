@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 
 /**
- * Summary link component
+ * Summary link component, returns a link to event/product summary via pipe
  */
 @Component({
   selector: 'shared-summary-link',
@@ -10,7 +10,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./summary-link.component.scss']
 })
 export class SummaryLinkComponent {
-
 
   @Input() event: any;
   @Input() productType: any;
