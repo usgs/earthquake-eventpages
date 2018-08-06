@@ -6,7 +6,7 @@
     <h2>Aftershock Forecast</h2>
   </ng-container>
 
-  <ng-container *ngIf="eventService.product$ | async">
+  <ng-container *ngIf="eventService.product$ | async as product; else noProduct">
     <mdc-tab-bar-scroller>
       <mdc-tab-bar-scroll-back>
         <mdc-icon>navigate_before</mdc-icon>
@@ -35,6 +35,10 @@
 
     <router-outlet></router-outlet>
   </ng-container>
+
+  <ng-template #noProduct>
+    <p class="alert error">No product to display.</p>
+  </ng-template>
 
   <!-- container with footer attribute is added before downloads -->
   <ng-container footer>
