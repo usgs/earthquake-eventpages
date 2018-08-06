@@ -10,30 +10,29 @@
       <dl class="description-table">
 
         <dt>Description</dt>
-        <dd *ngIf="eventInfo.event_description as description;
+        <dd *ngIf="eventInfo?.event_description as description;
             else missingData">
           {{ description }}
         </dd>
 
         <dt>ID</dt>
-        <dd *ngIf="eventInfo.event_id as eventId; else missingData">
+        <dd *ngIf="eventInfo?.event_id as eventId; else missingData">
           {{ eventId }}
         </dd>
 
         <dt>Magnitude</dt>
-        <dd *ngIf="eventInfo.magnitude as mag; else missingData">
+        <dd *ngIf="eventInfo?.magnitude as mag; else missingData">
           {{ mag }}
         </dd>
 
         <dt>Depth</dt>
-        <dd *ngIf="eventInfo.depth as depth; else missingData">
+        <dd *ngIf="eventInfo?.depth as depth; else missingData">
           {{ depth | sharedNumber:1:'km' }}
         </dd>
 
-
         <dt>GPS location</dt>
-        <ng-container *ngIf="eventInfo.latitude as lat; else missingData">
-          <ng-container *ngIf="eventInfo.longitude as lng; else missingData">
+        <ng-container *ngIf="eventInfo?.latitude as lat; else missingData">
+          <ng-container *ngIf="eventInfo?.longitude as lng; else missingData">
 
             <dd>{{ [lng, lat] | sharedLocation }}</dd>
 
@@ -41,42 +40,42 @@
         </ng-container>
 
         <dt>Origin time</dt>
-        <dd *ngIf="eventInfo.origin_time as oTime; else missingData">
+        <dd *ngIf="eventInfo?.origin_time as oTime; else missingData">
           {{ oTime | sharedDateTime }}
         </dd>
 
         <dt>Mechanism</dt>
-        <dd *ngIf="eventInfo.mech_src as mechSrc; else missingData">
+        <dd *ngIf="eventInfo?.mech_src as mechSrc; else missingData">
           {{ mechSrc }}
         </dd>
 
         <dt>Mechanism source</dt>
-        <dd *ngIf="eventInfo.src_mech as srcMech; else missingData">
+        <dd *ngIf="eventInfo?.src_mech as srcMech; else missingData">
           {{ srcMech }}
         </dd>
 
         <dt>Location</dt>
-        <dd *ngIf="eventInfo.location as loc; else missingData">
+        <dd *ngIf="eventInfo?.location as loc; else missingData">
           {{ loc }}
         </dd>
 
         <dt>Fault files</dt>
-        <dd *ngIf="eventInfo.faultfiles as faultFiles; else missingData">
+        <dd *ngIf="eventInfo?.faultfiles as faultFiles; else missingData">
           {{ faultFiles }}
         </dd>
 
         <dt>Fault reference</dt>
-        <dd *ngIf="eventInfo.fault_ref as faultRef; else missingData">
+        <dd *ngIf="eventInfo?.fault_ref as faultRef; else missingData">
           {{ faultRef }}
         </dd>
 
         <dt>Number of seismic stations</dt>
-        <dd *ngIf="eventInfo.seismic_stations as stations; else missingData">
+        <dd *ngIf="eventInfo?.seismic_stations as stations; else missingData">
           {{ stations }}
         </dd>
 
         <dt>Number of DYFI stations</dt>
-        <dd *ngIf="eventInfo.intensity_observations as intObs;
+        <dd *ngIf="eventInfo?.intensity_observations as intObs;
             else missingData">
           {{ intObs }}
         </dd>

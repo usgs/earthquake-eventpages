@@ -19,13 +19,13 @@ export class ProcessingComponent {
 
   public readonly names = {
     'ground_motion_modules': {
-        'basin_correction': 'Basin',
-        'gmpe': 'GMPE',
-        'directivity': 'Directivity',
-        'gmice': 'GMICE',
-        'ipe': 'IPE',
-        'ccf': 'CCF',
-        'igmice': 'IGMICE'
+      'basin_correction': 'Basin',
+      'gmpe': 'GMPE',
+      'directivity': 'Directivity',
+      'gmice': 'GMICE',
+      'ipe': 'IPE',
+      'ccf': 'CCF',
+      'igmice': 'IGMICE'
       },
     'roi': {
       'gm': 'Ground Motion',
@@ -33,10 +33,10 @@ export class ProcessingComponent {
     }
   };
   public readonly abbreviations = {
-        'gmpe': 'Ground Motion Prediction Equation',
-        'gmice': 'Ground Motion Intensity Conversion Equation',
-        'ipe': 'Intensity Prediction Equation',
-        'igmice': 'Inverse Ground Motion Intensity Conversion Equation'
+    'gmpe': 'Ground Motion Prediction Equation',
+    'gmice': 'Ground Motion Intensity Conversion Equation',
+    'ipe': 'Intensity Prediction Equation',
+    'igmice': 'Inverse Ground Motion Intensity Conversion Equation'
   };
   public readonly headers = {
     'groundMotionModules': ['type', 'module', 'reference'],

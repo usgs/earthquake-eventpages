@@ -2,7 +2,7 @@
 
   <h3>Peak Spectral Acceleration for 0.3 s, 1.0 s, 3.0 s</h3>
 
-  <ng-container 
+  <ng-container
       *ngIf="shakemap?.contents['download/cont_psa03.json']; else noPSA03">
     <h4>0.3 s PSA (%g)</h4>
     <a [routerLink]="'../../map'"
@@ -33,7 +33,7 @@
     <ng-template #noPSA03Image>
       <h1>No 0.3 s PSA available for this event</h1>
     </ng-template>
-  </ng-template>  
+  </ng-template>
 
   <ng-container
       *ngIf="shakemap?.contents['download/cont_psa10.json']; else noPSA10">
@@ -99,6 +99,6 @@
     <ng-template #noPSA30Image>
       <h1>No 3.0 s PSA available for this event</h1>
     </ng-template>
-  </ng-template>  
+  </ng-template>
 
 </ng-container>

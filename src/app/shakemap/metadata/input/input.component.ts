@@ -6,7 +6,8 @@ import { FormatterService } from '../../../core/formatter.service';
 /**
  * Input subcomponent which shows input data when the user selects the 'metadata
  * ' tab from inside the main shakemap component
- * @param smInput { any }
+ * @param smInput
+ *     The shamekamp input object
  */
 @Component({
   selector: 'shakemap-input',
@@ -14,6 +15,7 @@ import { FormatterService } from '../../../core/formatter.service';
   styleUrls: ['./input.component.scss']
 })
 export class InputComponent {
+
 
   @Input() smInput: any;
 
