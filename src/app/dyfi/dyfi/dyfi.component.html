@@ -32,7 +32,8 @@
               queryParamsHandling="preserve">
             Intensity Vs. Distance
           </a>
-          <a *ngIf="dyfi | sharedProductContent:'dyfi_plot_numresp.json'"
+          <a *ngIf="dyfi | sharedProductContent:
+          'dyfi_plot_numresp.json':dyfi.code + '_plot_numresp.jpg'"
               mdc-tab mdcRouter [routerLink]="'./responses-vs-time'"
               queryParamsHandling="preserve">
             Responses Vs. Time
