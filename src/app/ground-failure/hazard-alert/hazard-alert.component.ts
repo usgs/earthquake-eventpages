@@ -1,16 +1,32 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+
+/**
+ * Display the "estimated area exposed" bins on ground-failure product page
+ *
+ * @param alert
+ *     alert level (green | yellow | orange | red)
+ *
+ * @param title
+ *     section header
+ *
+ * @param type
+ *     type of ground failure (landslide | liquefaction)
+ *
+ * @param units
+ *     exposed area units
+ *
+ * @param value
+ *     number of population exposed
+ */
 @Component({
   selector: 'ground-failure-hazard-alert',
   templateUrl: './hazard-alert.component.html',
   styleUrls: ['./hazard-alert.component.scss']
 })
-export class HazardAlertComponent implements OnInit {
+export class HazardAlertComponent {
 
-  @Input()
-  alert: 'green' | 'yellow' | 'orange' | 'red';
-
-  landslideBins = [
+  public landslideBins = [
     {
       color: '#27a83c',
       text: 'Little to no',
@@ -37,7 +53,7 @@ export class HazardAlertComponent implements OnInit {
     }
   ];
 
-  liquefactionBins = [
+  public liquefactionBins = [
     {
       color: '#27a83c',
       text: 'Little to no',
@@ -65,21 +81,18 @@ export class HazardAlertComponent implements OnInit {
   ];
 
   @Input()
-  title = 'Estimated Area Exposed to Hazard';
+  alert: 'green' | 'yellow' | 'orange' | 'red';
+
+  @Input()
+  title: String = 'Estimated Area Exposed to Hazard';
 
   @Input()
   type: 'landslide' | 'liquefaction';
 
   @Input()
-  units = 'km²';
+  units: String  = 'km²';
 
   @Input()
   value: number;
-
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
 }

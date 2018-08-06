@@ -1,7 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HazardAlertComponent } from './hazard-alert.component';
 import { MockComponent } from 'ng2-mock-component';
+
+import { HazardAlertComponent } from './hazard-alert.component';
+
 
 describe('HazardAlertComponent', () => {
   let component: HazardAlertComponent;

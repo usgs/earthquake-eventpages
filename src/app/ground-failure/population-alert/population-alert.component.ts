@@ -7,11 +7,11 @@ import { Component, Input } from '@angular/core';
  * @param alert
  *     alert level (green | yellow | orange | red)
  *
- * @param type
- *     type of ground failure (landslide | liquefaction)
- *
  * @param title
  *     section header
+ *
+ * @param type
+ *     type of ground failure (landslide | liquefaction)
  *
  * @param units
  *     population units
@@ -84,13 +84,13 @@ export class PopulationAlertComponent {
   alert: 'green' | 'yellow' | 'orange' | 'red';
 
   @Input()
+  title: String = 'Estimated Population Exposure';
+
+  @Input()
   type: 'landslide' | 'liquefaction';
 
   @Input()
-  title = 'Estimated Population Exposure';
-
-  @Input()
-  units = '';
+  units: String = '';
 
   @Input()
   value: number;
