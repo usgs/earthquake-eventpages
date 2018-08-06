@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
 
@@ -9,7 +9,8 @@ import { EventService } from '../../core/event.service';
 @Component({
   selector: 'ground-failure',
   templateUrl: './ground-failure.component.html',
-  styleUrls: ['./ground-failure.component.scss']
+  styleUrls: ['./ground-failure.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class GroundFailureComponent {
 
