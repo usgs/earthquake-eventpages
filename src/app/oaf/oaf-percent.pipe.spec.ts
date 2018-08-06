@@ -1,5 +1,6 @@
 import { OafPercentPipe } from './oaf-percent.pipe';
 
+
 describe('OafPercentPipe', () => {
   it('create an instance', () => {
     const pipe = new OafPercentPipe();
