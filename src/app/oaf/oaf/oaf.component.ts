@@ -6,6 +6,9 @@ import { EventService } from '../../core/event.service';
 import { OafService } from '../oaf.service';
 
 
+/**
+ * Display OAF product page with tabs
+ */
 @Component({
   selector: 'oaf',
   templateUrl: './oaf.component.html',
@@ -13,12 +16,14 @@ import { OafService } from '../oaf.service';
 })
 export class OafComponent implements AfterViewInit, OnDestroy {
 
-  private subscription: Subscription = new Subscription();
+  public subscription: Subscription = new Subscription();
+
 
   constructor (
     public eventService: EventService,
     public oafService: OafService
   ) { }
+
 
   ngAfterViewInit () {
     this.subscription.add(this.eventService.product$.subscribe((product) => {
@@ -30,10 +35,15 @@ export class OafComponent implements AfterViewInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  /**
+   * Sets the oaf product on the oaf service
+   *
+   * @param product
+   *     product passed in from the event service
+   */
   onProduct (product: any): void {
     if (product && product.type === 'oaf') {
       this.oafService.getOaf(product);
     }
   }
-
 }
