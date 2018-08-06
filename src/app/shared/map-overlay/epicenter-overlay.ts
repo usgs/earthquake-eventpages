@@ -1,6 +1,9 @@
 import * as L from 'leaflet';
 
 
+/**
+ * Epicenter overlay for leaflet map
+ */
 const EpicenterOverlay = L.Marker.extend({
   id: 'epicenter',
   enabled: true,
@@ -8,6 +11,12 @@ const EpicenterOverlay = L.Marker.extend({
   bounds: null,
   legend: null,
 
+
+  /**
+   * Init function, sets bounds, creates legen for leaflet
+   * @param product
+   *     The product from this event
+   */
   initialize: function (product: any) {
     let latitude: number;
     let longitude: number;
@@ -48,6 +57,7 @@ const EpicenterOverlay = L.Marker.extend({
     );
   }
 });
+
 
 export { EpicenterOverlay };
 

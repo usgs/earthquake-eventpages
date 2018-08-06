@@ -1,49 +1,57 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+  ViewEncapsulation } from '@angular/core';
 
 import * as L from 'leaflet';
 
 import { LegendControl } from '../map-control/legend-control';
 
+
+/**
+ * Shared map component for event, shows overall area and mmi contours
+ * @param baselayer
+ *     Map base layer
+ * @param showAttributionControl
+ *     Boolean for toggling attribution
+ */
 @Component({
   selector: 'shared-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit, OnInit {
+export class MapComponent implements AfterViewInit {
 
-  @Input() baselayer = 'Topographic';
-  @Input() showAttributionControl = true;
 
   // value of bounds property
   private _bounds: Array<Array<number>> = null;
-
   // value of overlays property
   private _overlays: Array<L.Layer> = [];
-
   private _showLayersControl = false;
   private _showLegendControl = false;
   private _showScaleControl = false;
-
   // overlays currently part of the layers control
   public overlaysAdded: Array<L.Layer> = [];
-
   public map: L.Map;
   public layersControl: L.Control.Layers;
   public legendControl: L.Control;
   public scaleControl: L.Control.Scale;
   public zoomControl: L.Control.Zoom;
-
   private _interactive = false;
+
+  @Input() baselayer = 'Topographic';
+  @Input() showAttributionControl = true;
 
   @ViewChild('mapWrapper')
   mapWrapper: ElementRef;
 
+
   constructor (private httpClient: HttpClient) { }
 
-  ngOnInit () {
-
-  }
 
   ngAfterViewInit () {
     const worldTopoLayer = L.tileLayer('https://services.arcgisonline.com/' +

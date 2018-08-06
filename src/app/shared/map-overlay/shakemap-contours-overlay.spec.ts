@@ -1,6 +1,6 @@
-import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
-
 import * as L from 'leaflet';
+
+import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 
 
 describe('ShakemapContoursOverlay', () => {
@@ -90,7 +90,8 @@ describe('ShakemapContoursOverlay', () => {
       const bounds = 'BOUNDS';
       const spy = spyOn(overlay, 'getBounds').and.returnValue(bounds);
 
-      const mapSpy = spyOn(overlay.map, 'fitBounds').and.callFake((bounds_in) => {});
+      const mapSpy = spyOn(overlay.map, 'fitBounds').and
+          .callFake((bounds_in) => {});
 
       overlay.afterAdd();
       expect(mapSpy).toHaveBeenCalledWith(bounds);

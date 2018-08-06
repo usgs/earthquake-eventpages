@@ -1,6 +1,6 @@
-import { ShakemapPGAOverlay } from './shakemap-pga-overlay';
-
 import * as L from 'leaflet';
+
+import { ShakemapPGAOverlay } from './shakemap-pga-overlay';
 
 
 describe('ShakemapPGAOverlay', () => {

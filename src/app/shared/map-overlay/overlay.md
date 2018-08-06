@@ -29,5 +29,6 @@
 - httpClient?: `any`
   for content downloads in async map layers
 
-  if a layer `hasOwnProperty('httpClient')` (so this needs to be set in initialize),
+  if a layer `hasOwnProperty('httpClient')` (so this needs to
+      be set in initialize),
   the shared map will provide the angular HttpClient service.
