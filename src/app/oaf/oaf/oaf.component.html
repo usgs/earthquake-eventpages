@@ -6,7 +6,7 @@
     <h2>Aftershock Forecast</h2>
   </ng-container>
 
-  <ng-container *ngIf="eventService.product$ | async as product; else noProduct">
+  <ng-container *ngIf="eventService.product$ | async; else noProduct">
     <mdc-tab-bar-scroller>
       <mdc-tab-bar-scroll-back>
         <mdc-icon>navigate_before</mdc-icon>
