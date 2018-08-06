@@ -1,8 +1,8 @@
 <svg [attr.viewBox]="'0 5 ' + (bins.length * 250) + ' 170'">
   <title>{{ title }}</title>
 
-  <svg:g *ngFor="let bin of bins; let i = index; let first = first; let last = last"
-      [attr.transform]="'translate(' + (i * 250) + ', 70)'">
+  <svg:g *ngFor="let bin of bins; let i = index; let first = first;
+      let last = last" [attr.transform]="'translate(' + (i * 250) + ', 70)'">
     <title>{{ bin.text }}</title>
 
     <rect x="0" y="0" width="250" height="70" [attr.fill]="bin.color"></rect>
@@ -28,7 +28,8 @@
           || (first && value <= bin.min)
           || (last && value >= bin.max)
         "
-        [attr.transform]="'translate(' + (value | getBarPosition:bin.min:bin.max:250) + ', 0)'">
+        [attr.transform]="'translate(' + (value |
+          getBarPosition:bin.min:bin.max:250) + ', 0)'">
       <path
           d="M0,0 L30,-40 L-30,-40 L0,0 Z"
           fill="black">

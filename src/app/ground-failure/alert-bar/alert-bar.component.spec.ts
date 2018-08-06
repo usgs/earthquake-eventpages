@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AlertBarComponent } from './alert-bar.component';
 import { MockPipe } from '../../mock-pipe';
+import { AlertBarComponent } from './alert-bar.component';
+
 
 describe('AlertBarComponent', () => {
   let component: AlertBarComponent;

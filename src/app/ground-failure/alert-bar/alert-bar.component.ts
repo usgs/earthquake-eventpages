@@ -1,14 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
+
+/**
+ * Generate alert bars for summary tab, on ground-failure product page
+ *
+ * @param bins
+ *     bins to be plotted on alert bar
+ *
+ * @param title
+ *     alert bar title/header
+ *
+ * @param units
+ *     value units
+ *
+ * @param value
+ *     value to be be plotted on alert bar
+ *
+ */
 @Component({
   selector: 'ground-failure-alert-bar',
   templateUrl: './alert-bar.component.html',
   styleUrls: ['./alert-bar.component.scss']
 })
-export class AlertBarComponent implements OnInit {
+export class AlertBarComponent {
 
   @Input()
-  bins = [
+  bins: Array<any> = [
     {
       color: '#27a83c',
       text: 'Little to no',
@@ -36,17 +53,11 @@ export class AlertBarComponent implements OnInit {
   ];
 
   @Input()
-  title = 'Alert Bar Title';
+  title: String = 'Alert Bar Title';
 
   @Input()
-  units = 'km²';
+  units: String = 'km²';
 
   @Input()
   value: number;
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
 }
