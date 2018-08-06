@@ -18,17 +18,18 @@ import { StationService } from '../../core/station.service';
 export class StationListComponent implements OnInit, OnDestroy {
 
 
-  private subs = new Subscription();
+  public subs = new Subscription();
   public stations: any[] = [];
 
 
-  constructor(public eventService: EventService,
-              public stationService: StationService) { }
+  constructor (public eventService: EventService,
+               public stationService: StationService) { }
 
 
   ngOnInit () {
-    this.subs.add(this.stationService.stationsJson$.subscribe((stationsJson) => {
-      this.onStations(stationsJson);
+    this.subs.add(this.stationService.stationsJson$.subscribe(
+      (stationsJson) => {
+        this.onStations(stationsJson);
     }));
     this.subs.add(this.eventService.product$.subscribe((product) => {
       this.onProduct(product);
@@ -41,24 +42,23 @@ export class StationListComponent implements OnInit, OnDestroy {
 
   /**
    * New product, get new station list
-   *
-   * @param product shakemap product
+   * @param product
+   *     shakemap product
    */
-  onProduct (product) {
+  onProduct (product: any) {
     this.stationService.getStations(product);
   }
 
   /**
    * New stations
-   *
-   * @param stations station list json
+   * @param stations
+   *     station list json
    */
-  onStations (stationsJson) {
+  onStations (stationsJson: any) {
     if (stationsJson == null) {
       this.stations = [];
       return;
     }
-
     this.stations = stationsJson.features;
   }
 

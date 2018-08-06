@@ -20,7 +20,9 @@ export class UncertaintyComponent implements OnInit, OnDestroy {
   public imageUrl: string = null;
   public subs = new Subscription();
 
+
   constructor (public eventService: EventService) { }
+
 
   ngOnInit () {
     this.subs.add(this.eventService.product$.subscribe((product) => {
@@ -37,7 +39,7 @@ export class UncertaintyComponent implements OnInit, OnDestroy {
    * @param product
    *     shakemap product
    */
-  onProduct (product) {
+  onProduct (product: any) {
     if (product == null ||
           !product.contents['download/urat_pga.jpg']) {
       this.imageUrl = null;

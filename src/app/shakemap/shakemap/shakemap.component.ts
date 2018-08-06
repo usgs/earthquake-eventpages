@@ -5,7 +5,7 @@ import { EventService } from '../../core/event.service';
 
 /**
  * Main shakemap component which shows a list of tabs for all it's
- * sub-components. It shows data about intensity/shaking
+ * sub-components
  */
 @Component({
   selector: 'app-shakemap',

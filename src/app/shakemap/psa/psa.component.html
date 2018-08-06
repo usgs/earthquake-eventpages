@@ -1,4 +1,4 @@
-<ng-container *ngIf="eventService.product$ | async; let shakemap">
+<ng-container *ngIf="eventService?.product$ | async; let shakemap">
 
   <h3>Peak Spectral Acceleration for 0.3 s, 1.0 s, 3.0 s</h3>
 
@@ -27,7 +27,7 @@
   <ng-template #noPSA03>
     <img
         *ngIf="shakemap?.contents['download/psa03.jpg']; else noPSA03Image"
-        src="{{ shakemap.contents['download/psa03.jpg'].url }}"
+        src="{{ shakemap?.contents['download/psa03.jpg'].url }}"
         alt="ShakeMap 0.3 s PSA (%g) image">
 
     <ng-template #noPSA03Image>
@@ -60,7 +60,7 @@
   <ng-template #noPSA10>
     <img
         *ngIf="shakemap?.contents['download/psa10.jpg']; else noPSA10Image"
-        src="{{ shakemap.contents['download/psa10.jpg'].url }}"
+        src="{{ shakemap?.contents['download/psa10.jpg'].url }}"
         alt="ShakeMap 1.0 s PSA (%g) image">
 
     <ng-template #noPSA10Image>
@@ -93,7 +93,7 @@
   <ng-template #noPSA30>
     <img
         *ngIf="shakemap?.contents['download/psa30.jpg']; else noPSA30Image"
-        src="{{ shakemap.contents['download/psa30.jpg'].url }}"
+        src="{{ shakemap?.contents['download/psa30.jpg'].url }}"
         alt="ShakeMap 3.0 s PSA (%g) image">
 
     <ng-template #noPSA30Image>

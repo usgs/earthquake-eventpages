@@ -6,7 +6,7 @@
     <h3>ShakeMap</h3>
   </ng-container>
 
-  <ng-container *ngIf="eventService.product$ | async; let shakemap">
+  <ng-container *ngIf="eventService?.product$ | async; let shakemap">
     <mdc-tab-bar-scroller>
       <mdc-tab-bar-scroll-back>
         <mdc-icon>navigate_before</mdc-icon>
