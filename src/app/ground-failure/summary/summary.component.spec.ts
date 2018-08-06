@@ -1,11 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { SummaryComponent } from './summary.component';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
+
+import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
-import { EventService } from '../../../..';
-import { RouterTestingModule } from '@angular/router/testing';
+import { SummaryComponent } from './summary.component';
+
 
 describe('SummaryComponent', () => {
   let component: SummaryComponent;
@@ -23,8 +25,10 @@ describe('SummaryComponent', () => {
       declarations: [
         SummaryComponent,
 
-        MockComponent({selector: 'ground-failure-hazard-alert', inputs: ['alert', 'type', 'value']}),
-        MockComponent({selector: 'ground-failure-population-alert', inputs: ['alert', 'type', 'value']})
+        MockComponent({selector: 'ground-failure-hazard-alert',
+            inputs: ['alert', 'type', 'value']}),
+        MockComponent({selector: 'ground-failure-population-alert',
+            inputs: ['alert', 'type', 'value']})
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub}
