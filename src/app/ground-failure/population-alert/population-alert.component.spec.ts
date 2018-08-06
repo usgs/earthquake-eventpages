@@ -1,7 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PopulationAlertComponent } from './population-alert.component';
 import { MockComponent } from 'ng2-mock-component';
+
+import { PopulationAlertComponent } from './population-alert.component';
+
 
 describe('PopulationAlertComponent', () => {
   let component: PopulationAlertComponent;
