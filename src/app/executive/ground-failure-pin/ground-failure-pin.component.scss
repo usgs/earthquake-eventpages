@@ -35,25 +35,25 @@ dd {
 
     &.green {
       .st0, .st1 {
-        fill: #27a83c;
+        fill: rgb(39, 168, 60);
       }
     }
 
     &.yellow {
       .st0, .st1 {
-        fill: #F3EF1A;
+        fill: rgb(229, 229, 20);
       }
     }
 
     &.orange {
       .st0, .st1 {
-        fill: #f0a216;
+        fill: rgb(240, 162, 22);
       }
     }
 
     &.red {
       .st0, .st1 {
-        fill: #ba2d1a;
+        fill: rgb(186, 45, 26);
       }
     }
   }
