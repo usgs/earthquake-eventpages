@@ -17,11 +17,18 @@ describe('DyfisummaryComponent', () => {
       ],
       declarations: [
         DyfiSummaryComponent,
-        MockComponent({selector: 'shared-mmi', inputs: ['intensity']}),
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
-        MockComponent({selector: 'shared-preferred-check', inputs: ['TITLE']})
-      ],
-      providers: [
+        MockComponent({
+          selector: 'shared-mmi',
+          inputs: ['intensity']
+        }),
+        MockComponent({
+          selector: 'shared-product-attribution',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'shared-preferred-check',
+          inputs: ['TITLE']
+        })
       ]
     })
     .compileComponents();

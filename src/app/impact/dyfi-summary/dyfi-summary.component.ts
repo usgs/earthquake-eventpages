@@ -1,16 +1,21 @@
-import { Component, Input, OnInit} from '@angular/core';
-import { MatDialog, Sort } from '@angular/material';
-import { Subscription } from 'rxjs';
+import { Component, Input} from '@angular/core';
 
 import { Event } from '../../event';
 
 
+/**
+ * renders dyfi summary table
+ * @param event
+ *    event from eventService
+ * @param products
+ *    DYFI products
+ */
 @Component({
   selector: 'impact-dyfi-summary',
   templateUrl: './dyfi-summary.component.html',
   styleUrls: ['./dyfi-summary.component.css']
 })
-export class DyfiSummaryComponent implements OnInit {
+export class DyfiSummaryComponent {
 
   // columns to be displayed
   public columnsToDisplay = [
@@ -23,8 +28,4 @@ export class DyfiSummaryComponent implements OnInit {
   @Input() event: Event;
 
   @Input() products: Array<any> = [];
-
-  constructor() {}
-
-  ngOnInit() {}
 }
