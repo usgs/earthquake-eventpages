@@ -1,21 +1,24 @@
-<h2>Responses vs. Time Plot</h2>
-
-<div class="chart-container">
-  <ng-container *ngIf="dyfiSeries as series">
+<ng-container *ngIf="dyfiSeries as series; else noData">
+  <h2>Responses vs. Time Plot</h2>
+  <div class="chart-container">
     <ngx-charts-line-chart
-      [scheme]="colorScheme"
-      [results]="series.series"
-      [gradient]="gradient"
-      [xAxis]="showXAxis"
-      [yAxis]="showYAxis"
-      [legend]="showLegend"
-      [showXAxisLabel]="showXAxisLabel"
-      [showYAxisLabel]="showYAxisLabel"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
-      [autoScale]="autoScale"
-      [timeline]="true"
-      [timeline]="timeline">
+        [scheme]="colorScheme"
+        [results]="series.series"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [autoScale]="autoScale"
+        [timeline]="true"
+        [timeline]="timeline">
     </ngx-charts-line-chart>
-  </ng-container>
-</div>
+  </div>
+</ng-container>
+
+<ng-template #noData>
+  <h1>Not available for this event</h1>
+</ng-template>

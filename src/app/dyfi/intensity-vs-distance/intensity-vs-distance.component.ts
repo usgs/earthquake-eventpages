@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
 import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
+
 
 @Component({
   selector: 'dyfi-intensity-vs-distance',
@@ -11,12 +12,11 @@ import { EventService } from '../../core/event.service';
   styleUrls: ['./intensity-vs-distance.component.scss']
 })
 export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
-  private subs = new Subscription();
-  public bubbleSeries: any[] = null;
-  public lineSeries: any[] = null;
-  public allResults: any[] = null;
-  public customColors: any[] = [];
 
+  public allResults: any[] = null;
+  public autoScale = true;
+  public animations = true;
+  public bubbleSeries: any[] = null;
   public classOptions = {
     'scatterplot1': {
       type: 'scatter',
@@ -50,30 +50,29 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
       type: 'scatter'
     }
   };
-
-  // plot options
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = true;
-  animations = true;
-  scaleType = 'log';
-  showXAxisLabel = true;
-  xAxisLabel = 'Hypocentral Distance (km)';
-  showYAxisLabel = true;
-  yAxisLabel = 'Intensity (mmi)';
-
-   colorScheme = {
+  colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA', '#8d91ff', '#94dfea', '#fe4d55', '#5fce3b']
   };
+  public customColors: any[] = [];
+  public gradient = false;
+  public lineSeries: any[] = null;
+  public product: any = null;
+  public scaleType = 'log';
+  public showLegend = true;
+  public showXAxis = true;
+  public showXAxisLabel = true;
+  public showYAxis = true;
+  public showYAxisLabel = true;
+  public subs = new Subscription();
+  public xAxisLabel = 'Hypocentral Distance (km)';
+  public yAxisLabel = 'Intensity (mmi)';
 
-   // line, area
-  autoScale = true;
 
   constructor (
     public dyfiService: DyfiService,
     public eventService: EventService
   ) {}
+
 
   ngOnInit () {
     this.subs.add(this.dyfiService.plotAtten$.subscribe((series) => {
@@ -84,15 +83,16 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
     }));
   }
 
-  /**
-   * New product, get new station list
-   *
-   * @param product shakemap product
-   */
-  onProduct (product) {
-    this.dyfiService.getAtten(product);
+  ngOnDestroy () {
+    this.subs.unsubscribe();
   }
 
+
+  /**
+   * Get DYFI data ready for plotting
+   *
+   * @param dyfiData processed data from DyfiService
+   */
   onDyfiSeries (dyfiData) {
     if (!dyfiData) {
       this.bubbleSeries = null;
@@ -135,7 +135,13 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
     this.allResults = [...bubbleSeries, ...lineSeries];
   }
 
-  ngOnDestroy () {
-    this.subs.unsubscribe();
+  /**
+   * New product, get new station list
+   *
+   * @param product shakemap product
+   */
+  onProduct (product) {
+    this.product = product;
+    this.dyfiService.getAtten(product);
   }
 }

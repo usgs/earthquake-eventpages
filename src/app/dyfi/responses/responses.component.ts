@@ -7,6 +7,7 @@ import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
 import { RomanPipe } from '../../shared/roman.pipe';
 
+
 @Component({
   selector: 'dyfi-responses',
   templateUrl: './responses.component.html',
@@ -14,29 +15,8 @@ import { RomanPipe } from '../../shared/roman.pipe';
   providers: [RomanPipe]
 })
 export class ResponsesComponent implements OnInit, OnDestroy {
-  private subs = new Subscription;
-  public responses = new MatTableDataSource(null);
-  public loaded = false;
-  public responsesArray = [];
-  public headers = [
-    'name',
-    'cdi',
-    'nresp',
-    'dist',
-    'lat',
-    'lon'
-  ];
-  public columnsToDisplay = [
-    'name',
-    'state',
-    'country',
-    'zip',
-    'mmi',
-    'nresp',
-    'dist',
-    'lat',
-    'lon'
-  ];
+
+
   public columnTitles = {
     'name': 'City',
     'state': 'State/Region',
@@ -48,8 +28,34 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     'lat': 'Latitude',
     'lon': 'Longitude'
   };
-
+  public columnsToDisplay = [
+    'name',
+    'state',
+    'country',
+    'zip',
+    'mmi',
+    'nresp',
+    'dist',
+    'lat',
+    'lon'
+  ];
+  public headers = [
+    'name',
+    'cdi',
+    'nresp',
+    'dist',
+    'lat',
+    'lon'
+  ];
+  public loaded = false;
   public paginatorSizes = [10, 20, 50, 100, 1000];
+  public responsesArray = [];
+  public responses = new MatTableDataSource(null);
+  public subs = new Subscription;
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
 
   constructor (
     public dyfiService: DyfiService,
@@ -58,9 +64,6 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     public romanPipe: RomanPipe
   ) { }
 
-
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit () {
     this.subs.add(this.dyfiService.cdiZip$.subscribe((data) => {
@@ -71,29 +74,13 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     }));
   }
 
-/**
-   * New product, get new station list
-   *
-   * @param product shakemap product
+  ngOnDestroy () {
+    this.subs.unsubscribe();
+  }
+
+  /**
+   * Generate string of sorted DYFI responses and open material dialog
    */
-  onProduct (product) {
-    if (product === null) {
-
-      this.responses = null;
-      this.loaded = false;
-      return;
-    }
-
-    this.dyfiService.getCdi(product);
-  }
-
-  onDyfiSeries (dyfiData) {
-    this.responses = new MatTableDataSource(dyfiData);
-    this.responses.sort = this.sort;
-    this.responses.paginator = this.paginator;
-    this.loaded = true;
-  }
-
   onDownload () {
    this.responsesArray = this.responses.sortData(this.responses.data, this.sort);
 
@@ -129,9 +116,26 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy () {
-    this.subs.unsubscribe();
+  onDyfiSeries (dyfiData) {
+    this.responses = new MatTableDataSource(dyfiData);
+    this.responses.sort = this.sort;
+    this.responses.paginator = this.paginator;
+    this.loaded = true;
   }
 
+  /**
+   * New product, get new station list
+   *
+   * @param product shakemap product
+   */
+  onProduct (product) {
+    if (product === null) {
 
+      this.responses = null;
+      this.loaded = false;
+      return;
+    }
+
+    this.dyfiService.getCdi(product);
+  }
 }

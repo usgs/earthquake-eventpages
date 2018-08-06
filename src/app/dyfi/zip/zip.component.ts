@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
 
+
 @Component({
   selector: 'dyfi-zip',
   templateUrl: './zip.component.html',

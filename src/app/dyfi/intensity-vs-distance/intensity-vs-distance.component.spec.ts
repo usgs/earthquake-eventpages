@@ -6,6 +6,7 @@ import { of } from 'rxjs/observable/of';
 import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
 import { IntensityVsDistanceComponent } from './intensity-vs-distance.component';
+import { MockPipe } from '../../mock-pipe';
 
 describe('IntensityVsDistanceComponent', () => {
   let component: IntensityVsDistanceComponent;
@@ -87,7 +88,9 @@ describe('IntensityVsDistanceComponent', () => {
               'scaleType'
             ]
           }
-        )
+        ),
+
+        MockPipe('sharedProductContent')
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},
