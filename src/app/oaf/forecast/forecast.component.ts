@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
 import { OafService } from '../oaf.service';
 
 
+/**
+ * Display forecaset information in tab on OAF product page
+ */
 @Component({
   selector: 'oaf-forecast',
   templateUrl: './forecast.component.html',
   styleUrls: ['./forecast.component.scss']
 })
-export class ForecastComponent implements OnInit {
+export class ForecastComponent {
 
   // colums to be displayed
   public columnsToDisplay = [
@@ -33,7 +36,4 @@ export class ForecastComponent implements OnInit {
     public eventService: EventService,
     public oafService: OafService
   ) { }
-
-  ngOnInit () {
-  }
 }

@@ -1,180 +1,174 @@
-<ng-container *ngIf="eventService.product$ | async as product; else noProduct">
-  <ng-container *ngIf="oafService.oaf$ | async as oaf">
-    <h3>Be ready for more earthquakes</h3>
-    <ul>
+<ng-container *ngIf="oafService.oaf$ | async as oaf">
+  <h3>Be ready for more earthquakes</h3>
+  <ul>
+    <li>
+      More earthquakes than usual (called aftershocks) will continue
+      to occur near the mainshock.
+    </li>
+    <li>
+      When there are more earthquakes, the chance of a large earthquake
+      is greater which means that the chance of damage is greater.
+    </li>
+    <li>
+      The USGS advises everyone to be aware of the possibility of
+      aftershocks, especially when in or around vulnerable structures
+      such as unreinforced masonry buildings.
+    </li>
+    <ng-container *ngIf="oaf.template === 'Mainshock'; else eqAdvice">
       <li>
-        More earthquakes than usual (called aftershocks) will continue
-        to occur near the mainshock.
+        This earthquake could be part of a sequence. An earthquake
+        sequence may have larger and potentially damaging earthquakes
+        in the future, so remember to: Drop, Cover, and Hold on.
       </li>
-      <li>
-        When there are more earthquakes, the chance of a large earthquake
-        is greater which means that the chance of damage is greater.
-      </li>
-      <li>
-        The USGS advises everyone to be aware of the possibility of
-        aftershocks, especially when in or around vulnerable structures
-        such as unreinforced masonry buildings.
-      </li>
-      <ng-container *ngIf="oaf.template === 'Mainshock'; else eqAdvice">
-        <li>
-          This earthquake could be part of a sequence. An earthquake
-          sequence may have larger and potentially damaging earthquakes
-          in the future, so remember to: Drop, Cover, and Hold on.
-        </li>
-      </ng-container>
-      <ng-template #eqAdvice>
-        <li>
-          In an earthquake, remember to: Drop, Cover, and Hold on.
-        </li>
-      </ng-template>
-
-    </ul>
-
-    <h3>What we think will happen next</h3>
-    <p>
-      According to our forecast, over the next {{ oaf.advisoryTimeFrame }}
-      there is a
-
-      <ng-container *ngIf="forecast?.aboveMainshockMag; else probability">
-        {{ forecast.aboveMainshockMag.probability | oafPercent }}
-      </ng-container>
-      <ng-template #probability>
-        {{ forecast.bins['magnitude-5'].probability | oafPercent }}
-      </ng-template>
-
-      chance of one or more aftershocks that are larger than magnitude
-
-      <ng-container
-          *ngIf="forecast?.aboveMainshockMag?.magnitude; else magnitude">
-        {{ forecast.aboveMainshockMag.magnitude }}.
-      </ng-container>
-      <ng-template #magnitude>
-        5.
-      </ng-template>
-
-       It is likely that there will be smaller earthquakes over the next
-       {{ oaf.advisoryTimeFrame }}, with
-
-      <ng-container
-          *ngIf="forecast?.bins['magnitude-3']?.p95maximum > 0; else noRange">
-        {{
-          forecast.bins['magnitude-3'].p95minimum
-          | sharedRoundDown: 2 | sharedNumberWithSeparator
-        }} to
-        {{
-          forecast.bins['magnitude-3'].p95maximum
-          | sharedRoundUp: 2 | sharedNumberWithSeparator
-        }}
-        magnitude 3 or higher aftershocks.
-      </ng-container>
-      <ng-template #noRange>
-        the possibility of magnitude 3 or higher aftershocks.
-      </ng-template>
-
-      Magnitude 3 and above are large enough to be felt near the epicenter.
-      The number of aftershocks will drop off over time, but a large
-      aftershock can increase the numbers again, temporarily.
-    </p>
-
-    <p *ngIf="oaf.template === 'Mainshock'">
-      More details about the earthquake forecast is provided in the section
-      &ldquo;Our detailed aftershock forecast&rdquo; below.
-    </p>
-
-    <h3>About this earthquake and related aftershocks</h3>
-    <p>
-      {{ oaf.injectableText }}
-    </p>
-    <p>
-      So far in this sequence there have been
-      {{ transformObservations(3, oaf.observations) }}
-      magnitude 3 or higher earthquakes, which are strong enough to be felt,
-      and {{ transformObservations(5, oaf.observations) }}
-      magnitude 5 or higher earthquakes, which are large enough to do damage.
-    </p>
-
-    <ng-container *ngIf="oaf.template === 'Mainshock'">
-      <h3>Our detailed aftershock forecast</h3>
-      <p>
-        The USGS estimates the chance of more aftershocks as follows: Within
-        the next {{ oaf.advisoryTimeFrame }} until
-        {{ forecast.timeEnd | sharedDateTime }}:
-      </p>
-
-      <ul>
-        <li *ngIf="forecast.bins['magnitude-3'] as bin">
-          <oaf-commentary-details [bin]="bin"></oaf-commentary-details>
-        </li>
-        <li *ngIf="forecast.bins['magnitude-5'] as bin">
-          <oaf-commentary-details [bin]="bin"></oaf-commentary-details>
-        </li>
-        <li *ngIf="forecast.bins['magnitude-6'] as bin">
-          <oaf-commentary-details [bin]="bin"></oaf-commentary-details>
-        </li>
-        <li *ngIf="forecast.bins['magnitude-7'] as bin">
-          <oaf-commentary-details [bin]="bin"></oaf-commentary-details>
-        </li>
-      </ul>
     </ng-container>
-
-    <h3>About our earthquake forecasts</h3>
-    <ng-container *ngIf="oaf.template === 'Mainshock'; else eqOfNote">
-      <p>
-        No one can predict the exact time or place of any earthquake,
-        including aftershocks. Our earthquake forecasts give us an
-        understanding of the chances of having more earthquakes within a
-        given time period in the affected area. We calculate this
-        earthquake forecast using a statistical analysis based on
-        past earthquakes.
-      </p>
-      <p>
-        Our forecast changes as time passes due to decline in the frequency
-        of aftershocks, larger aftershocks that may trigger further
-        earthquakes, and changes in forecast modeling based on the data
-        collected for this earthquake sequence.
-      </p>
-
-      <p class="footnote">
-        This forecast was issued: {{ oaf.creationTime | sharedDateTime }}
-      </p>
-
-      <p class="footnote">
-        This forecast will be updated on or before {{
-        (oaf.creationTime | updateTime: oaf.advisoryTimeFrame) | sharedDateTime
-        }}
-      </p>
-    </ng-container>
-
-    <ng-template #eqOfNote>
-      <p>
-        No one can predict the exact time or place of any earthquake, including
-        aftershocks. What our earthquake forecasts do is give us an
-        understanding of the chances having more earthquakes within a given
-        time period. We calculate this earthquake forecast using a statistical
-        analysis based on past earthquakes and the aftershocks recorded for
-        this sequence.
-      </p>
-      <p>
-        Our forecast changes as time passes due to the decay in the frequency
-        of aftershocks, larger aftershocks that may trigger further
-        earthquakes, and changes in forecast modeling based on the earthquake
-        data collected.
-      </p>
-
-      <p class="footnote">
-        This forecast was issued: {{ oaf.creationTime | sharedDateTime }}
-      </p>
-
-      <p class="footnote">
-        This forecast will not be updated unless the forecast changes
-        significantly due to a new earthquake or new data analysis
-        on this earthquake.
-      </p>
+    <ng-template #eqAdvice>
+      <li>
+        In an earthquake, remember to: Drop, Cover, and Hold on.
+      </li>
     </ng-template>
 
-  </ng-container>
-</ng-container>
+  </ul>
 
-<ng-template #noProduct>
-  <p>No product to display.</p>
-</ng-template>
+  <h3>What we think will happen next</h3>
+  <p>
+    According to our forecast, over the next {{ oaf.advisoryTimeFrame }}
+    there is a
+
+    <ng-container *ngIf="forecast?.aboveMainshockMag; else probability">
+      {{ forecast.aboveMainshockMag.probability | oafPercent }}
+    </ng-container>
+    <ng-template #probability>
+      {{ forecast.bins['magnitude-5'].probability | oafPercent }}
+    </ng-template>
+
+    chance of one or more aftershocks that are larger than magnitude
+
+    <ng-container
+        *ngIf="forecast?.aboveMainshockMag?.magnitude; else magnitude">
+      {{ forecast.aboveMainshockMag.magnitude }}.
+    </ng-container>
+    <ng-template #magnitude>
+      5.
+    </ng-template>
+
+      It is likely that there will be smaller earthquakes over the next
+      {{ oaf.advisoryTimeFrame }}, with
+
+    <ng-container
+        *ngIf="forecast?.bins['magnitude-3']?.p95maximum > 0; else noRange">
+      {{
+        forecast.bins['magnitude-3'].p95minimum
+        | sharedRoundDown: 2 | sharedNumberWithSeparator
+      }} to
+      {{
+        forecast.bins['magnitude-3'].p95maximum
+        | sharedRoundUp: 2 | sharedNumberWithSeparator
+      }}
+      magnitude 3 or higher aftershocks.
+    </ng-container>
+    <ng-template #noRange>
+      the possibility of magnitude 3 or higher aftershocks.
+    </ng-template>
+
+    Magnitude 3 and above are large enough to be felt near the epicenter.
+    The number of aftershocks will drop off over time, but a large
+    aftershock can increase the numbers again, temporarily.
+  </p>
+
+  <p *ngIf="oaf.template === 'Mainshock'">
+    More details about the earthquake forecast is provided in the section
+    &ldquo;Our detailed aftershock forecast&rdquo; below.
+  </p>
+
+  <h3>About this earthquake and related aftershocks</h3>
+  <p>
+    {{ oaf.injectableText }}
+  </p>
+  <p>
+    So far in this sequence there have been
+    {{ transformObservations(3, oaf.observations) }}
+    magnitude 3 or higher earthquakes, which are strong enough to be felt,
+    and {{ transformObservations(5, oaf.observations) }}
+    magnitude 5 or higher earthquakes, which are large enough to do damage.
+  </p>
+
+  <ng-container *ngIf="oaf.template === 'Mainshock'">
+    <h3>Our detailed aftershock forecast</h3>
+    <p>
+      The USGS estimates the chance of more aftershocks as follows: Within
+      the next {{ oaf.advisoryTimeFrame }} until
+      {{ forecast.timeEnd | sharedDateTime }}:
+    </p>
+
+    <ul>
+      <li *ngIf="forecast.bins['magnitude-3'] as bin">
+        <oaf-commentary-details [bin]="bin"></oaf-commentary-details>
+      </li>
+      <li *ngIf="forecast.bins['magnitude-5'] as bin">
+        <oaf-commentary-details [bin]="bin"></oaf-commentary-details>
+      </li>
+      <li *ngIf="forecast.bins['magnitude-6'] as bin">
+        <oaf-commentary-details [bin]="bin"></oaf-commentary-details>
+      </li>
+      <li *ngIf="forecast.bins['magnitude-7'] as bin">
+        <oaf-commentary-details [bin]="bin"></oaf-commentary-details>
+      </li>
+    </ul>
+  </ng-container>
+
+  <h3>About our earthquake forecasts</h3>
+  <ng-container *ngIf="oaf.template === 'Mainshock'; else eqOfNote">
+    <p>
+      No one can predict the exact time or place of any earthquake,
+      including aftershocks. Our earthquake forecasts give us an
+      understanding of the chances of having more earthquakes within a
+      given time period in the affected area. We calculate this
+      earthquake forecast using a statistical analysis based on
+      past earthquakes.
+    </p>
+    <p>
+      Our forecast changes as time passes due to decline in the frequency
+      of aftershocks, larger aftershocks that may trigger further
+      earthquakes, and changes in forecast modeling based on the data
+      collected for this earthquake sequence.
+    </p>
+
+    <p class="footnote">
+      This forecast was issued: {{ oaf.creationTime | sharedDateTime }}
+    </p>
+
+    <p class="footnote">
+      This forecast will be updated on or before {{
+      (oaf.creationTime | updateTime: oaf.advisoryTimeFrame) | sharedDateTime
+      }}
+    </p>
+  </ng-container>
+
+  <ng-template #eqOfNote>
+    <p>
+      No one can predict the exact time or place of any earthquake, including
+      aftershocks. What our earthquake forecasts do is give us an
+      understanding of the chances having more earthquakes within a given
+      time period. We calculate this earthquake forecast using a statistical
+      analysis based on past earthquakes and the aftershocks recorded for
+      this sequence.
+    </p>
+    <p>
+      Our forecast changes as time passes due to the decay in the frequency
+      of aftershocks, larger aftershocks that may trigger further
+      earthquakes, and changes in forecast modeling based on the earthquake
+      data collected.
+    </p>
+
+    <p class="footnote">
+      This forecast was issued: {{ oaf.creationTime | sharedDateTime }}
+    </p>
+
+    <p class="footnote">
+      This forecast will not be updated unless the forecast changes
+      significantly due to a new earthquake or new data analysis
+      on this earthquake.
+    </p>
+  </ng-template>
+
+</ng-container>

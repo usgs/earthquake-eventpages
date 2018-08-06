@@ -4,10 +4,7 @@ import { MatTableModule } from '@angular/material';
 import { EventService } from '../../core/event.service';
 import { MockPipe } from '../../mock-pipe';
 import { OafService } from '../oaf.service';
-
 import { ForecastComponent } from './forecast.component';
-
-
 
 
 describe('ForecastComponent', () => {

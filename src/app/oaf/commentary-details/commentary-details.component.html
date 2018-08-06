@@ -9,7 +9,8 @@
 
   <ng-template #someProbability>
     <ng-container *ngIf="bin.probability <= 0.01; else moreProbability">
-      1 in {{ 1 / bin.probability | sharedSignificantFigure: 1  | sharedNumberWithSeparator }},
+      1 in {{ 1 / bin.probability | sharedSignificantFigure: 1  |
+          sharedNumberWithSeparator }},
     </ng-container>
 
     <ng-template #moreProbability>

@@ -196,7 +196,7 @@ describe('PhaseComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  fdescribe('onDownload', () => {
+  describe('onDownload', () => {
     it('formats download and opens dialog', () => {
       component.sortedPhases = [
         {
