@@ -7,8 +7,7 @@ import { OafService } from '../oaf.service';
 
 
 /**
- * Display commentary information in first tab on OAF product page
- *
+ * Display commentary information in tab on OAF product page
  */
 @Component({
   selector: 'oaf-commentary',
