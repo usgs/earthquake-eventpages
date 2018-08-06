@@ -1,5 +1,21 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Find the position on the bar for the provided value
+ *
+ * @param max
+ *     Maximum value on the bar
+ *
+ * @param min
+ *     Minimum value on the bar
+ *
+ * @param range
+ *    The total range of binned values
+ *
+ * @param value
+ *     Value to plot on the bar
+ *
+ */
 @Pipe({
   name: 'getBarPosition'
 })
