@@ -1,21 +1,36 @@
-<h2>Responses vs. Time Plot</h2>
-
-<div class="chart-container">
-  <ng-container *ngIf="dyfiSeries as series">
+<ng-container *ngIf="dyfiSeries as series; else noData">
+  <h2>Responses vs. Time Plot</h2>
+  <div class="chart-container">
     <ngx-charts-line-chart
-      [scheme]="colorScheme"
-      [results]="series.series"
-      [gradient]="gradient"
-      [xAxis]="showXAxis"
-      [yAxis]="showYAxis"
-      [legend]="showLegend"
-      [showXAxisLabel]="showXAxisLabel"
-      [showYAxisLabel]="showYAxisLabel"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
-      [autoScale]="autoScale"
-      [timeline]="true"
-      [timeline]="timeline">
+        [scheme]="colorScheme"
+        [results]="series.series"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [autoScale]="autoScale"
+        [timeline]="true"
+        [timeline]="timeline">
     </ngx-charts-line-chart>
+  </div>
+</ng-container>
+
+<ng-template #noData>
+  <ng-container 
+      *ngIf="product | sharedProductContent:product.code + '_plot_numresp.jpg'
+      as image;
+      else noImage">
+    <img
+      *ngIf="image.url; else noImage"
+      src="{{ image.url }}"
+      alt="DYFI responses vs. time plot">
   </ng-container>
-</div>
+
+  <ng-template #noImage>
+    <h1>Not available for this event</h1>
+  </ng-template>
+</ng-template>

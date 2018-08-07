@@ -2,7 +2,10 @@
 
   <button mat-raised-button (click)="onDownload()">Download</button>
 
-  <mat-table [dataSource]="responses" matSort matSortActive="dist" matSortDirection="asc">
+  <mat-table matSort
+      [dataSource]="responses"
+      matSortActive="dist"
+      matSortDirection="asc">
     <mat-header-row *matHeaderRowDef="headers"></mat-header-row>
     <mat-row *matRowDef="let myRowData; columns: headers"></mat-row>
 
@@ -66,11 +69,11 @@
         {{ dyfi.lon | sharedUnits:'lon' }}
       </mat-cell>
     </ng-container>
-
   </mat-table>
 
   <mat-paginator
       [pageSizeOptions]="paginatorSizes"
-      showFirstLastButtons></mat-paginator>
+      showFirstLastButtons>
+  </mat-paginator>
 
 </ng-container>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
 
@@ -7,11 +7,8 @@ import { EventService } from '../../core/event.service';
   templateUrl: './intensity.component.html',
   styleUrls: ['./intensity.component.scss']
 })
-export class IntensityComponent implements OnInit {
+export class IntensityComponent {
 
   constructor (public eventService: EventService) { }
-
-  ngOnInit () {
-  }
 
 }

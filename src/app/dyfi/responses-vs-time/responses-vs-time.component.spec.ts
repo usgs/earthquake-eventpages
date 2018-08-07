@@ -5,6 +5,7 @@ import { of } from 'rxjs/observable/of';
 
 import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
+import { MockPipe } from '../../mock-pipe';
 import { ResponsesVsTimeComponent } from './responses-vs-time.component';
 
 describe('ResponsesVsTimeComponent', () => {
@@ -50,7 +51,9 @@ describe('ResponsesVsTimeComponent', () => {
               'timeline'
             ]
           }
-        )
+        ),
+
+        MockPipe('sharedProductContent')
       ],
       providers: [
         {provide: EventService, useValue: eventServiceStub},

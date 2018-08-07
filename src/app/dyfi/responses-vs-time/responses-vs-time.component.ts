@@ -5,35 +5,37 @@ import { Subscription } from 'rxjs';
 import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
 
+
 @Component({
   selector: 'dyfi-responses-vs-time',
   templateUrl: './responses-vs-time.component.html',
   styleUrls: ['./responses-vs-time.component.scss']
 })
 export class ResponsesVsTimeComponent implements OnInit {
-  private subs = new Subscription();
-  public dyfiSeries: any;
 
-  // options
-  showXAxis = true;
-  showYAxis = true;
-  gradient = false;
-  showLegend = false;
-  showXAxisLabel = true;
-  xAxisLabel = 'Time since earthquake (hours)';
-  showYAxisLabel = true;
-  yAxisLabel = 'Number of Responses';
-  timeline = true;
-  autoScale = true;
-
-  colorScheme = {
+  public autoScale = true;
+  public colorScheme = {
     domain: ['#34e16d']
   };
+  public dyfiSeries: any;
+  public gradient = false;
+  public product: any = null;
+  public showLegend = false;
+  public showXAxis = true;
+  public showXAxisLabel = true;
+  public showYAxis = true;
+  public showYAxisLabel = true;
+  public subs = new Subscription();
+  public timeline = true;
+  public xAxisLabel = 'Time since earthquake (hours)';
+  public yAxisLabel = 'Number of Responses';
+
 
   constructor (
     public dyfiService: DyfiService,
     public eventService: EventService
   ) {}
+
 
   ngOnInit () {
     this.subs.add(this.dyfiService.plotNumResp$.subscribe((series) => {
@@ -43,6 +45,7 @@ export class ResponsesVsTimeComponent implements OnInit {
       this.onProduct(product);
     }));
   }
+
 
   onDyfiSeries (dyfiData) {
     if (dyfiData === null || !dyfiData) {
@@ -54,7 +57,13 @@ export class ResponsesVsTimeComponent implements OnInit {
     this.dyfiSeries = dyfiData;
   }
 
+  /**
+   * Retrieve required DYFI-generated product
+   *
+   * @param product DYFI product
+   */
   onProduct (product) {
+    this.product = product;
     this.dyfiService.getNumResp(product);
   }
 }

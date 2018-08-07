@@ -1,16 +1,16 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
+import { BehaviorSubject, Observable, of} from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
 
 @Injectable()
 export class DyfiService {
+  public cdiZip$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public error: any = null;
-
   public plotAtten$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public plotNumResp$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public cdiZip$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor (private httpClient: HttpClient) { }
 
