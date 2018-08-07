@@ -3,8 +3,7 @@
     [product]="product"
     [title]="title">
 
-  <dl *ngIf="product?.properties?.maxmmi as mmi; else noMMI"
-      class="mmi-description">
+  <dl *ngIf="product?.properties?.maxmmi as mmi; else noMMI">
     <dt>Estimated Intensity</dt>
     <dd>
       <shared-mmi

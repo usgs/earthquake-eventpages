@@ -1,13 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
 
+
+/**
+ * Shakemap Pin
+ *
+ * @param product
+ *     shakemap product
+ */
 @Component({
   selector: 'executive-shakemap-pin',
   templateUrl: './shakemap-pin.component.html',
   styleUrls: ['./shakemap-pin.component.scss']
 })
-export class ShakemapPinComponent implements OnInit {
+export class ShakemapPinComponent {
 
   public link = '../shakemap';
   public mmiDescription = {
@@ -29,9 +36,5 @@ export class ShakemapPinComponent implements OnInit {
   public title = 'ShakeMap';
 
   @Input() product: any;
-
-  constructor () { }
-
-  ngOnInit () { }
 
 }
