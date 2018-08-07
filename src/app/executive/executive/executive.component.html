@@ -86,10 +86,10 @@
   <ng-container *ngIf="event.hasProducts('general-link')">
     <h3>For More Information</h3>
     <ul>
-    <li *ngFor="let product of event.getProducts('general-link')">
-      <shared-link-product [product]="product">
-      </shared-link-product>
-    </li>
+      <li *ngFor="let product of event.getProducts('general-link')">
+        <shared-link-product [product]="product">
+        </shared-link-product>
+      </li>
     </ul>
   </ng-container>
 </ng-container>
