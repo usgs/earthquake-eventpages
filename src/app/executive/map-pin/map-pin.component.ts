@@ -1,20 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
+/**
+ * Interactive Map Pin
+ *
+ * @param event
+ *     Event object
+ */
 @Component({
   selector: 'executive-map-pin',
   templateUrl: './map-pin.component.html',
   styleUrls: ['./map-pin.component.scss']
 })
-export class MapPinComponent implements OnInit {
-
-  @Input() event: Event;
+export class MapPinComponent {
 
   link = '../map';
   title = 'Interactive Map';
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  @Input() event: Event;
 
 }
