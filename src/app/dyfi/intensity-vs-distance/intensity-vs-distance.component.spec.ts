@@ -3,10 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
-import { IntensityVsDistanceComponent } from './intensity-vs-distance.component';
+import { DyfiService } from '../dyfi.service';
 import { MockPipe } from '../../mock-pipe';
+import { IntensityVsDistanceComponent } from './intensity-vs-distance.component';
+
 
 describe('IntensityVsDistanceComponent', () => {
   let component: IntensityVsDistanceComponent;

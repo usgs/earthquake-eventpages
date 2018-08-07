@@ -4,18 +4,26 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-
+/**
+ * DYFI Service
+ */
 @Injectable()
 export class DyfiService {
+
   public cdiZip$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public error: any = null;
   public plotAtten$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public plotNumResp$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
+
   constructor (private httpClient: HttpClient) { }
 
+
   /**
-   * Grab dyfi_plot_atten.json product
+   * Grab and parse dyfi_plot_atten.json product
+   *
+   * @param product
+   *     dyfi product
    */
   getAtten (product: any) {
     if ((product == null) ||
@@ -43,7 +51,10 @@ export class DyfiService {
   }
 
   /**
-   * Grab dyfi_plot_numresp.json product
+   * Grab and parse dyfi_plot_numresp.json product
+   *
+   * @param product
+   *     dyfi product
    */
   getNumResp (product: any) {
     if ((product == null) ||
@@ -70,6 +81,12 @@ export class DyfiService {
     });
   }
 
+  /**
+   * Grab and parse cdi_zip.xml product
+   *
+   * @param product
+   *     dyfi product
+   */
   getCdi (product: any) {
     if ((product == null) ||
           (!product.contents['cdi_zip.xml'])) {
@@ -97,8 +114,11 @@ export class DyfiService {
 
   /**
    * Convert data from DYFI format to ngx-charts
+   *
+   * @param dyfiData
+   *     dyfi product
    */
-  onData (dyfiData) {
+  onData (dyfiData: any) {
     if (dyfiData === null) {
       return null;
     }
@@ -137,7 +157,12 @@ export class DyfiService {
     return dyfiData;
   }
 
-  translateCdi (cdiData) {
+  /**
+   *
+   * @param cdiData
+   *     cdi data/ responses from dyfi product
+   */
+  translateCdi (cdiData: any) {
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(cdiData, 'text/xml');
 

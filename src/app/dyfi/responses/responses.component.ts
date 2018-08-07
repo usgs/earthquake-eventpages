@@ -1,18 +1,35 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
+import {
+  MatSort,
+  MatTableDataSource,
+  MatPaginator,
+  MatDialog
+} from '@angular/material';
 import { Subscription } from 'rxjs';
 
-import { DownloadDialogComponent } from '../../shared/download-dialog/download-dialog.component';
-import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
+import {
+  DownloadDialogComponent
+} from '../../shared/download-dialog/download-dialog.component';
 import { RomanPipe } from '../../shared/roman.pipe';
+import { DyfiService } from '../dyfi.service';
 
 
+/**
+ * Generate DYFI RESPONSES tab for dyfi product page
+ */
 @Component({
   selector: 'dyfi-responses',
   templateUrl: './responses.component.html',
   styleUrls: ['./responses.component.scss'],
-  providers: [RomanPipe]
+  providers: [RomanPipe],
+  encapsulation: ViewEncapsulation.None
 })
 export class ResponsesComponent implements OnInit, OnDestroy {
 
@@ -116,6 +133,12 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Create a table with DYFI responses
+   *
+   * @param dyfiData
+   *     cdi/responses data from dyfi service
+   */
   onDyfiSeries (dyfiData) {
     this.responses = new MatTableDataSource(dyfiData);
     this.responses.sort = this.sort;

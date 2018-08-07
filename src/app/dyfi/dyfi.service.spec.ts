@@ -1,7 +1,11 @@
 import { getTestBed, inject, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing';
 
 import { DyfiService } from './dyfi.service';
+
 
 describe('DyfiService', () => {
   let httpClient,

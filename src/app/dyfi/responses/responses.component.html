@@ -1,6 +1,8 @@
 <ng-container *ngIf="loaded">
 
-  <button mat-raised-button (click)="onDownload()">Download</button>
+  <button class="download" mat-raised-button (click)="onDownload()">
+    Download
+  </button>
 
   <mat-table matSort
       [dataSource]="responses"

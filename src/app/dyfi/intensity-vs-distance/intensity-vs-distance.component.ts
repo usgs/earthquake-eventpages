@@ -50,7 +50,7 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
       type: 'scatter'
     }
   };
-  colorScheme = {
+  public colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA', '#8d91ff', '#94dfea', '#fe4d55', '#5fce3b']
   };
   public customColors: any[] = [];
@@ -91,7 +91,8 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
   /**
    * Get DYFI data ready for plotting
    *
-   * @param dyfiData processed data from DyfiService
+   * @param dyfiData
+   *     processed data from DyfiService
    */
   onDyfiSeries (dyfiData) {
     if (!dyfiData) {
@@ -138,7 +139,8 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
   /**
    * New product, get new station list
    *
-   * @param product shakemap product
+   * @param product
+   *     shakemap product
    */
   onProduct (product) {
     this.product = product;
