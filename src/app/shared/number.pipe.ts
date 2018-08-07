@@ -22,7 +22,6 @@ export class NumberPipe implements PipeTransform {
    *     Value to return if value is empty.
    * @param units Optional, default none.
    *     Units of value.
-   *
    * @return {String}
    */
   transform (

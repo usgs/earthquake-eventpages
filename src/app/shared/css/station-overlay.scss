@@ -88,16 +88,16 @@
     /* 24px column gaps */
     > dt {
       flex: 1 40%;
-      padding: 4px 3px 4px 6px;
-      min-height: auto;
       font-size: .88em;
+      min-height: auto;
+      padding: 4px 3px 4px 6px;
     }
 
     > dd {
       flex: 1 60%;
-      padding: 4px 6px 4px 3px;
-      min-height: auto;
       font-size: .88em;
+      min-height: auto;
+      padding: 4px 6px 4px 3px;
     }
   }
 }

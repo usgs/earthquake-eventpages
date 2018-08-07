@@ -5,6 +5,12 @@ import { FormatterService } from '../../core/formatter.service';
 
 /**
  * Uncertain value component
+ * @param value
+ *     The uncertain value
+ * @param uncertainty
+ *     The degree of uncertainty
+ * @param uncertaintyUnits
+ *     The unit value of the uncertainty
  */
 @Component({
   selector: 'shared-uncertain-value',

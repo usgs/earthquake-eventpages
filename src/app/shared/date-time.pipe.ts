@@ -14,7 +14,6 @@ export class DateTimePipe implements PipeTransform {
 
   /**
    * Returns dateTime object based on a time input
-   *
    * @param time
    *     Time input
    * @returns {string}

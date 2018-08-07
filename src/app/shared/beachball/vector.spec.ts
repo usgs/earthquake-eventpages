@@ -23,7 +23,8 @@ describe('Vector', () => {
 
   describe('add', () => {
     it('adds', () => {
-      expect(new Vector([1, 2, 3]).add([1, 2, 3])).toEqual(new Vector([2, 4, 6]));
+      expect(new Vector([1, 2, 3]).add([1, 2, 3]))
+          .toEqual(new Vector([2, 4, 6]));
     });
 
     it('throws error when different sizes', () => {
@@ -36,7 +37,8 @@ describe('Vector', () => {
   describe('angle', () => {
     it('calculates angles', () => {
       expect(new Vector([0, 1]).angle([1, 0])).toEqual(90 * Math.PI / 180);
-      expect(new Vector([0, 1]).angle(new Vector([0, -1]))).toEqual(180 * Math.PI / 180);
+      expect(new Vector([0, 1]).angle(new Vector([0, -1])))
+          .toEqual(180 * Math.PI / 180);
     });
   });
 
@@ -61,8 +63,10 @@ describe('Vector', () => {
 
   describe('cross', () => {
     it ('calculates cross product', () => {
-      expect(new Vector([0, 1, 0]).cross([1, 0, 0])).toEqual(new Vector([0, 0, -1]));
-      expect(new Vector([1, 0, 0]).cross([0, 1, 0])).toEqual(new Vector([0, 0, 1]));
+      expect(new Vector([0, 1, 0]).cross([1, 0, 0]))
+          .toEqual(new Vector([0, 0, -1]));
+      expect(new Vector([1, 0, 0]).cross([0, 1, 0]))
+          .toEqual(new Vector([0, 0, 1]));
     });
 
     it('throws error for unequal and <3d vectors', () => {
@@ -123,7 +127,8 @@ describe('Vector', () => {
       expected = new Vector([-1, 0, 2]);
       expect(vectorClose(rotated, expected)).toBeTruthy();
 
-      rotated = vector.rotate([0, 1, 0], -90 * Math.PI / 180, new Vector([2, 0, 0]));
+      rotated = vector.rotate([0, 1, 0], -90 * Math.PI / 180,
+            new Vector([2, 0, 0]));
       expected = new Vector([2, 0, -1]);
       expect(vectorClose(rotated, expected)).toBeTruthy();
 
@@ -132,7 +137,8 @@ describe('Vector', () => {
       expected = new Vector([Math.SQRT2 / 2, Math.SQRT2 / 2, 0]);
       expect(vectorClose(rotated, expected)).toBeTruthy();
 
-      rotated = new Vector(Vector.rotate([0, 0, 1], [0, 1, 0], -90 * Math.PI / 180));
+      rotated = new Vector(Vector.rotate([0, 0, 1], [0, 1, 0],
+            -90 * Math.PI / 180));
       expected = new Vector([-1, 0, 0]);
       expect(vectorClose(rotated, expected)).toBeTruthy();
     });

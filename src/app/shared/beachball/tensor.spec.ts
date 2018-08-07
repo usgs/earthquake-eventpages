@@ -55,7 +55,8 @@ describe('Tensor', () => {
               pass: isClose(actual, expected)
             };
             if (!result.pass) {
-              result.message = 'Expected ' + JSON.stringify(actual) + ' to be close to ' + JSON.stringify(expected);
+              result.message = 'Expected ' + JSON.stringify(actual) +
+                  ' to be close to ' + JSON.stringify(expected);
             }
             return result;
           }
@@ -79,7 +80,8 @@ describe('Tensor', () => {
       // focal mechanism product
       {
         product: {
-          id: 'urn:usgs-product:nc:focal-mechanism:nc72948801_fm1:1515096353400',
+          id: 'urn:usgs-product:nc:focal-mechanism:nc72948801_fm1:' +
+              '1515096353400',
           type: 'focal-mechanism',
           properties: {
             'nodal-plane-1-dip': '90.0',

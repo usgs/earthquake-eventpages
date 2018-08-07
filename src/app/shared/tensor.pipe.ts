@@ -3,6 +3,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Tensor } from './beachball/tensor';
 
 
+/**
+ * Shared Tensor pipe, returns the tensor object from the product
+ * @returns {any}
+ */
 @Pipe({
   name: 'sharedTensor'
 })

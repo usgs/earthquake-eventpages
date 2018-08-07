@@ -121,6 +121,7 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
    * Returns the upper path of the circle error
    * @param circle
    *     The circle to check for errors
+   * @returns {any}
    */
   getErrorPathUpper(circle) {
     const path = `M${this.xScale(circle.x) - 10},${this.yScale(circle.max)}L

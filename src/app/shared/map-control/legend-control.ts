@@ -38,6 +38,7 @@ const LegendControl = L.Control.extend({
    * Remove individual legend from container
    * @param overlay
    *     The overlay to remove from
+   * @returns {any}
    */
   removeLegend: function (overlay: any) {
     if (!this._legendContainer || !overlay.legend) {
@@ -55,6 +56,7 @@ const LegendControl = L.Control.extend({
    * Generates template for the legend container
    * @param map
    *     The map overlay
+   * @returns {any}
    */
   onAdd: function (map) {
     const className = 'leaflet-control-legend';
@@ -122,28 +124,40 @@ const LegendControl = L.Control.extend({
 
   /**
    * Show the Legend control
-   *
    */
   _close: function () {
     L.DomUtil.removeClass(this._container, 'leaflet-control-legend-visible');
   },
 
+  /**
+   * Adds a layer to the legend
+   * @param layerEvent
+   *     The event to add a layer to legend
+   */
   _onLayerAdd: function (layerEvent) {
     this.addLegend(layerEvent.layer);
   },
 
+  /**
+   * Removes layer from legend
+   * @param layerEvent
+   *     The layer to remove
+   */
   _onLayerRemove: function (layerEvent) {
     this.removeLegend(layerEvent.layer);
   },
 
   /**
    * Hide the Legend control
-   *
    */
   _open: function () {
     L.DomUtil.addClass(this._container, 'leaflet-control-legend-visible');
   },
 
+  /**
+   * Updates the legend/clears it
+   * @returns {any}
+   */
   _update: function () {
     if (!this._map) {
       return this;

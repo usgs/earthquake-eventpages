@@ -15,12 +15,10 @@ export class AlertLevelComponent {
   public alertLevel: string;
 
 
-  constructor() { }
-
-
   /**
    * Setter for the alert level color
-   * @param {string} alertColor
+   * @param alertColor
+   *     Foreground color for alert
    */
   @Input() set alert(alertColor: string) {
     this.alertLevel = alertColor;

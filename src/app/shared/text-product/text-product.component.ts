@@ -41,7 +41,7 @@ export class TextProductComponent {
 
   /**
    * Product getter
-   * @returns _product
+   * @returns _product {any}
    *     The product object
    */
   get product () {
@@ -50,6 +50,7 @@ export class TextProductComponent {
 
   /**
    * Product contents getter
+   * @returns {of | null}
    */
   getContent () {
     if (!this.product) {

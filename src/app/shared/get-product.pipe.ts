@@ -11,7 +11,6 @@ export class GetProductPipe implements PipeTransform {
 
   /**
    * Returns the product from the event input based on type input
-   *
    * @param event
    *     The event to get product from
    * @param type

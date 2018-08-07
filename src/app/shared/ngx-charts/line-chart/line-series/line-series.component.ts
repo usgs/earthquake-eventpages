@@ -10,7 +10,7 @@ import {
 
 /**
  * LineSeriesComponent
- * @params strokeWidth
+ * @param strokeWidth
  *    The string value of the width of stroke
  */
 @Component({
@@ -27,12 +27,12 @@ export class LineSeriesComponent extends SwimlaneLineSeries {
   /**
    * Helper function to sort by direction
    * @param data
-   *    The data to sort
+   *     The data to sort
    * @param [property='name']
-   *    The data name
+   *     The data name
    * @param [direction='asc']
-   *    The direction
-   * @returns number
+   *     The direction
+   * @returns {number}
    */
   sortData(data, property = 'name', direction = 'asc') {
     return data.sort((a, b) => {

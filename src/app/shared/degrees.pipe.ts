@@ -13,8 +13,7 @@ export class DegreesPipe implements PipeTransform {
 
 
   /**
-   * Format a number.
-   *
+   * Format a number
    * @param value
    *     Number to format.
    * @param decimals Optional, default does not round.
@@ -23,7 +22,6 @@ export class DegreesPipe implements PipeTransform {
    *     Value to return if value is empty.
    * @param units Optional, default none.
    *     Units of value.
-   *
    * @return {String}
    */
   transform (

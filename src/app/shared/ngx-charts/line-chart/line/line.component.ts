@@ -14,7 +14,7 @@ import { LineComponent as SwimlaneLine } from '@swimlane/ngx-charts';
 /**
  * LineComponent, shows/draws lines
  * @param strokeWidth
- *    The width of the stroke to draw
+ *     The width of the stroke to draw
  */
 @Component({
   selector: 'g[ngx-charts-line]',

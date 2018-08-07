@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
  * ProductAttributionComponent, the main component for showing product
  * attribution
  * @param product
- *    The current product
+ *     The current product
  */
 @Component({
   selector: 'shared-product-attribution',

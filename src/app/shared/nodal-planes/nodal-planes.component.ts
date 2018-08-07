@@ -5,7 +5,8 @@ import { Tensor } from '../beachball/tensor';
 
 /**
  * NodalPlanesComponent, shows nodal planes for an event
- * @implements {OnInit}
+ * @param tensor
+ *     The tensor object from the product
  */
 @Component({
   selector: 'shared-nodal-planes',
@@ -15,14 +16,14 @@ import { Tensor } from '../beachball/tensor';
 export class NodalPlanesComponent {
 
 
+  @Input() tensor: Tensor;
+
   public columnsToDisplay = [
     'plane',
     'strike',
     'dip',
     'rake'
   ];
-
-  @Input() tensor: Tensor;
 
 
   /**

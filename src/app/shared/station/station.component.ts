@@ -15,11 +15,11 @@ import { Component, OnInit, Input } from '@angular/core';
 export class StationComponent implements OnInit {
 
 
+  @Input() station: any;
+
   public readonly channelsColumns = [
     'name', 'pga', 'pgv', 'psa03', 'psa10', 'psa30'
   ];
-
-  @Input() station: any;
 
 
    ngOnInit () {

@@ -71,30 +71,7 @@ import { curveLinear } from 'd3-shape';
   styleUrls: ['./bubble-line-chart.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class BubbleLineChartComponent extends BaseChartComponent  {
-  // ngx-chart options
-  bubblePadding = [0, 0, 0, 0];
-  colors: ColorHelper;
-  combinedSeries;
-  dims: ViewDimensions;
-  filteredDomain;
-  hoveredVertical;
-  legendOptions: any;
-  legendSpacing = 0;
-  margin: any[] = [10, 20, 10, 20];
-  rDomain: any;
-  rScale: any;
-  scaledAxis;
-  seriesDomain;
-  transform: string;
-  xAxisHeight = 0;
-  xDomain: any;
-  xScale: any;
-  xSet;
-  yAxisWidth = 0;
-  yDomain: any;
-  yOrientLeft = 'left';
-  yScale: any;
+export class BubbleLineChartComponent extends BaseChartComponent {
 
 
   @Input() activeEntries: any[] = [];
@@ -140,9 +117,34 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
   @Output() deactivate: EventEmitter<any> = new EventEmitter();
 
   @ContentChild('tooltipTemplate') tooltipTemplate: TemplateRef<any>;
-  @ContentChild('seriesTooltipTemplate') seriesTooltipTemplate: TemplateRef<any>;
+  @ContentChild('seriesTooltipTemplate') seriesTooltipTemplate:
+      TemplateRef<any>;
 
   @ViewChild(LineSeriesComponent) lineSeriesComponent: LineSeriesComponent;
+
+  // ngx-chart options
+  bubblePadding = [0, 0, 0, 0];
+  colors: ColorHelper;
+  combinedSeries;
+  dims: ViewDimensions;
+  filteredDomain;
+  hoveredVertical;
+  legendOptions: any;
+  legendSpacing = 0;
+  margin: any[] = [10, 20, 10, 20];
+  rDomain: any;
+  rScale: any;
+  scaledAxis;
+  seriesDomain;
+  transform: string;
+  xAxisHeight = 0;
+  xDomain: any;
+  xScale: any;
+  xSet;
+  yAxisWidth = 0;
+  yDomain: any;
+  yOrientLeft = 'left';
+  yScale: any;
 
 
   /**
@@ -212,7 +214,8 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
     this.xScale = this.getXScale(this.xDomain, this.dims.width);
     this.yScale = this.getYScale(this.yDomain, this.dims.height);
 
-    this.rScale = this.getRScale(this.rDomain, [this.minRadius, this.maxRadius]);
+    this.rScale = this
+        .getRScale(this.rDomain, [this.minRadius, this.maxRadius]);
 
     this.bubblePadding = this.getBubblePadding();
     this.setColors();
@@ -234,6 +237,14 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
 
   /**
    * Filters x/y properties
+   * @param xmin
+   *     The x axis min
+   * @param xmax
+   *     The x axis max
+   * @param ymin
+   *     The y axis min
+   * @param ymax
+   *     The y axis max
    */
   executeFilter (xmin, xmax, ymin, ymax) {
     for (const series of this.bubbleChart) {
@@ -451,6 +462,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
 
   /**
    * Helper function to return all options of chart legend
+   * @returns {any}
    */
   getLegendOptions () {
     const opts = {
@@ -493,7 +505,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
    * Helper function for activation
    * @param item
    *    The item object, checks for equal object within activeEntries set and
-   *    returns result
+   *      returns the result
    */
   onActivate (item) {
     const idx = this.activeEntries.findIndex(d => {
@@ -512,7 +524,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
    * Helper function for deactivation
    * @param item
    *    The item object, checks for equal object within activeEntries set and
-   *    returns result
+   *      returns result
    */
   onDeactivate (item) {
     const idx = this.activeEntries.findIndex(d => {
@@ -543,6 +555,7 @@ export class BubbleLineChartComponent extends BaseChartComponent  {
 
   /**
    * Gets padding on the buble chart
+   * @returns {number[]}
    */
   getBubblePadding () {
     let yMin = 0;

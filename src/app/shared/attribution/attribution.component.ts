@@ -7,6 +7,8 @@ import { Event } from '../../event';
 
 /**
  * Attribution component
+ * @param sourceCode
+ *     The actual source code for attribution
  */
 @Component({
   selector: 'shared-attribution',
@@ -36,10 +38,12 @@ export class AttributionComponent {
 
   /**
    * Converts source code to informational data
-   * @param {string} sourceCode
-   * @param {Event} event
-   * @param {Array<any>} details
-   * @returns {any}
+   * @param sourceCode
+   *     The source code for attribution
+   * @param event
+   *     The event object
+   * @param details
+   *     Attribution details for this event
    */
   sourceCodeToInfo (sourceCode: string, event: Event = null,
       details: Array<any> = []): any {

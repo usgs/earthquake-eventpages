@@ -1,8 +1,10 @@
-<ng-container *ngIf="eventService.event$ | async; let event">
-  <ng-container *ngIf="contributorService.contributors$ | async; let contributors">
-    <ng-container *ngIf="sourceCodeToInfo(sourceCode, event, contributors); let info">
+<ng-container *ngIf="eventService?.event$ | async; let event">
+  <ng-container *ngIf="contributorService?.contributors$ | async;
+                let contributors">
+    <ng-container *ngIf="sourceCodeToInfo(sourceCode, event, contributors);
+                  let info">
 
-      <abbr *ngIf="info.details; else noDetails" [title]="info.details.title"
+      <abbr *ngIf="info?.details; else noDetails" [title]="info?.details?.title"
           >{{ info.id }}</abbr><sup *ngIf="hasIndex(info)"
           >{{ info.index }}</sup>
 

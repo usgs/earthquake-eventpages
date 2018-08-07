@@ -14,7 +14,6 @@ export class DyfiCounterPipe implements PipeTransform {
 
   /**
    * Returns the dyfi counter values/numbers for displaying in pin
-   *
    * @param product
    *     Type of event product
    * @param padding
