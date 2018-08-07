@@ -1,23 +1,24 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
 
 
+/**
+ * Regional Information Pin
+ *
+ * @param event
+ *     event object
+ */
 @Component({
   selector: 'executive-region-info-pin',
   templateUrl: './region-info-pin.component.html',
-  styleUrls: ['./region-info-pin.component.css']
+  styleUrls: ['./region-info-pin.component.scss']
 })
-export class RegionInfoPinComponent implements OnInit {
-
-  @Input() event: Event;
+export class RegionInfoPinComponent {
 
   public link = '../region-info';
   public title = 'Regional Information';
 
-  constructor () { }
-
-  ngOnInit() {
-  }
+  @Input() event: Event;
 
 }
