@@ -5,6 +5,7 @@ import { Event } from '../../event';
 
 /**
  * renders dyfi summary table
+ *
  * @param event
  *    event from eventService
  * @param products

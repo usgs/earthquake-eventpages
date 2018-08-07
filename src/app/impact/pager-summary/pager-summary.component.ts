@@ -1,16 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog, Sort } from '@angular/material';
-import { Subscription } from 'rxjs';
+import { Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
 
 
+/**
+ * Renders pager summary table
+ *
+ * @param
+ *    event from eventService
+ * @param
+ *    pager products
+ */
 @Component({
   selector: 'impact-pager-summary',
   templateUrl: './pager-summary.component.html',
   styleUrls: ['./pager-summary.component.css']
 })
-export class PagerSummaryComponent implements OnInit {
+export class PagerSummaryComponent {
 
   // columns to be displayed
   public columnsToDisplay = [
@@ -22,10 +28,6 @@ export class PagerSummaryComponent implements OnInit {
   @Input() event: Event;
 
   @Input() products: Array<any> = [];
-
-  constructor() {}
-
-  ngOnInit() {}
 }
 
 
