@@ -5,7 +5,9 @@
 
   <dl *ngIf="product?.properties as properties; else noProperties">
     <dt>Review Status</dt>
-    <dd>{{ (properties['review-status'] || 'automatic') | uppercase }}</dd>
+    <dd>
+      {{ (properties['review-status'] || 'automatic') | uppercase }}
+    </dd>
 
     <dt>Magnitude</dt>
     <dd>
@@ -14,10 +16,14 @@
     </dd>
 
     <dt>Depth</dt>
-    <dd>{{ properties.depth | sharedNumber:1:'km' }}</dd>
+    <dd>
+      {{ properties.depth | sharedNumber:1:'km' }}
+    </dd>
 
     <dt>Time</dt>
-    <dd>{{ properties.eventtime | date:"yyyy-MM-dd HH:mm:ss":"UTC" }} UTC</dd>
+    <dd>
+      {{ properties.eventtime | date:"yyyy-MM-dd HH:mm:ss":"UTC" }} UTC
+    </dd>
   </dl>
 
   <ng-template #noProperties>
