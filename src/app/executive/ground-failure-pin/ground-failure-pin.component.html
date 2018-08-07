@@ -48,7 +48,8 @@
           </svg>
         </div>
         <figcaption>
-          <ng-container [ngSwitch]="properties['landslide-hazard-alert-color']">
+          <ng-container
+              [ngSwitch]="properties['landslide-hazard-alert-color']">
             <p *ngSwitchCase="'green'">
               Little to no area affected
             </p>
@@ -62,7 +63,8 @@
               Extensive area affected
             </p>
           </ng-container>
-          <ng-container [ngSwitch]="properties['landslide-population-alert-color']">
+          <ng-container
+              [ngSwitch]="properties['landslide-population-alert-color']">
             <p *ngSwitchCase="'green'">
               Little to no population exposed
             </p>
@@ -86,8 +88,10 @@
     <dd>
       <figure [ngClass]="properties['liquefaction-alert']">
         <div class="svg-wrapper">
-          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-            viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+              viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;"
+              xml:space="preserve">
             <style type="text/css">
               .st0 {
                 fill: none;
@@ -116,7 +120,8 @@
           </svg>
         </div>
         <figcaption>
-          <ng-container [ngSwitch]="properties['liquefaction-hazard-alert-color']">
+          <ng-container
+              [ngSwitch]="properties['liquefaction-hazard-alert-color']">
             <p *ngSwitchCase="'green'">
               Little to no area affected
             </p>
@@ -130,7 +135,8 @@
               Extensive area affected
             </p>
           </ng-container>
-          <ng-container [ngSwitch]="properties['liquefaction-population-alert-color']">
+          <ng-container
+              [ngSwitch]="properties['liquefaction-population-alert-color']">
             <p *ngSwitchCase="'green'">
               Little to no population exposed
             </p>
