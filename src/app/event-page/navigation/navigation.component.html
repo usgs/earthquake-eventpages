@@ -19,15 +19,15 @@
 
     <app-navigation-item display="Felt Report - Tell Us!"
         navRouterLink="tellus"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProducts('dyfi')"
+    <app-navigation-item *ngIf="event?.hasProducts('dyfi')"
         display="Did You Feel It?"
         navRouterLink="dyfi"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProducts('shakemap')"
+    <app-navigation-item *ngIf="event?.hasProducts('shakemap')"
         display="ShakeMap"
         navRouterLink="shakemap"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProducts('losspager')"
+    <app-navigation-item *ngIf="event?.hasProducts('losspager')"
         display="PAGER" navRouterLink="pager"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProducts('ground-failure')"
+    <app-navigation-item *ngIf="event?.hasProducts('ground-failure')"
         display="Ground Failure"
         navRouterLink="ground-failure"></app-navigation-item>
   </app-navigation-group>
@@ -37,21 +37,21 @@
         display="Technical"
         navRouterLink="technical"></app-navigation-item>
 
-    <app-navigation-item *ngIf="event.hasProducts(['origin', 'phase-data'])"
+    <app-navigation-item *ngIf="event?.hasProducts(['origin', 'phase-data'])"
         display="Origin"
         navRouterLink="origin"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProducts('moment-tensor')"
+    <app-navigation-item *ngIf="event?.hasProducts('moment-tensor')"
         display="Moment Tensor"
         navRouterLink="moment-tensor"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProducts('focal-mechanism')"
+    <app-navigation-item *ngIf="event?.hasProducts('focal-mechanism')"
         display="Focal Mechanism"
         navRouterLink="focal-mechanism"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProducts('finite-fault')"
+    <app-navigation-item *ngIf="event?.hasProducts('finite-fault')"
         display="Finite Fault"
         navRouterLink="finite-fault"></app-navigation-item>
     <app-navigation-item display="Waveforms"
         navRouterLink="waveforms"></app-navigation-item>
-    <app-navigation-item *ngIf="event.hasProducts('oaf')"
+    <app-navigation-item *ngIf="event?.hasProducts('oaf')"
         display="Aftershock Forecast"
         navRouterLink="oaf"></app-navigation-item>
   </app-navigation-group>

@@ -1,21 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { ContributorService } from '../../core/contributor.service';
 
 
+/**
+ * Shared footer component across all pages
+ * @param event
+ *     The event object
+ * @param contributors
+ *     The list of contributors to render in footer
+ */
 @Component({
   selector: 'event-page-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
 
   @Input() event: any = null;
   @Input() contributors: any = null;
-
-  constructor () { }
-
-  ngOnInit () {
-  }
 
 }

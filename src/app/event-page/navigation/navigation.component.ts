@@ -1,24 +1,41 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
 
+
+/**
+ * Main shared event page navigation component, shows all links relevant to
+ *  the event
+ * @param event
+ *     The event object
+ */
 @Component({
   selector: 'event-page-navigation',
   templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css']
+  styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
+
+
   @Input() event: Event = null;
 
-  constructor () { }
 
-  ngOnInit () {
-  }
-
+  /**
+   * Function to get the kml link from the event object
+   * @param event
+   *     The event object
+   * @returns {string}
+   */
   getKmlLink (event: Event) {
     return `/earthquakes/feed/v1.0/detail/${event.id}.kml`;
   }
 
+  /**
+   * Returns boolean to see whether or not the event has all products
+   * @param event
+   *     The event object
+   * @returns {boolean}
+   */
   hasImpact (event: Event) {
     return event.hasProducts([
       'dyfi',
@@ -30,6 +47,12 @@ export class NavigationComponent implements OnInit {
     ]);
   }
 
+  /**
+   * Returns boolean to see if the event has all scientific products
+   * @param event
+   *     The event object
+   * @returns {boolean}
+   */
   hasScientific (event: Event) {
     return event.hasProducts([
       'origin',
