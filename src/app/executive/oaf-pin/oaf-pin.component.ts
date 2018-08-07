@@ -1,5 +1,12 @@
 import { Component, Input } from '@angular/core';
 
+
+/**
+ * Aftershock Forecast Pin
+ *
+ * @param product
+ *     oaf product
+ */
 @Component({
   selector: 'executive-oaf-pin',
   templateUrl: './oaf-pin.component.html',
@@ -11,8 +18,6 @@ export class OafPinComponent {
   public title = 'Aftershock Forecast';
   public type = 'oaf';
 
-  @Input()
-  product: any;
+  @Input() product: any;
 
-  constructor() { }
 }
