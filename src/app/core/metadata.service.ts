@@ -4,18 +4,25 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+
+/**
+ * Metadata service which converts and returns product metadata to json format
+ */
 @Injectable()
 export class MetadataService {
-  public error: any = null;
 
+
+  public error: any = null;
   public metadata$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private httpClient: HttpClient) { }
+
+  constructor (private httpClient: HttpClient) { }
+
 
   /**
    * Retreive metadata for a specifc shakemap
-   *
-   * @param product shakemap product json
+   * @param product
+   *     shakemap product json
    */
   getMetadata (product: any): void {
     if ((product == null) || (
@@ -43,8 +50,9 @@ export class MetadataService {
 
   /**
    * Handle new instances of metadata
-   *
-   * @param metadata json object
+   * @param metadata
+   *     json object
+   * @returns {any}
    */
   onMetadata (metadata) {
     metadata = this.translate(metadata);
@@ -53,8 +61,9 @@ export class MetadataService {
 
   /**
    * Translate old metadata
-   *
-   * @param metadata object
+   * @param metadata
+   *     object containing all product metadata
+   * @returns {any}
    */
   translate (metadata) {
     // Which objects are not arrays in ShakeMap V3
@@ -81,8 +90,9 @@ export class MetadataService {
   /**
    * Convert metadata objects to arrays by
    * assigning their key as a 'type' property
-   *
-   * @param obj javascript object
+   * @param obj
+   *     javascript object
+   * @returns {any[]}
    */
   obj2Arr (obj) {
     const arr = [];
@@ -97,6 +107,7 @@ export class MetadataService {
 
   /**
    * Error handler for http requests.
+   * @returns {any}
    */
   private handleError () {
     return (error: HttpErrorResponse): Observable<any> => {

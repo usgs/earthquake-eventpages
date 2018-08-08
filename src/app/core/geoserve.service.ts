@@ -3,40 +3,37 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 
+
+/**
+ * Service to send requests to get fe and geoserve regions and end points
+ */
 @Injectable()
 export class GeoserveService {
 
-  constructor (
-    private http: HttpClient
-  ) { }
+
+  constructor (private http: HttpClient) { }
 
 
   /**
    * Regions helper endpoint. Makes request for FE region information
    * from geoserve web service.
-   *
-   * @param latitude {String|Number}
+   * @param latitude
    *     Latitude coordinate for location of interest
-   * @param longitude {String|Number}
+   * @param longitude
    *     Longitude coordinate for location of interest
-   *
    * @return {Observable}
-   *     The result of HttpClient.get to be subscribed to externally.
-   *
-   * @see GeoserveService#regions
+   *     The result of HttpClient.get to be subscribed to externally
    */
   fe (latitude: string|number, longitude: string|number) {
     return this.regions(latitude, longitude, 'fe');
   }
 
   /**
-   * Makes a request to the geoserve web service regions end point.
-   *
-   * @param latitude {String|Number}
+   * Makes a request to the geoserve web service regions end point
+   * @param latitude
    *     Latitude coordinate for location of interest
-   * @param longitude {String|Number}
+   * @param longitude
    *     Longitude coordinate for location of interest
-   *
    * @return {Observable}
    *     The result of HttpClient.get to be subscribed to externally.
    */

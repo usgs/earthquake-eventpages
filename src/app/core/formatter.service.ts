@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 
+
+/**
+ * Service for formatting various types of data such as lat/longs, angles,
+ * dates, et. al
+ */
 @Injectable()
 export class FormatterService {
+
+
   public readonly depthDecimals: number;
   public readonly distanceDecimals: number;
   public readonly empty: string;
   public readonly locationDecimals: number;
   public readonly mmiArray: Array<string>;
   public readonly mmiColors: Array<string>;
+
 
   constructor () {
     this.depthDecimals = 1;
@@ -16,11 +24,12 @@ export class FormatterService {
     this.locationDecimals = 3;
   }
 
+
   /**
-   * @param angle {Number}
-   * @param decimals {Number}
-   *
-   * @return {String}
+   * @param angle
+   *     The angle to format
+   * @param decimals
+   *     The number of decimal places
    */
   angle (angle: any, decimals: number): string {
       if (angle || angle === 0) {
@@ -32,12 +41,9 @@ export class FormatterService {
   }
 
   /**
-   * Format a UTC date.
-   *
-   * @param date {Date}
-   *     Date to format.
-   *
-   * @return {String}
+   * Format a UTC date
+   * @param date
+   *     Date to format
    */
   date (date: Date): string {
     let year,
@@ -63,18 +69,16 @@ export class FormatterService {
   }
 
   /**
-   * Format a date and time.
-   *
+   * Format a date and time
    * @param date {Number|String|Date}
-   *     Date, ISO8601 formatted string, or millisecond epoch timstamp.
+   *     Date, ISO8601 formatted string, or millisecond epoch timstamp
    * @param minutesOffset {Number} Optional, default 0
-   *     UTC offset in minutes. 0 for UTC.
+   *     UTC offset in minutes. 0 for UTC
    * @param includeMilliseconds {Boolean} Optional, default false
-   *     Whether to output milliseconds.
-   *
+   *     Whether to output milliseconds
    * @return {String}
    */
-  dateTime (date: any, minutesOffset = 0, includeMilliseconds = false) {
+  dateTime (date, minutesOffset = 0, includeMilliseconds = false) {
     let milliOffset;
 
     if (date === null || typeof date === 'undefined') {
@@ -95,13 +99,12 @@ export class FormatterService {
   }
 
   /**
-   * Format a depth.
-   *
-   * @param depth {Number}
+   * Format a depth
+   * @param depth
    *     Depth to format
-   * @param units {String} Optional, default none
-   *     Depth units, if any.
-   * @param error {Number} Optional, default none
+   * @param units Optional, default none
+   *     Depth units, if any
+   * @param error Optional, default none
    *     Depth error, if any.
    *
    * @return {String}
@@ -116,15 +119,11 @@ export class FormatterService {
   }
 
   /**
-   * Format a distance (like km or mi).
-   *
-   * @param distance {Number}
+   * Format a distance (like km or mi)
+   * @param distance
    *     The distance for format.
-   * @param units {String}
-   *     The units for this distance.
-   *
-   * @return {String}
-   *     A formatted distance string.
+   * @param units
+   *     The units for this distance
    */
   distance (distance: number, units: string): string {
     return this.number(distance, this.distanceDecimals, this.empty, units);
@@ -132,13 +131,10 @@ export class FormatterService {
 
   /**
    * Format a latitude
-   *
-   * @param latitude {Number}
-   *     The latitude.
-   * @param decimals Optional, default this.locationDecimals
-   *     The number of decimals to include in the formatted output.
-   *
-   * @return {String}
+   * @param latitude
+   *     The latitude
+   * @param decimals {number}
+   *     The number of decimals to include in the formatted output
    */
   latitude (latitude: number, decimals = this.locationDecimals): string {
     let latDir,
@@ -159,18 +155,16 @@ export class FormatterService {
   /**
    * Left pads the source string with the pad string until the source string
    * is at least `length` in length. If the source length is already greater
-   * than or equal to the desired length, the original source is returned.
-   *
-   * @param source {String}
+   * than or equal to the desired length, the original source is returned
+   * @param source
    *     The string to pad
-   * @param length {Integer}
+   * @param length
    *     The desired length
-   * @param pad {String} Optional. Default ' ' (single space)
+   * @param pad
    *     The padding to add to the beginning of the source string until the
-   *     desired length is met. Should be a single rendered character.
-   *
+   *     desired length is met. Should be a single rendered character
    * @return {String}
-   *     A string padded out to the desired length with the given pad.
+   *     A string padded out to the desired length with the given pad
    */
   leftPad (source: string, length: number, pad: string) {
     let i,
@@ -193,16 +187,13 @@ export class FormatterService {
   }
 
   /**
-   * Format a latitude and longitude.
-   *
+   * Format a latitude and longitude
    * @param latitude {Number}
-   *     The latitude.
+   *     The latitude
    * @param longitude {Number}
-   *     The longitude.
+   *     The longitude
    * @param decimals {Number} Optional, default this.locationDecimals
-   *     The number of decimals to include in the formatted output.
-   *
-   * @return {String}
+   *     The number of decimals to include in the formatted output
    */
   location (latitude: number, longitude: number,
       decimals = this.locationDecimals): string {
@@ -212,13 +203,10 @@ export class FormatterService {
 
   /**
    * Format a longitude
-   *
-   * @param longitude {Number}
-   *     The longitude.
-   * @param decimals Optional, default this.locationDecimals
-   *     The number of decimals to include in the formatted output.
-   *
-   * @return {String}
+   * @param longitude
+   *     The longitude
+   * @param decimals
+   *     The number of decimals to include in the formatted output
    */
   longitude (longitude: number, decimals = this.locationDecimals): string {
     let lngDir,

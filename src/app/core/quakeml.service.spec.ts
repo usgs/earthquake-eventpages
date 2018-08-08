@@ -1,7 +1,10 @@
-import { TestBed, getTestBed, inject } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController } from '@angular/common/http/testing';
+  import { TestBed, getTestBed, inject } from '@angular/core/testing';
 
 import { QuakemlService } from './quakeml.service';
+
 
 describe('QuakemlService', () => {
   let httpClient,
@@ -44,7 +47,8 @@ describe('QuakemlService', () => {
     httpClient.verify();
   });
 
-  it('should be created', inject([QuakemlService], (service: QuakemlService) => {
+  it('should be created', inject([QuakemlService],
+        (service: QuakemlService) => {
     expect(service).toBeTruthy();
   }));
 
@@ -122,7 +126,8 @@ describe('QuakemlService', () => {
       const quakeml = service.parseResponse(`
           <q:quakeml xmlns:q="namespace">
             <eventParameters>
-              <creationInfo><creationTime>2018-01-01</creationTime></creationInfo>
+              <creationInfo><creationTime>2018-01-01
+                </creationTime></creationInfo>
             </eventParameters>
           </q:quakeml>`);
       expect(quakeml.creationInfo.creationTime).toEqual('2018-01-01');
