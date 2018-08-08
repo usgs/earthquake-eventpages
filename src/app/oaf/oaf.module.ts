@@ -10,16 +10,15 @@ import {
 
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
-
+import { CommentaryDetailsComponent } from './commentary-details/commentary-details.component';
 import { CommentaryComponent } from './commentary/commentary.component';
 import { ForecastComponent } from './forecast/forecast.component';
 import { ModelComponent } from './model/model.component';
-import { OafComponent } from './oaf/oaf.component';
 import { OafPercentPipe } from './oaf-percent.pipe';
 import { OafRoutingModule } from './oaf-routing.module';
 import { OafService } from './oaf.service';
+import { OafComponent } from './oaf/oaf.component';
 import { UpdateTimePipe } from './update-time.pipe';
-import { CommentaryDetailsComponent } from './commentary-details/commentary-details.component';
 
 
 @NgModule({

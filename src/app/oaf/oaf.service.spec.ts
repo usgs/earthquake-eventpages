@@ -2,6 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { OafService } from './oaf.service';
 
+
 describe('OafService', () => {
   const MODEL = {
     ref: 'modelRef',
@@ -133,7 +134,8 @@ describe('OafService', () => {
   });
 
   describe('parseForecast', () => {
-    it('parses forecast correctly', inject([OafService], (service: OafService) => {
+    it('parses forecast correctly', inject([OafService],
+        (service: OafService) => {
       const forecastOutput = {
         'columnIds': [
           'magnitude',
