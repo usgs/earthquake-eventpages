@@ -1,17 +1,23 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
 import { Event } from '../../event';
 import { Tensor } from '../../shared/beachball/tensor';
 
 
+/**
+ * Moment Tensor Pin
+ *
+ * @param product
+ *     moment-tensor product
+ */
 @Component({
   selector: 'executive-moment-tensor-pin',
   templateUrl: './moment-tensor-pin.component.html',
   styleUrls: ['./moment-tensor-pin.component.scss']
 })
-export class MomentTensorPinComponent implements OnInit {
+export class MomentTensorPinComponent {
 
-  private _product: any = null;
-
+  public _product: any = null;
   public link = '../moment-tensor';
   public title = 'Moment Tensor';
   public tensor: Tensor = null;
@@ -24,9 +30,5 @@ export class MomentTensorPinComponent implements OnInit {
   get product () {
     return this._product;
   }
-
-  constructor () { }
-
-  ngOnInit() { }
 
 }

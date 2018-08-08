@@ -8,14 +8,16 @@
     </shared-alert-level>
   </div>
 
-    <figure *ngIf="product | sharedProductContent:'alertecon_smaller.png' as content; else noAlertecon">
+    <figure *ngIf="product | sharedProductContent:'alertecon_smaller.png'
+        as content; else noAlertecon">
       <img class="alert-histogram"
            src="{{ content.url }}"
            alt="Economic Alert Histogram" />
       <figcaption>Estimated Economic Losses</figcaption>
     </figure>
 
-  <figure *ngIf="product | sharedProductContent:'alertfatal_smaller.png' as content; else noAlertFatal ">
+  <figure *ngIf="product | sharedProductContent:'alertfatal_smaller.png'
+      as content; else noAlertFatal ">
     <img class="alert-histogram"
          src="{{ content.url }}"
          alt="Fatality Alert Histogram" />

@@ -3,7 +3,24 @@ import { RouterLink } from '@angular/router';
 
 import { Event } from '../../event';
 
-
+/**
+ * Base pin class
+ *
+ * @param footer
+ *     text for footer
+ *
+ * @param href
+ *     overrides router link
+ *
+ * @param link
+ *     router link for entire card action
+ *
+ * @param product
+ *     product attribution, only used if footer is not provided
+ *
+ * @param title
+ *     text for title
+ */
 @Component({
   selector: 'basic-pin',
   templateUrl: './basic-pin.component.html',
@@ -11,22 +28,11 @@ import { Event } from '../../event';
   encapsulation: ViewEncapsulation.None
 })
 export class BasicPinComponent {
-  // router link for entire card action
-  @Input() link;
 
-  // Overrides router link
-  @Input() href;
-
-  // product attribution
-  // only used if footer is not provided
-  @Input() product;
-
-  // text for footer
   @Input() footer;
-
-  // text for title
+  @Input() href;
+  @Input() link;
+  @Input() product;
   @Input() title;
-
-  constructor () { }
 
 }

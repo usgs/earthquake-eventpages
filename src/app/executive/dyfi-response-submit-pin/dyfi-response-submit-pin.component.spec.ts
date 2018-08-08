@@ -1,8 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MockComponent } from 'ng2-mock-component';
-import { MockPipe } from '../../mock-pipe';
 
+import { MockComponent } from 'ng2-mock-component';
+
+import { MockPipe } from '../../mock-pipe';
 import { DyfiResponseSubmitPinComponent } from './dyfi-response-submit-pin.component';
+
 
 describe('DyfiResponseSubmitPinComponent', () => {
   let component: DyfiResponseSubmitPinComponent;

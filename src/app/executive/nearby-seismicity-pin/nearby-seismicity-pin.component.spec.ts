@@ -1,9 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MockComponent } from 'ng2-mock-component';
+
+import { Event } from '../../event';
+import { MockPipe } from '../../mock-pipe';
 import { NearbySeismicityPinComponent } from './nearby-seismicity-pin.component';
-import {MockComponent} from 'ng2-mock-component';
-import {MockPipe} from '../../mock-pipe';
-import {Event} from '../../event';
 
 
 describe('NearbySeismicityPinComponent', () => {

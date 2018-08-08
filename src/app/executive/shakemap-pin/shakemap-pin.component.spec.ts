@@ -14,8 +14,10 @@ describe('ShakemapPinComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ShakemapPinComponent,
-        MockComponent({selector: 'basic-pin', inputs: ['link', 'product', 'title']}),
-        MockComponent({selector: 'shared-mmi', inputs: ['bubble', 'intensity']}),
+        MockComponent({selector: 'basic-pin',
+            inputs: ['link', 'product', 'title']}),
+        MockComponent({selector: 'shared-mmi',
+            inputs: ['bubble', 'intensity']}),
 
         MockPipe('getProduct')
       ]

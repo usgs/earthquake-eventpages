@@ -1,9 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { Event } from '../../event';
 import { FormatterService } from '../../core/formatter.service';
+import { Event } from '../../event';
 
+
+/**
+ * Origin Pin
+ *
+ * @param product
+ *     origin product
+ */
 @Component({
   selector: 'executive-origin-pin',
   templateUrl: './origin-pin.component.html',
@@ -13,9 +20,11 @@ import { FormatterService } from '../../core/formatter.service';
 export class OriginPinComponent {
 
   public link = '../origin';
-  @Input() product: any;
   public title = 'Origin';
   public type = 'origin';
+
+  @Input() product: any;
+
 
   constructor(
     public formatterService: FormatterService

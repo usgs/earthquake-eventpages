@@ -1,8 +1,8 @@
-<basic-pin *ngIf="product | dyfiCounter: 6 as responses"
-  [link]="link"
-  [product]="product"
-  [title]="title"
-  [footer]="footer">
+<basic-pin *ngIf="product | dyfiCounter:6 as responses"
+    [link]="link"
+    [product]="product"
+    [title]="title"
+    [footer]="footer">
 
   <figure>
     <div class="dyfi-responses-badge">
@@ -16,7 +16,7 @@
   </figure>
 
   <p>
-    Contribute to citizen science. Please <a href="#tellus">tell us</a>
+    Contribute to citizen science. Please <a [href]="link">tell us</a>
     about your experience.
   </p>
 

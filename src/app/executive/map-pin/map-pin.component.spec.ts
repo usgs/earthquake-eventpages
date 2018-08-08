@@ -1,8 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapPinComponent } from './map-pin.component';
 import { MockComponent } from 'ng2-mock-component';
+
 import { MockPipe } from '../../mock-pipe';
+import { MapPinComponent } from './map-pin.component';
+
 
 describe('MapPinComponent', () => {
   let component: MapPinComponent;
@@ -13,8 +15,15 @@ describe('MapPinComponent', () => {
       declarations: [
         MapPinComponent,
 
-        MockComponent({selector: 'basic-pin', inputs: ['link', 'product', 'title']}),
-        MockComponent({selector: 'shared-map', inputs: ['overlays', 'showAttributionControl', 'showLayersControl']}),
+        MockComponent({selector: 'basic-pin',
+            inputs: ['link', 'product', 'title']}),
+        MockComponent({selector: 'shared-map',
+            inputs: [
+              'overlays',
+              'showAttributionControl',
+              'showLayersControl'
+            ]
+        }),
 
         MockPipe('getProduct'),
         MockPipe('interactiveMapOverlays')
