@@ -71,7 +71,7 @@ export class FormatterService {
   /**
    * Format a date and time
    * @param date {Number|String|Date}
-   *     Date, ISO8601 formatted string, or millisecond epoch timstamp
+   *     Date, ISO8601 formatted string, or millisecond epoch timestamp
    * @param minutesOffset {Number} Optional, default 0
    *     UTC offset in minutes. 0 for UTC
    * @param includeMilliseconds {Boolean} Optional, default false
@@ -105,8 +105,7 @@ export class FormatterService {
    * @param units Optional, default none
    *     Depth units, if any
    * @param error Optional, default none
-   *     Depth error, if any.
-   *
+   *     Depth error, if any
    * @return {String}
    */
   depth (depth: number, units?: string, error?: number) {
@@ -226,13 +225,11 @@ export class FormatterService {
   }
 
   /**
-   * Format a magnitude and magnitude type.
-   *
-   * @param value {Number}
-   *        Magnitude value to format.
-   * @param type {String}
+   * Format a magnitude and magnitude type
+   * @param value
+   *        Magnitude value to format
+   * @param type
    *        Magnitude type to format with magnitude value (i.e. mw, mww, mb)
-   *
    * @return {String}
    */
   magnitude (value: number, type: string) {
@@ -244,18 +241,15 @@ export class FormatterService {
   }
 
   /**
-   * Format a number.
-   *
-   * @param value {Number}
-   *     Number to format.
-   * @param decimals {Number} Optional, default does not round.
-   *     Number of decimal places to round.
-   * @param empty {Any} Optional, default none.
+   * Format a number
+   * @param value
+   *     Number to format
+   * @param decimals Optional, default does not round
+   *     Number of decimal places to round
+   * @param empty {Any} Optional, default none
    *     Value to return if value is empty.
-   * @param units {String} Optional, default none.
-   *     Units of value.
-   *
-   * @return {String}
+   * @param units {String} Optional, default none
+   *     Units of value
    */
   number (value: number, decimals?: number, empty = this.empty,
       units = ''): string {
@@ -282,11 +276,8 @@ export class FormatterService {
 
   /**
    * Format the review status of a product
-   *
-   * @param status {String}
+   * @param status
    *        Review status to format. ("reviewed", "official")
-   *
-   * @return {String}
    */
   reviewStatus (status: string): string {
     if (!status) {
@@ -297,14 +288,12 @@ export class FormatterService {
   }
 
   /**
-   * Format a UTC time.
+   * Format a UTC time
    *
-   * @param date {Date}
-   *     Date to format.
-   * @param includeMilliseconds {Boolean} Optional, default false.
-   *     Whether to output milliseconds.
-   *
-   * @return {String}
+   * @param date
+   *     Date to format
+   * @param includeMilliseconds {Boolean} Optional, default false
+   *     Whether to output milliseconds
    */
   time (date: Date, includeMilliseconds = false): string {
     let hours,
@@ -345,12 +334,9 @@ export class FormatterService {
   }
 
   /**
-   * Format a UTC timezone offset.
-   *
+   * Format a UTC timezone offset
    * @param offset {Number} Optional, default 0
-   *     UTC offset in minutes. 0 for UTC.
-   *
-   * @return {String}
+   *     UTC offset in minutes. 0 for UTC
    */
   timezoneOffset (offset = 0): string {
     let hours,
@@ -380,18 +366,15 @@ export class FormatterService {
   }
 
   /**
-   * Format an uncertainty.
-   *
-   * @param error {Number}
-   *     Uncertainty to format.
-   * @param decimals {Number} Optional, default does not round.
-   *     Number of decimal places to round.
+   * Format an uncertainty
+   * @param error
+   *     Uncertainty to format
+   * @param decimals Optional, default does not round
+   *     Number of decimal places to round
    * @param empty {Any}
-   *     Value to return if error is empty.
-   * @param units {String} Optional, default none.
-   *     Units of error.
-   *
-   * @return {String} formatted string.
+   *     Value to return if error is empty
+   * @param units Optional, default none
+   *     Units of error
    */
   uncertainty (error: number, decimals: number, empty = this.empty,
       units?: string): string {
@@ -404,4 +387,5 @@ export class FormatterService {
     result = this.number(error, decimals, null, units);
     return `&plusmn; ${result}`;
   }
+
 }

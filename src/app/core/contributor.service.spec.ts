@@ -1,8 +1,11 @@
-import { TestBed, getTestBed, inject } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController } from '@angular/common/http/testing';
+  import { TestBed, getTestBed, inject } from '@angular/core/testing';
 
+  import { environment } from '../../environments/environment';
 import { ContributorService } from './contributor.service';
-import { environment } from '../../environments/environment';
+
 
 describe('ContributorService', () => {
   let httpClient: HttpTestingController,

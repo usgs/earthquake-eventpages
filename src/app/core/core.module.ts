@@ -1,14 +1,15 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 
-import { EventService } from './event.service';
 import { ContentsXmlService } from './contents-xml.service';
 import { ContributorService } from './contributor.service';
-import { QuakemlService } from './quakeml.service';
+import { EventService } from './event.service';
 import { FormatterService } from './formatter.service';
 import { GeoserveService } from './geoserve.service';
-import { StationService } from './station.service';
 import { MetadataService } from './metadata.service';
+import { QuakemlService } from './quakeml.service';
+import { StationService } from './station.service';
+
 
 @NgModule({
   imports: [

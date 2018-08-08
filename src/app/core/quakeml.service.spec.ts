@@ -126,8 +126,7 @@ describe('QuakemlService', () => {
       const quakeml = service.parseResponse(`
           <q:quakeml xmlns:q="namespace">
             <eventParameters>
-              <creationInfo><creationTime>2018-01-01
-                </creationTime></creationInfo>
+              <creationInfo><creationTime>2018-01-01</creationTime></creationInfo>
             </eventParameters>
           </q:quakeml>`);
       expect(quakeml.creationInfo.creationTime).toEqual('2018-01-01');
