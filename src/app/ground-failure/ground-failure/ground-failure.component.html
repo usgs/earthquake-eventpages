@@ -6,7 +6,6 @@
     <h2>Ground Failure</h2>
   </ng-container>
 
-
   <ng-container *ngIf="eventService.product$ | async">
     <mdc-tab-bar-scroller>
       <mdc-tab-bar-scroll-back>
@@ -36,14 +35,16 @@
   <ng-container *ngIf="eventService.product$ | async as product" footer>
     <p>
       Due to local factors and model limitations, ground failure may still
-      occur when alert levels indicate little to no hazard. Refer to
-      <a href="/data/ground-failure/background.php">Ground Failure Background</a>
+      occur when alert levels indicate little to no hazard. Refer to <a
+      href="/data/ground-failure/background.php">Ground Failure Background</a>
       for more information.
     </p>
     <p>
       Results are based on ground-motion estimates from the current
 
-      <ng-container *ngIf="product?.properties && (product.properties['rupture-warning'] | uppercase) !== 'FALSE'; else noPointSource">
+      <ng-container *ngIf="product?.properties &&
+          (product.properties['rupture-warning'] | uppercase) !== 'FALSE';
+          else noPointSource">
         <a [routerLink]="'./shakemap'">ShakeMap</a> (point source).
         The extent of shaking and ground-failure estimates generally improve
         as more details are incorporated into ShakeMap.

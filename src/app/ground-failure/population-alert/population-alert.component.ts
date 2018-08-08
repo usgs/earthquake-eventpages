@@ -1,11 +1,30 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
+
+/**
+ * Display population exposure bins on ground-failure product page
+ *
+ * @param alert
+ *     alert level (green | yellow | orange | red)
+ *
+ * @param title
+ *     section header
+ *
+ * @param type
+ *     type of ground failure (landslide | liquefaction)
+ *
+ * @param units
+ *     population units
+ *
+ * @param value
+ *     number of population exposed
+ */
 @Component({
   selector: 'ground-failure-population-alert',
   templateUrl: './population-alert.component.html',
   styleUrls: ['./population-alert.component.scss']
 })
-export class PopulationAlertComponent implements OnInit {
+export class PopulationAlertComponent {
 
   landslideBins = [
     {
@@ -65,21 +84,15 @@ export class PopulationAlertComponent implements OnInit {
   alert: 'green' | 'yellow' | 'orange' | 'red';
 
   @Input()
+  title: String = 'Estimated Population Exposure';
+
+  @Input()
   type: 'landslide' | 'liquefaction';
 
   @Input()
-  title = 'Estimated Population Exposure';
-
-  @Input()
-  units = '';
+  units: String = '';
 
   @Input()
   value: number;
-
-
-  constructor() { }
-
-  ngOnInit() {
-  }
 
 }
