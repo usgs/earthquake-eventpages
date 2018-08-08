@@ -2,9 +2,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { of } from 'rxjs/observable/of';
 
-import { Event } from '../../event';
 import { EventService } from '../../core/event.service';
+import { Event } from '../../event';
 import { IntensityComponent } from './intensity.component';
+
 
 describe('IntensityComponent', () => {
   let component: IntensityComponent;

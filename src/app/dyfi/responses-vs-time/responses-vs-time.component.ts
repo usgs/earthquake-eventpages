@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
+import { DyfiService } from '../dyfi.service';
 
 
+/**
+ * Generate RESPONSES VS. TIME tab for dyfi product page
+ */
 @Component({
   selector: 'dyfi-responses-vs-time',
   templateUrl: './responses-vs-time.component.html',

@@ -1,17 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import {MatDialogModule} from '@angular/material';
-import {MatTableModule} from '@angular/material';
+import {
+  MatDialogModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatTableModule
+} from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs';
 
-import { DyfiService } from '../dyfi.service';
 import { EventService } from '../../core/event.service';
+import { FormatterService } from '../../core/formatter.service';
 import { MockPipe } from '../../mock-pipe';
-import {FormatterService} from '../../core/formatter.service';
+import { DyfiService } from '../dyfi.service';
 import { ResponsesComponent } from './responses.component';
 
 
