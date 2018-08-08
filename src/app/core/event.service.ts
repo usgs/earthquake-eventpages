@@ -4,6 +4,7 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable ,  of ,  BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -29,7 +30,10 @@ export class EventService {
   public product$ = new BehaviorSubject<any>(null);
 
 
-  constructor (private http: HttpClient) { }
+  constructor (
+    public http: HttpClient,
+    public router: Router
+  ) { }
 
 
   /**
@@ -53,6 +57,9 @@ export class EventService {
     ).subscribe((response) => {
       if (response['type'] === 'Error' && response['status'] === 409) {
         this.getDeletedEvent(eventid);
+        return;
+      } else if (response['type'] === 'Error' && response['status'] === 404) {
+        this.getUnknownEvent(eventid);
         return;
       }
       this.setEvent(new Event(response));
@@ -95,7 +102,17 @@ export class EventService {
   }
 
   /**
-   * Error handler for http requests
+   * Handle an unkown event with a 404 error
+   *
+   * @param eventid
+   *     The event id
+   */
+  private getUnknownEvent(eventid: string): void {
+    this.router.navigate(['']);
+  }
+
+  /**
+   * Handle the error and build an error response object
    *
    * @param eventid
    *     the event id being requested added to the resulting error object

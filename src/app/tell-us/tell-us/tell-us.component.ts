@@ -53,7 +53,6 @@ export class TellUsComponent implements OnInit {
     // check response
     if (!response || response === false || typeof response === 'undefined') {
       // user closed form
-      this.location.back();
     } else if (response && response.your_cdi) {
       // success submitting form
       this.onSuccess(response);
