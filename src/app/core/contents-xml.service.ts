@@ -23,6 +23,7 @@ export class ContentsXmlService {
 
   /**
    * Gets product contents via http call and parses
+   *
    * @param product
    *     The product from the event
    */
@@ -44,6 +45,7 @@ export class ContentsXmlService {
 
   /**
    * Error handler for http requests
+   *
    * @returns {any}
    */
   private handleError () {
@@ -54,8 +56,11 @@ export class ContentsXmlService {
 
   /**
    * Function to parse xml data
+   *
    * @param file
    *     The xml file from the product
+   * @returns
+   *     Object with formatting data
    */
   parseFile (file: Element, product: any): Object {
     if (file.getAttribute('refid')) {
@@ -81,10 +86,13 @@ export class ContentsXmlService {
 
   /**
    * Helper function to select a format to parse to
+   *
    * @param format
    *     The format to parse data into
    * @param product
    *     The product object
+   * @returns
+   *     Object with href/type/url/length properties
    */
   parseFormat (format: Element, product: any): Object {
     let result,
@@ -113,10 +121,13 @@ export class ContentsXmlService {
 
   /**
    * Helper function that initiates the chain of format calls to parse data
+   *
    * @param response
    *     The http response
    * @param product
    *     The product object
+   * @returns
+   *     Array of parsed responses
    */
   parseResponse (response: string, product: any): Array<Object> {
     const xml = new DOMParser().parseFromString(response, 'text/xml');

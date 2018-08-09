@@ -33,6 +33,7 @@ export class EventService {
 
   /**
    * Update event to be shown
+   *
    * @param eventid
    *     the event id
    */
@@ -59,6 +60,7 @@ export class EventService {
 
   /**
    * Update product to be shown
+   *
    * @param type
    *     type of product
    * @param source
@@ -77,6 +79,7 @@ export class EventService {
   /**
    * Update event to be shown, even if it has been deleted
    * Used by #getEvent when a 409 Conflict (event deleted) response is received
+   *
    * @param eventid
    *     the event id
    */
@@ -92,9 +95,11 @@ export class EventService {
 
   /**
    * Error handler for http requests
+   *
    * @param eventid
    *     the event id being requested added to the resulting error object
    * @returns {any}
+   *     Object with request status properties
    */
   private handleError (eventid: string) {
     return (error: HttpErrorResponse): Observable<any> => {
@@ -109,6 +114,7 @@ export class EventService {
 
   /**
    * Update event observable, and call #updateProduct
+   *
    * @param event
    *     The event object
    */
@@ -119,6 +125,7 @@ export class EventService {
 
   /**
    * Update selected product
+   *
    * @return whether a product was found
    */
   private updateProduct (): void {

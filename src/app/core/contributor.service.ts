@@ -23,7 +23,7 @@ export class ContributorService {
   /**
    * Makes call to get contributors from the environment variable
    */
-  getContributors () {
+  getContributors (): void {
     const url = environment.CONTRIBUTOR_SERVICE;
 
     this.http.get<any>(url).pipe(
@@ -34,12 +34,14 @@ export class ContributorService {
   }
 
   /**
+   *Error handler method to parse request inside pipe
    *
    * @param action
    *     The action that occured
    * @param result
    *     The result of specified action
    * @returns {any}
+   *     Observable with error data
    */
   private handleError<T> (action: string, result?: T) {
     return (error: any): Observable<T> => {

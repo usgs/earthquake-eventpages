@@ -26,10 +26,14 @@ export class FormatterService {
 
 
   /**
+   * Format an angle to add the degrees symbol to it
+   *
    * @param angle
    *     The angle to format
    * @param decimals
    *     The number of decimal places
+   * @returns
+   *     The formatted angle
    */
   angle (angle: any, decimals: number): string {
       if (angle || angle === 0) {
@@ -42,8 +46,10 @@ export class FormatterService {
 
   /**
    * Format a UTC date
+   *
    * @param date
    *     Date to format
+   * @returns date formatted to year-month-day
    */
   date (date: Date): string {
     let year,
@@ -70,15 +76,17 @@ export class FormatterService {
 
   /**
    * Format a date and time
+   *
    * @param date {Number|String|Date}
    *     Date, ISO8601 formatted string, or millisecond epoch timestamp
    * @param minutesOffset {Number} Optional, default 0
    *     UTC offset in minutes. 0 for UTC
    * @param includeMilliseconds {Boolean} Optional, default false
    *     Whether to output milliseconds
-   * @return {String}
+   * @returns
+   *     Formattted date/time
    */
-  dateTime (date, minutesOffset = 0, includeMilliseconds = false) {
+  dateTime (date, minutesOffset = 0, includeMilliseconds = false): string {
     let milliOffset;
 
     if (date === null || typeof date === 'undefined') {
@@ -100,15 +108,17 @@ export class FormatterService {
 
   /**
    * Format a depth
+   *
    * @param depth
    *     Depth to format
    * @param units Optional, default none
    *     Depth units, if any
    * @param error Optional, default none
    *     Depth error, if any
-   * @return {String}
+   * @return
+   *     Depth formatted with uncertainty appended to it
    */
-  depth (depth: number, units?: string, error?: number) {
+  depth (depth: number, units?: string, error?: number): string {
     let number,
         uncertainty;
 
@@ -119,10 +129,13 @@ export class FormatterService {
 
   /**
    * Format a distance (like km or mi)
+   *
    * @param distance
    *     The distance for format.
    * @param units
    *     The units for this distance
+   * @returns
+   *     A distance with units appended to it
    */
   distance (distance: number, units: string): string {
     return this.number(distance, this.distanceDecimals, this.empty, units);
@@ -130,10 +143,13 @@ export class FormatterService {
 
   /**
    * Format a latitude
+   *
    * @param latitude
    *     The latitude
    * @param decimals {number}
    *     The number of decimals to include in the formatted output
+   * @returns
+   *     Latitude with degrees symbol appended
    */
   latitude (latitude: number, decimals = this.locationDecimals): string {
     let latDir,
@@ -155,6 +171,7 @@ export class FormatterService {
    * Left pads the source string with the pad string until the source string
    * is at least `length` in length. If the source length is already greater
    * than or equal to the desired length, the original source is returned
+   *
    * @param source
    *     The string to pad
    * @param length
@@ -162,10 +179,10 @@ export class FormatterService {
    * @param pad
    *     The padding to add to the beginning of the source string until the
    *     desired length is met. Should be a single rendered character
-   * @return {String}
+   * @returns
    *     A string padded out to the desired length with the given pad
    */
-  leftPad (source: string, length: number, pad: string) {
+  leftPad (source: string, length: number, pad: string): string {
     let i,
         padLength,
         padding;
@@ -187,12 +204,15 @@ export class FormatterService {
 
   /**
    * Format a latitude and longitude
+   *
    * @param latitude {Number}
    *     The latitude
    * @param longitude {Number}
    *     The longitude
    * @param decimals {Number} Optional, default this.locationDecimals
    *     The number of decimals to include in the formatted output
+   * @returns
+   *     Coordinates based on lat/long
    */
   location (latitude: number, longitude: number,
       decimals = this.locationDecimals): string {
@@ -202,6 +222,7 @@ export class FormatterService {
 
   /**
    * Format a longitude
+   *
    * @param longitude
    *     The longitude
    * @param decimals
@@ -226,13 +247,15 @@ export class FormatterService {
 
   /**
    * Format a magnitude and magnitude type
+   *
    * @param value
    *        Magnitude value to format
    * @param type
    *        Magnitude type to format with magnitude value (i.e. mw, mww, mb)
-   * @return {String}
+   * @returns
+   *     Formatted magnitude
    */
-  magnitude (value: number, type: string) {
+  magnitude (value: number, type: string): any {
     if (!value && value !== 0) {
       return this.empty;
     }
@@ -242,6 +265,7 @@ export class FormatterService {
 
   /**
    * Format a number
+   *
    * @param value
    *     Number to format
    * @param decimals Optional, default does not round
@@ -250,6 +274,8 @@ export class FormatterService {
    *     Value to return if value is empty.
    * @param units {String} Optional, default none
    *     Units of value
+   * @returns
+   *     Number appended with units
    */
   number (value: number, decimals?: number, empty = this.empty,
       units = ''): string {
@@ -276,8 +302,11 @@ export class FormatterService {
 
   /**
    * Format the review status of a product
+   *
    * @param status
    *        Review status to format. ("reviewed", "official")
+   * @returns
+   *     The status to uppercase
    */
   reviewStatus (status: string): string {
     if (!status) {
@@ -294,6 +323,8 @@ export class FormatterService {
    *     Date to format
    * @param includeMilliseconds {Boolean} Optional, default false
    *     Whether to output milliseconds
+   * @returns
+   *     Date formatted to UTC time in hours:minutes:seconds:milliseconds
    */
   time (date: Date, includeMilliseconds = false): string {
     let hours,
@@ -335,8 +366,11 @@ export class FormatterService {
 
   /**
    * Format a UTC timezone offset
+   *
    * @param offset {Number} Optional, default 0
    *     UTC offset in minutes. 0 for UTC
+   * @returns
+   *     Time zone offset in sign:hours:minutes with sign being +/-
    */
   timezoneOffset (offset = 0): string {
     let hours,
@@ -367,6 +401,7 @@ export class FormatterService {
 
   /**
    * Format an uncertainty
+   *
    * @param error
    *     Uncertainty to format
    * @param decimals Optional, default does not round
@@ -375,6 +410,8 @@ export class FormatterService {
    *     Value to return if error is empty
    * @param units Optional, default none
    *     Units of error
+   * @returns
+   *     Uncertainty prepended with the +/- symbol
    */
   uncertainty (error: number, decimals: number, empty = this.empty,
       units?: string): string {

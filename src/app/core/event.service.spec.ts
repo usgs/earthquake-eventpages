@@ -4,8 +4,8 @@ import {
   HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, getTestBed, inject } from '@angular/core/testing';
 
-import { EventService } from './event.service';
 import { environment } from '../../environments/environment';
+import { EventService } from './event.service';
 
 
 describe('EventService', () => {

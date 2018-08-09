@@ -19,13 +19,12 @@ export class QuakemlService {
   public error: any = null;
 
 
-  constructor (
-    public httpClient: HttpClient
-  ) { }
+  constructor (public httpClient: HttpClient) { }
 
 
   /**
    * Gets the quakeml data from the event product
+   *
    * @param product
    *     The event product
    */
@@ -55,6 +54,7 @@ export class QuakemlService {
 
   /**
    * Error handler for http requests
+   *
    * @returns {any}
    */
   private handleError () {
@@ -66,9 +66,11 @@ export class QuakemlService {
 
   /**
    * Parses xml data to json
+   *
    * @param response
    *     The http response with xml
-   * @returns {any}
+   * @returns
+   *     The parsed response object
    */
   parseResponse (response: string) {
     if (response === null) {

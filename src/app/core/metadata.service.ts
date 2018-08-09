@@ -21,6 +21,7 @@ export class MetadataService {
 
   /**
    * Retreive metadata for a specifc shakemap
+   *
    * @param product
    *     shakemap product json
    */
@@ -50,22 +51,26 @@ export class MetadataService {
 
   /**
    * Handle new instances of metadata
+   *
    * @param metadata
    *     json object
-   * @returns {any}
+   * @returns
+   *     Metadata observable
    */
-  onMetadata (metadata) {
+  onMetadata (metadata): any {
     metadata = this.translate(metadata);
     this.metadata$.next(metadata);
   }
 
   /**
    * Translate old metadata
+   *
    * @param metadata
    *     object containing all product metadata
-   * @returns {any}
+   * @returns
+   *     Array of metadata
    */
-  translate (metadata) {
+  translate (metadata): any {
     // Which objects are not arrays in ShakeMap V3
     const needsTrans = {'output': ['ground_motions', 'map_information'],
                         'processing': ['ground_motion_modules', 'roi']};
@@ -90,11 +95,13 @@ export class MetadataService {
   /**
    * Convert metadata objects to arrays by
    * assigning their key as a 'type' property
+   *
    * @param obj
    *     javascript object
-   * @returns {any[]}
+   * @returns
+   *     Array with all metadata properties
    */
-  obj2Arr (obj) {
+  obj2Arr (obj): any {
     const arr = [];
     for (const item_id of Object.keys(obj)) {
       const item = obj[item_id];
@@ -107,9 +114,10 @@ export class MetadataService {
 
   /**
    * Error handler for http requests.
+   *
    * @returns {any}
    */
-  private handleError () {
+  private handleError (): any {
     return (error: HttpErrorResponse): Observable<any> => {
       this.error = error;
       return of(null);

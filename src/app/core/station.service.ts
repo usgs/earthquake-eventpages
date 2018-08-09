@@ -21,6 +21,7 @@ export class StationService {
 
   /**
    * Retreive a station list for a specifc shakemap
+   *
    * @param product
    *     shakemap product json
    */
@@ -49,10 +50,11 @@ export class StationService {
 
   /**
    * Handle incoming stationlist.json
+   *
    * @param stations
    *     station list geoJSON object
    */
-  onStations (stations) {
+  onStations (stations): void {
     if (stations) {
 
       stations = this.translate(stations);
@@ -65,11 +67,13 @@ export class StationService {
 
   /**
    * Make stationlist.json from older versions compliant
+   *
    * @param stations
    *     station list geoJSON object
-   * @returns {any[]}
+   * @returns
+   *     Stations array
    */
-  translate (stations) {
+  translate (stations): any[] {
     const new_stations: any[] = [];
 
     for (let station of stations.features) {
@@ -85,11 +89,13 @@ export class StationService {
 
   /**
    * Convert string 'NaN' and 'null' to actual null
+   *
    * @param station
    *     The station feature
-   * @returns {any}
+   * @returns
+   *     Station with nan's/nulls formatted to null
    */
-  translateNan (station) {
+  translateNan (station): any {
     for (const item of Object.keys(station.properties)) {
       if ((station.properties[item] === 'null') ||
             (station.properties[item] === 'nan')) {
@@ -102,11 +108,13 @@ export class StationService {
 
 /**
  * Converts amplitude array into object
+ *
  * @param station
  *     The station feature
- * @returns {any}
+ * @returns
+ *     Object with amplitude array props
  */
-  translateAmps (station) {
+  translateAmps (station): any {
     const channels = station.properties.channels;
     const translateNames = {
       'sa(0.3)': 'psa03',
@@ -141,6 +149,7 @@ export class StationService {
 
   /**
    * Error handler for http requests.
+   *
    * @returns {any}
    */
   private handleError () {
