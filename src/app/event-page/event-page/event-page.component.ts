@@ -17,8 +17,7 @@ import { EventService } from '../../core/event.service';
 })
 export class EventPageComponent implements OnInit, OnDestroy {
 
-
-  public paramMapSubscription: Subscription;
+  public subscription = new Subscription();
 
 
   constructor (
@@ -29,14 +28,15 @@ export class EventPageComponent implements OnInit, OnDestroy {
 
 
   ngOnInit () {
-    this.paramMapSubscription =
-        this.route.paramMap.subscribe((paramMap: ParamMap) => {
-          return this.onParamMapChange(paramMap);
-    });
+    this.subscription.add(
+      this.route.paramMap.subscribe((paramMap: ParamMap) => {
+        return this.onParamMapChange(paramMap);
+      })
+    );
   }
 
   ngOnDestroy () {
-    this.paramMapSubscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   /**
