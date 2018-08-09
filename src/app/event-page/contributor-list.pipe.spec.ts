@@ -1,5 +1,6 @@
-import { ContributorListPipe } from './contributor-list.pipe';
 import { Event } from '../event';
+import { ContributorListPipe } from './contributor-list.pipe';
+
 
 describe('ContributorListPipe', () => {
   let details,
@@ -41,7 +42,8 @@ describe('ContributorListPipe', () => {
 
   it('transforms with a detailsMap', () => {
     const result = pipe.transform(event, details);
-    expect(result).toEqual('<li><a href="a-url">A Title</a></li><li><a href="b-url">B Title</a></li>');
+    expect(result).toEqual('<li><a href="a-url">A ' +
+        'Title</a></li><li><a href="b-url">B Title</a></li>');
   });
 
   it('transforms no sources', () => {

@@ -3,10 +3,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { EventPageComponent } from './event-page.component';
-
 import { ContributorService } from '../../core/contributor.service';
 import { EventService } from '../../core/event.service';
+import { EventPageComponent } from './event-page.component';
+
 
 describe('EventPageComponent', () => {
   let fixture: ComponentFixture<EventPageComponent>,
@@ -28,13 +28,15 @@ describe('EventPageComponent', () => {
         EventPageComponent,
 
         MockComponent({selector: 'event-page-header', inputs: ['event']}),
-        MockComponent({selector: 'event-page-footer', inputs: ['event', 'contributors']}),
+        MockComponent({selector: 'event-page-footer',
+            inputs: ['event', 'contributors']}),
         MockComponent({selector: 'event-page-navigation', inputs: ['event']}),
         MockComponent({selector: 'shared-text-product', inputs: ['product']}),
 
         MockComponent({selector: 'app-hazdev-template'}),
         MockComponent({selector: 'app-navigation-group'}),
-        MockComponent({selector: 'app-navigation-item', inputs: ['display', 'navRouterLink']}),
+        MockComponent({selector: 'app-navigation-item',
+            inputs: ['display', 'navRouterLink']}),
         MockComponent({selector: 'mat-nav-list'})
       ],
       imports: [

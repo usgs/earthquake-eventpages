@@ -2,14 +2,27 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { FormatterService } from '../core/formatter.service';
 
+
 @Pipe({
   name: 'eventLocation'
 })
 export class EventLocationPipe implements PipeTransform {
 
+
   constructor (public formatter: FormatterService) { }
 
-  transform(event: any, precision?: number): string {
+
+  /**
+   * Returns the exact location of the event
+   *
+   * @param event
+   *     The event object
+   * @param precision {optional}
+   *     The precision
+   * @returns
+   *     Formatted location
+   */
+  transform (event: any, precision?: number): string {
     let coordinates,
         latitude,
         longitude;
@@ -25,4 +38,5 @@ export class EventLocationPipe implements PipeTransform {
 
     return this.formatter.location(latitude, longitude, precision);
   }
+
 }

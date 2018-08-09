@@ -1,5 +1,6 @@
 import { EventDepthPipe } from './event-depth.pipe';
 
+
 describe('EventDepthPipe', () => {
   let formatterService,
       pipe;

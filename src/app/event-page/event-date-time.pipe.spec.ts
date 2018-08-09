@@ -1,5 +1,6 @@
 import { EventDateTimePipe } from './event-date-time.pipe';
 
+
 describe('EventDateTimePipe', () => {
   let formatterService,
       pipe;

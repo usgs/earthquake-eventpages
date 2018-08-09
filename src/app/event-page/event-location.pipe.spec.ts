@@ -1,5 +1,6 @@
 import { EventLocationPipe } from './event-location.pipe';
 
+
 describe('EventLocationPipe', () => {
   let formatterService,
       pipe;
@@ -19,7 +20,8 @@ describe('EventLocationPipe', () => {
   it('transforms event with coordinates', () => {
     pipe.transform({geometry: {coordinates: [180.0, 90.0]}});
     expect(formatterService.location).toHaveBeenCalled();
-    expect(formatterService.location).toHaveBeenCalledWith(90.0, 180.0, undefined);
+    expect(formatterService.location)
+        .toHaveBeenCalledWith(90.0, 180.0, undefined);
   });
 
   it('transforms event with bad coordinates', () => {

@@ -1,17 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
+
+/**
+ * Shared header component, shows header across all pages
+ *
+ * @param event
+ *     The event object
+ */
 @Component({
   selector: 'event-page-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   @Input() event: any;
-
-  constructor () { }
-
-  ngOnInit () {
-  }
 
 }

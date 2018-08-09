@@ -1,12 +1,25 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { Event } from '../event';
+
 
 @Pipe({
   name: 'contributorList'
 })
 export class ContributorListPipe implements PipeTransform {
 
-  transform(event: Event, detailsMap = []): string {
+
+  /**
+   * Returns a list of contributors from the event data
+   *
+   * @param event
+   *     The event object
+   * @param detailsMap
+   *     The details array filled with html data
+   * @returns
+   *     Contributors list formatted
+   */
+  transform (event: Event, detailsMap = []): string {
     let sources;
 
     try {
