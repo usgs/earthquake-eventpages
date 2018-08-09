@@ -14,8 +14,11 @@ export class EventDateTimePipe implements PipeTransform {
 
   /**
    * Returns an event date time from the event
+   *
    * @param event
    *     The event object
+   * @returns
+   *     New date/time formatted object
    */
   transform (event: any): string {
     let date;

@@ -41,10 +41,11 @@ export class EventPageComponent implements OnInit, OnDestroy {
 
   /**
    * When the query params change, get the new event id
+   *
    * @param paramMap
    *     The url query parameters
    */
-  onParamMapChange (paramMap: ParamMap) {
+  onParamMapChange (paramMap: ParamMap): void {
     // request event
     this.eventService.getEvent(paramMap.get('eventid'));
   }

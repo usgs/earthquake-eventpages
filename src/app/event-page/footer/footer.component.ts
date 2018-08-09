@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
 
-import { ContributorService } from '../../core/contributor.service';
-
 
 /**
  * Shared footer component across all pages
+ *
  * @param event
  *     The event object
  * @param contributors

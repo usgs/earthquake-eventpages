@@ -14,10 +14,13 @@ export class EventDepthPipe implements PipeTransform {
 
   /**
    * Returns the event depth based on the geometry coordinates
+   *
    * @param event
    *     The event object
    * @param precision {optional}
    *     The precision
+   * @returns
+   *     A formatted depth with units appended to it
    */
   transform (event: any, precision?: number): string {
     let depth;

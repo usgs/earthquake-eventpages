@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 
 /**
  * Shared header component, shows header across all pages
+ *
  * @param event
  *     The event object
  */

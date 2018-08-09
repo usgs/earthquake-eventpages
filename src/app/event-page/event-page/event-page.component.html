@@ -1,12 +1,11 @@
 <ng-container *ngIf="this?.eventService?.event$ | async;
-              else noEvent; let event">
+    else noEvent; let event">
   <app-hazdev-template>
     <event-page-header [event]="event"></event-page-header>
 
     <mat-nav-list templateSideNavigation>
       <event-page-navigation
-        class="site-sectionnav"
-        [event]="event"></event-page-navigation>
+          class="site-sectionnav" [event]="event"></event-page-navigation>
     </mat-nav-list>
 
     <ng-container *ngIf="!event?.deleted; else deletedEvent">
@@ -26,8 +25,8 @@
 
 
     <event-page-footer
-      [event]="event"
-      [contributors]="this?.contributorService?.contributors$ | async"
+        [event]="event"
+        [contributors]="this?.contributorService?.contributors$ | async"
     ></event-page-footer>
   </app-hazdev-template>
 </ng-container>

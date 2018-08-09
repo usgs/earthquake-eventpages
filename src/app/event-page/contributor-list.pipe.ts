@@ -11,10 +11,13 @@ export class ContributorListPipe implements PipeTransform {
 
   /**
    * Returns a list of contributors from the event data
+   *
    * @param event
    *     The event object
    * @param detailsMap
    *     The details array filled with html data
+   * @returns
+   *     Contributors list formatted
    */
   transform (event: Event, detailsMap = []): string {
     let sources;

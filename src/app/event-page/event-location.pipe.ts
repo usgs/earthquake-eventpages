@@ -14,10 +14,13 @@ export class EventLocationPipe implements PipeTransform {
 
   /**
    * Returns the exact location of the event
+   *
    * @param event
    *     The event object
    * @param precision {optional}
    *     The precision
+   * @returns
+   *     Formatted location
    */
   transform (event: any, precision?: number): string {
     let coordinates,

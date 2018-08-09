@@ -5,7 +5,8 @@ import { Event } from '../../event';
 
 /**
  * Main shared event page navigation component, shows all links relevant to
- *  the event
+ * the event
+ *
  * @param event
  *     The event object
  */
@@ -22,21 +23,25 @@ export class NavigationComponent {
 
   /**
    * Function to get the kml link from the event object
+   *
    * @param event
    *     The event object
-   * @returns {string}
+   * @returns
+   *     KML link
    */
-  getKmlLink (event: Event) {
+  getKmlLink (event: Event): string {
     return `/earthquakes/feed/v1.0/detail/${event.id}.kml`;
   }
 
   /**
    * Returns boolean to see whether or not the event has all products
+   *
    * @param event
    *     The event object
-   * @returns {boolean}
+   * @returns
+   *     Boolean value of hasImpact
    */
-  hasImpact (event: Event) {
+  hasImpact (event: Event): boolean {
     return event.hasProducts([
       'dyfi',
       'impact-text',
@@ -49,11 +54,13 @@ export class NavigationComponent {
 
   /**
    * Returns boolean to see if the event has all scientific products
+   *
    * @param event
    *     The event object
-   * @returns {boolean}
+   * @returns
+   *     Boolean value of hasScientific
    */
-  hasScientific (event: Event) {
+  hasScientific (event: Event): boolean {
     return event.hasProducts([
       'origin',
       'phase-data',
