@@ -5,19 +5,20 @@ import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 
 
 /**
- * Shakemap PSA03 overlay for shakemap components
+ * Shakemap PSA03 overlay for leaflet map
  */
 const ShakemapPSA03Overlay = ShakemapContoursOverlay.extend({
-
 
   id: 'shakemap-psa03',
   title: 'Shakemap PSA03 Contours',
   legend: null,
 
+
   /**
-   * Init function to build contours
+   * Build leaflet overlay
+   *
    * @param product
-   *     The product from this event
+   *     shakemap product
    */
   initialize: function (product: any) {
     ShakemapContoursOverlay.prototype.initialize.call(this);
@@ -28,7 +29,7 @@ const ShakemapPSA03Overlay = ShakemapContoursOverlay.extend({
   /**
    * Returns the psa03 url from this product, if exists
    * @param product
-   *     The product from this event
+   *     shakemap product
    */
   getUrl: function (product: any) {
     if (product == null) {
@@ -55,6 +56,5 @@ const ShakemapPSA03Overlay = ShakemapContoursOverlay.extend({
   }
 
 });
-
 
 export { ShakemapPSA03Overlay };

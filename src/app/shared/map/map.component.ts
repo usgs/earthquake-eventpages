@@ -5,7 +5,8 @@ import {
   ElementRef,
   Input,
   ViewChild,
-  ViewEncapsulation } from '@angular/core';
+  ViewEncapsulation
+} from '@angular/core';
 
 import * as L from 'leaflet';
 
@@ -14,6 +15,7 @@ import { LegendControl } from '../map-control/legend-control';
 
 /**
  * Shared map component for event, shows overall area and mmi contours
+ *
  * @param baselayer
  *     Map base layer
  * @param showAttributionControl
@@ -26,20 +28,14 @@ import { LegendControl } from '../map-control/legend-control';
 })
 export class MapComponent implements AfterViewInit {
 
-
-  @Input() baselayer = 'Topographic';
-  @Input() showAttributionControl = true;
-
-  @ViewChild('mapWrapper')
-  mapWrapper: ElementRef;
-
   // value of bounds property
-  private _bounds: Array<Array<number>> = null;
+  public _bounds: Array<Array<number>> = null;
   // value of overlays property
-  private _overlays: Array<L.Layer> = [];
-  private _showLayersControl = false;
-  private _showLegendControl = false;
-  private _showScaleControl = false;
+  public _overlays: Array<L.Layer> = [];
+  public _interactive = false;
+  public _showLayersControl = false;
+  public _showLegendControl = false;
+  public _showScaleControl = false;
   // overlays currently part of the layers control
   public overlaysAdded: Array<L.Layer> = [];
   public map: L.Map;
@@ -47,7 +43,15 @@ export class MapComponent implements AfterViewInit {
   public legendControl: L.Control;
   public scaleControl: L.Control.Scale;
   public zoomControl: L.Control.Zoom;
-  private _interactive = false;
+
+  @Input()
+  baselayer = 'Topographic';
+
+  @Input()
+  showAttributionControl: Boolean = true;
+
+  @ViewChild('mapWrapper')
+  mapWrapper: ElementRef;
 
 
   constructor (private httpClient: HttpClient) { }
@@ -132,19 +136,8 @@ export class MapComponent implements AfterViewInit {
   }
 
   /**
-   * Setter for the scaleControls boolean
-   * @param showScaleControl
-   *     The boolean value, show scale controls?
-   */
-  @Input()
-  set showScaleControl (showScaleControl: boolean) {
-    this._showScaleControl = showScaleControl;
-
-    this.updateControls();
-  }
-
-  /**
-   * Setter, to set map bounds
+   * Set map bounds
+   *
    * @param bounds
    *     Array of bounds for map
    */
@@ -155,7 +148,17 @@ export class MapComponent implements AfterViewInit {
   }
 
   /**
-   * Setter for interactive boolean
+   * Get map bounds
+   *
+   * @return {Array<number>}
+   */
+  get bounds(): Array<Array<number>> {
+    return this._bounds;
+  }
+
+  /**
+   * Set whether or not to show an interactive map
+   *
    * @param interactive
    *     Is map interactive?
    */
@@ -168,7 +171,17 @@ export class MapComponent implements AfterViewInit {
   }
 
   /**
-   * Setter for map overlays
+   * Get the _interactive value
+   *
+   * @return {boolean}
+   */
+  get interactive(): boolean {
+    return this._interactive;
+  }
+
+  /**
+   * Set map overlays
+   *
    * @param overlays
    *     Array of different map overlays
    */
@@ -181,7 +194,39 @@ export class MapComponent implements AfterViewInit {
   }
 
   /**
-   * Setter for whether or not to show legend control
+   * Get map overlays
+   *
+   * @return {Array<L.layer>}
+   */
+  get overlays(): Array<L.Layer> {
+    return this._overlays;
+  }
+
+  /**
+   * Set whether or not to show layers control
+   *
+   * @param showLayersControl
+   *     Show layers control?
+   */
+  @Input()
+  set showLayersControl(showLayersControl: boolean) {
+    this._showLayersControl = showLayersControl;
+
+    this.updateControls();
+  }
+
+  /**
+   * Get the _showLayersControl value
+   *
+   * @return {boolean}
+   */
+  get showLayersControl(): boolean {
+    return this._showLayersControl;
+  }
+
+  /**
+   * Set whether or not to show legend control
+   *
    * @param showLegendControl
    *     Show the legend control?
    */
@@ -193,68 +238,40 @@ export class MapComponent implements AfterViewInit {
   }
 
   /**
-   * Setter for boolean layers control
-   * @param showLayersControl
-   *     Show layers control?
-   */
-  @Input()
-  set showLayersControl (showLayersControl: boolean) {
-    this._showLayersControl = showLayersControl;
-
-    this.updateControls();
-  }
-
-  /**
-   * Getter, to get map bounds
-   * @returns {Array<number>}
-   */
-  get bounds (): Array<Array<number>> {
-    return this._bounds;
-  }
-
-  /**
-   * Getter for interactive boolean
-   * @returns {boolean}
-   */
-  get interactive (): boolean {
-    return this._interactive;
-  }
-
-  /**
-   * Getter for map overlays
-   * @returns {Array<L.layer>}
-   */
-  get overlays (): Array<L.Layer> {
-    return this._overlays;
-  }
-
-  /**
-   * Getter for layers control boolean
-   * @returns {boolean}
-   */
-  get showLayersControl (): boolean {
-    return this._showLayersControl;
-  }
-
-  /**
-   * Getter for the showLegendControl boolean
-   * @returns {boolean}
+   * Get the showLegendControl value
+   *
+   * @return {boolean}
    */
   get showLegendControl(): boolean {
     return this._showLegendControl;
   }
 
   /**
-   * Getter for showScaleControl boolean
-   * @returns {boolean}
+   * Set whether or not to show scale control
+   *
+   * @param showScaleControl
+   *     The boolean value, show scale controls?
+   */
+  @Input()
+  set showScaleControl(showScaleControl: boolean) {
+    this._showScaleControl = showScaleControl;
+
+    this.updateControls();
+  }
+
+  /**
+   * Get the showScaleControl
+   *
+   * @return {boolean}
    */
   get showScaleControl (): boolean {
     return this._showScaleControl;
   }
 
   /**
-   * Getter for the overlay bounds
-   * @returns {any}
+   * Get the overlay bounds
+   *
+   * @return {any}
    */
   getOverlayBounds () {
     let bounds = null;
@@ -274,7 +291,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   /**
-   * Setter for overlay bounds
+   * Set map to match overlay bounds
    */
   setBounds () {
     if (!this.map) {
@@ -302,7 +319,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   /**
-   * Function to update/add map controls
+   * Update/add map controls
    */
   updateControls () {
     if (!this.map) {
@@ -335,7 +352,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   /**
-   * Function to add interactive options to map
+   * Make the map interactive
    */
   updateInteractive () {
     if (!this.map) {
@@ -366,7 +383,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   /**
-   * Sets legend overlays
+   * Update legend control
    */
   updateLegend () {
     if (!this.legendControl) {
@@ -377,7 +394,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   /**
-   * Updates legend overlays
+   * Update map overlays
    */
   updateOverlays () {
     // // check if layer control has been created

@@ -4,19 +4,20 @@ import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 
 
 /**
- * Shakemap PGA overlays for shakemap
+ * Shakemap PGA overlay for leaflet map
  */
 const ShakemapPGAOverlay = ShakemapContoursOverlay.extend({
-
 
   id: 'shakemap-pga',
   title: 'Shakemap PGA Contours',
   legend: null,
 
+
   /**
-   * Init function to build the pga overlay
+   * Build leaflet overlay
+   *
    * @param product
-   *     The product from this event
+   *     shakemap product
    */
   initialize: function (product: any) {
     ShakemapContoursOverlay.prototype.initialize.call(this);
@@ -26,8 +27,9 @@ const ShakemapPGAOverlay = ShakemapContoursOverlay.extend({
 
   /**
    * Returns the cont_pga url if exists from the product
+   *
    * @param product
-   *     The product from this event
+   *     shakemap product
    */
   getUrl: function (product: any) {
     if (product == null) {
@@ -40,6 +42,7 @@ const ShakemapPGAOverlay = ShakemapContoursOverlay.extend({
 
   /**
    * Creates/formats a label for the product feature
+   *
    * @param feature
    *     The feature from this product
    */

@@ -4,19 +4,20 @@ import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
 
 /**
- * Builds intensity overlay for shakemap
+ * Shakemaop intensity overlay for leaflet map
  */
 const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
-
 
   id: 'shakemap-intensity',
   title: 'Shakemap MMI Contours',
   legend: null,
 
+
   /**
-   * Init function to create the geojson overlay
+   * Build leaflet overlay
+   *
    * @param product
-   *     The product from this event
+   *     shakemap product
    */
   initialize: function (product: any) {
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
@@ -31,8 +32,9 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Returns the cont_mi url from the product, if exists
+   *
    * @param product
-   *     The product from this event
+   *     shakemap product
    */
   getUrl: function (product: any) {
     if (product == null) {
@@ -45,6 +47,7 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Binds popups the the feature layer
+   *
    * @param feature
    *     The feature from this product
    * @param layer
@@ -59,6 +62,7 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Sets and returns a default line style
+   *
    * @param feature
    *     The feature from this product
    */
@@ -74,6 +78,5 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
   }
 
 });
-
 
 export { ShakemapIntensityOverlay };

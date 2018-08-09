@@ -2,9 +2,10 @@ import * as L from 'leaflet';
 
 
 /**
- * Landslide overlay for map
+ * Ground failure landslide overlay for leaflet map
  */
 const GroundFailureLandslideOverlay = L.ImageOverlay.extend({
+
   id: 'ground-failure-landslide',
   enabled: false,
   title: 'Landslide Estimate',
@@ -13,9 +14,10 @@ const GroundFailureLandslideOverlay = L.ImageOverlay.extend({
 
 
   /**
-   * Init function builds the overlay
+   * Build leaflet overlay
+   *
    * @param product
-   *     The product from this event
+   *     ground-failure product
    */
   initialize: function (product: any) {
 
@@ -62,7 +64,4 @@ const GroundFailureLandslideOverlay = L.ImageOverlay.extend({
   }
 });
 
-
 export { GroundFailureLandslideOverlay };
-
-

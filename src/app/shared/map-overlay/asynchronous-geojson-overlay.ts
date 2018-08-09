@@ -40,6 +40,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
   // persistent styles (allows alternating styles in geoJSON features)
   styles: {},
 
+
   /**
    * Init function
    */
@@ -76,6 +77,9 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
     return of(null);
   },
 
+  /**
+   * Fetch data, and ensure it is parsed into geojson
+   */
   loadData: function () {
     if (!this.url || !this.httpClient) {
       this.data = null;

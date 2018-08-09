@@ -6,14 +6,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class RoundDownPipe implements PipeTransform {
 
-
   /**
    * Rounds a number down to x significant digits
+   *
    * @param value
    *     The value to change
    * @param significant
    *     Number of significant digits
+   *
    * @returns {any}
+   *     rounded number
    */
   transform (value: number, significant: number): any {
     let d,

@@ -9,18 +9,19 @@ import { DegreesPipe } from './degrees.pipe';
 })
 export class UnitsPipe implements PipeTransform {
 
-
   constructor (public formatterService: FormatterService) { }
 
 
   /**
-   * Present units correctly
+   * Format nuumber with units
+   *
    * @param value
    *     Number to format.
    * @param units
    *     Units to describe the number.
    *
    * @return { String | null }
+   *     number with units
    */
   transform (
     value: number | string,

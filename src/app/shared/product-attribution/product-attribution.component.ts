@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 
 
 /**
- * ProductAttributionComponent, the main component for showing product
- * attribution
+ * The main component for showing product attribution
+ *
  * @param product
  *     The current product
  */
@@ -13,7 +13,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./product-attribution.component.scss']
 })
 export class ProductAttributionComponent {
-
 
   @Input() product: any;
 

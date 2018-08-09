@@ -3,8 +3,9 @@ import { Component, Input } from '@angular/core';
 
 /**
  * Mmi Component for all magnitudes across pages
+ *
  * @param bubble
- *     The boolean value of bubble
+ *     Whether or not to display the mmi bubble
  * @param intensity
  *     The magnitude/intensity
  * @param value
@@ -16,7 +17,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./mmi.component.scss']
 })
 export class MmiComponent {
-
 
   @Input()
   public bubble = false;

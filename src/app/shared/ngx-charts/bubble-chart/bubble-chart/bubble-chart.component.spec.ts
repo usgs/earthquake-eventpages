@@ -4,6 +4,7 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { BubbleChartComponent } from './bubble-chart.component';
 
+
 describe('BubbleChartComponent', () => {
   let component: BubbleChartComponent;
   let fixture: ComponentFixture<BubbleChartComponent>;

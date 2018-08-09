@@ -1,6 +1,5 @@
 'use strict';
 
-
 // static methods that operate on arrays
 let __add,
     __angle,
@@ -28,6 +27,7 @@ let __add,
  *        the second vector.
  * @return {Array<Number>}
  *         result of addition.
+ *
  * @throws {Error} when vectors are different lengths.
  */
 __add = function (v1: Array<number>, v2: Array<number>): Array<number> {
@@ -51,6 +51,7 @@ __add = function (v1: Array<number>, v2: Array<number>): Array<number> {
  *        the first vector.
  * @param v2 {Array<Number>}
  *        the second vector.
+ *
  * @return {Number}
  *         angle between vectors in radians.
  */
@@ -88,6 +89,7 @@ __azimuth = function (v1: Array<number>): number {
  *        the first vector.
  * @param v2 {Array<Number>}
  *        the second vector.
+ *
  * @return {Array<Number>}
  *         the 3 dimensional cross product.
  *         the resulting vector follows the right-hand rule: if the fingers on
@@ -112,6 +114,7 @@ __cross = function (v1: Array<number>, v2: Array<number>): Array<number> {
  *        the first vector.
  * @param v2 {Array<Number>}
  *        the second vector.
+ *
  * @return {Number}
  *         the dot product.
  */
@@ -132,6 +135,7 @@ __dot = function (v1: Array<number>, v2: Array<number>): number {
  *        the first vector.
  * @param v2 {Array<Number>}
  *        the second vector.
+ *
  * @return {Boolean}
  *         true if vectors are same length and all elements are equal.
  */
@@ -153,6 +157,7 @@ __equals = function (v1: Array<number>, v2: Array<number>): boolean {
  *
  * @param v1 {Array<Number>}
  *        vector.
+ *
  * @return {Number}
  *         magnitude of vector.
  */
@@ -173,6 +178,7 @@ __magnitude = function (v1: Array<number>): number {
  *        vector to multiply.
  * @param n {Number}
  *        number to multiply by.
+ *
  * @return {Array<Number}
  *         result of multiplication.
  */
@@ -192,6 +198,7 @@ __multiply = function (v1: Array<number>, n: number): Array<number> {
  *
  * @param v {Array<Number>}
  *        the vector.
+ *
  * @return {Number}
  *         angle from plane z=0 to vector.
  *         angle is positive when z > 0, negative when z < 0.
@@ -304,8 +311,10 @@ __rotate = function (v1: Array<number>, axis: Array<number>, theta: number, orig
  *        the first vector.
  * @param v2 {Array<Number>}
  *        the vector to subtract.
+ *
  * @return {Array<Number>}
  *         result of subtraction.
+ *
  * @throws {Error} when vectors are different lengths.
  */
 __subtract = function (v1: Array<number>, v2: Array<number>): Array<number> {
@@ -329,9 +338,11 @@ __subtract = function (v1: Array<number>, v2: Array<number>): Array<number> {
  *
  * @param v1 {Array<Number>}
  *        the vector.
+ *
+ * @throws {Error} if vector magnitude is 0.
+ *
  * @return {Array<Number>}
  *         vector converted to length 1.
- * @throws {Error} if vector magnitude is 0.
  */
 __unit = function (v1: Array<number>): Array<number> {
   const mag = __magnitude(v1);
@@ -349,6 +360,7 @@ __unit = function (v1: Array<number>): Array<number> {
  * @param value {Number}
  *        default undefined.
  *        when defined, set x component.
+ *
  * @return {Number}
  *         the x component.
  */
@@ -367,6 +379,7 @@ __x = function (v: Array<number>, value?: number): number {
  * @param value {Number}
  *        default undefined.
  *        when defined, set y component.
+ *
  * @return {Number}
  *         the y component.
  */
@@ -385,6 +398,7 @@ __y = function (v: Array<number>, value: number): number {
  * @param value {Number}
  *        default undefined.
  *        when defined, set z component.
+ *
  * @return {Number}
  *         the z component.
  */
@@ -468,6 +482,7 @@ export class Vector {
    *
    * @param that {Vector|Array<Number>}
    *        the vector to cross.
+   *
    * @return {Vector} result of the cross product.
    */
   cross (that: Vector|Array<number>): Vector {
@@ -481,6 +496,7 @@ export class Vector {
    *
    * @param that {Vector|Array<Number>}
    *        vector to dot.
+   *
    * @return {Number} result of dot product.
    */
   dot (that: Vector|Array<number>): number {
@@ -493,6 +509,7 @@ export class Vector {
    *
    * @param that {Vector|Array<Number>}
    *        vector to compare.
+   *
    * @return {Boolean} true if equal, false otherwise.
    */
   equals (that: Vector|Array<number>): boolean {
@@ -515,6 +532,7 @@ export class Vector {
    *
    * @param n {Number}
    *        number to multiply.
+   *
    * @return {Vector} result of multiplication.
    */
   multiply (n: number): Vector {
@@ -542,6 +560,7 @@ export class Vector {
    *        angle of rotation in radians.
    * @param origin {Vector|Array<Number>}
    *        origin of axis of rotation.
+   *
    * @return {Vector} result of rotation.
    */
   rotate (axis: Vector|Array<number>, theta: number, origin: Vector|Array<number> = [0, 0, 0]): Vector {
@@ -556,6 +575,7 @@ export class Vector {
    *
    * @param that {Vector|Array<Number>}
    *        vector to subtract.
+   *
    * @return {Vector} result of subtraction.
    */
   subtract (that: Vector|Array<number>): Vector {
@@ -586,6 +606,7 @@ export class Vector {
    *
    * @param value {Number}
    *        when defined, set x component to value.
+   *
    * @return {Number} x component value.
    */
   x (value?: number): number {
@@ -597,6 +618,7 @@ export class Vector {
    *
    * @param value {Number}
    *        when defined, set y component to value.
+   *
    * @return {Number} y component value.
    */
   y (value?: number): number {
@@ -608,6 +630,7 @@ export class Vector {
    *
    * @param value {Number}
    *        when defined, set z component to value.
+   *
    * @return {Number} z component value.
    */
   z (value?: number): number {

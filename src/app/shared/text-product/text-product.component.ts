@@ -1,13 +1,14 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 
-import { BehaviorSubject ,  of ,  Observable } from 'rxjs';
+import { BehaviorSubject, of, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 
 /**
  * Shared text product component
- * @params contentPath
+ *
+ * @param contentPath
  *     The path to content to render
  */
 @Component({
@@ -16,7 +17,6 @@ import { catchError } from 'rxjs/operators';
   styleUrls: ['./text-product.component.scss']
 })
 export class TextProductComponent {
-
 
   public _product: any;
   public content = new BehaviorSubject<any>(null);
@@ -30,26 +30,8 @@ export class TextProductComponent {
 
 
   /**
-   * Product setter
-   * @param product
-   *     The product to set
-   */
-  @Input() set product (product) {
-    this._product = product;
-    this.getContent();
-  }
-
-  /**
-   * Product getter
-   * @returns _product {any}
-   *     The product object
-   */
-  get product () {
-    return this._product;
-  }
-
-  /**
-   * Product contents getter
+   * fetch text-product and get contents
+   *
    * @returns {of | null}
    */
   getContent () {
@@ -87,9 +69,34 @@ export class TextProductComponent {
   }
 
   /**
-   * Helper method to turn relative paths into absolute
+   * Set text-product and call getContent
+   *
+   * @param product
+   *     text-product product
+   */
+  @Input() set product(product) {
+    this._product = product;
+    this.getContent();
+  }
+
+  /**
+   * Get text-product
+   *
+   * @returns
+   *     text-product product
+   */
+  get product() {
+    return this._product;
+  }
+
+  /**
+   * Helper method to turn relative paths into absolute paths in
+   * text-product text.
+   *
    * @param text
-   * @returns {string}
+   *
+   * @return {string}
+   *     formatted text
    */
   replaceRelativePaths (text: string) {
     const product = this.product || {};

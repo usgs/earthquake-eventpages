@@ -1,6 +1,5 @@
 <ng-container *ngIf="productType | sharedSummaryLink:event as summaryLink">
-  <small>
-    <a [routerLink]="'/' + event.id + summaryLink.url">{{summaryLink.text}}</a>
-    <br/>
-  </small>
+  <a [routerLink]="'/' + event.id + summaryLink.url">
+    {{summaryLink.text}}
+  </a>
 </ng-container>

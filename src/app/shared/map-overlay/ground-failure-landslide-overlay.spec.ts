@@ -1,7 +1,8 @@
 import * as L from 'leaflet';
 
 import {
-  GroundFailureLandslideOverlay } from './ground-failure-landslide-overlay';
+  GroundFailureLandslideOverlay
+} from './ground-failure-landslide-overlay';
 
 
 describe('GroundFailureLandslideOverlay', () => {

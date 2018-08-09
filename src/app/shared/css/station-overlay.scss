@@ -81,10 +81,9 @@
   border-bottom-color: $mmiXII !important;
 }
 
-.leaflet-popup shakemap-station dl.description-table {
+.leaflet-popup shakemap-station {
 
-  @media screen and (min-width: 300px) {
-
+   dl.description-table {
     /* 24px column gaps */
     > dt {
       flex: 1 40%;
@@ -100,12 +99,20 @@
       padding: 4px 6px 4px 3px;
     }
   }
-}
 
-.leaflet-popup shakemap-station .mat-expansion-panel-body {
-  padding: 0 4px 2px;
-}
+  mat-header-cell,
+  mat-cell {
 
-.leaflet-popup shakemap-station h3 {
-  margin: 5px 5px 0;
+    &:first-child {
+      padding-left: 4px;
+    }
+    &:last-child {
+      padding-right: 4px;
+    }
+  }
+
+  .mat-cell {
+    font-size: 0.88em;
+  }
+
 }

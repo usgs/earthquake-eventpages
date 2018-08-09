@@ -1,21 +1,25 @@
 import {
   Component,
   Input,
-  ChangeDetectionStrategy } from '@angular/core';
+  ChangeDetectionStrategy
+} from '@angular/core';
 import {
   trigger,
   style,
   animate,
-  transition } from '@angular/animations';
+  transition
+} from '@angular/animations';
 
-import { BubbleSeriesComponent
-  as SwimlaneBubbleSeries } from '@swimlane/ngx-charts';
-import { formatLabel } from '@swimlane/ngx-charts';
+import {
+  BubbleSeriesComponent as SwimlaneBubbleSeries,
+  formatLabel
+} from '@swimlane/ngx-charts';
 import { curveLinear } from 'd3-shape';
 
 
 /**
  * Bubble series component for ngx chart
+ *
  * @param curve
  *     Linear curve of the bubble series
  * @param xDomain
@@ -39,10 +43,8 @@ import { curveLinear } from 'd3-shape';
 })
 export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
 
-
   @Input() curve: any = curveLinear;
   @Input() xDomain = [0, 0];
-
 
 
   /**

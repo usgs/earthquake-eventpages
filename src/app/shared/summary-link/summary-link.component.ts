@@ -2,7 +2,8 @@ import { Component, Input } from '@angular/core';
 
 
 /**
- * Summary link component, returns a link to event/product summary via pipe
+ * Creates a return link for a product to the overview/impact/technical
+ *
  * @param event
  *     The event object
  * @param productType

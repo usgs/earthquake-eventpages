@@ -1,16 +1,22 @@
-.details {
-  margin: 20px 0 20px 0;
+:host {
+  display: block;
+  font-size: 17px;
+  max-width: 800px;
 }
 
 .summary {
   align-items: center;
   display: flex;
+  font-size: 0.88em;
   margin: 20px 0 20px 0;
-}
 
-.summary * {
-  display: inline-block;
-  margin: 5px 30px 5px 10px;
+  .summary-item {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin: 0 0.5em;
+    text-align: center;
+  }
 }
 
 .flag {

@@ -17,14 +17,16 @@ import { ShakemapStationsOverlay } from './map-overlay/shakemap-stations-overlay
 })
 export class ShakemapOverlaysPipe implements PipeTransform {
 
-
   /**
-   * Builds a shakemap overlay array with various layers
+   * Get all shakemap overlays
+   *
    * @param product
-   *     The product
+   *     Shakemap product
    * @param enabled
-   *     The overlay array
+   *     Whether or not to enable the layers
+   *
    * @returns {Array<L.Layer>}
+   *     shakemap overlay
    */
   transform (product: any, enabled: string[] = []): Array<L.Layer> {
     let overlays = [];

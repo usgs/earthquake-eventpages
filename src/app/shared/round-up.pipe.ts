@@ -6,14 +6,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class RoundUpPipe implements PipeTransform {
 
-
   /**
    * Rounds up a number to x significant digits
+   *
    * @param value
    *     The value to round up
    * @param significant
    *     The number of significant decimal places
+   *
    * @returns {any}
+   *     rounded number
    */
   transform (value: number, significant: number): any {
     let d,

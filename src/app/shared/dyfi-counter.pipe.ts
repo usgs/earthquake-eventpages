@@ -8,17 +8,18 @@ import { FormatterService } from '../core/formatter.service';
 })
 export class DyfiCounterPipe implements PipeTransform {
 
-
   constructor (public formatterService: FormatterService) { }
 
 
   /**
    * Returns the dyfi counter values/numbers for displaying in pin
+   *
    * @param product
    *     Type of event product
    * @param padding
    *     Amount of padding
-   * @returns {Array<string>}
+   *
+   * @return {Array<string>}
    */
   transform (product: any, padding: number): Array<string> {
     let formatted,
@@ -26,9 +27,10 @@ export class DyfiCounterPipe implements PipeTransform {
 
     try {
       formatted = (
-        product.properties['num-responses'] ||
-        product.properties.numResp ||
-        0).toString();
+          product.properties['num-responses'] ||
+          product.properties.numResp ||
+          0
+        ).toString();
     } catch {
       formatted = '0';
     }

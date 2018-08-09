@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 
 /**
  * Component used to share a product among elements
+ *
  * @param product
  *     The product from this event
  */
@@ -12,7 +13,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./link-product.component.scss']
 })
 export class LinkProductComponent {
-
 
   @Input() product: any;
 

@@ -24,13 +24,16 @@ describe('StationComponent', () => {
       declarations: [
         StationComponent,
 
+        MockComponent({selector: 'shared-mmi',
+            inputs: ['bubble', 'intensity']}),
+        MockComponent({selector: 'shared-bubble',
+            inputs: ['name', 'title']}),
+        MockComponent({selector: 'shared-station-flag',
+            inputs: ['flag']}),
+
         MockPipe('sharedDegrees'),
         MockPipe('sharedNumber'),
-        MockPipe('sharedLocation'),
-        MockComponent({selector: 'shared-mmi', inputs: ['bubble',
-        'intensity']}),
-        MockComponent({selector: 'shared-bubble', inputs: ['name', 'title']}),
-        MockComponent({selector: 'shared-station-flag', inputs: ['flag']})
+        MockPipe('sharedLocation')
       ]
     })
     .compileComponents();

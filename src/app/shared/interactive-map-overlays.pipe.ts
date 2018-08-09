@@ -16,7 +16,6 @@ import { LandscanPopulationOverlay } from './map-overlay/landscan-population-ove
 })
 export class InteractiveMapOverlaysPipe implements PipeTransform {
 
-
   public defaultOverlays: any = {
     epicenter: true,
     'shakemap-intensity': true
@@ -35,12 +34,15 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
 
 
   /**
-   * Get overlay for a specific event
+   * Add overlays to the map
+   *
    * @param event
    *    Earthquake event to generate layers for
    * @param params Optional
    *    Can turn on specific layers with {layerid: 'true'}
+   *
    * @return {any}
+   *    Array of overlays added to the map
    */
   transform (event: Event, params: ParamMap = null): any {
     if (this.lastEvent !== event) {
@@ -68,14 +70,16 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
   }
 
   /**
-   * Returns cache overlay
+   * Returns overlays for a specfic product type
+   *
    * @param event
    *     The event
    * @param params
-   *     Params used to get the product
+   *     Query string parameters
    * @param type
    *     Type of product
-   * @returns {Array<L.Layer>}
+   *
+   * @return {Array<L.Layer>}
    */
   getOverlays (event: Event, params: ParamMap, type: string): Array<L.Layer> {
     const product = this.getProduct(event, params, type);
@@ -92,14 +96,17 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
   }
 
   /**
-   * Returns product based on event input
+   * Get product based on source, code, type
+   *
    * @param event
    *     The event
    * @param params
-   *     The params used to get product
+   *     Query string parameters
    * @param type
    *     The type of product
-   * @returns {any}
+   *
+   * @return {any}
+   *     matching product
    */
   getProduct (event: Event, params: ParamMap, type: string): any {
     // get product
@@ -113,11 +120,13 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
   }
 
   /**
-   * Sets the overlay to the overlay id
+   * Updates the visible overlays on the map based on
+   * the query string parameters
+   *
    * @param overlays
-   *     Array of map overlays
+   *     Map overlays
    * @param params
-   *     Parameters used to get the overlay id
+   *     Query string parameters
    */
   setEnabled (overlays: Array<L.Layer>, params: ParamMap) {
     overlays.forEach((overlay) => {

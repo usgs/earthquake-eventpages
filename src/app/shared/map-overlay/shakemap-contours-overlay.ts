@@ -4,24 +4,24 @@ import * as L from 'leaflet';
 
 
 /**
- * GEOJson overlay for shakemap
+ * Shakemap contours overlay for leaflet map
  */
 const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
-
 
   id: 'shakemap-contour',
   title: 'Shakemap Contour',
   legend: null,
   _count: 0,
 
+
   /**
-   * Init function to build geojson overlay
+   * Build leaflet overlay
+   *
    * @param product
    *     The product from this event
    */
   initialize: function (product: any) {
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
-
   },
 
   /**
@@ -34,6 +34,7 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Generates label content that will be displayed inline with the contour
+   *
    * @param feature
    *     The feature from the product
    */
@@ -44,6 +45,7 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Generates angle for countour overlay
+   *
    * @param point1
    *     X point to generate angle
    * @param point2
@@ -63,6 +65,7 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Generates a marker for the contours overlay and adds the layer
+   *
    * @param feature
    *     The feature from the product
    * @param layer {optional}
@@ -102,6 +105,7 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Sets line style for the overlay
+   *
    * @param feature
    *     The feature from this product
    */
@@ -118,6 +122,5 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
   }
 
 });
-
 
 export { ShakemapContoursOverlay };

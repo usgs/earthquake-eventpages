@@ -3,21 +3,19 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Tensor } from './beachball/tensor';
 
 
-/**
- * Shared Tensor pipe, returns the tensor object from the product
- * @returns {any}
- */
 @Pipe({
   name: 'sharedTensor'
 })
 export class TensorPipe implements PipeTransform {
 
-
   /**
-   * Returns tensor from product
+   * Gets tensor from the product
+   *
    * @param product
-   *     The product
-   * @returns {any | null}
+   *     The moment-tensor | focal-mechanism product
+   *
+   * @return {any | null}
+   *     tensor object
    */
   transform (product: any): any | null {
     if (!product) {

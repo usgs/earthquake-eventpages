@@ -2,9 +2,10 @@ import * as L from 'leaflet';
 
 
 /**
- * Ground failure overlay for the leaflet map
+ * Ground failure liquefaction overlay for the leaflet map
  */
 const GroundFailureLiquefactionOverlay = L.ImageOverlay.extend({
+
   id: 'ground-failure-liquefaction',
   enabled: false,
   title: 'Liquefaction Estimate',
@@ -13,9 +14,10 @@ const GroundFailureLiquefactionOverlay = L.ImageOverlay.extend({
 
 
   /**
-   * Init function to set up bounds and legend for the leaflet map
+   * Build leaflet overlay
+   *
    * @param product
-   *     The product from this event
+   *     ground-failure product
    */
   initialize: function (product: any) {
 
@@ -62,7 +64,4 @@ const GroundFailureLiquefactionOverlay = L.ImageOverlay.extend({
   }
 });
 
-
 export { GroundFailureLiquefactionOverlay };
-
-
