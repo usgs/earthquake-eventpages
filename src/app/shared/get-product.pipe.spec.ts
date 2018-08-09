@@ -1,5 +1,6 @@
-import { GetProductPipe } from './get-product.pipe';
 import { Event } from '../event';
+import { GetProductPipe } from './get-product.pipe';
+
 
 describe('GetProductPipe', () => {
   it('create an instance', () => {
@@ -20,7 +21,8 @@ describe('GetProductPipe', () => {
     spyOn(event, 'getProduct').and.returnValue(product);
 
     expect(pipe.transform(event, 'test type')).toBe(product);
-    expect(event.getProduct).toHaveBeenCalledWith('test type', undefined, undefined, undefined);
+    expect(event.getProduct)
+      .toHaveBeenCalledWith('test type', undefined, undefined, undefined);
   });
 
   it('calls event getProduct with correct arguments', () => {
@@ -30,7 +32,9 @@ describe('GetProductPipe', () => {
 
     spyOn(event, 'getProduct').and.returnValue(product);
 
-    expect(pipe.transform(event, 'test type', 'test source', 'test code', 1234)).toBe(product);
-    expect(event.getProduct).toHaveBeenCalledWith('test type', 'test source', 'test code', 1234);
+    expect(pipe.transform(event, 'test type', 'test source', 'test code', 1234))
+      .toBe(product);
+    expect(event.getProduct)
+      .toHaveBeenCalledWith('test type', 'test source', 'test code', 1234);
   });
 });

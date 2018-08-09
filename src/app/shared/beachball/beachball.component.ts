@@ -2,24 +2,36 @@ import {
   Component,
   ElementRef,
   OnChanges,
-  OnInit,
   Input,
   ViewChild
 } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
-import { Tensor } from './tensor';
+
 import { Beachball } from './beachball';
+import { Tensor } from './tensor';
 
 
+/**
+ * The beachball component
+ * @param tensor
+ *     The moment tensor object
+ * @param fillColor
+ *     The fill color of the beachball
+ * @param labelAxes
+ *     Boolean for whether or not axes should be labeled
+ * @param labelPlanes
+ *     Boolean for whether or not planes should be labeled
+ * @param size
+ *     Size, in pixels, of the diameter of the beachball
+ */
 @Component({
   selector: 'shared-beachball',
   templateUrl: './beachball.component.html',
-  styleUrls: ['./beachball.component.css']
+  styleUrls: ['./beachball.component.scss']
 })
-export class BeachballComponent implements OnInit, OnChanges {
+export class BeachballComponent implements OnChanges {
 
-  public readonly tensor$ = new BehaviorSubject<Tensor>(null);
 
   @Input() tensor: Tensor;
   @Input() fillColor = '#ddd';
@@ -29,10 +41,8 @@ export class BeachballComponent implements OnInit, OnChanges {
 
   @ViewChild('beachball') elementRef: ElementRef;
 
-  constructor () { }
+  public readonly tensor$ = new BehaviorSubject<Tensor>(null);
 
-  ngOnInit () {
-  }
 
   ngOnChanges () {
     if (!this.tensor) {

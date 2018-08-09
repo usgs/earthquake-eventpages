@@ -1,5 +1,5 @@
 import { UnitsPipe } from './units.pipe';
-import { FormatterService } from '../core/formatter.service';
+
 
 describe('UnitsPipe', () => {
   let formatter,

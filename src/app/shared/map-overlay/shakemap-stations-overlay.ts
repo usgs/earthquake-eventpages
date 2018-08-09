@@ -1,13 +1,17 @@
 import * as L from 'leaflet';
 
-import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 import { FormatterService } from '../../core/formatter.service';
+import { StationService } from '../../core/station.service';
 import { LocationPipe } from '../location.pipe';
 import { NumberPipe } from '../number.pipe';
 import { RomanPipe } from '../roman.pipe';
-import { StationService } from '../../core/station.service';
+import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
+/**
+ * Shakemap overlay object for showing geoJSON data
+ */
 const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
+
 
   id: 'shakemap-stations',
   title: 'Shakemap Stations',
@@ -16,7 +20,12 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
   numberPipe: null,
   romanPipe: new RomanPipe(),
 
-  initialize: function (product) {
+  /**
+   * Init function, builds pipes and gets the product url
+   * @param product
+   *     The product from the event
+   */
+  initialize: function (product: any) {
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 
     const formatter = new FormatterService();
@@ -26,7 +35,12 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
     this.url = this.getUrl(product);
   },
 
-  getUrl: function (product) {
+  /**
+   * Gets the url associated with this product
+   * @param product
+   *     The product from the event
+   */
+  getUrl: function (product: any) {
     if (product == null) {
       return null;
     }
@@ -35,7 +49,14 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
         product.contents['download/stationlist.json'].url : null;
   },
 
-  pointToLayer: function (feature, latlng) {
+  /**
+   * Creates a map marker for a map station and sets click listener on it
+   * @param feature
+   *     The feature/type of marker
+   * @param latlng
+   *     The coordinates for the marker
+   */
+  pointToLayer: function (feature: any, latlng: any) {
     const props = feature.properties;
     const intensity = this.romanPipe.transform(props.intensity);
     let marker;
@@ -73,7 +94,12 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
     return marker;
   },
 
-  parse: function (data) {
+  /**
+   * Helper function to parse stationlist json
+   * @param data
+   *     The data to parse
+   */
+  parse: function (data: any) {
     // parse if needed
     data = (typeof data === 'string' ? JSON.parse(data) : data);
 
@@ -83,7 +109,12 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
     return data;
   },
 
-  generatePopup: function (event) {
+  /**
+   * Function to generate the popup for a click event
+   * @param event
+   *     The event
+   */
+  generatePopup: function (event: any) {
     const marker = event.target;
     const popupContent = this.generatePopupContent(marker.feature);
 
@@ -94,7 +125,12 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
     marker.off('click', this.generatePopup, this);
   },
 
-  generatePopupContent: function (feature) {
+  /**
+   * Helper function to generate popup html content
+   * @param feature
+   *     The feature data to parse for the popup
+   */
+  generatePopupContent: function (feature: any) {
     const station = `
       <shakemap-station station='${JSON.stringify(feature)}'>
       </shakemap-station>

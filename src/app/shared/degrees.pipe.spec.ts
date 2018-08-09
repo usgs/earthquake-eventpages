@@ -1,5 +1,5 @@
 import { DegreesPipe } from './degrees.pipe';
-import { FormatterService } from '../core/formatter.service';
+
 
 describe('DegreesPipe', () => {
   let formatter,

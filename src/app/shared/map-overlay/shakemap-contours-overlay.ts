@@ -1,20 +1,32 @@
-import * as L from 'leaflet';
-
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
+import * as L from 'leaflet';
 
+
+/**
+ * GEOJson overlay for shakemap
+ */
 const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
+
 
   id: 'shakemap-contour',
   title: 'Shakemap Contour',
   legend: null,
   _count: 0,
 
-  initialize: function (product) {
+  /**
+   * Init function to build geojson overlay
+   * @param product
+   *     The product from this event
+   */
+  initialize: function (product: any) {
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 
   },
 
+  /**
+   * Adds map bounds to overlay
+   */
   afterAdd: function () {
     this.bounds = this.getBounds();
     this.map.fitBounds(this.bounds);
@@ -22,13 +34,22 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Generates label content that will be displayed inline with the contour
+   * @param feature
+   *     The feature from the product
    */
-  createLabel: function (feature) {
+  createLabel: function (feature: any) {
     // Overwrite in subclass
     return '';
   },
 
-  getAngle: function(point1, point2) {
+  /**
+   * Generates angle for countour overlay
+   * @param point1
+   *     X point to generate angle
+   * @param point2
+   *     Y point to generate angle
+   */
+  getAngle: function(point1: any, point2: any) {
     const slope = ((point2[1] - point1[1]) /
         (point2[0] - point1[0]));
 
@@ -40,10 +61,18 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
     return angle;
   },
 
-  onEachFeature: function (feature, layer) {
+  /**
+   * Generates a marker for the contours overlay and adds the layer
+   * @param feature
+   *     The feature from the product
+   * @param layer {optional}
+   *     The layer to append to
+   */
+  onEachFeature: function (feature: any, layer: any) {
     if (feature.properties && (this._count % 2 === 0)) {
       const coordinates = feature.geometry.coordinates[0];
-      const coordinateIdx = Math.round(Math.random() * (coordinates.length - 2));
+      const coordinateIdx = Math.round(
+          Math.random() * (coordinates.length - 2));
 
       // get angle for the labels
       const markerCoords = coordinates[coordinateIdx];
@@ -71,7 +100,12 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
     this._count += 1;
   },
 
-  style: function (feature) {
+  /**
+   * Sets line style for the overlay
+   * @param feature
+   *     The feature from this product
+   */
+  style: function (feature: any) {
     // set default line style
     // weight oscillates
     const lineStyle = {
@@ -84,5 +118,6 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
   }
 
 });
+
 
 export { ShakemapContoursOverlay };

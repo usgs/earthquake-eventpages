@@ -1,12 +1,21 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { ParamMap } from '@angular/router';
 
+
 @Pipe({
   name: 'interactiveMapBounds'
 })
 export class InteractiveMapBoundsPipe implements PipeTransform {
 
-  transform(params: ParamMap): any {
+
+  /**
+   * Returns the interactive map bounds
+   *
+   * @param params
+   *     Map of interactive map parameters
+   * @returns {any}
+   */
+  transform (params: ParamMap): any {
     if (!params) {
       return null;
     }

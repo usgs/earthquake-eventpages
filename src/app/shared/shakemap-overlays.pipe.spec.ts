@@ -1,5 +1,6 @@
 import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 
+
 describe('ShakemapOverlaysPipe', () => {
   let pipe;
 

@@ -3,13 +3,22 @@ import * as L from 'leaflet';
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
 
+/**
+ * Builds intensity overlay for shakemap
+ */
 const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
+
 
   id: 'shakemap-intensity',
   title: 'Shakemap MMI Contours',
   legend: null,
 
-  initialize: function (product) {
+  /**
+   * Init function to create the geojson overlay
+   * @param product
+   *     The product from this event
+   */
+  initialize: function (product: any) {
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 
     const legend = document.createElement('img');
@@ -20,7 +29,12 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
     this.url = this.getUrl(product);
   },
 
-  getUrl: function (product) {
+  /**
+   * Returns the cont_mi url from the product, if exists
+   * @param product
+   *     The product from this event
+   */
+  getUrl: function (product: any) {
     if (product == null) {
       return null;
     }
@@ -29,13 +43,26 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
          product.contents['download/cont_mi.json'].url : null;
   },
 
-  onEachFeature: function (feature, layer) {
+  /**
+   * Binds popups the the feature layer
+   * @param feature
+   *     The feature from this product
+   * @param layer
+   *     The leaflet layer
+   */
+  onEachFeature: function (feature: any, layer: any) {
     if (feature.properties) {
-      layer.bindPopup(`<abbr title="Modified Mercalli Intensity">MMI</abbr> ${feature.properties.value}`);
+      layer.bindPopup(`<abbr title="Modified Mercalli Intensity">MMI</abbr>
+      ${feature.properties.value}`);
     }
   },
 
-  style: function (feature) {
+  /**
+   * Sets and returns a default line style
+   * @param feature
+   *     The feature from this product
+   */
+  style: function (feature: any) {
     // set default line style
     const lineStyle = {
       'color': feature.properties.color,

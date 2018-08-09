@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StationFlagComponent } from './station-flag.component';
 
+
 describe('StationFlagComponent', () => {
   let component: StationFlagComponent;
   let fixture: ComponentFixture<StationFlagComponent>;

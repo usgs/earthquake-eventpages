@@ -1,5 +1,6 @@
-import { TensorPipe } from './tensor.pipe';
 import { Tensor } from './beachball/tensor';
+import { TensorPipe } from './tensor.pipe';
+
 
 describe('TensorPipe', () => {
   let pipe,
@@ -10,6 +11,10 @@ describe('TensorPipe', () => {
     pipe = new TensorPipe();
     tensor = {};
     spy = spyOn(Tensor, 'fromProduct').and.returnValue(tensor);
+  });
+
+  it('returns null', () => {
+    expect(pipe.transform(null)).toBeNull();
   });
 
   it('create an instance', () => {

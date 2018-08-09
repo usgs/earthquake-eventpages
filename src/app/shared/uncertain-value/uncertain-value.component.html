@@ -3,6 +3,6 @@
   <ng-content select="[uncertainValue]"></ng-content>
   <span *ngIf="hasUncertainty()"
     class="uncertainty"
-    [innerHTML]="formatter.uncertainty(uncertainty, 1, '', uncertaintyUnits)"
+    [innerHTML]="formatter?.uncertainty(uncertainty, 1, '', uncertaintyUnits)"
   ></span>
 </ng-container>

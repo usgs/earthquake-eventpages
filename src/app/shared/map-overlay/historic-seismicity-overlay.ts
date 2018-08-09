@@ -1,6 +1,9 @@
 import * as L from 'leaflet';
 
 
+/**
+ * Historic seismicity overlay for leaflet map
+ */
 const HistoricSeismicityOverlay = L.TileLayer.extend({
   bounds: null,
   enabled: true,
@@ -9,6 +12,9 @@ const HistoricSeismicityOverlay = L.TileLayer.extend({
   title: 'Historic Seismicity',
 
 
+  /**
+   * Init function, creates a legend element and initializes leaflet layer
+   */
   initialize: function () {
     const legend = document.createElement('img');
 

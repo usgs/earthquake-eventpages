@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AlertLevelComponent } from './alert-level.component';
 
+
 describe('AlertLevelComponent', () => {
   let component: AlertLevelComponent;
   let fixture: ComponentFixture<AlertLevelComponent>;

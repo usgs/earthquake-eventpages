@@ -1,15 +1,26 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+
+/**
+ * Shared station component, which loads in list of stations on certain
+ * product pages
+ * @params station
+ *    The specific station to show properties of
+ */
 @Component({
   selector: 'shared-station',
   templateUrl: './station.component.html',
-  styleUrls: ['./station.component.css']
+  styleUrls: ['./station.component.scss']
 })
 export class StationComponent implements OnInit {
-  @Input() station: any;
-  public readonly channelsColumns = ['name', 'pga', 'pgv', 'psa03', 'psa10', 'psa30'];
 
-  constructor () {}
+
+  @Input() station: any;
+
+  public readonly channelsColumns = [
+    'name', 'pga', 'pgv', 'psa03', 'psa10', 'psa30'
+  ];
+
 
    ngOnInit () {
      if (this.station === null) {

@@ -1,5 +1,6 @@
 import { Canvas } from './canvas';
 
+
 describe('Canvas', () => {
   const testCanvas = new Canvas();
   testCanvas.context = {calls: []};

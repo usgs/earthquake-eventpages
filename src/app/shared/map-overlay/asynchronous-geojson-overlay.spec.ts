@@ -1,7 +1,7 @@
-import { _throw } from 'rxjs/observable/throw';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 import * as L from 'leaflet';
+import { _throw } from 'rxjs/observable/throw';
+import { of } from 'rxjs/observable/of';
+import { Observable } from 'rxjs/Observable';
 
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
@@ -140,7 +140,8 @@ describe('AsynchronousGeoJSONOverlay', () => {
       const layer = new L.Layer();
       spyOn(overlay, 'onEachFeature');
       overlay.addData(FEATURE);
-      expect(overlay.onEachFeature).toHaveBeenCalledWith(FEATURE, jasmine.any(Object));
+      expect(overlay.onEachFeature)
+          .toHaveBeenCalledWith(FEATURE, jasmine.any(Object));
     });
   });
 

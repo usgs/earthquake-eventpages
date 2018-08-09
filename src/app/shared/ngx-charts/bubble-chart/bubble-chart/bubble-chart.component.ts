@@ -1,23 +1,24 @@
 import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  HostListener,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  ContentChild,
-  TemplateRef
-} from '@angular/core';
-import {
   trigger,
   style,
   animate,
-  transition
-} from '@angular/animations';
+  transition } from '@angular/animations';
+import {
+  Component,
+  Input,
+  ViewEncapsulation,
+  ChangeDetectionStrategy } from '@angular/core';
 
-import { BubbleChartComponent as SwimlaneBubbleChart } from '@swimlane/ngx-charts';
 
+import { BubbleChartComponent
+  as SwimlaneBubbleChart } from '@swimlane/ngx-charts';
+
+
+/**
+ * Bubble chart component to show the series items
+ * @param errorBarColor
+ *     The color of the error bar on the component
+ */
 @Component({
   selector: 'ngx-charts-bubble-chart',
   templateUrl: './bubble-chart.component.html',
@@ -38,6 +39,7 @@ import { BubbleChartComponent as SwimlaneBubbleChart } from '@swimlane/ngx-chart
   ]
 })
 export class BubbleChartComponent extends SwimlaneBubbleChart {
+
 
   @Input() errorBarColor = '#000000';
 

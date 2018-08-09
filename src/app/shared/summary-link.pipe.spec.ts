@@ -1,5 +1,6 @@
 import { SummaryLinkPipe } from './summary-link.pipe';
 
+
 describe('SummaryLinkPipe', () => {
   it('create an instance', () => {
     const pipe = new SummaryLinkPipe();

@@ -2,13 +2,23 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { Event } from '../event';
 
+
 @Pipe({
   name: 'nearbySeismicityLink'
 })
 export class NearbySeismicityLinkPipe implements PipeTransform {
+
+
   private KM_PER_DEGREE = 111.12;
 
-  transform(event: Event): string {
+
+  /**
+   * Returns link to the nearby seismicity map
+   * @param event
+   *     The event
+   * @returns {string}
+   */
+  transform (event: Event): string {
     if (!event || !event.geometry || !event.id) {
       return null;
     } else {
@@ -16,6 +26,11 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
     }
   }
 
+  /**
+   * Helper function
+   * @param event
+   * @returns {any}
+   */
   getNearbySeismicityLink (event: Event) {
     if (event && event.geometry && event.id) {
       return this.getLatestEarthquakesLink(event.id,
@@ -25,6 +40,14 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
     return null;
   }
 
+  /**
+   * Returns the link based on parameters
+   * @param eventid
+   *     The event id
+   * @param params
+   *     Builds a parameters object with below settings
+   * @returns {string}
+   */
   getLatestEarthquakesLink (eventid: string = null, params: any = {}) {
     const id = eventid || ('' + new Date().getTime());
     const mapPosition = this.getMapPosition(params);
@@ -46,6 +69,12 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
     return '/earthquakes/map/#' + encodeURIComponent(JSON.stringify(settings));
   }
 
+  /**
+   * Returns the map coordinates
+   * @param params
+   *     The previously built parameters
+   * @returns {((any | any)[] | (any | any)[])[]}
+   */
   getMapPosition (params: any = {}) {
     let latitude,
       longitude,
@@ -81,6 +110,12 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
     ];
   }
 
+  /**
+   * Builds parameters based on the event
+   * @param event
+   *     The event
+   * @returns {any}
+   */
   getNearbySeismicityParams (event: Event) {
     let minmagnitude, time;
 

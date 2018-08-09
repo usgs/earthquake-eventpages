@@ -1,19 +1,28 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
+
+/**
+ * Component used to share a product among elements
+ * @param product
+ *     The product from this event
+ */
 @Component({
   selector: 'shared-link-product',
   templateUrl: './link-product.component.html',
-  styleUrls: ['./link-product.component.css']
+  styleUrls: ['./link-product.component.scss']
 })
-export class LinkProductComponent implements OnInit {
+export class LinkProductComponent {
+
 
   @Input() product: any;
 
-  constructor() { }
 
-  ngOnInit() {
-  }
-
+  /**
+   * Getter for the product text
+   * @param product
+   *     The product from this event
+   * @returns {string}
+   */
   getText (product: any): string {
     try {
       const text = product.properties.text;
@@ -23,6 +32,11 @@ export class LinkProductComponent implements OnInit {
     }
   }
 
+  /**
+   * Gets the product contents url, if exists
+   * @param product
+   * @returns {string}
+   */
   getUrl (product: any): string {
     try {
       const url = product.properties.url;

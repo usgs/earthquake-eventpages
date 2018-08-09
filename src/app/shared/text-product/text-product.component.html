@@ -1,9 +1,7 @@
 <ng-container *ngIf="content$ | async; else noContent; let content">
-
   <section class="text-product" data-id="{{ product?.id }}"
-      [innerHTML]="replaceRelativePaths(content)">
+           [innerHTML]="replaceRelativePaths(content)">
   </section>
-
 </ng-container>
 
 <ng-template #noContent>

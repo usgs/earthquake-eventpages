@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LinkProductComponent } from './link-product.component';
 
+
 describe('LinkProductComponent', () => {
   let component: LinkProductComponent;
   let fixture: ComponentFixture<LinkProductComponent>;

@@ -1,6 +1,6 @@
-import { ShakemapIntensityOverlay } from './shakemap-intensity-overlay';
-
 import * as L from 'leaflet';
+
+import { ShakemapIntensityOverlay } from './shakemap-intensity-overlay';
 
 
 describe('ShakemapIntensityOverlay', () => {

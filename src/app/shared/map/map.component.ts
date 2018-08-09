@@ -1,49 +1,57 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+  ViewEncapsulation } from '@angular/core';
 
 import * as L from 'leaflet';
 
 import { LegendControl } from '../map-control/legend-control';
 
+
+/**
+ * Shared map component for event, shows overall area and mmi contours
+ * @param baselayer
+ *     Map base layer
+ * @param showAttributionControl
+ *     Boolean for toggling attribution
+ */
 @Component({
   selector: 'shared-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit, OnInit {
+export class MapComponent implements AfterViewInit {
+
 
   @Input() baselayer = 'Topographic';
   @Input() showAttributionControl = true;
 
+  @ViewChild('mapWrapper')
+  mapWrapper: ElementRef;
+
   // value of bounds property
   private _bounds: Array<Array<number>> = null;
-
   // value of overlays property
   private _overlays: Array<L.Layer> = [];
-
   private _showLayersControl = false;
   private _showLegendControl = false;
   private _showScaleControl = false;
-
   // overlays currently part of the layers control
   public overlaysAdded: Array<L.Layer> = [];
-
   public map: L.Map;
   public layersControl: L.Control.Layers;
   public legendControl: L.Control;
   public scaleControl: L.Control.Scale;
   public zoomControl: L.Control.Zoom;
-
   private _interactive = false;
 
-  @ViewChild('mapWrapper')
-  mapWrapper: ElementRef;
 
   constructor (private httpClient: HttpClient) { }
 
-  ngOnInit () {
-
-  }
 
   ngAfterViewInit () {
     const worldTopoLayer = L.tileLayer('https://services.arcgisonline.com/' +
@@ -80,7 +88,8 @@ export class MapComponent implements AfterViewInit, OnInit {
     );
 
     const grayscaleLayer = L.tileLayer('https://services.arcgisonline.com/' +
-        'arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+        'arcgis/rest/services/Canvas/World_Light_Gray_Base/' +
+        'MapServer/tile/{z}/{y}/{x}',
         {
           attribution: 'Esri, HERE, Garmin, © OpenStreetMap contributors, ' +
               'and the GIS user community',
@@ -122,16 +131,34 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.updateOverlays();
   }
 
-  get bounds (): Array<Array<number>> {
-    return this._bounds;
+  /**
+   * Setter for the scaleControls boolean
+   * @param showScaleControl
+   *     The boolean value, show scale controls?
+   */
+  @Input()
+  set showScaleControl (showScaleControl: boolean) {
+    this._showScaleControl = showScaleControl;
+
+    this.updateControls();
   }
 
+  /**
+   * Setter, to set map bounds
+   * @param bounds
+   *     Array of bounds for map
+   */
   @Input()
   set bounds (bounds: Array<Array<number>>) {
     this._bounds = bounds;
     this.setBounds();
   }
 
+  /**
+   * Setter for interactive boolean
+   * @param interactive
+   *     Is map interactive?
+   */
   @Input()
   set interactive (interactive: boolean) {
     this._interactive = interactive;
@@ -140,10 +167,11 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.updateInteractive();
   }
 
-  get interactive (): boolean {
-    return this._interactive;
-  }
-
+  /**
+   * Setter for map overlays
+   * @param overlays
+   *     Array of different map overlays
+   */
   @Input()
   set overlays (overlays: Array<L.Layer>) {
     this._overlays = overlays;
@@ -152,21 +180,11 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.updateLegend();
   }
 
-  get overlays (): Array<L.Layer> {
-    return this._overlays;
-  }
-
-  @Input()
-  set showLayersControl (showLayersControl: boolean) {
-    this._showLayersControl = showLayersControl;
-
-    this.updateControls();
-  }
-
-  get showLayersControl (): boolean {
-    return this._showLayersControl;
-  }
-
+  /**
+   * Setter for whether or not to show legend control
+   * @param showLegendControl
+   *     Show the legend control?
+   */
   @Input()
   set showLegendControl (showLegendControl: boolean) {
     this._showLegendControl = showLegendControl;
@@ -174,21 +192,70 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.updateControls();
   }
 
-  get showLegendControl(): boolean {
-    return this._showLegendControl;
-  }
-
+  /**
+   * Setter for boolean layers control
+   * @param showLayersControl
+   *     Show layers control?
+   */
   @Input()
-  set showScaleControl (showScaleControl: boolean) {
-    this._showScaleControl = showScaleControl;
+  set showLayersControl (showLayersControl: boolean) {
+    this._showLayersControl = showLayersControl;
 
     this.updateControls();
   }
 
+  /**
+   * Getter, to get map bounds
+   * @returns {Array<number>}
+   */
+  get bounds (): Array<Array<number>> {
+    return this._bounds;
+  }
+
+  /**
+   * Getter for interactive boolean
+   * @returns {boolean}
+   */
+  get interactive (): boolean {
+    return this._interactive;
+  }
+
+  /**
+   * Getter for map overlays
+   * @returns {Array<L.layer>}
+   */
+  get overlays (): Array<L.Layer> {
+    return this._overlays;
+  }
+
+  /**
+   * Getter for layers control boolean
+   * @returns {boolean}
+   */
+  get showLayersControl (): boolean {
+    return this._showLayersControl;
+  }
+
+  /**
+   * Getter for the showLegendControl boolean
+   * @returns {boolean}
+   */
+  get showLegendControl(): boolean {
+    return this._showLegendControl;
+  }
+
+  /**
+   * Getter for showScaleControl boolean
+   * @returns {boolean}
+   */
   get showScaleControl (): boolean {
     return this._showScaleControl;
   }
 
+  /**
+   * Getter for the overlay bounds
+   * @returns {any}
+   */
   getOverlayBounds () {
     let bounds = null;
 
@@ -206,6 +273,9 @@ export class MapComponent implements AfterViewInit, OnInit {
     return bounds;
   }
 
+  /**
+   * Setter for overlay bounds
+   */
   setBounds () {
     if (!this.map) {
       return;
@@ -231,6 +301,9 @@ export class MapComponent implements AfterViewInit, OnInit {
     }, 0);
   }
 
+  /**
+   * Function to update/add map controls
+   */
   updateControls () {
     if (!this.map) {
       return;
@@ -261,6 +334,9 @@ export class MapComponent implements AfterViewInit, OnInit {
     }
   }
 
+  /**
+   * Function to add interactive options to map
+   */
   updateInteractive () {
     if (!this.map) {
       return;
@@ -289,6 +365,9 @@ export class MapComponent implements AfterViewInit, OnInit {
     });
   }
 
+  /**
+   * Sets legend overlays
+   */
   updateLegend () {
     if (!this.legendControl) {
       return;
@@ -297,6 +376,9 @@ export class MapComponent implements AfterViewInit, OnInit {
     this.legendControl.setOverlays(this._overlays);
   }
 
+  /**
+   * Updates legend overlays
+   */
   updateOverlays () {
     // // check if layer control has been created
     if (!this.map || !this.layersControl) {

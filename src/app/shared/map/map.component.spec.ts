@@ -1,8 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapComponent } from './map.component';
-import { HistoricSeismicityOverlay } from '../map-overlay/historic-seismicity-overlay';
+import {
+  HistoricSeismicityOverlay } from '../map-overlay/historic-seismicity-overlay';
+  import { MapComponent } from './map.component';
+
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -197,7 +199,8 @@ describe('MapComponent', () => {
 
   describe('updateInteractive', () => {
     it('enables handlers', () => {
-      const spy = spyOnProperty(component, 'interactive', 'get').and.returnValue(true);
+      const spy = spyOnProperty(component, 'interactive', 'get')
+          .and.returnValue(true);
       spyOn(component.map.boxZoom, 'enable');
 
       component.updateInteractive();
@@ -206,7 +209,8 @@ describe('MapComponent', () => {
     });
 
     it('returns if map is not set', () => {
-      const spy = spyOnProperty(component, 'interactive', 'get').and.returnValue(true);
+      const spy = spyOnProperty(component, 'interactive', 'get')
+          .and.returnValue(true);
       component.map = null;
 
       component.updateInteractive();
@@ -239,14 +243,16 @@ describe('MapComponent', () => {
 
       // adds to tracking array, adds to map
       component.overlays = [overlay1];
-      expect(component.overlaysAdded.indexOf(overlay1)).toBeGreaterThanOrEqual(0);
+      expect(component.overlaysAdded.indexOf(overlay1))
+          .toBeGreaterThanOrEqual(0);
       expect(component.map.hasLayer(overlay1)).toBeTruthy();
 
       // now set enabled to false, update overlays property
       overlay1.enabled = false;
       component.overlays = [overlay1];
       // overlay still there
-      expect(component.overlaysAdded.indexOf(overlay1)).toBeGreaterThanOrEqual(0);
+      expect(component.overlaysAdded.indexOf(overlay1))
+          .toBeGreaterThanOrEqual(0);
       // but no longer on map
       expect(component.map.hasLayer(overlay1)).toBeFalsy();
 
@@ -254,7 +260,8 @@ describe('MapComponent', () => {
       // old overlay removed
       expect(component.overlaysAdded.indexOf(overlay1)).toBe(-1);
       // new overlay added
-      expect(component.overlaysAdded.indexOf(overlay2)).toBeGreaterThanOrEqual(0);
+      expect(component.overlaysAdded.indexOf(overlay2))
+          .toBeGreaterThanOrEqual(0);
       expect(component.map.hasLayer(overlay2)).toBeTruthy();
     });
 

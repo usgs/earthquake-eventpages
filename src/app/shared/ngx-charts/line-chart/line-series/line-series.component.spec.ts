@@ -4,6 +4,7 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { LineSeriesComponent } from './line-series.component';
 
+
 describe('LineSeriesComponent', () => {
   let component: LineSeriesComponent;
   let fixture: ComponentFixture<LineSeriesComponent>;

@@ -1,30 +1,30 @@
 import { Pipe, PipeTransform } from '@angular/core';
+
 import { FormatterService } from '../core/formatter.service';
+
 
 @Pipe({
   name: 'sharedNumber'
 })
 export class NumberPipe implements PipeTransform {
 
-  constructor(
-    public formatter: FormatterService
-  ) { }
+
+  constructor (public formatter: FormatterService) { }
+
 
   /**
-   * Format a number.
-   *
-   * @param value {Number}
+   * Format a number
+   * @param value
    *     Number to format.
-   * @param decimals {Number} Optional, default does not round.
+   * @param decimals Optional, default does not round.
    *     Number of decimal places to round.
-   * @param empty {Any} Optional, default none.
+   * @param empty Optional, default none.
    *     Value to return if value is empty.
-   * @param units {String} Optional, default none.
+   * @param units Optional, default none.
    *     Units of value.
-   *
    * @return {String}
    */
-  transform(
+  transform (
       value: any,
       decimals?: number,
       units = '',

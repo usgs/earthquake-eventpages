@@ -15,7 +15,9 @@
  */
 export class Canvas {
 
+
   public context: any;
+
 
   constructor (
     public canvas: any = null,
@@ -29,6 +31,7 @@ export class Canvas {
     this.canvas.width = this.width;
     this.context = this.canvas.getContext('2d');
   }
+
 
   /**
    * Clear the canvas.

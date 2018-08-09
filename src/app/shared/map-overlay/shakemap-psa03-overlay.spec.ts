@@ -1,6 +1,6 @@
-import { ShakemapPSA03Overlay } from './shakemap-psa03-overlay';
-
 import * as L from 'leaflet';
+
+import { ShakemapPSA03Overlay } from './shakemap-psa03-overlay';
 
 
 describe('ShakemapPSA03Overlay', () => {

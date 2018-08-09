@@ -1,13 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatCardModule,
-          MatExpansionModule,
-          MatTableModule } from '@angular/material';
+import {
+  MatCardModule,
+  MatExpansionModule,
+  MatTableModule } from '@angular/material';
+
+import { MockPipe } from '../../mock-pipe';
+import { MockComponent } from 'ng2-mock-component';
 
 import { StationComponent } from './station.component';
 
-import { MockComponent } from 'ng2-mock-component';
-
-import { MockPipe } from '../../mock-pipe';
 
 describe('StationComponent', () => {
   let component: StationComponent;
@@ -26,7 +27,8 @@ describe('StationComponent', () => {
         MockPipe('sharedDegrees'),
         MockPipe('sharedNumber'),
         MockPipe('sharedLocation'),
-        MockComponent({selector: 'shared-mmi', inputs: ['bubble', 'intensity']}),
+        MockComponent({selector: 'shared-mmi', inputs: ['bubble',
+        'intensity']}),
         MockComponent({selector: 'shared-bubble', inputs: ['name', 'title']}),
         MockComponent({selector: 'shared-station-flag', inputs: ['flag']})
       ]

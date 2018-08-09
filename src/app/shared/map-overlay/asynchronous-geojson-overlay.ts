@@ -1,6 +1,6 @@
+import * as L from 'leaflet';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import * as L from 'leaflet';
 
 
 /**
@@ -40,6 +40,9 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
   // persistent styles (allows alternating styles in geoJSON features)
   styles: {},
 
+  /**
+   * Init function
+   */
   initialize: function () {
     // for content downloads in async map layers; added to layer during
     // initialization, or manually
@@ -67,7 +70,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
    * @return {Observable}
    *    For caught errors during http requests
    */
-  handleError: function (error) {
+  handleError: function (error: any) {
     this.error = error;
     this.data = null;
     return of(null);
@@ -158,5 +161,6 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
   }
 
 });
+
 
 export { AsynchronousGeoJSONOverlay };

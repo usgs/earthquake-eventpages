@@ -1,18 +1,21 @@
 import {
   Component,
   Input,
-  ChangeDetectionStrategy,
-  OnInit
-} from '@angular/core';
+  ChangeDetectionStrategy } from '@angular/core';
 import {
   trigger,
   style,
   animate,
-  transition
-} from '@angular/animations';
+  transition } from '@angular/animations';
 
 import { LineComponent as SwimlaneLine } from '@swimlane/ngx-charts';
 
+
+/**
+ * LineComponent, shows/draws lines
+ * @param strokeWidth
+ *     The width of the stroke to draw
+ */
 @Component({
   selector: 'g[ngx-charts-line]',
   templateUrl: './line.component.html',
@@ -31,11 +34,8 @@ import { LineComponent as SwimlaneLine } from '@swimlane/ngx-charts';
     ])
   ]
 })
-export class LineComponent extends SwimlaneLine implements OnInit {
+export class LineComponent extends SwimlaneLine {
 
   @Input() strokeWidth = '1.5px';
-
-  ngOnInit () {
-  }
 
 }

@@ -1,11 +1,21 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+
 @Pipe({
   name: 'sharedSummaryLink'
 })
 export class SummaryLinkPipe implements PipeTransform {
 
-  transform(productType: any, event: any): any {
+
+  /**
+   * Builds a summary link from the product type and event inputs
+   * @param productType
+   *     The type of product
+   * @param event
+   *     The event
+   * @returns {any}
+   */
+  transform (productType: any, event: any): any {
     if (!event || !productType) {
       return null;
     }

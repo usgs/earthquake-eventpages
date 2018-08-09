@@ -1,5 +1,6 @@
 import { DyfiCounterPipe } from './dyfi-counter.pipe';
 
+
 describe('DyfiCounterPipe', () => {
   let formatterService,
       pipe;
@@ -24,7 +25,8 @@ describe('DyfiCounterPipe', () => {
     };
 
     pipe.transform(product, 'padding');
-    expect(formatterService.leftPad).toHaveBeenCalledWith('345', 'padding', '0');
+    expect(formatterService.leftPad)
+      .toHaveBeenCalledWith('345', 'padding', '0');
   });
 
   it('calls formatterService with numResp value', () => {
@@ -35,7 +37,8 @@ describe('DyfiCounterPipe', () => {
     };
 
     pipe.transform(product, 'padding');
-    expect(formatterService.leftPad).toHaveBeenCalledWith('345', 'padding', '0');
+    expect(formatterService.leftPad)
+      .toHaveBeenCalledWith('345', 'padding', '0');
   });
 
   it('calls formatterService with 0 value', () => {
@@ -47,14 +50,16 @@ describe('DyfiCounterPipe', () => {
     };
 
     pipe.transform(product, 'padding');
-    expect(formatterService.leftPad).toHaveBeenCalledWith('0', 'padding', '0');
+    expect(formatterService.leftPad)
+      .toHaveBeenCalledWith('0', 'padding', '0');
   });
 
   it('calls formatterService with null value', () => {
     const product = null;
 
     pipe.transform(product, 'padding');
-    expect(formatterService.leftPad).toHaveBeenCalledWith('0', 'padding', '0');
+    expect(formatterService.leftPad)
+      .toHaveBeenCalledWith('0', 'padding', '0');
   });
 
   it('returns an array', () => {

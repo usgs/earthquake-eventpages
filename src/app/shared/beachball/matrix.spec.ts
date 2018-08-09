@@ -5,9 +5,12 @@ describe('Matrix', () => {
 
   describe('constructor', () => {
     it('estimates size', () => {
-      expect(new Matrix([1, 2, 3, 4])).toEqual(new Matrix([1, 2, 3, 4], 2, 2));
-      expect(new Matrix([1, 2, 3, 4, 5, 6], 2)).toEqual(new Matrix([1, 2, 3, 4, 5, 6], 2, 3));
-      expect(new Matrix([1, 2, 3, 4, 5, 6], null, 2)).toEqual(new Matrix([1, 2, 3, 4, 5, 6], 3, 2));
+      expect(new Matrix([1, 2, 3, 4]))
+        .toEqual(new Matrix([1, 2, 3, 4], 2, 2));
+      expect(new Matrix([1, 2, 3, 4, 5, 6], 2))
+        .toEqual(new Matrix([1, 2, 3, 4, 5, 6], 2, 3));
+      expect(new Matrix([1, 2, 3, 4, 5, 6], null, 2))
+        .toEqual(new Matrix([1, 2, 3, 4, 5, 6], 3, 2));
 
       expect(() => {
         const m = new Matrix([1, 2, 3]);
@@ -130,9 +133,12 @@ describe('Matrix', () => {
     it('computes eigenvalues and eigenvectors', () => {
       const eigenvectors = matrix.jacobi();
 
-      expect(Math.abs(eigenvectors[0].eigenvalue - -6.27394e+19)).toBeLessThan(1e15);
-      expect(Math.abs(eigenvectors[1].eigenvalue - 0.75108e+19)).toBeLessThan(1e15);
-      expect(Math.abs(eigenvectors[2].eigenvalue - 5.52285e+19)).toBeLessThan(1e15);
+      expect(Math.abs(eigenvectors[0].eigenvalue - -6.27394e+19))
+        .toBeLessThan(1e15);
+      expect(Math.abs(eigenvectors[1].eigenvalue - 0.75108e+19))
+        .toBeLessThan(1e15);
+      expect(Math.abs(eigenvectors[2].eigenvalue - 5.52285e+19))
+        .toBeLessThan(1e15);
     });
 
     it('throws error when it fails to converge', () => {

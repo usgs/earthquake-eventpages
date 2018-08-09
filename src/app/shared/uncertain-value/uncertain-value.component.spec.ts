@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UncertainValueComponent } from './uncertain-value.component';
-
 import { FormatterService } from '../../core/formatter.service';
+import { UncertainValueComponent } from './uncertain-value.component';
 
 
 describe('UncertainValueComponent', () => {

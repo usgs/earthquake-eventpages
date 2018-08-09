@@ -6,7 +6,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class KeysPipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
+
+  /**
+   * Returns list of object keys, if exist on input object
+   * @param value
+   *     The object to get keys from
+   * @param args, Optional
+   *     Arguments array
+   * @returns {any}
+   */
+  transform (value: any, args?: any): any {
     if (!value) {
       return null;
     }
