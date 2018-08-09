@@ -6,14 +6,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class EventTitlePipe implements PipeTransform {
 
-
   /**
-   * Event title pipe, returns the title property from the event
+   * Builds event title from the event
    *
    * @param event
    *     The event object
+   *
    * @returns
-   *     Properties title
+   *     The event title
    */
   transform (event: any): any {
     const properties = event.properties || {};

@@ -17,7 +17,6 @@ import { Event } from '../../event';
 })
 export class NavigationComponent {
 
-
   @Input() event: Event = null;
 
 

@@ -8,7 +8,6 @@ import { FormatterService } from '../core/formatter.service';
 })
 export class EventLocationPipe implements PipeTransform {
 
-
   constructor (public formatter: FormatterService) { }
 
 
@@ -18,8 +17,9 @@ export class EventLocationPipe implements PipeTransform {
    * @param event
    *     The event object
    * @param precision {optional}
-   *     The precision
-   * @returns
+   *     The decimal precision for lat/lon
+   *
+   * @return
    *     Formatted location
    */
   transform (event: any, precision?: number): string {

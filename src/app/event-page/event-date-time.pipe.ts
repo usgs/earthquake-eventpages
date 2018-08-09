@@ -8,7 +8,6 @@ import { FormatterService } from '../core/formatter.service';
 })
 export class EventDateTimePipe implements PipeTransform {
 
-
   constructor (public formatter: FormatterService) { }
 
 
@@ -17,7 +16,8 @@ export class EventDateTimePipe implements PipeTransform {
    *
    * @param event
    *     The event object
-   * @returns
+   *
+   * @return
    *     New date/time formatted object
    */
   transform (event: any): string {

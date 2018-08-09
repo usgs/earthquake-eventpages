@@ -8,7 +8,6 @@ import { FormatterService } from '../core/formatter.service';
 })
 export class EventDepthPipe implements PipeTransform {
 
-
   constructor (public formatter: FormatterService) { }
 
 
@@ -18,8 +17,9 @@ export class EventDepthPipe implements PipeTransform {
    * @param event
    *     The event object
    * @param precision {optional}
-   *     The precision
-   * @returns
+   *     The decimal precision for depth
+   *
+   * @return
    *     A formatted depth with units appended to it
    */
   transform (event: any, precision?: number): string {
