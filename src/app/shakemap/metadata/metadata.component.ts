@@ -22,8 +22,9 @@ export class MetadataComponent implements OnInit, OnDestroy {
   public metadata: any = null;
 
 
-  constructor (public mdService: MetadataService,
-              public eventService: EventService) { }
+  constructor (
+      public mdService: MetadataService,
+      public eventService: EventService) { }
 
 
   ngOnInit () {
@@ -42,18 +43,20 @@ export class MetadataComponent implements OnInit, OnDestroy {
   /**
    * New product, get new station list
    *
-   * @param product shakemap product
+   * @param product
+   *     shakemap product
    */
-  onProduct (product) {
+  onProduct (product): void {
     this.mdService.getMetadata(product);
   }
 
   /**
    * New stations
    *
-   * @param stations station list json
+   * @param stations
+   *     station list json
    */
-  onMetadata (metadata) {
+  onMetadata (metadata): void {
     this.metadata = metadata;
   }
 

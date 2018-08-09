@@ -36,10 +36,11 @@ export class UncertaintyComponent implements OnInit, OnDestroy {
 
   /**
    * New product, get new image url
+   *
    * @param product
    *     shakemap product
    */
-  onProduct (product: any) {
+  onProduct (product: any): void {
     if (product == null ||
           !product.contents['download/urat_pga.jpg']) {
       this.imageUrl = null;

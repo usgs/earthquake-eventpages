@@ -7,7 +7,9 @@ import { FormatterService } from '../../../core/formatter.service';
  * Processing subcomponent which shows different processing tables such as
  * ground motion, misc, shakemap version, site response, and ROI information
  * after user selects the 'metadata' tab from the main shakemap component
- * @param smProcessing { any }
+ *
+ * @param smProcessing
+ *     Shakemap processing data
  */
 @Component({
   selector: 'shakemap-processing',

@@ -1,5 +1,5 @@
-<ng-container *ngIf="eventService.product$ | async; let shakemap">
-  <ng-container 
+<ng-container *ngIf="eventService?.product$ | async; let shakemap">
+  <ng-container
       *ngIf="shakemap | sharedProductContent:
       'download/sd.jpg':'download/urat_pga.jpg' as image">
 

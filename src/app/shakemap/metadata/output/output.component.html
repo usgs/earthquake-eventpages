@@ -17,15 +17,16 @@
           <mat-header-cell *matHeaderCellDef>
             Type
           </mat-header-cell>
-          <mat-cell [attr.role]="'rowheader'"
-                    [class.mat-cell]="false"
-                    class="mat-header-cell"
-                    *matCellDef="let groundMotion">
+          <mat-cell
+              [attr.role]="'rowheader'"
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let groundMotion">
 
             <ng-container *ngIf="names?.groundMotions[groundMotion.type]
-                          as name; else noName">
+                as name; else noName">
               <ng-container *ngIf="abbreviations[groundMotion.type] as abbr;
-                            else noAbbr">
+                else noAbbr">
 
                 <abbr title="{{ abbr }}">{{ name }}</abbr>
               </ng-container>
@@ -86,17 +87,18 @@
         <mat-header-row *matHeaderRowDef="headers?.mapInformation">
         </mat-header-row>
         <mat-row *matRowDef="let myRowData;
-                 columns: headers?.mapInformation"></mat-row>
+            columns: headers?.mapInformation"></mat-row>
 
         <ng-container matColumnDef="type">
           <mat-header-cell *matHeaderCellDef>
             Type
           </mat-header-cell>
-          <mat-cell [attr.role]="'rowheader'"
-                    [class.mat-cell]="false"
-                    class="mat-header-cell"
-                    *matCellDef="let mapInfo">
-            {{ names.mapInformation[mapInfo.type] }}
+          <mat-cell
+              [attr.role]="'rowheader'"
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let mapInfo">
+            {{ names?.mapInformation[mapInfo.type] }}
           </mat-cell>
         </ng-container>
 
@@ -105,7 +107,7 @@
             Latitude
           </mat-header-cell>
           <mat-cell *matCellDef="let mapInfo">
-            {{ mapInfo.latitude | sharedUnits:mapInfo.units }}
+            {{ mapInfo?.latitude | sharedUnits:mapInfo.units }}
           </mat-cell>
         </ng-container>
 
@@ -114,7 +116,7 @@
             Longitude
           </mat-header-cell>
           <mat-cell *matCellDef="let mapInfo">
-            {{ mapInfo.longitude | sharedUnits:mapInfo.units }}
+            {{ mapInfo?.longitude | sharedUnits:mapInfo.units }}
           </mat-cell>
         </ng-container>
 

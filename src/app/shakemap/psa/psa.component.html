@@ -72,7 +72,7 @@
       *ngIf="shakemap?.contents['download/cont_psa30.json']; else noPSA30">
     <h4>3.0 s PSA (%g)</h4>
     <a [routerLink]="'../../map'"
-        [queryParams]="{
+       [queryParams]="{
           'shakemap-code': shakemap?.code,
           'shakemap-source': shakemap?.source,
           'shakemap-psa30': true,

@@ -6,7 +6,9 @@ import { FormatterService } from '../../../core/formatter.service';
 /**
  * Output subcomponent, shows the output data table when the user selects the
  * 'metadata' tab from the main shakemap component
- * @param smOutput { any }
+ *
+ * @param smOutput
+ *     The shakemap output data table for metadata
  */
 @Component({
   selector: 'shakemap-output',

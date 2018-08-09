@@ -4,13 +4,15 @@ import {
   MatCardModule,
   MatDialogModule,
   MatExpansionModule,
-  MatSortModule } from '@angular/material';
+  MatSortModule
+} from '@angular/material';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import {
   MdcTabModule,
-  MdcIconModule } from '@angular-mdc/web';
+  MdcIconModule
+} from '@angular-mdc/web';
 
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';

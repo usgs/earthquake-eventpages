@@ -11,7 +11,7 @@
         <mat-header-row *matHeaderRowDef="headers?.groundMotionModules">
         </mat-header-row>
         <mat-row *matRowDef="let myRowData;
-                columns: headers?.groundMotionModules"></mat-row>
+            columns: headers?.groundMotionModules"></mat-row>
 
         <ng-container matColumnDef="type">
           <mat-header-cell *matHeaderCellDef>
@@ -24,9 +24,9 @@
             *matCellDef="let module">
 
             <ng-container *ngIf="names?.ground_motion_modules[module.type]
-                          as name; else noName">
+                as name; else noName">
               <ng-container *ngIf="abbreviations[module.type] as abbr;
-                            else noAbbr">
+                  else noAbbr">
 
                 <abbr title="{{ abbr }}">{{ name }}</abbr>
               </ng-container>
@@ -225,10 +225,11 @@
           <mat-header-cell *matHeaderCellDef>
             Type
           </mat-header-cell>
-          <mat-cell [attr.role]="'rowheader'"
-                    [class.mat-cell]="false"
-                    class="mat-header-cell"
-                    *matCellDef="let roi">
+          <mat-cell
+              [attr.role]="'rowheader'"
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let roi">
 
             {{ names.roi[roi.type] ?
                 names.roi[roi.type] : roi.type }}

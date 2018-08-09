@@ -22,8 +22,9 @@ export class StationListComponent implements OnInit, OnDestroy {
   public stations: any[] = [];
 
 
-  constructor (public eventService: EventService,
-               public stationService: StationService) { }
+  constructor (
+      public eventService: EventService,
+      public stationService: StationService) { }
 
 
   ngOnInit () {
@@ -42,19 +43,21 @@ export class StationListComponent implements OnInit, OnDestroy {
 
   /**
    * New product, get new station list
+   *
    * @param product
    *     shakemap product
    */
-  onProduct (product: any) {
+  onProduct (product: any): void {
     this.stationService.getStations(product);
   }
 
   /**
    * New stations
+   *
    * @param stations
    *     station list json
    */
-  onStations (stationsJson: any) {
+  onStations (stationsJson: any): void {
     if (stationsJson == null) {
       this.stations = [];
       return;

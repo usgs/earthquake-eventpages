@@ -2,13 +2,14 @@
 
   <ng-container
       *ngIf="shakemap?.contents['download/cont_mi.json']; else noOverlay">
-    <a [routerLink]="'../../map'"
-       [queryParams]="{
-         'shakemap-code': shakemap?.code,
-         'shakemap-source': shakemap?.source,
-         'shakemap-intensity': true,
-         'shakemap-stations': true
-      }">
+    <a
+        [routerLink]="'../../map'"
+        [queryParams]="{
+          'shakemap-code': shakemap?.code,
+          'shakemap-source': shakemap?.source,
+          'shakemap-intensity': true,
+          'shakemap-stations': true
+         }">
       <shared-map
         [overlays]="shakemap | shakemapOverlays:['shakemap-intensity',
           'shakemap-stations']"
