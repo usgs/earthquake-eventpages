@@ -14,7 +14,7 @@ import { Event } from '../../event';
 @Component({
   selector: 'impact-pager-summary',
   templateUrl: './pager-summary.component.html',
-  styleUrls: ['./pager-summary.component.css']
+  styleUrls: ['./pager-summary.component.scss']
 })
 export class PagerSummaryComponent {
 

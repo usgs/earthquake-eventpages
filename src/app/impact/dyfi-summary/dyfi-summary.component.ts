@@ -14,7 +14,7 @@ import { Event } from '../../event';
 @Component({
   selector: 'impact-dyfi-summary',
   templateUrl: './dyfi-summary.component.html',
-  styleUrls: ['./dyfi-summary.component.css']
+  styleUrls: ['./dyfi-summary.component.scss']
 })
 export class DyfiSummaryComponent {
 
