@@ -16,7 +16,7 @@
         </ng-container>
         <a [routerLink]="['/', event?.id, 'shakemap']"
             [queryParams]="{ source: shakemap?.source, code: shakemap?.code }">
-          {{ shakemap?.properties?.eventsource.toUpperCase() }}
+          {{ shakemap?.properties?.eventsource?.toUpperCase() }}
         </a>
       </mat-cell>
     </ng-container>

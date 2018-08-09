@@ -15,7 +15,7 @@
         </ng-container>
         <a [routerLink]="['/', event?.id, 'pager']"
             [queryParams]="{ source: pager?.source, code: pager?.code }">
-          {{ pager.properties?.eventsource.toUpperCase() }}
+          {{ pager?.properties?.eventsource?.toUpperCase() }}
         </a>
       </mat-cell>
     </ng-container>

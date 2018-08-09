@@ -1,9 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTableModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
+
+import { MockComponent } from 'ng2-mock-component';
 
 import { PagerSummaryComponent } from './pager-summary.component';
-import { MockComponent } from 'ng2-mock-component';
-import { RouterModule } from '@angular/router';
+
 
 describe('PagerSummaryComponent', () => {
   let component: PagerSummaryComponent;
@@ -17,11 +19,18 @@ describe('PagerSummaryComponent', () => {
       ],
       declarations: [
         PagerSummaryComponent,
-        MockComponent({selector: 'shared-alert-level', inputs: ['alert']}),
-        MockComponent({selector: 'shared-product-attribution', inputs: ['product']}),
-        MockComponent({selector: 'shared-preferred-check', inputs: ['TITLE']})
-      ],
-      providers: [
+        MockComponent({
+          selector: 'shared-alert-level',
+          inputs: ['alert']
+        }),
+        MockComponent({
+          selector: 'shared-product-attribution',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'shared-preferred-check',
+          inputs: ['TITLE']
+        })
       ]
     })
     .compileComponents();
