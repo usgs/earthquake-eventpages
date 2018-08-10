@@ -11,12 +11,12 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class MetadataService {
 
-
   public error: any = null;
   public metadata$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-
-  constructor (private httpClient: HttpClient) { }
+  constructor (
+    private httpClient: HttpClient
+  ) { }
 
 
   /**

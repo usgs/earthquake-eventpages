@@ -10,8 +10,9 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class GeoserveService {
 
-
-  constructor (private http: HttpClient) { }
+  constructor (
+    private http: HttpClient
+  ) { }
 
 
   /**

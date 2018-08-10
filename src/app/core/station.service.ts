@@ -11,12 +11,12 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class StationService {
 
-
   public error: any = null;
   public stationsJson$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-
-  constructor (private httpClient: HttpClient) { }
+  constructor (
+    private httpClient: HttpClient
+  ) { }
 
 
   /**
@@ -150,7 +150,8 @@ export class StationService {
   /**
    * Error handler for http requests.
    *
-   * @returns {any}
+   * @returns
+   *    returns error
    */
   private handleError () {
     return (error: HttpErrorResponse): Observable<any> => {

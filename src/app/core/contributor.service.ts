@@ -13,11 +13,11 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class ContributorService {
 
-
   public contributors$ = new BehaviorSubject<any>(null);
 
-
-  constructor (private http: HttpClient) { }
+  constructor (
+    private http: HttpClient
+  ) { }
 
 
   /**

@@ -1,6 +1,7 @@
 import {
   HttpClientTestingModule,
-  HttpTestingController } from '@angular/common/http/testing';
+  HttpTestingController
+} from '@angular/common/http/testing';
 import { TestBed, getTestBed, inject } from '@angular/core/testing';
 
 import { ContentsXmlService } from './contents-xml.service';

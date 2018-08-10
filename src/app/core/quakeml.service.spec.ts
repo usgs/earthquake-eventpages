@@ -1,7 +1,8 @@
 import {
   HttpClientTestingModule,
-  HttpTestingController } from '@angular/common/http/testing';
-  import { TestBed, getTestBed, inject } from '@angular/core/testing';
+  HttpTestingController
+} from '@angular/common/http/testing';
+import { TestBed, getTestBed, inject } from '@angular/core/testing';
 
 import { QuakemlService } from './quakeml.service';
 
