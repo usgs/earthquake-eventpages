@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content {
+  flex: 1 0 45%;
+  margin: 10px 0 10px 0;
+}
+
+.left {
+  margin-right: 10px;
+}
+
+.right {
+  margin-left: 10px;
+  padding-left: 1em;
+}
