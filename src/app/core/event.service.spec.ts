@@ -1,7 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
-  HttpTestingController } from '@angular/common/http/testing';
+  HttpTestingController
+} from '@angular/common/http/testing';
 import { TestBed, getTestBed, inject } from '@angular/core/testing';
 
 import { environment } from '../../environments/environment';

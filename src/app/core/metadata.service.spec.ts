@@ -1,6 +1,7 @@
 import {
   HttpClientTestingModule,
-  HttpTestingController } from '@angular/common/http/testing';
+  HttpTestingController
+} from '@angular/common/http/testing';
 import { TestBed, getTestBed, inject } from '@angular/core/testing';
 
 import { MetadataService } from './metadata.service';
@@ -104,16 +105,20 @@ describe('MetadataService', () => {
   });
 
   describe('translate', () => {
+    let test_obj;
 
     it('handles success',
         inject([MetadataService], (service: MetadataService) => {
 
-      let test_obj = {'output':
-                        {'ground_motions': {
-                          'test_obj': {'header': 'value'}
-                          }
-                        }
-                      };
+      test_obj = {
+        'output': {
+          'ground_motions': {
+            'test_obj': {
+              'header': 'value'
+            }
+          }
+        }
+      };
 
       test_obj = service.translate(test_obj);
 

@@ -7,15 +7,12 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class FormatterService {
-
-
   public readonly depthDecimals: number;
   public readonly distanceDecimals: number;
   public readonly empty: string;
   public readonly locationDecimals: number;
   public readonly mmiArray: Array<string>;
   public readonly mmiColors: Array<string>;
-
 
   constructor () {
     this.depthDecimals = 1;
@@ -227,6 +224,8 @@ export class FormatterService {
    *     The longitude
    * @param decimals
    *     The number of decimals to include in the formatted output
+   * @returns
+   *    formatted longitude
    */
   longitude (longitude: number, decimals = this.locationDecimals): string {
     let lngDir,

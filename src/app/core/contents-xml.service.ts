@@ -1,7 +1,4 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
@@ -14,11 +11,11 @@ import { catchError } from 'rxjs/operators';
 @Injectable ()
 export class ContentsXmlService {
 
-
   public contents$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-
-  constructor (public httpClient: HttpClient) { }
+  constructor (
+    public httpClient: HttpClient
+  ) { }
 
 
   /**
@@ -46,7 +43,8 @@ export class ContentsXmlService {
   /**
    * Error handler for http requests
    *
-   * @returns {any}
+   * @returns
+   *    returns error
    */
   private handleError () {
     return (error: HttpErrorResponse): Observable<any> => {

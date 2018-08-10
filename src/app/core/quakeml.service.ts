@@ -14,12 +14,12 @@ import { xmlToJson } from '../xml-to-json';
 @Injectable()
 export class QuakemlService {
 
-
   public quakeml$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public error: any = null;
 
-
-  constructor (public httpClient: HttpClient) { }
+  constructor (
+    public httpClient: HttpClient
+  ) { }
 
 
   /**
@@ -55,7 +55,8 @@ export class QuakemlService {
   /**
    * Error handler for http requests
    *
-   * @returns {any}
+   * @returns
+   *    returns error
    */
   private handleError () {
     return (error: HttpErrorResponse): Observable<any> => {

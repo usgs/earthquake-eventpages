@@ -4,8 +4,7 @@ import {
   Component,
   ElementRef,
   Input,
-  ViewChild,
-  ViewEncapsulation
+  ViewChild
 } from '@angular/core';
 
 import * as L from 'leaflet';
@@ -53,8 +52,9 @@ export class MapComponent implements AfterViewInit {
   @ViewChild('mapWrapper')
   mapWrapper: ElementRef;
 
-
-  constructor (private httpClient: HttpClient) { }
+  constructor (
+    private httpClient: HttpClient
+  ) { }
 
 
   ngAfterViewInit () {
