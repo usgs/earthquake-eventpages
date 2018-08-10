@@ -4,18 +4,26 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+
+/**
+ * Metadata service which converts and returns product metadata to json format
+ */
 @Injectable()
 export class MetadataService {
-  public error: any = null;
 
+
+  public error: any = null;
   public metadata$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private httpClient: HttpClient) { }
+
+  constructor (private httpClient: HttpClient) { }
+
 
   /**
    * Retreive metadata for a specifc shakemap
    *
-   * @param product shakemap product json
+   * @param product
+   *     shakemap product json
    */
   getMetadata (product: any): void {
     if ((product == null) || (
@@ -44,9 +52,12 @@ export class MetadataService {
   /**
    * Handle new instances of metadata
    *
-   * @param metadata json object
+   * @param metadata
+   *     json object
+   * @returns
+   *     Metadata observable
    */
-  onMetadata (metadata) {
+  onMetadata (metadata): any {
     metadata = this.translate(metadata);
     this.metadata$.next(metadata);
   }
@@ -54,9 +65,12 @@ export class MetadataService {
   /**
    * Translate old metadata
    *
-   * @param metadata object
+   * @param metadata
+   *     object containing all product metadata
+   * @returns
+   *     Array of metadata
    */
-  translate (metadata) {
+  translate (metadata): any {
     // Which objects are not arrays in ShakeMap V3
     const needsTrans = {'output': ['ground_motions', 'map_information'],
                         'processing': ['ground_motion_modules', 'roi']};
@@ -82,9 +96,12 @@ export class MetadataService {
    * Convert metadata objects to arrays by
    * assigning their key as a 'type' property
    *
-   * @param obj javascript object
+   * @param obj
+   *     javascript object
+   * @returns
+   *     Array with all metadata properties
    */
-  obj2Arr (obj) {
+  obj2Arr (obj): any {
     const arr = [];
     for (const item_id of Object.keys(obj)) {
       const item = obj[item_id];
@@ -97,8 +114,10 @@ export class MetadataService {
 
   /**
    * Error handler for http requests.
+   *
+   * @returns {any}
    */
-  private handleError () {
+  private handleError (): any {
     return (error: HttpErrorResponse): Observable<any> => {
       this.error = error;
       return of(null);

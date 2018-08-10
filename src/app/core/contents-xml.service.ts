@@ -1,18 +1,32 @@
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+
+/**
+ * Retreives xml contents from a product via http calls, and parses contents
+ */
 @Injectable ()
 export class ContentsXmlService {
 
+
   public contents$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor (
-    public httpClient: HttpClient
-  ) { }
 
+  constructor (public httpClient: HttpClient) { }
+
+
+  /**
+   * Gets product contents via http call and parses
+   *
+   * @param product
+   *     The product from the event
+   */
   get (product: any): void {
     try {
       const content = product.contents['contents.xml'];
@@ -30,8 +44,9 @@ export class ContentsXmlService {
   }
 
   /**
-   * Error handler for http requests.
+   * Error handler for http requests
    *
+   * @returns {any}
    */
   private handleError () {
     return (error: HttpErrorResponse): Observable<any> => {
@@ -39,6 +54,14 @@ export class ContentsXmlService {
     };
   }
 
+  /**
+   * Function to parse xml data
+   *
+   * @param file
+   *     The xml file from the product
+   * @returns
+   *     Object with formatting data
+   */
   parseFile (file: Element, product: any): Object {
     if (file.getAttribute('refid')) {
       throw new Error('file element with refid');
@@ -61,6 +84,16 @@ export class ContentsXmlService {
     };
   }
 
+  /**
+   * Helper function to select a format to parse to
+   *
+   * @param format
+   *     The format to parse data into
+   * @param product
+   *     The product object
+   * @returns
+   *     Object with href/type/url/length properties
+   */
   parseFormat (format: Element, product: any): Object {
     let result,
         content;
@@ -86,6 +119,16 @@ export class ContentsXmlService {
     return result;
   }
 
+  /**
+   * Helper function that initiates the chain of format calls to parse data
+   *
+   * @param response
+   *     The http response
+   * @param product
+   *     The product object
+   * @returns
+   *     Array of parsed responses
+   */
   parseResponse (response: string, product: any): Array<Object> {
     const xml = new DOMParser().parseFromString(response, 'text/xml');
 
@@ -94,4 +137,5 @@ export class ContentsXmlService {
       (file) => this.parseFile(file, product)
     );
   }
+
 }

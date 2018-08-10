@@ -1,7 +1,10 @@
-import { TestBed, getTestBed, inject } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController } from '@angular/common/http/testing';
+  import { TestBed, getTestBed, inject } from '@angular/core/testing';
 
 import { QuakemlService } from './quakeml.service';
+
 
 describe('QuakemlService', () => {
   let httpClient,
@@ -44,7 +47,8 @@ describe('QuakemlService', () => {
     httpClient.verify();
   });
 
-  it('should be created', inject([QuakemlService], (service: QuakemlService) => {
+  it('should be created', inject([QuakemlService],
+        (service: QuakemlService) => {
     expect(service).toBeTruthy();
   }));
 

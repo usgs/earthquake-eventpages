@@ -1,7 +1,10 @@
-import { TestBed, getTestBed, inject  } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController } from '@angular/common/http/testing';
+  import { TestBed, getTestBed, inject  } from '@angular/core/testing';
 
 import { StationService } from './station.service';
+
 
 describe('StationService', () => {
   let httpClient,
@@ -64,7 +67,8 @@ describe('StationService', () => {
     httpClient = injector.get(HttpTestingController);
   });
 
-  it('should be created', inject([StationService], (service: StationService) => {
+  it('should be created', inject([StationService],
+        (service: StationService) => {
     expect(service).toBeTruthy();
   }));
 

@@ -1,9 +1,12 @@
-import { TestBed, getTestBed, inject } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpErrorResponse } from '@angular/common/http';
+import {
+  HttpClientTestingModule,
+  HttpTestingController } from '@angular/common/http/testing';
+import { TestBed, getTestBed, inject } from '@angular/core/testing';
 
-import { EventService } from './event.service';
 import { environment } from '../../environments/environment';
+import { EventService } from './event.service';
+
 
 describe('EventService', () => {
   let httpClient: HttpTestingController,
@@ -83,7 +86,8 @@ describe('EventService', () => {
       });
     }));
 
-    it('streamlines repeats', inject([EventService], (service: EventService) => {
+    it('streamlines repeats', inject([EventService],
+          (service: EventService) => {
       let req;
 
       service.getEvent('first');
@@ -99,7 +103,8 @@ describe('EventService', () => {
   });
 
   describe('getProduct', () => {
-    it('sets product on event', inject([EventService], (service: EventService) => {
+    it('sets product on event', inject([EventService],
+          (service: EventService) => {
       let event;
       service.event$.subscribe((e) => { event = e; });
       spyOn(event, 'getProduct');

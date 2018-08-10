@@ -1,34 +1,41 @@
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 import { Observable ,  of ,  BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-
-import { Event } from '../event';
+import { catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
+import { Event } from '../event';
 
+
+/**
+ * Event service, gets event, updates products, makes http calls dealing with
+ * the specific event
+ */
 @Injectable()
 export class EventService {
 
+
   // currently selected event
   public event$ = new BehaviorSubject<Event>(new Event(null));
-
   // id information for product to be shown.
-  private productType: string;
-  private productSource: string;
-  private productCode: string;
-
+  public productType: string;
+  public productSource: string;
+  public productCode: string;
   public product$ = new BehaviorSubject<any>(null);
 
-  constructor (
-    private http: HttpClient
-  ) { }
+
+  constructor (private http: HttpClient) { }
+
 
   /**
-   * Update event to be shown.
+   * Update event to be shown
    *
-   * @param eventid the event id.
+   * @param eventid
+   *     the event id
    */
   getEvent (eventid: string): void {
     const url = `${environment.EVENT_SERVICE}/${eventid}.geojson`;
@@ -52,15 +59,16 @@ export class EventService {
   }
 
   /**
-   * Update product to be shown.
+   * Update product to be shown
    *
-   * @param type type of product.
-   * @param source source of product.
-   *               optional, defaults to preferred source.
-   * @param code code of product.
-   *               optional, defaults to preferred code.
+   * @param type
+   *     type of product
+   * @param source
+   *     source of product
+   * @param code
+   *     code of product
    */
-  getProduct(type: string, source?: string, code?: string): void {
+  getProduct (type: string, source?: string, code?: string): void {
     this.productType = type;
     this.productSource = source;
     this.productCode = code;
@@ -69,12 +77,11 @@ export class EventService {
   }
 
   /**
-   * Update event to be shown, even if it has been deleted.
+   * Update event to be shown, even if it has been deleted
+   * Used by #getEvent when a 409 Conflict (event deleted) response is received
    *
-   * Used by #getEvent when a 409 Conflict (event deleted) response is received.
-   *
-   * @param eventid the event id.
-   * @see this.event$
+   * @param eventid
+   *     the event id
    */
   private getDeletedEvent (eventid: string): void {
     const url = `${environment.DELETED_EVENT_SERVICE}&eventid=${eventid}`;
@@ -87,10 +94,12 @@ export class EventService {
   }
 
   /**
-   * Error handler for http requests.
+   * Error handler for http requests
    *
-   * @param eventid the event id being requested.
-   *                added to the resulting error object.
+   * @param eventid
+   *     the event id being requested added to the resulting error object
+   * @returns {any}
+   *     Object with request status properties
    */
   private handleError (eventid: string) {
     return (error: HttpErrorResponse): Observable<any> => {
@@ -104,21 +113,22 @@ export class EventService {
   }
 
   /**
-   * Update event observable, and call #updateProduct.
+   * Update event observable, and call #updateProduct
    *
    * @param event
+   *     The event object
    */
-  private setEvent(event: any): void {
+  private setEvent (event: any): void {
     this.event$.next(event);
     this.updateProduct();
   }
 
   /**
-   * Update selected product.
+   * Update selected product
    *
-   * @return whether a product was found.
+   * @return whether a product was found
    */
-  private updateProduct(): void {
+  private updateProduct (): void {
     const event = this.event$.value;
     const product = event.getProduct(
       this.productType,

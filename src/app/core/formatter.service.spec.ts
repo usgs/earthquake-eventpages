@@ -2,6 +2,7 @@ import { TestBed, getTestBed, inject } from '@angular/core/testing';
 
 import { FormatterService } from './formatter.service';
 
+
 describe('FormatterService', () => {
   let injector: TestBed,
       testDate: Date;
@@ -16,7 +17,8 @@ describe('FormatterService', () => {
     injector = getTestBed();
   });
 
-  it('should be created', inject([FormatterService], (service: FormatterService) => {
+  it('should be created', inject([FormatterService],
+        (service: FormatterService) => {
     expect(service).toBeTruthy();
   }));
 
@@ -53,8 +55,10 @@ describe('FormatterService', () => {
     it('formats date as YYYY-MM-DD', inject(
         [FormatterService], (formatter: FormatterService) => {
       expect(formatter.date(testDate)).toEqual('2001-01-02');
-      expect(formatter.date(new Date(testDate.setUTCMonth(10)))).toEqual('2001-11-02');
-      expect(formatter.date(new Date(testDate.setUTCDate(10)))).toEqual('2001-11-10');
+      expect(formatter.date(new Date(testDate.setUTCMonth(10))))
+          .toEqual('2001-11-02');
+      expect(formatter.date(new Date(testDate.setUTCDate(10))))
+          .toEqual('2001-11-10');
     }));
   });
 
@@ -133,7 +137,8 @@ describe('FormatterService', () => {
   describe('leftpad', () => {
     it('does not pad longer strings', inject(
         [FormatterService], (formatter: FormatterService) => {
-      expect(formatter.leftPad('longer string', 2, 'X')).toEqual('longer string');
+      expect(formatter.leftPad('longer string', 2, 'X'))
+          .toEqual('longer string');
     }));
 
     it('pads out a shorter string', inject(

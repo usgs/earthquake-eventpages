@@ -4,20 +4,30 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { xmlToJson } from '../xml-to-json';
 import { Quakeml } from '../quakeml';
+import { xmlToJson } from '../xml-to-json';
 
+
+/**
+ * Service to parse the xml from the quakeml data
+ */
 @Injectable()
 export class QuakemlService {
 
-  public quakeml$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
+  public quakeml$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public error: any = null;
 
-  constructor (
-    public httpClient: HttpClient
-  ) { }
 
+  constructor (public httpClient: HttpClient) { }
+
+
+  /**
+   * Gets the quakeml data from the event product
+   *
+   * @param product
+   *     The event product
+   */
   getQuakeml (product: any): void {
     try {
       if (product.phasedata) {
@@ -43,7 +53,9 @@ export class QuakemlService {
   }
 
   /**
-   * Error handler for http requests.
+   * Error handler for http requests
+   *
+   * @returns {any}
    */
   private handleError () {
     return (error: HttpErrorResponse): Observable<any> => {
@@ -52,6 +64,14 @@ export class QuakemlService {
     };
   }
 
+  /**
+   * Parses xml data to json
+   *
+   * @param response
+   *     The http response with xml
+   * @returns
+   *     The parsed response object
+   */
   parseResponse (response: string) {
     if (response === null) {
       return null;
