@@ -1,6 +1,5 @@
 <ng-container *ngIf="eventService?.product$ | async; let shakemap">
-  <ng-container
-      *ngIf="shakemap | sharedProductContent:
+  <ng-container *ngIf="shakemap | sharedProductContent:
       'download/sd.jpg':'download/urat_pga.jpg' as image">
 
     <ng-container *ngIf="image else noImage">

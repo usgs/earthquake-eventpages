@@ -11,7 +11,8 @@
         <mat-header-row *matHeaderRowDef="headers?.groundMotions">
         </mat-header-row>
         <mat-row *matRowDef="let myRowData;
-            columns: headers?.groundMotions"></mat-row>
+            columns: headers?.groundMotions">
+        </mat-row>
 
         <ng-container matColumnDef="type">
           <mat-header-cell *matHeaderCellDef>
@@ -87,7 +88,8 @@
         <mat-header-row *matHeaderRowDef="headers?.mapInformation">
         </mat-header-row>
         <mat-row *matRowDef="let myRowData;
-            columns: headers?.mapInformation"></mat-row>
+            columns: headers?.mapInformation">
+        </mat-row>
 
         <ng-container matColumnDef="type">
           <mat-header-cell *matHeaderCellDef>

@@ -17,7 +17,6 @@ import { FormatterService } from '../../../core/formatter.service';
 })
 export class InputComponent {
 
-
   @Input() smInput: any;
 
 
