@@ -8,7 +8,6 @@ import { Event } from '../event';
 })
 export class ContributorListPipe implements PipeTransform {
 
-
   /**
    * Returns a list of contributors from the event data
    *
