@@ -7,22 +7,23 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <mat-table [dataSource]="smProcessing.ground_motion_modules">
-        <mat-header-row *matHeaderRowDef="headers.groundMotionModules">
+      <mat-table [dataSource]="smProcessing?.ground_motion_modules">
+        <mat-header-row *matHeaderRowDef="headers?.groundMotionModules">
         </mat-header-row>
         <mat-row *matRowDef="let myRowData;
-            columns: headers.groundMotionModules"></mat-row>
+            columns: headers?.groundMotionModules"></mat-row>
 
         <ng-container matColumnDef="type">
           <mat-header-cell *matHeaderCellDef>
             Type
           </mat-header-cell>
-          <mat-cell [attr.role]="'rowheader'"
-              [class.mat-cell]="false"
-              class="mat-header-cell"
-              *matCellDef="let module">
+          <mat-cell
+            [attr.role]="'rowheader'"
+            [class.mat-cell]="false"
+            class="mat-header-cell"
+            *matCellDef="let module">
 
-            <ng-container *ngIf="names.ground_motion_modules[module.type]
+            <ng-container *ngIf="names?.ground_motion_modules[module.type]
                 as name; else noName">
               <ng-container *ngIf="abbreviations[module.type] as abbr;
                   else noAbbr">
@@ -64,74 +65,73 @@
     </ng-template>
   </mat-expansion-panel>
 
-
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>
-          Miscellaneous
-        </mat-panel-title>
+      <mat-panel-title>
+        Miscellaneous
+      </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <dl *ngIf="smProcessing.miscellaneous as miscellaneous"
+      <dl *ngIf="smProcessing?.miscellaneous as miscellaneous"
           class="description-table">
 
         <dt>Max magnitude to compute bias</dt>
-        <dd *ngIf="miscellaneous.bias_max_mag as biasMaxMag;
+        <dd *ngIf="miscellaneous?.bias_max_mag as biasMaxMag;
             else missingData">
           {{ biasMaxMag }}
         </dd>
 
         <dt>Maximum distance to include station in bias</dt>
-        <dd *ngIf="miscellaneous.bias_max_range as biasMaxRange;
+        <dd *ngIf="miscellaneous?.bias_max_range as biasMaxRange;
             else missingData">
           {{ biasMaxRange }}
         </dd>
 
         <dt>Use log amp to compute bias</dt>
-        <dd *ngIf="miscellaneous.bias_log_amp as biasLogAmp;
+        <dd *ngIf="miscellaneous?.bias_log_amp as biasLogAmp;
             else missingData">
           {{ biasLogAmp }}
         </dd>
 
         <dt>Max allowed bias</dt>
-        <dd *ngIf="miscellaneous.bias_max_bias as biasMaxBias;
+        <dd *ngIf="miscellaneous?.bias_max_bias as biasMaxBias;
             else missingData">
           {{ biasMaxBias }}
         </dd>
 
         <dt>Use log amp to compute bias</dt>
-        <dd *ngIf="miscellaneous.bias_min_bias as biasMinBias;
+        <dd *ngIf="miscellaneous?.bias_min_bias as biasMinBias;
             else missingData">
           {{ biasMinBias }}
         </dd>
 
         <dt>Min # of stations necessary to compute bias</dt>
-        <dd *ngIf="miscellaneous.bias_min_stations as biasMinStations;
+        <dd *ngIf="miscellaneous?.bias_min_stations as biasMinStations;
             else missingData">
           {{ biasMinStations }}
         </dd>
 
         <dt>Norm of the bias</dt>
-        <dd *ngIf="miscellaneous.bias_norm as biasNorm;
+        <dd *ngIf="miscellaneous?.bias_norm as biasNorm;
             else missingData">
           {{ biasNorm }}
         </dd>
 
         <dt>Median distance used</dt>
-        <dd *ngIf="miscellaneous.median_dist as medDist;
+        <dd *ngIf="miscellaneous?.median_dist as medDist;
             else missingData">
           {{ medDist }}
         </dd>
 
         <dt>Outlier level (# of std dev)</dt>
-        <dd *ngIf="miscellaneous.outlier_deviation_level as devLevel;
+        <dd *ngIf="miscellaneous?.outlier_deviation_level as devLevel;
             else missingData">
           {{ devLevel }}
         </dd>
 
         <dt>Max magnitude to flag outliers</dt>
-        <dd *ngIf="miscellaneous.outlier_max_mag as maxMag;
+        <dd *ngIf="miscellaneous?.outlier_max_mag as maxMag;
             else missingData">
           {{ maxMag }}
         </dd>
@@ -140,39 +140,38 @@
     </ng-template>
   </mat-expansion-panel>
 
-
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>
-            ShakeMap Versions
-        </mat-panel-title>
+      <mat-panel-title>
+        ShakeMap Versions
+      </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
 
-      <dl *ngIf="smProcessing.shakemap_versions as versions"
+      <dl *ngIf="smProcessing?.shakemap_versions as versions"
           class="description-table">
 
         <dt>Code</dt>
-        <dd *ngIf="versions.shakemap_revision as smRev;
+        <dd *ngIf="versions?.shakemap_revision as smRev;
             else missingData">
           {{ smRev }}
         </dd>
 
         <dt>Github commit</dt>
-        <dd *ngIf="versions.shakemap_revision_id as smRevId;
+        <dd *ngIf="versions?.shakemap_revision_id as smRevId;
             else missingData">
           {{ smRevId }}
         </dd>
 
         <dt>Map version</dt>
-        <dd *ngIf="versions.map_version as version;
+        <dd *ngIf="versions?.map_version as version;
             else missingData">
           {{ version }}
         </dd>
 
         <dt>Date</dt>
-        <dd *ngIf="versions.process_time as time;
+        <dd *ngIf="versions?.process_time as time;
             else missingData">
           {{ time | sharedDateTime }}
         </dd>
@@ -184,22 +183,22 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
         <mat-panel-title>
-            Site Response
+          Site Response
         </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
 
-      <dl *ngIf="smProcessing.site_response as siteResp"
+      <dl *ngIf="smProcessing?.site_response as siteResp"
           class="description-table" >
           <dt>Reference rock Vs30</dt>
-          <dd *ngIf="siteResp.vs30default as vs30;
+          <dd *ngIf="siteResp?.vs30default as vs30;
               else missingData">
             {{ vs30 }}
           </dd>
 
           <dt>Site correction applied</dt>
-          <dd *ngIf="siteResp.site_correction as site;
+          <dd *ngIf="siteResp?.site_correction as site;
               else missingData">
             {{ site }}
           </dd>
@@ -218,20 +217,21 @@
 
     <ng-template matExpansionPanelContent>
 
-      <mat-table [dataSource]="smProcessing.roi">
-        <mat-header-row *matHeaderRowDef="headers.roi"></mat-header-row>
-        <mat-row *matRowDef="let myRowData; columns: headers.roi"></mat-row>
+      <mat-table [dataSource]="smProcessing?.roi">
+        <mat-header-row *matHeaderRowDef="headers?.roi"></mat-header-row>
+        <mat-row *matRowDef="let myRowData; columns: headers?.roi"></mat-row>
 
         <ng-container matColumnDef="type">
           <mat-header-cell *matHeaderCellDef>
             Type
           </mat-header-cell>
-          <mat-cell [attr.role]="'rowheader'"
+          <mat-cell
+              [attr.role]="'rowheader'"
               [class.mat-cell]="false"
               class="mat-header-cell"
               *matCellDef="let roi">
 
-            {{ names.roi[roi.type] ? 
+            {{ names.roi[roi.type] ?
                 names.roi[roi.type] : roi.type }}
 
           </mat-cell>
@@ -256,7 +256,7 @@
         </ng-container>
 
       </mat-table>
-      
+
     </ng-template>
   </mat-expansion-panel>
 

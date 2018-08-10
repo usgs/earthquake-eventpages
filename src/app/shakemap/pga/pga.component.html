@@ -1,4 +1,4 @@
-<ng-container *ngIf="eventService.product$ | async; let shakemap">
+<ng-container *ngIf="eventService?.product$ | async; let shakemap">
 
   <a *ngIf="shakemap?.contents['download/cont_pga.json']; else noOverlay"
       [routerLink]="'../../map'"
@@ -11,7 +11,8 @@
       }">
 
     <shared-map
-        [overlays]="shakemap | shakemapOverlays:['shakemap-pga', 'shakemap-stations']"
+        [overlays]="shakemap | shakemapOverlays:['shakemap-pga',
+            'shakemap-stations']"
         [baselayer]="'Grayscale'"
         [showScaleControl]="true"
         [showAttributionControl]="false">
@@ -21,7 +22,7 @@
   <ng-template #noOverlay>
     <img
         *ngIf="shakemap?.contents['download/pga.jpg']; else noImage"
-        src="{{ shakemap.contents['download/pga.jpg'].url }}"
+        src="{{ shakemap?.contents['download/pga.jpg'].url }}"
         alt="ShakeMap peak ground acceleration image">
 
     <ng-template #noImage>

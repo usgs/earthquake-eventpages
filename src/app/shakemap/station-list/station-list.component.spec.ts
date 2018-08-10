@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDividerModule } from '@angular/material/divider';
 
-import { StationListComponent } from './station-list.component';
+import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
 
 import { EventService } from '../../core/event.service';
 import { StationService } from '../../core/station.service';
+import { StationListComponent } from './station-list.component';
 
-import { of } from 'rxjs/observable/of';
-import { MockComponent } from 'ng2-mock-component';
 
 describe('StationListComponent', () => {
   let component: StationListComponent;
@@ -57,11 +57,8 @@ describe('StationListComponent', () => {
 
 
   describe('onStations', () => {
-
     it('handles null input', () => {
-
       component.onStations(null);
-
       expect(component.stations).toEqual([]);
     });
   });

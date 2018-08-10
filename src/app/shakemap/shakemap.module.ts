@@ -6,31 +6,28 @@ import {
   MatExpansionModule,
   MatSortModule
 } from '@angular/material';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatDividerModule } from '@angular/material/divider';
-
 import {
   MdcTabModule,
   MdcIconModule
 } from '@angular-mdc/web';
 
-import { SharedModule } from '../shared/shared.module';
 import { ProductPageModule } from '../product-page/product-page.module';
-
-import { ShakemapComponent } from './shakemap/shakemap.component';
-import { StationListComponent } from './station-list/station-list.component';
-import { MetadataComponent } from './metadata/metadata.component';
-
-import { ShakemapRoutingModule } from './shakemap-routing.module';
+import { SharedModule } from '../shared/shared.module';
+import { IntensityComponent } from './intensity/intensity.component';
 import { InputComponent } from './metadata/input/input.component';
+import { MetadataComponent } from './metadata/metadata.component';
 import { OutputComponent } from './metadata/output/output.component';
 import { ProcessingComponent } from './metadata/processing/processing.component';
-import { UncertaintyComponent } from './uncertainty/uncertainty.component';
-import { IntensityComponent } from './intensity/intensity.component';
 import { PgaComponent } from './pga/pga.component';
 import { PgvComponent } from './pgv/pgv.component';
 import { PsaComponent } from './psa/psa.component';
+import { ShakemapComponent } from './shakemap/shakemap.component';
+import { ShakemapRoutingModule } from './shakemap-routing.module';
+import { StationListComponent } from './station-list/station-list.component';
+import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 
 @NgModule({
   imports: [
@@ -44,10 +41,8 @@ import { PsaComponent } from './psa/psa.component';
     MatDividerModule,
     MdcIconModule,
     MdcTabModule,
-
     ProductPageModule,
     SharedModule,
-
     ShakemapRoutingModule
   ],
   declarations: [

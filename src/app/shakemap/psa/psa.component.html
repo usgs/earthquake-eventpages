@@ -1,21 +1,22 @@
-<ng-container *ngIf="eventService.product$ | async; let shakemap">
+<ng-container *ngIf="eventService?.product$ | async; let shakemap">
 
   <h3>Peak Spectral Acceleration for 0.3 s, 1.0 s, 3.0 s</h3>
 
-  <ng-container 
+  <ng-container
       *ngIf="shakemap?.contents['download/cont_psa03.json']; else noPSA03">
     <h4>0.3 s PSA (%g)</h4>
     <a [routerLink]="'../../map'"
-        [queryParams]="{
-          'shakemap-code': shakemap?.code,
-          'shakemap-source': shakemap?.source,
-          'shakemap-psa03': true,
-          'shakemap-stations': true,
-          'shakemap-intensity': false
-        }">
+       [queryParams]="{
+         'shakemap-code': shakemap?.code,
+         'shakemap-source': shakemap?.source,
+         'shakemap-psa03': true,
+         'shakemap-stations': true,
+         'shakemap-intensity': false
+       }">
 
       <shared-map
-          [overlays]="shakemap | shakemapOverlays:['shakemap-psa03', 'shakemap-stations']"
+          [overlays]="shakemap | shakemapOverlays:['shakemap-psa03',
+          'shakemap-stations']"
           [baselayer]="'Grayscale'"
           [showScaleControl]="true"
           [showAttributionControl]="false">
@@ -26,13 +27,13 @@
   <ng-template #noPSA03>
     <img
         *ngIf="shakemap?.contents['download/psa03.jpg']; else noPSA03Image"
-        src="{{ shakemap.contents['download/psa03.jpg'].url }}"
+        src="{{ shakemap?.contents['download/psa03.jpg'].url }}"
         alt="ShakeMap 0.3 s PSA (%g) image">
 
     <ng-template #noPSA03Image>
       <h1>No 0.3 s PSA available for this event</h1>
     </ng-template>
-  </ng-template>  
+  </ng-template>
 
   <ng-container
       *ngIf="shakemap?.contents['download/cont_psa10.json']; else noPSA10">
@@ -47,7 +48,8 @@
         }">
 
       <shared-map
-          [overlays]="shakemap | shakemapOverlays:['shakemap-psa10', 'shakemap-stations']"
+          [overlays]="shakemap | shakemapOverlays:['shakemap-psa10',
+          'shakemap-stations']"
           [baselayer]="'Grayscale'"
           [showScaleControl]="true"
           [showAttributionControl]="false">
@@ -58,7 +60,7 @@
   <ng-template #noPSA10>
     <img
         *ngIf="shakemap?.contents['download/psa10.jpg']; else noPSA10Image"
-        src="{{ shakemap.contents['download/psa10.jpg'].url }}"
+        src="{{ shakemap?.contents['download/psa10.jpg'].url }}"
         alt="ShakeMap 1.0 s PSA (%g) image">
 
     <ng-template #noPSA10Image>
@@ -70,7 +72,7 @@
       *ngIf="shakemap?.contents['download/cont_psa30.json']; else noPSA30">
     <h4>3.0 s PSA (%g)</h4>
     <a [routerLink]="'../../map'"
-        [queryParams]="{
+       [queryParams]="{
           'shakemap-code': shakemap?.code,
           'shakemap-source': shakemap?.source,
           'shakemap-psa30': true,
@@ -79,7 +81,8 @@
         }">
 
       <shared-map
-          [overlays]="shakemap | shakemapOverlays:['shakemap-psa30', 'shakemap-stations']"
+          [overlays]="shakemap | shakemapOverlays:['shakemap-psa30',
+          'shakemap-stations']"
           [baselayer]="'Grayscale'"
           [showScaleControl]="true"
           [showAttributionControl]="false">
@@ -90,12 +93,12 @@
   <ng-template #noPSA30>
     <img
         *ngIf="shakemap?.contents['download/psa30.jpg']; else noPSA30Image"
-        src="{{ shakemap.contents['download/psa30.jpg'].url }}"
+        src="{{ shakemap?.contents['download/psa30.jpg'].url }}"
         alt="ShakeMap 3.0 s PSA (%g) image">
 
     <ng-template #noPSA30Image>
       <h1>No 3.0 s PSA available for this event</h1>
     </ng-template>
-  </ng-template>  
+  </ng-template>
 
 </ng-container>

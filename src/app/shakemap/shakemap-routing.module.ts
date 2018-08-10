@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ShakemapComponent } from './shakemap/shakemap.component';
-import { StationListComponent } from './station-list/station-list.component';
-import { MetadataComponent } from './metadata/metadata.component';
-import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 import { IntensityComponent } from './intensity/intensity.component';
+import { MetadataComponent } from './metadata/metadata.component';
 import { PgaComponent } from './pga/pga.component';
 import { PgvComponent } from './pgv/pgv.component';
 import { PsaComponent } from './psa/psa.component';
+import { ShakemapComponent } from './shakemap/shakemap.component';
+import { StationListComponent } from './station-list/station-list.component';
+import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 
 const shakemapRoutes: Routes = [
   {
