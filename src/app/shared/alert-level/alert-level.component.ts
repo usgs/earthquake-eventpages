@@ -11,9 +11,7 @@ import { Component, Input } from '@angular/core';
 })
 export class AlertLevelComponent {
 
-
   public alertLevel: string;
-
 
   /**
    * Setter for the alert level color

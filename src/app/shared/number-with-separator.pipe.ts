@@ -6,14 +6,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class NumberWithSeparatorPipe implements PipeTransform {
 
-
   /**
    * Returns shared number with separator
+   *
    * @param value
    *     The number value
    * @param locale
-   *     The locale
+   *     The language representation
+   *
    * @returns {any}
+   *     a formatted number
    */
   transform (value: number, locale?: any): any {
     let negative = '';
@@ -46,9 +48,13 @@ export class NumberWithSeparatorPipe implements PipeTransform {
   }
 
   /**
-   * Helper function to return string of the locale input
+   * Get locale based separator and decimal information
+   *
    * @param locale
+   *     language representation
+   *
    * @returns {{separator: string, decimal: string}}
+   *     formatter object with separator and decimal information
    */
   private _getLocaleInfo (locale) {
     const knownValue = 1000.1;

@@ -8,28 +8,34 @@ import { Event } from '../event';
 })
 export class NearbySeismicityLinkPipe implements PipeTransform {
 
-
   private KM_PER_DEGREE = 111.12;
 
-
   /**
-   * Returns link to the nearby seismicity map
+   * Get a link to the nearby seismicity map
+   *
    * @param event
    *     The event
-   * @returns {string}
+   *
+   * @return {string}
+   *     Link to nearby seismicity
    */
   transform (event: Event): string {
     if (!event || !event.geometry || !event.id) {
       return null;
     } else {
-      return this.getNearbySeismicityLink(event);
+      return this.getLatestEarthquakesLink(event.id,
+        this.getNearbySeismicityParams(event));
     }
   }
 
   /**
-   * Helper function
+   * Get nearby seismicity link or generic link back to homepage
+   *
    * @param event
-   * @returns {any}
+   *     The event
+   *
+   * @return {any}
+   *     A link
    */
   getNearbySeismicityLink (event: Event) {
     if (event && event.geometry && event.id) {
@@ -41,12 +47,15 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
   }
 
   /**
-   * Returns the link based on parameters
+   * builds the nearby seismicity link
+   *
    * @param eventid
    *     The event id
    * @param params
-   *     Builds a parameters object with below settings
+   *     search parameters object
+   *
    * @returns {string}
+   *     nearby seismicity link
    */
   getLatestEarthquakesLink (eventid: string = null, params: any = {}) {
     const id = eventid || ('' + new Date().getTime());
@@ -70,10 +79,13 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
   }
 
   /**
-   * Returns the map coordinates
+   * Get the map coordinates
+   *
    * @param params
-   *     The previously built parameters
+   *     search parameters object
+   *
    * @returns {((any | any)[] | (any | any)[])[]}
+   *     leaflet map bounds
    */
   getMapPosition (params: any = {}) {
     let latitude,
@@ -111,10 +123,13 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
   }
 
   /**
-   * Builds parameters based on the event
+   * Builds search parameters based on the event
+   *
    * @param event
    *     The event
-   * @returns {any}
+   *
+   * @return {any}
+   *     search parameters
    */
   getNearbySeismicityParams (event: Event) {
     let minmagnitude, time;

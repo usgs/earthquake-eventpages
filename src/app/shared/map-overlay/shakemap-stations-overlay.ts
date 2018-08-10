@@ -7,11 +7,11 @@ import { NumberPipe } from '../number.pipe';
 import { RomanPipe } from '../roman.pipe';
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
+
 /**
- * Shakemap overlay object for showing geoJSON data
+ * Shakemap overlay for leaflet map
  */
 const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
-
 
   id: 'shakemap-stations',
   title: 'Shakemap Stations',
@@ -20,8 +20,10 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
   numberPipe: null,
   romanPipe: new RomanPipe(),
 
+
   /**
-   * Init function, builds pipes and gets the product url
+   * Build leaflet overlay
+   *
    * @param product
    *     The product from the event
    */
@@ -37,6 +39,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Gets the url associated with this product
+   *
    * @param product
    *     The product from the event
    */
@@ -51,6 +54,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Creates a map marker for a map station and sets click listener on it
+   *
    * @param feature
    *     The feature/type of marker
    * @param latlng
@@ -96,6 +100,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Helper function to parse stationlist json
+   *
    * @param data
    *     The data to parse
    */
@@ -111,6 +116,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Function to generate the popup for a click event
+   *
    * @param event
    *     The event
    */
@@ -127,6 +133,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
   /**
    * Helper function to generate popup html content
+   *
    * @param feature
    *     The feature data to parse for the popup
    */
@@ -140,6 +147,5 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
   }
 
 });
-
 
 export { ShakemapStationsOverlay };

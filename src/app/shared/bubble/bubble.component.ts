@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 
 /**
  * Shared bubble component for use in beachball components
+ *
  * @param name
  *     The name value
  * @param title

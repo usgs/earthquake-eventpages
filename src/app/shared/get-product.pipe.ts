@@ -8,9 +8,9 @@ import { Event } from '../event';
 })
 export class GetProductPipe implements PipeTransform {
 
-
   /**
    * Returns the product from the event input based on type input
+   *
    * @param event
    *     The event to get product from
    * @param type
@@ -21,7 +21,9 @@ export class GetProductPipe implements PipeTransform {
    *     Event code
    * @param updateTime
    *     Time last updated, if exists
-   * @returns {any}
+   *
+   * @return {any}
+   *     product of 'type' from evenet
    */
   transform (event: Event, type: string,
       source?: string, code?: string, updateTime?: number): any {

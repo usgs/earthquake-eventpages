@@ -5,6 +5,7 @@ import { GeoserveService } from '../../core/geoserve.service';
 
 /**
  * Shared fe region component for use with maps
+ *
  * @param input
  *     FE region from the product
  */

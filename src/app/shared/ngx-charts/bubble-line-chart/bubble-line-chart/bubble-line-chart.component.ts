@@ -17,15 +17,19 @@ import {
   TemplateRef } from '@angular/core';
 
 import {
-  BaseChartComponent, LineSeriesComponent,
-  calculateViewDimensions, ViewDimensions, ColorHelper
+  BaseChartComponent,
+  calculateViewDimensions,
+  ColorHelper,
+  LineSeriesComponent,
+  ViewDimensions,
  } from '@swimlane/ngx-charts';
- import { scaleLinear, scaleLog, scaleTime } from 'd3-scale';
+import { scaleLinear, scaleLog, scaleTime } from 'd3-scale';
 import { curveLinear } from 'd3-shape';
 
 
 /**
  * Bubble line chart component for use on maps
+ *
  * @param activeEntries
  * @param animations
  * @param autoScale
@@ -73,6 +77,29 @@ import { curveLinear } from 'd3-shape';
 })
 export class BubbleLineChartComponent extends BaseChartComponent {
 
+  // ngx-chart options
+  bubblePadding = [0, 0, 0, 0];
+  colors: ColorHelper;
+  combinedSeries;
+  dims: ViewDimensions;
+  filteredDomain;
+  hoveredVertical;
+  legendOptions: any;
+  legendSpacing = 0;
+  margin: any[] = [10, 20, 10, 20];
+  rDomain: any;
+  rScale: any;
+  scaledAxis;
+  seriesDomain;
+  transform: string;
+  xAxisHeight = 0;
+  xDomain: any;
+  xScale: any;
+  xSet;
+  yAxisWidth = 0;
+  yDomain: any;
+  yOrientLeft = 'left';
+  yScale: any;
 
   @Input() activeEntries: any[] = [];
   @Input() animations = true;
@@ -121,30 +148,6 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       TemplateRef<any>;
 
   @ViewChild(LineSeriesComponent) lineSeriesComponent: LineSeriesComponent;
-
-  // ngx-chart options
-  bubblePadding = [0, 0, 0, 0];
-  colors: ColorHelper;
-  combinedSeries;
-  dims: ViewDimensions;
-  filteredDomain;
-  hoveredVertical;
-  legendOptions: any;
-  legendSpacing = 0;
-  margin: any[] = [10, 20, 10, 20];
-  rDomain: any;
-  rScale: any;
-  scaledAxis;
-  seriesDomain;
-  transform: string;
-  xAxisHeight = 0;
-  xDomain: any;
-  xScale: any;
-  xSet;
-  yAxisWidth = 0;
-  yDomain: any;
-  yOrientLeft = 'left';
-  yScale: any;
 
 
   /**

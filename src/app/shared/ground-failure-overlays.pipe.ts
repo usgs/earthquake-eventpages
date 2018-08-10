@@ -15,11 +15,14 @@ import {
 })
 export class GroundFailureOverlaysPipe implements PipeTransform {
 
-
   /**
    * Returns an array of leaflet overlays for ground failure
+   *
    * @param product
-   * @returns {Array<L.Layer>}
+   *     a ground-failure product
+   *
+   * @return {Array<L.Layer>}
+   *     an array of ground-failure overlays
    */
   transform (product: any): Array<L.Layer> {
     const overlays = [];

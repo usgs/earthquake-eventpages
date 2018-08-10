@@ -7,13 +7,14 @@ import { ParamMap } from '@angular/router';
 })
 export class InteractiveMapBoundsPipe implements PipeTransform {
 
-
   /**
-   * Returns the interactive map bounds
+   * Returns the leaflet map bounds
    *
    * @param params
-   *     Map of interactive map parameters
-   * @returns {any}
+   *     query string parameters
+   *
+   * @return {any}
+   *     leaflet map bounds
    */
   transform (params: ParamMap): any {
     if (!params) {
@@ -21,7 +22,6 @@ export class InteractiveMapBoundsPipe implements PipeTransform {
     }
 
     const parsed = [];
-
     const bounds = params.getAll('bounds');
     bounds.forEach((b) => {
       if (!b) {

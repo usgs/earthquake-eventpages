@@ -2,8 +2,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import {
-  HistoricSeismicityOverlay } from '../map-overlay/historic-seismicity-overlay';
-  import { MapComponent } from './map.component';
+  HistoricSeismicityOverlay
+} from '../map-overlay/historic-seismicity-overlay';
+import { MapComponent } from './map.component';
 
 
 describe('MapComponent', () => {

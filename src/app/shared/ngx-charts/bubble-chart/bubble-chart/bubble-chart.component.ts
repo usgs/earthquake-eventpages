@@ -9,13 +9,14 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy } from '@angular/core';
 
-
-import { BubbleChartComponent
-  as SwimlaneBubbleChart } from '@swimlane/ngx-charts';
+import {
+  BubbleChartComponent as SwimlaneBubbleChart
+} from '@swimlane/ngx-charts';
 
 
 /**
  * Bubble chart component to show the series items
+ *
  * @param errorBarColor
  *     The color of the error bar on the component
  */
@@ -39,7 +40,6 @@ import { BubbleChartComponent
   ]
 })
 export class BubbleChartComponent extends SwimlaneBubbleChart {
-
 
   @Input() errorBarColor = '#000000';
 

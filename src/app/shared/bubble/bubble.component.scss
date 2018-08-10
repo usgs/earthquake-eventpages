@@ -1,16 +1,3 @@
-:host {
-  display: block;
-  line-height: 1;
-  text-align: center;
-}
-
-:host.border {
-  border-radius: 2px;
-  box-shadow: inset 0 0 1px rgba(0,0,0,.5);
-  padding: 0.5em 0;
-  text-shadow: 1px 1px 0 hsla(0,0%,100%,.3);
-}
-
 span {
   display: block;
   max-width: 100%;

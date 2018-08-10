@@ -4,8 +4,7 @@
         *ngIf="hasGradient"
         orientation="vertical"
         [name]="gradientId"
-        [stops]="gradientStops"
-    />
+        [stops]="gradientStops" />
   </defs>
   <svg:g ngx-charts-area
       class="line-highlight"
@@ -17,8 +16,7 @@
       [gradient]="true"
       [stops]="areaGradientStops"
       [class.active]="isActive(data)"
-      [class.inactive]="isInactive(data)"
-  />
+      [class.inactive]="isInactive(data)" />
   <svg:g ngx-charts-line
       class="line-series"
       [data]="data"
@@ -27,8 +25,7 @@
       [strokeWidth]="strokeWidth"
       [animations]="animations"
       [class.active]="isActive(data)"
-      [class.inactive]="isInactive(data)"
-  />
+      [class.inactive]="isInactive(data)" />
   <svg:g ngx-charts-area
       *ngIf="hasRange"
       class="line-series-range"
@@ -38,6 +35,5 @@
       [class.active]="isActive(data)"
       [class.inactive]="isInactive(data)"
       [opacity]="rangeFillOpacity"
-      [animations]="animations"
-  />
+      [animations]="animations" />
 </svg:g>

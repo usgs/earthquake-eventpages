@@ -13,12 +13,14 @@ import {
 })
 export class RegionInfoOverlaysPipe implements PipeTransform {
 
-
   /**
-   * Returns regional info leaflet overlays for the map
+   * Get regional information leaflet overlay
+   *
    * @param product
-   *     The event product
-   * @returns {Array<L.Layer>}
+   *     origin product
+   *
+   * @return {Array<L.Layer>}
+   *     region-info overlay
    */
   transform (product: any): Array<L.Layer> | null {
     const overlays = [];

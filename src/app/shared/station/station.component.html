@@ -5,22 +5,21 @@
   </h3>
 
   <div class="summary">
-    <shared-mmi class="intensity"
+    <shared-mmi class="intensity summary-item"
       [bubble]="true"
       [intensity]="station?.properties?.intensity">
     </shared-mmi>
-
-    <shared-bubble
+    <shared-bubble class="summary-item"
       [name]="'pga'"
       [title]="'Maximum Horizontal Peak Ground Acceleration'">
       {{ station.properties?.pga | sharedNumber:2:'%g' }}
     </shared-bubble>
-    <shared-bubble
+    <shared-bubble class="summary-item"
       [name]="'pgv'"
       [title]="'Maximum Horizontal Peak Ground Velocity'">
       {{ station.properties?.pgv | sharedNumber:2:'cm/s' }}
     </shared-bubble>
-    <shared-bubble
+    <shared-bubble class="summary-item"
       [name]="'dist'"
       [title]="'Distance'">
       {{ station.properties?.distance | sharedNumber:2:'km' }}

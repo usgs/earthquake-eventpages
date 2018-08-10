@@ -8,12 +8,12 @@ import { FormatterService } from '../core/formatter.service';
 })
 export class NumberPipe implements PipeTransform {
 
-
   constructor (public formatter: FormatterService) { }
 
 
   /**
    * Format a number
+   *
    * @param value
    *     Number to format.
    * @param decimals Optional, default does not round.
@@ -22,7 +22,9 @@ export class NumberPipe implements PipeTransform {
    *     Value to return if value is empty.
    * @param units Optional, default none.
    *     Units of value.
+   *
    * @return {String}
+   *     formatted number
    */
   transform (
       value: any,

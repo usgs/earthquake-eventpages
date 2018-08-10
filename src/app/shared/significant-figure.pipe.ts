@@ -6,14 +6,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SignificantFigurePipe implements PipeTransform {
 
-
   /**
-   * Returns significant figure from the magnitude
+   * Get significant figure from the magnitude
+   *
    * @param value
-   *     The magnitude input
+   *     The magnitude
+   *
    * @param significant
    *     The significant number of digits
-   * @returns {any}
+   *
+   * @return {any}
+   *     magnitude shifted to show only significant digits
    */
   transform (value: any, significant: number): any {
     let d,

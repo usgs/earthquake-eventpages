@@ -7,6 +7,7 @@ import { Event } from '../../event';
 
 /**
  * Attribution component
+ *
  * @param sourceCode
  *     The actual source code for attribution
  */
@@ -16,7 +17,6 @@ import { Event } from '../../event';
   styleUrls: ['./attribution.component.scss']
 })
 export class AttributionComponent {
-
 
   @Input() sourceCode: string;
 
@@ -28,16 +28,8 @@ export class AttributionComponent {
 
 
   /**
-   * Returns whether or no source has an index property
-   * @param source
-   * @returns {boolean}
-   */
-  hasIndex (source) {
-    return (source.index || source.index === 0);
-  }
-
-  /**
    * Converts source code to informational data
+   *
    * @param sourceCode
    *     The source code for attribution
    * @param event

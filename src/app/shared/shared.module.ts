@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, Injector } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
-import { MatButtonModule,
-          MatDialogModule,
-          MatIconModule,
-          MatExpansionModule,
-          MatCardModule,
-          MatTableModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatDialogModule,
+  MatIconModule,
+  MatExpansionModule,
+  MatCardModule,
+  MatTableModule
+} from '@angular/material';
 import { RouterModule } from '@angular/router';
 
 import { AlertLevelComponent } from './alert-level/alert-level.component';
@@ -30,8 +32,8 @@ import { MapComponent } from './map/map.component';
 import { MmiComponent } from './mmi/mmi.component';
 import { NearbySeismicityLinkPipe } from './nearby-seismicity-link.pipe';
 import { NodalPlanesComponent } from './nodal-planes/nodal-planes.component';
-import { NumberPipe } from './number.pipe';
 import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
+import { NumberPipe } from './number.pipe';
 import { PreferredCheckComponent } from './preferred-check/preferred-check.component';
 import { ProductAttributionComponent } from './product-attribution/product-attribution.component';
 import { ProductContentPipe } from './product-content.pipe';
@@ -41,8 +43,8 @@ import { RoundDownPipe } from './round-down.pipe';
 import { RoundUpPipe } from './round-up.pipe';
 import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 import { SignificantFigurePipe } from './significant-figure.pipe';
-import { StationComponent } from './station/station.component';
 import { StationFlagComponent } from './station-flag/station-flag.component';
+import { StationComponent } from './station/station.component';
 import { SummaryLinkPipe } from './summary-link.pipe';
 import { SummaryLinkComponent } from './summary-link/summary-link.component';
 import { TensorPipe } from './tensor.pipe';

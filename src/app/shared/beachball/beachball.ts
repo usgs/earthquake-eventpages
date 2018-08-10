@@ -16,10 +16,10 @@ const _MERGE_THRESHOLD = 0.02;
 // threshold takeoff angle when polygons should be split.
 const _SPLIT_THRESHOLD = 85 * _D2R;
 
-
 let __0To2Pi,
     __axisCache,
     __getOption;
+
 
 /**
  * Make sure number is between 0 and 2pi.
@@ -93,7 +93,6 @@ __getOption = function (options: any, name: string, defaultValue: any): any {
 
 export class Beachball {
 
-
   static zeroToTwoPi = __0To2Pi;
 
   public axisSize: number = null;
@@ -126,12 +125,12 @@ export class Beachball {
     new Beachball(tensor, el, options).render();
   }
 
-  constructor (
-    public tensor: Tensor,
-    public el: any,
-    options?: any
-  ) {
 
+  constructor (
+      public tensor: Tensor,
+      public el: any,
+      options?: any
+    ) {
     this.bgColor = __getOption(options, 'bgColor', this.bgColor);
     this.fillColor = __getOption(options, 'fillColor', this.fillColor);
     this.labelAxes = __getOption(options, 'labelAxes', this.labelAxes);
@@ -270,6 +269,7 @@ export class Beachball {
    * @param np {Object}
    *     Nodal plane object with keys `strike`, `dip`, and `rake` and
    *     values in degrees.
+   *
    * @return {Object}
    *     With properties `x` and `y` that are Arrays of points in the
    *     range [-1, 1].
@@ -316,6 +316,7 @@ export class Beachball {
    *
    * @param vector {Vector}
    *     vector reprenenting point.
+   *
    * @return {Object}
    *     with properties `x` and `y` in the range [-1, 1] representing location
    *     of point in focal sphere.
@@ -343,11 +344,11 @@ export class Beachball {
 
   /**
    * Get Polygons representing pressure and tension regions of the beachball.
-   *
    * May swap foreground and background colors.
    *
    * @param tensor {Tensor}
    *        tensor.
+   *
    * @return {Array<Object>} each object will have properties:
    *         x: {Array<Number>} x coordinates of line,
    *         y: {Array<Number} y coordinates of line,
@@ -356,33 +357,33 @@ export class Beachball {
    */
   getPolygons (tensor) {
     let alphan,
-      az,
-      azes,
-      azp,
-      c,
-      cfi,
-      f,
-      fir,
-      i,
-      iso,
-      n,
-      p,
-      polygon,
-      polygons,
-      r,
-      s,
-      s2alphan,
-      sfi,
-      swapColors,
-      t,
-      tmp,
-      takeoff,
-      vi,
-      x,
-      xe,
-      xn,
-      xz,
-      y;
+        az,
+        azes,
+        azp,
+        c,
+        cfi,
+        f,
+        fir,
+        i,
+        iso,
+        n,
+        p,
+        polygon,
+        polygons,
+        r,
+        s,
+        s2alphan,
+        sfi,
+        swapColors,
+        t,
+        tmp,
+        takeoff,
+        vi,
+        x,
+        xe,
+        xn,
+        xz,
+        y;
 
     t = __axisCache(tensor.T);
     n = __axisCache(tensor.N);
@@ -504,6 +505,7 @@ export class Beachball {
    *
    * @param vector {Vector}
    *     the vector.
+   *
    * @return {Object}
    *     relative point within focal sphere.
    */
@@ -521,6 +523,7 @@ export class Beachball {
    *     text to measure.
    * @param font {String}
    *     css/canvas font property.
+   *
    * @return {Object}
    *     with `width` and `height` properties that are the pixel size of `text`.
    */
@@ -631,6 +634,7 @@ export class Beachball {
    *
    * @param polygons {Array<Object>}
    *     array of polygons to potentially merge.
+   *
    * @return {Array<Object>}
    *     array of polygons that remain after any merges.
    */
@@ -674,6 +678,7 @@ export class Beachball {
    *
    * @param x {Number}
    *     relative x coordinate.
+   *
    * @return {Number}
    *     canvas pixel x coordinate.
    */
@@ -686,6 +691,7 @@ export class Beachball {
    *
    * @param y {Number}
    *     relative y coordinate.
+   *
    * @return {Number}
    *     canvas pixel y coordinate.
    */

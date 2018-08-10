@@ -37,16 +37,6 @@ describe('AttributionComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('hasIndex', () => {
-    it('properly verifies index property', () => {
-      expect(component.hasIndex({})).toBeFalsy();
-      expect(component.hasIndex({index: null})).toBeFalsy();
-      expect(component.hasIndex({index: false})).toBeFalsy();
-      expect(component.hasIndex({index: 0})).toBeTruthy();
-      expect(component.hasIndex({index: 2})).toBeTruthy();
-    });
-  });
-
   describe('sourceCodeToInfo', () => {
     it('short-circuits if no sourceCode provided', () => {
       const result = component.sourceCodeToInfo(null);

@@ -32,6 +32,7 @@ import { Tensor } from './tensor';
 })
 export class BeachballComponent implements OnChanges {
 
+  public readonly tensor$ = new BehaviorSubject<Tensor>(null);
 
   @Input() tensor: Tensor;
   @Input() fillColor = '#ddd';
@@ -40,8 +41,6 @@ export class BeachballComponent implements OnChanges {
   @Input() size = 320;
 
   @ViewChild('beachball') elementRef: ElementRef;
-
-  public readonly tensor$ = new BehaviorSubject<Tensor>(null);
 
 
   ngOnChanges () {

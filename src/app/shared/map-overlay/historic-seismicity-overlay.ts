@@ -5,6 +5,7 @@ import * as L from 'leaflet';
  * Historic seismicity overlay for leaflet map
  */
 const HistoricSeismicityOverlay = L.TileLayer.extend({
+
   bounds: null,
   enabled: true,
   id: 'historic-seismicity',
@@ -13,7 +14,7 @@ const HistoricSeismicityOverlay = L.TileLayer.extend({
 
 
   /**
-   * Init function, creates a legend element and initializes leaflet layer
+   * Build leaflet overlay
    */
   initialize: function () {
     const legend = document.createElement('img');
@@ -33,6 +34,5 @@ const HistoricSeismicityOverlay = L.TileLayer.extend({
   }
 
 });
-
 
 export { HistoricSeismicityOverlay };

@@ -4,19 +4,20 @@ import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 
 
 /**
- * Shakemap PGV overlay for the shakemap
+ * Shakemap PGV overlay for leaflet map
  */
 const ShakemapPGVOverlay = ShakemapContoursOverlay.extend({
-
 
   id: 'shakemap-pgv',
   title: 'Shakemap PGV Contours',
   legend: null,
 
+
   /**
-   * Init function to build contours for the overlay
+   * Build leaflet overlay
+   *
    * @param product
-   *     The product from this event
+   *     shakemap product
    */
   initialize: function (product: any) {
     ShakemapContoursOverlay.prototype.initialize.call(this);
@@ -26,8 +27,9 @@ const ShakemapPGVOverlay = ShakemapContoursOverlay.extend({
 
   /**
    * Returns the cont_pgv url, if exists
+   *
    * @param product
-   *     The product from this event
+   *     shakemap product
    */
   getUrl: function (product: any) {
     if (product == null) {
@@ -40,6 +42,7 @@ const ShakemapPGVOverlay = ShakemapContoursOverlay.extend({
 
   /**
    * Creates/formats a label for this product feature
+   *
    * @param feature
    *     The feature from product
    */

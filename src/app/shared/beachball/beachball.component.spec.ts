@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BeachballComponent } from './beachball.component';
 import { Beachball } from './beachball';
+import { BeachballComponent } from './beachball.component';
 import { Tensor } from './tensor';
 
 

@@ -32,11 +32,10 @@ let __col,
  * @return {Array<Number>} column elements.
  */
 __col = function (
-  data: Array<number>,
-  m: number,
-  n: number,
-  col: number
-): Array<number> {
+    data: Array<number>,
+    m: number,
+    n: number,
+    col: number): Array<number> {
   let row,
       values;
   if (col < 0 || col >= n) {
@@ -65,9 +64,9 @@ __col = function (
  * @return {Array<Number>} elements on the diagonal.
  */
 __diagonal = function (
-  data: Array<number>,
-  m: number,
-  n: number): Array<number> {
+    data: Array<number>,
+    m: number,
+    n: number): Array<number> {
   let len,
       diag;
   len = Math.min(m, n),
@@ -95,12 +94,11 @@ __diagonal = function (
  * @return {Number} value.
  */
 __get = function (
-  data: Array<number>,
-  m: number,
-  n: number,
-  row: number,
-  col: number
-): number {
+    data: Array<number>,
+    m: number,
+    n: number,
+    row: number,
+    col: number): number {
   return data[__index(m, n, row, col)];
 };
 
@@ -165,11 +163,10 @@ __index = function (m: number, n: number, row: number, col: number): number {
  *         Object with eigenvalue and vector properties.
  */
 __jacobi = function (
-  data: Array<number>,
-  m: number,
-  n: number,
-  maxRotations: number
-): Array<any> {
+    data: Array<number>,
+    m: number,
+    n: number,
+    maxRotations: number): Array<any> {
   let a,
       aip,
       aiq,
@@ -301,7 +298,9 @@ __jacobi = function (
  *        number of rows in second matrix.
  * @param n2 {Number}
  *        number of columns in second matrix.
+ *
  * @throws Error if n1 !== m2
+ *
  * @return result of multiplication (original matrix is unchanged).
  */
 __multiply = function (data1: Array<number>, m1: number, n1: number, data2: Array<number>, m2: number, n2: number): Array<number> {
@@ -337,7 +336,9 @@ __multiply = function (data1: Array<number>, m1: number, n1: number, data2: Arra
  *        number of columns.
  * @param row {Number}
  *        index of row, in range [0,m)
+ *
  * @throws Error if row out of range.
+ *
  * @return {Array<Number>} row elements.
  */
 __row = function (data: Array<number>, m: number, n: number, row: number): Array<number> {
@@ -370,6 +371,7 @@ __row = function (data: Array<number>, m: number, n: number, row: number): Array
  *        column of element, in range [0,n)
  * @param value {Number}
  *        value to set.
+ *
  * @throws Error if row or col are out of range.
  */
 __set = function (data: Array<number>, m: number, n: number, row: number, col: number, value: number) {
@@ -385,6 +387,7 @@ __set = function (data: Array<number>, m: number, n: number, row: number, col: n
  *        number of rows.
  * @param n {Number}
  *        number of columns.
+ *
  * @return {String} formatted matrix.
  */
 __stringify = function (data: Array<number>, m: number, n: number): string {
@@ -422,6 +425,7 @@ __stringify = function (data: Array<number>, m: number, n: number): string {
  *        number of rows.
  * @param n {Number}
  *        number of columns.
+ *
  * @return transposed matrix (original matrix is unchanged).
  */
 __transpose = function (data: Array<number>, m: number, n: number): Array<number> {
@@ -507,7 +511,9 @@ export class Matrix {
    *
    * @param that {Matrix}
    *        matrix to add.
+   *
    * @throws Error if dimensions do not match.
+   *
    * @return result of addition (original matrix is unchanged).
    */
   add (that: Matrix): Matrix {
@@ -522,6 +528,7 @@ export class Matrix {
    *
    * @param col {Number}
    *        zero-based column index.
+   *
    * @return {Array<Number>} array containing elements from column.
    */
   col (col: number): Array<number> {
@@ -544,6 +551,7 @@ export class Matrix {
    *        zero-based index of row.
    * @param col {Number}
    *        zero-based index of column.
+   *
    * @return {Number} value at (row, col).
    */
   get (row: number, col: number): number {
@@ -558,6 +566,7 @@ export class Matrix {
    * @param maxRotations {Number}
    *        default 100.
    *        maximum number of iterations.
+   *
    * @return {Array<any>} eigenvectors.
    *         Object with eigenvalue and vector properties.
    */
@@ -570,6 +579,7 @@ export class Matrix {
    *
    * @param that {Matrix}
    *        matrix to multiply.
+   *
    * @return {Matrix} result of multiplication.
    */
   multiply (that: Matrix): Matrix {
@@ -594,6 +604,7 @@ export class Matrix {
    *
    * @param row {Number}
    *        zero-based index of row.
+   *
    * @return {Array<Number>} elements from row.
    */
   row (row): Array<number> {
@@ -619,7 +630,9 @@ export class Matrix {
    *
    * @param that {Matrix}
    *        matrix to subtract.
+   *
    * @throws Error if dimensions do not match.
+   *
    * @return result of subtraction (original matrix is unchanged).
    */
   subtract (that: Matrix): Matrix {

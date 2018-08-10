@@ -2,10 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 
 
 /**
- * Shared station component, which loads in list of stations on certain
- * product pages
- * @params station
- *    The specific station to show properties of
+ * Expandable/Collapsible station item, with station channel list
+ *
+ * @param station
+ *    The station to display
  */
 @Component({
   selector: 'shared-station',
@@ -14,23 +14,22 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class StationComponent implements OnInit {
 
-
-  @Input() station: any;
-
   public readonly channelsColumns = [
     'name', 'pga', 'pgv', 'psa03', 'psa10', 'psa30'
   ];
 
+  @Input() station: any;
 
-   ngOnInit () {
-     if (this.station === null) {
-       return;
-     }
 
-     // Will need to parse from a string if used as a custom element
-     if (typeof this.station === 'string') {
-       this.station = JSON.parse(this.station);
-     }
-   }
+  ngOnInit () {
+    if (this.station === null) {
+      return;
+    }
+
+    // Will need to parse from a string if used as a custom element
+    if (typeof this.station === 'string') {
+      this.station = JSON.parse(this.station);
+    }
+  }
 
 }

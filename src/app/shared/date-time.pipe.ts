@@ -8,15 +8,17 @@ import { FormatterService } from '../core/formatter.service';
 })
 export class DateTimePipe implements PipeTransform {
 
-
   constructor (public formatter: FormatterService) { }
 
 
   /**
-   * Returns dateTime object based on a time input
+   * Format dateTime object based on a time input
+   *
    * @param time
    *     Time input
-   * @returns {string}
+   *
+   * @return {string}
+   *     formatted date/time string
    */
   transform (time: any): string {
 

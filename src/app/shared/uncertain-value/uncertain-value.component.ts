@@ -5,6 +5,7 @@ import { FormatterService } from '../../core/formatter.service';
 
 /**
  * Uncertain value component
+ *
  * @param value
  *     The uncertain value
  * @param uncertainty
@@ -19,7 +20,6 @@ import { FormatterService } from '../../core/formatter.service';
 })
 export class UncertainValueComponent {
 
-
   @Input() value = '';
   @Input() uncertainty: number;
   @Input() uncertaintyUnits: string = null;
@@ -30,7 +30,8 @@ export class UncertainValueComponent {
 
   /**
    * Returns value of uncertainty property or zero
-   * @returns {number | boolean}
+   *
+   * @return {number | boolean}
    */
   hasUncertainty () {
     return (this.uncertainty || this.uncertainty === 0);

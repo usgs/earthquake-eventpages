@@ -10,7 +10,6 @@ const _BEACHBALL_METHODS = {
   'smi:nc.anss.org/momentTensor/TMTS-ISO': 'TMTS-ISO',
   'smi:uu.anss.org/momentTensor/TDMT': 'TDMT'
 };
-
 const _D2R = Math.PI / 180;
 const _R2D = 180 / Math.PI;
 
@@ -173,6 +172,7 @@ export class Tensor {
    *        rake of nodal plane in degrees.
    * @param moment {Number}
    *        scale resulting matrix by this number.
+   *
    * @return Tensor object.
    */
   static fromStrikeDipRake (strike: number, dip: number, rake: number, moment: number): Tensor {
@@ -245,6 +245,7 @@ export class Tensor {
    *        range minimum.
    * @param max {Number}
    *        range maximum.
+   *
    * @return {Number} value in the range [min, max).
    */
   static range (value: number, min: number, max: number): number {

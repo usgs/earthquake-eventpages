@@ -2,9 +2,10 @@ import * as L from 'leaflet';
 
 
 /**
- * Creates a landscan overlay for leaflet
+ * Landscan overlay for leaflet map
  */
 const LandscanPopulationOverlay = L.TileLayer.extend({
+
   bounds: null,
   enabled: true,
   id: 'landscap-population',
@@ -12,7 +13,7 @@ const LandscanPopulationOverlay = L.TileLayer.extend({
   title: 'LandScan Population',
 
   /**
-   * Init function for leaflet tile layer
+   * Build leaflet overlay
    */
   initialize: function () {
     L.TileLayer.prototype.initialize.call(

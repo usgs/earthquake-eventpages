@@ -15,7 +15,6 @@
  */
 export class Canvas {
 
-
   public context: any;
 
 

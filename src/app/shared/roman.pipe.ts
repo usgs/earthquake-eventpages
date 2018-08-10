@@ -6,16 +6,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class RomanPipe implements PipeTransform {
 
-
   static MMI_ROMAN = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
         'IX', 'X', 'XI', 'XII'];
 
 
   /**
-   * Returns a roman numeral from a number
+   * Get roman numeral from a number
+   *
    * @param mmi
    *     The magnitude
-   * @returns {any}
+   *
+   * @return {any}
+   *     A roman numeral
    */
   transform (mmi: number): any {
     let value;

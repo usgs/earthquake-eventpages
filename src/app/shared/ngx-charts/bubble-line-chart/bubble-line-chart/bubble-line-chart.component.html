@@ -18,8 +18,7 @@
           [scaleType]="scaleType"
           [curve]="curve"
           [rangeFillOpacity]="rangeFillOpacity"
-          [animations]="animations"
-      />
+          [animations]="animations" />
     </svg:g>
     <svg:g ngx-charts-tooltip-area
         *ngIf="!tooltipDisabled"
@@ -30,8 +29,7 @@
         [results]="combinedSeries"
         [colors]="colors"
         [tooltipDisabled]="tooltipDisabled"
-        (hover)="updateHoveredVertical($event)"
-    />
+        (hover)="updateHoveredVertical($event)" />
     <svg:g *ngFor="let series of lineChart">
       <svg:g ngx-charts-circle-series
           [xScale]="xScale"
@@ -44,8 +42,7 @@
           [tooltipDisabled]="tooltipDisabled"
           (select)="onClick($event, series)"
           (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)"
-      />
+          (deactivate)="onDeactivate($event)" />
     </svg:g>
   </svg:g>
   <svg:g [attr.transform]="transform" class="bubble-chart chart">
