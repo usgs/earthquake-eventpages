@@ -9,6 +9,7 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { PgaComponent } from './pga.component';
 
+
 describe('PgaComponent', () => {
   let component: PgaComponent;
   let fixture: ComponentFixture<PgaComponent>;

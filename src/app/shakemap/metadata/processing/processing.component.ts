@@ -18,7 +18,6 @@ import { FormatterService } from '../../../core/formatter.service';
 })
 export class ProcessingComponent {
 
-
   public readonly names = {
     'ground_motion_modules': {
       'basin_correction': 'Basin',
@@ -28,7 +27,7 @@ export class ProcessingComponent {
       'ipe': 'IPE',
       'ccf': 'CCF',
       'igmice': 'IGMICE'
-      },
+    },
     'roi': {
       'gm': 'Ground Motion',
       'intensity': 'Intensity'

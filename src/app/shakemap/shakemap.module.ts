@@ -24,10 +24,11 @@ import { ProcessingComponent } from './metadata/processing/processing.component'
 import { PgaComponent } from './pga/pga.component';
 import { PgvComponent } from './pgv/pgv.component';
 import { PsaComponent } from './psa/psa.component';
-import { ShakemapComponent } from './shakemap/shakemap.component';
 import { ShakemapRoutingModule } from './shakemap-routing.module';
+import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { UncertaintyComponent } from './uncertainty/uncertainty.component';
+
 
 @NgModule({
   imports: [

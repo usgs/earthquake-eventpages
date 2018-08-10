@@ -10,6 +10,7 @@ import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 
+
 const shakemapRoutes: Routes = [
   {
     // this module must be loaded lazily using "loadChildren"

@@ -17,7 +17,6 @@ import { StationService } from '../../core/station.service';
 })
 export class StationListComponent implements OnInit, OnDestroy {
 
-
   public subs = new Subscription();
   public stations: any[] = [];
 

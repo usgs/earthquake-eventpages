@@ -16,22 +16,21 @@ import { EventService } from '../../core/event.service';
 })
 export class UncertaintyComponent implements OnInit, OnDestroy {
 
-
   public imageUrl: string = null;
-  public subs = new Subscription();
+  public subscription = new Subscription();
 
 
   constructor (public eventService: EventService) { }
 
 
   ngOnInit () {
-    this.subs.add(this.eventService.product$.subscribe((product) => {
+    this.subscription.add(this.eventService.product$.subscribe((product) => {
       this.onProduct(product);
     }));
   }
 
   ngOnDestroy () {
-    this.subs.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   /**

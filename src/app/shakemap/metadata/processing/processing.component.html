@@ -1,4 +1,4 @@
-<div  *ngIf="smProcessing">
+<div *ngIf="smProcessing">
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -11,7 +11,8 @@
         <mat-header-row *matHeaderRowDef="headers?.groundMotionModules">
         </mat-header-row>
         <mat-row *matRowDef="let myRowData;
-            columns: headers?.groundMotionModules"></mat-row>
+            columns: headers?.groundMotionModules">
+        </mat-row>
 
         <ng-container matColumnDef="type">
           <mat-header-cell *matHeaderCellDef>
@@ -206,7 +207,6 @@
 
     </ng-template>
   </mat-expansion-panel>
-
 
   <mat-expansion-panel>
     <mat-expansion-panel-header>

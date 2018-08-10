@@ -17,9 +17,8 @@ import { MetadataService } from '../../core/metadata.service';
 })
 export class MetadataComponent implements OnInit, OnDestroy {
 
-
-  public subs = new Subscription();
   public metadata: any = null;
+  public subs = new Subscription();
 
 
   constructor (
@@ -51,10 +50,10 @@ export class MetadataComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * New stations
+   * Set metadata property
    *
-   * @param stations
-   *     station list json
+   * @param metadata
+   *     shakemap metadata
    */
   onMetadata (metadata): void {
     this.metadata = metadata;
