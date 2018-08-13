@@ -1,7 +1,5 @@
-
 import { toArray } from './to-array';
 import { QuakemlEvent } from './quakeml-event';
-
 
 /**
  * Parse a JSON representation of quakeml.
@@ -16,23 +14,19 @@ import { QuakemlEvent } from './quakeml-event';
  *        default "event", override if there are subclassed event elements.
  */
 export class Quakeml {
-
   public namespaces: any = {};
 
   public publicID: string;
   public creationInfo: any;
   public events: Array<QuakemlEvent> = [];
 
-  constructor (
-    data: any
-  ) {
+  constructor(data: any) {
     const quakeml = data['q:quakeml'];
 
     // read namespaces that appear on root element,
     // since data keys include them.
     for (const key in quakeml) {
       if (key.startsWith('xmlns')) {
-        const value = quakeml[key];
         this.namespaces[quakeml[key]] = key.substring('xmlns:'.length);
       }
     }
@@ -41,25 +35,28 @@ export class Quakeml {
     this.publicID = eventParameters.publicID;
     this.creationInfo = eventParameters.creationInfo;
 
-    this.events = toArray(eventParameters.event).map((e) => {
+    this.events = toArray(eventParameters.event).map(e => {
       return new QuakemlEvent(e);
     });
   }
-
 
   /**
    * Format channel identifier.
    *
    * @param waveformID pick waveformID
    */
-  static formatWaveformID (waveformID: any): string {
+  static formatWaveformID(waveformID: any): string {
     if (!waveformID) {
       return null;
     }
 
-    return waveformID.networkCode + ' ' + waveformID.stationCode +
-        (waveformID.channelCode ? ' ' + waveformID.channelCode : '') +
-        (waveformID.locationCode ? ' ' + waveformID.locationCode : '');
+    return (
+      waveformID.networkCode +
+      ' ' +
+      waveformID.stationCode +
+      (waveformID.channelCode ? ' ' + waveformID.channelCode : '') +
+      (waveformID.locationCode ? ' ' + waveformID.locationCode : '')
+    );
   }
 
   /**
@@ -67,7 +64,7 @@ export class Quakeml {
    *
    * @param time quakeml time string.
    */
-  static parseTime (time: string): Date {
+  static parseTime(time: string): Date {
     if (!time) {
       return null;
     }
@@ -77,5 +74,4 @@ export class Quakeml {
     }
     return new Date(time);
   }
-
 }
