@@ -69,11 +69,17 @@ describe('Event', () => {
       ]
     };
 
+    /* tslint:disable:no-unused-variable */
+    // Note: `new Event(...)` must be called because that is what attaches the
+    //       phasedata property to the corresponding origin. Maybe refactor
+    //       as Event.create(...) to do the same, or some other refactor...?
+    //       Simply not assigning the result will generate a different error.
     const event = new Event({
       properties: {
         products: products
       }
     });
+    /* tslint:enable:no-unused-variable */
 
     expect(products.origin[0].phasedata).toEqual(products['phase-data'][0]);
   });
