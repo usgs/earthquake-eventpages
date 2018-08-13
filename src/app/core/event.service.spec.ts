@@ -4,21 +4,24 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 import { TestBed, getTestBed, inject } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { environment } from '../../environments/environment';
 import { EventService } from './event.service';
 
 
-describe('EventService', () => {
+fdescribe('EventService', () => {
   let httpClient: HttpTestingController,
       injector: TestBed;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpClientTestingModule
+        HttpClientTestingModule, RouterTestingModule
       ],
-      providers: [EventService]
+      providers: [
+        EventService
+      ]
     });
 
     injector = getTestBed();
@@ -67,6 +70,20 @@ describe('EventService', () => {
         expect(event.data.message).toBe(error.message);
         expect(event.data.type).toBe('Error');
       });
+    }));
+
+    it('handles 404 errors', inject([EventService], (service: EventService) => {
+      const spy = spyOn(service, 'getUnknownEvent');
+      const unknownEvent = {id: '123321'};
+      service.getEvent(unknownEvent.id);
+      const req = httpClient.expectOne(`${environment.EVENT_SERVICE}/${unknownEvent.id}.geojson`);
+
+      req.flush('Error 404: Unknown Event', {
+        status: 404,
+        statusText: 'Unknown Event'
+      });
+
+      expect(spy).toHaveBeenCalled();
     }));
 
     it('handles deletes', inject([EventService], (service: EventService) => {

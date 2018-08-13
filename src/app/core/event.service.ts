@@ -23,11 +23,11 @@ export class EventService {
 
   // currently selected event
   public event$ = new BehaviorSubject<Event>(new Event(null));
+  public product$ = new BehaviorSubject<any>(null);
   // id information for product to be shown.
   public productType: string;
   public productSource: string;
   public productCode: string;
-  public product$ = new BehaviorSubject<any>(null);
 
 
   constructor (
@@ -109,7 +109,7 @@ export class EventService {
    * @param eventid
    *     The event id
    */
-  private getUnknownEvent(eventid: string): void {
+  getUnknownEvent(eventid: string): void {
     this.router.navigate(['']);
   }
 

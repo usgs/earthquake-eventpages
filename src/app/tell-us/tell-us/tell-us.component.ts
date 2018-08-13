@@ -67,7 +67,6 @@ export class TellUsComponent implements OnInit {
    */
   onError (response: any) {
     this.error = response;
-    console.log('form failed to submit: ', this.error);
   }
 
   /**
