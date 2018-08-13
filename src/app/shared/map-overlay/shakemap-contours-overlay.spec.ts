@@ -23,9 +23,7 @@ describe('ShakemapContoursOverlay', () => {
   });
 
   describe('style', () => {
-    it('modifies weight', () => {
-      const style = overlay.style({});
-    });
+    it('modifies weight', () => {});
   });
 
   describe('onEachFeature', () => {
@@ -75,7 +73,7 @@ describe('ShakemapContoursOverlay', () => {
 
     it('gets bounds', () => {
       const bounds = 'BOUNDS';
-      const spy = spyOn(overlay, 'getBounds').and.returnValue(bounds);
+      spyOn(overlay, 'getBounds').and.returnValue(bounds);
 
       overlay.afterAdd();
       expect(overlay.bounds).toBe(bounds);
@@ -83,7 +81,7 @@ describe('ShakemapContoursOverlay', () => {
 
     it('sets map bounds', () => {
       const bounds = 'BOUNDS';
-      const spy = spyOn(overlay, 'getBounds').and.returnValue(bounds);
+      spyOn(overlay, 'getBounds').and.returnValue(bounds);
 
       const mapSpy = spyOn(overlay.map, 'fitBounds').and.callFake(
         bounds_in => {}

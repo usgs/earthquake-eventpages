@@ -19,11 +19,11 @@ describe('ShakemapOverlaysPipe', () => {
   it('create an instance', () => {});
 
   it('handles null product', () => {
-    const overlays = pipe.transform(null);
+    pipe.transform(null);
   });
 
   it('handles product', () => {
-    const overlays = pipe.transform(SHAKEMAP);
+    pipe.transform(SHAKEMAP);
   });
 
   it('only sets epicenter as enabled by default', () => {

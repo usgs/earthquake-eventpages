@@ -103,7 +103,7 @@ export class TextProductComponent {
    */
   replaceRelativePaths(text: string) {
     const product = this.product || {};
-    const contents = this.product.contents || {};
+    const contents = product.contents || {};
 
     // replace relative urls with absolute urls
     for (const path in contents) {

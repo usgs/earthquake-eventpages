@@ -1,9 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { of } from 'rxjs/index';
-import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../event';
 
@@ -61,15 +59,5 @@ export class WaveformService {
    */
   parseIrisEventId(data) {
     return data.split('\n')[1].split('|')[0];
-  }
-
-  /**
-   * Error handler for http requests.
-   */
-  private handleError() {
-    return (error: HttpErrorResponse): Observable<any> => {
-      this.error = error;
-      return of(null);
-    };
   }
 }

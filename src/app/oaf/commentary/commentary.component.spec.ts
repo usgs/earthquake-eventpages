@@ -126,7 +126,6 @@ describe('CommentaryComponent', () => {
     };
 
     it('should return the correct count', () => {
-      const oafCopy = Object.assign(oaf);
       const forecast = component.transformForecast(oaf);
       expect(forecast.bins['magnitude-3']).toEqual(mag3Bin);
       expect(forecast.bins['magnitude-5']).toEqual(mag5Bin);

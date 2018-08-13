@@ -36,7 +36,7 @@ describe('GeoserveService', () => {
       [GeoserveService],
       (service: GeoserveService) => {
         const spy = spyOn(service, 'regions').and.returnValue('regions');
-        const result = service.fe(0, 1);
+        service.fe(0, 1);
 
         expect(spy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalledWith(0, 1, 'fe');

@@ -68,7 +68,7 @@ describe('MetadataService', () => {
     it('handles parse failure', inject(
       [MetadataService],
       (service: MetadataService) => {
-        const spy = spyOn(service, 'onMetadata').and.throwError('test error');
+        spyOn(service, 'onMetadata').and.throwError('test error');
 
         service.getMetadata(PRODUCT);
         const request = httpClient.expectOne('url');

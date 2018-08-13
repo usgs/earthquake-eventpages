@@ -5,7 +5,6 @@ import { MockComponent } from 'ng2-mock-component';
 import { DetailComponent } from './detail.component';
 import { EventService } from '../../core/event.service';
 import { FormatterService } from '../../core/formatter.service';
-import { Event } from '../../event';
 
 describe('DetailComponent', () => {
   let component: DetailComponent;
@@ -66,13 +65,10 @@ describe('DetailComponent', () => {
 
   describe('getProduct', () => {
     it('returns object if not found', () => {
-      const event = new Event({});
-
       expect(component.getProduct()).toEqual({});
     });
 
     it('properly looks for an origin', () => {
-      const event = new Event({});
       const spy = spyOn(component.eventService.product$, 'getValue');
 
       component.getProduct();

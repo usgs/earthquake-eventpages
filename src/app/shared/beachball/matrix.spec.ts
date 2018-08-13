@@ -1,17 +1,21 @@
 import { Matrix } from './matrix';
 
-
 describe('Matrix', () => {
-
   describe('constructor', () => {
     it('estimates size', () => {
-      expect(new Matrix([1, 2, 3, 4]))
-        .toEqual(new Matrix([1, 2, 3, 4], 2, 2));
-      expect(new Matrix([1, 2, 3, 4, 5, 6], 2))
-        .toEqual(new Matrix([1, 2, 3, 4, 5, 6], 2, 3));
-      expect(new Matrix([1, 2, 3, 4, 5, 6], null, 2))
-        .toEqual(new Matrix([1, 2, 3, 4, 5, 6], 3, 2));
+      expect(new Matrix([1, 2, 3, 4])).toEqual(new Matrix([1, 2, 3, 4], 2, 2));
+      expect(new Matrix([1, 2, 3, 4, 5, 6], 2)).toEqual(
+        new Matrix([1, 2, 3, 4, 5, 6], 2, 3)
+      );
+      expect(new Matrix([1, 2, 3, 4, 5, 6], null, 2)).toEqual(
+        new Matrix([1, 2, 3, 4, 5, 6], 3, 2)
+      );
 
+      /* tslint:disable:no-unused-variable */
+      // Note: `new Matrix(...)` must be called because that is what throws the
+      //       error. Maybe refactor as Matrix.create(...) to do the same, or
+      //       some other refactor...?
+      //       Simply not assigning the result will generate a different error.
       expect(() => {
         const m = new Matrix([1, 2, 3]);
       }).toThrowError();
@@ -21,6 +25,7 @@ describe('Matrix', () => {
       expect(() => {
         const m = new Matrix([1, 2, 3, 4, 5, 6], null, 4);
       }).toThrowError();
+      /* tslint:enable:no-unused-variable */
     });
   });
 
@@ -39,31 +44,19 @@ describe('Matrix', () => {
 
   describe('diagonal', () => {
     it('extracts diagonal', () => {
-      expect(new Matrix([
-        1, 2, 3,
-        4, 5, 6,
-        7, 8, 9
-      ], 3, 3).diagonal()).toEqual([1, 5, 9]);
-      expect(new Matrix([
-        1, 2,
-        4, 5,
-        7, 8
-      ], 3, 2).diagonal()).toEqual([1, 5]);
-      expect(new Matrix([
-        1, 2, 3,
-        4, 5, 6
-      ], 2, 3).diagonal()).toEqual([1, 5]);
-
+      expect(new Matrix([1, 2, 3, 4, 5, 6, 7, 8, 9], 3, 3).diagonal()).toEqual([
+        1,
+        5,
+        9
+      ]);
+      expect(new Matrix([1, 2, 4, 5, 7, 8], 3, 2).diagonal()).toEqual([1, 5]);
+      expect(new Matrix([1, 2, 3, 4, 5, 6], 2, 3).diagonal()).toEqual([1, 5]);
     });
   });
 
   describe('get/set/row/col', () => {
     it('get/set data', () => {
-      const matrix = new Matrix([
-        0, 1, 2,
-        3, 4, 5,
-        6, 7, 8
-      ]);
+      const matrix = new Matrix([0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
       expect(matrix.get(0, 0)).toEqual(0);
       expect(matrix.get(0, 1)).toEqual(1);
@@ -97,11 +90,7 @@ describe('Matrix', () => {
     });
 
     it('row/col access data', () => {
-      const matrix = new Matrix([
-        0, 1, 2,
-        3, 4, 5,
-        6, 7, 8
-      ]);
+      const matrix = new Matrix([0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
       expect(matrix.row(0)).toEqual([0, 1, 2]);
       expect(matrix.row(1)).toEqual([3, 4, 5]);
@@ -125,20 +114,29 @@ describe('Matrix', () => {
   describe('jacobi', () => {
     // 'urn:usgs-product:us:moment-tensor:us_2000cjfy_mww:1519977554040'
     const matrix = new Matrix([
-      -3.0499E+19, -3.4237E+19, 1.0445E+19,
-      -3.4237E+19, -2.3267E+19, 7.68E+18,
-       1.0445E+19,  7.68E+18  , 5.3766E+19
+      -3.0499e19,
+      -3.4237e19,
+      1.0445e19,
+      -3.4237e19,
+      -2.3267e19,
+      7.68e18,
+      1.0445e19,
+      7.68e18,
+      5.3766e19
     ]);
 
     it('computes eigenvalues and eigenvectors', () => {
       const eigenvectors = matrix.jacobi();
 
-      expect(Math.abs(eigenvectors[0].eigenvalue - -6.27394e+19))
-        .toBeLessThan(1e15);
-      expect(Math.abs(eigenvectors[1].eigenvalue - 0.75108e+19))
-        .toBeLessThan(1e15);
-      expect(Math.abs(eigenvectors[2].eigenvalue - 5.52285e+19))
-        .toBeLessThan(1e15);
+      expect(Math.abs(eigenvectors[0].eigenvalue - -6.27394e19)).toBeLessThan(
+        1e15
+      );
+      expect(Math.abs(eigenvectors[1].eigenvalue - 0.75108e19)).toBeLessThan(
+        1e15
+      );
+      expect(Math.abs(eigenvectors[2].eigenvalue - 5.52285e19)).toBeLessThan(
+        1e15
+      );
     });
 
     it('throws error when it fails to converge', () => {
@@ -149,67 +147,40 @@ describe('Matrix', () => {
 
     it('throws error for non-symmetric matrix', () => {
       expect(() => {
-        new Matrix([
-          1, 2, 3,
-          4, 5, 6
-        ], 2, 3).jacobi();
+        new Matrix([1, 2, 3, 4, 5, 6], 2, 3).jacobi();
       }).toThrowError();
     });
-
   });
 
   describe('multiply', () => {
     it('multiplies', () => {
-      const matrix1 = new Matrix([
-        0, 1, 2,
-        3, 4, 5,
-        6, 7, 8
-      ], 3, 3);
+      const matrix1 = new Matrix([0, 1, 2, 3, 4, 5, 6, 7, 8], 3, 3);
 
-      const matrix2 = new Matrix([
-        1, 2,
-        3, 4,
-        5, 6
-      ], 3, 2);
+      const matrix2 = new Matrix([1, 2, 3, 4, 5, 6], 3, 2);
 
       expect(() => {
         matrix2.multiply(matrix1);
       }).toThrowError();
-      expect(matrix1.multiply(matrix2)).toEqual(new Matrix([
-        13, 16,
-        40, 52,
-        67, 88
-      ], 3, 2));
+      expect(matrix1.multiply(matrix2)).toEqual(
+        new Matrix([13, 16, 40, 52, 67, 88], 3, 2)
+      );
     });
   });
 
   describe('negative', () => {
     it('negates', () => {
-      expect(new Matrix([
-        1, 2,
-        3, 4
-      ]).negative()).toEqual(new Matrix([
-        -1, -2,
-        -3, -4
-      ]));
+      expect(new Matrix([1, 2, 3, 4]).negative()).toEqual(
+        new Matrix([-1, -2, -3, -4])
+      );
     });
   });
 
   describe('subtract', () => {
     it('subtracts', () => {
-      const matrix1 = new Matrix([
-        1, 2,
-        3, 4
-      ]);
-      const matrix2 = new Matrix([
-        8, 7,
-        6, 5
-      ]);
+      const matrix1 = new Matrix([1, 2, 3, 4]);
+      const matrix2 = new Matrix([8, 7, 6, 5]);
 
-      expect(matrix2.subtract(matrix1)).toEqual(new Matrix([
-        7, 5,
-        3, 1
-      ]));
+      expect(matrix2.subtract(matrix1)).toEqual(new Matrix([7, 5, 3, 1]));
 
       expect(() => {
         matrix2.subtract(new Matrix([1, 2], 1, 2));
@@ -219,23 +190,15 @@ describe('Matrix', () => {
 
   describe('toString', () => {
     it('strings', () => {
-      expect(new Matrix([
-        1, 2,
-        3, 4
-      ]).toString()).toEqual('[1, 2, \n 3, 4]');
+      expect(new Matrix([1, 2, 3, 4]).toString()).toEqual('[1, 2, \n 3, 4]');
     });
   });
 
   describe('transpose', () => {
     it('transposes', () => {
-      expect(new Matrix([
-        1, 2, 3,
-        4, 5, 6
-      ], 2, 3).transpose()).toEqual(new Matrix([
-        1, 4,
-        2, 5,
-        3, 6
-      ], 3, 2));
+      expect(new Matrix([1, 2, 3, 4, 5, 6], 2, 3).transpose()).toEqual(
+        new Matrix([1, 4, 2, 5, 3, 6], 3, 2)
+      );
     });
   });
 });

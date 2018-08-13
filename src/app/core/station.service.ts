@@ -1,23 +1,18 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
 
 /**
  * Service for getting station lists, handling station json
  */
 @Injectable()
 export class StationService {
-
   public error: any = null;
   public stationsJson$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor (
-    private httpClient: HttpClient
-  ) { }
-
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Retreive a station list for a specifc shakemap
@@ -25,27 +20,26 @@ export class StationService {
    * @param product
    *     shakemap product json
    */
-  getStations (product: any): void {
-    if ((product == null) ||
-          (!product.contents['download/stationlist.json'])) {
-
+  getStations(product: any): void {
+    if (product == null || !product.contents['download/stationlist.json']) {
       this.stationsJson$.next(null);
       return;
     }
 
     const stations = product.contents['download/stationlist.json'];
 
-    this.httpClient.get(stations.url).pipe(
-      catchError(this.handleError())
-    ).subscribe((response) => {
-      try {
-        this.onStations(response);
-      } catch (e) {
-        /*  Processing errored */
-        this.error = e;
-        this.stationsJson$.next(null);
-      }
-    });
+    this.httpClient
+      .get(stations.url)
+      .pipe(catchError(this.handleError()))
+      .subscribe(response => {
+        try {
+          this.onStations(response);
+        } catch (e) {
+          /*  Processing errored */
+          this.error = e;
+          this.stationsJson$.next(null);
+        }
+      });
   }
 
   /**
@@ -54,12 +48,10 @@ export class StationService {
    * @param stations
    *     station list geoJSON object
    */
-  onStations (stations): void {
+  onStations(stations): void {
     if (stations) {
-
       stations = this.translate(stations);
       this.stationsJson$.next(stations);
-
     } else {
       this.stationsJson$.next(null);
     }
@@ -73,7 +65,7 @@ export class StationService {
    * @returns
    *     Stations array
    */
-  translate (stations): any[] {
+  translate(stations): any[] {
     const new_stations: any[] = [];
 
     for (let station of stations.features) {
@@ -95,10 +87,12 @@ export class StationService {
    * @returns
    *     Station with nan's/nulls formatted to null
    */
-  translateNan (station): any {
+  translateNan(station): any {
     for (const item of Object.keys(station.properties)) {
-      if ((station.properties[item] === 'null') ||
-            (station.properties[item] === 'nan')) {
+      if (
+        station.properties[item] === 'null' ||
+        station.properties[item] === 'nan'
+      ) {
         station.properties[item] = null;
       }
     }
@@ -106,24 +100,23 @@ export class StationService {
     return station;
   }
 
-/**
- * Converts amplitude array into object
- *
- * @param station
- *     The station feature
- * @returns
- *     Object with amplitude array props
- */
-  translateAmps (station): any {
+  /**
+   * Converts amplitude array into object
+   *
+   * @param station
+   *     The station feature
+   * @returns
+   *     Object with amplitude array props
+   */
+  translateAmps(station): any {
     const channels = station.properties.channels;
     const translateNames = {
       'sa(0.3)': 'psa03',
       'sa(1.0)': 'psa10',
-      'sa(3.0)': 'psa30',
+      'sa(3.0)': 'psa30'
     };
 
-    station.channels = station.properties.channels.map((channel) => {
-
+    station.channels = channels.map(channel => {
       // set required attributes to empty object,
       // so obj.value or obj.units would still evaluate but to undefined
       const parsed = {
@@ -136,7 +129,7 @@ export class StationService {
       };
 
       // populate parsed object
-      channel.amplitudes.forEach((amp) => {
+      channel.amplitudes.forEach(amp => {
         const name = translateNames[amp.name] || amp.name;
         parsed[name] = amp;
       });
@@ -153,11 +146,10 @@ export class StationService {
    * @returns
    *    returns error
    */
-  private handleError () {
+  private handleError() {
     return (error: HttpErrorResponse): Observable<any> => {
       this.error = error;
       return of(null);
     };
   }
-
 }

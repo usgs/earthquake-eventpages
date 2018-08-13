@@ -11,12 +11,6 @@ describe('RegionInfoPinComponent', () => {
   let component: RegionInfoPinComponent;
   let fixture: ComponentFixture<RegionInfoPinComponent>;
 
-  const coordinates = {
-    latitude: 35,
-    longitude: -105,
-    zoom: 16
-  };
-
   beforeEach(async(() => {
     const eventServiceStub = {
       getEvent: jasmine.createSpy('eventService::getEvent'),

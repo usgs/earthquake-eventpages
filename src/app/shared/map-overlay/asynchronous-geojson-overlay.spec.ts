@@ -4,9 +4,7 @@ import { of } from 'rxjs/observable/of';
 
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
-
 describe('AsynchronousGeoJSONOverlay', () => {
-
   let overlay;
 
   const FEATURE = {
@@ -26,11 +24,9 @@ describe('AsynchronousGeoJSONOverlay', () => {
     features: [FEATURE]
   };
 
-
   beforeEach(() => {
     overlay = new AsynchronousGeoJSONOverlay();
   });
-
 
   it('can be created', () => {
     expect(overlay).toBeTruthy();
@@ -58,7 +54,7 @@ describe('AsynchronousGeoJSONOverlay', () => {
     it('handles success', () => {
       overlay.url = 'url';
       overlay.httpClient = {
-        get: (url) => of(GEOJSON)
+        get: url => of(GEOJSON)
       };
 
       overlay.loadData();
@@ -69,7 +65,7 @@ describe('AsynchronousGeoJSONOverlay', () => {
     it('handles run after success', () => {
       overlay.url = 'url';
       overlay.httpClient = {
-        get: (url) => of(GEOJSON)
+        get: url => of(GEOJSON)
       };
 
       overlay.loadData();
@@ -81,10 +77,10 @@ describe('AsynchronousGeoJSONOverlay', () => {
     it('handles geoJSON parse failure', () => {
       overlay.url = 'url';
       overlay.httpClient = {
-        get: (url) => of(GEOJSON)
+        get: url => of(GEOJSON)
       };
 
-      const spy = spyOn(overlay, 'parse').and.throwError('TESTING ERROR');
+      spyOn(overlay, 'parse').and.throwError('TESTING ERROR');
 
       overlay.loadData();
 
@@ -95,7 +91,7 @@ describe('AsynchronousGeoJSONOverlay', () => {
     it('handles url get failure', () => {
       overlay.url = 'url';
       overlay.httpClient = {
-        get: (url) => _throw('TESTING ERROR')
+        get: url => _throw('TESTING ERROR')
       };
 
       overlay.loadData();
@@ -103,13 +99,12 @@ describe('AsynchronousGeoJSONOverlay', () => {
       expect(overlay.data).toBe(null);
       expect(overlay.error).toBeTruthy();
     });
-
   });
 
   describe('onAdd', () => {
     it('calls loadData', () => {
       spyOn(overlay, 'loadData');
-      overlay.onAdd({addLayer: () => {}});
+      overlay.onAdd({ addLayer: () => {} });
       expect(overlay.loadData).toHaveBeenCalled();
     });
   });
@@ -136,11 +131,12 @@ describe('AsynchronousGeoJSONOverlay', () => {
     });
 
     it('is called by layer', () => {
-      const layer = new L.Layer();
       spyOn(overlay, 'onEachFeature');
       overlay.addData(FEATURE);
-      expect(overlay.onEachFeature)
-          .toHaveBeenCalledWith(FEATURE, jasmine.any(Object));
+      expect(overlay.onEachFeature).toHaveBeenCalledWith(
+        FEATURE,
+        jasmine.any(Object)
+      );
     });
   });
 
@@ -157,5 +153,4 @@ describe('AsynchronousGeoJSONOverlay', () => {
       expect(data).toEqual(GEOJSON);
     });
   });
-
 });
