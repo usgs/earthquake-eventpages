@@ -55,10 +55,12 @@ export class EventService {
     this.http.get<HttpResponse<any>>(url).pipe(
       catchError(this.handleError(eventid))
     ).subscribe((response) => {
+      // handle 409 / deleted event
       if (response['type'] === 'Error' && response['status'] === 409) {
         this.getDeletedEvent(eventid);
         return;
       } else if (response['type'] === 'Error' && response['status'] === 404) {
+        // handle 404 error
         this.getUnknownEvent(eventid);
         return;
       }
@@ -102,7 +104,7 @@ export class EventService {
   }
 
   /**
-   * Handle an unkown event with a 404 error
+   * Handle an unkown event with a 404 error by routing to unkown route
    *
    * @param eventid
    *     The event id
