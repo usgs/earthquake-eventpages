@@ -2,7 +2,6 @@ import * as L from 'leaflet';
 
 import { ShakemapIntensityOverlay } from './shakemap-intensity-overlay';
 
-
 describe('ShakemapIntensityOverlay', () => {
   it('can be created', () => {
     expect(new ShakemapIntensityOverlay(null)).toBeTruthy();
@@ -11,7 +10,7 @@ describe('ShakemapIntensityOverlay', () => {
   it('uses product when defined', () => {
     const overlay = new ShakemapIntensityOverlay({
       contents: {
-        'download/cont_mi.json': {url: ''}
+        'download/cont_mi.json': { url: '' }
       }
     });
 
@@ -32,7 +31,6 @@ describe('ShakemapIntensityOverlay', () => {
 
       expect(style.color).toBe('COLOR');
     });
-
   });
 
   describe('onEachFeature', () => {
@@ -50,7 +48,6 @@ describe('ShakemapIntensityOverlay', () => {
       overlay.onEachFeature(feature, layer);
 
       expect(layer._popup).toBeDefined();
-
     });
 
     it('ignores object without properties', () => {
@@ -62,8 +59,6 @@ describe('ShakemapIntensityOverlay', () => {
       overlay.onEachFeature(feature, layer);
 
       expect(layer._popup).toBeUndefined();
-
     });
-
   });
 });

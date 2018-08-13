@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Shared header component, shows header across all pages
  *
@@ -13,7 +12,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-
-  @Input() event: any;
-
+  @Input()
+  event: any;
 }

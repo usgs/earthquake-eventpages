@@ -12,10 +12,12 @@ describe('FooterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         FooterComponent,
-        MockComponent({selector: 'product-page-download', inputs: ['product']})
+        MockComponent({
+          selector: 'product-page-download',
+          inputs: ['product']
+        })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

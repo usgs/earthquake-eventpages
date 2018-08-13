@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { TellUsComponent } from './tell-us/tell-us.component';
 
-
 const tellUsRoutes: Routes = [
   {
     // this module must be loaded lazily using "loadChildren"
@@ -13,13 +12,8 @@ const tellUsRoutes: Routes = [
   }
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forChild(tellUsRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(tellUsRoutes)],
+  exports: [RouterModule]
 })
-export class TellUsRoutingModule { }
+export class TellUsRoutingModule {}

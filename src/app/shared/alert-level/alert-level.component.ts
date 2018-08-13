@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Shared alert-level component
  */
@@ -10,7 +9,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./alert-level.component.scss']
 })
 export class AlertLevelComponent {
-
   public alertLevel: string;
 
   /**
@@ -18,7 +16,8 @@ export class AlertLevelComponent {
    * @param alertColor
    *     Foreground color for alert
    */
-  @Input() set alert(alertColor: string) {
+  @Input()
+  set alert(alertColor: string) {
     this.alertLevel = alertColor;
   }
 
@@ -29,5 +28,4 @@ export class AlertLevelComponent {
   get alert() {
     return this.alertLevel;
   }
-
 }

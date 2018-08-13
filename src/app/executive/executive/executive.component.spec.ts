@@ -9,7 +9,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { ExecutiveComponent } from './executive.component';
 
-
 describe('ExecutiveComponent', () => {
   let component: ExecutiveComponent;
   let fixture: ComponentFixture<ExecutiveComponent>;
@@ -23,48 +22,76 @@ describe('ExecutiveComponent', () => {
       declarations: [
         ExecutiveComponent,
 
-        MockComponent({ selector: 'executive-dyfi-pin',
-            inputs: ['product']}),
-        MockComponent({ selector: 'executive-dyfi-response-submit-pin',
-            inputs: ['product']}),
-        MockComponent({ selector: 'executive-finite-fault-pin',
-            inputs: ['product']}),
-        MockComponent({ selector: 'executive-focal-mechanism-pin',
-            inputs: ['product']}),
-        MockComponent({ selector: 'executive-ground-failure-pin',
-            inputs: ['product']}),
-        MockComponent({ selector: 'executive-map-pin',
-            inputs: ['event']}),
-        MockComponent({ selector: 'executive-moment-tensor-pin',
-            inputs: ['product']}),
-        MockComponent({ selector: 'executive-nearby-seismicity-pin',
-            inputs: ['event', 'link']}),
-        MockComponent({ selector: 'executive-oaf-pin',
-            inputs: ['product', 'title', 'type'] }),
-        MockComponent({ selector: 'executive-origin-pin',
-            inputs: ['product']}),
-        MockComponent({ selector: 'executive-pager-pin',
-            inputs: ['product']}),
-        MockComponent({ selector: 'executive-region-info-pin',
-            inputs: ['event']}),
-        MockComponent({ selector: 'executive-shakemap-pin',
-            inputs: ['product']}),
-        MockComponent({ selector: 'executive-tsunami-pin'}),
-        MockComponent({ selector: 'shared-link-product',
-            inputs: ['product']}),
-        MockComponent({ selector: 'shared-text-product',
-            inputs: ['product']}),
+        MockComponent({
+          selector: 'executive-dyfi-pin',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'executive-dyfi-response-submit-pin',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'executive-finite-fault-pin',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'executive-focal-mechanism-pin',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'executive-ground-failure-pin',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'executive-map-pin',
+          inputs: ['event']
+        }),
+        MockComponent({
+          selector: 'executive-moment-tensor-pin',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'executive-nearby-seismicity-pin',
+          inputs: ['event', 'link']
+        }),
+        MockComponent({
+          selector: 'executive-oaf-pin',
+          inputs: ['product', 'title', 'type']
+        }),
+        MockComponent({
+          selector: 'executive-origin-pin',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'executive-pager-pin',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'executive-region-info-pin',
+          inputs: ['event']
+        }),
+        MockComponent({
+          selector: 'executive-shakemap-pin',
+          inputs: ['product']
+        }),
+        MockComponent({ selector: 'executive-tsunami-pin' }),
+        MockComponent({
+          selector: 'shared-link-product',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'shared-text-product',
+          inputs: ['product']
+        }),
 
         MockPipe('getProduct'),
         MockPipe('nearbySeismicityLink')
-
       ],
       providers: [
         { provide: ContributorService, useValue: {} },
         { provide: EventService, useValue: eventServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -76,5 +103,4 @@ describe('ExecutiveComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
 });

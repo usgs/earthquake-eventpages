@@ -1,6 +1,5 @@
 import { GetBarPositionPipe } from './get-bar-position.pipe';
 
-
 describe('GetBarPositionPipe', () => {
   it('create an instance', () => {
     const pipe = new GetBarPositionPipe();
@@ -29,6 +28,5 @@ describe('GetBarPositionPipe', () => {
         pipe.transform(-1, -2, 2, 10);
       }).not.toThrowError();
     });
-
   });
 });

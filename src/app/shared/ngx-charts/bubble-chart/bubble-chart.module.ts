@@ -8,19 +8,9 @@ import { BubbleSeriesComponent } from './bubble-series/bubble-series.component';
 
 export { BubbleChartComponent, BubbleSeriesComponent };
 
-
 @NgModule({
-  imports: [
-    ChartCommonModule,
-    LineChartModule
-  ],
-  declarations: [
-    BubbleChartComponent,
-    BubbleSeriesComponent
-  ],
-  exports: [
-    BubbleChartComponent,
-    BubbleSeriesComponent
-  ]
+  imports: [ChartCommonModule, LineChartModule],
+  declarations: [BubbleChartComponent, BubbleSeriesComponent],
+  exports: [BubbleChartComponent, BubbleSeriesComponent]
 })
 export class BubbleChartModule {}

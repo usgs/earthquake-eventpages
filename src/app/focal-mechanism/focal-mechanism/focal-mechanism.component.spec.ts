@@ -8,7 +8,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { FocalMechanismComponent } from './focal-mechanism.component';
 
-
 describe('FocalMechanismComponent', () => {
   let component: FocalMechanismComponent;
   let fixture: ComponentFixture<FocalMechanismComponent>;
@@ -23,22 +22,27 @@ describe('FocalMechanismComponent', () => {
       declarations: [
         FocalMechanismComponent,
 
-        MockComponent({selector: 'focal-mechanism-attribution',
-            inputs: ['tensor']}),
-        MockComponent({selector: 'product-page',
-            inputs: ['product']}),
-        MockComponent({selector: 'shared-beachball',
-            inputs: ['fillColor', 'tensor']}),
-        MockComponent({selector: 'shared-nodal-planes',
-            inputs: ['tensor']}),
+        MockComponent({
+          selector: 'focal-mechanism-attribution',
+          inputs: ['tensor']
+        }),
+        MockComponent({
+          selector: 'product-page',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'shared-beachball',
+          inputs: ['fillColor', 'tensor']
+        }),
+        MockComponent({
+          selector: 'shared-nodal-planes',
+          inputs: ['tensor']
+        }),
 
         MockPipe('sharedTensor')
       ],
-      providers: [
-        {provide: EventService, useValue: eventServiceStub}
-      ]
-    })
-    .compileComponents();
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

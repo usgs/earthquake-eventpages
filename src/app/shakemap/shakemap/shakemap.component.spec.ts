@@ -9,7 +9,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { ShakemapComponent } from './shakemap.component';
 
-
 describe('ShakemapComponent', () => {
   let component: ShakemapComponent;
   let fixture: ComponentFixture<ShakemapComponent>;
@@ -33,14 +32,9 @@ describe('ShakemapComponent', () => {
 
         MockPipe('sharedProductContent')
       ],
-      imports: [
-        RouterTestingModule
-      ],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub }
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

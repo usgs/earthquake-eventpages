@@ -7,7 +7,6 @@ import { EventService } from '../../core/event.service';
 import { MockPipe } from '../../mock-pipe';
 import { FiniteFaultComponent } from './finite-fault.component';
 
-
 describe('FiniteFaultComponent', () => {
   let component: FiniteFaultComponent;
   let fixture: ComponentFixture<FiniteFaultComponent>;
@@ -21,20 +20,16 @@ describe('FiniteFaultComponent', () => {
       declarations: [
         FiniteFaultComponent,
 
-        MockComponent({selector: 'product-page', inputs: ['bin']}),
-        MockComponent({selector: 'shared-text-product', inputs: ['product']}),
+        MockComponent({ selector: 'product-page', inputs: ['bin'] }),
+        MockComponent({ selector: 'shared-text-product', inputs: ['product'] }),
 
         MockPipe('sharedDegrees'),
         MockPipe('sharedLocation'),
         MockPipe('sharedNumber'),
         MockPipe('sharedProductContent')
-
       ],
-      providers: [
-        {provide: EventService, useValue: eventServiceStub}
-      ]
-    })
-    .compileComponents();
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

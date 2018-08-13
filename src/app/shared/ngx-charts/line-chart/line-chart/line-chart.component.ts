@@ -1,17 +1,11 @@
-import {
-  trigger,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import { trigger, style, animate, transition } from '@angular/animations';
 import {
   Component,
   ViewEncapsulation,
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy
 } from '@angular/core';
 
 import { LineChartComponent as SwimlaneLineChart } from '@swimlane/ngx-charts';
-
 
 /**
  * Line chart component for use in maps
@@ -26,13 +20,16 @@ import { LineChartComponent as SwimlaneLineChart } from '@swimlane/ngx-charts';
     trigger('animationState', [
       transition(':leave', [
         style({
-          opacity: 1,
+          opacity: 1
         }),
-        animate(500, style({
-          opacity: 0
-        }))
+        animate(
+          500,
+          style({
+            opacity: 0
+          })
+        )
       ])
     ])
   ]
 })
-export class LineChartComponent extends SwimlaneLineChart { }
+export class LineChartComponent extends SwimlaneLineChart {}

@@ -3,9 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 
 import { Event } from '../../event';
-import {MockPipe} from '../../mock-pipe';
+import { MockPipe } from '../../mock-pipe';
 import { NavigationComponent } from './navigation.component';
-
 
 describe('NavigationComponent', () => {
   let component: NavigationComponent;
@@ -16,13 +15,14 @@ describe('NavigationComponent', () => {
       declarations: [
         NavigationComponent,
 
-        MockComponent({selector: 'app-navigation-group'}),
-        MockComponent({selector: 'app-navigation-item',
-            inputs: ['display', 'navHrefLink', 'navRouterLink']}),
+        MockComponent({ selector: 'app-navigation-group' }),
+        MockComponent({
+          selector: 'app-navigation-item',
+          inputs: ['display', 'navHrefLink', 'navRouterLink']
+        }),
         MockPipe('nearbySeismicityLink')
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -37,11 +37,11 @@ describe('NavigationComponent', () => {
 
   describe('getKmlLink', () => {
     it('uses event.id in link', () => {
-      const event = new Event({id: 'event'});
+      const event = new Event({ id: 'event' });
       const link = component.getKmlLink(event);
 
       expect(link).toBe('/earthquakes/feed/v1.0/detail/event.kml');
-     });
+    });
   });
 
   describe('hasImpact', () => {
@@ -52,8 +52,12 @@ describe('NavigationComponent', () => {
 
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith([
-        'dyfi', 'impact-text', 'impact-link', 'losspager', 'ground-failure',
-            'shakemap'
+        'dyfi',
+        'impact-text',
+        'impact-link',
+        'losspager',
+        'ground-failure',
+        'shakemap'
       ]);
       expect(result).toBe(true);
     });
@@ -67,8 +71,12 @@ describe('NavigationComponent', () => {
 
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith([
-        'origin', 'phase-data', 'moment-tensor',
-        'focal-mechanism', 'finite-fault', 'oaf'
+        'origin',
+        'phase-data',
+        'moment-tensor',
+        'focal-mechanism',
+        'finite-fault',
+        'oaf'
       ]);
       expect(result).toBe(true);
     });

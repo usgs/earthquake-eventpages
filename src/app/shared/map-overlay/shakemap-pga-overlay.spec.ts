@@ -2,7 +2,6 @@ import * as L from 'leaflet';
 
 import { ShakemapPGAOverlay } from './shakemap-pga-overlay';
 
-
 describe('ShakemapPGAOverlay', () => {
   let overlay;
   const FEATURE = {
@@ -25,7 +24,7 @@ describe('ShakemapPGAOverlay', () => {
   it('uses product when defined', () => {
     overlay = new ShakemapPGAOverlay({
       contents: {
-        'download/cont_pga.json': {url: 'URL'}
+        'download/cont_pga.json': { url: 'URL' }
       }
     });
 
@@ -39,5 +38,4 @@ describe('ShakemapPGAOverlay', () => {
 
     expect(label).toBeTruthy();
   });
-
 });

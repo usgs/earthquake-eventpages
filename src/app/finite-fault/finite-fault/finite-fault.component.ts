@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
 
-
 /**
  * Display finite-fault product information
  */
@@ -12,9 +11,5 @@ import { EventService } from '../../core/event.service';
   styleUrls: ['./finite-fault.component.scss']
 })
 export class FiniteFaultComponent {
-
-  constructor(
-    public eventService: EventService
-  ) { }
-
+  constructor(public eventService: EventService) {}
 }

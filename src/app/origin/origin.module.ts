@@ -21,7 +21,6 @@ import { OriginRoutingModule } from './origin-routing.module';
 import { OriginComponent } from './origin/origin.component';
 import { PhaseComponent } from './phase/phase.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -47,5 +46,4 @@ import { PhaseComponent } from './phase/phase.component';
     MagnitudeDetailComponent
   ]
 })
-export class OriginModule {
-}
+export class OriginModule {}

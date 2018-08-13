@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * The main component for showing product attribution
  *
@@ -13,9 +12,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./product-attribution.component.scss']
 })
 export class ProductAttributionComponent {
-
-  @Input() product: any;
-
+  @Input()
+  product: any;
 
   /**
    * Returns sources from product input
@@ -24,7 +22,7 @@ export class ProductAttributionComponent {
    * @returns {Array<string>}
    *    The set of sources from product properties
    */
-  getSources (product: any): Array<string> {
+  getSources(product: any): Array<string> {
     const sources = new Set<string>();
 
     if (!product) {
@@ -36,18 +34,15 @@ export class ProductAttributionComponent {
     }
 
     if (product.properties) {
-      [
-        'origin-source',
-        'magnitude-source',
-        'beachball-source'
-      ].forEach((prop) => {
-        if (product.properties[prop]) {
-          sources.add(product.properties[prop].toLowerCase());
+      ['origin-source', 'magnitude-source', 'beachball-source'].forEach(
+        prop => {
+          if (product.properties[prop]) {
+            sources.add(product.properties[prop].toLowerCase());
+          }
         }
-      });
+      );
     }
 
     return Array.from(sources);
   }
-
 }

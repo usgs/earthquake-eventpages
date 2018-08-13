@@ -9,14 +9,8 @@ import { OriginSummaryComponent } from './origin-summary/origin-summary.componen
 import { TechnicalRoutingModule } from './technical-routing.module';
 import { TechnicalComponent } from './technical/technical.component';
 
-
 @NgModule({
-  imports: [
-    CommonModule,
-    MatTableModule,
-    SharedModule,
-    TechnicalRoutingModule
-  ],
+  imports: [CommonModule, MatTableModule, SharedModule, TechnicalRoutingModule],
   declarations: [
     TechnicalComponent,
     OriginSummaryComponent,
@@ -24,4 +18,4 @@ import { TechnicalComponent } from './technical/technical.component';
     FocalMechanismSummaryComponent
   ]
 })
-export class TechnicalModule { }
+export class TechnicalModule {}

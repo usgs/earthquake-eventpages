@@ -5,11 +5,10 @@ import { AppComponent } from './app.component';
 
 import { ContributorService } from './core/contributor.service';
 
-
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>,
-      component: AppComponent,
-      contributorService;
+    component: AppComponent,
+    contributorService;
 
   beforeEach(async(() => {
     const contributorServiceStub = {
@@ -17,17 +16,12 @@ describe('AppComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-      imports: [
-        RouterTestingModule
-      ],
+      declarations: [AppComponent],
+      imports: [RouterTestingModule],
       providers: [
-        {provide: ContributorService, useValue: contributorServiceStub}
+        { provide: ContributorService, useValue: contributorServiceStub }
       ]
     }).compileComponents();
-
 
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
@@ -35,7 +29,6 @@ describe('AppComponent', () => {
 
     contributorService = fixture.debugElement.injector.get(ContributorService);
   }));
-
 
   it('should create the AppComponent', async(() => {
     expect(component).toBeTruthy();

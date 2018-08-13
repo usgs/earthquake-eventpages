@@ -7,12 +7,10 @@ import { NumberPipe } from '../number.pipe';
 import { RomanPipe } from '../roman.pipe';
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
-
 /**
  * Shakemap overlay for leaflet map
  */
 const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
-
   id: 'shakemap-stations',
   title: 'Shakemap Stations',
   legend: null,
@@ -20,14 +18,13 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
   numberPipe: null,
   romanPipe: new RomanPipe(),
 
-
   /**
    * Build leaflet overlay
    *
    * @param product
    *     The product from the event
    */
-  initialize: function (product: any) {
+  initialize: function(product: any) {
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 
     const formatter = new FormatterService();
@@ -43,13 +40,14 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
    * @param product
    *     The product from the event
    */
-  getUrl: function (product: any) {
+  getUrl: function(product: any) {
     if (product == null) {
       return null;
     }
 
-    return product.contents['download/stationlist.json'] ?
-        product.contents['download/stationlist.json'].url : null;
+    return product.contents['download/stationlist.json']
+      ? product.contents['download/stationlist.json'].url
+      : null;
   },
 
   /**
@@ -60,15 +58,16 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
    * @param latlng
    *     The coordinates for the marker
    */
-  pointToLayer: function (feature: any, latlng: any) {
+  pointToLayer: function(feature: any, latlng: any) {
     const props = feature.properties;
     const intensity = this.romanPipe.transform(props.intensity);
     let marker;
 
-    if (props.network === 'DYFI' ||
-        props.network === 'INTENSITY' ||
-        props.station_type === 'macroseismic') {
-
+    if (
+      props.network === 'DYFI' ||
+      props.network === 'INTENSITY' ||
+      props.station_type === 'macroseismic'
+    ) {
       // create a marker for a DYFI station
       marker = L.marker(latlng, {
         icon: L.divIcon({
@@ -77,10 +76,8 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
           iconAnchor: [7, 7],
           popupAnchor: [0, 0]
         })
-
       });
     } else {
-
       // create a marker for a seismic station
       marker = L.marker(latlng, {
         icon: L.divIcon({
@@ -90,7 +87,6 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
           popupAnchor: [0, -4]
         })
       });
-
     }
 
     // Add event listener to generate a popup when the station is clicked
@@ -104,9 +100,9 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
    * @param data
    *     The data to parse
    */
-  parse: function (data: any) {
+  parse: function(data: any) {
     // parse if needed
-    data = (typeof data === 'string' ? JSON.parse(data) : data);
+    data = typeof data === 'string' ? JSON.parse(data) : data;
 
     // use StationService to parse stationlist.json
     const stationService = new StationService(this.httpClient);
@@ -120,7 +116,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
    * @param event
    *     The event
    */
-  generatePopup: function (event: any) {
+  generatePopup: function(event: any) {
     const marker = event.target;
     const popupContent = this.generatePopupContent(marker.feature);
 
@@ -137,7 +133,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
    * @param feature
    *     The feature data to parse for the popup
    */
-  generatePopupContent: function (feature: any) {
+  generatePopupContent: function(feature: any) {
     const station = `
       <shakemap-station station='${JSON.stringify(feature)}'>
       </shakemap-station>
@@ -145,7 +141,6 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
 
     return station;
   }
-
 });
 
 export { ShakemapStationsOverlay };

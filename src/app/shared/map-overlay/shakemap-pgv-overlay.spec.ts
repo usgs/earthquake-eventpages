@@ -2,7 +2,6 @@ import * as L from 'leaflet';
 
 import { ShakemapPGVOverlay } from './shakemap-pgv-overlay';
 
-
 describe('ShakemapPGVOverlay', () => {
   let overlay;
   const FEATURE = {
@@ -25,7 +24,7 @@ describe('ShakemapPGVOverlay', () => {
   it('uses product when defined', () => {
     overlay = new ShakemapPGVOverlay({
       contents: {
-        'download/cont_pgv.json': {url: 'URL'}
+        'download/cont_pgv.json': { url: 'URL' }
       }
     });
 

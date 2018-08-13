@@ -14,6 +14,6 @@ import { FormatterService } from '../../core/formatter.service';
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent {
-
-  @Input() tensor: Tensor;
+  @Input()
+  tensor: Tensor;
 }

@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { EventService } from '../../core/event.service';
 import { OafService } from '../oaf.service';
 
-
 /**
  * Display forecaset information in tab on OAF product page
  */
@@ -13,27 +12,19 @@ import { OafService } from '../oaf.service';
   styleUrls: ['./forecast.component.scss']
 })
 export class ForecastComponent {
-
   // colums to be displayed
-  public columnsToDisplay = [
-    'space',
-    'day',
-    'week',
-    'month',
-    'year'
-  ];
+  public columnsToDisplay = ['space', 'day', 'week', 'month', 'year'];
 
   public columnTitles = {
-    'space': '',
-    'day': 'Day',
-    'week': 'Week',
-    'month': 'Month',
-    'year': 'Year'
+    space: '',
+    day: 'Day',
+    week: 'Week',
+    month: 'Month',
+    year: 'Year'
   };
 
-
-  constructor (
+  constructor(
     public eventService: EventService,
     public oafService: OafService
-  ) { }
+  ) {}
 }

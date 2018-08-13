@@ -16,7 +16,6 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -40,10 +39,6 @@ import { NavigationComponent } from './navigation/navigation.component';
     ContributorListPipe,
     NavigationComponent
   ],
-  exports: [
-    ContributorListPipe,
-    EventPageComponent,
-    FooterComponent
-  ],
+  exports: [ContributorListPipe, EventPageComponent, FooterComponent]
 })
-export class EventPageModule { }
+export class EventPageModule {}

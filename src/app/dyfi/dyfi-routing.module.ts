@@ -2,13 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DyfiComponent } from './dyfi/dyfi.component';
-import {
-  IntensityVsDistanceComponent
-} from './intensity-vs-distance/intensity-vs-distance.component';
+import { IntensityVsDistanceComponent } from './intensity-vs-distance/intensity-vs-distance.component';
 import { IntensityComponent } from './intensity/intensity.component';
-import {
-  ResponsesVsTimeComponent
-} from './responses-vs-time/responses-vs-time.component';
+import { ResponsesVsTimeComponent } from './responses-vs-time/responses-vs-time.component';
 import { ResponsesComponent } from './responses/responses.component';
 import { ZipComponent } from './zip/zip.component';
 
@@ -48,13 +44,8 @@ const dyfiRoutes: Routes = [
   }
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forChild(dyfiRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(dyfiRoutes)],
+  exports: [RouterModule]
 })
-export class DyfiRoutingModule { }
+export class DyfiRoutingModule {}

@@ -6,7 +6,6 @@ import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
 import { Tensor } from '../../shared/beachball/tensor';
 
-
 /**
  * Executive summary page
  */
@@ -17,9 +16,5 @@ import { Tensor } from '../../shared/beachball/tensor';
   encapsulation: ViewEncapsulation.None
 })
 export class ExecutiveComponent {
-
-  constructor (
-    public eventService: EventService
-  ) { }
-
+  constructor(public eventService: EventService) {}
 }

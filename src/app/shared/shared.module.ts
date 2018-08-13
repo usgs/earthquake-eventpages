@@ -52,7 +52,6 @@ import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 import { UnitsPipe } from './units.pipe';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -148,16 +147,10 @@ import { UnitsPipe } from './units.pipe';
     SummaryLinkPipe,
     SummaryLinkComponent
   ],
-  entryComponents: [
-    DownloadDialogComponent,
-    StationComponent
-  ]
+  entryComponents: [DownloadDialogComponent, StationComponent]
 })
 export class SharedModule {
-
-
-  constructor (public injector: Injector) {
-
+  constructor(public injector: Injector) {
     // shakemap-station constructor will be an HTMLElement if it's not
     // registered yet
     const stationConst = document.createElement('shakemap-station').constructor;
@@ -168,5 +161,4 @@ export class SharedModule {
       customElements.define('shakemap-station', station);
     }
   }
-
 }

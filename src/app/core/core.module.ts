@@ -10,11 +10,8 @@ import { MetadataService } from './metadata.service';
 import { QuakemlService } from './quakeml.service';
 import { StationService } from './station.service';
 
-
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [CommonModule],
   declarations: []
 })
 export class CoreModule {

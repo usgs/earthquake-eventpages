@@ -10,7 +10,6 @@ import {
 import { SharedModule } from '../shared/shared.module';
 import { RegionInfoComponent } from './region-info/region-info.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -22,4 +21,4 @@ import { RegionInfoComponent } from './region-info/region-info.component';
   ],
   declarations: [RegionInfoComponent]
 })
-export class RegionInfoModule { }
+export class RegionInfoModule {}

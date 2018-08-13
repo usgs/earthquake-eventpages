@@ -3,21 +3,15 @@ import { MatIconModule } from '@angular/material';
 
 import { PreferredCheckComponent } from './preferred-check.component';
 
-
 describe('PreferredCheckComponent', () => {
   let component: PreferredCheckComponent;
   let fixture: ComponentFixture<PreferredCheckComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatIconModule
-      ],
-      declarations: [
-        PreferredCheckComponent
-      ]
-    })
-    .compileComponents();
+      imports: [MatIconModule],
+      declarations: [PreferredCheckComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

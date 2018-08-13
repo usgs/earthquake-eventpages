@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { ContributorService } from '../../core/contributor.service';
 import { EventService } from '../../core/event.service';
 
-
 /**
  * Main event page component, wraps inbound data components
  */
@@ -16,18 +15,15 @@ import { EventService } from '../../core/event.service';
   styleUrls: ['./event-page.component.scss']
 })
 export class EventPageComponent implements OnInit, OnDestroy {
-
   public subscription = new Subscription();
 
-
-  constructor (
+  constructor(
     public route: ActivatedRoute,
     public contributorService: ContributorService,
     public eventService: EventService
-  ) { }
+  ) {}
 
-
-  ngOnInit () {
+  ngOnInit() {
     this.subscription.add(
       this.route.paramMap.subscribe((paramMap: ParamMap) => {
         return this.onParamMapChange(paramMap);
@@ -35,7 +31,7 @@ export class EventPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy () {
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
@@ -45,9 +41,8 @@ export class EventPageComponent implements OnInit, OnDestroy {
    * @param paramMap
    *     The url query parameters
    */
-  onParamMapChange (paramMap: ParamMap): void {
+  onParamMapChange(paramMap: ParamMap): void {
     // request event
     this.eventService.getEvent(paramMap.get('eventid'));
   }
-
 }

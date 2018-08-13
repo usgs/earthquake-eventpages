@@ -1,7 +1,6 @@
 import { Event } from './event';
 
 describe('Event', () => {
-
   it('is defined', () => {
     expect(Event).toBeTruthy();
   });
@@ -34,7 +33,7 @@ describe('Event', () => {
     const event = new Event({
       properties: {
         products: {
-          'testtype': products
+          testtype: products
         }
       }
     });
@@ -45,12 +44,14 @@ describe('Event', () => {
 
     expect(event.getProduct('testtype')).toEqual(products[0]);
     expect(event.getProduct('testtype', 'source2')).toEqual(products[1]);
-    expect(event.getProduct('testtype', 'source1', 'code2')).toEqual(products[2]);
+    expect(event.getProduct('testtype', 'source1', 'code2')).toEqual(
+      products[2]
+    );
   });
 
   it('adds "phasedata" product to origin', () => {
     const products: any = {
-      'origin': [
+      origin: [
         {
           source: 'originsource',
           type: 'origin',
@@ -79,7 +80,7 @@ describe('Event', () => {
 
   it('checks whether products exist', () => {
     const products: any = {
-      'origin': [
+      origin: [
         {
           source: 'originsource',
           type: 'origin',
@@ -107,5 +108,4 @@ describe('Event', () => {
     expect(event.hasProducts('phase-data')).toBeTruthy();
     expect(event.hasProducts('anothertype')).not.toBeTruthy();
   });
-
 });

@@ -1,4 +1,3 @@
-
 import { toArray } from './to-array';
 import { toIndex } from './to-index';
 
@@ -9,7 +8,6 @@ import { toIndex } from './to-index';
  *        json object (ala xmlToJson) of a quakeml event element.
  */
 export class QuakemlEvent {
-
   // event attributes
   public publicID: string = null;
   public catalog: string = null;
@@ -27,9 +25,7 @@ export class QuakemlEvent {
   public amplitudes: any = {};
   public stationMagnitudes: any = {};
 
-  constructor (
-    data: any
-  ) {
+  constructor(data: any) {
     this.creationInfo = data.creationInfo;
     this.catalog = data['catalog:eventsource'];
     this.eventid = data['catalog:eventid'];
@@ -42,17 +38,20 @@ export class QuakemlEvent {
 
     this.amplitudes = toIndex(toArray(data.amplitude), 'publicID');
     this.picks = toIndex(toArray(data.pick), 'publicID');
-    this.stationMagnitudes = toIndex(toArray(data.stationMagnitude), 'publicID');
+    this.stationMagnitudes = toIndex(
+      toArray(data.stationMagnitude),
+      'publicID'
+    );
   }
 
-  preferredMagnitude (): any {
-    return this.magnitudes.find((m) => {
+  preferredMagnitude(): any {
+    return this.magnitudes.find(m => {
       return m.publicID === this.preferredMagnitudeID;
     });
   }
 
-  preferredOrigin (): any {
-    return this.origins.find((o) => {
+  preferredOrigin(): any {
+    return this.origins.find(o => {
       return o.publicID === this.preferredOriginID;
     });
   }

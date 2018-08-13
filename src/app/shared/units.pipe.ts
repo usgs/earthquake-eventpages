@@ -3,14 +3,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { FormatterService } from '../core/formatter.service';
 import { DegreesPipe } from './degrees.pipe';
 
-
 @Pipe({
   name: 'sharedUnits'
 })
 export class UnitsPipe implements PipeTransform {
-
-  constructor (public formatterService: FormatterService) { }
-
+  constructor(public formatterService: FormatterService) {}
 
   /**
    * Format nuumber with units
@@ -23,10 +20,7 @@ export class UnitsPipe implements PipeTransform {
    * @return { String | null }
    *     number with units
    */
-  transform (
-    value: number | string,
-    units: string): string | null {
-
+  transform(value: number | string, units: string): string | null {
     let output: string = null;
 
     if (value === null) {
@@ -34,37 +28,36 @@ export class UnitsPipe implements PipeTransform {
     }
 
     switch (units) {
-        case 'count': {
-            output = value.toString();
-            break;
-        }
+      case 'count': {
+        output = value.toString();
+        break;
+      }
 
-        case 'degrees': {
-            const degPipe = new DegreesPipe(this.formatterService);
-            output = degPipe.transform(value);
-            break;
-        }
+      case 'degrees': {
+        const degPipe = new DegreesPipe(this.formatterService);
+        output = degPipe.transform(value);
+        break;
+      }
 
-        case 'latitude': {
-            output = this.formatterService.latitude(+value);
-            break;
-        }
+      case 'latitude': {
+        output = this.formatterService.latitude(+value);
+        break;
+      }
 
-        case 'longitude': {
-            output = this.formatterService.longitude(+value);
-            break;
-        }
+      case 'longitude': {
+        output = this.formatterService.longitude(+value);
+        break;
+      }
 
-        case 'intensity': {
-            output = `${value} mmi`;
-            break;
-        }
+      case 'intensity': {
+        output = `${value} mmi`;
+        break;
+      }
 
-        default: {
-            output = `${value} ${units}`;
-        }
+      default: {
+        output = `${value} ${units}`;
+      }
     }
     return output;
   }
-
 }

@@ -23,7 +23,6 @@ import { ResponsesComponent } from './responses/responses.component';
 import { SharedModule } from '../shared/shared.module';
 import { ZipComponent } from './zip/zip.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -48,8 +47,6 @@ import { ZipComponent } from './zip/zip.component';
     ResponsesVsTimeComponent,
     ResponsesComponent
   ],
-  providers: [
-    DyfiService
-  ]
+  providers: [DyfiService]
 })
-export class DyfiModule { }
+export class DyfiModule {}

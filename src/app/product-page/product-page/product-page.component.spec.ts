@@ -7,7 +7,6 @@ import { ContributorService } from '../../core/contributor.service';
 import { EventService } from '../../core/event.service';
 import { ProductPageComponent } from './product-page.component';
 
-
 describe('ProductPageComponent', () => {
   let component: ProductPageComponent;
   let fixture: ComponentFixture<ProductPageComponent>;
@@ -28,20 +27,21 @@ describe('ProductPageComponent', () => {
       declarations: [
         ProductPageComponent,
 
-        MockComponent({selector: 'product-page-footer',
-            inputs: ['event', 'product']}),
-        MockComponent({selector: 'product-page-header',
-            inputs: ['contributors', 'event', 'product', 'productType']})
+        MockComponent({
+          selector: 'product-page-footer',
+          inputs: ['event', 'product']
+        }),
+        MockComponent({
+          selector: 'product-page-header',
+          inputs: ['contributors', 'event', 'product', 'productType']
+        })
       ],
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [RouterTestingModule],
       providers: [
-        {provide: ContributorService, useValue: contributorServiceStub},
-        {provide: EventService, useValue: eventServiceStub}
+        { provide: ContributorService, useValue: contributorServiceStub },
+        { provide: EventService, useValue: eventServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProductPageComponent);
     component = fixture.componentInstance;
@@ -49,7 +49,6 @@ describe('ProductPageComponent', () => {
 
     contributorService = fixture.debugElement.injector.get(ContributorService);
     eventService = fixture.debugElement.injector.get(EventService);
-
   }));
 
   beforeEach(() => {

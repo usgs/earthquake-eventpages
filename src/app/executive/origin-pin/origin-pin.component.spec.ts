@@ -14,7 +14,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { OriginPinComponent } from './origin-pin.component';
 
-
 describe('OriginPinComponent', () => {
   let component: OriginPinComponent;
   let fixture: ComponentFixture<OriginPinComponent>;
@@ -26,23 +25,13 @@ describe('OriginPinComponent', () => {
 
         MockComponent({
           selector: 'basic-pin',
-          inputs: [
-            'footer',
-            'link',
-            'product',
-            'title'
-          ]
+          inputs: ['footer', 'link', 'product', 'title']
         }),
         MockPipe('sharedNumber')
       ],
-      imports: [
-        RouterTestingModule
-      ],
-      providers: [
-        { provide: FormatterService, useValue: {} }
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [{ provide: FormatterService, useValue: {} }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -54,5 +43,4 @@ describe('OriginPinComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
 });

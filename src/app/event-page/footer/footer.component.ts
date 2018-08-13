@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Shared footer component across all pages
  *
@@ -15,8 +14,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-
-  @Input() event: any = null;
-  @Input() contributors: any = null;
-
+  @Input()
+  event: any = null;
+  @Input()
+  contributors: any = null;
 }

@@ -14,17 +14,22 @@ describe('HeaderComponent', () => {
       declarations: [
         HeaderComponent,
 
-        MockComponent({selector: 'product-page-summary-link',
-            inputs: ['product', 'event']}),
-        MockComponent({selector: 'shared-product-attribution',
-            inputs: ['product']}),
-        MockComponent({selector: 'shared-summary-link',
-            inputs: ['productType', 'event']}),
+        MockComponent({
+          selector: 'product-page-summary-link',
+          inputs: ['product', 'event']
+        }),
+        MockComponent({
+          selector: 'shared-product-attribution',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'shared-summary-link',
+          inputs: ['productType', 'event']
+        }),
 
         MockPipe('dateTime')
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -45,16 +50,14 @@ describe('HeaderComponent', () => {
     const event = {
       properties: {
         products: {
-          origin: [
-            product
-          ]
+          origin: [product]
         }
       }
     };
 
     expect(component.isPreferred(event, product)).toBeTruthy();
-    expect(component.isPreferred(event, {type: 'phase-data'})).toBeFalsy();
-    expect(component.isPreferred(event, {id: 2, type: 'origin'})).toBeFalsy();
+    expect(component.isPreferred(event, { type: 'phase-data' })).toBeFalsy();
+    expect(component.isPreferred(event, { id: 2, type: 'origin' })).toBeFalsy();
   });
 
   it('isReviewed', () => {
@@ -67,7 +70,11 @@ describe('HeaderComponent', () => {
     };
 
     expect(component.isReviewed(product)).toBeTruthy();
-    expect(component.isReviewed({properties: {'happy-status': 'reviewed'}})).toBeFalsy();
-    expect(component.isReviewed({properties: {'review-status': 'NOT REVIEWED'}})).toBeFalsy();
+    expect(
+      component.isReviewed({ properties: { 'happy-status': 'reviewed' } })
+    ).toBeFalsy();
+    expect(
+      component.isReviewed({ properties: { 'review-status': 'NOT REVIEWED' } })
+    ).toBeFalsy();
   });
 });

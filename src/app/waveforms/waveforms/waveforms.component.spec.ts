@@ -9,7 +9,6 @@ import { Event } from '../../event';
 import { WaveformService } from '../waveform.service';
 import { WaveformsComponent } from './waveforms.component';
 
-
 describe('WaveformsComponent', () => {
   let component: WaveformsComponent;
   let fixture: ComponentFixture<WaveformsComponent>;
@@ -21,15 +20,14 @@ describe('WaveformsComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule, HttpClientModule ],
-      declarations: [ WaveformsComponent ],
+      imports: [RouterTestingModule, HttpClientModule],
+      declarations: [WaveformsComponent],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
+        { provide: EventService, useValue: eventServiceStub },
         WaveformService,
         HttpClient
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

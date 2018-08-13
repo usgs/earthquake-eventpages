@@ -1,6 +1,5 @@
 import { BubbleLineChartModule } from './bubble-line-chart.module';
 
-
 describe('BubbleLineChartModule', () => {
   let bubbleLineChartModule: BubbleLineChartModule;
 

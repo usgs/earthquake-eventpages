@@ -8,7 +8,6 @@ import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
 import { ImpactComponent } from './impact.component';
 
-
 describe('ImpactComponent', () => {
   let component: ImpactComponent;
   let fixture: ComponentFixture<ImpactComponent>;
@@ -43,17 +42,14 @@ describe('ImpactComponent', () => {
           inputs: ['event', 'products']
         })
       ],
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [RouterTestingModule],
       providers: [
         {
           provide: EventService,
           useValue: eventServiceStub
         }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

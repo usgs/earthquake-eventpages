@@ -1,9 +1,7 @@
 import { DateTimePipe } from './date-time.pipe';
 
-
 describe('DateTimePipe', () => {
-  let formatterService,
-      pipe;
+  let formatterService, pipe;
 
   beforeEach(() => {
     formatterService = {

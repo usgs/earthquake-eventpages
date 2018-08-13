@@ -6,7 +6,6 @@ import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 import { PagerPopulationComponent } from './pager-population.component';
 
-
 describe('PagerPopulationComponent', () => {
   let component: PagerPopulationComponent;
   let fixture: ComponentFixture<PagerPopulationComponent>;
@@ -16,15 +15,14 @@ describe('PagerPopulationComponent', () => {
       declarations: [
         PagerPopulationComponent,
 
-        MockComponent({selector: 'shared-mmi',
-            inputs: ['intensity', 'value', 'bubble']}),
+        MockComponent({
+          selector: 'shared-mmi',
+          inputs: ['intensity', 'value', 'bubble']
+        }),
         MockPipe('sharedNumber')
       ],
-      imports: [
-        MatTableModule
-      ]
-    })
-    .compileComponents();
+      imports: [MatTableModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

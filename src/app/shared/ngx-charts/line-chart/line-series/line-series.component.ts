@@ -1,13 +1,6 @@
-import {
-  Component,
-  Input,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
-import {
-  LineSeriesComponent as SwimlaneLineSeries
-} from '@swimlane/ngx-charts';
-
+import { LineSeriesComponent as SwimlaneLineSeries } from '@swimlane/ngx-charts';
 
 /**
  * LineSeriesComponent
@@ -21,9 +14,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LineSeriesComponent extends SwimlaneLineSeries {
-
-  @Input() strokeWidth = '1.5px';
-
+  @Input()
+  strokeWidth = '1.5px';
 
   /**
    * Helper function to sort by direction

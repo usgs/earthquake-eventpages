@@ -6,7 +6,6 @@ import { ForecastComponent } from './forecast/forecast.component';
 import { ModelComponent } from './model/model.component';
 import { OafComponent } from './oaf/oaf.component';
 
-
 const oafRoutes: Routes = [
   {
     // this module must be loaded lazily using "loadChildren"
@@ -35,13 +34,8 @@ const oafRoutes: Routes = [
   }
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forChild(oafRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(oafRoutes)],
+  exports: [RouterModule]
 })
-export class OafRoutingModule { }
+export class OafRoutingModule {}

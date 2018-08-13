@@ -6,13 +6,11 @@ import { MockComponent } from 'ng2-mock-component';
 import { EventService } from '../../core/event.service';
 import { OriginComponent } from './origin.component';
 
-
 describe('OriginComponent', () => {
   let component: OriginComponent;
   let fixture: ComponentFixture<OriginComponent>;
 
   beforeEach(async(() => {
-
     const eventServiceStub = {
       getProduct: jasmine.createSpy('eventService::getProduct')
     };
@@ -28,14 +26,9 @@ describe('OriginComponent', () => {
         MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-forward' })
       ],
-      imports: [
-        RouterTestingModule
-      ],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub }
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

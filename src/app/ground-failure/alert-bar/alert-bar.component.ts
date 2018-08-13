@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Generate alert bars for summary tab, on ground-failure product page
  *
@@ -23,7 +22,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./alert-bar.component.scss']
 })
 export class AlertBarComponent {
-
   @Input()
   bins: Array<any> = [
     {

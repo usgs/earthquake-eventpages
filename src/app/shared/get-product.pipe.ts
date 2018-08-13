@@ -2,12 +2,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { Event } from '../event';
 
-
 @Pipe({
   name: 'getProduct'
 })
 export class GetProductPipe implements PipeTransform {
-
   /**
    * Returns the product from the event input based on type input
    *
@@ -25,12 +23,16 @@ export class GetProductPipe implements PipeTransform {
    * @return {any}
    *     product of 'type' from evenet
    */
-  transform (event: Event, type: string,
-      source?: string, code?: string, updateTime?: number): any {
+  transform(
+    event: Event,
+    type: string,
+    source?: string,
+    code?: string,
+    updateTime?: number
+  ): any {
     if (!event) {
       return null;
     }
     return event.getProduct(type, source, code, updateTime);
   }
-
 }

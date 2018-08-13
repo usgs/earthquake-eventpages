@@ -24,7 +24,6 @@ import { TellUsComponent } from './tell-us/tell-us.component';
 import { TellUsRoutingModule } from './tell-us-routing.module';
 import { LocationViewModule } from 'hazdev-ng-location-view';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -51,15 +50,8 @@ import { LocationViewModule } from 'hazdev-ng-location-view';
     TellUsComponent,
     PrivacyStatementComponent
   ],
-  entryComponents: [
-    FormComponent
-  ],
-  exports: [
-    FormComponent,
-    TellUsComponent
-  ],
-  providers: [
-    FormLanguageService
-  ]
+  entryComponents: [FormComponent],
+  exports: [FormComponent, TellUsComponent],
+  providers: [FormLanguageService]
 })
-export class TellUsModule { }
+export class TellUsModule {}

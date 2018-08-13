@@ -9,10 +9,7 @@ import {
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-import {
-  MdcTabModule,
-  MdcIconModule
-} from '@angular-mdc/web';
+import { MdcTabModule, MdcIconModule } from '@angular-mdc/web';
 
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
@@ -28,7 +25,6 @@ import { ShakemapRoutingModule } from './shakemap-routing.module';
 import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { UncertaintyComponent } from './uncertainty/uncertainty.component';
-
 
 @NgModule({
   imports: [
@@ -59,10 +55,6 @@ import { UncertaintyComponent } from './uncertainty/uncertainty.component';
     PgvComponent,
     PsaComponent
   ],
-  exports: [
-    StationListComponent,
-    MetadataComponent,
-    UncertaintyComponent
-  ]
+  exports: [StationListComponent, MetadataComponent, UncertaintyComponent]
 })
-export class ShakemapModule { }
+export class ShakemapModule {}

@@ -1,7 +1,5 @@
-import {
-  HistoricSeismicityOverlay } from './map-overlay/historic-seismicity-overlay';
+import { HistoricSeismicityOverlay } from './map-overlay/historic-seismicity-overlay';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
-
 
 describe('RegionInfoOverlayPipe', () => {
   it('create an instance', () => {
@@ -11,8 +9,10 @@ describe('RegionInfoOverlayPipe', () => {
 
   it('includes HistoricSeismicityOverlay', () => {
     const pipe = new RegionInfoOverlaysPipe();
-    expect(pipe.transform(null).some( (overlay) => {
-      return (overlay instanceof HistoricSeismicityOverlay);
-    })).toBeTruthy();
+    expect(
+      pipe.transform(null).some(overlay => {
+        return overlay instanceof HistoricSeismicityOverlay;
+      })
+    ).toBeTruthy();
   });
 });

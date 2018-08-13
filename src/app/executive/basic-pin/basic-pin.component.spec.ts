@@ -16,7 +16,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { BasicPinComponent } from './basic-pin.component';
 
-
 describe('BasicPinComponent', () => {
   let component: BasicPinComponent;
   let fixture: ComponentFixture<BasicPinComponent>;
@@ -35,8 +34,10 @@ describe('BasicPinComponent', () => {
       declarations: [
         BasicPinComponent,
 
-        MockComponent({selector: 'shared-product-attribution',
-            inputs: ['product']}),
+        MockComponent({
+          selector: 'shared-product-attribution',
+          inputs: ['product']
+        }),
         MockPipe('contributorList')
       ],
       imports: [
@@ -50,8 +51,7 @@ describe('BasicPinComponent', () => {
         { provide: EventService, useValue: eventServiceStub },
         { provide: ContributorService, useValue: contributorServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

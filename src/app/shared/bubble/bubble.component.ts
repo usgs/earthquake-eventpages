@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Shared bubble component for use in beachball components
  *
@@ -15,8 +14,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./bubble.component.scss']
 })
 export class BubbleComponent {
-
-  @Input() name: string;
-  @Input() title: string;
-
+  @Input()
+  name: string;
+  @Input()
+  title: string;
 }

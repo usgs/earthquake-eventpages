@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { WaveformsComponent } from './waveforms/waveforms.component';
 
-
 const waveformRoutes: Routes = [
   {
     // this module must be loaded lazily using "loadChildren"
@@ -14,11 +13,7 @@ const waveformRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(waveformRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(waveformRoutes)],
+  exports: [RouterModule]
 })
-export class WaveformsRoutingModule { }
+export class WaveformsRoutingModule {}

@@ -2,14 +2,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { FormatterService } from '../core/formatter.service';
 
-
 @Pipe({
   name: 'eventDateTime'
 })
 export class EventDateTimePipe implements PipeTransform {
-
-  constructor (public formatter: FormatterService) { }
-
+  constructor(public formatter: FormatterService) {}
 
   /**
    * Returns an event date time from the event
@@ -20,7 +17,7 @@ export class EventDateTimePipe implements PipeTransform {
    * @return
    *     New date/time formatted object
    */
-  transform (event: any): string {
+  transform(event: any): string {
     let date;
 
     try {
@@ -31,5 +28,4 @@ export class EventDateTimePipe implements PipeTransform {
 
     return this.formatter.dateTime(date);
   }
-
 }

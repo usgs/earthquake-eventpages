@@ -6,7 +6,6 @@ import { MagnitudeComponent } from './magnitude/magnitude.component';
 import { OriginComponent } from './origin/origin.component';
 import { PhaseComponent } from './phase/phase.component';
 
-
 const originRoutes: Routes = [
   {
     // this module must be loaded lazily using "loadChildren"
@@ -35,13 +34,8 @@ const originRoutes: Routes = [
   }
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forChild(originRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(originRoutes)],
+  exports: [RouterModule]
 })
-export class OriginRoutingModule { }
+export class OriginRoutingModule {}

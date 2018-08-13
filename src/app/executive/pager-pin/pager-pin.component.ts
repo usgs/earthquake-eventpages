@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Pager Pin
  *
@@ -13,10 +12,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./pager-pin.component.scss']
 })
 export class PagerPinComponent {
-
   public link = '../pager';
   public title = 'PAGER';
 
-  @Input() product: any;
-
+  @Input()
+  product: any;
 }

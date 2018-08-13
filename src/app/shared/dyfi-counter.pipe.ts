@@ -2,14 +2,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { FormatterService } from '../core/formatter.service';
 
-
 @Pipe({
   name: 'dyfiCounter'
 })
 export class DyfiCounterPipe implements PipeTransform {
-
-  constructor (public formatterService: FormatterService) { }
-
+  constructor(public formatterService: FormatterService) {}
 
   /**
    * Returns the dyfi counter values/numbers for displaying in pin
@@ -22,16 +19,15 @@ export class DyfiCounterPipe implements PipeTransform {
    * @returns {Array<string>}
    *  Returns the dyfi counter values/numbers for displaying in pin
    */
-  transform (product: any, padding: number): Array<string> {
-    let formatted,
-        leadingZero;
+  transform(product: any, padding: number): Array<string> {
+    let formatted, leadingZero;
 
     try {
       formatted = (
-          product.properties['num-responses'] ||
-          product.properties.numResp ||
-          0
-        ).toString();
+        product.properties['num-responses'] ||
+        product.properties.numResp ||
+        0
+      ).toString();
     } catch {
       formatted = '0';
     }
@@ -39,16 +35,12 @@ export class DyfiCounterPipe implements PipeTransform {
     formatted = this.formatterService.leftPad(formatted, padding, '0');
     leadingZero = true;
 
-    return formatted.split('').map((value) => {
-      leadingZero = (leadingZero && value === '0');
+    return formatted.split('').map(value => {
+      leadingZero = leadingZero && value === '0';
       return {
-        'value': value,
-        'leadingZero': leadingZero
+        value: value,
+        leadingZero: leadingZero
       };
     });
   }
-
 }
-
-
-

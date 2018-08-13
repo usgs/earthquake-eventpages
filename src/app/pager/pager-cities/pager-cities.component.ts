@@ -1,6 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
-
 /**
  * Creates a table on the PAGER module to define the cities and the
  * level of shaking that was experienced by the population of that city.
@@ -14,17 +13,13 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
   styleUrls: ['./pager-cities.component.scss']
 })
 export class PagerCitiesComponent {
+  public columnsToDisplay = ['mmi', 'city', 'population'];
 
-  public columnsToDisplay = [
-    'mmi',
-    'city',
-    'population'
-  ];
+  @Input()
+  pager: any;
 
-  @Input() pager: any;
-
-  @ViewChild('citiesTable', { read: ElementRef }) tableEl: ElementRef;
-
+  @ViewChild('citiesTable', { read: ElementRef })
+  tableEl: ElementRef;
 
   /**
    * Toggles the cities table to show the first ten most exposed cities
@@ -33,7 +28,7 @@ export class PagerCitiesComponent {
    * @param checkbox
    *     The form control that toggles the filtered/full cities table
    */
-  onChange (checkbox: any) {
+  onChange(checkbox: any) {
     let el;
 
     el = this.tableEl.nativeElement;

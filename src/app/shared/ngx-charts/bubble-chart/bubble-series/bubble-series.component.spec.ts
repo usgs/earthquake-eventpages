@@ -4,7 +4,6 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { BubbleSeriesComponent } from './bubble-series.component';
 
-
 describe('BubbleSeriesComponent', () => {
   let component: BubbleSeriesComponent;
   let fixture: ComponentFixture<BubbleSeriesComponent>;
@@ -13,70 +12,67 @@ describe('BubbleSeriesComponent', () => {
   beforeEach(async(() => {
     BUBBLESERIES = {
       name: 'bubble series',
-      series: [{x: 50, y: 2, value: 2, name: 50, min: 1, max: 3}]
+      series: [{ x: 50, y: 2, value: 2, name: 50, min: 1, max: 3 }]
     };
 
     colorsStub = {
       scaleType: 'ordinal',
-      getColor: (item) => '#000000'
+      getColor: item => '#000000'
     };
 
     TestBed.configureTestingModule({
       declarations: [
         BubbleSeriesComponent,
 
-        MockComponent(
-          {
-            selector: ':svg:g',
-            inputs: [
-              'xScale',
-              'yScale',
-              'xScaleType',
-              'yScaleType',
-              'xAxisLabel',
-              'yAxisLabel',
-              'rScale',
-              'xDomain',
-              'yDomain',
-              'xDomainType',
-              'colors',
-              'data',
-              'activeEntries',
-              'scaleType',
-              'curve',
-              'rangeFillOpacity',
-              'animations',
-              'dims',
-              'xSet',
-              'tooltipTemplate',
-              'tooltipDisabled',
-              'results',
-              'visibleValue',
-              'showLabel',
-              'labelText',
-              'tickFormatting',
-              'yOrient',
-              'showGridLines',
-              'strokeWidth',
-              'hasRange',
-              'cx',
-              'cy',
-              'r',
-              'stroke',
-              'fill',
-              'pointerEvents',
-              'classNames',
-              'tooltipType',
-              'tooltipPlacement',
-              'tooltipTitle',
-              'tooltipContext',
-              'path'
-            ]
-          }
-        )
+        MockComponent({
+          selector: ':svg:g',
+          inputs: [
+            'xScale',
+            'yScale',
+            'xScaleType',
+            'yScaleType',
+            'xAxisLabel',
+            'yAxisLabel',
+            'rScale',
+            'xDomain',
+            'yDomain',
+            'xDomainType',
+            'colors',
+            'data',
+            'activeEntries',
+            'scaleType',
+            'curve',
+            'rangeFillOpacity',
+            'animations',
+            'dims',
+            'xSet',
+            'tooltipTemplate',
+            'tooltipDisabled',
+            'results',
+            'visibleValue',
+            'showLabel',
+            'labelText',
+            'tickFormatting',
+            'yOrient',
+            'showGridLines',
+            'strokeWidth',
+            'hasRange',
+            'cx',
+            'cy',
+            'r',
+            'stroke',
+            'fill',
+            'pointerEvents',
+            'classNames',
+            'tooltipType',
+            'tooltipPlacement',
+            'tooltipTitle',
+            'tooltipContext',
+            'path'
+          ]
+        })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -91,7 +87,7 @@ describe('BubbleSeriesComponent', () => {
 
   describe('getCircles', () => {
     it('handles null circles', () => {
-      const bubbleSeries = {name: 'no data', series: [{}]};
+      const bubbleSeries = { name: 'no data', series: [{}] };
 
       component.data = bubbleSeries;
       const circles = component.getCircles();
@@ -102,9 +98,9 @@ describe('BubbleSeriesComponent', () => {
       component.data = BUBBLESERIES;
 
       // some properties come from parent... imitate simple case
-      component.rScale = (r) => r;
-      component.yScale = (y) => y;
-      component.xScale = (x) => x;
+      component.rScale = r => r;
+      component.yScale = y => y;
+      component.xScale = x => x;
       component.colors = colorsStub;
       component.activeEntries = [];
 
@@ -117,9 +113,9 @@ describe('BubbleSeriesComponent', () => {
       component.data = BUBBLESERIES;
 
       // some properties come from parent... imitate simple case
-      component.rScale = (r) => r;
-      component.yScale = (y) => y;
-      component.xScale = (x) => x;
+      component.rScale = r => r;
+      component.yScale = y => y;
+      component.xScale = x => x;
       component.colors = colorsStub;
       component.activeEntries = [];
 
@@ -136,12 +132,12 @@ describe('BubbleSeriesComponent', () => {
       component.data = BUBBLESERIES;
 
       // some properties come from parent... imitate simple case
-      component.rScale = (r) => r;
-      component.yScale = (y) => y;
-      component.xScale = (x) => x;
+      component.rScale = r => r;
+      component.yScale = y => y;
+      component.xScale = x => x;
       component.colors = colorsStub;
 
-      component.activeEntries = [{name: 'not this series!'}];
+      component.activeEntries = [{ name: 'not this series!' }];
       const circles = component.getCircles();
 
       expect(circles.length).toBe(1);

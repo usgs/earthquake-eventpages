@@ -1,7 +1,6 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
-
 
 /**
  * renders dyfi summary table
@@ -17,16 +16,12 @@ import { Event } from '../../event';
   styleUrls: ['./dyfi-summary.component.scss']
 })
 export class DyfiSummaryComponent {
-
   // columns to be displayed
-  public columnsToDisplay = [
-    'catalog',
-    'cdi',
-    'responses',
-    'source'
-  ];
+  public columnsToDisplay = ['catalog', 'cdi', 'responses', 'source'];
 
-  @Input() event: Event;
+  @Input()
+  event: Event;
 
-  @Input() products: Array<any> = [];
+  @Input()
+  products: Array<any> = [];
 }

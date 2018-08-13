@@ -2,18 +2,15 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 
-
 /**
  * A service that parses an oaf product into more consumable bits,
  * the forecast and model objects
  */
 @Injectable()
 export class OafService {
-
   public oaf$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public forecast$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public model$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-
 
   /**
    * Updates the observable streams for: oaf, forecast, and model
@@ -21,7 +18,7 @@ export class OafService {
    * @param product
    *     A oaf type product
    */
-  getOaf (product: any): void {
+  getOaf(product: any): void {
     try {
       const bytes = product.contents[''].bytes;
       const oaf = this.parseOaf(bytes);
@@ -46,7 +43,7 @@ export class OafService {
    * @return {any}
    *     object with forecast bins
    */
-  parseForecast (forecasts: any): any {
+  parseForecast(forecasts: any): any {
     const columns = [];
     const columnIds = ['magnitude'];
     const rows = [];
@@ -86,7 +83,7 @@ export class OafService {
    * @param model
    *     oaf.model object
    */
-  parseModel (model: any): any {
+  parseModel(model: any): any {
     return {
       ref: model.ref,
       name: model.name,
@@ -106,7 +103,7 @@ export class OafService {
    * @return {any}
    *     oaf object
    */
-  parseOaf (bytes: any): any {
+  parseOaf(bytes: any): any {
     return JSON.parse(bytes);
   }
 }

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
 
-
 /**
  * PGA subcomponent, shows when the user selects the 'pga' tab from the main
  * shakemap component
@@ -13,7 +12,5 @@ import { EventService } from '../../core/event.service';
   styleUrls: ['./pga.component.scss']
 })
 export class PgaComponent {
-
-  constructor (public eventService: EventService) { }
-
+  constructor(public eventService: EventService) {}
 }

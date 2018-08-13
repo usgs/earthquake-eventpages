@@ -11,9 +11,5 @@ import { OafService } from '../oaf.service';
   styleUrls: ['./model.component.scss']
 })
 export class ModelComponent {
-
-  constructor (
-    public oafService: OafService
-  ) { }
-
+  constructor(public oafService: OafService) {}
 }

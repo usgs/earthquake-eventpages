@@ -30,7 +30,6 @@ import { MockPipe } from '../../mock-pipe';
 import { FormLanguageService } from '../form-language.service';
 import { FormComponent } from './form.component';
 
-
 describe('FormComponent', () => {
   let component: FormComponent;
   let fixture: ComponentFixture<FormComponent>;
@@ -84,11 +83,11 @@ describe('FormComponent', () => {
         MockPipe('keys')
       ],
       providers: [
-        {provide: CoordinatesService, useValue: coordinatesServiceStub},
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: FormLanguageService, useValue: languageServiceStub},
-        {provide: MatDialogRef, useValue: {close: () => {}}},
-        {provide: MAT_DIALOG_DATA, useValue: {}}
+        { provide: CoordinatesService, useValue: coordinatesServiceStub },
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: FormLanguageService, useValue: languageServiceStub },
+        { provide: MatDialogRef, useValue: { close: () => {} } },
+        { provide: MAT_DIALOG_DATA, useValue: {} }
       ]
     }).compileComponents();
 
@@ -118,12 +117,12 @@ describe('FormComponent', () => {
         test: 'value'
       };
       component.onAnswer({
-        'other': 'other value',
-        'test': 'test value'
+        other: 'other value',
+        test: 'test value'
       });
       expect(component.answers).toEqual({
-        'other': 'other value',
-        'test': 'test value'
+        other: 'other value',
+        test: 'test value'
       });
     });
   });
@@ -174,12 +173,14 @@ describe('FormComponent', () => {
       component.answers.ciim_eventid = undefined;
       component.answers.ciim_time = undefined;
 
-      component.setEvent(new Event({
-        id: 'testid',
-        properties: {
-          time: 12345
-        }
-      }));
+      component.setEvent(
+        new Event({
+          id: 'testid',
+          properties: {
+            time: 12345
+          }
+        })
+      );
       expect(component.answers.eventid).not.toBe(null);
       expect(component.answers.ciim_time).not.toBe(null);
     });
@@ -188,9 +189,9 @@ describe('FormComponent', () => {
   describe('setLanguage', () => {
     it('calls languageService getLanguage', () => {
       component.setLanguage('test value');
-      expect(component.languageService.getLanguage)
-          .toHaveBeenCalledWith('test value');
+      expect(component.languageService.getLanguage).toHaveBeenCalledWith(
+        'test value'
+      );
     });
   });
-
 });

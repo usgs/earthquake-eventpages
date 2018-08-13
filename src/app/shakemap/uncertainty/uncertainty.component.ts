@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 
 import { EventService } from '../../core/event.service';
 
-
 /**
  * Shakemap uncertainty component, shows the uncertainty ratio map on the
  * uncertainty tab of the main shakemap component
@@ -15,21 +14,20 @@ import { EventService } from '../../core/event.service';
   styleUrls: ['./uncertainty.component.scss']
 })
 export class UncertaintyComponent implements OnInit, OnDestroy {
-
   public imageUrl: string = null;
   public subscription = new Subscription();
 
+  constructor(public eventService: EventService) {}
 
-  constructor (public eventService: EventService) { }
-
-
-  ngOnInit () {
-    this.subscription.add(this.eventService.product$.subscribe((product) => {
-      this.onProduct(product);
-    }));
+  ngOnInit() {
+    this.subscription.add(
+      this.eventService.product$.subscribe(product => {
+        this.onProduct(product);
+      })
+    );
   }
 
-  ngOnDestroy () {
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
@@ -39,14 +37,12 @@ export class UncertaintyComponent implements OnInit, OnDestroy {
    * @param product
    *     shakemap product
    */
-  onProduct (product: any): void {
-    if (product == null ||
-          !product.contents['download/urat_pga.jpg']) {
+  onProduct(product: any): void {
+    if (product == null || !product.contents['download/urat_pga.jpg']) {
       this.imageUrl = null;
       return;
     }
     const image = product.contents['download/urat_pga.jpg'];
     this.imageUrl = image.url;
   }
-
 }

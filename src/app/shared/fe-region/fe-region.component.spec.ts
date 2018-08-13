@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { GeoserveService } from '../../core/geoserve.service';
 import { FeRegionComponent } from './fe-region.component';
 
-
 describe('FeRegionComponent', () => {
   let component: FeRegionComponent;
   let fixture: ComponentFixture<FeRegionComponent>;
@@ -13,14 +12,12 @@ describe('FeRegionComponent', () => {
   beforeEach(async(() => {
     response = {
       fe: {
-        features: [
-          {name: 'fename', number: 0}
-        ]
+        features: [{ name: 'fename', number: 0 }]
       }
     };
 
     observable = {
-      subscribe: (cb) => {
+      subscribe: cb => {
         cb(response);
       }
     };
@@ -30,14 +27,9 @@ describe('FeRegionComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [
-        FeRegionComponent
-      ],
-      providers: [
-        {provide: GeoserveService, useValue: geoserveServiceStub}
-      ]
-    })
-    .compileComponents();
+      declarations: [FeRegionComponent],
+      providers: [{ provide: GeoserveService, useValue: geoserveServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

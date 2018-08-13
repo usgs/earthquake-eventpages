@@ -11,8 +11,5 @@ import { EventService } from '../../core/event.service';
   styleUrls: ['./focal-mechanism.component.scss']
 })
 export class FocalMechanismComponent {
-
-  constructor (
-    public eventService: EventService
-  ) { }
+  constructor(public eventService: EventService) {}
 }

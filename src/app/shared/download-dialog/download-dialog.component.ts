@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
-
 /**
  * Download dialog component, used for popup modals on download buttons
  */
@@ -11,9 +10,5 @@ import { MAT_DIALOG_DATA } from '@angular/material';
   styleUrls: ['./download-dialog.component.scss']
 })
 export class DownloadDialogComponent {
-
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
-
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }

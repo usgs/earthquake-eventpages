@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 
 import { Tensor } from '../../shared/beachball/tensor';
 
-
 /**
  * Display attribution table for Focal Mechanism product
  *
@@ -15,6 +14,6 @@ import { Tensor } from '../../shared/beachball/tensor';
   styleUrls: ['./attribution.component.scss']
 })
 export class AttributionComponent {
-
-  @Input() tensor: Tensor;
+  @Input()
+  tensor: Tensor;
 }

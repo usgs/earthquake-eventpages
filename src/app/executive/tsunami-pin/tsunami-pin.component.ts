@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Tsunami Pin
  */
@@ -10,9 +9,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./tsunami-pin.component.scss']
 })
 export class TsunamiPinComponent {
-
   public href = 'https://www.tsunami.gov/';
   public title = 'Tsunami';
   public footer = 'NOAA';
-
 }

@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Display population exposure bins on ground-failure product page
  *
@@ -25,7 +24,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./population-alert.component.scss']
 })
 export class PopulationAlertComponent {
-
   landslideBins = [
     {
       color: '#27a83c',
@@ -94,5 +92,4 @@ export class PopulationAlertComponent {
 
   @Input()
   value: number;
-
 }

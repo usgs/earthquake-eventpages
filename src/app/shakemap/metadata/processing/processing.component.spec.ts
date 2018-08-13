@@ -5,30 +5,18 @@ import { FormatterService } from '../../../core/formatter.service';
 import { MockPipe } from '../../../mock-pipe';
 import { ProcessingComponent } from './processing.component';
 
-
 describe('ProcessingComponent', () => {
   let component: ProcessingComponent;
   let fixture: ComponentFixture<ProcessingComponent>;
 
   beforeEach(async(() => {
-
     const formatter = {};
 
     TestBed.configureTestingModule({
-      imports: [
-        MatTableModule,
-        MatExpansionModule
-      ],
-      declarations: [
-        ProcessingComponent,
-
-        MockPipe('sharedDateTime')
-        ],
-      providers: [
-        {provide: FormatterService, useValue: formatter}
-      ]
-    })
-    .compileComponents();
+      imports: [MatTableModule, MatExpansionModule],
+      declarations: [ProcessingComponent, MockPipe('sharedDateTime')],
+      providers: [{ provide: FormatterService, useValue: formatter }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

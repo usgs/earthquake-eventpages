@@ -9,7 +9,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { PgaComponent } from './pga.component';
 
-
 describe('PgaComponent', () => {
   let component: PgaComponent;
   let fixture: ComponentFixture<PgaComponent>;
@@ -20,9 +19,7 @@ describe('PgaComponent', () => {
       product$: null
     };
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [RouterTestingModule],
       declarations: [
         PgaComponent,
 
@@ -38,11 +35,8 @@ describe('PgaComponent', () => {
 
         MockPipe('shakemapOverlays')
       ],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub }
-      ]
-    })
-    .compileComponents();
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

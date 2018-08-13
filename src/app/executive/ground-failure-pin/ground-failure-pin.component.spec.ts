@@ -3,7 +3,6 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { GroundFailurePinComponent } from './ground-failure-pin.component';
 
-
 describe('GroundFailurePinComponent', () => {
   let component: GroundFailurePinComponent;
   let fixture: ComponentFixture<GroundFailurePinComponent>;
@@ -15,15 +14,10 @@ describe('GroundFailurePinComponent', () => {
 
         MockComponent({
           selector: 'basic-pin',
-          inputs: [
-            'link',
-            'product',
-            'title'
-          ]
+          inputs: ['link', 'product', 'title']
         })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

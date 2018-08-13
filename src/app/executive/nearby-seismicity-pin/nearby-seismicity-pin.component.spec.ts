@@ -6,36 +6,29 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { NearbySeismicityPinComponent } from './nearby-seismicity-pin.component';
 
-
 describe('NearbySeismicityPinComponent', () => {
   let component: NearbySeismicityPinComponent;
   let fixture: ComponentFixture<NearbySeismicityPinComponent>;
   let event: Event;
 
   beforeEach(async(() => {
-
     TestBed.configureTestingModule({
       declarations: [
         NearbySeismicityPinComponent,
 
         MockComponent({
           selector: 'basic-pin',
-          inputs: [
-            'footer',
-            'title',
-            'href'
-          ]
+          inputs: ['footer', 'title', 'href']
         }),
 
         MockPipe('sharedNumber')
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     event = new Event({
-      'id': 'us10004u1y'
+      id: 'us10004u1y'
     });
 
     fixture = TestBed.createComponent(NearbySeismicityPinComponent);
@@ -51,7 +44,6 @@ describe('NearbySeismicityPinComponent', () => {
   });
 
   describe('Minimum Magnitude Variations', () => {
-
     it('should return 6', () => {
       expect(component.getMinimumMag(9)).toBe(6);
     });
@@ -79,7 +71,5 @@ describe('NearbySeismicityPinComponent', () => {
     it('should return 1', () => {
       expect(component.getMinimumMag(1)).toBe(1);
     });
-
   });
-
 });

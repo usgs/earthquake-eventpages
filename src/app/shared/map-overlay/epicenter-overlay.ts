@@ -1,6 +1,5 @@
 import * as L from 'leaflet';
 
-
 /**
  * Epicenter overlay for leaflet map
  */
@@ -11,14 +10,13 @@ const EpicenterOverlay = L.Marker.extend({
   bounds: null,
   legend: null,
 
-
   /**
    * Build leaflet overlay
    *
    * @param product
    *     origin product
    */
-  initialize: function (product: any) {
+  initialize: function(product: any) {
     let latitude: number;
     let longitude: number;
 
@@ -44,18 +42,14 @@ const EpicenterOverlay = L.Marker.extend({
     legend.setAttribute('alt', 'Epicenter marker legend');
     this.legend = legend;
 
-    L.Marker.prototype.initialize.call(
-      this,
-      [latitude, longitude],
-      {
-        icon: L.icon({
-          iconUrl: 'assets/star.png',
-          iconSize: [16, 16],
-          iconAnchor: [8, 8]
-        }),
-        interactive: false
-      }
-    );
+    L.Marker.prototype.initialize.call(this, [latitude, longitude], {
+      icon: L.icon({
+        iconUrl: 'assets/star.png',
+        iconSize: [16, 16],
+        iconAnchor: [8, 8]
+      }),
+      interactive: false
+    });
   }
 });
 

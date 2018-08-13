@@ -1,11 +1,8 @@
 import { Tensor } from './beachball/tensor';
 import { TensorPipe } from './tensor.pipe';
 
-
 describe('TensorPipe', () => {
-  let pipe,
-      spy,
-      tensor;
+  let pipe, spy, tensor;
 
   beforeEach(() => {
     pipe = new TensorPipe();

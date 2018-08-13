@@ -7,18 +7,13 @@ import { MockComponent } from 'ng2-mock-component';
 import { FormatterService } from '../../core/formatter.service';
 import { OriginSummaryComponent } from './origin-summary.component';
 
-
 describe('OriginSummaryComponent', () => {
   let component: OriginSummaryComponent;
   let fixture: ComponentFixture<OriginSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatIconModule,
-        MatTableModule,
-        RouterTestingModule
-      ],
+      imports: [MatIconModule, MatTableModule, RouterTestingModule],
       declarations: [
         OriginSummaryComponent,
 
@@ -31,11 +26,8 @@ describe('OriginSummaryComponent', () => {
           inputs: ['TITLE']
         })
       ],
-      providers: [
-        FormatterService
-      ]
-    })
-    .compileComponents();
+      providers: [FormatterService]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -50,8 +42,9 @@ describe('OriginSummaryComponent', () => {
 
   describe('toDate', () => {
     it('converts strings to dates', () => {
-      expect(component.toDate('2017-01-01T00:00:00Z').toISOString())
-          .toEqual('2017-01-01T00:00:00.000Z');
+      expect(component.toDate('2017-01-01T00:00:00Z').toISOString()).toEqual(
+        '2017-01-01T00:00:00.000Z'
+      );
     });
   });
 });

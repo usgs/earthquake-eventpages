@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Mmi Component for all magnitudes across pages
  *
@@ -17,7 +16,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./mmi.component.scss']
 })
 export class MmiComponent {
-
   @Input()
   public bubble = false;
 
@@ -26,5 +24,4 @@ export class MmiComponent {
 
   @Input()
   public value;
-
 }

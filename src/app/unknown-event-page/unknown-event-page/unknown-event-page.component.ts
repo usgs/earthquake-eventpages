@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 /**
  * Unkown event component, loads when there is no event information
  */
@@ -9,4 +8,4 @@ import { Component } from '@angular/core';
   templateUrl: './unknown-event-page.component.html',
   styleUrls: ['./unknown-event-page.component.scss']
 })
-export class UnknownEventPageComponent { }
+export class UnknownEventPageComponent {}

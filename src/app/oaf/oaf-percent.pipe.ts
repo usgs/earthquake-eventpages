@@ -1,11 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-
 @Pipe({
   name: 'oafPercent'
 })
 export class OafPercentPipe implements PipeTransform {
-
   /**
    * Formats decimal percent value.
    *

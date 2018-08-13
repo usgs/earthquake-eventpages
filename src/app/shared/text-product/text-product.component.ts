@@ -4,7 +4,6 @@ import { Component, Input } from '@angular/core';
 import { BehaviorSubject, of, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-
 /**
  * Shared text product component
  *
@@ -17,24 +16,22 @@ import { catchError } from 'rxjs/operators';
   styleUrls: ['./text-product.component.scss']
 })
 export class TextProductComponent {
-
   public _product: any;
   public content = new BehaviorSubject<any>(null);
   public readonly content$ = this.content.asObservable();
   public error: any;
 
-  @Input() contentPath = '';
+  @Input()
+  contentPath = '';
 
-
-  constructor (public httpClient: HttpClient) { }
-
+  constructor(public httpClient: HttpClient) {}
 
   /**
    * fetch text-product and get contents
    *
    * @returns {of | null}
    */
-  getContent () {
+  getContent() {
     if (!this.product) {
       this.error = null;
       this.content.next(null);
@@ -52,16 +49,21 @@ export class TextProductComponent {
     if (content.bytes) {
       this.content.next(content.bytes);
     } else if (content.url) {
-      const options = {responseType: 'text' as 'text'};
+      const options = { responseType: 'text' as 'text' };
 
-      this.httpClient.get(content.url, options).pipe(
-        catchError((err: HttpErrorResponse): Observable<any> => {
-          this.error = err;
-          return of(null);
-        })
-      ).subscribe((data) => {
-        this.content.next(data);
-      });
+      this.httpClient
+        .get(content.url, options)
+        .pipe(
+          catchError(
+            (err: HttpErrorResponse): Observable<any> => {
+              this.error = err;
+              return of(null);
+            }
+          )
+        )
+        .subscribe(data => {
+          this.content.next(data);
+        });
     } else {
       this.error = new Error('no content bytes or url');
       this.content.next(null);
@@ -74,7 +76,8 @@ export class TextProductComponent {
    * @param product
    *     text-product product
    */
-  @Input() set product(product) {
+  @Input()
+  set product(product) {
     this._product = product;
     this.getContent();
   }
@@ -98,7 +101,7 @@ export class TextProductComponent {
    * @return {string}
    *     formatted text
    */
-  replaceRelativePaths (text: string) {
+  replaceRelativePaths(text: string) {
     const product = this.product || {};
     const contents = this.product.contents || {};
 
@@ -108,11 +111,12 @@ export class TextProductComponent {
         // no url to empty path
         continue;
       }
-      text = text.replace(new RegExp('"' + path + '"', 'g'),
-            '"' + contents[path].url + '"');
+      text = text.replace(
+        new RegExp('"' + path + '"', 'g'),
+        '"' + contents[path].url + '"'
+      );
     }
 
     return text;
   }
-
 }

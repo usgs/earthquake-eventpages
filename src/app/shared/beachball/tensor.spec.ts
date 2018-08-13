@@ -1,6 +1,4 @@
-
 import { Tensor } from './tensor';
-
 
 /**
  * Deep comparison function.
@@ -14,7 +12,7 @@ import { Tensor } from './tensor';
  * @param {any} actual value being checked.
  * @param {any} expected values to be checked.
  */
-function isClose (actual: any, expected: any): boolean {
+function isClose(actual: any, expected: any): boolean {
   if (expected === null || actual === null) {
     if (expected === null && actual === null) {
       return true;
@@ -27,7 +25,7 @@ function isClose (actual: any, expected: any): boolean {
     const percentDifference = Math.abs(actual - expected) / expected;
     pass = percentDifference < 0.001;
   } else if (typeof expected === 'object') {
-    pass = Object.keys(expected).every((key) => {
+    pass = Object.keys(expected).every(key => {
       if (actual.hasOwnProperty(key)) {
         return isClose(actual[key], expected[key]);
       }
@@ -42,10 +40,8 @@ function isClose (actual: any, expected: any): boolean {
   return pass;
 }
 
-
 describe('Tensor', () => {
-
-  beforeEach(function () {
+  beforeEach(function() {
     // use custom matcher
     jasmine.addMatchers({
       isCloseTo: () => {
@@ -55,8 +51,11 @@ describe('Tensor', () => {
               pass: isClose(actual, expected)
             };
             if (!result.pass) {
-              result.message = 'Expected ' + JSON.stringify(actual) +
-                  ' to be close to ' + JSON.stringify(expected);
+              result.message =
+                'Expected ' +
+                JSON.stringify(actual) +
+                ' to be close to ' +
+                JSON.stringify(expected);
             }
             return result;
           }
@@ -80,8 +79,9 @@ describe('Tensor', () => {
       // focal mechanism product
       {
         product: {
-          id: 'urn:usgs-product:nc:focal-mechanism:nc72948801_fm1:' +
-              '1515096353400',
+          id:
+            'urn:usgs-product:nc:focal-mechanism:nc72948801_fm1:' +
+            '1515096353400',
           type: 'focal-mechanism',
           properties: {
             'nodal-plane-1-dip': '90.0',
@@ -122,7 +122,7 @@ describe('Tensor', () => {
           }
         },
         expected: {
-          moment: 5.218e+15,
+          moment: 5.218e15,
           magnitude: 4.41,
           type: 'Mww',
           depth: '11.5',
@@ -145,29 +145,29 @@ describe('Tensor', () => {
           }
         },
         expected: {
-          moment: 2.162e+21,
+          moment: 2.162e21,
           magnitude: 8.157,
           type: 'Mww',
           percentDC: 0.96,
           T: {
-            eigenvalue: 2.184e+21,
+            eigenvalue: 2.184e21,
             vector: {
               data: [0.553, 0.696, 0.458]
             }
           },
           N: {
-            eigenvalue: -0.044e+21,
+            eigenvalue: -0.044e21,
             vector: {
               data: [-0.718, 0.677, -0.161]
             }
           },
           P: {
-            eigenvalue: -2.140e+21,
+            eigenvalue: -2.14e21,
             vector: {
-              data: [0.422, 0.240, -0.874]
+              data: [0.422, 0.24, -0.874]
             }
           },
-          fCLVD: -0.020,
+          fCLVD: -0.02,
           forceThrust: 0.2095,
           forceStrikeSlip: 0.02586,
           forceNormal: 0.765,
@@ -199,16 +199,16 @@ describe('Tensor', () => {
         },
         expected: {
           depth: '11.5',
-          moment: 8.688e+17,
+          moment: 8.688e17,
           magnitude: 5.893,
           T: {
-            eigenvalue: 8.063e+17
+            eigenvalue: 8.063e17
           },
           N: {
-            eigenvalue: 1.137e+17
+            eigenvalue: 1.137e17
           },
           P: {
-            eigenvalue: -9.200e+17
+            eigenvalue: -9.2e17
           }
         }
       },
@@ -226,16 +226,16 @@ describe('Tensor', () => {
           }
         },
         expected: {
-          moment: 5.934e+19,
+          moment: 5.934e19,
           magnitude: 7.12,
           T: {
-            eigenvalue: 5.523e+19
+            eigenvalue: 5.523e19
           },
           N: {
-            eigenvalue: 0.751e+19
+            eigenvalue: 0.751e19
           },
           P: {
-            eigenvalue: -6.274e+19
+            eigenvalue: -6.274e19
           }
         }
       },
@@ -253,7 +253,7 @@ describe('Tensor', () => {
       }
     ];
 
-    tests.forEach((t) => {
+    tests.forEach(t => {
       const tensor = Tensor.fromProduct(t.product);
       // isCloseTo is defined in the beforeEach
       expect(tensor)['isCloseTo'](t.expected);
@@ -269,8 +269,8 @@ describe('Tensor', () => {
 
   describe('sortEigenvalues', () => {
     it('sorts by eigenvalue descending', () => {
-      const eigenvalue1 = {eigenvalue: 1};
-      const eigenvalue2 = {eigenvalue: 2};
+      const eigenvalue1 = { eigenvalue: 1 };
+      const eigenvalue2 = { eigenvalue: 2 };
       expect(Tensor.sortEigenvalues(eigenvalue1, eigenvalue2)).toEqual(1);
       expect(Tensor.sortEigenvalues(eigenvalue2, eigenvalue1)).toEqual(-1);
       expect(Tensor.sortEigenvalues(eigenvalue1, eigenvalue1)).toEqual(0);

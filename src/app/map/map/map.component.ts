@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { EventService } from '../../core/event.service';
 import { MapComponent as SharedMapComponent } from '../../shared/map/map.component';
 
-
 /**
  * Display interactive map page
  */
@@ -14,10 +13,8 @@ import { MapComponent as SharedMapComponent } from '../../shared/map/map.compone
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent {
-
-  constructor (
+  constructor(
     public activatedRoute: ActivatedRoute,
     public eventService: EventService
-  ) { }
-
+  ) {}
 }

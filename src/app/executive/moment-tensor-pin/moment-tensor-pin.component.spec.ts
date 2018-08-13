@@ -8,42 +8,26 @@ import { Mock } from 'protractor/built/driverProviders';
 import { Tensor } from '../../shared/beachball/tensor';
 import { MomentTensorPinComponent } from './moment-tensor-pin.component';
 
-
 describe('MomentTensorPinComponent', () => {
   let component: MomentTensorPinComponent;
   let fixture: ComponentFixture<MomentTensorPinComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatCardModule,
-        RouterTestingModule
-      ],
+      imports: [MatCardModule, RouterTestingModule],
       declarations: [
         MomentTensorPinComponent,
 
         MockComponent({
           selector: 'basic-pin',
-          inputs: [
-            'footer',
-            'link',
-            'product',
-            'title'
-          ]
+          inputs: ['footer', 'link', 'product', 'title']
         }),
         MockComponent({
           selector: 'shared-beachball',
-          inputs: [
-            'fillColor',
-            'labelAxes',
-            'labelPlanes',
-            'tensor',
-            'size'
-          ]
+          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'tensor', 'size']
         })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -58,7 +42,7 @@ describe('MomentTensorPinComponent', () => {
 
   describe('set product', () => {
     it('sets product and calls fromProduct', () => {
-      const product = {id: 'test product'};
+      const product = { id: 'test product' };
       const tensor = new Tensor({});
       spyOn(Tensor, 'fromProduct').and.returnValue(tensor);
       component.product = product;

@@ -2,11 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AboutComponent } from './about/about.component';
-import {
-  GroundFailureComponent
-} from './ground-failure/ground-failure.component';
+import { GroundFailureComponent } from './ground-failure/ground-failure.component';
 import { SummaryComponent } from './summary/summary.component';
-
 
 const groundFailureRoutes: Routes = [
   {
@@ -31,11 +28,7 @@ const groundFailureRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(groundFailureRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(groundFailureRoutes)],
+  exports: [RouterModule]
 })
-export class GroundFailureRoutingModule { }
+export class GroundFailureRoutingModule {}

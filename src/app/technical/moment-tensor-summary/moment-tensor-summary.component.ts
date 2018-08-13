@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 import { FormatterService } from '../../core/formatter.service';
 import { Tensor } from '../../shared/beachball/tensor';
 
-
 /**
  * Moment tensor component
  * @param event
@@ -15,8 +14,6 @@ import { Tensor } from '../../shared/beachball/tensor';
   styleUrls: ['./moment-tensor-summary.component.scss']
 })
 export class MomentTensorSummaryComponent {
-
-
   // Table headers
   public columnsToDisplay = [
     'catalog',
@@ -29,11 +26,10 @@ export class MomentTensorSummaryComponent {
   public _products: Array<any>;
   public tensors: Array<any> = [];
 
-  @Input() event: any;
+  @Input()
+  event: any;
 
-
-  constructor (public formatterService: FormatterService) { }
-
+  constructor(public formatterService: FormatterService) {}
 
   /**
    * Setter for the products array
@@ -41,9 +37,10 @@ export class MomentTensorSummaryComponent {
    *     The products array to set
    * @returns { Tensor }
    */
-  @Input() set products (products: Array<any>) {
+  @Input()
+  set products(products: Array<any>) {
     this._products = products;
-    this.tensors = (products || []).map((p) => {
+    this.tensors = (products || []).map(p => {
       return Tensor.fromProduct(p);
     });
   }
@@ -52,8 +49,7 @@ export class MomentTensorSummaryComponent {
    * Getter for products array
    * @returns {Array<any>}
    */
-  get products () {
+  get products() {
     return this._products;
   }
-
 }

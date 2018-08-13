@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
 
-
 /**
  * Intensity map showed when user selects the intensity tab from main shakemap
  */
@@ -12,7 +11,5 @@ import { EventService } from '../../core/event.service';
   styleUrls: ['./intensity.component.scss']
 })
 export class IntensityComponent {
-
-  constructor (public eventService: EventService) { }
-
+  constructor(public eventService: EventService) {}
 }

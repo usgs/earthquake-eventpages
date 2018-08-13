@@ -7,14 +7,13 @@ import { Observable } from 'rxjs/Observable';
 
 import { Event } from '../event';
 
-
 @Injectable()
 export class WaveformService {
   public error: any;
   public event$ = new BehaviorSubject<any>(null);
   public irisServiceUrl = 'https://service.iris.edu/fdsnws/event/1/query';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   getIrisEvent(ev: Event) {
     const options = {
@@ -22,7 +21,7 @@ export class WaveformService {
       responseType: 'text' as 'text'
     };
 
-    this.httpClient.get(this.irisServiceUrl, options).subscribe((response) => {
+    this.httpClient.get(this.irisServiceUrl, options).subscribe(response => {
       if (response) {
         this.event$.next(this.parseIrisEventId(response));
       }
@@ -33,10 +32,7 @@ export class WaveformService {
    * Gets search parameters from the model and creates search object
    */
   getSearchParams(ev: Event) {
-    let latitude,
-        longitude,
-        search,
-        time;
+    let latitude, longitude, search, time;
 
     search = null;
 
@@ -46,12 +42,12 @@ export class WaveformService {
       time = Number(ev.properties.time);
       // search parameters
       search = {
-        'starttime': new Date(time - 16000).toISOString().replace('Z', ''),
-        'endtime': new Date(time + 16000).toISOString().replace('Z', ''),
-        'latitude': latitude,
-        'longitude': longitude,
-        'maxradius': '1',
-        'format': 'text'
+        starttime: new Date(time - 16000).toISOString().replace('Z', ''),
+        endtime: new Date(time + 16000).toISOString().replace('Z', ''),
+        latitude: latitude,
+        longitude: longitude,
+        maxradius: '1',
+        format: 'text'
       };
     }
 
@@ -70,12 +66,10 @@ export class WaveformService {
   /**
    * Error handler for http requests.
    */
-  private handleError () {
+  private handleError() {
     return (error: HttpErrorResponse): Observable<any> => {
       this.error = error;
       return of(null);
     };
   }
-
-
 }

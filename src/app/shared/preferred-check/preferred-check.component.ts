@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Formats and styles preferred check mark icon for a title
  *
@@ -13,7 +12,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./preferred-check.component.scss']
 })
 export class PreferredCheckComponent {
-
-  @Input() title: string;
-
+  @Input()
+  title: string;
 }

@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { TechnicalComponent } from './technical/technical.component';
 
-
 const technicalRoutes: Routes = [
   {
     path: '',
@@ -11,13 +10,8 @@ const technicalRoutes: Routes = [
   }
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forChild(technicalRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(technicalRoutes)],
+  exports: [RouterModule]
 })
-export class TechnicalRoutingModule { }
+export class TechnicalRoutingModule {}

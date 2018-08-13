@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
 
-
 /**
  * generate dyfi product page
  */
@@ -12,7 +11,5 @@ import { EventService } from '../../core/event.service';
   styleUrls: ['./dyfi.component.scss']
 })
 export class DyfiComponent {
-
-  constructor (public eventService: EventService) { }
-
+  constructor(public eventService: EventService) {}
 }

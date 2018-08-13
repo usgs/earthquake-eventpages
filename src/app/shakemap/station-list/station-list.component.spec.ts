@@ -8,7 +8,6 @@ import { EventService } from '../../core/event.service';
 import { StationService } from '../../core/station.service';
 import { StationListComponent } from './station-list.component';
 
-
 describe('StationListComponent', () => {
   let component: StationListComponent;
   let fixture: ComponentFixture<StationListComponent>;
@@ -16,7 +15,6 @@ describe('StationListComponent', () => {
   let stationService;
 
   beforeEach(async(() => {
-
     const eventServiceStub = {
       event$: of({}),
       product$: of({})
@@ -24,7 +22,7 @@ describe('StationListComponent', () => {
 
     const stationServiceStub = {
       stationsJson$: of({}),
-      getStations: jasmine.createSpy('stationService::get'),
+      getStations: jasmine.createSpy('stationService::get')
     };
 
     TestBed.configureTestingModule({
@@ -32,14 +30,13 @@ describe('StationListComponent', () => {
       declarations: [
         StationListComponent,
 
-        MockComponent({selector: 'shared-station', inputs: ['station']})
-        ],
+        MockComponent({ selector: 'shared-station', inputs: ['station'] })
+      ],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: StationService, useValue: stationServiceStub}
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: StationService, useValue: stationServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -55,12 +52,10 @@ describe('StationListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   describe('onStations', () => {
     it('handles null input', () => {
       component.onStations(null);
       expect(component.stations).toEqual([]);
     });
   });
-
 });

@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableModule} from '@angular/material';
+import { MatTableModule } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
 
-import {
-  MdcTabModule,
-  MdcIconModule
-} from '@angular-mdc/web';
+import { MdcTabModule, MdcIconModule } from '@angular-mdc/web';
 
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '../shared/shared.module';
@@ -19,7 +16,6 @@ import { OafRoutingModule } from './oaf-routing.module';
 import { OafService } from './oaf.service';
 import { OafComponent } from './oaf/oaf.component';
 import { UpdateTimePipe } from './update-time.pipe';
-
 
 @NgModule({
   imports: [
@@ -42,8 +38,6 @@ import { UpdateTimePipe } from './update-time.pipe';
     UpdateTimePipe,
     CommentaryDetailsComponent
   ],
-  providers: [
-    OafService
-  ]
+  providers: [OafService]
 })
-export class OafModule { }
+export class OafModule {}

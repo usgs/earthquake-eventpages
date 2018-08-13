@@ -67,7 +67,8 @@ const appRoutes = [
       },
       {
         path: 'ground-failure',
-        loadChildren: './ground-failure/ground-failure.module#GroundFailureModule'
+        loadChildren:
+          './ground-failure/ground-failure.module#GroundFailureModule'
       },
       {
         path: 'technical',
@@ -83,7 +84,8 @@ const appRoutes = [
       },
       {
         path: 'focal-mechanism',
-        loadChildren: './focal-mechanism/focal-mechanism.module#FocalMechanismModule'
+        loadChildren:
+          './focal-mechanism/focal-mechanism.module#FocalMechanismModule'
       },
       {
         path: 'oaf',
@@ -101,16 +103,8 @@ const appRoutes = [
   }
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: false }
-    )
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(appRoutes, { enableTracing: false })],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

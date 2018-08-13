@@ -6,7 +6,6 @@ import { MockPipe } from '../../mock-pipe';
 import { OafService } from '../oaf.service';
 import { ForecastComponent } from './forecast.component';
 
-
 describe('ForecastComponent', () => {
   let component: ForecastComponent;
   let fixture: ComponentFixture<ForecastComponent>;
@@ -21,9 +20,7 @@ describe('ForecastComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        MatTableModule
-      ],
+      imports: [MatTableModule],
       declarations: [
         ForecastComponent,
 
@@ -37,8 +34,7 @@ describe('ForecastComponent', () => {
         { provide: EventService, useValue: eventServiceStub },
         { provide: OafService, useValue: oafServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

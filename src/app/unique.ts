@@ -7,9 +7,9 @@
  *        and the last object with a given `id` is returned.
  * @return unique list of non-empty items.
  */
-export function getUnique (items: Array<any>): Array<any> {
+export function getUnique(items: Array<any>): Array<any> {
   const unique = {};
-  items.forEach((item) => {
+  items.forEach(item => {
     let key = item;
     if (item.id) {
       key = item.id;

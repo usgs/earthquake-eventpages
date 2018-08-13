@@ -8,7 +8,6 @@ import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
 import { MomentTensorComponent } from './moment-tensor.component';
 
-
 describe('MomentTensorComponent', () => {
   let component: MomentTensorComponent;
   let fixture: ComponentFixture<MomentTensorComponent>;
@@ -20,28 +19,33 @@ describe('MomentTensorComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [RouterTestingModule],
       declarations: [
         MomentTensorComponent,
 
-        MockComponent({selector: 'moment-tensor-axes',
-            inputs: ['tensor']}),
-        MockComponent({selector: 'moment-tensor-info',
-            inputs: ['tensor']}),
-        MockComponent({selector: 'product-page',
-            inputs: ['product']}),
-        MockComponent({selector: 'shared-beachball',
-            inputs: ['fillColor', 'tensor']}),
-        MockComponent({selector: 'shared-nodal-planes',
-            inputs: ['tensor']})
+        MockComponent({
+          selector: 'moment-tensor-axes',
+          inputs: ['tensor']
+        }),
+        MockComponent({
+          selector: 'moment-tensor-info',
+          inputs: ['tensor']
+        }),
+        MockComponent({
+          selector: 'product-page',
+          inputs: ['product']
+        }),
+        MockComponent({
+          selector: 'shared-beachball',
+          inputs: ['fillColor', 'tensor']
+        }),
+        MockComponent({
+          selector: 'shared-nodal-planes',
+          inputs: ['tensor']
+        })
       ],
-      providers: [
-        {provide: EventService, useValue: eventServiceStub}
-      ]
-    })
-    .compileComponents();
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

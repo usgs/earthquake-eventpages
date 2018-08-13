@@ -9,7 +9,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { PgvComponent } from './pgv.component';
 
-
 describe('PgvComponent', () => {
   let component: PgvComponent;
   let fixture: ComponentFixture<PgvComponent>;
@@ -21,9 +20,7 @@ describe('PgvComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [RouterTestingModule],
       declarations: [
         PgvComponent,
 
@@ -39,11 +36,8 @@ describe('PgvComponent', () => {
 
         MockPipe('shakemapOverlays')
       ],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub }
-      ]
-    })
-    .compileComponents();
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -4,7 +4,6 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { OafPinComponent } from './oaf-pin.component';
 
-
 describe('OafPinComponent', () => {
   let component: OafPinComponent;
   let fixture: ComponentFixture<OafPinComponent>;
@@ -14,11 +13,12 @@ describe('OafPinComponent', () => {
       declarations: [
         OafPinComponent,
 
-        MockComponent({ selector: 'basic-pin',
-            inputs: ['product', 'title', 'link']})
+        MockComponent({
+          selector: 'basic-pin',
+          inputs: ['product', 'title', 'link']
+        })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

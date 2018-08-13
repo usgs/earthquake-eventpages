@@ -1,6 +1,5 @@
 import { ProductContentPipe } from './product-content.pipe';
 
-
 describe('ProductContentPipe', () => {
   it('create an instance', () => {
     const pipe = new ProductContentPipe();
@@ -18,20 +17,17 @@ describe('ProductContentPipe', () => {
   });
 
   describe('transform', () => {
-    let content1,
-        content2,
-        content3,
-        product;
+    let content1, content2, content3, product;
 
     beforeEach(() => {
       content1 = {};
       content2 = {};
       content3 = {};
       product = {
-        'contents': {
-          'path1': content1,
-          'path2': content2,
-          'path3': content3
+        contents: {
+          path1: content1,
+          path2: content2,
+          path3: content3
         }
       };
     });

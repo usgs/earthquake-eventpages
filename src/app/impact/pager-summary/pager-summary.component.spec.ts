@@ -6,17 +6,13 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { PagerSummaryComponent } from './pager-summary.component';
 
-
 describe('PagerSummaryComponent', () => {
   let component: PagerSummaryComponent;
   let fixture: ComponentFixture<PagerSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatTableModule,
-        RouterModule
-      ],
+      imports: [MatTableModule, RouterModule],
       declarations: [
         PagerSummaryComponent,
         MockComponent({
@@ -32,8 +28,7 @@ describe('PagerSummaryComponent', () => {
           inputs: ['TITLE']
         })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

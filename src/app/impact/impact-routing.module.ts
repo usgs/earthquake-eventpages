@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ImpactComponent } from './impact/impact.component';
 
-
 const impactRoutes: Routes = [
   {
     path: '',
@@ -11,15 +10,8 @@ const impactRoutes: Routes = [
   }
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forChild(impactRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(impactRoutes)],
+  exports: [RouterModule]
 })
-
-
-export class ImpactRoutingModule { }
+export class ImpactRoutingModule {}

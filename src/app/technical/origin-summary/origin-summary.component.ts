@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 
 import { FormatterService } from '../../core/formatter.service';
 
-
 /**
  * Technical origin component
  * @param event
@@ -16,8 +15,6 @@ import { FormatterService } from '../../core/formatter.service';
   styleUrls: ['./origin-summary.component.scss']
 })
 export class OriginSummaryComponent {
-
-
   // Table headers
   public columnsToDisplay = [
     'catalog',
@@ -29,12 +26,12 @@ export class OriginSummaryComponent {
     'source'
   ];
 
-  @Input() event: any;
-  @Input() products: Array<any>;
+  @Input()
+  event: any;
+  @Input()
+  products: Array<any>;
 
-
-  constructor (public formatterService: FormatterService) { }
-
+  constructor(public formatterService: FormatterService) {}
 
   /**
    * Returns a date object from a string
@@ -42,8 +39,7 @@ export class OriginSummaryComponent {
    *     String input used to create Date object
    * @returns {Date}
    */
-  toDate (str: string) {
+  toDate(str: string) {
     return new Date(str);
   }
-
 }

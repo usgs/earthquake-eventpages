@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Display probability of aftershock at a certain magnitude threshold
  * with an expectation of the population to be affected.
@@ -14,8 +13,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./commentary-details.component.scss']
 })
 export class CommentaryDetailsComponent {
-
   @Input()
   public bin: any;
-
 }

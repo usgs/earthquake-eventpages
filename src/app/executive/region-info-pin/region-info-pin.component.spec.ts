@@ -8,7 +8,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { RegionInfoPinComponent } from './region-info-pin.component';
 
-
 describe('RegionInfoPinComponent', () => {
   let component: RegionInfoPinComponent;
   let fixture: ComponentFixture<RegionInfoPinComponent>;
@@ -29,22 +28,21 @@ describe('RegionInfoPinComponent', () => {
       declarations: [
         RegionInfoPinComponent,
 
-        MockComponent({selector: 'basic-pin',
-            inputs: ['link', 'product', 'title']}),
-        MockComponent({selector: 'shared-map',
-            inputs: ['overlays', 'showAttributionControl']}),
+        MockComponent({
+          selector: 'basic-pin',
+          inputs: ['link', 'product', 'title']
+        }),
+        MockComponent({
+          selector: 'shared-map',
+          inputs: ['overlays', 'showAttributionControl']
+        }),
 
         MockPipe('getProduct'),
         MockPipe('regionInfoOverlays')
       ],
-      imports: [
-        RouterTestingModule
-      ],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub }
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -10,7 +10,6 @@ import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 
-
 const shakemapRoutes: Routes = [
   {
     // this module must be loaded lazily using "loadChildren"
@@ -55,13 +54,8 @@ const shakemapRoutes: Routes = [
   }
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forChild(shakemapRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(shakemapRoutes)],
+  exports: [RouterModule]
 })
-export class ShakemapRoutingModule { }
+export class ShakemapRoutingModule {}

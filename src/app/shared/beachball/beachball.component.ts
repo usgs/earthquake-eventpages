@@ -11,7 +11,6 @@ import { BehaviorSubject } from 'rxjs';
 import { Beachball } from './beachball';
 import { Tensor } from './tensor';
 
-
 /**
  * The beachball component
  * @param tensor
@@ -31,19 +30,23 @@ import { Tensor } from './tensor';
   styleUrls: ['./beachball.component.scss']
 })
 export class BeachballComponent implements OnChanges {
-
   public readonly tensor$ = new BehaviorSubject<Tensor>(null);
 
-  @Input() tensor: Tensor;
-  @Input() fillColor = '#ddd';
-  @Input() labelAxes = true;
-  @Input() labelPlanes = true;
-  @Input() size = 320;
+  @Input()
+  tensor: Tensor;
+  @Input()
+  fillColor = '#ddd';
+  @Input()
+  labelAxes = true;
+  @Input()
+  labelPlanes = true;
+  @Input()
+  size = 320;
 
-  @ViewChild('beachball') elementRef: ElementRef;
+  @ViewChild('beachball')
+  elementRef: ElementRef;
 
-
-  ngOnChanges () {
+  ngOnChanges() {
     if (!this.tensor) {
       return;
     }
@@ -55,5 +58,4 @@ export class BeachballComponent implements OnChanges {
       size: this.size
     });
   }
-
 }

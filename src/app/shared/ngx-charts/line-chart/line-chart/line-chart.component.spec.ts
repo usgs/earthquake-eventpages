@@ -4,7 +4,6 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { LineChartComponent } from './line-chart.component';
 
-
 describe('LineChartComponent', () => {
   let component: LineChartComponent;
   let fixture: ComponentFixture<LineChartComponent>;
@@ -14,78 +13,73 @@ describe('LineChartComponent', () => {
       declarations: [
         LineChartComponent,
 
-        MockComponent(
-          {
-            selector: 'ngx-charts-chart',
-            inputs: [
-              'view',
-              'showLegend',
-              'legendOptions',
-              'activeEntries',
-              'animations'
-            ]
-          }
-        ),
-        MockComponent(
-          {
-            selector: ':svg:g',
-            inputs: [
-              'xScale',
-              'yScale',
-              'xScaleType',
-              'yScaleType',
-              'xAxisLabel',
-              'yAxisLabel',
-              'rScale',
-              'xDomain',
-              'yDomain',
-              'xDomainType',
-              'colors',
-              'data',
-              'activeEntries',
-              'scaleType',
-              'curve',
-              'rangeFillOpacity',
-              'animations',
-              'dims',
-              'xSet',
-              'tooltipTemplate',
-              'tooltipDisabled',
-              'results',
-              'visibleValue',
-              'showLabel',
-              'labelText',
-              'tickFormatting',
-              'yOrient',
-              'showGridLines',
-              'strokeWidth',
-              'hasRange',
-              'cx',
-              'cy',
-              'r',
-              'stroke',
-              'fill',
-              'pointerEvents',
-              'classNames',
-              'tooltipType',
-              'tooltipPlacement',
-              'tooltipTitle',
-              'tooltipContext',
-              'ticks',
-              'referenceLines',
-              'showRefLines',
-              'showRefLabels',
-              'view',
-              'height',
-              'scheme',
-              'customColors',
-              'legend'
-            ]
-          }
-        )
+        MockComponent({
+          selector: 'ngx-charts-chart',
+          inputs: [
+            'view',
+            'showLegend',
+            'legendOptions',
+            'activeEntries',
+            'animations'
+          ]
+        }),
+        MockComponent({
+          selector: ':svg:g',
+          inputs: [
+            'xScale',
+            'yScale',
+            'xScaleType',
+            'yScaleType',
+            'xAxisLabel',
+            'yAxisLabel',
+            'rScale',
+            'xDomain',
+            'yDomain',
+            'xDomainType',
+            'colors',
+            'data',
+            'activeEntries',
+            'scaleType',
+            'curve',
+            'rangeFillOpacity',
+            'animations',
+            'dims',
+            'xSet',
+            'tooltipTemplate',
+            'tooltipDisabled',
+            'results',
+            'visibleValue',
+            'showLabel',
+            'labelText',
+            'tickFormatting',
+            'yOrient',
+            'showGridLines',
+            'strokeWidth',
+            'hasRange',
+            'cx',
+            'cy',
+            'r',
+            'stroke',
+            'fill',
+            'pointerEvents',
+            'classNames',
+            'tooltipType',
+            'tooltipPlacement',
+            'tooltipTitle',
+            'tooltipContext',
+            'ticks',
+            'referenceLines',
+            'showRefLines',
+            'showRefLabels',
+            'view',
+            'height',
+            'scheme',
+            'customColors',
+            'legend'
+          ]
+        })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

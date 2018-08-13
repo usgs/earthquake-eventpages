@@ -1,7 +1,6 @@
 import { getUnique } from './unique';
 
 export class Event {
-
   // "feature" properties
   public id: string;
   public properties: any;
@@ -12,9 +11,7 @@ export class Event {
 
   public deleted = false;
 
-  constructor (
-    public data: any
-  ) {
+  constructor(public data: any) {
     let sources;
 
     if (!this.data) {
@@ -38,10 +35,15 @@ export class Event {
 
     try {
       // display phase-data when available
-      this.properties.products.origin.forEach((o) => {
-        o.phasedata = this.getProduct('phase-data', o.source, o.code, o.updateTime);
+      this.properties.products.origin.forEach(o => {
+        o.phasedata = this.getProduct(
+          'phase-data',
+          o.source,
+          o.code,
+          o.updateTime
+        );
       });
-    } catch (e) { }
+    } catch (e) {}
   }
 
   /**
@@ -51,15 +53,19 @@ export class Event {
    * @param source source of product.
    * @param code code of product.
    */
-  getProduct (type: string, source?: string, code?: string, updateTime?: number): any {
-    return this.getProducts(type).find((product) => {
-      if ((source && product.source !== source) ||
-          (code && product.code !== code) ||
-          (
-            // zero is suspicious, but technically a valid number
-            (updateTime || updateTime === 0)
-            && product.updateTime !== updateTime
-          )) {
+  getProduct(
+    type: string,
+    source?: string,
+    code?: string,
+    updateTime?: number
+  ): any {
+    return this.getProducts(type).find(product => {
+      if (
+        (source && product.source !== source) ||
+        (code && product.code !== code) ||
+        // zero is suspicious, but technically a valid number
+        ((updateTime || updateTime === 0) && product.updateTime !== updateTime)
+      ) {
         return false;
       }
       return true;
@@ -71,7 +77,7 @@ export class Event {
    *
    * @param type type of product.
    */
-  getProducts (type: string): Array<any> {
+  getProducts(type: string): Array<any> {
     let products;
 
     if (!type) {
@@ -87,19 +93,18 @@ export class Event {
     return products;
   }
 
-  hasProducts (types: string|string[]): boolean {
+  hasProducts(types: string | string[]): boolean {
     try {
       if (!Array.isArray(types)) {
         types = [types];
       }
 
-      return types.some((type) => {
+      return types.some(type => {
         // TODO :: Handle internal and scenario variants
-        return (this.getProducts(type).length > 0);
+        return this.getProducts(type).length > 0;
       });
     } catch (e) {
       return false;
     }
   }
-
 }

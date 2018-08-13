@@ -10,7 +10,6 @@ import { InfoComponent } from './info/info.component';
 import { MomentTensorRoutingModule } from './moment-tensor-routing.module';
 import { MomentTensorComponent } from './moment-tensor/moment-tensor.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
@@ -21,10 +20,6 @@ import { MomentTensorComponent } from './moment-tensor/moment-tensor.component';
 
     MomentTensorRoutingModule
   ],
-  declarations: [
-    MomentTensorComponent,
-    AxesComponent,
-    InfoComponent
-  ]
+  declarations: [MomentTensorComponent, AxesComponent, InfoComponent]
 })
-export class MomentTensorModule { }
+export class MomentTensorModule {}

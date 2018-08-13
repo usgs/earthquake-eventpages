@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 
 import { FiniteFaultComponent } from './finite-fault/finite-fault.component';
 
-
 const finiteFaultRoutes = [
   {
     // this module must be loaded lazily using "loadChildren"
@@ -13,13 +12,8 @@ const finiteFaultRoutes = [
   }
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forChild(finiteFaultRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(finiteFaultRoutes)],
+  exports: [RouterModule]
 })
-export class FiniteFaultRoutingModule { }
+export class FiniteFaultRoutingModule {}

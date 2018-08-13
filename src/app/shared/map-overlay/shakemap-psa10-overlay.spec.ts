@@ -2,7 +2,6 @@ import * as L from 'leaflet';
 
 import { ShakemapPSA10Overlay } from './shakemap-psa10-overlay';
 
-
 describe('ShakemapPSA10Overlay', () => {
   let overlay;
   const FEATURE = {
@@ -25,7 +24,7 @@ describe('ShakemapPSA10Overlay', () => {
   it('uses product when defined', () => {
     overlay = new ShakemapPSA10Overlay({
       contents: {
-        'download/cont_psa10.json': {url: 'URL'}
+        'download/cont_psa10.json': { url: 'URL' }
       }
     });
 

@@ -11,7 +11,5 @@ import { EventService } from '../../core/event.service';
   styleUrls: ['./zip.component.scss']
 })
 export class ZipComponent {
-
-  constructor (public eventService: EventService) { }
-
+  constructor(public eventService: EventService) {}
 }

@@ -7,7 +7,6 @@ import { of } from 'rxjs/observable/of';
 import { EventService } from '../../core/event.service';
 import { TechnicalComponent } from './technical.component';
 
-
 describe('TechnicalComponent', () => {
   let component: TechnicalComponent;
   let fixture: ComponentFixture<TechnicalComponent>;
@@ -42,14 +41,9 @@ describe('TechnicalComponent', () => {
           inputs: ['product']
         })
       ],
-      imports: [
-        RouterTestingModule
-      ],
-      providers: [
-        {provide: EventService, useValue: eventServiceStub}
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

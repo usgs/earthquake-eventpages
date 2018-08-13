@@ -7,7 +7,6 @@ import {
 
 import { BehaviorSubject } from 'rxjs';
 
-
 /**
  * Interface for user to enter data under any of the 'other' radio buttons
  */
@@ -15,7 +14,6 @@ interface OtherValueEvent {
   type: 'other';
   value: any;
 }
-
 
 /**
  * The question form component
@@ -40,8 +38,6 @@ interface OtherValueEvent {
   styleUrls: ['./question.component.scss']
 })
 export class QuestionComponent {
-
-
   // if there is an "other" option, the user specified value
   public otherValue: any;
 
@@ -59,15 +55,15 @@ export class QuestionComponent {
   @Input()
   value: any;
 
-
   /**
    * Convert UI value changes to answer values
    *
    * @param changeEvent
    *     UI selection change.
    */
-  onChange (
-    changeEvent: MatRadioChange|MatSelectionListChange|OtherValueEvent) {
+  onChange(
+    changeEvent: MatRadioChange | MatSelectionListChange | OtherValueEvent
+  ) {
     if (changeEvent instanceof MatRadioChange) {
       // single select
       this.value = changeEvent.value;
@@ -76,7 +72,8 @@ export class QuestionComponent {
       this.value = changeEvent.source.selectedOptions.selected.map(
         (option: MatListOption) => {
           return option.value;
-        });
+        }
+      );
     } else if (changeEvent) {
       this.otherValue = changeEvent.value;
     }
@@ -88,5 +85,4 @@ export class QuestionComponent {
     }
     this.change.next(next);
   }
-
 }

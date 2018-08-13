@@ -5,7 +5,6 @@ import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 import { FiniteFaultPinComponent } from './finite-fault-pin.component';
 
-
 describe('FiniteFaultPinComponent', () => {
   let component: FiniteFaultPinComponent;
   let fixture: ComponentFixture<FiniteFaultPinComponent>;
@@ -17,17 +16,12 @@ describe('FiniteFaultPinComponent', () => {
 
         MockComponent({
           selector: 'basic-pin',
-          inputs: [
-            'link',
-            'product',
-            'title'
-          ]
+          inputs: ['link', 'product', 'title']
         }),
 
         MockPipe('sharedProductContent')
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

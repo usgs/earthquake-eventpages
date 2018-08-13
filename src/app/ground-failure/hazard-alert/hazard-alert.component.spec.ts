@@ -4,7 +4,6 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { HazardAlertComponent } from './hazard-alert.component';
 
-
 describe('HazardAlertComponent', () => {
   let component: HazardAlertComponent;
   let fixture: ComponentFixture<HazardAlertComponent>;
@@ -14,10 +13,12 @@ describe('HazardAlertComponent', () => {
       declarations: [
         HazardAlertComponent,
 
-        MockComponent({selector: 'ground-failure-alert-bar', inputs: ['bins', 'title', 'units', 'value']})
+        MockComponent({
+          selector: 'ground-failure-alert-bar',
+          inputs: ['bins', 'title', 'units', 'value']
+        })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

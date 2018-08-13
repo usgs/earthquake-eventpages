@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 /**
  * The privacy act statement component
  */
@@ -9,4 +8,4 @@ import { Component } from '@angular/core';
   templateUrl: './privacy-statement.component.html',
   styleUrls: ['./privacy-statement.component.scss']
 })
-export class PrivacyStatementComponent { }
+export class PrivacyStatementComponent {}

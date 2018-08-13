@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 
 import { Tensor } from '../../shared/beachball/tensor';
 
-
 /**
  * Focal mechanism component, renders a table with data
  * @param event
@@ -14,8 +13,6 @@ import { Tensor } from '../../shared/beachball/tensor';
   styleUrls: ['./focal-mechanism-summary.component.scss']
 })
 export class FocalMechanismSummaryComponent {
-
-
   // MatTable headers
   public columnsToDisplay = [
     'catalog',
@@ -27,8 +24,8 @@ export class FocalMechanismSummaryComponent {
   public _products: Array<any>;
   public tensors: Array<any> = [];
 
-  @Input() event: any;
-
+  @Input()
+  event: any;
 
   /**
    * Setter to set the products array
@@ -36,9 +33,10 @@ export class FocalMechanismSummaryComponent {
    *     The products array
    * @returns { Tensor }
    */
-  @Input() set products (products: Array<any>) {
+  @Input()
+  set products(products: Array<any>) {
     this._products = products;
-    this.tensors = (products || []).map((p) => {
+    this.tensors = (products || []).map(p => {
       return Tensor.fromProduct(p);
     });
   }
@@ -47,9 +45,7 @@ export class FocalMechanismSummaryComponent {
    * Get the products array
    * @returns {Array<any>}
    */
-  get products () {
+  get products() {
     return this._products;
   }
-
 }
-

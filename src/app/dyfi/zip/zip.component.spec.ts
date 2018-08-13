@@ -6,7 +6,6 @@ import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
 import { ZipComponent } from './zip.component';
 
-
 describe('ZipComponent', () => {
   let component: ZipComponent;
   let fixture: ComponentFixture<ZipComponent>;
@@ -18,12 +17,9 @@ describe('ZipComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ ZipComponent ],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub }
-      ]
-    })
-    .compileComponents();
+      declarations: [ZipComponent],
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

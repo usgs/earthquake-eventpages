@@ -11,8 +11,5 @@ import { EventService } from '../../core/event.service';
   styleUrls: ['./origin.component.scss']
 })
 export class OriginComponent {
-
-  constructor(
-    public eventService: EventService
-  ) { }
+  constructor(public eventService: EventService) {}
 }

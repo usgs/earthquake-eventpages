@@ -7,7 +7,6 @@ import { EventService } from '../../core/event.service';
 import { FormatterService } from '../../core/formatter.service';
 import { Event } from '../../event';
 
-
 describe('DetailComponent', () => {
   let component: DetailComponent;
   let fixture: ComponentFixture<DetailComponent>;
@@ -18,35 +17,41 @@ describe('DetailComponent', () => {
     const eventServiceStub = {
       getEvent: jasmine.createSpy('eventService::getEvent'),
       getProduct: jasmine.createSpy('eventService::getProduct'),
-      'product$': {
+      product$: {
         getValue: () => PRODUCT
       }
     };
 
-    PRODUCT = {phasedata: {}};
+    PRODUCT = { phasedata: {} };
 
-    const formatterServiceStub = {
-    };
+    const formatterServiceStub = {};
 
     TestBed.configureTestingModule({
       declarations: [
         DetailComponent,
 
-        MockComponent({selector: 'shared-uncertain-value',
-            inputs: ['value', 'uncertainty', 'uncertaintyUnits']}),
-        MockComponent({selector: 'shared-coordinates',
-            inputs: ['latitude', 'longitude']}),
-        MockComponent({selector: 'shared-fe-region',
-            inputs: ['latitude', 'longitude']}),
-        MockComponent({selector: 'shared-attribution',
-            inputs: ['sourceCode']})
+        MockComponent({
+          selector: 'shared-uncertain-value',
+          inputs: ['value', 'uncertainty', 'uncertaintyUnits']
+        }),
+        MockComponent({
+          selector: 'shared-coordinates',
+          inputs: ['latitude', 'longitude']
+        }),
+        MockComponent({
+          selector: 'shared-fe-region',
+          inputs: ['latitude', 'longitude']
+        }),
+        MockComponent({
+          selector: 'shared-attribution',
+          inputs: ['sourceCode']
+        })
       ],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: FormatterService, useValue: formatterServiceStub}
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: FormatterService, useValue: formatterServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

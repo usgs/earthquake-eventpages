@@ -11,12 +11,10 @@ import { ShakemapPSA10Overlay } from './map-overlay/shakemap-psa10-overlay';
 import { ShakemapPSA30Overlay } from './map-overlay/shakemap-psa30-overlay';
 import { ShakemapStationsOverlay } from './map-overlay/shakemap-stations-overlay';
 
-
 @Pipe({
   name: 'shakemapOverlays'
 })
 export class ShakemapOverlaysPipe implements PipeTransform {
-
   /**
    * Get all shakemap overlays
    *
@@ -28,7 +26,7 @@ export class ShakemapOverlaysPipe implements PipeTransform {
    * @returns {Array<L.Layer>}
    *     shakemap overlay
    */
-  transform (product: any, enabled: string[] = []): Array<L.Layer> {
+  transform(product: any, enabled: string[] = []): Array<L.Layer> {
     let overlays = [];
 
     if (product) {
@@ -40,7 +38,7 @@ export class ShakemapOverlaysPipe implements PipeTransform {
       overlays.push(new ShakemapPSA30Overlay(product));
       overlays.push(new ShakemapStationsOverlay(product));
 
-      overlays.forEach((overlay) => {
+      overlays.forEach(overlay => {
         overlay.enabled = enabled.indexOf(overlay.id) > -1;
       });
 
@@ -52,6 +50,4 @@ export class ShakemapOverlaysPipe implements PipeTransform {
 
     return overlays;
   }
-
 }
-

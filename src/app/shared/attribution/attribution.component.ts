@@ -4,7 +4,6 @@ import { ContributorService } from '../../core/contributor.service';
 import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
 
-
 /**
  * Attribution component
  *
@@ -17,15 +16,13 @@ import { Event } from '../../event';
   styleUrls: ['./attribution.component.scss']
 })
 export class AttributionComponent {
+  @Input()
+  sourceCode: string;
 
-  @Input() sourceCode: string;
-
-
-  constructor (
+  constructor(
     public readonly contributorService: ContributorService,
     public readonly eventService: EventService
-  ) { }
-
+  ) {}
 
   /**
    * Converts source code to informational data
@@ -37,10 +34,13 @@ export class AttributionComponent {
    * @param details
    *     Attribution details for this event
    */
-  sourceCodeToInfo (sourceCode: string, event: Event = null,
-      details: Array<any> = []): any {
+  sourceCodeToInfo(
+    sourceCode: string,
+    event: Event = null,
+    details: Array<any> = []
+  ): any {
     let id;
-    const eventSources = (event && event.sources) ? event.sources : [];
+    const eventSources = event && event.sources ? event.sources : [];
 
     if (!sourceCode) {
       return '';
@@ -48,11 +48,10 @@ export class AttributionComponent {
 
     id = sourceCode.toLowerCase();
 
-    const detailInfo = details.find((item) => {
-     return (
-       item.id === id ||
-       (item.aliases && item.aliases.indexOf(id) !== -1)
-     );
+    const detailInfo = details.find(item => {
+      return (
+        item.id === id || (item.aliases && item.aliases.indexOf(id) !== -1)
+      );
     });
 
     if (detailInfo) {
@@ -66,5 +65,4 @@ export class AttributionComponent {
       details: detailInfo
     };
   }
-
 }

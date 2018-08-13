@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Wraps the DYFI form input inside a fieldset element
  *
@@ -13,7 +12,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./fieldset.component.scss']
 })
 export class FieldsetComponent {
-
-  @Input() legend: string;
-
+  @Input()
+  legend: string;
 }

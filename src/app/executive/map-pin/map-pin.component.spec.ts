@@ -5,7 +5,6 @@ import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 import { MapPinComponent } from './map-pin.component';
 
-
 describe('MapPinComponent', () => {
   let component: MapPinComponent;
   let fixture: ComponentFixture<MapPinComponent>;
@@ -15,21 +14,19 @@ describe('MapPinComponent', () => {
       declarations: [
         MapPinComponent,
 
-        MockComponent({selector: 'basic-pin',
-            inputs: ['link', 'product', 'title']}),
-        MockComponent({selector: 'shared-map',
-            inputs: [
-              'overlays',
-              'showAttributionControl',
-              'showLayersControl'
-            ]
+        MockComponent({
+          selector: 'basic-pin',
+          inputs: ['link', 'product', 'title']
+        }),
+        MockComponent({
+          selector: 'shared-map',
+          inputs: ['overlays', 'showAttributionControl', 'showLayersControl']
         }),
 
         MockPipe('getProduct'),
         MockPipe('interactiveMapOverlays')
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

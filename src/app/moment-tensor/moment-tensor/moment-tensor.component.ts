@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { EventService } from '../../core/event.service';
 import { Tensor } from '../../shared/beachball/tensor';
 
-
 /**
  * Scaffold for Moment Tensor product page
  */
@@ -15,23 +14,20 @@ import { Tensor } from '../../shared/beachball/tensor';
   styleUrls: ['./moment-tensor.component.scss']
 })
 export class MomentTensorComponent implements OnInit, OnDestroy {
-
   public tensor: Tensor = null;
   public subscription: Subscription = new Subscription();
 
+  constructor(public eventService: EventService) {}
 
-  constructor(
-    public eventService: EventService
-  ) { }
-
-
-  ngOnInit () {
-    this.subscription.add(this.eventService.product$.subscribe((product) => {
-      this.tensor = Tensor.fromProduct(product);
-    }));
+  ngOnInit() {
+    this.subscription.add(
+      this.eventService.product$.subscribe(product => {
+        this.tensor = Tensor.fromProduct(product);
+      })
+    );
   }
 
-  ngOnDestroy () {
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 }

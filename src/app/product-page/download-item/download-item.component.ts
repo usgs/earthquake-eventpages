@@ -12,5 +12,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./download-item.component.scss']
 })
 export class DownloadItemComponent {
-  @Input() item: any = null;
+  @Input()
+  item: any = null;
 }

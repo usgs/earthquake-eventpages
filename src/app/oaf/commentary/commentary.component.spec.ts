@@ -8,7 +8,6 @@ import { MockPipe } from '../../mock-pipe';
 import { OafService } from '../oaf.service';
 import { CommentaryComponent } from './commentary.component';
 
-
 describe('CommentaryComponent', () => {
   let component: CommentaryComponent;
   let fixture: ComponentFixture<CommentaryComponent>;
@@ -26,7 +25,7 @@ describe('CommentaryComponent', () => {
       declarations: [
         CommentaryComponent,
 
-        MockComponent({selector: 'oaf-commentary-details', inputs: ['bin']}),
+        MockComponent({ selector: 'oaf-commentary-details', inputs: ['bin'] }),
 
         MockPipe('oafPercent'),
         MockPipe('sharedDateTime'),
@@ -37,11 +36,10 @@ describe('CommentaryComponent', () => {
         MockPipe('updateTime')
       ],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: OafService, useValue: oafServiceStub}
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: OafService, useValue: oafServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -55,19 +53,24 @@ describe('CommentaryComponent', () => {
   });
 
   describe('transformObservations', () => {
-    const observations = [{
-      count: 1,
-      magnitude: 3.0
-    }, {
-      count: 2,
-      magnitude: 5.0
-    }, {
-      count: 3,
-      magnitude: 6.0
-    }, {
-      count: 4,
-      magnitude: 7.0
-    }];
+    const observations = [
+      {
+        count: 1,
+        magnitude: 3.0
+      },
+      {
+        count: 2,
+        magnitude: 5.0
+      },
+      {
+        count: 3,
+        magnitude: 6.0
+      },
+      {
+        count: 4,
+        magnitude: 7.0
+      }
+    ];
 
     it('should return the correct count', () => {
       expect(component.transformObservations(3, observations)).toEqual(1);
@@ -102,28 +105,24 @@ describe('CommentaryComponent', () => {
     const mag7Bin = {
       p95minimum: 0.0,
       p95maximum: 0.0,
-      probability: 1.6276102079104682E-4,
+      probability: 1.6276102079104682e-4,
       magnitude: 7.0
     };
 
-
     const oaf = {
       advisoryTimeFrame: '1 Day',
-      forecast: [{
-        timeEnd: 1515148777730,
-        bins: [
-          mag3Bin,
-          mag5Bin,
-          mag6Bin,
-          mag7Bin
-        ],
-        timeStart: 1515062377730,
-        aboveMainshockMag: {
-          probability: 0.03865917408876185,
-          magnitude: 4.38
-        },
-        label: '1 Day'
-      }]
+      forecast: [
+        {
+          timeEnd: 1515148777730,
+          bins: [mag3Bin, mag5Bin, mag6Bin, mag7Bin],
+          timeStart: 1515062377730,
+          aboveMainshockMag: {
+            probability: 0.03865917408876185,
+            magnitude: 4.38
+          },
+          label: '1 Day'
+        }
+      ]
     };
 
     it('should return the correct count', () => {
@@ -135,6 +134,4 @@ describe('CommentaryComponent', () => {
       expect(forecast.bins['magnitude-7']).toEqual(mag7Bin);
     });
   });
-
-
 });

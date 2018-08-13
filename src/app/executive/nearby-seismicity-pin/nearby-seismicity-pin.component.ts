@@ -1,7 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Event } from '../../event';
-
 
 /**
  * Nearby Seismicity Pin
@@ -18,14 +17,14 @@ import { Event } from '../../event';
   styleUrls: ['./nearby-seismicity-pin.component.scss']
 })
 export class NearbySeismicityPinComponent implements OnInit {
-
   public title = 'View Nearby Seismicity';
   public footer = 'ANSS Comcat';
   public minimumMag;
 
-  @Input() event: Event;
-  @Input() link: string;
-
+  @Input()
+  event: Event;
+  @Input()
+  link: string;
 
   ngOnInit() {
     this.minimumMag = this.getMinimumMag(this.event.properties.mag || 3);

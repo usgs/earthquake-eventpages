@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { FocalMechanismComponent } from './focal-mechanism/focal-mechanism.component';
 
-
 const focalMechanismRoutes: Routes = [
   {
     // this module must be loaded lazily using "loadChildren"
@@ -13,13 +12,8 @@ const focalMechanismRoutes: Routes = [
   }
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forChild(focalMechanismRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(focalMechanismRoutes)],
+  exports: [RouterModule]
 })
-export class FocalMechanismRoutingModule { }
+export class FocalMechanismRoutingModule {}

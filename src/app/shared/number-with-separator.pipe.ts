@@ -1,11 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-
 @Pipe({
   name: 'sharedNumberWithSeparator'
 })
 export class NumberWithSeparatorPipe implements PipeTransform {
-
   /**
    * Returns shared number with separator
    *
@@ -17,7 +15,7 @@ export class NumberWithSeparatorPipe implements PipeTransform {
    * @returns {any}
    *     a formatted number
    */
-  transform (value: number, locale?: any): any {
+  transform(value: number, locale?: any): any {
     let negative = '';
 
     if (typeof value === 'undefined' || value === null) {
@@ -37,13 +35,18 @@ export class NumberWithSeparatorPipe implements PipeTransform {
 
     if (typeof decimalPart === 'undefined') {
       // Input was an integer
-      return negative +
-        value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, meta.separator);
+      return (
+        negative +
+        value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, meta.separator)
+      );
     } else {
       // Input was a decimal
-      return negative +
+      return (
+        negative +
         wholePart.replace(/\B(?=(\d{3})+(?!\d))/g, meta.separator) +
-        meta.decimal + decimalPart;
+        meta.decimal +
+        decimalPart
+      );
     }
   }
 
@@ -56,7 +59,7 @@ export class NumberWithSeparatorPipe implements PipeTransform {
    * @returns {{separator: string, decimal: string}}
    *     formatter object with separator and decimal information
    */
-  private _getLocaleInfo (locale) {
+  private _getLocaleInfo(locale) {
     const knownValue = 1000.1;
     const localeValue = knownValue.toLocaleString(locale);
 
@@ -65,5 +68,4 @@ export class NumberWithSeparatorPipe implements PipeTransform {
       decimal: localeValue.substr(5, 1)
     };
   }
-
 }

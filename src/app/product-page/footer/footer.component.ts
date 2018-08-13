@@ -12,5 +12,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-  @Input() product: any;
+  @Input()
+  product: any;
 }

@@ -4,7 +4,6 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { AttributionComponent } from './attribution.component';
 
-
 describe('AttributionComponent', () => {
   let component: AttributionComponent;
   let fixture: ComponentFixture<AttributionComponent>;
@@ -14,11 +13,12 @@ describe('AttributionComponent', () => {
       declarations: [
         AttributionComponent,
 
-        MockComponent({selector: 'shared-product-attribution',
-            inputs: ['product']})
+        MockComponent({
+          selector: 'shared-product-attribution',
+          inputs: ['product']
+        })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

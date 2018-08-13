@@ -28,11 +28,14 @@ import { Event } from '../../event';
   encapsulation: ViewEncapsulation.None
 })
 export class BasicPinComponent {
-
-  @Input() footer;
-  @Input() href;
-  @Input() link;
-  @Input() product;
-  @Input() title;
-
+  @Input()
+  footer;
+  @Input()
+  href;
+  @Input()
+  link;
+  @Input()
+  product;
+  @Input()
+  title;
 }

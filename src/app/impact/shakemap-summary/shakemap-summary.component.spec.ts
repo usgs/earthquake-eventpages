@@ -6,17 +6,13 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { ShakemapSummaryComponent } from './shakemap-summary.component';
 
-
 describe('ShakeMapSummaryComponent', () => {
   let component: ShakemapSummaryComponent;
   let fixture: ComponentFixture<ShakemapSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatTableModule,
-        RouterModule
-      ],
+      imports: [MatTableModule, RouterModule],
       declarations: [
         ShakemapSummaryComponent,
         MockComponent({
@@ -32,8 +28,7 @@ describe('ShakeMapSummaryComponent', () => {
           inputs: ['TITLE']
         })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

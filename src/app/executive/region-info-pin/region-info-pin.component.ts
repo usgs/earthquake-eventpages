@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
 
-
 /**
  * Regional Information Pin
  *
@@ -15,10 +14,9 @@ import { Event } from '../../event';
   styleUrls: ['./region-info-pin.component.scss']
 })
 export class RegionInfoPinComponent {
-
   public link = '../region-info';
   public title = 'Regional Information';
 
-  @Input() event: Event;
-
+  @Input()
+  event: Event;
 }

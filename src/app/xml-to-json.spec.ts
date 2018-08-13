@@ -1,8 +1,6 @@
 import { xmlToJson } from './xml-to-json';
 
-
 describe('xmlToJson', () => {
-
   it('returns null when input is empty', () => {
     const v: any = {};
     expect(xmlToJson(null)).toBeNull();
@@ -30,7 +28,9 @@ describe('xmlToJson', () => {
     expect(json).toBeTruthy();
     expect(json.root).toBeTruthy();
     expect(json.root['child-element']['attribute']).toEqual('attribute value');
-    expect(json.root['child-element']['#text'].trim()).toEqual('child element text');
+    expect(json.root['child-element']['#text'].trim()).toEqual(
+      'child element text'
+    );
   });
 
   it('parses without xml declaration', () => {
@@ -45,7 +45,9 @@ describe('xmlToJson', () => {
     expect(json).toBeTruthy();
     expect(json.root).toBeTruthy();
     expect(json.root['child-element']['attribute']).toEqual('attribute value');
-    expect(json.root['child-element']['#text'].trim()).toEqual('child element text');
+    expect(json.root['child-element']['#text'].trim()).toEqual(
+      'child element text'
+    );
   });
 
   it('converts multiple child-elements with the same name to array', () => {
@@ -60,9 +62,9 @@ describe('xmlToJson', () => {
     expect(json).toBeTruthy();
     expect(json.root).toBeTruthy();
     expect(json.root['child-element']).toEqual([
-      {attribute: 'value1'},
-      {attribute: 'value2'},
-      {attribute: 'value3'}
+      { attribute: 'value1' },
+      { attribute: 'value2' },
+      { attribute: 'value3' }
     ]);
   });
 

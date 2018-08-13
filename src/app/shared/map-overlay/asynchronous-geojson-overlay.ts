@@ -2,7 +2,6 @@ import * as L from 'leaflet';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-
 /**
  * Class for asynchronous overlays used with the shared-map component.
  *
@@ -19,7 +18,6 @@ import { of } from 'rxjs';
  *   called by leaflet's GeoJSON layer.
  */
 const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
-
   id: 'async-geojson',
   enabled: true,
   title: 'Async GeoJSON',
@@ -40,11 +38,10 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
   // persistent styles (allows alternating styles in geoJSON features)
   styles: {},
 
-
   /**
    * Init function
    */
-  initialize: function () {
+  initialize: function() {
     // for content downloads in async map layers; added to layer during
     // initialization, or manually
     this.httpClient = null;
@@ -52,14 +49,14 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
     L.GeoJSON.prototype.initialize.call(this, [], {
       onEachFeature: (feature, layer) => this.onEachFeature(feature, layer),
       pointToLayer: (feature, layer) => this.pointToLayer(feature, layer),
-      style: (feature) => this.style(feature)
+      style: feature => this.style(feature)
     });
   },
 
   /**
    * Runs after the geoJSON data is successfully added
    */
-  afterAdd: function () {
+  afterAdd: function() {
     // subclasses should override this method
   },
 
@@ -71,7 +68,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
    * @return {Observable}
    *    For caught errors during http requests
    */
-  handleError: function (error: any) {
+  handleError: function(error: any) {
     this.error = error;
     this.data = null;
     return of(null);
@@ -80,7 +77,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
   /**
    * Fetch data, and ensure it is parsed into geojson
    */
-  loadData: function () {
+  loadData: function() {
     if (!this.url || !this.httpClient) {
       this.data = null;
       return;
@@ -92,9 +89,10 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
 
     // flag that data is being loaded
     this.data = 'loading';
-    this.httpClient.get(this.url).pipe(
-      catchError(error => this.handleError(error))
-    ).subscribe((data) => {
+    this.httpClient
+      .get(this.url)
+      .pipe(catchError(error => this.handleError(error)))
+      .subscribe(data => {
         try {
           data = this.parse(data);
           // flag that data is loaded
@@ -105,34 +103,33 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
         } catch (error) {
           this.handleError(error);
         }
-      }
-    );
+      });
   },
 
   /**
    * Get geoJSON data and add it to the existing layer
    */
-  onAdd: function (map) {
+  onAdd: function(map) {
     this.map = map;
     L.GeoJSON.prototype.onAdd.call(this, map);
 
     this.loadData();
   },
 
-  onEachFeature: function (feature, layer) {
+  onEachFeature: function(feature, layer) {
     // subclasses should override this method
   },
 
-  pointToLayer: function (feature, latlng) {
+  pointToLayer: function(feature, latlng) {
     // subclasses should override this method
 
     const defaultOptions = {
-        radius: 8,
-        fillColor: '#ff7800',
-        color: '#000',
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 0.8
+      radius: 8,
+      fillColor: '#ff7800',
+      color: '#000',
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
     };
 
     return L.circleMarker(latlng, defaultOptions);
@@ -153,18 +150,16 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
    * @return {Any}
    *    Parsed geoJSON
    */
-  parse: function (data) {
+  parse: function(data) {
     // parse if needed
-    data = (typeof data === 'string' ? JSON.parse(data) : data);
+    data = typeof data === 'string' ? JSON.parse(data) : data;
     return data;
   },
 
-  style: function (feature) {
+  style: function(feature) {
     // subclasses should override this method
     return {};
   }
-
 });
-
 
 export { AsynchronousGeoJSONOverlay };

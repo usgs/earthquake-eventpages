@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 
 import { FormatterService } from '../../core/formatter.service';
 
-
 /**
  * Uncertain value component
  *
@@ -19,22 +18,21 @@ import { FormatterService } from '../../core/formatter.service';
   styleUrls: ['./uncertain-value.component.scss']
 })
 export class UncertainValueComponent {
+  @Input()
+  value = '';
+  @Input()
+  uncertainty: number;
+  @Input()
+  uncertaintyUnits: string = null;
 
-  @Input() value = '';
-  @Input() uncertainty: number;
-  @Input() uncertaintyUnits: string = null;
-
-
-  constructor (public formatter: FormatterService) { }
-
+  constructor(public formatter: FormatterService) {}
 
   /**
    * Returns value of uncertainty property or zero
    *
    * @return {number | boolean}
    */
-  hasUncertainty () {
-    return (this.uncertainty || this.uncertainty === 0);
+  hasUncertainty() {
+    return this.uncertainty || this.uncertainty === 0;
   }
-
 }

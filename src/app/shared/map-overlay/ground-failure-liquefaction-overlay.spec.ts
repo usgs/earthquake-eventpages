@@ -1,9 +1,6 @@
 import * as L from 'leaflet';
 
-import {
-  GroundFailureLiquefactionOverlay
-} from './ground-failure-liquefaction-overlay';
-
+import { GroundFailureLiquefactionOverlay } from './ground-failure-liquefaction-overlay';
 
 describe('GroundFailureLiquefactionOverlay', () => {
   const product = {
@@ -21,7 +18,7 @@ describe('GroundFailureLiquefactionOverlay', () => {
       'maximum-latitude': 0,
       'maximum-longitude': 0,
       'minimum-latitude': 0,
-      'minimum-longitude': 0,
+      'minimum-longitude': 0
     }
   };
 

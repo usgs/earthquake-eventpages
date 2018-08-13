@@ -12,10 +12,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./map-pin.component.scss']
 })
 export class MapPinComponent {
-
   link = '../map';
   title = 'Interactive Map';
 
-  @Input() event: Event;
-
+  @Input()
+  event: Event;
 }

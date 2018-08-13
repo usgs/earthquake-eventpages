@@ -2,7 +2,6 @@ import * as L from 'leaflet';
 
 import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 
-
 describe('ShakemapContoursOverlay', () => {
   let overlay;
 
@@ -27,11 +26,10 @@ describe('ShakemapContoursOverlay', () => {
     it('modifies weight', () => {
       const style = overlay.style({});
     });
-
   });
 
   describe('onEachFeature', () => {
-    it ('keeps count', () => {
+    it('keeps count', () => {
       const count = overlay._count;
       const layer = new L.Layer();
 
@@ -46,7 +44,6 @@ describe('ShakemapContoursOverlay', () => {
       overlay.onEachFeature(FEATURE, layer);
 
       expect(Object.keys(overlay._layers).length).toBeGreaterThan(layerCount);
-
     });
 
     it('doesn\'t generate new layers for odd contours', () => {
@@ -66,15 +63,13 @@ describe('ShakemapContoursOverlay', () => {
       const layerCount = overlay._layers.length;
       overlay.onEachFeature(feature, layer);
       expect(overlay._layers.length).toEqual(layerCount);
-
     });
-
   });
 
   describe('after add', () => {
     beforeEach(() => {
       overlay.map = {
-        fitBounds: function (bounds) {}
+        fitBounds: function(bounds) {}
       };
     });
 
@@ -90,8 +85,9 @@ describe('ShakemapContoursOverlay', () => {
       const bounds = 'BOUNDS';
       const spy = spyOn(overlay, 'getBounds').and.returnValue(bounds);
 
-      const mapSpy = spyOn(overlay.map, 'fitBounds').and
-          .callFake((bounds_in) => {});
+      const mapSpy = spyOn(overlay.map, 'fitBounds').and.callFake(
+        bounds_in => {}
+      );
 
       overlay.afterAdd();
       expect(mapSpy).toHaveBeenCalledWith(bounds);

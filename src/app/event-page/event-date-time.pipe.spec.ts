@@ -1,9 +1,7 @@
 import { EventDateTimePipe } from './event-date-time.pipe';
 
-
 describe('EventDateTimePipe', () => {
-  let formatterService,
-      pipe;
+  let formatterService, pipe;
 
   beforeEach(() => {
     formatterService = {
@@ -18,7 +16,7 @@ describe('EventDateTimePipe', () => {
   });
 
   it('transforms event with good time', () => {
-    pipe.transform({properties: {time: 0}});
+    pipe.transform({ properties: { time: 0 } });
     expect(formatterService.dateTime).toHaveBeenCalled();
     expect(formatterService.dateTime).toHaveBeenCalledWith(new Date(0));
   });

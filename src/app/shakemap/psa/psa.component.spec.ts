@@ -9,7 +9,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { PsaComponent } from './psa.component';
 
-
 describe('PsaComponent', () => {
   let component: PsaComponent;
   let fixture: ComponentFixture<PsaComponent>;
@@ -21,9 +20,7 @@ describe('PsaComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [RouterTestingModule],
       declarations: [
         PsaComponent,
 
@@ -39,11 +36,8 @@ describe('PsaComponent', () => {
 
         MockPipe('shakemapOverlays')
       ],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub }
-      ]
-    })
-    .compileComponents();
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

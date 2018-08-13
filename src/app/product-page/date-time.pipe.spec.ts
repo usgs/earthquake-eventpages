@@ -1,10 +1,8 @@
 import { Event } from '../event';
 import { DateTimePipe } from './date-time.pipe';
 
-
 describe('ContributorListPipe', () => {
-  let formatter,
-      pipe;
+  let formatter, pipe;
 
   beforeEach(() => {
     formatter = {
@@ -35,5 +33,4 @@ describe('ContributorListPipe', () => {
     const result = pipe.transform(null);
     expect(formatter.dateTime).toHaveBeenCalledWith(date);
   });
-
 });

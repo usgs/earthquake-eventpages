@@ -4,7 +4,6 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { PopulationAlertComponent } from './population-alert.component';
 
-
 describe('PopulationAlertComponent', () => {
   let component: PopulationAlertComponent;
   let fixture: ComponentFixture<PopulationAlertComponent>;
@@ -14,10 +13,12 @@ describe('PopulationAlertComponent', () => {
       declarations: [
         PopulationAlertComponent,
 
-        MockComponent({selector: 'ground-failure-alert-bar', inputs: ['bins', 'title', 'units', 'value']})
+        MockComponent({
+          selector: 'ground-failure-alert-bar',
+          inputs: ['bins', 'title', 'units', 'value']
+        })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

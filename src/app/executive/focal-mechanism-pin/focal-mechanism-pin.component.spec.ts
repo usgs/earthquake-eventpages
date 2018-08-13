@@ -8,42 +8,26 @@ import { MockComponent } from 'ng2-mock-component';
 import { Tensor } from '../../shared/beachball/tensor';
 import { FocalMechanismPinComponent } from './focal-mechanism-pin.component';
 
-
 describe('FocalMechanismPinComponent', () => {
   let component: FocalMechanismPinComponent;
   let fixture: ComponentFixture<FocalMechanismPinComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatCardModule,
-        RouterTestingModule
-      ],
+      imports: [MatCardModule, RouterTestingModule],
       declarations: [
         FocalMechanismPinComponent,
 
         MockComponent({
           selector: 'basic-pin',
-          inputs: [
-            'footer',
-            'link',
-            'product',
-            'title'
-          ]
+          inputs: ['footer', 'link', 'product', 'title']
         }),
         MockComponent({
           selector: 'shared-beachball',
-          inputs: [
-            'fillColor',
-            'labelAxes',
-            'labelPlanes',
-            'tensor',
-            'size'
-          ]
+          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'tensor', 'size']
         })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -58,7 +42,7 @@ describe('FocalMechanismPinComponent', () => {
 
   describe('set product', () => {
     it('sets product and calls fromProduct', () => {
-      const product = {id: 'test product'};
+      const product = { id: 'test product' };
       const tensor = new Tensor({});
       spyOn(Tensor, 'fromProduct').and.returnValue(tensor);
       component.product = product;

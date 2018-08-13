@@ -1,7 +1,6 @@
 import { getUnique } from './unique';
 
 describe('getUnique', () => {
-
   it('should be defined', () => {
     expect(getUnique).toBeTruthy();
   });
@@ -17,11 +16,7 @@ describe('getUnique', () => {
   });
 
   it('should support objects', () => {
-    const result = getUnique([
-      {id: 'a'},
-      {id: 'b'},
-      {id: 'a'}
-    ]);
-    expect(result).toEqual([{id: 'a'}, {id: 'b'}]);
+    const result = getUnique([{ id: 'a' }, { id: 'b' }, { id: 'a' }]);
+    expect(result).toEqual([{ id: 'a' }, { id: 'b' }]);
   });
 });

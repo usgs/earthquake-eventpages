@@ -1,11 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-
 @Pipe({
   name: 'eventTitle'
 })
 export class EventTitlePipe implements PipeTransform {
-
   /**
    * Builds event title from the event
    *
@@ -15,9 +13,8 @@ export class EventTitlePipe implements PipeTransform {
    * @returns
    *     The event title
    */
-  transform (event: any): any {
+  transform(event: any): any {
     const properties = event.properties || {};
     return `${properties.title}`;
   }
-
 }

@@ -8,7 +8,6 @@ import { DyfiService } from '../dyfi.service';
 import { MockPipe } from '../../mock-pipe';
 import { IntensityVsDistanceComponent } from './intensity-vs-distance.component';
 
-
 describe('IntensityVsDistanceComponent', () => {
   let component: IntensityVsDistanceComponent;
   let fixture: ComponentFixture<IntensityVsDistanceComponent>;
@@ -43,7 +42,7 @@ describe('IntensityVsDistanceComponent', () => {
           name: 'Binned data',
           class: 'binned',
           series: [{}]
-        },
+        }
       ]
     };
 
@@ -60,45 +59,42 @@ describe('IntensityVsDistanceComponent', () => {
       declarations: [
         IntensityVsDistanceComponent,
 
-        MockComponent(
-          {
-            selector: 'bubble-line-chart-component',
-            inputs: [
-              'scheme',
-              'colorSchemeLine',
-              'customColors',
-              'results',
-              'animations',
-              'lineChart',
-              'bubbleChart',
-              'tooltipDisabled',
-              'gradient',
-              'xAxis',
-              'yAxis',
-              'legend',
-              'showGridLines',
-              'showXAxisLabel',
-              'showYAxisLabel',
-              'showRightYAxisLabel',
-              'xAxisLabel',
-              'yAxisLabel',
-              'yScaleMin',
-              'yScaleMax',
-              'xScaleMin',
-              'xScaleMax',
-              'scaleType'
-            ]
-          }
-        ),
+        MockComponent({
+          selector: 'bubble-line-chart-component',
+          inputs: [
+            'scheme',
+            'colorSchemeLine',
+            'customColors',
+            'results',
+            'animations',
+            'lineChart',
+            'bubbleChart',
+            'tooltipDisabled',
+            'gradient',
+            'xAxis',
+            'yAxis',
+            'legend',
+            'showGridLines',
+            'showXAxisLabel',
+            'showYAxisLabel',
+            'showRightYAxisLabel',
+            'xAxisLabel',
+            'yAxisLabel',
+            'yScaleMin',
+            'yScaleMax',
+            'xScaleMin',
+            'xScaleMax',
+            'scaleType'
+          ]
+        }),
 
         MockPipe('sharedProductContent')
       ],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: DyfiService, useValue: dyfiServiceStub}
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: DyfiService, useValue: dyfiServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

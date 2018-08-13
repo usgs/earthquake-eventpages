@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MomentTensorComponent } from './moment-tensor/moment-tensor.component';
 
-
 const momentTensorRoutes: Routes = [
   {
     // this module must be loaded lazily using "loadChildren"
@@ -13,13 +12,8 @@ const momentTensorRoutes: Routes = [
   }
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forChild(momentTensorRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forChild(momentTensorRoutes)],
+  exports: [RouterModule]
 })
-export class MomentTensorRoutingModule { }
+export class MomentTensorRoutingModule {}

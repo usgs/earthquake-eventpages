@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormatterService } from '../../core/formatter.service';
 import { CoordinatesComponent } from './coordinates.component';
 
-
 describe('CoordinatesComponent', () => {
   let component: CoordinatesComponent;
   let fixture: ComponentFixture<CoordinatesComponent>;
@@ -15,14 +14,9 @@ describe('CoordinatesComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [
-        CoordinatesComponent
-      ],
-      providers: [
-        {provide: FormatterService, useValue: formatterServiceStub}
-      ]
-    })
-    .compileComponents();
+      declarations: [CoordinatesComponent],
+      providers: [{ provide: FormatterService, useValue: formatterServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

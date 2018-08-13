@@ -5,23 +5,15 @@ import { MockPipe } from '../../mock-pipe';
 import { Tensor } from '../../shared/beachball/tensor';
 import { NodalPlanesComponent } from './nodal-planes.component';
 
-
 describe('NodalPlanesComponent', () => {
   let component: NodalPlanesComponent;
   let fixture: ComponentFixture<NodalPlanesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatTableModule
-      ],
-      declarations: [
-        NodalPlanesComponent,
-
-        MockPipe('sharedDegrees')
-      ]
-    })
-    .compileComponents();
+      imports: [MatTableModule],
+      declarations: [NodalPlanesComponent, MockPipe('sharedDegrees')]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -58,4 +50,3 @@ describe('NodalPlanesComponent', () => {
     });
   });
 });
-

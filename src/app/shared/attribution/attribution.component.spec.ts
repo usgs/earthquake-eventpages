@@ -5,26 +5,22 @@ import { EventService } from '../../core/event.service';
 import { Event } from '../../event';
 import { AttributionComponent } from './attribution.component';
 
-
 describe('AttributionComponent', () => {
   let component: AttributionComponent;
   let fixture: ComponentFixture<AttributionComponent>;
 
   beforeEach(async(() => {
-    const contributorServiceStub = {
-    };
+    const contributorServiceStub = {};
 
-    const eventServiceStub = {
-    };
+    const eventServiceStub = {};
 
     TestBed.configureTestingModule({
-      declarations: [ AttributionComponent ],
+      declarations: [AttributionComponent],
       providers: [
-        {provide: ContributorService, useValue: contributorServiceStub},
-        {provide: EventService, useValue: eventServiceStub}
+        { provide: ContributorService, useValue: contributorServiceStub },
+        { provide: EventService, useValue: eventServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -45,25 +41,31 @@ describe('AttributionComponent', () => {
 
     it('works without an event', () => {
       const result = component.sourceCodeToInfo('Id');
-      expect(result).toEqual({id: 'ID', index: 0, details: undefined});
+      expect(result).toEqual({ id: 'ID', index: 0, details: undefined });
     });
 
     it('works without a details map', () => {
-      const event = new Event({properties: {sources: ',foo,id,bar,'}});
+      const event = new Event({ properties: { sources: ',foo,id,bar,' } });
       const result = component.sourceCodeToInfo('Id', event);
 
-      expect(result).toEqual({id: 'ID', index: 3, details: undefined});
+      expect(result).toEqual({ id: 'ID', index: 3, details: undefined });
     });
 
     it('works as expected', () => {
-      const event = new Event({properties: {sources: ',foo,id,bar,'}});
-      const details = [{id: 'id', aliases: ['myid', 'yourid']}];
+      const event = new Event({ properties: { sources: ',foo,id,bar,' } });
+      const details = [{ id: 'id', aliases: ['myid', 'yourid'] }];
 
-      expect(component.sourceCodeToInfo('Id', event, details))
-         .toEqual({id: 'ID', index: 3, details: details[0]});
+      expect(component.sourceCodeToInfo('Id', event, details)).toEqual({
+        id: 'ID',
+        index: 3,
+        details: details[0]
+      });
 
-      expect(component.sourceCodeToInfo('MYID', event, details))
-         .toEqual({id: 'ID', index: 3, details: details[0]});
+      expect(component.sourceCodeToInfo('MYID', event, details)).toEqual({
+        id: 'ID',
+        index: 3,
+        details: details[0]
+      });
     });
   });
 });
