@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Tensor } from '../../shared/beachball/tensor';
-import { FormatterService } from '../../core/formatter.service';
 
 /**
  * Display tables with moment tensor data

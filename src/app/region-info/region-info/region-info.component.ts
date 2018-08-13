@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { CoordinatesService } from 'earthquake-geoserve-ui';
-import * as L from 'leaflet';
 import { Subscription } from 'rxjs';
 
 import { EventService } from '../../core/event.service';

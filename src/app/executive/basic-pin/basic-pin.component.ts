@@ -1,7 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
-import { Event } from '../../event';
 
 /**
  * Base pin class

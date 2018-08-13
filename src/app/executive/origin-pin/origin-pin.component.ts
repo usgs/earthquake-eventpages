@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 import { FormatterService } from '../../core/formatter.service';
-import { Event } from '../../event';
 
 /**
  * Origin Pin

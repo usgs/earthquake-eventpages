@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { EventService } from '../../core/event.service';
-import { MapComponent as SharedMapComponent } from '../../shared/map/map.component';
 
 /**
  * Display interactive map page

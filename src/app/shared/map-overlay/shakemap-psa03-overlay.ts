@@ -1,4 +1,3 @@
-import * as L from 'leaflet';
 
 import { ProductContentPipe } from '../product-content.pipe';
 import { ShakemapContoursOverlay } from './shakemap-contours-overlay';

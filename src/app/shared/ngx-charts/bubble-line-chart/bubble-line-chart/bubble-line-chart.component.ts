@@ -1,11 +1,4 @@
 import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
-import {
   Component,
   Input,
   ViewEncapsulation,

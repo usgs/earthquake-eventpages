@@ -1,10 +1,9 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, Sort } from '@angular/material';
 
-import { Observable ,  Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { EventService } from '../../core/event.service';
-import { FormatterService } from '../../core/formatter.service';
 import { QuakemlService } from '../../core/quakeml.service';
 import { DownloadDialogComponent } from '../../shared/download-dialog/download-dialog.component';
 import { toArray } from '../../to-array';

@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-import { Event } from '../../event';
 
 /**
  * Shakemap Pin

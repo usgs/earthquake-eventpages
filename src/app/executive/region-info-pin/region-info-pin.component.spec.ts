@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 
 import { EventService } from '../../core/event.service';
-import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { RegionInfoPinComponent } from './region-info-pin.component';
 

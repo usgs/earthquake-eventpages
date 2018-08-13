@@ -1,10 +1,7 @@
-import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
-import { Subscription } from 'rxjs';
 
 import { EventService } from '../../core/event.service';
-import { Event } from '../../event';
-import { Tensor } from '../../shared/beachball/tensor';
 
 /**
  * Executive summary page

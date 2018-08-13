@@ -1,4 +1,3 @@
-import * as L from 'leaflet';
 
 import { GroundFailureLiquefactionOverlay } from './ground-failure-liquefaction-overlay';
 

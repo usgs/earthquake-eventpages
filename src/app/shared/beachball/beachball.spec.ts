@@ -1,5 +1,4 @@
 import { Beachball } from './beachball';
-import { Canvas } from './canvas';
 import { Tensor } from './tensor';
 
 

@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { FormatterService } from '../../core/formatter.service';
 import { MockPipe } from '../../mock-pipe';
 import { InfoComponent } from './info.component';
 

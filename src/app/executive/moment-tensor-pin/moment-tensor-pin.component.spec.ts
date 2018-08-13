@@ -3,7 +3,6 @@ import { MatCardModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
-import { Mock } from 'protractor/built/driverProviders';
 
 import { Tensor } from '../../shared/beachball/tensor';
 import { MomentTensorPinComponent } from './moment-tensor-pin.component';

@@ -1,4 +1,3 @@
-import * as L from 'leaflet';
 
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 

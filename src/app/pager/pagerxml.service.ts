@@ -5,7 +5,6 @@ import { BehaviorSubject,  Observable,  of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { xmlToJson } from '../xml-to-json';
-import { Quakeml } from '../quakeml';
 
 /**
  * Parses pager.xml into the observable seqeunce pagerXml$

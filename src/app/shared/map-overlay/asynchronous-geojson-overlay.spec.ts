@@ -1,7 +1,6 @@
 import * as L from 'leaflet';
 import { _throw } from 'rxjs/observable/throw';
 import { of } from 'rxjs/observable/of';
-import { Observable } from 'rxjs/Observable';
 
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 

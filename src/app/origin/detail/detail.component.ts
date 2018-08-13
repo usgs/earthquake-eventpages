@@ -2,11 +2,6 @@ import { Component } from '@angular/core';
 
 import { EventService } from '../../core/event.service';
 import { FormatterService } from '../../core/formatter.service';
-import { Event } from '../../event';
-import { AttributionComponent } from '../../shared/attribution/attribution.component';
-import { CoordinatesComponent } from '../../shared/coordinates/coordinates.component';
-import { FeRegionComponent } from '../../shared/fe-region/fe-region.component';
-import { UncertainValueComponent } from '../../shared/uncertain-value/uncertain-value.component';
 
 
 /**
