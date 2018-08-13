@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 import { EventService } from './event.service';
 
 
-fdescribe('EventService', () => {
+describe('EventService', () => {
   let httpClient: HttpTestingController,
       injector: TestBed;
 
