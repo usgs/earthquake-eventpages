@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Tensor } from '@shared/beachball/tensor';
+
 
 /**
  * Focal Mechanism Pin
@@ -9,6 +10,7 @@ import { Tensor } from '@shared/beachball/tensor';
  *     focal-mechanmism pin
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'executive-focal-mechanism-pin',
   styleUrls: ['./focal-mechanism-pin.component.scss'],
   templateUrl: './focal-mechanism-pin.component.html'

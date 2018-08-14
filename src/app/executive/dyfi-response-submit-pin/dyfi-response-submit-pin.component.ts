@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 /**
  * DYFI Response Pin
@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
  *     dyfi product
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'executive-dyfi-response-submit-pin',
   styleUrls: ['./dyfi-response-submit-pin.component.scss'],
   templateUrl: './dyfi-response-submit-pin.component.html'

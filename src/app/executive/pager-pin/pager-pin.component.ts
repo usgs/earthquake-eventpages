@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 /**
  * Pager Pin
@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
  *     losspager product
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'executive-pager-pin',
   styleUrls: ['./pager-pin.component.scss'],
   templateUrl: './pager-pin.component.html'

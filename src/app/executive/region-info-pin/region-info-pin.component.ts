@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
 
@@ -9,6 +9,7 @@ import { Event } from '../../event';
  *     event object
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'executive-region-info-pin',
   styleUrls: ['./region-info-pin.component.scss'],
   templateUrl: './region-info-pin.component.html'

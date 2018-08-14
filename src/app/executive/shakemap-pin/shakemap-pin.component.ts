@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Shakemap Pin
@@ -7,6 +8,7 @@ import { Component, Input } from '@angular/core';
  *     shakemap product
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'executive-shakemap-pin',
   styleUrls: ['./shakemap-pin.component.scss'],
   templateUrl: './shakemap-pin.component.html'

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 /**
  * Interactive Map Pin
@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
  *     Event object
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'executive-map-pin',
   styleUrls: ['./map-pin.component.scss'],
   templateUrl: './map-pin.component.html'
