@@ -23,65 +23,65 @@ describe('ExecutiveComponent', () => {
         ExecutiveComponent,
 
         MockComponent({
-          selector: 'executive-dyfi-pin',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'executive-dyfi-pin'
         }),
         MockComponent({
-          selector: 'executive-dyfi-response-submit-pin',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'executive-dyfi-response-submit-pin'
         }),
         MockComponent({
-          selector: 'executive-finite-fault-pin',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'executive-finite-fault-pin'
         }),
         MockComponent({
-          selector: 'executive-focal-mechanism-pin',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'executive-focal-mechanism-pin'
         }),
         MockComponent({
-          selector: 'executive-ground-failure-pin',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'executive-ground-failure-pin'
         }),
         MockComponent({
-          selector: 'executive-map-pin',
-          inputs: ['event']
+          inputs: ['event'],
+          selector: 'executive-map-pin'
         }),
         MockComponent({
-          selector: 'executive-moment-tensor-pin',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'executive-moment-tensor-pin'
         }),
         MockComponent({
-          selector: 'executive-nearby-seismicity-pin',
-          inputs: ['event', 'link']
+          inputs: ['event', 'link'],
+          selector: 'executive-nearby-seismicity-pin'
         }),
         MockComponent({
-          selector: 'executive-oaf-pin',
-          inputs: ['product', 'title', 'type']
+          inputs: ['product', 'title', 'type'],
+          selector: 'executive-oaf-pin'
         }),
         MockComponent({
-          selector: 'executive-origin-pin',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'executive-origin-pin'
         }),
         MockComponent({
-          selector: 'executive-pager-pin',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'executive-pager-pin'
         }),
         MockComponent({
-          selector: 'executive-region-info-pin',
-          inputs: ['event']
+          inputs: ['event'],
+          selector: 'executive-region-info-pin'
         }),
         MockComponent({
-          selector: 'executive-shakemap-pin',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'executive-shakemap-pin'
         }),
         MockComponent({ selector: 'executive-tsunami-pin' }),
         MockComponent({
-          selector: 'shared-link-product',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-link-product'
         }),
         MockComponent({
-          selector: 'shared-text-product',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-text-product'
         }),
 
         MockPipe('getProduct'),

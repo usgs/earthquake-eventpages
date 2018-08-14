@@ -26,14 +26,12 @@ import { Tensor } from './tensor';
  */
 @Component({
   selector: 'shared-beachball',
-  templateUrl: './beachball.component.html',
-  styleUrls: ['./beachball.component.scss']
+  styleUrls: ['./beachball.component.scss'],
+  templateUrl: './beachball.component.html'
 })
 export class BeachballComponent implements OnChanges {
-  readonly tensor$ = new BehaviorSubject<Tensor>(null);
-
-  @Input()
-  tensor: Tensor;
+  @ViewChild('beachball')
+  elementRef: ElementRef;
   @Input()
   fillColor = '#ddd';
   @Input()
@@ -42,9 +40,9 @@ export class BeachballComponent implements OnChanges {
   labelPlanes = true;
   @Input()
   size = 320;
-
-  @ViewChild('beachball')
-  elementRef: ElementRef;
+  @Input()
+  tensor: Tensor;
+  readonly tensor$ = new BehaviorSubject<Tensor>(null);
 
   ngOnChanges() {
     if (!this.tensor) {

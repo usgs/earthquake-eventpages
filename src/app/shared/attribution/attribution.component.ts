@@ -12,8 +12,8 @@ import { Event } from '../../event';
  */
 @Component({
   selector: 'shared-attribution',
-  templateUrl: './attribution.component.html',
-  styleUrls: ['./attribution.component.scss']
+  styleUrls: ['./attribution.component.scss'],
+  templateUrl: './attribution.component.html'
 })
 export class AttributionComponent {
   @Input()
@@ -60,9 +60,9 @@ export class AttributionComponent {
     }
 
     return {
+      details: detailInfo,
       id: id.toUpperCase(),
-      index: eventSources.indexOf(id) + 1,
-      details: detailInfo
+      index: eventSources.indexOf(id) + 1
     };
   }
 }

@@ -8,14 +8,13 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'executive-dyfi-response-submit-pin',
-  templateUrl: './dyfi-response-submit-pin.component.html',
-  styleUrls: ['./dyfi-response-submit-pin.component.scss']
+  styleUrls: ['./dyfi-response-submit-pin.component.scss'],
+  templateUrl: './dyfi-response-submit-pin.component.html'
 })
 export class DyfiResponseSubmitPinComponent {
-  link = '../tellus';
-  title = 'Felt Report - Tell Us!';
   footer = 'Citizen Scientist Contributions';
-
+  link = '../tellus';
   @Input()
   product: any;
+  title = 'Felt Report - Tell Us!';
 }

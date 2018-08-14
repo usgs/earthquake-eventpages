@@ -12,17 +12,16 @@ import { catchError } from 'rxjs/operators';
  */
 @Component({
   selector: 'shared-text-product',
-  templateUrl: './text-product.component.html',
-  styleUrls: ['./text-product.component.scss']
+  styleUrls: ['./text-product.component.scss'],
+  templateUrl: './text-product.component.html'
 })
 export class TextProductComponent {
   _product: any;
   content = new BehaviorSubject<any>(null);
   readonly content$ = this.content.asObservable();
-  error: any;
-
   @Input()
   contentPath = '';
+  error: any;
 
   constructor(public httpClient: HttpClient) {}
 

@@ -16,7 +16,6 @@ import { MockPipe } from '../../mock-pipe';
 import { DyfiService } from '../dyfi.service';
 import { ResponsesComponent } from './responses.component';
 
-
 describe('ResponsesComponent', () => {
   let component: ResponsesComponent;
   let fixture: ComponentFixture<ResponsesComponent>;
@@ -26,12 +25,20 @@ describe('ResponsesComponent', () => {
   };
 
   const dyfiServiceStub = {
-    getCdi: () => {},
-    cdiZip$: of({})
+    cdiZip$: of({}),
+    getCdi: () => {}
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      declarations: [
+        ResponsesComponent,
+
+        MockComponent({ selector: 'shared-mmi', inputs: ['intensity'] }),
+        MockPipe('sharedUnits'),
+        MockPipe('sharedNumber'),
+        MockPipe('sharedRoman')
+      ],
       imports: [
         MatDialogModule,
         MatTableModule,
@@ -39,21 +46,12 @@ describe('ResponsesComponent', () => {
         MatSortModule,
         NoopAnimationsModule
       ],
-      declarations: [
-        ResponsesComponent,
-
-        MockComponent({selector: 'shared-mmi', inputs: ['intensity']}),
-        MockPipe('sharedUnits'),
-        MockPipe('sharedNumber'),
-        MockPipe('sharedRoman')
-      ],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: DyfiService, useValue: dyfiServiceStub},
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: DyfiService, useValue: dyfiServiceStub },
         FormatterService
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -68,17 +66,18 @@ describe('ResponsesComponent', () => {
 
   describe('onDownload', () => {
     it('formats download and opens dialog', () => {
-      component.responses.data = [{
-        'name': 'test name',
-        'state': 'test state',
-        'country': 'test country',
-        'zip': 'test zip',
-        'cdi': '1',
-        'nresp': 'test responses',
-        'dist': 'test distance',
-        'lat': '2.2',
-        'lon': '3.3'
-      }
+      component.responses.data = [
+        {
+          cdi: '1',
+          country: 'test country',
+          dist: 'test distance',
+          lat: '2.2',
+          lon: '3.3',
+          name: 'test name',
+          nresp: 'test responses',
+          state: 'test state',
+          zip: 'test zip'
+        }
       ];
 
       const spy = spyOn(component.dialog, 'open').and.returnValue({});
@@ -89,12 +88,15 @@ describe('ResponsesComponent', () => {
       // download formatted
       const lastCall = spy.calls.mostRecent().args[1];
       expect(lastCall.data.title).toEqual('Download DYFI Responses');
-      expect(lastCall.data.message).toEqual('Copy then paste into a spreadsheet application');
+      expect(lastCall.data.message).toEqual(
+        'Copy then paste into a spreadsheet application'
+      );
       expect(lastCall.data.content).toEqual(
-        'City\tState/Region\tCountry\tZip Code\tMMI\tResponses\tDistance\tLatitude\tLongitude\n' +
-        'test name\ttest state\ttest country\ttest zip\tI\ttest responses\ttest distance km\t2.2\t3.3'
+        'City\tState/Region\tCountry\tZip Code\tMMI\tResponses\t' +
+          'Distance\tLatitude\tLongitude\ntest name\ttest state\t' +
+          'test country\ttest zip\tI\ttest responses\t' +
+          'test distance km\t2.2\t3.3'
       );
     });
   });
-
 });

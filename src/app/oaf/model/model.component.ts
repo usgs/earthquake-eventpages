@@ -7,8 +7,8 @@ import { OafService } from '../oaf.service';
  */
 @Component({
   selector: 'oaf-model',
-  templateUrl: './model.component.html',
-  styleUrls: ['./model.component.scss']
+  styleUrls: ['./model.component.scss'],
+  templateUrl: './model.component.html'
 })
 export class ModelComponent {
   constructor(public oafService: OafService) {}

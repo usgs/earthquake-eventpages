@@ -8,18 +8,18 @@ import { OafService } from '../oaf.service';
  */
 @Component({
   selector: 'oaf-forecast',
-  templateUrl: './forecast.component.html',
-  styleUrls: ['./forecast.component.scss']
+  styleUrls: ['./forecast.component.scss'],
+  templateUrl: './forecast.component.html'
 })
 export class ForecastComponent {
   // colums to be displayed
   columnsToDisplay = ['space', 'day', 'week', 'month', 'year'];
 
   columnTitles = {
-    space: '',
     day: 'Day',
-    week: 'Week',
     month: 'Month',
+    space: '',
+    week: 'Week',
     year: 'Year'
   };
 

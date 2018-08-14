@@ -13,16 +13,16 @@ describe('ContributorListPipe', () => {
     });
     details = [
       {
+        aliases: null,
         id: 'a',
         title: 'A Title',
-        url: 'a-url',
-        aliases: null
+        url: 'a-url'
       },
       {
+        aliases: ['bb'],
         id: 'b',
         title: 'B Title',
-        url: 'b-url',
-        aliases: ['bb']
+        url: 'b-url'
       }
     ];
   });

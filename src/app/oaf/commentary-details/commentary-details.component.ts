@@ -9,8 +9,8 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'oaf-commentary-details',
-  templateUrl: './commentary-details.component.html',
-  styleUrls: ['./commentary-details.component.scss']
+  styleUrls: ['./commentary-details.component.scss'],
+  templateUrl: './commentary-details.component.html'
 })
 export class CommentaryDetailsComponent {
   @Input()

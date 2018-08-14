@@ -126,12 +126,14 @@ describe('QuakemlService', () => {
     it('parses quakeml when response is not null', inject(
       [QuakemlService],
       (service: QuakemlService) => {
+        /* tslint:disable:max-line-length */
         const quakeml = service.parseResponse(`
           <q:quakeml xmlns:q="namespace">
             <eventParameters>
               <creationInfo><creationTime>2018-01-01</creationTime></creationInfo>
             </eventParameters>
           </q:quakeml>`);
+        /* tslint:enable:max-line-length */
         expect(quakeml.creationInfo.creationTime).toEqual('2018-01-01');
       }
     ));

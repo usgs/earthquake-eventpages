@@ -15,10 +15,10 @@ import { PagerXmlService } from '../pagerxml.service';
  *
  */
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'pager-pager',
-  templateUrl: './pager.component.html',
   styleUrls: ['./pager.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './pager.component.html'
 })
 export class PagerComponent implements AfterViewInit, OnDestroy {
   /** subscription to product observable */

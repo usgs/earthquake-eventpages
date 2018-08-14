@@ -8,10 +8,10 @@ describe('NearbySeismicityLinkPipe', () => {
   beforeEach(() => {
     pipe = new NearbySeismicityLinkPipe();
     event = new Event({
-      id: 'us10004u1y',
       geometry: {
         coordinates: [94.3299, -4.9521]
-      }
+      },
+      id: 'us10004u1y'
     });
   });
 
@@ -107,10 +107,10 @@ describe('NearbySeismicityLinkPipe', () => {
 
     it('uses provided rectangle parameters parameters', () => {
       const mapPosition = pipe.getMapPosition({
-        minlatitude: -1,
-        minlongitude: -2,
         maxlatitude: 3,
-        maxlongitude: 4
+        maxlongitude: 4,
+        minlatitude: -1,
+        minlongitude: -2
       });
       expect(mapPosition).toEqual([[-1, -2], [3, 4]]);
     });

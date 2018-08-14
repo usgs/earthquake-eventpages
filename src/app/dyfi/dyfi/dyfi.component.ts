@@ -7,8 +7,8 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'dyfi',
-  templateUrl: './dyfi.component.html',
-  styleUrls: ['./dyfi.component.scss']
+  styleUrls: ['./dyfi.component.scss'],
+  templateUrl: './dyfi.component.html'
 })
 export class DyfiComponent {
   constructor(public eventService: EventService) {}

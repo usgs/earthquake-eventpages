@@ -21,7 +21,7 @@ export class StationService {
    *     shakemap product json
    */
   getStations(product: any): void {
-    if (product == null || !product.contents['download/stationlist.json']) {
+    if (product === null || !product.contents['download/stationlist.json']) {
       this.stationsJson$.next(null);
       return;
     }
@@ -66,38 +66,17 @@ export class StationService {
    *     Stations array
    */
   translate(stations): any[] {
-    const new_stations: any[] = [];
+    const newStations: any[] = [];
 
     for (let station of stations.features) {
       station = this.translateNan(station);
       station = this.translateAmps(station);
 
-      new_stations.push(station);
+      newStations.push(station);
     }
-    stations.features = new_stations;
+    stations.features = newStations;
 
     return stations;
-  }
-
-  /**
-   * Convert string 'NaN' and 'null' to actual null
-   *
-   * @param station
-   *     The station feature
-   * @returns
-   *     Station with nan's/nulls formatted to null
-   */
-  translateNan(station): any {
-    for (const item of Object.keys(station.properties)) {
-      if (
-        station.properties[item] === 'null' ||
-        station.properties[item] === 'nan'
-      ) {
-        station.properties[item] = null;
-      }
-    }
-
-    return station;
   }
 
   /**
@@ -136,6 +115,27 @@ export class StationService {
 
       return parsed;
     });
+
+    return station;
+  }
+
+  /**
+   * Convert string 'NaN' and 'null' to actual null
+   *
+   * @param station
+   *     The station feature
+   * @returns
+   *     Station with nan's/nulls formatted to null
+   */
+  translateNan(station): any {
+    for (const item of Object.keys(station.properties)) {
+      if (
+        station.properties[item] === 'null' ||
+        station.properties[item] === 'nan'
+      ) {
+        station.properties[item] = null;
+      }
+    }
 
     return station;
   }

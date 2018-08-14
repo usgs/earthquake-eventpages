@@ -14,8 +14,8 @@ describe('OafPinComponent', () => {
         OafPinComponent,
 
         MockComponent({
-          selector: 'basic-pin',
-          inputs: ['product', 'title', 'link']
+          inputs: ['product', 'title', 'link'],
+          selector: 'basic-pin'
         })
       ]
     }).compileComponents();

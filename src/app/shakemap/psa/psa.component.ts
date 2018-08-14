@@ -8,8 +8,8 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'shakemap-psa',
-  templateUrl: './psa.component.html',
-  styleUrls: ['./psa.component.scss']
+  styleUrls: ['./psa.component.scss'],
+  templateUrl: './psa.component.html'
 })
 export class PsaComponent {
   constructor(public eventService: EventService) {}

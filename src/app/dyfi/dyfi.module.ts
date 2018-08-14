@@ -24,6 +24,14 @@ import { SharedModule } from '@shared/shared.module';
 import { ZipComponent } from './zip/zip.component';
 
 @NgModule({
+  declarations: [
+    DyfiComponent,
+    IntensityComponent,
+    ZipComponent,
+    IntensityVsDistanceComponent,
+    ResponsesVsTimeComponent,
+    ResponsesComponent
+  ],
   imports: [
     CommonModule,
     DyfiRoutingModule,
@@ -38,14 +46,6 @@ import { ZipComponent } from './zip/zip.component';
     MatTooltipModule,
     NgxChartsModule,
     SharedModule
-  ],
-  declarations: [
-    DyfiComponent,
-    IntensityComponent,
-    ZipComponent,
-    IntensityVsDistanceComponent,
-    ResponsesVsTimeComponent,
-    ResponsesComponent
   ],
   providers: [DyfiService]
 })

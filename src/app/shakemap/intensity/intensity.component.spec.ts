@@ -9,7 +9,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { IntensityComponent } from './intensity.component';
 
-
 describe('IntensityComponent', () => {
   let component: IntensityComponent;
   let fixture: ComponentFixture<IntensityComponent>;
@@ -21,28 +20,19 @@ describe('IntensityComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
       declarations: [
         IntensityComponent,
 
         MockComponent({
-          selector: 'shared-map',
-          inputs: [
-            'overlays',
-            'showScaleControl',
-            'showAttributionControl'
-          ]
+          inputs: ['overlays', 'showScaleControl', 'showAttributionControl'],
+          selector: 'shared-map'
         }),
 
         MockPipe('shakemapOverlays')
       ],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub }
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

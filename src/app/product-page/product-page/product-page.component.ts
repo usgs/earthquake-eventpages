@@ -15,15 +15,15 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'product-page',
-  templateUrl: './product-page.component.html',
-  styleUrls: ['./product-page.component.scss']
+  styleUrls: ['./product-page.component.scss'],
+  templateUrl: './product-page.component.html'
 })
 export class ProductPageComponent implements OnInit, OnDestroy {
-  // query params can override default product source/code to be shown
-  queryParamMapSubscription: Subscription;
-
   @Input()
   productType: string;
+
+  // query params can override default product source/code to be shown
+  queryParamMapSubscription: Subscription;
 
   constructor(
     public contributorService: ContributorService,

@@ -8,8 +8,8 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-preferred-check',
-  templateUrl: './preferred-check.component.html',
-  styleUrls: ['./preferred-check.component.scss']
+  styleUrls: ['./preferred-check.component.scss'],
+  templateUrl: './preferred-check.component.html'
 })
 export class PreferredCheckComponent {
   @Input()

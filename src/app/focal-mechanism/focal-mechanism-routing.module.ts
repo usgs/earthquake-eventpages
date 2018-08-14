@@ -5,15 +5,15 @@ import { FocalMechanismComponent } from './focal-mechanism/focal-mechanism.compo
 
 const focalMechanismRoutes: Routes = [
   {
+    component: FocalMechanismComponent,
     // this module must be loaded lazily using "loadChildren"
     // the actual url mount point is defined in "app/app-routing.module.ts"
-    path: '',
-    component: FocalMechanismComponent
+    path: ''
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(focalMechanismRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  imports: [RouterModule.forChild(focalMechanismRoutes)]
 })
 export class FocalMechanismRoutingModule {}

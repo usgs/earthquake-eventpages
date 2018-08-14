@@ -14,22 +14,22 @@ describe('MomentTensorSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatIconModule, MatTableModule, RouterModule],
       declarations: [
         MomentTensorSummaryComponent,
         MockComponent({
-          selector: 'shared-beachball',
-          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor']
+          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor'],
+          selector: 'shared-beachball'
         }),
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
         MockComponent({
-          selector: 'shared-preferred-check',
-          inputs: ['TITLE']
+          inputs: ['TITLE'],
+          selector: 'shared-preferred-check'
         })
       ],
+      imports: [MatIconModule, MatTableModule, RouterModule],
       providers: [FormatterService]
     }).compileComponents();
   }));

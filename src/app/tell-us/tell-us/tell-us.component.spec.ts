@@ -54,15 +54,6 @@ describe('TellUsComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        BrowserAnimationsModule,
-        FormsModule,
-        MatButtonModule,
-        MatDialogModule,
-        MatExpansionModule,
-        MatFormFieldModule,
-        MatSelectModule
-      ],
       declarations: [
         TellUsComponent,
         FormComponent,
@@ -71,25 +62,34 @@ describe('TellUsComponent', () => {
           selector: 'location-input-map'
         }),
         MockComponent({
-          selector: 'tell-us-fieldset',
-          inputs: ['legend']
+          inputs: ['legend'],
+          selector: 'tell-us-fieldset'
         }),
         MockComponent({
-          selector: 'tell-us-location',
-          inputs: ['enter', 'update']
+          inputs: ['enter', 'update'],
+          selector: 'tell-us-location'
         }),
         MockComponent({
-          selector: 'tell-us-question',
-          inputs: ['label', 'multiSelect', 'name', 'options', 'value']
+          inputs: ['label', 'multiSelect', 'name', 'options', 'value'],
+          selector: 'tell-us-question'
         }),
         MockComponent({
           selector: 'tell-us-privacy-statement'
         }),
         MockComponent({
-          selector: 'shared-summary-link',
-          inputs: ['productType', 'event']
+          inputs: ['productType', 'event'],
+          selector: 'shared-summary-link'
         }),
         MockPipe('keys')
+      ],
+      imports: [
+        BrowserAnimationsModule,
+        FormsModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatSelectModule
       ],
       providers: [
         { provide: FormLanguageService, useValue: languageServiceStub },

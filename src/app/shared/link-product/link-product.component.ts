@@ -8,8 +8,8 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-link-product',
-  templateUrl: './link-product.component.html',
-  styleUrls: ['./link-product.component.scss']
+  styleUrls: ['./link-product.component.scss'],
+  templateUrl: './link-product.component.html'
 })
 export class LinkProductComponent {
   @Input()

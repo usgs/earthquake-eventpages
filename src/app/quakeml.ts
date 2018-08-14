@@ -14,32 +14,6 @@ import { QuakemlEvent } from './quakeml-event';
  *        default "event", override if there are subclassed event elements.
  */
 export class Quakeml {
-  namespaces: any = {};
-
-  publicID: string;
-  creationInfo: any;
-  events: Array<QuakemlEvent> = [];
-
-  constructor(data: any) {
-    const quakeml = data['q:quakeml'];
-
-    // read namespaces that appear on root element,
-    // since data keys include them.
-    for (const key in quakeml) {
-      if (key.startsWith('xmlns')) {
-        this.namespaces[quakeml[key]] = key.substring('xmlns:'.length);
-      }
-    }
-
-    const eventParameters = quakeml.eventParameters;
-    this.publicID = eventParameters.publicID;
-    this.creationInfo = eventParameters.creationInfo;
-
-    this.events = toArray(eventParameters.event).map(e => {
-      return new QuakemlEvent(e);
-    });
-  }
-
   /**
    * Format channel identifier.
    *
@@ -73,5 +47,30 @@ export class Quakeml {
       time = time + 'Z';
     }
     return new Date(time);
+  }
+
+  creationInfo: any;
+  events: Array<QuakemlEvent> = [];
+  namespaces: any = {};
+  publicID: string;
+
+  constructor(data: any) {
+    const quakeml = data['q:quakeml'];
+
+    // read namespaces that appear on root element,
+    // since data keys include them.
+    for (const key in quakeml) {
+      if (key.startsWith('xmlns')) {
+        this.namespaces[quakeml[key]] = key.substring('xmlns:'.length);
+      }
+    }
+
+    const eventParameters = quakeml.eventParameters;
+    this.publicID = eventParameters.publicID;
+    this.creationInfo = eventParameters.creationInfo;
+
+    this.events = toArray(eventParameters.event).map(e => {
+      return new QuakemlEvent(e);
+    });
   }
 }

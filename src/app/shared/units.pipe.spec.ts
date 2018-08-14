@@ -19,16 +19,16 @@ describe('UnitsPipe', () => {
   it('formats internal units correctly', () => {
     const units = [
       {
-        units: 'count',
-        expected: ''
+        expected: '',
+        units: 'count'
       },
       {
-        units: 'intensity',
-        expected: ' mmi'
+        expected: ' mmi',
+        units: 'intensity'
       },
       {
-        units: 'km',
-        expected: ' km'
+        expected: ' km',
+        units: 'km'
       }
     ];
 

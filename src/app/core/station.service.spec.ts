@@ -18,42 +18,42 @@ describe('StationService', () => {
 
   // sample stations to process
   const STATIONS_JSON = {
-    type: 'FeatureCollection',
     features: [
       {
-        type: 'feature',
+        channels: [],
         properties: {
-          pga: 5.2,
           channels: [
             {
-              name: 'channel',
-              amplitudes: [{ name: 'pga', value: 1 }]
+              amplitudes: [{ name: 'pga', value: 1 }],
+              name: 'channel'
             }
-          ]
+          ],
+          pga: 5.2
         },
-        channels: []
+        type: 'feature'
       }
-    ]
+    ],
+    type: 'FeatureCollection'
   };
 
   const OLD_STATIONS_JSON = {
-    type: 'FeatureCollection',
     features: [
       {
-        type: 'feature',
+        channels: [],
         properties: {
-          pga: 'null',
-          pgv: 'nan',
           channels: [
             {
-              name: 'channel',
-              amplitudes: [{ name: 'sa(1.0)', value: 1 }]
+              amplitudes: [{ name: 'sa(1.0)', value: 1 }],
+              name: 'channel'
             }
-          ]
+          ],
+          pga: 'null',
+          pgv: 'nan'
         },
-        channels: []
+        type: 'feature'
       }
-    ]
+    ],
+    type: 'FeatureCollection'
   };
 
   beforeEach(() => {

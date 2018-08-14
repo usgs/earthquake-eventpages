@@ -17,8 +17,8 @@ describe('OriginPinComponent', () => {
         OriginPinComponent,
 
         MockComponent({
-          selector: 'basic-pin',
-          inputs: ['footer', 'link', 'product', 'title']
+          inputs: ['footer', 'link', 'product', 'title'],
+          selector: 'basic-pin'
         }),
         MockPipe('sharedNumber')
       ],

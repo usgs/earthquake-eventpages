@@ -36,18 +36,6 @@ export class ContentsXmlService {
   }
 
   /**
-   * Error handler for http requests
-   *
-   * @returns
-   *    returns error
-   */
-  private handleError() {
-    return (error: HttpErrorResponse): Observable<any> => {
-      return of(null);
-    };
-  }
-
-  /**
    * Function to parse xml data
    *
    * @param file
@@ -70,10 +58,10 @@ export class ContentsXmlService {
     );
 
     return {
-      id: id,
-      title: title,
       caption: caption,
-      formats: formats
+      formats: formats,
+      id: id,
+      title: title
     };
   }
 
@@ -96,9 +84,9 @@ export class ContentsXmlService {
 
       result = {
         href: href,
+        length: 0,
         type: type,
-        url: null,
-        length: 0
+        url: null
       };
 
       content = product.contents[href] || {};
@@ -128,5 +116,17 @@ export class ContentsXmlService {
       xml.querySelectorAll('contents > file'),
       file => this.parseFile(file, product)
     );
+  }
+
+  /**
+   * Error handler for http requests
+   *
+   * @returns
+   *    returns error
+   */
+  private handleError() {
+    return (error: HttpErrorResponse): Observable<any> => {
+      return of(null);
+    };
   }
 }

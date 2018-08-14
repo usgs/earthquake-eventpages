@@ -12,34 +12,34 @@ import { FormatterService } from '@core/formatter.service';
  */
 @Component({
   selector: 'shakemap-processing',
-  templateUrl: './processing.component.html',
-  styleUrls: ['./processing.component.scss']
+  styleUrls: ['./processing.component.scss'],
+  templateUrl: './processing.component.html'
 })
 export class ProcessingComponent {
+  readonly abbreviations = {
+    gmice: 'Ground Motion Intensity Conversion Equation',
+    gmpe: 'Ground Motion Prediction Equation',
+    igmice: 'Inverse Ground Motion Intensity Conversion Equation',
+    ipe: 'Intensity Prediction Equation'
+  };
+  readonly headers = {
+    groundMotionModules: ['type', 'module', 'reference'],
+    roi: ['type', 'roi', 'observation_decay']
+  };
   readonly names = {
     ground_motion_modules: {
       basin_correction: 'Basin',
-      gmpe: 'GMPE',
+      ccf: 'CCF',
       directivity: 'Directivity',
       gmice: 'GMICE',
-      ipe: 'IPE',
-      ccf: 'CCF',
-      igmice: 'IGMICE'
+      gmpe: 'GMPE',
+      igmice: 'IGMICE',
+      ipe: 'IPE'
     },
     roi: {
       gm: 'Ground Motion',
       intensity: 'Intensity'
     }
-  };
-  readonly abbreviations = {
-    gmpe: 'Ground Motion Prediction Equation',
-    gmice: 'Ground Motion Intensity Conversion Equation',
-    ipe: 'Intensity Prediction Equation',
-    igmice: 'Inverse Ground Motion Intensity Conversion Equation'
-  };
-  readonly headers = {
-    groundMotionModules: ['type', 'module', 'reference'],
-    roi: ['type', 'roi', 'observation_decay']
   };
 
   @Input()

@@ -8,7 +8,6 @@ import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { SummaryComponent } from './summary.component';
 
-
 describe('SummaryComponent', () => {
   let component: SummaryComponent;
   let fixture: ComponentFixture<SummaryComponent>;
@@ -19,22 +18,21 @@ describe('SummaryComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
       declarations: [
         SummaryComponent,
 
-        MockComponent({selector: 'ground-failure-hazard-alert',
-            inputs: ['alert', 'type', 'value']}),
-        MockComponent({selector: 'ground-failure-population-alert',
-            inputs: ['alert', 'type', 'value']})
+        MockComponent({
+          inputs: ['alert', 'type', 'value'],
+          selector: 'ground-failure-hazard-alert'
+        }),
+        MockComponent({
+          inputs: ['alert', 'type', 'value'],
+          selector: 'ground-failure-population-alert'
+        })
       ],
-      providers: [
-        {provide: EventService, useValue: eventServiceStub}
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -57,20 +55,17 @@ describe('SummaryComponent', () => {
     });
 
     it('returns null if no bounds exist', () => {
-      expect(component.getMapBounds({properties: {}})).toBeNull();
+      expect(component.getMapBounds({ properties: {} })).toBeNull();
     });
 
     it('returns bounds when they exist', () => {
-      const bounds = [
-        [ 1, 2 ],
-        [ 3, 4 ]
-      ];
+      const bounds = [[1, 2], [3, 4]];
       const product = {
         properties: {
-          'minimum-latitude': bounds[0][0],
-          'minimum-longitude': bounds[0][1],
           'maximum-latitude': bounds[1][0],
-          'maximum-longitude': bounds[1][1]
+          'maximum-longitude': bounds[1][1],
+          'minimum-latitude': bounds[0][0],
+          'minimum-longitude': bounds[0][1]
         }
       };
       expect(component.getMapBounds(product)).toEqual(bounds);

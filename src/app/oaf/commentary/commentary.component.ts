@@ -10,8 +10,8 @@ import { OafService } from '../oaf.service';
  */
 @Component({
   selector: 'oaf-commentary',
-  templateUrl: './commentary.component.html',
-  styleUrls: ['./commentary.component.scss']
+  styleUrls: ['./commentary.component.scss'],
+  templateUrl: './commentary.component.html'
 })
 export class CommentaryComponent implements OnDestroy, OnInit {
   forecast;
@@ -22,15 +22,15 @@ export class CommentaryComponent implements OnDestroy, OnInit {
     public oafService: OafService
   ) {}
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   ngOnInit() {
     this.subscription = this.oafService.oaf$.subscribe(oaf => {
       // select the forecast specified by `oaf.advisoryTimeFrame`
       this.forecast = this.transformForecast(oaf);
     });
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   /**

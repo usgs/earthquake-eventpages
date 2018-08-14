@@ -18,6 +18,15 @@ import { OafComponent } from './oaf/oaf.component';
 import { UpdateTimePipe } from './update-time.pipe';
 
 @NgModule({
+  declarations: [
+    CommentaryComponent,
+    ForecastComponent,
+    ModelComponent,
+    OafComponent,
+    OafPercentPipe,
+    UpdateTimePipe,
+    CommentaryDetailsComponent
+  ],
   imports: [
     CommonModule,
     MatTableModule,
@@ -28,15 +37,6 @@ import { UpdateTimePipe } from './update-time.pipe';
     SharedModule,
 
     OafRoutingModule
-  ],
-  declarations: [
-    CommentaryComponent,
-    ForecastComponent,
-    ModelComponent,
-    OafComponent,
-    OafPercentPipe,
-    UpdateTimePipe,
-    CommentaryDetailsComponent
   ],
   providers: [OafService]
 })

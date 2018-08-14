@@ -7,18 +7,18 @@ import {
   ViewChild,
   HostListener,
   ContentChild,
-  TemplateRef } from '@angular/core';
+  TemplateRef
+} from '@angular/core';
 
 import {
   BaseChartComponent,
   calculateViewDimensions,
   ColorHelper,
   LineSeriesComponent,
-  ViewDimensions,
- } from '@swimlane/ngx-charts';
+  ViewDimensions
+} from '@swimlane/ngx-charts';
 import { scaleLinear, scaleLog, scaleTime } from 'd3-scale';
 import { curveLinear } from 'd3-shape';
-
 
 /**
  * Bubble line chart component for use on maps
@@ -63,12 +63,14 @@ import { curveLinear } from 'd3-shape';
  * @param yRightAxisScaleFactor
  */
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'bubble-line-chart-component',
-  templateUrl: './bubble-line-chart.component.html',
   styleUrls: ['./bubble-line-chart.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './bubble-line-chart.component.html'
 })
 export class BubbleLineChartComponent extends BaseChartComponent {
+  /* tslint:disable:member-ordering */
+  // Ignoring member-ordering here, logical grouping seems more maintainable
 
   // ngx-chart options
   bubblePadding = [0, 0, 0, 0];
@@ -94,136 +96,101 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   yOrientLeft = 'left';
   yScale: any;
 
-  @Input() activeEntries: any[] = [];
-  @Input() animations = true;
-  @Input() autoScale = false;
-  @Input() bubbleChart: any[] = [];
-  @Input() colorSchemeLine: any[];
-  @Input() customColors: any[] = [];
-  @Input() curve = curveLinear;
-  @Input() errorBarColor = '#000000';
-  @Input() gradient: boolean;
-  @Input() legend = false;
-  @Input() legendTitle = 'Legend';
-  @Input() lineChart: any[] = [];
-  @Input() maxRadius = 10;
-  @Input() minRadius = 3;
-  @Input() rangeFillOpacity: number;
-  @Input() roundDomains = false;
-  @Input() results: any;
-  @Input() scaleType = 'linear';
-  @Input() schemeType: string;
-  @Input() scheme: any;
-  @Input() showGridLines = true;
-  @Input() showRightYAxisLabel;
-  @Input() showXAxisLabel;
-  @Input() showYAxisLabel;
-  @Input() tooltipDisabled = false;
-  @Input() xAxis;
-  @Input() xAxisLabel;
-  @Input() xScaleMax: number;
-  @Input() xScaleMin = 0;
-  @Input() yAxis;
-  @Input() yAxisLabel;
-  @Input() yAxisLabelRight;
-  @Input() yAxisTickFormatting: any;
-  @Input() yRightAxisTickFormatting: any;
-  @Input() yScaleMin = 0;
-  @Input() yScaleMax: number;
-  @Input() yLeftAxisScaleFactor: any;
-  @Input() yRightAxisScaleFactor: any;
+  @Input()
+  activeEntries: any[] = [];
+  @Input()
+  animations = true;
+  @Input()
+  autoScale = false;
+  @Input()
+  bubbleChart: any[] = [];
+  @Input()
+  colorSchemeLine: any[];
+  @Input()
+  customColors: any[] = [];
+  @Input()
+  curve = curveLinear;
+  @Input()
+  errorBarColor = '#000000';
+  @Input()
+  gradient: boolean;
+  @Input()
+  legend = false;
+  @Input()
+  legendTitle = 'Legend';
+  @Input()
+  lineChart: any[] = [];
+  @Input()
+  maxRadius = 10;
+  @Input()
+  minRadius = 3;
+  @Input()
+  rangeFillOpacity: number;
+  @Input()
+  roundDomains = false;
+  @Input()
+  results: any;
+  @Input()
+  scaleType = 'linear';
+  @Input()
+  schemeType: string;
+  @Input()
+  scheme: any;
+  @Input()
+  showGridLines = true;
+  @Input()
+  showRightYAxisLabel;
+  @Input()
+  showXAxisLabel;
+  @Input()
+  showYAxisLabel;
+  @Input()
+  tooltipDisabled = false;
+  @Input()
+  xAxis;
+  @Input()
+  xAxisLabel;
+  @Input()
+  xScaleMax: number;
+  @Input()
+  xScaleMin = 0;
+  @Input()
+  yAxis;
+  @Input()
+  yAxisLabel;
+  @Input()
+  yAxisLabelRight;
+  @Input()
+  yAxisTickFormatting: any;
+  @Input()
+  yRightAxisTickFormatting: any;
+  @Input()
+  yScaleMin = 0;
+  @Input()
+  yScaleMax: number;
+  @Input()
+  yLeftAxisScaleFactor: any;
+  @Input()
+  yRightAxisScaleFactor: any;
 
-  @Output() activate: EventEmitter<any> = new EventEmitter();
-  @Output() deactivate: EventEmitter<any> = new EventEmitter();
+  @Output()
+  activate: EventEmitter<any> = new EventEmitter();
+  @Output()
+  deactivate: EventEmitter<any> = new EventEmitter();
 
-  @ContentChild('tooltipTemplate') tooltipTemplate: TemplateRef<any>;
-  @ContentChild('seriesTooltipTemplate') seriesTooltipTemplate:
-      TemplateRef<any>;
+  @ContentChild('tooltipTemplate')
+  tooltipTemplate: TemplateRef<any>;
+  @ContentChild('seriesTooltipTemplate')
+  seriesTooltipTemplate: TemplateRef<any>;
 
-  @ViewChild(LineSeriesComponent) lineSeriesComponent: LineSeriesComponent;
-
-
-  /**
-   * Helper function to get name property of item
-   * @param index
-   * @param item
-   *    The item to search
-   */
-  trackBy (index, item): string {
-    return item.name;
-  }
-
-  /**
-   * Update object dimensions, colors
-   */
-  update (): void {
-    if (!this.autoScale) {
-      this.executeFilter(
-        this.xScaleMin,
-        this.xScaleMax,
-        this.yScaleMin,
-        this.yScaleMax
-      );
-    }
-
-    // update custom colors to use error bars
-    this.customColors.push(
-      {name: 'error', value: this.errorBarColor}
-    );
-
-    this.combinedSeries = this.results;
-    super.update();
-
-    this.dims = calculateViewDimensions({
-      width: this.width,
-      height: this.height,
-      margins: this.margin,
-      showXAxis: this.xAxis,
-      showYAxis: this.yAxis,
-      xAxisHeight: this.xAxisHeight,
-      yAxisWidth: this.yAxisWidth,
-      showXLabel: this.showXAxisLabel,
-      showYLabel: this.showYAxisLabel,
-      showLegend: this.legend,
-      legendType: this.schemeType
-    });
-
-    if (!this.yAxis) {
-      this.legendSpacing = 0;
-    } else if (this.showYAxisLabel && this.yAxis) {
-      this.legendSpacing = 100;
-    } else {
-      this.legendSpacing = 40;
-    }
-
-    // line chart
-    this.xDomain = this.getXDomain();
-    if (this.filteredDomain) {
-      this.xDomain = this.filteredDomain;
-    }
-
-
-    this.yDomain = this.getYDomain();
-    this.rDomain = this.getRDomain();
-    this.seriesDomain = this.getSeriesDomain();
-
-    this.xScale = this.getXScale(this.xDomain, this.dims.width);
-    this.yScale = this.getYScale(this.yDomain, this.dims.height);
-
-    this.rScale = this
-        .getRScale(this.rDomain, [this.minRadius, this.maxRadius]);
-
-    this.bubblePadding = this.getBubblePadding();
-    this.setColors();
-    this.legendOptions = this.getLegendOptions();
-
-    this.transform = `translate(${ this.dims.xOffset } , ${ this.margin[0] })`;
-  }
+  @ViewChild(LineSeriesComponent)
+  lineSeriesComponent: LineSeriesComponent;
+  /* tslint:enable:member-ordering */
 
   /**
    * Emits deactivate event from all active entries
    */
-  deactivateAll () {
+  deactivateAll() {
     this.activeEntries = [...this.activeEntries];
     for (const entry of this.activeEntries) {
       this.deactivate.emit({ value: entry, entries: [] });
@@ -242,54 +209,122 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    * @param ymax
    *     The y axis max
    */
-  executeFilter (xmin, xmax, ymin, ymax) {
+  executeFilter(xmin, xmax, ymin, ymax) {
     for (const series of this.bubbleChart) {
-      series.series = series.series.filter(item =>
-        (xmin ? item.x > xmin : true) &&
-        (xmax ? item.x < xmax : true) &&
-        (ymin ? item.y > ymin : true) &&
-        (ymax ? item.y < ymax : true)
+      series.series = series.series.filter(
+        item =>
+          (xmin ? item.x > xmin : true) &&
+          (xmax ? item.x < xmax : true) &&
+          (ymin ? item.y > ymin : true) &&
+          (ymax ? item.y < ymax : true)
       );
     }
 
     for (const series of this.lineChart) {
-      series.series = series.series.filter(item =>
-        (xmin ? item.x > xmin : true) &&
-        (xmax ? item.x < xmax : true) &&
-        (ymin ? item.y > ymin : true) &&
-        (ymax ? item.y < ymax : true)
+      series.series = series.series.filter(
+        item =>
+          (xmin ? item.x > xmin : true) &&
+          (xmax ? item.x < xmax : true) &&
+          (ymin ? item.y > ymin : true) &&
+          (ymax ? item.y < ymax : true)
       );
     }
   }
 
-  @HostListener('mouseleave')
-  hideCircles (): void {
-    this.hoveredVertical = null;
-    this.deactivateAll();
+  /**
+   * Gets padding on the buble chart
+   * @returns {number[]}
+   */
+  getBubblePadding() {
+    let yMin = 0;
+    let xMin = 0;
+    let yMax = this.dims.height;
+    let xMax = this.dims.width;
+
+    for (const s of this.bubbleChart) {
+      for (const d of s.series) {
+        const r = this.rScale(d.r);
+        const cx = this.xScale(d.x);
+        const cy = this.yScale(d.y);
+        xMin = Math.max(r - cx, xMin);
+        yMin = Math.max(r - cy, yMin);
+        yMax = Math.max(cy + r, yMax);
+        xMax = Math.max(cx + r, xMax);
+      }
+    }
+
+    xMax = Math.max(xMax - this.dims.width, 0);
+    yMax = Math.max(yMax - this.dims.height, 0);
+
+    return [yMin, xMax, yMax, xMin];
   }
 
   /**
-   * Updates the item when hovered on
-   * @param item
-   *    The item to redraw
+   * Helper function to return all options of chart legend
+   * @returns {any}
    */
-  updateHoveredVertical (item): void {
-    this.hoveredVertical = item.value;
-    this.deactivateAll();
+  getLegendOptions() {
+    const opts = {
+      colors: undefined,
+      domain: [],
+      scaleType: this.schemeType,
+      title: undefined
+    };
+    if (opts.scaleType === 'ordinal') {
+      opts.domain = this.seriesDomain;
+      opts.colors = this.colors;
+      opts.title = this.legendTitle;
+    } else {
+      opts.domain = this.seriesDomain;
+      opts.colors = this.colors.scale;
+    }
+    return opts;
+  }
+
+  /**
+   * Helper function to get all R domain values
+   */
+  getRDomain(): number[] {
+    let min = Infinity;
+    let max = -Infinity;
+
+    for (const results of this.results) {
+      for (const d of results.series) {
+        const value = Number(d.r) || 1;
+        min = Math.min(min, value);
+        max = Math.max(max, value);
+      }
+    }
+
+    return [min, max];
+  }
+
+  /**
+   * Helper function to return scale of R values
+   * @param domain
+   *    All domain values
+   * @param range
+   *    All y range values
+   */
+  getRScale(domain, range): any {
+    const scale = scaleLinear()
+      .range(range)
+      .domain(domain);
+
+    return this.roundDomains ? scale.nice() : scale;
   }
 
   /**
    * Returns the entire series domain numbers
    */
-  getSeriesDomain (): any[] {
-    return [...this.bubbleChart, ...this.lineChart]
-        .map(d => d.name );
+  getSeriesDomain(): any[] {
+    return [...this.bubbleChart, ...this.lineChart].map(d => d.name);
   }
 
   /**
    * Returns all set of x domain values
    */
-  getXDomain (): any[] {
+  getXDomain(): any[] {
     const values = [];
 
     for (const results of [...this.lineChart, ...this.bubbleChart]) {
@@ -320,9 +355,40 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   }
 
   /**
+   * Helper method to get the xscale of the chart
+   * @param domain
+   *    All domain numeric values
+   * @param width
+   *     Width of the chart
+   */
+  getXScale(domain, width): any {
+    let scale;
+
+    if (this.scaleType === 'time') {
+      scale = scaleTime()
+        .range([0, width])
+        .domain(domain);
+    } else if (this.scaleType === 'linear') {
+      scale = scaleLinear()
+        .range([0, width])
+        .domain(domain);
+
+      if (this.roundDomains) {
+        scale = scale.nice();
+      }
+    } else if (this.scaleType === 'log') {
+      scale = scaleLog()
+        .range([0, width])
+        .domain(domain);
+    }
+
+    return scale;
+  }
+
+  /**
    * Returns all set of y domain values
    */
-  getYDomain (): any[] {
+  getYDomain(): any[] {
     const values = [];
 
     for (const results of [...this.lineChart, ...this.bubbleChart]) {
@@ -370,44 +436,13 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   }
 
   /**
-   * Helper method to get the xscale of the chart
-   * @param domain
-   *    All domain numeric values
-   * @param width
-   *     Width of the chart
-   */
-  getXScale (domain, width): any {
-    let scale;
-
-    if (this.scaleType === 'time') {
-      scale = scaleTime()
-        .range([0, width])
-        .domain(domain);
-    } else if (this.scaleType === 'linear') {
-      scale = scaleLinear()
-        .range([0, width])
-        .domain(domain);
-
-      if (this.roundDomains) {
-        scale = scale.nice();
-      }
-    } else if (this.scaleType === 'log') {
-      scale = scaleLog()
-        .range([0, width])
-        .domain(domain);
-    }
-
-    return scale;
-  }
-
-  /**
    * Helper method to get the yscale of the chart
    * @param domain
    *    All domain numeric values
    * @param height
    *    Height of the chart
    */
-  getYScale (domain, height): any {
+  getYScale(domain, height): any {
     const scale = scaleLinear()
       .range([height, 0])
       .domain(domain);
@@ -415,86 +450,10 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     return this.roundDomains ? scale.nice() : scale;
   }
 
-  /**
-   * Helper function to get all R domain values
-   */
-  getRDomain (): number[] {
-    let min = Infinity;
-    let max = -Infinity;
-
-    for (const results of this.results) {
-      for (const d of results.series) {
-        const value = Number(d.r) || 1;
-        min = Math.min(min, value);
-        max = Math.max(max, value);
-      }
-    }
-
-    return [min, max];
-  }
-
-  /**
-   * Click listener to emit data
-   * @param data
-   *     The data to be emitted
-   */
-  onClick (data) {
-    this.select.emit(data);
-  }
-
-  /**
-   * Sets colors on specific domain
-   */
-  setColors (): void {
-    let domain;
-    if (this.schemeType === 'ordinal') {
-      domain = this.xDomain;
-    } else {
-      domain = this.yDomain;
-    }
-    this.colors = new ColorHelper(this.scheme,
-        this.schemeType, domain, this.customColors);
-  }
-
-  /**
-   * Helper function to return all options of chart legend
-   * @returns {any}
-   */
-  getLegendOptions () {
-    const opts = {
-      scaleType: this.schemeType,
-      colors: undefined,
-      domain: [],
-      title: undefined
-    };
-    if (opts.scaleType === 'ordinal') {
-      opts.domain = this.seriesDomain;
-      opts.colors = this.colors;
-      opts.title = this.legendTitle;
-    } else {
-      opts.domain = this.seriesDomain;
-      opts.colors = this.colors.scale;
-    }
-    return opts;
-  }
-
-  /**
-   * Helper function to update the y axis width of the chart
-   * @param width
-   *    The object width
-   */
-  updateYAxisWidth ({ width }): void {
-    this.yAxisWidth = width + 20;
-    this.update();
-  }
-
-  /**
-   * Helper function to update the x axis height of the chart
-   * @param height
-   */
-  updateXAxisHeight ({ height }): void {
-    this.xAxisHeight = height;
-    this.update();
+  @HostListener('mouseleave')
+  hideCircles(): void {
+    this.hoveredVertical = null;
+    this.deactivateAll();
   }
 
   /**
@@ -503,17 +462,29 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    *    The item object, checks for equal object within activeEntries set and
    *      returns the result
    */
-  onActivate (item) {
+  onActivate(item) {
     const idx = this.activeEntries.findIndex(d => {
-      return d.name === item.name && d.value === item.value
-      && d.series === item.series;
+      return (
+        d.name === item.name &&
+        d.value === item.value &&
+        d.series === item.series
+      );
     });
     if (idx > -1) {
       return;
     }
 
-    this.activeEntries = [ item, ...this.activeEntries ];
+    this.activeEntries = [item, ...this.activeEntries];
     this.activate.emit({ value: item, entries: this.activeEntries });
+  }
+
+  /**
+   * Click listener to emit data
+   * @param data
+   *     The data to be emitted
+   */
+  onClick(data) {
+    this.select.emit(data);
   }
 
   /**
@@ -522,10 +493,13 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    *    The item object, checks for equal object within activeEntries set and
    *      returns result
    */
-  onDeactivate (item) {
+  onDeactivate(item) {
     const idx = this.activeEntries.findIndex(d => {
-      return d.name === item.name && d.value === item.value &&
-      d.series === item.series;
+      return (
+        d.name === item.name &&
+        d.value === item.value &&
+        d.series === item.series
+      );
     });
 
     this.activeEntries.splice(idx, 1);
@@ -535,46 +509,126 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   }
 
   /**
-   * Helper function to return scale of R values
-   * @param domain
-   *    All domain values
-   * @param range
-   *    All y range values
+   * Sets colors on specific domain
    */
-  getRScale (domain, range): any {
-    const scale = scaleLinear()
-      .range(range)
-      .domain(domain);
-
-    return this.roundDomains ? scale.nice() : scale;
+  setColors(): void {
+    let domain;
+    if (this.schemeType === 'ordinal') {
+      domain = this.xDomain;
+    } else {
+      domain = this.yDomain;
+    }
+    this.colors = new ColorHelper(
+      this.scheme,
+      this.schemeType,
+      domain,
+      this.customColors
+    );
   }
 
   /**
-   * Gets padding on the buble chart
-   * @returns {number[]}
+   * Helper function to get name property of item
+   * @param index
+   * @param item
+   *    The item to search
    */
-  getBubblePadding () {
-    let yMin = 0;
-    let xMin = 0;
-    let yMax = this.dims.height;
-    let xMax = this.dims.width;
+  trackBy(index, item): string {
+    return item.name;
+  }
 
-    for (const s of this.bubbleChart) {
-      for (const d of s.series) {
-        const r = this.rScale(d.r);
-        const cx = this.xScale(d.x);
-        const cy = this.yScale(d.y);
-        xMin = Math.max(r - cx, xMin);
-        yMin = Math.max(r - cy, yMin);
-        yMax = Math.max(cy + r, yMax);
-        xMax = Math.max(cx + r, xMax);
-      }
+  /**
+   * Update object dimensions, colors
+   */
+  update(): void {
+    if (!this.autoScale) {
+      this.executeFilter(
+        this.xScaleMin,
+        this.xScaleMax,
+        this.yScaleMin,
+        this.yScaleMax
+      );
     }
 
-    xMax = Math.max(xMax - this.dims.width, 0);
-    yMax = Math.max(yMax - this.dims.height, 0);
+    // update custom colors to use error bars
+    this.customColors.push({ name: 'error', value: this.errorBarColor });
 
-    return [yMin, xMax, yMax, xMin];
+    this.combinedSeries = this.results;
+    super.update();
+
+    this.dims = calculateViewDimensions({
+      height: this.height,
+      legendType: this.schemeType,
+      margins: this.margin,
+      showLegend: this.legend,
+      showXAxis: this.xAxis,
+      showXLabel: this.showXAxisLabel,
+      showYAxis: this.yAxis,
+      showYLabel: this.showYAxisLabel,
+      width: this.width,
+      xAxisHeight: this.xAxisHeight,
+      yAxisWidth: this.yAxisWidth
+    });
+
+    if (!this.yAxis) {
+      this.legendSpacing = 0;
+    } else if (this.showYAxisLabel && this.yAxis) {
+      this.legendSpacing = 100;
+    } else {
+      this.legendSpacing = 40;
+    }
+
+    // line chart
+    this.xDomain = this.getXDomain();
+    if (this.filteredDomain) {
+      this.xDomain = this.filteredDomain;
+    }
+
+    this.yDomain = this.getYDomain();
+    this.rDomain = this.getRDomain();
+    this.seriesDomain = this.getSeriesDomain();
+
+    this.xScale = this.getXScale(this.xDomain, this.dims.width);
+    this.yScale = this.getYScale(this.yDomain, this.dims.height);
+
+    this.rScale = this.getRScale(this.rDomain, [
+      this.minRadius,
+      this.maxRadius
+    ]);
+
+    this.bubblePadding = this.getBubblePadding();
+    this.setColors();
+    this.legendOptions = this.getLegendOptions();
+
+    this.transform = `translate(${this.dims.xOffset} , ${this.margin[0]})`;
+  }
+
+  /**
+   * Updates the item when hovered on
+   * @param item
+   *    The item to redraw
+   */
+  updateHoveredVertical(item): void {
+    this.hoveredVertical = item.value;
+    this.deactivateAll();
+  }
+
+  /**
+   * Helper function to update the x axis height of the chart
+   * @param height
+   */
+  updateXAxisHeight({ height }): void {
+    this.xAxisHeight = height;
+    this.update();
+  }
+
+  /**
+   * Helper function to update the y axis width of the chart
+   * @param width
+   *    The object width
+   */
+  updateYAxisWidth({ width }): void {
+    this.yAxisWidth = width + 20;
+    this.update();
   }
 
   /**
@@ -582,7 +636,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    * @param value
    *    The value of the x axis tick
    */
-  xAxisTickFormatting (value) {
+  xAxisTickFormatting(value) {
     return value;
   }
 }

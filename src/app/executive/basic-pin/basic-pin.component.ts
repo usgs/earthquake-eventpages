@@ -1,6 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 
-
 /**
  * Base pin class
  *
@@ -20,10 +19,10 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
  *     text for title
  */
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'basic-pin',
-  templateUrl: './basic-pin.component.html',
   styleUrls: ['./basic-pin.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './basic-pin.component.html'
 })
 export class BasicPinComponent {
   @Input()

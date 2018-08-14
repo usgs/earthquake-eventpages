@@ -8,34 +8,34 @@ import { OafComponent } from './oaf/oaf.component';
 
 const oafRoutes: Routes = [
   {
-    // this module must be loaded lazily using "loadChildren"
-    // the actual url mount point is defined in "app/app-routing.module.ts"
-    path: '',
-    component: OafComponent,
     children: [
       {
-        path: 'commentary',
-        component: CommentaryComponent
+        component: CommentaryComponent,
+        path: 'commentary'
       },
       {
-        path: 'forecast',
-        component: ForecastComponent
+        component: ForecastComponent,
+        path: 'forecast'
       },
       {
-        path: 'model',
-        component: ModelComponent
+        component: ModelComponent,
+        path: 'model'
       },
       {
         path: '',
         pathMatch: 'full',
         redirectTo: 'commentary'
       }
-    ]
+    ],
+    component: OafComponent,
+    // this module must be loaded lazily using "loadChildren"
+    // the actual url mount point is defined in "app/app-routing.module.ts"
+    path: ''
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(oafRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  imports: [RouterModule.forChild(oafRoutes)]
 })
 export class OafRoutingModule {}

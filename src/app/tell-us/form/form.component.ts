@@ -26,25 +26,24 @@ import { FormLanguageService } from '../form-language.service';
  */
 @Component({
   selector: 'tell-us-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+  styleUrls: ['./form.component.scss'],
+  templateUrl: './form.component.html'
 })
 export class FormComponent implements AfterViewInit, OnDestroy {
   // these answers control whether the submit button is enabled
   // others are populated as needed
   answers: any = {
-    fldSituation_felt: null,
     ciim_mapLat: null,
     ciim_mapLon: null,
-    ciim_time: null
+    ciim_time: null,
+    fldSituation_felt: null
   };
   error: any = null;
-  responseUrl = '/data/dyfi/form/response.php';
-  subscription: Subscription = new Subscription();
-
   // The rendered map at the top of the form
   @ViewChild(LocationMapComponent)
   locationMapComponent: LocationMapComponent;
+  responseUrl = '/data/dyfi/form/response.php';
+  subscription: Subscription = new Subscription();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -125,6 +124,33 @@ export class FormComponent implements AfterViewInit, OnDestroy {
   }
 
   /**
+   * Set event information
+   *
+   * @param event
+   *     The event
+   */
+  setEvent(event: Event) {
+    let time = event.properties.time || null;
+    if (time) {
+      time = new Date(time).toISOString();
+    }
+
+    this.answers.eventid = event.id;
+    this.answers.ciim_time = time;
+  }
+
+  /**
+   * Called when user selects a language.
+   *
+   * @param language
+   *     selected language.
+   */
+  setLanguage(language: string) {
+    this.answers.language = language;
+    this.languageService.getLanguage(language);
+  }
+
+  /**
    * Checks to make sure that required fields were filled out
    * before submitting.
    *
@@ -154,33 +180,6 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     }
 
     return true;
-  }
-
-  /**
-   * Set event information
-   *
-   * @param event
-   *     The event
-   */
-  setEvent(event: Event) {
-    let time = event.properties.time || null;
-    if (time) {
-      time = new Date(time).toISOString();
-    }
-
-    this.answers.eventid = event.id;
-    this.answers.ciim_time = time;
-  }
-
-  /**
-   * Called when user selects a language.
-   *
-   * @param language
-   *     selected language.
-   */
-  setLanguage(language: string) {
-    this.answers.language = language;
-    this.languageService.getLanguage(language);
   }
 
   /**

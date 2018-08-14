@@ -8,14 +8,13 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'executive-oaf-pin',
-  templateUrl: './oaf-pin.component.html',
-  styleUrls: ['./oaf-pin.component.scss']
+  styleUrls: ['./oaf-pin.component.scss'],
+  templateUrl: './oaf-pin.component.html'
 })
 export class OafPinComponent {
   link = '../oaf';
-  title = 'Aftershock Forecast';
-  type = 'oaf';
-
   @Input()
   product: any;
+  title = 'Aftershock Forecast';
+  type = 'oaf';
 }

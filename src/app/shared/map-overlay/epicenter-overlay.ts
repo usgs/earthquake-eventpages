@@ -3,12 +3,13 @@ import * as L from 'leaflet';
 /**
  * Epicenter overlay for leaflet map
  */
+// tslint:disable-next-line:variable-name
 const EpicenterOverlay = L.Marker.extend({
-  id: 'epicenter',
-  enabled: true,
-  title: 'Epicenter',
   bounds: null,
+  enabled: true,
+  id: 'epicenter',
   legend: null,
+  title: 'Epicenter',
 
   /**
    * Build leaflet overlay
@@ -44,9 +45,9 @@ const EpicenterOverlay = L.Marker.extend({
 
     L.Marker.prototype.initialize.call(this, [latitude, longitude], {
       icon: L.icon({
-        iconUrl: 'assets/star.png',
+        iconAnchor: [8, 8],
         iconSize: [16, 16],
-        iconAnchor: [8, 8]
+        iconUrl: 'assets/star.png'
       }),
       interactive: false
     });

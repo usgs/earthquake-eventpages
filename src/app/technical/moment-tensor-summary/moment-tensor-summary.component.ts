@@ -10,10 +10,11 @@ import { Tensor } from '@shared/beachball/tensor';
  */
 @Component({
   selector: 'technical-moment-tensor-summary',
-  templateUrl: './moment-tensor-summary.component.html',
-  styleUrls: ['./moment-tensor-summary.component.scss']
+  styleUrls: ['./moment-tensor-summary.component.scss'],
+  templateUrl: './moment-tensor-summary.component.html'
 })
 export class MomentTensorSummaryComponent {
+  _products: Array<any>;
   // Table headers
   columnsToDisplay = [
     'catalog',
@@ -23,11 +24,9 @@ export class MomentTensorSummaryComponent {
     'percentDC',
     'source'
   ];
-  _products: Array<any>;
-  tensors: Array<any> = [];
-
   @Input()
   event: any;
+  tensors: Array<any> = [];
 
   constructor(public formatterService: FormatterService) {}
 

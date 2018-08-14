@@ -10,7 +10,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { RegionInfoComponent } from './region-info.component';
 
-
 describe('RegionInfoComponent', () => {
   let component: RegionInfoComponent;
   let fixture: ComponentFixture<RegionInfoComponent>;
@@ -25,26 +24,29 @@ describe('RegionInfoComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
       declarations: [
         RegionInfoComponent,
 
-        MockComponent({selector: 'shared-map', inputs: ['overlays', 'showScaleControl']}),
-        MockComponent({selector: 'shared-summary-link', inputs: ['productType', 'event']}),
-        MockComponent({selector: 'app-admin-region'}),
-        MockComponent({selector: 'app-nearby-places'}),
-        MockComponent({selector: 'app-tectonic-summary-region'}),
+        MockComponent({
+          inputs: ['overlays', 'showScaleControl'],
+          selector: 'shared-map'
+        }),
+        MockComponent({
+          inputs: ['productType', 'event'],
+          selector: 'shared-summary-link'
+        }),
+        MockComponent({ selector: 'app-admin-region' }),
+        MockComponent({ selector: 'app-nearby-places' }),
+        MockComponent({ selector: 'app-tectonic-summary-region' }),
         MockPipe('getProduct'),
         MockPipe('regionInfoOverlays')
       ],
+      imports: [RouterTestingModule],
       providers: [
-        {provide: CoordinatesService, useValue: coordinatesServiceStub},
-        {provide: EventService, useValue: eventServiceStub}
+        { provide: CoordinatesService, useValue: coordinatesServiceStub },
+        { provide: EventService, useValue: eventServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -60,7 +62,9 @@ describe('RegionInfoComponent', () => {
   describe('updateGeoserveCoordinateService', () => {
     it('returns when no event is passed', () => {
       component.updateGeoserveCoordinateService(null);
-      expect(component.coordinatesService.setCoordinates).not.toHaveBeenCalled();
+      expect(
+        component.coordinatesService.setCoordinates
+      ).not.toHaveBeenCalled();
     });
     it('sets coordinates', () => {
       const latitude = 35;
@@ -68,11 +72,7 @@ describe('RegionInfoComponent', () => {
 
       const event = {
         geometry: {
-          coordinates: [
-            longitude,
-            latitude,
-            0
-          ]
+          coordinates: [longitude, latitude, 0]
         }
       };
 
@@ -83,5 +83,4 @@ describe('RegionInfoComponent', () => {
       });
     });
   });
-
 });

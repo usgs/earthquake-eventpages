@@ -17,8 +17,8 @@ describe('NavigationComponent', () => {
 
         MockComponent({ selector: 'app-navigation-group' }),
         MockComponent({
-          selector: 'app-navigation-item',
-          inputs: ['display', 'navHrefLink', 'navRouterLink']
+          inputs: ['display', 'navHrefLink', 'navRouterLink'],
+          selector: 'app-navigation-item'
         }),
         MockPipe('nearbySeismicityLink')
       ]

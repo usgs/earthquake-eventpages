@@ -19,17 +19,17 @@ describe('StationListComponent', () => {
     };
 
     const stationServiceStub = {
-      stationsJson$: of({}),
-      getStations: jasmine.createSpy('stationService::get')
+      getStations: jasmine.createSpy('stationService::get'),
+      stationsJson$: of({})
     };
 
     TestBed.configureTestingModule({
-      imports: [MatDividerModule],
       declarations: [
         StationListComponent,
 
         MockComponent({ selector: 'shared-station', inputs: ['station'] })
       ],
+      imports: [MatDividerModule],
       providers: [
         { provide: EventService, useValue: eventServiceStub },
         { provide: StationService, useValue: stationServiceStub }

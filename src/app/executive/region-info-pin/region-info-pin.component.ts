@@ -10,13 +10,12 @@ import { Event } from '../../event';
  */
 @Component({
   selector: 'executive-region-info-pin',
-  templateUrl: './region-info-pin.component.html',
-  styleUrls: ['./region-info-pin.component.scss']
+  styleUrls: ['./region-info-pin.component.scss'],
+  templateUrl: './region-info-pin.component.html'
 })
 export class RegionInfoPinComponent {
-  link = '../region-info';
-  title = 'Regional Information';
-
   @Input()
   event: Event;
+  link = '../region-info';
+  title = 'Regional Information';
 }

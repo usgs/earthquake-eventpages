@@ -10,14 +10,18 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'shakemap-uncertainty',
-  templateUrl: './uncertainty.component.html',
-  styleUrls: ['./uncertainty.component.scss']
+  styleUrls: ['./uncertainty.component.scss'],
+  templateUrl: './uncertainty.component.html'
 })
 export class UncertaintyComponent implements OnInit, OnDestroy {
   imageUrl: string = null;
   subscription = new Subscription();
 
   constructor(public eventService: EventService) {}
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit() {
     this.subscription.add(
@@ -27,10 +31,6 @@ export class UncertaintyComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
   /**
    * New product, get new image url
    *
@@ -38,7 +38,7 @@ export class UncertaintyComponent implements OnInit, OnDestroy {
    *     shakemap product
    */
   onProduct(product: any): void {
-    if (product == null || !product.contents['download/urat_pga.jpg']) {
+    if (product === null || !product.contents['download/urat_pga.jpg']) {
       this.imageUrl = null;
       return;
     }

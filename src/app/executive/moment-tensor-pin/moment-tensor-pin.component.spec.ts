@@ -13,19 +13,19 @@ describe('MomentTensorPinComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatCardModule, RouterTestingModule],
       declarations: [
         MomentTensorPinComponent,
 
         MockComponent({
-          selector: 'basic-pin',
-          inputs: ['footer', 'link', 'product', 'title']
+          inputs: ['footer', 'link', 'product', 'title'],
+          selector: 'basic-pin'
         }),
         MockComponent({
-          selector: 'shared-beachball',
-          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'tensor', 'size']
+          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'tensor', 'size'],
+          selector: 'shared-beachball'
         })
-      ]
+      ],
+      imports: [MatCardModule, RouterTestingModule]
     }).compileComponents();
   }));
 

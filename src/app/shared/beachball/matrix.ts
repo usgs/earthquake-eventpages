@@ -2,20 +2,18 @@
 
 import { Vector } from './vector';
 
-
 // static methods that operate on arrays
-let __col,
-    __diagonal,
-    __get,
-    __identity,
-    __index,
-    __jacobi,
-    __multiply,
-    __row,
-    __set,
-    __stringify,
-    __transpose;
-
+let _col,
+  _diagonal,
+  _get,
+  _identity,
+  _index,
+  _jacobi,
+  _multiply,
+  _row,
+  _set,
+  _stringify,
+  _transpose;
 
 /**
  * Extract a column from this matrix.
@@ -31,13 +29,13 @@ let __col,
  * @throws Error if column out of range.
  * @return {Array<Number>} column elements.
  */
-__col = function (
-    data: Array<number>,
-    m: number,
-    n: number,
-    col: number): Array<number> {
-  let row,
-      values;
+_col = function(
+  data: Array<number>,
+  m: number,
+  n: number,
+  col: number
+): Array<number> {
+  let row, values;
   if (col < 0 || col >= n) {
     throw new Error('column ' + col + ' out of range [0,' + n + ')');
   }
@@ -47,7 +45,7 @@ __col = function (
   }
   values = [];
   for (row = 0; row < m; row++) {
-    values.push(data[__index(m, n, row, col)]);
+    values.push(data[_index(m, n, row, col)]);
   }
   return values;
 };
@@ -63,16 +61,11 @@ __col = function (
  *        number of columns.
  * @return {Array<Number>} elements on the diagonal.
  */
-__diagonal = function (
-    data: Array<number>,
-    m: number,
-    n: number): Array<number> {
-  let len,
-      diag;
-  len = Math.min(m, n),
-  diag = [];
+_diagonal = function(data: Array<number>, m: number, n: number): Array<number> {
+  let len, diag;
+  (len = Math.min(m, n)), (diag = []);
   for (let i = 0; i < len; i++) {
-    diag.push(data[__index(m, n, i, i)]);
+    diag.push(data[_index(m, n, i, i)]);
   }
   return diag;
 };
@@ -93,13 +86,14 @@ __diagonal = function (
  * @throws Error if row or col are out of range.
  * @return {Number} value.
  */
-__get = function (
-    data: Array<number>,
-    m: number,
-    n: number,
-    row: number,
-    col: number): number {
-  return data[__index(m, n, row, col)];
+_get = function(
+  data: Array<number>,
+  m: number,
+  n: number,
+  row: number,
+  col: number
+): number {
+  return data[_index(m, n, row, col)];
 };
 
 /**
@@ -109,14 +103,12 @@ __get = function (
  *        number of rows and columns.
  * @return identity matrix of size n.
  */
-__identity = function (n: number): Array<number> {
-  let values,
-      row,
-      col;
+_identity = function(n: number): Array<number> {
+  let values, row, col;
   values = [];
   for (row = 0; row < n; row++) {
     for (col = 0; col < n; col++) {
-      values.push((row === col) ? 1 : 0);
+      values.push(row === col ? 1 : 0);
     }
   }
   return values;
@@ -137,7 +129,7 @@ __identity = function (n: number): Array<number> {
  *        column of element, in range [0,n)
  * @return {Number} index.
  */
-__index = function (m: number, n: number, row: number, col: number): number {
+_index = function(m: number, n: number, row: number, col: number): number {
   return n * row + col;
 };
 
@@ -162,39 +154,40 @@ __index = function (m: number, n: number, row: number, col: number): number {
  * @return {Array<any>}
  *         Object with eigenvalue and vector properties.
  */
-__jacobi = function (
-    data: Array<number>,
-    m: number,
-    n: number,
-    maxRotations: number): Array<any> {
+_jacobi = function(
+  data: Array<number>,
+  m: number,
+  n: number,
+  maxRotations: number
+): Array<any> {
   let a,
-      aip,
-      aiq,
-      api,
-      app,
-      app1,
-      apq,
-      aqi,
-      aqq,
-      aqq1,
-      c,
-      changed,
-      e,
-      i,
-      ip,
-      iq,
-      p,
-      phi,
-      pi,
-      q,
-      qi,
-      rotations,
-      s,
-      v,
-      vector,
-      vectors,
-      vip,
-      viq;
+    aip,
+    aiq,
+    api,
+    app,
+    app1,
+    apq,
+    aqi,
+    aqq,
+    aqq1,
+    c,
+    changed,
+    e,
+    i,
+    ip,
+    iq,
+    p,
+    phi,
+    pi,
+    q,
+    qi,
+    rotations,
+    s,
+    v,
+    vector,
+    vectors,
+    vip,
+    viq;
 
   if (m !== n) {
     throw new Error('Jacobi only works on symmetric, square matrices');
@@ -203,8 +196,8 @@ __jacobi = function (
   // set a default max
   maxRotations = maxRotations;
   a = data.slice(0);
-  e = __diagonal(data, m, n);
-  v = __identity(n);
+  e = _diagonal(data, m, n);
+  v = _identity(n);
   rotations = 0;
 
   do {
@@ -264,7 +257,7 @@ __jacobi = function (
         }
       }
     }
-  } while (changed && (rotations < maxRotations));
+  } while (changed && rotations < maxRotations);
 
   if (changed) {
     throw new Error('failed to converge');
@@ -273,7 +266,7 @@ __jacobi = function (
   vectors = [];
   for (i = 0; i < n; i++) {
     // i-th vector is i-th column
-    vector = new Vector(__col(v, m, n, i));
+    vector = new Vector(_col(v, m, n, i));
     vectors.push({
       eigenvalue: e[i],
       vector: vector
@@ -303,21 +296,24 @@ __jacobi = function (
  *
  * @return result of multiplication (original matrix is unchanged).
  */
-__multiply = function (data1: Array<number>, m1: number, n1: number, data2: Array<number>, m2: number, n2: number): Array<number> {
-  let col,
-      col2,
-      row,
-      row1,
-      values;
+_multiply = function(
+  data1: Array<number>,
+  m1: number,
+  n1: number,
+  data2: Array<number>,
+  m2: number,
+  n2: number
+): Array<number> {
+  let col, col2, row, row1, values;
 
   if (n1 !== m2) {
     throw new Error('wrong combination of rows and cols');
   }
   values = [];
   for (row = 0; row < m1; row++) {
-    row1 = __row(data1, m1, n1, row);
+    row1 = _row(data1, m1, n1, row);
     for (col = 0; col < n2; col++) {
-      col2 = __col(data2, m2, n2, col);
+      col2 = _col(data2, m2, n2, col);
       // result is dot product
       values.push(Vector.dot(row1, col2));
     }
@@ -341,15 +337,19 @@ __multiply = function (data1: Array<number>, m1: number, n1: number, data2: Arra
  *
  * @return {Array<Number>} row elements.
  */
-__row = function (data: Array<number>, m: number, n: number, row: number): Array<number> {
-  let col,
-      values;
+_row = function(
+  data: Array<number>,
+  m: number,
+  n: number,
+  row: number
+): Array<number> {
+  let col, values;
   if (row < 0 || row >= m) {
     throw new Error('row ' + row + ' out of range [0,' + m + ')');
   }
   values = [];
   for (col = 0; col < n; col++) {
-    values.push(data[__index(m, n, row, col)]);
+    values.push(data[_index(m, n, row, col)]);
   }
   return values;
 };
@@ -374,8 +374,15 @@ __row = function (data: Array<number>, m: number, n: number, row: number): Array
  *
  * @throws Error if row or col are out of range.
  */
-__set = function (data: Array<number>, m: number, n: number, row: number, col: number, value: number) {
-  data[__index(m, n, row, col)] = value;
+_set = function(
+  data: Array<number>,
+  m: number,
+  n: number,
+  row: number,
+  col: number,
+  value: number
+) {
+  data[_index(m, n, row, col)] = value;
 };
 
 /**
@@ -390,12 +397,8 @@ __set = function (data: Array<number>, m: number, n: number, row: number, col: n
  *
  * @return {String} formatted matrix.
  */
-__stringify = function (data: Array<number>, m: number, n: number): string {
-  let lastRow,
-      lastCol,
-      buf,
-      row,
-      col;
+_stringify = function(data: Array<number>, m: number, n: number): string {
+  let lastRow, lastCol, buf, row, col;
 
   lastRow = m - 1;
   lastCol = n - 1;
@@ -405,8 +408,9 @@ __stringify = function (data: Array<number>, m: number, n: number): string {
   for (row = 0; row < m; row++) {
     for (col = 0; col < n; col++) {
       buf.push(
-          data[n * row + col],
-          (col !== lastCol || row !== lastRow) ? ', ' : '');
+        data[n * row + col],
+        col !== lastCol || row !== lastRow ? ', ' : ''
+      );
     }
     if (row !== lastRow) {
       buf.push('\n ');
@@ -428,19 +432,20 @@ __stringify = function (data: Array<number>, m: number, n: number): string {
  *
  * @return transposed matrix (original matrix is unchanged).
  */
-__transpose = function (data: Array<number>, m: number, n: number): Array<number> {
-  let values,
-      row,
-      col;
+_transpose = function(
+  data: Array<number>,
+  m: number,
+  n: number
+): Array<number> {
+  let values, row, col;
   values = [];
   for (col = 0; col < n; col++) {
     for (row = 0; row < m; row++) {
-      values.push(data[__index(m, n, row, col)]);
+      values.push(data[_index(m, n, row, col)]);
     }
   }
   return values;
 };
-
 
 /**
  * Construct a new Matrix object.
@@ -458,20 +463,18 @@ __transpose = function (data: Array<number>, m: number, n: number): Array<number
  *        number of columns.
  */
 export class Matrix {
-
   // expose static methods.
-  static col = __col;
-  static diagonal = __diagonal;
-  static get = __get;
-  static identity = __identity;
-  static index = __index;
-  static jacobi = __jacobi;
-  static multiply = __multiply;
-  static row = __row;
-  static set = __set;
-  static stringify = __stringify;
-  static transpose = __transpose;
-
+  static col = _col;
+  static diagonal = _diagonal;
+  static get = _get;
+  static identity = _identity;
+  static index = _index;
+  static jacobi = _jacobi;
+  static multiply = _multiply;
+  static row = _row;
+  static set = _set;
+  static stringify = _stringify;
+  static transpose = _transpose;
 
   constructor(
     // data in row-major order
@@ -498,7 +501,8 @@ export class Matrix {
       if (this.m !== Math.floor(this.m)) {
         throw new Error('wrong number of data elements');
       }
-    } else { // (!this.n)
+    } else {
+      // (!this.n)
       this.n = this.data.length / this.m;
       if (this.n !== Math.floor(this.n)) {
         throw new Error('wrong number of data elements');
@@ -516,7 +520,7 @@ export class Matrix {
    *
    * @return result of addition (original matrix is unchanged).
    */
-  add (that: Matrix): Matrix {
+  add(that: Matrix): Matrix {
     if (this.m !== that.m || this.n !== that.n) {
       throw new Error('matrices must be same size');
     }
@@ -531,8 +535,8 @@ export class Matrix {
    *
    * @return {Array<Number>} array containing elements from column.
    */
-  col (col: number): Array<number> {
-    return __col(this.data, this.m, this.n, col);
+  col(col: number): Array<number> {
+    return _col(this.data, this.m, this.n, col);
   }
 
   /**
@@ -540,8 +544,8 @@ export class Matrix {
    *
    * @return {Array<Number>} array containing elements from diagonal.
    */
-  diagonal (): Array<number> {
-    return __diagonal(this.data, this.m, this.n);
+  diagonal(): Array<number> {
+    return _diagonal(this.data, this.m, this.n);
   }
 
   /**
@@ -554,8 +558,8 @@ export class Matrix {
    *
    * @return {Number} value at (row, col).
    */
-  get (row: number, col: number): number {
-    return __get(this.data, this.m, this.n, row, col);
+  get(row: number, col: number): number {
+    return _get(this.data, this.m, this.n, row, col);
   }
 
   /**
@@ -570,8 +574,8 @@ export class Matrix {
    * @return {Array<any>} eigenvectors.
    *         Object with eigenvalue and vector properties.
    */
-  jacobi (maxRotations: number = 100): Array<any> {
-    return __jacobi(this.data, this.m, this.n, maxRotations);
+  jacobi(maxRotations: number = 100): Array<any> {
+    return _jacobi(this.data, this.m, this.n, maxRotations);
   }
 
   /**
@@ -582,12 +586,13 @@ export class Matrix {
    *
    * @return {Matrix} result of multiplication.
    */
-  multiply (that: Matrix): Matrix {
-    return new Matrix(__multiply(
-        this.data, this.m, this.n,
-        that.data, that.m, that.n),
-        // use that.N
-        this.m, that.n);
+  multiply(that: Matrix): Matrix {
+    return new Matrix(
+      _multiply(this.data, this.m, this.n, that.data, that.m, that.n),
+      // use that.N
+      this.m,
+      that.n
+    );
   }
 
   /**
@@ -595,7 +600,7 @@ export class Matrix {
    *
    * @return {Matrix} result of negation.
    */
-  negative (): Matrix {
+  negative(): Matrix {
     return new Matrix(Vector.multiply(this.data, -1), this.m, this.n);
   }
 
@@ -607,8 +612,8 @@ export class Matrix {
    *
    * @return {Array<Number>} elements from row.
    */
-  row (row): Array<number> {
-    return __row(this.data, this.m, this.n, row);
+  row(row): Array<number> {
+    return _row(this.data, this.m, this.n, row);
   }
 
   /**
@@ -621,8 +626,8 @@ export class Matrix {
    * @param value {Number}
    *        value to set.
    */
-  set (row: number, col: number, value: number) {
-    __set(this.data, this.m, this.n, row, col, value);
+  set(row: number, col: number, value: number) {
+    _set(this.data, this.m, this.n, row, col, value);
   }
 
   /**
@@ -635,7 +640,7 @@ export class Matrix {
    *
    * @return result of subtraction (original matrix is unchanged).
    */
-  subtract (that: Matrix): Matrix {
+  subtract(that: Matrix): Matrix {
     if (this.m !== that.m || this.n !== that.n) {
       throw new Error('matrices must be same size');
     }
@@ -647,8 +652,8 @@ export class Matrix {
    *
    * @return {String} formatted matrix.
    */
-  toString (): string {
-    return __stringify(this.data, this.m, this.n);
+  toString(): string {
+    return _stringify(this.data, this.m, this.n);
   }
 
   /**
@@ -658,10 +663,12 @@ export class Matrix {
    *
    * @return {Matrix} result of transpose.
    */
-  transpose (): Matrix {
-    return new Matrix(__transpose(this.data, this.m, this.n),
-        // swap M and N
-        this.n, this.m);
+  transpose(): Matrix {
+    return new Matrix(
+      _transpose(this.data, this.m, this.n),
+      // swap M and N
+      this.n,
+      this.m
+    );
   }
-
 }

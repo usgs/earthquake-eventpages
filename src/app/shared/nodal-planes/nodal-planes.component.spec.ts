@@ -11,8 +11,8 @@ describe('NodalPlanesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatTableModule],
-      declarations: [NodalPlanesComponent, MockPipe('sharedDegrees')]
+      declarations: [NodalPlanesComponent, MockPipe('sharedDegrees')],
+      imports: [MatTableModule]
     }).compileComponents();
   }));
 
@@ -34,7 +34,6 @@ describe('NodalPlanesComponent', () => {
     it('returns the planes', () => {
       const tensor = Tensor.fromProduct({
         id: 'urn:usgs-product:us:moment-tensor:us_2000cjfy_mww:1519977554040',
-        type: 'moment-tensor',
         properties: {
           'tensor-mpp': '-2.3267E+19',
           'tensor-mrp': '-7.68E+18',
@@ -42,7 +41,8 @@ describe('NodalPlanesComponent', () => {
           'tensor-mrt': '1.0445E+19',
           'tensor-mtp': '3.4237E+19',
           'tensor-mtt': '-3.0499E+19'
-        }
+        },
+        type: 'moment-tensor'
       });
 
       const planes = component.getPlanes(tensor);

@@ -12,8 +12,8 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-mmi',
-  templateUrl: './mmi.component.html',
-  styleUrls: ['./mmi.component.scss']
+  styleUrls: ['./mmi.component.scss'],
+  templateUrl: './mmi.component.html'
 })
 export class MmiComponent {
   @Input()

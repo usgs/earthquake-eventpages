@@ -5,11 +5,12 @@ import * as L from 'leaflet';
 /**
  * Shakemap contours overlay for leaflet map
  */
+// tslint:disable-next-line:variable-name
 const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
-  id: 'shakemap-contour',
-  title: 'Shakemap Contour',
-  legend: null,
   _count: 0,
+  id: 'shakemap-contour',
+  legend: null,
+  title: 'Shakemap Contour',
 
   /**
    * Build leaflet overlay
@@ -89,8 +90,8 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
                   ${this.createLabel(feature)}
                 </div>
               </div>`,
-          iconSize: [14, 10],
-          iconAnchor: [7, 8]
+          iconAnchor: [7, 8],
+          iconSize: [14, 10]
         })
       });
 

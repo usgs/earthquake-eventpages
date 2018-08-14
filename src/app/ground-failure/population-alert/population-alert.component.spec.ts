@@ -14,8 +14,8 @@ describe('PopulationAlertComponent', () => {
         PopulationAlertComponent,
 
         MockComponent({
-          selector: 'ground-failure-alert-bar',
-          inputs: ['bins', 'title', 'units', 'value']
+          inputs: ['bins', 'title', 'units', 'value'],
+          selector: 'ground-failure-alert-bar'
         })
       ]
     }).compileComponents();

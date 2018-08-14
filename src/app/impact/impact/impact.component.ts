@@ -7,8 +7,8 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'app-impact',
-  templateUrl: './impact.component.html',
-  styleUrls: ['./impact.component.scss']
+  styleUrls: ['./impact.component.scss'],
+  templateUrl: './impact.component.html'
 })
 export class ImpactComponent {
   constructor(public eventService: EventService) {}

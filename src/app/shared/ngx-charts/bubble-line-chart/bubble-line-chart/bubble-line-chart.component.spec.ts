@@ -4,7 +4,6 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { BubbleLineChartComponent } from './bubble-line-chart.component';
 
-
 describe('BubbleLineChartComponent', () => {
   let component: BubbleLineChartComponent;
   let fixture: ComponentFixture<BubbleLineChartComponent>;
@@ -15,15 +14,15 @@ describe('BubbleLineChartComponent', () => {
     BUBBLESERIES = [
       {
         name: 'bubble series',
-        series: [{x: 50, y: 2, value: 2, name: 50, min: 1, max: 3}]
+        series: [{ x: 50, y: 2, value: 2, name: 50, min: 1, max: 3 }]
       }
     ];
     LINESERIES = [
       {
         name: 'line series',
         series: [
-          {x: 0, y: 10, value: 10, name: 0},
-          {x: 10, y: 20, value: 20, name: 10}
+          { x: 0, y: 10, value: 10, name: 0 },
+          { x: 10, y: 20, value: 20, name: 10 }
         ]
       }
     ];
@@ -32,56 +31,51 @@ describe('BubbleLineChartComponent', () => {
       declarations: [
         BubbleLineChartComponent,
 
-        MockComponent(
-          {
-            selector: 'ngx-charts-chart',
-            inputs: [
-              'view',
-              'showLegend',
-              'legendOptions',
-              'activeEntries',
-              'animations'
-            ]
-          }
-        ),
-         MockComponent(
-          {
-            selector: ':svg:g',
-            inputs: [
-              'xScale',
-              'yScale',
-              'xScaleType',
-              'yScaleType',
-              'xAxisLabel',
-              'yAxisLabel',
-              'rScale',
-              'xDomain',
-              'yDomain',
-              'xDomainType',
-              'colors',
-              'data',
-              'activeEntries',
-              'scaleType',
-              'curve',
-              'rangeFillOpacity',
-              'animations',
-              'dims',
-              'xSet',
-              'tooltipTemplate',
-              'tooltipDisabled',
-              'results',
-              'visibleValue',
-              'showLabel',
-              'labelText',
-              'tickFormatting',
-              'yOrient',
-              'showGridLines'
-            ]
-          }
-        )
+        MockComponent({
+          inputs: [
+            'view',
+            'showLegend',
+            'legendOptions',
+            'activeEntries',
+            'animations'
+          ],
+          selector: 'ngx-charts-chart'
+        }),
+        MockComponent({
+          inputs: [
+            'xScale',
+            'yScale',
+            'xScaleType',
+            'yScaleType',
+            'xAxisLabel',
+            'yAxisLabel',
+            'rScale',
+            'xDomain',
+            'yDomain',
+            'xDomainType',
+            'colors',
+            'data',
+            'activeEntries',
+            'scaleType',
+            'curve',
+            'rangeFillOpacity',
+            'animations',
+            'dims',
+            'xSet',
+            'tooltipTemplate',
+            'tooltipDisabled',
+            'results',
+            'visibleValue',
+            'showLabel',
+            'labelText',
+            'tickFormatting',
+            'yOrient',
+            'showGridLines'
+          ],
+          selector: ':svg:g'
+        })
       ]
-      })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -180,7 +174,6 @@ describe('BubbleLineChartComponent', () => {
 
       expect(domain[0]).toBe(1);
       expect(domain[1]).toBe(1);
-
     });
   });
 
@@ -270,22 +263,22 @@ describe('BubbleLineChartComponent', () => {
 
       component.updateHoveredVertical(component.lineChart[0].series[0]);
       expect(component.hoveredVertical).toBe(
-          component.lineChart[0].series[0].value
+        component.lineChart[0].series[0].value
       );
     });
   });
 
   describe('hideCircles', () => {
-      it('sets hoveredVertical to null', () => {
-        component.lineChart = LINESERIES;
-        component.update();
+    it('sets hoveredVertical to null', () => {
+      component.lineChart = LINESERIES;
+      component.update();
 
-        component.onActivate(component.lineChart[0]);
-        component.hideCircles();
+      component.onActivate(component.lineChart[0]);
+      component.hideCircles();
 
-        expect(component.hoveredVertical).toBeNull();
-        expect(component.activeEntries.length).toBe(0);
-      });
+      expect(component.hoveredVertical).toBeNull();
+      expect(component.activeEntries.length).toBe(0);
+    });
   });
 
   describe('onClick', () => {
@@ -296,7 +289,7 @@ describe('BubbleLineChartComponent', () => {
 
   describe('updateYAxisWidth', () => {
     it('sets y axis width', () => {
-      component.updateYAxisWidth({width: 20});
+      component.updateYAxisWidth({ width: 20 });
 
       expect(component.yAxisWidth).toBe(40);
     });
@@ -304,7 +297,7 @@ describe('BubbleLineChartComponent', () => {
 
   describe('updateXAxisHeight', () => {
     it('setx x axis height', () => {
-      component.updateXAxisHeight({height: 20});
+      component.updateXAxisHeight({ height: 20 });
 
       expect(component.xAxisHeight).toBe(20);
     });

@@ -20,7 +20,6 @@ describe('ForecastComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [MatTableModule],
       declarations: [
         ForecastComponent,
 
@@ -30,6 +29,7 @@ describe('ForecastComponent', () => {
         MockPipe('sharedRoundDown'),
         MockPipe('sharedRoundUp')
       ],
+      imports: [MatTableModule],
       providers: [
         { provide: EventService, useValue: eventServiceStub },
         { provide: OafService, useValue: oafServiceStub }

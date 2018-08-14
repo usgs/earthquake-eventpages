@@ -13,8 +13,8 @@ describe('TsunamiPinComponent', () => {
       declarations: [
         TsunamiPinComponent,
         MockComponent({
-          selector: 'basic-pin',
-          inputs: ['footer', 'title', 'href']
+          inputs: ['footer', 'title', 'href'],
+          selector: 'basic-pin'
         })
       ]
     }).compileComponents();

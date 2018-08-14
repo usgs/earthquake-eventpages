@@ -10,8 +10,8 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-summary-link',
-  templateUrl: './summary-link.component.html',
-  styleUrls: ['./summary-link.component.scss']
+  styleUrls: ['./summary-link.component.scss'],
+  templateUrl: './summary-link.component.html'
 })
 export class SummaryLinkComponent {
   @Input()

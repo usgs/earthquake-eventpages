@@ -5,11 +5,11 @@ import { Component } from '@angular/core';
  */
 @Component({
   selector: 'executive-tsunami-pin',
-  templateUrl: './tsunami-pin.component.html',
-  styleUrls: ['./tsunami-pin.component.scss']
+  styleUrls: ['./tsunami-pin.component.scss'],
+  templateUrl: './tsunami-pin.component.html'
 })
 export class TsunamiPinComponent {
+  footer = 'NOAA';
   href = 'https://www.tsunami.gov/';
   title = 'Tsunami';
-  footer = 'NOAA';
 }

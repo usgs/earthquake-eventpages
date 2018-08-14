@@ -22,35 +22,33 @@ export class SummaryLinkPipe implements PipeTransform {
     }
 
     const EXECUTIVE = {
-      url: '/executive',
-      text: 'Overview'
+      text: 'Overview',
+      url: '/executive'
     };
 
     const IMPACT = {
-      url: '/impact',
-      text: 'Impact'
+      text: 'Impact',
+      url: '/impact'
     };
 
     const TECHNICAL = {
-      url: '/technical',
-      text: 'Technical'
+      text: 'Technical',
+      url: '/technical'
     };
 
     const TYPES = {
-      map: EXECUTIVE,
-      regioninfo: EXECUTIVE,
-
       dyfi: IMPACT,
+      'finite-fault': TECHNICAL,
+      'focal-mechanism': TECHNICAL,
       'ground-failure': IMPACT,
       losspager: IMPACT,
-      shakemap: IMPACT,
-      tellus: IMPACT,
-
+      map: EXECUTIVE,
       'moment-tensor': TECHNICAL,
       oaf: TECHNICAL,
       origin: TECHNICAL,
-      'finite-fault': TECHNICAL,
-      'focal-mechanism': TECHNICAL,
+      regioninfo: EXECUTIVE,
+      shakemap: IMPACT,
+      tellus: IMPACT,
       waveforms: TECHNICAL
     };
 
@@ -76,8 +74,8 @@ export class SummaryLinkPipe implements PipeTransform {
     }
 
     return {
-      url: `${info.url}`,
-      text: text
+      text: text,
+      url: `${info.url}`
     };
   }
 }

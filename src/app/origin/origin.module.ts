@@ -22,6 +22,13 @@ import { OriginComponent } from './origin/origin.component';
 import { PhaseComponent } from './phase/phase.component';
 
 @NgModule({
+  declarations: [
+    DetailComponent,
+    MagnitudeComponent,
+    OriginComponent,
+    PhaseComponent,
+    MagnitudeDetailComponent
+  ],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -37,13 +44,6 @@ import { PhaseComponent } from './phase/phase.component';
     SharedModule,
 
     OriginRoutingModule
-  ],
-  declarations: [
-    DetailComponent,
-    MagnitudeComponent,
-    OriginComponent,
-    PhaseComponent,
-    MagnitudeDetailComponent
   ]
 })
 export class OriginModule {}

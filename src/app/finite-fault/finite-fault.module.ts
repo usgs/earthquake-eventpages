@@ -7,12 +7,12 @@ import { FiniteFaultRoutingModule } from './finite-fault-routing.module';
 import { FiniteFaultComponent } from './finite-fault/finite-fault.component';
 
 @NgModule({
+  declarations: [FiniteFaultComponent],
   imports: [
     CommonModule,
     SharedModule,
     ProductPageModule,
     FiniteFaultRoutingModule
-  ],
-  declarations: [FiniteFaultComponent]
+  ]
 })
 export class FiniteFaultModule {}

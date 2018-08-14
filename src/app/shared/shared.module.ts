@@ -53,16 +53,6 @@ import { UncertainValueComponent } from './uncertain-value/uncertain-value.compo
 import { UnitsPipe } from './units.pipe';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatIconModule,
-    MatExpansionModule,
-    MatCardModule,
-    MatTableModule,
-    RouterModule
-  ],
   declarations: [
     AttributionComponent,
     AlertLevelComponent,
@@ -105,6 +95,7 @@ import { UnitsPipe } from './units.pipe';
     SummaryLinkPipe,
     SummaryLinkComponent
   ],
+  entryComponents: [DownloadDialogComponent, StationComponent],
   exports: [
     AttributionComponent,
     AlertLevelComponent,
@@ -147,7 +138,16 @@ import { UnitsPipe } from './units.pipe';
     SummaryLinkPipe,
     SummaryLinkComponent
   ],
-  entryComponents: [DownloadDialogComponent, StationComponent]
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatCardModule,
+    MatTableModule,
+    RouterModule
+  ]
 })
 export class SharedModule {
   constructor(public injector: Injector) {

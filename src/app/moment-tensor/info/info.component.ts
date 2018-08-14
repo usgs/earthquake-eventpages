@@ -9,8 +9,8 @@ import { Tensor } from '@shared/beachball/tensor';
  */
 @Component({
   selector: 'moment-tensor-info',
-  templateUrl: './info.component.html',
-  styleUrls: ['./info.component.scss']
+  styleUrls: ['./info.component.scss'],
+  templateUrl: './info.component.html'
 })
 export class InfoComponent {
   @Input()

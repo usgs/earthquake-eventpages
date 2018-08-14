@@ -7,8 +7,8 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'dyfi-zip',
-  templateUrl: './zip.component.html',
-  styleUrls: ['./zip.component.scss']
+  styleUrls: ['./zip.component.scss'],
+  templateUrl: './zip.component.html'
 })
 export class ZipComponent {
   constructor(public eventService: EventService) {}

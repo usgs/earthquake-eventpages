@@ -12,8 +12,8 @@ import { Event } from '../../event';
  */
 @Component({
   selector: 'impact-shakemap-summary',
-  templateUrl: './shakemap-summary.component.html',
-  styleUrls: ['./shakemap-summary.component.scss']
+  styleUrls: ['./shakemap-summary.component.scss'],
+  templateUrl: './shakemap-summary.component.html'
 })
 export class ShakemapSummaryComponent {
   // columns to be displayed

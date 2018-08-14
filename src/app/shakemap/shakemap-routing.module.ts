@@ -12,50 +12,50 @@ import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 
 const shakemapRoutes: Routes = [
   {
-    // this module must be loaded lazily using "loadChildren"
-    // the actual url mount point is defined in "app/app-routing.module.ts"
-    path: '',
-    component: ShakemapComponent,
     children: [
       {
-        path: 'intensity',
-        component: IntensityComponent
+        component: IntensityComponent,
+        path: 'intensity'
       },
       {
-        path: 'pga',
-        component: PgaComponent
+        component: PgaComponent,
+        path: 'pga'
       },
       {
-        path: 'pgv',
-        component: PgvComponent
+        component: PgvComponent,
+        path: 'pgv'
       },
       {
-        path: 'psa',
-        component: PsaComponent
+        component: PsaComponent,
+        path: 'psa'
       },
       {
-        path: 'stations',
-        component: StationListComponent
+        component: StationListComponent,
+        path: 'stations'
       },
       {
-        path: 'metadata',
-        component: MetadataComponent
+        component: MetadataComponent,
+        path: 'metadata'
       },
       {
-        path: 'uncertainty',
-        component: UncertaintyComponent
+        component: UncertaintyComponent,
+        path: 'uncertainty'
       },
       {
         path: '',
         pathMatch: 'full',
         redirectTo: 'intensity'
       }
-    ]
+    ],
+    component: ShakemapComponent,
+    // this module must be loaded lazily using "loadChildren"
+    // the actual url mount point is defined in "app/app-routing.module.ts"
+    path: ''
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(shakemapRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  imports: [RouterModule.forChild(shakemapRoutes)]
 })
 export class ShakemapRoutingModule {}

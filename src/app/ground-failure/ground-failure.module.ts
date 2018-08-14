@@ -17,6 +17,15 @@ import { PopulationAlertComponent } from './population-alert/population-alert.co
 import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
+  declarations: [
+    AboutComponent,
+    GroundFailureComponent,
+    SummaryComponent,
+    AlertBarComponent,
+    GetBarPositionPipe,
+    HazardAlertComponent,
+    PopulationAlertComponent
+  ],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -26,15 +35,6 @@ import { SummaryComponent } from './summary/summary.component';
     ProductPageModule,
     SharedModule,
     GroundFailureRoutingModule
-  ],
-  declarations: [
-    AboutComponent,
-    GroundFailureComponent,
-    SummaryComponent,
-    AlertBarComponent,
-    GetBarPositionPipe,
-    HazardAlertComponent,
-    PopulationAlertComponent
   ]
 })
 export class GroundFailureModule {}

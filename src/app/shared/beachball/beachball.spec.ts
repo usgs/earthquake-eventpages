@@ -1,7 +1,6 @@
 import { Beachball } from './beachball';
 import { Tensor } from './tensor';
 
-
 describe('Beachball', () => {
   const testCanvas = {
     calls: [],
@@ -9,16 +8,11 @@ describe('Beachball', () => {
     context: {}
   };
 
-  [
-    'circle',
-    'line',
-    'polygon',
-    'text'
-  ].forEach((name) => {
-    testCanvas[name] = function () {
+  ['circle', 'line', 'polygon', 'text'].forEach(name => {
+    testCanvas[name] = function() {
       testCanvas.calls.push({
-        name: name,
-        arguments: Array.prototype.slice.call(arguments)
+        arguments: Array.prototype.slice.call(arguments),
+        name: name
       });
     };
   });
@@ -31,7 +25,6 @@ describe('Beachball', () => {
   describe('render', () => {
     const tensor = Tensor.fromProduct({
       id: 'urn:usgs-product:us:moment-tensor:us_2000cjfy_mww:1519977554040',
-      type: 'moment-tensor',
       properties: {
         'tensor-mpp': '-2.3267E+19',
         'tensor-mrp': '-7.68E+18',
@@ -39,7 +32,8 @@ describe('Beachball', () => {
         'tensor-mrt': '1.0445E+19',
         'tensor-mtp': '3.4237E+19',
         'tensor-mtt': '-3.0499E+19'
-      }
+      },
+      type: 'moment-tensor'
     });
 
     it('renders', () => {
@@ -50,7 +44,9 @@ describe('Beachball', () => {
         lineColor: '#000'
       };
       const beachball = new Beachball(
-        tensor, document.createElement('div'), options
+        tensor,
+        document.createElement('div'),
+        options
       );
       spyOn(beachball, 'createCanvas').and.returnValue(testCanvas);
       beachball.render();
@@ -96,7 +92,6 @@ describe('Beachball', () => {
       expect(call5.arguments[3]).toEqual(options.lineColor);
       expect(call5.arguments[4]).toBeNull();
 
-
       const call6 = testCanvas.calls[6];
       expect(call6.name).toEqual('text');
       expect(call6.arguments[0]).toEqual('P');
@@ -124,20 +119,21 @@ describe('Beachball', () => {
       expect(call11.arguments[1]).toEqual(options.labelPlanesFont);
     });
 
-
     it('plots axes', () => {
       const options = {
         bgColor: '#fff',
         fillColor: '#ddd',
+        labelAxes: false,
         labelPlanesFont: '14px Arial',
         lineColor: '#000',
-        labelAxes: false,
         plotAxes: true,
         plotPlanes: false
       };
       const beachball = new Beachball(
-        tensor, document.createElement('div'),
-        options);
+        tensor,
+        document.createElement('div'),
+        options
+      );
       spyOn(beachball, 'createCanvas').and.returnValue(testCanvas);
       beachball.render();
 
@@ -185,29 +181,25 @@ describe('Beachball', () => {
       const options = {
         bgColor: '#fff',
         fillColor: '#6ea8ff',
-        labelPlanesFont: '14px Arial',
-        lineColor: '#000',
         labelAxes: false,
         labelPlanes: false,
+        labelPlanesFont: '14px Arial',
+        lineColor: '#000',
         size: 30
       };
       const beachball = new Beachball(
-        tensor, document.createElement('div'),
-        options);
+        tensor,
+        document.createElement('div'),
+        options
+      );
       spyOn(beachball, 'createCanvas').and.returnValue(testCanvas);
       beachball.render();
 
       // fill fill color (center is filled)
       const call0 = testCanvas.calls[0];
       expect(call0).toEqual({
-        name: 'circle',
-        arguments: [
-          15,
-          15,
-          28,
-          options.lineColor,
-          options.fillColor
-        ]
+        arguments: [15, 15, 28, options.lineColor, options.fillColor],
+        name: 'circle'
       });
 
       // plot first "empty" polygon
@@ -240,21 +232,14 @@ describe('Beachball', () => {
       // re-plot outline to clean up rough edges
       const call5 = testCanvas.calls[5];
       expect(call5).toEqual({
-        name: 'circle',
-        arguments: [
-          15,
-          15,
-          28,
-          options.lineColor,
-          null
-        ]
+        arguments: [15, 15, 28, options.lineColor, null],
+        name: 'circle'
       });
     });
 
     it('swaps colors when center is "empty"', () => {
       const tensor2 = Tensor.fromProduct({
         id: 'urn:usgs-product:us:moment-tensor:us_1000ay3r_mww:1516225837040',
-        type: 'moment-tensor',
         properties: {
           depth: '11.5',
           'tensor-mpp': '1.0477E+17',
@@ -263,21 +248,24 @@ describe('Beachball', () => {
           'tensor-mrt': '4.1298E+17',
           'tensor-mtp': '2.334E+16',
           'tensor-mtt': '6.9568E+17'
-        }
+        },
+        type: 'moment-tensor'
       });
 
       const options = {
         bgColor: '#fff',
         fillColor: '#6ea8ff',
-        labelPlanesFont: '14px Arial',
-        lineColor: '#000',
         labelAxes: false,
         labelPlanes: false,
+        labelPlanesFont: '14px Arial',
+        lineColor: '#000',
         size: 30
       };
       const beachball = new Beachball(
         tensor2,
-        document.createElement('div'), options);
+        document.createElement('div'),
+        options
+      );
       spyOn(beachball, 'createCanvas').and.returnValue(testCanvas);
       beachball.render();
 

@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 /**
  * Historic seismicity overlay for leaflet map
  */
+// tslint:disable-next-line:variable-name
 const HistoricSeismicityOverlay = L.TileLayer.extend({
   bounds: null,
   enabled: true,

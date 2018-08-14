@@ -3,7 +3,6 @@
 import { Matrix } from './matrix';
 import { Vector } from './vector';
 
-
 const _BEACHBALL_METHODS = {
   'smi:ci.anss.org/momentTensor/TMTS': 'TMTS',
   'smi:nc.anss.org/momentTensor/TMTS': 'TMTS',
@@ -12,7 +11,6 @@ const _BEACHBALL_METHODS = {
 };
 const _D2R = Math.PI / 180;
 const _R2D = 180 / Math.PI;
-
 
 /**
  * Construct a new tensor.
@@ -31,40 +29,6 @@ const _R2D = 180 / Math.PI;
  *        mtp value in N-m.
  */
 export class Tensor {
-
-  mtt: number;
-  mpp: number;
-  mrr: number;
-  mrt: number;
-  mrp: number;
-  mtp: number;
-  units = 'N-m';
-
-  moment: number;
-  momentLog10: number;
-  exponent: number;
-  scale: number;
-  magnitude: number;
-
-  matrix: Matrix;
-  T: any;
-  N: any;
-  P: any;
-  fCLVD: number;
-  percentDC: number;
-  forceThrust: number;
-  forceStrikeSlip: number;
-  forceNormal: number;
-
-  NP1: any;
-  NP2: any;
-
-  // reference to product, and optional attributes from product
-  product: any = null;
-  depth: any;
-  type: any;
-  halfDuration: any;
-
   /**
    * Calculate one nodal plane.
    *
@@ -78,7 +42,7 @@ export class Tensor {
    * @return {Object}
    *     computed plane, defined as the properties strike, dip, and rake.
    */
-  static calculatePlane (v1: Vector, v2: Vector): any {
+  static calculatePlane(v1: Vector, v2: Vector): any {
     v1 = v1.unit();
     v2 = v2.unit();
     // make sure first vector dips downward
@@ -87,24 +51,19 @@ export class Tensor {
       v2 = v2.multiply(-1);
     }
     return {
-      strike: Tensor.range(Math.atan2(-v1.x(), v1.y()), 0, 2 * Math.PI) * _R2D,
       dip: Math.acos(-v1.z()) * _R2D,
-      rake: Math.atan2(-v2.z(), v2.cross(v1).z()) * _R2D
+      rake: Math.atan2(-v2.z(), v2.cross(v1).z()) * _R2D,
+      strike: Tensor.range(Math.atan2(-v1.x(), v1.y()), 0, 2 * Math.PI) * _R2D
     };
   }
-
   /**
    * Create a Tensor object from a Product object.
    *
    * @param product {Product}
    *     a focal-mechanism or moment-tensor product.
    */
-  static fromProduct (product: any): Tensor {
-    let depth,
-        duration,
-        props,
-        type,
-        tensor;
+  static fromProduct(product: any): Tensor {
+    let depth, duration, props, type, tensor;
 
     if (!product) {
       return null;
@@ -116,22 +75,23 @@ export class Tensor {
 
     if (type === 'focal-mechanism') {
       tensor = Tensor.fromStrikeDipRake(
-          Number(props['nodal-plane-1-strike']),
-          Number(props['nodal-plane-1-dip']),
-          Number(props['nodal-plane-1-rake'] || props['nodal-plane-1-slip'] || 0),
-          Number(props['scalar-moment'] || Math.SQRT2));
+        Number(props['nodal-plane-1-strike']),
+        Number(props['nodal-plane-1-dip']),
+        Number(props['nodal-plane-1-rake'] || props['nodal-plane-1-slip'] || 0),
+        Number(props['scalar-moment'] || Math.SQRT2)
+      );
     } else if (type === 'moment-tensor') {
       tensor = new Tensor({
-        mrr: Number(props['tensor-mrr']),
-        mtt: Number(props['tensor-mtt']),
         mpp: Number(props['tensor-mpp']),
-        mrt: Number(props['tensor-mrt']),
         mrp: Number(props['tensor-mrp']),
-        mtp: Number(props['tensor-mtp'])
+        mrr: Number(props['tensor-mrr']),
+        mrt: Number(props['tensor-mrt']),
+        mtp: Number(props['tensor-mtp']),
+        mtt: Number(props['tensor-mtt'])
       });
 
       depth = props['derived-depth'];
-      if (!depth)  {
+      if (!depth) {
         depth = props.depth;
       }
       tensor.depth = depth;
@@ -175,26 +135,31 @@ export class Tensor {
    *
    * @return Tensor object.
    */
-  static fromStrikeDipRake (strike: number, dip: number, rake: number, moment: number): Tensor {
+  static fromStrikeDipRake(
+    strike: number,
+    dip: number,
+    rake: number,
+    moment: number
+  ): Tensor {
     let c2d,
-        c2s,
-        cd,
-        cr,
-        cs,
-        d,
-        mxx,
-        mxy,
-        mxz,
-        myy,
-        myz,
-        mzz,
-        r,
-        s,
-        s2d,
-        s2s,
-        sd,
-        sr,
-        ss;
+      c2s,
+      cd,
+      cr,
+      cs,
+      d,
+      mxx,
+      mxy,
+      mxz,
+      myy,
+      myz,
+      mzz,
+      r,
+      s,
+      s2d,
+      s2s,
+      sd,
+      sr,
+      ss;
 
     s = strike * _D2R;
     ss = Math.sin(s);
@@ -213,26 +178,25 @@ export class Tensor {
     // mtt
     mxx = -1 * (sd * cr * s2s + s2d * sr * ss * ss);
     // -mtp
-    mxy =      (sd * cr * c2s + s2d * sr * s2s * 0.5);
+    mxy = sd * cr * c2s + s2d * sr * s2s * 0.5;
     // mrt
-    mxz = -1 * (cd * cr * cs  + c2d * sr * ss);
+    mxz = -1 * (cd * cr * cs + c2d * sr * ss);
     // mpp
-    myy =      (sd * cr * s2s - s2d * sr * cs * cs);
+    myy = sd * cr * s2s - s2d * sr * cs * cs;
     // -mrp
-    myz = -1 * (cd * cr * ss  - c2d * sr * cs);
+    myz = -1 * (cd * cr * ss - c2d * sr * cs);
     // mrr
-    mzz =      (s2d * sr);
+    mzz = s2d * sr;
 
     return new Tensor({
-      mrr:  mzz * moment,
-      mtt:  mxx * moment,
-      mpp:  myy * moment,
-      mtp: -mxy * moment,
+      mpp: myy * moment,
       mrp: -myz * moment,
-      mrt:  mxz * moment
+      mrr: mzz * moment,
+      mrt: mxz * moment,
+      mtp: -mxy * moment,
+      mtt: mxx * moment
     });
   }
-
 
   /**
    * Shift a number until it is in the specified range.
@@ -248,7 +212,7 @@ export class Tensor {
    *
    * @return {Number} value in the range [min, max).
    */
-  static range (value: number, min: number, max: number): number {
+  static range(value: number, min: number, max: number): number {
     const span = max - min;
     while (value < min) {
       value += span;
@@ -267,9 +231,8 @@ export class Tensor {
    * @param v2 {any}
    *     second eigenvector.
    */
-  static sortEigenvalues (v1: any, v2: any): number {
-    let v1mag,
-        v2mag;
+  static sortEigenvalues(v1: any, v2: any): number {
+    let v1mag, v2mag;
     // largest value first
     v1mag = v1.eigenvalue;
     v2mag = v2.eigenvalue;
@@ -282,24 +245,50 @@ export class Tensor {
     }
   }
 
+  depth: any;
+  exponent: number;
+  fCLVD: number;
+  forceNormal: number;
+  forceStrikeSlip: number;
+  forceThrust: number;
+  halfDuration: any;
+  magnitude: number;
+  matrix: Matrix;
+  moment: number;
+  momentLog10: number;
+  mpp: number;
+  mrp: number;
+  mrr: number;
+  mrt: number;
+  mtp: number;
+  mtt: number;
+  N: any;
+  NP1: any;
+  NP2: any;
+  P: any;
+  percentDC: number;
+  // reference to product, and optional attributes from product
+  product: any = null;
+  scale: number;
+  T: any;
+  type: any;
+  units = 'N-m';
 
-  constructor(
-    options: any
-  ) {
+  constructor(options: any) {
     let eigen,
-          exponent,
-          l,
-          moment,
-          momentLog10,
-          mpp,
-          mrr,
-          mrt,
-          mrp,
-          mtp,
-          mtt,
-          n,
-          p,
-          t;
+      exponent,
+      l,
+      moment,
+      momentLog10,
+      mpp,
+      mrr,
+      mrt,
+      mrp,
+      mtp,
+      mtt,
+      n,
+      p,
+      t;
 
     this.mtt = mtt = options.mtt || options.mxx || 0;
     this.mpp = mpp = options.mpp || options.myy || 0;
@@ -310,27 +299,31 @@ export class Tensor {
     this.units = 'N-m';
 
     // calculate moment and derived values
-    this.moment = moment = Math.sqrt(0.5 *
-        ( (mrr * mrr + mtt * mtt + mpp * mpp) +
-        2 * (mrt * mrt + mrp * mrp + mtp * mtp) ));
+    this.moment = moment = Math.sqrt(
+      0.5 *
+        (mrr * mrr +
+          mtt * mtt +
+          mpp * mpp +
+          2 * (mrt * mrt + mrp * mrp + mtp * mtp))
+    );
     this.momentLog10 = momentLog10 = Math.log(moment) / Math.LN10;
     this.exponent = exponent = parseInt(momentLog10, 10);
     this.scale = Math.pow(10, exponent);
     this.magnitude = (2 / 3) * (momentLog10 - 9.1);
 
     // calculate principal axes
-    this.matrix = new Matrix([
-      mtt, -mtp, mrt,
-      -mtp, mpp, -mrp,
-      mrt, -mrp, mrr
-    ], 3, 3);
+    this.matrix = new Matrix(
+      [mtt, -mtp, mrt, -mtp, mpp, -mrp, mrt, -mrp, mrr],
+      3,
+      3
+    );
     eigen = this.matrix.jacobi();
     eigen.sort(Tensor.sortEigenvalues);
     this.T = t = eigen[0];
     this.N = n = eigen[1];
     this.P = p = eigen[2];
-    this.fCLVD = n.eigenvalue /
-        Math.max(Math.abs(t.eigenvalue), Math.abs(p.eigenvalue));
+    this.fCLVD =
+      n.eigenvalue / Math.max(Math.abs(t.eigenvalue), Math.abs(p.eigenvalue));
     this.percentDC = Math.abs(1 - Math.abs(this.fCLVD) / 0.5);
     this.forceThrust = Math.pow(Math.sin(t.vector.plunge()), 2);
     this.forceStrikeSlip = Math.pow(Math.sin(n.vector.plunge()), 2);
@@ -351,5 +344,4 @@ export class Tensor {
     this.NP1.name = 'NP1';
     this.NP2.name = 'NP2';
   }
-
 }

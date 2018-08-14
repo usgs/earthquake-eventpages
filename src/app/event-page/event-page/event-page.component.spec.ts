@@ -24,20 +24,31 @@ describe('EventPageComponent', () => {
       declarations: [
         EventPageComponent,
 
-        MockComponent({ selector: 'event-page-header', inputs: ['event'] }),
         MockComponent({
-          selector: 'event-page-footer',
-          inputs: ['event', 'contributors']
+          inputs: ['event'],
+          selector: 'event-page-header'
         }),
-        MockComponent({ selector: 'event-page-navigation', inputs: ['event'] }),
-        MockComponent({ selector: 'shared-text-product', inputs: ['product'] }),
+        MockComponent({
+          inputs: ['event', 'contributors'],
+          selector: 'event-page-footer'
+        }),
+        MockComponent({
+          inputs: ['event'],
+          selector: 'event-page-navigation'
+        }),
+        MockComponent({
+          inputs: ['product'],
+          selector: 'shared-text-product'
+        }),
 
         MockComponent({ selector: 'app-hazdev-template' }),
         MockComponent({ selector: 'app-navigation-group' }),
+
         MockComponent({
-          selector: 'app-navigation-item',
-          inputs: ['display', 'navRouterLink']
+          inputs: ['display', 'navRouterLink'],
+          selector: 'app-navigation-item'
         }),
+
         MockComponent({ selector: 'mat-nav-list' })
       ],
       imports: [RouterTestingModule],

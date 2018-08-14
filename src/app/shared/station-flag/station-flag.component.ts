@@ -8,18 +8,18 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-station-flag',
-  templateUrl: './station-flag.component.html',
-  styleUrls: ['./station-flag.component.scss']
+  styleUrls: ['./station-flag.component.scss'],
+  templateUrl: './station-flag.component.html'
 })
 export class StationFlagComponent {
   @Input()
   flag: string;
 
   readonly FLAG_DESCRIPTIONS = {
-    M: 'Manually flagged',
-    T: 'Outlier',
     G: 'Glitch (clipped or below noise)',
     I: 'Incomplete time series',
-    N: 'Not in list of known stations'
+    M: 'Manually flagged',
+    N: 'Not in list of known stations',
+    T: 'Outlier'
   };
 }

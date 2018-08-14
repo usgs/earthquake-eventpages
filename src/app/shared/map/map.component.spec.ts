@@ -10,8 +10,8 @@ describe('MapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [MapComponent]
+      declarations: [MapComponent],
+      imports: [HttpClientTestingModule]
     }).compileComponents();
   }));
 

@@ -14,7 +14,6 @@ describe('LineSeriesComponent', () => {
         LineSeriesComponent,
 
         MockComponent({
-          selector: ':svg:g',
           inputs: [
             'data',
             'path',
@@ -28,7 +27,8 @@ describe('LineSeriesComponent', () => {
             'stops',
             'gradient'
           ]
-        })
+        }),
+        selector: ':svg:g'
       ]
     }).compileComponents();
   }));

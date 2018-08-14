@@ -23,20 +23,20 @@ describe('FocalMechanismComponent', () => {
         FocalMechanismComponent,
 
         MockComponent({
-          selector: 'focal-mechanism-attribution',
-          inputs: ['tensor']
+          inputs: ['tensor'],
+          selector: 'focal-mechanism-attribution'
         }),
         MockComponent({
-          selector: 'product-page',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'product-page'
         }),
         MockComponent({
-          selector: 'shared-beachball',
-          inputs: ['fillColor', 'tensor']
+          inputs: ['fillColor', 'tensor'],
+          selector: 'shared-beachball'
         }),
         MockComponent({
-          selector: 'shared-nodal-planes',
-          inputs: ['tensor']
+          inputs: ['tensor'],
+          selector: 'shared-nodal-planes'
         }),
 
         MockPipe('sharedTensor')

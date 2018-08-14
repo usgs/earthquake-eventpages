@@ -82,45 +82,45 @@ describe('CommentaryComponent', () => {
 
   describe('transformForecast', () => {
     const mag3Bin = {
-      p95minimum: 0.0,
+      magnitude: 3.0,
       p95maximum: 11.0,
-      probability: 0.5086189828476289,
-      magnitude: 3.0
+      p95minimum: 0.0,
+      probability: 0.5086189828476289
     };
 
     const mag5Bin = {
-      p95minimum: 0.0,
+      magnitude: 5.0,
       p95maximum: 0.0,
-      probability: 0.010696767527439643,
-      magnitude: 5.0
+      p95minimum: 0.0,
+      probability: 0.010696767527439643
     };
 
     const mag6Bin = {
-      p95minimum: 0.0,
+      magnitude: 6.0,
       p95maximum: 0.0,
-      probability: 0.001322204038141761,
-      magnitude: 6.0
+      p95minimum: 0.0,
+      probability: 0.001322204038141761
     };
 
     const mag7Bin = {
-      p95minimum: 0.0,
+      magnitude: 7.0,
       p95maximum: 0.0,
-      probability: 1.6276102079104682e-4,
-      magnitude: 7.0
+      p95minimum: 0.0,
+      probability: 1.6276102079104682e-4
     };
 
     const oaf = {
       advisoryTimeFrame: '1 Day',
       forecast: [
         {
-          timeEnd: 1515148777730,
-          bins: [mag3Bin, mag5Bin, mag6Bin, mag7Bin],
-          timeStart: 1515062377730,
           aboveMainshockMag: {
-            probability: 0.03865917408876185,
-            magnitude: 4.38
+            magnitude: 4.38,
+            probability: 0.03865917408876185
           },
-          label: '1 Day'
+          bins: [mag3Bin, mag5Bin, mag6Bin, mag7Bin],
+          label: '1 Day',
+          timeEnd: 1515148777730,
+          timeStart: 1515062377730
         }
       ]
     };

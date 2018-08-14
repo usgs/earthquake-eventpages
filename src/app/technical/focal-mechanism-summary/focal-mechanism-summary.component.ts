@@ -9,10 +9,11 @@ import { Tensor } from '@shared/beachball/tensor';
  */
 @Component({
   selector: 'technical-focal-mechanism-summary',
-  templateUrl: './focal-mechanism-summary.component.html',
-  styleUrls: ['./focal-mechanism-summary.component.scss']
+  styleUrls: ['./focal-mechanism-summary.component.scss'],
+  templateUrl: './focal-mechanism-summary.component.html'
 })
 export class FocalMechanismSummaryComponent {
+  _products: Array<any>;
   // MatTable headers
   columnsToDisplay = [
     'catalog',
@@ -21,11 +22,11 @@ export class FocalMechanismSummaryComponent {
     'nodalPlane2',
     'source'
   ];
-  _products: Array<any>;
-  tensors: Array<any> = [];
 
   @Input()
   event: any;
+
+  tensors: Array<any> = [];
 
   /**
    * Setter to set the products array

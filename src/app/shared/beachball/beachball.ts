@@ -14,7 +14,7 @@ const _MERGE_THRESHOLD = 0.02;
 // threshold takeoff angle when polygons should be split.
 const _SPLIT_THRESHOLD = 85 * _D2R;
 
-let __0To2Pi, __axisCache, __getOption;
+let _0To2Pi, _axisCache, _getOption;
 
 /**
  * Make sure number is between 0 and 2pi.
@@ -24,7 +24,7 @@ let __0To2Pi, __axisCache, __getOption;
  * @return {Number}
  *     angle in radians, in the range [0, 2pi).
  */
-__0To2Pi = function(value) {
+_0To2Pi = function(value) {
   const twoPi = 2 * Math.PI;
 
   while (value < 0) {
@@ -50,7 +50,7 @@ __0To2Pi = function(value) {
  *         cp: cos(plunge),
  *         sp: sin(plunge).
  */
-__axisCache = function(axis) {
+_axisCache = function(axis) {
   let azimuth, plunge;
 
   // Vector azimuth method returns clockwise from north
@@ -63,20 +63,20 @@ __axisCache = function(axis) {
     azimuth += Math.PI;
   }
   // make azimuth in range [0, 2*PI)
-  azimuth = __0To2Pi(azimuth, 0, Math.PI * 2);
+  azimuth = _0To2Pi(azimuth, 0, Math.PI * 2);
 
   return {
-    v: axis.eigenvalue,
     a: azimuth,
     ca: Math.cos(azimuth),
-    sa: Math.sin(azimuth),
-    p: plunge,
     cp: Math.cos(plunge),
+    p: plunge,
+    sa: Math.sin(azimuth),
     sp: Math.sin(plunge)
+    v: axis.eigenvalue,
   };
 };
 
-__getOption = function(options: any, name: string, defaultValue: any): any {
+_getOption = function(options: any, name: string, defaultValue: any): any {
   if (options && name in options) {
     return options[name];
   }
@@ -84,7 +84,18 @@ __getOption = function(options: any, name: string, defaultValue: any): any {
 };
 
 export class Beachball {
-  static zeroToTwoPi = __0To2Pi;
+  static zeroToTwoPi = _0To2Pi;
+
+  /**
+   * Create and render a beachball.
+   *
+   * @param tensor
+   * @param el
+   * @param options
+   */
+  static render(tensor: Tensor, el: any, options?: any) {
+    new Beachball(tensor, el, options).render();
+  }
 
   axisSize: number = null;
   bgColor = '#fff';
@@ -104,52 +115,41 @@ export class Beachball {
   x0: number = null;
   y0: number = null;
 
-  /**
-   * Create and render a beachball.
-   *
-   * @param tensor
-   * @param el
-   * @param options
-   */
-  static render(tensor: Tensor, el: any, options?: any) {
-    new Beachball(tensor, el, options).render();
-  }
-
   constructor(public tensor: Tensor, public el: any, options?: any) {
-    this.bgColor = __getOption(options, 'bgColor', this.bgColor);
-    this.fillColor = __getOption(options, 'fillColor', this.fillColor);
-    this.labelAxes = __getOption(options, 'labelAxes', this.labelAxes);
-    this.labelAxesFont = __getOption(
+    this.bgColor = _getOption(options, 'bgColor', this.bgColor);
+    this.fillColor = _getOption(options, 'fillColor', this.fillColor);
+    this.labelAxes = _getOption(options, 'labelAxes', this.labelAxes);
+    this.labelAxesFont = _getOption(
       options,
       'labelAxesFont',
       this.labelAxesFont
     );
-    this.labelPlanes = __getOption(options, 'labelPlanes', this.labelPlanes);
-    this.labelPlanesFont = __getOption(
+    this.labelPlanes = _getOption(options, 'labelPlanes', this.labelPlanes);
+    this.labelPlanesFont = _getOption(
       options,
       'labelPlanesFont',
       this.labelPlanesFont
     );
-    this.lineColor = __getOption(options, 'lineColor', this.lineColor);
-    this.lineWidth = __getOption(options, 'lineWidth', this.lineWidth);
-    this.plotAxes = __getOption(options, 'plotAxes', this.plotAxes);
-    this.plotPlanes = __getOption(options, 'plotPlanes', this.plotPlanes);
-    this.size = __getOption(options, 'size', this.size);
+    this.lineColor = _getOption(options, 'lineColor', this.lineColor);
+    this.lineWidth = _getOption(options, 'lineWidth', this.lineWidth);
+    this.plotAxes = _getOption(options, 'plotAxes', this.plotAxes);
+    this.plotPlanes = _getOption(options, 'plotPlanes', this.plotPlanes);
+    this.size = _getOption(options, 'size', this.size);
     // options with computed defaults
-    this.radius = __getOption(
+    this.radius = _getOption(
       options,
       'radius',
       Math.floor((this.size - 2) / 2)
     );
-    this.axisSize = __getOption(
+    this.axisSize = _getOption(
       options,
       'axisSize',
       Math.floor(this.radius / 12.5)
     );
-    this.height = __getOption(options, 'height', this.size);
-    this.width = __getOption(options, 'width', this.size);
-    this.x0 = __getOption(options, 'x0', this.width / 2);
-    this.y0 = __getOption(options, 'y0', this.height / 2);
+    this.height = _getOption(options, 'height', this.size);
+    this.width = _getOption(options, 'width', this.size);
+    this.x0 = _getOption(options, 'x0', this.width / 2);
+    this.y0 = _getOption(options, 'y0', this.height / 2);
   }
 
   /**
@@ -309,7 +309,7 @@ export class Beachball {
       plunge *= -1;
       azimuth += Math.PI;
     }
-    azimuth = __0To2Pi(azimuth);
+    azimuth = _0To2Pi(azimuth);
 
     r = Math.sqrt(1 - Math.sin(plunge));
     x = r * Math.sin(azimuth);
@@ -364,9 +364,9 @@ export class Beachball {
       xz,
       y;
 
-    t = __axisCache(tensor.T);
-    n = __axisCache(tensor.N);
-    p = __axisCache(tensor.P);
+    t = _axisCache(tensor.T);
+    n = _axisCache(tensor.N);
+    p = _axisCache(tensor.P);
 
     azes = [];
     polygons = [];
@@ -414,10 +414,10 @@ export class Beachball {
         az = 0;
         takeoff = 0;
       } else {
-        az = __0To2Pi(Math.atan2(xe, xn));
+        az = _0To2Pi(Math.atan2(xe, xn));
         takeoff = Math.acos(xz / Math.sqrt(xz * xz + xn * xn + xe * xe));
         if (takeoff > Math.PI / 2) {
-          az = __0To2Pi(az + Math.PI);
+          az = _0To2Pi(az + Math.PI);
           takeoff = Math.PI - takeoff;
         }
       }
@@ -453,10 +453,10 @@ export class Beachball {
       if (polygon === null) {
         // start a polygon
         polygon = {
-          x: [],
-          y: [],
+          endAz: null,
           startAz: az,
-          endAz: null
+          x: [],
+          y: []
         };
       }
       // add point to current polygon
@@ -488,49 +488,6 @@ export class Beachball {
    */
   getVectorPoint(vector) {
     return this.getPoint(Math.PI / 2 - vector.azimuth(), vector.plunge());
-  }
-
-  /**
-   * Measure pixel size of text.
-   *
-   * @param text {String}
-   *     text to measure.
-   * @param font {String}
-   *     css/canvas font property.
-   *
-   * @return {Object}
-   *     with `width` and `height` properties that are the pixel size of `text`.
-   */
-  measureText(text, font) {
-    let el, size;
-
-    // create hidden element with text content
-    el = document.createElement('div');
-    el.setAttribute(
-      'style',
-      'height:auto;' +
-        'position:absolute;' +
-        'visibility:hidden;' +
-        'white-space:nowrap;' +
-        'width:auto;' +
-        'font:' +
-        font +
-        ';'
-    );
-    el.innerText = text;
-
-    // add to document and measure
-    document.body.appendChild(el);
-    size = {
-      height: el.scrollHeight,
-      width: el.scrollWidth
-    };
-
-    // clean up
-    el.parentNode.removeChild(el);
-    el = null;
-
-    return size;
   }
 
   /**
@@ -600,6 +557,49 @@ export class Beachball {
     this.x0 = this.x0 + left;
     this.height = this.height + top + bottom;
     this.y0 = this.y0 + top;
+  }
+
+  /**
+   * Measure pixel size of text.
+   *
+   * @param text {String}
+   *     text to measure.
+   * @param font {String}
+   *     css/canvas font property.
+   *
+   * @return {Object}
+   *     with `width` and `height` properties that are the pixel size of `text`.
+   */
+  measureText(text, font) {
+    let el, size;
+
+    // create hidden element with text content
+    el = document.createElement('div');
+    el.setAttribute(
+      'style',
+      'height:auto;' +
+        'position:absolute;' +
+        'visibility:hidden;' +
+        'white-space:nowrap;' +
+        'width:auto;' +
+        'font:' +
+        font +
+        ';'
+    );
+    el.innerText = text;
+
+    // add to document and measure
+    document.body.appendChild(el);
+    size = {
+      height: el.scrollHeight,
+      width: el.scrollWidth
+    };
+
+    // clean up
+    el.parentNode.removeChild(el);
+    el = null;
+
+    return size;
   }
 
   /**

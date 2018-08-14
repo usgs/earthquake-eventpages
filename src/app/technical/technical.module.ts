@@ -10,12 +10,12 @@ import { TechnicalRoutingModule } from './technical-routing.module';
 import { TechnicalComponent } from './technical/technical.component';
 
 @NgModule({
-  imports: [CommonModule, MatTableModule, SharedModule, TechnicalRoutingModule],
   declarations: [
     TechnicalComponent,
     OriginSummaryComponent,
     MomentTensorSummaryComponent,
     FocalMechanismSummaryComponent
-  ]
+  ],
+  imports: [CommonModule, MatTableModule, SharedModule, TechnicalRoutingModule]
 })
 export class TechnicalModule {}

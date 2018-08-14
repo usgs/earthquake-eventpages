@@ -10,13 +10,14 @@ import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 /**
  * Shakemap overlay for leaflet map
  */
+// tslint:disable-next-line:variable-name
 const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
   id: 'shakemap-stations',
-  title: 'Shakemap Stations',
   legend: null,
   locationPipe: null,
   numberPipe: null,
   romanPipe: new RomanPipe(),
+  title: 'Shakemap Stations',
 
   /**
    * Build leaflet overlay
@@ -41,7 +42,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
    *     The product from the event
    */
   getUrl: function(product: any) {
-    if (product == null) {
+    if (product === null) {
       return null;
     }
 
@@ -72,8 +73,8 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
       marker = L.marker(latlng, {
         icon: L.divIcon({
           className: `station-overlay-dyfi-layer-icon mmi${intensity}`,
-          iconSize: [14, 14],
           iconAnchor: [7, 7],
+          iconSize: [14, 14],
           popupAnchor: [0, 0]
         })
       });
@@ -81,9 +82,10 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
       // create a marker for a seismic station
       marker = L.marker(latlng, {
         icon: L.divIcon({
-          className: `station-overlay-station-layer-icon station-mmi${intensity}`,
-          iconSize: [14, 10],
+          className:
+            'station-overlay-station-layer-icon station-mmi' + `${intensity}`,
           iconAnchor: [7, 8],
+          iconSize: [14, 10],
           popupAnchor: [0, -4]
         })
       });

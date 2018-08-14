@@ -14,8 +14,8 @@ describe('AttributionComponent', () => {
         AttributionComponent,
 
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         })
       ]
     }).compileComponents();

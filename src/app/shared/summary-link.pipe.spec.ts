@@ -26,8 +26,8 @@ describe('SummaryLinkPipe', () => {
 
     const pipe = new SummaryLinkPipe();
     expect(pipe.transform('origin', event)).toEqual({
-      url: '/technical',
-      text: 'Back to Technical'
+      text: 'Back to Technical',
+      url: '/technical'
     });
   });
 
@@ -46,8 +46,8 @@ describe('SummaryLinkPipe', () => {
 
     const pipe = new SummaryLinkPipe();
     expect(pipe.transform('origin', event)).toEqual({
-      url: '/technical',
-      text: 'View alternative origins (2 total)'
+      text: 'View alternative origins (2 total)',
+      url: '/technical'
     });
   });
 });

@@ -27,6 +27,20 @@ import { StationListComponent } from './station-list/station-list.component';
 import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 
 @NgModule({
+  declarations: [
+    ShakemapComponent,
+    StationListComponent,
+    MetadataComponent,
+    InputComponent,
+    OutputComponent,
+    ProcessingComponent,
+    UncertaintyComponent,
+    IntensityComponent,
+    PgaComponent,
+    PgvComponent,
+    PsaComponent
+  ],
+  exports: [StationListComponent, MetadataComponent, UncertaintyComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -41,20 +55,6 @@ import { UncertaintyComponent } from './uncertainty/uncertainty.component';
     ProductPageModule,
     SharedModule,
     ShakemapRoutingModule
-  ],
-  declarations: [
-    ShakemapComponent,
-    StationListComponent,
-    MetadataComponent,
-    InputComponent,
-    OutputComponent,
-    ProcessingComponent,
-    UncertaintyComponent,
-    IntensityComponent,
-    PgaComponent,
-    PgvComponent,
-    PsaComponent
-  ],
-  exports: [StationListComponent, MetadataComponent, UncertaintyComponent]
+  ]
 })
 export class ShakemapModule {}

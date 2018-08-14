@@ -15,8 +15,8 @@ describe('InfoComponent', () => {
         InfoComponent,
 
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
 
         MockPipe('sharedNumber')

@@ -11,11 +11,6 @@ import { LineChartComponent as SwimlaneLineChart } from '@swimlane/ngx-charts';
  * Line chart component for use in maps
  */
 @Component({
-  selector: 'ngx-charts-line-chart',
-  templateUrl: './line-chart.component.html',
-  styleUrls: ['../../common/base-chart.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('animationState', [
       transition(':leave', [
@@ -30,6 +25,11 @@ import { LineChartComponent as SwimlaneLineChart } from '@swimlane/ngx-charts';
         )
       ])
     ])
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  selector: 'ngx-charts-line-chart',
+  styleUrls: ['../../common/base-chart.component.scss'],
+  templateUrl: './line-chart.component.html'
 })
 export class LineChartComponent extends SwimlaneLineChart {}

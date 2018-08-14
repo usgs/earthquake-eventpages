@@ -18,35 +18,35 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'ground-failure-alert-bar',
-  templateUrl: './alert-bar.component.html',
-  styleUrls: ['./alert-bar.component.scss']
+  styleUrls: ['./alert-bar.component.scss'],
+  templateUrl: './alert-bar.component.html'
 })
 export class AlertBarComponent {
   @Input()
   bins: Array<any> = [
     {
       color: '#27a83c',
-      text: 'Little to no',
+      max: 1,
       min: 0,
-      max: 1
+      text: 'Little to no'
     },
     {
       color: '#e5e514',
-      text: 'Limited',
+      max: 10,
       min: 1,
-      max: 10
+      text: 'Limited'
     },
     {
       color: '#f0a216',
-      text: 'Significant',
+      max: 100,
       min: 10,
-      max: 100
+      text: 'Significant'
     },
     {
       color: '#ba2d1a',
-      text: 'Extensive',
+      max: 1000,
       min: 100,
-      max: 1000
+      text: 'Extensive'
     }
   ];
 

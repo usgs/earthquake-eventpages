@@ -8,13 +8,8 @@ import { LineChartModule } from '../line-chart/line-chart.module';
 import { BubbleLineChartComponent } from './bubble-line-chart/bubble-line-chart.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    ChartCommonModule,
-    LineChartModule,
-    BubbleChartModule
-  ],
   declarations: [BubbleLineChartComponent],
-  exports: [BubbleLineChartComponent]
+  exports: [BubbleLineChartComponent],
+  imports: [CommonModule, ChartCommonModule, LineChartModule, BubbleChartModule]
 })
 export class BubbleLineChartModule {}

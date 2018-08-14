@@ -20,12 +20,12 @@ describe('QuestionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, MatFormFieldModule, MatListModule, MatRadioModule],
       declarations: [
         QuestionComponent,
 
         MockComponent({ selector: 'tell-us-fieldset', inputs: ['legend'] })
-      ]
+      ],
+      imports: [FormsModule, MatFormFieldModule, MatListModule, MatRadioModule]
     }).compileComponents();
   }));
 

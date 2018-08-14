@@ -10,8 +10,8 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-bubble',
-  templateUrl: './bubble.component.html',
-  styleUrls: ['./bubble.component.scss']
+  styleUrls: ['./bubble.component.scss'],
+  templateUrl: './bubble.component.html'
 })
 export class BubbleComponent {
   @Input()

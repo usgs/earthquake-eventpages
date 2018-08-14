@@ -11,8 +11,8 @@ import { MetadataService } from '@core/metadata.service';
  */
 @Component({
   selector: 'shakemap-metadata',
-  templateUrl: './metadata.component.html',
-  styleUrls: ['./metadata.component.scss']
+  styleUrls: ['./metadata.component.scss'],
+  templateUrl: './metadata.component.html'
 })
 export class MetadataComponent implements OnInit, OnDestroy {
   metadata: any = null;
@@ -22,6 +22,10 @@ export class MetadataComponent implements OnInit, OnDestroy {
     public mdService: MetadataService,
     public eventService: EventService
   ) {}
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 
   ngOnInit() {
     this.subs.add(
@@ -36,8 +40,14 @@ export class MetadataComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.subs.unsubscribe();
+  /**
+   * Set metadata property
+   *
+   * @param metadata
+   *     shakemap metadata
+   */
+  onMetadata(metadata): void {
+    this.metadata = metadata;
   }
 
   /**
@@ -48,15 +58,5 @@ export class MetadataComponent implements OnInit, OnDestroy {
    */
   onProduct(product): void {
     this.mdService.getMetadata(product);
-  }
-
-  /**
-   * Set metadata property
-   *
-   * @param metadata
-   *     shakemap metadata
-   */
-  onMetadata(metadata): void {
-    this.metadata = metadata;
   }
 }

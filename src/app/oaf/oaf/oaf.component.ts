@@ -10,8 +10,8 @@ import { OafService } from '../oaf.service';
  */
 @Component({
   selector: 'oaf',
-  templateUrl: './oaf.component.html',
-  styleUrls: ['./oaf.component.scss']
+  styleUrls: ['./oaf.component.scss'],
+  templateUrl: './oaf.component.html'
 })
 export class OafComponent implements AfterViewInit, OnDestroy {
   subscription: Subscription = new Subscription();

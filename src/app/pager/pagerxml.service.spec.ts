@@ -245,7 +245,7 @@ describe('PagerxmlService', () => {
   });
 
   describe('parseImpactComments', () => {
-    it('handles both fatality and economic processing of impact comments', inject(
+    it('handles fatality and economic processing of impact comments', inject(
       [PagerXmlService],
       (service: PagerXmlService) => {
         const impact = service._parseImpactComments(

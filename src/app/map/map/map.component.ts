@@ -8,8 +8,8 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  templateUrl: './map.component.html'
 })
 export class MapComponent {
   constructor(

@@ -14,17 +14,16 @@ describe('BubbleChartComponent', () => {
         BubbleChartComponent,
 
         MockComponent({
-          selector: 'ngx-charts-chart',
           inputs: [
             'view',
             'showLegend',
             'legendOptions',
             'activeEntries',
             'animations'
-          ]
+          ],
+          selector: 'ngx-charts-chart'
         }),
         MockComponent({
-          selector: ':svg:g',
           inputs: [
             'xScale',
             'yScale',
@@ -68,7 +67,8 @@ describe('BubbleChartComponent', () => {
             'tooltipTitle',
             'tooltipContext',
             'ticks'
-          ]
+          ],
+          selector: ':svg:g'
         })
       ]
     }).compileComponents();

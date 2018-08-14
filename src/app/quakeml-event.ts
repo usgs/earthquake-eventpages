@@ -8,21 +8,16 @@ import { toIndex } from './to-index';
  *        json object (ala xmlToJson) of a quakeml event element.
  */
 export class QuakemlEvent {
-  // event attributes
-  publicID: string = null;
+  amplitudes: any = {};
   catalog: string = null;
   creationInfo: any = null;
   eventid: string = null;
-  preferredMagnitudeID: string = null;
-  preferredOriginID: string = null;
-
-  // origins and magnitude elements
   magnitudes: Array<any> = [];
   origins: Array<any> = [];
-
-  // indexes of related elements referenced by origins and/or magnitudes
   picks: any = {};
-  amplitudes: any = {};
+  preferredMagnitudeID: string = null;
+  preferredOriginID: string = null;
+  publicID: string = null;
   stationMagnitudes: any = {};
 
   constructor(data: any) {

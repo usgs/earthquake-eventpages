@@ -40,10 +40,10 @@ describe('LinkProductComponent', () => {
   describe('getUrl()', () => {
     it('gets the url property', () => {
       const product = {
+        contents: {},
         properties: {
           url: 'url'
-        },
-        contents: {}
+        }
       };
 
       expect(component.getUrl(product)).toEqual('url');
@@ -51,13 +51,13 @@ describe('LinkProductComponent', () => {
 
     it('supports relative urls', () => {
       const product = {
-        properties: {
-          url: 'relative url'
-        },
         contents: {
           'relative url': {
             url: 'actual url'
           }
+        },
+        properties: {
+          url: 'relative url'
         }
       };
 

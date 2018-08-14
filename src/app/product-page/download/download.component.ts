@@ -10,8 +10,8 @@ import { ContentsXmlService } from '@core/contents-xml.service';
  */
 @Component({
   selector: 'product-page-download',
-  templateUrl: './download.component.html',
-  styleUrls: ['./download.component.scss']
+  styleUrls: ['./download.component.scss'],
+  templateUrl: './download.component.html'
 })
 export class DownloadComponent {
   // see getter/setter below

@@ -5,11 +5,11 @@ import { ShakemapPSA30Overlay } from './shakemap-psa30-overlay';
 describe('ShakemapPSA30Overlay', () => {
   let overlay;
   const FEATURE = {
-    properties: {
-      value: 1
-    },
     geometry: {
       coordinates: [[[0, 0], [1, 1]]]
+    },
+    properties: {
+      value: 1
     }
   };
 

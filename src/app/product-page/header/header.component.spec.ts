@@ -15,16 +15,16 @@ describe('HeaderComponent', () => {
         HeaderComponent,
 
         MockComponent({
-          selector: 'product-page-summary-link',
-          inputs: ['product', 'event']
+          inputs: ['product', 'event'],
+          selector: 'product-page-summary-link'
         }),
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
         MockComponent({
-          selector: 'shared-summary-link',
-          inputs: ['productType', 'event']
+          inputs: ['productType', 'event'],
+          selector: 'shared-summary-link'
         }),
 
         MockPipe('dateTime')

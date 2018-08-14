@@ -10,16 +10,15 @@ import { FormatterService } from '@core/formatter.service';
  */
 @Component({
   selector: 'executive-origin-pin',
-  templateUrl: './origin-pin.component.html',
-  styleUrls: ['./origin-pin.component.scss']
+  styleUrls: ['./origin-pin.component.scss'],
+  templateUrl: './origin-pin.component.html'
 })
 export class OriginPinComponent {
   link = '../origin';
-  title = 'Origin';
-  type = 'origin';
-
   @Input()
   product: any;
+  title = 'Origin';
+  type = 'origin';
 
   constructor(public formatterService: FormatterService) {}
 }

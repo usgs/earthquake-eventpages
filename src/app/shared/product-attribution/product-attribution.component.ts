@@ -8,8 +8,8 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-product-attribution',
-  templateUrl: './product-attribution.component.html',
-  styleUrls: ['./product-attribution.component.scss']
+  styleUrls: ['./product-attribution.component.scss'],
+  templateUrl: './product-attribution.component.html'
 })
 export class ProductAttributionComponent {
   @Input()

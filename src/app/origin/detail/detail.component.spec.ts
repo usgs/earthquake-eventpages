@@ -30,20 +30,20 @@ describe('DetailComponent', () => {
         DetailComponent,
 
         MockComponent({
-          selector: 'shared-uncertain-value',
-          inputs: ['value', 'uncertainty', 'uncertaintyUnits']
+          inputs: ['value', 'uncertainty', 'uncertaintyUnits'],
+          selector: 'shared-uncertain-value'
         }),
         MockComponent({
-          selector: 'shared-coordinates',
-          inputs: ['latitude', 'longitude']
+          inputs: ['latitude', 'longitude'],
+          selector: 'shared-coordinates'
         }),
         MockComponent({
-          selector: 'shared-fe-region',
-          inputs: ['latitude', 'longitude']
+          inputs: ['latitude', 'longitude'],
+          selector: 'shared-fe-region'
         }),
         MockComponent({
-          selector: 'shared-attribution',
-          inputs: ['sourceCode']
+          inputs: ['sourceCode'],
+          selector: 'shared-attribution'
         })
       ],
       providers: [

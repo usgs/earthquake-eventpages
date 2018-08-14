@@ -56,15 +56,15 @@ describe('AttributionComponent', () => {
       const details = [{ id: 'id', aliases: ['myid', 'yourid'] }];
 
       expect(component.sourceCodeToInfo('Id', event, details)).toEqual({
+        details: details[0],
         id: 'ID',
-        index: 3,
-        details: details[0]
+        index: 3
       });
 
       expect(component.sourceCodeToInfo('MYID', event, details)).toEqual({
+        details: details[0],
         id: 'ID',
-        index: 3,
-        details: details[0]
+        index: 3
       });
     });
   });

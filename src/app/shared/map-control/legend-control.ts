@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 /**
  * leaflet legend control
  */
+// tslint:disable-next-line:variable-name
 const LegendControl = L.Control.extend({
   _overlays: [],
 

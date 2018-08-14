@@ -15,8 +15,8 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'product-page-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  templateUrl: './header.component.html'
 })
 export class HeaderComponent {
   @Input()

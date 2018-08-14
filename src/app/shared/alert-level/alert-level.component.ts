@@ -5,8 +5,8 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-alert-level',
-  templateUrl: './alert-level.component.html',
-  styleUrls: ['./alert-level.component.scss']
+  styleUrls: ['./alert-level.component.scss'],
+  templateUrl: './alert-level.component.html'
 })
 export class AlertLevelComponent {
   alertLevel: string;

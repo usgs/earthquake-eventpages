@@ -5,11 +5,11 @@ import { ShakemapPGVOverlay } from './shakemap-pgv-overlay';
 describe('ShakemapPGVOverlay', () => {
   let overlay;
   const FEATURE = {
-    properties: {
-      value: 1
-    },
     geometry: {
       coordinates: [[[0, 0], [1, 1]]]
+    },
+    properties: {
+      value: 1
     }
   };
 

@@ -26,12 +26,12 @@ describe('ProductPageComponent', () => {
         ProductPageComponent,
 
         MockComponent({
-          selector: 'product-page-footer',
-          inputs: ['event', 'product']
+          inputs: ['event', 'product'],
+          selector: 'product-page-footer'
         }),
         MockComponent({
-          selector: 'product-page-header',
-          inputs: ['contributors', 'event', 'product', 'productType']
+          inputs: ['contributors', 'event', 'product', 'productType'],
+          selector: 'product-page-header'
         })
       ],
       imports: [RouterTestingModule],

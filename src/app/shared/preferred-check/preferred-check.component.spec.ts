@@ -9,8 +9,8 @@ describe('PreferredCheckComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatIconModule],
-      declarations: [PreferredCheckComponent]
+      declarations: [PreferredCheckComponent],
+      imports: [MatIconModule]
     }).compileComponents();
   }));
 

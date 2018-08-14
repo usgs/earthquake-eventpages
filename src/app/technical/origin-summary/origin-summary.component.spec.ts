@@ -13,19 +13,19 @@ describe('OriginSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatIconModule, MatTableModule, RouterTestingModule],
       declarations: [
         OriginSummaryComponent,
 
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
         MockComponent({
-          selector: 'shared-preferred-check',
-          inputs: ['TITLE']
+          inputs: ['TITLE'],
+          selector: 'shared-preferred-check'
         })
       ],
+      imports: [MatIconModule, MatTableModule, RouterTestingModule],
       providers: [FormatterService]
     }).compileComponents();
   }));

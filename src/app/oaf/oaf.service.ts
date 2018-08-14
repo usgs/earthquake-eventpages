@@ -8,9 +8,9 @@ import { BehaviorSubject } from 'rxjs';
  */
 @Injectable()
 export class OafService {
-  oaf$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   forecast$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   model$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  oaf$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   /**
    * Updates the observable streams for: oaf, forecast, and model
@@ -55,15 +55,15 @@ export class OafService {
       columns.push({
         id,
         label: forecast.label,
-        timeStart: forecast.timeStart,
-        timeEnd: forecast.timeEnd
+        timeEnd: forecast.timeEnd,
+        timeStart: forecast.timeStart
       });
 
       forecast.bins.forEach((bin, bIndex) => {
         if (fIndex === 0) {
           rows[bIndex] = {
-            magnitude: bin.magnitude,
-            data: {}
+            data: {},
+            magnitude: bin.magnitude
           };
         }
         rows[bIndex].data[id] = bin;
@@ -85,12 +85,12 @@ export class OafService {
    */
   parseModel(model: any): any {
     return {
-      ref: model.ref,
       name: model.name,
       parameters: {
         keys: Object.keys(model.parameters),
         values: model.parameters
-      }
+      },
+      ref: model.ref
     };
   }
 

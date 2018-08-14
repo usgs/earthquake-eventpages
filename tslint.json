@@ -4,7 +4,7 @@
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
-    "comment-format": [true, "check-space", "check-uppercase"],
+    "comment-format": [true, "check-space"],
     "curly": true,
     "deprecation": {
       "severity": "warn"
@@ -20,7 +20,7 @@
       true,
       {
         "limit": 80,
-        "ignore-pattern": "^import {(.*?)}"
+        "ignore-pattern": "^'|^import"
       }
     ],
     "member-access": [true, "no-public"],
@@ -29,10 +29,21 @@
       {
         "alphabetize": true,
         "order": [
-          "static-field",
-          "instance-field",
-          "static-method",
-          "instance-method"
+          "public-static-field",
+          "public-static-method",
+          "protected-static-field",
+          "protected-static-method",
+          "private-static-field",
+          "private-static-method",
+          "public-instance-field",
+          "protected-instance-field",
+          "private-instance-field",
+          "public-constructor",
+          "protected-constructor",
+          "private-constructor",
+          "public-instance-method",
+          "protected-instance-method",
+          "private-instance-method"
         ]
       }
     ],
@@ -58,7 +69,8 @@
     "no-unused-variable": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
-    "object-literal-sort-keys": true,
+    /* Somewhat less than ideal, but matches member-ordering */
+    "object-literal-sort-keys": [true, "ignore-case"],
     "one-line": true,
     "prefer-const": true,
     "quotemark": [true, "single"],

@@ -78,6 +78,16 @@ export class EventService {
   }
 
   /**
+   * Handle an unkown event with a 404 error by routing to unkown route
+   *
+   * @param eventid
+   *     The event id
+   */
+  getUnknownEvent(eventid: string): void {
+    this.router.navigate(['unknown']);
+  }
+
+  /**
    * Update event to be shown, even if it has been deleted
    * Used by #getEvent when a 409 Conflict (event deleted) response is received
    *
@@ -96,16 +106,6 @@ export class EventService {
   }
 
   /**
-   * Handle an unkown event with a 404 error by routing to unkown route
-   *
-   * @param eventid
-   *     The event id
-   */
-  getUnknownEvent(eventid: string): void {
-    this.router.navigate(['unknown']);
-  }
-
-  /**
    * Handle the error and build an error response object
    *
    * @param eventid
@@ -117,9 +117,9 @@ export class EventService {
     return (error: HttpErrorResponse): Observable<any> => {
       return of({
         id: eventid,
-        type: 'Error',
         message: error.message,
-        status: error.status
+        status: error.status,
+        type: 'Error'
       });
     };
   }

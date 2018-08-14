@@ -17,26 +17,23 @@ import { of } from 'rxjs';
  * - style(feature)
  *   called by leaflet's GeoJSON layer.
  */
+// tslint:disable-next-line:variable-name
 const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
-  id: 'async-geojson',
-  enabled: true,
-  title: 'Async GeoJSON',
   bounds: null,
-  legend: null,
-  // url to download geoJSON
-  url: null,
-
   // retain layer data to detect whether it's already loaded
   data: null,
-
-  // retain map for custom layer adjustments
-  map: null,
-
+  enabled: true,
   // retain url grab errors
   error: Error,
-
+  id: 'async-geojson',
+  legend: null,
+  // retain map for custom layer adjustments
+  map: null,
   // persistent styles (allows alternating styles in geoJSON features)
   styles: {},
+  title: 'Async GeoJSON',
+  // url to download geoJSON
+  url: null,
 
   /**
    * Init function
@@ -124,12 +121,12 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
     // subclasses should override this method
 
     const defaultOptions = {
-      radius: 8,
-      fillColor: '#ff7800',
       color: '#000',
-      weight: 1,
+      fillColor: '#ff7800',
+      fillOpacity: 0.8,
       opacity: 1,
-      fillOpacity: 0.8
+      radius: 8,
+      weight: 1
     };
 
     return L.circleMarker(latlng, defaultOptions);

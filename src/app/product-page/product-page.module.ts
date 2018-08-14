@@ -12,7 +12,6 @@ import { HeaderComponent } from './header/header.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 
 @NgModule({
-  imports: [CommonModule, MatExpansionModule, SharedModule],
   declarations: [
     DateTimePipe,
     DownloadComponent,
@@ -22,6 +21,7 @@ import { ProductPageComponent } from './product-page/product-page.component';
     HeaderComponent,
     ProductPageComponent
   ],
-  exports: [DateTimePipe, ProductPageComponent]
+  exports: [DateTimePipe, ProductPageComponent],
+  imports: [CommonModule, MatExpansionModule, SharedModule]
 })
 export class ProductPageModule {}

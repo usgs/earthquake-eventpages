@@ -20,22 +20,22 @@ describe('PsaComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
       declarations: [
         PsaComponent,
 
         MockComponent({
-          selector: 'shared-map',
           inputs: [
             'overlays',
             'showScaleControl',
             'showAttributionControl',
             'baselayer'
-          ]
+          ],
+          selector: 'shared-map'
         }),
 
         MockPipe('shakemapOverlays')
       ],
+      imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]
     }).compileComponents();
   }));

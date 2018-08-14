@@ -9,8 +9,8 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
  */
 @Component({
   selector: 'pager-cities',
-  templateUrl: './pager-cities.component.html',
-  styleUrls: ['./pager-cities.component.scss']
+  styleUrls: ['./pager-cities.component.scss'],
+  templateUrl: './pager-cities.component.html'
 })
 export class PagerCitiesComponent {
   columnsToDisplay = ['mmi', 'city', 'population'];

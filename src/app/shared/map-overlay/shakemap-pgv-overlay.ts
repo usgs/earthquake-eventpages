@@ -1,13 +1,13 @@
-
 import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 
 /**
  * Shakemap PGV overlay for leaflet map
  */
+// tslint:disable-next-line:variable-name
 const ShakemapPGVOverlay = ShakemapContoursOverlay.extend({
   id: 'shakemap-pgv',
-  title: 'Shakemap PGV Contours',
   legend: null,
+  title: 'Shakemap PGV Contours',
 
   /**
    * Build leaflet overlay
@@ -28,7 +28,7 @@ const ShakemapPGVOverlay = ShakemapContoursOverlay.extend({
    *     shakemap product
    */
   getUrl: function(product: any) {
-    if (product == null) {
+    if (product === null) {
       return null;
     }
 

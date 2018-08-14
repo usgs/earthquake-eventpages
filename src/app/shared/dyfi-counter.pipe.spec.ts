@@ -74,28 +74,28 @@ describe('DyfiCounterPipe', () => {
 
     expect(pipe.transform(product, 6)).toEqual([
       {
-        value: '1',
-        leadingZero: false
+        leadingZero: false,
+        value: '1'
       },
       {
-        value: '2',
-        leadingZero: false
+        leadingZero: false,
+        value: '2'
       },
       {
-        value: '0',
-        leadingZero: false
+        leadingZero: false,
+        value: '0'
       },
       {
-        value: '3',
-        leadingZero: false
+        leadingZero: false,
+        value: '3'
       },
       {
-        value: '4',
-        leadingZero: false
+        leadingZero: false,
+        value: '4'
       },
       {
-        value: '5',
-        leadingZero: false
+        leadingZero: false,
+        value: '5'
       }
     ]);
   });

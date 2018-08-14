@@ -8,20 +8,20 @@ describe('AsynchronousGeoJSONOverlay', () => {
   let overlay;
 
   const FEATURE = {
-    type: 'Feature',
+    geometry: {
+      coordinates: [-118, 34],
+      type: 'Point'
+    },
     properties: {
       color: 'COLOR',
       value: 5
     },
-    geometry: {
-      type: 'Point',
-      coordinates: [-118, 34]
-    }
+    type: 'Feature'
   };
 
   const GEOJSON = {
-    type: 'FeatureCollection',
-    features: [FEATURE]
+    features: [FEATURE],
+    type: 'FeatureCollection'
   };
 
   beforeEach(() => {

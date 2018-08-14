@@ -20,8 +20,8 @@ describe('WaveformsComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientModule],
       declarations: [WaveformsComponent],
+      imports: [RouterTestingModule, HttpClientModule],
       providers: [
         { provide: EventService, useValue: eventServiceStub },
         WaveformService,

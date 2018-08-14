@@ -8,13 +8,12 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'executive-pager-pin',
-  templateUrl: './pager-pin.component.html',
-  styleUrls: ['./pager-pin.component.scss']
+  styleUrls: ['./pager-pin.component.scss'],
+  templateUrl: './pager-pin.component.html'
 })
 export class PagerPinComponent {
   link = '../pager';
-  title = 'PAGER';
-
   @Input()
   product: any;
+  title = 'PAGER';
 }

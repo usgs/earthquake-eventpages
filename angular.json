@@ -119,7 +119,7 @@
           "options": {
             "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
             "tslintConfig": "tslint.json",
-            "exclude": ["**/node_modules/**", "polyfills.js"]
+            "exclude": ["**/node_modules/**", "**/polyfills.js"]
           }
         }
       }

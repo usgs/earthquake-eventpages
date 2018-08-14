@@ -6,11 +6,11 @@ describe('ShakemapContoursOverlay', () => {
   let overlay;
 
   const FEATURE = {
-    properties: {
-      value: 1
-    },
     geometry: {
       coordinates: [[[0, 0], [1, 1]]]
+    },
+    properties: {
+      value: 1
     }
   };
 
@@ -83,9 +83,7 @@ describe('ShakemapContoursOverlay', () => {
       const bounds = 'BOUNDS';
       spyOn(overlay, 'getBounds').and.returnValue(bounds);
 
-      const mapSpy = spyOn(overlay.map, 'fitBounds').and.callFake(
-        bounds_in => {}
-      );
+      const mapSpy = spyOn(overlay.map, 'fitBounds').and.callFake(() => {});
 
       overlay.afterAdd();
       expect(mapSpy).toHaveBeenCalledWith(bounds);

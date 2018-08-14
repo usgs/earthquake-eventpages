@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Shakemap Pin
  *
@@ -9,8 +8,8 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'executive-shakemap-pin',
-  templateUrl: './shakemap-pin.component.html',
-  styleUrls: ['./shakemap-pin.component.scss']
+  styleUrls: ['./shakemap-pin.component.scss'],
+  templateUrl: './shakemap-pin.component.html'
 })
 export class ShakemapPinComponent {
   link = '../shakemap';
@@ -29,9 +28,8 @@ export class ShakemapPinComponent {
     11: { shaking: 'Extreme', damage: 'Very Heavy' },
     12: { shaking: 'Extreme', damage: 'Very Heavy' }
   };
-  round = Math.round;
-  title = 'ShakeMap';
-
   @Input()
   product: any;
+  round = Math.round;
+  title = 'ShakeMap';
 }

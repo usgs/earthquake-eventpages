@@ -14,8 +14,8 @@ describe('ProductAttributionComponent', () => {
         ProductAttributionComponent,
 
         MockComponent({
-          selector: 'shared-attribution',
-          inputs: ['sourceCode']
+          inputs: ['sourceCode'],
+          selector: 'shared-attribution'
         })
       ]
     }).compileComponents();
@@ -40,9 +40,9 @@ describe('ProductAttributionComponent', () => {
     };
     const productProperties = {
       properties: {
-        'origin-source': 'a',
+        'beachball-source': 'c',
         'magnitude-source': 'b',
-        'beachball-source': 'c'
+        'origin-source': 'a'
       }
     };
 

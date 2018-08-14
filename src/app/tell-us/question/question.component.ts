@@ -34,13 +34,10 @@ interface OtherValueEvent {
  */
 @Component({
   selector: 'tell-us-question',
-  templateUrl: './question.component.html',
-  styleUrls: ['./question.component.scss']
+  styleUrls: ['./question.component.scss'],
+  templateUrl: './question.component.html'
 })
 export class QuestionComponent {
-  // if there is an "other" option, the user specified value
-  otherValue: any;
-
   @Output()
   change = new BehaviorSubject<any>(null);
 
@@ -52,6 +49,8 @@ export class QuestionComponent {
   name: string;
   @Input()
   options: Array<any>;
+  // if there is an "other" option, the user specified value
+  otherValue: any;
   @Input()
   value: any;
 

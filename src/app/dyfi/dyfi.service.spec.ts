@@ -20,15 +20,15 @@ describe('DyfiService', () => {
   const DYFIDATA = {
     datasets: [
       {
-        name: 'data1',
         class: 'scatterplot1',
+        data: [{ x: 5, y: 5, stdev: 1 }],
         legend: 'All reported data',
-        data: [{ x: 5, y: 5, stdev: 1 }]
+        name: 'data1'
       },
       {
-        name: 'data2',
         class: 'scatterplot1',
-        data: [{ x: 5, y: 5 }]
+        data: [{ x: 5, y: 5 }],
+        name: 'data2'
       }
     ]
   };

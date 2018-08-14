@@ -97,8 +97,8 @@ describe('MetadataService', () => {
     it('handles success', inject(
       [MetadataService],
       (service: MetadataService) => {
-        const test_obj = { test_obj: { header: 'value' } };
-        const arr = service.obj2Arr(test_obj);
+        const testObj = { test_obj: { header: 'value' } };
+        const arr = service.obj2Arr(testObj);
 
         expect(arr[0].type).toEqual('test_obj');
       }
@@ -106,12 +106,12 @@ describe('MetadataService', () => {
   });
 
   describe('translate', () => {
-    let test_obj;
+    let testObj;
 
     it('handles success', inject(
       [MetadataService],
       (service: MetadataService) => {
-        test_obj = {
+        testObj = {
           output: {
             ground_motions: {
               test_obj: {
@@ -121,9 +121,9 @@ describe('MetadataService', () => {
           }
         };
 
-        test_obj = service.translate(test_obj);
+        testObj = service.translate(testObj);
 
-        expect(test_obj.output.ground_motions[0].type).toEqual('test_obj');
+        expect(testObj.output.ground_motions[0].type).toEqual('test_obj');
       }
     ));
   });

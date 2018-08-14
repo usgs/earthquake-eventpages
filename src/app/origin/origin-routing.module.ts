@@ -8,34 +8,34 @@ import { PhaseComponent } from './phase/phase.component';
 
 const originRoutes: Routes = [
   {
-    // this module must be loaded lazily using "loadChildren"
-    // the actual url mount point is defined in "app/app-routing.module.ts"
-    path: '',
-    component: OriginComponent,
     children: [
       {
-        path: 'detail',
-        component: DetailComponent
+        component: DetailComponent,
+        path: 'detail'
       },
       {
-        path: 'phase',
-        component: PhaseComponent
+        component: PhaseComponent,
+        path: 'phase'
       },
       {
-        path: 'magnitude',
-        component: MagnitudeComponent
+        component: MagnitudeComponent,
+        path: 'magnitude'
       },
       {
         path: '',
         pathMatch: 'full',
         redirectTo: 'detail'
       }
-    ]
+    ],
+    component: OriginComponent,
+    // this module must be loaded lazily using "loadChildren"
+    // the actual url mount point is defined in "app/app-routing.module.ts"
+    path: ''
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(originRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  imports: [RouterModule.forChild(originRoutes)]
 })
 export class OriginRoutingModule {}

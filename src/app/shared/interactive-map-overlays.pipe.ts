@@ -18,53 +18,19 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     epicenter: true,
     'shakemap-intensity': true
   };
-  staticOverlays: L.Layer[] = [new LandscanPopulationOverlay()];
+  // track which event was last displayed
+  lastEvent: Event = null;
   // pipes related to their product
+  overlayCache: any = {};
+  /* tslint:disable:object-literal-sort-keys */
   overlayFactory: any = {
     origin: new RegionInfoOverlaysPipe(),
     // keep origin first, the rest go here:
     shakemap: new ShakemapOverlaysPipe(),
     'ground-failure': new GroundFailureOverlaysPipe()
   };
-  // track which event was last displayed
-  lastEvent: Event = null;
-  overlayCache: any = {};
-
-  /**
-   * Add overlays to the map
-   *
-   * @param event
-   *    Earthquake event to generate layers for
-   * @param params Optional
-   *    Can turn on specific layers with {layerid: 'true'}
-   *
-   * @return {any}
-   *    Array of overlays added to the map
-   */
-  transform(event: Event, params: ParamMap = null): any {
-    if (this.lastEvent !== event) {
-      this.lastEvent = event;
-      this.overlayCache = {};
-    }
-
-    if (!event) {
-      return [];
-    }
-
-    // new array every time for change detection
-    let overlays = [];
-    Object.keys(this.overlayFactory).forEach(type => {
-      overlays.push(...this.getOverlays(event, params, type));
-    });
-
-    overlays.push(...this.staticOverlays);
-    // allow layers to reuse overlays
-    overlays = getUnique(overlays);
-
-    this.setEnabled(overlays, params);
-
-    return overlays;
-  }
+  /* tslint:enable:object-literal-sort-keys */
+  staticOverlays: L.Layer[] = [new LandscanPopulationOverlay()];
 
   /**
    * Returns overlays for a specfic product type
@@ -134,5 +100,41 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
         overlay.enabled = this.defaultOverlays[overlay.id];
       }
     });
+  }
+
+  /**
+   * Add overlays to the map
+   *
+   * @param event
+   *    Earthquake event to generate layers for
+   * @param params Optional
+   *    Can turn on specific layers with {layerid: 'true'}
+   *
+   * @return {any}
+   *    Array of overlays added to the map
+   */
+  transform(event: Event, params: ParamMap = null): any {
+    if (this.lastEvent !== event) {
+      this.lastEvent = event;
+      this.overlayCache = {};
+    }
+
+    if (!event) {
+      return [];
+    }
+
+    // new array every time for change detection
+    let overlays = [];
+    Object.keys(this.overlayFactory).forEach(type => {
+      overlays.push(...this.getOverlays(event, params, type));
+    });
+
+    overlays.push(...this.staticOverlays);
+    // allow layers to reuse overlays
+    overlays = getUnique(overlays);
+
+    this.setEnabled(overlays, params);
+
+    return overlays;
   }
 }

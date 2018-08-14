@@ -23,14 +23,6 @@ import { ShakemapPinComponent } from './shakemap-pin/shakemap-pin.component';
 import { TsunamiPinComponent } from './tsunami-pin/tsunami-pin.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-
-    EventPageModule,
-    ProductPageModule,
-    SharedModule
-  ],
   declarations: [
     BasicPinComponent,
     DyfiPinComponent,
@@ -48,6 +40,14 @@ import { TsunamiPinComponent } from './tsunami-pin/tsunami-pin.component';
     RegionInfoPinComponent,
     ShakemapPinComponent,
     TsunamiPinComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule,
+
+    EventPageModule,
+    ProductPageModule,
+    SharedModule
   ]
 })
 export class ExecutiveModule {}

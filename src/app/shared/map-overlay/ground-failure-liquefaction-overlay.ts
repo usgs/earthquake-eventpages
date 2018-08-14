@@ -3,12 +3,13 @@ import * as L from 'leaflet';
 /**
  * Ground failure liquefaction overlay for the leaflet map
  */
+// tslint:disable-next-line:variable-name
 const GroundFailureLiquefactionOverlay = L.ImageOverlay.extend({
-  id: 'ground-failure-liquefaction',
-  enabled: false,
-  title: 'Liquefaction Estimate',
   bounds: null,
+  enabled: false,
+  id: 'ground-failure-liquefaction',
   legend: null,
+  title: 'Liquefaction Estimate',
 
   /**
    * Build leaflet overlay

@@ -10,14 +10,14 @@ import { Tensor } from '@shared/beachball/tensor';
  */
 @Component({
   selector: 'executive-moment-tensor-pin',
-  templateUrl: './moment-tensor-pin.component.html',
-  styleUrls: ['./moment-tensor-pin.component.scss']
+  styleUrls: ['./moment-tensor-pin.component.scss'],
+  templateUrl: './moment-tensor-pin.component.html'
 })
 export class MomentTensorPinComponent {
   _product: any = null;
   link = '../moment-tensor';
-  title = 'Moment Tensor';
   tensor: Tensor = null;
+  title = 'Moment Tensor';
 
   @Input()
   set product(product: any) {

@@ -11,6 +11,7 @@ import { MomentTensorRoutingModule } from './moment-tensor-routing.module';
 import { MomentTensorComponent } from './moment-tensor/moment-tensor.component';
 
 @NgModule({
+  declarations: [MomentTensorComponent, AxesComponent, InfoComponent],
   imports: [
     CommonModule,
     MatTableModule,
@@ -19,7 +20,6 @@ import { MomentTensorComponent } from './moment-tensor/moment-tensor.component';
     SharedModule,
 
     MomentTensorRoutingModule
-  ],
-  declarations: [MomentTensorComponent, AxesComponent, InfoComponent]
+  ]
 })
 export class MomentTensorModule {}

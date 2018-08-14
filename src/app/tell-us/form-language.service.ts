@@ -10,10 +10,10 @@ import * as LANGUAGE_ES from './form-language/es.json';
  */
 @Injectable()
 export class FormLanguageService {
-  // list of supported languages
-  languages: Array<any> = [LANGUAGE_EN, LANGUAGE_ES];
   // observable for current language
   language$: BehaviorSubject<any> = new BehaviorSubject(LANGUAGE_EN);
+  // list of supported languages
+  languages: Array<any> = [LANGUAGE_EN, LANGUAGE_ES];
 
   /**
    * Switch the selected language.

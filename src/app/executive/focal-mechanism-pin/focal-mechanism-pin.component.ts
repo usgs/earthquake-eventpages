@@ -10,14 +10,14 @@ import { Tensor } from '@shared/beachball/tensor';
  */
 @Component({
   selector: 'executive-focal-mechanism-pin',
-  templateUrl: './focal-mechanism-pin.component.html',
-  styleUrls: ['./focal-mechanism-pin.component.scss']
+  styleUrls: ['./focal-mechanism-pin.component.scss'],
+  templateUrl: './focal-mechanism-pin.component.html'
 })
 export class FocalMechanismPinComponent {
   _product: any = null;
   link: String = '../focal-mechanism';
-  title: String = 'Focal Mechanism';
   tensor: Tensor = null;
+  title: String = 'Focal Mechanism';
 
   @Input()
   set product(product: any) {

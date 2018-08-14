@@ -10,8 +10,8 @@ import { Tensor } from '../beachball/tensor';
  */
 @Component({
   selector: 'shared-nodal-planes',
-  templateUrl: './nodal-planes.component.html',
-  styleUrls: ['./nodal-planes.component.scss']
+  styleUrls: ['./nodal-planes.component.scss'],
+  templateUrl: './nodal-planes.component.html'
 })
 export class NodalPlanesComponent {
   columnsToDisplay = ['plane', 'strike', 'dip', 'rake'];

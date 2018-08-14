@@ -15,6 +15,12 @@ import { PagerSummaryComponent } from './pager-summary/pager-summary.component';
 import { ShakemapSummaryComponent } from './shakemap-summary/shakemap-summary.component';
 
 @NgModule({
+  declarations: [
+    ImpactComponent,
+    DyfiSummaryComponent,
+    ShakemapSummaryComponent,
+    PagerSummaryComponent
+  ],
   imports: [
     CommonModule,
     MatDialogModule,
@@ -24,12 +30,6 @@ import { ShakemapSummaryComponent } from './shakemap-summary/shakemap-summary.co
     SharedModule,
 
     ImpactRoutingModule
-  ],
-  declarations: [
-    ImpactComponent,
-    DyfiSummaryComponent,
-    ShakemapSummaryComponent,
-    PagerSummaryComponent
   ]
 })
 export class ImpactModule {}

@@ -16,9 +16,6 @@ import { curveLinear } from 'd3-shape';
  *     All x values of the domain
  */
 @Component({
-  selector: 'g[ngx-charts-bubble-series]',
-  templateUrl: './bubble-series.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('animationState', [
       transition(':enter', [
@@ -29,7 +26,10 @@ import { curveLinear } from 'd3-shape';
         animate(250, style({ opacity: 1, transform: 'scale(1)' }))
       ])
     ])
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'g[ngx-charts-bubble-series]',
+  templateUrl: './bubble-series.component.html'
 })
 export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
   @Input()
@@ -81,37 +81,49 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
         const errorBarWidth = (this.xDomain[1] - this.xDomain[0]) * 0.0125;
 
         const data = {
-          series: seriesName,
           name: d.name,
+          radius: d.r,
+          series: seriesName,
           value: d.y,
-          x: d.x,
-          radius: d.r
+          x: d.x
         };
 
         return {
-          data,
-          x,
-          y,
-          max,
-          min,
-          errorBarWidth,
-          r,
           borderColor,
           classNames: [`circle-data-${i}`],
-          value: y,
-          label: x,
+          color,
           cx,
           cy,
-          radius,
-          tooltipLabel,
-          color,
-          opacity,
-          seriesName,
+          data,
+          errorBarWidth,
           isActive,
-          transform: `translate(${cx},${cy})`
+          label: x,
+          max,
+          min,
+          opacity,
+          r,
+          radius,
+          seriesName,
+          tooltipLabel,
+          transform: `translate(${cx},${cy})`,
+          value: y,
+          x,
+          y
         };
       })
       .filter(circle => circle !== null);
+  }
+
+  /**
+   * Returns the lower path of the circle error
+   * @param circle
+   *     The circle to check for errors
+   */
+  getErrorPathLower(circle) {
+    const path = `M${this.xScale(circle.x) - 10},${this.yScale(circle.min)}L
+        ${this.xScale(circle.x) + 10},${this.yScale(circle.min)}`;
+
+    return path;
   }
 
   /**
@@ -123,18 +135,6 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
   getErrorPathUpper(circle) {
     const path = `M${this.xScale(circle.x) - 10},${this.yScale(circle.max)}L
         ${this.xScale(circle.x) + 10},${this.yScale(circle.max)}`;
-
-    return path;
-  }
-
-  /**
-   * Returns the lower path of the circle error
-   * @param circle
-   *     The circle to check for errors
-   */
-  getErrorPathLower(circle) {
-    const path = `M${this.xScale(circle.x) - 10},${this.yScale(circle.min)}L
-        ${this.xScale(circle.x) + 10},${this.yScale(circle.min)}`;
 
     return path;
   }

@@ -11,8 +11,8 @@ import { WaveformService } from '../waveform.service';
  */
 @Component({
   selector: 'executive-waveforms',
-  templateUrl: './waveforms.component.html',
-  styleUrls: ['./waveforms.component.scss']
+  styleUrls: ['./waveforms.component.scss'],
+  templateUrl: './waveforms.component.html'
 })
 export class WaveformsComponent implements OnInit, OnDestroy {
   subscription: Subscription;
@@ -22,15 +22,15 @@ export class WaveformsComponent implements OnInit, OnDestroy {
     public waveformService: WaveformService
   ) {}
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   ngOnInit() {
     this.subscription = this.eventService.event$.subscribe(event => {
       if (event && event.id) {
         this.waveformService.getIrisEvent(event);
       }
     });
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

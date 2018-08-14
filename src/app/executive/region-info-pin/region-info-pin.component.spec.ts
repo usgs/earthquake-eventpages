@@ -22,12 +22,12 @@ describe('RegionInfoPinComponent', () => {
         RegionInfoPinComponent,
 
         MockComponent({
-          selector: 'basic-pin',
-          inputs: ['link', 'product', 'title']
+          inputs: ['link', 'product', 'title'],
+          selector: 'basic-pin'
         }),
         MockComponent({
-          selector: 'shared-map',
-          inputs: ['overlays', 'showAttributionControl']
+          inputs: ['overlays', 'showAttributionControl'],
+          selector: 'shared-map'
         }),
 
         MockPipe('getProduct'),

@@ -16,12 +16,12 @@ describe('DyfiPinComponent', () => {
         DyfiPinComponent,
 
         MockComponent({
-          selector: 'basic-pin',
-          inputs: ['link', 'title', 'product']
+          inputs: ['link', 'title', 'product'],
+          selector: 'basic-pin'
         }),
         MockComponent({
-          selector: 'shared-mmi',
-          inputs: ['bubble', 'intensity']
+          inputs: ['bubble', 'intensity'],
+          selector: 'shared-mmi'
         }),
 
         MockPipe('sharedProductContent')

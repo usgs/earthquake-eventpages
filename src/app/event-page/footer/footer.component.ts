@@ -10,12 +10,12 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'event-page-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  styleUrls: ['./footer.component.scss'],
+  templateUrl: './footer.component.html'
 })
 export class FooterComponent {
   @Input()
-  event: any = null;
-  @Input()
   contributors: any = null;
+  @Input()
+  event: any = null;
 }

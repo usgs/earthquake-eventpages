@@ -13,7 +13,6 @@ describe('InputComponent', () => {
     const formatter = {};
 
     TestBed.configureTestingModule({
-      imports: [MatTableModule, MatExpansionModule],
       declarations: [
         InputComponent,
 
@@ -22,6 +21,7 @@ describe('InputComponent', () => {
         MockPipe('sharedLocation'),
         MockPipe('sharedDateTime')
       ],
+      imports: [MatTableModule, MatExpansionModule],
       providers: [{ provide: FormatterService, useValue: formatter }]
     }).compileComponents();
   }));

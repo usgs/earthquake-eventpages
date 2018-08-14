@@ -21,7 +21,7 @@ export class MetadataService {
    *     shakemap product json
    */
   getMetadata(product: any): void {
-    if (product == null || !product.contents['download/info.json']) {
+    if (product === null || !product.contents['download/info.json']) {
       this.onMetadata(null);
       return;
     }
@@ -40,6 +40,26 @@ export class MetadataService {
           this.metadata$.next(null);
         }
       });
+  }
+
+  /**
+   * Convert metadata objects to arrays by
+   * assigning their key as a 'type' property
+   *
+   * @param obj
+   *     javascript object
+   * @returns
+   *     Array with all metadata properties
+   */
+  obj2Arr(obj): any {
+    const arr = [];
+    for (const itemId of Object.keys(obj)) {
+      const item = obj[itemId];
+      item.type = itemId;
+
+      arr.push(item);
+    }
+    return arr;
   }
 
   /**
@@ -85,26 +105,6 @@ export class MetadataService {
     }
 
     return metadata;
-  }
-
-  /**
-   * Convert metadata objects to arrays by
-   * assigning their key as a 'type' property
-   *
-   * @param obj
-   *     javascript object
-   * @returns
-   *     Array with all metadata properties
-   */
-  obj2Arr(obj): any {
-    const arr = [];
-    for (const item_id of Object.keys(obj)) {
-      const item = obj[item_id];
-      item.type = item_id;
-
-      arr.push(item);
-    }
-    return arr;
   }
 
   /**

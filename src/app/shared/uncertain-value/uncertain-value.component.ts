@@ -14,16 +14,16 @@ import { FormatterService } from '@core/formatter.service';
  */
 @Component({
   selector: 'shared-uncertain-value',
-  templateUrl: './uncertain-value.component.html',
-  styleUrls: ['./uncertain-value.component.scss']
+  styleUrls: ['./uncertain-value.component.scss'],
+  templateUrl: './uncertain-value.component.html'
 })
 export class UncertainValueComponent {
-  @Input()
-  value = '';
   @Input()
   uncertainty: number;
   @Input()
   uncertaintyUnits: string = null;
+  @Input()
+  value = '';
 
   constructor(public formatter: FormatterService) {}
 

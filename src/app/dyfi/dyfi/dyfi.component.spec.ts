@@ -9,7 +9,6 @@ import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { DyfiComponent } from './dyfi.component';
 
-
 describe('DyfiComponent', () => {
   let component: DyfiComponent;
   let fixture: ComponentFixture<DyfiComponent>;
@@ -21,9 +20,6 @@ describe('DyfiComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
       declarations: [
         DyfiComponent,
 
@@ -36,11 +32,9 @@ describe('DyfiComponent', () => {
 
         MockPipe('sharedProductContent')
       ],
-      providers: [
-        {provide: EventService, useValue: eventServiceStub}
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

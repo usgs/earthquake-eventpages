@@ -39,6 +39,29 @@ describe('FormComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      declarations: [
+        FormComponent,
+
+        MockComponent({
+          selector: 'location-input-map'
+        }),
+        MockComponent({
+          inputs: ['legend'],
+          selector: 'tell-us-fieldset'
+        }),
+        MockComponent({
+          inputs: ['enter', 'update'],
+          selector: 'tell-us-location'
+        }),
+        MockComponent({
+          inputs: ['label', 'multiSelect', 'name', 'options', 'value'],
+          selector: 'tell-us-question'
+        }),
+        MockComponent({
+          selector: 'tell-us-privacy-statement'
+        }),
+        MockPipe('keys')
+      ],
       imports: [
         BrowserAnimationsModule,
         FormsModule,
@@ -48,29 +71,6 @@ describe('FormComponent', () => {
         MatExpansionModule,
         MatFormFieldModule,
         MatSelectModule
-      ],
-      declarations: [
-        FormComponent,
-
-        MockComponent({
-          selector: 'location-input-map'
-        }),
-        MockComponent({
-          selector: 'tell-us-fieldset',
-          inputs: ['legend']
-        }),
-        MockComponent({
-          selector: 'tell-us-location',
-          inputs: ['enter', 'update']
-        }),
-        MockComponent({
-          selector: 'tell-us-question',
-          inputs: ['label', 'multiSelect', 'name', 'options', 'value']
-        }),
-        MockComponent({
-          selector: 'tell-us-privacy-statement'
-        }),
-        MockPipe('keys')
       ],
       providers: [
         { provide: CoordinatesService, useValue: coordinatesServiceStub },

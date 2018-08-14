@@ -5,13 +5,12 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'executive-ground-failure-pin',
-  templateUrl: './ground-failure-pin.component.html',
-  styleUrls: ['./ground-failure-pin.component.scss']
+  styleUrls: ['./ground-failure-pin.component.scss'],
+  templateUrl: './ground-failure-pin.component.html'
 })
 export class GroundFailurePinComponent {
   link = '../ground-failure';
-  title = 'Ground Failure';
-
   @Input()
   product: any;
+  title = 'Ground Failure';
 }

@@ -9,8 +9,8 @@ describe('LineComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule],
-      declarations: [LineComponent]
+      declarations: [LineComponent],
+      imports: [NoopAnimationsModule]
     }).compileComponents();
   }));
 

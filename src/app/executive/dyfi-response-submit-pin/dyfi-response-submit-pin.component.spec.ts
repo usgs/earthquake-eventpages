@@ -15,8 +15,8 @@ describe('DyfiResponseSubmitPinComponent', () => {
         DyfiResponseSubmitPinComponent,
 
         MockComponent({
-          selector: 'basic-pin',
-          inputs: ['link', 'product', 'title', 'footer']
+          inputs: ['link', 'product', 'title', 'footer'],
+          selector: 'basic-pin'
         }),
 
         MockPipe('dyfiCounter')

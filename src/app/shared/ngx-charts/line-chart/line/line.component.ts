@@ -9,9 +9,6 @@ import { LineComponent as SwimlaneLine } from '@swimlane/ngx-charts';
  *     The width of the stroke to draw
  */
 @Component({
-  selector: 'g[ngx-charts-line]',
-  templateUrl: './line.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('animationState', [
       transition(':enter', [
@@ -27,7 +24,10 @@ import { LineComponent as SwimlaneLine } from '@swimlane/ngx-charts';
         )
       ])
     ])
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'g[ngx-charts-line]',
+  templateUrl: './line.component.html'
 })
 export class LineComponent extends SwimlaneLine {
   @Input()

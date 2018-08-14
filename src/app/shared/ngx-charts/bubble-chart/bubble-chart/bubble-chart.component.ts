@@ -3,7 +3,10 @@ import {
   Component,
   Input,
   ViewEncapsulation,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  NgZone,
+  ElementRef
 } from '@angular/core';
 
 import { BubbleChartComponent as SwimlaneBubbleChart } from '@swimlane/ngx-charts';
@@ -15,11 +18,6 @@ import { BubbleChartComponent as SwimlaneBubbleChart } from '@swimlane/ngx-chart
  *     The color of the error bar on the component
  */
 @Component({
-  selector: 'ngx-charts-bubble-chart',
-  templateUrl: './bubble-chart.component.html',
-  styleUrls: ['../../common/base-chart.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('animationState', [
       transition(':leave', [
@@ -34,16 +32,27 @@ import { BubbleChartComponent as SwimlaneBubbleChart } from '@swimlane/ngx-chart
         )
       ])
     ])
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  selector: 'ngx-charts-bubble-chart',
+  styleUrls: ['../../common/base-chart.component.scss'],
+  templateUrl: './bubble-chart.component.html'
 })
 export class BubbleChartComponent extends SwimlaneBubbleChart {
+  customColors;
   @Input()
-  errorBarColor = '#000000';
+  errorBarColor;
 
-  customColors = [
-    {
-      name: 'error',
-      value: this.errorBarColor
-    }
-  ];
+  constructor(chartElement: ElementRef, zone: NgZone, cd: ChangeDetectorRef) {
+    super(chartElement, zone, cd);
+
+    this.errorBarColor = '#000000';
+    this.customColors = [
+      {
+        name: 'error',
+        value: this.errorBarColor
+      }
+    ];
+  }
 }

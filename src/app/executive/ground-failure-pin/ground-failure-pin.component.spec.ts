@@ -13,8 +13,8 @@ describe('GroundFailurePinComponent', () => {
         GroundFailurePinComponent,
 
         MockComponent({
-          selector: 'basic-pin',
-          inputs: ['link', 'product', 'title']
+          inputs: ['link', 'product', 'title'],
+          selector: 'basic-pin'
         })
       ]
     }).compileComponents();

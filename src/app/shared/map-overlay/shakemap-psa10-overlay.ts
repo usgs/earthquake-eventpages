@@ -1,14 +1,13 @@
-
 import { ProductContentPipe } from '../product-content.pipe';
 import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 
 /**
  * Shakemap PSA10 overlay for shakemap leaflet
  */
-const ShakemapPSA10Overlay = ShakemapContoursOverlay.extend({
+export ShakemapPSA10Overlay = ShakemapContoursOverlay.extend({
   id: 'shakemap-psa10',
-  title: 'Shakemap PSA10 Contours',
   legend: null,
+  title: 'Shakemap PSA10 Contours',
 
   /**
    * Build leaflet overlay
@@ -29,7 +28,7 @@ const ShakemapPSA10Overlay = ShakemapContoursOverlay.extend({
    *     shakemap product
    */
   getUrl: function(product: any) {
-    if (product == null) {
+    if (product === null) {
       return null;
     }
 

@@ -14,17 +14,16 @@ describe('LineChartComponent', () => {
         LineChartComponent,
 
         MockComponent({
-          selector: 'ngx-charts-chart',
           inputs: [
             'view',
             'showLegend',
             'legendOptions',
             'activeEntries',
             'animations'
-          ]
+          ],
+          selector: 'ngx-charts-chart'
         }),
         MockComponent({
-          selector: ':svg:g',
           inputs: [
             'xScale',
             'yScale',
@@ -76,7 +75,8 @@ describe('LineChartComponent', () => {
             'scheme',
             'customColors',
             'legend'
-          ]
+          ],
+          selector: ':svg:g'
         })
       ]
     }).compileComponents();

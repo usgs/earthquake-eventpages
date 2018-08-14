@@ -18,16 +18,16 @@ describe('Event', () => {
   it('gets products', () => {
     const products = [
       {
-        source: 'source1',
-        code: 'code1'
+        code: 'code1',
+        source: 'source1'
       },
       {
-        source: 'source2',
-        code: 'code2'
+        code: 'code2',
+        source: 'source2'
       },
       {
-        source: 'source1',
-        code: 'code2'
+        code: 'code2',
+        source: 'source1'
       }
     ];
     const event = new Event({
@@ -53,17 +53,17 @@ describe('Event', () => {
     const products: any = {
       origin: [
         {
+          code: 'origincode',
           source: 'originsource',
           type: 'origin',
-          code: 'origincode',
           updateTime: 1234
         }
       ],
       'phase-data': [
         {
+          code: 'origincode',
           source: 'originsource',
           type: 'phase-data',
-          code: 'origincode',
           updateTime: 1234
         }
       ]
@@ -88,17 +88,17 @@ describe('Event', () => {
     const products: any = {
       origin: [
         {
+          code: 'origincode',
           source: 'originsource',
           type: 'origin',
-          code: 'origincode',
           updateTime: 1234
         }
       ],
       'phase-data': [
         {
+          code: 'origincode',
           source: 'originsource',
           type: 'phase-data',
-          code: 'origincode',
           updateTime: 1234
         }
       ]

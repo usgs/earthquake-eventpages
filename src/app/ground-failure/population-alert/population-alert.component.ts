@@ -20,66 +20,65 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'ground-failure-population-alert',
-  templateUrl: './population-alert.component.html',
-  styleUrls: ['./population-alert.component.scss']
+  styleUrls: ['./population-alert.component.scss'],
+  templateUrl: './population-alert.component.html'
 })
 export class PopulationAlertComponent {
+  @Input()
+  alert: 'green' | 'yellow' | 'orange' | 'red';
   landslideBins = [
     {
       color: '#27a83c',
-      text: 'Little to no',
+      max: 100,
       min: 10,
-      max: 100
+      text: 'Little to no'
     },
     {
       color: '#e5e514',
-      text: 'Limited',
+      max: 1000,
       min: 100,
-      max: 1000
+      text: 'Limited'
     },
     {
       color: '#f0a216',
-      text: 'Significant',
+      max: 10000,
       min: 1000,
-      max: 10000
+      text: 'Significant'
     },
     {
       color: '#ba2d1a',
-      text: 'Extensive',
+      max: 100000,
       min: 10000,
-      max: 100000
+      text: 'Extensive'
     }
   ];
 
   liquefactionBins = [
     {
       color: '#27a83c',
-      text: 'Little to no',
+      max: 1000,
       min: 10,
-      max: 1000
+      text: 'Little to no'
     },
     {
       color: '#e5e514',
-      text: 'Limited',
+      max: 10000,
       min: 1000,
-      max: 10000
+      text: 'Limited'
     },
     {
       color: '#f0a216',
-      text: 'Significant',
+      max: 100000,
       min: 10000,
-      max: 100000
+      text: 'Significant'
     },
     {
       color: '#ba2d1a',
-      text: 'Extensive',
+      max: 1000000,
       min: 100000,
-      max: 1000000
+      text: 'Extensive'
     }
   ];
-
-  @Input()
-  alert: 'green' | 'yellow' | 'orange' | 'red';
 
   @Input()
   title: String = 'Estimated Population Exposure';

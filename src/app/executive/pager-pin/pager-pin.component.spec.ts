@@ -16,12 +16,12 @@ describe('PagerPinComponent', () => {
         PagerPinComponent,
 
         MockComponent({
-          selector: 'basic-pin',
-          inputs: ['link', 'product', 'title']
+          inputs: ['link', 'product', 'title'],
+          selector: 'basic-pin'
         }),
         MockComponent({
-          selector: 'shared-alert-level',
-          inputs: ['alert']
+          inputs: ['alert'],
+          selector: 'shared-alert-level'
         }),
 
         MockPipe('sharedProductContent')

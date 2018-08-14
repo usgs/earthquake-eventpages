@@ -9,46 +9,6 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
   private KM_PER_DEGREE = 111.12;
 
   /**
-   * Get a link to the nearby seismicity map
-   *
-   * @param event
-   *     The event
-   *
-   * @return {string}
-   *     Link to nearby seismicity
-   */
-  transform(event: Event): string {
-    if (!event || !event.geometry || !event.id) {
-      return null;
-    } else {
-      return this.getLatestEarthquakesLink(
-        event.id,
-        this.getNearbySeismicityParams(event)
-      );
-    }
-  }
-
-  /**
-   * Get nearby seismicity link or generic link back to homepage
-   *
-   * @param event
-   *     The event
-   *
-   * @return {any}
-   *     A link
-   */
-  getNearbySeismicityLink(event: Event) {
-    if (event && event.geometry && event.id) {
-      return this.getLatestEarthquakesLink(
-        event.id,
-        this.getNearbySeismicityParams(event)
-      );
-    }
-    // TODO: return generic link back to home page
-    return null;
-  }
-
-  /**
    * builds the nearby seismicity link
    *
    * @param eventid
@@ -124,6 +84,26 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
   }
 
   /**
+   * Get nearby seismicity link or generic link back to homepage
+   *
+   * @param event
+   *     The event
+   *
+   * @return {any}
+   *     A link
+   */
+  getNearbySeismicityLink(event: Event) {
+    if (event && event.geometry && event.id) {
+      return this.getLatestEarthquakesLink(
+        event.id,
+        this.getNearbySeismicityParams(event)
+      );
+    }
+    // TODO: return generic link back to home page
+    return null;
+  }
+
+  /**
    * Builds search parameters based on the event
    *
    * @param event
@@ -168,5 +148,25 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
       minmagnitude: minmagnitude,
       starttime: starttime
     };
+  }
+
+  /**
+   * Get a link to the nearby seismicity map
+   *
+   * @param event
+   *     The event
+   *
+   * @return {string}
+   *     Link to nearby seismicity
+   */
+  transform(event: Event): string {
+    if (!event || !event.geometry || !event.id) {
+      return null;
+    } else {
+      return this.getLatestEarthquakesLink(
+        event.id,
+        this.getNearbySeismicityParams(event)
+      );
+    }
   }
 }

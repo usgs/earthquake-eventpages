@@ -13,8 +13,8 @@ describe('FooterComponent', () => {
       declarations: [
         FooterComponent,
         MockComponent({
-          selector: 'product-page-download',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'product-page-download'
         })
       ]
     }).compileComponents();

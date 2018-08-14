@@ -13,8 +13,8 @@ describe('ProcessingComponent', () => {
     const formatter = {};
 
     TestBed.configureTestingModule({
-      imports: [MatTableModule, MatExpansionModule],
       declarations: [ProcessingComponent, MockPipe('sharedDateTime')],
+      imports: [MatTableModule, MatExpansionModule],
       providers: [{ provide: FormatterService, useValue: formatter }]
     }).compileComponents();
   }));

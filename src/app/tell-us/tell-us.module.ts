@@ -25,6 +25,16 @@ import { TellUsRoutingModule } from './tell-us-routing.module';
 import { LocationViewModule } from 'hazdev-ng-location-view';
 
 @NgModule({
+  declarations: [
+    FieldsetComponent,
+    FormComponent,
+    LocationComponent,
+    QuestionComponent,
+    TellUsComponent,
+    PrivacyStatementComponent
+  ],
+  entryComponents: [FormComponent],
+  exports: [FormComponent, TellUsComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -42,16 +52,6 @@ import { LocationViewModule } from 'hazdev-ng-location-view';
     // routing module is always last
     TellUsRoutingModule
   ],
-  declarations: [
-    FieldsetComponent,
-    FormComponent,
-    LocationComponent,
-    QuestionComponent,
-    TellUsComponent,
-    PrivacyStatementComponent
-  ],
-  entryComponents: [FormComponent],
-  exports: [FormComponent, TellUsComponent],
   providers: [FormLanguageService]
 })
 export class TellUsModule {}

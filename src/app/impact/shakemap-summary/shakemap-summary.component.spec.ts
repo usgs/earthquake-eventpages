@@ -12,22 +12,22 @@ describe('ShakeMapSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatTableModule, RouterModule],
       declarations: [
         ShakemapSummaryComponent,
         MockComponent({
-          selector: 'shared-mmi',
-          inputs: ['intensity']
+          inputs: ['intensity'],
+          selector: 'shared-mmi'
         }),
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
         MockComponent({
-          selector: 'shared-preferred-check',
-          inputs: ['TITLE']
+          inputs: ['TITLE'],
+          selector: 'shared-preferred-check'
         })
-      ]
+      ],
+      imports: [MatTableModule, RouterModule]
     }).compileComponents();
   }));
 

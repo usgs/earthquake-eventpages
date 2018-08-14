@@ -17,8 +17,8 @@ describe('NearbySeismicityPinComponent', () => {
         NearbySeismicityPinComponent,
 
         MockComponent({
-          selector: 'basic-pin',
-          inputs: ['footer', 'title', 'href']
+          inputs: ['footer', 'title', 'href'],
+          selector: 'basic-pin'
         }),
 
         MockPipe('sharedNumber')

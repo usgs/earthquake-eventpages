@@ -14,19 +14,19 @@ describe('FocalMechanismSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatIconModule, MatTableModule, RouterModule],
       declarations: [
         FocalMechanismSummaryComponent,
         MockComponent({
-          selector: 'shared-beachball',
-          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor']
+          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor'],
+          selector: 'shared-beachball'
         }),
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
         MockPipe('sharedDegrees')
       ],
+      imports: [MatIconModule, MatTableModule, RouterModule],
       providers: []
     }).compileComponents();
   }));

@@ -8,18 +8,11 @@ import { Component, OnInit, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-station',
-  templateUrl: './station.component.html',
-  styleUrls: ['./station.component.scss']
+  styleUrls: ['./station.component.scss'],
+  templateUrl: './station.component.html'
 })
 export class StationComponent implements OnInit {
-  readonly channelsColumns = [
-    'name',
-    'pga',
-    'pgv',
-    'psa03',
-    'psa10',
-    'psa30'
-  ];
+  readonly channelsColumns = ['name', 'pga', 'pgv', 'psa03', 'psa10', 'psa30'];
 
   @Input()
   station: any;

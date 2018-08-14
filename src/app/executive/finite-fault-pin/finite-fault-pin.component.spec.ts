@@ -15,8 +15,8 @@ describe('FiniteFaultPinComponent', () => {
         FiniteFaultPinComponent,
 
         MockComponent({
-          selector: 'basic-pin',
-          inputs: ['link', 'product', 'title']
+          inputs: ['link', 'product', 'title'],
+          selector: 'basic-pin'
         }),
 
         MockPipe('sharedProductContent')

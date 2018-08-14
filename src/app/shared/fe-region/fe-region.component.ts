@@ -10,16 +10,16 @@ import { GeoserveService } from '@core/geoserve.service';
  */
 @Component({
   selector: 'shared-fe-region',
-  templateUrl: './fe-region.component.html',
-  styleUrls: ['./fe-region.component.scss']
+  styleUrls: ['./fe-region.component.scss'],
+  templateUrl: './fe-region.component.html'
 })
 export class FeRegionComponent {
+  _latitude: number;
+  _loading = false;
+  _longitude: number;
+
   @Input()
   fe: any;
-
-  _latitude: number;
-  _longitude: number;
-  _loading = false;
 
   constructor(public geoserveService: GeoserveService) {}
 

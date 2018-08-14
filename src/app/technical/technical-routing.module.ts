@@ -5,13 +5,13 @@ import { TechnicalComponent } from './technical/technical.component';
 
 const technicalRoutes: Routes = [
   {
-    path: '',
-    component: TechnicalComponent
+    component: TechnicalComponent,
+    path: ''
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(technicalRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  imports: [RouterModule.forChild(technicalRoutes)]
 })
 export class TechnicalRoutingModule {}

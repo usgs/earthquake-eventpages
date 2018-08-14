@@ -7,28 +7,28 @@ import { SummaryComponent } from './summary/summary.component';
 
 const groundFailureRoutes: Routes = [
   {
-    path: '',
-    component: GroundFailureComponent,
     children: [
       {
-        path: 'summary',
-        component: SummaryComponent
+        component: SummaryComponent,
+        path: 'summary'
       },
       {
-        path: 'about',
-        component: AboutComponent
+        component: AboutComponent,
+        path: 'about'
       },
       {
         path: '',
         pathMatch: 'full',
         redirectTo: 'summary'
       }
-    ]
+    ],
+    component: GroundFailureComponent,
+    path: ''
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(groundFailureRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  imports: [RouterModule.forChild(groundFailureRoutes)]
 })
 export class GroundFailureRoutingModule {}

@@ -7,8 +7,8 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'technical',
-  templateUrl: './technical.component.html',
-  styleUrls: ['./technical.component.scss']
+  styleUrls: ['./technical.component.scss'],
+  templateUrl: './technical.component.html'
 })
 export class TechnicalComponent {
   constructor(public eventService: EventService) {}

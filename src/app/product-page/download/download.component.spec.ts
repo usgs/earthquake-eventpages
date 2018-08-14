@@ -1,8 +1,4 @@
-import {
-  async,
-  ComponentFixture,
-  TestBed
-} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
@@ -25,8 +21,8 @@ describe('DownloadComponent', () => {
         MockComponent({ selector: 'mat-expansion-panel' }),
         MockComponent({ selector: 'mat-expansion-panel-header' }),
         MockComponent({
-          selector: 'product-page-download-item',
-          inputs: ['item']
+          inputs: ['item'],
+          selector: 'product-page-download-item'
         })
       ],
       providers: [

@@ -18,8 +18,8 @@ describe('MetadataComponent', () => {
     };
 
     const metadataServiceStub = {
-      metadata$: of({}),
-      getMetadata: jasmine.createSpy('metadataService::get')
+      getMetadata: jasmine.createSpy('metadataService::get'),
+      metadata$: of({})
     };
 
     TestBed.configureTestingModule({
@@ -28,8 +28,8 @@ describe('MetadataComponent', () => {
         MockComponent({ selector: 'shakemap-input', inputs: ['smInput'] }),
         MockComponent({ selector: 'shakemap-output', inputs: ['smOutput'] }),
         MockComponent({
-          selector: 'shakemap-processing',
-          inputs: ['smProcessing']
+          inputs: ['smProcessing'],
+          selector: 'shakemap-processing'
         })
       ],
       providers: [

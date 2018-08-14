@@ -17,8 +17,8 @@ describe('PagerCitiesComponent', () => {
         PagerCitiesComponent,
 
         MockComponent({
-          selector: 'shared-mmi',
-          inputs: ['intensity', 'value', 'bubble']
+          inputs: ['intensity', 'value', 'bubble'],
+          selector: 'shared-mmi'
         }),
         MockPipe('sharedNumber')
       ],

@@ -12,18 +12,18 @@ import { HttpErrorResponse } from '@angular/common/http';
  */
 @Component({
   selector: 'tell-us-tell-us',
-  templateUrl: './tell-us.component.html',
-  styleUrls: ['./tell-us.component.scss']
+  styleUrls: ['./tell-us.component.scss'],
+  templateUrl: './tell-us.component.html'
 })
 export class TellUsComponent implements OnInit {
   // the form dialog
   dialogRef: MatDialogRef<FormComponent> = null;
+  // error response received from form
+  error: any = null;
   // promise representing showForm having been called in ngOnInit
   initPromise: Promise<any>;
   // response received from form
   response: any = null;
-  // error response received from form
-  error: any = null;
 
   constructor(
     public dialog: MatDialog,

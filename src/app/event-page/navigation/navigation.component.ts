@@ -11,8 +11,8 @@ import { Event } from '../../event';
  */
 @Component({
   selector: 'event-page-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  styleUrls: ['./navigation.component.scss'],
+  templateUrl: './navigation.component.html'
 })
 export class NavigationComponent {
   @Input()

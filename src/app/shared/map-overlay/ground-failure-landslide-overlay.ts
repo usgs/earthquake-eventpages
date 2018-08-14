@@ -3,12 +3,13 @@ import * as L from 'leaflet';
 /**
  * Ground failure landslide overlay for leaflet map
  */
+// tslint:disable-next-line:variable-name
 const GroundFailureLandslideOverlay = L.ImageOverlay.extend({
-  id: 'ground-failure-landslide',
-  enabled: false,
-  title: 'Landslide Estimate',
   bounds: null,
+  enabled: false,
+  id: 'ground-failure-landslide',
   legend: null,
+  title: 'Landslide Estimate',
 
   /**
    * Build leaflet overlay

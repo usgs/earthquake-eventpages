@@ -11,6 +11,11 @@ import { PagerComponent } from './pager/pager.component';
 import { PagerXmlService } from './pagerxml.service';
 
 @NgModule({
+  declarations: [
+    PagerComponent,
+    PagerPopulationComponent,
+    PagerCitiesComponent
+  ],
   imports: [
     CommonModule,
     MatCheckboxModule,
@@ -19,11 +24,6 @@ import { PagerXmlService } from './pagerxml.service';
     SharedModule,
 
     PagerRoutingModule
-  ],
-  declarations: [
-    PagerComponent,
-    PagerPopulationComponent,
-    PagerCitiesComponent
   ],
   providers: [PagerXmlService]
 })

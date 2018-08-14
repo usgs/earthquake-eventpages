@@ -12,8 +12,8 @@ import { Event } from '../../event';
  */
 @Component({
   selector: 'impact-dyfi-summary',
-  templateUrl: './dyfi-summary.component.html',
-  styleUrls: ['./dyfi-summary.component.scss']
+  styleUrls: ['./dyfi-summary.component.scss'],
+  templateUrl: './dyfi-summary.component.html'
 })
 export class DyfiSummaryComponent {
   // columns to be displayed

@@ -10,14 +10,18 @@ import { Tensor } from '@shared/beachball/tensor';
  */
 @Component({
   selector: 'app-moment-tensor',
-  templateUrl: './moment-tensor.component.html',
-  styleUrls: ['./moment-tensor.component.scss']
+  styleUrls: ['./moment-tensor.component.scss'],
+  templateUrl: './moment-tensor.component.html'
 })
 export class MomentTensorComponent implements OnInit, OnDestroy {
-  tensor: Tensor = null;
   subscription: Subscription = new Subscription();
+  tensor: Tensor = null;
 
   constructor(public eventService: EventService) {}
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit() {
     this.subscription.add(
@@ -25,9 +29,5 @@ export class MomentTensorComponent implements OnInit, OnDestroy {
         this.tensor = Tensor.fromProduct(product);
       })
     );
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

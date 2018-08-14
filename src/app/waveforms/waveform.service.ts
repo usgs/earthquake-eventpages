@@ -40,12 +40,12 @@ export class WaveformService {
       time = Number(ev.properties.time);
       // search parameters
       search = {
-        starttime: new Date(time - 16000).toISOString().replace('Z', ''),
         endtime: new Date(time + 16000).toISOString().replace('Z', ''),
+        format: 'text',
         latitude: latitude,
         longitude: longitude,
         maxradius: '1',
-        format: 'text'
+        starttime: new Date(time - 16000).toISOString().replace('Z', '')
       };
     }
 

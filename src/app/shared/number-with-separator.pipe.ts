@@ -64,8 +64,8 @@ export class NumberWithSeparatorPipe implements PipeTransform {
     const localeValue = knownValue.toLocaleString(locale);
 
     return {
-      separator: localeValue.substr(1, 1),
-      decimal: localeValue.substr(5, 1)
+      decimal: localeValue.substr(5, 1),
+      separator: localeValue.substr(1, 1)
     };
   }
 }

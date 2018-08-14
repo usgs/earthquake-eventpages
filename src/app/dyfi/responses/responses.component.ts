@@ -22,24 +22,13 @@ import { DyfiService } from '../dyfi.service';
  * Generate DYFI RESPONSES tab for dyfi product page
  */
 @Component({
-  selector: 'dyfi-responses',
-  templateUrl: './responses.component.html',
-  styleUrls: ['./responses.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   providers: [RomanPipe],
-  encapsulation: ViewEncapsulation.None
+  selector: 'dyfi-responses',
+  styleUrls: ['./responses.component.scss'],
+  templateUrl: './responses.component.html'
 })
 export class ResponsesComponent implements OnInit, OnDestroy {
-  columnTitles = {
-    name: 'City',
-    state: 'State/Region',
-    country: 'Country',
-    zip: 'Zip Code',
-    mmi: 'MMI',
-    nresp: 'Responses',
-    dist: 'Distance',
-    lat: 'Latitude',
-    lon: 'Longitude'
-  };
   columnsToDisplay = [
     'name',
     'state',
@@ -51,17 +40,27 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     'lat',
     'lon'
   ];
+  columnTitles = {
+    country: 'Country',
+    dist: 'Distance',
+    lat: 'Latitude',
+    lon: 'Longitude',
+    mmi: 'MMI',
+    name: 'City',
+    nresp: 'Responses',
+    state: 'State/Region',
+    zip: 'Zip Code'
+  };
   headers = ['name', 'cdi', 'nresp', 'dist', 'lat', 'lon'];
   loaded = false;
-  paginatorSizes = [10, 20, 50, 100, 1000];
-  responsesArray = [];
-  responses = new MatTableDataSource(null);
-  subs = new Subscription();
-
-  @ViewChild(MatSort)
-  sort: MatSort;
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
+  paginatorSizes = [10, 20, 50, 100, 1000];
+  responses = new MatTableDataSource(null);
+  responsesArray = [];
+  @ViewChild(MatSort)
+  sort: MatSort;
+  subs = new Subscription();
 
   constructor(
     public dyfiService: DyfiService,
@@ -69,6 +68,10 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public romanPipe: RomanPipe
   ) {}
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 
   ngOnInit() {
     this.subs.add(
@@ -81,10 +84,6 @@ export class ResponsesComponent implements OnInit, OnDestroy {
         this.onProduct(product);
       })
     );
-  }
-
-  ngOnDestroy() {
-    this.subs.unsubscribe();
   }
 
   /**
@@ -104,15 +103,15 @@ export class ResponsesComponent implements OnInit, OnDestroy {
 
     const lines = this.responsesArray.map(response => {
       const responseObj = {
-        name: response.name,
-        state: response.state,
         country: response.country,
-        zip: response.zip,
-        mmi: '',
-        nresp: response.nresp,
         dist: response.dist + ' km',
         lat: response.lat,
-        lon: response.lon
+        lon: response.lon,
+        mmi: '',
+        name: response.name,
+        nresp: response.nresp,
+        state: response.state,
+        zip: response.zip
       };
       responseObj.mmi = this.romanPipe.transform(response.cdi);
 
@@ -125,9 +124,9 @@ export class ResponsesComponent implements OnInit, OnDestroy {
 
     this.dialog.open(DownloadDialogComponent, {
       data: {
-        title: 'Download DYFI Responses',
+        content: headers + '\n' + lines.join('\n'),
         message: 'Copy then paste into a spreadsheet application',
-        content: headers + '\n' + lines.join('\n')
+        title: 'Download DYFI Responses'
       }
     });
   }

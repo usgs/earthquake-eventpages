@@ -37,12 +37,12 @@ describe('InteractiveMapOverlaysPipe', () => {
               }
             },
             {
-              source: 'othersource',
               code: 'othercode',
               properties: {
                 latitude: '14',
                 longitude: '15'
-              }
+              },
+              source: 'othersource'
             }
           ]
         }
@@ -50,9 +50,9 @@ describe('InteractiveMapOverlaysPipe', () => {
     });
     const params = convertToParamMap({});
     const otherparams = convertToParamMap({
-      'origin-source': 'othersource',
+      epicenter: 'false',
       'origin-code': 'othercode',
-      epicenter: 'false'
+      'origin-source': 'othersource'
     });
 
     pipe.overlayFactories = [

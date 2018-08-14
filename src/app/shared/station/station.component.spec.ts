@@ -16,27 +16,27 @@ describe('StationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MatCardModule, MatExpansionModule, MatTableModule],
       declarations: [
         StationComponent,
 
         MockComponent({
-          selector: 'shared-mmi',
-          inputs: ['bubble', 'intensity']
+          inputs: ['bubble', 'intensity'],
+          selector: 'shared-mmi'
         }),
         MockComponent({
-          selector: 'shared-bubble',
-          inputs: ['name', 'title']
+          inputs: ['name', 'title'],
+          selector: 'shared-bubble'
         }),
         MockComponent({
-          selector: 'shared-station-flag',
-          inputs: ['flag']
+          inputs: ['flag'],
+          selector: 'shared-station-flag'
         }),
 
         MockPipe('sharedDegrees'),
         MockPipe('sharedNumber'),
         MockPipe('sharedLocation')
-      ]
+      ],
+      imports: [MatCardModule, MatExpansionModule, MatTableModule]
     }).compileComponents();
   }));
 

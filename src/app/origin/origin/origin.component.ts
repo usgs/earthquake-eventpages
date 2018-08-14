@@ -7,8 +7,8 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'origin',
-  templateUrl: './origin.component.html',
-  styleUrls: ['./origin.component.scss']
+  styleUrls: ['./origin.component.scss'],
+  templateUrl: './origin.component.html'
 })
 export class OriginComponent {
   constructor(public eventService: EventService) {}

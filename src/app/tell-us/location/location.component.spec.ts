@@ -15,8 +15,8 @@ describe('LocationComponent', () => {
       coordinates$: of({})
     };
     TestBed.configureTestingModule({
-      imports: [MatDialogModule],
       declarations: [LocationComponent],
+      imports: [MatDialogModule],
       providers: [
         { provide: CoordinatesService, useValue: coordinatesServiceStub },
         { provide: MatDialog, useValue: { close: () => {}, open: () => {} } }
@@ -53,11 +53,11 @@ describe('LocationComponent', () => {
     });
     it('sets a value', () => {
       const coordinates: Coordinates = {
-        name: 'my spot',
         confidence: 1,
         latitude: 0,
         longitude: 0,
         method: null,
+        name: 'my spot',
         zoom: 12
       };
       component.value = {};

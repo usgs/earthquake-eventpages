@@ -8,8 +8,8 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'tell-us-fieldset',
-  templateUrl: './fieldset.component.html',
-  styleUrls: ['./fieldset.component.scss']
+  styleUrls: ['./fieldset.component.scss'],
+  templateUrl: './fieldset.component.html'
 })
 export class FieldsetComponent {
   @Input()

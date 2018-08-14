@@ -38,8 +38,8 @@ export class DyfiCounterPipe implements PipeTransform {
     return formatted.split('').map(value => {
       leadingZero = leadingZero && value === '0';
       return {
-        value: value,
-        leadingZero: leadingZero
+        leadingZero: leadingZero,
+        value: value
       };
     });
   }

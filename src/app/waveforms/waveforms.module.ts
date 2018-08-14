@@ -6,8 +6,8 @@ import { WaveformsRoutingModule } from './waveforms-routing.module';
 import { WaveformsComponent } from './waveforms/waveforms.component';
 
 @NgModule({
-  imports: [CommonModule, WaveformsRoutingModule],
   declarations: [WaveformsComponent],
+  imports: [CommonModule, WaveformsRoutingModule],
   providers: [WaveformService]
 })
 export class WaveformsModule {}

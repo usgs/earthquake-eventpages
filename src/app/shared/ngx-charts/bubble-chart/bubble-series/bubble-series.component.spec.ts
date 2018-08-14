@@ -16,8 +16,8 @@ describe('BubbleSeriesComponent', () => {
     };
 
     colorsStub = {
-      scaleType: 'ordinal',
-      getColor: item => '#000000'
+      getColor: item => '#000000',
+      scaleType: 'ordinal'
     };
 
     TestBed.configureTestingModule({
@@ -25,51 +25,51 @@ describe('BubbleSeriesComponent', () => {
         BubbleSeriesComponent,
 
         MockComponent({
-          selector: ':svg:g',
           inputs: [
-            'xScale',
-            'yScale',
-            'xScaleType',
-            'yScaleType',
-            'xAxisLabel',
-            'yAxisLabel',
-            'rScale',
-            'xDomain',
-            'yDomain',
-            'xDomainType',
-            'colors',
-            'data',
             'activeEntries',
-            'scaleType',
-            'curve',
-            'rangeFillOpacity',
             'animations',
-            'dims',
-            'xSet',
-            'tooltipTemplate',
-            'tooltipDisabled',
-            'results',
-            'visibleValue',
-            'showLabel',
-            'labelText',
-            'tickFormatting',
-            'yOrient',
-            'showGridLines',
-            'strokeWidth',
-            'hasRange',
+            'classNames',
+            'colors',
+            'curve',
             'cx',
             'cy',
-            'r',
-            'stroke',
+            'data',
+            'dims',
             'fill',
+            'hasRange',
+            'labelText',
+            'path',
             'pointerEvents',
-            'classNames',
-            'tooltipType',
-            'tooltipPlacement',
-            'tooltipTitle',
+            'r',
+            'rScale',
+            'rangeFillOpacity',
+            'results',
+            'scaleType',
+            'showGridLines',
+            'showLabel',
+            'stroke',
+            'strokeWidth',
+            'tickFormatting',
             'tooltipContext',
-            'path'
-          ]
+            'tooltipDisabled',
+            'tooltipPlacement',
+            'tooltipTemplate',
+            'tooltipTitle',
+            'tooltipType',
+            'visibleValue',
+            'xAxisLabel',
+            'xDomain',
+            'xDomainType',
+            'xScale',
+            'xScaleType',
+            'xSet',
+            'yAxisLabel',
+            'yDomain',
+            'yOrient',
+            'yScale',
+            'yScaleType'
+          ],
+          selector: ':svg:g'
         })
       ]
     }).compileComponents();

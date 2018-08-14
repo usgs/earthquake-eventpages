@@ -11,8 +11,8 @@ import { FormatterService } from '@core/formatter.service';
  */
 @Component({
   selector: 'technical-origin-summary',
-  templateUrl: './origin-summary.component.html',
-  styleUrls: ['./origin-summary.component.scss']
+  styleUrls: ['./origin-summary.component.scss'],
+  templateUrl: './origin-summary.component.html'
 })
 export class OriginSummaryComponent {
   // Table headers

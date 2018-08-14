@@ -11,17 +11,21 @@ import { StationService } from '@core/station.service';
  */
 @Component({
   selector: 'shakemap-station-list',
-  templateUrl: './station-list.component.html',
-  styleUrls: ['./station-list.component.scss']
+  styleUrls: ['./station-list.component.scss'],
+  templateUrl: './station-list.component.html'
 })
 export class StationListComponent implements OnInit, OnDestroy {
-  subs = new Subscription();
   stations: any[] = [];
+  subs = new Subscription();
 
   constructor(
     public eventService: EventService,
     public stationService: StationService
   ) {}
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 
   ngOnInit() {
     this.subs.add(
@@ -34,10 +38,6 @@ export class StationListComponent implements OnInit, OnDestroy {
         this.onProduct(product);
       })
     );
-  }
-
-  ngOnDestroy() {
-    this.subs.unsubscribe();
   }
 
   /**
@@ -57,7 +57,7 @@ export class StationListComponent implements OnInit, OnDestroy {
    *     station list json
    */
   onStations(stationsJson: any): void {
-    if (stationsJson == null) {
+    if (stationsJson === null) {
       this.stations = [];
       return;
     }

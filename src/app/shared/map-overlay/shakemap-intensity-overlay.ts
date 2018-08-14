@@ -1,13 +1,13 @@
-
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
 /**
  * Shakemaop intensity overlay for leaflet map
  */
+// tslint:disable-next-line:variable-name
 const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
   id: 'shakemap-intensity',
-  title: 'Shakemap MMI Contours',
   legend: null,
+  title: 'Shakemap MMI Contours',
 
   /**
    * Build leaflet overlay
@@ -33,7 +33,7 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
    *     shakemap product
    */
   getUrl: function(product: any) {
-    if (product == null) {
+    if (product === null) {
       return null;
     }
 
@@ -67,8 +67,8 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
     // set default line style
     const lineStyle = {
       color: feature.properties.color,
-      weight: feature.properties.weight,
-      opacity: 1
+      opacity: 1,
+      weight: feature.properties.weight
     };
 
     return lineStyle;

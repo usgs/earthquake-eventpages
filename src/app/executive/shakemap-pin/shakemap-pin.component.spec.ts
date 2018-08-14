@@ -14,12 +14,12 @@ describe('ShakemapPinComponent', () => {
       declarations: [
         ShakemapPinComponent,
         MockComponent({
-          selector: 'basic-pin',
-          inputs: ['link', 'product', 'title']
+          inputs: ['link', 'product', 'title'],
+          selector: 'basic-pin'
         }),
         MockComponent({
-          selector: 'shared-mmi',
-          inputs: ['bubble', 'intensity']
+          inputs: ['bubble', 'intensity'],
+          selector: 'shared-mmi'
         }),
 
         MockPipe('getProduct')

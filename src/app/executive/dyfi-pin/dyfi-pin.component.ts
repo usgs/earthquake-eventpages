@@ -8,13 +8,12 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'executive-dyfi-pin',
-  templateUrl: './dyfi-pin.component.html',
-  styleUrls: ['./dyfi-pin.component.scss']
+  styleUrls: ['./dyfi-pin.component.scss'],
+  templateUrl: './dyfi-pin.component.html'
 })
 export class DyfiPinComponent {
   link = '../dyfi';
-  title = 'Did You Feel It?';
-
   @Input()
   product: any;
+  title = 'Did You Feel It?';
 }

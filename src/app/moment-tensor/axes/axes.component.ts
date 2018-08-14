@@ -12,20 +12,14 @@ import { Beachball } from '@shared/beachball/beachball';
  */
 @Component({
   selector: 'moment-tensor-axes',
-  templateUrl: './axes.component.html',
-  styleUrls: ['./axes.component.scss']
+  styleUrls: ['./axes.component.scss'],
+  templateUrl: './axes.component.html'
 })
 export class AxesComponent {
+  columnsToDisplay = ['axis', 'value', 'plunge', 'azimuth'];
 
-  columnsToDisplay = [
-    'axis',
-    'value',
-    'plunge',
-    'azimuth'
-  ];
-
-  @Input() tensor: Tensor;
-
+  @Input()
+  tensor: Tensor;
 
   /**
    * Get the fault plane solution axes
@@ -33,17 +27,15 @@ export class AxesComponent {
    * @param tensor
    *     tensor object
    */
-  getAxes (tensor: Tensor) {
+  getAxes(tensor: Tensor) {
     if (!tensor) {
       return [];
     }
 
-    return [tensor.T, tensor.N, tensor.P].map((axis) => {
-      let azimuth,
-          plunge,
-          value;
+    return [tensor.T, tensor.N, tensor.P].map(axis => {
+      let azimuth, plunge, value;
 
-      azimuth = (Math.PI / 2) - axis.vector.azimuth();
+      azimuth = Math.PI / 2 - axis.vector.azimuth();
       plunge = axis.vector.plunge();
       value = axis.eigenvalue;
 
@@ -55,14 +47,13 @@ export class AxesComponent {
       azimuth = Beachball.zeroToTwoPi(azimuth);
 
       return {
-        azimuth: azimuth * 180 / Math.PI,
+        azimuth: (azimuth * 180) / Math.PI,
         exponent: tensor.exponent,
         name: axis.name,
-        plunge: plunge * 180 / Math.PI,
+        plunge: (plunge * 180) / Math.PI,
         units: tensor.units,
         value: value / tensor.scale
       };
     });
   }
-
 }

@@ -11,8 +11,8 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'app-event-page',
-  templateUrl: './event-page.component.html',
-  styleUrls: ['./event-page.component.scss']
+  styleUrls: ['./event-page.component.scss'],
+  templateUrl: './event-page.component.html'
 })
 export class EventPageComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
@@ -23,16 +23,16 @@ export class EventPageComponent implements OnInit, OnDestroy {
     public eventService: EventService
   ) {}
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   ngOnInit() {
     this.subscription.add(
       this.route.paramMap.subscribe((paramMap: ParamMap) => {
         return this.onParamMapChange(paramMap);
       })
     );
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   /**

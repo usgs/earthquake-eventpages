@@ -19,8 +19,8 @@ describe('TextProductComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      declarations: [TextProductComponent]
+      declarations: [TextProductComponent],
+      imports: [HttpClientTestingModule]
     });
 
     injector = getTestBed();

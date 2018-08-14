@@ -22,24 +22,24 @@ describe('ImpactComponent', () => {
         ImpactComponent,
 
         MockComponent({
-          selector: 'impact-dyfi-summary',
-          inputs: ['event', 'products']
+          inputs: ['event', 'products'],
+          selector: 'impact-dyfi-summary'
         }),
         MockComponent({
-          selector: 'shared-text-product',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-text-product'
         }),
         MockComponent({
-          selector: 'shared-link-product',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-link-product'
         }),
         MockComponent({
-          selector: 'impact-pager-summary',
-          inputs: ['event', 'products']
+          inputs: ['event', 'products'],
+          selector: 'impact-pager-summary'
         }),
         MockComponent({
-          selector: 'impact-shakemap-summary',
-          inputs: ['event', 'products']
+          inputs: ['event', 'products'],
+          selector: 'impact-shakemap-summary'
         })
       ],
       imports: [RouterTestingModule],

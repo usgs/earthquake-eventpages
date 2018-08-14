@@ -5,13 +5,13 @@ import { ImpactComponent } from './impact/impact.component';
 
 const impactRoutes: Routes = [
   {
-    path: '',
-    component: ImpactComponent
+    component: ImpactComponent,
+    path: ''
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(impactRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  imports: [RouterModule.forChild(impactRoutes)]
 })
 export class ImpactRoutingModule {}

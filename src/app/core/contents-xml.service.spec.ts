@@ -37,26 +37,26 @@ describe('ContentsXmlService', () => {
   // Expected parsed data structure
   const CONTENTS_JSON = [
     {
-      id: 'file1',
-      title: 'File One',
       caption: 'File One Caption',
       formats: [
         {
           href: 'file1.xml',
+          length: 0,
           type: 'xml',
-          url: 'url/path/file1.xml',
-          length: 0
+          url: 'url/path/file1.xml'
         },
         { href: 'file1.json', type: 'json', url: undefined, length: undefined }
-      ]
+      ],
+      id: 'file1',
+      title: 'File One'
     },
     {
-      id: 'file2',
-      title: 'File Two',
       caption: '',
       formats: [
         { href: 'file2.txt', type: 'txt', url: 'url/path/file2.txt', length: 2 }
-      ]
+      ],
+      id: 'file2',
+      title: 'File Two'
     }
   ];
 

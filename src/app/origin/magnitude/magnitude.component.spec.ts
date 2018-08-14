@@ -33,29 +33,29 @@ describe('MagnitudeComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [MatCardModule, MatExpansionModule, MatIconModule],
       declarations: [
         MagnitudeComponent,
 
         MockComponent({
-          selector: 'origin-magnitude-detail',
-          inputs: ['contributions']
+          inputs: ['contributions'],
+          selector: 'origin-magnitude-detail'
         }),
         MockComponent({
-          selector: 'shared-bubble',
-          inputs: ['name', 'title']
+          inputs: ['name', 'title'],
+          selector: 'shared-bubble'
         }),
         MockComponent({
-          selector: 'shared-preferred-check',
-          inputs: ['title']
+          inputs: ['title'],
+          selector: 'shared-preferred-check'
         }),
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
 
         MockPipe('sharedNumber')
       ],
+      imports: [MatCardModule, MatExpansionModule, MatIconModule],
       providers: [
         { provide: EventService, useValue: eventServiceStub },
         { provide: QuakemlService, useValue: quakemlServiceStub }
@@ -161,8 +161,8 @@ describe('MagnitudeComponent', () => {
         component.parseContribution(
           {},
           {
-            stationMagnitudes: {},
-            amplitudes: {}
+            amplitudes: {},
+            stationMagnitudes: {}
           }
         );
       }).not.toThrowError();

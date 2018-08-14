@@ -3,6 +3,7 @@ import * as L from 'leaflet';
 /**
  * Landscan overlay for leaflet map
  */
+// tslint:disable-next-line:variable-name
 const LandscanPopulationOverlay = L.TileLayer.extend({
   bounds: null,
   enabled: true,

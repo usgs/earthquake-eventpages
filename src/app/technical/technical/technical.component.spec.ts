@@ -21,24 +21,24 @@ describe('TechnicalComponent', () => {
         TechnicalComponent,
 
         MockComponent({
-          selector: 'technical-focal-mechanism-summary',
-          inputs: ['event', 'products']
+          inputs: ['event', 'products'],
+          selector: 'technical-focal-mechanism-summary'
         }),
         MockComponent({
-          selector: 'technical-moment-tensor-summary',
-          inputs: ['event', 'products']
+          inputs: ['event', 'products'],
+          selector: 'technical-moment-tensor-summary'
         }),
         MockComponent({
-          selector: 'technical-origin-summary',
-          inputs: ['event', 'products']
+          inputs: ['event', 'products'],
+          selector: 'technical-origin-summary'
         }),
         MockComponent({
-          selector: 'shared-link-product',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-link-product'
         }),
         MockComponent({
-          selector: 'shared-text-product',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-text-product'
         })
       ],
       imports: [RouterTestingModule],

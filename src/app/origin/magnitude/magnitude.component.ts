@@ -7,38 +7,39 @@ import { QuakemlService } from '@core/quakeml.service';
 import { toArray } from '../../to-array';
 import { Quakeml } from '../../quakeml';
 
-
 /**
  * Magnitude tab contents for the Origin Module
  */
 @Component({
   selector: 'origin-magnitude',
-  templateUrl: './magnitude.component.html',
-  styleUrls: ['./magnitude.component.scss']
+  styleUrls: ['./magnitude.component.scss'],
+  templateUrl: './magnitude.component.html'
 })
 export class MagnitudeComponent implements OnInit, OnDestroy {
-
   // phases parsed from quakeml.
   magnitudes: Array<any>;
   subscription: Subscription = new Subscription();
 
-  constructor (
+  constructor(
     public eventService: EventService,
     public quakemlService: QuakemlService
-  ) { }
+  ) {}
 
-
-  ngOnInit () {
-    this.subscription.add(this.eventService.product$.subscribe((product) => {
-      this.onProduct(product);
-    }));
-    this.subscription.add(this.quakemlService.quakeml$.subscribe((quakeml) => {
-      this.onQuakeml(quakeml);
-    }));
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
-  ngOnDestroy () {
-    this.subscription.unsubscribe();
+  ngOnInit() {
+    this.subscription.add(
+      this.eventService.product$.subscribe(product => {
+        this.onProduct(product);
+      })
+    );
+    this.subscription.add(
+      this.quakemlService.quakeml$.subscribe(quakeml => {
+        this.onQuakeml(quakeml);
+      })
+    );
   }
 
   /**
@@ -47,7 +48,7 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
    * @param product
    *     next product.
    */
-  onProduct (product) {
+  onProduct(product) {
     this.quakemlService.getQuakeml(product);
   }
 
@@ -57,14 +58,14 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
    * @param quakeml
    *     next quakeml.
    */
-  onQuakeml (quakeml: Quakeml): Array<any> {
+  onQuakeml(quakeml: Quakeml): Array<any> {
     if (quakeml === null) {
       this.magnitudes = [];
       return;
     }
 
     const event = quakeml.events[0];
-    const magnitudes = event.magnitudes.map((mag) => {
+    const magnitudes = event.magnitudes.map(mag => {
       return this.parseMagnitude(mag, event);
     });
 
@@ -93,7 +94,7 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
    * @return {Object}
    *     object with parsed station magnitude contribution details
    */
-  parseContribution (contribution, event) {
+  parseContribution(contribution, event) {
     const parsed = {
       amplitude: null,
       amplitudeID: null,
@@ -108,24 +109,34 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
       weight: null
     };
 
-    const stationMagnitude = (contribution.stationMagnitudeID ?
-        event.stationMagnitudes[contribution.stationMagnitudeID] : null) || {};
-    const amplitude = (stationMagnitude.amplitudeID ?
-        event.amplitudes[stationMagnitude.amplitudeID] : null) || {};
+    const stationMagnitude =
+      (contribution.stationMagnitudeID
+        ? event.stationMagnitudes[contribution.stationMagnitudeID]
+        : null) || {};
+    const amplitude =
+      (stationMagnitude.amplitudeID
+        ? event.amplitudes[stationMagnitude.amplitudeID]
+        : null) || {};
 
     parsed.stationMagnitudeID = contribution.stationMagnitudeID;
     parsed.amplitudeID = stationMagnitude.amplitudeID;
 
     if (amplitude.genericAmplitude) {
-      parsed.amplitude = amplitude.genericAmplitude.value +
-          (amplitude.unit ? ' ' + amplitude.unit : '');
+      parsed.amplitude =
+        amplitude.genericAmplitude.value +
+        (amplitude.unit ? ' ' + amplitude.unit : '');
     }
-    parsed.channel = Quakeml.formatWaveformID(amplitude.waveformID || stationMagnitude.waveformID);
+    parsed.channel = Quakeml.formatWaveformID(
+      amplitude.waveformID || stationMagnitude.waveformID
+    );
     if (stationMagnitude.mag) {
       parsed.magnitude = stationMagnitude.mag.value;
     }
     parsed.residual = contribution.residual;
-    parsed.status = amplitude.evaluationMode || stationMagnitude.evaluationMode || 'automatic';
+    parsed.status =
+      amplitude.evaluationMode ||
+      stationMagnitude.evaluationMode ||
+      'automatic';
     parsed.type = stationMagnitude.type;
     if (amplitude.period) {
       parsed.period = amplitude.period.value + ' s';
@@ -152,36 +163,38 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
    * @return {Object}
    *     object with parsed magnitude data
    */
-  parseMagnitude (magnitude, event) {
+  parseMagnitude(magnitude, event) {
     const parsed = {
       contributions: null,
       isPreferred: false,
       magnitude: null,
       magnitudeError: null,
       magnitudePublicID: null,
-      status: null,
       source: null,
       stationCount: null,
+      status: null,
       type: null
     };
 
-    parsed.isPreferred = (magnitude.publicID === event.preferredMagnitudeID);
+    parsed.isPreferred = magnitude.publicID === event.preferredMagnitudeID;
     if (magnitude.mag) {
       parsed.magnitude = magnitude.mag.value;
       parsed.magnitudeError = magnitude.mag.uncertainty;
     }
     parsed.magnitudePublicID = magnitude.publicID;
     parsed.status = magnitude.evaluationMode;
-    parsed.source = (magnitude.creationInfo || {}).agencyID ||
-        (event.creationInfo || {}).agencyID;
+    parsed.source =
+      (magnitude.creationInfo || {}).agencyID ||
+      (event.creationInfo || {}).agencyID;
     parsed.stationCount = magnitude.stationCount;
     parsed.type = magnitude.type;
 
-    parsed.contributions = toArray(magnitude.stationMagnitudeContribution).map((smc) => {
-      return this.parseContribution(smc, event);
-    });
+    parsed.contributions = toArray(magnitude.stationMagnitudeContribution).map(
+      smc => {
+        return this.parseContribution(smc, event);
+      }
+    );
 
     return parsed;
   }
-
 }

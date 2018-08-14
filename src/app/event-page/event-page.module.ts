@@ -17,14 +17,6 @@ import { HeaderComponent } from './header/header.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatListModule,
-    RouterModule,
-
-    HazdevTemplateModule,
-    SharedModule
-  ],
   declarations: [
     // Components
     EventPageComponent,
@@ -39,6 +31,14 @@ import { NavigationComponent } from './navigation/navigation.component';
     ContributorListPipe,
     NavigationComponent
   ],
-  exports: [ContributorListPipe, EventPageComponent, FooterComponent]
+  exports: [ContributorListPipe, EventPageComponent, FooterComponent],
+  imports: [
+    CommonModule,
+    MatListModule,
+    RouterModule,
+
+    HazdevTemplateModule,
+    SharedModule
+  ]
 })
 export class EventPageModule {}

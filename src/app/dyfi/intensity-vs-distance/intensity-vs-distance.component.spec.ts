@@ -11,36 +11,36 @@ import { IntensityVsDistanceComponent } from './intensity-vs-distance.component'
 describe('IntensityVsDistanceComponent', () => {
   let component: IntensityVsDistanceComponent;
   let fixture: ComponentFixture<IntensityVsDistanceComponent>;
-  let SampleSeries;
+  let SAMPLE_SERIES;
 
   beforeEach(async(() => {
-    const DyfiSeries = {
+    const DYFI_SERIES = {
       name: 'DYFI',
       series: [
         {
-          name: 'Series1',
           class: 'none',
+          name: 'Series1',
           series: []
         }
       ]
     };
 
-    SampleSeries = {
+    SAMPLE_SERIES = {
       name: 'Sample',
       series: [
         {
-          name: 'All reported data',
           class: 'scatterplot1',
+          name: 'All reported data',
           series: []
         },
         {
-          name: 'Estimated data',
           class: 'estimated1',
+          name: 'Estimated data',
           series: []
         },
         {
-          name: 'Binned data',
           class: 'binned',
+          name: 'Binned data',
           series: [{}]
         }
       ]
@@ -51,8 +51,8 @@ describe('IntensityVsDistanceComponent', () => {
     };
 
     const dyfiServiceStub = {
-      plotAtten$: of(DyfiSeries),
-      getAtten: () => null
+      getAtten: () => null,
+      plotAtten$: of(DYFI_SERIES)
     };
 
     TestBed.configureTestingModule({
@@ -60,7 +60,6 @@ describe('IntensityVsDistanceComponent', () => {
         IntensityVsDistanceComponent,
 
         MockComponent({
-          selector: 'bubble-line-chart-component',
           inputs: [
             'scheme',
             'colorSchemeLine',
@@ -85,7 +84,8 @@ describe('IntensityVsDistanceComponent', () => {
             'xScaleMin',
             'xScaleMax',
             'scaleType'
-          ]
+          ],
+          selector: 'bubble-line-chart-component'
         }),
 
         MockPipe('sharedProductContent')
@@ -116,7 +116,7 @@ describe('IntensityVsDistanceComponent', () => {
     });
 
     it('handles known data', () => {
-      component.onDyfiSeries(SampleSeries);
+      component.onDyfiSeries(SAMPLE_SERIES);
     });
   });
 });

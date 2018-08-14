@@ -9,9 +9,9 @@ import { LineSeriesComponent as SwimlaneLineSeries } from '@swimlane/ngx-charts'
  *    The string value of the width of stroke
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'g[ngx-charts-line-series]',
-  templateUrl: './line-series.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './line-series.component.html'
 })
 export class LineSeriesComponent extends SwimlaneLineSeries {
   @Input()

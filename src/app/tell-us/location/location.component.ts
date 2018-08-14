@@ -22,18 +22,17 @@ import { BehaviorSubject, Subscription } from 'rxjs';
  */
 @Component({
   selector: 'tell-us-location',
-  templateUrl: './location.component.html',
-  styleUrls: ['./location.component.scss']
+  styleUrls: ['./location.component.scss'],
+  templateUrl: './location.component.html'
 })
 export class LocationComponent implements OnDestroy, OnInit {
-  subscription = new Subscription();
-
   @Output()
   change = new BehaviorSubject<any>(null);
   // label for user to enter location
   @Input()
   enter = 'Choose location';
   // label for user to change previously entered location
+  subscription = new Subscription();
   @Input()
   update = 'Change location';
   // current location value
@@ -48,16 +47,16 @@ export class LocationComponent implements OnDestroy, OnInit {
     public dialog: MatDialog
   ) {}
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
   ngOnInit() {
     this.subscription.add(
       this.coordinatesService.coordinates$.subscribe(coordinates => {
         this.setLocation(coordinates);
       })
     );
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
   /**

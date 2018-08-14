@@ -7,8 +7,8 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'focal-mechanism',
-  templateUrl: './focal-mechanism.component.html',
-  styleUrls: ['./focal-mechanism.component.scss']
+  styleUrls: ['./focal-mechanism.component.scss'],
+  templateUrl: './focal-mechanism.component.html'
 })
 export class FocalMechanismComponent {
   constructor(public eventService: EventService) {}

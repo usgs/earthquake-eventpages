@@ -7,8 +7,8 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'finite-fault',
-  templateUrl: './finite-fault.component.html',
-  styleUrls: ['./finite-fault.component.scss']
+  styleUrls: ['./finite-fault.component.scss'],
+  templateUrl: './finite-fault.component.html'
 })
 export class FiniteFaultComponent {
   constructor(public eventService: EventService) {}

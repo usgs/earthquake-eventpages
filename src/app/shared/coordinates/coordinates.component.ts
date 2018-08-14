@@ -8,8 +8,8 @@ import { FormatterService } from '@core/formatter.service';
  */
 @Component({
   selector: 'shared-coordinates',
-  templateUrl: './coordinates.component.html',
-  styleUrls: ['./coordinates.component.scss']
+  styleUrls: ['./coordinates.component.scss'],
+  templateUrl: './coordinates.component.html'
 })
 export class CoordinatesComponent {
   _latitude: number;
