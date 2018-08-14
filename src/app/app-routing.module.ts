@@ -96,6 +96,10 @@ const appRoutes = [
       {
         loadChildren: './waveforms/waveforms.module#WaveformsModule',
         path: 'waveforms'
+      },
+      {
+        loadChildren: './wildcard/wildcard.module#WildcardModule',
+        path: '**'
       }
     ],
     component: EventPageComponent,
