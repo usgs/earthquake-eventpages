@@ -4,7 +4,7 @@
     "arrow-return-shorthand": true,
     "callable-types": true,
     "class-name": true,
-    "comment-format": [true, "check-space"],
+    "comment-format": [true, "check-space", "check-uppercase"],
     "curly": true,
     "deprecation": {
       "severity": "warn"
@@ -13,14 +13,21 @@
     "forin": true,
     "import-blacklist": [true, "rxjs/Rx"],
     "import-spacing": true,
-    "indent": [true, "spaces"],
+    "indent": [true, "spaces", 2],
     "interface-over-type-literal": true,
     "label-position": true,
-    "max-line-length": [true, 80],
-    "member-access": false,
+    "max-line-length": [
+      true,
+      {
+        "limit": 80,
+        "ignore-pattern": "^import {(.*?)}"
+      }
+    ],
+    "member-access": [true, "no-public"],
     "member-ordering": [
       true,
       {
+        "alphabetize": true,
         "order": [
           "static-field",
           "instance-field",
@@ -42,7 +49,7 @@
     "no-misused-new": true,
     "no-non-null-assertion": true,
     "no-shadowed-variable": true,
-    "no-string-literal": false,
+    "no-string-literal": true,
     "no-string-throw": true,
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": true,
@@ -51,19 +58,13 @@
     "no-unused-variable": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
-    "object-literal-sort-keys": false,
-    "one-line": [
-      true,
-      "check-open-brace",
-      "check-catch",
-      "check-else",
-      "check-whitespace"
-    ],
+    "object-literal-sort-keys": true,
+    "one-line": true,
     "prefer-const": true,
     "quotemark": [true, "single"],
     "radix": true,
     "semicolon": [true, "always"],
-    "triple-equals": [true, "allow-null-check"],
+    "triple-equals": true,
     "typedef-whitespace": [
       true,
       {
@@ -75,15 +76,8 @@
       }
     ],
     "unified-signatures": true,
-    "variable-name": false,
-    "whitespace": [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
-    ],
+    "variable-name": [true, "check-format", "allow-leading-underscore"],
+    "whitespace": true,
     "directive-selector": [true, "attribute", "app", "camelCase"],
     "component-selector": [false, "element", "app", "kebab-case"],
     "no-output-on-prefix": true,
