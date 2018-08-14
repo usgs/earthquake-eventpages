@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { Tensor } from '../../shared/beachball/tensor';
-import { Beachball } from '../../shared/beachball/beachball';
+import { Tensor } from '@shared/beachball/tensor';
+import { Beachball } from '@shared/beachball/beachball';
 
 /**
  * Display Moment Tensor beachball diagram

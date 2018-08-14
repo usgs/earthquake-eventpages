@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { FormatterService } from '../../core/formatter.service';
+import { FormatterService } from '@core/formatter.service';
 
 /**
  * Origin Pin

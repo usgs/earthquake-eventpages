@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { GeoserveService } from '../../core/geoserve.service';
+import { GeoserveService } from '@core/geoserve.service';
 
 /**
  * Shared fe region component for use with maps

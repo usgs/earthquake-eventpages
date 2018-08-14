@@ -6,7 +6,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MdcTabModule, MdcIconModule } from '@angular-mdc/web';
 
 import { ProductPageModule } from '../product-page/product-page.module';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { CommentaryDetailsComponent } from './commentary-details/commentary-details.component';
 import { CommentaryComponent } from './commentary/commentary.component';
 import { ForecastComponent } from './forecast/forecast.component';

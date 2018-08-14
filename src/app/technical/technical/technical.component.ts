@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 
 /**
  * Main technical component for focal mechanism, origin, moment tensor

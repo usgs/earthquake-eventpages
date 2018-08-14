@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { EventService } from '../../core/event.service';
-import { MetadataService } from '../../core/metadata.service';
+import { EventService } from '@core/event.service';
+import { MetadataService } from '@core/metadata.service';
 
 /**
  * Metadata subcomponent, shows input/output/processing data when the user

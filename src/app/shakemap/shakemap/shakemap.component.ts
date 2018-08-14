@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 
 /**
  * Main shakemap component which shows a list of tabs for all it's

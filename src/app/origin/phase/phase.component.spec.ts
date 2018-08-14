@@ -3,8 +3,8 @@ import { MatDialogModule, MatTableModule } from '@angular/material';
 
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
-import { QuakemlService } from '../../core/quakeml.service';
+import { EventService } from '@core/event.service';
+import { QuakemlService } from '@core/quakeml.service';
 import { MockPipe } from '../../mock-pipe';
 import { Quakeml } from '../../quakeml';
 import { toArray } from '../../to-array';

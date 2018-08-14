@@ -1,7 +1,7 @@
 import * as L from 'leaflet';
 
-import { FormatterService } from '../../core/formatter.service';
-import { StationService } from '../../core/station.service';
+import { FormatterService } from '@core/formatter.service';
+import { StationService } from '@core/station.service';
 import { LocationPipe } from '../location.pipe';
 import { NumberPipe } from '../number.pipe';
 import { RomanPipe } from '../roman.pipe';

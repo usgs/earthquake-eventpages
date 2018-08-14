@@ -4,7 +4,7 @@ import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 
 import {
   DownloadDialogComponent
-} from '../../shared/download-dialog/download-dialog.component';
+} from '@shared/download-dialog/download-dialog.component';
 
 
 /**

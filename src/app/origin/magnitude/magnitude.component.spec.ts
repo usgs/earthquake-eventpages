@@ -8,8 +8,8 @@ import {
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
-import { QuakemlService } from '../../core/quakeml.service';
+import { EventService } from '@core/event.service';
+import { QuakemlService } from '@core/quakeml.service';
 import { MockPipe } from '../../mock-pipe';
 import { Quakeml } from '../../quakeml';
 import { EVENT_UU60268292 } from '../../quakeml-testdata-uu60268292';

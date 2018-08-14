@@ -10,8 +10,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs';
 
-import { EventService } from '../../core/event.service';
-import { FormatterService } from '../../core/formatter.service';
+import { EventService } from '@core/event.service';
+import { FormatterService } from '@core/formatter.service';
 import { MockPipe } from '../../mock-pipe';
 import { DyfiService } from '../dyfi.service';
 import { ResponsesComponent } from './responses.component';

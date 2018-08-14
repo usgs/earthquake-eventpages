@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { FormatterService } from '../../core/formatter.service';
-import { Tensor } from '../../shared/beachball/tensor';
+import { FormatterService } from '@core/formatter.service';
+import { Tensor } from '@shared/beachball/tensor';
 
 /**
  * Moment tensor component

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { EventPageModule } from '../event-page/event-page.module';
 import { ProductPageModule } from '../product-page/product-page.module';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { BasicPinComponent } from './basic-pin/basic-pin.component';
 import { DyfiResponseSubmitPinComponent } from './dyfi-response-submit-pin/dyfi-response-submit-pin.component';
 import { DyfiPinComponent } from './dyfi-pin/dyfi-pin.component';

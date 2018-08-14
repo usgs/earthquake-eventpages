@@ -7,7 +7,7 @@ import {
 } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { DyfiSummaryComponent } from './dyfi-summary/dyfi-summary.component';
 import { ImpactComponent } from './impact/impact.component';
 import { ImpactRoutingModule } from './impact-routing.module';

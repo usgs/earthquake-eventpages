@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { FormatterService } from '../../core/formatter.service';
-import { Tensor } from '../../shared/beachball/tensor';
+import { FormatterService } from '@core/formatter.service';
+import { Tensor } from '@shared/beachball/tensor';
 import { MomentTensorSummaryComponent } from './moment-tensor-summary.component';
 
 describe('MomentTensorSummaryComponent', () => {

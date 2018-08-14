@@ -4,8 +4,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
-import { StationService } from '../../core/station.service';
+import { EventService } from '@core/event.service';
+import { StationService } from '@core/station.service';
 import { StationListComponent } from './station-list.component';
 
 describe('StationListComponent', () => {

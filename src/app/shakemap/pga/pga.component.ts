@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 
 /**
  * PGA subcomponent, shows when the user selects the 'pga' tab from the main

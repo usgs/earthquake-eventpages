@@ -13,7 +13,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MdcTabModule, MdcIconModule } from '@angular-mdc/web';
 
 import { ProductPageModule } from '../product-page/product-page.module';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { DetailComponent } from './detail/detail.component';
 import { MagnitudeDetailComponent } from './magnitude-detail/magnitude-detail.component';
 import { MagnitudeComponent } from './magnitude/magnitude.component';

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Tensor } from '../../shared/beachball/tensor';
+import { Tensor } from '@shared/beachball/tensor';
 
 /**
  * Focal mechanism component, renders a table with data

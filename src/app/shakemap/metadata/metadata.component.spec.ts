@@ -3,8 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
-import { MetadataService } from '../../core/metadata.service';
+import { EventService } from '@core/event.service';
+import { MetadataService } from '@core/metadata.service';
 import { MetadataComponent } from './metadata.component';
 
 describe('MetadataComponent', () => {

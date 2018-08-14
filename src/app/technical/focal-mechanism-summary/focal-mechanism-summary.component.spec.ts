@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 
-import { Tensor } from '../../shared/beachball/tensor';
+import { Tensor } from '@shared/beachball/tensor';
 import { FocalMechanismSummaryComponent } from './focal-mechanism-summary.component';
 
 describe('FocalMechanismSummaryComponent', () => {

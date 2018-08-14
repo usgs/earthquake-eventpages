@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { FormComponent } from '../form/form.component';
 import { HttpErrorResponse } from '@angular/common/http';
 

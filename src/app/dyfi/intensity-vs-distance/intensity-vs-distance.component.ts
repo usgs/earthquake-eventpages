@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { DyfiService } from '../dyfi.service';
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 
 
 @Component({

@@ -4,9 +4,9 @@ import { ParamMap } from '@angular/router';
 import * as L from 'leaflet';
 
 import { Event } from '../event';
-import { GroundFailureOverlaysPipe } from '../shared/ground-failure-overlays.pipe';
-import { RegionInfoOverlaysPipe } from '../shared/region-info-overlays.pipe';
-import { ShakemapOverlaysPipe } from '../shared/shakemap-overlays.pipe';
+import { GroundFailureOverlaysPipe } from '@shared/ground-failure-overlays.pipe';
+import { RegionInfoOverlaysPipe } from '@shared/region-info-overlays.pipe';
+import { ShakemapOverlaysPipe } from '@shared/shakemap-overlays.pipe';
 import { getUnique } from '../unique';
 import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
 

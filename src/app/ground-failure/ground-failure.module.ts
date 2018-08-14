@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material';
 import { MdcTabModule, MdcIconModule } from '@angular-mdc/web';
 
 import { ProductPageModule } from '../product-page/product-page.module';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { AboutComponent } from './about/about.component';
 import { AlertBarComponent } from './alert-bar/alert-bar.component';
 import { GetBarPositionPipe } from './get-bar-position.pipe';

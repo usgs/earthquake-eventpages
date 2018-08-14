@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 
 /**
  * Impact summary for dyfi, pager, and shakemap summaries.

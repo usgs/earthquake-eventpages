@@ -13,7 +13,7 @@ import {
   MatInputModule
 } from '@angular/material';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { FieldsetComponent } from './fieldset/fieldset.component';
 import { FormComponent } from './form/form.component';
 import { FormLanguageService } from './form-language.service';

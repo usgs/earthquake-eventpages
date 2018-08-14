@@ -1,7 +1,7 @@
 import { convertToParamMap } from '@angular/router';
 
 import { Event } from '../event';
-import { EpicenterOverlay } from '../shared/map-overlay/epicenter-overlay';
+import { EpicenterOverlay } from '@shared/map-overlay/epicenter-overlay';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 

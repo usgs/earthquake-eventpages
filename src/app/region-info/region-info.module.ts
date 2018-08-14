@@ -7,7 +7,7 @@ import {
   GeoserveOutputModule
 } from 'earthquake-geoserve-ui';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { RegionInfoComponent } from './region-info/region-info.component';
 
 @NgModule({

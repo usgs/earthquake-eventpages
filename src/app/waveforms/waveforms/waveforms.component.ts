@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs/Subscription';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { WaveformService } from '../waveform.service';
 
 /**

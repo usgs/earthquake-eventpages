@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeoserveService } from '../../core/geoserve.service';
+import { GeoserveService } from '@core/geoserve.service';
 import { FeRegionComponent } from './fe-region.component';
 
 describe('FeRegionComponent', () => {

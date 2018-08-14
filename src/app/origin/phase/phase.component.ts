@@ -3,9 +3,9 @@ import { MatDialog, Sort } from '@angular/material';
 
 import { Subscription } from 'rxjs';
 
-import { EventService } from '../../core/event.service';
-import { QuakemlService } from '../../core/quakeml.service';
-import { DownloadDialogComponent } from '../../shared/download-dialog/download-dialog.component';
+import { EventService } from '@core/event.service';
+import { QuakemlService } from '@core/quakeml.service';
+import { DownloadDialogComponent } from '@shared/download-dialog/download-dialog.component';
 import { toArray } from '../../to-array';
 import { Quakeml } from '../../quakeml';
 

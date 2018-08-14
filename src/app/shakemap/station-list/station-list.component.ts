@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { EventService } from '../../core/event.service';
-import { StationService } from '../../core/station.service';
+import { EventService } from '@core/event.service';
+import { StationService } from '@core/station.service';
 
 /**
  * Station list component, shows the available stations when selecting the

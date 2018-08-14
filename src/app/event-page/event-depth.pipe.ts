@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { FormatterService } from '../core/formatter.service';
+import { FormatterService } from '@core/formatter.service';
 
 @Pipe({
   name: 'eventDepth'

@@ -16,7 +16,7 @@ import { LocationMapComponent } from 'hazdev-ng-location-view';
 import { Subscription, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { FormLanguageService } from '../form-language.service';
 

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { FormatterService } from '../../../core/formatter.service';
+import { FormatterService } from '@core/formatter.service';
 
 /**
  * Output subcomponent, shows the output data table when the user selects the

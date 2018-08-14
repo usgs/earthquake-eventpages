@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormatterService } from '../../core/formatter.service';
+import { FormatterService } from '@core/formatter.service';
 import { CoordinatesComponent } from './coordinates.component';
 
 describe('CoordinatesComponent', () => {

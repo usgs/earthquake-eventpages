@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CoordinatesService } from 'earthquake-geoserve-ui';
 import { Subscription } from 'rxjs';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 
 
 /**

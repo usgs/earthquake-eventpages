@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { EventService } from '../../core/event.service';
-import { FormatterService } from '../../core/formatter.service';
+import { EventService } from '@core/event.service';
+import { FormatterService } from '@core/formatter.service';
 
 
 /**

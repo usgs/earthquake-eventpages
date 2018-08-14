@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { ContentsXmlService } from '../../core/contents-xml.service';
+import { ContentsXmlService } from '@core/contents-xml.service';
 
 /**
  * Generates expansion panel to list all downloadable product contents

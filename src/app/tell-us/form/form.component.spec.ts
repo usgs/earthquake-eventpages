@@ -16,7 +16,7 @@ import { CoordinatesService } from 'hazdev-ng-location-view';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { FormLanguageService } from '../form-language.service';

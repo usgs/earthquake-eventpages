@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { Tensor } from '../../shared/beachball/tensor';
+import { Tensor } from '@shared/beachball/tensor';
 import { FocalMechanismPinComponent } from './focal-mechanism-pin.component';
 
 describe('FocalMechanismPinComponent', () => {

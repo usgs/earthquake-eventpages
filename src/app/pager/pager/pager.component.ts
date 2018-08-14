@@ -7,7 +7,7 @@ import {
 
 import { Subscription } from 'rxjs';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { PagerXmlService } from '../pagerxml.service';
 
 /**

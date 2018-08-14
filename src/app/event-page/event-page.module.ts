@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { HazdevTemplateModule } from 'hazdev-template';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { ContributorListPipe } from './contributor-list.pipe';
 import { EventDateTimePipe } from './event-date-time.pipe';
 import { EventDepthPipe } from './event-depth.pipe';

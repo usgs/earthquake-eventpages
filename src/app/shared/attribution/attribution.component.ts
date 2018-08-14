@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { ContributorService } from '../../core/contributor.service';
-import { EventService } from '../../core/event.service';
+import { ContributorService } from '@core/contributor.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 
 /**

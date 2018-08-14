@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Tensor } from '../../shared/beachball/tensor';
+import { Tensor } from '@shared/beachball/tensor';
 
 /**
  * Focal Mechanism Pin

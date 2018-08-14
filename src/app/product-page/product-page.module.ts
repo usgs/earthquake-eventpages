@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatExpansionModule } from '@angular/material';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { DateTimePipe } from './date-time.pipe';
 import { DownloadComponent } from './download/download.component';
 import { DownloadItemComponent } from './download-item/download-item.component';
