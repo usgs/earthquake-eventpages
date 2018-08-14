@@ -13,8 +13,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./shakemap-pin.component.scss']
 })
 export class ShakemapPinComponent {
-  public link = '../shakemap';
-  public mmiDescription = {
+  link = '../shakemap';
+  mmiDescription = {
     0: { shaking: 'Not felt', damage: 'none' },
     1: { shaking: 'Not felt', damage: 'none' },
     2: { shaking: 'Weak', damage: 'none' },
@@ -29,8 +29,8 @@ export class ShakemapPinComponent {
     11: { shaking: 'Extreme', damage: 'Very Heavy' },
     12: { shaking: 'Extreme', damage: 'Very Heavy' }
   };
-  public round = Math.round;
-  public title = 'ShakeMap';
+  round = Math.round;
+  title = 'ShakeMap';
 
   @Input()
   product: any;

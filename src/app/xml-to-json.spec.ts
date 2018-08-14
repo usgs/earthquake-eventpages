@@ -27,7 +27,7 @@ describe('xmlToJson', () => {
 
     expect(json).toBeTruthy();
     expect(json.root).toBeTruthy();
-    expect(json.root['child-element']['attribute']).toEqual('attribute value');
+    expect(json.root['child-element'].attribute).toEqual('attribute value');
     expect(json.root['child-element']['#text'].trim()).toEqual(
       'child element text'
     );
@@ -44,7 +44,7 @@ describe('xmlToJson', () => {
 
     expect(json).toBeTruthy();
     expect(json.root).toBeTruthy();
-    expect(json.root['child-element']['attribute']).toEqual('attribute value');
+    expect(json.root['child-element'].attribute).toEqual('attribute value');
     expect(json.root['child-element']['#text'].trim()).toEqual(
       'child element text'
     );

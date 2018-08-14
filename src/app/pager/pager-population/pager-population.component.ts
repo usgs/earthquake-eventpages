@@ -13,7 +13,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./pager-population.component.scss']
 })
 export class PagerPopulationComponent {
-  public columnsToDisplay = ['mmi', 'shaking', 'population'];
+  columnsToDisplay = ['mmi', 'shaking', 'population'];
 
   @Input()
   pager: any;

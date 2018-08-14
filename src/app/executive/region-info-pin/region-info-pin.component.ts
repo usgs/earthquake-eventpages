@@ -14,8 +14,8 @@ import { Event } from '../../event';
   styleUrls: ['./region-info-pin.component.scss']
 })
 export class RegionInfoPinComponent {
-  public link = '../region-info';
-  public title = 'Regional Information';
+  link = '../region-info';
+  title = 'Regional Information';
 
   @Input()
   event: Event;

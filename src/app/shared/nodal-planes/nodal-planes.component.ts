@@ -14,7 +14,7 @@ import { Tensor } from '../beachball/tensor';
   styleUrls: ['./nodal-planes.component.scss']
 })
 export class NodalPlanesComponent {
-  public columnsToDisplay = ['plane', 'strike', 'dip', 'rake'];
+  columnsToDisplay = ['plane', 'strike', 'dip', 'rake'];
 
   @Input()
   tensor: Tensor;

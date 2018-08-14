@@ -12,9 +12,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./oaf-pin.component.scss']
 })
 export class OafPinComponent {
-  public link = '../oaf';
-  public title = 'Aftershock Forecast';
-  public type = 'oaf';
+  link = '../oaf';
+  title = 'Aftershock Forecast';
+  type = 'oaf';
 
   @Input()
   product: any;

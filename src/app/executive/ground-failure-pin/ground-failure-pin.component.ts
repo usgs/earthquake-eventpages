@@ -9,8 +9,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./ground-failure-pin.component.scss']
 })
 export class GroundFailurePinComponent {
-  public link = '../ground-failure';
-  public title = 'Ground Failure';
+  link = '../ground-failure';
+  title = 'Ground Failure';
 
   @Input()
   product: any;

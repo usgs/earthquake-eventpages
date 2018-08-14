@@ -20,7 +20,7 @@ import { EventService } from '@core/event.service';
 })
 export class ProductPageComponent implements OnInit, OnDestroy {
   // query params can override default product source/code to be shown
-  public queryParamMapSubscription: Subscription;
+  queryParamMapSubscription: Subscription;
 
   @Input()
   productType: string;

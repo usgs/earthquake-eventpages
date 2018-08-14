@@ -22,7 +22,7 @@ import { PagerXmlService } from '../pagerxml.service';
 })
 export class PagerComponent implements AfterViewInit, OnDestroy {
   /** subscription to product observable */
-  public subscription: Subscription = new Subscription();
+  subscription: Subscription = new Subscription();
 
   constructor(
     public eventService: EventService,

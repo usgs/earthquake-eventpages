@@ -7,9 +7,9 @@ import { Event } from '../event';
 
 @Injectable()
 export class WaveformService {
-  public error: any;
-  public event$ = new BehaviorSubject<any>(null);
-  public irisServiceUrl = 'https://service.iris.edu/fdsnws/event/1/query';
+  error: any;
+  event$ = new BehaviorSubject<any>(null);
+  irisServiceUrl = 'https://service.iris.edu/fdsnws/event/1/query';
 
   constructor(private httpClient: HttpClient) {}
 

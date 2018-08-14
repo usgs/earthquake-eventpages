@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
  */
 @Injectable()
 export class ContentsXmlService {
-  public contents$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  contents$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(public httpClient: HttpClient) {}
 

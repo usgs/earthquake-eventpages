@@ -26,7 +26,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
   styleUrls: ['./location.component.scss']
 })
 export class LocationComponent implements OnDestroy, OnInit {
-  public subscription = new Subscription();
+  subscription = new Subscription();
 
   @Output()
   change = new BehaviorSubject<any>(null);

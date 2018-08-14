@@ -18,13 +18,11 @@ import { Event } from '../event';
  */
 @Injectable()
 export class EventService {
-  // currently selected event
-  public event$ = new BehaviorSubject<Event>(new Event(null));
-  public product$ = new BehaviorSubject<any>(null);
-  // id information for product to be shown.
-  public productType: string;
-  public productSource: string;
-  public productCode: string;
+  event$ = new BehaviorSubject<Event>(new Event(null));
+  product$ = new BehaviorSubject<any>(null);
+  productCode: string;
+  productSource: string;
+  productType: string;
 
   constructor(public http: HttpClient, public router: Router) {}
 
@@ -48,11 +46,11 @@ export class EventService {
       .get<HttpResponse<any>>(url)
       .pipe(catchError(this.handleError(eventid)))
       .subscribe(response => {
-        // handle 409 / deleted event
-        if (response['type'] === 'Error' && response['status'] === 409) {
+        if (response.type === 'Error' && response.status === 409) {
+          // handle 409 / deleted event
           this.getDeletedEvent(eventid);
           return;
-        } else if (response['type'] === 'Error' && response['status'] === 404) {
+        } else if (response.type === 'Error' && response.status === 404) {
           // handle 404 error
           this.getUnknownEvent(eventid);
           return;

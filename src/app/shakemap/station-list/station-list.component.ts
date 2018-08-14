@@ -15,8 +15,8 @@ import { StationService } from '@core/station.service';
   styleUrls: ['./station-list.component.scss']
 })
 export class StationListComponent implements OnInit, OnDestroy {
-  public subs = new Subscription();
-  public stations: any[] = [];
+  subs = new Subscription();
+  stations: any[] = [];
 
   constructor(
     public eventService: EventService,

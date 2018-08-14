@@ -9,8 +9,8 @@ import { catchError } from 'rxjs/operators';
  */
 @Injectable()
 export class StationService {
-  public error: any = null;
-  public stationsJson$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  error: any = null;
+  stationsJson$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private httpClient: HttpClient) {}
 

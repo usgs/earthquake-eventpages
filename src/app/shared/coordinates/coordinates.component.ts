@@ -12,8 +12,8 @@ import { FormatterService } from '@core/formatter.service';
   styleUrls: ['./coordinates.component.scss']
 })
 export class CoordinatesComponent {
-  public _latitude: number;
-  public _longitude: number;
+  _latitude: number;
+  _longitude: number;
 
   constructor(public formatter: FormatterService) {}
 

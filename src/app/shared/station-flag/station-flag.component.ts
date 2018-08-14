@@ -15,7 +15,7 @@ export class StationFlagComponent {
   @Input()
   flag: string;
 
-  public readonly FLAG_DESCRIPTIONS = {
+  readonly FLAG_DESCRIPTIONS = {
     M: 'Manually flagged',
     T: 'Outlier',
     G: 'Glitch (clipped or below noise)',

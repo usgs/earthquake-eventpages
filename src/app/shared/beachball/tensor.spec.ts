@@ -256,7 +256,7 @@ describe('Tensor', () => {
     tests.forEach(t => {
       const tensor = Tensor.fromProduct(t.product);
       // isCloseTo is defined in the beforeEach
-      expect(tensor)['isCloseTo'](t.expected);
+      expect(tensor).isCloseTo(t.expected);
     });
   });
 

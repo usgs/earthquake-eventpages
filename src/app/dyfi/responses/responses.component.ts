@@ -29,7 +29,7 @@ import { DyfiService } from '../dyfi.service';
   encapsulation: ViewEncapsulation.None
 })
 export class ResponsesComponent implements OnInit, OnDestroy {
-  public columnTitles = {
+  columnTitles = {
     name: 'City',
     state: 'State/Region',
     country: 'Country',
@@ -40,7 +40,7 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     lat: 'Latitude',
     lon: 'Longitude'
   };
-  public columnsToDisplay = [
+  columnsToDisplay = [
     'name',
     'state',
     'country',
@@ -51,12 +51,12 @@ export class ResponsesComponent implements OnInit, OnDestroy {
     'lat',
     'lon'
   ];
-  public headers = ['name', 'cdi', 'nresp', 'dist', 'lat', 'lon'];
-  public loaded = false;
-  public paginatorSizes = [10, 20, 50, 100, 1000];
-  public responsesArray = [];
-  public responses = new MatTableDataSource(null);
-  public subs = new Subscription();
+  headers = ['name', 'cdi', 'nresp', 'dist', 'lat', 'lon'];
+  loaded = false;
+  paginatorSizes = [10, 20, 50, 100, 1000];
+  responsesArray = [];
+  responses = new MatTableDataSource(null);
+  subs = new Subscription();
 
   @ViewChild(MatSort)
   sort: MatSort;
@@ -104,17 +104,17 @@ export class ResponsesComponent implements OnInit, OnDestroy {
 
     const lines = this.responsesArray.map(response => {
       const responseObj = {
-        name: response['name'],
-        state: response['state'],
-        country: response['country'],
-        zip: response['zip'],
+        name: response.name,
+        state: response.state,
+        country: response.country,
+        zip: response.zip,
         mmi: '',
-        nresp: response['nresp'],
-        dist: response['dist'] + ' km',
-        lat: response['lat'],
-        lon: response['lon']
+        nresp: response.nresp,
+        dist: response.dist + ' km',
+        lat: response.lat,
+        lon: response.lon
       };
-      responseObj['mmi'] = this.romanPipe.transform(response['cdi']);
+      responseObj.mmi = this.romanPipe.transform(response.cdi);
 
       return this.columnsToDisplay
         .map(c => {

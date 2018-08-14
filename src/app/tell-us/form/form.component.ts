@@ -32,15 +32,15 @@ import { FormLanguageService } from '../form-language.service';
 export class FormComponent implements AfterViewInit, OnDestroy {
   // these answers control whether the submit button is enabled
   // others are populated as needed
-  public answers: any = {
+  answers: any = {
     fldSituation_felt: null,
     ciim_mapLat: null,
     ciim_mapLon: null,
     ciim_time: null
   };
-  public error: any = null;
-  public responseUrl = '/data/dyfi/form/response.php';
-  public subscription: Subscription = new Subscription();
+  error: any = null;
+  responseUrl = '/data/dyfi/form/response.php';
+  subscription: Subscription = new Subscription();
 
   // The rendered map at the top of the form
   @ViewChild(LocationMapComponent)

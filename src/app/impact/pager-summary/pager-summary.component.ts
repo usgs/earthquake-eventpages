@@ -17,7 +17,7 @@ import { Event } from '../../event';
 })
 export class PagerSummaryComponent {
   // columns to be displayed
-  public columnsToDisplay = ['catalog', 'alertlevel', 'source'];
+  columnsToDisplay = ['catalog', 'alertlevel', 'source'];
 
   @Input()
   event: Event;

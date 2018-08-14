@@ -15,7 +15,7 @@ import { FormatterService } from '@core/formatter.service';
   styleUrls: ['./output.component.scss']
 })
 export class OutputComponent {
-  public readonly names = {
+  readonly names = {
     groundMotions: {
       PGA: 'PGA',
       PGV: 'PGV',
@@ -41,7 +41,7 @@ export class OutputComponent {
     }
   };
 
-  public readonly abbreviations = {
+  readonly abbreviations = {
     'SA(0.3)': 'Spectral acceleration at 0.3 s',
     'SA(1.0)': 'Spectral acceleration at 1.0 s',
     'SA(3.0)': 'Spectral acceleration at 3.0 s',
@@ -54,7 +54,7 @@ export class OutputComponent {
     pgv: 'Peak Ground Velocity'
   };
 
-  public readonly headers = {
+  readonly headers = {
     groundMotions: ['type', 'max', 'max_on_land', 'bias'],
     mapInformation: ['type', 'lat', 'lon']
   };

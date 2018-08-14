@@ -17,7 +17,7 @@ import { Event } from '../../event';
 })
 export class DyfiSummaryComponent {
   // columns to be displayed
-  public columnsToDisplay = ['catalog', 'cdi', 'responses', 'source'];
+  columnsToDisplay = ['catalog', 'cdi', 'responses', 'source'];
 
   @Input()
   event: Event;

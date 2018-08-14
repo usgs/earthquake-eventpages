@@ -15,7 +15,7 @@
  */
 export class Canvas {
 
-  public context: any;
+  context: any;
 
 
   constructor (

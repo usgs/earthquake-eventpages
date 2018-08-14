@@ -17,7 +17,7 @@ import { Event } from '../../event';
 })
 export class ShakemapSummaryComponent {
   // columns to be displayed
-  public columnsToDisplay = ['catalog', 'mmi', 'source', 'description'];
+  columnsToDisplay = ['catalog', 'mmi', 'source', 'description'];
 
   @Input()
   event: Event;

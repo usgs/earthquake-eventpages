@@ -17,7 +17,7 @@ import { Beachball } from '@shared/beachball/beachball';
 })
 export class AxesComponent {
 
-  public columnsToDisplay = [
+  columnsToDisplay = [
     'axis',
     'value',
     'plunge',

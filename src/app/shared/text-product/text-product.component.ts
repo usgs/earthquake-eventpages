@@ -16,10 +16,10 @@ import { catchError } from 'rxjs/operators';
   styleUrls: ['./text-product.component.scss']
 })
 export class TextProductComponent {
-  public _product: any;
-  public content = new BehaviorSubject<any>(null);
-  public readonly content$ = this.content.asObservable();
-  public error: any;
+  _product: any;
+  content = new BehaviorSubject<any>(null);
+  readonly content$ = this.content.asObservable();
+  error: any;
 
   @Input()
   contentPath = '';

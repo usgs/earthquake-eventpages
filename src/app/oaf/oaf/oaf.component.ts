@@ -14,7 +14,7 @@ import { OafService } from '../oaf.service';
   styleUrls: ['./oaf.component.scss']
 })
 export class OafComponent implements AfterViewInit, OnDestroy {
-  public subscription: Subscription = new Subscription();
+  subscription: Subscription = new Subscription();
 
   constructor(
     public eventService: EventService,

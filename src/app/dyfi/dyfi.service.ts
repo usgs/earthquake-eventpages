@@ -10,10 +10,10 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class DyfiService {
 
-  public cdiZip$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public error: any = null;
-  public plotAtten$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public plotNumResp$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  cdiZip$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  error: any = null;
+  plotAtten$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  plotNumResp$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
 
   constructor (private httpClient: HttpClient) { }

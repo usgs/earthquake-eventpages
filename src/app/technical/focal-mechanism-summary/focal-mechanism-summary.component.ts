@@ -14,15 +14,15 @@ import { Tensor } from '@shared/beachball/tensor';
 })
 export class FocalMechanismSummaryComponent {
   // MatTable headers
-  public columnsToDisplay = [
+  columnsToDisplay = [
     'catalog',
     'mechanism',
     'nodalPlane1',
     'nodalPlane2',
     'source'
   ];
-  public _products: Array<any>;
-  public tensors: Array<any> = [];
+  _products: Array<any>;
+  tensors: Array<any> = [];
 
   @Input()
   event: any;

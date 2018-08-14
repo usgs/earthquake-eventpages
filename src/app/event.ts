@@ -2,14 +2,14 @@ import { getUnique } from './unique';
 
 export class Event {
   // "feature" properties
-  public id: string;
-  public properties: any;
-  public geometry: any;
+  id: string;
+  properties: any;
+  geometry: any;
 
-  public product: any = null;
-  public sources: Array<string>;
+  product: any = null;
+  sources: Array<string>;
 
-  public deleted = false;
+  deleted = false;
 
   constructor(public data: any) {
     let sources;

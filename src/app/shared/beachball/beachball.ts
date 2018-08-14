@@ -86,23 +86,23 @@ __getOption = function(options: any, name: string, defaultValue: any): any {
 export class Beachball {
   static zeroToTwoPi = __0To2Pi;
 
-  public axisSize: number = null;
-  public bgColor = '#fff';
-  public fillColor = '#ddd';
-  public height: number = null;
-  public labelAxes = true;
-  public labelAxesFont = '24px Arial';
-  public labelPlanes = true;
-  public labelPlanesFont = '14px Arial';
-  public lineColor = '#000';
-  public lineWidth = 0.25;
-  public plotAxes = false;
-  public plotPlanes = true;
-  public radius: number = null;
-  public size = 200;
-  public width: number = null;
-  public x0: number = null;
-  public y0: number = null;
+  axisSize: number = null;
+  bgColor = '#fff';
+  fillColor = '#ddd';
+  height: number = null;
+  labelAxes = true;
+  labelAxesFont = '24px Arial';
+  labelPlanes = true;
+  labelPlanesFont = '14px Arial';
+  lineColor = '#000';
+  lineWidth = 0.25;
+  plotAxes = false;
+  plotPlanes = true;
+  radius: number = null;
+  size = 200;
+  width: number = null;
+  x0: number = null;
+  y0: number = null;
 
   /**
    * Create and render a beachball.

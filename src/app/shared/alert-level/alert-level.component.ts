@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./alert-level.component.scss']
 })
 export class AlertLevelComponent {
-  public alertLevel: string;
+  alertLevel: string;
 
   /**
    * Setter for the alert level color

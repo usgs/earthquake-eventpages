@@ -8,9 +8,9 @@ import { BehaviorSubject } from 'rxjs';
  */
 @Injectable()
 export class OafService {
-  public oaf$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public forecast$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public model$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  oaf$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  forecast$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  model$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   /**
    * Updates the observable streams for: oaf, forecast, and model

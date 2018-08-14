@@ -12,7 +12,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./station.component.scss']
 })
 export class StationComponent implements OnInit {
-  public readonly channelsColumns = [
+  readonly channelsColumns = [
     'name',
     'pga',
     'pgv',

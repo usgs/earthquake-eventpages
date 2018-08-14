@@ -15,7 +15,7 @@ import { EventService } from '@core/event.service';
   styleUrls: ['./event-page.component.scss']
 })
 export class EventPageComponent implements OnInit, OnDestroy {
-  public subscription = new Subscription();
+  subscription = new Subscription();
 
   constructor(
     public route: ActivatedRoute,

@@ -7,12 +7,12 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class FormatterService {
-  public readonly depthDecimals: number;
-  public readonly distanceDecimals: number;
-  public readonly empty: string;
-  public readonly locationDecimals: number;
-  public readonly mmiArray: Array<string>;
-  public readonly mmiColors: Array<string>;
+  readonly depthDecimals: number;
+  readonly distanceDecimals: number;
+  readonly empty: string;
+  readonly locationDecimals: number;
+  readonly mmiArray: Array<string>;
+  readonly mmiColors: Array<string>;
 
   constructor () {
     this.depthDecimals = 1;

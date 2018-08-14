@@ -16,7 +16,7 @@ import { FormatterService } from '@core/formatter.service';
 })
 export class OriginSummaryComponent {
   // Table headers
-  public columnsToDisplay = [
+  columnsToDisplay = [
     'catalog',
     'magnitude',
     'time',

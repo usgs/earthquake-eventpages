@@ -19,8 +19,8 @@ import { Quakeml } from '../../quakeml';
 export class MagnitudeComponent implements OnInit, OnDestroy {
 
   // phases parsed from quakeml.
-  public magnitudes: Array<any>;
-  public subscription: Subscription = new Subscription();
+  magnitudes: Array<any>;
+  subscription: Subscription = new Subscription();
 
   constructor (
     public eventService: EventService,

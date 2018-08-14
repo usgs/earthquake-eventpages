@@ -12,8 +12,8 @@ import { xmlToJson } from '../xml-to-json';
 @Injectable()
 export class PagerXmlService {
 
-  public error: any = null;
-  public pagerXml$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  error: any = null;
+  pagerXml$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor (
     public httpClient: HttpClient

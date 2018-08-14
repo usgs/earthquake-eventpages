@@ -26,7 +26,7 @@ import { Component, Input } from '@angular/core';
 })
 export class HazardAlertComponent {
 
-  public landslideBins = [
+  landslideBins = [
     {
       color: '#27a83c',
       text: 'Little to no',
@@ -53,7 +53,7 @@ export class HazardAlertComponent {
     }
   ];
 
-  public liquefactionBins = [
+  liquefactionBins = [
     {
       color: '#27a83c',
       text: 'Little to no',

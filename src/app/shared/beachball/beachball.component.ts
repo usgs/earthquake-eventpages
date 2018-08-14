@@ -30,7 +30,7 @@ import { Tensor } from './tensor';
   styleUrls: ['./beachball.component.scss']
 })
 export class BeachballComponent implements OnChanges {
-  public readonly tensor$ = new BehaviorSubject<Tensor>(null);
+  readonly tensor$ = new BehaviorSubject<Tensor>(null);
 
   @Input()
   tensor: Tensor;

@@ -16,22 +16,22 @@ import { DyfiService } from '../dyfi.service';
 })
 export class ResponsesVsTimeComponent implements OnInit {
 
-  public autoScale = true;
-  public colorScheme = {
+  autoScale = true;
+  colorScheme = {
     domain: ['#34e16d']
   };
-  public dyfiSeries: any;
-  public gradient = false;
-  public product: any = null;
-  public showLegend = false;
-  public showXAxis = true;
-  public showXAxisLabel = true;
-  public showYAxis = true;
-  public showYAxisLabel = true;
-  public subs = new Subscription();
-  public timeline = true;
-  public xAxisLabel = 'Time since earthquake (hours)';
-  public yAxisLabel = 'Number of Responses';
+  dyfiSeries: any;
+  gradient = false;
+  product: any = null;
+  showLegend = false;
+  showXAxis = true;
+  showXAxisLabel = true;
+  showYAxis = true;
+  showYAxisLabel = true;
+  subs = new Subscription();
+  timeline = true;
+  xAxisLabel = 'Time since earthquake (hours)';
+  yAxisLabel = 'Number of Responses';
 
 
   constructor (

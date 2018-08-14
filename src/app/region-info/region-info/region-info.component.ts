@@ -18,7 +18,7 @@ import { EventService } from '@core/event.service';
   styleUrls: ['./region-info.component.scss']
 })
 export class RegionInfoComponent implements OnDestroy, OnInit {
-  public subscription: Subscription;
+  subscription: Subscription;
 
 
   constructor (

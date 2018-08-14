@@ -273,11 +273,11 @@ describe('MapComponent', () => {
 
     it('sets overlay httpClient', () => {
       const overlay1 = new HistoricSeismicityOverlay();
-      overlay1['httpClient'] = null;
+      overlay1.httpClient = null;
 
       // sets httpClient
       component.overlays = [overlay1];
-      expect(overlay1['httpClient']).not.toBeNull();
+      expect(overlay1.httpClient).not.toBeNull();
     });
   });
 });

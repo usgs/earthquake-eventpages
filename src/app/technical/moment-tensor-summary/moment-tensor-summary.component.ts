@@ -15,7 +15,7 @@ import { Tensor } from '@shared/beachball/tensor';
 })
 export class MomentTensorSummaryComponent {
   // Table headers
-  public columnsToDisplay = [
+  columnsToDisplay = [
     'catalog',
     'tensor',
     'magnitude',
@@ -23,8 +23,8 @@ export class MomentTensorSummaryComponent {
     'percentDC',
     'source'
   ];
-  public _products: Array<any>;
-  public tensors: Array<any> = [];
+  _products: Array<any>;
+  tensors: Array<any> = [];
 
   @Input()
   event: any;

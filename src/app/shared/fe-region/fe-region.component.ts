@@ -17,9 +17,9 @@ export class FeRegionComponent {
   @Input()
   fe: any;
 
-  public _latitude: number;
-  public _longitude: number;
-  public _loading = false;
+  _latitude: number;
+  _longitude: number;
+  _loading = false;
 
   constructor(public geoserveService: GeoserveService) {}
 

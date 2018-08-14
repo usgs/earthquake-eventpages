@@ -9,29 +9,29 @@ import { toIndex } from './to-index';
  */
 export class QuakemlEvent {
   // event attributes
-  public publicID: string = null;
-  public catalog: string = null;
-  public creationInfo: any = null;
-  public eventid: string = null;
-  public preferredMagnitudeID: string = null;
-  public preferredOriginID: string = null;
+  publicID: string = null;
+  catalog: string = null;
+  creationInfo: any = null;
+  eventid: string = null;
+  preferredMagnitudeID: string = null;
+  preferredOriginID: string = null;
 
   // origins and magnitude elements
-  public magnitudes: Array<any> = [];
-  public origins: Array<any> = [];
+  magnitudes: Array<any> = [];
+  origins: Array<any> = [];
 
   // indexes of related elements referenced by origins and/or magnitudes
-  public picks: any = {};
-  public amplitudes: any = {};
-  public stationMagnitudes: any = {};
+  picks: any = {};
+  amplitudes: any = {};
+  stationMagnitudes: any = {};
 
   constructor(data: any) {
     this.creationInfo = data.creationInfo;
     this.catalog = data['catalog:eventsource'];
     this.eventid = data['catalog:eventid'];
-    this.preferredMagnitudeID = data['preferredMagnitudeID'];
-    this.preferredOriginID = data['preferredOriginID'];
-    this.publicID = data['publicID'];
+    this.preferredMagnitudeID = data.preferredMagnitudeID;
+    this.preferredOriginID = data.preferredOriginID;
+    this.publicID = data.publicID;
 
     this.magnitudes = toArray(data.magnitude);
     this.origins = toArray(data.origin);

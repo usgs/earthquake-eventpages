@@ -20,8 +20,8 @@ export class AttributionComponent {
   sourceCode: string;
 
   constructor(
-    public readonly contributorService: ContributorService,
-    public readonly eventService: EventService
+    readonly contributorService: ContributorService,
+    readonly eventService: EventService
   ) {}
 
   /**

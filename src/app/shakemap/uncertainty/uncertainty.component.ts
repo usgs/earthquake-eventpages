@@ -14,8 +14,8 @@ import { EventService } from '@core/event.service';
   styleUrls: ['./uncertainty.component.scss']
 })
 export class UncertaintyComponent implements OnInit, OnDestroy {
-  public imageUrl: string = null;
-  public subscription = new Subscription();
+  imageUrl: string = null;
+  subscription = new Subscription();
 
   constructor(public eventService: EventService) {}
 

@@ -16,7 +16,7 @@ import { FormatterService } from '@core/formatter.service';
   styleUrls: ['./processing.component.scss']
 })
 export class ProcessingComponent {
-  public readonly names = {
+  readonly names = {
     ground_motion_modules: {
       basin_correction: 'Basin',
       gmpe: 'GMPE',
@@ -31,13 +31,13 @@ export class ProcessingComponent {
       intensity: 'Intensity'
     }
   };
-  public readonly abbreviations = {
+  readonly abbreviations = {
     gmpe: 'Ground Motion Prediction Equation',
     gmice: 'Ground Motion Intensity Conversion Equation',
     ipe: 'Intensity Prediction Equation',
     igmice: 'Inverse Ground Motion Intensity Conversion Equation'
   };
-  public readonly headers = {
+  readonly headers = {
     groundMotionModules: ['type', 'module', 'reference'],
     roi: ['type', 'roi', 'observation_decay']
   };

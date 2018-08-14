@@ -15,9 +15,9 @@ import { ContentsXmlService } from '@core/contents-xml.service';
 })
 export class DownloadComponent {
   // see getter/setter below
-  public _product: any;
+  _product: any;
 
-  public open = false;
+  open = false;
 
   constructor(public contentsXmlService: ContentsXmlService) {}
 

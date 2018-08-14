@@ -14,11 +14,11 @@ import { QuakemlEvent } from './quakeml-event';
  *        default "event", override if there are subclassed event elements.
  */
 export class Quakeml {
-  public namespaces: any = {};
+  namespaces: any = {};
 
-  public publicID: string;
-  public creationInfo: any;
-  public events: Array<QuakemlEvent> = [];
+  publicID: string;
+  creationInfo: any;
+  events: Array<QuakemlEvent> = [];
 
   constructor(data: any) {
     const quakeml = data['q:quakeml'];

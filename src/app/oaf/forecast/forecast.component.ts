@@ -13,9 +13,9 @@ import { OafService } from '../oaf.service';
 })
 export class ForecastComponent {
   // colums to be displayed
-  public columnsToDisplay = ['space', 'day', 'week', 'month', 'year'];
+  columnsToDisplay = ['space', 'day', 'week', 'month', 'year'];
 
-  public columnTitles = {
+  columnTitles = {
     space: '',
     day: 'Day',
     week: 'Week',

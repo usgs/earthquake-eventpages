@@ -13,7 +13,7 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
   styleUrls: ['./pager-cities.component.scss']
 })
 export class PagerCitiesComponent {
-  public columnsToDisplay = ['mmi', 'city', 'population'];
+  columnsToDisplay = ['mmi', 'city', 'population'];
 
   @Input()
   pager: any;

@@ -14,8 +14,8 @@ import { xmlToJson } from '../xml-to-json';
 @Injectable()
 export class QuakemlService {
 
-  public quakeml$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public error: any = null;
+  quakeml$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  error: any = null;
 
   constructor (
     public httpClient: HttpClient

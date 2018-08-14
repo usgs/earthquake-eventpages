@@ -28,20 +28,20 @@ import { LegendControl } from '../map-control/legend-control';
 export class MapComponent implements AfterViewInit {
 
   // value of bounds property
-  public _bounds: Array<Array<number>> = null;
+  _bounds: Array<Array<number>> = null;
   // value of overlays property
-  public _overlays: Array<L.Layer> = [];
-  public _interactive = false;
-  public _showLayersControl = false;
-  public _showLegendControl = false;
-  public _showScaleControl = false;
+  _overlays: Array<L.Layer> = [];
+  _interactive = false;
+  _showLayersControl = false;
+  _showLegendControl = false;
+  _showScaleControl = false;
   // overlays currently part of the layers control
-  public overlaysAdded: Array<L.Layer> = [];
-  public map: L.Map;
-  public layersControl: L.Control.Layers;
-  public legendControl: L.Control;
-  public scaleControl: L.Control.Scale;
-  public zoomControl: L.Control.Zoom;
+  overlaysAdded: Array<L.Layer> = [];
+  map: L.Map;
+  layersControl: L.Control.Layers;
+  legendControl: L.Control;
+  scaleControl: L.Control.Scale;
+  zoomControl: L.Control.Zoom;
 
   @Input()
   baselayer = 'Topographic';

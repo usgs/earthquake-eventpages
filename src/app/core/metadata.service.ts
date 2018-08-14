@@ -9,8 +9,8 @@ import { catchError } from 'rxjs/operators';
  */
 @Injectable()
 export class MetadataService {
-  public error: any = null;
-  public metadata$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  error: any = null;
+  metadata$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(private httpClient: HttpClient) {}
 
@@ -100,7 +100,7 @@ export class MetadataService {
     const arr = [];
     for (const item_id of Object.keys(obj)) {
       const item = obj[item_id];
-      item['type'] = item_id;
+      item.type = item_id;
 
       arr.push(item);
     }

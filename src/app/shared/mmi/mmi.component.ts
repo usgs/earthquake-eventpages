@@ -17,11 +17,11 @@ import { Component, Input } from '@angular/core';
 })
 export class MmiComponent {
   @Input()
-  public bubble = false;
+  bubble = false;
 
   @Input()
-  public intensity;
+  intensity;
 
   @Input()
-  public value;
+  value;
 }

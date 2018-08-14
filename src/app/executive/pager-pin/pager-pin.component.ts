@@ -12,8 +12,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./pager-pin.component.scss']
 })
 export class PagerPinComponent {
-  public link = '../pager';
-  public title = 'PAGER';
+  link = '../pager';
+  title = 'PAGER';
 
   @Input()
   product: any;

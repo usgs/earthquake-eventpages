@@ -12,8 +12,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./finite-fault-pin.component.scss']
 })
 export class FiniteFaultPinComponent {
-  public link = '../finite-fault';
-  public title = 'Finite Fault';
+  link = '../finite-fault';
+  title = 'Finite Fault';
 
   @Input()
   product: any;

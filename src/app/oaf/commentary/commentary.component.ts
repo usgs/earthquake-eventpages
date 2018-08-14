@@ -14,8 +14,8 @@ import { OafService } from '../oaf.service';
   styleUrls: ['./commentary.component.scss']
 })
 export class CommentaryComponent implements OnDestroy, OnInit {
-  public forecast;
-  public subscription: Subscription;
+  forecast;
+  subscription: Subscription;
 
   constructor(
     public eventService: EventService,

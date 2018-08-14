@@ -14,8 +14,8 @@ import { Tensor } from '@shared/beachball/tensor';
   styleUrls: ['./moment-tensor.component.scss']
 })
 export class MomentTensorComponent implements OnInit, OnDestroy {
-  public tensor: Tensor = null;
-  public subscription: Subscription = new Subscription();
+  tensor: Tensor = null;
+  subscription: Subscription = new Subscription();
 
   constructor(public eventService: EventService) {}
 

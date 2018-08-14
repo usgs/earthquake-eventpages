@@ -39,7 +39,7 @@ interface OtherValueEvent {
 })
 export class QuestionComponent {
   // if there is an "other" option, the user specified value
-  public otherValue: any;
+  otherValue: any;
 
   @Output()
   change = new BehaviorSubject<any>(null);

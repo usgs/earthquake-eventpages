@@ -14,9 +14,9 @@ import { FormatterService } from '@core/formatter.service';
   styleUrls: ['./origin-pin.component.scss']
 })
 export class OriginPinComponent {
-  public link = '../origin';
-  public title = 'Origin';
-  public type = 'origin';
+  link = '../origin';
+  title = 'Origin';
+  type = 'origin';
 
   @Input()
   product: any;

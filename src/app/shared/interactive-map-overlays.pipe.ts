@@ -14,21 +14,21 @@ import { LandscanPopulationOverlay } from './map-overlay/landscan-population-ove
   name: 'interactiveMapOverlays'
 })
 export class InteractiveMapOverlaysPipe implements PipeTransform {
-  public defaultOverlays: any = {
+  defaultOverlays: any = {
     epicenter: true,
     'shakemap-intensity': true
   };
-  public staticOverlays: L.Layer[] = [new LandscanPopulationOverlay()];
+  staticOverlays: L.Layer[] = [new LandscanPopulationOverlay()];
   // pipes related to their product
-  public overlayFactory: any = {
+  overlayFactory: any = {
     origin: new RegionInfoOverlaysPipe(),
     // keep origin first, the rest go here:
     shakemap: new ShakemapOverlaysPipe(),
     'ground-failure': new GroundFailureOverlaysPipe()
   };
   // track which event was last displayed
-  public lastEvent: Event = null;
-  public overlayCache: any = {};
+  lastEvent: Event = null;
+  overlayCache: any = {};
 
   /**
    * Add overlays to the map

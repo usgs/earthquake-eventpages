@@ -17,9 +17,9 @@ import { Event } from '../../event';
   styleUrls: ['./nearby-seismicity-pin.component.scss']
 })
 export class NearbySeismicityPinComponent implements OnInit {
-  public title = 'View Nearby Seismicity';
-  public footer = 'ANSS Comcat';
-  public minimumMag;
+  title = 'View Nearby Seismicity';
+  footer = 'ANSS Comcat';
+  minimumMag;
 
   @Input()
   event: Event;

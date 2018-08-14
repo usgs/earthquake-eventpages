@@ -19,7 +19,7 @@ import {
 export class MagnitudeDetailComponent implements AfterViewInit {
 
   // columns to be displayed, and column order
-  public columnsToDisplay = [
+  columnsToDisplay = [
     'channel',
     'type',
     'amplitude',
@@ -30,7 +30,7 @@ export class MagnitudeDetailComponent implements AfterViewInit {
   ];
 
   // labels for titles
-  public columnTitles = {
+  columnTitles = {
     'amplitude': 'Amplitude',
     'channel': 'Channel',
     'magnitude': 'Magnitude',
@@ -40,7 +40,7 @@ export class MagnitudeDetailComponent implements AfterViewInit {
     'weight': 'Weight'
   };
 
-  public dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   // sort object from mat-table in view
   // bound to dataSource in ngAfterViewInit

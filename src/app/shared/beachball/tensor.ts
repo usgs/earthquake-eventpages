@@ -32,38 +32,38 @@ const _R2D = 180 / Math.PI;
  */
 export class Tensor {
 
-  public mtt: number;
-  public mpp: number;
-  public mrr: number;
-  public mrt: number;
-  public mrp: number;
-  public mtp: number;
-  public units = 'N-m';
+  mtt: number;
+  mpp: number;
+  mrr: number;
+  mrt: number;
+  mrp: number;
+  mtp: number;
+  units = 'N-m';
 
-  public moment: number;
-  public momentLog10: number;
-  public exponent: number;
-  public scale: number;
-  public magnitude: number;
+  moment: number;
+  momentLog10: number;
+  exponent: number;
+  scale: number;
+  magnitude: number;
 
-  public matrix: Matrix;
-  public T: any;
-  public N: any;
-  public P: any;
-  public fCLVD: number;
-  public percentDC: number;
-  public forceThrust: number;
-  public forceStrikeSlip: number;
-  public forceNormal: number;
+  matrix: Matrix;
+  T: any;
+  N: any;
+  P: any;
+  fCLVD: number;
+  percentDC: number;
+  forceThrust: number;
+  forceStrikeSlip: number;
+  forceNormal: number;
 
-  public NP1: any;
-  public NP2: any;
+  NP1: any;
+  NP2: any;
 
   // reference to product, and optional attributes from product
-  public product: any = null;
-  public depth: any;
-  public type: any;
-  public halfDuration: any;
+  product: any = null;
+  depth: any;
+  type: any;
+  halfDuration: any;
 
   /**
    * Calculate one nodal plane.
@@ -132,7 +132,7 @@ export class Tensor {
 
       depth = props['derived-depth'];
       if (!depth)  {
-        depth = props['depth'];
+        depth = props.depth;
       }
       tensor.depth = depth;
 

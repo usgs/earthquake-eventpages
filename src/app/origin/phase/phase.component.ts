@@ -21,7 +21,7 @@ import { Quakeml } from '../../quakeml';
 export class PhaseComponent implements OnInit, OnDestroy {
 
   // columns to be displayed, and solumn order
-  public columnsToDisplay = [
+  columnsToDisplay = [
     'channel',
     'distance',
     'azimuth',
@@ -33,7 +33,7 @@ export class PhaseComponent implements OnInit, OnDestroy {
   ];
 
   // labels for titles
-  public columnTitles = {
+  columnTitles = {
     'azimuth': 'Azimuth',
     'channel': 'Channel',
     'distance': 'Distance',
@@ -45,13 +45,13 @@ export class PhaseComponent implements OnInit, OnDestroy {
   };
 
   /** phases parsed from quakeml. */
-  public phases: Array<any>;
+  phases: Array<any>;
 
   /** phases after sorting. */
-  public sortedPhases: Array<any>;
+  sortedPhases: Array<any>;
 
   /** subscriptions */
-  public subscription: Subscription = new Subscription();
+  subscription: Subscription = new Subscription();
 
 
   constructor(

@@ -13,11 +13,11 @@ import { EventService } from '@core/event.service';
 })
 export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
 
-  public allResults: any[] = null;
-  public autoScale = true;
-  public animations = true;
-  public bubbleSeries: any[] = null;
-  public classOptions = {
+  allResults: any[] = null;
+  autoScale = true;
+  animations = true;
+  bubbleSeries: any[] = null;
+  classOptions = {
     'scatterplot1': {
       type: 'scatter',
       color: '#94dfea',
@@ -50,22 +50,22 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
       type: 'scatter'
     }
   };
-  public colorScheme = {
+  colorScheme = {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA', '#8d91ff', '#94dfea', '#fe4d55', '#5fce3b']
   };
-  public customColors: any[] = [];
-  public gradient = false;
-  public lineSeries: any[] = null;
-  public product: any = null;
-  public scaleType = 'log';
-  public showLegend = true;
-  public showXAxis = true;
-  public showXAxisLabel = true;
-  public showYAxis = true;
-  public showYAxisLabel = true;
-  public subs = new Subscription();
-  public xAxisLabel = 'Hypocentral Distance (km)';
-  public yAxisLabel = 'Intensity (mmi)';
+  customColors: any[] = [];
+  gradient = false;
+  lineSeries: any[] = null;
+  product: any = null;
+  scaleType = 'log';
+  showLegend = true;
+  showXAxis = true;
+  showXAxisLabel = true;
+  showYAxis = true;
+  showYAxisLabel = true;
+  subs = new Subscription();
+  xAxisLabel = 'Hypocentral Distance (km)';
+  yAxisLabel = 'Intensity (mmi)';
 
 
   constructor (

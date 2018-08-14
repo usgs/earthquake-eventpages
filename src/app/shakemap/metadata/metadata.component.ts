@@ -15,8 +15,8 @@ import { MetadataService } from '@core/metadata.service';
   styleUrls: ['./metadata.component.scss']
 })
 export class MetadataComponent implements OnInit, OnDestroy {
-  public metadata: any = null;
-  public subs = new Subscription();
+  metadata: any = null;
+  subs = new Subscription();
 
   constructor(
     public mdService: MetadataService,

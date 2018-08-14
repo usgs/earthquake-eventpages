@@ -14,5 +14,5 @@ import { Component, Input } from '@angular/core';
 })
 export class CommentaryDetailsComponent {
   @Input()
-  public bin: any;
+  bin: any;
 }
