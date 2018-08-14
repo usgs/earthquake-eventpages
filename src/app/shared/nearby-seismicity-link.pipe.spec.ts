@@ -18,7 +18,6 @@ describe('NearbySeismicityLinkPipe', () => {
   afterEach(() => {
     pipe = null;
     event = null;
-    link = null;
   });
 
   it('create an instance', () => {
