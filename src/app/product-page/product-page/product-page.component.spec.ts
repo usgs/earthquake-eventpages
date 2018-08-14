@@ -10,8 +10,6 @@ import { ProductPageComponent } from './product-page.component';
 describe('ProductPageComponent', () => {
   let component: ProductPageComponent;
   let fixture: ComponentFixture<ProductPageComponent>;
-  let contributorService;
-  let eventService;
 
   beforeEach(async(() => {
     const contributorServiceStub = {
@@ -46,9 +44,6 @@ describe('ProductPageComponent', () => {
     fixture = TestBed.createComponent(ProductPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    contributorService = fixture.debugElement.injector.get(ContributorService);
-    eventService = fixture.debugElement.injector.get(EventService);
   }));
 
   beforeEach(() => {

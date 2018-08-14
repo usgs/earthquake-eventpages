@@ -11,8 +11,6 @@ import { StationListComponent } from './station-list.component';
 describe('StationListComponent', () => {
   let component: StationListComponent;
   let fixture: ComponentFixture<StationListComponent>;
-  let eventService;
-  let stationService;
 
   beforeEach(async(() => {
     const eventServiceStub = {
@@ -43,9 +41,6 @@ describe('StationListComponent', () => {
     fixture = TestBed.createComponent(StationListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    eventService = fixture.debugElement.injector.get(EventService);
-    stationService = fixture.debugElement.injector.get(StationService);
   });
 
   it('should create', () => {

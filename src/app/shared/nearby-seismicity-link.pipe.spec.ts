@@ -4,7 +4,6 @@ import { NearbySeismicityLinkPipe } from './nearby-seismicity-link.pipe';
 describe('NearbySeismicityLinkPipe', () => {
   let pipe: NearbySeismicityLinkPipe;
   let event: Event;
-  let link: string;
 
   beforeEach(() => {
     pipe = new NearbySeismicityLinkPipe();
@@ -14,16 +13,6 @@ describe('NearbySeismicityLinkPipe', () => {
         coordinates: [94.3299, -4.9521]
       }
     });
-    link =
-      '/earthquakes/map/#' +
-      '%7B%22autoUpdate%22%3Afalse%2C%22basemap%22%3A' +
-      '%22terrain%22%2C%22event%22%3A%22' +
-      'us10004u1y%22%2C%22feed%22%3A%22us10004u1y' +
-      '%22%2C%22mapposition%22%3A%5B%5B-85%2C' +
-      '-180%5D%2C%5B85%2C180%5D%5D%2C%22search' +
-      '%22%3A%7B%22id%22%3A%22' +
-      'us10004u1y%22%2C%22isSearch%22%3Atrue%2C%22name%22%3A' +
-      '%22Search%20Results%22%2C%22params%22%3Afalse%7D%7D';
   });
 
   afterEach(() => {

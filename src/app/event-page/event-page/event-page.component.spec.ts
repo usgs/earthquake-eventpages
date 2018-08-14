@@ -9,9 +9,7 @@ import { EventPageComponent } from './event-page.component';
 
 describe('EventPageComponent', () => {
   let fixture: ComponentFixture<EventPageComponent>,
-    component: EventPageComponent,
-    contributorService,
-    eventService;
+    component: EventPageComponent;
 
   beforeEach(async(() => {
     const contributorServiceStub = {
@@ -52,9 +50,6 @@ describe('EventPageComponent', () => {
     fixture = TestBed.createComponent(EventPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    contributorService = fixture.debugElement.injector.get(ContributorService);
-    eventService = fixture.debugElement.injector.get(EventService);
   }));
 
   it('should create', () => {

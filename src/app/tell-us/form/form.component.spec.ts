@@ -1,13 +1,5 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
-import {
-  async,
-  ComponentFixture,
-  getTestBed,
-  TestBed
-} from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -33,8 +25,6 @@ import { FormComponent } from './form.component';
 describe('FormComponent', () => {
   let component: FormComponent;
   let fixture: ComponentFixture<FormComponent>;
-  let httpClient: HttpTestingController;
-  let injector: TestBed;
 
   beforeEach(async(() => {
     const eventServiceStub = {
@@ -90,9 +80,6 @@ describe('FormComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: {} }
       ]
     }).compileComponents();
-
-    injector = getTestBed();
-    httpClient = injector.get(HttpTestingController);
   }));
 
   beforeEach(() => {
