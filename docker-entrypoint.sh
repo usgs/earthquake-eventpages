@@ -36,6 +36,9 @@ location  /${BASE_HREF}  {
   add_header  'X-Content-Type-Options'  'nosniff';
   add_header  'X-XSS-Protection'  '1; mode=block';
 
+  expires 15m;
+  add_header 'Cache-Control' 'public';
+
   try_files \$uri \$uri/ \$uri.html \$uri/index.html @angular-fallback;
 }
 
