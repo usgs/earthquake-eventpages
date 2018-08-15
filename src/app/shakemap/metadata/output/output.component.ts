@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { FormatterService } from '@core/formatter.service';
+
 
 /**
  * Output subcomponent, shows the output data table when the user selects the
@@ -10,6 +11,7 @@ import { FormatterService } from '@core/formatter.service';
  *     The shakemap output data table for metadata
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shakemap-output',
   styleUrls: ['./output.component.scss', '../metadata.component.scss'],
   templateUrl: './output.component.html'

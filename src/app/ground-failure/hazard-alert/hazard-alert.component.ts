@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Display the "estimated area exposed" bins on ground-failure product page
@@ -19,6 +20,7 @@ import { Component, Input } from '@angular/core';
  *     number of population exposed
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'ground-failure-hazard-alert',
   styleUrls: ['./hazard-alert.component.scss'],
   templateUrl: './hazard-alert.component.html'

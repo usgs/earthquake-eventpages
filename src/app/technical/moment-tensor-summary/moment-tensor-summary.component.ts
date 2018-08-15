@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { FormatterService } from '@core/formatter.service';
 import { Tensor } from '@shared/beachball/tensor';
+
 
 /**
  * Moment tensor component
@@ -9,6 +10,7 @@ import { Tensor } from '@shared/beachball/tensor';
  *     The event input
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'technical-moment-tensor-summary',
   styleUrls: ['./moment-tensor-summary.component.scss'],
   templateUrl: './moment-tensor-summary.component.html'

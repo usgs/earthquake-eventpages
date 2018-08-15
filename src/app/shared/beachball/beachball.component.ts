@@ -1,15 +1,17 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
-  OnChanges,
   Input,
-  ViewChild
+  OnChanges,
+  ViewChild,
 } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 
 import { Beachball } from './beachball';
 import { Tensor } from './tensor';
+
 
 /**
  * The beachball component
@@ -25,6 +27,7 @@ import { Tensor } from './tensor';
  *     Size, in pixels, of the diameter of the beachball
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-beachball',
   styleUrls: ['./beachball.component.scss'],
   templateUrl: './beachball.component.html'

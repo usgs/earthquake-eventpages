@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
@@ -11,6 +12,7 @@ import * as L from 'leaflet';
 
 import { LegendControl } from '../map-control/legend-control';
 
+
 /**
  * Shared map component for event, shows overall area and mmi contours
  *
@@ -20,6 +22,7 @@ import { LegendControl } from '../map-control/legend-control';
  *     Boolean for toggling attribution
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-map',
   styleUrls: ['./map.component.scss'],
   templateUrl: './map.component.html'

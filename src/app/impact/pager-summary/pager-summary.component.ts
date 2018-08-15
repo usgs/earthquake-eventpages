@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
 
@@ -11,6 +11,7 @@ import { Event } from '../../event';
  *    pager products
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'impact-pager-summary',
   styleUrls: ['./pager-summary.component.scss'],
   templateUrl: './pager-summary.component.html'

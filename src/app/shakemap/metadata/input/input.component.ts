@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { FormatterService } from '@core/formatter.service';
+
 
 /**
  * Input subcomponent which shows input data when the user selects the 'metadata
@@ -10,6 +11,7 @@ import { FormatterService } from '@core/formatter.service';
  *     The shamekamp input object
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shakemap-input',
   styleUrls: ['./input.component.scss', '../metadata.component.scss'],
   templateUrl: './input.component.html'

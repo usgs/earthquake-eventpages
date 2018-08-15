@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { BehaviorSubject, of, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
 
 /**
  * Shared text product component
@@ -11,6 +12,7 @@ import { catchError } from 'rxjs/operators';
  *     The path to content to render
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-text-product',
   styleUrls: ['./text-product.component.scss'],
   templateUrl: './text-product.component.html'

@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Wraps the DYFI form input inside a fieldset element
@@ -7,6 +8,7 @@ import { Component, Input } from '@angular/core';
  *     The legend text for the form fieldset
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'tell-us-fieldset',
   styleUrls: ['./fieldset.component.scss'],
   templateUrl: './fieldset.component.html'

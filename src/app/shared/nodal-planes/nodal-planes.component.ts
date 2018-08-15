@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Tensor } from '../beachball/tensor';
+
 
 /**
  * NodalPlanesComponent, shows nodal planes for an event
@@ -9,6 +10,7 @@ import { Tensor } from '../beachball/tensor';
  *     The tensor object from the product
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-nodal-planes',
   styleUrls: ['./nodal-planes.component.scss'],
   templateUrl: './nodal-planes.component.html'

@@ -1,4 +1,11 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild
+} from '@angular/core';
+
 
 /**
  * Creates a table on the PAGER module to define the cities and the
@@ -8,6 +15,7 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
  *     parsed pager.xml object (from pagerXmlService.pagerXml$)
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pager-cities',
   styleUrls: ['./pager-cities.component.scss'],
   templateUrl: './pager-cities.component.html'

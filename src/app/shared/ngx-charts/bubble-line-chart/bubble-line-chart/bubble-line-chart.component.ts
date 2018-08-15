@@ -1,13 +1,21 @@
 import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
+import {
+  ChangeDetectionStrategy,
   Component,
-  Input,
-  ViewEncapsulation,
-  Output,
-  EventEmitter,
-  ViewChild,
-  HostListener,
   ContentChild,
-  TemplateRef
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+  TemplateRef,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 
 import {
@@ -19,6 +27,7 @@ import {
 } from '@swimlane/ngx-charts';
 import { scaleLinear, scaleLog, scaleTime } from 'd3-scale';
 import { curveLinear } from 'd3-shape';
+
 
 /**
  * Bubble line chart component for use on maps
@@ -63,6 +72,7 @@ import { curveLinear } from 'd3-shape';
  * @param yRightAxisScaleFactor
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   selector: 'bubble-line-chart-component',
   styleUrls: ['./bubble-line-chart.component.scss'],

@@ -1,12 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { FormatterService } from '@core/formatter.service';
+
 
 /**
  * Shared coordinates component, simple coordinates to get/set for use in
  * shared components
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-coordinates',
   styleUrls: ['./coordinates.component.scss'],
   templateUrl: './coordinates.component.html'

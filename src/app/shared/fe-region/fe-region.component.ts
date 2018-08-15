@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { GeoserveService } from '@core/geoserve.service';
+
 
 /**
  * Shared fe region component for use with maps
@@ -9,6 +10,7 @@ import { GeoserveService } from '@core/geoserve.service';
  *     FE region from the product
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-fe-region',
   styleUrls: ['./fe-region.component.scss'],
   templateUrl: './fe-region.component.html'

@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Creates a return link for a product to the overview/impact/technical
@@ -9,6 +10,7 @@ import { Component, Input } from '@angular/core';
  *     The type of product from this event
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-summary-link',
   styleUrls: ['./summary-link.component.scss'],
   templateUrl: './summary-link.component.html'

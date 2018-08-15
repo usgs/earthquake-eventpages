@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Creates a table on the PAGER module to define the populations
@@ -8,6 +9,7 @@ import { Component, Input } from '@angular/core';
  *     parsed pager.xml object (from pagerXmlService.pagerXml$)
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pager-population',
   styleUrls: ['./pager-population.component.scss'],
   templateUrl: './pager-population.component.html'

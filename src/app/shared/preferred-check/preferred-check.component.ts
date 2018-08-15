@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 /**
  * Formats and styles preferred check mark icon for a title
@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
  *     description for the abbreviation
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-preferred-check',
   styleUrls: ['./preferred-check.component.scss'],
   templateUrl: './preferred-check.component.html'

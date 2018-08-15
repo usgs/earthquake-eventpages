@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Generate download list item for a single product contents
@@ -7,6 +8,7 @@ import { Component, Input } from '@angular/core';
  *    A single item from the product.contents[]
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'product-page-download-item',
   styleUrls: ['./download-item.component.scss'],
   templateUrl: './download-item.component.html'

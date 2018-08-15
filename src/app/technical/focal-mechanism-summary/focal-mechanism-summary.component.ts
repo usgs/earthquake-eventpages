@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Tensor } from '@shared/beachball/tensor';
+
 
 /**
  * Focal mechanism component, renders a table with data
@@ -8,6 +9,7 @@ import { Tensor } from '@shared/beachball/tensor';
  *     The event input
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'technical-focal-mechanism-summary',
   styleUrls: ['./focal-mechanism-summary.component.scss'],
   templateUrl: './focal-mechanism-summary.component.html'

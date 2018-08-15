@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { Tensor } from '@shared/beachball/tensor';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
+import { Tensor } from '../../shared/beachball/tensor';
+
 
 /**
  * Display tables with moment tensor data
@@ -8,6 +10,7 @@ import { Tensor } from '@shared/beachball/tensor';
  *     Tensor data
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'moment-tensor-info',
   styleUrls: ['./info.component.scss'],
   templateUrl: './info.component.html'

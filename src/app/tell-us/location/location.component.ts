@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit, Output, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  Output,
+  Input
+} from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import {
@@ -7,6 +14,7 @@ import {
   LocationDialogComponent
 } from 'hazdev-ng-location-view';
 import { BehaviorSubject, Subscription } from 'rxjs';
+
 
 /**
  * Location component used to select the user's location on the form
@@ -21,6 +29,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
  *     Value of current location
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'tell-us-location',
   styleUrls: ['./location.component.scss'],
   templateUrl: './location.component.html'

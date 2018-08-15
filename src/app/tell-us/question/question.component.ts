@@ -1,4 +1,9 @@
-import { Component, Output, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Output,
+  Input
+} from '@angular/core';
 import {
   MatSelectionListChange,
   MatRadioChange,
@@ -6,6 +11,7 @@ import {
 } from '@angular/material';
 
 import { BehaviorSubject } from 'rxjs';
+
 
 /**
  * Interface for user to enter data under any of the 'other' radio buttons
@@ -33,6 +39,7 @@ interface OtherValueEvent {
  *
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'tell-us-question',
   styleUrls: ['./question.component.scss'],
   templateUrl: './question.component.html'
