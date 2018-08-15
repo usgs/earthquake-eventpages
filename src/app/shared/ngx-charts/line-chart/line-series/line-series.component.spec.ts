@@ -26,9 +26,9 @@ describe('LineSeriesComponent', () => {
             'name',
             'stops',
             'gradient'
-          ]
-        }),
-        selector: ':svg:g'
+          ],
+          selector: ':svg:g'
+        })
       ]
     }).compileComponents();
   }));

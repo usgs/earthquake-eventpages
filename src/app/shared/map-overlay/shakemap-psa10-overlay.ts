@@ -4,7 +4,8 @@ import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 /**
  * Shakemap PSA10 overlay for shakemap leaflet
  */
-export ShakemapPSA10Overlay = ShakemapContoursOverlay.extend({
+// tslint:disable-next-line:variable-name
+const ShakemapPSA10Overlay = ShakemapContoursOverlay.extend({
   id: 'shakemap-psa10',
   legend: null,
   title: 'Shakemap PSA10 Contours',

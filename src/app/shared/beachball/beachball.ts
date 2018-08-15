@@ -71,8 +71,8 @@ _axisCache = function(axis) {
     cp: Math.cos(plunge),
     p: plunge,
     sa: Math.sin(azimuth),
-    sp: Math.sin(plunge)
-    v: axis.eigenvalue,
+    sp: Math.sin(plunge),
+    v: axis.eigenvalue
   };
 };
 
