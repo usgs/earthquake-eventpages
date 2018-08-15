@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import * as stringSimilarity from 'string-similarity';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 
 /**
  * Wildcard component. This route will load if a valid event is returned with a
@@ -10,26 +10,23 @@ import { EventService } from '../../core/event.service';
  */
 @Component({
   selector: 'wildcard',
-  templateUrl: './wildcard.component.html',
-  styleUrls: ['./wildcard.component.scss']
+  styleUrls: ['./wildcard.component.scss'],
+  templateUrl: './wildcard.component.html'
 })
 export class WildcardComponent implements OnInit {
   event$: any;
-  public eventId: string;
-  public urlMatch: string;
-  public suggestionString;
-  public suggestionStringUrl;
-  public productPagesComparator = {
-    shakemap: 'shakemap',
-    origin: 'origin',
-    'moment-tensor': 'moment-tensor',
-    'focal-mechanism': 'focal-mechanism',
+  eventId: string;
+  productPagesComparator = {
     'finite-fault': 'finite-fault',
-    losspager: 'pager',
+    'focal-mechanism': 'focal-mechanism',
     'ground-failure': 'ground-failure',
-    oaf: 'oaf'
+    losspager: 'pager',
+    'moment-tensor': 'moment-tensor',
+    oaf: 'oaf',
+    origin: 'origin',
+    shakemap: 'shakemap'
   };
-  public products = [
+  products = [
     'executive',
     'map',
     'region-info',
@@ -39,24 +36,48 @@ export class WildcardComponent implements OnInit {
     'technical',
     'waveforms'
   ];
+  suggestionString;
+  suggestionStringUrl;
+  urlMatch: string;
 
   constructor(public eventService: EventService) {}
 
-  ngOnInit() {
-    this.splitUrl();
-    this.eventService.event$.subscribe(event => {
-      if (event.data) {
-        this.eventId = event.id;
-        // Set the default suggestion to executive in case the string compare
-        //    function does not work or the event properties aren't correct
-        this.setSuggestion('executive');
-        // Create products array based on static products and ones that come in
-        //    from the json
-        this.buildProductsArray(event);
-        // Run the similarity logic
-        this.getStringSimilarity();
+  /**
+   * Builds a products array based on the products that come in from the event,
+   *    plus other products that show up in the left hand navigation on all
+   *    product pages
+   *
+   * @param event
+   *     The event
+   */
+  buildProductsArray(event: any): void {
+    // Strip property values from the json data and our comparator object
+    const eventKeys = Object.keys(event.data.properties.products);
+    const comparatorKeys = Object.keys(this.productPagesComparator);
+
+    eventKeys.filter(product => {
+      // If the name of the product is in our comparator object, we will add
+      //    it to our products array
+      if (comparatorKeys.includes(product)) {
+        this.products.push(this.productPagesComparator[product]);
       }
     });
+  }
+
+  /**
+   * Calls the string-similarity library imported above to find the weight
+   *    between the mistyped url endpoint, and possible suggestions
+   *
+   * @param url
+   *     The mistyped URL endpoint
+   * @param products
+   *     The products array of all possible links/products on this event
+   * @returns
+   *     An object with the best match and it's weighted value based on number
+   *        of substitutions/swaps/deletes
+   */
+  getMatch(url: string, products: string[]): any {
+    return stringSimilarity.findBestMatch(url, products);
   }
 
   /**
@@ -80,30 +101,21 @@ export class WildcardComponent implements OnInit {
     }
   }
 
-  /**
-   * Splits the location and gets the last endpoint after the eventId param in
-   *    the url and sets the urlMatch property
-   */
-  splitUrl(): void {
-    // Get misspelled/mistyped endpoint from url
-    const urlSplit = location.href.split('/');
-    this.urlMatch = urlSplit[urlSplit.length - 1];
-  }
-
-  /**
-   * Calls the string-similarity library imported above to find the weight
-   *    between the mistyped url endpoint, and possible suggestions
-   *
-   * @param url
-   *     The mistyped URL endpoint
-   * @param products
-   *     The products array of all possible links/products on this event
-   * @returns
-   *     An object with the best match and it's weighted value based on number
-   *        of substitutions/swaps/deletes
-   */
-  getMatch(url: string, products: string[]): any {
-    return stringSimilarity.findBestMatch(url, products);
+  ngOnInit() {
+    this.splitUrl();
+    this.eventService.event$.subscribe(event => {
+      if (event.data) {
+        this.eventId = event.id;
+        // Set the default suggestion to executive in case the string compare
+        //    function does not work or the event properties aren't correct
+        this.setSuggestion('executive');
+        // Create products array based on static products and ones that come in
+        //    from the json
+        this.buildProductsArray(event);
+        // Run the similarity logic
+        this.getStringSimilarity();
+      }
+    });
   }
 
   /**
@@ -142,24 +154,12 @@ export class WildcardComponent implements OnInit {
   }
 
   /**
-   * Builds a products array based on the products that come in from the event,
-   *    plus other products that show up in the left hand navigation on all
-   *    product pages
-   *
-   * @param event
-   *     The event
+   * Splits the location and gets the last endpoint after the eventId param in
+   *    the url and sets the urlMatch property
    */
-  buildProductsArray(event: any): void {
-    // Strip property values from the json data and our comparator object
-    const eventKeys = Object.keys(event.data.properties.products);
-    const comparatorKeys = Object.keys(this.productPagesComparator);
-
-    eventKeys.filter(product => {
-      // If the name of the product is in our comparator object, we will add
-      //    it to our products array
-      if (comparatorKeys.includes(product)) {
-        this.products.push(this.productPagesComparator[product]);
-      }
-    });
+  splitUrl(): void {
+    // Get misspelled/mistyped endpoint from url
+    const urlSplit = location.href.split('/');
+    this.urlMatch = urlSplit[urlSplit.length - 1];
   }
 }

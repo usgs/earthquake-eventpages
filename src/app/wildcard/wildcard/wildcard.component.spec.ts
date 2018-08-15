@@ -1,35 +1,26 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
   async,
   ComponentFixture,
   TestBed,
-  getTestBed,
   inject
 } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { WildcardComponent } from './wildcard.component';
 
 describe('WildcardComponent', () => {
   let component: WildcardComponent;
   let fixture: ComponentFixture<WildcardComponent>;
-  let httpClient: HttpTestingController,
-    injector: TestBed,
-    event1: any,
-    event2: any;
+  let event1: any, event2: any;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      declarations: [WildcardComponent],
       imports: [HttpClientTestingModule, RouterTestingModule],
-      providers: [EventService],
-      declarations: [WildcardComponent]
+      providers: [EventService]
     });
-    injector = getTestBed();
-    httpClient = injector.get(HttpTestingController);
   }));
 
   beforeEach(() => {
@@ -37,7 +28,6 @@ describe('WildcardComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     event1 = {
-      id: 'us1000dyad',
       data: {
         properties: {
           products: {
@@ -49,11 +39,11 @@ describe('WildcardComponent', () => {
             shakemap: {}
           }
         }
-      }
+      },
+      id: 'us1000dyad'
     };
 
     event2 = {
-      id: 'ak20076877',
       data: {
         properties: {
           products: {
@@ -65,7 +55,8 @@ describe('WildcardComponent', () => {
             shakemap: {}
           }
         }
-      }
+      },
+      id: 'ak20076877'
     };
   });
 
