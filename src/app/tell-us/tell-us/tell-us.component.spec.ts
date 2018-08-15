@@ -136,11 +136,6 @@ describe('TellUsComponent', () => {
       component.onDialogClose(null);
       expect(component.dialogRef).toBeNull();
     });
-    it('changes the router location', () => {
-      spyOn(component.location, 'back');
-      component.onDialogClose(null);
-      expect(component.location.back).toHaveBeenCalled();
-    });
     it('calls onSuccess with a valid response', () => {
       const response = { 'your_cdi': '1' };
       spyOn(component, 'onSuccess');
