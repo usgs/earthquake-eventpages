@@ -41,29 +41,6 @@ function isClose(actual: any, expected: any): boolean {
 }
 
 describe('Tensor', () => {
-  beforeEach(function() {
-    // use custom matcher
-    jasmine.addMatchers({
-      isCloseTo: () => {
-        return {
-          compare: (actual, expected) => {
-            const result: any = {
-              pass: isClose(actual, expected)
-            };
-            if (!result.pass) {
-              result.message =
-                'Expected ' +
-                JSON.stringify(actual) +
-                ' to be close to ' +
-                JSON.stringify(expected);
-            }
-            return result;
-          }
-        };
-      }
-    });
-  });
-
   it('calculates tensors correctly', () => {
     const tests = [
       // null product
@@ -78,19 +55,19 @@ describe('Tensor', () => {
       },
       // focal mechanism product
       {
-        product: {
-          expected: {
-            NP1: {
-              dip: 90,
-              rake: -40,
-              strike: 60
-            },
-            NP2: {
-              dip: 50,
-              rake: -180,
-              strike: 150
-            }
+        expected: {
+          NP1: {
+            dip: 90,
+            rake: -40,
+            strike: 60
           },
+          NP2: {
+            dip: 50,
+            rake: -180,
+            strike: 150
+          }
+        },
+        product: {
           id:
             'urn:usgs-product:nc:focal-mechanism:nc72948801_fm1:' +
             '1515096353400',
@@ -213,20 +190,20 @@ describe('Tensor', () => {
         }
       },
       {
-        product: {
-          expected: {
-            magnitude: 7.12,
-            moment: 5.934e19,
-            N: {
-              eigenvalue: 0.751e19
-            },
-            P: {
-              eigenvalue: -6.274e19
-            },
-            T: {
-              eigenvalue: 5.523e19
-            }
+        expected: {
+          magnitude: 7.12,
+          moment: 5.934e19,
+          N: {
+            eigenvalue: 0.751e19
           },
+          P: {
+            eigenvalue: -6.274e19
+          },
+          T: {
+            eigenvalue: 5.523e19
+          }
+        },
+        product: {
           id: 'urn:usgs-product:us:moment-tensor:us_2000cjfy_mww:1519977554040',
           properties: {
             'tensor-mpp': '-2.3267E+19',
@@ -255,8 +232,7 @@ describe('Tensor', () => {
 
     tests.forEach(t => {
       const tensor = Tensor.fromProduct(t.product);
-      // isCloseTo is defined in the beforeEach
-      expect(tensor).isCloseTo(t.expected);
+      expect(isClose(tensor, t.expected)).toBeTruthy();
     });
   });
 
