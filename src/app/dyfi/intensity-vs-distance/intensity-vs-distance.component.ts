@@ -72,9 +72,13 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
   showYAxisLabel = true;
   subs = new Subscription();
   xAxisLabel = 'Hypocentral Distance (km)';
+  xAxisTicks = [10, 30, 100, 300, 500, 1000];
+  xScaleMax = 1000;
+  xScaleMin = 5;
   yAxisLabel = 'Intensity (mmi)';
 
-  constructor(
+
+  constructor (
     public dyfiService: DyfiService,
     public eventService: EventService
   ) {}
@@ -147,10 +151,14 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
    * New product, get new station list
    *
    * @param product
-   *     shakemap product
+   *     dyfi product
    */
   onProduct(product) {
     this.product = product;
     this.dyfiService.getAtten(product);
+
+    if (product.properties.maxmmi <= 4) {
+      this.xScaleMax = 500;
+    }
   }
 }

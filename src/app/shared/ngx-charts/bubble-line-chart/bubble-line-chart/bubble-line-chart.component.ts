@@ -77,7 +77,6 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   colors: ColorHelper;
   combinedSeries;
   dims: ViewDimensions;
-  filteredDomain;
   hoveredVertical;
   legendOptions: any;
   legendSpacing = 0;
@@ -151,9 +150,11 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Input()
   xAxisLabel;
   @Input()
+  xAxisTicks: number[] = null;
+  @Input()
   xScaleMax: number;
   @Input()
-  xScaleMin = 0;
+  xScaleMin = null;
   @Input()
   yAxis;
   @Input()
@@ -185,7 +186,85 @@ export class BubbleLineChartComponent extends BaseChartComponent {
 
   @ViewChild(LineSeriesComponent)
   lineSeriesComponent: LineSeriesComponent;
-  /* tslint:enable:member-ordering */
+
+  /**
+   * Helper function to get name property of item
+   * @param index
+   * @param item
+   *    The item to search
+   */
+  trackBy (index, item): string {
+    return item.name;
+  }
+
+  /**
+   * Update object dimensions, colors
+   */
+  update (): void {
+    if (!this.autoScale) {
+      this.executeFilter(
+        this.xScaleMin,
+        this.xScaleMax,
+        this.yScaleMin,
+        this.yScaleMax
+      );
+    }
+
+    // update custom colors to use error bars
+    this.customColors.push(
+      {name: 'error', value: this.errorBarColor}
+    );
+
+    this.combinedSeries = this.results;
+    super.update();
+
+    this.dims = calculateViewDimensions({
+      width: this.width,
+      height: this.height,
+      margins: this.margin,
+      showXAxis: this.xAxis,
+      showYAxis: this.yAxis,
+      xAxisHeight: this.xAxisHeight,
+      yAxisWidth: this.yAxisWidth,
+      showXLabel: this.showXAxisLabel,
+      showYLabel: this.showYAxisLabel,
+      showLegend: this.legend,
+      legendType: this.schemeType
+    });
+
+    if (!this.yAxis) {
+      this.legendSpacing = 0;
+    } else if (this.showYAxisLabel && this.yAxis) {
+      this.legendSpacing = 100;
+    } else {
+      this.legendSpacing = 40;
+    }
+
+    // line chart
+    this.xDomain = this.getXDomain();
+
+    if (!this.xAxisTicks) {
+      this.xAxisTicks = this.getXAxisTicks();
+    }
+
+    this.xAxisTicks = this.filterXTicks();
+
+    this.yDomain = this.getYDomain();
+    this.rDomain = this.getRDomain();
+    this.seriesDomain = this.getSeriesDomain();
+
+    this.xScale = this.getXScale(this.xDomain, this.dims.width);
+    this.yScale = this.getYScale(this.yDomain, this.dims.height);
+
+    this.rScale = this
+        .getRScale(this.rDomain, [this.minRadius, this.maxRadius]);
+
+    this.bubblePadding = this.getBubblePadding();
+    this.setColors();
+    this.legendOptions = this.getLegendOptions();
+
+    this.transform = `translate(${ this.dims.xOffset } , ${ this.margin[0] })`;
+  }
 
   /**
    * Emits deactivate event from all active entries
@@ -314,11 +393,52 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     return this.roundDomains ? scale.nice() : scale;
   }
 
+
+  filterXTicks() {
+    return this.xAxisTicks.filter(tick => {
+      return tick >= this.xDomain[0] && tick <= this.xDomain[1];
+    });
+  }
+
   /**
    * Returns the entire series domain numbers
    */
   getSeriesDomain(): any[] {
     return [...this.bubbleChart, ...this.lineChart].map(d => d.name);
+  }
+
+  /**
+   * Returns 6 values evenly spaced on the log axis
+   */
+  getXAxisTicks () {
+    let lowerDomain = this.xDomain[0];
+    const upperDomain = this.xDomain[1];
+
+    if (lowerDomain < 10) {
+      lowerDomain = 10;
+    }
+
+    const logLower = Math.log(lowerDomain);
+    const logUpper = Math.log(upperDomain);
+
+    const interval = (upperDomain - lowerDomain) / 6;
+    const logInterval = (logUpper - logLower) / 6;
+
+    const mod = interval > 15 ? 10 : 5;
+    let val = logLower + logInterval;
+    const between = [];
+    let tick;
+    while (val < logUpper) {
+      // round the tick by some modifying number (5 or 10)
+      tick = Math.round(Math.E ** val / mod) * mod;
+
+      // if 0 is selected, replace with 10
+      tick = tick ? tick : 10;
+      between.push(tick);
+      val += logInterval;
+    }
+
+    return [...between];
   }
 
   /**
@@ -335,19 +455,22 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       }
     }
 
-    if (!this.autoScale) {
-      if (this.xScaleMin) {
-        values.push(this.xScaleMin);
-      }
-      if (this.xScaleMax) {
-        values.push(this.xScaleMax);
-      }
+    let min, max;
+    if (Number.isInteger(this.xScaleMin) && !this.autoScale) {
+      values.push(this.xScaleMin);
+      min = this.xScaleMin;
+    } else {
+      min = Math.min(...values);
+    }
+
+    if (Number.isInteger(this.xScaleMax) && !this.autoScale) {
+      values.push(this.xScaleMax);
+      max = this.xScaleMax;
+    } else {
+      max = Math.max(...values);
     }
 
     let domain = [];
-
-    const min = Math.min(...values);
-    const max = Math.max(...values);
     domain = [min, max];
 
     this.xSet = values;
@@ -524,82 +647,6 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       domain,
       this.customColors
     );
-  }
-
-  /**
-   * Helper function to get name property of item
-   * @param index
-   * @param item
-   *    The item to search
-   */
-  trackBy(index, item): string {
-    return item.name;
-  }
-
-  /**
-   * Update object dimensions, colors
-   */
-  update(): void {
-    if (!this.autoScale) {
-      this.executeFilter(
-        this.xScaleMin,
-        this.xScaleMax,
-        this.yScaleMin,
-        this.yScaleMax
-      );
-    }
-
-    // update custom colors to use error bars
-    this.customColors.push({ name: 'error', value: this.errorBarColor });
-
-    this.combinedSeries = this.results;
-    super.update();
-
-    this.dims = calculateViewDimensions({
-      height: this.height,
-      legendType: this.schemeType,
-      margins: this.margin,
-      showLegend: this.legend,
-      showXAxis: this.xAxis,
-      showXLabel: this.showXAxisLabel,
-      showYAxis: this.yAxis,
-      showYLabel: this.showYAxisLabel,
-      width: this.width,
-      xAxisHeight: this.xAxisHeight,
-      yAxisWidth: this.yAxisWidth
-    });
-
-    if (!this.yAxis) {
-      this.legendSpacing = 0;
-    } else if (this.showYAxisLabel && this.yAxis) {
-      this.legendSpacing = 100;
-    } else {
-      this.legendSpacing = 40;
-    }
-
-    // line chart
-    this.xDomain = this.getXDomain();
-    if (this.filteredDomain) {
-      this.xDomain = this.filteredDomain;
-    }
-
-    this.yDomain = this.getYDomain();
-    this.rDomain = this.getRDomain();
-    this.seriesDomain = this.getSeriesDomain();
-
-    this.xScale = this.getXScale(this.xDomain, this.dims.width);
-    this.yScale = this.getYScale(this.yDomain, this.dims.height);
-
-    this.rScale = this.getRScale(this.rDomain, [
-      this.minRadius,
-      this.maxRadius
-    ]);
-
-    this.bubblePadding = this.getBubblePadding();
-    this.setColors();
-    this.legendOptions = this.getLegendOptions();
-
-    this.transform = `translate(${this.dims.xOffset} , ${this.margin[0]})`;
   }
 
   /**

@@ -47,7 +47,11 @@ describe('IntensityVsDistanceComponent', () => {
     };
 
     const eventServiceStub = {
-      product$: of({})
+      product$: of({
+        properties: {
+          maxmmi: 5
+        }
+      })
     };
 
     const dyfiServiceStub = {
@@ -59,34 +63,37 @@ describe('IntensityVsDistanceComponent', () => {
       declarations: [
         IntensityVsDistanceComponent,
 
-        MockComponent({
-          inputs: [
-            'scheme',
-            'colorSchemeLine',
-            'customColors',
-            'results',
-            'animations',
-            'lineChart',
-            'bubbleChart',
-            'tooltipDisabled',
-            'gradient',
-            'xAxis',
-            'yAxis',
-            'legend',
-            'showGridLines',
-            'showXAxisLabel',
-            'showYAxisLabel',
-            'showRightYAxisLabel',
-            'xAxisLabel',
-            'yAxisLabel',
-            'yScaleMin',
-            'yScaleMax',
-            'xScaleMin',
-            'xScaleMax',
-            'scaleType'
-          ],
-          selector: 'bubble-line-chart-component'
-        }),
+        MockComponent(
+          {
+            inputs: [
+              'scheme',
+              'colorSchemeLine',
+              'customColors',
+              'results',
+              'animations',
+              'lineChart',
+              'bubbleChart',
+              'tooltipDisabled',
+              'gradient',
+              'xAxis',
+              'yAxis',
+              'legend',
+              'showGridLines',
+              'showXAxisLabel',
+              'showYAxisLabel',
+              'showRightYAxisLabel',
+              'xAxisLabel',
+              'yAxisLabel',
+              'yScaleMin',
+              'yScaleMax',
+              'xScaleMin',
+              'xScaleMax',
+              'xAxisTicks',
+              'scaleType'
+            ],
+            selector: 'bubble-line-chart-component'
+          }
+        ),
 
         MockPipe('sharedProductContent')
       ],
