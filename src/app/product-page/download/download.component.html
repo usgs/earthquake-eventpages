@@ -7,7 +7,7 @@
     <ng-container *ngIf="this.contentsXmlService.contents$ | async as content;
         else noContent">
       <ul>
-        <li *ngFor="let item of content">
+        <li *ngFor="let item of content;trackBy: trackByIndex">
           <product-page-download-item [item]="item">
           </product-page-download-item>
         </li>

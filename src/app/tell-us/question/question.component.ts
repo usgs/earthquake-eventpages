@@ -91,4 +91,16 @@ export class QuestionComponent {
     }
     this.change.next(next);
   }
+
+  /**
+   * Checks for changes to data by index
+   *
+   * @param index
+   *    index of array
+   * @param item
+   *    question item
+   */
+  trackByIndex (index, item) {
+    return index;
+  }
 }

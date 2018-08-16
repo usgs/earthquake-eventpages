@@ -60,4 +60,16 @@ export class AlertBarComponent {
 
   @Input()
   value: number;
+
+  /**
+   * Checks for changes to data by index
+   *
+   * @param index
+   *    index of array
+   * @param item
+   *    alert bin
+   */
+  trackByIndex (index, item) {
+    return index;
+  }
 }

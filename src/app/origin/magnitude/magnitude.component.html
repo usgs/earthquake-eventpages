@@ -1,6 +1,6 @@
 <h3>Magnitudes</h3>
 
-<div *ngFor="let magnitude of magnitudes"
+<div *ngFor="let magnitude of magnitudes;trackBy: trackByIndex"
     [attr.data-magnitudeID]="magnitude.magnitudePublicID">
 
   <h4>

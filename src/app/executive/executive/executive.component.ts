@@ -14,4 +14,17 @@ import { EventService } from '@core/event.service';
 })
 export class ExecutiveComponent {
   constructor(public eventService: EventService) {}
+
+  /**
+   * Checks for changes to data by index
+   *
+   * @param index
+   *    index of array
+   * @param item
+   *    general text product
+   */
+  trackByIndex (index, item) {
+    return index;
+  }
+
 }

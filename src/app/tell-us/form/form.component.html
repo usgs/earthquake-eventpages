@@ -14,7 +14,8 @@
       <mat-select
           (selectionChange)="setLanguage($event.value)"
           [value]="language?.id">
-        <mat-option *ngFor="let language of languageService?.languages"
+        <mat-option *ngFor="let language of languageService?.languages;
+            trackBy: trackByIndex"
             [value]="language?.id">
           {{ language?.name }}
         </mat-option>
@@ -44,7 +45,8 @@
     </ng-container>
 
     <!-- base questions (Did you feel it?) -->
-    <ng-container *ngFor="let name of language?.baseQuestions | keys">
+    <ng-container *ngFor="let name of language?.baseQuestions | keys;
+        trackBy: trackByIndex">
       <tell-us-question
           *ngIf="language?.baseQuestions[name]; let question"
           (change)="onAnswer($event)"
@@ -62,7 +64,8 @@
     </p>
 
     <!-- optional questions -->
-    <ng-container *ngFor="let name of language?.moreQuestions | keys">
+    <ng-container *ngFor="let name of language?.moreQuestions | keys;
+        trackBy: trackByIndex">
       <tell-us-question
           *ngIf="language?.moreQuestions[name]; let question"
           (change)="onAnswer($event)"

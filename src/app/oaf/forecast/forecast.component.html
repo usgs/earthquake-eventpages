@@ -30,7 +30,7 @@
         </ng-container>
 
         <ng-container
-            *ngFor="let column of forecast.columns"
+            *ngFor="let column of forecast.columns;trackBy: trackByIndex"
             [matColumnDef]="column.id">
           <mat-header-cell *matHeaderCellDef>
             {{ column.label }}

@@ -2,7 +2,8 @@
   <title>{{ title }}</title>
 
   <svg:g *ngFor="let bin of bins; let i = index; let first = first;
-      let last = last" [attr.transform]="'translate(' + (i * 250) + ', 70)'">
+      let last = last;trackBy: trackByIndex"
+      [attr.transform]="'translate(' + (i * 250) + ', 70)'">
     <title>{{ bin.text }}</title>
 
     <rect x="0" y="0" width="250" height="70" [attr.fill]="bin.color"></rect>

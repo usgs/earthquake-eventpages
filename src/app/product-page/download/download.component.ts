@@ -65,6 +65,18 @@ export class DownloadComponent {
   }
 
   /**
+   * Checks for changes to data by index
+   *
+   * @param index
+   *    index of array
+   * @param item
+   *    content item
+   */
+  trackByIndex (index, item) {
+    return index;
+  }
+
+  /**
    * getter for product,
    * fetch contents.xml if the expansion panel is open
    */

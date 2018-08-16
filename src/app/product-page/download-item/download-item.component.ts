@@ -16,4 +16,16 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class DownloadItemComponent {
   @Input()
   item: any = null;
+
+  /**
+   * Checks for changes to data by index
+   *
+   * @param index
+   *    index of array
+   * @param item
+   *    download item
+   */
+  trackByIndex (index, item) {
+    return index;
+  }
 }
