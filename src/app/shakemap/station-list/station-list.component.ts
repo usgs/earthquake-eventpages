@@ -15,13 +15,23 @@ import { StationService } from '@core/station.service';
   templateUrl: './station-list.component.html'
 })
 export class StationListComponent implements OnInit, OnDestroy {
-  stations: any[] = [];
-  subs = new Subscription();
+  public sortOptions = {
+    'intensity': 'Intensity',
+    'pga': 'PGA',
+    'pgv': 'PGV',
+    'distance': 'Distance'
+  }
+  public sort = {
+    'name': 'intensity',
+    'desc': true 
+  }
+  public subs = new Subscription();
+  public stations: any[] = [];
 
-  constructor(
-    public eventService: EventService,
-    public stationService: StationService
-  ) {}
+  constructor (
+      public eventService: EventService,
+      public stationService: StationService
+  ) { }
 
   ngOnDestroy() {
     this.subs.unsubscribe();
