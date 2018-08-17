@@ -7,19 +7,19 @@
 
         <dt>Magnitude<br>
           <span *ngIf="props['magnitude-error']"
-              class="uncertainty">uncertainty</span>
+              class="uncertainty"><em>uncertainty</em></span>
         </dt>
         <dd>
           <shared-uncertain-value
               [value]="formatter?.magnitude(props?.magnitude,
               props['magnitude-type'])"
               [uncertainty]="props['magnitude-error']">
-          </shared-uncertain-value>
+          </shared-uncertain-value>2
         </dd>
 
         <dt>Location<br>
           <span *ngIf="props['horizontal-error']"
-              class="uncertainty">uncertainty</span>
+              class="uncertainty"><em>uncertainty</em></span>
         </dt>
         <dd>
           <shared-uncertain-value
@@ -33,7 +33,7 @@
 
         <dt>
           Depth<br>
-          <span class="uncertainty">uncertainty</span>
+          <span class="uncertainty"><em>uncertainty</em></span>
         </dt>
         <dd>
           <shared-uncertain-value
