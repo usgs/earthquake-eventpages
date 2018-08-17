@@ -12,7 +12,7 @@ import { FormatterService } from '@core/formatter.service';
  */
 @Component({
   selector: 'shakemap-processing',
-  styleUrls: ['./processing.component.scss'],
+  styleUrls: ['./processing.component.scss', '../metadata.component.scss'],
   templateUrl: './processing.component.html'
 })
 export class ProcessingComponent {
