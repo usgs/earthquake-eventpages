@@ -34,23 +34,38 @@ describe('ResponsesVsTimeComponent', () => {
       declarations: [
         ResponsesVsTimeComponent,
 
-        MockComponent({
-          inputs: [
-            'scheme',
-            'results',
-            'gradient',
-            'xAxis',
-            'yAxis',
-            'legend',
-            'showXAxisLabel',
-            'showYAxisLabel',
-            'xAxisLabel',
-            'yAxisLabel',
-            'autoScale',
-            'timeline'
-          ],
-          selector: 'ngx-charts-line-chart'
-        }),
+        MockComponent(
+          {
+            inputs: [
+              'scheme',
+              'colorSchemeLine',
+              'customColors',
+              'results',
+              'animations',
+              'autoScale',
+              'lineChart',
+              'bubbleChart',
+              'tooltipDisabled',
+              'gradient',
+              'xAxis',
+              'yAxis',
+              'legend',
+              'showGridLines',
+              'showXAxisLabel',
+              'showYAxisLabel',
+              'showRightYAxisLabel',
+              'xAxisLabel',
+              'yAxisLabel',
+              'yScaleMin',
+              'yScaleMax',
+              'xScaleMin',
+              'xScaleMax',
+              'xAxisTicks',
+              'scaleType'
+            ],
+            selector: 'bubble-line-chart-component'
+          }
+        ),
 
         MockPipe('sharedProductContent')
       ],

@@ -414,8 +414,8 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     let lowerDomain = this.xDomain[0];
     const upperDomain = this.xDomain[1];
 
-    if (lowerDomain < 10) {
-      lowerDomain = 10;
+    if (lowerDomain < 1) {
+      lowerDomain = 1;
     }
 
     const logLower = Math.log(lowerDomain);
@@ -424,16 +424,13 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     const interval = (upperDomain - lowerDomain) / 6;
     const logInterval = (logUpper - logLower) / 6;
 
-    const mod = interval > 15 ? 10 : 5;
+    const mod = interval > 15 ? 10 : interval > 10 ? 5 : 1;
     let val = logLower + logInterval;
     const between = [];
     let tick;
     while (val < logUpper) {
       // round the tick by some modifying number (5 or 10)
       tick = Math.round(Math.E ** val / mod) * mod;
-
-      // if 0 is selected, replace with 10
-      tick = tick ? tick : 10;
       between.push(tick);
       val += logInterval;
     }

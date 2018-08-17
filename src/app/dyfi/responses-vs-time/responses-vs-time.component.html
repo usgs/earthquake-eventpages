@@ -1,21 +1,22 @@
 <ng-container *ngIf="dyfiSeries as series; else noData">
   <h2>Responses vs. Time Plot</h2>
   <div class="chart-container">
-    <ngx-charts-line-chart
+    <bubble-line-chart-component
         [scheme]="colorScheme"
         [results]="series.series"
+        [lineChart]="series.series"
         [gradient]="gradient"
         [xAxis]="showXAxis"
         [yAxis]="showYAxis"
         [legend]="showLegend"
+        [scaleType]="scaleType"
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
         [xAxisLabel]="xAxisLabel"
+        [xAxisTicks]="xAxisTicks"
         [yAxisLabel]="yAxisLabel"
-        [autoScale]="autoScale"
-        [timeline]="true"
-        [timeline]="timeline">
-    </ngx-charts-line-chart>
+        [autoScale]="autoScale">
+    </bubble-line-chart-component>
   </div>
 </ng-container>
 
