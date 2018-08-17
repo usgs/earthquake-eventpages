@@ -38,12 +38,16 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     ciim_time: null,
     fldSituation_felt: null
   };
+
   error: any = null;
+  // boolean used to either show or not show the time input field
+  hasEvent = false;
+  responseUrl = '/data/dyfi/form/response.php';
+  subscription: Subscription = new Subscription();
+
   // The rendered map at the top of the form
   @ViewChild(LocationMapComponent)
   locationMapComponent: LocationMapComponent;
-  responseUrl = '/data/dyfi/form/response.php';
-  subscription: Subscription = new Subscription();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -57,6 +61,9 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     this.subscription.add(
       this.eventService.event$.subscribe(event => {
         this.setEvent(event);
+        if (event.data) {
+          this.hasEvent = true;
+        }
       })
     );
 

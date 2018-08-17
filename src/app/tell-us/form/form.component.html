@@ -32,7 +32,7 @@
     </tell-us-fieldset>
 
     <!-- time -->
-    <ng-container *ngIf="!answers?.eventId">
+    <ng-container *ngIf="!answers?.eventId && !hasEvent">
       <tell-us-fieldset [legend]="language?.eventTime?.ciim_time?.label">
         <mat-form-field>
           <input matInput
