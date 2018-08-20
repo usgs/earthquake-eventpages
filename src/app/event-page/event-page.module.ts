@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 
 import { HazdevTemplateModule } from 'hazdev-template';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { ContributorListPipe } from './contributor-list.pipe';
 import { EventDateTimePipe } from './event-date-time.pipe';
 import { EventDepthPipe } from './event-depth.pipe';
@@ -16,16 +16,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
-
 @NgModule({
-  imports: [
-    CommonModule,
-    MatListModule,
-    RouterModule,
-
-    HazdevTemplateModule,
-    SharedModule
-  ],
   declarations: [
     // Components
     EventPageComponent,
@@ -40,10 +31,14 @@ import { NavigationComponent } from './navigation/navigation.component';
     ContributorListPipe,
     NavigationComponent
   ],
-  exports: [
-    ContributorListPipe,
-    EventPageComponent,
-    FooterComponent
-  ],
+  exports: [ContributorListPipe, EventPageComponent, FooterComponent],
+  imports: [
+    CommonModule,
+    MatListModule,
+    RouterModule,
+
+    HazdevTemplateModule,
+    SharedModule
+  ]
 })
-export class EventPageModule { }
+export class EventPageModule {}

@@ -4,11 +4,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { WaveformService } from '../waveform.service';
 import { WaveformsComponent } from './waveforms.component';
-
 
 describe('WaveformsComponent', () => {
   let component: WaveformsComponent;
@@ -21,15 +20,14 @@ describe('WaveformsComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule, HttpClientModule ],
-      declarations: [ WaveformsComponent ],
+      declarations: [WaveformsComponent],
+      imports: [RouterTestingModule, HttpClientModule],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
+        { provide: EventService, useValue: eventServiceStub },
         WaveformService,
         HttpClient
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

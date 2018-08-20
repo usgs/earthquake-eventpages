@@ -2,8 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { EventService } from '../../core/event.service';
-
+import { EventService } from '@core/event.service';
 
 /**
  * Shakemap uncertainty component, shows the uncertainty ratio map on the
@@ -11,26 +10,25 @@ import { EventService } from '../../core/event.service';
  */
 @Component({
   selector: 'shakemap-uncertainty',
-  templateUrl: './uncertainty.component.html',
-  styleUrls: ['./uncertainty.component.scss']
+  styleUrls: ['./uncertainty.component.scss'],
+  templateUrl: './uncertainty.component.html'
 })
 export class UncertaintyComponent implements OnInit, OnDestroy {
+  imageUrl: string = null;
+  subscription = new Subscription();
 
-  public imageUrl: string = null;
-  public subscription = new Subscription();
+  constructor(public eventService: EventService) {}
 
-
-  constructor (public eventService: EventService) { }
-
-
-  ngOnInit () {
-    this.subscription.add(this.eventService.product$.subscribe((product) => {
-      this.onProduct(product);
-    }));
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
-  ngOnDestroy () {
-    this.subscription.unsubscribe();
+  ngOnInit() {
+    this.subscription.add(
+      this.eventService.product$.subscribe(product => {
+        this.onProduct(product);
+      })
+    );
   }
 
   /**
@@ -39,14 +37,12 @@ export class UncertaintyComponent implements OnInit, OnDestroy {
    * @param product
    *     shakemap product
    */
-  onProduct (product: any): void {
-    if (product == null ||
-          !product.contents['download/urat_pga.jpg']) {
+  onProduct(product: any): void {
+    if (product === null || !product.contents['download/urat_pga.jpg']) {
       this.imageUrl = null;
       return;
     }
     const image = product.contents['download/urat_pga.jpg'];
     this.imageUrl = image.url;
   }
-
 }

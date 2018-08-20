@@ -8,9 +8,8 @@ import {
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { ContributorService } from '../../core/contributor.service';
-import { EventService } from '../../core/event.service';
-import { QuakemlService } from '../../core/quakeml.service';
+import { EventService } from '@core/event.service';
+import { QuakemlService } from '@core/quakeml.service';
 import { MockPipe } from '../../mock-pipe';
 import { Quakeml } from '../../quakeml';
 import { EVENT_UU60268292 } from '../../quakeml-testdata-uu60268292';
@@ -18,11 +17,9 @@ import { EVENT_NC72923380 } from '../../quakeml-testdata-nc72923380';
 import { xmlToJson } from '../../xml-to-json';
 import { MagnitudeComponent } from './magnitude.component';
 
-
 describe('MagnitudeComponent', () => {
   let component: MagnitudeComponent;
   let fixture: ComponentFixture<MagnitudeComponent>;
-  let eventService;
 
   beforeEach(async(() => {
     const eventServiceStub = {
@@ -36,45 +33,45 @@ describe('MagnitudeComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        MatCardModule,
-        MatExpansionModule,
-        MatIconModule
-      ],
       declarations: [
         MagnitudeComponent,
 
-        MockComponent({selector: 'origin-magnitude-detail',
-            inputs: ['contributions']}),
-        MockComponent({selector: 'shared-bubble',
-            inputs: ['name', 'title']}),
-        MockComponent({selector: 'shared-preferred-check',
-            inputs: ['title']}),
-        MockComponent({selector: 'shared-product-attribution',
-            inputs: ['product']}),
+        MockComponent({
+          inputs: ['contributions'],
+          selector: 'origin-magnitude-detail'
+        }),
+        MockComponent({
+          inputs: ['name', 'title'],
+          selector: 'shared-bubble'
+        }),
+        MockComponent({
+          inputs: ['title'],
+          selector: 'shared-preferred-check'
+        }),
+        MockComponent({
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
+        }),
 
         MockPipe('sharedNumber')
       ],
+      imports: [MatCardModule, MatExpansionModule, MatIconModule],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: QuakemlService, useValue: quakemlServiceStub}
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: QuakemlService, useValue: quakemlServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MagnitudeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    eventService = fixture.debugElement.injector.get(EventService);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
 
   describe('onQuakeml', () => {
     it('parses magnitudes', () => {
@@ -141,9 +138,9 @@ describe('MagnitudeComponent', () => {
       const quakeml = new Quakeml(xmlToJson(EVENT_UU60268292));
       const event = quakeml.events[0];
       spyOn(component, 'parseMagnitude').and.returnValues(
-        {id: 'a', isPreferred: false},
-        {id: 'b', isPreferred: true},
-        {id: 'c', isPreferred: false}
+        { id: 'a', isPreferred: false },
+        { id: 'b', isPreferred: true },
+        { id: 'c', isPreferred: false }
       );
       // enough to force 3 calls to parseMagnitude
       event.magnitudes = [{}, {}, {}];
@@ -151,9 +148,9 @@ describe('MagnitudeComponent', () => {
       component.onQuakeml(quakeml);
       expect(component.magnitudes.length).toEqual(3);
       expect(component.magnitudes).toEqual([
-        {id: 'b', isPreferred: true},
-        {id: 'a', isPreferred: false},
-        {id: 'c', isPreferred: false}
+        { id: 'b', isPreferred: true },
+        { id: 'a', isPreferred: false },
+        { id: 'c', isPreferred: false }
       ]);
     });
   });
@@ -161,54 +158,59 @@ describe('MagnitudeComponent', () => {
   describe('parseContribution', () => {
     it('handles empty contributions', () => {
       expect(() => {
-        component.parseContribution({}, {
-          stationMagnitudes: {},
-          amplitudes: {}
-        });
+        component.parseContribution(
+          {},
+          {
+            amplitudes: {},
+            stationMagnitudes: {}
+          }
+        );
       }).not.toThrowError();
     });
 
     it('uses period values', () => {
       const parsed = component.parseContribution(
-          {
-            stationMagnitudeID: 'stationMagnitudeID'
-          },
-          {
-            amplitudes: {
-              amplitudeID: {
-                period: {
-                  value: '123.4'
-                }
-              }
-            },
-            stationMagnitudes: {
-              stationMagnitudeID: {
-                amplitudeID: 'amplitudeID'
+        {
+          stationMagnitudeID: 'stationMagnitudeID'
+        },
+        {
+          amplitudes: {
+            amplitudeID: {
+              period: {
+                value: '123.4'
               }
             }
-          });
+          },
+          stationMagnitudes: {
+            stationMagnitudeID: {
+              amplitudeID: 'amplitudeID'
+            }
+          }
+        }
+      );
       expect(parsed.period).toEqual('123.4 s');
     });
 
     it('only adds amplitude units when set', () => {
       const parsed = component.parseContribution(
-          {
-            stationMagnitudeID: 'stationMagnitudeID'
-          },
-          {
-            amplitudes: {
-              amplitudeID: {
-                genericAmplitude: {
-                  value: '123.5'
-                }
-              }
-            },
-            stationMagnitudes: {
-              stationMagnitudeID: {
-                amplitudeID: 'amplitudeID'
+        {
+          stationMagnitudeID: 'stationMagnitudeID'
+        },
+        {
+          amplitudes: {
+            amplitudeID: {
+              genericAmplitude: {
+                value: '123.5'
               }
             }
-          });
+          },
+          stationMagnitudes: {
+            stationMagnitudeID: {
+              amplitudeID: 'amplitudeID'
+            }
+          }
+        }
+      );
       expect(parsed.amplitude).toEqual('123.5');
     });
   });
@@ -216,12 +218,13 @@ describe('MagnitudeComponent', () => {
   describe('parseMagnitude', () => {
     it('uses event creationInfo when magnitude creationInfo not set', () => {
       const parsed = component.parseMagnitude(
-          {},
-          {
-            creationInfo: {
-              agencyID: 'event agency'
-            }
-          });
+        {},
+        {
+          creationInfo: {
+            agencyID: 'event agency'
+          }
+        }
+      );
       expect(parsed.source).toEqual('event agency');
     });
 
@@ -231,5 +234,4 @@ describe('MagnitudeComponent', () => {
       }).not.toThrowError();
     });
   });
-
 });

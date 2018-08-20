@@ -15,12 +15,9 @@ import { RegionInfoModule } from './region-info/region-info.module';
 
 import { CoreModule } from './core/core.module';
 
-
-
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  bootstrap: [AppComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -35,7 +32,6 @@ import { CoreModule } from './core/core.module';
     RegionInfoModule,
 
     AppRoutingModule
-  ],
-  bootstrap: [AppComponent]
+  ]
 })
-export class AppModule { }
+export class AppModule {}

@@ -4,10 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { OafService } from '../oaf.service';
 import { OafComponent } from './oaf.component';
-
 
 describe('OafComponent', () => {
   let component: OafComponent;
@@ -32,15 +31,12 @@ describe('OafComponent', () => {
         MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-forward' })
       ],
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [RouterTestingModule],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: OafService, useValue: oafServiceStub}
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: OafService, useValue: oafServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -56,11 +52,11 @@ describe('OafComponent', () => {
   describe('onProduct', () => {
     it('guards against non-oaf products', () => {
       const getOafSpy = spyOn(component.oafService, 'getOaf');
-      const oafProduct = {type: 'oaf'};
+      const oafProduct = { type: 'oaf' };
 
       component.onProduct(null);
       component.onProduct({});
-      component.onProduct({type: 'not-an-oaf'});
+      component.onProduct({ type: 'not-an-oaf' });
 
       expect(getOafSpy).not.toHaveBeenCalled();
 

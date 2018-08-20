@@ -1,25 +1,16 @@
-import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
-import { Subscription } from 'rxjs';
-
-import { EventService } from '../../core/event.service';
-import { Event } from '../../event';
-import { Tensor } from '../../shared/beachball/tensor';
-
+import { EventService } from '@core/event.service';
 
 /**
  * Executive summary page
  */
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'app-executive',
-  templateUrl: './executive.component.html',
   styleUrls: ['./executive.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './executive.component.html'
 })
 export class ExecutiveComponent {
-
-  constructor (
-    public eventService: EventService
-  ) { }
-
+  constructor(public eventService: EventService) {}
 }

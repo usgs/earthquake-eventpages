@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
 
-
 /**
  * Main shared event page navigation component, shows all links relevant to
  * the event
@@ -12,13 +11,12 @@ import { Event } from '../../event';
  */
 @Component({
   selector: 'event-page-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  styleUrls: ['./navigation.component.scss'],
+  templateUrl: './navigation.component.html'
 })
 export class NavigationComponent {
-
-  @Input() event: Event = null;
-
+  @Input()
+  event: Event = null;
 
   /**
    * Function to get the kml link from the event object
@@ -28,7 +26,7 @@ export class NavigationComponent {
    * @returns
    *     KML link
    */
-  getKmlLink (event: Event): string {
+  getKmlLink(event: Event): string {
     return `/earthquakes/feed/v1.0/detail/${event.id}.kml`;
   }
 
@@ -40,7 +38,7 @@ export class NavigationComponent {
    * @returns
    *     Boolean value of hasImpact
    */
-  hasImpact (event: Event): boolean {
+  hasImpact(event: Event): boolean {
     return event.hasProducts([
       'dyfi',
       'impact-text',
@@ -59,7 +57,7 @@ export class NavigationComponent {
    * @returns
    *     Boolean value of hasScientific
    */
-  hasScientific (event: Event): boolean {
+  hasScientific(event: Event): boolean {
     return event.hasProducts([
       'origin',
       'phase-data',

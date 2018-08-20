@@ -5,11 +5,8 @@ import { RouterModule } from '@angular/router';
 import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 
-import { Tensor } from '../../shared/beachball/tensor';
-import {
-  FocalMechanismSummaryComponent
-} from './focal-mechanism-summary.component';
-
+import { Tensor } from '@shared/beachball/tensor';
+import { FocalMechanismSummaryComponent } from './focal-mechanism-summary.component';
 
 describe('FocalMechanismSummaryComponent', () => {
   let component: FocalMechanismSummaryComponent;
@@ -17,27 +14,21 @@ describe('FocalMechanismSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatIconModule,
-        MatTableModule,
-        RouterModule
-      ],
       declarations: [
         FocalMechanismSummaryComponent,
         MockComponent({
-          selector: 'shared-beachball',
-          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor']
+          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor'],
+          selector: 'shared-beachball'
         }),
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
         MockPipe('sharedDegrees')
       ],
-      providers: [
-      ]
-    })
-    .compileComponents();
+      imports: [MatIconModule, MatTableModule, RouterModule],
+      providers: []
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -52,9 +43,9 @@ describe('FocalMechanismSummaryComponent', () => {
 
   describe('set products', () => {
     it('populates tensors', () => {
-      spyOn(Tensor, 'fromProduct').and.returnValues({id: 1}, {id: 'b'});
+      spyOn(Tensor, 'fromProduct').and.returnValues({ id: 1 }, { id: 'b' });
       component.products = [{}, {}];
-      expect(component.tensors).toEqual([{id: 1}, {id: 'b'}]);
+      expect(component.tensors).toEqual([{ id: 1 }, { id: 'b' }]);
     });
 
     it('clears tensors', () => {

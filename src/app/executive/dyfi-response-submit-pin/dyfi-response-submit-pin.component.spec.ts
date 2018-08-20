@@ -5,7 +5,6 @@ import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 import { DyfiResponseSubmitPinComponent } from './dyfi-response-submit-pin.component';
 
-
 describe('DyfiResponseSubmitPinComponent', () => {
   let component: DyfiResponseSubmitPinComponent;
   let fixture: ComponentFixture<DyfiResponseSubmitPinComponent>;
@@ -16,19 +15,13 @@ describe('DyfiResponseSubmitPinComponent', () => {
         DyfiResponseSubmitPinComponent,
 
         MockComponent({
-          selector: 'basic-pin',
-          inputs: [
-            'link',
-            'product',
-            'title',
-            'footer'
-          ]
+          inputs: ['link', 'product', 'title', 'footer'],
+          selector: 'basic-pin'
         }),
 
         MockPipe('dyfiCounter')
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

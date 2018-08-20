@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Mmi Component for all magnitudes across pages
  *
@@ -13,18 +12,16 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-mmi',
-  templateUrl: './mmi.component.html',
-  styleUrls: ['./mmi.component.scss']
+  styleUrls: ['./mmi.component.scss'],
+  templateUrl: './mmi.component.html'
 })
 export class MmiComponent {
+  @Input()
+  bubble = false;
 
   @Input()
-  public bubble = false;
+  intensity;
 
   @Input()
-  public intensity;
-
-  @Input()
-  public value;
-
+  value;
 }

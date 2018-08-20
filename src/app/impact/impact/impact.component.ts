@@ -1,19 +1,15 @@
 import { Component } from '@angular/core';
 
-import { EventService } from '../../core/event.service';
-
+import { EventService } from '@core/event.service';
 
 /**
  * Impact summary for dyfi, pager, and shakemap summaries.
  */
 @Component({
   selector: 'app-impact',
-  templateUrl: './impact.component.html',
-  styleUrls: ['./impact.component.scss']
+  styleUrls: ['./impact.component.scss'],
+  templateUrl: './impact.component.html'
 })
 export class ImpactComponent {
-
-  constructor (
-    public eventService: EventService
-  ) { }
+  constructor(public eventService: EventService) {}
 }

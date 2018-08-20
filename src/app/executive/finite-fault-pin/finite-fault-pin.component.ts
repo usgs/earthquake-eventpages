@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Finite Fault Pin
  *
@@ -9,14 +8,12 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'executive-finite-fault-pin',
-  templateUrl: './finite-fault-pin.component.html',
-  styleUrls: ['./finite-fault-pin.component.scss']
+  styleUrls: ['./finite-fault-pin.component.scss'],
+  templateUrl: './finite-fault-pin.component.html'
 })
 export class FiniteFaultPinComponent {
-
-  public link = '../finite-fault';
-  public title = 'Finite Fault';
-
-  @Input() product: any;
-
+  link = '../finite-fault';
+  @Input()
+  product: any;
+  title = 'Finite Fault';
 }

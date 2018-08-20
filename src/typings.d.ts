@@ -5,7 +5,7 @@ interface NodeModule {
 }
 
 /* Allow json files to be required. */
-declare module "*.json" {
+declare module '*.json' {
   const value: any;
   export default value;
 }

@@ -2,17 +2,15 @@ import { Component, OnInit } from '@angular/core';
 
 import { ContributorService } from './core/contributor.service';
 
-
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
+  constructor(public contributorService: ContributorService) {}
 
-  constructor (public contributorService: ContributorService) { }
-
-  ngOnInit () {
+  ngOnInit() {
     this.contributorService.getContributors();
   }
 }

@@ -1,94 +1,20 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject,  Observable,  of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { xmlToJson } from '../xml-to-json';
-import { Quakeml } from '../quakeml';
 
 /**
  * Parses pager.xml into the observable seqeunce pagerXml$
  */
 @Injectable()
 export class PagerXmlService {
+  error: any = null;
+  pagerXml$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  public error: any = null;
-  public pagerXml$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-
-  constructor (
-    public httpClient: HttpClient
-  ) { }
-
-  /**
-   * Make an xhr request to get pager.xml update observable sequence
-   *
-   * @param product
-   *     pager product
-   */
-  getPagerXml (product: any): void {
-    try {
-      const contents = product.contents['pager.xml'];
-      const options = {responseType: 'text' as 'text'};
-
-      this.httpClient.get(contents.url, options).pipe(
-        catchError(this.handleError())
-      ).subscribe((response) => {
-        try {
-          this.pagerXml$.next(this.parseResponse(response));
-        } catch (e) {
-          this.error = e;
-          this.pagerXml$.next(null);
-        }
-      });
-    } catch (e) {
-      this.error = e;
-      this.pagerXml$.next(null);
-    }
-  }
-
-  /**
-   * Error handler for http requests.
-   */
-  private handleError () {
-    return (error: HttpErrorResponse): Observable<any> => {
-      this.error = error;
-      return of(null);
-    };
-  }
-
-  /**
-   * Parse the pager.xml response into more easily consumable parts:
-   *  - alerts
-   *  - exposures
-   *  - cities
-   *  - comments
-   *
-   * @param response
-   *     pager.xml document
-   */
-  parseResponse (response: string) {
-    let pager,
-        xml;
-
-    if (response === null) {
-      return null;
-    }
-
-    xml =  xmlToJson(response);
-    pager = xml.pager;
-
-    if (!pager) {
-      return null;
-    }
-
-    return {
-      alerts: this._parseAlerts(pager),
-      exposures: this._parseExposures(pager),
-      cities: this._parseCities(pager),
-      comments: this._parseComments(pager)
-    };
-  }
+  constructor(public httpClient: HttpClient) {}
 
   /**
    * Parse the alerts from the pager.xml
@@ -99,10 +25,8 @@ export class PagerXmlService {
    * @return {Object}
    *      An object of parsed alert information. Keyed by alert type.
    */
-  _parseAlerts (pager: any) {
-    let alert,
-        alerts,
-        data;
+  _parseAlerts(pager: any) {
+    let alert, alerts, data;
 
     if (!pager || !pager.alert) {
       return null;
@@ -128,11 +52,8 @@ export class PagerXmlService {
    * @return {Array}
    *      An array of parsed city information.
    */
-  _parseCities (pager: any) {
-    let cities,
-        city,
-        data;
-
+  _parseCities(pager: any) {
+    let cities, city, data;
 
     if (!pager || !pager.city) {
       return null;
@@ -144,12 +65,12 @@ export class PagerXmlService {
     for (let i = 0, len = cities.length; i < len; i++) {
       city = cities[i];
       data.push({
-        name: city.name,
+        isCapital: city.iscapital === '1',
         latitude: parseFloat(city.lat),
         longitude: parseFloat(city.lon),
-        population: parseInt(city.population, 10),
         mmi: parseFloat(city.mmi),
-        isCapital: (city.iscapital === '1')
+        name: city.name,
+        population: parseInt(city.population, 10)
       });
     }
 
@@ -166,15 +87,15 @@ export class PagerXmlService {
    *      An object containing parsed comment information. Keyed by comment
    *      type.
    */
-  _parseComments (pager: any) {
-    let effects,
-        data,
-        structure;
+  _parseComments(pager: any) {
+    let effects, data, structure;
 
-    if (!pager || (
-        !pager.structcomment &&
+    if (
+      !pager ||
+      (!pager.structcomment &&
         !pager.secondary_effects &&
-        !pager.impact_comment)) {
+        !pager.impact_comment)
+    ) {
       return null;
     }
 
@@ -196,6 +117,73 @@ export class PagerXmlService {
   }
 
   /**
+   * Parse the population exposures from the pager.xml
+   *
+   * @param xml {Document}
+   *      The object representation of the PAGER XML document.
+   *
+   * @return {Array}
+   *      An array of parsed exposure information.
+   */
+  _parseExposures(pager: any) {
+    let data, exposure, exposures, rangeInsideMap;
+
+    if (!pager || !pager.exposure) {
+      return null;
+    }
+
+    const roman = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+    const shaking = [
+      'Not Felt',
+      'Weak',
+      'Weak',
+      'Light',
+      'Moderate',
+      'Strong',
+      'Very Strong',
+      'Severe',
+      'Violent',
+      'Extreme'
+    ];
+
+    data = [];
+    exposures = pager.exposure;
+
+    for (let i = 0, len = exposures.length; i < len; i++) {
+      data.push({
+        dmax: parseFloat(exposures[i].dmax),
+        dmin: parseFloat(exposures[i].dmin),
+        exposure: parseInt(exposures[i].exposure, 10),
+        rangeInsideMap: exposures[i].rangeInsideMap === '1',
+        roman: roman[i],
+        shaking: shaking[i]
+      });
+    }
+
+    // Generally not required. If it becomes a problem, this will sort it out.
+    data.sort(function(a, b) {
+      return a.dmin - b.dmin;
+    });
+
+    // Combine bins II-III together
+    if (data[1] && data[2]) {
+      exposure = data[1].exposure + data[2].exposure;
+      rangeInsideMap = data[1].rangeInsideMap && data[2].rangeInsideMap;
+
+      data.splice(1, 2, {
+        dmax: 3.5,
+        dmin: 1.5,
+        exposure: exposure,
+        rangeInsideMap: rangeInsideMap,
+        roman: 'II-III',
+        shaking: 'Weak'
+      });
+    }
+
+    return data;
+  }
+
+  /**
    * Parse the impact comments from the pager.xml comments
    *
    * @param comment {String}
@@ -206,7 +194,7 @@ export class PagerXmlService {
    *      An object containing parsed impact comment information.
    *      Keyed by impact comment type.
    */
-  _parseImpactComments (comment) {
+  _parseImpactComments(comment) {
     let impact;
 
     // TODO :: This is a cluster. PAGER team should sort out a better way to
@@ -217,7 +205,10 @@ export class PagerXmlService {
 
     impact = {};
 
-    comment = comment.trim().split('#').reverse();
+    comment = comment
+      .trim()
+      .split('#')
+      .reverse();
     if (comment[0].indexOf('economic') !== -1) {
       comment.reverse();
     }
@@ -237,65 +228,73 @@ export class PagerXmlService {
     return impact;
   }
 
+  /**
+   * Make an xhr request to get pager.xml update observable sequence
+   *
+   * @param product
+   *     pager product
+   */
+  getPagerXml(product: any): void {
+    try {
+      const contents = product.contents['pager.xml'];
+      const options = { responseType: 'text' as 'text' };
+
+      this.httpClient
+        .get(contents.url, options)
+        .pipe(catchError(this.handleError()))
+        .subscribe(response => {
+          try {
+            this.pagerXml$.next(this.parseResponse(response));
+          } catch (e) {
+            this.error = e;
+            this.pagerXml$.next(null);
+          }
+        });
+    } catch (e) {
+      this.error = e;
+      this.pagerXml$.next(null);
+    }
+  }
 
   /**
-   * Parse the population exposures from the pager.xml
+   * Parse the pager.xml response into more easily consumable parts:
+   *  - alerts
+   *  - exposures
+   *  - cities
+   *  - comments
    *
-   * @param xml {Document}
-   *      The object representation of the PAGER XML document.
-   *
-   * @return {Array}
-   *      An array of parsed exposure information.
+   * @param response
+   *     pager.xml document
    */
-  _parseExposures (pager: any) {
-    let data,
-        exposure,
-        exposures,
-        rangeInsideMap;
+  parseResponse(response: string) {
+    let pager, xml;
 
-    if (!pager || !pager.exposure) {
+    if (response === null) {
       return null;
     }
 
-    const roman = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
-    const shaking = ['Not Felt', 'Weak', 'Weak', 'Light', 'Moderate', 'Strong',
-        'Very Strong', 'Severe', 'Violent', 'Extreme'];
+    xml = xmlToJson(response);
+    pager = xml.pager;
 
-    data = [];
-    exposures = pager.exposure;
-
-    for (let i = 0, len = exposures.length; i < len; i++) {
-      data.push({
-        dmin: parseFloat(exposures[i].dmin),
-        dmax: parseFloat(exposures[i].dmax),
-        exposure: parseInt(exposures[i].exposure, 10),
-        rangeInsideMap: (exposures[i].rangeInsideMap === '1'),
-        roman: roman[i],
-        shaking: shaking[i]
-      });
+    if (!pager) {
+      return null;
     }
 
-    // Generally not required. If it becomes a problem, this will sort it out.
-    data.sort(function (a, b) {
-      return a.dmin - b.dmin;
-    });
+    return {
+      alerts: this._parseAlerts(pager),
+      cities: this._parseCities(pager),
+      comments: this._parseComments(pager),
+      exposures: this._parseExposures(pager)
+    };
+  }
 
-
-    // Combine bins II-III together
-    if (data[1] && data[2]) {
-      exposure = data[1].exposure + data[2].exposure;
-      rangeInsideMap = (data[1].rangeInsideMap && data[2].rangeInsideMap);
-
-      data.splice(1, 2, {
-        dmin: 1.5,
-        dmax: 3.5,
-        exposure: exposure,
-        rangeInsideMap: rangeInsideMap,
-        roman: 'II-III',
-        shaking: 'Weak'
-      });
-    }
-
-    return data;
+  /**
+   * Error handler for http requests.
+   */
+  private handleError() {
+    return (error: HttpErrorResponse): Observable<any> => {
+      this.error = error;
+      return of(null);
+    };
   }
 }

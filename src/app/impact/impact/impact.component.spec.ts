@@ -4,10 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { ImpactComponent } from './impact.component';
-
 
 describe('ImpactComponent', () => {
   let component: ImpactComponent;
@@ -23,37 +22,34 @@ describe('ImpactComponent', () => {
         ImpactComponent,
 
         MockComponent({
-          selector: 'impact-dyfi-summary',
-          inputs: ['event', 'products']
+          inputs: ['event', 'products'],
+          selector: 'impact-dyfi-summary'
         }),
         MockComponent({
-          selector: 'shared-text-product',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-text-product'
         }),
         MockComponent({
-          selector: 'shared-link-product',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-link-product'
         }),
         MockComponent({
-          selector: 'impact-pager-summary',
-          inputs: ['event', 'products']
+          inputs: ['event', 'products'],
+          selector: 'impact-pager-summary'
         }),
         MockComponent({
-          selector: 'impact-shakemap-summary',
-          inputs: ['event', 'products']
+          inputs: ['event', 'products'],
+          selector: 'impact-shakemap-summary'
         })
       ],
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [RouterTestingModule],
       providers: [
         {
           provide: EventService,
           useValue: eventServiceStub
         }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

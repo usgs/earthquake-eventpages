@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Shows a flag description for each station
  *
@@ -9,19 +8,18 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-station-flag',
-  templateUrl: './station-flag.component.html',
-  styleUrls: ['./station-flag.component.scss']
+  styleUrls: ['./station-flag.component.scss'],
+  templateUrl: './station-flag.component.html'
 })
 export class StationFlagComponent {
+  @Input()
+  flag: string;
 
-  @Input() flag: string;
-
-  public readonly FLAG_DESCRIPTIONS = {
-    'M': 'Manually flagged',
-    'T': 'Outlier',
-    'G': 'Glitch (clipped or below noise)',
-    'I': 'Incomplete time series',
-    'N': 'Not in list of known stations'
+  readonly FLAG_DESCRIPTIONS = {
+    G: 'Glitch (clipped or below noise)',
+    I: 'Incomplete time series',
+    M: 'Manually flagged',
+    N: 'Not in list of known stations',
+    T: 'Outlier'
   };
-
 }

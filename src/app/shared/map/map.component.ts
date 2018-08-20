@@ -11,7 +11,6 @@ import * as L from 'leaflet';
 
 import { LegendControl } from '../map-control/legend-control';
 
-
 /**
  * Shared map component for event, shows overall area and mmi contours
  *
@@ -22,112 +21,134 @@ import { LegendControl } from '../map-control/legend-control';
  */
 @Component({
   selector: 'shared-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  templateUrl: './map.component.html'
 })
 export class MapComponent implements AfterViewInit {
-
   // value of bounds property
-  public _bounds: Array<Array<number>> = null;
+  _bounds: Array<Array<number>> = null;
+  _interactive = false;
   // value of overlays property
-  public _overlays: Array<L.Layer> = [];
-  public _interactive = false;
-  public _showLayersControl = false;
-  public _showLegendControl = false;
-  public _showScaleControl = false;
-  // overlays currently part of the layers control
-  public overlaysAdded: Array<L.Layer> = [];
-  public map: L.Map;
-  public layersControl: L.Control.Layers;
-  public legendControl: L.Control;
-  public scaleControl: L.Control.Scale;
-  public zoomControl: L.Control.Zoom;
+  _overlays: Array<L.Layer> = [];
+  _showLayersControl = false;
+  _showLegendControl = false;
+  _showScaleControl = false;
 
   @Input()
   baselayer = 'Topographic';
-
-  @Input()
-  showAttributionControl: Boolean = true;
-
+  layersControl: L.Control.Layers;
+  legendControl: L.Control;
+  map: L.Map;
   @ViewChild('mapWrapper')
   mapWrapper: ElementRef;
+  // overlays currently part of the layers control
+  overlaysAdded: Array<L.Layer> = [];
+  scaleControl: L.Control.Scale;
+  @Input()
+  showAttributionControl: Boolean = true;
+  zoomControl: L.Control.Zoom;
 
-  constructor (
-    private httpClient: HttpClient
-  ) { }
+  constructor(private httpClient: HttpClient) {}
 
+  /**
+   * Get the overlay bounds
+   *
+   * @return {any}
+   */
+  getOverlayBounds() {
+    let bounds = null;
 
-  ngAfterViewInit () {
-    const worldTopoLayer = L.tileLayer('https://services.arcgisonline.com/' +
+    // set bounds based on data
+    this.overlays.forEach(overlay => {
+      if (overlay.bounds !== null) {
+        if (bounds === null) {
+          bounds = L.latLngBounds(overlay.bounds);
+        } else {
+          bounds = bounds.extend(overlay.bounds);
+        }
+      }
+    });
+
+    return bounds;
+  }
+
+  ngAfterViewInit() {
+    const worldTopoLayer = L.tileLayer(
+      'https://services.arcgisonline.com/' +
         'arcgis/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
-        {
-          attribution: 'Esri, HERE, Garmin, Intermap, increment P Corp., ' +
-              'GEBCO, USGS, FAO, NPS, NRCAN, GeoBase, IGN, Kadaster NL, ' +
-              'Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), ' +
-              'swisstopo, © OpenStreetMap contributors, and the GIS User ' +
-              'Community',
-          maxZoom: 16
-        }
+      {
+        attribution:
+          'Esri, HERE, Garmin, Intermap, increment P Corp., ' +
+          'GEBCO, USGS, FAO, NPS, NRCAN, GeoBase, IGN, Kadaster NL, ' +
+          'Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), ' +
+          'swisstopo, © OpenStreetMap contributors, and the GIS User ' +
+          'Community',
+        maxZoom: 16
+      }
     );
 
-    const worldImageryLayer = L.tileLayer('https://services.arcgisonline.com/' +
+    const worldImageryLayer = L.tileLayer(
+      'https://services.arcgisonline.com/' +
         'arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-        {
-          attribution: 'Esri, DigitalGlobe, GeoEye, Earthstar Geographics, ' +
-              'CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS ' +
-              'User Community',
-          maxZoom: 16
-        }
+      {
+        attribution:
+          'Esri, DigitalGlobe, GeoEye, Earthstar Geographics, ' +
+          'CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS ' +
+          'User Community',
+        maxZoom: 16
+      }
     );
 
-    const worldStreetLayer = L.tileLayer('https://services.arcgisonline.com/' +
+    const worldStreetLayer = L.tileLayer(
+      'https://services.arcgisonline.com/' +
         'arcgis/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
-        {
-          attribution: 'Esri, HERE, Garmin, USGS, Intermap, INCREMENT P, ' +
-              'NRCan, Esri Japan, METI, Esri China (Hong Kong), Esri Korea, ' +
-              'Esri (Thailand), NGCC, © OpenStreetMap contributors, and the ' +
-              'GIS User Community',
-          maxZoom: 16
-        }
+      {
+        attribution:
+          'Esri, HERE, Garmin, USGS, Intermap, INCREMENT P, ' +
+          'NRCan, Esri Japan, METI, Esri China (Hong Kong), Esri Korea, ' +
+          'Esri (Thailand), NGCC, © OpenStreetMap contributors, and the ' +
+          'GIS User Community',
+        maxZoom: 16
+      }
     );
 
-    const grayscaleLayer = L.tileLayer('https://services.arcgisonline.com/' +
+    const grayscaleLayer = L.tileLayer(
+      'https://services.arcgisonline.com/' +
         'arcgis/rest/services/Canvas/World_Light_Gray_Base/' +
         'MapServer/tile/{z}/{y}/{x}',
-        {
-          attribution: 'Esri, HERE, Garmin, © OpenStreetMap contributors, ' +
-              'and the GIS user community',
-          maxZoom: 16
-        }
+      {
+        attribution:
+          'Esri, HERE, Garmin, © OpenStreetMap contributors, ' +
+          'and the GIS user community',
+        maxZoom: 16
+      }
     );
 
     const baselayers = {
-      'Topographic': worldTopoLayer,
-      'Aerial': worldImageryLayer,
-      'Street': worldStreetLayer,
-      'Grayscale': grayscaleLayer
+      Aerial: worldImageryLayer,
+      Grayscale: grayscaleLayer,
+      Street: worldStreetLayer,
+      Topographic: worldTopoLayer
     };
 
     this.map = L.map(this.mapWrapper.nativeElement, {
       attributionControl: this.showAttributionControl,
-      layers: [
-        baselayers[this.baselayer]
-      ],
-      scrollWheelZoom: false,
       // noninteractive map setting defaults
       // managed by updateControls & updateInteractive
       boxZoom: true,
       doubleClickZoom: true,
       dragging: true,
       keyboard: true,
+      layers: [baselayers[this.baselayer]],
+      scrollWheelZoom: false,
       tap: true,
       touchZoom: true,
       zoomControl: false
     });
 
     this.layersControl = L.control.layers(baselayers, {});
-    this.legendControl = new LegendControl({position: 'topright'});
-    this.scaleControl = L.control.scale({position: 'bottomright'});
+    this.legendControl = new LegendControl({ position: 'topright' });
+    this.scaleControl = L.control.scale({ position: 'bottomright' });
     this.zoomControl = L.control.zoom();
 
     this.updateControls();
@@ -142,7 +163,7 @@ export class MapComponent implements AfterViewInit {
    *     Array of bounds for map
    */
   @Input()
-  set bounds (bounds: Array<Array<number>>) {
+  set bounds(bounds: Array<Array<number>>) {
     this._bounds = bounds;
     this.setBounds();
   }
@@ -163,7 +184,7 @@ export class MapComponent implements AfterViewInit {
    *     Is map interactive?
    */
   @Input()
-  set interactive (interactive: boolean) {
+  set interactive(interactive: boolean) {
     this._interactive = interactive;
 
     this.updateControls();
@@ -186,7 +207,7 @@ export class MapComponent implements AfterViewInit {
    *     Array of different map overlays
    */
   @Input()
-  set overlays (overlays: Array<L.Layer>) {
+  set overlays(overlays: Array<L.Layer>) {
     this._overlays = overlays;
 
     this.updateOverlays();
@@ -231,7 +252,7 @@ export class MapComponent implements AfterViewInit {
    *     Show the legend control?
    */
   @Input()
-  set showLegendControl (showLegendControl: boolean) {
+  set showLegendControl(showLegendControl: boolean) {
     this._showLegendControl = showLegendControl;
 
     this.updateControls();
@@ -264,36 +285,14 @@ export class MapComponent implements AfterViewInit {
    *
    * @return {boolean}
    */
-  get showScaleControl (): boolean {
+  get showScaleControl(): boolean {
     return this._showScaleControl;
-  }
-
-  /**
-   * Get the overlay bounds
-   *
-   * @return {any}
-   */
-  getOverlayBounds () {
-    let bounds = null;
-
-    // set bounds based on data
-    this.overlays.forEach((overlay) => {
-      if (overlay.bounds != null) {
-        if (bounds === null) {
-          bounds = L.latLngBounds(overlay.bounds);
-        } else {
-          bounds = bounds.extend(overlay.bounds);
-        }
-      }
-    });
-
-    return bounds;
   }
 
   /**
    * Set map to match overlay bounds
    */
-  setBounds () {
+  setBounds() {
     if (!this.map) {
       return;
     }
@@ -321,7 +320,7 @@ export class MapComponent implements AfterViewInit {
   /**
    * Update/add map controls
    */
-  updateControls () {
+  updateControls() {
     if (!this.map) {
       return;
     }
@@ -354,7 +353,7 @@ export class MapComponent implements AfterViewInit {
   /**
    * Make the map interactive
    */
-  updateInteractive () {
+  updateInteractive() {
     if (!this.map) {
       return;
     }
@@ -369,7 +368,7 @@ export class MapComponent implements AfterViewInit {
     ];
     const interactive = this.interactive;
 
-    handlers.forEach((handler) => {
+    handlers.forEach(handler => {
       if (!handler) {
         return;
       }
@@ -385,7 +384,7 @@ export class MapComponent implements AfterViewInit {
   /**
    * Update legend control
    */
-  updateLegend () {
+  updateLegend() {
     if (!this.legendControl) {
       return;
     }
@@ -396,7 +395,7 @@ export class MapComponent implements AfterViewInit {
   /**
    * Update map overlays
    */
-  updateOverlays () {
+  updateOverlays() {
     // // check if layer control has been created
     if (!this.map || !this.layersControl) {
       return;
@@ -405,7 +404,7 @@ export class MapComponent implements AfterViewInit {
     const overlays = this._overlays;
 
     // remove overlays from map and layer control
-    this.overlaysAdded = this.overlaysAdded.filter((overlay) => {
+    this.overlaysAdded = this.overlaysAdded.filter(overlay => {
       if (!overlays.includes(overlay)) {
         this.layersControl.removeLayer(overlay);
         this.map.removeLayer(overlay);
@@ -416,7 +415,7 @@ export class MapComponent implements AfterViewInit {
     });
 
     // add overlays to layer control and add/remove overlay to/from map
-    overlays.forEach((overlay) => {
+    overlays.forEach(overlay => {
       if (overlay.hasOwnProperty('httpClient')) {
         overlay.httpClient = this.httpClient;
       }
@@ -433,5 +432,4 @@ export class MapComponent implements AfterViewInit {
 
     this.setBounds();
   }
-
 }

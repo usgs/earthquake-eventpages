@@ -4,11 +4,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { MapComponent } from './map.component';
-
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -23,7 +22,6 @@ describe('MapComponent', () => {
         MapComponent,
 
         MockComponent({
-          selector: 'shared-map',
           inputs: [
             'bounds',
             'overlays',
@@ -31,21 +29,19 @@ describe('MapComponent', () => {
             'showLegendControl',
             'showScaleControl',
             'interactive'
-          ]
+          ],
+          selector: 'shared-map'
         }),
-        MockComponent({selector: 'shared-summary-link',
-            inputs: ['productType', 'event']}),
+        MockComponent({
+          inputs: ['productType', 'event'],
+          selector: 'shared-summary-link'
+        }),
         MockPipe('interactiveMapBounds'),
         MockPipe('interactiveMapOverlays')
       ],
-      imports: [
-        RouterTestingModule
-      ],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub }
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

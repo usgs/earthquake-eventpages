@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Creates a return link for a product to the overview/impact/technical
  *
@@ -11,12 +10,12 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-summary-link',
-  templateUrl: './summary-link.component.html',
-  styleUrls: ['./summary-link.component.scss']
+  styleUrls: ['./summary-link.component.scss'],
+  templateUrl: './summary-link.component.html'
 })
 export class SummaryLinkComponent {
-
-  @Input() event: any;
-  @Input() productType: any;
-
+  @Input()
+  event: any;
+  @Input()
+  productType: any;
 }

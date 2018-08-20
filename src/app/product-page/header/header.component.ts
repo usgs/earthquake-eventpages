@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Header generates markup for a product specific page and lists the
  * product's preferredness and its review status.
@@ -16,15 +15,16 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'product-page-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  templateUrl: './header.component.html'
 })
 export class HeaderComponent {
-
-  @Input() contributors: any;
-  @Input() event: any;
-  @Input() product: any;
-
+  @Input()
+  contributors: any;
+  @Input()
+  event: any;
+  @Input()
+  product: any;
 
   /**
    * Determine whether or not the product is preferred

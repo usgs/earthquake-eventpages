@@ -1,11 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-
 @Pipe({
   name: 'sharedSummaryLink'
 })
 export class SummaryLinkPipe implements PipeTransform {
-
   /**
    * Builds a link to the overview/technical/impact summary page, based
    * on the product type
@@ -18,48 +16,45 @@ export class SummaryLinkPipe implements PipeTransform {
    * @return {any}
    *     link (url/text) object
    */
-  transform (productType: any, event: any): any {
+  transform(productType: any, event: any): any {
     if (!event || !productType) {
       return null;
     }
 
     const EXECUTIVE = {
-      url: '/executive',
-      text: 'Overview'
+      text: 'Overview',
+      url: '/executive'
     };
 
     const IMPACT = {
-      url: '/impact',
-      text: 'Impact'
+      text: 'Impact',
+      url: '/impact'
     };
 
     const TECHNICAL = {
-      url: '/technical',
-      text: 'Technical'
+      text: 'Technical',
+      url: '/technical'
     };
 
     const TYPES = {
-      'map': EXECUTIVE,
-      'regioninfo': EXECUTIVE,
-
-      'dyfi': IMPACT,
-      'ground-failure': IMPACT,
-      'losspager': IMPACT,
-      'shakemap': IMPACT,
-      'tellus': IMPACT,
-
-      'moment-tensor': TECHNICAL,
-      'oaf': TECHNICAL,
-      'origin': TECHNICAL,
+      dyfi: IMPACT,
       'finite-fault': TECHNICAL,
       'focal-mechanism': TECHNICAL,
-      'waveforms': TECHNICAL
+      'ground-failure': IMPACT,
+      losspager: IMPACT,
+      map: EXECUTIVE,
+      'moment-tensor': TECHNICAL,
+      oaf: TECHNICAL,
+      origin: TECHNICAL,
+      regioninfo: EXECUTIVE,
+      shakemap: IMPACT,
+      tellus: IMPACT,
+      waveforms: TECHNICAL
     };
 
     const info = TYPES[productType];
 
-    let count,
-        text;
+    let count, text;
 
     try {
       count = event.properties.products[productType].length;
@@ -70,14 +65,17 @@ export class SummaryLinkPipe implements PipeTransform {
     text = `Back to ${info.text}`;
 
     if (count > 1) {
-      text = 'View alternative ' + productType.replace('-', ' ') +
-          's (' + count + ' total)';
+      text =
+        'View alternative ' +
+        productType.replace('-', ' ') +
+        's (' +
+        count +
+        ' total)';
     }
 
     return {
-      url: `${info.url}`,
-      text: text
+      text: text,
+      url: `${info.url}`
     };
   }
-
 }

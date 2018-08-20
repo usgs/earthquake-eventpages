@@ -3,10 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { MockPipe } from '../../mock-pipe';
 import { FiniteFaultComponent } from './finite-fault.component';
-
 
 describe('FiniteFaultComponent', () => {
   let component: FiniteFaultComponent;
@@ -21,20 +20,16 @@ describe('FiniteFaultComponent', () => {
       declarations: [
         FiniteFaultComponent,
 
-        MockComponent({selector: 'product-page', inputs: ['bin']}),
-        MockComponent({selector: 'shared-text-product', inputs: ['product']}),
+        MockComponent({ selector: 'product-page', inputs: ['bin'] }),
+        MockComponent({ selector: 'shared-text-product', inputs: ['product'] }),
 
         MockPipe('sharedDegrees'),
         MockPipe('sharedLocation'),
         MockPipe('sharedNumber'),
         MockPipe('sharedProductContent')
-
       ],
-      providers: [
-        {provide: EventService, useValue: eventServiceStub}
-      ]
-    })
-    .compileComponents();
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

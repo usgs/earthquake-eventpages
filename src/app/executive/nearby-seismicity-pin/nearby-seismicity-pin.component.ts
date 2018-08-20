@@ -1,7 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { Event } from '../../event';
-
 
 /**
  * Nearby Seismicity Pin
@@ -14,22 +13,17 @@ import { Event } from '../../event';
  */
 @Component({
   selector: 'executive-nearby-seismicity-pin',
-  templateUrl: './nearby-seismicity-pin.component.html',
-  styleUrls: ['./nearby-seismicity-pin.component.scss']
+  styleUrls: ['./nearby-seismicity-pin.component.scss'],
+  templateUrl: './nearby-seismicity-pin.component.html'
 })
 export class NearbySeismicityPinComponent implements OnInit {
-
-  public title = 'View Nearby Seismicity';
-  public footer = 'ANSS Comcat';
-  public minimumMag;
-
-  @Input() event: Event;
-  @Input() link: string;
-
-
-  ngOnInit() {
-    this.minimumMag = this.getMinimumMag(this.event.properties.mag || 3);
-  }
+  @Input()
+  event: Event;
+  footer = 'ANSS Comcat';
+  @Input()
+  link: string;
+  minimumMag;
+  title = 'View Nearby Seismicity';
 
   /**
    * Logic to determine the minimum magnitude for the nearby seismicity search
@@ -42,5 +36,9 @@ export class NearbySeismicityPinComponent implements OnInit {
    */
   getMinimumMag(magnitude: number) {
     return Math.max(Math.floor(magnitude) - 3, 1);
+  }
+
+  ngOnInit() {
+    this.minimumMag = this.getMinimumMag(this.event.properties.mag || 3);
   }
 }

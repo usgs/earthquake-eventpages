@@ -1,13 +1,11 @@
 import { FileSizePipe } from './file-size.pipe';
 
-
 describe('FileSizePipe', () => {
   let pipe;
 
   beforeEach(() => {
     pipe = new FileSizePipe();
   });
-
 
   it('create an instance', () => {
     expect(pipe).toBeTruthy();

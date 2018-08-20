@@ -5,7 +5,6 @@ import { of } from 'rxjs/observable/of';
 import { OafService } from '../oaf.service';
 import { ModelComponent } from './model.component';
 
-
 describe('ModelComponent', () => {
   let component: ModelComponent;
   let fixture: ComponentFixture<ModelComponent>;
@@ -16,14 +15,9 @@ describe('ModelComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [
-        ModelComponent
-      ],
-      providers: [
-        {provide: OafService, useValue: oafServiceStub}
-      ]
-    })
-    .compileComponents();
+      declarations: [ModelComponent],
+      providers: [{ provide: OafService, useValue: oafServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

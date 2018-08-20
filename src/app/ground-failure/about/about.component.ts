@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
  */
 @Component({
   selector: 'ground-failure-about',
-  templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss']
+  styleUrls: ['./about.component.scss'],
+  templateUrl: './about.component.html'
 })
-export class AboutComponent { }
+export class AboutComponent {}

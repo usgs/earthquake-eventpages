@@ -1,17 +1,15 @@
 import * as L from 'leaflet';
 
-
 /**
  * Ground failure landslide overlay for leaflet map
  */
+// tslint:disable-next-line:variable-name
 const GroundFailureLandslideOverlay = L.ImageOverlay.extend({
-
-  id: 'ground-failure-landslide',
-  enabled: false,
-  title: 'Landslide Estimate',
   bounds: null,
+  enabled: false,
+  id: 'ground-failure-landslide',
   legend: null,
-
+  title: 'Landslide Estimate',
 
   /**
    * Build leaflet overlay
@@ -19,8 +17,7 @@ const GroundFailureLandslideOverlay = L.ImageOverlay.extend({
    * @param product
    *     ground-failure product
    */
-  initialize: function (product: any) {
-
+  initialize: function(product: any) {
     if (!product || !product.properties || !product.contents) {
       return this;
     }

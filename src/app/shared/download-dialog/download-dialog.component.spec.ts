@@ -3,25 +3,16 @@ import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material';
 
 import { DownloadDialogComponent } from './download-dialog.component';
 
-
 describe('DownloadDialogComponent', () => {
   let component: DownloadDialogComponent;
   let fixture: ComponentFixture<DownloadDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        DownloadDialogComponent
-      ],
-      imports: [
-        MatDialogModule
-      ],
-      providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {} }
-      ]
-
-    })
-    .compileComponents();
+      declarations: [DownloadDialogComponent],
+      imports: [MatDialogModule],
+      providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

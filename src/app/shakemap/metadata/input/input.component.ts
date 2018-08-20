@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { FormatterService } from '../../../core/formatter.service';
-
+import { FormatterService } from '@core/formatter.service';
 
 /**
  * Input subcomponent which shows input data when the user selects the 'metadata
@@ -12,14 +11,12 @@ import { FormatterService } from '../../../core/formatter.service';
  */
 @Component({
   selector: 'shakemap-input',
-  templateUrl: './input.component.html',
-  styleUrls: ['./input.component.scss']
+  styleUrls: ['./input.component.scss'],
+  templateUrl: './input.component.html'
 })
 export class InputComponent {
+  @Input()
+  smInput: any;
 
-  @Input() smInput: any;
-
-
-  constructor (public formatter: FormatterService) { }
-
+  constructor(public formatter: FormatterService) {}
 }

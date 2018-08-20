@@ -3,22 +3,15 @@ import { MatDialogModule, MatTableModule } from '@angular/material';
 
 import { MagnitudeDetailComponent } from './magnitude-detail.component';
 
-
 describe('MagnitudeDetailComponent', () => {
   let component: MagnitudeDetailComponent;
   let fixture: ComponentFixture<MagnitudeDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatDialogModule,
-        MatTableModule
-      ],
-      declarations: [
-        MagnitudeDetailComponent
-      ]
-    })
-    .compileComponents();
+      declarations: [MagnitudeDetailComponent],
+      imports: [MatDialogModule, MatTableModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -33,7 +26,7 @@ describe('MagnitudeDetailComponent', () => {
 
   describe('contributions', () => {
     it('should set and get', () => {
-      const data = [{'id': 'a'}, {'id': 'b'}];
+      const data = [{ id: 'a' }, { id: 'b' }];
       component.contributions = data;
       expect(component.contributions).toEqual(data);
     });
@@ -49,8 +42,9 @@ describe('MagnitudeDetailComponent', () => {
           magnitude: 'test magnitude',
           period: 'test period',
           residual: 'test residual',
+          stationMagnitudeContributionID:
+            'test station magnitude contribution id',
           stationMagnitudeID: 'test station magnitude id',
-          stationMagnitudeContributionID: 'test station magnitude contribution id',
           status: 'test status',
           type: 'test type',
           unit: 'test unit',
@@ -66,7 +60,8 @@ describe('MagnitudeDetailComponent', () => {
       // download formatted
       expect(spy.calls.mostRecent().args[1].data.content).toEqual(
         'Channel\tType\tAmplitude\tPeriod\tStatus\tMagnitude\tWeight\n' +
-        'test channel\ttest type\ttest amplitude\ttest period\ttest status\ttest magnitude\ttest weight'
+          'test channel\ttest type\ttest amplitude\ttest period\t' +
+          'test status\ttest magnitude\ttest weight'
       );
     });
   });
@@ -80,8 +75,9 @@ describe('MagnitudeDetailComponent', () => {
         magnitude: '4.56',
         period: null,
         residual: 'test residual',
+        stationMagnitudeContributionID:
+          'test station magnitude contribution id',
         stationMagnitudeID: 'test station magnitude id',
-        stationMagnitudeContributionID: 'test station magnitude contribution id',
         status: 'test status',
         type: 'test type',
         unit: 'test unit',

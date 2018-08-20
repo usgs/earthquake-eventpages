@@ -1,4 +1,3 @@
-
 /**
  * Build an index for an array of objects, based on an object property.
  *
@@ -8,9 +7,9 @@
  * @param values array of objects.
  * @param key object property to use as key.
  */
-export function toIndex (values: Array<any>, key: string) {
+export function toIndex(values: Array<any>, key: string) {
   const index = {};
-  values.forEach((value) => {
+  values.forEach(value => {
     index[value[key]] = value;
   });
   return index;

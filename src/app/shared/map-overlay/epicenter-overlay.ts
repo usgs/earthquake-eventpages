@@ -1,16 +1,15 @@
 import * as L from 'leaflet';
 
-
 /**
  * Epicenter overlay for leaflet map
  */
+// tslint:disable-next-line:variable-name
 const EpicenterOverlay = L.Marker.extend({
-  id: 'epicenter',
-  enabled: true,
-  title: 'Epicenter',
   bounds: null,
+  enabled: true,
+  id: 'epicenter',
   legend: null,
-
+  title: 'Epicenter',
 
   /**
    * Build leaflet overlay
@@ -18,7 +17,7 @@ const EpicenterOverlay = L.Marker.extend({
    * @param product
    *     origin product
    */
-  initialize: function (product: any) {
+  initialize: function(product: any) {
     let latitude: number;
     let longitude: number;
 
@@ -44,18 +43,14 @@ const EpicenterOverlay = L.Marker.extend({
     legend.setAttribute('alt', 'Epicenter marker legend');
     this.legend = legend;
 
-    L.Marker.prototype.initialize.call(
-      this,
-      [latitude, longitude],
-      {
-        icon: L.icon({
-          iconUrl: 'assets/star.png',
-          iconSize: [16, 16],
-          iconAnchor: [8, 8]
-        }),
-        interactive: false
-      }
-    );
+    L.Marker.prototype.initialize.call(this, [latitude, longitude], {
+      icon: L.icon({
+        iconAnchor: [8, 8],
+        iconSize: [16, 16],
+        iconUrl: 'assets/star.png'
+      }),
+      interactive: false
+    });
   }
 });
 

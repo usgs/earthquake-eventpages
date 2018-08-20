@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
-import { EventService } from '../../core/event.service';
-
+import { EventService } from '@core/event.service';
 
 /**
  * Main shakemap component which shows a list of tabs for all it's
@@ -9,11 +8,9 @@ import { EventService } from '../../core/event.service';
  */
 @Component({
   selector: 'app-shakemap',
-  templateUrl: './shakemap.component.html',
-  styleUrls: ['./shakemap.component.scss']
+  styleUrls: ['./shakemap.component.scss'],
+  templateUrl: './shakemap.component.html'
 })
 export class ShakemapComponent {
-
-  constructor (public eventService: EventService) { }
-
+  constructor(public eventService: EventService) {}
 }

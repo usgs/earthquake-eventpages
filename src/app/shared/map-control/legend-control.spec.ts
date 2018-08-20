@@ -2,13 +2,11 @@ import { LegendControl } from './legend-control';
 
 import * as L from 'leaflet';
 
-
 describe('LegendControl', () => {
   let container;
   let legend;
   let legendControl;
   let mapStub;
-
 
   afterEach(() => {
     container = null;
@@ -24,16 +22,15 @@ describe('LegendControl', () => {
     legendControl = new LegendControl();
 
     mapStub = {
-      on: jasmine.createSpy(),
-      off: jasmine.createSpy(),
-      hasLayer: (layer) => {
+      hasLayer: layer => {
         return layer.mapHasLayer || false;
-      }
+      },
+      off: jasmine.createSpy(),
+      on: jasmine.createSpy()
     };
 
     spyOn(mapStub, 'hasLayer').and.callThrough();
   });
-
 
   describe('addLegend', () => {
     it('skips if no container/legend', () => {
@@ -49,7 +46,7 @@ describe('LegendControl', () => {
 
     it('appends child appropriately', () => {
       legendControl._legendContainer = container;
-      legendControl.addLegend({'legend': legend});
+      legendControl.addLegend({ legend: legend });
 
       expect(legendControl._legendContainer.contains(legend)).toBeTruthy();
     });
@@ -57,9 +54,9 @@ describe('LegendControl', () => {
 
   describe('clearLegendContainer', () => {
     it('does nothing without a container', () => {
-      expect(
-        () => { legendControl.clearLegendContainer(); }
-      ).not.toThrow(Error);
+      expect(() => {
+        legendControl.clearLegendContainer();
+      }).not.toThrow(Error);
     });
 
     it('empties the container', () => {
@@ -91,8 +88,8 @@ describe('LegendControl', () => {
       legendControl._legendContainer = container;
 
       expect(container.contains(legend)).toBeTruthy();
-      legendControl.removeLegend({'legend': legend});
-      legendControl.removeLegend({'legend': c});
+      legendControl.removeLegend({ legend: legend });
+      legendControl.removeLegend({ legend: c });
 
       expect(container.contains(a)).toBeTruthy();
       expect(container.contains(b)).toBeTruthy();
@@ -125,16 +122,18 @@ describe('LegendControl', () => {
 
       // Force a different branch
       if (!L.Browser.touch) {
-        expect(L.DomEvent.disableScrollPropagation)
-            .toHaveBeenCalledWith(legendControl._container);
+        expect(L.DomEvent.disableScrollPropagation).toHaveBeenCalledWith(
+          legendControl._container
+        );
       }
 
       L.Browser.touch = !L.Browser.touch;
       legendControl.onAdd(mapStub);
 
       if (!L.Browser.touch) {
-        expect(L.DomEvent.disableScrollPropagation)
-            .toHaveBeenCalledWith(legendControl._container);
+        expect(L.DomEvent.disableScrollPropagation).toHaveBeenCalledWith(
+          legendControl._container
+        );
       }
       L.Browser.touch = !L.Browser.touch;
     });
@@ -146,21 +145,41 @@ describe('LegendControl', () => {
 
       legendControl.onRemove(mapStub);
 
-      expect(L.DomEvent.off).toHaveBeenCalledWith(legendControl._container,
-          'mousewheel', L.DomEvent.stopPropagation);
+      expect(L.DomEvent.off).toHaveBeenCalledWith(
+        legendControl._container,
+        'mousewheel',
+        L.DomEvent.stopPropagation
+      );
 
-      expect(L.DomEvent.off).toHaveBeenCalledWith(legendControl._showButton,
-          'click', L.DomEvent.stop);
-      expect(L.DomEvent.off).toHaveBeenCalledWith(legendControl._showButton,
-          'click', legendControl._open, legendControl);
+      expect(L.DomEvent.off).toHaveBeenCalledWith(
+        legendControl._showButton,
+        'click',
+        L.DomEvent.stop
+      );
+      expect(L.DomEvent.off).toHaveBeenCalledWith(
+        legendControl._showButton,
+        'click',
+        legendControl._open,
+        legendControl
+      );
 
-      expect(L.DomEvent.off).toHaveBeenCalledWith(legendControl._hideButton,
-          'click', legendControl._close, legendControl);
+      expect(L.DomEvent.off).toHaveBeenCalledWith(
+        legendControl._hideButton,
+        'click',
+        legendControl._close,
+        legendControl
+      );
 
-      expect(mapStub.off).toHaveBeenCalledWith('layeradd',
-          legendControl._onLayerAdd, legendControl);
-      expect(mapStub.off).toHaveBeenCalledWith('layerremove',
-          legendControl._onLayerRemove, legendControl);
+      expect(mapStub.off).toHaveBeenCalledWith(
+        'layeradd',
+        legendControl._onLayerAdd,
+        legendControl
+      );
+      expect(mapStub.off).toHaveBeenCalledWith(
+        'layerremove',
+        legendControl._onLayerRemove,
+        legendControl
+      );
     });
   });
 
@@ -191,7 +210,7 @@ describe('LegendControl', () => {
   describe('_onLayerAdd', () => {
     it('adds the event layer legend', () => {
       const layer = {};
-      const evt = {'layer': layer};
+      const evt = { layer: layer };
 
       spyOn(legendControl, 'addLegend');
 
@@ -203,7 +222,7 @@ describe('LegendControl', () => {
   describe('_onLayerRemove', () => {
     it('removes the event layer legend', () => {
       const layer = {};
-      const evt = {'layer': layer};
+      const evt = { layer: layer };
 
       spyOn(legendControl, 'removeLegend');
 
@@ -215,9 +234,9 @@ describe('LegendControl', () => {
   describe('_update', () => {
     it('clears and adds each layer', () => {
       const overlays = [
-        {mapHasLayer: true},
-        {mapHasLayer: false},
-        {mapHasLayer: true}
+        { mapHasLayer: true },
+        { mapHasLayer: false },
+        { mapHasLayer: true }
       ];
 
       spyOn(legendControl, 'clearLegendContainer');

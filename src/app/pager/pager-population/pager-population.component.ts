@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Creates a table on the PAGER module to define the populations
  * exposed to different levels of shaking.
@@ -10,16 +9,12 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'pager-population',
-  templateUrl: './pager-population.component.html',
-  styleUrls: ['./pager-population.component.scss']
+  styleUrls: ['./pager-population.component.scss'],
+  templateUrl: './pager-population.component.html'
 })
 export class PagerPopulationComponent {
+  columnsToDisplay = ['mmi', 'shaking', 'population'];
 
-  public columnsToDisplay = [
-    'mmi',
-    'shaking',
-    'population'
-  ];
-
-  @Input() pager: any;
+  @Input()
+  pager: any;
 }

@@ -9,19 +9,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from '../../environments/environment';
 import { EventService } from './event.service';
 
-
 describe('EventService', () => {
-  let httpClient: HttpTestingController,
-      injector: TestBed;
+  let httpClient: HttpTestingController, injector: TestBed;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule, RouterTestingModule
-      ],
-      providers: [
-        EventService
-      ]
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      providers: [EventService]
     });
 
     injector = getTestBed();
@@ -38,13 +32,15 @@ describe('EventService', () => {
 
   describe('getEvent', () => {
     it('handles successes', inject([EventService], (service: EventService) => {
-      const expectedEvent = {id: 'abcd'};
+      const expectedEvent = { id: 'abcd' };
 
       service.getEvent(expectedEvent.id);
-      const req = httpClient.expectOne(`${environment.EVENT_SERVICE}/${expectedEvent.id}.geojson`);
+      const req = httpClient.expectOne(
+        `${environment.EVENT_SERVICE}/${expectedEvent.id}.geojson`
+      );
       req.flush(expectedEvent);
 
-      service.event$.subscribe((event) => {
+      service.event$.subscribe(event => {
         expect(event.id).toEqual(expectedEvent.id);
       });
     }));
@@ -61,10 +57,10 @@ describe('EventService', () => {
 
       req.flush(error, {
         status: 500,
-        statusText: 'Server Error'}
-      );
+        statusText: 'Server Error'
+      });
 
-      service.event$.subscribe((event) => {
+      service.event$.subscribe(event => {
         expect(event.id).toBe('1234');
         expect(event.data.status).toBe(500);
         expect(event.data.message).toBe(error.message);
@@ -74,9 +70,11 @@ describe('EventService', () => {
 
     it('handles 404 errors', inject([EventService], (service: EventService) => {
       const spy = spyOn(service, 'getUnknownEvent');
-      const unknownEvent = {id: '123321'};
+      const unknownEvent = { id: '123321' };
       service.getEvent(unknownEvent.id);
-      const req = httpClient.expectOne(`${environment.EVENT_SERVICE}/${unknownEvent.id}.geojson`);
+      const req = httpClient.expectOne(
+        `${environment.EVENT_SERVICE}/${unknownEvent.id}.geojson`
+      );
 
       req.flush('Error 404: Unknown Event', {
         status: 404,
@@ -87,49 +85,63 @@ describe('EventService', () => {
     }));
 
     it('handles deletes', inject([EventService], (service: EventService) => {
-      const deletedEvent = {id: 'deleted'};
+      const deletedEvent = { id: 'deleted' };
       service.getEvent(deletedEvent.id);
-      let req = httpClient.expectOne(`${environment.EVENT_SERVICE}/${deletedEvent.id}.geojson`);
+      let req = httpClient.expectOne(
+        `${environment.EVENT_SERVICE}/${deletedEvent.id}.geojson`
+      );
 
       req.flush('Error 409: Conflict', {
         status: 409,
         statusText: 'Conflict'
       });
 
-      req = httpClient.expectOne(`${environment.DELETED_EVENT_SERVICE}&eventid=${deletedEvent.id}`);
+      req = httpClient.expectOne(
+        `${environment.DELETED_EVENT_SERVICE}&eventid=${deletedEvent.id}`
+      );
       req.flush(deletedEvent);
 
-      service.event$.subscribe((event) => {
+      service.event$.subscribe(event => {
         expect(event.id).toEqual(deletedEvent.id);
       });
     }));
 
-    it('streamlines repeats', inject([EventService],
-          (service: EventService) => {
-      let req;
+    it('streamlines repeats', inject(
+      [EventService],
+      (service: EventService) => {
+        let req;
 
-      service.getEvent('first');
-      req = httpClient.expectOne(`${environment.EVENT_SERVICE}/first.geojson`);
-      expect(req.request.method).toEqual('GET');
-      req.flush({id: 'first'});
+        service.getEvent('first');
+        req = httpClient.expectOne(
+          `${environment.EVENT_SERVICE}/first.geojson`
+        );
+        expect(req.request.method).toEqual('GET');
+        req.flush({ id: 'first' });
 
-      service.getEvent('first');
-      req = httpClient.expectOne(`${environment.EVENT_SERVICE}/first.geojson`);
-      expect(req.request.method).toEqual('GET');
-      req.flush({id: 'first'});
-    }));
+        service.getEvent('first');
+        req = httpClient.expectOne(
+          `${environment.EVENT_SERVICE}/first.geojson`
+        );
+        expect(req.request.method).toEqual('GET');
+        req.flush({ id: 'first' });
+      }
+    ));
   });
 
   describe('getProduct', () => {
-    it('sets product on event', inject([EventService],
-          (service: EventService) => {
-      let event;
-      service.event$.subscribe((e) => { event = e; });
-      spyOn(event, 'getProduct');
+    it('sets product on event', inject(
+      [EventService],
+      (service: EventService) => {
+        let event;
+        service.event$.subscribe(e => {
+          event = e;
+        });
+        spyOn(event, 'getProduct');
 
-      service.getProduct('type', 'source', 'code');
-      expect(event.getProduct.calls.count()).toBe(1);
-      expect(event.getProduct).toHaveBeenCalledWith('type', 'source', 'code');
-    }));
+        service.getProduct('type', 'source', 'code');
+        expect(event.getProduct.calls.count()).toBe(1);
+        expect(event.getProduct).toHaveBeenCalledWith('type', 'source', 'code');
+      }
+    ));
   });
 });

@@ -2,9 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { EventService } from '../../core/event.service';
-import { MetadataService } from '../../core/metadata.service';
-
+import { EventService } from '@core/event.service';
+import { MetadataService } from '@core/metadata.service';
 
 /**
  * Metadata subcomponent, shows input/output/processing data when the user
@@ -12,41 +11,33 @@ import { MetadataService } from '../../core/metadata.service';
  */
 @Component({
   selector: 'shakemap-metadata',
-  templateUrl: './metadata.component.html',
-  styleUrls: ['./metadata.component.scss']
+  styleUrls: ['./metadata.component.scss'],
+  templateUrl: './metadata.component.html'
 })
 export class MetadataComponent implements OnInit, OnDestroy {
+  metadata: any = null;
+  subs = new Subscription();
 
-  public metadata: any = null;
-  public subs = new Subscription();
+  constructor(
+    public mdService: MetadataService,
+    public eventService: EventService
+  ) {}
 
-
-  constructor (
-      public mdService: MetadataService,
-      public eventService: EventService) { }
-
-
-  ngOnInit () {
-    this.subs.add(this.mdService.metadata$.subscribe((metadata) => {
-      this.onMetadata(metadata);
-    }));
-    this.subs.add(this.eventService.product$.subscribe((product) => {
-      this.onProduct(product);
-    }));
-  }
-
-  ngOnDestroy () {
+  ngOnDestroy() {
     this.subs.unsubscribe();
   }
 
-  /**
-   * New product, get new station list
-   *
-   * @param product
-   *     shakemap product
-   */
-  onProduct (product): void {
-    this.mdService.getMetadata(product);
+  ngOnInit() {
+    this.subs.add(
+      this.mdService.metadata$.subscribe(metadata => {
+        this.onMetadata(metadata);
+      })
+    );
+    this.subs.add(
+      this.eventService.product$.subscribe(product => {
+        this.onProduct(product);
+      })
+    );
   }
 
   /**
@@ -55,8 +46,17 @@ export class MetadataComponent implements OnInit, OnDestroy {
    * @param metadata
    *     shakemap metadata
    */
-  onMetadata (metadata): void {
+  onMetadata(metadata): void {
     this.metadata = metadata;
   }
 
+  /**
+   * New product, get new station list
+   *
+   * @param product
+   *     shakemap product
+   */
+  onProduct(product): void {
+    this.mdService.getMetadata(product);
+  }
 }

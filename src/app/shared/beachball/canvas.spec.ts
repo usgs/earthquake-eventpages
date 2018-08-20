@@ -1,9 +1,8 @@
 import { Canvas } from './canvas';
 
-
 describe('Canvas', () => {
   const testCanvas = new Canvas();
-  testCanvas.context = {calls: []};
+  testCanvas.context = { calls: [] };
   [
     'arc',
     'beginPath',
@@ -15,11 +14,11 @@ describe('Canvas', () => {
     'measureText',
     'stroke',
     'strokeText'
-  ].forEach((name) => {
-    testCanvas.context[name] = function () {
+  ].forEach(name => {
+    testCanvas.context[name] = function() {
       testCanvas.context.calls.push({
-        name: name,
-        arguments: Array.prototype.slice.call(arguments)
+        arguments: Array.prototype.slice.call(arguments),
+        name: name
       });
     };
   });
@@ -64,6 +63,7 @@ describe('Canvas', () => {
 
       const getSpy = jasmine.createSpy('width get').and.returnValue('test get');
       const setSpy = jasmine.createSpy('width set').and.returnValue('test set');
+      // tslint:disable-next-line:variable-name
       const TestCanvas = class {
         get width() {
           return getSpy();
@@ -72,6 +72,7 @@ describe('Canvas', () => {
           setSpy(width);
         }
       };
+
       canvas.canvas = new TestCanvas();
       canvas.context = {};
       canvas.clear();
@@ -85,9 +86,9 @@ describe('Canvas', () => {
     it('draws a circle', () => {
       testCanvas.circle(1, 2, 3, 'stroke', 'fill');
       expect(testCanvas.context.calls).toEqual([
-        {name: 'beginPath', arguments: []},
-        {name: 'arc', arguments: [1, 2, 1.5, 0, Math.PI * 2, true]},
-        {name: 'closePath', arguments: []}
+        { name: 'beginPath', arguments: [] },
+        { name: 'arc', arguments: [1, 2, 1.5, 0, Math.PI * 2, true] },
+        { name: 'closePath', arguments: [] }
       ]);
       expect(testCanvas._strokeAndFill).toHaveBeenCalledWith('stroke', 'fill');
     });
@@ -102,11 +103,11 @@ describe('Canvas', () => {
         'fill'
       );
       expect(testCanvas.context.calls).toEqual([
-        {name: 'beginPath', arguments: []},
-        {name: 'moveTo', arguments: ['x1', 'y1']},
-        {name: 'lineTo', arguments: ['x2', 'y2']},
-        {name: 'lineTo', arguments: ['x3', 'y3']},
-        {name: 'closePath', arguments: []}
+        { name: 'beginPath', arguments: [] },
+        { name: 'moveTo', arguments: ['x1', 'y1'] },
+        { name: 'lineTo', arguments: ['x2', 'y2'] },
+        { name: 'lineTo', arguments: ['x3', 'y3'] },
+        { name: 'closePath', arguments: [] }
       ]);
       expect(testCanvas._strokeAndFill).toHaveBeenCalledWith('stroke', 'fill');
     });
@@ -114,17 +115,12 @@ describe('Canvas', () => {
 
   describe('line', () => {
     it('draws a line', () => {
-      testCanvas.line(
-        ['x1', 'x2', 'x3'],
-        ['y1', 'y2', 'y3'],
-        'stroke',
-        'fill'
-      );
+      testCanvas.line(['x1', 'x2', 'x3'], ['y1', 'y2', 'y3'], 'stroke', 'fill');
       expect(testCanvas.context.calls).toEqual([
-        {name: 'beginPath', arguments: []},
-        {name: 'moveTo', arguments: ['x1', 'y1']},
-        {name: 'lineTo', arguments: ['x2', 'y2']},
-        {name: 'lineTo', arguments: ['x3', 'y3']}
+        { name: 'beginPath', arguments: [] },
+        { name: 'moveTo', arguments: ['x1', 'y1'] },
+        { name: 'lineTo', arguments: ['x2', 'y2'] },
+        { name: 'lineTo', arguments: ['x3', 'y3'] }
       ]);
       expect(testCanvas._strokeAndFill).toHaveBeenCalledWith('stroke', 'fill');
     });
@@ -135,7 +131,7 @@ describe('Canvas', () => {
       testCanvas.measureText('font', 'test text');
       expect(testCanvas.context.font).toBe('font');
       expect(testCanvas.context.calls).toEqual([
-        {name: 'measureText', arguments: ['test text']}
+        { name: 'measureText', arguments: ['test text'] }
       ]);
     });
   });
@@ -147,42 +143,42 @@ describe('Canvas', () => {
       expect(testCanvas.context.strokeStyle).toBe('stroke');
       expect(testCanvas.context.fillStyle).toBe('fill');
       expect(testCanvas.context.calls).toEqual([
-        {name: 'strokeText', arguments: ['test text', 50, 75]},
-        {name: 'fillText', arguments: ['test text', 50, 75]}
+        { name: 'strokeText', arguments: ['test text', 50, 75] },
+        { name: 'fillText', arguments: ['test text', 50, 75] }
       ]);
     });
 
     it('aligns center', () => {
-      spyOn(testCanvas.context, 'measureText').and.returnValue({width: 50});
+      spyOn(testCanvas.context, 'measureText').and.returnValue({ width: 50 });
       testCanvas.text('test text', 'font', 50, 75, 'stroke', 'fill', 'center');
       expect(testCanvas.context.measureText).toHaveBeenCalledWith('test text');
       expect(testCanvas.context.calls).toEqual([
-        {name: 'strokeText', arguments: ['test text', 25, 75]},
-        {name: 'fillText', arguments: ['test text', 25, 75]}
+        { name: 'strokeText', arguments: ['test text', 25, 75] },
+        { name: 'fillText', arguments: ['test text', 25, 75] }
       ]);
     });
 
     it('aligns right', () => {
-      spyOn(testCanvas.context, 'measureText').and.returnValue({width: 10});
+      spyOn(testCanvas.context, 'measureText').and.returnValue({ width: 10 });
       testCanvas.text('test text', 'font', 50, 75, 'stroke', 'fill', 'right');
       expect(testCanvas.context.measureText).toHaveBeenCalledWith('test text');
       expect(testCanvas.context.calls).toEqual([
-        {name: 'strokeText', arguments: ['test text', 40, 75]},
-        {name: 'fillText', arguments: ['test text', 40, 75]}
+        { name: 'strokeText', arguments: ['test text', 40, 75] },
+        { name: 'fillText', arguments: ['test text', 40, 75] }
       ]);
     });
 
     it('skips fill when falsy', () => {
       testCanvas.text('test text', 'font', 50, 75, 'stroke', null);
       expect(testCanvas.context.calls).toEqual([
-        {name: 'strokeText', arguments: ['test text', 50, 75]},
+        { name: 'strokeText', arguments: ['test text', 50, 75] }
       ]);
     });
 
     it('skips stroke when falsy', () => {
       testCanvas.text('test text', 'font', 50, 75, null, 'fill');
       expect(testCanvas.context.calls).toEqual([
-        {name: 'fillText', arguments: ['test text', 50, 75]},
+        { name: 'fillText', arguments: ['test text', 50, 75] }
       ]);
     });
   });
@@ -197,8 +193,8 @@ describe('Canvas', () => {
       expect(canvas.context.strokeStyle).toBe('stroke');
       expect(canvas.context.fillStyle).toBe('fill');
       expect(canvas.context.calls).toEqual([
-        {name: 'stroke', arguments: []},
-        {name: 'fill', arguments: []}
+        { name: 'stroke', arguments: [] },
+        { name: 'fill', arguments: [] }
       ]);
     });
 
@@ -210,9 +206,7 @@ describe('Canvas', () => {
       canvas._strokeAndFill(null, 'fill');
       expect(canvas.context.strokeStyle).toBeNull();
       expect(canvas.context.fillStyle).toBe('fill');
-      expect(canvas.context.calls).toEqual([
-        {name: 'fill', arguments: []}
-      ]);
+      expect(canvas.context.calls).toEqual([{ name: 'fill', arguments: [] }]);
     });
 
     it('skips fill when falsy', () => {
@@ -223,10 +217,7 @@ describe('Canvas', () => {
       canvas._strokeAndFill('stroke', null);
       expect(canvas.context.strokeStyle).toBe('stroke');
       expect(canvas.context.fillStyle).toBeNull();
-      expect(canvas.context.calls).toEqual([
-        {name: 'stroke', arguments: []}
-      ]);
+      expect(canvas.context.calls).toEqual([{ name: 'stroke', arguments: [] }]);
     });
-
   });
 });

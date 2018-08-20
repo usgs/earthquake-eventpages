@@ -1,4 +1,3 @@
-
 /**
  * Create a new Canvas object.
  *
@@ -14,11 +13,9 @@
  *        Height of canvas, when options.canvas is null.
  */
 export class Canvas {
+  context: any;
 
-  public context: any;
-
-
-  constructor (
+  constructor(
     public canvas: any = null,
     public height = 100,
     public width = 100
@@ -31,15 +28,26 @@ export class Canvas {
     this.context = this.canvas.getContext('2d');
   }
 
-
   /**
-   * Clear the canvas.
+   * Stroke and fill the current path.
+   *
+   * @param context {Object}
+   *        canvas context
+   * @param stroke {String}
+   *        strokeStyle, or null to not stroke.
+   * @param fill {String}
+   *        fillStyle, or null to not fill.
    */
-  clear () {
-    if (this.context.clearRect) {
-      this.context.clearRect(0, 0, this.width, this.height);
-    } else {
-      this.canvas.width = this.canvas.width;
+  _strokeAndFill(stroke, fill) {
+    const c = this.context;
+
+    if (stroke) {
+      c.strokeStyle = stroke;
+      c.stroke();
+    }
+    if (fill) {
+      c.fillStyle = fill;
+      c.fill();
     }
   }
 
@@ -57,7 +65,7 @@ export class Canvas {
    * @param fill {String}
    *        fillStyle, or null to not fill.
    */
-  circle (x, y, size, stroke, fill) {
+  circle(x, y, size, stroke, fill) {
     const c = this.context;
 
     c.beginPath();
@@ -68,28 +76,14 @@ export class Canvas {
   }
 
   /**
-   * Draw a polygon
-   *
-   * @param x {Array<Number>}
-   *        array of x coordinates.
-   * @param y {Array<Number>}
-   *        array of y coordinates.
-   * @param stroke {String}
-   *        strokeStyle, or null to not stroke.
-   * @param fill {String}
-   *        fillStyle, or null to not fill.
+   * Clear the canvas.
    */
-  polygon (x, y, stroke, fill) {
-    const c = this.context;
-
-    c.beginPath();
-    c.moveTo(x[0], y[0]);
-    for (let i = 1, len = x.length; i < len; i++) {
-      c.lineTo(x[i], y[i]);
+  clear() {
+    if (this.context.clearRect) {
+      this.context.clearRect(0, 0, this.width, this.height);
+    } else {
+      this.canvas.width = this.canvas.width;
     }
-    c.closePath();
-
-    this._strokeAndFill(stroke, fill);
   }
 
   /**
@@ -106,7 +100,7 @@ export class Canvas {
    * @param fill {String}
    *        fillStyle, or null to not fill.
    */
-  line (x, y, stroke, fill) {
+  line(x, y, stroke, fill) {
     const c = this.context;
 
     c.beginPath();
@@ -129,11 +123,36 @@ export class Canvas {
    *     size of text once plotted, "width" is the only widely supported
    *     TextMetrics property.
    */
-  measureText (font, text) {
+  measureText(font, text) {
     const c = this.context;
 
     c.font = font;
     return c.measureText(text);
+  }
+
+  /**
+   * Draw a polygon
+   *
+   * @param x {Array<Number>}
+   *        array of x coordinates.
+   * @param y {Array<Number>}
+   *        array of y coordinates.
+   * @param stroke {String}
+   *        strokeStyle, or null to not stroke.
+   * @param fill {String}
+   *        fillStyle, or null to not fill.
+   */
+  polygon(x, y, stroke, fill) {
+    const c = this.context;
+
+    c.beginPath();
+    c.moveTo(x[0], y[0]);
+    for (let i = 1, len = x.length; i < len; i++) {
+      c.lineTo(x[i], y[i]);
+    }
+    c.closePath();
+
+    this._strokeAndFill(stroke, fill);
   }
 
   /**
@@ -157,7 +176,7 @@ export class Canvas {
    *        'center' centers around x.
    *        'right' ends at x.
    */
-  text (text, font, x, y, stroke, fill, align = 'left') {
+  text(text, font, x, y, stroke, fill, align = 'left') {
     const c = this.context;
 
     c.font = font;
@@ -165,7 +184,8 @@ export class Canvas {
       const size = c.measureText(text);
       if (align === 'center') {
         x = x - size.width / 2;
-      } else { // (align === 'right')
+      } else {
+        // (align === 'right')
         x = x - size.width;
       }
     }
@@ -180,29 +200,4 @@ export class Canvas {
       c.fillText(text, x, y);
     }
   }
-
-
-  /**
-   * Stroke and fill the current path.
-   *
-   * @param context {Object}
-   *        canvas context
-   * @param stroke {String}
-   *        strokeStyle, or null to not stroke.
-   * @param fill {String}
-   *        fillStyle, or null to not fill.
-   */
-  _strokeAndFill (stroke, fill) {
-    const c = this.context;
-
-    if (stroke) {
-      c.strokeStyle = stroke;
-      c.stroke();
-    }
-    if (fill) {
-      c.fillStyle = fill;
-      c.fill();
-    }
-  }
-
 }

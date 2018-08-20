@@ -3,9 +3,8 @@ import { MatDialogModule, MatTableModule } from '@angular/material';
 
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
-import { FormatterService } from '../../core/formatter.service';
-import { QuakemlService } from '../../core/quakeml.service';
+import { EventService } from '@core/event.service';
+import { QuakemlService } from '@core/quakeml.service';
 import { MockPipe } from '../../mock-pipe';
 import { Quakeml } from '../../quakeml';
 import { toArray } from '../../to-array';
@@ -13,9 +12,8 @@ import { xmlToJson } from '../../xml-to-json';
 
 import { PhaseComponent } from './phase.component';
 
-
 describe('PhaseComponent', () => {
-
+  /* tslint:disable:max-line-length */
   const QUAKEML_XML = `
   <q:quakeml xmlns="http://quakeml.org/xmlns/bed/1.2"
       xmlns:catalog="http://anss.org/xmlns/catalog/0.1"
@@ -155,6 +153,7 @@ describe('PhaseComponent', () => {
   </eventParameters>
   </q:quakeml>
   `;
+  /* tslint:enable:max-line-length */
 
   let component: PhaseComponent;
   let fixture: ComponentFixture<PhaseComponent>;
@@ -169,21 +168,13 @@ describe('PhaseComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [
-        PhaseComponent,
-
-        MockPipe('sharedNumber')
-      ],
-      imports: [
-        MatDialogModule,
-        MatTableModule
-      ],
+      declarations: [PhaseComponent, MockPipe('sharedNumber')],
+      imports: [MatDialogModule, MatTableModule],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: QuakemlService, useValue: quakemlServiceStub}
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: QuakemlService, useValue: quakemlServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -219,8 +210,8 @@ describe('PhaseComponent', () => {
       // download formatted
       expect(spy.calls.mostRecent().args[1].data.content).toEqual(
         'Channel\tDistance\tAzimuth\tPhase\tArrival Time\tStatus\tResidual' +
-        '\tWeight\ntest channel\ttest distance\ttest azimuth\ttest phase' +
-        '\ttest time\ttest status\ttest time residual\ttest time weight'
+          '\tWeight\ntest channel\ttest distance\ttest azimuth\ttest phase' +
+          '\ttest time\ttest status\ttest time residual\ttest time weight'
       );
     });
   });
@@ -241,7 +232,7 @@ describe('PhaseComponent', () => {
           pickPublicId: 'quakeml:uu.anss.org/Arrival/UU/1907274',
           status: 'manual',
           time: '2018-02-15T18:41:08.570Z',
-          timeRelative: 2.550,
+          timeRelative: 2.55,
           timeResidual: '-.17',
           timeWeight: '0.14'
         }
@@ -255,8 +246,8 @@ describe('PhaseComponent', () => {
       const event = quakeml.events[0];
       event.origins[0].arrival = toArray(event.origins[0].arrival);
       event.origins[0].arrival.push({
-        'publicID': 'test public id',
-        'pickID': 'no such pick'
+        pickID: 'no such pick',
+        publicID: 'test public id'
       });
 
       component.onQuakeml(quakeml);
@@ -310,7 +301,7 @@ describe('PhaseComponent', () => {
         time: 'c',
         timeResidual: '4',
         timeWeight: '5'
-      },
+      }
     ];
 
     it('skips sorting unless sort is specified', () => {
@@ -318,9 +309,9 @@ describe('PhaseComponent', () => {
 
       component.sortPhases(null);
       expect(component.sortedPhases).toEqual(phases);
-      component.sortPhases({active: null, direction: 'asc'});
+      component.sortPhases({ active: null, direction: 'asc' });
       expect(component.sortedPhases).toEqual(phases);
-      component.sortPhases({active: 'azimuth', direction: ''});
+      component.sortPhases({ active: 'azimuth', direction: '' });
       expect(component.sortedPhases).toEqual(phases);
     });
 
@@ -328,7 +319,7 @@ describe('PhaseComponent', () => {
       component.phases = phases;
 
       // sort
-      component.sortPhases({active: 'azimuth', direction: 'asc'});
+      component.sortPhases({ active: 'azimuth', direction: 'asc' });
       expect(component.sortedPhases[0]).toEqual(phases[2]);
       expect(component.sortedPhases[1]).toEqual(phases[0]);
       expect(component.sortedPhases[2]).toEqual(phases[1]);
@@ -342,13 +333,13 @@ describe('PhaseComponent', () => {
       component.phases = phases;
 
       // sort asc
-      component.sortPhases({active: 'azimuth', direction: 'asc'});
+      component.sortPhases({ active: 'azimuth', direction: 'asc' });
       expect(component.sortedPhases[0]).toEqual(phases[2]);
       expect(component.sortedPhases[1]).toEqual(phases[0]);
       expect(component.sortedPhases[2]).toEqual(phases[1]);
 
       // sort desc
-      component.sortPhases({active: 'azimuth', direction: 'desc'});
+      component.sortPhases({ active: 'azimuth', direction: 'desc' });
       expect(component.sortedPhases[0]).toEqual(phases[1]);
       expect(component.sortedPhases[1]).toEqual(phases[0]);
       expect(component.sortedPhases[2]).toEqual(phases[2]);
@@ -358,27 +349,26 @@ describe('PhaseComponent', () => {
       component.phases = phases;
 
       // sort order is different for known columns
-      component.sortPhases({active: 'azimuth', direction: 'asc'});
+      component.sortPhases({ active: 'azimuth', direction: 'asc' });
       expect(component.sortedPhases).not.toEqual(phases);
-      component.sortPhases({active: 'channel', direction: 'asc'});
+      component.sortPhases({ active: 'channel', direction: 'asc' });
       expect(component.sortedPhases).not.toEqual(phases);
-      component.sortPhases({active: 'distance', direction: 'asc'});
+      component.sortPhases({ active: 'distance', direction: 'asc' });
       expect(component.sortedPhases).not.toEqual(phases);
-      component.sortPhases({active: 'phase', direction: 'asc'});
+      component.sortPhases({ active: 'phase', direction: 'asc' });
       expect(component.sortedPhases).not.toEqual(phases);
-      component.sortPhases({active: 'status', direction: 'asc'});
+      component.sortPhases({ active: 'status', direction: 'asc' });
       expect(component.sortedPhases).not.toEqual(phases);
-      component.sortPhases({active: 'time', direction: 'asc'});
+      component.sortPhases({ active: 'time', direction: 'asc' });
       expect(component.sortedPhases).not.toEqual(phases);
-      component.sortPhases({active: 'timeResidual', direction: 'asc'});
+      component.sortPhases({ active: 'timeResidual', direction: 'asc' });
       expect(component.sortedPhases).not.toEqual(phases);
-      component.sortPhases({active: 'timeWeight', direction: 'asc'});
+      component.sortPhases({ active: 'timeWeight', direction: 'asc' });
       expect(component.sortedPhases).not.toEqual(phases);
 
       // sort order is default for unknown columns
-      component.sortPhases({active: 'unknown', direction: 'asc'});
+      component.sortPhases({ active: 'unknown', direction: 'asc' });
       expect(component.sortedPhases).toEqual(phases);
     });
   });
-
 });

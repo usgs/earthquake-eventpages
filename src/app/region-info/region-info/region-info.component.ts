@@ -1,11 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { CoordinatesService } from 'earthquake-geoserve-ui';
-import * as L from 'leaflet';
 import { Subscription } from 'rxjs';
 
-import { EventService } from '../../core/event.service';
-
+import { EventService } from '@core/event.service';
 
 /**
  * Displays regional information related to the event epicenter and displays
@@ -15,27 +13,25 @@ import { EventService } from '../../core/event.service';
  */
 @Component({
   selector: 'app-region-info',
-  templateUrl: './region-info.component.html',
-  styleUrls: ['./region-info.component.scss']
+  styleUrls: ['./region-info.component.scss'],
+  templateUrl: './region-info.component.html'
 })
 export class RegionInfoComponent implements OnDestroy, OnInit {
-  public subscription: Subscription;
+  subscription: Subscription;
 
-
-  constructor (
+  constructor(
     public coordinatesService: CoordinatesService,
     public eventService: EventService
-  ) { }
+  ) {}
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
-  ngOnInit () {
+  ngOnInit() {
     this.subscription = this.eventService.event$.subscribe((event: any) => {
       this.updateGeoserveCoordinateService(event);
     });
-  }
-
-  ngOnDestroy () {
-    this.subscription.unsubscribe();
   }
 
   /**
@@ -46,7 +42,7 @@ export class RegionInfoComponent implements OnDestroy, OnInit {
    * @param event {any}
    *    An event object used to define the epicenter
    */
-  updateGeoserveCoordinateService (event: any) {
+  updateGeoserveCoordinateService(event: any) {
     if (!event || !event.geometry) {
       return;
     }
@@ -55,8 +51,8 @@ export class RegionInfoComponent implements OnDestroy, OnInit {
     const longitude = event.geometry.coordinates[1];
 
     this.coordinatesService.setCoordinates({
-      longitude: latitude,
-      latitude: longitude
+      latitude: longitude,
+      longitude: latitude
     });
   }
 }

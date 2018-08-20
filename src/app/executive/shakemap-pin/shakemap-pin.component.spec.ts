@@ -5,7 +5,6 @@ import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 import { ShakemapPinComponent } from './shakemap-pin.component';
 
-
 describe('ShakemapPinComponent', () => {
   let component: ShakemapPinComponent;
   let fixture: ComponentFixture<ShakemapPinComponent>;
@@ -14,15 +13,18 @@ describe('ShakemapPinComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ShakemapPinComponent,
-        MockComponent({selector: 'basic-pin',
-            inputs: ['link', 'product', 'title']}),
-        MockComponent({selector: 'shared-mmi',
-            inputs: ['bubble', 'intensity']}),
+        MockComponent({
+          inputs: ['link', 'product', 'title'],
+          selector: 'basic-pin'
+        }),
+        MockComponent({
+          inputs: ['bubble', 'intensity'],
+          selector: 'shared-mmi'
+        }),
 
         MockPipe('getProduct')
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

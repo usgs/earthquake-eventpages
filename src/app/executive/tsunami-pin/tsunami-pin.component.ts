@@ -1,18 +1,15 @@
-import { Component, Input } from '@angular/core';
-
+import { Component } from '@angular/core';
 
 /**
  * Tsunami Pin
  */
 @Component({
   selector: 'executive-tsunami-pin',
-  templateUrl: './tsunami-pin.component.html',
-  styleUrls: ['./tsunami-pin.component.scss']
+  styleUrls: ['./tsunami-pin.component.scss'],
+  templateUrl: './tsunami-pin.component.html'
 })
 export class TsunamiPinComponent {
-
-  public href = 'https://www.tsunami.gov/';
-  public title = 'Tsunami';
-  public footer = 'NOAA';
-
+  footer = 'NOAA';
+  href = 'https://www.tsunami.gov/';
+  title = 'Tsunami';
 }

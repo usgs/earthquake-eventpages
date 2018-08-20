@@ -2,18 +2,15 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 
-
 /**
  * A service that parses an oaf product into more consumable bits,
  * the forecast and model objects
  */
 @Injectable()
 export class OafService {
-
-  public oaf$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public forecast$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public model$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-
+  forecast$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  model$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  oaf$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   /**
    * Updates the observable streams for: oaf, forecast, and model
@@ -21,7 +18,7 @@ export class OafService {
    * @param product
    *     A oaf type product
    */
-  getOaf (product: any): void {
+  getOaf(product: any): void {
     try {
       const bytes = product.contents[''].bytes;
       const oaf = this.parseOaf(bytes);
@@ -46,7 +43,7 @@ export class OafService {
    * @return {any}
    *     object with forecast bins
    */
-  parseForecast (forecasts: any): any {
+  parseForecast(forecasts: any): any {
     const columns = [];
     const columnIds = ['magnitude'];
     const rows = [];
@@ -58,15 +55,15 @@ export class OafService {
       columns.push({
         id,
         label: forecast.label,
-        timeStart: forecast.timeStart,
-        timeEnd: forecast.timeEnd
+        timeEnd: forecast.timeEnd,
+        timeStart: forecast.timeStart
       });
 
       forecast.bins.forEach((bin, bIndex) => {
         if (fIndex === 0) {
           rows[bIndex] = {
-            magnitude: bin.magnitude,
-            data: {}
+            data: {},
+            magnitude: bin.magnitude
           };
         }
         rows[bIndex].data[id] = bin;
@@ -86,14 +83,14 @@ export class OafService {
    * @param model
    *     oaf.model object
    */
-  parseModel (model: any): any {
+  parseModel(model: any): any {
     return {
-      ref: model.ref,
       name: model.name,
       parameters: {
         keys: Object.keys(model.parameters),
         values: model.parameters
-      }
+      },
+      ref: model.ref
     };
   }
 
@@ -106,7 +103,7 @@ export class OafService {
    * @return {any}
    *     oaf object
    */
-  parseOaf (bytes: any): any {
+  parseOaf(bytes: any): any {
     return JSON.parse(bytes);
   }
 }

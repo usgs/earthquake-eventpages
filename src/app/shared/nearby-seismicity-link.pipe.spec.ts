@@ -1,35 +1,23 @@
 import { Event } from '../event';
 import { NearbySeismicityLinkPipe } from './nearby-seismicity-link.pipe';
 
-
 describe('NearbySeismicityLinkPipe', () => {
   let pipe: NearbySeismicityLinkPipe;
   let event: Event;
-  let link: string;
 
   beforeEach(() => {
     pipe = new NearbySeismicityLinkPipe();
     event = new Event({
-      'id': 'us10004u1y',
-      'geometry': {
-        'coordinates': [94.3299, -4.9521]
-      }
+      geometry: {
+        coordinates: [94.3299, -4.9521]
+      },
+      id: 'us10004u1y'
     });
-    link = '/earthquakes/map/#' +
-      '%7B%22autoUpdate%22%3Afalse%2C%22basemap%22%3A' +
-      '%22terrain%22%2C%22event%22%3A%22' +
-      'us10004u1y%22%2C%22feed%22%3A%22us10004u1y' +
-      '%22%2C%22mapposition%22%3A%5B%5B-85%2C' +
-      '-180%5D%2C%5B85%2C180%5D%5D%2C%22search' +
-      '%22%3A%7B%22id%22%3A%22' +
-      'us10004u1y%22%2C%22isSearch%22%3Atrue%2C%22name%22%3A' +
-      '%22Search%20Results%22%2C%22params%22%3Afalse%7D%7D';
   });
 
   afterEach(() => {
     pipe = null;
     event = null;
-    link = null;
   });
 
   it('create an instance', () => {
@@ -53,19 +41,21 @@ describe('NearbySeismicityLinkPipe', () => {
   describe('getNearbySeismicityLink', () => {
     it('guards against null/bad event parameter', () => {
       expect(pipe.getNearbySeismicityLink(null)).toEqual(null);
-      expect(pipe.getNearbySeismicityLink(
-        new Event({}))).toEqual(null);
-      expect(pipe.getNearbySeismicityLink(
-        new Event({geometry: true}))).toEqual(null);
+      expect(pipe.getNearbySeismicityLink(new Event({}))).toEqual(null);
+      expect(
+        pipe.getNearbySeismicityLink(new Event({ geometry: true }))
+      ).toEqual(null);
     });
 
     it('calls proper sub-methods', () => {
-      const leqSpy = spyOn(pipe, 'getLatestEarthquakesLink')
-        .and.returnValue('');
-      const nspSpy = spyOn(pipe, 'getNearbySeismicityParams')
-        .and.returnValue({});
+      const leqSpy = spyOn(pipe, 'getLatestEarthquakesLink').and.returnValue(
+        ''
+      );
+      const nspSpy = spyOn(pipe, 'getNearbySeismicityParams').and.returnValue(
+        {}
+      );
       event = null;
-      event = new Event({geometry: {}, id: 'eventid'});
+      event = new Event({ geometry: {}, id: 'eventid' });
 
       pipe.getNearbySeismicityLink(event);
       expect(leqSpy).toHaveBeenCalled();
@@ -83,13 +73,12 @@ describe('NearbySeismicityLinkPipe', () => {
       mapPositionSpy = spyOn(pipe, 'getMapPosition').and.returnValue({});
     });
 
-    const parseSettings = function (linkHref: string) {
+    const parseSettings = function(linkHref: string) {
       const parts = linkHref.split('#');
       const settings = JSON.parse(decodeURIComponent(parts[1]));
 
       return settings;
     };
-
 
     it('uses current map position', () => {
       const params = {};
@@ -105,8 +94,7 @@ describe('NearbySeismicityLinkPipe', () => {
       const linkHref = pipe.getLatestEarthquakesLink();
       const settings = parseSettings(linkHref);
 
-      expect(Math.abs(settings.feed - (new Date()).getTime()))
-        .toBeLessThan(1000);
+      expect(Math.abs(settings.feed - new Date().getTime())).toBeLessThan(1000);
       expect(settings.mapposition).toEqual({});
     });
   });
@@ -119,14 +107,19 @@ describe('NearbySeismicityLinkPipe', () => {
 
     it('uses provided rectangle parameters parameters', () => {
       const mapPosition = pipe.getMapPosition({
-        minlatitude: -1, minlongitude: -2, maxlatitude: 3, maxlongitude: 4
+        maxlatitude: 3,
+        maxlongitude: 4,
+        minlatitude: -1,
+        minlongitude: -2
       });
       expect(mapPosition).toEqual([[-1, -2], [3, 4]]);
     });
 
     it('uses circle parameters', () => {
       const mapPosition = pipe.getMapPosition({
-        latitude: 0, longitude: 0, maxradiuskm: 0
+        latitude: 0,
+        longitude: 0,
+        maxradiuskm: 0
       });
       expect(mapPosition).toEqual([[0, 0], [0, 0]]);
     });
@@ -136,8 +129,8 @@ describe('NearbySeismicityLinkPipe', () => {
     it('returns expected results', () => {
       event = null;
       event = new Event({
-        geometry: {coordinates: [1, 2, 3]},
-        properties: {time: 0, mag: 5}
+        geometry: { coordinates: [1, 2, 3] },
+        properties: { time: 0, mag: 5 }
       });
       const result = pipe.getNearbySeismicityParams(event);
 
@@ -154,8 +147,8 @@ describe('NearbySeismicityLinkPipe', () => {
     it('uses default when mag is null', () => {
       event = null;
       event = new Event({
-        geometry: {coordinates: [1, 2, 3]},
-        properties: {time: 0, mag: null}
+        geometry: { coordinates: [1, 2, 3] },
+        properties: { time: 0, mag: null }
       });
       const result = pipe.getNearbySeismicityParams(event);
 
@@ -173,24 +166,24 @@ describe('NearbySeismicityLinkPipe', () => {
       // No longitude
       event = null;
       event = new Event({
-        geometry: {coordinates: [null, 2, 3]},
-        properties: {time: 0, mag: 5}
+        geometry: { coordinates: [null, 2, 3] },
+        properties: { time: 0, mag: 5 }
       });
       let result = pipe.getNearbySeismicityParams(event);
       expect(result).toBe(false);
 
       // No latitude
       event = new Event({
-        geometry: {coordinates: [1, null, 3]},
-        properties: {time: 0, mag: 5}
+        geometry: { coordinates: [1, null, 3] },
+        properties: { time: 0, mag: 5 }
       });
       result = pipe.getNearbySeismicityParams(event);
       expect(result).toBe(false);
 
       // No time
       event = new Event({
-        geometry: {coordinates: [1, 2, 3]},
-        properties: {time: null, mag: 5}
+        geometry: { coordinates: [1, 2, 3] },
+        properties: { time: null, mag: 5 }
       });
       result = pipe.getNearbySeismicityParams(event);
       expect(result).toBe(false);

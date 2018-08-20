@@ -1,5 +1,4 @@
 import { AppPage } from './app.po';
-import { browser } from 'protractor';
 
 describe('earthquake-eventpages App', () => {
   let page: AppPage;
@@ -18,6 +17,8 @@ describe('earthquake-eventpages App', () => {
     // browser.ngApimock.selectScenario('eventService', 'us1000chhc');
 
     page.navigateTo('/us1000chhc');
-    expect(page.getEventPageHeaderTitle()).toEqual('M 6.4 - 18km NNE of Hualian, Taiwan');
+    expect(page.getEventPageHeaderTitle()).toEqual(
+      'M 6.4 - 18km NNE of Hualian, Taiwan'
+    );
   });
 });

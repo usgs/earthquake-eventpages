@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Event } from '../../event';
-import { Tensor } from '../../shared/beachball/tensor';
-
+import { Tensor } from '@shared/beachball/tensor';
 
 /**
  * Moment Tensor Pin
@@ -12,23 +10,22 @@ import { Tensor } from '../../shared/beachball/tensor';
  */
 @Component({
   selector: 'executive-moment-tensor-pin',
-  templateUrl: './moment-tensor-pin.component.html',
-  styleUrls: ['./moment-tensor-pin.component.scss']
+  styleUrls: ['./moment-tensor-pin.component.scss'],
+  templateUrl: './moment-tensor-pin.component.html'
 })
 export class MomentTensorPinComponent {
+  _product: any = null;
+  link = '../moment-tensor';
+  tensor: Tensor = null;
+  title = 'Moment Tensor';
 
-  public _product: any = null;
-  public link = '../moment-tensor';
-  public title = 'Moment Tensor';
-  public tensor: Tensor = null;
-
-  @Input() set product (product: any) {
+  @Input()
+  set product(product: any) {
     this._product = product;
     this.tensor = Tensor.fromProduct(product);
   }
 
-  get product () {
+  get product() {
     return this._product;
   }
-
 }

@@ -1,9 +1,8 @@
 import { Quakeml } from './quakeml';
 import { xmlToJson } from './xml-to-json';
 
-
 describe('Quakeml', () => {
-
+  /* tslint:disable:max-line-length */
   const QUAKEML_XML = `
   <q:quakeml xmlns="http://quakeml.org/xmlns/bed/1.2"
       xmlns:catalog="http://anss.org/xmlns/catalog/0.1"
@@ -143,11 +142,14 @@ describe('Quakeml', () => {
   </eventParameters>
   </q:quakeml>
   `;
+  /* tslint:enable:max-line-length */
 
   it('parses', () => {
     const parsed = new Quakeml(xmlToJson(QUAKEML_XML));
 
-    expect(parsed.publicID).toEqual('quakeml:uu.anss.org/Event/UU/60268292#151873355837');
+    expect(parsed.publicID).toEqual(
+      'quakeml:uu.anss.org/Event/UU/60268292#151873355837'
+    );
     expect(parsed.creationInfo).toEqual({
       agencyID: 'UU',
       creationTime: '2018-02-15T22:25:58.370Z'
@@ -155,45 +157,57 @@ describe('Quakeml', () => {
     expect(parsed.events.length).toEqual(1);
 
     const parsedEvent = parsed.events[0];
-    expect(parsedEvent.publicID).toEqual('quakeml:uu.anss.org/Event/UU/60268292');
-    expect(parsedEvent.preferredMagnitudeID).toEqual('quakeml:uu.anss.org/Netmag/UU/295364');
-    expect(parsedEvent.preferredOriginID).toEqual('quakeml:uu.anss.org/Origin/UU/222529');
+    expect(parsedEvent.publicID).toEqual(
+      'quakeml:uu.anss.org/Event/UU/60268292'
+    );
+    expect(parsedEvent.preferredMagnitudeID).toEqual(
+      'quakeml:uu.anss.org/Netmag/UU/295364'
+    );
+    expect(parsedEvent.preferredOriginID).toEqual(
+      'quakeml:uu.anss.org/Origin/UU/222529'
+    );
 
     expect(parsedEvent.preferredMagnitude()).toEqual(parsedEvent.magnitudes[0]);
     expect(parsedEvent.preferredOrigin()).toEqual(parsedEvent.origins[0]);
   });
 
-
   describe('formatWaveformID', () => {
     it('handles full nscl', () => {
-      expect(Quakeml.formatWaveformID({
-        networkCode: 'net',
-        stationCode: 'sta',
-        channelCode: 'cha',
-        locationCode: 'loc'
-      })).toEqual('net sta cha loc');
+      expect(
+        Quakeml.formatWaveformID({
+          channelCode: 'cha',
+          locationCode: 'loc',
+          networkCode: 'net',
+          stationCode: 'sta'
+        })
+      ).toEqual('net sta cha loc');
     });
 
     it('handles partial nscl', () => {
-      expect(Quakeml.formatWaveformID({
-        networkCode: 'net',
-        stationCode: 'sta'
-      })).toEqual('net sta');
+      expect(
+        Quakeml.formatWaveformID({
+          networkCode: 'net',
+          stationCode: 'sta'
+        })
+      ).toEqual('net sta');
     });
   });
 
   describe('parseTime', () => {
     it('parses times with timezones', () => {
-      expect(Quakeml.parseTime('2017-01-01T00:00:00Z').toISOString()).toEqual('2017-01-01T00:00:00.000Z');
+      expect(Quakeml.parseTime('2017-01-01T00:00:00Z').toISOString()).toEqual(
+        '2017-01-01T00:00:00.000Z'
+      );
     });
 
     it('parses times without timezones', () => {
-      expect(Quakeml.parseTime('2017-01-01T00:00:00').toISOString()).toEqual('2017-01-01T00:00:00.000Z');
+      expect(Quakeml.parseTime('2017-01-01T00:00:00').toISOString()).toEqual(
+        '2017-01-01T00:00:00.000Z'
+      );
     });
 
     it('returns null for falsey inputs', () => {
       expect(Quakeml.parseTime(undefined)).toBeNull();
     });
   });
-
 });

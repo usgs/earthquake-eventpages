@@ -11,7 +11,7 @@ import {
 
 import { MdcTabModule, MdcIconModule } from '@angular-mdc/web';
 
-import { NgxChartsModule } from '../shared/ngx-charts/ngx-charts.module';
+import { NgxChartsModule } from '@shared/ngx-charts/ngx-charts.module';
 import { DyfiRoutingModule } from './dyfi-routing.module';
 import { DyfiService } from './dyfi.service';
 import { DyfiComponent } from './dyfi/dyfi.component';
@@ -20,11 +20,18 @@ import { IntensityComponent } from './intensity/intensity.component';
 import { ProductPageModule } from '../product-page/product-page.module';
 import { ResponsesVsTimeComponent } from './responses-vs-time/responses-vs-time.component';
 import { ResponsesComponent } from './responses/responses.component';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { ZipComponent } from './zip/zip.component';
 
-
 @NgModule({
+  declarations: [
+    DyfiComponent,
+    IntensityComponent,
+    ZipComponent,
+    IntensityVsDistanceComponent,
+    ResponsesVsTimeComponent,
+    ResponsesComponent
+  ],
   imports: [
     CommonModule,
     DyfiRoutingModule,
@@ -40,16 +47,6 @@ import { ZipComponent } from './zip/zip.component';
     NgxChartsModule,
     SharedModule
   ],
-  declarations: [
-    DyfiComponent,
-    IntensityComponent,
-    ZipComponent,
-    IntensityVsDistanceComponent,
-    ResponsesVsTimeComponent,
-    ResponsesComponent
-  ],
-  providers: [
-    DyfiService
-  ]
+  providers: [DyfiService]
 })
-export class DyfiModule { }
+export class DyfiModule {}

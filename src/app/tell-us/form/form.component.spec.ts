@@ -1,13 +1,5 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController
-} from '@angular/common/http/testing';
-import {
-  async,
-  ComponentFixture,
-  getTestBed,
-  TestBed
-} from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -24,18 +16,15 @@ import { CoordinatesService } from 'hazdev-ng-location-view';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { FormLanguageService } from '../form-language.service';
 import { FormComponent } from './form.component';
 
-
 describe('FormComponent', () => {
   let component: FormComponent;
   let fixture: ComponentFixture<FormComponent>;
-  let httpClient: HttpTestingController;
-  let injector: TestBed;
 
   beforeEach(async(() => {
     const eventServiceStub = {
@@ -50,6 +39,29 @@ describe('FormComponent', () => {
     };
 
     TestBed.configureTestingModule({
+      declarations: [
+        FormComponent,
+
+        MockComponent({
+          selector: 'location-input-map'
+        }),
+        MockComponent({
+          inputs: ['legend'],
+          selector: 'tell-us-fieldset'
+        }),
+        MockComponent({
+          inputs: ['enter', 'update'],
+          selector: 'tell-us-location'
+        }),
+        MockComponent({
+          inputs: ['label', 'multiSelect', 'name', 'options', 'value'],
+          selector: 'tell-us-question'
+        }),
+        MockComponent({
+          selector: 'tell-us-privacy-statement'
+        }),
+        MockPipe('keys')
+      ],
       imports: [
         BrowserAnimationsModule,
         FormsModule,
@@ -60,40 +72,14 @@ describe('FormComponent', () => {
         MatFormFieldModule,
         MatSelectModule
       ],
-      declarations: [
-        FormComponent,
-
-        MockComponent({
-          selector: 'location-input-map'
-        }),
-        MockComponent({
-          selector: 'tell-us-fieldset',
-          inputs: ['legend']
-        }),
-        MockComponent({
-          selector: 'tell-us-location',
-          inputs: ['enter', 'update']
-        }),
-        MockComponent({
-          selector: 'tell-us-question',
-          inputs: ['label', 'multiSelect', 'name', 'options', 'value']
-        }),
-        MockComponent({
-          selector: 'tell-us-privacy-statement'
-        }),
-        MockPipe('keys')
-      ],
       providers: [
-        {provide: CoordinatesService, useValue: coordinatesServiceStub},
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: FormLanguageService, useValue: languageServiceStub},
-        {provide: MatDialogRef, useValue: {close: () => {}}},
-        {provide: MAT_DIALOG_DATA, useValue: {}}
+        { provide: CoordinatesService, useValue: coordinatesServiceStub },
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: FormLanguageService, useValue: languageServiceStub },
+        { provide: MatDialogRef, useValue: { close: () => {} } },
+        { provide: MAT_DIALOG_DATA, useValue: {} }
       ]
     }).compileComponents();
-
-    injector = getTestBed();
-    httpClient = injector.get(HttpTestingController);
   }));
 
   beforeEach(() => {
@@ -118,12 +104,12 @@ describe('FormComponent', () => {
         test: 'value'
       };
       component.onAnswer({
-        'other': 'other value',
-        'test': 'test value'
+        other: 'other value',
+        test: 'test value'
       });
       expect(component.answers).toEqual({
-        'other': 'other value',
-        'test': 'test value'
+        other: 'other value',
+        test: 'test value'
       });
     });
   });
@@ -174,12 +160,14 @@ describe('FormComponent', () => {
       component.answers.ciim_eventid = undefined;
       component.answers.ciim_time = undefined;
 
-      component.setEvent(new Event({
-        id: 'testid',
-        properties: {
-          time: 12345
-        }
-      }));
+      component.setEvent(
+        new Event({
+          id: 'testid',
+          properties: {
+            time: 12345
+          }
+        })
+      );
       expect(component.answers.eventid).not.toBe(null);
       expect(component.answers.ciim_time).not.toBe(null);
     });
@@ -188,9 +176,9 @@ describe('FormComponent', () => {
   describe('setLanguage', () => {
     it('calls languageService getLanguage', () => {
       component.setLanguage('test value');
-      expect(component.languageService.getLanguage)
-          .toHaveBeenCalledWith('test value');
+      expect(component.languageService.getLanguage).toHaveBeenCalledWith(
+        'test value'
+      );
     });
   });
-
 });

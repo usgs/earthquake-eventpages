@@ -1,10 +1,10 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
-import { ContributorService } from '../../core/contributor.service';
-import { EventService } from '../../core/event.service';
+import { ContributorService } from '@core/contributor.service';
+import { EventService } from '@core/event.service';
 
 /**
  * Product page grabs the product from the event object and
@@ -15,33 +15,32 @@ import { EventService } from '../../core/event.service';
  */
 @Component({
   selector: 'product-page',
-  templateUrl: './product-page.component.html',
-  styleUrls: ['./product-page.component.scss']
+  styleUrls: ['./product-page.component.scss'],
+  templateUrl: './product-page.component.html'
 })
 export class ProductPageComponent implements OnInit, OnDestroy {
+  @Input()
+  productType: string;
 
   // query params can override default product source/code to be shown
-  public queryParamMapSubscription: Subscription;
+  queryParamMapSubscription: Subscription;
 
-  @Input() productType: string;
-
-
-  constructor (
+  constructor(
     public contributorService: ContributorService,
     public eventService: EventService,
     public route: ActivatedRoute
-  ) { }
-
+  ) {}
 
   ngOnDestroy() {
     this.queryParamMapSubscription.unsubscribe();
   }
 
-  ngOnInit () {
-    this.queryParamMapSubscription =
-        this.route.queryParamMap.subscribe((paramMap: ParamMap) => {
-      this.onQueryParamMapChange(paramMap);
-    });
+  ngOnInit() {
+    this.queryParamMapSubscription = this.route.queryParamMap.subscribe(
+      (paramMap: ParamMap) => {
+        this.onQueryParamMapChange(paramMap);
+      }
+    );
   }
 
   /**
@@ -52,7 +51,7 @@ export class ProductPageComponent implements OnInit, OnDestroy {
    * @param paramMap {ParamMap}
    *    map of url parameters
    */
-  onQueryParamMapChange (paramMap: ParamMap) {
+  onQueryParamMapChange(paramMap: ParamMap) {
     const source = paramMap.get('source');
     const code = paramMap.get('code');
     this.eventService.getProduct(this.productType, source, code);

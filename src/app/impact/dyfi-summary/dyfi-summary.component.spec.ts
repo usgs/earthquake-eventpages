@@ -6,34 +6,29 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { DyfiSummaryComponent } from './dyfi-summary.component';
 
-
 describe('DyfisummaryComponent', () => {
   let component: DyfiSummaryComponent;
   let fixture: ComponentFixture<DyfiSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatTableModule,
-        RouterModule
-      ],
       declarations: [
         DyfiSummaryComponent,
         MockComponent({
-          selector: 'shared-mmi',
-          inputs: ['intensity']
+          inputs: ['intensity'],
+          selector: 'shared-mmi'
         }),
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
         MockComponent({
-          selector: 'shared-preferred-check',
-          inputs: ['TITLE']
+          inputs: ['TITLE'],
+          selector: 'shared-preferred-check'
         })
-      ]
-    })
-    .compileComponents();
+      ],
+      imports: [MatTableModule, RouterModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

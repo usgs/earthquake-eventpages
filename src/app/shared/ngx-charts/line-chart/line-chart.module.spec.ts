@@ -1,6 +1,5 @@
 import { LineChartModule } from './line-chart.module';
 
-
 describe('LineChartModule', () => {
   let lineChartModule: LineChartModule;
 

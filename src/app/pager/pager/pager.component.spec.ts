@@ -3,11 +3,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { PagerXmlService } from '../pagerxml.service';
 import { PagerComponent } from './pager.component';
-
 
 describe('PagerComponent', () => {
   let component: PagerComponent;
@@ -28,16 +27,15 @@ describe('PagerComponent', () => {
       declarations: [
         PagerComponent,
 
-        MockComponent({selector: 'product-page', inputs: ['product']}),
-        MockComponent({selector: 'pager-cities', inputs: ['pager']}),
-        MockComponent({selector: 'pager-population', inputs: ['pager']})
+        MockComponent({ selector: 'product-page', inputs: ['product'] }),
+        MockComponent({ selector: 'pager-cities', inputs: ['pager'] }),
+        MockComponent({ selector: 'pager-population', inputs: ['pager'] })
       ],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: PagerXmlService, useValue: pagerXmlServiceStub}
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: PagerXmlService, useValue: pagerXmlServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -54,7 +52,7 @@ describe('PagerComponent', () => {
     it('checks for losspager product', () => {
       component.onProduct({});
       expect(component.pagerXmlService.getPagerXml).not.toHaveBeenCalled();
-      component.onProduct({type: 'losspager'});
+      component.onProduct({ type: 'losspager' });
       expect(component.pagerXmlService.getPagerXml).toHaveBeenCalled();
     });
   });

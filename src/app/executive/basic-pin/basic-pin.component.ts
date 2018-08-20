@@ -1,7 +1,4 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { RouterLink } from '@angular/router';
-
-import { Event } from '../../event';
 
 /**
  * Base pin class
@@ -22,17 +19,20 @@ import { Event } from '../../event';
  *     text for title
  */
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'basic-pin',
-  templateUrl: './basic-pin.component.html',
   styleUrls: ['./basic-pin.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './basic-pin.component.html'
 })
 export class BasicPinComponent {
-
-  @Input() footer;
-  @Input() href;
-  @Input() link;
-  @Input() product;
-  @Input() title;
-
+  @Input()
+  footer;
+  @Input()
+  href;
+  @Input()
+  link;
+  @Input()
+  product;
+  @Input()
+  title;
 }

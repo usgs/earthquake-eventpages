@@ -1,17 +1,14 @@
-import * as L from 'leaflet';
-
 import { ProductContentPipe } from '../product-content.pipe';
 import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
-
 
 /**
  * Shakemap PSA10 overlay for shakemap leaflet
  */
+// tslint:disable-next-line:variable-name
 const ShakemapPSA10Overlay = ShakemapContoursOverlay.extend({
-
   id: 'shakemap-psa10',
-  title: 'Shakemap PSA10 Contours',
   legend: null,
+  title: 'Shakemap PSA10 Contours',
 
   /**
    * Build leaflet overlay
@@ -19,7 +16,7 @@ const ShakemapPSA10Overlay = ShakemapContoursOverlay.extend({
    * @param product
    *     shakemap product
    */
-  initialize: function (product: any) {
+  initialize: function(product: any) {
     ShakemapContoursOverlay.prototype.initialize.call(this);
 
     this.url = this.getUrl(product);
@@ -31,16 +28,16 @@ const ShakemapPSA10Overlay = ShakemapContoursOverlay.extend({
    * @param product
    *     shakemap product
    */
-  getUrl: function (product: any) {
-    if (product == null) {
+  getUrl: function(product: any) {
+    if (product === null) {
       return null;
     }
 
     const productContentPipe = new ProductContentPipe();
     const content = productContentPipe.transform(
-        product,
-        'download/cont_psa1p0.json',
-        'download/cont_psa10.json'
+      product,
+      'download/cont_psa1p0.json',
+      'download/cont_psa10.json'
     );
 
     return content ? content.url : null;
@@ -52,11 +49,9 @@ const ShakemapPSA10Overlay = ShakemapContoursOverlay.extend({
    * @param feature
    *     The feature type from the product
    */
-  createLabel: function (feature: any) {
+  createLabel: function(feature: any) {
     return `${feature.properties.value} %g`;
   }
-
 });
-
 
 export { ShakemapPSA10Overlay };

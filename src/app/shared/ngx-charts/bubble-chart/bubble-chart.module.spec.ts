@@ -1,6 +1,5 @@
 import { BubbleChartModule } from './bubble-chart.module';
 
-
 describe('BubbleChartModule', () => {
   let bubbleChartModule: BubbleChartModule;
 

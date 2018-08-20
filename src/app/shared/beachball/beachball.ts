@@ -4,9 +4,7 @@
 import { Canvas } from './canvas';
 import { Tensor } from './tensor';
 
-
 const _D2R = Math.PI / 180;
-const _R2D = 180 / Math.PI;
 const _EPSILON = 1e-16;
 
 // threshold x and y pixel difference when polygons should be merged.
@@ -16,10 +14,7 @@ const _MERGE_THRESHOLD = 0.02;
 // threshold takeoff angle when polygons should be split.
 const _SPLIT_THRESHOLD = 85 * _D2R;
 
-let __0To2Pi,
-    __axisCache,
-    __getOption;
-
+let _0To2Pi, _axisCache, _getOption;
 
 /**
  * Make sure number is between 0 and 2pi.
@@ -29,7 +24,7 @@ let __0To2Pi,
  * @return {Number}
  *     angle in radians, in the range [0, 2pi).
  */
-__0To2Pi = function (value) {
+_0To2Pi = function(value) {
   const twoPi = 2 * Math.PI;
 
   while (value < 0) {
@@ -55,13 +50,12 @@ __0To2Pi = function (value) {
  *         cp: cos(plunge),
  *         sp: sin(plunge).
  */
-__axisCache = function (axis) {
-  let azimuth,
-      plunge;
+_axisCache = function(axis) {
+  let azimuth, plunge;
 
   // Vector azimuth method returns clockwise from north
   // code in this file expects counter-clockwise from east
-  azimuth = (Math.PI / 2) - axis.vector.azimuth();
+  azimuth = Math.PI / 2 - axis.vector.azimuth();
   plunge = axis.vector.plunge();
   // make axis plunge downward (negative values are up)
   if (plunge < 0) {
@@ -69,50 +63,28 @@ __axisCache = function (axis) {
     azimuth += Math.PI;
   }
   // make azimuth in range [0, 2*PI)
-  azimuth = __0To2Pi(azimuth, 0, Math.PI * 2);
+  azimuth = _0To2Pi(azimuth, 0, Math.PI * 2);
 
   return {
-    v: axis.eigenvalue,
     a: azimuth,
     ca: Math.cos(azimuth),
-    sa: Math.sin(azimuth),
-    p: plunge,
     cp: Math.cos(plunge),
-    sp: Math.sin(plunge)
+    p: plunge,
+    sa: Math.sin(azimuth),
+    sp: Math.sin(plunge),
+    v: axis.eigenvalue
   };
 };
 
-
-__getOption = function (options: any, name: string, defaultValue: any): any {
-  if (options && (name in options)) {
+_getOption = function(options: any, name: string, defaultValue: any): any {
+  if (options && name in options) {
     return options[name];
   }
   return defaultValue;
 };
 
-
 export class Beachball {
-
-  static zeroToTwoPi = __0To2Pi;
-
-  public axisSize: number = null;
-  public bgColor = '#fff';
-  public fillColor = '#ddd';
-  public height: number = null;
-  public labelAxes = true;
-  public labelAxesFont = '24px Arial';
-  public labelPlanes = true;
-  public labelPlanesFont = '14px Arial';
-  public lineColor = '#000';
-  public lineWidth = 0.25;
-  public plotAxes = false;
-  public plotPlanes = true;
-  public radius: number = null;
-  public size = 200;
-  public width: number = null;
-  public x0: number = null;
-  public y0: number = null;
-
+  static zeroToTwoPi = _0To2Pi;
 
   /**
    * Create and render a beachball.
@@ -121,36 +93,64 @@ export class Beachball {
    * @param el
    * @param options
    */
-  static render (tensor: Tensor, el: any, options?: any) {
+  static render(tensor: Tensor, el: any, options?: any) {
     new Beachball(tensor, el, options).render();
   }
 
+  axisSize: number = null;
+  bgColor = '#fff';
+  fillColor = '#ddd';
+  height: number = null;
+  labelAxes = true;
+  labelAxesFont = '24px Arial';
+  labelPlanes = true;
+  labelPlanesFont = '14px Arial';
+  lineColor = '#000';
+  lineWidth = 0.25;
+  plotAxes = false;
+  plotPlanes = true;
+  radius: number = null;
+  size = 200;
+  width: number = null;
+  x0: number = null;
+  y0: number = null;
 
-  constructor (
-      public tensor: Tensor,
-      public el: any,
-      options?: any
-    ) {
-    this.bgColor = __getOption(options, 'bgColor', this.bgColor);
-    this.fillColor = __getOption(options, 'fillColor', this.fillColor);
-    this.labelAxes = __getOption(options, 'labelAxes', this.labelAxes);
-    this.labelAxesFont = __getOption(options, 'labelAxesFont', this.labelAxesFont);
-    this.labelPlanes = __getOption(options, 'labelPlanes', this.labelPlanes);
-    this.labelPlanesFont = __getOption(options, 'labelPlanesFont', this.labelPlanesFont);
-    this.lineColor = __getOption(options, 'lineColor', this.lineColor);
-    this.lineWidth = __getOption(options, 'lineWidth', this.lineWidth);
-    this.plotAxes = __getOption(options, 'plotAxes', this.plotAxes);
-    this.plotPlanes = __getOption(options, 'plotPlanes', this.plotPlanes);
-    this.size = __getOption(options, 'size', this.size);
+  constructor(public tensor: Tensor, public el: any, options?: any) {
+    this.bgColor = _getOption(options, 'bgColor', this.bgColor);
+    this.fillColor = _getOption(options, 'fillColor', this.fillColor);
+    this.labelAxes = _getOption(options, 'labelAxes', this.labelAxes);
+    this.labelAxesFont = _getOption(
+      options,
+      'labelAxesFont',
+      this.labelAxesFont
+    );
+    this.labelPlanes = _getOption(options, 'labelPlanes', this.labelPlanes);
+    this.labelPlanesFont = _getOption(
+      options,
+      'labelPlanesFont',
+      this.labelPlanesFont
+    );
+    this.lineColor = _getOption(options, 'lineColor', this.lineColor);
+    this.lineWidth = _getOption(options, 'lineWidth', this.lineWidth);
+    this.plotAxes = _getOption(options, 'plotAxes', this.plotAxes);
+    this.plotPlanes = _getOption(options, 'plotPlanes', this.plotPlanes);
+    this.size = _getOption(options, 'size', this.size);
     // options with computed defaults
-    this.radius = __getOption(options, 'radius', Math.floor((this.size - 2) / 2));
-    this.axisSize = __getOption(options, 'axisSize', Math.floor(this.radius / 12.5));
-    this.height = __getOption(options, 'height', this.size);
-    this.width = __getOption(options, 'width', this.size);
-    this.x0 = __getOption(options, 'x0', this.width / 2);
-    this.y0 = __getOption(options, 'y0', this.height / 2);
+    this.radius = _getOption(
+      options,
+      'radius',
+      Math.floor((this.size - 2) / 2)
+    );
+    this.axisSize = _getOption(
+      options,
+      'axisSize',
+      Math.floor(this.radius / 12.5)
+    );
+    this.height = _getOption(options, 'height', this.size);
+    this.width = _getOption(options, 'width', this.size);
+    this.x0 = _getOption(options, 'x0', this.width / 2);
+    this.y0 = _getOption(options, 'y0', this.height / 2);
   }
-
 
   /**
    * Complete polygon, by inserting points at edge of circle.
@@ -160,12 +160,8 @@ export class Beachball {
    * @return {Object}
    *     completed polygon.
    */
-  completePolygon (polygon) {
-    let az,
-        az1,
-        az2,
-        x,
-        y;
+  completePolygon(polygon) {
+    let az, az1, az2, x, y;
 
     if (polygon.x.length === 360) {
       // already a complete polygon
@@ -215,20 +211,14 @@ export class Beachball {
    *     - `y` {Number}
    *         relative y coordinate of label.
    */
-  computeAzimuthLabel (label) {
-    let align,
-        point,
-        labelOffset,
-        size,
-        tickLength,
-        x,
-        y;
+  computeAzimuthLabel(label) {
+    let align, point, labelOffset, size, tickLength, x, y;
 
     // point on edge
     point = this.getPoint(label.azimuth, 0);
     x = point.x;
     y = point.y;
-    align = (x < 0) ? 'right' : 'left';
+    align = x < 0 ? 'right' : 'left';
     size = this.measureText(label.text, label.font);
 
     labelOffset = (this.radius + 10) / this.radius;
@@ -238,14 +228,16 @@ export class Beachball {
     label.size = size;
     label.tick = {
       x: [x, x * tickLength],
-      y: [y, y * tickLength],
+      y: [y, y * tickLength]
     };
     label.x = x * labelOffset;
     label.y = y * labelOffset;
 
     if (y < 0) {
       // shift label down when in bottom half
-      label.y = y * (this.radius + 10 + Math.abs(y) * size.height / 2) / this.radius;
+      label.y =
+        (y * (this.radius + 10 + (Math.abs(y) * size.height) / 2)) /
+        this.radius;
     }
 
     return label;
@@ -255,12 +247,8 @@ export class Beachball {
    * Create a Canvas object for plotting.
    * Mainly here for testing.
    */
-  createCanvas (): Canvas {
-    return new Canvas(
-      this.el,
-      this.height,
-      this.width
-    );
+  createCanvas(): Canvas {
+    return new Canvas(this.el, this.height, this.width);
   }
 
   /**
@@ -274,22 +262,15 @@ export class Beachball {
    *     With properties `x` and `y` that are Arrays of points in the
    *     range [-1, 1].
    */
-  getPlaneLine (np): any {
-    let dip,
-        j,
-        point,
-        strike,
-        tanDip,
-        vertical,
-        x,
-        y;
+  getPlaneLine(np): any {
+    let dip, j, point, strike, tanDip, vertical, x, y;
 
     strike = np.strike * _D2R;
     dip = np.dip * _D2R;
     x = [];
     y = [];
 
-    vertical = (Math.abs(dip - Math.PI / 2)) < _EPSILON;
+    vertical = Math.abs(dip - Math.PI / 2) < _EPSILON;
     if (vertical) {
       x.push(Math.sin(strike), Math.sin(strike + Math.PI));
       y.push(Math.cos(strike), Math.cos(strike + Math.PI));
@@ -321,16 +302,14 @@ export class Beachball {
    *     with properties `x` and `y` in the range [-1, 1] representing location
    *     of point in focal sphere.
    */
-  getPoint (azimuth, plunge) {
-    let r,
-        x,
-        y;
+  getPoint(azimuth, plunge) {
+    let r, x, y;
 
     if (plunge < 0) {
       plunge *= -1;
       azimuth += Math.PI;
     }
-    azimuth = __0To2Pi(azimuth);
+    azimuth = _0To2Pi(azimuth);
 
     r = Math.sqrt(1 - Math.sin(plunge));
     x = r * Math.sin(azimuth);
@@ -355,43 +334,42 @@ export class Beachball {
    *         startAz: {Object} start azimuth of line,
    *         endAz: {Object} end azimuth of line.
    */
-  getPolygons (tensor) {
+  getPolygons(tensor) {
     let alphan,
-        az,
-        azes,
-        azp,
-        c,
-        cfi,
-        f,
-        fir,
-        i,
-        iso,
-        n,
-        p,
-        polygon,
-        polygons,
-        r,
-        s,
-        s2alphan,
-        sfi,
-        swapColors,
-        t,
-        tmp,
-        takeoff,
-        vi,
-        x,
-        xe,
-        xn,
-        xz,
-        y;
+      az,
+      azes,
+      azp,
+      c,
+      cfi,
+      f,
+      fir,
+      i,
+      iso,
+      n,
+      p,
+      polygon,
+      polygons,
+      r,
+      s,
+      s2alphan,
+      sfi,
+      swapColors,
+      t,
+      tmp,
+      takeoff,
+      vi,
+      x,
+      xe,
+      xn,
+      xz,
+      y;
 
-    t = __axisCache(tensor.T);
-    n = __axisCache(tensor.N);
-    p = __axisCache(tensor.P);
+    t = _axisCache(tensor.T);
+    n = _axisCache(tensor.N);
+    p = _axisCache(tensor.P);
 
     azes = [];
     polygons = [];
-
 
     vi = (t.v + n.v + p.v) / 3;
     t.v -= vi;
@@ -399,8 +377,8 @@ export class Beachball {
     p.v -= vi;
 
     // compute f, iso
-    f = (-n.v / t.v) || _EPSILON;
-    iso = (vi / t.v) || _EPSILON;
+    f = -n.v / t.v || _EPSILON;
+    iso = vi / t.v || _EPSILON;
 
     // build azes
     swapColors = false;
@@ -420,15 +398,15 @@ export class Beachball {
         // swap bg/fill colors
         swapColors = !swapColors;
         // recompute f, iso, s2alphan
-        f = (-n.v / t.v) || _EPSILON;
-        iso = (vi / t.v) || _EPSILON;
+        f = -n.v / t.v || _EPSILON;
+        iso = vi / t.v || _EPSILON;
         s2alphan = (2 + 2 * iso) / (3 + (1 - 2 * f) * Math.cos(2 * fir));
       }
       // compute z,n,e components
       alphan = Math.asin(Math.sqrt(s2alphan));
       s = Math.sin(alphan);
       c = Math.cos(alphan);
-      xz = c * t.sp        + s * sfi * n.sp        + s * cfi * p.sp;
+      xz = c * t.sp + s * sfi * n.sp + s * cfi * p.sp;
       xn = c * t.cp * t.ca + s * sfi * n.cp * n.ca + s * cfi * p.cp * p.ca;
       xe = c * t.cp * t.sa + s * sfi * n.cp * n.sa + s * cfi * p.cp * p.sa;
       // compute azimuth and takeoff angle
@@ -436,10 +414,10 @@ export class Beachball {
         az = 0;
         takeoff = 0;
       } else {
-        az = __0To2Pi(Math.atan2(xe, xn));
+        az = _0To2Pi(Math.atan2(xe, xn));
         takeoff = Math.acos(xz / Math.sqrt(xz * xz + xn * xn + xe * xe));
         if (takeoff > Math.PI / 2) {
-          az = __0To2Pi(az + Math.PI);
+          az = _0To2Pi(az + Math.PI);
           takeoff = Math.PI - takeoff;
         }
       }
@@ -459,11 +437,10 @@ export class Beachball {
       y = r * Math.cos(az.az);
       if (polygon !== null) {
         // check if current point should be part of this polygon
-        azp = azes[(i === 0) ? azes.length - 1 : i - 1];
+        azp = azes[i === 0 ? azes.length - 1 : i - 1];
         if (Math.abs(Math.abs(az.az - azp.az) - Math.PI) < 10 * _D2R) {
           // polygons should only end at edge of beachball
-          if (az.takeoff > _SPLIT_THRESHOLD &&
-              azp.takeoff > _SPLIT_THRESHOLD) {
+          if (az.takeoff > _SPLIT_THRESHOLD && azp.takeoff > _SPLIT_THRESHOLD) {
             // end a polygon
             if (polygon !== null) {
               polygon.endAz = azp;
@@ -476,10 +453,10 @@ export class Beachball {
       if (polygon === null) {
         // start a polygon
         polygon = {
-          x: [],
-          y: [],
+          endAz: null,
           startAz: az,
-          endAz: null
+          x: [],
+          y: []
         };
       }
       // add point to current polygon
@@ -492,7 +469,7 @@ export class Beachball {
 
     // fix up polygons
     polygons = this.mergePolygons(polygons);
-    polygons = polygons.map((poly) => this.completePolygon(poly));
+    polygons = polygons.map(poly => this.completePolygon(poly));
     polygons.swapColors = swapColors;
     return polygons;
   }
@@ -509,51 +486,8 @@ export class Beachball {
    * @return {Object}
    *     relative point within focal sphere.
    */
-  getVectorPoint (vector) {
-    return this.getPoint(
-      (Math.PI / 2) - vector.azimuth(),
-      vector.plunge()
-    );
-  }
-
-  /**
-   * Measure pixel size of text.
-   *
-   * @param text {String}
-   *     text to measure.
-   * @param font {String}
-   *     css/canvas font property.
-   *
-   * @return {Object}
-   *     with `width` and `height` properties that are the pixel size of `text`.
-   */
-  measureText (text, font) {
-    let el,
-        size;
-
-    // create hidden element with text content
-    el = document.createElement('div');
-    el.setAttribute('style',
-        'height:auto;' +
-        'position:absolute;' +
-        'visibility:hidden;' +
-        'white-space:nowrap;' +
-        'width:auto;' +
-        'font:' + font + ';');
-    el.innerText = text;
-
-    // add to document and measure
-    document.body.appendChild(el);
-    size = {
-      height: el.scrollHeight,
-      width: el.scrollWidth
-    };
-
-    // clean up
-    el.parentNode.removeChild(el);
-    el = null;
-
-    return size;
+  getVectorPoint(vector) {
+    return this.getPoint(Math.PI / 2 - vector.azimuth(), vector.plunge());
   }
 
   /**
@@ -569,13 +503,8 @@ export class Beachball {
    * @param {'left'|'right'|'center'} align
    *        alignment of text relative to point
    */
-  makeRoomForLabel (size, point, align) {
-    let bottom,
-        left,
-        right,
-        top,
-        x,
-        y;
+  makeRoomForLabel(size, point, align) {
+    let bottom, left, right, top, x, y;
 
     x = this.projectX(point.x);
     y = this.projectY(point.y);
@@ -594,7 +523,8 @@ export class Beachball {
     } else if (align === 'right') {
       left = x - size.width;
       right = x;
-    } else { // center
+    } else {
+      // center
       const halfWidth = Math.ceil(size.width / 2);
       left = x - halfWidth;
       right = x + halfWidth;
@@ -630,6 +560,49 @@ export class Beachball {
   }
 
   /**
+   * Measure pixel size of text.
+   *
+   * @param text {String}
+   *     text to measure.
+   * @param font {String}
+   *     css/canvas font property.
+   *
+   * @return {Object}
+   *     with `width` and `height` properties that are the pixel size of `text`.
+   */
+  measureText(text, font) {
+    let el, size;
+
+    // create hidden element with text content
+    el = document.createElement('div');
+    el.setAttribute(
+      'style',
+      'height:auto;' +
+        'position:absolute;' +
+        'visibility:hidden;' +
+        'white-space:nowrap;' +
+        'width:auto;' +
+        'font:' +
+        font +
+        ';'
+    );
+    el.innerText = text;
+
+    // add to document and measure
+    document.body.appendChild(el);
+    size = {
+      height: el.scrollHeight,
+      width: el.scrollWidth
+    };
+
+    // clean up
+    el.parentNode.removeChild(el);
+    el = null;
+
+    return size;
+  }
+
+  /**
    * Merge adjacent lines that should be part of the same polygon.
    *
    * @param polygons {Array<Object>}
@@ -638,15 +611,8 @@ export class Beachball {
    * @return {Array<Object>}
    *     array of polygons that remain after any merges.
    */
-  mergePolygons (polygons) {
-    let i,
-        nextI,
-        p1,
-        p1x,
-        p1y,
-        p2,
-        p2x,
-        p2y;
+  mergePolygons(polygons) {
+    let i, nextI, p1, p1x, p1y, p2, p2x, p2y;
 
     if (polygons.length === 1) {
       // nothing to merge
@@ -654,15 +620,17 @@ export class Beachball {
     }
 
     for (i = 0; i < polygons.length; i++) {
-      nextI = (i === polygons.length - 1 ? 0 : i + 1);
+      nextI = i === polygons.length - 1 ? 0 : i + 1;
       p1 = polygons[i];
       p1x = p1.x;
       p1y = p1.y;
       p2 = polygons[nextI];
       p2x = p2.x;
       p2y = p2.y;
-      if (Math.abs(p1x[p1x.length - 1] - p2x[0]) < _MERGE_THRESHOLD &&
-          Math.abs(p1y[p1y.length - 1] - p2y[0]) < _MERGE_THRESHOLD) {
+      if (
+        Math.abs(p1x[p1x.length - 1] - p2x[0]) < _MERGE_THRESHOLD &&
+        Math.abs(p1y[p1y.length - 1] - p2y[0]) < _MERGE_THRESHOLD
+      ) {
         // merge polygons
         p1x.push.apply(p1x, p2x);
         p1y.push.apply(p1y, p2y);
@@ -682,7 +650,7 @@ export class Beachball {
    * @return {Number}
    *     canvas pixel x coordinate.
    */
-  projectX (x) {
+  projectX(x) {
     return this.x0 + this.radius * x;
   }
 
@@ -695,57 +663,55 @@ export class Beachball {
    * @return {Number}
    *     canvas pixel y coordinate.
    */
-  projectY (y) {
+  projectY(y) {
     return this.height - (this.y0 + this.radius * y);
   }
 
   /**
    * Render view based on current model settings.
    */
-  render () {
-    let azimuthLabels,
-        canvas,
-        point,
-        polygons,
-        tmp,
-        x,
-        y;
+  render() {
+    let azimuthLabels, canvas, point, polygons, tmp, x, y;
 
     // compute label information, since it may affect plot size.
 
     azimuthLabels = [];
     // create azimuth labels, for now only nodal planes.
     if (this.labelPlanes) {
-      [this.tensor.NP1, this.tensor.NP2].forEach((np) => {
-        let azimuth,
-            text;
+      [this.tensor.NP1, this.tensor.NP2].forEach(np => {
+        let azimuth, text;
 
         azimuth = np.strike * _D2R;
-        text = '(' +
-            np.strike.toFixed(0) + ', ' +
-            np.dip.toFixed(0) + ', ' +
-            np.rake.toFixed(0) +
-            ')';
+        text =
+          '(' +
+          np.strike.toFixed(0) +
+          ', ' +
+          np.dip.toFixed(0) +
+          ', ' +
+          np.rake.toFixed(0) +
+          ')';
 
         const label = this.computeAzimuthLabel({
-          'azimuth': azimuth,
-          'font': this.labelPlanesFont,
-          'text': text
+          azimuth: azimuth,
+          font: this.labelPlanesFont,
+          text: text
         });
         this.makeRoomForLabel(
-            label.size,
-            {x: label.x, y: label.y},
-            label.align);
+          label.size,
+          { x: label.x, y: label.y },
+          label.align
+        );
         azimuthLabels.push(label);
       });
     }
 
     if (this.labelAxes) {
-      [this.tensor.T, this.tensor.P].forEach((axis) => {
+      [this.tensor.T, this.tensor.P].forEach(axis => {
         this.makeRoomForLabel(
-            this.measureText(axis.name, this.labelAxesFont),
-            this.getVectorPoint(axis.vector),
-            'center');
+          this.measureText(axis.name, this.labelAxesFont),
+          this.getVectorPoint(axis.vector),
+          'center'
+        );
       });
     }
 
@@ -773,24 +739,26 @@ export class Beachball {
     canvas.circle(x, y, this.radius * 2, this.lineColor, this.bgColor);
 
     // draw polygons
-    polygons.forEach((p) => {
+    polygons.forEach(p => {
       canvas.polygon(
-          p.x.map((x0) => this.projectX(x0)),
-          p.y.map((y0) => this.projectY(y0)),
-          this.lineColor,
-          this.fillColor);
+        p.x.map(x0 => this.projectX(x0)),
+        p.y.map(y0 => this.projectY(y0)),
+        this.lineColor,
+        this.fillColor
+      );
     });
 
     // draw nodal plane lines
     if (this.plotPlanes) {
-      [this.tensor.NP1, this.tensor.NP2].forEach((np) => {
+      [this.tensor.NP1, this.tensor.NP2].forEach(np => {
         let line;
         line = this.getPlaneLine(np);
         canvas.line(
-            line.x.map((x0) => this.projectX(x0)),
-            line.y.map((y0) => this.projectY(y0)),
-            this.lineColor,
-            null);
+          line.x.map(x0 => this.projectX(x0)),
+          line.y.map(y0 => this.projectY(y0)),
+          this.lineColor,
+          null
+        );
       });
     }
 
@@ -798,15 +766,17 @@ export class Beachball {
     canvas.circle(x, y, this.radius * 2, this.lineColor, null);
 
     if (this.labelAxes) {
-      [this.tensor.P, this.tensor.T].forEach((axis) => {
+      [this.tensor.P, this.tensor.T].forEach(axis => {
         point = this.getVectorPoint(axis.vector);
-        canvas.text(axis.name,
-            this.labelAxesFont,
-            this.projectX(point.x),
-            this.projectY(point.y),
-            null,
-            'black',
-            'center');
+        canvas.text(
+          axis.name,
+          this.labelAxesFont,
+          this.projectX(point.x),
+          this.projectY(point.y),
+          null,
+          'black',
+          'center'
+        );
       });
     } else if (this.plotAxes) {
       point = this.getVectorPoint(this.tensor.P.vector);
@@ -816,21 +786,25 @@ export class Beachball {
     }
 
     // draw azimuth labels
-    azimuthLabels.forEach((label) => {
+    azimuthLabels.forEach(label => {
       let tick;
 
       tick = label.tick;
       canvas.line(
-          tick.x.map((tickX) => this.projectX(tickX)),
-          tick.y.map((tickY) => this.projectY(tickY)),
-          'black',
-          null);
-      canvas.text(label.text, label.font,
-          this.projectX(label.x),
-          this.projectY(label.y),
-          null,
-          'black',
-          label.align);
+        tick.x.map(tickX => this.projectX(tickX)),
+        tick.y.map(tickY => this.projectY(tickY)),
+        'black',
+        null
+      );
+      canvas.text(
+        label.text,
+        label.font,
+        this.projectX(label.x),
+        this.projectY(label.y),
+        null,
+        'black',
+        label.align
+      );
     });
 
     canvas = null;

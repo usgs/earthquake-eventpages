@@ -2,9 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTableModule } from '@angular/material';
 
 import { MockPipe } from '../../mock-pipe';
-import { Tensor } from '../../shared/beachball/tensor';
+import { Tensor } from '@shared/beachball/tensor';
 import { AxesComponent } from './axes.component';
-
 
 describe('AxesComponent', () => {
   let component: AxesComponent;
@@ -12,16 +11,9 @@ describe('AxesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatTableModule
-      ],
-      declarations: [
-        AxesComponent,
-
-        MockPipe('sharedDegrees')
-      ]
-    })
-    .compileComponents();
+      declarations: [AxesComponent, MockPipe('sharedDegrees')],
+      imports: [MatTableModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -42,7 +34,6 @@ describe('AxesComponent', () => {
     it('calculates axis values correctly', () => {
       const tensor = Tensor.fromProduct({
         id: 'urn:usgs-product:us:moment-tensor:us_2000cjfy_mww:1519977554040',
-        type: 'moment-tensor',
         properties: {
           'tensor-mpp': '-2.3267E+19',
           'tensor-mrp': '-7.68E+18',
@@ -50,7 +41,8 @@ describe('AxesComponent', () => {
           'tensor-mrt': '1.0445E+19',
           'tensor-mtp': '3.4237E+19',
           'tensor-mtt': '-3.0499E+19'
-        }
+        },
+        type: 'moment-tensor'
       });
 
       const axes = component.getAxes(tensor);

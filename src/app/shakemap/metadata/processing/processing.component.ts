@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { FormatterService } from '../../../core/formatter.service';
-
+import { FormatterService } from '@core/formatter.service';
 
 /**
  * Processing subcomponent which shows different processing tables such as
@@ -13,40 +12,38 @@ import { FormatterService } from '../../../core/formatter.service';
  */
 @Component({
   selector: 'shakemap-processing',
-  templateUrl: './processing.component.html',
-  styleUrls: ['./processing.component.scss']
+  styleUrls: ['./processing.component.scss'],
+  templateUrl: './processing.component.html'
 })
 export class ProcessingComponent {
-
-  public readonly names = {
-    'ground_motion_modules': {
-      'basin_correction': 'Basin',
-      'gmpe': 'GMPE',
-      'directivity': 'Directivity',
-      'gmice': 'GMICE',
-      'ipe': 'IPE',
-      'ccf': 'CCF',
-      'igmice': 'IGMICE'
+  readonly abbreviations = {
+    gmice: 'Ground Motion Intensity Conversion Equation',
+    gmpe: 'Ground Motion Prediction Equation',
+    igmice: 'Inverse Ground Motion Intensity Conversion Equation',
+    ipe: 'Intensity Prediction Equation'
+  };
+  readonly headers = {
+    groundMotionModules: ['type', 'module', 'reference'],
+    roi: ['type', 'roi', 'observation_decay']
+  };
+  readonly names = {
+    ground_motion_modules: {
+      basin_correction: 'Basin',
+      ccf: 'CCF',
+      directivity: 'Directivity',
+      gmice: 'GMICE',
+      gmpe: 'GMPE',
+      igmice: 'IGMICE',
+      ipe: 'IPE'
     },
-    'roi': {
-      'gm': 'Ground Motion',
-      'intensity': 'Intensity'
+    roi: {
+      gm: 'Ground Motion',
+      intensity: 'Intensity'
     }
   };
-  public readonly abbreviations = {
-    'gmpe': 'Ground Motion Prediction Equation',
-    'gmice': 'Ground Motion Intensity Conversion Equation',
-    'ipe': 'Intensity Prediction Equation',
-    'igmice': 'Inverse Ground Motion Intensity Conversion Equation'
-  };
-  public readonly headers = {
-    'groundMotionModules': ['type', 'module', 'reference'],
-    'roi': ['type', 'roi', 'observation_decay']
-  };
 
-  @Input() smProcessing: any;
+  @Input()
+  smProcessing: any;
 
-
-  constructor (public formatter: FormatterService) { }
-
+  constructor(public formatter: FormatterService) {}
 }

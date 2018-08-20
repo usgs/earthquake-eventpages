@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
 
-
 /**
  * Renders pager summary table
  *
@@ -13,22 +12,16 @@ import { Event } from '../../event';
  */
 @Component({
   selector: 'impact-pager-summary',
-  templateUrl: './pager-summary.component.html',
-  styleUrls: ['./pager-summary.component.scss']
+  styleUrls: ['./pager-summary.component.scss'],
+  templateUrl: './pager-summary.component.html'
 })
 export class PagerSummaryComponent {
-
   // columns to be displayed
-  public columnsToDisplay = [
-    'catalog',
-    'alertlevel',
-    'source'
-  ];
+  columnsToDisplay = ['catalog', 'alertlevel', 'source'];
 
-  @Input() event: Event;
+  @Input()
+  event: Event;
 
-  @Input() products: Array<any> = [];
+  @Input()
+  products: Array<any> = [];
 }
-
-
-

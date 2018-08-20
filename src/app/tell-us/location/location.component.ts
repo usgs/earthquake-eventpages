@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  Output,
-  Input
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, Output, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import {
@@ -13,7 +7,6 @@ import {
   LocationDialogComponent
 } from 'hazdev-ng-location-view';
 import { BehaviorSubject, Subscription } from 'rxjs';
-
 
 /**
  * Location component used to select the user's location on the form
@@ -29,19 +22,17 @@ import { BehaviorSubject, Subscription } from 'rxjs';
  */
 @Component({
   selector: 'tell-us-location',
-  templateUrl: './location.component.html',
-  styleUrls: ['./location.component.scss']
+  styleUrls: ['./location.component.scss'],
+  templateUrl: './location.component.html'
 })
 export class LocationComponent implements OnDestroy, OnInit {
-
-  public subscription = new Subscription();
-
   @Output()
   change = new BehaviorSubject<any>(null);
   // label for user to enter location
   @Input()
   enter = 'Choose location';
   // label for user to change previously entered location
+  subscription = new Subscription();
   @Input()
   update = 'Change location';
   // current location value
@@ -51,28 +42,27 @@ export class LocationComponent implements OnDestroy, OnInit {
     ciim_mapLon: null
   };
 
-
-  constructor (
+  constructor(
     public coordinatesService: CoordinatesService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog
+  ) {}
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
-  ngOnInit () {
+  ngOnInit() {
     this.subscription.add(
-      this.coordinatesService.coordinates$.subscribe((coordinates) => {
+      this.coordinatesService.coordinates$.subscribe(coordinates => {
         this.setLocation(coordinates);
       })
     );
   }
 
-  ngOnDestroy () {
-    this.subscription.unsubscribe();
-  }
-
   /**
    * Open the location dialog/modal when user clicks
    */
-  openLocationInput () {
+  openLocationInput() {
     if (this.dialog && LocationDialogComponent) {
       this.dialog.open(LocationDialogComponent);
     }
@@ -84,7 +74,7 @@ export class LocationComponent implements OnDestroy, OnInit {
    * @param coordinates
    *     The coordinates to set
    */
-  setLocation (coordinates: Coordinates) {
+  setLocation(coordinates: Coordinates) {
     if (coordinates) {
       this.value = {};
 
@@ -105,5 +95,4 @@ export class LocationComponent implements OnDestroy, OnInit {
       this.change.next(this.value);
     }
   }
-
 }

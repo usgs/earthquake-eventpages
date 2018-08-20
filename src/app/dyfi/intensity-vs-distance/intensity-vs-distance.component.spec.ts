@@ -3,47 +3,46 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { DyfiService } from '../dyfi.service';
 import { MockPipe } from '../../mock-pipe';
 import { IntensityVsDistanceComponent } from './intensity-vs-distance.component';
 
-
 describe('IntensityVsDistanceComponent', () => {
   let component: IntensityVsDistanceComponent;
   let fixture: ComponentFixture<IntensityVsDistanceComponent>;
-  let SampleSeries;
+  let SAMPLE_SERIES;
 
   beforeEach(async(() => {
-    const DyfiSeries = {
+    const DYFI_SERIES = {
       name: 'DYFI',
       series: [
         {
-          name: 'Series1',
           class: 'none',
+          name: 'Series1',
           series: []
         }
       ]
     };
 
-    SampleSeries = {
+    SAMPLE_SERIES = {
       name: 'Sample',
       series: [
         {
-          name: 'All reported data',
           class: 'scatterplot1',
+          name: 'All reported data',
           series: []
         },
         {
-          name: 'Estimated data',
           class: 'estimated1',
+          name: 'Estimated data',
           series: []
         },
         {
-          name: 'Binned data',
           class: 'binned',
+          name: 'Binned data',
           series: [{}]
-        },
+        }
       ]
     };
 
@@ -52,53 +51,50 @@ describe('IntensityVsDistanceComponent', () => {
     };
 
     const dyfiServiceStub = {
-      plotAtten$: of(DyfiSeries),
-      getAtten: () => null
+      getAtten: () => null,
+      plotAtten$: of(DYFI_SERIES)
     };
 
     TestBed.configureTestingModule({
       declarations: [
         IntensityVsDistanceComponent,
 
-        MockComponent(
-          {
-            selector: 'bubble-line-chart-component',
-            inputs: [
-              'scheme',
-              'colorSchemeLine',
-              'customColors',
-              'results',
-              'animations',
-              'lineChart',
-              'bubbleChart',
-              'tooltipDisabled',
-              'gradient',
-              'xAxis',
-              'yAxis',
-              'legend',
-              'showGridLines',
-              'showXAxisLabel',
-              'showYAxisLabel',
-              'showRightYAxisLabel',
-              'xAxisLabel',
-              'yAxisLabel',
-              'yScaleMin',
-              'yScaleMax',
-              'xScaleMin',
-              'xScaleMax',
-              'scaleType'
-            ]
-          }
-        ),
+        MockComponent({
+          inputs: [
+            'scheme',
+            'colorSchemeLine',
+            'customColors',
+            'results',
+            'animations',
+            'lineChart',
+            'bubbleChart',
+            'tooltipDisabled',
+            'gradient',
+            'xAxis',
+            'yAxis',
+            'legend',
+            'showGridLines',
+            'showXAxisLabel',
+            'showYAxisLabel',
+            'showRightYAxisLabel',
+            'xAxisLabel',
+            'yAxisLabel',
+            'yScaleMin',
+            'yScaleMax',
+            'xScaleMin',
+            'xScaleMax',
+            'scaleType'
+          ],
+          selector: 'bubble-line-chart-component'
+        }),
 
         MockPipe('sharedProductContent')
       ],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: DyfiService, useValue: dyfiServiceStub}
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: DyfiService, useValue: dyfiServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -120,7 +116,7 @@ describe('IntensityVsDistanceComponent', () => {
     });
 
     it('handles known data', () => {
-      component.onDyfiSeries(SampleSeries);
+      component.onDyfiSeries(SAMPLE_SERIES);
     });
   });
 });

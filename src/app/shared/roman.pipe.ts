@@ -1,14 +1,24 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-
 @Pipe({
   name: 'sharedRoman'
 })
 export class RomanPipe implements PipeTransform {
-
-  static MMI_ROMAN = ['I', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII',
-        'IX', 'X', 'XI', 'XII'];
-
+  static MMI_ROMAN = [
+    'I',
+    'I',
+    'II',
+    'III',
+    'IV',
+    'V',
+    'VI',
+    'VII',
+    'VIII',
+    'IX',
+    'X',
+    'XI',
+    'XII'
+  ];
 
   /**
    * Get roman numeral from a number
@@ -19,7 +29,7 @@ export class RomanPipe implements PipeTransform {
    * @return {any}
    *     A roman numeral
    */
-  transform (mmi: number): any {
+  transform(mmi: number): any {
     let value;
 
     mmi = Math.round(mmi);
@@ -31,5 +41,4 @@ export class RomanPipe implements PipeTransform {
 
     return null;
   }
-
 }

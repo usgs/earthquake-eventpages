@@ -1,11 +1,8 @@
 import { Event } from '../event';
 import { ContributorListPipe } from './contributor-list.pipe';
 
-
 describe('ContributorListPipe', () => {
-  let details,
-      event,
-      pipe;
+  let details, event, pipe;
 
   beforeEach(() => {
     pipe = new ContributorListPipe();
@@ -16,16 +13,16 @@ describe('ContributorListPipe', () => {
     });
     details = [
       {
+        aliases: null,
         id: 'a',
         title: 'A Title',
-        url: 'a-url',
-        aliases: null
+        url: 'a-url'
       },
       {
+        aliases: ['bb'],
         id: 'b',
         title: 'B Title',
-        url: 'b-url',
-        aliases: ['bb']
+        url: 'b-url'
       }
     ];
   });
@@ -42,8 +39,10 @@ describe('ContributorListPipe', () => {
 
   it('transforms with a detailsMap', () => {
     const result = pipe.transform(event, details);
-    expect(result).toEqual('<li><a href="a-url">A ' +
-        'Title</a></li><li><a href="b-url">B Title</a></li>');
+    expect(result).toEqual(
+      '<li><a href="a-url">A ' +
+        'Title</a></li><li><a href="b-url">B Title</a></li>'
+    );
   });
 
   it('transforms no sources', () => {

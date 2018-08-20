@@ -10,12 +10,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { ContributorService } from '../../core/contributor.service';
-import { EventService } from '../../core/event.service';
+import { ContributorService } from '@core/contributor.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { BasicPinComponent } from './basic-pin.component';
-
 
 describe('BasicPinComponent', () => {
   let component: BasicPinComponent;
@@ -35,8 +34,10 @@ describe('BasicPinComponent', () => {
       declarations: [
         BasicPinComponent,
 
-        MockComponent({selector: 'shared-product-attribution',
-            inputs: ['product']}),
+        MockComponent({
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
+        }),
         MockPipe('contributorList')
       ],
       imports: [
@@ -50,8 +51,7 @@ describe('BasicPinComponent', () => {
         { provide: EventService, useValue: eventServiceStub },
         { provide: ContributorService, useValue: contributorServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

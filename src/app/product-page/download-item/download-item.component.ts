@@ -8,9 +8,10 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'product-page-download-item',
-  templateUrl: './download-item.component.html',
-  styleUrls: ['./download-item.component.scss']
+  styleUrls: ['./download-item.component.scss'],
+  templateUrl: './download-item.component.html'
 })
 export class DownloadItemComponent {
-  @Input() item: any = null;
+  @Input()
+  item: any = null;
 }

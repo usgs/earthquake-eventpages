@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Tensor } from '../../shared/beachball/tensor';
-import { FormatterService } from '../../core/formatter.service';
+import { Tensor } from '@shared/beachball/tensor';
 
 /**
  * Display tables with moment tensor data
@@ -10,10 +9,10 @@ import { FormatterService } from '../../core/formatter.service';
  */
 @Component({
   selector: 'moment-tensor-info',
-  templateUrl: './info.component.html',
-  styleUrls: ['./info.component.scss']
+  styleUrls: ['./info.component.scss'],
+  templateUrl: './info.component.html'
 })
 export class InfoComponent {
-
-  @Input() tensor: Tensor;
+  @Input()
+  tensor: Tensor;
 }

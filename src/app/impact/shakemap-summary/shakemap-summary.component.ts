@@ -1,7 +1,6 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
-
 
 /**
  * Renders shakemap summary table
@@ -13,20 +12,16 @@ import { Event } from '../../event';
  */
 @Component({
   selector: 'impact-shakemap-summary',
-  templateUrl: './shakemap-summary.component.html',
-  styleUrls: ['./shakemap-summary.component.scss']
+  styleUrls: ['./shakemap-summary.component.scss'],
+  templateUrl: './shakemap-summary.component.html'
 })
 export class ShakemapSummaryComponent {
-
   // columns to be displayed
-  public columnsToDisplay = [
-    'catalog',
-    'mmi',
-    'source',
-    'description'
-  ];
+  columnsToDisplay = ['catalog', 'mmi', 'source', 'description'];
 
-  @Input() event: Event;
+  @Input()
+  event: Event;
 
-  @Input() products: Array<any> = [];
+  @Input()
+  products: Array<any> = [];
 }

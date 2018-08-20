@@ -4,11 +4,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { PgaComponent } from './pga.component';
-
 
 describe('PgaComponent', () => {
   let component: PgaComponent;
@@ -20,29 +19,24 @@ describe('PgaComponent', () => {
       product$: null
     };
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
       declarations: [
         PgaComponent,
 
         MockComponent({
-          selector: 'shared-map',
           inputs: [
             'overlays',
             'showScaleControl',
             'showAttributionControl',
             'baselayer'
-          ]
+          ],
+          selector: 'shared-map'
         }),
 
         MockPipe('shakemapOverlays')
       ],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub }
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

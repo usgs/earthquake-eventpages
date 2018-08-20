@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Tensor } from '../../shared/beachball/tensor';
-
+import { Tensor } from '@shared/beachball/tensor';
 
 /**
  * Focal mechanism component, renders a table with data
@@ -10,25 +9,24 @@ import { Tensor } from '../../shared/beachball/tensor';
  */
 @Component({
   selector: 'technical-focal-mechanism-summary',
-  templateUrl: './focal-mechanism-summary.component.html',
-  styleUrls: ['./focal-mechanism-summary.component.scss']
+  styleUrls: ['./focal-mechanism-summary.component.scss'],
+  templateUrl: './focal-mechanism-summary.component.html'
 })
 export class FocalMechanismSummaryComponent {
-
-
+  _products: Array<any>;
   // MatTable headers
-  public columnsToDisplay = [
+  columnsToDisplay = [
     'catalog',
     'mechanism',
     'nodalPlane1',
     'nodalPlane2',
     'source'
   ];
-  public _products: Array<any>;
-  public tensors: Array<any> = [];
 
-  @Input() event: any;
+  @Input()
+  event: any;
 
+  tensors: Array<any> = [];
 
   /**
    * Setter to set the products array
@@ -36,9 +34,10 @@ export class FocalMechanismSummaryComponent {
    *     The products array
    * @returns { Tensor }
    */
-  @Input() set products (products: Array<any>) {
+  @Input()
+  set products(products: Array<any>) {
     this._products = products;
-    this.tensors = (products || []).map((p) => {
+    this.tensors = (products || []).map(p => {
       return Tensor.fromProduct(p);
     });
   }
@@ -47,9 +46,7 @@ export class FocalMechanismSummaryComponent {
    * Get the products array
    * @returns {Array<any>}
    */
-  get products () {
+  get products() {
     return this._products;
   }
-
 }
-

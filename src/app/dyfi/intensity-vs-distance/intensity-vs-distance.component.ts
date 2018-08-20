@@ -3,90 +3,98 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { DyfiService } from '../dyfi.service';
-import { EventService } from '../../core/event.service';
-
+import { EventService } from '@core/event.service';
 
 @Component({
   selector: 'dyfi-intensity-vs-distance',
-  templateUrl: './intensity-vs-distance.component.html',
-  styleUrls: ['./intensity-vs-distance.component.scss']
+  styleUrls: ['./intensity-vs-distance.component.scss'],
+  templateUrl: './intensity-vs-distance.component.html'
 })
 export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
-
-  public allResults: any[] = null;
-  public autoScale = true;
-  public animations = true;
-  public bubbleSeries: any[] = null;
-  public classOptions = {
-    'scatterplot1': {
-      type: 'scatter',
-      color: '#94dfea',
-    },
-    'estimated1': {
-      type: 'line',
-      color: '#d65617'
-    },
-    'estimated2': {
-      type: 'line',
-      color: '#5fce3b'
-    },
-    'binned': {
-      type: 'scatter',
+  allResults: any[] = null;
+  animations = true;
+  autoScale = true;
+  bubbleSeries: any[] = null;
+  classOptions = {
+    binned: {
       color: '#8d91ff',
       styles: {
-        r: 5,
         borderColor: '#000000',
-      }
+        r: 5
+      },
+      type: 'scatter'
     },
-    'median': {
-      type: 'scatter',
+    default: {
+      type: 'scatter'
+    },
+    estimated1: {
+      color: '#d65617',
+      type: 'line'
+    },
+    estimated2: {
+      color: '#5fce3b',
+      type: 'line'
+    },
+    median: {
       color: '#fe4d55',
       styles: {
-        r: 2,
         borderColor: '#000000',
-      }
+        r: 2
+      },
+      type: 'scatter'
     },
-    'default': {
+    scatterplot1: {
+      color: '#94dfea',
       type: 'scatter'
     }
   };
-  public colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA', '#8d91ff', '#94dfea', '#fe4d55', '#5fce3b']
+  colorScheme = {
+    domain: [
+      '#5AA454',
+      '#A10A28',
+      '#C7B42C',
+      '#AAAAAA',
+      '#8d91ff',
+      '#94dfea',
+      '#fe4d55',
+      '#5fce3b'
+    ]
   };
-  public customColors: any[] = [];
-  public gradient = false;
-  public lineSeries: any[] = null;
-  public product: any = null;
-  public scaleType = 'log';
-  public showLegend = true;
-  public showXAxis = true;
-  public showXAxisLabel = true;
-  public showYAxis = true;
-  public showYAxisLabel = true;
-  public subs = new Subscription();
-  public xAxisLabel = 'Hypocentral Distance (km)';
-  public yAxisLabel = 'Intensity (mmi)';
+  customColors: any[] = [];
+  gradient = false;
+  lineSeries: any[] = null;
+  product: any = null;
+  scaleType = 'log';
+  showLegend = true;
+  showXAxis = true;
+  showXAxisLabel = true;
+  showYAxis = true;
+  showYAxisLabel = true;
+  subs = new Subscription();
+  xAxisLabel = 'Hypocentral Distance (km)';
+  yAxisLabel = 'Intensity (mmi)';
 
-
-  constructor (
+  constructor(
     public dyfiService: DyfiService,
     public eventService: EventService
   ) {}
 
-
-  ngOnInit () {
-    this.subs.add(this.dyfiService.plotAtten$.subscribe((series) => {
-      this.onDyfiSeries(series);
-    }));
-    this.subs.add(this.eventService.product$.subscribe((product) => {
-      this.onProduct(product);
-    }));
-  }
-
-  ngOnDestroy () {
+  ngOnDestroy() {
     this.subs.unsubscribe();
   }
 
+  ngOnInit() {
+    this.subs.add(
+      this.dyfiService.plotAtten$.subscribe(series => {
+        this.onDyfiSeries(series);
+      })
+    );
+    this.subs.add(
+      this.eventService.product$.subscribe(product => {
+        this.onProduct(product);
+      })
+    );
+  }
 
   /**
    * Get DYFI data ready for plotting
@@ -94,7 +102,7 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
    * @param dyfiData
    *     processed data from DyfiService
    */
-  onDyfiSeries (dyfiData) {
+  onDyfiSeries(dyfiData) {
     if (!dyfiData) {
       this.bubbleSeries = null;
       this.lineSeries = null;
@@ -106,12 +114,13 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
     const lineSeries = [];
     const dyfiSeries = dyfiData.series;
     for (const series of dyfiSeries) {
-      const options = this.classOptions[series.class] || this.classOptions.default;
+      const options =
+        this.classOptions[series.class] || this.classOptions.default;
 
       // add styles to specific features
       if (options.styles) {
-        series.series = series.series.map((data) => {
-          return {...data, ...options.styles};
+        series.series = series.series.map(data => {
+          return { ...data, ...options.styles };
         });
       }
 
@@ -122,12 +131,10 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
       }
 
       if (options.color) {
-        this.customColors.push(
-          {
-            name: series.name,
-            value: options.color
-          }
-        );
+        this.customColors.push({
+          name: series.name,
+          value: options.color
+        });
       }
     }
 
@@ -142,7 +149,7 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
    * @param product
    *     shakemap product
    */
-  onProduct (product) {
+  onProduct(product) {
     this.product = product;
     this.dyfiService.getAtten(product);
   }

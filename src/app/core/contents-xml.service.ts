@@ -1,22 +1,17 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject ,  Observable ,  of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
 
 /**
  * Retreives xml contents from a product via http calls, and parses contents
  */
-@Injectable ()
+@Injectable()
 export class ContentsXmlService {
+  contents$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  public contents$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-
-  constructor (
-    public httpClient: HttpClient
-  ) { }
-
+  constructor(public httpClient: HttpClient) {}
 
   /**
    * Gets product contents via http call and parses
@@ -24,32 +19,20 @@ export class ContentsXmlService {
    * @param product
    *     The product from the event
    */
-  get (product: any): void {
+  get(product: any): void {
     try {
       const content = product.contents['contents.xml'];
-      const options = {responseType: 'text' as 'text'}; // Yes, this is wierd.
+      const options = { responseType: 'text' as 'text' }; // Yes, this is wierd.
 
-      this.httpClient.get(content.url, options).pipe(
-        catchError(this.handleError())
-      ).subscribe((response) => {
-        this.contents$.next(this.parseResponse(response, product));
-      });
-
+      this.httpClient
+        .get(content.url, options)
+        .pipe(catchError(this.handleError()))
+        .subscribe(response => {
+          this.contents$.next(this.parseResponse(response, product));
+        });
     } catch (e) {
       this.contents$.next(null);
     }
-  }
-
-  /**
-   * Error handler for http requests
-   *
-   * @returns
-   *    returns error
-   */
-  private handleError () {
-    return (error: HttpErrorResponse): Observable<any> => {
-      return of(null);
-    };
   }
 
   /**
@@ -60,7 +43,7 @@ export class ContentsXmlService {
    * @returns
    *     Object with formatting data
    */
-  parseFile (file: Element, product: any): Object {
+  parseFile(file: Element, product: any): Object {
     if (file.getAttribute('refid')) {
       throw new Error('file element with refid');
     }
@@ -68,17 +51,17 @@ export class ContentsXmlService {
     const id = file.getAttribute('id');
     const title = file.getAttribute('title');
     const captionElement = file.querySelector('caption');
-    const caption = (captionElement ? captionElement.textContent : '');
+    const caption = captionElement ? captionElement.textContent : '';
     const formats = Array.prototype.map.call(
       file.querySelectorAll('format'),
-      (format) => this.parseFormat(format, product)
+      format => this.parseFormat(format, product)
     );
 
     return {
-      id: id,
-      title: title,
       caption: caption,
-      formats: formats
+      formats: formats,
+      id: id,
+      title: title
     };
   }
 
@@ -92,9 +75,8 @@ export class ContentsXmlService {
    * @returns
    *     Object with href/type/url/length properties
    */
-  parseFormat (format: Element, product: any): Object {
-    let result,
-        content;
+  parseFormat(format: Element, product: any): Object {
+    let result, content;
 
     try {
       const href = format.getAttribute('href');
@@ -102,9 +84,9 @@ export class ContentsXmlService {
 
       result = {
         href: href,
+        length: 0,
         type: type,
-        url: null,
-        length: 0
+        url: null
       };
 
       content = product.contents[href] || {};
@@ -127,13 +109,24 @@ export class ContentsXmlService {
    * @returns
    *     Array of parsed responses
    */
-  parseResponse (response: string, product: any): Array<Object> {
+  parseResponse(response: string, product: any): Array<Object> {
     const xml = new DOMParser().parseFromString(response, 'text/xml');
 
     return Array.prototype.map.call(
       xml.querySelectorAll('contents > file'),
-      (file) => this.parseFile(file, product)
+      file => this.parseFile(file, product)
     );
   }
 
+  /**
+   * Error handler for http requests
+   *
+   * @returns
+   *    returns error
+   */
+  private handleError() {
+    return (error: HttpErrorResponse): Observable<any> => {
+      return of(null);
+    };
+  }
 }

@@ -4,10 +4,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { MomentTensorComponent } from './moment-tensor.component';
-
 
 describe('MomentTensorComponent', () => {
   let component: MomentTensorComponent;
@@ -20,28 +19,33 @@ describe('MomentTensorComponent', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
       declarations: [
         MomentTensorComponent,
 
-        MockComponent({selector: 'moment-tensor-axes',
-            inputs: ['tensor']}),
-        MockComponent({selector: 'moment-tensor-info',
-            inputs: ['tensor']}),
-        MockComponent({selector: 'product-page',
-            inputs: ['product']}),
-        MockComponent({selector: 'shared-beachball',
-            inputs: ['fillColor', 'tensor']}),
-        MockComponent({selector: 'shared-nodal-planes',
-            inputs: ['tensor']})
+        MockComponent({
+          inputs: ['tensor'],
+          selector: 'moment-tensor-axes'
+        }),
+        MockComponent({
+          inputs: ['tensor'],
+          selector: 'moment-tensor-info'
+        }),
+        MockComponent({
+          inputs: ['product'],
+          selector: 'product-page'
+        }),
+        MockComponent({
+          inputs: ['fillColor', 'tensor'],
+          selector: 'shared-beachball'
+        }),
+        MockComponent({
+          inputs: ['tensor'],
+          selector: 'shared-nodal-planes'
+        })
       ],
-      providers: [
-        {provide: EventService, useValue: eventServiceStub}
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

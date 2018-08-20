@@ -4,7 +4,6 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { ProductAttributionComponent } from './product-attribution.component';
 
-
 describe('ProductAttributionComponent', () => {
   let component: ProductAttributionComponent;
   let fixture: ComponentFixture<ProductAttributionComponent>;
@@ -14,10 +13,12 @@ describe('ProductAttributionComponent', () => {
       declarations: [
         ProductAttributionComponent,
 
-        MockComponent({selector: 'shared-attribution', inputs: ['sourceCode']})
-      ],
-    })
-    .compileComponents();
+        MockComponent({
+          inputs: ['sourceCode'],
+          selector: 'shared-attribution'
+        })
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -39,12 +40,11 @@ describe('ProductAttributionComponent', () => {
     };
     const productProperties = {
       properties: {
-        'origin-source': 'a',
+        'beachball-source': 'c',
         'magnitude-source': 'b',
-        'beachball-source': 'c'
+        'origin-source': 'a'
       }
     };
-
 
     it('includes product source', () => {
       expect(component.getSources(productA)).toEqual(['a']);
@@ -64,7 +64,7 @@ describe('ProductAttributionComponent', () => {
     });
 
     it('is okay if product properties do not include alternate sources', () => {
-      const result = component.getSources({properties: {}});
+      const result = component.getSources({ properties: {} });
       expect(result).toEqual([]);
     });
   });

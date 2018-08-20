@@ -6,34 +6,29 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { ShakemapSummaryComponent } from './shakemap-summary.component';
 
-
 describe('ShakeMapSummaryComponent', () => {
   let component: ShakemapSummaryComponent;
   let fixture: ComponentFixture<ShakemapSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatTableModule,
-        RouterModule
-      ],
       declarations: [
         ShakemapSummaryComponent,
         MockComponent({
-          selector: 'shared-mmi',
-          inputs: ['intensity']
+          inputs: ['intensity'],
+          selector: 'shared-mmi'
         }),
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
         MockComponent({
-          selector: 'shared-preferred-check',
-          inputs: ['TITLE']
+          inputs: ['TITLE'],
+          selector: 'shared-preferred-check'
         })
-      ]
-    })
-    .compileComponents();
+      ],
+      imports: [MatTableModule, RouterModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

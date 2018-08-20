@@ -20,7 +20,6 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'getBarPosition'
 })
 export class GetBarPositionPipe implements PipeTransform {
-
   transform(value: number, min: number, max: number, range: number): any {
     if (value < min) {
       value = min;
@@ -35,7 +34,9 @@ export class GetBarPositionPipe implements PipeTransform {
       value = Number.MIN_VALUE;
     }
 
-    return range * (Math.log(value) - Math.log(min)) / (Math.log(max) - Math.log(min));
+    return (
+      (range * (Math.log(value) - Math.log(min))) /
+      (Math.log(max) - Math.log(min))
+    );
   }
-
 }

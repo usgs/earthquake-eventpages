@@ -1,15 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { FormatterService } from '../core/formatter.service';
-
+import { FormatterService } from '@core/formatter.service';
 
 @Pipe({
   name: 'sharedLocation'
 })
 export class LocationPipe implements PipeTransform {
-
-  constructor (public formatter: FormatterService) { }
-
+  constructor(public formatter: FormatterService) {}
 
   /**
    * Returns a formatted location based on the input coordinates
@@ -22,9 +19,8 @@ export class LocationPipe implements PipeTransform {
    * @return { string }
    *     formatted location
    */
-  transform (coordinates: any[], precision?: number): string {
-    let latitude,
-        longitude;
+  transform(coordinates: any[], precision?: number): string {
+    let latitude, longitude;
 
     try {
       longitude = parseFloat(coordinates[0]);
@@ -36,5 +32,4 @@ export class LocationPipe implements PipeTransform {
 
     return this.formatter.location(latitude, longitude, precision);
   }
-
 }

@@ -1,9 +1,9 @@
 import * as L from 'leaflet';
 
-
 /**
  * leaflet legend control
  */
+// tslint:disable-next-line:variable-name
 const LegendControl = L.Control.extend({
   _overlays: [],
 
@@ -13,7 +13,7 @@ const LegendControl = L.Control.extend({
    * @param overlay
    *     The overlay to append legend to
    */
-  addLegend: function (overlay: any) {
+  addLegend: function(overlay: any) {
     if (!this._legendContainer || !overlay.legend) {
       return this;
     }
@@ -27,7 +27,7 @@ const LegendControl = L.Control.extend({
   /**
    * Removes all children from the overall legend container
    */
-  clearLegendContainer: function () {
+  clearLegendContainer: function() {
     if (this._legendContainer) {
       while (this._legendContainer.firstChild) {
         this._legendContainer.removeChild(this._legendContainer.firstChild);
@@ -43,7 +43,7 @@ const LegendControl = L.Control.extend({
    *
    * @return {any}
    */
-  removeLegend: function (overlay: any) {
+  removeLegend: function(overlay: any) {
     if (!this._legendContainer || !overlay.legend) {
       return this;
     }
@@ -63,7 +63,7 @@ const LegendControl = L.Control.extend({
    *
    * @return {any}
    */
-  onAdd: function (map) {
+  onAdd: function(map) {
     const className = 'leaflet-control-legend';
 
     this._map = map;
@@ -71,10 +71,14 @@ const LegendControl = L.Control.extend({
     if (!this._container) {
       this._container = L.DomUtil.create('div', className);
       this._container.innerHTML =
-          '<a href="#" class="' + className + '-show material-icons"' +
-              ' title="Legend">&#xE0DA;</a>' +
-          '<button class="mat-button ' + className + '-hide">CLOSE</button>' +
-          '<div class="legend-container"></div>';
+        '<a href="#" class="' +
+        className +
+        '-show material-icons"' +
+        ' title="Legend">&#xE0DA;</a>' +
+        '<button class="mat-button ' +
+        className +
+        '-hide">CLOSE</button>' +
+        '<div class="legend-container"></div>';
 
       // Makes this work on IE10 Touch devices by stopping it from firing
       // a mouseout event when the touch is released
@@ -88,14 +92,18 @@ const LegendControl = L.Control.extend({
     if (L.Browser.touch) {
       L.DomEvent.disableClickPropagation(this._container);
     } else {
-      L.DomEvent
-        .disableClickPropagation(this._container)
-        .disableScrollPropagation(this._container);
+      L.DomEvent.disableClickPropagation(
+        this._container
+      ).disableScrollPropagation(this._container);
     }
 
     L.DomEvent.on(this._container, 'mousewheel', L.DomEvent.stopPropagation);
-    L.DomEvent.on(this._showButton, 'click', L.DomEvent.stop)
-        .on(this._showButton, 'click', this._open, this);
+    L.DomEvent.on(this._showButton, 'click', L.DomEvent.stop).on(
+      this._showButton,
+      'click',
+      this._open,
+      this
+    );
     L.DomEvent.on(this._hideButton, 'click', this._close, this);
 
     map.on('layeradd', this._onLayerAdd, this);
@@ -110,10 +118,14 @@ const LegendControl = L.Control.extend({
    * @param map
    *     The map overlay
    */
-  onRemove: function (map) {
+  onRemove: function(map) {
     L.DomEvent.off(this._container, 'mousewheel', L.DomEvent.stopPropagation);
-    L.DomEvent.off(this._showButton, 'click', L.DomEvent.stop)
-        .off(this._showButton, 'click', this._open, this);
+    L.DomEvent.off(this._showButton, 'click', L.DomEvent.stop).off(
+      this._showButton,
+      'click',
+      this._open,
+      this
+    );
     L.DomEvent.off(this._hideButton, 'click', this._close, this);
 
     map.off('layeradd', this._onLayerAdd, this);
@@ -123,7 +135,7 @@ const LegendControl = L.Control.extend({
   /**
    * Set legend overlays
    */
-  setOverlays: function (overlays) {
+  setOverlays: function(overlays) {
     this._overlays = overlays;
     this._update();
   },
@@ -131,7 +143,7 @@ const LegendControl = L.Control.extend({
   /**
    * Show the Legend control
    */
-  _close: function () {
+  _close: function() {
     L.DomUtil.removeClass(this._container, 'leaflet-control-legend-visible');
   },
 
@@ -141,7 +153,7 @@ const LegendControl = L.Control.extend({
    * @param layerEvent
    *     The event to add a layer to legend
    */
-  _onLayerAdd: function (layerEvent) {
+  _onLayerAdd: function(layerEvent) {
     this.addLegend(layerEvent.layer);
   },
 
@@ -151,14 +163,14 @@ const LegendControl = L.Control.extend({
    * @param layerEvent
    *     The layer to remove
    */
-  _onLayerRemove: function (layerEvent) {
+  _onLayerRemove: function(layerEvent) {
     this.removeLegend(layerEvent.layer);
   },
 
   /**
    * Hide the Legend control
    */
-  _open: function () {
+  _open: function() {
     L.DomUtil.addClass(this._container, 'leaflet-control-legend-visible');
   },
 
@@ -167,14 +179,14 @@ const LegendControl = L.Control.extend({
    *
    * @return {any}
    */
-  _update: function () {
+  _update: function() {
     if (!this._map) {
       return this;
     }
 
     this.clearLegendContainer();
 
-    (this._overlays || []).forEach((overlay) => {
+    (this._overlays || []).forEach(overlay => {
       if (this._map.hasLayer(overlay)) {
         this.addLegend(overlay);
       }
@@ -183,6 +195,5 @@ const LegendControl = L.Control.extend({
     return this;
   }
 });
-
 
 export { LegendControl };

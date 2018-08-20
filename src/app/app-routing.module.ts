@@ -11,22 +11,20 @@ import { MapComponent } from './map/map/map.component';
 const appRoutes = [
   {
     path: '',
-    redirectTo: 'unknown',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    redirectTo: 'unknown'
   },
   {
-    path: 'unknown',
-    component: UnknownEventPageComponent,
     children: [
       {
-        path: '',
-        loadChildren: './tell-us/tell-us.module#TellUsModule'
+        loadChildren: './tell-us/tell-us.module#TellUsModule',
+        path: ''
       }
-    ]
+    ],
+    component: UnknownEventPageComponent,
+    path: 'unknown'
   },
   {
-    path: ':eventid',
-    component: EventPageComponent,
     children: [
       {
         path: '',
@@ -34,83 +32,79 @@ const appRoutes = [
         redirectTo: 'executive'
       },
       {
-        path: 'executive',
-        component: ExecutiveComponent
+        component: ExecutiveComponent,
+        path: 'executive'
       },
       {
-        path: 'map',
-        component: MapComponent
+        component: MapComponent,
+        path: 'map'
       },
       {
-        path: 'region-info',
-        component: RegionInfoComponent
+        component: RegionInfoComponent,
+        path: 'region-info'
       },
       {
-        path: 'impact',
-        loadChildren: './impact/impact.module#ImpactModule'
+        loadChildren: './impact/impact.module#ImpactModule',
+        path: 'impact'
       },
       {
-        path: 'tellus',
-        loadChildren: './tell-us/tell-us.module#TellUsModule'
+        loadChildren: './tell-us/tell-us.module#TellUsModule',
+        path: 'tellus'
       },
       {
-        path: 'shakemap',
-        loadChildren: './shakemap/shakemap.module#ShakemapModule'
+        loadChildren: './shakemap/shakemap.module#ShakemapModule',
+        path: 'shakemap'
       },
       {
-        path: 'dyfi',
-        loadChildren: './dyfi/dyfi.module#DyfiModule'
+        loadChildren: './dyfi/dyfi.module#DyfiModule',
+        path: 'dyfi'
       },
       {
-        path: 'pager',
-        loadChildren: './pager/pager.module#PagerModule'
+        loadChildren: './pager/pager.module#PagerModule',
+        path: 'pager'
       },
       {
-        path: 'ground-failure',
-        loadChildren: './ground-failure/ground-failure.module#GroundFailureModule'
+        loadChildren:
+          './ground-failure/ground-failure.module#GroundFailureModule',
+        path: 'ground-failure'
       },
       {
-        path: 'technical',
-        loadChildren: './technical/technical.module#TechnicalModule'
+        loadChildren: './technical/technical.module#TechnicalModule',
+        path: 'technical'
       },
       {
-        path: 'origin',
-        loadChildren: './origin/origin.module#OriginModule'
+        loadChildren: './origin/origin.module#OriginModule',
+        path: 'origin'
       },
       {
-        path: 'moment-tensor',
-        loadChildren: './moment-tensor/moment-tensor.module#MomentTensorModule'
+        loadChildren: './moment-tensor/moment-tensor.module#MomentTensorModule',
+        path: 'moment-tensor'
       },
       {
-        path: 'focal-mechanism',
-        loadChildren: './focal-mechanism/focal-mechanism.module#FocalMechanismModule'
+        loadChildren:
+          './focal-mechanism/focal-mechanism.module#FocalMechanismModule',
+        path: 'focal-mechanism'
       },
       {
-        path: 'oaf',
-        loadChildren: './oaf/oaf.module#OafModule'
+        loadChildren: './oaf/oaf.module#OafModule',
+        path: 'oaf'
       },
       {
-        path: 'finite-fault',
-        loadChildren: './finite-fault/finite-fault.module#FiniteFaultModule'
+        loadChildren: './finite-fault/finite-fault.module#FiniteFaultModule',
+        path: 'finite-fault'
       },
       {
-        path: 'waveforms',
-        loadChildren: './waveforms/waveforms.module#WaveformsModule'
+        loadChildren: './waveforms/waveforms.module#WaveformsModule',
+        path: 'waveforms'
       }
-    ]
+    ],
+    component: EventPageComponent,
+    path: ':eventid'
   }
 ];
 
-
 @NgModule({
-  imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: false }
-    )
-  ],
-  exports: [
-    RouterModule
-  ]
+  exports: [RouterModule],
+  imports: [RouterModule.forRoot(appRoutes, { enableTracing: false })]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

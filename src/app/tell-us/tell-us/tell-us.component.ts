@@ -2,10 +2,9 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { FormComponent } from '../form/form.component';
-import {HttpErrorResponse} from '@angular/common/http';
-
+import { HttpErrorResponse } from '@angular/common/http';
 
 /**
  * Main component that handles the displaying of the tell us form and displays
@@ -13,29 +12,26 @@ import {HttpErrorResponse} from '@angular/common/http';
  */
 @Component({
   selector: 'tell-us-tell-us',
-  templateUrl: './tell-us.component.html',
-  styleUrls: ['./tell-us.component.scss']
+  styleUrls: ['./tell-us.component.scss'],
+  templateUrl: './tell-us.component.html'
 })
 export class TellUsComponent implements OnInit {
-
-
   // the form dialog
-  public dialogRef: MatDialogRef<FormComponent> = null;
-  // promise representing showForm having been called in ngOnInit
-  public initPromise: Promise<any>;
-  // response received from form
-  public response: any = null;
+  dialogRef: MatDialogRef<FormComponent> = null;
   // error response received from form
-  public error: any = null;
+  error: any = null;
+  // promise representing showForm having been called in ngOnInit
+  initPromise: Promise<any>;
+  // response received from form
+  response: any = null;
 
-
-  constructor (
+  constructor(
     public dialog: MatDialog,
     public eventService: EventService,
-    public location: Location) { }
+    public location: Location
+  ) {}
 
-
-  ngOnInit () {
+  ngOnInit() {
     this.initPromise = Promise.resolve().then(() => {
       this.showForm();
     });
@@ -47,7 +43,7 @@ export class TellUsComponent implements OnInit {
    * @param response
    *     dyfi response or HttpErrorResponse object
    */
-  onDialogClose (response: any | HttpErrorResponse) {
+  onDialogClose(response: any | HttpErrorResponse) {
     this.dialogRef = null;
 
     // check response
@@ -66,7 +62,7 @@ export class TellUsComponent implements OnInit {
    * @param response
    *     HttpErrorResponse object
    */
-  onError (response: any) {
+  onError(response: any) {
     this.error = response;
     console.log('form failed to submit: ', this.error);
   }
@@ -77,7 +73,7 @@ export class TellUsComponent implements OnInit {
    * @param response
    *     response object from earthquake-dyfi-response
    */
-  onSuccess (response: any) {
+  onSuccess(response: any) {
     this.response = response;
     console.log('success!', this.response);
   }
@@ -85,16 +81,15 @@ export class TellUsComponent implements OnInit {
   /**
    * Show the form dialog.
    */
-  showForm () {
+  showForm() {
     this.dialogRef = this.dialog.open(FormComponent, {
       data: {
         eventService: this.eventService
       }
     });
 
-    this.dialogRef.afterClosed().subscribe((response) => {
+    this.dialogRef.afterClosed().subscribe(response => {
       this.onDialogClose(response);
     });
   }
-
 }

@@ -3,9 +3,6 @@ coverage
 e2e
 node_modules
 .dockerignore
-.editorconfig
-.eslintignore
-.eslintrc.json
 .gitattributes
 .gitignore
 .git

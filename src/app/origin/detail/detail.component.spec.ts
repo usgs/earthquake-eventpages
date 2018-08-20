@@ -3,10 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 
 import { DetailComponent } from './detail.component';
-import { EventService } from '../../core/event.service';
-import { FormatterService } from '../../core/formatter.service';
-import { Event } from '../../event';
-
+import { EventService } from '@core/event.service';
+import { FormatterService } from '@core/formatter.service';
 
 describe('DetailComponent', () => {
   let component: DetailComponent;
@@ -18,35 +16,41 @@ describe('DetailComponent', () => {
     const eventServiceStub = {
       getEvent: jasmine.createSpy('eventService::getEvent'),
       getProduct: jasmine.createSpy('eventService::getProduct'),
-      'product$': {
+      product$: {
         getValue: () => PRODUCT
       }
     };
 
-    PRODUCT = {phasedata: {}};
+    PRODUCT = { phasedata: {} };
 
-    const formatterServiceStub = {
-    };
+    const formatterServiceStub = {};
 
     TestBed.configureTestingModule({
       declarations: [
         DetailComponent,
 
-        MockComponent({selector: 'shared-uncertain-value',
-            inputs: ['value', 'uncertainty', 'uncertaintyUnits']}),
-        MockComponent({selector: 'shared-coordinates',
-            inputs: ['latitude', 'longitude']}),
-        MockComponent({selector: 'shared-fe-region',
-            inputs: ['latitude', 'longitude']}),
-        MockComponent({selector: 'shared-attribution',
-            inputs: ['sourceCode']})
+        MockComponent({
+          inputs: ['value', 'uncertainty', 'uncertaintyUnits'],
+          selector: 'shared-uncertain-value'
+        }),
+        MockComponent({
+          inputs: ['latitude', 'longitude'],
+          selector: 'shared-coordinates'
+        }),
+        MockComponent({
+          inputs: ['latitude', 'longitude'],
+          selector: 'shared-fe-region'
+        }),
+        MockComponent({
+          inputs: ['sourceCode'],
+          selector: 'shared-attribution'
+        })
       ],
       providers: [
-        {provide: EventService, useValue: eventServiceStub},
-        {provide: FormatterService, useValue: formatterServiceStub}
+        { provide: EventService, useValue: eventServiceStub },
+        { provide: FormatterService, useValue: formatterServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -61,13 +65,10 @@ describe('DetailComponent', () => {
 
   describe('getProduct', () => {
     it('returns object if not found', () => {
-      const event = new Event({});
-
       expect(component.getProduct()).toEqual({});
     });
 
     it('properly looks for an origin', () => {
-      const event = new Event({});
       const spy = spyOn(component.eventService.product$, 'getValue');
 
       component.getProduct();

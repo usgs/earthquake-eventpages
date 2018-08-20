@@ -1,15 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { FormatterService } from '../core/formatter.service';
-
+import { FormatterService } from '@core/formatter.service';
 
 @Pipe({
   name: 'sharedNumber'
 })
 export class NumberPipe implements PipeTransform {
-
-  constructor (public formatter: FormatterService) { }
-
+  constructor(public formatter: FormatterService) {}
 
   /**
    * Format a number
@@ -26,13 +23,13 @@ export class NumberPipe implements PipeTransform {
    * @return {String}
    *     formatted number
    */
-  transform (
-      value: any,
-      decimals?: number,
-      units = '',
-      empty = this.formatter.empty): any {
+  transform(
+    value: any,
+    decimals?: number,
+    units = '',
+    empty = this.formatter.empty
+  ): any {
     // NOTE: FormatterService uses different argument order
     return this.formatter.number(value, decimals, empty, units);
   }
-
 }

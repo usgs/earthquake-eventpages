@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
 
-import { ContributorService } from '../../core/contributor.service';
-import { EventService } from '../../core/event.service';
+import { ContributorService } from '@core/contributor.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
-
 
 /**
  * Attribution component
@@ -13,19 +12,17 @@ import { Event } from '../../event';
  */
 @Component({
   selector: 'shared-attribution',
-  templateUrl: './attribution.component.html',
-  styleUrls: ['./attribution.component.scss']
+  styleUrls: ['./attribution.component.scss'],
+  templateUrl: './attribution.component.html'
 })
 export class AttributionComponent {
+  @Input()
+  sourceCode: string;
 
-  @Input() sourceCode: string;
-
-
-  constructor (
-    public readonly contributorService: ContributorService,
-    public readonly eventService: EventService
-  ) { }
-
+  constructor(
+    readonly contributorService: ContributorService,
+    readonly eventService: EventService
+  ) {}
 
   /**
    * Converts source code to informational data
@@ -37,10 +34,13 @@ export class AttributionComponent {
    * @param details
    *     Attribution details for this event
    */
-  sourceCodeToInfo (sourceCode: string, event: Event = null,
-      details: Array<any> = []): any {
+  sourceCodeToInfo(
+    sourceCode: string,
+    event: Event = null,
+    details: Array<any> = []
+  ): any {
     let id;
-    const eventSources = (event && event.sources) ? event.sources : [];
+    const eventSources = event && event.sources ? event.sources : [];
 
     if (!sourceCode) {
       return '';
@@ -48,11 +48,10 @@ export class AttributionComponent {
 
     id = sourceCode.toLowerCase();
 
-    const detailInfo = details.find((item) => {
-     return (
-       item.id === id ||
-       (item.aliases && item.aliases.indexOf(id) !== -1)
-     );
+    const detailInfo = details.find(item => {
+      return (
+        item.id === id || (item.aliases && item.aliases.indexOf(id) !== -1)
+      );
     });
 
     if (detailInfo) {
@@ -61,10 +60,9 @@ export class AttributionComponent {
     }
 
     return {
+      details: detailInfo,
       id: id.toUpperCase(),
-      index: eventSources.indexOf(id) + 1,
-      details: detailInfo
+      index: eventSources.indexOf(id) + 1
     };
   }
-
 }

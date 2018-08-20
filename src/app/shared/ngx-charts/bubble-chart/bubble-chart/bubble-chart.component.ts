@@ -1,18 +1,15 @@
-import {
-  trigger,
-  style,
-  animate,
-  transition } from '@angular/animations';
+import { trigger, style, animate, transition } from '@angular/animations';
 import {
   Component,
   Input,
   ViewEncapsulation,
-  ChangeDetectionStrategy } from '@angular/core';
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  NgZone,
+  ElementRef
+} from '@angular/core';
 
-import {
-  BubbleChartComponent as SwimlaneBubbleChart
-} from '@swimlane/ngx-charts';
-
+import { BubbleChartComponent as SwimlaneBubbleChart } from '@swimlane/ngx-charts';
 
 /**
  * Bubble chart component to show the series items
@@ -21,32 +18,41 @@ import {
  *     The color of the error bar on the component
  */
 @Component({
-  selector: 'ngx-charts-bubble-chart',
-  templateUrl: './bubble-chart.component.html',
-  styleUrls: ['../../common/base-chart.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('animationState', [
       transition(':leave', [
         style({
-          opacity: 1,
+          opacity: 1
         }),
-        animate(500, style({
-          opacity: 0
-        }))
+        animate(
+          500,
+          style({
+            opacity: 0
+          })
+        )
       ])
     ])
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  selector: 'ngx-charts-bubble-chart',
+  styleUrls: ['../../common/base-chart.component.scss'],
+  templateUrl: './bubble-chart.component.html'
 })
 export class BubbleChartComponent extends SwimlaneBubbleChart {
+  customColors;
+  @Input()
+  errorBarColor;
 
-  @Input() errorBarColor = '#000000';
+  constructor(chartElement: ElementRef, zone: NgZone, cd: ChangeDetectorRef) {
+    super(chartElement, zone, cd);
 
-  customColors = [
-    {
-      name: 'error',
-      value: this.errorBarColor
-    }
-  ];
+    this.errorBarColor = '#000000';
+    this.customColors = [
+      {
+        name: 'error',
+        value: this.errorBarColor
+      }
+    ];
+  }
 }

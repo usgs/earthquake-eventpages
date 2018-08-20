@@ -1,20 +1,15 @@
 import { Component } from '@angular/core';
 
-import { EventService } from '../../core/event.service';
-
+import { EventService } from '@core/event.service';
 
 /**
  * Display finite-fault product information
  */
 @Component({
   selector: 'finite-fault',
-  templateUrl: './finite-fault.component.html',
-  styleUrls: ['./finite-fault.component.scss']
+  styleUrls: ['./finite-fault.component.scss'],
+  templateUrl: './finite-fault.component.html'
 })
 export class FiniteFaultComponent {
-
-  constructor(
-    public eventService: EventService
-  ) { }
-
+  constructor(public eventService: EventService) {}
 }

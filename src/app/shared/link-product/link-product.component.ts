@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * Component used to share a product among elements
  *
@@ -9,13 +8,12 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'shared-link-product',
-  templateUrl: './link-product.component.html',
-  styleUrls: ['./link-product.component.scss']
+  styleUrls: ['./link-product.component.scss'],
+  templateUrl: './link-product.component.html'
 })
 export class LinkProductComponent {
-
-  @Input() product: any;
-
+  @Input()
+  product: any;
 
   /**
    * Getter for the product text
@@ -23,7 +21,7 @@ export class LinkProductComponent {
    *     The product from this event
    * @returns {string}
    */
-  getText (product: any): string {
+  getText(product: any): string {
     try {
       const text = product.properties.text;
       return text;
@@ -37,7 +35,7 @@ export class LinkProductComponent {
    * @param product
    * @returns {string}
    */
-  getUrl (product: any): string {
+  getUrl(product: any): string {
     try {
       const url = product.properties.url;
 
@@ -51,5 +49,4 @@ export class LinkProductComponent {
       return '#nourl';
     }
   }
-
 }

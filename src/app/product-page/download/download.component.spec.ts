@@ -1,15 +1,9 @@
-import {
-  async,
-  getTestBed,
-  ComponentFixture,
-  TestBed
-} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { ContentsXmlService } from '../../core/contents-xml.service';
+import { ContentsXmlService } from '@core/contents-xml.service';
 import { DownloadComponent } from './download.component';
-
 
 describe('DownloadComponent', () => {
   let component: DownloadComponent;
@@ -24,16 +18,17 @@ describe('DownloadComponent', () => {
       declarations: [
         DownloadComponent,
 
-        MockComponent({selector: 'mat-expansion-panel'}),
-        MockComponent({selector: 'mat-expansion-panel-header'}),
-        MockComponent({selector: 'product-page-download-item',
-            inputs: ['item']})
+        MockComponent({ selector: 'mat-expansion-panel' }),
+        MockComponent({ selector: 'mat-expansion-panel-header' }),
+        MockComponent({
+          inputs: ['item'],
+          selector: 'product-page-download-item'
+        })
       ],
       providers: [
-        {provide: ContentsXmlService, useValue: contentsXmlServiceStub}
+        { provide: ContentsXmlService, useValue: contentsXmlServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -41,7 +36,6 @@ describe('DownloadComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -68,7 +62,8 @@ describe('DownloadComponent', () => {
         phasedata: {}
       };
       expect(component.contentsXmlService.get).toHaveBeenCalledWith(
-          component.product.phasedata);
+        component.product.phasedata
+      );
     });
   });
 

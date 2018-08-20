@@ -3,16 +3,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { ContributorService } from '../../core/contributor.service';
-import { EventService } from '../../core/event.service';
+import { ContributorService } from '@core/contributor.service';
+import { EventService } from '@core/event.service';
 import { ProductPageComponent } from './product-page.component';
-
 
 describe('ProductPageComponent', () => {
   let component: ProductPageComponent;
   let fixture: ComponentFixture<ProductPageComponent>;
-  let contributorService;
-  let eventService;
 
   beforeEach(async(() => {
     const contributorServiceStub = {
@@ -28,28 +25,25 @@ describe('ProductPageComponent', () => {
       declarations: [
         ProductPageComponent,
 
-        MockComponent({selector: 'product-page-footer',
-            inputs: ['event', 'product']}),
-        MockComponent({selector: 'product-page-header',
-            inputs: ['contributors', 'event', 'product', 'productType']})
+        MockComponent({
+          inputs: ['event', 'product'],
+          selector: 'product-page-footer'
+        }),
+        MockComponent({
+          inputs: ['contributors', 'event', 'product', 'productType'],
+          selector: 'product-page-header'
+        })
       ],
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [RouterTestingModule],
       providers: [
-        {provide: ContributorService, useValue: contributorServiceStub},
-        {provide: EventService, useValue: eventServiceStub}
+        { provide: ContributorService, useValue: contributorServiceStub },
+        { provide: EventService, useValue: eventServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProductPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    contributorService = fixture.debugElement.injector.get(ContributorService);
-    eventService = fixture.debugElement.injector.get(EventService);
-
   }));
 
   beforeEach(() => {

@@ -5,7 +5,6 @@ import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 import { MmiComponent } from './mmi.component';
 
-
 describe('MmiComponent', () => {
   let component: MmiComponent;
   let fixture: ComponentFixture<MmiComponent>;
@@ -15,12 +14,11 @@ describe('MmiComponent', () => {
       declarations: [
         MmiComponent,
 
-        MockComponent({selector: 'shared-bubble', inputs: ['name', 'title']}),
+        MockComponent({ selector: 'shared-bubble', inputs: ['name', 'title'] }),
 
         MockPipe('sharedRoman')
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

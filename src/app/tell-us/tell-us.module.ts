@@ -13,7 +13,7 @@ import {
   MatInputModule
 } from '@angular/material';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { FieldsetComponent } from './fieldset/fieldset.component';
 import { FormComponent } from './form/form.component';
 import { FormLanguageService } from './form-language.service';
@@ -24,8 +24,17 @@ import { TellUsComponent } from './tell-us/tell-us.component';
 import { TellUsRoutingModule } from './tell-us-routing.module';
 import { LocationViewModule } from 'hazdev-ng-location-view';
 
-
 @NgModule({
+  declarations: [
+    FieldsetComponent,
+    FormComponent,
+    LocationComponent,
+    QuestionComponent,
+    TellUsComponent,
+    PrivacyStatementComponent
+  ],
+  entryComponents: [FormComponent],
+  exports: [FormComponent, TellUsComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -43,23 +52,6 @@ import { LocationViewModule } from 'hazdev-ng-location-view';
     // routing module is always last
     TellUsRoutingModule
   ],
-  declarations: [
-    FieldsetComponent,
-    FormComponent,
-    LocationComponent,
-    QuestionComponent,
-    TellUsComponent,
-    PrivacyStatementComponent
-  ],
-  entryComponents: [
-    FormComponent
-  ],
-  exports: [
-    FormComponent,
-    TellUsComponent
-  ],
-  providers: [
-    FormLanguageService
-  ]
+  providers: [FormLanguageService]
 })
-export class TellUsModule { }
+export class TellUsModule {}

@@ -1,9 +1,7 @@
 import { UnitsPipe } from './units.pipe';
 
-
 describe('UnitsPipe', () => {
-  let formatter,
-      pipe;
+  let formatter, pipe;
 
   beforeEach(() => {
     formatter = {
@@ -19,20 +17,27 @@ describe('UnitsPipe', () => {
   });
 
   it('formats internal units correctly', () => {
-
-      const units = [{'units': 'count',
-                            'expected': ''},
-                        {'units': 'intensity',
-                            'expected': ' mmi'},
-                        {'units': 'km',
-                            'expected': ' km'}];
-
-      for (const unit of units) {
-          const val = 5;
-          const res: string = pipe.transform(val, unit.units);
-
-          expect(res === (val.toString() + unit.expected)).toBeTruthy();
+    const units = [
+      {
+        expected: '',
+        units: 'count'
+      },
+      {
+        expected: ' mmi',
+        units: 'intensity'
+      },
+      {
+        expected: ' km',
+        units: 'km'
       }
+    ];
+
+    for (const unit of units) {
+      const val = 5;
+      const res: string = pipe.transform(val, unit.units);
+
+      expect(res === val.toString() + unit.expected).toBeTruthy();
+    }
   });
 
   it('calls formatterService for degrees', () => {

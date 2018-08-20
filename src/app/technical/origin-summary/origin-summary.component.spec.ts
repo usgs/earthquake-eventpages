@@ -4,9 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { FormatterService } from '../../core/formatter.service';
+import { FormatterService } from '@core/formatter.service';
 import { OriginSummaryComponent } from './origin-summary.component';
-
 
 describe('OriginSummaryComponent', () => {
   let component: OriginSummaryComponent;
@@ -14,28 +13,21 @@ describe('OriginSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatIconModule,
-        MatTableModule,
-        RouterTestingModule
-      ],
       declarations: [
         OriginSummaryComponent,
 
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
         MockComponent({
-          selector: 'shared-preferred-check',
-          inputs: ['TITLE']
+          inputs: ['TITLE'],
+          selector: 'shared-preferred-check'
         })
       ],
-      providers: [
-        FormatterService
-      ]
-    })
-    .compileComponents();
+      imports: [MatIconModule, MatTableModule, RouterTestingModule],
+      providers: [FormatterService]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -50,8 +42,9 @@ describe('OriginSummaryComponent', () => {
 
   describe('toDate', () => {
     it('converts strings to dates', () => {
-      expect(component.toDate('2017-01-01T00:00:00Z').toISOString())
-          .toEqual('2017-01-01T00:00:00.000Z');
+      expect(component.toDate('2017-01-01T00:00:00Z').toISOString()).toEqual(
+        '2017-01-01T00:00:00.000Z'
+      );
     });
   });
 });

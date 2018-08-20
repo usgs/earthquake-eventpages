@@ -2,9 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { EventService } from '../../core/event.service';
-import { StationService } from '../../core/station.service';
-
+import { EventService } from '@core/event.service';
+import { StationService } from '@core/station.service';
 
 /**
  * Station list component, shows the available stations when selecting the
@@ -12,32 +11,33 @@ import { StationService } from '../../core/station.service';
  */
 @Component({
   selector: 'shakemap-station-list',
-  templateUrl: './station-list.component.html',
-  styleUrls: ['./station-list.component.scss']
+  styleUrls: ['./station-list.component.scss'],
+  templateUrl: './station-list.component.html'
 })
 export class StationListComponent implements OnInit, OnDestroy {
+  stations: any[] = [];
+  subs = new Subscription();
 
-  public subs = new Subscription();
-  public stations: any[] = [];
+  constructor(
+    public eventService: EventService,
+    public stationService: StationService
+  ) {}
 
-
-  constructor (
-      public eventService: EventService,
-      public stationService: StationService) { }
-
-
-  ngOnInit () {
-    this.subs.add(this.stationService.stationsJson$.subscribe(
-      (stationsJson) => {
-        this.onStations(stationsJson);
-    }));
-    this.subs.add(this.eventService.product$.subscribe((product) => {
-      this.onProduct(product);
-    }));
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
-  ngOnDestroy () {
-    this.subs.unsubscribe();
+  ngOnInit() {
+    this.subs.add(
+      this.stationService.stationsJson$.subscribe(stationsJson => {
+        this.onStations(stationsJson);
+      })
+    );
+    this.subs.add(
+      this.eventService.product$.subscribe(product => {
+        this.onProduct(product);
+      })
+    );
   }
 
   /**
@@ -46,7 +46,7 @@ export class StationListComponent implements OnInit, OnDestroy {
    * @param product
    *     shakemap product
    */
-  onProduct (product: any): void {
+  onProduct(product: any): void {
     this.stationService.getStations(product);
   }
 
@@ -56,12 +56,11 @@ export class StationListComponent implements OnInit, OnDestroy {
    * @param stations
    *     station list json
    */
-  onStations (stationsJson: any): void {
-    if (stationsJson == null) {
+  onStations(stationsJson: any): void {
+    if (stationsJson === null) {
       this.stations = [];
       return;
     }
     this.stations = stationsJson.features;
   }
-
 }

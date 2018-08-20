@@ -1,15 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { FormatterService } from '../core/formatter.service';
-
+import { FormatterService } from '@core/formatter.service';
 
 @Pipe({
   name: 'sharedDateTime'
 })
 export class DateTimePipe implements PipeTransform {
-
-  constructor (public formatter: FormatterService) { }
-
+  constructor(public formatter: FormatterService) {}
 
   /**
    * Format dateTime object based on a time input
@@ -20,8 +17,7 @@ export class DateTimePipe implements PipeTransform {
    * @return {string}
    *     formatted date/time string
    */
-  transform (time: any): string {
-
+  transform(time: any): string {
     let date = new Date(parseFloat(time));
 
     // check for valid date
@@ -31,5 +27,4 @@ export class DateTimePipe implements PipeTransform {
 
     return this.formatter.dateTime(date);
   }
-
 }

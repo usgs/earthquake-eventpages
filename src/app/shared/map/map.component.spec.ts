@@ -1,11 +1,8 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {
-  HistoricSeismicityOverlay
-} from '../map-overlay/historic-seismicity-overlay';
+import { HistoricSeismicityOverlay } from '../map-overlay/historic-seismicity-overlay';
 import { MapComponent } from './map.component';
-
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -13,10 +10,9 @@ describe('MapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
-      declarations: [ MapComponent ]
-    })
-    .compileComponents();
+      declarations: [MapComponent],
+      imports: [HttpClientTestingModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -36,7 +32,7 @@ describe('MapComponent', () => {
       expect(component.setBounds).toHaveBeenCalled();
     });
 
-    it('uses overlay bounds when not set', (done) => {
+    it('uses overlay bounds when not set', done => {
       spyOn(component, 'getOverlayBounds').and.returnValue('test');
       spyOn(component.map, 'fitBounds');
 
@@ -48,7 +44,7 @@ describe('MapComponent', () => {
       }, 1);
     });
 
-    it('uses bounds when set', (done) => {
+    it('uses bounds when set', done => {
       spyOn(component.map, 'fitBounds');
       const myBounds = [[12, 34], [56, 78]];
 
@@ -76,7 +72,6 @@ describe('MapComponent', () => {
   });
 
   describe('getOverlayBounds', () => {
-
     it('uses overlay bounds', () => {
       const overlay1 = new HistoricSeismicityOverlay();
       const overlay2 = new HistoricSeismicityOverlay();
@@ -99,7 +94,6 @@ describe('MapComponent', () => {
   });
 
   describe('setBounds', () => {
-
     beforeEach(() => {
       // Without the additional uninstall, an error is thrown
       jasmine.clock().uninstall();
@@ -140,8 +134,10 @@ describe('MapComponent', () => {
       jasmine.clock().tick(1);
 
       expect(component.getOverlayBounds).toHaveBeenCalled();
-      expect(component.map.fitBounds.calls.first().args[0]).toEqual(
-          [[85, 180], [-85, 180]]);
+      expect(component.map.fitBounds.calls.first().args[0]).toEqual([
+        [85, 180],
+        [-85, 180]
+      ]);
     });
   });
 
@@ -200,8 +196,11 @@ describe('MapComponent', () => {
 
   describe('updateInteractive', () => {
     it('enables handlers', () => {
-      const spy = spyOnProperty(component, 'interactive', 'get')
-          .and.returnValue(true);
+      const spy = spyOnProperty(
+        component,
+        'interactive',
+        'get'
+      ).and.returnValue(true);
       spyOn(component.map.boxZoom, 'enable');
 
       component.updateInteractive();
@@ -210,8 +209,11 @@ describe('MapComponent', () => {
     });
 
     it('returns if map is not set', () => {
-      const spy = spyOnProperty(component, 'interactive', 'get')
-          .and.returnValue(true);
+      const spy = spyOnProperty(
+        component,
+        'interactive',
+        'get'
+      ).and.returnValue(true);
       component.map = null;
 
       component.updateInteractive();
@@ -244,16 +246,18 @@ describe('MapComponent', () => {
 
       // adds to tracking array, adds to map
       component.overlays = [overlay1];
-      expect(component.overlaysAdded.indexOf(overlay1))
-          .toBeGreaterThanOrEqual(0);
+      expect(component.overlaysAdded.indexOf(overlay1)).toBeGreaterThanOrEqual(
+        0
+      );
       expect(component.map.hasLayer(overlay1)).toBeTruthy();
 
       // now set enabled to false, update overlays property
       overlay1.enabled = false;
       component.overlays = [overlay1];
       // overlay still there
-      expect(component.overlaysAdded.indexOf(overlay1))
-          .toBeGreaterThanOrEqual(0);
+      expect(component.overlaysAdded.indexOf(overlay1)).toBeGreaterThanOrEqual(
+        0
+      );
       // but no longer on map
       expect(component.map.hasLayer(overlay1)).toBeFalsy();
 
@@ -261,20 +265,19 @@ describe('MapComponent', () => {
       // old overlay removed
       expect(component.overlaysAdded.indexOf(overlay1)).toBe(-1);
       // new overlay added
-      expect(component.overlaysAdded.indexOf(overlay2))
-          .toBeGreaterThanOrEqual(0);
+      expect(component.overlaysAdded.indexOf(overlay2)).toBeGreaterThanOrEqual(
+        0
+      );
       expect(component.map.hasLayer(overlay2)).toBeTruthy();
     });
 
     it('sets overlay httpClient', () => {
       const overlay1 = new HistoricSeismicityOverlay();
-      overlay1['httpClient'] = null;
+      overlay1.httpClient = null;
 
       // sets httpClient
       component.overlays = [overlay1];
-      expect(overlay1['httpClient']).not.toBeNull();
+      expect(overlay1.httpClient).not.toBeNull();
     });
-
   });
-
 });

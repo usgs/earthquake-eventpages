@@ -6,34 +6,29 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { PagerSummaryComponent } from './pager-summary.component';
 
-
 describe('PagerSummaryComponent', () => {
   let component: PagerSummaryComponent;
   let fixture: ComponentFixture<PagerSummaryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatTableModule,
-        RouterModule
-      ],
       declarations: [
         PagerSummaryComponent,
         MockComponent({
-          selector: 'shared-alert-level',
-          inputs: ['alert']
+          inputs: ['alert'],
+          selector: 'shared-alert-level'
         }),
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
         MockComponent({
-          selector: 'shared-preferred-check',
-          inputs: ['TITLE']
+          inputs: ['TITLE'],
+          selector: 'shared-preferred-check'
         })
-      ]
-    })
-    .compileComponents();
+      ],
+      imports: [MatTableModule, RouterModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

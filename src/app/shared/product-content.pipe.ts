@@ -1,11 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-
 @Pipe({
   name: 'sharedProductContent'
 })
 export class ProductContentPipe implements PipeTransform {
-
   /**
    * Returns the value of desired property, if exists
    *
@@ -17,7 +15,7 @@ export class ProductContentPipe implements PipeTransform {
    * @return {any}
    *     product.contents['path']
    */
-  transform (product: any, ...paths: any[]): any {
+  transform(product: any, ...paths: any[]): any {
     if (!product || !product.contents) {
       return null;
     }
@@ -25,7 +23,7 @@ export class ProductContentPipe implements PipeTransform {
     const contents = product.contents;
     let content = null;
 
-    paths.some ((path) => {
+    paths.some(path => {
       if (contents.hasOwnProperty(path)) {
         content = contents[path];
         return true;
@@ -34,5 +32,4 @@ export class ProductContentPipe implements PipeTransform {
 
     return content;
   }
-
 }

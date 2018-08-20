@@ -1,15 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { FormatterService } from '../core/formatter.service';
-
+import { FormatterService } from '@core/formatter.service';
 
 @Pipe({
   name: 'sharedDegrees'
 })
 export class DegreesPipe implements PipeTransform {
-
-  constructor(public formatter: FormatterService) { }
-
+  constructor(public formatter: FormatterService) {}
 
   /**
    * Format a number
@@ -26,16 +23,14 @@ export class DegreesPipe implements PipeTransform {
    * @return {String}
    *     Formatted degrees string
    */
-  transform (
-      value: any,
-      decimals = 0,
-      units = '°',
-      empty = this.formatter.empty
-    ): any {
-
+  transform(
+    value: any,
+    decimals = 0,
+    units = '°',
+    empty = this.formatter.empty
+  ): any {
     // NOTE: FormatterService uses different argument order
     const num = this.formatter.number(value, decimals, empty);
     return `${num}${units}`;
   }
-
 }

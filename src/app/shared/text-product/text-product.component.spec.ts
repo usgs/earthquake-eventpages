@@ -1,14 +1,15 @@
 import {
   HttpTestingController,
-  HttpClientTestingModule } from '@angular/common/http/testing';
+  HttpClientTestingModule
+} from '@angular/common/http/testing';
 import {
   async,
   ComponentFixture,
   TestBed,
-  getTestBed } from '@angular/core/testing';
+  getTestBed
+} from '@angular/core/testing';
 
 import { TextProductComponent } from './text-product.component';
-
 
 describe('TextProductComponent', () => {
   let component: TextProductComponent;
@@ -18,12 +19,8 @@ describe('TextProductComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule
-      ],
-      declarations: [
-        TextProductComponent
-      ]
+      declarations: [TextProductComponent],
+      imports: [HttpClientTestingModule]
     });
 
     injector = getTestBed();
@@ -33,7 +30,6 @@ describe('TextProductComponent', () => {
   afterEach(() => {
     httpClient.verify();
   });
-
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TextProductComponent);
@@ -47,7 +43,7 @@ describe('TextProductComponent', () => {
 
   describe('set product', () => {
     it('can get same value', () => {
-      const product = {test: 'value'};
+      const product = { test: 'value' };
       spyOn(component, 'getContent').and.returnValue(null);
       component.product = product;
       expect(component.product).toEqual(product);
@@ -70,7 +66,7 @@ describe('TextProductComponent', () => {
         }
       };
 
-      component.content$.subscribe( (content) => {
+      component.content$.subscribe(content => {
         expect(content).toEqual('test content');
       });
     });
@@ -87,7 +83,7 @@ describe('TextProductComponent', () => {
           }
         }
       };
-      component.content$.subscribe( (content) => {
+      component.content$.subscribe(content => {
         expect(content).toEqual('test path content');
       });
     });
@@ -105,7 +101,7 @@ describe('TextProductComponent', () => {
 
       const request = httpClient.expectOne('url');
       request.flush(response);
-      component.content$.subscribe( (content) => {
+      component.content$.subscribe(content => {
         expect(content).toEqual(response);
       });
     });
@@ -120,9 +116,9 @@ describe('TextProductComponent', () => {
       };
 
       const request = httpClient.expectOne('url');
-      request.flush('', {status: 500, statusText: 'Error'});
+      request.flush('', { status: 500, statusText: 'Error' });
 
-      component.content$.subscribe((content) => {
+      component.content$.subscribe(content => {
         expect(content).toEqual(null);
         expect(component.error).toBeTruthy();
       });
@@ -135,7 +131,7 @@ describe('TextProductComponent', () => {
         }
       };
 
-      component.content$.subscribe((content) => {
+      component.content$.subscribe(content => {
         expect(content).toEqual(null);
         expect(component.error).toEqual(new Error('no content bytes or url'));
       });
@@ -153,17 +149,19 @@ describe('TextProductComponent', () => {
     it('replaces urls', () => {
       const product = {
         contents: {
-          'abc': {
+          abc: {
             url: 'abcurl'
           }
         }
       };
       component.product = product;
-      expect(component.replaceRelativePaths('<a href="abc">text</a>'))
-          .toEqual('<a href="abcurl">text</a>');
+      expect(component.replaceRelativePaths('<a href="abc">text</a>')).toEqual(
+        '<a href="abcurl">text</a>'
+      );
       // leaves unquoted content unchanged
-      expect(component.replaceRelativePaths('<a href="other">abc</a>'))
-          .toEqual('<a href="other">abc</a>');
+      expect(component.replaceRelativePaths('<a href="other">abc</a>')).toEqual(
+        '<a href="other">abc</a>'
+      );
     });
 
     it('ignores empty content', () => {
@@ -172,16 +170,16 @@ describe('TextProductComponent', () => {
           '': {
             url: 'emptyurl'
           },
-          'abc': {
+          abc: {
             url: 'abcurl'
           }
         }
       };
       spyOn(component, 'getContent').and.returnValue({});
       component.product = product;
-      expect(component.replaceRelativePaths('<a href="">text</a>'))
-          .toEqual('<a href="">text</a>');
-
+      expect(component.replaceRelativePaths('<a href="">text</a>')).toEqual(
+        '<a href="">text</a>'
+      );
     });
   });
 });

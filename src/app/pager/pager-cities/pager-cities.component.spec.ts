@@ -7,7 +7,6 @@ import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
 import { PagerCitiesComponent } from './pager-cities.component';
 
-
 describe('PagerCitiesComponent', () => {
   let component: PagerCitiesComponent;
   let fixture: ComponentFixture<PagerCitiesComponent>;
@@ -17,16 +16,14 @@ describe('PagerCitiesComponent', () => {
       declarations: [
         PagerCitiesComponent,
 
-        MockComponent({selector: 'shared-mmi',
-            inputs: ['intensity', 'value', 'bubble']}),
+        MockComponent({
+          inputs: ['intensity', 'value', 'bubble'],
+          selector: 'shared-mmi'
+        }),
         MockPipe('sharedNumber')
       ],
-      imports: [
-        MatCheckboxModule,
-        MatTableModule
-      ]
-    })
-    .compileComponents();
+      imports: [MatCheckboxModule, MatTableModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -45,10 +42,14 @@ describe('PagerCitiesComponent', () => {
       component.tableEl = new ElementRef(document.createElement('table'));
 
       component.onChange({ checked: true });
-      expect(component.tableEl.nativeElement.classList.contains('show')).toBeTruthy();
+      expect(
+        component.tableEl.nativeElement.classList.contains('show')
+      ).toBeTruthy();
 
       component.onChange({ checked: false });
-      expect(component.tableEl.nativeElement.classList.contains('show')).toBeFalsy();
+      expect(
+        component.tableEl.nativeElement.classList.contains('show')
+      ).toBeFalsy();
     });
   });
 });

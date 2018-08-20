@@ -2,49 +2,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { Event } from '../event';
 
-
 @Pipe({
   name: 'nearbySeismicityLink'
 })
 export class NearbySeismicityLinkPipe implements PipeTransform {
-
   private KM_PER_DEGREE = 111.12;
-
-  /**
-   * Get a link to the nearby seismicity map
-   *
-   * @param event
-   *     The event
-   *
-   * @return {string}
-   *     Link to nearby seismicity
-   */
-  transform (event: Event): string {
-    if (!event || !event.geometry || !event.id) {
-      return null;
-    } else {
-      return this.getLatestEarthquakesLink(event.id,
-        this.getNearbySeismicityParams(event));
-    }
-  }
-
-  /**
-   * Get nearby seismicity link or generic link back to homepage
-   *
-   * @param event
-   *     The event
-   *
-   * @return {any}
-   *     A link
-   */
-  getNearbySeismicityLink (event: Event) {
-    if (event && event.geometry && event.id) {
-      return this.getLatestEarthquakesLink(event.id,
-        this.getNearbySeismicityParams(event));
-    }
-    // TODO: return generic link back to home page
-    return null;
-  }
 
   /**
    * builds the nearby seismicity link
@@ -57,8 +19,8 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
    * @returns {string}
    *     nearby seismicity link
    */
-  getLatestEarthquakesLink (eventid: string = null, params: any = {}) {
-    const id = eventid || ('' + new Date().getTime());
+  getLatestEarthquakesLink(eventid: string = null, params: any = {}) {
+    const id = eventid || '' + new Date().getTime();
     const mapPosition = this.getMapPosition(params);
 
     const settings = {
@@ -87,7 +49,7 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
    * @returns {((any | any)[] | (any | any)[])[]}
    *     leaflet map bounds
    */
-  getMapPosition (params: any = {}) {
+  getMapPosition(params: any = {}) {
     let latitude,
       longitude,
       maxLatitude,
@@ -106,9 +68,11 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
     longitude = params.longitude;
     maxRadiusKm = params.maxradiuskm;
 
-    if ((latitude || latitude === 0) &&
+    if (
+      (latitude || latitude === 0) &&
       (longitude || longitude === 0) &&
-      (maxRadiusKm || maxRadiusKm === 0)) {
+      (maxRadiusKm || maxRadiusKm === 0)
+    ) {
       radiusDegrees = maxRadiusKm / this.KM_PER_DEGREE;
       maxLatitude = latitude + radiusDegrees;
       maxLongitude = longitude + radiusDegrees;
@@ -116,10 +80,27 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
       minLongitude = longitude - radiusDegrees;
     }
 
-    return [
-      [minLatitude, minLongitude],
-      [maxLatitude, maxLongitude]
-    ];
+    return [[minLatitude, minLongitude], [maxLatitude, maxLongitude]];
+  }
+
+  /**
+   * Get nearby seismicity link or generic link back to homepage
+   *
+   * @param event
+   *     The event
+   *
+   * @return {any}
+   *     A link
+   */
+  getNearbySeismicityLink(event: Event) {
+    if (event && event.geometry && event.id) {
+      return this.getLatestEarthquakesLink(
+        event.id,
+        this.getNearbySeismicityParams(event)
+      );
+    }
+    // TODO: return generic link back to home page
+    return null;
   }
 
   /**
@@ -131,7 +112,7 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
    * @return {any}
    *     search parameters
    */
-  getNearbySeismicityParams (event: Event) {
+  getNearbySeismicityParams(event: Event) {
     let minmagnitude, time;
 
     const latitude = event.geometry.coordinates[1];
@@ -140,9 +121,11 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
 
     time = event.properties.time;
 
-    if (typeof latitude !== 'number' ||
+    if (
+      typeof latitude !== 'number' ||
       typeof longitude !== 'number' ||
-      typeof time !== 'number') {
+      typeof time !== 'number'
+    ) {
       return false; // TODO :: return {} ???
     }
 
@@ -167,4 +150,23 @@ export class NearbySeismicityLinkPipe implements PipeTransform {
     };
   }
 
+  /**
+   * Get a link to the nearby seismicity map
+   *
+   * @param event
+   *     The event
+   *
+   * @return {string}
+   *     Link to nearby seismicity
+   */
+  transform(event: Event): string {
+    if (!event || !event.geometry || !event.id) {
+      return null;
+    } else {
+      return this.getLatestEarthquakesLink(
+        event.id,
+        this.getNearbySeismicityParams(event)
+      );
+    }
+  }
 }

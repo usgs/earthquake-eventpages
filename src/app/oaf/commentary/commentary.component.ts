@@ -2,39 +2,35 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { OafService } from '../oaf.service';
-
 
 /**
  * Display commentary information in tab on OAF product page
  */
 @Component({
   selector: 'oaf-commentary',
-  templateUrl: './commentary.component.html',
-  styleUrls: ['./commentary.component.scss']
+  styleUrls: ['./commentary.component.scss'],
+  templateUrl: './commentary.component.html'
 })
 export class CommentaryComponent implements OnDestroy, OnInit {
+  forecast;
+  subscription: Subscription;
 
-  public forecast;
-  public subscription: Subscription;
-
-
-  constructor (
+  constructor(
     public eventService: EventService,
     public oafService: OafService
-  ) { }
+  ) {}
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
-  ngOnInit () {
-    this.subscription = this.oafService.oaf$.subscribe((oaf) => {
+  ngOnInit() {
+    this.subscription = this.oafService.oaf$.subscribe(oaf => {
       // select the forecast specified by `oaf.advisoryTimeFrame`
       this.forecast = this.transformForecast(oaf);
     });
-  }
-
-  ngOnDestroy () {
-    this.subscription.unsubscribe();
   }
 
   /**
@@ -46,13 +42,8 @@ export class CommentaryComponent implements OnDestroy, OnInit {
    * @return
    *     aftershock forecast based on oaf.advisoryTimeFrame
    */
-  transformForecast (oaf: any) {
-    let bin,
-        bins,
-        forecasts,
-        forecast,
-        magnitudeBins,
-        timeframe;
+  transformForecast(oaf: any) {
+    let bin, bins, forecasts, forecast, magnitudeBins, timeframe;
 
     if (!oaf) {
       return;

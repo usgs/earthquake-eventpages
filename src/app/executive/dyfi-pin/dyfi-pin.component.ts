@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 
-
 /**
  * DYFI pin
  *
@@ -9,14 +8,12 @@ import { Component, Input } from '@angular/core';
  */
 @Component({
   selector: 'executive-dyfi-pin',
-  templateUrl: './dyfi-pin.component.html',
-  styleUrls: ['./dyfi-pin.component.scss']
+  styleUrls: ['./dyfi-pin.component.scss'],
+  templateUrl: './dyfi-pin.component.html'
 })
 export class DyfiPinComponent {
-
-  public link = '../dyfi';
-  public title = 'Did You Feel It?';
-
-  @Input() product: any;
-
+  link = '../dyfi';
+  @Input()
+  product: any;
+  title = 'Did You Feel It?';
 }

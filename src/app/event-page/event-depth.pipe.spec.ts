@@ -1,9 +1,7 @@
 import { EventDepthPipe } from './event-depth.pipe';
 
-
 describe('EventDepthPipe', () => {
-  let formatterService,
-      pipe;
+  let formatterService, pipe;
 
   beforeEach(() => {
     formatterService = {
@@ -18,13 +16,13 @@ describe('EventDepthPipe', () => {
   });
 
   it('transforms event with good depth', () => {
-    pipe.transform({geometry: {coordinates: [0.0, 0.0, 50.0]}});
+    pipe.transform({ geometry: { coordinates: [0.0, 0.0, 50.0] } });
     expect(formatterService.depth).toHaveBeenCalled();
     expect(formatterService.depth).toHaveBeenCalledWith(50.0, 'km');
   });
 
   it('transforms event with bad depth', () => {
-    pipe.transform({geometry: {coordinates: [0.0, 0.0, 'depth']}});
+    pipe.transform({ geometry: { coordinates: [0.0, 0.0, 'depth'] } });
     expect(formatterService.depth).toHaveBeenCalled();
     expect(formatterService.depth).toHaveBeenCalledWith(NaN, 'km');
   });

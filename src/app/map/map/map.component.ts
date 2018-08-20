@@ -1,23 +1,19 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { EventService } from '../../core/event.service';
-import { MapComponent as SharedMapComponent } from '../../shared/map/map.component';
-
+import { EventService } from '@core/event.service';
 
 /**
  * Display interactive map page
  */
 @Component({
   selector: 'map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  templateUrl: './map.component.html'
 })
 export class MapComponent {
-
-  constructor (
+  constructor(
     public activatedRoute: ActivatedRoute,
     public eventService: EventService
-  ) { }
-
+  ) {}
 }

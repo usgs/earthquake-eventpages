@@ -1,9 +1,7 @@
 import { DegreesPipe } from './degrees.pipe';
 
-
 describe('DegreesPipe', () => {
-  let formatter,
-      pipe;
+  let formatter, pipe;
 
   beforeEach(() => {
     formatter = {

@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockPipe } from '../../mock-pipe';
 import { HeaderComponent } from './header.component';
 
-
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
@@ -18,8 +17,7 @@ describe('HeaderComponent', () => {
         MockPipe('eventDepth'),
         MockPipe('eventLocation')
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

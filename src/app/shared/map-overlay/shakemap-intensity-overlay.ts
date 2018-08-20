@@ -1,17 +1,13 @@
-import * as L from 'leaflet';
-
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
-
 
 /**
  * Shakemaop intensity overlay for leaflet map
  */
+// tslint:disable-next-line:variable-name
 const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
-
   id: 'shakemap-intensity',
-  title: 'Shakemap MMI Contours',
   legend: null,
-
+  title: 'Shakemap MMI Contours',
 
   /**
    * Build leaflet overlay
@@ -19,7 +15,7 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
    * @param product
    *     shakemap product
    */
-  initialize: function (product: any) {
+  initialize: function(product: any) {
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 
     const legend = document.createElement('img');
@@ -36,13 +32,14 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
    * @param product
    *     shakemap product
    */
-  getUrl: function (product: any) {
-    if (product == null) {
+  getUrl: function(product: any) {
+    if (product === null) {
       return null;
     }
 
-    return product.contents['download/cont_mi.json'] ?
-         product.contents['download/cont_mi.json'].url : null;
+    return product.contents['download/cont_mi.json']
+      ? product.contents['download/cont_mi.json'].url
+      : null;
   },
 
   /**
@@ -53,7 +50,7 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
    * @param layer
    *     The leaflet layer
    */
-  onEachFeature: function (feature: any, layer: any) {
+  onEachFeature: function(feature: any, layer: any) {
     if (feature.properties) {
       layer.bindPopup(`<abbr title="Modified Mercalli Intensity">MMI</abbr>
       ${feature.properties.value}`);
@@ -66,17 +63,16 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
    * @param feature
    *     The feature from this product
    */
-  style: function (feature: any) {
+  style: function(feature: any) {
     // set default line style
     const lineStyle = {
-      'color': feature.properties.color,
-      'weight': feature.properties.weight,
-      'opacity': 1
+      color: feature.properties.color,
+      opacity: 1,
+      weight: feature.properties.weight
     };
 
     return lineStyle;
   }
-
 });
 
 export { ShakemapIntensityOverlay };

@@ -4,16 +4,14 @@ import { Beachball } from './beachball';
 import { BeachballComponent } from './beachball.component';
 import { Tensor } from './tensor';
 
-
 describe('BeachballComponent', () => {
   let component: BeachballComponent;
   let fixture: ComponentFixture<BeachballComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BeachballComponent ]
-    })
-    .compileComponents();
+      declarations: [BeachballComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

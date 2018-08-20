@@ -4,12 +4,9 @@ import { RouterModule } from '@angular/router';
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { FormatterService } from '../../core/formatter.service';
-import { Tensor } from '../../shared/beachball/tensor';
-import {
-  MomentTensorSummaryComponent
-} from './moment-tensor-summary.component';
-
+import { FormatterService } from '@core/formatter.service';
+import { Tensor } from '@shared/beachball/tensor';
+import { MomentTensorSummaryComponent } from './moment-tensor-summary.component';
 
 describe('MomentTensorSummaryComponent', () => {
   let component: MomentTensorSummaryComponent;
@@ -17,31 +14,24 @@ describe('MomentTensorSummaryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        MatIconModule,
-        MatTableModule,
-        RouterModule
-      ],
       declarations: [
         MomentTensorSummaryComponent,
         MockComponent({
-          selector: 'shared-beachball',
-          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor']
+          inputs: ['fillColor', 'labelAxes', 'labelPlanes', 'size', 'tensor'],
+          selector: 'shared-beachball'
         }),
         MockComponent({
-          selector: 'shared-product-attribution',
-          inputs: ['product']
+          inputs: ['product'],
+          selector: 'shared-product-attribution'
         }),
         MockComponent({
-          selector: 'shared-preferred-check',
-          inputs: ['TITLE']
+          inputs: ['TITLE'],
+          selector: 'shared-preferred-check'
         })
       ],
-      providers: [
-        FormatterService
-      ]
-    })
-    .compileComponents();
+      imports: [MatIconModule, MatTableModule, RouterModule],
+      providers: [FormatterService]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -56,9 +46,9 @@ describe('MomentTensorSummaryComponent', () => {
 
   describe('set products', () => {
     it('populates tensors', () => {
-      spyOn(Tensor, 'fromProduct').and.returnValues({id: 1}, {id: 'b'});
+      spyOn(Tensor, 'fromProduct').and.returnValues({ id: 1 }, { id: 'b' });
       component.products = [{}, {}];
-      expect(component.tensors).toEqual([{id: 1}, {id: 'b'}]);
+      expect(component.tensors).toEqual([{ id: 1 }, { id: 'b' }]);
     });
 
     it('clears tensors', () => {
@@ -66,6 +56,5 @@ describe('MomentTensorSummaryComponent', () => {
       component.products = null;
       expect(component.tensors).toEqual([]);
     });
-
   });
 });

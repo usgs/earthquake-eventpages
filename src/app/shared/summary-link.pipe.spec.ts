@@ -1,6 +1,5 @@
 import { SummaryLinkPipe } from './summary-link.pipe';
 
-
 describe('SummaryLinkPipe', () => {
   it('create an instance', () => {
     const pipe = new SummaryLinkPipe();
@@ -20,16 +19,16 @@ describe('SummaryLinkPipe', () => {
     const event = {
       properties: {
         products: {
-          origin: [
-            product
-          ]
+          origin: [product]
         }
       }
     };
 
     const pipe = new SummaryLinkPipe();
-    expect(pipe.transform('origin', event)).toEqual(
-        { url: '/technical', text: 'Back to Technical' });
+    expect(pipe.transform('origin', event)).toEqual({
+      text: 'Back to Technical',
+      url: '/technical'
+    });
   });
 
   it('returns correct object when more than one product is found', () => {
@@ -40,16 +39,15 @@ describe('SummaryLinkPipe', () => {
     const event = {
       properties: {
         products: {
-          origin: [
-            {product},
-            {product}
-          ]
+          origin: [{ product }, { product }]
         }
       }
     };
 
     const pipe = new SummaryLinkPipe();
-    expect(pipe.transform('origin', event)).toEqual(
-        { url: '/technical', text: 'View alternative origins (2 total)' });
+    expect(pipe.transform('origin', event)).toEqual({
+      text: 'View alternative origins (2 total)',
+      url: '/technical'
+    });
   });
 });

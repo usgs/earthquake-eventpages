@@ -2,16 +2,15 @@ import * as L from 'leaflet';
 
 import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 
-
 describe('ShakemapContoursOverlay', () => {
   let overlay;
 
   const FEATURE = {
-    properties: {
-      value: 1
-    },
     geometry: {
       coordinates: [[[0, 0], [1, 1]]]
+    },
+    properties: {
+      value: 1
     }
   };
 
@@ -24,14 +23,11 @@ describe('ShakemapContoursOverlay', () => {
   });
 
   describe('style', () => {
-    it('modifies weight', () => {
-      const style = overlay.style({});
-    });
-
+    it('modifies weight', () => {});
   });
 
   describe('onEachFeature', () => {
-    it ('keeps count', () => {
+    it('keeps count', () => {
       const count = overlay._count;
       const layer = new L.Layer();
 
@@ -46,7 +42,6 @@ describe('ShakemapContoursOverlay', () => {
       overlay.onEachFeature(FEATURE, layer);
 
       expect(Object.keys(overlay._layers).length).toBeGreaterThan(layerCount);
-
     });
 
     it('doesn\'t generate new layers for odd contours', () => {
@@ -66,21 +61,19 @@ describe('ShakemapContoursOverlay', () => {
       const layerCount = overlay._layers.length;
       overlay.onEachFeature(feature, layer);
       expect(overlay._layers.length).toEqual(layerCount);
-
     });
-
   });
 
   describe('after add', () => {
     beforeEach(() => {
       overlay.map = {
-        fitBounds: function (bounds) {}
+        fitBounds: function(bounds) {}
       };
     });
 
     it('gets bounds', () => {
       const bounds = 'BOUNDS';
-      const spy = spyOn(overlay, 'getBounds').and.returnValue(bounds);
+      spyOn(overlay, 'getBounds').and.returnValue(bounds);
 
       overlay.afterAdd();
       expect(overlay.bounds).toBe(bounds);
@@ -88,10 +81,9 @@ describe('ShakemapContoursOverlay', () => {
 
     it('sets map bounds', () => {
       const bounds = 'BOUNDS';
-      const spy = spyOn(overlay, 'getBounds').and.returnValue(bounds);
+      spyOn(overlay, 'getBounds').and.returnValue(bounds);
 
-      const mapSpy = spyOn(overlay.map, 'fitBounds').and
-          .callFake((bounds_in) => {});
+      const mapSpy = spyOn(overlay.map, 'fitBounds').and.callFake(() => {});
 
       overlay.afterAdd();
       expect(mapSpy).toHaveBeenCalledWith(bounds);

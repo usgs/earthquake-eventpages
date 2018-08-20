@@ -2,15 +2,14 @@ import * as L from 'leaflet';
 
 import { ShakemapPGAOverlay } from './shakemap-pga-overlay';
 
-
 describe('ShakemapPGAOverlay', () => {
   let overlay;
   const FEATURE = {
-    properties: {
-      value: 1
-    },
     geometry: {
       coordinates: [[[0, 0], [1, 1]]]
+    },
+    properties: {
+      value: 1
     }
   };
 
@@ -25,7 +24,7 @@ describe('ShakemapPGAOverlay', () => {
   it('uses product when defined', () => {
     overlay = new ShakemapPGAOverlay({
       contents: {
-        'download/cont_pga.json': {url: 'URL'}
+        'download/cont_pga.json': { url: 'URL' }
       }
     });
 
@@ -39,5 +38,4 @@ describe('ShakemapPGAOverlay', () => {
 
     expect(label).toBeTruthy();
   });
-
 });

@@ -1,18 +1,15 @@
 import { Component } from '@angular/core';
 
-import { EventService } from '../../core/event.service';
-
+import { EventService } from '@core/event.service';
 
 /**
  * generate dyfi product page
  */
 @Component({
   selector: 'dyfi',
-  templateUrl: './dyfi.component.html',
-  styleUrls: ['./dyfi.component.scss']
+  styleUrls: ['./dyfi.component.scss'],
+  templateUrl: './dyfi.component.html'
 })
 export class DyfiComponent {
-
-  constructor (public eventService: EventService) { }
-
+  constructor(public eventService: EventService) {}
 }

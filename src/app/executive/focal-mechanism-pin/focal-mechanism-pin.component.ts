@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Event } from '../../event';
-import { Tensor } from '../../shared/beachball/tensor';
-
+import { Tensor } from '@shared/beachball/tensor';
 
 /**
  * Focal Mechanism Pin
@@ -12,23 +10,22 @@ import { Tensor } from '../../shared/beachball/tensor';
  */
 @Component({
   selector: 'executive-focal-mechanism-pin',
-  templateUrl: './focal-mechanism-pin.component.html',
-  styleUrls: ['./focal-mechanism-pin.component.scss']
+  styleUrls: ['./focal-mechanism-pin.component.scss'],
+  templateUrl: './focal-mechanism-pin.component.html'
 })
 export class FocalMechanismPinComponent {
+  _product: any = null;
+  link: String = '../focal-mechanism';
+  tensor: Tensor = null;
+  title: String = 'Focal Mechanism';
 
-  public _product: any = null;
-  public link: String = '../focal-mechanism';
-  public title: String = 'Focal Mechanism';
-  public tensor: Tensor = null;
-
-  @Input() set product (product: any) {
+  @Input()
+  set product(product: any) {
     this._product = product;
     this.tensor = Tensor.fromProduct(product);
   }
 
-  get product () {
+  get product() {
     return this._product;
   }
-
 }

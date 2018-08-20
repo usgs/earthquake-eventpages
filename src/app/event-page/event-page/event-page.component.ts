@@ -3,40 +3,36 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { ContributorService } from '../../core/contributor.service';
-import { EventService } from '../../core/event.service';
-
+import { ContributorService } from '@core/contributor.service';
+import { EventService } from '@core/event.service';
 
 /**
  * Main event page component, wraps inbound data components
  */
 @Component({
   selector: 'app-event-page',
-  templateUrl: './event-page.component.html',
-  styleUrls: ['./event-page.component.scss']
+  styleUrls: ['./event-page.component.scss'],
+  templateUrl: './event-page.component.html'
 })
 export class EventPageComponent implements OnInit, OnDestroy {
+  subscription = new Subscription();
 
-  public subscription = new Subscription();
-
-
-  constructor (
+  constructor(
     public route: ActivatedRoute,
     public contributorService: ContributorService,
     public eventService: EventService
-  ) { }
+  ) {}
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
-  ngOnInit () {
+  ngOnInit() {
     this.subscription.add(
       this.route.paramMap.subscribe((paramMap: ParamMap) => {
         return this.onParamMapChange(paramMap);
       })
     );
-  }
-
-  ngOnDestroy () {
-    this.subscription.unsubscribe();
   }
 
   /**
@@ -45,9 +41,8 @@ export class EventPageComponent implements OnInit, OnDestroy {
    * @param paramMap
    *     The url query parameters
    */
-  onParamMapChange (paramMap: ParamMap): void {
+  onParamMapChange(paramMap: ParamMap): void {
     // request event
     this.eventService.getEvent(paramMap.get('eventid'));
   }
-
 }

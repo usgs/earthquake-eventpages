@@ -1,24 +1,18 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTableModule, MatExpansionModule } from '@angular/material';
 
-import { FormatterService } from '../../../core/formatter.service';
+import { FormatterService } from '@core/formatter.service';
 import { MockPipe } from '../../../mock-pipe';
 import { OutputComponent } from './output.component';
-
 
 describe('OutputComponent', () => {
   let component: OutputComponent;
   let fixture: ComponentFixture<OutputComponent>;
 
   beforeEach(async(() => {
-
     const formatter = {};
 
     TestBed.configureTestingModule({
-      imports: [
-        MatTableModule,
-        MatExpansionModule
-      ],
       declarations: [
         OutputComponent,
 
@@ -26,11 +20,9 @@ describe('OutputComponent', () => {
         MockPipe('sharedNumber'),
         MockPipe('sharedUnits')
       ],
-      providers: [
-        {provide: FormatterService, useValue: formatter}
-      ]
-    })
-    .compileComponents();
+      imports: [MatTableModule, MatExpansionModule],
+      providers: [{ provide: FormatterService, useValue: formatter }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

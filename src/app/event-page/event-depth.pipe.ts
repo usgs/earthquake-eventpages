@@ -1,15 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { FormatterService } from '../core/formatter.service';
-
+import { FormatterService } from '@core/formatter.service';
 
 @Pipe({
   name: 'eventDepth'
 })
 export class EventDepthPipe implements PipeTransform {
-
-  constructor (public formatter: FormatterService) { }
-
+  constructor(public formatter: FormatterService) {}
 
   /**
    * Returns the event depth based on the geometry coordinates
@@ -22,7 +19,7 @@ export class EventDepthPipe implements PipeTransform {
    * @return
    *     A formatted depth with units appended to it
    */
-  transform (event: any, precision?: number): string {
+  transform(event: any, precision?: number): string {
     let depth;
 
     try {
@@ -33,5 +30,4 @@ export class EventDepthPipe implements PipeTransform {
 
     return this.formatter.depth(depth, 'km') + ' depth';
   }
-
 }

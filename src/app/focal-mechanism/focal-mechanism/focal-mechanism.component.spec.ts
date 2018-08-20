@@ -3,11 +3,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { EventService } from '../../core/event.service';
+import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { FocalMechanismComponent } from './focal-mechanism.component';
-
 
 describe('FocalMechanismComponent', () => {
   let component: FocalMechanismComponent;
@@ -23,22 +22,27 @@ describe('FocalMechanismComponent', () => {
       declarations: [
         FocalMechanismComponent,
 
-        MockComponent({selector: 'focal-mechanism-attribution',
-            inputs: ['tensor']}),
-        MockComponent({selector: 'product-page',
-            inputs: ['product']}),
-        MockComponent({selector: 'shared-beachball',
-            inputs: ['fillColor', 'tensor']}),
-        MockComponent({selector: 'shared-nodal-planes',
-            inputs: ['tensor']}),
+        MockComponent({
+          inputs: ['tensor'],
+          selector: 'focal-mechanism-attribution'
+        }),
+        MockComponent({
+          inputs: ['product'],
+          selector: 'product-page'
+        }),
+        MockComponent({
+          inputs: ['fillColor', 'tensor'],
+          selector: 'shared-beachball'
+        }),
+        MockComponent({
+          inputs: ['tensor'],
+          selector: 'shared-nodal-planes'
+        }),
 
         MockPipe('sharedTensor')
       ],
-      providers: [
-        {provide: EventService, useValue: eventServiceStub}
-      ]
-    })
-    .compileComponents();
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

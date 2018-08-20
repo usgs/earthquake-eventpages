@@ -3,16 +3,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { ContributorService } from '../../core/contributor.service';
-import { EventService } from '../../core/event.service';
+import { ContributorService } from '@core/contributor.service';
+import { EventService } from '@core/event.service';
 import { EventPageComponent } from './event-page.component';
-
 
 describe('EventPageComponent', () => {
   let fixture: ComponentFixture<EventPageComponent>,
-      component: EventPageComponent,
-      contributorService,
-      eventService;
+    component: EventPageComponent;
 
   beforeEach(async(() => {
     const contributorServiceStub = {
@@ -27,35 +24,43 @@ describe('EventPageComponent', () => {
       declarations: [
         EventPageComponent,
 
-        MockComponent({selector: 'event-page-header', inputs: ['event']}),
-        MockComponent({selector: 'event-page-footer',
-            inputs: ['event', 'contributors']}),
-        MockComponent({selector: 'event-page-navigation', inputs: ['event']}),
-        MockComponent({selector: 'shared-text-product', inputs: ['product']}),
+        MockComponent({
+          inputs: ['event'],
+          selector: 'event-page-header'
+        }),
+        MockComponent({
+          inputs: ['event', 'contributors'],
+          selector: 'event-page-footer'
+        }),
+        MockComponent({
+          inputs: ['event'],
+          selector: 'event-page-navigation'
+        }),
+        MockComponent({
+          inputs: ['product'],
+          selector: 'shared-text-product'
+        }),
 
-        MockComponent({selector: 'app-hazdev-template'}),
-        MockComponent({selector: 'app-navigation-group'}),
-        MockComponent({selector: 'app-navigation-item',
-            inputs: ['display', 'navRouterLink']}),
-        MockComponent({selector: 'mat-nav-list'})
+        MockComponent({ selector: 'app-hazdev-template' }),
+        MockComponent({ selector: 'app-navigation-group' }),
+
+        MockComponent({
+          inputs: ['display', 'navRouterLink'],
+          selector: 'app-navigation-item'
+        }),
+
+        MockComponent({ selector: 'mat-nav-list' })
       ],
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [RouterTestingModule],
       providers: [
-        {provide: ContributorService, useValue: contributorServiceStub},
-        {provide: EventService, useValue: eventServiceStub}
+        { provide: ContributorService, useValue: contributorServiceStub },
+        { provide: EventService, useValue: eventServiceStub }
       ]
-    })
-    .compileComponents();
-
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EventPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    contributorService = fixture.debugElement.injector.get(ContributorService);
-    eventService = fixture.debugElement.injector.get(EventService);
   }));
 
   it('should create', () => {

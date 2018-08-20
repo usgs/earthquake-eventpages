@@ -5,31 +5,31 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { UnknownEventPageComponent } from './unknown-event-page.component';
 
-
 describe('UnknownEventPageComponent', () => {
   let component: UnknownEventPageComponent;
   let fixture: ComponentFixture<UnknownEventPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
       declarations: [
         UnknownEventPageComponent,
 
-        MockComponent({selector: 'app-hazdev-template', inputs: ['TITLE']}),
-        MockComponent({selector: 'app-navigation-group'}),
-        MockComponent({selector: 'app-navigation-item',
-          inputs: ['display', 'navHrefLink', 'navRouterLink']}),
+        MockComponent({ selector: 'app-hazdev-template', inputs: ['TITLE'] }),
+        MockComponent({ selector: 'app-navigation-group' }),
+        MockComponent({
+          inputs: ['display', 'navHrefLink', 'navRouterLink'],
+          selector: 'app-navigation-item'
+        }),
 
-        MockComponent({selector: 'event-page-footer',
-          inputs: ['event', 'contributors']}),
-        MockComponent({selector: 'mat-nav-list'}),
-        MockComponent({selector: 'tell-us-tell-us'})
-      ]
-    })
-    .compileComponents();
+        MockComponent({
+          inputs: ['event', 'contributors'],
+          selector: 'event-page-footer'
+        }),
+        MockComponent({ selector: 'mat-nav-list' }),
+        MockComponent({ selector: 'tell-us-tell-us' })
+      ],
+      imports: [RouterTestingModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

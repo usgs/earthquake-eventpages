@@ -1,28 +1,25 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, Sort } from '@angular/material';
 
-import { Observable ,  Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
-import { EventService } from '../../core/event.service';
-import { FormatterService } from '../../core/formatter.service';
-import { QuakemlService } from '../../core/quakeml.service';
-import { DownloadDialogComponent } from '../../shared/download-dialog/download-dialog.component';
+import { EventService } from '@core/event.service';
+import { QuakemlService } from '@core/quakeml.service';
+import { DownloadDialogComponent } from '@shared/download-dialog/download-dialog.component';
 import { toArray } from '../../to-array';
 import { Quakeml } from '../../quakeml';
-
 
 /**
  * Phase data tab contents for the Origin Module
  */
 @Component({
   selector: 'origin-phase',
-  templateUrl: './phase.component.html',
-  styleUrls: ['./phase.component.scss']
+  styleUrls: ['./phase.component.scss'],
+  templateUrl: './phase.component.html'
 })
 export class PhaseComponent implements OnInit, OnDestroy {
-
   // columns to be displayed, and solumn order
-  public columnsToDisplay = [
+  columnsToDisplay = [
     'channel',
     'distance',
     'azimuth',
@@ -34,46 +31,31 @@ export class PhaseComponent implements OnInit, OnDestroy {
   ];
 
   // labels for titles
-  public columnTitles = {
-    'azimuth': 'Azimuth',
-    'channel': 'Channel',
-    'distance': 'Distance',
-    'phase': 'Phase',
-    'status': 'Status',
-    'time': 'Arrival Time',
-    'timeResidual': 'Residual',
-    'timeWeight': 'Weight'
+  columnTitles = {
+    azimuth: 'Azimuth',
+    channel: 'Channel',
+    distance: 'Distance',
+    phase: 'Phase',
+    status: 'Status',
+    time: 'Arrival Time',
+    timeResidual: 'Residual',
+    timeWeight: 'Weight'
   };
 
   /** phases parsed from quakeml. */
-  public phases: Array<any>;
+  phases: Array<any>;
 
   /** phases after sorting. */
-  public sortedPhases: Array<any>;
+  sortedPhases: Array<any>;
 
   /** subscriptions */
-  public subscription: Subscription = new Subscription();
-
+  subscription: Subscription = new Subscription();
 
   constructor(
     public dialog: MatDialog,
     public eventService: EventService,
     public quakemlService: QuakemlService
-  ) { }
-
-
-  ngOnInit () {
-    this.subscription.add(this.eventService.product$.subscribe((product) => {
-      this.onProduct(product);
-    }));
-    this.subscription.add(this.quakemlService.quakeml$.subscribe((quakeml) => {
-      this.onQuakeml(quakeml);
-    }));
-  }
-
-  ngOnDestroy () {
-    this.subscription.unsubscribe();
-  }
+  ) {}
 
   /**
    * Generic compare function used by PhaseComponent.sortPhases.
@@ -89,27 +71,48 @@ export class PhaseComponent implements OnInit, OnDestroy {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  ngOnInit() {
+    this.subscription.add(
+      this.eventService.product$.subscribe(product => {
+        this.onProduct(product);
+      })
+    );
+    this.subscription.add(
+      this.quakemlService.quakeml$.subscribe(quakeml => {
+        this.onQuakeml(quakeml);
+      })
+    );
+  }
+
   /**
    * Called when download button is clicked.
    *
    * Show a download dialog with tab-separated value content.
    */
-  onDownload () {
-    const header = this.columnsToDisplay.map((c) => {
-      return this.columnTitles[c];
-    }).join('\t');
+  onDownload() {
+    const header = this.columnsToDisplay
+      .map(c => {
+        return this.columnTitles[c];
+      })
+      .join('\t');
 
-    const lines = this.sortedPhases.map((phase) => {
-      return this.columnsToDisplay.map((c) => {
-        return phase[c];
-      }).join('\t');
+    const lines = this.sortedPhases.map(phase => {
+      return this.columnsToDisplay
+        .map(c => {
+          return phase[c];
+        })
+        .join('\t');
     });
 
     this.dialog.open(DownloadDialogComponent, {
       data: {
-        title: 'Download Phase Arrival Times',
+        content: header + '\n' + lines.join('\n'),
         message: 'Copy then paste into a spreadsheet application',
-        content: header + '\n' + lines.join('\n')
+        title: 'Download Phase Arrival Times'
       }
     });
   }
@@ -120,7 +123,7 @@ export class PhaseComponent implements OnInit, OnDestroy {
    * @param product
    *     next product.
    */
-  onProduct (product) {
+  onProduct(product) {
     this.quakemlService.getQuakeml(product);
   }
 
@@ -130,10 +133,10 @@ export class PhaseComponent implements OnInit, OnDestroy {
    * @param quakeml
    *     next quakeml.
    */
-  onQuakeml (quakeml: Quakeml): Array<any> {
+  onQuakeml(quakeml: Quakeml): Array<any> {
     const phases = [];
 
-    if (quakeml == null) {
+    if (quakeml === null) {
       this.phases = phases;
       return;
     }
@@ -142,7 +145,7 @@ export class PhaseComponent implements OnInit, OnDestroy {
     const origin = event.preferredOrigin();
     const originTime = Quakeml.parseTime(origin.time.value);
 
-    toArray(origin.arrival).forEach((arrival) => {
+    toArray(origin.arrival).forEach(arrival => {
       let pick;
       let time;
       let timeRelative;
@@ -188,7 +191,7 @@ export class PhaseComponent implements OnInit, OnDestroy {
    * @param sort
    *     sort event.
    */
-  sortPhases (sort: Sort) {
+  sortPhases(sort: Sort) {
     const phases = this.phases.slice();
 
     if (!sort || !sort.active || sort.direction === '') {
@@ -199,19 +202,27 @@ export class PhaseComponent implements OnInit, OnDestroy {
     phases.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'azimuth': return this.compare(+a.azimuth, +b.azimuth, isAsc);
-        case 'channel': return this.compare(a.channel, b.channel, isAsc);
-        case 'distance': return this.compare(+a.distance, +b.distance, isAsc);
-        case 'phase': return this.compare(a.phase, b.phase, isAsc);
-        case 'status': return this.compare(a.status, b.status, isAsc);
-        case 'time': return this.compare(a.time, b.time, isAsc);
-        case 'timeResidual': return this.compare(+a.timeResidual, +b.timeResidual, isAsc);
-        case 'timeWeight': return this.compare(+a.timeWeight, +b.timeWeight, isAsc);
-        default: return 0;
+        case 'azimuth':
+          return this.compare(+a.azimuth, +b.azimuth, isAsc);
+        case 'channel':
+          return this.compare(a.channel, b.channel, isAsc);
+        case 'distance':
+          return this.compare(+a.distance, +b.distance, isAsc);
+        case 'phase':
+          return this.compare(a.phase, b.phase, isAsc);
+        case 'status':
+          return this.compare(a.status, b.status, isAsc);
+        case 'time':
+          return this.compare(a.time, b.time, isAsc);
+        case 'timeResidual':
+          return this.compare(+a.timeResidual, +b.timeResidual, isAsc);
+        case 'timeWeight':
+          return this.compare(+a.timeWeight, +b.timeWeight, isAsc);
+        default:
+          return 0;
       }
     });
 
     this.sortedPhases = phases;
   }
-
 }

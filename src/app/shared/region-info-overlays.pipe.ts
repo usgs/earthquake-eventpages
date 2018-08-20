@@ -3,16 +3,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 import * as L from 'leaflet';
 
 import { EpicenterOverlay } from './map-overlay/epicenter-overlay';
-import {
-  HistoricSeismicityOverlay
-} from './map-overlay/historic-seismicity-overlay';
-
+import { HistoricSeismicityOverlay } from './map-overlay/historic-seismicity-overlay';
 
 @Pipe({
   name: 'regionInfoOverlays'
 })
 export class RegionInfoOverlaysPipe implements PipeTransform {
-
   /**
    * Get regional information leaflet overlay
    *
@@ -22,7 +18,7 @@ export class RegionInfoOverlaysPipe implements PipeTransform {
    * @return {Array<L.Layer>}
    *     region-info overlay
    */
-  transform (product: any): Array<L.Layer> | null {
+  transform(product: any): Array<L.Layer> | null {
     const overlays = [];
 
     if (product) {
@@ -32,5 +28,4 @@ export class RegionInfoOverlaysPipe implements PipeTransform {
 
     return overlays;
   }
-
 }

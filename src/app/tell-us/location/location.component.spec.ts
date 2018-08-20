@@ -1,16 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  MatDialogModule,
-  MatDialog } from '@angular/material';
+import { MatDialogModule, MatDialog } from '@angular/material';
 
 import { of } from 'rxjs/observable/of';
-import {
-  Coordinates,
-  CoordinatesService
-} from 'hazdev-ng-location-view';
+import { Coordinates, CoordinatesService } from 'hazdev-ng-location-view';
 
 import { LocationComponent } from './location.component';
-
 
 describe('LocationComponent', () => {
   let component: LocationComponent;
@@ -21,18 +15,13 @@ describe('LocationComponent', () => {
       coordinates$: of({})
     };
     TestBed.configureTestingModule({
-      imports: [
-        MatDialogModule
-      ],
-      declarations: [
-        LocationComponent
-      ],
+      declarations: [LocationComponent],
+      imports: [MatDialogModule],
       providers: [
         { provide: CoordinatesService, useValue: coordinatesServiceStub },
-        { provide: MatDialog, useValue: {close: () => {}, open: () => {}} }
+        { provide: MatDialog, useValue: { close: () => {}, open: () => {} } }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -64,21 +53,21 @@ describe('LocationComponent', () => {
     });
     it('sets a value', () => {
       const coordinates: Coordinates = {
-        'name': 'my spot',
-        'confidence': 1,
-        'latitude': 0,
-        'longitude': 0,
-        'method': null,
-        'zoom': 12
+        confidence: 1,
+        latitude: 0,
+        longitude: 0,
+        method: null,
+        name: 'my spot',
+        zoom: 12
       };
       component.value = {};
       component.setLocation(coordinates);
       expect(component.value.ciim_mapAddress).toEqual(coordinates.name);
-      expect(component.value.ciim_mapConfidence)
-          .toEqual(coordinates.confidence);
+      expect(component.value.ciim_mapConfidence).toEqual(
+        coordinates.confidence
+      );
       expect(component.value.ciim_mapLat).toEqual(coordinates.latitude);
       expect(component.value.ciim_mapLon).toEqual(coordinates.longitude);
     });
   });
-
 });

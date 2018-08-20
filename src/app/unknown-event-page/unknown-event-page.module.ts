@@ -6,21 +6,17 @@ import { RouterModule } from '@angular/router';
 import { HazdevTemplateModule } from 'hazdev-template';
 
 import { EventPageModule } from '../event-page/event-page.module';
-import {
-  UnknownEventPageComponent
-} from './unknown-event-page/unknown-event-page.component';
+import { UnknownEventPageComponent } from './unknown-event-page/unknown-event-page.component';
 
 @NgModule({
+  declarations: [UnknownEventPageComponent],
+  exports: [UnknownEventPageComponent],
   imports: [
     CommonModule,
     EventPageModule,
     HazdevTemplateModule,
     MatListModule,
     RouterModule
-  ],
-  exports: [
-    UnknownEventPageComponent
-  ],
-  declarations: [UnknownEventPageComponent]
+  ]
 })
-export class UnknownEventPageModule { }
+export class UnknownEventPageModule {}

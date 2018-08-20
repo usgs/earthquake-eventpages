@@ -3,22 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { WaveformsComponent } from './waveforms/waveforms.component';
 
-
 const waveformRoutes: Routes = [
   {
+    component: WaveformsComponent,
     // this module must be loaded lazily using "loadChildren"
     // the actual url mount point is defined in "app/app-routing.module.ts"
-    path: '',
-    component: WaveformsComponent
+    path: ''
   }
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(waveformRoutes)
-  ],
-  exports: [
-    RouterModule
-  ]
+  exports: [RouterModule],
+  imports: [RouterModule.forChild(waveformRoutes)]
 })
-export class WaveformsRoutingModule { }
+export class WaveformsRoutingModule {}

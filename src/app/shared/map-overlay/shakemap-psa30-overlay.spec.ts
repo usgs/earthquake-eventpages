@@ -2,15 +2,14 @@ import * as L from 'leaflet';
 
 import { ShakemapPSA30Overlay } from './shakemap-psa30-overlay';
 
-
 describe('ShakemapPSA30Overlay', () => {
   let overlay;
   const FEATURE = {
-    properties: {
-      value: 1
-    },
     geometry: {
       coordinates: [[[0, 0], [1, 1]]]
+    },
+    properties: {
+      value: 1
     }
   };
 
@@ -25,7 +24,7 @@ describe('ShakemapPSA30Overlay', () => {
   it('uses product when defined', () => {
     overlay = new ShakemapPSA30Overlay({
       contents: {
-        'download/cont_psa30.json': {url: 'URL'}
+        'download/cont_psa30.json': { url: 'URL' }
       }
     });
 

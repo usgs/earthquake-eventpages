@@ -3,21 +3,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { EventService } from '../../core/event.service';
-import { Event } from '../../event';
+import { EventService } from '@core/event.service';
 import { MockPipe } from '../../mock-pipe';
 import { RegionInfoPinComponent } from './region-info-pin.component';
-
 
 describe('RegionInfoPinComponent', () => {
   let component: RegionInfoPinComponent;
   let fixture: ComponentFixture<RegionInfoPinComponent>;
-
-  const coordinates = {
-    latitude: 35,
-    longitude: -105,
-    zoom: 16
-  };
 
   beforeEach(async(() => {
     const eventServiceStub = {
@@ -29,22 +21,21 @@ describe('RegionInfoPinComponent', () => {
       declarations: [
         RegionInfoPinComponent,
 
-        MockComponent({selector: 'basic-pin',
-            inputs: ['link', 'product', 'title']}),
-        MockComponent({selector: 'shared-map',
-            inputs: ['overlays', 'showAttributionControl']}),
+        MockComponent({
+          inputs: ['link', 'product', 'title'],
+          selector: 'basic-pin'
+        }),
+        MockComponent({
+          inputs: ['overlays', 'showAttributionControl'],
+          selector: 'shared-map'
+        }),
 
         MockPipe('getProduct'),
         MockPipe('regionInfoOverlays')
       ],
-      imports: [
-        RouterTestingModule
-      ],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub }
-      ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      providers: [{ provide: EventService, useValue: eventServiceStub }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

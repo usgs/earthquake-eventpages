@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { FormatterService } from '../../core/formatter.service';
-
+import { FormatterService } from '@core/formatter.service';
 
 /**
  * Shared coordinates component, simple coordinates to get/set for use in
@@ -9,26 +8,22 @@ import { FormatterService } from '../../core/formatter.service';
  */
 @Component({
   selector: 'shared-coordinates',
-  templateUrl: './coordinates.component.html',
-  styleUrls: ['./coordinates.component.scss']
+  styleUrls: ['./coordinates.component.scss'],
+  templateUrl: './coordinates.component.html'
 })
 export class CoordinatesComponent {
+  _latitude: number;
+  _longitude: number;
 
-  public _latitude: number;
-  public _longitude: number;
-
-
-  constructor (
-    public formatter: FormatterService
-  ) { }
-
+  constructor(public formatter: FormatterService) {}
 
   /**
    * Setter for latitude property
    * @param value
    *     The latitude value
    */
-  @Input() set latitude (value: any) {
+  @Input()
+  set latitude(value: any) {
     this._latitude = parseFloat(value);
   }
 
@@ -36,7 +31,7 @@ export class CoordinatesComponent {
    * Getter for latitude property
    * @returns {number}
    */
-  get latitude () {
+  get latitude() {
     return this._latitude;
   }
 
@@ -45,7 +40,8 @@ export class CoordinatesComponent {
    * @param value
    *     The longitude value
    */
-  @Input() set longitude(value: any) {
+  @Input()
+  set longitude(value: any) {
     this._longitude = parseFloat(value);
   }
 
@@ -53,7 +49,7 @@ export class CoordinatesComponent {
    * Getter for longitude property
    * @returns {number}
    */
-  get longitude () {
+  get longitude() {
     return this._longitude;
   }
 }

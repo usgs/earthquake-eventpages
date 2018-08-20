@@ -4,7 +4,6 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { TsunamiPinComponent } from './tsunami-pin.component';
 
-
 describe('TsunamiPinComponent', () => {
   let component: TsunamiPinComponent;
   let fixture: ComponentFixture<TsunamiPinComponent>;
@@ -13,11 +12,12 @@ describe('TsunamiPinComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         TsunamiPinComponent,
-        MockComponent({selector: 'basic-pin',
-            inputs: ['footer', 'title', 'href']})
+        MockComponent({
+          inputs: ['footer', 'title', 'href'],
+          selector: 'basic-pin'
+        })
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

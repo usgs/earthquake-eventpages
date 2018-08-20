@@ -7,11 +7,11 @@ import {
   GeoserveOutputModule
 } from 'earthquake-geoserve-ui';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 import { RegionInfoComponent } from './region-info/region-info.component';
 
-
 @NgModule({
+  declarations: [RegionInfoComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -19,7 +19,6 @@ import { RegionInfoComponent } from './region-info/region-info.component';
 
     GeoserveCoreModule.forRoot(),
     GeoserveOutputModule
-  ],
-  declarations: [RegionInfoComponent]
+  ]
 })
-export class RegionInfoModule { }
+export class RegionInfoModule {}
