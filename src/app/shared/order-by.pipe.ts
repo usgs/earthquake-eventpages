@@ -23,6 +23,7 @@ export class OrderByPipe implements PipeTransform {
    */
   transform (data: any, keys: any[], descending = false): Array<any> {
     data.sort((n1, n2) => {
+      // follow array of keys, descending down into the object
       for (const key of keys) {
         n1 = n1[key];
         n2 = n2[key];

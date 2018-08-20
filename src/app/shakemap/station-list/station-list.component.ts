@@ -16,7 +16,7 @@ import { StationService } from '@core/station.service';
 })
 export class StationListComponent implements OnInit, OnDestroy {
   public descending = false;
-  public sortBy = {'name': 'intensity', 'display': 'Intensity'};
+  public sortBy = {'name': 'distance', 'display': 'Distance'};
   public sortOptions = [
     {'name': 'distance', 'display': 'Distance'},
     {'name': 'intensity', 'display': 'Intensity'},
