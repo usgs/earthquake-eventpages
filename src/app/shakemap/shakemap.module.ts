@@ -27,7 +27,6 @@ import { PsaComponent } from './psa/psa.component';
 import { ShakemapRoutingModule } from './shakemap-routing.module';
 import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
-import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 
 @NgModule({
   declarations: [
@@ -37,13 +36,12 @@ import { UncertaintyComponent } from './uncertainty/uncertainty.component';
     InputComponent,
     OutputComponent,
     ProcessingComponent,
-    UncertaintyComponent,
     IntensityComponent,
     PgaComponent,
     PgvComponent,
     PsaComponent
   ],
-  exports: [StationListComponent, MetadataComponent, UncertaintyComponent],
+  exports: [StationListComponent, MetadataComponent],
   imports: [
     CommonModule,
     MatButtonModule,
