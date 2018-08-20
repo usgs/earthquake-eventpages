@@ -14,41 +14,41 @@ export class OrderByPipe implements PipeTransform {
    *
    * @param key
    *     Array used to descend into the given object
-   * 
+   *
    * @param desc (optional)
    *     Boolean, set to true to sort in descending order
    *
    * @return {any[]}
    *     Data array sorted by the appropriate key
    */
-  transform (data: any, keys: any[], desc=false): Array<any> {
+  transform (data: any, keys: any[], desc = false): Array<any> {
     data.sort((n1, n2) => {
-      for (let key of keys) {
+      for (const key of keys) {
         n1 = n1[key];
         n2 = n2[key];
       }
 
       if (!n1) {
-        return 1
+        return 1;
       } else if (!n2) {
-        return -1
+        return -1;
       }
 
       if (!desc) {
         if (n1 > n2) {
-          return 1
+          return 1;
         } else if (n1 < n2) {
-          return -1
+          return -1;
         }
       } else {
         if (n1 < n2) {
-          return 1
+          return 1;
         } else if (n1 > n2) {
-          return -1
+          return -1;
         }
       }
 
-      return 0
+      return 0;
     });
 
     return data;

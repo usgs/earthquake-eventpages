@@ -34,6 +34,7 @@ import { NearbySeismicityLinkPipe } from './nearby-seismicity-link.pipe';
 import { NodalPlanesComponent } from './nodal-planes/nodal-planes.component';
 import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
 import { NumberPipe } from './number.pipe';
+import { OrderByPipe } from './order-by.pipe';
 import { PreferredCheckComponent } from './preferred-check/preferred-check.component';
 import { ProductAttributionComponent } from './product-attribution/product-attribution.component';
 import { ProductContentPipe } from './product-content.pipe';
@@ -71,6 +72,7 @@ import { UnitsPipe } from './units.pipe';
     MmiComponent,
     NumberPipe,
     NumberWithSeparatorPipe,
+    OrderByPipe,
     PreferredCheckComponent,
     ProductAttributionComponent,
     TextProductComponent,
@@ -117,6 +119,7 @@ import { UnitsPipe } from './units.pipe';
     NodalPlanesComponent,
     NumberPipe,
     NumberWithSeparatorPipe,
+    OrderByPipe,
     ProductAttributionComponent,
     PreferredCheckComponent,
     TextProductComponent,

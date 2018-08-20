@@ -1,5 +1,23 @@
+<mat-menu #sortMenu="matMenu">
+  <button mat-menu-item
+      *ngFor="let option of sortOptions"
+      (click)="sortBy=option">
+    {{ option.display }}
+  </button>
+</mat-menu>
+
+<div class="sort">
+  <button mat-button [matMenuTriggerFor]="sortMenu">
+    {{ sortBy.display }}
+  </button>
+  <div class="sort-direction" (click)="descending=!descending">
+    <mat-icon *ngIf="!descending">arrow_upward</mat-icon>
+    <mat-icon *ngIf="descending">arrow_downward</mat-icon>
+  </div>
+</div>
+
 <ng-container *ngFor="let station of stations |
-    sharedOrderBy:['properties', sort.name]:sort.desc">
+    sharedOrderBy:['properties', sortBy.name]:descending">
   <div class="station">
     <shared-station [station]="station"></shared-station>
   </div>
