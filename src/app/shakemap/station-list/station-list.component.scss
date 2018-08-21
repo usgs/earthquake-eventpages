@@ -1,3 +1,16 @@
+mat-icon {
+  cursor: pointer;
+}
+
+mat-icon, mat-menu {
+  display: inline-block;
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+}
+
 .station {
   padding: 1em 0.5em;
 }

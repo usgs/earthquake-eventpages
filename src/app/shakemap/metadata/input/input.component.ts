@@ -11,7 +11,7 @@ import { FormatterService } from '@core/formatter.service';
  */
 @Component({
   selector: 'shakemap-input',
-  styleUrls: ['./input.component.scss'],
+  styleUrls: ['./input.component.scss', '../metadata.component.scss'],
   templateUrl: './input.component.html'
 })
 export class InputComponent {

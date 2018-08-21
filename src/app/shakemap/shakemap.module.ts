@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  MatButtonModule,
   MatCardModule,
   MatDialogModule,
+  MatDividerModule,
   MatExpansionModule,
-  MatSortModule
+  MatIconModule,
+  MatMenuModule,
+  MatSortModule,
+  MatTableModule,
+  MatTabsModule
 } from '@angular/material';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTableModule } from '@angular/material/table';
-import { MatTabsModule } from '@angular/material/tabs';
 import { MdcTabModule, MdcIconModule } from '@angular-mdc/web';
 
 import { ProductPageModule } from '../product-page/product-page.module';
@@ -24,7 +27,6 @@ import { PsaComponent } from './psa/psa.component';
 import { ShakemapRoutingModule } from './shakemap-routing.module';
 import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
-import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 
 @NgModule({
   declarations: [
@@ -34,22 +36,24 @@ import { UncertaintyComponent } from './uncertainty/uncertainty.component';
     InputComponent,
     OutputComponent,
     ProcessingComponent,
-    UncertaintyComponent,
     IntensityComponent,
     PgaComponent,
     PgvComponent,
     PsaComponent
   ],
-  exports: [StationListComponent, MetadataComponent, UncertaintyComponent],
+  exports: [StationListComponent, MetadataComponent],
   imports: [
     CommonModule,
+    MatButtonModule,
     MatCardModule,
     MatDialogModule,
+    MatDividerModule,
     MatExpansionModule,
+    MatMenuModule,
+    MatIconModule,
     MatSortModule,
     MatTableModule,
     MatTabsModule,
-    MatDividerModule,
     MdcIconModule,
     MdcTabModule,
     ProductPageModule,

@@ -8,7 +8,6 @@ import { PgvComponent } from './pgv/pgv.component';
 import { PsaComponent } from './psa/psa.component';
 import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
-import { UncertaintyComponent } from './uncertainty/uncertainty.component';
 
 const shakemapRoutes: Routes = [
   {
@@ -36,10 +35,6 @@ const shakemapRoutes: Routes = [
       {
         component: MetadataComponent,
         path: 'metadata'
-      },
-      {
-        component: UncertaintyComponent,
-        path: 'uncertainty'
       },
       {
         path: '',
