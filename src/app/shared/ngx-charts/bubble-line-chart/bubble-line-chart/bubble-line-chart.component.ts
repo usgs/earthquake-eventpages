@@ -273,9 +273,9 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    */
   getLegendOptions () {
     const opts = {
-      scaleType: this.schemeType,
       colors: undefined,
       domain: [],
+      scaleType: this.schemeType,
       title: undefined
     };
     if (opts.scaleType === 'ordinal') {
@@ -591,17 +591,17 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     super.update();
 
     this.dims = calculateViewDimensions({
-      width: this.width,
       height: this.height,
+      legendType: this.schemeType,
       margins: this.margin,
+      showLegend: this.legend,
       showXAxis: this.xAxis,
+      showXLabel: this.showXAxisLabel,
       showYAxis: this.yAxis,
+      showYLabel: this.showYAxisLabel,
+      width: this.width,
       xAxisHeight: this.xAxisHeight,
       yAxisWidth: this.yAxisWidth,
-      showXLabel: this.showXAxisLabel,
-      showYLabel: this.showYAxisLabel,
-      showLegend: this.legend,
-      legendType: this.schemeType
     });
 
     if (!this.yAxis) {

@@ -20,11 +20,11 @@ describe('IntensityComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ IntensityComponent ],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub }
-      ],
       imports: [
         RouterTestingModule
+      ],
+      providers: [
+        { provide: EventService, useValue: eventServiceStub }
       ]
     })
     .compileComponents();
