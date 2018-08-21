@@ -13,7 +13,14 @@ import { WildcardComponent } from './wildcard.component';
 describe('WildcardComponent', () => {
   let component: WildcardComponent;
   let fixture: ComponentFixture<WildcardComponent>;
+<<<<<<< HEAD
   let event1: any, event2: any;
+=======
+  let httpClient: HttpTestingController,
+    injector: TestBed,
+    event1: any,
+    event2: any;
+>>>>>>> fixed issues
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
