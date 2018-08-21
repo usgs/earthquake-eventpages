@@ -15,16 +15,16 @@ import { StationService } from '@core/station.service';
   templateUrl: './station-list.component.html'
 })
 export class StationListComponent implements OnInit, OnDestroy {
-  public descending = false;
-  public sortBy = {'name': 'distance', 'display': 'Distance'};
-  public sortOptions = [
+  descending = false;
+  sortBy = {'name': 'distance', 'display': 'Distance'};
+  sortOptions = [
     {'name': 'distance', 'display': 'Distance'},
     {'name': 'intensity', 'display': 'Intensity'},
     {'name': 'pga', 'display': 'PGA'},
     {'name': 'pgv', 'display': 'PGV'}
   ];
-  public stations: any[] = [];
-  public subs = new Subscription();
+  stations: any[] = [];
+  subs = new Subscription();
 
   constructor (
       public eventService: EventService,
