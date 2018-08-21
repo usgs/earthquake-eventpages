@@ -42,12 +42,13 @@ export class FormComponent implements AfterViewInit, OnDestroy {
   error: any = null;
   // boolean used to either show or not show the time input field
   hasEvent = false;
-  responseUrl = '/data/dyfi/form/response.php';
-  subscription: Subscription = new Subscription();
 
   // The rendered map at the top of the form
   @ViewChild(LocationMapComponent)
   locationMapComponent: LocationMapComponent;
+
+  responseUrl = '/data/dyfi/form/response.php';
+  subscription: Subscription = new Subscription();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -161,7 +162,7 @@ export class FormComponent implements AfterViewInit, OnDestroy {
    * Checks to make sure that required fields were filled out
    * before submitting.
    *
-   * @return {boolean}
+   * @returns
    *     A true or false validation response
    */
   validateForm() {
@@ -191,6 +192,8 @@ export class FormComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Error handler for http requests.
+   *
+   * @returns observable error
    */
   private handleError() {
     return (error: HttpErrorResponse): Observable<any> => {
