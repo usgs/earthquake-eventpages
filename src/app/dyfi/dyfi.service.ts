@@ -136,7 +136,6 @@ export class DyfiService {
           ngxData.min = data.y - data.stdev;
         }
 
-        ngxDataset.series.push(ngxData);
         // check for repeat data and add to array
         if (ngxDataset.series.length > 0 &&
             ngxDataset
