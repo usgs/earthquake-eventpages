@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
