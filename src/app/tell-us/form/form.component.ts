@@ -38,15 +38,12 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     ciim_time: null,
     fldSituation_felt: null
   };
-
   error: any = null;
   // boolean used to either show or not show the time input field
   hasEvent = false;
-
   // The rendered map at the top of the form
   @ViewChild(LocationMapComponent)
   locationMapComponent: LocationMapComponent;
-
   responseUrl = '/data/dyfi/form/response.php';
   subscription: Subscription = new Subscription();
 
