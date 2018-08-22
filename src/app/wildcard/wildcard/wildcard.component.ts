@@ -94,6 +94,8 @@ export class WildcardComponent implements OnInit {
         const bestMatch = match.bestMatch;
         if (bestMatch.rating >= 0.5) {
           this.setSuggestion(bestMatch.target);
+        } else {
+          this.setSuggestion(null);
         }
       }
     } catch (e) {
@@ -106,9 +108,6 @@ export class WildcardComponent implements OnInit {
     this.eventService.event$.subscribe(event => {
       if (event.data) {
         this.eventId = event.id;
-        // Set the default suggestion to executive in case the string compare
-        //    function does not work or the event properties aren't correct
-        this.setSuggestion('executive');
         // Create products array based on static products and ones that come in
         //    from the json
         this.buildProductsArray(event);
@@ -125,13 +124,16 @@ export class WildcardComponent implements OnInit {
    *     The suggestion word returned from the getMatch functions return object
    */
   setSuggestion(suggestion: string): void {
-    if (!suggestion) {
-      this.suggestionString = 'executive';
-      this.setSuggestionUrl('executive');
+    if (!suggestion || suggestion === null) {
+      this.suggestionString = null;
+      this.setSuggestionUrl(null);
     } else {
       if (suggestion === 'tellus') {
         this.suggestionString = 'tell-us';
         this.setSuggestionUrl('tellus');
+      } else if (suggestion === 'executive') {
+        this.suggestionString = 'overview';
+        this.setSuggestionUrl('executive');
       } else {
         this.suggestionString = suggestion;
         this.setSuggestionUrl(suggestion);
@@ -146,8 +148,8 @@ export class WildcardComponent implements OnInit {
    *     The suggestion word
    */
   setSuggestionUrl(suggestion: string): void {
-    if (!suggestion) {
-      this.suggestionStringUrl = `/${this.eventId}/executive`;
+    if (!suggestion || suggestion === null) {
+      this.suggestionStringUrl = null;
     } else {
       this.suggestionStringUrl = `/${this.eventId}/${suggestion}`;
     }
