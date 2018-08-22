@@ -46,6 +46,8 @@ describe('BubbleLineChartComponent', () => {
          MockComponent(
           {
             inputs: [
+              'lineChartTooltip',
+              'bubbleChartTooltip',
               'xScale',
               'yScale',
               'xScaleType',
