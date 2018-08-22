@@ -21,12 +21,12 @@
           [animations]="animations" />
     </svg:g>
     <svg:g ngx-charts-tooltip-area
-        *ngIf="!tooltipDisabled"
+        *ngIf="lineChartTooltip"
         [dims]="dims"
         [xSet]="xSet"
         [xScale]="xScale"
         [yScale]="yScale"
-        [results]="null"
+        [results]="lineChart"
         [colors]="colors"
         [tooltipDisabled]="tooltipDisabled"
         (hover)="updateHoveredVertical($event)" />
@@ -84,7 +84,7 @@
             [colors]="colors"
             [data]="series"
             [activeEntries]="activeEntries"
-            [tooltipDisabled]="tooltipDisabled"
+            [tooltipDisabled]="!bubbleChartTooltip"
             [tooltipTemplate]="meanTemplate"
             (select)="onClick($event, series)"
             (activate)="onActivate($event)"

@@ -104,6 +104,8 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Input()
   bubbleChart: any[] = [];
   @Input()
+  bubbleChartTooltip = true;
+  @Input()
   colorSchemeLine: any[];
   @Input()
   customColors: any[] = [];
@@ -119,6 +121,8 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   legendTitle = 'Legend';
   @Input()
   lineChart: any[] = [];
+  @Input()
+  lineChartTooltip = true;
   @Input()
   maxRadius = 10;
   @Input()
