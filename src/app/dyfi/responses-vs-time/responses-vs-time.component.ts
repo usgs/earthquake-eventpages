@@ -21,15 +21,19 @@ export class ResponsesVsTimeComponent implements OnInit {
   dyfiSeries: any;
   gradient = false;
   product: any = null;
+  scaleType = 'log';
   showLegend = false;
   showXAxis = true;
   showXAxisLabel = true;
   showYAxis = true;
   showYAxisLabel = true;
   subs = new Subscription();
-  timeline = true;
   xAxisLabel = 'Time since earthquake (hours)';
+  xAxisTicks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+      14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+  xScaleMax = 24;
   yAxisLabel = 'Number of Responses';
+
 
   constructor(
     public dyfiService: DyfiService,
@@ -67,5 +71,14 @@ export class ResponsesVsTimeComponent implements OnInit {
   onProduct(product) {
     this.product = product;
     this.dyfiService.getNumResp(product);
+  }
+
+  /**
+   * Returns the tick format value of the chart
+   * @param value
+   *    The value of the x axis tick
+   */
+  xAxisTickFormatting (value) {
+    return value;
   }
 }

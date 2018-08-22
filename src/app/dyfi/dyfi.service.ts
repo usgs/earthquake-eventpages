@@ -136,7 +136,15 @@ export class DyfiService {
           ngxData.min = data.y - data.stdev;
         }
 
-        ngxDataset.series.push(ngxData);
+        // check for repeat data and add to array
+        if (ngxDataset.series.length > 0 &&
+            ngxDataset
+            .series[ngxDataset.series.length - 1]
+            .name === data.x) {
+          ngxDataset.series[ngxDataset.series.length - 1] = ngxData;
+        } else {
+          ngxDataset.series.push(ngxData);
+        }
       }
 
       series.push(ngxDataset);

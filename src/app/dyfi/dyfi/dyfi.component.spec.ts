@@ -23,7 +23,7 @@ describe('DyfiComponent', () => {
       declarations: [
         DyfiComponent,
 
-        MockComponent({ selector: 'product-page', inputs: ['productType'] }),
+        MockComponent({ inputs: ['productType'], selector: 'product-page' }),
         MockComponent({ selector: 'mdc-icon' }),
         MockComponent({ selector: 'mdc-tab-bar-scroller' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-back' }),

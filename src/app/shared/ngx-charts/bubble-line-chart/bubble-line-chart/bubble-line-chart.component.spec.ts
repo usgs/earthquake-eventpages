@@ -31,49 +31,56 @@ describe('BubbleLineChartComponent', () => {
       declarations: [
         BubbleLineChartComponent,
 
-        MockComponent({
-          inputs: [
-            'view',
-            'showLegend',
-            'legendOptions',
-            'activeEntries',
-            'animations'
-          ],
-          selector: 'ngx-charts-chart'
-        }),
-        MockComponent({
-          inputs: [
-            'xScale',
-            'yScale',
-            'xScaleType',
-            'yScaleType',
-            'xAxisLabel',
-            'yAxisLabel',
-            'rScale',
-            'xDomain',
-            'yDomain',
-            'xDomainType',
-            'colors',
-            'data',
-            'activeEntries',
-            'scaleType',
-            'curve',
-            'rangeFillOpacity',
-            'animations',
-            'dims',
-            'xSet',
-            'tooltipTemplate',
-            'tooltipDisabled',
-            'results',
-            'visibleValue',
-            'showLabel',
-            'labelText',
-            'tickFormatting',
-            'yOrient',
-            'showGridLines'
-          ],
-          selector: ':svg:g'
-        })
+        MockComponent(
+          {
+            inputs: [
+              'view',
+              'showLegend',
+              'legendOptions',
+              'activeEntries',
+              'animations'
+            ],
+            selector: 'ngx-charts-chart'
+          }
+        ),
+         MockComponent(
+          {
+            inputs: [
+              'lineChartTooltip',
+              'bubbleChartTooltip',
+              'xScale',
+              'yScale',
+              'xScaleType',
+              'yScaleType',
+              'xAxisLabel',
+              'yAxisLabel',
+              'rScale',
+              'xDomain',
+              'yDomain',
+              'xDomainType',
+              'colors',
+              'data',
+              'activeEntries',
+              'scaleType',
+              'curve',
+              'rangeFillOpacity',
+              'animations',
+              'dims',
+              'xSet',
+              'tooltipTemplate',
+              'tooltipDisabled',
+              'results',
+              'visibleValue',
+              'showLabel',
+              'labelText',
+              'tickFormatting',
+              'ticks',
+              'yOrient',
+              'showGridLines'
+            ],
+            selector: ':svg:g'
+          }
+        )
       ]
     }).compileComponents();
   }));

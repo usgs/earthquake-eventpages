@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { of } from 'rxjs/observable/of';
 
@@ -19,6 +20,9 @@ describe('IntensityComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ IntensityComponent ],
+      imports: [
+        RouterTestingModule
+      ],
       providers: [
         { provide: EventService, useValue: eventServiceStub }
       ]

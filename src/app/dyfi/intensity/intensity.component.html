@@ -1,10 +1,16 @@
 <ng-container *ngIf="eventService.product$ | async; let dyfi">
-  <img 
-      *ngIf="dyfi.contents[dyfi.code + '_ciim_geo.jpg'] &&
-      dyfi.contents[dyfi.code + '_ciim_geo.jpg'].url; else noImage"
-      src="{{ dyfi.contents[dyfi.code + '_ciim_geo.jpg'].url }}"
-      alt="DYFI intensity map">
-
+    <a
+        *ngIf="dyfi.contents[dyfi.code + '_ciim_geo.jpg'] &&
+        dyfi.contents[dyfi.code + '_ciim_geo.jpg'].url; else noImage"
+        [routerLink]="'../../map'"
+        [queryParams]="{
+          'dyfi-intensity': true,
+          'shakemap-intensity': false
+         }">
+    <img 
+        src="{{ dyfi.contents[dyfi.code + '_ciim_geo.jpg'].url }}"
+        alt="DYFI intensity map">
+    </a>
   <ng-template #noImage>
     <h1>Not available for this event</h1>
   </ng-template>
