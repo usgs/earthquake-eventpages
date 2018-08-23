@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
 
 
@@ -6,7 +6,6 @@ import { MAT_DIALOG_DATA } from '@angular/material';
  * Download dialog component, used for popup modals on download buttons
  */
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-download-dialog',
   styleUrls: ['./download-dialog.component.scss'],
   templateUrl: './download-dialog.component.html'
