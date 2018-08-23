@@ -12,8 +12,8 @@
       [products]="event.getProducts('losspager')">
   </impact-pager-summary>
   <shared-text-product
-      *ngFor="let product of event.getProducts('impact-text')"
-      [product]="product">
+      *ngFor="let product of event.getProducts('impact-text');
+      trackBy: trackByIndex" [product]="product">
   </shared-text-product>
 
   <ng-container *ngIf="event.hasProducts('impact-link')">

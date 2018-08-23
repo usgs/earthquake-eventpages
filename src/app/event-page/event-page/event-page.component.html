@@ -18,7 +18,8 @@
       </p>
 
       <shared-text-product
-        *ngFor="let product of event?.getProducts('deleted-text')"
+        *ngFor="let product of event?.getProducts('deleted-text');
+            trackBy: trackByIndex"
         [product]="product">
       </shared-text-product>
     </ng-template>

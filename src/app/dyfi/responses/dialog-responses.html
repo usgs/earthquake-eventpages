@@ -2,7 +2,7 @@
   <h3>Download</h3><span class="rightX" (click)="onNoClick()">X</span>
 </header>
 
-<div *ngFor="let row of dataTable.filteredData">
+<div *ngFor="let row of dataTable.filteredData;trackBy: trackByIndex">
   <ul>
     <li>{{ row }}</li>
   </ul>

@@ -17,8 +17,8 @@
     </technical-focal-mechanism-summary>
 
     <shared-text-product
-        *ngFor="let product of event?.getProducts('scitech-text')"
-        [product]="product">
+        *ngFor="let product of event?.getProducts('scitech-text');
+        trackBy: trackByIndex" [product]="product">
     </shared-text-product>
 
     <ng-container *ngIf="event?.hasProducts('scitech-link')">

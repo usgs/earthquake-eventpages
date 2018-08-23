@@ -45,4 +45,16 @@ export class EventPageComponent implements OnInit, OnDestroy {
     // request event
     this.eventService.getEvent(paramMap.get('eventid'));
   }
+
+  /**
+   * Checks for changes to data by index
+   *
+   * @param index
+   *    index of array
+   * @param item
+   *    general text product
+   */
+  trackByIndex (index, item) {
+    return index;
+  }
 }

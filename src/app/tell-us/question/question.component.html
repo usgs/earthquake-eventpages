@@ -15,7 +15,7 @@
 <ng-template #isSingleSelect>
   <mat-radio-group (change)="onChange($event)">
     <mat-list>
-      <ng-container *ngFor="let option of options">
+      <ng-container *ngFor="let option of options;trackBy: trackByIndex">
         <mat-list-item>
           <mat-radio-button
             [checked]="value === option?.value"

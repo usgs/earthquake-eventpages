@@ -1,7 +1,7 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
   <shared-text-product
-      *ngFor="let product of event.getProducts('general-header')"
-      [product]="product">
+      *ngFor="let product of event.getProducts('general-header');
+          trackBy: trackByIndex" [product]="product">
   </shared-text-product>
 
   <ul class="pins">
@@ -87,7 +87,8 @@
   <ng-container *ngIf="event.hasProducts('general-link')">
     <h3>For More Information</h3>
     <ul>
-      <li *ngFor="let product of event.getProducts('general-link')">
+      <li *ngFor="let product of event.getProducts('general-link');
+          trackBy: trackByIndex">
         <shared-link-product [product]="product">
         </shared-link-product>
       </li>

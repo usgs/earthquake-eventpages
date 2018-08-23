@@ -1,6 +1,6 @@
 <mat-menu #sortMenu="matMenu">
   <button mat-menu-item
-      *ngFor="let option of sortOptions"
+      *ngFor="let option of sortOptions;trackBy: trackByIndex"
       (click)="sortBy=option">
     {{ option.display }}
   </button>
