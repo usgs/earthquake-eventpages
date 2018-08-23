@@ -4,7 +4,7 @@ import {
   ElementRef,
   Input,
   OnChanges,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';

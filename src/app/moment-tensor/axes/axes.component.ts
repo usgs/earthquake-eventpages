@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Tensor } from '@shared/beachball/tensor';
 import { Beachball } from '@shared/beachball/beachball';
@@ -11,6 +11,7 @@ import { Beachball } from '@shared/beachball/beachball';
  *
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'moment-tensor-axes',
   styleUrls: ['./axes.component.scss'],
   templateUrl: './axes.component.html'

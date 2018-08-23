@@ -70,7 +70,7 @@
             [tooltipTemplate]="seriesTooltipTemplate"
             (hover)="updateHoveredVertical($event)" />
 
-        <svg:g *ngFor="let series of results">
+        <svg:g *ngFor="let series of results; trackBy:trackBy">
           <svg:g ngx-charts-circle-series
               [xScale]="xScale"
               [yScale]="yScale"

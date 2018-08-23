@@ -1,9 +1,5 @@
 import { trigger, style, animate, transition } from '@angular/animations';
-import {
-  Component,
-  ViewEncapsulation,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 import { LineChartComponent as SwimlaneLineChart } from '@swimlane/ngx-charts';
 
@@ -26,7 +22,6 @@ import { LineChartComponent as SwimlaneLineChart } from '@swimlane/ngx-charts';
       ])
     ])
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   selector: 'ngx-charts-line-chart',
   styleUrls: ['../../common/base-chart.component.scss'],

@@ -30,7 +30,7 @@
         [colors]="colors"
         [tooltipDisabled]="tooltipDisabled"
         (hover)="updateHoveredVertical($event)" />
-    <svg:g *ngFor="let series of lineChart">
+    <svg:g *ngFor="let series of lineChart; trackBy:trackBy">
       <svg:g ngx-charts-circle-series
           [xScale]="xScale"
           [yScale]="yScale"
