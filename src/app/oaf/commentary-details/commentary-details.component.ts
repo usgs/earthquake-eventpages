@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Display probability of aftershock at a certain magnitude threshold
@@ -8,6 +9,7 @@ import { Component, Input } from '@angular/core';
  *     a forecast bin from the oaf product
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'oaf-commentary-details',
   styleUrls: ['./commentary-details.component.scss'],
   templateUrl: './commentary-details.component.html'

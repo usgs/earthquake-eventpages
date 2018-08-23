@@ -20,6 +20,7 @@ import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { FormLanguageService } from '../form-language.service';
 
+
 /**
  * The main tell-us form which submits all DYFI information from user
  *
@@ -148,6 +149,17 @@ export class FormComponent implements AfterViewInit, OnDestroy {
   setLanguage(language: string) {
     this.answers.language = language;
     this.languageService.getLanguage(language);
+  }
+
+  /** Checks for changes to data by index
+   *
+   * @param index
+   *    index of array
+   * @param item
+   *    dyfi item
+   */
+  trackByIndex (index, item) {
+    return index;
   }
 
   /**

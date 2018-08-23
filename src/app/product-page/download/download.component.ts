@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { ContentsXmlService } from '@core/contents-xml.service';
+
 
 /**
  * Generates expansion panel to list all downloadable product contents
@@ -9,6 +10,7 @@ import { ContentsXmlService } from '@core/contents-xml.service';
  *    The product to download
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'product-page-download',
   styleUrls: ['./download.component.scss'],
   templateUrl: './download.component.html'
@@ -60,6 +62,18 @@ export class DownloadComponent {
    */
   get product(): any {
     return this._product;
+  }
+
+  /**
+   * Checks for changes to data by index
+   *
+   * @param index
+   *    index of array
+   * @param item
+   *    content item
+   */
+  trackByIndex (index, item) {
+    return index;
   }
 
   /**

@@ -2,7 +2,7 @@
   <ng-container *ngIf="multiSelect; else isSingleSelect">
     <mat-selection-list (selectionChange)="onChange($event)">
       <mat-list-option
-        *ngFor="let option of options"
+        *ngFor="let option of options;trackBy: trackByIndex"
         [checkboxPosition]="'before'"
         [selected]="value && value.includes(option.value)"
         [value]="option?.value">

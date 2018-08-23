@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { FormatterService } from '@core/formatter.service';
+
 
 /**
  * Processing subcomponent which shows different processing tables such as
@@ -11,6 +12,7 @@ import { FormatterService } from '@core/formatter.service';
  *     Shakemap processing data
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shakemap-processing',
   styleUrls: ['./processing.component.scss', '../metadata.component.scss'],
   templateUrl: './processing.component.html'

@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Tensor } from '@shared/beachball/tensor';
+
 
 /**
  * Moment Tensor Pin
@@ -9,6 +10,7 @@ import { Tensor } from '@shared/beachball/tensor';
  *     moment-tensor product
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'executive-moment-tensor-pin',
   styleUrls: ['./moment-tensor-pin.component.scss'],
   templateUrl: './moment-tensor-pin.component.html'

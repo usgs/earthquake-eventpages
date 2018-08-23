@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { FormatterService } from '@core/formatter.service';
+
 
 /**
  * Origin Pin
@@ -9,6 +10,7 @@ import { FormatterService } from '@core/formatter.service';
  *     origin product
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'executive-origin-pin',
   styleUrls: ['./origin-pin.component.scss'],
   templateUrl: './origin-pin.component.html'

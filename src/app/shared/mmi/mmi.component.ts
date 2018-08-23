@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Mmi Component for all magnitudes across pages
@@ -11,6 +12,7 @@ import { Component, Input } from '@angular/core';
  *     The magnitude value
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-mmi',
   styleUrls: ['./mmi.component.scss'],
   templateUrl: './mmi.component.html'

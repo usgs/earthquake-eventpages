@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Generate alert bars for summary tab, on ground-failure product page
@@ -17,6 +18,7 @@ import { Component, Input } from '@angular/core';
  *
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'ground-failure-alert-bar',
   styleUrls: ['./alert-bar.component.scss'],
   templateUrl: './alert-bar.component.html'
@@ -58,4 +60,16 @@ export class AlertBarComponent {
 
   @Input()
   value: number;
+
+  /**
+   * Checks for changes to data by index
+   *
+   * @param index
+   *    index of array
+   * @param item
+   *    alert bin
+   */
+  trackByIndex (index, item) {
+    return index;
+  }
 }

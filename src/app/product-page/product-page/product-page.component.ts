@@ -1,10 +1,17 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
 import { ContributorService } from '@core/contributor.service';
 import { EventService } from '@core/event.service';
+
 
 /**
  * Product page grabs the product from the event object and
@@ -14,6 +21,7 @@ import { EventService } from '@core/event.service';
  *    The type of product to display
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'product-page',
   styleUrls: ['./product-page.component.scss'],
   templateUrl: './product-page.component.html'

@@ -79,7 +79,8 @@
   </ul>
 
   <shared-text-product
-      *ngFor="let product of event.getProducts('general-text')"
+      *ngFor="let product of event.getProducts('general-text');
+          trackBy: trackByIndex"
       [product]="product">
   </shared-text-product>
 

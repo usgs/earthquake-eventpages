@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
+
 
 /**
  * renders dyfi summary table
@@ -11,6 +12,7 @@ import { Event } from '../../event';
  *    DYFI products
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'impact-dyfi-summary',
   styleUrls: ['./dyfi-summary.component.scss'],
   templateUrl: './dyfi-summary.component.html'

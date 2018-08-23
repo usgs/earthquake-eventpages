@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { FormatterService } from '@core/formatter.service';
+
 
 /**
  * Technical origin component
@@ -10,6 +11,7 @@ import { FormatterService } from '@core/formatter.service';
  *     The products array
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'technical-origin-summary',
   styleUrls: ['./origin-summary.component.scss'],
   templateUrl: './origin-summary.component.html'

@@ -2,7 +2,7 @@
   <span class="title">{{ item.title }}</span>
   <span class="caption">{{ item.caption }}</span>
   <ul class="formats">
-    <li *ngFor="let format of item.formats">
+    <li *ngFor="let format of item.formats;trackBy: trackByIndex">
       <a href="{{ format.url }}">
         {{ format.type | uppercase }}
         {{ format.length | fileSize }}

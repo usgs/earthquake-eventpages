@@ -19,7 +19,8 @@
   <ng-container *ngIf="event.hasProducts('impact-link')">
     <h3>For More Information</h3>
     <ul>
-      <li *ngFor="let product of event.getProducts('impact-link')">
+      <li *ngFor="let product of event.getProducts('impact-link');
+          trackBy: trackByIndex">
         <shared-link-product [product]="product">
         </shared-link-product>
       </li>

@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 import { Event } from '../../event';
+
 
 /**
  * Renders shakemap summary table
@@ -11,6 +12,7 @@ import { Event } from '../../event';
  *    shakemap products
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'impact-shakemap-summary',
   styleUrls: ['./shakemap-summary.component.scss'],
   templateUrl: './shakemap-summary.component.html'

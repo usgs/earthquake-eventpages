@@ -7,6 +7,7 @@ import { QuakemlService } from '@core/quakeml.service';
 import { toArray } from '../../to-array';
 import { Quakeml } from '../../quakeml';
 
+
 /**
  * Magnitude tab contents for the Origin Module
  */
@@ -196,5 +197,17 @@ export class MagnitudeComponent implements OnInit, OnDestroy {
     );
 
     return parsed;
+  }
+
+  /**
+   * Checks for changes to data by index
+   *
+   * @param index
+   *    index of array
+   * @param item
+   *    magnitude data
+   */
+  trackByIndex (index, item) {
+    return index;
   }
 }

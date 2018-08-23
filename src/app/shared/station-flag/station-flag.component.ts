@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Shows a flag description for each station
@@ -7,6 +8,7 @@ import { Component, Input } from '@angular/core';
  *     The flag
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-station-flag',
   styleUrls: ['./station-flag.component.scss'],
   templateUrl: './station-flag.component.html'

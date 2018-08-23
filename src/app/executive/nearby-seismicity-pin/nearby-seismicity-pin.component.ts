@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
 
 import { Event } from '../../event';
 
@@ -12,6 +17,7 @@ import { Event } from '../../event';
  *     link for pin
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'executive-nearby-seismicity-pin',
   styleUrls: ['./nearby-seismicity-pin.component.scss'],
   templateUrl: './nearby-seismicity-pin.component.html'

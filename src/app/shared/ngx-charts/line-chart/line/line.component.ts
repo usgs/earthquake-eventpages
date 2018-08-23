@@ -1,7 +1,17 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { trigger, style, animate, transition } from '@angular/animations';
+import {
+  Component,
+  Input,
+  ChangeDetectionStrategy
+} from '@angular/core';
+import {
+  trigger,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 
 import { LineComponent as SwimlaneLine } from '@swimlane/ngx-charts';
+
 
 /**
  * LineComponent, shows/draws lines

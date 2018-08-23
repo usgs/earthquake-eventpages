@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Display population exposure bins on ground-failure product page
@@ -19,6 +20,7 @@ import { Component, Input } from '@angular/core';
  *     number of population exposed
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'ground-failure-population-alert',
   styleUrls: ['./population-alert.component.scss'],
   templateUrl: './population-alert.component.html'

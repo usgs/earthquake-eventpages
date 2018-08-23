@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {  ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 /**
  * Shared footer component across all pages
@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
  *     The list of contributors to render in footer
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'event-page-footer',
   styleUrls: ['./footer.component.scss'],
   templateUrl: './footer.component.html'

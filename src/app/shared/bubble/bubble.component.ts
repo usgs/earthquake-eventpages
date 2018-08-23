@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Shared bubble component for use in beachball components
@@ -9,6 +10,7 @@ import { Component, Input } from '@angular/core';
  *     The title of the bubble
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-bubble',
   styleUrls: ['./bubble.component.scss'],
   templateUrl: './bubble.component.html'

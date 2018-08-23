@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * The main component for showing product attribution
@@ -7,6 +8,7 @@ import { Component, Input } from '@angular/core';
  *     The current product
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-product-attribution',
   styleUrls: ['./product-attribution.component.scss'],
   templateUrl: './product-attribution.component.html'

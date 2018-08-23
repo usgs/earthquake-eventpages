@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Displays custom product page footer and product downloads
@@ -7,6 +8,7 @@ import { Component, Input } from '@angular/core';
  *    The product contents to display
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'product-page-footer',
   styleUrls: ['./footer.component.scss'],
   templateUrl: './footer.component.html'

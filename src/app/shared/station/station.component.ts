@@ -1,4 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  Input
+} from '@angular/core';
+
 
 /**
  * Expandable/Collapsible station item, with station channel list
@@ -7,6 +13,7 @@ import { Component, OnInit, Input } from '@angular/core';
  *    The station to display
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-station',
   styleUrls: ['./station.component.scss'],
   templateUrl: './station.component.html'

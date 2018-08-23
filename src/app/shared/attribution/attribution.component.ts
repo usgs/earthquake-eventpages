@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { ContributorService } from '@core/contributor.service';
 import { EventService } from '@core/event.service';
 import { Event } from '../../event';
+
 
 /**
  * Attribution component
@@ -11,6 +12,7 @@ import { Event } from '../../event';
  *     The actual source code for attribution
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-attribution',
   styleUrls: ['./attribution.component.scss'],
   templateUrl: './attribution.component.html'

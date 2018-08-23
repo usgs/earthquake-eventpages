@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
 
@@ -10,6 +10,7 @@ import { Event } from '../../event';
  *     The event object
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'event-page-navigation',
   styleUrls: ['./navigation.component.scss'],
   templateUrl: './navigation.component.html'

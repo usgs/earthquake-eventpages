@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Component used to share a product among elements
@@ -7,6 +8,7 @@ import { Component, Input } from '@angular/core';
  *     The product from this event
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-link-product',
   styleUrls: ['./link-product.component.scss'],
   templateUrl: './link-product.component.html'

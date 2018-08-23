@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 /**
  * Finite Fault Pin
@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
  *     finite-fault product
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'executive-finite-fault-pin',
   styleUrls: ['./finite-fault-pin.component.scss'],
   templateUrl: './finite-fault-pin.component.html'

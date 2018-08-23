@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Header generates markup for a product specific page and lists the
@@ -14,6 +15,7 @@ import { Component, Input } from '@angular/core';
  *    product to display
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'product-page-header',
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html'

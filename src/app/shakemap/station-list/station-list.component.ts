@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { EventService } from '@core/event.service';
 import { StationService } from '@core/station.service';
 
+
 /**
  * Station list component, shows the available stations when selecting the
  * 'station list' tab inside the main shakemap component
@@ -71,4 +72,17 @@ export class StationListComponent implements OnInit, OnDestroy {
     }
     this.stations = stationsJson.features;
   }
+
+  /**
+   * Checks for changes to data by index
+   *
+   * @param index
+   *    index of array
+   * @param item
+   *    station item
+   */
+  trackByIndex (index, item) {
+    return index;
+  }
+
 }

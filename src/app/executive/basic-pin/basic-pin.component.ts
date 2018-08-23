@@ -1,4 +1,10 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewEncapsulation
+} from '@angular/core';
+
 
 /**
  * Base pin class
@@ -19,6 +25,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
  *     text for title
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   selector: 'basic-pin',
   styleUrls: ['./basic-pin.component.scss'],

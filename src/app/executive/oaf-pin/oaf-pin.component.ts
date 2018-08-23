@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 /**
  * Aftershock Forecast Pin
@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
  *     oaf product
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'executive-oaf-pin',
   styleUrls: ['./oaf-pin.component.scss'],
   templateUrl: './oaf-pin.component.html'

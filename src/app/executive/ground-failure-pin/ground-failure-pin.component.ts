@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 /**
  * Ground Failure Pin
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'executive-ground-failure-pin',
   styleUrls: ['./ground-failure-pin.component.scss'],
   templateUrl: './ground-failure-pin.component.html'

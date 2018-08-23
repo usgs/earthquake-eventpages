@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { FormatterService } from '@core/formatter.service';
+
 
 /**
  * Uncertain value component
@@ -13,6 +14,7 @@ import { FormatterService } from '@core/formatter.service';
  *     The unit value of the uncertainty
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-uncertain-value',
   styleUrls: ['./uncertain-value.component.scss'],
   templateUrl: './uncertain-value.component.html'

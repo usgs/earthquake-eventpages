@@ -1,9 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+
 
 /**
  * Shared alert-level component
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'shared-alert-level',
   styleUrls: ['./alert-level.component.scss'],
   templateUrl: './alert-level.component.html'
