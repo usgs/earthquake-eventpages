@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewChild
+} from '@angular/core';
 import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 
 import { DownloadDialogComponent } from '@shared/download-dialog/download-dialog.component';
@@ -8,6 +14,7 @@ import { DownloadDialogComponent } from '@shared/download-dialog/download-dialog
  * inside the Origin Module
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'origin-magnitude-detail',
   styleUrls: ['./magnitude-detail.component.scss'],
   templateUrl: './magnitude-detail.component.html'
