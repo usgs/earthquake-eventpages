@@ -16,20 +16,26 @@
         <nav mdc-tab-bar>
           <a *ngIf="shakemap | sharedProductContent:
               'download/cont_mi.json':'download/intensity.jpg'"
-              mdc-tab mdcRouter [routerLink]="'./intensity'"
-              queryParamsHandling="preserve">
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./intensity'"
+            queryParamsHandling="preserve">
             Intensity
           </a>
           <a *ngIf="shakemap | sharedProductContent:
               'download/cont_pga.json':'download/pga.jpg'"
-              mdc-tab mdcRouter [routerLink]="'./pga'"
-              queryParamsHandling="preserve">
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./pga'"
+            queryParamsHandling="preserve">
             <abbr title="Peak Ground Acceleration">PGA</abbr>
           </a>
           <a *ngIf="shakemap | sharedProductContent:
               'download/cont_pgv.json':'download/pgv.jpg'"
-              mdc-tab mdcRouter [routerLink]="'./pgv'"
-              queryParamsHandling="preserve">
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./pgv'"
+            queryParamsHandling="preserve">
             <abbr title="Peak Ground Velocity">PGV</abbr>
           </a>
           <a *ngIf="shakemap | sharedProductContent:
@@ -37,16 +43,22 @@
               'download/cont_psa30.json':'download/cont_psa0p3.json':
               'download/cont_psa1p0.json':'download/cont_psa3p0.json':
               'download/psa03.jpg':'download/psa10.jpg':'download/psa30.jpg'"
-              mdc-tab mdcRouter [routerLink]="'./psa'"
-              queryParamsHandling="preserve">
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./psa'"
+            queryParamsHandling="preserve">
             <abbr title="Peak Spectral Acceleration">PSA</abbr>
           </a>
-          <a mdc-tab mdcRouter [routerLink]="'./metadata'"
-              queryParamsHandling="preserve">
+          <a mdc-tab
+            mdcRouter
+            [routerLink]="'./metadata'"
+            queryParamsHandling="preserve">
             Metadata
           </a>
-          <a mdc-tab mdcRouter [routerLink]="'./stations'"
-              queryParamsHandling="preserve">
+          <a mdc-tab
+            mdcRouter
+            [routerLink]="'./stations'"
+            queryParamsHandling="preserve">
             Station List
           </a>
         </nav>
@@ -58,6 +70,13 @@
 
     <router-outlet></router-outlet>
   </ng-container>
+
+  <h3>For More Information</h3>
+  <ul>
+    <li>
+      <a href="https://usgs.github.io/shakemap/">Shakemap Manual</a>
+    </li>
+  </ul>
 
   <!-- container with footer attribute is added before downloads -->
   <ng-container footer>

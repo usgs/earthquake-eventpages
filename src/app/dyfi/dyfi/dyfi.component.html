@@ -3,8 +3,8 @@
   <ng-container header>
     <h3>Did You Feel It?</h3>
     <a [routerLink]="'../tellus'"
-        class="tell-us-link"
-        queryParamsHandling="preserve">
+      class="tell-us-link"
+      queryParamsHandling="preserve">
       Felt Report - Tell Us!
     </a>
   </ng-container>
@@ -17,30 +17,40 @@
       <mdc-tab-bar-scroll-frame>
         <nav mdc-tab-bar>
           <a *ngIf="dyfi | sharedProductContent:dyfi.code + '_ciim_geo.jpg'"
-              mdc-tab mdcRouter [routerLink]="'./intensity'"
-              queryParamsHandling="preserve">
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./intensity'"
+            queryParamsHandling="preserve">
             Intensity
           </a>
           <a *ngIf="dyfi | sharedProductContent:dyfi.code + '_ciim.jpg'"
-              mdc-tab mdcRouter [routerLink]="'./zip'"
-              queryParamsHandling="preserve">
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./zip'"
+            queryParamsHandling="preserve">
             ZIP Map
           </a>
           <a *ngIf="dyfi | sharedProductContent:
               'dyfi_plot_atten.json':dyfi.code + '_plot_atten.jpg'"
-              mdc-tab mdcRouter [routerLink]="'./intensity-vs-distance'"
-              queryParamsHandling="preserve">
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./intensity-vs-distance'"
+            queryParamsHandling="preserve">
             Intensity Vs. Distance
           </a>
           <a *ngIf="dyfi | sharedProductContent:
           'dyfi_plot_numresp.json':dyfi.code + '_plot_numresp.jpg'"
-              mdc-tab mdcRouter [routerLink]="'./responses-vs-time'"
-              queryParamsHandling="preserve">
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./responses-vs-time'"
+            queryParamsHandling="preserve">
             Responses Vs. Time
           </a>
           <a *ngIf="dyfi | sharedProductContent:'cdi_zip.xml'"
-              mdc-tab mdcRouter [routerLink]="'./responses'"
-              queryParamsHandling="preserve">
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./responses'"
+            queryParamsHandling="preserve">
             DYFI Responses
           </a>
         </nav>
@@ -53,8 +63,14 @@
     <router-outlet></router-outlet>
   </ng-container>
 
+  <h3>For More Information</h3>
+  <ul>
+    <li>
+      <a href="https://earthquake.usgs.gov/data/dyfi/">Scientific Background for Did You Feel It?</a>
+    </li>
+  </ul>
+
   <ng-container footer>
   </ng-container>
 
 </product-page>
-
