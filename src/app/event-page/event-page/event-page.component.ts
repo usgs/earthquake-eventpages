@@ -50,7 +50,6 @@ export class EventPageComponent implements OnInit, OnDestroy {
         })
       );
     } catch (e) {
-      console.log(e);
     }
   }
 
