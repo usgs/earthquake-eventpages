@@ -3,29 +3,27 @@
 
     <dl class="description-table">
       <ng-container *ngIf="product?.properties; let props"
-            class="dl.description-table">
+        class="dl.description-table">
 
         <dt>Magnitude<br>
           <span *ngIf="props['magnitude-error']"
-              class="uncertainty"><em>uncertainty</em></span>
+            class="uncertainty">uncertainty</span>
         </dt>
         <dd>
-          <shared-uncertain-value
-              [value]="formatter?.magnitude(props?.magnitude,
+          <shared-uncertain-value [value]="formatter?.magnitude(props?.magnitude,
               props['magnitude-type'])"
-              [uncertainty]="props['magnitude-error']">
-          </shared-uncertain-value>2
+            [uncertainty]="props['magnitude-error']">
+          </shared-uncertain-value>
         </dd>
 
         <dt>Location<br>
           <span *ngIf="props['horizontal-error']"
-              class="uncertainty"><em>uncertainty</em></span>
+            class="uncertainty">uncertainty</span>
         </dt>
         <dd>
-          <shared-uncertain-value
-              [uncertainty]="props['horizontal-error']"
-              [uncertaintyUnits]="'km'">
-          <shared-coordinates uncertainValue
+          <shared-uncertain-value [uncertainty]="props['horizontal-error']"
+            [uncertaintyUnits]="'km'">
+            <shared-coordinates uncertainValue
               [latitude]="props?.latitude"
               [longitude]="props?.longitude"></shared-coordinates>
           </shared-uncertain-value>
@@ -33,12 +31,11 @@
 
         <dt>
           Depth<br>
-          <span class="uncertainty"><em>uncertainty</em></span>
+          <span class="uncertainty">uncertainty</span>
         </dt>
         <dd>
-          <shared-uncertain-value
-              [value]="formatter?.depth(props.depth, 'km')"
-              [uncertainty]="props['vertical-error']">
+          <shared-uncertain-value [value]="formatter?.depth(props.depth, 'km')"
+            [uncertainty]="props['vertical-error']">
           </shared-uncertain-value>
         </dd>
 
@@ -62,8 +59,7 @@
         <dt>Minimum Distance</dt>
         <dd>
           <span>
-            {{ formatter?.distance(props['minimum-distance'] *
-                0.0174532925 * 6378.1, 'km') }}</span>
+            {{ formatter?.distance(props['minimum-distance'] * 0.0174532925 * 6378.1, 'km') }}</span>
           (<span>
             {{ formatter?.angle(props['minimum-distance'], 2) }}
           </span>)
@@ -77,11 +73,10 @@
         <dt>Azimuthal Gap</dt>
         <dd>{{ formatter?.angle(props['azimuthal-gap']) }}</dd>
 
-        <dt><abbr title="Flin Engdahl">FE</abbr> Region</dt>
+        <dt><abbr title="Flinn Engdahl">FE</abbr> Region</dt>
         <dd>
-          <shared-fe-region
-              [latitude]="props?.latitude"
-              [longitude]="props?.longitude"></shared-fe-region>
+          <shared-fe-region [latitude]="props?.latitude"
+            [longitude]="props?.longitude"></shared-fe-region>
         </dd>
 
         <dt>Review Status</dt>
@@ -92,8 +87,7 @@
           <ng-container *ngIf="props?.eventsource && props?.eventsourcecode;
               else noCatalog">{{ props?.eventsource | uppercase }}
             <small>
-              {{ (props?.eventsource + props?.eventsourcecode) |
-                  lowercase }}
+              ( {{ (props?.eventsource + props?.eventsourcecode) | lowercase }} )
             </small>
           </ng-container>
           <ng-template #noCatalog>
@@ -103,22 +97,19 @@
 
         <dt>Location Source</dt>
         <dd>
-          <shared-attribution
-              [sourceCode]="props['origin-source'] || product?.source">
+          <shared-attribution [sourceCode]="props['origin-source'] || product?.source">
           </shared-attribution>
         </dd>
 
         <dt>Magnitude Source</dt>
         <dd>
-          <shared-attribution
-              [sourceCode]="props['magnitude-source'] || product?.source">
+          <shared-attribution [sourceCode]="props['magnitude-source'] || product?.source">
           </shared-attribution>
         </dd>
 
         <dt>Contributor</dt>
         <dd>
-          <shared-attribution
-              [sourceCode]="product?.source"></shared-attribution>
+          <shared-attribution [sourceCode]="product?.source"></shared-attribution>
         </dd>
 
       </ng-container>
