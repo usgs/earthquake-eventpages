@@ -7,62 +7,62 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <mat-table [dataSource]="smProcessing?.ground_motion_modules">
-        <mat-header-row *matHeaderRowDef="headers?.groundMotionModules">
-        </mat-header-row>
-        <mat-row *matRowDef="let myRowData;
-            columns: headers?.groundMotionModules">
-        </mat-row>
+      <div class="horizontal-scrolling">
+        <mat-table [dataSource]="smProcessing?.ground_motion_modules">
+          <mat-header-row *matHeaderRowDef="headers?.groundMotionModules">
+          </mat-header-row>
+          <mat-row *matRowDef="let myRowData;
+                    columns: headers?.groundMotionModules">
+          </mat-row>
 
-        <ng-container matColumnDef="type">
-          <mat-header-cell *matHeaderCellDef>
-            Type
-          </mat-header-cell>
-          <mat-cell
-            [attr.role]="'rowheader'"
-            [class.mat-cell]="false"
-            class="mat-header-cell"
-            *matCellDef="let module">
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef>
+              Type
+            </mat-header-cell>
+            <mat-cell [attr.role]="'rowheader'"
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let module">
 
-            <ng-container *ngIf="names?.ground_motion_modules[module.type]
-                as name; else noName">
-              <ng-container *ngIf="abbreviations[module.type] as abbr;
-                  else noAbbr">
+              <ng-container *ngIf="names?.ground_motion_modules[module.type]
+                        as name; else noName">
+                <ng-container *ngIf="abbreviations[module.type] as abbr;
+                          else noAbbr">
 
-                <abbr title="{{ abbr }}">{{ name }}</abbr>
+                  <abbr title="{{ abbr }}">{{ name }}</abbr>
+                </ng-container>
+
+                <ng-template #noAbbr>
+                  {{ name }}
+                </ng-template>
               </ng-container>
 
-              <ng-template #noAbbr>
-                {{ name }}
+              <ng-template #noName>
+                {{ module.type }}
               </ng-template>
-            </ng-container>
 
-            <ng-template #noName>
-              {{ module.type }}
-            </ng-template>
+            </mat-cell>
+          </ng-container>
 
-          </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="module">
+            <mat-header-cell *matHeaderCellDef>
+              Module
+            </mat-header-cell>
+            <mat-cell *matCellDef="let module">
+              {{ module.module }}
+            </mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="module">
-          <mat-header-cell *matHeaderCellDef>
-            Module
-          </mat-header-cell>
-          <mat-cell *matCellDef="let module">
-            {{ module.module }}
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="reference">
-          <mat-header-cell *matHeaderCellDef>
-            Reference
-          </mat-header-cell>
-          <mat-cell *matCellDef="let module">
-            {{ module.reference }}
-          </mat-cell>
-        </ng-container>
-
-      </mat-table>
+          <ng-container matColumnDef="reference">
+            <mat-header-cell *matHeaderCellDef>
+              Reference
+            </mat-header-cell>
+            <mat-cell *matCellDef="let module">
+              {{ module.reference }}
+            </mat-cell>
+          </ng-container>
+        </mat-table>
+      </div>
     </ng-template>
   </mat-expansion-panel>
 
@@ -75,7 +75,7 @@
 
     <ng-template matExpansionPanelContent>
       <dl *ngIf="smProcessing?.miscellaneous as miscellaneous"
-          class="description-table">
+        class="description-table">
 
         <dt>Max magnitude to compute bias</dt>
         <dd *ngIf="miscellaneous?.bias_max_mag as biasMaxMag;
@@ -151,7 +151,7 @@
     <ng-template matExpansionPanelContent>
 
       <dl *ngIf="smProcessing?.shakemap_versions as versions"
-          class="description-table">
+        class="description-table">
 
         <dt>Code</dt>
         <dd *ngIf="versions?.shakemap_revision as smRev;
@@ -183,26 +183,26 @@
 
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>
-          Site Response
-        </mat-panel-title>
+      <mat-panel-title>
+        Site Response
+      </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
 
       <dl *ngIf="smProcessing?.site_response as siteResp"
-          class="description-table" >
-          <dt>Reference rock Vs30</dt>
-          <dd *ngIf="siteResp?.vs30default as vs30;
+        class="description-table">
+        <dt>Reference rock Vs30</dt>
+        <dd *ngIf="siteResp?.vs30default as vs30;
               else missingData">
-            {{ vs30 }}
-          </dd>
+          {{ vs30 }}
+        </dd>
 
-          <dt>Site correction applied</dt>
-          <dd *ngIf="siteResp?.site_correction as site;
+        <dt>Site correction applied</dt>
+        <dd *ngIf="siteResp?.site_correction as site;
               else missingData">
-            {{ site }}
-          </dd>
+          {{ site }}
+        </dd>
       </dl>
 
     </ng-template>
@@ -210,52 +210,51 @@
 
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>
-          ROI
-        </mat-panel-title>
+      <mat-panel-title>
+        ROI
+      </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
+      <div class="horizontal-scrolling">
+        <mat-table [dataSource]="smProcessing?.roi">
+          <mat-header-row *matHeaderRowDef="headers?.roi"></mat-header-row>
+          <mat-row *matRowDef="let myRowData; columns: headers?.roi"></mat-row>
 
-      <mat-table [dataSource]="smProcessing?.roi">
-        <mat-header-row *matHeaderRowDef="headers?.roi"></mat-header-row>
-        <mat-row *matRowDef="let myRowData; columns: headers?.roi"></mat-row>
-
-        <ng-container matColumnDef="type">
-          <mat-header-cell *matHeaderCellDef>
-            Type
-          </mat-header-cell>
-          <mat-cell
-              [attr.role]="'rowheader'"
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef>
+              Type
+            </mat-header-cell>
+            <mat-cell [attr.role]="'rowheader'"
               [class.mat-cell]="false"
               class="mat-header-cell"
               *matCellDef="let roi">
 
-            {{ names.roi[roi.type] ?
-                names.roi[roi.type] : roi.type }}
+              {{ names.roi[roi.type] ? names.roi[roi.type] : roi.type }}
 
-          </mat-cell>
-        </ng-container>
+            </mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="roi">
-          <mat-header-cell *matHeaderCellDef>
-            ROI
-          </mat-header-cell>
-          <mat-cell *matCellDef="let roi">
-            {{ roi.roi }}
-          </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="roi">
+            <mat-header-cell *matHeaderCellDef>
+              ROI
+            </mat-header-cell>
+            <mat-cell *matCellDef="let roi">
+              {{ roi.roi }}
+            </mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="observation_decay">
-          <mat-header-cell *matHeaderCellDef>
-            Observation Decay
-          </mat-header-cell>
-          <mat-cell *matCellDef="let roi">
-            {{ roi.decay }}
-          </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="observation_decay">
+            <mat-header-cell *matHeaderCellDef>
+              Observation Decay
+            </mat-header-cell>
+            <mat-cell *matCellDef="let roi">
+              {{ roi.decay }}
+            </mat-cell>
+          </ng-container>
 
-      </mat-table>
+        </mat-table>
+      </div>
 
     </ng-template>
   </mat-expansion-panel>

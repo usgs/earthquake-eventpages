@@ -1,44 +1,47 @@
 <ng-container *ngIf="products.length > 0">
   <h4>PAGER</h4>
-  <mat-table [dataSource]="products">
-    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
 
-    <ng-container matColumnDef="catalog">
-      <mat-header-cell *matHeaderCellDef>
-        Catalog
-      </mat-header-cell>
-      <mat-cell *matCellDef="let pager">
-        <ng-container *ngIf="pager === products[0]">
-          <shared-preferred-check [title]="'Preferred LossPager'">
-          </shared-preferred-check>
-        </ng-container>
-        <a [routerLink]="['/', event?.id, 'pager']"
+  <div class="horizontal-scrolling">
+    <mat-table [dataSource]="products">
+      <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+      <ng-container matColumnDef="catalog">
+        <mat-header-cell *matHeaderCellDef>
+          Catalog
+        </mat-header-cell>
+        <mat-cell *matCellDef="let pager">
+          <ng-container *ngIf="pager === products[0]">
+            <shared-preferred-check [title]="'Preferred LossPager'">
+            </shared-preferred-check>
+          </ng-container>
+          <a [routerLink]="['/', event?.id, 'pager']"
             [queryParams]="{ source: pager?.source, code: pager?.code }">
-          {{ pager?.properties?.eventsource?.toUpperCase() }}
-        </a>
-      </mat-cell>
-    </ng-container>
+            {{ pager?.properties?.eventsource?.toUpperCase() }}
+          </a>
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="alertlevel">
-      <mat-header-cell *matHeaderCellDef>
-        Alert Level
-      </mat-header-cell>
-      <mat-cell *matCellDef="let pager">
-        <shared-alert-level [alert]="pager?.properties?.alertlevel">
-        </shared-alert-level>
-      </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="alertlevel">
+        <mat-header-cell *matHeaderCellDef>
+          Alert Level
+        </mat-header-cell>
+        <mat-cell *matCellDef="let pager">
+          <shared-alert-level [alert]="pager?.properties?.alertlevel">
+          </shared-alert-level>
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="source">
-      <mat-header-cell *matHeaderCellDef>
-        Source
-      </mat-header-cell>
-      <mat-cell *matCellDef="let pager">
-        <shared-product-attribution [product]="pager">
-        </shared-product-attribution>
-      </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="source">
+        <mat-header-cell *matHeaderCellDef>
+          Source
+        </mat-header-cell>
+        <mat-cell *matCellDef="let pager">
+          <shared-product-attribution [product]="pager">
+          </shared-product-attribution>
+        </mat-cell>
+      </ng-container>
+    </mat-table>
+  </div>
 
-  </mat-table>
 </ng-container>

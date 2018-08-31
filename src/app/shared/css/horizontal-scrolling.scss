@@ -1,0 +1,19 @@
+.horizontal-scrolling {
+  background: linear-gradient(to right, #fff 30%, rgba(255, 255, 255, 0)),
+    linear-gradient(to left, #fff 30%, rgba(255, 255, 255, 0)) right,
+    linear-gradient(to right, rgba(0, 0, 0, 0.15), transparent 70%),
+    linear-gradient(to left, rgba(0, 0, 0, 0.15), transparent 70%) right;
+  background-repeat: no-repeat;
+  background-size: 20px 100%, 20px 100%, 10px 100%, 10px 100%;
+  background-attachment: local, local, scroll, scroll;
+  margin: 1em 0;
+  overflow: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.horizontal-scrolling > :first-child {
+  border: 1px solid blue;
+  margin: 0;
+  min-width: 900px;
+}
