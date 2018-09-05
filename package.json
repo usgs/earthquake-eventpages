@@ -9,7 +9,7 @@
     "test": "ng test --source-map=false",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "stats": "webpack-bundle-analyzer dist/stats.json"
+    "stats": "ng build --prod --stats-json && npx webpack-bundle-analyzer dist/stats.json"
   },
   "private": true,
   "dependencies": {
