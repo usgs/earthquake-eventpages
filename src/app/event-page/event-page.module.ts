@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatListModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
-
-import { HazdevTemplateModule } from 'hazdev-template';
-
 import { SharedModule } from '@shared/shared.module';
+import { HazdevTemplateModule } from 'hazdev-ng-template';
+
 import { ContributorListPipe } from './contributor-list.pipe';
 import { EventDateTimePipe } from './event-date-time.pipe';
 import { EventDepthPipe } from './event-depth.pipe';

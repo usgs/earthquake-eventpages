@@ -19,7 +19,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "node_modules/hazdev-template/src/assets",
+                "input": "node_modules/hazdev-ng-template/assets",
                 "output": "/assets"
               },
               {

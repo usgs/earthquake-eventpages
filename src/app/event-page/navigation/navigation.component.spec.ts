@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MockComponent } from 'ng2-mock-component';
 
 import { Event } from '../../event';
@@ -15,10 +14,10 @@ describe('NavigationComponent', () => {
       declarations: [
         NavigationComponent,
 
-        MockComponent({ selector: 'app-navigation-group' }),
+        MockComponent({ selector: 'hazdev-template-navigation-group' }),
         MockComponent({
           inputs: ['display', 'navHrefLink', 'navRouterLink'],
-          selector: 'app-navigation-item'
+          selector: 'hazdev-template-navigation-item'
         }),
         MockPipe('nearbySeismicityLink')
       ]
