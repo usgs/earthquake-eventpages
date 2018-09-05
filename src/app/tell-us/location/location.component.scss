@@ -3,9 +3,23 @@
   margin: 0 0.5em;
   min-width: 0;
   padding: 0 0.5em;
+
+  i {
+    font-size: 16px;
+    font-weight: bold;
+  }
 }
 
-i {
+.map {
+  display: block;
+  height: 220px;
+}
+
+.leaflet-location-control {
+  cursor: pointer;
+}
+
+.leaflet-location-control > a.material-icons {
   font-size: 16px;
   font-weight: bold;
 }
