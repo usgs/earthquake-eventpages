@@ -1,13 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
-import {
-  GeoserveCoreModule,
-  GeoserveOutputModule
-} from 'earthquake-geoserve-ui';
-
 import { SharedModule } from '@shared/shared.module';
+import { GeoserveOutputModule } from 'hazdev-ng-geoserve-output';
+
 import { RegionInfoComponent } from './region-info/region-info.component';
 
 @NgModule({
@@ -17,8 +13,7 @@ import { RegionInfoComponent } from './region-info/region-info.component';
     RouterModule,
     SharedModule,
 
-    GeoserveCoreModule.forRoot(),
-    GeoserveOutputModule
+    GeoserveOutputModule.forRoot()
   ]
 })
 export class RegionInfoModule {}
