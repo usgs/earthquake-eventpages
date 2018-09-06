@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router, NavigationEnd } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
@@ -15,12 +15,14 @@ import { EventService } from '@core/event.service';
   templateUrl: './event-page.component.html'
 })
 export class EventPageComponent implements OnInit, OnDestroy {
+  child: any = null;
   subscription = new Subscription();
 
   constructor(
     public route: ActivatedRoute,
     public contributorService: ContributorService,
-    public eventService: EventService
+    public eventService: EventService,
+    public router: Router
   ) {}
 
   ngOnDestroy() {
@@ -33,6 +35,23 @@ export class EventPageComponent implements OnInit, OnDestroy {
         return this.onParamMapChange(paramMap);
       })
     );
+
+    try {
+      this.subscription.add(
+        this.router.events.subscribe(e => {
+          if (e instanceof NavigationEnd) {
+            // if the EventPageComponent's child route ("module") has changed
+            if (this.child !== this.route.firstChild) {
+              this.child = this.route.firstChild;
+              // scroll back to the top of the page
+              window.scrollTo(0, 0);
+            }
+          }
+        })
+      );
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   /**
