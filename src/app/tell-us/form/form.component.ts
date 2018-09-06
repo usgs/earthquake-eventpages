@@ -1,25 +1,12 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams
-} from '@angular/common/http';
-import {
-  AfterViewInit,
-  Component,
-  Inject,
-  OnDestroy,
-  ViewChild
-} from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { AfterViewInit, Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-
-import { LocationMapComponent } from 'hazdev-ng-location-view';
-import { Subscription, Observable, of } from 'rxjs';
+import { EventService } from '@core/event.service';
+import { Observable, of, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { FormLanguageService } from '../form-language.service';
-
 
 /**
  * The main tell-us form which submits all DYFI information from user
@@ -41,8 +28,6 @@ export class FormComponent implements AfterViewInit, OnDestroy {
   };
   error: any = null;
   // The rendered map at the top of the form
-  @ViewChild(LocationMapComponent)
-  locationMapComponent: LocationMapComponent;
   responseUrl = '/data/dyfi/form/response.php';
   subscription: Subscription = new Subscription();
 
@@ -63,11 +48,6 @@ export class FormComponent implements AfterViewInit, OnDestroy {
 
     // default language
     this.answers.language = 'en';
-
-    // disable scroll wheel zoom while map is in dialog
-    if (this.locationMapComponent && this.locationMapComponent.map) {
-      this.locationMapComponent.map.scrollWheelZoom.disable();
-    }
   }
 
   ngOnDestroy() {
@@ -158,7 +138,7 @@ export class FormComponent implements AfterViewInit, OnDestroy {
    * @param item
    *    dyfi item
    */
-  trackByIndex (index, item) {
+  trackByIndex(index, item) {
     return index;
   }
 

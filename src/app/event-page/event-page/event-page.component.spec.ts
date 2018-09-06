@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
-import { MockComponent } from 'ng2-mock-component';
-
 import { ContributorService } from '@core/contributor.service';
 import { EventService } from '@core/event.service';
+import { MockComponent } from 'ng2-mock-component';
+
 import { EventPageComponent } from './event-page.component';
 
 describe('EventPageComponent', () => {
@@ -41,12 +40,12 @@ describe('EventPageComponent', () => {
           selector: 'shared-text-product'
         }),
 
-        MockComponent({ selector: 'app-hazdev-template' }),
-        MockComponent({ selector: 'app-navigation-group' }),
+        MockComponent({ selector: 'hazdev-template' }),
+        MockComponent({ selector: 'hazdev-template-navigation-group' }),
 
         MockComponent({
           inputs: ['display', 'navRouterLink'],
-          selector: 'app-navigation-item'
+          selector: 'hazdev-template-navigation-item'
         }),
 
         MockComponent({ selector: 'mat-nav-list' })

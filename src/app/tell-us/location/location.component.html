@@ -1,6 +1,7 @@
 <p class="alert info">
   To select a location, click the
-  <button mat-raised-button class="icon-button" (click)="openLocationInput()">
+  <button mat-raised-button class="icon-button" (click)="openDialog()">
     <i class="material-icons">location_searching</i>
   </button>on the map.
 </p>
+<div #mapWrapper class="map" (mousemove)="$event.stopPropagation"></div>

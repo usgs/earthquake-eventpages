@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
 import { MockComponent } from 'ng2-mock-component';
 
 import { UnknownEventPageComponent } from './unknown-event-page.component';
@@ -14,11 +13,14 @@ describe('UnknownEventPageComponent', () => {
       declarations: [
         UnknownEventPageComponent,
 
-        MockComponent({ selector: 'app-hazdev-template', inputs: ['TITLE'] }),
-        MockComponent({ selector: 'app-navigation-group' }),
+        MockComponent({
+          inputs: ['TITLE'],
+          selector: 'hazdev-template'
+        }),
+        MockComponent({ selector: 'hazdev-template-navigation-group' }),
         MockComponent({
           inputs: ['display', 'navHrefLink', 'navRouterLink'],
-          selector: 'app-navigation-item'
+          selector: 'hazdev-template-navigation-item'
         }),
 
         MockComponent({
