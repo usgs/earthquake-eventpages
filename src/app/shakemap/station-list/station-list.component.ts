@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { EventService } from '@core/event.service';
 import { StationService } from '@core/station.service';
 
-
 /**
  * Station list component, shows the available stations when selecting the
  * 'station list' tab inside the main shakemap component
@@ -17,20 +16,20 @@ import { StationService } from '@core/station.service';
 })
 export class StationListComponent implements OnInit, OnDestroy {
   descending = false;
-  sortBy = {'name': 'distance', 'display': 'Distance'};
+  sortBy = { name: 'distance', display: 'Distance' };
   sortOptions = [
-    {'name': 'distance', 'display': 'Distance'},
-    {'name': 'intensity', 'display': 'Intensity'},
-    {'name': 'pga', 'display': 'PGA'},
-    {'name': 'pgv', 'display': 'PGV'}
+    { name: 'distance', display: 'Distance' },
+    { name: 'intensity', display: 'Intensity' },
+    { name: 'pga', display: 'PGA' },
+    { name: 'pgv', display: 'PGV' }
   ];
   stations: any[] = [];
   subs = new Subscription();
 
-  constructor (
-      public eventService: EventService,
-      public stationService: StationService
-  ) { }
+  constructor(
+    public eventService: EventService,
+    public stationService: StationService
+  ) {}
 
   ngOnDestroy() {
     this.subs.unsubscribe();
@@ -81,8 +80,7 @@ export class StationListComponent implements OnInit, OnDestroy {
    * @param item
    *    station item
    */
-  trackByIndex (index, item) {
+  trackByIndex(index, item) {
     return index;
   }
-
 }

@@ -42,7 +42,8 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let tensor">
           <ng-container *ngIf="tensor?.product?.properties as properties">
-            {{ properties['nodal-plane-1-strike'] | sharedDegrees }} , {{ properties['nodal-plane-1-dip'] | sharedDegrees }} , {{ properties['nodal-plane-1-rake']
+            {{ properties['nodal-plane-1-strike'] | sharedDegrees }} , {{ properties['nodal-plane-1-dip'] |
+            sharedDegrees }} , {{ properties['nodal-plane-1-rake']
             | sharedDegrees }}
           </ng-container>
         </mat-cell>
@@ -54,7 +55,8 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let tensor">
           <ng-container *ngIf="tensor?.product?.properties as properties">
-            {{ properties['nodal-plane-2-strike'] | sharedDegrees }} , {{ properties['nodal-plane-2-dip'] | sharedDegrees }} , {{ properties['nodal-plane-2-rake']
+            {{ properties['nodal-plane-2-strike'] | sharedDegrees }} , {{ properties['nodal-plane-2-dip'] |
+            sharedDegrees }} , {{ properties['nodal-plane-2-rake']
             | sharedDegrees }}
           </ng-container>
         </mat-cell>

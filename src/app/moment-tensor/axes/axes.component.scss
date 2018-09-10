@@ -1,4 +1,3 @@
-
 .mat-column-axis,
 .mat-column-azimuth,
 .mat-column-plunge {
@@ -7,4 +6,8 @@
 
 .mat-column-value {
   flex: 3;
+}
+
+mat-table {
+  min-width: 375px;
 }

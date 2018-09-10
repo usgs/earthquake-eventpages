@@ -12,8 +12,7 @@
   overflow-x: auto;
 }
 
-.horizontal-scrolling > :first-child {
-  border: 1px solid blue;
+.horizontal-scrolling > mat-table {
+  background-color: rgba(0, 0, 0, 0);
   margin: 0;
-  min-width: 900px;
 }
