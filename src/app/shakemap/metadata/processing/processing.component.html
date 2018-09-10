@@ -8,7 +8,8 @@
 
     <ng-template matExpansionPanelContent>
       <div class="horizontal-scrolling">
-        <mat-table [dataSource]="smProcessing?.ground_motion_modules">
+        <mat-table [dataSource]="smProcessing?.ground_motion_modules"
+          class="gr-table">
           <mat-header-row *matHeaderRowDef="headers?.groundMotionModules">
           </mat-header-row>
           <mat-row *matRowDef="let myRowData;
@@ -217,7 +218,8 @@
 
     <ng-template matExpansionPanelContent>
       <div class="horizontal-scrolling">
-        <mat-table [dataSource]="smProcessing?.roi">
+        <mat-table [dataSource]="smProcessing?.roi"
+          class="roi-table">
           <mat-header-row *matHeaderRowDef="headers?.roi"></mat-header-row>
           <mat-row *matRowDef="let myRowData; columns: headers?.roi"></mat-row>
 

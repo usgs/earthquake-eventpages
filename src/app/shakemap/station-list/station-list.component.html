@@ -20,7 +20,7 @@
 
 <ng-container *ngFor="let station of stations |
     sharedOrderBy:['properties', sortBy.name]:descending;trackBy: trackByIndex">
-  <div class="station horizontal-scrolling">
+  <div class="station">
     <shared-station [station]="station"></shared-station>
   </div>
   <mat-divider></mat-divider>

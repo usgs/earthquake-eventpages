@@ -1,48 +1,50 @@
 <h4>Principal Axes</h4>
 
-<mat-table [dataSource]="getAxes(tensor)">
-  <!-- render order is defined by columnsToDisplay -->
-  <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-  <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+<div class="horizontal-scrolling">
+  <mat-table [dataSource]="getAxes(tensor)">
+    <!-- render order is defined by columnsToDisplay -->
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
 
-  <ng-container matColumnDef="axis">
+    <ng-container matColumnDef="axis">
       <mat-header-cell *matHeaderCellDef>
         Axis
       </mat-header-cell>
       <mat-cell *matCellDef="let axis"
-          [attr.role]="'rowheader'"
-          [class.mat-cell]="false"
-          class="mat-header-cell">
+        [attr.role]="'rowheader'"
+        [class.mat-cell]="false"
+        class="mat-header-cell">
         {{ axis.name }}
       </mat-cell>
-  </ng-container>
+    </ng-container>
 
-  <ng-container matColumnDef="value">
-    <mat-header-cell *matHeaderCellDef>
-      Value
-    </mat-header-cell>
-    <mat-cell *matCellDef="let axis">
-      {{ axis.value.toFixed(3) }}e+{{ axis.exponent}}
-      {{ axis.units }}
-    </mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="value">
+      <mat-header-cell *matHeaderCellDef>
+        Value
+      </mat-header-cell>
+      <mat-cell *matCellDef="let axis">
+        {{ axis.value.toFixed(3) }}e+{{ axis.exponent}}
+        {{ axis.units }}
+      </mat-cell>
+    </ng-container>
 
-  <ng-container matColumnDef="plunge">
-    <mat-header-cell *matHeaderCellDef>
-      Plunge
-    </mat-header-cell>
-    <mat-cell *matCellDef="let axis">
-      {{ axis.plunge | sharedDegrees }}
-    </mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="plunge">
+      <mat-header-cell *matHeaderCellDef>
+        Plunge
+      </mat-header-cell>
+      <mat-cell *matCellDef="let axis">
+        {{ axis.plunge | sharedDegrees }}
+      </mat-cell>
+    </ng-container>
 
-  <ng-container matColumnDef="azimuth">
-    <mat-header-cell *matHeaderCellDef>
-      Azimuth
-    </mat-header-cell>
-    <mat-cell *matCellDef="let axis">
-      {{ axis.azimuth | sharedDegrees }}
-    </mat-cell>
-  </ng-container>
+    <ng-container matColumnDef="azimuth">
+      <mat-header-cell *matHeaderCellDef>
+        Azimuth
+      </mat-header-cell>
+      <mat-cell *matCellDef="let axis">
+        {{ axis.azimuth | sharedDegrees }}
+      </mat-cell>
+    </ng-container>
 
-</mat-table>
+  </mat-table>
+</div>
