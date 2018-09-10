@@ -27,6 +27,8 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     fldSituation_felt: null
   };
   error: any = null;
+  // boolean used to either show or not show the time input field
+  hasEvent = false;
   // The rendered map at the top of the form
   responseUrl = '/data/dyfi/form/response.php';
   subscription: Subscription = new Subscription();
@@ -43,6 +45,9 @@ export class FormComponent implements AfterViewInit, OnDestroy {
     this.subscription.add(
       this.eventService.event$.subscribe(event => {
         this.setEvent(event);
+        if (event.data) {
+          this.hasEvent = true;
+        }
       })
     );
 
@@ -146,7 +151,7 @@ export class FormComponent implements AfterViewInit, OnDestroy {
    * Checks to make sure that required fields were filled out
    * before submitting.
    *
-   * @return {boolean}
+   * @returns
    *     A true or false validation response
    */
   validateForm() {
@@ -176,6 +181,8 @@ export class FormComponent implements AfterViewInit, OnDestroy {
 
   /**
    * Error handler for http requests.
+   *
+   * @returns observable error
    */
   private handleError() {
     return (error: HttpErrorResponse): Observable<any> => {

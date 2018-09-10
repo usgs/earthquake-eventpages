@@ -26,7 +26,7 @@
     </tell-us-fieldset>
 
     <!-- time -->
-    <ng-container *ngIf="!answers?.eventId">
+    <ng-container *ngIf="!answers?.eventId && !hasEvent">
       <tell-us-fieldset [legend]="language?.eventTime?.ciim_time?.label">
         <mat-form-field>
           <input matInput [(ngModel)]="answers.ciim_time" aria-label="Time of Earthquake" [placeholder]="language?.eventTime?.ciim_time?.placeholder"
