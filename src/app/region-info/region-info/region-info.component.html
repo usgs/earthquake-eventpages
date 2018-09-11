@@ -3,7 +3,13 @@
     <shared-summary-link [productType]="'regioninfo'" [event]="event">
     </shared-summary-link>
 
-    <shared-map [routerLink]="'../map'" [queryParams]="{ 'historic-seismicity': true }" [overlays]="event | getProduct:'origin' | regionInfoOverlays"
+    <shared-map 
+        [routerLink]="'../map'"
+        [queryParams]="{
+          'historic-seismicity': true,
+          'shakemap-intensity': false
+        }"
+        [overlays]="event | getProduct:'origin' | regionInfoOverlays"
         [showScaleControl]="true">
     </shared-map>
 
