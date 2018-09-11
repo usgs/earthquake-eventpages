@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { EventService } from '@core/event.service';
 import { PlacesService, RegionsService } from 'hazdev-ng-geoserve-output';
 import { Subscription } from 'rxjs';
+import { NearbyCitiesService } from '../nearby-cities.service';
 
 /**
  * Displays regional information related to the event epicenter and displays
@@ -20,6 +21,7 @@ export class RegionInfoComponent implements OnDestroy, OnInit {
   constructor(
     public placesService: PlacesService,
     public regionsService: RegionsService,
+    public citiesService: NearbyCitiesService,
     public eventService: EventService
   ) {}
 

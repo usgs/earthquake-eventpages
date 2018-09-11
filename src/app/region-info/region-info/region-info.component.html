@@ -1,9 +1,10 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
 
-    <shared-summary-link [productType]="'regioninfo'" [event]="event">
+    <shared-summary-link [productType]="'regioninfo'"
+        [event]="event">
     </shared-summary-link>
 
-    <shared-map 
+    <shared-map
         [routerLink]="'../map'"
         [queryParams]="{
           'historic-seismicity': true,
@@ -15,6 +16,17 @@
 
     <!-- Geoserve Components -->
     <geoserve-admin-region></geoserve-admin-region>
-    <geoserve-nearby-places></geoserve-nearby-places>
+    <ng-container *ngIf="event | getProduct:'nearby-cities' | fetchNearbyCities; else geoserveNearbyCities">
+        <ng-container *ngIf="this.citiesService.cities$ | async as cities; else loadingCities">
+            <geoserve-nearby-place-list [places]="cities">
+            </geoserve-nearby-place-list>
+        </ng-container>
+        <ng-template #loadingCities>
+            <p>Loading Cities&hellip;</p>
+        </ng-template>
+    </ng-container>
+    <ng-template id="geoserveNearbyCities">
+        <geoserve-nearby-places></geoserve-nearby-places>
+    </ng-template>
     <geoserve-tectonic-summary-region></geoserve-tectonic-summary-region>
 </ng-container>
