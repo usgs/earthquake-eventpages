@@ -8,6 +8,7 @@ import { of } from 'rxjs/observable/of';
 import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
 import { RegionInfoComponent } from './region-info.component';
+import { NearbyCitiesService } from '../nearby-cities.service';
 
 describe('RegionInfoComponent', () => {
   let component: RegionInfoComponent;
@@ -22,6 +23,13 @@ describe('RegionInfoComponent', () => {
       declarations: [
         RegionInfoComponent,
 
+        MockComponent({ selector: 'geoserve-admin-region' }),
+        MockComponent({
+          inputs: ['places'],
+          selector: 'geoserve-nearby-place-list'
+        }),
+        MockComponent({ selector: 'geoserve-nearby-places' }),
+        MockComponent({ selector: 'geoserve-tectonic-summary-region' }),
         MockComponent({
           inputs: ['overlays', 'showScaleControl'],
           selector: 'shared-map'
@@ -30,15 +38,15 @@ describe('RegionInfoComponent', () => {
           inputs: ['productType', 'event'],
           selector: 'shared-summary-link'
         }),
-        MockComponent({ selector: 'geoserve-admin-region' }),
-        MockComponent({ selector: 'geoserve-nearby-places' }),
-        MockComponent({ selector: 'geoserve-tectonic-summary-region' }),
+
+        MockPipe('fetchNearbyCities'),
         MockPipe('getProduct'),
         MockPipe('regionInfoOverlays')
       ],
       imports: [RouterTestingModule],
       providers: [
         { provide: EventService, useValue: eventServiceStub },
+        { provide: NearbyCitiesService, useValue: {} },
         { provide: PlacesService, useValue: {} },
         { provide: RegionsService, useValue: {} }
       ]
@@ -58,12 +66,13 @@ describe('RegionInfoComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('updateGeoserveCoordinateService', () => {
+  describe('getGeoserveData', () => {
     it('returns when no event is passed', () => {
       component.getGeoserveData(null);
       expect(component.getPlaces).not.toHaveBeenCalled();
       expect(component.getRegions).not.toHaveBeenCalled();
     });
+
     it('sets coordinates', () => {
       const latitude = 35;
       const longitude = -105;
