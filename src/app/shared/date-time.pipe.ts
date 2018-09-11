@@ -21,7 +21,7 @@ export class DateTimePipe implements PipeTransform {
     let date = new Date(time);
 
     // check for valid date
-    if (isNaN(date.getTime())) {
+    if (isNaN(date.getTime()) || (!time && time !== 0)) {
       date = null;
     }
 
