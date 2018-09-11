@@ -5,9 +5,10 @@ import { SharedModule } from '@shared/shared.module';
 import { GeoserveOutputModule } from 'hazdev-ng-geoserve-output';
 
 import { RegionInfoComponent } from './region-info/region-info.component';
+import { FetchNearbyCitiesPipe } from './fetch-nearby-cities.pipe';
 
 @NgModule({
-  declarations: [RegionInfoComponent],
+  declarations: [RegionInfoComponent, FetchNearbyCitiesPipe],
   imports: [
     CommonModule,
     RouterModule,
