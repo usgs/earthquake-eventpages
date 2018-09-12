@@ -18,10 +18,10 @@ export class DateTimePipe implements PipeTransform {
    *     formatted date/time string
    */
   transform(time: any): string {
-    let date = new Date(parseFloat(time));
+    let date = new Date(time);
 
     // check for valid date
-    if (isNaN(date.getTime())) {
+    if (isNaN(date.getTime()) || (!time && time !== 0)) {
       date = null;
     }
 
