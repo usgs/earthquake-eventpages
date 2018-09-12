@@ -56,6 +56,7 @@ export class RegionInfoComponent implements OnDestroy, OnInit {
    */
   getPlaces(coordinates) {
     if (
+      coordinates &&
       (coordinates.latitude || coordinates.latitude === 0) &&
       (coordinates.longitude || coordinates.longitude === 0)
     ) {
@@ -68,6 +69,7 @@ export class RegionInfoComponent implements OnDestroy, OnInit {
    */
   getRegions(coordinates) {
     if (
+      coordinates &&
       (coordinates.latitude || coordinates.latitude === 0) &&
       (coordinates.longitude || coordinates.longitude === 0)
     ) {
