@@ -23,7 +23,7 @@ const TectonicPlatesOverlay = L.TileLayer.extend({
 
     L.TileLayer.prototype.initialize.call(
       this,
-      'https://earthquake.usgs.gov/basemap/tiles/plates/{z}/{y}/{x}.png',
+      'https://earthquake.usgs.gov/basemap/tiles/plates/{z}/{x}/{y}.png',
       {
         attribution: '',
         maxZoom: 16

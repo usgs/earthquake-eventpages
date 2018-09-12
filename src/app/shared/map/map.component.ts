@@ -5,13 +5,13 @@ import {
   Component,
   ElementRef,
   Input,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 
 import * as L from 'leaflet';
 
 import { LegendControl } from '../map-control/legend-control';
-
 
 /**
  * Shared map component for event, shows overall area and mmi contours
@@ -23,6 +23,7 @@ import { LegendControl } from '../map-control/legend-control';
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   selector: 'shared-map',
   styleUrls: ['./map.component.scss'],
   templateUrl: './map.component.html'

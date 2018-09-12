@@ -1,17 +1,20 @@
-import * as L from 'leaflet';
+import { MouseOverLayer } from '@shared/map-overlay/mouse-over-layer';
+
+const _FAULTS_URL = 'https://earthquake.usgs.gov/basemap/tiles/faults';
 
 /**
  * Landscan overlay for leaflet map
  */
 // tslint:disable-next-line:variable-name
-const USFaultsOverlay = L.TileLayer.extend({
-  // Flag to tell if constructor has finished
-  _initialized: false,
+const USFaultsOverlay = MouseOverLayer.extend({
   bounds: null,
   enabled: true,
   id: 'us-faults',
   legend: null,
   title: 'U.S. Faults',
+
+  dataUrl: null,
+  tileUrl: null,
 
   /**
    * Build leaflet overlay
@@ -23,15 +26,15 @@ const USFaultsOverlay = L.TileLayer.extend({
     legend.setAttribute('alt', 'U.S. Faults Legend');
     this.legend = legend;
 
-    // Create the two layers
-    L.TileLayer.prototype.initialize.call(
-      this,
-      'https://earthquake.usgs.gov/basemap/tiles/faults/{z}/{y}/{x}.png',
-      {
-        attribution: '',
-        maxZoom: 16
-      }
-    );
+    this.tileUrl = _FAULTS_URL + '/{z}/{x}/{y}.png';
+    this.dataUrl = _FAULTS_URL + '/{z}/{x}/{y}.grid.json?callback={cb}';
+
+    MouseOverLayer.prototype.initialize.call(this, {
+      dataUrl: this.dataUrl,
+      legend: this.legend,
+      tileUrl: this.tileUrl,
+      tiptext: '{NAME}'
+    });
   }
 });
 
