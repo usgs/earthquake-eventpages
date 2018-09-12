@@ -2,7 +2,7 @@ import { FetchNearbyCitiesPipe } from './fetch-nearby-cities.pipe';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 describe('FetchNearbyCitiesPipe', () => {
-  let service;
+  let pipe, service;
 
   beforeEach(() => {
     const cities = [
@@ -24,19 +24,27 @@ describe('FetchNearbyCitiesPipe', () => {
     ];
 
     service = {
-      cities$: new BehaviorSubject<any>(null),
-      get: (product: any) => {
-        if (product) {
-          this.cities$.next(cities);
-        } else {
-          this.cities$.next(null);
-        }
-      }
+      get: jasmine.createSpy()
     };
+
+    pipe = new FetchNearbyCitiesPipe(service);
   });
 
   it('create an instance', () => {
-    const pipe = new FetchNearbyCitiesPipe(service);
     expect(pipe).toBeTruthy();
+  });
+
+  fdescribe('transform', () => {
+    it('returns as output what was provided as input', () => {
+      const obj = {};
+      expect(pipe.transform(obj)).toBe(obj);
+    });
+
+    it('triggers service get', () => {
+      const obj = {};
+      pipe.transform(obj);
+
+      expect(service.get).toHaveBeenCalledWith(obj);
+    });
   });
 });

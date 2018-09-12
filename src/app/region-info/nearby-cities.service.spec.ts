@@ -32,7 +32,7 @@ describe('NearbyCitiesService', () => {
     }
   ));
 
-  fdescribe('get', () => {
+  describe('get', () => {
     let nearbyCitiesJsonUrl, product, productPlacesArray;
 
     beforeEach(() => {
