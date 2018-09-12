@@ -10,7 +10,7 @@ import { MockPipe } from '../../mock-pipe';
 import { RegionInfoComponent } from './region-info.component';
 import { NearbyCitiesService } from '../nearby-cities.service';
 
-fdescribe('RegionInfoComponent', () => {
+describe('RegionInfoComponent', () => {
   let component: RegionInfoComponent;
   let fixture: ComponentFixture<RegionInfoComponent>;
 
