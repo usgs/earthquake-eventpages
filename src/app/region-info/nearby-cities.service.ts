@@ -20,14 +20,17 @@ export class NearbyCitiesService {
         .subscribe(response => {
           const cities = response.map(feature => {
             const name = feature.name.split(',');
-            const admin1Name = name.splice(name.length - 1, 1);
+            const admin1Name = name
+              .splice(name.length - 1, 1)
+              .map(v => v.trim())
+              .join(',');
 
             return {
               admin1_name: admin1Name,
               azimuth: feature.direction,
               country_name: null,
               distance: feature.distance,
-              name: name.join(','),
+              name: name.map(v => v.trim()).join(','),
               population: feature.population
             };
           });
@@ -35,7 +38,7 @@ export class NearbyCitiesService {
           this.cities$.next(cities);
         });
     } catch (e) {
-      this.cities$.next(null);
+      this.cities$.next([]);
     }
   }
 
