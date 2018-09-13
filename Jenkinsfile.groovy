@@ -134,45 +134,45 @@ node {
       )
     }
 
-    // SECURITY_CHECKS['Scan Dependencies'] = {
-    //   // Analyze dependencies
-    //   ansiColor('xterm') {
-    //     dependencyCheckAnalyzer(
-    //       datadir: '',
-    //       hintsFile: '',
-    //       includeCsvReports: false,
-    //       includeHtmlReports: true,
-    //       includeJsonReports: false,
-    //       includeVulnReports: false, // Abbreviated version of includeHtmlReport
-    //       isAutoupdateDisabled: false,
-    //       outdir: 'dependency-check-data',
-    //       scanpath: "${WORKSPACE}/package.json",
-    //       skipOnScmChange: false,
-    //       skipOnUpstreamChange: false,
-    //       suppressionFile: 'suppression.xml',
-    //       zipExtensions: ''
-    //     )
-    //   }
+    SECURITY_CHECKS['Scan Dependencies'] = {
+      // Analyze dependencies
+      ansiColor('xterm') {
+        dependencyCheckAnalyzer(
+          datadir: '',
+          hintsFile: '',
+          includeCsvReports: false,
+          includeHtmlReports: true,
+          includeJsonReports: false,
+          includeVulnReports: false, // Abbreviated version of includeHtmlReport
+          isAutoupdateDisabled: false,
+          outdir: 'dependency-check-data',
+          scanpath: "${WORKSPACE}/package.json",
+          skipOnScmChange: false,
+          skipOnUpstreamChange: false,
+          suppressionFile: 'suppression.xml',
+          zipExtensions: ''
+        )
+      }
 
-    //   // Put summary on landing page for this build
-    //   dependencyCheckPublisher(
-    //     canComputeNew: false,
-    //     defaultEncoding: '',
-    //     healthy: '',
-    //     pattern: '**/dependency-check-report.xml',
-    //     unHealthy: ''
-    //   )
+      // Put summary on landing page for this build
+      dependencyCheckPublisher(
+        canComputeNew: false,
+        defaultEncoding: '',
+        healthy: '',
+        pattern: '**/dependency-check-report.xml',
+        unHealthy: ''
+      )
 
-    //   // Full analysis of this build, linked in side navigation
-    //   publishHTML (target: [
-    //     allowMissing: true,
-    //     alwaysLinkToLastBuild: true,
-    //     keepAll: true,
-    //     reportDir: 'dependency-check-data',
-    //     reportFiles: 'dependency-check-report.html',
-    //     reportName: 'Dependency Analysis'
-    //   ])
-    // }
+      // Full analysis of this build, linked in side navigation
+      publishHTML (target: [
+        allowMissing: true,
+        alwaysLinkToLastBuild: true,
+        keepAll: true,
+        reportDir: 'dependency-check-data',
+        reportFiles: 'dependency-check-report.html',
+        reportName: 'Dependency Analysis'
+      ])
+    }
 
     SECURITY_CHECKS['Penetration Tests'] = {
       def ZAP_API_PORT = '8090'
