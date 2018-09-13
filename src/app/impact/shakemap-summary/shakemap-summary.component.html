@@ -1,60 +1,65 @@
 <ng-container *ngIf="products.length > 0">
   <h4>ShakeMap</h4>
-  <mat-table [dataSource]="products">
-    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
 
-    <ng-container matColumnDef="catalog">
-      <mat-header-cell *matHeaderCellDef>
-        Catalog
-      </mat-header-cell>
-      <mat-cell *matCellDef="let shakemap" [class.unpreferred]="shakemap
-          !== products[0]">
-        <ng-container *ngIf="shakemap === products[0]">
-          <shared-preferred-check [title]="'Preferred Shakemap'">
-          </shared-preferred-check>
-        </ng-container>
-        <a [routerLink]="['/', event?.id, 'shakemap']"
+  <div class="horizontal-scrolling">
+    <mat-table [dataSource]="products">
+      <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+      <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+
+      <ng-container matColumnDef="catalog">
+        <mat-header-cell *matHeaderCellDef>
+          Catalog
+        </mat-header-cell>
+        <mat-cell *matCellDef="let shakemap"
+          [class.unpreferred]="shakemap
+              !== products[0]">
+          <ng-container *ngIf="shakemap === products[0]">
+            <shared-preferred-check [title]="'Preferred Shakemap'">
+            </shared-preferred-check>
+          </ng-container>
+          <a [routerLink]="['/', event?.id, 'shakemap']"
             [queryParams]="{ source: shakemap?.source, code: shakemap?.code }">
-          {{ shakemap?.properties?.eventsource?.toUpperCase() }}
-        </a>
-      </mat-cell>
-    </ng-container>
+            {{ shakemap?.properties?.eventsource?.toUpperCase() }}
+          </a>
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="mmi">
-      <mat-header-cell *matHeaderCellDef>
-        MMI
-      </mat-header-cell>
-      <mat-cell *matCellDef="let shakemap">
-        <abbr title="Maximum Modified Mercalli Intensity">
-          <shared-mmi [intensity]="shakemap?.properties?.maxmmi">
-          </shared-mmi>
-        </abbr>
-      </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="mmi">
+        <mat-header-cell *matHeaderCellDef>
+          MMI
+        </mat-header-cell>
+        <mat-cell *matCellDef="let shakemap">
+          <abbr title="Maximum Modified Mercalli Intensity">
+            <shared-mmi [intensity]="shakemap?.properties?.maxmmi">
+            </shared-mmi>
+          </abbr>
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="source">
-      <mat-header-cell *matHeaderCellDef>
-        Source
-      </mat-header-cell>
-      <mat-cell *matCellDef="let shakemap">
-        <shared-product-attribution [product]="shakemap">
-        </shared-product-attribution>
-      </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="source">
+        <mat-header-cell *matHeaderCellDef>
+          Source
+        </mat-header-cell>
+        <mat-cell *matCellDef="let shakemap">
+          <shared-product-attribution [product]="shakemap">
+          </shared-product-attribution>
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef>
-        Description
-      </mat-header-cell>
-      <mat-cell *matCellDef="let shakemap">
-        <ng-container *ngIf="shakemap?.properties as properties">
-          {{ properties['event-description'] }}
-        </ng-container>
-      </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef>
+          Description
+        </mat-header-cell>
+        <mat-cell *matCellDef="let shakemap">
+          <ng-container *ngIf="shakemap?.properties as properties">
+            {{ properties['event-description'] }}
+          </ng-container>
+        </mat-cell>
+      </ng-container>
 
-  </mat-table>
+    </mat-table>
+  </div>
+
 </ng-container>
 
 <ng-template #noEvent>

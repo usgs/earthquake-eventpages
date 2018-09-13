@@ -1,7 +1,11 @@
 /* same amount of space as preferred icon */
 mat-cell.unpreferred:before {
-  content: ' ';
+  content: " ";
   display: inline-block;
   height: 16px;
   width: 16px;
+}
+
+mat-table {
+  min-width: 700px;
 }

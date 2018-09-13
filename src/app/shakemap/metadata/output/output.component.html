@@ -7,135 +7,140 @@
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <mat-table [dataSource]="smOutput?.ground_motions">
-        <mat-header-row *matHeaderRowDef="headers?.groundMotions">
-        </mat-header-row>
-        <mat-row *matRowDef="let myRowData;
-            columns: headers?.groundMotions">
-        </mat-row>
 
-        <ng-container matColumnDef="type">
-          <mat-header-cell *matHeaderCellDef>
-            Type
-          </mat-header-cell>
-          <mat-cell
-              [attr.role]="'rowheader'"
+      <div class="horizontal-scrolling">
+        <mat-table [dataSource]="smOutput?.ground_motions">
+          <mat-header-row *matHeaderRowDef="headers?.groundMotions">
+          </mat-header-row>
+          <mat-row *matRowDef="let myRowData;
+                    columns: headers?.groundMotions">
+          </mat-row>
+
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef>
+              Type
+            </mat-header-cell>
+            <mat-cell [attr.role]="'rowheader'"
               [class.mat-cell]="false"
               class="mat-header-cell"
               *matCellDef="let groundMotion">
 
-            <ng-container *ngIf="names?.groundMotions[groundMotion.type]
-                as name; else noName">
-              <ng-container *ngIf="abbreviations[groundMotion.type] as abbr;
-                else noAbbr">
+              <ng-container *ngIf="names?.groundMotions[groundMotion.type]
+                        as name; else noName">
+                <ng-container *ngIf="abbreviations[groundMotion.type] as abbr;
+                        else noAbbr">
 
-                <abbr title="{{ abbr }}">{{ name }}</abbr>
+                  <abbr title="{{ abbr }}">{{ name }}</abbr>
+                </ng-container>
+
+                <ng-template #noAbbr>
+                  {{ name }}
+                </ng-template>
               </ng-container>
 
-              <ng-template #noAbbr>
-                {{ name }}
+              <ng-template #noName>
+                {{ groundMotion.type }}
               </ng-template>
-            </ng-container>
 
-            <ng-template #noName>
-              {{ groundMotion.type }}
-            </ng-template>
+            </mat-cell>
+          </ng-container>
 
-          </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="max">
+            <mat-header-cell *matHeaderCellDef>
+              Max Value in Grid
+            </mat-header-cell>
+            <mat-cell *matCellDef="let groundMotion">
+              {{ groundMotion.max_grid | sharedUnits:groundMotion.units }}
+            </mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="max">
-          <mat-header-cell *matHeaderCellDef>
-            Max Value in Grid
-          </mat-header-cell>
-          <mat-cell *matCellDef="let groundMotion">
-            {{ groundMotion.max_grid | sharedUnits:groundMotion.units }}
-          </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="max_on_land">
+            <mat-header-cell *matHeaderCellDef>
+              Max Value on Land
+            </mat-header-cell>
+            <mat-cell *matCellDef="let groundMotion">
+              {{ groundMotion.max | sharedUnits:groundMotion.units }}
+            </mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="max_on_land">
-          <mat-header-cell *matHeaderCellDef>
-            Max Value on Land
-          </mat-header-cell>
-          <mat-cell *matCellDef="let groundMotion">
-            {{ groundMotion.max | sharedUnits:groundMotion.units }}
-          </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="bias">
+            <mat-header-cell *matHeaderCellDef>
+              Bias
+            </mat-header-cell>
+            <mat-cell *matCellDef="let groundMotion">
+              {{ groundMotion.bias }}
+            </mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="bias">
-          <mat-header-cell *matHeaderCellDef>
-            Bias
-          </mat-header-cell>
-          <mat-cell *matCellDef="let groundMotion">
-            {{ groundMotion.bias }}
-          </mat-cell>
-        </ng-container>
+        </mat-table>
+      </div>
 
-      </mat-table>
     </ng-template>
   </mat-expansion-panel>
 
 
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>
-          Map Information
-        </mat-panel-title>
+      <mat-panel-title>
+        Map Information
+      </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <mat-table [dataSource]="smOutput?.map_information">
-        <mat-header-row *matHeaderRowDef="headers?.mapInformation">
-        </mat-header-row>
-        <mat-row *matRowDef="let myRowData;
-            columns: headers?.mapInformation">
-        </mat-row>
+      <div class="horizontal-scrolling">
+        <mat-table [dataSource]="smOutput?.map_information">
+          <mat-header-row *matHeaderRowDef="headers?.mapInformation">
+          </mat-header-row>
+          <mat-row *matRowDef="let myRowData;
+                    columns: headers?.mapInformation">
+          </mat-row>
 
-        <ng-container matColumnDef="type">
-          <mat-header-cell *matHeaderCellDef>
-            Type
-          </mat-header-cell>
-          <mat-cell
-              [attr.role]="'rowheader'"
+          <ng-container matColumnDef="type">
+            <mat-header-cell *matHeaderCellDef>
+              Type
+            </mat-header-cell>
+            <mat-cell [attr.role]="'rowheader'"
               [class.mat-cell]="false"
               class="mat-header-cell"
               *matCellDef="let mapInfo">
-            {{ names?.mapInformation[mapInfo.type] }}
-          </mat-cell>
-        </ng-container>
+              {{ names?.mapInformation[mapInfo.type] }}
+            </mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="lat">
-          <mat-header-cell *matHeaderCellDef>
-            Latitude
-          </mat-header-cell>
-          <mat-cell *matCellDef="let mapInfo">
-            {{ mapInfo?.latitude | sharedUnits:mapInfo.units }}
-          </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="lat">
+            <mat-header-cell *matHeaderCellDef>
+              Latitude
+            </mat-header-cell>
+            <mat-cell *matCellDef="let mapInfo">
+              {{ mapInfo?.latitude | sharedUnits:mapInfo.units }}
+            </mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="lon">
-          <mat-header-cell *matHeaderCellDef>
-            Longitude
-          </mat-header-cell>
-          <mat-cell *matCellDef="let mapInfo">
-            {{ mapInfo?.longitude | sharedUnits:mapInfo.units }}
-          </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="lon">
+            <mat-header-cell *matHeaderCellDef>
+              Longitude
+            </mat-header-cell>
+            <mat-cell *matCellDef="let mapInfo">
+              {{ mapInfo?.longitude | sharedUnits:mapInfo.units }}
+            </mat-cell>
+          </ng-container>
 
-      </mat-table>
+        </mat-table>
+      </div>
 
     </ng-template>
   </mat-expansion-panel>
 
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>
-          Uncertainty
-        </mat-panel-title>
+      <mat-panel-title>
+        Uncertainty
+      </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-template matExpansionPanelContent>
-      <dl class="description-table" *ngIf="smOutput?.uncertainty
+      <dl class="description-table"
+        *ngIf="smOutput?.uncertainty
           as uncertainty">
 
         <dt>Mean of map uncertainty</dt>
