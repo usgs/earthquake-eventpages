@@ -12,10 +12,11 @@ export class DateTimePipe implements PipeTransform {
    * Format dateTime object based on a time input
    *
    * @param time
-   *     Time input
+   *     Time to be transformed into a timestamp. Must be a format readable
+   *     by the Date JavaScript object
    *
    * @return {string}
-   *     formatted date/time string
+   *     formatted date/time string. Ex: '2018-08-31 23:05:43 (UTC)'
    */
   transform(time: any): string {
     let date = new Date(time);
