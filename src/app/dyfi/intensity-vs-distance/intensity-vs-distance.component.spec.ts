@@ -128,4 +128,17 @@ describe('IntensityVsDistanceComponent', () => {
       component.onDyfiSeries(SAMPLE_SERIES);
     });
   });
+
+  describe('onProduct', () => {
+    it('Adjusts x-axis for small events', () => {
+      const product = {
+        properties: {
+          maxmmi: 3
+        }
+      };
+      component.onProduct(product);
+
+      expect(component.xScaleMax).toBe(500);
+    });
+  });
 });
