@@ -26,7 +26,7 @@ describe('ResponsesComponent', () => {
 
   const dyfiServiceStub = {
     cdiZip$: of({}),
-    getCdi: () => {}
+    getCdi: (product) => []
   };
 
   beforeEach(async(() => {
@@ -97,6 +97,19 @@ describe('ResponsesComponent', () => {
           'test country\ttest zip\tI\ttest responses\t' +
           'test distance km\t2.2\t3.3'
       );
+    });
+  });
+
+  describe('onProduct', () => {
+    it('handles null product', () => {
+      component.onProduct(null);
+      expect(component.responses).toBeNull();
+      expect(component.loaded).toBe(false);
+    });
+
+    it('handles product', () => {
+      component.onProduct({});
+      expect(component.responses).toBeTruthy();
     });
   });
 });
