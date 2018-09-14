@@ -93,4 +93,13 @@ describe('ResponsesVsTimeComponent', () => {
       expect(component.dyfiSeries).toBeNull();
     });
   });
+
+  describe('xAxisTickFormatting', () => {
+    it('returns value', () => {
+      const inputValue = 5;
+      const value = component.xAxisTickFormatting(inputValue);
+
+      expect(value).toBe(inputValue);
+    });
+  });
 });
