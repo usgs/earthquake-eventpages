@@ -1,164 +1,120 @@
-<ng-container *ngIf="eventService.event$ | async; let event">
+<ng-container *ngIf="eventService?.event$ | async; let event">
   <ng-container *ngIf="getProduct(); let product">
-    <table *ngIf="product.properties; let props">
-      <tbody>
-        <tr>
-          <th scope="row">
-            Magnitude
-            <span *ngIf="props['magnitude-error']"
-                class="uncertainty">uncertainty</span>
-          </th>
-          <td>
-            <shared-uncertain-value
-              [value]="formatter.magnitude(props.magnitude,
-                  props['magnitude-type'])"
-              [uncertainty]="props['magnitude-error']"
-            ></shared-uncertain-value>
-          </td>
-        </tr>
 
-        <tr>
-          <th scope="row">
-            Location
-            <span *ngIf="props['horizontal-error']"
-                class="uncertainty">uncertainty</span>
-          </th>
-          <td>
-            <shared-uncertain-value
-              [uncertainty]="props['horizontal-error']"
-              [uncertaintyUnits]="'km'"
-            >
-              <shared-coordinates uncertainValue
-                [latitude]="props.latitude"
-                [longitude]="props.longitude"
-              ></shared-coordinates>
-            </shared-uncertain-value>
-          </td>
-        </tr>
+    <dl class="description-table">
+      <ng-container *ngIf="product?.properties; let props"
+        class="dl.description-table">
 
-        <tr>
-          <th scope="row">
-            Depth
-            <span class="uncertainty">uncertainty</span>
-          </th>
-          <td>
-            <shared-uncertain-value
-              [value]="formatter.depth(props.depth, 'km')"
-              [uncertainty]="props['vertical-error']"
-            ></shared-uncertain-value>
-          </td>
-        </tr>
+        <dt>Magnitude<br>
+          <span *ngIf="props['magnitude-error']"
+            class="uncertainty">uncertainty</span>
+        </dt>
+        <dd>
+          <shared-uncertain-value [value]="formatter?.magnitude(props?.magnitude,
+              props['magnitude-type'])"
+            [uncertainty]="props['magnitude-error']">
+          </shared-uncertain-value>
+        </dd>
 
-        <tr>
-          <th scope="row">Origin Time</th>
-          <td>
-            <time dateTime="{{ props.eventtime }}">
-              {{ props.eventtime | date:"yyyy-MM-dd HH:mm:ss.SSS":"UTC" }} UTC
-            </time>
-          </td>
-        </tr>
+        <dt>Location<br>
+          <span *ngIf="props['horizontal-error']"
+            class="uncertainty">uncertainty</span>
+        </dt>
+        <dd>
+          <shared-uncertain-value [uncertainty]="props['horizontal-error']"
+            [uncertaintyUnits]="'km'">
+            <shared-coordinates uncertainValue
+              [latitude]="props?.latitude"
+              [longitude]="props?.longitude"></shared-coordinates>
+          </shared-uncertain-value>
+        </dd>
 
-        <tr>
-          <th scope="row">Number of Stations</th>
-          <td
-            [innerHTML]="formatter.number(props['num-stations-used'], 0)"
-          ></td>
-        </tr>
+        <dt>
+          Depth<br>
+          <span class="uncertainty">uncertainty</span>
+        </dt>
+        <dd>
+          <shared-uncertain-value [value]="formatter?.depth(props.depth, 'km')"
+            [uncertainty]="props['vertical-error']">
+          </shared-uncertain-value>
+        </dd>
 
-        <tr>
-          <th scope="row">Number of Phases</th>
-          <td
-            [innerHTML]="formatter.number(props['num-phases-used'], 0)"
-          ></td>
-        </tr>
+        <dt>Origin Time</dt>
+        <dd>
+          <time dateTime="{{ props?.eventtime }}">
+            {{ props?.eventtime | date:"yyyy-MM-dd HH:mm:ss.SSS":"UTC" }} UTC
+          </time>
+        </dd>
 
-        <tr>
-          <th scope="row">Minimum Distance</th>
-          <td>
-            <span
-              [innerHTML]="formatter.distance(props['minimum-distance']
-                  * 0.0174532925 * 6378.1, 'km')"
-            ></span>
-            (<span
-              [innerHTML]="formatter.angle(props['minimum-distance'], 2)"
-            ></span>)
-          </td>
-        </tr>
+        <dt>Number of Stations</dt>
+        <dd>
+          {{ formatter?.number(props['num-stations-used'], 0) }}
+        </dd>
 
-        <tr>
-          <th scope="row">Travel Time Residual</th>
-          <td>
-            {{ formatter.number(props['standard-error'], null, null, 's') }}
-          </td>
-        </tr>
+        <dt>Number of Phases</dt>
+        <dd>
+          {{ formatter?.number(props['num-phases-used'], 0) }}
+        </dd>
 
-        <tr>
-          <th scope="row">Azimuthal Gap</th>
-          <td [innerHTML]="formatter.angle(props['azimuthal-gap'])"></td>
-        </tr>
+        <dt>Minimum Distance</dt>
+        <dd>
+          <span>
+            {{ formatter?.distance(props['minimum-distance'] * 0.0174532925 * 6378.1, 'km') }}</span>
+          (<span>
+            {{ formatter?.angle(props['minimum-distance'], 2) }}
+          </span>)
+        </dd>
 
-        <tr>
-          <th scope="row">
-            <abbr title="Flin Engdahl">FE</abbr> Region
-          </th>
-          <td>
-            <shared-fe-region
-                [latitude]="props.latitude"
-                [longitude]="props.longitude"
-            ></shared-fe-region>
-          </td>
-        </tr>
+        <dt>Travel Time Residual</dt>
+        <dd>
+          {{ formatter?.number(props['standard-error'], null, null, 's') }}
+        </dd>
 
-        <tr>
-          <th scope="row">Review Status</th>
-          <td>
-            {{ (props['review-status'] || 'automatic') | uppercase }}
-          </td>
-        </tr>
+        <dt>Azimuthal Gap</dt>
+        <dd>{{ formatter?.angle(props['azimuthal-gap']) }}</dd>
 
-        <tr>
-          <th scope="row">Catalog</th>
-          <td>
-            <ng-container *ngIf="props.eventsource && props.eventsourcecode;
-                else noCatalog">
-              {{ props.eventsource | uppercase }}
-              <small>
-                {{ (props.eventsource + props.eventsourcecode) | lowercase }}
-              </small>
-            </ng-container>
-            <ng-template #noCatalog>
-              &ndash;
-            </ng-template>
-          </td>
-        </tr>
+        <dt><abbr title="Flinn Engdahl">FE</abbr> Region</dt>
+        <dd>
+          <shared-fe-region [latitude]="props?.latitude"
+            [longitude]="props?.longitude"></shared-fe-region>
+        </dd>
 
-        <tr>
-          <th scope="row">Location Source</th>
-          <td>
-            <shared-attribution
-              [sourceCode]="props['origin-source'] || product.source"
-            ></shared-attribution>
-          </td>
-        </tr>
+        <dt>Review Status</dt>
+        <dd>{{ (props['review-status'] || 'automatic') | uppercase }}</dd>
 
-        <tr>
-          <th scope="row">Magnitude Source</th>
-          <td>
-            <shared-attribution
-              [sourceCode]="props['magnitude-source'] || product.source"
-            ></shared-attribution>
-          </td>
-        </tr>
+        <dt>Catalog</dt>
+        <dd>
+          <ng-container *ngIf="props?.eventsource && props?.eventsourcecode;
+              else noCatalog">{{
+            props?.eventsource | uppercase }}
+            <small>
+              ( {{ (props?.eventsource + props?.eventsourcecode) | lowercase }} )
+            </small>
+          </ng-container>
+          <ng-template #noCatalog>
+            &ndash;
+          </ng-template>
+        </dd>
 
-        <tr>
-          <th scope="row">Contributor</th>
-          <td>
-            <shared-attribution
-              [sourceCode]="product.source"
-            ></shared-attribution>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <dt>Location Source</dt>
+        <dd>
+          <shared-attribution [sourceCode]="props['origin-source'] || product?.source">
+          </shared-attribution>
+        </dd>
+
+        <dt>Magnitude Source</dt>
+        <dd>
+          <shared-attribution [sourceCode]="props['magnitude-source'] || product?.source">
+          </shared-attribution>
+        </dd>
+
+        <dt>Contributor</dt>
+        <dd>
+          <shared-attribution [sourceCode]="product?.source"></shared-attribution>
+        </dd>
+
+      </ng-container>
+    </dl>
+
   </ng-container>
 </ng-container>
