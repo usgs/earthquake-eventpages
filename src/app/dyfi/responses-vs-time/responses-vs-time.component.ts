@@ -21,17 +21,17 @@ export class ResponsesVsTimeComponent implements OnInit {
   dyfiSeries: any;
   gradient = false;
   product: any = null;
-  scaleType = 'log';
+  scaleType = 'linear';
   showLegend = false;
   showXAxis = true;
   showXAxisLabel = true;
   showYAxis = true;
   showYAxisLabel = true;
   subs = new Subscription();
-  xAxisLabel = 'Time since earthquake (hours)';
+  xAxisLabel = null;
   xAxisTicks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
       14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-  xScaleMax = 24;
+  xScaleMax = null;
   yAxisLabel = 'Number of Responses';
 
 
@@ -58,6 +58,17 @@ export class ResponsesVsTimeComponent implements OnInit {
       this.dyfiSeries = null;
 
       return;
+    }
+
+    const prefUnit = dyfiData.preferred_unit;
+
+    this.xAxisLabel = `Time since earthquake (${prefUnit})`;
+
+    // limit xScale to one day if the units are hours
+    if (prefUnit === 'hours') {
+      this.xScaleMax = 24;
+    } else {
+      this.xAxisTicks = null;
     }
 
     this.dyfiSeries = dyfiData;
