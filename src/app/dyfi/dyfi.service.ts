@@ -160,6 +160,10 @@ export class DyfiService {
    *     cdi data/ responses from dyfi product
    */
   translateCdi(cdiData: any) {
+    if (cdiData === null) {
+      return null;
+    }
+
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(cdiData, 'text/xml');
 
