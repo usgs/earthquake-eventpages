@@ -25,7 +25,8 @@ describe('FiniteFaultSummaryComponent', () => {
           inputs: ['TITLE'],
           selector: 'shared-preferred-check'
         }),
-        MockPipe('sharedNumber')
+        MockPipe('sharedNumber'),
+        MockPipe('sharedProductProperty')
       ],
       imports: [
         MatIconModule,
