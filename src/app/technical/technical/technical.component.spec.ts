@@ -22,6 +22,10 @@ describe('TechnicalComponent', () => {
 
         MockComponent({
           inputs: ['event', 'products'],
+          selector: 'technical-finite-fault-summary'
+        }),
+        MockComponent({
+          inputs: ['event', 'products'],
           selector: 'technical-focal-mechanism-summary'
         }),
         MockComponent({

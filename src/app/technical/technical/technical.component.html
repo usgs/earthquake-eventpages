@@ -11,6 +11,11 @@
         [products]="event?.getProducts('moment-tensor')">
     </technical-moment-tensor-summary>
 
+    <technical-finite-fault-summary
+        [event]="event"
+        [products]="event?.getProducts('finite-fault')">
+    </technical-finite-fault-summary>
+
     <technical-focal-mechanism-summary
         [event]="event"
         [products]="event?.getProducts('focal-mechanism')">

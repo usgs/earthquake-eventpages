@@ -1,0 +1,57 @@
+<ng-container *ngIf="products && products?.length != 0">
+  <h2>Finite Fault</h2>
+  <mat-table [dataSource]="this.products">
+    <mat-header-row *matHeaderRowDef="this.columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay">
+    </mat-row>
+
+    <ng-container matColumnDef="catalog">
+      <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>
+      <mat-cell
+        *matCellDef="let product"
+        [class.unpreferred]="product !== products [0]">
+
+        <ng-container *ngIf="product === products[0]">
+          <shared-preferred-check [title]="'Preferred Finite Fault'">
+          </shared-preferred-check>
+        </ng-container>
+
+        <a
+          [routerLink]="['/', event?.id, 'finite-fault']"
+          [queryParams]="{ source: product?.source, code: product?.code }">
+          {{ product?.properties?.eventsource?.toUpperCase() }}
+        </a>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="derived-magnitude">
+      <mat-header-cell *matHeaderCellDef>
+        Magnitude
+      </mat-header-cell>
+      <mat-cell *matCellDef="let product">
+        {{ product?.properties['derived-magnitude'] | sharedNumber:1 }}
+        {{ product?.properties['derived-magnitude-type'] }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="maximum-slip">
+      <mat-header-cell *matHeaderCellDef>
+        Maximum Slip
+      </mat-header-cell>
+      <mat-cell *matCellDef="let product">
+        {{ product?.properties['maximum-slip'] | sharedNumber:1:'m'}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="source">
+      <mat-header-cell *matHeaderCellDef>
+        Source
+      </mat-header-cell>
+      <mat-cell *matCellDef="let product">
+        <shared-product-attribution [product]="product">
+        </shared-product-attribution>
+      </mat-cell>
+    </ng-container>
+
+  </mat-table>
+</ng-container>

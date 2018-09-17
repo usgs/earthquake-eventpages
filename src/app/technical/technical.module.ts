@@ -8,13 +8,15 @@ import { MomentTensorSummaryComponent } from './moment-tensor-summary/moment-ten
 import { OriginSummaryComponent } from './origin-summary/origin-summary.component';
 import { TechnicalRoutingModule } from './technical-routing.module';
 import { TechnicalComponent } from './technical/technical.component';
+import { FiniteFaultSummaryComponent } from './finite-fault-summary/finite-fault-summary.component';
 
 @NgModule({
   declarations: [
     TechnicalComponent,
     OriginSummaryComponent,
     MomentTensorSummaryComponent,
-    FocalMechanismSummaryComponent
+    FocalMechanismSummaryComponent,
+    FiniteFaultSummaryComponent
   ],
   imports: [CommonModule, MatTableModule, SharedModule, TechnicalRoutingModule]
 })
