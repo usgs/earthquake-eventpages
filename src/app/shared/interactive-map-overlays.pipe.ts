@@ -10,6 +10,10 @@ import { ShakemapOverlaysPipe } from '@shared/shakemap-overlays.pipe';
 import { getUnique } from '../unique';
 import { LandscanPopulationOverlay } from './map-overlay/landscan-population-overlay';
 
+import { TectonicPlatesOverlay } from './map-overlay/tectonic-plates-overlay';
+
+import { USFaultsOverlay } from './map-overlay/us-faults-overlay';
+
 @Pipe({
   name: 'interactiveMapOverlays'
 })
@@ -30,7 +34,11 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     'ground-failure': new GroundFailureOverlaysPipe()
   };
   /* tslint:enable:object-literal-sort-keys */
-  staticOverlays: L.Layer[] = [new LandscanPopulationOverlay()];
+  staticOverlays: L.Layer[] = [
+    new LandscanPopulationOverlay(),
+    new TectonicPlatesOverlay(),
+    new USFaultsOverlay()
+  ];
 
   /**
    * Returns overlays for a specfic product type
