@@ -2,7 +2,8 @@
   <h4>Did You Feel It?</h4>
 
   <div class="horizontal-scrolling">
-    <mat-table [dataSource]="products">
+    <mat-table [dataSource]="products"
+      class="dyfi-table">
       <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
       <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
 

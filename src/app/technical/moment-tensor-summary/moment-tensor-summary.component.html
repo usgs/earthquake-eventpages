@@ -3,7 +3,8 @@
   <h2>Moment Tensor</h2>
 
   <div class="horizontal-scrolling">
-    <mat-table [dataSource]="this.tensors">
+    <mat-table [dataSource]="this.tensors"
+      class="mt-summary-table">
       <!-- render order is defined by columnsToDisplay -->
       <mat-header-row *matHeaderRowDef="this.columnsToDisplay">
       </mat-header-row>

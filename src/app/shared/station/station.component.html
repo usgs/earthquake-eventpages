@@ -48,7 +48,8 @@
 
       <h3>Channels</h3>
       <div class="horizontal-scrolling">
-        <mat-table [dataSource]="station?.channels">
+        <mat-table [dataSource]="station?.channels"
+          class="station-table">
           <mat-header-row *matHeaderRowDef="channelsColumns">
           </mat-header-row>
           <mat-row *matRowDef="let myRowData; columns: channelsColumns">

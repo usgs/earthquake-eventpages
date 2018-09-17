@@ -1,7 +1,8 @@
 <h4>Nodal Planes</h4>
 
 <div class="horizontal-scrolling">
-  <mat-table [dataSource]="getPlanes(tensor)">
+  <mat-table [dataSource]="getPlanes(tensor)"
+    class="np-table">
     <!-- render order is defined by columnsToDisplay -->
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
     <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>

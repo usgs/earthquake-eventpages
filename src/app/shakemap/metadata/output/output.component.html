@@ -9,7 +9,8 @@
     <ng-template matExpansionPanelContent>
 
       <div class="horizontal-scrolling">
-        <mat-table [dataSource]="smOutput?.ground_motions">
+        <mat-table [dataSource]="smOutput?.ground_motions"
+          class="gm-table">
           <mat-header-row *matHeaderRowDef="headers?.groundMotions">
           </mat-header-row>
           <mat-row *matRowDef="let myRowData;

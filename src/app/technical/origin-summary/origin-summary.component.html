@@ -1,7 +1,8 @@
 <ng-container *ngIf="products && products?.length != 0">
   <h2>Origin</h2>
   <div class="horizontal-scrolling">
-    <mat-table [dataSource]="this.products">
+    <mat-table [dataSource]="this.products"
+      class="os-table">
       <!-- render order is defined by columnsToDisplay -->
       <mat-header-row *matHeaderRowDef="this.columnsToDisplay"></mat-header-row>
       <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay">

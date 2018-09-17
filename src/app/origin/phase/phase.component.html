@@ -7,6 +7,7 @@
       mat-raised-button>Download</button>
     <div class="horizontal-scrolling">
       <mat-table [dataSource]="sortedPhases"
+        class="phase-table"
         matSort
         (matSortChange)="sortPhases($event)">
         <!-- render order is defined by columnsToDisplay -->
