@@ -79,6 +79,11 @@ describe('BubbleSeriesComponent', () => {
     fixture = TestBed.createComponent(BubbleSeriesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+
+    // some properties come from parent... imitate simple case
+    component.rScale = r => r;
+    component.yScale = y => y;
+    component.xScale = x => x;
   });
 
   it('should create', () => {
@@ -96,11 +101,6 @@ describe('BubbleSeriesComponent', () => {
 
     it('should return circles', () => {
       component.data = BUBBLESERIES;
-
-      // some properties come from parent... imitate simple case
-      component.rScale = r => r;
-      component.yScale = y => y;
-      component.xScale = x => x;
       component.colors = colorsStub;
       component.activeEntries = [];
 
@@ -111,11 +111,6 @@ describe('BubbleSeriesComponent', () => {
 
     it('works with linear scale', () => {
       component.data = BUBBLESERIES;
-
-      // some properties come from parent... imitate simple case
-      component.rScale = r => r;
-      component.yScale = y => y;
-      component.xScale = x => x;
       component.colors = colorsStub;
       component.activeEntries = [];
 
@@ -130,17 +125,28 @@ describe('BubbleSeriesComponent', () => {
 
     it('works with series deactivated', () => {
       component.data = BUBBLESERIES;
-
-      // some properties come from parent... imitate simple case
-      component.rScale = r => r;
-      component.yScale = y => y;
-      component.xScale = x => x;
       component.colors = colorsStub;
 
       component.activeEntries = [{ name: 'not this series!' }];
       const circles = component.getCircles();
 
       expect(circles.length).toBe(1);
+    });
+  });
+
+  describe('getErrorPathLower', () => {
+    it('generates a path', () => {
+      const path = component.getErrorPathLower(BUBBLESERIES.series[0]);
+
+      expect(path).toBeTruthy();
+    });
+  });
+
+  describe('getErrorPathUpper', () => {
+    it('generates a path', () => {
+      const path = component.getErrorPathUpper(BUBBLESERIES.series[0]);
+
+      expect(path).toBeTruthy();
     });
   });
 });

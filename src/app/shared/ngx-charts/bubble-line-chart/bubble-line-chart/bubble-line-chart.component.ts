@@ -58,11 +58,9 @@ import { curveLinear } from 'd3-shape';
  * @param yAxisLabel;
  * @param yAxisLabelRigh
  * @param yAxisTickFormatting
- * @param yRightAxisTickFormatting
  * @param yScaleMin
  * @param yScaleMax
  * @param yLeftAxisScaleFactor
- * @param yRightAxisScaleFactor
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -171,15 +169,11 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Input()
   yAxisTickFormatting: any;
   @Input()
-  yRightAxisTickFormatting: any;
-  @Input()
   yScaleMin = 0;
   @Input()
   yScaleMax: number;
   @Input()
   yLeftAxisScaleFactor: any;
-  @Input()
-  yRightAxisScaleFactor: any;
 
   @Output()
   activate: EventEmitter<any> = new EventEmitter();
@@ -280,19 +274,12 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    */
   getLegendOptions () {
     const opts = {
-      colors: undefined,
-      domain: [],
+      colors: this.colors,
+      domain: this.seriesDomain,
       scaleType: this.schemeType,
-      title: undefined
+      title: this.legendTitle
     };
-    if (opts.scaleType === 'ordinal') {
-      opts.domain = this.seriesDomain;
-      opts.colors = this.colors;
-      opts.title = this.legendTitle;
-    } else {
-      opts.domain = this.seriesDomain;
-      opts.colors = this.colors.scale;
-    }
+
     return opts;
   }
 
@@ -474,15 +461,11 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       max = Math.max(...values);
     }
 
-    if (this.yRightAxisScaleFactor) {
-      const minMax = this.yRightAxisScaleFactor(min, max);
-      return [Math.min(0, minMax.min), minMax.max];
-    } else {
-      if (this.autoScale) {
-        min = Math.min(0, min);
-      }
-      return [min, max];
+    if (this.autoScale) {
+      min = Math.min(0, min);
     }
+
+    return [min, max];
   }
 
   /**

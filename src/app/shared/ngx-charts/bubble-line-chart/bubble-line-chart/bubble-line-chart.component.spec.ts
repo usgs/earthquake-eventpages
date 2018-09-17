@@ -172,6 +172,26 @@ describe('BubbleLineChartComponent', () => {
       expect(domain[0]).toBe(0);
       expect(domain[1]).toBe(20);
     });
+
+    it('Uses yScaleMax', () => {
+      component.bubbleChart = BUBBLESERIES;
+      component.lineChart = LINESERIES;
+      component.autoScale = false;
+      component.yScaleMax = 10;
+
+      const domain = component.getYDomain();
+      expect(domain[1]).toBe(10);
+    });
+
+    it('Uses yScaleMin', () => {
+      component.bubbleChart = BUBBLESERIES;
+      component.lineChart = LINESERIES;
+      component.autoScale = false;
+      component.yScaleMin = -1;
+
+      const domain = component.getYDomain();
+      expect(domain[0]).toBe(-1);
+    });
   });
 
   describe('getRDomain', () => {

@@ -24,14 +24,14 @@ export class LineSeriesComponent extends SwimlaneLineSeries {
    *     The data to sort
    * @param [property='name']
    *     The data name
-   * @param [direction='asc']
-   *     The direction
+   * @param [ascending=true]
+   *     The ascending
    *
    * @return {number}
    */
-  sortData(data, property = 'name', direction = 'asc') {
+  sortData(data, property='name', ascending=true) {
     return data.sort((a, b) => {
-      if (direction === 'asc') {
+      if (ascending === true) {
         return a[property] - b[property];
       } else {
         return b[property] - a[property];
