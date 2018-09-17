@@ -38,6 +38,7 @@ import { OrderByPipe } from './order-by.pipe';
 import { PreferredCheckComponent } from './preferred-check/preferred-check.component';
 import { ProductAttributionComponent } from './product-attribution/product-attribution.component';
 import { ProductContentPipe } from './product-content.pipe';
+import { ProductPropertyPipe } from './product-property.pipe';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 import { RomanPipe } from './roman.pipe';
 import { RoundDownPipe } from './round-down.pipe';
@@ -95,7 +96,8 @@ import { UnitsPipe } from './units.pipe';
     StationFlagComponent,
     NearbySeismicityLinkPipe,
     SummaryLinkPipe,
-    SummaryLinkComponent
+    SummaryLinkComponent,
+    ProductPropertyPipe
   ],
   entryComponents: [DownloadDialogComponent, StationComponent],
   exports: [
@@ -139,7 +141,8 @@ import { UnitsPipe } from './units.pipe';
     SignificantFigurePipe,
     StationComponent,
     SummaryLinkPipe,
-    SummaryLinkComponent
+    SummaryLinkComponent,
+    ProductPropertyPipe
   ],
   imports: [
     CommonModule,
