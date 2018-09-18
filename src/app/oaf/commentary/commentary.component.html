@@ -43,26 +43,24 @@
 
     chance of one or more aftershocks that are larger than magnitude
 
-    <ng-container
-        *ngIf="forecast?.aboveMainshockMag?.magnitude; else magnitude">
+    <ng-container *ngIf="forecast?.aboveMainshockMag?.magnitude; else magnitude">
       {{ forecast.aboveMainshockMag.magnitude }}.
     </ng-container>
     <ng-template #magnitude>
       5.
     </ng-template>
 
-      It is likely that there will be smaller earthquakes over the next
-      {{ oaf.advisoryTimeFrame }}, with
+    It is likely that there will be smaller earthquakes over the next
+    {{ oaf.advisoryTimeFrame }}, with
 
-    <ng-container
-        *ngIf="forecast?.bins['magnitude-3']?.p95maximum > 0; else noRange">
+    <ng-container *ngIf="forecast?.bins['magnitude-3']?.p95maximum > 0; else noRange">
       {{
-        forecast.bins['magnitude-3'].p95minimum
-        | sharedRoundDown: 2 | sharedNumberWithSeparator
+      forecast.bins['magnitude-3'].p95minimum
+      | sharedRoundDown: 2 | sharedNumberWithSeparator
       }} to
       {{
-        forecast.bins['magnitude-3'].p95maximum
-        | sharedRoundUp: 2 | sharedNumberWithSeparator
+      forecast.bins['magnitude-3'].p95maximum
+      | sharedRoundUp: 2 | sharedNumberWithSeparator
       }}
       magnitude 3 or higher aftershocks.
     </ng-container>
@@ -76,7 +74,7 @@
   </p>
 
   <p *ngIf="oaf.template === 'Mainshock'">
-    More details about the earthquake forecast is provided in the section
+    More details about the earthquake forecast are provided in the section
     &ldquo;Our detailed aftershock forecast&rdquo; below.
   </p>
 
