@@ -8,7 +8,8 @@
 
   <div *ngIf="eventService.product$ | async as product; else noProduct">
 
-    <shared-text-product *ngIf="product.contents && product.contents['']"
+    <shared-text-product *ngIf="product.contents && product |
+        sharedProductContent:'analysis.html'"
       [product]="product">
     </shared-text-product>
 
@@ -17,10 +18,11 @@
       We used GSN broadband waveforms downloaded from the NEIC waveform server.
 
       We analyzed
-      {{ product?.properties?.nump1 }} teleseismic broadband P waveforms,
-      {{ product?.properties?.nums1 }} broadband SH waveforms, and
-      {{ product?.properties?.numlow1 }} long period surface waves
-      selected based on data quality and azimuthal distribution.
+      {{ product | sharedProductProperty:'number-pwaves' }} teleseismic
+      broadband P waveforms, {{ product |
+      sharedProductProperty:'number-shwaves' }} broadband SH waveforms, and
+      {{ product | sharedProductProperty:'number-longwaves' }} long period
+      surface waves selected based on data quality and azimuthal distribution.
 
       Waveforms are first
       converted to displacement by removing the instrument response and are
@@ -31,9 +33,11 @@
       slightly from the initial NEIC solution
       (
       location = {{
-      [product?.properties?.lon1, product?.properties?.lat1]
+      [product | sharedProductProperty:'longitude',
+      product | sharedProductProperty:'latitude']
       | sharedLocation: 1 }},
-      depth = {{ product?.properties?.depth1 | sharedNumber: 1 }} km
+      depth = {{ product | sharedProductProperty:'depth' | sharedNumber: 1 }}
+      km
       ), and a fault plane defined using
       either the rapid W-Phase moment tensor (for near-real time solutions), or
       the gCMT moment tensor (for historic solutions).
@@ -45,14 +49,17 @@
       After comparing waveform fits based on the two planes of the input moment
       tensor, we find that the nodal plane
       (
-      strike = {{ product?.properties?.strike11 | sharedDegrees: 1 }},
-      dip = {{ product?.properties?.dip11 | sharedDegrees: 1 }}
+      strike = {{ product | sharedProductProperty:'model-strike' |
+      sharedDegrees: 1 }},
+      dip = {{ product | sharedProductProperty:'model-dip' | sharedDegrees: 1
+      }}
       )
       fits the data better.
 
       The seismic moment release based upon this plane is
-      {{ (+product?.properties?.moment1).toExponential(1) }} dyne-cm
-      (Mw = {{ product?.properties?.magnitude1 | sharedNumber: 1 }})
+      {{ (+product?.properties['scalar-moment']).toExponential(1) }} dyne-cm
+      (Mw = {{ product | sharedProductProperty:'derived-magnitude' |
+      sharedNumber: 1 }})
       using a 1D crustal model interpolated from CRUST2.0 (Bassin et al.,
       2000).
     </p>
@@ -60,9 +67,10 @@
     <h3>Cross-section of Slip Distribution</h3>
     <figure *ngIf="product |
         sharedProductContent
-          :'cross-section.png'
-          :('web/' + product?.properties?.eventsourcecode + '_slip2.png');
-          let content">
+          :'slip.png'
+          :('web/' + product | sharedProductProperty:'eventsourcecode' +
+          '_slip2.png')
+          as content">
       <img src="{{ content.url }}"
         alt="Slip distribution map image" />
       <figcaption>
@@ -79,9 +87,10 @@
     <h3>Surface Projection</h3>
     <figure *ngIf="product |
         sharedProductContent
-          :'map.png'
-          :('web/' + product?.properties?.eventsourcecode + '_basemap.png');
-          let content">
+          :'basemap.png'
+          :('web/' + product | sharedProductProperty:'eventsourcecode' +
+          '_basemap.png')
+          as content">
       <img src="{{ content.url }}"
         alt="Finite fault basemap" />
       <figcaption>
@@ -93,9 +102,10 @@
     </figure>
 
     <h3>Moment Rate Function</h3>
-    <figure *ngIf="product | sharedProductContent
-        :'moment-rate.png'
-        :('web/mr.png') as content; else noMomentRateFunction">
+    <figure *ngIf="product |
+        sharedProductContent
+          :'moment_rate.png'
+          :('web/mr.png') as content; else noMomentRateFunction">
       <img src="{{ content.url }}"
         alt="Moment rate function image" />
       <figcaption>
