@@ -26,6 +26,20 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
    *     The product from the event
    */
   initialize: function(product: any) {
+    const mmiLegend = document.createElement('img');
+    mmiLegend.src = './assets/shakemap-intensity-legend-small.png';
+    mmiLegend.setAttribute('alt', 'Intensity Scale Legend');
+
+    const stationLegend = document.createElement('img');
+    stationLegend.src = './assets/legend-seismic-station.png';
+    stationLegend.setAttribute('alt', 'Seismic Station Legend');
+
+    const dyfiStation = document.createElement('img');
+    dyfiStation.src = './assets/legend-shakemap-station.png';
+    dyfiStation.setAttribute('alt', 'DYFI Shakemap Station Legend');
+
+    this.legends = [mmiLegend, stationLegend, dyfiStation];
+
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 
     const formatter = new FormatterService();

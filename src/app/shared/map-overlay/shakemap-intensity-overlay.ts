@@ -18,12 +18,16 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
   initialize: function(product: any) {
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 
-    const legend = document.createElement('img');
-    legend.src = './assets/shakemap-intensity-legend-small.png';
-    legend.setAttribute('alt', 'Intensity scale legend');
+    const intensityLegend = document.createElement('img');
+    intensityLegend.src = './assets/shakemap-intensity-legend-small.png';
+    intensityLegend.setAttribute('alt', 'Intensity Scale legend');
+
+    const contourLegend = document.createElement('img');
+    contourLegend.src = './assets/legend-intensity-contour.png';
+    contourLegend.setAttribute('alt', 'Intensity Contour Legend');
 
     // Add to legends array
-    this.legends = [legend];
+    this.legends = [intensityLegend, contourLegend];
 
     this.url = this.getUrl(product);
   },
