@@ -8,7 +8,7 @@ const LandscanPopulationOverlay = L.TileLayer.extend({
   bounds: null,
   enabled: true,
   id: 'landscap-population',
-  legend: null,
+  legends: null,
   title: 'LandScan Population',
 
   /**

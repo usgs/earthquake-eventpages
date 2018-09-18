@@ -393,7 +393,7 @@ export class MapComponent implements AfterViewInit {
       return;
     }
 
-    this.legendControl.setOverlays(this._overlays);
+    this.legendControl.displayLegends();
   }
 
   /**

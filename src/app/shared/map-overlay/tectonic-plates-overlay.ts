@@ -8,7 +8,7 @@ const TectonicPlatesOverlay = L.TileLayer.extend({
   bounds: null,
   enabled: true,
   id: 'tectonic-plates',
-  legend: null,
+  legends: null,
   title: 'Tectonic Plates',
 
   /**
@@ -16,10 +16,11 @@ const TectonicPlatesOverlay = L.TileLayer.extend({
    */
   initialize: function() {
     const legend = document.createElement('img');
-
     legend.src = './assets/legend-tectonic-plates.png';
     legend.setAttribute('alt', 'Tectonic Plates Legend');
-    this.legend = legend;
+
+    // Add to legends array
+    this.legends = [legend];
 
     L.TileLayer.prototype.initialize.call(
       this,

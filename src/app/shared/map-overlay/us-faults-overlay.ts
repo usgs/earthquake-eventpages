@@ -10,7 +10,7 @@ const USFaultsOverlay = MouseOverLayer.extend({
   bounds: null,
   enabled: true,
   id: 'us-faults',
-  legend: null,
+  legends: null,
   title: 'U.S. Faults',
 
   dataUrl: null,
@@ -21,10 +21,11 @@ const USFaultsOverlay = MouseOverLayer.extend({
    */
   initialize: function(options) {
     const legend = document.createElement('img');
-
     legend.src = './assets/legend-us-faults.png';
     legend.setAttribute('alt', 'U.S. Faults Legend');
-    this.legend = legend;
+
+    // Add to legends array
+    this.legends = [legend];
 
     this.tileUrl = _FAULTS_URL + '/{z}/{x}/{y}.png';
     this.dataUrl = _FAULTS_URL + '/{z}/{x}/{y}.grid.json?callback={cb}';

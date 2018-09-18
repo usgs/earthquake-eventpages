@@ -13,7 +13,7 @@ import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 // tslint:disable-next-line:variable-name
 const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
   id: 'shakemap-stations',
-  legend: null,
+  legends: null,
   locationPipe: null,
   numberPipe: null,
   romanPipe: new RomanPipe(),

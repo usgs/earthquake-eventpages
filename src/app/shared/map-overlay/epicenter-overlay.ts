@@ -8,7 +8,7 @@ const EpicenterOverlay = L.Marker.extend({
   bounds: null,
   enabled: true,
   id: 'epicenter',
-  legend: null,
+  legends: [],
   title: 'Epicenter',
 
   /**
@@ -41,7 +41,9 @@ const EpicenterOverlay = L.Marker.extend({
     const legend = document.createElement('img');
     legend.src = './assets/legend-epicenter.png';
     legend.setAttribute('alt', 'Epicenter marker legend');
-    this.legend = legend;
+
+    // Add to legends array
+    this.legends = [legend];
 
     L.Marker.prototype.initialize.call(this, [latitude, longitude], {
       icon: L.icon({
