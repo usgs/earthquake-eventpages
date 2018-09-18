@@ -1,4 +1,4 @@
-<ng-container *ngIf="eventService?.event$ | async; let event">
+<ng-container *ngIf="eventService?.event$ | async as event">
   <ng-container *ngIf="event">
 
     <technical-origin-summary
@@ -11,10 +11,12 @@
         [products]="event?.getProducts('moment-tensor')">
     </technical-moment-tensor-summary>
 
-    <technical-finite-fault-summary
-        [event]="event"
-        [products]="event?.getProducts('finite-fault')">
-    </technical-finite-fault-summary>
+    <ng-container *ngIf="event.getProducts('finite-fault') as products">
+      <technical-finite-fault-summary
+          [event]="event"
+          [products]="products">
+      </technical-finite-fault-summary>
+    </ng-container>
 
     <technical-focal-mechanism-summary
         [event]="event"
