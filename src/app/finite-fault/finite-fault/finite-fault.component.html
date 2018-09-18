@@ -7,9 +7,9 @@
   </ng-container>
 
   <div *ngIf="eventService.product$ | async as product; else noProduct">
-
+    <h3>Scientific Analysis</h3>
     <shared-text-product *ngIf="product.contents && product |
-        sharedProductContent:'analysis.html'"
+        sharedProductContent:'analysis.html'; else noAnalysisText"
       [product]="product">
     </shared-text-product>
 
@@ -57,7 +57,9 @@
       fits the data better.
 
       The seismic moment release based upon this plane is
-      {{ (+product?.properties['scalar-moment']).toExponential(1) }} dyne-cm
+      {{ (+(product | sharedProductProperty:'scalar-moment')).toExponential(1)
+      }}
+      dyne-cm
       (Mw = {{ product | sharedProductProperty:'derived-magnitude' |
       sharedNumber: 1 }})
       using a 1D crustal model interpolated from CRUST2.0 (Bassin et al.,
@@ -126,6 +128,11 @@
   </p>
 </ng-template>
 
+<ng-template #noAnalysisText>
+  <p>
+    Not available yet.
+  </p>
+</ng-template>
 <ng-template #noMomentRateFunction>
   <p class="alert info">
     Moment rate function not provided.
