@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { EventService } from '@core/event.service';
@@ -7,6 +7,7 @@ import { EventService } from '@core/event.service';
  * Display interactive map page
  */
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'map',
   styleUrls: ['./map.component.scss'],
   templateUrl: './map.component.html'

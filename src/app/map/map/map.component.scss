@@ -1,6 +1,37 @@
+$map-height: 640px;
+$expanded-leaflet-control-height: ($map-height - 150px) / 2;
+
 shared-map {
   display: block;
-  height: 640px;
+  height: $map-height;
   margin: 1em 0;
   width: 100%;
+}
+
+.legend-container,
+.leaflet-control-layers-list {
+  background: linear-gradient(0deg, #fff 50%, #fff),
+    linear-gradient(180deg, #fff 50%, #fff) bottom,
+    radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, 0.2), transparent),
+    radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, 0.2), transparent)
+      0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 10px, 100% 10px, 100% 5px, 100% 5px;
+  background-attachment: local, local, scroll, scroll;
+  margin: 0.5em 0;
+  padding: 0 0.5em;
+  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: $expanded-leaflet-control-height;
+}
+
+.leaflet-control-legend-visible > .legend-container {
+  max-height: $map-height - 170px;
+}
+
+.leaflet-control-layers-expanded
+  + .leaflet-control-legend-visible
+  > .legend-container {
+  max-height: $expanded-leaflet-control-height;
 }

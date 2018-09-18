@@ -22,12 +22,15 @@
   float: right;
 }
 
-.legend-container > img {
+.legend-container img {
   display: block;
-  max-width: 210px;
+  width: 210px;
 }
 
 .leaflet-control-legend-visible {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   padding: 6px;
 
   > .leaflet-control-legend-hide,
