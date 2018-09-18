@@ -3,7 +3,8 @@
   <h2>Focal Mechanism</h2>
 
   <div class="horizontal-scrolling">
-    <mat-table [dataSource]="this.tensors">
+    <mat-table [dataSource]="this.tensors"
+      class="fc-summary-table">
       <mat-header-row *matHeaderRowDef="this.columnsToDisplay">
 
       </mat-header-row>
