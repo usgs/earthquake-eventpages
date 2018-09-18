@@ -9,7 +9,7 @@
     <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>
     <mat-cell
       *matCellDef="let product"
-      [class.unpreferred]="product !== products [0]">
+      [class.unpreferred]="product !== products[0]">
 
       <ng-container *ngIf="product === products[0]">
         <shared-preferred-check [title]="'Preferred Finite Fault'">
