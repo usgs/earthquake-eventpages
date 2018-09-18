@@ -87,18 +87,19 @@
     </figure>
 
     <h3>Moment Rate Function</h3>
-    <figure *ngIf="product |
-        sharedProductContent
-          :'moment-rate.png'
-          :('web/mr.png'); let content">
-      <img src="{{ content.url }}" alt="Moment rate function image" />
-      <figcaption>
-        Source time function, describing the rate of moment release with time
-        after earthquake origin, relative to the peak moment rate (listed in
-        the top right corner of the plot). The red dashed line represents the
-        interpreted end of the event.
-      </figcaption>
-    </figure>
+    <ng-container *ngIf="product | sharedProductContent
+        :'moment-rate.png'
+        :('web/mr.png') as content; else noMomentRateFunction">
+      <figure>
+        <img src="{{ content.url }}" alt="Moment rate function image" />
+        <figcaption>
+          Source time function, describing the rate of moment release with time
+          after earthquake origin, relative to the peak moment rate (listed in
+          the top right corner of the plot). The red dashed line represents the
+          interpreted end of the event.
+        </figcaption>
+      </figure>
+    </ng-container>
 
   </div>
 
@@ -107,5 +108,11 @@
 <ng-template #noProduct>
   <p class="alert error">
     There is no Finite Fault information.
+  </p>
+</ng-template>
+
+<ng-template #noMomentRateFunction>
+  <p class="alert info">
+    Moment rate function not provided
   </p>
 </ng-template>
