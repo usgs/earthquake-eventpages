@@ -7,14 +7,15 @@
     rebuliding projects.
   </p>
 
-  <h3>Forecast</h3>
+  <h3>
+    Forecast starting from {{ forecast.columns[0].timeStart | sharedDateTime }}
+  </h3>
 
-  <P>
+  <p>
     The likely number of aftershocks (N) and the probability of at least one
     aftershock occurring (P) with at least magnitude (M) and within the given
-    time frame starting from
-    {{ forecast.columns[0].timeStart | sharedDateTime }}.
-  </P>
+    time frame.
+  </p>
 
   <div class="horizontal-scrolling">
     <mat-table *ngIf="forecast"
@@ -40,11 +41,14 @@
           <ng-container *ngIf="row.data[column.id]; let bin">
             <span class="oafColumn">N:</span>
             <ng-container *ngIf="bin.p95maximum !== 0 ; else asterisk">
-              {{ bin.p95minimum | sharedRoundDown: 2 | sharedNumberWithSeparator }} to
-              {{ bin.p95maximum | sharedRoundUp: 2 | sharedNumberWithSeparator }}
+              {{ bin.p95minimum | sharedRoundDown: 2 |
+              sharedNumberWithSeparator }} to
+              {{ bin.p95maximum | sharedRoundUp: 2 | sharedNumberWithSeparator
+              }}
             </ng-container>
             <br />
-            <span class="oafColumn">P:</span> {{ bin.probability | oafPercent }}
+            <span class="oafColumn">P:</span> {{ bin.probability | oafPercent
+            }}
           </ng-container>
           <ng-template #asterisk>
             *
