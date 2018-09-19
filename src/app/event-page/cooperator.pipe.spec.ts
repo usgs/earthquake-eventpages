@@ -1,5 +1,4 @@
 import { CooperatorPipe } from './cooperator.pipe';
-import { Event } from '../event';
 
 describe('CooperatorPipe', () => {
   it('create an instance', () => {
