@@ -8,9 +8,10 @@
 
   <div *ngIf="eventService.product$ | async as product; else noProduct">
     <h3>Scientific Analysis</h3>
-    <shared-text-product *ngIf="product.contents && product |
-        sharedProductContent:'analysis.html'; else noAnalysisText"
-      [product]="product">
+    <shared-text-product *ngIf="product | sharedProductContent:'analysis.html';
+        else noAnalysisText"
+      [product]="product"
+      [contentPath]="'analysis.html'">
     </shared-text-product>
 
     <h3>Data Process and Inversion</h3>
@@ -133,6 +134,7 @@
     Not available yet.
   </p>
 </ng-template>
+
 <ng-template #noMomentRateFunction>
   <p class="alert info">
     Moment rate function not provided.
