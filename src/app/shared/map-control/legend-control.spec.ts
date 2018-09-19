@@ -4,13 +4,11 @@ import * as L from 'leaflet';
 
 describe('LegendControl', () => {
   let container;
-  let legend;
   let legendControl;
   let mapStub;
 
   afterEach(() => {
     container = null;
-    legend = null;
     legendControl = null;
 
     mapStub = null;
@@ -18,7 +16,6 @@ describe('LegendControl', () => {
 
   beforeEach(() => {
     container = document.createElement('ul');
-    legend = document.createElement('div');
     legendControl = new LegendControl();
 
     mapStub = {
@@ -53,8 +50,6 @@ describe('LegendControl', () => {
 
   describe('addLegend', () => {
     it('skips if no container/legend', () => {
-      const legendEl = document.createElement('img');
-
       spyOn(container, 'appendChild');
       spyOn(legendControl, 'removeMessage').and.callFake(() => {});
 
@@ -284,7 +279,7 @@ describe('LegendControl', () => {
       messageEl = el.querySelector('.no-legend');
       legendControl._legendContainer = el;
 
-      const result = legendControl.removeMessage();
+      legendControl.removeMessage();
       messageEl = el.querySelector('.no-legend');
 
       expect(messageEl).toBeNull();
