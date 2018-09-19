@@ -1,20 +1,2 @@
-<ng-container *ngIf="eventService.event$ | async; let event">
-
-    <shared-summary-link [productType]="'regioninfo'" [event]="event">
-    </shared-summary-link>
-
-    <shared-map 
-        [routerLink]="'../map'"
-        [queryParams]="{
-          'historic-seismicity': true,
-          'shakemap-intensity': false
-        }"
-        [overlays]="event | getProduct:'origin' | regionInfoOverlays"
-        [showScaleControl]="true">
-    </shared-map>
-
-    <!-- Geoserve Components -->
-    <geoserve-admin-region></geoserve-admin-region>
-    <geoserve-nearby-places></geoserve-nearby-places>
-    <geoserve-tectonic-summary-region></geoserve-tectonic-summary-region>
-</ng-container>
+<region-info-display [event]="eventService.event$ | async">
+</region-info-display>

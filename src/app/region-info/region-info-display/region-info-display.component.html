@@ -1,0 +1,22 @@
+<shared-summary-link [productType]="'regioninfo'" [event]="event">
+</shared-summary-link>
+
+<shared-map
+    [routerLink]="'../map'"
+    [queryParams]="{'historic-seismicity': true, 'shakemap-intensity': false}"
+    [overlays]="event | getProduct:'origin' | regionInfoOverlays"
+    [showScaleControl]="true">
+</shared-map>
+
+<!-- Geoserve Components -->
+<geoserve-admin-region></geoserve-admin-region>
+
+<ng-container *ngIf="event | getProduct:'nearby-cities'; else geoserveNearbyCities">
+  <geoserve-nearby-place-list [places]="this.citiesService.cities$ | async">
+  </geoserve-nearby-place-list>
+</ng-container>
+<ng-template #geoserveNearbyCities>
+    <geoserve-nearby-place-list [places]="this.placesService.places$ | async">
+    </geoserve-nearby-place-list>
+</ng-template>
+<geoserve-tectonic-summary-region></geoserve-tectonic-summary-region>
