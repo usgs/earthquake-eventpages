@@ -46,7 +46,7 @@ describe('GroundFailureLandslideOverlay', () => {
 
   it('sets the legend', () => {
     const overlay = new GroundFailureLandslideOverlay(product);
-    expect(overlay.legend).not.toBeNull();
-    expect(overlay.legend.nodeName).toEqual('IMG');
+    expect(overlay.legends).not.toBeNull();
+    expect(overlay.legends.length).toEqual(1);
   });
 });

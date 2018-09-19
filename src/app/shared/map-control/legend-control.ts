@@ -5,58 +5,6 @@ import * as L from 'leaflet';
  */
 // tslint:disable-next-line:variable-name
 const LegendControl = L.Control.extend({
-  _legends: [],
-  _overlays: [],
-
-  /**
-   * Add an individual legend string or DOM element to the legend control.
-   *
-   */
-  _addLegend: function(legend) {
-    let legendItem;
-
-    // No legend to display
-    if (legend === null) {
-      return;
-    }
-
-    this._removeMessage();
-
-    legendItem = document.createElement('li');
-
-    // Add a DOM Element or DOM String
-    if (typeof legend === 'object') {
-      legendItem.appendChild(legend);
-    } else if (typeof legend === 'string') {
-      legendItem.innerHTML = legend;
-    }
-
-    this._legendContainer.appendChild(legendItem);
-  },
-
-  /**
-   * Add message stating that there are no legends to display
-   *
-   */
-  _addMessage: function() {
-    let message;
-
-    if (this._legendContainer.querySelectorAll('li').length === 0) {
-      message = document.createElement('li');
-      message.className = 'no-legend';
-      message.innerHTML = 'Please select a layer.';
-
-      this._legendContainer.appendChild(message);
-    }
-  },
-
-  /**
-   * Show the Legend control
-   */
-  _close: function() {
-    L.DomUtil.removeClass(this._container, 'leaflet-control-legend-visible');
-  },
-
   /**
    * Add a layer to the legend
    *
@@ -78,49 +26,44 @@ const LegendControl = L.Control.extend({
   },
 
   /**
-   * Hide the Legend control
-   */
-  _open: function() {
-    L.DomUtil.addClass(this._container, 'leaflet-control-legend-visible');
-  },
-
-  /**
-   * Removes duplicate legends from the legend control
-   *
-   * @param legends {Array}
-   *        Complete list of legends to append to the legend control
-   *
-   * @return {Array}
-   *        A sanitized list of legends with zero duplicates
+   * Add an individual legend string or DOM element to the legend control.
    *
    */
-  _removeDuplicatesFromLegendList: function(legends) {
-    let i, legend, len, sanitizedList;
+  addLegend: function(legend) {
+    let legendItem;
 
-    sanitizedList = [];
-
-    // loop through all legends and remove duplicates
-    for (i = 0, len = legends.length; i < len; i++) {
-      legend = legends[i];
-      if (sanitizedList.indexOf(legend) === -1) {
-        sanitizedList.push(legend);
-      }
+    // No legend to display
+    if (legend === null) {
+      return;
     }
 
-    return sanitizedList;
+    this.removeMessage();
+
+    legendItem = document.createElement('li');
+
+    // Add a DOM Element or DOM String
+    if (typeof legend === 'object') {
+      legendItem.appendChild(legend);
+    } else if (typeof legend === 'string') {
+      legendItem.innerHTML = legend;
+    }
+
+    this._legendContainer.appendChild(legendItem);
   },
 
   /**
-   * Remove message stating that there are no legends to display
+   * Add message stating that there are no legends to display
    *
    */
-  _removeMessage: function() {
+  addMessage: function() {
     let message;
 
-    message = this._legendContainer.querySelector('.no-legend');
+    if (this._legendContainer.querySelectorAll('li').length === 0) {
+      message = document.createElement('li');
+      message.className = 'no-legend';
+      message.innerHTML = 'Please select a layer.';
 
-    if (message) {
-      this._legendContainer.removeChild(message);
+      this._legendContainer.appendChild(message);
     }
   },
 
@@ -136,12 +79,23 @@ const LegendControl = L.Control.extend({
   },
 
   /**
+   * Show the Legend control
+   */
+  close: function() {
+    L.DomUtil.removeClass(this._container, 'leaflet-control-legend-visible');
+  },
+
+  /**
    * Loops through each legend object in the legends array and displays
    * the legends
    *
    */
   displayLegends: function() {
     let i, len, legends;
+
+    if (!this._map) {
+      return;
+    }
 
     legends = [];
     legends = (this._legends || []).slice();
@@ -158,21 +112,19 @@ const LegendControl = L.Control.extend({
 
     // display message if no legends exist
     if (legends.length === 0) {
-      this._addMessage();
+      this.addMessage();
     }
-
-    // legends = this._removeDuplicatesFromLegendList(legends);
 
     // loop through all legends and add to legend control
     for (i = 0, len = legends.length; i < len; i++) {
       const legend = legends[i];
-      if (!this._legendControlContainsLegend(legend)) {
-        this._addLegend(legend);
+      if (!this.legendControlContainsLegend(legend)) {
+        this.addLegend(legend);
       }
     }
   },
 
-  _legendControlContainsLegend: function(legend) {
+  legendControlContainsLegend: function(legend) {
     if (
       this._legendContainer.querySelector(
         'img[src="' + legend.getAttribute('src') + '"]'
@@ -229,10 +181,10 @@ const LegendControl = L.Control.extend({
     L.DomEvent.on(this._showButton, 'click', L.DomEvent.stop).on(
       this._showButton,
       'click',
-      this._open,
+      this.open,
       this
     );
-    L.DomEvent.on(this._hideButton, 'click', this._close, this);
+    L.DomEvent.on(this._hideButton, 'click', this.close, this);
 
     this.displayLegends();
 
@@ -253,13 +205,34 @@ const LegendControl = L.Control.extend({
     L.DomEvent.off(this._showButton, 'click', L.DomEvent.stop).off(
       this._showButton,
       'click',
-      this._open,
+      this.open,
       this
     );
-    L.DomEvent.off(this._hideButton, 'click', this._close, this);
+    L.DomEvent.off(this._hideButton, 'click', this.close, this);
 
     map.off('layeradd', this._onLayerAdd, this);
     map.off('layerremove', this._onLayerRemove, this);
+  },
+
+  /**
+   * Hide the Legend control
+   */
+  open: function() {
+    L.DomUtil.addClass(this._container, 'leaflet-control-legend-visible');
+  },
+
+  /**
+   * Remove message stating that there are no legends to display
+   *
+   */
+  removeMessage: function() {
+    let message;
+
+    message = this._legendContainer.querySelector('.no-legend');
+
+    if (message) {
+      this._legendContainer.removeChild(message);
+    }
   }
 });
 
