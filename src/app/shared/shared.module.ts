@@ -54,7 +54,6 @@ import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 import { UnitsPipe } from './units.pipe';
 
-
 @NgModule({
   declarations: [
     AlertLevelComponent,

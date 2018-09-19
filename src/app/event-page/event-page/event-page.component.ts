@@ -1,5 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router, NavigationEnd } from '@angular/router';
+import {
+  ActivatedRoute,
+  ParamMap,
+  Router,
+  NavigationEnd
+} from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
@@ -73,7 +78,7 @@ export class EventPageComponent implements OnInit, OnDestroy {
    * @param item
    *    general text product
    */
-  trackByIndex (index, item) {
+  trackByIndex(index, item) {
     return index;
   }
 }

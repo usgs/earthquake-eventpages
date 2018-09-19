@@ -6,6 +6,7 @@ import { SharedModule } from '@shared/shared.module';
 import { HazdevTemplateModule } from 'hazdev-ng-template';
 
 import { ContributorListPipe } from './contributor-list.pipe';
+import { CooperatorPipe } from './cooperator.pipe';
 import { EventDateTimePipe } from './event-date-time.pipe';
 import { EventDepthPipe } from './event-depth.pipe';
 import { EventLocationPipe } from './event-location.pipe';
@@ -23,6 +24,7 @@ import { NavigationComponent } from './navigation/navigation.component';
     HeaderComponent,
 
     // Pipes
+    CooperatorPipe,
     EventDateTimePipe,
     EventDepthPipe,
     EventLocationPipe,
