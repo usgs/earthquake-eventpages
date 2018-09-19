@@ -5,6 +5,7 @@ import { EventService } from '@core/event.service';
 import { MockComponent } from 'ng2-mock-component';
 
 import { EventPageComponent } from './event-page.component';
+import { MockPipe } from '../../mock-pipe';
 
 describe('EventPageComponent', () => {
   let fixture: ComponentFixture<EventPageComponent>,
@@ -40,7 +41,7 @@ describe('EventPageComponent', () => {
           selector: 'shared-text-product'
         }),
 
-        MockComponent({ selector: 'hazdev-template' }),
+        MockComponent({ inputs: ['COOPERATOR'], selector: 'hazdev-template' }),
         MockComponent({ selector: 'hazdev-template-navigation-group' }),
 
         MockComponent({
@@ -48,7 +49,9 @@ describe('EventPageComponent', () => {
           selector: 'hazdev-template-navigation-item'
         }),
 
-        MockComponent({ selector: 'mat-nav-list' })
+        MockComponent({ selector: 'mat-nav-list' }),
+
+        MockPipe('cooperator')
       ],
       imports: [RouterTestingModule],
       providers: [
