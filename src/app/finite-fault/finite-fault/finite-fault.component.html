@@ -67,6 +67,9 @@
       2000).
     </p>
 
+    <result-table *ngIf="product | createSegments as segments"
+      [segments]="segments"></result-table>
+
     <h3>Cross-section of Slip Distribution</h3>
     <figure *ngIf="product |
         sharedProductContent

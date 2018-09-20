@@ -21,12 +21,21 @@ describe('FiniteFaultComponent', () => {
         FiniteFaultComponent,
 
         MockComponent({ selector: 'product-page', inputs: ['bin'] }),
-        MockComponent({ selector: 'shared-text-product', inputs: ['product'] }),
+        MockComponent({
+          inputs: ['product', 'contentPath'],
+          selector: 'shared-text-product'
+        }),
+        MockComponent({
+          inputs: ['segments'],
+          selector: 'result-table'
+        }),
 
+        MockPipe('createSegments'),
         MockPipe('sharedDegrees'),
         MockPipe('sharedLocation'),
         MockPipe('sharedNumber'),
-        MockPipe('sharedProductContent')
+        MockPipe('sharedProductContent'),
+        MockPipe('sharedProductProperty')
       ],
       providers: [{ provide: EventService, useValue: eventServiceStub }]
     }).compileComponents();
