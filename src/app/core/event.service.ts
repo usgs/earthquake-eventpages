@@ -84,7 +84,7 @@ export class EventService {
    *     The event id
    */
   getUnknownEvent(eventid: string): void {
-    this.router.navigate(['unknown']);
+    this.router.navigate(['unknown'], { skipLocationChange: true });
   }
 
   /**
