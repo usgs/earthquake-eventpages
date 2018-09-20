@@ -26,8 +26,8 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
   // retain url grab errors
   error: Error,
   id: 'async-geojson',
-  legend: null,
-  // retain map for custom layer adjustments
+  legends: [],
+  // retain  for custom layer adjustments
   map: null,
   // persistent styles (allows alternating styles in geoJSON features)
   styles: {},

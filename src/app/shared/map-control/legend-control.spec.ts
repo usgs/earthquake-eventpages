@@ -4,24 +4,24 @@ import * as L from 'leaflet';
 
 describe('LegendControl', () => {
   let container;
-  let legend;
   let legendControl;
   let mapStub;
 
   afterEach(() => {
     container = null;
-    legend = null;
     legendControl = null;
 
     mapStub = null;
   });
 
   beforeEach(() => {
-    container = document.createElement('div');
-    legend = document.createElement('div');
+    container = document.createElement('ul');
     legendControl = new LegendControl();
 
     mapStub = {
+      eachLayer: layer => {
+        return layer;
+      },
       hasLayer: layer => {
         return layer.mapHasLayer || false;
       },
@@ -32,23 +32,65 @@ describe('LegendControl', () => {
     spyOn(mapStub, 'hasLayer').and.callThrough();
   });
 
+  describe('_onLayerAdd', () => {
+    it('adds the event layer legend', () => {
+      spyOn(legendControl, 'displayLegends');
+      legendControl._onLayerAdd();
+      expect(legendControl.displayLegends).toHaveBeenCalled();
+    });
+  });
+
+  describe('_onLayerRemove', () => {
+    it('removes the event layer legend', () => {
+      spyOn(legendControl, 'displayLegends');
+      legendControl._onLayerRemove();
+      expect(legendControl.displayLegends).toHaveBeenCalled();
+    });
+  });
+
   describe('addLegend', () => {
     it('skips if no container/legend', () => {
       spyOn(container, 'appendChild');
-
-      legendControl.addLegend({});
+      spyOn(legendControl, 'removeMessage').and.callFake(() => {});
 
       legendControl._legendContainer = container;
-      legendControl.addLegend({});
+      legendControl.addLegend(null);
 
       expect(container.appendChild).not.toHaveBeenCalled();
     });
 
     it('appends child appropriately', () => {
-      legendControl._legendContainer = container;
-      legendControl.addLegend({ legend: legend });
+      const legendEl = document.createElement('img');
 
-      expect(legendControl._legendContainer.contains(legend)).toBeTruthy();
+      spyOn(container, 'appendChild');
+      spyOn(legendControl, 'removeMessage').and.callFake(() => {});
+
+      legendControl._legendContainer = container;
+      legendControl.addLegend(legendEl);
+
+      expect(container.appendChild).toHaveBeenCalled();
+    });
+  });
+
+  describe('addMessage', () => {
+    it('skips if no legends exist in container', () => {
+      container.appendChild(document.createElement('li'));
+
+      spyOn(container, 'appendChild');
+
+      legendControl._legendContainer = container;
+      legendControl.addMessage(null);
+
+      expect(container.appendChild).not.toHaveBeenCalled();
+    });
+
+    it('appends message when no legends exist', () => {
+      spyOn(container, 'appendChild');
+
+      legendControl._legendContainer = container;
+      legendControl.addMessage(null);
+
+      expect(container.appendChild).toHaveBeenCalled();
     });
   });
 
@@ -68,33 +110,68 @@ describe('LegendControl', () => {
     });
   });
 
-  describe('removeLegend', () => {
-    it('short circuits appropriately', () => {
-      spyOn(container, 'contains');
+  describe('close', () => {
+    it('removes the visible class from the container', () => {
+      const className = 'leaflet-control-legend-visible';
+      legendControl._container = container;
 
-      legendControl.removeLegend({});
-      legendControl._legendContainer = container;
-      legendControl.removeLegend({});
-
-      expect(container.contains).not.toHaveBeenCalled();
+      legendControl.close();
+      expect(container.classList.contains(className)).toBeFalsy();
     });
+  });
 
-    it('removes requested, but leaves others', () => {
-      const a = container.appendChild(document.createElement('div'));
-      const b = container.appendChild(document.createElement('div'));
-      const c = document.createElement('div'); // Not added
-      container.appendChild(legend);
+  describe('displayLegends', () => {
+    it('clears and adds each layer', () => {
+      const layer = {
+        legends: [{}]
+      };
+      legendControl._legends = [layer, layer, layer];
+      legendControl._map = mapStub;
 
-      legendControl._legendContainer = container;
+      console.log(legendControl._legends);
 
-      expect(container.contains(legend)).toBeTruthy();
-      legendControl.removeLegend({ legend: legend });
-      legendControl.removeLegend({ legend: c });
+      spyOn(legendControl, 'addLegend').and.callFake(() => {
+        return;
+      });
+      spyOn(legendControl, 'addMessage').and.callFake(() => {
+        return;
+      });
+      spyOn(legendControl, 'clearLegendContainer').and.callFake(() => {
+        return;
+      });
+      spyOn(legendControl, 'legendControlContainsLegend').and.callFake(
+        () => false
+      );
 
-      expect(container.contains(a)).toBeTruthy();
-      expect(container.contains(b)).toBeTruthy();
-      expect(container.contains(c)).toBeFalsy();
-      expect(container.contains(legend)).toBeFalsy();
+      legendControl.displayLegends();
+
+      expect(legendControl.clearLegendContainer).toHaveBeenCalled();
+      expect(legendControl.addMessage).not.toHaveBeenCalled();
+      expect(legendControl.legendControlContainsLegend).toHaveBeenCalledTimes(
+        3
+      );
+      expect(legendControl.addLegend).toHaveBeenCalledTimes(3);
+    });
+  });
+
+  describe('legendControlContainsLegend', () => {
+    it('clears and adds each layer', () => {
+      const el = document.createElement('ul');
+      let legendEl;
+
+      el.innerHTML = '<li><img src="testing" /></li>';
+      legendEl = el.querySelector('img');
+      legendControl._legendContainer = el;
+
+      let result = legendControl.legendControlContainsLegend(legendEl);
+
+      expect(result).toBeTruthy();
+
+      result = legendControl.legendControlContainsLegend(
+        document.createElement('img')
+      );
+
+      expect(result).toBeFalsy();
     });
   });
 
@@ -159,14 +236,14 @@ describe('LegendControl', () => {
       expect(L.DomEvent.off).toHaveBeenCalledWith(
         legendControl._showButton,
         'click',
-        legendControl._open,
+        legendControl.open,
         legendControl
       );
 
       expect(L.DomEvent.off).toHaveBeenCalledWith(
         legendControl._hideButton,
         'click',
-        legendControl._close,
+        legendControl.close,
         legendControl
       );
 
@@ -183,84 +260,29 @@ describe('LegendControl', () => {
     });
   });
 
-  describe('setOverlays', () => {
-    it('sets the overlays', () => {
-      const overlays = [];
-      spyOn(legendControl, '_update');
-
-      legendControl.setOverlays(overlays);
-      expect(legendControl._overlays).toBe(overlays);
-      expect(legendControl._update).toHaveBeenCalled();
-    });
-  });
-
-  describe('_open/_close', () => {
-    it('adds/removes the visible class from the container', () => {
+  describe('open', () => {
+    it('adds the visible class from the container', () => {
       const className = 'leaflet-control-legend-visible';
       legendControl._container = container;
 
-      legendControl._open();
+      legendControl.open();
       expect(container.classList.contains(className)).toBeTruthy();
-
-      legendControl._close();
-      expect(container.classList.contains(className)).toBeFalsy();
     });
   });
 
-  describe('_onLayerAdd', () => {
-    it('adds the event layer legend', () => {
-      const layer = {};
-      const evt = { layer: layer };
+  describe('removeMessage', () => {
+    it('removes the no legend message', () => {
+      const el = document.createElement('ul');
+      let messageEl;
 
-      spyOn(legendControl, 'addLegend');
+      el.innerHTML = '<li class="no-legend"></li>';
+      messageEl = el.querySelector('.no-legend');
+      legendControl._legendContainer = el;
 
-      legendControl._onLayerAdd(evt);
-      expect(legendControl.addLegend).toHaveBeenCalledWith(layer);
-    });
-  });
+      legendControl.removeMessage();
+      messageEl = el.querySelector('.no-legend');
 
-  describe('_onLayerRemove', () => {
-    it('removes the event layer legend', () => {
-      const layer = {};
-      const evt = { layer: layer };
-
-      spyOn(legendControl, 'removeLegend');
-
-      legendControl._onLayerRemove(evt);
-      expect(legendControl.removeLegend).toHaveBeenCalledWith(layer);
-    });
-  });
-
-  describe('_update', () => {
-    it('clears and adds each layer', () => {
-      const overlays = [
-        { mapHasLayer: true },
-        { mapHasLayer: false },
-        { mapHasLayer: true }
-      ];
-
-      spyOn(legendControl, 'clearLegendContainer');
-      spyOn(legendControl, 'addLegend');
-
-      // No map, short circuit
-      legendControl._update();
-      expect(legendControl.clearLegendContainer).not.toHaveBeenCalled();
-
-      legendControl._map = mapStub;
-
-      // No overlays, nothing really done
-      legendControl._overlays = null;
-      legendControl._update();
-      expect(legendControl.clearLegendContainer).toHaveBeenCalled();
-
-      legendControl._overlays = overlays;
-      legendControl._update();
-
-      expect(mapStub.hasLayer).toHaveBeenCalled();
-
-      expect(legendControl.addLegend).toHaveBeenCalledWith(overlays[0]);
-      expect(legendControl.addLegend).not.toHaveBeenCalledWith(overlays[1]);
-      expect(legendControl.addLegend).toHaveBeenCalledWith(overlays[2]);
+      expect(messageEl).toBeNull();
     });
   });
 });

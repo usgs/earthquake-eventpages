@@ -8,7 +8,7 @@ const HistoricSeismicityOverlay = L.TileLayer.extend({
   bounds: null,
   enabled: true,
   id: 'historic-seismicity',
-  legend: null,
+  legends: [],
   title: 'Historic Seismicity',
 
   /**
@@ -16,10 +16,11 @@ const HistoricSeismicityOverlay = L.TileLayer.extend({
    */
   initialize: function() {
     const legend = document.createElement('img');
-
     legend.src = './assets/legend-historic-seismicity.png';
     legend.setAttribute('alt', 'Historic seismicity legend');
-    this.legend = legend;
+
+    // Add to legends array
+    this.legends = [legend];
 
     L.TileLayer.prototype.initialize.call(
       this,

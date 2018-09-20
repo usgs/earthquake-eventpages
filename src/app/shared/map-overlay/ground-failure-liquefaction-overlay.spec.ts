@@ -1,4 +1,3 @@
-
 import { GroundFailureLiquefactionOverlay } from './ground-failure-liquefaction-overlay';
 
 describe('GroundFailureLiquefactionOverlay', () => {
@@ -46,7 +45,7 @@ describe('GroundFailureLiquefactionOverlay', () => {
 
   it('sets the legend', () => {
     const overlay = new GroundFailureLiquefactionOverlay(product);
-    expect(overlay.legend).not.toBeNull();
-    expect(overlay.legend.nodeName).toEqual('IMG');
+    expect(overlay.legends).not.toBeNull();
+    expect(overlay.legends.length).toEqual(1);
   });
 });

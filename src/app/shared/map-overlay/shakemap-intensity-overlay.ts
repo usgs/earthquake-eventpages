@@ -6,7 +6,7 @@ import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 // tslint:disable-next-line:variable-name
 const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
   id: 'shakemap-intensity',
-  legend: null,
+  legends: null,
   title: 'Shakemap MMI Contours',
 
   /**
@@ -18,10 +18,16 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
   initialize: function(product: any) {
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 
-    const legend = document.createElement('img');
-    legend.src = './assets/shakemap-intensity-legend-small.png';
-    legend.setAttribute('alt', 'Intensity scale legend');
-    this.legend = legend;
+    const intensityLegend = document.createElement('img');
+    intensityLegend.src = './assets/shakemap-intensity-legend-small.png';
+    intensityLegend.setAttribute('alt', 'Intensity Scale legend');
+
+    const contourLegend = document.createElement('img');
+    contourLegend.src = './assets/legend-intensity-contour.png';
+    contourLegend.setAttribute('alt', 'Intensity Contour Legend');
+
+    // Add to legends array
+    this.legends = [intensityLegend, contourLegend];
 
     this.url = this.getUrl(product);
   },
