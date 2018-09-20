@@ -8,7 +8,7 @@ const GroundFailureLiquefactionOverlay = L.ImageOverlay.extend({
   bounds: null,
   enabled: false,
   id: 'ground-failure-liquefaction',
-  legends: null,
+  legends: [],
   title: 'Liquefaction Estimate',
 
   /**
@@ -40,7 +40,7 @@ const GroundFailureLiquefactionOverlay = L.ImageOverlay.extend({
     legend.setAttribute('alt', 'Liquefaction Estimate Legend');
 
     // Add to legends array
-    this.legends = [legend];
+    this.legends.push(legend);
 
     // Call overlay super initialize method
     L.ImageOverlay.prototype.initialize.call(

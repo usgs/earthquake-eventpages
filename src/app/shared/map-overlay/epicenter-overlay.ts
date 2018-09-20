@@ -43,7 +43,7 @@ const EpicenterOverlay = L.Marker.extend({
     legend.setAttribute('alt', 'Epicenter marker legend');
 
     // Add to legends array
-    this.legends = [legend];
+    this.legends.push(legend);
 
     L.Marker.prototype.initialize.call(this, [latitude, longitude], {
       icon: L.icon({

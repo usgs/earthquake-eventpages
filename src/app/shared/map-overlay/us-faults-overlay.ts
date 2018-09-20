@@ -3,14 +3,14 @@ import { MouseOverLayer } from '@shared/map-overlay/mouse-over-layer';
 const _FAULTS_URL = 'https://earthquake.usgs.gov/basemap/tiles/faults';
 
 /**
- * Landscan overlay for leaflet map
+ * US Faults overlay for leaflet map
  */
 // tslint:disable-next-line:variable-name
 const USFaultsOverlay = MouseOverLayer.extend({
   bounds: null,
   enabled: true,
   id: 'us-faults',
-  legends: null,
+  legends: [],
   title: 'U.S. Faults',
 
   dataUrl: null,
@@ -25,7 +25,7 @@ const USFaultsOverlay = MouseOverLayer.extend({
     legend.setAttribute('alt', 'U.S. Faults Legend');
 
     // Add to legends array
-    this.legends = [legend];
+    this.legends.push(legend);
 
     this.tileUrl = _FAULTS_URL + '/{z}/{x}/{y}.png';
     this.dataUrl = _FAULTS_URL + '/{z}/{x}/{y}.grid.json?callback={cb}';

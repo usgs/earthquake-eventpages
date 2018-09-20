@@ -8,7 +8,7 @@ const GroundFailureLandslideOverlay = L.ImageOverlay.extend({
   bounds: null,
   enabled: false,
   id: 'ground-failure-landslide',
-  legends: null,
+  legends: [],
   title: 'Landslide Estimate',
 
   /**
@@ -40,7 +40,7 @@ const GroundFailureLandslideOverlay = L.ImageOverlay.extend({
     legend.setAttribute('alt', 'Landslide Estimate Legend');
 
     // Add to legends array
-    this.legends = [legend];
+    this.legends.push(legend);
 
     // Call overlay super initialize method
     L.ImageOverlay.prototype.initialize.call(
