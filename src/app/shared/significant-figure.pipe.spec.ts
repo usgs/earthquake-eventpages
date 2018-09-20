@@ -1,6 +1,6 @@
 import { SignificantFigurePipe } from './significant-figure.pipe';
 
-fdescribe('SignificantFigurePipe', () => {
+describe('SignificantFigurePipe', () => {
   it('create an instance', () => {
     const pipe = new SignificantFigurePipe();
     expect(pipe).toBeTruthy();
