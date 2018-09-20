@@ -47,7 +47,10 @@ export class TellUsComponent implements OnInit {
     this.dialogRef = null;
 
     // check response
-    if (response && response.your_cdi) {
+    if (!response || response === false || typeof response === 'undefined') {
+      // user closed form
+      this.location.back();
+    } else if (response && response.your_cdi) {
       // success submitting form
       this.onSuccess(response);
     } else {
