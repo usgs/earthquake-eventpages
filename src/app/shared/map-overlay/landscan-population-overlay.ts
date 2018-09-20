@@ -7,14 +7,21 @@ import * as L from 'leaflet';
 const LandscanPopulationOverlay = L.TileLayer.extend({
   bounds: null,
   enabled: true,
-  id: 'landscap-population',
+  id: 'landscan-population',
   legends: [],
-  title: 'LandScan Population',
+  title: 'Population Density',
 
   /**
    * Build leaflet overlay
    */
   initialize: function() {
+    const legend = document.createElement('img');
+    legend.src = './assets/legend-landscan-population.png';
+    legend.setAttribute('alt', 'Population Density Legend');
+
+    // Add to legends array
+    this.legends.push(legend);
+
     L.TileLayer.prototype.initialize.call(
       this,
       'https://earthquake.usgs.gov/arcgis/rest/services' +
