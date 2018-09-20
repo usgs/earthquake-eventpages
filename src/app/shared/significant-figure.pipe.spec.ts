@@ -11,6 +11,7 @@ describe('SignificantFigurePipe', () => {
   });
   it('calculates when value is a number', () => {
     const pipe = new SignificantFigurePipe();
+    expect(pipe.transform(0, 1)).toEqual(0);
     expect(pipe.transform(1111111, 1)).toEqual(1000000);
     expect(pipe.transform(1111111, 2)).toEqual(1100000);
     expect(pipe.transform(1111111, 3)).toEqual(1110000);
