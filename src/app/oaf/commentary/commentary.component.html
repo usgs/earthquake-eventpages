@@ -44,7 +44,7 @@
     chance of one or more aftershocks that are larger than magnitude
 
     <ng-container *ngIf="forecast?.aboveMainshockMag?.magnitude; else magnitude">
-      {{ forecast.aboveMainshockMag.magnitude }}.
+      {{ forecast.aboveMainshockMag.magnitude | sharedNumber:1 }}.
     </ng-container>
     <ng-template #magnitude>
       5.
