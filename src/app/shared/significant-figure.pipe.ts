@@ -29,6 +29,11 @@ export class SignificantFigurePipe implements PipeTransform {
     magnitude = Math.pow(10, power);
     shifted = Math.round(value * magnitude);
 
-    return shifted / magnitude;
+    let result = shifted / magnitude;
+    if (magnitude < significant) {
+      result = Math.round(result);
+    }
+
+    return result;
   }
 }
