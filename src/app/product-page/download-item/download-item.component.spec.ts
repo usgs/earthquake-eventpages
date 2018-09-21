@@ -12,6 +12,7 @@ describe('DownloadItemComponent', () => {
       declarations: [
         DownloadItemComponent,
 
+        MockPipe('fileExtension'),
         MockPipe('fileSize')
       ]
     })

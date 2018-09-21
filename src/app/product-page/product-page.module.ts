@@ -10,12 +10,14 @@ import { FileSizePipe } from './file-size.pipe';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { FileExtensionPipe } from './file-extension.pipe';
 
 @NgModule({
   declarations: [
     DateTimePipe,
     DownloadComponent,
     DownloadItemComponent,
+    FileExtensionPipe,
     FileSizePipe,
     FooterComponent,
     HeaderComponent,

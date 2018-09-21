@@ -4,7 +4,7 @@
   <ul class="formats">
     <li *ngFor="let format of item.formats;trackBy: trackByIndex">
       <a href="{{ format.url }}">
-        {{ format.type | uppercase }}
+        {{ format.href | fileExtension | uppercase }}
         {{ format.length | fileSize }}
       </a>
     </li>
