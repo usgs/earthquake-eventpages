@@ -72,7 +72,7 @@
     <figure *ngIf="product |
         sharedProductContent
           :'slip.png'
-          :('web/' + product | sharedProductProperty:'eventsourcecode' +
+          :('web/' + product?.properties?.eventsourcecode +
           '_slip2.png')
           as content">
       <img src="{{ content.url }}" alt="Slip distribution map image" />
@@ -91,7 +91,7 @@
     <figure *ngIf="product |
         sharedProductContent
           :'basemap.png'
-          :('web/' + product | sharedProductProperty:'eventsourcecode' +
+          :('web/' + product?.properties?.eventsourcecode +
           '_basemap.png')
           as content">
       <img src="{{ content.url }}" alt="Finite fault basemap" />
