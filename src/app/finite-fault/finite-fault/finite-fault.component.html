@@ -7,12 +7,11 @@
   </ng-container>
 
   <div *ngIf="eventService.product$ | async as product; else noProduct">
-    <h3>Scientific Analysis</h3>
-    <shared-text-product *ngIf="product | sharedProductContent:'analysis.html';
-        else noAnalysisText"
-      [product]="product"
-      [contentPath]="'analysis.html'">
-    </shared-text-product>
+    <ng-container *ngIf="product | sharedProductContent:'analysis.html'">
+      <h3>Scientific Analysis</h3>
+      <shared-text-product [product]="product" [contentPath]="'analysis.html'">
+      </shared-text-product>
+    </ng-container>
 
     <h3>Data Process and Inversion</h3>
     <p>
@@ -67,8 +66,7 @@
       2000).
     </p>
 
-    <result-table *ngIf="product | createSegments as segments"
-      [segments]="segments"></result-table>
+    <result-table *ngIf="product | createSegments as segments" [segments]="segments"></result-table>
 
     <h3>Cross-section of Slip Distribution</h3>
     <figure *ngIf="product |
@@ -77,8 +75,7 @@
           :('web/' + product | sharedProductProperty:'eventsourcecode' +
           '_slip2.png')
           as content">
-      <img src="{{ content.url }}"
-        alt="Slip distribution map image" />
+      <img src="{{ content.url }}" alt="Slip distribution map image" />
       <figcaption>
         Cross-section of slip distribution. The strike direction is indicated
         above each fault plane and the hypocenter location is denoted by a
@@ -97,8 +94,7 @@
           :('web/' + product | sharedProductProperty:'eventsourcecode' +
           '_basemap.png')
           as content">
-      <img src="{{ content.url }}"
-        alt="Finite fault basemap" />
+      <img src="{{ content.url }}" alt="Finite fault basemap" />
       <figcaption>
         Surface projection of the slip distribution superimposed on GEBCO
         bathymetry. Thick white lines indicate major plate boundaries [Bird,
@@ -112,8 +108,7 @@
         sharedProductContent
           :'moment_rate.png'
           :('web/mr.png') as content; else noMomentRateFunction">
-      <img src="{{ content.url }}"
-        alt="Moment rate function image" />
+      <img src="{{ content.url }}" alt="Moment rate function image" />
       <figcaption>
         Source time function, describing the rate of moment release with time
         after earthquake origin, relative to the peak moment rate (listed in
@@ -129,12 +124,6 @@
 <ng-template #noProduct>
   <p class="alert error">
     There is no Finite Fault information.
-  </p>
-</ng-template>
-
-<ng-template #noAnalysisText>
-  <p>
-    Not available yet.
   </p>
 </ng-template>
 
