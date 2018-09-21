@@ -14,12 +14,16 @@
       <mdc-tab-bar-scroll-frame>
         <!-- routes/components in ../ground-failure-routing.module.ts -->
         <nav mdc-tab-bar>
-          <a mdc-tab mdcRouter
-              [routerLink]="'./summary'" queryParamsHandling="preserve">
+          <a mdc-tab
+            mdcRouter
+            [routerLink]="'./summary'"
+            queryParamsHandling="preserve">
             Summary
           </a>
-          <a mdc-tab mdcRouter
-              [routerLink]="'./about'" queryParamsHandling="preserve">
+          <a mdc-tab
+            mdcRouter
+            [routerLink]="'./about'"
+            queryParamsHandling="preserve">
             About
           </a>
         </nav>
@@ -32,11 +36,12 @@
     <router-outlet></router-outlet>
   </ng-container>
 
-  <ng-container *ngIf="eventService.product$ | async as product" footer>
+  <ng-container *ngIf="eventService.product$ | async as product"
+    footer>
     <p>
-      Due to local factors and model limitations, ground failure may still
-      occur when alert levels indicate little to no hazard. Refer to <a
-      href="/data/ground-failure/background.php">Ground Failure Background</a>
+      Due to local factors and model limitations, <b>ground failure may still
+        occur when alert levels indicate little to no hazard.</b> Refer to <a
+        href="/data/ground-failure/background.php">Ground Failure Background</a>
       for more information.
     </p>
     <p>
@@ -51,8 +56,7 @@
         ShakeMap is currently approximating this earthquake as a
         point source, and the mapped extent of ground failure commonly
         changes significantly when a fault model is added, especially for
-        larger earthquakes. Interpret Ground Failure results with caution
-        until ShakeMap has been updated with a fault model.
+        larger earthquakes.
       </ng-container>
 
       <ng-template #noPointSource>
