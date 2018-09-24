@@ -27,7 +27,10 @@ describe('PagerComponent', () => {
       declarations: [
         PagerComponent,
 
-        MockComponent({ selector: 'product-page', inputs: ['product'] }),
+        MockComponent({
+          inputs: ['product', 'showVersion'],
+          selector: 'product-page'
+        }),
         MockComponent({ selector: 'pager-cities', inputs: ['pager'] }),
         MockComponent({ selector: 'pager-population', inputs: ['pager'] })
       ],
