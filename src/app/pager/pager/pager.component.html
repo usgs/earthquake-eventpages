@@ -1,5 +1,6 @@
 <!-- productType attribute defines type of product to load -->
-<product-page productType="losspager">
+<product-page productType="losspager"
+  [showVersion]="true">
 
   <!-- container with header attribute is added before attribution -->
   <ng-container header>
@@ -10,11 +11,10 @@
     </h2>
   </ng-container>
 
-  <ng-container
-      *ngIf="pagerXmlService.pagerXml$ | async as pager; else noPagerXml">
+  <ng-container *ngIf="pagerXmlService.pagerXml$ | async as pager; else noPagerXml">
 
     <div *ngIf="eventService.product$ | async as product">
-      <div class="alert-wrapper row" >
+      <div class="alert-wrapper row">
         <div class="column one-of-one pager-pending"></div>
         <div class="column one-of-two fatality-histogram">
           <h3>Estimated Fatalities</h3>
@@ -24,7 +24,7 @@
             <figure>
               <a href="{{ product.contents['alertfatal.pdf'].url }}">
                 <img src="{{ product.contents['alertfatal.png'].url }}"
-                    alt="Estimated Fatalities Histogram" />
+                  alt="Estimated Fatalities Histogram" />
               </a>
               <figcaption *ngIf="pager.comments?.impact?.fatality">
                 {{ pager.comments.impact.fatality }}
@@ -40,7 +40,7 @@
             <figure>
               <a href="{{ product.contents['alertecon.pdf'].url }}">
                 <img src="{{ product.contents['alertecon.png'].url }}"
-                    alt="Estimated Economic Losses Histogram" />
+                  alt="Estimated Economic Losses Histogram" />
               </a>
               <figcaption *ngIf="pager.comments?.impact?.economic">
                 {{ pager.comments.impact.economic }}
@@ -58,7 +58,7 @@
             <figure>
               <!-- TODO, Link to map -->
               <img src="{{ product.contents['exposure.png'].url }}"
-                  alt="Population Exposure Map" />
+                alt="Population Exposure Map" />
               <figcaption>
                 Population per ~1 sq. km. from LandScan
               </figcaption>
