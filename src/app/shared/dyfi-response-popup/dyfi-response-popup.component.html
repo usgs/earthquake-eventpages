@@ -1,0 +1,20 @@
+<div class="dyfi-popup">
+  <h2 [innerHTML]="name"></h2>
+  <ul class="dyfi-summary">
+    <li class="dyfi-summary-intensity">
+      <shared-mmi [bubble]="true"
+        [intensity]="this.intensity">
+        {{ mmi }}
+        <br /><abbr title="Community Determined Intensity">cdi</abbr>
+      </shared-mmi>
+    </li>
+    <li class="dyfi-summary-nresp">
+      {{ nresp }}
+      <br /><abbr title="Number of Responses">responses</abbr>
+    </li>
+    <li class="dyfi-summary-distance">
+      {{ dist }}
+      <br /><abbr title="Distance from Hypocenter">distance</abbr>
+    </li>
+  </ul>
+</div>
