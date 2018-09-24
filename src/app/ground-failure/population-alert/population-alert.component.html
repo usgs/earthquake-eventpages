@@ -1,47 +1,74 @@
 <h4>{{ title }}</h4>
 
 <figure>
-  <ground-failure-alert-bar
-    [bins]="(type === 'landslide' ? landslideBins : liquefactionBins)"
+  <ground-failure-alert-bar [bins]="(type === 'landslide' ? landslideBins : liquefactionBins)"
     [title]="title"
     [units]="units"
     [value]="value">
   </ground-failure-alert-bar>
 
   <figcaption [ngSwitch]="alert">
-    <ng-container
-        *ngIf="
-          type === 'landslide'
-          ? {
-            label: 'landslides'
-          }
-          : {
-            label: 'liquefaction'
-          }; let madlibs">
+    <ng-container *ngIf="type === 'landslide'">
+      <ng-container *ngSwitchCase="'green'">
+        The number of people living near areas that
+        could have produced landslides in this
+        earthquake is low, but landslide damage or
+        fatalities are still possible in highly
+        susceptible areas. This is not a direct estimate
+        of landslide fatalities or losses.
+      </ng-container>
 
-      The approximate number of people living near areas prone to
-      {{ madlibs.label }} triggered by this earthquake is
+      <ng-container *ngSwitchCase="'yellow'">
+        The number of people living near areas that
+        could have produced landslides in this
+        earthquake is limited. This is not a direct
+        estimate of landslide fatalities or losses.
+      </ng-container>
 
-        <ng-container *ngSwitchCase="'green'">
-          low, but {{ madlibs.label }} damage or fatalities
-          are still possible in highly susceptible areas.
-        </ng-container>
+      <ng-container *ngSwitchCase="'orange'">
+        The number of people living near areas that
+        could have produced landslides in this
+        earthquake is significant. This is not a direct
+        estimate of landslide fatalities or losses.
+      </ng-container>
 
-        <ng-container *ngSwitchCase="'yellow'">
-          limited.
-        </ng-container>
+      <ng-container *ngSwitchCase="'red'">
+        The number of people living near areas that
+        could have produced landslides in this
+        earthquake is extensive. This is not a direct
+        estimate of landslide fatalities or losses.
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="type === 'liquefaction'">
+      <ng-container *ngSwitchCase="'green'">
+        The number of people living near areas that
+        could have produced liquefaction in this
+        earthquake is low, but liquefaction damage or
+        fatalities are still possible in highly
+        susceptible areas. This is not a direct estimate
+        of liquefaction fatalities or losses.
+      </ng-container>
 
-        <ng-container *ngSwitchCase="'orange'">
-          significant.
-        </ng-container>
+      <ng-container *ngSwitchCase="'yellow'">
+        The number of people living near areas that
+        could have produced liquefaction in this
+        earthquake is limited. This is not a direct
+        estimate of liquefaction fatalities or losses.
+      </ng-container>
 
-        <ng-container *ngSwitchCase="'red'">
-          extensive.
-        </ng-container>
+      <ng-container *ngSwitchCase="'orange'">
+        The number of people living near areas that
+        could have produced liquefaction in this
+        earthquake is significant. This is not a direct
+        estimate of liquefaction fatalities or losses.
+      </ng-container>
 
-      This is not a direct estimate of fatalities or losses
-      due to {{ madlibs.label }}.
-
+      <ng-container *ngSwitchCase="'red'">
+        The number of people living near areas that
+        could have produced liquefaction in this
+        earthquake is extensive. This is not a direct
+        estimate of liquefaction fatalities or losses.
+      </ng-container>
     </ng-container>
   </figcaption>
 </figure>
