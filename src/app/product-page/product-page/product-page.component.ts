@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs';
 import { ContributorService } from '@core/contributor.service';
 import { EventService } from '@core/event.service';
 
-
 /**
  * Product page grabs the product from the event object and
  * generates the scaffolding for the product specfic page.
@@ -29,9 +28,10 @@ import { EventService } from '@core/event.service';
 export class ProductPageComponent implements OnInit, OnDestroy {
   @Input()
   productType: string;
-
   // query params can override default product source/code to be shown
   queryParamMapSubscription: Subscription;
+  @Input()
+  showVersion = false;
 
   constructor(
     public contributorService: ContributorService,
