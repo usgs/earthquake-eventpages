@@ -1,3 +1,4 @@
+import { DyfiOverlaysPipe } from '@shared/dyfi-overlays.pipe';
 import { Pipe, PipeTransform } from '@angular/core';
 import { ParamMap } from '@angular/router';
 
@@ -31,7 +32,8 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     origin: new RegionInfoOverlaysPipe(),
     // keep origin first, the rest go here:
     shakemap: new ShakemapOverlaysPipe(),
-    'ground-failure': new GroundFailureOverlaysPipe()
+    'ground-failure': new GroundFailureOverlaysPipe(),
+    dyfi: new DyfiOverlaysPipe()
   };
   /* tslint:enable:object-literal-sort-keys */
   staticOverlays: L.Layer[] = [

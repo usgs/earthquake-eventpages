@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-
 /**
  * Service for formatting various types of data such as lat/longs, angles,
  * dates, et. al
@@ -14,13 +13,28 @@ export class FormatterService {
   readonly mmiArray: Array<string>;
   readonly mmiColors: Array<string>;
 
-  constructor () {
+  constructor() {
     this.depthDecimals = 1;
     this.distanceDecimals = 1;
     this.empty = '-';
     this.locationDecimals = 3;
-  }
 
+    this.mmiColors = [
+      '#FFFFFF', // I
+      '#FFFFFF', // I
+      '#ACD8E9', // II
+      '#ACD8E9', // III
+      '#83D0DA', // IV
+      '#7BC87F', // V
+      '#F9F518', // VI
+      '#FAC611', // VII
+      '#FA8A11', // VIII
+      '#F7100C', // IX
+      '#C80F0A', // X
+      '#C80F0A', // XI
+      '#C80F0A' // XII
+    ];
+  }
 
   /**
    * Format an angle to add the degrees symbol to it
@@ -32,13 +46,13 @@ export class FormatterService {
    * @returns
    *     The formatted angle
    */
-  angle (angle: any, decimals: number): string {
-      if (angle || angle === 0) {
-        // Note: Append &deg; manually to avoid space between value/units
-        return this.number(angle, decimals) + '°';
-      } else {
-        return this.empty;
-      }
+  angle(angle: any, decimals: number): string {
+    if (angle || angle === 0) {
+      // Note: Append &deg; manually to avoid space between value/units
+      return this.number(angle, decimals) + '°';
+    } else {
+      return this.empty;
+    }
   }
 
   /**
@@ -48,10 +62,8 @@ export class FormatterService {
    *     Date to format
    * @returns date formatted to year-month-day
    */
-  date (date: Date): string {
-    let year,
-        month,
-        day;
+  date(date: Date): string {
+    let year, month, day;
 
     if (!date || typeof date.getTime !== 'function') {
       return this.empty;
@@ -83,7 +95,7 @@ export class FormatterService {
    * @returns
    *     Formattted date/time
    */
-  dateTime (date, minutesOffset = 0, includeMilliseconds = false): string {
+  dateTime(date, minutesOffset = 0, includeMilliseconds = false): string {
     let milliOffset;
 
     if (date === null || typeof date === 'undefined') {
@@ -99,8 +111,14 @@ export class FormatterService {
       date = new Date(date.getTime() + milliOffset);
     }
 
-    return this.date(date) + ' ' + this.time(date, includeMilliseconds) +
-        ' (UTC' + this.timezoneOffset(minutesOffset) + ')';
+    return (
+      this.date(date) +
+      ' ' +
+      this.time(date, includeMilliseconds) +
+      ' (UTC' +
+      this.timezoneOffset(minutesOffset) +
+      ')'
+    );
   }
 
   /**
@@ -115,9 +133,8 @@ export class FormatterService {
    * @return
    *     Depth formatted with uncertainty appended to it
    */
-  depth (depth: number, units?: string, error?: number): string {
-    let number,
-        uncertainty;
+  depth(depth: number, units?: string, error?: number): string {
+    let number, uncertainty;
 
     number = this.number(depth, this.depthDecimals, this.empty, units);
     uncertainty = this.uncertainty(error, this.depthDecimals, '');
@@ -134,7 +151,7 @@ export class FormatterService {
    * @returns
    *     A distance with units appended to it
    */
-  distance (distance: number, units: string): string {
+  distance(distance: number, units: string): string {
     return this.number(distance, this.distanceDecimals, this.empty, units);
   }
 
@@ -148,15 +165,14 @@ export class FormatterService {
    * @returns
    *     Latitude with degrees symbol appended
    */
-  latitude (latitude: number, decimals = this.locationDecimals): string {
-    let latDir,
-        result;
+  latitude(latitude: number, decimals = this.locationDecimals): string {
+    let latDir, result;
 
     if (latitude === null || typeof latitude === 'undefined') {
       return this.empty;
     }
 
-    latDir = (latitude >= 0 ? 'N' : 'S');
+    latDir = latitude >= 0 ? 'N' : 'S';
 
     // already have sign information, abs and round
     result = this.number(Math.abs(latitude), decimals);
@@ -179,10 +195,8 @@ export class FormatterService {
    * @returns
    *     A string padded out to the desired length with the given pad
    */
-  leftPad (source: string, length: number, pad: string): string {
-    let i,
-        padLength,
-        padding;
+  leftPad(source: string, length: number, pad: string): string {
+    let i, padLength, padding;
 
     padLength = length - source.length;
     padding = [];
@@ -194,7 +208,6 @@ export class FormatterService {
     for (i = 0; i < padLength; i++) {
       padding[i] = pad;
     }
-
 
     return padding.join('') + source;
   }
@@ -211,10 +224,16 @@ export class FormatterService {
    * @returns
    *     Coordinates based on lat/long
    */
-  location (latitude: number, longitude: number,
-      decimals = this.locationDecimals): string {
-    return this.latitude(latitude, decimals) + ' ' +
-        this.longitude(longitude, decimals);
+  location(
+    latitude: number,
+    longitude: number,
+    decimals = this.locationDecimals
+  ): string {
+    return (
+      this.latitude(latitude, decimals) +
+      ' ' +
+      this.longitude(longitude, decimals)
+    );
   }
 
   /**
@@ -227,19 +246,17 @@ export class FormatterService {
    * @returns
    *    formatted longitude
    */
-  longitude (longitude: number, decimals = this.locationDecimals): string {
-    let lngDir,
-        result;
+  longitude(longitude: number, decimals = this.locationDecimals): string {
+    let lngDir, result;
 
     if (longitude === null || typeof longitude === 'undefined') {
       return this.empty;
     }
 
-    lngDir = (longitude >= 0 ? 'E' : 'W');
+    lngDir = longitude >= 0 ? 'E' : 'W';
 
     // already have sign information, abs and round
     result = this.number(Math.abs(longitude), decimals);
-
 
     return `${result}°${lngDir}`;
   }
@@ -254,12 +271,28 @@ export class FormatterService {
    * @returns
    *     Formatted magnitude
    */
-  magnitude (value: number, type: string): any {
+  magnitude(value: number, type: string): any {
     if (!value && value !== 0) {
       return this.empty;
     }
 
     return this.number(value, null, type);
+  }
+
+  /**
+   * Associate a cdi with it's proper color
+   *
+   * @param cdi
+   *      The magnitude
+   * @returns
+   *      The color in the array
+   */
+  mmiColor(cdi: number): string {
+    if (cdi === null || !cdi) {
+      return null;
+    }
+    cdi = Math.round(cdi);
+    return this.mmiColors[cdi] || null;
   }
 
   /**
@@ -276,10 +309,13 @@ export class FormatterService {
    * @returns
    *     Number appended with units
    */
-  number (value: number, decimals?: number, empty = this.empty,
-      units = ''): string {
-    let factor,
-        result;
+  number(
+    value: number,
+    decimals?: number,
+    empty = this.empty,
+    units = ''
+  ): string {
+    let factor, result;
 
     if (!value && value !== 0) {
       return empty;
@@ -307,7 +343,7 @@ export class FormatterService {
    * @returns
    *     The status to uppercase
    */
-  reviewStatus (status: string): string {
+  reviewStatus(status: string): string {
     if (!status) {
       return this.empty;
     }
@@ -325,11 +361,8 @@ export class FormatterService {
    * @returns
    *     Date formatted to UTC time in hours:minutes:seconds:milliseconds
    */
-  time (date: Date, includeMilliseconds = false): string {
-    let hours,
-        minutes,
-        seconds,
-        milliseconds;
+  time(date: Date, includeMilliseconds = false): string {
+    let hours, minutes, seconds, milliseconds;
 
     if (!date) {
       return this.empty;
@@ -371,10 +404,8 @@ export class FormatterService {
    * @returns
    *     Time zone offset in sign:hours:minutes with sign being +/-
    */
-  timezoneOffset (offset = 0): string {
-    let hours,
-        minutes,
-        sign;
+  timezoneOffset(offset = 0): string {
+    let hours, minutes, sign;
 
     if (!offset || offset === 0) {
       return '';
@@ -385,7 +416,7 @@ export class FormatterService {
       sign = '+';
     }
 
-    hours = parseInt('' + (offset / 60), 10);
+    hours = parseInt('' + offset / 60, 10);
     minutes = parseInt('' + (offset % 60), 10);
 
     if (hours < 10) {
@@ -412,8 +443,12 @@ export class FormatterService {
    * @returns
    *     Uncertainty prepended with the +/- symbol
    */
-  uncertainty (error: number, decimals: number, empty = this.empty,
-      units?: string): string {
+  uncertainty(
+    error: number,
+    decimals: number,
+    empty = this.empty,
+    units?: string
+  ): string {
     let result;
 
     if (!error && error !== 0) {
@@ -423,5 +458,4 @@ export class FormatterService {
     result = this.number(error, decimals, null, units);
     return `&plusmn; ${result}`;
   }
-
 }

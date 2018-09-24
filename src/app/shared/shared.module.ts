@@ -53,6 +53,8 @@ import { TensorPipe } from './tensor.pipe';
 import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 import { UnitsPipe } from './units.pipe';
+import { DyfiOverlaysPipe } from './dyfi-overlays.pipe';
+import { DyfiResponsePopupComponent } from './dyfi-response-popup/dyfi-response-popup.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { UnitsPipe } from './units.pipe';
     DegreesPipe,
     DownloadDialogComponent,
     DyfiCounterPipe,
+    DyfiOverlaysPipe,
+    DyfiResponsePopupComponent,
     FeRegionComponent,
     GetProductPipe,
     GroundFailureOverlaysPipe,
@@ -99,7 +103,11 @@ import { UnitsPipe } from './units.pipe';
     UncertainValueComponent,
     UnitsPipe
   ],
-  entryComponents: [DownloadDialogComponent, StationComponent],
+  entryComponents: [
+    DownloadDialogComponent,
+    StationComponent,
+    DyfiResponsePopupComponent
+  ],
   exports: [
     AlertLevelComponent,
     AttributionComponent,
@@ -165,6 +173,17 @@ export class SharedModule {
       // shakemap-station element is not yet registered
       const station = createCustomElement(StationComponent, { injector });
       customElements.define('shakemap-station', station);
+    }
+
+    // create dyfi-response-popup
+    const dyfiPopupConst = document.createElement('dyfi-response').constructor;
+
+    if (dyfiPopupConst === HTMLElement) {
+      // dyfi popup element is not yet registered
+      const dyfiPopup = createCustomElement(DyfiResponsePopupComponent, {
+        injector
+      });
+      customElements.define('dyfi-response', dyfiPopup);
     }
   }
 }
