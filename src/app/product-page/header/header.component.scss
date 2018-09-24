@@ -11,7 +11,7 @@
 
     &:before {
       display: block;
-      font-family: 'Material Icons';
+      font-family: "Material Icons";
       left: 0;
       margin-right: 0.25em;
       position: absolute;
@@ -21,13 +21,13 @@
     &.preferred:before,
     &.reviewed:before {
       color: #090;
-      content: '\0e5ca';
+      content: "\0e5ca";
     }
 
     &.unpreferred:before,
     &.unreviewed:before {
-      color: #F90;
-      content: '\e888';
+      color: #f90;
+      content: "\e888";
     }
   }
 }
