@@ -2,7 +2,8 @@
   <!-- custom module header content -->
   <ng-content></ng-content>
 
-  <shared-summary-link [productType]="product?.type" [event]="event">
+  <shared-summary-link [productType]="product?.type"
+    [event]="event">
   </shared-summary-link>
 
   <small class="attribution">
@@ -23,6 +24,11 @@
     <ng-container *ngIf="isReviewed(product); then reviewed else unreviewed">
     </ng-container>
   </ul>
+
+  <small *ngIf="showVersion && product | sharedProductProperty:'version'
+      as version">
+    Version {{ version }}
+  </small>
 </header>
 
 <!-- Display Preferred Status -->

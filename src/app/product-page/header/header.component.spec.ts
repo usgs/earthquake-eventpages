@@ -27,7 +27,8 @@ describe('HeaderComponent', () => {
           selector: 'shared-summary-link'
         }),
 
-        MockPipe('dateTime')
+        MockPipe('dateTime'),
+        MockPipe('sharedProductProperty')
       ]
     }).compileComponents();
   }));

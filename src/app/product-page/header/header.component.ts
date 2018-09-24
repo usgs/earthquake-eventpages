@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-
 /**
  * Header generates markup for a product specific page and lists the
  * product's preferredness and its review status.
@@ -27,6 +26,8 @@ export class HeaderComponent {
   event: any;
   @Input()
   product: any;
+  @Input()
+  showVersion: boolean;
 
   /**
    * Determine whether or not the product is preferred
