@@ -30,7 +30,13 @@ describe('ProductPageComponent', () => {
           selector: 'product-page-footer'
         }),
         MockComponent({
-          inputs: ['contributors', 'event', 'product', 'productType'],
+          inputs: [
+            'contributors',
+            'event',
+            'product',
+            'productType',
+            'showVersion'
+          ],
           selector: 'product-page-header'
         })
       ],
