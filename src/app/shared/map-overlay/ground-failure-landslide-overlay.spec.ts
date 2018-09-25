@@ -1,4 +1,3 @@
-
 import { GroundFailureLandslideOverlay } from './ground-failure-landslide-overlay';
 
 describe('GroundFailureLandslideOverlay', () => {
@@ -47,6 +46,6 @@ describe('GroundFailureLandslideOverlay', () => {
   it('sets the legend', () => {
     const overlay = new GroundFailureLandslideOverlay(product);
     expect(overlay.legends).not.toBeNull();
-    expect(overlay.legends.length).toEqual(1);
+    expect(overlay.legends.length).toEqual(2);
   });
 });

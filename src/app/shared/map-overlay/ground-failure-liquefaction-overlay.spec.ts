@@ -46,6 +46,6 @@ describe('GroundFailureLiquefactionOverlay', () => {
   it('sets the legend', () => {
     const overlay = new GroundFailureLiquefactionOverlay(product);
     expect(overlay.legends).not.toBeNull();
-    expect(overlay.legends.length).toEqual(1);
+    expect(overlay.legends.length).toEqual(3);
   });
 });
