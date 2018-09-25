@@ -13,42 +13,53 @@
 
   <ng-container *ngIf="pagerXmlService.pagerXml$ | async as pager; else noPagerXml">
 
+
     <div *ngIf="eventService.product$ | async as product">
-      <div class="alert-wrapper row">
-        <div class="column one-of-one pager-pending"></div>
-        <div class="column one-of-two fatality-histogram">
-          <h3>Estimated Fatalities</h3>
-          <ng-container *ngIf="product.contents &&
-              product.contents['alertfatal.pdf'] &&
-              product.contents['alertfatal.png']; else noImage">
-            <figure>
-              <a href="{{ product.contents['alertfatal.pdf'].url }}">
-                <img src="{{ product.contents['alertfatal.png'].url }}"
-                  alt="Estimated Fatalities Histogram" />
-              </a>
-              <figcaption *ngIf="pager.comments?.impact?.fatality">
-                {{ pager.comments.impact.fatality }}
-              </figcaption>
-            </figure>
-          </ng-container>
+
+      <ng-container *ngIf="!pending; else isPending">
+        <div class="alert-wrapper row">
+          <div class="column one-of-one pager-pending"></div>
+          <div class="column one-of-two fatality-histogram">
+            <h3>Estimated Fatalities</h3>
+            <ng-container *ngIf="product.contents &&
+                      product.contents['alertfatal.pdf'] &&
+                      product.contents['alertfatal.png']; else noImage">
+              <figure>
+                <a href="{{ product.contents['alertfatal.pdf'].url }}">
+                  <img src="{{ product.contents['alertfatal.png'].url }}"
+                    alt="Estimated Fatalities Histogram" />
+                </a>
+                <figcaption *ngIf="pager.comments?.impact?.fatality">
+                  {{ pager.comments.impact.fatality }}
+                </figcaption>
+              </figure>
+            </ng-container>
+          </div>
+          <div class="column one-of-two economic-histogram">
+            <h3>Estimated Economic Losses</h3>
+            <ng-container *ngIf="product.contents &&
+                      product.contents['alertecon.pdf'] &&
+                      product.contents['alertecon.png']; else noImage">
+              <figure>
+                <a href="{{ product.contents['alertecon.pdf'].url }}">
+                  <img src="{{ product.contents['alertecon.png'].url }}"
+                    alt="Estimated Economic Losses Histogram" />
+                </a>
+                <figcaption *ngIf="pager.comments?.impact?.economic">
+                  {{ pager.comments.impact.economic }}
+                </figcaption>
+              </figure>
+            </ng-container>
+          </div>
         </div>
-        <div class="column one-of-two economic-histogram">
-          <h3>Estimated Economic Losses</h3>
-          <ng-container *ngIf="product.contents &&
-              product.contents['alertecon.pdf'] &&
-              product.contents['alertecon.png']; else noImage">
-            <figure>
-              <a href="{{ product.contents['alertecon.pdf'].url }}">
-                <img src="{{ product.contents['alertecon.png'].url }}"
-                  alt="Estimated Economic Losses Histogram" />
-              </a>
-              <figcaption *ngIf="pager.comments?.impact?.economic">
-                {{ pager.comments.impact.economic }}
-              </figcaption>
-            </figure>
-          </ng-container>
-        </div>
-      </div>
+      </ng-container>
+
+      <ng-template #isPending>
+        <p class="alert info">
+          Alert information for this event is currently under review and will be available soon. Thank you for your
+          patience.
+        </p>
+      </ng-template>
 
       <div class="row pager-content">
         <div class="column one-of-two">
