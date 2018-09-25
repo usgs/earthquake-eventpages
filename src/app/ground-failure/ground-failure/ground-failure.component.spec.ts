@@ -32,7 +32,8 @@ describe('GroundFailureComponent', () => {
         MockComponent({ selector: 'mdc-tab-bar-scroll-forward' }),
 
         MockPipe('pointSource'),
-        MockPipe('sharedProductProperty')
+        MockPipe('sharedProductProperty'),
+        MockPipe('sharedStatus')
       ],
       imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]
