@@ -14,6 +14,7 @@ import { GroundFailureRoutingModule } from './ground-failure-routing.module';
 import { GroundFailureComponent } from './ground-failure/ground-failure.component';
 import { SummaryComponent } from './summary/summary.component';
 import { HazardAlertComponent } from './hazard-alert/hazard-alert.component';
+import { PointSourcePipe } from './point-source.pipe';
 import { PopulationAlertComponent } from './population-alert/population-alert.component';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { PopulationAlertComponent } from './population-alert/population-alert.co
     AlertBarComponent,
     GetBarPositionPipe,
     HazardAlertComponent,
+    PointSourcePipe,
     PopulationAlertComponent
   ],
   imports: [
