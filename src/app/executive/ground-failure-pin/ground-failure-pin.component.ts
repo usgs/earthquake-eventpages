@@ -23,15 +23,4 @@ export class GroundFailurePinComponent implements OnInit {
   ngOnInit() {
     console.log('product: ', this.product);
   }
-
-  getSwitchClass() {
-    console.log('called!');
-    if (this.product && this.product.properties) {
-      if (
-        this.product.properties['landslide-hazard-alert-color'] === 'pending'
-      ) {
-        return 'alert info';
-      }
-    }
-  }
 }
