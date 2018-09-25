@@ -6,7 +6,6 @@ import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 // tslint:disable-next-line:variable-name
 const ShakemapPGAOverlay = ShakemapContoursOverlay.extend({
   id: 'shakemap-pga',
-  legend: null,
   title: 'Shakemap PGA Contours',
 
   /**

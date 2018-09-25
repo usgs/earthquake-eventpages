@@ -1,32 +1,35 @@
-
 import { GroundFailureLandslideOverlay } from './ground-failure-landslide-overlay';
 
 describe('GroundFailureLandslideOverlay', () => {
-  const product = {
-    contents: {
-      'jessee.png': {
-        url: 'test.html'
+  let overlay, product;
+
+  beforeEach(() => {
+    product = {
+      contents: {
+        'jessee.png': {
+          url: 'test.html'
+        }
+      },
+      properties: {
+        'landslide-maximum-latitude': 0,
+        'landslide-maximum-longitude': 0,
+        'landslide-minimum-latitude': 0,
+        'landslide-minimum-longitude': 0,
+        'landslide-overlay': 'jessee.png',
+        'maximum-latitude': 0,
+        'maximum-longitude': 0,
+        'minimum-latitude': 0,
+        'minimum-longitude': 0
       }
-    },
-    properties: {
-      'landslide-maximum-latitude': 0,
-      'landslide-maximum-longitude': 0,
-      'landslide-minimum-latitude': 0,
-      'landslide-minimum-longitude': 0,
-      'landslide-overlay': 'jessee.png',
-      'maximum-latitude': 0,
-      'maximum-longitude': 0,
-      'minimum-latitude': 0,
-      'minimum-longitude': 0
-    }
-  };
+    };
+    overlay = new GroundFailureLandslideOverlay(product);
+  });
 
   it('can be created', () => {
-    expect(new GroundFailureLandslideOverlay()).toBeTruthy();
+    expect(overlay).toBeTruthy();
   });
 
   it('sets the bounds', () => {
-    const overlay = new GroundFailureLandslideOverlay(product);
     expect(overlay.bounds).toEqual([
       [
         product.properties['minimum-latitude'],
@@ -40,12 +43,10 @@ describe('GroundFailureLandslideOverlay', () => {
   });
 
   it('sets the layer', () => {
-    const overlay = new GroundFailureLandslideOverlay(product);
     expect(overlay.layer).not.toBeNull();
   });
 
   it('sets the legend', () => {
-    const overlay = new GroundFailureLandslideOverlay(product);
     expect(overlay.legends).not.toBeNull();
     expect(overlay.legends.length).toEqual(1);
   });

@@ -1,14 +1,14 @@
 import * as L from 'leaflet';
 
 /**
- * Landscan overlay for leaflet map
+ * Tectonic Plates for leaflet map
  */
 // tslint:disable-next-line:variable-name
 const TectonicPlatesOverlay = L.TileLayer.extend({
   bounds: null,
   enabled: true,
   id: 'tectonic-plates',
-  legends: null,
+  legends: [],
   title: 'Tectonic Plates',
 
   /**
@@ -20,7 +20,7 @@ const TectonicPlatesOverlay = L.TileLayer.extend({
     legend.setAttribute('alt', 'Tectonic Plates Legend');
 
     // Add to legends array
-    this.legends = [legend];
+    this.legends.push(legend);
 
     L.TileLayer.prototype.initialize.call(
       this,

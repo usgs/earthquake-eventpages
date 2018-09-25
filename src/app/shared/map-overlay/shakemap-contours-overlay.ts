@@ -9,7 +9,7 @@ import * as L from 'leaflet';
 const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
   _count: 0,
   id: 'shakemap-contour',
-  legends: null,
+  legends: [],
   title: 'Shakemap Contour',
 
   /**
@@ -23,7 +23,8 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
     legend.src = './assets/legend-intensity-contour.png';
     legend.setAttribute('alt', 'Intensity Contour Legend');
 
-    this.legends = [legend];
+    // Add to legends array
+    this.legends.push(legend);
 
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
   },

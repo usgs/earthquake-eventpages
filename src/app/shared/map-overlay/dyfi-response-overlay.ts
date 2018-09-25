@@ -8,7 +8,7 @@ import { RomanPipe } from '@shared/roman.pipe';
 // tslint:disable-next-line:variable-name
 const DyfiResponseOverlay = AsynchronousGeoJSONOverlay.extend({
   id: '',
-  legend: null,
+  legends: [],
   romanPipe: new RomanPipe(),
   title: '',
   unit: null,
@@ -33,8 +33,11 @@ const DyfiResponseOverlay = AsynchronousGeoJSONOverlay.extend({
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 
     const legend = document.createElement('img');
-    legend.setAttribute('alt', 'DYFI Response ' + this.unit + 'km');
-    this.legend = legend;
+    legend.src = './assets/legend-geocoded-area.png';
+    legend.setAttribute('alt', 'Did You Feel It? Geocoded Area');
+
+    // Add to legends array
+    this.legends.push(legend);
 
     this.url = this.getUrl(product);
   },

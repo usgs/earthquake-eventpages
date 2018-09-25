@@ -13,7 +13,7 @@ import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 // tslint:disable-next-line:variable-name
 const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
   id: 'shakemap-stations',
-  legends: null,
+  legends: [],
   locationPipe: null,
   numberPipe: null,
   romanPipe: new RomanPipe(),
@@ -38,7 +38,8 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
     dyfiStation.src = './assets/legend-shakemap-station.png';
     dyfiStation.setAttribute('alt', 'DYFI Shakemap Station Legend');
 
-    this.legends = [mmiLegend, stationLegend, dyfiStation];
+    // Add to legends array
+    this.legends.push(mmiLegend, stationLegend, dyfiStation);
 
     AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
 

@@ -6,7 +6,7 @@ import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 // tslint:disable-next-line:variable-name
 const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
   id: 'shakemap-intensity',
-  legends: null,
+  legends: [],
   title: 'Shakemap MMI Contours',
 
   /**
@@ -27,7 +27,7 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
     contourLegend.setAttribute('alt', 'Intensity Contour Legend');
 
     // Add to legends array
-    this.legends = [intensityLegend, contourLegend];
+    this.legends.push(intensityLegend, contourLegend);
 
     this.url = this.getUrl(product);
   },

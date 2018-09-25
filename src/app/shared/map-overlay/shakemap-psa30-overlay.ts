@@ -7,7 +7,6 @@ import { ShakemapContoursOverlay } from './shakemap-contours-overlay';
 // tslint:disable-next-line:variable-name
 const ShakemapPSA30Overlay = ShakemapContoursOverlay.extend({
   id: 'shakemap-psa30',
-  legend: null,
   title: 'Shakemap PSA30 Contours',
 
   /**
