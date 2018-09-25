@@ -66,7 +66,7 @@ export class StationListComponent implements OnInit, OnDestroy {
    *     station list json
    */
   onStations(stationsJson: any): void {
-    if (stationsJson === null) {
+    if (!stationsJson) {
       this.stations = [];
       return;
     }
