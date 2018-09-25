@@ -78,7 +78,7 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
    * @param feature
    *     The feature from the product
    */
-  getPopupContent: function(feature: any) {
+  generatePopupContent: function(feature: any) {
     return this.createLabel(feature);
   },
 
@@ -122,7 +122,7 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
 
     this._count += 1;
 
-    const popupContent = this.getPopupContent(feature);
+    const popupContent = this.generatePopupContent(feature);
     layer.bindPopup(popupContent);
   },
 
@@ -136,8 +136,7 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
     // set default line style
     // weight oscillates
     const color = feature.properties.color ? feature.properties.color : '#fff';
-    const weight = feature.properties.weight ?
-        feature.properties.weight :  4 - (this._count % 2) * 2;
+    const weight = feature.properties.weight ? feature.properties.weight : 4;
 
     const lineStyle = {
       color: color,
