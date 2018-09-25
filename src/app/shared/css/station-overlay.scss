@@ -11,7 +11,7 @@
     border: 10px solid transparent;
     border-left-width: 6px;
     border-right-width: 6px;
-    content: ' ';
+    content: " ";
     display: block;
     left: 1px;
     position: absolute;
@@ -24,7 +24,7 @@
     border-bottom-color: #666;
     border-left-width: 8px;
     border-right-width: 8px;
-    content: ' ';
+    content: " ";
     display: block;
     left: -1px;
     position: absolute;
@@ -82,19 +82,18 @@
 }
 
 .leaflet-popup shakemap-station {
-
-   dl.description-table {
+  dl.description-table {
     /* 24px column gaps */
     > dt {
       flex: 1 40%;
-      font-size: .88em;
+      font-size: 0.88em;
       min-height: auto;
       padding: 4px 3px 4px 6px;
     }
 
     > dd {
       flex: 1 60%;
-      font-size: .88em;
+      font-size: 0.88em;
       min-height: auto;
       padding: 4px 6px 4px 3px;
     }
@@ -102,7 +101,6 @@
 
   mat-header-cell,
   mat-cell {
-
     &:first-child {
       padding-left: 4px;
     }
@@ -114,5 +112,10 @@
   .mat-cell {
     font-size: 0.88em;
   }
+}
 
+.leaflet-popup > .leaflet-popup-content-wrapper {
+  max-height: 300px;
+  overflow-y: scroll;
+  background: #fafafa;
 }
