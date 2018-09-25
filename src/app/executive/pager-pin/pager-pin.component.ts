@@ -25,7 +25,12 @@ export class PagerPinComponent implements OnInit {
   title = 'PAGER';
 
   isPending(): boolean {
-    if (this.product.properties.alertlevel.toLowerCase() === 'pending') {
+    if (
+      this.product &&
+      this.product.properties &&
+      this.product.properties.alertlevel &&
+      this.product.properties.alertlevel === 'pending'
+    ) {
       return true;
     } else {
       return false;

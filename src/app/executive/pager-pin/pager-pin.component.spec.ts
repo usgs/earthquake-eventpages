@@ -9,7 +9,7 @@ import { PagerPinComponent } from './pager-pin.component';
 describe('PagerPinComponent', () => {
   let component: PagerPinComponent;
   let fixture: ComponentFixture<PagerPinComponent>;
-  let product;
+  let product, spy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -43,6 +43,9 @@ describe('PagerPinComponent', () => {
 
     component.product = product;
     component.link = 'myUrl';
+
+    spy = spyOn(component, 'isPending').and.callThrough();
+
     fixture.detectChanges();
   });
 
@@ -56,5 +59,22 @@ describe('PagerPinComponent', () => {
 
   it('should have pending set to true', () => {
     expect(component.pending).toBeTruthy();
+  });
+
+  it('should have ngOnInit call the isPending function', () => {
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should return true', () => {
+    const value = component.isPending();
+    expect(value).toBe(true);
+  });
+
+  it('should return false', () => {
+    const newProduct = product;
+    newProduct.properties.alertlevel = 'yellow';
+    component.product = newProduct;
+    const value = component.isPending();
+    expect(value).toBe(false);
   });
 });
