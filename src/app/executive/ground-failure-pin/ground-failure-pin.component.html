@@ -8,7 +8,8 @@
     <dd>
       <figure [ngClass]="properties['landslide-alert']">
         <div class="svg-wrapper">
-          <svg version="1.1"
+          <svg *ngIf="properties['landslide-alert'] !== 'pending'; else isPending"
+            version="1.1"
             id="Layer_1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -57,6 +58,9 @@
                 c0.2-0.1,1.1-0.1,1.1-0.2c0.1-0.5,0.9-0.5,1.2-0.2c0.3,0.2,0.4,0.5,0.7,0.7c0.3,0.2,0.7,0.2,1,0.4c0.6,0.4,1,0.7,1.3,1.3
                 c0.1,0.3,0.4,0.8,0.4,1.1C37.1,57.4,36.8,57.7,36.8,58z" />
           </svg>
+          <ng-template #isPending>
+            <p class="alert info"></p>
+          </ng-template>
         </div>
         <figcaption>
           <ng-container [ngSwitch]="properties['landslide-hazard-alert-color']">
@@ -72,6 +76,9 @@
             <p *ngSwitchCase="'red'">
               Extensive area affected
             </p>
+            <p *ngSwitchCase="'pending'">
+              Alert Pending
+            </p>
           </ng-container>
           <ng-container [ngSwitch]="properties['landslide-population-alert-color']">
             <p *ngSwitchCase="'green'">
@@ -86,6 +93,9 @@
             <p *ngSwitchCase="'red'">
               Extensive population exposed
             </p>
+            <p *ngSwitchCase="'pending'">
+              Alert Pending
+            </p>
           </ng-container>
         </figcaption>
       </figure>
@@ -98,6 +108,7 @@
       <figure [ngClass]="properties['liquefaction-alert']">
         <div class="svg-wrapper">
           <svg version="1.1"
+            *ngIf="properties['liquefaction-alert'] !== 'pending'; else isPending"
             id="Layer_1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -149,6 +160,13 @@
             <p *ngSwitchCase="'red'">
               Extensive area affected
             </p>
+            <p *ngSwitchCase="'clear'"
+              class="alert info">
+              Add pending warning here
+            </p>
+            <p *ngSwitchCase="'pending'">
+              Alert Pending
+            </p>
           </ng-container>
           <ng-container [ngSwitch]="properties['liquefaction-population-alert-color']">
             <p *ngSwitchCase="'green'">
@@ -162,6 +180,9 @@
             </p>
             <p *ngSwitchCase="'red'">
               Extensive population exposed
+            </p>
+            <p *ngSwitchCase="'pending'">
+              Alert Pending
             </p>
           </ng-container>
         </figcaption>

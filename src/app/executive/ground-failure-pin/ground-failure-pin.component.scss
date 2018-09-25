@@ -34,26 +34,39 @@ dd {
     }
 
     &.green {
-      .st0, .st1 {
+      .st0,
+      .st1 {
         fill: rgb(39, 168, 60);
       }
     }
 
     &.yellow {
-      .st0, .st1 {
+      .st0,
+      .st1 {
         fill: rgb(229, 229, 20);
       }
     }
 
     &.orange {
-      .st0, .st1 {
+      .st0,
+      .st1 {
         fill: rgb(240, 162, 22);
       }
     }
 
     &.red {
-      .st0, .st1 {
+      .st0,
+      .st1 {
         fill: rgb(186, 45, 26);
+      }
+    }
+
+    &.pending {
+      .st0,
+      .st1 {
+        stroke: black;
+        stroke-width: 1.05;
+        fill: rgba(0, 0, 0, 0);
       }
     }
   }
