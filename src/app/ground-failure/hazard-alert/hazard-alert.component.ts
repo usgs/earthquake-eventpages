@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-
 /**
  * Display the "estimated area exposed" bins on ground-failure product page
  *
@@ -34,7 +33,7 @@ export class HazardAlertComponent {
       color: '#27a83c',
       max: 1,
       min: 0.1,
-      text: 'Little to no'
+      text: 'Little or no'
     },
     {
       color: '#e5e514',
@@ -61,7 +60,7 @@ export class HazardAlertComponent {
       color: '#27a83c',
       max: 10,
       min: 1,
-      text: 'Little to no'
+      text: 'Little or no'
     },
     {
       color: '#e5e514',

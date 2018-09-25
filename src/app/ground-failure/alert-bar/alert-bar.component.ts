@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-
 /**
  * Generate alert bars for summary tab, on ground-failure product page
  *
@@ -30,7 +29,7 @@ export class AlertBarComponent {
       color: '#27a83c',
       max: 1,
       min: 0,
-      text: 'Little to no'
+      text: 'Little or no'
     },
     {
       color: '#e5e514',
@@ -69,7 +68,7 @@ export class AlertBarComponent {
    * @param item
    *    alert bin
    */
-  trackByIndex (index, item) {
+  trackByIndex(index, item) {
     return index;
   }
 }

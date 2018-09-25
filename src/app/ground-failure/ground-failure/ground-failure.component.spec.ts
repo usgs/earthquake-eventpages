@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
+import { MockPipe } from '../../mock-pipe';
 import { EventService } from '@core/event.service';
 import { GroundFailureComponent } from './ground-failure.component';
 
@@ -28,7 +29,10 @@ describe('GroundFailureComponent', () => {
         MockComponent({ selector: 'mdc-tab-bar-scroller' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-back' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-forward' })
+        MockComponent({ selector: 'mdc-tab-bar-scroll-forward' }),
+
+        MockPipe('pointSource'),
+        MockPipe('sharedProductProperty')
       ],
       imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]

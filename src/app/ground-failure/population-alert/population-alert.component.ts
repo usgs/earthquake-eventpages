@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-
 /**
  * Display population exposure bins on ground-failure product page
  *
@@ -33,7 +32,7 @@ export class PopulationAlertComponent {
       color: '#27a83c',
       max: 100,
       min: 10,
-      text: 'Little to no'
+      text: 'Little or no'
     },
     {
       color: '#e5e514',
@@ -60,7 +59,7 @@ export class PopulationAlertComponent {
       color: '#27a83c',
       max: 1000,
       min: 10,
-      text: 'Little to no'
+      text: 'Little or no'
     },
     {
       color: '#e5e514',
