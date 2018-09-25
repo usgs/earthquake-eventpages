@@ -71,6 +71,17 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
     return angle;
   },
 
+
+  /**
+   * Generates popup content for an individual feature
+   *
+   * @param feature
+   *     The feature from the product
+   */
+  getPopupContent: function(feature: any) {
+    return this.createLabel(feature);
+  },
+
   /**
    * Generates a marker for the contours overlay and adds the layer
    *
@@ -110,6 +121,9 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
     }
 
     this._count += 1;
+
+    const popupContent = this.getPopupContent(feature);
+    layer.bindPopup(popupContent);
   },
 
   /**
