@@ -64,6 +64,40 @@ describe('ShakemapContoursOverlay', () => {
     });
   });
 
+  describe('style', () => {
+    it('uses weight property when available', () => {
+      const shakemapV4Feature = {
+        geometry: {
+          coordinates: [[[0, 0], [1, 1]]]
+        },
+        properties: {
+          color: '#aaa',
+          value: 1,
+          weight: 4
+        }
+      };
+
+      const style = overlay.style(shakemapV4Feature);
+      expect(style.weight).toBe(shakemapV4Feature.properties.weight);
+    });
+
+    it('uses color property when available', () => {
+      const shakemapV4Feature = {
+        geometry: {
+          coordinates: [[[0, 0], [1, 1]]]
+        },
+        properties: {
+          color: '#aaa',
+          value: 1,
+          weight: 4
+        }
+      };
+
+      const style = overlay.style(shakemapV4Feature);
+      expect(style.color).toBe(shakemapV4Feature.properties.color);
+    });
+  });
+
   describe('after add', () => {
     beforeEach(() => {
       overlay.map = {

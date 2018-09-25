@@ -128,7 +128,7 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
     const lineStyle = {
       color: color,
       opacity: 1,
-      weight:  weight
+      weight: weight
     };
 
     return lineStyle;
