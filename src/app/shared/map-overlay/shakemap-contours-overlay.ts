@@ -19,14 +19,18 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
    *     The product from this event
    */
   initialize: function(product: any) {
-    const legend = document.createElement('img');
-    legend.src = './assets/legend-intensity-contour.png';
-    legend.setAttribute('alt', 'Intensity Contour Legend');
+    AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
+
+    const contourLegend = document.createElement('img');
+    contourLegend.src = './assets/legend-intensity-contour.png';
+    contourLegend.setAttribute('alt', 'Intensity Contour Legend');
+
+    const intensityLegend = document.createElement('img');
+    intensityLegend.src = './assets/shakemap-intensity-legend-small.png';
+    intensityLegend.setAttribute('alt', 'Intensity Scale legend');
 
     // Add to legends array
-    this.legends.push(legend);
-
-    AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
+    this.legends.push(intensityLegend, contourLegend);
   },
 
   /**
@@ -117,10 +121,14 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
   style: function(feature: any) {
     // set default line style
     // weight oscillates
+    const color = feature.properties.color ? feature.properties.color : '#fff';
+    const weight = feature.properties.weight ?
+        feature.properties.weight :  4 - (this._count % 2) * 2;
+
     const lineStyle = {
-      color: '#fff',
+      color: color,
       opacity: 1,
-      weight: 4 - (this._count % 2) * 2
+      weight:  weight
     };
 
     return lineStyle;
