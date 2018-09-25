@@ -129,8 +129,8 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
       this.overlayCache = {};
     }
 
-    // check if event exists, event will never be null
-    if (!event.id) {
+    // event should never be null
+    if (!event || !event.id) {
       return [];
     }
 

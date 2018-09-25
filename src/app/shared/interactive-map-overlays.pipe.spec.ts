@@ -27,6 +27,7 @@ describe('InteractiveMapOverlaysPipe', () => {
 
   it('caches overlays when product unchanged', () => {
     const event = new Event({
+      id: 'us0000test',
       properties: {
         products: {
           origin: [
