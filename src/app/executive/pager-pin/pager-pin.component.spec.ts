@@ -9,6 +9,7 @@ import { PagerPinComponent } from './pager-pin.component';
 describe('PagerPinComponent', () => {
   let component: PagerPinComponent;
   let fixture: ComponentFixture<PagerPinComponent>;
+  let product;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -31,12 +32,29 @@ describe('PagerPinComponent', () => {
   }));
 
   beforeEach(() => {
+    product = {
+      properties: {
+        alertlevel: 'pending'
+      }
+    };
+
     fixture = TestBed.createComponent(PagerPinComponent);
     component = fixture.componentInstance;
+
+    component.product = product;
+    component.link = 'myUrl';
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have pending set', () => {
+    expect(component.product.properties.alertlevel).toEqual('pending');
+  });
+
+  it('should have pending set to true', () => {
+    expect(component.pending).toBeTruthy();
   });
 });
