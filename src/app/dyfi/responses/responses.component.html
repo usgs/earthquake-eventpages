@@ -7,7 +7,10 @@
   </button>
 
   <mat-form-field>
-    <input matInput (keyup)="filter($event.target.value)" placeholder="Filter">
+    <input matInput 
+        (keyup)="filter($event.target.value)"
+        placeholder="Filter"
+        aria-label="DYFI Responses Filter">
   </mat-form-field>
 
   <div class="horizontal-scrolling">
