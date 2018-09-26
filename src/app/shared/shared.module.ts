@@ -47,6 +47,7 @@ import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 import { SignificantFigurePipe } from './significant-figure.pipe';
 import { StationFlagComponent } from './station-flag/station-flag.component';
 import { StationComponent } from './station/station.component';
+import { StatusPipe } from './status.pipe';
 import { SummaryLinkPipe } from './summary-link.pipe';
 import { SummaryLinkComponent } from './summary-link/summary-link.component';
 import { TensorPipe } from './tensor.pipe';
@@ -96,6 +97,7 @@ import { DyfiResponsePopupComponent } from './dyfi-response-popup/dyfi-response-
     SignificantFigurePipe,
     StationComponent,
     StationFlagComponent,
+    StatusPipe,
     SummaryLinkComponent,
     SummaryLinkPipe,
     TensorPipe,
@@ -145,6 +147,7 @@ import { DyfiResponsePopupComponent } from './dyfi-response-popup/dyfi-response-
     ShakemapOverlaysPipe,
     SignificantFigurePipe,
     StationComponent,
+    StatusPipe,
     SummaryLinkComponent,
     SummaryLinkPipe,
     TensorPipe,

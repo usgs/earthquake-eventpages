@@ -5,6 +5,13 @@
   <!-- container with header attribute is added before attribution -->
   <ng-container header>
     <h2>Ground Failure</h2>
+
+    <p class="alert warning"
+      *ngIf="(eventService.product$ | async | sharedStatus) === 'WARNING'">
+      ShakeMap shaking estimates used by Ground Failure are preliminary and
+      will be updated as data arrive from a variety of distributed sources.
+      Check for subsequent updates.
+    </p>
   </ng-container>
 
   <ng-container *ngIf="eventService.product$ | async">
