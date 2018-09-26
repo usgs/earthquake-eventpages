@@ -13,7 +13,7 @@ import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 // tslint:disable-next-line:variable-name
 const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
   id: 'shakemap-stations',
-  legends: null,
+  legends: [],
   locationPipe: null,
   numberPipe: null,
   romanPipe: new RomanPipe(),
@@ -138,7 +138,6 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
     const popupContent = this.generatePopupContent(marker.feature);
 
     const options = {
-      autoPanPaddingTopLeft: L.Point(50, 50),
       maxWidth: 'auto'
     };
     marker.bindPopup(popupContent, options).openPopup();
