@@ -137,7 +137,9 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
     const marker = event.target;
     const popupContent = this.generatePopupContent(marker.feature);
 
-    const options = { minWidth: 400 };
+    const options = {
+      maxWidth: 'auto'
+    };
     marker.bindPopup(popupContent, options).openPopup();
 
     // The popup is generated; let Leaflet take over displaying/hiding
