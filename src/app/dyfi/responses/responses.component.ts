@@ -62,18 +62,22 @@ export class ResponsesComponent implements OnInit, OnDestroy {
   sort: MatSort;
   subs = new Subscription();
 
-  constructor(
+  constructor (
     public dyfiService: DyfiService,
     public eventService: EventService,
     public dialog: MatDialog,
     public romanPipe: RomanPipe
   ) {}
 
-  ngOnDestroy() {
+  filter (filterValue) {
+    this.responses.filter = filterValue.trim().toLowerCase();
+  }
+
+  ngOnDestroy () {
     this.subs.unsubscribe();
   }
 
-  ngOnInit() {
+  ngOnInit () {
     this.subs.add(
       this.dyfiService.cdiZip$.subscribe(data => {
         this.onDyfiSeries(data);
@@ -89,9 +93,9 @@ export class ResponsesComponent implements OnInit, OnDestroy {
   /**
    * Generate string of sorted DYFI responses and open material dialog
    */
-  onDownload() {
+  onDownload () {
     this.responsesArray = this.responses.sortData(
-      this.responses.data,
+      this.responses.filteredData,
       this.sort
     );
 
@@ -137,7 +141,7 @@ export class ResponsesComponent implements OnInit, OnDestroy {
    * @param dyfiData
    *     cdi/responses data from dyfi service
    */
-  onDyfiSeries(dyfiData) {
+  onDyfiSeries (dyfiData) {
     this.responses = new MatTableDataSource(dyfiData);
     this.responses.sort = this.sort;
     this.responses.paginator = this.paginator;
@@ -149,7 +153,7 @@ export class ResponsesComponent implements OnInit, OnDestroy {
    *
    * @param product shakemap product
    */
-  onProduct(product) {
+  onProduct (product) {
     if (product === null) {
       this.responses = null;
       this.loaded = false;
