@@ -22,7 +22,6 @@ describe('DyfiOverlaysPipe', () => {
 
   it('handles product', () => {
     const result = pipe.transform(DYFI);
-    console.log('result: ', result);
     expect(result.length).toEqual(2);
   });
 

@@ -20,7 +20,10 @@ import { DateTimePipe } from './date-time.pipe';
 import { DegreesPipe } from './degrees.pipe';
 import { DownloadDialogComponent } from './download-dialog/download-dialog.component';
 import { DyfiCounterPipe } from './dyfi-counter.pipe';
+import { DyfiOverlaysPipe } from './dyfi-overlays.pipe';
+import { DyfiResponsePopupComponent } from './dyfi-response-popup/dyfi-response-popup.component';
 import { FeRegionComponent } from './fe-region/fe-region.component';
+import { FiniteFaultMapPopupComponent } from './finite-fault-map-popup/finite-fault-map-popup.component';
 import { GetProductPipe } from './get-product.pipe';
 import { GroundFailureOverlaysPipe } from './ground-failure-overlays.pipe';
 import { InteractiveMapBoundsPipe } from './interactive-map-bounds.pipe';
@@ -53,8 +56,7 @@ import { TensorPipe } from './tensor.pipe';
 import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 import { UnitsPipe } from './units.pipe';
-import { DyfiOverlaysPipe } from './dyfi-overlays.pipe';
-import { DyfiResponsePopupComponent } from './dyfi-response-popup/dyfi-response-popup.component';
+import { FfOverlaysPipe } from './ff-overlays.pipe';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,7 @@ import { DyfiResponsePopupComponent } from './dyfi-response-popup/dyfi-response-
     DyfiOverlaysPipe,
     DyfiResponsePopupComponent,
     FeRegionComponent,
+    FiniteFaultMapPopupComponent,
     GetProductPipe,
     GroundFailureOverlaysPipe,
     InteractiveMapBoundsPipe,
@@ -101,12 +104,14 @@ import { DyfiResponsePopupComponent } from './dyfi-response-popup/dyfi-response-
     TensorPipe,
     TextProductComponent,
     UncertainValueComponent,
-    UnitsPipe
+    UnitsPipe,
+    FfOverlaysPipe
   ],
   entryComponents: [
     DownloadDialogComponent,
     StationComponent,
-    DyfiResponsePopupComponent
+    DyfiResponsePopupComponent,
+    FiniteFaultMapPopupComponent
   ],
   exports: [
     AlertLevelComponent,
@@ -184,6 +189,17 @@ export class SharedModule {
         injector
       });
       customElements.define('dyfi-response', dyfiPopup);
+    }
+
+    // create finite-fault map popup
+    const ffPopupConst = document.createElement('ff-map-popup').constructor;
+
+    if (ffPopupConst === HTMLElement) {
+      // finite fault popup is not yet registered
+      const ffPopup = createCustomElement(FiniteFaultMapPopupComponent, {
+        injector
+      });
+      customElements.define('ff-map-popup', ffPopup);
     }
   }
 }
