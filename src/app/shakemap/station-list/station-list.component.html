@@ -1,25 +1,32 @@
-<mat-menu #sortMenu="matMenu">
-  <button mat-menu-item
-      *ngFor="let option of sortOptions;trackBy: trackByIndex"
-      (click)="sortBy=option">
-    {{ option.display }}
-  </button>
-</mat-menu>
+<ng-container *ngIf="stations?.length > 0; else noStations">
+  <mat-menu #sortMenu="matMenu">
+    <button mat-menu-item
+        *ngFor="let option of sortOptions;trackBy: trackByIndex"
+        (click)="sortBy=option">
+      {{ option.display }}
+    </button>
+  </mat-menu>
 
-<div class="sort">
-  <button mat-button [matMenuTriggerFor]="sortMenu">
-    {{ sortBy.display }}
-  </button>
-  <div class="sort-direction" (click)="descending=!descending">
-    <mat-icon *ngIf="!descending">arrow_upward</mat-icon>
-    <mat-icon *ngIf="descending">arrow_downward</mat-icon>
+  <div class="sort">
+    <button mat-button [matMenuTriggerFor]="sortMenu">
+      {{ sortBy.display }}
+    </button>
+    <div class="sort-direction" (click)="descending=!descending">
+      <mat-icon *ngIf="!descending">arrow_upward</mat-icon>
+      <mat-icon *ngIf="descending">arrow_downward</mat-icon>
+    </div>
   </div>
-</div>
 
-<ng-container *ngFor="let station of stations |
-    sharedOrderBy:['properties', sortBy.name]:descending;trackBy: trackByIndex">
-  <div class="station">
-    <shared-station [station]="station"></shared-station>
-  </div>
-  <mat-divider></mat-divider>
+  <ng-container
+      *ngFor="let station of stations |
+      sharedOrderBy:['properties', sortBy.name]:descending;trackBy: trackByIndex">
+    <div class="station">
+      <shared-station [station]="station"></shared-station>
+    </div>
+    <mat-divider></mat-divider>
+  </ng-container>
 </ng-container>
+
+<ng-template #noStations>
+  <h1>No stations available for this event</h1>
+</ng-template>

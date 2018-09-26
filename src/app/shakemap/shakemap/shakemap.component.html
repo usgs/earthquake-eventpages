@@ -56,7 +56,9 @@
             queryParamsHandling="preserve">
             Metadata
           </a>
-          <a mdc-tab
+          <a  *ngIf="shakemap | sharedProductContent:
+              'download/stationlist.json'"
+            mdc-tab
             mdcRouter
             [routerLink]="'./stations'"
             queryParamsHandling="preserve">
