@@ -3,40 +3,40 @@
 
   <svg:g *ngFor="let bin of bins; let i = index; let first = first;
       let last = last;trackBy: trackByIndex"
-      [attr.transform]="'translate(' + (i * 250) + ', 70)'">
+    [attr.transform]="'translate(' + (i * 250) + ', 70)'">
     <title>{{ bin.text }}</title>
 
-    <rect x="0" y="0" width="250" height="70" [attr.fill]="bin.color"></rect>
+    <rect x="0"
+      y="0"
+      width="250"
+      height="70"
+      [attr.fill]="bin.color"></rect>
 
-    <text
-        class="bin"
-        fill="black"
-        text-anchor="middle"
-        x="125"
-        y="0">{{ bin.text }}</text>
+    <text class="bin"
+      fill="black"
+      text-anchor="middle"
+      x="125"
+      y="0">{{ bin.text }}</text>
 
     <text *ngIf="!first"
-        fill="black"
-        text-anchor="middle"
-        x="0"
-        y="70">
+      fill="black"
+      text-anchor="middle"
+      x="0"
+      y="70">
       {{ bin.min | number }} {{ units }}
     </text>
 
-    <svg:g
-        *ngIf="
+    <svg:g *ngIf="
           (value > bin.min && value <= bin.max)
           || (first && value <= bin.min)
           || (last && value >= bin.max)
         "
-        [attr.transform]="'translate(' + (value |
+      [attr.transform]="'translate(' + (value |
           getBarPosition:bin.min:bin.max:250) + ', 0)'">
-      <path
-          d="M0,0 L30,-40 L-30,-40 L0,0 Z"
-          fill="black">
+      <path d="M0,0 L30,-40 L-30,-40 L0,0 Z"
+        fill="black">
       </path>
-      <ng-container
-          *ngIf="
+      <ng-container *ngIf="
             (first)
                 ? { anchor: 'start', x: -20 }
             : (last)
@@ -44,12 +44,16 @@
             : { anchor: 'middle', x: 0 };
             let labelPosition
           ">
-        <text
-            fill="black"
-            [attr.text-anchor]="labelPosition.anchor"
-            [attr.x]="labelPosition.x"
-            y="-80">
-          {{ value | number }} {{ units }}
+        <text fill="black"
+          [attr.text-anchor]="labelPosition.anchor"
+          [attr.x]="labelPosition.x"
+          y="-80">
+          <ng-container *ngIf="first && value <= bin.min; else greaterThan">
+            &lt; {{ bin.min }} {{ units }}
+          </ng-container>
+          <ng-template #greaterThan>
+            {{ value | number }} {{ units }}
+          </ng-template>
         </text>
       </ng-container>
     </svg:g>
