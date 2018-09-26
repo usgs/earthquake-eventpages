@@ -84,5 +84,12 @@ describe('PagerComponent', () => {
       fixture.detectChanges();
       expect(component.pending).toBeTruthy();
     });
+
+    it('should return true then false', () => {
+      let value = component.isPending('pending');
+      expect(value).toBe(true);
+      value = component.isPending('yellow');
+      expect(value).toBe(false);
+    });
   });
 });

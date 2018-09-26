@@ -39,8 +39,8 @@ export class PagerComponent implements AfterViewInit, OnDestroy {
    * @returns
    *      Boolean value of pending status
    */
-  isPending(product: any): boolean {
-    if (product.properties.alertlevel.toLowerCase() === 'pending') {
+  isPending(alertlevel: any): boolean {
+    if (alertlevel.toLowerCase() === 'pending') {
       return true;
     } else {
       return false;
@@ -74,7 +74,7 @@ export class PagerComponent implements AfterViewInit, OnDestroy {
     }
     if (product && product.properties) {
       if (product.properties.alertlevel) {
-        this.pending = this.isPending(product);
+        this.pending = this.isPending(product.properties.alertlevel);
       } else {
         this.pending = false;
       }
