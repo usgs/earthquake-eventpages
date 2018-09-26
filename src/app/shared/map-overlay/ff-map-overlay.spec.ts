@@ -4,7 +4,7 @@ import { CoreModule } from './../../core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
-fdescribe('FfMapOverlay', () => {
+describe('FfMapOverlay', () => {
   let overlay, pipe;
 
   const ff = {
