@@ -15,7 +15,12 @@
       *ngIf="product | sharedProductContent:
       'download/pin-thumbnail.png' as image; else noImage">
     <img src="{{ image.url }}" alt="ShakeMap Intensity Thumbnail" />
-    <figcaption>Estimated Intensity</figcaption>
+    <figcaption>
+      <ng-container *ngIf="product?.properties?.maxmmi as mmi; else noMMI">
+        Perceived Shaking: {{ mmiDescription[round(mmi)].shaking }}
+        Potential Damage: {{ mmiDescription[round(mmi)].damage }}
+      </ng-container>
+    </figcaption>
   </figure>
 
   <ng-template #noImage>
