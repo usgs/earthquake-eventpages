@@ -4,16 +4,18 @@
     <section class="landslides one-of-two column">
       <h3>Landslides</h3>
 
-      <ng-container *ngIf="product?.properties && product?.properties['landslide-alert'] !== 'pending'; else statusPending">
-        <ground-failure-hazard-alert [alert]="product?.properties['landslide-hazard-alert-color']"
-          [type]="'landslide'"
-          [value]="product?.properties['landslide-hazard-alert-value']">
-        </ground-failure-hazard-alert>
+      <ng-container *ngIf="product?.properties; else noLandslideProps">
+        <ng-container *ngIf="product?.properties['landslide-alert'] !== 'pending'; else statusPending">
+          <ground-failure-hazard-alert [alert]="product?.properties['landslide-hazard-alert-color']"
+            [type]="'landslide'"
+            [value]="product?.properties['landslide-hazard-alert-value']">
+          </ground-failure-hazard-alert>
 
-        <ground-failure-population-alert [alert]="product?.properties['landslide-population-alert-color']"
-          [type]="'landslide'"
-          [value]="product?.properties['landslide-population-alert-value']">
-        </ground-failure-population-alert>
+          <ground-failure-population-alert [alert]="product?.properties['landslide-population-alert-color']"
+            [type]="'landslide'"
+            [value]="product?.properties['landslide-population-alert-value']">
+          </ground-failure-population-alert>
+        </ng-container>
       </ng-container>
 
 
@@ -28,16 +30,18 @@
     <section class="liquefaction one-of-two column">
       <h3>Liquefaction</h3>
 
-      <ng-container *ngIf="product?.properties && product?.properties['liquefaction-alert'] !== 'pending'; else statusPending">
-        <ground-failure-hazard-alert [alert]="product?.properties['liquefaction-hazard-alert-color']"
-          [type]="'liquefaction'"
-          [value]="product?.properties['liquefaction-hazard-alert-value']">
-        </ground-failure-hazard-alert>
+      <ng-container *ngIf="product?.properties; else noLiquefactionProps">
+        <ng-container *ngIf="product?.properties['liquefaction-alert'] !== 'pending'; else statusPending">
+          <ground-failure-hazard-alert [alert]="product?.properties['liquefaction-hazard-alert-color']"
+            [type]="'liquefaction'"
+            [value]="product?.properties['liquefaction-hazard-alert-value']">
+          </ground-failure-hazard-alert>
 
-        <ground-failure-population-alert [alert]="product?.properties['liquefaction-population-alert-color']"
-          [type]="'liquefaction'"
-          [value]="product?.properties['liquefaction-population-alert-value']">
-        </ground-failure-population-alert>
+          <ground-failure-population-alert [alert]="product?.properties['liquefaction-population-alert-color']"
+            [type]="'liquefaction'"
+            [value]="product?.properties['liquefaction-population-alert-value']">
+          </ground-failure-population-alert>
+        </ng-container>
       </ng-container>
 
       <button mat-raised-button
@@ -51,5 +55,11 @@
   </section>
   <ng-template #statusPending>
     <p class="alert warning">Alert Pending</p>
+  </ng-template>
+  <ng-template #noLandslideProps>
+    <p class="alert warning">Landslides data unavailable</p>
+  </ng-template>
+  <ng-template #noLiquefactionProps>
+    <p class="alert warning">Liquefaction data unavailable</p>
   </ng-template>
 </ng-container>

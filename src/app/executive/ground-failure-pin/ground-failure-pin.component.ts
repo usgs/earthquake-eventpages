@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 /**
  * Ground Failure Pin
@@ -14,13 +9,9 @@ import {
   styleUrls: ['./ground-failure-pin.component.scss'],
   templateUrl: './ground-failure-pin.component.html'
 })
-export class GroundFailurePinComponent implements OnInit {
+export class GroundFailurePinComponent {
   link = '../ground-failure';
   @Input()
   product: any;
   title = 'Ground Failure';
-
-  ngOnInit() {
-    console.log('product: ', this.product);
-  }
 }
