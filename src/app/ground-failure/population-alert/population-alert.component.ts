@@ -58,7 +58,7 @@ export class PopulationAlertComponent {
     {
       color: '#27a83c',
       max: 1000,
-      min: 10,
+      min: 100,
       text: 'Little or no'
     },
     {
