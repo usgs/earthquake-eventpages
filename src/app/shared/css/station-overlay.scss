@@ -119,3 +119,13 @@
   overflow-y: scroll;
   background: #fafafa;
 }
+
+shakemap-station {
+  width: 200px;
+}
+
+@media screen and (min-width: 768px) {
+  shakemap-station {
+    width: 420px;
+  }
+}
