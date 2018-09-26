@@ -5,9 +5,8 @@
       <h3>Landslides</h3>
 
       <ng-container *ngIf="product?.properties; else noLandslideProps">
-        <ng-container *ngIf="product?.properties['landslide-alert'] !== 'pending' 
-          && product?.properties['landslide-alert'] !== 'PENDING';
-          else statusPending">
+        <ng-container *ngIf="(product?.properties['landslide-alert'] | lowercase)
+          !== 'pending'; else statusPending">
           <ground-failure-hazard-alert [alert]="product?.properties['landslide-hazard-alert-color']"
             [type]="'landslide'"
             [value]="product?.properties['landslide-hazard-alert-value']">
@@ -33,9 +32,8 @@
       <h3>Liquefaction</h3>
 
       <ng-container *ngIf="product?.properties; else noLiquefactionProps">
-        <ng-container *ngIf="product?.properties['liquefaction-alert'] !== 'pending'
-          && product?.properties['liquefaction-alert'] !== 'PENDING';
-          else statusPending">
+        <ng-container *ngIf="(product?.properties['liquefaction-alert'] | lowercase)
+          !== 'pending'; else statusPending">
           <ground-failure-hazard-alert [alert]="product?.properties['liquefaction-hazard-alert-color']"
             [type]="'liquefaction'"
             [value]="product?.properties['liquefaction-hazard-alert-value']">
