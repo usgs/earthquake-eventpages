@@ -33,7 +33,8 @@ describe('PsaComponent', () => {
           selector: 'shared-map'
         }),
 
-        MockPipe('shakemapOverlays')
+        MockPipe('shakemapOverlays'),
+        MockPipe('sharedProductContent')
       ],
       imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]

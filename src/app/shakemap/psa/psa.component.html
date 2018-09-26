@@ -3,7 +3,8 @@
   <h3>Peak Spectral Acceleration for 0.3 s, 1.0 s, 3.0 s</h3>
 
   <ng-container
-      *ngIf="shakemap?.contents['download/cont_psa03.json']; else noPSA03">
+      *ngIf="shakemap | sharedProductContent:
+      'download/cont_psa03.json':'download/cont_psa0p3.json'; else noPSA03">
     <h4>0.3 s PSA (%g)</h4>
     <a [routerLink]="'../../map'"
        [queryParams]="{
@@ -36,7 +37,8 @@
   </ng-template>
 
   <ng-container
-      *ngIf="shakemap?.contents['download/cont_psa10.json']; else noPSA10">
+      *ngIf="shakemap | sharedProductContent:
+      'download/cont_psa10.json':'download/cont_psa1p0.json'; else noPSA10">
     <h4>1.0 s PSA (%g)</h4>
     <a [routerLink]="'../../map'"
         [queryParams]="{
@@ -69,7 +71,8 @@
   </ng-template>
 
   <ng-container
-      *ngIf="shakemap?.contents['download/cont_psa30.json']; else noPSA30">
+      *ngIf="shakemap | sharedProductContent:
+      'download/cont_psa30.json':'download/cont_psa3p0.json'; else noPSA30">
     <h4>3.0 s PSA (%g)</h4>
     <a [routerLink]="'../../map'"
        [queryParams]="{
