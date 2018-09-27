@@ -15,7 +15,7 @@ WORKDIR /earthquake-eventpages
 RUN /bin/bash --login -c "\
     npm install --no-save && \
     npm run build -- --progress false --base-href /BASE_HREF/ \
-  "
+    "
 
 
 ##
@@ -33,6 +33,8 @@ ENV BASE_HREF="${BASE_HREF}" \
 
 LABEL maintainer="Eric Martinez <emartinez@usgs.gov>"
 
+USER root
+
 RUN rm -rf /usr/share/nginx/html/ && \
     mkdir -p /usr/share/nginx/html/BASE_HREF
 
@@ -48,13 +50,14 @@ COPY --from=buildenv \
     /earthquake-eventpages/docker-entrypoint.sh \
     /usr/share/nginx/docker-entrypoint.sh
 
+USER usgs-user
 
 HEALTHCHECK \
     --interval=20s \
     --timeout=5s \
     --start-period=1m \
     --retries=2 \
-  CMD \
+    CMD \
     ${HEALTHCHECK_SCRIPT}
 
 
