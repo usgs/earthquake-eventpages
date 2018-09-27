@@ -33,6 +33,11 @@ dd {
       }
     }
 
+    .st0,
+    .st1 {
+      fill: rgba(0, 0, 0, 0.1);
+    }
+
     &.green {
       .st0,
       .st1 {
