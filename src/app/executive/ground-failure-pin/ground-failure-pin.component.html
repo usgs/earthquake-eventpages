@@ -58,7 +58,8 @@
                 c0.1,0.3,0.4,0.8,0.4,1.1C37.1,57.4,36.8,57.7,36.8,58z" />
           </svg>
         </div>
-        <figcaption>
+        <figcaption *ngIf="(properties['landslide-alert'] | lowercase)
+          !== 'pending'; else captionPending">
           <ng-container [ngSwitch]="properties['landslide-hazard-alert-color']">
             <p *ngSwitchCase="'green'">
               Little or no area affected
@@ -135,7 +136,8 @@
                         c0.3-1.3,1.7-2,2.9-1.7l11.2,3c1.3,0.3,2,1.7,1.7,2.9l-1.4,5.4c-0.1,0.4-0.4,0.8-0.7,1.1h-4.4L50.1,56.5z" />
           </svg>
         </div>
-        <figcaption>
+        <figcaption *ngIf="(properties['liquefaction-alert'] | lowercase)
+          !== 'pending'; else captionPending">
           <ng-container [ngSwitch]="properties['liquefaction-hazard-alert-color']">
             <p *ngSwitchCase="'green'">
               Little or no area affected
@@ -169,4 +171,9 @@
     </dd>
   </dl>
 
+  <ng-template #captionPending>
+    <figcaption>
+      <p>Alert Pending</p>
+    </figcaption>
+  </ng-template>
 </basic-pin>
