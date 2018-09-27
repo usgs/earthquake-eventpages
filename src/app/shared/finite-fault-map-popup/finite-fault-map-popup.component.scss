@@ -1,34 +1,32 @@
 .ff-popup {
-  text-align: center;
-
-  > .ff-summary {
-    display: block;
-    list-style: none;
-    padding: 0;
-    text-align: center;
-
-    &:after {
-      clear: both;
-      content: " ";
-      display: block;
-    }
-  }
+  font-size: 14px;
+  width: 220px;
 }
 
-.ff-summary-moment,
-.ff-summary-slip,
-.ff-summary-rise,
-.ff-summary-rake,
-.ff-summary-trup {
-  border-radius: 5px;
-  display: inline-block;
-  padding: 5px;
-  text-align: center;
+.ff-summary {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
 
-  > abbr {
-    clear: left;
-    color: #666;
-    cursor: help;
-    font-size: 0.6875em;
+  > li {
+    flex: 1 1 50%;
+    flex-direction: column;
+    padding: 1em 0.25em;
+    text-align: center;
+
+    &.ff-summary-slip {
+      flex-basis: 100%;
+      border-radius: 3px;
+      margin-bottom: 1em;
+    }
+
+    > abbr {
+      display: block;
+      color: #666;
+      cursor: help;
+      font-size: 0.88em;
+    }
   }
 }
