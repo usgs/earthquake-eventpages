@@ -120,6 +120,7 @@ const DyfiResponseOverlay = AsynchronousGeoJSONOverlay.extend({
     name = p.name;
     mmi = this.romanPipe.transform(p.cdi);
     nresp = p.nresp;
+
     const dyfiResponse = `
       <dyfi-response
         dist="${dist}"

@@ -1,0 +1,34 @@
+.ff-popup {
+  text-align: center;
+
+  > .ff-summary {
+    display: block;
+    list-style: none;
+    padding: 0;
+    text-align: center;
+
+    &:after {
+      clear: both;
+      content: " ";
+      display: block;
+    }
+  }
+}
+
+.ff-summary-moment,
+.ff-summary-slip,
+.ff-summary-rise,
+.ff-summary-rake,
+.ff-summary-trup {
+  border-radius: 5px;
+  display: inline-block;
+  padding: 5px;
+  text-align: center;
+
+  > abbr {
+    clear: left;
+    color: #666;
+    cursor: help;
+    font-size: 0.6875em;
+  }
+}
