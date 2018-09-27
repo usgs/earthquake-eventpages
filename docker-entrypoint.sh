@@ -88,7 +88,7 @@ cat <<-EO_HEALTHCHECK > ${HEALTHCHECK_SCRIPT}
 status=\$(curl \
   -s -o /dev/null \
   -w "%{http_code}" \
-  http://localhost/${BASE_HREF}/metadata.json \
+  http://localhost:8080/${BASE_HREF}/metadata.json \
 );
 
 
