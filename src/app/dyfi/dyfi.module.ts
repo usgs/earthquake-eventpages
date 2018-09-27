@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
   MatButtonModule,
+  MatInputModule,
   MatPaginatorModule,
   MatSortModule,
   MatTableModule,
@@ -37,6 +38,7 @@ import { ZipComponent } from './zip/zip.component';
     DyfiRoutingModule,
     ProductPageModule,
     MatButtonModule,
+    MatInputModule,
     MatPaginatorModule,
     MatSortModule,
     MdcIconModule,

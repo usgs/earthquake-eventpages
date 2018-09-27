@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   MatDialogModule,
+  MatInputModule,
   MatPaginatorModule,
   MatSortModule,
   MatTableModule
@@ -41,6 +42,7 @@ describe('ResponsesComponent', () => {
       ],
       imports: [
         MatDialogModule,
+        MatInputModule,
         MatTableModule,
         MatPaginatorModule,
         MatSortModule,
