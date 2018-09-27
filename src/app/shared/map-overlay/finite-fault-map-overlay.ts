@@ -1,11 +1,10 @@
 import { AsynchronousGeoJSONOverlay } from '@shared/map-overlay/asynchronous-geojson-overlay';
-import { FormatterService } from '@core/formatter.service';
 
 /**
  * Finite Fault overlay for leaflet map
  */
 // tslint:disable-next-line:variable-name
-const FfMapOverlay = AsynchronousGeoJSONOverlay.extend({
+const FiniteFaultMapOverlay = AsynchronousGeoJSONOverlay.extend({
   id: 'finite-fault-overlay',
   title: 'Finite Fault',
   url: '',
@@ -29,17 +28,11 @@ const FfMapOverlay = AsynchronousGeoJSONOverlay.extend({
    *      The finite fault product
    */
   getUrl: function(product: any): string {
-    if (product === null) {
+    try {
+      return product.contents['FFM.geojson'].url;
+    } catch (e) {
       return null;
     }
-    if (
-      product.contents &&
-      product.contents['FFM.geojson'] &&
-      product.contents['FFM.geojson'].url
-    ) {
-      return product.contents['FFM.geojson'].url;
-    }
-    return null;
   },
 
   /**
@@ -85,7 +78,6 @@ const FfMapOverlay = AsynchronousGeoJSONOverlay.extend({
    *      The popup component template
    */
   generatePopupContent: function(feature: any): any {
-    let formatter = new FormatterService();
     let moment, slip, rise, trup, rake, color;
 
     if (feature.properties) {
@@ -97,29 +89,26 @@ const FfMapOverlay = AsynchronousGeoJSONOverlay.extend({
         ? props['sf_moment'].toExponential() + ' N-m'
         : unknown;
       /* tslint:enable:no-string-literal */
-      slip = props.slip ? formatter.distance(props.slip, 'm') : unknown;
-      rise = props.rise ? formatter.distance(props.rise, 'm') : unknown;
-      trup = props.trup ? formatter.distance(props.trup, 'm') : unknown;
-      rake = props.rake ? formatter.distance(props.rake, 'm') : unknown;
+      slip = props.slip ? props.slip : unknown;
+      rise = props.rise ? props.rise : unknown;
+      trup = props.trup ? props.trup : unknown;
+      rake = props.rake ? props.rake : unknown;
       color = props.fill ? props.fill : '#FFFFFF';
 
-      formatter = null;
-
       const ffMapPopup = `
-        <ff-map-popup
+        <finite-fault-map-popup
           color="${color}"
           moment="${moment}"
           rake="${rake}"
           rise="${rise}"
           slip="${slip}"
           trup="${trup}"
-        ></ff-map-popup>
+        ></finite-fault-map-popup>
       `;
       return ffMapPopup;
     }
-    formatter = null;
     return `<h2>Data Unavailable</h2>`;
   }
 });
 
-export { FfMapOverlay };
+export { FiniteFaultMapOverlay };

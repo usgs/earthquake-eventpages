@@ -1,25 +1,25 @@
 <div class="ff-popup">
   <h2>Finite Fault</h2>
   <ul class="ff-summary">
+    <li class="ff-summary-slip"
+      [ngStyle]="{'background-color': this.color}">
+      {{ slip | sharedNumber:null:'m' }}
+      <br><abbr title="Slip Distribution">Slip</abbr>
+    </li>
     <li class="ff-summary-moment">
       {{ moment }}
       <br /><abbr title="Sub Fault Moment">Sub Fault Moment</abbr>
     </li>
-    <li class="ff-summary-slip"
-      [ngStyle]="{'background-color': this.color}">
-      {{ slip }}
-      <br><abbr title="Slip Distribution">Slip Distribution</abbr>
-    </li>
     <li class="ff-summary-rise">
-      {{ rise }}
+      {{ rise | sharedNumber:null:'m' }}
       <br><abbr title="Rise">Rise</abbr>
     </li>
     <li class="ff-summary-trup">
-      {{ trup }}
+      {{ trup | sharedNumber:null:'s' }}
       <br><abbr title="Trup">Trup</abbr>
     </li>
     <li class="ff-summary-rake">
-      {{ rake }}
+      {{ rake | sharedDegrees }}
       <br><abbr title="Rake">Rake</abbr>
     </li>
   </ul>

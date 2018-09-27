@@ -56,7 +56,7 @@ import { TensorPipe } from './tensor.pipe';
 import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 import { UnitsPipe } from './units.pipe';
-import { FfOverlaysPipe } from './ff-overlays.pipe';
+import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
 
 @NgModule({
   declarations: [
@@ -73,6 +73,7 @@ import { FfOverlaysPipe } from './ff-overlays.pipe';
     DyfiResponsePopupComponent,
     FeRegionComponent,
     FiniteFaultMapPopupComponent,
+    FiniteFaultOverlaysPipe,
     GetProductPipe,
     GroundFailureOverlaysPipe,
     InteractiveMapBoundsPipe,
@@ -104,8 +105,7 @@ import { FfOverlaysPipe } from './ff-overlays.pipe';
     TensorPipe,
     TextProductComponent,
     UncertainValueComponent,
-    UnitsPipe,
-    FfOverlaysPipe
+    UnitsPipe
   ],
   entryComponents: [
     DownloadDialogComponent,
@@ -192,14 +192,15 @@ export class SharedModule {
     }
 
     // create finite-fault map popup
-    const ffPopupConst = document.createElement('ff-map-popup').constructor;
+    const ffPopupConst = document.createElement('finite-fault-map-popup')
+      .constructor;
 
     if (ffPopupConst === HTMLElement) {
       // finite fault popup is not yet registered
       const ffPopup = createCustomElement(FiniteFaultMapPopupComponent, {
         injector
       });
-      customElements.define('ff-map-popup', ffPopup);
+      customElements.define('finite-fault-map-popup', ffPopup);
     }
   }
 }

@@ -1,4 +1,4 @@
-import { FfMapOverlay } from '@shared/map-overlay/ff-map-overlay';
+import { FiniteFaultMapOverlay } from '@shared/map-overlay/finite-fault-map-overlay';
 import { Pipe, PipeTransform } from '@angular/core';
 
 import * as L from 'leaflet';
@@ -6,7 +6,7 @@ import * as L from 'leaflet';
 @Pipe({
   name: 'ffOverlays'
 })
-export class FfOverlaysPipe implements PipeTransform {
+export class FiniteFaultOverlaysPipe implements PipeTransform {
   /**
    * This pipe creates a new instance of FfMapOverlay classes which take
    * the product as an argument and use the FF.geojson file
@@ -20,10 +20,8 @@ export class FfOverlaysPipe implements PipeTransform {
   transform(product: any): Array<L.Layer> {
     const overlays = [];
     if (product && product.contents && product.contents['FFM.geojson']) {
-      overlays.push(new FfMapOverlay(product));
-      return overlays;
-    } else {
-      return overlays;
+      overlays.push(new FiniteFaultMapOverlay(product));
     }
+    return overlays;
   }
 }

@@ -1,5 +1,5 @@
-import { FfOverlaysPipe } from './../ff-overlays.pipe';
-import { FfMapOverlay } from '@shared/map-overlay/ff-map-overlay';
+import { FiniteFaultOverlaysPipe } from '@shared/finite-fault-overlays.pipe';
+import { FiniteFaultMapOverlay } from '@shared/map-overlay/finite-fault-map-overlay';
 import { CoreModule } from './../../core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
@@ -39,8 +39,8 @@ describe('FfMapOverlay', () => {
     TestBed.configureTestingModule({
       imports: [CoreModule, HttpClientModule]
     });
-    pipe = new FfOverlaysPipe();
-    overlay = new FfMapOverlay(ff);
+    pipe = new FiniteFaultOverlaysPipe();
+    overlay = new FiniteFaultMapOverlay(ff);
   });
 
   it('instantiates overlay instance', () => {
@@ -59,7 +59,7 @@ describe('FfMapOverlay', () => {
   });
 
   it('sets the url', () => {
-    const overlayTest = new FfMapOverlay({
+    const overlayTest = new FiniteFaultMapOverlay({
       contents: { 'FFM.geojson': { url: 'url' } }
     });
     expect(overlayTest.url).toEqual('url');

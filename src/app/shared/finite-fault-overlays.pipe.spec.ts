@@ -1,4 +1,4 @@
-import { FfOverlaysPipe } from './ff-overlays.pipe';
+import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
 
 describe('FfOverlaysPipe', () => {
   let pipe;
@@ -10,7 +10,7 @@ describe('FfOverlaysPipe', () => {
   };
 
   beforeEach(() => {
-    pipe = new FfOverlaysPipe();
+    pipe = new FiniteFaultOverlaysPipe();
   });
 
   it('create an instance', () => {

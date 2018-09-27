@@ -1,4 +1,4 @@
-import { FfOverlaysPipe } from './ff-overlays.pipe';
+import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
 import { DyfiOverlaysPipe } from '@shared/dyfi-overlays.pipe';
 import { Pipe, PipeTransform } from '@angular/core';
 import { ParamMap } from '@angular/router';
@@ -35,7 +35,7 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
     shakemap: new ShakemapOverlaysPipe(),
     'ground-failure': new GroundFailureOverlaysPipe(),
     dyfi: new DyfiOverlaysPipe(),
-    'finite-fault': new FfOverlaysPipe()
+    'finite-fault': new FiniteFaultOverlaysPipe()
   };
   /* tslint:enable:object-literal-sort-keys */
   staticOverlays: L.Layer[] = [

@@ -1,3 +1,4 @@
+import { MockPipe } from './../../mock-pipe';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FiniteFaultMapPopupComponent } from './finite-fault-map-popup.component';
@@ -8,7 +9,11 @@ describe('FiniteFaultMapPopupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [FiniteFaultMapPopupComponent]
+      declarations: [
+        FiniteFaultMapPopupComponent,
+        MockPipe('sharedNumber'),
+        MockPipe('sharedDegrees')
+      ]
     }).compileComponents();
   }));
 
