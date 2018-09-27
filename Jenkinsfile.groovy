@@ -235,11 +235,11 @@ node {
 
           docker exec ${OWASP_CONTAINER} \
             zap-cli -v -p ${ZAP_API_PORT} spider \
-            http://\$PENTEST_IP/
+            http://\$PENTEST_IP:8080/
 
           docker exec ${OWASP_CONTAINER} \
             zap-cli -v -p ${ZAP_API_PORT} active-scan \
-            http://\$PENTEST_IP/
+            http://\$PENTEST_IP:8080/
 
           docker exec ${OWASP_CONTAINER} \
             zap-cli -v -p ${ZAP_API_PORT} report \
