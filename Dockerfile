@@ -34,9 +34,11 @@ ENV BASE_HREF="${BASE_HREF}" \
 LABEL maintainer="Eric Martinez <emartinez@usgs.gov>"
 
 USER root
-
 RUN rm -rf /usr/share/nginx/html/ && \
-    mkdir -p /usr/share/nginx/html/BASE_HREF
+    mkdir -p /usr/share/nginx/html/BASE_HREF && \
+    chown -R usgs-user:usgs-user /usr/share/nginx && \
+    chown -R usgs-user:usgs-user /etc/nginx
+USER usgs-user
 
 COPY --from=buildenv \
     /earthquake-eventpages/dist/ \
@@ -49,8 +51,6 @@ COPY --from=buildenv \
 COPY --from=buildenv \
     /earthquake-eventpages/docker-entrypoint.sh \
     /usr/share/nginx/docker-entrypoint.sh
-
-USER usgs-user
 
 HEALTHCHECK \
     --interval=20s \
