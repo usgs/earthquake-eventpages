@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 
 import { EventService } from '@core/event.service';
 
-
 /**
  * Main technical component for focal mechanism, origin, moment tensor
  */
@@ -14,10 +13,7 @@ import { EventService } from '@core/event.service';
 export class TechnicalComponent {
   constructor(public eventService: EventService) {}
 
-  trackByIndex (index, item) {
-    console.log('index: ' + index);
-    console.log(item);
+  trackByIndex(index, item) {
     return index;
   }
-
 }
