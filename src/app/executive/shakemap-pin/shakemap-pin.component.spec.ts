@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
@@ -22,8 +23,12 @@ describe('ShakemapPinComponent', () => {
           selector: 'shared-mmi'
         }),
 
-        MockPipe('getProduct')
-      ]
+        MockPipe('getProduct'),
+        MockPipe('sharedProductContent')
+      ],
+    imports: [
+      RouterTestingModule
+    ]
     }).compileComponents();
   }));
 

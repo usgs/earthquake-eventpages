@@ -16,11 +16,11 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class ShakemapPinComponent {
   link = '../shakemap';
   mmiDescription = {
-    0: { shaking: 'Not felt', damage: 'none' },
-    1: { shaking: 'Not felt', damage: 'none' },
-    2: { shaking: 'Weak', damage: 'none' },
-    3: { shaking: 'Weak', damage: 'none' },
-    4: { shaking: 'Light', damage: 'none' },
+    0: { shaking: 'Not felt', damage: 'None' },
+    1: { shaking: 'Not felt', damage: 'None' },
+    2: { shaking: 'Weak', damage: 'None' },
+    3: { shaking: 'Weak', damage: 'None' },
+    4: { shaking: 'Light', damage: 'None' },
     5: { shaking: 'Moderate', damage: 'Very light' },
     6: { shaking: 'Strong', damage: 'Light' },
     7: { shaking: 'Very strong', damage: 'Moderate' },

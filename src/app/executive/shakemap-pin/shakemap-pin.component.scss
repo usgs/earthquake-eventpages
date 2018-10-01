@@ -1,0 +1,13 @@
+[card-title] {
+  display: block;
+  position: relative;
+  width: 100%;
+
+  > shared-mmi {
+    font-size: smaller;
+    position: absolute;
+    right: -3px;
+    top: -3px;
+    white-space: nowrap;
+  }
+}
