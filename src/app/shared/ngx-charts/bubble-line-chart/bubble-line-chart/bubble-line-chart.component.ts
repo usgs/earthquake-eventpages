@@ -151,6 +151,8 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Input()
   tooltipDisabled = false;
   @Input()
+  bubbleTooltipTemplate = null;
+  @Input()
   xAxis;
   @Input()
   xAxisLabel;

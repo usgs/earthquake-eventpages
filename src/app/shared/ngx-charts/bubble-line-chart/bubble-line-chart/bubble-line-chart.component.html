@@ -47,7 +47,7 @@
             [data]="series"
             [activeEntries]="activeEntries"
             [tooltipDisabled]="!bubbleChartTooltip"
-            [tooltipTemplate]="meanTemplate"
+            [tooltipTemplate]="bubbleTooltipTemplate"
             (select)="onClick($event, series)"
             (activate)="onActivate($event)"
             (deactivate)="onDeactivate($event)" />
@@ -93,12 +93,4 @@
           (deactivate)="onDeactivate($event)" />
     </svg:g>
   </svg:g>
-
-  <ng-template #meanTemplate let-model="model">
-    <h3>{{ model.series }}</h3>
-    <dl class="description-table">
-      <dt>Intensity (mmi): </dt><dd>{{ model.value }}</dd>
-      <dt>Hypocentral Distance (km): </dt><dd>{{ model.x }}</dd>
-    </dl>
-  </ng-template>
 </ngx-charts-chart>

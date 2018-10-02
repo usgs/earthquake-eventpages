@@ -81,11 +81,10 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
         const errorBarWidth = (this.xDomain[1] - this.xDomain[0]) * 0.0125;
 
         const data = {
-          name: d.name,
           radius: d.r,
           series: seriesName,
           value: d.y,
-          x: d.x
+          ...d
         };
 
         return {

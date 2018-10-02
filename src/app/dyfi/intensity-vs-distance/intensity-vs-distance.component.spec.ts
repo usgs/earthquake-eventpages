@@ -71,6 +71,7 @@ describe('IntensityVsDistanceComponent', () => {
               'customColors',
               'results',
               'animations',
+              'bubbleTooltipTemplate',
               'lineChart',
               'lineChartTooltip',
               'bubbleChart',
@@ -97,7 +98,8 @@ describe('IntensityVsDistanceComponent', () => {
           }
         ),
 
-        MockPipe('sharedProductContent')
+        MockPipe('sharedProductContent'),
+        MockPipe('sharedNumber')
       ],
       providers: [
         { provide: EventService, useValue: eventServiceStub },

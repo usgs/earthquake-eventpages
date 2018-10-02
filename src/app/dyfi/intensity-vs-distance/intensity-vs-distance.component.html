@@ -25,7 +25,8 @@
         [xAxisTicks]="xAxisTicks"
         [xScaleMax]="xScaleMax"
         [xScaleMin]="xScaleMin"
-        [yAxisLabel]="yAxisLabel">
+        [yAxisLabel]="yAxisLabel"
+        [bubbleTooltipTemplate]="meanTemplate">
     </bubble-line-chart-component>
   </div>
 </ng-container>
@@ -45,3 +46,14 @@
     <h1>Not available for this event</h1>
   </ng-template>
 </ng-template>
+
+<ng-template #meanTemplate let-model="model">
+    <h3>{{ model.series }}</h3>
+    <dl class="description-table">
+      <dt>Intensity (mmi): </dt><dd>{{ model.value }}</dd>
+      <dt>Hypocentral Distance (km): </dt><dd>{{ model.x }}</dd>
+      <ng-container *ngIf="model?.nresp">
+        <dt>Number of Responses: </dt><dd>{{ model.nresp | sharedNumber }}</dd>
+      </ng-container>
+    </dl>
+  </ng-template>
