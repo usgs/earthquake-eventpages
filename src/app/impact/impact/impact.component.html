@@ -1,25 +1,29 @@
-<ng-container *ngIf="eventService.event$ | async; let event">
-  <impact-dyfi-summary
-      [event]="event"
-      [products]="event.getProducts('dyfi')">
+<ng-container *ngIf="eventService.event$ | async as event">
+
+  <impact-dyfi-summary *ngIf="event | sharedHasProduct:'dyfi'"
+    [event]="event"
+    [products]="event | sharedGetProducts:'dyfi'">
   </impact-dyfi-summary>
-  <impact-shakemap-summary
-      [event]="event"
-      [products]="event.getProducts('shakemap')">
+
+  <impact-shakemap-summary *ngIf="event | sharedHasProduct:'shakemap'"
+    [event]="event"
+    [products]="event | sharedGetProducts:'shakemap'">
   </impact-shakemap-summary>
-  <impact-pager-summary
-      [event]="event"
-      [products]="event.getProducts('losspager')">
+
+  <impact-pager-summary *ngIf="event | sharedHasProduct:'losspager'"
+    [event]="event"
+    [products]="event | sharedGetProducts:'losspager'">
   </impact-pager-summary>
-  <shared-text-product
-      *ngFor="let product of event.getProducts('impact-text');
-      trackBy: trackByIndex" [product]="product">
+
+  <shared-text-product *ngFor="let product of event | sharedGetProducts:'impact-text';
+      trackBy: trackByIndex"
+    [product]="product">
   </shared-text-product>
 
-  <ng-container *ngIf="event.hasProducts('impact-link')">
+  <ng-container *ngIf="event | sharedHasProduct:'impact-link'">
     <h3>For More Information</h3>
     <ul>
-      <li *ngFor="let product of event.getProducts('impact-link');
+      <li *ngFor="let product of event | sharedGetProducts:'impact-link';
           trackBy: trackByIndex">
         <shared-link-product [product]="product">
         </shared-link-product>
@@ -27,4 +31,3 @@
     </ul>
   </ng-container>
 </ng-container>
-
