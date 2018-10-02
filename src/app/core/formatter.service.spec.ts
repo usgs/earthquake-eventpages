@@ -240,13 +240,13 @@ describe('FormatterService', () => {
         const spy = spyOn(formatter, 'number').and.returnValue('number');
 
         formatter.magnitude(0, 'type');
-        expect(spy).toHaveBeenCalledWith(0, null, 'type');
+        expect(spy).toHaveBeenCalledWith(0, null, null, 'type');
 
         formatter.magnitude(1, 'type');
-        expect(spy).toHaveBeenCalledWith(1, null, 'type');
+        expect(spy).toHaveBeenCalledWith(1, null, null, 'type');
 
         formatter.magnitude(2, 'type');
-        expect(spy).toHaveBeenCalledWith(2, null, 'type');
+        expect(spy).toHaveBeenCalledWith(2, null, null, 'type');
       }
     ));
   });
