@@ -1,60 +1,57 @@
-<ng-container *ngIf="products.length > 0">
-  <h4>Did You Feel It?</h4>
+<h4>Did You Feel It?</h4>
 
-  <div class="horizontal-scrolling">
-    <mat-table [dataSource]="products"
-      class="dyfi-table">
-      <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-      <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+<div class="horizontal-scrolling">
+  <mat-table [dataSource]="products"
+    class="dyfi-table">
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
 
-      <ng-container matColumnDef="catalog">
-        <mat-header-cell *matHeaderCellDef>
-          Catalog
-        </mat-header-cell>
-        <mat-cell *matCellDef="let dyfi">
-          <ng-container *ngIf="dyfi === products[0]">
-            <shared-preferred-check [title]="'Preferred DYFI'">
-            </shared-preferred-check>
-          </ng-container>
-          <a [routerLink]="['/', event?.id, 'dyfi']"
-            [queryParams]="{ source: dyfi?.source, code: dyfi?.code }">
-            {{ dyfi?.properties?.eventsource | uppercase }}
-          </a>
-        </mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="catalog">
+      <mat-header-cell *matHeaderCellDef>
+        Catalog
+      </mat-header-cell>
+      <mat-cell *matCellDef="let dyfi">
+        <ng-container *ngIf="dyfi === products[0]">
+          <shared-preferred-check [title]="'Preferred DYFI'">
+          </shared-preferred-check>
+        </ng-container>
+        <a [routerLink]="['/', event?.id, 'dyfi']"
+          [queryParams]="{ source: dyfi?.source, code: dyfi?.code }">
+          {{ dyfi?.properties?.eventsource | uppercase }}
+        </a>
+      </mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="cdi">
-        <mat-header-cell *matHeaderCellDef>
-          CDI
-        </mat-header-cell>
-        <mat-cell *matCellDef="let dyfi">
-          <abbr title="Community Determined Intensity">
-            <shared-mmi [intensity]="dyfi?.properties?.maxmmi">
-            </shared-mmi>
-          </abbr>
-        </mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="cdi">
+      <mat-header-cell *matHeaderCellDef>
+        CDI
+      </mat-header-cell>
+      <mat-cell *matCellDef="let dyfi">
+        <abbr title="Community Determined Intensity">
+          <shared-mmi [intensity]="dyfi?.properties?.maxmmi">
+          </shared-mmi>
+        </abbr>
+      </mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="responses">
-        <mat-header-cell *matHeaderCellDef>
-          Responses
-        </mat-header-cell>
-        <mat-cell *matCellDef="let dyfi">
-          {{ dyfi?.properties?.numResp }}
-        </mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="responses">
+      <mat-header-cell *matHeaderCellDef>
+        Responses
+      </mat-header-cell>
+      <mat-cell *matCellDef="let dyfi">
+        {{ dyfi?.properties?.numResp }}
+      </mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="source">
-        <mat-header-cell *matHeaderCellDef>
-          Source
-        </mat-header-cell>
-        <mat-cell *matCellDef="let dyfi">
-          <shared-product-attribution [product]="dyfi">
-          </shared-product-attribution>
-        </mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="source">
+      <mat-header-cell *matHeaderCellDef>
+        Source
+      </mat-header-cell>
+      <mat-cell *matCellDef="let dyfi">
+        <shared-product-attribution [product]="dyfi">
+        </shared-product-attribution>
+      </mat-cell>
+    </ng-container>
 
-    </mat-table>
-  </div>
-
-</ng-container>
+  </mat-table>
+</div>
