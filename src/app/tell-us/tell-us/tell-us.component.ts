@@ -83,6 +83,7 @@ export class TellUsComponent implements OnInit {
    */
   showForm() {
     this.dialogRef = this.dialog.open(FormComponent, {
+      autoFocus: true,
       data: {
         eventService: this.eventService
       }
