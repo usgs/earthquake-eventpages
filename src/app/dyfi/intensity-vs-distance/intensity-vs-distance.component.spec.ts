@@ -31,7 +31,9 @@ describe('IntensityVsDistanceComponent', () => {
         {
           class: 'scatterplot1',
           name: 'All reported data',
-          series: []
+          series: [
+            {nresp: 5}
+          ]
         },
         {
           class: 'estimated1',

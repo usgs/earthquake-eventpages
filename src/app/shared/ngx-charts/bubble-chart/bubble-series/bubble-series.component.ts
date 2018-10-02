@@ -71,7 +71,11 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
             ? this.colors.getColor(r)
             : this.colors.getColor(seriesName);
 
-        const opacity = isActive ? 1 : 0.3;
+        if (!d.opacity) {
+          d.opacity = 1;
+        }
+
+        const opacity = isActive ? d.opacity : d.opacity / 3;
 
         // error bar calculations
         const max = d.max;
