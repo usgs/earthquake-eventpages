@@ -21,16 +21,7 @@ export class DownloadComponent {
   @Input()
   expanded: any;
 
-  open = false;
-
   constructor(public contentsXmlService: ContentsXmlService) {}
-
-  /**
-   * Check if downloads expansion panel is expanded
-   */
-  isOpen() {
-    return this.open;
-  }
 
   /**
    * Gets contents xml from product
@@ -42,21 +33,6 @@ export class DownloadComponent {
       product = product.phasedata;
     }
     this.contentsXmlService.get(product);
-  }
-
-  /**
-   * Keeps track of expansion panel state
-   */
-  onClose() {
-    this.open = false;
-  }
-
-  /**
-   * Keeps track of expansion panel state, triggers fetch
-   */
-  onOpen() {
-    this.open = true;
-    this.loadContentsXml();
   }
 
   /**
@@ -85,7 +61,7 @@ export class DownloadComponent {
   @Input()
   set product(product: any) {
     this._product = product;
-    if (this.open) {
+    if (this.expanded) {
       this.loadContentsXml();
     }
   }

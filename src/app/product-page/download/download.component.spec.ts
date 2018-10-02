@@ -5,7 +5,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { ContentsXmlService } from '@core/contents-xml.service';
 import { DownloadComponent } from './download.component';
 
-describe('DownloadComponent', () => {
+fdescribe('DownloadComponent', () => {
   let component: DownloadComponent;
   let fixture: ComponentFixture<DownloadComponent>;
 
@@ -69,18 +69,18 @@ describe('DownloadComponent', () => {
 
   describe('opened/closed', () => {
     it('is initially closed', () => {
-      expect(component.isOpen()).toBe(false);
+      expect(component.expanded).toBe(false);
     });
 
     it('is opened after openining', () => {
       component.onOpen();
-      expect(component.isOpen()).toBe(true);
+      expect(component.expanded).toBe(true);
     });
 
     it('is closed after closing', () => {
       component.onOpen();
       component.onClose();
-      expect(component.isOpen()).toBe(false);
+      expect(component.expanded).toBe(false);
     });
   });
 });
