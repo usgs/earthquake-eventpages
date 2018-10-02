@@ -26,6 +26,7 @@ export class ProcessingComponent {
   };
   readonly headers = {
     groundMotionModules: ['type', 'module', 'reference'],
+    history: ['version', 'network', 'time', 'comment'],
     roi: ['type', 'roi', 'observation_decay']
   };
   readonly names = {

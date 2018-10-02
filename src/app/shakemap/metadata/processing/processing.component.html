@@ -183,6 +183,66 @@
     </ng-template>
   </mat-expansion-panel>
 
+  <mat-expansion-panel
+      *ngIf="smProcessing?.shakemap_versions?.map_data_history as history">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Version History
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-template matExpansionPanelContent>
+      <div class="horizontal-scrolling">
+        <mat-table [dataSource]="history">
+          <mat-header-row *matHeaderRowDef="headers?.history"></mat-header-row>
+          <mat-row *matRowDef="let myRowData; columns: headers?.history"></mat-row>
+
+          <ng-container matColumnDef="version">
+            <mat-header-cell *matHeaderCellDef>
+              Map Version
+            </mat-header-cell>
+            <mat-cell [attr.role]="'rowheader'"
+              [class.mat-cell]="false"
+              class="mat-header-cell"
+              *matCellDef="let version">
+              {{ version[2] }}
+            </mat-cell>
+
+          </ng-container>
+
+          <ng-container matColumnDef="network">
+            <mat-header-cell *matHeaderCellDef>
+              Network
+            </mat-header-cell>
+            <mat-cell *matCellDef="let version">
+              {{ version[1] }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="time">
+            <mat-header-cell *matHeaderCellDef>
+              Processing Time
+            </mat-header-cell>
+            <mat-cell *matCellDef="let version">
+              {{ version[0] | sharedDateTime }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="comment">
+              <mat-header-cell *matHeaderCellDef>
+                Comment
+              </mat-header-cell>
+              <mat-cell *matCellDef="let version">
+                {{ version[3] }}
+              </mat-cell>
+            </ng-container>
+
+        </mat-table>
+      </div>
+
+    </ng-template>
+  </mat-expansion-panel>
+
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -210,7 +270,7 @@
     </ng-template>
   </mat-expansion-panel>
 
-  <mat-expansion-panel>
+  <mat-expansion-panel *ngIf="smProcessing.roi as roi">
     <mat-expansion-panel-header>
       <mat-panel-title>
         ROI
@@ -219,7 +279,7 @@
 
     <ng-template matExpansionPanelContent>
       <div class="horizontal-scrolling">
-        <mat-table [dataSource]="smProcessing?.roi"
+        <mat-table [dataSource]="roi"
           class="roi-table">
           <mat-header-row *matHeaderRowDef="headers?.roi"></mat-header-row>
           <mat-row *matRowDef="let myRowData; columns: headers?.roi"></mat-row>
