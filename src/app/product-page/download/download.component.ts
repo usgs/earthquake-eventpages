@@ -15,11 +15,11 @@ import { ContentsXmlService } from '@core/contents-xml.service';
   templateUrl: './download.component.html'
 })
 export class DownloadComponent {
-  // see getter/setter below
-  _product: any;
-
   @Input()
   expanded: any;
+
+  @Input()
+  product: any;
 
   constructor(public contentsXmlService: ContentsXmlService) {}
 
@@ -27,19 +27,11 @@ export class DownloadComponent {
    * Gets contents xml from product
    */
   loadContentsXml() {
-    let product = this._product;
-    if (product && product.phasedata) {
+    if (this.product && this.product.phasedata) {
       // prefer phase data when availble
-      product = product.phasedata;
+      this.product = this.product.phasedata;
     }
-    this.contentsXmlService.get(product);
-  }
-
-  /**
-   * setter for product.
-   */
-  get product(): any {
-    return this._product;
+    this.contentsXmlService.get(this.product);
   }
 
   /**
@@ -52,17 +44,5 @@ export class DownloadComponent {
    */
   trackByIndex(index, item) {
     return index;
-  }
-
-  /**
-   * getter for product,
-   * fetch contents.xml if the expansion panel is open
-   */
-  @Input()
-  set product(product: any) {
-    this._product = product;
-    if (this.expanded) {
-      this.loadContentsXml();
-    }
   }
 }
