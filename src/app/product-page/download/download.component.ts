@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { ContentsXmlService } from '@core/contents-xml.service';
 
-
 /**
  * Generates expansion panel to list all downloadable product contents
  *
@@ -18,6 +17,9 @@ import { ContentsXmlService } from '@core/contents-xml.service';
 export class DownloadComponent {
   // see getter/setter below
   _product: any;
+
+  @Input()
+  expanded: any;
 
   open = false;
 
@@ -72,7 +74,7 @@ export class DownloadComponent {
    * @param item
    *    content item
    */
-  trackByIndex (index, item) {
+  trackByIndex(index, item) {
     return index;
   }
 
