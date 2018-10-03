@@ -78,7 +78,8 @@
         <textarea matInput
           [(ngModel)]="answers.fldContact_comments"
           matAutosizeMinRows="3"
-          matTextareaAutosize></textarea>
+          matTextareaAutosize
+          aria-label="Additional Comments"></textarea>
       </mat-form-field>
     </tell-us-fieldset>
 
@@ -100,7 +101,8 @@
         </mat-label>
         <input matInput
           type="text"
-          [(ngModel)]="answers.fldContact_name" />
+          [(ngModel)]="answers.fldContact_name"
+          aria-label="Contact Name" />
       </mat-form-field>
 
       <mat-form-field>
@@ -109,7 +111,8 @@
         </mat-label>
         <input matInput
           type="email"
-          [(ngModel)]="answers.fldContact_email" />
+          [(ngModel)]="answers.fldContact_email"
+          aria-label="Contact Email" />
       </mat-form-field>
 
       <mat-form-field>
@@ -118,7 +121,8 @@
         </mat-label>
         <input matInput
           type="tel"
-          [(ngModel)]="answers.fldContact_phone" />
+          [(ngModel)]="answers.fldContact_phone"
+          aria-label="Contact Phone Number" />
       </mat-form-field>
 
     </tell-us-fieldset>
