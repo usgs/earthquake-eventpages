@@ -60,28 +60,37 @@ describe('FeRegionComponent', () => {
 
   describe('fetchFe', () => {
     it('clears value if corrdinates not provided', () => {
+      let feRegion;
+
+      component.region.subscribe(fe => {
+        feRegion = fe;
+      });
+
       // None
-      component.fe = {};
       component.fetchFe(null, null);
-      expect(component.fe).toBeNull();
+      expect(feRegion).toBeNull();
 
       // No latitude
-      component.fe = {};
       component.fetchFe(null, 0);
-      expect(component.fe).toBeNull();
+      expect(feRegion).toBeNull();
 
       // No longitude
-      component.fe = {};
       component.fetchFe(0, null);
-      expect(component.fe).toBeNull();
+      expect(feRegion).toBeNull();
     });
 
     it('properly sets fe', () => {
+      let feRegion;
+
+      component.region.subscribe(fe => {
+        feRegion = fe;
+      });
+
       component.fetchFe(0, 0);
-      expect(component.fe).toBe(response.fe.features[0]);
+      expect(feRegion).toBe(response.fe.features[0]);
 
       component.fetchFe(10, 10);
-      expect(component.fe).toBe(response.fe.features[0]);
+      expect(feRegion).toBe(response.fe.features[0]);
     });
   });
 });

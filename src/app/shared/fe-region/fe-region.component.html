@@ -1,4 +1,4 @@
-<ng-container *ngIf="fe && fe?.properties; else notReady">
+<ng-container *ngIf="region | async as fe; else notReady">
   {{ fe.properties.name }} ({{ fe.properties.number }})
 </ng-container>
 

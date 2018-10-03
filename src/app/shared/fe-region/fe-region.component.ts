@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { GeoserveService } from '@core/geoserve.service';
-
+import { BehaviorSubject } from 'rxjs';
 
 /**
  * Shared fe region component for use with maps
@@ -20,8 +20,7 @@ export class FeRegionComponent {
   _loading = false;
   _longitude: number;
 
-  @Input()
-  fe: any;
+  region = new BehaviorSubject<any>(null);
 
   constructor(public geoserveService: GeoserveService) {}
 
@@ -70,7 +69,7 @@ export class FeRegionComponent {
    */
   fetchFe(latitude: number, longitude: number) {
     if (!(latitude || latitude === 0) || !(longitude || longitude === 0)) {
-      this.fe = null;
+      this.region.next(null);
       return;
     }
 
@@ -80,7 +79,7 @@ export class FeRegionComponent {
       this._loading = false;
 
       // Assumes each coordinate returns a single FE region.
-      this.fe = response.fe.features[0];
+      this.region.next(response.fe.features[0]);
     });
   }
 
