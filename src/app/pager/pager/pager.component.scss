@@ -1,11 +1,9 @@
 .losspager-product-page {
-
   figure {
     margin: 1em 0;
   }
 
   mat-table {
-
     .mat-column-mmi,
     .mat-column-population {
       flex-grow: 0;
@@ -17,7 +15,7 @@
     }
 
     .mat-column-population {
-      flex-basis: 80px;
+      flex-basis: 100px;
     }
   }
 
