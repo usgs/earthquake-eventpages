@@ -276,7 +276,7 @@ export class FormatterService {
       return this.empty;
     }
 
-    return this.number(value, null, type);
+    return this.number(value, null, null, type);
   }
 
   /**
