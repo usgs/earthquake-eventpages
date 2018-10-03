@@ -25,7 +25,9 @@ import { DyfiResponsePopupComponent } from './dyfi-response-popup/dyfi-response-
 import { FeRegionComponent } from './fe-region/fe-region.component';
 import { FiniteFaultMapPopupComponent } from './finite-fault-map-popup/finite-fault-map-popup.component';
 import { GetProductPipe } from './get-product.pipe';
+import { GetProductsPipe } from './get-products.pipe';
 import { GroundFailureOverlaysPipe } from './ground-failure-overlays.pipe';
+import { HasProductPipe } from './has-product.pipe';
 import { InteractiveMapBoundsPipe } from './interactive-map-bounds.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 import { KeysPipe } from './keys.pipe';
@@ -76,7 +78,9 @@ import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
     FiniteFaultMapPopupComponent,
     FiniteFaultOverlaysPipe,
     GetProductPipe,
+    GetProductsPipe,
     GroundFailureOverlaysPipe,
+    HasProductPipe,
     InteractiveMapBoundsPipe,
     InteractiveMapOverlaysPipe,
     KeysPipe,
@@ -127,7 +131,9 @@ import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
     DyfiCounterPipe,
     FeRegionComponent,
     GetProductPipe,
+    GetProductsPipe,
     GroundFailureOverlaysPipe,
+    HasProductPipe,
     InteractiveMapBoundsPipe,
     InteractiveMapOverlaysPipe,
     KeysPipe,

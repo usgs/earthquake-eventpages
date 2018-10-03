@@ -5,7 +5,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
 import { EventService } from '@core/event.service';
-import { Event } from '../../event';
+import { MockPipe } from '../../mock-pipe';
 import { ImpactComponent } from './impact.component';
 
 describe('ImpactComponent', () => {
@@ -14,7 +14,7 @@ describe('ImpactComponent', () => {
 
   beforeEach(async(() => {
     const eventServiceStub = {
-      event$: of(new Event(null)),
+      event$: of(null),
       getProduct: jasmine.createSpy('eventService::getProduct')
     };
     TestBed.configureTestingModule({
@@ -40,7 +40,10 @@ describe('ImpactComponent', () => {
         MockComponent({
           inputs: ['event', 'products'],
           selector: 'impact-shakemap-summary'
-        })
+        }),
+
+        MockPipe('sharedGetProducts'),
+        MockPipe('sharedHasProduct')
       ],
       imports: [RouterTestingModule],
       providers: [
