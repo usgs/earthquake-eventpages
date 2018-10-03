@@ -2,7 +2,7 @@ import { Event } from '../event';
 
 import { GetProductsPipe } from './get-products.pipe';
 
-fdescribe('sharedGetProductsPipe', () => {
+describe('sharedGetProductsPipe', () => {
   it('create an instance', () => {
     const pipe = new GetProductsPipe();
     expect(pipe).toBeTruthy();
