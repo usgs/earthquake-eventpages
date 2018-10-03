@@ -1,19 +1,21 @@
 <ng-container *ngIf="languageService?.language$ | async; let language">
   <mat-dialog-content>
-
     <h2>
       <span class="felt-header">Felt Report - Tell Us!</span>
       <div class="omb-number">
         OMB No. 1028-0048
-        <br/> Expires 06/30/2021
+        <br /> Expires 06/30/2021
       </div>
     </h2>
 
     <mat-form-field>
       <mat-label>Select Language</mat-label>
-      <mat-select (selectionChange)="setLanguage($event.value)" [value]="language?.id">
+      <mat-select (selectionChange)="setLanguage($event.value)"
+        [value]="language?.id"
+        cdkFocusInitial>
         <mat-option *ngFor="let language of languageService?.languages;
-            trackBy: trackByIndex" [value]="language?.id">
+            trackBy: trackByIndex"
+          [value]="language?.id">
           {{ language?.name }}
         </mat-option>
       </mat-select>
@@ -21,7 +23,9 @@
 
     <!-- location -->
     <tell-us-fieldset [legend]="language?.locationInfo.label">
-      <tell-us-location (change)="onAnswer($event)" [enter]="language?.locationInfo?.button" [update]="language?.locationInfo?.buttonUpdate">
+      <tell-us-location (change)="onAnswer($event)"
+        [enter]="language?.locationInfo?.button"
+        [update]="language?.locationInfo?.buttonUpdate">
       </tell-us-location>
     </tell-us-fieldset>
 
@@ -29,8 +33,10 @@
     <ng-container *ngIf="!answers?.eventId && !hasEvent">
       <tell-us-fieldset [legend]="language?.eventTime?.ciim_time?.label">
         <mat-form-field>
-          <input matInput [(ngModel)]="answers.ciim_time" aria-label="Time of Earthquake" [placeholder]="language?.eventTime?.ciim_time?.placeholder"
-          />
+          <input matInput
+            [(ngModel)]="answers.ciim_time"
+            aria-label="Time of Earthquake"
+            [placeholder]="language?.eventTime?.ciim_time?.placeholder" />
         </mat-form-field>
       </tell-us-fieldset>
     </ng-container>
@@ -38,28 +44,41 @@
     <!-- base questions (Did you feel it?) -->
     <ng-container *ngFor="let name of language?.baseQuestions | keys;
         trackBy: trackByIndex">
-      <tell-us-question *ngIf="language?.baseQuestions[name]; let question" (change)="onAnswer($event)" [label]="question?.label"
-        [multiSelect]="question?.multiSelect" [name]="name" [options]="question?.answers" [value]="answers[name]">
+      <tell-us-question *ngIf="language?.baseQuestions[name]; let question"
+        (change)="onAnswer($event)"
+        [label]="question?.label"
+        [multiSelect]="question?.multiSelect"
+        [name]="name"
+        [options]="question?.answers"
+        [value]="answers[name]">
       </tell-us-question>
     </ng-container>
 
     <!-- the rest is optional -->
-    <p class="alert info optional" [innerHTML]="language?.toggleInfo?.description">
+    <p class="alert info optional"
+      [innerHTML]="language?.toggleInfo?.description">
     </p>
 
     <!-- optional questions -->
     <ng-container *ngFor="let name of language?.moreQuestions | keys;
         trackBy: trackByIndex">
-      <tell-us-question *ngIf="language?.moreQuestions[name]; let question" (change)="onAnswer($event)" [label]="question?.label"
-        [multiSelect]="question?.multiSelect" [name]="name" [options]="question?.answers" [value]="answers[name]">
+      <tell-us-question *ngIf="language?.moreQuestions[name]; let question"
+        (change)="onAnswer($event)"
+        [label]="question?.label"
+        [multiSelect]="question?.multiSelect"
+        [name]="name"
+        [options]="question?.answers"
+        [value]="answers[name]">
       </tell-us-question>
     </ng-container>
 
     <!-- additional comments -->
     <tell-us-fieldset [legend]="language?.comments?.fldContact_comments?.label">
       <mat-form-field>
-        <textarea matInput [(ngModel)]="answers.fldContact_comments" matAutosizeMinRows="3" matTextareaAutosize>
-        </textarea>
+        <textarea matInput
+          [(ngModel)]="answers.fldContact_comments"
+          matAutosizeMinRows="3"
+          matTextareaAutosize></textarea>
       </mat-form-field>
     </tell-us-fieldset>
 
@@ -79,29 +98,36 @@
         <mat-label>
           {{ language?.contactInfo?.fldContact_name?.label }}
         </mat-label>
-        <input matInput type="text" [(ngModel)]="answers.fldContact_name" />
+        <input matInput
+          type="text"
+          [(ngModel)]="answers.fldContact_name" />
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>
           {{ language?.contactInfo?.fldContact_email?.label }}
         </mat-label>
-        <input matInput type="email" [(ngModel)]="answers.fldContact_email" />
+        <input matInput
+          type="email"
+          [(ngModel)]="answers.fldContact_email" />
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>
           {{ language?.contactInfo?.fldContact_phone?.label }}
         </mat-label>
-        <input matInput type="tel" [(ngModel)]="answers.fldContact_phone" />
+        <input matInput
+          type="tel"
+          [(ngModel)]="answers.fldContact_phone" />
       </mat-form-field>
 
     </tell-us-fieldset>
-
   </mat-dialog-content>
 
   <mat-dialog-actions>
-    <button mat-button (click)="onSubmit()" [disabled]="
+    <button mat-button
+      (click)="onSubmit()"
+      [disabled]="
             answers?.ciim_mapLat === null ||
             answers?.ciim_mapLon === null ||
             answers?.ciim_time === null ||
@@ -109,7 +135,8 @@
       {{ language?.submit?.label }}
     </button>
 
-    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button
+      (click)="onCancel()">Cancel</button>
   </mat-dialog-actions>
 
 </ng-container>
