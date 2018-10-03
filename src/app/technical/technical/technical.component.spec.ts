@@ -5,6 +5,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
 import { EventService } from '@core/event.service';
+import { MockPipe } from '../../mock-pipe';
 import { TechnicalComponent } from './technical.component';
 
 describe('TechnicalComponent', () => {
@@ -43,7 +44,10 @@ describe('TechnicalComponent', () => {
         MockComponent({
           inputs: ['product'],
           selector: 'shared-text-product'
-        })
+        }),
+
+        MockPipe('sharedGetProducts'),
+        MockPipe('sharedHasProduct')
       ],
       imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]
