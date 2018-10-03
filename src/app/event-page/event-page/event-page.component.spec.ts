@@ -41,7 +41,10 @@ describe('EventPageComponent', () => {
           selector: 'shared-text-product'
         }),
 
-        MockComponent({ inputs: ['COOPERATOR'], selector: 'hazdev-template' }),
+        MockComponent({
+          inputs: ['COOPERATOR', 'CONTACT'],
+          selector: 'hazdev-template'
+        }),
         MockComponent({ selector: 'hazdev-template-navigation-group' }),
 
         MockComponent({

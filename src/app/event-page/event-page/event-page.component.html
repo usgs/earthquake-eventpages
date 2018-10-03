@@ -1,6 +1,7 @@
 <ng-container *ngIf="this?.eventService?.event$ | async;
     else noEvent; let event">
-  <hazdev-template [COOPERATOR]="this.contributorService.contributors$ | async | cooperator:event">
+  <hazdev-template [COOPERATOR]="this.contributorService.contributors$ | async | cooperator:event"
+    [CONTACT]="'mailto:lisa%2Behpweb@usgs.gov'">
     <event-page-header [event]="event"></event-page-header>
 
     <mat-nav-list templateSideNavigation>
