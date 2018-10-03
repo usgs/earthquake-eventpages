@@ -1,41 +1,37 @@
 <ng-container *ngIf="eventService?.event$ | async as event">
-  <ng-container *ngIf="event">
+  <technical-origin-summary *ngIf="event | sharedHasProduct:'origin'"
+    [event]="event"
+    [products]="event | sharedGetProducts:'origin'">
+  </technical-origin-summary>
 
-    <technical-origin-summary *ngIf="event | sharedHasProduct:'origin'"
-      [event]="event"
-      [products]="event | sharedGetProducts:'origin'">
-    </technical-origin-summary>
+  <technical-moment-tensor-summary *ngIf="event | sharedHasProduct:'moment-tensor'"
+    [event]="event"
+    [products]="event | sharedGetProducts:'moment-tensor'">
+  </technical-moment-tensor-summary>
 
-    <technical-moment-tensor-summary *ngIf="event | sharedHasProduct:'moment-tensor'"
-      [event]="event"
-      [products]="event | sharedGetProducts:'moment-tensor'">
-    </technical-moment-tensor-summary>
+  <technical-finite-fault-summary *ngIf="event | sharedHasProduct:'finite-fault'"
+    [event]="event"
+    [products]="event | sharedGetProducts:'finite-fault'">
+  </technical-finite-fault-summary>
 
-    <technical-finite-fault-summary *ngIf="event | sharedHasProduct:'finite-fault'"
-      [event]="event"
-      [products]="event | sharedGetProducts:'finite-fault'">
-    </technical-finite-fault-summary>
+  <technical-focal-mechanism-summary *ngIf="event | sharedHasProduct:'focal-mechanism'"
+    [event]="event"
+    [products]="event | sharedGetProducts:'focal-mechanism'">
+  </technical-focal-mechanism-summary>
 
-    <technical-focal-mechanism-summary *ngIf="event | sharedHasProduct:'focal-mechanism'"
-      [event]="event"
-      [products]="event | sharedGetProducts:'focal-mechanism'">
-    </technical-focal-mechanism-summary>
-
-    <shared-text-product *ngFor="let product of event | sharedGetProducts:'scitech-text';
+  <shared-text-product *ngFor="let product of event | sharedGetProducts:'scitech-text';
         trackBy: trackByIndex"
-      [product]="product">
-    </shared-text-product>
+    [product]="product">
+  </shared-text-product>
 
-    <ng-container *ngIf="event | sharedHasProduct:'scitech-link'">
-      <h3>For More Information</h3>
-      <ul>
-        <li *ngFor="let product of event | sharedGetProducts:'scitech-link';
+  <ng-container *ngIf="event | sharedHasProduct:'scitech-link'">
+    <h3>For More Information</h3>
+    <ul>
+      <li *ngFor="let product of event | sharedGetProducts:'scitech-link';
           trackBy: trackByIndex">
-          <shared-link-product [product]="product">
-          </shared-link-product>
-        </li>
-      </ul>
-    </ng-container>
-
+        <shared-link-product [product]="product">
+        </shared-link-product>
+      </li>
+    </ul>
   </ng-container>
 </ng-container>
