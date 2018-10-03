@@ -83,6 +83,10 @@ describe('ExecutiveComponent', () => {
           inputs: ['product'],
           selector: 'shared-text-product'
         }),
+        MockComponent({
+          inputs: ['product', 'expanded'],
+          selector: 'product-page-download'
+        }),
 
         MockPipe('getProduct'),
         MockPipe('nearbySeismicityLink')

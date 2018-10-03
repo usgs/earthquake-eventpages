@@ -18,7 +18,10 @@ describe('DownloadComponent', () => {
       declarations: [
         DownloadComponent,
 
-        MockComponent({ selector: 'mat-expansion-panel' }),
+        MockComponent({
+          inputs: ['expanded'],
+          selector: 'mat-expansion-panel'
+        }),
         MockComponent({ selector: 'mat-expansion-panel-header' }),
         MockComponent({
           inputs: ['item'],
@@ -41,46 +44,26 @@ describe('DownloadComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('get/set product', () => {
-    it('should return same product that was set', () => {
-      const product = {};
-      component.product = product;
-      expect(component.product).toBe(product);
-    });
-
-    it('auto-loads when open on set', () => {
-      component.onOpen();
-      spyOn(component, 'loadContentsXml');
+  describe('loadContentsXml', () => {
+    it('calls contents xml service with correct product', () => {
       component.product = {};
 
-      expect(component.loadContentsXml).toHaveBeenCalled();
+      component.loadContentsXml();
+
+      expect(component.contentsXmlService.get).toHaveBeenCalledWith(
+        component.product
+      );
     });
 
     it('uses phasedata when set', () => {
-      component.onOpen();
+      const phasedata = {};
       component.product = {
-        phasedata: {}
+        phasedata: phasedata
       };
-      expect(component.contentsXmlService.get).toHaveBeenCalledWith(
-        component.product.phasedata
-      );
-    });
-  });
 
-  describe('opened/closed', () => {
-    it('is initially closed', () => {
-      expect(component.isOpen()).toBe(false);
-    });
+      component.loadContentsXml();
 
-    it('is opened after openining', () => {
-      component.onOpen();
-      expect(component.isOpen()).toBe(true);
-    });
-
-    it('is closed after closing', () => {
-      component.onOpen();
-      component.onClose();
-      expect(component.isOpen()).toBe(false);
+      expect(component.contentsXmlService.get).toHaveBeenCalledWith(phasedata);
     });
   });
 });

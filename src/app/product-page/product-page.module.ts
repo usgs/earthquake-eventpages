@@ -23,7 +23,7 @@ import { FileExtensionPipe } from './file-extension.pipe';
     HeaderComponent,
     ProductPageComponent
   ],
-  exports: [DateTimePipe, ProductPageComponent],
+  exports: [DateTimePipe, ProductPageComponent, DownloadComponent],
   imports: [CommonModule, MatExpansionModule, SharedModule]
 })
 export class ProductPageModule {}

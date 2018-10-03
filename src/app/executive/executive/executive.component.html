@@ -1,7 +1,6 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
   <shared-text-product *ngFor="let product of event.getProducts('general-header');
-          trackBy: trackByIndex"
-    [product]="product">
+          trackBy: trackByIndex" [product]="product">
   </shared-text-product>
 
   <ul class="pins">
@@ -73,15 +72,13 @@
     </li>
 
     <li *ngIf="event | nearbySeismicityLink: 'nearby'; let link">
-      <executive-nearby-seismicity-pin [event]="event"
-        [link]="link">
+      <executive-nearby-seismicity-pin [event]="event" [link]="link">
       </executive-nearby-seismicity-pin>
     </li>
   </ul>
 
   <shared-text-product *ngFor="let product of event.getProducts('general-text');
-          trackBy: trackByIndex"
-    [product]="product">
+          trackBy: trackByIndex" [product]="product">
   </shared-text-product>
 
   <ng-container *ngIf="event.hasProducts('general-link')">
@@ -94,4 +91,7 @@
       </li>
     </ul>
   </ng-container>
+
+  <product-page-download *ngIf="event.hasProducts('poster')" [product]="event.getProduct('poster')" [expanded]="true">
+  </product-page-download>
 </ng-container>

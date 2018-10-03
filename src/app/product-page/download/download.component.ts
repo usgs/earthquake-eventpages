@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { ContentsXmlService } from '@core/contents-xml.service';
 
-
 /**
  * Generates expansion panel to list all downloadable product contents
  *
@@ -16,52 +15,23 @@ import { ContentsXmlService } from '@core/contents-xml.service';
   templateUrl: './download.component.html'
 })
 export class DownloadComponent {
-  // see getter/setter below
-  _product: any;
+  @Input()
+  expanded: any;
 
-  open = false;
+  @Input()
+  product: any;
 
   constructor(public contentsXmlService: ContentsXmlService) {}
-
-  /**
-   * Check if downloads expansion panel is expanded
-   */
-  isOpen() {
-    return this.open;
-  }
 
   /**
    * Gets contents xml from product
    */
   loadContentsXml() {
-    let product = this._product;
-    if (product && product.phasedata) {
+    if (this.product && this.product.phasedata) {
       // prefer phase data when availble
-      product = product.phasedata;
+      this.product = this.product.phasedata;
     }
-    this.contentsXmlService.get(product);
-  }
-
-  /**
-   * Keeps track of expansion panel state
-   */
-  onClose() {
-    this.open = false;
-  }
-
-  /**
-   * Keeps track of expansion panel state, triggers fetch
-   */
-  onOpen() {
-    this.open = true;
-    this.loadContentsXml();
-  }
-
-  /**
-   * setter for product.
-   */
-  get product(): any {
-    return this._product;
+    this.contentsXmlService.get(this.product);
   }
 
   /**
@@ -72,19 +42,7 @@ export class DownloadComponent {
    * @param item
    *    content item
    */
-  trackByIndex (index, item) {
+  trackByIndex(index, item) {
     return index;
-  }
-
-  /**
-   * getter for product,
-   * fetch contents.xml if the expansion panel is open
-   */
-  @Input()
-  set product(product: any) {
-    this._product = product;
-    if (this.open) {
-      this.loadContentsXml();
-    }
   }
 }
