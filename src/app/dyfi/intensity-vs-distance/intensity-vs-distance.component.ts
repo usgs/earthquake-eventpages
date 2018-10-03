@@ -128,6 +128,17 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
         });
       }
 
+      // add opacity if features have nresp
+      if (series.series.length > 0 && series.series[0].nresp) {
+        series.series = series.series.map(data => {
+          let opacity = 1;
+          if (data.nresp) {
+            opacity = data.nresp > 5 ? 1 : .2;
+          }
+          return {...data, opacity: opacity};
+        });
+      }
+
       if (options.type === 'line') {
         lineSeries.push(series);
       } else {

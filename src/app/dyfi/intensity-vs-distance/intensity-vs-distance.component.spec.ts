@@ -31,7 +31,9 @@ describe('IntensityVsDistanceComponent', () => {
         {
           class: 'scatterplot1',
           name: 'All reported data',
-          series: []
+          series: [
+            {nresp: 5}
+          ]
         },
         {
           class: 'estimated1',
@@ -71,6 +73,7 @@ describe('IntensityVsDistanceComponent', () => {
               'customColors',
               'results',
               'animations',
+              'bubbleTooltipTemplate',
               'lineChart',
               'lineChartTooltip',
               'bubbleChart',
@@ -97,7 +100,8 @@ describe('IntensityVsDistanceComponent', () => {
           }
         ),
 
-        MockPipe('sharedProductContent')
+        MockPipe('sharedProductContent'),
+        MockPipe('sharedNumber')
       ],
       providers: [
         { provide: EventService, useValue: eventServiceStub },

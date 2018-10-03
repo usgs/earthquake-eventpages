@@ -127,8 +127,7 @@ export class DyfiService {
         ngxData = {
           name: data.x,
           value: data.y,
-          x: data.x,
-          y: data.y
+          ...data
         };
 
         if (data.stdev) {
