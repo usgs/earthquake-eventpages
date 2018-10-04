@@ -20,7 +20,10 @@ export class UnitsPipe implements PipeTransform {
    * @return { String | null }
    *     number with units
    */
-  transform(value: number | string, units: string): string | null {
+  transform(
+      value: number | string,
+      units: string,
+      decimals: number = null): string | null {
     let output: string = null;
 
     if (value === null) {
@@ -35,7 +38,7 @@ export class UnitsPipe implements PipeTransform {
 
       case 'degrees': {
         const degPipe = new DegreesPipe(this.formatterService);
-        output = degPipe.transform(value);
+        output = degPipe.transform(value, decimals);
         break;
       }
 
