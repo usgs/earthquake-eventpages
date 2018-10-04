@@ -10,8 +10,12 @@
          }">
       <shared-map [overlays]="shakemap | shakemapOverlays:['shakemap-intensity',
           'shakemap-stations']"
-        [showScaleControl]="true"
-        [showAttributionControl]="false">
+          [showScaleControl]="true"
+          [showAttributionControl]="false"
+          [bounds]="[[shakemap.properties['maximum-latitude'],
+          shakemap.properties['maximum-longitude']],
+          [shakemap.properties['minimum-latitude'],
+          shakemap.properties['minimum-longitude']]]">
       </shared-map>
     </a>
 
