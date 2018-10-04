@@ -1,10 +1,10 @@
 import { Location } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { EventService } from '@core/event.service';
 import { FormComponent } from '../form/form.component';
-import { HttpErrorResponse } from '@angular/common/http';
 
 /**
  * Main component that handles the displaying of the tell us form and displays
@@ -83,7 +83,6 @@ export class TellUsComponent implements OnInit {
    */
   showForm() {
     this.dialogRef = this.dialog.open(FormComponent, {
-      autoFocus: true,
       data: {
         eventService: this.eventService
       }
