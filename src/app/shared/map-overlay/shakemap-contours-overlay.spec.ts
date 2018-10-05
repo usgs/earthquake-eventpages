@@ -98,32 +98,6 @@ describe('ShakemapContoursOverlay', () => {
     });
   });
 
-  describe('after add', () => {
-    beforeEach(() => {
-      overlay.map = {
-        fitBounds: function(bounds) {}
-      };
-    });
-
-    it('gets bounds', () => {
-      const bounds = 'BOUNDS';
-      spyOn(overlay, 'getBounds').and.returnValue(bounds);
-
-      overlay.afterAdd();
-      expect(overlay.bounds).toBe(bounds);
-    });
-
-    it('sets map bounds', () => {
-      const bounds = 'BOUNDS';
-      spyOn(overlay, 'getBounds').and.returnValue(bounds);
-
-      const mapSpy = spyOn(overlay.map, 'fitBounds').and.callFake(() => {});
-
-      overlay.afterAdd();
-      expect(mapSpy).toHaveBeenCalledWith(bounds);
-    });
-  });
-
   describe('getAngle', () => {
     it('calculates the correct angle', () => {
       const angle = overlay.getAngle([0, 0], [1, 1]);

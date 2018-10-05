@@ -28,7 +28,7 @@ describe('PgvComponent', () => {
             'overlays',
             'showScaleControl',
             'showAttributionControl',
-            'baselayer'
+            'bounds'
           ],
           selector: 'shared-map'
         }),
