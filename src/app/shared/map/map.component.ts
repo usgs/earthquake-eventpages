@@ -147,7 +147,8 @@ export class MapComponent implements AfterViewInit {
       scrollWheelZoom: false,
       tap: true,
       touchZoom: true,
-      zoomControl: false
+      zoomControl: false,
+      zoomSnap: 0
     });
 
     this.layersControl = L.control.layers(baselayers, {});
