@@ -1,8 +1,8 @@
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
-  getEventPageHeaderTitle() {
-    return element(by.css('event-page-header > header > h1')).getText();
+  getMainPageHeaderTitle() {
+    return element(by.css('main > header > h1')).getText();
   }
 
   getUnknownPageHeaderTitle() {
