@@ -42,7 +42,7 @@ describe('EventPageComponent', () => {
         }),
 
         MockComponent({
-          inputs: ['COOPERATOR', 'CONTACT'],
+          inputs: ['COOPERATOR', 'CONTACT', 'TITLE'],
           selector: 'hazdev-template'
         }),
         MockComponent({ selector: 'hazdev-template-navigation-group' }),
@@ -54,7 +54,8 @@ describe('EventPageComponent', () => {
 
         MockComponent({ selector: 'mat-nav-list' }),
 
-        MockPipe('cooperator')
+        MockPipe('cooperator'),
+        MockPipe('eventTitle')
       ],
       imports: [RouterTestingModule],
       providers: [
