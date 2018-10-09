@@ -10,6 +10,10 @@
 @import "./app/shared/css/leaflet-styles.scss"; // import before legend-control.scss
 @import "./app/shared/map-control/legend-control.scss";
 
+header > h1 {
+  margin-bottom: 0;
+}
+
 /* Material Design Component Styles */
 a.mdc-tab,
 mdc-tab.mdc-tab {
