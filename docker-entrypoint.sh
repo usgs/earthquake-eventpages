@@ -27,7 +27,16 @@ if [ -z $DOCUMENT_ROOT ]; then
   DOCUMENT_ROOT='.';
 fi
 
+for hook in /startup-hooks/*; do
+  echo -n "Found startup hook ${hook} ... ";
 
+  if [ -x "/startup-hooks/${hook}" ]; then
+    echo "executing.";
+    /startup-hooks/${hook};
+  else
+    echo "not executable. Skipping.";
+  fi
+done
 
 # Write configuration file for NGINX
 cat <<-EO_CONFIG> ${NGINX_CONF_DIR}/00-server.conf

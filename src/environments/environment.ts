@@ -16,5 +16,7 @@ export const environment = {
 
   EVENT_SERVICE: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail',
 
-  GEOSERVE_SERVICE: 'https://earthquake.usgs.gov/ws/geoserve'
+  GEOSERVE_SERVICE: 'https://earthquake.usgs.gov/ws/geoserve',
+
+  siteUrl: 'localhost.localdomain'
 };

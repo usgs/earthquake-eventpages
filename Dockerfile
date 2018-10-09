@@ -40,6 +40,8 @@ RUN rm -rf /usr/share/nginx/html/ && \
     chown -R usgs-user:usgs-user /etc/nginx
 USER usgs-user
 
+COPY --chown=usgs-user:usgs-user 00-hook.sh /startup-hooks/.
+
 COPY --from=buildenv \
     /earthquake-eventpages/dist/ \
     /usr/share/nginx/html/BASE_HREF/
