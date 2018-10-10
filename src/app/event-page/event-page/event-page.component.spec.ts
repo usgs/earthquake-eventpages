@@ -55,7 +55,7 @@ describe('EventPageComponent', () => {
         MockComponent({ selector: 'mat-nav-list' }),
 
         MockPipe('cooperator'),
-        MockPipe('eventTitle')
+        MockPipe('sharedEventTitle')
       ],
       imports: [RouterTestingModule],
       providers: [
