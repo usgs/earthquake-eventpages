@@ -23,7 +23,7 @@ export class TellUsComponent implements OnInit {
   // promise representing showForm having been called in ngOnInit
   initPromise: Promise<any>;
   // response received from form
-  response: any = null;
+  success: any = null;
 
   constructor(
     public dialog: MatDialog,
@@ -45,6 +45,8 @@ export class TellUsComponent implements OnInit {
    */
   onDialogClose(response: any | HttpErrorResponse) {
     this.dialogRef = null;
+    this.error = null;
+    this.success = null;
 
     // check response
     if (response && response.your_cdi) {
@@ -74,8 +76,8 @@ export class TellUsComponent implements OnInit {
    *     response object from earthquake-dyfi-response
    */
   onSuccess(response: any) {
-    this.response = response;
-    console.log('success!', this.response);
+    this.success = response;
+    console.log('success!', this.success);
   }
 
   /**
