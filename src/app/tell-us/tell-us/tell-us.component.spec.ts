@@ -128,10 +128,20 @@ describe('TellUsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('onDialogClose', () => {
+  fdescribe('onDialogClose', () => {
     it('cleans up the dialog reference', () => {
       component.onDialogClose(null);
       expect(component.dialogRef).toBeNull();
+    });
+    it('cleans up the error response and response data', () => {
+      const data = {
+        test: 'test'
+      };
+      component.error = data;
+      component.response = data;
+      component.onDialogClose(null);
+      expect(component.error).toBeNull();
+      expect(component.response).toBeNull();
     });
     it('calls onSuccess with a valid response', () => {
       const response = { your_cdi: '1' };
