@@ -12,10 +12,13 @@
 
     <shared-map
         [overlays]="shakemap | shakemapOverlays:['shakemap-pga',
-            'shakemap-stations']"
-        [baselayer]="'Grayscale'"
+        'shakemap-stations']"
         [showScaleControl]="true"
-        [showAttributionControl]="false">
+        [showAttributionControl]="false"
+        [bounds]="[[shakemap.properties['maximum-latitude'],
+        shakemap.properties['maximum-longitude']],
+        [shakemap.properties['minimum-latitude'],
+        shakemap.properties['minimum-longitude']]]">
     </shared-map>
   </a>
 

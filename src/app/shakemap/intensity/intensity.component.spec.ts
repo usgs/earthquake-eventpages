@@ -24,7 +24,12 @@ describe('IntensityComponent', () => {
         IntensityComponent,
 
         MockComponent({
-          inputs: ['overlays', 'showScaleControl', 'showAttributionControl'],
+          inputs: [
+            'overlays',
+            'showScaleControl',
+            'showAttributionControl',
+            'bounds'
+          ],
           selector: 'shared-map'
         }),
 

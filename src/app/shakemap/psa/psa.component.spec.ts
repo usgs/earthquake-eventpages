@@ -28,7 +28,7 @@ describe('PsaComponent', () => {
             'overlays',
             'showScaleControl',
             'showAttributionControl',
-            'baselayer'
+            'bounds'
           ],
           selector: 'shared-map'
         }),

@@ -34,14 +34,6 @@ const ShakemapContoursOverlay = AsynchronousGeoJSONOverlay.extend({
   },
 
   /**
-   * Adds map bounds to overlay
-   */
-  afterAdd: function() {
-    this.bounds = this.getBounds();
-    this.map.fitBounds(this.bounds);
-  },
-
-  /**
    * Generates label content that will be displayed inline with the contour
    *
    * @param feature

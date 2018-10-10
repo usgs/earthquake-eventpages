@@ -18,9 +18,12 @@
       <shared-map
           [overlays]="shakemap | shakemapOverlays:['shakemap-psa03',
           'shakemap-stations']"
-          [baselayer]="'Grayscale'"
           [showScaleControl]="true"
-          [showAttributionControl]="false">
+          [showAttributionControl]="false"
+          [bounds]="[[shakemap.properties['maximum-latitude'],
+          shakemap.properties['maximum-longitude']],
+          [shakemap.properties['minimum-latitude'],
+          shakemap.properties['minimum-longitude']]]">
       </shared-map>
     </a>
   </ng-container>
@@ -52,9 +55,12 @@
       <shared-map
           [overlays]="shakemap | shakemapOverlays:['shakemap-psa10',
           'shakemap-stations']"
-          [baselayer]="'Grayscale'"
           [showScaleControl]="true"
-          [showAttributionControl]="false">
+          [showAttributionControl]="false"
+          [bounds]="[[shakemap.properties['maximum-latitude'],
+          shakemap.properties['maximum-longitude']],
+          [shakemap.properties['minimum-latitude'],
+          shakemap.properties['minimum-longitude']]]">
       </shared-map>
     </a>
   </ng-container>
@@ -86,9 +92,12 @@
       <shared-map
           [overlays]="shakemap | shakemapOverlays:['shakemap-psa30',
           'shakemap-stations']"
-          [baselayer]="'Grayscale'"
           [showScaleControl]="true"
-          [showAttributionControl]="false">
+          [showAttributionControl]="false"
+          [bounds]="[[shakemap.properties['maximum-latitude'],
+          shakemap.properties['maximum-longitude']],
+          [shakemap.properties['minimum-latitude'],
+          shakemap.properties['minimum-longitude']]]">
       </shared-map>
     </a>
   </ng-container>
