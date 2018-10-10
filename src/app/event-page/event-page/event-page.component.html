@@ -2,7 +2,7 @@
     else noEvent; let event">
   <hazdev-template [COOPERATOR]="this.contributorService.contributors$ | async | cooperator:event"
     [CONTACT]="'mailto:lisa%2Behpweb@usgs.gov'"
-    [TITLE]="event | eventTitle">
+    [TITLE]="event | sharedEventTitle">
     <event-page-header [event]="event"></event-page-header>
 
     <mat-nav-list templateSideNavigation>
