@@ -30,9 +30,9 @@ fi
 for hook in /startup-hooks/*; do
   echo -n "Found startup hook ${hook} ... ";
 
-  if [ -x "/startup-hooks/${hook}" ]; then
+  if [ -x "${hook}" ]; then
     echo "executing.";
-    /startup-hooks/${hook};
+    ${hook};
   else
     echo "not executable. Skipping.";
   fi
