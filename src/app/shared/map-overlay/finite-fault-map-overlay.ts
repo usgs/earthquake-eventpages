@@ -49,8 +49,8 @@ const FiniteFaultMapOverlay = AsynchronousGeoJSONOverlay.extend({
       layer.setStyle({
         color: '#666',
         fillColor: feature.properties.fill,
-        fillOpacity: feature.properties['fill-opacity'],
-        weight: feature.properties['stroke-width']
+        fillOpacity: 0.5,
+        weight: 0.4
       });
       layer.bindPopup(this.formatPopup(feature));
     }
