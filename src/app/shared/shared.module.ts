@@ -22,6 +22,7 @@ import { DownloadDialogComponent } from './download-dialog/download-dialog.compo
 import { DyfiCounterPipe } from './dyfi-counter.pipe';
 import { DyfiOverlaysPipe } from './dyfi-overlays.pipe';
 import { DyfiResponsePopupComponent } from './dyfi-response-popup/dyfi-response-popup.component';
+import { EventTitlePipe } from './event-title.pipe';
 import { FeRegionComponent } from './fe-region/fe-region.component';
 import { FiniteFaultMapPopupComponent } from './finite-fault-map-popup/finite-fault-map-popup.component';
 import { GetProductPipe } from './get-product.pipe';
@@ -74,6 +75,7 @@ import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
     DyfiCounterPipe,
     DyfiOverlaysPipe,
     DyfiResponsePopupComponent,
+    EventTitlePipe,
     FeRegionComponent,
     FiniteFaultMapPopupComponent,
     FiniteFaultOverlaysPipe,
@@ -129,6 +131,7 @@ import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
     DegreesPipe,
     DownloadDialogComponent,
     DyfiCounterPipe,
+    EventTitlePipe,
     FeRegionComponent,
     GetProductPipe,
     GetProductsPipe,
