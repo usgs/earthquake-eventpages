@@ -35,9 +35,7 @@ LABEL maintainer="Eric Martinez <emartinez@usgs.gov>"
 
 USER root
 RUN rm -rf /usr/share/nginx/html/ && \
-    mkdir -p /usr/share/nginx/html/BASE_HREF && \
-    chown -R usgs-user:usgs-user /usr/share/nginx && \
-    chown -R usgs-user:usgs-user /etc/nginx
+    mkdir -p /usr/share/nginx/html/BASE_HREF
 USER usgs-user
 
 COPY --chown=usgs-user:usgs-user 00-hook.sh /startup-hooks/.
@@ -53,6 +51,11 @@ COPY --from=buildenv \
 COPY --from=buildenv \
     /earthquake-eventpages/docker-entrypoint.sh \
     /usr/share/nginx/docker-entrypoint.sh
+
+USER root
+RUN chown -R usgs-user:usgs-user /usr/share/nginx && \
+    chown -R usgs-user:usgs-user /etc/nginx
+USER usgs-user
 
 HEALTHCHECK \
     --interval=20s \
