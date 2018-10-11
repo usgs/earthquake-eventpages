@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatTableModule } from '@angular/material';
+import { MatButtonModule, MatTableModule } from '@angular/material';
 import { SharedModule } from '@shared/shared.module';
 
 import { ProductPageModule } from '../product-page/product-page.module';
@@ -19,6 +19,7 @@ import { ResultTableComponent } from './result-table/result-table.component';
   imports: [
     CommonModule,
     FiniteFaultRoutingModule,
+    MatButtonModule,
     MatTableModule,
     ProductPageModule,
     SharedModule
