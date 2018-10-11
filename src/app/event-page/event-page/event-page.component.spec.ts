@@ -2,7 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ContributorService } from '@core/contributor.service';
 import { EventService } from '@core/event.service';
+import { Event } from '../../event';
 import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
 
 import { EventPageComponent } from './event-page.component';
 import { MockPipe } from '../../mock-pipe';
@@ -17,6 +19,7 @@ describe('EventPageComponent', () => {
     };
 
     const eventServiceStub = {
+      event$: of(new Event({})),
       getEvent: jasmine.createSpy('eventService::getEvent')
     };
 
