@@ -9,7 +9,7 @@
   Show Felt Report Form
 </button>
 
-<ng-container *ngIf="!response && !error">
+<ng-container *ngIf="!success && !error">
   <p>
     By contributing your experience of the earthquake, either immediately
     afterward, or whenever it is possible for you to do so, you make a
@@ -28,11 +28,11 @@
   </p>
 </ng-container>
 
-<ng-container *ngIf="response">
+<ng-container *ngIf="success">
   <p class="alert info">
     Thanks for your response.
   </p>
-  <pre>{{ response | json }}</pre>
+  <pre>{{ success | json }}</pre>
 </ng-container>
 
 <ng-container *ngIf="error">

@@ -133,6 +133,16 @@ describe('TellUsComponent', () => {
       component.onDialogClose(null);
       expect(component.dialogRef).toBeNull();
     });
+    it('cleans up the error response and response data', () => {
+      const data = {
+        test: 'test'
+      };
+      component.error = data;
+      component.success = data;
+      component.onDialogClose(null);
+      expect(component.error).toBeNull();
+      expect(component.success).toBeNull();
+    });
     it('calls onSuccess with a valid response', () => {
       const response = { your_cdi: '1' };
       spyOn(component, 'onSuccess');
@@ -152,7 +162,7 @@ describe('TellUsComponent', () => {
   describe('onError', () => {
     it('sets error response', () => {
       const response = { message: 'error' };
-      component.response = null;
+      component.success = null;
       component.onError(response);
       expect(component.error).toBe(response);
     });
@@ -161,9 +171,9 @@ describe('TellUsComponent', () => {
   describe('onSuccess', () => {
     it('sets success response', () => {
       const response = { your_cdi: '1' };
-      component.response = null;
+      component.success = null;
       component.onSuccess(response);
-      expect(component.response).toBe(response);
+      expect(component.success).toBe(response);
     });
   });
 
