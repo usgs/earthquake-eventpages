@@ -60,7 +60,7 @@
               Max Value on Land
             </mat-header-cell>
             <mat-cell *matCellDef="let groundMotion">
-              {{ groundMotion.max | sharedUnits:groundMotion.units }}
+              {{ formatter.number(groundMotion.max, 0, '-', groundMotion.units) }}
             </mat-cell>
           </ng-container>
 
@@ -69,7 +69,7 @@
               Bias
             </mat-header-cell>
             <mat-cell *matCellDef="let groundMotion">
-              {{ groundMotion.bias | sharedUnits:'bias' }}
+              {{ formatter.number(groundMotion.bias) }}
             </mat-cell>
           </ng-container>
 
@@ -152,7 +152,7 @@
 
         <dt>Empirical ShakeMap grade</dt>
         <dd *ngIf="uncertainty?.grade as grade; else missingData">
-          {{ grade }}
+          {{ formatter.number(grade) }}
         </dd>
 
         <dt>Flagged Seismic Stations</dt>

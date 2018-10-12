@@ -310,7 +310,7 @@ export class FormatterService {
    *     Number appended with units
    */
   number(
-    value: number,
+    value: number | any,
     decimals?: number,
     empty = this.empty,
     units = ''
@@ -318,6 +318,13 @@ export class FormatterService {
     let factor, result;
 
     if (!value && value !== 0) {
+      return empty;
+    }
+
+    if (
+      value.toString() === '--' ||
+      value.toString().toLowerCase() === 'none'
+    ) {
       return empty;
     }
 

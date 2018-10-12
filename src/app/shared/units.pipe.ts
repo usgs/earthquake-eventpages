@@ -27,16 +27,11 @@ export class UnitsPipe implements PipeTransform {
   ): string | null {
     let output: string = null;
 
-    if (value === null || value === '--') {
-      return '-';
+    if (value === null) {
+      return null;
     }
 
     switch (units) {
-      case 'bias': {
-        output = value.toString();
-        break;
-      }
-
       case 'count': {
         output = value.toString();
         break;
