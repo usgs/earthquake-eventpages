@@ -69,7 +69,7 @@
               Bias
             </mat-header-cell>
             <mat-cell *matCellDef="let groundMotion">
-              {{ groundMotion.bias }}
+              {{ groundMotion.bias | sharedUnits:'bias' }}
             </mat-cell>
           </ng-container>
 

@@ -21,16 +21,22 @@ export class UnitsPipe implements PipeTransform {
    *     number with units
    */
   transform(
-      value: number | string,
-      units: string,
-      decimals: number = null): string | null {
+    value: number | string,
+    units: string,
+    decimals: number = null
+  ): string | null {
     let output: string = null;
 
-    if (value === null) {
-      return null;
+    if (value === null || value === '--') {
+      return '-';
     }
 
     switch (units) {
+      case 'bias': {
+        output = value.toString();
+        break;
+      }
+
       case 'count': {
         output = value.toString();
         break;
