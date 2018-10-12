@@ -159,6 +159,16 @@ export class MapComponent implements AfterViewInit {
     this.updateControls();
     this.updateInteractive();
     this.updateOverlays();
+
+    if (this.map) {
+      // Restrict latitudinal scrolling to 90 degrees both directions, but
+      // allow user to pan longitudinally for 2 full globes, this helps to
+      // not push the centerpoint off until they have zoomed out 1 full globe
+      const northEastGlobal = L.latLng(-90.0, -180.0 * 2);
+      const southWestGlobal = L.latLng(90.0, 180.0 * 2);
+      const globalBounds = L.latLngBounds(northEastGlobal, southWestGlobal);
+      this.map.setMaxBounds(globalBounds);
+    }
   }
 
   /**
