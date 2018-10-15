@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   ParamMap,
@@ -27,6 +28,7 @@ export class EventPageComponent implements OnInit, OnDestroy {
     public route: ActivatedRoute,
     public contributorService: ContributorService,
     public eventService: EventService,
+    public meta: Meta,
     public router: Router
   ) {}
 
@@ -38,6 +40,33 @@ export class EventPageComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.route.paramMap.subscribe((paramMap: ParamMap) => {
         return this.onParamMapChange(paramMap);
+      })
+    );
+
+    this.subscription.add(
+      this.eventService.event$.subscribe(event => {
+        // title
+        if (event.properties.title) {
+          this.meta.addTag({
+            content: event.properties.title,
+            name: 'og:title'
+          });
+        }
+        // image
+        this.meta.addTag({
+          content: 'assets/usgs-logo-facebook.jpg',
+          name: 'og:image'
+        });
+        // image height
+        this.meta.addTag({
+          content: '630',
+          name: 'og:image:height'
+        });
+        // image width
+        this.meta.addTag({
+          content: '1200',
+          name: 'og:image:width'
+        });
       })
     );
 
