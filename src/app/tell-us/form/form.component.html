@@ -21,6 +21,19 @@
       </mat-select>
     </mat-form-field>
 
+    <!-- base questions (Did you feel it?) -->
+    <ng-container *ngFor="let name of language?.baseQuestions | keys;
+        trackBy: trackByIndex">
+      <tell-us-question *ngIf="language?.baseQuestions[name]; let question"
+        (change)="onAnswer($event)"
+        [label]="question?.label"
+        [multiSelect]="question?.multiSelect"
+        [name]="name"
+        [options]="question?.answers"
+        [value]="answers[name]">
+      </tell-us-question>
+    </ng-container>
+
     <!-- location -->
     <tell-us-fieldset [legend]="language?.locationInfo.label">
       <tell-us-location (change)="onAnswer($event)"
@@ -39,19 +52,6 @@
             [placeholder]="language?.eventTime?.ciim_time?.placeholder" />
         </mat-form-field>
       </tell-us-fieldset>
-    </ng-container>
-
-    <!-- base questions (Did you feel it?) -->
-    <ng-container *ngFor="let name of language?.baseQuestions | keys;
-        trackBy: trackByIndex">
-      <tell-us-question *ngIf="language?.baseQuestions[name]; let question"
-        (change)="onAnswer($event)"
-        [label]="question?.label"
-        [multiSelect]="question?.multiSelect"
-        [name]="name"
-        [options]="question?.answers"
-        [value]="answers[name]">
-      </tell-us-question>
     </ng-container>
 
     <!-- the rest is optional -->
