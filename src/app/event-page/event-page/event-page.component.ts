@@ -49,23 +49,23 @@ export class EventPageComponent implements OnInit, OnDestroy {
         if (event.properties.title) {
           this.meta.addTag({
             content: event.properties.title,
-            name: 'og:title'
+            property: 'og:title'
           });
         }
         // image
         this.meta.addTag({
           content: 'assets/usgs-logo-facebook.jpg',
-          name: 'og:image'
+          property: 'og:image'
         });
         // image height
         this.meta.addTag({
           content: '630',
-          name: 'og:image:height'
+          property: 'og:image:height'
         });
         // image width
         this.meta.addTag({
           content: '1200',
-          name: 'og:image:width'
+          property: 'og:image:width'
         });
       })
     );
