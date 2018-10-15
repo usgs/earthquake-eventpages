@@ -5,7 +5,7 @@
       <h3>Landslides</h3>
 
       <ng-container *ngIf="product?.properties; else noLandslideProps">
-        <ng-container *ngIf="(product | sharedProductProperty: 'landslide-alert'
+        <ng-container *ngIf="(product | sharedProductProperty:'landslide-alert'
             | lowercase) !== 'pending'; else statusPending">
           <ground-failure-hazard-alert [alert]="product| sharedProductProperty:'landslide-hazard-alert-color'"
             [type]="'landslide'"

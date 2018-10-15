@@ -31,7 +31,8 @@ describe('SummaryComponent', () => {
           selector: 'ground-failure-population-alert'
         }),
 
-        MockPipe('sharedGetMapBounds')
+        MockPipe('sharedGetMapBounds'),
+        MockPipe('sharedProductProperty')
       ],
       imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]
