@@ -20,10 +20,7 @@
           'shakemap-stations']"
           [showScaleControl]="true"
           [showAttributionControl]="false"
-          [bounds]="[[shakemap.properties['maximum-latitude'],
-          shakemap.properties['maximum-longitude']],
-          [shakemap.properties['minimum-latitude'],
-          shakemap.properties['minimum-longitude']]]">
+          [bounds]="shakemap | sharedGetMapBounds">
       </shared-map>
     </a>
   </ng-container>
@@ -57,10 +54,7 @@
           'shakemap-stations']"
           [showScaleControl]="true"
           [showAttributionControl]="false"
-          [bounds]="[[shakemap.properties['maximum-latitude'],
-          shakemap.properties['maximum-longitude']],
-          [shakemap.properties['minimum-latitude'],
-          shakemap.properties['minimum-longitude']]]">
+          [bounds]="shakemap | sharedGetMapBounds">
       </shared-map>
     </a>
   </ng-container>
@@ -94,10 +88,7 @@
           'shakemap-stations']"
           [showScaleControl]="true"
           [showAttributionControl]="false"
-          [bounds]="[[shakemap.properties['maximum-latitude'],
-          shakemap.properties['maximum-longitude']],
-          [shakemap.properties['minimum-latitude'],
-          shakemap.properties['minimum-longitude']]]">
+          [bounds]="shakemap | sharedGetMapBounds">
       </shared-map>
     </a>
   </ng-container>
