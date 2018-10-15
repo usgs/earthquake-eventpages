@@ -12,7 +12,6 @@ describe('HeaderComponent', () => {
       declarations: [
         HeaderComponent,
 
-        MockPipe('eventTitle'),
         MockPipe('eventDateTime'),
         MockPipe('eventDepth'),
         MockPipe('eventLocation')

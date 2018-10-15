@@ -11,7 +11,6 @@ import { EventDateTimePipe } from './event-date-time.pipe';
 import { EventDepthPipe } from './event-depth.pipe';
 import { EventLocationPipe } from './event-location.pipe';
 import { EventPageComponent } from './event-page/event-page.component';
-import { EventTitlePipe } from './event-title.pipe';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { NavigationComponent } from './navigation/navigation.component';
@@ -28,7 +27,6 @@ import { NavigationComponent } from './navigation/navigation.component';
     EventDateTimePipe,
     EventDepthPipe,
     EventLocationPipe,
-    EventTitlePipe,
     ContributorListPipe,
     NavigationComponent
   ],

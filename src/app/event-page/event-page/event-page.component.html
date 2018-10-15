@@ -1,7 +1,8 @@
 <ng-container *ngIf="this?.eventService?.event$ | async;
     else noEvent; let event">
   <hazdev-template [COOPERATOR]="this.contributorService.contributors$ | async | cooperator:event"
-    [CONTACT]="'mailto:lisa%2Behpweb@usgs.gov'">
+    [CONTACT]="'mailto:lisa%2Behpweb@usgs.gov'"
+    [TITLE]="event | sharedEventTitle">
     <event-page-header [event]="event"></event-page-header>
 
     <mat-nav-list templateSideNavigation>
@@ -25,9 +26,9 @@
       </shared-text-product>
     </ng-template>
 
-
     <event-page-footer [event]="event"
-      [contributors]="this?.contributorService?.contributors$ | async"></event-page-footer>
+      [contributors]="this?.contributorService?.contributors$ | async">
+    </event-page-footer>
   </hazdev-template>
 </ng-container>
 
