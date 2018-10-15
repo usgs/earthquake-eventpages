@@ -60,7 +60,7 @@
               Max Value on Land
             </mat-header-cell>
             <mat-cell *matCellDef="let groundMotion">
-              {{ formatter.number(groundMotion.max, 0, '-', groundMotion.units) }}
+              {{ groundMotion.max | sharedUnits:groundMotion.units }}
             </mat-cell>
           </ng-container>
 
@@ -69,7 +69,7 @@
               Bias
             </mat-header-cell>
             <mat-cell *matCellDef="let groundMotion">
-              {{ formatter.number(groundMotion.bias) }}
+              {{ groundMotion.bias | sharedNumber }}
             </mat-cell>
           </ng-container>
 

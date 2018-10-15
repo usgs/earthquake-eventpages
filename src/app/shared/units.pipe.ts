@@ -27,8 +27,8 @@ export class UnitsPipe implements PipeTransform {
   ): string | null {
     let output: string = null;
 
-    if (value === null) {
-      return null;
+    if (value === null || value === '--') {
+      return '-';
     }
 
     switch (units) {
