@@ -32,5 +32,4 @@ export class ProductPropertyPipe implements PipeTransform {
 
     return property;
   }
-
 }
