@@ -4,8 +4,9 @@
     <section class="landslides one-of-two column">
       <h3>Landslides</h3>
 
-      <ng-container *ngIf="product?.properties; else noLandslideProps">
-        <ng-container *ngIf="(product | sharedProductProperty:'landslide-alert'
+      <ng-container *ngIf="product | sharedProductProperty:'landslide-alert';
+          else noLandslideProps">
+        <ng-container *ngIf="( product?.properties['landslide-alert']
             | lowercase) !== 'pending'; else statusPending">
           <ground-failure-hazard-alert [alert]="product| sharedProductProperty:'landslide-hazard-alert-color'"
             [type]="'landslide'"
@@ -32,8 +33,9 @@
     <section class="liquefaction one-of-two column">
       <h3>Liquefaction</h3>
 
-      <ng-container *ngIf="product?.properties; else noLiquefactionProps">
-        <ng-container *ngIf="(product | sharedProductProperty:'liquefaction-alert' |
+      <ng-container *ngIf="product | sharedProductProperty:'liquefaction-alert';
+          else noLiquefactionProps">
+        <ng-container *ngIf="(product?.properties['liquefaction-alert'] |
             lowercase) !== 'pending'; else statusPending">
           <ground-failure-hazard-alert [alert]="product |
             sharedProductProperty:'liquefaction-hazard-alert-color'"
