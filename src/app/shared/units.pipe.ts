@@ -24,11 +24,11 @@ export class UnitsPipe implements PipeTransform {
     value: number | string,
     units: string,
     decimals: number = null
-  ): string | null {
+  ): any {
     let output: string = null;
 
-    if (value === null || value === '--') {
-      return '-';
+    if (value === null || value === this.formatterService.empty) {
+      return value;
     }
 
     switch (units) {

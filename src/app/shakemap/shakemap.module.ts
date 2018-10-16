@@ -1,3 +1,4 @@
+import { UnitsPipe } from './../shared/units.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -27,6 +28,7 @@ import { PsaComponent } from './psa/psa.component';
 import { ShakemapRoutingModule } from './shakemap-routing.module';
 import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
+import { ConvertCharacterPipe } from '@shared/convert-character.pipe';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import { StationListComponent } from './station-list/station-list.component';
     ProductPageModule,
     SharedModule,
     ShakemapRoutingModule
-  ]
+  ],
+  providers: [ConvertCharacterPipe, UnitsPipe]
 })
 export class ShakemapModule {}

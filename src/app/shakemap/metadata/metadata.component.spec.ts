@@ -6,6 +6,7 @@ import { of } from 'rxjs/observable/of';
 import { EventService } from '@core/event.service';
 import { MetadataService } from '@core/metadata.service';
 import { MetadataComponent } from './metadata.component';
+import { ConvertCharacterPipe } from '@shared/convert-character.pipe';
 
 describe('MetadataComponent', () => {
   let component: MetadataComponent;
@@ -34,7 +35,8 @@ describe('MetadataComponent', () => {
       ],
       providers: [
         { provide: EventService, useValue: eventServiceStub },
-        { provide: MetadataService, useValue: metadataServiceStub }
+        { provide: MetadataService, useValue: metadataServiceStub },
+        { provide: ConvertCharacterPipe }
       ]
     }).compileComponents();
   }));
