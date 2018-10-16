@@ -7,7 +7,7 @@
         *ngIf="product | sharedProductContent:
         'download/pin-thumbnail.png'"
         [bubble]="true"
-        [intensity]="product?.properties?.maxmmi">
+        [intensity]="product | sharedProductProperty:'maxmmi'">
     </shared-mmi>
   </div>
 
@@ -16,28 +16,32 @@
       'download/pin-thumbnail.png' as image; else noImage">
     <img src="{{ image.url }}" alt="ShakeMap Intensity Thumbnail" />
     <figcaption>
-      <ng-container *ngIf="product?.properties?.maxmmi as mmi; else noMMI">
-        Perceived Shaking: {{ mmiDescription[round(mmi)].shaking }}
-        Potential Damage: {{ mmiDescription[round(mmi)].damage }}
+      <ng-container *ngIf="product | sharedProductProperty:'maxmmi' as mmi">
+        <ng-container *ngIf="getDescription(mmi) as description; else noMMI">
+          Perceived Shaking: {{ description.shaking }}
+          Potential Damage: {{ description.damage }}
+        </ng-container>
       </ng-container>
     </figcaption>
   </figure>
 
   <ng-template #noImage>
-    <dl *ngIf="product?.properties?.maxmmi as mmi; else noMMI">
-      <dt>Estimated Intensity</dt>
-      <dd>
-        <shared-mmi
-          [bubble]="true"
-          [intensity]="mmi">
-        </shared-mmi>
-      </dd>
-      <dt>Perceived Shaking</dt>
-      <dd>{{ mmiDescription[round(mmi)].shaking }}</dd>
+    <ng-container *ngIf="product | sharedProductProperty:'maxmmi' as mmi">
+      <dl *ngIf="getDescription(mmi) as description; else noMMI">
+        <dt>Estimated Intensity</dt>
+        <dd>
+          <shared-mmi
+            [bubble]="true"
+            [intensity]="mmi">
+          </shared-mmi>
+        </dd>
+        <dt>Perceived Shaking</dt>
+        <dd>{{ description.shaking }}</dd>
 
-      <dt>Potential Damage</dt>
-      <dd>{{ mmiDescription[round(mmi)].damage }}</dd>
-    </dl>
+        <dt>Potential Damage</dt>
+        <dd>{{ description.damage }}</dd>
+      </dl>
+    </ng-container>
   </ng-template>
 
   <ng-template #noMMI>

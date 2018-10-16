@@ -32,6 +32,25 @@ export class ShakemapPinComponent {
   };
   @Input()
   product: any;
-  round = Math.round;
   title = 'ShakeMap';
+
+  /**
+   * Return a shaking and damage description for the mmiDiscription loopup
+   * returning 'Not Felt'/'None' for null, '-', or '--' mmis
+   *
+   * @param mmi
+   *    shaking mmi value
+   */
+  getDescription (mmi: any) {
+    if (mmi === null || mmi === '-' || mmi ==='--') {
+      mmi = 0;
+    }
+
+    mmi = Math.round(mmi);
+    if (this.mmiDescription[mmi]) {
+      return this.mmiDescription[mmi];
+    }
+
+    return null;
+  }
 }
