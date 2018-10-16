@@ -25,7 +25,8 @@ describe('ShakemapPinComponent', () => {
 
         MockPipe('getProduct'),
         MockPipe('sharedProductContent'),
-        MockPipe('sharedProductProperty')
+        MockPipe('sharedProductProperty'),
+        MockPipe('sharedShakingImpact')
       ],
     imports: [
       RouterTestingModule
@@ -42,43 +43,4 @@ describe('ShakemapPinComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-
-  describe('getDescription', () => {
-    it('handles "--"', () => {
-      const result = component.getDescription('--');
-
-      expect(result).toBe(component.mmiDescription[0]);
-    });
-
-    it('handles "-"', () => {
-      const result = component.getDescription('--');
-
-      expect(result).toBe(component.mmiDescription[0]);
-    });
-
-    it('handles mmi (round up)', () => {
-      const mmi = 4.67;
-      const result = component.getDescription(mmi);
-
-      expect(result).toBe(component.mmiDescription[5]);
-    });
-
-    it('handles mmi (round down)', () => {
-      const mmi = 4.44;
-      const result = component.getDescription(mmi);
-
-      expect(result).toBe(component.mmiDescription[4]);
-    });
-
-    it('handles null', () => {
-      const result = component.getDescription(null);
-      expect(result).toBe(component.mmiDescription[0]);
-    });
-
-    it('returns null for unexpected values', () => {
-      const result = component.getDescription('BAD_DESCRIPTION');
-      expect(result).toBeNull();
-    });
-  });
-
 });
