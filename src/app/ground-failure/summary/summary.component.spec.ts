@@ -6,7 +6,6 @@ import { of } from 'rxjs/observable/of';
 
 import { MockPipe } from '../../mock-pipe';
 import { EventService } from '@core/event.service';
-import { Event } from '../../event';
 import { SummaryComponent } from './summary.component';
 
 describe('SummaryComponent', () => {
@@ -15,7 +14,7 @@ describe('SummaryComponent', () => {
 
   beforeEach(async(() => {
     const eventServiceStub = {
-      product$: of(new Event(null))
+      product$: of({})
     };
 
     TestBed.configureTestingModule({
@@ -32,7 +31,7 @@ describe('SummaryComponent', () => {
         }),
 
         MockPipe('sharedGetMapBounds'),
-        MockPipe('sharedProductProperty')
+        MockPipe('sharedProductProperty', () => 'test')
       ],
       imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]
