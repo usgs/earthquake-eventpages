@@ -4,28 +4,32 @@
     <section class="landslides one-of-two column">
       <h3>Landslides</h3>
 
-      <ng-container *ngIf="product | sharedProductProperty:'landslide-alert';
-          else noLandslideProps">
-        <ng-container *ngIf="( product?.properties['landslide-alert']
+      <ng-container *ngIf="product | sharedProductProperty:'landslide-alert'
+          as landslideAlert; else noLandslideProps">
+        <ng-container *ngIf="( landslideAlert
             | lowercase) !== 'pending'; else statusPending">
-          <ground-failure-hazard-alert [alert]="product| sharedProductProperty:'landslide-hazard-alert-color'"
-            [type]="'landslide'"
-            [value]="product| sharedProductProperty:'landslide-hazard-alert-value'">
-          </ground-failure-hazard-alert>
+          <ng-container *ngIf="( product | sharedProductProperty:'liquefaction-alert' |
+              lowercase) !== 'pending'; else statusPending">
 
-          <ground-failure-population-alert [alert]="product |
-            sharedProductProperty:'landslide-population-alert-color'"
-            [type]="'landslide'"
-            [value]="product | sharedProductProperty:'landslide-population-alert-value'">
-          </ground-failure-population-alert>
+            <ground-failure-hazard-alert [alert]="product| sharedProductProperty:'landslide-hazard-alert-color'"
+              [type]="'landslide'"
+              [value]="product| sharedProductProperty:'landslide-hazard-alert-value'">
+            </ground-failure-hazard-alert>
+
+            <ground-failure-population-alert [alert]="product |
+              sharedProductProperty:'landslide-population-alert-color'"
+              [type]="'landslide'"
+              [value]="product | sharedProductProperty:'landslide-population-alert-value'">
+            </ground-failure-population-alert>
+
+          </ng-container>
         </ng-container>
       </ng-container>
-
 
       <button mat-raised-button
         [routerLink]="'../../map'"
         [queryParams]="{ 'ground-failure-landslide': true,
-              'shakemap-intensity': false, 'bounds': product | sharedGetMapBounds }">
+            'shakemap-intensity': false, 'bounds': product | sharedGetMapBounds }">
         View Landslide Map
       </button>
     </section>
@@ -33,20 +37,24 @@
     <section class="liquefaction one-of-two column">
       <h3>Liquefaction</h3>
 
-      <ng-container *ngIf="product | sharedProductProperty:'liquefaction-alert';
-          else noLiquefactionProps">
-        <ng-container *ngIf="(product?.properties['liquefaction-alert'] |
+      <ng-container *ngIf="product | sharedProductProperty:'liquefaction-alert'
+          as liquefactionAlert; else noLiquefactionProps">
+        <ng-container *ngIf="(liquefactionAlert |
             lowercase) !== 'pending'; else statusPending">
-          <ground-failure-hazard-alert [alert]="product |
-            sharedProductProperty:'liquefaction-hazard-alert-color'"
-            [type]="'liquefaction'"
-            [value]="product | sharedProductProperty:'liquefaction-hazard-alert-value'">
-          </ground-failure-hazard-alert>
+          <ng-container *ngIf="( product | sharedProductProperty:'landslide-alert' |
+              lowercase) !== 'pending'; else statusPending">
 
-          <ground-failure-population-alert [alert]="product | sharedProductProperty:'liquefaction-population-alert-color'"
-            [type]="'liquefaction'"
-            [value]="product | sharedProductProperty:'liquefaction-population-alert-value'">
-          </ground-failure-population-alert>
+            <ground-failure-hazard-alert [alert]="product |
+              sharedProductProperty:'liquefaction-hazard-alert-color'"
+              [type]="'liquefaction'"
+              [value]="product | sharedProductProperty:'liquefaction-hazard-alert-value'">
+            </ground-failure-hazard-alert>
+
+            <ground-failure-population-alert [alert]="product | sharedProductProperty:'liquefaction-population-alert-color'"
+              [type]="'liquefaction'"
+              [value]="product | sharedProductProperty:'liquefaction-population-alert-value'">
+            </ground-failure-population-alert>
+          </ng-container>
         </ng-container>
       </ng-container>
 
