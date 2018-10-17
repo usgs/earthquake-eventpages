@@ -1,3 +1,20 @@
+<summary-view *ngIf="eventService.product$ | async as product; else noProduct"
+  [product]=product>
+
+</summary-view>
+
+<ng-template #noProduct>
+  <p>
+    Data unavailable.
+  </p>
+</ng-template>
+
+
+
+
+
+
+
 <ng-container *ngIf="eventService.product$ | async; let product">
   <section class="summary row">
 
@@ -7,16 +24,22 @@
       <ng-container *ngIf="product?.properties; else noLandslideProps">
         <ng-container *ngIf="(product?.properties['landslide-alert'] | lowercase)
           !== 'pending'; else statusPending">
-          <ground-failure-hazard-alert [alert]="product?.properties['landslide-hazard-alert-color']" [type]="'landslide'" [value]="product?.properties['landslide-hazard-alert-value']">
+          <ground-failure-hazard-alert [alert]="product?.properties['landslide-hazard-alert-color']"
+            [type]="'landslide'"
+            [value]="product?.properties['landslide-hazard-alert-value']">
           </ground-failure-hazard-alert>
 
-          <ground-failure-population-alert [alert]="product?.properties['landslide-population-alert-color']" [type]="'landslide'" [value]="product?.properties['landslide-population-alert-value']">
+          <ground-failure-population-alert [alert]="product?.properties['landslide-population-alert-color']"
+            [type]="'landslide'"
+            [value]="product?.properties['landslide-population-alert-value']">
           </ground-failure-population-alert>
         </ng-container>
       </ng-container>
 
 
-      <button mat-raised-button [routerLink]="'../../map'" [queryParams]="{ 'ground-failure-landslide': true,
+      <button mat-raised-button
+        [routerLink]="'../../map'"
+        [queryParams]="{ 'ground-failure-landslide': true,
               'shakemap-intensity': false, 'bounds': getMapBounds(product) }">
         View Landslide Map
       </button>
@@ -28,16 +51,21 @@
       <ng-container *ngIf="product?.properties; else noLiquefactionProps">
         <ng-container *ngIf="(product?.properties['liquefaction-alert'] | lowercase)
           !== 'pending'; else statusPending">
-          <ground-failure-hazard-alert [alert]="product?.properties['liquefaction-hazard-alert-color']" [type]="'liquefaction'" [value]="product?.properties['liquefaction-hazard-alert-value']">
+          <ground-failure-hazard-alert [alert]="product?.properties['liquefaction-hazard-alert-color']"
+            [type]="'liquefaction'"
+            [value]="product?.properties['liquefaction-hazard-alert-value']">
           </ground-failure-hazard-alert>
 
-          <ground-failure-population-alert [alert]="product?.properties['liquefaction-population-alert-color']" [type]="'liquefaction'"
+          <ground-failure-population-alert [alert]="product?.properties['liquefaction-population-alert-color']"
+            [type]="'liquefaction'"
             [value]="product?.properties['liquefaction-population-alert-value']">
           </ground-failure-population-alert>
         </ng-container>
       </ng-container>
 
-      <button mat-raised-button [routerLink]="'../../map'" [queryParams]="{ 'ground-failure-liquefaction': true,
+      <button mat-raised-button
+        [routerLink]="'../../map'"
+        [queryParams]="{ 'ground-failure-liquefaction': true,
               'shakemap-intensity': false, 'bounds': getMapBounds(product) }">
         View Liquefaction Map
       </button>

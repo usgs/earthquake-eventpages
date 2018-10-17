@@ -16,6 +16,9 @@ import { HazardAlertComponent } from './hazard-alert/hazard-alert.component';
 import { PointSourcePipe } from './point-source.pipe';
 import { PopulationAlertComponent } from './population-alert/population-alert.component';
 import { SummaryComponent } from './summary/summary.component';
+import { SummaryViewComponent } from './summary/summary-view/summary-view.component';
+import { GroundFailureTypeComponent } from './summary/ground-failure-type/ground-failure-type.component';
+import { PendingPipe } from './pending.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { SummaryComponent } from './summary/summary.component';
     GetBarPositionPipe,
     HazardAlertComponent,
     PointSourcePipe,
-    PopulationAlertComponent
+    PopulationAlertComponent,
+    SummaryViewComponent,
+    GroundFailureTypeComponent,
+    PendingPipe
   ],
   imports: [
     CommonModule,
