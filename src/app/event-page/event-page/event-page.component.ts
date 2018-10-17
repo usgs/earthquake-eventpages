@@ -12,10 +12,15 @@ import { Subscription } from 'rxjs';
 import { ContributorService } from '@core/contributor.service';
 import { EventService } from '@core/event.service';
 
+import { EventDepthPipe } from '../event-depth.pipe';
+import { DateTimePipe } from '@shared/date-time.pipe';
+import { LocationPipe } from '@shared/location.pipe';
+
 /**
  * Main event page component, wraps inbound data components
  */
 @Component({
+  providers: [EventDepthPipe, DateTimePipe, LocationPipe],
   selector: 'app-event-page',
   styleUrls: ['./event-page.component.scss'],
   templateUrl: './event-page.component.html'
@@ -29,7 +34,10 @@ export class EventPageComponent implements OnInit, OnDestroy {
     public contributorService: ContributorService,
     public eventService: EventService,
     public meta: Meta,
-    public router: Router
+    public router: Router,
+    public locationPipe: LocationPipe,
+    public eventDepthPipe: EventDepthPipe,
+    public dateTimePipe: DateTimePipe
   ) {}
 
   ngOnDestroy() {
@@ -45,27 +53,20 @@ export class EventPageComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.eventService.event$.subscribe(event => {
-        // title
+        if (!event.id) {
+          return;
+        }
+        // Title - facebook meta tag
         if (event.properties.title) {
-          this.meta.addTag({
+          this.meta.updateTag({
             content: event.properties.title,
             property: 'og:title'
           });
         }
-        // image
-        this.meta.addTag({
-          content: 'assets/usgs-logo-facebook.jpg',
-          property: 'og:image'
-        });
-        // image height
-        this.meta.addTag({
-          content: '630',
-          property: 'og:image:height'
-        });
-        // image width
-        this.meta.addTag({
-          content: '1200',
-          property: 'og:image:width'
+        // Description - facebook meta tag
+        this.meta.updateTag({
+          content: this.updateDescriptionMetaTag(event),
+          property: 'og:description'
         });
       })
     );
@@ -109,5 +110,22 @@ export class EventPageComponent implements OnInit, OnDestroy {
    */
   trackByIndex(index, item) {
     return index;
+  }
+
+  /**
+   * Get concatenated string for event description
+   *
+   * @param event Event
+   */
+  updateDescriptionMetaTag(event) {
+    try {
+      const time = this.dateTimePipe.transform(event.properties.time);
+      const location = this.locationPipe.transform(event.geometry.coordinates);
+      const depth = this.eventDepthPipe.transform(event);
+
+      return time + ' | ' + location + ' | ' + depth;
+    } catch (e) {
+      return 'Earthquake event page.';
+    }
   }
 }
