@@ -251,7 +251,7 @@ describe('FormatterService', () => {
     ));
   });
 
-  fdescribe('number', () => {
+  describe('number', () => {
     it('returns empty value when value is "--"', inject(
       [FormatterService],
       (formatter: FormatterService) => {
