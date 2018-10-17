@@ -8,6 +8,7 @@ import { of } from 'rxjs/observable/of';
 
 import { EventPageComponent } from './event-page.component';
 import { MockPipe } from '../../mock-pipe';
+import { FormatterService } from '@core/formatter.service';
 
 describe('EventPageComponent', () => {
   let fixture: ComponentFixture<EventPageComponent>,
@@ -58,12 +59,16 @@ describe('EventPageComponent', () => {
         MockComponent({ selector: 'mat-nav-list' }),
 
         MockPipe('cooperator'),
-        MockPipe('sharedEventTitle')
+        MockPipe('sharedEventTitle'),
+        MockPipe('eventDepth'),
+        MockPipe('sharedLocation'),
+        MockPipe('sharedDateTime')
       ],
       imports: [RouterTestingModule],
       providers: [
         { provide: ContributorService, useValue: contributorServiceStub },
-        { provide: EventService, useValue: eventServiceStub }
+        { provide: EventService, useValue: eventServiceStub },
+        FormatterService
       ]
     }).compileComponents();
 
