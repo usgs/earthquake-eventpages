@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { EventService } from '@core/event.service';
 import { MetadataService } from '@core/metadata.service';
+import { ConvertCharacterPipe } from '@shared/convert-character.pipe';
 
 /**
  * Metadata subcomponent, shows input/output/processing data when the user
@@ -20,7 +21,8 @@ export class MetadataComponent implements OnInit, OnDestroy {
 
   constructor(
     public mdService: MetadataService,
-    public eventService: EventService
+    public eventService: EventService,
+    public convertCharacterPipe: ConvertCharacterPipe
   ) {}
 
   ngOnDestroy() {

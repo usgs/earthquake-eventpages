@@ -21,13 +21,14 @@ export class UnitsPipe implements PipeTransform {
    *     number with units
    */
   transform(
-      value: number | string,
-      units: string,
-      decimals: number = null): string | null {
+    value: number | string,
+    units: string,
+    decimals: number = null
+  ): any {
     let output: string = null;
 
-    if (value === null) {
-      return null;
+    if (value === null || value === this.formatterService.empty) {
+      return value;
     }
 
     switch (units) {

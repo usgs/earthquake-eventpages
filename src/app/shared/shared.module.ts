@@ -63,6 +63,7 @@ import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 import { UnitsPipe } from './units.pipe';
 import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
+import { ConvertCharacterPipe } from '@shared/convert-character.pipe';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
     AttributionComponent,
     BeachballComponent,
     BubbleComponent,
+    ConvertCharacterPipe,
     CoordinatesComponent,
     DateTimePipe,
     DegreesPipe,
@@ -130,6 +132,7 @@ import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
     AttributionComponent,
     BeachballComponent,
     BubbleComponent,
+    ConvertCharacterPipe,
     CoordinatesComponent,
     DateTimePipe,
     DegreesPipe,

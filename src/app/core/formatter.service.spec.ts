@@ -279,6 +279,26 @@ describe('FormatterService', () => {
         expect(formatter.number(1, 0, 'empty', 'units')).toEqual('1 units');
       }
     ));
+
+    it('returns empty with -- value', inject(
+      [FormatterService],
+      (formatter: FormatterService) => {
+        expect(formatter.number('--')).toEqual('-');
+      }
+    ));
+
+    it('returns empty with None value', inject(
+      [FormatterService],
+      (formatter: FormatterService) => {
+        expect(formatter.number('None')).toEqual('-');
+      }
+    ));
+    it('returns empty with -- value and km unit', inject(
+      [FormatterService],
+      (formatter: FormatterService) => {
+        expect(formatter.number('--', 0, '-', 'km')).toEqual('-');
+      }
+    ));
   });
 
   describe('time', () => {

@@ -18,7 +18,8 @@ describe('OutputComponent', () => {
 
         MockPipe('sharedDegrees'),
         MockPipe('sharedNumber'),
-        MockPipe('sharedUnits')
+        MockPipe('sharedUnits'),
+        MockPipe('convertCharacter')
       ],
       imports: [MatTableModule, MatExpansionModule],
       providers: [{ provide: FormatterService, useValue: formatter }]
