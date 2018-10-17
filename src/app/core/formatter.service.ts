@@ -310,12 +310,16 @@ export class FormatterService {
    *     Number appended with units
    */
   number(
-    value: number,
+    value: string | number,
     decimals?: number,
     empty = this.empty,
     units = ''
   ): string {
     let factor, result;
+
+    if (typeof value !== 'number') {
+      value = parseFloat(value);
+    }
 
     if (!value && value !== 0) {
       return empty;
