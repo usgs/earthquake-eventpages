@@ -310,12 +310,21 @@ export class FormatterService {
    *     Number appended with units
    */
   number(
-    value: number,
+    value: number | any,
     decimals?: number,
     empty = this.empty,
     units = ''
   ): string {
     let factor, result;
+
+    // The point of this is some of the old property values for groundMotion
+    // in shakemap offshore events may come in as '--' instead of null,
+    // and they need to be rendered as the empty character which is '-'
+    if (value !== null && typeof value === 'string') {
+      if (value === '--' || value === '-') {
+        return empty;
+      }
+    }
 
     if (!value && value !== 0) {
       return empty;
@@ -323,7 +332,7 @@ export class FormatterService {
 
     if (typeof decimals === 'number') {
       factor = Math.pow(10, decimals);
-      result = (Math.round(value * factor) / factor).toFixed(decimals);
+      result = (Math.round(factor * value) / factor).toFixed(decimals);
     } else {
       result = `${value}`;
     }
