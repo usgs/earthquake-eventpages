@@ -51,7 +51,8 @@
               Max Value in Grid
             </mat-header-cell>
             <mat-cell *matCellDef="let groundMotion">
-              {{ groundMotion.max_grid | sharedUnits:groundMotion.units }}
+              {{ groundMotion.max_grid | sharedNumber:null:groundMotion.units
+              }}
             </mat-cell>
           </ng-container>
 
@@ -60,7 +61,7 @@
               Max Value on Land
             </mat-header-cell>
             <mat-cell *matCellDef="let groundMotion">
-              {{ groundMotion.max | sharedUnits:groundMotion.units }}
+              {{ groundMotion.max | sharedNumber:null:groundMotion.units }}
             </mat-cell>
           </ng-container>
 
@@ -69,7 +70,7 @@
               Bias
             </mat-header-cell>
             <mat-cell *matCellDef="let groundMotion">
-              {{ groundMotion.bias }}
+              {{ groundMotion.bias | sharedNumber }}
             </mat-cell>
           </ng-container>
 
@@ -113,7 +114,7 @@
               Latitude
             </mat-header-cell>
             <mat-cell *matCellDef="let mapInfo">
-              {{ mapInfo?.latitude | sharedUnits:mapInfo.units }}
+              {{ mapInfo?.latitude | sharedNumber:null:mapInfo.units }}
             </mat-cell>
           </ng-container>
 
@@ -122,7 +123,7 @@
               Longitude
             </mat-header-cell>
             <mat-cell *matCellDef="let mapInfo">
-              {{ mapInfo?.longitude | sharedUnits:mapInfo.units }}
+              {{ mapInfo?.longitude | sharedNumber:null:mapInfo.units }}
             </mat-cell>
           </ng-container>
 
