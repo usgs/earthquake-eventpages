@@ -252,6 +252,27 @@ describe('FormatterService', () => {
   });
 
   describe('number', () => {
+    it('returns empty value when value is "--"', inject(
+      [FormatterService],
+      (formatter: FormatterService) => {
+        expect(formatter.number('--', 1, 'empty')).toEqual('empty');
+      }
+    ));
+
+    it('returns empty value when value is "%"', inject(
+      [FormatterService],
+      (formatter: FormatterService) => {
+        expect(formatter.number('%', 1, 'empty')).toEqual('empty');
+      }
+    ));
+
+    it('returns empty value when value is "Random String"', inject(
+      [FormatterService],
+      (formatter: FormatterService) => {
+        expect(formatter.number('Random String', 1, 'empty')).toEqual('empty');
+      }
+    ));
+
     it('returns empty value when undefined', inject(
       [FormatterService],
       (formatter: FormatterService) => {
