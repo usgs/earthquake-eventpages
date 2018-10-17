@@ -51,6 +51,7 @@ import { RomanPipe } from './roman.pipe';
 import { RoundDownPipe } from './round-down.pipe';
 import { RoundUpPipe } from './round-up.pipe';
 import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
+import { ShakingImpactPipe } from './shaking-impact.pipe';
 import { SignificantFigurePipe } from './significant-figure.pipe';
 import { StationFlagComponent } from './station-flag/station-flag.component';
 import { StationComponent } from './station/station.component';
@@ -106,6 +107,7 @@ import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
     RoundDownPipe,
     RoundUpPipe,
     ShakemapOverlaysPipe,
+    ShakingImpactPipe,
     SignificantFigurePipe,
     StationComponent,
     StationFlagComponent,
@@ -162,6 +164,7 @@ import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
     RoundDownPipe,
     RoundUpPipe,
     ShakemapOverlaysPipe,
+    ShakingImpactPipe,
     SignificantFigurePipe,
     StationComponent,
     StatusPipe,
