@@ -44,11 +44,11 @@ cat <<-EO_CONFIG> ${NGINX_CONF_DIR}/00-server.conf
 # most files expire soon
 expires 5m;
 # images are not hash-stamped, but change infrequently
-location ~* (?:jpg|png|svg) {
+location ~* \\.(?:jpg|png|svg)\$ {
   expires 1d;
 }
 # css/js are hash-stamped, and url will change if content changes
-location ~* (?:css|js) {
+location ~* \\.(?:css|js)\$ {
   expires 1y;
 }
 
