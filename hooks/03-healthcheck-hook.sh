@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z $HEALTHCHECK_SCRIPT ]; then
+if [ -z "${HEALTHCHECK_SCRIPT}" ]; then
   HEALTHCHECK_SCRIPT='./healthcheck.sh';
 fi
 

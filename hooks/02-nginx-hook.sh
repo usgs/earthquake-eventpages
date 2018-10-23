@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z $NGINX_CONF_DIR ]; then
+if [ -z "${NGINX_CONF_DIR}" ]; then
   NGINX_CONF_DIR='.';
 fi
 

@@ -1,6 +1,10 @@
 #!/bin/bash
 
-if [ -z $BASE_HREF ]; then
+if [ -z "${DOCUMENT_ROOT}" ]; then
+  DOCUMENT_ROOT='.';
+fi
+
+if [ -z "${BASE_HREF}" ]; then
   BASE_HREF='event';
 fi
 
