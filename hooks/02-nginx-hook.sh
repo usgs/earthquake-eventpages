@@ -69,5 +69,6 @@ location  /realtime  {
 location  /ws/geoserve  {
   proxy_pass  https://earthquake.usgs.gov;
 }
-# EO_CONFIG
+
+EO_CONFIG
 
