@@ -10,7 +10,7 @@ fi
 
 # Update bundles to be BASE_HREF aware
 SED_SANITIZED_HREF=${BASE_HREF//\//\\/};
-sed --in-place
+sed --in-place \
   "s/BASE_HREF/${SED_SANITIZED_HREF}/" \
   ${DOCUMENT_ROOT}/BASE_HREF/index.html;
 
