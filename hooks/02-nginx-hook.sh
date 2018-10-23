@@ -43,30 +43,37 @@ location  @angular-fallback {
 #
 
 location  /archive  {
+  proxy_ssl_server_name on;
   proxy_pass  https://earthquake.usgs.gov;
 }
 
 location  /data/comcat  {
+  proxy_ssl_server_name on;
   proxy_pass  https://earthquake.usgs.gov;
 }
 
 location  /earthquakes/feed  {
+  proxy_ssl_server_name on;
   proxy_pass  https://earthquake.usgs.gov;
 }
 
 location  /earthquakes/map  {
+  proxy_ssl_server_name on;
   proxy_pass  https://earthquake.usgs.gov;
 }
 
 location  /fdsnws {
+  proxy_ssl_server_name on;
   proxy_pass  https://earthquake.usgs.gov;
 }
 
 location  /realtime  {
+  proxy_ssl_server_name on;
   proxy_pass  https://earthquake.usgs.gov;
 }
 
 location  /ws/geoserve  {
+  proxy_ssl_server_name on;
   proxy_pass  https://earthquake.usgs.gov;
 }
 
