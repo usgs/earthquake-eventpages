@@ -13,10 +13,10 @@ WORKDIR /earthquake-eventpages
 
 # Re-build within image. Comment out if pre-built externally
 # (i.e. for quick dev builds)
-RUN /bin/bash --login -c "\
-    npm install --no-save && \
-    npm run build -- --progress false --base-href /BASE_HREF/ \
-    "
+# RUN /bin/bash --login -c "\
+#     npm install --no-save && \
+#     npm run build -- --progress false --base-href /BASE_HREF/ \
+#     "
 
 
 ##
@@ -53,5 +53,8 @@ COPY --from=buildenv \
     --chown=usgs-user:usgs-user \
     /earthquake-eventpages/metadata.json \
     ${DOCUMENT_ROOT}/BASE_HREF/metadata.json
+
+RUN cd ${DOCUMENT_ROOT}/BASE_HREF && \
+    ls *.{js,css} > ${DOCUMENT_ROOT}/BASE_HREF/assets.txt
 
 WORKDIR /usr/share/nginx
