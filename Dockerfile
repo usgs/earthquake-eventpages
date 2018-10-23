@@ -11,7 +11,8 @@ FROM ${BUILD_IMAGE} as buildenv
 COPY . /earthquake-eventpages
 WORKDIR /earthquake-eventpages
 
-
+# Re-build within image. Comment out if pre-built externally
+# (i.e. for quick dev builds)
 RUN /bin/bash --login -c "\
     npm install --no-save && \
     npm run build -- --progress false --base-href /BASE_HREF/ \
@@ -25,48 +26,32 @@ FROM ${FROM_IMAGE}
 
 ARG BASE_HREF=event
 
-# Set environment variables for use by docker-entrypoint.sh
+# Set environment variables for use by startup hooks
 ENV BASE_HREF="${BASE_HREF}" \
     NGINX_CONF_DIR="/etc/nginx/default.d" \
-    HEALTHCHECK_SCRIPT="/usr/share/nginx/healthcheck.sh" \
+    HEALTHCHECK_SCRIPT="/healthcheck.sh" \
     DOCUMENT_ROOT="/usr/share/nginx/html"
 
 LABEL maintainer="Eric Martinez <emartinez@usgs.gov>"
 
 USER root
-RUN rm -rf /usr/share/nginx/html/ && \
-    mkdir -p /usr/share/nginx/html/BASE_HREF
-USER usgs-user
-
-COPY --chown=usgs-user:usgs-user 00-hook.sh /startup-hooks/.
-
-COPY --from=buildenv \
-    /earthquake-eventpages/dist/ \
-    /usr/share/nginx/html/BASE_HREF/
-
-COPY --from=buildenv \
-    /earthquake-eventpages/metadata.json \
-    /usr/share/nginx/html/BASE_HREF/metadata.json
-
-COPY --from=buildenv \
-    /earthquake-eventpages/docker-entrypoint.sh \
-    /usr/share/nginx/docker-entrypoint.sh
-
-USER root
-RUN chown -R usgs-user:usgs-user /usr/share/nginx && \
+RUN rm -rf ${DOCUMENT_ROOT}/ && \
+    mkdir -p ${DOCUMENT_ROOT}/BASE_HREF && \
+    chown usgs-user:usgs-user ${HEALTHCHECK_SCRIPT} && \
+    chown -R usgs-user:usgs-user /usr/share/nginx && \
     chown -R usgs-user:usgs-user /etc/nginx
 USER usgs-user
 
-HEALTHCHECK \
-    --interval=20s \
-    --timeout=5s \
-    --start-period=1m \
-    --retries=2 \
-    CMD \
-    ${HEALTHCHECK_SCRIPT}
+COPY --chown=usgs-user:usgs-user hooks /startup-hooks/
 
+COPY --from=buildenv \
+    --chown=usgs-user:usgs-user \
+    /earthquake-eventpages/dist/ \
+    ${DOCUMENT_ROOT}/BASE_HREF/
 
-# Inherit CMD from FROM_IMAGE
+COPY --from=buildenv \
+    --chown=usgs-user:usgs-user \
+    /earthquake-eventpages/metadata.json \
+    ${DOCUMENT_ROOT}/BASE_HREF/metadata.json
+
 WORKDIR /usr/share/nginx
-EXPOSE 80
-CMD [ "/usr/share/nginx/docker-entrypoint.sh" ]
