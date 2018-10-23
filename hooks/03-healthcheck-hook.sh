@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -z "${BASE_HREF}" ]; then
+  BASE_HREF='event';
+fi
+
 if [ -z "${HEALTHCHECK_SCRIPT}" ]; then
   HEALTHCHECK_SCRIPT='./healthcheck.sh';
 fi

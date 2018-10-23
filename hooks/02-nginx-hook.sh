@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -z "${BASE_HREF}" ]; then
+  BASE_HREF='event';
+fi
+
 if [ -z "${NGINX_CONF_DIR}" ]; then
   NGINX_CONF_DIR='.';
 fi
@@ -11,8 +15,20 @@ location  /${BASE_HREF}  {
   add_header  'X-Content-Type-Options'  'nosniff';
   add_header  'X-XSS-Protection'  '1; mode=block';
 
-  expires 15m;
   add_header 'Cache-Control' 'public';
+
+  # most files expire soon
+  expires 5m;
+
+  # images are not hash-stamped, but change infrequently
+  location ~* /${BASE_HREF}/assets/.*\\.(?:jpg|png|svg)\$ {
+    expires 1d;
+  }
+
+  # css/js are hash-stamped, and url will change if content changes
+  location ~* /${BASE_HREF}.*\\.(?:css|js)\$ {
+    expires 1y;
+  }
 
   try_files \$uri \$uri/ \$uri.html \$uri/index.html @angular-fallback;
 }
