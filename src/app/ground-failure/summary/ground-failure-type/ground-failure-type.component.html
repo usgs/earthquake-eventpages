@@ -1,19 +1,9 @@
-<section class="{{type}} one-of-two column">
-  <h3>{{title}}</h3>
+<ground-failure-hazard-alert [alert]="hazardAlertColor"
+  [type]="type"
+  [value]="hazardAlertValue">
+</ground-failure-hazard-alert>
 
-  <ground-failure-hazard-alert [alert]="hazardAlertColor"
-    [type]="type"
-    [value]="hazardAlertValue">
-  </ground-failure-hazard-alert>
-
-  <ground-failure-population-alert [alert]="populationAlertColor"
-    [type]="type"
-    [value]="populationAlertValue">
-  </ground-failure-population-alert>
-
-  <button mat-raised-button
-    [routerLink]="'../../map'"
-    [queryParams]="buttonQueryParams">
-    View {{title}} Map
-  </button>
-</section>
+<ground-failure-population-alert [alert]="populationAlertColor"
+  [type]="type"
+  [value]="populationAlertValue">
+</ground-failure-population-alert>
