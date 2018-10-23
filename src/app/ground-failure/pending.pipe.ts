@@ -13,15 +13,13 @@ export class PendingPipe implements PipeTransform {
    *
    */
   transform(product: any): any {
-    if (!product || product.properties) {
+    if (!product || !product.properties) {
       return null;
     }
 
-    let landslides, liquefaction;
-
     if (
-      product.properties['landslide-alert'].toLowerCase() !== 'pending' ||
-      product.properties['liquefaction-alert'].toLOwerCase() !== 'pending'
+      product.properties['landslide-alert'].toLowerCase() !== 'pending' &&
+      product.properties['liquefaction-alert'].toLowerCase() !== 'pending'
     ) {
       return true;
     } else {
