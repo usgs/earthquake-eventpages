@@ -37,6 +37,7 @@ LABEL maintainer="Eric Martinez <emartinez@usgs.gov>"
 USER root
 RUN rm -rf ${DOCUMENT_ROOT}/ && \
     mkdir -p ${DOCUMENT_ROOT}/BASE_HREF && \
+    chown usgs-user:usgs-user ${HEALTHCHECK_SCRIPT} && \
     chown -R usgs-user:usgs-user /usr/share/nginx && \
     chown -R usgs-user:usgs-user /etc/nginx
 USER usgs-user
