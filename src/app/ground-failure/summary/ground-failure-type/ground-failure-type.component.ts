@@ -17,8 +17,6 @@ export class GroundFailureTypeComponent implements OnInit {
   @Input()
   populationAlertValue: String;
   @Input()
-  title: String;
-  @Input()
   type: String;
 
   constructor() {}
