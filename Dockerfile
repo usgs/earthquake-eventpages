@@ -54,4 +54,7 @@ COPY --from=buildenv \
     /earthquake-eventpages/metadata.json \
     ${DOCUMENT_ROOT}/BASE_HREF/metadata.json
 
+RUN cd ${DOCUMENT_ROOT}/BASE_HREF && \
+    ls *.{js,css} > ${DOCUMENT_ROOT}/BASE_HREF/assets.txt
+
 WORKDIR /usr/share/nginx
