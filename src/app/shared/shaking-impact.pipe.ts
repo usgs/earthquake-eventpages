@@ -4,7 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'sharedShakingImpact'
 })
 export class ShakingImpactPipe implements PipeTransform {
-  mmiDescription = {
+  defaultImpact = {shaking: 'Not felt', damage: 'None'};
+  mmiImpacts = {
     0: { shaking: 'Not felt', damage: 'None' },
     1: { shaking: 'Not felt', damage: 'None' },
     2: { shaking: 'Weak', damage: 'None' },
@@ -32,13 +33,14 @@ export class ShakingImpactPipe implements PipeTransform {
   transform (
     mmi: any
   ): string | null {
-    if (mmi === null || mmi === '-' || mmi ==='--') {
-      mmi = 0;
+    let impact;
+    try {
+      impact = this.mmiImpacts[Math.round(parseFloat(mmi))];
+    }
+    catch {
+      impact = this.defaultImpact;
     }
 
-    mmi = Math.round(mmi);
-    const description = this.mmiDescription[mmi];
-
-    return description ? description : null;
+    return impact || this.defaultImpact;
   }
 }
