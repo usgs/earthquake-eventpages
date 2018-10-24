@@ -13,16 +13,17 @@ export class MobileCheckPipe implements PipeTransform {
 
   transform(): boolean {
     let isMobile = false;
+    const matchRegex = `
+      /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone
+        |iemobile|WPDesktop)/i
+    `;
 
     if (this.globalWindow) {
       const str =
         this.globalWindow.navigator.userAgent ||
         this.globalWindow.navigator.vendor;
       if (str !== null || str !== undefined) {
-        isMobile =
-          str.match(
-            /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|iemobile|WPDesktop)/i
-          ) !== null;
+        isMobile = str.match(matchRegex) !== null;
       }
     }
     return isMobile;
