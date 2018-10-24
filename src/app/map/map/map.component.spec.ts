@@ -25,6 +25,7 @@ describe('MapComponent', () => {
           inputs: [
             'bounds',
             'overlays',
+            'scrollWheelZoom',
             'showLayersControl',
             'showLegendControl',
             'showScaleControl',
