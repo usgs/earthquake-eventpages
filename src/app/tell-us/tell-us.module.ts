@@ -20,6 +20,7 @@ import { FormLanguageService } from './form-language.service';
 import { LocationComponent } from './location/location.component';
 import { PrivacyStatementComponent } from './privacy-statement/privacy-statement.component';
 import { QuestionComponent } from './question/question.component';
+import { SuccessViewComponent } from './tell-us/success-view/success-view.component';
 import { TellUsComponent } from './tell-us/tell-us.component';
 import { TellUsRoutingModule } from './tell-us-routing.module';
 import { LocationViewModule } from 'hazdev-ng-location-view';
@@ -30,6 +31,7 @@ import { LocationViewModule } from 'hazdev-ng-location-view';
     FormComponent,
     LocationComponent,
     QuestionComponent,
+    SuccessViewComponent,
     TellUsComponent,
     PrivacyStatementComponent
   ],
