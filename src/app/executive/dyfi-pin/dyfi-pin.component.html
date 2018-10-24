@@ -11,7 +11,10 @@
   </div>
 
   <figure *ngIf="product | sharedProductContent:
-      'dyfi_map_geo_10km_thumbnail.jpg'
+      'dyfi_map_geo_10km_thumbnail.jpg':
+      (product | sharedProductProperty:'eventsource') +
+      (product | sharedProductProperty:'eventsourcecode') +
+      '_ciim_geo.jpg'
       let image; else empty">
     <img src="{{ image.url }}" alt="DYFI Intensity Map" />
     <figcaption>Community Internet Intensity Map</figcaption>
