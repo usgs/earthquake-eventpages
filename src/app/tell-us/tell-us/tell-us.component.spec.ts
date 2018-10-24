@@ -80,6 +80,10 @@ describe('TellUsComponent', () => {
           inputs: ['productType', 'event'],
           selector: 'shared-summary-link'
         }),
+        MockComponent({
+          inputs: ['success'],
+          selector: 'success-view'
+        }),
         MockPipe('keys')
       ],
       imports: [
