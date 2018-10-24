@@ -1,11 +1,11 @@
-$map-height: 640px;
-$expanded-leaflet-control-height: ($map-height - 150px) / 2;
+$map-height: 100vh;
+$map-width: 100vw;
+$expanded-leaflet-control-height: (($map-height - 20vh) / 2);
 
 shared-map {
   display: block;
   height: $map-height;
-  margin: 1em 0;
-  width: 100%;
+  width: $map-width;
 }
 
 .legend-container,
@@ -26,12 +26,41 @@ shared-map {
   max-height: $expanded-leaflet-control-height;
 }
 
+/*
 .leaflet-control-legend-visible > .legend-container {
-  max-height: $map-height - 170px;
+  max-height: $map-height - 50vh;
 }
+*/
 
 .leaflet-control-layers-expanded
   + .leaflet-control-legend-visible
   > .legend-container {
   max-height: $expanded-leaflet-control-height;
+}
+
+.fullscreen-wrapper {
+  background: rgba(255, 255, 255, 0.2);
+  display: block;
+  position: fixed;
+  height: $map-height;
+  width: $map-width;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.close-button {
+  bottom: 0;
+  margin: 2em 1em;
+  position: absolute;
+  right: 0;
+  z-index: 1000;
+}
+
+@media screen and (min-width: 768px) {
+  .close-button {
+    left: 50%;
+    margin-left: -60px;
+    width: 120px;
+  }
 }

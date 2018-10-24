@@ -1,14 +1,10 @@
 <ng-container *ngIf="eventService.event$ | async; let event">
   <ng-container *ngIf="activatedRoute.queryParamMap | async; let params">
-    <shared-summary-link [productType]="'map'" [event]="event">
-    </shared-summary-link>
-    <shared-map
-        [bounds]="params | interactiveMapBounds"
-        [overlays]="event | interactiveMapOverlays:params"
-        [showLayersControl]="true"
-        [showLegendControl]="true"
-        [showScaleControl]="true"
-        [interactive]="true">
-    </shared-map>
+    <div class="fullscreen-wrapper">
+      <shared-map [bounds]="params | interactiveMapBounds" [overlays]="event | interactiveMapOverlays:params" [scrollWheelZoom]="true"
+        [showLayersControl]="true" [showLegendControl]="true" [showScaleControl]="true" [interactive]="true">
+      </shared-map>
+      <button mat-raised-button class="close-button" (click)="onClick()">CLOSE MAP</button>
+    </div>
   </ng-container>
 </ng-container>

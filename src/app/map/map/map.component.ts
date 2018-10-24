@@ -17,4 +17,9 @@ export class MapComponent {
     public activatedRoute: ActivatedRoute,
     public eventService: EventService
   ) {}
+
+  onClick() {
+    // TODO check if back will take you off of earthquake.usgs.gov
+    window.history.back();
+  }
 }

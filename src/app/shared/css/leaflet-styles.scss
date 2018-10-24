@@ -1,6 +1,6 @@
-@mixin leaflet-control () {
+@mixin leaflet-control() {
   background: #fff;
-  border: 2px solid rgba(0,0,0,0.2);
+  border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   float: left;
   margin: 10px;
@@ -21,10 +21,4 @@
   text-overflow: ellipsis;
   width: 100%;
   white-space: nowrap;
-}
-
-@media screen and (min-width: 960px) {
-  .leaflet-control-attribution {
-    white-space: normal;
-  }
 }

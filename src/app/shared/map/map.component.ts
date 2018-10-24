@@ -49,6 +49,8 @@ export class MapComponent implements AfterViewInit {
   overlaysAdded: Array<L.Layer> = [];
   scaleControl: L.Control.Scale;
   @Input()
+  scrollWheelZoom: Boolean = false;
+  @Input()
   showAttributionControl: Boolean = true;
   zoomControl: L.Control.Zoom;
 
@@ -144,7 +146,7 @@ export class MapComponent implements AfterViewInit {
       dragging: true,
       keyboard: true,
       layers: [baselayers[this.baselayer]],
-      scrollWheelZoom: false,
+      scrollWheelZoom: this.scrollWheelZoom,
       tap: true,
       touchZoom: true,
       zoomControl: false,
