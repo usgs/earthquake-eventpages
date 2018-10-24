@@ -12,6 +12,7 @@ import {
 import * as L from 'leaflet';
 
 import { LegendControl } from '../map-control/legend-control';
+import { LatLongControl } from '../map-control/lat-long-control';
 
 /**
  * Shared map component for event, shows overall area and mmi contours
@@ -34,12 +35,14 @@ export class MapComponent implements AfterViewInit {
   _interactive = false;
   // value of overlays property
   _overlays: Array<L.Layer> = [];
+  _showLatLongControl = true;
   _showLayersControl = false;
   _showLegendControl = false;
   _showScaleControl = false;
 
   @Input()
   baselayer = 'Topographic';
+  latLongControl: L.Control;
   layersControl: L.Control.Layers;
   legendControl: L.Control;
   map: L.Map;
@@ -153,6 +156,7 @@ export class MapComponent implements AfterViewInit {
       zoomSnap: 0
     });
 
+    this.latLongControl = new LatLongControl({ position: 'bottomright' });
     this.layersControl = L.control.layers(baselayers, {});
     this.legendControl = new LegendControl({ position: 'topright' });
     this.scaleControl = L.control.scale({ position: 'bottomright' });
@@ -238,6 +242,28 @@ export class MapComponent implements AfterViewInit {
    */
   get overlays(): Array<L.Layer> {
     return this._overlays;
+  }
+
+  /**
+   * Set whether or not to show lat/long control
+   *
+   * @param showLatLongControl
+   *      Show lat/long control?
+   */
+  @Input()
+  set showLatLongControl(showLatLongControl: boolean) {
+    this._showLatLongControl = showLatLongControl;
+
+    this.updateControls();
+  }
+
+  /**
+   * Get the _showLatLongControl value
+   *
+   * @return boolean
+   */
+  get showLatLongControl(): boolean {
+    return this._showLatLongControl;
   }
 
   /**
@@ -340,6 +366,12 @@ export class MapComponent implements AfterViewInit {
   updateControls() {
     if (!this.map) {
       return;
+    }
+
+    if (this.showLatLongControl && this.interactive === true) {
+      this.map.addControl(this.latLongControl);
+    } else {
+      this.map.removeControl(this.latLongControl);
     }
 
     if (this.showLayersControl && this.interactive === true) {
