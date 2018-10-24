@@ -12,7 +12,9 @@ import {
 import * as L from 'leaflet';
 
 import { LegendControl } from '../map-control/legend-control';
-import { LatLongControl } from '../map-control/lat-long-control';
+import { MobileCheckPipe } from '@shared/mobile-check.pipe';
+import { MousePosition } from '../map-control/mouse-position';
+import { WindowRef } from './../window-ref-wrapper';
 
 /**
  * Shared map component for event, shows overall area and mmi contours
@@ -33,21 +35,23 @@ export class MapComponent implements AfterViewInit {
   // value of bounds property
   _bounds: Array<Array<number>> = null;
   _interactive = false;
+  _isMobile = false;
+  _isMobilePipe = new MobileCheckPipe(new WindowRef());
   // value of overlays property
   _overlays: Array<L.Layer> = [];
-  _showLatLongControl = true;
   _showLayersControl = false;
   _showLegendControl = false;
+  _showMousePosition = false;
   _showScaleControl = false;
 
   @Input()
   baselayer = 'Topographic';
-  latLongControl: L.Control;
   layersControl: L.Control.Layers;
   legendControl: L.Control;
   map: L.Map;
   @ViewChild('mapWrapper')
   mapWrapper: ElementRef;
+  mousePositionControl: L.Control;
   // overlays currently part of the layers control
   overlaysAdded: Array<L.Layer> = [];
   scaleControl: L.Control.Scale;
@@ -133,6 +137,8 @@ export class MapComponent implements AfterViewInit {
       }
     );
 
+    this._isMobile = this._isMobilePipe.transform();
+
     const baselayers = {
       Aerial: worldImageryLayer,
       Grayscale: grayscaleLayer,
@@ -156,7 +162,7 @@ export class MapComponent implements AfterViewInit {
       zoomSnap: 0
     });
 
-    this.latLongControl = new LatLongControl({ position: 'bottomright' });
+    this.mousePositionControl = new MousePosition();
     this.layersControl = L.control.layers(baselayers, {});
     this.legendControl = new LegendControl({ position: 'topright' });
     this.scaleControl = L.control.scale({ position: 'bottomright' });
@@ -242,28 +248,6 @@ export class MapComponent implements AfterViewInit {
    */
   get overlays(): Array<L.Layer> {
     return this._overlays;
-  }
-
-  /**
-   * Set whether or not to show lat/long control
-   *
-   * @param showLatLongControl
-   *      Show lat/long control?
-   */
-  @Input()
-  set showLatLongControl(showLatLongControl: boolean) {
-    this._showLatLongControl = showLatLongControl;
-
-    this.updateControls();
-  }
-
-  /**
-   * Get the _showLatLongControl value
-   *
-   * @return boolean
-   */
-  get showLatLongControl(): boolean {
-    return this._showLatLongControl;
   }
 
   /**
@@ -368,10 +352,10 @@ export class MapComponent implements AfterViewInit {
       return;
     }
 
-    if (this.showLatLongControl && this.interactive === true) {
-      this.map.addControl(this.latLongControl);
+    if (!this._isMobile && this.interactive === true) {
+      this.map.addControl(this.mousePositionControl);
     } else {
-      this.map.removeControl(this.latLongControl);
+      this.map.removeControl(this.mousePositionControl);
     }
 
     if (this.showLayersControl && this.interactive === true) {
