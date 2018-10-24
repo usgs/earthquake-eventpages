@@ -24,7 +24,8 @@ describe('DyfiPinComponent', () => {
           selector: 'shared-mmi'
         }),
 
-        MockPipe('sharedProductContent')
+        MockPipe('sharedProductContent'),
+        MockPipe('sharedProductProperty')
       ],
       imports: [RouterTestingModule]
     }).compileComponents();
