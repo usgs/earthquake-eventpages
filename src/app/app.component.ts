@@ -10,7 +10,7 @@ import { EventTitlePipe } from './shared/event-title.pipe';
 
 @Component({
   selector: 'app-root',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit, OnDestroy {
