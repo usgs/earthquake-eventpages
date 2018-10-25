@@ -16,8 +16,8 @@ import { HazardAlertComponent } from './hazard-alert/hazard-alert.component';
 import { PointSourcePipe } from './point-source.pipe';
 import { PopulationAlertComponent } from './population-alert/population-alert.component';
 import { SummaryComponent } from './summary/summary.component';
-import { SummaryViewComponent } from './summary-view/summary-view.component';
 import { SummaryItemComponent } from './summary-item/summary-item.component';
+import { SummaryViewComponent } from './summary-view/summary-view.component';
 import { PendingPipe } from './pending.pipe';
 
 @NgModule({
@@ -30,8 +30,8 @@ import { PendingPipe } from './pending.pipe';
     HazardAlertComponent,
     PointSourcePipe,
     PopulationAlertComponent,
-    SummaryViewComponent,
     SummaryItemComponent,
+    SummaryViewComponent,
     PendingPipe
   ],
   imports: [
