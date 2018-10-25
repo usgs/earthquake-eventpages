@@ -82,6 +82,7 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
     if (
       props.network === 'DYFI' ||
       props.network === 'INTENSITY' ||
+      props.network === 'CIIM' ||
       props.station_type === 'macroseismic'
     ) {
       // create a marker for a DYFI station
