@@ -6,7 +6,7 @@ import * as L from 'leaflet';
 // tslint:disable-next-line:variable-name
 const MousePosition = L.Control.extend({
   options: {
-    emptyString: 'Unavailable',
+    emptyString: '',
     latFormatter: function(n) {
       return [Math.abs(n).toFixed(3), '&deg;', n < 0 ? 'S' : 'N'].join('');
     },

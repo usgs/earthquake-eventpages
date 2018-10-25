@@ -138,6 +138,7 @@ export class MapComponent implements AfterViewInit {
     );
 
     this._isMobile = this._isMobilePipe.transform();
+    this._isMobilePipe = null;
 
     const baselayers = {
       Aerial: worldImageryLayer,
@@ -162,7 +163,11 @@ export class MapComponent implements AfterViewInit {
       zoomSnap: 0
     });
 
-    this.mousePositionControl = new MousePosition();
+    if (this._isMobile) {
+      this.mousePositionControl = null;
+    } else {
+      this.mousePositionControl = new MousePosition();
+    }
     this.layersControl = L.control.layers(baselayers, {});
     this.legendControl = new LegendControl({ position: 'topright' });
     this.scaleControl = L.control.scale({ position: 'bottomright' });
@@ -354,8 +359,6 @@ export class MapComponent implements AfterViewInit {
 
     if (!this._isMobile && this.interactive === true) {
       this.map.addControl(this.mousePositionControl);
-    } else {
-      this.map.removeControl(this.mousePositionControl);
     }
 
     if (this.showLayersControl && this.interactive === true) {
