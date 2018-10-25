@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'ground-failure-type',
-  styleUrls: ['./ground-failure-type.component.scss'],
-  templateUrl: './ground-failure-type.component.html'
+  selector: 'summary-item',
+  styleUrls: ['./summary-item.component.scss'],
+  templateUrl: './summary-item.component.html'
 })
-export class GroundFailureTypeComponent implements OnInit {
+export class SummaryItemComponent implements OnInit {
   @Input()
   buttonQueryParams: any;
   @Input()

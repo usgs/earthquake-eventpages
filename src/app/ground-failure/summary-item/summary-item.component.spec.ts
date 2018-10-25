@@ -1,16 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GroundFailureTypeComponent } from './ground-failure-type.component';
+import { SummaryItemComponent } from './summary-item.component';
 import { MockComponent } from 'ng2-mock-component';
 
-describe('GroundFailureTypeComponent', () => {
-  let component: GroundFailureTypeComponent;
-  let fixture: ComponentFixture<GroundFailureTypeComponent>;
+describe('SummaryItemComponent', () => {
+  let component: SummaryItemComponent;
+  let fixture: ComponentFixture<SummaryItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        GroundFailureTypeComponent,
+        SummaryItemComponent,
 
         MockComponent({
           inputs: ['alert', 'type', 'value'],
@@ -25,7 +25,7 @@ describe('GroundFailureTypeComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GroundFailureTypeComponent);
+    fixture = TestBed.createComponent(SummaryItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,7 +2,7 @@
   <section class="one-of-two column">
     <h3>Landslides</h3>
 
-    <ground-failure-type *ngIf="product | pending; else isPending"
+    <summary-item *ngIf="product | pending; else isPending"
       [hazardAlertColor]="product |
           sharedProductProperty:'landslide-hazard-alert-color'"
       [hazardAlertValue]="product |
@@ -12,9 +12,10 @@
       [populationAlertValue]="product |
           sharedProductProperty:'landslide-population-alert-value'"
       [type]="'landslide'">
-    </ground-failure-type>
+    </summary-item>
 
     <button mat-raised-button
+      *ngIf="product | pending"
       [routerLink]="'../../map'"
       [queryParams]="{ 'ground-failure-landslide': true,
         'shakemap-intensity': false, 'bounds': product | sharedGetMapBounds }">
@@ -26,7 +27,7 @@
   <section class="one-of-two column">
     <h3>Liquefaction</h3>
 
-    <ground-failure-type *ngIf="product | pending; else isPending"
+    <summary-item *ngIf="product | pending; else isPending"
       [hazardAlertColor]="product |
           sharedProductProperty:'liquefaction-hazard-alert-color'"
       [hazardAlertValue]="product |
@@ -36,9 +37,10 @@
       [populationAlertValue]="product |
           sharedProductProperty:'liquefaction-population-alert-value'"
       [type]="'liquefaction'">
-    </ground-failure-type>
+    </summary-item>
 
     <button mat-raised-button
+      *ngIf="product | pending"
       [routerLink]="'../../map'"
       [queryParams]="{ 'ground-failure-liquefaction': true,
         'shakemap-intensity': false, 'bounds': product | sharedGetMapBounds }">
