@@ -45,7 +45,7 @@ downloadAsset () {
 
 mkdir -p ${OUTPUT_DIR};
 
-if [ -f ${OLD_ASSETS} ]
+if [ -f ${OLD_ASSETS} ]; then
   while IFS='' read -r asset || [[ -n "${asset}" ]]; do
     if [ "${asset:0:1}" != "#" ]; then
       downloadAsset "${asset}";
