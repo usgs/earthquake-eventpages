@@ -19,6 +19,14 @@ const MousePosition = L.Control.extend({
     separator: ' : '
   },
 
+  /**
+   * Overriden method from parent class to remove control from map
+   *
+   * @param map
+   *      The leaflet map
+   * @returns _container
+   *      The container element for this control
+   */
   onAdd: function(map) {
     this._container = L.DomUtil.create(
       'div',
@@ -30,10 +38,22 @@ const MousePosition = L.Control.extend({
     return this._container;
   },
 
+  /**
+   * Overriden method from parent class to remove control from map
+   *
+   * @param map
+   */
   onRemove: function(map) {
     map.off('mousemove', this._onMouseMove);
   },
 
+  /**
+   * Function to calculate the lat/long coordinates of the current mouse
+   * position
+   *
+   * @param e
+   *     mouse event
+   */
   _onMouseMove: function(e) {
     let lng = L.Util.formatNum(e.latlng.lng, this.options.numDigits);
     // need to correct for rollover of map if user scrolls

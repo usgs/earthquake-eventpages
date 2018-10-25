@@ -1,7 +1,7 @@
 import { MobileCheckPipe } from './mobile-check.pipe';
 import { WindowRef } from './window-ref-wrapper';
 
-fdescribe('MobileCheckPipe', () => {
+describe('MobileCheckPipe', () => {
   it('create an instance', () => {
     const pipe = new MobileCheckPipe(new WindowRef());
     expect(pipe).toBeTruthy();

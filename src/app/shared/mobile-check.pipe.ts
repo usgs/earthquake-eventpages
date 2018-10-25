@@ -20,9 +20,8 @@ export class MobileCheckPipe implements PipeTransform {
           this.globalWindow.navigator.userAgent ||
           this.globalWindow.navigator.vendor;
         isMobile =
-          str.match(
-            /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|iemobile|WPDesktop)/i
-          ) !== null;
+          str.match(/(Android|webOS|iPhone|iPad|iPod|BlackBerry)/i) !== null ||
+          str.match(/(Windows Phone|iemobile|WPDesktop)/i) !== null;
       } catch (e) {
         console.log('error in try catch');
         return false;
