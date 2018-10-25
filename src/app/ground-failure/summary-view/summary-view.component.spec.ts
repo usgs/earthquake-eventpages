@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { MockPipe } from '../../../mock-pipe';
+import { MockPipe } from '../../mock-pipe';
 import { SummaryViewComponent } from './summary-view.component';
 
 describe('SummaryViewComponent', () => {
@@ -26,7 +26,7 @@ describe('SummaryViewComponent', () => {
             'populationAlertValue',
             'type'
           ],
-          selector: 'ground-failure-type'
+          selector: 'summary-item'
         }),
 
         MockPipe('pending'),
