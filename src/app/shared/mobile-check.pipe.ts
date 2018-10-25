@@ -15,14 +15,17 @@ export class MobileCheckPipe implements PipeTransform {
     let isMobile = false;
 
     if (this.globalWindow) {
-      const str =
-        this.globalWindow.navigator.userAgent ||
-        this.globalWindow.navigator.vendor;
-      if (str !== null || str !== undefined) {
+      try {
+        const str =
+          this.globalWindow.navigator.userAgent ||
+          this.globalWindow.navigator.vendor;
         isMobile =
           str.match(
             /(Android|webOS|iPhone|iPad|iPod|BlackBerry|Windows Phone|iemobile|WPDesktop)/i
           ) !== null;
+      } catch (e) {
+        console.log('error in try catch');
+        return false;
       }
     }
     return isMobile;
