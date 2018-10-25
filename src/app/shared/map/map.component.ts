@@ -354,10 +354,8 @@ export class MapComponent implements AfterViewInit {
     }
 
     if (!this._isMobile && this.interactive === true) {
-      console.log('adding control');
       this.map.addControl(this.mousePositionControl);
     } else {
-      console.log('removing control');
       this.map.removeControl(this.mousePositionControl);
     }
 
