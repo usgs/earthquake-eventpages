@@ -1,3 +1,8 @@
 .mag-detail-table.mat-table {
   min-width: 800px;
 }
+
+.mat-column-channel,
+.mat-column-amplitude {
+  flex: 2;
+}
