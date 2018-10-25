@@ -26,7 +26,7 @@ describe('ShakemapPinComponent', () => {
         MockPipe('getProduct'),
         MockPipe('sharedProductContent'),
         MockPipe('sharedProductProperty'),
-        MockPipe('sharedShakingImpact')
+        MockPipe('sharedNumber')
       ],
     imports: [
       RouterTestingModule

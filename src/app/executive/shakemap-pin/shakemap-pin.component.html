@@ -4,51 +4,25 @@
   <div card-title>
     <a [routerLink]="link">{{ title }}</a>
     <shared-mmi
-        *ngIf="product | sharedProductContent:
-        'download/pin-thumbnail.png'"
         [bubble]="true"
-        [intensity]="product | sharedProductProperty:'maxmmi'">
+        [intensity]="product | sharedProductProperty:'maxmmi' |
+            sharedNumber:0:0">
     </shared-mmi>
   </div>
 
   <figure
       *ngIf="product | sharedProductContent:
-      'download/pin-thumbnail.png' as image; else noImage">
+      'download/pin-thumbnail.png':'download/intensity.jpg' as image;
+      else noImage">
     <img src="{{ image.url }}" alt="ShakeMap Intensity Thumbnail" />
     <figcaption>
-      <ng-container *ngIf="product | sharedProductProperty:'maxmmi' as mmi">
-        <ng-container *ngIf="mmi | sharedShakingImpact as impact;
-            else noMMI">
-          Perceived Shaking: {{ impact.shaking }}
-          Potential Damage: {{ impact.damage }}
-        </ng-container>
-      </ng-container>
+      Estimated Intensity Map
     </figcaption>
   </figure>
 
   <ng-template #noImage>
-    <ng-container *ngIf="product | sharedProductProperty:'maxmmi' as mmi">
-      <dl *ngIf="mmi | sharedShakingImpact as impact;
-          else noMMI">
-        <dt>Estimated Intensity</dt>
-        <dd>
-          <shared-mmi
-            [bubble]="true"
-            [intensity]="mmi">
-          </shared-mmi>
-        </dd>
-        <dt>Perceived Shaking</dt>
-        <dd>{{ impact.shaking }}</dd>
-
-        <dt>Potential Damage</dt>
-        <dd>{{ impact.damage }}</dd>
-      </dl>
-    </ng-container>
-  </ng-template>
-
-  <ng-template #noMMI>
     <p class="alert error">
-      Estimated Intensity not specified.
+      ShakeMap not available
     </p>
   </ng-template>
 
