@@ -8,7 +8,8 @@
 
     <ng-template matExpansionPanelContent>
       <div class="horizontal-scrolling">
-        <mat-table [dataSource]="smProcessing?.ground_motion_modules">
+        <mat-table [dataSource]="smProcessing?.ground_motion_modules"
+          class="ground-motion-intensity">
           <mat-header-row *matHeaderRowDef="headers?.groundMotionModules">
           </mat-header-row>
           <mat-row *matRowDef="let myRowData;
@@ -183,8 +184,7 @@
     </ng-template>
   </mat-expansion-panel>
 
-  <mat-expansion-panel
-      *ngIf="smProcessing?.shakemap_versions?.map_data_history as history">
+  <mat-expansion-panel *ngIf="smProcessing?.shakemap_versions?.map_data_history as history">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Version History
@@ -228,13 +228,13 @@
           </ng-container>
 
           <ng-container matColumnDef="comment">
-              <mat-header-cell *matHeaderCellDef>
-                Comment
-              </mat-header-cell>
-              <mat-cell *matCellDef="let version">
-                {{ version[3] }}
-              </mat-cell>
-            </ng-container>
+            <mat-header-cell *matHeaderCellDef>
+              Comment
+            </mat-header-cell>
+            <mat-cell *matCellDef="let version">
+              {{ version[3] }}
+            </mat-cell>
+          </ng-container>
 
         </mat-table>
       </div>

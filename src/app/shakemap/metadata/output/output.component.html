@@ -9,8 +9,8 @@
     <ng-template matExpansionPanelContent>
 
       <div class="horizontal-scrolling">
-        <mat-table [dataSource]="smOutput?.ground_motions"
-          class="gm-table">
+        <mat-table class="ground-motion-intensity"
+          [dataSource]="smOutput?.ground_motions">
           <mat-header-row *matHeaderRowDef="headers?.groundMotions">
           </mat-header-row>
           <mat-row *matRowDef="let myRowData;
@@ -90,7 +90,8 @@
 
     <ng-template matExpansionPanelContent>
       <div class="horizontal-scrolling">
-        <mat-table [dataSource]="smOutput?.map_information">
+        <mat-table class="map-information"
+          [dataSource]="smOutput?.map_information">
           <mat-header-row *matHeaderRowDef="headers?.mapInformation">
           </mat-header-row>
           <mat-row *matRowDef="let myRowData;
