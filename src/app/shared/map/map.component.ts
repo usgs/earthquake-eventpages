@@ -163,11 +163,7 @@ export class MapComponent implements AfterViewInit {
       zoomSnap: 0
     });
 
-    if (this._isMobile) {
-      this.mousePositionControl = null;
-    } else {
-      this.mousePositionControl = new MousePosition();
-    }
+    this.mousePositionControl = new MousePosition();
     this.layersControl = L.control.layers(baselayers, {});
     this.legendControl = new LegendControl({ position: 'topright' });
     this.scaleControl = L.control.scale({ position: 'bottomright' });
