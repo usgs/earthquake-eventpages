@@ -26,8 +26,10 @@ location  /${BASE_HREF}  {
   }
 
   # css/js are hash-stamped, and url will change if content changes
-  location ~* /${BASE_HREF}/.*\\.(?:css|js)\$ {
+  location ~* /${BASE_HREF}/(.*)\\.(css|js)\$ {
     expires 1y;
+
+    try_files \$uri /${BASE_HREF}/previous/\$1.\$2;
   }
 
   try_files \$uri \$uri/ \$uri.html \$uri/index.html @angular-fallback;
