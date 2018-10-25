@@ -1,4 +1,4 @@
-<p class="alert info">
+<p class="alert success">
   Thank you for your contribution. Your information will be processed shortly.
 </p>
 
@@ -10,10 +10,11 @@
   <dd>{{ success.your_cdi }}</dd>
 
   <dt>Name:</dt>
-  <dd>{{ success.fldContact_name }}</dd>
+  <dd *ngIf="success.fldContact_name as name; else dash">{{ name }}</dd>
+
 
   <dt>Email:</dt>
-  <dd>{{ success.fldContact_email }}</dd>
+  <dd *ngIf="success.fldContact_email as email; else dash">{{ email }}</dd>
 
   <dt>Event time:</dt>
   <dd>{{ success.ciim_time }}</dd>
@@ -27,3 +28,7 @@
   <dt>Form version:</dt>
   <dd>{{ success.form_version }}</dd>
 </dl>
+
+<ng-template #dash>
+  <dd>&ndash;</dd>
+</ng-template>

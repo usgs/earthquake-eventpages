@@ -77,7 +77,6 @@ export class TellUsComponent implements OnInit {
    */
   onSuccess(response: any) {
     this.success = response;
-    console.log('success!', this.success);
   }
 
   /**
