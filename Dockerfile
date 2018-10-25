@@ -18,7 +18,6 @@ RUN /bin/bash --login -c "\
     npm run build -- --progress false --base-href /BASE_HREF/ \
     "
 
-
 ##
 # Actual application image
 ##
