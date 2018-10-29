@@ -186,6 +186,24 @@ describe('MapComponent', () => {
     });
   });
 
+  describe('showMousePosition', () => {
+    it('adds mouse position control to map when not on mobile', () => {
+      component._isMobile = false;
+      component.interactive = true;
+      spyOn(component.map, 'addControl');
+      component.updateControls();
+      expect(component.map.addControl).toHaveBeenCalled();
+    });
+
+    it('does not add mouse position to map on mobile', () => {
+      component._isMobile = true;
+      component.interactive = false;
+      spyOn(component.map, 'removeControl');
+      component.updateControls();
+      expect(component.map.removeControl).toHaveBeenCalled();
+    });
+  });
+
   describe('updateControls', () => {
     it('returns if map not defined yet', () => {
       component.map = null;

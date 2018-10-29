@@ -37,6 +37,7 @@ import { LinkProductComponent } from './link-product/link-product.component';
 import { LocationPipe } from './location.pipe';
 import { MapComponent } from './map/map.component';
 import { MmiComponent } from './mmi/mmi.component';
+import { MobileCheckPipe } from './mobile-check.pipe';
 import { NearbySeismicityLinkPipe } from './nearby-seismicity-link.pipe';
 import { NodalPlanesComponent } from './nodal-planes/nodal-planes.component';
 import { NumberWithSeparatorPipe } from './number-with-separator.pipe';
@@ -62,6 +63,7 @@ import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 import { UnitsPipe } from './units.pipe';
 import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
+import { WindowRef } from './window-ref-wrapper';
 
 @NgModule({
   declarations: [
@@ -92,6 +94,7 @@ import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
     LocationPipe,
     MapComponent,
     MmiComponent,
+    MobileCheckPipe,
     NearbySeismicityLinkPipe,
     NodalPlanesComponent,
     NumberPipe,
@@ -148,6 +151,7 @@ import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
     MapComponent,
     MatIconModule,
     MmiComponent,
+    MobileCheckPipe,
     NearbySeismicityLinkPipe,
     NodalPlanesComponent,
     NumberPipe,
@@ -181,7 +185,8 @@ import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
     MatIconModule,
     MatTableModule,
     RouterModule
-  ]
+  ],
+  providers: [WindowRef]
 })
 export class SharedModule {
   constructor(public injector: Injector) {
