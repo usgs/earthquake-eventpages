@@ -31,6 +31,7 @@
               "src/favicon.ico"
             ],
             "styles": [
+              "src/app-loading-spinner.scss",
               "src/styles.scss",
               "node_modules/leaflet/dist/leaflet.css"
             ],

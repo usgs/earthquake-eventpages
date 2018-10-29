@@ -1,37 +1,46 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <base href="/">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <base href="/">
 
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1">
-    <link rel="icon"
-      type="image/x-icon"
-      href="favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Roboto+Mono:400|Merriweather:400,400italic,700|Material+Icons"
-      rel="stylesheet">
-    <script id="_fed_an_ua_tag"
-      async="async"
-      src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOI&amp;subagency=USGS&amp;pua=UA-7320779-1"></script>
-  </head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Roboto+Mono:400|Merriweather:400,400italic,700|Material+Icons"
+    rel="stylesheet">
+  <script id="_fed_an_ua_tag" async="async" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOI&amp;subagency=USGS&amp;pua=UA-7320779-1"></script>
 
-  <body>
-    <app-root>
-      <div>
-        <p>
-          The Earthquake Event Page application supports most recent browsers,
-          <a href="https://angular.io/guide/browser-support">view supported browsers</a>.
-        </p>
-        <p>
-          Or, try our
-          <a href="/earthquakes/feed/">Real-time Notifications, Feeds, and Web Services</a>.
-        </p>
+</head>
+
+<body>
+
+  <!-- loading layout replaced by app after startupp -->
+  <app-root>
+
+    <!-- Message for old iOS and non-javascript users -->
+    <p>
+      The Earthquake Event Page application supports most recent browsers,
+      <a href="https://angular.io/guide/browser-support">view supported browsers</a>.
+    </p>
+    <p>
+      Or, try our
+      <a href="/earthquakes/feed/">Real-time Notifications, Feeds, and Web Services</a>.
+    </p>
+
+    <!-- Loading spinner for slow connections -->
+    <div class="mask">
+      <div class="app-loading">
+        <div class="logo"></div>
+        <svg class="spinner" viewBox="25 25 50 50">
+          <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
       </div>
-    </app-root>
-  </body>
+    </div>
+
+  </app-root>
+</body>
 
 </html>
