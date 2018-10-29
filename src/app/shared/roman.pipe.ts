@@ -31,10 +31,10 @@ export class RomanPipe implements PipeTransform {
    * @return {any}
    *     A roman numeral
    */
-  transform(mmi: number): any {
+  transform(mmi: any): string {
     let value;
 
-    mmi = Math.round(mmi);
+    mmi = Math.round(parseFloat(mmi));
     value = RomanPipe.MMI_ROMAN[mmi];
 
     if (value) {

@@ -26,8 +26,10 @@ describe('RomanPipe', () => {
       expect(pipe.transform(11.5)).toEqual('XII');
       expect(pipe.transform(12)).toEqual('XII');
 
-      expect(pipe.transform(-1)).toBeNull();
-      expect(pipe.transform(13)).toBeNull();
+      expect(pipe.transform(-1)).toBe('N/A');
+      expect(pipe.transform(13)).toBe('N/A');
+      expect(pipe.transform(null)).toBe('N/A');
+      expect(pipe.transform('--')).toBe('N/A');
     });
   });
 });
