@@ -1,11 +1,13 @@
 <ng-container *ngIf="eventService?.event$ | async; let event">
-  <shared-summary-link [productType]="'tellus'" [event]="event">
+  <shared-summary-link [productType]="'tellus'"
+    [event]="event">
   </shared-summary-link>
 </ng-container>
 
 <h2>Felt Report - Tell Us!</h2>
 
-<button (click)="showForm()" mat-raised-button>
+<button (click)="showForm()"
+  mat-raised-button>
   Show Felt Report Form
 </button>
 
@@ -28,16 +30,13 @@
   </p>
 </ng-container>
 
-<ng-container *ngIf="success">
-  <p class="alert info">
-    Thanks for your response.
-  </p>
-  <pre>{{ success | json }}</pre>
-</ng-container>
+<success-view *ngIf="success"
+  [success]="success">
+</success-view>
 
 <ng-container *ngIf="error">
-  <p class="alert error">
-    Please try to resubmit the form.
-  </p>
-  <pre>{{ error | json }}</pre>
+  <div class="alert error">
+    <p>Please try to resubmit the form.</p>
+    <p>{{ error | json }}</p>
+  </div>
 </ng-container>
