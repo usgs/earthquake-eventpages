@@ -20,6 +20,8 @@ export class RomanPipe implements PipeTransform {
     'XII'
   ];
 
+  static NO_MMI = 'N/A';
+
   /**
    * Get roman numeral from a number
    *
@@ -39,6 +41,6 @@ export class RomanPipe implements PipeTransform {
       return value;
     }
 
-    return null;
+    return RomanPipe.NO_MMI;
   }
 }
