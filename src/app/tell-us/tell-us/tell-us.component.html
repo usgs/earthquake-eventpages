@@ -30,6 +30,7 @@
   </p>
 </ng-container>
 
+<<<<<<< HEAD
 <success-view *ngIf="success"
   [success]="success">
 </success-view>
@@ -39,4 +40,22 @@
     <p>Please try to resubmit the form.</p>
     <p>{{ error | json }}</p>
   </div>
+=======
+<ng-container *ngIf="success">
+  <p class="alert info">
+    Thanks for your response.
+  </p>
+  <pre>{{ success | json }}</pre>
+  <fb-share [href]="window.location.href"
+    layout="button"
+    size="large">
+  </fb-share>
+</ng-container>
+
+<ng-container *ngIf="error">
+  <p class="alert error">
+    Please try to resubmit the form.
+  </p>
+  <pre>{{ error | json }}</pre>
+>>>>>>> share functionality in place, need to fix the broken share button
 </ng-container>
