@@ -121,7 +121,6 @@ export class TellUsComponent implements OnInit {
    */
   onError(response: any) {
     this.error = response;
-    console.log('form failed to submit: ', this.error);
   }
 
   /**
@@ -142,7 +141,6 @@ export class TellUsComponent implements OnInit {
    */
   onSuccess(response: any) {
     this.success = response;
-    console.log('success!', this.success);
     this.loadFacebookSdk();
   }
 
