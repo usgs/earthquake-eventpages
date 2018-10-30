@@ -1,55 +1,13 @@
 <section class="summary row">
-  <section class="one-of-two column">
-    <h3>Landslides</h3>
+  <summary-item class="one-of-two column"
+    [type]="'landslide'"
+    [title]="'Landslides'"
+    [product]="product">
+  </summary-item>
 
-    <summary-item *ngIf="product | pending; else isPending"
-      [hazardAlertColor]="product |
-          sharedProductProperty:'landslide-hazard-alert-color'"
-      [hazardAlertValue]="product |
-          sharedProductProperty:'landslide-hazard-alert-value'"
-      [populationAlertColor]="product |
-          sharedProductProperty:'landslide-population-alert-color'"
-      [populationAlertValue]="product |
-          sharedProductProperty:'landslide-population-alert-value'"
-      [type]="'landslide'">
-    </summary-item>
-
-    <button mat-raised-button
-      *ngIf="product | pending"
-      [routerLink]="'../../map'"
-      [queryParams]="{ 'ground-failure-landslide': true,
-        'shakemap-intensity': false, 'bounds': product | sharedGetMapBounds }">
-      View Landslides Map
-    </button>
-
-  </section>
-
-  <section class="one-of-two column">
-    <h3>Liquefaction</h3>
-
-    <summary-item *ngIf="product | pending; else isPending"
-      [hazardAlertColor]="product |
-          sharedProductProperty:'liquefaction-hazard-alert-color'"
-      [hazardAlertValue]="product |
-          sharedProductProperty:'liquefaction-hazard-alert-value'"
-      [populationAlertColor]="product |
-          sharedProductProperty:'liquefaction-population-alert-color'"
-      [populationAlertValue]="product |
-          sharedProductProperty:'liquefaction-population-alert-value'"
-      [type]="'liquefaction'">
-    </summary-item>
-
-    <button mat-raised-button
-      *ngIf="product | pending"
-      [routerLink]="'../../map'"
-      [queryParams]="{ 'ground-failure-liquefaction': true,
-        'shakemap-intensity': false, 'bounds': product | sharedGetMapBounds }">
-      View Liquefaction Map
-    </button>
-
-  </section>
+  <summary-item class="one-of-two column"
+    [type]="'liquefaction'"
+    [title]="'Liquefaction'"
+    [product]="product">
+  </summary-item>
 </section>
-
-<ng-template #isPending>
-  <p class="alert info">Alert Pending</p>
-</ng-template>
