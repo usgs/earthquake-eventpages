@@ -169,7 +169,7 @@ describe('TellUsComponent', () => {
 
   describe('onError', () => {
     it('sets error response', () => {
-      const response = { message: 'error' };
+      const response = '';
       component.success = null;
       component.onError(response);
       expect(component.error).toBe(response);
@@ -211,26 +211,16 @@ describe('TellUsComponent', () => {
     });
   });
 
-  describe('facebook functionality', () => {
-    it('call the showFacebookPopup and ensure FB.ui is called', () => {
-      component.sdkStatus = true;
-      component.success = {
-        your_cdi: null
-      };
-      window.FB = {
-        ui: jasmine.createSpy().and.returnValue(null)
-      };
-      component.showFacebookSharePopup();
-      expect(window.FB.ui).toHaveBeenCalled();
-    });
-    it('calls share popup on social click', () => {
-      spyOn(component, 'showFacebookSharePopup');
-      const event = {
-        preventDefault: function() {}
-      };
-      component.onSocialClick(event);
-      expect(component.showFacebookSharePopup).toHaveBeenCalled();
-    });
+  it('call the showFacebookPopup and ensure FB.ui is called', () => {
+    component.sdkStatus = true;
+    component.success = {
+      your_cdi: null
+    };
+    window.FB = {
+      ui: jasmine.createSpy().and.returnValue(null)
+    };
+    component.showFacebookSharePopup();
+    expect(window.FB.ui).toHaveBeenCalled();
   });
 
   it('sets meta tags on component', () => {
@@ -240,5 +230,14 @@ describe('TellUsComponent', () => {
     expect(metaUrl).toEqual(component._windowHref);
     expect(metaType).toEqual('website');
     expect(metaTitle).toEqual('');
+  });
+
+  it('calls share popup on social click', () => {
+    spyOn(component, 'showFacebookSharePopup');
+    const event = {
+      preventDefault: function() {}
+    };
+    component.onSocialClick(event);
+    expect(component.showFacebookSharePopup).toHaveBeenCalled();
   });
 });
