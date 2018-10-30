@@ -151,14 +151,14 @@ export class TellUsComponent implements OnInit {
    */
   showFacebookSharePopup(): void {
     const message = `
-      My DYFI intensity was ${this.success.your_cdi}, Did you feel it?
+      Did You Feel It? My DYFI intensity was: ${this.success.your_cdi}
     `;
     if (this.sdkStatus) {
       FB.ui({
         action_properties: JSON.stringify({
           object: {
-            'og:description': message,
-            'og:title': this.meta.getTag('property="og:title"').content,
+            'og:description': this.meta.getTag('property="og:title"').content,
+            'og:title': message,
             'og:url': this._windowHref
           }
         }),
