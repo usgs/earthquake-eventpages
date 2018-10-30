@@ -83,6 +83,7 @@ _getOption = function(options: any, name: string, defaultValue: any): any {
   return defaultValue;
 };
 
+// @dynamic
 export class Beachball {
   static zeroToTwoPi = _0To2Pi;
 
