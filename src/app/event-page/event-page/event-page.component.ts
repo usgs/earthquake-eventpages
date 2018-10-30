@@ -1,4 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import {
   ActivatedRoute,
@@ -20,6 +25,7 @@ import { LocationPipe } from '@shared/location.pipe';
  * Main event page component, wraps inbound data components
  */
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [EventDepthPipe, DateTimePipe, LocationPipe],
   selector: 'app-event-page',
   styleUrls: ['./event-page.component.scss'],
@@ -53,7 +59,7 @@ export class EventPageComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.eventService.event$.subscribe(event => {
-        if (!event.id) {
+        if (!event) {
           return;
         }
         // Title - facebook meta tag

@@ -18,7 +18,7 @@ import { Event } from '../event';
  */
 @Injectable()
 export class EventService {
-  event$ = new BehaviorSubject<Event>(new Event(null));
+  event$ = new BehaviorSubject<Event>(null);
   product$ = new BehaviorSubject<any>(null);
   productCode: string;
   productSource: string;
@@ -37,8 +37,8 @@ export class EventService {
 
     // clear existing information if requested event id is different
     // otherwise let browser caching determine whether to update
-    if (this.event$.value.id !== eventid) {
-      this.setEvent(new Event(null));
+    if (this.event$.value && this.event$.value.id !== eventid) {
+      this.setEvent(null);
     }
 
     // load new information

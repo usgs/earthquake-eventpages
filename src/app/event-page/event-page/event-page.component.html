@@ -1,13 +1,10 @@
-<ng-container *ngIf="this?.eventService?.event$ | async;
-    else noEvent; let event">
-  <hazdev-template [COOPERATOR]="this.contributorService.contributors$ | async | cooperator:event"
-    [CONTACT]="'mailto:lisa%2Behpweb@usgs.gov'"
+<ng-container *ngIf="this?.eventService?.event$ | async; let event">
+  <hazdev-template *ngIf="event" [COOPERATOR]="this.contributorService.contributors$ | async | cooperator:event" [CONTACT]="'mailto:lisa%2Behpweb@usgs.gov'"
     [TITLE]="event | sharedEventTitle">
     <event-page-header [event]="event"></event-page-header>
 
     <mat-nav-list templateSideNavigation>
-      <event-page-navigation class="site-sectionnav"
-        [event]="event"></event-page-navigation>
+      <event-page-navigation class="site-sectionnav" [event]="event"></event-page-navigation>
     </mat-nav-list>
 
     <ng-container *ngIf="!event?.deleted; else deletedEvent">
@@ -21,17 +18,11 @@
       </p>
 
       <shared-text-product *ngFor="let product of event?.getProducts('deleted-text');
-            trackBy: trackByIndex"
-        [product]="product">
+            trackBy: trackByIndex" [product]="product">
       </shared-text-product>
     </ng-template>
 
-    <event-page-footer [event]="event"
-      [contributors]="this?.contributorService?.contributors$ | async">
+    <event-page-footer [event]="event" [contributors]="this?.contributorService?.contributors$ | async">
     </event-page-footer>
   </hazdev-template>
 </ng-container>
-
-<ng-template #noEvent>
-  <h1>No Event</h1>
-</ng-template>
