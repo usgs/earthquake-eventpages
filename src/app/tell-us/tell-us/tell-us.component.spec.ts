@@ -196,12 +196,13 @@ describe('TellUsComponent', () => {
   describe('showForm', () => {
     it('calls onDialogClose with response', done => {
       const response = { response: true };
-      spyOn(component, 'onDialogClose');
+      const theSpy = spyOn(component, 'onDialogClose');
       component.initPromise.then(() => {
         component.dialogRef.afterClosed().subscribe(() => {
           fixture.detectChanges();
           fixture.whenStable().then(() => {
             expect(component.onDialogClose).toHaveBeenCalledWith(response);
+            expect(theSpy).toHaveBeenCalledWith(response);
             done();
           });
         });
