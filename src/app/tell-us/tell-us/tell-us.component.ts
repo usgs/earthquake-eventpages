@@ -2,10 +2,11 @@ import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { Meta, DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Meta } from '@angular/platform-browser';
 
 import { EventService } from '@core/event.service';
 import { FormComponent } from '../form/form.component';
+import { WindowRef } from '@shared/window-ref-wrapper';
 
 declare let window: any;
 declare let FB: any;
@@ -20,13 +21,12 @@ declare let FB: any;
   templateUrl: './tell-us.component.html'
 })
 export class TellUsComponent implements OnInit {
+  // global window.location.href reference
+  _windowHref: string;
   // the form dialog
   dialogRef: MatDialogRef<FormComponent> = null;
   // error response received from form
   error: any = null;
-  // get event for it's id property
-  eventId = null;
-  // facebook location for
   // promise representing showForm having been called in ngOnInit
   initPromise: Promise<any>;
   // whether or not we have the facebook sdk
@@ -39,43 +39,35 @@ export class TellUsComponent implements OnInit {
     public eventService: EventService,
     public location: Location,
     public meta: Meta,
-    public sanitizer: DomSanitizer
+    public windowReference: WindowRef
   ) {}
 
   ngOnInit() {
+    this._windowHref = this.windowReference.nativeWindow.location.href;
+
     this.initPromise = Promise.resolve().then(() => {
       this.showForm();
     });
-    this.eventService.event$.subscribe(event => {
-      if (event && event.id !== null) {
-        this.eventId = event.id;
-
-        this.meta.addTags([
-          {
-            property: 'og:url',
-            content: window.location.href
-          },
-          {
-            property: 'og:type',
-            content: 'website'
-          },
-          {
-            property: 'og:title',
-            content: ''
-          },
-          {
-            property: 'og:image',
-            content: '../assets/usgs-logo-facebook.png'
-          }
-        ]);
+    this.meta.addTags([
+      {
+        property: 'og:url',
+        content: this._windowHref
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:title',
+        content: ''
       }
-    });
+    ]);
   }
 
   /**
-   * Load Facebook SDK
+   * Load Facebook SDK and set facebook app settings
    */
-  loadFacebookSdk() {
+  loadFacebookSdk(): void {
     // Initialize the facebook app
     window.fbAsyncInit = () => {
       FB.init({
@@ -132,10 +124,14 @@ export class TellUsComponent implements OnInit {
     console.log('form failed to submit: ', this.error);
   }
 
-  onSocialClick(e) {
+  /**
+   * Click listener on the facebook share button
+   * @param e
+   *      The click event
+   */
+  onSocialClick(e): void {
     e.preventDefault();
     this.showFacebookSharePopup();
-    // this.loadFacebookSdk();
   }
 
   /**
@@ -146,8 +142,6 @@ export class TellUsComponent implements OnInit {
    */
   onSuccess(response: any) {
     this.success = response;
-<<<<<<< HEAD
-=======
     console.log('success!', this.success);
     this.loadFacebookSdk();
   }
@@ -155,7 +149,7 @@ export class TellUsComponent implements OnInit {
   /**
    * Show facebook share popup
    */
-  showFacebookSharePopup() {
+  showFacebookSharePopup(): void {
     const message = `
       My DYFI intensity was ${this.success.your_cdi}, Did you feel it?
     `;
@@ -165,21 +159,20 @@ export class TellUsComponent implements OnInit {
           object: {
             'og:description': message,
             'og:title': this.meta.getTag('property="og:title"').content,
-            'og:url': window.location.href
+            'og:url': this._windowHref
           }
         }),
         action_type: 'og.shares',
-        href: window.location.href,
+        href: this._windowHref,
         method: 'share_open_graph'
       });
     }
->>>>>>> share functionality in place, need to fix the broken share button
   }
 
   /**
    * Show the form dialog.
    */
-  showForm() {
+  showForm(): void {
     this.dialogRef = this.dialog.open(FormComponent, {
       data: {
         eventService: this.eventService
