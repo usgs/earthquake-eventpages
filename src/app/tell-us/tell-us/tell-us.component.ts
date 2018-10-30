@@ -42,28 +42,6 @@ export class TellUsComponent implements OnInit {
     public windowReference: WindowRef
   ) {}
 
-  ngOnInit() {
-    this._windowHref = this.windowReference.nativeWindow.location.href;
-
-    this.initPromise = Promise.resolve().then(() => {
-      this.showForm();
-    });
-    this.meta.addTags([
-      {
-        property: 'og:url',
-        content: this._windowHref
-      },
-      {
-        property: 'og:type',
-        content: 'website'
-      },
-      {
-        property: 'og:title',
-        content: ''
-      }
-    ]);
-  }
-
   /**
    * Load Facebook SDK and set facebook app settings
    */
@@ -90,6 +68,28 @@ export class TellUsComponent implements OnInit {
       js.src = '//connect.facebook.net/en_US/sdk.js';
       fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
+  }
+
+  ngOnInit() {
+    this._windowHref = this.windowReference.nativeWindow.location.href;
+
+    this.initPromise = Promise.resolve().then(() => {
+      this.showForm();
+    });
+    this.meta.addTags([
+      {
+        content: this._windowHref,
+        property: 'og:url'
+      },
+      {
+        content: 'website',
+        property: 'og:type'
+      },
+      {
+        content: '',
+        property: 'og:title'
+      }
+    ]);
   }
 
   /**
