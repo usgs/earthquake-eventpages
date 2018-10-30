@@ -1,15 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'summary-view',
   styleUrls: ['./summary-view.component.scss'],
   templateUrl: './summary-view.component.html'
 })
-export class SummaryViewComponent implements OnInit {
+export class SummaryViewComponent {
   @Input()
   product: any;
-
-  constructor() {}
-
-  ngOnInit() {}
 }
