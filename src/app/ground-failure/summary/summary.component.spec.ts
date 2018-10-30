@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
@@ -26,7 +25,6 @@ describe('SummaryComponent', () => {
           selector: 'summary-view'
         })
       ],
-      imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]
     }).compileComponents();
   }));
