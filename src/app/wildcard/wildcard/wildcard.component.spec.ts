@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { EventService } from '@core/event.service';
 import { WildcardComponent } from './wildcard.component';
+import { Event } from '../../event';
 
 describe('WildcardComponent', () => {
   let component: WildcardComponent;
@@ -26,6 +27,7 @@ describe('WildcardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(WildcardComponent);
     component = fixture.componentInstance;
+    component.eventService.event$.next(new Event(null));
     fixture.detectChanges();
     event1 = {
       data: {

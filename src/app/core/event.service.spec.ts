@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { environment } from '../../environments/environment';
 import { EventService } from './event.service';
+import { Event } from '../event';
 
 describe('EventService', () => {
   let httpClient: HttpTestingController, injector: TestBed;
@@ -136,6 +137,7 @@ describe('EventService', () => {
         service.event$.subscribe(e => {
           event = e;
         });
+        service.event$.next(new Event(null));
         spyOn(event, 'getProduct');
 
         service.getProduct('type', 'source', 'code');
