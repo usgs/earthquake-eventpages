@@ -1,0 +1,26 @@
+<h3>{{title}}</h3>
+<ng-container *ngIf="product | pending; else isPending">
+  <ground-failure-hazard-alert [alert]="product |
+    sharedProductProperty:hazardColorProperty"
+    [type]="type"
+    [value]="product |
+    sharedProductProperty:hazardValueProperty">
+  </ground-failure-hazard-alert>
+
+  <ground-failure-population-alert [alert]="product |
+    sharedProductProperty:populationColorProperty"
+    [type]="type"
+    [value]="product |
+    sharedProductProperty:populationValueProperty">
+  </ground-failure-population-alert>
+</ng-container>
+
+<button mat-raised-button
+  [routerLink]="'../../map'"
+  [queryParams]="buttonQueryParams">
+  View {{title}} Map
+</button>
+
+<ng-template #isPending>
+  <p class="alert info">Alert Pending</p>
+</ng-template>
