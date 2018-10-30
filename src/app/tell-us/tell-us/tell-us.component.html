@@ -35,7 +35,7 @@
     Thanks for your response.
   </p>
   <pre>{{ success | json }}</pre>
-  <button *ngIf="sdkStatus"
+  <button [disabled]="sdkStatus === false"
     (click)="onSocialClick($event)"
     class="fb-share-button">
     <img src="../../../assets/facebook_share_button.jpg"

@@ -25,7 +25,6 @@ import { TellUsComponent } from './tell-us.component';
 import { WindowRef } from '@shared/window-ref-wrapper';
 
 declare let window: any;
-declare let FB: any;
 
 describe('TellUsComponent', () => {
   let component: TellUsComponent;
