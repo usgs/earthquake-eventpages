@@ -22,9 +22,6 @@ import { Event } from '../../event';
 import { FormLanguageService } from '../form-language.service';
 import { FormComponent } from '../form/form.component';
 import { TellUsComponent } from './tell-us.component';
-import { WindowRef } from '@shared/window-ref-wrapper';
-
-declare let window: any;
 
 describe('TellUsComponent', () => {
   let component: TellUsComponent;
@@ -42,7 +39,7 @@ describe('TellUsComponent', () => {
         };
       }
     };
-    const nativeWindowRef = new WindowRef();
+
     const eventServiceStub = {
       event$: of(new Event({}))
     };
@@ -102,8 +99,7 @@ describe('TellUsComponent', () => {
         { provide: FormLanguageService, useValue: languageServiceStub },
         { provide: EventService, useValue: eventServiceStub },
         { provide: Location, useValue: locationStub },
-        { provide: MatDialog, useValue: dialogStub },
-        { provide: WindowRef, useValue: nativeWindowRef }
+        { provide: MatDialog, useValue: dialogStub }
       ]
     });
 
@@ -169,7 +165,7 @@ describe('TellUsComponent', () => {
 
   describe('onError', () => {
     it('sets error response', () => {
-      const response = '';
+      const response = { message: 'error' };
       component.success = null;
       component.onError(response);
       expect(component.error).toBe(response);
@@ -183,26 +179,17 @@ describe('TellUsComponent', () => {
       component.onSuccess(response);
       expect(component.success).toBe(response);
     });
-
-    it('calls to load facebook SDK', () => {
-      const response = { your_cdi: '1' };
-      component.success = null;
-      spyOn(component, 'loadFacebookSdk').and.callThrough();
-      component.onSuccess(response);
-      expect(component.loadFacebookSdk).toHaveBeenCalled();
-    });
   });
 
   describe('showForm', () => {
     it('calls onDialogClose with response', done => {
       const response = { response: true };
-      const theSpy = spyOn(component, 'onDialogClose');
+      spyOn(component, 'onDialogClose');
       component.initPromise.then(() => {
         component.dialogRef.afterClosed().subscribe(() => {
           fixture.detectChanges();
           fixture.whenStable().then(() => {
             expect(component.onDialogClose).toHaveBeenCalledWith(response);
-            expect(theSpy).toHaveBeenCalledWith(response);
             done();
           });
         });
@@ -210,35 +197,5 @@ describe('TellUsComponent', () => {
         component.dialogRef.close(response);
       });
     });
-  });
-
-  it('call the showFacebookPopup and ensure FB.ui is called', () => {
-    component.sdkStatus = true;
-    component.success = {
-      your_cdi: null
-    };
-    window.FB = {
-      ui: jasmine.createSpy().and.returnValue(null)
-    };
-    component.showFacebookSharePopup();
-    expect(window.FB.ui).toHaveBeenCalled();
-  });
-
-  it('sets meta tags on component', () => {
-    const metaUrl = component.meta.getTag('property="og:url"').content;
-    const metaType = component.meta.getTag('property="og:type"').content;
-    const metaTitle = component.meta.getTag('property="og:title"').content;
-    expect(metaUrl).toEqual(component._windowHref);
-    expect(metaType).toEqual('website');
-    expect(metaTitle).toEqual('');
-  });
-
-  it('calls share popup on social click', () => {
-    spyOn(component, 'showFacebookSharePopup');
-    const event = {
-      preventDefault: function() {}
-    };
-    component.onSocialClick(event);
-    expect(component.showFacebookSharePopup).toHaveBeenCalled();
   });
 });

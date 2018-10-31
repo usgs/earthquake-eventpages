@@ -2,14 +2,9 @@ import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { Meta } from '@angular/platform-browser';
 
 import { EventService } from '@core/event.service';
 import { FormComponent } from '../form/form.component';
-import { WindowRef } from '@shared/window-ref-wrapper';
-
-declare let window: any;
-declare let FB: any;
 
 /**
  * Main component that handles the displaying of the tell us form and displays
@@ -21,75 +16,25 @@ declare let FB: any;
   templateUrl: './tell-us.component.html'
 })
 export class TellUsComponent implements OnInit {
-  // global window.location.href reference
-  _windowHref: string;
   // the form dialog
   dialogRef: MatDialogRef<FormComponent> = null;
   // error response received from form
   error: any = null;
   // promise representing showForm having been called in ngOnInit
   initPromise: Promise<any>;
-  // whether or not we have the facebook sdk
-  sdkStatus = false;
   // response received from form
   success: any = null;
 
   constructor(
     public dialog: MatDialog,
     public eventService: EventService,
-    public location: Location,
-    public meta: Meta,
-    public windowReference: WindowRef
+    public location: Location
   ) {}
 
-  /**
-   * Load Facebook SDK and set facebook app settings
-   */
-  loadFacebookSdk(): void {
-    // Initialize the facebook app
-    window.fbAsyncInit = () => {
-      FB.init({
-        appId: '333236657410303',
-        autoLogAppEvents: true,
-        version: 'v2.10',
-        xfbml: true
-      });
-      this.sdkStatus = true;
-    };
-    // Load the Facebook SDK
-    (function(d, s, id) {
-      let js;
-      const fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {
-        return;
-      }
-      js = d.createElement(s);
-      js.id = id;
-      js.src = '//connect.facebook.net/en_US/sdk.js';
-      fjs.parentNode.insertBefore(js, fjs);
-    })(document, 'script', 'facebook-jssdk');
-  }
-
   ngOnInit() {
-    this._windowHref = this.windowReference.nativeWindow.location.href;
-
     this.initPromise = Promise.resolve().then(() => {
       this.showForm();
     });
-    this.meta.addTags([
-      {
-        content: this._windowHref,
-        property: 'og:url'
-      },
-      {
-        content: 'website',
-        property: 'og:type'
-      },
-      {
-        content: '',
-        property: 'og:title'
-      }
-    ]);
   }
 
   /**
@@ -124,16 +69,6 @@ export class TellUsComponent implements OnInit {
   }
 
   /**
-   * Click listener on the facebook share button
-   * @param e
-   *      The click event
-   */
-  onSocialClick(e): void {
-    e.preventDefault();
-    this.showFacebookSharePopup();
-  }
-
-  /**
    * Called after dialog closes (either cancelled or submitted)
    *
    * @param response
@@ -141,36 +76,12 @@ export class TellUsComponent implements OnInit {
    */
   onSuccess(response: any) {
     this.success = response;
-    this.loadFacebookSdk();
-  }
-
-  /**
-   * Show facebook share popup
-   */
-  showFacebookSharePopup(): void {
-    const message = `
-      Did You Feel It? My DYFI intensity was: ${this.success.your_cdi}
-    `;
-    if (this.sdkStatus) {
-      FB.ui({
-        action_properties: JSON.stringify({
-          object: {
-            'og:description': this.meta.getTag('property="og:title"').content,
-            'og:title': message,
-            'og:url': this._windowHref
-          }
-        }),
-        action_type: 'og.shares',
-        href: this._windowHref,
-        method: 'share_open_graph'
-      });
-    }
   }
 
   /**
    * Show the form dialog.
    */
-  showForm(): void {
+  showForm() {
     this.dialogRef = this.dialog.open(FormComponent, {
       data: {
         eventService: this.eventService

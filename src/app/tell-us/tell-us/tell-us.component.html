@@ -30,18 +30,9 @@
   </p>
 </ng-container>
 
-<ng-container *ngIf="success">
-  <p class="alert info">
-    Thanks for your response.
-  </p>
-  <pre>{{ success | json }}</pre>
-  <button [disabled]="sdkStatus === false"
-    (click)="onSocialClick($event)"
-    class="fb-share-button">
-    <img src="../../../assets/facebook_share_button.jpg"
-      alt="Share">
-  </button>
-</ng-container>
+<success-view *ngIf="success"
+  [success]="success">
+</success-view>
 
 <ng-container *ngIf="error">
   <p class="alert error">
