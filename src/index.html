@@ -11,27 +11,157 @@
     <link rel="icon"
       type="image/x-icon"
       href="favicon.ico">
-
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic|Roboto+Mono:400|Merriweather:400,400italic,700|Material+Icons"
       rel="stylesheet">
     <script id="_fed_an_ua_tag"
       async="async"
       src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOI&amp;subagency=USGS&amp;pua=UA-7320779-1"></script>
+
   </head>
 
   <body>
+
+    <!-- loading layout replaced by app after startupp -->
     <app-root>
-      <div>
-        <p>
-          The Earthquake Event Page application supports most recent browsers,
-          <a href="https://angular.io/guide/browser-support">view supported browsers</a>.
-        </p>
-        <p>
-          Or, try our
-          <a href="/earthquakes/feed/">Real-time Notifications, Feeds, and Web Services</a>.
-        </p>
+      <style type="text/css">
+        /* spinner styles to display USGS logo and spinner */
+
+        body,
+        html {
+          height: 100%;
+        }
+
+        noscript {
+          display: block;
+          margin: 1em;
+          text-align: center;
+        }
+
+        .app-loading {
+          align-items: center;
+          background-color: #3d5e80;
+          display: none;
+          flex-direction: column;
+          height: 100%;
+          justify-content: center;
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+        }
+
+        .enabled>.app-loading {
+          display: flex;
+        }
+
+
+        .app-loading>.logo {
+          width: 15%;
+        }
+
+        .app-loading>.spinner {
+          height: 50vh;
+          width: 50vw;
+          animation: rotate 2s linear infinite;
+          transform-origin: center center;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: auto;
+        }
+
+        .app-loading>.spinner>.path {
+          stroke-dasharray: 1, 200;
+          stroke-dashoffset: 0;
+          animation: dash 1.5s ease-in-out infinite;
+          stroke-linecap: round;
+          stroke: rgba(0, 115, 80, 0.25);
+          stroke: rgba(255, 255, 255, 0.3);
+        }
+
+        .app-loading>.instructions {
+          background-color: rgba(255, 255, 255, 0.9);
+          border-radius: 2px;
+          bottom: 0;
+          display: block;
+          font-family: Helvetica, sans-serif;
+          font-size: 0.88em;
+          left: 0;
+          line-height: 1.5;
+          margin: 1em;
+          padding: 0 1em;
+          position: absolute;
+          right: 0;
+        }
+
+        @keyframes rotate {
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+
+        @keyframes dash {
+          0% {
+            stroke-dasharray: 1, 200;
+            stroke-dashoffset: 0;
+          }
+
+          50% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -35px;
+          }
+
+          100% {
+            stroke-dasharray: 89, 200;
+            stroke-dashoffset: -124px;
+          }
+        }
+      </style>
+      <!-- Message for old iOS and non-javascript users -->
+      <noscript>
+        <strong>This application requires Javascript.</strong>
+        <br /><br />
+        Please enable Javascript or try our
+        <a href="/earthquakes/feed/">Real-time Notifications, Feeds, and Web
+          Services</a>.
+      </noscript>
+
+
+      <!-- Loading spinner for slow connections -->
+      <div class="app-loading">
+        <img class="logo"
+          src="assets/usgs-logo.svg"
+          alt="USGS: Science for a Changing World" />
+        <svg class="spinner"
+          viewBox="25 25 50 50">
+          <circle class="path"
+            cx="50"
+            cy="50"
+            r="20"
+            fill="none"
+            stroke-width="2"
+            stroke-miterlimit="10" />
+        </svg>
+        <div class="instructions">
+          <p>
+            The Earthquake Event Page application supports most recent
+            browsers,
+            <a href="https://angular.io/guide/browser-support">view supported
+              browsers</a>.
+          </p>
+          <p>
+            Or, try our
+            <a href="/earthquakes/feed/">Real-time Notifications, Feeds, and
+              Web
+              Services</a>.
+          </p>
+        </div>
       </div>
     </app-root>
+    <script>document.querySelector('app-root').classList.add('enabled');</script>
   </body>
 
 </html>
