@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+import { Event } from '../../event';
+
 /**
  * Interactive Map Pin
  *

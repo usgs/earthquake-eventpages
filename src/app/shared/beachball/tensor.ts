@@ -28,6 +28,7 @@ const _R2D = 180 / Math.PI;
  * @param mtp {Number}
  *        mtp value in N-m.
  */
+// @dynamic
 export class Tensor {
   /**
    * Calculate one nodal plane.
