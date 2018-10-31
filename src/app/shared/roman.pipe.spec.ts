@@ -1,14 +1,18 @@
 import { RomanPipe } from './roman.pipe';
 
 describe('RomanPipe', () => {
+  let pipe;
+
+  beforeEach(() => {
+    pipe = new RomanPipe();
+  });
+
   it('create an instance', () => {
-    const pipe = new RomanPipe();
     expect(pipe).toBeTruthy();
   });
 
   describe('transform', () => {
     it('returns the roman numeral corresponding to the value', () => {
-      const pipe = new RomanPipe();
 
       expect(pipe.transform(0)).toEqual('I');
       expect(pipe.transform(1)).toEqual('I');
@@ -25,11 +29,17 @@ describe('RomanPipe', () => {
       expect(pipe.transform(11.49)).toEqual('XI');
       expect(pipe.transform(11.5)).toEqual('XII');
       expect(pipe.transform(12)).toEqual('XII');
+    });
 
+    it('returns "N/A" for non-mmi inputs', () => {
       expect(pipe.transform(-1)).toBe('N/A');
       expect(pipe.transform(13)).toBe('N/A');
       expect(pipe.transform(null)).toBe('N/A');
       expect(pipe.transform('--')).toBe('N/A');
+    });
+
+    it('returns custom N/A value for non-mmi inputs', () => {
+      expect(pipe.transform('--', 'CUSTOM')).toBe('CUSTOM');
     });
   });
 });
