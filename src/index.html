@@ -31,6 +31,12 @@
           height: 100%;
         }
 
+        noscript {
+          display: block;
+          margin: 1em;
+          text-align: center;
+        }
+
         .app-loading {
           align-items: center;
           background-color: #3d5e80;
@@ -78,14 +84,13 @@
 
         .app-loading>.instructions {
           background-color: #eee;
-          bottom: 1em;
+          bottom: 0;
           display: block;
           font-size: .7em;
-          left: 50%;
-          margin-left: -20%;
+          left: 0;
           padding: 0 1em;
           position: absolute;
-          width: 40%;
+          right: 0;
         }
 
         @keyframes rotate {
@@ -113,8 +118,8 @@
       </style>
       <!-- Message for old iOS and non-javascript users -->
       <noscript>
-        This application requires Javascript.
-        <br />
+        <strong>This application requires Javascript.</strong>
+        <br /><br />
         Please enable Javascript or try our
         <a href="/earthquakes/feed/">Real-time Notifications, Feeds, and Web
           Services</a>.
@@ -142,8 +147,7 @@
             browsers,
             <a href="https://angular.io/guide/browser-support">view supported
               browsers</a>.
-          </p>
-          <p>
+            <br />
             Or, try our
             <a href="/earthquakes/feed/">Real-time Notifications, Feeds, and
               Web
