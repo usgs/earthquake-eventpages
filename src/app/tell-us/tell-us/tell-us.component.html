@@ -35,8 +35,8 @@
 </success-view>
 
 <ng-container *ngIf="error">
-  <div class="alert error">
-    <p>Please try to resubmit the form.</p>
-    <p>{{ error | json }}</p>
-  </div>
+  <p class="alert error">
+    Please try to resubmit the form.
+  </p>
+  <pre>{{ error | json }}</pre>
 </ng-container>
