@@ -20,8 +20,6 @@ export class RomanPipe implements PipeTransform {
     'XII'
   ];
 
-  static NO_MMI = 'N/A';
-
   /**
    * Get roman numeral from a number
    *
@@ -31,7 +29,7 @@ export class RomanPipe implements PipeTransform {
    * @return {any}
    *     A roman numeral
    */
-  transform(mmi: any): string {
+  transform(mmi: any, noMmi = 'N/A'): string {
     let value;
 
     mmi = Math.round(parseFloat(mmi));
@@ -41,6 +39,6 @@ export class RomanPipe implements PipeTransform {
       return value;
     }
 
-    return RomanPipe.NO_MMI;
+    return noMmi;
   }
 }
