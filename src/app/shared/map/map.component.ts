@@ -166,7 +166,7 @@ export class MapComponent implements AfterViewInit {
     this.mousePositionControl = new MousePosition();
     this.layersControl = L.control.layers(baselayers, {});
     this.legendControl = new LegendControl({ position: 'topright' });
-    this.scaleControl = L.control.scale({ position: 'bottomright' });
+    this.scaleControl = L.control.scale({ position: 'bottomleft' });
     this.zoomControl = L.control.zoom();
 
     this.updateControls();
