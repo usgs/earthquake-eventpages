@@ -7,17 +7,26 @@
   padding: 0;
 }
 
+/* adjust for attribution */
+.leaflet-bottom.leaflet-left,
 .leaflet-bottom.leaflet-right {
-  width: 100%;
+  bottom: 16px;
 }
 
-.leaflet-bottom.leaflet-right > .leaflet-control-scale {
-  @include leaflet-control();
+.leaflet-bottom.leaflet-left > .leaflet-control-scale {
+  @include leaflet-control;
   padding: 10px;
 }
+.leaflet-bottom.leaflet-right > .leaflet-control-mouseposition {
+  @include leaflet-control;
+  padding: 5px 10px;
+}
 
-.leaflet-control-attribution {
+.leaflet-control.leaflet-control-attribution {
+  bottom: 0;
+  left: 0;
   overflow: hidden;
+  position: fixed;
   text-overflow: ellipsis;
   width: 100%;
   white-space: nowrap;
