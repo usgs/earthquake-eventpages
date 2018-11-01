@@ -2,12 +2,6 @@ $map-height: 100vh;
 $map-width: 100vw;
 $expanded-leaflet-control-height: (($map-height - 20vh) / 2);
 
-shared-map {
-  display: block;
-  height: $map-height;
-  width: $map-width;
-}
-
 .legend-container,
 .leaflet-control-layers-list {
   background: linear-gradient(0deg, #fff 50%, #fff),
@@ -26,12 +20,6 @@ shared-map {
   max-height: $expanded-leaflet-control-height;
 }
 
-/*
-.leaflet-control-legend-visible > .legend-container {
-  max-height: $map-height - 50vh;
-}
-*/
-
 .leaflet-control-layers-expanded
   + .leaflet-control-legend-visible
   > .legend-container {
@@ -42,10 +30,10 @@ shared-map {
   background: rgba(255, 255, 255, 0.2);
   display: block;
   position: fixed;
-  height: $map-height;
-  width: $map-width;
   top: 0;
   left: 0;
+  bottom: 0;
+  right: 0;
   z-index: 1;
 }
 
