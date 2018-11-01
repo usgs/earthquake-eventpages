@@ -57,7 +57,7 @@
 
 
         .app-loading>.logo {
-          width: 15%;
+          width: 25%;
         }
 
         .app-loading>.spinner {
@@ -78,23 +78,27 @@
           stroke-dashoffset: 0;
           animation: dash 1.5s ease-in-out infinite;
           stroke-linecap: round;
-          stroke: rgba(0, 115, 80, 0.25);
-          stroke: rgba(255, 255, 255, 0.3);
+          stroke: #304a67;
         }
 
         .app-loading>.instructions {
-          background-color: rgba(255, 255, 255, 0.9);
-          border-radius: 2px;
+          background-color: #304a67;
+          border-radius: 3px;
           bottom: 0;
+          color: #fff;
           display: block;
           font-family: Helvetica, sans-serif;
-          font-size: 0.88em;
+          font-size: 0.77em;
           left: 0;
           line-height: 1.5;
           margin: 1em;
           padding: 0 1em;
           position: absolute;
           right: 0;
+        }
+
+        .instructions > p > a {
+          color: #bbb;
         }
 
         @keyframes rotate {
@@ -151,8 +155,6 @@
             browsers,
             <a href="https://angular.io/guide/browser-support">view supported
               browsers</a>.
-          </p>
-          <p>
             Or, try our
             <a href="/earthquakes/feed/">Real-time Notifications, Feeds, and
               Web
