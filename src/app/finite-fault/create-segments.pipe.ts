@@ -18,13 +18,11 @@ export class CreateSegmentsPipe implements PipeTransform {
     if (!product || !product.properties) {
       return null;
     }
-
     let segments = [];
     const properties = product.properties;
 
     for (let i = 1; ; i++) {
       const segment = this._parseSegment(properties, i);
-
       if (!segment) {
         break;
       }

@@ -1,6 +1,6 @@
 import { CreateSegmentsPipe } from './create-segments.pipe';
 
-describe('CreateSegmentsPipe', () => {
+fdescribe('CreateSegmentsPipe', () => {
   let pipe;
 
   const PRODUCT: any = {
@@ -46,16 +46,26 @@ describe('CreateSegmentsPipe', () => {
     pipe = new CreateSegmentsPipe();
   });
 
+  afterEach(() => {
+    pipe = null;
+  });
+
   it('create an instance', () => {
     expect(pipe).toBeTruthy();
   });
 
   it('handles null product', () => {
-    pipe.transform(null);
+    const result = pipe.transform(null);
+    expect(result).toBeNull();
   });
 
   it('handles a product', () => {
-    pipe.transform(PRODUCT);
+    spyOn(pipe, 'transform').and.callThrough();
+    const result = pipe.transform(PRODUCT);
+    expect(result[0].dip).toEqual(RESULT[0].dip);
+    expect(result[1].dip).toEqual(RESULT[1].dip);
+    expect(result[0].strike).toEqual(RESULT[0].strike);
+    expect(result[1].strike).toEqual(RESULT[1].strike);
   });
 
   it('returns null when no product is found', () => {

@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
 // tslint:disable-next-line:variable-name
 const UtfGrid = L.Layer.extend({
   http: HttpClient,
-  includes: L.Mixin.Events,
+  includes: L.Evented,
   options: {
     maxZoom: 12,
     minZoom: 0,
