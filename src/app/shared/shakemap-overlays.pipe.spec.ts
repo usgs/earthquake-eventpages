@@ -16,14 +16,18 @@ describe('ShakemapOverlaysPipe', () => {
     pipe = new ShakemapOverlaysPipe();
   });
 
-  it('create an instance', () => {});
+  it('create an instance', () => {
+    expect(pipe).toBeTruthy();
+  });
 
   it('handles null product', () => {
-    pipe.transform(null);
+    const result = pipe.transform(null);
+    expect(result).toEqual([]);
   });
 
   it('handles product', () => {
-    pipe.transform(SHAKEMAP);
+    const result = pipe.transform(SHAKEMAP);
+    expect(result.length).toEqual(3);
   });
 
   it('only sets epicenter as enabled by default', () => {

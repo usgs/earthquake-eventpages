@@ -184,14 +184,19 @@ describe('TellUsComponent', () => {
   describe('showForm', () => {
     it('calls onDialogClose with response', done => {
       const response = { response: true };
-      spyOn(component, 'onDialogClose');
+      spyOn(component, 'onDialogClose').and.callThrough();
       component.initPromise.then(() => {
         component.dialogRef.afterClosed().subscribe(() => {
           fixture.detectChanges();
-          fixture.whenStable().then(() => {
-            expect(component.onDialogClose).toHaveBeenCalledWith(response);
-            done();
-          });
+          fixture
+            .whenStable()
+            .then(() => {
+              expect(component.onDialogClose).toHaveBeenCalledWith(response);
+              done();
+            })
+            .catch(reject => {
+              // Handle promise rejection
+            });
         });
 
         component.dialogRef.close(response);
