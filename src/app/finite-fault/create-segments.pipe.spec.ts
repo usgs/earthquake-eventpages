@@ -1,6 +1,6 @@
 import { CreateSegmentsPipe } from './create-segments.pipe';
 
-fdescribe('CreateSegmentsPipe', () => {
+describe('CreateSegmentsPipe', () => {
   let pipe;
 
   const PRODUCT: any = {

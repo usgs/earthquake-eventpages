@@ -4,7 +4,7 @@ import { of } from 'rxjs/observable/of';
 
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
-describe('AsynchronousGeoJSONOverlay', () => {
+fdescribe('AsynchronousGeoJSONOverlay', () => {
   let overlay;
 
   const FEATURE = {
@@ -124,12 +124,6 @@ describe('AsynchronousGeoJSONOverlay', () => {
   });
 
   describe('onEachFeature', () => {
-    it('runs without overwrite', () => {
-      const layer = new L.Layer();
-
-      overlay.onEachFeature(FEATURE, layer);
-    });
-
     it('is called by layer', () => {
       spyOn(overlay, 'onEachFeature');
       overlay.addData(FEATURE);
