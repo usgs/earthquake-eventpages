@@ -23,7 +23,12 @@ describe('ShakemapContoursOverlay', () => {
   });
 
   describe('style', () => {
-    it('modifies weight', () => {});
+    it('modifies weight', () => {
+      let style = overlay.style({ properties: { weight: 5 } });
+      expect(style.weight).toEqual(5);
+      style = overlay.style({ properties: { weight: 1 } });
+      expect(style.weight).toEqual(1);
+    });
   });
 
   describe('onEachFeature', () => {
