@@ -4,7 +4,7 @@ import { of } from 'rxjs/observable/of';
 
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
-fdescribe('AsynchronousGeoJSONOverlay', () => {
+describe('AsynchronousGeoJSONOverlay', () => {
   let overlay;
 
   const FEATURE = {
