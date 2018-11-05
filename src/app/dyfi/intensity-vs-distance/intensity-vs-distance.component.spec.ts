@@ -125,7 +125,7 @@ describe('IntensityVsDistanceComponent', () => {
     });
 
     it('handles known data', () => {
-      const allSeries = component.onDyfiSeries(SAMPLE_SERIES);
+      component.onDyfiSeries(SAMPLE_SERIES);
       expect(component.allResults[0].class).toEqual(
         SAMPLE_SERIES.series[0].class
       );
