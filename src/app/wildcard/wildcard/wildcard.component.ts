@@ -99,7 +99,7 @@ export class WildcardComponent implements OnInit {
         }
       }
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
   }
 
