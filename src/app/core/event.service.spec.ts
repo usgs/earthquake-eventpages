@@ -36,7 +36,7 @@ describe('EventService', () => {
 
       service.getEvent(expectedEvent.id);
       const req = httpClient.expectOne(
-        `${environment.EVENT_SERVICE}/${expectedEvent.id}.geojson`
+        service.getEventDetailsUrl(expectedEvent.id)
       );
       req.flush(expectedEvent);
 
@@ -46,12 +46,13 @@ describe('EventService', () => {
     }));
 
     it('handles errors', inject([EventService], (service: EventService) => {
-      service.getEvent('1234');
+      const eventid = '1234';
+      service.getEvent(eventid);
 
       const error = new HttpErrorResponse({
         status: 500,
         statusText: 'Server Error',
-        url: `${environment.EVENT_SERVICE}/1234.geojson`
+        url: service.getEventDetailsUrl(eventid)
       });
       const req = httpClient.expectOne(error.url);
 
@@ -73,7 +74,7 @@ describe('EventService', () => {
       const unknownEvent = { id: '123321' };
       service.getEvent(unknownEvent.id);
       const req = httpClient.expectOne(
-        `${environment.EVENT_SERVICE}/${unknownEvent.id}.geojson`
+        service.getEventDetailsUrl(unknownEvent.id)
       );
 
       req.flush('Error 404: Unknown Event', {
@@ -88,7 +89,7 @@ describe('EventService', () => {
       const deletedEvent = { id: 'deleted' };
       service.getEvent(deletedEvent.id);
       let req = httpClient.expectOne(
-        `${environment.EVENT_SERVICE}/${deletedEvent.id}.geojson`
+        service.getEventDetailsUrl(deletedEvent.id)
       );
 
       req.flush('Error 409: Conflict', {
@@ -110,20 +111,17 @@ describe('EventService', () => {
       [EventService],
       (service: EventService) => {
         let req;
+        const eventid = 'first';
 
-        service.getEvent('first');
-        req = httpClient.expectOne(
-          `${environment.EVENT_SERVICE}/first.geojson`
-        );
+        service.getEvent(eventid);
+        req = httpClient.expectOne(service.getEventDetailsUrl(eventid));
         expect(req.request.method).toEqual('GET');
-        req.flush({ id: 'first' });
+        req.flush({ id: eventid });
 
-        service.getEvent('first');
-        req = httpClient.expectOne(
-          `${environment.EVENT_SERVICE}/first.geojson`
-        );
+        service.getEvent(eventid);
+        req = httpClient.expectOne(service.getEventDetailsUrl(eventid));
         expect(req.request.method).toEqual('GET');
-        req.flush({ id: 'first' });
+        req.flush({ id: eventid });
       }
     ));
   });

@@ -68,6 +68,22 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "scenario": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.scenario.ts"
+                }
+              ]
+            },
+            "scenario-production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.scenario-prod.ts"
+                }
+              ]
             }
           }
         },
@@ -82,6 +98,12 @@
             },
             "production": {
               "browserTarget": "earthquake-eventpages:build:production"
+            },
+            "scenario": {
+              "browserTarget": "earthquake-eventpages:build:scenario"
+            },
+            "scenario-production": {
+              "browserTarget": "earthquake-eventpages:build:scenario-production"
             }
           }
         },

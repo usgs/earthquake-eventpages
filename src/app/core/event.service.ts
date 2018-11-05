@@ -33,7 +33,7 @@ export class EventService {
    *     the event id
    */
   getEvent(eventid: string): void {
-    const url = `${environment.EVENT_SERVICE}/${eventid}.geojson`;
+    const url = this.getEventDetailsUrl(eventid);
 
     // clear existing information if requested event id is different
     // otherwise let browser caching determine whether to update
@@ -57,6 +57,16 @@ export class EventService {
         }
         this.setEvent(new Event(response));
       });
+  }
+
+  /**
+   * Build url for event details
+   *
+   * @param eventid
+   *      the event id
+   */
+  getEventDetailsUrl(eventid: string): string {
+    return environment.EVENT_SERVICE.replace('{eventid}', eventid);
   }
 
   /**
