@@ -23,7 +23,6 @@ export class MobileCheckPipe implements PipeTransform {
           str.match(/(Android|webOS|iPhone|iPad|iPod|BlackBerry)/i) !== null ||
           str.match(/(Windows Phone|iemobile|WPDesktop)/i) !== null;
       } catch (e) {
-        console.log('error in try catch');
         return false;
       }
     }
