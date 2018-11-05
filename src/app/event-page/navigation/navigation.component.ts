@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
+import { environment } from '../../../environments/environment';
 
 /**
  * Main shared event page navigation component, shows all links relevant to
@@ -16,6 +17,9 @@ import { Event } from '../../event';
   templateUrl: './navigation.component.html'
 })
 export class NavigationComponent {
+  // set environment object for template
+  environment = environment;
+
   @Input()
   event: Event = null;
 
