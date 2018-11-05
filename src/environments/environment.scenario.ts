@@ -10,7 +10,8 @@ export const environment = {
     'includedeleted=true',
 
   EVENT_SERVICE:
-    'https://earthquake.usgs.gov/fdsnws/scenario/1/query?format=geojson&eventid={eventid}',
+    'https://earthquake.usgs.gov/fdsnws/scenario/1/query?' +
+    'format=geojson&eventid={eventid}',
 
   GEOSERVE_SERVICE: 'https://earthquake.usgs.gov/ws/geoserve',
 
