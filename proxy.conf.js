@@ -9,6 +9,7 @@ const PROXY_CONFIG = [
       '/fdsnws',
       '/lib',
       '/realtime',
+      '/scenarios',
       '/theme',
       '/ws/geoserve'
     ],

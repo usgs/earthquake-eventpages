@@ -1,6 +1,6 @@
 <ng-container *ngIf="event; let event">
 
-    <a *ngIf="!environment.scenario" templateSideNavigation class="up-one-level" href="/earthquakes/map/">Latest
+    <a *ngIf="!scenario" templateSideNavigation class="up-one-level" href="/earthquakes/map/">Latest
         Earthquakes</a>
 
     <hazdev-template-navigation-group>
@@ -13,7 +13,7 @@
     <hazdev-template-navigation-group *ngIf="hasImpact(event); else noImpact">
         <hazdev-template-navigation-item navGroupHeader display="Impact" navRouterLink="impact"></hazdev-template-navigation-item>
 
-        <hazdev-template-navigation-item *ngIf="!environment.scenario" display="Felt Report - Tell Us!" navRouterLink="tellus"></hazdev-template-navigation-item>
+        <hazdev-template-navigation-item *ngIf="!scenario" display="Felt Report - Tell Us!" navRouterLink="tellus"></hazdev-template-navigation-item>
         <hazdev-template-navigation-item *ngIf="event?.hasProducts('dyfi')" display="Did You Feel It?" navRouterLink="dyfi"></hazdev-template-navigation-item>
         <hazdev-template-navigation-item *ngIf="event?.hasProducts('shakemap')" display="ShakeMap" navRouterLink="shakemap"></hazdev-template-navigation-item>
         <hazdev-template-navigation-item *ngIf="event?.hasProducts('losspager')" display="PAGER" navRouterLink="pager"></hazdev-template-navigation-item>
@@ -32,19 +32,19 @@
             navRouterLink="focal-mechanism"></hazdev-template-navigation-item>
         <hazdev-template-navigation-item *ngIf="event?.hasProducts('finite-fault')" display="Finite Fault"
             navRouterLink="finite-fault"></hazdev-template-navigation-item>
-        <hazdev-template-navigation-item *ngIf="!environment.scenario" display="Waveforms" navRouterLink="waveforms"></hazdev-template-navigation-item>
+        <hazdev-template-navigation-item *ngIf="!scenario" display="Waveforms" navRouterLink="waveforms"></hazdev-template-navigation-item>
         <hazdev-template-navigation-item *ngIf="event?.hasProducts('oaf')" display="Aftershock Forecast" navRouterLink="oaf"></hazdev-template-navigation-item>
     </hazdev-template-navigation-group>
 
     <hazdev-template-navigation-item display="Download Event KML" navHrefLink="{{ getKmlLink(event) }}"></hazdev-template-navigation-item>
 
-    <hazdev-template-navigation-item *ngIf="!environment.scenario" display="View Nearby Seismicity" navHrefLink="{{ event | nearbySeismicityLink }}"></hazdev-template-navigation-item>
+    <hazdev-template-navigation-item *ngIf="!scenario" display="View Nearby Seismicity" navHrefLink="{{ event | nearbySeismicityLink }}"></hazdev-template-navigation-item>
 
     <ng-template #noImpact>
-        <hazdev-template-navigation-item *ngIf="!environment.scenario" display="Felt Report - Tell Us!" navRouterLink="tellus"></hazdev-template-navigation-item>
+        <hazdev-template-navigation-item *ngIf="!scenario" display="Felt Report - Tell Us!" navRouterLink="tellus"></hazdev-template-navigation-item>
     </ng-template>
 
     <ng-template #noTechnical>
-        <hazdev-template-navigation-item *ngIf="!environment.scenario" display="Waveforms" navRouterLink="waveforms"></hazdev-template-navigation-item>
+        <hazdev-template-navigation-item *ngIf="!scenario" display="Waveforms" navRouterLink="waveforms"></hazdev-template-navigation-item>
     </ng-template>
 </ng-container>

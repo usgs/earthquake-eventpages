@@ -18,7 +18,7 @@ import { environment } from '../../../environments/environment';
 })
 export class NavigationComponent {
   // set environment object for template
-  environment = environment;
+  scenario = environment.scenario;
 
   @Input()
   event: Event = null;
@@ -32,7 +32,11 @@ export class NavigationComponent {
    *     KML link
    */
   getKmlLink(event: Event): string {
-    return `/earthquakes/feed/v1.0/detail/${event.id}.kml`;
+    if (this.scenario) {
+      return `/scenarios/feed/v1.0/detail/${event.id}.kml`;
+    } else {
+      return `/earthquakes/feed/v1.0/detail/${event.id}.kml`;
+    }
   }
 
   /**
