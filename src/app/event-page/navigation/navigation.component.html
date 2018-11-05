@@ -21,7 +21,7 @@
             navRouterLink="ground-failure"></hazdev-template-navigation-item>
     </hazdev-template-navigation-group>
 
-    <hazdev-template-navigation-group *ngIf="hasScientific(event)">
+    <hazdev-template-navigation-group *ngIf="hasTechnical(event); else noTechnical">
         <hazdev-template-navigation-item navGroupHeader display="Technical" navRouterLink="technical"></hazdev-template-navigation-item>
 
         <hazdev-template-navigation-item *ngIf="event?.hasProducts(['origin', 'phase-data'])" display="Origin"

@@ -62,11 +62,11 @@ describe('NavigationComponent', () => {
     });
   });
 
-  describe('hasScientific', () => {
+  describe('hasTechnical', () => {
     it('defers to event method', () => {
       const event = new Event({});
       const spy = spyOn(event, 'hasProducts').and.returnValue(true);
-      const result = component.hasScientific(event);
+      const result = component.hasTechnical(event);
 
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith([

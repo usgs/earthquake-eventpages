@@ -55,14 +55,14 @@ export class NavigationComponent {
   }
 
   /**
-   * Returns boolean to see if the event has all scientific products
+   * Returns boolean to see if the event has all technical products
    *
    * @param event
    *     The event object
    * @returns
-   *     Boolean value of hasScientific
+   *     Boolean value of hastechnical
    */
-  hasScientific(event: Event): boolean {
+  hasTechnical(event: Event): boolean {
     return event.hasProducts([
       'origin',
       'phase-data',
