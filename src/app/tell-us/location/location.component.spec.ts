@@ -30,20 +30,12 @@ describe('LocationComponent', () => {
 
   beforeEach(async(() => {
     const coordinatesServiceStub = {
-      computeFromPoint: (geocodeLocation: any) => {
-        console.log('stubbified!');
-      },
+      computeFromPoint: (geocodeLocation: any) => {},
       coordinates$: {
-        subscribe: () => {
-          console.log('stubbified!');
-        }
+        subscribe: () => {}
       },
-      roundLocation: (value: number, confidence: number) => {
-        console.log('stubbified!');
-      },
-      setCoordinates: (location: any) => {
-        console.log('stubbified!');
-      }
+      roundLocation: (value: number, confidence: number) => {},
+      setCoordinates: (location: any) => {}
     };
     TestBed.configureTestingModule({
       declarations: [LocationComponent],

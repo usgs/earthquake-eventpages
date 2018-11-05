@@ -128,8 +128,6 @@ describe('LegendControl', () => {
       legendControl._legends = [layer, layer, layer];
       legendControl._map = mapStub;
 
-      console.log(legendControl._legends);
-
       spyOn(legendControl, 'addLegend').and.callFake(() => {
         return;
       });

@@ -134,7 +134,6 @@ describe('MapComponent', () => {
       jasmine.clock().tick(1);
 
       expect(component.getOverlayBounds).toHaveBeenCalled();
-      console.log(component.map.fitBounds.calls.first().args[0]);
       expect(component.map.fitBounds.calls.first().args[0]).toEqual([
         [85, 180],
         [-85, 180]
