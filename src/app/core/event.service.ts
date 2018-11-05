@@ -33,7 +33,7 @@ export class EventService {
    *     the event id
    */
   getEvent(eventid: string): void {
-    const url = `${environment.EVENT_SERVICE}/${eventid}.geojson`;
+    const url = `${environment.EVENT_SERVICE}`.replace('{eventid}', eventid);
 
     // clear existing information if requested event id is different
     // otherwise let browser caching determine whether to update
