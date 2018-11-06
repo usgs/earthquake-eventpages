@@ -2,7 +2,7 @@
 
 node {
   environment {
-    // Build either earthquake or scenario version of event pages
+    // Build either "earthquake" or "scenario" version of event pages
     ANGULAR_BUILD_TYPE = "earthquake"
   }
 
@@ -304,7 +304,7 @@ node {
 
     stage('Trigger Deploy') {
       build(
-        job: 'deploy',
+        job: "${ANGULAR_BUILD_TYPE}-deploy",
         parameters: [
           string(name: 'IMAGE_VERSION', value: IMAGE_VERSION)
         ],
