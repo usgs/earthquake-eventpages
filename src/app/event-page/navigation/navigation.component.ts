@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { Event } from '../../event';
+import { environment } from '../../../environments/environment';
 
 /**
  * Main shared event page navigation component, shows all links relevant to
@@ -19,6 +20,9 @@ export class NavigationComponent {
   @Input()
   event: Event = null;
 
+  // set environment object for template
+  scenario = environment.scenario;
+
   /**
    * Function to get the kml link from the event object
    *
@@ -28,7 +32,11 @@ export class NavigationComponent {
    *     KML link
    */
   getKmlLink(event: Event): string {
-    return `/earthquakes/feed/v1.0/detail/${event.id}.kml`;
+    if (this.scenario) {
+      return `/scenarios/feed/v1.0/detail/${event.id}.kml`;
+    } else {
+      return `/earthquakes/feed/v1.0/detail/${event.id}.kml`;
+    }
   }
 
   /**
@@ -51,14 +59,14 @@ export class NavigationComponent {
   }
 
   /**
-   * Returns boolean to see if the event has all scientific products
+   * Returns boolean to see if the event has all technical products
    *
    * @param event
    *     The event object
    * @returns
-   *     Boolean value of hasScientific
+   *     Boolean value of hastechnical
    */
-  hasScientific(event: Event): boolean {
+  hasTechnical(event: Event): boolean {
     return event.hasProducts([
       'origin',
       'phase-data',
