@@ -35,7 +35,17 @@ describe('NavigationComponent', () => {
   });
 
   describe('getKmlLink', () => {
-    it('uses event.id in link', () => {
+    it('uses event.id in scenario link', () => {
+      component.scenario = true;
+
+      const event = new Event({ id: 'event' });
+      const link = component.getKmlLink(event);
+
+      expect(link).toBe('/scenarios/feed/v1.0/detail/event.kml');
+    });
+    it('uses event.id in non-scenario link', () => {
+      component.scenario = false;
+
       const event = new Event({ id: 'event' });
       const link = component.getKmlLink(event);
 

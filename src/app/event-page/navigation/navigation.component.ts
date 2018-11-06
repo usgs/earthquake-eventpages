@@ -17,11 +17,11 @@ import { environment } from '../../../environments/environment';
   templateUrl: './navigation.component.html'
 })
 export class NavigationComponent {
-  // set environment object for template
-  scenario = environment.scenario;
-
   @Input()
   event: Event = null;
+
+  // set environment object for template
+  scenario = environment.scenario;
 
   /**
    * Function to get the kml link from the event object
