@@ -1,6 +1,6 @@
 import { ScenarioEvent } from './scenario-event';
 
-fdescribe('ScenarioEvent', () => {
+describe('ScenarioEvent', () => {
   const TEST_EVENT = {
     properties: {
       mag: 10.0,
