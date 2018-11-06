@@ -7,6 +7,13 @@ fdescribe('ScenarioEvent', () => {
       mmi: 6.82,
       place: 'Squaw Creek',
       products: {
+        'actual-scenario': [
+          {
+            id: 'urn:usgs-product:us:actual-scenario:bkkdk3009_m4jdk_sw',
+            indexid: '3882993',
+            indexTime: 19874885888398
+          }
+        ],
         'origin-scenario': [
           {
             id: 'urn:usgs-product:us:origin-scenario:bssc2014632_m7p03_se',
@@ -79,5 +86,10 @@ fdescribe('ScenarioEvent', () => {
     expect(event.properties.products.testActual[0].type).toEqual('test-actual');
   });
 
-  it('handles no type inside each product type', () => {});
+  it('handles no type inside each product type', () => {
+    const event = new ScenarioEvent(TEST_EVENT);
+    expect(event.properties.products.actual[0].type).toBeUndefined();
+    expect(event.properties.products.actual).toBeTruthy();
+    expect(event.properties.products.actual[0].indexid).toEqual('3882993');
+  });
 });
