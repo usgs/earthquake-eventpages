@@ -9,35 +9,24 @@ import { Event } from './event';
  *      The scenario event data
  */
 function transformEvent(data: any) {
-  const newData = data;
-  let properties = null;
-
-  if (!newData) {
-    return null;
+  if (!data || !data.properties || !data.properties.products) {
+    return data;
   }
-  try {
-    // set the products object for iteration
-    properties = newData.properties.products;
-    Object.keys(properties).forEach(key => {
-      // look for -scenario in property name
-      const index = key.indexOf('-scenario');
-      if (index !== -1) {
-        // strip out the -scenario from property name
-        const propValue = key.substr(0, index);
-        properties[propValue] = properties[key];
-        delete properties[key];
 
-        if (properties[propValue][0].type) {
-          properties[propValue][0].type = propValue;
-        }
-      } else {
-        return;
-      }
-    });
-    return newData;
-  } catch (e) {
-    return null;
-  }
+  const newProducts = {};
+  const products = data.properties.products;
+  Object.keys(products).forEach(type => {
+    const newType = type.replace('-scenario', '');
+
+    newProducts[newType] = products[type];
+    if (newType !== type) {
+      newProducts[newType].forEach(product => {
+        product.type = newType;
+      });
+    }
+  });
+  data.properties.products = newProducts;
+  return data;
 }
 
 /**
@@ -47,6 +36,7 @@ function transformEvent(data: any) {
 export class ScenarioEvent extends Event {
   constructor(data: any) {
     const newData = transformEvent(data);
+    console.log('data: ', newData);
     super(newData);
   }
 }

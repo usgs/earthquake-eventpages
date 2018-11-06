@@ -1,6 +1,6 @@
 import { ScenarioEvent } from './scenario-event';
 
-describe('ScenarioEvent', () => {
+fdescribe('ScenarioEvent', () => {
   const TEST_EVENT = {
     properties: {
       mag: 10.0,
@@ -28,6 +28,20 @@ describe('ScenarioEvent', () => {
             indexid: '174853',
             indexTime: 19873987890234,
             type: 'shakemap-scenario'
+          },
+          {
+            id: 'test1',
+            indexid: '3432234',
+            type: 'test-type1'
+          },
+          {
+            id: 'test2',
+            indexid: '3432234',
+            type: 'test-type2'
+          },
+          {
+            id: 'test3',
+            indexid: '3423423'
           }
         ],
         'super-duper-test-scenario': [
@@ -86,10 +100,10 @@ describe('ScenarioEvent', () => {
     expect(event.properties.products.testActual[0].type).toEqual('test-actual');
   });
 
-  it('handles no type inside each product type', () => {
+  it('should change type on multiple product array indeces/objects', () => {
     const event = new ScenarioEvent(TEST_EVENT);
-    expect(event.properties.products.actual[0].type).toBeUndefined();
-    expect(event.properties.products.actual).toBeTruthy();
-    expect(event.properties.products.actual[0].indexid).toEqual('3882993');
+    expect(event.properties.products.shakemap[0].type).toEqual('shakemap');
+    expect(event.properties.products.shakemap[1].type).toEqual('shakemap');
+    expect(event.properties.products.shakemap[2].type).toEqual('shakemap');
   });
 });
