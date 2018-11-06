@@ -7,6 +7,7 @@ ARG ANGULAR_BUILD_TYPE=earthquake
 # bundle. This results are copied into the application image below ...
 ##
 FROM ${BUILD_IMAGE} as buildenv
+ENV ANGULAR_BUILD_TYPE="${ANGULAR_BUILD_TYPE}"
 
 
 COPY . /earthquake-eventpages
@@ -15,14 +16,14 @@ WORKDIR /earthquake-eventpages
 # Re-build within image. Comment out if pre-built externally
 # (i.e. for quick dev builds)
 RUN /bin/bash --login -c "\
-    npm install --no-save && \
+npm install --no-save && \
     npm run build-${ANGULAR_BUILD_TYPE} -- --progress false --base-href /BASE_HREF/ \
-    "
+       "
 
-##
-# Actual application image
-##
-FROM ${FROM_IMAGE}
+    ##
+    # Actual application image
+    ##
+    FROM ${FROM_IMAGE}
 
 ARG BASE_HREF=event
 
