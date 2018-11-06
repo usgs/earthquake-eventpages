@@ -4,9 +4,11 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.js",
+    "start": "npm run start-earthquake",
+    "start-earthquake": "ng serve --proxy-config proxy.conf.js",
     "start-scenario": "ng serve --proxy-config proxy.conf.js -c scenario",
-    "build": "ng build --prod",
+    "build": "npm run build-earthquake",
+    "build-earthquake": "ng build --prod",
     "build-scenario": "ng build -c scenario-production",
     "test": "ng test --source-map=false",
     "lint": "ng lint",

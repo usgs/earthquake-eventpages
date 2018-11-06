@@ -1,5 +1,6 @@
 ARG BUILD_IMAGE=usgs/node:8
 ARG FROM_IMAGE=usgs/nginx
+ARG ANGULAR_BUILD_TYPE=earthquake
 
 ##
 # Builder image is used to compile Angular source into webpack distribution
@@ -15,7 +16,7 @@ WORKDIR /earthquake-eventpages
 # (i.e. for quick dev builds)
 RUN /bin/bash --login -c "\
     npm install --no-save && \
-    npm run build -- --progress false --base-href /BASE_HREF/ \
+    npm run build-${ANGULAR_BUILD_TYPE} -- --progress false --base-href /BASE_HREF/ \
     "
 
 ##

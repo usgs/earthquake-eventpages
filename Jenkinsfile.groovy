@@ -1,8 +1,13 @@
 #!/usr/bin/env groovy
 
 node {
+  environment {
+    // Build either earthquake or scenario version of event pages
+    ANGULAR_BUILD_TYPE = "earthquake"
+  }
+
   // Used for consistency between other variables
-  def APP_NAME = 'earthquake-eventpages'
+  def APP_NAME = '${ANGULAR_BUILD_TYPE}-eventpages'
   // Base group from where general images may be pulled
   def DEVOPS_REGISTRY = "${GITLAB_INNERSOURCE_REGISTRY}/devops/images"
   // Flag to capture exceptions and mark build as failure
@@ -12,7 +17,6 @@ node {
   // Set by "checkout" step below
   def SCM_VARS = [:]
 
-
   // Name of image to use as basis when building LOCAL_IMAGE/DEPLOY_IMAGE
   def BASE_IMAGE = "${DEVOPS_REGISTRY}/usgs/nginx:latest"
 
@@ -21,8 +25,8 @@ node {
   def BUILDER_IMAGE = "${DEVOPS_REGISTRY}/usgs/node:8"
 
   // Name of image to deploy (push) to registry
-  def DEPLOY_IMAGE = "${GITLAB_INNERSOURCE_REGISTRY}/ghsc/hazdev/earthquake-eventpages"
-  def DOCKER_HUB_IMAGE = "usgs/earthquake-eventpages"
+  def DEPLOY_IMAGE = "${GITLAB_INNERSOURCE_REGISTRY}/ghsc/hazdev/${ANGULAR_BUILD_TYPE}-eventpages"
+  def DOCKER_HUB_IMAGE = "usgs/${ANGULAR_BUILD_TYPE}-eventpages"
 
   // Run application locally for testing security vulnerabilities
   def LOCAL_CONTAINER = "${APP_NAME}-${BUILD_ID}-PENTEST"
@@ -88,6 +92,7 @@ node {
           docker build \
             --build-arg BUILD_IMAGE=${BUILDER_IMAGE} \
             --build-arg FROM_IMAGE=${BASE_IMAGE} \
+            --build-arg ANGULAR_BUILD_TYPE=${ANGULAR_BUILD_TYPE} \
             -t ${LOCAL_IMAGE} \
             .
         """
@@ -310,7 +315,7 @@ node {
   } catch (e) {
     mail to: 'gs-haz_dev_team_group@usgs.gov',
       from: 'noreply@jenkins',
-      subject: 'Jenkins: earthquake-eventpages',
+      subject: "Jenkins: ${ANGULAR_BUILD_TYPE}-eventpages",
       body: "Project build (${BUILD_TAG}) failed '${e}'"
 
     FAILURE = e
