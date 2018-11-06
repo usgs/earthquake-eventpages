@@ -31,9 +31,7 @@ describe('IntensityVsDistanceComponent', () => {
         {
           class: 'scatterplot1',
           name: 'All reported data',
-          series: [
-            {nresp: 5}
-          ]
+          series: [{ nresp: 5 }]
         },
         {
           class: 'estimated1',
@@ -65,40 +63,38 @@ describe('IntensityVsDistanceComponent', () => {
       declarations: [
         IntensityVsDistanceComponent,
 
-        MockComponent(
-          {
-            inputs: [
-              'scheme',
-              'colorSchemeLine',
-              'customColors',
-              'results',
-              'animations',
-              'bubbleTooltipTemplate',
-              'lineChart',
-              'lineChartTooltip',
-              'bubbleChart',
-              'bubbleChartTooltip',
-              'tooltipDisabled',
-              'gradient',
-              'xAxis',
-              'yAxis',
-              'legend',
-              'showGridLines',
-              'showXAxisLabel',
-              'showYAxisLabel',
-              'showRightYAxisLabel',
-              'xAxisLabel',
-              'yAxisLabel',
-              'yScaleMin',
-              'yScaleMax',
-              'xScaleMin',
-              'xScaleMax',
-              'xAxisTicks',
-              'scaleType'
-            ],
-            selector: 'bubble-line-chart-component'
-          }
-        ),
+        MockComponent({
+          inputs: [
+            'scheme',
+            'colorSchemeLine',
+            'customColors',
+            'results',
+            'animations',
+            'bubbleTooltipTemplate',
+            'lineChart',
+            'lineChartTooltip',
+            'bubbleChart',
+            'bubbleChartTooltip',
+            'tooltipDisabled',
+            'gradient',
+            'xAxis',
+            'yAxis',
+            'legend',
+            'showGridLines',
+            'showXAxisLabel',
+            'showYAxisLabel',
+            'showRightYAxisLabel',
+            'xAxisLabel',
+            'yAxisLabel',
+            'yScaleMin',
+            'yScaleMax',
+            'xScaleMin',
+            'xScaleMax',
+            'xAxisTicks',
+            'scaleType'
+          ],
+          selector: 'bubble-line-chart-component'
+        }),
 
         MockPipe('sharedProductContent'),
         MockPipe('sharedNumber')
@@ -130,6 +126,20 @@ describe('IntensityVsDistanceComponent', () => {
 
     it('handles known data', () => {
       component.onDyfiSeries(SAMPLE_SERIES);
+      expect(component.allResults[0].class).toEqual(
+        SAMPLE_SERIES.series[0].class
+      );
+      expect(component.allResults[0].series[0]).toEqual({
+        nresp: 5,
+        opacity: 0.2
+      });
+      expect(component.allResults.length).toEqual(3);
+    });
+
+    it('handles null data', () => {
+      component.onDyfiSeries(null);
+      expect(component.bubbleSeries).toBeNull();
+      expect(component.lineSeries).toBeNull();
     });
   });
 

@@ -31,56 +31,52 @@ describe('BubbleLineChartComponent', () => {
       declarations: [
         BubbleLineChartComponent,
 
-        MockComponent(
-          {
-            inputs: [
-              'view',
-              'showLegend',
-              'legendOptions',
-              'activeEntries',
-              'animations'
-            ],
-            selector: 'ngx-charts-chart'
-          }
-        ),
-         MockComponent(
-          {
-            inputs: [
-              'lineChartTooltip',
-              'bubbleChartTooltip',
-              'xScale',
-              'yScale',
-              'xScaleType',
-              'yScaleType',
-              'xAxisLabel',
-              'yAxisLabel',
-              'rScale',
-              'xDomain',
-              'yDomain',
-              'xDomainType',
-              'colors',
-              'data',
-              'activeEntries',
-              'scaleType',
-              'curve',
-              'rangeFillOpacity',
-              'animations',
-              'dims',
-              'xSet',
-              'tooltipTemplate',
-              'tooltipDisabled',
-              'results',
-              'visibleValue',
-              'showLabel',
-              'labelText',
-              'tickFormatting',
-              'ticks',
-              'yOrient',
-              'showGridLines'
-            ],
-            selector: ':svg:g'
-          }
-        )
+        MockComponent({
+          inputs: [
+            'view',
+            'showLegend',
+            'legendOptions',
+            'activeEntries',
+            'animations'
+          ],
+          selector: 'ngx-charts-chart'
+        }),
+        MockComponent({
+          inputs: [
+            'lineChartTooltip',
+            'bubbleChartTooltip',
+            'xScale',
+            'yScale',
+            'xScaleType',
+            'yScaleType',
+            'xAxisLabel',
+            'yAxisLabel',
+            'rScale',
+            'xDomain',
+            'yDomain',
+            'xDomainType',
+            'colors',
+            'data',
+            'activeEntries',
+            'scaleType',
+            'curve',
+            'rangeFillOpacity',
+            'animations',
+            'dims',
+            'xSet',
+            'tooltipTemplate',
+            'tooltipDisabled',
+            'results',
+            'visibleValue',
+            'showLabel',
+            'labelText',
+            'tickFormatting',
+            'ticks',
+            'yOrient',
+            'showGridLines'
+          ],
+          selector: ':svg:g'
+        })
       ]
     }).compileComponents();
   }));
@@ -97,7 +93,27 @@ describe('BubbleLineChartComponent', () => {
 
   describe('update', () => {
     it('should run', () => {
+      spyOn(component, 'filterXTicks');
+      spyOn(component, 'getYDomain');
+      spyOn(component, 'getRDomain');
+      spyOn(component, 'getSeriesDomain');
+      spyOn(component, 'getXScale');
+      spyOn(component, 'getYScale');
+      spyOn(component, 'getRScale');
+      spyOn(component, 'getBubblePadding');
+      spyOn(component, 'setColors');
+      spyOn(component, 'getLegendOptions');
       component.update();
+      expect(component.filterXTicks).toHaveBeenCalled();
+      expect(component.getYDomain).toHaveBeenCalled();
+      expect(component.getRDomain).toHaveBeenCalled();
+      expect(component.getSeriesDomain).toHaveBeenCalled();
+      expect(component.getXScale).toHaveBeenCalled();
+      expect(component.getYScale).toHaveBeenCalled();
+      expect(component.getRScale).toHaveBeenCalled();
+      expect(component.getBubblePadding).toHaveBeenCalled();
+      expect(component.setColors).toHaveBeenCalled();
+      expect(component.getLegendOptions).toHaveBeenCalled();
     });
   });
 
@@ -208,8 +224,13 @@ describe('BubbleLineChartComponent', () => {
     it('runs', () => {
       component.bubbleChart = BUBBLESERIES;
       component.update();
-
+      spyOn(component, 'rScale');
+      spyOn(component, 'xScale');
+      spyOn(component, 'yScale');
       component.getBubblePadding();
+      expect(component.rScale).toHaveBeenCalled();
+      expect(component.xScale).toHaveBeenCalled();
+      expect(component.yScale).toHaveBeenCalled();
     });
   });
 
@@ -220,7 +241,9 @@ describe('BubbleLineChartComponent', () => {
 
       component.onActivate(component.bubbleChart[0]);
 
-      expect(component.activeEntries[0].name === component.bubbleChart[0].name);
+      expect(component.activeEntries[0].name).toEqual(
+        component.bubbleChart[0].name
+      );
     });
 
     it('doesn\'t double activate', () => {
@@ -230,7 +253,7 @@ describe('BubbleLineChartComponent', () => {
       component.onActivate(component.bubbleChart[0]);
       component.onActivate(component.bubbleChart[0]);
 
-      expect(component.activeEntries.length === 1);
+      expect(component.activeEntries.length).toEqual(1);
     });
   });
 
@@ -241,7 +264,7 @@ describe('BubbleLineChartComponent', () => {
 
       component.onDeactivate(component.bubbleChart[0]);
 
-      expect(component.activeEntries.length === 0);
+      expect(component.activeEntries.length).toEqual(0);
     });
 
     it('deactivates item', () => {
@@ -251,7 +274,7 @@ describe('BubbleLineChartComponent', () => {
       component.onActivate(component.bubbleChart[0]);
       component.onDeactivate(component.bubbleChart[0]);
 
-      expect(component.activeEntries.length === 0);
+      expect(component.activeEntries.length).toEqual(0);
     });
   });
 
@@ -261,7 +284,7 @@ describe('BubbleLineChartComponent', () => {
       component.update();
 
       component.deactivateAll();
-      expect(component.activeEntries.length === 0);
+      expect(component.activeEntries.length).toEqual(0);
     });
 
     it('deactivates items', () => {
@@ -310,7 +333,9 @@ describe('BubbleLineChartComponent', () => {
 
   describe('onClick', () => {
     it('runs', () => {
+      spyOn(component.select, 'emit');
       component.onClick(BUBBLESERIES[0]);
+      expect(component.select.emit).toHaveBeenCalled();
     });
   });
 

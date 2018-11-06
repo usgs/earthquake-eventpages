@@ -124,12 +124,6 @@ describe('AsynchronousGeoJSONOverlay', () => {
   });
 
   describe('onEachFeature', () => {
-    it('runs without overwrite', () => {
-      const layer = new L.Layer();
-
-      overlay.onEachFeature(FEATURE, layer);
-    });
-
     it('is called by layer', () => {
       spyOn(overlay, 'onEachFeature');
       overlay.addData(FEATURE);
