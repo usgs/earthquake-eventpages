@@ -1,6 +1,6 @@
 ARG BUILD_IMAGE=usgs/node:8
 ARG FROM_IMAGE=usgs/nginx
-
+# ARG ANGULAR_BUILD_TYPE=earthquake
 ##
 # Builder image is used to compile Angular source into webpack distribution
 # bundle. This results are copied into the application image below ...
