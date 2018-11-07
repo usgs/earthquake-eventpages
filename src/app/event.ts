@@ -8,7 +8,11 @@ export class Event {
   properties: any;
   sources: Array<string>;
 
-  constructor(public data: any) {
+  constructor(public data: any, public type?: string) {
+    if (!type) {
+      this.type = 'earthquake';
+    }
+
     let sources;
 
     if (!this.data) {
