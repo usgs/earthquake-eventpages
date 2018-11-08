@@ -64,6 +64,8 @@ import { UncertainValueComponent } from './uncertain-value/uncertain-value.compo
 import { UnitsPipe } from './units.pipe';
 import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
 import { WindowRef } from './window-ref-wrapper';
+import { IsActualEventPipe } from './is-actual-event.pipe';
+import { IsScenarioEventPipe } from './is-scenario-event.pipe';
 
 @NgModule({
   declarations: [
@@ -89,6 +91,8 @@ import { WindowRef } from './window-ref-wrapper';
     HasProductPipe,
     InteractiveMapBoundsPipe,
     InteractiveMapOverlaysPipe,
+    IsActualEventPipe,
+    IsScenarioEventPipe,
     KeysPipe,
     LinkProductComponent,
     LocationPipe,
@@ -145,6 +149,8 @@ import { WindowRef } from './window-ref-wrapper';
     HasProductPipe,
     InteractiveMapBoundsPipe,
     InteractiveMapOverlaysPipe,
+    IsActualEventPipe,
+    IsScenarioEventPipe,
     KeysPipe,
     LinkProductComponent,
     LocationPipe,

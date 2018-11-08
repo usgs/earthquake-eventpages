@@ -4,11 +4,9 @@
     <li [innerHTML]="event | eventLocation"></li>
     <li [innerHTML]="event | eventDepth"></li>
   </ul>
-  <div *ngIf="scenario"
-    class="alert warning">
+  <div *ngIf="(event | isScenarioEvent)" class="alert warning">
     This event is a scenario (it did not occur) and should only be used for
-    planning purposes.
-    <br>
+    planning purposes. <br />
     <a href="/scenarios/">More information about scenarios</a>
   </div>
 </header>

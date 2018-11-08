@@ -6,7 +6,7 @@
 
 export const environment = {
   production: false,
-  scenario: false,
+  scenario: true,
 
   CONTRIBUTOR_SERVICE:
     'https://earthquake.usgs.gov/data/comcat/contributor/index.json.php',
@@ -20,6 +20,10 @@ export const environment = {
     '{eventid}.geojson',
 
   GEOSERVE_SERVICE: 'https://earthquake.usgs.gov/ws/geoserve',
+
+  SCENARIO_SERVICE:
+    'https://earthquake.usgs.gov/scenarios/feed/v1.0/detail/' +
+    '{eventid}.geojson',
 
   siteUrl: 'localhost.localdomain'
 };
