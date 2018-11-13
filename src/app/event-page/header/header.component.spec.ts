@@ -14,7 +14,8 @@ describe('HeaderComponent', () => {
 
         MockPipe('eventDateTime'),
         MockPipe('eventDepth'),
-        MockPipe('eventLocation')
+        MockPipe('eventLocation'),
+        MockPipe('isScenarioEvent')
       ]
     }).compileComponents();
   }));

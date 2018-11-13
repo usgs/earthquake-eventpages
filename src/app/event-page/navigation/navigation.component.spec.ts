@@ -3,6 +3,7 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { Event } from '../../event';
 import { MockPipe } from '../../mock-pipe';
+import { ScenarioEvent } from './../../scenario-event';
 import { NavigationComponent } from './navigation.component';
 
 describe('NavigationComponent', () => {
@@ -19,7 +20,8 @@ describe('NavigationComponent', () => {
           inputs: ['display', 'navHrefLink', 'navRouterLink'],
           selector: 'hazdev-template-navigation-item'
         }),
-        MockPipe('nearbySeismicityLink')
+        MockPipe('nearbySeismicityLink'),
+        MockPipe('isActualEvent')
       ]
     }).compileComponents();
   }));
@@ -36,16 +38,12 @@ describe('NavigationComponent', () => {
 
   describe('getKmlLink', () => {
     it('uses event.id in scenario link', () => {
-      component.scenario = true;
-
-      const event = new Event({ id: 'event' });
+      const event = new ScenarioEvent({ id: 'event' });
       const link = component.getKmlLink(event);
 
       expect(link).toBe('/scenarios/feed/v1.0/detail/event.kml');
     });
     it('uses event.id in non-scenario link', () => {
-      component.scenario = false;
-
       const event = new Event({ id: 'event' });
       const link = component.getKmlLink(event);
 
