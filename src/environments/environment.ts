@@ -5,8 +5,7 @@
 // which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
-  scenario: true,
+  scenario: false,
 
   CONTRIBUTOR_SERVICE:
     'https://earthquake.usgs.gov/data/comcat/contributor/index.json.php',
