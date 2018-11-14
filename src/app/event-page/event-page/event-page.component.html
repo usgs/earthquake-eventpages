@@ -1,37 +1,43 @@
-<ng-container *ngIf="this?.eventService?.event$ | async as event">
-  <hazdev-template [COOPERATOR]="
-  this.contributorService.contributors$
-  |
-  async
-  |
-  cooperator:event"
+<ng-container *ngIf="(this.eventService?.event$ | async) as event">
+  <hazdev-template
+    [COOPERATOR]="
+      this.contributorService.contributors$ | async | cooperator: event
+    "
     [CONTACT]="'mailto:lisa%2Behpweb@usgs.gov'"
-    [TITLE]="event | sharedEventTitle">
+    [TITLE]="event | sharedEventTitle"
+  >
     <event-page-header [event]="event"></event-page-header>
 
     <mat-nav-list templateSideNavigation>
-      <event-page-navigation class="site-sectionnav"
-        [event]="event"></event-page-navigation>
+      <event-page-navigation
+        [event]="event"
+        class="site-sectionnav"
+      ></event-page-navigation>
     </mat-nav-list>
 
-    <ng-container *ngIf="!event?.deleted; else deletedEvent">
+    <ng-container *ngIf="!event?.deleted; else: deletedEvent">
       <router-outlet></router-outlet>
     </ng-container>
 
     <ng-template #deletedEvent>
       <p class="alert error">
-        The requested event has been
-        <strong>deleted</strong>.
+        The requested event has been <strong>deleted</strong>.
       </p>
 
-      <shared-text-product *ngFor="let product of event?.getProducts('deleted-text');
-            trackBy: trackByIndex"
-        [product]="product">
+      <shared-text-product
+        *ngFor="
+          let product of event?.getProducts('deleted-text');
+          trackBy: trackByIndex
+        "
+        [product]="product"
+      >
       </shared-text-product>
     </ng-template>
 
-    <event-page-footer [event]="event"
-      [contributors]="this?.contributorService?.contributors$ | async">
+    <event-page-footer
+      [event]="event"
+      [contributors]="this.contributorService?.contributors$ | async"
+    >
     </event-page-footer>
   </hazdev-template>
 </ng-container>

@@ -11,6 +11,7 @@ import { catchError } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { Event } from '../event';
+import { ScenarioEvent } from 'app/scenario-event';
 
 /**
  * Event service, gets event, updates products, makes http calls dealing with
@@ -55,7 +56,11 @@ export class EventService {
           this.getUnknownEvent(eventid);
           return;
         }
-        this.setEvent(new Event(response));
+        if (environment.scenario) {
+          this.setEvent(new ScenarioEvent(response));
+        } else {
+          this.setEvent(new Event(response));
+        }
       });
   }
 
@@ -66,7 +71,11 @@ export class EventService {
    *      the event id
    */
   getEventDetailsUrl(eventid: string): string {
-    return environment.EVENT_SERVICE.replace('{eventid}', eventid);
+    let url;
+    url = environment.scenario
+      ? environment.SCENARIO_SERVICE.replace('{eventid}', eventid)
+      : environment.EVENT_SERVICE.replace('{eventid}', eventid);
+    return url;
   }
 
   /**

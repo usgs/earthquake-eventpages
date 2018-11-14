@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
-
 /**
  * Shared header component, shows header across all pages
  *
@@ -17,6 +15,4 @@ import { environment } from '../../../environments/environment';
 export class HeaderComponent {
   @Input()
   event: any;
-
-  scenario = environment.scenario;
 }
