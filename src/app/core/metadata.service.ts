@@ -15,6 +15,29 @@ export class MetadataService {
   constructor(private httpClient: HttpClient) {}
 
   /**
+   * The multi-gmpe format received from shakemap is difficult to
+   * render because the gmpes start as objects and become strings
+   * at the lowest level. This function descends through the gmpes
+   * and replaces the strings with look-alike gmpe objects
+   *
+   * @param multigmpe
+   *    multigmpe value from info.json
+   */
+  fixMultiGmpeFormat(multigmpe: any) {
+    if (typeof multigmpe === 'string') {
+      return {name: multigmpe, gmpes:[]};
+    }
+
+    const newGmpes = [];
+    for (const gmpe of multigmpe.gmpes) {
+      newGmpes.push(this.fixMultiGmpeFormat(gmpe));
+    }
+
+    multigmpe.gmpes = newGmpes;
+    return multigmpe;
+  }
+
+  /**
    * Retreive metadata for a specifc shakemap
    *
    * @param product
@@ -104,6 +127,13 @@ export class MetadataService {
       }
     }
 
+    // fix multigmpe format
+    if (metadata && metadata.multigmpe) {
+      Object.keys(metadata.multigmpe).forEach(key => {
+        const fixedGmpes = this.fixMultiGmpeFormat(metadata.multigmpe[key]);
+        metadata.multigmpe[key] = fixedGmpes;
+      });
+    }
     return metadata;
   }
 

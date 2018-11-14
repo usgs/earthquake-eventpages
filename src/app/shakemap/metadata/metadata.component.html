@@ -1,16 +1,21 @@
-<div class="info-container" *ngIf="metadata">
-  <div class="processing column" *ngIf="metadata.processing as processing">
+<ng-container *ngIf="metadata as metadata">
+  <ng-container *ngIf="metadata.processing as processing">
     <h2>Processing</h2>
     <shakemap-processing [smProcessing]="processing"></shakemap-processing>
-  </div>
+  </ng-container>
 
-  <div class="output column" *ngIf="metadata.output as output">
+  <ng-container *ngIf="metadata.output as output">
     <h2>Output</h2>
     <shakemap-output [smOutput]="output"></shakemap-output>
-  </div>
+  </ng-container>
 
-  <div class="input column" *ngIf="metadata.input as input">
+  <ng-container *ngIf="metadata.input as input">
     <h2>Input</h2>
     <shakemap-input [smInput]="input"></shakemap-input>
-  </div>
-</div>
+  </ng-container>
+
+  <ng-container *ngIf="metadata.multigmpe as multigmpe">
+    <h2>Ground Motion Models</h2>
+    <shakemap-multigmpe [smMultiGmpe]="multigmpe"></shakemap-multigmpe>
+  </ng-container>
+</ng-container>

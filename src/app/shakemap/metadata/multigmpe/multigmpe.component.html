@@ -1,0 +1,80 @@
+<ng-container *ngIf="smMultiGmpe as smMultiGmpe">
+  <ng-container *ngIf="smMultiGmpe.PGA as pga">
+    <ng-container
+        *ngTemplateOutlet="expandingGmpe;
+        context:{gmpe: pga, title: 'PGA'}">
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="smMultiGmpe.PGV as pgv">
+    <ng-container
+        *ngTemplateOutlet="expandingGmpe;
+        context:{gmpe: pgv, title: 'PGV'}">
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="smMultiGmpe['SA(0.3)'] as sa03">
+    <ng-container
+        *ngTemplateOutlet="expandingGmpe;
+        context:{gmpe: sa03, title: 'PSA(0.3)'}">
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="smMultiGmpe['SA(1.0)'] as sa10">
+    <ng-container
+        *ngTemplateOutlet="expandingGmpe;context:
+        {gmpe: sa10, title: 'PSA(1.0)'}">
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="smMultiGmpe['SA(3.0)'] as sa30">
+    <ng-container
+        *ngTemplateOutlet="expandingGmpe;
+        context:{gmpe: sa30, title: 'PSA(3.0)'}">
+    </ng-container>
+  </ng-container>
+
+</ng-container>
+
+<ng-template #expandingGmpe let-gmpe_="gmpe" let-title="title">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ title }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container *ngTemplateOutlet="gmpe; context:{gmpe: gmpe_}">
+    </ng-container>
+  </mat-expansion-panel>
+</ng-template>
+
+<ng-template #gmpe let-gmpe_="gmpe" let-weight="weight">
+  <ng-container *ngIf="weight && weight !== 1">
+    <dt>{{ gmpe_?.name }}</dt>
+    <dd>{{ weight }}</dd>
+  </ng-container>
+
+  <ng-container *ngIf="gmpe_?.gmpes.length > 0">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ !weight || weight === 1 ? gmpe_?.name : 'Details' }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <dl class="description-table">
+
+        <ng-container *ngIf="gmpe_.gmpes.length > 1">
+          <dt>Name</dt>
+          <dd class="dt">Weight</dd>
+        </ng-container>
+
+        <ng-container class="sub-gmpe" *ngFor="let subGmpe of gmpe_.gmpes; let i = index">
+          <ng-container
+              *ngTemplateOutlet=
+              "gmpe;context:{gmpe: subGmpe, weight: gmpe_.weights[i]}">
+          </ng-container>
+        </ng-container>
+      </dl>
+    </mat-expansion-panel>
+  </ng-container>
+</ng-template>
