@@ -7,5 +7,7 @@ export const environment = {
   EVENT_SERVICE: '/earthquakes/feed/v1.0/detail/{eventid}.geojson',
   GEOSERVE_SERVICE: '/ws/geoserve',
   SCENARIO_SERVICE: '/scenarios/feed/v1.0/detail/{eventid}.geojson',
-  siteUrl: 'earthquake.usgs.gov'
+  siteUrl: 'earthquake.usgs.gov',
+
+  salt: new Date().toUTCString()
 };
