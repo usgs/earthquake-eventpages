@@ -81,6 +81,16 @@
   border-bottom-color: $mmiXII !important;
 }
 
+.station-overlay-station-layer-icon.station-mmiN\/A {
+  &:before {
+    border-bottom-color: transparent
+  }
+
+  &:after {
+    border-bottom-color: rgba(0, 0, 0, .2);
+  }
+}
+
 .leaflet-popup shakemap-station {
   dl.description-table {
     /* 24px column gaps */
