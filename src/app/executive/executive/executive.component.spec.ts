@@ -89,7 +89,8 @@ describe('ExecutiveComponent', () => {
         }),
 
         MockPipe('getProduct'),
-        MockPipe('nearbySeismicityLink')
+        MockPipe('nearbySeismicityLink'),
+        MockPipe('isActualEvent')
       ],
       providers: [
         { provide: ContributorService, useValue: {} },
