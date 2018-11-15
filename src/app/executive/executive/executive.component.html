@@ -73,10 +73,12 @@
       <executive-tsunami-pin> </executive-tsunami-pin>
     </li>
 
-    <li *ngIf="(event | nearbySeismicityLink); let link">
-      <executive-nearby-seismicity-pin [event]="event" [link]="link">
-      </executive-nearby-seismicity-pin>
-    </li>
+    <div *ngIf="(event | isActualEvent)">
+      <li *ngIf="(event | nearbySeismicityLink); let link">
+        <executive-nearby-seismicity-pin [event]="event" [link]="link">
+        </executive-nearby-seismicity-pin>
+      </li>
+    </div>
   </ul>
 
   <shared-text-product
