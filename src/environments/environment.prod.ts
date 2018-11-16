@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  scenario: false,
+  scenario: true,
 
   CONTRIBUTOR_SERVICE: '/data/comcat/contributor/index.json.php',
   DELETED_EVENT_SERVICE: '/fdsnws/event/1/query.geojson?includedeleted=true',

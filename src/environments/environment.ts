@@ -6,7 +6,7 @@
 
 export const environment = {
   production: false,
-  scenario: false,
+  scenario: true,
 
   CONTRIBUTOR_SERVICE:
     'https://earthquake.usgs.gov/data/comcat/contributor/index.json.php',

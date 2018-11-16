@@ -36,6 +36,7 @@ function transformEvent(data: any) {
 export class ScenarioEvent extends Event {
   constructor(data: any) {
     const newData = transformEvent(data);
+    console.log('instantiating scenario event');
     super(newData);
   }
 }
