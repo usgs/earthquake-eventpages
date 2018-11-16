@@ -142,4 +142,72 @@ describe('EventService', () => {
       }
     ));
   });
+
+  describe('isScenario function', () => {
+    const scenarioEvent = {
+      properties: {
+        products: {
+          'some-scenario': [{ type: 'test' }]
+        }
+      }
+    };
+
+    const event = {
+      properties: {
+        products: {
+          'some-event': [{ type: 'test' }]
+        }
+      }
+    };
+
+    const noProductsEvent = {
+      properties: {}
+    };
+
+    const nullProductsEvent = {
+      properties: {
+        products: null
+      }
+    };
+
+    it('returns true for scenario event', inject(
+      [EventService],
+      (service: EventService) => {
+        const isScenario = service.isScenarioEvent(scenarioEvent);
+        expect(isScenario).toBeTruthy();
+      }
+    ));
+
+    it('returns false for actual event', inject(
+      [EventService],
+      (service: EventService) => {
+        const isScenario = service.isScenarioEvent(event);
+        expect(isScenario).toBeFalsy();
+      }
+    ));
+
+    it('returns false for no properties', inject(
+      [EventService],
+      (service: EventService) => {
+        const isScenario = service.isScenarioEvent(noProductsEvent);
+        expect(isScenario).toBeFalsy();
+      }
+    ));
+
+    it('returns false for null', inject(
+      [EventService],
+      (service: EventService) => {
+        const isScenario = service.isScenarioEvent(null);
+        expect(isScenario).toBeFalsy();
+      }
+    ));
+
+    it('returns false for null products', inject(
+      [EventService],
+      (service: EventService) => {
+        const isScenario = service.isScenarioEvent(nullProductsEvent);
+        expect(isScenario).toBeFalsy();
+      }
+    ));
+  });
 });

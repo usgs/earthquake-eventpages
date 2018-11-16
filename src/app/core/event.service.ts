@@ -110,6 +110,30 @@ export class EventService {
   }
 
   /**
+   * Function to check if the product has scenario substring, used for
+   * instantiating a ScenarioEvent vs. an Event class
+   * @param event
+   *      The event response object
+   * @returns
+   *      If the event has a scenario type product
+   */
+  isScenarioEvent(event: any): boolean {
+    let hasScenario = false;
+    // ensure we have products
+    if (event && event.properties && event.properties.products) {
+      // Use some to short circuit the loop if any of the products
+      // are scenario products, so we don't continue to iterate
+      Object.keys(event.properties.products).some(key => {
+        if (key.includes('scenario')) {
+          hasScenario = true;
+          return true;
+        }
+      });
+    }
+    return hasScenario;
+  }
+
+  /**
    * Update event to be shown, even if it has been deleted
    * Used by #getEvent when a 409 Conflict (event deleted) response is received
    *
@@ -144,31 +168,6 @@ export class EventService {
         type: 'Error'
       });
     };
-  }
-
-  /**
-   * Function to check if the product has scenario substring, used for
-   * instantiating a ScenarioEvent vs. an Event class
-   * @param event
-   *      The event response object
-   * @returns
-   *      If the event has a scenario type product
-   */
-  private isScenarioEvent(event: Event): boolean {
-    let hasScenario = false;
-    // ensure we have products
-    if (event && event.properties && event.properties.products) {
-      // Use some to short circuit the loop if any of the products
-      // are scenario products, so we don't continue to iterate
-      Object.keys(event.properties.products).some(key => {
-        const product = event.properties.products[key];
-        if (product[0].type.includes('scenario')) {
-          hasScenario = true;
-          return true;
-        }
-      });
-    }
-    return hasScenario;
   }
 
   /**
