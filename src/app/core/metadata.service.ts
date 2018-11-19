@@ -23,15 +23,21 @@ export class MetadataService {
    * @param multigmpe
    *    multigmpe value from info.json
    */
-  fixMultiGmpeFormat(multigmpe: any) {
+  fixMultiGmpeFormat(multigmpe: any, weight = null) {
+    // fix string GMPEs
     if (typeof multigmpe === 'string') {
-      return {name: multigmpe, gmpes:[]};
+      multigmpe = {name: multigmpe, gmpes:[]};
     }
 
+    // add weight property to current gmpe
+    multigmpe.weight = weight;
+
     const newGmpes = [];
-    for (const gmpe of multigmpe.gmpes) {
-      newGmpes.push(this.fixMultiGmpeFormat(gmpe));
-    }
+    let subGmpeWeight: number;
+    multigmpe.gmpes.forEach((gmpe, index) => {
+      subGmpeWeight = multigmpe.weights[index];
+      newGmpes.push(this.fixMultiGmpeFormat(gmpe, subGmpeWeight));
+    });
 
     multigmpe.gmpes = newGmpes;
     return multigmpe;
@@ -128,11 +134,14 @@ export class MetadataService {
     }
 
     // fix multigmpe format
+    const modifiedGmpes = {};
     if (metadata && metadata.multigmpe) {
       Object.keys(metadata.multigmpe).forEach(key => {
         const fixedGmpes = this.fixMultiGmpeFormat(metadata.multigmpe[key]);
-        metadata.multigmpe[key] = fixedGmpes;
+        modifiedGmpes[key] = fixedGmpes;
       });
+
+      metadata.multigmpe.modified = modifiedGmpes;
     }
     return metadata;
   }

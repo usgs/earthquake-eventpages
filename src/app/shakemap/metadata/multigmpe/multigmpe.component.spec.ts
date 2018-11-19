@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {MatExpansionModule } from '@angular/material';
+import { MatTableModule, MatExpansionModule } from '@angular/material';
 
+import { MockPipe } from '../../../mock-pipe';
 import { MultiGmpeComponent } from './multigmpe.component';
 
 describe('MultiGmpeComponent', () => {
@@ -9,9 +10,13 @@ describe('MultiGmpeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MultiGmpeComponent ],
+      declarations: [
+        MockPipe('sharedNumber'),
+        MultiGmpeComponent
+      ],
       imports: [
-        MatExpansionModule
+        MatExpansionModule,
+        MatTableModule
       ]
     })
     .compileComponents();
