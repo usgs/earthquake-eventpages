@@ -26,6 +26,10 @@ describe('MetadataComponent', () => {
       declarations: [
         MetadataComponent,
         MockComponent({ selector: 'shakemap-input', inputs: ['smInput'] }),
+        MockComponent({
+          inputs: ['smMultiGmpe'],
+          selector: 'shakemap-multigmpe'
+        }),
         MockComponent({ selector: 'shakemap-output', inputs: ['smOutput'] }),
         MockComponent({
           inputs: ['smProcessing'],

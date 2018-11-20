@@ -1,0 +1,107 @@
+<ng-container *ngIf="smMultiGmpe as smMultiGmpe">
+  <ng-container *ngIf="smMultiGmpe.modified.PGA as pga">
+    <ng-container
+        *ngTemplateOutlet="expandingGmpe;
+        context:{gmpe: pga, title: 'PGA'}">
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="smMultiGmpe.modified.PGV as pgv">
+    <ng-container
+        *ngTemplateOutlet="expandingGmpe;
+        context:{gmpe: pgv, title: 'PGV'}">
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="smMultiGmpe.modified['SA(0.3)'] as sa03">
+    <ng-container
+        *ngTemplateOutlet="expandingGmpe;
+        context:{gmpe: sa03, title: 'PSA(0.3)'}">
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="smMultiGmpe.modified['SA(1.0)'] as sa10">
+    <ng-container
+        *ngTemplateOutlet="expandingGmpe;context:
+        {gmpe: sa10, title: 'PSA(1.0)'}">
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="smMultiGmpe.modified['SA(3.0)'] as sa30">
+    <ng-container
+        *ngTemplateOutlet="expandingGmpe;
+        context:{gmpe: sa30, title: 'PSA(3.0)'}">
+    </ng-container>
+  </ng-container>
+
+</ng-container>
+
+<ng-template #expandingGmpe let-gmpe_="gmpe" let-title="title">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ title }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <ng-container *ngTemplateOutlet="gmpe; context:{gmpe: gmpe_}">
+    </ng-container>
+  </mat-expansion-panel>
+</ng-template>
+
+<ng-template #gmpe let-gmpe_="gmpe">
+  <h3>{{ gmpe_.name }}</h3>
+  <div class="horizontal-scrolling">
+    <ng-container *ngTemplateOutlet="gmpeTable; context:{gmpe: gmpe_.gmpes}">
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #gmpeTable let-multigmpe="gmpe">
+  <table mat-table
+      [dataSource]="multigmpe" multiTemplateDataRows>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let gmpe">
+
+        <div *ngIf="gmpe.gmpes.length > 0"
+            class="gmpe-expansion-indicator">
+          <span
+              class="mat-expansion-indicator"
+              [@rotate180]="gmpe.expanded || 'collapsed'"></span>
+        </div>
+        {{ gmpe.name }}
+
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef> Weight </th>
+      <td mat-cell *matCellDef="let gmpe"> {{ gmpe.weight | sharedNumber:2 }} </td>
+    </ng-container>
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let gmpe" [attr.colspan]="columnsToDisplay.length">
+        <div *ngIf="gmpe.gmpes.length > 0"
+            class="gmpe-detail"
+            [@detailExpand]="gmpe.expanded || 'collapsed'">
+            <ng-container *ngTemplateOutlet="gmpeTable; context:{gmpe: gmpe.gmpes}">
+            </ng-container>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let gmpe; columns: columnsToDisplay;"
+      class="gmpe-row"
+      [class.gmpe-expanded-row]="gmpe.expanded === 'expanded'"
+      [class.gmpe-expandable-row]="gmpe.gmpes.length > 0"
+      (click)="toggleGmpe(gmpe)">
+    </tr>
+    <tr mat-row 
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="gmpe-detail-row">
+    </tr>
+  </table>
+</ng-template>
