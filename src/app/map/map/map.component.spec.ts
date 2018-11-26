@@ -38,7 +38,8 @@ describe('MapComponent', () => {
           selector: 'shared-summary-link'
         }),
         MockPipe('interactiveMapBounds'),
-        MockPipe('interactiveMapOverlays')
+        MockPipe('interactiveMapOverlays'),
+        MockPipe('isScenarioEvent')
       ],
       imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]

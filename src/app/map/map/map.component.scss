@@ -45,6 +45,17 @@ $expanded-leaflet-control-height: (($map-height - 20vh) / 2);
   z-index: 1000;
 }
 
+.scenario-badge {
+  left: 50%;
+  margin: 10px 0 0 -3em;
+  padding: 0.35em 0;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 8em;
+  box-shadow: 0 1px 1px #333;
+}
+
 @media screen and (min-width: 768px) {
   .close-button {
     left: 50%;
