@@ -56,10 +56,13 @@ export class EventService {
           this.getUnknownEvent(eventid);
           return;
         }
-        if (environment.scenario) {
-          this.setEvent(new ScenarioEvent(response));
-        } else {
-          this.setEvent(new Event(response));
+        if (response) {
+          const isScenario = this.isScenarioEvent(response);
+          if (isScenario) {
+            this.setEvent(new ScenarioEvent(response));
+          } else {
+            this.setEvent(new Event(response));
+          }
         }
       });
   }
@@ -104,6 +107,30 @@ export class EventService {
    */
   getUnknownEvent(eventid: string): void {
     this.router.navigate(['unknown'], { skipLocationChange: true });
+  }
+
+  /**
+   * Function to check if the product has scenario substring, used for
+   * instantiating a ScenarioEvent vs. an Event class
+   * @param event
+   *      The event response object
+   * @returns
+   *      If the event has a scenario type product
+   */
+  isScenarioEvent(event: any): boolean {
+    let hasScenario = false;
+    // ensure we have products
+    if (event && event.properties && event.properties.products) {
+      // Use some to short circuit the loop if any of the products
+      // are scenario products, so we don't continue to iterate
+      Object.keys(event.properties.products).some(key => {
+        if (key.includes('scenario')) {
+          hasScenario = true;
+          return true;
+        }
+      });
+    }
+    return hasScenario;
   }
 
   /**
