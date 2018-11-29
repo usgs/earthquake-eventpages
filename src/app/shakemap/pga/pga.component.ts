@@ -8,7 +8,10 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'shakemap-pga',
-  styleUrls: ['./pga.component.scss'],
+  styleUrls: [
+    './pga.component.scss',
+    '../shakemap/shakemap.component.scss'
+  ],
   templateUrl: './pga.component.html'
 })
 export class PgaComponent {

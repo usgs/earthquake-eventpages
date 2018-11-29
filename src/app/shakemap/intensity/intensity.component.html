@@ -1,6 +1,7 @@
 <ng-container *ngIf="eventService?.product$ | async; let shakemap">
 
-  <ng-container *ngIf="shakemap?.contents['download/cont_mi.json']; else noOverlay">
+  <div class="shakemap-map"
+      *ngIf="shakemap?.contents['download/cont_mi.json']; else noOverlay">
     <a [routerLink]="'../../map'"
       [queryParams]="{
           'shakemap-code': shakemap?.code,
@@ -19,7 +20,7 @@
     <img class="legend"
       src="./assets/shakemap-intensity-legend.png"
       alt="ShakeMap intensity legend" />
-  </ng-container>
+  </div>
 
   <ng-template #noOverlay>
     <img *ngIf="shakemap?.contents['download/intensity.jpg']; else noImage"

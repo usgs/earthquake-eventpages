@@ -2,7 +2,7 @@
 
   <h3>Peak Spectral Acceleration for 0.3 s, 1.0 s, 3.0 s</h3>
 
-  <ng-container
+  <div class="shakemap-map"
       *ngIf="shakemap | sharedProductContent:
       'download/cont_psa03.json':'download/cont_psa0p3.json'; else noPSA03">
     <h4>0.3 s PSA (%g)</h4>
@@ -26,7 +26,7 @@
 
     <shakemap-legend [product]="shakemap" [legendType]="'psa0p3'">
     </shakemap-legend>
-  </ng-container>
+  </div>
 
   <ng-template #noPSA03>
     <img
@@ -40,7 +40,7 @@
     </ng-template>
   </ng-template>
 
-  <ng-container
+  <div class="shakemap-map"
       *ngIf="shakemap | sharedProductContent:
       'download/cont_psa10.json':'download/cont_psa1p0.json'; else noPSA10">
     <h4>1.0 s PSA (%g)</h4>
@@ -64,7 +64,7 @@
 
     <shakemap-legend [product]="shakemap" [legendType]="'psa1p0'">
     </shakemap-legend>
-  </ng-container>
+  </div>
 
   <ng-template #noPSA10>
     <img
@@ -78,7 +78,7 @@
     </ng-template>
   </ng-template>
 
-  <ng-container
+  <div class="shakemap-map"
       *ngIf="shakemap | sharedProductContent:
       'download/cont_psa30.json':'download/cont_psa3p0.json'; else noPSA30">
     <h4>3.0 s PSA (%g)</h4>
@@ -102,7 +102,7 @@
 
     <shakemap-legend [product]="shakemap" [legendType]="'psa3p0'">
     </shakemap-legend>
-  </ng-container>
+  </div>
 
   <ng-template #noPSA30>
     <img

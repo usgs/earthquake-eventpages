@@ -1,6 +1,6 @@
 <ng-container *ngIf="eventService?.product$ | async; let shakemap">
 
-  <ng-container
+  <div class="shakemap-map"
       *ngIf="shakemap | sharedProductContent:'download/cont_pgv.json';
       else noOverlay">
     <a [routerLink]="'../../map'"
@@ -23,7 +23,7 @@
 
     <shakemap-legend [product]="shakemap" [legendType]="'pgv'">
     </shakemap-legend>
-  </ng-container>
+  </div>
 
   <ng-template #noOverlay>
     <img

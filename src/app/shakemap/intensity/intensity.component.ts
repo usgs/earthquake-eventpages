@@ -7,7 +7,10 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'shakemap-intensity',
-  styleUrls: ['./intensity.component.scss'],
+  styleUrls: [
+    './intensity.component.scss',
+    '../shakemap/shakemap.component.scss'
+  ],
   templateUrl: './intensity.component.html'
 })
 export class IntensityComponent {

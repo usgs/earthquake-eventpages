@@ -8,7 +8,10 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'shakemap-psa',
-  styleUrls: ['./psa.component.scss'],
+  styleUrls: [
+    './psa.component.scss',
+    '../shakemap/shakemap.component.scss'
+  ],
   templateUrl: './psa.component.html'
 })
 export class PsaComponent {
