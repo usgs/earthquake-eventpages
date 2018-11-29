@@ -1,0 +1,19 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { ShakeAlertComponent } from './shake-alert/shake-alert.component';
+
+const shakeAlertRoutes: Routes = [
+  {
+    component: ShakeAlertComponent,
+    // this module must be loaded lazily using "loadChildren"
+    // the actual url mount point is defined in "app/app-routing.module.ts"
+    path: ''
+  }
+];
+
+@NgModule({
+  exports: [RouterModule],
+  imports: [RouterModule.forChild(shakeAlertRoutes)]
+})
+export class ShakeAlertRoutingModule {}
