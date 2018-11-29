@@ -23,12 +23,16 @@
           [bounds]="shakemap | sharedGetMapBounds">
       </shared-map>
     </a>
+
+    <shakemap-legend [product]="shakemap" [legendType]="'psa0p3'">
+    </shakemap-legend>
   </ng-container>
 
   <ng-template #noPSA03>
     <img
-        *ngIf="shakemap?.contents['download/psa03.jpg']; else noPSA03Image"
-        src="{{ shakemap?.contents['download/psa03.jpg'].url }}"
+        *ngIf="shakemap | sharedProductContent:'download/psa03.jpg' as image;
+        else noPSA03Image"
+        src="{{ image.url }}"
         alt="ShakeMap 0.3 s PSA (%g) image">
 
     <ng-template #noPSA03Image>
@@ -57,12 +61,16 @@
           [bounds]="shakemap | sharedGetMapBounds">
       </shared-map>
     </a>
+
+    <shakemap-legend [product]="shakemap" [legendType]="'psa1p0'">
+    </shakemap-legend>
   </ng-container>
 
   <ng-template #noPSA10>
     <img
-        *ngIf="shakemap?.contents['download/psa10.jpg']; else noPSA10Image"
-        src="{{ shakemap?.contents['download/psa10.jpg'].url }}"
+        *ngIf="shakemap | sharedProductContent:'download/psa10.jpg' as image;
+        else noPSA10Image"
+        src="{{ image.url }}"
         alt="ShakeMap 1.0 s PSA (%g) image">
 
     <ng-template #noPSA10Image>
@@ -91,12 +99,16 @@
           [bounds]="shakemap | sharedGetMapBounds">
       </shared-map>
     </a>
+
+    <shakemap-legend [product]="shakemap" [legendType]="'psa3p0'">
+    </shakemap-legend>
   </ng-container>
 
   <ng-template #noPSA30>
     <img
-        *ngIf="shakemap?.contents['download/psa30.jpg']; else noPSA30Image"
-        src="{{ shakemap?.contents['download/psa30.jpg'].url }}"
+        *ngIf="shakemap | sharedProductContent:'download/psa30.jpg' as image;
+        else noPSA30Image"
+        src="{{ image.url }}"
         alt="ShakeMap 3.0 s PSA (%g) image">
 
     <ng-template #noPSA30Image>
