@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LegendComponent } from './legend.component';
+import { MockPipe } from '../../mock-pipe';
 
 describe('LegendComponent', () => {
   let component: LegendComponent;
@@ -8,7 +9,11 @@ describe('LegendComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LegendComponent ]
+      declarations: [
+        LegendComponent,
+
+        MockPipe('sharedProductProperty')
+      ]
     })
     .compileComponents();
   }));

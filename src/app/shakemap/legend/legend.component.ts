@@ -6,10 +6,8 @@ import { Component, Input } from '@angular/core';
   templateUrl: './legend.component.html'
 })
 export class LegendComponent {
-
   @Input()
   legendType = null;
   @Input()
   product = null;
-
 }

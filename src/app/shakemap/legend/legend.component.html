@@ -1,3 +1,4 @@
-<img *ngIf="product.properties.gmice as gmice" 
+<img *ngIf="product | sharedProductProperty:'gmice' as gmice"
     src="./assets/shakemap-{{ gmice.toLowerCase() }}-{{ legendType }}.jpg"
     alt="ShakeMap intensity legend" />
+  

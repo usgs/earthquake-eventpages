@@ -34,7 +34,8 @@ describe('IntensityComponent', () => {
         }),
 
         MockPipe('shakemapOverlays'),
-        MockPipe('sharedGetMapBounds')
+        MockPipe('sharedGetMapBounds'),
+        MockPipe('sharedProductContent')
       ],
       imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]
