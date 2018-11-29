@@ -28,6 +28,7 @@ import { PsaComponent } from './psa/psa.component';
 import { ShakemapRoutingModule } from './shakemap-routing.module';
 import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
+import { LegendComponent } from './legend/legend.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { StationListComponent } from './station-list/station-list.component';
     IntensityComponent,
     PgaComponent,
     PgvComponent,
-    PsaComponent
+    PsaComponent,
+    LegendComponent
   ],
   exports: [StationListComponent, MetadataComponent],
   imports: [
