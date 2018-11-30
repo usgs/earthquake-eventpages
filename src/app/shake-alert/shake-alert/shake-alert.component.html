@@ -1,1 +1,35 @@
-<p>shake-alert works!</p>
+<product-page productType="shake-alert">
+  <ng-container *ngIf="(eventService.product$ | async) as product">
+    <ng-container *ngIf="product.status === 'PENDING'">
+      <!-- TODO, remove and uncomment -->
+      <p class="alert info">PENDING</p>
+      <!-- <shake-alert-pending></shake-alert-pending> -->
+    </ng-container>
+    <ng-container *ngIf="product.status === 'CONFIRMED'">
+      <ng-container *ngIf="(shakeAlertService.summary$ | async) as summary">
+        <!-- TODO, remove and uncomment -->
+        <p class="alert success">CONFIRMED</p>
+        <!--
+          <shake-alert-confirmed
+              [alerts]="summary.alerts"
+              [cities]="summary.cities"
+              [id]="summary.properties?.id"
+              [title]="summary.properties?.time"
+              [time]="summary.properties?.title"
+            >
+          </shake-alert-confirmed>
+        -->
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="product.status === 'MISSED'">
+      <!-- TODO, remove and uncomment -->
+      <p class="alert">MISSED</p>
+      <!-- <shake-alert-missed></shake-alert-missed> -->
+    </ng-container>
+    <ng-container *ngIf="product.status === 'DELETED'">
+      <!-- TODO -->
+      <p class="alert error">DELETED</p>
+      <!-- <shake-alert-deleted></shake-alert-deleted> -->
+    </ng-container>
+  </ng-container>
+</product-page>
