@@ -74,6 +74,10 @@ describe('ExecutiveComponent', () => {
           inputs: ['product'],
           selector: 'executive-shakemap-pin'
         }),
+        MockComponent({
+          inputs: ['status', 'product'],
+          selector: 'executive-shake-alert-pin'
+        }),
         MockComponent({ selector: 'executive-tsunami-pin' }),
         MockComponent({
           inputs: ['product'],
