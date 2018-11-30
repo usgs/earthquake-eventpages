@@ -8,9 +8,10 @@ import { SharedModule } from '@shared/shared.module';
 import { ShakeAlertService } from './shake-alert.service';
 import { ShakeAlertComponent } from './shake-alert/shake-alert.component';
 import { ShakeAlertRoutingModule } from './shake-alert-routing.module';
+import { ShakeAlertMissedComponent } from './shake-alert/shake-alert-missed/shake-alert-missed.component';
 
 @NgModule({
-  declarations: [ShakeAlertComponent],
+  declarations: [ShakeAlertComponent, ShakeAlertMissedComponent],
   exports: [],
   imports: [
     CommonModule,
