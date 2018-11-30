@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ProductPageModule } from '../product-page/product-page.module';
 
 import { SharedModule } from '@shared/shared.module';
+import { ShakeAlertService } from './shake-alert.service';
 import { ShakeAlertComponent } from './shake-alert/shake-alert.component';
 import { ShakeAlertRoutingModule } from './shake-alert-routing.module';
 
@@ -17,6 +18,7 @@ import { ShakeAlertRoutingModule } from './shake-alert-routing.module';
     RouterModule,
     ShakeAlertRoutingModule,
     SharedModule
-  ]
+  ],
+  providers: [ShakeAlertService]
 })
 export class ShakeAlertModule {}
