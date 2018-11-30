@@ -79,8 +79,7 @@
     </li>
 
     <li *ngIf="(event | getProduct: 'shake-alert'); let alert">
-      <executive-shake-alert-pin [link]="link"
-        [status]="alert.status"
+      <executive-shake-alert-pin [status]="alert.status"
         [product]="alert"></executive-shake-alert-pin>
     </li>
   </ul>

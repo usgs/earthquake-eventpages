@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './shake-alert-pin.component.html'
 })
 export class ShakeAlertPinComponent {
-  @Input() link;
+  link = '../shake-alert';
   @Input() product;
   @Input() status;
   title = 'ShakeAlert';
