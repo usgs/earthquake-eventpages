@@ -1,23 +1,21 @@
 <ng-container *ngIf="(eventService.event$ | async); let event">
-  <shared-text-product
-    *ngFor="
+  <shared-text-product *ngFor="
       let product of event.getProducts('general-header');
       trackBy: trackByIndex
     "
-    [product]="product"
-  >
+    [product]="product">
   </shared-text-product>
 
   <ul class="pins">
-    <li><executive-map-pin [event]="event"> </executive-map-pin></li>
+    <li>
+      <executive-map-pin [event]="event"> </executive-map-pin>
+    </li>
     <li>
       <executive-region-info-pin [event]="event"> </executive-region-info-pin>
     </li>
 
     <li *ngIf="(event | isActualEvent)">
-      <executive-dyfi-response-submit-pin
-        [product]="event | getProduct: 'dyfi'"
-      >
+      <executive-dyfi-response-submit-pin [product]="event | getProduct: 'dyfi'">
       </executive-dyfi-response-submit-pin>
     </li>
 
@@ -42,13 +40,11 @@
       <executive-origin-pin [product]="origin"> </executive-origin-pin>
     </li>
 
-    <li
-      *ngIf="
+    <li *ngIf="
         (event | getProduct: 'moment-tensor');
         let momentTensor;
         else: noMomentTensor
-      "
-    >
+      ">
       <executive-moment-tensor-pin [product]="momentTensor">
       </executive-moment-tensor-pin>
     </li>
@@ -73,44 +69,43 @@
       <executive-tsunami-pin> </executive-tsunami-pin>
     </li>
 
-    <li
-      *ngIf="
+    <li *ngIf="
         (event | isActualEvent) && (event | nearbySeismicityLink);
         let link
-      "
-    >
-      <executive-nearby-seismicity-pin [event]="event" [link]="link">
+      ">
+      <executive-nearby-seismicity-pin [event]="event"
+        [link]="link">
       </executive-nearby-seismicity-pin>
+    </li>
+
+    <li *ngIf="(event | getProduct: 'shake-alert'); let alert">
+      <executive-shake-alert-pin [link]="link"
+        [status]="alert.status"
+        [product]="alert"></executive-shake-alert-pin>
     </li>
   </ul>
 
-  <shared-text-product
-    *ngFor="
+  <shared-text-product *ngFor="
       let product of event.getProducts('general-text');
       trackBy: trackByIndex
     "
-    [product]="product"
-  >
+    [product]="product">
   </shared-text-product>
 
   <ng-container *ngIf="event.hasProducts('general-link')">
     <h3>For More Information</h3>
     <ul>
-      <li
-        *ngFor="
+      <li *ngFor="
           let product of event.getProducts('general-link');
           trackBy: trackByIndex
-        "
-      >
+        ">
         <shared-link-product [product]="product"> </shared-link-product>
       </li>
     </ul>
   </ng-container>
 
-  <product-page-download
-    *ngIf="event.hasProducts('poster')"
+  <product-page-download *ngIf="event.hasProducts('poster')"
     [product]="event.getProduct('poster')"
-    [expanded]="true"
-  >
+    [expanded]="true">
   </product-page-download>
 </ng-container>

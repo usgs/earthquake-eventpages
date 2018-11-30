@@ -25,7 +25,7 @@ export class EventService {
   productSource: string;
   productType: string;
 
-  constructor(public http: HttpClient, public router: Router) {}
+  constructor(public http: HttpClient, public router: Router) { }
 
   /**
    * Update event to be shown
