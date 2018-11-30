@@ -98,6 +98,10 @@ const appRoutes = [
         path: 'waveforms'
       },
       {
+        loadChildren: './shake-alert/shake-alert.module#ShakeAlertModule',
+        path: 'shake-alert'
+      },
+      {
         loadChildren: './wildcard/wildcard.module#WildcardModule',
         path: '**'
       }
