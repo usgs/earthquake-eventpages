@@ -6,6 +6,7 @@ import { of } from 'rxjs/observable/of';
 import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { ShakeAlertComponent } from './shake-alert.component';
+import { ShakeAlertMissedComponent } from './shake-alert-missed/shake-alert-missed.component';
 import { ShakeAlertService } from '../shake-alert.service';
 
 describe('ShakeAlertComponent', () => {
@@ -26,6 +27,7 @@ describe('ShakeAlertComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ShakeAlertComponent,
+        ShakeAlertMissedComponent,
         MockComponent({ inputs: ['productType'], selector: 'product-page' })
       ],
       providers: [
