@@ -47,6 +47,7 @@ export class SummaryLinkPipe implements PipeTransform {
       oaf: TECHNICAL,
       origin: TECHNICAL,
       regioninfo: EXECUTIVE,
+      'shake-alert': TECHNICAL,
       shakemap: IMPACT,
       tellus: IMPACT,
       waveforms: TECHNICAL
