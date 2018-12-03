@@ -1,4 +1,4 @@
-<h2>ShakeAlert Post-Event Summary</h2>
+<h3>ShakeAlert Post-Event Summary</h3>
 <p>
   This report provides an overview of the performance of ShakeAlert during this
   event.
@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="column">
-    <h3>Earthquake</h3>
+    <h4>Earthquake</h4>
     <dl class="shake-alert-summary">
       <ng-container *ngIf="title">
         <dt>Title</dt>
@@ -14,7 +14,7 @@
       </ng-container>
       <ng-container *ngIf="time">
         <dt>Time</dt>
-        <dd>{{ time }}</dd>
+        <dd>{{ time | sharedDateTime }}</dd>
       </ng-container>
       <ng-container *ngIf="id">
         <dt>ShakeAlert Event ID</dt>
