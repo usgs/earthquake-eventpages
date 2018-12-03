@@ -1,9 +1,7 @@
 <product-page productType="shake-alert">
   <ng-container *ngIf="(eventService.product$ | async) as product">
     <ng-container *ngIf="product.status === 'PENDING'">
-      <!-- TODO, remove and uncomment -->
-      <p class="alert info">PENDING</p>
-      <!-- <shake-alert-pending></shake-alert-pending> -->
+      <shake-alert-pending></shake-alert-pending>
     </ng-container>
     <ng-container *ngIf="product.status === 'CONFIRMED'">
       <ng-container *ngIf="(shakeAlertService.summary$ | async) as summary">

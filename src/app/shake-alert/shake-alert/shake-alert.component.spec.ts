@@ -7,6 +7,7 @@ import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { ShakeAlertComponent } from './shake-alert.component';
 import { ShakeAlertMissedComponent } from './shake-alert-missed/shake-alert-missed.component';
+import { ShakeAlertPendingComponent } from './shake-alert-pending/shake-alert-pending.component';
 import { ShakeAlertService } from '../shake-alert.service';
 
 describe('ShakeAlertComponent', () => {
@@ -28,6 +29,7 @@ describe('ShakeAlertComponent', () => {
       declarations: [
         ShakeAlertComponent,
         ShakeAlertMissedComponent,
+        ShakeAlertPendingComponent,
         MockComponent({ inputs: ['productType'], selector: 'product-page' })
       ],
       providers: [
