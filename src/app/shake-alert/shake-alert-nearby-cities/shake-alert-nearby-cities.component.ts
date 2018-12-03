@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-shake-alert-nearby-cities',
-  templateUrl: './shake-alert-nearby-cities.component.html',
-  styleUrls: ['./shake-alert-nearby-cities.component.scss']
+  selector: 'shake-alert-nearby-cities',
+  styleUrls: ['./shake-alert-nearby-cities.component.scss'],
+  templateUrl: './shake-alert-nearby-cities.component.html'
 })
-export class ShakeAlertNearbyCitiesComponent implements OnInit {
+export class ShakeAlertNearbyCitiesComponent {
+  _cities: Array<any>;
 
-  constructor() { }
+  columnsToDisplay = ['city', 'warning-time', 'mmi'];
 
-  ngOnInit() {
+  @Input()
+  set cities(cities: any) {
+    this._cities = cities.features;
   }
 
+  get cities() {
+    return this._cities;
+  }
 }
