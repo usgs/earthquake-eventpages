@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatTableModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '@shared/shared.module';
@@ -26,6 +27,7 @@ import { ShakeAlertRoutingModule } from './shake-alert-routing.module';
   exports: [],
   imports: [
     CommonModule,
+    MatTableModule,
     ProductPageModule,
     RouterModule,
     ShakeAlertRoutingModule,
