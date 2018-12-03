@@ -1,4 +1,19 @@
-<img *ngIf="product | sharedProductProperty:'gmice' as gmice"
-    src="./assets/shakemap-{{ gmice.toLowerCase() }}-{{ legendType }}.jpg"
-    alt="ShakeMap intensity legend" />
-  
+<ng-container *ngIf="legendType === 'mmi'">
+  <img *ngIf="product | sharedProductContent:'download/mmi_legend.png'
+      as legend; else noMmiLegend"
+      class="legend"
+      src="{{ legend.url }}"
+      alt="ShakeMap intensity legend" />
+
+  <ng-template #noMmiLegend>
+    <img class="legend"
+        src="./assets/shakemap-intensity-legend.png"
+        alt="ShakeMap intensity legend" />
+  </ng-template>
+</ng-container>
+
+<ng-template gmiceLegend>
+  <img *ngIf="product | sharedProductProperty:'gmice' as gmice"
+      src="./assets/shakemap-{{ gmice.toLowerCase() }}-{{ legendType }}.jpg"
+      alt="ShakeMap intensity legend" />
+</ng-template>

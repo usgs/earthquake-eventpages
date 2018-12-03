@@ -32,6 +32,13 @@ describe('IntensityComponent', () => {
           ],
           selector: 'shared-map'
         }),
+        MockComponent({
+          inputs: [
+            'product',
+            'legendType'
+          ],
+          selector: 'shakemap-legend'
+        }),
 
         MockPipe('shakemapOverlays'),
         MockPipe('sharedGetMapBounds'),

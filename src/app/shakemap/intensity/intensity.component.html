@@ -18,9 +18,10 @@
       </shared-map>
     </a>
 
-    <img class="legend"
-      src="./assets/shakemap-intensity-legend.png"
-      alt="ShakeMap intensity legend" />
+    <shakemap-legend 
+        [legendType]="'mmi'"
+        [product]="shakemap">
+    </shakemap-legend>
   </div>
 
   <ng-template #noOverlay>

@@ -12,7 +12,8 @@ describe('LegendComponent', () => {
       declarations: [
         LegendComponent,
 
-        MockPipe('sharedProductProperty')
+        MockPipe('sharedProductProperty'),
+        MockPipe('sharedProductContent')
       ]
     })
     .compileComponents();
