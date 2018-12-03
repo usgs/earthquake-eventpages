@@ -1,4 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatTableModule } from '@angular/material';
+
+import { MockPipe } from '../../mock-pipe';
 
 import { ShakeAlertNearbyCitiesComponent } from './shake-alert-nearby-cities.component';
 
@@ -8,9 +11,15 @@ describe('ShakeAlertNearbyCitiesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShakeAlertNearbyCitiesComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        ShakeAlertNearbyCitiesComponent,
+
+        MockPipe('sharedProductProperty'),
+        MockPipe('sharedRoman'),
+        MockPipe('sharedUnits')
+      ],
+      imports: [MatTableModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
