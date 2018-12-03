@@ -10,12 +10,14 @@ import { ShakeAlertComponent } from './shake-alert/shake-alert.component';
 import { ShakeAlertMissedComponent } from './shake-alert/shake-alert-missed/shake-alert-missed.component';
 import { ShakeAlertPendingComponent } from './shake-alert/shake-alert-pending/shake-alert-pending.component';
 import { ShakeAlertRoutingModule } from './shake-alert-routing.module';
+import { ShakeAlertConfirmedComponent } from './shake-alert-confirmed/shake-alert-confirmed.component';
 
 @NgModule({
   declarations: [
     ShakeAlertComponent,
     ShakeAlertMissedComponent,
-    ShakeAlertPendingComponent
+    ShakeAlertPendingComponent,
+    ShakeAlertConfirmedComponent
   ],
   exports: [],
   imports: [

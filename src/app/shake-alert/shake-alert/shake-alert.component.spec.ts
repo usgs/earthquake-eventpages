@@ -30,7 +30,12 @@ describe('ShakeAlertComponent', () => {
         ShakeAlertComponent,
         ShakeAlertMissedComponent,
         ShakeAlertPendingComponent,
-        MockComponent({ inputs: ['productType'], selector: 'product-page' })
+
+        MockComponent({ inputs: ['productType'], selector: 'product-page' }),
+        MockComponent({
+          inputs: ['alerts', 'cities', 'id', 'time', 'title'],
+          selector: 'shake-alert-confirmed'
+        })
       ],
       providers: [
         { provide: EventService, useValue: eventServiceStub },

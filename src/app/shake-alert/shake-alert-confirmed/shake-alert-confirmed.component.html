@@ -1,0 +1,60 @@
+<h2>ShakeAlert Post-Event Summary</h2>
+<p>
+  This report provides an overview of the performance of ShakeAlert during this
+  event.
+</p>
+
+<div class="row">
+  <div class="column">
+    <h3>Earthquake</h3>
+    <dl class="shake-alert-summary">
+      <ng-container *ngIf="title">
+        <dt>Title</dt>
+        <dd>{{ title }}</dd>
+      </ng-container>
+      <ng-container *ngIf="time">
+        <dt>Time</dt>
+        <dd>{{ time }}</dd>
+      </ng-container>
+      <ng-container *ngIf="id">
+        <dt>ShakeAlert Event ID</dt>
+        <dd>{{ id }}</dd>
+      </ng-container>
+    </dl>
+
+    <!-- TODO, remove -->
+    <div class="shake-alert-cities-placeholder">
+      <p>Cities</p>
+      <pre>{{ cities | json }}</pre>
+    </div>
+    <!--
+      <shake-alert-nearby-cities [cities]="cities"></shake-alert-nearby-cities>
+    -->
+
+    <h4>Footnotes</h4>
+    <ol class="shake-alert-footnotes">
+      <li>
+        *MMI -- Modified Mercalli Intensity: a scale to measure ground shaking.
+      </li>
+      <li>
+        This report is primarily for technical managers who track the
+        performance of the system. It is also helpful for tracking changes in
+        performance as new capabilities are added.
+      </li>
+    </ol>
+  </div>
+
+  <div class="column">
+    <!-- TODO -->
+    <ul class="shake-alert-maps">
+      <li *ngFor="let alert of alerts">
+        <!-- TODO, remove -->
+        <div class="shake-alert-map-placeholder">
+          <p>Map</p>
+          <pre>{{ alert | json }}</pre>
+        </div>
+        <!-- <shake-alert-map [alert]="alert"></shake-alert-map> -->
+      </li>
+    </ul>
+  </div>
+</div>

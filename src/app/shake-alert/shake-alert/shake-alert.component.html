@@ -5,18 +5,14 @@
     </ng-container>
     <ng-container *ngIf="product.status === 'CONFIRMED'">
       <ng-container *ngIf="(shakeAlertService.summary$ | async) as summary">
-        <!-- TODO, remove and uncomment -->
-        <p class="alert success">CONFIRMED</p>
-        <!--
-          <shake-alert-confirmed
-              [alerts]="summary.alerts"
-              [cities]="summary.cities"
-              [id]="summary.properties?.id"
-              [title]="summary.properties?.time"
-              [time]="summary.properties?.title"
-            >
-          </shake-alert-confirmed>
-        -->
+        <shake-alert-confirmed
+          [alerts]="summary.alerts"
+          [cities]="summary.cities"
+          [id]="summary.properties?.id"
+          [title]="summary.properties?.time"
+          [time]="summary.properties?.title"
+        >
+        </shake-alert-confirmed>
       </ng-container>
     </ng-container>
     <ng-container *ngIf="product.status === 'MISSED'">
