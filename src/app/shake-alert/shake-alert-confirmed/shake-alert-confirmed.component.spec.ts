@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MockPipe } from '../../mock-pipe';
 import { ShakeAlertConfirmedComponent } from './shake-alert-confirmed.component';
 
 describe('ShakeAlertConfirmedComponent', () => {
@@ -8,7 +9,7 @@ describe('ShakeAlertConfirmedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ShakeAlertConfirmedComponent]
+      declarations: [ShakeAlertConfirmedComponent, MockPipe('sharedDateTime')]
     }).compileComponents();
   }));
 
