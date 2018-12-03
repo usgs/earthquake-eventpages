@@ -97,6 +97,11 @@
       display="Aftershock Forecast"
       navRouterLink="oaf"
     ></hazdev-template-navigation-item>
+    <hazdev-template-navigation-item
+      *ngIf="event?.hasProducts('shake-alert')"
+      display="ShakeAlert"
+      navRouterLink="shake-alert"
+    ></hazdev-template-navigation-item>
   </hazdev-template-navigation-group>
 
   <hazdev-template-navigation-item

@@ -69,7 +69,8 @@ export class NavigationComponent {
       'moment-tensor',
       'focal-mechanism',
       'finite-fault',
-      'oaf'
+      'oaf',
+      'shake-alert'
     ]);
   }
 }
