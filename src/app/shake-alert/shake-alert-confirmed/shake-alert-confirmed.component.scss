@@ -1,0 +1,34 @@
+// TOOD, remove
+.shake-alert-cities-placeholder,
+.shake-alert-map-placeholder {
+  background: #ccc;
+  height: 200px;
+  padding: 1em;
+  overflow: scroll;
+}
+
+.shake-alert-maps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    margin: 0 0 1em;
+  }
+}
+
+.column {
+  max-width: 500px;
+}
+
+@media screen and (min-width: 500px) {
+  .row {
+    display: flex;
+    align-content: flex-start;
+  }
+
+  .column {
+    flex: 1;
+    min-width: 320px;
+  }
+}
