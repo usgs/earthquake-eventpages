@@ -1,8 +1,37 @@
-<p>shake-alert-nearby-cities works!</p>
-
-<h4>Performance for Nearby Cities</h4>
-
+<h3>Performance for Nearby Cities</h3>
 <div class="horizontal-scrolling">
-  <mat-table [dataSource]="nearbyCities" class="nearby-cities-table">
+  <mat-table [dataSource]="this.cities" class="nearby-cities-table">
+    <mat-header-row *matHeaderRowDef="this.columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay">
+    </mat-row>
+
+    <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef>
+        <abbr title="city">City</abbr>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let cities">
+        {{ cities | sharedProductProperty: "name" }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="warning-time">
+      <mat-header-cell *matHeaderCellDef>
+        <abbr title="warning-time">Warning Time</abbr>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let cities"
+        >{{
+          cities | sharedProductProperty: "warning-time" | sharedUnits: "sec"
+        }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="mmi">
+      <mat-header-cell *matHeaderCellDef>
+        <abbr title="mmi">mmi</abbr>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let cities"
+        >{{ cities | sharedProductProperty: "mmi" | sharedRoman }}
+      </mat-cell>
+    </ng-container>
   </mat-table>
 </div>
