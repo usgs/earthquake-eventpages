@@ -82,6 +82,13 @@
       <executive-nearby-seismicity-pin [event]="event" [link]="link">
       </executive-nearby-seismicity-pin>
     </li>
+
+    <li *ngIf="(event | getProduct: 'shake-alert'); let alert">
+      <executive-shake-alert-pin
+        [status]="alert.status"
+        [product]="alert"
+      ></executive-shake-alert-pin>
+    </li>
   </ul>
 
   <shared-text-product

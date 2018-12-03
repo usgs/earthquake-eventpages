@@ -19,6 +19,7 @@ import { OafPinComponent } from './oaf-pin/oaf-pin.component';
 import { OriginPinComponent } from './origin-pin/origin-pin.component';
 import { PagerPinComponent } from './pager-pin/pager-pin.component';
 import { RegionInfoPinComponent } from './region-info-pin/region-info-pin.component';
+import { ShakeAlertPinComponent } from './shake-alert-pin/shake-alert-pin.component';
 import { ShakemapPinComponent } from './shakemap-pin/shakemap-pin.component';
 import { TsunamiPinComponent } from './tsunami-pin/tsunami-pin.component';
 
@@ -38,6 +39,7 @@ import { TsunamiPinComponent } from './tsunami-pin/tsunami-pin.component';
     OriginPinComponent,
     PagerPinComponent,
     RegionInfoPinComponent,
+    ShakeAlertPinComponent,
     ShakemapPinComponent,
     TsunamiPinComponent
   ],
