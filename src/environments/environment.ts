@@ -16,7 +16,7 @@ export const environment = {
     'includedeleted=true',
 
   EVENT_SERVICE:
-    'https://dev-earthquake.cr.usgs.gov/earthquakes/feed/v1.0/detail/' +
+    'https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/' +
     '{eventid}.geojson',
 
   GEOSERVE_SERVICE: 'https://earthquake.usgs.gov/ws/geoserve',
