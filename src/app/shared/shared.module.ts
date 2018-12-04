@@ -54,8 +54,6 @@ import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 import { RomanPipe } from './roman.pipe';
 import { RoundDownPipe } from './round-down.pipe';
 import { RoundUpPipe } from './round-up.pipe';
-
-import { ShakeAlertMapOverlaysPipe } from './shake-alert-map-overlays.pipe';
 import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 import { SignificantFigurePipe } from './significant-figure.pipe';
 import { StationFlagComponent } from './station-flag/station-flag.component';
@@ -114,7 +112,6 @@ import { WindowRef } from './window-ref-wrapper';
     RomanPipe,
     RoundDownPipe,
     RoundUpPipe,
-    ShakeAlertMapOverlaysPipe,
     ShakemapOverlaysPipe,
     SignificantFigurePipe,
     StationComponent,
@@ -174,7 +171,6 @@ import { WindowRef } from './window-ref-wrapper';
     RomanPipe,
     RoundDownPipe,
     RoundUpPipe,
-    ShakeAlertMapOverlaysPipe,
     ShakemapOverlaysPipe,
     SignificantFigurePipe,
     StationComponent,
