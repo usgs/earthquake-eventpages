@@ -33,5 +33,14 @@
         >{{ cities | sharedProductProperty: "mmi" | sharedRoman }}
       </mat-cell>
     </ng-container>
+
+    <ng-container matColumnDef="population">
+      <mat-header-cell *matHeaderCellDef>
+        <abbr title="population">population</abbr>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let cities">
+        {{ cities | sharedProductProperty: "population" | sharedNumber }}
+      </mat-cell>
+    </ng-container>
   </mat-table>
 </div>

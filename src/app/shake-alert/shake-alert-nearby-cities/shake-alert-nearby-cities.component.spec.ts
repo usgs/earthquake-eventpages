@@ -14,6 +14,7 @@ describe('ShakeAlertNearbyCitiesComponent', () => {
       declarations: [
         ShakeAlertNearbyCitiesComponent,
 
+        MockPipe('sharedNumber'),
         MockPipe('sharedProductProperty'),
         MockPipe('sharedRoman'),
         MockPipe('sharedUnits')

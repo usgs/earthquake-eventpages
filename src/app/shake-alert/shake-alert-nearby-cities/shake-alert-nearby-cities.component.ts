@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class ShakeAlertNearbyCitiesComponent {
   _cities: Array<any>;
 
-  columnsToDisplay = ['city', 'warning-time', 'mmi'];
+  columnsToDisplay = ['city', 'warning-time', 'mmi', 'population'];
 
   @Input()
   set cities(cities: any) {
