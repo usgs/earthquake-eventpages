@@ -39,7 +39,9 @@
         <abbr title="population">population</abbr>
       </mat-header-cell>
       <mat-cell *matCellDef="let cities">
-        {{ cities | sharedProductProperty: "population" | sharedNumber }}
+        {{
+          cities | sharedProductProperty: "population" | number | sharedNumber
+        }}
       </mat-cell>
     </ng-container>
   </mat-table>
