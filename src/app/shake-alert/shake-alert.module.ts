@@ -22,7 +22,6 @@ import { ShakeAlertService } from './shake-alert.service';
     ShakeAlertComponent,
     ShakeAlertConfirmedComponent,
     ShakeAlertDeletedComponent,
-    ShakeAlertMapComponent,
     ShakeAlertMissedComponent,
     ShakeAlertNearbyCitiesComponent,
     ShakeAlertPendingComponent,
