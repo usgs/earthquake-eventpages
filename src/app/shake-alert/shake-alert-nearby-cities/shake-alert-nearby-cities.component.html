@@ -39,10 +39,17 @@
         <abbr title="population">population</abbr>
       </mat-header-cell>
       <mat-cell *matCellDef="let cities">
-        {{
-          cities | sharedProductProperty: "population" | number | sharedNumber
-        }}
+        <ng-component
+          *ngIf="
+            (cities | sharedProductProperty: 'population') as population;
+            else: dash
+          "
+        >
+          {{ population | number }}
+        </ng-component>
       </mat-cell>
     </ng-container>
   </mat-table>
 </div>
+
+<ng-template #dash> &ndash; </ng-template>
