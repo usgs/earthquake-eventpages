@@ -14,6 +14,7 @@ import { ShakeAlertConfirmedComponent } from './shake-alert-confirmed/shake-aler
 import { ShakeAlertDeletedComponent } from './shake-alert-deleted/shake-alert-deleted.component';
 import { ShakeAlertNearbyCitiesComponent } from './shake-alert-nearby-cities/shake-alert-nearby-cities.component';
 import { ShakeAlertRoutingModule } from './shake-alert-routing.module';
+import { ShakeAlertSummaryReportComponent } from './shake-alert-summary-report/shake-alert-summary-report.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ShakeAlertRoutingModule } from './shake-alert-routing.module';
     ShakeAlertDeletedComponent,
     ShakeAlertMissedComponent,
     ShakeAlertNearbyCitiesComponent,
-    ShakeAlertPendingComponent
+    ShakeAlertPendingComponent,
+    ShakeAlertSummaryReportComponent
   ],
   exports: [],
   imports: [

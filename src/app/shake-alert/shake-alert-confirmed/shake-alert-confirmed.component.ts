@@ -13,11 +13,5 @@ export class ShakeAlertConfirmedComponent {
   cities: any;
 
   @Input()
-  id: string;
-
-  @Input()
-  time: string;
-
-  @Input()
-  title: string;
+  properties: any;
 }

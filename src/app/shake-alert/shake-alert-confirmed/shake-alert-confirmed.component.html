@@ -7,20 +7,24 @@
 <div class="row">
   <div class="column">
     <h4>Earthquake</h4>
-    <dl class="shake-alert-summary">
-      <ng-container *ngIf="title">
+    <dl *ngIf="properties" class="shake-alert-summary">
+      <ng-container *ngIf="properties.title">
         <dt>Title</dt>
-        <dd>{{ title }}</dd>
+        <dd>{{ properties.title }}</dd>
       </ng-container>
-      <ng-container *ngIf="time">
+      <ng-container *ngIf="properties.time">
         <dt>Time</dt>
-        <dd>{{ time | sharedDateTime }}</dd>
+        <dd>{{ properties.time | sharedDateTime }}</dd>
       </ng-container>
-      <ng-container *ngIf="id">
+      <ng-container *ngIf="properties.id">
         <dt>ShakeAlert Event ID</dt>
-        <dd>{{ id }}</dd>
+        <dd>{{ properties.id }}</dd>
       </ng-container>
     </dl>
+
+    <shake-alert-summary-report
+      [properties]="properties"
+    ></shake-alert-summary-report>
 
     <shake-alert-nearby-cities [cities]="cities"></shake-alert-nearby-cities>
 
