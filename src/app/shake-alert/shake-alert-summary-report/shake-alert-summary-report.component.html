@@ -1,0 +1,54 @@
+<ng-container *ngIf="properties">
+  <h4>Summary Report</h4>
+  <dl class="shake-alert-summary">
+    <dt>Speed of Alert</dt>
+    <dd>
+      Initial alert after origin time: <code class="placeholder">time</code> s
+    </dd>
+    <dd>
+      Final alert update after origin time:
+      <code class="placeholder">time</code> s
+    </dd>
+
+    <dt>Magnitude Accuracy</dt>
+    <dd>
+      Initial Alert at <code class="placeholder">time</code> s : M<code
+        class="placeholder"
+        >magnitude</code
+      >
+    </dd>
+    <dd>
+      Final Alert at <code class="placeholder">time</code> s : M<code
+        class="placeholder"
+        >magnitude</code
+      >
+    </dd>
+    <dd>
+      ANSS Alert at <code class="placeholder">time</code> s : M<code
+        class="placeholder"
+        >magntiude</code
+      >
+    </dd>
+
+    <dt>Alert Location Accuracy</dt>
+    <dd>
+      Initial alert: <code class="placeholder">distance</code> miles
+      <code class="placeholder">direction</code> of reviewed location
+    </dd>
+    <dd>
+      Final alert: <code class="placeholder">distance</code> miles
+      <code class="placeholder">direction</code> of reviewed location
+    </dd>
+
+    <dt>Ground Motion Accuracy</dt>
+    <dd>
+      <code class="placeholder">accuracy</code>% of ground motions of MMI*
+      <code class="placeholder">intensity</code> or higher were predicted
+      correctly
+    </dd>
+
+    <dt>Number of Stations Reporting</dt>
+    <dd>{{ properties['num-stations-10km'] }} within 10km of epicenter</dd>
+    <dd>{{ properties['num-stations-100km'] }} within 100km of epicenter</dd>
+  </dl>
+</ng-container>
