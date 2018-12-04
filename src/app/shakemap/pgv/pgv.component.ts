@@ -8,7 +8,10 @@ import { EventService } from '@core/event.service';
  */
 @Component({
   selector: 'shakemap-pgv',
-  styleUrls: ['./pgv.component.scss'],
+  styleUrls: [
+    './pgv.component.scss',
+    '../shakemap/shakemap.component.scss'
+  ],
   templateUrl: './pgv.component.html'
 })
 export class PgvComponent {

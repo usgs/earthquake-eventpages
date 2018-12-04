@@ -32,9 +32,17 @@ describe('PgvComponent', () => {
           ],
           selector: 'shared-map'
         }),
+        MockComponent({
+          inputs: [
+            'product',
+            'legendType'
+          ],
+          selector: 'shakemap-legend'
+        }),
 
         MockPipe('shakemapOverlays'),
-        MockPipe('sharedGetMapBounds')
+        MockPipe('sharedGetMapBounds'),
+        MockPipe('sharedProductContent')
       ],
       imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]

@@ -1,28 +1,35 @@
 <ng-container *ngIf="eventService?.product$ | async; let shakemap">
 
-  <a *ngIf="shakemap?.contents['download/cont_pga.json']; else noOverlay"
-      [routerLink]="'../../map'"
-      [queryParams]="{
-        'shakemap-code': shakemap?.code,
-        'shakemap-source': shakemap?.source,
-        'shakemap-pga': true,
-        'shakemap-stations': true,
-        'shakemap-intensity': false
-      }">
+  <div class="shakemap-map"
+      *ngIf="shakemap | sharedProductContent:'download/cont_pga.json';
+      else noOverlay">
+    <a [routerLink]="'../../map'"
+        [queryParams]="{
+          'shakemap-code': shakemap?.code,
+          'shakemap-source': shakemap?.source,
+          'shakemap-pga': true,
+          'shakemap-stations': true,
+          'shakemap-intensity': false
+        }">
 
-    <shared-map
-        [overlays]="shakemap | shakemapOverlays:['shakemap-pga',
-        'shakemap-stations']"
-        [showScaleControl]="true"
-        [showAttributionControl]="false"
-        [bounds]="shakemap | sharedGetMapBounds">
-    </shared-map>
-  </a>
+      <shared-map
+          [overlays]="shakemap | shakemapOverlays:['shakemap-pga',
+          'shakemap-stations']"
+          [showScaleControl]="true"
+          [showAttributionControl]="false"
+          [bounds]="shakemap | sharedGetMapBounds">
+      </shared-map>
+    </a>
+
+    <shakemap-legend [product]="shakemap" [legendType]="'pga'">
+    </shakemap-legend>
+  </div>
 
   <ng-template #noOverlay>
     <img
-        *ngIf="shakemap?.contents['download/pga.jpg']; else noImage"
-        src="{{ shakemap?.contents['download/pga.jpg'].url }}"
+        *ngIf="shakemap | sharedProductContent:'download/pga.jpg' as image;
+        else noImage"
+        src="{{ image.url }}"
         alt="ShakeMap peak ground acceleration image">
 
     <ng-template #noImage>
