@@ -6,15 +6,16 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '@shared/shared.module';
 import { ProductPageModule } from '../product-page/product-page.module';
 
-import { ShakeAlertService } from './shake-alert.service';
 import { ShakeAlertComponent } from './shake-alert/shake-alert.component';
-import { ShakeAlertMissedComponent } from './shake-alert-missed/shake-alert-missed.component';
-import { ShakeAlertPendingComponent } from './shake-alert-pending/shake-alert-pending.component';
 import { ShakeAlertConfirmedComponent } from './shake-alert-confirmed/shake-alert-confirmed.component';
 import { ShakeAlertDeletedComponent } from './shake-alert-deleted/shake-alert-deleted.component';
+import { ShakeAlertMapComponent } from './shake-alert-map/shake-alert-map.component';
+import { ShakeAlertMissedComponent } from './shake-alert-missed/shake-alert-missed.component';
 import { ShakeAlertNearbyCitiesComponent } from './shake-alert-nearby-cities/shake-alert-nearby-cities.component';
+import { ShakeAlertPendingComponent } from './shake-alert-pending/shake-alert-pending.component';
 import { ShakeAlertRoutingModule } from './shake-alert-routing.module';
 import { ShakeAlertSummaryReportComponent } from './shake-alert-summary-report/shake-alert-summary-report.component';
+import { ShakeAlertService } from './shake-alert.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ShakeAlertSummaryReportComponent } from './shake-alert-summary-report/s
     ShakeAlertMissedComponent,
     ShakeAlertNearbyCitiesComponent,
     ShakeAlertPendingComponent,
-    ShakeAlertSummaryReportComponent
+    ShakeAlertSummaryReportComponent,
+    ShakeAlertMapComponent
   ],
   exports: [],
   imports: [

@@ -436,7 +436,6 @@ export class MapComponent implements AfterViewInit {
     }
 
     const overlays = this._overlays;
-
     // remove overlays from map and layer control
     this.overlaysAdded = this.overlaysAdded.filter(overlay => {
       if (!overlays.includes(overlay)) {
