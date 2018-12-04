@@ -457,10 +457,8 @@ export class MapComponent implements AfterViewInit {
         this.layersControl.addOverlay(overlay, overlay.title);
       }
       if (overlay.enabled) {
-        // console.log('overlay is enabled, adding to map');
         this.map.addLayer(overlay);
       } else {
-        // console.log('overlay NOT enabled, removing from map');
         this.map.removeLayer(overlay);
       }
     });
