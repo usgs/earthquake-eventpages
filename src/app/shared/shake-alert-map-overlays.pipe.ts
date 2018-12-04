@@ -20,9 +20,17 @@ export class ShakeAlertMapOverlaysPipe implements PipeTransform {
     const overlays = [];
     if (alert.features) {
       alert.features.forEach(feature => {
-        if (feature.geometry.coordinates) {
+        if (
+          feature.geometry &&
+          feature.geometry.coordinates &&
+          feature.geometry.type
+        ) {
+          let color = '#000';
+          if (feature.properties && feature.properties.stroke) {
+            color = feature.properties.stroke;
+          }
           const layer = L.geoJSON(feature, {
-            color: feature.properties.stroke
+            color: color
           });
           layer.enabled = 'true';
           overlays.push(layer);
