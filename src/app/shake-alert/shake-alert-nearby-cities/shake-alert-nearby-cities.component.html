@@ -33,5 +33,23 @@
         >{{ cities | sharedProductProperty: "mmi" | sharedRoman }}
       </mat-cell>
     </ng-container>
+
+    <ng-container matColumnDef="population">
+      <mat-header-cell *matHeaderCellDef>
+        <abbr title="population">population</abbr>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let cities">
+        <ng-container
+          *ngIf="
+            (cities | sharedProductProperty: 'population') as population;
+            else: dash
+          "
+        >
+          {{ population | number }}
+        </ng-container>
+      </mat-cell>
+    </ng-container>
   </mat-table>
 </div>
+
+<ng-template #dash> &ndash; </ng-template>
