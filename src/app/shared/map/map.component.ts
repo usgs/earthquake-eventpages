@@ -436,6 +436,7 @@ export class MapComponent implements AfterViewInit {
     }
 
     const overlays = this._overlays;
+
     // remove overlays from map and layer control
     this.overlaysAdded = this.overlaysAdded.filter(overlay => {
       if (!overlays.includes(overlay)) {
@@ -446,7 +447,6 @@ export class MapComponent implements AfterViewInit {
         return true;
       }
     });
-
     // add overlays to layer control and add/remove overlay to/from map
     overlays.forEach(overlay => {
       if (overlay.hasOwnProperty('httpClient')) {
@@ -457,8 +457,10 @@ export class MapComponent implements AfterViewInit {
         this.layersControl.addOverlay(overlay, overlay.title);
       }
       if (overlay.enabled) {
+        // console.log('overlay is enabled, adding to map');
         this.map.addLayer(overlay);
       } else {
+        // console.log('overlay NOT enabled, removing from map');
         this.map.removeLayer(overlay);
       }
     });

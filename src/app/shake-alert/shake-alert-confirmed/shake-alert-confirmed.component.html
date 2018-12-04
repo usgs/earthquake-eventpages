@@ -44,8 +44,6 @@
   <div class="column">
     <ul class="shake-alert-maps">
       <li *ngFor="let alert of alerts">
-        {{ alert | json }}
-        <hr />
         <ng-container
           *ngIf="alert.features[0].geometry.coordinates; let coords"
         >

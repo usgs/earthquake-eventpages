@@ -15,22 +15,14 @@ export class ShakeAlertMapOverlaysPipe implements PipeTransform {
 
   transform(alert: any): any {
     const overlays = [];
-
     if (alert.features) {
       alert.features.forEach(feature => {
-        feature.enabled = true;
-        console.log('feature: ', feature);
-        let layer;
-        if (feature.geometry.type === 'Point') {
-          layer = L.marker(feature.geometry.coordinates, {});
-        }
-        if (feature.geometry.type === 'Polygon') {
-          layer = L.polyline(feature.geometry.coordinates, {});
-        }
+        const layer = L.geoJSON(feature, { color: feature.properties.stroke });
+        layer.enabled = 'true';
         overlays.push(layer);
       });
     }
-    console.log('overlays: ', overlays);
+
     return overlays;
   }
 }
