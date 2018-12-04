@@ -3,7 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockPipe } from './../../mock-pipe';
 
-import { ShakeAlertMapOverlaysPipe } from './../../shared/shake-alert-map-overlays.pipe';
 import { ShakeAlertMapComponent } from './shake-alert-map.component';
 
 describe('ShakeAlertMapComponent', () => {
