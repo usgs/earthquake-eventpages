@@ -42,15 +42,19 @@
   </div>
 
   <div class="column">
-    <!-- TODO -->
     <ul class="shake-alert-maps">
       <li *ngFor="let alert of alerts">
-        <!-- TODO, remove -->
-        <div class="shake-alert-map-placeholder">
-          <p>Map</p>
-          <pre>{{ alert | json }}</pre>
-        </div>
-        <!-- <shake-alert-map [alert]="alert"></shake-alert-map> -->
+        <ng-container
+          *ngIf="alert.features[0].geometry.coordinates; let coords"
+        >
+          <shake-alert-map
+            [alert]="alert"
+            [mapBounds]="[
+              [coords[1] - 10, coords[0] + 10],
+              [coords[1] + 10, coords[0] - 10]
+            ]"
+          ></shake-alert-map>
+        </ng-container>
       </li>
     </ul>
   </div>

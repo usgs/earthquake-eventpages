@@ -447,7 +447,6 @@ export class MapComponent implements AfterViewInit {
         return true;
       }
     });
-
     // add overlays to layer control and add/remove overlay to/from map
     overlays.forEach(overlay => {
       if (overlay.hasOwnProperty('httpClient')) {

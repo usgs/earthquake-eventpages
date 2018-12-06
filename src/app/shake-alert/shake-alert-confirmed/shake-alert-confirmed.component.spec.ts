@@ -21,7 +21,10 @@ describe('ShakeAlertConfirmedComponent', () => {
           inputs: ['properties'],
           selector: 'shake-alert-summary-report'
         }),
-
+        MockComponent({
+          inputs: ['alert', 'mapBounds'],
+          selector: 'shake-alert-map'
+        }),
         MockPipe('sharedDateTime')
       ]
     }).compileComponents();

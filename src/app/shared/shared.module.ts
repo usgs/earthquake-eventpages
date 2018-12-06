@@ -25,6 +25,7 @@ import { DyfiResponsePopupComponent } from './dyfi-response-popup/dyfi-response-
 import { EventTitlePipe } from './event-title.pipe';
 import { FeRegionComponent } from './fe-region/fe-region.component';
 import { FiniteFaultMapPopupComponent } from './finite-fault-map-popup/finite-fault-map-popup.component';
+import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
 import { GetMapBoundsPipe } from './get-map-bounds.pipe';
 import { GetProductPipe } from './get-product.pipe';
 import { GetProductsPipe } from './get-products.pipe';
@@ -32,6 +33,8 @@ import { GroundFailureOverlaysPipe } from './ground-failure-overlays.pipe';
 import { HasProductPipe } from './has-product.pipe';
 import { InteractiveMapBoundsPipe } from './interactive-map-bounds.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
+import { IsActualEventPipe } from './is-actual-event.pipe';
+import { IsScenarioEventPipe } from './is-scenario-event.pipe';
 import { KeysPipe } from './keys.pipe';
 import { LinkProductComponent } from './link-product/link-product.component';
 import { LocationPipe } from './location.pipe';
@@ -62,10 +65,7 @@ import { TensorPipe } from './tensor.pipe';
 import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 import { UnitsPipe } from './units.pipe';
-import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
 import { WindowRef } from './window-ref-wrapper';
-import { IsActualEventPipe } from './is-actual-event.pipe';
-import { IsScenarioEventPipe } from './is-scenario-event.pipe';
 
 @NgModule({
   declarations: [
