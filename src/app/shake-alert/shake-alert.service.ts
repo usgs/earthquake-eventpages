@@ -21,6 +21,7 @@ export class ShakeAlertService {
    *     shake-alert product
    */
   getSummary(product: any) {
+    console.log(product);
     if (!product || !product.contents['summary.json']) {
       this.summary$.next(null);
       return;

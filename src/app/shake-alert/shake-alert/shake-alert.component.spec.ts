@@ -22,7 +22,7 @@ describe('ShakeAlertComponent', () => {
     };
 
     const shakeAlertServiceStub = {
-      getSummary: jasmine.createSpy('shakeAlertService::getSummary'),
+      getSummary: () => null,
       summary$: of(null)
     };
 
@@ -54,5 +54,17 @@ describe('ShakeAlertComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('onProduct', () => {
+    it('should call getSummary', () => {
+      const product = {};
+      const spy = spyOn(component.shakeAlertService, 'getSummary');
+
+      component.onProduct(product);
+
+      expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith(product);
+    });
   });
 });
