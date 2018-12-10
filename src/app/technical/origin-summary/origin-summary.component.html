@@ -1,7 +1,6 @@
 <h2>Origin</h2>
 <div class="horizontal-scrolling">
-  <mat-table [dataSource]="this.products"
-    class="os-table">
+  <mat-table [dataSource]="this.products" class="os-table">
     <!-- render order is defined by columnsToDisplay -->
     <mat-header-row *matHeaderRowDef="this.columnsToDisplay"></mat-header-row>
     <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay">
@@ -9,36 +8,29 @@
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>
-      <mat-cell *matCellDef="let product"
-        [class.unpreferred]="product !== products[0]">
+      <mat-cell
+        *matCellDef="let product"
+        [class.unpreferred]="product !== products[0]"
+      >
         <ng-container *ngIf="product === products[0]">
           <shared-preferred-check [title]="'Preferred Origin'">
           </shared-preferred-check>
         </ng-container>
-        <a [routerLink]="['/', event?.id, 'origin']"
-          [queryParams]="{ source: product?.source, code: product?.code }">
+        <a
+          [routerLink]="['/', event?.id, 'origin']"
+          [queryParams]="{ source: product?.source, code: product?.code }"
+        >
           {{ product?.properties?.eventsource?.toUpperCase() }}
         </a>
       </mat-cell>
     </ng-container>
-    'catalog',
-    'magnitude',
-    'time',
-    'depth',
-    'status',
-    'location',
-    'source'
     <ng-container matColumnDef="magnitude">
       <mat-header-cell *matHeaderCellDef>
         <abbr title="Magnitude">Mag</abbr>
       </mat-header-cell>
       <mat-cell *matCellDef="let product">
-        {{
-        formatterService.number(
-        product?.properties?.magnitude,
-        1)
-        }}
-        {{ product?.properties['magnitude-type'] }}
+        {{ formatterService.number(product?.properties?.magnitude, 1) }}
+        {{ (product?.properties)["magnitude-type"] }}
       </mat-cell>
     </ng-container>
 
@@ -52,28 +44,30 @@
     <ng-container matColumnDef="depth">
       <mat-header-cell *matHeaderCellDef>Depth</mat-header-cell>
       <mat-cell *matCellDef="let product">
-        {{ formatterService.depth(product?.properties?.depth, 'km') }}
+        {{ formatterService.depth(product?.properties?.depth, "km") }}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef>
-        Review Status
-      </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Review Status </mat-header-cell>
       <mat-cell *matCellDef="let product">
-        {{ (product?.properties['review-status'] || 'automatic').toUpperCase()
+        {{
+          ((product?.properties)["review-status"] || "automatic").toUpperCase()
         }}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="location">
-      <mat-header-cell *matHeaderCellDef>
-        Location
-      </mat-header-cell>
-      <mat-cell *matCellDef="let product"
-        [innerHTML]="formatterService.location(
+      <mat-header-cell *matHeaderCellDef> Location </mat-header-cell>
+      <mat-cell
+        *matCellDef="let product"
+        [innerHTML]="
+          formatterService.location(
             product?.properties?.latitude,
-            product?.properties?.longitude)">
+            product?.properties?.longitude
+          )
+        "
+      >
       </mat-cell>
     </ng-container>
 
@@ -84,6 +78,5 @@
         </shared-product-attribution>
       </mat-cell>
     </ng-container>
-
   </mat-table>
 </div>
