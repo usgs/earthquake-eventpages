@@ -1,26 +1,36 @@
-<basic-pin [link]="link"
-  [product]="product">
-
+<basic-pin [link]="link" [product]="product">
   <div card-title>
     <a [routerLink]="link">{{ title }}</a>
     <shared-alert-level [alert]="product?.properties?.alertlevel">
     </shared-alert-level>
   </div>
 
-  <ng-container *ngIf="!pending; else isPending">
-    <figure *ngIf="product | sharedProductContent:'alertecon_smaller.png'
-            as content; else noAlertecon">
-      <img class="alert-histogram"
+  <ng-container *ngIf="!pending; else: isPending">
+    <figure
+      *ngIf="
+        (product | sharedProductContent: 'alertecon_smaller.png') as content;
+        else: noAlertecon
+      "
+    >
+      <img
+        class="alert-histogram"
         src="{{ content.url }}"
-        alt="Economic Alert Histogram" />
+        alt="Economic Alert Histogram"
+      />
       <figcaption>Estimated Economic Losses</figcaption>
     </figure>
 
-    <figure *ngIf="product | sharedProductContent:'alertfatal_smaller.png'
-          as content; else noAlertFatal ">
-      <img class="alert-histogram"
+    <figure
+      *ngIf="
+        (product | sharedProductContent: 'alertfatal_smaller.png') as content;
+        else: noAlertFatal
+      "
+    >
+      <img
+        class="alert-histogram"
         src="{{ content.url }}"
-        alt="Fatality Alert Histogram" />
+        alt="Fatality Alert Histogram"
+      />
       <figcaption>Estimated Fatalities</figcaption>
     </figure>
 
@@ -29,15 +39,14 @@
     </ng-template>
 
     <ng-template #noAlertFatal>
-      <p class="alert error">Economic Fatalities Information not specified.</p>
+      <p class="alert error">Fatalities Information not specified.</p>
     </ng-template>
   </ng-container>
 
   <ng-template #isPending>
-    <p class="alert info">Alert information for this event is currently under
-      review and will be available soon. Thank
-      you for your patience.</p>
+    <p class="alert info">
+      Alert information for this event is currently under review and will be
+      available soon. Thank you for your patience.
+    </p>
   </ng-template>
-
-
 </basic-pin>
