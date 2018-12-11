@@ -20,6 +20,7 @@ export function xmlToJson(xml: string | Node): any {
   }
 
   if (xml.nodeType === 3) {
+    // This is a Text node
     if (xml.nodeValue.trim() === '') {
       // ignore whitespace-only text nodes
       return null;
@@ -28,7 +29,9 @@ export function xmlToJson(xml: string | Node): any {
   }
 
   if (xml.nodeType === 1) {
-    const attrs = xml.attributes;
+    // This is an Element node
+    const el = xml as Element;
+    const attrs = el.attributes;
     for (let i = 0, len = attrs.length; i < len; i++) {
       const attr = attrs.item(i);
       obj[attr.nodeName] = attr.nodeValue;
