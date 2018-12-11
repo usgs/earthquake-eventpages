@@ -1,12 +1,12 @@
 <header class="product-page-header">
   <!-- custom module header content -->
+  <ng-content></ng-content>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
-      <mat-panel-title><ng-content></ng-content></mat-panel-title>
-      <mat-panel-description>
+      <mat-panel-title>
         <shared-summary-link [productType]="product?.type" [event]="event">
         </shared-summary-link>
-      </mat-panel-description>
+      </mat-panel-title>
     </mat-expansion-panel-header>
 
     <ng-content select="[summary-component]"></ng-content>
