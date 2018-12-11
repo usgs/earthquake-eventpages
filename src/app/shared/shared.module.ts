@@ -69,6 +69,10 @@ import { WindowRef } from './window-ref-wrapper';
 import { DyfiSummaryComponent } from '@shared/dyfi-summary/dyfi-summary.component';
 import { PagerSummaryComponent } from '@shared/pager-summary/pager-summary.component';
 import { ShakemapSummaryComponent } from '@shared/shakemap-summary/shakemap-summary.component';
+import { FiniteFaultSummaryComponent } from '@shared/finite-fault-summary/finite-fault-summary.component';
+import { FocalMechanismSummaryComponent } from '@shared/focal-mechanism-summary/focal-mechanism-summary.component';
+import { MomentTensorSummaryComponent } from '@shared/moment-tensor-summary/moment-tensor-summary.component';
+import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +92,8 @@ import { ShakemapSummaryComponent } from '@shared/shakemap-summary/shakemap-summ
     FeRegionComponent,
     FiniteFaultMapPopupComponent,
     FiniteFaultOverlaysPipe,
+    FiniteFaultSummaryComponent,
+    FocalMechanismSummaryComponent,
     GetMapBoundsPipe,
     GetProductPipe,
     GetProductsPipe,
@@ -103,11 +109,13 @@ import { ShakemapSummaryComponent } from '@shared/shakemap-summary/shakemap-summ
     MapComponent,
     MmiComponent,
     MobileCheckPipe,
+    MomentTensorSummaryComponent,
     NearbySeismicityLinkPipe,
     NodalPlanesComponent,
     NumberPipe,
     NumberWithSeparatorPipe,
     OrderByPipe,
+    OriginSummaryComponent,
     PagerSummaryComponent,
     PreferredCheckComponent,
     ProductAttributionComponent,
@@ -149,6 +157,8 @@ import { ShakemapSummaryComponent } from '@shared/shakemap-summary/shakemap-summ
     DyfiSummaryComponent,
     EventTitlePipe,
     FeRegionComponent,
+    FiniteFaultSummaryComponent,
+    FocalMechanismSummaryComponent,
     GetMapBoundsPipe,
     GetProductPipe,
     GetProductsPipe,
@@ -165,11 +175,13 @@ import { ShakemapSummaryComponent } from '@shared/shakemap-summary/shakemap-summ
     MatIconModule,
     MmiComponent,
     MobileCheckPipe,
+    MomentTensorSummaryComponent,
     NearbySeismicityLinkPipe,
     NodalPlanesComponent,
     NumberPipe,
     NumberWithSeparatorPipe,
     OrderByPipe,
+    OriginSummaryComponent,
     PagerSummaryComponent,
     PreferredCheckComponent,
     ProductAttributionComponent,
