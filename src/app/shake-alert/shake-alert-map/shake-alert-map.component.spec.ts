@@ -17,7 +17,7 @@ describe('ShakeAlertMapComponent', () => {
           inputs: ['overlays', 'bounds', 'showScaleControl'],
           selector: 'shared-map'
         }),
-        MockPipe('shakeAlertMapOverlays')
+        MockPipe('shakeAlertOverlays')
       ]
     }).compileComponents();
   }));
