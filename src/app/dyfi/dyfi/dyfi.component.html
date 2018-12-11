@@ -1,56 +1,85 @@
 <product-page productType="dyfi">
-
   <ng-container header>
     <h3>Did You Feel It?</h3>
-    <a [routerLink]="'../tellus'"
+    <a
+      [routerLink]="'../tellus'"
       class="tell-us-link"
-      queryParamsHandling="preserve">
+      queryParamsHandling="preserve"
+    >
       Felt Report - Tell Us!
     </a>
   </ng-container>
+  <ng-container
+    *ngIf="(eventService?.event$ | async) as event"
+    summary-component
+  >
+    <impact-dyfi-summary
+      [event]="event"
+      [products]="event | sharedGetProducts: 'dyfi'"
+    >
+    </impact-dyfi-summary>
+  </ng-container>
 
-  <ng-container *ngIf="eventService.product$ | async as dyfi">
+  <ng-container *ngIf="(eventService.product$ | async) as dyfi">
     <mdc-tab-bar-scroller>
       <mdc-tab-bar-scroll-back>
         <mdc-icon>navigate_before</mdc-icon>
       </mdc-tab-bar-scroll-back>
       <mdc-tab-bar-scroll-frame>
         <nav mdc-tab-bar>
-          <a *ngIf="dyfi | sharedProductContent:dyfi.code + '_ciim_geo.jpg'"
+          <a
+            *ngIf="(dyfi | sharedProductContent: dyfi.code + '_ciim_geo.jpg')"
             mdc-tab
             mdcRouter
             [routerLink]="'./intensity'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             Intensity
           </a>
-          <a *ngIf="dyfi | sharedProductContent:dyfi.code + '_ciim.jpg'"
+          <a
+            *ngIf="(dyfi | sharedProductContent: dyfi.code + '_ciim.jpg')"
             mdc-tab
             mdcRouter
             [routerLink]="'./zip'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             ZIP Map
           </a>
-          <a *ngIf="dyfi | sharedProductContent:
-              'dyfi_plot_atten.json':dyfi.code + '_plot_atten.jpg'"
+          <a
+            *ngIf="
+              (dyfi
+                | sharedProductContent
+                  : 'dyfi_plot_atten.json'
+                  : dyfi.code + '_plot_atten.jpg')
+            "
             mdc-tab
             mdcRouter
             [routerLink]="'./intensity-vs-distance'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             Intensity Vs. Distance
           </a>
-          <a *ngIf="dyfi | sharedProductContent:
-          'dyfi_plot_numresp.json':dyfi.code + '_plot_numresp.jpg'"
+          <a
+            *ngIf="
+              (dyfi
+                | sharedProductContent
+                  : 'dyfi_plot_numresp.json'
+                  : dyfi.code + '_plot_numresp.jpg')
+            "
             mdc-tab
             mdcRouter
             [routerLink]="'./responses-vs-time'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             Responses Vs. Time
           </a>
-          <a *ngIf="dyfi | sharedProductContent:'cdi_zip.xml'"
+          <a
+            *ngIf="(dyfi | sharedProductContent: 'cdi_zip.xml')"
             mdc-tab
             mdcRouter
             [routerLink]="'./responses'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             DYFI Responses
           </a>
         </nav>
@@ -66,11 +95,11 @@
   <h3>For More Information</h3>
   <ul>
     <li>
-      <a href="https://earthquake.usgs.gov/data/dyfi/">Scientific Background for Did You Feel It?</a>
+      <a href="https://earthquake.usgs.gov/data/dyfi/"
+        >Scientific Background for Did You Feel It?</a
+      >
     </li>
   </ul>
 
-  <ng-container footer>
-  </ng-container>
-
+  <ng-container footer> </ng-container>
 </product-page>
