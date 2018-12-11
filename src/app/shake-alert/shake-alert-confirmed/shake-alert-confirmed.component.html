@@ -47,13 +47,7 @@
         <ng-container
           *ngIf="alert.features[0].geometry.coordinates; let coords"
         >
-          <shake-alert-map
-            [alert]="alert"
-            [mapBounds]="[
-              [coords[1] - 10, coords[0] + 10],
-              [coords[1] + 10, coords[0] - 10]
-            ]"
-          ></shake-alert-map>
+          <shake-alert-map [alert]="alert"></shake-alert-map>
         </ng-container>
       </li>
     </ul>

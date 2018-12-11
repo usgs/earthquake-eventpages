@@ -10,7 +10,6 @@ import { ShakeAlertComponent } from './shake-alert/shake-alert.component';
 import { ShakeAlertConfirmedComponent } from './shake-alert-confirmed/shake-alert-confirmed.component';
 import { ShakeAlertDeletedComponent } from './shake-alert-deleted/shake-alert-deleted.component';
 import { ShakeAlertMapComponent } from './shake-alert-map/shake-alert-map.component';
-import { ShakeAlertMapOverlaysPipe } from './shake-alert-map/shake-alert-map-overlays.pipe';
 import { ShakeAlertMissedComponent } from './shake-alert-missed/shake-alert-missed.component';
 import { ShakeAlertNearbyCitiesComponent } from './shake-alert-nearby-cities/shake-alert-nearby-cities.component';
 import { ShakeAlertPendingComponent } from './shake-alert-pending/shake-alert-pending.component';
@@ -23,7 +22,6 @@ import { ShakeAlertService } from './shake-alert.service';
     ShakeAlertComponent,
     ShakeAlertConfirmedComponent,
     ShakeAlertDeletedComponent,
-    ShakeAlertMapOverlaysPipe,
     ShakeAlertMissedComponent,
     ShakeAlertNearbyCitiesComponent,
     ShakeAlertPendingComponent,
