@@ -1,13 +1,19 @@
 <!-- productType attribute defines type of product to load -->
-<product-page productType="shakemap"
-  [showVersion]="true">
-
+<product-page productType="shakemap" [showVersion]="true">
   <!-- container with header attribute is added before attribution -->
-  <ng-container header>
-    <h3>ShakeMap</h3>
+  <ng-container header> <h3>ShakeMap</h3> </ng-container>
+  <ng-container
+    *ngIf="(eventService?.event$ | async) as event"
+    summary-component
+  >
+    <impact-shakemap-summary
+      [event]="event"
+      [products]="event | sharedGetProducts: 'shakemap'"
+    >
+    </impact-shakemap-summary>
   </ng-container>
 
-  <ng-container *ngIf="eventService?.product$ | async; let shakemap">
+  <ng-container *ngIf="(eventService?.product$ | async); let shakemap">
     <mdc-tab-bar-scroller>
       <mdc-tab-bar-scroll-back>
         <mdc-icon>navigate_before</mdc-icon>
@@ -15,53 +21,86 @@
       <mdc-tab-bar-scroll-frame>
         <!-- routes/components in ../origin-routing.module.ts -->
         <nav mdc-tab-bar>
-          <a *ngIf="shakemap | sharedProductContent:
-              'download/cont_mi.json':'download/intensity.jpg'"
+          <a
+            *ngIf="
+              (shakemap
+                | sharedProductContent
+                  : 'download/cont_mi.json'
+                  : 'download/intensity.jpg')
+            "
             mdc-tab
             mdcRouter
             [routerLink]="'./intensity'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             Intensity
           </a>
-          <a *ngIf="shakemap | sharedProductContent:
-              'download/cont_pga.json':'download/pga.jpg'"
+          <a
+            *ngIf="
+              (shakemap
+                | sharedProductContent
+                  : 'download/cont_pga.json'
+                  : 'download/pga.jpg')
+            "
             mdc-tab
             mdcRouter
             [routerLink]="'./pga'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             <abbr title="Peak Ground Acceleration">PGA</abbr>
           </a>
-          <a *ngIf="shakemap | sharedProductContent:
-              'download/cont_pgv.json':'download/pgv.jpg'"
+          <a
+            *ngIf="
+              (shakemap
+                | sharedProductContent
+                  : 'download/cont_pgv.json'
+                  : 'download/pgv.jpg')
+            "
             mdc-tab
             mdcRouter
             [routerLink]="'./pgv'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             <abbr title="Peak Ground Velocity">PGV</abbr>
           </a>
-          <a *ngIf="shakemap | sharedProductContent:
-              'download/cont_psa03.json':'download/cont_psa10.json':
-              'download/cont_psa30.json':'download/cont_psa0p3.json':
-              'download/cont_psa1p0.json':'download/cont_psa3p0.json':
-              'download/psa03.jpg':'download/psa10.jpg':'download/psa30.jpg'"
+          <a
+            *ngIf="
+              (shakemap
+                | sharedProductContent
+                  : 'download/cont_psa03.json'
+                  : 'download/cont_psa10.json'
+                  : 'download/cont_psa30.json'
+                  : 'download/cont_psa0p3.json'
+                  : 'download/cont_psa1p0.json'
+                  : 'download/cont_psa3p0.json'
+                  : 'download/psa03.jpg'
+                  : 'download/psa10.jpg'
+                  : 'download/psa30.jpg')
+            "
             mdc-tab
             mdcRouter
             [routerLink]="'./psa'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             <abbr title="Peak Spectral Acceleration">PSA</abbr>
           </a>
-          <a mdc-tab
+          <a
+            mdc-tab
             mdcRouter
             [routerLink]="'./metadata'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             Metadata
           </a>
-          <a  *ngIf="shakemap | sharedProductContent:
-              'download/stationlist.json'"
+          <a
+            *ngIf="
+              (shakemap | sharedProductContent: 'download/stationlist.json')
+            "
             mdc-tab
             mdcRouter
             [routerLink]="'./stations'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             Station List
           </a>
         </nav>
@@ -76,13 +115,9 @@
 
   <h3>For More Information</h3>
   <ul>
-    <li>
-      <a href="https://usgs.github.io/shakemap/">Shakemap Manual</a>
-    </li>
+    <li><a href="https://usgs.github.io/shakemap/">Shakemap Manual</a></li>
   </ul>
 
   <!-- container with footer attribute is added before downloads -->
-  <ng-container footer>
-  </ng-container>
-
+  <ng-container footer> </ng-container>
 </product-page>
