@@ -67,6 +67,9 @@ import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 import { UnitsPipe } from './units.pipe';
 import { WindowRef } from './window-ref-wrapper';
+import { DyfiSummaryComponent } from '@shared/dyfi-summary/dyfi-summary.component';
+import { PagerSummaryComponent } from '@shared/pager-summary/pager-summary.component';
+import { ShakemapSummaryComponent } from '@shared/shakemap-summary/shakemap-summary.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +84,7 @@ import { WindowRef } from './window-ref-wrapper';
     DyfiCounterPipe,
     DyfiOverlaysPipe,
     DyfiResponsePopupComponent,
+    DyfiSummaryComponent,
     EventTitlePipe,
     FeRegionComponent,
     FiniteFaultMapPopupComponent,
@@ -105,6 +109,7 @@ import { WindowRef } from './window-ref-wrapper';
     NumberPipe,
     NumberWithSeparatorPipe,
     OrderByPipe,
+    PagerSummaryComponent,
     PreferredCheckComponent,
     ProductAttributionComponent,
     ProductContentPipe,
@@ -115,6 +120,7 @@ import { WindowRef } from './window-ref-wrapper';
     RoundUpPipe,
     ShakeAlertOverlaysPipe,
     ShakemapOverlaysPipe,
+    ShakemapSummaryComponent,
     SignificantFigurePipe,
     StationComponent,
     StationFlagComponent,
@@ -142,6 +148,7 @@ import { WindowRef } from './window-ref-wrapper';
     DegreesPipe,
     DownloadDialogComponent,
     DyfiCounterPipe,
+    DyfiSummaryComponent,
     EventTitlePipe,
     FeRegionComponent,
     GetMapBoundsPipe,
@@ -165,6 +172,7 @@ import { WindowRef } from './window-ref-wrapper';
     NumberPipe,
     NumberWithSeparatorPipe,
     OrderByPipe,
+    PagerSummaryComponent,
     PreferredCheckComponent,
     ProductAttributionComponent,
     ProductContentPipe,
@@ -175,6 +183,7 @@ import { WindowRef } from './window-ref-wrapper';
     RoundUpPipe,
     ShakeAlertOverlaysPipe,
     ShakemapOverlaysPipe,
+    ShakemapSummaryComponent,
     SignificantFigurePipe,
     StationComponent,
     StatusPipe,
