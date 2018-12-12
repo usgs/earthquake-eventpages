@@ -1,20 +1,24 @@
 <!-- productType attribute defines type of product to load -->
-<product-page productType="ground-failure"
-  [showVersion]="true">
-
+<product-page
+  productType="ground-failure"
+  [showAllProducts]="false"
+  [showVersion]="true"
+>
   <!-- container with header attribute is added before attribution -->
   <ng-container header>
     <h2>Ground Failure</h2>
 
-    <p class="alert warning"
-      *ngIf="(eventService.product$ | async | sharedStatus) === 'WARNING'">
-      ShakeMap shaking estimates used by Ground Failure are preliminary and
-      will be updated as data arrive from a variety of distributed sources.
-      Check for subsequent updates.
+    <p
+      class="alert warning"
+      *ngIf="(eventService.product$ | async | sharedStatus) === 'WARNING'"
+    >
+      ShakeMap shaking estimates used by Ground Failure are preliminary and will
+      be updated as data arrive from a variety of distributed sources. Check for
+      subsequent updates.
     </p>
   </ng-container>
 
-  <ng-container *ngIf="eventService.product$ | async">
+  <ng-container *ngIf="(eventService.product$ | async)">
     <mdc-tab-bar-scroller>
       <mdc-tab-bar-scroll-back>
         <mdc-icon>navigate_before</mdc-icon>
@@ -22,16 +26,20 @@
       <mdc-tab-bar-scroll-frame>
         <!-- routes/components in ../ground-failure-routing.module.ts -->
         <nav mdc-tab-bar>
-          <a mdc-tab
+          <a
+            mdc-tab
             mdcRouter
             [routerLink]="'./summary'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             Summary
           </a>
-          <a mdc-tab
+          <a
+            mdc-tab
             mdcRouter
             [routerLink]="'./about'"
-            queryParamsHandling="preserve">
+            queryParamsHandling="preserve"
+          >
             About
           </a>
         </nav>
@@ -44,27 +52,31 @@
     <router-outlet></router-outlet>
   </ng-container>
 
-  <ng-container *ngIf="eventService.product$ | async as product"
-    footer>
+  <ng-container *ngIf="(eventService.product$ | async) as product" footer>
     <p>
-      Due to local factors and model limitations, <strong>ground failure may
-        still occur when alert levels indicate little or no hazard.</strong>
-      Refer to <a href="/data/ground-failure/background.php">Ground Failure
-        Background</a> for more information.
+      Due to local factors and model limitations,
+      <strong
+        >ground failure may still occur when alert levels indicate little or no
+        hazard.</strong
+      >
+      Refer to
+      <a href="/data/ground-failure/background.php"
+        >Ground Failure Background</a
+      >
+      for more information.
     </p>
     <p>
       Results are based on ground-motion estimates from
       <a [routerLink]="'../shakemap'">ShakeMap</a> version
-      {{
-      product | sharedProductProperty:'shakemap-version'
-      }}<ng-container *ngIf="product | pointSource;">(point source)</ng-container>.
-      The extent of shaking and ground-failure estimates generally improve as
+      {{ product | sharedProductProperty: 'shakemap-version'
+      }}<ng-container *ngIf="(product | pointSource)"
+        >(point source)</ng-container
+      >. The extent of shaking and ground-failure estimates generally improve as
       more details are incorporated into ShakeMap.
-      <ng-container *ngIf="product | pointSource">
-        ShakeMap is currently approximating this earthquake as a
-        point source, and the mapped extent of ground failure commonly
-        changes significantly when a fault model is added, especially for
-        larger earthquakes.
+      <ng-container *ngIf="(product | pointSource)">
+        ShakeMap is currently approximating this earthquake as a point source,
+        and the mapped extent of ground failure commonly changes significantly
+        when a fault model is added, especially for larger earthquakes.
       </ng-container>
     </p>
   </ng-container>

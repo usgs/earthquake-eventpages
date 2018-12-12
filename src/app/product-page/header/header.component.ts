@@ -27,6 +27,8 @@ export class HeaderComponent {
   @Input()
   product: any;
   @Input()
+  showAllProducts: boolean;
+  @Input()
   showVersion: boolean;
 
   /**
