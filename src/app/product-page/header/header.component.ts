@@ -30,23 +30,6 @@ export class HeaderComponent {
   showVersion: boolean;
 
   /**
-   * Determine whether or not the product is preferred
-   *
-   * @param event {any}
-   *    Event with all products
-   *
-   * @param product {any}
-   *    product to check for preferredness
-   */
-  isPreferred(event: any, product: any): boolean {
-    try {
-      return product.id === event.properties.products[product.type][0].id;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  /**
    * Determine if the product has been reveiewd by scientists
    *
    * @param product

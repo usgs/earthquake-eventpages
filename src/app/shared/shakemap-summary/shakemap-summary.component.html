@@ -11,11 +11,8 @@
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef> Catalog </mat-header-cell>
-      <mat-cell
-        *matCellDef="let shakemap"
-        [class.unpreferred]="shakemap !== products[0]"
-      >
-        <ng-container *ngIf="shakemap === products[0]">
+      <mat-cell *matCellDef="let shakemap">
+        <ng-container *ngIf="shakemap.preferred">
           <shared-preferred-check [title]="'Preferred Shakemap'">
           </shared-preferred-check>
         </ng-container>

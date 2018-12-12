@@ -43,24 +43,6 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('isPreferred', () => {
-    const product = {
-      id: 1,
-      type: 'origin'
-    };
-    const event = {
-      properties: {
-        products: {
-          origin: [product]
-        }
-      }
-    };
-
-    expect(component.isPreferred(event, product)).toBeTruthy();
-    expect(component.isPreferred(event, { type: 'phase-data' })).toBeFalsy();
-    expect(component.isPreferred(event, { id: 2, type: 'origin' })).toBeFalsy();
-  });
-
   it('isReviewed', () => {
     const status = 'reviewed';
     const product = {
