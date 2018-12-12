@@ -2,7 +2,13 @@
   <mat-table [dataSource]="this.products" class="os-table">
     <!-- render order is defined by columnsToDisplay -->
     <mat-header-row *matHeaderRowDef="this.columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay">
+    <mat-row
+      *matRowDef="let product; columns: this.columnsToDisplay"
+      class="link"
+      [class.selected]="product === event.product"
+      [routerLink]="['/', event?.id, 'origin']"
+      [queryParams]="{ source: product?.source, code: product?.code }"
+    >
     </mat-row>
 
     <ng-container matColumnDef="catalog">
@@ -15,12 +21,7 @@
           <shared-preferred-check [title]="'Preferred Origin'">
           </shared-preferred-check>
         </ng-container>
-        <a
-          [routerLink]="['/', event?.id, 'origin']"
-          [queryParams]="{ source: product?.source, code: product?.code }"
-        >
-          {{ product?.properties?.eventsource?.toUpperCase() }}
-        </a>
+        {{ product?.properties?.eventsource?.toUpperCase() }}
       </mat-cell>
     </ng-container>
     'catalog', 'magnitude', 'time', 'depth', 'status', 'location', 'source'

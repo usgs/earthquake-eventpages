@@ -1,7 +1,13 @@
 <div class="horizontal-scrolling">
   <mat-table [dataSource]="products" class="pager-table">
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+    <mat-row
+      *matRowDef="let product; columns: this.columnsToDisplay"
+      class="link"
+      [class.selected]="product === event.product"
+      [routerLink]="['/', event?.id, 'pager']"
+      [queryParams]="{ source: product?.source, code: product?.code }"
+    ></mat-row>
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef> Catalog </mat-header-cell>
@@ -10,12 +16,7 @@
           <shared-preferred-check [title]="'Preferred LossPager'">
           </shared-preferred-check>
         </ng-container>
-        <a
-          [routerLink]="['/', event?.id, 'pager']"
-          [queryParams]="{ source: pager?.source, code: pager?.code }"
-        >
-          {{ pager?.properties?.eventsource?.toUpperCase() }}
-        </a>
+        {{ pager?.properties?.eventsource?.toUpperCase() }}
       </mat-cell>
     </ng-container>
 
