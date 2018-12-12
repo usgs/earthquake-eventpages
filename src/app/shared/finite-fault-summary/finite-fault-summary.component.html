@@ -1,6 +1,12 @@
 <mat-table [dataSource]="products">
   <mat-header-row *matHeaderRowDef="this.columnsToDisplay"></mat-header-row>
-  <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay">
+  <mat-row
+    *matRowDef="let product; columns: this.columnsToDisplay"
+    class="link"
+    [class.selected]="product === event.product"
+    [routerLink]="['/', event?.id, 'finite-fault']"
+    [queryParams]="{ source: product?.source, code: product?.code }"
+  >
   </mat-row>
 
   <ng-container matColumnDef="catalog">
@@ -13,13 +19,7 @@
         <shared-preferred-check [title]="'Preferred Finite Fault'">
         </shared-preferred-check>
       </ng-container>
-
-      <a
-        [routerLink]="['/', event?.id, 'finite-fault']"
-        [queryParams]="{ source: product?.source, code: product?.code }"
-      >
-        {{ product | sharedProductProperty: 'eventsource' | uppercase }}
-      </a>
+      {{ product | sharedProductProperty: 'eventsource' | uppercase }}
     </mat-cell>
   </ng-container>
 

@@ -1,21 +1,22 @@
 <div class="horizontal-scrolling">
   <mat-table [dataSource]="this.tensors" class="fc-summary-table">
     <mat-header-row *matHeaderRowDef="this.columnsToDisplay"> </mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay">
+    <mat-row
+      *matRowDef="let tensor; columns: this.columnsToDisplay"
+      class="link"
+      [class.selected]="tensor === event.product"
+      [routerLink]="['/', event?.id, 'focal-mechanism']"
+      [queryParams]="{
+        source: tensor?.product?.source,
+        code: tensor?.product?.code
+      }"
+    >
     </mat-row>
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>
       <mat-cell *matCellDef="let tensor" class="unpreferred">
-        <a
-          [routerLink]="['/', event?.id, 'focal-mechanism']"
-          [queryParams]="{
-            source: tensor?.product?.source,
-            code: tensor?.product?.code
-          }"
-        >
-          {{ tensor.product?.properties?.eventsource?.toUpperCase() }}
-        </a>
+        {{ tensor.product?.properties?.eventsource?.toUpperCase() }}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="mechanism">

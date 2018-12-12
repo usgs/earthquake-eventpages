@@ -1,7 +1,13 @@
 <div class="horizontal-scrolling">
   <mat-table [dataSource]="products" class="dyfi-table">
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+    <mat-row
+      *matRowDef="let product; columns: this.columnsToDisplay"
+      class="link"
+      [class.selected]="product === event.product"
+      [routerLink]="['/', event?.id, 'dyfi']"
+      [queryParams]="{ source: product?.source, code: product?.code }"
+    ></mat-row>
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef> Catalog </mat-header-cell>
@@ -10,12 +16,7 @@
           <shared-preferred-check [title]="'Preferred DYFI'">
           </shared-preferred-check>
         </ng-container>
-        <a
-          [routerLink]="['/', event?.id, 'dyfi']"
-          [queryParams]="{ source: dyfi?.source, code: dyfi?.code }"
-        >
-          {{ dyfi?.properties?.eventsource | uppercase }}
-        </a>
+        {{ dyfi?.properties?.eventsource | uppercase }}
       </mat-cell>
     </ng-container>
 
