@@ -4,7 +4,7 @@
     <mat-row
       *matRowDef="let tensor; columns: this.columnsToDisplay"
       class="link"
-      [class.selected]="tensor === event.product"
+      [class.selected]="tensor.product === event.product"
       [routerLink]="['/', event?.id, 'focal-mechanism']"
       [queryParams]="{
         source: tensor?.product?.source,
@@ -15,8 +15,12 @@
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>
-      <mat-cell *matCellDef="let tensor" class="unpreferred">
-        {{ tensor.product?.properties?.eventsource?.toUpperCase() }}
+      <mat-cell *matCellDef="let tensor">
+        <ng-container *ngIf="tensor?.product?.preferred">
+          <shared-preferred-check [title]="'Preferred Focal Mechanism'">
+          </shared-preferred-check>
+        </ng-container>
+        {{ tensor?.product | sharedProductProperty: 'eventsource' | uppercase }}
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="mechanism">

@@ -12,7 +12,7 @@
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef> Catalog </mat-header-cell>
       <mat-cell *matCellDef="let pager">
-        <ng-container *ngIf="pager === products[0]">
+        <ng-container *ngIf="pager.preeferred">
           <shared-preferred-check [title]="'Preferred LossPager'">
           </shared-preferred-check>
         </ng-container>
