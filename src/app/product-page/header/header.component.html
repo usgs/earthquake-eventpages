@@ -1,11 +1,15 @@
 <header class="product-page-header">
   <!-- custom module header content -->
   <ng-content></ng-content>
-  <mat-expansion-panel>
+  <mat-expansion-panel *ngIf="showAllProducts" class="products">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <shared-summary-link [productType]="product?.type" [event]="event">
-        </shared-summary-link>
+        <a>
+          View all {{ product?.type }} products ({{
+            (event | sharedGetProducts: product?.type).length
+          }}
+          total)
+        </a>
       </mat-panel-title>
     </mat-expansion-panel-header>
 

@@ -31,6 +31,8 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   // query params can override default product source/code to be shown
   queryParamMapSubscription: Subscription;
   @Input()
+  showAllProducts = true;
+  @Input()
   showVersion = false;
 
   constructor(

@@ -1,12 +1,9 @@
 <!-- productType attribute defines type of product to load -->
-<product-page productType="oaf">
-
+<product-page productType="oaf" [showAllProducts]="false">
   <!-- container with header attribute is added before attribution -->
-  <ng-container header>
-    <h2>Aftershock Forecast</h2>
-  </ng-container>
+  <ng-container header> <h2>Aftershock Forecast</h2> </ng-container>
 
-  <ng-container *ngIf="eventService.product$ | async; else noProduct">
+  <ng-container *ngIf="(eventService.product$ | async); else: noProduct">
     <mdc-tab-bar-scroller>
       <mdc-tab-bar-scroll-back>
         <mdc-icon>navigate_before</mdc-icon>
@@ -14,16 +11,28 @@
       <mdc-tab-bar-scroll-frame>
         <!-- routes/components in ../oaf-routing.module.ts -->
         <nav mdc-tab-bar>
-          <a mdc-tab mdcRouter
-              [routerLink]="'./commentary'" queryParamsHandling="preserve">
+          <a
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./commentary'"
+            queryParamsHandling="preserve"
+          >
             Commentary
           </a>
-          <a mdc-tab mdcRouter
-              [routerLink]="'./forecast'" queryParamsHandling="preserve">
+          <a
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./forecast'"
+            queryParamsHandling="preserve"
+          >
             Forecast
           </a>
-          <a mdc-tab mdcRouter
-              [routerLink]="'./model'" queryParamsHandling="preserve">
+          <a
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./model'"
+            queryParamsHandling="preserve"
+          >
             Model
           </a>
         </nav>
@@ -41,7 +50,5 @@
   </ng-template>
 
   <!-- container with footer attribute is added before downloads -->
-  <ng-container footer>
-  </ng-container>
-
+  <ng-container footer> </ng-container>
 </product-page>
