@@ -4,6 +4,7 @@
 @import './app/shared/css/description-table.scss';
 @import './app/shared/css/horizontal-scrolling.scss';
 @import './app/shared/css/mmi-colors.scss';
+@import './app/shared/css/summary-table.scss';
 @import './app/shared/css/station-overlay.scss';
 
 /* Leaflet Styles */
@@ -64,17 +65,4 @@ mat-cell,
 mat-footer-cell,
 mat-header-cell {
   padding: 0 1em;
-}
-
-/* TODO, use colors from template palette */
-mat-row.link:hover {
-  background: rgba(150, 200, 255, 0.05);
-}
-mat-row.selected,
-mat-row.selected:hover {
-  background: rgba(150, 200, 255, 0.2);
-}
-
-mat-row.link {
-  cursor: pointer;
 }

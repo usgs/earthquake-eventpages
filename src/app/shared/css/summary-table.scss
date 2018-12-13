@@ -1,0 +1,19 @@
+/* TODO, use colors from template palette */
+mat-row.selected,
+mat-row.link:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+mat-row.link {
+  cursor: pointer;
+}
+
+shared-preferred-check > abbr.preferred {
+  position: relative;
+
+  > mat-icon {
+    position: absolute;
+    line-height: 0;
+    right: 4px;
+  }
+}
