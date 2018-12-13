@@ -30,10 +30,15 @@ describe('FiniteFaultComponent', () => {
           inputs: ['segments'],
           selector: 'result-table'
         }),
+        MockComponent({
+          inputs: ['event', 'products'],
+          selector: 'technical-finite-fault-summary'
+        }),
 
         MockPipe('createSegments'),
         MockPipe('sharedDegrees'),
         MockPipe('sharedGetMapBounds'),
+        MockPipe('sharedGetProducts'),
         MockPipe('sharedLocation'),
         MockPipe('sharedNumber'),
         MockPipe('sharedProductContent'),

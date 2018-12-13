@@ -30,24 +30,4 @@ describe('SummaryLinkPipe', () => {
       url: '/technical'
     });
   });
-
-  it('returns correct object when more than one product is found', () => {
-    const product = {
-      type: 'origin'
-    };
-
-    const event = {
-      properties: {
-        products: {
-          origin: [{ product }, { product }]
-        }
-      }
-    };
-
-    const pipe = new SummaryLinkPipe();
-    expect(pipe.transform('origin', event)).toEqual({
-      text: 'View alternative origins (2 total)',
-      url: '/technical'
-    });
-  });
 });

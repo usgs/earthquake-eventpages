@@ -6,6 +6,7 @@ import { of } from 'rxjs/observable/of';
 
 import { EventService } from '@core/event.service';
 import { Event } from '../../event';
+import { MockPipe } from '../../mock-pipe';
 import { MomentTensorComponent } from './moment-tensor.component';
 
 describe('MomentTensorComponent', () => {
@@ -41,7 +42,12 @@ describe('MomentTensorComponent', () => {
         MockComponent({
           inputs: ['tensor'],
           selector: 'shared-nodal-planes'
-        })
+        }),
+        MockComponent({
+          inputs: ['event', 'products'],
+          selector: 'technical-moment-tensor-summary'
+        }),
+        MockPipe('sharedGetProducts')
       ],
       imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]

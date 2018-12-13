@@ -1,12 +1,19 @@
 <!-- productType attribute defines type of product to load -->
 <product-page productType="moment-tensor">
-
   <!-- container with header attribute is added before attribution -->
-  <ng-container header>
-    <h2>Moment Tensor</h2>
+  <ng-container header><h2>Moment Tensor</h2></ng-container>
+  <ng-container
+    *ngIf="(eventService?.event$ | async) as event"
+    summary-component
+  >
+    <technical-moment-tensor-summary
+      [event]="event"
+      [products]="event | sharedGetProducts: 'moment-tensor'"
+    >
+    </technical-moment-tensor-summary>
   </ng-container>
 
-  <div class="row" *ngIf="tensor; else noTensor">
+  <div class="row" *ngIf="tensor; else: noTensor">
     <div class="column">
       <moment-tensor-info [tensor]="tensor"></moment-tensor-info>
       <shared-nodal-planes [tensor]="tensor"></shared-nodal-planes>
@@ -14,16 +21,13 @@
     </div>
 
     <div class="column">
-      <shared-beachball
-          [fillColor]="'#6ea8ff'"
-          [tensor]="tensor">
+      <shared-beachball [fillColor]="'#6ea8ff'" [tensor]="tensor">
       </shared-beachball>
     </div>
   </div>
 
   <!-- container with footer attribute is added before downloads -->
   <ng-container footer></ng-container>
-
 </product-page>
 
 <ng-template #noTensor>

@@ -41,6 +41,8 @@ export class Event {
         );
       });
     } catch (e) {}
+
+    this.setPreferred();
   }
 
   /**
@@ -103,5 +105,33 @@ export class Event {
     } catch (e) {
       return false;
     }
+  }
+
+  /**
+   * Set a preferred status on each product
+   *
+   */
+  setPreferred() {
+    const products = this.properties.products;
+    if (!products) {
+      return;
+    }
+    Object.keys(products).forEach(type => {
+      products[type].forEach((product, index) => {
+        let preferred = false;
+        if (index === 0) {
+          // the first product is always preferred
+          preferred = true;
+        } else if (
+          (type === 'finite-fault' || type === 'focal-mechanism') &&
+          product.source === products[type][0].source
+        ) {
+          // a product from the same source as the preferred is also
+          // preferred for finite-fault and focal-mechanism type products
+          preferred = true;
+        }
+        product.preferred = preferred;
+      });
+    });
   }
 }

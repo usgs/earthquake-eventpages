@@ -54,25 +54,7 @@ export class SummaryLinkPipe implements PipeTransform {
     };
 
     const info = TYPES[productType];
-
-    let count, text;
-
-    try {
-      count = event.properties.products[productType].length;
-    } catch (e) {
-      count = 0;
-    }
-
-    text = `Back to ${info.text}`;
-
-    if (count > 1) {
-      text =
-        'View alternative ' +
-        productType.replace('-', ' ') +
-        's (' +
-        count +
-        ' total)';
-    }
+    const text = `Back to ${info.text}`;
 
     return {
       text: text,

@@ -1,32 +1,42 @@
 <header class="product-page-header">
   <!-- custom module header content -->
   <ng-content></ng-content>
+  <mat-expansion-panel *ngIf="showAllProducts" class="products">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <a>
+          View all {{ product?.type }} products ({{
+            (event | sharedGetProducts: product?.type).length
+          }}
+          total)
+        </a>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-  <shared-summary-link [productType]="product?.type"
-    [event]="event">
-  </shared-summary-link>
+    <ng-content select="[summary-component]"></ng-content>
+  </mat-expansion-panel>
 
   <small class="attribution">
     Contributed by
     <shared-product-attribution [product]="product">
     </shared-product-attribution>
-    last updated {{product?.updateTime | dateTime}}
+    last updated {{ product?.updateTime | dateTime }}
   </small>
 
   <ul class="quality-statements">
-    <!-- Do not show preferredness for focal-mechanism products -->
-    <ng-container *ngIf="product && product.type !== 'focal-mechanism';
-        else empty">
-      <ng-container *ngIf="isPreferred(event, product);
-          then preferred else unpreferred">
-      </ng-container>
+    <ng-container
+      *ngIf="product?.preferred; then: preferred; else: unpreferred"
+    >
     </ng-container>
-    <ng-container *ngIf="isReviewed(product); then reviewed else unreviewed">
+    <ng-container *ngIf="isReviewed(product); then: reviewed; else: unreviewed">
     </ng-container>
   </ul>
 
-  <small *ngIf="showVersion && product | sharedProductProperty:'version'
-      as version">
+  <small
+    *ngIf="
+      (showVersion && product | sharedProductProperty: 'version') as version
+    "
+  >
     Version {{ version }}
   </small>
 </header>
@@ -42,13 +52,10 @@
     The data below are <strong>NOT</strong> the most preferred data available
   </li>
 </ng-template>
-<ng-template #empty></ng-template>
 
 <!-- Display Review Status -->
 <ng-template #reviewed>
-  <li class="reviewed">
-    The data below have been reviewed by a scientist
-  </li>
+  <li class="reviewed">The data below have been reviewed by a scientist</li>
 </ng-template>
 <ng-template #unreviewed>
   <li class="unreviewed">

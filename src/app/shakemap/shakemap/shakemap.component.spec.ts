@@ -32,7 +32,16 @@ describe('ShakemapComponent', () => {
         MockComponent({ selector: 'mdc-tab-bar-scroll-back' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-forward' }),
+        MockComponent({
+          inputs: ['event'],
+          selector: 'technical-origin-summary'
+        }),
+        MockComponent({
+          inputs: ['event', 'products'],
+          selector: 'impact-shakemap-summary'
+        }),
 
+        MockPipe('sharedGetProducts'),
         MockPipe('sharedProductContent')
       ],
       imports: [RouterTestingModule],

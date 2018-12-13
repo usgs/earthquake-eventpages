@@ -1,12 +1,19 @@
 <!-- productType attribute defines type of product to load -->
 <product-page productType="origin">
-
   <!-- container with header attribute is added before attribution -->
-  <ng-container header>
-    <h2>Origin</h2>
+  <ng-container header> <h2>Origin</h2> </ng-container>
+  <ng-container
+    *ngIf="(eventService?.event$ | async) as event"
+    summary-component
+  >
+    <technical-origin-summary
+      [event]="event"
+      [products]="event | sharedGetProducts: 'origin'"
+    >
+    </technical-origin-summary>
   </ng-container>
 
-  <ng-container *ngIf="eventService.product$ | async">
+  <ng-container *ngIf="(eventService.product$ | async)">
     <mdc-tab-bar-scroller>
       <mdc-tab-bar-scroll-back>
         <mdc-icon>navigate_before</mdc-icon>
@@ -14,16 +21,28 @@
       <mdc-tab-bar-scroll-frame>
         <!-- routes/components in ../origin-routing.module.ts -->
         <nav mdc-tab-bar>
-          <a mdc-tab mdcRouter
-              [routerLink]="'./detail'" queryParamsHandling="preserve">
+          <a
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./detail'"
+            queryParamsHandling="preserve"
+          >
             Details
           </a>
-          <a mdc-tab mdcRouter
-              [routerLink]="'./phase'" queryParamsHandling="preserve">
+          <a
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./phase'"
+            queryParamsHandling="preserve"
+          >
             Phases
           </a>
-          <a mdc-tab mdcRouter
-              [routerLink]="'./magnitude'" queryParamsHandling="preserve">
+          <a
+            mdc-tab
+            mdcRouter
+            [routerLink]="'./magnitude'"
+            queryParamsHandling="preserve"
+          >
             Magnitudes
           </a>
         </nav>
@@ -38,5 +57,4 @@
 
   <!-- container with footer attribute is added before downloads -->
   <ng-container footer></ng-container>
-
 </product-page>

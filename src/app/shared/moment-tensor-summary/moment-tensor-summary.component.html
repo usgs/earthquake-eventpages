@@ -1,27 +1,33 @@
-<h2>Moment Tensor</h2>
-
 <div class="horizontal-scrolling">
-  <mat-table [dataSource]="this.tensors"
-    class="mt-summary-table">
+  <mat-table [dataSource]="this.tensors" class="mt-summary-table">
     <!-- render order is defined by columnsToDisplay -->
-    <mat-header-row *matHeaderRowDef="this.columnsToDisplay">
-    </mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay">
+    <mat-header-row *matHeaderRowDef="this.columnsToDisplay"> </mat-header-row>
+    <mat-row
+      *matRowDef="let tensor; columns: this.columnsToDisplay"
+      class="link"
+      [class.selected]="tensor.product === event.product"
+      [routerLink]="['/', event?.id, 'moment-tensor']"
+      [queryParams]="{
+        source: tensor?.product?.source,
+        code: tensor?.product?.code
+      }"
+    >
     </mat-row>
 
     <ng-container matColumnDef="catalog">
       <mat-header-cell *matHeaderCellDef>Catalog</mat-header-cell>
-      <mat-cell *matCellDef="let tensor"
-        [class.unpreferred]="tensor !== tensors[0]">
-        <ng-container *ngIf="tensor === tensors[0]">
+      <mat-cell *matCellDef="let tensor">
+        <ng-container *ngIf="tensor.product.preferred">
           <shared-preferred-check [title]="'Preferred Moment Tensor'">
           </shared-preferred-check>
         </ng-container>
-        <a [routerLink]="['/', event?.id, 'moment-tensor']"
+        <a
+          [routerLink]="['/', event?.id, 'moment-tensor']"
           [queryParams]="{
-              source: tensor?.product?.source,
-              code: tensor?.product?.code
-              }">
+            source: tensor?.product?.source,
+            code: tensor?.product?.code
+          }"
+        >
           {{ tensor?.product?.properties?.eventsource?.toUpperCase() }}
         </a>
       </mat-cell>
@@ -30,11 +36,13 @@
     <ng-container matColumnDef="tensor">
       <mat-header-cell *matHeaderCellDef>Tensor</mat-header-cell>
       <mat-cell *matCellDef="let tensor">
-        <shared-beachball [fillColor]="'#6ea8ff'"
+        <shared-beachball
+          [fillColor]="'#6ea8ff'"
           [labelAxes]="false"
           [labelPlanes]="false"
           [size]="30"
-          [tensor]="tensor">
+          [tensor]="tensor"
+        >
         </shared-beachball>
       </mat-cell>
     </ng-container>
@@ -42,8 +50,7 @@
     <ng-container matColumnDef="magnitude">
       <mat-header-cell *matHeaderCellDef>Magnitude</mat-header-cell>
       <mat-cell *matCellDef="let tensor">
-        {{ formatterService.number(tensor?.magnitude, 1) }}
-        {{ tensor?.type }}
+        {{ formatterService.number(tensor?.magnitude, 1) }} {{ tensor?.type }}
       </mat-cell>
     </ng-container>
 
@@ -70,6 +77,5 @@
         </shared-product-attribution>
       </mat-cell>
     </ng-container>
-
   </mat-table>
 </div>

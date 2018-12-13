@@ -5,6 +5,7 @@ import { of } from 'rxjs/observable/of';
 
 import { EventService } from '@core/event.service';
 import { Event } from '../../event';
+import { MockPipe } from '../../mock-pipe';
 import { PagerXmlService } from '../pagerxml.service';
 import { PagerComponent } from './pager.component';
 
@@ -36,11 +37,16 @@ describe('PagerComponent', () => {
         PagerComponent,
 
         MockComponent({
+          inputs: ['event', 'products'],
+          selector: 'impact-pager-summary'
+        }),
+        MockComponent({
           inputs: ['product', 'showVersion'],
           selector: 'product-page'
         }),
         MockComponent({ selector: 'pager-cities', inputs: ['pager'] }),
-        MockComponent({ selector: 'pager-population', inputs: ['pager'] })
+        MockComponent({ selector: 'pager-population', inputs: ['pager'] }),
+        MockPipe('sharedGetProducts')
       ],
       providers: [
         { provide: EventService, useValue: eventServiceStub },

@@ -24,7 +24,10 @@ describe('OafComponent', () => {
       declarations: [
         OafComponent,
 
-        MockComponent({ selector: 'product-page', inputs: ['productType'] }),
+        MockComponent({
+          inputs: ['productType', 'showAllProducts'],
+          selector: 'product-page'
+        }),
         MockComponent({ selector: 'mdc-icon' }),
         MockComponent({ selector: 'mdc-tab-bar-scroller' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-back' }),

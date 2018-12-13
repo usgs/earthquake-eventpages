@@ -67,6 +67,13 @@ import { TextProductComponent } from './text-product/text-product.component';
 import { UncertainValueComponent } from './uncertain-value/uncertain-value.component';
 import { UnitsPipe } from './units.pipe';
 import { WindowRef } from './window-ref-wrapper';
+import { DyfiSummaryComponent } from '@shared/dyfi-summary/dyfi-summary.component';
+import { PagerSummaryComponent } from '@shared/pager-summary/pager-summary.component';
+import { ShakemapSummaryComponent } from '@shared/shakemap-summary/shakemap-summary.component';
+import { FiniteFaultSummaryComponent } from '@shared/finite-fault-summary/finite-fault-summary.component';
+import { FocalMechanismSummaryComponent } from '@shared/focal-mechanism-summary/focal-mechanism-summary.component';
+import { MomentTensorSummaryComponent } from '@shared/moment-tensor-summary/moment-tensor-summary.component';
+import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.component';
 
 @NgModule({
   declarations: [
@@ -81,10 +88,13 @@ import { WindowRef } from './window-ref-wrapper';
     DyfiCounterPipe,
     DyfiOverlaysPipe,
     DyfiResponsePopupComponent,
+    DyfiSummaryComponent,
     EventTitlePipe,
     FeRegionComponent,
     FiniteFaultMapPopupComponent,
     FiniteFaultOverlaysPipe,
+    FiniteFaultSummaryComponent,
+    FocalMechanismSummaryComponent,
     GetMapBoundsPipe,
     GetProductPipe,
     GetProductsPipe,
@@ -100,11 +110,14 @@ import { WindowRef } from './window-ref-wrapper';
     MapComponent,
     MmiComponent,
     MobileCheckPipe,
+    MomentTensorSummaryComponent,
     NearbySeismicityLinkPipe,
     NodalPlanesComponent,
     NumberPipe,
     NumberWithSeparatorPipe,
     OrderByPipe,
+    OriginSummaryComponent,
+    PagerSummaryComponent,
     PreferredCheckComponent,
     ProductAttributionComponent,
     ProductContentPipe,
@@ -115,6 +128,7 @@ import { WindowRef } from './window-ref-wrapper';
     RoundUpPipe,
     ShakeAlertOverlaysPipe,
     ShakemapOverlaysPipe,
+    ShakemapSummaryComponent,
     SignificantFigurePipe,
     StationComponent,
     StationFlagComponent,
@@ -142,8 +156,11 @@ import { WindowRef } from './window-ref-wrapper';
     DegreesPipe,
     DownloadDialogComponent,
     DyfiCounterPipe,
+    DyfiSummaryComponent,
     EventTitlePipe,
     FeRegionComponent,
+    FiniteFaultSummaryComponent,
+    FocalMechanismSummaryComponent,
     GetMapBoundsPipe,
     GetProductPipe,
     GetProductsPipe,
@@ -160,11 +177,14 @@ import { WindowRef } from './window-ref-wrapper';
     MatIconModule,
     MmiComponent,
     MobileCheckPipe,
+    MomentTensorSummaryComponent,
     NearbySeismicityLinkPipe,
     NodalPlanesComponent,
     NumberPipe,
     NumberWithSeparatorPipe,
     OrderByPipe,
+    OriginSummaryComponent,
+    PagerSummaryComponent,
     PreferredCheckComponent,
     ProductAttributionComponent,
     ProductContentPipe,
@@ -175,6 +195,7 @@ import { WindowRef } from './window-ref-wrapper';
     RoundUpPipe,
     ShakeAlertOverlaysPipe,
     ShakemapOverlaysPipe,
+    ShakemapSummaryComponent,
     SignificantFigurePipe,
     StationComponent,
     StatusPipe,

@@ -23,6 +23,10 @@ describe('DyfiComponent', () => {
       declarations: [
         DyfiComponent,
 
+        MockComponent({
+          inputs: ['event', 'products'],
+          selector: 'impact-dyfi-summary'
+        }),
         MockComponent({ inputs: ['productType'], selector: 'product-page' }),
         MockComponent({ selector: 'mdc-icon' }),
         MockComponent({ selector: 'mdc-tab-bar-scroller' }),
@@ -30,6 +34,7 @@ describe('DyfiComponent', () => {
         MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-forward' }),
 
+        MockPipe('sharedGetProducts'),
         MockPipe('sharedProductContent')
       ],
       imports: [RouterTestingModule],
