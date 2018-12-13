@@ -38,7 +38,12 @@ describe('FocalMechanismComponent', () => {
           inputs: ['tensor'],
           selector: 'shared-nodal-planes'
         }),
+        MockComponent({
+          inputs: ['event', 'products'],
+          selector: 'technical-focal-mechanism-summary'
+        }),
 
+        MockPipe('sharedGetProducts'),
         MockPipe('sharedTensor')
       ],
       providers: [{ provide: EventService, useValue: eventServiceStub }]

@@ -22,7 +22,7 @@ describe('GroundFailureComponent', () => {
         GroundFailureComponent,
 
         MockComponent({
-          inputs: ['productType', 'showVersion'],
+          inputs: ['productType', 'showVersion', 'showAllProducts'],
           selector: 'product-page'
         }),
         MockComponent({ selector: 'mdc-icon' }),

@@ -6,6 +6,8 @@ import { MockComponent } from 'ng2-mock-component';
 import { EventService } from '@core/event.service';
 import { OriginComponent } from './origin.component';
 
+import { MockPipe } from '../../mock-pipe';
+
 describe('OriginComponent', () => {
   let component: OriginComponent;
   let fixture: ComponentFixture<OriginComponent>;
@@ -24,7 +26,13 @@ describe('OriginComponent', () => {
         MockComponent({ selector: 'mdc-tab-bar-scroller' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-back' }),
         MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-forward' })
+        MockComponent({ selector: 'mdc-tab-bar-scroll-forward' }),
+        MockComponent({
+          inputs: ['event', 'products'],
+          selector: 'technical-origin-summary'
+        }),
+
+        MockPipe('sharedGetProducts')
       ],
       imports: [RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]

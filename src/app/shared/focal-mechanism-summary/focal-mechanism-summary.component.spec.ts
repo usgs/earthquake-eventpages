@@ -24,7 +24,17 @@ describe('FocalMechanismSummaryComponent', () => {
           inputs: ['product'],
           selector: 'shared-product-attribution'
         }),
-        MockPipe('sharedDegrees')
+        MockComponent({
+          inputs: ['products'],
+          selector: 'technical-focal-mechanism-summary'
+        }),
+        MockComponent({
+          inputs: ['title'],
+          selector: 'shared-preferred-check'
+        }),
+
+        MockPipe('sharedDegrees'),
+        MockPipe('sharedProductProperty')
       ],
       imports: [MatIconModule, MatTableModule, RouterModule],
       providers: []

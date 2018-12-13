@@ -35,7 +35,8 @@ describe('ProductPageComponent', () => {
             'event',
             'product',
             'productType',
-            'showVersion'
+            'showVersion',
+            'showAllProducts'
           ],
           selector: 'product-page-header'
         })

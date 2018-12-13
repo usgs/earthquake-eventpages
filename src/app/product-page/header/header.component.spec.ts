@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatExpansionModule } from '@angular/material';
 
 import { MockComponent } from 'ng2-mock-component';
 
@@ -28,8 +29,10 @@ describe('HeaderComponent', () => {
         }),
 
         MockPipe('dateTime'),
+        MockPipe('sharedGetProducts'),
         MockPipe('sharedProductProperty')
-      ]
+      ],
+      imports: [MatExpansionModule]
     }).compileComponents();
   }));
 
