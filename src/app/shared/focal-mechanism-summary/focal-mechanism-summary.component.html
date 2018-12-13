@@ -20,7 +20,17 @@
           <shared-preferred-check [title]="'Preferred Focal Mechanism'">
           </shared-preferred-check>
         </ng-container>
-        {{ tensor?.product | sharedProductProperty: 'eventsource' | uppercase }}
+        <a
+          [routerLink]="['/', event?.id, 'focal-mechanism']"
+          [queryParams]="{
+            source: tensor?.product?.source,
+            code: tensor?.product?.code
+          }"
+        >
+          {{
+            tensor?.product | sharedProductProperty: 'eventsource' | uppercase
+          }}
+        </a>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="mechanism">

@@ -16,7 +16,12 @@
         <shared-preferred-check [title]="'Preferred Finite Fault'">
         </shared-preferred-check>
       </ng-container>
-      {{ product | sharedProductProperty: 'eventsource' | uppercase }}
+      <a
+        [routerLink]="['/', event?.id, 'finite-fault']"
+        [queryParams]="{ source: product?.source, code: product?.code }"
+      >
+        {{ product | sharedProductProperty: 'eventsource' | uppercase }}
+      </a>
     </mat-cell>
   </ng-container>
 
