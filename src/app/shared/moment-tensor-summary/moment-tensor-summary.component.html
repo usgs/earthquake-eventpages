@@ -21,7 +21,15 @@
           <shared-preferred-check [title]="'Preferred Moment Tensor'">
           </shared-preferred-check>
         </ng-container>
-        {{ tensor?.product?.properties?.eventsource?.toUpperCase() }}
+        <a
+          [routerLink]="['/', event?.id, 'moment-tensor']"
+          [queryParams]="{
+            source: tensor?.product?.source,
+            code: tensor?.product?.code
+          }"
+        >
+          {{ tensor?.product?.properties?.eventsource?.toUpperCase() }}
+        </a>
       </mat-cell>
     </ng-container>
 

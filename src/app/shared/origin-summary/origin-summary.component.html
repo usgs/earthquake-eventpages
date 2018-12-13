@@ -18,7 +18,12 @@
           <shared-preferred-check [title]="'Preferred Origin'">
           </shared-preferred-check>
         </ng-container>
-        {{ product?.properties?.eventsource?.toUpperCase() }}
+        <a
+          [routerLink]="['/', event?.id, 'origin']"
+          [queryParams]="{ source: product?.source, code: product?.code }"
+        >
+          {{ product?.properties?.eventsource?.toUpperCase() }}
+        </a>
       </mat-cell>
     </ng-container>
     'catalog', 'magnitude', 'time', 'depth', 'status', 'location', 'source'
