@@ -7,13 +7,3 @@ mat-row.link:hover {
 mat-row.link {
   cursor: pointer;
 }
-
-shared-preferred-check > abbr.preferred {
-  position: relative;
-
-  > mat-icon {
-    position: absolute;
-    line-height: 0;
-    right: 4px;
-  }
-}
