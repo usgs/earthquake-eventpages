@@ -28,7 +28,14 @@
       *ngIf="product?.preferred; then: preferred; else: unpreferred"
     >
     </ng-container>
-    <ng-container *ngIf="isReviewed(product); then: reviewed; else: unreviewed">
+
+    <ng-container
+      *ngIf="
+        ((product?.properties)['review-status'] | sharedProductReviewed);
+        then: reviewed;
+        else: unreviewed
+      "
+    >
     </ng-container>
   </ul>
 

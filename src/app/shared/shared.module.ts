@@ -50,6 +50,7 @@ import { PreferredCheckComponent } from './preferred-check/preferred-check.compo
 import { ProductAttributionComponent } from './product-attribution/product-attribution.component';
 import { ProductContentPipe } from './product-content.pipe';
 import { ProductPropertyPipe } from './product-property.pipe';
+import { ProductReviewedPipe } from './product-reviewed.pipe';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 import { RomanPipe } from './roman.pipe';
 import { RoundDownPipe } from './round-down.pipe';
@@ -122,6 +123,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     ProductAttributionComponent,
     ProductContentPipe,
     ProductPropertyPipe,
+    ProductReviewedPipe,
     RegionInfoOverlaysPipe,
     RomanPipe,
     RoundDownPipe,
@@ -189,6 +191,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     ProductAttributionComponent,
     ProductContentPipe,
     ProductPropertyPipe,
+    ProductReviewedPipe,
     RegionInfoOverlaysPipe,
     RomanPipe,
     RoundDownPipe,

@@ -32,14 +32,17 @@ export class HeaderComponent {
   showVersion: boolean;
 
   /**
-   * Determine if the product has been reveiewd by scientists
+   * Determine whether or not the product is preferred
    *
-   * @param product
-   *    product to check for reviewed status
+   * @param event {any}
+   *    Event with all products
+   *
+   * @param product {any}
+   *    product to check for preferredness
    */
-  isReviewed(product: any): boolean {
+  isPreferred(event: any, product: any): boolean {
     try {
-      return 'reviewed' === product.properties['review-status'].toLowerCase();
+      return product.id === event.properties.products[product.type][0].id;
     } catch (e) {
       return false;
     }
