@@ -1,4 +1,4 @@
-<div *ngIf="(waveformService.event$ | async) as eventId">
+<ng-container *ngIf="(waveformService.event$ | async) as eventId">
   <h2>Waveforms</h2>
 
   <div class="iris-link">
@@ -27,4 +27,8 @@
       or by members of the community.
     </p>
   </div>
-</div>
+  <h3>For More Information</h3>
+  <ul>
+    <li><a [routerLink]="'/' + event.id">Overview</a></li>
+  </ul>
+</ng-container>
