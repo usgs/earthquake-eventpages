@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MatTabsModule } from '@angular/material';
 
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
@@ -28,16 +29,11 @@ describe('DyfiComponent', () => {
           selector: 'impact-dyfi-summary'
         }),
         MockComponent({ inputs: ['productType'], selector: 'product-page' }),
-        MockComponent({ selector: 'mdc-icon' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroller' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-back' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-forward' }),
 
         MockPipe('sharedGetProducts'),
         MockPipe('sharedProductContent')
       ],
-      imports: [RouterTestingModule],
+      imports: [MatTabsModule, RouterTestingModule],
       providers: [{ provide: EventService, useValue: eventServiceStub }]
     }).compileComponents();
   }));

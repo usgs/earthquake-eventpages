@@ -12,7 +12,6 @@ import {
   MatTableModule,
   MatTabsModule
 } from '@angular/material';
-import { MdcTabModule, MdcIconModule } from '@angular-mdc/web';
 
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '@shared/shared.module';
@@ -58,8 +57,6 @@ import { LegendComponent } from './legend/legend.component';
     MatSortModule,
     MatTableModule,
     MatTabsModule,
-    MdcIconModule,
-    MdcTabModule,
     ProductPageModule,
     SharedModule,
     ShakemapRoutingModule

@@ -10,8 +10,6 @@ import {
   MatTooltipModule
 } from '@angular/material';
 
-import { MdcTabModule, MdcIconModule } from '@angular-mdc/web';
-
 import { NgxChartsModule } from '@shared/ngx-charts/ngx-charts.module';
 import { DyfiRoutingModule } from './dyfi-routing.module';
 import { DyfiService } from './dyfi.service';
@@ -41,9 +39,7 @@ import { ZipComponent } from './zip/zip.component';
     MatInputModule,
     MatPaginatorModule,
     MatSortModule,
-    MdcIconModule,
     MatTabsModule,
-    MdcTabModule,
     MatTableModule,
     MatTooltipModule,
     NgxChartsModule,

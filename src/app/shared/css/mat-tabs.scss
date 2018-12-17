@@ -1,0 +1,23 @@
+/* Tab styles */
+a.mat-tab-label-active {
+  opacity: 1;
+}
+
+a.mat-tab-link,
+a.mat-tab-link:visited {
+  font-size: 0.88em;
+  color: #000;
+}
+
+.horizontal-scrolling.mat-tab-wrapper {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+  & > .mat-tab-nav-bar {
+    overflow: initial;
+    border: 0;
+
+    .mat-tab-link {
+      flex-shrink: 0;
+    }
+  }
+}

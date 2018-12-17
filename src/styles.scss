@@ -3,6 +3,7 @@
 @import './app/shared/css/contour-overlay.scss';
 @import './app/shared/css/description-table.scss';
 @import './app/shared/css/horizontal-scrolling.scss';
+@import './app/shared/css/mat-tabs.scss';
 @import './app/shared/css/mmi-colors.scss';
 @import './app/shared/css/summary-table.scss';
 @import './app/shared/css/station-overlay.scss';
@@ -15,16 +16,6 @@ header > h1 {
   margin-bottom: 0;
 }
 
-/* Material Design Component Styles */
-a.mdc-tab,
-mdc-tab.mdc-tab {
-  font-size: 14px;
-
-  &:visited {
-    color: inherit;
-  }
-}
-
 .cdk-overlay-connected-position-bounding-box {
   position: absolute;
   z-index: 1000;
@@ -33,18 +24,6 @@ mdc-tab.mdc-tab {
   min-width: 1px;
   min-height: 1px;
 }
-
-nav.mdc-tab-bar,
-mdc-tab-bar.mdc-tab-bar {
-  /* stop tabs from being centered */
-  margin: 0;
-}
-
-mdc-tab-bar-scroller.mdc-tab-bar-scroller {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-}
-
-@import '~@angular-mdc/theme/material';
 
 /* allow wrapping on small screens */
 .mat-radio-label-content {
