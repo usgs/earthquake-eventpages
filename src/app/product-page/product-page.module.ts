@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatExpansionModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '@shared/shared.module';
 import { DateTimePipe } from './date-time.pipe';
@@ -24,6 +25,6 @@ import { FileExtensionPipe } from './file-extension.pipe';
     ProductPageComponent
   ],
   exports: [DateTimePipe, ProductPageComponent, DownloadComponent],
-  imports: [CommonModule, MatExpansionModule, SharedModule]
+  imports: [CommonModule, MatExpansionModule, RouterModule, SharedModule]
 })
 export class ProductPageModule {}
