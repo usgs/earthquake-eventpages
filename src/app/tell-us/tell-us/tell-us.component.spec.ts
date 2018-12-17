@@ -11,6 +11,7 @@ import {
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockPipe } from '../../mock-pipe';
 import { MockComponent } from 'ng2-mock-component';
@@ -93,7 +94,8 @@ describe('TellUsComponent', () => {
         MatDialogModule,
         MatExpansionModule,
         MatFormFieldModule,
-        MatSelectModule
+        MatSelectModule,
+        RouterTestingModule
       ],
       providers: [
         { provide: FormLanguageService, useValue: languageServiceStub },
