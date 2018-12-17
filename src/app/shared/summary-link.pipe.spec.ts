@@ -12,18 +12,6 @@ describe('SummaryLinkPipe', () => {
   });
 
   it('returns correct object when only one product is found', () => {
-    const product = {
-      type: 'origin'
-    };
-
-    const event = {
-      properties: {
-        products: {
-          origin: [product]
-        }
-      }
-    };
-
     const pipe = new SummaryLinkPipe();
     expect(pipe.transform('origin')).toEqual({
       text: 'Technical Summary',

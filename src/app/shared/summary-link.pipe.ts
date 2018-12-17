@@ -5,13 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SummaryLinkPipe implements PipeTransform {
   /**
-   * Builds a link to the overview/technical/impact summary page, based
+   * Builds a link to the technical/impact summary page, based
    * on the product type
    *
    * @param productType
    *     The type of product
-   * @param event
-   *     The event
    *
    * @return {any}
    *     link (url/text) object
