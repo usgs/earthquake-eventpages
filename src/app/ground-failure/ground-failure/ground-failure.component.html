@@ -19,33 +19,35 @@
   </ng-container>
 
   <ng-container *ngIf="(eventService.product$ | async) as product">
-    <!-- routes/components in ../ground-failure-routing.module.ts -->
-    <nav mat-tab-nav-bar>
-      <!-- ngIf is required to get the active style on the correct tab -->
-      <a
-        *ngIf="product"
-        mat-tab-link
-        [routerLink]="'./summary'"
-        queryParamsHandling="preserve"
-        routerLinkActive
-        #rla="routerLinkActive"
-        [active]="rla.isActive"
-      >
-        Summary
-      </a>
-      <!-- ngIf is required to get the active style on the correct tab -->
-      <a
-        *ngIf="product"
-        mat-tab-link
-        [routerLink]="'./about'"
-        queryParamsHandling="preserve"
-        routerLinkActive
-        #rla="routerLinkActive"
-        [active]="rla.isActive"
-      >
-        About
-      </a>
-    </nav>
+    <div class="horizontal-scrolling mat-tab-wrapper">
+      <!-- routes/components in ../ground-failure-routing.module.ts -->
+      <nav mat-tab-nav-bar>
+        <!-- ngIf is required to get the active style on the correct tab -->
+        <a
+          *ngIf="product"
+          mat-tab-link
+          [routerLink]="'./summary'"
+          queryParamsHandling="preserve"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [active]="rla.isActive"
+        >
+          Summary
+        </a>
+        <!-- ngIf is required to get the active style on the correct tab -->
+        <a
+          *ngIf="product"
+          mat-tab-link
+          [routerLink]="'./about'"
+          queryParamsHandling="preserve"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [active]="rla.isActive"
+        >
+          About
+        </a>
+      </nav>
+    </div>
 
     <router-outlet></router-outlet>
   </ng-container>

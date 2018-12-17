@@ -6,45 +6,47 @@
   <ng-container
     *ngIf="(eventService.product$ | async) as product; else: noProduct"
   >
-    <!-- routes/components in ../oaf-routing.module.ts -->
-    <nav mat-tab-nav-bar>
-      <!-- ngIf is required to get the active style on the correct tab -->
-      <a
-        *ngIf="product"
-        mat-tab-link
-        [routerLink]="'./commentary'"
-        queryParamsHandling="preserve"
-        routerLinkActive
-        #rla="routerLinkActive"
-        [active]="rla.isActive"
-      >
-        Commentary
-      </a>
-      <!-- ngIf is required to get the active style on the correct tab -->
-      <a
-        *ngIf="product"
-        mat-tab-link
-        [routerLink]="'./forecast'"
-        queryParamsHandling="preserve"
-        routerLinkActive
-        #rla="routerLinkActive"
-        [active]="rla.isActive"
-      >
-        Forecast
-      </a>
-      <!-- ngIf is required to get the active style on the correct tab -->
-      <a
-        *ngIf="product"
-        mat-tab-link
-        [routerLink]="'./model'"
-        queryParamsHandling="preserve"
-        routerLinkActive
-        #rla="routerLinkActive"
-        [active]="rla.isActive"
-      >
-        Model
-      </a>
-    </nav>
+    <div class="horizontal-scrolling mat-tab-wrapper">
+      <!-- routes/components in ../oaf-routing.module.ts -->
+      <nav mat-tab-nav-bar>
+        <!-- ngIf is required to get the active style on the correct tab -->
+        <a
+          *ngIf="product"
+          mat-tab-link
+          [routerLink]="'./commentary'"
+          queryParamsHandling="preserve"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [active]="rla.isActive"
+        >
+          Commentary
+        </a>
+        <!-- ngIf is required to get the active style on the correct tab -->
+        <a
+          *ngIf="product"
+          mat-tab-link
+          [routerLink]="'./forecast'"
+          queryParamsHandling="preserve"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [active]="rla.isActive"
+        >
+          Forecast
+        </a>
+        <!-- ngIf is required to get the active style on the correct tab -->
+        <a
+          *ngIf="product"
+          mat-tab-link
+          [routerLink]="'./model'"
+          queryParamsHandling="preserve"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [active]="rla.isActive"
+        >
+          Model
+        </a>
+      </nav>
+    </div>
 
     <router-outlet></router-outlet>
   </ng-container>

@@ -21,73 +21,81 @@
   </ng-container>
 
   <ng-container *ngIf="(eventService.product$ | async) as dyfi">
-    <nav mat-tab-nav-bar>
-      <a
-        *ngIf="(dyfi | sharedProductContent: dyfi.code + '_ciim_geo.jpg')"
-        mat-tab-link
-        [routerLink]="'./intensity'"
-        queryParamsHandling="preserve"
-        routerLinkActive
-        #rla="routerLinkActive"
-        [active]="rla.isActive"
-      >
-        Intensity
-      </a>
-      <a
-        *ngIf="(dyfi | sharedProductContent: dyfi.code + '_ciim.jpg')"
-        mat-tab-link
-        [routerLink]="'./zip'"
-        queryParamsHandling="preserve"
-        routerLinkActive
-        #rla="routerLinkActive"
-        [active]="rla.isActive"
-      >
-        ZIP Map
-      </a>
-      <a
-        *ngIf="
-          (dyfi
-            | sharedProductContent
-              : 'dyfi_plot_atten.json'
-              : dyfi.code + '_plot_atten.jpg')
-        "
-        mat-tab-link
-        [routerLink]="'./intensity-vs-distance'"
-        queryParamsHandling="preserve"
-        routerLinkActive
-        #rla="routerLinkActive"
-        [active]="rla.isActive"
-      >
-        Intensity Vs. Distance
-      </a>
-      <a
-        *ngIf="
-          (dyfi
-            | sharedProductContent
-              : 'dyfi_plot_numresp.json'
-              : dyfi.code + '_plot_numresp.jpg')
-        "
-        mat-tab-link
-        [routerLink]="'./responses-vs-time'"
-        queryParamsHandling="preserve"
-        routerLinkActive
-        #rla="routerLinkActive"
-        [active]="rla.isActive"
-      >
-        Responses Vs. Time
-      </a>
-      <a
-        *ngIf="(dyfi | sharedProductContent: 'cdi_zip.xml')"
-        mat-tab-link
-        [routerLink]="'./responses'"
-        queryParamsHandling="preserve"
-        routerLinkActive
-        #rla="routerLinkActive"
-        [active]="rla.isActive"
-      >
-        DYFI Responses
-      </a>
-    </nav>
+    <div class="horizontal-scrolling mat-tab-wrapper">
+      <!-- routes/components in ../ground-failure-routing.module.ts -->
+      <nav mat-tab-nav-bar>
+        <!-- ngIf is required to get the active style on the correct tab -->
+        <a
+          *ngIf="(dyfi | sharedProductContent: dyfi.code + '_ciim_geo.jpg')"
+          mat-tab-link
+          [routerLink]="'./intensity'"
+          queryParamsHandling="preserve"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [active]="rla.isActive"
+        >
+          Intensity
+        </a>
+        <!-- ngIf is required to get the active style on the correct tab -->
+        <a
+          *ngIf="(dyfi | sharedProductContent: dyfi.code + '_ciim.jpg')"
+          mat-tab-link
+          [routerLink]="'./zip'"
+          queryParamsHandling="preserve"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [active]="rla.isActive"
+        >
+          ZIP Map
+        </a>
+        <!-- ngIf is required to get the active style on the correct tab -->
+        <a
+          *ngIf="
+            (dyfi
+              | sharedProductContent
+                : 'dyfi_plot_atten.json'
+                : dyfi.code + '_plot_atten.jpg')
+          "
+          mat-tab-link
+          [routerLink]="'./intensity-vs-distance'"
+          queryParamsHandling="preserve"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [active]="rla.isActive"
+        >
+          Intensity Vs. Distance
+        </a>
+        <!-- ngIf is required to get the active style on the correct tab -->
+        <a
+          *ngIf="
+            (dyfi
+              | sharedProductContent
+                : 'dyfi_plot_numresp.json'
+                : dyfi.code + '_plot_numresp.jpg')
+          "
+          mat-tab-link
+          [routerLink]="'./responses-vs-time'"
+          queryParamsHandling="preserve"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [active]="rla.isActive"
+        >
+          Responses Vs. Time
+        </a>
+        <!-- ngIf is required to get the active style on the correct tab -->
+        <a
+          *ngIf="(dyfi | sharedProductContent: 'cdi_zip.xml')"
+          mat-tab-link
+          [routerLink]="'./responses'"
+          queryParamsHandling="preserve"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [active]="rla.isActive"
+        >
+          DYFI Responses
+        </a>
+      </nav>
+    </div>
 
     <router-outlet></router-outlet>
   </ng-container>

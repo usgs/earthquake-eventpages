@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MatTabsModule } from '@angular/material';
 
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
@@ -27,11 +28,9 @@ describe('OafComponent', () => {
         MockComponent({
           inputs: ['productType', 'showAllProducts'],
           selector: 'product-page'
-        }),
-        MockComponent({ selector: 'mdc-tab-link' }),
-        MockComponent({ selector: 'mdc-tab-nav-bar' })
+        })
       ],
-      imports: [RouterTestingModule],
+      imports: [MatTabsModule, RouterTestingModule],
       providers: [
         { provide: EventService, useValue: eventServiceStub },
         { provide: OafService, useValue: oafServiceStub }
