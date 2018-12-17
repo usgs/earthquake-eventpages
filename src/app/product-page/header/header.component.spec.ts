@@ -30,7 +30,8 @@ describe('HeaderComponent', () => {
 
         MockPipe('dateTime'),
         MockPipe('sharedGetProducts'),
-        MockPipe('sharedProductProperty')
+        MockPipe('sharedProductProperty'),
+        MockPipe('sharedProductReviewed')
       ],
       imports: [MatExpansionModule]
     }).compileComponents();
@@ -46,21 +47,21 @@ describe('HeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('isReviewed', () => {
-    const status = 'reviewed';
+  it('isPreferred', () => {
     const product = {
-      properties: {
-        'review-status': status
-      },
+      id: 1,
       type: 'origin'
     };
+    const event = {
+      properties: {
+        products: {
+          origin: [product]
+        }
+      }
+    };
 
-    expect(component.isReviewed(product)).toBeTruthy();
-    expect(
-      component.isReviewed({ properties: { 'happy-status': 'reviewed' } })
-    ).toBeFalsy();
-    expect(
-      component.isReviewed({ properties: { 'review-status': 'NOT REVIEWED' } })
-    ).toBeFalsy();
+    expect(component.isPreferred(event, product)).toBeTruthy();
+    expect(component.isPreferred(event, { type: 'phase-data' })).toBeFalsy();
+    expect(component.isPreferred(event, { id: 2, type: 'origin' })).toBeFalsy();
   });
 });
