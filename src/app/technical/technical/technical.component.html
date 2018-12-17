@@ -45,8 +45,9 @@
   </shared-text-product>
 
   <ng-container *ngIf="(event | sharedHasProduct: 'scitech-link')">
-    <h2>For More Information</h2>
+    <h3>For More Information</h3>
     <ul>
+      <li><a [routerLink]="'/' + event.id">Overview</a></li>
       <li
         *ngFor="
           let product of (event | sharedGetProducts: 'scitech-link');
