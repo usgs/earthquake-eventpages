@@ -16,15 +16,10 @@ export class SummaryLinkPipe implements PipeTransform {
    * @return {any}
    *     link (url/text) object
    */
-  transform(productType: any, event: any): any {
-    if (!event || !productType) {
+  transform(productType: any): any {
+    if (!productType) {
       return null;
     }
-
-    const EXECUTIVE = {
-      text: 'Overview',
-      url: '/executive'
-    };
 
     const IMPACT = {
       text: 'Impact',
@@ -42,11 +37,9 @@ export class SummaryLinkPipe implements PipeTransform {
       'focal-mechanism': TECHNICAL,
       'ground-failure': IMPACT,
       losspager: IMPACT,
-      map: EXECUTIVE,
       'moment-tensor': TECHNICAL,
       oaf: TECHNICAL,
       origin: TECHNICAL,
-      regioninfo: EXECUTIVE,
       'shake-alert': TECHNICAL,
       shakemap: IMPACT,
       tellus: IMPACT,
@@ -54,7 +47,7 @@ export class SummaryLinkPipe implements PipeTransform {
     };
 
     const info = TYPES[productType];
-    const text = `Back to ${info.text}`;
+    const text = `${info.text} Summary`;
 
     return {
       text: text,
