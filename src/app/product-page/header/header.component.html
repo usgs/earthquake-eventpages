@@ -31,7 +31,9 @@
 
     <ng-container
       *ngIf="
-        ((product?.properties)['review-status'] | sharedProductReviewed);
+        (product
+          | sharedProductProperty: 'review-status'
+          | sharedProductReviewed);
         then: reviewed;
         else: unreviewed
       "
