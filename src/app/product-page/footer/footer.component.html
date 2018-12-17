@@ -1,6 +1,16 @@
 <footer class="product-page-footer">
   <!-- custom module footer content -->
-  <ng-content></ng-content>
+  <ng-content select="[footer]"></ng-content>
   <!-- product content downloads -->
   <product-page-download [product]="product"></product-page-download>
+
+  <h3>For More Information</h3>
+  <ul>
+    <li><a [routerLink]="'/' + event?.id">Back to Overview</a></li>
+    <li>
+      <shared-summary-link [productType]="product?.type" [event]="event">
+      </shared-summary-link>
+    </li>
+    <ng-content select="[more-information]"></ng-content>
+  </ul>
 </footer>
