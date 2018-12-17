@@ -15,6 +15,7 @@ import { WaveformService } from '../waveform.service';
   templateUrl: './waveforms.component.html'
 })
 export class WaveformsComponent implements OnInit, OnDestroy {
+  event: any;
   subscription: Subscription;
 
   constructor(
@@ -29,6 +30,7 @@ export class WaveformsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.eventService.event$.subscribe(event => {
       if (event && event.id) {
+        this.event = event;
         this.waveformService.getIrisEvent(event);
       }
     });
