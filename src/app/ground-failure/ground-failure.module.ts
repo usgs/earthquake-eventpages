@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule } from '@angular/material';
-
-import { MdcTabModule, MdcIconModule } from '@angular-mdc/web';
+import { MatButtonModule, MatTabsModule } from '@angular/material';
 
 import { SharedModule } from '@shared/shared.module';
 import { ProductPageModule } from '../product-page/product-page.module';
@@ -38,8 +36,7 @@ import { PendingPipe } from './pending.pipe';
     CommonModule,
     GroundFailureRoutingModule,
     MatButtonModule,
-    MdcIconModule,
-    MdcTabModule,
+    MatTabsModule,
     RouterModule,
     SharedModule,
     ProductPageModule

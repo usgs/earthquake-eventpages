@@ -28,11 +28,8 @@ describe('DyfiComponent', () => {
           selector: 'impact-dyfi-summary'
         }),
         MockComponent({ inputs: ['productType'], selector: 'product-page' }),
-        MockComponent({ selector: 'mdc-icon' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroller' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-back' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-forward' }),
+        MockComponent({ selector: 'mdc-tab-link' }),
+        MockComponent({ selector: 'mdc-tab-nav-bar' }),
 
         MockPipe('sharedGetProducts'),
         MockPipe('sharedProductContent')

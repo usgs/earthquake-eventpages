@@ -27,11 +27,8 @@ describe('ShakemapComponent', () => {
           inputs: ['productType', 'showVersion'],
           selector: 'product-page'
         }),
-        MockComponent({ selector: 'mdc-icon' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroller' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-back' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-forward' }),
+        MockComponent({ selector: 'mdc-tab-link' }),
+        MockComponent({ selector: 'mdc-tab-nav-bar' }),
         MockComponent({
           inputs: ['event'],
           selector: 'technical-origin-summary'

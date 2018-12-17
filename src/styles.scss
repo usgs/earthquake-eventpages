@@ -44,8 +44,6 @@ mdc-tab-bar-scroller.mdc-tab-bar-scroller {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-@import '~@angular-mdc/theme/material';
-
 /* allow wrapping on small screens */
 .mat-radio-label-content {
   white-space: normal;
@@ -65,4 +63,10 @@ mat-cell,
 mat-footer-cell,
 mat-header-cell {
   padding: 0 1em;
+}
+
+a.mat-tab-link,
+a.mat-tab-link:visited {
+  font-size: 0.88em;
+  color: #000;
 }

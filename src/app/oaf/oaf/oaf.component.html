@@ -3,44 +3,48 @@
   <!-- container with header attribute is added before attribution -->
   <ng-container header> <h2>Aftershock Forecast</h2> </ng-container>
 
-  <ng-container *ngIf="(eventService.product$ | async); else: noProduct">
-    <mdc-tab-bar-scroller>
-      <mdc-tab-bar-scroll-back>
-        <mdc-icon>navigate_before</mdc-icon>
-      </mdc-tab-bar-scroll-back>
-      <mdc-tab-bar-scroll-frame>
-        <!-- routes/components in ../oaf-routing.module.ts -->
-        <nav mdc-tab-bar>
-          <a
-            mdc-tab
-            mdcRouter
-            [routerLink]="'./commentary'"
-            queryParamsHandling="preserve"
-          >
-            Commentary
-          </a>
-          <a
-            mdc-tab
-            mdcRouter
-            [routerLink]="'./forecast'"
-            queryParamsHandling="preserve"
-          >
-            Forecast
-          </a>
-          <a
-            mdc-tab
-            mdcRouter
-            [routerLink]="'./model'"
-            queryParamsHandling="preserve"
-          >
-            Model
-          </a>
-        </nav>
-      </mdc-tab-bar-scroll-frame>
-      <mdc-tab-bar-scroll-forward>
-        <mdc-icon>navigate_next</mdc-icon>
-      </mdc-tab-bar-scroll-forward>
-    </mdc-tab-bar-scroller>
+  <ng-container
+    *ngIf="(eventService.product$ | async) as product; else: noProduct"
+  >
+    <!-- routes/components in ../oaf-routing.module.ts -->
+    <nav mat-tab-nav-bar>
+      <!-- ngIf is required to get the active style on the correct tab -->
+      <a
+        *ngIf="product"
+        mat-tab-link
+        [routerLink]="'./commentary'"
+        queryParamsHandling="preserve"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+      >
+        Commentary
+      </a>
+      <!-- ngIf is required to get the active style on the correct tab -->
+      <a
+        *ngIf="product"
+        mat-tab-link
+        [routerLink]="'./forecast'"
+        queryParamsHandling="preserve"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+      >
+        Forecast
+      </a>
+      <!-- ngIf is required to get the active style on the correct tab -->
+      <a
+        *ngIf="product"
+        mat-tab-link
+        [routerLink]="'./model'"
+        queryParamsHandling="preserve"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+      >
+        Model
+      </a>
+    </nav>
 
     <router-outlet></router-outlet>
   </ng-container>

@@ -22,11 +22,8 @@ describe('OriginComponent', () => {
         OriginComponent,
 
         MockComponent({ selector: 'product-page', inputs: ['productType'] }),
-        MockComponent({ selector: 'mdc-icon' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroller' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-back' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-frame' }),
-        MockComponent({ selector: 'mdc-tab-bar-scroll-forward' }),
+        MockComponent({ selector: 'mdc-tab-link' }),
+        MockComponent({ selector: 'mdc-tab-nav-bar' }),
         MockComponent({
           inputs: ['event', 'products'],
           selector: 'technical-origin-summary'
