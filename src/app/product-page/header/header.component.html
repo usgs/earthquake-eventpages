@@ -27,15 +27,17 @@
     <ng-container *ngIf="product?.preferred; then preferred; else unpreferred">
     </ng-container>
 
-    <ng-container
-      *ngIf="
-        (product
-          | sharedProductProperty: 'review-status'
-          | sharedProductReviewed);
-        then reviewed;
-        else unreviewed
-      "
-    >
+    <ng-container *ngIf="!(event | isScenarioEvent)">
+      <ng-container
+        *ngIf="
+          (product
+            | sharedProductProperty: 'review-status'
+            | sharedProductReviewed);
+          then reviewed;
+          else unreviewed
+        "
+      >
+      </ng-container>
     </ng-container>
   </ul>
 
@@ -62,12 +64,10 @@
 
 <!-- Display Review Status -->
 <ng-template #reviewed>
-  <li class="reviewed" *ngIf="!(event | isScenarioEvent)">
-    The data below have been reviewed by a scientist
-  </li>
+  <li class="reviewed">The data below have been reviewed by a scientist</li>
 </ng-template>
 <ng-template #unreviewed>
-  <li class="unreviewed" *ngIf="!(event | isScenarioEvent)">
+  <li class="unreviewed">
     The data below have <strong>NOT</strong> been reviewed by a scientist.
   </li>
 </ng-template>
