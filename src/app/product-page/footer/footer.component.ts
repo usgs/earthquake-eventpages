@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-
 /**
  * Displays custom product page footer and product downloads
  *
@@ -14,6 +13,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   templateUrl: './footer.component.html'
 })
 export class FooterComponent {
+  @Input()
+  event: any;
   @Input()
   product: any;
 }

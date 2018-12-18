@@ -1,4 +1,7 @@
-<product-page productType="dyfi">
+<product-page
+  *ngIf="(eventService?.event$ | async) as event"
+  productType="dyfi"
+>
   <ng-container header>
     <h3>Did You Feel It?</h3>
     <a
@@ -9,10 +12,7 @@
       Felt Report - Tell Us!
     </a>
   </ng-container>
-  <ng-container
-    *ngIf="(eventService?.event$ | async) as event"
-    summary-component
-  >
+  <ng-container summary-component>
     <impact-dyfi-summary
       [event]="event"
       [products]="event | sharedGetProducts: 'dyfi'"
@@ -100,14 +100,12 @@
     <router-outlet></router-outlet>
   </ng-container>
 
-  <h3>For More Information</h3>
-  <ul>
+  <!-- add to more information -->
+  <ng-container more-information>
     <li>
       <a href="https://earthquake.usgs.gov/data/dyfi/"
         >Scientific Background for Did You Feel It?</a
       >
     </li>
-  </ul>
-
-  <ng-container footer> </ng-container>
+  </ng-container>
 </product-page>

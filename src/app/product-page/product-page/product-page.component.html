@@ -19,9 +19,10 @@
       <!-- custom module content -->
       <ng-content></ng-content>
 
-      <product-page-footer [product]="product">
+      <product-page-footer [product]="product" [event]="event">
         <!-- custom module footer cnotent -->
-        <ng-content select="[footer]"></ng-content>
+        <ng-content select="[footer]" footer></ng-content>
+        <ng-content select="[more-information]" more-information></ng-content>
       </product-page-footer>
     </ng-container>
   </ng-container>

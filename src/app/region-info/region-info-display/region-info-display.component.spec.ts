@@ -54,8 +54,7 @@ describe('RegionInfoDisplayComponent', () => {
         { provide: PlacesService, useValue: placesServiceStub },
         { provide: RegionsService, useValue: regionsServiceStub }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -132,19 +131,19 @@ describe('RegionInfoDisplayComponent', () => {
     it('only delegates if coordinates given', () => {
       component.getPlaces(null);
       component.getPlaces({});
-      component.getPlaces({latitude: 1});
-      component.getPlaces({longitude: 1});
-      component.getPlaces({latitude: null});
-      component.getPlaces({longitude: null});
-      component.getPlaces({latitude: null, longitude: null});
+      component.getPlaces({ latitude: 1 });
+      component.getPlaces({ longitude: 1 });
+      component.getPlaces({ latitude: null });
+      component.getPlaces({ longitude: null });
+      component.getPlaces({ latitude: null, longitude: null });
       expect(component.placesService.getPlaces).not.toHaveBeenCalled();
 
       // Called if 0 provided for both
-      component.getPlaces({latitude: 0, longitude: 0});
+      component.getPlaces({ latitude: 0, longitude: 0 });
       expect(component.placesService.getPlaces).toHaveBeenCalledWith(0, 0);
 
       // Called if non-zero provided for both. Correct argument order.
-      component.getPlaces({latitude: 1, longitude: 2});
+      component.getPlaces({ latitude: 1, longitude: 2 });
       expect(component.placesService.getPlaces).toHaveBeenCalledWith(1, 2);
     });
   });
@@ -153,19 +152,19 @@ describe('RegionInfoDisplayComponent', () => {
     it('only delegates if coordinates given', () => {
       component.getRegions(null);
       component.getRegions({});
-      component.getRegions({latitude: 1});
-      component.getRegions({longitude: 1});
-      component.getRegions({latitude: null});
-      component.getRegions({longitude: null});
-      component.getRegions({latitude: null, longitude: null});
+      component.getRegions({ latitude: 1 });
+      component.getRegions({ longitude: 1 });
+      component.getRegions({ latitude: null });
+      component.getRegions({ longitude: null });
+      component.getRegions({ latitude: null, longitude: null });
       expect(component.regionsService.getRegions).not.toHaveBeenCalled();
 
       // Called if 0 provided for both
-      component.getRegions({latitude: 0, longitude: 0});
+      component.getRegions({ latitude: 0, longitude: 0 });
       expect(component.regionsService.getRegions).toHaveBeenCalledWith(0, 0);
 
       // Called if non-zero provided for both. Correct argument order.
-      component.getRegions({latitude: 1, longitude: 2});
+      component.getRegions({ latitude: 1, longitude: 2 });
       expect(component.regionsService.getRegions).toHaveBeenCalledWith(1, 2);
     });
   });

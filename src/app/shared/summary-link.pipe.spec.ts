@@ -8,25 +8,13 @@ describe('SummaryLinkPipe', () => {
 
   it('returns null if no productType or event is given', () => {
     const pipe = new SummaryLinkPipe();
-    expect(pipe.transform(null, null)).toEqual(null);
+    expect(pipe.transform(null)).toEqual(null);
   });
 
   it('returns correct object when only one product is found', () => {
-    const product = {
-      type: 'origin'
-    };
-
-    const event = {
-      properties: {
-        products: {
-          origin: [product]
-        }
-      }
-    };
-
     const pipe = new SummaryLinkPipe();
-    expect(pipe.transform('origin', event)).toEqual({
-      text: 'Back to Technical',
+    expect(pipe.transform('origin')).toEqual({
+      text: 'Technical Summary',
       url: '/technical'
     });
   });
