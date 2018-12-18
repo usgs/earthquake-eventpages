@@ -12,7 +12,6 @@
   <dt>Name:</dt>
   <dd *ngIf="success.fldContact_name as name; else dash">{{ name }}</dd>
 
-
   <dt>Email:</dt>
   <dd *ngIf="success.fldContact_email as email; else dash">{{ email }}</dd>
 
@@ -29,13 +28,15 @@
   <dd>{{ success.form_version }}</dd>
 </dl>
 
-<button [disabled]="sdkStatus === false"
-  (click)="onSocialClick($event)"
-  class="fb-share-button">
-  <img src="./assets/facebook_share_button.jpg"
-    alt="Share">
-</button>
+<div class="share-box">
+  <button
+    [disabled]="sdkStatus === false"
+    (click)="onSocialClick($event)"
+    class="fb-share-button"
+  >
+    <img src="./assets/facebook_share_button.jpg" alt="Share" />
+  </button>
+  <p>Share your DYFI response on Facebook.</p>
+</div>
 
-<ng-template #dash>
-  <dd>&ndash;</dd>
-</ng-template>
+<ng-template #dash> <dd>&ndash;</dd> </ng-template>
