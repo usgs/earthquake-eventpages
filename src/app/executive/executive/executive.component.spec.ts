@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
@@ -84,6 +85,10 @@ describe('ExecutiveComponent', () => {
           selector: 'shared-link-product'
         }),
         MockComponent({
+          inputs: ['productType', 'event'],
+          selector: 'shared-summary-link'
+        }),
+        MockComponent({
           inputs: ['product'],
           selector: 'shared-text-product'
         }),
@@ -96,6 +101,7 @@ describe('ExecutiveComponent', () => {
         MockPipe('nearbySeismicityLink'),
         MockPipe('isActualEvent')
       ],
+      imports: [RouterTestingModule],
       providers: [
         { provide: ContributorService, useValue: {} },
         { provide: EventService, useValue: eventServiceStub }

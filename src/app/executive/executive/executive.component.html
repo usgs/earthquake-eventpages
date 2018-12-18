@@ -103,6 +103,10 @@
   <ng-container *ngIf="event.hasProducts('general-link')">
     <h3>For More Information</h3>
     <ul>
+      <li><a [routerLink]="'/' + event?.id + '/impact'">Impact Summary</a></li>
+      <li>
+        <a [routerLink]="'/' + event?.id + '/technical'">Technical Summary</a>
+      </li>
       <li
         *ngFor="
           let product of event.getProducts('general-link');

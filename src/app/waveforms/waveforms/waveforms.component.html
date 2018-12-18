@@ -30,5 +30,11 @@
   <h3>For More Information</h3>
   <ul>
     <li><a [routerLink]="'/' + event.id">Overview</a></li>
+    <li>
+      <shared-summary-link
+        [productType]="'waveforms'"
+        [event]="event"
+      ></shared-summary-link>
+    </li>
   </ul>
 </ng-container>
