@@ -1,3 +1,9 @@
+.share-box > button,
+.share-box > p {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .fb-share-button {
   background-color: transparent;
   border: none;
