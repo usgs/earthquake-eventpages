@@ -29,6 +29,7 @@ describe('HeaderComponent', () => {
         }),
 
         MockPipe('dateTime'),
+        MockPipe('isScenarioEvent'),
         MockPipe('sharedGetProducts'),
         MockPipe('sharedProductProperty'),
         MockPipe('sharedProductReviewed')

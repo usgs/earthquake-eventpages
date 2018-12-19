@@ -24,20 +24,20 @@
   </small>
 
   <ul class="quality-statements">
-    <ng-container
-      *ngIf="product?.preferred; then: preferred; else: unpreferred"
-    >
+    <ng-container *ngIf="product?.preferred; then preferred; else unpreferred">
     </ng-container>
 
-    <ng-container
-      *ngIf="
-        (product
-          | sharedProductProperty: 'review-status'
-          | sharedProductReviewed);
-        then: reviewed;
-        else: unreviewed
-      "
-    >
+    <ng-container *ngIf="!(event | isScenarioEvent)">
+      <ng-container
+        *ngIf="
+          (product
+            | sharedProductProperty: 'review-status'
+            | sharedProductReviewed);
+          then reviewed;
+          else unreviewed
+        "
+      >
+      </ng-container>
     </ng-container>
   </ul>
 
