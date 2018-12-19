@@ -100,6 +100,13 @@
   >
   </shared-text-product>
 
+  <product-page-download
+    *ngIf="event.hasProducts('poster')"
+    [product]="event.getProduct('poster')"
+    [expanded]="true"
+  >
+  </product-page-download>
+
   <h3>For More Information</h3>
   <ul>
     <li><a [routerLink]="'/' + event?.id + '/impact'">Impact Summary</a></li>
@@ -115,11 +122,4 @@
       <shared-link-product [product]="product"> </shared-link-product>
     </li>
   </ul>
-
-  <product-page-download
-    *ngIf="event.hasProducts('poster')"
-    [product]="event.getProduct('poster')"
-    [expanded]="true"
-  >
-  </product-page-download>
 </ng-container>
