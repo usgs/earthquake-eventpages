@@ -44,18 +44,16 @@
   >
   </shared-text-product>
 
-  <ng-container *ngIf="(event | sharedHasProduct: 'scitech-link')">
-    <h3>For More Information</h3>
-    <ul>
-      <li><a [routerLink]="'/' + event.id">Overview</a></li>
-      <li
-        *ngFor="
-          let product of (event | sharedGetProducts: 'scitech-link');
-          trackBy: trackByIndex
-        "
-      >
-        <shared-link-product [product]="product"> </shared-link-product>
-      </li>
-    </ul>
-  </ng-container>
+  <h3>For More Information</h3>
+  <ul>
+    <li><a [routerLink]="'/' + event.id">Overview</a></li>
+    <li
+      *ngFor="
+        let product of (event | sharedGetProducts: 'scitech-link');
+        trackBy: trackByIndex
+      "
+    >
+      <shared-link-product [product]="product"> </shared-link-product>
+    </li>
+  </ul>
 </ng-container>
