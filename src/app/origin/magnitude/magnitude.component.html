@@ -1,50 +1,67 @@
-<h3>Magnitudes</h3>
+<ng-container *ngIf="(quakemlService.quakeml$ | async); else noQuakeml">
+  <h3>Magnitudes</h3>
 
-<div *ngFor="let magnitude of magnitudes;trackBy: trackByIndex"
-    [attr.data-magnitudeID]="magnitude.magnitudePublicID">
+  <div
+    *ngFor="let magnitude of magnitudes; trackBy: trackByIndex"
+    [attr.data-magnitudeID]="magnitude.magnitudePublicID"
+  >
+    <h4>
+      <shared-preferred-check
+        *ngIf="magnitude.isPreferred"
+      ></shared-preferred-check>
+      {{ magnitude.type }}
+    </h4>
 
-  <h4>
-    <shared-preferred-check *ngIf="magnitude.isPreferred"></shared-preferred-check>
-    {{ magnitude.type }}
-  </h4>
+    <ul class="magnitude-summary">
+      <li>
+        <shared-bubble name="Mag" title="Magnitude" class="border">
+          <strong>{{ magnitude.magnitude }}</strong>
+        </shared-bubble>
+      </li>
+      <li>
+        <shared-bubble name="Err" title="Magnitude Error">
+          {{ magnitude.magnitudeError }}
+        </shared-bubble>
+      </li>
+      <li>
+        <shared-bubble name="Stations" title="Magnitude Number of Stations">
+          {{ magnitude.stationCount | sharedNumber }}
+        </shared-bubble>
+      </li>
+      <li>
+        <shared-bubble name="Source" title="Magnitude Data Source">
+          <shared-product-attribution
+            [product]="magnitude"
+          ></shared-product-attribution>
+        </shared-bubble>
+      </li>
+    </ul>
 
-  <ul class="magnitude-summary">
-  <li>
-    <shared-bubble name="Mag" title="Magnitude" class="border">
-      <strong>{{ magnitude.magnitude}}</strong>
-    </shared-bubble>
-  </li><li>
-    <shared-bubble name="Err" title="Magnitude Error">
-      {{ magnitude.magnitudeError }}
-    </shared-bubble>
-  </li><li>
-    <shared-bubble name="Stations" title="Magnitude Number of Stations">
-      {{ magnitude.stationCount | sharedNumber }}
-    </shared-bubble>
-  </li><li>
-    <shared-bubble name="Source" title="Magnitude Data Source">
-        <shared-product-attribution [product]="magnitude"></shared-product-attribution>
-    </shared-bubble>
-  </li>
-  </ul>
+    <mat-expansion-panel [disabled]="!magnitude.contributions.length">
+      <mat-expansion-panel-header>
+        <ng-container
+          *ngIf="magnitude.contributions.length; else noContributions"
+        >
+          <a class="contributions"> Station Details </a>
+        </ng-container>
+      </mat-expansion-panel-header>
 
-  <mat-expansion-panel [disabled]="!magnitude.contributions.length">
-    <mat-expansion-panel-header>
-      <ng-container *ngIf="magnitude.contributions.length; else noContributions">
-        <a class="contributions">
-          Station Details
-        </a>
-      </ng-container>
-    </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+        <origin-magnitude-detail
+          *ngIf="magnitude.contributions.length; else noContributions"
+          [contributions]="magnitude.contributions"
+        >
+        </origin-magnitude-detail>
+      </ng-template>
+    </mat-expansion-panel>
+  </div>
+  <ng-template #noContributions>No station details contributed</ng-template>
+</ng-container>
 
-    <ng-template matExpansionPanelContent>
-      <origin-magnitude-detail *ngIf="magnitude.contributions.length; else noContributions;"
-          [contributions]="magnitude.contributions">
-      </origin-magnitude-detail>
-    </ng-template>
-  </mat-expansion-panel>
-</div>
-
-<ng-template #noContributions>
-  No station details contributed
+<ng-template #noQuakeml>
+  <ng-container *ngIf="quakemlService.error; else loadingQuakeml; let error">
+    <p class="alert info">No magnitude information available.</p>
+  </ng-container>
 </ng-template>
+
+<ng-template #loadingQuakeml><p>Loading quakeml</p></ng-template>
