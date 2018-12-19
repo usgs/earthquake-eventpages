@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTableModule, MatIconModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../mock-pipe';
@@ -36,7 +37,12 @@ describe('FocalMechanismSummaryComponent', () => {
         MockPipe('sharedDegrees'),
         MockPipe('sharedProductProperty')
       ],
-      imports: [MatIconModule, MatTableModule, RouterModule],
+      imports: [
+        MatIconModule,
+        MatTableModule,
+        RouterModule,
+        RouterTestingModule
+      ],
       providers: []
     }).compileComponents();
   }));

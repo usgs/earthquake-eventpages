@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatTableModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
@@ -27,7 +28,7 @@ describe('PagerSummaryComponent', () => {
           selector: 'shared-preferred-check'
         })
       ],
-      imports: [MatTableModule, RouterModule]
+      imports: [MatTableModule, RouterModule, RouterTestingModule]
     }).compileComponents();
   }));
 

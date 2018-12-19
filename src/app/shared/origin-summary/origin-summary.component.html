@@ -6,7 +6,9 @@
       *matRowDef="let product; columns: this.columnsToDisplay"
       class="link"
       [class.selected]="product === event.product"
-      [routerLink]="['/', event?.id, 'origin']"
+      [routerLink]="
+        router.url.indexOf('origin') === -1 ? ['/', event?.id, 'origin'] : null
+      "
       [queryParams]="{ source: product?.source, code: product?.code }"
     >
     </mat-row>
@@ -19,7 +21,11 @@
           </shared-preferred-check>
         </ng-container>
         <a
-          [routerLink]="['/', event?.id, 'origin']"
+          [routerLink]="
+            router.url.indexOf('origin') === -1
+              ? ['/', event?.id, 'origin']
+              : null
+          "
           [queryParams]="{ source: product?.source, code: product?.code }"
         >
           {{ product?.properties?.eventsource?.toUpperCase() }}

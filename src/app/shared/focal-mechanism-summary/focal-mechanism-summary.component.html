@@ -5,7 +5,11 @@
       *matRowDef="let tensor; columns: this.columnsToDisplay"
       class="link"
       [class.selected]="tensor.product === event.product"
-      [routerLink]="['/', event?.id, 'focal-mechanism']"
+      [routerLink]="
+        router.url.indexOf('focal-mechanism') === -1
+          ? ['/', event?.id, 'focal-mechanism']
+          : null
+      "
       [queryParams]="{
         source: tensor?.product?.source,
         code: tensor?.product?.code
@@ -21,7 +25,11 @@
           </shared-preferred-check>
         </ng-container>
         <a
-          [routerLink]="['/', event?.id, 'focal-mechanism']"
+          [routerLink]="
+            router.url.indexOf('focal-mechanism') === -1
+              ? ['/', event?.id, 'focal-mechanism']
+              : null
+          "
           [queryParams]="{
             source: tensor?.product?.source,
             code: tensor?.product?.code

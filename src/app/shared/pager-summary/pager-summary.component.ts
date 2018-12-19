@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Event } from '../../event';
 
@@ -25,4 +26,11 @@ export class PagerSummaryComponent {
 
   @Input()
   products: Array<any> = [];
+
+  // router information
+  router: Router;
+
+  constructor(router: Router) {
+    this.router = router;
+  }
 }
