@@ -6,128 +6,129 @@
     href="/earthquakes/map/"
     >Latest Earthquakes</a
   >
+  <ng-container *ngIf="!(event | isDeletedEvent)">
+    <hazdev-template-navigation-group>
+      <hazdev-template-navigation-item
+        navGroupHeader
+        display="Overview"
+        navRouterLink="executive"
+      ></hazdev-template-navigation-item>
 
-  <hazdev-template-navigation-group>
-    <hazdev-template-navigation-item
-      navGroupHeader
-      display="Overview"
-      navRouterLink="executive"
-    ></hazdev-template-navigation-item>
+      <hazdev-template-navigation-item
+        display="Interactive Map"
+        navRouterLink="map"
+      ></hazdev-template-navigation-item>
+      <hazdev-template-navigation-item
+        display="Regional Information"
+        navRouterLink="region-info"
+      ></hazdev-template-navigation-item>
+    </hazdev-template-navigation-group>
+
+    <hazdev-template-navigation-group *ngIf="hasImpact(event); else noImpact">
+      <hazdev-template-navigation-item
+        navGroupHeader
+        display="Impact"
+        navRouterLink="impact"
+      ></hazdev-template-navigation-item>
+
+      <hazdev-template-navigation-item
+        *ngIf="(event | isActualEvent)"
+        display="Felt Report - Tell Us!"
+        navRouterLink="tellus"
+      ></hazdev-template-navigation-item>
+      <hazdev-template-navigation-item
+        *ngIf="event?.hasProducts('dyfi')"
+        display="Did You Feel It?"
+        navRouterLink="dyfi"
+      ></hazdev-template-navigation-item>
+      <hazdev-template-navigation-item
+        *ngIf="event?.hasProducts('shakemap')"
+        display="ShakeMap"
+        navRouterLink="shakemap"
+      ></hazdev-template-navigation-item>
+      <hazdev-template-navigation-item
+        *ngIf="event?.hasProducts('losspager')"
+        display="PAGER"
+        navRouterLink="pager"
+      ></hazdev-template-navigation-item>
+      <hazdev-template-navigation-item
+        *ngIf="event?.hasProducts('ground-failure')"
+        display="Ground Failure"
+        navRouterLink="ground-failure"
+      ></hazdev-template-navigation-item>
+    </hazdev-template-navigation-group>
+
+    <hazdev-template-navigation-group
+      *ngIf="hasTechnical(event); else noTechnical"
+    >
+      <hazdev-template-navigation-item
+        navGroupHeader
+        display="Technical"
+        navRouterLink="technical"
+      ></hazdev-template-navigation-item>
+
+      <hazdev-template-navigation-item
+        *ngIf="event?.hasProducts(['origin', 'phase-data'])"
+        display="Origin"
+        navRouterLink="origin"
+      ></hazdev-template-navigation-item>
+      <hazdev-template-navigation-item
+        *ngIf="event?.hasProducts('moment-tensor')"
+        display="Moment Tensor"
+        navRouterLink="moment-tensor"
+      ></hazdev-template-navigation-item>
+      <hazdev-template-navigation-item
+        *ngIf="event?.hasProducts('focal-mechanism')"
+        display="Focal Mechanism"
+        navRouterLink="focal-mechanism"
+      ></hazdev-template-navigation-item>
+      <hazdev-template-navigation-item
+        *ngIf="event?.hasProducts('finite-fault')"
+        display="Finite Fault"
+        navRouterLink="finite-fault"
+      ></hazdev-template-navigation-item>
+      <hazdev-template-navigation-item
+        *ngIf="(event | isActualEvent)"
+        display="Waveforms"
+        navRouterLink="waveforms"
+      ></hazdev-template-navigation-item>
+      <hazdev-template-navigation-item
+        *ngIf="event?.hasProducts('oaf')"
+        display="Aftershock Forecast"
+        navRouterLink="oaf"
+      ></hazdev-template-navigation-item>
+      <hazdev-template-navigation-item
+        *ngIf="event?.hasProducts('shake-alert')"
+        display="ShakeAlert"
+        navRouterLink="shake-alert"
+      ></hazdev-template-navigation-item>
+    </hazdev-template-navigation-group>
 
     <hazdev-template-navigation-item
-      display="Interactive Map"
-      navRouterLink="map"
-    ></hazdev-template-navigation-item>
-    <hazdev-template-navigation-item
-      display="Regional Information"
-      navRouterLink="region-info"
-    ></hazdev-template-navigation-item>
-  </hazdev-template-navigation-group>
-
-  <hazdev-template-navigation-group *ngIf="hasImpact(event); else: noImpact">
-    <hazdev-template-navigation-item
-      navGroupHeader
-      display="Impact"
-      navRouterLink="impact"
+      display="Download Event KML"
+      navHrefLink="{{ getKmlLink(event) }}"
     ></hazdev-template-navigation-item>
 
     <hazdev-template-navigation-item
       *ngIf="(event | isActualEvent)"
-      display="Felt Report - Tell Us!"
-      navRouterLink="tellus"
-    ></hazdev-template-navigation-item>
-    <hazdev-template-navigation-item
-      *ngIf="event?.hasProducts('dyfi')"
-      display="Did You Feel It?"
-      navRouterLink="dyfi"
-    ></hazdev-template-navigation-item>
-    <hazdev-template-navigation-item
-      *ngIf="event?.hasProducts('shakemap')"
-      display="ShakeMap"
-      navRouterLink="shakemap"
-    ></hazdev-template-navigation-item>
-    <hazdev-template-navigation-item
-      *ngIf="event?.hasProducts('losspager')"
-      display="PAGER"
-      navRouterLink="pager"
-    ></hazdev-template-navigation-item>
-    <hazdev-template-navigation-item
-      *ngIf="event?.hasProducts('ground-failure')"
-      display="Ground Failure"
-      navRouterLink="ground-failure"
-    ></hazdev-template-navigation-item>
-  </hazdev-template-navigation-group>
-
-  <hazdev-template-navigation-group
-    *ngIf="hasTechnical(event); else: noTechnical"
-  >
-    <hazdev-template-navigation-item
-      navGroupHeader
-      display="Technical"
-      navRouterLink="technical"
+      display="View Nearby Seismicity"
+      navHrefLink="{{ event | nearbySeismicityLink }}"
     ></hazdev-template-navigation-item>
 
-    <hazdev-template-navigation-item
-      *ngIf="event?.hasProducts(['origin', 'phase-data'])"
-      display="Origin"
-      navRouterLink="origin"
-    ></hazdev-template-navigation-item>
-    <hazdev-template-navigation-item
-      *ngIf="event?.hasProducts('moment-tensor')"
-      display="Moment Tensor"
-      navRouterLink="moment-tensor"
-    ></hazdev-template-navigation-item>
-    <hazdev-template-navigation-item
-      *ngIf="event?.hasProducts('focal-mechanism')"
-      display="Focal Mechanism"
-      navRouterLink="focal-mechanism"
-    ></hazdev-template-navigation-item>
-    <hazdev-template-navigation-item
-      *ngIf="event?.hasProducts('finite-fault')"
-      display="Finite Fault"
-      navRouterLink="finite-fault"
-    ></hazdev-template-navigation-item>
-    <hazdev-template-navigation-item
-      *ngIf="(event | isActualEvent)"
-      display="Waveforms"
-      navRouterLink="waveforms"
-    ></hazdev-template-navigation-item>
-    <hazdev-template-navigation-item
-      *ngIf="event?.hasProducts('oaf')"
-      display="Aftershock Forecast"
-      navRouterLink="oaf"
-    ></hazdev-template-navigation-item>
-    <hazdev-template-navigation-item
-      *ngIf="event?.hasProducts('shake-alert')"
-      display="ShakeAlert"
-      navRouterLink="shake-alert"
-    ></hazdev-template-navigation-item>
-  </hazdev-template-navigation-group>
+    <ng-template #noImpact>
+      <hazdev-template-navigation-item
+        *ngIf="(event | isActualEvent)"
+        display="Felt Report - Tell Us!"
+        navRouterLink="tellus"
+      ></hazdev-template-navigation-item>
+    </ng-template>
 
-  <hazdev-template-navigation-item
-    display="Download Event KML"
-    navHrefLink="{{ getKmlLink(event) }}"
-  ></hazdev-template-navigation-item>
-
-  <hazdev-template-navigation-item
-    *ngIf="(event | isActualEvent)"
-    display="View Nearby Seismicity"
-    navHrefLink="{{ event | nearbySeismicityLink }}"
-  ></hazdev-template-navigation-item>
-
-  <ng-template #noImpact>
-    <hazdev-template-navigation-item
-      *ngIf="(event | isActualEvent)"
-      display="Felt Report - Tell Us!"
-      navRouterLink="tellus"
-    ></hazdev-template-navigation-item>
-  </ng-template>
-
-  <ng-template #noTechnical>
-    <hazdev-template-navigation-item
-      *ngIf="(event | isActualEvent)"
-      display="Waveforms"
-      navRouterLink="waveforms"
-    ></hazdev-template-navigation-item>
-  </ng-template>
+    <ng-template #noTechnical>
+      <hazdev-template-navigation-item
+        *ngIf="(event | isActualEvent)"
+        display="Waveforms"
+        navRouterLink="waveforms"
+      ></hazdev-template-navigation-item>
+    </ng-template>
+  </ng-container>
 </ng-container>
