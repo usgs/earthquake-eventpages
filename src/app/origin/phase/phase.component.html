@@ -93,7 +93,7 @@
 </ng-template>
 
 <ng-template #noQuakeml>
-  <ng-container *ngIf="quakemlService.error; else loadingQuakeml; let error">
+  <ng-container *ngIf="quakemlService.error; else loadingQuakeml">
     <p class="alert info">No phase information available.</p>
   </ng-container>
 </ng-template>

@@ -59,7 +59,7 @@
 </ng-container>
 
 <ng-template #noQuakeml>
-  <ng-container *ngIf="quakemlService.error; else loadingQuakeml; let error">
+  <ng-container *ngIf="quakemlService.error; else loadingQuakeml">
     <p class="alert info">No magnitude information available.</p>
   </ng-container>
 </ng-template>
