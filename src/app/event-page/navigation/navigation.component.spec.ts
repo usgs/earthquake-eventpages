@@ -21,7 +21,8 @@ describe('NavigationComponent', () => {
           selector: 'hazdev-template-navigation-item'
         }),
         MockPipe('nearbySeismicityLink'),
-        MockPipe('isActualEvent')
+        MockPipe('isActualEvent'),
+        MockPipe('isDeletedEvent')
       ]
     }).compileComponents();
   }));

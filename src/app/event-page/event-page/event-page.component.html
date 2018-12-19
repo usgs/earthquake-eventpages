@@ -15,7 +15,7 @@
       ></event-page-navigation>
     </mat-nav-list>
 
-    <ng-container *ngIf="!event?.deleted; else: deletedEvent">
+    <ng-container *ngIf="!event?.deleted; else deletedEvent">
       <router-outlet></router-outlet>
     </ng-container>
 
@@ -23,7 +23,6 @@
       <p class="alert error">
         The requested event has been <strong>deleted</strong>.
       </p>
-
       <shared-text-product
         *ngFor="
           let product of event?.getProducts('deleted-text');

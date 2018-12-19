@@ -34,6 +34,7 @@ import { HasProductPipe } from './has-product.pipe';
 import { InteractiveMapBoundsPipe } from './interactive-map-bounds.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 import { IsActualEventPipe } from './is-actual-event.pipe';
+import { IsDeletedEventPipe } from './is-deleted-event.pipe';
 import { IsScenarioEventPipe } from './is-scenario-event.pipe';
 import { KeysPipe } from './keys.pipe';
 import { LinkProductComponent } from './link-product/link-product.component';
@@ -104,6 +105,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     InteractiveMapBoundsPipe,
     InteractiveMapOverlaysPipe,
     IsActualEventPipe,
+    IsDeletedEventPipe,
     IsScenarioEventPipe,
     KeysPipe,
     LinkProductComponent,
@@ -171,6 +173,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     InteractiveMapBoundsPipe,
     InteractiveMapOverlaysPipe,
     IsActualEventPipe,
+    IsDeletedEventPipe,
     IsScenarioEventPipe,
     KeysPipe,
     LinkProductComponent,
