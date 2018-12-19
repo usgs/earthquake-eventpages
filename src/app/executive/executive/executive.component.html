@@ -100,28 +100,26 @@
   >
   </shared-text-product>
 
-  <ng-container *ngIf="event.hasProducts('general-link')">
-    <h3>For More Information</h3>
-    <ul>
-      <li><a [routerLink]="'/' + event?.id + '/impact'">Impact Summary</a></li>
-      <li>
-        <a [routerLink]="'/' + event?.id + '/technical'">Technical Summary</a>
-      </li>
-      <li
-        *ngFor="
-          let product of event.getProducts('general-link');
-          trackBy: trackByIndex
-        "
-      >
-        <shared-link-product [product]="product"> </shared-link-product>
-      </li>
-    </ul>
-  </ng-container>
-
   <product-page-download
     *ngIf="event.hasProducts('poster')"
     [product]="event.getProduct('poster')"
     [expanded]="true"
   >
   </product-page-download>
+
+  <h3>For More Information</h3>
+  <ul>
+    <li><a [routerLink]="'/' + event?.id + '/impact'">Impact Summary</a></li>
+    <li>
+      <a [routerLink]="'/' + event?.id + '/technical'">Technical Summary</a>
+    </li>
+    <li
+      *ngFor="
+        let product of event.getProducts('general-link');
+        trackBy: trackByIndex
+      "
+    >
+      <shared-link-product [product]="product"> </shared-link-product>
+    </li>
+  </ul>
 </ng-container>
