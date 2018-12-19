@@ -1,8 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
 
 import { ContentsXmlService } from '@core/contents-xml.service';
+import { EventService } from '@core/event.service';
 import { DownloadComponent } from './download.component';
 
 describe('DownloadComponent', () => {
@@ -12,6 +14,9 @@ describe('DownloadComponent', () => {
   beforeEach(async(() => {
     const contentsXmlServiceStub = {
       get: jasmine.createSpy('contentsXmlServiceStub::get')
+    };
+    const eventServiceStub = {
+      product$: of(null)
     };
 
     TestBed.configureTestingModule({
@@ -29,7 +34,8 @@ describe('DownloadComponent', () => {
         })
       ],
       providers: [
-        { provide: ContentsXmlService, useValue: contentsXmlServiceStub }
+        { provide: ContentsXmlService, useValue: contentsXmlServiceStub },
+        { provide: EventService, useValue: eventServiceStub }
       ]
     }).compileComponents();
   }));
