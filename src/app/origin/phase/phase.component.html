@@ -1,103 +1,90 @@
-<ng-container *ngIf="eventService.event$ | async; else noEvent; let event">
-  <ng-container *ngIf="quakemlService.quakeml$ | async; else noQuakeml; let quakeml">
-
+<ng-container *ngIf="(eventService.event$ | async); else noEvent; let event">
+  <ng-container *ngIf="(quakemlService.quakeml$ | async); else noQuakeml">
     <h4>Phase Arrival Times</h4>
 
-    <button (click)="onDownload()"
-      mat-raised-button>Download</button>
+    <button (click)="onDownload()" mat-raised-button>Download</button>
     <div class="horizontal-scrolling">
-      <mat-table [dataSource]="sortedPhases"
+      <mat-table
+        [dataSource]="sortedPhases"
         class="phase-table"
         matSort
-        (matSortChange)="sortPhases($event)">
+        (matSortChange)="sortPhases($event)"
+      >
         <!-- render order is defined by columnsToDisplay -->
         <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-        <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+        <mat-row
+          *matRowDef="let myRowData; columns: columnsToDisplay"
+        ></mat-row>
 
         <ng-container matColumnDef="azimuth">
-          <mat-header-cell *matHeaderCellDef
-            mat-sort-header>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{ columnTitles.azimuth }}
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
-            {{ arrival.azimuth | sharedNumber:2:'°' }}
+            {{ arrival.azimuth | sharedNumber: 2:'°' }}
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="channel">
-          <mat-header-cell *matHeaderCellDef
-            mat-sort-header>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{ columnTitles.channel }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let arrival">
-            {{ arrival.channel }}
-          </mat-cell>
+          <mat-cell *matCellDef="let arrival"> {{ arrival.channel }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="distance">
-          <mat-header-cell *matHeaderCellDef
-            mat-sort-header>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{ columnTitles.distance }}
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
-            {{ arrival.distance | sharedNumber:2:'°' }}
+            {{ arrival.distance | sharedNumber: 2:'°' }}
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="phase">
-          <mat-header-cell *matHeaderCellDef
-            mat-sort-header>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{ columnTitles.phase }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let arrival">
-            {{ arrival.phase }}
-          </mat-cell>
+          <mat-cell *matCellDef="let arrival"> {{ arrival.phase }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef
-            mat-sort-header>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{ columnTitles.status }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let arrival">
-            {{ arrival.status }}
-          </mat-cell>
+          <mat-cell *matCellDef="let arrival"> {{ arrival.status }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="time">
-          <mat-header-cell *matHeaderCellDef
-            mat-sort-header>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{ columnTitles.time }}
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
             <abbr title="{{ arrival.time }}">
-              {{ arrival.timeRelative | sharedNumber:1:'s' }}
+              {{ arrival.timeRelative | sharedNumber: 1:'s' }}
             </abbr>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="timeResidual">
-          <mat-header-cell *matHeaderCellDef
-            mat-sort-header>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{ columnTitles.timeResidual }}
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
-            {{ arrival.timeResidual | sharedNumber:2 }}
+            {{ arrival.timeResidual | sharedNumber: 2 }}
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="timeWeight">
-          <mat-header-cell *matHeaderCellDef
-            mat-sort-header>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
             {{ columnTitles.timeWeight }}
           </mat-header-cell>
           <mat-cell *matCellDef="let arrival">
-            {{ arrival.timeWeight | sharedNumber:2 }}
+            {{ arrival.timeWeight | sharedNumber: 2 }}
           </mat-cell>
         </ng-container>
       </mat-table>
     </div>
-
   </ng-container>
 </ng-container>
 
@@ -106,11 +93,9 @@
 </ng-template>
 
 <ng-template #noQuakeml>
-  <ng-container *ngIf="quakemlService.error; else loadingQuakeml; let error">
+  <ng-container *ngIf="quakemlService.error; else loadingQuakeml">
     <p class="alert info">No phase information available.</p>
   </ng-container>
 </ng-template>
 
-<ng-template #loadingQuakeml>
-  <p>Loading quakeml</p>
-</ng-template>
+<ng-template #loadingQuakeml> <p>Loading quakeml</p> </ng-template>
