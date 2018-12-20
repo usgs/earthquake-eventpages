@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Event } from '../../event';
-
 
 /**
  * Renders shakemap summary table
@@ -26,4 +26,11 @@ export class ShakemapSummaryComponent {
 
   @Input()
   products: Array<any> = [];
+
+  // router information
+  router: Router;
+
+  constructor(router: Router) {
+    this.router = router;
+  }
 }

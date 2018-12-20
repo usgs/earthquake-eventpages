@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { FormatterService } from '@core/formatter.service';
-
 
 /**
  * Technical origin component
@@ -30,10 +30,16 @@ export class OriginSummaryComponent {
 
   @Input()
   event: any;
+
   @Input()
   products: Array<any>;
 
-  constructor(public formatterService: FormatterService) {}
+  // router information
+  router: Router;
+
+  constructor(public formatterService: FormatterService, router: Router) {
+    this.router = router;
+  }
 
   /**
    * Returns a date object from a string

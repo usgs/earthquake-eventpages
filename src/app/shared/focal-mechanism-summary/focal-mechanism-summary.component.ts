@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Tensor } from '@shared/beachball/tensor';
-
 
 /**
  * Focal mechanism component, renders a table with data
@@ -28,8 +28,14 @@ export class FocalMechanismSummaryComponent {
   @Input()
   event: any;
 
+  // router information
+  router: Router;
+
   tensors: Array<any> = [];
 
+  constructor(router: Router) {
+    this.router = router;
+  }
   /**
    * Setter to set the products array
    * @param products

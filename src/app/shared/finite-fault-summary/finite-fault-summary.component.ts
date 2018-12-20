@@ -1,8 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,18 +9,18 @@ import {
 })
 export class FiniteFaultSummaryComponent {
   // Table headers
-  columnsToDisplay = [
-    'catalog',
-    'derived-magnitude',
-    'maximum-slip',
-    'source'
-  ];
+  columnsToDisplay = ['catalog', 'derived-magnitude', 'maximum-slip', 'source'];
 
   @Input()
   event: any;
+
   @Input()
   products: Array<any>;
 
-  constructor() { }
+  // router information
+  router: Router;
 
+  constructor(router: Router) {
+    this.router = router;
+  }
 }
