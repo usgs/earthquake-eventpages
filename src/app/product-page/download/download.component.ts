@@ -1,6 +1,15 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  OnDestroy
+} from '@angular/core';
+
+import { Subscription } from 'rxjs';
 
 import { ContentsXmlService } from '@core/contents-xml.service';
+import { EventService } from '@core/event.service';
 
 /**
  * Generates expansion panel to list all downloadable product contents
@@ -14,14 +23,19 @@ import { ContentsXmlService } from '@core/contents-xml.service';
   styleUrls: ['./download.component.scss'],
   templateUrl: './download.component.html'
 })
-export class DownloadComponent {
+export class DownloadComponent implements OnInit, OnDestroy {
   @Input()
   expanded: any;
 
   @Input()
   product: any;
 
-  constructor(public contentsXmlService: ContentsXmlService) {}
+  subscription: Subscription;
+
+  constructor(
+    public contentsXmlService: ContentsXmlService,
+    public eventService: EventService
+  ) {}
 
   /**
    * Gets contents xml from product
@@ -32,6 +46,17 @@ export class DownloadComponent {
       this.product = this.product.phasedata;
     }
     this.contentsXmlService.get(this.product);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  ngOnInit() {
+    this.subscription = this.eventService.product$.subscribe(product => {
+      this.product = product;
+      this.loadContentsXml();
+    });
   }
 
   /**
