@@ -1,3 +1,5 @@
+import { MockComponent } from 'ng2-mock-component';
+import { MockPipe } from './../../mock-pipe';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WindowRef } from '@shared/window-ref-wrapper';
@@ -14,7 +16,14 @@ describe('SuccessViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [SuccessViewComponent],
+      declarations: [
+        SuccessViewComponent,
+        MockPipe('sharedRomanToNumber'),
+        MockComponent({
+          inputs: ['bubble', 'intensity', 'value'],
+          selector: 'shared-mmi'
+        })
+      ],
       providers: [{ provide: WindowRef, useValue: nativeWindowRef }]
     }).compileComponents();
   }));

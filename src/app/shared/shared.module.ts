@@ -54,6 +54,7 @@ import { ProductPropertyPipe } from './product-property.pipe';
 import { ProductReviewedPipe } from './product-reviewed.pipe';
 import { RegionInfoOverlaysPipe } from './region-info-overlays.pipe';
 import { RomanPipe } from './roman.pipe';
+import { RomanToNumberPipe } from './roman-to-number.pipe';
 import { RoundDownPipe } from './round-down.pipe';
 import { RoundUpPipe } from './round-up.pipe';
 import { ShakeAlertOverlaysPipe } from './shake-alert-map-overlays.pipe';
@@ -128,6 +129,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     ProductReviewedPipe,
     RegionInfoOverlaysPipe,
     RomanPipe,
+    RomanToNumberPipe,
     RoundDownPipe,
     RoundUpPipe,
     ShakeAlertOverlaysPipe,
@@ -197,6 +199,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     ProductReviewedPipe,
     RegionInfoOverlaysPipe,
     RomanPipe,
+    RomanToNumberPipe,
     RoundDownPipe,
     RoundUpPipe,
     ShakeAlertOverlaysPipe,
