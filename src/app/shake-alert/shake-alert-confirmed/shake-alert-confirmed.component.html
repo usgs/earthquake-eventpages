@@ -49,7 +49,13 @@
         <ng-container *ngIf="alert_initial?.features; let features_initial">
           <!-- TODO change the input name of map component
                          to features instead of alert -->
-          <shake-alert-map [alert]="features_initial"></shake-alert-map>
+          <shake-alert-map
+            [alert]="features_initial"
+            [caption]="Figure 1. Map showing initial alert, polygon, and approximate warning times.
+              Map shows increasing warning times as expanding circles away from the
+              epicenter; blue balloon marks the final epicenter and the dark gray filled circle
+              is the location of shaking front at the time of first alert."
+          ></shake-alert-map>
         </ng-container>
       </li>
       <!-- TODO: if alert is just one object, we are good, if it's an array
@@ -58,7 +64,10 @@
         <ng-container *ngIf="alert_final?.features; let features_final">
           <!-- TODO change the input name of map component
                to features instead of alert -->
-          <shake-alert-map [alert]="features_final"></shake-alert-map>
+          <shake-alert-map
+            [alert]="features_final"
+            [caption]="Figure 2. Map showing initial and final contours"
+          ></shake-alert-map>
         </ng-container>
       </li>
     </ul>
