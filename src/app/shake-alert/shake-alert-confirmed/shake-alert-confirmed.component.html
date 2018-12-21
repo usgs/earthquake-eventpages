@@ -43,11 +43,22 @@
 
   <div class="column">
     <ul class="shake-alert-maps">
-      <li *ngFor="let alert of alerts">
-        <ng-container
-          *ngIf="alert.features[0].geometry.coordinates; let coords"
-        >
-          <shake-alert-map [alert]="alert"></shake-alert-map>
+      <!-- TODO: if alert is just one object, we are good, if it's an array
+           again, we'll need to use the zero index for alerts[0]['init...]-->
+      <li *ngIf="alert['initial_alert']; let alert_initial">
+        <ng-container *ngIf="alert_initial?.features; let features_initial">
+          <!-- TODO change the input name of map component
+                         to features instead of alert -->
+          <shake-alert-map [alert]="features_initial"></shake-alert-map>
+        </ng-container>
+      </li>
+      <!-- TODO: if alert is just one object, we are good, if it's an array
+                 again, we'll need to use the zero index for alerts[0]['final...]-->
+      <li *ngIf="alert['final_alert']; let alert_final">
+        <ng-container *ngIf="alert_final?.features; let features_final">
+          <!-- TODO change the input name of map component
+               to features instead of alert -->
+          <shake-alert-map [alert]="features_final"></shake-alert-map>
         </ng-container>
       </li>
     </ul>
