@@ -7,11 +7,11 @@ import { Component, Input } from '@angular/core';
 })
 export class ShakeAlertConfirmedComponent {
   @Input()
-  alerts: any[];
-
-  @Input()
   cities: any;
 
   @Input()
   properties: any;
+
+  @Input()
+  summary: any;
 }

@@ -45,31 +45,33 @@
     <ul class="shake-alert-maps">
       <!-- TODO: if alert is just one object, we are good, if it's an array
            again, we'll need to use the zero index for alerts[0]['init...]-->
-      <li *ngIf="alert['initial_alert']; let alert_initial">
-        <ng-container *ngIf="alert_initial?.features; let features_initial">
-          <!-- TODO change the input name of map component
-                         to features instead of alert -->
-          <shake-alert-map
-            [alert]="features_initial"
-            [caption]="Figure 1. Map showing initial alert, polygon, and approximate warning times.
-              Map shows increasing warning times as expanding circles away from the
-              epicenter; blue balloon marks the final epicenter and the dark gray filled circle
-              is the location of shaking front at the time of first alert."
-          ></shake-alert-map>
-        </ng-container>
+      <li *ngIf="summary?.initial_alert; else noInitialAlert">
+        <shake-alert-map
+          [features]="summary?.initial_alert"
+          [caption]="
+            'Figure 1.
+            Map showing initial alert, polygon, and approximate warning times.
+            Map shows increasing warning times as expanding circles away from
+            the epicenter; blue balloon marks the final epicenter and the dark
+            gray filled circle is the location of shaking front at the time of
+            first alert.'
+          "
+        ></shake-alert-map>
       </li>
       <!-- TODO: if alert is just one object, we are good, if it's an array
                  again, we'll need to use the zero index for alerts[0]['final...]-->
-      <li *ngIf="alert['final_alert']; let alert_final">
-        <ng-container *ngIf="alert_final?.features; let features_final">
-          <!-- TODO change the input name of map component
-               to features instead of alert -->
-          <shake-alert-map
-            [alert]="features_final"
-            [caption]="Figure 2. Map showing initial and final contours"
-          ></shake-alert-map>
-        </ng-container>
+      <li *ngIf="summary?.final_alert; else noFinalAlert">
+        <shake-alert-map
+          [features]="summary?.final_alert"
+          [caption]="'Figure 2. Map showing initial and final contours.'"
+        ></shake-alert-map>
       </li>
     </ul>
+    <ng-template #noInitialAlert>
+      <li>There are currently no initial alert data.</li>
+    </ng-template>
+    <ng-template #noFinalAlert>
+      <li>There are currently no final alert data.</li>
+    </ng-template>
   </div>
 </div>

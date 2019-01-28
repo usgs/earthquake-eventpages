@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './shake-alert-map.component.html'
 })
 export class ShakeAlertMapComponent {
-  @Input() alert;
+  @Input() caption;
+  @Input() features;
   @Input() mapBounds;
 }
