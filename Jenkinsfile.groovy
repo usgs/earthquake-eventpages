@@ -144,9 +144,12 @@ node {
         //         have generated this directory, but just be aware...
         //         To manually run the `npm install` now, un-comment the
         //         following ...
-        // docker.image(TESTER_IMAGE).inside () {
-        //   sh "npm install"
-        // }
+        docker.image(TESTER_IMAGE).inside () {
+          sh """
+            rm -rf node_modules
+            npm install
+          """
+        }
 
         dependencyCheckAnalyzer(
           datadir: '/var/lib/jenkins/nvd',
