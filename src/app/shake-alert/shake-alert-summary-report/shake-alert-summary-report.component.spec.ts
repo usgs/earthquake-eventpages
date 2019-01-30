@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShakeAlertSummaryReportComponent } from './shake-alert-summary-report.component';
+import { MockPipe } from '../../mock-pipe';
 
 describe('ShakeAlertSummaryReportComponent', () => {
   let component: ShakeAlertSummaryReportComponent;
@@ -8,9 +9,13 @@ describe('ShakeAlertSummaryReportComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ShakeAlertSummaryReportComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        ShakeAlertSummaryReportComponent,
+
+        MockPipe('sharedDirection'),
+        MockPipe('sharedNumber')
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

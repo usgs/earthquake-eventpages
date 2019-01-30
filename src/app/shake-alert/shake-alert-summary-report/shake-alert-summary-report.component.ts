@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ShakeAlertSummaryReportComponent {
   @Input()
-  properties: any;
+  summary: any;
 }

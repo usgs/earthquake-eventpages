@@ -15,10 +15,10 @@ export class NumberPipe implements PipeTransform {
    *     Number to format.
    * @param decimals Optional, default does not round.
    *     Number of decimal places to round.
-   * @param empty Optional, default none.
-   *     Value to return if value is empty.
    * @param units Optional, default none.
    *     Units of value.
+   * @param empty Optional, default none.
+   *     Value to return if value is empty.
    *
    * @return {String}
    *     formatted number

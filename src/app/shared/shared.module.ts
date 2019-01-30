@@ -77,6 +77,7 @@ import { FiniteFaultSummaryComponent } from '@shared/finite-fault-summary/finite
 import { FocalMechanismSummaryComponent } from '@shared/focal-mechanism-summary/focal-mechanism-summary.component';
 import { MomentTensorSummaryComponent } from '@shared/moment-tensor-summary/moment-tensor-summary.component';
 import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.component';
+import { DirectionPipe } from './direction.pipe';
 
 @NgModule({
   declarations: [
@@ -144,7 +145,8 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     TensorPipe,
     TextProductComponent,
     UncertainValueComponent,
-    UnitsPipe
+    UnitsPipe,
+    DirectionPipe
   ],
   entryComponents: [
     DownloadDialogComponent,
@@ -213,7 +215,8 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     TensorPipe,
     TextProductComponent,
     UncertainValueComponent,
-    UnitsPipe
+    UnitsPipe,
+    DirectionPipe
   ],
   imports: [
     CommonModule,
