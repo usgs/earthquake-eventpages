@@ -69,70 +69,70 @@ node {
       }
     }
 
-    stage('Build Image') {
-      def info = [:]
-      def pkgInfo = readJSON file: 'package.json'
+    // stage('Build Image') {
+    //   def info = [:]
+    //   def pkgInfo = readJSON file: 'package.json'
 
-      info.version = pkgInfo.version
-      info.branch = SCM_VARS.GIT_BRANCH
-      info.commit = SCM_VARS.GIT_COMMIT
-      info.image = IMAGE_VERSION
+    //   info.version = pkgInfo.version
+    //   info.branch = SCM_VARS.GIT_BRANCH
+    //   info.commit = SCM_VARS.GIT_COMMIT
+    //   info.image = IMAGE_VERSION
 
-      // Convert from Map --> JSON
-      info = readJSON text: groovy.json.JsonOutput.toJson(info)
-      writeJSON file: 'metadata.json', pretty: 4, json: info
+    //   // Convert from Map --> JSON
+    //   info = readJSON text: groovy.json.JsonOutput.toJson(info)
+    //   writeJSON file: 'metadata.json', pretty: 4, json: info
 
-      // Build candidate image for later penetration testing
-      ansiColor('xterm') {
-        sh """
-          docker build \
-            --build-arg BUILD_IMAGE=${BUILDER_IMAGE} \
-            --build-arg FROM_IMAGE=${BASE_IMAGE} \
-            -t ${LOCAL_IMAGE} \
-            .
-        """
-      }
-    }
+    //   // Build candidate image for later penetration testing
+    //   ansiColor('xterm') {
+    //     sh """
+    //       docker build \
+    //         --build-arg BUILD_IMAGE=${BUILDER_IMAGE} \
+    //         --build-arg FROM_IMAGE=${BASE_IMAGE} \
+    //         -t ${LOCAL_IMAGE} \
+    //         .
+    //     """
+    //   }
+    // }
 
-    stage('Unit Tests') {
-      // Note that running angular tests destroys the "dist" folder that was
-      // originally created in Install stage. This is not needed later, so
-      // okay, but just be aware ...
+    // stage('Unit Tests') {
+    //   // Note that running angular tests destroys the "dist" folder that was
+    //   // originally created in Install stage. This is not needed later, so
+    //   // okay, but just be aware ...
 
-      // Run linting, unit tests, and end-to-end tests
-      docker.image(TESTER_IMAGE).inside () {
-          ansiColor('xterm') {
-            sh """
-              npm install --no-save
-            """
-            sh """
-              ng lint
-            """
-            sh """
-              ng test --watch=false --code-coverage --progress false --browsers ChromeHeadless
-            """
-            sh """
-              npm run e2e
-            """
-          }
-      }
+    //   // Run linting, unit tests, and end-to-end tests
+    //   docker.image(TESTER_IMAGE).inside () {
+    //       ansiColor('xterm') {
+    //         sh """
+    //           npm install --no-save
+    //         """
+    //         sh """
+    //           ng lint
+    //         """
+    //         sh """
+    //           ng test --watch=false --code-coverage --progress false --browsers ChromeHeadless
+    //         """
+    //         sh """
+    //           npm run e2e
+    //         """
+    //       }
+    //   }
 
-      // Publish results
-      cobertura(
-        autoUpdateHealth: false,
-        autoUpdateStability: false,
-        coberturaReportFile: '**/cobertura-coverage.xml',
-        conditionalCoverageTargets: '70, 0, 0',
-        failUnhealthy: false,
-        failUnstable: false,
-        lineCoverageTargets: '80, 0, 0',
-        maxNumberOfBuilds: 0,
-        methodCoverageTargets: '80, 0, 0',
-        onlyStable: false,
-        sourceEncoding: 'ASCII',
-        zoomCoverageChart: false
-      )
-    }
+    //   // Publish results
+    //   cobertura(
+    //     autoUpdateHealth: false,
+    //     autoUpdateStability: false,
+    //     coberturaReportFile: '**/cobertura-coverage.xml',
+    //     conditionalCoverageTargets: '70, 0, 0',
+    //     failUnhealthy: false,
+    //     failUnstable: false,
+    //     lineCoverageTargets: '80, 0, 0',
+    //     maxNumberOfBuilds: 0,
+    //     methodCoverageTargets: '80, 0, 0',
+    //     onlyStable: false,
+    //     sourceEncoding: 'ASCII',
+    //     zoomCoverageChart: false
+    //   )
+    // }
 
     SECURITY_CHECKS['Scan Dependencies'] = {
       // Analyze dependencies
@@ -146,7 +146,7 @@ node {
           includeVulnReports: false, // Abbreviated version of includeHtmlReport
           isAutoupdateDisabled: false,
           outdir: 'dependency-check-data',
-          scanpath: "${WORKSPACE}/package.json",
+          scanpath: "${WORKSPACE}/node_modules",
           skipOnScmChange: false,
           skipOnUpstreamChange: false,
           suppressionFile: 'suppression.xml',
@@ -174,139 +174,139 @@ node {
       ])
     }
 
-    SECURITY_CHECKS['Penetration Tests'] = {
-      def ZAP_API_PORT = '8090'
+    // SECURITY_CHECKS['Penetration Tests'] = {
+    //   def ZAP_API_PORT = '8090'
 
-      // Ensure report output directory exists
-      sh """
-        if [ ! -d "${OWASP_REPORT_DIR}" ]; then
-          mkdir -p ${OWASP_REPORT_DIR}
-          chmod 777 ${OWASP_REPORT_DIR}
-        fi
-      """
+    //   // Ensure report output directory exists
+    //   sh """
+    //     if [ ! -d "${OWASP_REPORT_DIR}" ]; then
+    //       mkdir -p ${OWASP_REPORT_DIR}
+    //       chmod 777 ${OWASP_REPORT_DIR}
+    //     fi
+    //   """
 
-      // Start a container to run penetration tests against
-      sh """
-        docker run --rm --name ${LOCAL_CONTAINER} \
-          -d ${LOCAL_IMAGE}
-      """
+    //   // Start a container to run penetration tests against
+    //   sh """
+    //     docker run --rm --name ${LOCAL_CONTAINER} \
+    //       -d ${LOCAL_IMAGE}
+    //   """
 
-      // Start a container to execute OWASP PENTEST
-      sh """
-        docker run --rm -d -u zap \
-          --name=${OWASP_CONTAINER} \
-          --link=${LOCAL_CONTAINER}:application \
-          -v ${OWASP_REPORT_DIR}:/zap/reports:rw \
-          -i ${OWASP_IMAGE} \
-          zap.sh \
-          -daemon \
-          -port ${ZAP_API_PORT} \
-          -config api.disablekey=true
-      """
+    //   // Start a container to execute OWASP PENTEST
+    //   sh """
+    //     docker run --rm -d -u zap \
+    //       --name=${OWASP_CONTAINER} \
+    //       --link=${LOCAL_CONTAINER}:application \
+    //       -v ${OWASP_REPORT_DIR}:/zap/reports:rw \
+    //       -i ${OWASP_IMAGE} \
+    //       zap.sh \
+    //       -daemon \
+    //       -port ${ZAP_API_PORT} \
+    //       -config api.disablekey=true
+    //   """
 
-      // Wait for OWASP container to be ready, but not for too long
-      timeout(
-        time: 20,
-        unit: 'SECONDS'
-      ) {
-        echo 'Waiting for OWASP container to finish starting up'
-        sh """
-          set +x
-          status='FAILED'
-          while [ \$status != 'SUCCESS' ]; do
-            sleep 1;
-            status=`\
-              (\
-                docker exec -i ${OWASP_CONTAINER} \
-                  curl -I localhost:${ZAP_API_PORT} \
-                  > /dev/null 2>&1 && echo 'SUCCESS'\
-              ) \
-              || \
-              echo 'FAILED'\
-            `
-          done
-        """
-      }
+    //   // Wait for OWASP container to be ready, but not for too long
+    //   timeout(
+    //     time: 20,
+    //     unit: 'SECONDS'
+    //   ) {
+    //     echo 'Waiting for OWASP container to finish starting up'
+    //     sh """
+    //       set +x
+    //       status='FAILED'
+    //       while [ \$status != 'SUCCESS' ]; do
+    //         sleep 1;
+    //         status=`\
+    //           (\
+    //             docker exec -i ${OWASP_CONTAINER} \
+    //               curl -I localhost:${ZAP_API_PORT} \
+    //               > /dev/null 2>&1 && echo 'SUCCESS'\
+    //           ) \
+    //           || \
+    //           echo 'FAILED'\
+    //         `
+    //       done
+    //     """
+    //   }
 
-      // Run the penetration tests
-      ansiColor('xterm') {
-        sh """
-          PENTEST_IP='application'
+    //   // Run the penetration tests
+    //   ansiColor('xterm') {
+    //     sh """
+    //       PENTEST_IP='application'
 
-          docker exec ${OWASP_CONTAINER} \
-            zap-cli -v -p ${ZAP_API_PORT} spider \
-            http://\$PENTEST_IP:8080/
+    //       docker exec ${OWASP_CONTAINER} \
+    //         zap-cli -v -p ${ZAP_API_PORT} spider \
+    //         http://\$PENTEST_IP:8080/
 
-          docker exec ${OWASP_CONTAINER} \
-            zap-cli -v -p ${ZAP_API_PORT} active-scan \
-            http://\$PENTEST_IP:8080/
+    //       docker exec ${OWASP_CONTAINER} \
+    //         zap-cli -v -p ${ZAP_API_PORT} active-scan \
+    //         http://\$PENTEST_IP:8080/
 
-          docker exec ${OWASP_CONTAINER} \
-            zap-cli -v -p ${ZAP_API_PORT} report \
-            -o /zap/reports/owasp-zap-report.html -f html
+    //       docker exec ${OWASP_CONTAINER} \
+    //         zap-cli -v -p ${ZAP_API_PORT} report \
+    //         -o /zap/reports/owasp-zap-report.html -f html
 
-          docker stop ${OWASP_CONTAINER} ${LOCAL_CONTAINER}
-        """
-      }
+    //       docker stop ${OWASP_CONTAINER} ${LOCAL_CONTAINER}
+    //     """
+    //   }
 
-      // Publish results
-      publishHTML (target: [
-        allowMissing: true,
-        alwaysLinkToLastBuild: true,
-        keepAll: true,
-        reportDir: OWASP_REPORT_DIR,
-        reportFiles: 'owasp-zap-report.html',
-        reportName: 'OWASP ZAP Report'
-      ])
-    }
+    //   // Publish results
+    //   publishHTML (target: [
+    //     allowMissing: true,
+    //     alwaysLinkToLastBuild: true,
+    //     keepAll: true,
+    //     reportDir: OWASP_REPORT_DIR,
+    //     reportFiles: 'owasp-zap-report.html',
+    //     reportName: 'OWASP ZAP Report'
+    //   ])
+    // }
 
     stage('Security') {
       parallel SECURITY_CHECKS
     }
 
-    stage('Publish Image') {
-      // Re-tag candidate image as internal image name and push to registry
-      docker.withRegistry(
-        "https://${GITLAB_INNERSOURCE_REGISTRY}",
-        'innersource-hazdev-cicd'
-      ) {
-        ansiColor('xterm') {
-          sh """
-            docker tag \
-              ${LOCAL_IMAGE} \
-              ${DEPLOY_IMAGE}:${IMAGE_VERSION}
-          """
+    // stage('Publish Image') {
+    //   // Re-tag candidate image as internal image name and push to registry
+    //   docker.withRegistry(
+    //     "https://${GITLAB_INNERSOURCE_REGISTRY}",
+    //     'innersource-hazdev-cicd'
+    //   ) {
+    //     ansiColor('xterm') {
+    //       sh """
+    //         docker tag \
+    //           ${LOCAL_IMAGE} \
+    //           ${DEPLOY_IMAGE}:${IMAGE_VERSION}
+    //       """
 
-          sh """
-            docker push ${DEPLOY_IMAGE}:${IMAGE_VERSION}
-          """
-        }
-      }
+    //       sh """
+    //         docker push ${DEPLOY_IMAGE}:${IMAGE_VERSION}
+    //       """
+    //     }
+    //   }
 
-      // Re-tag candidate image as public image name and push to docker hub
-      docker.withRegistry('', 'usgs-docker-hub-credentials') {
-        ansiColor('xterm') {
-          sh """
-            docker tag \
-              ${LOCAL_IMAGE} \
-              ${DOCKER_HUB_IMAGE}:${IMAGE_VERSION}
-          """
+    //   // Re-tag candidate image as public image name and push to docker hub
+    //   docker.withRegistry('', 'usgs-docker-hub-credentials') {
+    //     ansiColor('xterm') {
+    //       sh """
+    //         docker tag \
+    //           ${LOCAL_IMAGE} \
+    //           ${DOCKER_HUB_IMAGE}:${IMAGE_VERSION}
+    //       """
 
-          sh "docker push ${DOCKER_HUB_IMAGE}:${IMAGE_VERSION}"
-        }
-      }
-    }
+    //       sh "docker push ${DOCKER_HUB_IMAGE}:${IMAGE_VERSION}"
+    //     }
+    //   }
+    // }
 
-    stage('Trigger Deploy') {
-      build(
-        job: 'deploy',
-        parameters: [
-          string(name: 'IMAGE_VERSION', value: IMAGE_VERSION)
-        ],
-        propagate: false,
-        wait: false
-      )
-    }
+    // stage('Trigger Deploy') {
+    //   build(
+    //     job: 'deploy',
+    //     parameters: [
+    //       string(name: 'IMAGE_VERSION', value: IMAGE_VERSION)
+    //     ],
+    //     propagate: false,
+    //     wait: false
+    //   )
+    // }
   } catch (e) {
     mail to: 'gs-haz_dev_team_group@usgs.gov',
       from: 'noreply@jenkins',
