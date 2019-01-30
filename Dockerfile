@@ -8,7 +8,7 @@ ARG FROM_IMAGE=usgs/nginx
 FROM ${BUILD_IMAGE} as buildenv
 
 
-COPY . /earthquake-eventpages
+COPY --chown=usgs-user:usgs-user . /earthquake-eventpages
 WORKDIR /earthquake-eventpages
 
 # Re-build within image. Comment out if pre-built externally
