@@ -138,7 +138,7 @@ node {
       // Analyze dependencies
       ansiColor('xterm') {
 
-        docker.image(BUILDER_IMAGE).inside () {
+        docker.image(TESTER_IMAGE).inside () {
           sh "npm install"
         }
 
