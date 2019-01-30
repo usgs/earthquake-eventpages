@@ -1,4 +1,4 @@
-ARG BUILD_IMAGE=usgs/node:8
+ARG BUILD_IMAGE=usgs/node:10
 ARG FROM_IMAGE=usgs/nginx
 
 ##
