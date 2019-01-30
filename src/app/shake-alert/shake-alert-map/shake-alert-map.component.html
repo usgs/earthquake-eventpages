@@ -1,5 +1,8 @@
-<shared-map
-  class="shared-map"
-  [showScaleControl]="true"
-  [overlays]="alert | shakeAlertOverlays"
-></shared-map>
+<figure class="fill">
+  <shared-map
+    class="shared-map"
+    [showScaleControl]="true"
+    [overlays]="alert | shakeAlertOverlays"
+  ></shared-map>
+  <figcaption>{{ caption }}</figcaption>
+</figure>

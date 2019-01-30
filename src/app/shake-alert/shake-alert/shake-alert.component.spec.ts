@@ -35,7 +35,7 @@ describe('ShakeAlertComponent', () => {
 
         MockComponent({ inputs: ['productType'], selector: 'product-page' }),
         MockComponent({
-          inputs: ['alerts', 'cities', 'properties'],
+          inputs: ['summary', 'cities', 'properties'],
           selector: 'shake-alert-confirmed'
         })
       ],

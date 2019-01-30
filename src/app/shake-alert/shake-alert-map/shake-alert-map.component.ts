@@ -10,5 +10,5 @@ import { Component, Input } from '@angular/core';
 })
 export class ShakeAlertMapComponent {
   @Input() alert;
-  @Input() mapBounds;
+  @Input() caption;
 }

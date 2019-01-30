@@ -9,7 +9,7 @@
     <ng-container *ngIf="product.status === 'CONFIRMED'">
       <ng-container *ngIf="(shakeAlertService.summary$ | async) as summary">
         <shake-alert-confirmed
-          [alerts]="summary.alerts"
+          [summary]="summary"
           [cities]="summary.cities"
           [properties]="summary.properties"
         >
