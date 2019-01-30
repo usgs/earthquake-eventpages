@@ -22,7 +22,7 @@ describe('ShakeAlertConfirmedComponent', () => {
           selector: 'shake-alert-summary-report'
         }),
         MockComponent({
-          inputs: ['features', 'caption'],
+          inputs: ['alert', 'caption'],
           selector: 'shake-alert-map'
         }),
         MockPipe('sharedDateTime')
