@@ -157,7 +157,7 @@ node {
           includeVulnReports: false, // Abbreviated version of includeHtmlReport
           isAutoupdateDisabled: true,
           outdir: 'dependency-check-data',
-          scanpath: "${WORKSPACE}",
+          scanpath: "${WORKSPACE}/node_modules",
           skipOnScmChange: false,
           skipOnUpstreamChange: false,
           suppressionFile: '',
