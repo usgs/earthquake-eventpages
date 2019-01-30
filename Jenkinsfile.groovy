@@ -137,6 +137,11 @@ node {
     SECURITY_CHECKS['Scan Dependencies'] = {
       // Analyze dependencies
       ansiColor('xterm') {
+
+        docker.image(BUILDER_IMAGE).inside () {
+          sh "npm install"
+        }
+
         dependencyCheckAnalyzer(
           datadir: '',
           hintsFile: '',
