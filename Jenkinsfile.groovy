@@ -142,7 +142,7 @@ node {
         // No way to limit depth recursion with tool, so just eliminate this
         // directory instead. The "package-lock.json" file should be scanned
         // and already contains the recursive list of dependencies, so all good.
-        sh "rm -rf node_modules"
+        sh "rm -rf .tmp node_modules"
 
         dependencyCheckAnalyzer(
           datadir: '/var/lib/jenkins/nvd',
