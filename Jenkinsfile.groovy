@@ -138,43 +138,23 @@ node {
       // Analyze dependencies
       ansiColor('xterm') {
 
-        // Note :: Most dependencies are in the node_modules directory, this
-        //         directory won't exist unless an `npm install` has been run at
-        //         some point. In general, the "Unit Test" stage (above) will
-        //         have generated this directory, but just be aware...
-        //         To manually run the `npm install` now, un-comment the
-        //         following ...
-        docker.image(TESTER_IMAGE).inside () {
-          sh """
-            rm -rf node_modules
-            npm install
-          """
-        }
+        // Scanning all of node_modules leads to "Too many open files" errors.
+        // No way to limit depth recursion with tool, so just eliminate this
+        // directory instead. The "package-lock.json" file should be scanned
+        // and already contains the recursive list of dependencies, so all good.
+        sh "rm -rf node_modules"
 
         dependencyCheckAnalyzer(
           datadir: '/var/lib/jenkins/nvd',
-          hintsFile: '',
-          includeCsvReports: false,
-          includeHtmlReports: true,
-          includeJsonReports: false,
-          includeVulnReports: false, // Abbreviated version of includeHtmlReport
           isAutoupdateDisabled: true,
-          outdir: 'dependency-check-data',
-          scanpath: "${WORKSPACE}/node_modules",
-          skipOnScmChange: false,
-          skipOnUpstreamChange: false,
-          suppressionFile: '',
-          zipExtensions: ''
+          outdir: 'dependency-check-results',
+          scanpath: "${WORKSPACE}"
         )
       }
 
       // Put summary on landing page for this build
       dependencyCheckPublisher(
-        canComputeNew: false,
-        defaultEncoding: '',
-        healthy: '',
-        pattern: '**/dependency-check-report.xml',
-        unHealthy: ''
+        pattern: '**/dependency-check-report.xml'
       )
     }
 
