@@ -18,7 +18,7 @@ node {
 
   // Used to install dependencies and build distributables
   def BUILDER_CONTAINER = "${APP_NAME}-${BUILD_ID}-BUILDER"
-  def BUILDER_IMAGE = "${DEVOPS_REGISTRY}/usgs/node:8"
+  def BUILDER_IMAGE = "${DEVOPS_REGISTRY}/usgs/node:10"
 
   // Name of image to deploy (push) to registry
   def DEPLOY_IMAGE = "${GITLAB_INNERSOURCE_REGISTRY}/ghsc/hazdev/earthquake-eventpages"
