@@ -18,7 +18,7 @@ node {
 
   // Used to install dependencies and build distributables
   def BUILDER_CONTAINER = "${APP_NAME}-${BUILD_ID}-BUILDER"
-  def BUILDER_IMAGE = "${DEVOPS_REGISTRY}/usgs/node:8"
+  def BUILDER_IMAGE = "${DEVOPS_REGISTRY}/usgs/node:10"
 
   // Name of image to deploy (push) to registry
   def DEPLOY_IMAGE = "${GITLAB_INNERSOURCE_REGISTRY}/ghsc/hazdev/earthquake-eventpages"
@@ -134,45 +134,29 @@ node {
       )
     }
 
-    // SECURITY_CHECKS['Scan Dependencies'] = {
-    //   // Analyze dependencies
-    //   ansiColor('xterm') {
-    //     dependencyCheckAnalyzer(
-    //       datadir: '',
-    //       hintsFile: '',
-    //       includeCsvReports: false,
-    //       includeHtmlReports: true,
-    //       includeJsonReports: false,
-    //       includeVulnReports: false, // Abbreviated version of includeHtmlReport
-    //       isAutoupdateDisabled: false,
-    //       outdir: 'dependency-check-data',
-    //       scanpath: "${WORKSPACE}/package.json",
-    //       skipOnScmChange: false,
-    //       skipOnUpstreamChange: false,
-    //       suppressionFile: 'suppression.xml',
-    //       zipExtensions: ''
-    //     )
-    //   }
+    SECURITY_CHECKS['Scan Dependencies'] = {
+      // Analyze dependencies
+      ansiColor('xterm') {
 
-    //   // Put summary on landing page for this build
-    //   dependencyCheckPublisher(
-    //     canComputeNew: false,
-    //     defaultEncoding: '',
-    //     healthy: '',
-    //     pattern: '**/dependency-check-report.xml',
-    //     unHealthy: ''
-    //   )
+        // Scanning all of node_modules leads to "Too many open files" errors.
+        // No way to limit depth recursion with tool, so just eliminate this
+        // directory instead. The "package-lock.json" file should be scanned
+        // and already contains the recursive list of dependencies, so all good.
+        sh "rm -rf .tmp node_modules"
 
-    //   // Full analysis of this build, linked in side navigation
-    //   publishHTML (target: [
-    //     allowMissing: true,
-    //     alwaysLinkToLastBuild: true,
-    //     keepAll: true,
-    //     reportDir: 'dependency-check-data',
-    //     reportFiles: 'dependency-check-report.html',
-    //     reportName: 'Dependency Analysis'
-    //   ])
-    // }
+        dependencyCheckAnalyzer(
+          datadir: '/var/lib/jenkins/nvd',
+          isAutoupdateDisabled: true,
+          outdir: 'dependency-check-results',
+          scanpath: "${WORKSPACE}"
+        )
+      }
+
+      // Put summary on landing page for this build
+      dependencyCheckPublisher(
+        pattern: '**/dependency-check-report.xml'
+      )
+    }
 
     SECURITY_CHECKS['Penetration Tests'] = {
       def ZAP_API_PORT = '8090'

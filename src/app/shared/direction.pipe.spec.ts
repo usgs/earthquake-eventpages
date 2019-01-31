@@ -1,6 +1,6 @@
 import { DirectionPipe } from './direction.pipe';
 
-fdescribe('DirectionPipe', () => {
+describe('DirectionPipe', () => {
   let formatter, pipe;
 
   beforeEach(() => {
