@@ -18,7 +18,7 @@ describe('ShakeAlertConfirmedComponent', () => {
           selector: 'shake-alert-nearby-cities'
         }),
         MockComponent({
-          inputs: ['properties'],
+          inputs: ['summary'],
           selector: 'shake-alert-summary-report'
         }),
         MockComponent({
