@@ -8,7 +8,16 @@ describe('ContributorListPipe', () => {
     pipe = new ContributorListPipe();
     event = new Event({
       properties: {
-        sources: ',bb,a,'
+        products: {
+          sometype: [
+            {
+              source: 'bb'
+            },
+            {
+              source: 'a'
+            }
+          ]
+        }
       }
     });
     details = [

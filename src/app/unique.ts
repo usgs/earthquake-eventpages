@@ -11,6 +11,9 @@ export function getUnique(items: Array<any>): Array<any> {
   const unique = {};
   items.forEach(item => {
     let key = item;
+    if (!key) {
+      return;
+    }
     if (item.id) {
       key = item.id;
     }

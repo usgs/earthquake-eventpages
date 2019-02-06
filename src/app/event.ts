@@ -6,11 +6,9 @@ export class Event {
   id: string;
   product: any = null;
   properties: any;
-  sources: Array<string>;
+  sources: Array<String>;
 
   constructor(public data: any) {
-    let sources;
-
     if (!this.data) {
       this.geometry = null;
       this.id = null;
@@ -23,12 +21,8 @@ export class Event {
     this.id = this.data.id || null;
     this.properties = this.data.properties || {};
 
-    sources = (this.properties.sources || '').split(',');
-    sources = getUnique(sources);
-    sources.sort();
-    this.sources = sources;
-
     this.deleted = this.properties.status === 'deleted';
+    this.sources = this.getSources();
 
     try {
       // display phase-data when available
@@ -90,6 +84,27 @@ export class Event {
     }
 
     return products;
+  }
+
+  getSources(): string[] {
+    let products;
+    let sources;
+
+    try {
+      products = this.properties.products || {};
+    } catch (e) {
+      products = {};
+    }
+
+    sources = [];
+    Object.keys(products).forEach(type => {
+      products[type].forEach(product => {
+        sources.push(product.source);
+      });
+    });
+    sources = getUnique(sources);
+    sources.sort();
+    return sources;
   }
 
   hasProducts(types: string | string[]): boolean {
