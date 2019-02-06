@@ -1,43 +1,52 @@
-import { Event } from '../event';
-import { ContributorListPipe } from './contributor-list.pipe';
+import { Event } from "../event";
+import { ContributorListPipe } from "./contributor-list.pipe";
 
-describe('ContributorListPipe', () => {
+describe("ContributorListPipe", () => {
   let details, event, pipe;
 
   beforeEach(() => {
     pipe = new ContributorListPipe();
     event = new Event({
       properties: {
-        sources: ',bb,a,'
+        products: {
+          sometype: [
+            {
+              source: "bb"
+            },
+            {
+              source: "a"
+            }
+          ]
+        }
       }
     });
     details = [
       {
         aliases: null,
-        id: 'a',
-        title: 'A Title',
-        url: 'a-url'
+        id: "a",
+        title: "A Title",
+        url: "a-url"
       },
       {
-        aliases: ['bb'],
-        id: 'b',
-        title: 'B Title',
-        url: 'b-url'
+        aliases: ["bb"],
+        id: "b",
+        title: "B Title",
+        url: "b-url"
       }
     ];
   });
 
-  it('create an instance', () => {
+  it("create an instance", () => {
     expect(pipe).toBeTruthy();
   });
 
-  it('transforms with no detailsMap', () => {
+  it("transforms with no detailsMap", () => {
     const result = pipe.transform(event);
 
-    expect(result).toEqual('<li>A</li><li>BB</li>');
+    expect(result).toEqual("<li>A</li><li>BB</li>");
   });
 
-  it('transforms with a detailsMap', () => {
+  it("transforms with a detailsMap", () => {
     const result = pipe.transform(event, details);
     expect(result).toEqual(
       '<li><a href="a-url">A ' +
@@ -45,14 +54,14 @@ describe('ContributorListPipe', () => {
     );
   });
 
-  it('transforms no sources', () => {
+  it("transforms no sources", () => {
     const result = pipe.transform(null);
-    expect(result).toEqual('');
+    expect(result).toEqual("");
   });
 
-  it('gracefully handles no sources', () => {
+  it("gracefully handles no sources", () => {
     delete event.sources;
     const result = pipe.transform(event);
-    expect(result).toBe('');
+    expect(result).toBe("");
   });
 });

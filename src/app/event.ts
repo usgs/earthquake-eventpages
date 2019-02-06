@@ -1,4 +1,4 @@
-import { getUnique } from './unique';
+import { getUnique } from "./unique";
 
 export class Event {
   deleted = false;
@@ -6,8 +6,7 @@ export class Event {
   id: string;
   product: any = null;
   properties: any;
-  sources: Array<string>;
-
+  sources: Array<String>;
   constructor(public data: any) {
     let sources;
 
@@ -23,18 +22,14 @@ export class Event {
     this.id = this.data.id || null;
     this.properties = this.data.properties || {};
 
-    sources = (this.properties.sources || '').split(',');
-    sources = getUnique(sources);
-    sources.sort();
-    this.sources = sources;
-
-    this.deleted = this.properties.status === 'deleted';
+    this.deleted = this.properties.status === "deleted";
+    this.sources = this.getSources();
 
     try {
       // display phase-data when available
       this.properties.products.origin.forEach(o => {
         o.phasedata = this.getProduct(
-          'phase-data',
+          "phase-data",
           o.source,
           o.code,
           o.updateTime
@@ -92,6 +87,27 @@ export class Event {
     return products;
   }
 
+  getSources(): string[] {
+    let products;
+    let sources;
+
+    try {
+      products = this.properties.products || {};
+    } catch (e) {
+      products = {};
+    }
+
+    sources = [];
+    Object.keys(products).forEach(type => {
+      products[type].forEach(product => {
+        sources.push(product.source);
+      });
+    });
+    sources = getUnique(sources);
+    sources.sort();
+    return sources;
+  }
+
   hasProducts(types: string | string[]): boolean {
     try {
       if (!Array.isArray(types)) {
@@ -123,7 +139,7 @@ export class Event {
           // the first product is always preferred
           preferred = true;
         } else if (
-          (type === 'finite-fault' || type === 'focal-mechanism') &&
+          (type === "finite-fault" || type === "focal-mechanism") &&
           product.source === products[type][0].source
         ) {
           // a product from the same source as the preferred is also
