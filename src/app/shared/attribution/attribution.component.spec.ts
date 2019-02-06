@@ -45,14 +45,34 @@ describe('AttributionComponent', () => {
     });
 
     it('works without a details map', () => {
-      const event = new Event({ properties: { sources: ',foo,id,bar,' } });
+      const event = new Event({
+        properties: {
+          products: {
+            sometype: [
+              {source: 'foo'},
+              {source: 'id'},
+              {source: 'bar'}
+            ]
+          }
+        }
+      });
       const result = component.sourceCodeToInfo('Id', event);
 
       expect(result).toEqual({ id: 'ID', index: 3, details: undefined });
     });
 
     it('works as expected', () => {
-      const event = new Event({ properties: { sources: ',foo,id,bar,' } });
+      const event = new Event({
+        properties: {
+          products: {
+            sometype: [
+              {source: 'foo'},
+              {source: 'id'},
+              {source: 'bar'}
+            ]
+          }
+        }
+      });
       const details = [{ id: 'id', aliases: ['myid', 'yourid'] }];
 
       expect(component.sourceCodeToInfo('Id', event, details)).toEqual({
