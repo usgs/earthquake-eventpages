@@ -1,4 +1,4 @@
-import { getUnique } from "./unique";
+import { getUnique } from './unique';
 
 export class Event {
   deleted = false;
@@ -7,9 +7,8 @@ export class Event {
   product: any = null;
   properties: any;
   sources: Array<String>;
-  constructor(public data: any) {
-    let sources;
 
+  constructor(public data: any) {
     if (!this.data) {
       this.geometry = null;
       this.id = null;
@@ -22,14 +21,14 @@ export class Event {
     this.id = this.data.id || null;
     this.properties = this.data.properties || {};
 
-    this.deleted = this.properties.status === "deleted";
+    this.deleted = this.properties.status === 'deleted';
     this.sources = this.getSources();
 
     try {
       // display phase-data when available
       this.properties.products.origin.forEach(o => {
         o.phasedata = this.getProduct(
-          "phase-data",
+          'phase-data',
           o.source,
           o.code,
           o.updateTime
@@ -139,7 +138,7 @@ export class Event {
           // the first product is always preferred
           preferred = true;
         } else if (
-          (type === "finite-fault" || type === "focal-mechanism") &&
+          (type === 'finite-fault' || type === 'focal-mechanism') &&
           product.source === products[type][0].source
         ) {
           // a product from the same source as the preferred is also
