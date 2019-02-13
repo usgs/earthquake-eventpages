@@ -2,11 +2,21 @@
   align-items: baseline;
   display: flex;
 }
+.btn-geolocate-wrapper {
+  // Specify width so spinner/button swap doesn't cause content to shift around
+  width: 70px;
+}
+mat-spinner {
+  // Fudge the position a bit so it appears in same place as button
+  position: relative;
+  top: 7px;
+  left: 13px;
+}
 .btn-geolocate {
   margin-right: 1em;
   min-width: auto;
 }
-.inputbox {
+.address-wrapper {
   flex-grow: 1;
 }
 .address {

@@ -8,6 +8,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatListModule,
+  MatProgressSpinnerModule,
   MatRadioModule,
   MatSelectModule
 } from '@angular/material';
@@ -60,6 +61,7 @@ import { MapComponent } from './form/location/map/map.component';
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatProgressSpinnerModule,
     MatRadioModule,
     MatSelectModule,
 

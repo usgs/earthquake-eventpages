@@ -1,16 +1,30 @@
 <tell-us-fieldset [legend]="labels.ciim_mapAddress">
   <div class="flexwrapper">
-    <div>
-      <button mat-stroked-button color="primary" class="btn-geolocate">
-        <mat-icon
-          attr.aria-label="{{ labels.currentLocation }}"
-          attr.title="{{ labels.currentLocation }}"
+    <div class="btn-geolocate-wrapper">
+      <mat-spinner
+        *ngIf="geolocating; else geolocateButton"
+        attr.aria-label="{{ labels.geolocating }}"
+        attr.title="{{ labels.geolocating }}"
+        [diameter]="25"
+      ></mat-spinner>
+
+      <ng-template #geolocateButton>
+        <button
+          mat-stroked-button
+          color="primary"
+          class="btn-geolocate"
+          [disabled]="geolocating"
           (click)="geolocate()"
-          >my_location</mat-icon
         >
-      </button>
+          <mat-icon
+            attr.aria-label="{{ labels.currentLocation }}"
+            attr.title="{{ labels.currentLocation }}"
+            >my_location</mat-icon
+          >
+        </button>
+      </ng-template>
     </div>
-    <div class="inputbox">
+    <div class="address-wrapper">
       <mat-form-field class="address">
         <input
           attr.aria-label="{{ labels.ciim_mapAddress }}"
