@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Response } from '../response';
 import { EventService } from '@core/event.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormLanguageService } from '../form-language.service';
@@ -16,7 +15,7 @@ import { FormLanguageService } from '../form-language.service';
 })
 export class TellUsComponent implements OnInit {
   // Form response received from submit
-  formResponse: Response;
+  formResponse: any; // TODO :: Create and use specific response model
 
   constructor(
     public eventService: EventService,

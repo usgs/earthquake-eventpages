@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormLanguageService } from '../form-language.service';
-import { TellUsText } from '../form-language/tell-us-text';
+import { FormLanguageService } from '../../form-language.service';
 
 @Component({
   selector: 'tell-us-metadata',

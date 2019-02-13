@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { Response } from '../response';
-
 @Component({
   selector: 'tell-us-response',
   styleUrls: ['./response.component.scss'],
@@ -9,7 +7,7 @@ import { Response } from '../response';
 })
 export class ResponseComponent implements OnInit {
   @Input()
-  response: Response;
+  response: any; // TODO :: Make specific data model
   constructor() {}
 
   ngOnInit() {}
