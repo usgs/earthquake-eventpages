@@ -48,7 +48,7 @@
     ]
   },
   "fldExperience_reaction": {
-    "label": "How did you react?",
+    "label": "fldExperience_reaction",
     "answers": [
       { "value": "", "label": "notSpecified" },
       { "value": "0", "label": "noReact" },
@@ -115,7 +115,7 @@
     ]
   },
   "fldEffects_pictures": {
-    "label": "Did pictures on walls move or get knocked askew?",
+    "label": "fldEffects_pictures",
     "answers": [
       { "value": "", "label": "notSpecified" },
       { "value": "0", "label": "no" },
