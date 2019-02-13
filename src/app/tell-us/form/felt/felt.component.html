@@ -14,7 +14,7 @@
   </tell-us-question>
 
   <tell-us-fieldset *ngIf="!hasEvent" [legend]="labels.ciim_time">
-    <mat-form-field required>
+    <mat-form-field class="ciim_time" required>
       <input
         matInput
         [(ngModel)]="feltReport.ciim_time"
