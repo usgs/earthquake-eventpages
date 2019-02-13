@@ -22,6 +22,7 @@ import { FieldsetComponent } from './fieldset/fieldset.component';
 import { FormComponent } from './form/form.component';
 import { FormLanguageService } from './form-language.service';
 import { LocationComponent } from './form/location/location.component';
+import { MapComponent } from './form/location/map/map.component';
 import { MetadataComponent } from './form/metadata/metadata.component';
 import { OptionalComponent } from './form/optional/optional.component';
 import { PrivacyStatementComponent } from './privacy-statement/privacy-statement.component';
@@ -31,7 +32,6 @@ import { SubmitComponent } from './form/submit/submit.component';
 import { SuccessViewComponent } from './success-view/success-view.component';
 import { TellUsComponent } from './tell-us/tell-us.component';
 import { TellUsRoutingModule } from './tell-us-routing.module';
-import { MapComponent } from './form/location/map/map.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +40,7 @@ import { MapComponent } from './form/location/map/map.component';
     FieldsetComponent,
     FormComponent,
     LocationComponent,
+    MapComponent,
     MetadataComponent,
     OptionalComponent,
     PrivacyStatementComponent,
@@ -47,8 +48,7 @@ import { MapComponent } from './form/location/map/map.component';
     ResponseComponent,
     SubmitComponent,
     SuccessViewComponent,
-    TellUsComponent,
-    MapComponent
+    TellUsComponent
   ],
   exports: [TellUsComponent],
   imports: [

@@ -45,6 +45,10 @@
     {{ labels.useMap }}
   </mat-expansion-panel-header>
   <ng-template matExpansionPanelContent>
-    <tell-us-form-location-map></tell-us-form-location-map>
+    <tell-us-form-location-map
+      [event]="event"
+      [labels]="labels"
+      [feltReport]="feltReport"
+    ></tell-us-form-location-map>
   </ng-template>
 </mat-expansion-panel>
