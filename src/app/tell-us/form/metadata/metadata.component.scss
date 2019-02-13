@@ -1,0 +1,19 @@
+.flex-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-expansion-panel {
+}
+
+.language-select {
+  flex-grow: 1;
+  order: 1;
+  margin-right: 1em;
+}
+
+.omb-number {
+  font-size: smaller;
+  order: 2;
+}
