@@ -30,6 +30,7 @@ import { SubmitComponent } from './form/submit/submit.component';
 import { SuccessViewComponent } from './success-view/success-view.component';
 import { TellUsComponent } from './tell-us/tell-us.component';
 import { TellUsRoutingModule } from './tell-us-routing.module';
+import { MapComponent } from './form/location/map/map.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,6 @@ import { TellUsRoutingModule } from './tell-us-routing.module';
     FeltComponent,
     FieldsetComponent,
     FormComponent,
-    FormLanguageService,
     LocationComponent,
     MetadataComponent,
     OptionalComponent,
@@ -47,7 +47,7 @@ import { TellUsRoutingModule } from './tell-us-routing.module';
     SubmitComponent,
     SuccessViewComponent,
     TellUsComponent,
-    TellUsRoutingModule
+    MapComponent
   ],
   exports: [TellUsComponent],
   imports: [
