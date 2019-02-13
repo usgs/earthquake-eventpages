@@ -1,0 +1,26 @@
+<div class="alert error" *ngIf="!feltReport.valid.value; else noErrors">
+  <p>
+    {{ labels.errors_title }}
+  </p>
+  <ul>
+    <li *ngFor="let error of feltReport.valid.errors">
+      {{ labels[error] ? labels[error] : error }}
+    </li>
+  </ul>
+</div>
+<ng-template #noErrors>
+  <p class="alert info">
+    {{ labels.form_ready }}
+  </p>
+</ng-template>
+
+<form (ngSubmit)="onSubmit()">
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    [disabled]="!feltReport.valid.value"
+  >
+    {{ labels.submit }}
+  </button>
+</form>

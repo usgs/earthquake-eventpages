@@ -1,0 +1,28 @@
+<!-- Required Questions -->
+<form>
+  <tell-us-question
+    [label]="labels.fldSituation_felt"
+    [labels]="labels"
+    [model]="feltReport"
+    [multiSelect]="false"
+    [name]="'fldSituation_felt'"
+    [options]="[
+      { value: 1, label: labels.yes },
+      { value: 0, label: labels.no }
+    ]"
+  >
+  </tell-us-question>
+
+  <tell-us-fieldset *ngIf="!hasEvent" [legend]="labels.ciim_time">
+    <mat-form-field required>
+      <input
+        matInput
+        [(ngModel)]="feltReport.ciim_time"
+        name="ciim_time"
+        aria-label="labels.ciim_time"
+        [placeholder]="labels.ciim_time_help"
+        required
+      />
+    </mat-form-field>
+  </tell-us-fieldset>
+</form>

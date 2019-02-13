@@ -1,0 +1,14 @@
+.flexwrapper {
+  align-items: baseline;
+  display: flex;
+}
+.btn-geolocate {
+  margin-right: 1em;
+  min-width: auto;
+}
+.inputbox {
+  flex-grow: 1;
+}
+.address {
+  display: block;
+}

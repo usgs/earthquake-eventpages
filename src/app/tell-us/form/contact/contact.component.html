@@ -1,0 +1,49 @@
+<tell-us-fieldset [legend]="labels.fldContact_comments">
+  <mat-form-field>
+    <textarea
+      matInput
+      [(ngModel)]="feltReport.fldContact_comments"
+      matAutosizeMinRows="3"
+      matTextareaAutosize
+      aria-label="labels.fldContact_comments"
+    ></textarea>
+  </mat-form-field>
+</tell-us-fieldset>
+
+<tell-us-fieldset [legend]="labels.fldContact_contact">
+  <mat-form-field>
+    <mat-label>
+      {{ labels.fldContact_name }}
+    </mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="feltReport.fldContact_name"
+      aria-label="'labels.fldContact_name"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      {{ labels.fldContact_email }}
+    </mat-label>
+    <input
+      matInput
+      type="email"
+      [(ngModel)]="feltReport.fldContact_email"
+      aria-label="'labels.fldContact_email"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      {{ labels.fldContact_phone }}
+    </mat-label>
+    <input
+      matInput
+      type="tel"
+      [(ngModel)]="feltReport.fldContact_phone"
+      aria-label="'labels.fldContact_phone"
+    />
+  </mat-form-field>
+</tell-us-fieldset>
