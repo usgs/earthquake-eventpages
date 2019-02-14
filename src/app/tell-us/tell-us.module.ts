@@ -10,7 +10,8 @@ import {
   MatListModule,
   MatProgressSpinnerModule,
   MatRadioModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { LocationViewModule } from 'hazdev-ng-location-view';
@@ -64,6 +65,7 @@ import { TellUsRoutingModule } from './tell-us-routing.module';
     MatProgressSpinnerModule,
     MatRadioModule,
     MatSelectModule,
+    MatSnackBarModule,
 
     LocationViewModule.forRoot(),
     SharedModule,
