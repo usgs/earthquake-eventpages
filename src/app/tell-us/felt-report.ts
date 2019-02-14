@@ -1,4 +1,5 @@
 import { EventEmitter } from '@angular/core';
+import { FormLanguageService } from './form-language.service';
 
 export interface FeltReportValidation {
   errors: Array<string>;
@@ -64,9 +65,11 @@ export class FeltReport {
   coordinates$ = new EventEmitter<any>();
   eventid: string;
   fldSituation_felt: number;
+  language: string;
 
   private _ciim_mapLat: number;
   private _ciim_mapLon: number;
+  constructor(public languageService: FormLanguageService) {}
   // tslint:enable:variable-name
 
   isSet(value: any): boolean {
