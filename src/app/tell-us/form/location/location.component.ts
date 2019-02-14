@@ -33,8 +33,6 @@ export class LocationComponent extends AbstractForm implements OnInit {
   ngOnInit() {}
 
   onAddressChange(evt: Event) {
-    this.feltReport.ciim_mapLat = null;
-    this.feltReport.ciim_mapLon = null;
     this.geolocating = false;
 
     // TODO :: Maybe fire off a geocode with the new input address and then
@@ -73,13 +71,11 @@ export class LocationComponent extends AbstractForm implements OnInit {
       confidence
     );
 
-    this.feltReport.ciim_mapLat = latitude;
-    this.feltReport.ciim_mapLon = longitude;
-    this.feltReport.ciim_mapAddress = this.formatter.location(
+    this.feltReport.location = {
+      address: this.formatter.location(latitude, longitude, confidence),
       latitude,
-      longitude,
-      confidence
-    );
+      longitude
+    };
 
     // Artificially force spinner to show for a minimum time. This may extend
     // the time slightly, but otherwise fast responses might give janky flicker
