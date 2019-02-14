@@ -1,4 +1,5 @@
-<div class="alert error" *ngIf="!feltReport.valid.value; else noErrors">
+<h3>Submit Felt Report</h3>
+<div class="alert error" *ngIf="!feltReport.valid.value">
   <p>
     {{ labels.errors_title }}
   </p>
@@ -8,11 +9,6 @@
     </li>
   </ul>
 </div>
-<ng-template #noErrors>
-  <p class="alert info">
-    {{ labels.form_ready }}
-  </p>
-</ng-template>
 
 <form (ngSubmit)="onSubmit()">
   <button
