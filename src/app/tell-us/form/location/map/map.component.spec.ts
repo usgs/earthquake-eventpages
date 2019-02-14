@@ -13,6 +13,7 @@ describe('MapComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         MapComponent,
+
         MockComponent({
           inputs: [
             'bounds',
@@ -23,7 +24,6 @@ describe('MapComponent', () => {
           selector: 'shared-map'
         })
       ],
-      imports: [],
       providers: [FormatterService]
     }).compileComponents();
   }));
