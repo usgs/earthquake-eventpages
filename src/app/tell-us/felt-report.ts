@@ -69,7 +69,6 @@ export class FeltReport {
 
   private _ciim_mapLat: number;
   private _ciim_mapLon: number;
-  constructor(public languageService: FormLanguageService) {}
   // tslint:enable:variable-name
 
   isSet(value: any): boolean {
