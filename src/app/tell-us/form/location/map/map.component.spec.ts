@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapComponent } from './map.component';
+import { MockComponent } from 'ng2-mock-component';
+import { FormatterService } from '@core/formatter.service';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -8,9 +10,21 @@ describe('MapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MapComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        MapComponent,
+
+        MockComponent({
+          inputs: [
+            'bounds',
+            'interactive',
+            'overlays',
+            'showAttributionControl'
+          ],
+          selector: 'shared-map'
+        })
+      ],
+      providers: [FormatterService]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
