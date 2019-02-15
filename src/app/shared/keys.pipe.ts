@@ -13,7 +13,7 @@ export class KeysPipe implements PipeTransform {
    * @return {any}
    *     object property names
    */
-  transform(value: any): Array<any> {
+  transform(value: any): any[] {
     if (!value) {
       return null;
     }

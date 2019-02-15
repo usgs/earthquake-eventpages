@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OptionalComponent } from './optional.component';
-import { MockPipe } from 'app/mock-pipe';
 import { MockComponent } from 'ng2-mock-component';
 
 describe('OptionalComponent', () => {
@@ -23,8 +22,7 @@ describe('OptionalComponent', () => {
             'options'
           ],
           selector: 'tell-us-question'
-        }),
-        MockPipe('keys')
+        })
       ]
     }).compileComponents();
   }));
