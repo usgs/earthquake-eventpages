@@ -1,27 +1,44 @@
-import { EventEmitter } from '@angular/core';
+import { Location } from './location';
+import { FeltReportValidation } from './felt-report-validation';
 
-export interface FeltReportValidation {
-  errors: Array<string>;
-  value: boolean;
-}
+const _locationValid = (location: Location): boolean => {
+  if (
+    location &&
+    // Either has an address
+    ((location.address && location.address !== '') ||
+      // Or has coordinates
+      ((location.latitude || location.latitude === 0) &&
+        (location.longitude || location.longitude === 0)))
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
 export class FeltReport {
-  set ciim_mapLat(lat: number) {
-    this._ciim_mapLat = lat;
-    this._coordinateChange();
+  get ciim_mapAddress(): string {
+    try {
+      return this.location.address;
+    } catch (e) {
+      return null;
+    }
   }
 
   get ciim_mapLat(): number {
-    return this._ciim_mapLat;
-  }
-
-  set ciim_mapLon(lon: number) {
-    this._ciim_mapLon = lon;
-    this._coordinateChange();
+    try {
+      return this.location.latitude;
+    } catch (e) {
+      return null;
+    }
   }
 
   get ciim_mapLon(): number {
-    return this._ciim_mapLon;
+    try {
+      return this.location.longitude;
+    } catch (e) {
+      return null;
+    }
   }
 
   get valid(): FeltReportValidation {
@@ -29,24 +46,19 @@ export class FeltReport {
     const errors = [];
 
     // Felt
-    if (!this.isSet(this.fldSituation_felt)) {
+    if (!(this.fldSituation_felt || this.fldSituation_felt === 0)) {
       value = false;
       errors.push('fldSituation_felt_error');
     }
 
     // Time
-    if (!this.isSet(this.ciim_time)) {
+    if (!this.ciim_time) {
       value = false;
       errors.push('ciim_time_error');
     }
 
     // Location
-    if (
-      // no address
-      !this.isSet(this.ciim_mapAddress) &&
-      // and no coordinates
-      (!this.isSet(this.ciim_mapLat) || !this.isSet(this.ciim_mapLon))
-    ) {
+    if (!_locationValid(this.location)) {
       value = false;
       errors.push('ciim_mapAddress_error');
     }
@@ -57,32 +69,45 @@ export class FeltReport {
     };
   }
 
+  set ciim_mapAddress(address: string) {
+    this.location = {
+      address: address,
+      latitude: null,
+      longitude: null
+    };
+  }
+
   // Must disable variable name linting so we can match input fields
   // tslint:disable:variable-name
-  ciim_mapAddress: string;
+  ciim_mapConfidence: number;
   ciim_time: string;
-  coordinates$ = new EventEmitter<any>();
+  'd_text[]': Array<string>;
   eventid: string;
+  fldContact_comments: string;
+  fldContact_email: string;
+  fldContact_name: string;
+  fldContact_phone: string;
+  fldEffects_appliances: string;
+  fldEffects_doors: string;
+  fldEffects_furniture: string;
+  fldEffects_pictures: string;
+  fldEffects_shelved: string;
+  fldEffects_sounds: string;
+  fldEffects_walls: string;
+  fldExperience_reaction: string;
+  fldExperience_response: string;
+  fldExperience_response_Other: string;
+  fldExperience_shaking: string;
+  fldExperience_stand: string;
   fldSituation_felt: number;
-
-  private _ciim_mapLat: number;
-  private _ciim_mapLon: number;
+  fldSituation_others: string;
+  fldSituation_situation: string;
+  fldSituation_situation_Other: string;
+  fldSituation_sleep: string;
+  form_version: string;
+  format: string;
+  isTrusted: boolean;
+  language: string;
+  location: Location;
   // tslint:enable:variable-name
-
-  isSet(value: any): boolean {
-    if (typeof value === 'undefined' || value === null || value === '') {
-      return false;
-    }
-
-    return true;
-  }
-
-  private _coordinateChange(): void {
-    const lat = this.ciim_mapLat;
-    const lon = this.ciim_mapLon;
-
-    if (this.isSet(lat) && this.isSet(lon)) {
-      this.coordinates$.emit({ latitude: lat, longitude: lon });
-    }
-  }
 }

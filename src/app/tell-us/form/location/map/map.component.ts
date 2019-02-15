@@ -4,7 +4,8 @@ import {
   OnChanges,
   SimpleChanges,
   SimpleChange,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  Input
 } from '@angular/core';
 import { AbstractForm } from '../../abstract-form.component';
 import * as L from 'leaflet';
@@ -21,7 +22,10 @@ const DEFAULT_ICON_URL =
   templateUrl: './map.component.html'
 })
 export class MapComponent extends AbstractForm implements OnChanges, OnInit {
-  coordinateSubscription: Subscription;
+  @Input()
+  set location(location: any) {
+    this.updatePin();
+  }
   mapBounds: Array<Array<number>>;
   pin: L.Marker;
 
@@ -30,10 +34,11 @@ export class MapComponent extends AbstractForm implements OnChanges, OnInit {
 
     if (
       feltReport &&
-      feltReport.isSet(feltReport.ciim_mapLat) &&
-      feltReport.isSet(feltReport.ciim_mapLon)
+      feltReport.location &&
+      (feltReport.location.latitude || feltReport.location.latitude === 0) &&
+      (feltReport.location.latitude || feltReport.location.latitude === 0)
     ) {
-      latLng = [feltReport.ciim_mapLat, feltReport.ciim_mapLon];
+      latLng = [feltReport.location.latitude, feltReport.location.longitude];
     } else if (event && event.geometry && event.geometry.coordinates) {
       const coordinates = event.geometry.coordinates;
       latLng = [coordinates[1], coordinates[0]];
@@ -52,12 +57,6 @@ export class MapComponent extends AbstractForm implements OnChanges, OnInit {
     }
   }
 
-  ngOnDestroy() {
-    if (this.coordinateSubscription) {
-      this.coordinateSubscription.unsubscribe();
-      this.coordinateSubscription = null;
-    }
-  }
   ngOnInit() {
     console.log('map.ngOnInit');
 
@@ -87,18 +86,7 @@ export class MapComponent extends AbstractForm implements OnChanges, OnInit {
 
   onFeltReportChange(change: SimpleChange): void {
     console.log('map.onFeltReportChange', change);
-    const feltReport = change.currentValue;
-
-    if (this.coordinateSubscription) {
-      this.coordinateSubscription.unsubscribe();
-      this.coordinateSubscription = null;
-    }
-
-    if (feltReport) {
-      this.coordinateSubscription = feltReport.coordinates$.subscribe(_ =>
-        this.onCoordinateChange(feltReport)
-      );
-    }
+    this.updatePin(change.currentValue, this.event);
   }
 
   updatePin(feltReport = this.feltReport, event = this.event) {
