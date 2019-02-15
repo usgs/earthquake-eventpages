@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { AbstractForm } from '../abstract-form.component';
@@ -14,12 +14,14 @@ const GEOCODE_URL =
   'World/GeocodeServer/find';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'tell-us-form-location',
   styleUrls: ['./location.component.scss'],
   templateUrl: './location.component.html'
 })
 export class LocationComponent extends AbstractForm {
   geolocating = false;
+  mapShown = false;
 
   constructor(
     public coordinateService: CoordinatesService,
@@ -47,6 +49,7 @@ export class LocationComponent extends AbstractForm {
    *     An address or geographic coordinate string
    */
   geocode(location: string) {
+    console.log('geocode');
     if (!location) {
       return;
     }
@@ -183,5 +186,12 @@ export class LocationComponent extends AbstractForm {
     this.snackBar.open(message, action, {
       duration: length
     });
+  }
+
+  /**
+   * Emits an event that indicates the map is being shown
+   */
+  showMap() {
+    this.mapShown = true;
   }
 }
