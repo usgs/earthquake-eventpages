@@ -70,11 +70,9 @@ export class FeltReport {
   }
 
   set ciim_mapAddress(address: string) {
-    this.location = {
-      address: address,
-      latitude: null,
-      longitude: null
-    };
+    if (this.location) {
+      this.location.address = address;
+    }
   }
 
   // Must disable variable name linting so we can match input fields

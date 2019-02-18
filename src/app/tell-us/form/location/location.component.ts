@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { AbstractForm } from '../abstract-form.component';
@@ -14,7 +14,6 @@ const GEOCODE_URL =
   'World/GeocodeServer/find';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'tell-us-form-location',
   styleUrls: ['./location.component.scss'],
   templateUrl: './location.component.html'
@@ -49,7 +48,6 @@ export class LocationComponent extends AbstractForm {
    *     An address or geographic coordinate string
    */
   geocode(location: string) {
-    console.log('geocode');
     if (!location) {
       return;
     }
@@ -121,9 +119,11 @@ export class LocationComponent extends AbstractForm {
     const address = response.name;
 
     // update location from FeltReport object
-    this.feltReport.ciim_mapLat = latitude;
-    this.feltReport.ciim_mapLon = longitude;
-    this.feltReport.ciim_mapAddress = address;
+    this.feltReport.location = {
+      address: address,
+      latitude: latitude,
+      longitude: longitude
+    };
 
     // TODO, create success message in snackbar??
   }
