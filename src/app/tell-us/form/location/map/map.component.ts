@@ -31,10 +31,10 @@ export class MapComponent extends AbstractForm
   implements OnChanges, OnInit, OnDestroy {
   @Input()
   set location(location: any) {
-    console.log('set Location -> updatePin()');
     this.updatePin();
   }
   _mapShown: boolean;
+
   coordinateSubscription: Subscription;
   mapBounds: Array<Array<number>>;
   pin: L.Marker;
@@ -130,10 +130,11 @@ export class MapComponent extends AbstractForm
 
   onMarkerChange() {
     const latLng = this.pin.getLatLng();
+    const feltReport = this.feltReport;
 
-    this.feltReport.ciim_mapLat = latLng.lat;
-    this.feltReport.ciim_mapLon = latLng.lng;
-    this.feltReport.ciim_mapAddress = this.formatter.location(
+    feltReport.location.latitude = latLng.lat;
+    feltReport.location.longitude = latLng.lng;
+    feltReport.location.address = this.formatter.location(
       latLng.lat,
       latLng.lng
     );
