@@ -54,7 +54,8 @@ describe('QuestionComponent', () => {
   //     const option2 = new MatListOption(null, null, source);
   //     option2.value = 'test value 2';
   //     const change = new MatSelectionListChange(source, null);
-  //     spyOnProperty(source.selectedOptions, 'selected', 'get').and.returnValue([
+  //     spyOnProperty(source.selectedOptions, 'selected', 'get').
+  //     and.returnValue([
   //       option1,
   //       option2
   //     ]);
