@@ -80,7 +80,7 @@ describe('LocationComponent', () => {
           selector: 'mat-expansion-panel-header'
         }),
         MockComponent({
-          inputs: ['event', 'labels', 'feltReport'],
+          inputs: ['event', 'labels', 'feltReport', 'location'],
           selector: 'tell-us-form-location-map'
         }),
         MockComponent({
