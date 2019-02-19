@@ -24,6 +24,17 @@ import { MockComponent } from 'ng2-mock-component';
 import { FormatterService } from '@core/formatter.service';
 import { CoordinatesService } from 'hazdev-ng-location-view';
 import { LocationComponent } from './location.component';
+import { MockComponent } from 'ng2-mock-component';
+import { FormsModule } from '@angular/forms';
+import {
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatProgressSpinnerModule
+} from '@angular/material';
+import { of } from 'rxjs/observable/of';
+import { CoordinatesService } from 'hazdev-ng-location-view';
+import { FormatterService } from '@core/formatter.service';
 
 describe('LocationComponent', () => {
   let component: LocationComponent;

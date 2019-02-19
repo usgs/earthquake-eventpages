@@ -4,6 +4,7 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { FormatterService } from '@core/formatter.service';
 import { MapComponent } from './map.component';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('MapComponent', () => {
   let component: MapComponent;

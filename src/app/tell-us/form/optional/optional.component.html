@@ -1,5 +1,5 @@
 <tell-us-question
-  *ngFor="let name of (questions | keys)"
+  *ngFor="let name of questionNames"
   [label]="labels[(questions[name]?.label)]"
   [labels]="labels"
   [model]="feltReport"

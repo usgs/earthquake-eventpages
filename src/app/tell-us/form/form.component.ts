@@ -1,7 +1,10 @@
+// import {
+//   HttpClient,
+//   HttpErrorResponse,
+//   HttpParams,
+//   HttpResponse
+// } from '@angular/common/http';
 import { Component, OnChanges, SimpleChanges } from '@angular/core';
-
-import { Event } from '../../event';
-import { TellUsText } from '../form-language/tell-us-text';
 import { AbstractForm } from './abstract-form.component';
 
 /**
