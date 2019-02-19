@@ -4,16 +4,12 @@
   justify-content: space-between;
 }
 
-mat-expansion-panel {
+mat-expansion-panel .omb-number {
+  font-size: smaller;
 }
 
 .language-select {
   flex-grow: 1;
   order: 1;
   margin-right: 1em;
-}
-
-.omb-number {
-  font-size: smaller;
-  order: 2;
 }
