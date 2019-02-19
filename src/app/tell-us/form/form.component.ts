@@ -1,4 +1,4 @@
-import { FeltReportValidation } from './../felt-report';
+import { FeltReportResponse } from './../felt-report-response';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -18,6 +18,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Event } from '../../event';
 import { TellUsText } from '../form-language/tell-us-text';
 import { FeltReport } from '../felt-report';
+import { FeltReportValidation } from '../felt-report-validation';
 import { AbstractForm } from './abstract-form.component';
 import { environment } from 'environments/environment';
 
@@ -39,7 +40,6 @@ export class FormComponent extends AbstractForm implements OnChanges {
   validation: FeltReportValidation;
 
   constructor(public httpClient: HttpClient) {
-    // Parent Abstract form constructor
     super();
   }
 
@@ -102,20 +102,36 @@ export class FormComponent extends AbstractForm implements OnChanges {
 
   /**
    * Error handler for http requests.
-   *
-   * @returns observable error
    */
   private handleError(): (error: HttpErrorResponse) => Observable<any> {
-    return (error: HttpErrorResponse): Observable<any> => {
+    return error => {
       return of(this.error);
     };
   }
 
   /**
    * Parse the response data
+   *
+   * @param resData the response data
    */
-  private parseResponse(resData: any): void {
-    // TODO parse the response data into specific interface/type
+  private parseResponse(resData: any): FeltReportResponse | null {
+    // Todo return response error interface type if error
+    if (resData) {
+      const feltReportResponse: FeltReportResponse = {
+        ciim_mapLat: resData.ciim_mapLat,
+        ciim_mapLon: resData.ciim_mapLon,
+        ciim_time: resData.ciim_time,
+        eventid: resData.eventid || 'none',
+        fldContact_email: resData.fldContact_email,
+        fldContact_name: resData.fldContact_name,
+        fldContact_phone: resData.fldContact_phone,
+        form_version: resData.form_version,
+        // currently never sent by server, but possible ...
+        // nresp?: string;
+        your_cdi: resData.your_cdi
+      };
+      return feltReportResponse;
+    }
     return resData;
   }
 
