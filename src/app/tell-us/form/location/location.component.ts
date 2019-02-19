@@ -9,24 +9,24 @@ import { MatSnackBar } from '@angular/material';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-const GEOCODE_URL =
-  'https://geocode.arcgis.com/arcgis/rest/services/' +
-  'World/GeocodeServer/find';
-
 @Component({
   selector: 'tell-us-form-location',
   styleUrls: ['./location.component.scss'],
   templateUrl: './location.component.html'
 })
 export class LocationComponent extends AbstractForm {
+  GEOCODE_URL =
+    'https://geocode.arcgis.com/arcgis/rest/services/' +
+    'World/GeocodeServer/find';
+
   geolocating = false;
   mapShown = false;
 
   constructor(
     public coordinateService: CoordinatesService,
     public formatter: FormatterService,
-    private http: HttpClient,
-    private snackBar: MatSnackBar
+    public http: HttpClient,
+    public snackBar: MatSnackBar
   ) {
     super();
   }
@@ -38,7 +38,7 @@ export class LocationComponent extends AbstractForm {
    *    An address or geographic coordinate string
    */
   buildUrl(location: string): string {
-    return GEOCODE_URL + '?' + `f=json` + `&text=${location}`;
+    return this.GEOCODE_URL + '?' + `f=json` + `&text=${location}`;
   }
 
   /**
@@ -60,7 +60,6 @@ export class LocationComponent extends AbstractForm {
       .get<any>(url)
       .pipe(catchError(this.handleError('getLocation', { locations: null })))
       .subscribe(response => {
-        console.log('response', response);
         if (response.locations && response.locations.length !== 0) {
           this.onGeocodeSuccess(response.locations[0]);
         } else {
@@ -113,6 +112,7 @@ export class LocationComponent extends AbstractForm {
    *
    */
   onGeocodeSuccess(response: any) {
+    console.log(response);
     // pull lat/lng/address from geocode response
     const latitude = response.feature.geometry.y;
     const longitude = response.feature.geometry.x;

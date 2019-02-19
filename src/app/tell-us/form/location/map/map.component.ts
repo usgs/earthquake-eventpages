@@ -26,9 +26,9 @@ export class MapComponent extends AbstractForm implements OnChanges, OnInit {
     console.log('set Location -> updatePin()');
     this.updatePin();
   }
+  _mapShown: boolean;
   mapBounds: Array<Array<number>>;
   pin: L.Marker;
-  _mapShown: boolean;
 
   @Input()
   set mapShown(mapShown: boolean) {
