@@ -42,6 +42,12 @@ export class FormComponent extends AbstractForm implements OnChanges {
   onLabels(labels: TellUsText): void {
     this.feltReport.language = labels.id;
   }
+
+  // This is here so that the build will pass but needs to actually
+  // do something in the future.
+  onSubmit() {
+    return;
+  }
 }
 
 //   responseUrl = environment.DYFI_RESPONSE_URL;
