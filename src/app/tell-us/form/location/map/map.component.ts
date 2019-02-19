@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { AbstractForm } from '../../abstract-form.component';
 import * as L from 'leaflet';
-import { Subscription } from 'rxjs';
 import { FeltReport } from 'app/tell-us/felt-report';
 
 const DEFAULT_ICON_URL =

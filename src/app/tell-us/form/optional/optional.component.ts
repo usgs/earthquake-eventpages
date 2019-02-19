@@ -8,7 +8,12 @@ import { AbstractForm } from '../abstract-form.component.js';
   templateUrl: './optional.component.html'
 })
 export class OptionalComponent extends AbstractForm implements OnInit {
+  questionNames = [];
   questions = QuestionData;
 
-  ngOnInit() {}
+  ngOnInit() {
+    Object.keys(this.questions).map(key => {
+      this.questionNames.push(key);
+    });
+  }
 }

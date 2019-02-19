@@ -1,26 +1,10 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams,
-  HttpResponse
-} from '@angular/common/http';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  OnChanges,
-  SimpleChanges
-} from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-
-import { Event } from '../../event';
-import { TellUsText } from '../form-language/tell-us-text';
-import { environment } from 'environments/environment';
-import * as QuestionData from './questions.json';
-import { FormLanguageService } from '../form-language.service';
-import { FeltReport } from '../felt-report';
+// import {
+//   HttpClient,
+//   HttpErrorResponse,
+//   HttpParams,
+//   HttpResponse
+// } from '@angular/common/http';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { AbstractForm } from './abstract-form.component';
 
 /**
