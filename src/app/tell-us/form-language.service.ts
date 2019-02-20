@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 
 import * as LANGUAGE_EN from './form-language/en.json';
 import * as LANGUAGE_ES from './form-language/es.json';
-import { TellUsText } from './form-language/tell-us-text.js';
 
 /**
  * Form language service
