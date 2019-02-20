@@ -25,7 +25,7 @@ import { FormatterService } from '@core/formatter.service';
 import { CoordinatesService } from 'hazdev-ng-location-view';
 import { LocationComponent } from './location.component';
 
-fdescribe('LocationComponent', () => {
+describe('LocationComponent', () => {
   let component: LocationComponent;
   let fixture: ComponentFixture<LocationComponent>;
   let httpClient: HttpTestingController;
