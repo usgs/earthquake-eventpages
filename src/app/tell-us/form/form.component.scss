@@ -5,3 +5,10 @@ mat-expansion-panel {
 mat-form-field {
   display: block;
 }
+
+.omb-number {
+  font-size: smaller;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 5px;
+}
