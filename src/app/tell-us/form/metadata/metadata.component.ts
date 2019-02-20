@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormLanguageService } from '../../form-language.service';
 
 @Component({
@@ -7,12 +7,5 @@ import { FormLanguageService } from '../../form-language.service';
   templateUrl: './metadata.component.html'
 })
 export class MetadataComponent {
-  @Input()
-  language: string;
-
   constructor(public languageService: FormLanguageService) {}
-
-  onLanguageSelect(languageId: string) {
-    this.languageService.getLanguage(languageId);
-  }
 }

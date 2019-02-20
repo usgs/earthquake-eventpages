@@ -4,13 +4,21 @@ import { BehaviorSubject } from 'rxjs';
 
 import * as LANGUAGE_EN from './form-language/en.json';
 import * as LANGUAGE_ES from './form-language/es.json';
+import { TellUsText } from './form-language/tell-us-text.js';
 
 /**
  * Form language service
  */
 @Injectable()
 export class FormLanguageService {
-  language: any = LANGUAGE_EN;
+  set language(languageId: string) {
+    this.getLanguage(languageId);
+  }
+
+  get language(): string {
+    return this.language$.value.id;
+  }
+
   // observable for current language
   language$: BehaviorSubject<any> = new BehaviorSubject(LANGUAGE_EN);
   // list of supported languages
@@ -23,22 +31,18 @@ export class FormLanguageService {
    * @param id language id.
    */
   getLanguage(id: string) {
-    this.language = null;
+    let language = null;
 
     if (id) {
       // try to find requested language
-      this.language = this.languages.find(lang => lang.id === id);
+      language = this.languages.find(lang => lang.id === id);
     }
 
-    if (!this.language) {
+    if (!language) {
       // default to english
-      this.language = LANGUAGE_EN;
+      language = LANGUAGE_EN;
     }
 
-    this.language$.next(this.language);
-  }
-
-  translate(token: string, translations = this.language): string {
-    return translations[token] || token;
+    this.language$.next(language);
   }
 }

@@ -15,14 +15,10 @@
 
   <mat-form-field class="language-select">
     <mat-label>Select Language</mat-label>
-    <mat-select
-      (selectionChange)="onLanguageSelect($event.value)"
-      [value]="language"
-      cdkFocusInitial
-    >
+    <mat-select [(ngModel)]="languageService.language">
       <mat-option
         *ngFor="
-          let language of languageService?.languages;
+          let language of languageService.languages;
           trackBy: trackByIndex
         "
         [value]="language?.id"

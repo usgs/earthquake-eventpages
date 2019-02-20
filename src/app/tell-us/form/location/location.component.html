@@ -27,8 +27,9 @@
     <div class="address-wrapper">
       <mat-form-field class="address">
         <input
+          #address
           attr.aria-label="{{ labels.ciim_mapAddress }}"
-          (change)="onAddressChange($event)"
+          (change)="geocode(address.value)"
           matInput
           name="ciim_mapAddress"
           [(ngModel)]="feltReport.ciim_mapAddress"
@@ -40,7 +41,7 @@
   </div>
 </tell-us-fieldset>
 
-<mat-expansion-panel>
+<mat-expansion-panel (opened)="showMap()">
   <mat-expansion-panel-header>
     {{ labels.useMap }}
   </mat-expansion-panel-header>
@@ -50,6 +51,7 @@
       [labels]="labels"
       [feltReport]="feltReport"
       [location]="feltReport.location"
+      [mapShown]="mapShown"
     ></tell-us-form-location-map>
   </ng-template>
 </mat-expansion-panel>
