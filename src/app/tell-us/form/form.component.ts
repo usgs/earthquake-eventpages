@@ -19,7 +19,6 @@ export class FormComponent extends AbstractForm implements OnChanges {
       this.onEvent(changes.event.currentValue);
     }
     if (changes.hasOwnProperty('labels')) {
-      console.log('ngChanges::labels');
       this.onLabels(changes.labels.currentValue);
     }
   }
