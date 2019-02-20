@@ -66,12 +66,6 @@ export class FormComponent extends AbstractForm implements OnChanges {
         this.feltReport.eventid = null;
         this.feltReport.ciim_time = null;
       }
-
-      this.feltReport.eventid = event.id;
-      this.feltReport.ciim_time = time;
-    } else {
-      this.feltReport.eventid = null;
-      this.feltReport.ciim_time = null;
     }
   }
 
