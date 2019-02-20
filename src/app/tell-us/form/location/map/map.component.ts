@@ -33,32 +33,13 @@ export class MapComponent extends AbstractForm
   set location(location: any) {
     this.updatePin();
   }
-  _mapShown: boolean;
 
   coordinateSubscription: Subscription;
   mapBounds: Array<Array<number>>;
   pin: L.Marker;
 
-  @Input()
-  set mapShown(mapShown: boolean) {
-    // set location the first time the map is expanded
-    if (mapShown === this._mapShown) {
-      return;
-    }
-    this._mapShown = mapShown;
-
-    // update FeltReport model with epicenter location
-    if (!this.feltReport.location) {
-      this.updateFeltReportLocation();
-    }
-  }
-
   constructor(public formatter: FormatterService) {
     super();
-  }
-
-  get mapShown() {
-    return this._mapShown;
   }
 
   getLatLng(feltReport = this.feltReport, event = this.event): Array<number> {
@@ -110,14 +91,19 @@ export class MapComponent extends AbstractForm
     });
     this.pin.enabled = true;
 
-    this.updatePin();
+    if (
+      !this.location ||
+      !(this.location.latitude || this.location.latitude === 0) ||
+      !(this.location.longitude || this.location.longitude === 0)
+    ) {
+      this.updateFeltReportLocation(this.feltReport, this.event);
+    } else {
+      this.updatePin();
+    }
+
     this.pin.on('dragend', event => {
       return this.onMarkerChange();
     });
-  }
-
-  onCoordinateChange(feltReport: FeltReport): void {
-    this.updatePin(feltReport, this.event);
   }
 
   onEventChange(change: SimpleChange): void {
