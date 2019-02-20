@@ -9,7 +9,6 @@ export abstract class AbstractForm {
   @Input() event: Event;
   @Input() feltReport = new FeltReport();
   @Input() labels: TellUsText = (LANGUAGE_EN as unknown) as TellUsText;
-  @Input() language;
 
   get hasEvent(): boolean {
     if (this.event && this.event.id) {
