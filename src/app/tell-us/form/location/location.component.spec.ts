@@ -11,7 +11,8 @@ import {
   MatIconModule,
   MatInputModule,
   MatProgressSpinnerModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatSnackBar
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import {
@@ -49,6 +50,12 @@ describe('LocationComponent', () => {
       location: jasmine.createSpy('formatter::location')
     };
 
+    const snackBarStub = {
+      open: () => {
+        console.log('snackBar::open');
+      }
+    };
+
     TestBed.configureTestingModule({
       declarations: [
         LocationComponent,
@@ -80,27 +87,23 @@ describe('LocationComponent', () => {
           selector: 'mat-expansion-panel-header'
         }),
         MockComponent({
-          inputs: ['event', 'labels', 'feltReport', 'location'],
-          selector: 'tell-us-form-location-map'
-        }),
-        MockComponent({
           selector: 'mat-expansion-panel'
         })
       ],
       imports: [
-        BrowserAnimationsModule,
-        FormsModule,
-        HttpClientModule,
-        HttpClientTestingModule,
-        MatExpansionModule,
-        MatIconModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-        MatSnackBarModule
+        // BrowserAnimationsModule,
+        // FormsModule,
+        // HttpClientModule,
+        HttpClientTestingModule
+        // MatExpansionModule,
+        // MatIconModule,
+        // MatInputModule,
+        // MatProgressSpinnerModule
       ],
       providers: [
         { provide: CoordinatesService, useValue: coordinatesServiceStub },
-        { provide: FormatterService, useValue: formatterServiceStub }
+        { provide: FormatterService, useValue: formatterServiceStub },
+        { provide: MatSnackBar, useValue: snackBarStub }
       ]
     }).compileComponents();
 

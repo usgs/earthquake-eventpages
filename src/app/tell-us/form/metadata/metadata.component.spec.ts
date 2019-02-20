@@ -1,6 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng2-mock-component';
-
 import { MetadataComponent } from './metadata.component';
 import { FormLanguageService } from 'app/tell-us/form-language.service';
 
@@ -17,7 +16,7 @@ describe('MetadataComponent', () => {
         MockComponent({ selector: 'tell-us-privacy-statement' }),
         MockComponent({ selector: 'mat-expansion-panel' }),
         MockComponent({ selector: 'mat-label' }),
-        MockComponent({ inputs: ['value'], selector: 'mat-select' }),
+        MockComponent({ selector: 'mat-select', inputs: ['ngModel'] }),
         MockComponent({ inputs: ['value'], selector: 'mat-option' }),
         MockComponent({ selector: 'mat-form-field' })
       ],
