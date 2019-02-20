@@ -1,4 +1,3 @@
-import { FeltReportResponseErrorDetails } from './../felt-report-response-error-details';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -7,7 +6,6 @@ import {
 import {
   Component,
   EventEmitter,
-  Input,
   Output,
   OnChanges,
   SimpleChanges
@@ -15,10 +13,8 @@ import {
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { Event } from '../../event';
-import { TellUsText } from '../form-language/tell-us-text';
-import { FeltReport } from '../felt-report';
 import { FeltReportValidation } from '../felt-report-validation';
+import { FeltReportResponseErrorDetails } from './../felt-report-response-error-details';
 import { AbstractForm } from './abstract-form.component';
 import { environment } from 'environments/environment';
 
@@ -39,12 +35,9 @@ export class FormComponent extends AbstractForm implements OnChanges {
     ciim_time: null,
     fldSituation_felt: null
   };
-  error: any = null;
-  @Input() event: Event;
-  @Input() feltReport: FeltReport;
+  error: HttpErrorResponse = null;
   @Output() formResponse = new EventEmitter<any>();
-  @Input() labels: TellUsText;
-  responseUrl = environment.DYFI_RESPONSE_URL;
+  responseUrl: string = environment.DYFI_RESPONSE_URL;
   validation: FeltReportValidation;
 
   constructor(public httpClient: HttpClient) {
@@ -114,7 +107,7 @@ export class FormComponent extends AbstractForm implements OnChanges {
           }
         });
     } else {
-      this.formResponse.emit({ error: 'form invalid' });
+      // TODO: if form is invalid, possibly show snackbar
     }
   }
 
@@ -123,7 +116,7 @@ export class FormComponent extends AbstractForm implements OnChanges {
    * // TODO, re-evaluate handling server errors, maybe keep the form open
    * // and show a snackbar instead of emitting an error response
    */
-  private handleError(err): Observable<any> {
+  private handleError(err: HttpErrorResponse): Observable<any> {
     this.error = err;
     // this.formResponse.emit(errorResponse);
     return of(this.error);
@@ -138,7 +131,7 @@ export class FormComponent extends AbstractForm implements OnChanges {
   private returnErrorResponse(
     err: HttpErrorResponse
   ): FeltReportResponseErrorDetails {
-    const errorDetails = {
+    const errorDetails: FeltReportResponseErrorDetails = {
       code: 500,
       message: 'Error from server'
     };
