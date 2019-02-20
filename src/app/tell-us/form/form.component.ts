@@ -1,26 +1,7 @@
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpParams,
-  HttpResponse
-} from '@angular/common/http';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  OnChanges,
-  SimpleChanges
-} from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Component, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Event } from '../../event';
 import { TellUsText } from '../form-language/tell-us-text';
-import { environment } from 'environments/environment';
-import * as QuestionData from './questions.json';
-import { FormLanguageService } from '../form-language.service';
-import { FeltReport } from '../felt-report';
 import { AbstractForm } from './abstract-form.component';
 
 /**
@@ -35,20 +16,30 @@ import { AbstractForm } from './abstract-form.component';
 export class FormComponent extends AbstractForm implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('event')) {
-      const event = changes.event.currentValue;
-      if (event && event.id) {
-        let time = event.properties.time || null;
-        if (time) {
-          time = new Date(time).toISOString();
-        }
-
-        this.feltReport.eventid = event.id;
-        this.feltReport.ciim_time = time;
-      } else {
-        this.feltReport.eventid = null;
-        this.feltReport.ciim_time = null;
-      }
+      this.onEvent(changes.event.currentValue);
     }
+    if (changes.hasOwnProperty('labels')) {
+      this.onLabels(changes.labels.currentValue);
+    }
+  }
+
+  onEvent(event: Event): void {
+    if (event && event.id) {
+      let time = event.properties.time || null;
+      if (time) {
+        time = new Date(time).toISOString();
+      }
+
+      this.feltReport.eventid = event.id;
+      this.feltReport.ciim_time = time;
+    } else {
+      this.feltReport.eventid = null;
+      this.feltReport.ciim_time = null;
+    }
+  }
+
+  onLabels(labels: TellUsText): void {
+    this.feltReport.language = labels.id;
   }
 }
 
