@@ -5,7 +5,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { FormatterService } from '@core/formatter.service';
 import { MapComponent } from './map.component';
 
-fdescribe('MapComponent', () => {
+describe('MapComponent', () => {
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
 
