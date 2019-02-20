@@ -1,4 +1,4 @@
-import { FeltReportResponse } from './../felt-report-response';
+import { FeltReportResponseErrorDetails } from './../felt-report-response-error-details';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -13,7 +13,7 @@ import {
   SimpleChanges
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 import { Event } from '../../event';
 import { TellUsText } from '../form-language/tell-us-text';
@@ -31,6 +31,14 @@ import { environment } from 'environments/environment';
   templateUrl: './form.component.html'
 })
 export class FormComponent extends AbstractForm implements OnChanges {
+  // these answers control whether the submit button is enabled
+  // others are populated as needed
+  answers: any = {
+    ciim_mapLat: null,
+    ciim_mapLon: null,
+    ciim_time: null,
+    fldSituation_felt: null
+  };
   error: any = null;
   @Input() event: Event;
   @Input() feltReport: FeltReport;
@@ -45,18 +53,18 @@ export class FormComponent extends AbstractForm implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('event')) {
-      this.onEvent(changes.event.currentValue);
-    }
-    if (changes.hasOwnProperty('labels')) {
-      this.onLabels(changes.labels.currentValue);
-    }
-  }
-
-  onEvent(event: Event): void {
-    if (event && event.id) {
-      let time = event.properties.time || null;
-      if (time) {
-        time = new Date(time).toISOString();
+      const event = changes.event.currentValue;
+      if (event && event.id) {
+        let time = event.properties.time || null;
+        if (time) {
+          time = new Date(time).toISOString();
+          this.answers.ciim_time = time;
+        }
+        this.feltReport.eventid = event.id;
+        this.feltReport.ciim_time = time;
+      } else {
+        this.feltReport.eventid = null;
+        this.feltReport.ciim_time = null;
       }
 
       this.feltReport.eventid = event.id;
@@ -72,12 +80,23 @@ export class FormComponent extends AbstractForm implements OnChanges {
    * then errors or emits response object to parent tell-us component
    */
   onSubmit(): void {
+    if (this.feltReport.fldSituation_felt) {
+      this.answers.fldSituation_felt = this.feltReport.fldSituation_felt;
+    }
+    if (this.feltReport.ciim_mapLat) {
+      this.answers.ciim_mapLat = this.feltReport.ciim_mapLat;
+    }
+    if (this.feltReport.ciim_mapLon) {
+      this.answers.ciim_mapLon = this.feltReport.ciim_mapLon;
+    }
     let params = new HttpParams();
     const validated = this.validateForm();
     if (validated) {
       for (const key in this.feltReport) {
         if (this.feltReport.hasOwnProperty(key)) {
           params = params.append(key, this.feltReport[key]);
+        } else if (this.answers.hasOwnProperty(key)) {
+          params = params.append(key, this.answers[key]);
         }
       }
       params = params.append('format', 'json');
@@ -86,13 +105,18 @@ export class FormComponent extends AbstractForm implements OnChanges {
       this.httpClient
         .post(this.responseUrl, params)
         .pipe(
-          map(this.parseResponse),
-          catchError(this.handleError())
+          catchError(val => {
+            return this.handleError(val);
+          })
         )
         .subscribe(response => {
-          if (response) {
+          // if response is an object and not an observable<error>
+          if (response && !response.error) {
             // emit parsed response data/class
             this.formResponse.emit(response);
+          } else {
+            // emit FeltReportResponseErrorDetails
+            this.formResponse.emit(this.returnErrorResponse(response));
           }
         });
     } else {
@@ -102,37 +126,35 @@ export class FormComponent extends AbstractForm implements OnChanges {
 
   /**
    * Error handler for http requests.
+   * // TODO, re-evaluate handling server errors, maybe keep the form open
+   * // and show a snackbar instead of emitting an error response
    */
-  private handleError(): (error: HttpErrorResponse) => Observable<any> {
-    return error => {
-      return of(this.error);
-    };
+  private handleError(err): Observable<any> {
+    this.error = err;
+    // this.formResponse.emit(errorResponse);
+    return of(this.error);
   }
 
   /**
-   * Parse the response data
+   * Helper function to build and return a FeltReportResponseErrorDetails
+   * object
    *
-   * @param resData the response data
+   * @param err , the HttpErrorResponse object
    */
-  private parseResponse(resData: any): FeltReportResponse | null {
-    // Todo return response error interface type if error
-    if (resData) {
-      const feltReportResponse: FeltReportResponse = {
-        ciim_mapLat: resData.ciim_mapLat,
-        ciim_mapLon: resData.ciim_mapLon,
-        ciim_time: resData.ciim_time,
-        eventid: resData.eventid || 'none',
-        fldContact_email: resData.fldContact_email,
-        fldContact_name: resData.fldContact_name,
-        fldContact_phone: resData.fldContact_phone,
-        form_version: resData.form_version,
-        // currently never sent by server, but possible ...
-        // nresp?: string;
-        your_cdi: resData.your_cdi
-      };
-      return feltReportResponse;
+  private returnErrorResponse(
+    err: HttpErrorResponse
+  ): FeltReportResponseErrorDetails {
+    const errorDetails = {
+      code: 500,
+      message: 'Error from server'
+    };
+    try {
+      errorDetails.code = err.status;
+      errorDetails.message = err.message;
+    } catch (e) {
+      // do nothing
     }
-    return resData;
+    return errorDetails;
   }
 
   /**
