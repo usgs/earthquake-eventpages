@@ -44,7 +44,19 @@ export class FormComponent extends AbstractForm implements OnChanges {
     super();
   }
 
+  /**
+   * Error handler for http requests.
+   * // TODO, re-evaluate handling server errors, maybe keep the form open
+   * // and show a snackbar instead of emitting an error response
+   */
+  handleError(err: HttpErrorResponse): Observable<any> {
+    this.error = err;
+    // this.formResponse.emit(errorResponse);
+    return of(this.error);
+  }
+
   ngOnChanges(changes: SimpleChanges) {
+    console.log('changes object: ', changes);
     if (changes.hasOwnProperty('event')) {
       const event = changes.event.currentValue;
       if (event && event.id) {
@@ -97,7 +109,7 @@ export class FormComponent extends AbstractForm implements OnChanges {
           })
         )
         .subscribe(response => {
-          // if response is an object and not an observable<error>
+          // if no error
           if (response && !response.error) {
             // emit parsed response data/class
             this.formResponse.emit(response);
@@ -112,25 +124,12 @@ export class FormComponent extends AbstractForm implements OnChanges {
   }
 
   /**
-   * Error handler for http requests.
-   * // TODO, re-evaluate handling server errors, maybe keep the form open
-   * // and show a snackbar instead of emitting an error response
-   */
-  private handleError(err: HttpErrorResponse): Observable<any> {
-    this.error = err;
-    // this.formResponse.emit(errorResponse);
-    return of(this.error);
-  }
-
-  /**
    * Helper function to build and return a FeltReportResponseErrorDetails
    * object
    *
    * @param err , the HttpErrorResponse object
    */
-  private returnErrorResponse(
-    err: HttpErrorResponse
-  ): FeltReportResponseErrorDetails {
+  returnErrorResponse(err: HttpErrorResponse): FeltReportResponseErrorDetails {
     const errorDetails: FeltReportResponseErrorDetails = {
       code: 500,
       message: 'Error from server'
@@ -149,7 +148,7 @@ export class FormComponent extends AbstractForm implements OnChanges {
    *
    * @returns FeltReportValidation called from feltReport instance class
    */
-  private validateForm(): FeltReportValidation {
+  validateForm(): FeltReportValidation {
     return this.feltReport.valid;
   }
 }
