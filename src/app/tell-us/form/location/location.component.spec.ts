@@ -66,7 +66,7 @@ describe('LocationComponent', () => {
         }),
 
         MockComponent({
-          inputs: ['event', 'labels', 'feltReport', 'location', 'mapShown'],
+          inputs: ['event', 'labels', 'feltReport', 'location'],
           selector: 'tell-us-form-location-map'
         }),
         MockComponent({
@@ -150,13 +150,6 @@ describe('LocationComponent', () => {
       );
 
       expect(request.request.method).toBe('GET');
-    });
-  });
-
-  describe('showMap', () => {
-    it('should set map shown to true', () => {
-      component.showMap();
-      expect(component.mapShown).toBe(true);
     });
   });
 
