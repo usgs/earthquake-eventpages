@@ -1,5 +1,11 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { MatExpansionModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
 
 import { FormComponent } from './form.component';
 
@@ -12,7 +18,6 @@ describe('FormComponent', () => {
       declarations: [
         FormComponent,
         MockComponent({
-          inputs: ['language'],
           selector: 'tell-us-metadata'
         }),
         MockComponent({
@@ -23,11 +28,6 @@ describe('FormComponent', () => {
           inputs: ['event', 'feltReport', 'labels'],
           selector: 'tell-us-form-location'
         }),
-        MockComponent({
-          inputs: ['expanded'],
-          selector: 'mat-expansion-panel'
-        }),
-        MockComponent({ selector: 'mat-expansion-panel-header' }),
         MockComponent({
           inputs: ['feltReport', 'labels'],
           selector: 'tell-us-form-optional'
@@ -41,8 +41,12 @@ describe('FormComponent', () => {
           selector: 'tell-us-form-submit'
         })
       ],
-      imports: [],
-      providers: []
+      imports: [
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientTestingModule,
+        MatExpansionModule
+      ]
     }).compileComponents();
   }));
 
@@ -54,5 +58,32 @@ describe('FormComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('onSubmit', () => {
+    beforeEach(() => {
+      spyOn(component, 'validateForm').and.returnValue({
+        errors: null,
+        value: true
+      });
+      spyOn(component.httpClient, 'post').and.returnValue(of({}));
+      it('calls validateForm', () => {
+        component.onSubmit();
+        expect(component.validateForm).toHaveBeenCalled();
+      });
+      it('calls HttpClient post', () => {
+        component.onSubmit();
+        expect(component.httpClient.post).toHaveBeenCalled();
+      });
+      it('handles error', () => {
+        spyOn(component, 'handleError').and.returnValue(
+          of({ error: 'http error' })
+        );
+        spyOn(component, 'returnErrorResponse').and.returnValue({});
+        component.onSubmit();
+        expect(component.handleError).toHaveBeenCalled();
+        expect(component.returnErrorResponse).toHaveBeenCalled();
+      });
+    });
   });
 });

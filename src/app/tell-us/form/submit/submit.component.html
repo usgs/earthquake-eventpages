@@ -12,6 +12,7 @@
 
 <form (ngSubmit)="onSubmit()">
   <button
+    *ngIf="!submitting; else formSubmitting"
     type="submit"
     mat-raised-button
     color="primary"
@@ -19,4 +20,7 @@
   >
     {{ labels.submit }}
   </button>
+  <ng-template #formSubmitting>
+    <mat-spinner [diameter]="25"></mat-spinner>
+  </ng-template>
 </form>

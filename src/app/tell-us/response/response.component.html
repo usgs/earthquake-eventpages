@@ -1,3 +1,50 @@
-<p>
-  response works!
+<p class="alert success">
+  Thank you for your contribution. Your information will be processed shortly.
 </p>
+
+<dl>
+  <dt>Event Id:</dt>
+  <dd>{{ response?.eventid }}</dd>
+
+  <dt>Estimated intensity:</dt>
+  <dd>
+    <shared-mmi
+      [bubble]="true"
+      [intensity]="response?.your_cdi | sharedRomanToNumber"
+      [value]="response?.your_cdi"
+    ></shared-mmi>
+  </dd>
+
+  <dt>Name:</dt>
+  <dd *ngIf="response?.fldContact_name as name; else dash">{{ name }}</dd>
+
+  <dt>Email:</dt>
+  <dd *ngIf="response?.fldContact_email as email; else dash">{{ email }}</dd>
+
+  <dt>Event time:</dt>
+  <dd>{{ response?.ciim_time }}</dd>
+
+  <dt>Latitude:</dt>
+  <dd>{{ response?.ciim_mapLat }}</dd>
+
+  <dt>Longitude:</dt>
+  <dd>{{ response?.ciim_mapLon }}</dd>
+
+  <dt>Form version:</dt>
+  <dd>{{ response?.form_version }}</dd>
+</dl>
+
+<div class="share-box">
+  <button
+    [disabled]="sdkStatus === false"
+    (click)="onSocialClick($event)"
+    class="fb-share-button"
+  >
+    <img src="./assets/facebook_share_button.jpg" alt="Share" />
+  </button>
+  <p>Share your DYFI response on Facebook.</p>
+</div>
+
+<ng-template #dash>
+  <dd>&ndash;</dd>
+</ng-template>

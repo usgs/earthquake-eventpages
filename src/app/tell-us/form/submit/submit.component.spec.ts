@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubmitComponent } from './submit.component';
+import { MockComponent } from 'ng2-mock-component';
 
 describe('SubmitComponent', () => {
   let component: SubmitComponent;
@@ -8,9 +9,14 @@ describe('SubmitComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubmitComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        SubmitComponent,
+        MockComponent({
+          inputs: ['diameter'],
+          selector: 'mat-spinner'
+        })
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

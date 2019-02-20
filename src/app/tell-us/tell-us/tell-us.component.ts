@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { EventService } from '@core/event.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { FormLanguageService } from '../form-language.service';
 
 /**
@@ -13,7 +14,7 @@ import { FormLanguageService } from '../form-language.service';
   styleUrls: ['./tell-us.component.scss'],
   templateUrl: './tell-us.component.html'
 })
-export class TellUsComponent implements OnInit {
+export class TellUsComponent {
   // Form response received from submit
   formResponse: any; // TODO :: Create and use specific response model
 
@@ -21,8 +22,6 @@ export class TellUsComponent implements OnInit {
     public eventService: EventService,
     public languageService: FormLanguageService
   ) {}
-
-  ngOnInit() {}
 
   /**
    * Handles the dialog closing, and checks to see if there is a dyfi response
