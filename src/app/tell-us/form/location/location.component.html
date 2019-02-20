@@ -41,7 +41,7 @@
   </div>
 </tell-us-fieldset>
 
-<mat-expansion-panel (opened)="showMap()">
+<mat-expansion-panel>
   <mat-expansion-panel-header>
     {{ labels.useMap }}
   </mat-expansion-panel-header>
@@ -51,7 +51,7 @@
       [labels]="labels"
       [feltReport]="feltReport"
       [location]="feltReport.location"
-      [mapShown]="mapShown"
     ></tell-us-form-location-map>
   </ng-template>
 </mat-expansion-panel>
+<!-- [mapShown]="mapShown" -->

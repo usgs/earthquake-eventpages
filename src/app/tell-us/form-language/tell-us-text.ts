@@ -4,6 +4,8 @@ export interface TellUsText {
   bigShiftAppliance: string;
   brokenDamage: string;
   chimneyDamage: string;
+  ciim_mapAddress: string;
+  ciim_mapAddress_help: string;
   ciim_time: string;
   ciim_time_help: string;
   completeWalls: string;
@@ -81,7 +83,9 @@ export interface TellUsText {
   noShake: string;
   notSpecified: string;
   oldChimneyDamage: string;
+  optionalNotice: string;
   optionalQuestion: string;
+  optionalToggle: string;
 
   other: string;
   outside: string;
@@ -110,6 +114,7 @@ export interface TellUsText {
   tiltedDamage: string;
   toggleInfoDesc: string;
   toppleAppliance: string;
+  useMap: string;
   vehMoving: string;
   vehStopped: string;
   veryFrightReact: string;

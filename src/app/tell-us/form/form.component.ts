@@ -2,6 +2,7 @@ import { Component, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Event } from '../../event';
 import { TellUsText } from '../form-language/tell-us-text';
+
 import { AbstractForm } from './abstract-form.component';
 
 /**
@@ -40,6 +41,12 @@ export class FormComponent extends AbstractForm implements OnChanges {
 
   onLabels(labels: TellUsText): void {
     this.feltReport.language = labels.id;
+  }
+
+  // This is here so that the build will pass but needs to actually
+  // do something in the future.
+  onSubmit() {
+    return;
   }
 }
 

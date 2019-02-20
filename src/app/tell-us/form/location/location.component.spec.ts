@@ -11,7 +11,8 @@ import {
   MatIconModule,
   MatInputModule,
   MatProgressSpinnerModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatSnackBar
 } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import {
@@ -21,9 +22,9 @@ import {
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { FormatterService } from '@core/formatter.service';
-import { CoordinatesService } from 'hazdev-ng-location-view';
 import { LocationComponent } from './location.component';
+import { CoordinatesService } from 'hazdev-ng-location-view';
+import { FormatterService } from '@core/formatter.service';
 
 describe('LocationComponent', () => {
   let component: LocationComponent;
@@ -49,6 +50,12 @@ describe('LocationComponent', () => {
       location: jasmine.createSpy('formatter::location')
     };
 
+    const snackBarStub = {
+      open: () => {
+        console.log('snackBar::open');
+      }
+    };
+
     TestBed.configureTestingModule({
       declarations: [
         LocationComponent,
@@ -59,24 +66,44 @@ describe('LocationComponent', () => {
         }),
 
         MockComponent({
-          inputs: ['event', 'labels', 'feltReport', 'location', 'mapShown'],
+          inputs: ['event', 'labels', 'feltReport', 'location'],
           selector: 'tell-us-form-location-map'
+        }),
+        MockComponent({
+          inputs: ['diameter'],
+          selector: 'mat-spinner'
+        }),
+        MockComponent({
+          selector: 'mat-icon'
+        }),
+        MockComponent({
+          inputs: ['ngModel'],
+          selector: 'input'
+        }),
+        MockComponent({
+          selector: 'mat-form-field'
+        }),
+        MockComponent({
+          selector: 'mat-expansion-panel-header'
+        }),
+        MockComponent({
+          selector: 'mat-expansion-panel'
         })
       ],
       imports: [
-        BrowserAnimationsModule,
-        FormsModule,
-        HttpClientModule,
-        HttpClientTestingModule,
-        MatExpansionModule,
-        MatIconModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-        MatSnackBarModule
+        // BrowserAnimationsModule,
+        // FormsModule,
+        // HttpClientModule,
+        HttpClientTestingModule
+        // MatExpansionModule,
+        // MatIconModule,
+        // MatInputModule,
+        // MatProgressSpinnerModule
       ],
       providers: [
         { provide: CoordinatesService, useValue: coordinatesServiceStub },
-        { provide: FormatterService, useValue: formatterServiceStub }
+        { provide: FormatterService, useValue: formatterServiceStub },
+        { provide: MatSnackBar, useValue: snackBarStub }
       ]
     }).compileComponents();
 
@@ -123,13 +150,6 @@ describe('LocationComponent', () => {
       );
 
       expect(request.request.method).toBe('GET');
-    });
-  });
-
-  describe('showMap', () => {
-    it('should set map shown to true', () => {
-      component.showMap();
-      expect(component.mapShown).toBe(true);
     });
   });
 

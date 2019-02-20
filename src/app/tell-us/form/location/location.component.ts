@@ -20,7 +20,6 @@ export class LocationComponent extends AbstractForm {
     'World/GeocodeServer/find';
 
   geolocating = false;
-  mapShown = false;
 
   constructor(
     public coordinateService: CoordinatesService,
@@ -186,12 +185,5 @@ export class LocationComponent extends AbstractForm {
     this.snackBar.open(message, action, {
       duration: length
     });
-  }
-
-  /**
-   * Emits an event that indicates the map is being shown
-   */
-  showMap() {
-    this.mapShown = true;
   }
 }
