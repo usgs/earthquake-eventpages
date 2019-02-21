@@ -18,13 +18,13 @@
 ></tell-us-form-location>
 
 <p class="alert info">
-  {{ labels.optionalNotice }}
+  {{ labels?.optionalNotice }}
 </p>
 
 <!-- Optional Questions -->
 <mat-expansion-panel [expanded]="true">
   <mat-expansion-panel-header>
-    {{ labels.optionalToggle }}
+    {{ labels?.optionalToggle }}
   </mat-expansion-panel-header>
 
   <tell-us-form-optional
@@ -38,9 +38,5 @@
   ></tell-us-form-contact>
 </mat-expansion-panel>
 
-<tell-us-form-submit
-  [feltReport]="feltReport"
-  [labels]="labels"
-  (submit)="onSubmit()"
->
+<tell-us-form-submit [feltReport]="feltReport" [labels]="labels">
 </tell-us-form-submit>

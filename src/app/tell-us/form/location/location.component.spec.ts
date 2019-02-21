@@ -4,17 +4,7 @@ import {
   TestBed,
   getTestBed
 } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-import {
-  MatExpansionModule,
-  MatIconModule,
-  MatInputModule,
-  MatProgressSpinnerModule,
-  MatSnackBarModule,
-  MatSnackBar
-} from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material';
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -39,10 +29,10 @@ describe('LocationComponent', () => {
   beforeEach(async(() => {
     const coordinatesServiceStub = {
       computeFromGeocode: (geocodeLocation: any) => {
-        console.log('stubbified!');
+        console.log('stubbified! ', geocodeLocation);
       },
       roundLocation: (value: number, confidence: number) => {
-        console.log('stubbified!');
+        console.log('stubbified! ', confidence);
       }
     };
 

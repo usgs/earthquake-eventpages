@@ -1,3 +1,72 @@
-<p>
-  response works!
-</p>
+<ng-container *ngIf="response && !response.error; else errorResponse">
+  <p class="alert success">
+    Thank you for your contribution. Your information will be processed shortly.
+  </p>
+
+  <dl>
+    <dt>Event Id:</dt>
+    <dd *ngIf="response?.eventid !== 'null'; else dash">
+      {{ response.eventid }}
+    </dd>
+
+    <dt>Estimated intensity:</dt>
+    <dd>
+      <shared-mmi
+        [bubble]="true"
+        [intensity]="response?.your_cdi | sharedRomanToNumber"
+        [value]="response?.your_cdi"
+      ></shared-mmi>
+    </dd>
+
+    <dt>Name:</dt>
+    <dd *ngIf="response?.fldContact_name as name; else dash">
+      {{ response.fldContact_name }}
+    </dd>
+
+    <dt>Email:</dt>
+    <dd *ngIf="response?.fldContact_email as email; else dash">
+      {{ response.fldContact_email }}
+    </dd>
+
+    <dt>Event time:</dt>
+    <dd *ngIf="response?.ciim_time">{{ response.ciim_time }}</dd>
+
+    <dt>Latitude:</dt>
+    <dd *ngIf="response?.ciim_mapLat">{{ response.ciim_mapLat }}</dd>
+
+    <dt>Longitude:</dt>
+    <dd *ngIf="response?.ciim_mapLon">{{ response.ciim_mapLon }}</dd>
+
+    <dt>Form version:</dt>
+    <dd *ngIf="response?.form_version">{{ response.form_version }}</dd>
+  </dl>
+
+  <div class="share-box">
+    <button
+      [disabled]="sdkStatus === false"
+      (click)="onSocialClick($event)"
+      class="fb-share-button"
+    >
+      <img src="./assets/facebook_share_button.jpg" alt="Share" />
+    </button>
+    <p>Share your DYFI response on Facebook.</p>
+  </div>
+</ng-container>
+
+<ng-template #errorResponse>
+  <p class="alert warning">
+    We apologize, but there was an error with the form submission, please try
+    again later.
+  </p>
+  <dl>
+    <dt>Error Code:</dt>
+    <dd *ngIf="response?.error?.code; else dash">{{ response.error.code }}</dd>
+
+    <dt>Message:</dt>
+    <dd *ngIf="response?.error?.message">{{ response.error.message }}</dd>
+  </dl>
+</ng-template>
+
+<ng-template #dash>
+  <dd>&ndash;</dd>
+</ng-template>

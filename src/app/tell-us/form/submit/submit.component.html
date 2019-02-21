@@ -1,7 +1,7 @@
 <h3>Submit Felt Report</h3>
 <div class="alert error" *ngIf="!feltReport.valid.value">
   <p>
-    {{ labels.errors_title }}
+    {{ labels?.errors_title }}
   </p>
   <ul>
     <li *ngFor="let error of feltReport.valid.errors">
@@ -17,6 +17,6 @@
     color="primary"
     [disabled]="!feltReport.valid.value"
   >
-    {{ labels.submit }}
+    {{ labels?.submit }}
   </button>
 </form>

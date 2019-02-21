@@ -1,0 +1,15 @@
+.share-box > button,
+.share-box > p {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.fb-share-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  height: 38;
+  object-fit: contain;
+  outline: none;
+  width: 100px;
+}

@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { EventService } from '@core/event.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
+
+import { FeltReportResponse } from './../felt-report-response';
+import { FeltReportReponseError } from './../felt-report-reponse-error';
 import { FormLanguageService } from '../form-language.service';
+import { FormSubmitService } from '../form-submit.service';
 
 /**
  * Main component that handles the displaying of the tell us form and displays
@@ -13,24 +17,28 @@ import { FormLanguageService } from '../form-language.service';
   styleUrls: ['./tell-us.component.scss'],
   templateUrl: './tell-us.component.html'
 })
-export class TellUsComponent implements OnInit {
+export class TellUsComponent implements OnDestroy, OnInit {
   // Form response received from submit
-  formResponse: any; // TODO :: Create and use specific response model
+  formResponse$: FeltReportResponse | FeltReportReponseError;
+  formResponseSub: Subscription;
 
   constructor(
     public eventService: EventService,
+    public formSubmitService: FormSubmitService,
     public languageService: FormLanguageService
   ) {}
 
-  ngOnInit() {}
+  ngOnDestroy() {
+    this.formResponseSub.unsubscribe();
+  }
 
-  /**
-   * Handles the dialog closing, and checks to see if there is a dyfi response
-   *
-   * @param response
-   *     dyfi response or HttpErrorResponse object
-   */
-  onFormResponse(response: any | HttpErrorResponse) {
-    this.formResponse = response;
+  ngOnInit() {
+    this.formResponseSub = this.formSubmitService.formResponse.subscribe(
+      response => {
+        if (response) {
+          this.formResponse$ = response;
+        }
+      }
+    );
   }
 }

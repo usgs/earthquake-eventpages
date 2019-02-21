@@ -13,8 +13,6 @@ import * as L from 'leaflet';
 
 import { Subscription } from 'rxjs';
 
-import { FeltReport } from 'app/tell-us/felt-report';
-
 import { AbstractForm } from '../../abstract-form.component';
 
 const DEFAULT_ICON_URL =
