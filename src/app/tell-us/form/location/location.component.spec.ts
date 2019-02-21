@@ -84,16 +84,10 @@ describe('LocationComponent', () => {
 
     injector = getTestBed();
     httpClient = injector.get(HttpTestingController);
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(LocationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    injector = getTestBed();
-    httpClient = injector.get(HttpTestingController);
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -119,9 +113,9 @@ describe('LocationComponent', () => {
 
       location = 'Golden, Colorado';
 
-      component.geocode('Golden, Colorado');
+      component.geocode(location);
       request = httpClient.expectOne(
-        component.GEOCODE_URL + '?f=json&text=Golden, Colorado'
+        `${component.GEOCODE_URL}?f=json&text=${location}`
       );
 
       expect(request.request.method).toBe('GET');
