@@ -33,4 +33,16 @@ describe('MetadataComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('onLanguageSelect', function() {
+    it('gets the language from the language service', () => {
+      const id = 'en';
+
+      spyOn(component.languageService, 'getLanguage');
+      component.onLanguageSelect(id);
+
+      expect(component.languageService.getLanguage).toHaveBeenCalled();
+      expect(component.languageService.getLanguage).toHaveBeenCalledWith(id);
+    });
+  });
 });

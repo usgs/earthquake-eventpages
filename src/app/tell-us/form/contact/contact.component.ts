@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AbstractForm } from '../abstract-form.component';
 
 @Component({
@@ -6,6 +6,4 @@ import { AbstractForm } from '../abstract-form.component';
   styleUrls: ['./contact.component.scss'],
   templateUrl: './contact.component.html'
 })
-export class ContactComponent extends AbstractForm implements OnInit {
-  ngOnInit() {}
-}
+export class ContactComponent extends AbstractForm {}
