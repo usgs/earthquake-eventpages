@@ -4,7 +4,7 @@ import { OptionalComponent } from './optional.component';
 import { MockPipe } from 'app/mock-pipe';
 import { MockComponent } from 'ng2-mock-component';
 
-fdescribe('OptionalComponent', () => {
+describe('OptionalComponent', () => {
   let component: OptionalComponent;
   let fixture: ComponentFixture<OptionalComponent>;
 
