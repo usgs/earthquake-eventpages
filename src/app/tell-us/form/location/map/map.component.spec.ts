@@ -1,8 +1,9 @@
+import { SimpleChange } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockComponent } from 'ng2-mock-component';
-
 import { FormatterService } from '@core/formatter.service';
+
 import { MapComponent } from './map.component';
 
 describe('MapComponent', () => {
@@ -64,6 +65,44 @@ describe('MapComponent', () => {
       const result = component.getLatLng(null, null);
       expect(result).toEqual([0, 0]);
     });
+  });
+
+  describe('onEventChange', () => {
+    it('calls updatePin', () => {
+      const simpleChange = new SimpleChange(null, { curentValue: null }, true);
+      spyOn(component, 'updatePin').and.returnValue([]);
+      component.onEventChange(simpleChange);
+      expect(component.updatePin).toHaveBeenCalled();
+    });
+  });
+
+  describe('onFeltReportChange', () => {
+    it('calls updatePin', () => {
+      const simpleChange = new SimpleChange(null, { curentValue: null }, true);
+      spyOn(component, 'updatePin').and.returnValue([]);
+      component.onFeltReportChange(simpleChange);
+      expect(component.updatePin).toHaveBeenCalled();
+    });
+  });
+
+  describe('onMarkerChange', () => {
+    it(
+      'updates fleltReport latitude, longitude, and address when' +
+        ' the marker is moved',
+      () => {
+        spyOn(component.pin, 'getLatLng').and.callFake(() => {
+          return { lat: 38.508292305, lng: -77.90219192 };
+        });
+
+        component.onMarkerChange();
+        expect(component.pin.getLatLng).toHaveBeenCalled();
+        expect(component.feltReport.location.latitude).toEqual(38.508292305);
+        expect(component.feltReport.location.longitude).toEqual(-77.90219192);
+        expect(component.feltReport.location.address).toEqual(
+          '38.508°N 77.902°W'
+        );
+      }
+    );
   });
 
   describe('updateFeltReportLocation', () => {
