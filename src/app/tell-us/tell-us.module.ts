@@ -22,6 +22,7 @@ import { FeltComponent } from './form/felt/felt.component';
 import { FieldsetComponent } from './fieldset/fieldset.component';
 import { FormComponent } from './form/form.component';
 import { FormLanguageService } from './form-language.service';
+import { FormSubmitService } from './form-submit.service';
 import { LocationComponent } from './form/location/location.component';
 import { MapComponent } from './form/location/map/map.component';
 import { MetadataComponent } from './form/metadata/metadata.component';
@@ -73,6 +74,6 @@ import { TellUsRoutingModule } from './tell-us-routing.module';
     // routing module is always last
     TellUsRoutingModule
   ],
-  providers: [FormLanguageService]
+  providers: [FormLanguageService, FormSubmitService]
 })
 export class TellUsModule {}

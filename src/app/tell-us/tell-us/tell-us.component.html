@@ -1,12 +1,14 @@
 <h2>Felt Report - Tell Us!</h2>
-<tell-us-response *ngIf="formResponse; else form" [response]="formResponse">
-</tell-us-response>
+<ng-container
+  *ngIf="(formSubmitService?.formResponse$ | async); let response; else: form"
+>
+  <tell-us-response [response]="response"> </tell-us-response>
+</ng-container>
 
 <ng-template #form>
   <tell-us-form
     [event]="eventService.event$ | async"
     [labels]="languageService.language$ | async"
-    (formResponse)="onFormResponse($event)"
   ></tell-us-form>
 </ng-template>
 
