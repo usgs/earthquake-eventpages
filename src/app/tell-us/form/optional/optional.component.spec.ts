@@ -4,7 +4,7 @@ import { OptionalComponent } from './optional.component';
 import { MockPipe } from 'app/mock-pipe';
 import { MockComponent } from 'ng2-mock-component';
 
-describe('OptionalComponent', () => {
+fdescribe('OptionalComponent', () => {
   let component: OptionalComponent;
   let fixture: ComponentFixture<OptionalComponent>;
 
@@ -35,7 +35,7 @@ describe('OptionalComponent', () => {
     fixture.detectChanges();
   });
 
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

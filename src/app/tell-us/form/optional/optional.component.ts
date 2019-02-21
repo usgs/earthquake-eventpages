@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import * as QuestionData from '../questions.json';
 import { AbstractForm } from '../abstract-form.component.js';
 
@@ -7,8 +7,6 @@ import { AbstractForm } from '../abstract-form.component.js';
   styleUrls: ['./optional.component.scss'],
   templateUrl: './optional.component.html'
 })
-export class OptionalComponent extends AbstractForm implements OnInit {
+export class OptionalComponent extends AbstractForm {
   questions = QuestionData;
-
-  ngOnInit() {}
 }
