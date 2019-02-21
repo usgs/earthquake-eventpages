@@ -1,6 +1,8 @@
 <h2>Felt Report - Tell Us!</h2>
-<ng-container *ngIf="formResponse$; else form">
-  <tell-us-response [response]="formResponse$"> </tell-us-response>
+<ng-container
+  *ngIf="(formSubmitService?.formResponse$ | async); let response; else: form"
+>
+  <tell-us-response [response]="response"> </tell-us-response>
 </ng-container>
 
 <ng-template #form>

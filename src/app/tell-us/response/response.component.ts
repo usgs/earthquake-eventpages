@@ -77,7 +77,6 @@ export class ResponseComponent implements OnInit {
    *      The click event
    */
   onSocialClick(e): void {
-    console.log('social clicked');
     e.preventDefault();
     this.showFacebookSharePopup();
   }

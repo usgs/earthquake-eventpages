@@ -12,7 +12,7 @@ import { FeltReportResponseErrorDetails } from './felt-report-response-error-det
 
 @Injectable()
 export class FormSubmitService {
-  formResponse = new BehaviorSubject<
+  formResponse$ = new BehaviorSubject<
     FeltReportResponse | FeltReportReponseError
   >(null);
   responseUrl = environment.DYFI_RESPONSE_URL;
@@ -57,12 +57,19 @@ export class FormSubmitService {
         .subscribe(response => {
           // if no error
           if (response && !response.error) {
-            // emit parsed response data/class
-            this.formResponse.next(response);
+            this.formResponse$.next(response);
           } else {
-            // TODO create and emit FeltReportResponseError
-            // emit FeltReportResponseErrorDetails
-            this.formResponse.next(response);
+            let code, message;
+            code = response.status ? response.status : null;
+            message = response.message ? response.message : 'Server Error';
+            const errorDetail: FeltReportResponseErrorDetails = {
+              code: code,
+              message: message
+            };
+            const error: FeltReportReponseError = {
+              error: errorDetail
+            };
+            this.formResponse$.next(error);
           }
         });
     } else {
@@ -73,7 +80,7 @@ export class FormSubmitService {
       const error: FeltReportReponseError = {
         error: errorDetail
       };
-      this.formResponse.next(error);
+      this.formResponse$.next(error);
     }
   }
 }
