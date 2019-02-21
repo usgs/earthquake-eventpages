@@ -4,17 +4,7 @@ import {
   TestBed,
   getTestBed
 } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-import {
-  MatExpansionModule,
-  MatIconModule,
-  MatInputModule,
-  MatProgressSpinnerModule,
-  MatSnackBarModule,
-  MatSnackBar
-} from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material';
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -38,12 +28,8 @@ describe('LocationComponent', () => {
 
   beforeEach(async(() => {
     const coordinatesServiceStub = {
-      computeFromGeocode: (geocodeLocation: any) => {
-        console.log('stubbified!');
-      },
-      roundLocation: (value: number, confidence: number) => {
-        console.log('stubbified!');
-      }
+      computeFromGeocode: (geocodeLocation: any) => {},
+      roundLocation: (value: number, confidence: number) => {}
     };
 
     const formatterServiceStub = {
@@ -51,9 +37,7 @@ describe('LocationComponent', () => {
     };
 
     const snackBarStub = {
-      open: () => {
-        console.log('snackBar::open');
-      }
+      open: () => {}
     };
 
     TestBed.configureTestingModule({
@@ -90,16 +74,7 @@ describe('LocationComponent', () => {
           selector: 'mat-expansion-panel'
         })
       ],
-      imports: [
-        // BrowserAnimationsModule,
-        // FormsModule,
-        // HttpClientModule,
-        HttpClientTestingModule
-        // MatExpansionModule,
-        // MatIconModule,
-        // MatInputModule,
-        // MatProgressSpinnerModule
-      ],
+      imports: [HttpClientTestingModule],
       providers: [
         { provide: CoordinatesService, useValue: coordinatesServiceStub },
         { provide: FormatterService, useValue: formatterServiceStub },
@@ -170,6 +145,20 @@ describe('LocationComponent', () => {
         latitude: 1,
         longitude: 2
       });
+    });
+  });
+
+  describe('onGeolocateError', () => {
+    it('sets geolocation to false', () => {
+      component.onGeolocateError(null);
+      expect(component.geolocating).toBeFalsy();
+    });
+  });
+
+  describe('onGeolocateResult', () => {
+    it('calls coordinate service computeFromGeolocate', () => {
+      component.onGeolocateResult(null);
+      expect(component.feltReport.location).not.toBeNull();
     });
   });
 

@@ -9,11 +9,9 @@ import {
   SimpleChange
 } from '@angular/core';
 import { FormatterService } from '@core/formatter.service';
+
 import * as L from 'leaflet';
-
 import { Subscription } from 'rxjs';
-
-import { FeltReport } from 'app/tell-us/felt-report';
 
 import { AbstractForm } from '../../abstract-form.component';
 
