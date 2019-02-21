@@ -15,7 +15,7 @@ import { FormLanguageService } from '../form-language.service';
 
 import { TellUsComponent } from './tell-us.component';
 
-fdescribe('TellUsComponent', () => {
+describe('TellUsComponent', () => {
   let component: TellUsComponent;
   let fixture: ComponentFixture<TellUsComponent>;
   beforeEach(async(() => {
