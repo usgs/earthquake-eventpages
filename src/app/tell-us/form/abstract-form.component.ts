@@ -1,7 +1,7 @@
 import { Input } from '@angular/core';
+
 import { Event } from 'app/event';
 import { FeltReport } from '../felt-report';
-
 import * as LANGUAGE_EN from '../form-language/en.json';
 import { TellUsText } from '../form-language/tell-us-text';
 
