@@ -41,9 +41,7 @@ describe('LocationComponent', () => {
     };
 
     const snackBarStub = {
-      open: () => {
-        console.log('snackBar::open');
-      }
+      open: () => {}
     };
 
     TestBed.configureTestingModule({
@@ -80,16 +78,7 @@ describe('LocationComponent', () => {
           selector: 'mat-expansion-panel'
         })
       ],
-      imports: [
-        // BrowserAnimationsModule,
-        // FormsModule,
-        // HttpClientModule,
-        HttpClientTestingModule
-        // MatExpansionModule,
-        // MatIconModule,
-        // MatInputModule,
-        // MatProgressSpinnerModule
-      ],
+      imports: [HttpClientTestingModule],
       providers: [
         { provide: CoordinatesService, useValue: coordinatesServiceStub },
         { provide: FormatterService, useValue: formatterServiceStub },
@@ -99,16 +88,10 @@ describe('LocationComponent', () => {
 
     injector = getTestBed();
     httpClient = injector.get(HttpTestingController);
-  }));
-
-  beforeEach(() => {
     fixture = TestBed.createComponent(LocationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    injector = getTestBed();
-    httpClient = injector.get(HttpTestingController);
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -134,9 +117,9 @@ describe('LocationComponent', () => {
 
       location = 'Golden, Colorado';
 
-      component.geocode('Golden, Colorado');
+      component.geocode(location);
       request = httpClient.expectOne(
-        component.GEOCODE_URL + '?f=json&text=Golden, Colorado'
+        `${component.GEOCODE_URL}?f=json&text=${location}`
       );
 
       expect(request.request.method).toBe('GET');
@@ -160,6 +143,20 @@ describe('LocationComponent', () => {
         latitude: 1,
         longitude: 2
       });
+    });
+  });
+
+  describe('onGeolocateError', () => {
+    it('sets geolocation to false', () => {
+      component.onGeolocateError(null);
+      expect(component.geolocating).toBeFalsy();
+    });
+  });
+
+  describe('onGeolocateResult', () => {
+    it('calls coordinate service computeFromGeolocate', () => {
+      component.onGeolocateResult(null);
+      expect(component.feltReport.location).not.toBeNull();
     });
   });
 
