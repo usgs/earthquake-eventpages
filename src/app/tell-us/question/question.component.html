@@ -1,4 +1,4 @@
-<tell-us-fieldset [legend]="label">
+<tell-us-fieldset *ngIf="model" [legend]="label">
   <mat-selection-list
     *ngIf="multiSelect; else isSingleSelect"
     [(ngModel)]="model[name]"
