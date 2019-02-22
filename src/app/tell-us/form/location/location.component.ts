@@ -111,7 +111,6 @@ export class LocationComponent extends AbstractForm {
    *
    */
   onGeocodeSuccess(response: any) {
-    console.log(response);
     // pull lat/lng/address from geocode response
     const latitude = response.feature.geometry.y;
     const longitude = response.feature.geometry.x;
