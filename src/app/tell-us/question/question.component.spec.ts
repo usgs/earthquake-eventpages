@@ -13,15 +13,15 @@ describe('QuestionComponent', () => {
       declarations: [
         QuestionComponent,
         MockComponent({
-          selector: 'input',
-          inputs: ['disabled', 'ngModel', 'placeholder']
+          inputs: ['disabled', 'ngModel', 'placeholder'],
+          selector: 'input'
         }),
         MockComponent({ selector: 'mat-form-field' }),
         MockComponent({ selector: 'mat-list' }),
         MockComponent({ selector: 'mat-list-item' }),
         MockComponent({
-          selector: 'mat-list-option',
-          inputs: ['checkboxPosition', 'selected', 'value']
+          inputs: ['checkboxPosition', 'selected', 'value'],
+          selector: 'mat-list-option'
         }),
         MockComponent({ selector: 'mat-radio-button', inputs: ['value'] }),
         MockComponent({ selector: 'mat-radio-group', inputs: ['ngModel'] }),
