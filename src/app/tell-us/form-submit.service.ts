@@ -6,9 +6,9 @@ import { BehaviorSubject, of } from 'rxjs';
 
 import { FeltReportResponse } from './felt-report-response';
 import { FeltReportReponseError } from './felt-report-reponse-error';
-import { environment } from 'environments/environment.e2e';
 import { catchError } from 'rxjs/operators';
 import { FeltReportResponseErrorDetails } from './felt-report-response-error-details';
+import { environment } from 'environments/environment.e2e';
 
 @Injectable()
 export class FormSubmitService {
@@ -18,6 +18,32 @@ export class FormSubmitService {
   responseUrl = environment.DYFI_RESPONSE_URL;
 
   constructor(public httpClient: HttpClient) {}
+
+  /**
+   * Generate a FeltReportResponseError and update the formResponse$
+   * BehaviorSubject
+   *
+   * @param code number
+   *    http status code
+   *
+   * @param message string
+   *    descriptive error messsage
+   *
+   */
+  createErrorResponse(code, message) {
+    if (!code && !message) {
+      return;
+    }
+
+    const errorDetail: FeltReportResponseErrorDetails = {
+      code: code,
+      message: message
+    };
+    const error: FeltReportReponseError = {
+      error: errorDetail
+    };
+    this.formResponse$.next(error);
+  }
 
   /**
    * Form submission function called from submit component
@@ -59,28 +85,17 @@ export class FormSubmitService {
           if (response && !response.error) {
             this.formResponse$.next(response);
           } else {
-            let code, message;
-            code = response.status ? response.status : null;
-            message = response.message ? response.message : 'Server Error';
-            const errorDetail: FeltReportResponseErrorDetails = {
-              code: code,
-              message: message
-            };
-            const error: FeltReportReponseError = {
-              error: errorDetail
-            };
-            this.formResponse$.next(error);
+            const code = response.status ? response.status : null;
+            const message = response.statusText
+              ? response.statusText
+              : 'Server Error';
+            this.createErrorResponse(code, message);
           }
         });
     } else {
-      const errorDetail: FeltReportResponseErrorDetails = {
-        code: null,
-        message: 'Error, form invalid'
-      };
-      const error: FeltReportReponseError = {
-        error: errorDetail
-      };
-      this.formResponse$.next(error);
+      const code = 400;
+      const message = 'Error, invalid form entry';
+      this.createErrorResponse(code, message);
     }
   }
 }
