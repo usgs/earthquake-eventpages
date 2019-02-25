@@ -10,6 +10,7 @@ export interface TellUsText {
   ciim_time_help: string;
   completeWalls: string;
   crackedWalls: string;
+  currentLocation: string;
 
   damage: string;
   doorRespond: string;
@@ -55,6 +56,9 @@ export interface TellUsText {
   fldSituation_situation: string;
 
   fldSituation_sleep: string;
+
+  geolocating: string;
+
   id: string;
   inside: string;
   littleReact: string;
