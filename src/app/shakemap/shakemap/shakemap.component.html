@@ -109,6 +109,17 @@
         >
           Station List
         </a>
+        <a
+          *ngIf="(shakemap | sharedProductContent: 'download/stationlist.json')"
+          mat-tab-link
+          [routerLink]="'./regression'"
+          queryParamsHandling="preserve"
+          routerLinkActive
+          #rla="routerLinkActive"
+          [active]="rla.isActive"
+        >
+          Regression
+        </a>
       </nav>
     </div>
 

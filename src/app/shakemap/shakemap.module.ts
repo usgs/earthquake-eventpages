@@ -13,6 +13,8 @@ import {
   MatTabsModule
 } from '@angular/material';
 
+
+import { NgxChartsModule } from '@shared/ngx-charts/ngx-charts.module';
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '@shared/shared.module';
 import { IntensityComponent } from './intensity/intensity.component';
@@ -28,6 +30,7 @@ import { ShakemapRoutingModule } from './shakemap-routing.module';
 import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { LegendComponent } from './legend/legend.component';
+import { RegressionPlotComponent } from './regression-plot/regression-plot.component';
 
 @NgModule({
   declarations: [
@@ -42,11 +45,13 @@ import { LegendComponent } from './legend/legend.component';
     PgaComponent,
     PgvComponent,
     PsaComponent,
-    LegendComponent
+    LegendComponent,
+    RegressionPlotComponent
   ],
   exports: [StationListComponent, MetadataComponent],
   imports: [
     CommonModule,
+    NgxChartsModule,
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
