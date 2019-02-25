@@ -41,7 +41,6 @@ import { curveLinear } from 'd3-shape';
  * @param minRadius
  * @param rangeFillOpacity
  * @param roundDomains
- * @param results
  * @param scaleType
  * @param schemeType
  * @param scheme
@@ -132,8 +131,6 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   rangeFillOpacity: number;
   @Input()
   roundDomains = false;
-  @Input()
-  results: any;
   @Input()
   scaleType = 'linear';
   @Input()
@@ -363,7 +360,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   getXDomain (): any[] {
     const values = [];
 
-    for (const results of [...this.lineChart, ...this.bubbleChart]) {
+    for (const results of this.results) {
       for (const d of results.series) {
         if (!values.includes(d.name)) {
           values.push(d.name);
@@ -430,7 +427,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   getYDomain (): any[] {
     const values = [];
 
-    for (const results of [...this.lineChart, ...this.bubbleChart]) {
+    for (const results of this.results) {
       for (const d of results.series) {
         if (values.indexOf(d.value) < 0) {
           values.push(d.value);
@@ -579,7 +576,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       {name: 'error', value: this.errorBarColor}
     );
 
-    this.combinedSeries = this.results;
+    this.results = [...this.lineChart, ...this.bubbleChart];
     super.update();
 
     this.dims = calculateViewDimensions({
