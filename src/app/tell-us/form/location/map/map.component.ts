@@ -90,15 +90,17 @@ export class MapComponent extends AbstractForm
     });
     this.pin.enabled = true;
 
-    if (
-      !this.location ||
-      !(this.location.latitude || this.location.latitude === 0) ||
-      !(this.location.longitude || this.location.longitude === 0)
-    ) {
-      this.updateFeltReportLocation(this.feltReport, this.event);
-    } else {
-      this.updatePin();
-    }
+    setTimeout(() => {
+      if (
+        !this.location ||
+        !(this.location.latitude || this.location.latitude === 0) ||
+        !(this.location.longitude || this.location.longitude === 0)
+      ) {
+        this.updateFeltReportLocation(this.feltReport, this.event);
+      } else {
+        this.updatePin();
+      }
+    }, 0);
 
     this.pin.on('dragend', event => {
       return this.onMarkerChange();
