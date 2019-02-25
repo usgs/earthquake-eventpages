@@ -325,15 +325,15 @@ export class MapComponent implements AfterViewInit {
       return;
     }
 
-    let bounds = this.bounds;
+    let bounds: Array<Array<number>> | L.LatLngBounds = this.bounds;
 
     // use overlays if no explicit bounds set
-    if (bounds === null) {
+    if (!bounds || (bounds.isValid && !bounds.isValid())) {
       bounds = this.getOverlayBounds();
     }
 
     // default to world if no overlay bounds
-    if (bounds === null) {
+    if (!bounds || (bounds.isValid && !bounds.isValid())) {
       bounds = [[85.0, 180.0], [-85.0, 180.0]];
     }
 
