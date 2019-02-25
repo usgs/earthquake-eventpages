@@ -339,7 +339,9 @@ export class MapComponent implements AfterViewInit {
 
     setTimeout(() => {
       if (this.map) {
-        this.map.fitBounds(bounds);
+        if (bounds) {
+          this.map.fitBounds(bounds);
+        }
         this.map.invalidateSize();
       }
     }, 0);
