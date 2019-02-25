@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { AbstractForm } from '../abstract-form.component';
-import { CoordinatesService } from 'hazdev-ng-location-view';
+// import { CoordinatesService } from 'hazdev-ng-location-view';
 import { FormatterService } from '@core/formatter.service';
 import { MatSnackBar } from '@angular/material';
 
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { GeolocateService } from 'app/tell-us/geolocate.service';
 
 @Component({
   selector: 'tell-us-form-location',
@@ -22,8 +23,9 @@ export class LocationComponent extends AbstractForm {
   geolocating = false;
 
   constructor(
-    public coordinateService: CoordinatesService,
+    // public coordinateService: CoordinatesService,
     public formatter: FormatterService,
+    public geolocator: GeolocateService,
     public http: HttpClient,
     public snackBar: MatSnackBar
   ) {
@@ -67,20 +69,20 @@ export class LocationComponent extends AbstractForm {
       });
   }
 
-  /**
-   * Geolocate, get the users current location
-   */
-  geolocate() {
-    try {
-      this.geolocating = true;
-      navigator.geolocation.getCurrentPosition(
-        position => this.onGeolocateResult(position),
-        error => this.onGeolocateError(error)
-      );
-    } catch (e) {
-      console.log(`Failed geolocation: ${e}`);
-    }
-  }
+  // /**
+  //  * Geolocate, get the users current location
+  //  */
+  // geolocate() {
+  //   try {
+  //     this.geolocating = true;
+  //     navigator.geolocation.getCurrentPosition(
+  //       position => this.onGeolocateResult(position),
+  //       error => this.onGeolocateError(error)
+  //     );
+  //   } catch (e) {
+  //     console.log(`Failed geolocation: ${e}`);
+  //   }
+  // }
 
   /**
    * Handle http error
@@ -126,48 +128,48 @@ export class LocationComponent extends AbstractForm {
     // TODO, create success message in snackbar??
   }
 
-  onGeolocateError(error: PositionError) {
-    this.geolocating = false;
+  // onGeolocateError(error: PositionError) {
+  //   this.geolocating = false;
 
-    // TODO :: Let user know about error. Snackbar?
-    // error.code === 0 --> unknown error
-    // error.code === 1 --> permission denied
-    // error.code === 2 --> unavailable
-    // error.code === 3 --> timeout exceeded
-    // Note: Timeout can occur if permission not given/denied in time
-    //
-    // error.message seems okay to show user
-    console.log('A geolocating error occurred', error);
-  }
+  //   // TODO :: Let user know about error. Snackbar?
+  //   // error.code === 0 --> unknown error
+  //   // error.code === 1 --> permission denied
+  //   // error.code === 2 --> unavailable
+  //   // error.code === 3 --> timeout exceeded
+  //   // Note: Timeout can occur if permission not given/denied in time
+  //   //
+  //   // error.message seems okay to show user
+  //   console.log('A geolocating error occurred', error);
+  // }
 
-  onGeolocateResult(position: Position) {
-    if (!this.geolocating) {
-      return;
-    }
+  // onGeolocateResult(position: Position) {
+  //   if (!this.geolocating) {
+  //     return;
+  //   }
 
-    const confidence = this.coordinateService.computeFromGeolocate(
-      position.coords.accuracy
-    );
-    const latitude = this.coordinateService.roundLocation(
-      +position.coords.latitude,
-      confidence
-    );
-    const longitude = this.coordinateService.roundLocation(
-      +position.coords.longitude,
-      confidence
-    );
+  //   const confidence = this.coordinateService.computeFromGeolocate(
+  //     position.coords.accuracy
+  //   );
+  //   const latitude = this.coordinateService.roundLocation(
+  //     +position.coords.latitude,
+  //     confidence
+  //   );
+  //   const longitude = this.coordinateService.roundLocation(
+  //     +position.coords.longitude,
+  //     confidence
+  //   );
 
-    this.feltReport.location = {
-      address: this.formatter.location(latitude, longitude, confidence),
-      latitude,
-      longitude
-    };
+  //   this.feltReport.location = {
+  //     address: this.formatter.location(latitude, longitude, confidence),
+  //     latitude,
+  //     longitude
+  //   };
 
-    // Artificially force spinner to show for a minimum time. This may extend
-    // the time slightly, but otherwise fast responses might give janky flicker
-    // effect
-    setTimeout(_ => (this.geolocating = false), 500);
-  }
+  //   // Artificially force spinner to show for a minimum time. This may extend
+  //   // the time slightly, but otherwise fast responses might give janky flicker
+  //   // effect
+  //   setTimeout(_ => (this.geolocating = false), 500);
+  // }
 
   /**
    * A generic method that displays a snackbar with the provided information
