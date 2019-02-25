@@ -32,7 +32,6 @@ export class MapComponent extends AbstractForm
     this.updatePin();
   }
 
-  coordinateSubscription: Subscription;
   mapBounds: Array<Array<number>>;
   pin: L.Marker;
 
@@ -70,10 +69,6 @@ export class MapComponent extends AbstractForm
   }
 
   ngOnDestroy() {
-    if (this.coordinateSubscription) {
-      this.coordinateSubscription.unsubscribe();
-      this.coordinateSubscription = null;
-    }
     this.pin.off('dragend');
   }
 
