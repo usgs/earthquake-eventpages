@@ -334,7 +334,7 @@ export class MapComponent implements AfterViewInit {
 
     // default to world if no overlay bounds
     if (!bounds || (bounds.isValid && !bounds.isValid())) {
-      bounds = [[85.0, 180.0], [-85.0, 180.0]];
+      bounds = [[85.0, 179.999], [-85.0, -179.999]];
     }
 
     setTimeout(() => {
