@@ -54,7 +54,7 @@ import { LocationPipe } from './location.pipe';
     TellUsComponent,
     LocationPipe
   ],
-  exports: [TellUsComponent],
+  exports: [LocationPipe, TellUsComponent],
   imports: [
     CommonModule,
     FormsModule,

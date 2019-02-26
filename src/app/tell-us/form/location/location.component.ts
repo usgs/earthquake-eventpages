@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
-import GeoService from '@shared/geo.service';
+import { GeoService } from '@shared/geo.service';
 
 import { AbstractForm } from '../abstract-form.component';
 
@@ -11,8 +11,6 @@ import { AbstractForm } from '../abstract-form.component';
   templateUrl: './location.component.html'
 })
 export class LocationComponent extends AbstractForm {
-  geolocating = false;
-
   constructor(public geoService: GeoService, public snackBar: MatSnackBar) {
     super();
   }

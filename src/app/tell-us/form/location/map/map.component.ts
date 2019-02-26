@@ -119,7 +119,10 @@ export class MapComponent extends AbstractForm
 
   onMarkerChange() {
     const latLng = this.pin.getLatLng();
-    const precision = Math.floor(this.pin._map.getZoom() / 4);
+    let precision = 0;
+    try {
+      precision = Math.floor(this.pin._map.getZoom() / 4);
+    } catch (e) {}
     const latitude = +this.formatter.number(latLng.lat, precision);
     const longitude = +this.formatter.number(latLng.lng, precision);
     const address = this.formatter.location(latitude, longitude, precision);

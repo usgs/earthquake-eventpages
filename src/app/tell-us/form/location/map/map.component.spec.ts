@@ -96,11 +96,9 @@ describe('MapComponent', () => {
 
         component.onMarkerChange();
         expect(component.pin.getLatLng).toHaveBeenCalled();
-        expect(component.feltReport.location.latitude).toEqual(38.508292305);
-        expect(component.feltReport.location.longitude).toEqual(-77.90219192);
-        expect(component.feltReport.location.address).toEqual(
-          '38.508°N 77.902°W'
-        );
+        expect(component.feltReport.location.latitude).toEqual(39);
+        expect(component.feltReport.location.longitude).toEqual(-78);
+        expect(component.feltReport.location.address).toEqual('39°N 78°W');
       }
     );
   });

@@ -64,8 +64,9 @@ const GEOCODE_URL =
 @Injectable({
   providedIn: 'root'
 })
-export default class GeoService {
+export class GeoService {
   error$: Observable<LocationError>;
+  geocodeUrl: string;
   geocoding$: Observable<boolean>;
   geolocating$: Observable<boolean>;
   location$: Observable<Location>;
@@ -84,6 +85,8 @@ export default class GeoService {
     this.geocoding$ = this.geocoding.asObservable();
     this.geolocating$ = this.geolocating.asObservable();
     this.location$ = this.location.asObservable();
+
+    this.geocodeUrl = GEOCODE_URL;
   }
 
   geocode(input: string) {
@@ -91,7 +94,7 @@ export default class GeoService {
       return;
     }
 
-    const url = `${GEOCODE_URL}?f=json&text=${input}`;
+    const url = `${this.geocodeUrl}?f=json&text=${input}`;
 
     this.httpClient
       .get<ArcGisResponse>(url)
@@ -118,105 +121,9 @@ export default class GeoService {
     } catch (e) {
       this.error.next({
         code: -1,
-        message: 'Geolocation not supported.'
+        message: 'Geolocation not supported'
       } as LocationError);
     }
-  }
-
-  /**
-   * Handle http error
-   *
-   * @param action
-   * @param result
-   */
-  handleGeocodeError(): Observable<ArcGisResponse> {
-    const noLocation: ArcGisResponse = {
-      locations: null,
-      spatialReference: null
-    } as ArcGisResponse;
-
-    return of(noLocation);
-  }
-
-  onGeocodeError(error: any): void {
-    console.log('TODO :: onGeocodeError', error);
-    setTimeout(_ => this.geocoding.next(false), this.flickerTimeout);
-  }
-
-  onGeocodeSuccess(geocode: ArcGisLocation) {
-    if (!this.geocoding.getValue()) {
-      // Not currently geocoding, ignore spurious results
-      return;
-    }
-
-    // Map ArcGisLocation to shared Location interface
-    const address = geocode.name;
-    const precision = this.getGeocodePrecision(
-      geocode.feature.attributes.Score
-    );
-    const latitude = +this.formatter.number(
-      geocode.feature.geometry.y,
-      precision
-    );
-    const longitude = +this.formatter.number(
-      geocode.feature.geometry.x,
-      precision
-    );
-
-    this.location.next({
-      address,
-      latitude,
-      longitude
-    } as Location);
-
-    setTimeout(_ => this.geocoding.next(false));
-  }
-
-  onGeolocateError(positionError: PositionError): void {
-    let message = 'An unknown error occurred during geolocation';
-    if (positionError.code === 1) {
-      message = 'Geolocation permission denied';
-    } else if (positionError.code === 2) {
-      message = 'Geolocation not currently available';
-    } else if (positionError.code === 3) {
-      // Note: Timeout can occur if permission not given/denied in time
-      message = 'Geolocation taking too long to complete';
-    }
-
-    this.error.next({
-      code: positionError.code,
-      message: message
-    } as LocationError);
-
-    setTimeout(_ => this.geolocating.next(false), this.flickerTimeout);
-  }
-
-  onGeolocateSuccess(position: Position) {
-    if (!this.geolocating.getValue()) {
-      // Not currently geolocating, ignore spurious results
-      return;
-    }
-
-    // Map Position to shared Location interface
-    const precision = this.getGeolocationPrecision(+position.coords.accuracy);
-    const latitude = +this.formatter.number(
-      position.coords.latitude,
-      precision
-    );
-    const longitude = +this.formatter.number(
-      position.coords.longitude,
-      precision
-    );
-    const address = this.formatter.location(latitude, longitude, precision);
-
-    this.location.next({
-      address,
-      latitude,
-      longitude
-    } as Location);
-
-    // Artificial delay to avoid UI flicker effect when geolocation is fast
-    setTimeout(_ => this.geolocating.next(false), this.flickerTimeout);
   }
 
   private getGeocodePrecision(score: number): number {
@@ -247,5 +154,101 @@ export default class GeoService {
     } else {
       return 5;
     }
+  }
+
+  /**
+   * Handle http error
+   *
+   * @param action
+   * @param result
+   */
+  private handleGeocodeError(): Observable<ArcGisResponse> {
+    const noLocation: ArcGisResponse = {
+      locations: null,
+      spatialReference: null
+    } as ArcGisResponse;
+
+    return of(noLocation);
+  }
+
+  private onGeocodeError(error: any): void {
+    console.log('TODO :: onGeocodeError', error);
+    setTimeout(_ => this.geocoding.next(false), this.flickerTimeout);
+  }
+
+  private onGeocodeSuccess(geocode: ArcGisLocation) {
+    if (!this.geocoding.getValue()) {
+      // Not currently geocoding, ignore spurious results
+      return;
+    }
+
+    // Map ArcGisLocation to shared Location interface
+    const address = geocode.name;
+    const precision = this.getGeocodePrecision(
+      geocode.feature.attributes.Score
+    );
+    const latitude = +this.formatter.number(
+      geocode.feature.geometry.y,
+      precision
+    );
+    const longitude = +this.formatter.number(
+      geocode.feature.geometry.x,
+      precision
+    );
+
+    this.location.next({
+      address,
+      latitude,
+      longitude
+    } as Location);
+
+    setTimeout(_ => this.geocoding.next(false));
+  }
+
+  private onGeolocateError(positionError: PositionError): void {
+    let message = 'An unknown error occurred during geolocation';
+    if (positionError.code === 1) {
+      message = 'Geolocation permission denied';
+    } else if (positionError.code === 2) {
+      message = 'Geolocation not currently available';
+    } else if (positionError.code === 3) {
+      // Note: Timeout can occur if permission not given/denied in time
+      message = 'Geolocation taking too long to complete';
+    }
+
+    this.error.next({
+      code: positionError.code,
+      message: message
+    } as LocationError);
+
+    setTimeout(_ => this.geolocating.next(false), this.flickerTimeout);
+  }
+
+  private onGeolocateSuccess(position: Position) {
+    if (!this.geolocating.getValue()) {
+      // Not currently geolocating, ignore spurious results
+      return;
+    }
+
+    // Map Position to shared Location interface
+    const precision = this.getGeolocationPrecision(+position.coords.accuracy);
+    const latitude = +this.formatter.number(
+      position.coords.latitude,
+      precision
+    );
+    const longitude = +this.formatter.number(
+      position.coords.longitude,
+      precision
+    );
+    const address = this.formatter.location(latitude, longitude, precision);
+
+    this.location.next({
+      address,
+      latitude,
+      longitude
+    } as Location);
+
+    // Artificial delay to avoid UI flicker effect when geolocation is fast
+    setTimeout(_ => this.geolocating.next(false), this.flickerTimeout);
   }
 }
