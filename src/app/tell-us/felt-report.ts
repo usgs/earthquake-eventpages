@@ -1,4 +1,4 @@
-import { Location } from './location';
+import { Location } from '@shared/geo.service';
 import { FeltReportValidation } from './felt-report-validation';
 
 const _locationValid = (location: Location): boolean => {
