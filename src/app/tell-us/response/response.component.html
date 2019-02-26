@@ -1,8 +1,6 @@
-<ng-container *ngIf="(response && response | TypeCheckPipe: 'FeltReportResponse')">
-  <success-response [response]="response"></app-success-response>
+<ng-container *ngIf="response && !(response | isErrorResponsePipe)">
+  <success-response [response]="response"></success-response>
 </ng-container>
-<ng-container
-  *ngIf="(response && response | TypeCheckPipe: 'FeltReportReponseError')"
->
+<ng-container *ngIf="(response && response | isErrorResponsePipe)">
   <error-response [response]="response"></error-response>
 </ng-container>

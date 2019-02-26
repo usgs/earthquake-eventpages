@@ -36,6 +36,7 @@ import { InteractiveMapBoundsPipe } from './interactive-map-bounds.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 import { IsActualEventPipe } from './is-actual-event.pipe';
 import { IsDeletedEventPipe } from './is-deleted-event.pipe';
+import { IsErrorResponsePipe } from './is-error-response.pipe';
 import { IsScenarioEventPipe } from './is-scenario-event.pipe';
 import { KeysPipe } from './keys.pipe';
 import { LinkProductComponent } from './link-product/link-product.component';
@@ -79,7 +80,6 @@ import { FocalMechanismSummaryComponent } from '@shared/focal-mechanism-summary/
 import { MomentTensorSummaryComponent } from '@shared/moment-tensor-summary/moment-tensor-summary.component';
 import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.component';
 import { DirectionPipe } from './direction.pipe';
-import { TypeCheckPipe } from './type-check.pipe';
 
 @NgModule({
   declarations: [
@@ -111,6 +111,7 @@ import { TypeCheckPipe } from './type-check.pipe';
     InteractiveMapOverlaysPipe,
     IsActualEventPipe,
     IsDeletedEventPipe,
+    IsErrorResponsePipe,
     IsScenarioEventPipe,
     KeysPipe,
     LinkProductComponent,
@@ -147,7 +148,6 @@ import { TypeCheckPipe } from './type-check.pipe';
     SummaryLinkPipe,
     TensorPipe,
     TextProductComponent,
-    TypeCheckPipe,
     UncertainValueComponent,
     UnitsPipe
   ],
@@ -182,6 +182,7 @@ import { TypeCheckPipe } from './type-check.pipe';
     InteractiveMapOverlaysPipe,
     IsActualEventPipe,
     IsDeletedEventPipe,
+    IsErrorResponsePipe,
     IsScenarioEventPipe,
     KeysPipe,
     LinkProductComponent,
@@ -218,7 +219,6 @@ import { TypeCheckPipe } from './type-check.pipe';
     SummaryLinkPipe,
     TensorPipe,
     TextProductComponent,
-    TypeCheckPipe,
     UncertainValueComponent,
     UnitsPipe
   ],
