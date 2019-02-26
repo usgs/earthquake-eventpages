@@ -79,6 +79,7 @@ import { FocalMechanismSummaryComponent } from '@shared/focal-mechanism-summary/
 import { MomentTensorSummaryComponent } from '@shared/moment-tensor-summary/moment-tensor-summary.component';
 import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.component';
 import { DirectionPipe } from './direction.pipe';
+import { TypeCheckPipe } from './type-check.pipe';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { DirectionPipe } from './direction.pipe';
     CoordinatesComponent,
     DateTimePipe,
     DegreesPipe,
+    DirectionPipe,
     DownloadDialogComponent,
     DyfiCounterPipe,
     DyfiOverlaysPipe,
@@ -145,9 +147,9 @@ import { DirectionPipe } from './direction.pipe';
     SummaryLinkPipe,
     TensorPipe,
     TextProductComponent,
+    TypeCheckPipe,
     UncertainValueComponent,
-    UnitsPipe,
-    DirectionPipe
+    UnitsPipe
   ],
   entryComponents: [
     DownloadDialogComponent,
@@ -163,6 +165,7 @@ import { DirectionPipe } from './direction.pipe';
     CoordinatesComponent,
     DateTimePipe,
     DegreesPipe,
+    DirectionPipe,
     DownloadDialogComponent,
     DyfiCounterPipe,
     DyfiSummaryComponent,
@@ -215,9 +218,9 @@ import { DirectionPipe } from './direction.pipe';
     SummaryLinkPipe,
     TensorPipe,
     TextProductComponent,
+    TypeCheckPipe,
     UncertainValueComponent,
-    UnitsPipe,
-    DirectionPipe
+    UnitsPipe
   ],
   imports: [
     CommonModule,

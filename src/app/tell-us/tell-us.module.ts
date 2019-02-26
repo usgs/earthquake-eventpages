@@ -18,6 +18,7 @@ import { LocationViewModule } from 'hazdev-ng-location-view';
 import { SharedModule } from '@shared/shared.module';
 
 import { ContactComponent } from './form/contact/contact.component';
+import { ErrorResponseComponent } from './error-response/error-response.component';
 import { FeltComponent } from './form/felt/felt.component';
 import { FieldsetComponent } from './fieldset/fieldset.component';
 import { FormComponent } from './form/form.component';
@@ -31,7 +32,7 @@ import { PrivacyStatementComponent } from './privacy-statement/privacy-statement
 import { QuestionComponent } from './question/question.component';
 import { ResponseComponent } from './response/response.component';
 import { SubmitComponent } from './form/submit/submit.component';
-import { SuccessViewComponent } from './success-view/success-view.component';
+import { SuccessResponseComponent } from './success-response/success-response.component';
 import { TellUsComponent } from './tell-us/tell-us.component';
 import { TellUsRoutingModule } from './tell-us-routing.module';
 import { LocationPipe } from './location.pipe';
@@ -39,6 +40,7 @@ import { LocationPipe } from './location.pipe';
 @NgModule({
   declarations: [
     ContactComponent,
+    ErrorResponseComponent,
     FeltComponent,
     FieldsetComponent,
     FormComponent,
@@ -50,9 +52,8 @@ import { LocationPipe } from './location.pipe';
     QuestionComponent,
     ResponseComponent,
     SubmitComponent,
-    SuccessViewComponent,
-    TellUsComponent,
-    LocationPipe
+    SuccessResponseComponent,
+    TellUsComponent
   ],
   exports: [LocationPipe, TellUsComponent],
   imports: [

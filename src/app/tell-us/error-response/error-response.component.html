@@ -1,0 +1,16 @@
+<p class="alert warning">
+  We apologize, but there was an error with the form submission, please try
+  again later.
+</p>
+<dl>
+  <dt>Error Code:</dt>
+  <dd *ngIf="response?.error?.code; else dash">{{ response.error.code }}</dd>
+
+  <dt>Message:</dt>
+  <dd *ngIf="response?.error?.message; else dash">
+    {{ response.error.message }}
+  </dd>
+</dl>
+<ng-template #dash>
+  <dd>&ndash;</dd>
+</ng-template>
