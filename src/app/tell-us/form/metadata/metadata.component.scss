@@ -1,0 +1,13 @@
+.flex-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.language-select {
+  flex-grow: 1;
+}
+
+.privacy-act {
+  margin: 1em 0;
+}

@@ -1,0 +1,57 @@
+<tell-us-fieldset [legend]="labels.ciim_mapAddress">
+  <div class="flexwrapper">
+    <div class="btn-geolocate-wrapper">
+      <mat-spinner
+        *ngIf="(geoService.geolocating$ | async); else geolocateButton"
+        attr.aria-label="{{ labels.geolocating }}"
+        attr.title="{{ labels.geolocating }}"
+        [diameter]="25"
+      ></mat-spinner>
+
+      <ng-template #geolocateButton>
+        <button
+          mat-stroked-button
+          color="primary"
+          class="btn-geolocate"
+          [disabled]="geoService.geolocating$ | async"
+          (click)="geoService.geolocate()"
+        >
+          <mat-icon
+            attr.aria-label="{{ labels.currentLocation }}"
+            attr.title="{{ labels.currentLocation }}"
+            >my_location</mat-icon
+          >
+        </button>
+      </ng-template>
+    </div>
+    <div class="address-wrapper">
+      <mat-form-field class="address">
+        <input
+          #address
+          attr.aria-label="{{ labels.ciim_mapAddress }}"
+          (change)="geoService.geocode(address.value)"
+          matInput
+          name="ciim_mapAddress"
+          [(ngModel)]="feltReport.ciim_mapAddress"
+          [placeholder]="labels.ciim_mapAddress_help"
+          [value]="geoService.location$ | async | locationPipe: feltReport"
+          required
+        />
+      </mat-form-field>
+    </div>
+  </div>
+</tell-us-fieldset>
+
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    {{ labels.useMap }}
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent>
+    <tell-us-form-location-map
+      [event]="event"
+      [labels]="labels"
+      [feltReport]="feltReport"
+      [location]="feltReport.location"
+    ></tell-us-form-location-map>
+  </ng-template>
+</mat-expansion-panel>

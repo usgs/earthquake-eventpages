@@ -1,42 +1,27 @@
 <h2>Felt Report - Tell Us!</h2>
-
-<button (click)="showForm()" mat-raised-button>Show Felt Report Form</button>
-
-<ng-container *ngIf="!success && !error">
-  <p>
-    By contributing your experience of the earthquake, either immediately
-    afterward, or whenever it is possible for you to do so, you make a
-    contribution to the scientific body of information about each earthquake.
-    You also ensure that your area has been represented in the compilation of
-    the maps of shaking. This is a two-way street: not only will you add
-    valuable information on the extent of ground shaking and damage, but in the
-    process we hope you will learn more about how other communities fared and
-    gain a greater understanding of the effects of earthquakes.
-  </p>
-
-  <p>
-    <a href="https://earthquake.usgs.gov/data/dyfi/">
-      Learn More about Did You Feel It?
-    </a>
-  </p>
+<ng-container
+  *ngIf="(formSubmitService?.formResponse$ | async); let response; else: form"
+>
+  <tell-us-response [response]="response"> </tell-us-response>
 </ng-container>
 
-<ng-container *ngIf="(eventService?.event$ | async); let event">
-  <h3>For More Information</h3>
-  <ul>
-    <li><a [routerLink]="'/' + event.id">Overview</a></li>
-    <li>
-      <shared-summary-link
-        [productType]="'tellus'"
-        [event]="event"
-      ></shared-summary-link>
-    </li>
-  </ul>
-</ng-container>
+<ng-template #form>
+  <tell-us-form
+    [event]="eventService.event$ | async"
+    [labels]="languageService.language$ | async"
+  ></tell-us-form>
+</ng-template>
 
-<success-view *ngIf="success" [success]="success"> </success-view>
+<hr />
 
-<ng-container *ngIf="error">
-  <p class="alert error">Please try to resubmit the form.</p>
-  <pre>{{ error | json }}</pre>
-</ng-container>
+<h3>For More Information</h3>
+<ul>
+  <li *ngIf="(eventService?.event$ | async) as event">
+    <a [routerLink]="'/' + event.id">Overview</a>
+  </li>
+  <li *ngIf="(eventService?.event$ | async) as event">
+    <shared-summary-link [productType]="'tellus'" [event]="event">
+    </shared-summary-link>
+  </li>
+  <li><a href="/data/dyfi/">Learn More about Did You Feel It?</a></li>
+</ul>

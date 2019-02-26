@@ -39,33 +39,44 @@ describe('SuccessViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('calls showFacebookPopup and ensures FB.ui is called', () => {
-    component.sdkStatus = true;
-    component.success = {
-      your_cdi: null
-    };
-    window.FB = {
-      ui: jasmine.createSpy().and.returnValue(null)
-    };
-    component.showFacebookSharePopup();
-    expect(window.FB.ui).toHaveBeenCalled();
+  describe('ngOnInit', () => {
+    it('sets meta tags on component', () => {
+      const metaUrl = component.meta.getTag('property="og:url"').content;
+      const metaType = component.meta.getTag('property="og:type"').content;
+      const metaTitle = component.meta.getTag('property="og:title"').content;
+      expect(metaUrl).toEqual(component._windowHref);
+      expect(metaType).toEqual('website');
+      expect(metaTitle).toEqual('');
+    });
+    it('calls LoadFacebookSDK', () => {
+      spyOn(component, 'loadFacebookSdk');
+      component.ngOnInit();
+      expect(component.loadFacebookSdk).toHaveBeenCalled();
+    });
   });
 
-  it('sets meta tags on component', () => {
-    const metaUrl = component.meta.getTag('property="og:url"').content;
-    const metaType = component.meta.getTag('property="og:type"').content;
-    const metaTitle = component.meta.getTag('property="og:title"').content;
-    expect(metaUrl).toEqual(component._windowHref);
-    expect(metaType).toEqual('website');
-    expect(metaTitle).toEqual('');
+  describe('onSocialClick', () => {
+    it('calls share popup on social click', () => {
+      spyOn(component, 'showFacebookSharePopup');
+      const event = {
+        preventDefault: function() {}
+      };
+      component.onSocialClick(event);
+      expect(component.showFacebookSharePopup).toHaveBeenCalled();
+    });
   });
 
-  it('calls share popup on social click', () => {
-    spyOn(component, 'showFacebookSharePopup');
-    const event = {
-      preventDefault: function() {}
-    };
-    component.onSocialClick(event);
-    expect(component.showFacebookSharePopup).toHaveBeenCalled();
+  describe('showFacebookSharePopup', () => {
+    it('calls showFacebookPopup and ensures FB.ui is called', () => {
+      component.sdkStatus = true;
+      component.success = {
+        your_cdi: null
+      };
+      window.FB = {
+        ui: jasmine.createSpy().and.returnValue(null)
+      };
+      component.showFacebookSharePopup();
+      expect(window.FB.ui).toHaveBeenCalled();
+    });
   });
 });

@@ -1,0 +1,176 @@
+[
+  {
+    "label": "fldSituation_situation",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "inside", "label": "inside" },
+      { "value": "outside", "label": "outside" },
+      { "value": "veh_stopped", "label": "vehStopped" },
+      { "value": "veh_moving", "label": "vehMoving" },
+      {
+        "value": "other",
+        "label": "other",
+        "otherValue": "",
+        "otherLabel": "pleaseDescribe"
+      }
+    ]
+  },
+  {
+    "label": "fldSituation_sleep",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "no", "label": "no" },
+      { "value": "slept", "label": "slept" },
+      { "value": "woke", "label": "woke" }
+    ]
+  },
+  {
+    "label": "fldSituation_others",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "2", "label": "noOthers" },
+      { "value": "3", "label": "someOthers" },
+      { "value": "4", "label": "mostOthers" },
+      { "value": "5", "label": "allOthers" }
+    ]
+  },
+
+  {
+    "label": "fldExperience_shaking",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "0", "label": "noShake" },
+      { "value": "1", "label": "weakShake" },
+      { "value": "2", "label": "mildShake" },
+      { "value": "3", "label": "moderateShake" },
+      { "value": "4", "label": "strongShake" },
+      { "value": "5", "label": "violentShake" }
+    ]
+  },
+  {
+    "label": "fldExperience_reaction",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "0", "label": "noReact" },
+      { "value": "1", "label": "littleReact" },
+      { "value": "2", "label": "exciteReact" },
+      { "value": "3", "label": "someFrightReact" },
+      { "value": "4", "label": "veryFrightReact" },
+      { "value": "5", "label": "extremeFrightReact" }
+    ]
+  },
+  {
+    "label": "fldExperience_response",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "no_action", "label": "noRespond" },
+      { "value": "doorway", "label": "doorRespond" },
+      { "value": "duck", "label": "duckRespond" },
+      { "value": "ran_outside", "label": "runRespond" },
+      {
+        "value": "other",
+        "label": "other",
+        "otherValue": "",
+        "otherLabel": "pleaseDescribe"
+      }
+    ]
+  },
+  {
+    "label": "fldExperience_stand",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "0", "label": "no" },
+      { "value": "1", "label": "yes" }
+    ]
+  },
+
+  {
+    "label": "fldEffects_doors",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "0", "label": "no" },
+      { "value": "1 slight", "label": "slightDoors" },
+      { "value": "1 violent", "label": "violentDoors" }
+    ]
+  },
+  {
+    "label": "fldEffects_sounds",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "0", "label": "no" },
+      { "value": "1 slight", "label": "slightNoise" },
+      { "value": "1 loud", "label": "loudNoise" }
+    ]
+  },
+  {
+    "label": "fldEffects_shelved",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "0", "label": "no" },
+      { "value": "0 rattled_slightly", "label": "slightShelf" },
+      { "value": "0 rattled_loudly", "label": "loudShelf" },
+      { "value": "1 few_toppled_or_fell", "label": "fewToppleShelf" },
+      { "value": "2 many_toppled_or_fell", "label": "manyToppleShelf" },
+      { "value": "3 everything", "label": "allToppleShelf" }
+    ]
+  },
+  {
+    "label": "fldEffects_pictures",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "0", "label": "no" },
+      { "value": "1 did_not_fall", "label": "slightPictures" },
+      { "value": "1 some_fell", "label": "somePictures" }
+    ]
+  },
+  {
+    "label": "fldEffects_furniture",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "0", "label": "no" },
+      { "value": "1", "label": "yes" }
+    ]
+  },
+  {
+    "label": "fldEffects_appliances",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "0", "label": "no" },
+      { "value": "fell", "label": "fellAppliance" },
+      { "value": "shifted", "label": "someShiftAppliance" },
+      { "value": "shifted_foot", "label": "bigShiftAppliance" },
+      { "value": "overturned", "label": "toppleAppliance" }
+    ]
+  },
+  {
+    "label": "fldEffects_walls",
+    "answers": [
+      { "value": "", "label": "notSpecified" },
+      { "value": "0", "label": "no" },
+      { "value": "cracked", "label": "crackedWalls" },
+      { "value": "fell_partial", "label": "partialWalls" },
+      { "value": "fell_complete", "label": "completeWalls" }
+    ]
+  },
+
+  {
+    "label": "damage",
+    "multiSelect": true,
+    "answers": [
+      { "value": "_none", "label": "noDamage" },
+      { "value": "_crackmin", "label": "minCrackDamage" },
+      { "value": "_crackwallfew", "label": "fewCrackDamage" },
+      { "value": "_crackwallmany", "label": "manyCrackDamage" },
+      { "value": "_tilesfell", "label": "tilesDamage" },
+      { "value": "_crackchim", "label": "chimneyDamage" },
+      { "value": "_crackwindows", "label": "windowDamage" },
+      { "value": "_brokenwindows", "label": "brokenDamage" },
+      { "value": "_masonryfell", "label": "masonryDamage" },
+      { "value": "_majoroldchim", "label": "oldChimneyDamage" },
+      { "value": "_majormodernchim", "label": "modChimneyDamage" },
+      { "value": "_tiltedwall", "label": "tiltedDamage" },
+      { "value": "_porch", "label": "porchDamage" },
+      { "value": "_move", "label": "moveDamage" }
+    ]
+  }
+]

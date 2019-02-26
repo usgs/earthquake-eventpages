@@ -1,0 +1,10 @@
+<tell-us-question
+  *ngFor="let name of (questions | keys)"
+  [label]="labels[(questions[name]?.label)]"
+  [labels]="labels"
+  [model]="feltReport"
+  [multiSelect]="questions[name]?.multiSelect"
+  [name]="name"
+  [options]="questions[name]?.answers"
+>
+</tell-us-question>

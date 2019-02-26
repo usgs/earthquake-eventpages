@@ -10,6 +10,14 @@ import * as LANGUAGE_ES from './form-language/es.json';
  */
 @Injectable()
 export class FormLanguageService {
+  set language(languageId: string) {
+    this.getLanguage(languageId);
+  }
+
+  get language(): string {
+    return this.language$.value.id;
+  }
+
   // observable for current language
   language$: BehaviorSubject<any> = new BehaviorSubject(LANGUAGE_EN);
   // list of supported languages
@@ -26,9 +34,7 @@ export class FormLanguageService {
 
     if (id) {
       // try to find requested language
-      language = this.languages.find(lang => {
-        return lang.id === id;
-      });
+      language = this.languages.find(lang => lang.id === id);
     }
 
     if (!language) {

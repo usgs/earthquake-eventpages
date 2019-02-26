@@ -1,0 +1,22 @@
+<h3>Submit Felt Report</h3>
+<div class="alert error" *ngIf="!feltReport.valid.value">
+  <p>
+    {{ labels?.errors_title }}
+  </p>
+  <ul>
+    <li *ngFor="let error of feltReport.valid.errors">
+      {{ labels[error] ? labels[error] : error }}
+    </li>
+  </ul>
+</div>
+
+<form (ngSubmit)="onSubmit()">
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    [disabled]="!feltReport.valid.value"
+  >
+    {{ labels?.submit }}
+  </button>
+</form>

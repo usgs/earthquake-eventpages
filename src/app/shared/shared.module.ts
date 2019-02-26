@@ -26,6 +26,7 @@ import { EventTitlePipe } from './event-title.pipe';
 import { FeRegionComponent } from './fe-region/fe-region.component';
 import { FiniteFaultMapPopupComponent } from './finite-fault-map-popup/finite-fault-map-popup.component';
 import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
+import { GeoService } from './geo.service';
 import { GetMapBoundsPipe } from './get-map-bounds.pipe';
 import { GetProductPipe } from './get-product.pipe';
 import { GetProductsPipe } from './get-products.pipe';
@@ -228,7 +229,7 @@ import { DirectionPipe } from './direction.pipe';
     MatTableModule,
     RouterModule
   ],
-  providers: [WindowRef]
+  providers: [GeoService, WindowRef]
 })
 export class SharedModule {
   constructor(public injector: Injector) {

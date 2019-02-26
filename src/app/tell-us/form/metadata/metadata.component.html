@@ -1,0 +1,24 @@
+<mat-expansion-panel class="privacy-act">
+  <mat-expansion-panel-header>
+    PRA - Privacy Act Statement
+  </mat-expansion-panel-header>
+  <ng-template matExpansionPanelContent>
+    <tell-us-privacy-statement></tell-us-privacy-statement>
+  </ng-template>
+</mat-expansion-panel>
+<div class="flex-wrapper">
+  <mat-form-field class="language-select">
+    <mat-label>Select Language</mat-label>
+    <mat-select [(ngModel)]="languageService.language">
+      <mat-option
+        *ngFor="
+          let language of languageService.languages;
+          trackBy: trackByIndex
+        "
+        [value]="language?.id"
+      >
+        {{ language?.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

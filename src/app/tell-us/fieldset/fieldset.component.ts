@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-
 /**
  * Wraps the DYFI form input inside a fieldset element
  *

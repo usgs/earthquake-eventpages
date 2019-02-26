@@ -1,27 +1,28 @@
-<tell-us-fieldset [legend]="label">
-  <ng-container *ngIf="multiSelect; else isSingleSelect">
-    <mat-selection-list (selectionChange)="onChange($event)">
-      <mat-list-option
-        *ngFor="let option of options;trackBy: trackByIndex"
-        [checkboxPosition]="'before'"
-        [selected]="value && value.includes(option.value)"
-        [value]="option?.value">
-        {{ option?.label }}
-      </mat-list-option>
-    </mat-selection-list>
-  </ng-container>
+<tell-us-fieldset *ngIf="model" [legend]="label">
+  <mat-selection-list
+    *ngIf="multiSelect; else isSingleSelect"
+    [(ngModel)]="model[name]"
+  >
+    <mat-list-option
+      *ngFor="let option of options; trackBy: trackByIndex"
+      [checkboxPosition]="'before'"
+      [selected]="value && value.includes(option.value)"
+      [value]="option?.value"
+    >
+      {{ labels[(option?.label)] ? labels[(option?.label)] : option?.label }}
+    </mat-list-option>
+  </mat-selection-list>
 </tell-us-fieldset>
 
 <ng-template #isSingleSelect>
-  <mat-radio-group (change)="onChange($event)">
+  <mat-radio-group [(ngModel)]="model[name]">
     <mat-list>
-      <ng-container *ngFor="let option of options;trackBy: trackByIndex">
+      <ng-container *ngFor="let option of options; trackBy: trackByIndex">
         <mat-list-item>
-          <mat-radio-button
-            [checked]="value === option?.value"
-            [name]="option?.name"
-            [value]="option?.value">
-            {{ option?.label }}
+          <mat-radio-button [value]="option?.value"
+            >{{
+              labels[(option?.label)] ? labels[(option?.label)] : option?.label
+            }}
           </mat-radio-button>
         </mat-list-item>
 
@@ -29,15 +30,10 @@
           <mat-form-field>
             <input
               matInput
-              #other
-              (change)="onChange({
-                type: 'other',
-                value: other?.value
-              })"
-              [disabled]="value !== option?.value"
-              [placeholder]="option?.otherLabel"
-              [value]="option?.otherValue"
-              aria-label="Please describe your situation during the earthquake"
+              [disabled]="model[name] !== 'other'"
+              [(ngModel)]="model[name + '_Other']"
+              [placeholder]="labels[(option?.otherLabel)]"
+              attr.aria-label="{{ labels[(option?.otherLabel)] }}"
             />
           </mat-form-field>
         </mat-list-item>

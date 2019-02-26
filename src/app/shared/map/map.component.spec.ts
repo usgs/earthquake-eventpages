@@ -135,8 +135,8 @@ describe('MapComponent', () => {
 
       expect(component.getOverlayBounds).toHaveBeenCalled();
       expect(component.map.fitBounds.calls.first().args[0]).toEqual([
-        [85, 180],
-        [-85, 180]
+        [85, 179.999],
+        [-85, -179.999]
       ]);
     });
   });

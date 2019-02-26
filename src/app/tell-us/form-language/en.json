@@ -2,225 +2,128 @@
   "id": "en",
   "name": "English",
 
-  "locationInfo": {
-    "label": "Your location when the earthquake occurred",
-    "button": "Choose Location",
-    "buttonUpdate": "Change Location"
-  },
+  "no": "No",
+  "yes": "Yes",
+  "submit": "Submit",
 
-  "baseQuestions": {
-    "fldSituation_felt": {
-      "label": "Did you feel it?",
-      "answers": [
-        {"value": "1", "label": "Yes"},
-        {"value": "0", "label": "No"}
-      ]
-    }
-  },
+  "requiredQuestion": "Experience",
+  "locationStep": "Location",
+  "optionalQuestion": "Additional Details",
+  "submitDone": "Submit / Done",
+  "errors_title": "One or more required fields is in error. See below for details:",
+  "form_ready": "You are now ready to submit your response. Please take a moment to verify your answers, then click the submit button below.",
 
-  "toggleInfo": {
-    "button": "Additional Observations",
-    "description": "<strong>The remainder of this form is optional.</strong><br/>Help make a shaking intensity map by telling us about the shaking at your location."
-  },
+  "fldSituation_felt": "Did you feel it?",
+  "fldSituation_felt_error": "You must indicate whether you felt the event",
+  "ciim_mapAddress": "Your location when the earthquake occurred",
+  "ciim_mapAddress_error": "You must specify your location during the event",
+  "locationButton": "Choose Location",
+  "locationButtonUpdate": "Change Location",
+  "ciim_time": "Time of earthquake",
+  "ciim_time_error": "You must specify the event time",
+  "ciim_time_help": "Local time (1/31/2008 9:00 AM), or Relative time (5 minutes ago)",
+  "ciim_mapAddress_help": "Address, partial address, or geographic coordinates",
+  "currentLocation": "Use Current Location",
+  "useMap": "Use a map to input and/or verify your location",
 
-  "moreQuestions": {
-    "fldSituation_situation": {
-      "label": "What was your situation during the earthquake?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "inside", "label": "Inside a building"},
-        {"value": "outside", "label": "Outside a building"},
-        {"value": "veh_stopped", "label": "In a stopped vehicle"},
-        {"value": "veh_moving", "label": "In a moving vehicle"},
-        {"value": "other", "label": "Other",
-            "otherValue": "", "otherLabel": "Please describe"}
-      ]
-    },
-    "fldSituation_sleep": {
-      "label": "Were you asleep?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "no", "label": "No"},
-        {"value": "slept", "label": "Slept through it"},
-        {"value": "woke", "label": "Woke up"}
-      ]
-    },
-    "fldSituation_others": {
-      "label": "Did others nearby feel it?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "2", "label": "No others felt it"},
-        {"value": "3", "label": "Some felt it, most did not"},
-        {"value": "4", "label": "Most felt it"},
-        {"value": "5", "label": "Everyone/almost everyone felt it"}
-      ]
-    },
+  "optionalNotice": "The remainder of this form is optional. Help make a shaking intensity map by telling us about the shaking at your location.",
+  "optionalToggle": "Provide additional details",
 
+  "other": "Other",
+  "pleaseDescribe": "Please describe",
+  "notSpecified": "Not specified",
 
-    "fldExperience_shaking": {
-      "label": "How would you describe the shaking?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "0", "label": "Not felt"},
-        {"value": "1", "label": "Weak"},
-        {"value": "2", "label": "Mild"},
-        {"value": "3", "label": "Moderate"},
-        {"value": "4", "label": "Strong"},
-        {"value": "5", "label": "Violent"}
-      ]
-    },
-    "fldExperience_reaction": {
-      "label": "How did you react?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "0", "label": "No reaction/not felt"},
-        {"value": "1", "label": "Very little reaction"},
-        {"value": "2", "label": "Excitement"},
-        {"value": "3", "label": "Somewhat frightened"},
-        {"value": "4", "label": "Very frightened"},
-        {"value": "5", "label": "Extremely frightened"}
-      ]
-    },
-    "fldExperience_response": {
-      "label": "How did you respond?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "no_action", "label": "Took no action"},
-        {"value": "doorway", "label": "Moved to doorway"},
-        {"value": "duck", "label": "Dropped and covered"},
-        {"value": "ran_outside", "label": "Ran outside"},
-        {"value": "other", "label": "Other",
-            "otherValue": "", "otherLabel": "Please describe"}
-      ]
-    },
-    "fldExperience_stand": {
-      "label": "Was it difficult to stand and/or walk?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "0", "label": "No"},
-        {"value": "1", "label": "Yes"}
-      ]
-    },
+  "fldSituation_situation": "What was your situation during the earthquake?",
+  "inside": "Inside a building",
+  "outside": "Outside a building",
+  "vehStopped": "In a stopped vehicle",
+  "vehMoving": "In a moving vehicle",
 
+  "fldSituation_sleep": "Were you asleep?",
+  "slept": "Slept through it",
+  "woke": "Woke up",
 
-    "fldEffects_doors": {
-      "label": "Did you notice any swinging of doors or other free-hanging objects?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "0", "label": "No"},
-        {"value": "1 slight", "label": "Yes, slight swinging"},
-        {"value": "1 violent", "label": "Yes, violent swinging"}
-      ]
-    },
-    "fldEffects_sounds": {
-      "label": "Did you hear creaking or other noises?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "0", "label": "No"},
-        {"value": "1 slight", "label": "Yes, slight noise"},
-        {"value": "1 loud", "label": "Yes, loud noise"}
-      ]
-    },
-    "fldEffects_shelved": {
-      "label": "Did objects rattle, topple over, or fall off shelves?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "0", "label": "No"},
-        {"value": "0 rattled_slightly", "label": "Rattled slightly"},
-        {"value": "0 rattled_loudly", "label": "Rattled loudly"},
-        {"value": "1 few_toppled_or_fell", "label": "A few toppled or fell off"},
-        {"value": "2 many_toppled_or_fell", "label": "Many fell off"},
-        {"value": "3 everything", "label": "Nearly everything fell off"}
-      ]
-    },
-    "fldEffects_pictures": {
-      "label": "Did pictures on walls move or get knocked askew?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "0", "label": "No"},
-        {"value": "1 did_not_fall", "label": "Yes, but did not fall"},
-        {"value": "1 some_fell", "label": "Yes, and some fell"}
-      ]
-    },
-    "fldEffects_furniture": {
-      "label": "Did any furniture or appliances slide, topple over, or become displaced?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "0", "label": "No"},
-        {"value": "1", "label": "Yes"}
-      ]
-    },
-    "fldEffects_appliances": {
-      "label": "Was a heavy appliance (refrigerator or range) affected?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "0", "label": "No"},
-        {"value": "fell", "label": "Yes, some contents fell out"},
-        {"value": "shifted", "label": "Yes, shifted by inches"},
-        {"value": "shifted_foot", "label": "Yes, shifted by a foot or more"},
-        {"value": "overturned", "label": "Yes, overturned"}
-      ]
-    },
-    "fldEffects_walls": {
-      "label": "Were free-standing walls or fences damaged?",
-      "answers": [
-        {"value": "", "label": "Not specified"},
-        {"value": "0", "label": "No"},
-        {"value": "cracked", "label": "Yes, some were cracked"},
-        {"value": "fell_partial", "label": "Yes, some partially fell"},
-        {"value": "fell_complete", "label": "Yes, some fell completely"}
-      ]
-    },
+  "fldSituation_others": "Did others nearby feel it?",
+  "noOthers": "No others felt it",
+  "someOthers": "Some felt it, most did not",
+  "mostOthers": "Most felt it",
+  "allOthers": "Everyone/almost everyone felt it",
 
-    "d_text[]": {
-      "label": "Was there any damage to the building?",
-      "multiSelect": true,
-      "answers": [
-        {"value": "_none", "label": "No Damage"},
-        {"value": "_crackmin", "label": "Hairline cracks in walls"},
-        {"value": "_crackwallfew", "label": "A few large cracks in walls"},
-        {"value": "_crackwallmany", "label": "Many large cracks in walls"},
-        {"value": "_tilesfell", "label": "Ceiling tiles or lighting fixtures fell"},
-        {"value": "_crackchim", "label": "Cracks in chimney"},
-        {"value": "_crackwindows", "label": "One or several cracked windows"},
-        {"value": "_brokenwindows", "label": "Many windows cracked or some broken out"},
-        {"value": "_masonryfell", "label": "Masonry fell from block or brick wall(s)"},
-        {"value": "_majoroldchim", "label": "Old chimney, major damage or fell down"},
-        {"value": "_majormodernchim", "label": "Modern chimney, major damage or fell down"},
-        {"value": "_tiltedwall", "label": "Outside wall(s) tilted over or collapsed completely"},
-        {"value": "_porch", "label": "Separation of porch, balcony, or other addition from building"},
-        {"value": "_move", "label": "Building permanently shifted over foundation"}
-      ]
-    }
-  },
+  "fldExperience_shaking": "How would you describe the shaking?",
+  "noShake": "Not felt",
+  "weakShake": "Weak",
+  "mildShake": "Mild",
+  "moderateShake": "Moderate",
+  "strongShake": "Strong",
+  "violentShake": "Violent",
 
-  "comments": {
-    "fldContact_comments": {
-      "label": "Additional Comments",
-      "type": "textarea"
-    }
-  },
+  "fldExperience_reaction": "How did you react?",
+  "noReact": "No reaction/not felt",
+  "littleReact": "Very little reaction",
+  "exciteReact": "Excitement",
+  "someFrightReact": "Somewhat frightened",
+  "veryFrightReact": "Very frigtened",
+  "extremeFrightReact": "Extremely frightened",
 
-  "contactInfo": {
-    "fldContact_name": {
-      "label": "Name"
-    },
-    "fldContact_email": {
-      "label": "Email"
-    },
-    "fldContact_phone": {
-      "label": "Phone"
-    }
-  },
+  "fldExperience_response": "How did you respond?",
+  "noRespond": "Took no action",
+  "doorRespond": "Moved to doorway",
+  "duckRespond": "Dropped and covered",
+  "runRespond": "Ran outside",
 
-  "eventTime": {
-    "ciim_time": {
-      "label": "Time of Earthquake",
-      "placeholder": "Local time (1/31/2008 9:00 AM), or Relative time (5 minutes ago)"
-    }
-  },
+  "fldExperience_stand": "Was it difficult to stand and/or walk?",
 
-  "submit": {
-    "label": "Submit"
-  }
+  "fldEffects_doors": "Did you notice any swinging of doors or other free-hanging objects?",
+  "slightDoors": "Yes, slight swinging",
+  "violentDoors": "Yes, violent swinging",
+
+  "fldEffects_sounds": "Did you hear creaking or other noises?",
+  "slightNoise": "Yes, slight noise",
+  "loudNoise": "Yes, loud noise",
+
+  "fldEffects_shelved": "Did objects rattle, topple over, or fall off shelves?",
+  "slightShelf": "Rattled slightly",
+  "loudShelf": "Rattled loudly",
+  "fewToppleShelf": "A few toppled or fell off",
+  "manyToppleShelf": "Many fell off",
+  "allToppleShelf": "Nearly everything fell off",
+
+  "fldEffects_pictures": "Did pictures on walls move or get knocked askew?",
+  "slightPictures": "Yes, but did not fall",
+  "somePictures": "Yes, and some fell",
+
+  "fldEffects_furniture": "Did any furniture or appliances slide, topple over, or become displaced?",
+
+  "fldEffects_appliances": "Was a heavy appliance (refrigerator or range) affected?",
+  "fellAppliance": "Yes, some contents fell out",
+  "someShiftAppliance": "Yes, shifted by inches",
+  "bigShiftAppliance": "Yes, shifted by a foot or more",
+  "toppleAppliance": "Yes, overturned",
+
+  "fldEffects_walls": "Were free-standing walls or fences damaged?",
+  "crackedWalls": "Yes, some were cracked",
+  "partialWalls": "Yes, some partially fell",
+  "completeWalls": "Yes, some fell completely",
+
+  "damage": "Was there any damage to the building?",
+  "noDamage": "No damage",
+  "minCrackDamage": "Hairline cracks in walls",
+  "fewCrackDamage": "A few large cracks in walls",
+  "manyCrackDamage": "Many large cracks in walls",
+  "tilesDamage": "Ceiling tiles or lighting fixtures fell",
+  "chimneyDamage": "Cracks in chimney",
+  "windowDamage": "One or several cracked windows",
+  "brokenDamage": "Many windows cracked or some broken out",
+  "masonryDamage": "Masonry fell from block or brick wall(s)",
+  "oldChimneyDamage": "Old chimney, major damage or fell down",
+  "modChimneyDamage": "Modern chimney, major damage or fell down",
+  "tiltedDamage": "Outside wall(s) tilted over or collapsed completely",
+  "porchDamage": "Separation of porch, balcony, or other addition from building",
+  "moveDamage": "Building permanently shifted over foundation",
+
+  "fldContact_comments": "Additional comments",
+  "fldContact_contact": "Contact information (optional)",
+  "fldContact_name": "Name",
+  "fldContact_email": "Email",
+  "fldContact_phone": "Phone"
 }

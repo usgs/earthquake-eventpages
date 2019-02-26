@@ -25,5 +25,7 @@ export const environment = {
     'https://earthquake.usgs.gov/scenarios/feed/v1.0/detail/' +
     '{eventid}.geojson',
 
+  DYFI_RESPONSE_URL: '/data/dyfi/form/response.php',
+
   siteUrl: 'localhost.localdomain'
 };
