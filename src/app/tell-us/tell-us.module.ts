@@ -25,6 +25,7 @@ import { FormComponent } from './form/form.component';
 import { FormLanguageService } from './form-language.service';
 import { FormSubmitService } from './form-submit.service';
 import { LocationComponent } from './form/location/location.component';
+import { LocationPipe } from './location.pipe';
 import { MapComponent } from './form/location/map/map.component';
 import { MetadataComponent } from './form/metadata/metadata.component';
 import { OptionalComponent } from './form/optional/optional.component';
@@ -35,7 +36,6 @@ import { SubmitComponent } from './form/submit/submit.component';
 import { SuccessResponseComponent } from './success-response/success-response.component';
 import { TellUsComponent } from './tell-us/tell-us.component';
 import { TellUsRoutingModule } from './tell-us-routing.module';
-import { LocationPipe } from './location.pipe';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { LocationPipe } from './location.pipe';
     FieldsetComponent,
     FormComponent,
     LocationComponent,
+    LocationPipe,
     MapComponent,
     MetadataComponent,
     OptionalComponent,
