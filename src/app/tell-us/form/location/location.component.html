@@ -2,7 +2,7 @@
   <div class="flexwrapper">
     <div class="btn-geolocate-wrapper">
       <mat-spinner
-        *ngIf="(geolocator.geolocating$ | async); else geolocateButton"
+        *ngIf="(geoService.geolocating$ | async); else geolocateButton"
         attr.aria-label="{{ labels.geolocating }}"
         attr.title="{{ labels.geolocating }}"
         [diameter]="25"
@@ -13,8 +13,8 @@
           mat-stroked-button
           color="primary"
           class="btn-geolocate"
-          [disabled]="geolocator.geolocating$ | async"
-          (click)="geolocator.geolocate()"
+          [disabled]="geoService.geolocating$ | async"
+          (click)="geoService.geolocate()"
         >
           <mat-icon
             attr.aria-label="{{ labels.currentLocation }}"
@@ -29,22 +29,18 @@
         <input
           #address
           attr.aria-label="{{ labels.ciim_mapAddress }}"
-          (change)="geocode(address.value)"
+          (change)="geoService.geocode(address.value)"
           matInput
           name="ciim_mapAddress"
           [(ngModel)]="feltReport.ciim_mapAddress"
           [placeholder]="labels.ciim_mapAddress_help"
-          [value]="geolocator.geolocation$ | async | locationPipe: feltReport"
+          [value]="geoService.location$ | async | locationPipe: feltReport"
           required
         />
       </mat-form-field>
     </div>
   </div>
 </tell-us-fieldset>
-
-<pre>
-  {{ feltReport.location | json }}
-</pre>
 
 <mat-expansion-panel>
   <mat-expansion-panel-header>
