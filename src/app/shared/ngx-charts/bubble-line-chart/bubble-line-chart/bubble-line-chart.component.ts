@@ -297,6 +297,12 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       }
     }
 
+    if (min === max) {
+      // There is only one R value, make a scale from 1-10
+      min = 1;
+      max = 10;
+    }
+
     return [min, max];
   }
 

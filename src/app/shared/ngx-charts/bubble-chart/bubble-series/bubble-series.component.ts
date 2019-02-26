@@ -45,6 +45,7 @@ export class BubbleSeriesComponent extends Swimlane.BubbleSeriesComponent {
         ? true
         : this.isActive({ name: seriesName });
 
+    const _this = this;
     return this.data.series
       .map((d, i) => {
         if (typeof d.y === 'undefined' || typeof d.x === 'undefined') {
@@ -78,6 +79,8 @@ export class BubbleSeriesComponent extends Swimlane.BubbleSeriesComponent {
         const max = d.max;
         const min = d.min;
 
+        const shape = d.shape || 'circle';
+
         // Should be replaced to allow origin plot to use a log scale
         const errorBarWidth = (this.xDomain[1] - this.xDomain[0]) * 0.0125;
 
@@ -101,6 +104,7 @@ export class BubbleSeriesComponent extends Swimlane.BubbleSeriesComponent {
           max,
           min,
           opacity,
+          shape,
           r,
           radius,
           seriesName,

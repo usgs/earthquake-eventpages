@@ -31,6 +31,7 @@ import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { LegendComponent } from './legend/legend.component';
 import { RegressionPlotComponent } from './regression-plot/regression-plot.component';
+import { PlotStationsPipe } from './plot-stations.pipe';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { RegressionPlotComponent } from './regression-plot/regression-plot.compo
     PgvComponent,
     PsaComponent,
     LegendComponent,
-    RegressionPlotComponent
+    RegressionPlotComponent,
+    PlotStationsPipe
   ],
   exports: [StationListComponent, MetadataComponent],
   imports: [

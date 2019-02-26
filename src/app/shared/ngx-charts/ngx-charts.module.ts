@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import '@swimlane/ngx-charts/release/polyfills';
@@ -7,6 +8,7 @@ import { BubbleLineChartModule } from './bubble-line-chart/bubble-line-chart.mod
 import { LineChartModule } from './line-chart/line-chart.module';
 
 @NgModule({
-  exports: [BubbleChartModule, BubbleLineChartModule, LineChartModule]
+  exports: [BubbleChartModule, BubbleLineChartModule, LineChartModule],
+  imports: [ CommonModule ]
 })
 export class NgxChartsModule {}

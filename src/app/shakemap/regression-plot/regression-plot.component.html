@@ -1,26 +1,33 @@
-<ng-container *ngIf="bubbleSeries">
-  <h2>Intensity vs. Distance</h2>
-  <div class="chart-container">
-    <bubble-line-chart-component
-        [animations]="true"
-        [autoScale]="true"
-        [scheme]="colorScheme"
-        [colorSchemeLine]="colorScheme"
-        [customColors]="customColors"
-        [results]="bubbleSeries"
-        [lineChartTooltip]="false"
-        [bubbleChart]="bubbleSeries"
-        [tooltipDisabled]="false"
-        [gradient]="true"
-        [xAxis]="true"
-        [yAxis]="true"
-        [legend]="true"
-        [scaleType]="scaleType"
-        [showGridLines]="true"
-        [showXAxisLabel]="true"
-        [showYAxisLabel]="true"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel">
-    </bubble-line-chart-component>
-  </div>
+<ng-container *ngIf="stationService?.stationsJson$ | async; let stations">
+  <ng-container *ngIf="stations">
+    <h2>Intensity vs. Distance</h2>
+    <div class="chart-container">
+      <bubble-line-chart-component
+          [animations]="true"
+          [autoScale]="true"
+          [scheme]="colorScheme"
+          [colorSchemeLine]="colorScheme"
+          [customColors]="customColors"
+          [lineChartTooltip]="false"
+          [bubbleChart]="stations.features | plotStations:plotX:plotY"
+          [tooltipDisabled]="false"
+          [gradient]="true"
+          [xAxis]="true"
+          [yAxis]="true"
+          [legend]="true"
+          [scaleType]="scaleType"
+          [showGridLines]="true"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel">
+      </bubble-line-chart-component>
+    </div>
+  </ng-container>
 </ng-container>
+
+Y-AXIS
+<div *ngFor="let option of plotYOptions"
+    (click)="setYAxis(option)">
+  {{ option.display }}
+</div>
