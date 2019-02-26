@@ -1,5 +1,23 @@
-shared-map {
+:host {
   display: block;
-  height: 500px;
-  width: 500px;
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
+  width: 100%;
+}
+shared-map {
+  bottom: 0;
+  display: block;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+@media screen and (min-width: 1286px) {
+  :host {
+    display: block;
+    width: 960px;
+    height: 960px;
+  }
 }
