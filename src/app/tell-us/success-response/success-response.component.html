@@ -43,11 +43,7 @@
 </dl>
 
 <div class="share-box" *ngIf="response">
-  <button
-    [disabled]="sdkStatus === false"
-    (click)="onSocialClick($event)"
-    class="fb-share-button"
-  >
+  <button (click)="onSocialClick($event)" class="fb-share-button">
     <img src="./assets/facebook_share_button.jpg" alt="Share" />
   </button>
   <p>Share your DYFI response on Facebook.</p>
