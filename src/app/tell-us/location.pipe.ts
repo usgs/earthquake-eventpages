@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { FeltReport } from './felt-report';
 import { FormatterService } from '@core/formatter.service';
-import { Location } from './location';
+import { Location } from '@shared/geo.service';
 
 @Pipe({
   name: 'locationPipe'
@@ -23,32 +23,11 @@ export class LocationPipe implements PipeTransform {
     }
   }
 
-  transform(position: Position, feltReport: FeltReport): string {
-    if (!position) {
-      return '';
-    }
-
-    const precision = this.getPrecision(+position.coords.accuracy);
-    const latitude = +this.formatter.number(
-      position.coords.latitude,
-      precision
-    );
-    const longitude = +this.formatter.number(
-      position.coords.longitude,
-      precision
-    );
-    const address = this.formatter.location(latitude, longitude);
-
+  transform(location: Location, feltReport: FeltReport): string {
     if (feltReport) {
-      setTimeout(_ => {
-        feltReport.location = {
-          address,
-          latitude,
-          longitude
-        } as Location;
-      });
+      setTimeout(_ => (feltReport.location = location));
     }
 
-    return address;
+    return location ? location.address : '';
   }
 }
