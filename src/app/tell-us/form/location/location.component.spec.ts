@@ -65,7 +65,6 @@ describe('LocationComponent', () => {
       ],
       imports: [HttpClientTestingModule],
       providers: [
-        GeoService,
         { provide: MatSnackBar, useValue: snackBarStub },
         { provide: FormatterService, useValue: formatterServiceStub },
         { provide: GeoService, useValue: geoServiceStub }
