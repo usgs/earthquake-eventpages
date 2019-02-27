@@ -44,12 +44,14 @@ export class PlotStationsPipe implements PipeTransform {
       {
       class: 'smStations',
       name: 'Seismic Stations',
-      series: smStations
+      series: smStations,
+      shape: 'triangle'
       },
       {
         class: 'dyfiStations',
         name: 'DYFI Stations',
-        series: dyfiStations
+        series: dyfiStations,
+        shape: 'circle'
       }
     ];
   }

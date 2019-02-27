@@ -276,16 +276,28 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    * @returns {any}
    */
   getLegendOptions () {
+
     const opts = {
       colors: this.colors,
       domain: this.seriesDomain,
       position: this.legendPosition,
       scaleType: this.schemeType,
-      title: this.legendTitle,
-      ...this.customLegendOptions
+      shapes: this.getLegendShapes(),
+      title: this.legendTitle
     };
 
     return opts;
+  }
+
+  getLegendShapes () {
+    const shapes = {};
+    for (const series of [...this.lineChart, ...this.bubbleChart]) {
+      if (series.shape) {
+        shapes[series.name] = series.shape;
+      }
+    }
+
+    return shapes;
   }
 
   /**

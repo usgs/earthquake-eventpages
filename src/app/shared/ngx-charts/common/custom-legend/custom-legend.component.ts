@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 
 import { LegendComponent as NgxLegendComponent } from '@swimlane/ngx-charts';
 
@@ -9,5 +9,5 @@ import { LegendComponent as NgxLegendComponent } from '@swimlane/ngx-charts';
   templateUrl: './custom-legend.component.html'
 })
 export class CustomLegendComponent extends NgxLegendComponent {
-
+  @Input() shapes = {};
 }
