@@ -106,9 +106,13 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Input()
   bubbleChartTooltip = true;
   @Input()
+  bubbleTooltipTemplate = null;
+  @Input()
   colorSchemeLine: any[];
   @Input()
   customColors: any[] = [];
+  @Input()
+  customLegendOptions;
   @Input()
   curve = curveLinear;
   @Input()
@@ -119,6 +123,8 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   legend = false;
   @Input()
   legendTitle = 'Legend';
+  @Input()
+  legendPosition = 'right';
   @Input()
   lineChart: any[] = [];
   @Input()
@@ -147,8 +153,6 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   showYAxisLabel;
   @Input()
   tooltipDisabled = false;
-  @Input()
-  bubbleTooltipTemplate = null;
   @Input()
   xAxis;
   @Input()
@@ -275,8 +279,10 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     const opts = {
       colors: this.colors,
       domain: this.seriesDomain,
+      position: this.legendPosition,
       scaleType: this.schemeType,
-      title: this.legendTitle
+      title: this.legendTitle,
+      ...this.customLegendOptions
     };
 
     return opts;

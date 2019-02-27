@@ -28,8 +28,13 @@ export class RegressionPlotComponent implements OnInit {
       '#8d91ff'
     ]
   };
-  customColors: any[] = [
-    {name: 'Stations', value:'#94dfea'}
+  customColors = [
+    {name: 'Seismic Stations', value:'#94dfea'},
+    {name: 'DYFI Stations', value:'#94dfea'}
+  ];
+  customLegendOptions = [
+    {name: 'Seismic Stations', options: {shape: 'triangle'}},
+    {name: 'DYFI Stations', options: {shape: 'circle'}}
   ];
   lineSeries: any[] = null;
   plotX = 'distance';
@@ -39,7 +44,6 @@ export class RegressionPlotComponent implements OnInit {
     {key: 'pgv', display: 'PGV', plot: 'Peak Ground Velocity m/s'},
     {key: 'intensity', display: 'MMI', plot: 'Intensity (MMI)'}
   ];
-
   product: any = null;
   scaleType = 'log';
   subs = new Subscription();

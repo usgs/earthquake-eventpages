@@ -6,7 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PlotStationsPipe implements PipeTransform {
 
   transform(stations: any, plotX: string, plotY: string): any {
-    const plotStations = [];
+    const smStations = [];
+    const dyfiStations = [];
     stations.forEach(station => {
       const props = station.properties;
       const x = props[plotX];
@@ -31,18 +32,26 @@ export class PlotStationsPipe implements PipeTransform {
           props.station_type === 'macroseismic'
         ) {
           plotStation.shape = 'circle';
+          dyfiStations.push(plotStation);
+        } else {
+          smStations.push(plotStation);
         }
 
-
-        plotStations.push(plotStation);
       }
     });
 
-    return [{
+    return [
+      {
       class: 'smStations',
-      name: 'Stations',
-      series: plotStations
-    }];
+      name: 'Seismic Stations',
+      series: smStations
+      },
+      {
+        class: 'dyfiStations',
+        name: 'DYFI Stations',
+        series: dyfiStations
+      }
+    ];
   }
 
 }
