@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { AbstractForm } from '../abstract-form.component';
 import { FormSubmitService } from 'app/tell-us/form-submit.service';
+import { WindowRef } from '@shared/window-ref-wrapper';
 
 @Component({
   selector: 'tell-us-form-submit',
@@ -9,7 +10,10 @@ import { FormSubmitService } from 'app/tell-us/form-submit.service';
   templateUrl: './submit.component.html'
 })
 export class SubmitComponent extends AbstractForm {
-  constructor(public formSubmitService: FormSubmitService) {
+  constructor(
+    public formSubmitService: FormSubmitService,
+    public windowRef: WindowRef
+  ) {
     super();
   }
 
@@ -17,6 +21,6 @@ export class SubmitComponent extends AbstractForm {
     this.formSubmitService.onSubmit(this.feltReport);
   }
   scrollToTop() {
-    window.scroll(0, 0);
+    this.windowRef.nativeWindow.scrollTo(0, 0);
   }
 }
