@@ -16,4 +16,7 @@ export class SubmitComponent extends AbstractForm {
   onSubmit() {
     this.formSubmitService.onSubmit(this.feltReport);
   }
+  scrollToTop() {
+    window.scroll(0, 0);
+  }
 }

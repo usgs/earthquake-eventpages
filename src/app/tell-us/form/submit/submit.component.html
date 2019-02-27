@@ -8,6 +8,11 @@
       {{ labels[error] ? labels[error] : error }}
     </li>
   </ul>
+  <p>
+    <a (click)="scrollToTop()" class="jump-link"
+      >Scroll to the top of the DYFI form</a
+    >
+  </p>
 </div>
 
 <form (ngSubmit)="onSubmit()">

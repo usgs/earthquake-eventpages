@@ -44,4 +44,12 @@ describe('SubmitComponent', () => {
       );
     });
   });
+
+  describe('scrollToTop', () => {
+    it('should call window.scroll', () => {
+      spyOn(window, 'scroll');
+      component.scrollToTop();
+      expect(window.scroll).toHaveBeenCalled();
+    });
+  });
 });
