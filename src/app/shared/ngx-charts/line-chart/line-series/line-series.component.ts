@@ -1,6 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
-import { LineSeriesComponent as SwimlaneLineSeries } from '@swimlane/ngx-charts';
+import * as Swimlane from '@swimlane/ngx-charts';
 
 /**
  * LineSeriesComponent
@@ -13,7 +13,7 @@ import { LineSeriesComponent as SwimlaneLineSeries } from '@swimlane/ngx-charts'
   selector: 'g[ngx-charts-line-series]',
   templateUrl: './line-series.component.html'
 })
-export class LineSeriesComponent extends SwimlaneLineSeries {
+export class LineSeriesComponent extends Swimlane.LineSeriesComponent {
   @Input()
   strokeWidth = '1.5px';
 
@@ -29,7 +29,7 @@ export class LineSeriesComponent extends SwimlaneLineSeries {
    *
    * @return {number}
    */
-  sortData(data, property='name', ascending=true) {
+  sortData(data, property = 'name', ascending = true) {
     return data.sort((a, b) => {
       if (ascending === true) {
         return a[property] - b[property];

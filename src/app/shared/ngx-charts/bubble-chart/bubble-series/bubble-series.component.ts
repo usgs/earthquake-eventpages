@@ -1,10 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 
-import {
-  BubbleSeriesComponent as SwimlaneBubbleSeries,
-  formatLabel
-} from '@swimlane/ngx-charts';
+import * as Swimlane from '@swimlane/ngx-charts';
 import { curveLinear } from 'd3-shape';
 
 /**
@@ -31,7 +28,7 @@ import { curveLinear } from 'd3-shape';
   selector: 'g[ngx-charts-bubble-series]',
   templateUrl: './bubble-series.component.html'
 })
-export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
+export class BubbleSeriesComponent extends Swimlane.BubbleSeriesComponent {
   @Input()
   curve: any = curveLinear;
   @Input()
@@ -61,7 +58,7 @@ export class BubbleSeriesComponent extends SwimlaneBubbleSeries {
         const radius = this.rScale(r || 1);
         const borderColor = d.borderColor || null;
 
-        const tooltipLabel = formatLabel(d.name);
+        const tooltipLabel = Swimlane.formatLabel(d.name);
 
         const cx = this.xScale(x);
         const cy = this.yScale(y);

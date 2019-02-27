@@ -9,7 +9,7 @@ import {
   ElementRef
 } from '@angular/core';
 
-import { BubbleChartComponent as SwimlaneBubbleChart } from '@swimlane/ngx-charts';
+import * as Swimlane from '@swimlane/ngx-charts';
 
 /**
  * Bubble chart component to show the series items
@@ -39,7 +39,7 @@ import { BubbleChartComponent as SwimlaneBubbleChart } from '@swimlane/ngx-chart
   styleUrls: ['../../common/base-chart.component.scss'],
   templateUrl: './bubble-chart.component.html'
 })
-export class BubbleChartComponent extends SwimlaneBubbleChart {
+export class BubbleChartComponent extends Swimlane.BubbleChartComponent {
   customColors;
   @Input()
   errorBarColor;
