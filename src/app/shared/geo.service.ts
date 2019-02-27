@@ -103,7 +103,7 @@ export class GeoService {
         if (response.locations && response.locations.length !== 0) {
           this.onGeocodeSuccess(response.locations[0]);
         } else {
-          this.onGeocodeError(null); // TODO
+          this.onGeocodeError(response);
         }
       });
 
@@ -171,8 +171,17 @@ export class GeoService {
     return of(noLocation);
   }
 
-  private onGeocodeError(error: any): void {
-    console.log('TODO :: onGeocodeError', error);
+  private onGeocodeError(response: any): void {
+    let message = 'Geocoding failed';
+
+    if (response && response.locations && response.locations.length === 0) {
+      message = 'No location found';
+    }
+    this.error.next({
+      code: -1,
+      message: message
+    } as LocationError);
+
     setTimeout(_ => this.geocoding.next(false), this.flickerTimeout);
   }
 

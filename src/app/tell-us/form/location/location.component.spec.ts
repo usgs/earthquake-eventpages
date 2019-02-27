@@ -3,9 +3,10 @@ import { MatSnackBar } from '@angular/material';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { MockComponent } from 'ng2-mock-component';
+import { of } from 'rxjs/observable/of';
 
 import { LocationComponent } from './location.component';
-import { GeoService } from '@shared/geo.service';
+import { GeoService, LocationError } from '@shared/geo.service';
 import { MockPipe } from 'app/mock-pipe';
 import { FormatterService } from '@core/formatter.service';
 
@@ -20,6 +21,12 @@ describe('LocationComponent', () => {
     };
     const snackBarStub = {
       open: jasmine.createSpy('snackBar::open')
+    };
+    const geoServiceStub = {
+      error$: of({
+        code: -1,
+        message: 'test'
+      } as LocationError)
     };
 
     TestBed.configureTestingModule({
@@ -60,7 +67,8 @@ describe('LocationComponent', () => {
       providers: [
         GeoService,
         { provide: MatSnackBar, useValue: snackBarStub },
-        { provide: FormatterService, useValue: formatterServiceStub }
+        { provide: FormatterService, useValue: formatterServiceStub },
+        { provide: GeoService, useValue: geoServiceStub }
       ]
     }).compileComponents();
 
@@ -84,6 +92,23 @@ describe('LocationComponent', () => {
       expect(component.snackBar.open).toHaveBeenCalledWith(message, action, {
         duration: length
       });
+    });
+  });
+
+  describe('ngOnInit', () => {
+    it('sets up subscription that calls openSnackBar', () => {
+      spyOn(component, 'openSnackBar');
+      component.ngOnInit();
+      expect(component.openSnackBar).toHaveBeenCalled();
+      expect(component.openSnackBar).toHaveBeenCalledWith('test', 'close');
+    });
+  });
+
+  describe('ngOnDestroy', () => {
+    it('removes subscription to geoservice', () => {
+      spyOn(component.subscription, 'unsubscribe');
+      component.ngOnDestroy();
+      expect(component.subscription.unsubscribe).toHaveBeenCalled();
     });
   });
 });
