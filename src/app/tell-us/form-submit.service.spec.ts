@@ -5,6 +5,7 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 
+import { WindowRef } from './../shared/window-ref-wrapper';
 import { FormSubmitService } from './form-submit.service';
 import { FeltReport } from './felt-report';
 import { FeltReportResponse } from './felt-report-response';
@@ -16,7 +17,7 @@ describe('FormSubmitService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [FormSubmitService]
+      providers: [FormSubmitService, WindowRef]
     });
 
     injector = getTestBed();
