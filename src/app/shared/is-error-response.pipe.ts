@@ -6,7 +6,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 /**
  * Checks an error response object to see if it has the error
- * property
+ * property, and if so, if that property is a FeltReportResponseErrorDetails
+ * object with code and message properties
  *
  * @returns whether or not error property exists
  */
@@ -15,6 +16,12 @@ export class IsErrorResponsePipe implements PipeTransform {
     if (!value || value === null) {
       return false;
     }
-    return value.hasOwnProperty('error');
+    if (value.hasOwnProperty('error')) {
+      return (
+        value.error.hasOwnProperty('code') &&
+        value.error.hasOwnProperty('message')
+      );
+    }
+    return false;
   }
 }
