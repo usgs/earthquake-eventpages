@@ -1,17 +1,7 @@
-import {
-  Component,
-  Input,
-  ChangeDetectionStrategy
-} from '@angular/core';
-import {
-  trigger,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { trigger, style, animate, transition } from '@angular/animations';
 
-import { LineComponent as SwimlaneLine } from '@swimlane/ngx-charts';
-
+import * as Swimlane from '@swimlane/ngx-charts';
 
 /**
  * LineComponent, shows/draws lines
@@ -39,7 +29,7 @@ import { LineComponent as SwimlaneLine } from '@swimlane/ngx-charts';
   selector: 'g[ngx-charts-line]',
   templateUrl: './line.component.html'
 })
-export class LineComponent extends SwimlaneLine {
+export class LineComponent extends Swimlane.LineComponent {
   @Input()
   strokeWidth = '1.5px';
 }

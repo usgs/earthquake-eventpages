@@ -1,7 +1,7 @@
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Component, ViewEncapsulation } from '@angular/core';
 
-import { LineChartComponent as SwimlaneLineChart } from '@swimlane/ngx-charts';
+import * as Swimlane from '@swimlane/ngx-charts';
 
 /**
  * Line chart component for use in maps
@@ -27,4 +27,4 @@ import { LineChartComponent as SwimlaneLineChart } from '@swimlane/ngx-charts';
   styleUrls: ['../../common/base-chart.component.scss'],
   templateUrl: './line-chart.component.html'
 })
-export class LineChartComponent extends SwimlaneLineChart {}
+export class LineChartComponent extends Swimlane.LineChartComponent {}
