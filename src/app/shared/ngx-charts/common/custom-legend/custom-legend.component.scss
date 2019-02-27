@@ -38,7 +38,11 @@
     overflow-y: auto;
     overflow-x: hidden;
     white-space: nowrap;
-    background: rgba(0,0,0,0.05);
+    background: rgba(200,200,200,0.3);
+  }
+
+  .legend-labels:hover {
+    background: rgba(200, 200, 200, .8);
   }
 
   .legend-label {
