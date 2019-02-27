@@ -36,7 +36,8 @@ export class RegressionPlotComponent implements OnInit {
   plotY = 'pga';
   plotYOptions = [
     {key: 'pga', display: 'PGA', plot: 'Peak Ground Acceleration %g'},
-    {key: 'pgv', display: 'PGV', plot: 'Peak Ground Velocity m/s'}
+    {key: 'pgv', display: 'PGV', plot: 'Peak Ground Velocity m/s'},
+    {key: 'intensity', display: 'MMI', plot: 'Intensity (MMI)'}
   ];
 
   product: any = null;

@@ -1,8 +1,6 @@
 import {
   Component,
-  Input,
-  Output,
-  EventEmitter
+  Input
 } from '@angular/core';
 
 import { CircleComponent } from '@swimlane/ngx-charts';
@@ -20,7 +18,7 @@ export class ShapeComponent extends CircleComponent {
   }
 
   getTriangleRadius (r) {
-    return r * 3;
+    return r * 2;
   }
 
   getTriangleTransform (r) {

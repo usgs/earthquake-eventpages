@@ -14,6 +14,7 @@ export class PlotStationsPipe implements PipeTransform {
 
       if (x && y) {
         const plotStation = {
+          'borderColor': '#000000',
           'name': x,
           'r': 5,
           'shape': 'triangle',
