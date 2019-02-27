@@ -10,6 +10,8 @@ import { catchError } from 'rxjs/operators';
 import { FeltReportResponseErrorDetails } from './felt-report-response-error-details';
 import { environment } from 'environments/environment.e2e';
 
+const DYFI_FORM_VERSION = '1.11';
+
 @Injectable()
 export class FormSubmitService {
   formResponse$ = new BehaviorSubject<
@@ -70,7 +72,7 @@ export class FormSubmitService {
         );
       }
       params = params.append('format', 'json');
-      params = params.append('form_version', '1.11');
+      params = params.append('form_version', DYFI_FORM_VERSION);
       // Post the form
       this.httpClient
         .post(this.responseUrl, params)
