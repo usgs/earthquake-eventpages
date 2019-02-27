@@ -1,23 +1,23 @@
-import { MockComponent } from 'ng2-mock-component';
-import { MockPipe } from './../../mock-pipe';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WindowRef } from '@shared/window-ref-wrapper';
+import { MockComponent } from 'ng2-mock-component';
 
-import { SuccessViewComponent } from './success-view.component';
+import { WindowRef } from '@shared/window-ref-wrapper';
+import { SuccessResponseComponent } from './success-response.component';
+import { MockPipe } from 'app/mock-pipe';
 
 declare let window: any;
 
-describe('SuccessViewComponent', () => {
+describe('SuccessResponseComponent', () => {
   const nativeWindowRef = new WindowRef();
 
-  let component: SuccessViewComponent;
-  let fixture: ComponentFixture<SuccessViewComponent>;
+  let component: SuccessResponseComponent;
+  let fixture: ComponentFixture<SuccessResponseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        SuccessViewComponent,
+        SuccessResponseComponent,
         MockPipe('sharedRomanToNumber'),
         MockComponent({
           inputs: ['bubble', 'intensity', 'value'],
@@ -29,9 +29,16 @@ describe('SuccessViewComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SuccessViewComponent);
+    fixture = TestBed.createComponent(SuccessResponseComponent);
     component = fixture.componentInstance;
-    component.success = {};
+    component.response = {
+      ciim_mapLat: '10',
+      ciim_mapLon: '20',
+      ciim_time: 'now',
+      eventid: 'testEventID',
+      form_version: '1.1.1',
+      your_cdi: '3'
+    };
     fixture.detectChanges();
   });
 
@@ -69,9 +76,6 @@ describe('SuccessViewComponent', () => {
   describe('showFacebookSharePopup', () => {
     it('calls showFacebookPopup and ensures FB.ui is called', () => {
       component.sdkStatus = true;
-      component.success = {
-        your_cdi: null
-      };
       window.FB = {
         ui: jasmine.createSpy().and.returnValue(null)
       };

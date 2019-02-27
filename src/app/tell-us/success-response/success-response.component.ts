@@ -1,24 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 
 import { WindowRef } from '@shared/window-ref-wrapper';
+import { FeltReportResponse } from './../felt-report-response';
 
 declare let window: any;
 declare let FB: any;
 
 @Component({
-  selector: 'success-view',
-  styleUrls: ['./success-view.component.scss'],
-  templateUrl: './success-view.component.html'
+  selector: 'success-response',
+  styleUrls: ['./success-response.component.scss'],
+  templateUrl: './success-response.component.html'
 })
-export class SuccessViewComponent implements OnInit {
+export class SuccessResponseComponent implements OnInit {
   // global window.location.href reference
   _windowHref: string;
+  // The response data model
+  @Input()
+  response: FeltReportResponse;
   // whether or not we have the facebook sdk
   sdkStatus = false;
-
-  @Input()
-  success: any;
 
   constructor(public meta: Meta, public windowReference: WindowRef) {}
 
@@ -80,13 +81,12 @@ export class SuccessViewComponent implements OnInit {
     e.preventDefault();
     this.showFacebookSharePopup();
   }
-
   /**
    * Show facebook share popup
    */
   showFacebookSharePopup(): void {
     const message = `
-      Did You Feel It? My estimated intensity was: ${this.success.your_cdi}
+      Did You Feel It? My estimated intensity was: ${this.response.your_cdi}
     `;
     if (this.sdkStatus) {
       FB.ui({

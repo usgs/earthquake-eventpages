@@ -36,6 +36,7 @@ import { InteractiveMapBoundsPipe } from './interactive-map-bounds.pipe';
 import { InteractiveMapOverlaysPipe } from './interactive-map-overlays.pipe';
 import { IsActualEventPipe } from './is-actual-event.pipe';
 import { IsDeletedEventPipe } from './is-deleted-event.pipe';
+import { IsErrorResponsePipe } from './is-error-response.pipe';
 import { IsScenarioEventPipe } from './is-scenario-event.pipe';
 import { KeysPipe } from './keys.pipe';
 import { LinkProductComponent } from './link-product/link-product.component';
@@ -89,6 +90,7 @@ import { DirectionPipe } from './direction.pipe';
     CoordinatesComponent,
     DateTimePipe,
     DegreesPipe,
+    DirectionPipe,
     DownloadDialogComponent,
     DyfiCounterPipe,
     DyfiOverlaysPipe,
@@ -109,6 +111,7 @@ import { DirectionPipe } from './direction.pipe';
     InteractiveMapOverlaysPipe,
     IsActualEventPipe,
     IsDeletedEventPipe,
+    IsErrorResponsePipe,
     IsScenarioEventPipe,
     KeysPipe,
     LinkProductComponent,
@@ -146,8 +149,7 @@ import { DirectionPipe } from './direction.pipe';
     TensorPipe,
     TextProductComponent,
     UncertainValueComponent,
-    UnitsPipe,
-    DirectionPipe
+    UnitsPipe
   ],
   entryComponents: [
     DownloadDialogComponent,
@@ -163,6 +165,7 @@ import { DirectionPipe } from './direction.pipe';
     CoordinatesComponent,
     DateTimePipe,
     DegreesPipe,
+    DirectionPipe,
     DownloadDialogComponent,
     DyfiCounterPipe,
     DyfiSummaryComponent,
@@ -179,6 +182,7 @@ import { DirectionPipe } from './direction.pipe';
     InteractiveMapOverlaysPipe,
     IsActualEventPipe,
     IsDeletedEventPipe,
+    IsErrorResponsePipe,
     IsScenarioEventPipe,
     KeysPipe,
     LinkProductComponent,
@@ -216,8 +220,7 @@ import { DirectionPipe } from './direction.pipe';
     TensorPipe,
     TextProductComponent,
     UncertainValueComponent,
-    UnitsPipe,
-    DirectionPipe
+    UnitsPipe
   ],
   imports: [
     CommonModule,
