@@ -1,0 +1,53 @@
+<p class="alert success">
+  Thank you for your contribution. Your information will be processed shortly.
+</p>
+
+<dl>
+  <dt>Event Id:</dt>
+  <dd *ngIf="response?.eventid !== 'null'; else dash">
+    {{ response.eventid }}
+  </dd>
+
+  <dt>Estimated intensity:</dt>
+  <dd *ngIf="response?.your_cdi; else dash">
+    <shared-mmi
+      [bubble]="true"
+      [intensity]="response?.your_cdi | sharedRomanToNumber"
+      [value]="response?.your_cdi"
+    ></shared-mmi>
+  </dd>
+
+  <dt>Name:</dt>
+  <dd *ngIf="response?.fldContact_name as name; else dash">
+    {{ response.fldContact_name }}
+  </dd>
+
+  <dt>Email:</dt>
+  <dd *ngIf="response?.fldContact_email as email; else dash">
+    {{ response.fldContact_email }}
+  </dd>
+
+  <dt>Event time:</dt>
+  <dd *ngIf="response?.ciim_time; else dash">{{ response.ciim_time }}</dd>
+
+  <dt>Latitude:</dt>
+  <dd *ngIf="response?.ciim_mapLat; else dash">{{ response.ciim_mapLat }}</dd>
+
+  <dt>Longitude:</dt>
+  <dd *ngIf="response?.ciim_mapLon; else dash">{{ response.ciim_mapLon }}</dd>
+
+  <dt>Form version:</dt>
+  <dd *ngIf="response?.form_version; else dash">
+    {{ response.form_version }}
+  </dd>
+</dl>
+
+<div class="share-box" *ngIf="response">
+  <button (click)="onSocialClick($event)" class="fb-share-button">
+    <img src="./assets/facebook_share_button.jpg" alt="Share" />
+  </button>
+  <p>Share your DYFI response on Facebook.</p>
+</div>
+<ng-template #dash>
+  <dd>&ndash;</dd>
+</ng-template>

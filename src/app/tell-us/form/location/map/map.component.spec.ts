@@ -117,7 +117,7 @@ describe('MapComponent', () => {
 
   describe('updatePin', () => {
     it('sets the map pin and map bounds', () => {
-      const latLng = [2, 2];
+      const latLng = [1, 1];
 
       spyOn(component, 'getLatLng').and.callFake(() => {
         return latLng;
@@ -129,7 +129,7 @@ describe('MapComponent', () => {
       expect(component.getLatLng).toHaveBeenCalled();
       expect(component.pin.setLatLng).toHaveBeenCalled();
       expect(component.pin.setLatLng).toHaveBeenCalledWith(latLng);
-      expect(component.mapBounds).toEqual([[4, 4], [0, 0]]);
+      expect(component.mapBounds).toEqual([[2, 2], [0, 0]]);
     });
   });
 });

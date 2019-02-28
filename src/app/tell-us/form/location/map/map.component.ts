@@ -163,7 +163,7 @@ export class MapComponent extends AbstractForm
 
     const latitude = latLng[0];
     const longitude = latLng[1];
-    const radius = 2.0; // degrees
+    const radius = 1.0; // degrees
 
     if (latitude === 0 && longitude === 0) {
       this.mapBounds = WORLD_BOUNDS;
