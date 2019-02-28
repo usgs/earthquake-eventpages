@@ -5,6 +5,10 @@ export class AppPage {
     return element(by.css('main > header > h1')).getText();
   }
 
+  getPageSectionTitle() {
+    return element(by.css('.product-page-header > h3')).getText();
+  }
+
   getUnknownPageHeaderTitle() {
     return element(by.css('h1')).getText();
   }
