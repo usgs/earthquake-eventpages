@@ -1,14 +1,14 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
 import { LocationComponent } from './location.component';
+import { FormatterService } from '@core/formatter.service';
 import { GeoService, LocationError } from '@shared/geo.service';
 import { MockPipe } from 'app/mock-pipe';
-import { FormatterService } from '@core/formatter.service';
 
 describe('LocationComponent', () => {
   let component: LocationComponent;

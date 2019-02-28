@@ -2,9 +2,9 @@ import { SimpleChange } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockComponent } from 'ng2-mock-component';
-import { FormatterService } from '@core/formatter.service';
 
 import { MapComponent } from './map.component';
+import { FormatterService } from '@core/formatter.service';
 
 describe('MapComponent', () => {
   let component: MapComponent;

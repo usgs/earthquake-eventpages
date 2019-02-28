@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
-import { GeoService, LocationError } from '@shared/geo.service';
-
-import { AbstractForm } from '../abstract-form.component';
 import { Subscription } from 'rxjs';
+
+import { GeoService, LocationError } from '@shared/geo.service';
+import { AbstractForm } from '../abstract-form.component';
 
 @Component({
   selector: 'tell-us-form-location',

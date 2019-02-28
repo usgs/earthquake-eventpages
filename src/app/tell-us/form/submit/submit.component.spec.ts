@@ -2,9 +2,9 @@ import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubmitComponent } from './submit.component';
-import { FormSubmitService } from 'app/tell-us/form-submit.service';
-import { FeltReport } from 'app/tell-us/felt-report';
 import { WindowRef } from '@shared/window-ref-wrapper';
+import { FeltReport } from 'app/tell-us/felt-report';
+import { FormSubmitService } from 'app/tell-us/form-submit.service';
 
 describe('SubmitComponent', () => {
   let component: SubmitComponent;

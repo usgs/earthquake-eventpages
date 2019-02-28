@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MockComponent } from 'ng2-mock-component';
+
 import { OptionalComponent } from './optional.component';
 import { MockPipe } from 'app/mock-pipe';
-import { MockComponent } from 'ng2-mock-component';
 
 describe('OptionalComponent', () => {
   let component: OptionalComponent;

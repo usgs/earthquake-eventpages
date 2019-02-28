@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { MockComponent } from 'ng2-mock-component';
+
 import { MetadataComponent } from './metadata.component';
 import { FormLanguageService } from 'app/tell-us/form-language.service';
 

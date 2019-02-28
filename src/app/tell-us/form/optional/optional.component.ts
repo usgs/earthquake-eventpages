@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import * as QuestionData from '../questions.json';
 import { AbstractForm } from '../abstract-form.component.js';
 
