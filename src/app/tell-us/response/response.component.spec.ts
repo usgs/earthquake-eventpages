@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { WindowRef } from './../../shared/window-ref-wrapper';
 import { ResponseComponent } from './response.component';
 import { MockPipe } from 'app/mock-pipe';
 import { MockComponent } from 'ng2-mock-component';
@@ -21,7 +22,8 @@ describe('ResponseComponent', () => {
           selector: 'success-response'
         }),
         MockPipe('isErrorResponsePipe')
-      ]
+      ],
+      providers: [WindowRef]
     }).compileComponents();
   }));
 

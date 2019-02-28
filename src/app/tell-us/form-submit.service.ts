@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { WindowRef } from '@shared/window-ref-wrapper';
 import { FeltReportResponse } from './felt-report-response';
 import { FeltReportReponseError } from './felt-report-reponse-error';
 import { FeltReportResponseErrorDetails } from './felt-report-response-error-details';

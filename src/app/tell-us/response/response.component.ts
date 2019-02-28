@@ -1,6 +1,6 @@
-import { WindowRef } from './../../shared/window-ref-wrapper';
 import { Component, Input, OnInit } from '@angular/core';
 
+import { WindowRef } from './../../shared/window-ref-wrapper';
 import { FeltReportReponseError } from './../felt-report-reponse-error';
 import { FeltReportResponse } from './../felt-report-response';
 

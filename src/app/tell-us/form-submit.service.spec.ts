@@ -17,7 +17,7 @@ describe('FormSubmitService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [FormSubmitService, WindowRef]
+      providers: [FormSubmitService]
     });
 
     injector = getTestBed();
