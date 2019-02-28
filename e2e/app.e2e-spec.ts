@@ -15,9 +15,6 @@ describe('earthquake-eventpages App', () => {
   });
 
   it('should display actual event title', () => {
-    // mock response for event data to e2e/data/us1000chhc.geojson
-    // browser.ngApimock.selectScenario('eventService', 'us1000chhc');
-
     page.navigateTo(`/${EVENT_ID}`);
     expect(page.getMainPageHeaderTitle()).toEqual(
       'M 6.4 - 18km NNE of Hualian, Taiwan'

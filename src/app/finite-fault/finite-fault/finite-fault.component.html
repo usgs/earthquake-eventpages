@@ -1,7 +1,7 @@
 <!-- productType attribute defines type of product to load -->
 <product-page productType="finite-fault">
   <!-- container with header attribute is added before attribution -->
-  <ng-container header> <h2>Finite Fault</h2> </ng-container>
+  <ng-container header><h3>Finite Fault</h3></ng-container>
 
   <ng-container
     *ngIf="(eventService?.event$ | async) as event"
@@ -14,7 +14,7 @@
     </technical-finite-fault-summary>
   </ng-container>
 
-  <div *ngIf="(eventService.product$ | async) as product; else: noProduct">
+  <div *ngIf="(eventService.product$ | async) as product; else noProduct">
     <ng-container *ngIf="(product | sharedProductContent: 'analysis.html')">
       <h3>Scientific Analysis</h3>
       <shared-text-product [product]="product" [contentPath]="'analysis.html'">
@@ -129,7 +129,7 @@
       *ngIf="
         (product
           | sharedProductContent: 'moment_rate.png':'web/mr.png') as content;
-        else: noMomentRateFunction
+        else noMomentRateFunction
       "
     >
       <img src="{{ content.url }}" alt="Moment rate function image" />
