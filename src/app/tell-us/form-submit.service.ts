@@ -1,13 +1,13 @@
-import { FeltReport } from 'app/tell-us/felt-report';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { FeltReportResponse } from './felt-report-response';
 import { FeltReportReponseError } from './felt-report-reponse-error';
-import { catchError } from 'rxjs/operators';
 import { FeltReportResponseErrorDetails } from './felt-report-response-error-details';
+import { FeltReport } from 'app/tell-us/felt-report';
 import { environment } from 'environments/environment.e2e';
 
 const DYFI_FORM_VERSION = '1.11';

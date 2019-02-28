@@ -100,7 +100,6 @@ describe('FormSubmitService', () => {
 
         service.createErrorResponse(code, message);
         service.formResponse$.subscribe((response: FeltReportReponseError) => {
-          console.log(response);
           expect(response.error.code).toEqual(code);
           expect(response.error.message).toEqual(message);
         });

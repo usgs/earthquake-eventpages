@@ -4,12 +4,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';
 
-import { FormSubmitService } from 'app/tell-us/form-submit.service';
-import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { FormLanguageService } from '../form-language.service';
-
 import { TellUsComponent } from './tell-us.component';
+import { EventService } from '@core/event.service';
+import { FormSubmitService } from 'app/tell-us/form-submit.service';
 
 describe('tell-us-tell-us', () => {
   let component: TellUsComponent;

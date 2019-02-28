@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockComponent } from 'ng2-mock-component';
 
-import { WindowRef } from '@shared/window-ref-wrapper';
 import { SuccessResponseComponent } from './success-response.component';
+import { WindowRef } from '@shared/window-ref-wrapper';
 import { MockPipe } from 'app/mock-pipe';
 
 declare let window: any;
