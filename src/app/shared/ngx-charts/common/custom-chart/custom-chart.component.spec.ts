@@ -56,7 +56,8 @@ describe('<ngx-charts-chart>', () => {
       const fixture = TestBed.createComponent(TestComponent);
       fixture.detectChanges();
 
-      const textNode = fixture.debugElement.nativeElement.querySelector('svg p');
+      const textNode = fixture
+          .debugElement.nativeElement.querySelector('svg p');
 
       expect(textNode.textContent).toEqual('ngx-charts is cool!');
     }));

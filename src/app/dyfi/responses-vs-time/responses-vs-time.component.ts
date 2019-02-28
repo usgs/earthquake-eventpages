@@ -21,7 +21,7 @@ export class ResponsesVsTimeComponent implements OnInit {
   dyfiSeries: any;
   gradient = false;
   product: any = null;
-  scaleType = 'linear';
+  xScaleType = 'linear';
   showLegend = false;
   showXAxis = true;
   showXAxisLabel = true;

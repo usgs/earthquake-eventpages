@@ -125,7 +125,7 @@ describe('BubbleLineChartComponent', () => {
     });
 
     it('handles time scale', () => {
-      component.scaleType = 'time';
+      component.xScaleType = 'time';
       const xScale = component.getXScale(XDOMAIN, 100);
 
       expect(xScale(5)).toBe(5);
@@ -165,7 +165,7 @@ describe('BubbleLineChartComponent', () => {
 
     it('handles time scale', () => {
       component.results = [...BUBBLESERIES, ...LINESERIES];
-      component.scaleType = 'time';
+      component.xScaleType = 'time';
 
       const domain = component.getXDomain();
 
@@ -181,7 +181,7 @@ describe('BubbleLineChartComponent', () => {
 
       const domain = component.getYDomain();
 
-      expect(domain[0]).toBe(0);
+      expect(domain[0]).toBe(1);
       expect(domain[1]).toBe(20);
     });
 

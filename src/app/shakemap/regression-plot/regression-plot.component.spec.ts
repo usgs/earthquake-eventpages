@@ -58,7 +58,8 @@ describe('RegressionPlotComponent', () => {
             'xScaleMin',
             'xScaleMax',
             'xAxisTicks',
-            'scaleType'
+            'xScaleType',
+            'yScaleType'
           ],
           selector: 'bubble-line-chart-component'
         }),

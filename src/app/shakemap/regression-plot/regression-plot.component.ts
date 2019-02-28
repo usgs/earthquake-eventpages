@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { EventService } from '@core/event.service';
 import { StationService } from '@core/station.service';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'shakemap-regression-plot',
@@ -41,10 +42,11 @@ export class RegressionPlotComponent implements OnInit {
     {key: 'intensity', display: 'MMI', plot: 'Intensity (MMI)'}
   ];
   product: any = null;
-  scaleType = 'log';
   subs = new Subscription();
   xAxisLabel = 'Distance to Rupture Surface (km)';
+  xScaleType = 'log';
   yAxisLabel = 'Peak Ground Acceleration (%g)';
+  yScaleType = 'log';
 
   constructor (
     public eventService: EventService,
@@ -67,5 +69,4 @@ export class RegressionPlotComponent implements OnInit {
     this.plotY = option.key;
     this.yAxisLabel = option.plot;
   }
-
 }

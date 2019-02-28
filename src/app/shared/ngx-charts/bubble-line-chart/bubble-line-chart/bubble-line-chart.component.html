@@ -29,6 +29,7 @@
         [labelText]="yAxisLabel"
         [showGridLines]="showGridLines"
         [tickFormatting]="yAxisTickFormatting"
+        [ticks]="yAxisTicks"
         (dimensionsChanged)="updateYAxisWidth($event)">
     </svg:g>
     <ng-container *ngIf="bubbleChart as bubbleChart">

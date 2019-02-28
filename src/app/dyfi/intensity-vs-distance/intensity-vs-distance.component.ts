@@ -64,7 +64,6 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
   gradient = false;
   lineSeries: any[] = null;
   product: any = null;
-  scaleType = 'log';
   showLegend = true;
   showXAxis = true;
   showXAxisLabel = true;
@@ -75,6 +74,7 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
   xAxisTicks = [10, 30, 100, 300, 500, 1000];
   xScaleMax = 1000;
   xScaleMin = 5;
+  xScaleType = 'log';
   yAxisLabel = 'Intensity (mmi)';
 
 

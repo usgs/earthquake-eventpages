@@ -20,6 +20,7 @@ import {
 } from '@swimlane/ngx-charts';
 import { scaleLinear, scaleLog, scaleTime } from 'd3-scale';
 import { curveLinear } from 'd3-shape';
+import { ValueTransformer } from '@angular/compiler/src/util';
 
 
 /**
@@ -41,7 +42,6 @@ import { curveLinear } from 'd3-shape';
  * @param minRadius
  * @param rangeFillOpacity
  * @param roundDomains
- * @param scaleType
  * @param schemeType
  * @param scheme
  * @param showGridLines
@@ -53,12 +53,13 @@ import { curveLinear } from 'd3-shape';
  * @param xAxisLabel;
  * @param xScaleMax
  * @param xScaleMin
+ * @param xScaleType
  * @param yAxis
  * @param yAxisLabel;
- * @param yAxisLabelRigh
- * @param yAxisTickFormatting
+ * @param yAxisLabelRight
  * @param yScaleMin
  * @param yScaleMax
+ * @param yScaleType
  * @param yLeftAxisScaleFactor
  */
 @Component({
@@ -138,7 +139,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Input()
   roundDomains = false;
   @Input()
-  scaleType = 'linear';
+  xScaleType = 'linear';
   @Input()
   schemeType: string;
   @Input()
@@ -170,11 +171,13 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Input()
   yAxisLabelRight;
   @Input()
-  yAxisTickFormatting: any;
+  yAxisTicks: number[] = null;
   @Input()
   yScaleMin = 0;
   @Input()
   yScaleMax: number;
+  @Input()
+  yScaleType = 'linear';
   @Input()
   yLeftAxisScaleFactor: any;
 
@@ -238,8 +241,23 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    * Remove custom ticks that fall outside the domain
    */
   filterXTicks() {
-    return this.xAxisTicks.filter(tick => {
-      return tick >= this.xDomain[0] && tick <= this.xDomain[1];
+    return this.xAxisTicks.filter((tick, pos) => {
+      return tick >= this.xDomain[0] &&
+          tick <= this.xDomain[1] &&
+          this.xAxisTicks.indexOf(tick) === pos;
+    });
+  }
+
+
+  /**
+   * Remove custom ticks that fall outside the domain
+   */
+  filterYTicks() {
+    return this.yAxisTicks.filter((tick, pos) => {
+      return tick >= this.yDomain[0] &&
+          tick <= this.yDomain[1] &&
+          this.yAxisTicks.indexOf(tick) === pos &&
+          tick > 0;
     });
   }
 
@@ -351,11 +369,15 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    * Returns 6 values evenly spaced on the log axis
    */
   getXAxisTicks () {
+    if (!this.xDomain) {
+      return [];
+    }
+
     let lowerDomain = this.xDomain[0];
     const upperDomain = this.xDomain[1];
 
-    if (lowerDomain < 1) {
-      lowerDomain = 1;
+    if (lowerDomain === 0) {
+      lowerDomain = .00001;
     }
 
     const logLower = Math.log(lowerDomain);
@@ -373,6 +395,62 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       tick = Math.round(Math.E ** val / mod) * mod;
       between.push(tick);
       val += logInterval;
+    }
+
+    return [...between];
+  }
+
+    /**
+   * Returns 6 values evenly spaced on the log axis
+   */
+  getYAxisTicks () {
+    if (!this.yDomain) {
+      return [];
+    }
+
+    let lowerDomain = this.yDomain[0];
+    const upperDomain = this.yDomain[1];
+
+    if (lowerDomain === 0) {
+      lowerDomain = .000001;
+    }
+
+    const pointCount = 10;
+
+    let lower, upper;
+    if (this.yScaleType === 'log') {
+      lower = Math.log(lowerDomain);
+      upper = Math.log(upperDomain);
+    } else {
+      lower = lowerDomain;
+      upper = upperDomain;
+    }
+
+    const interval = (upper - lower) / pointCount;
+    upper += upper;
+
+    let val = lower;
+    const between = [];
+    let tick;
+    while (val < upper) {
+      tick = this.yScaleType === 'log' ? Math.E ** val : val;
+      // round the tick by some modifying number
+      const mod = tick < 0 ? .005 :
+          tick < .1 ? .01 :
+          tick < 1 ? .1 :
+          tick < 10 ? 1 :
+          tick < 20 ? 5 : 10;
+
+        tick = Math.round(tick / mod) * mod;
+
+      between.push(tick);
+      val += interval;
+    }
+
+    if (!this.autoScale &&
+          this.xScaleMax &&
+          between.indexOf(this.xScaleMax) < 0) {
+      between.push(this.xScaleMax);
     }
 
     return [...between];
@@ -424,11 +502,11 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   getXScale (domain, width): any {
     let scale;
 
-    if (this.scaleType === 'time') {
+    if (this.xScaleType === 'time') {
       scale = scaleTime()
         .range([0, width])
         .domain(domain);
-    } else if (this.scaleType === 'linear') {
+    } else if (this.xScaleType === 'linear') {
       scale = scaleLinear()
         .range([0, width])
         .domain(domain);
@@ -436,7 +514,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       if (this.roundDomains) {
         scale = scale.nice();
       }
-    } else if (this.scaleType === 'log') {
+    } else if (this.xScaleType === 'log') {
       scale = scaleLog()
         .range([0, width])
         .domain(domain);
@@ -484,10 +562,6 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       max = Math.max(...values);
     }
 
-    if (this.autoScale) {
-      min = Math.min(0, min);
-    }
-
     return [min, max];
   }
 
@@ -499,9 +573,21 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    *    Height of the chart
    */
   getYScale (domain, height): any {
-    const scale = scaleLinear()
-      .range([height, 0])
-      .domain(domain);
+    let scale;
+
+    if (this.yScaleType === 'log') {
+      if (domain[0] === 0) {
+        domain[0] = .0001;
+      }
+
+      scale = scaleLog()
+        .range([height, 0])
+        .domain(domain);
+    } else {
+      scale = scaleLinear()
+        .range([height, 0])
+        .domain(domain);
+    }
 
     return this.roundDomains ? scale.nice() : scale;
   }
@@ -627,14 +713,16 @@ export class BubbleLineChartComponent extends BaseChartComponent {
 
     // line chart
     this.xDomain = this.getXDomain();
-
     if (!this.xAxisTicks) {
       this.xAxisTicks = this.getXAxisTicks();
     }
-
     this.xAxisTicks = this.filterXTicks();
 
     this.yDomain = this.getYDomain();
+    this.yAxisTicks = this.getYAxisTicks();
+
+    this.yAxisTicks = this.filterYTicks();
+
     this.rDomain = this.getRDomain();
     this.seriesDomain = this.getSeriesDomain();
 
@@ -687,5 +775,14 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    */
   xAxisTickFormatting (value) {
     return value;
+  }
+
+  /**
+   * Returns the tick format value of the chart
+   * @param value
+   *    The value of the x axis tick
+   */
+  yAxisTickFormatting (value) {
+    return Math.round(value * 100) / 100;
   }
 }

@@ -91,7 +91,7 @@ describe('IntensityVsDistanceComponent', () => {
             'xScaleMin',
             'xScaleMax',
             'xAxisTicks',
-            'scaleType'
+            'xScaleType'
           ],
           selector: 'bubble-line-chart-component'
         }),

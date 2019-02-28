@@ -4,7 +4,7 @@
     <div class="chart-container">
       <bubble-line-chart-component
           [animations]="true"
-          [autoScale]="true"
+          [autoScale]="false"
           [scheme]="colorScheme"
           [colorSchemeLine]="colorScheme"
           [customColors]="customColors"
@@ -15,12 +15,13 @@
           [xAxis]="true"
           [yAxis]="true"
           [legend]="true"
-          [scaleType]="scaleType"
+          [xScaleType]="xScaleType"
           [showGridLines]="true"
           [showXAxisLabel]="true"
           [showYAxisLabel]="true"
           [xAxisLabel]="xAxisLabel"
-          [yAxisLabel]="yAxisLabel">
+          [yAxisLabel]="yAxisLabel"
+          [yScaleType]="yScaleType">
       </bubble-line-chart-component>
     </div>
   </ng-container>
