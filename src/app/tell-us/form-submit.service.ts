@@ -20,7 +20,7 @@ export class FormSubmitService {
   >(null);
   responseUrl = environment.DYFI_RESPONSE_URL;
 
-  constructor(public httpClient: HttpClient, public windowRef: WindowRef) {}
+  constructor(public httpClient: HttpClient) {}
 
   /**
    * Generate a FeltReportResponseError and update the formResponse$
@@ -94,13 +94,11 @@ export class FormSubmitService {
               : 'Server Error';
             this.createErrorResponse(code, message);
           }
-          this.windowRef.nativeWindow.scrollTo(0, 0);
         });
     } else {
       const code = 400;
       const message = 'Error, invalid form entry';
       this.createErrorResponse(code, message);
-      this.windowRef.nativeWindow.scrollTo(0, 0);
     }
   }
 }
