@@ -5,7 +5,6 @@ import {
   HttpTestingController
 } from '@angular/common/http/testing';
 
-import { WindowRef } from './../shared/window-ref-wrapper';
 import { FormSubmitService } from './form-submit.service';
 import { FeltReport } from './felt-report';
 import { FeltReportResponse } from './felt-report-response';
@@ -101,7 +100,6 @@ describe('FormSubmitService', () => {
 
         service.createErrorResponse(code, message);
         service.formResponse$.subscribe((response: FeltReportReponseError) => {
-          console.log(response);
           expect(response.error.code).toEqual(code);
           expect(response.error.message).toEqual(message);
         });
