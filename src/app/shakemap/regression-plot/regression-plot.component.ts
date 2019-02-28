@@ -32,10 +32,6 @@ export class RegressionPlotComponent implements OnInit {
     {name: 'Seismic Stations', value:'#94dfea'},
     {name: 'DYFI Stations', value:'#94dfea'}
   ];
-  customLegendOptions = [
-    {name: 'Seismic Stations', options: {shape: 'triangle'}},
-    {name: 'DYFI Stations', options: {shape: 'circle'}}
-  ];
   lineSeries: any[] = null;
   plotX = 'distance';
   plotY = 'pga';

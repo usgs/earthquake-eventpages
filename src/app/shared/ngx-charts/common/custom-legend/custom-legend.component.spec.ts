@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MockComponent } from 'ng2-mock-component';
 
 import { CustomLegendComponent } from './custom-legend.component';
 
@@ -8,7 +9,20 @@ describe('CustomLegendComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomLegendComponent ]
+      declarations: [
+        CustomLegendComponent,
+
+        MockComponent({
+          inputs: [
+            'label',
+            'formattedLabel',
+            'color',
+            'shape',
+            'isActive'
+          ],
+          selector: 'ngx-charts-custom-legend-entry'
+        }),
+      ]
     })
     .compileComponents();
   }));

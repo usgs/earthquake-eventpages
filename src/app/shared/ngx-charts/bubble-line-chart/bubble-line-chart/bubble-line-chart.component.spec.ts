@@ -33,13 +33,13 @@ describe('BubbleLineChartComponent', () => {
 
         MockComponent({
           inputs: [
-            'view',
-            'showLegend',
-            'legendOptions',
-            'activeEntries',
-            'animations'
+              'view',
+              'showLegend',
+              'legendOptions',
+              'activeEntries',
+              'animations'
           ],
-          selector: 'ngx-charts-chart'
+          selector: 'ngx-charts-custom-chart'
         }),
         MockComponent({
           inputs: [
@@ -142,8 +142,7 @@ describe('BubbleLineChartComponent', () => {
 
   describe('getXDomain', () => {
     it('Autosets', () => {
-      component.bubbleChart = BUBBLESERIES;
-      component.lineChart = LINESERIES;
+      component.results = [...BUBBLESERIES, ...LINESERIES];
       component.autoScale = true;
 
       const domain = component.getXDomain();
@@ -153,8 +152,7 @@ describe('BubbleLineChartComponent', () => {
     });
 
     it('Uses max/min x values', () => {
-      component.bubbleChart = BUBBLESERIES;
-      component.lineChart = LINESERIES;
+      component.results = [...BUBBLESERIES, ...LINESERIES];
 
       component.xScaleMin = -5;
       component.xScaleMax = 100;
@@ -166,8 +164,7 @@ describe('BubbleLineChartComponent', () => {
     });
 
     it('handles time scale', () => {
-      component.bubbleChart = BUBBLESERIES;
-      component.lineChart = LINESERIES;
+      component.results = [...BUBBLESERIES, ...LINESERIES];
       component.scaleType = 'time';
 
       const domain = component.getXDomain();
@@ -179,8 +176,7 @@ describe('BubbleLineChartComponent', () => {
 
   describe('getYDomain', () => {
     it('Autosets', () => {
-      component.bubbleChart = BUBBLESERIES;
-      component.lineChart = LINESERIES;
+      component.results = [...BUBBLESERIES, ...LINESERIES];
       component.autoScale = true;
 
       const domain = component.getYDomain();
@@ -190,8 +186,7 @@ describe('BubbleLineChartComponent', () => {
     });
 
     it('Uses yScaleMax', () => {
-      component.bubbleChart = BUBBLESERIES;
-      component.lineChart = LINESERIES;
+      component.results = [...BUBBLESERIES, ...LINESERIES];
       component.autoScale = false;
       component.yScaleMax = 10;
 
@@ -200,8 +195,7 @@ describe('BubbleLineChartComponent', () => {
     });
 
     it('Uses yScaleMin', () => {
-      component.bubbleChart = BUBBLESERIES;
-      component.lineChart = LINESERIES;
+      component.results = [...BUBBLESERIES, ...LINESERIES];
       component.autoScale = false;
       component.yScaleMin = -1;
 
@@ -216,7 +210,7 @@ describe('BubbleLineChartComponent', () => {
       const domain = component.getRDomain();
 
       expect(domain[0]).toBe(1);
-      expect(domain[1]).toBe(1);
+      expect(domain[1]).toBe(10);
     });
   });
 
