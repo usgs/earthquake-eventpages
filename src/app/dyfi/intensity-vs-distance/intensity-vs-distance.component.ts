@@ -76,6 +76,7 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
   xScaleMin = 5;
   xScaleType = 'log';
   yAxisLabel = 'Intensity (mmi)';
+  yAxisTicks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 
   constructor (
@@ -170,6 +171,7 @@ export class IntensityVsDistanceComponent implements OnInit, OnDestroy {
 
     if (product.properties.maxmmi <= 4) {
       this.xScaleMax = 500;
+      this.xAxisTicks.pop();
     }
   }
 }

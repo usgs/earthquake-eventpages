@@ -1,6 +1,6 @@
 <ng-container *ngIf="stationService?.stationsJson$ | async; let stations">
   <ng-container *ngIf="stations">
-    <h2 class="plot-title">Shakemap Regression Plot</h2>
+    <h2 class="plot-title">Regression Plot</h2>
     <div class="chart-container">
       <bubble-line-chart-component
           [animations]="true"
@@ -9,7 +9,7 @@
           [colorSchemeLine]="colorScheme"
           [customColors]="customColors"
           [lineChartTooltip]="false"
-          [bubbleChart]="stations.features | plotStations:plotX:plotY"
+          [bubbleChart]="stations.features | plotStations:plotting.x.type:plotting.y.type:residual"
           [tooltipDisabled]="false"
           [gradient]="true"
           [xAxis]="true"
@@ -19,22 +19,68 @@
           [showGridLines]="true"
           [showXAxisLabel]="true"
           [showYAxisLabel]="true"
-          [xAxisLabel]="xAxisLabel"
-          [yAxisLabel]="yAxisLabel"
+          [xAxisLabel]="plotting.x.label"
+          [yAxisLabel]="plotting.y.label"
           [yScaleType]="yScaleType">
       </bubble-line-chart-component>
     </div>
   </ng-container>
 </ng-container>
 
-<mat-form-field>
-  <mat-select placeholder="Y-Axis Options">
-    <mat-option 
-        *ngFor="let option of plotYOptions"
-        [value]="option.display"
-        (click)="setYAxis(option)">
-      {{ option.display }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<div class="axis-options">
+  <h3>Y-Axis Options</h3>
 
+  <form>
+    <mat-form-field>
+      <mat-select placeholder="Y-Axis IMT"
+          [(ngModel)]="plotting.y"
+          name="plottingY">
+        <mat-option 
+            *ngFor="let option of plotYOptions"
+            [value]="option">
+          {{ option.display }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Y-Axis Scale"
+          [(ngModel)]="yScaleType"
+          name="yScaleType">
+        <mat-option 
+            *ngFor="let option of axisScaleOptions"
+            [value]="option.scaleType">
+          {{ option.display }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+
+<div class="axis-options">
+<h3>X-Axis Options</h3>
+<form>
+  <mat-form-field>
+      <mat-select placeholder="Distance Type"
+          [(ngModel)]="plotting.x"
+          name="plottingX">
+        <mat-option 
+            *ngFor="let option of plotXOptions"
+            [value]="option">
+          {{ option.display }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="X-Axis Scale"
+          [(ngModel)]="xScaleType"
+          name="xScaleType">
+        <mat-option 
+            *ngFor="let option of axisScaleOptions"
+            [value]="option.scaleType">
+          {{ option.display }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>

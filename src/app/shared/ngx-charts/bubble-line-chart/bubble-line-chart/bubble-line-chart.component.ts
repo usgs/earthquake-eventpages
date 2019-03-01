@@ -115,6 +115,8 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Input()
   customLegendOptions;
   @Input()
+  customTicks = false;
+  @Input()
   curve = curveLinear;
   @Input()
   errorBarColor = '#000000';
@@ -365,60 +367,24 @@ export class BubbleLineChartComponent extends BaseChartComponent {
         .map(d => d.name );
   }
 
-  /**
-   * Returns 6 values evenly spaced on the log axis
-   */
-  getXAxisTicks () {
-    if (!this.xDomain) {
-      return [];
-    }
-
-    let lowerDomain = this.xDomain[0];
-    const upperDomain = this.xDomain[1];
-
-    if (lowerDomain === 0) {
-      lowerDomain = .00001;
-    }
-
-    const logLower = Math.log(lowerDomain);
-    const logUpper = Math.log(upperDomain);
-
-    const interval = (upperDomain - lowerDomain) / 6;
-    const logInterval = (logUpper - logLower) / 6;
-
-    const mod = interval > 15 ? 10 : interval > 10 ? 5 : 1;
-    let val = logLower + logInterval;
-    const between = [];
-    let tick;
-    while (val < logUpper) {
-      // round the tick by some modifying number (5 or 10)
-      tick = Math.round(Math.E ** val / mod) * mod;
-      between.push(tick);
-      val += logInterval;
-    }
-
-    return [...between];
-  }
-
     /**
    * Returns 6 values evenly spaced on the log axis
    */
-  getYAxisTicks () {
-    if (!this.yDomain) {
+  getTicks (domain, scaleType, min, max) {
+    if (!domain) {
       return [];
     }
 
-    let lowerDomain = this.yDomain[0];
-    const upperDomain = this.yDomain[1];
+    let lowerDomain = domain[0];
+    const upperDomain = domain[1];
 
     if (lowerDomain === 0) {
       lowerDomain = .000001;
     }
 
     const pointCount = 10;
-
     let lower, upper;
-    if (this.yScaleType === 'log') {
+    if (scaleType === 'log') {
       lower = Math.log(lowerDomain);
       upper = Math.log(upperDomain);
     } else {
@@ -427,30 +393,37 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     }
 
     const interval = (upper - lower) / pointCount;
-    upper += upper;
+    const linearInterval = (upperDomain - lowerDomain) / pointCount;
+    upper += interval;
 
     let val = lower;
     const between = [];
     let tick;
     while (val < upper) {
-      tick = this.yScaleType === 'log' ? Math.E ** val : val;
+      tick = scaleType === 'log' ? Math.E ** val : val;
       // round the tick by some modifying number
-      const mod = tick < 0 ? .005 :
-          tick < .1 ? .01 :
-          tick < 1 ? .1 :
+      const mod = tick < .001 ? .0005 :
+          interval < 0 || tick < .01 ? .00 :
+          linearInterval < .1 || tick < .1 ? .01 :
+          linearInterval < .5 ? .1 :
+          linearInterval < 1 ? .5 :
           tick < 10 ? 1 :
           tick < 20 ? 5 : 10;
 
-        tick = Math.round(tick / mod) * mod;
+      tick = Math.round(tick / mod) * mod;
 
       between.push(tick);
       val += interval;
     }
 
-    if (!this.autoScale &&
-          this.xScaleMax &&
-          between.indexOf(this.xScaleMax) < 0) {
-      between.push(this.xScaleMax);
+    if (max &&
+          between.indexOf(max) < 0) {
+      between.push(max);
+    }
+
+    if (min &&
+      between.indexOf(min) < 0) {
+      between.unshift(min);
     }
 
     return [...between];
@@ -713,15 +686,25 @@ export class BubbleLineChartComponent extends BaseChartComponent {
 
     // line chart
     this.xDomain = this.getXDomain();
-    if (!this.xAxisTicks) {
-      this.xAxisTicks = this.getXAxisTicks();
-    }
-    this.xAxisTicks = this.filterXTicks();
-
     this.yDomain = this.getYDomain();
-    this.yAxisTicks = this.getYAxisTicks();
 
-    this.yAxisTicks = this.filterYTicks();
+    if (!this.customTicks) {
+      this.xAxisTicks = this.getTicks(
+        this.xDomain,
+        this.xScaleType,
+        this.xScaleMin,
+        this.xScaleMax
+      );
+      this.xAxisTicks = this.filterXTicks();
+
+      this.yAxisTicks = this.getTicks(this.yDomain,
+        this.yScaleType,
+        this.yScaleMin,
+        this.yScaleMax
+      );
+
+      this.yAxisTicks = this.filterYTicks();
+    }
 
     this.rDomain = this.getRDomain();
     this.seriesDomain = this.getSeriesDomain();
@@ -774,7 +757,8 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    *    The value of the x axis tick
    */
   xAxisTickFormatting (value) {
-    return value;
+    const mult = Math.pow(10, 3 - Math.floor(Math.log(value) / Math.LN10) - 1);
+    return Math.round(value * mult) / mult;
   }
 
   /**
@@ -783,6 +767,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    *    The value of the x axis tick
    */
   yAxisTickFormatting (value) {
-    return Math.round(value * 100) / 100;
+    const mult = Math.pow(10, 3 - Math.floor(Math.log(value) / Math.LN10) - 1);
+    return Math.round(value * mult) / mult;
   }
 }

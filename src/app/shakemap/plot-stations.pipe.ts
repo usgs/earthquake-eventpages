@@ -5,12 +5,31 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PlotStationsPipe implements PipeTransform {
 
-  transform(stations: any, plotX: string, plotY: string): any {
+  getResidual(props, imt) {
+    const predictions = props.predictions;
+
+    let residual = 0;
+    if (props[imt]) {
+      const measured = props[imt];
+      // rename imt to match predictions entry (only for intensity)
+      imt = 'intensity' ? 'mmi' : imt;
+
+      for (const pred of predictions) {
+        if (pred.name === imt) {
+          residual = measured - pred.value;
+        }
+      }
+    }
+
+    return Math.abs(residual);
+  }
+
+  transform(stations: any, plotX: string, plotY: string, residual=false): any {
     const smStations = [];
     const dyfiStations = [];
     stations.forEach(station => {
       const props = station.properties;
-      const x = props[plotX];
+      const x = props.distances[plotX];
       const y = props[plotY];
 
       if (x && y) {
@@ -24,6 +43,12 @@ export class PlotStationsPipe implements PipeTransform {
           'x': x,
           'y': y
         };
+
+        if (residual) {
+          const res = this.getResidual(station.properties, plotY);
+          plotStation.y = res;
+          plotStation.value = res;
+        }
 
         if (
           props.network === 'DYFI' ||
@@ -55,5 +80,4 @@ export class PlotStationsPipe implements PipeTransform {
       }
     ];
   }
-
 }

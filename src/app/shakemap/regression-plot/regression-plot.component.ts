@@ -11,6 +11,10 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
   templateUrl: './regression-plot.component.html'
 })
 export class RegressionPlotComponent implements OnInit {
+  axisScaleOptions = [
+    {display: 'Log', scaleType: 'log'},
+    {display: 'Linear', scaleType: 'linear'}
+  ];
   classOptions = {
     smStations: {
       color: '#94dfea',
@@ -34,14 +38,21 @@ export class RegressionPlotComponent implements OnInit {
     {name: 'DYFI Stations', value:'#94dfea'}
   ];
   lineSeries: any[] = null;
-  plotX = 'distance';
-  plotY = 'pga';
+  plotting: any = {x: {}, y: {}};
+  plotXOptions = [
+    {type: 'rrup', display: 'RRup', label: 'Rupture Distance (km)'},
+    {type: 'rrup_var', display: 'RRUP_var', label: 'RJB (km)'},
+    {type: 'rjb', display: 'RJB', label: 'RJB (km)'},
+    {type: 'rjb_var', display: 'RJB_var', label: 'RJB (km)'},
+    {type: 'rhypo', display: 'RHYPO', label: 'Hypocentral Distance (km)'}
+  ];
   plotYOptions = [
-    {key: 'pga', display: 'PGA', plot: 'Peak Ground Acceleration %g'},
-    {key: 'pgv', display: 'PGV', plot: 'Peak Ground Velocity m/s'},
-    {key: 'intensity', display: 'MMI', plot: 'Intensity (MMI)'}
+    {type: 'pga', display: 'PGA', label: 'Peak Ground Acceleration %g'},
+    {type: 'pgv', display: 'PGV', label: 'Peak Ground Velocity m/s'},
+    {type: 'intensity', display: 'MMI', label: 'Intensity (MMI)'}
   ];
   product: any = null;
+  residual = false;
   subs = new Subscription();
   xAxisLabel = 'Distance to Rupture Surface (km)';
   xScaleType = 'log';
@@ -51,7 +62,10 @@ export class RegressionPlotComponent implements OnInit {
   constructor (
     public eventService: EventService,
     public stationService: StationService
-  ) {}
+  ) {
+    this.plotting.x = this.plotXOptions[0];
+    this.plotting.y = this.plotYOptions[0];
+  }
 
   ngOnInit () {
     this.subs.add(
@@ -63,10 +77,5 @@ export class RegressionPlotComponent implements OnInit {
 
   onShakemap (shakemap) {
     this.stationService.getStations(shakemap);
-  }
-
-  setYAxis(option) {
-    this.plotY = option.key;
-    this.yAxisLabel = option.plot;
   }
 }

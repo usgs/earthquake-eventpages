@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
@@ -54,6 +55,7 @@ import { PlotStationsPipe } from './plot-stations.pipe';
   exports: [StationListComponent, MetadataComponent],
   imports: [
     CommonModule,
+    FormsModule,
     NgxChartsModule,
     MatButtonModule,
     MatCardModule,
