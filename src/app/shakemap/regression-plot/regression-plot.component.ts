@@ -41,9 +41,9 @@ export class RegressionPlotComponent implements OnInit {
   plotting: any = {x: {}, y: {}};
   plotXOptions = [
     {type: 'rrup', display: 'RRup', label: 'Rupture Distance (km)'},
-    {type: 'rrup_var', display: 'RRUP_var', label: 'RJB (km)'},
+    {type: 'rrup_var', display: 'RRUP_var', label: 'RRUP_var (km)'},
     {type: 'rjb', display: 'RJB', label: 'RJB (km)'},
-    {type: 'rjb_var', display: 'RJB_var', label: 'RJB (km)'},
+    {type: 'rjb_var', display: 'RJB_var', label: 'RJB_var (km)'},
     {type: 'rhypo', display: 'RHYPO', label: 'Hypocentral Distance (km)'}
   ];
   plotYOptions = [
@@ -52,7 +52,7 @@ export class RegressionPlotComponent implements OnInit {
     {type: 'intensity', display: 'MMI', label: 'Intensity (MMI)'}
   ];
   product: any = null;
-  residual = false;
+  residual = true;
   subs = new Subscription();
   xAxisLabel = 'Distance to Rupture Surface (km)';
   xScaleType = 'log';

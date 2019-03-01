@@ -10,6 +10,7 @@ import {
   MatIconModule,
   MatMenuModule,
   MatSelectModule,
+  MatSlideToggleModule,
   MatSortModule,
   MatTableModule,
   MatTabsModule
@@ -65,6 +66,7 @@ import { PlotStationsPipe } from './plot-stations.pipe';
     MatMenuModule,
     MatIconModule,
     MatSelectModule,
+    MatSlideToggleModule,
     MatSortModule,
     MatTableModule,
     MatTabsModule,

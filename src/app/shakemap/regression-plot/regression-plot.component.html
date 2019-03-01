@@ -1,6 +1,6 @@
 <ng-container *ngIf="stationService?.stationsJson$ | async; let stations">
   <ng-container *ngIf="stations">
-    <h2 class="plot-title">Regression Plot</h2>
+    <h2 class="plot-title">{{ residual ? 'Residual' : 'Regression' }} Plot</h2>
     <div class="chart-container">
       <bubble-line-chart-component
           [animations]="true"
@@ -27,6 +27,9 @@
   </ng-container>
 </ng-container>
 
+<div class="residual-slider">
+  <mat-slide-toggle [(ngModel)]="residual">Residual View</mat-slide-toggle>
+</div>
 <div class="axis-options">
   <h3>Y-Axis Options</h3>
 
