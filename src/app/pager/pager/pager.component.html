@@ -2,11 +2,11 @@
 <product-page productType="losspager" [showVersion]="true">
   <!-- container with header attribute is added before attribution -->
   <ng-container header>
-    <h3>
+    <h2>
       <abbr title="Prompt Assessment of Global Earthquakes for Response">
         PAGER
       </abbr>
-    </h3>
+    </h2>
   </ng-container>
   <ng-container
     *ngIf="(eventService?.event$ | async) as event"

@@ -1,10 +1,10 @@
 <!-- productType attribute defines type of product to load -->
 <product-page productType="oaf" [showAllProducts]="false">
   <!-- container with header attribute is added before attribution -->
-  <ng-container header> <h2>Aftershock Forecast</h2> </ng-container>
+  <ng-container header><h2>Aftershock Forecast</h2></ng-container>
 
   <ng-container
-    *ngIf="(eventService.product$ | async) as product; else: noProduct"
+    *ngIf="(eventService.product$ | async) as product; else noProduct"
   >
     <div class="horizontal-scrolling mat-tab-wrapper">
       <!-- routes/components in ../oaf-routing.module.ts -->
