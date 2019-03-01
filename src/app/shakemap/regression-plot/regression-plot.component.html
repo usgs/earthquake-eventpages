@@ -1,5 +1,5 @@
 <ng-container *ngIf="stationService?.stationsJson$ | async; let stations">
-  <ng-container *ngIf="stations">
+  <ng-container *ngIf="stations && stations[0]?.properties.distances; else noData">
     <h2 class="plot-title">{{ residual ? 'Residual' : 'Regression' }} Plot</h2>
     <div class="chart-container">
       <bubble-line-chart-component
@@ -24,8 +24,6 @@
           [yScaleType]="yScaleType">
       </bubble-line-chart-component>
     </div>
-  </ng-container>
-</ng-container>
 
 <div class="residual-slider">
   <mat-slide-toggle [(ngModel)]="residual">Residual View</mat-slide-toggle>
@@ -35,7 +33,7 @@
 
   <form>
     <mat-form-field>
-      <mat-select placeholder="Y-Axis IMT"
+      <mat-select placeholder="Intensity Measure"
           [(ngModel)]="plotting.y"
           name="plottingY">
         <mat-option 
@@ -87,3 +85,10 @@
     </mat-form-field>
   </form>
 </div>
+
+  </ng-container>
+</ng-container>
+
+<ng-template #noData>
+  The propper data is not available for this plot
+</ng-template>
