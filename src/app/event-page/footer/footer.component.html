@@ -1,7 +1,7 @@
 <footer>
-  <ng-container *ngIf="contributors !== false">
+  <ng-container *ngIf="contributors">
     <h3>Contributors</h3>
-    <ol [innerHTML]="event | contributorList:contributors"></ol>
+    <ol [innerHTML]="event | contributorList: contributors"></ol>
   </ng-container>
 
   <h3>Additional Information</h3>
@@ -9,12 +9,12 @@
     <!-- TODO :: Scenario mode -->
     <li>
       <a href="/data/comcat/">
-      ANSS Comprehensive Earthquake Catalog (ComCat) Documentation
+        ANSS Comprehensive Earthquake Catalog (ComCat) Documentation
       </a>
     </li>
     <li>
       <a href="/data/comcat/data-eventterms.php">
-      Technical terms used on event pages
+        Technical terms used on event pages
       </a>
     </li>
   </ul>
