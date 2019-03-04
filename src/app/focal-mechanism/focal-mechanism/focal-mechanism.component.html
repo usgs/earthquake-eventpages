@@ -1,7 +1,7 @@
 <!-- productType attribute defines type of product to load -->
 <product-page productType="focal-mechanism">
   <!-- container with header attribute is added before attribution -->
-  <ng-container header> <h2>Focal Mechanism</h2> </ng-container>
+  <ng-container header><h2>Focal Mechanism</h2></ng-container>
   <ng-container
     *ngIf="(eventService?.event$ | async) as event"
     summary-component
@@ -16,7 +16,7 @@
   <ng-container
     *ngIf="
       (eventService.product$ | async | sharedTensor) as tensor;
-      else: noTensor
+      else noTensor
     "
   >
     <div class="row">

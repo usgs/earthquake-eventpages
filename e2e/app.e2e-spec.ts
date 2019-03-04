@@ -13,12 +13,7 @@ describe('earthquake-eventpages App', () => {
   });
 
   it('should display actual event title', () => {
-    // mock response for event data to e2e/data/us1000chhc.geojson
-    // browser.ngApimock.selectScenario('eventService', 'us1000chhc');
-
-    page.navigateTo('/us1000chhc');
-    expect(page.getMainPageHeaderTitle()).toEqual(
-      'M 6.4 - 18km NNE of Hualian, Taiwan'
-    );
+    page.navigateTo(`/${page.EVENT_ID_1}`);
+    expect(page.getMainPageHeaderTitle()).toMatch(/^M \d.\d - \d+km .* of .*$/);
   });
 });
