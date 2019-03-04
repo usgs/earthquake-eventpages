@@ -29,8 +29,8 @@ export class PlotStationsPipe implements PipeTransform {
     const dyfiStations = [];
     stations.forEach(station => {
       const props = station.properties;
-      const x = props.distances[plotX];
       const y = props[plotY];
+      const x = props.distances ? props.distances[plotX] : props.distance;
 
       if (x && y) {
         const plotStation = {

@@ -10,7 +10,7 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
   styleUrls: ['./regression-plot.component.scss'],
   templateUrl: './regression-plot.component.html'
 })
-export class RegressionPlotComponent implements OnInit {
+export class RegressionPlotComponent implements OnInit, OnDestroy {
   axisScaleOptions = [
     {display: 'Log', scaleType: 'log'},
     {display: 'Linear', scaleType: 'linear'}
@@ -52,7 +52,7 @@ export class RegressionPlotComponent implements OnInit {
     {type: 'intensity', display: 'MMI', label: 'Intensity (MMI)'}
   ];
   product: any = null;
-  residual = true;
+  residual = false;
   subs = new Subscription();
   xAxisLabel = 'Distance to Rupture Surface (km)';
   xScaleType = 'log';
@@ -65,6 +65,10 @@ export class RegressionPlotComponent implements OnInit {
   ) {
     this.plotting.x = this.plotXOptions[0];
     this.plotting.y = this.plotYOptions[0];
+  }
+
+  ngOnDestroy () {
+    this.subs.unsubscribe();
   }
 
   ngOnInit () {

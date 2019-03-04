@@ -1,5 +1,5 @@
 <ng-container *ngIf="stationService?.stationsJson$ | async; let stations">
-  <ng-container *ngIf="stations && stations[0]?.properties.distances; else noData">
+  <ng-container *ngIf="stations">
     <h2 class="plot-title">{{ residual ? 'Residual' : 'Regression' }} Plot</h2>
     <div class="chart-container">
       <bubble-line-chart-component
@@ -26,7 +26,11 @@
     </div>
 
 <div class="residual-slider">
-  <mat-slide-toggle [(ngModel)]="residual">Residual View</mat-slide-toggle>
+  <mat-slide-toggle
+      [(ngModel)]="residual"
+      [disabled]="stations[0]?.properties.distances ? false : true">
+    Residual View
+  </mat-slide-toggle>
 </div>
 <div class="axis-options">
   <h3>Y-Axis Options</h3>
@@ -59,10 +63,12 @@
 </div>
 
 <div class="axis-options">
-<h3>X-Axis Options</h3>
-<form>
-  <mat-form-field>
-      <mat-select placeholder="Distance Type"
+  <h3>X-Axis Options</h3>
+  <form>
+    <mat-form-field>
+      <mat-select
+          placeholder="Distance Type"
+          [disabled]="!stations[0]?.properties.distances"
           [(ngModel)]="plotting.x"
           name="plottingX">
         <mat-option 
