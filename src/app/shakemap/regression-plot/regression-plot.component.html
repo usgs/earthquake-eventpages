@@ -21,14 +21,15 @@
           [showYAxisLabel]="true"
           [xAxisLabel]="plotting.x.label"
           [yAxisLabel]="plotting.y.label"
-          [yScaleType]="yScaleType">
+          [yScaleType]="yScaleType"
+          [bubbleTooltipTemplate]="tooltip">
       </bubble-line-chart-component>
     </div>
 
 <div class="residual-slider">
   <mat-slide-toggle
       [(ngModel)]="residual"
-      [disabled]="stations[0]?.properties.distances ? false : true">
+      [disabled]="stations.features[0]?.properties.distances ? false : true">
     Residual View
   </mat-slide-toggle>
 </div>
@@ -68,7 +69,7 @@
     <mat-form-field>
       <mat-select
           placeholder="Distance Type"
-          [disabled]="!stations[0]?.properties.distances"
+          [disabled]="!stations.features[0]?.properties.distances"
           [(ngModel)]="plotting.x"
           name="plottingX">
         <mat-option 
@@ -95,6 +96,11 @@
   </ng-container>
 </ng-container>
 
-<ng-template #noData>
-  The propper data is not available for this plot
+<ng-template #tooltip let-model="model">
+    <shared-station
+        class="shakemap-station-popup"
+        [station]="model.station"
+        [expanded]="true"
+        [channels]="false">
+    </shared-station>
 </ng-template>

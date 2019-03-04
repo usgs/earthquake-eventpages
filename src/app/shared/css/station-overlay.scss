@@ -91,10 +91,11 @@
   }
 }
 
-.leaflet-popup shakemap-station {
+.shakemap-station-popup {
   dl.description-table {
     /* 24px column gaps */
     > dt {
+      color: rgba(0, 0, 0, 0.54);
       flex: 1 40%;
       font-size: 0.88em;
       min-height: auto;
@@ -102,6 +103,7 @@
     }
 
     > dd {
+      color: rgba(0, 0, 0, 0.87);
       flex: 1 60%;
       font-size: 0.88em;
       min-height: auto;

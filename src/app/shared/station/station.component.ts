@@ -22,6 +22,10 @@ export class StationComponent implements OnInit {
   readonly channelsColumns = ['name', 'pga', 'pgv', 'psa03', 'psa10', 'psa30'];
 
   @Input()
+  channels = true;
+  @Input()
+  expanded = false;
+  @Input()
   station: any;
 
   ngOnInit() {

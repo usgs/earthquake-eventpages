@@ -155,7 +155,9 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
    */
   generatePopupContent: function(feature: any) {
     const station = `
-      <shakemap-station station='${JSON.stringify(feature)}'>
+      <shakemap-station
+          class='shakemap-station-popup'
+          station='${JSON.stringify(feature)}'>
       </shakemap-station>
     `;
 
