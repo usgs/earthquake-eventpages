@@ -393,7 +393,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     }
 
     const interval = (upper - lower) / pointCount;
-    const linearInterval = (upperDomain - lowerDomain) / pointCount;
+    const span = upperDomain - lowerDomain;
     upper += interval;
 
     let val = lower;
@@ -403,10 +403,10 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       tick = scaleType === 'log' ? Math.E ** val : val;
       // round the tick by some modifying number
       const mod = tick < .001 ? .0005 :
-          interval < 0 || tick < .01 ? .00 :
-          linearInterval < .1 || tick < .1 ? .01 :
-          linearInterval < .5 ? .1 :
-          linearInterval < 1 ? .5 :
+          interval < 0 || tick < .01 ? .001 :
+          span < .5 ? .05 :
+          span < 1 || tick < .5 ? .1 :
+          span < 3 || tick < 1 ? .5 :
           tick < 10 ? 1 :
           tick < 20 ? 5 : 10;
 
