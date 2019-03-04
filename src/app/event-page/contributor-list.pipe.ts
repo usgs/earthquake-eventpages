@@ -16,8 +16,12 @@ export class ContributorListPipe implements PipeTransform {
    * @returns
    *     Contributors list formatted
    */
-  transform(event: Event, detailsMap = []): string {
+  transform(event: Event, detailsMap): string {
     let sources;
+
+    if (!detailsMap) {
+      detailsMap = [];
+    }
 
     try {
       sources = event.sources || [];
@@ -30,6 +34,7 @@ export class ContributorListPipe implements PipeTransform {
         let details, result;
 
         sourceId = sourceId.toLowerCase();
+
         details = detailsMap.find((item: any) => {
           return (
             item.id === sourceId ||
