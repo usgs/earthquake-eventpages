@@ -52,6 +52,7 @@ export class RegressionPlotComponent implements OnInit, OnDestroy {
     {type: 'intensity', display: 'MMI', label: 'Intensity (MMI)'}
   ];
   product: any = null;
+  ratio = false;
   residual = false;
   subs = new Subscription();
   xScaleType = 'log';

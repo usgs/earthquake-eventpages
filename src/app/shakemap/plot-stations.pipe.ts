@@ -22,7 +22,7 @@ export class PlotStationsPipe implements PipeTransform {
     return null;
   }
 
-  getResidual (props, imt) {
+  getResidual (props, imt, ratio) {
     const predictions = props.predictions;
 
     let residual = 0;
@@ -32,13 +32,23 @@ export class PlotStationsPipe implements PipeTransform {
       imt = 'intensity' ? 'mmi' : imt;
       const predicted = this.getPredictedValue(props, imt);
 
-      residual = measured - predicted;
+      if (ratio) {
+        residual = measured / predicted;
+      } else {
+        residual = measured - predicted;
+      }
     }
 
     return residual;
   }
 
-  transform (stations: any, plotX: string, plotY: string, residual=false): any {
+  transform (
+    stations: any,
+    plotX: string,
+    plotY: string,
+    residual=false,
+    ratio=false
+  ): any {
     const smPredictions = [];
     const smStations = [];
     const dyfiPredictions = [];
@@ -75,7 +85,7 @@ export class PlotStationsPipe implements PipeTransform {
         };
 
         if (residual) {
-          const res = this.getResidual(station.properties, plotY);
+          const res = this.getResidual(station.properties, plotY, ratio);
           plotStation.y = res;
           plotStation.value = res;
         }

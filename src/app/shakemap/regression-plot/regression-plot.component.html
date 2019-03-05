@@ -9,7 +9,8 @@
           [colorSchemeLine]="colorScheme"
           [customColors]="customColors"
           [lineChartTooltip]="false"
-          [bubbleChart]="stations.features | plotStations:plotting.x.type:plotting.y.type:residual"
+          [bubbleChart]="stations.features |
+              plotStations:plotting.x.type:plotting.y.type:residual:ratio"
           [tooltipDisabled]="false"
           [gradient]="true"
           [xAxis]="true"
@@ -20,10 +21,10 @@
           [showGridLines]="true"
           [showXAxisLabel]="true"
           [showYAxisLabel]="true"
-          [symetricalYAxis]="residual"
+          [symetricalYAxis]="residual && !ratio"
           [xAxisLabel]="plotting.x.label"
-          [yAxisLabel]="plotting.y.label"
-          [yScaleType]="residual ? 'linear' : yScaleType"
+          [yAxisLabel]="ratio ? 'Ratio' : plotting.y.label"
+          [yScaleType]="yScaleType"
           [bubbleTooltipTemplate]="tooltip">
       </bubble-line-chart-component>
     </div>
@@ -31,10 +32,29 @@
 <div class="residual-slider">
   <mat-slide-toggle
       [(ngModel)]="residual"
-      [disabled]="stations.features[0]?.properties.distances ? false : true">
+      [disabled]="stations.features[0]?.properties.distances ? false : true"
+      (change)="yScaleType=residual ? 'linear' : 'log'">
     Residual View
   </mat-slide-toggle>
 </div>
+
+<div class="residual-options" *ngIf="residual">
+  <form>
+      <mat-form-field>
+        <mat-select placeholder="Residual Type"
+            [(ngModel)]="ratio"
+            name="residualRatio">
+          <mat-option
+              *ngFor="let option of ['Ratio', 'Difference']"
+              [value]="option==='Ratio'"
+              (click)="yScaleType='linear'">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  </form>
+</div>
+
 <div class="axis-options">
   <h3>Y-Axis Options</h3>
 
@@ -54,7 +74,7 @@
     <mat-form-field>
       <mat-select placeholder="Y-Axis Scale"
           [(ngModel)]="yScaleType"
-          [disabled]="residual"
+          [disabled]="residual && !ratio"
           name="yScaleType">
         <mat-option 
             *ngFor="let option of axisScaleOptions"
