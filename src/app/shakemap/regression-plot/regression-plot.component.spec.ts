@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import {
-  MatSelectModule
+  MatSelectModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -63,11 +65,21 @@ describe('RegressionPlotComponent', () => {
           ],
           selector: 'bubble-line-chart-component'
         }),
+        MockComponent({
+          inputs: [
+            'channels',
+            'expanded',
+            'station'
+          ],
+          selector: 'shared-station'
+        }),
 
         MockPipe('plotStations')
       ],
       imports: [
+        FormsModule,
         MatSelectModule,
+        MatSlideToggleModule,
         NoopAnimationsModule
       ],
       providers: [

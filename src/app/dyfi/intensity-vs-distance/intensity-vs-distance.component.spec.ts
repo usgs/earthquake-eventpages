@@ -68,6 +68,7 @@ describe('IntensityVsDistanceComponent', () => {
             'scheme',
             'colorSchemeLine',
             'customColors',
+            'customTicks',
             'results',
             'animations',
             'bubbleTooltipTemplate',
@@ -91,6 +92,7 @@ describe('IntensityVsDistanceComponent', () => {
             'xScaleMin',
             'xScaleMax',
             'xAxisTicks',
+            'yAxisTicks',
             'xScaleType'
           ],
           selector: 'bubble-line-chart-component'

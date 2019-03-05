@@ -17,7 +17,7 @@ describe('CustomLegendComponent', () => {
             'label',
             'formattedLabel',
             'color',
-            'shape',
+            'icon',
             'isActive'
           ],
           selector: 'ngx-charts-custom-legend-entry'
