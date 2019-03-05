@@ -23,7 +23,7 @@
           [showYAxisLabel]="true"
           [symetricalYAxis]="residual && !ratio"
           [xAxisLabel]="plotting.x.label"
-          [yAxisLabel]="ratio ? 'Ratio' : plotting.y.label"
+          [yAxisLabel]="ratio ? 'Measured / Expected (no units)' : plotting.y.label"
           [yScaleType]="yScaleType"
           [bubbleTooltipTemplate]="tooltip">
       </bubble-line-chart-component>
