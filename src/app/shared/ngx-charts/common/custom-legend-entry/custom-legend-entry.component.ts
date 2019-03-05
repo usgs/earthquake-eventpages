@@ -17,12 +17,14 @@ export class CustomLegendEntryComponent extends LegendEntryComponent {
 
   @Input()
   set icon (icon) {
-    if (icon.shape === 'triangle') {
-      const tri = new Triangle(icon.size);
-      icon.path = tri.path;
-    }
+    if (icon) {
+      if (icon.shape === 'triangle') {
+        const tri = new Triangle(icon.size);
+        icon.path = tri.path;
+      }
 
-    this._icon = icon;
+        this._icon = icon;
+      }
   }
 
   get icon () {

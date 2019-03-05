@@ -12,9 +12,9 @@
   <span
       class="legend-label-color"
       *ngIf="icon.shape === 'circle'">
-    <svg 
+    <svg
         height="12" width="12">
-      <circle 
+      <circle
           [attr.fill]="color"
           [attr.r]="icon.size"
           stroke="black"
@@ -25,7 +25,7 @@
   <span
       class="legend-label-color"
       *ngIf="icon.shape === 'triangle'">
-    <svg 
+    <svg
         height="12" width="12">
       <polygon
           [attr.points]="icon.path"

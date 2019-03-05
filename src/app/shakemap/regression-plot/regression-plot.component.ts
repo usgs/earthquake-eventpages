@@ -35,7 +35,9 @@ export class RegressionPlotComponent implements OnInit, OnDestroy {
   };
   customColors = [
     {name: 'Seismic Stations', value:'#94dfea'},
-    {name: 'DYFI Stations', value:'#94dfea'}
+    {name: 'DYFI Stations', value:'#94dfea'},
+    {name: 'Seismic Station Predictions', value:'#5fce3b'},
+    {name: 'DYFI Station Predictions', value:'#5fce3b'}
   ];
   lineSeries: any[] = null;
   plotting: any = {x: {}, y: {}};

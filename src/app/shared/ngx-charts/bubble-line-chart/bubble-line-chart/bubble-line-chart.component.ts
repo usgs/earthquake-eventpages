@@ -155,6 +155,8 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Input()
   showYAxisLabel;
   @Input()
+  symetricalYAxis;
+  @Input()
   tooltipDisabled = false;
   @Input()
   xAxis;
@@ -538,6 +540,14 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       max = this.yScaleMax;
     } else {
       max = Math.max(...values);
+    }
+
+    if (this.symetricalYAxis) {
+      if (Math.abs(min) > Math.abs(max)) {
+        max = Math.abs(min);
+      } else {
+        min = -Math.abs(max)
+      }
     }
 
     return [min, max];
