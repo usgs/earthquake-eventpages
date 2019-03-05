@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatTableModule } from '@angular/material';
 
-import { EventService } from '@core/event.service';
+import { MockComponent } from 'ng2-mock-component';
+
 import { MockPipe } from '../../mock-pipe';
 import { OafService } from '../oaf.service';
 import { ForecastComponent } from './forecast.component';
@@ -11,10 +11,6 @@ describe('ForecastComponent', () => {
   let fixture: ComponentFixture<ForecastComponent>;
 
   beforeEach(async(() => {
-    const eventServiceStub = {
-      getProduct: jasmine.createSpy('eventService::getProduct')
-    };
-
     const oafServiceStub = {
       getProduct: jasmine.createSpy('eventService::getOaf')
     };
@@ -22,18 +18,17 @@ describe('ForecastComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ForecastComponent,
-
-        MockPipe('oafPercent'),
         MockPipe('sharedDateTime'),
-        MockPipe('sharedNumberWithSeparator'),
-        MockPipe('sharedRoundDown'),
-        MockPipe('sharedRoundUp')
+        MockComponent({
+          inputs: ['forecast'],
+          selector: 'forecast-probability-table'
+        }),
+        MockComponent({
+          inputs: ['forecast'],
+          selector: 'forecast-number-table'
+        })
       ],
-      imports: [MatTableModule],
-      providers: [
-        { provide: EventService, useValue: eventServiceStub },
-        { provide: OafService, useValue: oafServiceStub }
-      ]
+      providers: [{ provide: OafService, useValue: oafServiceStub }]
     }).compileComponents();
   }));
 

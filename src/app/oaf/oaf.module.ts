@@ -14,6 +14,8 @@ import { OafRoutingModule } from './oaf-routing.module';
 import { OafService } from './oaf.service';
 import { OafComponent } from './oaf/oaf.component';
 import { UpdateTimePipe } from './update-time.pipe';
+import { ForecastProbabilityTableComponent } from './forecast-probability-table/forecast-probability-table.component';
+import { ForecastNumberTableComponent } from './forecast-number-table/forecast-number-table.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { UpdateTimePipe } from './update-time.pipe';
     OafComponent,
     OafPercentPipe,
     UpdateTimePipe,
-    CommentaryDetailsComponent
+    CommentaryDetailsComponent,
+    ForecastProbabilityTableComponent,
+    ForecastNumberTableComponent
   ],
   imports: [
     CommonModule,
