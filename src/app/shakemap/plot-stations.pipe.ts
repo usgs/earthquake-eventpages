@@ -5,7 +5,20 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PlotStationsPipe implements PipeTransform {
 
-  getResidual(props, imt) {
+  getPredictedValue (props, imt) {
+    const predictions = props.predictions;
+    imt = 'intensity' ? 'mmi' : imt;
+
+    for (const pred of predictions) {
+      if (pred.name === imt) {
+        return pred.value;
+      }
+    }
+
+    return null;
+  }
+
+  getResidual (props, imt) {
     const predictions = props.predictions;
 
     let residual = 0;
@@ -13,35 +26,48 @@ export class PlotStationsPipe implements PipeTransform {
       const measured = props[imt];
       // rename imt to match predictions entry (only for intensity)
       imt = 'intensity' ? 'mmi' : imt;
+      const predicted = this.getPredictedValue(props, imt);
 
-      for (const pred of predictions) {
-        if (pred.name === imt) {
-          residual = measured - pred.value;
-        }
-      }
+      residual = measured - predicted;
     }
 
-    return Math.abs(residual);
+    return residual;
   }
 
-  transform(stations: any, plotX: string, plotY: string, residual=false): any {
+  transform (stations: any, plotX: string, plotY: string, residual=false): any {
+    const smPredictions = [];
     const smStations = [];
+    const dyfiPredictions = [];
     const dyfiStations = [];
+
     stations.forEach(station => {
       const props = station.properties;
       const y = props[plotY];
       const x = props.distances ? props.distances[plotX] : props.distance;
 
+      const predY = this.getPredictedValue(props, plotY);
+
       if (x && y) {
         const plotStation = {
           'borderColor': '#000000',
           'name': x,
-          'r': 5,
+          'r': 6,
           'shape': 'triangle',
           'station': station,
           'value': y,
           'x': x,
           'y': y
+        };
+
+        const prediction = {
+          'borderColor': '#000000',
+          'name': x,
+          'r': 3,
+          'shape': 'triangle',
+          'station': station,
+          'value': predY,
+          'x': x,
+          'y': predY
         };
 
         if (residual) {
@@ -57,11 +83,13 @@ export class PlotStationsPipe implements PipeTransform {
           props.station_type === 'macroseismic'
         ) {
           plotStation.shape = 'circle';
+          prediction.shape = 'circle';
           dyfiStations.push(plotStation);
+          dyfiPredictions.push(prediction);
         } else {
           smStations.push(plotStation);
+          smPredictions.push(prediction);
         }
-
       }
     });
 
@@ -76,6 +104,18 @@ export class PlotStationsPipe implements PipeTransform {
         class: 'dyfiStations',
         name: 'DYFI Stations',
         series: dyfiStations,
+        shape: 'circle'
+      },
+      {
+        class: 'smStationPredictions',
+        name: 'Seismic Station Predictions',
+        series: residual ? [] : smPredictions,
+        shape: 'triangle'
+      },
+      {
+        class: 'dyfiStationPredictions',
+        name: 'DYFI Station Predictions',
+        series: residual ? [] : dyfiPredictions,
         shape: 'circle'
       }
     ];

@@ -15,13 +15,14 @@
           [xAxis]="true"
           [yAxis]="true"
           [legend]="true"
+          [xScaleMin]="xScaleType === 'log' ? 1 : 0"
           [xScaleType]="xScaleType"
           [showGridLines]="true"
           [showXAxisLabel]="true"
           [showYAxisLabel]="true"
           [xAxisLabel]="plotting.x.label"
           [yAxisLabel]="plotting.y.label"
-          [yScaleType]="yScaleType"
+          [yScaleType]="residual ? 'linear' : yScaleType"
           [bubbleTooltipTemplate]="tooltip">
       </bubble-line-chart-component>
     </div>
@@ -52,6 +53,7 @@
     <mat-form-field>
       <mat-select placeholder="Y-Axis Scale"
           [(ngModel)]="yScaleType"
+          [disabled]="residual"
           name="yScaleType">
         <mat-option 
             *ngFor="let option of axisScaleOptions"

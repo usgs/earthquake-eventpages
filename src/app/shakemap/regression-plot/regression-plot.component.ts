@@ -41,22 +41,18 @@ export class RegressionPlotComponent implements OnInit, OnDestroy {
   plotting: any = {x: {}, y: {}};
   plotXOptions = [
     {type: 'rrup', display: 'RRup', label: 'Rupture Distance (km)'},
-    {type: 'rrup_var', display: 'RRUP_var', label: 'RRUP_var (km)'},
-    {type: 'rjb', display: 'RJB', label: 'RJB (km)'},
-    {type: 'rjb_var', display: 'RJB_var', label: 'RJB_var (km)'},
+    {type: 'rjb', display: 'RJB', label: 'Joyner-Boore Distance (km)'},
     {type: 'rhypo', display: 'RHYPO', label: 'Hypocentral Distance (km)'}
   ];
   plotYOptions = [
     {type: 'pga', display: 'PGA', label: 'Peak Ground Acceleration %g'},
-    {type: 'pgv', display: 'PGV', label: 'Peak Ground Velocity m/s'},
+    {type: 'pgv', display: 'PGV', label: 'Peak Ground Velocity cm/s'},
     {type: 'intensity', display: 'MMI', label: 'Intensity (MMI)'}
   ];
   product: any = null;
   residual = false;
   subs = new Subscription();
-  xAxisLabel = 'Distance to Rupture Surface (km)';
   xScaleType = 'log';
-  yAxisLabel = 'Peak Ground Acceleration (%g)';
   yScaleType = 'log';
 
   constructor (

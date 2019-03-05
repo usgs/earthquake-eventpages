@@ -19,10 +19,9 @@ import {
   templateUrl: './station.component.html'
 })
 export class StationComponent implements OnInit {
-  readonly channelsColumns = ['name', 'pga', 'pgv', 'psa03', 'psa10', 'psa30'];
-
   @Input()
   channels = true;
+  readonly channelsColumns = ['name', 'pga', 'pgv', 'psa03', 'psa10', 'psa30'];
   @Input()
   expanded = false;
   @Input()

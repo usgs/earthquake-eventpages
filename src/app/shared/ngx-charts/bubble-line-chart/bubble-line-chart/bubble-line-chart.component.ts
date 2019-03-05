@@ -258,8 +258,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     return this.yAxisTicks.filter((tick, pos) => {
       return tick >= this.yDomain[0] &&
           tick <= this.yDomain[1] &&
-          this.yAxisTicks.indexOf(tick) === pos &&
-          tick > 0;
+          this.yAxisTicks.indexOf(tick) === pos;
     });
   }
 
@@ -296,7 +295,6 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    * @returns {any}
    */
   getLegendOptions () {
-
     const opts = {
       colors: this.colors,
       domain: this.seriesDomain,
@@ -341,7 +339,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       max = 10;
     }
 
-    return [min, max];
+    return [1, 10];
   }
 
   /**
@@ -363,8 +361,13 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    * Returns the entire series domain numbers
    */
   getSeriesDomain (): any[] {
-    return [...this.bubbleChart, ...this.lineChart]
-        .map(d => d.name );
+    const hasSeries = [...this.bubbleChart, ...this.lineChart].filter(
+      series => {
+          return series.series.length > 0;
+        }
+      );
+
+    return hasSeries.map(d => d.name );
   }
 
     /**
@@ -398,17 +401,19 @@ export class BubbleLineChartComponent extends BaseChartComponent {
 
     let val = lower;
     const between = [];
-    let tick;
+    let tick, absTick;
     while (val < upper) {
       tick = scaleType === 'log' ? Math.E ** val : val;
+      absTick = Math.abs(tick);
+
       // round the tick by some modifying number
-      const mod = tick < .001 ? .0005 :
-          interval < 0 || tick < .01 ? .001 :
+      const mod = absTick < .001 ? .0005 :
+          interval < 0 || absTick < .01 ? .001 :
           span < .5 ? .05 :
-          span < 1 || tick < .5 ? .1 :
-          span < 3 || tick < 1 ? .5 :
-          tick < 10 ? 1 :
-          tick < 20 ? 5 : 10;
+          span < 1 || absTick < .5 ? .1 :
+          span < 3 || absTick < 1 ? .5 :
+          absTick < 10 ? 1 :
+          absTick < 20 ? 5 : 10;
 
       tick = Math.round(tick / mod) * mod;
 
@@ -756,18 +761,14 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    * @param value
    *    The value of the x axis tick
    */
-  xAxisTickFormatting (value) {
-    const mult = Math.pow(10, 3 - Math.floor(Math.log(value) / Math.LN10) - 1);
-    return Math.round(value * mult) / mult;
-  }
+  tickFormatting (value) {
+    if (value === 0) {
+      return 0;
+    }
 
-  /**
-   * Returns the tick format value of the chart
-   * @param value
-   *    The value of the x axis tick
-   */
-  yAxisTickFormatting (value) {
-    const mult = Math.pow(10, 3 - Math.floor(Math.log(value) / Math.LN10) - 1);
+    const mult = Math.pow(10, 3 -
+        Math.floor(Math.log(Math.abs(value))
+        / Math.LN10) - 1);
     return Math.round(value * mult) / mult;
   }
 }
