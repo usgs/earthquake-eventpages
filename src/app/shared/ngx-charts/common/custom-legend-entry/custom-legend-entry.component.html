@@ -4,34 +4,34 @@
     [class.active]="isActive"
     (click)="select.emit(formattedLabel)">
   <span
-      *ngIf="!shape"
+      *ngIf="!icon || !icon.shape"
       class="legend-label-color"
       [style.background-color]="color"
       (click)="toggle.emit(formattedLabel)">
   </span>
   <span
       class="legend-label-color"
-      *ngIf="shape === 'circle'">
+      *ngIf="icon.shape === 'circle'">
     <svg 
         height="12" width="12">
       <circle 
-          transform="translate(6,6)"
-          r="5"
+          [attr.fill]="color"
+          [attr.r]="icon.size"
           stroke="black"
-          stroke-width="1"
-          [attr.fill]="color" />
+          stroke-width="1" 
+          transform="translate(6,6)"/>
     </svg>
   </span>
   <span
       class="legend-label-color"
-      *ngIf="shape === 'triangle'">
+      *ngIf="icon.shape === 'triangle'">
     <svg 
         height="12" width="12">
       <polygon
-          transform="translate(1,1)"
-          points="0,10 5,0 10,10"
+          [attr.points]="icon.path"
           [attr.fill]="color"
-          [attr.stroke]="'#000000'" />
+          [attr.stroke]="'#000000'"
+          [attr.transform]="triangleTransform(icon.size)"/>
     </svg>
   </span>
   <span class="legend-label-text">

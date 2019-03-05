@@ -13,7 +13,7 @@
           [label]="entry.label"
           [formattedLabel]="entry.formattedLabel"
           [color]="entry.color"
-          [shape]="shapes[entry.label]"
+          [icon]="icons[entry.label]"
           [isActive]="isActive(entry)"
           (select)="labelClick.emit($event)"
           (activate)="activate($event)"

@@ -14,10 +14,10 @@
 <ng-container *ngIf="shape == 'triangle'">
 
   <svg:polygon 
-      [attr.transform]="getTriangleTransform(getTriangleRadius(r))"
-      [attr.height]="getTriangleRadius(r)"
-      [attr.width]="getTriangleRadius(r)"
-      [attr.points]="getTrianglePath(getTriangleRadius(r))"
+      [attr.transform]="transform"
+      [attr.height]="r"
+      [attr.width]="r"
+      [attr.points]="path"
       [attr.fill]="fill"
       [attr.stroke]="stroke"
       [attr.opacity]="circleOpacity"

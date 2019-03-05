@@ -7,6 +7,10 @@ export class PlotStationsPipe implements PipeTransform {
 
   getPredictedValue (props, imt) {
     const predictions = props.predictions;
+    if (!predictions) {
+      return null;
+    }
+
     imt = 'intensity' ? 'mmi' : imt;
 
     for (const pred of predictions) {
@@ -85,10 +89,16 @@ export class PlotStationsPipe implements PipeTransform {
           plotStation.shape = 'circle';
           prediction.shape = 'circle';
           dyfiStations.push(plotStation);
-          dyfiPredictions.push(prediction);
+
+          if (prediction.value) {
+            dyfiPredictions.push(prediction);
+          }
         } else {
           smStations.push(plotStation);
-          smPredictions.push(prediction);
+
+          if (prediction.value) {
+            smPredictions.push(prediction);
+          }
         }
       }
     });
@@ -96,27 +106,27 @@ export class PlotStationsPipe implements PipeTransform {
     return [
       {
       class: 'smStations',
+      icon: {shape: 'triangle', size: 5},
       name: 'Seismic Stations',
-      series: smStations,
-      shape: 'triangle'
+      series: smStations
       },
       {
         class: 'dyfiStations',
+        icon: {shape: 'circle', size: 5},
         name: 'DYFI Stations',
-        series: dyfiStations,
-        shape: 'circle'
+        series: dyfiStations
       },
       {
         class: 'smStationPredictions',
+        icon: {shape: 'triangle', size: 3},
         name: 'Seismic Station Predictions',
-        series: residual ? [] : smPredictions,
-        shape: 'triangle'
+        series: residual ? [] : smPredictions
       },
       {
         class: 'dyfiStationPredictions',
+        icon: {shape: 'circle', size: 3},
         name: 'DYFI Station Predictions',
-        series: residual ? [] : dyfiPredictions,
-        shape: 'circle'
+        series: residual ? [] : dyfiPredictions
       }
     ];
   }

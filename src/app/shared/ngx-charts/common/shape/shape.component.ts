@@ -4,25 +4,32 @@ import {
 } from '@angular/core';
 
 import { CircleComponent } from '@swimlane/ngx-charts';
+import { Triangle } from './triangle';
 
 @Component({
   selector: 'g[ngx-charts-shape]',
   templateUrl: './shape.component.html'
 })
 export class ShapeComponent extends CircleComponent {
+  _shape = 'circle';
+  path: string;
+  transform: string;
 
-  @Input() shape = 'circle';
+  @Input()
+  set shape(shape) {
+    if (shape === 'triangle') {
+      const tri = new Triangle(this.r);
+      this.r = tri.radius;
+      this.transform = tri.transform;
+      this.path = tri.path;
+    }
 
-  getTrianglePath (r) {
-    return `0,${r}, ${r/2},0 ${r},${r}`;
+    this._shape = shape;
   }
 
-  getTriangleRadius (r) {
-    return r * 2;
+  get shape() {
+    return this._shape;
   }
 
-  getTriangleTransform (r) {
-    return `translate(${-r/2},${-r/2})`;
-  }
 
 }

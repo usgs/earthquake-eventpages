@@ -300,22 +300,22 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       domain: this.seriesDomain,
       position: this.legendPosition,
       scaleType: this.schemeType,
-      shapes: this.getLegendShapes(),
+      icons: this.getLegendIcons(),
       title: this.legendTitle
     };
 
     return opts;
   }
 
-  getLegendShapes () {
-    const shapes = {};
+  getLegendIcons () {
+    const icons = {};
     for (const series of [...this.lineChart, ...this.bubbleChart]) {
-      if (series.shape) {
-        shapes[series.name] = series.shape;
+      if (series.icon) {
+        icons[series.name] = series.icon;
       }
     }
 
-    return shapes;
+    return icons;
   }
 
   /**
