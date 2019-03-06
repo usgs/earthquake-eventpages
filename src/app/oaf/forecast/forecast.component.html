@@ -11,7 +11,6 @@
     the given time frame. Forecast starting
     {{ forecast.columns[0].timeStart | sharedDateTime }}
   </h3>
-  <!-- TODO, add forecast probabilty table -->
   <forecast-probability-table
     [forecast]="forecast"
   ></forecast-probability-table>
@@ -21,6 +20,9 @@
     time frame. Forecast starting
     {{ forecast.columns[0].timeStart | sharedDateTime }}
   </h3>
-  <!-- TODO, add forecast number table  -->
   <forecast-number-table [forecast]="forecast"></forecast-number-table>
+  <small>
+    * Earthquake possible but with a low probability.<br />
+    Likely number of aftershocks is the 95% confidence range.
+  </small>
 </ng-container>
