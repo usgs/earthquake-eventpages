@@ -1,0 +1,14 @@
+.fc-table.mat-table {
+  position: relative;
+  min-width: 900px;
+  z-index: -1;
+}
+
+mat-header-cell {
+  margin-right: 1.5em;
+}
+
+mat-cell {
+  display: block;
+  padding: 1em;
+}

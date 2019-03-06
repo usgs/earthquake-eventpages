@@ -1,0 +1,28 @@
+<div class="horizontal-scrolling">
+  <mat-table *ngIf="forecast" [dataSource]="forecast.rows" class="fc-table">
+    <mat-header-row *matHeaderRowDef="forecast.columnIds"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: forecast.columnIds"> </mat-row>
+
+    <ng-container matColumnDef="magnitude">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row"> M ≥ {{ row.magnitude }} </mat-cell>
+    </ng-container>
+
+    <ng-container
+      *ngFor="let column of forecast.columns; trackBy: trackByIndex"
+      [matColumnDef]="column.id"
+    >
+      <mat-header-cell *matHeaderCellDef>
+        {{ column.label }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <ng-container *ngIf="row.data[column.id]; let bin">
+          {{ bin.probability | oafPercent }}
+        </ng-container>
+        <ng-template #asterisk>
+          *
+        </ng-template>
+      </mat-cell>
+    </ng-container>
+  </mat-table>
+</div>
