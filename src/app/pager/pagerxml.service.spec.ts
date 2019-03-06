@@ -80,7 +80,7 @@ describe('PagerxmlService', () => {
         request.flush('', { status: 500, statusText: 'Error' });
 
         service.pagerXml$.subscribe(content => {
-          expect(content).toEqual(null);
+          expect(content).toEqual({});
           expect(service.error).toEqual(new Error('test error'));
         });
       }
@@ -91,7 +91,7 @@ describe('PagerxmlService', () => {
       (service: PagerXmlService) => {
         service.getPagerXml(null);
         service.pagerXml$.subscribe(parsed => {
-          expect(parsed).toBe(null);
+          expect(parsed).toEqual({});
         });
       }
     ));
