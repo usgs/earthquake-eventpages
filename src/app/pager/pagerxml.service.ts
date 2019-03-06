@@ -247,12 +247,12 @@ export class PagerXmlService {
             this.pagerXml$.next(this.parseResponse(response));
           } catch (e) {
             this.error = e;
-            this.pagerXml$.next(null);
+            this.pagerXml$.next({});
           }
         });
     } catch (e) {
       this.error = e;
-      this.pagerXml$.next(null);
+      this.pagerXml$.next({});
     }
   }
 
