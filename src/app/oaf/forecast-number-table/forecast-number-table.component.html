@@ -17,7 +17,6 @@
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
         <ng-container *ngIf="row.data[column.id]; let bin">
-          <span class="oafColumn">N:</span>
           <ng-container *ngIf="bin.p95maximum !== 0; else asterisk">
             {{
               bin.p95minimum | sharedRoundDown: 2 | sharedNumberWithSeparator
@@ -25,8 +24,6 @@
             to
             {{ bin.p95maximum | sharedRoundUp: 2 | sharedNumberWithSeparator }}
           </ng-container>
-          <br />
-          <span class="oafColumn">P:</span> {{ bin.probability | oafPercent }}
         </ng-container>
         <ng-template #asterisk>
           *

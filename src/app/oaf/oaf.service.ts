@@ -25,6 +25,8 @@ export class OafService {
       const forecast = this.parseForecast(oaf.forecast);
       const model = this.parseModel(oaf.model);
 
+      console.log('oaf', oaf);
+
       this.oaf$.next(oaf);
       this.forecast$.next(forecast);
       this.model$.next(model);
