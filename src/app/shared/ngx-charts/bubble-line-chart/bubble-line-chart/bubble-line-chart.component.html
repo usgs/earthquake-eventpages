@@ -15,7 +15,8 @@
         [showLabel]="showXAxisLabel"
         [labelText]="xAxisLabel"
         [showGridLines]="showGridLines"
-        [tickFormatting]="tickFormatting"
+        [tickFormatting]="xScaleType === 'log' && !customTicks ?
+        logTickFormatting : linearTickFormatting"
         [ticks]="xAxisTicks"
         (dimensionsChanged)="updateXAxisHeight($event)">
     </svg:g>
@@ -28,7 +29,8 @@
         [showLabel]="showYAxisLabel"
         [labelText]="yAxisLabel"
         [showGridLines]="showGridLines"
-        [tickFormatting]="tickFormatting"
+        [tickFormatting]="yScaleType === 'log' && !customTicks ?
+        logTickFormatting : linearTickFormatting"
         [ticks]="yAxisTicks"
         (dimensionsChanged)="updateYAxisWidth($event)">
     </svg:g>

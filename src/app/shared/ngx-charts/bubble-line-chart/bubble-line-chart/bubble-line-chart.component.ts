@@ -20,8 +20,6 @@ import {
 } from '@swimlane/ngx-charts';
 import { scaleLinear, scaleLog, scaleTime } from 'd3-scale';
 import { curveLinear } from 'd3-shape';
-import { ValueTransformer } from '@angular/compiler/src/util';
-
 
 /**
  * Bubble line chart component for use on maps
@@ -300,9 +298,9 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     const opts = {
       colors: this.colors,
       domain: this.seriesDomain,
+      icons: this.getLegendIcons(),
       position: this.legendPosition,
       scaleType: this.schemeType,
-      icons: this.getLegendIcons(),
       title: this.legendTitle
     };
 
@@ -372,70 +370,6 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     return hasSeries.map(d => d.name );
   }
 
-    /**
-   * Returns 6 values evenly spaced on the log axis
-   */
-  getTicks (domain, scaleType, min, max) {
-    if (!domain) {
-      return [];
-    }
-
-    let lowerDomain = domain[0];
-    const upperDomain = domain[1];
-
-    if (lowerDomain === 0) {
-      lowerDomain = .000001;
-    }
-
-    const pointCount = 10;
-    let lower, upper;
-    if (scaleType === 'log') {
-      lower = Math.log(lowerDomain);
-      upper = Math.log(upperDomain);
-    } else {
-      lower = lowerDomain;
-      upper = upperDomain;
-    }
-
-    const interval = (upper - lower) / pointCount;
-    const span = upperDomain - lowerDomain;
-    upper += interval;
-
-    let val = lower;
-    const between = [];
-    let tick, absTick;
-    while (val < upper) {
-      tick = scaleType === 'log' ? Math.E ** val : val;
-      absTick = Math.abs(tick);
-
-      // round the tick by some modifying number
-      const mod = absTick < .001 ? .0005 :
-          interval < 0 || absTick < .01 ? .001 :
-          span < .5 ? .05 :
-          span < 1 || absTick < .5 ? .1 :
-          span < 3 || absTick < 1 ? .5 :
-          absTick < 10 ? 1 :
-          absTick < 20 ? 5 : 10;
-
-      tick = Math.round(tick / mod) * mod;
-
-      between.push(tick);
-      val += interval;
-    }
-
-    if (max &&
-          between.indexOf(max) < 0) {
-      between.push(max);
-    }
-
-    if (min &&
-      between.indexOf(min) < 0) {
-      between.unshift(min);
-    }
-
-    return [...between];
-  }
-
   /**
    * Returns all set of x domain values
    */
@@ -467,6 +401,12 @@ export class BubbleLineChartComponent extends BaseChartComponent {
 
     let domain = [];
     domain = [min, max];
+
+    if (min > 0 && this.xScaleType === 'linear') {
+      min = 0;
+    } else if (this.xScaleType === 'log') {
+      min = 1;
+    }
 
     this.xSet = values;
     return domain;
@@ -542,11 +482,15 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       max = Math.max(...values);
     }
 
+    if (this.yScaleType === 'log' && max < 10) {
+      max = 10;
+    }
+
     if (this.symetricalYAxis) {
       if (Math.abs(min) > Math.abs(max)) {
         max = Math.abs(min);
       } else {
-        min = -Math.abs(max)
+        min = -Math.abs(max);
       }
     }
 
@@ -703,24 +647,6 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     this.xDomain = this.getXDomain();
     this.yDomain = this.getYDomain();
 
-    if (!this.customTicks) {
-      this.xAxisTicks = this.getTicks(
-        this.xDomain,
-        this.xScaleType,
-        this.xScaleMin,
-        this.xScaleMax
-      );
-      this.xAxisTicks = this.filterXTicks();
-
-      this.yAxisTicks = this.getTicks(this.yDomain,
-        this.yScaleType,
-        this.yScaleMin,
-        this.yScaleMax
-      );
-
-      this.yAxisTicks = this.filterYTicks();
-    }
-
     this.rDomain = this.getRDomain();
     this.seriesDomain = this.getSeriesDomain();
 
@@ -767,18 +693,42 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   }
 
   /**
-   * Returns the tick format value of the chart
+   * Returns base-10 ticks for the log axis
+   * @param value
+   *    Value of the tick
+   */
+  logTickFormatting (value) {
+
+    const logTicks = [
+      .00001,
+      .0001,
+      .0001,
+      .001,
+      .01,
+      .1,
+      0,
+      1,
+      10,
+      100,
+      1000,
+      10000,
+      100000
+    ];
+
+    if (logTicks.indexOf(value) < 0) {
+      return '';
+    }
+
+    return value;
+  }
+
+  /**
+   * Returns tick value for the linear axis
    * @param value
    *    The value of the x axis tick
    */
-  tickFormatting (value) {
-    if (value === 0) {
-      return 0;
-    }
+  linearTickFormatting (value) {
 
-    const mult = Math.pow(10, 3 -
-        Math.floor(Math.log(Math.abs(value))
-        / Math.LN10) - 1);
-    return Math.round(value * mult) / mult;
+    return value;
   }
 }

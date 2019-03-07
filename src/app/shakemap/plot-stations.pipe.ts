@@ -11,7 +11,7 @@ export class PlotStationsPipe implements PipeTransform {
       return null;
     }
 
-    imt = 'intensity' ? 'mmi' : imt;
+    imt = imt === 'intensity' ? 'mmi' : imt;
 
     for (const pred of predictions) {
       if (pred.name === imt) {
@@ -29,7 +29,7 @@ export class PlotStationsPipe implements PipeTransform {
     if (props[imt]) {
       const measured = props[imt];
       // rename imt to match predictions entry (only for intensity)
-      imt = 'intensity' ? 'mmi' : imt;
+      imt = imt === 'intensity' ? 'mmi' : imt;
       const predicted = this.getPredictedValue(props, imt);
 
       if (ratio) {

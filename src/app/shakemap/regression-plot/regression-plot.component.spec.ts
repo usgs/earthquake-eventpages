@@ -53,6 +53,7 @@ describe('RegressionPlotComponent', () => {
             'showXAxisLabel',
             'showYAxisLabel',
             'showRightYAxisLabel',
+            'symetricalYAxis',
             'xAxisLabel',
             'yAxisLabel',
             'yScaleMin',
