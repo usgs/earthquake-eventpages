@@ -72,4 +72,25 @@ describe('DownloadComponent', () => {
       expect(component.contentsXmlService.get).toHaveBeenCalledWith(phasedata);
     });
   });
+
+  describe('ngOnChanges', () => {
+    it('calls loadContentsXml()', () => {
+      spyOn(component, 'loadContentsXml');
+
+      component.ngOnChanges();
+
+      expect(component.loadContentsXml).toHaveBeenCalled();
+    });
+
+    it('uses phasedata when set', () => {
+      const phasedata = {};
+      component.product = {
+        phasedata: phasedata
+      };
+
+      component.loadContentsXml();
+
+      expect(component.contentsXmlService.get).toHaveBeenCalledWith(phasedata);
+    });
+  });
 });
