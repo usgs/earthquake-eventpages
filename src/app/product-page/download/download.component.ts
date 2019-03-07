@@ -2,14 +2,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  OnInit,
-  OnDestroy
+  OnChanges
 } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
 import { ContentsXmlService } from '@core/contents-xml.service';
-import { EventService } from '@core/event.service';
 
 /**
  * Generates expansion panel to list all downloadable product contents
@@ -23,7 +21,7 @@ import { EventService } from '@core/event.service';
   styleUrls: ['./download.component.scss'],
   templateUrl: './download.component.html'
 })
-export class DownloadComponent implements OnInit, OnDestroy {
+export class DownloadComponent implements OnChanges {
   @Input()
   expanded: any;
 
@@ -32,10 +30,7 @@ export class DownloadComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
-  constructor(
-    public contentsXmlService: ContentsXmlService,
-    public eventService: EventService
-  ) {}
+  constructor(public contentsXmlService: ContentsXmlService) {}
 
   /**
    * Gets contents xml from product
@@ -48,15 +43,12 @@ export class DownloadComponent implements OnInit, OnDestroy {
     this.contentsXmlService.get(this.product);
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  ngOnInit() {
-    this.subscription = this.eventService.product$.subscribe(product => {
-      this.product = product;
-      this.loadContentsXml();
-    });
+  /**
+   * The product's contents xml needs to be fetched when switching between
+   * products in the header's summary view
+   */
+  ngOnChanges() {
+    this.loadContentsXml();
   }
 
   /**
