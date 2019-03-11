@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
 import { LegendEntryComponent } from '@swimlane/ngx-charts';
-import { shadeRGBColor } from '@swimlane/ngx-charts/release/utils';
 import { Triangle } from '../shape/triangle';
 
 @Component({

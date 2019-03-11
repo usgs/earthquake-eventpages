@@ -8,7 +8,6 @@ import { LegendComponent as NgxLegendComponent } from '@swimlane/ngx-charts';
   styleUrls: ['./custom-legend.component.scss'],
   templateUrl: './custom-legend.component.html'
 })
-export class CustomLegendComponent 
-    extends NgxLegendComponent {
+export class CustomLegendComponent extends NgxLegendComponent {
   @Input() icons = {};
 }
