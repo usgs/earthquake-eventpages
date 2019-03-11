@@ -93,7 +93,6 @@ describe('BubbleLineChartComponent', () => {
 
   describe('update', () => {
     it('should run', () => {
-      spyOn(component, 'filterXTicks');
       spyOn(component, 'getYDomain');
       spyOn(component, 'getRDomain');
       spyOn(component, 'getSeriesDomain');
@@ -104,7 +103,6 @@ describe('BubbleLineChartComponent', () => {
       spyOn(component, 'setColors');
       spyOn(component, 'getLegendOptions');
       component.update();
-      expect(component.filterXTicks).toHaveBeenCalled();
       expect(component.getYDomain).toHaveBeenCalled();
       expect(component.getRDomain).toHaveBeenCalled();
       expect(component.getSeriesDomain).toHaveBeenCalled();

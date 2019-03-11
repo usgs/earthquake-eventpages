@@ -3,14 +3,13 @@ import { Subscription } from 'rxjs';
 
 import { EventService } from '@core/event.service';
 import { StationService } from '@core/station.service';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
-  selector: 'shakemap-regression-plot',
-  styleUrls: ['./regression-plot.component.scss'],
-  templateUrl: './regression-plot.component.html'
+  selector: 'shakemap-analysis',
+  styleUrls: ['./analysis.component.scss'],
+  templateUrl: './analysis.component.html'
 })
-export class RegressionPlotComponent implements OnInit, OnDestroy {
+export class AnalysisComponent implements OnInit, OnDestroy {
   axisScaleOptions = [
     {display: 'Log', scaleType: 'log'},
     {display: 'Linear', scaleType: 'linear'}
@@ -42,9 +41,9 @@ export class RegressionPlotComponent implements OnInit, OnDestroy {
   lineSeries: any[] = null;
   plotting: any = {x: {}, y: {}};
   plotXOptions = [
-    {type: 'rrup', display: 'RRup', label: 'Rupture Distance (km)'},
-    {type: 'rjb', display: 'RJB', label: 'Joyner-Boore Distance (km)'},
-    {type: 'rhypo', display: 'RHYPO', label: 'Hypocentral Distance (km)'}
+    {type: 'rrup', display: 'Rrup', label: 'Rupture Distance (km)'},
+    {type: 'rjb', display: 'Rjb', label: 'Joyner-Boore Distance (km)'},
+    {type: 'rhypo', display: 'Rhypo', label: 'Hypocentral Distance (km)'}
   ];
   plotYOptions = [
     {type: 'pga', display: 'PGA', label: 'Peak Ground Acceleration %g'},

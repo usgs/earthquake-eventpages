@@ -112,13 +112,13 @@
         <a
           *ngIf="(shakemap | sharedProductContent: 'download/stationlist.json')"
           mat-tab-link
-          [routerLink]="'./regression'"
+          [routerLink]="'./analysis'"
           queryParamsHandling="preserve"
           routerLinkActive
           #rla="routerLinkActive"
           [active]="rla.isActive"
         >
-          Regression
+          Analysis
         </a>
       </nav>
     </div>

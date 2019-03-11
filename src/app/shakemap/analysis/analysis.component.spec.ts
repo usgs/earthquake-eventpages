@@ -11,12 +11,12 @@ import { of } from 'rxjs/observable/of';
 
 import { EventService } from '@core/event.service';
 import { MockPipe } from '../../mock-pipe';
-import { RegressionPlotComponent } from './regression-plot.component';
+import { AnalysisComponent } from './analysis.component';
 import { StationService } from '@core/station.service';
 
-describe('RegressionPlotComponent', () => {
-  let component: RegressionPlotComponent;
-  let fixture: ComponentFixture<RegressionPlotComponent>;
+describe('AnalysisComponent', () => {
+  let component: AnalysisComponent;
+  let fixture: ComponentFixture<AnalysisComponent>;
 
   beforeEach(async(() => {
     const eventServiceStub = {
@@ -29,7 +29,7 @@ describe('RegressionPlotComponent', () => {
     };
     TestBed.configureTestingModule({
       declarations: [
-        RegressionPlotComponent,
+        AnalysisComponent,
 
         MockComponent({
           inputs: [
@@ -92,7 +92,7 @@ describe('RegressionPlotComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegressionPlotComponent);
+    fixture = TestBed.createComponent(AnalysisComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

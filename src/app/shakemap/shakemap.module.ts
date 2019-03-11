@@ -33,7 +33,7 @@ import { ShakemapRoutingModule } from './shakemap-routing.module';
 import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { LegendComponent } from './legend/legend.component';
-import { RegressionPlotComponent } from './regression-plot/regression-plot.component';
+import { AnalysisComponent } from './analysis/analysis.component';
 import { PlotStationsPipe } from './plot-stations.pipe';
 
 @NgModule({
@@ -50,7 +50,7 @@ import { PlotStationsPipe } from './plot-stations.pipe';
     PgvComponent,
     PsaComponent,
     LegendComponent,
-    RegressionPlotComponent,
+    AnalysisComponent,
     PlotStationsPipe
   ],
   exports: [StationListComponent, MetadataComponent],

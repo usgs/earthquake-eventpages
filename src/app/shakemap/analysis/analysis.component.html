@@ -1,6 +1,10 @@
 <ng-container *ngIf="stationService?.stationsJson$ | async; let stations">
   <ng-container *ngIf="stations">
-    <h2 class="plot-title">{{ residual ? 'Residual' : 'Regression' }} Plot</h2>
+    <h2 class="plot-title">
+      {{
+        residual ? ratio ? 'Residual Ratio' : 'Residual' : 'Regression'
+      }} Plot
+    </h2>
     <div class="chart-container">
       <bubble-line-chart-component
           [animations]="true"
@@ -98,7 +102,9 @@
         <mat-option 
             *ngFor="let option of plotXOptions"
             [value]="option">
-          {{ option.display }}
+          <div>
+            {{ option.display }}
+          </div>
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -126,4 +132,8 @@
         [expanded]="true"
         [channels]="false">
     </shared-station>
+</ng-template>
+
+<ng-template #rSelect let-model="model">
+  R<sub>{{model.display}}</sub>
 </ng-template>
