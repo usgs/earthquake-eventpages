@@ -294,7 +294,7 @@ export class PagerXmlService {
   private handleError() {
     return (error: HttpErrorResponse): Observable<any> => {
       this.error = error;
-      return of(null);
+      return of({});
     };
   }
 }
