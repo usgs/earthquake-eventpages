@@ -17,7 +17,8 @@ const appRoutes = [
   {
     children: [
       {
-        loadChildren: './tell-us/tell-us.module#TellUsModule',
+        // loadChildren: './tell-us/tell-us.module#TellUsModule',
+        loadChildren: './not-found/not-found.module#NotFoundModule',
         path: ''
       }
     ],
