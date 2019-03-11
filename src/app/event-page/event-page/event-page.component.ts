@@ -75,6 +75,10 @@ export class EventPageComponent implements OnInit, OnDestroy {
       this.subscription.add(
         this.router.events.subscribe(e => {
           if (e instanceof NavigationEnd) {
+            // If user has successfuly changed routes, send a pageview
+            // with the complete url they loaded
+            (window as any).gas('set', 'page', e.urlAfterRedirects);
+            (window as any).gas('send', 'pageview');
             // if the EventPageComponent's child route ("module") has changed
             if (this.child !== this.route.firstChild) {
               this.child = this.route.firstChild;
