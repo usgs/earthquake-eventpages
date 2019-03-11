@@ -121,7 +121,7 @@ describe('PagerxmlService', () => {
       [PagerXmlService],
       (service: PagerXmlService) => {
         const response = service.parseResponse(null);
-        expect(response).toBeNull();
+        expect(response).toEqual({});
       }
     ));
 

@@ -270,7 +270,7 @@ export class PagerXmlService {
     let pager, xml;
 
     if (response === null) {
-      return null;
+      return {};
     }
 
     xml = xmlToJson(response);
