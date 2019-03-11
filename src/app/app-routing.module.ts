@@ -17,13 +17,22 @@ const appRoutes = [
   {
     children: [
       {
-        // loadChildren: './tell-us/tell-us.module#TellUsModule',
         loadChildren: './not-found/not-found.module#NotFoundModule',
         path: ''
       }
     ],
     component: UnknownEventPageComponent,
     path: 'unknown'
+  },
+  {
+    children: [
+      {
+        loadChildren: './tell-us/tell-us.module#TellUsModule',
+        path: ''
+      }
+    ],
+    component: UnknownEventPageComponent,
+    path: 'tellus'
   },
   {
     children: [
