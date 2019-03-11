@@ -55,24 +55,31 @@ export class FormSubmitService {
   onSubmit(feltReport: FeltReport): void {
     let params = new HttpParams();
     const validated = feltReport.valid;
+
     if (validated) {
       for (const key in feltReport) {
         if (feltReport.hasOwnProperty(key)) {
-          params = params.append(key, feltReport[key]);
+          if (key === 'location') {
+            params = params.append(
+              'ciim_mapLat',
+              feltReport.ciim_mapLat.toString()
+            );
+            params = params.append(
+              'ciim_mapLon',
+              feltReport.ciim_mapLon.toString()
+            );
+            params = params.append(
+              'ciim_mapAddress',
+              feltReport.ciim_mapAddress
+            );
+          } else {
+            params = params.append(key, feltReport[key]);
+          }
         }
-      }
-      if (feltReport.location) {
-        params = params.append(
-          'ciim_mapLat',
-          feltReport.location.latitude.toString()
-        );
-        params = params.append(
-          'ciim_mapLon',
-          feltReport.location.longitude.toString()
-        );
       }
       params = params.append('format', 'json');
       params = params.append('form_version', DYFI_FORM_VERSION);
+
       // Post the form
       this.httpClient
         .post(this.responseUrl, params)
