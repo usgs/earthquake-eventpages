@@ -14,24 +14,6 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     {display: 'Log', scaleType: 'log'},
     {display: 'Linear', scaleType: 'linear'}
   ];
-  classOptions = {
-    smStations: {
-      color: '#94dfea',
-      type: 'scatter'
-    }
-  };
-  colorScheme = {
-    domain: [
-      '#94dfea',
-      '#fe4d55',
-      '#5fce3b',
-      '#5AA454',
-      '#A10A28',
-      '#C7B42C',
-      '#AAAAAA',
-      '#8d91ff'
-    ]
-  };
   customColors = [
     {name: 'Seismic Stations', value:'#94dfea'},
     {name: 'DYFI Stations', value:'#94dfea'},
@@ -61,6 +43,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     public eventService: EventService,
     public stationService: StationService
   ) {
+    // set default plotting options
     this.plotting.x = this.plotXOptions[0];
     this.plotting.y = this.plotYOptions[0];
   }
@@ -79,5 +62,33 @@ export class AnalysisComponent implements OnInit, OnDestroy {
 
   onShakemap (shakemap) {
     this.stationService.getStations(shakemap);
+  }
+
+  /**
+   * Change yScaleType depending on the selected IMT
+   * @param option
+   *    IMT option with {type: ['pga', 'pgv', 'intensity'], ...}
+   */
+  setImt (option) {
+    if (this.residual && this.ratio) {
+      this.yScaleType = 'log';
+    } else if (option.type === 'intensity' || this.residual) {
+      this.yScaleType = 'linear';
+    } else {
+      this.yScaleType = 'log';
+    }
+  }
+
+  /**
+   * Change yScaleType to log/linear depending on conditions when
+   * the residual switch is toggled
+   */
+  toggleResidual () {
+    if ((this.residual && !this.ratio) ||
+        (!this.residual && this.plotting.y.type === 'intensity')) {
+      this.yScaleType = 'linear';
+    } else {
+      this.yScaleType = 'log';
+    }
   }
 }

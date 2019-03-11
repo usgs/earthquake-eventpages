@@ -16,7 +16,7 @@ export class ShapeComponent extends CircleComponent {
   transform: string;
 
   @Input()
-  set shape(shape) {
+  set shape (shape) {
     if (shape === 'triangle') {
       const tri = new Triangle(this.r);
       this.r = tri.radius;
@@ -27,7 +27,7 @@ export class ShapeComponent extends CircleComponent {
     this._shape = shape;
   }
 
-  get shape() {
+  get shape () {
     return this._shape;
   }
 
