@@ -45,6 +45,12 @@ export class EventPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Send pageview through analytics on initial component load
+    console.log('initial page load: ', this.router.url);
+    (window as any).gas('send', {
+      hitType: 'pageview',
+      page: this.router.url
+    });
     this.subscription.add(
       this.route.paramMap.subscribe((paramMap: ParamMap) => {
         return this.onParamMapChange(paramMap);
