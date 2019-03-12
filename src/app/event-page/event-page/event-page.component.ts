@@ -45,6 +45,8 @@ export class EventPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Send pageview through analytics on initial component load
+    this.sendPageView(this.router.url);
     this.subscription.add(
       this.route.paramMap.subscribe((paramMap: ParamMap) => {
         return this.onParamMapChange(paramMap);
@@ -75,6 +77,9 @@ export class EventPageComponent implements OnInit, OnDestroy {
       this.subscription.add(
         this.router.events.subscribe(e => {
           if (e instanceof NavigationEnd) {
+            // If user has successfuly changed routes, send a pageview
+            // with the complete url they loaded
+            this.sendPageView(e.urlAfterRedirects);
             // if the EventPageComponent's child route ("module") has changed
             if (this.child !== this.route.firstChild) {
               this.child = this.route.firstChild;
@@ -98,6 +103,23 @@ export class EventPageComponent implements OnInit, OnDestroy {
   onParamMapChange(paramMap: ParamMap): void {
     // request event
     this.eventService.getEvent(paramMap.get('eventid'));
+  }
+
+  /**
+   * Function to send a pageview and it's corresponding url to analytics
+   *
+   * @param url
+   * the route url, such as /:eventid/executive
+   */
+  sendPageView(url: string): void {
+    try {
+      (window as any).gas('send', {
+        hitType: 'pageview',
+        page: url
+      });
+    } catch (e) {
+      return;
+    }
   }
 
   /**
