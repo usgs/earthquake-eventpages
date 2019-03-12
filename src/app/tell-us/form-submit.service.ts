@@ -103,7 +103,7 @@ export class FormSubmitService {
   parseLocation(params, feltReport) {
     let latitude = feltReport.ciim_mapLat;
     let longitude = feltReport.ciim_mapLon;
-    let address = (feltReport.ciim_mapAddress || '').toString();
+    let address = feltReport.ciim_mapAddress;
 
     if (latitude) {
       latitude = latitude.toString();
@@ -122,6 +122,8 @@ export class FormSubmitService {
       (address.indexOf(latitude) === -1 && address.indexOf(longitude) === -1)
     ) {
       params = params.append('ciim_mapAddress', address);
+    } else {
+      params = params.append('ciim_mapAddress', '');
     }
 
     return params;
