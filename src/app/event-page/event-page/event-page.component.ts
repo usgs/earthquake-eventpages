@@ -113,12 +113,10 @@ export class EventPageComponent implements OnInit, OnDestroy {
    */
   sendPageView(url: string): void {
     try {
-      if (url) {
-        (window as any).gas('send', {
-          hitType: 'pageview',
-          page: url
-        });
-      }
+      (window as any).gas('send', {
+        hitType: 'pageview',
+        page: url
+      });
     } catch (e) {
       return;
     }
