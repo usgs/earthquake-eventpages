@@ -154,7 +154,7 @@
   },
 
   {
-    "label": "damage",
+    "label": "d_text",
     "multiSelect": true,
     "answers": [
       { "value": "_none", "label": "noDamage" },
