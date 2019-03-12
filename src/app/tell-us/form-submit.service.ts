@@ -58,25 +58,11 @@ export class FormSubmitService {
 
     if (validated) {
       for (const key in feltReport) {
-        if (feltReport.hasOwnProperty(key)) {
-          if (key === 'location') {
-            params = params.append(
-              'ciim_mapLat',
-              feltReport.ciim_mapLat.toString()
-            );
-            params = params.append(
-              'ciim_mapLon',
-              feltReport.ciim_mapLon.toString()
-            );
-            params = params.append(
-              'ciim_mapAddress',
-              feltReport.ciim_mapAddress
-            );
-          } else {
-            params = params.append(key, feltReport[key]);
-          }
+        if (feltReport.hasOwnProperty(key) && key !== 'location') {
+          params = params.append(key, feltReport[key]);
         }
       }
+      params = this.parseLocation(params, feltReport);
       params = params.append('format', 'json');
       params = params.append('form_version', DYFI_FORM_VERSION);
 
@@ -106,5 +92,38 @@ export class FormSubmitService {
       const message = 'Error, invalid form entry';
       this.createErrorResponse(code, message);
     }
+  }
+
+  /**
+   * Parse the location, add ciim_mapLat, ciim_mapLon, and ciim_mapAddress
+   *
+   * @param params
+   * @param feltReport
+   */
+  parseLocation(params, feltReport) {
+    let latitude = feltReport.ciim_mapLat;
+    let longitude = feltReport.ciim_mapLon;
+    let address = (feltReport.ciim_mapAddress || '').toString();
+
+    if (latitude) {
+      latitude = latitude.toString();
+      params = params.append('ciim_mapLat', latitude);
+    }
+
+    if (longitude) {
+      longitude = longitude.toString();
+      params = params.append('ciim_mapLon', longitude);
+    }
+
+    // Omitting the lat/lng formatted string prevents an unecessary
+    // geocode on the backend
+    if (
+      address &&
+      (address.indexOf(latitude) === -1 && address.indexOf(longitude) === -1)
+    ) {
+      params = params.append('ciim_mapAddress', address);
+    }
+
+    return params;
   }
 }
