@@ -13,7 +13,7 @@ const PROXY_CONFIG = [
       '/theme',
       '/ws/geoserve'
     ],
-    target: 'https://earthquake.usgs.gov',
+    target: 'https://dev-earthquake.cr.usgs.gov',
     changeOrigin: true,
     secure: true,
     logLevel: 'debug'

@@ -66,27 +66,28 @@ export class FormSubmitService {
       params = params.append('format', 'json');
       params = params.append('form_version', DYFI_FORM_VERSION);
 
+      console.log(params);
       // Post the form
-      this.httpClient
-        .post(this.responseUrl, params)
-        .pipe(
-          catchError(val => {
-            // elegantly handle server error
-            return of(val);
-          })
-        )
-        .subscribe(response => {
-          // if no error
-          if (response && !response.error) {
-            this.formResponse$.next(response);
-          } else {
-            const code = response.status ? response.status : null;
-            const message = response.statusText
-              ? response.statusText
-              : 'Server Error';
-            this.createErrorResponse(code, message);
-          }
-        });
+      // this.httpClient
+      //   .post(this.responseUrl, params)
+      //   .pipe(
+      //     catchError(val => {
+      //       // elegantly handle server error
+      //       return of(val);
+      //     })
+      //   )
+      //   .subscribe(response => {
+      //     // if no error
+      //     if (response && !response.error) {
+      //       this.formResponse$.next(response);
+      //     } else {
+      //       const code = response.status ? response.status : null;
+      //       const message = response.statusText
+      //         ? response.statusText
+      //         : 'Server Error';
+      //       this.createErrorResponse(code, message);
+      //     }
+      //   });
     } else {
       const code = 400;
       const message = 'Error, invalid form entry';
