@@ -81,7 +81,7 @@ describe('EventPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  fdescribe('sendPageView', () => {
+  describe('sendPageView', () => {
     it('pageview gets called on page load', () => {
       const spy = spyOn(component, 'sendPageView');
       component.ngOnInit();
