@@ -81,9 +81,16 @@ describe('EventPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('pageview gets called on page load', () => {
-    const spy = spyOn(component, 'sendPageView');
-    component.ngOnInit();
-    expect(spy).toHaveBeenCalled();
+  fdescribe('sendPageView', () => {
+    it('pageview gets called on page load', () => {
+      const spy = spyOn(component, 'sendPageView');
+      component.ngOnInit();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('returns error with no url input', () => {
+      const error = component.sendPageView(null);
+      expect(error).not.toBeNull();
+    });
   });
 });
