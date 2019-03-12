@@ -55,24 +55,17 @@ export class FormSubmitService {
   onSubmit(feltReport: FeltReport): void {
     let params = new HttpParams();
     const validated = feltReport.valid;
+
     if (validated) {
       for (const key in feltReport) {
-        if (feltReport.hasOwnProperty(key)) {
+        if (feltReport.hasOwnProperty(key) && key !== 'location') {
           params = params.append(key, feltReport[key]);
         }
       }
-      if (feltReport.location) {
-        params = params.append(
-          'ciim_mapLat',
-          feltReport.location.latitude.toString()
-        );
-        params = params.append(
-          'ciim_mapLon',
-          feltReport.location.longitude.toString()
-        );
-      }
+      params = this.parseLocation(params, feltReport);
       params = params.append('format', 'json');
       params = params.append('form_version', DYFI_FORM_VERSION);
+
       // Post the form
       this.httpClient
         .post(this.responseUrl, params)
@@ -99,5 +92,40 @@ export class FormSubmitService {
       const message = 'Error, invalid form entry';
       this.createErrorResponse(code, message);
     }
+  }
+
+  /**
+   * Parse the location, add ciim_mapLat, ciim_mapLon, and ciim_mapAddress
+   *
+   * @param params
+   * @param feltReport
+   */
+  parseLocation(params, feltReport) {
+    let latitude = feltReport.ciim_mapLat;
+    let longitude = feltReport.ciim_mapLon;
+    const address = feltReport.ciim_mapAddress;
+
+    if (latitude) {
+      latitude = latitude.toString();
+      params = params.append('ciim_mapLat', latitude);
+    }
+
+    if (longitude) {
+      longitude = longitude.toString();
+      params = params.append('ciim_mapLon', longitude);
+    }
+
+    // Omitting the lat/lng formatted string prevents an unecessary
+    // geocode on the backend
+    if (
+      address &&
+      (address.indexOf(latitude) === -1 && address.indexOf(longitude) === -1)
+    ) {
+      params = params.append('ciim_mapAddress', address);
+    } else {
+      params = params.append('ciim_mapAddress', '');
+    }
+
+    return params;
   }
 }
