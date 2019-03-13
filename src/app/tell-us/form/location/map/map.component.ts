@@ -130,7 +130,7 @@ export class MapComponent extends AbstractForm
     const longitude = +this.formatter.number(latLng.lng, precision);
     const address = this.formatter.location(latitude, longitude, precision);
 
-    this.geoService.method.next('map');
+    this.geoService.method$.next('map');
     this.feltReport.location = {
       address,
       latitude,

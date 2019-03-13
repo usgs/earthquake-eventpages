@@ -105,7 +105,7 @@ export class FormSubmitService {
     let latitude = feltReport.ciim_mapLat;
     let longitude = feltReport.ciim_mapLon;
     const address = feltReport.ciim_mapAddress;
-    const method = this.geoService.method.value;
+    const method = this.geoService.method$.value;
 
     if (latitude) {
       latitude = latitude.toString();
