@@ -12,7 +12,7 @@ import {
 import * as L from 'leaflet';
 
 import { FormatterService } from '@core/formatter.service';
-import { Location } from '@shared/geo.service';
+import { GeoService, Location } from '@shared/geo.service';
 
 import { AbstractForm } from '../../abstract-form.component';
 
@@ -41,7 +41,10 @@ export class MapComponent extends AbstractForm
   mapBounds: Array<Array<number>>;
   pin: L.Marker;
 
-  constructor(public formatter: FormatterService) {
+  constructor(
+    public formatter: FormatterService,
+    public geoService: GeoService
+  ) {
     super();
   }
 
@@ -127,6 +130,7 @@ export class MapComponent extends AbstractForm
     const longitude = +this.formatter.number(latLng.lng, precision);
     const address = this.formatter.location(latitude, longitude, precision);
 
+    this.geoService.method.next('map');
     this.feltReport.location = {
       address,
       latitude,

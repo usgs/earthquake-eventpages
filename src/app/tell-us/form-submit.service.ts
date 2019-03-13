@@ -9,6 +9,7 @@ import { FeltReportReponseError } from './felt-report-reponse-error';
 import { FeltReportResponseErrorDetails } from './felt-report-response-error-details';
 import { FeltReport } from 'app/tell-us/felt-report';
 import { environment } from 'environments/environment';
+import { GeoService } from '@shared/geo.service';
 
 const DYFI_FORM_VERSION = '1.11';
 
@@ -19,7 +20,7 @@ export class FormSubmitService {
   >(null);
   responseUrl = environment.DYFI_RESPONSE_URL;
 
-  constructor(public httpClient: HttpClient) {}
+  constructor(public geoService: GeoService, public httpClient: HttpClient) {}
 
   /**
    * Generate a FeltReportResponseError and update the formResponse$
@@ -104,6 +105,7 @@ export class FormSubmitService {
     let latitude = feltReport.ciim_mapLat;
     let longitude = feltReport.ciim_mapLon;
     const address = feltReport.ciim_mapAddress;
+    const method = this.geoService.method.value;
 
     if (latitude) {
       latitude = latitude.toString();
@@ -117,10 +119,8 @@ export class FormSubmitService {
 
     // Omitting the lat/lng formatted string prevents an unecessary
     // geocode on the backend
-    if (
-      address &&
-      (address.indexOf(latitude) === -1 && address.indexOf(longitude) === -1)
-    ) {
+    if (address && method === 'geocode') {
+      // TODO, check if geocoded, if not wipe ciim_mapAddress
       params = params.append('ciim_mapAddress', address);
     } else {
       params = params.append('ciim_mapAddress', '');
