@@ -4,6 +4,7 @@ const PROXY_CONFIG = [
       '/archive',
       '/data/comcat',
       '/data/dyfi',
+      '/data/finitefault',
       '/earthquakes/feed',
       '/earthquakes/map',
       '/fdsnws',
