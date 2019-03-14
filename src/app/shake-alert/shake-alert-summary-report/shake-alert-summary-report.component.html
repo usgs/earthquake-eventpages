@@ -4,39 +4,39 @@
     <dt>Speed of Alert</dt>
     <dd>
       Initial alert after origin time:
-      {{ summary['initial-alert']?.properties?.elapsed | sharedNumber: 0:'s' }}
+      {{ summary["initial-alert"]?.properties?.elapsed | sharedNumber: 0:"s" }}
     </dd>
     <dd>
       Final alert update after origin time:
-      {{ summary['final-alert']?.properties?.elapsed | sharedNumber: 0:'s' }}
+      {{ summary["final-alert"]?.properties?.elapsed | sharedNumber: 0:"s" }}
     </dd>
 
     <dt>Magnitude Accuracy</dt>
     <dd>
       Initial Alert at
-      {{ summary['initial-alert']?.properties?.elapsed | sharedNumber: 0:'s' }}:
-      M{{ summary['initial-alert']?.properties?.magnitude }}
+      {{ summary["initial-alert"]?.properties?.elapsed | sharedNumber: 0:"s" }}:
+      M{{ summary["initial-alert"]?.properties?.magnitude }}
     </dd>
     <dd>
       Final Alert at
-      {{ summary['final-alert']?.properties?.elapsed | sharedNumber: 0:'s' }}:
-      M{{ summary['final-alert']?.properties?.magnitude }}
+      {{ summary["final-alert"]?.properties?.elapsed | sharedNumber: 0:"s" }}:
+      M{{ summary["final-alert"]?.properties?.magnitude }}
     </dd>
     <dd>
       ANSS Alert at
-      {{ (summary?.properties)['anss-alert-elapsed'] | sharedNumber: 0:'s' }}:
-      M{{ (summary?.properties)['anss-alert-magnitude'] }}
+      {{ (summary?.properties)["anss-alert-elapsed"] | sharedNumber: 0:"s" }}:
+      M{{ (summary?.properties)["anss-alert-magnitude"] }}
     </dd>
 
     <dt>Alert Location Accuracy</dt>
     <dd>
       Initial alert:
       {{
-        (summary['initial-alert']?.properties)['location-distance-error']
-          | sharedNumber: 0:'miles'
+        (summary["initial-alert"]?.properties)["location-distance-error"]
+          | sharedNumber: 0:"miles"
       }}
       {{
-        (summary['initial-alert']?.properties)['location-azimuth-error']
+        (summary["initial-alert"]?.properties)["location-azimuth-error"]
           | sharedDirection
       }}
       of reviewed location
@@ -44,29 +44,22 @@
     <dd>
       Final alert:
       {{
-        (summary['final-alert']?.properties)['location-distance-error']
-          | sharedNumber: 0:'miles'
+        (summary["final-alert"]?.properties)["location-distance-error"]
+          | sharedNumber: 0:"miles"
       }}
       {{
-        (summary['final-alert']?.properties)['location-azimuth-error']
+        (summary["final-alert"]?.properties)["location-azimuth-error"]
           | sharedDirection
       }}
       of reviewed location
     </dd>
 
-    <dt>Ground Motion Accuracy</dt>
-    <dd>
-      {{ (summary?.properties)['ground-motion-accuracy'] * 100 }}% of ground
-      motions of MMI* {{ (summary?.properties)['ground-motion-intensity'] }} or
-      higher were predicted correctly
-    </dd>
-
     <dt>Number of Stations Reporting</dt>
     <dd>
-      {{ (summary?.properties)['num-stations-10km'] }} within 10km of epicenter
+      {{ (summary?.properties)["num-stations-10km"] }} within 10km of epicenter
     </dd>
     <dd>
-      {{ (summary?.properties)['num-stations-100km'] }} within 100km of
+      {{ (summary?.properties)["num-stations-100km"] }} within 100km of
       epicenter
     </dd>
   </dl>
