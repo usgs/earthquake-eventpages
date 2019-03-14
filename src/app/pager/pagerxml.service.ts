@@ -247,12 +247,12 @@ export class PagerXmlService {
             this.pagerXml$.next(this.parseResponse(response));
           } catch (e) {
             this.error = e;
-            this.pagerXml$.next(null);
+            this.pagerXml$.next({});
           }
         });
     } catch (e) {
       this.error = e;
-      this.pagerXml$.next(null);
+      this.pagerXml$.next({});
     }
   }
 
@@ -270,7 +270,7 @@ export class PagerXmlService {
     let pager, xml;
 
     if (response === null) {
-      return null;
+      return {};
     }
 
     xml = xmlToJson(response);
@@ -294,7 +294,7 @@ export class PagerXmlService {
   private handleError() {
     return (error: HttpErrorResponse): Observable<any> => {
       this.error = error;
-      return of(null);
+      return of({});
     };
   }
 }

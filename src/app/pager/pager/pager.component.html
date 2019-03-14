@@ -20,7 +20,7 @@
   </ng-container>
 
   <ng-container
-    *ngIf="(pagerXmlService.pagerXml$ | async) as pager; else noPagerXml"
+    *ngIf="(pagerXmlService.pagerXml$ | async) as pager; else dataLoading"
   >
     <div *ngIf="(eventService.product$ | async) as product">
       <ng-container *ngIf="!pending; else isPending">
@@ -118,8 +118,8 @@
     </div>
   </ng-container>
 
-  <ng-template #noPagerXml>
-    <p class="alert error">Data failed to load</p>
+  <ng-template #dataLoading>
+    <p class="alert info">Data Loading</p>
   </ng-template>
 
   <ng-template #noImage>
