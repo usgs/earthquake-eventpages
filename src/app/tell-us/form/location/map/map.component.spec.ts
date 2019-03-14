@@ -13,7 +13,7 @@ describe('MapComponent', () => {
 
   beforeEach(async(() => {
     const geoServiceStub = {
-      method: {
+      method$: {
         next: () => {}
       }
     };

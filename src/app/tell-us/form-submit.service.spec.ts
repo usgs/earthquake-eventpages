@@ -16,7 +16,7 @@ describe('FormSubmitService', () => {
 
   beforeEach(() => {
     const geoServiceStub = {
-      method: {
+      method$: {
         value: 'map'
       }
     };
