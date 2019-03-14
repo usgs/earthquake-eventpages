@@ -9,14 +9,24 @@ import { FormSubmitService } from './form-submit.service';
 import { FeltReport } from './felt-report';
 import { FeltReportResponse } from './felt-report-response';
 import { FeltReportReponseError } from './felt-report-reponse-error';
+import { GeoService } from '@shared/geo.service';
 
 describe('FormSubmitService', () => {
   let httpClient: HttpTestingController, injector: TestBed;
 
   beforeEach(() => {
+    const geoServiceStub = {
+      method$: {
+        value: 'map'
+      }
+    };
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [FormSubmitService]
+      providers: [
+        FormSubmitService,
+        { provide: GeoService, useValue: geoServiceStub }
+      ]
     });
 
     injector = getTestBed();

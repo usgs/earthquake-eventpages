@@ -5,12 +5,19 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { MapComponent } from './map.component';
 import { FormatterService } from '@core/formatter.service';
+import { GeoService } from '@shared/geo.service';
 
 describe('MapComponent', () => {
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
 
   beforeEach(async(() => {
+    const geoServiceStub = {
+      method$: {
+        next: () => {}
+      }
+    };
+
     TestBed.configureTestingModule({
       declarations: [
         MapComponent,
@@ -25,7 +32,10 @@ describe('MapComponent', () => {
           selector: 'shared-map'
         })
       ],
-      providers: [FormatterService]
+      providers: [
+        FormatterService,
+        { provide: GeoService, useValue: geoServiceStub }
+      ]
     }).compileComponents();
   }));
 

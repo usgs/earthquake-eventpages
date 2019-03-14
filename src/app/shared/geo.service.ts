@@ -70,6 +70,7 @@ export class GeoService {
   geocoding$: Observable<boolean>;
   geolocating$: Observable<boolean>;
   location$: Observable<Location>;
+  method$ = new BehaviorSubject<string>(null);
 
   private error = new BehaviorSubject<LocationError>(null);
   private flickerTimeout = 500; // milliseconds
@@ -107,6 +108,7 @@ export class GeoService {
         }
       });
 
+    this.method$.next('geocode');
     this.geocoding.next(true);
   }
 
@@ -117,6 +119,7 @@ export class GeoService {
         error => this.onGeolocateError(error)
       );
 
+      this.method$.next('geolocate');
       this.geolocating.next(true);
     } catch (e) {
       this.error.next({

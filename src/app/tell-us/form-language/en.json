@@ -105,7 +105,7 @@
   "partialWalls": "Yes, some partially fell",
   "completeWalls": "Yes, some fell completely",
 
-  "damage": "Was there any damage to the building?",
+  "d_text": "Was there any damage to the building?",
   "noDamage": "No damage",
   "minCrackDamage": "Hairline cracks in walls",
   "fewCrackDamage": "A few large cracks in walls",
