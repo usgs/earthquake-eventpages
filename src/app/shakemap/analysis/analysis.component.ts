@@ -20,6 +20,11 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     {name: 'Seismic Station Predictions', value:'#5fce3b'},
     {name: 'DYFI Station Predictions', value:'#5fce3b'}
   ];
+  groundType = 'soil';
+  groundTypes = [
+    {display: 'Soil', value: 'soil'},
+    {display: 'Rock', value: 'rock'}
+  ]
   lineSeries: any[] = null;
   plotting: any = {x: {}, y: {}};
   plotXOptions = [
