@@ -2,7 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+
+import { ProductContentPipe } from '@shared/product-content.pipe';
 
 /**
  * Retreives xml contents from a product via http calls, and parses contents
@@ -32,6 +34,32 @@ export class ContentsXmlService {
         });
     } catch (e) {
       this.contents$.next(null);
+    }
+  }
+
+  /**
+   * Download product content
+   *
+   * @param product
+   *     Product with contents property
+   * @param content
+   *     Name of the content to download
+   */
+  getContent(product: any, content: string): Observable<any> {
+    const pcPipe = new ProductContentPipe();
+    const _content = pcPipe.transform(product, content);
+
+    if (!_content) {
+      of(null);
+    }
+
+    try {
+      return this.httpClient
+        .get(_content.url)
+        .pipe(map(response => response))
+        .pipe(catchError(this.handleError()));
+    } catch (e) {
+      return of(null);
     }
   }
 

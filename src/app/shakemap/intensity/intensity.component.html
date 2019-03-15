@@ -1,5 +1,4 @@
 <ng-container *ngIf="eventService?.product$ | async; let shakemap">
-
   <div class="shakemap-map"
       *ngIf="shakemap | sharedProductContent:'download/cont_mi.json';
       else noOverlay">

@@ -35,6 +35,7 @@ import { StationListComponent } from './station-list/station-list.component';
 import { LegendComponent } from './legend/legend.component';
 import { AnalysisComponent } from './analysis/analysis.component';
 import { PlotStationsPipe } from './plot-stations.pipe';
+import { PlotAttenPipe } from './plot-atten.pipe';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { PlotStationsPipe } from './plot-stations.pipe';
     PsaComponent,
     LegendComponent,
     AnalysisComponent,
-    PlotStationsPipe
+    PlotStationsPipe,
+    PlotAttenPipe
   ],
   exports: [StationListComponent, MetadataComponent],
   imports: [

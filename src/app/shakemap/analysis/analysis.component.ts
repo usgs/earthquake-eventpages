@@ -35,6 +35,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   product: any = null;
   ratio = false;
   residual = false;
+  shakemap = null;
   subs = new Subscription();
   xScaleType = 'log';
   yScaleType = 'log';
@@ -61,6 +62,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   }
 
   onShakemap (shakemap) {
+    this.shakemap = shakemap;
     this.stationService.getStations(shakemap);
   }
 

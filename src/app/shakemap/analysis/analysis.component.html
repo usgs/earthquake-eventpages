@@ -1,126 +1,126 @@
-<ng-container *ngIf="stationService?.stationsJson$ | async; let stations">
+<ng-container *ngIf="stationService?.stationsJson$ | async as stations">
   <ng-container *ngIf="stations">
-    <h2 class="plot-title">
-      {{
-        residual ? ratio ? 'Residual Ratio' : 'Residual' : 'Regression'
-      }} Plot
-    </h2>
-    <div class="chart-container">
-      <bubble-line-chart-component
-          [animations]="true"
-          [autoScale]="false"
-          [customColors]="customColors"
-          [lineChartTooltip]="false"
-          [bubbleChart]="stations.features |
-              plotStations:plotting.x.type:plotting.y.type:residual:ratio"
-          [tooltipDisabled]="false"
-          [gradient]="true"
-          [xAxis]="true"
-          [yAxis]="true"
-          [legend]="true"
-          [xScaleMin]="xScaleType === 'log' ? 1 : 0"
-          [xScaleType]="xScaleType"
-          [showGridLines]="true"
-          [showXAxisLabel]="true"
-          [showYAxisLabel]="true"
-          [symetricalYAxis]="residual && !ratio"
-          [xAxisLabel]="plotting.x.label"
-          [yAxisLabel]="ratio ? 'Measured / Expected (no units)' : plotting.y.label"
-          [yScaleType]="yScaleType"
-          [bubbleTooltipTemplate]="tooltip">
-      </bubble-line-chart-component>
-    </div>
+      <h2 class="plot-title">
+        {{
+          residual ? ratio ? 'Residual Ratio' : 'Residual' : 'Regression'
+        }} Plot
+      </h2>
+      <div class="chart-container">
+        <bubble-line-chart-component
+            [animations]="true"
+            [autoScale]="false"
+            [customColors]="customColors"
+            [lineChartTooltip]="false"
+            [bubbleChart]="stations.features |
+                plotStations:plotting.x.type:plotting.y.type:residual:ratio"
+            [lineChart]="residual ? [] : shakemap | sharedGetContent:'download/attenuation_curves.json' | async | plotAtten:plotting.x.type:plotting.y.type:'soil'"
+            [tooltipDisabled]="false"
+            [gradient]="true"
+            [xAxis]="true"
+            [yAxis]="true"
+            [legend]="true"
+            [xScaleMin]="xScaleType === 'log' ? 1 : 0"
+            [xScaleType]="xScaleType"
+            [showGridLines]="true"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [symetricalYAxis]="residual && !ratio"
+            [xAxisLabel]="plotting.x.label"
+            [yAxisLabel]="ratio ? 'Measured / Expected (no units)' : plotting.y.label"
+            [yScaleType]="yScaleType"
+            [bubbleTooltipTemplate]="tooltip">
+        </bubble-line-chart-component>
+      </div>
 
-<div class="residual-slider">
-  <mat-slide-toggle
-      [(ngModel)]="residual"
-      [disabled]="stations.features[0]?.properties.distances ? false : true"
-      (change)="toggleResidual()">
-    Residual View
-  </mat-slide-toggle>
-</div>
+  <div class="residual-slider">
+    <mat-slide-toggle
+        [(ngModel)]="residual"
+        [disabled]="stations.features[0]?.properties.distances ? false : true"
+        (change)="toggleResidual()">
+      Residual View
+    </mat-slide-toggle>
+  </div>
 
-<div class="residual-options" *ngIf="residual">
-  <form>
+  <div class="residual-options" *ngIf="residual">
+    <form>
+        <mat-form-field>
+          <mat-select placeholder="Residual Type"
+              [(ngModel)]="ratio"
+              name="residualRatio">
+            <mat-option
+                *ngFor="let option of ['Ratio', 'Difference']"
+                [value]="option==='Ratio'"
+                (click)="yScaleType=option==='Ratio' ? 'log' : 'linear'">
+              {{ option }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    </form>
+  </div>
+
+  <div class="axis-options">
+    <h3>Y-Axis Options</h3>
+
+    <form>
       <mat-form-field>
-        <mat-select placeholder="Residual Type"
-            [(ngModel)]="ratio"
-            name="residualRatio">
-          <mat-option
-              *ngFor="let option of ['Ratio', 'Difference']"
-              [value]="option==='Ratio'"
-              (click)="yScaleType=option==='Ratio' ? 'log' : 'linear'">
-            {{ option }}
+        <mat-select placeholder="Intensity Measure"
+            [(ngModel)]="plotting.y"
+            name="plottingY">
+          <mat-option 
+              *ngFor="let option of plotYOptions"
+              [value]="option"
+              (click)="setImt(option)">
+            {{ option.display }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-  </form>
-</div>
 
-<div class="axis-options">
-  <h3>Y-Axis Options</h3>
-
-  <form>
-    <mat-form-field>
-      <mat-select placeholder="Intensity Measure"
-          [(ngModel)]="plotting.y"
-          name="plottingY">
-        <mat-option 
-            *ngFor="let option of plotYOptions"
-            [value]="option"
-            (click)="setImt(option)">
-          {{ option.display }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-select placeholder="Y-Axis Scale"
-          [(ngModel)]="yScaleType"
-          [disabled]="residual && !ratio"
-          name="yScaleType">
-        <mat-option 
-            *ngFor="let option of axisScaleOptions"
-            [value]="option.scaleType">
-          {{ option.display }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </form>
-</div>
-
-<div class="axis-options">
-  <h3>X-Axis Options</h3>
-  <form>
-    <mat-form-field>
-      <mat-select
-          placeholder="Distance Type"
-          [disabled]="!stations.features[0]?.properties.distances"
-          [(ngModel)]="plotting.x"
-          name="plottingX">
-        <mat-option 
-            *ngFor="let option of plotXOptions"
-            [value]="option">
-          <div>
+      <mat-form-field>
+        <mat-select placeholder="Y-Axis Scale"
+            [(ngModel)]="yScaleType"
+            [disabled]="residual && !ratio"
+            name="yScaleType">
+          <mat-option 
+              *ngFor="let option of axisScaleOptions"
+              [value]="option.scaleType">
             {{ option.display }}
-          </div>
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-select placeholder="X-Axis Scale"
-          [(ngModel)]="xScaleType"
-          name="xScaleType">
-        <mat-option 
-            *ngFor="let option of axisScaleOptions"
-            [value]="option.scaleType">
-          {{ option.display }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </form>
-</div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
 
+  <div class="axis-options">
+    <h3>X-Axis Options</h3>
+    <form>
+      <mat-form-field>
+        <mat-select
+            placeholder="Distance Type"
+            [disabled]="!stations.features[0]?.properties.distances"
+            [(ngModel)]="plotting.x"
+            name="plottingX">
+          <mat-option 
+              *ngFor="let option of plotXOptions"
+              [value]="option">
+            <div>
+              {{ option.display }}
+            </div>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="X-Axis Scale"
+            [(ngModel)]="xScaleType"
+            name="xScaleType">
+          <mat-option 
+              *ngFor="let option of axisScaleOptions"
+              [value]="option.scaleType">
+            {{ option.display }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </div>
   </ng-container>
 </ng-container>
 
