@@ -37,6 +37,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     {type: 'pgv', display: 'PGV', label: 'Peak Ground Velocity cm/s'},
     {type: 'intensity', display: 'MMI', label: 'Intensity (MMI)'}
   ];
+  predictions = false;
   product: any = null;
   ratio = false;
   residual = false;

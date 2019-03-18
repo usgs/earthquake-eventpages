@@ -5,17 +5,31 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PlotAttenPipe implements PipeTransform {
 
-  exponentiate (accs, imt) {
-    accs.mean = accs.mean.map(acc => {
-      let exp = Math.exp(acc);
-      if (imt === 'pga') {
-        exp *= 100;
+  convert (accs, imt) {
+    const converted = [];
+    accs.mean.forEach((acc, i) => {
+      const point = {
+        max: acc + accs.stddev[i],
+        min: acc - accs.stddev[i],
+        value: acc
+      };
+
+      if (imt !== 'intensity') {
+        point.max = Math.exp(point.max);
+        point.min = Math.exp(point.min);
+        point.value = Math.exp(point.value);
       }
 
-      return exp;
+      if (imt === 'pga') {
+        point.value *= 100;
+        point.max *= 100;
+        point.min *= 100;
+      }
+
+      converted.push(point);
     });
 
-    return accs;
+    return converted;
   }
 
   renameAccs (attenCurves) {
@@ -43,33 +57,31 @@ export class PlotAttenPipe implements PipeTransform {
 
     attenCurves = this.renameAccs(attenCurves);
     const distances = attenCurves.distances[distance];
-    let accs = attenCurves.gmpe[gmpe][imt];
-
-    if (!accs.processed) {
-      if (imt !== 'intensity') {
-        accs = this.exponentiate(accs, imt);
-      }
-
-      accs.processed = true;
-    }
+    const accs = attenCurves.gmpe[gmpe][imt];
+    const converted = this.convert(accs, imt);
 
     const points = [];
     distances.forEach((dist, i) => {
       const point = {
-        'name': dist,
-        'value': accs.mean[i],
-        'x': dist,
-        'y': accs.mean[i]
+        max: converted[i].max,
+        min: converted[i].min,
+        name: dist,
+        value: converted[i].value,
+        x: dist,
+        y: converted[i].value
       };
-
       points.push(point);
     });
 
-    return [{
-      class: 'smAttenCurves',
-      name: 'Residual Predictions',
-      series: points,
-      strokeWidth: '3'
-    }];
+    return [
+      {
+        class: 'smAttenCurves',
+        hasRange: true,
+        name: 'Regression Prediction',
+        rangeOpacity: .2,
+        series: points,
+        strokeWidth: '3'
+      }
+  ];
   }
 }

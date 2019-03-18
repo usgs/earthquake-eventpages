@@ -16,7 +16,8 @@ import {
   calculateViewDimensions,
   ColorHelper,
   LineSeriesComponent,
-  ViewDimensions
+  ViewDimensions,
+  SeriesHorizontal
 } from '@swimlane/ngx-charts';
 import { scaleLinear, scaleLog, scaleTime } from 'd3-scale';
 import { curveLinear } from 'd3-shape';
@@ -103,6 +104,8 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Input()
   bubbleChart: any[] = [];
   @Input()
+  bubbleChartDisplay: any[] = [];
+  @Input()
   bubbleChartTooltip = true;
   @Input()
   bubbleTooltipTemplate = null;
@@ -128,6 +131,8 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   legendPosition = 'right';
   @Input()
   lineChart: any[] = [];
+  @Input()
+  lineChartDisplay: any[] = [];
   @Input()
   lineChartTooltip = true;
   @Input()
@@ -260,6 +265,26 @@ export class BubbleLineChartComponent extends BaseChartComponent {
           tick <= this.yDomain[1] &&
           this.yAxisTicks.indexOf(tick) === pos;
     });
+  }
+
+  /**
+   * Remove data that fall outside the domain
+   */
+  filterData(resultsSeries) {
+    const filteredSeries = [];
+    for (const series of resultsSeries) {
+      const newSeries = {...series};
+      newSeries.series = series.series.filter(point => {
+        return point.x >= this.xDomain[0] &&
+            point.x <= this.xDomain[1] &&
+            point.y >= this.yDomain[0] &&
+            point.y <= this.yDomain[1];
+      });
+
+      filteredSeries.push(newSeries);
+    }
+
+    return filteredSeries;
   }
 
   /**
@@ -447,7 +472,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    * Returns all set of y domain values
    */
   getYDomain (): any[] {
-    const values = [];
+    let values: number[] = [];
 
     for (const results of this.results) {
       for (const d of results.series) {
@@ -468,6 +493,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     }
 
     let min, max;
+
     if (this.yScaleMin && !this.autoScale) {
       values.push(this.yScaleMin);
       min = this.yScaleMin;
@@ -491,6 +517,16 @@ export class BubbleLineChartComponent extends BaseChartComponent {
         max = Math.abs(min);
       } else {
         min = -Math.abs(max);
+      }
+    }
+
+    if (this.yScaleType === 'log' && min < 0) {
+      values = values.sort();
+      for (const value of values) {
+        if (value > 0) {
+          min = value;
+          break;
+        }
       }
     }
 
@@ -586,6 +622,16 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     } else {
       domain = this.yDomain;
     }
+
+    for (const series of [...this.bubbleChart, ...this.lineChart]) {
+      if (series.color) {
+        this.customColors.push({
+          name: series.name,
+          value: series.color
+        });
+      }
+    }
+
     this.colors = new ColorHelper(this.scheme,
         this.schemeType, domain, this.customColors);
   }
@@ -619,6 +665,12 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     );
 
     this.results = [...this.lineChart, ...this.bubbleChart];
+    this.xDomain = this.getXDomain();
+    this.yDomain = this.getYDomain();
+    this.lineChartDisplay = this.filterData(this.lineChart);
+    this.bubbleChartDisplay = this.filterData(this.bubbleChart);
+
+    this.results = [...this.lineChart, ...this.bubbleChart];
     super.update();
 
     this.dims = calculateViewDimensions({
@@ -642,10 +694,6 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     } else {
       this.legendSpacing = 40;
     }
-
-    // line chart
-    this.xDomain = this.getXDomain();
-    this.yDomain = this.getYDomain();
 
     this.rDomain = this.getRDomain();
     this.seriesDomain = this.getSeriesDomain();
@@ -700,6 +748,8 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   logTickFormatting (value) {
 
     const logTicks = [
+      .0000001,
+      .000001,
       .00001,
       .0001,
       .0001,

@@ -13,7 +13,7 @@
           [lineChartTooltip]="false"
           [bubbleChart]="stations.features |
               plotStations:plotting.x.type:plotting.y.type:residual:ratio"
-          [lineChart]="residual ? [] : shakemap |
+          [lineChart]="residual || !predictions ? [] : shakemap |
               sharedGetContent:'download/attenuation_curves.json' |
               async | plotAtten:plotting.x.type:plotting.y.type:groundType"
           [tooltipDisabled]="false"
@@ -34,13 +34,23 @@
       </bubble-line-chart-component>
     </div>
 
-    <div class="residual-slider">
-      <mat-slide-toggle
-          [(ngModel)]="residual"
-          [disabled]="stations.features[0]?.properties.distances ? false : true"
-          (change)="toggleResidual()">
-        Residual View
-      </mat-slide-toggle>
+    <div class="sliders">
+      <div class="residual-slider slider">
+        <mat-slide-toggle
+            [(ngModel)]="residual"
+            [disabled]="stations.features[0]?.properties.distances ? false : true"
+            (change)="toggleResidual()">
+          Residual View
+        </mat-slide-toggle>
+      </div>
+
+      <div class="prediction-slider slider">
+        <mat-slide-toggle
+            [(ngModel)]="predictions"
+            [disabled]="!(shakemap | sharedProductContent:'download/attenuation_curves.json') || residual">
+          Prediction Curves
+        </mat-slide-toggle>
+      </div>
     </div>
 
     <div class="residual-options" *ngIf="residual">
@@ -57,6 +67,24 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+      </form>
+    </div>
+
+    <div *ngIf="(shakemap | sharedProductContent:'download/attenuation_curves.json') &&
+        predictions && !residual"
+        class="prediction-options">
+      <form>
+        <mat-form-field>
+          <mat-select placeholder="Prediction Ground Type"
+              [(ngModel)]="groundType"
+              name="xScaleType">
+            <mat-option 
+                *ngFor="let option of groundTypes"
+                [value]="option.value">
+              {{ option.display }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </form>
     </div>
 
@@ -117,24 +145,6 @@
             <mat-option 
                 *ngFor="let option of axisScaleOptions"
                 [value]="option.scaleType">
-              {{ option.display }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </form>
-    </div>
-
-    <div *ngIf="shakemap | sharedProductContent:'download/attenuation_curves.json'"
-        class="axis-options">
-      <h3>Prediction Options</h3>
-      <form>
-        <mat-form-field>
-          <mat-select placeholder="Ground Type"
-              [(ngModel)]="groundType"
-              name="xScaleType">
-            <mat-option 
-                *ngFor="let option of groundTypes"
-                [value]="option.value">
               {{ option.display }}
             </mat-option>
           </mat-select>
