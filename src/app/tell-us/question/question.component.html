@@ -31,7 +31,7 @@
             <input
               matInput
               [disabled]="model[name] !== 'other'"
-              [(ngModel)]="model[name + '_Other']"
+              [(ngModel)]="model[option.otherValue]"
               [placeholder]="labels[(option?.otherLabel)]"
               attr.aria-label="{{ labels[(option?.otherLabel)] }}"
             />
