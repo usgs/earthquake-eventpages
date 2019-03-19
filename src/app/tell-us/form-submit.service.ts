@@ -67,9 +67,6 @@ export class FormSubmitService {
       params = params.append('format', 'json');
       params = params.append('form_version', DYFI_FORM_VERSION);
 
-      console.log('params', params);
-      console.log('feltReport', feltReport);
-
       // Post the form
       this.httpClient
         .post(this.responseUrl, params)
