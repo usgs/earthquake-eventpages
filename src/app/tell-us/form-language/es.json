@@ -105,7 +105,7 @@
   "partialWalls": "Sí, algunas se cayeron parcialmente",
   "completeWalls": "Sí, algunas se cayeron por completo",
 
-  "damage": "¿Se observó daños en edificios ú otras estructuras?",
+  "d_text": "¿Se observó daños en edificios ú otras estructuras?",
   "noDamage": "Ningún daño apreciable a simple vista",
   "minCrackDamage": "Grietas pequeñas en las paredes",
   "fewCrackDamage": "Algunas grietas grandes en las paredes",
