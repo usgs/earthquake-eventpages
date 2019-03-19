@@ -11,7 +11,7 @@ import { FeltReport } from 'app/tell-us/felt-report';
 import { environment } from 'environments/environment';
 import { GeoService } from '@shared/geo.service';
 
-const DYFI_FORM_VERSION = '1.11';
+const DYFI_FORM_VERSION = '1.12';
 
 @Injectable()
 export class FormSubmitService {
