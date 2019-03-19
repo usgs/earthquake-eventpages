@@ -24,6 +24,13 @@ export class FeltReport {
       return null;
     }
   }
+  get ciim_mapConfidence(): number {
+    try {
+      return this.location.confidence;
+    } catch (e) {
+      return null;
+    }
+  }
 
   get ciim_mapLat(): number {
     try {
@@ -73,13 +80,13 @@ export class FeltReport {
     this.location = {
       address: address,
       latitude: null,
-      longitude: null
+      longitude: null,
+      confidence: null
     };
   }
 
   // Must disable variable name linting so we can match input fields
   // tslint:disable:variable-name
-  ciim_mapConfidence: number;
   ciim_time: string;
   'd_text[]': Array<string>;
   eventid: string;

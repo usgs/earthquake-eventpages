@@ -67,6 +67,9 @@ export class FormSubmitService {
       params = params.append('format', 'json');
       params = params.append('form_version', DYFI_FORM_VERSION);
 
+      console.log('params', params);
+      console.log('feltReport', feltReport);
+
       // Post the form
       this.httpClient
         .post(this.responseUrl, params)
@@ -104,17 +107,20 @@ export class FormSubmitService {
   parseLocation(params, feltReport) {
     let latitude = feltReport.ciim_mapLat;
     let longitude = feltReport.ciim_mapLon;
+    let confidence = feltReport.ciim_mapConfidence;
     const address = feltReport.ciim_mapAddress;
     const method = this.geoService.method$.value;
 
-    if (latitude) {
-      latitude = latitude.toString();
+    if (latitude || latitude === 0) {
       params = params.append('ciim_mapLat', latitude);
     }
 
-    if (longitude) {
-      longitude = longitude.toString();
+    if (longitude || longitude === 0) {
       params = params.append('ciim_mapLon', longitude);
+    }
+
+    if (confidence || confidence === 0) {
+      params = params.append('ciim_mapConfidence', confidence);
     }
 
     // Omitting the lat/lng formatted string prevents an unecessary
