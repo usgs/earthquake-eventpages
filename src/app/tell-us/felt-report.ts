@@ -79,9 +79,9 @@ export class FeltReport {
   set ciim_mapAddress(address: string) {
     this.location = {
       address: address,
+      confidence: null,
       latitude: null,
-      longitude: null,
-      confidence: null
+      longitude: null
     };
   }
 

@@ -133,9 +133,9 @@ export class MapComponent extends AbstractForm
     this.geoService.method$.next('map');
     this.feltReport.location = {
       address,
+      confidence,
       latitude,
-      longitude,
-      confidence
+      longitude
     } as Location;
   }
 
@@ -154,9 +154,9 @@ export class MapComponent extends AbstractForm
 
       this.feltReport.location = {
         address,
+        confidence,
         latitude,
-        longitude,
-        confidence
+        longitude
       };
     }
   }

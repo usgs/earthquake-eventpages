@@ -48,9 +48,9 @@ export interface ArcGisSpatialReference {
  */
 export interface Location {
   address: string;
+  confidence: number;
   latitude: number;
   longitude: number;
-  confidence: number;
 }
 
 export interface LocationError {
@@ -211,9 +211,9 @@ export class GeoService {
 
     this.location.next({
       address,
+      confidence,
       latitude,
-      longitude,
-      confidence
+      longitude
     } as Location);
 
     setTimeout(_ => this.geocoding.next(false));
@@ -258,9 +258,9 @@ export class GeoService {
 
     this.location.next({
       address,
+      confidence,
       latitude,
-      longitude,
-      confidence
+      longitude
     } as Location);
 
     // Artificial delay to avoid UI flicker effect when geolocation is fast

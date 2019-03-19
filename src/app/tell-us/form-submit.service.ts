@@ -105,9 +105,9 @@ export class FormSubmitService {
    * @param feltReport
    */
   parseLocation(params, feltReport) {
-    let latitude = feltReport.ciim_mapLat;
-    let longitude = feltReport.ciim_mapLon;
-    let confidence = feltReport.ciim_mapConfidence;
+    const latitude = feltReport.ciim_mapLat;
+    const longitude = feltReport.ciim_mapLon;
+    const confidence = feltReport.ciim_mapConfidence;
     const address = feltReport.ciim_mapAddress;
     const method = this.geoService.method$.value;
 
