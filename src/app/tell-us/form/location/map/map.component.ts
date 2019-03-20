@@ -122,17 +122,18 @@ export class MapComponent extends AbstractForm
 
   onMarkerChange() {
     const latLng = this.pin.getLatLng();
-    let precision = 0;
+    let confidence = 0;
     try {
-      precision = Math.floor(this.pin._map.getZoom() / 4);
+      confidence = Math.floor(this.pin._map.getZoom() / 4);
     } catch (e) {}
-    const latitude = +this.formatter.number(latLng.lat, precision);
-    const longitude = +this.formatter.number(latLng.lng, precision);
-    const address = this.formatter.location(latitude, longitude, precision);
+    const latitude = +this.formatter.number(latLng.lat, confidence);
+    const longitude = +this.formatter.number(latLng.lng, confidence);
+    const address = this.formatter.location(latitude, longitude, confidence);
 
     this.geoService.method$.next('map');
     this.feltReport.location = {
       address,
+      confidence,
       latitude,
       longitude
     } as Location;
@@ -148,9 +149,12 @@ export class MapComponent extends AbstractForm
       const latitude = latLng[0];
       const longitude = latLng[1];
       const address = this.formatter.location(latitude, longitude, 3);
+      // no confidence we are guessing the user's location
+      const confidence = 0;
 
       this.feltReport.location = {
         address,
+        confidence,
         latitude,
         longitude
       };

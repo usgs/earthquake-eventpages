@@ -11,7 +11,7 @@ import { FeltReport } from 'app/tell-us/felt-report';
 import { environment } from 'environments/environment';
 import { GeoService } from '@shared/geo.service';
 
-const DYFI_FORM_VERSION = '1.11';
+const DYFI_FORM_VERSION = '1.12';
 
 @Injectable()
 export class FormSubmitService {
@@ -102,19 +102,22 @@ export class FormSubmitService {
    * @param feltReport
    */
   parseLocation(params, feltReport) {
-    let latitude = feltReport.ciim_mapLat;
-    let longitude = feltReport.ciim_mapLon;
+    const latitude = feltReport.ciim_mapLat;
+    const longitude = feltReport.ciim_mapLon;
+    const confidence = feltReport.ciim_mapConfidence;
     const address = feltReport.ciim_mapAddress;
     const method = this.geoService.method$.value;
 
-    if (latitude) {
-      latitude = latitude.toString();
+    if (latitude || latitude === 0) {
       params = params.append('ciim_mapLat', latitude);
     }
 
-    if (longitude) {
-      longitude = longitude.toString();
+    if (longitude || longitude === 0) {
       params = params.append('ciim_mapLon', longitude);
+    }
+
+    if (confidence || confidence === 0) {
+      params = params.append('ciim_mapConfidence', confidence);
     }
 
     // Omitting the lat/lng formatted string prevents an unecessary

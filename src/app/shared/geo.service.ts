@@ -48,6 +48,7 @@ export interface ArcGisSpatialReference {
  */
 export interface Location {
   address: string;
+  confidence: number;
   latitude: number;
   longitude: number;
 }
@@ -129,7 +130,7 @@ export class GeoService {
     }
   }
 
-  private getGeocodePrecision(score: number): number {
+  private getGeocodeConfidence(score: number): number {
     if (score >= 90) {
       return 5;
     } else if (score >= 80) {
@@ -145,7 +146,7 @@ export class GeoService {
     }
   }
 
-  private getGeolocationPrecision(accuracy: number): number {
+  private getGeolocationConfidence(accuracy: number): number {
     if (accuracy > 100000) {
       return 1;
     } else if (accuracy > 10000) {
@@ -196,20 +197,21 @@ export class GeoService {
 
     // Map ArcGisLocation to shared Location interface
     const address = geocode.name;
-    const precision = this.getGeocodePrecision(
+    const confidence = this.getGeocodeConfidence(
       geocode.feature.attributes.Score
     );
     const latitude = +this.formatter.number(
       geocode.feature.geometry.y,
-      precision
+      confidence
     );
     const longitude = +this.formatter.number(
       geocode.feature.geometry.x,
-      precision
+      confidence
     );
 
     this.location.next({
       address,
+      confidence,
       latitude,
       longitude
     } as Location);
@@ -243,19 +245,20 @@ export class GeoService {
     }
 
     // Map Position to shared Location interface
-    const precision = this.getGeolocationPrecision(+position.coords.accuracy);
+    const confidence = this.getGeolocationConfidence(+position.coords.accuracy);
     const latitude = +this.formatter.number(
       position.coords.latitude,
-      precision
+      confidence
     );
     const longitude = +this.formatter.number(
       position.coords.longitude,
-      precision
+      confidence
     );
-    const address = this.formatter.location(latitude, longitude, precision);
+    const address = this.formatter.location(latitude, longitude, confidence);
 
     this.location.next({
       address,
+      confidence,
       latitude,
       longitude
     } as Location);

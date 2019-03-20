@@ -10,7 +10,7 @@
       {
         "value": "other",
         "label": "other",
-        "otherValue": "",
+        "otherValue": "fldSituation_sitOther",
         "otherLabel": "pleaseDescribe"
       }
     ]
@@ -70,7 +70,7 @@
       {
         "value": "other",
         "label": "other",
-        "otherValue": "",
+        "otherValue": "response_other",
         "otherLabel": "pleaseDescribe"
       }
     ]

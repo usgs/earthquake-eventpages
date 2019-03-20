@@ -53,6 +53,7 @@ describe('FormSubmitService', () => {
     feltReport.ciim_time = '5 minutes ago';
     feltReport.location = {
       address: 'test',
+      confidence: 0,
       latitude: 35,
       longitude: -105
     };
