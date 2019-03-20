@@ -67,8 +67,6 @@ export class FormSubmitService {
       params = params.append('format', 'json');
       params = params.append('form_version', DYFI_FORM_VERSION);
 
-      console.log('final params: ', params);
-
       // Post the form
       this.httpClient
         .post(this.responseUrl, params)
@@ -131,6 +129,10 @@ export class FormSubmitService {
     return params;
   }
 
+  /**
+   * Destroys the response component so the user can fill out another
+   * DYFI form in the same session, and loads the form in main tell-us component
+   */
   resetResponse(): void {
     this.formResponse$.next(null);
   }
