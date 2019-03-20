@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { ContentsXmlService } from '@core/contents-xml.service'
+import { ContentsXmlService } from '@core/contents-xml.service';
 
 @Pipe({
   name: 'sharedGetContent'

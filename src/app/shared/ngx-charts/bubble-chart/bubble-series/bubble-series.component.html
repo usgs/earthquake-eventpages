@@ -2,10 +2,10 @@
   <!-- Add Error bars -->
   <ng-container *ngIf="circle.max && circle.min">
     <svg:g ngx-charts-line-series
-        [xScale]="xScale"
-        [yScale]="yScale"
+        [activeEntries]="activeEntries"
+        [animations]="false"
         [colors]="colors"
-        [strokeWidth]="'.5px'"
+        [curve]="curve"
         [data]="{
           name: 'error',
           series: [
@@ -19,52 +19,52 @@
             }
           ]
         }"
-        [activeEntries]="activeEntries"
-        [scaleType]="'linear'"
-        [curve]="curve"
-        [rangeFillOpacity]="1"
         [hasRange]="false"
-        [animations]="false"
+        [rangeFillOpacity]="1"
+        [scaleType]="'linear'"
+        [strokeWidth]="'.5px'"
+        [xScale]="xScale"
+        [yScale]="yScale"
     />
     <svg:g ngx-charts-line
-        [strokeWidth]="'.5px'"
-        [stroke]="'#000000'"
-        [path]="getErrorPathUpper(circle)"
         [animations]="false"
+        [path]="getErrorPathUpper(circle)"
+        [stroke]="'#000000'"
+        [strokeWidth]="'.5px'"
     />
 
     <svg:g ngx-charts-line
+        [animations]="false"
+        [path]="getErrorPathLower(circle)"
         [strokeWidth]="'.5px'"
         [stroke]="'#000000'"
-        [path]="getErrorPathLower(circle)"
-        [animations]="false"
     />
   </ng-container>
   <svg:g [attr.transform]="circle?.transform">
     <svg:g ngx-charts-shape
         [@animationState]="'active'"
         class="circle"
+        [class.active]="circle?.isActive"
+        [classNames]="circle?.classNames"
         [cx]="0"
         [cy]="0"
-        [r]="circle?.radius"
-        [fill]="circle?.color"
-        [stroke]="circle?.borderColor"
-        [shape]="circle?.shape"
-        [style.opacity]="circle?.opacity"
-        [class.active]="circle?.isActive"
-        [pointerEvents]="'all'"
         [data]="circle?.value"
-        [classNames]="circle?.classNames"
+        [fill]="circle?.color"
+        [pointerEvents]="'all'"
+        [r]="circle?.radius"
+        [shape]="circle?.shape"
+        [stroke]="circle?.borderColor"
+        [style.opacity]="circle?.opacity"
         (select)="onClick($event, circle?.label)"
         (activate)="activateCircle(circle)"
         (deactivate)="deactivateCircle(circle)"
         ngx-tooltip
+        [tooltipContext]="circle.data"
         [tooltipDisabled]="tooltipDisabled"
         [tooltipPlacement]="'top'"
-        [tooltipType]="'tooltip'"
-        [tooltipTitle]="tooltipTemplate ? undefined : getTooltipText(circle)"
         [tooltipTemplate]="tooltipTemplate"
-        [tooltipContext]="circle.data"
+        [tooltipTitle]="tooltipTemplate ? undefined : getTooltipText(circle)"
+        [tooltipType]="'tooltip'"
     />
   </svg:g>
 </svg:g>

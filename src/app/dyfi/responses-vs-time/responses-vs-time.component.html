@@ -2,21 +2,21 @@
   <h2>Responses vs. Time Plot</h2>
   <div class="chart-container">
     <bubble-line-chart-component
-        [scheme]="colorScheme"
-        [results]="series.series"
-        [lineChart]="series.series"
+        [autoScale]="autoScale"
         [gradient]="gradient"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
         [legend]="showLegend"
-        [xScaleType]="xScaleType"
+        [lineChart]="series.series"
+        [scheme]="colorScheme"
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
+        [results]="series.series"
+        [xAxis]="showXAxis"
         [xAxisLabel]="xAxisLabel"
         [xScaleMax] = "xScaleMax"
         [xAxisTicks]="xAxisTicks"
-        [yAxisLabel]="yAxisLabel"
-        [autoScale]="autoScale">
+        [xScaleType]="xScaleType"
+        [yAxis]="showYAxis"
+        [yAxisLabel]="yAxisLabel">
     </bubble-line-chart-component>
   </div>
 </ng-container>

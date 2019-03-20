@@ -16,8 +16,7 @@ import {
   calculateViewDimensions,
   ColorHelper,
   LineSeriesComponent,
-  ViewDimensions,
-  SeriesHorizontal
+  ViewDimensions
 } from '@swimlane/ngx-charts';
 import { scaleLinear, scaleLog, scaleTime } from 'd3-scale';
 import { curveLinear } from 'd3-shape';
