@@ -1,3 +1,4 @@
+import { FormSubmitService } from './../form-submit.service';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockComponent } from 'ng2-mock-component';
@@ -11,6 +12,9 @@ describe('ResponseComponent', () => {
   let fixture: ComponentFixture<ResponseComponent>;
 
   beforeEach(async(() => {
+    const formSubmitServiceStub = {
+      resetResponse: () => {}
+    };
     TestBed.configureTestingModule({
       declarations: [
         ResponseComponent,
@@ -24,7 +28,10 @@ describe('ResponseComponent', () => {
         }),
         MockPipe('isErrorResponsePipe')
       ],
-      providers: [WindowRef]
+      providers: [
+        WindowRef,
+        { provide: FormSubmitService, useValue: formSubmitServiceStub }
+      ]
     }).compileComponents();
   }));
 
@@ -36,5 +43,13 @@ describe('ResponseComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('on NgDestroy calls form service reset', () => {
+    it('calls reset', () => {
+      spyOn(component.formService, 'resetResponse');
+      component.ngOnDestroy();
+      expect(component.formService.resetResponse).toHaveBeenCalled();
+    });
   });
 });
