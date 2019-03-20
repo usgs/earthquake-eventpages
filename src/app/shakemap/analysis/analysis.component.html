@@ -2,8 +2,9 @@
   <ng-container *ngIf="stations">
     <h2 class="plot-title">
       {{
-        residual ? ratio ? 'Residual Ratio' : 'Residual' : 'Regression'
-      }} Plot
+        residual ? ratio ? plotTitles.residualRatio :
+            plotTitles.residual : plotTitles.regression
+      }}
     </h2>
     <div class="chart-container">
       <bubble-line-chart-component
@@ -21,14 +22,15 @@
           [xAxis]="true"
           [yAxis]="true"
           [legend]="true"
+          [legendTitle]="'Explanation'"
           [xScaleMin]="xScaleType === 'log' ? 1 : 0"
           [xScaleType]="xScaleType"
           [showGridLines]="true"
           [showXAxisLabel]="true"
           [showYAxisLabel]="true"
-          [symetricalYAxis]="residual && !ratio"
+          [symmetricalYAxis]="residual"
           [xAxisLabel]="plotting.x.label"
-          [yAxisLabel]="ratio ? 'Measured / Expected (no units)' : plotting.y.label"
+          [yAxisLabel]="ratio && residual ? 'Measured / Expected (no units)' : plotting.y.label"
           [yScaleType]="yScaleType"
           [bubbleTooltipTemplate]="tooltip">
       </bubble-line-chart-component>
@@ -75,7 +77,7 @@
         class="prediction-options">
       <form>
         <mat-form-field>
-          <mat-select placeholder="Prediction Ground Type"
+          <mat-select placeholder="Prediction GMPE Type"
               [(ngModel)]="groundType"
               name="xScaleType">
             <mat-option 

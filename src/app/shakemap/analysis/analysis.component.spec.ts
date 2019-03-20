@@ -49,11 +49,12 @@ describe('AnalysisComponent', () => {
             'xAxis',
             'yAxis',
             'legend',
+            'legendTitle',
             'showGridLines',
             'showXAxisLabel',
             'showYAxisLabel',
             'showRightYAxisLabel',
-            'symetricalYAxis',
+            'symmetricalYAxis',
             'xAxisLabel',
             'yAxisLabel',
             'yScaleMin',
@@ -75,7 +76,10 @@ describe('AnalysisComponent', () => {
           selector: 'shared-station'
         }),
 
-        MockPipe('plotStations')
+        MockPipe('plotAtten'),
+        MockPipe('plotStations'),
+        MockPipe('sharedGetContent'),
+        MockPipe('sharedProductContent')
       ],
       imports: [
         FormsModule,

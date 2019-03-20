@@ -24,9 +24,14 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   groundTypes = [
     {display: 'Soil', value: 'soil'},
     {display: 'Rock', value: 'rock'}
-  ]
+  ];
   lineSeries: any[] = null;
   plotting: any = {x: {}, y: {}};
+  plotTitles = {
+    regression: 'Predictions and Observations',
+    residual: 'Residual Plot',
+    residualRatio: 'Residual Ratio Plot'
+  };
   plotXOptions = [
     {type: 'rrup', display: 'Rrup', label: 'Rupture Distance (km)'},
     {type: 'rjb', display: 'Rjb', label: 'Joyner-Boore Distance (km)'},
@@ -37,7 +42,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
     {type: 'pgv', display: 'PGV', label: 'Peak Ground Velocity cm/s'},
     {type: 'intensity', display: 'MMI', label: 'Intensity (MMI)'}
   ];
-  predictions = false;
+  predictions = true;
   product: any = null;
   ratio = false;
   residual = false;

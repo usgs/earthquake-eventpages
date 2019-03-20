@@ -63,8 +63,8 @@ describe('PlotStationsPipe', () => {
       const expected = pipe
           .getResidual(STATIONS[0].properties, 'pga', false);
       expect(expected).toBe(
-          STATIONS[0].properties.pga -
-          STATIONS[0].properties.predictions[1].value);
+          Math.log(STATIONS[0].properties.pga) -
+          Math.log(STATIONS[0].properties.predictions[1].value));
     });
     it('ratio works', () => {
       const expected = pipe
@@ -78,7 +78,7 @@ describe('PlotStationsPipe', () => {
   describe('transform', () => {
     it('runs', () => {
       const result = pipe.transform(STATIONS, 'rrup', 'intensity');
-      expect(result.length).toBe(4);
+      expect(result.length).toBe(2);
     });
 
     it('Separates DYFI and station data', () => {
@@ -87,19 +87,13 @@ describe('PlotStationsPipe', () => {
       expect(result[1].series.length).toBe(1);
     });
 
-    it('Generates predictions', () => {
-      const result = pipe.transform(STATIONS, 'rrup', 'intensity');
-      expect(result[2].series.length).toBe(1);
-      expect(result[3].series.length).toBe(1);
-    });
-
     it('defaults to "distance" property', () => {
       const noDistances = STATIONS;
       noDistances[0].properties.distances = null;
       noDistances[1].properties.distances = null;
 
       const result = pipe.transform(noDistances, 'rrup', 'mmi');
-      expect(result.length).toBe(4);
+      expect(result.length).toBe(2);
     });
   });
 });

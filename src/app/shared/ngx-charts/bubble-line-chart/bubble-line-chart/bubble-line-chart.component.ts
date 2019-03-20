@@ -158,7 +158,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Input()
   showYAxisLabel;
   @Input()
-  symetricalYAxis;
+  symmetricalYAxis;
   @Input()
   tooltipDisabled = false;
   @Input()
@@ -268,7 +268,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   }
 
   /**
-   * Remove data that fall outside the domain
+   * Remove data that fall outside the domain or are hidden
    */
   filterData(resultsSeries) {
     const filteredSeries = [];
@@ -281,7 +281,9 @@ export class BubbleLineChartComponent extends BaseChartComponent {
             point.y <= this.yDomain[1];
       });
 
-      filteredSeries.push(newSeries);
+      if (!newSeries.hide) {
+        filteredSeries.push(newSeries);
+      }
     }
 
     return filteredSeries;
@@ -512,11 +514,19 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       max = 10;
     }
 
-    if (this.symetricalYAxis) {
-      if (Math.abs(min) > Math.abs(max)) {
-        max = Math.abs(min);
-      } else {
-        min = -Math.abs(max);
+    if (this.symmetricalYAxis) {
+      if (this.yScaleType === 'linear') {
+        if (Math.abs(min) > Math.abs(max)) {
+          max = Math.abs(min);
+        } else {
+          min = -Math.abs(max);
+        }
+      } else if (this.yScaleType === 'log') {
+        if (1/max < min) {
+          min = 1/max;
+        } else {
+          max = 1/min;
+        }
       }
     }
 
@@ -637,6 +647,45 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   }
 
   /**
+   * Adds a line of symmetry to be plotted
+   */
+  setLineOfSymmetry (): void {
+    const yPos = this.yScaleType === 'log' ? 1 : 0;
+    const points = [
+      {
+        name: this.xDomain[0] + 0,
+        value: yPos,
+        x: this.xDomain[0] + 0,
+        y: yPos
+      },
+      {
+        name: this.xDomain[1],
+        value: yPos,
+        x: this.xDomain[1],
+        y: yPos
+      }
+    ];
+
+    const symSeries = {
+      class: 'symmetry',
+      color: '#000',
+      name: 'Symmetry',
+      series: points,
+      strokeWidth: 3
+    };
+
+    const newLineChart = [];
+    for (const series of this.lineChart) {
+      if (series.class !== 'symmetry') {
+        newLineChart.push(series);
+      }
+    }
+
+    newLineChart.push(symSeries);
+    this.lineChart = newLineChart;
+  }
+
+  /**
    * Helper function to get name property of item
    * @param index
    * @param item
@@ -667,6 +716,9 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     this.results = [...this.lineChart, ...this.bubbleChart];
     this.xDomain = this.getXDomain();
     this.yDomain = this.getYDomain();
+    if (this.symmetricalYAxis) {
+      this.setLineOfSymmetry();
+    }
     this.lineChartDisplay = this.filterData(this.lineChart);
     this.bubbleChartDisplay = this.filterData(this.bubbleChart);
 

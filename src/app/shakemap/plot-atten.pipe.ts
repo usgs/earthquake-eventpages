@@ -50,38 +50,42 @@ export class PlotAttenPipe implements PipeTransform {
     return attenCurves;
   }
 
-  transform (attenCurves, distance, imt, gmpe): any {
+  transform (attenCurves, distance, imt, plotGmpe): any {
     if (!attenCurves) {
       return [];
     }
 
-    attenCurves = this.renameAccs(attenCurves);
-    const distances = attenCurves.distances[distance];
-    const accs = attenCurves.gmpe[gmpe][imt];
-    const converted = this.convert(accs, imt);
+    const series = [];
+    for (const gmpe of Object.keys(attenCurves.gmpe)) {
+      attenCurves = this.renameAccs(attenCurves);
+      const distances = attenCurves.distances[distance];
+      const accs = attenCurves.gmpe[gmpe][imt];
+      const converted = this.convert(accs, imt);
 
-    const points = [];
-    distances.forEach((dist, i) => {
-      const point = {
-        max: converted[i].max,
-        min: converted[i].min,
-        name: dist,
-        value: converted[i].value,
-        x: dist,
-        y: converted[i].value
-      };
-      points.push(point);
-    });
+      const points = [];
+      distances.forEach((dist, i) => {
+        const point = {
+          max: converted[i].max,
+          min: converted[i].min,
+          name: dist,
+          value: converted[i].value,
+          x: dist,
+          y: converted[i].value
+        };
+        points.push(point);
+      });
 
-    return [
-      {
-        class: 'smAttenCurves',
+      series.push({
+        class: `smAttenCurves-${gmpe}`,
         hasRange: true,
-        name: 'Regression Prediction',
+        hide: plotGmpe === gmpe ? false : true,
+        name: 'Prediction (+/- 1 std dev)',
         rangeOpacity: .2,
         series: points,
         strokeWidth: '3'
-      }
-  ];
+      });
+    }
+
+    return series;
   }
 }

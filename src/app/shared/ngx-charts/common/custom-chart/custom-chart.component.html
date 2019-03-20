@@ -10,7 +10,7 @@
   </svg>
   <ngx-charts-scale-legend
       *ngIf="showLegend && legendType === 'scaleLegend'"
-      class="chart-legend"
+      [title]="'Explanation'"
       [horizontal]="legendOptions && legendOptions.position === 'below'"
       [valueRange]="legendOptions.domain"
       [colors]="legendOptions.colors"

@@ -35,7 +35,11 @@ export class PlotStationsPipe implements PipeTransform {
       if (ratio) {
         residual = measured / predicted;
       } else {
-        residual = measured - predicted;
+        if (imt !== 'mmi') {
+          residual = Math.log(measured) - Math.log(predicted);
+        } else {
+          residual = measured - predicted;
+        }
       }
     }
 
@@ -125,7 +129,7 @@ export class PlotStationsPipe implements PipeTransform {
         icon: {shape: 'circle', size: 5},
         name: 'DYFI Stations',
         series: dyfiStations
-      },
+      }/*,
       {
         class: 'smStationPredictions',
         icon: {shape: 'triangle', size: 3},
@@ -138,6 +142,7 @@ export class PlotStationsPipe implements PipeTransform {
         name: 'DYFI Station Predictions',
         series: residual ? [] : dyfiPredictions
       }
+      */
     ];
   }
 }

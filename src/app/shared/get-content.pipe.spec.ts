@@ -1,8 +1,16 @@
 import { GetContentPipe } from './get-content.pipe';
 
 describe('GetContentPipe', () => {
+  let pipe, contentXMLService;
+  beforeEach(() => {
+    contentXMLService = {
+      getContent: jasmine.createSpy('getContent spy')
+    };
+
+    pipe = new GetContentPipe(contentXMLService);
+  });
+
   it('create an instance', () => {
-    const pipe = new GetContentPipe();
     expect(pipe).toBeTruthy();
   });
 });
