@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 
 import { FeltReportReponseError } from './../felt-report-reponse-error';
 

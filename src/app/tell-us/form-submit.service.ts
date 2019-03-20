@@ -67,6 +67,8 @@ export class FormSubmitService {
       params = params.append('format', 'json');
       params = params.append('form_version', DYFI_FORM_VERSION);
 
+      console.log('final params: ', params);
+
       // Post the form
       this.httpClient
         .post(this.responseUrl, params)
@@ -127,5 +129,9 @@ export class FormSubmitService {
     }
 
     return params;
+  }
+
+  resetResponse(): void {
+    this.formResponse$.next(null);
   }
 }
