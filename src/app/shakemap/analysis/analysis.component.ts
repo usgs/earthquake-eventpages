@@ -30,7 +30,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   plotTitles = {
     regression: 'Predictions and Observations',
     residual: 'Residual Plot',
-    residualRatio: 'Residual Ratio Plot'
+    residualRatio: 'Ratio Plot'
   };
   plotXOptions = [
     {type: 'rrup', display: 'Rrup', label: 'Rupture Distance (km)'},
@@ -46,6 +46,11 @@ export class AnalysisComponent implements OnInit, OnDestroy {
   product: any = null;
   ratio = false;
   residual = false;
+  residualPlotYOptions = [
+    {type: 'pga', display: 'PGA', label: 'ln(Observed) - ln(Predicted)'},
+    {type: 'pgv', display: 'PGV', label: 'ln(Observed) - ln(Predicted)'},
+    {type: 'intensity', display: 'MMI', label: 'Observed - Predicted'}
+  ];
   shakemap = null;
   subs = new Subscription();
   xScaleType = 'log';
@@ -102,6 +107,14 @@ export class AnalysisComponent implements OnInit, OnDestroy {
       this.yScaleType = 'linear';
     } else {
       this.yScaleType = 'log';
+    }
+
+    const options = this.residual ?
+        this.residualPlotYOptions : this.plotYOptions;
+    for (const option of options) {
+      if (this.plotting.y.type === option.type) {
+        this.plotting.y = option;
+      }
     }
   }
 }

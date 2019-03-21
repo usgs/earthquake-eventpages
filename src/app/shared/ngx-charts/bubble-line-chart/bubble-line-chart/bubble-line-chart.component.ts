@@ -157,7 +157,11 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Input()
   showYAxisLabel;
   @Input()
+  symmetricalAbout;
+  @Input()
   symmetricalYAxis;
+  @Input()
+  symmetricalYAxisLegend = 'Symmetry';
   @Input()
   tooltipDisabled = false;
   @Input()
@@ -649,7 +653,10 @@ export class BubbleLineChartComponent extends BaseChartComponent {
    * Adds a line of symmetry to be plotted
    */
   setLineOfSymmetry (): void {
-    const yPos = this.yScaleType === 'log' ? 1 : 0;
+    let yPos = this.yScaleType === 'log' ? 1 : 0;
+    yPos = this.symmetricalAbout !== null && this.yScaleType === 'linear' ?
+        this.symmetricalAbout : yPos;
+
     const points = [
       {
         name: this.xDomain[0] + 0,
@@ -668,7 +675,7 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     const symSeries = {
       class: 'symmetry',
       color: '#000',
-      name: 'Symmetry',
+      name: this.symmetricalYAxisLegend,
       series: points,
       strokeWidth: 3
     };
@@ -680,7 +687,10 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       }
     }
 
-    newLineChart.push(symSeries);
+    if (this.symmetricalYAxis) {
+      newLineChart.push(symSeries);
+    }
+
     this.lineChart = newLineChart;
   }
 
@@ -715,9 +725,10 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     this.results = [...this.lineChart, ...this.bubbleChart];
     this.xDomain = this.getXDomain();
     this.yDomain = this.getYDomain();
-    if (this.symmetricalYAxis) {
-      this.setLineOfSymmetry();
-    }
+
+    // Set the line of symmetry or remove it
+    this.setLineOfSymmetry();
+
     this.lineChartDisplay = this.filterData(this.lineChart);
     this.bubbleChartDisplay = this.filterData(this.bubbleChart);
 
@@ -799,6 +810,9 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   logTickFormatting (value) {
 
     const logTicks = [
+      .0000000001,
+      .000000001,
+      .00000001,
       .0000001,
       .000001,
       .00001,
@@ -813,7 +827,11 @@ export class BubbleLineChartComponent extends BaseChartComponent {
       100,
       1000,
       10000,
-      100000
+      100000,
+      1000000,
+      10000000,
+      100000000,
+      1000000000
     ];
 
     if (logTicks.indexOf(value) < 0) {

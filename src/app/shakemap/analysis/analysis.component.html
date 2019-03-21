@@ -28,9 +28,11 @@
           [showGridLines]="true"
           [showXAxisLabel]="true"
           [showYAxisLabel]="true"
+          [symmetricalAbout]="ratio ? 1 : 0"
           [symmetricalYAxis]="residual"
+          [symmetricalYAxisLegend]="residual && !ratio ? 'Zero Residual' : 'Ratio = 1'"
           [xAxisLabel]="plotting.x.label"
-          [yAxisLabel]="ratio && residual ? 'Measured / Expected (no units)' : plotting.y.label"
+          [yAxisLabel]="ratio && residual ? 'Measured / Expected' : plotting.y.label"
           [yScaleType]="yScaleType"
           [bubbleTooltipTemplate]="tooltip">
       </bubble-line-chart-component>
@@ -98,8 +100,8 @@
           <mat-select placeholder="Intensity Measure"
               [(ngModel)]="plotting.y"
               name="plottingY">
-            <mat-option 
-                *ngFor="let option of plotYOptions"
+            <mat-option
+                *ngFor="let option of (residual ? residualPlotYOptions : plotYOptions)"
                 [value]="option"
                 (click)="setImt(option)">
               {{ option.display }}
