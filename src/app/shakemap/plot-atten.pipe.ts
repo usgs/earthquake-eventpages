@@ -5,6 +5,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PlotAttenPipe implements PipeTransform {
 
+  /**
+   * Converts accelerations to %g or cm/s and returns an array
+   *
+   * @param accs
+   *    Accelerations grabbed from the gmpe.soil/gmpe.rock properties of
+   *    the attenuation curves product
+   * @param imt
+   *    Which IMT is going to be plotted
+   */
   convert (accs, imt) {
     const converted = [];
     accs.mean.forEach((acc, i) => {
@@ -32,6 +41,11 @@ export class PlotAttenPipe implements PipeTransform {
     return converted;
   }
 
+  /**
+   * Rename the IMTs to match the station list
+   *
+   * @param attenCurves
+   */
   renameAccs (attenCurves) {
     const rename = {
       MMI: 'intensity',
@@ -50,6 +64,18 @@ export class PlotAttenPipe implements PipeTransform {
     return attenCurves;
   }
 
+  /**
+   * Convert shakemap attenuation curves into a plottable series
+   *
+   * @param attenCurves
+   *    Shakemap attenuation curves product
+   * @param distance
+   *    Type of distance
+   * @param imt
+   *    Which IMT to use
+   * @param plotGmpe
+   *    'soil' or 'rock' GMPE with current configurations
+   */
   transform (attenCurves, distance, imt, plotGmpe): any {
     if (!attenCurves) {
       return [];

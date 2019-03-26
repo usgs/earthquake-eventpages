@@ -5,6 +5,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PlotStationsPipe implements PipeTransform {
 
+  /**
+   * Get the predicted IMT value for a station
+   *
+   * @param props
+   *    A station's properties attribute
+   * @param imt
+   *    Which IMT to use
+   */
   getPredictedValue (props, imt) {
     const predictions = props.predictions;
     if (!predictions) {
@@ -22,6 +30,16 @@ export class PlotStationsPipe implements PipeTransform {
     return null;
   }
 
+  /**
+   * Product the residual for a given station
+   *
+   * @param props
+   *    A station's properties attribute
+   * @param imt
+   *    Which IMT to use
+   * @param ratio
+   *    Produce a ratio instead of a residual
+   */
   getResidual (props, imt, ratio) {
     let residual = 0;
     if (props[imt]) {
@@ -44,6 +62,20 @@ export class PlotStationsPipe implements PipeTransform {
     return residual;
   }
 
+  /**
+   * Transforms the stationlist json into a plottable series
+   *
+   * @param stations
+   *    As prepared by the station service
+   * @param plotX
+   *    Whcih distance value to plot
+   * @param plotY
+   *    Which IMT to plot
+   * @param residual
+   *    Produce residuals for the given IMT instead of measured value
+   * @param ratio
+   *    Produce ratios for the given IMT instead of a measured value
+   */
   transform (
     stations: any,
     plotX: string,

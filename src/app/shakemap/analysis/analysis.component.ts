@@ -84,6 +84,7 @@ export class AnalysisComponent implements OnInit, OnDestroy {
 
   /**
    * Change yScaleType depending on the selected IMT
+   *
    * @param option
    *    IMT option with {type: ['pga', 'pgv', 'intensity'], ...}
    */
