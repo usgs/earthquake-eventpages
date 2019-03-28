@@ -4,5 +4,7 @@
     [showScaleControl]="true"
     [overlays]="alert | shakeAlertOverlays"
   ></shared-map>
-  <figcaption>{{ caption }}</figcaption>
+  <figcaption *ngIf="alert?.properties?.caption">
+    {{ alert.properties.caption }}
+  </figcaption>
 </figure>

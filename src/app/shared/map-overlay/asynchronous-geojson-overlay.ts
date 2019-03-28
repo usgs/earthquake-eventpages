@@ -111,6 +111,7 @@ const AsynchronousGeoJSONOverlay = L.GeoJSON.extend({
     L.GeoJSON.prototype.onAdd.call(this, map);
 
     this.loadData();
+    this.afterAdd();
   },
 
   onEachFeature: function(feature, layer) {
