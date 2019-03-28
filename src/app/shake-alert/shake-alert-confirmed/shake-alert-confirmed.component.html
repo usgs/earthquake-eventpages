@@ -43,24 +43,11 @@
 
   <div class="column">
     <ul class="shake-alert-maps">
-      <li *ngIf="summary && summary['initial-alert']; else noInitialAlert">
-        <shake-alert-map
-          [alert]="summary['initial-alert']"
-          [caption]="
-            'Figure 1.
-            Map showing initial alert, polygon, and approximate warning times.
-            Map shows increasing warning times as expanding circles away from
-            the epicenter; blue balloon marks the final epicenter and the dark
-            gray filled circle is the location of shaking front at the time of
-            first alert.'
-          "
-        ></shake-alert-map>
+      <li *ngIf="summary?.initial_alert; else noInitialAlert">
+        <shake-alert-map [alert]="summary.initial_alert"></shake-alert-map>
       </li>
-      <li *ngIf="summary && summary['final-alert']; else noFinalAlert">
-        <shake-alert-map
-          [alert]="summary['final-alert']"
-          [caption]="'Figure 2. Map showing initial and final contours.'"
-        ></shake-alert-map>
+      <li *ngIf="summary?.final_alert; else noFinalAlert">
+        <shake-alert-map [alert]="summary.final_alert"></shake-alert-map>
       </li>
     </ul>
     <ng-template #noInitialAlert>
