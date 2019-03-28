@@ -1,3 +1,5 @@
+import * as L from 'leaflet';
+
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
 /**
@@ -25,7 +27,6 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
       this.data = product;
       // add data to layer (and map if layer still visible)
       this.addData(this.data);
-      this.afterAdd();
     }
     // TODO, once they send a legend
     // const legend = document.createElement('img');
@@ -36,26 +37,21 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
 
   afterAdd: function() {
     this.bounds = this.getBounds();
+    this.map.fitBounds(this.bounds);
   },
 
   /**
-   * Sets and returns a default line style
+   * Handle custom circle fetaures
    *
    * @param feature
-   *     The feature from this product
+   * @param layer
    */
-  style: function(feature: any) {
-    let style = {};
-
-    if (feature && feature.properties) {
-      // set default line style
-      style = {
-        color: feature.properties.stroke,
-        fill: feature.properties.fill
-      };
+  pointToLayer: function(feature, latlng) {
+    if (feature && feature.properties && feature.properties.radius) {
+      return L.circle(latlng, feature.properties);
+    } else {
+      return L.marker(latlng);
     }
-
-    return style;
   }
 });
 
