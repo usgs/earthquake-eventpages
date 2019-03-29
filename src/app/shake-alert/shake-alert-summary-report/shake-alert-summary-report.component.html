@@ -27,9 +27,10 @@
       M{{ summary['final_alert']?.properties?.magnitude | sharedNumber: 2 }}
     </dd>
     <dd>
-      ANSS Alert at
-      {{ (summary?.properties)['anss-alert-elapsed'] | sharedNumber: 0:'sec' }}:
-      M{{ (summary?.properties)['anss-alert-magnitude'] }}
+      ANSS report:
+      {{ summary?.properties?.elapsed | sharedNumber: 0:'s' }} after origin, M{{
+        summary?.properties?.magnitude | sharedNumber: 2
+      }}
     </dd>
 
     <dt>Alert Location From Reviewed Location</dt>
@@ -37,7 +38,7 @@
       Initial alert:
       {{
         (summary['initial_alert']?.properties)['location_distance_error']
-          | milesKilometers: 'kilometers'
+          | sharedMilesKilometers: 'tokilometers'
           | sharedNumber: 1:'km'
       }},
       {{
@@ -53,7 +54,7 @@
       Final alert:
       {{
         (summary['final_alert']?.properties)['location_distance_error']
-          | milesKilometers: 'kilometers'
+          | sharedMilesKilometers: 'tokilometers'
           | sharedNumber: 1:'km'
       }},
       {{

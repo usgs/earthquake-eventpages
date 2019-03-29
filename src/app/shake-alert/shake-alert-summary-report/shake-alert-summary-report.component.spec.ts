@@ -12,6 +12,7 @@ describe('ShakeAlertSummaryReportComponent', () => {
       declarations: [
         ShakeAlertSummaryReportComponent,
 
+        MockPipe('sharedMilesKilometers'),
         MockPipe('sharedDirection'),
         MockPipe('sharedNumber')
       ]
