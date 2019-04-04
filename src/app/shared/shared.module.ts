@@ -42,6 +42,7 @@ import { KeysPipe } from './keys.pipe';
 import { LinkProductComponent } from './link-product/link-product.component';
 import { LocationPipe } from './location.pipe';
 import { MapComponent } from './map/map.component';
+import { MilesKilometersPipe } from './miles-kilometers.pipe';
 import { MmiComponent } from './mmi/mmi.component';
 import { MobileCheckPipe } from './mobile-check.pipe';
 import { NearbySeismicityLinkPipe } from './nearby-seismicity-link.pipe';
@@ -117,6 +118,7 @@ import { DirectionPipe } from './direction.pipe';
     LinkProductComponent,
     LocationPipe,
     MapComponent,
+    MilesKilometersPipe,
     MmiComponent,
     MobileCheckPipe,
     MomentTensorSummaryComponent,
@@ -189,6 +191,7 @@ import { DirectionPipe } from './direction.pipe';
     LocationPipe,
     MapComponent,
     MatIconModule,
+    MilesKilometersPipe,
     MmiComponent,
     MobileCheckPipe,
     MomentTensorSummaryComponent,

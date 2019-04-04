@@ -10,7 +10,16 @@
         <abbr title="city">City</abbr>
       </mat-header-cell>
       <mat-cell *matCellDef="let cities">
-        {{ cities | sharedProductProperty: "name" }}
+        {{ cities | sharedProductProperty: 'name' }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="distance">
+      <mat-header-cell *matHeaderCellDef>
+        <abbr title="distance">Distance</abbr>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let cities"
+        >{{ cities | sharedProductProperty: 'citydist' | sharedNumber: 0:'km' }}
       </mat-cell>
     </ng-container>
 
@@ -19,8 +28,8 @@
         <abbr title="warning-time">Warning Time</abbr>
       </mat-header-cell>
       <mat-cell *matCellDef="let cities"
-        >{{
-          cities | sharedProductProperty: "warning-time" | sharedUnits: "sec"
+        >~{{
+          cities | sharedProductProperty: 'warning_time' | sharedNumber: 1:'s'
         }}
       </mat-cell>
     </ng-container>
@@ -30,23 +39,7 @@
         <abbr title="mmi">mmi</abbr>
       </mat-header-cell>
       <mat-cell *matCellDef="let cities"
-        >{{ cities | sharedProductProperty: "mmi" | sharedRoman }}
-      </mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="population">
-      <mat-header-cell *matHeaderCellDef>
-        <abbr title="population">population</abbr>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let cities">
-        <ng-container
-          *ngIf="
-            (cities | sharedProductProperty: 'population') as population;
-            else: dash
-          "
-        >
-          {{ population | number }}
-        </ng-container>
+        >{{ cities | sharedProductProperty: 'mmi' | sharedRoman }}
       </mat-cell>
     </ng-container>
   </mat-table>

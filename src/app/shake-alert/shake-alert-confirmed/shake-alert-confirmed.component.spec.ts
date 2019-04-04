@@ -25,7 +25,8 @@ describe('ShakeAlertConfirmedComponent', () => {
           inputs: ['alert', 'caption'],
           selector: 'shake-alert-map'
         }),
-        MockPipe('sharedDateTime')
+        MockPipe('sharedDateTime'),
+        MockPipe('sharedNumber')
       ]
     }).compileComponents();
   }));

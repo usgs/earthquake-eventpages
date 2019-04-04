@@ -8,17 +8,21 @@
   <div class="column">
     <h4>Earthquake</h4>
     <dl *ngIf="properties" class="shake-alert-summary">
-      <ng-container *ngIf="properties.title">
+      <ng-container *ngIf="properties?.title">
         <dt>Title</dt>
-        <dd>{{ properties.title }}</dd>
+        <dd>
+          <ng-container *ngIf="properties?.magnitude"
+            >M{{ properties?.magnitude | sharedNumber: 2 }} - </ng-container
+          >{{ properties?.title }}
+        </dd>
       </ng-container>
-      <ng-container *ngIf="properties.time">
+      <ng-container *ngIf="properties?.time">
         <dt>Time</dt>
-        <dd>{{ properties.time | sharedDateTime }}</dd>
+        <dd>{{ properties?.time | sharedDateTime }}</dd>
       </ng-container>
-      <ng-container *ngIf="properties.id">
+      <ng-container *ngIf="properties?.id">
         <dt>ShakeAlert Event ID</dt>
-        <dd>{{ properties.id }}</dd>
+        <dd>{{ properties?.id }}</dd>
       </ng-container>
     </dl>
 
@@ -38,16 +42,20 @@
         performance of the system. It is also helpful for tracking changes in
         performance as new capabilities are added.
       </li>
+      <li>
+        For moderate earthquakes, the 'final' alert area may little changed from
+        the initial.
+      </li>
     </ol>
   </div>
 
   <div class="column">
     <ul class="shake-alert-maps">
       <li *ngIf="summary?.initial_alert; else noInitialAlert">
-        <shake-alert-map [alert]="summary.initial_alert"></shake-alert-map>
+        <shake-alert-map [alert]="summary?.initial_alert"></shake-alert-map>
       </li>
       <li *ngIf="summary?.final_alert; else noFinalAlert">
-        <shake-alert-map [alert]="summary.final_alert"></shake-alert-map>
+        <shake-alert-map [alert]="summary?.final_alert"></shake-alert-map>
       </li>
     </ul>
     <ng-template #noInitialAlert>
