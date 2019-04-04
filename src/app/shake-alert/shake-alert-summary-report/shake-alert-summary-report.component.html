@@ -5,25 +5,21 @@
     <dd>
       Initial alert after origin time:
       {{
-        summary['initial_alert']?.properties?.elapsed | sharedNumber: 0:'sec'
+        summary['initial_alert']?.properties?.elapsed | sharedNumber: 0:'s'
       }}
     </dd>
     <dd>
       Final alert update after origin time:
-      {{ summary['final_alert']?.properties?.elapsed | sharedNumber: 0:'sec' }}
+      {{ summary['final_alert']?.properties?.elapsed | sharedNumber: 0:'s' }}
     </dd>
 
     <dt>Magnitude Accuracy</dt>
     <dd>
       Initial ShakeAlert:
-      <!-- {{
-        summary['initial_alert']?.properties?.elapsed | sharedNumber: 0:'sec'
-      }}: -->
       M{{ summary['initial_alert']?.properties?.magnitude | sharedNumber: 2 }}
     </dd>
     <dd>
       Final ShakeAlert:
-      <!-- {{ summary['final_alert']?.properties?.elapsed | sharedNumber: 0:'sec' }}: -->
       M{{ summary['final_alert']?.properties?.magnitude | sharedNumber: 2 }}
     </dd>
     <dd>
