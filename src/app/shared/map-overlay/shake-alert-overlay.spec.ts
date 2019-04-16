@@ -1,6 +1,8 @@
 import { ShakeAlertOverlay } from './shake-alert-overlay';
 
 describe('ShakeAlertOverlay', () => {
+  let overlay;
+
   /* tslint:disable */
   const product = {
     type: 'FeatureCollection',
@@ -63,14 +65,20 @@ describe('ShakeAlertOverlay', () => {
   };
   /* tslint:enable */
 
+  afterAll(() => {
+    overlay = null;
+  });
+
+  beforeAll(() => {
+    overlay = new ShakeAlertOverlay(product);
+  });
+
   it('can be created', () => {
-    const overlay = new ShakeAlertOverlay(product);
     expect(overlay).toBeTruthy();
   });
 
   describe('pointToLayer', () => {
     it('creates a epicenter marker', () => {
-      const overlay = new ShakeAlertOverlay(product);
       const layer = overlay.pointToLayer(product.features[0], {
         lat: 0,
         lng: 0
@@ -79,16 +87,36 @@ describe('ShakeAlertOverlay', () => {
       expect(typeof layer.addTo).toEqual('function');
     });
     it('creates a polygon', () => {
-      const overlay = new ShakeAlertOverlay(product);
       const layer = overlay.pointToLayer(product.features[1]);
 
       expect(typeof layer.addTo).toEqual('function');
     });
     it('creates a circle', () => {
-      const overlay = new ShakeAlertOverlay(product);
       const layer = overlay.pointToLayer(product.features[2]);
 
       expect(typeof layer.addTo).toEqual('function');
+    });
+  });
+
+  describe('translateGeojsonStyles', () => {
+    it('converts from geojson to leaflet styles', () => {
+      const values = {
+        bob: 'saget',
+        stroke: 'red',
+        'stroke-opacity': 1
+      };
+      const result = overlay.translateGeojsonStyles(values);
+
+      expect(result.color).toEqual('red');
+      expect(result.opacity).toEqual(1);
+    });
+  });
+
+  describe('style', () => {
+    it('calls translateGeojsonStyles', () => {
+      spyOn(overlay, 'translateGeojsonStyles');
+      overlay.style({ properties: {} });
+      expect(overlay.translateGeojsonStyles).toHaveBeenCalled();
     });
   });
 });
