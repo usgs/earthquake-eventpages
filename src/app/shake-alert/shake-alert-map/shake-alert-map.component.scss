@@ -1,4 +1,14 @@
-.shared-map {
-  height: 500px;
-  width: 100%;
+.shake-alert-map-container {
+  margin: 0 0 2em;
+
+  > .shared-map {
+    height: 500px;
+    width: 100%;
+  }
+
+  > figcaption {
+    font-size: 0.88em;
+    font-style: oblique;
+    margin: 0.5em 0;
+  }
 }
