@@ -4,23 +4,23 @@
     <dt>Speed of Alert</dt>
     <dd>
       Initial alert after origin time:
-      {{
-        summary['initial_alert']?.properties?.elapsed | sharedNumber: 0:'s'
-      }}
+      {{ summary['initial_alert']?.properties?.elapsed | sharedNumber: 1:'s' }}
     </dd>
     <dd>
       Final alert update after origin time:
-      {{ summary['final_alert']?.properties?.elapsed | sharedNumber: 0:'s' }}
+      {{ summary['final_alert']?.properties?.elapsed | sharedNumber: 1:'s' }}
     </dd>
 
     <dt>Magnitude Accuracy</dt>
     <dd>
-      Initial ShakeAlert:
-      M{{ summary['initial_alert']?.properties?.magnitude | sharedNumber: 2 }}
+      Initial ShakeAlert: M{{
+        summary['initial_alert']?.properties?.magnitude | sharedNumber: 2
+      }}
     </dd>
     <dd>
-      Final ShakeAlert:
-      M{{ summary['final_alert']?.properties?.magnitude | sharedNumber: 2 }}
+      Final ShakeAlert: M{{
+        summary['final_alert']?.properties?.magnitude | sharedNumber: 2
+      }}
     </dd>
     <dd>
       ANSS report:
