@@ -1,6 +1,7 @@
 import * as L from 'leaflet';
 
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
+import { EpicenterOverlay } from './epicenter-overlay';
 
 /**
  * Shakemaop intensity overlay for leaflet map
@@ -47,10 +48,36 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
    * @param layer
    */
   pointToLayer: function(feature, latlng) {
-    if (feature && feature.properties && feature.properties.radius) {
-      return L.circle(latlng, feature.properties);
+    if (!feature || !feature.properties) {
+      return;
+    }
+
+    const properties = feature.properties;
+    if (properties.radius) {
+      // create a circle, with radius = properties.radius
+      return L.circle(latlng, properties);
+    } else if (
+      properties.icon &&
+      properties.icon.toUpperCase() === 'EPICENTER'
+    ) {
+      // create an epicenter marker
+      return new EpicenterOverlay({
+        properties: {
+          latitude: latlng.lat,
+          longitude: latlng.lng
+        }
+      });
     } else {
-      return L.marker(latlng);
+      // display an orange circle marker
+      const defaultOptions = {
+        color: '#000',
+        fillColor: '#ff7800',
+        fillOpacity: 0.8,
+        opacity: 1,
+        radius: 8,
+        weight: 1
+      };
+      return L.circleMarker(latlng, defaultOptions);
     }
   }
 });
