@@ -18,7 +18,7 @@
       </ng-container>
       <ng-container *ngIf="properties?.time">
         <dt>Time</dt>
-        <dd>{{ properties?.time | sharedDateTime }}</dd>
+        <dd>{{ properties?.time | sharedDateTime: null:true }}</dd>
       </ng-container>
       <ng-container *ngIf="properties?.id">
         <dt>ShakeAlert Event ID</dt>
