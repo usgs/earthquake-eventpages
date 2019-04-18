@@ -41,6 +41,32 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
     setTimeout(() => {
       this.map.fitBounds(this.bounds);
     }, 0);
+
+    // Check if layer is circle and add tooltip for warning times
+    this.map.eachLayer(layer => {
+      if (
+        layer &&
+        layer.feature &&
+        layer.feature.geometry &&
+        layer.feature.geometry.type &&
+        layer.feature.geometry.type === 'Point' &&
+        layer.feature.properties &&
+        layer.feature.properties.radius
+      ) {
+        const bounds = layer.getBounds();
+        const latlng = {
+          lat: bounds._southWest.lat,
+          lng: layer.feature.geometry.coordinates[0]
+        };
+        const marker = L.marker(latlng).addTo(this.map);
+        // bind tooltip to the circle
+        marker.bindTooltip(layer.feature.properties.name, {
+          className: 'time-label',
+          direction: 'bottom',
+          permanent: true
+        });
+      }
+    });
   },
 
   /**
