@@ -38,7 +38,9 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
 
   afterAdd: function() {
     this.bounds = this.getBounds();
-    this.map.fitBounds(this.bounds);
+    setTimeout(() => {
+      this.map.fitBounds(this.bounds);
+    }, 0);
   },
 
   /**
