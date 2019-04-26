@@ -44,7 +44,7 @@
     <a target="_blank"
         [href]="image.url"
         download="image_overlay.png">
-      Download ({{ image.length }}kb)
+      Download Image ({{ image.length / 1000 | sharedNumber:0:'kb' }})
     </a>
     <p>More downloads below.</p>
   </div>
