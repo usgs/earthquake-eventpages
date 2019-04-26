@@ -1,6 +1,7 @@
 <ng-container *ngIf="eventService?.product$ | async; let shakemap">
   <div class="shakemap-map"
-      *ngIf="shakemap | sharedProductContent:'download/cont_mi.json';
+      *ngIf="shakemap | sharedProductContent:
+      'download/image_overlay.png':'download/ii_overlay.png';
       else noOverlay">
     <a [routerLink]="'../../map'"
       [queryParams]="{

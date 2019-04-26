@@ -3,6 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import * as L from 'leaflet';
 
 import { EpicenterOverlay } from './map-overlay/epicenter-overlay';
+import { ShakemapIntensityOverlay } from './map-overlay/shakemap-intensity-overlay';
 import { ShakemapMmiOverlay } from './map-overlay/shakemap-mmi-overlay';
 import { ShakemapPGAOverlay } from './map-overlay/shakemap-pga-overlay';
 import { ShakemapPGVOverlay } from './map-overlay/shakemap-pgv-overlay';
@@ -30,6 +31,7 @@ export class ShakemapOverlaysPipe implements PipeTransform {
     let overlays = [];
 
     if (product) {
+      overlays.push(new ShakemapIntensityOverlay(product));
       overlays.push(new ShakemapMmiOverlay(product));
       overlays.push(new ShakemapPGAOverlay(product));
       overlays.push(new ShakemapPGVOverlay(product));
