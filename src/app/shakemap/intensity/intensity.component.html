@@ -14,8 +14,7 @@
         <shared-map [overlays]="shakemap | shakemapOverlays:['shakemap-intensity',
             'shakemap-stations']"
             [showScaleControl]="true"
-            [showAttributionControl]="false"
-            [bounds]="shakemap | sharedGetMapBounds">
+            [showAttributionControl]="false">
         </shared-map>
       </a>
 
@@ -45,7 +44,7 @@
     <a target="_blank"
         [href]="image.url"
         download="image_overlay.png">
-      Download Shakemap ({{ image.length }}kb)
+      Download ({{ image.length }}kb)
     </a>
     <p>More downloads below.</p>
   </div>
