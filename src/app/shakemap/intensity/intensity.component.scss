@@ -6,3 +6,17 @@
   max-width: 600px;
   width: 100%;
 }
+
+.map-container, .download {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.download {
+  padding: 1em
+}
+
+.download p {
+  padding: 0;
+  margin: 0;
+}
