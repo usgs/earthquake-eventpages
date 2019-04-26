@@ -4,8 +4,8 @@ import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
  * Shakemaop intensity overlay for leaflet map
  */
 // tslint:disable-next-line:variable-name
-const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
-  id: 'shakemap-intensity',
+const ShakemapMmiOverlay = AsynchronousGeoJSONOverlay.extend({
+  id: 'shakemap-mmi-contours',
   legends: [],
   title: 'Shakemap MMI Contours',
 
@@ -81,4 +81,4 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
   }
 });
 
-export { ShakemapIntensityOverlay };
+export { ShakemapMmiOverlay };

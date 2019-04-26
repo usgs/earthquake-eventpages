@@ -1,14 +1,14 @@
 import * as L from 'leaflet';
 
-import { ShakemapIntensityOverlay } from './shakemap-intensity-overlay';
+import { ShakemapMmiOverlay } from './shakemap-mmi-overlay';
 
-describe('ShakemapIntensityOverlay', () => {
+describe('ShakemapMmiOverlay', () => {
   it('can be created', () => {
-    expect(new ShakemapIntensityOverlay(null)).toBeTruthy();
+    expect(new ShakemapMmiOverlay(null)).toBeTruthy();
   });
 
   it('uses product when defined', () => {
-    const overlay = new ShakemapIntensityOverlay({
+    const overlay = new ShakemapMmiOverlay({
       contents: {
         'download/cont_mi.json': { url: '' }
       }
@@ -26,7 +26,7 @@ describe('ShakemapIntensityOverlay', () => {
         }
       };
 
-      const overlay = new ShakemapIntensityOverlay(null);
+      const overlay = new ShakemapMmiOverlay(null);
       const style = overlay.style(feature);
 
       expect(style.color).toBe('COLOR');
@@ -42,7 +42,7 @@ describe('ShakemapIntensityOverlay', () => {
         }
       };
 
-      const overlay = new ShakemapIntensityOverlay(null);
+      const overlay = new ShakemapMmiOverlay(null);
       const layer = new L.Layer();
 
       overlay.onEachFeature(feature, layer);
@@ -53,7 +53,7 @@ describe('ShakemapIntensityOverlay', () => {
     it('ignores object without properties', () => {
       const feature = {};
 
-      const overlay = new ShakemapIntensityOverlay(null);
+      const overlay = new ShakemapMmiOverlay(null);
       const layer = new L.Layer();
 
       overlay.onEachFeature(feature, layer);
