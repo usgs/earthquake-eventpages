@@ -96,7 +96,7 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
    *     style properties from the GeoJSON
    */
   translateGeojsonStyles: function(properties) {
-    const styles = {
+    const mapping = {
       fill: 'fillColor',
       'fill-opacity': 'fillOpacity',
       stroke: 'color',
@@ -105,22 +105,24 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
       'stroke-opacity': 'opacity',
       'stroke-width': 'weight'
     };
+    const results = {};
+
+    // no properties provided
+    if (!properties) {
+      return {};
+    }
 
     for (const key of Object.keys(properties)) {
       // get leaflet style property
-      const property = styles[key];
+      const property = mapping[key];
 
       if (property) {
-        // get property value
-        const value = properties[key];
-        // remove geojson css property from properties object
-        delete properties[key];
         // replace with leaflet style
-        properties[property] = value;
+        results[property] = properties[key];
       }
     }
 
-    return properties;
+    return results;
   },
 
   style: function(feature) {

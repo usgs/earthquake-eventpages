@@ -99,6 +99,11 @@ describe('ShakeAlertOverlay', () => {
   });
 
   describe('translateGeojsonStyles', () => {
+    it('handles null', () => {
+      const result = overlay.translateGeojsonStyles(null);
+
+      expect(result).toEqual({});
+    });
     it('converts from geojson to leaflet styles', () => {
       const values = {
         bob: 'saget',
@@ -109,6 +114,7 @@ describe('ShakeAlertOverlay', () => {
 
       expect(result.color).toEqual('red');
       expect(result.opacity).toEqual(1);
+      expect(result.bob).toBeUndefined();
     });
   });
 
