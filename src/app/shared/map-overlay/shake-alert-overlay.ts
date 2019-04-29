@@ -81,6 +81,52 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
       };
       return L.circleMarker(latlng, defaultOptions);
     }
+  },
+
+  /**
+   * Translate styles from GeoJSON CSS to Leaflet path options
+   *
+   * GeoJSON style types:
+   * https://svgwg.org/svg2-draft/styling.html#InterfaceSVGStyleElement
+   *
+   * Leaflet path options:
+   * https://leafletjs.com/reference-1.4.0.html#path-option
+   *
+   * @param geojsonProperties <string>
+   *     style properties from the GeoJSON
+   */
+  translateGeojsonStyles: function(properties) {
+    const mapping = {
+      fill: 'fillColor',
+      'fill-opacity': 'fillOpacity',
+      stroke: 'color',
+      'stroke-dasharray': 'dashArray',
+      'stroke-dashoffset': 'dashOffset',
+      'stroke-opacity': 'opacity',
+      'stroke-width': 'weight'
+    };
+    const results = {};
+
+    // no properties provided
+    if (!properties) {
+      return {};
+    }
+
+    for (const key of Object.keys(properties)) {
+      // get leaflet style property
+      const property = mapping[key];
+
+      if (property) {
+        // replace with leaflet style
+        results[property] = properties[key];
+      }
+    }
+
+    return results;
+  },
+
+  style: function(feature) {
+    return this.translateGeojsonStyles(feature.properties);
   }
 });
 
