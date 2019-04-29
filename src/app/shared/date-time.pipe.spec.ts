@@ -1,7 +1,7 @@
 import { DateTimePipe } from './date-time.pipe';
 import { FormatterService } from '@core/formatter.service';
 
-fdescribe('DateTimePipe', () => {
+describe('DateTimePipe', () => {
   let formatterService, pipe;
 
   beforeEach(() => {
