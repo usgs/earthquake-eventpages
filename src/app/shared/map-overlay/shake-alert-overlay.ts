@@ -45,7 +45,9 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
   afterAdd: function() {
     this.bounds = this.getBounds();
     setTimeout(() => {
-      this.map.fitBounds(this.bounds);
+      this.map.fitBounds(this.bounds, {
+        padding: [30, 30]
+      });
     }, 0);
 
     // Check if layer is circle and add tooltip for warning times
