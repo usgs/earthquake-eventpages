@@ -36,6 +36,12 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
     // this.legends.push(legend);
   },
 
+  /**
+   * After the layers are added to the map bind tooltips.
+   * This is done after the layers are added to the map because
+   * we need to know the bounds of the circle features in order to bind
+   * the tooltip to the edge of the circle.
+   */
   afterAdd: function() {
     this.bounds = this.getBounds();
     setTimeout(() => {
@@ -45,12 +51,17 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
     // Check if layer is circle and add tooltip for warning times
     this.map.eachLayer(layer => {
       if (
-        layer &&
-        layer.feature &&
-        layer.feature.geometry &&
-        layer.feature.geometry.type &&
+        !layer ||
+        !layer.feature ||
+        !layer.feature.properties ||
+        !layer.feature.properties.name ||
+        !layer.feature.geometry
+      ) {
+        return;
+      }
+
+      if (
         layer.feature.geometry.type === 'Point' &&
-        layer.feature.properties &&
         layer.feature.properties.radius
       ) {
         const bounds = layer.getBounds();
@@ -58,11 +69,21 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
           lat: bounds._southWest.lat,
           lng: layer.feature.geometry.coordinates[0]
         };
-        const marker = L.marker(latlng).addTo(this.map);
+        const icon = L.icon({
+          iconSize: [0, 0],
+          iconUrl: 'empty'
+        });
+        const marker = L.marker(latlng, { icon: icon }).addTo(this.map);
         // bind tooltip to the circle
         marker.bindTooltip(layer.feature.properties.name, {
           className: 'time-label',
-          direction: 'bottom',
+          direction: 'top',
+          permanent: true
+        });
+      } else {
+        layer.bindTooltip(layer.feature.properties.name, {
+          className: 'time-label',
+          direction: 'top',
           permanent: true
         });
       }
