@@ -11,6 +11,7 @@ import {
   MatMenuModule,
   MatSelectModule,
   MatSlideToggleModule,
+  MatRadioModule,
   MatSortModule,
   MatTableModule,
   MatTabsModule
@@ -69,6 +70,7 @@ import { PlotAttenPipe } from './plot-atten.pipe';
     MatIconModule,
     MatSelectModule,
     MatSlideToggleModule,
+    MatRadioModule,
     MatSortModule,
     MatTableModule,
     MatTabsModule,

@@ -1,4 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { MatRadioModule } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
@@ -42,9 +44,14 @@ describe('IntensityComponent', () => {
 
         MockPipe('shakemapOverlays'),
         MockPipe('sharedGetMapBounds'),
+        MockPipe('sharedNumber'),
         MockPipe('sharedProductContent')
       ],
-      imports: [RouterTestingModule],
+      imports: [
+        FormsModule,
+        MatRadioModule,
+        RouterTestingModule
+      ],
       providers: [{ provide: EventService, useValue: eventServiceStub }]
     }).compileComponents();
   }));

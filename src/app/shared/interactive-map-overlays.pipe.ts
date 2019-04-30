@@ -22,7 +22,7 @@ import { USFaultsOverlay } from './map-overlay/us-faults-overlay';
 export class InteractiveMapOverlaysPipe implements PipeTransform {
   defaultOverlays: any = {
     epicenter: true,
-    'shakemap-intensity': true
+    'shakemap-mmi-contours': true
   };
   // track which event was last displayed
   lastEvent: Event = null;

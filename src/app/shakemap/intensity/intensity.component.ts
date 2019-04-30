@@ -14,5 +14,14 @@ import { EventService } from '@core/event.service';
   templateUrl: './intensity.component.html'
 })
 export class IntensityComponent {
+  imageOverlays = ['shakemap-intensity','shakemap-stations'];
+  overlays = this.imageOverlays;
+  rasterOverlays = ['shakemap-mmi-contours','shakemap-stations'];
+
   constructor(public eventService: EventService) {}
+
+  scrollToDownloads() {
+    document.getElementById('downloads')
+      .scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'});
+  }
 }

@@ -3,20 +3,17 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 1em;
-  max-width: 600px;
   width: 100%;
 }
 
-.map-container, .download {
-  display: inline-block;
-  vertical-align: top;
-}
-
-.download {
+.downloads {
   padding: 1em
 }
 
-.download p {
-  padding: 0;
-  margin: 0;
+.downloads a {
+  margin-right: .5em;
+}
+
+.layers mat-radio-button {
+  padding: 0 0 .5em 1em;
 }

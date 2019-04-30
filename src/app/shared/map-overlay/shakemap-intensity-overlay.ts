@@ -10,7 +10,7 @@ import { ProductContentPipe } from '@shared/product-content.pipe';
 const ShakemapIntensityOverlay = L.ImageOverlay.extend({
   id: 'shakemap-intensity',
   legends: [],
-  opacity: .5,
+  opacity: .3,
   title: 'Shakemap Intensity',
 
   /**
