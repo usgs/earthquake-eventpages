@@ -80,6 +80,24 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
           direction: 'top',
           permanent: true
         });
+      } else if (layer.feature.geometry.type === 'Polygon') {
+        const coordinates = layer.feature.geometry.coordinates;
+        // get first point on polygon
+        const latlng = {
+          lat: coordinates[0][0][1],
+          lng: coordinates[0][0][0]
+        };
+        const icon = L.icon({
+          iconSize: [0, 0],
+          iconUrl: 'empty'
+        });
+        const marker = L.marker(latlng, { icon: icon }).addTo(this.map);
+        // bind tooltip to the circle
+        marker.bindTooltip(layer.feature.properties.name, {
+          className: 'time-label',
+          direction: 'top',
+          permanent: true
+        });
       } else {
         layer.bindTooltip(layer.feature.properties.name, {
           className: 'time-label',
