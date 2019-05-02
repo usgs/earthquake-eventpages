@@ -34,7 +34,7 @@
             name="raster">
           Image Overlay
         </mat-radio-button>
-        <mat-radio-button [value]="rasterOverlays"
+        <mat-radio-button [value]="contourOverlays"
             name="contours">
           Contours
         </mat-radio-button>
@@ -51,9 +51,9 @@
         [queryParams]="{
             'shakemap-code': shakemap?.code,
             'shakemap-source': shakemap?.source,
-            'shakemap-intensity': true,
-            'shakemap-stations': true,
-            'shakemap-mmi-contours': false
+            'shakemap-intensity': overlays === imageOverlays,
+            'shakemap-mmi-contours': overlays === contourOverlays,
+            'shakemap-stations': true
           }">
         <shared-map [overlays]="shakemap | shakemapOverlays:overlays"
             [showScaleControl]="true"
