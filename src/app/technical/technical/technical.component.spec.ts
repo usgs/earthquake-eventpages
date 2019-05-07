@@ -38,6 +38,10 @@ describe('TechnicalComponent', () => {
           selector: 'technical-origin-summary'
         }),
         MockComponent({
+          inputs: ['event', 'products'],
+          selector: 'technical-shake-alert-summary'
+        }),
+        MockComponent({
           inputs: ['product'],
           selector: 'shared-link-product'
         }),

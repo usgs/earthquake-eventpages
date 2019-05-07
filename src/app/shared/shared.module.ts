@@ -18,6 +18,7 @@ import { BubbleComponent } from './bubble/bubble.component';
 import { CoordinatesComponent } from './coordinates/coordinates.component';
 import { DateTimePipe } from './date-time.pipe';
 import { DegreesPipe } from './degrees.pipe';
+import { DirectionPipe } from './direction.pipe';
 import { DownloadDialogComponent } from './download-dialog/download-dialog.component';
 import { DyfiCounterPipe } from './dyfi-counter.pipe';
 import { DyfiOverlaysPipe } from './dyfi-overlays.pipe';
@@ -61,6 +62,7 @@ import { RomanToNumberPipe } from './roman-to-number.pipe';
 import { RoundDownPipe } from './round-down.pipe';
 import { RoundUpPipe } from './round-up.pipe';
 import { ShakeAlertOverlaysPipe } from './shake-alert-map-overlays.pipe';
+import { ShakeAlertSummaryComponent } from './shake-alert-summary/shake-alert-summary.component';
 import { ShakemapOverlaysPipe } from './shakemap-overlays.pipe';
 import { SignificantFigurePipe } from './significant-figure.pipe';
 import { StationFlagComponent } from './station-flag/station-flag.component';
@@ -80,7 +82,6 @@ import { FiniteFaultSummaryComponent } from '@shared/finite-fault-summary/finite
 import { FocalMechanismSummaryComponent } from '@shared/focal-mechanism-summary/focal-mechanism-summary.component';
 import { MomentTensorSummaryComponent } from '@shared/moment-tensor-summary/moment-tensor-summary.component';
 import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.component';
-import { DirectionPipe } from './direction.pipe';
 
 @NgModule({
   declarations: [
@@ -140,6 +141,7 @@ import { DirectionPipe } from './direction.pipe';
     RoundDownPipe,
     RoundUpPipe,
     ShakeAlertOverlaysPipe,
+    ShakeAlertSummaryComponent,
     ShakemapOverlaysPipe,
     ShakemapSummaryComponent,
     SignificantFigurePipe,
@@ -151,7 +153,7 @@ import { DirectionPipe } from './direction.pipe';
     TensorPipe,
     TextProductComponent,
     UncertainValueComponent,
-    UnitsPipe
+    UnitsPipe,
   ],
   entryComponents: [
     DownloadDialogComponent,
@@ -213,6 +215,7 @@ import { DirectionPipe } from './direction.pipe';
     RoundDownPipe,
     RoundUpPipe,
     ShakeAlertOverlaysPipe,
+    ShakeAlertSummaryComponent,
     ShakemapOverlaysPipe,
     ShakemapSummaryComponent,
     SignificantFigurePipe,

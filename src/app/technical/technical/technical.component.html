@@ -1,5 +1,5 @@
-<ng-container *ngIf="(eventService?.event$ | async) as event">
-  <ng-container *ngIf="(event | sharedHasProduct: 'origin')">
+<ng-container *ngIf="eventService?.event$ | async as event">
+  <ng-container *ngIf="event | sharedHasProduct: 'origin'">
     <h2>Origin</h2>
     <technical-origin-summary
       [event]="event"
@@ -8,7 +8,7 @@
     </technical-origin-summary>
   </ng-container>
 
-  <ng-container *ngIf="(event | sharedHasProduct: 'moment-tensor')">
+  <ng-container *ngIf="event | sharedHasProduct: 'moment-tensor'">
     <h2>Moment Tensor</h2>
     <technical-moment-tensor-summary
       [event]="event"
@@ -17,7 +17,7 @@
     </technical-moment-tensor-summary>
   </ng-container>
 
-  <ng-container *ngIf="(event | sharedHasProduct: 'finite-fault')">
+  <ng-container *ngIf="event | sharedHasProduct: 'finite-fault'">
     <h2>Finite Fault</h2>
     <technical-finite-fault-summary
       [event]="event"
@@ -26,7 +26,7 @@
     </technical-finite-fault-summary>
   </ng-container>
 
-  <ng-container *ngIf="(event | sharedHasProduct: 'focal-mechanism')">
+  <ng-container *ngIf="event | sharedHasProduct: 'focal-mechanism'">
     <h2>Focal Mechanism</h2>
     <technical-focal-mechanism-summary
       [event]="event"
@@ -35,9 +35,18 @@
     </technical-focal-mechanism-summary>
   </ng-container>
 
+  <ng-container *ngIf="event | sharedHasProduct: 'shake-alert'">
+    <h2>ShakeAlert</h2>
+    <technical-shake-alert-summary
+      [event]="event"
+      [products]="event | sharedGetProducts: 'shake-alert'"
+    >
+    </technical-shake-alert-summary>
+  </ng-container>
+
   <shared-text-product
     *ngFor="
-      let product of (event | sharedGetProducts: 'scitech-text');
+      let product of event | sharedGetProducts: 'scitech-text';
       trackBy: trackByIndex
     "
     [product]="product"
@@ -49,7 +58,7 @@
     <li><a [routerLink]="'/' + event.id">Overview</a></li>
     <li
       *ngFor="
-        let product of (event | sharedGetProducts: 'scitech-link');
+        let product of event | sharedGetProducts: 'scitech-link';
         trackBy: trackByIndex
       "
     >
