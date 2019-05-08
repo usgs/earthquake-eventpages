@@ -8,18 +8,19 @@
   }
 }
 
-.column {
-  max-width: 500px;
+.permanent-label {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 @media screen and (min-width: 500px) {
-  .row {
+  .shake-alert.row {
     display: flex;
     align-content: flex-start;
-  }
 
-  .column {
-    flex: 1;
-    min-width: 320px;
+    > .column {
+      flex: 1;
+      min-width: 320px;
+    }
   }
 }

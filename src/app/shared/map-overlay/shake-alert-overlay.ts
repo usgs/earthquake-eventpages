@@ -36,18 +36,156 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
     // this.legends.push(legend);
   },
 
-  afterAdd: function() {
-    this.bounds = this.getBounds();
-    setTimeout(() => {
-      this.map.fitBounds(this.bounds);
-    }, 0);
+  /**
+   * Add a leaflet tooltip to a circle feature.
+   *
+   * @param layer
+   *    leaflet layer
+   */
+  addCircleTooltip: function(layer) {
+    if (!layer || !layer.getBounds()) {
+      return;
+    }
+    // get point from bottom of circle
+    const bounds = layer.getBounds();
+    const latlng = {
+      lat: bounds._southWest.lat,
+      lng: layer.feature.geometry.coordinates[0]
+    };
+    // create a marker for the tooltip
+    const marker = this.createMarkerPlaceholder(latlng);
+    // bind tooltip to the circle
+    this.bindLayerTooltip(marker, layer.feature.properties.name);
   },
 
   /**
-   * Handle custom circle fetaures
+   * Add a leaflet tooltip to the first point in a polygon feature.
+   * This is meant to separate the tooltips so that they are all visible
+   * and will not overlap
+   *
+   * @param layer
+   *    leaflet layer
+   */
+  addPolygonTooltip: function(layer) {
+    if (!layer) {
+      return;
+    }
+    // get first point on polygon
+    const coordinates = layer.feature.geometry.coordinates;
+    const latlng = {
+      lat: coordinates[0][0][1],
+      lng: coordinates[0][0][0]
+    };
+    // create a marker for the tooltip
+    const marker = this.createMarkerPlaceholder(latlng);
+    // bind tooltip to the circle
+    this.bindLayerTooltip(marker, layer.feature.properties.name);
+  },
+
+  /**
+   * Overrides AsynchronousGeoJSONOverlay.afterAdd(), called by L.Layer.onAdd()
+   *
+   * After the layers are added to the map bind tooltips.
+   * This is done after the layers are added to the map because
+   * we need to know the bounds of the circle features in order to bind
+   * the tooltip to the edge of the circle.
+   */
+  afterAdd: function() {
+    // keep the map from resetting to worldwide bounds
+    this.bounds = this.getBounds();
+    setTimeout(() => {
+      this.map.fitBounds(this.bounds, {
+        padding: [30, 30]
+      });
+    }, 0);
+
+    // determine where to add the tooltip to each layer
+
+    this.map.eachLayer(layer => {
+      try {
+        this.addTooltipToLayer(layer);
+      } catch (e) {
+        console.log(e);
+      }
+    });
+  },
+
+  /**
+   * Based on the feature.type, determines where to add the tooltip
+   * for each layer and binds the tooltip to the feature
+   *
+   * @param layer
+   *    leaflet layer
+   */
+  addTooltipToLayer: function(layer) {
+    // ensure that layer exists
+    if (
+      !layer ||
+      !layer.feature ||
+      !layer.feature.properties ||
+      !layer.feature.properties.name ||
+      !layer.feature.geometry
+    ) {
+      throw new Error('Leaflet feature is missing a tooltip or geometry');
+    }
+
+    // determine cirlce, polygon, or other
+    if (
+      layer.feature.geometry.type === 'Point' &&
+      layer.feature.properties.radius
+    ) {
+      this.addCircleTooltip(layer);
+    } else if (layer.feature.geometry.type === 'Polygon') {
+      this.addPolygonTooltip(layer);
+    } else {
+      this.bindLayerTooltip(layer, layer.feature.properties.name);
+    }
+  },
+
+  /**
+   * Add a leaflet tooltip to the leaflet feature.
+   *
+   * @param layer
+   *    leaflet layer
+   */
+  bindLayerTooltip: function(layer, text, options = {}) {
+    layer.bindTooltip(
+      text,
+      Object.assign(
+        {
+          className: 'permanent-label',
+          direction: 'top',
+          permanent: true
+        },
+        options
+      )
+    );
+  },
+
+  /**
+   * Creates an invisible marker that will act as a placeholder
+   * for a tooltip on a polygon.
+   *
+   * @param latlng
+   *    leaflet latlng pair
+   */
+  createMarkerPlaceholder: function(latlng) {
+    // create invisible icon
+    const icon = L.icon({
+      iconSize: [0, 0],
+      iconUrl: 'empty'
+    });
+    // add invisible marker to bottom center of circle
+    return L.marker(latlng, { icon: icon }).addTo(this.map);
+  },
+
+  /**
+   * Handle custom circle fetaures and custom markers
    *
    * @param feature
+   *    GeoJSON feature
    * @param layer
+   *    leaflet layer
    */
   pointToLayer: function(feature, latlng) {
     if (!feature || !feature.properties) {
@@ -125,6 +263,11 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
     return results;
   },
 
+  /**
+   * Overrides style method on leaflet overlay
+   *
+   * @param feature
+   */
   style: function(feature) {
     return this.translateGeojsonStyles(feature.properties);
   }

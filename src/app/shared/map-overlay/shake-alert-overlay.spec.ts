@@ -1,3 +1,5 @@
+import * as L from 'leaflet';
+
 import { ShakeAlertOverlay } from './shake-alert-overlay';
 
 describe('ShakeAlertOverlay', () => {
@@ -75,6 +77,203 @@ describe('ShakeAlertOverlay', () => {
 
   it('can be created', () => {
     expect(overlay).toBeTruthy();
+  });
+
+  describe('addCircleTooltip', () => {
+    it('adds circle tooltip', () => {
+      const point = [-105, 35];
+      const name = 'test-name';
+      const marker = 'test-marker';
+      const layer = {
+        feature: {
+          geometry: {
+            coordinates: point
+          },
+          properties: {
+            name: name
+          }
+        },
+        getBounds: () => {
+          return {
+            _southWest: {
+              lat: point[1]
+            }
+          };
+        }
+      };
+      const createMarkerPlaceholderSpy = spyOn(
+        overlay,
+        'createMarkerPlaceholder'
+      ).and.returnValue(marker);
+      const bindLayerTooltipSpy = spyOn(overlay, 'bindLayerTooltip');
+
+      overlay.addCircleTooltip(layer);
+      expect(createMarkerPlaceholderSpy).toHaveBeenCalled();
+      expect(createMarkerPlaceholderSpy.calls.argsFor(0)[0].lat).toEqual(
+        point[1]
+      );
+      expect(createMarkerPlaceholderSpy.calls.argsFor(0)[0].lng).toEqual(
+        point[0]
+      );
+      expect(bindLayerTooltipSpy).toHaveBeenCalled();
+      expect(bindLayerTooltipSpy.calls.argsFor(0)[0]).toEqual(marker);
+      expect(bindLayerTooltipSpy.calls.argsFor(0)[1]).toEqual(name);
+    });
+  });
+
+  describe('addPolygonTooltip', () => {
+    it('adds polygon tooltip', () => {
+      const coordinates = [-105, 35];
+      const name = 'test-name';
+      const marker = 'test-marker';
+      const layer = {
+        feature: {
+          geometry: {
+            coordinates: [[coordinates]]
+          },
+          properties: {
+            name: name
+          }
+        }
+      };
+      const createMarkerPlaceholderSpy = spyOn(
+        overlay,
+        'createMarkerPlaceholder'
+      ).and.returnValue(marker);
+      const bindLayerTooltipSpy = spyOn(overlay, 'bindLayerTooltip');
+
+      overlay.addPolygonTooltip(layer);
+      expect(createMarkerPlaceholderSpy).toHaveBeenCalled();
+      expect(createMarkerPlaceholderSpy.calls.argsFor(0)[0].lat).toEqual(
+        coordinates[1]
+      );
+      expect(createMarkerPlaceholderSpy.calls.argsFor(0)[0].lng).toEqual(
+        coordinates[0]
+      );
+      expect(bindLayerTooltipSpy).toHaveBeenCalled();
+      expect(bindLayerTooltipSpy.calls.argsFor(0)[0]).toEqual(marker);
+      expect(bindLayerTooltipSpy.calls.argsFor(0)[1]).toEqual(name);
+    });
+  });
+
+  describe('afterAdd', () => {
+    let getBoundsSpy, fitBoundsSpy, latlng;
+
+    beforeEach(() => {
+      overlay.map = L.map(document.createElement('div'));
+      latlng = [-105, 35];
+      getBoundsSpy = spyOn(overlay, 'getBounds').and.returnValue(latlng);
+      fitBoundsSpy = spyOn(overlay.map, 'fitBounds');
+    });
+
+    it('fits the bounds to the layers on the map', done => {
+      overlay.afterAdd();
+      setTimeout(() => {
+        expect(getBoundsSpy).toHaveBeenCalled();
+        expect(fitBoundsSpy).toHaveBeenCalled();
+        done();
+      });
+    });
+
+    it('adds padding to map, so that all tooltips can be seen', done => {
+      overlay.afterAdd();
+      setTimeout(() => {
+        expect(fitBoundsSpy).toHaveBeenCalledWith(latlng, {
+          padding: [30, 30]
+        });
+        done();
+      });
+    });
+
+    it('calls addTooltip for each layer', done => {
+      const addTooltipToLayerSpy = spyOn(overlay, 'addTooltipToLayer');
+      const layer = L.marker(latlng).addTo(overlay.map);
+      overlay.afterAdd();
+      setTimeout(() => {
+        expect(addTooltipToLayerSpy).toHaveBeenCalled();
+        expect(addTooltipToLayerSpy).toHaveBeenCalledWith(layer);
+        done();
+      });
+    });
+  });
+
+  describe('addTooltipToLayer', () => {
+    let latlng, layer, name;
+
+    beforeEach(() => {
+      latlng = [-105, 35];
+      name = 'test-name';
+      layer = {
+        feature: {
+          geometry: {
+            coordinates: [latlng],
+            type: 'Point'
+          },
+          properties: {
+            name: name
+          }
+        }
+      };
+      overlay.map = L.map(document.createElement('div'));
+    });
+
+    it('throws error if feature is missing certain properties', () => {
+      delete layer.feature.geometry;
+      expect(overlay.addTooltipToLayer).toThrowError(Error);
+    });
+
+    it('calls bindLayerTooltip for "Point" features', () => {
+      const spy = spyOn(overlay, 'bindLayerTooltip');
+      layer.feature.geometry.type = 'Point';
+      overlay.addTooltipToLayer(layer);
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('calls addCircleTooltip for "Circle" features', () => {
+      const spy = spyOn(overlay, 'addCircleTooltip');
+      layer.feature.geometry.type = 'Point';
+      layer.feature.properties.radius = 123;
+      overlay.addTooltipToLayer(layer);
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('calls addPolygonTooltip for "Polygon" features', () => {
+      const spy = spyOn(overlay, 'addPolygonTooltip');
+      layer.feature.geometry.type = 'Polygon';
+      overlay.addTooltipToLayer(layer);
+      expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('bindLayerTooltip', () => {
+    it('adds the tooltip to the layer', () => {
+      const layer = {
+        bindTooltip: () => {
+          return;
+        }
+      };
+      const text = 'testing';
+      const options = {
+        className: 'class-test',
+        direction: 'direction-test'
+      };
+      const spy = spyOn(layer, 'bindTooltip');
+      overlay.bindLayerTooltip(layer, text, options);
+      expect(spy).toHaveBeenCalled();
+      expect(spy.calls.argsFor(0)[0]).toEqual(text);
+      expect(spy.calls.argsFor(0)[1].className).toEqual(options.className);
+      expect(spy.calls.argsFor(0)[1].direction).toEqual(options.direction);
+    });
+  });
+
+  describe('createMarkerPlaceholder', () => {
+    it('returns a marker with latlng', () => {
+      const latlng = [-105, 35];
+
+      overlay.map = L.map(document.createElement('div'));
+      const marker = overlay.createMarkerPlaceholder(latlng);
+      expect(marker.getLatLng()).toEqual(L.latLng(latlng));
+    });
   });
 
   describe('pointToLayer', () => {
