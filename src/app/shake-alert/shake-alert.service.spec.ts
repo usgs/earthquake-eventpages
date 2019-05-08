@@ -1,3 +1,4 @@
+import { MockComponent } from 'ng2-mock-component';
 import { getTestBed, inject, TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
@@ -18,6 +19,12 @@ describe('ShakeAlertService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      declarations: [
+        MockComponent({
+          inputs: ['product', 'contentPath'],
+          selector: 'shared-text-product'
+        })
+      ],
       imports: [HttpClientTestingModule],
       providers: [ShakeAlertService]
     });

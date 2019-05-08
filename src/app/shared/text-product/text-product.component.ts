@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { BehaviorSubject, of, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-
 /**
  * Shared text product component
  *
@@ -40,7 +39,17 @@ export class TextProductComponent {
     }
 
     const content = this.product.contents[this.contentPath];
+
     if (!content) {
+      try {
+        if (this.product.type.toLowerCase() === 'shake-alert') {
+          this.content.next(' ');
+          return;
+        }
+      } catch (e) {
+        // not a shake-alert product, continue on to display default
+        // no content shared-text-product error
+      }
       this.error = new Error('no content');
       this.content.next(null);
       return;
