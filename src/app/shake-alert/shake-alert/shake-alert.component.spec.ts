@@ -40,6 +40,10 @@ describe('ShakeAlertComponent', () => {
           selector: 'shake-alert-confirmed'
         }),
         MockComponent({
+          inputs: ['product', 'contentPath'],
+          selector: 'shared-text-product'
+        }),
+        MockComponent({
           inputs: ['event', 'products'],
           selector: 'technical-shake-alert-summary'
         }),
