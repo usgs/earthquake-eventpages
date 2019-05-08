@@ -8,7 +8,6 @@ import { ProductPageModule } from '../product-page/product-page.module';
 
 import { ShakeAlertComponent } from './shake-alert/shake-alert.component';
 import { ShakeAlertConfirmedComponent } from './shake-alert-confirmed/shake-alert-confirmed.component';
-import { ShakeAlertDeletedComponent } from './shake-alert-deleted/shake-alert-deleted.component';
 import { ShakeAlertMapComponent } from './shake-alert-map/shake-alert-map.component';
 import { ShakeAlertMissedComponent } from './shake-alert-missed/shake-alert-missed.component';
 import { ShakeAlertNearbyCitiesComponent } from './shake-alert-nearby-cities/shake-alert-nearby-cities.component';
@@ -21,7 +20,6 @@ import { ShakeAlertService } from './shake-alert.service';
   declarations: [
     ShakeAlertComponent,
     ShakeAlertConfirmedComponent,
-    ShakeAlertDeletedComponent,
     ShakeAlertMissedComponent,
     ShakeAlertNearbyCitiesComponent,
     ShakeAlertPendingComponent,

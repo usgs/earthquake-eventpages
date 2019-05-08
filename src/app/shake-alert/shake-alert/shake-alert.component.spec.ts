@@ -7,7 +7,6 @@ import { of } from 'rxjs/observable/of';
 import { EventService } from '@core/event.service';
 import { Event } from '../../event';
 import { ShakeAlertComponent } from './shake-alert.component';
-import { ShakeAlertDeletedComponent } from '../shake-alert-deleted/shake-alert-deleted.component';
 import { ShakeAlertMissedComponent } from '../shake-alert-missed/shake-alert-missed.component';
 import { ShakeAlertPendingComponent } from '../shake-alert-pending/shake-alert-pending.component';
 import { ShakeAlertService } from '../shake-alert.service';
@@ -30,7 +29,6 @@ describe('ShakeAlertComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         ShakeAlertComponent,
-        ShakeAlertDeletedComponent,
         ShakeAlertMissedComponent,
         ShakeAlertPendingComponent,
 
