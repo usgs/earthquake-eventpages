@@ -39,16 +39,18 @@ export class TextProductComponent {
     }
 
     const content = this.product.contents[this.contentPath];
+
     if (!content) {
-      let errorMessage = 'no content';
       try {
-        if (this.product.status.toUpperCase() === 'MISSED') {
-          errorMessage = 'please check back for updated product information.';
+        if (this.product.type.toLowerCase() === 'shake-alert') {
+          this.content.next(' ');
+          return;
         }
       } catch (e) {
-        // default to no content error message
+        // not a shake-alert product, continue on to display default
+        // no content shared-text-product error
       }
-      this.error = new Error(errorMessage);
+      this.error = new Error('no content');
       this.content.next(null);
       return;
     }
