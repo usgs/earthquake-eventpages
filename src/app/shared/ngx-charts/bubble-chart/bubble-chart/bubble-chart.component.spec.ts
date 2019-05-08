@@ -60,6 +60,7 @@ describe('BubbleChartComponent', () => {
             'r',
             'stroke',
             'fill',
+            'shape',
             'pointerEvents',
             'classNames',
             'tooltipType',

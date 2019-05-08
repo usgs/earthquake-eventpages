@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
@@ -8,11 +9,15 @@ import {
   MatExpansionModule,
   MatIconModule,
   MatMenuModule,
+  MatSelectModule,
+  MatSlideToggleModule,
   MatSortModule,
   MatTableModule,
   MatTabsModule
 } from '@angular/material';
 
+
+import { NgxChartsModule } from '@shared/ngx-charts/ngx-charts.module';
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '@shared/shared.module';
 import { IntensityComponent } from './intensity/intensity.component';
@@ -28,6 +33,9 @@ import { ShakemapRoutingModule } from './shakemap-routing.module';
 import { ShakemapComponent } from './shakemap/shakemap.component';
 import { StationListComponent } from './station-list/station-list.component';
 import { LegendComponent } from './legend/legend.component';
+import { AnalysisComponent } from './analysis/analysis.component';
+import { PlotStationsPipe } from './plot-stations.pipe';
+import { PlotAttenPipe } from './plot-atten.pipe';
 
 @NgModule({
   declarations: [
@@ -42,11 +50,16 @@ import { LegendComponent } from './legend/legend.component';
     PgaComponent,
     PgvComponent,
     PsaComponent,
-    LegendComponent
+    LegendComponent,
+    AnalysisComponent,
+    PlotStationsPipe,
+    PlotAttenPipe
   ],
   exports: [StationListComponent, MetadataComponent],
   imports: [
     CommonModule,
+    FormsModule,
+    NgxChartsModule,
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
@@ -54,6 +67,8 @@ import { LegendComponent } from './legend/legend.component';
     MatExpansionModule,
     MatMenuModule,
     MatIconModule,
+    MatSelectModule,
+    MatSlideToggleModule,
     MatSortModule,
     MatTableModule,
     MatTabsModule,

@@ -33,47 +33,49 @@ describe('BubbleLineChartComponent', () => {
 
         MockComponent({
           inputs: [
-            'view',
-            'showLegend',
-            'legendOptions',
-            'activeEntries',
-            'animations'
+              'view',
+              'showLegend',
+              'legendOptions',
+              'activeEntries',
+              'animations'
           ],
-          selector: 'ngx-charts-chart'
+          selector: 'ngx-charts-custom-chart'
         }),
         MockComponent({
           inputs: [
-            'lineChartTooltip',
-            'bubbleChartTooltip',
-            'xScale',
-            'yScale',
-            'xScaleType',
-            'yScaleType',
-            'xAxisLabel',
-            'yAxisLabel',
-            'rScale',
-            'xDomain',
-            'yDomain',
-            'xDomainType',
-            'colors',
-            'data',
             'activeEntries',
-            'scaleType',
-            'curve',
-            'rangeFillOpacity',
             'animations',
+            'bubbleChartTooltip',
+            'colors',
+            'curve',
+            'data',
             'dims',
-            'xSet',
+            'hasRange',
+            'labelText',
+            'lineChartTooltip',
+            'rangeFillOpacity',
+            'results',
+            'rScale',
+            'scaleType',
+            'showGridLines',
+            'showLabel',
+            'strokeWidth',
+            'ticks',
+            'tickFormatting',
             'tooltipTemplate',
             'tooltipDisabled',
-            'results',
             'visibleValue',
-            'showLabel',
-            'labelText',
-            'tickFormatting',
-            'ticks',
+            'xAxisLabel',
+            'xDomain',
+            'xDomainType',
+            'xScale',
+            'xScaleType',
+            'xSet',
+            'yAxisLabel',
+            'yDomain',
             'yOrient',
-            'showGridLines'
+            'yScale',
+            'yScaleType'
           ],
           selector: ':svg:g'
         })
@@ -93,7 +95,6 @@ describe('BubbleLineChartComponent', () => {
 
   describe('update', () => {
     it('should run', () => {
-      spyOn(component, 'filterXTicks');
       spyOn(component, 'getYDomain');
       spyOn(component, 'getRDomain');
       spyOn(component, 'getSeriesDomain');
@@ -104,7 +105,6 @@ describe('BubbleLineChartComponent', () => {
       spyOn(component, 'setColors');
       spyOn(component, 'getLegendOptions');
       component.update();
-      expect(component.filterXTicks).toHaveBeenCalled();
       expect(component.getYDomain).toHaveBeenCalled();
       expect(component.getRDomain).toHaveBeenCalled();
       expect(component.getSeriesDomain).toHaveBeenCalled();
@@ -125,7 +125,7 @@ describe('BubbleLineChartComponent', () => {
     });
 
     it('handles time scale', () => {
-      component.scaleType = 'time';
+      component.xScaleType = 'time';
       const xScale = component.getXScale(XDOMAIN, 100);
 
       expect(xScale(5)).toBe(5);
@@ -142,8 +142,7 @@ describe('BubbleLineChartComponent', () => {
 
   describe('getXDomain', () => {
     it('Autosets', () => {
-      component.bubbleChart = BUBBLESERIES;
-      component.lineChart = LINESERIES;
+      component.results = [...BUBBLESERIES, ...LINESERIES];
       component.autoScale = true;
 
       const domain = component.getXDomain();
@@ -153,8 +152,7 @@ describe('BubbleLineChartComponent', () => {
     });
 
     it('Uses max/min x values', () => {
-      component.bubbleChart = BUBBLESERIES;
-      component.lineChart = LINESERIES;
+      component.results = [...BUBBLESERIES, ...LINESERIES];
 
       component.xScaleMin = -5;
       component.xScaleMax = 100;
@@ -166,9 +164,8 @@ describe('BubbleLineChartComponent', () => {
     });
 
     it('handles time scale', () => {
-      component.bubbleChart = BUBBLESERIES;
-      component.lineChart = LINESERIES;
-      component.scaleType = 'time';
+      component.results = [...BUBBLESERIES, ...LINESERIES];
+      component.xScaleType = 'time';
 
       const domain = component.getXDomain();
 
@@ -179,19 +176,17 @@ describe('BubbleLineChartComponent', () => {
 
   describe('getYDomain', () => {
     it('Autosets', () => {
-      component.bubbleChart = BUBBLESERIES;
-      component.lineChart = LINESERIES;
+      component.results = [...BUBBLESERIES, ...LINESERIES];
       component.autoScale = true;
 
       const domain = component.getYDomain();
 
-      expect(domain[0]).toBe(0);
+      expect(domain[0]).toBe(1);
       expect(domain[1]).toBe(20);
     });
 
     it('Uses yScaleMax', () => {
-      component.bubbleChart = BUBBLESERIES;
-      component.lineChart = LINESERIES;
+      component.results = [...BUBBLESERIES, ...LINESERIES];
       component.autoScale = false;
       component.yScaleMax = 10;
 
@@ -200,8 +195,7 @@ describe('BubbleLineChartComponent', () => {
     });
 
     it('Uses yScaleMin', () => {
-      component.bubbleChart = BUBBLESERIES;
-      component.lineChart = LINESERIES;
+      component.results = [...BUBBLESERIES, ...LINESERIES];
       component.autoScale = false;
       component.yScaleMin = -1;
 
@@ -216,7 +210,7 @@ describe('BubbleLineChartComponent', () => {
       const domain = component.getRDomain();
 
       expect(domain[0]).toBe(1);
-      expect(domain[1]).toBe(1);
+      expect(domain[1]).toBe(10);
     });
   });
 

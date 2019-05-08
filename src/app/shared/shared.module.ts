@@ -27,6 +27,7 @@ import { EventTitlePipe } from './event-title.pipe';
 import { FeRegionComponent } from './fe-region/fe-region.component';
 import { FiniteFaultMapPopupComponent } from './finite-fault-map-popup/finite-fault-map-popup.component';
 import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
+import { GetContentPipe } from './get-content.pipe';
 import { GeoService } from './geo.service';
 import { GetMapBoundsPipe } from './get-map-bounds.pipe';
 import { GetProductPipe } from './get-product.pipe';
@@ -104,6 +105,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     FiniteFaultOverlaysPipe,
     FiniteFaultSummaryComponent,
     FocalMechanismSummaryComponent,
+    GetContentPipe,
     GetMapBoundsPipe,
     GetProductPipe,
     GetProductsPipe,
@@ -153,7 +155,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     TensorPipe,
     TextProductComponent,
     UncertainValueComponent,
-    UnitsPipe,
+    UnitsPipe
   ],
   entryComponents: [
     DownloadDialogComponent,
@@ -226,7 +228,9 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     TensorPipe,
     TextProductComponent,
     UncertainValueComponent,
-    UnitsPipe
+    UnitsPipe,
+    DirectionPipe,
+    GetContentPipe
   ],
   imports: [
     CommonModule,

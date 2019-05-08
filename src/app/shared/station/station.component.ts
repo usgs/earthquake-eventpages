@@ -19,8 +19,11 @@ import {
   templateUrl: './station.component.html'
 })
 export class StationComponent implements OnInit {
+  @Input()
+  channels = true;
   readonly channelsColumns = ['name', 'pga', 'pgv', 'psa03', 'psa10', 'psa30'];
-
+  @Input()
+  expanded = false;
   @Input()
   station: any;
 

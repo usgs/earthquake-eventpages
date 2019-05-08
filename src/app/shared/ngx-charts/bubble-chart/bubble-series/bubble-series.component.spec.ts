@@ -40,6 +40,7 @@ describe('BubbleSeriesComponent', () => {
             'labelText',
             'path',
             'pointerEvents',
+            'shape',
             'r',
             'rScale',
             'rangeFillOpacity',

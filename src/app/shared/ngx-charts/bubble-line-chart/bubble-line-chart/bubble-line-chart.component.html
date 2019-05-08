@@ -1,4 +1,4 @@
-<ngx-charts-chart
+<ngx-charts-custom-chart
     [view]="[width + legendSpacing, height]"
     [showLegend]="legend"
     [legendOptions]="legendOptions"
@@ -15,7 +15,8 @@
         [showLabel]="showXAxisLabel"
         [labelText]="xAxisLabel"
         [showGridLines]="showGridLines"
-        [tickFormatting]="xAxisTickFormatting"
+        [tickFormatting]="xScaleType === 'log' && !customTicks ?
+        logTickFormatting : linearTickFormatting"
         [ticks]="xAxisTicks"
         (dimensionsChanged)="updateXAxisHeight($event)">
     </svg:g>
@@ -28,19 +29,61 @@
         [showLabel]="showYAxisLabel"
         [labelText]="yAxisLabel"
         [showGridLines]="showGridLines"
-        [tickFormatting]="yAxisTickFormatting"
+        [tickFormatting]="yScaleType === 'log' && !customTicks ?
+        logTickFormatting : linearTickFormatting"
+        [ticks]="yAxisTicks"
         (dimensionsChanged)="updateYAxisWidth($event)">
     </svg:g>
-    <ng-container *ngIf="bubbleChart as bubbleChart">
+
+    <svg:g *ngFor="let series of lineChartDisplay; trackBy:trackBy">
+      <svg:g ngx-charts-line-series
+          [xScale]="xScale"
+          [yScale]="yScale"
+          [colors]="colors"
+          [data]="series"
+          [strokeWidth]="series.strokeWidth"
+          [activeEntries]="activeEntries"
+          [scaleType]="xScaleType"
+          [curve]="curve"
+          [hasRange]="series.hasRange"
+          [rangeFillOpacity]="series.rangeOpacity"
+          [animations]="animations" />
+    </svg:g>
+    <svg:g ngx-charts-tooltip-area
+        *ngIf="lineChartTooltip"
+        [dims]="dims"
+        [xSet]="xSet"
+        [xScale]="xScale"
+        [yScale]="yScale"
+        [results]="lineChartDisplay"
+        [colors]="colors"
+        [tooltipDisabled]="tooltipDisabled"
+        (hover)="updateHoveredVertical($event)" />
+    <svg:g *ngFor="let series of lineChart; trackBy:trackBy">
+      <svg:g ngx-charts-circle-series
+          [xScale]="xScale"
+          [yScale]="yScale"
+          [colors]="colors"
+          [data]="series"
+          [scaleType]="xScaleType"
+          [visibleValue]="hoveredVertical"
+          [activeEntries]="activeEntries"
+          [tooltipDisabled]="tooltipDisabled"
+          (select)="onClick($event, series)"
+          (activate)="onActivate($event)"
+          (deactivate)="onDeactivate($event)" />
+    </svg:g>
+
+    <ng-container *ngIf="bubbleChartDisplay as bubbleChartDisplay">
       <svg:g
-          *ngFor="let series of bubbleChart; trackBy:trackBy">
+          *ngFor="let series of bubbleChartDisplay; trackBy:trackBy">
         <svg:g ngx-charts-bubble-series
             [xScale]="xScale"
             [yScale]="yScale"
             [rScale]="rScale"
             [xDomain]="xDomain"
-            [xScaleType]="scaleType"
-            [yScaleType]="scaleType"
+            [xScaleType]="xScaleType"
+            [yScaleType]="yScaleType"
             [xAxisLabel]="xAxisLabel"
             [yAxisLabel]="yAxisLabel"
             [colors]="colors"
@@ -54,43 +97,4 @@
       </svg:g>
     </ng-container>
   </svg:g>
-
-  <svg:g [attr.transform]="transform" class="line-chart chart">
-    <svg:g *ngFor="let series of lineChart; trackBy:trackBy">
-      <svg:g ngx-charts-line-series
-          [xScale]="xScale"
-          [yScale]="yScale"
-          [colors]="colors"
-          [data]="series"
-          [activeEntries]="activeEntries"
-          [scaleType]="scaleType"
-          [curve]="curve"
-          [rangeFillOpacity]="rangeFillOpacity"
-          [animations]="animations" />
-    </svg:g>
-    <svg:g ngx-charts-tooltip-area
-        *ngIf="lineChartTooltip"
-        [dims]="dims"
-        [xSet]="xSet"
-        [xScale]="xScale"
-        [yScale]="yScale"
-        [results]="lineChart"
-        [colors]="colors"
-        [tooltipDisabled]="tooltipDisabled"
-        (hover)="updateHoveredVertical($event)" />
-    <svg:g *ngFor="let series of lineChart; trackBy:trackBy">
-      <svg:g ngx-charts-circle-series
-          [xScale]="xScale"
-          [yScale]="yScale"
-          [colors]="colors"
-          [data]="series"
-          [scaleType]="scaleType"
-          [visibleValue]="hoveredVertical"
-          [activeEntries]="activeEntries"
-          [tooltipDisabled]="tooltipDisabled"
-          (select)="onClick($event, series)"
-          (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)" />
-    </svg:g>
-  </svg:g>
-</ngx-charts-chart>
+</ngx-charts-custom-chart>

@@ -1,0 +1,27 @@
+<ng-container *ngIf="shape == 'circle'">
+  <svg:circle
+      [attr.cx]="cx"
+      [attr.cy]="cy"
+      [attr.r]="r"
+      [attr.fill]="fill"
+      [attr.stroke]="stroke"
+      [attr.opacity]="circleOpacity"
+      [attr.class]="classNames"
+      [attr.pointer-events]="pointerEvents"
+  />
+</ng-container>
+
+<ng-container *ngIf="shape == 'triangle'">
+
+  <svg:polygon 
+      [attr.transform]="transform"
+      [attr.height]="r"
+      [attr.width]="r"
+      [attr.points]="path"
+      [attr.fill]="fill"
+      [attr.stroke]="stroke"
+      [attr.opacity]="circleOpacity"
+      [attr.class]="classNames"
+      [attr.pointer-events]="pointerEvents"
+  />
+</ng-container>

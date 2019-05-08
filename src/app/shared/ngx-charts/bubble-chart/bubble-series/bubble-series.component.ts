@@ -78,6 +78,8 @@ export class BubbleSeriesComponent extends Swimlane.BubbleSeriesComponent {
         const max = d.max;
         const min = d.min;
 
+        const shape = d.shape || 'circle';
+
         // Should be replaced to allow origin plot to use a log scale
         const errorBarWidth = (this.xDomain[1] - this.xDomain[0]) * 0.0125;
 
@@ -104,6 +106,7 @@ export class BubbleSeriesComponent extends Swimlane.BubbleSeriesComponent {
           r,
           radius,
           seriesName,
+          shape,
           tooltipLabel,
           transform: `translate(${cx},${cy})`,
           value: y,
