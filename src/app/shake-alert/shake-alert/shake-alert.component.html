@@ -13,7 +13,7 @@
     <ng-container *ngIf="product.status === 'PENDING'">
       <shake-alert-pending></shake-alert-pending>
     </ng-container>
-    <!-- <ng-container *ngIf="product.status === 'CONFIRMED'">
+    <ng-container *ngIf="product.status === 'CONFIRMED'">
       <ng-container *ngIf="shakeAlertService.summary$ | async as summary">
         <shake-alert-confirmed
           [summary]="summary"
@@ -22,8 +22,8 @@
         >
         </shake-alert-confirmed>
       </ng-container>
-    </ng-container> -->
-    <ng-container *ngIf="product.status === 'CONFIRMED'">
+    </ng-container>
+    <ng-container *ngIf="product.status === 'MISSED'">
       <shake-alert-missed></shake-alert-missed>
     </ng-container>
     <ng-container *ngIf="product.status === 'DELETED'">
