@@ -1,3 +1,4 @@
+import { MockPipe } from './../../mock-pipe';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MockComponent } from 'ng2-mock-component';
@@ -37,7 +38,13 @@ describe('ShakeAlertComponent', () => {
         MockComponent({
           inputs: ['summary', 'cities', 'properties'],
           selector: 'shake-alert-confirmed'
-        })
+        }),
+        MockComponent({
+          inputs: ['event', 'products'],
+          selector: 'technical-shake-alert-summary'
+        }),
+
+        MockPipe('sharedGetProducts')
       ],
       providers: [
         { provide: EventService, useValue: eventServiceStub },
