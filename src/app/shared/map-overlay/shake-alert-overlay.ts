@@ -100,13 +100,14 @@ const ShakeAlertOverlay = AsynchronousGeoJSONOverlay.extend({
     }, 0);
 
     // determine where to add the tooltip to each layer
-    try {
-      this.map.eachLayer(layer => {
+
+    this.map.eachLayer(layer => {
+      try {
         this.addTooltipToLayer(layer);
-      });
-    } catch (e) {
-      console.log(e);
-    }
+      } catch (e) {
+        console.log(e);
+      }
+    });
   },
 
   /**
