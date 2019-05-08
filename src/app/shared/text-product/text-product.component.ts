@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { BehaviorSubject, of, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-
 /**
  * Shared text product component
  *
@@ -41,7 +40,15 @@ export class TextProductComponent {
 
     const content = this.product.contents[this.contentPath];
     if (!content) {
-      this.error = new Error('no content');
+      let errorMessage = 'no content';
+      try {
+        if (this.product.status.toUpperCase() === 'MISSED') {
+          errorMessage = 'please check back for updated product information.';
+        }
+      } catch (e) {
+        // default to no content error message
+      }
+      this.error = new Error(errorMessage);
       this.content.next(null);
       return;
     }

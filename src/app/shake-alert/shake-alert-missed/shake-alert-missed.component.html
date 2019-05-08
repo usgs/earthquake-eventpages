@@ -2,3 +2,7 @@
   <h3>ShakeAlert - MISSED</h3>
   <p>No ShakeAlert was generated for this event.</p>
 </div>
+<div *ngIf="eventService.product$ | async as product">
+  <shared-text-product [product]="product" [contentPath]="'missing.html'">
+  </shared-text-product>
+</div>

@@ -8,12 +8,12 @@
     </technical-shake-alert-summary>
   </ng-container>
 
-  <ng-container *ngIf="(eventService.product$ | async) as product">
+  <ng-container *ngIf="eventService.product$ | async as product">
     <ng-container *ngIf="product.status === 'PENDING'">
       <shake-alert-pending></shake-alert-pending>
     </ng-container>
     <ng-container *ngIf="product.status === 'CONFIRMED'">
-      <ng-container *ngIf="(shakeAlertService.summary$ | async) as summary">
+      <ng-container *ngIf="shakeAlertService.summary$ | async as summary">
         <shake-alert-confirmed
           [summary]="summary"
           [cities]="summary.cities"
