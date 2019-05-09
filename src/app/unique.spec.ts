@@ -16,7 +16,11 @@ describe('getUnique', () => {
   });
 
   it('should support objects', () => {
-    const result = getUnique([{ id: 'a' }, { id: 'b' }, { id: 'a' }]);
-    expect(result).toEqual([{ id: 'a' }, { id: 'b' }]);
+    const result = getUnique([
+      { id: 'a', other: 1 },
+      { id: 'b' },
+      { id: 'a', other: 2 }
+    ]);
+    expect(result).toEqual([{ id: 'a', other: 1 }, { id: 'b' }]);
   });
 });

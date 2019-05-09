@@ -28,16 +28,21 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
   lastEvent: Event = null;
   // pipes related to their product
   overlayCache: any = {};
-  /* tslint:disable:object-literal-sort-keys */
   overlayFactory: any = {
-    origin: new RegionInfoOverlaysPipe(),
-    // keep origin first, the rest go here:
-    shakemap: new ShakemapOverlaysPipe(),
-    'ground-failure': new GroundFailureOverlaysPipe(),
     dyfi: new DyfiOverlaysPipe(),
-    'finite-fault': new FiniteFaultOverlaysPipe()
+    'finite-fault': new FiniteFaultOverlaysPipe(),
+    'ground-failure': new GroundFailureOverlaysPipe(),
+    origin: new RegionInfoOverlaysPipe(),
+    shakemap: new ShakemapOverlaysPipe()
   };
-  /* tslint:enable:object-literal-sort-keys */
+  overlayFactoryOrder = [
+    'origin',
+    // keep origin first, the rest go here:
+    'shakemap',
+    'ground-failure',
+    'dyfi',
+    'finite-fault'
+  ];
   staticOverlays: L.Layer[] = [
     new LandscanPopulationOverlay(),
     new TectonicPlatesOverlay(),
@@ -138,7 +143,7 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
 
     // new array every time for change detection
     let overlays = [];
-    Object.keys(this.overlayFactory).forEach(type => {
+    this.overlayFactoryOrder.forEach(type => {
       overlays.push(...this.getOverlays(event, params, type));
     });
 
