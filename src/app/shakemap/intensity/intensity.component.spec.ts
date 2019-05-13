@@ -44,7 +44,7 @@ describe('IntensityComponent', () => {
 
         MockPipe('shakemapOverlays'),
         MockPipe('sharedGetMapBounds'),
-        MockPipe('sharedNumber'),
+        MockPipe('sharedFileSize'),
         MockPipe('sharedProductContent')
       ],
       imports: [

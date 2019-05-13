@@ -15,13 +15,13 @@ import { EventService } from '@core/event.service';
 })
 export class IntensityComponent {
   contourOverlays = ['shakemap-mmi-contours','shakemap-stations'];
+  fileTypes = [
+    {type: 'png', name: 'PNG', content: 'download/intensity.png'},
+    {type: 'jpg', name: 'JPG', content: 'download/intensity.jpg'},
+    {type: 'pdf', name: 'PDF', content: 'download/intensity.pdf'}
+  ];
   imageOverlays = ['shakemap-intensity','shakemap-stations'];
   overlays = this.imageOverlays;
 
   constructor(public eventService: EventService) {}
-
-  scrollToDownloads() {
-    document.getElementById('downloads')
-      .scrollIntoView({behavior: 'smooth', block: 'center', inline: 'nearest'});
-  }
 }

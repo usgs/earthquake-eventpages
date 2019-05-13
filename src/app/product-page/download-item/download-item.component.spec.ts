@@ -13,7 +13,7 @@ describe('DownloadItemComponent', () => {
         DownloadItemComponent,
 
         MockPipe('fileExtension'),
-        MockPipe('fileSize')
+        MockPipe('sharedFileSize')
       ]
     })
     .compileComponents();

@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'fileSize'
+  name: 'sharedFileSize'
 })
 export class FileSizePipe implements PipeTransform {
   transform(size: number, precision = 1): string {

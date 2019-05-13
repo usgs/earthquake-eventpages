@@ -7,7 +7,6 @@ import { SharedModule } from '@shared/shared.module';
 import { DateTimePipe } from './date-time.pipe';
 import { DownloadComponent } from './download/download.component';
 import { DownloadItemComponent } from './download-item/download-item.component';
-import { FileSizePipe } from './file-size.pipe';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ProductPageComponent } from './product-page/product-page.component';
@@ -19,7 +18,6 @@ import { FileExtensionPipe } from './file-extension.pipe';
     DownloadComponent,
     DownloadItemComponent,
     FileExtensionPipe,
-    FileSizePipe,
     FooterComponent,
     HeaderComponent,
     ProductPageComponent

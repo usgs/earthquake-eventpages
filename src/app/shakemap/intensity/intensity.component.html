@@ -1,37 +1,13 @@
 <ng-container *ngIf="eventService?.product$ | async; let shakemap">
-  <div class="downloads" *ngIf="shakemap | sharedProductContent:
-      'download/intensity.jpg':'download/intensity.pdf':'download/intensity.png'">
-
-      Download Intensity Image:
-    <a *ngIf="shakemap | sharedProductContent:'download/intensity.png' as image"
-      target="_blank"
-      [href]="image.url"
-      download="intensity.png">
-      PNG ({{ image.length / 1000 | sharedNumber:0:'kb' }})
-    </a>
-    <a *ngIf="shakemap | sharedProductContent:'download/intensity.jpg' as image"
-      target="_blank"
-      [href]="image.url"
-      download="intensity.jpg">
-      JPG ({{ image.length / 1000 | sharedNumber:0:'kb' }})
-    </a>
-    <a *ngIf="shakemap | sharedProductContent:'download/intensity.pdf' as image"
-      target="_blank"
-      [href]="image.url"
-      download="intensity.pdf">
-      PDF ({{ image.length / 1000 | sharedNumber:0:'kb' }})
-    </a>
-    <a href="javascript:void(0)"
-        (click)="scrollToDownloads()">
-      More...
-    </a>
-  </div>
-
   <div class="layers">
     <form>
+      <label for="overlays" id="shakemapIntensityOverlays">
+        ShakeMap Intensity Overlays
+      </label>
       <mat-radio-group [(ngModel)]="overlays" name="overlays">
         <mat-radio-button [value]="imageOverlays"
-            name="raster">
+            name="raster"
+            aria-labelledby="shakemapIntensityOverlays Image">
           Image Overlay
         </mat-radio-button>
         <mat-radio-button [value]="contourOverlays"
@@ -79,5 +55,22 @@
         <h1>No intensity available for this event</h1>
       </ng-template>
     </ng-template>
+  </div>
+
+  <div class="downloads" *ngIf="shakemap | sharedProductContent:
+      'download/intensity.jpg':'download/intensity.pdf':'download/intensity.png'">
+    <h3>Download Intensity Image:</h3>
+    <ul>
+      <ng-container *ngFor="let format of ['png', 'jpg', 'pdf']">
+        <li *ngIf="shakemap | sharedProductContent: 'download/intensity.' + format as image">
+          <a target="_blank" [href]="image.url" download="image">
+            {{ format | uppercase }} ({{ image.length | sharedFileSize }})
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+    <p>
+      See downloads section for more downloads
+    </p>
   </div>
 </ng-container>
