@@ -6,12 +6,13 @@
   width: 100%;
 }
 
-.downloads {
-  padding: 1em
+.downloads h3, .download-links, .download-links * {
+  display: inline-block;
+  padding: 0;
 }
 
-.downloads a {
-  margin-right: .5em;
+.download-links * {
+  margin: 0 .15em 0 .15em;
 }
 
 .layers label {

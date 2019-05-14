@@ -62,13 +62,19 @@
   <div class="downloads" *ngIf="shakemap | sharedProductContent:
       'download/intensity.jpg':'download/intensity.pdf':'download/intensity.png'">
     <h3>Download Intensity Image:</h3>
-    <ul>
-      <ng-container *ngFor="let format of ['png', 'jpg', 'pdf']">
-        <li *ngIf="shakemap | sharedProductContent: 'download/intensity.' + format as image">
-          <a target="_blank" [href]="image.url" download="image">
-            {{ format | uppercase }} ({{ image.length | sharedFileSize }})
-          </a>
-        </li>
+    <ul class="download-links">
+      <ng-container *ngFor="let format of formats; index as i;">
+        <ng-container  *ngIf="shakemap | sharedProductContent: 'download/intensity.' + format as image">
+          <p *ngIf="i > 0 && (shakemap |
+              sharedProductContent:'download/intensity.' + formats[i - 1])">
+            |
+          </p>
+          <li>
+            <a target="_blank" [href]="image.url" download="image">
+              {{ format | uppercase }} ({{ image.length | sharedFileSize }})
+            </a>
+          </li>
+        </ng-container>
       </ng-container>
     </ul>
     <p>
