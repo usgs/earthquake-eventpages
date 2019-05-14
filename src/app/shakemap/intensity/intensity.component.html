@@ -4,14 +4,16 @@
       <label for="overlays" id="shakemapIntensityOverlays">
         ShakeMap Intensity Overlays
       </label>
-      <mat-radio-group [(ngModel)]="overlays" name="overlays">
+      <mat-radio-group
+          [(ngModel)]="overlays"
+          name="overlays"
+          aria-labelledby="shakemapIntensityOverlays">
         <mat-radio-button [value]="imageOverlays"
-            name="raster"
-            aria-labelledby="shakemapIntensityOverlays Image">
+            name="imageSelect">
           Image Overlay
         </mat-radio-button>
         <mat-radio-button [value]="contourOverlays"
-            name="contours">
+            name="contourSelect">
           Contours
         </mat-radio-button>
       </mat-radio-group>

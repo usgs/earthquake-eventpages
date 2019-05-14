@@ -10,6 +10,10 @@ export class GetMapBoundsPipe implements PipeTransform {
    * @param product
    *      product
    *
+   * @param zoom
+   *      boolean describes wether to zoom in on the map or not. Used
+   *      in the shakemap intensity maps
+   *
    * @return
    *     map bounds
    */
