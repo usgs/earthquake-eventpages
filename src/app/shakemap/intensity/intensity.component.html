@@ -26,7 +26,7 @@
         'download/intensity_overlay.png':'download/ii_overlay.png';
         else noOverlay">
       <a [routerLink]="'../../map'"
-        [queryParams]="{
+          [queryParams]="{
             'shakemap-code': shakemap?.code,
             'shakemap-source': shakemap?.source,
             'shakemap-intensity': overlays === imageOverlays,
