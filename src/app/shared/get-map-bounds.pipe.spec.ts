@@ -1,18 +1,21 @@
 import { GetMapBoundsPipe } from './get-map-bounds.pipe';
 
 describe('GetMapBoundsPipe', () => {
+  let pipe;
+
+  beforeEach(() => {
+    pipe = new GetMapBoundsPipe();
+  });
+
   it('create an instance', () => {
-    const pipe = new GetMapBoundsPipe();
     expect(pipe).toBeTruthy();
   });
 
   it('returns null if no product', () => {
-    const pipe = new GetMapBoundsPipe();
     expect(pipe.transform({})).toBeNull();
   });
 
   it('returns null if no bounds exist', () => {
-    const pipe = new GetMapBoundsPipe();
     expect(pipe.transform({ properties: {} })).toBeNull();
   });
 
@@ -26,7 +29,38 @@ describe('GetMapBoundsPipe', () => {
         'minimum-longitude': bounds[0][1]
       }
     };
-    const pipe = new GetMapBoundsPipe();
     expect(pipe.transform(product)).toEqual(bounds);
+  });
+
+  it('Wraps 180 lon', () => {
+    const bounds = [[1, 178], [3, -178]];
+    const product = {
+      properties: {
+        'maximum-latitude': bounds[1][0],
+        'maximum-longitude': bounds[1][1],
+        'minimum-latitude': bounds[0][0],
+        'minimum-longitude': bounds[0][1]
+      }
+    };
+
+    const transBounds = pipe.transform(product);
+    expect(transBounds[0][1]).toBeLessThan(transBounds[1][1]);
+    expect(transBounds[1][1] - transBounds[0][1]).toBe(4);
+  });
+
+  it('Wraps 90 lat', () => {
+    const bounds = [[88, 1], [-88, 3]];
+    const product = {
+      properties: {
+        'maximum-latitude': bounds[1][0],
+        'maximum-longitude': bounds[1][1],
+        'minimum-latitude': bounds[0][0],
+        'minimum-longitude': bounds[0][1]
+      }
+    };
+
+    const transBounds = pipe.transform(product);
+    expect(transBounds[0][0]).toBeLessThan(transBounds[1][0]);
+    expect(transBounds[1][0] - transBounds[0][0]).toBe(4);
   });
 });
