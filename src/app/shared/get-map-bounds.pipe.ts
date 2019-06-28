@@ -27,8 +27,18 @@ export class GetMapBoundsPipe implements PipeTransform {
     let minLon = parseFloat(product.properties['minimum-longitude']);
     const maxLon = parseFloat(product.properties['maximum-longitude']);
 
-    if (!(minLat && minLon && maxLat && maxLon)) {
+    const lat = parseFloat(product.properties.latitude);
+    const lon = parseFloat(product.properties.longitude);
+
+    if (!(minLat && minLon && maxLat && maxLon && lat && lon)) {
       return null;
+    }
+
+    if (minLon > lon) {
+      minLon = minLon - 360;
+    }
+    if (minLat > lat) {
+      minLat = minLat - 180;
     }
 
     if (zoom) {
@@ -43,13 +53,6 @@ export class GetMapBoundsPipe implements PipeTransform {
       const latAdjust = absMaxLat * latFactor;
       minLat = minLat + latAdjust;
       maxLat = maxLat - latAdjust;
-    }
-
-    if (minLon > maxLon) {
-      minLon = minLon - 360;
-    }
-    if (minLat > maxLat) {
-      minLat = minLat - 180;
     }
 
     return [[minLat, minLon], [maxLat, maxLon]];

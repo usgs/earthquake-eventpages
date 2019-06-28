@@ -23,6 +23,8 @@ describe('GetMapBoundsPipe', () => {
     const bounds = [[1, 2], [3, 4]];
     const product = {
       properties: {
+        latitude: 2,
+        longitude: 3,
         'maximum-latitude': bounds[1][0],
         'maximum-longitude': bounds[1][1],
         'minimum-latitude': bounds[0][0],
@@ -36,6 +38,8 @@ describe('GetMapBoundsPipe', () => {
     const bounds = [[1, 178], [3, -178]];
     const product = {
       properties: {
+        latitude: 2,
+        longitude: -179,
         'maximum-latitude': bounds[1][0],
         'maximum-longitude': bounds[1][1],
         'minimum-latitude': bounds[0][0],
@@ -52,6 +56,8 @@ describe('GetMapBoundsPipe', () => {
     const bounds = [[88, 1], [-88, 3]];
     const product = {
       properties: {
+        latitude: -89,
+        longitude: 2,
         'maximum-latitude': bounds[1][0],
         'maximum-longitude': bounds[1][1],
         'minimum-latitude': bounds[0][0],
