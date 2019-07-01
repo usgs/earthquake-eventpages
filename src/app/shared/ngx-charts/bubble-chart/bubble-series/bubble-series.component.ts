@@ -63,7 +63,7 @@ export class BubbleSeriesComponent extends Swimlane.BubbleSeriesComponent {
         const cx = this.xScale(x);
         const cy = this.yScale(y);
 
-        const color =
+        const color = d.color ||
           this.colors.scaleType === 'linear'
             ? this.colors.getColor(r)
             : this.colors.getColor(seriesName);
@@ -90,9 +90,14 @@ export class BubbleSeriesComponent extends Swimlane.BubbleSeriesComponent {
           ...d
         };
 
+        let classNames = [`circle-data-${i}`];
+        if (d.classNames) {
+          classNames = d.classNames.concat(classNames);
+        }
+
         return {
           borderColor,
-          classNames: [`circle-data-${i}`],
+          classNames: classNames,
           color,
           cx,
           cy,

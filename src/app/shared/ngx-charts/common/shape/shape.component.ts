@@ -8,6 +8,7 @@ import { Triangle } from './triangle';
 
 @Component({
   selector: 'g[ngx-charts-shape]',
+  styleUrls: ['./shape.component.scss'],
   templateUrl: './shape.component.html'
 })
 export class ShapeComponent extends CircleComponent {

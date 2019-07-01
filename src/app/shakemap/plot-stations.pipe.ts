@@ -1,5 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import { RomanPipe } from '@shared/roman.pipe';
+
 @Pipe({
   name: 'plotStations'
 })
@@ -86,6 +88,8 @@ export class PlotStationsPipe implements PipeTransform {
     const smStations = [];
     const dyfiStations = [];
 
+    const romanPipe = new RomanPipe();
+
     stations.forEach(station => {
       const props = station.properties;
       const y = props[plotY];
@@ -94,8 +98,9 @@ export class PlotStationsPipe implements PipeTransform {
       if (x && y) {
         const plotStation = {
           'borderColor': '#000000',
+          'classNames': [`mmi${romanPipe.transform(props.intensity)}`],
           'name': x,
-          'r': 6,
+          'r': 4,
           'shape': 'triangle',
           'station': station,
           'value': y,
