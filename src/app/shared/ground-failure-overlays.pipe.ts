@@ -21,8 +21,12 @@ export class GroundFailureOverlaysPipe implements PipeTransform {
   transform(product: any): Array<L.Layer> {
     const overlays = [];
     if (product) {
-      overlays.push(new GroundFailureLiquefactionOverlay(product));
-      overlays.push(new GroundFailureLandslideOverlay(product));
+      try {
+        overlays.push(new GroundFailureLiquefactionOverlay(product));
+      } catch (e) {}
+      try {
+        overlays.push(new GroundFailureLandslideOverlay(product));
+      } catch (e) {}
     }
     return overlays;
   }
