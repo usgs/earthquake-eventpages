@@ -20,6 +20,7 @@ export class PlotAttenPipe implements PipeTransform {
       const point = {
         max: acc + accs.stddev[i],
         min: acc - accs.stddev[i],
+        stddev: accs.stddev[i],
         value: acc
       };
 
@@ -76,7 +77,7 @@ export class PlotAttenPipe implements PipeTransform {
    * @param plotGmpe
    *    'soil' or 'rock' GMPE with current configurations
    */
-  transform (attenCurves, distance, imt, plotGmpe): any {
+  transform (attenCurves, distance, imt, plotGmpe, residual, ratio): any {
     if (!attenCurves) {
       return [];
     }
@@ -90,13 +91,28 @@ export class PlotAttenPipe implements PipeTransform {
 
       const points = [];
       distances.forEach((dist, i) => {
+        let value = converted[i].value;
+        let max = converted[i].max;
+        let min = converted[i].min;
+        const stddev = converted[i].stddev;
+
+        if (residual && ratio) {
+          max = max / value;
+          min = min / value;
+          value = 1;
+        } else if (residual) {
+          max = stddev;
+          min = -stddev;
+          value = 0;
+        }
+
         const point = {
-          max: converted[i].max,
-          min: converted[i].min > 0 ? converted[i].min : 0,
+          max: max,
+          min: min,
           name: dist,
-          value: converted[i].value,
+          value: value,
           x: dist,
-          y: converted[i].value
+          y: value
         };
         points.push(point);
       });

@@ -14,9 +14,9 @@
           [lineChartTooltip]="false"
           [bubbleChart]="stations.features |
               plotStations:plotting.x.type:plotting.y.type:residual:ratio"
-          [lineChart]="residual || !predictions ? [] : shakemap |
+          [lineChart]="!predictions ? [] : shakemap |
               sharedGetContent:'download/attenuation_curves.json' |
-              async | plotAtten:plotting.x.type:plotting.y.type:groundType"
+              async | plotAtten:plotting.x.type:plotting.y.type:groundType:residual:ratio"
           [tooltipDisabled]="false"
           [gradient]="true"
           [xAxis]="true"
@@ -51,7 +51,7 @@
       <div class="prediction-slider slider">
         <mat-slide-toggle
             [(ngModel)]="predictions"
-            [disabled]="!(shakemap | sharedProductContent:'download/attenuation_curves.json') || residual">
+            [disabled]="!(shakemap | sharedProductContent:'download/attenuation_curves.json')">
           Prediction Curves
         </mat-slide-toggle>
       </div>
@@ -75,7 +75,7 @@
     </div>
 
     <div *ngIf="(shakemap | sharedProductContent:'download/attenuation_curves.json') &&
-        predictions && !residual"
+        predictions"
         class="prediction-options">
       <form>
         <mat-form-field>
