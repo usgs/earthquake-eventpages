@@ -1,7 +1,7 @@
 <basic-pin *ngIf="product?.properties as properties" [link]="link" [product]="product" [title]="title">
 
   <dl>
-    <dt>Landslides</dt>
+    <dt>Landslide Estimate</dt>
     <dd>
       <figure *ngIf="(properties['landslide-alert'] | lowercase) !== 'pending'; else captionPending" [ngClass]="properties['landslide-alert']">
         <div class="svg-wrapper">
@@ -78,7 +78,7 @@
 
 
 
-    <dt>Liquefaction</dt>
+    <dt>Liquefaction Estimate</dt>
     <dd>
       <figure *ngIf="(properties['liquefaction-alert'] | lowercase) !== 'pending'; else captionPending" [ngClass]="properties['liquefaction-alert']">
         <div class="svg-wrapper">
