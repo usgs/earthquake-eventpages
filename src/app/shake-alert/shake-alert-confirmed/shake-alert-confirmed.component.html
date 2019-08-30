@@ -4,6 +4,10 @@
   event.
 </p>
 
+<p *ngIf="properties?.announcement" class="alert info">
+  {{ properties.announcement }}
+</p>
+
 <div class="shake-alert row">
   <div class="column">
     <h4>Earthquake</h4>
@@ -11,9 +15,10 @@
       <ng-container *ngIf="properties?.title">
         <dt>Title</dt>
         <dd>
-          <ng-container *ngIf="properties?.magnitude"
-            >M{{ properties?.magnitude | sharedNumber: 2 }} - </ng-container
-          >{{ properties?.title }}
+          <ng-container *ngIf="properties?.magnitude">
+            M{{ properties?.magnitude | sharedNumber: 2 }} -
+          </ng-container>
+          {{ properties?.title }}
         </dd>
       </ng-container>
       <ng-container *ngIf="properties?.time">
