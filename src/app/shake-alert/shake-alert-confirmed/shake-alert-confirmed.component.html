@@ -11,9 +11,10 @@
       <ng-container *ngIf="properties?.title">
         <dt>Title</dt>
         <dd>
-          <ng-container *ngIf="properties?.magnitude"
-            >M{{ properties?.magnitude | sharedNumber: 2 }} - </ng-container
-          >{{ properties?.title }}
+          <ng-container *ngIf="properties?.magnitude">
+            M{{ properties?.magnitude | sharedNumber: 2 }} -
+          </ng-container>
+          {{ properties?.title }}
         </dd>
       </ng-container>
       <ng-container *ngIf="properties?.time">
@@ -41,10 +42,6 @@
         This report is primarily for technical managers who track the
         performance of the system. It is also helpful for tracking changes in
         performance as new capabilities are added.
-      </li>
-      <li>
-        For moderate earthquakes, the 'final' alert area may little changed from
-        the initial.
       </li>
     </ol>
   </div>
