@@ -2,8 +2,9 @@
 <div class="horizontal-scrolling">
   <mat-table [dataSource]="this.cities" class="nearby-cities-table">
     <mat-header-row *matHeaderRowDef="this.columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: this.columnsToDisplay">
-    </mat-row>
+    <mat-row
+      *matRowDef="let myRowData; columns: this.columnsToDisplay"
+    ></mat-row>
 
     <ng-container matColumnDef="city">
       <mat-header-cell *matHeaderCellDef>
@@ -18,8 +19,8 @@
       <mat-header-cell *matHeaderCellDef>
         <abbr title="distance">Distance</abbr>
       </mat-header-cell>
-      <mat-cell *matCellDef="let cities"
-        >{{ cities | sharedProductProperty: 'citydist' | sharedNumber: 0:'km' }}
+      <mat-cell *matCellDef="let cities">
+        {{ cities | sharedProductProperty: 'citydist' | sharedDistance }}
       </mat-cell>
     </ng-container>
 
@@ -27,8 +28,8 @@
       <mat-header-cell *matHeaderCellDef>
         <abbr title="warning-time">Warning Time</abbr>
       </mat-header-cell>
-      <mat-cell *matCellDef="let cities"
-        >~{{
+      <mat-cell *matCellDef="let cities">
+        ~{{
           cities | sharedProductProperty: 'warning_time' | sharedNumber: 1:'s'
         }}
       </mat-cell>
@@ -38,11 +39,11 @@
       <mat-header-cell *matHeaderCellDef>
         <abbr title="mmi">mmi</abbr>
       </mat-header-cell>
-      <mat-cell *matCellDef="let cities"
-        >{{ cities | sharedProductProperty: 'mmi' | sharedRoman }}
+      <mat-cell *matCellDef="let cities">
+        {{ cities | sharedProductProperty: 'mmi' | sharedRoman }}
       </mat-cell>
     </ng-container>
   </mat-table>
 </div>
 
-<ng-template #dash> &ndash; </ng-template>
+<ng-template #dash>&ndash;</ng-template>

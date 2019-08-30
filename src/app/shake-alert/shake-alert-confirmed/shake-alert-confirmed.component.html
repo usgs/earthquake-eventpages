@@ -11,9 +11,10 @@
       <ng-container *ngIf="properties?.title">
         <dt>Title</dt>
         <dd>
-          <ng-container *ngIf="properties?.magnitude"
-            >M{{ properties?.magnitude | sharedNumber: 2 }} - </ng-container
-          >{{ properties?.title }}
+          <ng-container *ngIf="properties?.magnitude">
+            M{{ properties?.magnitude | sharedNumber: 2 }} -
+          </ng-container>
+          {{ properties?.title }}
         </dd>
       </ng-container>
       <ng-container *ngIf="properties?.time">

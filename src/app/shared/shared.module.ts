@@ -19,6 +19,7 @@ import { CoordinatesComponent } from './coordinates/coordinates.component';
 import { DateTimePipe } from './date-time.pipe';
 import { DegreesPipe } from './degrees.pipe';
 import { DirectionPipe } from './direction.pipe';
+import { DistancePipe } from './distance.pipe';
 import { DownloadDialogComponent } from './download-dialog/download-dialog.component';
 import { DyfiCounterPipe } from './dyfi-counter.pipe';
 import { DyfiOverlaysPipe } from './dyfi-overlays.pipe';
@@ -94,6 +95,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     DateTimePipe,
     DegreesPipe,
     DirectionPipe,
+    DistancePipe,
     DownloadDialogComponent,
     DyfiCounterPipe,
     DyfiOverlaysPipe,
@@ -172,6 +174,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     DateTimePipe,
     DegreesPipe,
     DirectionPipe,
+    DistancePipe,
     DownloadDialogComponent,
     DyfiCounterPipe,
     DyfiSummaryComponent,
@@ -229,7 +232,6 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     TextProductComponent,
     UncertainValueComponent,
     UnitsPipe,
-    DirectionPipe,
     GetContentPipe
   ],
   imports: [
