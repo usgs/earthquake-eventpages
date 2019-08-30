@@ -10,23 +10,22 @@
 /* adjust for attribution */
 .leaflet-bottom.leaflet-left,
 .leaflet-bottom.leaflet-right {
-  bottom: 16px;
+  width: 100%;
 }
 
 .leaflet-bottom.leaflet-left > .leaflet-control-scale {
   @include leaflet-control;
+  bottom: 16px;
   padding: 10px;
 }
 .leaflet-bottom.leaflet-right > .leaflet-control-mouseposition {
   @include leaflet-control;
   padding: 5px 10px;
+  float: right;
 }
 
 .leaflet-control.leaflet-control-attribution {
-  bottom: 0;
-  left: 0;
   overflow: hidden;
-  position: fixed;
   text-overflow: ellipsis;
   width: 100%;
   white-space: nowrap;
