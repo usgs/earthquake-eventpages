@@ -18,7 +18,7 @@ describe('NumberWithSeparatorPipe', () => {
       expect(pipe.transform(null)).toEqual('');
     });
 
-    fit('deals with good input', () => {
+    it('deals with good input', () => {
       expect(pipe.transform(0)).toEqual('0');
       expect(pipe.transform(0.0)).toEqual('0');
       expect(pipe.transform(0.1)).toEqual('0.1');
