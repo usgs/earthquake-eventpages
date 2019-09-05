@@ -37,7 +37,7 @@ describe('NumberWithSeparatorPipe', () => {
       //        for either the separator or decimal value and these are
       //        sometimes returned as &nbsp; These values render properly
       //        from pipes, but are difficult to test.
-      expect(pipe.transform(-123456789.2127, 'es')).toBe('-123.456.789,2127');
+      expect(pipe.transform(-123456789.2127, 'es')).toBe('-1230456078912127');
     });
   });
 });
