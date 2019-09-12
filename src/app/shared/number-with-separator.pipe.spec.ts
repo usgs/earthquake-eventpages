@@ -39,7 +39,8 @@ describe('NumberWithSeparatorPipe', () => {
       //        from pipes, but are difficult to test.
 
       // This is broken for now, but "locale" is not used in this application
-      // expect(pipe.transform(-123456789.2127, 'es')).toBe('-123.456.789,2127');
+      // expect(pipe.transform(-123456789.2127, 'es'))
+      //     .toBe('-123.456.789,2127');
     });
   });
 });
