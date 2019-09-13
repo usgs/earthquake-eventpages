@@ -19,10 +19,10 @@ describe('tell-us-tell-us', () => {
     };
     const languageServiceStub = {
       getLanguage: jasmine.createSpy('languageService::getLanguage'),
-      language$: of({})
+      language$: of(null)
     };
     const formSubmitServiceStub = {
-      formResponse$: of({})
+      formResponse$: of(null)
     };
 
     TestBed.configureTestingModule({
@@ -48,9 +48,7 @@ describe('tell-us-tell-us', () => {
         { provide: EventService, useValue: eventServiceStub },
         { provide: FormSubmitService, useValue: formSubmitServiceStub }
       ]
-    });
-
-    TestBed.compileComponents();
+    }).compileComponents();
   }));
   beforeEach(() => {
     fixture = TestBed.createComponent(TellUsComponent);
