@@ -34,12 +34,7 @@
       Initial alert:
       {{
         (summary['initial_alert']?.properties)['location_distance_error']
-          | sharedMilesKilometers: 'tokilometers'
-          | sharedNumber: 1:'km'
-      }},
-      {{
-        (summary['initial_alert']?.properties)['location_distance_error']
-          | sharedNumber: 1:'miles'
+          | sharedDistance
       }}
       {{
         (summary['initial_alert']?.properties)['location_azimuth_error']
@@ -50,13 +45,8 @@
       Final alert:
       {{
         (summary['final_alert']?.properties)['location_distance_error']
-          | sharedMilesKilometers: 'tokilometers'
-          | sharedNumber: 1:'km'
-      }},
-      {{
-        (summary['final_alert']?.properties)['location_distance_error']
-          | sharedNumber: 1:'miles'
-      }},
+          | sharedDistance
+      }}
       {{
         (summary['final_alert']?.properties)['location_azimuth_error']
           | sharedDirection
