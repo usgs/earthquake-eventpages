@@ -51,9 +51,14 @@ describe('tell-us-tell-us', () => {
     TestBed.compileComponents();
   }));
   beforeEach(() => {
-    fixture = TestBed.createComponent(TellUsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    try {
+      fixture = TestBed.createComponent(TellUsComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    } catch (e) {
+      console.log(e.stack);
+      throw e;
+    }
   });
 
   it('should create', () => {
