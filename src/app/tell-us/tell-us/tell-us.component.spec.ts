@@ -21,7 +21,9 @@ describe('tell-us-tell-us', () => {
       getLanguage: jasmine.createSpy('languageService::getLanguage'),
       language$: of({})
     };
-    const formSubmitServiceStub = {};
+    const formSubmitServiceStub = {
+      formResponse$: of({})
+    };
 
     TestBed.configureTestingModule({
       declarations: [
