@@ -10,7 +10,7 @@ services:
   - xvfb
 
 install:
-  - npm install -g angular-cli codacy-coverage
+  - npm install -g codacy-coverage
   - npm install
 
 before_script:
@@ -18,10 +18,10 @@ before_script:
   - export PATH="${PATH}:${TRAVIS_NODE_PATH}"
 
 script:
-  - ng lint
-  - ng test --watch=false --code-coverage
+  - npm run lint
+  - npm run test -- --watch=false --code-coverage
   - npm run e2e
-  - ng build --prod --base-href /earthquakes/eventpage/
+  - npm run build -- --base-href /earthquakes/eventpage/
 
 after_success:
   - cat coverage/lcov.info | codacy-coverage --verbose
