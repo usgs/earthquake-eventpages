@@ -1,10 +1,10 @@
 {
   "name": "earthquake-eventpages",
   "version": "1.26.0",
+  "license": "MIT",
   "engines": {
     "node": ">=10"
   },
-  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.js",
