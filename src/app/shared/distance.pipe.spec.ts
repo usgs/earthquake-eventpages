@@ -17,11 +17,11 @@ describe('DistancePipe', () => {
 
   it('converts kilometers to miles and formats the output', () => {
     const value = pipe.transform(10, 0);
-    expect(value).toEqual('10 km (16 mi)');
+    expect(value).toEqual('10 km (6 mi)');
   });
 
   it('converts kilometers to miles and formats the output', () => {
     const value = pipe.transform(10, 1);
-    expect(value).toEqual('10.0 km (16.1 mi)');
+    expect(value).toEqual('10.0 km (6.2 mi)');
   });
 });

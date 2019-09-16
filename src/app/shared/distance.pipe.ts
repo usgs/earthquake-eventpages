@@ -27,7 +27,7 @@ export class DistancePipe implements PipeTransform {
       ' km ' +
       '(' +
       this.formatter.number(
-        milesKilometersPipe.transform(value, 'km'),
+        milesKilometersPipe.transform(value, 'tomiles'),
         decimals
       ) +
       ' mi)'
