@@ -1,12 +1,11 @@
 <product-page productType="shake-alert">
   <!-- container with header attribute is added before attribution -->
-  <ng-container header><h2>ShakeAlert</h2></ng-container>
+  <ng-container header><h2>ShakeAlert®</h2></ng-container>
   <ng-container *ngIf="eventService?.event$ | async as event" summary-component>
     <technical-shake-alert-summary
       [event]="event"
       [products]="event | sharedGetProducts: 'shake-alert'"
-    >
-    </technical-shake-alert-summary>
+    ></technical-shake-alert-summary>
   </ng-container>
 
   <ng-container *ngIf="eventService.product$ | async as product">
@@ -19,8 +18,7 @@
           [summary]="summary"
           [cities]="summary.cities"
           [properties]="summary.properties"
-        >
-        </shake-alert-confirmed>
+        ></shake-alert-confirmed>
       </ng-container>
     </ng-container>
     <ng-container *ngIf="product.status === 'MISSED'">
