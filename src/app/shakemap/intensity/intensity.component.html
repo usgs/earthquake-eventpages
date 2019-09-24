@@ -1,13 +1,10 @@
 <ng-container *ngIf="eventService?.product$ | async; let shakemap">
   <div class="layers">
     <form>
-      <label for="overlays" id="shakemapIntensityOverlays">
-        ShakeMap Intensity Overlays
-      </label>
       <mat-radio-group
           [(ngModel)]="overlays"
           name="overlays"
-          aria-labelledby="shakemapIntensityOverlays">
+          aria-label="ShakeMap Intensity Overlays">
         <mat-radio-button [value]="imageOverlays"
             name="imageSelect">
           Image Overlay
@@ -61,14 +58,12 @@
 
   <div class="downloads" *ngIf="shakemap | sharedProductContent:
       'download/intensity.jpg':'download/intensity.pdf':'download/intensity.png'">
-    <h3>Download Intensity Image:</h3>
+    <p>
+      <strong>Download Intensity Image</strong>
+    </p>
     <ul class="download-links">
       <ng-container *ngFor="let format of formats; index as i;">
         <ng-container  *ngIf="shakemap | sharedProductContent: 'download/intensity.' + format as image">
-          <p *ngIf="i > 0 && (shakemap |
-              sharedProductContent:'download/intensity.' + formats[i - 1])">
-            |
-          </p>
           <li>
             <a target="_blank" [href]="image.url" download="image">
               {{ format | uppercase }} ({{ image.length | sharedFileSize }})
@@ -78,7 +73,7 @@
       </ng-container>
     </ul>
     <p>
-      See downloads section for more downloads
+      <small>See downloads section for more downloads</small>
     </p>
   </div>
 </ng-container>
