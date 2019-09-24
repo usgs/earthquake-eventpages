@@ -26,6 +26,7 @@ import { DyfiOverlaysPipe } from './dyfi-overlays.pipe';
 import { DyfiResponsePopupComponent } from './dyfi-response-popup/dyfi-response-popup.component';
 import { EventTitlePipe } from './event-title.pipe';
 import { FeRegionComponent } from './fe-region/fe-region.component';
+import { FileSizePipe } from './file-size.pipe';
 import { FiniteFaultMapPopupComponent } from './finite-fault-map-popup/finite-fault-map-popup.component';
 import { FiniteFaultOverlaysPipe } from './finite-fault-overlays.pipe';
 import { GetContentPipe } from './get-content.pipe';
@@ -103,6 +104,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     DyfiSummaryComponent,
     EventTitlePipe,
     FeRegionComponent,
+    FileSizePipe,
     FiniteFaultMapPopupComponent,
     FiniteFaultOverlaysPipe,
     FiniteFaultSummaryComponent,
@@ -180,6 +182,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     DyfiSummaryComponent,
     EventTitlePipe,
     FeRegionComponent,
+    FileSizePipe,
     FiniteFaultSummaryComponent,
     FocalMechanismSummaryComponent,
     GetMapBoundsPipe,

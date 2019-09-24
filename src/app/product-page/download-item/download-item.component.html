@@ -5,7 +5,7 @@
     <li *ngFor="let format of item.formats;trackBy: trackByIndex">
       <a href="{{ format.url }}">
         {{ format.href | fileExtension | uppercase }}
-        {{ format.length | fileSize }}
+        {{ format.length | sharedFileSize }}
       </a>
     </li>
   </ul>

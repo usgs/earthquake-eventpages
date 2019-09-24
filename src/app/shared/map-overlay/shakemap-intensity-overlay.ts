@@ -1,13 +1,17 @@
-import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
+import * as L from 'leaflet';
+
+import { GetMapBoundsPipe } from '@shared/get-map-bounds.pipe';
+import { ProductContentPipe } from '@shared/product-content.pipe';
 
 /**
  * Shakemaop intensity overlay for leaflet map
  */
 // tslint:disable-next-line:variable-name
-const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
+const ShakemapIntensityOverlay = L.ImageOverlay.extend({
   id: 'shakemap-intensity',
   legends: [],
-  title: 'Shakemap MMI Contours',
+  opacity: .3,
+  title: 'Shakemap Intensity',
 
   /**
    * Build leaflet overlay
@@ -16,8 +20,6 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
    *     shakemap product
    */
   initialize: function(product: any) {
-    AsynchronousGeoJSONOverlay.prototype.initialize.call(this);
-
     const intensityLegend = document.createElement('img');
     intensityLegend.src = './assets/shakemap-intensity-legend-small.png';
     intensityLegend.setAttribute('alt', 'Intensity Scale legend');
@@ -29,7 +31,22 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
     // Add to legends array
     this.legends.push(intensityLegend, contourLegend);
 
-    this.url = this.getUrl(product);
+    const imageUrl = this.getUrl(product);
+    const bounds = this.getMapBounds(product);
+
+    L.ImageOverlay.prototype.initialize.call(
+      this, imageUrl, bounds,
+      {opacity: this.opacity}
+    );
+  },
+
+  getMapBounds: function(product: any) {
+    if (!product) {
+      return null;
+    }
+
+    const getMapBoundsPipe = new GetMapBoundsPipe();
+    return getMapBoundsPipe.transform(product) || null;
   },
 
   /**
@@ -43,42 +60,19 @@ const ShakemapIntensityOverlay = AsynchronousGeoJSONOverlay.extend({
       return null;
     }
 
-    return product.contents['download/cont_mi.json']
-      ? product.contents['download/cont_mi.json'].url
-      : null;
-  },
+    let url: string = null;
+    const productContentPipe = new ProductContentPipe();
+    const contentOptions = [
+      'download/intensity_overlay.png',
+      'download/ii_overlay.png'
+    ];
 
-  /**
-   * Binds popups the the feature layer
-   *
-   * @param feature
-   *     The feature from this product
-   * @param layer
-   *     The leaflet layer
-   */
-  onEachFeature: function(feature: any, layer: any) {
-    if (feature.properties) {
-      layer.bindPopup(`<abbr title="Modified Mercalli Intensity">MMI</abbr>
-      ${feature.properties.value}`);
+    const content = productContentPipe.transform(product, ...contentOptions);
+    if (content) {
+      url = content.url;
     }
+    return url;
   },
-
-  /**
-   * Sets and returns a default line style
-   *
-   * @param feature
-   *     The feature from this product
-   */
-  style: function(feature: any) {
-    // set default line style
-    const lineStyle = {
-      color: feature.properties.color,
-      opacity: 1,
-      weight: feature.properties.weight
-    };
-
-    return lineStyle;
-  }
 });
 
 export { ShakemapIntensityOverlay };

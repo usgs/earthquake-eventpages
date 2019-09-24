@@ -59,6 +59,6 @@ describe('ShakemapOverlaysPipe', () => {
     const overlays = pipe.transform(SHAKEMAP, 'shakemap-intensity');
 
     // only the epicenter should make it through
-    expect(overlays.length).toBe(1);
+    expect(overlays.length).toBe(2);
   });
 });

@@ -92,7 +92,7 @@ export class PlotAttenPipe implements PipeTransform {
       distances.forEach((dist, i) => {
         const point = {
           max: converted[i].max,
-          min: converted[i].min,
+          min: converted[i].min > 0 ? converted[i].min : 0,
           name: dist,
           value: converted[i].value,
           x: dist,

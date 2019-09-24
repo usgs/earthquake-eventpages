@@ -1,38 +1,84 @@
 <ng-container *ngIf="eventService?.product$ | async; let shakemap">
-  <div class="shakemap-map"
-      *ngIf="shakemap | sharedProductContent:'download/cont_mi.json';
-      else noOverlay">
-    <a [routerLink]="'../../map'"
-      [queryParams]="{
-          'shakemap-code': shakemap?.code,
-          'shakemap-source': shakemap?.source,
-          'shakemap-intensity': true,
-          'shakemap-stations': true
-         }">
-      <shared-map [overlays]="shakemap | shakemapOverlays:['shakemap-intensity',
-          'shakemap-stations']"
-          [showScaleControl]="true"
-          [showAttributionControl]="false"
-          [bounds]="shakemap | sharedGetMapBounds">
-      </shared-map>
-    </a>
-
-    <shakemap-legend
-        class="intensity-legend"
-        [legendType]="'mmi'"
-        [product]="shakemap">
-    </shakemap-legend>
+  <div class="layers">
+    <form>
+      <label for="overlays" id="shakemapIntensityOverlays">
+        ShakeMap Intensity Overlays
+      </label>
+      <mat-radio-group
+          [(ngModel)]="overlays"
+          name="overlays"
+          aria-labelledby="shakemapIntensityOverlays">
+        <mat-radio-button [value]="imageOverlays"
+            name="imageSelect">
+          Image Overlay
+        </mat-radio-button>
+        <mat-radio-button [value]="contourOverlays"
+            name="contourSelect">
+          Contours
+        </mat-radio-button>
+      </mat-radio-group>
+    </form>
   </div>
 
-  <ng-template #noOverlay>
-    <img *ngIf="shakemap | sharedProductContent:'download/intensity.jpg' as image;
-        else noImage"
-        src="{{ image.url }}"
-        alt="ShakeMap intensity image" />
+  <div class="map-container">
+    <div class="shakemap-map"
+        *ngIf="shakemap | sharedProductContent:
+        'download/intensity_overlay.png':'download/ii_overlay.png';
+        else noOverlay">
+      <a [routerLink]="'../../map'"
+          [queryParams]="{
+            'shakemap-code': shakemap?.code,
+            'shakemap-source': shakemap?.source,
+            'shakemap-intensity': overlays === imageOverlays,
+            'shakemap-mmi-contours': overlays === contourOverlays,
+            'shakemap-stations': true
+          }">
+        <shared-map [overlays]="shakemap | shakemapOverlays:overlays"
+            [showScaleControl]="true"
+            [showAttributionControl]="false"
+            [bounds]="shakemap | sharedGetMapBounds:true">
+        </shared-map>
+      </a>
 
-    <ng-template #noImage>
-      <h1>No intensity available for this event</h1>
+      <shakemap-legend
+          class="intensity-legend"
+          [legendType]="'mmi'"
+          [product]="shakemap">
+      </shakemap-legend>
+    </div>
+
+    <ng-template #noOverlay>
+      <img *ngIf="shakemap | sharedProductContent:'download/intensity.jpg' as image;
+          else noImage"
+          src="{{ image.url }}"
+          alt="ShakeMap intensity image" />
+
+      <ng-template #noImage>
+        <h1>No intensity available for this event</h1>
+      </ng-template>
     </ng-template>
-  </ng-template>
+  </div>
 
+  <div class="downloads" *ngIf="shakemap | sharedProductContent:
+      'download/intensity.jpg':'download/intensity.pdf':'download/intensity.png'">
+    <h3>Download Intensity Image:</h3>
+    <ul class="download-links">
+      <ng-container *ngFor="let format of formats; index as i;">
+        <ng-container  *ngIf="shakemap | sharedProductContent: 'download/intensity.' + format as image">
+          <p *ngIf="i > 0 && (shakemap |
+              sharedProductContent:'download/intensity.' + formats[i - 1])">
+            |
+          </p>
+          <li>
+            <a target="_blank" [href]="image.url" download="image">
+              {{ format | uppercase }} ({{ image.length | sharedFileSize }})
+            </a>
+          </li>
+        </ng-container>
+      </ng-container>
+    </ul>
+    <p>
+      See downloads section for more downloads
+    </p>
+  </div>
 </ng-container>
