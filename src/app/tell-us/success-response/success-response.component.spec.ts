@@ -15,6 +15,9 @@ describe('SuccessResponseComponent', () => {
   let fixture: ComponentFixture<SuccessResponseComponent>;
 
   beforeEach(async(() => {
+    // override for testing
+    SuccessResponseComponent.FB_SDK_URL = '';
+
     TestBed.configureTestingModule({
       declarations: [
         SuccessResponseComponent,
@@ -24,7 +27,9 @@ describe('SuccessResponseComponent', () => {
           selector: 'shared-mmi'
         })
       ],
-      providers: [{ provide: WindowRef, useValue: nativeWindowRef }]
+      providers: [
+        { provide: WindowRef, useValue: nativeWindowRef }
+      ]
     }).compileComponents();
   }));
 

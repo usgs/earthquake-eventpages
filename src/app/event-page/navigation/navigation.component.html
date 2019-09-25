@@ -1,11 +1,12 @@
 <ng-container *ngIf="event">
   <a
-    *ngIf="(event | isActualEvent)"
+    *ngIf="event | isActualEvent"
     templateSideNavigation
     class="up-one-level"
     href="/earthquakes/map/"
-    >Latest Earthquakes</a
   >
+    Latest Earthquakes
+  </a>
   <ng-container *ngIf="!(event | isDeletedEvent)">
     <hazdev-template-navigation-group>
       <hazdev-template-navigation-item
@@ -32,7 +33,7 @@
       ></hazdev-template-navigation-item>
 
       <hazdev-template-navigation-item
-        *ngIf="(event | isActualEvent)"
+        *ngIf="event | isActualEvent"
         display="Felt Report - Tell Us!"
         navRouterLink="tellus"
       ></hazdev-template-navigation-item>
@@ -88,7 +89,7 @@
         navRouterLink="finite-fault"
       ></hazdev-template-navigation-item>
       <hazdev-template-navigation-item
-        *ngIf="(event | isActualEvent)"
+        *ngIf="event | isActualEvent"
         display="Waveforms"
         navRouterLink="waveforms"
       ></hazdev-template-navigation-item>
@@ -99,7 +100,7 @@
       ></hazdev-template-navigation-item>
       <hazdev-template-navigation-item
         *ngIf="event?.hasProducts('shake-alert')"
-        display="ShakeAlert"
+        display="ShakeAlert®"
         navRouterLink="shake-alert"
       ></hazdev-template-navigation-item>
     </hazdev-template-navigation-group>
@@ -110,14 +111,14 @@
     ></hazdev-template-navigation-item>
 
     <hazdev-template-navigation-item
-      *ngIf="(event | isActualEvent)"
+      *ngIf="event | isActualEvent"
       display="View Nearby Seismicity"
       navHrefLink="{{ event | nearbySeismicityLink }}"
     ></hazdev-template-navigation-item>
 
     <ng-template #noImpact>
       <hazdev-template-navigation-item
-        *ngIf="(event | isActualEvent)"
+        *ngIf="event | isActualEvent"
         display="Felt Report - Tell Us!"
         navRouterLink="tellus"
       ></hazdev-template-navigation-item>
@@ -125,7 +126,7 @@
 
     <ng-template #noTechnical>
       <hazdev-template-navigation-item
-        *ngIf="(event | isActualEvent)"
+        *ngIf="event | isActualEvent"
         display="Waveforms"
         navRouterLink="waveforms"
       ></hazdev-template-navigation-item>
