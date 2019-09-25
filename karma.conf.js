@@ -24,7 +24,7 @@ module.exports = function(config) {
     angularCli: {
       environment: 'dev'
     },
-    reporters: ['progress', 'kjhtml', 'verbose'],
+    reporters: ['progress', 'kjhtml' /*, 'verbose'*/],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
