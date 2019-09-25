@@ -30,6 +30,8 @@ export class NearbyCitiesService {
               azimuth: feature.direction,
               country_name: null,
               distance: feature.distance,
+              latitude: feature.latitude,
+              longitude: feature.longitude,
               name: name.map(v => v.trim()).join(','),
               population: feature.population
             };
