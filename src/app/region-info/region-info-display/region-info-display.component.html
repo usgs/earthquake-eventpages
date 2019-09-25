@@ -3,22 +3,31 @@
   [queryParams]="{ 'historic-seismicity': true, 'shakemap-intensity': false }"
   [overlays]="event | getProduct: 'origin' | regionInfoOverlays"
   [showScaleControl]="true"
->
-</shared-map>
+></shared-map>
 
 <!-- Geoserve Components -->
 <geoserve-admin-region></geoserve-admin-region>
 
 <ng-container
-  *ngIf="(event | getProduct: 'nearby-cities'); else: geoserveNearbyCities"
+  *ngIf="event | getProduct: 'nearby-cities'; else geoserveNearbyCities"
 >
-  <geoserve-nearby-place-list [places]="this.citiesService.cities$ | async">
-  </geoserve-nearby-place-list>
+  <geoserve-nearby-place-list
+    [places]="this.citiesService.cities$ | async"
+    [referencePlace]="coordinates"
+  ></geoserve-nearby-place-list>
 </ng-container>
 <ng-template #geoserveNearbyCities>
-  <geoserve-nearby-place-list [places]="this.placesService.places$ | async">
-  </geoserve-nearby-place-list>
+  <geoserve-nearby-place-list
+    [places]="this.placesService.places$ | async"
+    [referencePlace]="coordinates"
+  ></geoserve-nearby-place-list>
 </ng-template>
+<small>
+  <em>
+    Distance and direction from epicenter to nearby place.
+  </em>
+</small>
+
 <geoserve-tectonic-summary-region></geoserve-tectonic-summary-region>
 
 <h3>For More Information</h3>
