@@ -13,6 +13,8 @@ declare let FB: any;
   templateUrl: './success-response.component.html'
 })
 export class SuccessResponseComponent implements OnInit {
+  static FB_SDK_URL = '//connect.facebook.net/en_US/sdk.js';
+
   // global window.location.href reference
   _windowHref: string;
   // The response data model
@@ -46,7 +48,7 @@ export class SuccessResponseComponent implements OnInit {
       }
       js = d.createElement(s);
       js.id = id;
-      js.src = '//connect.facebook.net/en_US/sdk.js';
+      js.src = SuccessResponseComponent.FB_SDK_URL;
       fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
   }
