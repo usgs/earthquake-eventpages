@@ -31,7 +31,7 @@ describe('RegionInfoDisplayComponent', () => {
 
         MockComponent({ selector: 'geoserve-admin-region' }),
         MockComponent({
-          inputs: ['places'],
+          inputs: ['places', 'referencePlace'],
           selector: 'geoserve-nearby-place-list'
         }),
         MockComponent({ selector: 'geoserve-nearby-places' }),

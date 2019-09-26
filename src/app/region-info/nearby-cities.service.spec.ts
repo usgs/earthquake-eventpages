@@ -73,6 +73,8 @@ describe('NearbyCitiesService', () => {
             azimuth: 'N',
             country_name: null,
             distance: 0,
+            latitude: 2,
+            longitude: 1,
             name: 'City',
             population: null
           });

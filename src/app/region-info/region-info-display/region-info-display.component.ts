@@ -1,6 +1,15 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { NearbyCitiesService } from '../nearby-cities.service';
-import { RegionsService, PlacesService } from 'hazdev-ng-geoserve-output';
+import {
+  RegionsService,
+  PlacesService,
+  Place
+} from 'hazdev-ng-geoserve-output';
 import { Event } from '../../event';
 
 @Component({
@@ -10,6 +19,7 @@ import { Event } from '../../event';
   templateUrl: './region-info-display.component.html'
 })
 export class RegionInfoDisplayComponent implements OnInit {
+  coordinates: Place;
 
   private _event: Event;
 
@@ -17,8 +27,7 @@ export class RegionInfoDisplayComponent implements OnInit {
     public citiesService: NearbyCitiesService,
     public placesService: PlacesService,
     public regionsService: RegionsService
-  ) { }
-
+  ) {}
 
   /**
    * Return the current event object being rendered.
@@ -37,8 +46,6 @@ export class RegionInfoDisplayComponent implements OnInit {
    */
   @Input()
   set event(ev: Event) {
-    let coordinates;
-
     this._event = ev;
 
     if (!this._event) {
@@ -46,10 +53,12 @@ export class RegionInfoDisplayComponent implements OnInit {
     }
 
     if (this._event.geometry) {
-      coordinates = {
+      this.coordinates = {
         latitude: this._event.geometry.coordinates[1],
         longitude: this._event.geometry.coordinates[0]
       };
+    } else {
+      this.coordinates = null;
     }
 
     const product = this._event.getProduct('nearby-cities');
@@ -57,10 +66,10 @@ export class RegionInfoDisplayComponent implements OnInit {
     if (product) {
       this.getNearbyCities(product);
     } else {
-      this.getPlaces(coordinates);
+      this.getPlaces(this.coordinates);
     }
 
-    this.getRegions(coordinates);
+    this.getRegions(this.coordinates);
   }
 
   getNearbyCities(product: any) {
@@ -90,6 +99,5 @@ export class RegionInfoDisplayComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }
