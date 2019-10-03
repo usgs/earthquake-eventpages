@@ -1,6 +1,6 @@
 <product-page productType="shake-alert">
   <!-- container with header attribute is added before attribution -->
-  <ng-container header><h2>ShakeAlert®</h2></ng-container>
+  <ng-container header><h2>ShakeAlert<sup>®</sup></h2></ng-container>
   <ng-container *ngIf="eventService?.event$ | async as event" summary-component>
     <technical-shake-alert-summary
       [event]="event"

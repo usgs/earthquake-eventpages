@@ -12,5 +12,5 @@ export class ShakeAlertPinComponent {
   link = '../shake-alert';
   @Input() product;
   @Input() status;
-  title = 'ShakeAlert';
+  title = '';
 }
