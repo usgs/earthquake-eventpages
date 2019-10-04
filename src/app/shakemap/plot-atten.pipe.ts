@@ -104,6 +104,8 @@ export class PlotAttenPipe implements PipeTransform {
           max = stddev;
           min = -stddev;
           value = 0;
+        } else {
+          min = min > 0 ? min : 0;
         }
 
         const point = {
