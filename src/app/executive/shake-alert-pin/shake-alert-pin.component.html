@@ -1,8 +1,11 @@
 <basic-pin [link]="link" [title]="title" [product]="product">
-  <a card-title [routerLink]="link">ShakeAlert<sup>®</sup></a>
+  <a card-title [routerLink]="link">
+    ShakeAlert
+    <sup>®</sup>
+  </a>
 
   <figure>
-    <i class="material-icons shake-alert-icon">warning</i>
+    <img alt="ShakeAlert® Logo" src="/assets/shake-alert-logo.png" />
     <figcaption>{{ status }} {{ title }}</figcaption>
   </figure>
 </basic-pin>
