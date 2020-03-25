@@ -5,10 +5,20 @@
           [(ngModel)]="overlays"
           name="overlays"
           aria-label="ShakeMap Intensity Overlays">
-        <mat-radio-button [value]="imageOverlays"
-            name="imageSelect">
-          Image Overlay
+        <mat-radio-button *ngIf="shakemap |
+            sharedProductContent:'download/coverage_mmi_high_res.covjson'
+            else noCoverage"
+            [value]="coverageOverlays"
+            name="coverageSelect">
+          Coverage Overlay
         </mat-radio-button>
+        <ng-template #noCoverage>
+          <mat-radio-button
+              [value]="imageOverlays"
+              name="imageSelect">
+            Image Overlay
+          </mat-radio-button>
+        </ng-template>
         <mat-radio-button [value]="contourOverlays"
             name="contourSelect">
           Contours
@@ -28,6 +38,7 @@
             'shakemap-source': shakemap?.source,
             'shakemap-intensity': overlays === imageOverlays,
             'shakemap-mmi-contours': overlays === contourOverlays,
+            'shakemap-mmi-coverage': overlays === coverageOverlays,
             'shakemap-stations': true
           }">
         <shared-map [overlays]="shakemap | shakemapOverlays:overlays"

@@ -14,11 +14,12 @@ import { IntensityComponent } from './intensity.component';
 describe('IntensityComponent', () => {
   let component: IntensityComponent;
   let fixture: ComponentFixture<IntensityComponent>;
+  let shakemap;
 
   beforeEach(async(() => {
     const eventServiceStub = {
       event$: of(new Event({})),
-      product$: null
+      product$: of({})
     };
 
     TestBed.configureTestingModule({
@@ -64,5 +65,29 @@ describe('IntensityComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('setDefaultOverlay', () => {
+    it('Sets coverage overlay when available', () => {
+      shakemap = {
+        'contents': {
+          'download/coverage_mmi_high_res.covjson': {}
+        }
+      };
+
+      component.setDefaultOverlays(shakemap);
+      expect(component.overlays).toBe(component.coverageOverlays);
+    });
+
+    it('Sets image overlay when coverage is not available', () => {
+      shakemap = {
+        'contents': {
+          'notCoverage': {}
+        }
+      };
+
+      component.setDefaultOverlays(shakemap);
+      expect(component.overlays).toBe(component.imageOverlays);
+    });
   });
 });
