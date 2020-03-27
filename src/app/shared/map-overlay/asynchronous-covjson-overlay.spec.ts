@@ -1,8 +1,6 @@
-import { fakeAsync, tick } from '@angular/core/testing';
+import * as CovJSON from 'covjson-reader';
 
 import * as L from 'leaflet';
-import * as CovJSON from 'covjson-reader';
-import { _throw } from 'rxjs/observable/throw';
 
 import { AsynchronousCovJSONOverlay } from './asynchronous-covjson-overlay';
 
@@ -10,6 +8,7 @@ import { AsynchronousCovJSONOverlay } from './asynchronous-covjson-overlay';
 describe('AsynchronousCovJSONOverlay', () => {
   let overlay;
 
+  // tslint:disable-next-line:max-line-length
   const COVERAGE_URL = 'https://earthquake.usgs.gov/archive/product/shakemap/us60007ewc/us/1583422966894/download/coverage_mmi_low_res.covjson';
 
   beforeEach(() => {

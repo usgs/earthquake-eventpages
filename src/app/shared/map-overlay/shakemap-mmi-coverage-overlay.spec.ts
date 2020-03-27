@@ -1,5 +1,3 @@
-import * as L from 'leaflet';
-
 import { ShakemapMmiCoverageOverlay } from './shakemap-mmi-coverage-overlay';
 
 describe('ShakemapMmiCoverageOverlay', () => {

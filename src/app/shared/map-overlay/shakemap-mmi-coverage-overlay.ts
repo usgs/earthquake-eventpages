@@ -1,15 +1,14 @@
 import { AsynchronousCovJSONOverlay } from './asynchronous-covjson-overlay';
 
-import * as L from 'leaflet';
-
 /**
- * Shakemap contours overlay for leaflet map
+ * Shakemap coverage overlay for leaflet map
  */
 // tslint:disable-next-line:variable-name
 const ShakemapMmiCoverageOverlay = AsynchronousCovJSONOverlay.extend({
-  id: 'shakemap-mmi-coverage',
+  coverageParam: 'MMI',
+  id: 'shakemap-intensity',
   legends: [],
-  title: 'Shakemap MMI Coverage',
+  title: 'Shakemap Intensity',
 
   /**
    * Build leaflet overlay

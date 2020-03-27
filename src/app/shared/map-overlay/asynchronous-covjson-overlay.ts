@@ -9,6 +9,7 @@ import * as C from 'leaflet-coverage';
 // tslint:disable-next-line:variable-name
 const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
   bounds: null,
+  coverageParam: null,
   // retain layer data to detect whether it's already loaded
   data: null,
   enabled: true,
@@ -29,7 +30,6 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
    */
   initialize: function () {
     L.LayerGroup.prototype.initialize.call(this, []);
-
   },
 
   /**
@@ -39,42 +39,22 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
    *    Loaded coverage object from covjson-reader library
    */
   addCoverage: function (coverage) {
-    this.data = coverage;
-    const MMI = coverage.parameters.get('MMI');
+    const selectedParam = coverage.parameters.get(this.coverageParam);
 
     const layer = C.dataLayer(coverage, {
       opacity: .4,
-      palette: C.paletteFromObject(MMI.preferredPalette),
-      paletteExtent: MMI.preferredPalette.extent,
-      parameter: 'MMI'
+      palette: C.paletteFromObject(selectedParam.preferredPalette),
+      paletteExtent: selectedParam.preferredPalette.extent,
+      parameter: this.coverageParam
     });
 
     this.addLayer(layer);
     this.setZIndex(10);
 
     this.layer = layer;
-    this.afterAdd();
-  },
-
-  /**
-   * Runs after the data is successfully added
-   */
-  afterAdd: function () {
-    if (this.map) {
-      this.map.on('click', this.onClick, this);
-    }
-  },
-
-  /**
-   * Remove click event listener and draggable popup when layer is\
-   * removed from map
-   */
-  afterRemove: function () {
-    this.map.off('click', this.onClick, this);
-
-    if (this.popup) {
-      this.popup.remove();
-    }
+    this.popup = new C.DraggableValuePopup({
+      layers: [layer]
+    });
   },
 
   /**
@@ -94,12 +74,7 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
    * Fetch data, and ensure it is parsed into geojson
    */
   loadData: function () {
-    if (!this.url) {
-      this.data = null;
-      return;
-    }
-
-    if (this.data !== null) {
+    if (this.layer !== null) {
       return;
     }
 
@@ -120,7 +95,10 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
       L.LayerGroup.prototype.onAdd.call(this, map);
 
       this.loadData();
-      this.afterAdd();
+
+      if (this.map) {
+        this.map.on('click', this.onClick, this);
+      }
     }
   },
 
@@ -131,11 +109,13 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
    *    Click event
    */
   onClick: function (e) {
-    this.popup = new C.DraggableValuePopup({
-      layers: [this.layer]
-    })
-      .setLatLng(e.latlng)
-      .openOn(this.map);
+    if (!this.layer) {
+      return null;
+    }
+
+    this.popup
+        .setLatLng(e.latlng)
+        .openOn(this.map);
   },
 
   /**
@@ -144,7 +124,11 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
   onRemove: function () {
     L.LayerGroup.prototype.onRemove.call(this, this.map);
 
-    this.afterRemove();
+    this.map.off('click', this.onClick, this);
+
+    if (this.popup) {
+      this.popup.remove();
+    }
   },
 });
 
