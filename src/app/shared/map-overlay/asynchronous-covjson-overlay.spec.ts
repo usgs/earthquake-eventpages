@@ -42,10 +42,10 @@ describe('AsynchronousCovJSONOverlay', () => {
     });
   });
 
-  describe('addData', () => {
+  describe('addCoverage', () => {
     it('handles success', () => {
       CovJSON.read(COVERAGE_URL).then((cov) => {
-        overlay.addData(cov);
+        overlay.addCoverage(cov);
         expect(overlay.data).toBeTruthy();
       });
     });
