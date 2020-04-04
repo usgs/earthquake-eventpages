@@ -96,9 +96,7 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
 
       this.loadData();
 
-      if (this.map) {
-        this.map.on('click', this.onClick, this);
-      }
+      this.map.on('click', this.onClick, this);
     }
   },
 
