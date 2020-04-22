@@ -18,7 +18,7 @@ describe('IntensityComponent', () => {
   beforeEach(async(() => {
     const eventServiceStub = {
       event$: of(new Event({})),
-      product$: null
+      product$: of({})
     };
 
     TestBed.configureTestingModule({

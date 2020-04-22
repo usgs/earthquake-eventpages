@@ -1,16 +1,22 @@
 import * as L from 'leaflet';
 
+import { AsynchronousCovJSONOverlay } from './asynchronous-covjson-overlay';
 import { GetMapBoundsPipe } from '@shared/get-map-bounds.pipe';
 import { ProductContentPipe } from '@shared/product-content.pipe';
+
+const COVERAGEURL = 'download/coverage_mmi_high_res.covjson';
+const IMAGEURLS = [
+  'download/intensity_overlay.png',
+  'download/ii_overlay.png'
+];
 
 /**
  * Shakemaop intensity overlay for leaflet map
  */
 // tslint:disable-next-line:variable-name
-const ShakemapIntensityOverlay = L.ImageOverlay.extend({
+const ShakemapIntensityOverlay = L.LayerGroup.extend({
   id: 'shakemap-intensity',
   legends: [],
-  opacity: .3,
   title: 'Shakemap Intensity',
 
   /**
@@ -20,24 +26,51 @@ const ShakemapIntensityOverlay = L.ImageOverlay.extend({
    *     shakemap product
    */
   initialize: function(product: any) {
-    const intensityLegend = document.createElement('img');
-    intensityLegend.src = './assets/shakemap-intensity-legend-small.png';
-    intensityLegend.setAttribute('alt', 'Intensity Scale legend');
+    L.LayerGroup.prototype.initialize.call(this, []);
 
-    const contourLegend = document.createElement('img');
-    contourLegend.src = './assets/legend-intensity-contour.png';
-    contourLegend.setAttribute('alt', 'Intensity Contour Legend');
+    const legend = document.createElement('img');
+    legend.src = './assets/shakemap-intensity-legend-small.png';
+    legend.setAttribute('alt', 'Intensity Scale legend');
 
-    // Add to legends array
-    this.legends.push(intensityLegend, contourLegend);
+    this.url = this.getUrl(product);
 
-    const imageUrl = this.getUrl(product);
+    this.layer = this.getCoverageLayer() || this.getImageLayer(product);
+    if (this.layer) {
+      this.addLayer(this.layer);
+      this.legends.push(legend);
+    }
+  },
+
+  /**
+   * Returns a coverage layer if the right URL is supplied
+   */
+  getCoverageLayer () {
+    if (!this.url || !this.url.includes(COVERAGEURL) || this.layer) {
+      return null;
+    }
+
+    const layer = new AsynchronousCovJSONOverlay();
+    layer.url = this.url;
+    layer.coverageParam = 'MMI';
+
+    return layer;
+  },
+
+  /**
+   * Returns an image overlay layer
+   *
+   * @param product
+   *     Shakemap product required to get map bounds
+   */
+  getImageLayer (product) {
+    if (!this.url || this.layer) {
+      return null;
+    }
+
     const bounds = this.getMapBounds(product);
+    const layer = L.imageOverlay(this.url, bounds, {opacity: .3});
 
-    L.ImageOverlay.prototype.initialize.call(
-      this, imageUrl, bounds,
-      {opacity: this.opacity}
-    );
+    return layer;
   },
 
   getMapBounds: function(product: any) {
@@ -56,15 +89,14 @@ const ShakemapIntensityOverlay = L.ImageOverlay.extend({
    *     shakemap product
    */
   getUrl: function(product: any) {
-    if (product === null) {
+    if (!product) {
       return null;
     }
 
     let url: string = null;
     const productContentPipe = new ProductContentPipe();
     const contentOptions = [
-      'download/intensity_overlay.png',
-      'download/ii_overlay.png'
+      COVERAGEURL, ...IMAGEURLS
     ];
 
     const content = productContentPipe.transform(product, ...contentOptions);
@@ -75,4 +107,4 @@ const ShakemapIntensityOverlay = L.ImageOverlay.extend({
   },
 });
 
-export { ShakemapIntensityOverlay };
+export { ShakemapIntensityOverlay, COVERAGEURL, IMAGEURLS };

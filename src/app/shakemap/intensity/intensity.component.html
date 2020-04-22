@@ -5,7 +5,8 @@
           [(ngModel)]="overlays"
           name="overlays"
           aria-label="ShakeMap Intensity Overlays">
-        <mat-radio-button [value]="imageOverlays"
+        <mat-radio-button
+            [value]="imageOverlays"
             name="imageSelect">
           Image Overlay
         </mat-radio-button>
@@ -20,7 +21,9 @@
   <div class="map-container">
     <div class="shakemap-map"
         *ngIf="shakemap | sharedProductContent:
-        'download/intensity_overlay.png':'download/ii_overlay.png';
+        'download/coverage_mmi_high_res.covjson':
+        'download/intensity_overlay.png':
+        'download/ii_overlay.png';
         else noOverlay">
       <a [routerLink]="'../../map'"
           [queryParams]="{

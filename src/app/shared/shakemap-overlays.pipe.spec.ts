@@ -6,7 +6,8 @@ describe('ShakemapOverlaysPipe', () => {
   const SHAKEMAP: any = {
     contents: {
       'download/cont_mi.json': { url: 'url' },
-      'download/cont_pga.json': { url: 'url' }
+      'download/cont_pga.json': { url: 'url' },
+      'download/ii_overlay.png': { url: 'url' }
     },
     properties: {},
     type: 'shakemap'
@@ -59,6 +60,6 @@ describe('ShakemapOverlaysPipe', () => {
     const overlays = pipe.transform(SHAKEMAP, 'shakemap-intensity');
 
     // only the epicenter should make it through
-    expect(overlays.length).toBe(2);
+    expect(overlays.length).toBe(1);
   });
 });

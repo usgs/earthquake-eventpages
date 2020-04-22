@@ -31,7 +31,6 @@ export class ShakemapOverlaysPipe implements PipeTransform {
     let overlays = [];
 
     if (product) {
-      overlays.push(new ShakemapIntensityOverlay(product));
       overlays.push(new ShakemapMmiOverlay(product));
       overlays.push(new ShakemapPGAOverlay(product));
       overlays.push(new ShakemapPGVOverlay(product));
@@ -39,6 +38,7 @@ export class ShakemapOverlaysPipe implements PipeTransform {
       overlays.push(new ShakemapPSA10Overlay(product));
       overlays.push(new ShakemapPSA30Overlay(product));
       overlays.push(new ShakemapStationsOverlay(product));
+      overlays.push(new ShakemapIntensityOverlay(product));
 
       overlays.forEach(overlay => {
         overlay.enabled = enabled.indexOf(overlay.id) > -1;
