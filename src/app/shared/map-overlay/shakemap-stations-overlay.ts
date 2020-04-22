@@ -89,8 +89,8 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
       marker = L.marker(latlng, {
         icon: L.divIcon({
           className: `station-overlay-dyfi-layer-icon mmi${intensity}`,
-          iconAnchor: [7, 7],
-          iconSize: [14, 14],
+          iconAnchor: [3.5, 3.5],
+          iconSize: [7, 7],
           popupAnchor: [0, 0]
         })
       });
@@ -100,9 +100,9 @@ const ShakemapStationsOverlay = AsynchronousGeoJSONOverlay.extend({
         icon: L.divIcon({
           className:
             'station-overlay-station-layer-icon station-mmi' + `${intensity}`,
-          iconAnchor: [7, 8],
-          iconSize: [14, 10],
-          popupAnchor: [0, -4]
+          iconAnchor: [6,6],
+          iconSize: [12, 10],
+          popupAnchor: [-.5, 0]
         })
       });
     }
