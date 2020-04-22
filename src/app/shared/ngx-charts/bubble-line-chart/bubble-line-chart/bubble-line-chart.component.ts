@@ -650,51 +650,6 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   }
 
   /**
-   * Adds a line of symmetry to be plotted
-   */
-  setLineOfSymmetry (): void {
-    let yPos = this.yScaleType === 'log' ? 1 : 0;
-    yPos = this.symmetricalAbout !== null && this.yScaleType === 'linear' ?
-        this.symmetricalAbout : yPos;
-
-    const points = [
-      {
-        name: this.xDomain[0] + 0,
-        value: yPos,
-        x: this.xDomain[0] + 0,
-        y: yPos
-      },
-      {
-        name: this.xDomain[1],
-        value: yPos,
-        x: this.xDomain[1],
-        y: yPos
-      }
-    ];
-
-    const symSeries = {
-      class: 'symmetry',
-      color: '#000',
-      name: this.symmetricalYAxisLegend,
-      series: points,
-      strokeWidth: 3
-    };
-
-    const newLineChart = [];
-    for (const series of this.lineChart) {
-      if (series.class !== 'symmetry') {
-        newLineChart.push(series);
-      }
-    }
-
-    if (this.symmetricalYAxis) {
-      newLineChart.push(symSeries);
-    }
-
-    this.lineChart = newLineChart;
-  }
-
-  /**
    * Helper function to get name property of item
    * @param index
    * @param item
@@ -725,9 +680,6 @@ export class BubbleLineChartComponent extends BaseChartComponent {
     this.results = [...this.lineChart, ...this.bubbleChart];
     this.xDomain = this.getXDomain();
     this.yDomain = this.getYDomain();
-
-    // Set the line of symmetry or remove it
-    this.setLineOfSymmetry();
 
     this.lineChartDisplay = this.filterData(this.lineChart);
     this.bubbleChartDisplay = this.filterData(this.bubbleChart);

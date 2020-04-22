@@ -98,7 +98,7 @@ export class PlotStationsPipe implements PipeTransform {
       if (x && y) {
         const plotStation = {
           'borderColor': '#000000',
-          'classNames': [`mmi${romanPipe.transform(props.intensity)}`],
+          'classNames': ['mmi', `mmi${romanPipe.transform(props.intensity)}`],
           'name': x,
           'r': 4,
           'shape': 'triangle',
