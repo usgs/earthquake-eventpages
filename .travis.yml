@@ -2,7 +2,7 @@ sudo: required
 dist: xenial
 language: node_js
 node_js:
-  - '10.15.1'
+  - '10'
 
 addons:
   chrome: stable
