@@ -35,8 +35,7 @@ node {
 
 
   // Used to run linting, unit tests, coverage, and e2e within this container
-  // def TESTER_IMAGE = "${DEVOPS_REGISTRY}/usgs/ng-cli-e2e"
-  def TESTER_IMAGE = "trion/ng-cli-e2e:node10"
+  def TESTER_IMAGE = "${DEVOPS_REGISTRY}/usgs/ng-cli-e2e:node10"
 
   // Queue up tasks that can be run in parallel
   def SECURITY_CHECKS = [:]
