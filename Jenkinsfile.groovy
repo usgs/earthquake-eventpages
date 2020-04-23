@@ -98,6 +98,12 @@ node {
       // Note that running angular tests destroys the "dist" folder that was
       // originally created in Install stage. This is not needed later, so
       // okay, but just be aware ...
+      ansiColor('xterm') {
+        // update tester image
+        sh """
+          docker pull ${TESTER_IMAGE}
+        """
+      }
 
       // Run linting, unit tests, and end-to-end tests
       docker.image(TESTER_IMAGE).inside () {
