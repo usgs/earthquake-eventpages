@@ -112,7 +112,7 @@ node {
               ng test --watch=false --code-coverage --progress false --browsers ChromeHeadless
             """
             sh """
-              npm run e2e
+              npm run e2e -- --webdriver-update false
             """
           }
       }
