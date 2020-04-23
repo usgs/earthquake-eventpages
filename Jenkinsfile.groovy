@@ -111,6 +111,10 @@ node {
             sh """
               ng test --watch=false --code-coverage --progress false --browsers ChromeHeadless
             """
+            // download version of chromedriver that matches installed version of chrome
+            sh """
+              npx webdriver-manager update --versions.chrome=$(/opt/google/chrome/chrome --version | awk '{ print $3}')
+            """
             sh """
               npm run e2e -- --webdriver-update false
             """
