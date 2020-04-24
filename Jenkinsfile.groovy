@@ -109,7 +109,7 @@ node {
       docker.image(TESTER_IMAGE).inside () {
           ansiColor('xterm') {
             sh """
-              npm install --no-save
+              npm ci
             """
             sh """
               ng lint
@@ -117,9 +117,9 @@ node {
             sh """
               ng test --watch=false --code-coverage --progress false --browsers ChromeHeadless
             """
-            // download version of chromedriver that matches installed version of chrome
+            // chrome 67 is supported by chromedriver 2.41
             sh """
-              npx webdriver-manager update --versions.chrome=\$(/opt/google/chrome/chrome --version | awk '{ print \$3}')
+              npx webdriver-manager update --versions.chrome=2.41 --gecko false
             """
             sh """
               npm run e2e -- --webdriver-update false
