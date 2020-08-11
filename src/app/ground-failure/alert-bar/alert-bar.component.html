@@ -34,30 +34,6 @@
       "
     >
       <path d="M0,0 L24,-34 L-24,-34 L0,0 Z" fill="black"></path>
-      <ng-container
-        *ngIf="
-          first
-            ? { anchor: 'start', x: -20 }
-            : last
-            ? { anchor: 'end', x: 20 }
-            : { anchor: 'middle', x: 0 };
-          let labelPosition
-        "
-      >
-        <text
-          fill="black"
-          [attr.text-anchor]="labelPosition.anchor"
-          [attr.x]="labelPosition.x"
-          y="-80"
-        >
-          <ng-container *ngIf="first && value <= bin.min; else: greaterThan">
-            &lt; {{ bin.min }} {{ units }}
-          </ng-container>
-          <ng-template #greaterThan>
-            {{ value | number }} {{ units }}
-          </ng-template>
-        </text>
-      </ng-container>
     </svg:g>
   </svg:g>
 </svg>
