@@ -95,10 +95,22 @@ export class PlotStationsPipe implements PipeTransform {
       const y = props[plotY];
       const x = props.distances ? props.distances[plotX] : props.distance;
 
+      let intensity = props.intensity;
+
+      // try to assign a pgm specific intensity based on what's
+      // being plotted
+      if (plotY !== 'intensity' && props.mmi_from_pgm) {
+        for (const pgm of props.mmi_from_pgm) {
+          if (pgm.name === plotY) {
+            intensity = pgm.value;
+          }
+        }
+      }
+
       if (x && y) {
         const plotStation = {
           'borderColor': '#000000',
-          'classNames': ['mmi', `mmi${romanPipe.transform(props.intensity)}`],
+          'classNames': ['mmi', `mmi${romanPipe.transform(intensity)}`],
           'name': x,
           'r': 4,
           'shape': 'triangle',
@@ -121,6 +133,7 @@ export class PlotStationsPipe implements PipeTransform {
           props.station_type === 'macroseismic'
         ) {
           plotStation.shape = 'circle';
+          plotStation.r = 1;
           dyfiStations.push(plotStation);
         } else {
           smStations.push(plotStation);
@@ -137,7 +150,7 @@ export class PlotStationsPipe implements PipeTransform {
       },
       {
         class: 'dyfiStations',
-        icon: {shape: 'circle', size: 5},
+        icon: {shape: 'circle', size: 3},
         name: 'DYFI Stations',
         series: dyfiStations
       }
