@@ -24,21 +24,11 @@ export class GetMapBoundsPipe implements PipeTransform {
 
     let minLat = parseFloat(product.properties['minimum-latitude']);
     let maxLat = parseFloat(product.properties['maximum-latitude']);
-    let minLon = parseFloat(product.properties['minimum-longitude']);
+    const minLon = parseFloat(product.properties['minimum-longitude']);
     const maxLon = parseFloat(product.properties['maximum-longitude']);
 
-    const lat = parseFloat(product.properties.latitude);
-    const lon = parseFloat(product.properties.longitude);
-
-    if (!(minLat && minLon && maxLat && maxLon && lat && lon)) {
+    if (!(minLat && minLon && maxLat && maxLon)) {
       return null;
-    }
-
-    if (minLon > lon) {
-      minLon = minLon - 360;
-    }
-    if (minLat > lat) {
-      minLat = minLat - 180;
     }
 
     if (zoom) {
