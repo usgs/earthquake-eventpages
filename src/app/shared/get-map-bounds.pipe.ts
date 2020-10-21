@@ -27,7 +27,8 @@ export class GetMapBoundsPipe implements PipeTransform {
     let minLon = parseFloat(product.properties['minimum-longitude']);
     const maxLon = parseFloat(product.properties['maximum-longitude']);
 
-    if (!(minLat && minLon && maxLat && maxLon)) {
+    // sure sure values are valid numbers
+    if (isNaN(minLat) || isNaN(minLon) || isNaN(maxLat) || isNaN(maxLon)) {
       return null;
     }
 
