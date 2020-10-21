@@ -51,22 +51,4 @@ describe('GetMapBoundsPipe', () => {
     expect(transBounds[0][1]).toBeLessThan(transBounds[1][1]);
     expect(transBounds[1][1] - transBounds[0][1]).toBe(4);
   });
-
-  it('Wraps 90 lat', () => {
-    const bounds = [[88, 1], [-88, 3]];
-    const product = {
-      properties: {
-        latitude: -89,
-        longitude: 2,
-        'maximum-latitude': bounds[1][0],
-        'maximum-longitude': bounds[1][1],
-        'minimum-latitude': bounds[0][0],
-        'minimum-longitude': bounds[0][1]
-      }
-    };
-
-    const transBounds = pipe.transform(product);
-    expect(transBounds[0][0]).toBeLessThan(transBounds[1][0]);
-    expect(transBounds[1][0] - transBounds[0][0]).toBe(4);
-  });
 });
