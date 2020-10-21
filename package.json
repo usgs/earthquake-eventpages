@@ -1,6 +1,6 @@
 {
   "name": "earthquake-eventpages",
-  "version": "1.29.0",
+  "version": "1.29.1",
   "license": "MIT",
   "engines": {
     "node": ">=10"
