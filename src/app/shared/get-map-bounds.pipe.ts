@@ -27,18 +27,14 @@ export class GetMapBoundsPipe implements PipeTransform {
     let minLon = parseFloat(product.properties['minimum-longitude']);
     const maxLon = parseFloat(product.properties['maximum-longitude']);
 
-    const lat = parseFloat(product.properties.latitude);
-    const lon = parseFloat(product.properties.longitude);
-
-    if (!(minLat && minLon && maxLat && maxLon && lat && lon)) {
+    // sure sure values are valid numbers
+    if (isNaN(minLat) || isNaN(minLon) || isNaN(maxLat) || isNaN(maxLon)) {
       return null;
     }
 
-    if (minLon > lon) {
-      minLon = minLon - 360;
-    }
-    if (minLat > lat) {
-      minLat = minLat - 180;
+    if (maxLon < minLon && (minLon - maxLon) > 180) {
+      // likely spanning date line, shift longitude left
+      minLon -= 360;
     }
 
     if (zoom) {
