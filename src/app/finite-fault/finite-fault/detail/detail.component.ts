@@ -1,23 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { ProductPropertyPipe } from '@shared/product-property.pipe';
-import { CreateSegmentsPipe } from 'app/finite-fault/create-segments.pipe';
-
-import { Event } from '../../../event';
-import { Segment } from '../../segment';
-
+import { Component, Input } from "@angular/core";
 
 /**
  * Display finite-fault product information
  */
 @Component({
-  selector: 'finite-fault-detail',
-  styleUrls: ['./detail.component.scss'],
-  templateUrl: './detail.component.html'
+  selector: "finite-fault-detail",
+  styleUrls: ["./detail.component.scss"],
+  templateUrl: "./detail.component.html",
 })
 export class FiniteFaultDetailComponent {
-
   // crustal model, todo: read from property
-  crustalModel = "1D crustal model interpolated from CRUST2.0 (Bassin et al., 2000)";
+  crustalModel =
+    "1D crustal model interpolated from CRUST2.0 (Bassin et al., 2000)";
 
   // store product for getter/setter below
   @Input()
@@ -27,6 +21,5 @@ export class FiniteFaultDetailComponent {
   @Input()
   products: any[] = [];
 
-  constructor() { }
-
+  constructor() {}
 }

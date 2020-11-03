@@ -2,9 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
-import { of } from 'rxjs/observable/of';
-
-import { EventService } from '@core/event.service';
 import { MockPipe } from '../../mock-pipe';
 import { FiniteFaultDetailComponent } from './detail.component';
 
@@ -13,10 +10,6 @@ describe('FiniteFaultComponent', () => {
   let fixture: ComponentFixture<FiniteFaultDetailComponent>;
 
   beforeEach(async(() => {
-    const eventServiceStub = {
-      product$: of(null)
-    };
-
     TestBed.configureTestingModule({
       declarations: [
         FiniteFaultDetailComponent,
