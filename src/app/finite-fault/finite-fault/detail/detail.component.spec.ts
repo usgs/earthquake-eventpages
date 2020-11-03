@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
-import { MockPipe } from '../../mock-pipe';
+import { MockPipe } from '../../../mock-pipe';
 import { FiniteFaultDetailComponent } from './detail.component';
 
 describe('FiniteFaultComponent', () => {
