@@ -22,7 +22,10 @@ describe('FiniteFaultComponent', () => {
         FiniteFaultComponent,
 
         MockComponent({ selector: 'product-page', inputs: ['bin'] }),
-        MockComponent({ selector: 'finite-fault-detail', inputs: ['product', 'products'] }),
+        MockComponent({
+          inputs: ['product', 'products'],
+          selector: 'finite-fault-detail'
+        }),
         MockComponent({
           inputs: ['event', 'products'],
           selector: 'technical-finite-fault-summary'
