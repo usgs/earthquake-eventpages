@@ -14,12 +14,10 @@
     </technical-finite-fault-summary>
   </ng-container>
 
-  <div *ngIf="(eventService.product$ | async) as product; else noProduct">
-    <finite-fault-detail
-      [products]="eventService?.event$ | async | sharedGetProducts: 'finite-fault'"
-      [product]="eventService.product$ | async">
-    </finite-fault-detail>
-  </div>
+  <finite-fault-detail
+    [products]="eventService?.event$ | async | sharedGetProducts: 'finite-fault'"
+    [product]="eventService.product$ | async">
+  </finite-fault-detail>
 
   <ng-container more-information>
     <li>
