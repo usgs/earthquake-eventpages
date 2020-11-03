@@ -6,11 +6,11 @@ import { of } from 'rxjs/observable/of';
 
 import { EventService } from '@core/event.service';
 import { MockPipe } from '../../mock-pipe';
-import { FiniteFaultComponent } from './finite-fault.component';
+import { FiniteFaultDetailComponent } from './detail.component';
 
 describe('FiniteFaultComponent', () => {
-  let component: FiniteFaultComponent;
-  let fixture: ComponentFixture<FiniteFaultComponent>;
+  let component: FiniteFaultDetailComponent;
+  let fixture: ComponentFixture<FiniteFaultDetailComponent>;
 
   beforeEach(async(() => {
     const eventServiceStub = {
@@ -19,25 +19,30 @@ describe('FiniteFaultComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [
-        FiniteFaultComponent,
+        FiniteFaultDetailComponent,
 
-        MockComponent({ selector: 'product-page', inputs: ['bin'] }),
-        MockComponent({ selector: 'finite-fault-detail', inputs: ['product', 'products'] }),
         MockComponent({
-          inputs: ['event', 'products'],
-          selector: 'technical-finite-fault-summary'
+          inputs: ['product', 'contentPath'],
+          selector: 'shared-text-product'
+        }),
+        MockComponent({
+          inputs: ['segments'],
+          selector: 'result-table'
         }),
 
-        MockPipe('sharedGetProducts'),
+        MockPipe('createSegments'),
+        MockPipe('sharedDegrees'),
+        MockPipe('sharedLocation'),
+        MockPipe('sharedNumber'),
+        MockPipe('sharedProductContent'),
         MockPipe('sharedProductProperty')
       ],
       imports: [RouterTestingModule],
-      providers: [{ provide: EventService, useValue: eventServiceStub }]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FiniteFaultComponent);
+    fixture = TestBed.createComponent(FiniteFaultDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
