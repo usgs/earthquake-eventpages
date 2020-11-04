@@ -5,7 +5,7 @@ import { MockComponent } from 'ng2-mock-component';
 import { MockPipe } from '../../../mock-pipe';
 import { FiniteFaultDetailComponent } from './detail.component';
 
-describe('FiniteFaultComponent', () => {
+describe('FiniteFaultDetailComponent', () => {
   let component: FiniteFaultDetailComponent;
   let fixture: ComponentFixture<FiniteFaultDetailComponent>;
 
@@ -25,6 +25,7 @@ describe('FiniteFaultComponent', () => {
 
         MockPipe('createSegments'),
         MockPipe('sharedDegrees'),
+        MockPipe('sharedGetMapBounds'),
         MockPipe('sharedLocation'),
         MockPipe('sharedNumber'),
         MockPipe('sharedProductContent'),
