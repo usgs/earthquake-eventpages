@@ -1,36 +1,45 @@
 <h2>We're having trouble finding that data.</h2>
-<p>We may have moved the webpage your'e looking for. Here is what we suggest:
+<p>
+  We may have moved the webpage you're looking for. Here is what we suggest:
 </p>
 <div *ngIf="suggestionString && suggestionStringUrl">
-    <ul>
-        <li>
-            Were you looking for the
-            <a [routerLink]="suggestionStringUrl">{{ suggestionString }}</a>
-            page?
-        </li>
-    </ul>
+  <ul>
+    <li>
+      Were you looking for the
+      <a [routerLink]="suggestionStringUrl">{{ suggestionString }}</a>
+      page?
+    </li>
+  </ul>
 </div>
 <ul>
-    <li>
-        <p>Click any of the links on the left sidebar to select a product for this event.
-        </p>
-    </li>
-    <li>
-        <p>Check the spelling of the URL, if you typed it.</p>
-    </li>
-    <li>
-        <p>If you clicked on a link from another website, they probably have a broken link, please considering contacting
-            them to let them know.</p>
-    </li>
-    <li>
-        <p>Try to navigate to the content from the website
-            <a href="https://earthquake.usgs.gov/index.php">Homepage</a>.</p>
-    </li>
-    <li>
-        <p>If you still can't find what you're looking for,
-            <a href="mailto:lisa@usgs.gov?subject=EHP%20Website%20Email:%20&cc
-        =lkpratt@usgs.gov&body=Please add your specific subject after the
-        pre-entered Subject above. Thank you!">Contact Us</a> for assistance, and please let us know how you
-            arrived at this page.</p>
-    </li>
+  <li>
+    <p>
+      Click any of the links on the left sidebar to select a product for this
+      event.
+    </p>
+  </li>
+  <li>
+    <p>Check the spelling of the URL, if you typed it.</p>
+  </li>
+  <li>
+    <p>
+      If you clicked on a link from another website, they probably have a broken
+      link, please considering contacting them to let them know.
+    </p>
+  </li>
+  <li>
+    <p>
+      Try to navigate to the content from the website
+      <a href="https://earthquake.usgs.gov/">Homepage</a>
+      .
+    </p>
+  </li>
+  <li>
+    <p>
+      If you still can't find what you're looking for
+      <a href="mailto:eq_questions@usgs.gov?subject=EHP%20Website%20Email">
+        Email Us for assistance
+      </a>, and please include details on how you arrived at this page.
+    </p>
+  </li>
 </ul>
