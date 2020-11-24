@@ -23,25 +23,15 @@ describe('FiniteFaultComponent', () => {
 
         MockComponent({ selector: 'product-page', inputs: ['bin'] }),
         MockComponent({
-          inputs: ['product', 'contentPath'],
-          selector: 'shared-text-product'
-        }),
-        MockComponent({
-          inputs: ['segments'],
-          selector: 'result-table'
+          inputs: ['product', 'products'],
+          selector: 'finite-fault-detail'
         }),
         MockComponent({
           inputs: ['event', 'products'],
           selector: 'technical-finite-fault-summary'
         }),
 
-        MockPipe('createSegments'),
-        MockPipe('sharedDegrees'),
-        MockPipe('sharedGetMapBounds'),
         MockPipe('sharedGetProducts'),
-        MockPipe('sharedLocation'),
-        MockPipe('sharedNumber'),
-        MockPipe('sharedProductContent'),
         MockPipe('sharedProductProperty')
       ],
       imports: [RouterTestingModule],
