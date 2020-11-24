@@ -12,7 +12,6 @@ export class AppPage {
   // - impact-text
   // - losspager
   // - moment-tensor
-  // - oaf
   // - origin
   // - phase-data
   // - poster
@@ -29,6 +28,11 @@ export class AppPage {
   // - phase-data
   // - shakemap
   EVENT_ID_2 = 'ci38474368';
+
+  // EVENT_ID_1 used to include "oaf" product,
+  // but was removed.  Newer event that includes oaf.
+  // - oaf
+  EVENT_ID_3 = 'us7000asvb';
 
   getMainPageHeaderTitle() {
     return this.select('main > header > h1').getText();
