@@ -8,7 +8,7 @@ describe('OAF Page', () => {
   });
 
   it('should display OAF title', () => {
-    page.navigateTo(`/${page.EVENT_ID_1}/oaf/commentary`);
+    page.navigateTo(`/${page.EVENT_ID_3}/oaf/commentary`);
     expect(page.getPageSectionTitle()).toEqual('Aftershock Forecast');
   });
 });
