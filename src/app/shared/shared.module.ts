@@ -16,6 +16,7 @@ import { AttributionComponent } from './attribution/attribution.component';
 import { BeachballComponent } from './beachball/beachball.component';
 import { BubbleComponent } from './bubble/bubble.component';
 import { CoordinatesComponent } from './coordinates/coordinates.component';
+import { DateInfoComponent } from './date-info/date-info.component';
 import { DateTimePipe } from './date-time.pipe';
 import { DegreesPipe } from './degrees.pipe';
 import { DirectionPipe } from './direction.pipe';
@@ -93,6 +94,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     BeachballComponent,
     BubbleComponent,
     CoordinatesComponent,
+    DateInfoComponent,
     DateTimePipe,
     DegreesPipe,
     DirectionPipe,
@@ -173,6 +175,7 @@ import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.co
     BeachballComponent,
     BubbleComponent,
     CoordinatesComponent,
+    DateInfoComponent,
     DateTimePipe,
     DegreesPipe,
     DirectionPipe,

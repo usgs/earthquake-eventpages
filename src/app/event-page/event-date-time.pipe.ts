@@ -15,9 +15,9 @@ export class EventDateTimePipe implements PipeTransform {
    *     The event object
    *
    * @return
-   *     New date/time formatted object
+   *     The date object
    */
-  transform(event: any, utc: boolean): string {
+  transform(event: any): Date {
     let date;
 
     try {
@@ -25,11 +25,7 @@ export class EventDateTimePipe implements PipeTransform {
     } catch (e) {
       date = null;
     }
-    if(utc) {
-      return this.formatter.dateTime(date);
-    } else {
-      return this.formatter.dateTime(date, -(date.getTimezoneOffset()) );
-    }
+    return date;
 
   }
 }

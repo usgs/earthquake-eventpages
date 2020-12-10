@@ -1,0 +1,8 @@
+<ng-container *ngIf="date else noDate">
+  <time [attr.datetime]="date.toISOString()">
+    {{date | sharedDateTime:local ? LOCAL_OFFSET : UTC_OFFSET}}
+  </time>
+</ng-container>
+<ng-template #noDate>
+  No time available for this event
+</ng-template>
