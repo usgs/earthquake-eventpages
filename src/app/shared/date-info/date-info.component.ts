@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges,} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 /**
  * Shared date-info component for use displaying local/UTC dateTime
@@ -15,16 +15,9 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges,} from '@angular/c
   templateUrl: './date-info.component.html',
   styleUrls: ['./date-info.component.scss']
 })
-export class DateInfoComponent implements OnChanges{
+export class DateInfoComponent{
   @Input()
   date: Date;
   @Input()
   local: boolean = false;
-
-  private UTC_OFFSET = 0 ;
-  private LOCAL_OFFSET;
-
-  ngOnChanges() {
-    this.LOCAL_OFFSET = -(this.date.getTimezoneOffset());
-  }
 }
