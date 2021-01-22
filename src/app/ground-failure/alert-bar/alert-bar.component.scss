@@ -17,3 +17,12 @@ text.bin {
   font: 36px 'Source Sans Pro', Helvetica, Arial, sans-serif;
   transform: translate(0, 46px);
 }
+
+.error {
+  stroke-width: 10px;
+  stroke: #aaa;
+}
+
+path {
+  cursor: help;
+}

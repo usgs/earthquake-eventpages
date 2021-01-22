@@ -1,39 +1,55 @@
 <svg [attr.viewBox]="'0 5 ' + bins.length * 250 + ' 170'">
   <title>{{ title }}</title>
-
-  <svg:g
-    *ngFor="
-      let bin of bins;
-      let i = index;
-      let first = first;
-      let last = last;
-      trackBy: trackByIndex
-    "
-    [attr.transform]="'translate(' + i * 250 + ', 70)'"
-  >
-    <title>{{ bin.text }}</title>
-
-    <rect x="0" y="0" width="250" height="70" [attr.fill]="bin.color"></rect>
-
-    <text class="bin" fill="black" text-anchor="middle" x="125" y="0">
-      {{ bin.text }}
-    </text>
-
-    <text *ngIf="!first" fill="black" text-anchor="middle" x="0" y="70">
-      {{ bin.min | number }} {{ units }}
-    </text>
-
+  <svg:g>
+    <!-- Exposure bins -->
     <svg:g
-      *ngIf="
-        (value > bin.min && value <= bin.max) ||
-        (first && value <= bin.min) ||
-        (last && value >= bin.max)
+      *ngFor="
+        let bin of bins;
+        let i = index;
+        let first = first;
+        let last = last;
+        trackBy: trackByIndex
       "
-      [attr.transform]="
-        'translate(' + (value | getBarPosition: bin.min:bin.max:250) + ', 0)'
-      "
+      [attr.transform]="'translate(' + i * 250 + ', 70)'"
     >
+      <title>{{ bin.text }}</title>
+
+      <rect x="0" y="0" width="250" height="70" [attr.fill]="bin.color"></rect>
+
+      <text class="bin" fill="black" text-anchor="middle" x="125" y="0">
+        {{ bin.text }}
+      </text>
+
+      <text fill="black" text-anchor="middle" x="0" y="70">
+        {{ first ? '≤&thinsp;' : '' }}{{ bin.min | number }} {{ units }}
+      </text>
+
+      <text *ngIf="last" fill="black" text-anchor="middle" x="250" y="70">
+        ≥&thinsp;{{ bin.max | number }} {{ units }}
+      </text>
+    </svg:g>
+
+    <!-- Triangle Marker -->
+    <svg:g
+        [attr.transform]="
+          'translate(' + (value | getBarPosition: minBin:maxBin:1000) + ', 70)'
+        ">
+      <title>Triangle indicates best estimate of exposure and 
+        horizontal bar represents the uncertainty (95% confidence interval)
+      </title>
+
       <path d="M0,0 L24,-34 L-24,-34 L0,0 Z" fill="black"></path>
+      <path class="error" d="M25,-40 h-25,-25"></path>
+    </svg:g>
+
+    <!-- Error Bars -->
+    <svg:g *ngIf="error">
+      <title>Triangle indicates best estimate of exposure and horizontal bar represents the uncertainty (95% confidence interval)</title>
+
+      <path class="error" [attr.d]="
+          'M'+ (error.min | getBarPosition: minBin:maxBin:1000) +
+          ',30 H' + (error.max | getBarPosition: minBin:maxBin:1000)">
+      </path>
     </svg:g>
   </svg:g>
 </svg>

@@ -1,18 +1,27 @@
 <h3>{{title}}</h3>
 <ng-container *ngIf="product | pending; else isPending">
-  <ground-failure-hazard-alert [alert]="product |
-    sharedProductProperty:hazardColorProperty"
-    [type]="type"
-    [value]="product |
-    sharedProductProperty:hazardValueProperty">
-  </ground-failure-hazard-alert>
+  <div class="gf-card">
+    <ground-failure-hazard-alert [alert]="product |
+      sharedProductProperty:hazardColorProperty"
+      [type]="type"
+      [value]="product |
+      sharedProductProperty:hazardValueProperty"
+      [error]="product |
+      sharedProductProperty:hazardStdProperty"
+      >
+    </ground-failure-hazard-alert>
+  </div>
 
-  <ground-failure-population-alert [alert]="product |
-    sharedProductProperty:populationColorProperty"
-    [type]="type"
-    [value]="product |
-    sharedProductProperty:populationValueProperty">
-  </ground-failure-population-alert>
+  <div class="gf-card">
+    <ground-failure-population-alert [alert]="product |
+      sharedProductProperty:populationColorProperty"
+      [type]="type"
+      [value]="product |
+      sharedProductProperty:populationValueProperty"
+      [error]="product |
+      sharedProductProperty:populationStdProperty">
+    </ground-failure-population-alert>
+  </div>
 </ng-container>
 
 <button mat-raised-button

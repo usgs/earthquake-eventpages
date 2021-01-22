@@ -4,7 +4,8 @@
   <ground-failure-alert-bar [bins]="(type === 'landslide' ? landslideBins : liquefactionBins)"
     [title]="title"
     [units]="units"
-    [value]="value">
+    [value]="value"
+    [error]="error">
   </ground-failure-alert-bar>
 
   <figcaption [ngSwitch]="alert">

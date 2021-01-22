@@ -14,7 +14,7 @@ describe('HazardAlertComponent', () => {
         HazardAlertComponent,
 
         MockComponent({
-          inputs: ['bins', 'title', 'units', 'value'],
+          inputs: ['bins', 'title', 'units', 'value', 'error'],
           selector: 'ground-failure-alert-bar'
         })
       ]
