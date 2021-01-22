@@ -1,0 +1,74 @@
+figure {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+
+    > .svg-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        > svg {
+        height: auto;
+        margin: 0 1em 0 0.5em;
+        stroke-width: 0;
+        width: 40px;
+        }
+    }
+
+    > figcaption {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        > p {
+        line-height: 1.3;
+        margin: 0;
+
+        + p {
+            margin-top: 0.5em;
+        }
+        }
+    }
+
+    .st0,
+    .st1 {
+        fill: rgba(0, 0, 0, 0.1);
+    }
+
+    &.green {
+        .st0,
+        .st1 {
+        fill: rgb(39, 168, 60);
+        }
+    }
+
+    &.yellow {
+        .st0,
+        .st1 {
+        fill: rgb(229, 229, 20);
+        }
+    }
+
+    &.orange {
+        .st0,
+        .st1 {
+        fill: rgb(240, 162, 22);
+        }
+    }
+
+    &.red {
+        .st0,
+        .st1 {
+        fill: rgb(186, 45, 26);
+        }
+    }
+
+    &.pending {
+        .st0,
+        .st1 {
+        stroke: black;
+        stroke-width: 1.05;
+        fill: rgba(0, 0, 0, 0);
+        }
+    }
+}
