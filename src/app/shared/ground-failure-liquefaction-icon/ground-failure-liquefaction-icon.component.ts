@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'shared-ground-failure-landslide-icon',
-  templateUrl: './ground-failure-landslide-icon.component.html',
-  styleUrls: ['./ground-failure-landslide-icon.component.scss']
+  selector: 'shared-ground-failure-liquefaction-icon',
+  templateUrl: './ground-failure-liquefaction-icon.component.html',
+  styleUrls: ['./ground-failure-liquefaction-icon.component.scss']
 })
-export class GroundFailureLandslideIconComponent {
+export class GroundFailureLiquefactionIconComponent {
   @Input()
   alert: string;
   @Input()
@@ -18,4 +18,5 @@ export class GroundFailureLandslideIconComponent {
   populationAlert: string;
 
   constructor() { }
+
 }

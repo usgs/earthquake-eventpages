@@ -16,6 +16,14 @@ describe('HazardAlertComponent', () => {
         MockComponent({
           inputs: ['bins', 'title', 'units', 'value', 'error'],
           selector: 'ground-failure-alert-bar'
+        }),
+        MockComponent({
+          inputs: ['alert', 'badge', 'caption'],
+          selector: 'shared-ground-failure-landslide-icon'
+        }),
+        MockComponent({
+          inputs: ['alert', 'badge', 'caption'],
+          selector: 'shared-ground-failure-liquefaction-icon'
         })
       ]
     }).compileComponents();

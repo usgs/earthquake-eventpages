@@ -4,15 +4,20 @@
     <dt>Landslide Estimate</dt>
     <dd>
       <shared-ground-failure-landslide-icon
-        [product]="product">
+          [alert]="product | sharedProductProperty:'landslide-alert'"
+          [areaAlert]="product | sharedProductProperty:'landslide-hazard-alert-color'"
+          [populationAlert]="product | sharedProductProperty:'landslide-population-alert-color'">
+        
       </shared-ground-failure-landslide-icon>
     </dd>
 
     <dt>Liquefaction Estimate</dt>
     <dd>
-      <shared-ground-failure-liquifaction-icon
-        [product]="product">
-      </shared-ground-failure-liquifaction-icon>
+      <shared-ground-failure-liquefaction-icon
+        [alert]="product | sharedProductProperty:'liquefaction-alert'"
+        [areaAlert]="product | sharedProductProperty:'liquefaction-hazard-alert-color'"
+        [populationAlert]="product | sharedProductProperty:'liquefaction-population-alert-color'">
+      </shared-ground-failure-liquefaction-icon>
     </dd>
   </dl>
 

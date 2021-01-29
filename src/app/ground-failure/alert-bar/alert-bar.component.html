@@ -46,10 +46,19 @@
     <svg:g *ngIf="error">
       <title>Triangle indicates best estimate of exposure and horizontal bar represents the uncertainty (95% confidence interval)</title>
 
-      <path class="error" [attr.d]="
-          'M'+ (error.min | getBarPosition: minBin:maxBin:1000) +
-          ',30 H' + (error.max | getBarPosition: minBin:maxBin:1000)">
-      </path>
+      <ng-container *ngIf="error.min | getBarPosition: minBin:maxBin:1000 as min">
+        <ng-container *ngIf="error.max | getBarPosition: minBin:maxBin:1000 as max">
+          <svg:g *ngIf="max - min > 25">
+            <path class="error" [attr.d]="'M'+ min + ',30 H' + max"></path>
+            <path class="error tick"
+              [attr.d]="'M' + (error.min | getBarPosition: minBin:maxBin:1000) + ', 20 v 20'">
+            </path>
+            <path class="error tick"
+              [attr.d]="'M' + (error.max | getBarPosition: minBin:maxBin:1000) + ', 20 v 20'">
+            </path>
+          </svg:g>
+        </ng-container>
+      </ng-container>
     </svg:g>
   </svg:g>
 </svg>

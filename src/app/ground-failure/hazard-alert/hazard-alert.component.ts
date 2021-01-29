@@ -96,4 +96,5 @@ export class HazardAlertComponent {
 
   @Input()
   value: number;
+
 }

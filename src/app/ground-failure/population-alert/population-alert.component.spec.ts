@@ -16,6 +16,14 @@ describe('PopulationAlertComponent', () => {
         MockComponent({
           inputs: ['bins', 'title', 'units', 'value', 'error'],
           selector: 'ground-failure-alert-bar'
+        }),
+        MockComponent({
+          inputs: ['alert', 'areaAlert', 'badge', 'caption', 'populationAlert'],
+          selector: 'shared-ground-failure-landslide-icon'
+        }),
+        MockComponent({
+          inputs: ['alert', 'areaAlert', 'badge', 'caption', 'populationAlert'],
+          selector: 'shared-ground-failure-liquefaction-icon'
         })
       ]
     }).compileComponents();

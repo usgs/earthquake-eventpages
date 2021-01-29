@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GroundfailureLandslideIconComponent } from './groundfailure-landslide-icon.component';
+import { GroundFailureLandslideIconComponent } from './ground-failure-landslide-icon.component';
 
-describe('GroundfailureLandslideIconComponent', () => {
-  let component: GroundfailureLandslideIconComponent;
-  let fixture: ComponentFixture<GroundfailureLandslideIconComponent>;
+describe('GroundFailureLandslideIconComponent', () => {
+  let component: GroundFailureLandslideIconComponent;
+  let fixture: ComponentFixture<GroundFailureLandslideIconComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroundfailureLandslideIconComponent ]
+      declarations: [ GroundFailureLandslideIconComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GroundfailureLandslideIconComponent);
+    fixture = TestBed.createComponent(GroundFailureLandslideIconComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

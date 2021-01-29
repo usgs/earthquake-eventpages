@@ -1,0 +1,71 @@
+  figure {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+
+    > .svg-wrapper {
+      display: flex;
+      flex-direction: column;
+
+      > svg {
+        height: auto;
+        margin: 0 1em 0 0.5em;
+        stroke-width: 0;
+        width: 40px;
+      }
+    }
+
+    > figcaption {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      > p {
+        line-height: 1.3;
+        margin: 0;
+
+        + p {
+          margin-top: 0.5em;
+        }
+      }
+    }
+}
+
+.green svg {
+  background: rgb(39, 168, 60)
+}
+
+.yellow svg {
+  background: rgb(229, 229, 20)
+}
+
+.orange svg {
+  background: rgb(240, 162, 22)
+}
+
+.red svg {
+  background: rgb(186, 45, 26)
+}
+
+svg {
+  border-radius: 5px;
+}
+
+path {
+  fill: white
+}
+
+svg {
+  border-radius: 5px;
+  padding: 1px;
+}
+
+path {
+  fill: white
+}
+
+#icon.badge {
+  width: 1em;
+  margin: 1px;
+}
+  

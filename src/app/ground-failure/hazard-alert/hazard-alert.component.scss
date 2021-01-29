@@ -6,3 +6,12 @@ figcaption {
 figure {
   padding: 0 1.5em
 }
+
+h4 {
+  display: flex;
+  align-items: center;
+}
+
+#exposureIcon {
+  display: inline-block;
+}

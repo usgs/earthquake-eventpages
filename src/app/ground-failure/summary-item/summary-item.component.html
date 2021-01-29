@@ -1,5 +1,7 @@
-<h3>{{title}}</h3>
-<ng-container *ngIf="product | pending; else isPending">
+<ng-container *ngIf="product">
+  <h3 id="title">
+    {{title}}
+  </h3>
   <div class="gf-card">
     <ground-failure-hazard-alert [alert]="product |
       sharedProductProperty:hazardColorProperty"
@@ -7,8 +9,7 @@
       [value]="product |
       sharedProductProperty:hazardValueProperty"
       [error]="product |
-      sharedProductProperty:hazardStdProperty"
-      >
+      sharedProductProperty:hazardStdProperty">
     </ground-failure-hazard-alert>
   </div>
 
@@ -29,7 +30,3 @@
   [queryParams]="buttonQueryParams">
   View {{title}} Map
 </button>
-
-<ng-template #isPending>
-  <p class="alert info">Alert Pending</p>
-</ng-template>

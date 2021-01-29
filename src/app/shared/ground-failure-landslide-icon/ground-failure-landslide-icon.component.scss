@@ -29,46 +29,34 @@ figure {
         }
         }
     }
+}
 
-    .st0,
-    .st1 {
-        fill: rgba(0, 0, 0, 0.1);
-    }
+.green svg {
+    background: rgb(39, 168, 60)
+  }
+  
+  .yellow svg {
+    background: rgb(229, 229, 20)
+  }
+  
+  .orange svg {
+    background: rgb(240, 162, 22)
+  }
+  
+  .red svg {
+    background: rgb(186, 45, 26)
+  }
+  
+svg {
+  border-radius: 5px;
+  padding: 1px;
+}
 
-    &.green {
-        .st0,
-        .st1 {
-        fill: rgb(39, 168, 60);
-        }
-    }
+path {
+  fill: white
+}
 
-    &.yellow {
-        .st0,
-        .st1 {
-        fill: rgb(229, 229, 20);
-        }
-    }
-
-    &.orange {
-        .st0,
-        .st1 {
-        fill: rgb(240, 162, 22);
-        }
-    }
-
-    &.red {
-        .st0,
-        .st1 {
-        fill: rgb(186, 45, 26);
-        }
-    }
-
-    &.pending {
-        .st0,
-        .st1 {
-        stroke: black;
-        stroke-width: 1.05;
-        fill: rgba(0, 0, 0, 0);
-        }
-    }
+#icon.badge {
+  width: 1em;
+  margin: 1px;
 }
