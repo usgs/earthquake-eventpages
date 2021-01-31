@@ -19,11 +19,11 @@ describe('HazardAlertComponent', () => {
         }),
         MockComponent({
           inputs: ['alert', 'badge', 'caption'],
-          selector: 'shared-ground-failure-landslide-icon'
+          selector: 'shared-ground-failure-landslide-badge'
         }),
         MockComponent({
           inputs: ['alert', 'badge', 'caption'],
-          selector: 'shared-ground-failure-liquefaction-icon'
+          selector: 'shared-ground-failure-liquefaction-badge'
         })
       ]
     }).compileComponents();

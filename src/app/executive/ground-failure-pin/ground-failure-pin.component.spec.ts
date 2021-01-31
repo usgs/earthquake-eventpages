@@ -19,11 +19,11 @@ describe('GroundFailurePinComponent', () => {
         }),
         MockComponent({
           inputs: ['alert', 'areaAlert', 'populationAlert'],
-          selector: 'shared-ground-failure-landslide-icon'
+          selector: 'shared-ground-failure-landslide-badge'
         }),
         MockComponent({
           inputs: ['alert', 'areaAlert', 'populationAlert'],
-          selector: 'shared-ground-failure-liquefaction-icon'
+          selector: 'shared-ground-failure-liquefaction-badge'
         }),
         MockPipe('sharedProductProperty')
       ]

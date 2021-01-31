@@ -85,8 +85,8 @@ import { FiniteFaultSummaryComponent } from '@shared/finite-fault-summary/finite
 import { FocalMechanismSummaryComponent } from '@shared/focal-mechanism-summary/focal-mechanism-summary.component';
 import { MomentTensorSummaryComponent } from '@shared/moment-tensor-summary/moment-tensor-summary.component';
 import { OriginSummaryComponent } from '@shared/origin-summary/origin-summary.component';
-import { GroundFailureLandslideIconComponent } from './ground-failure-landslide-icon/ground-failure-landslide-icon.component';
-import { GroundFailureLiquefactionIconComponent } from './ground-failure-liquefaction-icon/ground-failure-liquefaction-icon.component';
+import { GroundFailureLandslideBadgeComponent } from './ground-failure-landslide-badge/ground-failure-landslide-badge.component';
+import { GroundFailureLiquefactionBadgeComponent } from './ground-failure-liquefaction-badge/ground-failure-liquefaction-badge.component';
 
 @NgModule({
   declarations: [
@@ -115,8 +115,8 @@ import { GroundFailureLiquefactionIconComponent } from './ground-failure-liquefa
     GetMapBoundsPipe,
     GetProductPipe,
     GetProductsPipe,
-    GroundFailureLiquefactionIconComponent,
-    GroundFailureLandslideIconComponent,
+    GroundFailureLiquefactionBadgeComponent,
+    GroundFailureLandslideBadgeComponent,
     GroundFailureOverlaysPipe,
     HasProductPipe,
     InteractiveMapBoundsPipe,
@@ -192,8 +192,8 @@ import { GroundFailureLiquefactionIconComponent } from './ground-failure-liquefa
     GetMapBoundsPipe,
     GetProductPipe,
     GetProductsPipe,
-    GroundFailureLandslideIconComponent,
-    GroundFailureLiquefactionIconComponent,
+    GroundFailureLandslideBadgeComponent,
+    GroundFailureLiquefactionBadgeComponent,
     GroundFailureOverlaysPipe,
     HasProductPipe,
     InteractiveMapBoundsPipe,

@@ -3,21 +3,21 @@
   <dl>
     <dt>Landslide Estimate</dt>
     <dd>
-      <shared-ground-failure-landslide-icon
+      <shared-ground-failure-landslide-badge
           [alert]="product | sharedProductProperty:'landslide-alert'"
           [areaAlert]="product | sharedProductProperty:'landslide-hazard-alert-color'"
           [populationAlert]="product | sharedProductProperty:'landslide-population-alert-color'">
         
-      </shared-ground-failure-landslide-icon>
+      </shared-ground-failure-landslide-badge>
     </dd>
 
     <dt>Liquefaction Estimate</dt>
     <dd>
-      <shared-ground-failure-liquefaction-icon
+      <shared-ground-failure-liquefaction-badge
         [alert]="product | sharedProductProperty:'liquefaction-alert'"
         [areaAlert]="product | sharedProductProperty:'liquefaction-hazard-alert-color'"
         [populationAlert]="product | sharedProductProperty:'liquefaction-population-alert-color'">
-      </shared-ground-failure-liquefaction-icon>
+      </shared-ground-failure-liquefaction-badge>
     </dd>
   </dl>
 

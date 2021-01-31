@@ -1,17 +1,17 @@
 <h4>
   <div id="exposureIcon" [ngSwitch]="type">
-    <shared-ground-failure-landslide-icon
+    <shared-ground-failure-landslide-badge
         *ngSwitchCase="'landslide'"
         [alert]="alert"
         [badge]="true"
         [caption]="false">
-    </shared-ground-failure-landslide-icon>
-    <shared-ground-failure-liquefaction-icon
+    </shared-ground-failure-landslide-badge>
+    <shared-ground-failure-liquefaction-badge
         *ngSwitchCase="'liquefaction'"
         [alert]="alert"
         [badge]="true"
         [caption]="false">
-    </shared-ground-failure-liquefaction-icon>
+    </shared-ground-failure-liquefaction-badge>
   </div>
 
   {{ title }}
