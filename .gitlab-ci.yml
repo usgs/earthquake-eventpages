@@ -1,0 +1,72 @@
+image: ${CODE_REGISTRY}/devops/images/trion/ng-cli-e2e:node10
+
+stages:
+  - test
+
+variables:
+  CI_REGISTRY: ${CODE_REGISTRY}
+  CI_REGISTRY_IMAGE: ${CODE_REGISTRY_IMAGE}
+  IMAGE_NAME: usgs/${CI_PROJECT_NAME}:${CI_COMMIT_REF_SLUG}
+
+## --------------------------------------------------
+# Templates
+## --------------------------------------------------
+
+.install:
+  before_script:
+    - npm ci
+
+## --------------------------------------------------
+# Test Stage
+## --------------------------------------------------
+
+End to End Tests:
+  extends:
+    - .install
+  script:
+    - npx webdriver-manager update --versions.chrome=2.41 --gecko false
+    - npm run e2e -- --webdriver-update false
+  stage: test
+  tags:
+    - development
+  when: manual
+
+Lint:
+  extends:
+    - .install
+  script: npm run lint
+  stage: test
+  tags:
+    - development
+
+Static Vulnerabilities:
+  image: ${CODE_REGISTRY}/devops/images/usgs/node:12
+  extends:
+    - .install
+  script: npm audit --production
+  stage: test
+  tags:
+    - development
+
+Unit Test Application:
+  artifacts:
+    paths:
+      - coverage/earthquake-latest-earthquakes
+    reports:
+      junit: junit.xml
+  extends:
+    - .install
+  script:
+    - npm run test:ci
+  stage: test
+  tags:
+    - development
+
+Build Production:
+  extends:
+    - .install
+  script:
+    - npm run build
+  stage: test
+  tags:
+    - development
