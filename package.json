@@ -10,7 +10,7 @@
     "start": "ng serve --proxy-config proxy.conf.js",
     "build": "ng build --prod",
     "test": "ng test --source-map=false",
-    "test:ci": "ng test --source-map=false --watch=false",
+    "test:ci": "ng test --watch=false --code-coverage --progress false --browsers ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "stats": "ng build --prod --stats-json && npx webpack-bundle-analyzer dist/stats.json"

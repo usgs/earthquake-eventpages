@@ -50,10 +50,8 @@ Static Vulnerabilities:
 
 Unit Test Application:
   artifacts:
-    paths:
-      - coverage/earthquake-latest-earthquakes
     reports:
-      junit: junit.xml
+      cobertura: coverage/cobertura-coverage.xml
   extends:
     - .install
   script:
