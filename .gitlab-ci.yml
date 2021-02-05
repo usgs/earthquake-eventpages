@@ -43,7 +43,7 @@ Static Vulnerabilities:
   image: ${CODE_REGISTRY}/devops/images/usgs/node:12
   extends:
     - .install
-  script: npm audit --production
+  script: npm audit
   stage: test
   tags:
     - development
