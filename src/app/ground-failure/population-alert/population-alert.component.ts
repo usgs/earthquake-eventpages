@@ -25,8 +25,13 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   templateUrl: './population-alert.component.html'
 })
 export class PopulationAlertComponent {
+
   @Input()
   alert: 'green' | 'yellow' | 'orange' | 'red';
+
+  @Input()
+  error: string;
+
   landslideBins = [
     {
       color: '#27a83c',

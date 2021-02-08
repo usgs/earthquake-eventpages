@@ -16,11 +16,11 @@ describe('SummaryItemComponent', () => {
         SummaryItemComponent,
 
         MockComponent({
-          inputs: ['alert', 'type', 'value'],
+          inputs: ['alert', 'type', 'value', 'error'],
           selector: 'ground-failure-hazard-alert'
         }),
         MockComponent({
-          inputs: ['alert', 'type', 'value'],
+          inputs: ['alert', 'type', 'value', 'error'],
           selector: 'ground-failure-population-alert'
         }),
         MockPipe('pending'),

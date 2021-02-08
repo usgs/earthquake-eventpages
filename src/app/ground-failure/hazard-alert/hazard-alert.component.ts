@@ -28,6 +28,9 @@ export class HazardAlertComponent {
   @Input()
   alert: 'green' | 'yellow' | 'orange' | 'red';
 
+  @Input()
+  error: string;
+
   landslideBins = [
     {
       color: '#27a83c',
@@ -93,4 +96,5 @@ export class HazardAlertComponent {
 
   @Input()
   value: number;
+
 }

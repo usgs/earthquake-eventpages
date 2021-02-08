@@ -23,8 +23,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   templateUrl: './alert-bar.component.html'
 })
 export class AlertBarComponent {
-  @Input()
-  bins: Array<any> = [
+  _bins = [
     {
       color: '#27a83c',
       max: 1,
@@ -50,6 +49,42 @@ export class AlertBarComponent {
       text: 'Extensive'
     }
   ];
+  _error;
+
+  @Input()
+  set bins(bins) {
+    this._bins = bins;
+    for (const bin of bins) {
+      if (bin.max > this.maxBin) {
+        this.maxBin = bin.max;
+      }
+      if (bin.min < this.minBin) {
+        this.minBin = bin.min;
+      }
+    }
+  }
+  get bins() {
+    return this._bins;
+  }
+
+  @Input()
+  set error(std) {
+    if (!std || std === 'None') {
+      std = '0,0';
+    }
+
+    const splitStd = std.split(',');
+    this._error = {
+      max: parseFloat(splitStd[1]),
+      min: parseFloat(splitStd[0])
+    };
+  }
+  get error() {
+    return this._error;
+  }
+
+  maxBin = 0;
+  minBin = 100000;
 
   @Input()
   title: String = 'Alert Bar Title';

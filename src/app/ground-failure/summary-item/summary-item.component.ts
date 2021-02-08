@@ -10,9 +10,12 @@ export class SummaryItemComponent {
   @Input()
   buttonQueryParams: any;
   hazardColorProperty: string;
+  hazardStdProperty: string;
   hazardValueProperty: string;
   populationColorProperty: string;
+  populationStdProperty: string;
   populationValueProperty: string;
+
   @Input()
   product: any;
   @Input()
@@ -36,8 +39,10 @@ export class SummaryItemComponent {
     this._type = newType;
     this.buttonQueryParams = buttonQueryParams;
     this.hazardColorProperty = this._type + '-hazard-alert-color';
+    this.hazardStdProperty = this._type + '-hazard-2std';
     this.hazardValueProperty = this._type + '-hazard-alert-value';
     this.populationColorProperty = this._type + '-population-alert-color';
+    this.populationStdProperty = this._type + '-population-2std';
     this.populationValueProperty = this._type + '-population-alert-value';
   }
 

@@ -1,3 +1,9 @@
 .summary {
   max-width: 1440px;
 }
+
+@media only screen and (min-width: 600px) {
+  .column {
+    max-width: 450px;
+  }
+}

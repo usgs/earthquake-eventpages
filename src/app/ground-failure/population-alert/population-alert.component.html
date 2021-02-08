@@ -1,10 +1,28 @@
-<h4>{{ title }}</h4>
+<h4>
+  <div id="exposureIcon" [ngSwitch]="type">
+    <shared-ground-failure-landslide-badge
+        *ngSwitchCase="'landslide'"
+        [alert]="alert"
+        [badge]="true"
+        [caption]="false">
+    </shared-ground-failure-landslide-badge>
+    <shared-ground-failure-liquefaction-badge
+        *ngSwitchCase="'liquefaction'"
+        [alert]="alert"
+        [badge]="true"
+        [caption]="false">
+    </shared-ground-failure-liquefaction-badge>
+  </div>
+
+  {{ title }}
+</h4>
 
 <figure>
   <ground-failure-alert-bar [bins]="(type === 'landslide' ? landslideBins : liquefactionBins)"
     [title]="title"
     [units]="units"
-    [value]="value">
+    [value]="value"
+    [error]="error">
   </ground-failure-alert-bar>
 
   <figcaption [ngSwitch]="alert">
