@@ -21,10 +21,13 @@ variables:
 # Templates
 ## --------------------------------------------------
 
+.adjust_image_names_script: &adjust_image_names_script
+  - IMAGE_NAME=${IMAGE_NAME/:master/:latest}
+  - INTERNAL_IMAGE_NAME=${CI_REGISTRY_IMAGE}/${IMAGE_NAME}
+
 .adjust_image_names:
   before_script:
-    - IMAGE_NAME=${IMAGE_NAME/:master/:latest}
-    - INTERNAL_IMAGE_NAME=${CI_REGISTRY_IMAGE}/${IMAGE_NAME}
+    - *adjust_image_names_script
 
 .deploy:
   cache: {}
@@ -75,7 +78,6 @@ variables:
       when: on_success
     - when: manual
       allow_failure: true
-  
 
 ## --------------------------------------------------
 # Test Stage
@@ -136,18 +138,20 @@ variables:
 # Build Stage
 ## --------------------------------------------------
 
-# Build Docker Image:
-#   extends:
-#     - .adjust_image_names
-#     - .build
-#   stage: build
-#   variables:
-#     DOCKER_BUILD_ARGS: |
-#       BUILD_IMAGE=${CODE_REGISTRY}/devops/images/usgs/node:12
-#       FROM_IMAGE=${CODE_REGISTRY}/devops/images/usgs/nginx:latest
-#       GIT_BRANCH_NAME=${CI_COMMIT_REF_NAME}
-#       GIT_COMMIT_SHA=${CI_COMMIT_SHA}
-#       DOCKER_IMAGE=${IMAGE_NAME}
+Build Docker Image:
+  before_script:
+    - *adjust_image_names_script
+    - ./scripts/update-metadata.sh
+  extends:
+    - .build
+  stage: build
+  variables:
+    DOCKER_BUILD_ARGS: |
+      BUILD_IMAGE=${CODE_REGISTRY}/devops/images/usgs/node:12
+      FROM_IMAGE=${CODE_REGISTRY}/devops/images/usgs/nginx:latest
+      GIT_BRANCH_NAME=${CI_COMMIT_REF_NAME}
+      GIT_COMMIT_SHA=${CI_COMMIT_SHA}
+      DOCKER_IMAGE=${IMAGE_NAME}
 
 
 ## --------------------------------------------------
