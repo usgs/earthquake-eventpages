@@ -7,9 +7,7 @@ include:
 
 stages:
   - test
-  - integration
-  - bundle
-  - deliver
+  - build
   - deploy
 
 variables:
@@ -46,7 +44,7 @@ variables:
     - swarm
   variables:
     APP_NAME: earthquake-eventpages
-    STACK_NAME: earthquake-eventpages
+    STACK_NAME: earthquake-eventpages-dev
 
 .install:
   before_script:
@@ -68,6 +66,15 @@ variables:
   tags:
     - production02
 
+.staging-when:
+  rules:
+    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'master'
+      when: on_success
+    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_TAG && $CI_COMMIT_TAG != ''
+      when: on_success
+    - when: manual
+      allow_failure: true
+  
 
 ## --------------------------------------------------
 # Test Stage
@@ -125,20 +132,14 @@ Build Production:
 
 
 ## --------------------------------------------------
-# Integration Stage
+# Build Stage
 ## --------------------------------------------------
 
 Build Docker Image:
   extends:
     - .adjust_image_names
     - .build
-  rules:
-    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'master'
-      when: on_success
-    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'production'
-      when: on_success
-    - when: manual
-  stage: integration
+  stage: build
   variables:
     DOCKER_BUILD_ARGS: |
       BUILD_IMAGE=${CODE_REGISTRY}/devops/images/usgs/node:12
@@ -147,61 +148,6 @@ Build Docker Image:
       GIT_COMMIT_SHA=${CI_COMMIT_SHA}
       DOCKER_IMAGE=${IMAGE_NAME}
 
-
-## --------------------------------------------------
-## Stage Bundle Artifact
-## --------------------------------------------------
-
-Bundle Artifact:
-  extends:
-    - .bundle
-  variables:
-    APP_DIST_DIR: /usr/share/nginx/html/BASE_HREF
-
-
-## --------------------------------------------------
-## Stage Deliver
-## --------------------------------------------------
-
-Deliver Development West:
-  extends:
-    - .development
-    - .bundle
-    - .tags::build:west:development
-  variables:
-    AWS_Region: us-west-2
-
-# Deliver Staging East:
-#   extends:
-#     - .staging
-#     - .bundle
-#     - .tags::build:east:staging
-#   variables:
-#     AWS_Region: us-east-1
-
-# Deliver Staging West:
-#   extends:
-#     - .staging
-#     - .bundle
-#     - .tags::build:west:staging
-#   variables:
-#     AWS_Region: us-west-2
-
-# Deliver Production East:
-#   extends:
-#     - .production
-#     - .deliver
-#     - .tags::build:east:production
-#   variables:
-#     AWS_Region: us-east-1
-
-# Deliver Production West:
-#   extends:
-#     - .production
-#     - .deliver
-#     - .tags::build:west:production
-#   variables:
-#     AWS_Region: us-west-2
 
 ## --------------------------------------------------
 # Deploy Stage
@@ -224,9 +170,11 @@ Staging01:
     - .deploy
     - .staging
     - .staging01
+    - .staging-when
 
 Staging02:
   extends:
     - .deploy
     - .staging
     - .staging02
+    - .staging-when
