@@ -68,7 +68,7 @@ services:
   # custom.funcs.sh and the custom.config.sh as well. Probably just do not
   # ever do this...
   web:
-    image: ${INTERNAL_IMAGE_NAME}/${IMAGE_NAME}
+    image: ${REGISTRY}/${IMAGE_NAME}
     deploy:
       restart_policy:
         condition: any

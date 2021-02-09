@@ -4,6 +4,7 @@ include:
   - project: 'ghsc/hazdev/pipeline-build-template'
     ref: 'master'
     file: 'templates/library.yml'
+  - template: 'Workflows/Branch-Pipelines.gitlab-ci.yml'
 
 stages:
   - test
@@ -13,7 +14,7 @@ stages:
 variables:
   CI_REGISTRY: ${CODE_REGISTRY}
   CI_REGISTRY_IMAGE: ${CODE_REGISTRY_IMAGE}
-  IMAGE_NAME: usgs/${CI_PROJECT_NAME}:${CI_COMMIT_REF_SLUG}
+  IMAGE_NAME: ${CI_PROJECT_NAME}:${CI_COMMIT_REF_SLUG}
 
 
 ## --------------------------------------------------
@@ -147,6 +148,9 @@ Build Docker Image:
       GIT_BRANCH_NAME=${CI_COMMIT_REF_NAME}
       GIT_COMMIT_SHA=${CI_COMMIT_SHA}
       DOCKER_IMAGE=${IMAGE_NAME}
+  rules:
+    - when: manual
+      allow_failure: true
 
 
 ## --------------------------------------------------
