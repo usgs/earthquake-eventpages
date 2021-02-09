@@ -46,9 +46,16 @@ variables:
   tags:
     - deploy
     - swarm
-  variables:
-    APP_NAME: earthquake-eventpages
-    STACK_NAME: earthquake-eventpages-dev
+  parallel:
+    matrix: 
+      - APP_NAME: earthquake-eventpages
+        STACK_NAME: earthquake-eventpages-dev
+        BASE_HREF: earthquakes/event-dev
+        EVENT_TYPE: actual
+      - APP_NAME: scenario-eventpages
+        STACK_NAME: scenario-eventpages-dev
+        BASE_HREF: scenarios/event-dev
+        EVENT_TYPE: scenario
 
 .install:
   before_script:
@@ -70,7 +77,7 @@ variables:
   tags:
     - production02
 
-.staging-when:
+.when:
   rules:
     - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'master'
       when: on_success
@@ -86,6 +93,7 @@ variables:
 # End to End Tests:
 #   extends:
 #     - .install
+#     - .when
 #   script:
 #     - npx webdriver-manager update --versions.chrome=2.41 --gecko false
 #     - npm run e2e -- --webdriver-update false
@@ -138,20 +146,24 @@ variables:
 # Build Stage
 ## --------------------------------------------------
 
-Build Docker Image:
-  before_script:
-    - *adjust_image_names_script
-    - ./scripts/update-metadata.sh
-  extends:
-    - .build
-  stage: build
-  variables:
-    DOCKER_BUILD_ARGS: |
-      BUILD_IMAGE=${CODE_REGISTRY}/devops/images/usgs/node:12
-      FROM_IMAGE=${CODE_REGISTRY}/devops/images/usgs/nginx:latest
-      GIT_BRANCH_NAME=${CI_COMMIT_REF_NAME}
-      GIT_COMMIT_SHA=${CI_COMMIT_SHA}
-      DOCKER_IMAGE=${IMAGE_NAME}
+# Build Docker Image:
+#   before_script:
+#     - *adjust_image_names_script
+#     - ./scripts/update-metadata.sh
+#   extends:
+#     - .build
+#   image: ${DEVOPS_REGISTRY}docker:19.03-git
+#   services:
+#     name: ${DEVOPS_REGISTRY}docker:19.03-dind
+#     alias: docker
+#   stage: build
+#   variables:
+#     DOCKER_BUILD_ARGS: |
+#       BUILD_IMAGE=${CODE_REGISTRY}/devops/images/usgs/node:12
+#       FROM_IMAGE=${CODE_REGISTRY}/devops/images/usgs/nginx:latest
+#       GIT_BRANCH_NAME=${CI_COMMIT_REF_NAME}
+#       GIT_COMMIT_SHA=${CI_COMMIT_SHA}
+#       DOCKER_IMAGE=${IMAGE_NAME}
 
 
 ## --------------------------------------------------
@@ -175,11 +187,11 @@ Staging01:
     - .deploy
     - .staging
     - .staging01
-    - .staging-when
+    - .when
 
 Staging02:
   extends:
     - .deploy
     - .staging
     - .staging02
-    - .staging-when
+    - .when

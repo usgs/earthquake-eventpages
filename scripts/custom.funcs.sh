@@ -83,6 +83,7 @@ services:
       - 8080
     environment:
       - BASE_HREF=${BASE_HREF}
+      - EVENT_TYPE=${EVENT_TYPE}
       - SITE_URL=${SITE_URL}
       - ASSET_HOSTNAME=${TARGET_HOSTNAME}
       - OLD_ASSETS=/${ASSETS_FILE}
