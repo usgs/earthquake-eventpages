@@ -15,6 +15,7 @@ variables:
   CI_REGISTRY_IMAGE: ${CODE_REGISTRY_IMAGE}
   IMAGE_NAME: usgs/${CI_PROJECT_NAME}:${CI_COMMIT_REF_SLUG}
 
+
 ## --------------------------------------------------
 # Templates
 ## --------------------------------------------------
@@ -28,14 +29,13 @@ variables:
   cache: {}
   extends:
     - .adjust_image_names
-  image: ${CODE_REGISTRY}/ghsc/hazdev/cloud-formation/hazdev-build-runner:latest
+  image: ${CODE_REGISTRY}/ghsc/hazdev/container-deploy:latest
   script:
-    - git clone ${GENERIC_SWARM_DEPLOY_REPO} generic-deploy
     - export REGISTRY=${CI_REGISTRY_IMAGE}
     - cp -v
-      generic-deploy/default.config.sh
-      generic-deploy/default.funcs.sh
-      generic-deploy/deploy.sh
+      /container-deploy/default.config.sh
+      /container-deploy/default.funcs.sh
+      /container-deploy/deploy.sh
       scripts/.
     - scripts/deploy.sh
   stage: deploy
