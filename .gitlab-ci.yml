@@ -81,76 +81,73 @@ variables:
 # Test Stage
 ## --------------------------------------------------
 
-End to End Tests:
-  extends:
-    - .install
-  script:
-    - npx webdriver-manager update --versions.chrome=2.41 --gecko false
-    - npm run e2e -- --webdriver-update false
-  stage: test
-  tags:
-    - development
-  when: manual
+# End to End Tests:
+#   extends:
+#     - .install
+#   script:
+#     - npx webdriver-manager update --versions.chrome=2.41 --gecko false
+#     - npm run e2e -- --webdriver-update false
+#   stage: test
+#   tags:
+#     - development
+#   when: manual
 
-Lint:
-  extends:
-    - .install
-  script: npm run lint
-  stage: test
-  tags:
-    - development
+# Lint:
+#   extends:
+#     - .install
+#   script: npm run lint
+#   stage: test
+#   tags:
+#     - development
 
-Static Vulnerabilities:
-  allow_failure: true # will fail due to outdated angular version
-  image: ${CODE_REGISTRY}/devops/images/usgs/node:12
-  extends:
-    - .install
-  script: npm audit
-  stage: test
-  tags:
-    - development
+# Static Vulnerabilities:
+#   allow_failure: true # will fail due to outdated angular version
+#   image: ${CODE_REGISTRY}/devops/images/usgs/node:12
+#   extends:
+#     - .install
+#   script: npm audit
+#   stage: test
+#   tags:
+#     - development
 
-Unit Test Application:
-  artifacts:
-    reports:
-      cobertura: coverage/cobertura-coverage.xml
-  extends:
-    - .install
-  script:
-    - npm run test:ci
-  stage: test
-  tags:
-    - development
+# Unit Test Application:
+#   artifacts:
+#     reports:
+#       cobertura: coverage/cobertura-coverage.xml
+#   extends:
+#     - .install
+#   script:
+#     - npm run test:ci
+#   stage: test
+#   tags:
+#     - development
 
-Build Production:
-  extends:
-    - .install
-  script:
-    - npm run build
-  stage: test
-  tags:
-    - development
+# Build Production:
+#   extends:
+#     - .install
+#   script:
+#     - npm run build
+#   stage: test
+#   tags:
+#     - development
 
 
 ## --------------------------------------------------
 # Build Stage
 ## --------------------------------------------------
 
-Build Docker Image:
-  extends:
-    - .adjust_image_names
-    - .build
-  stage: build
-  variables:
-    DOCKER_BUILD_ARGS: |
-      BUILD_IMAGE=${CODE_REGISTRY}/devops/images/usgs/node:12
-      FROM_IMAGE=${CODE_REGISTRY}/devops/images/usgs/nginx:latest
-      GIT_BRANCH_NAME=${CI_COMMIT_REF_NAME}
-      GIT_COMMIT_SHA=${CI_COMMIT_SHA}
-      DOCKER_IMAGE=${IMAGE_NAME}
-  rules:
-    - when: manual
-      allow_failure: true
+# Build Docker Image:
+#   extends:
+#     - .adjust_image_names
+#     - .build
+#   stage: build
+#   variables:
+#     DOCKER_BUILD_ARGS: |
+#       BUILD_IMAGE=${CODE_REGISTRY}/devops/images/usgs/node:12
+#       FROM_IMAGE=${CODE_REGISTRY}/devops/images/usgs/nginx:latest
+#       GIT_BRANCH_NAME=${CI_COMMIT_REF_NAME}
+#       GIT_COMMIT_SHA=${CI_COMMIT_SHA}
+#       DOCKER_IMAGE=${IMAGE_NAME}
 
 
 ## --------------------------------------------------
