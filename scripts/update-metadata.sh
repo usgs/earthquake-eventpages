@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /usr/bin/env sh
 
 VERSION=$(git describe || echo 'unknown');
 BRANCH=${CI_COMMIT_REF_SLUG:-"unknown"};
