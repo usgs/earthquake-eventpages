@@ -1,7 +1,16 @@
 image: ${CODE_REGISTRY}/devops/images/trion/ng-cli-e2e:node10
 
+include:
+  - project: 'ghsc/hazdev/pipeline-build-template'
+    ref: 'master'
+    file: 'templates/library.yml'
+
 stages:
   - test
+  - integration
+  - bundle
+  - deliver
+  - deploy
 
 variables:
   CI_REGISTRY: ${CODE_REGISTRY}
@@ -12,9 +21,53 @@ variables:
 # Templates
 ## --------------------------------------------------
 
+.adjust_image_names:
+  before_script:
+    - IMAGE_NAME=${IMAGE_NAME/:master/:latest}
+    - INTERNAL_IMAGE_NAME=${CI_REGISTRY_IMAGE}/${IMAGE_NAME}
+
+.deploy:
+  cache: {}
+  extends:
+    - .adjust_image_names
+  image: ${CODE_REGISTRY}/ghsc/hazdev/cloud-formation/hazdev-build-runner:latest
+  script:
+    - git clone ${GENERIC_SWARM_DEPLOY_REPO} generic-deploy
+    - export REGISTRY=${CI_REGISTRY_IMAGE}
+    - cp -v
+      generic-deploy/default.config.sh
+      generic-deploy/default.funcs.sh
+      generic-deploy/deploy.sh
+      scripts/.
+    - scripts/deploy.sh
+  stage: deploy
+  tags:
+    - deploy
+    - swarm
+  variables:
+    APP_NAME: earthquake-eventpages
+    STACK_NAME: earthquake-eventpages
+
 .install:
   before_script:
     - npm ci
+
+.staging01:
+  tags:
+    - staging01
+
+.staging02:
+  tags:
+    - staging02
+
+.production01:
+  tags:
+    - production01
+
+.production02:
+  tags:
+    - production02
+
 
 ## --------------------------------------------------
 # Test Stage
@@ -69,3 +122,111 @@ Build Production:
   stage: test
   tags:
     - development
+
+
+## --------------------------------------------------
+# Integration Stage
+## --------------------------------------------------
+
+Build Docker Image:
+  extends:
+    - .adjust_image_names
+    - .build
+  rules:
+    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'master'
+      when: on_success
+    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'production'
+      when: on_success
+    - when: manual
+  stage: integration
+  variables:
+    DOCKER_BUILD_ARGS: |
+      BUILD_IMAGE=${CODE_REGISTRY}/devops/images/usgs/node:12
+      FROM_IMAGE=${CODE_REGISTRY}/devops/images/usgs/nginx:latest
+      GIT_BRANCH_NAME=${CI_COMMIT_REF_NAME}
+      GIT_COMMIT_SHA=${CI_COMMIT_SHA}
+      DOCKER_IMAGE=${IMAGE_NAME}
+
+
+## --------------------------------------------------
+## Stage Bundle Artifact
+## --------------------------------------------------
+
+Bundle Artifact:
+  extends:
+    - .bundle
+  variables:
+    APP_DIST_DIR: /usr/share/nginx/html/BASE_HREF
+
+
+## --------------------------------------------------
+## Stage Deliver
+## --------------------------------------------------
+
+Deliver Development West:
+  extends:
+    - .development
+    - .bundle
+    - .tags::build:west:development
+  variables:
+    AWS_Region: us-west-2
+
+# Deliver Staging East:
+#   extends:
+#     - .staging
+#     - .bundle
+#     - .tags::build:east:staging
+#   variables:
+#     AWS_Region: us-east-1
+
+# Deliver Staging West:
+#   extends:
+#     - .staging
+#     - .bundle
+#     - .tags::build:west:staging
+#   variables:
+#     AWS_Region: us-west-2
+
+# Deliver Production East:
+#   extends:
+#     - .production
+#     - .deliver
+#     - .tags::build:east:production
+#   variables:
+#     AWS_Region: us-east-1
+
+# Deliver Production West:
+#   extends:
+#     - .production
+#     - .deliver
+#     - .tags::build:west:production
+#   variables:
+#     AWS_Region: us-west-2
+
+## --------------------------------------------------
+# Deploy Stage
+## --------------------------------------------------
+
+# Production01:
+#   extends:
+#     - .deploy
+#     - .production
+#     - .production01
+
+# Production02:
+#   extends:
+#     - .deploy
+#     - .production
+#     - .production02
+
+Staging01:
+  extends:
+    - .deploy
+    - .staging
+    - .staging01
+
+Staging02:
+  extends:
+    - .deploy
+    - .staging
+    - .staging02
