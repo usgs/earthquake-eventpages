@@ -106,7 +106,6 @@ End to End Tests:
   stage: test
   tags:
     - development
-  when: manual
 
 Lint:
   extends:
