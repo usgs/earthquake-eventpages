@@ -164,8 +164,8 @@ Build Docker Image:
     - .when
   image: ${DEVOPS_REGISTRY}docker:19.03-git
   services:
-    alias: docker
-    name: ${DEVOPS_REGISTRY}docker:19.03-dind
+    - name: ${DEVOPS_REGISTRY}docker:19.03-dind
+      alias: docker
   stage: build
   variables:
     DOCKER_BUILD_ARGS: |
