@@ -117,7 +117,7 @@ Lint:
     - development
 
 Static Vulnerabilities:
-  allow_failure: true # will fail due to outdated angular version
+  allow_failure: true # fails due to outdated angular version
   image: ${CODE_REGISTRY}/devops/images/usgs/node:12
   extends:
     - .install
