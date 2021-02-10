@@ -89,7 +89,7 @@ variables:
 .prod-when:
   rules:
     - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'production'
-      when: manual
+      when: always
 
 
 ## --------------------------------------------------
