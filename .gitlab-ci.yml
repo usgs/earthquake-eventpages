@@ -34,6 +34,16 @@ variables:
   extends:
     - .adjust_image_names
   image: ${CODE_REGISTRY}/ghsc/hazdev/container-deploy:latest
+  parallel:
+    matrix: 
+      - APP_NAME: earthquake-eventpages
+        BASE_HREF: earthquakes/eventpage
+        EVENT_TYPE: actual
+        STACK_NAME: earthquake-eventpages
+      - APP_NAME: scenario-eventpages
+        BASE_HREF: scenarios/eventpage
+        EVENT_TYPE: scenario
+        STACK_NAME: scenario-eventpages
   script:
     - export REGISTRY=${CI_REGISTRY_IMAGE}
     - cp -v
@@ -46,28 +56,10 @@ variables:
   tags:
     - deploy
     - swarm
-  parallel:
-    matrix: 
-      - APP_NAME: earthquake-eventpages
-        STACK_NAME: earthquake-eventpages-dev
-        BASE_HREF: earthquakes/event-dev
-        EVENT_TYPE: actual
-      - APP_NAME: scenario-eventpages
-        STACK_NAME: scenario-eventpages-dev
-        BASE_HREF: scenarios/event-dev
-        EVENT_TYPE: scenario
 
 .install:
   before_script:
     - npm ci
-
-.staging01:
-  tags:
-    - staging01
-
-.staging02:
-  tags:
-    - staging02
 
 .production01:
   tags:
@@ -76,6 +68,14 @@ variables:
 .production02:
   tags:
     - production02
+
+.staging01:
+  tags:
+    - staging01
+
+.staging02:
+  tags:
+    - staging02
 
 .when:
   rules:
@@ -86,101 +86,114 @@ variables:
     - when: manual
       allow_failure: true
 
+.prod-when:
+  rules:
+    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'production'
+      when: manual
+
+
 ## --------------------------------------------------
 # Test Stage
 ## --------------------------------------------------
 
-# End to End Tests:
-#   extends:
-#     - .install
-#     - .when
-#   script:
-#     - npx webdriver-manager update --versions.chrome=2.41 --gecko false
-#     - npm run e2e -- --webdriver-update false
-#   stage: test
-#   tags:
-#     - development
-#   when: manual
+End to End Tests:
+  extends:
+    - .install
+    - .when
+  script:
+    - npx webdriver-manager update --versions.chrome=2.41 --gecko false
+    - npm run e2e -- --webdriver-update false
+  stage: test
+  tags:
+    - development
+  when: manual
 
-# Lint:
-#   extends:
-#     - .install
-#   script: npm run lint
-#   stage: test
-#   tags:
-#     - development
+Lint:
+  extends:
+    - .install
+    - .when
+  script: npm run lint
+  stage: test
+  tags:
+    - development
 
-# Static Vulnerabilities:
-#   allow_failure: true # will fail due to outdated angular version
-#   image: ${CODE_REGISTRY}/devops/images/usgs/node:12
-#   extends:
-#     - .install
-#   script: npm audit
-#   stage: test
-#   tags:
-#     - development
+Static Vulnerabilities:
+  allow_failure: true # will fail due to outdated angular version
+  image: ${CODE_REGISTRY}/devops/images/usgs/node:12
+  extends:
+    - .install
+    - .when
+  script: npm audit
+  stage: test
+  tags:
+    - development
 
-# Unit Test Application:
-#   artifacts:
-#     reports:
-#       cobertura: coverage/cobertura-coverage.xml
-#   extends:
-#     - .install
-#   script:
-#     - npm run test:ci
-#   stage: test
-#   tags:
-#     - development
+Unit Test Application:
+  artifacts:
+    reports:
+      cobertura: coverage/cobertura-coverage.xml
+  extends:
+    - .install
+    - .when
+  script:
+    - npm run test:ci
+  stage: test
+  tags:
+    - development
 
-# Build Production:
-#   extends:
-#     - .install
-#   script:
-#     - npm run build
-#   stage: test
-#   tags:
-#     - development
+Build Production:
+  extends:
+    - .install
+    - .when
+  script:
+    - npm run build
+  stage: test
+  tags:
+    - development
 
 
 ## --------------------------------------------------
 # Build Stage
 ## --------------------------------------------------
 
-# Build Docker Image:
-#   before_script:
-#     - *adjust_image_names_script
-#     - ./scripts/update-metadata.sh
-#   extends:
-#     - .build
-#   image: ${DEVOPS_REGISTRY}docker:19.03-git
-#   services:
-#     name: ${DEVOPS_REGISTRY}docker:19.03-dind
-#     alias: docker
-#   stage: build
-#   variables:
-#     DOCKER_BUILD_ARGS: |
-#       BUILD_IMAGE=${CODE_REGISTRY}/devops/images/usgs/node:12
-#       FROM_IMAGE=${CODE_REGISTRY}/devops/images/usgs/nginx:latest
-#       GIT_BRANCH_NAME=${CI_COMMIT_REF_NAME}
-#       GIT_COMMIT_SHA=${CI_COMMIT_SHA}
-#       DOCKER_IMAGE=${IMAGE_NAME}
+Build Docker Image:
+  before_script:
+    - *adjust_image_names_script
+    - ./scripts/update-metadata.sh
+  extends:
+    - .build
+    - .when
+  image: ${DEVOPS_REGISTRY}docker:19.03-git
+  services:
+    alias: docker
+    name: ${DEVOPS_REGISTRY}docker:19.03-dind
+  stage: build
+  variables:
+    DOCKER_BUILD_ARGS: |
+      BUILD_IMAGE=${CODE_REGISTRY}/devops/images/usgs/node:12
+      DOCKER_IMAGE=${IMAGE_NAME}
+      FROM_IMAGE=${CODE_REGISTRY}/devops/images/usgs/nginx:latest
+      GIT_BRANCH_NAME=${CI_COMMIT_REF_NAME}
+      GIT_COMMIT_SHA=${CI_COMMIT_SHA}
 
 
 ## --------------------------------------------------
 # Deploy Stage
 ## --------------------------------------------------
 
-# Production01:
-#   extends:
-#     - .deploy
-#     - .production
-#     - .production01
+Production01:
+  extends:
+    - .deploy
+    - .production
+    - .production01
+    - .prod-when
 
-# Production02:
-#   extends:
-#     - .deploy
-#     - .production
-#     - .production02
+Production02:
+  extends:
+    - .deploy
+    - .production
+    - .production02
+    - .prod-when
 
 Staging01:
   extends:
