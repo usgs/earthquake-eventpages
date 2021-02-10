@@ -14,7 +14,7 @@ export class GroundFailurePinComponent implements OnInit {
   @Input()
   product: any;
   title = 'Ground Failure';
-  
+
   ngOnInit() {
     console.log(this.product);
   }
