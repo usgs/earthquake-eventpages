@@ -2,11 +2,12 @@ image: ${CODE_REGISTRY}/devops/images/trion/ng-cli-e2e:node10
 
 include:
   - project: 'ghsc/hazdev/pipeline-build-template'
-    ref: 'master'
+    ref: '1.1.5'
     file: 'templates/library.yml'
   - template: 'Workflows/Branch-Pipelines.gitlab-ci.yml'
 
 stages:
+  - install
   - test
   - build
   - deploy
@@ -89,7 +90,22 @@ variables:
 .prod-when:
   rules:
     - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'production'
-      when: always
+      when: manual
+
+
+## --------------------------------------------------
+# Install Stage
+## --------------------------------------------------
+Node Modules Installation:
+  artifacts:
+    paths:
+      - node_modules
+  extends:
+    - .install
+  stage: install
+  tags:
+    - development
+  expire_in: 1 day
 
 
 ## --------------------------------------------------
@@ -98,7 +114,6 @@ variables:
 
 End to End Tests:
   extends:
-    - .install
     - .when
   script:
     - npx webdriver-manager update --versions.chrome=2.41 --gecko false
@@ -109,7 +124,6 @@ End to End Tests:
 
 Lint:
   extends:
-    - .install
     - .when
   script: npm run lint
   stage: test
@@ -120,7 +134,6 @@ Static Vulnerabilities:
   allow_failure: true # fails due to outdated angular version
   image: ${CODE_REGISTRY}/devops/images/usgs/node:12
   extends:
-    - .install
     - .when
   script: npm audit
   stage: test
@@ -132,7 +145,6 @@ Unit Test Application:
     reports:
       cobertura: coverage/cobertura-coverage.xml
   extends:
-    - .install
     - .when
   script:
     - npm run test:ci
@@ -142,7 +154,6 @@ Unit Test Application:
 
 Build Production:
   extends:
-    - .install
     - .when
   script:
     - npm run build
@@ -156,6 +167,9 @@ Build Production:
 ## --------------------------------------------------
 
 Build Docker Image:
+  artifacts:
+    paths:
+      - metadata.json
   before_script:
     - *adjust_image_names_script
     - ./scripts/update-metadata.sh
