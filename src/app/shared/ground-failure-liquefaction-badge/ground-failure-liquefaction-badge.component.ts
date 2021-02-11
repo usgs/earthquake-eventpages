@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'shared-ground-failure-liquefaction-badge',
-  templateUrl: './ground-failure-liquefaction-badge.component.html',
-  styleUrls: ['./ground-failure-liquefaction-badge.component.scss']
+  styleUrls: ['./ground-failure-liquefaction-badge.component.scss'],
+  templateUrl: './ground-failure-liquefaction-badge.component.html'
 })
 export class GroundFailureLiquefactionBadgeComponent {
   @Input()

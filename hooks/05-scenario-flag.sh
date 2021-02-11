@@ -8,4 +8,3 @@ if [ "${EVENT_TYPE}" == 'scenario' ]; then
     "s/scenario:!1/scenario:!0/" \
     ${DOCUMENT_ROOT}/BASE_HREF/main.*.js;
 fi
-

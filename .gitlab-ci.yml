@@ -1,0 +1,219 @@
+image: ${CODE_REGISTRY}/devops/images/trion/ng-cli-e2e:node10
+
+include:
+  - project: 'ghsc/hazdev/pipeline-build-template'
+    ref: '1.1.5'
+    file: 'templates/library.yml'
+  - template: 'Workflows/Branch-Pipelines.gitlab-ci.yml'
+
+stages:
+  - install
+  - test
+  - build
+  - deploy
+
+variables:
+  CI_REGISTRY: ${CODE_REGISTRY}
+  CI_REGISTRY_IMAGE: ${CODE_REGISTRY_IMAGE}
+  IMAGE_NAME: ${CI_PROJECT_NAME}:${CI_COMMIT_REF_SLUG}
+
+
+## --------------------------------------------------
+# Templates
+## --------------------------------------------------
+
+.adjust_image_names_script: &adjust_image_names_script
+  - IMAGE_NAME=${IMAGE_NAME/:master/:latest}
+  - INTERNAL_IMAGE_NAME=${CI_REGISTRY_IMAGE}/${IMAGE_NAME}
+
+.adjust_image_names:
+  before_script:
+    - *adjust_image_names_script
+
+.deploy:
+  cache: {}
+  extends:
+    - .adjust_image_names
+  image: ${CODE_REGISTRY}/ghsc/hazdev/container-deploy:latest
+  parallel:
+    matrix: 
+      - APP_NAME: earthquake-eventpages
+        BASE_HREF: earthquakes/eventpage
+        EVENT_TYPE: actual
+        STACK_NAME: earthquake-eventpages
+      - APP_NAME: scenario-eventpages
+        BASE_HREF: scenarios/eventpage
+        EVENT_TYPE: scenario
+        STACK_NAME: scenario-eventpages
+  script:
+    - export REGISTRY=${CI_REGISTRY_IMAGE}
+    - cp -v
+      /container-deploy/default.config.sh
+      /container-deploy/default.funcs.sh
+      /container-deploy/deploy.sh
+      scripts/.
+    - scripts/deploy.sh
+  stage: deploy
+  tags:
+    - deploy
+    - swarm
+
+.production01:
+  tags:
+    - production01
+
+.production02:
+  tags:
+    - production02
+
+.staging01:
+  tags:
+    - staging01
+
+.staging02:
+  tags:
+    - staging02
+
+.when:
+  rules:
+    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'master'
+      when: on_success
+    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_TAG && $CI_COMMIT_TAG != ''
+      when: on_success
+    - when: manual
+      allow_failure: true
+
+.prod-when:
+  rules:
+    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'production'
+      when: manual
+
+
+## --------------------------------------------------
+# Install Stage
+## --------------------------------------------------
+Node Modules Installation:
+  artifacts:
+    paths:
+      - node_modules
+    expire_in: 1 day
+  stage: install
+  script:
+    - npm ci
+  tags:
+    - development
+
+
+## --------------------------------------------------
+# Test Stage
+## --------------------------------------------------
+
+End to End Tests:
+  extends:
+    - .when
+  script:
+    - npx webdriver-manager update --versions.chrome=2.41 --gecko false
+    - npm run e2e -- --webdriver-update false
+  stage: test
+  tags:
+    - development
+
+Lint:
+  extends:
+    - .when
+  script: npm run lint
+  stage: test
+  tags:
+    - development
+
+Static Vulnerabilities:
+  allow_failure: true # fails due to outdated angular version
+  image: ${CODE_REGISTRY}/devops/images/usgs/node:12
+  extends:
+    - .when
+  script: npm audit
+  stage: test
+  tags:
+    - development
+
+Unit Test Application:
+  artifacts:
+    reports:
+      cobertura: coverage/cobertura-coverage.xml
+  extends:
+    - .when
+  script:
+    - npm run test:ci
+  stage: test
+  tags:
+    - development
+
+Build Production:
+  extends:
+    - .when
+  script:
+    - npm run build
+  stage: test
+  tags:
+    - development
+
+
+## --------------------------------------------------
+# Build Stage
+## --------------------------------------------------
+
+Build Docker Image:
+  artifacts:
+    paths:
+      - metadata.json
+  before_script:
+    - *adjust_image_names_script
+    - ./scripts/update-metadata.sh
+  extends:
+    - .build
+    - .when
+  image: ${DEVOPS_REGISTRY}docker:19.03-git
+  services:
+    - name: ${DEVOPS_REGISTRY}docker:19.03-dind
+      alias: docker
+  stage: build
+  variables:
+    DOCKER_BUILD_ARGS: |
+      BUILD_IMAGE=${CODE_REGISTRY}/devops/images/usgs/node:12
+      DOCKER_IMAGE=${IMAGE_NAME}
+      FROM_IMAGE=${CODE_REGISTRY}/devops/images/usgs/nginx:latest
+      GIT_BRANCH_NAME=${CI_COMMIT_REF_NAME}
+      GIT_COMMIT_SHA=${CI_COMMIT_SHA}
+
+
+## --------------------------------------------------
+# Deploy Stage
+## --------------------------------------------------
+
+Production01:
+  extends:
+    - .deploy
+    - .production
+    - .production01
+    - .prod-when
+
+Production02:
+  extends:
+    - .deploy
+    - .production
+    - .production02
+    - .prod-when
+
+Staging01:
+  extends:
+    - .deploy
+    - .staging
+    - .staging01
+    - .when
+
+Staging02:
+  extends:
+    - .deploy
+    - .staging
+    - .staging02
+    - .when
