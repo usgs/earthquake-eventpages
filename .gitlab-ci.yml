@@ -96,12 +96,12 @@ Node Modules Installation:
   artifacts:
     paths:
       - node_modules
+    expire_in: 1 day
   stage: install
   script:
     - npm ci
   tags:
     - development
-  expire_in: 1 day
 
 
 ## --------------------------------------------------
