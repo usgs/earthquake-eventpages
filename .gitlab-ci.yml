@@ -58,10 +58,6 @@ variables:
     - deploy
     - swarm
 
-.install:
-  before_script:
-    - npm ci
-
 .production01:
   tags:
     - production01
@@ -100,9 +96,9 @@ Node Modules Installation:
   artifacts:
     paths:
       - node_modules
-  extends:
-    - .install
   stage: install
+  script:
+    - npm ci
   tags:
     - development
   expire_in: 1 day
