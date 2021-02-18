@@ -58,43 +58,6 @@ variables:
     - deploy
     - swarm
 
-.production01:
-  tags:
-    - production01
-
-.production02:
-  tags:
-    - production02
-
-.staging01:
-  tags:
-    - staging01
-
-.staging02:
-  tags:
-    - staging02
-
-.when:
-  rules:
-    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'master'
-      when: on_success
-    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_TAG && $CI_COMMIT_TAG != ''
-      when: on_success
-    - when: manual
-      allow_failure: true
-
-.prod-when:
-  rules:
-    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'production'
-      when: manual
-    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_TAG && $CI_COMMIT_TAG != ''
-      when: manual
-
-.staging-when:
-  rules:
-    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'master'
-      when: on_success
-
 
 ## --------------------------------------------------
 # Install Stage
@@ -116,8 +79,6 @@ Node Modules Installation:
 ## --------------------------------------------------
 
 End to End Tests:
-  extends:
-    - .when
   script:
     - npx webdriver-manager update --versions.chrome=2.41 --gecko false
     - npm run e2e -- --webdriver-update false
@@ -126,8 +87,6 @@ End to End Tests:
     - development
 
 Lint:
-  extends:
-    - .when
   script: npm run lint
   stage: test
   tags:
@@ -136,8 +95,6 @@ Lint:
 Static Vulnerabilities:
   allow_failure: true # fails due to outdated angular version
   image: ${CODE_REGISTRY}/devops/images/usgs/node:12
-  extends:
-    - .when
   script: npm audit
   stage: test
   tags:
@@ -147,8 +104,6 @@ Unit Test Application:
   artifacts:
     reports:
       cobertura: coverage/cobertura-coverage.xml
-  extends:
-    - .when
   script:
     - npm run test:ci
   stage: test
@@ -156,8 +111,6 @@ Unit Test Application:
     - development
 
 Build Production:
-  extends:
-    - .when
   script:
     - npm run build
   stage: test
@@ -170,16 +123,16 @@ Build Production:
 ## --------------------------------------------------
 
 Build Docker Image:
-  artifacts:
-    paths:
-      - metadata.json
   before_script:
     - *adjust_image_names_script
     - ./scripts/update-metadata.sh
   extends:
     - .build
-    - .when
   image: ${DEVOPS_REGISTRY}docker:19.03-git
+  rules:
+    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev'
+      when: on_success
+    - when: never
   services:
     - name: ${DEVOPS_REGISTRY}docker:19.03-dind
       alias: docker
@@ -200,27 +153,35 @@ Build Docker Image:
 Production01:
   extends:
     - .deploy
-    - .production
-    - .production01
-    - .prod-when
+    - .production-manual
+  tags:
+    - deploy
+    - swarm
+    - production01
 
 Production02:
   extends:
     - .deploy
-    - .production
-    - .production02
-    - .prod-when
+    - .production-manual
+  tags:
+    - deploy
+    - swarm
+    - production02
 
 Staging01:
   extends:
     - .deploy
     - .staging
-    - .staging01
-    - .staging-when
+  tags:
+    - deploy
+    - swarm
+    - staging01
 
 Staging02:
   extends:
     - .deploy
     - .staging
-    - .staging02
-    - .staging-when
+  tags:
+    - deploy
+    - swarm
+    - staging02
