@@ -87,6 +87,13 @@ variables:
   rules:
     - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'production'
       when: manual
+    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_TAG && $CI_COMMIT_TAG != ''
+      when: manual
+
+.staging-when:
+  rules:
+    - if: $CI_PROJECT_NAMESPACE == 'ghsc/hazdev' && $CI_COMMIT_REF_NAME == 'master'
+      when: on_success
 
 
 ## --------------------------------------------------
@@ -209,11 +216,11 @@ Staging01:
     - .deploy
     - .staging
     - .staging01
-    - .when
+    - .staging-when
 
 Staging02:
   extends:
     - .deploy
     - .staging
     - .staging02
-    - .when
+    - .staging-when
