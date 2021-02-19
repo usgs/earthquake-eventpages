@@ -1,4 +1,4 @@
-image: ${CODE_REGISTRY}/devops/images/usgs/ng-cli-e2e:node10
+image: ${CODE_REGISTRY}/devops/images/usgs/ng-cli-e2e:latest
 
 include:
   - project: 'ghsc/hazdev/pipeline-build-template'
@@ -63,8 +63,9 @@ variables:
 End to End Tests:
   script:
     - npm ci
-    - npx webdriver-manager update --versions.chrome=2.41 --gecko false
-    - npm run e2e -- --webdriver-update false
+    # download version of chromedriver that matches installed version of chrome
+    - npx webdriver-manager update --versions.chrome=$(google-chrome --version | grep Chrome | awk '{ print $3}')
+    - npm run e2e
   stage: test
   tags:
     - development
