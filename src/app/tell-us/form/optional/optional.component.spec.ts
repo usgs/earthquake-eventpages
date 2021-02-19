@@ -4,6 +4,7 @@ import { MockComponent } from 'ng2-mock-component';
 
 import { OptionalComponent } from './optional.component';
 import { MockPipe } from 'app/mock-pipe';
+import { KeysPipe } from '@shared/keys.pipe';
 
 describe('OptionalComponent', () => {
   let component: OptionalComponent;
@@ -13,7 +14,7 @@ describe('OptionalComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         OptionalComponent,
-
+        KeysPipe,
         MockComponent({
           inputs: [
             'label',
@@ -24,8 +25,7 @@ describe('OptionalComponent', () => {
             'options'
           ],
           selector: 'tell-us-question'
-        }),
-        MockPipe('keys')
+        })
       ]
     }).compileComponents();
   }));

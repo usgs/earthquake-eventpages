@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { MockComponent } from 'ng2-mock-component';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 import { LocationComponent } from './location.component';
 import { FormatterService } from '@core/formatter.service';

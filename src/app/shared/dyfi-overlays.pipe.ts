@@ -18,11 +18,14 @@ export class DyfiOverlaysPipe implements PipeTransform {
    */
   transform(product: any): Array<L.Layer> {
     const overlays = [];
-    if (product.contents['dyfi_geo_1km.geojson']) {
-      overlays.push(new DyfiResponseOverlay(product, 1));
-    }
-    if (product.contents['dyfi_geo_10km.geojson']) {
-      overlays.push(new DyfiResponseOverlay(product, 10));
+
+    if (product && product.contents) {
+      if (product.contents['dyfi_geo_1km.geojson']) {
+        overlays.push(new DyfiResponseOverlay(product, 1));
+      }
+      if (product.contents['dyfi_geo_10km.geojson']) {
+        overlays.push(new DyfiResponseOverlay(product, 10));
+      }
     }
 
     return overlays;

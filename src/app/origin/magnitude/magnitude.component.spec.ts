@@ -4,7 +4,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 
 import { MockComponent } from 'ng2-mock-component';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 import { EventService } from '@core/event.service';
 import { QuakemlService } from '@core/quakeml.service';

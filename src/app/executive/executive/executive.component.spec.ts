@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 import { ContributorService } from '@core/contributor.service';
 import { EventService } from '@core/event.service';

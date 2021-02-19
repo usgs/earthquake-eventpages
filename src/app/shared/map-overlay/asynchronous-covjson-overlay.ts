@@ -40,11 +40,12 @@ const AsynchronousCovJSONOverlay = L.LayerGroup.extend({
    */
   addCoverage: function (coverage) {
     const selectedParam = coverage.parameters.get(this.coverageParam);
+    const palette = (selectedParam && selectedParam.preferredPalette) || {};
 
     const layer = C.dataLayer(coverage, {
       opacity: .4,
-      palette: C.paletteFromObject(selectedParam.preferredPalette),
-      paletteExtent: selectedParam.preferredPalette.extent,
+      palette: C.paletteFromObject(palette),
+      paletteExtent: palette.extent,
       parameter: this.coverageParam
     });
 

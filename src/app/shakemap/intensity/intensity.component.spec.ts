@@ -4,7 +4,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 import { EventService } from '@core/event.service';
 import { Event } from '../../event';

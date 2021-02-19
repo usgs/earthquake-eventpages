@@ -42,7 +42,7 @@ const UtfGrid = L.Layer.extend({
       i++;
     }
     this._windowKey = 'lu' + i;
-    window[this._windowKey] = {};
+    window['lu' + i] = {};
 
     const subdomains = this.options.subdomains;
     if (typeof this.options.subdomains === 'string') {

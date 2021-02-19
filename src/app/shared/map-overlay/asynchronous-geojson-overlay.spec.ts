@@ -1,6 +1,5 @@
 import * as L from 'leaflet';
-import { _throw } from 'rxjs/observable/throw';
-import { of } from 'rxjs/observable/of';
+import { of, throwError } from 'rxjs';
 
 import { AsynchronousGeoJSONOverlay } from './asynchronous-geojson-overlay';
 
@@ -91,7 +90,7 @@ describe('AsynchronousGeoJSONOverlay', () => {
     it('handles url get failure', () => {
       overlay.url = 'url';
       overlay.httpClient = {
-        get: url => _throw('TESTING ERROR')
+        get: url => throwError('TESTING ERROR')
       };
 
       overlay.loadData();

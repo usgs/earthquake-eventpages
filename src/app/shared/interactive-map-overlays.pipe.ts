@@ -61,11 +61,11 @@ export class InteractiveMapOverlaysPipe implements PipeTransform {
    *
    * @return {Array<L.Layer>}
    */
-  getOverlays(event: Event, params: ParamMap, type: string): Array<L.Layer> {
+  getOverlays(event: Event, params: ParamMap, type: string): L.Layer[] {
     const product = this.getProduct(event, params, type);
 
     // get/cache overlays for product
-    const cache = this.overlayCache[type] || {};
+    const cache = this.overlayCache[type] || {overlays: [], product: null};
     if (cache.product !== product) {
       cache.product = product;
       cache.overlays = this.overlayFactory[type].transform(product);

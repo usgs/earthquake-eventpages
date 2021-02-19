@@ -6,7 +6,7 @@ import { AbstractForm } from '../abstract-form.component.js';
 @Component({
   selector: 'tell-us-form-optional',
   styleUrls: ['./optional.component.scss'],
-  templateUrl: './optional.component.html'
+  templateUrl: './optional.component.html',
 })
 export class OptionalComponent extends AbstractForm {
   questions = QuestionData;
