@@ -13,7 +13,8 @@
     "test:ci": "ng test --watch=false --code-coverage --progress false",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "stats": "ng build --prod --stats-json && npx webpack-bundle-analyzer dist/stats.json"
+    "stats": "ng build --prod --stats-json && npx webpack-bundle-analyzer dist/stats.json",
+    "update-metadata": "node update-metadata.js"
   },
   "private": true,
   "dependencies": {
