@@ -53,12 +53,12 @@ export class ResponsesComponent implements OnInit, OnDestroy {
   };
   headers = ['name', 'cdi', 'nresp', 'dist', 'lat', 'lon'];
   loaded = false;
-  @ViewChild(MatPaginator)
+  @ViewChild(MatPaginator, { static: false })
   paginator: MatPaginator;
   paginatorSizes = [10, 20, 50, 100, 1000];
   responses = new MatTableDataSource(null);
   responsesArray = [];
-  @ViewChild(MatSort)
+  @ViewChild(MatSort, { static: false })
   sort: MatSort;
   subs = new Subscription();
 

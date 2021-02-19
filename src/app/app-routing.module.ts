@@ -17,7 +17,7 @@ const appRoutes = [
   {
     children: [
       {
-        loadChildren: './not-found/not-found.module#NotFoundModule',
+        loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule),
         path: ''
       }
     ],
@@ -27,7 +27,7 @@ const appRoutes = [
   {
     children: [
       {
-        loadChildren: './tell-us/tell-us.module#TellUsModule',
+        loadChildren: () => import('./tell-us/tell-us.module').then(m => m.TellUsModule),
         path: ''
       }
     ],
@@ -54,65 +54,65 @@ const appRoutes = [
         path: 'region-info'
       },
       {
-        loadChildren: './impact/impact.module#ImpactModule',
+        loadChildren: () => import('./impact/impact.module').then(m => m.ImpactModule),
         path: 'impact'
       },
       {
-        loadChildren: './tell-us/tell-us.module#TellUsModule',
+        loadChildren: () => import('./tell-us/tell-us.module').then(m => m.TellUsModule),
         path: 'tellus'
       },
       {
-        loadChildren: './shakemap/shakemap.module#ShakemapModule',
+        loadChildren: () => import('./shakemap/shakemap.module').then(m => m.ShakemapModule),
         path: 'shakemap'
       },
       {
-        loadChildren: './dyfi/dyfi.module#DyfiModule',
+        loadChildren: () => import('./dyfi/dyfi.module').then(m => m.DyfiModule),
         path: 'dyfi'
       },
       {
-        loadChildren: './pager/pager.module#PagerModule',
+        loadChildren: () => import('./pager/pager.module').then(m => m.PagerModule),
         path: 'pager'
       },
       {
         loadChildren:
-          './ground-failure/ground-failure.module#GroundFailureModule',
+          () => import('./ground-failure/ground-failure.module').then(m => m.GroundFailureModule),
         path: 'ground-failure'
       },
       {
-        loadChildren: './technical/technical.module#TechnicalModule',
+        loadChildren: () => import('./technical/technical.module').then(m => m.TechnicalModule),
         path: 'technical'
       },
       {
-        loadChildren: './origin/origin.module#OriginModule',
+        loadChildren: () => import('./origin/origin.module').then(m => m.OriginModule),
         path: 'origin'
       },
       {
-        loadChildren: './moment-tensor/moment-tensor.module#MomentTensorModule',
+        loadChildren: () => import('./moment-tensor/moment-tensor.module').then(m => m.MomentTensorModule),
         path: 'moment-tensor'
       },
       {
         loadChildren:
-          './focal-mechanism/focal-mechanism.module#FocalMechanismModule',
+          () => import('./focal-mechanism/focal-mechanism.module').then(m => m.FocalMechanismModule),
         path: 'focal-mechanism'
       },
       {
-        loadChildren: './oaf/oaf.module#OafModule',
+        loadChildren: () => import('./oaf/oaf.module').then(m => m.OafModule),
         path: 'oaf'
       },
       {
-        loadChildren: './finite-fault/finite-fault.module#FiniteFaultModule',
+        loadChildren: () => import('./finite-fault/finite-fault.module').then(m => m.FiniteFaultModule),
         path: 'finite-fault'
       },
       {
-        loadChildren: './waveforms/waveforms.module#WaveformsModule',
+        loadChildren: () => import('./waveforms/waveforms.module').then(m => m.WaveformsModule),
         path: 'waveforms'
       },
       {
-        loadChildren: './shake-alert/shake-alert.module#ShakeAlertModule',
+        loadChildren: () => import('./shake-alert/shake-alert.module').then(m => m.ShakeAlertModule),
         path: 'shake-alert'
       },
       {
-        loadChildren: './wildcard/wildcard.module#WildcardModule',
+        loadChildren: () => import('./wildcard/wildcard.module').then(m => m.WildcardModule),
         path: '**'
       }
     ],

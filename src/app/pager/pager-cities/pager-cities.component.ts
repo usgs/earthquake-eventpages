@@ -26,7 +26,7 @@ export class PagerCitiesComponent {
   @Input()
   pager: any;
 
-  @ViewChild('citiesTable', { read: ElementRef })
+  @ViewChild('citiesTable', { read: ElementRef, static: false })
   tableEl: ElementRef;
 
   /**

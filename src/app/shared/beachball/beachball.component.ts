@@ -33,7 +33,7 @@ import { Tensor } from './tensor';
   templateUrl: './beachball.component.html'
 })
 export class BeachballComponent implements OnChanges {
-  @ViewChild('beachball')
+  @ViewChild('beachball', { static: true })
   elementRef: ElementRef;
   @Input()
   fillColor = '#ddd';

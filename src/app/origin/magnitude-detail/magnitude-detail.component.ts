@@ -46,7 +46,7 @@ export class MagnitudeDetailComponent implements AfterViewInit {
 
   // sort object from mat-table in view
   // bound to dataSource in ngAfterViewInit
-  @ViewChild(MatSort)
+  @ViewChild(MatSort, { static: true })
   sort: MatSort;
 
   constructor(public dialog: MatDialog) {
