@@ -7,7 +7,6 @@ include:
   - template: 'Workflows/Branch-Pipelines.gitlab-ci.yml'
 
 stages:
-  - install
   - test
   - build
   - deploy
@@ -58,26 +57,12 @@ variables:
 
 
 ## --------------------------------------------------
-# Install Stage
-## --------------------------------------------------
-Node Modules Installation:
-  artifacts:
-    paths:
-      - node_modules
-    expire_in: 1 day
-  stage: install
-  script:
-    - npm ci
-  tags:
-    - development
-
-
-## --------------------------------------------------
 # Test Stage
 ## --------------------------------------------------
 
 End to End Tests:
   script:
+    - npm ci
     - npx webdriver-manager update --versions.chrome=2.41 --gecko false
     - npm run e2e -- --webdriver-update false
   stage: test
@@ -86,6 +71,7 @@ End to End Tests:
 
 Lint:
   script:
+    - npm ci
     - npm run lint
   stage: test
   tags:
@@ -105,6 +91,7 @@ Unit Test Application:
     reports:
       cobertura: coverage/cobertura-coverage.xml
   script:
+    - npm ci
     - npm run test:ci
   stage: test
   tags:
@@ -112,6 +99,7 @@ Unit Test Application:
 
 Build Production:
   script:
+    - npm ci
     - npm run build
   stage: test
   tags:
