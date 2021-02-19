@@ -1,9 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  MatIconModule,
-  MatCardModule,
-  MatExpansionModule
-} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 
 import { MockComponent } from 'ng2-mock-component';
 import { of } from 'rxjs/observable/of';

@@ -1,14 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, Injector } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
-import {
-  MatButtonModule,
-  MatDialogModule,
-  MatIconModule,
-  MatExpansionModule,
-  MatCardModule,
-  MatTableModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 
 import { AlertLevelComponent } from './alert-level/alert-level.component';

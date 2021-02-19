@@ -5,12 +5,10 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {
-  MatSort,
-  MatTableDataSource,
-  MatPaginator,
-  MatDialog
-} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 
 import { EventService } from '@core/event.service';

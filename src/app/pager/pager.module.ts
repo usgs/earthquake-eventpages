@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatCheckboxModule, MatTableModule } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTableModule } from '@angular/material/table';
 
 import { ProductPageModule } from '../product-page/product-page.module';
 import { SharedModule } from '@shared/shared.module';

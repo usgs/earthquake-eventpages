@@ -1,9 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  MatCardModule,
-  MatExpansionModule,
-  MatTableModule
-} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableModule } from '@angular/material/table';
 
 import { MockPipe } from '../../mock-pipe';
 import { MockComponent } from 'ng2-mock-component';
