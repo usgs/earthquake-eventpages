@@ -7,6 +7,7 @@ include:
   - template: 'Workflows/Branch-Pipelines.gitlab-ci.yml'
 
 stages:
+  - install
   - test
   - build
   - deploy
@@ -56,13 +57,29 @@ variables:
     - swarm
 
 
+
+## --------------------------------------------------
+# install Stage
+## --------------------------------------------------
+
+Node Modules Installation:
+  artifacts:
+    paths:
+      - node_modules
+    expire_in: 1 week
+  stage: install
+  script:
+    - npm ci
+  tags:
+    - development
+
+
 ## --------------------------------------------------
 # Test Stage
 ## --------------------------------------------------
 
 End to End Tests:
   script:
-    - npm ci
     # download version of chromedriver that matches installed version of chrome
     - npx webdriver-manager update --versions.chrome=$(google-chrome --version | grep Chrome | awk '{ print $3}')
     - npm run e2e
@@ -72,7 +89,6 @@ End to End Tests:
 
 Lint:
   script:
-    - npm ci
     - npm run lint
   stage: test
   tags:
@@ -92,7 +108,6 @@ Unit Test Application:
     reports:
       cobertura: coverage/cobertura-coverage.xml
   script:
-    - npm ci
     - npm run test:ci
   stage: test
   tags:
@@ -100,7 +115,6 @@ Unit Test Application:
 
 Build Production:
   script:
-    - npm ci
     - npm run build
   stage: test
   tags:
