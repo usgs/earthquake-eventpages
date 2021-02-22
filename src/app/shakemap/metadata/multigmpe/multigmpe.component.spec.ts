@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatTableModule, MatExpansionModule } from '@angular/material';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableModule } from '@angular/material/table';
 
 import { MockPipe } from '../../../mock-pipe';
 import { MultiGmpeComponent } from './multigmpe.component';

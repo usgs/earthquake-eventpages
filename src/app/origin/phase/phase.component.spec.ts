@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MatTableModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 import { EventService } from '@core/event.service';
 import { QuakemlService } from '@core/quakeml.service';

@@ -1,4 +1,4 @@
-image: ${CODE_REGISTRY}/devops/images/trion/ng-cli-e2e:node10
+image: ${CODE_REGISTRY}/devops/images/usgs/ng-cli-e2e:latest
 
 include:
   - project: 'ghsc/hazdev/pipeline-build-template'
@@ -15,6 +15,7 @@ stages:
 variables:
   CI_REGISTRY: ${CODE_REGISTRY}
   CI_REGISTRY_IMAGE: ${CODE_REGISTRY_IMAGE}
+  DOCKER_DRIVER: overlay2
   IMAGE_NAME: ${CI_PROJECT_NAME}:${CI_COMMIT_REF_SLUG}
 
 
@@ -22,13 +23,10 @@ variables:
 # Templates
 ## --------------------------------------------------
 
-.adjust_image_names_script: &adjust_image_names_script
-  - IMAGE_NAME=${IMAGE_NAME/:master/:latest}
-  - INTERNAL_IMAGE_NAME=${CI_REGISTRY_IMAGE}/${IMAGE_NAME}
-
 .adjust_image_names:
   before_script:
-    - *adjust_image_names_script
+    - IMAGE_NAME=${IMAGE_NAME/:master/:latest}
+    - INTERNAL_IMAGE_NAME=${CI_REGISTRY_IMAGE}/${IMAGE_NAME}
 
 .deploy:
   cache: {}
@@ -36,7 +34,7 @@ variables:
     - .adjust_image_names
   image: ${CODE_REGISTRY}/ghsc/hazdev/container-deploy:latest
   parallel:
-    matrix: 
+    matrix:
       - APP_NAME: earthquake-eventpages
         BASE_HREF: earthquakes/eventpage
         EVENT_TYPE: actual
@@ -59,14 +57,16 @@ variables:
     - swarm
 
 
+
 ## --------------------------------------------------
-# Install Stage
+# install Stage
 ## --------------------------------------------------
+
 Node Modules Installation:
   artifacts:
     paths:
       - node_modules
-    expire_in: 1 day
+    expire_in: 1 week
   stage: install
   script:
     - npm ci
@@ -80,14 +80,16 @@ Node Modules Installation:
 
 End to End Tests:
   script:
-    - npx webdriver-manager update --versions.chrome=2.41 --gecko false
-    - npm run e2e -- --webdriver-update false
+    # download version of chromedriver that matches installed version of chrome
+    - npx webdriver-manager update --versions.chrome=$(google-chrome --version | grep Chrome | awk '{ print $3}')
+    - npm run e2e
   stage: test
   tags:
     - development
 
 Lint:
-  script: npm run lint
+  script:
+    - npm run lint
   stage: test
   tags:
     - development
@@ -95,7 +97,8 @@ Lint:
 Static Vulnerabilities:
   allow_failure: true # fails due to outdated angular version
   image: ${CODE_REGISTRY}/devops/images/usgs/node:12
-  script: npm audit
+  script:
+    - npm audit
   stage: test
   tags:
     - development
@@ -123,10 +126,8 @@ Build Production:
 ## --------------------------------------------------
 
 Build Docker Image:
-  before_script:
-    - *adjust_image_names_script
-    - ./scripts/update-metadata.sh
   extends:
+    - .adjust_image_names
     - .build
   image: ${DEVOPS_REGISTRY}docker:19.03-git
   rules:

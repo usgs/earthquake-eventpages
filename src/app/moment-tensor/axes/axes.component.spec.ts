@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatTableModule } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
 
 import { MockPipe } from '../../mock-pipe';
 import { Tensor } from '@shared/beachball/tensor';

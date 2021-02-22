@@ -5,7 +5,9 @@ import {
   Input,
   ViewChild
 } from '@angular/core';
-import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { DownloadDialogComponent } from '@shared/download-dialog/download-dialog.component';
 
@@ -46,7 +48,7 @@ export class MagnitudeDetailComponent implements AfterViewInit {
 
   // sort object from mat-table in view
   // bound to dataSource in ngAfterViewInit
-  @ViewChild(MatSort)
+  @ViewChild(MatSort, { static: true })
   sort: MatSort;
 
   constructor(public dialog: MatDialog) {

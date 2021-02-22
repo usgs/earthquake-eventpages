@@ -1,14 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  MatButtonModule,
-  MatCardModule,
-  MatDividerModule,
-  MatListModule
-} from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { MockComponent } from 'ng2-mock-component';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 import { ContributorService } from '@core/contributor.service';
 import { EventService } from '@core/event.service';

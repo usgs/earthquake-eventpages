@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 
 import { OafService } from '../oaf.service';
 import { ModelComponent } from './model.component';

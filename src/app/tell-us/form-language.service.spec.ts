@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, async } from '@angular/core/testing';
 
 import { FormLanguageService } from './form-language.service';
 
@@ -17,16 +17,24 @@ describe('FormLanguageService', () => {
   ));
 
   describe('getLanguage', () => {
-    it('finds languages by id', inject(
+    it('finds languages by id', async(inject(
       [FormLanguageService],
       (service: FormLanguageService) => {
-        spyOn(service.language$, 'next');
+        // spyOn(service.language$, 'next');
+        let first = true;
+        service.language$.subscribe((value) => {
+          console.log(value.id);
+          if (first) {
+            // first value is default
+            first = false;
+          } else {
+            expect(value.id).toEqual(service.languages[1].id);
+          }
+        });
+        // now trigger es load
         service.getLanguage('es');
-        expect(service.language$.next).toHaveBeenCalledWith(
-          service.languages[1]
-        );
       }
-    ));
+    )));
 
     it('defaults to english', inject(
       [FormLanguageService],

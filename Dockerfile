@@ -7,6 +7,10 @@ ARG FROM_IMAGE=usgs/nginx
 ##
 FROM ${BUILD_IMAGE} as buildenv
 
+# environment for metadatajson
+ENV DOCKER_IMAGE=${DOCKER_IMAGE} \
+    GIT_BRANCH_NAME=${GIT_BRANCH_NAME} \
+    GIT_COMMIT_SHA=${GIT_COMMIT_SHA}
 
 COPY --chown=usgs-user:usgs-user . /earthquake-eventpages
 WORKDIR /earthquake-eventpages
@@ -14,8 +18,9 @@ WORKDIR /earthquake-eventpages
 # Re-build within image. Comment out if pre-built externally
 # (i.e. for quick dev builds)
 RUN /bin/bash --login -c "\
-    npm install --no-save && \
-    npm run build -- --progress false --base-href /BASE_HREF/ \
+    npm install --no-save \
+    && npm run build -- --progress false --base-href /BASE_HREF/ \
+    && npm run update-metadata \
     "
 
 ##
@@ -34,11 +39,11 @@ ENV BASE_HREF="${BASE_HREF}" \
 LABEL maintainer="Eric Martinez <emartinez@usgs.gov>"
 
 USER root
-RUN rm -rf ${DOCUMENT_ROOT}/ && \
-    mkdir -p ${DOCUMENT_ROOT}/BASE_HREF && \
-    chown usgs-user:usgs-user ${HEALTHCHECK_SCRIPT} && \
-    chown -R usgs-user:usgs-user /usr/share/nginx && \
-    chown -R usgs-user:usgs-user /etc/nginx
+RUN rm -rf ${DOCUMENT_ROOT}/ \
+    && mkdir -p ${DOCUMENT_ROOT}/BASE_HREF \
+    && chown usgs-user:usgs-user ${HEALTHCHECK_SCRIPT} \
+    && chown -R usgs-user:usgs-user /usr/share/nginx \
+    && chown -R usgs-user:usgs-user /etc/nginx
 USER usgs-user
 
 COPY --chown=usgs-user:usgs-user hooks /startup-hooks/
@@ -53,7 +58,7 @@ COPY --from=buildenv \
     /earthquake-eventpages/metadata.json \
     ${DOCUMENT_ROOT}/BASE_HREF/metadata.json
 
-RUN cd ${DOCUMENT_ROOT}/BASE_HREF && \
-    ls *.{js,css} > ${DOCUMENT_ROOT}/BASE_HREF/assets.txt
+RUN cd ${DOCUMENT_ROOT}/BASE_HREF \
+    && ls *.{js,css} > ${DOCUMENT_ROOT}/BASE_HREF/assets.txt
 
 WORKDIR /usr/share/nginx

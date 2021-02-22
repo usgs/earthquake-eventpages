@@ -3,8 +3,10 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "declaration": false,
+    "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "lib": ["es2017", "dom"],
     "outDir": "./dist/out-tsc",
@@ -14,7 +16,7 @@
       "@shared/*": ["./app/shared/*"]
     },
     "sourceMap": true,
-    "target": "es5",
+    "target": "es2015",
     "typeRoots": ["node_modules/@types"]
   }
 }

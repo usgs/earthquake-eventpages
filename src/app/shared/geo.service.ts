@@ -48,9 +48,9 @@ export interface ArcGisSpatialReference {
  */
 export interface Location {
   address: string;
-  confidence: number;
-  latitude: number;
-  longitude: number;
+  confidence?: number;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface LocationError {

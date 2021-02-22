@@ -5,12 +5,10 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {
-  MatSort,
-  MatTableDataSource,
-  MatPaginator,
-  MatDialog
-} from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 
 import { EventService } from '@core/event.service';
@@ -53,12 +51,12 @@ export class ResponsesComponent implements OnInit, OnDestroy {
   };
   headers = ['name', 'cdi', 'nresp', 'dist', 'lat', 'lon'];
   loaded = false;
-  @ViewChild(MatPaginator)
+  @ViewChild(MatPaginator, { static: false })
   paginator: MatPaginator;
   paginatorSizes = [10, 20, 50, 100, 1000];
   responses = new MatTableDataSource(null);
   responsesArray = [];
-  @ViewChild(MatSort)
+  @ViewChild(MatSort, { static: false })
   sort: MatSort;
   subs = new Subscription();
 

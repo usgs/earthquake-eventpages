@@ -49,7 +49,7 @@ export class MapComponent implements AfterViewInit {
   layersControl: L.Control.Layers;
   legendControl: L.Control;
   map: L.Map;
-  @ViewChild('mapWrapper')
+  @ViewChild('mapWrapper', { static: true })
   mapWrapper: ElementRef;
   mousePositionControl: L.Control;
   // overlays currently part of the layers control

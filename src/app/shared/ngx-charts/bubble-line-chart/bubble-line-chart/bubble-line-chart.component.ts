@@ -1,10 +1,13 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChild,
+  ElementRef,
   EventEmitter,
   HostListener,
   Input,
+  NgZone,
   Output,
   TemplateRef,
   ViewChild,
@@ -196,14 +199,18 @@ export class BubbleLineChartComponent extends BaseChartComponent {
   @Output()
   deactivate: EventEmitter<any> = new EventEmitter();
 
-  @ContentChild('tooltipTemplate')
+  @ContentChild('tooltipTemplate', {static: false})
   tooltipTemplate: TemplateRef<any>;
-  @ContentChild('seriesTooltipTemplate')
+  @ContentChild('seriesTooltipTemplate', {static: false})
   seriesTooltipTemplate: TemplateRef<any>;
 
-  @ViewChild(LineSeriesComponent)
+  @ViewChild(LineSeriesComponent, { static: false })
   lineSeriesComponent: LineSeriesComponent;
 
+
+  constructor(chartElement: ElementRef, zone: NgZone, cd: ChangeDetectorRef) {
+    super(chartElement, zone, cd);
+  }
 
   /**
    * Emits deactivate event from all active entries
