@@ -23,7 +23,6 @@
 
     <h3>Data Process and Inversion</h3>
     <p>
-      We used GSN broadband waveforms downloaded from the NEIC waveform server.
       We analyzed
       {{ product | sharedProductProperty: 'number-pwaves' }} teleseismic
       broadband P waveforms,
@@ -50,26 +49,30 @@
 
     <h3>Result</h3>
     <p>
-      After comparing waveform fits based on the two planes of the input moment
-      tensor, we find that the nodal plane ( strike =
-      {{ product | sharedProductProperty: 'model-strike' | sharedDegrees: 1 }},
+      This result is based on the moment tensor nodal plane ( strike =
+      {{ product | sharedProductProperty: 'model-strike' | sharedDegrees: 1 }}
       dip =
-      {{ product | sharedProductProperty: 'model-dip' | sharedDegrees: 1 }} )
-      fits the data better. The seismic moment release based upon this plane is
+      {{ product | sharedProductProperty: 'model-dip' | sharedDegrees: 1 }} ).
+      The seismic moment release based upon this plane is
       {{
         (+(product | sharedProductProperty: 'scalar-moment')).toExponential(1)
       }}
-      dyne-cm (Mw =
+      N-m (Mw =
       {{
         product | sharedProductProperty: 'derived-magnitude' | sharedNumber: 1
       }}) using a 1D crustal model interpolated from CRUST2.0 (Bassin et al.,
       2000).
     </p>
 
-    <result-table
-      *ngIf="(product | createSegments) as segments"
-      [segments]="segments"
-    ></result-table>
+    <ng-container *ngIf="(product | createSegments) as segments">
+      <p>
+        This solution uses {{segments.length}} plane segments (see Table below)
+        designed to match a priori knowledge of the fault (e.g. 3D slab
+        geometry).
+      </p>
+
+      <result-table [segments]="segments"></result-table>
+    </ng-container>
 
     <h3>Cross-section of Slip Distribution</h3>
     <figure

@@ -18,7 +18,6 @@ variables:
   DOCKER_DRIVER: overlay2
   IMAGE_NAME: ${CI_PROJECT_NAME}:${CI_COMMIT_REF_SLUG}
 
-
 ## --------------------------------------------------
 # Templates
 ## --------------------------------------------------
@@ -56,8 +55,6 @@ variables:
     - deploy
     - swarm
 
-
-
 ## --------------------------------------------------
 # install Stage
 ## --------------------------------------------------
@@ -73,10 +70,16 @@ Node Modules Installation:
   tags:
     - development
 
-
 ## --------------------------------------------------
 # Test Stage
 ## --------------------------------------------------
+
+Build Application:
+  script:
+    - npm run build
+  stage: test
+  tags:
+    - development
 
 End to End Tests:
   script:
@@ -94,16 +97,16 @@ Lint:
   tags:
     - development
 
-Static Vulnerabilities:
+NPM Audit:
   allow_failure: true # fails due to outdated angular version
   image: ${CODE_REGISTRY}/devops/images/usgs/node:12
   script:
-    - npm audit
+    - npm audit --prod
   stage: test
   tags:
     - development
 
-Unit Test Application:
+Unit Tests:
   artifacts:
     reports:
       cobertura: coverage/cobertura-coverage.xml
@@ -112,14 +115,6 @@ Unit Test Application:
   stage: test
   tags:
     - development
-
-Build Production:
-  script:
-    - npm run build
-  stage: test
-  tags:
-    - development
-
 
 ## --------------------------------------------------
 # Build Stage
@@ -145,7 +140,6 @@ Build Docker Image:
       FROM_IMAGE=${CODE_REGISTRY}/devops/images/usgs/nginx:latest
       GIT_BRANCH_NAME=${CI_COMMIT_REF_NAME}
       GIT_COMMIT_SHA=${CI_COMMIT_SHA}
-
 
 ## --------------------------------------------------
 # Deploy Stage
