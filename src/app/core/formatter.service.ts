@@ -227,11 +227,12 @@ export class FormatterService {
   location(
     latitude: number,
     longitude: number,
-    decimals = this.locationDecimals
+    decimals: number = this.locationDecimals,
+    separator: string = ' '
   ): string {
     return (
       this.latitude(latitude, decimals) +
-      ' ' +
+      separator +
       this.longitude(longitude, decimals)
     );
   }

@@ -39,8 +39,8 @@
         [
           product | sharedProductProperty: 'longitude',
           product | sharedProductProperty: 'latitude'
-        ] | sharedLocation: 1
-      }}, depth =
+        ] | sharedLocation: 1 : ', '
+      }}; depth =
       {{ product | sharedProductProperty: 'depth' | sharedNumber: 1 }} km ), and
       a fault plane defined using either the rapid W-Phase moment tensor (for
       near-real time solutions), or the gCMT moment tensor (for historic
@@ -50,7 +50,7 @@
     <h3>Result</h3>
     <p>
       This result is based on the moment tensor nodal plane ( strike =
-      {{ product | sharedProductProperty: 'model-strike' | sharedDegrees: 1 }}
+      {{ product | sharedProductProperty: 'model-strike' | sharedDegrees: 1 }};
       dip =
       {{ product | sharedProductProperty: 'model-dip' | sharedDegrees: 1 }} ).
       The seismic moment release based upon this plane is
