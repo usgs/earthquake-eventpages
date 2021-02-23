@@ -19,7 +19,7 @@ export class LocationPipe implements PipeTransform {
    * @return { string }
    *     formatted location
    */
-  transform(coordinates: any[], precision?: number): string {
+  transform(coordinates: any[], precision?: number, separator: string = ' '): string {
     let latitude, longitude;
 
     try {
@@ -30,6 +30,6 @@ export class LocationPipe implements PipeTransform {
       longitude = NaN;
     }
 
-    return this.formatter.location(latitude, longitude, precision);
+    return this.formatter.location(latitude, longitude, precision, separator);
   }
 }
