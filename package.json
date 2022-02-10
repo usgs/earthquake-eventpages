@@ -67,7 +67,7 @@
     "karma-verbose-reporter": "0.0.6",
     "ng-apimock": "^1.4.7",
     "ng2-mock-component": "^0.1.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "protractor": "^7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
