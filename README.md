@@ -1,9 +1,12 @@
 # Earthquake Event Pages
 
-[![Build Status](https://travis-ci.org/usgs/earthquake-eventpages.svg?branch=master)](https://travis-ci.org/usgs/earthquake-eventpages)
-[![Quality Badge](https://api.codacy.com/project/badge/Grade/530313b3177648c2b31eec342c47e719)](https://www.codacy.com/app/usgs/earthquake-eventpages?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=usgs/earthquake-eventpages&amp;utm_campaign=Badge_Grade)
-[![Coverage Badge](https://api.codacy.com/project/badge/Coverage/530313b3177648c2b31eec342c47e719)](https://www.codacy.com/app/usgs/earthquake-eventpages?utm_source=github.com&utm_medium=referral&utm_content=usgs/earthquake-eventpages&utm_campaign=Badge_Coverage)
+## Notice
 
+This project has been moved to a USGS server:
+
+https://code.usgs.gov/ghsc/hazdev/earthquake-eventpages/
+
+----
 
 > This application is currently being overhauled to an Angular framework. To
 > view the latest working code prior to this process, please view the
